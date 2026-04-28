@@ -1,6 +1,7 @@
--- ihaleal.com — birleşik migration (Dashboard SQL Editor'da tek seferde çalıştırın)
--- Kaynak: 20260428120000_initial_schema.sql + 20260428120100_rls_policies.sql + 20260428120200_place_bid_function.sql
+-- ihaleal.com — birleşik migration
+-- Tarih: 2026-04-28T11:01:30.688Z
 
+-- ===== 20260428120000_initial_schema.sql =====
 -- ihaleal.com initial schema (tur #9)
 create extension if not exists "pgcrypto";
 
@@ -118,8 +119,8 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
--- ---- RLS policies ----
 
+-- ===== 20260428120100_rls_policies.sql =====
 alter table public.profiles enable row level security;
 alter table public.listings enable row level security;
 alter table public.auctions enable row level security;
@@ -186,8 +187,8 @@ create policy "documents_admin_all" on public.documents
     )
   );
 
--- ---- place_bid ----
 
+-- ===== 20260428120200_place_bid_function.sql =====
 create or replace function public.place_bid(
   p_auction_id uuid,
   p_amount numeric,
@@ -244,3 +245,5 @@ end;
 $fn$;
 
 grant execute on function public.place_bid(uuid, numeric, text) to authenticated;
+
+

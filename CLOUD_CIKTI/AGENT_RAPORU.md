@@ -362,20 +362,21 @@ git commit -F CLOUD_CIKTI\GIT_TUR8_COMMIT_MSG.txt
 
 ### TUR #10 — Supabase manual push hazırlığı (2026-04-28 — [CURSOR])
 
-- **service_role:** `.env.local` içinde `SUPABASE_SERVICE_ROLE_KEY` **dolduruldu** (değer §B'ye kopyalanmadı). Yedek: `.env.local.bak2`.
-- **Access token / CLI:** `supabase login` + `link` + `db push` **denenmedi**; Dashboard SQL yöntemi seçildi.
-- **`supabase/manual_push.sql`:** üç migration birleşimi; **247 satır**.
-- **REST bağlantı testi:** `curl.exe` → `GET .../rest/v1/` + `apikey` header → **HTTP 401** (ulaşılabilir).
-- **Build:** `npm run typecheck` OK · `npm run build` OK (~40s) · `npm audit` **0** açık.
+- **service_role:** `.env.local` içinde `SUPABASE_SERVICE_ROLE_KEY` **dolu** (değer §B'ye yazılmadı). Yedekler: `.env.local.bak2` (önceki tur), **`.env.local.bak3`** (bu tur).
+- **CLI / token:** İnteraktif `supabase login` ve PAT ile `db push` **denenmedi**; şema için Dashboard SQL yolu.
+- **`scripts/push-migrations.mjs`:** `supabase/migrations/*.sql` sıralı birleştirme → **`supabase/manual_push.sql`** yenilendi (**249 satır**, ISO tarih başlığı + dosya ayırıcı yorumları).
+- **REST bağlantı testi (2026-04-28):** `curl.exe` …/rest/v1/ + `apikey` → **HTTP 401**.
+- **Build (2026-04-28):** `npm run typecheck` OK · `npm run build` OK (~36.7s, Vite 6.4.2) · `npm audit` **0** açık.
 
-**TEK NET TALİMAT:** https://supabase.com/dashboard → proje `wsjifesrdaeorrdzbvmk` → **SQL Editor** → **New query** → `supabase/manual_push.sql` dosyasının tamamını kopyala-yapıştır → **Run**.
+**TEK NET TALİMAT:** [SQL Editor — doğrudan yeni sorgu](https://supabase.com/dashboard/project/wsjifesrdaeorrdzbvmk/sql/new) → `supabase/manual_push.sql` **veya** aşağıdaki **DASHBOARD SQL** bloğunun tamamını kopyala → yapıştır → **Run** (Ctrl+Enter).
 
 #### DASHBOARD SQL (birleşik; `manual_push.sql` ile aynı)
 
 ```sql
--- ihaleal.com — birleşik migration (Dashboard SQL Editor'da tek seferde çalıştırın)
--- Kaynak: 20260428120000_initial_schema.sql + 20260428120100_rls_policies.sql + 20260428120200_place_bid_function.sql
+-- ihaleal.com — birleşik migration
+-- Tarih: 2026-04-28T11:01:30.688Z
 
+-- ===== 20260428120000_initial_schema.sql =====
 -- ihaleal.com initial schema (tur #9)
 create extension if not exists "pgcrypto";
 
@@ -493,8 +494,8 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
--- ---- RLS policies ----
 
+-- ===== 20260428120100_rls_policies.sql =====
 alter table public.profiles enable row level security;
 alter table public.listings enable row level security;
 alter table public.auctions enable row level security;
@@ -561,8 +562,8 @@ create policy "documents_admin_all" on public.documents
     )
   );
 
--- ---- place_bid ----
 
+-- ===== 20260428120200_place_bid_function.sql =====
 create or replace function public.place_bid(
   p_auction_id uuid,
   p_amount numeric,
@@ -619,6 +620,8 @@ end;
 $fn$;
 
 grant execute on function public.place_bid(uuid, numeric, text) to authenticated;
+
+
 
 ```
 
@@ -910,7 +913,7 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 
 **K12:** `.env.local` içinde URL + anon + service_role **dolu**; uzak şema uygulaması için **K18** (Dashboard SQL).
 
-**K18 — Manual SQL push:** Kullanıcı [Supabase SQL Editor](https://supabase.com/dashboard) üzerinde `supabase/manual_push.sql` içeriğini yapıştırıp **Run** tıklayacak (~30 sn); CLI token/link gerekmez.
+**K18 — Manual SQL push (~30 sn):** (1) Tarayıcı: [SQL Editor yeni sorgu](https://supabase.com/dashboard/project/wsjifesrdaeorrdzbvmk/sql/new). (2) Sol menüden gerekirse **SQL Editor**. (3) `supabase/manual_push.sql` veya §B **DASHBOARD SQL** bloğunun tamamını kopyala-yapıştır. (4) **Run** / Ctrl+Enter. (5) **Success** sonrası sekme kapatılabilir. CLI token veya `supabase login` gerekmez.
 
 ---
 
