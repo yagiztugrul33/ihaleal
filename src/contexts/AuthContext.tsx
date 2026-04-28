@@ -79,7 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}${window.location.pathname}${window.location.search}#/`,
+        emailRedirectTo: window.location.origin,
         data: meta,
       },
     });

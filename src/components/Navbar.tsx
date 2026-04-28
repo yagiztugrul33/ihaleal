@@ -36,6 +36,8 @@ export function Navbar() {
     return localSession;
   }, [supaUser, localSession]);
 
+  const navDisplayLabel = supaUser?.email ?? currentUser?.email ?? currentUser?.name ?? "";
+
   useEffect(() => {
     const sync = () => {
       setLocalSession(readSessionUser());
@@ -108,8 +110,8 @@ export function Navbar() {
               <Button variant="ghost" size="sm" onClick={() => navigate("/sat-basla")} className="text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 gap-1.5"><Store className="w-4 h-4" /> Satıcı modu</Button>
               {currentUser ? (
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-400 max-w-[140px] truncate hidden xl:inline" title={currentUser.email}>
-                    {currentUser.name || currentUser.email}
+                  <span className="text-xs text-slate-400 max-w-[180px] truncate hidden xl:inline" title={supaUser?.email ?? currentUser.email}>
+                    {navDisplayLabel}
                   </span>
                   {userFlows.length === 0 ? (
                     <Button size="sm" variant="outline" onClick={() => navigate("/onboarding/akis")} className="border-teal-500/40 text-teal-200">

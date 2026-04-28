@@ -56,12 +56,10 @@ export default function Register() {
       }
       if (session?.user) {
         setSuccess(true);
-        setTimeout(() => navigate("/onboarding/akis"), 800);
+        setTimeout(() => navigate("/dashboard"), 800);
         return;
       }
-      setInfo(
-        "Kayıt tamamlandı. E-posta onaylama bağlantısı için gelen kutunuzu kontrol edin. Onay sonrası giriş yapabilirsiniz."
-      );
+      setInfo("Kayıt tamam, e-posta onayı için gelen kutunuza bakın");
       setSuccess(false);
       return;
     }

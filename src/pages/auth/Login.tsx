@@ -104,7 +104,7 @@ export default function Login() {
       return;
     }
     setSuccess(true);
-    setTimeout(() => navigateAfterLogin(), 600);
+    setTimeout(() => navigate("/dashboard"), 600);
   };
 
   return (

@@ -41,7 +41,7 @@ export function formatSupabaseAuthError(message: string): string {
   const m = message.toLowerCase();
   if (m.includes("invalid login credentials")) return "Geçersiz e-posta veya şifre.";
   if (m.includes("email not confirmed") || m.includes("email_not_confirmed"))
-    return "E-posta henüz onaylanmadı; gelen kutundaki doğrulama bağlantısına tıkla.";
+    return "E-posta onayı gerekli; gelen kutundaki doğrulama bağlantısına tıklayın.";
   if (m.includes("user already registered")) return "Bu e-posta adresi zaten kayıtlı.";
   if (m.includes("password")) return "Şifre kurallarına uymuyor veya çok zayıf.";
   if (m.includes("failed to fetch") || m.includes("networkerror") || m.includes("load failed"))
