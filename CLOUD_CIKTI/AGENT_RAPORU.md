@@ -367,8 +367,9 @@ git commit -F CLOUD_CIKTI\GIT_TUR8_COMMIT_MSG.txt
 - **`scripts/push-migrations.mjs`:** `supabase/migrations/*.sql` sıralı birleştirme → **`supabase/manual_push.sql`** yenilendi (**249 satır**, ISO tarih başlığı + dosya ayırıcı yorumları).
 - **REST bağlantı testi (2026-04-28):** `curl.exe` …/rest/v1/ + `apikey` → **HTTP 401**.
 - **Build (2026-04-28):** `npm run typecheck` OK · `npm run build` OK (~36.7s, Vite 6.4.2) · `npm audit` **0** açık.
+- **Uzak şema (kullanıcı, 2026-04-28):** SQL Editor’da `manual_push` betiği **Success**; geri alma / sıra kayması yok (teyit).
 
-**TEK NET TALİMAT:** [SQL Editor — doğrudan yeni sorgu](https://supabase.com/dashboard/project/wsjifesrdaeorrdzbvmk/sql/new) → `supabase/manual_push.sql` **veya** aşağıdaki **DASHBOARD SQL** bloğunun tamamını kopyala → yapıştır → **Run** (Ctrl+Enter).
+**TEK NET TALİMAT (ilk kurulum / yeni ortam):** [SQL Editor — yeni sorgu](https://supabase.com/dashboard/project/wsjifesrdaeorrdzbvmk/sql/new) → `npm run sql:bundle` ile güncel **`supabase/manual_push.sql`** veya §B **DASHBOARD SQL** → **Run**. *(Mevcut projede şema zaten uygulandı; aynı betiği gereksiz tekrar çalıştırmayın.)*
 
 #### DASHBOARD SQL (birleşik; `manual_push.sql` ile aynı)
 
@@ -901,7 +902,7 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 | Madde | Aciliyet | Durum |
 |--------|----------|--------|
 | **D-Git** (repo + uzak push) | 🟢 Tamam | GitHub aktif; **Cursor PATH’te git yok** → agent otomatik push yapmaz; §B protokolü |
-| **K12** (Supabase credentials) | 🟡 Şema uzakta (manual SQL) | **[KULLANICI: tüm anahtarlar dolu — manual SQL push bekleniyor — 2026-04-28]** |
+| **K12** (Supabase credentials + şema) | 🟢 Tamam | **[KULLANICI: manual SQL Dashboard — Success — 2026-04-28]** `.env.local` dolu; tablolar/RLS uzakta |
 | **K13** (GitHub repo URL) | 🟢 Kapanıldı | `yagiztugrul33/ihaleal` — ilk push `b86c2f2` |
 | K2 (SEO prerender) | 🟡 Tur #6 | Acil değil |
 | K4 (iyzico ödeme) | 🟡 Backend sonrası | Acil değil |
@@ -911,9 +912,9 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 | K14 (iyzico başvurusu) | 🟠 5-10 iş günü onay | Bu hafta başlat |
 | K15 (KEP/e-imza) | 🟡 Sözleşme akışı kurulurken | Acil değil |
 
-**K12:** `.env.local` içinde URL + anon + service_role **dolu**; uzak şema uygulaması için **K18** (Dashboard SQL).
+**K12:** `.env.local` içinde URL + anon + service_role **dolu**; uzak DB şeması **manual SQL ile uygulandı** (Success).
 
-**K18 — Manual SQL push (~30 sn):** (1) Tarayıcı: [SQL Editor yeni sorgu](https://supabase.com/dashboard/project/wsjifesrdaeorrdzbvmk/sql/new). (2) Sol menüden gerekirse **SQL Editor**. (3) `supabase/manual_push.sql` veya §B **DASHBOARD SQL** bloğunun tamamını kopyala-yapıştır. (4) **Run** / Ctrl+Enter. (5) **Success** sonrası sekme kapatılabilir. CLI token veya `supabase login` gerekmez.
+**K18 — Manual SQL push:** **Tamamlandı** (2026-04-28). Yeni migration eklersen: `npm run sql:bundle` → güncel `supabase/manual_push.sql` → SQL Editor’da yalnızca **fark** veya tam betiği bilinçli şekilde çalıştır. CLI `db push` hâlâ isteğe bağlı (PAT + link).
 
 ---
 
@@ -1000,7 +1001,7 @@ _Kaynak_: `docs/OZELLIK_ENVANTERI_SAHIBINDEN_ESLENIK.txt`
 - Sunucu auth, ödeme, e-posta, gerçek Endeksa (veya lisanslı) API, ilan CRUD tamamı, SSR/prerender (OG sayfa başına), üretim CSP.
 - Gelir modeli: `COMMISSION_MODEL` + oranlar **`src/lib/fees.ts`** (§D-K1 kullanıcı seçimi gelene kadar kodda `seller_only` taslak); teminat oranı **`FEES.bidBondRate`** (tur #4: %5); sabit kapora referansı **`FEES.depositTRY`**; ilan paketi TL matrisi **`FEES.listingPackages`** + **`getListingPackagePrice`** (gerçek rakamlar §D-K8); faiz / diğer piyasa yüzdeleri hâlâ çoklu dosyada.
 - **K6–K9** (Kimi video, anti-copy UX, ilan paketi TL, e-Devlet avukat) §D’de başlıklandı; kullanıcı cevabı bekleniyor.
-- **Git + K12 + K13** tamamlanana kadar: **uzak DB push**, **Edge deploy**, **git commit** yok. **`public/videos/hero-aerial.mp4`** kullanıcı/Pexels manuel (CDN 403).
+- **Edge `place_bid` deploy**, Supabase Auth + UI bağlama, üretim sırları: sırada (K12 şema ✅). **`public/videos/hero-aerial.mp4`** kullanıcı/Pexels manuel (CDN 403).
 - **Tur #6:** Supabase Auth’a geçiş; `supabase` importları; RLS entegrasyon testi; Realtime taslağı (§C öneri).
 
 ## 8. Halüsinasyon / yanlış ifade tespiti

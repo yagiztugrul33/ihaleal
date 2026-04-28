@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "gen:assets": "node scripts/gen-assets.mjs",
     "env:sync": "node scripts/sync-vite-supabase-env.mjs",
+    "sql:bundle": "node scripts/push-migrations.mjs",
     "supabase:link": "supabase link --project-ref wsjifesrdaeorrdzbvmk",
     "supabase:push": "supabase db push",
     "test": "vitest",
