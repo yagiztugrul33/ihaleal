@@ -1,7 +1,51 @@
--- ihaleal.com — TUR #13 manuel SQL (Supabase SQL Editor → Run)
--- Önce TUR #12 `manual_push_v2.sql` uygulanmış olmalı.
--- db push kullanılmıyorsa bu dosyayı tek seferde yapıştırın.
--- Dosya sonunda ADIM 13.3 (listings RLS sıkı) yer alır.
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- ihaleal.com — TUR #13 manuel SQL (Supabase SQL Editor → tek seferde yapıştır → Run)
+-- ═══════════════════════════════════════════════════════════════════════════════
+--
+-- İçerik: migration dosyalarının tam metni (sırayla):
+--   1) 20260429120000_profiles_extra_fields.sql
+--   2) 20260429120100_bid_bonds_and_antisniping.sql
+--   3) 20260429120200_listings_rls_strict.sql
+-- Ek (CreateAuction için zorunlu; idempotent): TUR #12 manual_push_v2 §3 auctions INSERT.
+--
+-- Önkoşul: temel şema + RLS migrasyonları uygulanmış olmalı (20260428120000 + 20260428120100).
+--
+-- NOT — Demo: Normal kullanıcılar çoğu zaman KYC/e-Devlet doğrulanmadığı için listings INSERT
+-- RLS ile geçemez. Demo seed script SUPABASE_SERVICE_ROLE_KEY kullanır (RLS bypass).
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-- 20260429120000_profiles_extra_fields.sql
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+alter table public.profiles
+  add column if not exists e_devlet_status text default 'none'
+    check (e_devlet_status in ('none','pending','verified','rejected')),
+  add column if not exists iban text,
+  add column if not exists tc_kimlik_no text,
+  add column if not exists role text default 'individual'
+    check (role in ('individual','agent','bank','admin'));
+
+create index if not exists profiles_role_idx on public.profiles(role);
+create index if not exists profiles_tc_idx on public.profiles(tc_kimlik_no)
+  where tc_kimlik_no is not null;
+
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-- TUR #12 manual_push_v2.sql §3 — auctions INSERT (listing sahibi)
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+drop policy if exists "auctions_insert_listing_owner" on public.auctions;
+create policy "auctions_insert_listing_owner" on public.auctions
+  for insert with check (
+    exists (
+      select 1 from public.listings l
+      where l.id = listing_id and l.seller_id = auth.uid()
+    )
+  );
+
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-- 20260429120100_bid_bonds_and_antisniping.sql
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 -- TUR #13 — teminat (bid bond) + anti-sniping + place_bid güncellemesi
 -- fees.ts FEES.bidBondRate (%5) ile uyumlu sabit
@@ -141,9 +185,9 @@ $fn$;
 
 grant execute on function public.place_bid(uuid, numeric, text) to authenticated;
 
--- ─────────────────────────────────────────────────────────────────────────────
--- ADIM 13.3 — Listings RLS sıkı mod (TUR #12 gevşetmesinin geri alınması)
--- ─────────────────────────────────────────────────────────────────────────────
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-- 20260429120200_listings_rls_strict.sql — ADIM 13.3
+-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 drop policy if exists "listings_insert_authenticated" on public.listings;
 drop policy if exists "listings_insert_kyc" on public.listings;
