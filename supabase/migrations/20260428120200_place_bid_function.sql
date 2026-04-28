@@ -1,3 +1,6 @@
+-- SUPERSEDED by migration 20260429120100_bid_bonds_and_antisniping.sql (TUR #13: anti-sniping + bid_bonds).
+-- Bu dosya eski kurulum sırası için kalır; yeni yerleşimlerde güncel RPC oradan gelir.
+
 create or replace function public.place_bid(
   p_auction_id uuid,
   p_amount numeric,
