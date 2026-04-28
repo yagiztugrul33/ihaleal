@@ -1,0 +1,13 @@
+=== KİMİ (tek blok — self-check YETERLİ DEĞİL; gövde şart) ===
+Aynı YAML başlığını koru. Bu dosyada veya yeni mesajda ŞUNLARI eksiksiz yaz:
+1) ### K51 Yetki özeti — en az 800 kelime, tek muhatap ihaleal.com, komisyon matrahı, kira 1 aylık kira+KDV, vitrin/doping yok, taahhüt hedef dili, avukat onayı uyarısı; Kaynak: varsayımlar numaralı.
+2) ### K53 Form hata sözlüğü — en az 20 satır; her satır: kısa kod veya anahtar + kullanıcıya Türkçe mesaj (CreateAuction / giriş / teklif).
+3) Sonra §5.3 yirmi madde self-check (güncel liste).
+4) Son satır: KIMI_SIGNOFF: state_version=1 | görev=K51+K53 | hazır
+Sadece 1–20 checklist gönderme; Cursor gövde görmeden dosya bölemez. Repo iddiası yok.
+
+=== CURSOR (K51/K53 gövde geldikten sonra — tek satır) ===
+ihaleal.com kökünde docs/sync/inbox/kimi-20260428-k51-k53.md dosyasını oku; içinde ### K51 ve ### K53 başlıkları altında gerçek gövde metni var mı kontrol et; varsa içeriği docs/icerik/faz2-kimi/K51-yetki-ozeti.md ve docs/icerik/faz2-kimi/K53-form-hata-sozlugu.md olarak ayır (YAML self-check dosyada kalabilir veya özet başlıkta); STATE blockers B2 kaldır; docs/sync/STATE.md + docs/TEK_YAPISTIR_IKILI_KIMI_CURSOR.md §4 eşitle; npm run typecheck; npm run build; npm run test:run; docs/sync/SESSION_LOG.md sonuna kanıt ekle; CURSOR_SIGNOFF yaz.
+
+=== CURSOR (günlük senkron — gövde yokken) ===
+ihaleal.com kökünde docs/TEK_YAPISTIR_IKILI_KIMI_CURSOR.md ve docs/SENKRON_TEK_KOMUT.md §7 ile docs/sync/STATE.md oku; docs/sync/inbox en yeni kimi-*.md işle veya not düş; npm run typecheck; npm run build; npm run test:run; SESSION_LOG append; STATE + TEK §4 eşitle; CURSOR_SIGNOFF yaz.

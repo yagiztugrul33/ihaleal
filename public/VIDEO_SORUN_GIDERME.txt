@@ -1,0 +1,16 @@
+ihaleal.com — Video açılmıyorsa
+==============================
+
+1) Önce siteyi çalıştırın: CALISTIR.bat → tarayıcı http://localhost:5173
+
+2) Videoları şu sayfadan oynatın (dosya yolu otomatik):
+   http://localhost:5173/#/reklam
+
+3) Ana sayfa + /reklam stok videosu:
+   public/videos/hero-aerial.mp4 (Pexels — README: public/videos/README.md)
+
+4) Windows’ta çift tıklayınca açılmıyorsa VLC Media Player kullanın.
+
+5) Tarayıcıda “Otomatik oynatma” engellenmişse, sayfada bir kez tıklayın veya ses düğmesini deneyin.
+
+6) Kurumsal ağda .mp4 engellenmiş olabilir — farklı ağ veya VPN deneyin.

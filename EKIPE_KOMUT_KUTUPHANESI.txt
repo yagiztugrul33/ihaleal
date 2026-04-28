@@ -1,0 +1,41 @@
+Ekip / uzmanlara verilecek hazır komutlar (Kimi, Cursor, iş ilanı, Slack)
+========================================================================
+Amaç: Sana yük bindirmeden paralel iş; çıktıları bu repoya veya ihaleal-api’ye merge.
+
+--- 1) BACKEND GELİŞTİRİCİ (Node veya .NET) ---
+"Gayrimenkul ihale platformu için REST API tasarla: kullanıcı (KYC durumu), ilan (taslak/yayın),
+ihale oturumu (başlangıç bitiş, minimum artış, rezerv fiyat), teklif (kullanıcı, tutar, zaman),
+komisyon satırı (%2+KDV varsayımı), ödeme webhook stub. PostgreSQL şema + OpenAPI 3.1 + JWT refresh.
+Türkçe alan adları opsiyonel. Rate limit ve audit log alanlarını ekle."
+
+--- 2) DEVOPS ---
+"Vite/React statik build’i (dist/) Cloudflare Pages veya AWS S3+CloudFront ile yayınla.
+TLS 1.3, Brotli, cache policy (hashed assets immutable), WAF kural seti öner.
+Staging ve prod için ayrı env. GitHub Actions: PR’da typecheck + build."
+
+--- 3) AVUKAT / HUKUK ---
+"Aşağıdaki platform için Türkiye hukukunda: (1) alıcı aracılık sözleşmesi taslağı,
+(2) satıcı/kiraya veren sözleşmesi, (3) elektronik ihale şartnamesi, (4) KVKK aydınlatma ve açık rıza
+(Findeks için). TBK, İİK, 6563 tüketici çerçevesinde risk maddelerini işaretle."
+
+--- 4) VERİ / ENDEKSA TARAFI GÖRÜŞMESİ ---
+"B2B gayrimenkul fiyat API’si veya lisanslı CSV feed için teknik gereksinim listesi çıkar:
+adres normalizasyonu, m² birim fiyat, günlük delta, KVKK, fiyat teşhisi sorumluluk reddi metni."
+
+--- 5) YAPAY ZEKA / LLM ---
+"İlan JSON’larından RAG: pgvector veya Pinecone, OpenAI uyumlu embedding, sistem prompt’u Türkçe:
+yalnızca verilen bağlamdan cevap ver; yatırım tavsiyesi değildir. Tool: get_listing(id), get_documents_checklist(role)."
+
+--- 6) PEN-TEST ---
+"OWASP ASVS seviyesi 2 hedefiyle black-box rapor: auth, IDOR, rate limit, XSS, CSRF, file upload."
+
+--- 7) MOBİL (ileride) ---
+"React Native veya Flutter: ihale listesi, push (FCM), biyometrik giriş opsiyonu; mevcut REST’e bağla."
+
+--- BİRLİKTE ÇALIŞMA ---
+• Sen: ürün önceliği + sözleşme görüşmeleri + kabul kriterleri.
+• Cursor/Kimi: front ve dokümantasyon iterasyonu.
+• Backend uzmanı: API + veri.
+• Avukat: metinleri kilitlemeden yayın yok.
+
+Bu dosya: EKIPE_KOMUT_KUTUPHANESI.txt

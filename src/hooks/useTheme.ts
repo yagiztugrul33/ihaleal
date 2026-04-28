@@ -1,0 +1,24 @@
+import { useState, useEffect } from "react";
+
+const STORAGE_KEY = "ihaleal_theme";
+
+export function useTheme() {
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === "dark" || stored === "light") return stored;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch {
+      return "dark";
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+  }, [theme]);
+
+  const toggle = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+
+  return { theme, toggle };
+}

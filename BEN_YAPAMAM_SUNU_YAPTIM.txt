@@ -1,0 +1,21 @@
+Kısa cevap: “Senin istediğin her şeyi ben tek başıma yapayım” — HAYIR
+===============================================================
+
+Aşağıdakileri **yapamam** (Kimi + bu front-end repo ile tek başına):
+• e-Devlet’ten otomatik yasal emlakçı yetkisi
+• Findeks / banka gerçek API ve tahsilat
+• Bankanın AI ile araması
+• Sahibinden ölçeğinde pazar, ödeme ağı, native app
+• Her dk/saat gerçek piyasa verisi (lisans + sunucu olmadan)
+• Push, canlı yayın, blockchain
+• “Hatasız mükemmel hukuk” garantisi (buna yalnızca avukat yaklaşır)
+
+Aşağıdakileri **yaptım / ekledim** (kaybolmasın diye projede duruyor):
+• Yasal çerçeve TASLAK sayfası:  /#/yasal-cerceve  (TBK, İİK, KVKK hatırlatıcıları + Otobid benzeri başlıklar — avukat onayı şart uyarısı ile)
+• Canlıya hazırlık listesi:  /#/canliya-hazirlik  (WAF, backend, veri lisansı, cron, sözleşme — ekip işi olarak listelendi)
+• İhale koşulları sayfası: abartılı “tam AML / e-Devlet çalışıyor” ifadeleri yumuşatıldı; taslak uyarısı ve linkler eklendi
+• Footer’dan yeni sayfalara link
+• Video sorun giderme: public/VIDEO_SORUN_GIDERME.txt
+• Üretim build: vite ile console.log temizliği (esbuild drop)
+
+Siteyi görmek için: CALISTIR.bat → http://localhost:5173/#/yasal-cerceve

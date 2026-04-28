@@ -1,0 +1,28 @@
+Siteyi görüntülemek için
+=======================
+
+1) Klasör: C:\Users\yagiz\Desktop\ihaleal.com
+
+2) CALISTIR.bat dosyasına çift tıklayın (veya terminalde: npm run dev)
+
+3) Tarayıcıda açın:
+   http://localhost:5173/
+
+4) “Satıcı modu” (ilan / ihale / yetki kurgusu + gelir tablosu):
+   http://localhost:5173/#/sat-basla
+
+5) Yasal çerçeve taslağı (TBK / İİK / KVKK hatırlatıcı — avukat onayı şart):
+   http://localhost:5173/#/yasal-cerceve
+
+6) Canlıya hazırlık (e-Devlet, Findeks, WAF, cron… ekip listesi):
+   http://localhost:5173/#/canliya-hazirlik
+
+7) Üst menü: "Satıcı modu" — Footer: Yasal cerceve, Canliya hazirlik, Satici modu.
+
+8) Komisyon-only iş modeli (İhale Al şirket taslağı):
+   http://localhost:5173/#/komisyon-modeli
+
+9) Endeksa tarzı veri — şu an ne mümkün + PDF örnek seçimi (sunucuya gitmez):
+   http://localhost:5173/#/veri-ve-endeks
+
+Not: Ben uzaktan ekranınızı açamam; linkler yerel bilgisayarınızdadır.

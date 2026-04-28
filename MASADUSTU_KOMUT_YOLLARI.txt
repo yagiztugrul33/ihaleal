@@ -1,0 +1,9 @@
+Cursor (cross) komutu:
+  C:\Users\yagiz\Desktop\IHALEAL_CROSS_CURSOR_KOMUT.txt
+
+Cloud komutu:
+  C:\Users\yagiz\Desktop\IHALEAL_CLOUD_AGENT_KOMUT.txt
+
+Ortak el sıkışma + rapor:
+  C:\Users\yagiz\Desktop\ihaleal.com\ORTAK_CALISMA_KOMUTU.txt
+  C:\Users\yagiz\Desktop\ihaleal.com\CLOUD_CIKTI\AGENT_RAPORU.md

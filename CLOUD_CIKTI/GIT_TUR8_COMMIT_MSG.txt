@@ -1,0 +1,30 @@
+agent: ihaleal.com initial commit (turlar #1-7 birleşik)
+
+CROSS turları:
+- Tur #1-2: fees.ts merkezleşmesi (FEES, COMMISSION_MODEL=seller_only,
+  bidBondRate, listingPackages, calcSellerNet, calcBuyerTotal)
+- Tur #2: 4 component data-demo + DemoDataCornerBadge etiketlemesi
+- Tur #3: userFlows.ts (4 akış: browser/listing/auction_seller/
+  auction_bidder), FlowSelector, EDevletAuth mock, DocumentUploader,
+  RouteSeo wrapper
+- Tur #4: DemoBanner kapatılamaz, fees.ts ek hesaplamalar
+  (DEED_DUTY_RATE, calcBuyerTotal, feeBadgeLabel)
+- Tur #5: Login/Register iskeleti (TR cep validasyonu, demoAuthValidators),
+  Dashboard akışa göre dinamik, InvestorDashboard ayrıştı
+- Tur #6: Envanter ve KIMI çıktıları doğrulama (11 video public/videos/)
+- Tur #7 (FAZ 3): Yalan beyan temizliği — RoadmapBanner 4 sayfada
+  (SecurityCenter, DisasterRecovery, CompetitorComparison, AdCampaign);
+  '8 katman / RPO 5dk / ISO 27001' iddiaları 'Hedef / Planlanan'
+  diline çevrildi; AntiCopyProtection minimal (K7=minimal); hero video
+  kırık link tamiri (hero-aerial.mp4 -> ihaleal-tanitim.mp4)
+
+Kullanıcı kararları:
+- K1=A (seller_only komisyon modeli)
+- K3=A (Supabase backend — kurulum tur #9'da)
+- K6=yeniden üret + stok (KIMI 11 video AI üretimi public/videos/)
+- K7=minimal (sadece honeypot + backend rate limit)
+- K16=B (KIMI yazımı 8 sayfa kalır, metni etiketlendi)
+
+Bekleyen: K12 (Supabase credentials), K2/K4/K5/K8/K10/K14/K15.
+
+Co-authored-by: cloud-cursor-collab <agent@ihaleal.com>

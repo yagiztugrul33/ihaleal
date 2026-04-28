@@ -1,0 +1,68 @@
+================================================================================
+ORTAK ÇALIŞMA KOMUTU — AYNI BİLGİSAYAR / AYNI KLASÖR (Cloud + Cursor)
+================================================================================
+Aşağıdaki kutunun İÇİNDEKİ metni hem Cloud agent’a hem Cursor sohbetine AYNEN
+yapıştırın. İki yapay zeka birbirine canlı bağlanmaz; paylaşılan gerçeklik =
+dosya sistemi. Çakışmayı önlemek için bölüm sahipliği zorunludur.
+
+--------------------------------------------------------------------------------
+[BURADAN KOPYALA — BAŞLANGIÇ]
+
+Sen bu repoda (ihaleal.com kökü) çalışan bir yazılım ajanısın. Eş zamanlı olarak
+kullanıcı aynı metni başka bir ajanla (Cloud veya Cursor) paylaşmış olabilir.
+“Ortak çalışma” kuralı: önce dosyayı oku, sonra kendi bölümüne yaz; diğer
+ajanın bölümünü silme veya üzerine yazma.
+
+ÖNCE OKU (sıra önemli)
+1) CLOUD_KOMUTLARI.txt — KOMUT A ve B özet kuralları
+2) docs/OZELLIK_ENVANTERI_SAHIBINDEN_ESLENIK.txt
+3) CLOUD_CIKTI/AGENT_RAPORU.md — varsa “## A) Cloud” ve “## B) Cursor” altındaki
+   son tarih/saat satırına bak; diğer ajan daha yeniyse çakışan dosyaya dokunma,
+   yalnızca kendi bölümünü güncelle.
+
+KİMLİK SEÇİMİ (sohbetin başında kendini etiketle — kullanıcıya sor)
+- Eğer bu oturum Cloud tabanlıysan: imzan her satırda [CLOUD]
+- Eğer bu oturum Cursor / Composer ise: imzan [CURSOR]
+
+YAPILACAKLAR (her iki ajan da aynı listeyi uygular; tekrar iş yapma)
+1) npm install (gerekirse) → npm run gen:assets (icon yoksa) → npm run typecheck
+   → npm run build. Kırılırsa minimal düzelt; geniş refactor yok.
+2) SEO: src/lib/seo.ts, SeoSync, index.html SearchAction, public/sitemap.xml —
+   HashRouter ile çelişen mutlak path ekleme.
+3) Endeksa: gerçek API veya anahtar UYDURMA; DataStrategy + .env.example ile
+   uyumlu teknik/hukuki sınır notu. Halüsinasyon iddiası varsa metni düzelt.
+4) Alıcı + satıcı vizyonu: docs/OZELLIK_ENVANTERI… matrisini güncelle (Var/Kısmi/Yok)
+   ve kodda küçük UX tutarlılığı (büyük mimari değişiklik yok).
+
+ZORUNLU ÇIKTI — CLOUD_CIKTI/AGENT_RAPORU.md
+Dosyada şu iki üst başlık OLACAK (yoksa oluştur):
+  ## A) Cloud — el sıkışma günlüğü
+  ## B) Cursor — el sıkışma günlüğü
+
+Kendi bölümünde (A veya B) her turda şunu ekle/güncelle:
+  - Tarih-saat (yerel)
+  - Çalıştırdığın komutlar ve sonuç (kısa)
+  - Dokunduğun dosyalar (madde listesi)
+  - Sonraki tur için 1–3 net öneri (başka ajana iş bırak)
+
+KURAL: Karşı bölümü (A ise B, B ise A) düzenleme; sadece oku. Ortak tablolar
+için “## C) Ortak — kararlar” altına HER İKİ ajan da yalnızca kendi imzalı
+madde ekleyebilir ([CLOUD] / [CURSOR]); aynı maddeyi iki kez yazma.
+
+KISITLAR
+- CLOUD_KOMUTLARI.txt ve ORTAK_CALISMA_KOMUTU.txt dosyalarını silme.
+- Gizli anahtar / şifre repoya yazma.
+- CLOUD_CIKTI dışında yeni “rapor” dosyası yağmuruna gerek yok; tek merkez
+  AGENT_RAPORU.md.
+
+Bu tur bittiğinde kullanıcıya: hangi bölümü güncellediğini, build durumunu ve
+bir sonraki turda diğer ajandan ne beklediğini 4–6 cümleyle yaz.
+
+[BURAYA KADAR KOPYALA — BİTİŞ]
+--------------------------------------------------------------------------------
+
+Kullanıcı notu: İki ajan aynı anda dosya yazarsa Git/IDE birleştirme isteyebilir;
+mümkünse sırayla çalıştırın (önce biri build yeşil, sonra öbürü) veya farklı
+dosyalara bölün — yine de A/B bölüm kuralı çakışmayı azaltır.
+
+================================================================================

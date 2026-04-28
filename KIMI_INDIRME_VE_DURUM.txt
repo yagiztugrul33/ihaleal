@@ -1,0 +1,55 @@
+ihaleal.com — Kimi indirmeleri ve kontrol özeti (27.04.2026)
+============================================================
+
+1) KİMİ İNDİRMELERİ (bilinen konumlar)
+---------------------------------------
+- C:\Users\yagiz\Downloads\kimiOKC\19dcb67c-1732-8660-8000-09650f980f66.zip
+  → TAM UYGULAMA: zip içindeki "app/" klasörü (sayfalar, videolar, info.md).
+- C:\Users\yagiz\Downloads\kimiOKC\19dcaf65-a492-8380-8000-096554fe0949.zip
+  → Daha eski / farklı paket (önceki oturum).
+- C:\Users\yagiz\Downloads\kimiOKC\real1.tar.gz + real1\ klasörü
+  → İNCE ÖRNEK: 4 rota, videolar yok; TAM sürüm DEĞİL.
+- C:\Users\yagiz\Downloads\Kimi_table_*_Kimi_AI_*.csv
+  → Kimi tablo dışa aktarımı (video listesi metni).
+
+Bu masaüstü kopyası, BÜYÜK zip içindeki "app/" içeriğinin robocopy ile
+birebir kopyasıdır (binary bozulması hedeflenmemiştir).
+
+2) VİDEO DOĞRULAMA
+-------------------
+public\videos\ altında 11 adet .mp4; dosya boyutları yaklaşık 4–8 MB
+(sıfır bayt değil = arşiv büyük olasılıkla sağlam).
+Oynatılamıyorsa: VLC ile dene; tarayıcıda donanım kod çözücü / codec;
+yerel sunucu için CALISTIR.bat ile http://localhost:5173 aç.
+
+3) "EKSIK NEYIMIZ VAR?" LİSTESİ — GERÇEK DURUM
+-----------------------------------------------
+Bu proje saf FRONTEND (Vite + React). Aşağıdakiler package.json’da
+SDK olarak YOK; sayfalarda çoğunlukla METİN / TASARIM anlatımı var:
+
+  [ ] 1. E-Devlet API — yapılmadı (sözleşme metinlerinde geçer).
+  [ ] 2. Findeks API — yapılmadı.
+  [ ] 3. Banka API (Halkbank/Ziraat) — yapılmadı.
+  [ ] 4. E-imza / MİMZA — yapılmadı.
+  [ ] 5. Mobil uygulama (RN/Flutter) — yapılmadı.
+  [ ] 6. Canlı yayın (streaming) — yapılmadı.
+  [ ] 7. Push (Firebase FCM) — yapılmadı (firebase bağımlılığı yok).
+  [ ] 8. Blockchain tapu — yapılmadı.
+
+"5 saat bekleyince hepsi biter" beklentisi: Kimi otomatik olarak
+GERÇEK banka/e-Devlet entegrasyonu yazamaz; hukuki sözleşme + kurum
+API erişimi + backend gerekir.
+
+4) Sahibinden benzeri ilan + ihale + e-Devlet yetkisi + gelir modeli
+--------------------------------------------------------------------
+Bu repoda ayrı bir "ilan modu / ihale modu / vekalet akışı" ürün kodu
+TAM olarak kurgulanmış değildir; CreateAuction / ilan sayfaları UI
+demo seviyesindedir. İstenen kurgu için ayrı faz: veri modeli, KYC
+süreçleri, hukuk onayı, backend ve entegrasyonlar.
+
+5) ÇALIŞTIRMA
+-------------
+Windows: CALISTIR.bat çift tıkla.
+macOS/Linux: chmod +x calistir.sh && ./calistir.sh
+Manuel: npm install && npm run dev
+Önizleme build: npm run build && npm run preview

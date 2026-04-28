@@ -1,0 +1,153 @@
+/** HashRouter: gerçek URL ör. https://alan.com/#/analiz — paylaşım ve OG için taban. */
+export const SITE_ORIGIN = "https://ihaleal.com";
+
+export const DEFAULT_SEO = {
+  title: "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+  description:
+    "Yapay zeka destekli gayrimenkul platformu: ihale veya kapalı teklif, ilan yayını, platform aracılığı ve sözleşme çizgisi. Teklif verenler ilanda anonim; Findeks ve evrak hedefi. Gelir yalnızca komisyon (hedef). Demo.",
+};
+
+const ROUTE_SEO: Record<string, { title: string; description: string }> = {
+  "/": {
+    title: "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+    description:
+      "İhale, kapalı teklif veya ilan modu; gerçek alıcı–satıcı ve kiralıkta güvenli süreç. Teklif verenler anonim; iletişim platform üzerinden. Yapay zeka destekli fiyat ve bölge değerlendirmesi. Yalnızca komisyon (hedef). Demo.",
+  },
+  "/arama": {
+    title: "İlan arama — ihaleal.com",
+    description: "Şehir, semt ve kategoriye göre gayrimenkul ihale ilanlarında arama yapın.",
+  },
+  "/analiz": {
+    title: "AI analiz ve fiyat tahmini — ihaleal.com",
+    description: "Demo verilerle yatırım skoru ve fiyat bandı görünümü. Kesin değer için resmi ekspertiz gerekir.",
+  },
+  "/karsilastir": {
+    title: "İlan karşılaştırma — ihaleal.com",
+    description: "Seçtiğiniz ilanları yan yana karşılaştırın.",
+  },
+  "/mortgage": {
+    title: "Mortgage / kredi hesaplayıcı — ihaleal.com",
+    description: "Taksit ve faiz tahmini için örnek hesaplama aracı.",
+  },
+  "/evraklar": {
+    title: "Katılım evrakları — ihaleal.com",
+    description: "İhale ve tapu süreçlerinde sık istenen belgelerin kontrol listesi (bilgilendirme).",
+  },
+  "/ihale-kosullari": {
+    title: "İhale koşulları ve komisyon — ihaleal.com",
+    description: "Platform kuralları ve komisyon çerçevesi için taslak metinler.",
+  },
+  "/kvkk": {
+    title: "KVKK aydınlatma — ihaleal.com",
+    description: "Kişisel verilerin işlenmesine ilişkin bilgilendirme metni.",
+  },
+  "/gizlilik": {
+    title: "Gizlilik politikası — ihaleal.com",
+    description: "Veri saklama, çerezler ve üçüncü taraflar hakkında bilgi.",
+  },
+  "/cerez-politikasi": {
+    title: "Çerez politikası — ihaleal.com",
+    description: "Çerez türleri ve tercihleriniz hakkında bilgilendirme.",
+  },
+  "/guvenlik": {
+    title: "Güvenlik merkezi — ihaleal.com",
+    description: "Hesap güvenliği ve en iyi uygulamalar (bilgilendirme).",
+  },
+  "/reklam": {
+    title: "Reklam ve tanıtım videoları — ihaleal.com",
+    description: "Platform tanıtımı ve kısa video içerikleri.",
+  },
+  "/sat-basla": {
+    title: "Satıcı modu — ihaleal.com",
+    description: "İlan ve ihale ile satış için başlangıç rehberi.",
+  },
+  "/giris": { title: "Giriş — ihaleal.com", description: "Hesabınıza giriş yapın (demo, yerel tarayıcı)." },
+  "/kayit": { title: "Kayıt — ihaleal.com", description: "Yeni hesap oluşturun (demo, yerel tarayıcı)." },
+  "/profil": { title: "Profil — ihaleal.com", description: "Hesap bilgileriniz ve güvenlik özeti (demo)." },
+  "/favoriler": { title: "Favori ilanlar — ihaleal.com", description: "Kaydettiğiniz gayrimenkul ihale ve ilanları görüntüleyin." },
+  "/harita": { title: "Harita — ihaleal.com", description: "İlanları harita üzerinde keşfedin (demo veri)." },
+  "/dashboard": {
+    title: "Hesap paneli — ihaleal.com",
+    description: "Seçilen kullanıcı akışına göre kısayollar; demo oturum.",
+  },
+  "/dashboard/yatirimci": {
+    title: "Yatırımcı portföyü — ihaleal.com",
+    description: "Favori ilanlar ve grafik özetleri (demo veri).",
+  },
+  "/sehirler": { title: "Şehir rehberi — ihaleal.com", description: "Şehirlere göre ilan ve bölge notları." },
+  "/rehber": { title: "Yardım rehberi — ihaleal.com", description: "İhale ve platform kullanımı için rehber." },
+  "/ihale-ac": { title: "İlan / ihale aç — ihaleal.com", description: "Satıcı olarak ilan oluşturma akışı (demo, tarayıcıda saklama)." },
+  "/ekspertiz": { title: "Ekspertiz ve uzman görüşü — ihaleal.com", description: "Değerleme ve rapor süreçleri hakkında bilgilendirme." },
+  "/degisiklikler": { title: "Değişiklik kayıtları — ihaleal.com", description: "Sürüm ve özellik güncellemeleri özeti." },
+  "/karsilastir-rakipler": { title: "Rakip karşılaştırma — ihaleal.com", description: "Pazar ve özellik karşılaştırması (bilgilendirme)." },
+  "/yedekleme": { title: "Yedekleme ve felaket kurtarma — ihaleal.com", description: "Veri dayanıklılığı hedefleri (taslak)." },
+  "/yasal-cerceve": { title: "Yasal çerçeve — ihaleal.com", description: "Platform hukuki çerçeve taslağı." },
+  "/canliya-hazirlik": { title: "Canlıya hazırlık — ihaleal.com", description: "Kontrol listesi ve operasyonel hazırlık." },
+  "/komisyon-modeli": {
+    title: "Komisyon modeli — ihaleal.com",
+    description: "Yalnızca komisyon: ilan, vitrin ve kullanıcıya satılan reklam ücreti yok (hedef). Kira: kiraya verenden bir aylık kira çizgisi (taslak).",
+  },
+  "/veri-ve-endeks": {
+    title: "Veri stratejisi ve gayrimenkul analizi — ihaleal.com",
+    description: "Bölge ve fiyat analizi, veri kaynakları ve lisanslı rapor entegrasyon planı (demo + yol haritası).",
+  },
+  "/onboarding/akis": {
+    title: "Kullanıcı akışı seçimi — ihaleal.com",
+    description: "İlan, ihale satıcı, teklif veren veya izleyici akışları için evrak taslağı (demo).",
+  },
+  "/auth/edevis-mock": {
+    title: "e-Devlet yetki (demo) — ihaleal.com",
+    description: "Akış B için yetki simülasyonu; gerçek e-Devlet yok.",
+  },
+  "/ilan": {
+    title: "İlan detayı — ihaleal.com",
+    description: "Gayrimenkul ilanı, fiyat, konum ve ihale bilgileri (demo içerik).",
+  },
+};
+
+export function getSeoForPath(pathname: string) {
+  if (pathname.startsWith("/ilan/")) {
+    return ROUTE_SEO["/ilan"] ?? DEFAULT_SEO;
+  }
+  if (pathname.startsWith("/sehir/")) {
+    return {
+      title: "Şehir sayfası — ihaleal.com",
+      description: "Seçilen şehir için ilanlar ve bölge notları (demo).",
+    };
+  }
+  return ROUTE_SEO[pathname] ?? DEFAULT_SEO;
+}
+
+function setMeta(attr: "name" | "property", key: string, content: string) {
+  let el = document.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+export function applySeoToDocument(pathname: string, search: string) {
+  const { title, description } = getSeoForPath(pathname);
+  document.title = title;
+  setMeta("name", "description", description);
+  const canonicalPath = `${SITE_ORIGIN}/#${pathname}${search || ""}`;
+  const ogImage = `${SITE_ORIGIN}/og-image.png`;
+  setMeta("property", "og:title", title);
+  setMeta("property", "og:description", description);
+  setMeta("property", "og:url", canonicalPath);
+  setMeta("property", "og:type", "website");
+  setMeta("property", "og:image", ogImage);
+  setMeta("name", "twitter:card", "summary_large_image");
+  setMeta("name", "twitter:title", title);
+  setMeta("name", "twitter:description", description);
+  setMeta("name", "twitter:image", ogImage);
+  let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+  if (!link) {
+    link = document.createElement("link");
+    link.rel = "canonical";
+    document.head.appendChild(link);
+  }
+  link.href = `${SITE_ORIGIN}/`;
+}

@@ -1,0 +1,45 @@
+ihaleal.com — Sorularınıza net cevap (kayıt; silmeyin)
+===============================================
+Konum: Masaüstü\ihaleal.com\
+
+1) MÜMKÜN OLMAYANLAR (yalnızca front-end / Kimi ile yapılamaz)
+-------------------------------------------------------------
+• e-Devlet’ten size otomatik “sanal emlakçı yetkisi” bağlama
+• Findeks / banka gerçek API ve ödeme tahsilatı
+• Bankanın “AI ile arama” entegrasyonu
+• Her dk / saat otomatik canlı piyasa verisi (veri lisansı + sunucu + cron)
+• Mobil mağaza uygulaması, canlı yayın, FCM push, blockchain tapu
+• Hatasız hukuki sözleşme garantisi (mutlaka avukat)
+
+2) KİMİ HATALARI DÜZELTİLDİ Mİ?
+--------------------------------
+Evet (önceki oturumdaki yanıltıcı kısımlar):
+• Rakip matrisinde “Findeks / e-Devlet API var” gibi abartılı tikler düzeltildi
+• Var olmayan /ihaleler rotası ana sayfaya yönlendirildi
+• Güvenlik sayfası: demo veri uyarısı
+• Videolar: Vite base './' uyumlu yol (publicAsset)
+• Hukuki metinlerde “tam uyumlu” iddiası yumuşatıldı
+
+3) SİZİN UZUN İSTEĞİNİZ (ilan / ihale / yetki / ucuz komisyon) YAPILDI MI?
+---------------------------------------------------------------------------
+• TAM OTOMATİK sistem (backend + e-Devlet + ödeme): HAYIR — mümkün değil bu repoda.
+• ÜRÜN KURGUSU olarak ekranda anlatım: EVET — yeni sayfa:
+  Tarayıcıda:  http://localhost:5173/#/sat-basla
+  (CALISTIR.bat ile sunucu açık olmalı.)
+  İçerik: izleyici, sadece ilan, doğrudan ihale, ilan→ihale, sanal emlakçı yetkisi (vizyon),
+  adım ve evrak farkları, gelir kalemleri taslağı (Sahibinden’e göre ucuz hedef rakamlar — örnek).
+
+4) KAYIT DOSYALARI (kaybolmasın)
+---------------------------------
+• TAM_KAYIT_VE_PLAN.txt — genel master kayıt
+• ISTEKLER_YAPILDI_MI.txt — bu dosya
+• KIMI_INDIRME_VE_DURUM.txt — zip / Kimi indirmeleri
+• SITEYI_GORUNTULE.txt — siteyi nasıl göreceksiniz
+
+5) SİTEYİ GÖRMEK
+-----------------
+CALISTIR.bat çift tık → tarayıcıda:
+http://localhost:5173/#/sat-basla
+http://localhost:5173/#/karsilastir-rakipler
+http://localhost:5173/#/reklam
+Kayıtta “Satıcı niyeti” isteğe bağlı alan eklendi (localStorage).

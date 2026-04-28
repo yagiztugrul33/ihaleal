@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://ihaleal.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://ihaleal.com/#/arama</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://ihaleal.com/#/analiz</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://ihaleal.com/#/karsilastir</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/#/mortgage</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ihaleal.com/#/evraklar</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ihaleal.com/#/ihale-kosullari</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ihaleal.com/#/kvkk</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/#/gizlilik</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/#/cerez-politikasi</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/#/guvenlik</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/#/reklam</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/#/sat-basla</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/#/veri-ve-endeks</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://ihaleal.com/#/komisyon-modeli</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+</urlset>

@@ -1,0 +1,59 @@
+================================================================================
+CURSOR / YAPAY ZEKA İÇİN: TÜM SİTE DENETİM KOMUTU (bu dosyanın tamamını yapıştırın)
+================================================================================
+
+Proje kökü: ihaleal.com (Vite + React + TypeScript + HashRouter).
+
+Cursor tek satır komut: docs/CURSOR_TEK_KOMUT_YAPISTIR.txt
+Kimi + talimat özü: docs/TEK_YAPISTIR_IKILI_KIMI_CURSOR.md
+SENKRON (tam rubrik detay): docs/SENKRON_TEK_KOMUT.md
+Kimi kısa paket: docs/sync/KIMI_YAPISTIR_PAKET.md
+MASTER — Kimi raporu düzeltme tablosu: docs/KIMI_CURSOR_MASTER_KANITLI_KOMUT.md
+Faz 2 geniş görevler: docs/KIMI_CURSOR_FAZ2_SON_HAL_GENIS_KOMUT.md
+
+GÖREV — Aşağıdakileri sırayla yap, bulguları madde madde raporla, ardından güvenli
+patch’leri uygula (kullanıcı onayı olmadan ücretli üçüncü parti servis ekleme):
+
+1) BAĞIMLILIK VE DERLEME
+   - package.json script’lerini doğrula; `npm ci` veya `npm install` sonra
+     `npm run typecheck` ve `npm run build` çalıştır. Hata varsa düzelt.
+
+2) ROTALAR VE KIRIK LİNKLER
+   - src/App.tsx içindeki tüm Route path’lerini listele.
+   - src/ içinde navigate(, <Link to=, href=, window.location ve harici URL’leri
+     tarayıp her path’in App.tsx’te karşılığı olduğunu doğrula.
+   - index.html, public/sitemap.xml, public/robots.txt, public/manifest.json içindeki
+     URL’lerin canlıda veya statik build’de 404 üretmediğini kontrol et.
+
+3) KİMLİK VE VERİ
+   - src/lib/auth.ts ve Register/Login/Profile/CreateAuction akışında oturum nesnesinde
+     düz metin şifre kalmadığını doğrula; eski localStorage kayıtları için taşıma mantığını test et.
+   - localStorage anahtarlarını listele; hangi verinin “demo” olduğunu not et.
+
+4) GÜVENLİK (OWASP temel)
+   - XSS: dangerouslySetInnerHTML, eval, document.write var mı?
+   - Harici görseller/script: güvenilmeyen URL enjeksiyonu riski.
+   - npm audit (yüksek/kritik özet).
+   - Üretim için: CSP, httpOnly çerez, sunucu tarafı auth gerektiğini kısa not düş.
+
+5) SEO
+   - SeoSync + lib/seo.ts: sayfa başlığı ve meta güncelleniyor mu?
+   - Schema SearchAction URL’sinin HashRouter (#/arama) ile uyumunu doğrula.
+   - Sosyal paylaşım botları JS çalıştırmaz: OG görselleri için statik og-image.png
+     ve tam mutlak URL gereksinimini not et.
+
+6) ERİŞİLEBİLİRLİK VE UI
+   - Formlarda etiket, odak sırası, buton type="button" / submit ayrımı.
+   - Çerez bandı ve bülten onay metinleri hukuki olarak “demo” olduğunu ima ediyor mu?
+
+7) ÇIKTI
+   - Özet: kritik / orta / düşük bulgular.
+   - Önerilen commit mesajı (tek cümle, Türkçe).
+
+================================================================================
+Kısa hatırlatma: `npm run gen:assets` ile public/og-image.png ve icon-*.png üretilir
+(sharp gerekir). İlk kurulumdan sonra bir kez çalıştırın; ardından `npm run build`.
+================================================================================
+Maraton (Kimi + Cursor tek komut): docs/KIMI_CURSOR_UZUN_MARATON_KOMUT.md
+Patron + sözleşme hizası: docs/SOZLESMESONRASI_TEK_KOMUT.md — Cursor raporu: docs/MARATON_CURSOR_RAPORU.md
+================================================================================

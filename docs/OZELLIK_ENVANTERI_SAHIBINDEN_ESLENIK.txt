@@ -1,0 +1,42 @@
+================================================================================
+ÖZELLİK ENVANTERİ — SAHİBİNDEN TARZI VİTRİN + İHALAL.COM (ALICI + SATICI)
+================================================================================
+Amaç: Piyasada (ör. sahibinden.com) beklenen çekirdek özellikler ile bu repodaki
+demo SPA arasında dürüst eşleme. "Var / kısmi / yok / üretimde backend" diye
+ürün ekibi ve cloud agent aynı dili kullansın.
+
+--- ALICI (ihaleye girebilme) ---
+[x] İlan listeleme, filtre, sıralama          → Repoda: demo AUCTIONS + arama /#/arama
+[x] İlan detay, galeri, konum                  → Repoda: AuctionDetail (+ kullanıcı ilanları birleşik arama)
+[x] Favori / son görüntülenen                  → Repoda: localStorage
+[x] Karşılaştırma                            → Repoda: /#/karsilastir
+[ ] Mesaj / teklif geçmişi (gerçek)          → Yok (canlı sohbet yok; ChatWidget demo)
+[ ] Ödeme / depozito / hukuki kapanış         → Yok (yasal süreç taslak sayfalar)
+[ ] e-Devlet / Findeks doğrulama               → Yok (metinlerde vizyon; API yok)
+
+--- SATICI (ilan verebilme) ---
+[x] İlan oluşturma formu + medya               → Repoda: /#/ihale-ac (localStorage)
+[ ] İlan düzenleme / yayından kaldırma         → Kısmi (oluşturma var; tam yönetim yok)
+[ ] Mağaza / paket / öne çıkarma               → Yok
+[x] Komisyon / sözleşme PDF imza               → Taslak metin: /#/ihale-kosullari, /#/komisyon-modeli; /#/ihale-ac üstünde hızlı link
+[ ] KYC satıcı doğrulama                       → Yok
+
+--- ENDEKSA TARZI VERİ ---
+[ ] Son satışlar / bölge endeksi (canlı)       → Yok; /#/veri-ve-endeks yol haritası
+[x] PDF rapor içe aktarma                       → Kısmi (dosya adı seçimi; sunucu yok)
+[x] API entegrasyon sözleşmesi                  → DataStrategy tablo + .env.example; gerçek anahtar yok
+
+--- SEO ---
+[x] Sayfa başlığı + meta route bazlı           → SeoSync + lib/seo.ts (genişletilmiş rotalar)
+[x] Sitemap / robots                            → public/
+[x] Schema SearchAction                         → index.html (#/arama)
+[x] OG görsel                                   → public/og-image.png (gen:assets)
+[ ] SSR / prerender (bot OG sayfa başına)      → Yok (SPA sınırı)
+
+--- GÜVENLİK / UYUMLULUK ---
+[ ] Sunucu oturumu + httpOnly                   → Yok (localStorage demo auth; şifre özet+tuz)
+[x] CSP üretim başlığı                          → Kısmi (Vite dev headers; üretim CDN’de CSP önerilir)
+[x] KVKK / çerez onayı                          → Sayfalar + CookieConsent + kayıt/bülten onayı
+
+Son güncelleme: repo içi referans dosyasıdır; hukuk ve ticari sözleşmeler avukat
+ve veri sağlayıcıları ile onaylanmalıdır.

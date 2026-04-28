@@ -1,0 +1,100 @@
+ihaleal.com — TAM KAYIT, GERÇEKLER VE YOL HARİTASI
+==================================================
+Son güncelleme: 27.04.2026 (masaüstü klasörüne kaydedildi; silinmesin diye bu dosya tutulur.)
+
+A) KAYIT: NEREDE NE VAR?
+-------------------------
+• Tam kaynak: C:\Users\yagiz\Desktop\ihaleal.com
+• Kimi zip kaynağı: Downloads\kimiOKC\19dcb67c-1732-8660-8000-09650f980f66.zip içindeki app/
+• Eski/yanlış ince paket: real1.tar.gz (4 rota, video yok) — TAM SÜRÜM DEĞİL
+• Çalıştırma: CALISTIR.bat veya npm run dev → http://localhost:5173
+
+B) VİDEO AÇILMIYOR İSE
+-----------------------
+• MP4 dosyaları public\videos\ altında; boyutlar MB seviyesinde (bozuk değil).
+• Vite base './' olduğu için tarayıcıda /reklam veya ana sayfa üzerinden oynatın.
+• Windows Medya Oynatıcı sorun çıkarırsa VLC kullanın.
+
+C) SAHİBİNDEN / ENDEKSA / DİĞER: ONLARDA OLUP BİZDE OLMAYAN (DÜRÜST)
+--------------------------------------------------------------------
+• Çok büyük ilan stoğu ve marka güveni (sahibinden ölçeği).
+• Native iOS/Android uygulamaları (mağaza).
+• Profesyonel fiyat modeli + lisanslı veri (Endeksa seviyesi).
+• Kurumsal ödeme / mesajlaşma / operasyon ekosistemi yılları.
+• 7/24 SOC, üretim WAF — bu demo sitede YOK; metin ve simülasyon var.
+
+D) ÇÖKME / SALDIRI / YEDEK (PLAN)
+---------------------------------
+• /yedekleme sayfası: 3-2-1, lokasyon, RPO/RTO anlatımı (dokümantasyon).
+• Gerçek yedek: bulut + air-gap + test restore — altyapı ekibi + bütçe gerekir.
+• /guvenlik: Tehdit listesi bu sürümde ÖRNEK VERİ; üretimde SIEM/WAF şart.
+
+E) KOPYALANMAYI ENGELLEME
+-------------------------
+• AntiCopyProtection.tsx: tarayıcıda sağ tık/kısayol kısıtları (kolayca aşılır).
+• Gerçek koruma: hukuki ihtar, watermark, imzalı CDN URL, robots, rate limit SUNUCUDA.
+
+F) “EKSİK NEYİMİZ VAR?” 8 KALEM — GERÇEK DURUM
+----------------------------------------------
+1 e-Devlet API     → YOK (yol haritası)
+2 Findeks API      → YOK
+3 Banka API        → YOK
+4 E-imza / MİMZA   → YOK
+5 Mobil app        → YOK
+6 Canlı yayın      → YOK
+7 Push FCM         → YOK
+8 Blockchain tapu  → YOK
+
+G) ÜRÜN KURGUSU (SİZİN İSTEDİKLERİNİZ — KODA HENÜZ TAM YANSIMADI)
+-----------------------------------------------------------------
+• Sadece ilan / doğrudan ihale / ikisi — ayrı evrak ve UI akışı: BACKEND + hukuk.
+• Sanal emlakçı, e-Devlet yetkisi, %2+KDV: sözleşme paketi + SPK/MKKK uyumu.
+• Sahibinden’den ucuz fiyatlandırma: iş modeli tablosu + avukat + muhasebe.
+
+H) BU OTURUMDA YAPILAN TEKNİK İYİLEŞTİRMELER (ÖZET)
+---------------------------------------------------
+• publicAsset() ile video yolları base './' uyumlu (Hero, Reklam sayfası).
+• Reklam: 12 kreatif (10+2 A/B), YouTube 60 sn storyboard + önizleme videosu.
+• Rakip sayfası: dürüst uyarı, matris satırları düzeltildi, kırık /ihaleler rotası ana sayfaya.
+• Analiz: harici ilan URL’si için DEMO modül (veri çekmez; ListingLinkDemo).
+• Güvenlik sayfası: demo veri uyarısı; e-Devlet ifadesi yumuşatıldı.
+• Evrak: hukuki uyarı güçlendirildi; 7263 açıklaması iddiası yumuşatıldı.
+• Vite dev sunucusu: temel güvenlik başlıkları.
+
+I) SEO / HIZ
+------------
+• index.html zengin meta + schema mevcut. OG görseli (og-image.jpg) sunucuda olmalı.
+• Hız: lazy route, manualChunks; üretimde CDN, gzip/brotli, görsel optimizasyon.
+
+J) KİMİ İLE “ORTAK ÇALIŞMA”
+---------------------------
+• Kimi kod üretir; gerçek banka/e-Devlet yasal bağlayıcılığı vermez.
+• Hukuk + backend ekibi + sizin onayınız olmadan canlıya alınmamalıdır.
+
+Bu dosyayı git ile versiyonlamanız önerilir.
+
+K) 27.04.2026 (2) — Satıcı kurgusu ekranı
+-----------------------------------------
+• Yeni rota: /#/sat-basla (SellerHub) — ilan / ihale / birleşik / sanal emlakçı vizyonu, evrak farkları, gelir taslağı.
+• Navbar: "Satıcı modu" bağlantısı.
+• Kayıt (/kayit): isteğe bağlı "nasıl kullanacaksınız" (localStorage sellerIntent).
+• Ek kayıt dosyaları: ISTEKLER_YAPILDI_MI.txt, SITEYI_GORUNTULE.txt
+
+M) 27.04.2026 (4) — Optimizasyon + SEO + kayıt birleştirme
+---------------------------------------------------------
+• index.html: /src/main.tsx preload kaldırıldı; meta description güncellendi.
+• React StrictMode.
+• vite: cssCodeSplit, reportCompressedSize, minify açık.
+• public/robots.txt, public/sitemap.xml.
+• npm run typecheck script.
+• KAYIT_TUM_ISLER_VE_EKIP.txt — tüm işlerin tek dizin kaydı.
+• EKIPE_KOMUT_KUTUPHANESI.txt — paralel ekip için kopyala-yapıştır komutlar.
+
+L) 27.04.2026 (3) — Yasal taslak + “ben yapamam” netliği
+---------------------------------------------------------
+• /#/yasal-cerceve — TBK/İİK/KVKK hatırlatıcıları + ihale başlıkları (avukat onayı uyarılı).
+• /#/canliya-hazirlik — e-Devlet, Findeks, WAF, cron, push vb. ekip işi kontrol listesi.
+• İhale koşulları: AML/e-Devlet iddiaları yumuşatıldı; komisyon alıcı/satıcı paylaşımı sözleşmeye bırakıldı.
+• public/VIDEO_SORUN_GIDERME.txt — video açılmama adımları.
+• BEN_YAPAMAM_SUNU_YAPTIM.txt — yapılamayan vs yapılan özet.
+• vite build: production’da console/debugger kaldırma (esbuild drop).
