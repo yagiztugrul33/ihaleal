@@ -1446,7 +1446,7 @@ PROFILES_HTTP_SERVICE_ROLE 403
 ### ADIM 10 — Git
 
 - Commit mesajı: `tur #11 — Login/Register Supabase auth + AuthContext + Navbar`
-- **Git commit:** `ecdb78fe5085a1331be013fd9811e8de26d57a8e` (kısa: `ecdb78f`)
+- **Git commit:** `beefae8270d9b9c0bb5cf820a2c8097dbe353db3` (kısa: `beefae8`)
 - **Push:** `main -> origin/main` tamamlandı.
 
 ---
