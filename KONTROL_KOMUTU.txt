@@ -57,3 +57,21 @@ Kısa hatırlatma: `npm run gen:assets` ile public/og-image.png ve icon-*.png ü
 Maraton (Kimi + Cursor tek komut): docs/KIMI_CURSOR_UZUN_MARATON_KOMUT.md
 Patron + sözleşme hizası: docs/SOZLESMESONRASI_TEK_KOMUT.md — Cursor raporu: docs/MARATON_CURSOR_RAPORU.md
 ================================================================================
+KIMI — TEK YAPISTIR (kisa)
+================================================================================
+Ciktilari gorev1.json, gorev2.md, ... gibi dosya adlariyla paketle (kod yazma).
+Zip veya klasor olarak kullanicinin su klasorune cikar: docs\kimi-import\
+Her dosya icin: byte boyutu + satir/kayit sayisi ozetle. Sahte "tamam" yok.
+================================================================================
+SITEYI BITIR + YEREL CALISTIR (Windows)
+================================================================================
+Tek tik / tam otomatik (output.zip + dogrulama + zincir + gorev* ise git):
+  C:\Users\yagiz\Desktop\ihaleal.com\SITE_BITIR_TEK_CALISTIR.bat
+Komut ozeti dosyasi:
+  C:\Users\yagiz\Desktop\ihaleal.com\SITE_BITIR_KOMUTLAR.txt
+Tam zincir + docs\kimi-import icinde gorev* varsa commit/push:
+  C:\Users\yagiz\Desktop\ihaleal.com\CALISTIR_SITEYI_BITIR.bat
+Sadece Vite dev sunucusu:
+  C:\Users\yagiz\Desktop\ihaleal.com\BASLA_DEV.bat
+Plan: docs\SITEYI_BITIRME_PLANI.md
+================================================================================

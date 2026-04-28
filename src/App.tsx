@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { RouteSeo } from "@/components/RouteSeo";
 import { Home } from "@/pages/Home";
@@ -102,6 +102,7 @@ function App() {
                 </RouteSeo>
               }
             />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </Layout>

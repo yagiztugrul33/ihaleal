@@ -18,7 +18,9 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "backup": "node scripts/backup.mjs",
-    "verify": "npm run typecheck && npm run test:run && npm run build"
+    "verify": "npm run typecheck && npm run test:run && npm run build",
+    "site:finish": "cmd /c CALISTIR_SITEYI_BITIR.bat",
+    "site:finish:all": "cmd /c SITE_BITIR_TEK_CALISTIR.bat"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.0",

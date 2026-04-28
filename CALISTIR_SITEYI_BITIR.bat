@@ -17,8 +17,15 @@ if errorlevel 1 (
 )
 
 echo.
-echo --- Faz 1b: kimi-import varsa commit ---
+echo --- Faz 1b: kimi-import icinde gorev* varsa commit ---
+set GOREVFILES=0
 if exist "%ROOT%\docs\kimi-import\" (
+  for /f %%A in ('2^>nul dir /b "%ROOT%\docs\kimi-import\gorev*" ^| find /c /v ""') do set GOREVFILES=%%A
+)
+if "%GOREVFILES%"=="0" (
+  echo SKIP: docs\kimi-import altinda gorev* yok ^(yalnizca betik/README ise commit yok^).
+) else (
+  echo Bulunan gorev* dosya sayisi: %GOREVFILES%
   if exist "%GIT%" (
     "%GIT%" -C "%ROOT%" add docs/kimi-import
     "%GIT%" -C "%ROOT%" diff --cached --quiet
@@ -31,8 +38,6 @@ if exist "%ROOT%\docs\kimi-import\" (
   ) else (
     echo Git yok: commit atlandi.
   )
-) else (
-  echo SKIP: docs\kimi-import yok - Faz 2 icin zip cikar.
 )
 
 echo.

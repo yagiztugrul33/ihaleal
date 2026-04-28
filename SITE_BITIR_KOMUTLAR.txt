@@ -1,0 +1,36 @@
+================================================================================
+ihaleal.com — SITE BITIRME (senaryoya gore tek komut)
+================================================================================
+
+A) HER SEY OTOMATIK (onerilen)
+   Calistir: SITE_BITIR_TEK_CALISTIR.bat
+   Tam yol:
+   C:\Users\yagiz\Desktop\ihaleal.com\SITE_BITIR_TEK_CALISTIR.bat
+
+   Ne yapar:
+   1) output.zip varsa (Indirilenler / Masaustu / proje kokunden) kimi-import'a acar
+   2) gorev* dosyalari varsa DOGRULA.ps1 calistirir
+   3) npm install, typecheck, test, build, audit
+   4) gorev* en az bir dosya varsa: git add docs/kimi-import + commit + push
+
+B) SADECE TEKNIK ZINCIR (Kimi yok / zip yok)
+   C:\Users\yagiz\Desktop\ihaleal.com\CALISTIR_SITEYI_BITIR.bat
+
+C) SADECE DENETIM (install + typecheck + test + build + audit)
+   C:\Users\yagiz\Desktop\ihaleal.com\CALISTIR_KALAN_KONTROL.bat
+
+D) NPM ILE (proje klasorundayken)
+   npm run site:finish        -> CALISTIR_SITEYI_BITIR.bat
+   npm run site:finish:all    -> SITE_BITIR_TEK_CALISTIR.bat
+
+E) YEREL ONIZLEME
+   C:\Users\yagiz\Desktop\ihaleal.com\BASLA_DEV.bat
+
+F) Kimi zip elinde ama adi farkliysa
+   docs\kimi-import\CIKAR_ZIP.bat "C:\tam\yol\dosya.zip"
+
+G) Kimi indirme linkin (URL) varsa (Cursor veya PowerShell)
+   powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\yagiz\Desktop\ihaleal.com\docs\kimi-import\INDIR_VE_CIKAR_OUTPUT.ps1" -Url "YAPISTIR"
+
+Plan: docs\SITEYI_BITIRME_PLANI.md
+================================================================================
