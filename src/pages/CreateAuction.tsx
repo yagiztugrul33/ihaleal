@@ -201,7 +201,10 @@ export default function CreateAuction() {
       .single();
 
     if (listingError || !listing) {
-      setError("İlan oluşturulamadı: " + (listingError?.message ?? "bilinmeyen hata"));
+      const msg = listingError?.message ?? "bilinmeyen hata";
+      console.error("[CreateAuction] listings.insert", listingError);
+      window.alert("İlan oluşturulamadı: " + msg);
+      setError("İlan oluşturulamadı: " + msg);
       setSubmitLoading(false);
       return;
     }
@@ -218,7 +221,10 @@ export default function CreateAuction() {
       .single();
 
     if (auctionError || !auction) {
-      setError("İhale oluşturulamadı: " + (auctionError?.message ?? "bilinmeyen hata"));
+      const msg = auctionError?.message ?? "bilinmeyen hata";
+      console.error("[CreateAuction] auctions.insert", auctionError);
+      window.alert("İhale oluşturulamadı: " + msg);
+      setError("İhale oluşturulamadı: " + msg);
       setSubmitLoading(false);
       return;
     }
