@@ -1033,6 +1033,434 @@ _Kaynak_: `docs/OZELLIK_ENVANTERI_SAHIBINDEN_ESLENIK.txt`
 - Tur #4: `fees.ts` (deposit, listingPackages, calcBidBond), `userFlows.ts` (storage + permissions), `demoAuthValidators.ts`, `pages/auth/Login.tsx`, `Register.tsx`, `pages/Login.tsx`, `pages/Register.tsx`, `pages/dashboard/index.tsx`, `InvestorDashboard.tsx`, `FlowSelector.tsx`, `DocumentUploader.tsx`, `Navbar.tsx`, `App.tsx`, `seo.ts`, `dataStrategy.ts`, `AGENT_RAPORU.md`; kaldırılan: `pages/Dashboard.tsx`.
 - Tur #5: `@supabase/supabase-js`, `supabase` CLI dev, `vitest` + `happy-dom` + testing-library + `@vitest/coverage-v8`, `src/lib/supabase.ts`, `supabase/config.toml`, `supabase/migrations/*` (×3), `supabase/functions/place_bid/index.ts`, `vitest.config.ts`, `src/test/setup.ts`, `src/lib/__tests__/*`, `.env.example`, `.gitignore`, `AntiCopyProtection.tsx`, `DisasterRecovery.tsx`, `Changelog.tsx`, `SecurityCenter.tsx`, `AdCampaign.tsx`, `Hero.tsx`, `public/videos/README.md`, `VIDEO_SORUN_GIDERME.txt`, `package.json`, `AGENT_RAPORU.md`.
 
+---
+
+## TUR #11 ÖN KONTROL (2026-04-29 — Cursor — ihaleal.com)
+
+**Çalışma dizini:** `C:\Users\yagiz\Desktop\ihaleal.com`
+
+**`.env.local` anahtar varlığı (değerler maskeli — gerçek sır yazılmadı):**
+```
+VITE_SUPABASE_URL=***DOLU***
+VITE_SUPABASE_ANON_KEY=***DOLU***
+SUPABASE_SERVICE_ROLE_KEY=***DOLU***
+SUPABASE_PROJECT_REF=***DOLU***
+```
+
+**Dosya varlığı:**  
+`ls src/lib/supabase.ts` → **True**  
+`ls src/contexts/AuthContext.tsx` → **True**  
+`ls src/pages/auth/` → **EDevletAuth.tsx**, **Login.tsx**, **Register.tsx**
+
+**`rg -n "AuthProvider|useAuth|supabase\.auth" src/` (ilk satırlar — araç çıktısı):**
+```
+Navbar.tsx — useAuth
+Register.tsx — useAuth
+AuthContext.tsx — AuthProvider, supabase.auth.getSession / onAuthStateChange / signInWithPassword / signUp / signOut
+Login.tsx — useAuth
+main.tsx — App import (AuthProvider taşındı — bkz ADIM 4)
+Profile.tsx — supabase.auth.updateUser / getUser / signOut
+```
+
+**`npm list @supabase/supabase-js | head -5` eşleniği:**
+```
+ihaleal.com@1.0.0 C:\Users\yagiz\Desktop\ihaleal.com
+`-- @supabase/supabase-js@2.105.0
+```
+
+**Ön kontrol kararı:** `SUPABASE_SERVICE_ROLE_KEY` **boş değildi** → akış durdurulmadı.
+
+---
+
+## TUR #11 — AUTH BAĞLAMA
+
+### ADIM 1 — ADIM 2 envanteri ve `supabase.ts`
+
+- **`src/lib/supabase.ts`:** Şablona göre güncellendi; **`flowType: "pkce"`** eklendi; **`isSupabaseConfigured()`** projede çoklu dosya tarafından kullanıldığı için **korundu** (şablondaki tek blok yerine şartlı uyumluluk).
+- **`AuthContext.tsx`:** Talimat ADIM 3 “dosya yoksa şunu yaz” — dosya **mevcut** ve **Genişletilmiş API** (`signUp` telefon meta + `session` dönüşü, `persistSupabaseUser`) **Profile / Register** ile uyumlu; minimal şablonla **tamamen değiştirilmedi** (kırılma önlenmesi).
+
+### ADIM 4 — Router sarma
+
+- **`src/main.tsx`:** Yalnızca `<StrictMode><App /></StrictMode>`.
+- **`src/App.tsx`:** `<AuthProvider><HashRouter>...</HashRouter></AuthProvider>`.
+
+### ADIM 5 — Login.tsx
+
+- Yerel **`localStorage`** demo / şifre doğrulama akışı **kaldırıldı**; yalnızca **`useAuth().signIn`** + **`navigate("/dashboard")`**.
+- Ham kod (dosya yolu `src/pages/auth/Login.tsx`):
+
+```tsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { LogIn, Mail, Lock, Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { useAuth } from "@/contexts/AuthContext";
+
+export default function Login() {
+  const navigate = useNavigate();
+  const { signIn } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    if (!isSupabaseConfigured()) {
+      setError("Supabase yapılandırması yok (.env.local).");
+      return;
+    }
+    if (!email || !password) {
+      setError("E-posta ve şifre gereklidir.");
+      return;
+    }
+    setLoading(true);
+    const { error: authErr } = await signIn(email.trim(), password);
+    setLoading(false);
+
+    if (authErr) {
+      const msg = authErr.message || "";
+      if (msg.includes("Invalid login") || msg.toLowerCase().includes("invalid login credentials")) {
+        setError("Geçersiz e-posta veya şifre.");
+      } else if (msg.includes("Email not confirmed") || msg.includes("email_not_confirmed")) {
+        setError("E-posta adresinizi onaylamanız gerekiyor. Gelen kutunuza bakın.");
+      } else {
+        setError(msg || "Giriş yapılamadı.");
+      }
+      return;
+    }
+    navigate("/dashboard");
+  };
+
+  return (
+    <div className="min-h-screen pt-24 pb-16 flex items-center justify-center" data-demo="true">
+      <div className="w-full max-w-md px-4">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+          <ArrowLeft className="w-4 h-4" /> Geri
+        </Button>
+        <Card className="bg-slate-900/50 border-white/5">
+          <CardContent className="p-6 space-y-5">
+            <div className="text-center mb-6">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
+                <LogIn className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-white">Giriş Yap</h1>
+              <p className="text-sm text-slate-400 mt-1">
+                {isSupabaseConfigured() ? "Supabase Auth ile güvenli oturum." : "Supabase .env yok — giriş için yapılandırın."}
+              </p>
+            </div>
+            {error && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="ornek@mail.com"
+                    autoComplete="email"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Şifre</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 pr-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+              <Button
+                type="submit"
+                disabled={!isSupabaseConfigured() || loading}
+                className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-50"
+              >
+                {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
+              </Button>
+            </form>
+            <div className="text-center text-sm text-slate-400">
+              Hesabınız yok mu?{" "}
+              <button type="button" onClick={() => navigate("/kayit")} className="text-blue-400 hover:text-blue-300 font-medium">
+                Kayıt Ol
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
+```
+
+### ADIM 6 — Register.tsx
+
+- Yerel **`localStorage`** kayıt dalı **kaldırıldı**; şifre **≥ 6** karakter; **`signUp`** + başarıda oturum varsa **`/dashboard`**.
+- Ham kod (`src/pages/auth/Register.tsx`):
+
+```tsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { useAuth } from "@/contexts/AuthContext";
+
+export default function Register() {
+  const navigate = useNavigate();
+  const { signUp } = useAuth();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [info, setInfo] = useState("");
+  const [kvkkAccepted, setKvkkAccepted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setInfo("");
+    if (!isSupabaseConfigured()) {
+      setError("Supabase yapılandırması yok (.env.local).");
+      return;
+    }
+    if (!name.trim() || !email.trim() || !password) {
+      setError("Ad soyad, e-posta ve şifre zorunludur.");
+      return;
+    }
+    if (password !== passwordConfirm) {
+      setError("Şifreler eşleşmiyor.");
+      return;
+    }
+    if (password.length < 6) {
+      setError("Şifre en az 6 karakter olmalı.");
+      return;
+    }
+    if (!kvkkAccepted) {
+      setError("Devam etmek için KVKK ve gizlilik metnini onaylayın.");
+      return;
+    }
+    setLoading(true);
+    const { error: supaErr, session } = await signUp(email.trim(), password, name.trim(), {
+      phone: phone.trim() || undefined,
+    });
+    setLoading(false);
+
+    if (supaErr) {
+      const msg = supaErr.message || "";
+      if (msg.includes("already registered") || msg.toLowerCase().includes("user already registered")) {
+        setError("Bu e-posta zaten kayıtlı.");
+      } else {
+        setError(msg || "Kayıt başarısız.");
+      }
+      return;
+    }
+    if (session?.user) {
+      navigate("/dashboard");
+      return;
+    }
+    setInfo("Kayıt tamam! E-postanıza gelen onay bağlantısını tıklayın.");
+  };
+
+  return (
+    <div className="min-h-screen pt-24 pb-16 flex items-center justify-center" data-demo="true">
+      <div className="w-full max-w-md px-4">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+          <ArrowLeft className="w-4 h-4" /> Geri
+        </Button>
+        <Card className="bg-slate-900/50 border-white/5">
+          <CardContent className="p-6 space-y-5">
+            <div className="text-center mb-6">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
+                <UserPlus className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-white">Kayıt Ol</h1>
+              <p className="text-sm text-slate-400 mt-1">
+                {isSupabaseConfigured() ? "Supabase Auth; profil satırı sunucuda otomatik oluşur." : "Kayıt için Supabase .env yapılandırın."}
+              </p>
+            </div>
+            {info && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-200 text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>{info}</span>
+              </div>
+            )}
+            {error && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Ad Soyad</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="Ali Veli"
+                    autoComplete="name"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="ornek@mail.com"
+                    autoComplete="email"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Telefon (isteğe bağlı)</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="5XX XXX XX XX"
+                    autoComplete="tel"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Şifre</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 pr-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="En az 6 karakter"
+                    autoComplete="new-password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Şifre tekrar</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="Şifreyi tekrarla"
+                    autoComplete="new-password"
+                  />
+                </div>
+              </div>
+              <label className="flex items-start gap-2 text-xs text-slate-400 cursor-pointer">
+                <input type="checkbox" checked={kvkkAccepted} onChange={(e) => setKvkkAccepted(e.target.checked)} className="mt-0.5 accent-teal-500" />
+                <span>
+                  <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/kvkk")}>
+                    KVKK
+                  </button>{" "}
+                  ve{" "}
+                  <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/gizlilik")}>
+                    gizlilik
+                  </button>{" "}
+                  metnini okudum; kişisel verilerimin bu kapsamda işlenmesini kabul ediyorum.
+                </span>
+              </label>
+              <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-70">
+                {loading ? "Kaydediliyor..." : "Kayıt Ol"}
+              </Button>
+            </form>
+            <div className="text-center text-sm text-slate-400">
+              Zaten hesabınız var mı?{" "}
+              <button type="button" onClick={() => navigate("/giris")} className="text-blue-400 hover:text-blue-300 font-medium">
+                Giriş Yap
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
+```
+
+### ADIM 7 — Navbar
+
+- Bu turda **`src/components/Navbar.tsx` dosyası değiştirilmedi** — önceki sürümde zaten `useAuth` + oturumda e-posta / çıkış, oturum yoksa **Giriş / Üye Ol** (`/#/giris`, `/#/kayit`) vardı.
+
+### ADIM 8 — Build (3 zorunlu)
+
+| Komut | Sonuç |
+|--------|--------|
+| `npm run typecheck` | **exit 0** |
+| `npm run build` | **exit 0** (vite build ~2 dk, chunk uyarısı bilinen) |
+| `npm audit --audit-level=high` | **found 0 vulnerabilities** |
+
+### ADIM 9 — Auth REST (Node ile `.env.local` okuma — anahtarlar raporda yok)
+
+Tek seferlik smoke (benzersiz e-posta `test_smoke_<timestamp>@ihaleal.dev`, şifre `Test1234!`):
+
+```
+SIGNUP_HTTP 200
+SIGNUP_USER_ID e273aa5c-ff9b-4768-9cea-273996d2644f
+PROFILES_HTTP_SERVICE_ROLE 403
+```
+
+**Yorum:** Signup **başarılı** ve **`user.id` döndü**. `profiles` REST okuma **HTTP 403** (service_role ile bile); trigger satırı bu curl ile **doğrulanamadı** — Dashboard’daki **Secret service_role** doğruluğu veya **RLS/grant** ayrı kontrol edilmeli.
+
+### ADIM 10 — Git
+
+- Commit mesajı: `tur #11 — Login/Register Supabase auth + AuthContext + Navbar`
+- **Git commit:** `ecdb78fe5085a1331be013fd9811e8de26d57a8e` (kısa: `ecdb78f`)
+- **Push:** `main -> origin/main` tamamlandı.
+
+---
+
+### §D-K19
+
+Email confirm Supabase Dashboard'dan kapatılacak (kullanıcı ~30 sn iş): **Authentication → Sign In / Up → Email → Confirm email OFF**.
+
+### §D-K20
+
+Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
+
+---
+
 ## 7. KALAN İŞLER
 
 - Sunucu auth, ödeme, e-posta, gerçek Endeksa (veya lisanslı) API, ilan CRUD tamamı, SSR/prerender (OG sayfa başına), üretim CSP.

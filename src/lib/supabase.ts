@@ -1,21 +1,22 @@
 import { createClient } from "@supabase/supabase-js";
 
-const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+const url = import.meta.env.VITE_SUPABASE_URL;
+const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!url || !anonKey) {
+  console.error("[supabase] env eksik — VITE_SUPABASE_URL veya VITE_SUPABASE_ANON_KEY");
+}
 
 /** Ortam değişkenleri doluysa true — API çağrılarından önce kontrol edin. */
 export function isSupabaseConfigured(): boolean {
-  return Boolean(url && anonKey && url.length > 0 && anonKey.length > 0);
+  return Boolean(url && anonKey);
 }
 
-if (!isSupabaseConfigured()) {
-  console.error("Supabase env eksik");
-}
-
-export const supabase = createClient(url ?? "", anonKey ?? "", {
+export const supabase = createClient(url!, anonKey!, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
+    flowType: "pkce",
   },
 });

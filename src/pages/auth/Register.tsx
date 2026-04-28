@@ -4,10 +4,7 @@ import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { createPasswordRecord, stripForSession, dispatchAuthChanged, type StoredUser } from "@/lib/auth";
-import { isValidTRPhone, validateDemoPassword } from "@/lib/demoAuthValidators";
 import { isSupabaseConfigured } from "@/lib/supabase";
-import { formatSupabaseAuthError } from "@/lib/supabaseAuthBridge";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Register() {
@@ -20,14 +17,18 @@ export default function Register() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setInfo("");
+    if (!isSupabaseConfigured()) {
+      setError("Supabase yapılandırması yok (.env.local).");
+      return;
+    }
     if (!name.trim() || !email.trim() || !password) {
       setError("Ad soyad, e-posta ve şifre zorunludur.");
       return;
@@ -36,77 +37,34 @@ export default function Register() {
       setError("Şifreler eşleşmiyor.");
       return;
     }
-
-    if (isSupabaseConfigured()) {
-      const pwdErr = validateDemoPassword(password);
-      if (pwdErr) {
-        setError(pwdErr);
-        return;
-      }
-      if (!kvkkAccepted) {
-        setError("Devam etmek için KVKK ve gizlilik metnini onaylayın.");
-        return;
-      }
-      const { error: supaErr, session } = await signUp(email.trim(), password, name.trim(), {
-        phone: phone.trim() || undefined,
-      });
-      if (supaErr) {
-        setError(formatSupabaseAuthError(supaErr.message));
-        return;
-      }
-      if (session?.user) {
-        setSuccess(true);
-        setTimeout(() => navigate("/dashboard"), 800);
-        return;
-      }
-      setInfo("Kayıt tamam, e-posta onayı için gelen kutunuza bakın");
-      setSuccess(false);
-      return;
-    }
-
-    if (!phone.trim()) {
-      setError("Telefon zorunludur (yerel demo kuralı).");
-      return;
-    }
-    if (!isValidTRPhone(phone)) {
-      setError("Geçerli bir Türkiye cep telefonu girin (örn. 5XXXXXXXXX).");
-      return;
-    }
-    const pwdErr = validateDemoPassword(password);
-    if (pwdErr) {
-      setError(pwdErr);
+    if (password.length < 6) {
+      setError("Şifre en az 6 karakter olmalı.");
       return;
     }
     if (!kvkkAccepted) {
       setError("Devam etmek için KVKK ve gizlilik metnini onaylayın.");
       return;
     }
-    const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
-    if (users.find((u) => u.email === email.trim())) {
-      setError("Bu e-posta adresi zaten kayıtlı.");
+    setLoading(true);
+    const { error: supaErr, session } = await signUp(email.trim(), password, name.trim(), {
+      phone: phone.trim() || undefined,
+    });
+    setLoading(false);
+
+    if (supaErr) {
+      const msg = supaErr.message || "";
+      if (msg.includes("already registered") || msg.toLowerCase().includes("user already registered")) {
+        setError("Bu e-posta zaten kayıtlı.");
+      } else {
+        setError(msg || "Kayıt başarısız.");
+      }
       return;
     }
-    const { passwordSalt, passwordHash } = await createPasswordRecord(password);
-    const newUser: StoredUser = {
-      id: Date.now().toString(),
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      passwordSalt,
-      passwordHash,
-      avatar: "",
-      verified: false,
-      rating: 0,
-      auctionsCreated: 0,
-      auctionsWon: 0,
-      memberSince: new Date().toISOString().split("T")[0],
-    };
-    users.push(newUser);
-    localStorage.setItem("ihaleal_users", JSON.stringify(users));
-    localStorage.setItem("ihaleal_user", JSON.stringify(stripForSession(newUser)));
-    dispatchAuthChanged();
-    setSuccess(true);
-    setTimeout(() => navigate("/onboarding/akis"), 800);
+    if (session?.user) {
+      navigate("/dashboard");
+      return;
+    }
+    setInfo("Kayıt tamam! E-postanıza gelen onay bağlantısını tıklayın.");
   };
 
   return (
@@ -123,20 +81,17 @@ export default function Register() {
               </div>
               <h1 className="text-2xl font-bold text-white">Kayıt Ol</h1>
               <p className="text-sm text-slate-400 mt-1">
-                {isSupabaseConfigured() ? "Supabase Auth; profil satırı sunucuda otomatik oluşur." : "Kayıt sonrası akış seçimi (yerel demo)."}
+                {isSupabaseConfigured() ? "Supabase Auth; profil satırı sunucuda otomatik oluşur." : "Kayıt için Supabase .env yapılandırın."}
               </p>
             </div>
-            {success && (
-              <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                <CheckCircle2 className="w-4 h-4" />
-                <span className="text-sm">Kayıt başarılı! Akış seçimine yönlendiriliyorsunuz...</span>
+            {info && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-200 text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>{info}</span>
               </div>
             )}
-            {info && (
-              <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-200 text-sm">{info}</div>
-            )}
             {error && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
-            <form onSubmit={handleRegister} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Ad Soyad</label>
                 <div className="relative">
@@ -164,35 +119,19 @@ export default function Register() {
                   />
                 </div>
               </div>
-              {!isSupabaseConfigured() ? (
-                <div>
-                  <label className="text-sm text-slate-400 mb-1.5 block">Telefon</label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                    <Input
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
-                      placeholder="5XX XXX XX XX"
-                      autoComplete="tel"
-                    />
-                  </div>
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Telefon (isteğe bağlı)</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    placeholder="5XX XXX XX XX"
+                    autoComplete="tel"
+                  />
                 </div>
-              ) : (
-                <div>
-                  <label className="text-sm text-slate-400 mb-1.5 block">Telefon (isteğe bağlı)</label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                    <Input
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
-                      placeholder="5XX XXX XX XX"
-                      autoComplete="tel"
-                    />
-                  </div>
-                </div>
-              )}
+              </div>
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Şifre</label>
                 <div className="relative">
@@ -202,7 +141,7 @@ export default function Register() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10 pr-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
-                    placeholder="En az 10 karakter + büyük/küçük/rakam/sembol"
+                    placeholder="En az 6 karakter"
                     autoComplete="new-password"
                   />
                   <button
@@ -241,8 +180,8 @@ export default function Register() {
                   metnini okudum; kişisel verilerimin bu kapsamda işlenmesini kabul ediyorum.
                 </span>
               </label>
-              <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11">
-                Kayıt Ol
+              <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-70">
+                {loading ? "Kaydediliyor..." : "Kayıt Ol"}
               </Button>
             </form>
             <div className="text-center text-sm text-slate-400">

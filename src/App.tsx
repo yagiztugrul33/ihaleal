@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { Layout } from "@/components/Layout";
 import { RouteSeo } from "@/components/RouteSeo";
 import { Home } from "@/pages/Home";
@@ -42,6 +43,7 @@ const EDevletAuth          = lazy(() => import("@/pages/auth/EDevletAuth"));
 
 function App() {
   return (
+    <AuthProvider>
     <HashRouter>
       <Layout>
         <Suspense fallback={
@@ -107,6 +109,7 @@ function App() {
         </Suspense>
       </Layout>
     </HashRouter>
+    </AuthProvider>
   );
 }
 
