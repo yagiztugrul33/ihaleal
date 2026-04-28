@@ -698,8 +698,7 @@ _(Bu turda yalnızca `AGENT_RAPORU.md` değişti; kod/index değişmedi.)_
 
 ### ADIM 10 — Git
 
-- Bu Cursor shell’de `git` PATH doğrulanmadı; **commit hash bu oturumda üretilmedi** — kullanıcı Git Bash:  
-  `cd /c/Users/yagiz/Desktop/ihaleal.com && git add -A && git commit -m "tur #11 — Login/Register Supabase auth bağlandı + AuthContext" && git push`
+- **`C:\Program Files\Git\bin\git.exe`** ile: commit **`0d37980`** (`tur #11 — Login/Register Supabase auth bağlandı + AuthContext`) → **`origin/main` push OK** (önceki uç: `7d036b2`).
 
 ## C) Ortak — kararlar
 
