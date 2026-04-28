@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { stripForSession, dispatchAuthChanged, type StoredUser, type SessionUser } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { formatSupabaseAuthError, sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
 
 function readSession(): SessionUser | null {
@@ -41,7 +41,7 @@ export default function Profile() {
   const handleSave = async () => {
     if (!user) return;
     setSaveError("");
-    if (user.authBackend === "supabase" && supabase) {
+    if (user.authBackend === "supabase" && isSupabaseConfigured()) {
       const { error } = await supabase.auth.updateUser({
         email: email.trim(),
         data: { name: name.trim(), phone: phone.trim() },
@@ -78,7 +78,7 @@ export default function Profile() {
   };
 
   const handleLogout = async () => {
-    if (user?.authBackend === "supabase" && supabase) {
+    if (user?.authBackend === "supabase" && isSupabaseConfigured()) {
       await supabase.auth.signOut();
     }
     localStorage.removeItem("ihaleal_user");

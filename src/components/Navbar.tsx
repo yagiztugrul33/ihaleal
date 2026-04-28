@@ -1,17 +1,18 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, Gavel, BarChart3, GitCompare, UserPlus, LogIn, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Store } from "lucide-react";
+import { Menu, X, Gavel, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "@/hooks/useTheme";
 import { SearchModal } from "./SearchModal";
 import { mergedFlowPermissions, readUserFlowsFromStorage, type UserFlow } from "@/lib/userFlows";
-import { supabase } from "@/lib/supabase";
 import { sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
+import type { SessionUser } from "@/lib/auth";
+import { useAuth } from "@/contexts/AuthContext";
 
-function readSessionUser() {
+function readSessionUser(): SessionUser | null {
   try {
-    return JSON.parse(localStorage.getItem("ihaleal_user") || "null");
+    return JSON.parse(localStorage.getItem("ihaleal_user") || "null") as SessionUser | null;
   } catch {
     return null;
   }
@@ -20,18 +21,24 @@ function readSessionUser() {
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user: supaUser, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(readSessionUser);
+  const [localSession, setLocalSession] = useState<SessionUser | null>(readSessionUser);
   const [userFlows, setUserFlows] = useState<UserFlow[]>(() => readUserFlowsFromStorage());
   const flowPerms = useMemo(() => mergedFlowPermissions(userFlows), [userFlows]);
   const { count } = useFavorites();
   const { theme, toggle } = useTheme();
 
+  const currentUser = useMemo<SessionUser | null>(() => {
+    if (supaUser) return sessionUserFromSupabaseUser(supaUser);
+    return localSession;
+  }, [supaUser, localSession]);
+
   useEffect(() => {
     const sync = () => {
-      setCurrentUser(readSessionUser());
+      setLocalSession(readSessionUser());
       setUserFlows(readUserFlowsFromStorage());
     };
     window.addEventListener("ihaleal-auth", sync);
@@ -44,31 +51,11 @@ export function Navbar() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!supabase) return;
-    const apply = () => {
-      setCurrentUser(readSessionUser());
-      setUserFlows(readUserFlowsFromStorage());
-    };
-    void supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        localStorage.setItem("ihaleal_user", JSON.stringify(sessionUserFromSupabaseUser(session.user)));
-        apply();
-      }
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) {
-        localStorage.setItem("ihaleal_user", JSON.stringify(sessionUserFromSupabaseUser(session.user)));
-        apply();
-        return;
-      }
-      if (event === "SIGNED_OUT") {
-        localStorage.removeItem("ihaleal_user");
-        apply();
-      }
-    });
-    return () => sub.subscription.unsubscribe();
-  }, []);
+  const handleSignOut = async () => {
+    await signOut();
+    setIsOpen(false);
+    navigate("/");
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -121,6 +108,9 @@ export function Navbar() {
               <Button variant="ghost" size="sm" onClick={() => navigate("/sat-basla")} className="text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 gap-1.5"><Store className="w-4 h-4" /> Satıcı modu</Button>
               {currentUser ? (
                 <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-400 max-w-[140px] truncate hidden xl:inline" title={currentUser.email}>
+                    {currentUser.name || currentUser.email}
+                  </span>
                   {userFlows.length === 0 ? (
                     <Button size="sm" variant="outline" onClick={() => navigate("/onboarding/akis")} className="border-teal-500/40 text-teal-200">
                       Akış seç
@@ -131,14 +121,17 @@ export function Navbar() {
                       <PlusCircle className="w-4 h-4" /> Ihale Ac
                     </Button>
                   ) : null}
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/profil")} className="text-slate-400 hover:text-white">
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/profil")} className="text-slate-400 hover:text-white" title="Profil">
                     <UserPlus className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => void handleSignOut()} className="text-slate-400 hover:text-rose-300 gap-1.5">
+                    <LogOut className="w-4 h-4" /> Çıkış
                   </Button>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-400 hover:text-white gap-1.5"><LogIn className="w-4 h-4" /> Giris</Button>
-                  <Button size="sm" onClick={() => navigate("/kayit")} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold">Kayit Ol</Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-400 hover:text-white gap-1.5"><LogIn className="w-4 h-4" /> Giriş Yap</Button>
+                  <Button size="sm" onClick={() => navigate("/kayit")} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold">Üye Ol</Button>
                 </div>
               )}
               <Button variant="ghost" size="sm" onClick={toggle} className="text-slate-400 hover:text-white p-2" title={theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}>
@@ -190,11 +183,19 @@ export function Navbar() {
                     </button>
                   ) : null}
                   <button onClick={() => { navigate("/profil"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white text-left flex items-center gap-2"><UserPlus className="w-4 h-4" /> Profilim</button>
+                  <button
+                    onClick={() => {
+                      void handleSignOut();
+                    }}
+                    className="px-3 py-2.5 rounded-lg text-sm font-medium text-rose-300 hover:bg-rose-500/10 text-left flex items-center gap-2"
+                  >
+                    <LogOut className="w-4 h-4" /> Çıkış Yap
+                  </button>
                 </>
               ) : (
                 <>
-                  <button onClick={() => { navigate("/giris"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white text-left flex items-center gap-2"><LogIn className="w-4 h-4" /> Giris Yap</button>
-                  <button onClick={() => { navigate("/kayit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-teal-400 text-left">Kayit Ol</button>
+                  <button onClick={() => { navigate("/giris"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white text-left flex items-center gap-2"><LogIn className="w-4 h-4" /> Giriş Yap</button>
+                  <button onClick={() => { navigate("/kayit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-teal-400 text-left">Üye Ol</button>
                 </>
               )}
               <button onClick={() => { toggle(); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left flex items-center gap-2">

@@ -669,7 +669,41 @@ Ek kök varlıklar (CLOUD listesinde yok ama Kimi “10 görsel” dışı gerç
 `cd /c/Users/yagiz/Desktop/ihaleal.com && git add -A && git commit -m "agent(cursor): tur #9 Kimi gorsel envanter raporu AGENT_RAPORU" && git push`  
 _(Bu turda yalnızca `AGENT_RAPORU.md` değişti; kod/index değişmedi.)_
 
+**2026-04-27 — [CURSOR] TUR #11 — Login/Register Supabase auth bağlama**
+
+### ADIM 1 — Login/Register envanteri
+
+- **Rotalar:** `App.tsx` → `lazy(() => import("@/pages/Login"))` ve `Register`; kök `src/pages/Login.tsx` / `Register.tsx` yalnızca `export { default } from "./auth/..."` re-export.
+- **Gerçek UI:** `src/pages/auth/Login.tsx`, `src/pages/auth/Register.tsx`.
+- **Önceki durum:** Supabase doluysa doğrudan `supabase.auth.signInWithPassword` / `signUp`; aksi halde `localStorage` (`ihaleal_users` / `ihaleal_user`). `src/lib/supabase.ts` ortam boşsa istemci **`null`** idi.
+
+### ADIM 2–4 — Supabase client + AuthContext + sarmalayıcı
+
+- **`src/lib/supabase.ts`:** `createClient` her zaman; `isSupabaseConfigured()` ile URL+anon kontrolü; env eksikse `console.error('Supabase env eksik')`.
+- **`src/contexts/AuthContext.tsx`:** `getSession` + `onAuthStateChange` (yalnız `SIGNED_OUT`’ta `ihaleal_user` temizliği); `signIn` / `signUp` (metadata: `full_name`, isteğe bağlı `phone`) / `signOut`; `signUp` dönüşünde `session` (e-posta onayı kapalıysa anında oturum).
+- **`src/main.tsx`:** `<AuthProvider>` en dışta (`StrictMode` içinde, `App` dışında).
+
+### ADIM 5–6 — Login / Register
+
+- **Login:** Ana form yalnızca `useAuth().signIn` + `isSupabaseConfigured()`; hata metinleri `formatSupabaseAuthError` (ağ hatası dahil). **“Yerel demo hesabı dene”** → `demo@ihaleal.local` + yerel `localStorage` akışı (üretim oturumu değil).
+- **Register:** `password_confirm` alanı; Supabase yolunda `signUp` + e-posta onayı bilgi metni; oturum dönerse `/onboarding/akis`. Yerel demo yolunda telefon + KVKK + `localStorage` (önceki davranış). **Manuel `profiles` insert yok** (trigger varsayımı).
+
+### ADIM 7 — Navbar
+
+- **`useAuth()`** + `sessionUserFromSupabaseUser` ile Supabase kullanıcısı; aksi halde `localStorage` oturumu. **Giriş Yap / Üye Ol** vs **görünen ad + Profil + Çıkış** (`signOut`).
+
+### ADIM 8 — Build
+
+- `npm run typecheck` **0** · `npm run test:run` **6/6** · `npm run build` **OK** · `npm audit` **0 vulnerability**.
+
+### ADIM 10 — Git
+
+- Bu Cursor shell’de `git` PATH doğrulanmadı; **commit hash bu oturumda üretilmedi** — kullanıcı Git Bash:  
+  `cd /c/Users/yagiz/Desktop/ihaleal.com && git add -A && git commit -m "tur #11 — Login/Register Supabase auth bağlandı + AuthContext" && git push`
+
 ## C) Ortak — kararlar
+
+- **[CURSOR] (TUR #11, 2026-04-27)** Login/Register ana akışı `useAuth` + `supabase.auth`; yerel demo ayrı düğme. **Sıradaki:** CreateAuction → DB insert **(tur #12)**.
 
 - **[CURSOR]** El sıkışma dosyası: `ORTAK_CALISMA_KOMUTU.txt`; rapor merkezi: bu dosya (`AGENT_RAPORU.md`).
 - **[CURSOR]** Paralel çalışma: Cloud çıktısını canlı göremem; çakışmayı önlemek için §A yalnız Cloud, §B yalnız Cursor (şu an bu kurala uyuluyor).
@@ -915,6 +949,10 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 **K12:** `.env.local` içinde URL + anon + service_role **dolu**; uzak DB şeması **manual SQL ile uygulandı** (Success).
 
 **K18 — Manual SQL push:** **Tamamlandı** (2026-04-28). Yeni migration eklersen: `npm run sql:bundle` → güncel `supabase/manual_push.sql` → SQL Editor’da yalnızca **fark** veya tam betiği bilinçli şekilde çalıştır. CLI `db push` hâlâ isteğe bağlı (PAT + link).
+
+### D-K19 — E-posta onayı (Supabase Auth) **[CURSOR] TUR #11**
+
+Supabase varsayılanında **e-posta doğrulama** genelde açıktır: kullanıcılar kayıt sonrası gelen kutudaki bağlantıyı tıklamadan giriş yapamayabilir. **Üretim öncesi:** güvenilir **SMTP** (SendGrid / Mailgun / Resend vb.) Dashboard’da tanımlanmalı; geliştirme için geçici olarak **Authentication → Providers → Email → “Confirm email”** kapatılabilir (risk: herkes e-postasız oturum — yalnızca dev).
 
 ---
 

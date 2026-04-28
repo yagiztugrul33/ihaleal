@@ -9,19 +9,83 @@ import {
   migrateUserPasswordIfNeeded,
   stripForSession,
   dispatchAuthChanged,
+  createPasswordRecord,
   type StoredUser,
 } from "@/lib/auth";
 import { readUserFlowsFromStorage } from "@/lib/userFlows";
-import { supabase } from "@/lib/supabase";
-import { formatSupabaseAuthError, isSupabaseAuthAvailable, persistSupabaseUser } from "@/lib/supabaseAuthBridge";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { formatSupabaseAuthError } from "@/lib/supabaseAuthBridge";
+import { useAuth } from "@/contexts/AuthContext";
+
+const DEMO_LOCAL_EMAIL = "demo@ihaleal.local";
+const DEMO_LOCAL_PASSWORD = "Demo1234!";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const navigateAfterLogin = () => {
+    const flows = readUserFlowsFromStorage();
+    const next = flows.length ? "/dashboard" : "/onboarding/akis";
+    navigate(next);
+  };
+
+  const loginWithLocalStorage = async (loginEmail: string, loginPassword: string) => {
+    const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
+    const idx = users.findIndex((u) => u.email === loginEmail);
+    if (idx < 0) {
+      setError("Geçersiz e-posta veya şifre.");
+      return;
+    }
+    const raw = users[idx];
+    const ok = await verifyPassword(raw, loginPassword);
+    if (!ok) {
+      setError("Geçersiz e-posta veya şifre.");
+      return;
+    }
+    const migrated = await migrateUserPasswordIfNeeded(raw, loginPassword);
+    users[idx] = migrated;
+    localStorage.setItem("ihaleal_users", JSON.stringify(users));
+    localStorage.setItem("ihaleal_user", JSON.stringify(stripForSession(migrated)));
+    dispatchAuthChanged();
+    setSuccess(true);
+    setTimeout(() => navigateAfterLogin(), 600);
+  };
+
+  const ensureDemoLocalUser = async () => {
+    const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
+    if (users.some((u) => u.email === DEMO_LOCAL_EMAIL)) return;
+    const { passwordSalt, passwordHash } = await createPasswordRecord(DEMO_LOCAL_PASSWORD);
+    users.push({
+      id: `demo-${Date.now()}`,
+      name: "Yerel Demo",
+      email: DEMO_LOCAL_EMAIL,
+      phone: "5550000000",
+      passwordSalt,
+      passwordHash,
+      avatar: "",
+      verified: false,
+      rating: 0,
+      auctionsCreated: 0,
+      auctionsWon: 0,
+      memberSince: new Date().toISOString().split("T")[0],
+    });
+    localStorage.setItem("ihaleal_users", JSON.stringify(users));
+  };
+
+  const handleDemoLocal = async () => {
+    setError("");
+    setSuccess(false);
+    await ensureDemoLocalUser();
+    setEmail(DEMO_LOCAL_EMAIL);
+    setPassword(DEMO_LOCAL_PASSWORD);
+    await loginWithLocalStorage(DEMO_LOCAL_EMAIL, DEMO_LOCAL_PASSWORD);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,43 +94,17 @@ export default function Login() {
       setError("E-posta ve şifre gereklidir.");
       return;
     }
-    if (isSupabaseAuthAvailable() && supabase) {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-      if (error) {
-        setError(formatSupabaseAuthError(error.message));
-        return;
-      }
-      if (data.user) persistSupabaseUser(data.user);
-      setSuccess(true);
-      const flows = readUserFlowsFromStorage();
-      const next = flows.length ? "/dashboard" : "/onboarding/akis";
-      setTimeout(() => navigate(next), 800);
+    if (!isSupabaseConfigured()) {
+      setError("Supabase yapılandırması yok (.env.local). Yerel demo için aşağıdaki düğmeyi kullanın.");
       return;
     }
-    const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
-    const idx = users.findIndex((u) => u.email === email);
-    if (idx < 0) {
-      setError("Geçersiz e-posta veya şifre.");
+    const { error: authErr } = await signIn(email.trim(), password);
+    if (authErr) {
+      setError(formatSupabaseAuthError(authErr.message));
       return;
     }
-    const raw = users[idx];
-    const ok = await verifyPassword(raw, password);
-    if (!ok) {
-      setError("Geçersiz e-posta veya şifre.");
-      return;
-    }
-    const migrated = await migrateUserPasswordIfNeeded(raw, password);
-    users[idx] = migrated;
-    localStorage.setItem("ihaleal_users", JSON.stringify(users));
-    localStorage.setItem("ihaleal_user", JSON.stringify(stripForSession(migrated)));
-    dispatchAuthChanged();
     setSuccess(true);
-    const flows = readUserFlowsFromStorage();
-    const next = flows.length ? "/dashboard" : "/onboarding/akis";
-    setTimeout(() => navigate(next), 800);
+    setTimeout(() => navigateAfterLogin(), 600);
   };
 
   return (
@@ -83,7 +121,7 @@ export default function Login() {
               </div>
               <h1 className="text-2xl font-bold text-white">Giriş Yap</h1>
               <p className="text-sm text-slate-400 mt-1">
-                {isSupabaseAuthAvailable() ? "Supabase Auth ile güvenli oturum." : "Demo oturum — tarayıcıda yerel kayıt."}
+                {isSupabaseConfigured() ? "Supabase Auth ile güvenli oturum." : "Supabase .env yok — yalnızca yerel demo kullanılabilir."}
               </p>
             </div>
             {success && (
@@ -104,6 +142,7 @@ export default function Login() {
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
                     placeholder="ornek@mail.com"
+                    autoComplete="email"
                   />
                 </div>
               </div>
@@ -117,6 +156,7 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10 pr-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
                     placeholder="••••••••"
+                    autoComplete="current-password"
                   />
                   <button
                     type="button"
@@ -127,10 +167,18 @@ export default function Login() {
                   </button>
                 </div>
               </div>
-              <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11">
+              <Button
+                type="submit"
+                disabled={!isSupabaseConfigured()}
+                className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-50"
+              >
                 Giriş Yap
               </Button>
             </form>
+            <Button type="button" variant="outline" className="w-full border-white/15 text-slate-200 hover:bg-white/5" onClick={() => void handleDemoLocal()}>
+              Yerel demo hesabı dene
+            </Button>
+            <p className="text-[11px] text-slate-500 text-center">Yerel demo: tarayıcıda sahte kullanıcı; üretim oturumu değildir.</p>
             <div className="text-center text-sm text-slate-400">
               Hesabınız yok mu?{" "}
               <button type="button" onClick={() => navigate("/kayit")} className="text-blue-400 hover:text-blue-300 font-medium">
