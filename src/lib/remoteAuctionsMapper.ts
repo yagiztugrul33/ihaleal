@@ -5,7 +5,7 @@ import { withListingDefaults } from "@/lib/listingPolicy";
 type ListingRow = {
   id: string;
   title: string;
-  body: string | null;
+  body: unknown;
   status: string;
 };
 
@@ -14,7 +14,7 @@ type DbAuctionRow = {
   status: string;
   starts_at: string;
   ends_at: string;
-  current_high: number | string;
+  current_high_bid_try: number | string | null;
   listings: null | ListingRow | ListingRow[];
 };
 
@@ -35,13 +35,19 @@ function mapDbAuctionStatus(s: string): Auction["status"] {
   return "upcoming";
 }
 
-function parseBodyOverlay(body: string | null): Partial<Auction> {
-  if (!body || !body.trim().startsWith("{")) return {};
-  try {
-    return JSON.parse(body) as Partial<Auction>;
-  } catch {
-    return {};
+function parseBodyOverlay(body: unknown): Partial<Auction> {
+  if (body == null) return {};
+  if (typeof body === "object") return body as Partial<Auction>;
+  if (typeof body === "string") {
+    const t = body.trim();
+    if (!t.startsWith("{")) return {};
+    try {
+      return JSON.parse(t) as Partial<Auction>;
+    } catch {
+      return {};
+    }
   }
+  return {};
 }
 
 /** DB satırını tam `Auction` şekline dönüştürür (şablondan doldurur). */
@@ -54,17 +60,21 @@ export function auctionFromRemoteRow(row: DbAuctionRow): Auction {
       title: "İlan",
       endDate: new Date(row.ends_at).toISOString(),
       status: mapDbAuctionStatus(row.status),
-      currentBid: Number(row.current_high) || 0,
-      startingBid: Number(row.current_high) || 0,
+      currentBid: Number(row.current_high_bid_try) || 0,
+      startingBid: Number(row.current_high_bid_try) || 0,
     });
   }
   const title = listing.title?.trim() || "İlan";
   const rawBody = listing.body ?? null;
   const overlay = parseBodyOverlay(rawBody);
-  const high = Number(row.current_high);
+  const high = Number(row.current_high_bid_try);
   const startBid = overlay.startingBid != null ? Number(overlay.startingBid) : high;
   const plainDescription =
-    rawBody && !rawBody.trim().startsWith("{") ? rawBody : overlay.description ?? TEMPLATE.description;
+    typeof rawBody === "string" && rawBody.trim() && !rawBody.trim().startsWith("{")
+      ? rawBody
+      : typeof overlay.description === "string"
+        ? overlay.description
+        : TEMPLATE.description;
 
   return withListingDefaults({
     ...TEMPLATE,

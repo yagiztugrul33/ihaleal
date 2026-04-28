@@ -16,7 +16,7 @@ export async function fetchRemoteAuctionsCatalog(): Promise<Auction[]> {
       status,
       starts_at,
       ends_at,
-      current_high,
+      current_high_bid_try,
       listings (
         id,
         title,

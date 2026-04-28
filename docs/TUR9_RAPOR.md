@@ -35,46 +35,87 @@ PowerShell kalıcı PATH: Sistem Özellikleri → Ortam Değişkenleri → Path 
 
 ---
 
-## §B — ADIM 2: `.env.local`
+## §B — ADIM 2 (otomatik B): `.env.local`
 
-Tur #9 talimatı: placeholder / temiz şablon. **İçerik boş `VITE_*` satırları + yorum** olarak yazıldı (anahtarlar sohbete yazılmaz).
-
-**Sonraki adım (kullanıcı):** Masaüstü `supabase-keys.txt` doldurulduktan sonra proje kökünde `npm run env:sync` veya `SYNC_ENV.bat`.
+- Önceki `.env.local` → **`.env.local.bak`** yedeklendi (varsa üzerine yazıldı).
+- **`.env.local` otomatik dolduruldu:** `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `SUPABASE_PROJECT_REF` talimattaki değerlerle; `SUPABASE_SERVICE_ROLE_KEY=` boş.
+- `.gitignore`: `.env.local`, `.env.*.local`, `.env.local.bak` açıkça eklendi (`*.local` / `.env.*` ile birlikte).
 
 ---
 
-## §B — ADIM 4: KIMI görsel doğrulama (dosya sistemi)
+## §B — TUR #9 SUPABASE TAM KURULUM (devam turu)
 
-| Yol | Sonuç |
-|-----|--------|
+### ADIM 1 — envanter (tekrar)
+
+| Kontrol | Sonuç |
+|---------|--------|
+| `git` PATH | `git` yok; `C:\Program Files\Git\bin\git.exe --version` → **2.54.0.windows.1** |
+| `.env.local` | **VAR** (gitignore) |
+| `.env.example` | **VAR** |
+| `src/lib/supabase.ts` | **VAR** |
+| `supabase/` | **VAR**; `supabase/migrations/` → **3 aktif dosya** (`20000`, `20100`, `20200`) |
+| Eski migrasyonlar | `supabase/migrations_archive_pre_tur9/` altında arşiv |
+| `package.json` `@supabase/supabase-js` | **2.105.0** |
+| `package.json` `supabase` (dev) | **2.95.5** |
+
+### ADIM 3 — `.env.example`
+
+Repoya commit’lenen şablon talimattaki satırlarla güncellendi (placeholder değerler).
+
+### ADIM 4 — paketler
+
+`npm list` + `npx supabase --version` → kurulum **tamam** (ek kurulum gerekmedi).
+
+### ADIM 5 — `supabase init`
+
+`supabase/config.toml` **VAR** → init atlandı.
+
+### ADIM 6 — migrasyonlar (YEREL; `db push` YOK)
+
+| Dosya | Açıklama |
+|-------|----------|
+| `20260428120000_initial_schema.sql` | Şema + `handle_new_user` + `findeks_score` (Edge `place_bid` uyumu) |
+| `20260428120100_rls_policies.sql` | RLS + `DROP POLICY IF EXISTS` |
+| `20260428120200_place_bid_function.sql` | `place_bid` RPC + `GRANT authenticated` |
+
+**Push:** Talimat gereği bu turda **`supabase db push` çalıştırılmadı.**
+
+### ADIM 7 — KIMI 10 dosya tablosu
+
+| Dosya | Durum |
+|-------|--------|
 | `public/og-image.png` | **VAR** |
-| `public/favicon.png` | **VAR** (tur #9 `gen:assets`) |
-| `public/logo/` | **VAR** — `logo-mark-512.png`, `README.txt` |
-| `public/social/` | **VAR** — `share-card-1200.png`, `README.txt` |
-| `public/email/` | **VAR** — `email-header-600.png`, `README.txt` |
+| `public/logo/logo-horizontal.png` | **YOK** |
+| `public/logo/logo-square.png` | **YOK** |
+| `public/favicon.png` | **VAR** |
+| `public/social/new-auction-post.png` | **YOK** |
+| `public/social/winner-post.png` | **YOK** |
+| `public/social/comparison-post.png` | **YOK** |
+| `public/email/email-header-welcome.png` | **YOK** |
+| `public/email/email-header-winner.png` | **YOK** |
+| `public/email/email-header-confirm.png` | **YOK** |
 
-Ayrıca: `icon-192.png`, `icon-512.png`, `logo.svg` (mevcut).
+**Özet:** **3 / 10** (og-image, favicon; ayrıca önceki turda üretilen `logo-mark-512`, `share-card-1200`, `email-header-600` KIMI listesinde yoktu). `public/logo`, `public/social`, `public/email` klasörleri mevcut.
 
----
+### ADIM 8 — build / audit / test / REST
 
-## §B — Supabase DB push (backend)
-
-```text
-npx supabase db push
-→ Cannot find project ref. Have you run supabase link?
-```
-
-**Sonuç:** Uzak projeye link yok; bu ortamda `db push` **çalışmadı**. Kullanıcı: `npx supabase login` → `npm run supabase:link` → `npm run supabase:push`.
-
----
-
-## Build
-
-`npm run verify` (tur #9 bu commit öncesi çalıştırıldı): typecheck + vitest + vite build **başarılı**.
+- `npm run typecheck` → **OK**
+- `npm run build` → **OK**
+- `npm audit` → **0 vulnerabilities**
+- `npm run test:run` → **6/6 test**
+- `GET https://…supabase.co/rest/v1/` + `apikey` → **HTTP 401** (erişilebilir; JWT olmadan beklenen)
 
 ---
 
-## Otonom kararlar (tur #9)
+## §C — [CURSOR]
 
-- `.env.local` anahtarları **şablona sıfırlandı** (talimat ADIM 2). Yerelde tekrar doldurma gerekir.
-- KIMI eksikleri kapatmak için `gen-assets.mjs` genişletildi; `index.html` içine `favicon.png` linki eklendi.
+- Tur #9 ADIM 1–8 (bu devam turu): `.env.local` otomatik, `.env.example` güncellendi, migrasyon 3 dosya + eski set arşiv, frontend mapper `current_high_bid_try` + `jsonb body` uyumu, **`db push` yok.**
+- KIMI: **3/10** listedeki dosya doğrulandı; kalan 7 için klasörler hazır, dosyalar KIMI üretimine bırakıldı.
+
+---
+
+## §D — kayıt
+
+- **K12 (Supabase credentials):** [KULLANICI: URL + anon `.env.local` içinde otomatik dolduruldu; `SUPABASE_SERVICE_ROLE_KEY` boş — push sonrası / Dashboard secrets — 2026-04-28]
+- **K17 (yeni):** Supabase **Personal Access Token** + **service_role** — `supabase link` / `db push` ve CLI için; kullanıcı `supabase.com/dashboard/account/tokens` + proje API ayarlarından alacak.
+
