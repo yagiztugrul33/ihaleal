@@ -1496,6 +1496,10 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 
 **`supabase/manual_push_v2.sql`** kullanıcı Supabase **SQL Editor**’da yapıştırıp **Run** (~30 sn): profiles 4 alan + geçici listings INSERT politikası + auctions INSERT politikası.
 
+### Git (TUR #12)
+
+- **`9930765bbcf0df625fa9ba71b8dfca927a33bbb5`** — push: `main → origin/main`
+
 ---
 
 ## 7. KALAN İŞLER
