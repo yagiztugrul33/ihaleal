@@ -1462,6 +1462,42 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 
 ---
 
+## TUR #12 — CREATEAUCTION + PROFILES + DEMO SEED (2026-04-29 — Cursor)
+
+### ADIM 1 — Migration + manuel SQL
+
+- **`supabase/migrations/20260429120000_profiles_extra_fields.sql`** — `profiles` için 4 alan + indeksler (`e_devlet_status`, `iban`, `tc_kimlik_no`, `role`).
+- **`supabase/manual_push_v2.sql`** — yukarıdaki ALTER + **`listings_insert_kyc` → `listings_insert_authenticated`** + **`auctions_insert_listing_owner`** (satıcı `listing` sahibi ise `auctions` INSERT). **`supabase db push` çalıştırılmadı** — kullanıcı SQL Editor’da manuel.
+
+### ADIM 2 — CreateAuction envanteri
+
+- **`rg`:** `/ihale-ac` → `src/App.tsx`; bileşen **`src/pages/CreateAuction.tsx`** (tek dosya).
+- Eski akış: `localStorage ihaleal_auctions` + yerel kullanıcı sayacı.
+
+### ADIM 3–4 — CreateAuction + katalog
+
+- **`CreateAuction.tsx`:** `useAuth().user` + `supabase.from('listings').insert` → `supabase.from('auctions').insert`; başarıda `navigate(/ilan/${auction.id})`; ilan **`status: 'review'`**.
+- **`supabaseAuctionsFetch.ts`:** Uzak katalog filtresine **`review`** listing durumu eklendi (yeni ilanlar listede görünsün).
+
+### ADIM 5 — Demo seed
+
+- **`src/data/demo-auctions.json`** — şimdilik **`[]`** (Kimi A_01 bekleniyor).
+- **`scripts/seed-demo-auctions.mjs`** — service role + **`DEMO_SEED_SELLER_ID`** (gerçek `auth.users` uuid); sahte `profiles` UUID **yok**.
+
+### ADIM 6 — Build
+
+| Komut | Sonuç |
+|--------|--------|
+| `npm run typecheck` | exit **0** |
+| `npm run build` | exit **0** (~2m11s, bilinen chunk uyarısı) |
+| `npm audit --audit-level=high` | **found 0 vulnerabilities** |
+
+### §D-K21
+
+**`supabase/manual_push_v2.sql`** kullanıcı Supabase **SQL Editor**’da yapıştırıp **Run** (~30 sn): profiles 4 alan + geçici listings INSERT politikası + auctions INSERT politikası.
+
+---
+
 ## 7. KALAN İŞLER
 
 - Sunucu auth, ödeme, e-posta, gerçek Endeksa (veya lisanslı) API, ilan CRUD tamamı, SSR/prerender (OG sayfa başına), üretim CSP.

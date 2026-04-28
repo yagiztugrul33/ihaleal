@@ -35,7 +35,7 @@ export async function fetchRemoteAuctionsCatalog(): Promise<Auction[]> {
   return rows
     .filter((r) => {
       const l = Array.isArray(r.listings) ? r.listings[0] : r.listings;
-      return l && ["active", "closed"].includes(l.status);
+      return l && ["active", "closed", "review"].includes(l.status);
     })
     .map(auctionFromRemoteRow);
 }
