@@ -1,6 +1,7 @@
 -- ihaleal.com — TUR #13 manuel SQL (Supabase SQL Editor → Run)
 -- Önce TUR #12 `manual_push_v2.sql` uygulanmış olmalı.
 -- db push kullanılmıyorsa bu dosyayı tek seferde yapıştırın.
+-- Dosya sonunda ADIM 13.3 (listings RLS sıkı) yer alır.
 
 -- TUR #13 — teminat (bid bond) + anti-sniping + place_bid güncellemesi
 -- fees.ts FEES.bidBondRate (%5) ile uyumlu sabit
@@ -139,3 +140,21 @@ end;
 $fn$;
 
 grant execute on function public.place_bid(uuid, numeric, text) to authenticated;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- ADIM 13.3 — Listings RLS sıkı mod (TUR #12 gevşetmesinin geri alınması)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+drop policy if exists "listings_insert_authenticated" on public.listings;
+drop policy if exists "listings_insert_kyc" on public.listings;
+
+create policy "listings_insert_kyc_edevlet" on public.listings
+  for insert with check (
+    auth.uid() = seller_id
+    and exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid()
+        and p.kyc_status = 'verified'
+        and coalesce(p.e_devlet_status, 'none') = 'verified'
+    )
+  );
