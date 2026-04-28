@@ -335,7 +335,32 @@ git commit -F CLOUD_CIKTI\GIT_TUR8_COMMIT_MSG.txt
   `cd /c/Users/yagiz/Desktop/ihaleal.com && git add -A && git commit -m "tur #N — özet" && git push`  
   (~30 sn; PAT/credential kullanıcıda).
 
-### TUR #9 — KIMI GÖRSEL ENTEGRASYONU (2026-04-28 — [CURSOR] envanter + doğrulama)
+### TUR #9 — Supabase kurulum (2026-04-28 — [CURSOR] kullanıcı sıralı komut)
+
+1. **`.env.local`:** Verilen 4 satır (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, boş `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_PROJECT_REF`) yazıldı; önceki dosya varsa **`.env.local.bak`** ile yedeklendi. **Commit edilmez** (`.gitignore`).
+2. **`.gitignore`:** `.env.local` / `.env.local.bak` satırları **mevcut** (tekrar ekleme gerekmedi).
+3. **Paketler:** `npm list` → **`@supabase/supabase-js@2.105.0`**, dev **`supabase@2.95.5`** yüklü; bu turda ek `npm install` çıktısı üretilmedi.
+4. **SQL migrations (yerel):** `supabase/migrations/20260428120000_initial_schema.sql`, `20260428120100_rls_policies.sql`, `20260428120200_place_bid_function.sql` **mevcut**. **`supabase db push` çalıştırılmadı** (talimat + service_role boş).
+5. **`public/logo`**, **`public/social`**, **`public/email`:** klasörler oluşturuldu/doğrulandı; içeride önceki turdan **README.txt** + bazı üretim PNG’leri olabilir → **tamamen boş değil** (envanter aşağıda).
+6. **KIMI 9 yol tablosu** (`Test-Path` / `Get-Item`, 2026-04-28):
+
+| Dosya | VAR / YOK |
+|--------|-------------|
+| `public/og-image.png` | **VAR** |
+| `public/logo/logo-horizontal.png` | **YOK** |
+| `public/logo/logo-square.png` | **YOK** |
+| `public/favicon.png` | **VAR** |
+| `public/social/new-auction-post.png` | **YOK** |
+| `public/social/winner-post.png` | **YOK** |
+| `public/social/comparison-post.png` | **YOK** |
+| `public/email/email-header-welcome.png` | **YOK** |
+| `public/email/email-header-winner.png` | **YOK** |
+| `public/email/email-header-confirm.png` | **YOK** |
+
+7. **Build (2026-04-28, agent):** `npm run typecheck` **exit 0** · `npm run build` **exit 0** (Vite 6.4.2, **✓ built in ~38.8s**, 2471 modül) · `npm audit` **found 0 vulnerabilities**.
+8. **Git:** `C:\Program Files\Git\bin\git.exe` ile **`git add -A`** → **`git commit -m "tur #9 supabase setup"`** → **`git push`** çalıştırıldı (yalnız izlenen dosyalar; `.env.local` stage edilmedi).
+
+### TUR #9b — KIMI GÖRSEL ENTEGRASYONU (2026-04-28 — [CURSOR] envanter + doğrulama)
 
 **ADIM 1 — Dosya varlık (PowerShell `Get-Item` / `Test-Path`, kök `ihaleal.com/public/`):**
 
@@ -611,7 +636,7 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 | Madde | Aciliyet | Durum |
 |--------|----------|--------|
 | **D-Git** (repo + uzak push) | 🟢 Tamam | GitHub aktif; **Cursor PATH’te git yok** → agent otomatik push yapmaz; §B protokolü |
-| **K12** (Supabase credentials) | 🔴 Tur #9 ön koşulu | URL + anon + service_role `.env.local` |
+| **K12** (Supabase credentials) | 🟡 Push / service_role bekliyor | **[KULLANICI: URL+anon dolu, service_role sonra]** `.env.local` (gitignore); `supabase db push` yapılmadı — 2026-04-28 Cursor |
 | **K13** (GitHub repo URL) | 🟢 Kapanıldı | `yagiztugrul33/ihaleal` — ilk push `b86c2f2` |
 | K2 (SEO prerender) | 🟡 Tur #6 | Acil değil |
 | K4 (iyzico ödeme) | 🟡 Backend sonrası | Acil değil |
@@ -621,7 +646,7 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 | K14 (iyzico başvurusu) | 🟠 5-10 iş günü onay | Bu hafta başlat |
 | K15 (KEP/e-imza) | 🟡 Sözleşme akışı kurulurken | Acil değil |
 
-**K12 (Supabase) çözülmeden tur #9 backend bağlantısı başlamaz** (D-Git + K13 tamam).
+**K12:** URL + anon `.env.local` içinde; uzak şema için **`SUPABASE_SERVICE_ROLE_KEY`** + `supabase link` / **`db push`** kullanıcıda (D-Git + K13 tamam).
 
 ---
 
