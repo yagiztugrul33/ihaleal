@@ -319,7 +319,21 @@ git commit -F CLOUD_CIKTI\GIT_TUR8_COMMIT_MSG.txt
 
 **ADIM 10 — Push:** `git push -u origin main`. İlk push’ta GitHub **PAT** isteyebilir; şifre alanına **GitHub şifresi değil** classic token (`repo` scope) girilir. PAT’i sohbete yapıştırmayın; Windows Credential Manager veya `git credential` kullanın.
 
-**Sonuç (agent):** **Commit hash yok** · **Push: yapılmadı (ortam)**. Repo URL kullanıcı tarafından sağlandı — **K13 cevabı §D’ye işlendi**. **§D-Git blokör:** Cursor/agent PATH’inde `git` olmadığı sürece bu oturumda **kapanmadı**; kullanıcı yerel başarılı push sonrası §D’ye `[KULLANICI: push OK]` notu ekleyebilir.
+**Sonuç (agent, TUR #8 ilk deneme):** Cursor oturumunda push yoktu — kullanıcı **Git Bash** ile tamamladı (bkz §B **TUR #8 KAPANIŞ**).
+
+### TUR #8 KAPANIŞ (2026-04-28 — [CURSOR] + kullanıcı)
+
+- **GitHub repo aktif:** `https://github.com/yagiztugrul33/ihaleal`
+- **İlk commit (kısa hash):** `b86c2f2` — turlar #1–7 birleşik mesaj; **Co-authored-by: cloud-cursor-collab** ✓
+- **Author:** `yagiztugrul33` (kullanıcı `git config`)
+- **Push yöntemi:** Git Bash — kullanıcı **manuel**. **Cursor PATH:** bu oturumda `git --version` **hâlâ başarısız**; sonraki turlarda Git’i PATH’e eklemek veya **Cursor restart** denenebilir.
+
+### Otomatik commit/push protokolü (sonraki turlar — [CURSOR])
+
+- **Cursor’da `git` çalışıyorsa** (ileride): tur sonunda `git add -A` → `git commit -m "agent(cursor): tur #N — <özet>"` → `git push`.
+- **Cursor’da `git` yoksa:** değişiklikleri bitir; §B’de kullanıcıya **tek satır** (Git Bash):  
+  `cd /c/Users/yagiz/Desktop/ihaleal.com && git add -A && git commit -m "tur #N — özet" && git push`  
+  (~30 sn; PAT/credential kullanıcıda).
 
 ## C) Ortak — kararlar
 
@@ -397,7 +411,7 @@ _(Kalıp `piyasa.*değer` `src/components` altında eşleşmedi.)_
 
 - **[CURSOR] MEGA v3 TUR #6 → [CLOUD] (FAZ 2 adayları):** (1) **`SecurityCenter.tsx`** — FAZ 3 + K16=B ile **RoadmapBanner** ve taslak dili uygulandı (§B FAZ 3). (2) **`hero-aerial.mp4`** — FAZ 3’te **`ihaleal-tanitim.mp4`** ile değiştirildi. (3) **`src/pages` içinde `RouteSeo`/`Helmet`/`<title>` yok** — tasarım bilinçli mi, yoksa SEO borcu mu; §D-K2 ile hizala.
 
-- **[CURSOR] TUR #8 → [CLOUD]:** GitHub remote URL kullanıcıdan geldi (`yagiztugrul33/ihaleal`). **Cursor ortamında `git` binary yok** → commit/push agent’tan yapılamadı; §B’de yerel komut seti + `CLOUD_CIKTI/GIT_TUR8_COMMIT_MSG.txt` bırakıldı.
+- **[CURSOR] TUR #8 → [CLOUD]:** GitHub **`yagiztugrul33/ihaleal`** aktif; ilk commit **`b86c2f2`**. Kullanıcı Git Bash ile push tamamladı. **Cursor ortamında `git` hâlâ yok** → agent otomatik push yapmaz; §B **TUR #8 KAPANIŞ** + **otomatik commit protokolü** güncel.
 
 ### [CLOUD] — FAZ 2 KISMI ÇAPRAZ KONTROL (2026-04-28)
 
@@ -493,7 +507,7 @@ KIMI itirafına dayanarak kısmi tespit yapıldı. CROSS §B gelince ek tespit o
 
 - **K12 — Supabase:** `VITE_SUPABASE_URL=…` / `VITE_SUPABASE_ANON_KEY=…` / (yerel gizli) `SUPABASE_SERVICE_ROLE_KEY=…` + proje ref → `.env.local` (**gitignore**). Sonra: `npx supabase link --project-ref <ref>` ve `npx supabase db push`.
 - **K13 — GitHub:** `git remote add origin <HTTPS/SSH URL>`; `main` veya `master` default’a göre `push -u`.
-- **[KULLANICI CEVABI — 2026-04-28]:** Repo URL **`https://github.com/yagiztugrul33/ihaleal.git`** (`yagiztugrul33/ihaleal`). Cursor agent bu URL ile **push çalıştıramadı** (bkz §B TUR #8).
+- **[KULLANICI CEVABI: https://github.com/yagiztugrul33/ihaleal — 2026-04-28]** — **KAPANDI** ✓ (ilk commit `b86c2f2` uzakta).
 
 ### [CLOUD] — K14 / K15 (MEGA v2; Cursor yalnız hatırlatır)
 
@@ -551,9 +565,9 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 
 | Madde | Aciliyet | Durum |
 |--------|----------|--------|
-| **D-Git** (Git for Windows kurulumu) | 🔴 4. tur blokör | CROSS commit/push yapamıyor; her tur birikir |
-| **K12** (Supabase credentials) | 🔴 Tur #5 ön koşulu | Kullanıcı supabase.com'da proje açmadı mı? |
-| **K13** (GitHub repo URL) | 🟢 URL verildi | `yagiztugrul33/ihaleal` — push kullanıcı yerelinde |
+| **D-Git** (repo + uzak push) | 🟢 Tamam | GitHub aktif; **Cursor PATH’te git yok** → agent otomatik push yapmaz; §B protokolü |
+| **K12** (Supabase credentials) | 🔴 Tur #9 ön koşulu | URL + anon + service_role `.env.local` |
+| **K13** (GitHub repo URL) | 🟢 Kapanıldı | `yagiztugrul33/ihaleal` — ilk push `b86c2f2` |
 | K2 (SEO prerender) | 🟡 Tur #6 | Acil değil |
 | K4 (iyzico ödeme) | 🟡 Backend sonrası | Acil değil |
 | K5 (KVKK avukat) | 🟠 Canlı çıkmadan | Acil değil ama unutma |
@@ -562,7 +576,7 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 | K14 (iyzico başvurusu) | 🟠 5-10 iş günü onay | Bu hafta başlat |
 | K15 (KEP/e-imza) | 🟡 Sözleşme akışı kurulurken | Acil değil |
 
-**Kritik 3 madde (D-Git, K12, K13) çözülmeden tur #5 backend kurulumu açılamaz.**
+**K12 (Supabase) çözülmeden tur #9 backend bağlantısı başlamaz** (D-Git + K13 tamam).
 
 ---
 
@@ -585,7 +599,9 @@ CROSS §B envanteri yapıştırıldığında:
 
 ### [CURSOR] (2026-04-28) — §D-Git TUR #8
 
-Kullanıcı: Git kurulu + repo URL verildi. **Cursor terminalinde** `git` hâlâ **yok** → agent **push/commit atmadı**. Blokör, **yerel makinede** Git Bash veya PATH’li PowerShell’de §B TUR #8 komutlarıyla giderilir; başarılı push sonrası: **`[KULLANICI CEVABI: kuruldu + bağlandı + push edildi — 2026-04-28]`** satırını kullanıcı ekleyebilir.
+- **[KULLANICI CEVABI: Git kuruldu + remote bağlandı + ilk push başarılı (b86c2f2) — 2026-04-28]** — **BLOKÖR KAPANDI** ✓ (ürün reposu GitHub’da; Cursor PATH ayrı konu — §B protokolü).
+
+- **[CURSOR] PATH testi (TUR #8 kapanış):** `git --version` Cursor PowerShell’de **hâlâ tanınmıyor** → her tur sonunda agent, kullanıcıya §B’de **Git Bash tek satır** (`add && commit && push`) verebilir.
 
 ## 1. Özet
 
