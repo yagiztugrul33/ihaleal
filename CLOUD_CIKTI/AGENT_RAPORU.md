@@ -1471,8 +1471,13 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 
 ### ADIM 2 — CreateAuction envanteri
 
-- **`rg`:** `/ihale-ac` → `src/App.tsx`; bileşen **`src/pages/CreateAuction.tsx`** (tek dosya).
+- **`rg -n "CreateAuction|YeniIhale|/yeni-ihale" src/`** eşleşmeleri: **`src/pages/CreateAuction.tsx`** (bileşen + `[CreateAuction]` logları); **`src/App.tsx`** — route **`/ihale-ac`** (`CreateAuction` lazy); **`src/lib/userFlows.ts`** — CreateAuction ipucu. **`/yeni-ihale` route’u yok** (ürün rotası `/ihale-ac`).
 - Eski akış: `localStorage ihaleal_auctions` + yerel kullanıcı sayacı.
+
+### ADIM 12.3 — §B özet (form + state + submit)
+
+- **State:** görsel base64 dizisi; başlık, açıklama, il/ilçe/mahalle; başlangıç fiyatı, referans ₺, süre (gün); kategori (Konut/Ticari/Arsa/Villa); `dealType` sale/rent; `marketingMode` (`listing_only` | `sealed_offers` | `auction`); teknik alanlar (m², oda, banyo, kat, yıl, özellikler); PDF dosya adları; ekspertiz zorunluluğu; taahhüt limitleri + onay; `error`, `success`, `submitLoading`.
+- **`handleCreate`:** `useAuth` kullanıcı + `isSupabaseConfigured`; validasyonlar; `listings.insert` (`status: review`) → hata: **`window.alert` + `console.error` + `setError`**; `auctions.insert` (`scheduled`) → aynı; başarı: **`invalidateAuctionsCatalogCache`**, **`navigate(\`/ilan/${auction.id}\`)`** ( **`/ihale/:id` değil** — uygulama rotası `/ilan/:id`).
 
 ### ADIM 3–4 — CreateAuction + katalog
 
@@ -1492,13 +1497,24 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 | `npm run build` | exit **0** (~2m11s, bilinen chunk uyarısı) |
 | `npm audit --audit-level=high` | **found 0 vulnerabilities** |
 
+### ADIM 12.5 — Build + listings smoke (tekrar — 2026-04-28)
+
+| Komut | Sonuç |
+|--------|--------|
+| `npm run typecheck` | exit **0** |
+| `npm run build` | exit **0** (~2m46s, bilinen chunk uyarısı) |
+| `npm audit --audit-level=high` | **found 0 vulnerabilities** |
+
+**Listings REST smoke** (`node scripts/smoke-listings-post.mjs`, `.env.local` ile): **`SIGNUP_HTTP 200`** · **`LISTINGS_POST_HTTP 403`** — `permission denied for table profiles` (Dashboard’da **`manual_push_v2.sql`** + gerekirse `GRANT`/`RLS` sıkılaştırmasından sonra **201** beklenir; politikalar uygulanmadan önce bu çıktı normal olabilir).
+
 ### §D-K21
 
 **`supabase/manual_push_v2.sql`** kullanıcı Supabase **SQL Editor**’da yapıştırıp **Run** (~30 sn): profiles 4 alan + geçici listings INSERT politikası + auctions INSERT politikası.
 
 ### Git (TUR #12)
 
-- **`9930765bbcf0df625fa9ba71b8dfca927a33bbb5`** — push: `main → origin/main`
+- **`9930765bbcf0df625fa9ba71b8dfca927a33bbb5`** — ilk özellik push’u (`main → origin/main`).
+- **`6d8572c02eaf63b57187eee184ceb2104c228d71`** — **`tur #12 — CreateAuction Supabase INSERT + profiles 4 alan`** (`CreateAuction.tsx`: insert hatalarında `alert` + `console.error`).
 
 ---
 
