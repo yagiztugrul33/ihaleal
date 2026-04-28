@@ -1,0 +1,182 @@
+[
+  {
+    "id": "push-001",
+    "category": "A) İhale başladı",
+    "title": "İhale #1 başladı",
+    "body": "Canlı ihale; teklif vermek için aç."
+  },
+  {
+    "id": "push-002",
+    "category": "A) İhale başladı",
+    "title": "İhale #2 başladı",
+    "body": "Canlı ihale; teklif vermek için aç."
+  },
+  {
+    "id": "push-003",
+    "category": "A) İhale başladı",
+    "title": "İhale #3 başladı",
+    "body": "Canlı ihale; teklif vermek için aç."
+  },
+  {
+    "id": "push-004",
+    "category": "A) İhale başladı",
+    "title": "İhale #4 başladı",
+    "body": "Canlı ihale; teklif vermek için aç."
+  },
+  {
+    "id": "push-005",
+    "category": "A) İhale başladı",
+    "title": "İhale #5 başladı",
+    "body": "Canlı ihale; teklif vermek için aç."
+  },
+  {
+    "id": "push-006",
+    "category": "B) İhale bitiyor",
+    "title": "1 saat kaldı: #6",
+    "body": "Bitiş yaklaşıyor; maksimumunu gözden geçir."
+  },
+  {
+    "id": "push-007",
+    "category": "B) İhale bitiyor",
+    "title": "1 saat kaldı: #7",
+    "body": "Bitiş yaklaşıyor; maksimumunu gözden geçir."
+  },
+  {
+    "id": "push-008",
+    "category": "B) İhale bitiyor",
+    "title": "1 saat kaldı: #8",
+    "body": "Bitiş yaklaşıyor; maksimumunu gözden geçir."
+  },
+  {
+    "id": "push-009",
+    "category": "B) İhale bitiyor",
+    "title": "1 saat kaldı: #9",
+    "body": "Bitiş yaklaşıyor; maksimumunu gözden geçir."
+  },
+  {
+    "id": "push-010",
+    "category": "B) İhale bitiyor",
+    "title": "1 saat kaldı: #10",
+    "body": "Bitiş yaklaşıyor; maksimumunu gözden geçir."
+  },
+  {
+    "id": "push-011",
+    "category": "C) Teklifin geçildi",
+    "title": "Teklifin geçildi",
+    "body": "Daha yüksek teklif var; karar ver."
+  },
+  {
+    "id": "push-012",
+    "category": "C) Teklifin geçildi",
+    "title": "Teklifin geçildi",
+    "body": "Daha yüksek teklif var; karar ver."
+  },
+  {
+    "id": "push-013",
+    "category": "C) Teklifin geçildi",
+    "title": "Teklifin geçildi",
+    "body": "Daha yüksek teklif var; karar ver."
+  },
+  {
+    "id": "push-014",
+    "category": "C) Teklifin geçildi",
+    "title": "Teklifin geçildi",
+    "body": "Daha yüksek teklif var; karar ver."
+  },
+  {
+    "id": "push-015",
+    "category": "C) Teklifin geçildi",
+    "title": "Teklifin geçildi",
+    "body": "Daha yüksek teklif var; karar ver."
+  },
+  {
+    "id": "push-016",
+    "category": "D) Yeni ilan",
+    "title": "Yeni ilan: 1",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-017",
+    "category": "D) Yeni ilan",
+    "title": "Yeni ilan: 2",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-018",
+    "category": "D) Yeni ilan",
+    "title": "Yeni ilan: 3",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-019",
+    "category": "D) Yeni ilan",
+    "title": "Yeni ilan: 4",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-020",
+    "category": "D) Yeni ilan",
+    "title": "Yeni ilan: 5",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-021",
+    "category": "E) Kazandın",
+    "title": "Kazandın",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-022",
+    "category": "E) Kazandın",
+    "title": "Kazandın",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-023",
+    "category": "E) Kazandın",
+    "title": "Kazandın",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-024",
+    "category": "E) Kazandın",
+    "title": "Kazandın",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-025",
+    "category": "E) Kazandın",
+    "title": "Kazandın",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-026",
+    "category": "F) Sistem",
+    "title": "Hesap güncellendi",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-027",
+    "category": "F) Sistem",
+    "title": "Hesap güncellendi",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-028",
+    "category": "F) Sistem",
+    "title": "Hesap güncellendi",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-029",
+    "category": "F) Sistem",
+    "title": "Hesap güncellendi",
+    "body": "Favori kategorinde yeni kayıt."
+  },
+  {
+    "id": "push-030",
+    "category": "F) Sistem",
+    "title": "Hesap güncellendi",
+    "body": "Favori kategorinde yeni kayıt."
+  }
+]

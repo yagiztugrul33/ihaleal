@@ -1,0 +1,402 @@
+[
+  {
+    "isim": "Mehmet Kaya",
+    "sehir": "Ankara",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Zeynep Demir",
+    "sehir": "İzmir",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Can Şahin",
+    "sehir": "İstanbul",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Elif Çelik",
+    "sehir": "Ankara",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Burak Arslan",
+    "sehir": "İzmir",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Selin Öztürk",
+    "sehir": "İstanbul",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Emre Aydın",
+    "sehir": "Ankara",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Deniz Doğan",
+    "sehir": "İzmir",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Kerem Kılıç",
+    "sehir": "İstanbul",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Gizem Aslan",
+    "sehir": "Ankara",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Onur Polat",
+    "sehir": "İzmir",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Pınar Erdoğan",
+    "sehir": "İstanbul",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Tolga Koç",
+    "sehir": "Ankara",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Seda Tekin",
+    "sehir": "İzmir",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Barış Yılmaz",
+    "sehir": "İstanbul",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Ceren Kaya",
+    "sehir": "Ankara",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Hakan Demir",
+    "sehir": "İzmir",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "İpek Şahin",
+    "sehir": "İstanbul",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Murat Çelik",
+    "sehir": "Ankara",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Ayşe Arslan",
+    "sehir": "İzmir",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Mehmet Öztürk",
+    "sehir": "İstanbul",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Zeynep Aydın",
+    "sehir": "Ankara",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Can Doğan",
+    "sehir": "İzmir",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Elif Kılıç",
+    "sehir": "İstanbul",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Burak Aslan",
+    "sehir": "Ankara",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Selin Polat",
+    "sehir": "İzmir",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Emre Erdoğan",
+    "sehir": "İstanbul",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Deniz Koç",
+    "sehir": "Ankara",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Kerem Tekin",
+    "sehir": "İzmir",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Gizem Yılmaz",
+    "sehir": "İstanbul",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Onur Kaya",
+    "sehir": "Ankara",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Pınar Demir",
+    "sehir": "İzmir",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Tolga Şahin",
+    "sehir": "İstanbul",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Seda Çelik",
+    "sehir": "Ankara",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Barış Arslan",
+    "sehir": "İzmir",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Ceren Öztürk",
+    "sehir": "İstanbul",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Hakan Aydın",
+    "sehir": "Ankara",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "İpek Doğan",
+    "sehir": "İzmir",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Murat Kılıç",
+    "sehir": "İstanbul",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Ayşe Aslan",
+    "sehir": "Ankara",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Mehmet Polat",
+    "sehir": "İzmir",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Zeynep Erdoğan",
+    "sehir": "İstanbul",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Can Koç",
+    "sehir": "Ankara",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Elif Tekin",
+    "sehir": "İzmir",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Burak Yılmaz",
+    "sehir": "İstanbul",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Selin Kaya",
+    "sehir": "Ankara",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Emre Demir",
+    "sehir": "İzmir",
+    "rol": "emlakçı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Deniz Şahin",
+    "sehir": "İstanbul",
+    "rol": "alıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  },
+  {
+    "isim": "Kerem Çelik",
+    "sehir": "Ankara",
+    "rol": "satıcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 5,
+    "is_demo": true
+  },
+  {
+    "isim": "Gizem Arslan",
+    "sehir": "İzmir",
+    "rol": "yatırımcı",
+    "yorum": "Teklif geçmişini ve komisyon satırlarını ekranda gördüm; rakam tutarlıydı. Randevu süreci iki mesajda netleşti. Demo hesapta gerçek ödeme olmadığını bilerek ilerledim.",
+    "puan": 4,
+    "is_demo": true
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "element": "Dashboard: İstatistik kartı",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Son aktiviteler",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Bildirim zili",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Profil menüsü",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Hızlı arama",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: İstatistik kartı",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Son aktiviteler",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Bildirim zili",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Profil menüsü",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "Dashboard: Hızlı arama",
+    "text": "Kısa bilgi: demo veri gösterebilir; üretimde içerik farklı olur."
+  },
+  {
+    "element": "İlan: Başlık alanı",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Fiyat girişi",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Tarih seçici",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Konum haritası",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Fotoğraf yükleme",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Başlık alanı",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Fiyat girişi",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Tarih seçici",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Konum haritası",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İlan: Fotoğraf yükleme",
+    "text": "Zorunlu alanları doldur; eksikte yayın engellenir."
+  },
+  {
+    "element": "İhale detay: Teklif kutusu",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Geçmiş teklifler",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Kalan süre",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Satıcı notu",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Şikayet bağlantısı",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Teklif kutusu",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Geçmiş teklifler",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Kalan süre",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Satıcı notu",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "İhale detay: Şikayet bağlantısı",
+    "text": "Kuralları oku; teklif geri alma politikasına dikkat et."
+  },
+  {
+    "element": "Profil: Şifre değiştir",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: İki adımlı doğrulama",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: Bildirim tercihleri",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: Hesap silme",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: Veri dışa aktarma",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: Şifre değiştir",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: İki adımlı doğrulama",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: Bildirim tercihleri",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: Hesap silme",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  },
+  {
+    "element": "Profil: Veri dışa aktarma",
+    "text": "Güvenlik için düzenli güncelle; OTP gerekebilir."
+  }
+]

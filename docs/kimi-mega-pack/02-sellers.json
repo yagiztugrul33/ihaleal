@@ -1,0 +1,962 @@
+[
+  {
+    "id": "demo-sell-001",
+    "full_name": "Mehmet Kaya",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 101 12 34",
+    "email": "demo.satici.1@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-008-15",
+    "total_sales": 2,
+    "total_bids_received": 97,
+    "rating": 3.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-002",
+    "full_name": "Zeynep Demir",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 102 12 34",
+    "email": "demo.satici.2@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-010-15",
+    "total_sales": 9,
+    "total_bids_received": 26,
+    "rating": 4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-003",
+    "full_name": "Can Şahin",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 103 12 34",
+    "email": "demo.satici.3@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-010-15",
+    "total_sales": 8,
+    "total_bids_received": 65,
+    "rating": 3.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-004",
+    "full_name": "Elif Çelik",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 104 12 34",
+    "email": "demo.satici.4@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-010-15",
+    "total_sales": 10,
+    "total_bids_received": 24,
+    "rating": 4.1,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-005",
+    "full_name": "Burak Arslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 105 12 34",
+    "email": "demo.satici.5@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-008-15",
+    "total_sales": 5,
+    "total_bids_received": 89,
+    "rating": 4.3,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-006",
+    "full_name": "Selin Öztürk",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 106 12 34",
+    "email": "demo.satici.6@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-006-15",
+    "total_sales": 3,
+    "total_bids_received": 99,
+    "rating": 5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-007",
+    "full_name": "Emre Aydın",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 107 12 34",
+    "email": "demo.satici.7@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-005-15",
+    "total_sales": 5,
+    "total_bids_received": 34,
+    "rating": 4.4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-008",
+    "full_name": "Deniz Doğan",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 108 12 34",
+    "email": "demo.satici.8@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-012-15",
+    "total_sales": 6,
+    "total_bids_received": 37,
+    "rating": 4.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-009",
+    "full_name": "Kerem Kılıç",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 109 12 34",
+    "email": "demo.satici.9@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-010-15",
+    "total_sales": 4,
+    "total_bids_received": 110,
+    "rating": 4.6,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-010",
+    "full_name": "Gizem Aslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 110 12 34",
+    "email": "demo.satici.10@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-011-15",
+    "total_sales": 15,
+    "total_bids_received": 113,
+    "rating": 5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-011",
+    "full_name": "Onur Polat",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 111 12 34",
+    "email": "demo.satici.11@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-009-15",
+    "total_sales": 9,
+    "total_bids_received": 6,
+    "rating": 4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-012",
+    "full_name": "Pınar Erdoğan",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 112 12 34",
+    "email": "demo.satici.12@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-007-15",
+    "total_sales": 10,
+    "total_bids_received": 76,
+    "rating": 4.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-013",
+    "full_name": "Tolga Koç",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 113 12 34",
+    "email": "demo.satici.13@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-010-15",
+    "total_sales": 8,
+    "total_bids_received": 19,
+    "rating": 3.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-014",
+    "full_name": "Seda Tekin",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 114 12 34",
+    "email": "demo.satici.14@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-007-15",
+    "total_sales": 15,
+    "total_bids_received": 45,
+    "rating": 4.9,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-015",
+    "full_name": "Barış Yılmaz",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 115 12 34",
+    "email": "demo.satici.15@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-008-15",
+    "total_sales": 2,
+    "total_bids_received": 55,
+    "rating": 4.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-016",
+    "full_name": "Ceren Kaya",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 116 12 34",
+    "email": "demo.satici.16@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-009-15",
+    "total_sales": 15,
+    "total_bids_received": 91,
+    "rating": 4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-017",
+    "full_name": "Hakan Demir",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 117 12 34",
+    "email": "demo.satici.17@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-001-15",
+    "total_sales": 2,
+    "total_bids_received": 83,
+    "rating": 3.5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-018",
+    "full_name": "İpek Şahin",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 118 12 34",
+    "email": "demo.satici.18@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-012-15",
+    "total_sales": 2,
+    "total_bids_received": 80,
+    "rating": 3.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-019",
+    "full_name": "Murat Çelik",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 119 12 34",
+    "email": "demo.satici.19@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-004-15",
+    "total_sales": 4,
+    "total_bids_received": 68,
+    "rating": 3.6,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-020",
+    "full_name": "Ayşe Arslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 120 12 34",
+    "email": "demo.satici.20@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-005-15",
+    "total_sales": 2,
+    "total_bids_received": 80,
+    "rating": 4.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-021",
+    "full_name": "Mehmet Öztürk",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 121 12 34",
+    "email": "demo.satici.21@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-002-15",
+    "total_sales": 14,
+    "total_bids_received": 57,
+    "rating": 4.2,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-022",
+    "full_name": "Zeynep Aydın",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 122 12 34",
+    "email": "demo.satici.22@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-011-15",
+    "total_sales": 0,
+    "total_bids_received": 48,
+    "rating": 4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-023",
+    "full_name": "Can Doğan",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 123 12 34",
+    "email": "demo.satici.23@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-005-15",
+    "total_sales": 5,
+    "total_bids_received": 32,
+    "rating": 3.9,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-024",
+    "full_name": "Elif Kılıç",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 124 12 34",
+    "email": "demo.satici.24@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-002-15",
+    "total_sales": 5,
+    "total_bids_received": 14,
+    "rating": 4.2,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-025",
+    "full_name": "Burak Aslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 125 12 34",
+    "email": "demo.satici.25@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-006-15",
+    "total_sales": 2,
+    "total_bids_received": 119,
+    "rating": 3.6,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-026",
+    "full_name": "Selin Polat",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 126 12 34",
+    "email": "demo.satici.26@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-003-15",
+    "total_sales": 9,
+    "total_bids_received": 54,
+    "rating": 3.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-027",
+    "full_name": "Emre Erdoğan",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 127 12 34",
+    "email": "demo.satici.27@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-003-15",
+    "total_sales": 12,
+    "total_bids_received": 24,
+    "rating": 4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-028",
+    "full_name": "Deniz Koç",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 128 12 34",
+    "email": "demo.satici.28@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-006-15",
+    "total_sales": 14,
+    "total_bids_received": 84,
+    "rating": 4.4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-029",
+    "full_name": "Kerem Tekin",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 129 12 34",
+    "email": "demo.satici.29@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-009-15",
+    "total_sales": 15,
+    "total_bids_received": 113,
+    "rating": 3.5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-030",
+    "full_name": "Gizem Yılmaz",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 130 12 34",
+    "email": "demo.satici.30@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-009-15",
+    "total_sales": 7,
+    "total_bids_received": 16,
+    "rating": 5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-031",
+    "full_name": "Onur Kaya",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 131 12 34",
+    "email": "demo.satici.31@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-003-15",
+    "total_sales": 9,
+    "total_bids_received": 67,
+    "rating": 3.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-032",
+    "full_name": "Pınar Demir",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 132 12 34",
+    "email": "demo.satici.32@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2026-005-15",
+    "total_sales": 15,
+    "total_bids_received": 33,
+    "rating": 4.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-033",
+    "full_name": "Tolga Şahin",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 133 12 34",
+    "email": "demo.satici.33@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-005-15",
+    "total_sales": 12,
+    "total_bids_received": 38,
+    "rating": 4.2,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-034",
+    "full_name": "Seda Çelik",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 134 12 34",
+    "email": "demo.satici.34@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-009-15",
+    "total_sales": 2,
+    "total_bids_received": 76,
+    "rating": 3.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-035",
+    "full_name": "Barış Arslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 135 12 34",
+    "email": "demo.satici.35@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-002-15",
+    "total_sales": 11,
+    "total_bids_received": 58,
+    "rating": 3.6,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-036",
+    "full_name": "Ceren Gayrimenkul Ltd. Şti.",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 136 12 34",
+    "email": "demo.satici.36@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2026-007-15",
+    "total_sales": 10,
+    "total_bids_received": 49,
+    "rating": 5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-037",
+    "full_name": "Hakan Gayrimenkul Ltd. Şti.",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 137 12 34",
+    "email": "demo.satici.37@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2024-012-15",
+    "total_sales": 5,
+    "total_bids_received": 91,
+    "rating": 3.9,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-038",
+    "full_name": "İpek Gayrimenkul Ltd. Şti.",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 138 12 34",
+    "email": "demo.satici.38@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2026-007-15",
+    "total_sales": 4,
+    "total_bids_received": 31,
+    "rating": 3.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-039",
+    "full_name": "Murat Gayrimenkul Ltd. Şti.",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 139 12 34",
+    "email": "demo.satici.39@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2026-007-15",
+    "total_sales": 4,
+    "total_bids_received": 44,
+    "rating": 3.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-040",
+    "full_name": "Ayşe Gayrimenkul Ltd. Şti.",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 140 12 34",
+    "email": "demo.satici.40@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2025-012-15",
+    "total_sales": 4,
+    "total_bids_received": 61,
+    "rating": 4.3,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-041",
+    "full_name": "Mehmet Gayrimenkul Ltd. Şti.",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 141 12 34",
+    "email": "demo.satici.41@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2026-009-15",
+    "total_sales": 6,
+    "total_bids_received": 96,
+    "rating": 3.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-042",
+    "full_name": "Zeynep Gayrimenkul Ltd. Şti.",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 142 12 34",
+    "email": "demo.satici.42@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2026-001-15",
+    "total_sales": 10,
+    "total_bids_received": 30,
+    "rating": 4.4,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-043",
+    "full_name": "Can Gayrimenkul Ltd. Şti.",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 143 12 34",
+    "email": "demo.satici.43@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2026-008-15",
+    "total_sales": 4,
+    "total_bids_received": 66,
+    "rating": 4.1,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-044",
+    "full_name": "Elif Gayrimenkul Ltd. Şti.",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 144 12 34",
+    "email": "demo.satici.44@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2024-012-15",
+    "total_sales": 4,
+    "total_bids_received": 22,
+    "rating": 3.5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-045",
+    "full_name": "Burak Gayrimenkul Ltd. Şti.",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 145 12 34",
+    "email": "demo.satici.45@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "corporate_listing",
+      "auction_host"
+    ],
+    "member_since": "2026-007-15",
+    "total_sales": 0,
+    "total_bids_received": 36,
+    "rating": 4.8,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  },
+  {
+    "id": "demo-sell-046",
+    "full_name": "Ziraat Tasfiye Birimi",
+    "city": "Ankara",
+    "district": "Nilüfer",
+    "phone": "+90 555 146 12 34",
+    "email": "demo.satici.46@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-005-15",
+    "total_sales": 3,
+    "total_bids_received": 90,
+    "rating": 4.6,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#1E3A5F"
+  },
+  {
+    "id": "demo-sell-047",
+    "full_name": "Vakıfbank Tasfiye Birimi",
+    "city": "İzmir",
+    "district": "Kepez",
+    "phone": "+90 555 147 12 34",
+    "email": "demo.satici.47@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-004-15",
+    "total_sales": 0,
+    "total_bids_received": 108,
+    "rating": 3.5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#2563EB"
+  },
+  {
+    "id": "demo-sell-048",
+    "full_name": "İş Bankası Tasfiye Birimi",
+    "city": "Bursa",
+    "district": "Bornova",
+    "phone": "+90 555 148 12 34",
+    "email": "demo.satici.48@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2025-010-15",
+    "total_sales": 11,
+    "total_bids_received": 112,
+    "rating": 4.5,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0F766E"
+  },
+  {
+    "id": "demo-sell-049",
+    "full_name": "Garanti Tasfiye Birimi",
+    "city": "Antalya",
+    "district": "Kadıköy",
+    "phone": "+90 555 149 12 34",
+    "email": "demo.satici.49@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-009-15",
+    "total_sales": 4,
+    "total_bids_received": 44,
+    "rating": 3.6,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#92400E"
+  },
+  {
+    "id": "demo-sell-050",
+    "full_name": "Halkbank Tasfiye Birimi",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 555 150 12 34",
+    "email": "demo.satici.50@ornek.local",
+    "kyc_status": "verified",
+    "flows": [
+      "individual_sale"
+    ],
+    "member_since": "2024-011-15",
+    "total_sales": 2,
+    "total_bids_received": 45,
+    "rating": 3.7,
+    "bio": "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    "is_demo": true,
+    "profile_color": "#0A1F44"
+  }
+]

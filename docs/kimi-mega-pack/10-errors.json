@@ -1,0 +1,252 @@
+[
+  {
+    "code": "AUTH_001",
+    "message": "Oturum süresi doldu; yeniden giriş yapın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_002",
+    "message": "Şifre kuralına uymuyor; 8+ karakter ve rakam ekleyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_003",
+    "message": "OTP yanlış; yeni kod isteyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_004",
+    "message": "Hesap kilitli; 15 dk sonra deneyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_005",
+    "message": "E-posta doğrulanmamış; gelen kutuyu kontrol edin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_006",
+    "message": "Telefon formatı hatalı; 10 haneli girin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_007",
+    "message": "Çok fazla deneme; şifre sıfırlama kullanın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_008",
+    "message": "İki adımlı kod eksik; uygulamadan kodu girin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_009",
+    "message": "Yetkisiz işlem; hesap türünüz uygun değil.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUTH_010",
+    "message": "Çıkış yapılmış; devam için giriş yapın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_001",
+    "message": "Zorunlu alan boş; kırmızı ile işaretli yeri doldurun.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_002",
+    "message": "Tarih aralığı geçersiz; bitiş başlangıçtan sonra olmalı.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_003",
+    "message": "Dosya boyutu sınırı aşıldı; 10 MB altı yükleyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_004",
+    "message": "Dosya türü desteklenmiyor; PDF veya JPG seçin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_005",
+    "message": "Sayı formatı hatalı; nokta yerine virgül kullanmayın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_006",
+    "message": "Telefon TR formatında değil.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_007",
+    "message": "E-posta biçimi geçersiz.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_008",
+    "message": "URL http veya https ile başlamalı.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_009",
+    "message": "En az bir fotoğraf ekleyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "FORM_010",
+    "message": "Metin çok kısa; en az 40 karakter girin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_001",
+    "message": "Ödeme sağlayıcı yanıt vermedi; 2 dk sonra tekrar deneyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_002",
+    "message": "Kart limiti yetersiz; başka kart deneyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_003",
+    "message": "3D Secure tamamlanmadı; banka ekranını bitirin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_004",
+    "message": "İade tutarı sıfır; işlem oluşturulamadı.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_005",
+    "message": "Para birimi uyumsuz; TL seçili olmalı.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_006",
+    "message": "Fatura bilgisi eksik; vergi numarası girin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_007",
+    "message": "Ödeme iptal edildi; sepeti yeniden oluşturun.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_008",
+    "message": "Çift ödeme engellendi; işlem zaten kayıtlı.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_009",
+    "message": "Minimum tutarın altında; tutarı artırın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "PAY_010",
+    "message": "Havale dekontu okunamadı; net PDF yükleyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_001",
+    "message": "İhale aktif değil; teklif kabul edilmiyor.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_002",
+    "message": "Teklif artış adımına uymuyor.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_003",
+    "message": "Bitiş zamanı geçti; teklif kapalı.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_004",
+    "message": "Kendi ilanınıza teklif veremezsiniz.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_005",
+    "message": "Findeks eşiğinin altındasınız.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_006",
+    "message": "Teminat bloke edilmedi; önce teminat tamamlayın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_007",
+    "message": "İdempotency anahtarı çakıştı; yeni anahtar üretin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_008",
+    "message": "Teklif tutarı boş.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_009",
+    "message": "Teklif üst limiti aşıyor.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "AUC_010",
+    "message": "İhale iptal edildi.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_001",
+    "message": "Bağlantı kesildi; sayfayı yenileyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_002",
+    "message": "Sunucu yoğun; 1 dk sonra tekrar deneyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_003",
+    "message": "Bakım penceresi; kısa süre sonra deneyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_004",
+    "message": "İstek zaman aşımı; tekrar gönderin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_005",
+    "message": "Tarayıcı önbelleği sorunu; gizli sekmede deneyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_006",
+    "message": "API anahtarı geçersiz; yapılandırmayı kontrol edin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_007",
+    "message": "Versiyon uyumsuz; uygulamayı güncelleyin.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_008",
+    "message": "Konum izni reddedildi; ayarlardan açın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_009",
+    "message": "Depolama dolu; cihazda yer açın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  },
+  {
+    "code": "SYS_010",
+    "message": "Bilinmeyen hata; destek kaydı açın.",
+    "fix": "Mesajdaki maddeyi düzeltin; devam etmezse destek ile paylaşın."
+  }
+]
