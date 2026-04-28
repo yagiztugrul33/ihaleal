@@ -39,3 +39,9 @@ Thumbs.db
 # Supabase local (opsiyonel)
 .branches
 .temp
+
+# Anahtar dosyası yanlışlıkla repoya sürüklenirse
+supabase-keys.txt
+
+# Yerel yedek çıktısı (script masaüstüne yazar; repoda oluşursa)
+ihaleal-backups/

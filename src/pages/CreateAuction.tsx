@@ -8,6 +8,7 @@ import { stripForSession, dispatchAuthChanged, type SessionUser, type StoredUser
 import { FEE_TEXTS, calcSellerNet, listingPriceAnomalyMessage } from "@/lib/fees";
 import type { PropertyMarketingMode } from "@/types/auction";
 import { MARKETING_MODE_LABELS } from "@/lib/listingPolicy";
+import { invalidateAuctionsCatalogCache } from "@/lib/auctionsSource";
 
 function readSessionUser(): SessionUser | null {
   try {
@@ -176,6 +177,7 @@ export default function CreateAuction() {
     const auctions = JSON.parse(localStorage.getItem("ihaleal_auctions") || "[]");
     auctions.unshift(newAuction);
     localStorage.setItem("ihaleal_auctions", JSON.stringify(auctions));
+    invalidateAuctionsCatalogCache();
     const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
     const idx = users.findIndex((u) => u.id === currentUser.id);
     if (idx >= 0) {

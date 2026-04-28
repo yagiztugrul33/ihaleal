@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useFavorites } from "@/hooks/useFavorites";
-import { AUCTIONS } from "@/data/auctions";
+import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 
 export function Auctions() {
@@ -23,17 +23,28 @@ export function Auctions() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000000]);
   const [selectedCity, setSelectedCity] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
 
-  const cities = useMemo(() => [...new Set(AUCTIONS.map((a) => a.city))], []);
+  useEffect(() => {
+    let ok = true;
+    void loadAllAuctionsForSearch().then((rows) => {
+      if (ok) setCatalog(rows);
+    });
+    return () => {
+      ok = false;
+    };
+  }, []);
+
+  const cities = useMemo(() => [...new Set(catalog.map((a) => a.city))], [catalog]);
   const filtered = useMemo(() => {
-    return AUCTIONS.filter((a) => {
+    return catalog.filter((a) => {
       if (filter !== "all" && a.status !== filter) return false;
       if (a.currentBid < priceRange[0] || a.currentBid > priceRange[1]) return false;
       if (selectedCity !== "all" && a.city !== selectedCity) return false;
       if (searchQuery && !a.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       return true;
     });
-  }, [filter, priceRange, selectedCity, searchQuery]);
+  }, [catalog, filter, priceRange, selectedCity, searchQuery]);
 
   const { toggleFavorite, isFavorite } = useFavorites();
 

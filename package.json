@@ -9,10 +9,15 @@
     "preview": "vite preview --port 4173",
     "typecheck": "tsc --noEmit",
     "gen:assets": "node scripts/gen-assets.mjs",
+    "env:sync": "node scripts/sync-vite-supabase-env.mjs",
+    "supabase:link": "supabase link --project-ref wsjifesrdaeorrdzbvmk",
+    "supabase:push": "supabase db push",
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "backup": "node scripts/backup.mjs",
+    "verify": "npm run typecheck && npm run test:run && npm run build"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.0",

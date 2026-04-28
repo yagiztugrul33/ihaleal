@@ -4,7 +4,7 @@ import { ArrowLeft, MapPin, Home, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { getAllAuctionsForSearch } from "@/lib/auctionsSource";
+import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 
 function normalize(s: string) {
@@ -16,15 +16,26 @@ export default function SearchResults() {
   const [params, setParams] = useSearchParams();
   const initialQ = params.get("q") || "";
   const [query, setQuery] = useState(initialQ);
+  const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
 
   useEffect(() => {
     setQuery(params.get("q") || "");
   }, [params]);
 
+  useEffect(() => {
+    let ok = true;
+    void loadAllAuctionsForSearch().then((rows) => {
+      if (ok) setCatalog(rows);
+    });
+    return () => {
+      ok = false;
+    };
+  }, []);
+
   const results = useMemo(() => {
     const q = normalize(query);
     if (q.length < 2) return [];
-    const all = getAllAuctionsForSearch();
+    const all = catalog;
     return all.filter(
       (a) =>
         normalize(a.title).includes(q) ||
@@ -34,7 +45,7 @@ export default function SearchResults() {
         normalize(a.category).includes(q) ||
         (a.tags && a.tags.some((t) => normalize(t).includes(q)))
     );
-  }, [query]);
+  }, [query, catalog]);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();

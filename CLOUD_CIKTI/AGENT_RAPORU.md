@@ -335,6 +335,49 @@ git commit -F CLOUD_CIKTI\GIT_TUR8_COMMIT_MSG.txt
   `cd /c/Users/yagiz/Desktop/ihaleal.com && git add -A && git commit -m "tur #N — özet" && git push`  
   (~30 sn; PAT/credential kullanıcıda).
 
+### TUR #9 — KIMI GÖRSEL ENTEGRASYONU (2026-04-28 — [CURSOR] envanter + doğrulama)
+
+**ADIM 1 — Dosya varlık (PowerShell `Get-Item` / `Test-Path`, kök `ihaleal.com/public/`):**
+
+Komut özeti (`ls` eşdeğeri):
+
+- `public/og-image.png` → **VAR** · Length **21882** · LastWriteTime **2026-04-28 00:47** (TR yerel)
+- `public/logo/` → **YOK** (`Test-Path` false — “No such file or directory” eşdeğeri)
+- `public/favicon.png` → **YOK**
+- `public/social/` → **YOK**
+- `public/email/` → **YOK**
+
+Ek kök varlıklar (CLOUD listesinde yok ama Kimi “10 görsel” dışı gerçek varlıklar): `logo.svg` (696 B), `icon-192.png`, `icon-512.png`, `manifest.json`, `videos/`, vb.
+
+**Sonuç tablosu (CLOUD’un talep ettiği 5 yol + alt dosyalar):**
+
+| Yol | Var mı | Boyut | Durum |
+|-----|--------|--------|--------|
+| `public/og-image.png` | ✓ | ~21 KB | OK |
+| `public/logo/logo-horizontal.png` | ✗ | — | **EKSİK** (klasör yok) |
+| `public/logo/logo-square.png` | ✗ | — | **EKSİK** |
+| `public/favicon.png` | ✗ | — | **EKSİK** |
+| `public/social/*.png` | ✗ | — | **EKSİK** (klasör yok) |
+| `public/email/*.png` | ✗ | — | **EKSİK** (klasör yok) |
+
+**Özet:** CLOUD’un saydığı **10 görsel setinin çoğu repoda yok**; yalnızca **OG görseli** (`og-image.png`) mevcut. Kimi sandbox’tan taşıma **tamamlanmamış** veya farklı dizin adı kullanılmış → **Kimi’den yeniden export veya kullanıcı `public/logo/`, `public/social/`, `public/email/`, `favicon.png` yapıştırması** gerekir.
+
+**ADIM 2 — Build:** `npm run build` **exit 0** (~27 s). `dist/` kök: **`og-image.png`**, `logo.svg`, `icon-192.png`, `icon-512.png` mevcut; **`dist/logo/`**, **`dist/favicon.png`**, **`dist/social/`**, **`dist/email/`** **yok** (public’te olmadığı için — Vite `publicDir` normal).
+
+**ADIM 3 — `index.html` OG/Twitter:** Zaten `og:image` / `twitter:image` → **`https://ihaleal.com/og-image.png`**. Talimat: mevcut metaların üzerine yazma → **değişiklik yapılmadı**. `src/lib/seo.ts` içinde `ogImage` default **`${SITE_ORIGIN}/og-image.png`** — uyumlu.
+
+**ADIM 4 — Favicon:** `public/favicon.png` **yok** → **SKIP** (mevcut `apple-touch-icon` → `./icon-192.png`).
+
+**ADIM 5 — Logo PNG:** `rg` benzeri arama: **Navbar/Footer’da** `logo.png` / `/logo/` **hardcoded img yok** (`Navbar` Gavel + metin). **SKIP** — “manuel entegrasyon” notu: PNG’ler gelince `Navbar` marka alanına `<img src="/logo/logo-horizontal.png" />` (mevcut `button` içinde) **sonraki tur**, bu turda yeni component yok.
+
+**ADIM 6 — social/email:** Klasörler **yok** → “public’te kayıtlı, K44’te kullanılacak” cümlesi **henüz geçerli değil**; dosya gelince tekrar doğrulanacak.
+
+**ADIM 7:** `npm run typecheck` **0** · `npm run build` **0** · `npm audit` **0 vulnerability** · `npm run test:run` **6/6**.
+
+**ADIM 8 — Git:** Cursor PowerShell’de `git` **yok** (önceki turlar) → **commit hash yok**. Kullanıcı (Git Bash):  
+`cd /c/Users/yagiz/Desktop/ihaleal.com && git add -A && git commit -m "agent(cursor): tur #9 Kimi gorsel envanter raporu AGENT_RAPORU" && git push`  
+_(Bu turda yalnızca `AGENT_RAPORU.md` değişti; kod/index değişmedi.)_
+
 ## C) Ortak — kararlar
 
 - **[CURSOR]** El sıkışma dosyası: `ORTAK_CALISMA_KOMUTU.txt`; rapor merkezi: bu dosya (`AGENT_RAPORU.md`).
@@ -412,6 +455,8 @@ _(Kalıp `piyasa.*değer` `src/components` altında eşleşmedi.)_
 - **[CURSOR] MEGA v3 TUR #6 → [CLOUD] (FAZ 2 adayları):** (1) **`SecurityCenter.tsx`** — FAZ 3 + K16=B ile **RoadmapBanner** ve taslak dili uygulandı (§B FAZ 3). (2) **`hero-aerial.mp4`** — FAZ 3’te **`ihaleal-tanitim.mp4`** ile değiştirildi. (3) **`src/pages` içinde `RouteSeo`/`Helmet`/`<title>` yok** — tasarım bilinçli mi, yoksa SEO borcu mu; §D-K2 ile hizala.
 
 - **[CURSOR] TUR #8 → [CLOUD]:** GitHub **`yagiztugrul33/ihaleal`** aktif; ilk commit **`b86c2f2`**. Kullanıcı Git Bash ile push tamamladı. **Cursor ortamında `git` hâlâ yok** → agent otomatik push yapmaz; §B **TUR #8 KAPANIŞ** + **otomatik commit protokolü** güncel.
+
+- **[CURSOR] TUR #9 — KIMI görsel doğrulama → [CLOUD]:** Talep edilen yolların **1/6 üst düzey kontrolü geçti** (`og-image.png` **VAR**). `public/logo/*`, `favicon.png`, `social/`, `email/` **YOK** → **~0/10** Kimi iddiası repoda doğrulanmadı. **OG/Twitter:** `index.html` + `seo.ts` zaten **`https://ihaleal.com/og-image.png`** — bu turda **meta satırı değiştirilmedi** (talimat: üzerine yazma). **Logo/favicon UI:** dosya yok + Navbar’da img referansı yok → **entegrasyon yapılmadı**. **Sıradaki:** Kimi/kullanıcı eksik `public/` dosyalarını eklesin; §D **S25** logo formatı.
 
 ### [CLOUD] — FAZ 2 KISMI ÇAPRAZ KONTROL (2026-04-28)
 
@@ -602,6 +647,10 @@ CROSS §B envanteri yapıştırıldığında:
 - **[KULLANICI CEVABI: Git kuruldu + remote bağlandı + ilk push başarılı (b86c2f2) — 2026-04-28]** — **BLOKÖR KAPANDI** ✓ (ürün reposu GitHub’da; Cursor PATH ayrı konu — §B protokolü).
 
 - **[CURSOR] PATH testi (TUR #8 kapanış):** `git --version` Cursor PowerShell’de **hâlâ tanınmıyor** → her tur sonunda agent, kullanıcıya §B’de **Git Bash tek satır** (`add && commit && push`) verebilir.
+
+### [CLOUD] — S25 (öneri — Kimi görsel sonrası)
+
+**Logo:** `logo.svg` repoda var; CLOUD’un talep ettiği **`logo-horizontal.png` / `logo-square.png` yok**. **S25:** Kimi’den yalnızca PNG mi istenecek, yoksa `logo.svg` + responsive SVG yeter mi? (Navbar şu an SVG/img kullanmıyor.)
 
 ## 1. Özet
 

@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { getAllAuctionsForSearch } from "@/lib/auctionsSource";
+import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import {
   PLATFORM_LISTING_CONTACT,
   resolveMarketingMode,
@@ -37,7 +37,17 @@ export default function AuctionDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.05);
-  const auction = useMemo(() => getAllAuctionsForSearch().find((a) => a.id === id) ?? null, [id]);
+  const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
+  useEffect(() => {
+    let ok = true;
+    void loadAllAuctionsForSearch().then((rows) => {
+      if (ok) setCatalog(rows);
+    });
+    return () => {
+      ok = false;
+    };
+  }, []);
+  const auction = useMemo(() => catalog.find((a) => a.id === id) ?? null, [catalog, id]);
   const marketingMode = auction ? resolveMarketingMode(auction) : "auction";
   const isListingOnly = marketingMode === "listing_only";
   const isSealedOffer = marketingMode === "sealed_offers";
@@ -64,10 +74,10 @@ export default function AuctionDetail() {
 
   if (!auction) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <AlertTriangle className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-400">İlan bulunamadı.</p>
+          <p className="text-slate-400">İlan bulunamadı veya katalog yükleniyor.</p>
           <Button onClick={() => navigate("/")} className="mt-4">Ana Sayfaya Dön</Button>
         </div>
       </div>

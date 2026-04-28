@@ -12,6 +12,8 @@ import {
   type StoredUser,
 } from "@/lib/auth";
 import { readUserFlowsFromStorage } from "@/lib/userFlows";
+import { supabase } from "@/lib/supabase";
+import { formatSupabaseAuthError, isSupabaseAuthAvailable, persistSupabaseUser } from "@/lib/supabaseAuthBridge";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -26,6 +28,22 @@ export default function Login() {
     setError("");
     if (!email || !password) {
       setError("E-posta ve şifre gereklidir.");
+      return;
+    }
+    if (isSupabaseAuthAvailable() && supabase) {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
+      if (error) {
+        setError(formatSupabaseAuthError(error.message));
+        return;
+      }
+      if (data.user) persistSupabaseUser(data.user);
+      setSuccess(true);
+      const flows = readUserFlowsFromStorage();
+      const next = flows.length ? "/dashboard" : "/onboarding/akis";
+      setTimeout(() => navigate(next), 800);
       return;
     }
     const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
@@ -64,7 +82,9 @@ export default function Login() {
                 <LogIn className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-2xl font-bold text-white">Giriş Yap</h1>
-              <p className="text-sm text-slate-400 mt-1">Demo oturum — backend yok (§D-K3).</p>
+              <p className="text-sm text-slate-400 mt-1">
+                {isSupabaseAuthAvailable() ? "Supabase Auth ile güvenli oturum." : "Demo oturum — tarayıcıda yerel kayıt."}
+              </p>
             </div>
             {success && (
               <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">

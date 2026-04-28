@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { createPasswordRecord, stripForSession, dispatchAuthChanged, type StoredUser } from "@/lib/auth";
 import { isValidTRPhone, validateDemoPassword } from "@/lib/demoAuthValidators";
+import { supabase } from "@/lib/supabase";
+import { formatSupabaseAuthError, isSupabaseAuthAvailable, persistSupabaseUser } from "@/lib/supabaseAuthBridge";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [info, setInfo] = useState("");
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -40,6 +43,34 @@ export default function Register() {
     }
     if (!kvkkAccepted) {
       setError("Devam etmek için KVKK ve gizlilik metnini onaylayın.");
+      return;
+    }
+    setInfo("");
+    if (isSupabaseAuthAvailable() && supabase) {
+      const { data, error: supaErr } = await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: { name: name.trim(), phone: phone.trim() },
+        },
+      });
+      if (supaErr) {
+        setError(formatSupabaseAuthError(supaErr.message));
+        return;
+      }
+      if (data.session && data.user) {
+        persistSupabaseUser(data.user);
+        setSuccess(true);
+        setTimeout(() => navigate("/onboarding/akis"), 800);
+        return;
+      }
+      if (data.user) {
+        setInfo("Kayıt alındı. Giriş için e-postandaki doğrulama bağlantısına tıkla; ardından giriş yap.");
+        setSuccess(false);
+        return;
+      }
+      setError("Kayıt tamamlanamadı. Tekrar dene.");
       return;
     }
     const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
@@ -90,6 +121,9 @@ export default function Register() {
                 <CheckCircle2 className="w-4 h-4" />
                 <span className="text-sm">Kayıt başarılı! Akış seçimine yönlendiriliyorsunuz...</span>
               </div>
+            )}
+            {info && (
+              <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-200 text-sm">{info}</div>
             )}
             {error && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
             <form onSubmit={handleRegister} className="space-y-4">

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { stripForSession, dispatchAuthChanged, type StoredUser, type SessionUser } from "@/lib/auth";
+import { supabase } from "@/lib/supabase";
+import { formatSupabaseAuthError, sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
 
 function readSession(): SessionUser | null {
   try {
@@ -22,6 +24,7 @@ export default function Profile() {
   const [email, setEmail] = useState(user?.email || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [success, setSuccess] = useState("");
+  const [saveError, setSaveError] = useState("");
 
   if (!user) {
     return (
@@ -35,8 +38,30 @@ export default function Profile() {
     );
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!user) return;
+    setSaveError("");
+    if (user.authBackend === "supabase" && supabase) {
+      const { error } = await supabase.auth.updateUser({
+        email: email.trim(),
+        data: { name: name.trim(), phone: phone.trim() },
+      });
+      if (error) {
+        setSaveError(formatSupabaseAuthError(error.message));
+        return;
+      }
+      const { data: refreshed } = await supabase.auth.getUser();
+      if (refreshed.user) {
+        const session = sessionUserFromSupabaseUser(refreshed.user);
+        setUser(session);
+        localStorage.setItem("ihaleal_user", JSON.stringify(session));
+        dispatchAuthChanged();
+      }
+      setEditMode(false);
+      setSuccess("Profil güncellendi!");
+      setTimeout(() => setSuccess(""), 3000);
+      return;
+    }
     const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
     const idx = users.findIndex((u) => u.id === user.id);
     if (idx < 0) return;
@@ -52,7 +77,10 @@ export default function Profile() {
     setTimeout(() => setSuccess(""), 3000);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    if (user?.authBackend === "supabase" && supabase) {
+      await supabase.auth.signOut();
+    }
     localStorage.removeItem("ihaleal_user");
     dispatchAuthChanged();
     navigate("/");
@@ -82,6 +110,7 @@ export default function Profile() {
             </Card>
           </div>
           <div className="lg:col-span-2 space-y-6">
+            {saveError && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{saveError}</div>}
             {success && <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"><CheckCircle2 className="w-4 h-4" /><span className="text-sm">{success}</span></div>}
             <Card className="bg-slate-900/50 border-white/5">
               <CardContent className="p-6">

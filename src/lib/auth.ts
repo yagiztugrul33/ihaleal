@@ -20,7 +20,10 @@ export type StoredUser = {
   sellerIntent?: string;
 };
 
-export type SessionUser = Omit<StoredUser, "password" | "passwordSalt" | "passwordHash">;
+export type SessionUser = Omit<StoredUser, "password" | "passwordSalt" | "passwordHash"> & {
+  /** `supabase`: Supabase Auth oturumu; aksi yerel demo. */
+  authBackend?: "local" | "supabase";
+};
 
 function randomSalt(): string {
   const a = new Uint8Array(16);

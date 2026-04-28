@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, X, MapPin, Home, Clock, ArrowRight, TrendingUp, Star } from "lucide-react";
-import { getAllAuctionsForSearch } from "@/lib/auctionsSource";
+import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { Button } from "@/components/ui/button";
 
 interface SearchModalProps {
@@ -12,8 +12,20 @@ interface SearchModalProps {
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
 
-  const results = query.length >= 2 ? getAllAuctionsForSearch().filter((a) =>
+  useEffect(() => {
+    if (!isOpen) return;
+    let ok = true;
+    void loadAllAuctionsForSearch().then((rows) => {
+      if (ok) setCatalog(rows);
+    });
+    return () => {
+      ok = false;
+    };
+  }, [isOpen]);
+
+  const results = query.length >= 2 ? catalog.filter((a) =>
     a.title.toLowerCase().includes(query.toLowerCase()) ||
     a.location.toLowerCase().includes(query.toLowerCase()) ||
     a.city.toLowerCase().includes(query.toLowerCase()) ||

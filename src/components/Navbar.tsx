@@ -6,6 +6,8 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "@/hooks/useTheme";
 import { SearchModal } from "./SearchModal";
 import { mergedFlowPermissions, readUserFlowsFromStorage, type UserFlow } from "@/lib/userFlows";
+import { supabase } from "@/lib/supabase";
+import { sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
 
 function readSessionUser() {
   try {
@@ -40,6 +42,32 @@ export function Navbar() {
       window.removeEventListener("ihaleal-user-flows", sync);
       window.removeEventListener("storage", sync);
     };
+  }, []);
+
+  useEffect(() => {
+    if (!supabase) return;
+    const apply = () => {
+      setCurrentUser(readSessionUser());
+      setUserFlows(readUserFlowsFromStorage());
+    };
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        localStorage.setItem("ihaleal_user", JSON.stringify(sessionUserFromSupabaseUser(session.user)));
+        apply();
+      }
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        localStorage.setItem("ihaleal_user", JSON.stringify(sessionUserFromSupabaseUser(session.user)));
+        apply();
+        return;
+      }
+      if (event === "SIGNED_OUT") {
+        localStorage.removeItem("ihaleal_user");
+        apply();
+      }
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
