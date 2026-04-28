@@ -636,7 +636,7 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 | Madde | Aciliyet | Durum |
 |--------|----------|--------|
 | **D-Git** (repo + uzak push) | 🟢 Tamam | GitHub aktif; **Cursor PATH’te git yok** → agent otomatik push yapmaz; §B protokolü |
-| **K12** (Supabase credentials) | 🟡 Push / service_role bekliyor | **[KULLANICI: URL+anon dolu, service_role sonra]** `.env.local` (gitignore); `supabase db push` yapılmadı — 2026-04-28 Cursor |
+| **K12** (Supabase credentials) | 🟡 Şema uzakta (manual SQL) | **[KULLANICI: tüm anahtarlar dolu — manual SQL push bekleniyor — 2026-04-28]** |
 | **K13** (GitHub repo URL) | 🟢 Kapanıldı | `yagiztugrul33/ihaleal` — ilk push `b86c2f2` |
 | K2 (SEO prerender) | 🟡 Tur #6 | Acil değil |
 | K4 (iyzico ödeme) | 🟡 Backend sonrası | Acil değil |
@@ -646,7 +646,9 @@ Cloud: **A)** Avukat paketi | **B)** Şablon (risk yüksek) | **C)** Iubenda/Ter
 | K14 (iyzico başvurusu) | 🟠 5-10 iş günü onay | Bu hafta başlat |
 | K15 (KEP/e-imza) | 🟡 Sözleşme akışı kurulurken | Acil değil |
 
-**K12:** URL + anon `.env.local` içinde; uzak şema için **`SUPABASE_SERVICE_ROLE_KEY`** + `supabase link` / **`db push`** kullanıcıda (D-Git + K13 tamam).
+**K12:** `.env.local` içinde URL + anon + service_role **dolu**; uzak şema uygulaması için **K18** (Dashboard SQL).
+
+**K18 — Manual SQL push:** Kullanıcı [Supabase SQL Editor](https://supabase.com/dashboard) üzerinde `supabase/manual_push.sql` içeriğini yapıştırıp **Run** tıklayacak (~30 sn); CLI token/link gerekmez.
 
 ---
 
