@@ -1445,8 +1445,9 @@ PROFILES_HTTP_SERVICE_ROLE 403
 
 ### ADIM 10 — Git
 
-- Commit mesajı: `tur #11 — Login/Register Supabase auth + AuthContext + Navbar`
-- **Git commit:** `beefae8270d9b9c0bb5cf820a2c8097dbe353db3` (kısa: `beefae8`)
+- Ana tur mesajı: `tur #11 — Login/Register Supabase auth + AuthContext + Navbar`
+- **Commit (tur bağlama — kod):** `beefae8270d9b9c0bb5cf820a2c8097dbe353db3`
+- **Commit (raporda git hash satırı düzeltmesi):** `f1dd87cdeae1f97134acedb48dd43a31ad3790a6` ← depoda son push ile uyumlu HEAD örneği bu ikinci commit olabilir; güncel uç için `git rev-parse HEAD`.
 - **Push:** `main -> origin/main` tamamlandı.
 
 ---
