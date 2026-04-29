@@ -1,0 +1,300 @@
+import { useMemo, useState } from "react";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  Tooltip,
+  LineChart,
+  Line,
+  CartesianGrid,
+} from "recharts";
+import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
+import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
+import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
+import { Button } from "@/components/ui/button";
+
+type TabKey = "legal" | "socio" | "location" | "economic" | "overall";
+
+function scoreTone(score: number | null | undefined, invertRisk?: boolean): string {
+  if (score == null || Number.isNaN(score)) return "text-slate-400 border-white/10 bg-white/5";
+  const v = invertRisk ? 11 - score : score;
+  if (v >= 8) return "text-emerald-300 border-emerald-400/30 bg-emerald-500/10";
+  if (v >= 5) return "text-amber-200 border-amber-400/30 bg-amber-500/10";
+  return "text-red-300 border-red-400/35 bg-red-500/10";
+}
+
+function BigRing({
+  label,
+  score,
+  invertRisk,
+}: {
+  label: string;
+  score: number | null | undefined;
+  invertRisk?: boolean;
+}) {
+  const pct = score == null ? 0 : Math.min(100, Math.max(0, (invertRisk ? 11 - score : score) * 10));
+  const tone =
+    pct >= 80 ? "from-emerald-400 to-teal-400" : pct >= 50 ? "from-amber-400 to-orange-400" : "from-red-400 to-rose-500";
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div
+        className={`relative w-28 h-28 rounded-full flex items-center justify-center bg-gradient-to-br ${tone} p-[3px] shadow-lg`}
+        aria-hidden
+      >
+        <div className="w-full h-full rounded-full bg-[#0c1629]/95 flex flex-col items-center justify-center border border-white/10">
+          <span className="text-2xl font-bold text-white">{score ?? "—"}</span>
+          <span className="text-[10px] text-slate-500 uppercase tracking-wide">/10</span>
+        </div>
+      </div>
+      <span className="text-xs text-slate-400 text-center max-w-[10rem]">{label}</span>
+    </div>
+  );
+}
+
+export type PropertyAnalysisReportViewerProps = {
+  report: PropertyAnalysisReportRecord;
+  mockBanner?: boolean;
+  showApproveButton?: boolean;
+  onApprove?: () => void;
+  approveDisabled?: boolean;
+};
+
+export function PropertyAnalysisReportViewer({
+  report,
+  mockBanner,
+  showApproveButton,
+  onApprove,
+  approveDisabled,
+}: PropertyAnalysisReportViewerProps) {
+  const [tab, setTab] = useState<TabKey>("legal");
+
+  const rentTrend = useMemo(
+    () => [
+      { y: "3y", pct: report.economic_price_trend_3y_pct ?? 0 },
+      { y: "5y", pct: report.economic_price_trend_5y_pct ?? 0 },
+    ],
+    [report.economic_price_trend_3y_pct, report.economic_price_trend_5y_pct],
+  );
+
+  const locationBars = useMemo(
+    () => [
+      { name: "Metro", km: Number(report.location_metro_distance_km ?? 0) },
+      { name: "Okul", km: Number(report.location_school_distance_km ?? 0) },
+      { name: "Hastane", km: Number(report.location_hospital_distance_km ?? 0) },
+      { name: "AVM", km: Number(report.location_shopping_distance_km ?? 0) },
+    ],
+    [report],
+  );
+
+  const tabs: { key: TabKey; label: string }[] = [
+    { key: "legal", label: "Hukuksal" },
+    { key: "socio", label: "Sosyoekonomik" },
+    { key: "location", label: "Konum" },
+    { key: "economic", label: "Ekonomik" },
+    { key: "overall", label: "Genel Skor" },
+  ];
+
+  const disclaimer = report.overall_disclaimer || AI_REPORT_DISCLAIMER_TR;
+
+  return (
+    <div className="rounded-2xl border border-cyan-400/20 bg-[#0c1629]/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden">
+      {mockBanner ? (
+        <div className="px-4 py-2 bg-amber-500/15 border-b border-amber-400/25 text-amber-100 text-xs font-medium text-center">
+          MOCK VERİ — gerçek API bağlantısı yok; bilgilendirme amaçlıdır.
+        </div>
+      ) : null}
+
+      <div className="p-4 md:p-6 flex flex-col md:flex-row gap-6 border-b border-white/10">
+        <BigRing label="Genel risk skoru (düşük daha iyi)" score={report.overall_risk_score} invertRisk />
+        <div className="flex-1 flex flex-col justify-center gap-3">
+          <div className="flex flex-wrap gap-2 items-center">
+            <span
+              className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold border ${scoreTone(report.economic_fair_price_score, false)}`}
+            >
+              Adil fiyat skoru: {report.economic_fair_price_score ?? "—"}/10
+            </span>
+            <span className="text-xs text-slate-500">
+              Tapu / şerh bilgisi için profesyonel kontrol zorunludur (taslak uyarı).
+            </span>
+          </div>
+          <AIRaporSorumluluk compact />
+          {showApproveButton ? (
+            <Button
+              type="button"
+              disabled={approveDisabled}
+              onClick={onApprove}
+              className="w-fit bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-900/30"
+            >
+              Onayla ve Devam
+            </Button>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-2 p-3 border-b border-white/5 bg-black/20">
+        {tabs.map((t) => (
+          <button
+            key={t.key}
+            type="button"
+            onClick={() => setTab(t.key)}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              tab === t.key
+                ? "bg-blue-500/20 text-white border border-blue-500/35"
+                : "text-slate-400 hover:text-white border border-transparent"
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="p-4 md:p-6 space-y-4 min-h-[220px]">
+        {tab === "legal" && (
+          <div className="space-y-3 animate-fade-in">
+            <div className={`inline-flex px-3 py-1 rounded-full text-xs font-bold border ${scoreTone(report.legal_risk_score, true)}`}>
+              Hukuksal risk: {report.legal_risk_score ?? "—"}/10
+            </div>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              Tapu durumu (mock): <strong className="text-white">{report.legal_title_deed_status}</strong>. İpotek ve haciz kalemleri tabloda özetlenmiştir — kesin kayıt tapu müdürlüğüdür.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-3 text-xs">
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <div className="text-slate-500 mb-1">İmar / ruhsat</div>
+                <div className="text-slate-200">{report.legal_zoning_status ?? "—"}</div>
+                <div className="text-slate-400 mt-2">{report.legal_building_permit_status ?? ""}</div>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <div className="text-slate-500 mb-1">Uyarılar</div>
+                <ul className="list-disc list-inside text-slate-300 space-y-1">
+                  {(report.legal_warnings ?? []).map((w, i) => (
+                    <li key={i}>{w}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="h-40 rounded-xl border border-white/10 bg-black/20 p-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={[{ name: "İpotek (mock)", adet: Array.isArray(report.legal_mortgages) ? report.legal_mortgages.length : 0 }, { name: "Haciz (mock)", adet: Array.isArray(report.legal_liens) ? report.legal_liens.length : 0 }]}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                  <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} />
+                  <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
+                  <Bar dataKey="adet" fill="#38bdf8" radius={[6, 6, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+
+        {tab === "socio" && (
+          <div className="space-y-3 animate-fade-in">
+            <div className={`inline-flex px-3 py-1 rounded-full text-xs font-bold border ${scoreTone(report.socio_education_score, false)}`}>
+              Eğitim endeksi: {report.socio_education_score ?? "—"}/10
+            </div>
+            <p className="text-sm text-slate-300">
+              Gelir düzeyi (mock): <strong>{report.socio_income_level}</strong>. İşsizlik ve demografi yapısı bilgilendirme amaçlıdır; resmi TÜİK verisi bağlanınca güncellenir.
+            </p>
+            <div className="grid sm:grid-cols-3 gap-3 text-xs">
+              <StatMini label="Suç endeksi (mock)" value={`${report.socio_crime_index ?? "—"}/10`} invert />
+              <StatMini label="İstihdam %" value={`${report.socio_employment_rate ?? "—"}%`} />
+              <StatMini label="Not" value={report.socio_political_lean ?? "—"} />
+            </div>
+          </div>
+        )}
+
+        {tab === "location" && (
+          <div className="space-y-3 animate-fade-in">
+            <div className="flex flex-wrap gap-2">
+              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300">
+                Deprem riski: {report.location_earthquake_risk}
+              </span>
+              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300">
+                Yeşil alan %: {report.location_green_area_pct ?? "—"}
+              </span>
+            </div>
+            <p className="text-sm text-slate-300">{report.location_commerce_potential}</p>
+            <div className="h-44 rounded-xl border border-white/10 bg-black/20 p-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={locationBars}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                  <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} />
+                  <Tooltip formatter={(v: number) => `${v} km`} contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
+                  <Bar dataKey="km" fill="#6366f1" radius={[6, 6, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+
+        {tab === "economic" && (
+          <div className="space-y-3 animate-fade-in">
+            <div className="grid sm:grid-cols-2 gap-3 text-sm">
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <div className="text-xs text-slate-500">Piyasa değeri (mock)</div>
+                <div className="text-lg font-bold text-cyan-300">
+                  {report.economic_fair_market_value_try != null
+                    ? `₺${report.economic_fair_market_value_try.toLocaleString("tr-TR")}`
+                    : "—"}
+                </div>
+                <div className="text-[11px] text-slate-500 mt-1">
+                  Band: ₺{report.economic_lower_bound_try?.toLocaleString("tr-TR") ?? "—"} — ₺
+                  {report.economic_upper_bound_try?.toLocaleString("tr-TR") ?? "—"}
+                </div>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <div className="text-xs text-slate-500">Ortalama kira (mock)</div>
+                <div className="text-lg font-bold text-white">
+                  {report.economic_avg_rent_try != null ? `₺${report.economic_avg_rent_try.toLocaleString("tr-TR")}` : "—"}
+                </div>
+              </div>
+            </div>
+            <div className="h-40 rounded-xl border border-white/10 bg-black/20 p-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={rentTrend}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                  <XAxis dataKey="y" stroke="#94a3b8" />
+                  <Tooltip formatter={(v: number) => `%${v}`} contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
+                  <Line type="monotone" dataKey="pct" stroke="#22d3ee" strokeWidth={2} dot />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <p className="text-xs text-slate-400">{report.economic_municipal_plan_alignment}</p>
+          </div>
+        )}
+
+        {tab === "overall" && (
+          <div className="space-y-3 animate-fade-in">
+            <p className="text-sm text-slate-300 leading-relaxed">{report.overall_recommendation_buyer}</p>
+            <p className="text-sm text-slate-300 leading-relaxed">{report.overall_recommendation_seller}</p>
+            {(report.overall_red_flags?.length ?? 0) > 0 ? (
+              <div className="rounded-xl border border-red-400/25 bg-red-500/10 p-3">
+                <div className="text-xs font-semibold text-red-200 mb-2">Kırmızı bayraklar (mock)</div>
+                <ul className="text-xs text-red-100/90 list-disc list-inside space-y-1">
+                  {report.overall_red_flags!.map((x, i) => (
+                    <li key={i}>{x}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
+
+      <div className="px-4 py-3 border-t border-amber-400/20 bg-amber-500/5">
+        <p className="text-[11px] text-amber-100/90 leading-relaxed flex gap-2">
+          <span aria-hidden>⚠️</span>
+          {disclaimer}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function StatMini({ label, value, invert }: { label: string; value: string; invert?: boolean }) {
+  return (
+    <div className={`rounded-xl border p-3 ${invert ? "border-orange-400/20 bg-orange-500/5" : "border-white/10 bg-white/[0.03]"}`}>
+      <div className="text-[11px] text-slate-500 mb-1">{label}</div>
+      <div className="text-sm font-semibold text-white">{value}</div>
+    </div>
+  );
+}

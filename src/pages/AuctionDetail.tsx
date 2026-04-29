@@ -29,6 +29,19 @@ import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { ShareButton } from "@/components/ShareButton";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { isAuctionUuid } from "@/lib/auctionIds";
+import {
+  approveReport,
+  fetchReportForListing,
+  generateMockReport,
+  userHasApprovedReport,
+  type PropertyAnalysisReportRecord,
+} from "@/lib/aiAnalysis";
+import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
+import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
+import { preAuthorize } from "@/lib/payment";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -74,6 +87,76 @@ export default function AuctionDetail() {
   const [showMarketReportDialog, setShowMarketReportDialog] = useState(false);
   const [showOfficialDocsDialog, setShowOfficialDocsDialog] = useState(false);
 
+  const { user } = useAuth();
+  const [dbListingId, setDbListingId] = useState<string | null>(null);
+  const [dbAuctionPk, setDbAuctionPk] = useState<string | null>(null);
+  const [dbReportLoaded, setDbReportLoaded] = useState<PropertyAnalysisReportRecord | null>(null);
+  const [buyNowPriceDb, setBuyNowPriceDb] = useState<number | null>(null);
+  const [reportApproved, setReportApproved] = useState(false);
+  const [legalWithdrawAccepted, setLegalWithdrawAccepted] = useState(false);
+  const [depositId, setDepositId] = useState<string | null>(null);
+  const [preAuthOpen, setPreAuthOpen] = useState(false);
+  const [cardToken, setCardToken] = useState("test-ok");
+  const [preAuthBusy, setPreAuthBusy] = useState(false);
+
+  const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
+    if (!id || !auction) return null;
+    if (dbReportLoaded) return dbReportLoaded;
+    return generateMockReport({
+      listingId: id,
+      titleHint: auction.title,
+      cityHint: auction.city,
+      districtHint: auction.district,
+      startPriceTry: auction.currentBid,
+    });
+  }, [id, auction, dbReportLoaded]);
+
+  useEffect(() => {
+    if (!id) return;
+    try {
+      if (sessionStorage.getItem(`ihaleal_report_ok_${id}`) === "1") setReportApproved(true);
+      const d = sessionStorage.getItem(`ihaleal_deposit_${id}`);
+      if (d) setDepositId(d);
+    } catch {
+      /* ignore */
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (!id || !isAuctionUuid(id) || !isSupabaseConfigured()) return;
+    let alive = true;
+    void (async () => {
+      const { data: auc } = await supabase.from("auctions").select("id, listing_id").eq("id", id).maybeSingle();
+      if (!alive || !auc?.listing_id) return;
+      setDbAuctionPk(auc.id);
+      setDbListingId(auc.listing_id);
+      const { data: rep } = await fetchReportForListing(supabase, auc.listing_id);
+      if (!alive) return;
+      if (rep) setDbReportLoaded(rep);
+      const { data: listingRow } = await supabase
+        .from("listings")
+        .select("buy_now_price_try")
+        .eq("id", auc.listing_id)
+        .maybeSingle();
+      if (!alive) return;
+      if (listingRow?.buy_now_price_try != null) setBuyNowPriceDb(Number(listingRow.buy_now_price_try));
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [id]);
+
+  useEffect(() => {
+    if (!user?.id || !resolvedReport?.id || !isSupabaseConfigured()) return;
+    let alive = true;
+    void userHasApprovedReport(supabase, resolvedReport.id, user.id).then((ok) => {
+      if (alive && ok) setReportApproved(true);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [user?.id, resolvedReport?.id]);
+
   if (!auction) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
@@ -91,6 +174,75 @@ export default function AuctionDetail() {
   const priceDiffPercent = ((priceDiff / auction.aiPredictedPrice) * 100).toFixed(1);
   const isUnderpriced = priceDiff > 0;
   const recommendation = auction.investmentScore >= 85 ? "strongBuy" : auction.investmentScore >= 70 ? "buy" : auction.investmentScore >= 50 ? "hold" : "avoid";
+
+  const effectiveBuyNowTry =
+    buyNowPriceDb ?? (!isAuctionUuid(id ?? "") ? Math.round(liveBid * 1.35) : null);
+  const bidGateBlocked =
+    !isListingOnly && Boolean(user) && (!reportApproved || !depositId);
+  const bidDisabled = !isListingOnly && (!user || !reportApproved || !depositId);
+
+  const handleBuyerReportConfirm = async () => {
+    if (!legalWithdrawAccepted || !user || !id || !resolvedReport) return;
+    if (resolvedReport.id) {
+      const { error } = await approveReport(supabase, resolvedReport.id, user.id);
+      if (error) {
+        window.alert(error.message);
+        return;
+      }
+    }
+    sessionStorage.setItem(`ihaleal_report_ok_${id}`, "1");
+    setReportApproved(true);
+  };
+
+  const runPreAuth = async () => {
+    if (!user || !id) return;
+    setPreAuthBusy(true);
+    try {
+      const base = liveBid;
+      const depositAmt = Math.round(base * 0.015 * 100) / 100;
+      const pr = await preAuthorize({
+        amountTRY: depositAmt,
+        cardToken,
+        buyerId: user.id,
+        listingId: dbListingId ?? id,
+        context: "bid",
+      });
+      if (!pr.success) {
+        window.alert(pr.error ?? "Ön yetki reddedildi");
+        return;
+      }
+      if (pr.riskScore != null && pr.riskScore > 70) {
+        window.alert("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).");
+      }
+      if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
+        const { data, error } = await supabase.rpc("register_bid_deposit", {
+          p_listing_id: dbListingId,
+          p_auction_id: dbAuctionPk,
+          p_base_amount_try: base,
+          p_deposit_amount_try: depositAmt,
+          p_pre_auth_ref: pr.preAuthRef ?? "mock",
+          p_context: "bid",
+          p_idempotency_key: crypto.randomUUID(),
+        });
+        if (error) {
+          window.alert(error.message);
+          return;
+        }
+        const row = data as { status?: string; deposit_id?: string };
+        if (row?.status === "ok" && row.deposit_id) {
+          setDepositId(row.deposit_id);
+          sessionStorage.setItem(`ihaleal_deposit_${id}`, row.deposit_id);
+        }
+      } else {
+        const mockDep = `mock-local-${Date.now()}`;
+        setDepositId(mockDep);
+        sessionStorage.setItem(`ihaleal_deposit_${id}`, mockDep);
+      }
+      setPreAuthOpen(false);
+    } finally {
+      setPreAuthBusy(false);
+    }
+  };
 
   const radarData = [
     { subject: "Konum", A: auction.investmentScore * 0.9 + 10, fullMark: 100 },
@@ -209,9 +361,9 @@ export default function AuctionDetail() {
                   { key: "features" as const, label: "Özellikler", icon: <CheckCircle2 className="w-4 h-4" /> },
                   { key: "location" as const, label: "Konum", icon: <MapPin className="w-4 h-4" /> },
                   { key: "priceHistory" as const, label: "Fiyat Geçmişi", icon: <TrendingUp className="w-4 h-4" /> },
-                  { key: "ai" as const, label: "AI Analiz", icon: <BarChart3 className="w-4 h-4" /> },
+                  { key: "ai" as const, label: "AI Analiz", icon: <BarChart3 className="w-4 h-4" />, mandatory: true },
                 ].map((tab) => (
-                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-400 hover:text-white hover:bg-white/5"}`}>{tab.icon} {tab.label}</button>
+                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-400 hover:text-white hover:bg-white/5"}`}>{tab.icon} {tab.label}{tab.mandatory ? <Badge className="bg-emerald-600/90 text-white border-0 text-[10px] px-1.5 py-0">ZORUNLU</Badge> : null}</button>
                 ))}
               </div>
             </div>
@@ -373,8 +525,37 @@ export default function AuctionDetail() {
                   </div>
                 </div>
               )}
-              {activeTab === "ai" && (
+              {activeTab === "ai" && resolvedReport && (
                 <div className="space-y-8 animate-fade-in">
+                  <PropertyAnalysisReportViewer report={resolvedReport} mockBanner={!dbReportLoaded} />
+                  <CaymaPolitikasi accepted={legalWithdrawAccepted} onAcceptedChange={setLegalWithdrawAccepted} />
+                  <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                    <label className="flex items-start gap-2 text-sm text-slate-300 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={reportApproved}
+                        disabled={!legalWithdrawAccepted}
+                        onChange={(e) => {
+                          void (async () => {
+                            if (!legalWithdrawAccepted || !user || !id) return;
+                            if (!e.target.checked) {
+                              setReportApproved(false);
+                              sessionStorage.removeItem(`ihaleal_report_ok_${id}`);
+                              return;
+                            }
+                            await handleBuyerReportConfirm();
+                          })();
+                        }}
+                        className="mt-1 rounded border-white/20"
+                      />
+                      <span>Raporu okuduğumu ve bilgilendirme niteliğini anladığımı onaylıyorum (taslak).</span>
+                    </label>
+                  </div>
+                  {bidGateBlocked ? (
+                    <p className="text-xs text-amber-200/90 border border-amber-400/25 rounded-lg px-3 py-2 bg-amber-500/10">
+                      Teklif verebilmek için önce raporu onaylayın ve ardından blokaj ön yetkisini tamamlayın.
+                    </p>
+                  ) : null}
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="h-72">
                       <ResponsiveContainer width="100%" height="100%">
@@ -443,9 +624,27 @@ export default function AuctionDetail() {
                     </>
                   )}
                 </p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   {!isListingOnly ? (
-                    <Button className="flex-1 bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11" onClick={() => { setBidAmount((liveBid + 50000).toString()); setShowBidDialog(true); }}>
+                    <Button
+                      className="flex-1 min-w-[8rem] bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-40 disabled:grayscale"
+                      disabled={bidDisabled}
+                      title={
+                        bidDisabled
+                          ? !user
+                            ? "Giriş gerekli"
+                            : !reportApproved
+                              ? "Önce AI raporunu onaylayın"
+                              : !depositId
+                                ? "Blokaj ön yetkisi gerekli"
+                                : ""
+                          : ""
+                      }
+                      onClick={() => {
+                        setBidAmount((liveBid + 50000).toString());
+                        setShowBidDialog(true);
+                      }}
+                    >
                       <TrendingUp className="w-4 h-4 mr-1.5" /> {isSealedOffer ? "Kapalı teklif ver" : "Teklif ver"}
                     </Button>
                   ) : (
@@ -453,8 +652,30 @@ export default function AuctionDetail() {
                       Gösterim / bilgi talebi
                     </Button>
                   )}
+                  {!isListingOnly && auction.dealType !== "rent" && effectiveBuyNowTry != null ? (
+                    <Button
+                      variant="outline"
+                      className="border-emerald-400/40 text-emerald-100 hover:bg-emerald-500/10 h-11 px-3 shrink-0"
+                      disabled={bidDisabled}
+                      title={!buyNowPriceDb ? "MOCK gösterim — DB’de buy_now_price_try yoksa tahmini fiyat" : ""}
+                      onClick={() =>
+                        navigate(`/ihale/${id}/hemen-al`, {
+                          state: { listingId: dbListingId ?? undefined, depositId: depositId ?? undefined },
+                        })
+                      }
+                    >
+                      Hemen Al ₺{(effectiveBuyNowTry / 1e6).toFixed(2)}M
+                    </Button>
+                  ) : null}
+                  {!isListingOnly && user && reportApproved && !depositId ? (
+                    <Button type="button" variant="secondary" className="h-11 px-3 bg-white/10 text-white shrink-0" onClick={() => setPreAuthOpen(true)}>
+                      Blokaj (demo)
+                    </Button>
+                  ) : null}
                   {!isListingOnly && auction.dealType !== "rent" ? (
-                    <Button variant="outline" className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 h-11 px-3" onClick={() => navigate("/mortgage")} title="Kredi Hesapla"><Calculator className="w-4 h-4" /></Button>
+                    <Button variant="outline" className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 h-11 px-3 shrink-0" onClick={() => navigate("/mortgage")} title="Kredi Hesapla">
+                      <Calculator className="w-4 h-4" />
+                    </Button>
                   ) : null}
                   <Button variant="outline" className="border-white/10 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
@@ -614,6 +835,34 @@ export default function AuctionDetail() {
           </div>
           <DialogFooter>
             <Button className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setShowOfficialDocsDialog(false)}>Anladım</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={preAuthOpen} onOpenChange={setPreAuthOpen}>
+        <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">Blokaj ön yetkisi (mock)</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 text-sm text-slate-300">
+            <p>
+              Blokaj tutarı: <strong className="text-white">₺{(Math.round(liveBid * 0.015 * 100) / 100).toLocaleString("tr-TR")}</strong> (taban ₺
+              {liveBid.toLocaleString("tr-TR")} üzerinden %1,5).
+            </p>
+            <p>Kazanırsanız kaparo / teminat akışına işlenmesi hedeflenir (Ürün koşulları taslak).</p>
+            <p>Cayarsanız yaklaşık %10 kesinti ve kalanın iadesi hedeflenir — detay için cayma politikası.</p>
+            <div>
+              <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
+              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-white/10 text-white" placeholder="test-ok veya test-fail" />
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setPreAuthOpen(false)}>
+              Vazgeç
+            </Button>
+            <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" disabled={preAuthBusy} onClick={() => void runPreAuth()}>
+              {preAuthBusy ? "İşleniyor..." : "Ön yetkilendir"}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

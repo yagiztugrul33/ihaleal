@@ -43,6 +43,7 @@ const SearchResults        = lazy(() => import("@/pages/SearchResults"));
 const LiveAuctions         = lazy(() => import("@/pages/LiveAuctions"));
 const FlowSelector         = lazy(() => import("@/pages/onboarding/FlowSelector"));
 const EDevletAuth          = lazy(() => import("@/pages/auth/EDevletAuth"));
+const BuyNow               = lazy(() => import("@/pages/auction/BuyNow"));
 const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
 const YillikUyelik         = lazy(() => import("@/pages/membership/YillikUyelik"));
 const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
@@ -68,6 +69,7 @@ function App() {
             <Route path="/ihaleler" element={<LiveAuctions />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
+            <Route path="/ihale/:auctionId/hemen-al" element={<BuyNow />} />
             <Route path="/analiz" element={<Analytics />} />
             <Route path="/karsilastir" element={<Compare />} />
             <Route path="/giris" element={<Login />} />

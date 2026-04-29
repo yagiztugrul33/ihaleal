@@ -10,6 +10,9 @@ import { FEE_TEXTS, calcSellerNet, listingPriceAnomalyMessage, MEMBERSHIP_DURATI
 import type { PropertyMarketingMode } from "@/types/auction";
 import { MARKETING_MODE_LABELS } from "@/lib/listingPolicy";
 import { invalidateAuctionsCatalogCache } from "@/lib/auctionsSource";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { generateMockReport, saveReportToDb, type PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
+import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 
 const CITIES = ["İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Adana", "Konya", "Gaziantep"];
 const DISTRICTS: Record<string, string[]> = {
@@ -57,6 +60,12 @@ export default function CreateAuction() {
   const [bindingCommitmentAccepted, setBindingCommitmentAccepted] = useState(false);
   const [officialDocumentsForBuyer, setOfficialDocumentsForBuyer] = useState(false);
   const [titleDeed, setTitleDeed] = useState("");
+  const [buyNowPriceTry, setBuyNowPriceTry] = useState("");
+  const [sellerReportModalOpen, setSellerReportModalOpen] = useState(false);
+  const [buyNowWarnOpen, setBuyNowWarnOpen] = useState(false);
+  const [sellerReportRow, setSellerReportRow] = useState<PropertyAnalysisReportRecord | null>(null);
+  const [pendingCtx, setPendingCtx] = useState<{ listingId: string; auctionId: string } | null>(null);
+  const [aiPhaseLabel, setAiPhaseLabel] = useState("");
 
   const [sizeM2, setSizeM2] = useState("120");
   const [rooms, setRooms] = useState("3+1");
@@ -216,7 +225,8 @@ export default function CreateAuction() {
         district,
         start_price_try: startNum,
         reserve_price_try: reserveParsed !== null && Number.isFinite(reserveParsed) ? reserveParsed : null,
-        status: "review",
+        status: "draft",
+        buy_now_price_try: null,
         is_demo: false,
       })
       .select()
@@ -270,9 +280,63 @@ export default function CreateAuction() {
     }
 
     invalidateAuctionsCatalogCache();
-    setSuccess(true);
+    setAiPhaseLabel("AI analiz hazırlanıyor...");
+    const mock = generateMockReport({
+      listingId: listing.id,
+      titleHint: title.trim(),
+      cityHint: city,
+      districtHint: district,
+      startPriceTry: startNum,
+    });
+    const { data: savedReport, error: repErr } = await saveReportToDb(supabase, listing.id, mock);
+    setAiPhaseLabel("");
+    if (repErr || !savedReport) {
+      console.error("[CreateAuction] saveReportToDb", repErr);
+      window.alert(
+        "AI raporu kaydedilemedi (Supabase migration / tablo eksik olabilir). İlan taslak olarak kayıtlıdır.",
+      );
+      setSubmitLoading(false);
+      return;
+    }
+    setSellerReportRow(savedReport);
+    setPendingCtx({ listingId: listing.id, auctionId: auction.id });
+    setSellerReportModalOpen(true);
     setSubmitLoading(false);
-    setTimeout(() => navigate(`/ihale/${auction.id}`), 1200);
+  };
+
+  const finalizeSellerApprove = async () => {
+    if (!pendingCtx || !user) return;
+    const trimmed = buyNowPriceTry.trim();
+    const bn = trimmed ? parseFloat(trimmed.replace(/\s/g, "")) : NaN;
+    const bnOk = trimmed && Number.isFinite(bn) && bn > 0 ? bn : null;
+    const { error } = await supabase
+      .from("listings")
+      .update({
+        status: "review",
+        seller_report_approved_at: new Date().toISOString(),
+        buy_now_price_try: bnOk,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", pendingCtx.listingId)
+      .eq("seller_id", user.id);
+    if (error) {
+      window.alert("Onay kaydedilemedi: " + error.message);
+      return;
+    }
+    setBuyNowWarnOpen(false);
+    setSellerReportModalOpen(false);
+    setSuccess(true);
+    setTimeout(() => navigate(`/ihale/${pendingCtx.auctionId}`), 600);
+  };
+
+  const handleApproveSellerReport = () => {
+    const trimmed = buyNowPriceTry.trim();
+    const bn = trimmed ? parseFloat(trimmed.replace(/\s/g, "")) : NaN;
+    if (trimmed && Number.isFinite(bn) && bn > 0) {
+      setBuyNowWarnOpen(true);
+      return;
+    }
+    void finalizeSellerApprove();
   };
 
   if (authLoading) {
@@ -336,9 +400,15 @@ export default function CreateAuction() {
         </p>
         {success && (
           <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-6">
-            İlan ve ihale oluşturuldu! İlan sayfasına yönlendiriliyorsunuz...
+            İlan moderasyon kuyruğuna alındı. İhale sayfasına yönlendiriliyorsunuz...
           </div>
         )}
+        {aiPhaseLabel ? (
+          <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/25 text-blue-200 mb-6 flex items-center gap-3">
+            <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin shrink-0" />
+            {aiPhaseLabel}
+          </div>
+        ) : null}
         {error && <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 mb-6">{error}</div>}
         <form onSubmit={handleCreate} className="space-y-6">
           <Card className="bg-slate-900/50 border-white/5">
@@ -578,6 +648,17 @@ export default function CreateAuction() {
                   </select>
                 </div>
                 <div>
+                  <label className="text-sm text-slate-400 mb-1.5 block">Hemen Al fiyatı (₺, isteğe bağlı)</label>
+                  <Input
+                    type="number"
+                    value={buyNowPriceTry}
+                    onChange={(e) => setBuyNowPriceTry(e.target.value)}
+                    className="bg-slate-950 border-white/10 text-white"
+                    placeholder="Örn: başlangıçtan %30–40 yüksek — ilan erken kapanabilir"
+                  />
+                  <p className="text-[11px] text-slate-600 mt-1">Doldurursanız rapor onayı sonrası uyarı gösterilir ve kayda yazılır.</p>
+                </div>
+                <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Minimum Artış</label>
                   <select className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm">
                     <option>₺10.000</option>
@@ -658,9 +739,60 @@ export default function CreateAuction() {
 
           <Button type="submit" disabled={submitLoading} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-12 text-base disabled:opacity-60">
             <PlusCircle className="w-5 h-5 mr-2" />
-            {submitLoading ? "Kaydediliyor..." : "İlanı kaydet ve yayınla"}
+            {submitLoading ? (aiPhaseLabel || "Kaydediliyor...") : "İlanı kaydet ve yayınla"}
           </Button>
         </form>
+
+        <Dialog open={sellerReportModalOpen} onOpenChange={setSellerReportModalOpen}>
+          <DialogContent className="bg-[#0c1629] border-cyan-400/25 text-white max-w-3xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold">Satıcı AI analiz özeti</DialogTitle>
+              <p className="text-xs text-slate-500 leading-relaxed pt-1">
+                Yayına çıkmadan önce raporu inceleyin. Onaylamadan ilan moderasyon kuyruğuna gönderilmez (taslak kalır).
+              </p>
+            </DialogHeader>
+            {sellerReportRow ? (
+              <div className="space-y-3">
+                {(sellerReportRow.overall_risk_score != null && sellerReportRow.overall_risk_score > 7) ||
+                (Array.isArray(sellerReportRow.overall_red_flags) && sellerReportRow.overall_red_flags.length > 0) ? (
+                  <div className="p-3 rounded-xl bg-red-500/15 border border-red-400/35 text-red-100 text-sm">
+                    Bu fiyatla satılma şansı düşük olabilir — fiyatı düşürmenizi öneririz (mock bilgilendirme). Kırmızı bayraklar raporda listelenmiştir.
+                  </div>
+                ) : null}
+                <PropertyAnalysisReportViewer
+                  report={sellerReportRow}
+                  mockBanner
+                  showApproveButton
+                  onApprove={handleApproveSellerReport}
+                />
+              </div>
+            ) : null}
+            <DialogFooter className="gap-2">
+              <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setSellerReportModalOpen(false)}>
+                Şimdilik kapat (taslak)
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={buyNowWarnOpen} onOpenChange={setBuyNowWarnOpen}>
+          <DialogContent className="bg-[#0c1629] border-amber-400/25 text-white max-w-md">
+            <DialogHeader>
+              <DialogTitle>Hemen Al fiyatı</DialogTitle>
+            </DialogHeader>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              Bu fiyatla ilan <strong className="text-amber-200">erken kapanabilir</strong> (alıcı Hemen Al kullanırsa). Stratejinizi gözden geçirin.
+            </p>
+            <DialogFooter className="gap-2">
+              <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setBuyNowWarnOpen(false)}>
+                Geri
+              </Button>
+              <Button type="button" className="bg-gradient-to-r from-blue-600 to-cyan-400 text-white" onClick={() => void finalizeSellerApprove()}>
+                Anladım — onayla
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
