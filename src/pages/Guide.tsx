@@ -10,9 +10,9 @@ const FAQS = [
   {
     category: "Genel",
     items: [
-      { q: "IhaleVar nedir?", a: "IhaleVar, Turkiye'nin en guvenli gayrimenkul ihale platformudur. Yapay zeka destekli degerleme, seffaf teklif sistemi ve guvenli odeme altyapisi ile kullanicilara en iyi gayrimenkul firsatlarini sunar." },
+      { q: "ihaleal.com nedir?", a: "ihaleal.com, Turkiye icin gayrimenkul ilani ve ihale deneyimi sunan platformdur. Yapay zeka destekli degerleme, seffaf teklif cizgisi ve guvenli odeme hedefi ile kullanicilara uygun firsatlar icin tek adres olarak konumlanir." },
       { q: "Nasil uye olabilirim?", a: "Ana sayfadan Kayit Ol butonuna tiklayarak, ad, soyad, e-posta ve telefon bilgilerinizle ucretsiz uye olabilirsiniz. Uyeliginizi e-posta adresinize gelen link ile aktive edebilirsiniz." },
-      { q: "IhaleVar guvenli mi?", a: "Evet. Tum teklifler sifreli iletisim kanallari uzerinden iletilir. Kisisel bilgileriniz banka seviyesinde korunur. Platformumuz SSL sertifikali ve PCI DSS standartlarina uygundur." },
+      { q: "ihaleal.com guvenli mi?", a: "Evet. Teklif ve iletisim cizgisi sifreli kanallar uzerinden tasarlanmistir. Kisisel veriler KVKK odakli saklanir; baglanti SSL ile korunur. Odeme ve PCI iddialari uretim matrisinde netlestirilir ( simdilik demo)." },
     ]
   },
   {

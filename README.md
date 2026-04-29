@@ -2,6 +2,9 @@
 
 **İhaleal** — gayrimenkul ilanı ve ihale deneyimi (**Vite + React + TypeScript** SPA). Yerel: `npm install && npm run dev`. Üretim öncesi: `npm run typecheck && npm run build`.
 
+- **Canlı site:** [https://ihaleal.com/#/](https://ihaleal.com/#/)
+- **Hızlı:** çift tık `IHALEAL_LINKLER.bat` (canlıyı tarayıcıda açar; yerel adresleri de gösterir).
+
 - **Mimari tek kaynak:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 - **Supabase:** `.env.local` içinde `VITE_SUPABASE_*`; SQL sırası `supabase/manual_push_v2.sql` → `v3` → `v4` → `v5` → **`v6`** → **`v7`** (`pre_launch_signups`, SQL Editor).
 

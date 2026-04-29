@@ -20,7 +20,7 @@ export default function Changelog() {
       author: "ihaleal.com AI Agent",
       status: "Yayında",
       highlights: [
-        "Tek ürün çizgisi: paralel ihalevar deposu kapatıldı; dokümantasyon ve SQL sırası yalnızca ihaleal.com repo içinde",
+        "Tek ürün çizgisi: paralel kod deposu birleştirildi; dokümantasyon ve SQL sırası yalnızca ihaleal.com repo içinde",
         "README / ARCHITECTURE / STATE: manual_push v2→v5 sırası ve Supabase Replication notları senkron",
         "Supabase şema (manual_push_v5): memberships, service_fees, authorizations, commission_records, agent_performance + RLS SELECT",
       ],
@@ -50,7 +50,7 @@ export default function Changelog() {
       author: "ihaleal.com AI Agent",
       status: "Arşiv",
       highlights: [
-        "İsim değişikliği: ihalevar → ihaleal.com tamamlandı",
+        "Marka ve ürün adı: yalnızca ihaleal.com olarak sabitlendi",
         "6 demo gayrimenkul ilanı eklendi (İstanbul, Ankara, İzmir, Bodrum)",
         "AI skorları, radar grafikleri, fiyat tahminleri entegre",
         "Yatırım skoru, kira getirisi, bölge endeksleri",
@@ -109,7 +109,7 @@ export default function Changelog() {
       author: "ihaleal.com AI Agent",
       status: "Arşiv",
       highlights: [
-        "Proje başlangıcı: yatirimproje → ihalevar → ihaleal.com",
+        "Proje başlangıcı: ihaleal.com SPA ve gayrimenkul ihale ürün çizgisi",
         "Gayrimenkul ihale platformu konsepti oluşturuldu",
         "Hero, Auctions, Stats, Features, HowItWorks, Contact bölümleri",
       ],

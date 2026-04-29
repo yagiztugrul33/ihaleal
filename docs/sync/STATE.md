@@ -9,7 +9,7 @@ phase: "MVP-front-admin"
 last_git_sha_short: "(commit sonrası)"
 last_processed_kimi_file: "kimi-20260428-k51-k53.md"
 notes:
-  - "Marka/ürün tek repo: ihaleal.com (ihalevar çizgisi kapalı)."
+  - "Marka/ürün tek repo: ihaleal.com."
 blockers:
   - "B2: K51/K53 tam gövde — inbox'ta metin eksik (Kimi)"
 next_kimi_tasks:
