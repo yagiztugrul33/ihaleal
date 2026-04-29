@@ -1587,7 +1587,7 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 | OG + favicon | güncel meta + svg | Var | `index.html`, `public/favicon.svg` |
 | Lazy img | tüm img | `loading="lazy"` eklendi | `rg "<img "` |
 
-**Commit (tur #20→#25 teslim):** **`07c3b7f`**
+**Commit (tur #20→#25 teslim):** **`40dd107`**
 
 ---
 
