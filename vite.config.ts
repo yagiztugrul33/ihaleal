@@ -12,7 +12,8 @@ function securityHeaders(): Record<string, string> {
 }
 
 export default defineConfig({
-  base: './',
+  /** Göreli `./` üretimde `/alt/yol` gibi URL'lerde `./assets` yanlış çözülür (JS 404 → beyaz ekran). Kök taban her zaman doğru asset yolu verir. */
+  base: "/",
   server: {
     headers: securityHeaders(),
   },
