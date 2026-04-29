@@ -232,7 +232,7 @@ export default function CreateAuction() {
     invalidateAuctionsCatalogCache();
     setSuccess(true);
     setSubmitLoading(false);
-    setTimeout(() => navigate(`/ilan/${auction.id}`), 1200);
+    setTimeout(() => navigate(`/ihale/${auction.id}`), 1200);
   };
 
   if (authLoading) {

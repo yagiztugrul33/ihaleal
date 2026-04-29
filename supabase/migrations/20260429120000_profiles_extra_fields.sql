@@ -7,5 +7,7 @@ alter table public.profiles
     check (role in ('individual','agent','bank','admin'));
 
 create index if not exists profiles_role_idx on public.profiles(role);
-create index if not exists profiles_tc_idx on public.profiles(tc_kimlik_no)
+drop index if exists public.profiles_tc_idx;
+create unique index if not exists profiles_tc_unique
+  on public.profiles(tc_kimlik_no)
   where tc_kimlik_no is not null;

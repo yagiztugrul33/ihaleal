@@ -1477,11 +1477,11 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 ### ADIM 12.3 — §B özet (form + state + submit)
 
 - **State:** görsel base64 dizisi; başlık, açıklama, il/ilçe/mahalle; başlangıç fiyatı, referans ₺, süre (gün); kategori (Konut/Ticari/Arsa/Villa); `dealType` sale/rent; `marketingMode` (`listing_only` | `sealed_offers` | `auction`); teknik alanlar (m², oda, banyo, kat, yıl, özellikler); PDF dosya adları; ekspertiz zorunluluğu; taahhüt limitleri + onay; `error`, `success`, `submitLoading`.
-- **`handleCreate`:** `useAuth` kullanıcı + `isSupabaseConfigured`; validasyonlar; `listings.insert` (`status: review`) → hata: **`window.alert` + `console.error` + `setError`**; `auctions.insert` (`scheduled`) → aynı; başarı: **`invalidateAuctionsCatalogCache`**, **`navigate(\`/ilan/${auction.id}\`)`** ( **`/ihale/:id` değil** — uygulama rotası `/ilan/:id`).
+- **`handleCreate`:** `useAuth` kullanıcı + `isSupabaseConfigured`; validasyonlar; `listings.insert` (`status: review`) → hata: **`window.alert` + `console.error` + `setError`**; `auctions.insert` (`scheduled`) → aynı; başarı: **`invalidateAuctionsCatalogCache`**, **`navigate(\`/ihale/${auction.id}\`)`** (**`/ihale/:id`** ve **`/ilan/:id`** aynı `AuctionDetail`; HashRouter).
 
 ### ADIM 3–4 — CreateAuction + katalog
 
-- **`CreateAuction.tsx`:** `useAuth().user` + `supabase.from('listings').insert` → `supabase.from('auctions').insert`; başarıda `navigate(/ilan/${auction.id})`; ilan **`status: 'review'`**.
+- **`CreateAuction.tsx`:** `useAuth().user` + `supabase.from('listings').insert` → `supabase.from('auctions').insert`; başarıda `navigate(/ihale/${auction.id})`; ilan **`status: 'review'`**.
 - **`supabaseAuctionsFetch.ts`:** Uzak katalog filtresine **`review`** listing durumu eklendi (yeni ilanlar listede görünsün).
 
 ### ADIM 5 — Demo seed
@@ -1515,6 +1515,22 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 
 - **`9930765bbcf0df625fa9ba71b8dfca927a33bbb5`** — ilk özellik push’u (`main → origin/main`).
 - **`6d8572c02eaf63b57187eee184ceb2104c228d71`** — **`tur #12 — CreateAuction Supabase INSERT + profiles 4 alan`** (`CreateAuction.tsx`: insert hatalarında `alert` + `console.error`).
+
+### §B — TUR #12 MEGA paket denetleme tablosu (MEGA otonom ADIM 12.x)
+
+| Adım | Beklenen | Gerçekleşen | Kanıt |
+|------|----------|-------------|--------|
+| Migration dosyası `supabase/migrations/20260429120000_profiles_extra_fields.sql` | Var | Var | ~604 B; `profiles_tc_unique` partial UNIQUE (+ `drop index if exists profiles_tc_idx`) |
+| `manual_push_v2.sql` | Var | Var | ~2900 B |
+| `manual_push_v3.sql` profil indeksi | senkron | Var | `profiles_tc_unique` ile uyumlu |
+| Frontend: CreateAuction + route | `/ihale/:id` başarı yönlendirme | Var | `src/App.tsx` + `CreateAuction.tsx` |
+| `rg` envanteri (`CreateAuction\|YeniIhale\|/yeni-ihale`) | eşleşme | Var | `CreateAuction.tsx`, `App.tsx` `/ihale-ac`, `userFlows.ts`; `/yeni-ihale` yok |
+| Build typecheck | YEŞIL | YEŞIL | `npm run typecheck` exit **0** |
+| Build | YEŞIL | YEŞIL | `npm run build` exit **0** |
+| Audit `--audit-level=high` | 0 vuln | 0 vuln | `found 0 vulnerabilities` |
+| Curl smoke `node scripts/smoke-listings-post.mjs` | 201 ideal | **403** | `LISTINGS_POST_HTTP 403` — `profiles` izni / RLS (Dashboard şemasına bağlı) |
+| Git commit tur #12 | hash | _(push sonrası `git log -1`)_ | mesaj: `tur #12 — CreateAuction Supabase INSERT + profiles 4 alan` |
+| Git push | OK | deneme | _(aşağıda)_ |
 
 ---
 

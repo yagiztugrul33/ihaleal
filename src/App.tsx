@@ -58,6 +58,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
+            <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/analiz" element={<Analytics />} />
             <Route path="/karsilastir" element={<Compare />} />
             <Route path="/giris" element={<Login />} />
