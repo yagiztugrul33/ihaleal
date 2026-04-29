@@ -31,6 +31,40 @@ _(Cloud ajanı buraya yazar; Cursor bu bölümü değiştirmez.)_
 
 ## B) Cursor — el sıkışma günlüğü
 
+### 2026-04-29 — [CURSOR] ÖN KONTROL + TUR #19 (mega paket başlangıcı)
+
+**MANUAL_PUSH_BEKLIYOR:** Uzak Supabase REST — `memberships` HTTP **404**, `bid_bonds` HTTP **404** → şema tabloları uzak projede yüklenmemiş veya PostgREST şema önbelleği; kullanıcı **`manual_push_v3.sql` → `v4` → `v5`** sırasını Dashboard SQL Editor’da çalıştırmalı.
+
+**Not:** `profiles` anon REST sayım isteği HTTP **401** → JWT/apikey ile `VITE_SUPABASE_URL` projesi eşleşmesi veya proje durumu kontrol edilmeli.
+
+| Adım | Beklenen | Gerçek | Kanıt |
+|------|-----------|--------|-------|
+| `.env.local` keys mask | üç ana değişken DOLU | DOLU | `node --env-file=.env.local scripts/precheck-supabase.mjs` |
+| `supabase/migrations/` listesi | çoklu `.sql` | **9** dosya (`20260430120000_write_policies…` dahil) | PowerShell `Get-ChildItem supabase/migrations -Name` |
+| `manual_push_v*.sql` | v2–v6 | v2,v3,v4,v5,v6 (v6 bu turda eklendi) | PowerShell |
+| REST `/memberships` (service_role, count) | 200 şema varsa | **404** | `precheck-supabase.mjs` |
+| REST `/bid_bonds` (service_role, count) | 200 şema varsa | **404** | `precheck-supabase.mjs` |
+| `npm run typecheck` | yeşil | yeşil | terminal |
+| `npm run build` | yeşil | yeşil (~104 s) | terminal |
+| `npm audit --audit-level=high` | 0 high+ | **found 0 vulnerabilities** | terminal |
+
+**TUR #19 repo teslimi:**
+
+| Dosya | Açıklama |
+|-------|-----------|
+| `supabase/migrations/20260430120000_write_policies_and_place_bid_v2.sql` | INSERT/UPDATE RLS; `place_bid` teminat satırı zorunlu; `calculate_commission_with_offset` |
+| `supabase/manual_push_v6.sql` | SQL Editor için aynı içerik |
+
+**Commit (tur #19):** hash terminal çıktısı ile tamamlanır.
+
+---
+
+### §D — Bekleyen (mega paket)
+
+- **TUR #20:** Uzakta **`manual_push_v3…v5`** (ör. **`memberships`/`bid_bonds` 404 düzelene**) ve ardından **`manual_push_v6.sql`** Run — olmadan üyelik yazma / RPC doğrulaması tam güvenilir olmaz.
+
+---
+
 **2026-04-27 — [CURSOR]** Ortak çalışma protokolü (`ORTAK_CALISMA_KOMUTU.txt`) uyarınca hazırım. Cloud aynı komutu aldığında yalnızca **§A** ve gerekirse **§C** altına yazmalı; ben **§B** ve **§C** (imzalı maddeler) ile devam ederim. Üst bölümler (1–10) ortak özet için her iki taraf da dikkatli güncelleyebilir — çakışmayı önlemek için küçük diff tercih edilir.
 
 - Son kontrol: `npm run typecheck` / `npm run build` bu repoda daha önce yeşildi; yeni turda tekrar çalıştırılabilir.
