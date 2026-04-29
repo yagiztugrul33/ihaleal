@@ -59,13 +59,29 @@ if (!sellerId) {
 
 const supabase = createClient(url, serviceRole);
 
+async function clearDemoListings() {
+  const { data: lids, error: qe } = await supabase.from("listings").select("id").eq("is_demo", true);
+  if (qe) console.error("Demo listing sorgusu:", qe.message);
+  const ids = (lids ?? []).map((x) => x.id);
+  if (ids.length > 0) {
+    const { error: de } = await supabase.from("auctions").delete().in("listing_id", ids);
+    if (de) console.error("Auction silme:", de.message);
+  }
+  const { error: le } = await supabase.from("listings").delete().eq("is_demo", true);
+  if (le) console.error("Listing silme:", le.message);
+}
+
 async function seedOne(item, idx) {
   const title = item.title ?? `Demo ilan ${idx + 1}`;
   const body = {
     description: item.description ?? "",
     ...(typeof item.body === "object" && item.body ? item.body : {}),
-    seed_meta: { tur: "Kimi_A_01", idx },
+    seed_meta: { tur: "tur21_demo_seed", demo_id: item.id ?? idx },
   };
+  if (item.size_m2 != null) body.size_m2 = item.size_m2;
+  if (item.rooms != null) body.rooms = item.rooms;
+  if (item.neighborhood != null) body.neighborhood = item.neighborhood;
+
   const { data: listing, error: le } = await supabase
     .from("listings")
     .insert({
@@ -103,8 +119,15 @@ async function seedOne(item, idx) {
   if (ae) console.error("Auction insert:", ae.message);
 }
 
-for (let i = 0; i < demoData.length; i++) {
-  await seedOne(demoData[i], i);
+async function main() {
+  await clearDemoListings();
+  for (let i = 0; i < demoData.length; i++) {
+    await seedOne(demoData[i], i);
+  }
+  console.log(`İşlem bitti — işlenen kayıt: ${demoData.length} (hataları konsola yazdı).`);
 }
 
-console.log(`İşlem bitti — işlenen kayıt: ${demoData.length} (hataları konsola yazdı).`);
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

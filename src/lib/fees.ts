@@ -1,48 +1,122 @@
-// src/lib/fees.ts
-// TEK KAYNAK: komisyon, KDV, iade penceresi, ödeme süreleri.
-// Bu dosya dışında elle yüzde/TL string'i YAZMA — buradan import et.
+// src/lib/fees.ts — ihaleal.com komisyon, üyelik, hizmet bedeli merkezi
+// Komisyon hedefi: %2 alıcı + %2 satıcı = toplam %4 (matrah üzerinden); KDV komisyon üzerinden.
 
-export const COMMISSION_MODEL = "seller_only" as
-  | "seller_only"
-  | "buyer_only"
-  | "both_sides"; // Karar §D-K1 — kullanıcı onayı bekliyor.
+export const COMMISSION_RATE = 0.02;
+export const VAT_RATE = 0.2;
+export const COMMISSION_PARTIES: "seller_only" | "both" = "both";
+export const MIN_COMMISSION_TRY = 0;
 
-export const FEES = {
-  // Yüzdeler 0-1 aralığında (0.05 = %5).
-  sellerCommissionRate: 0.05,
-  buyerCommissionRate: 0.0,
-  vatRate: 0.2, // KDV %20 (2026 itibarıyla; mevzuat değişirse buradan)
-  minCommissionTRY: 250,
-  /** İhaleye katılım öncesi teminat / bid bond oranı (demo). §D-K1/K8 sonrası güncellenir. */
-  bidBondRate: 0.05,
-  /** Sabit kapora referansı (TL) — bazı süreçlerde oran yerine taban tutar (demo). */
-  depositTRY: 5000,
-  /**
-   * Demoda kalan sayısal örnekler (test uyumu). Hedef ürün politikası: ilan paketi / vitrin ücreti yok;
-   * bu alanlar UI’da teklif edilmez — yalnızca komisyon (+ kira kuralı businessModel’de).
-   */
-  listingPackages: {
-    standart: 199,
-    vitrin: 699,
-    doping_plus: 1299,
-    pro: 2999,
-  } as const,
-  /** Kapora iadesi (kaybeden) — saat cinsinden bilgilendirme metni için. */
-  bidBondRefundHoursLoser: 48,
-  /** Kazanan ödeme temerrüdü — saat. */
-  bidBondForfeitWinnerHours: 24,
-  // Süreler gün cinsinden.
-  refundWindowDays: 14,
-  payoutHoldDays: 7, // İhale bitiminden sonra escrow tutma süresi.
+/** Geriye uyumluluk — UI/businessModel eski sabit adı */
+export const COMMISSION_MODEL =
+  COMMISSION_PARTIES === "both" ? ("both_sides" as const) : ("seller_only" as const);
+
+export const MEMBERSHIP_FEES = {
+  seller_yearly: 5000,
+  buyer_yearly: 1000,
+  agent_referral: 0,
+  agent_portfolio: 0,
+  agent_full: 0,
 } as const;
 
-/** Tapu harcı — demo oran; resmi tarife §D / hukuk ile güncellenir. */
-export const DEED_DUTY_RATE = 0.04 as const;
+export const MEMBERSHIP_DURATION_DAYS = 365;
 
-/** Sabit masraf kalemi (döner sermaye vb.) — demo. */
+export const SERVICE_FEES = {
+  photo: 2500,
+  drone: 1500,
+  legal: 1000,
+  expertise: 3000,
+  bid_entry: 250,
+  virtual_tour: 1500,
+  video: 2000,
+  tapu_prep: 750,
+} as const;
+
+export const SERVICE_FEE_LABELS: Record<keyof typeof SERVICE_FEES, string> = {
+  photo: "Profesyonel Fotoğraf Çekim",
+  drone: "Dron Çekim",
+  legal: "Hukuki Danışmanlık",
+  expertise: "Ekspertiz Raporu",
+  bid_entry: "İhaleye Giriş",
+  virtual_tour: "Sanal Tur 360°",
+  video: "Video Tanıtım",
+  tapu_prep: "Tapu Randevu / Dosya",
+};
+
+export const AGENT_SHARE_RATES = {
+  referral: 0.005,
+  portfolio: 0.015,
+  full: 0.02,
+} as const;
+
+export const BID_BOND_RATE = 0.05;
+export const MIN_INCREMENT_TRY = 100;
+export const ANTI_SNIPING_THRESHOLD_SECONDS = 120;
+export const ANTI_SNIPING_EXTEND_SECONDS = 120;
+
+export interface CommissionBreakdown {
+  saleAmount: number;
+  sellerCommission: number;
+  buyerCommission: number;
+  totalCommission: number;
+  totalVAT: number;
+  offsetMembership: number;
+  offsetServiceFees: number;
+  offsetTotal: number;
+  agentShare: number;
+  platformNet: number;
+}
+
+export function calcCommissionBreakdown(
+  saleAmount: number,
+  paidMembership: number = 0,
+  paidServiceFees: number = 0,
+  agentShareRate: number = 0,
+): CommissionBreakdown {
+  const sellerCommission = saleAmount * COMMISSION_RATE;
+  const buyerCommission = saleAmount * COMMISSION_RATE;
+  const totalCommission = sellerCommission + buyerCommission;
+  const totalVAT = totalCommission * VAT_RATE;
+  const offsetTotal = paidMembership + paidServiceFees;
+  const agentShare = saleAmount * agentShareRate;
+  const platformNet = totalCommission - offsetTotal - agentShare;
+
+  return {
+    saleAmount,
+    sellerCommission,
+    buyerCommission,
+    totalCommission,
+    totalVAT,
+    offsetMembership: paidMembership,
+    offsetServiceFees: paidServiceFees,
+    offsetTotal,
+    agentShare,
+    platformNet,
+  };
+}
+
+/** Top-level FEES — mevcut sayfalar (LegalAuctionTerms, Guide, …) ile uyumlu */
+export const FEES = {
+  sellerCommissionRate: COMMISSION_RATE,
+  buyerCommissionRate: COMMISSION_PARTIES === "both" ? COMMISSION_RATE : 0,
+  vatRate: VAT_RATE,
+  minCommissionTRY: MIN_COMMISSION_TRY,
+  bidBondRate: BID_BOND_RATE,
+  depositTRY: 5000,
+  listingPackages: {
+    standart: 0,
+    vitrin: 0,
+    doping_plus: 0,
+    pro: 0,
+  } as const,
+  bidBondRefundHoursLoser: 48,
+  bidBondForfeitWinnerHours: 24,
+  refundWindowDays: 14,
+  payoutHoldDays: 7,
+} as const;
+
+export const DEED_DUTY_RATE = 0.04 as const;
 export const OTHER_FEES_FIXED_TRY = 1200 as const;
 
-// Yardımcılar — UI'da hesap göstermek için.
 export function calcSellerNet(salePriceTRY: number): {
   gross: number;
   commission: number;
@@ -50,10 +124,7 @@ export function calcSellerNet(salePriceTRY: number): {
   net: number;
 } {
   const gross = salePriceTRY;
-  const commission = Math.max(
-    gross * FEES.sellerCommissionRate,
-    FEES.minCommissionTRY
-  );
+  const commission = Math.max(gross * FEES.sellerCommissionRate, FEES.minCommissionTRY);
   const vatOnCommission = commission * FEES.vatRate;
   const net = gross - commission - vatOnCommission;
   return { gross, commission, vatOnCommission, net };
@@ -67,15 +138,12 @@ export function calcBuyerTotal(bidPriceTRY: number): {
 } {
   const bid = bidPriceTRY;
   const commission =
-    COMMISSION_MODEL === "buyer_only" || COMMISSION_MODEL === "both_sides"
-      ? bid * FEES.buyerCommissionRate
-      : 0;
+    COMMISSION_PARTIES === "both" ? bid * FEES.buyerCommissionRate : 0;
   const vatOnCommission = commission * FEES.vatRate;
   const total = bid + commission + vatOnCommission;
   return { bid, commission, vatOnCommission, total };
 }
 
-/** Kazanan alıcı: teklif + `calcBuyerTotal` + tapu + sabit masraf (demoda tek kaynak). */
 export function estimateBuyerClosingCosts(bidTRY: number): {
   bid: number;
   commission: number;
@@ -91,9 +159,8 @@ export function estimateBuyerClosingCosts(bidTRY: number): {
   return { bid, commission, vatOnCommission, deed, fixed, total };
 }
 
-/** Kısa rozet etiket (UI badge). */
 export function feeBadgeLabel(): string {
-  return `%${(FEES.sellerCommissionRate * 100).toFixed(0)} + KDV (satıcı)`;
+  return `%${(FEES.sellerCommissionRate * 100).toFixed(0)}+%${(FEES.buyerCommissionRate * 100).toFixed(0)} satıcı/alıcı + KDV`;
 }
 
 export function formatBidBondPercent(): string {
@@ -102,20 +169,24 @@ export function formatBidBondPercent(): string {
 
 export type ListingPackageTier = keyof typeof FEES.listingPackages;
 
-export function getListingPackagePrice(tier: ListingPackageTier): number {
-  return FEES.listingPackages[tier];
+/** @deprecated İlan paketi ücreti kaldırıldı — 0 döner */
+export function getListingPackagePrice(_tier: ListingPackageTier): number {
+  return 0;
 }
 
-/** Teklif / ihale tutarı üzerinden teminat (TL, yuvarlanmış). */
 export function calcBidBond(bidAmountTRY: number): number {
-  return Math.round(bidAmountTRY * FEES.bidBondRate);
+  return Math.round(bidAmountTRY * FEES.bidBondRate * 100) / 100;
 }
 
-/** Açılış / liste fiyatının referans piyasaya oranı — üstünde uyarı (demo moderasyon kuralı). */
 export const LISTING_PRICE_ANOMALY_RATIO = 1.35 as const;
 
 export function listingPriceAnomalyMessage(startTRY: number, referenceTRY: number): string | null {
-  if (!Number.isFinite(startTRY) || !Number.isFinite(referenceTRY) || referenceTRY <= 0 || startTRY <= 0) {
+  if (
+    !Number.isFinite(startTRY) ||
+    !Number.isFinite(referenceTRY) ||
+    referenceTRY <= 0 ||
+    startTRY <= 0
+  ) {
     return null;
   }
   if (startTRY > referenceTRY * LISTING_PRICE_ANOMALY_RATIO) {
@@ -125,26 +196,35 @@ export function listingPriceAnomalyMessage(startTRY: number, referenceTRY: numbe
   return null;
 }
 
-/** @deprecated Tur #4+ için `calcBidBond` kullanın; uyumluluk için alias. */
 export function calcBidBondAmount(auctionOrBidTRY: number): number {
   return calcBidBond(auctionOrBidTRY);
 }
 
-// Görüntüleme için hazır metin (UI'da elle string yazma).
 export const FEE_TEXTS = {
   sellerSummary: () =>
-    `Satıcı komisyonu: %${(FEES.sellerCommissionRate * 100).toFixed(1)}` +
-    ` (asgari ${FEES.minCommissionTRY} TL) + KDV %${(FEES.vatRate * 100).toFixed(0)}`,
+    `Satıcı komisyonu: %${(FEES.sellerCommissionRate * 100).toFixed(0)} + KDV %${(FEES.vatRate * 100).toFixed(0)}` +
+    (COMMISSION_PARTIES === "both"
+      ? ` · Alıcı komisyonu: %${(FEES.buyerCommissionRate * 100).toFixed(0)} + KDV (hedef toplam %${((FEES.sellerCommissionRate + FEES.buyerCommissionRate) * 100).toFixed(0)} komisyon matrahı)`
+      : ""),
   refundWindow: () => `${FEES.refundWindowDays} gün içinde iade`,
   payoutHold: () => `İhale bitiminden ${FEES.payoutHoldDays} gün sonra ödeme`,
   bidBondLine: () =>
-    `İhaleye katılmadan önce ${formatBidBondPercent()} teminat (iadeli, taslak); sabit kapora referansı ${FEES.depositTRY.toLocaleString("tr-TR")} TL (§D-K8 öncesi). Kaybeden iade hedefi: ${FEES.bidBondRefundHoursLoser} saat.`,
+    `İhaleye katılmadan önce ${formatBidBondPercent()} teminat (iadeli, taslak); sabit kapora referansı ${FEES.depositTRY.toLocaleString("tr-TR")} TL. Kaybeden iade hedefi: ${FEES.bidBondRefundHoursLoser} saat.`,
   bidBondForfeitLine: () =>
     `Kazanan ödeme yapmazsa ${formatBidBondPercent()} teminat cezası (taslak; ${FEES.bidBondForfeitWinnerHours} saat referansı).`,
-  /** Tek cümle gelir modeli — Hero / komisyon sayfası ile hizalı */
   monetizationPrinciples: () =>
-    "Hedef: yalnızca başarılı işlem komisyonu; ilan, vitrin veya kullanıcıya satılan reklam ücreti yok. Kira: kiraya verenden bir aylık kira çizgisi (sözleşmede netleşir).",
-  /** Komisyon matrahı — taahhüt / kapanış ile ürün dili hizası (hukuki metin değil). */
+    "Hedef: başarılı işlem komisyonu (alıcı %2 + satıcı %2, KDV hariç matrah); üyelik ve hizmet bedelleri komisyondan mahsup edilir; ilan vitrin ücreti yok.",
   commissionMatrahLine: () =>
-    "Komisyon (hedef): tapu veya sözleşmede netleşen anlaşılan işlem tutarı üzerinden; taahhüt alt–üst limit bandı varsa matrah bu çerçevede avukat taslağıyla tanımlanır.",
+    "Komisyon matrahı (hedef): tapu veya sözleşmede netleşen işlem tutarı; üyelik/hizmet kalemleri mahsup sonrası platform neti hesaplanır.",
+  commissionExplain: () =>
+    "Komisyon: alıcı %2 + satıcı %2 (toplam %4 matrah). KDV komisyon üzerinden. Üyelik ve hizmet bedelleri komisyondan mahsup edilir.",
+  sellerMembershipExplain: () =>
+    "Satıcı yıllık üyelik: 5.000 TL — sınırsız ilan hakkı (hedef); üyelik tutarı komisyondan düşülür.",
+  buyerMembershipExplain: () =>
+    "Alıcı yıllık üyelik: 1.000 TL — teklif verme yetkisi (hedef).",
+  bidBondExplain: () =>
+    "Teminat: teklif tutarının %5'i kadar (hedef). Kazanmazsanız iade süreci sözleşmede netleşir.",
 } as const;
+
+/** Stub — eski vitrin paketi metinleri kademeli kaldırılıyor */
+export const listingPackages = {} as const;

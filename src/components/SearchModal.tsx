@@ -94,7 +94,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   onClick={() => { navigate(`/ilan/${auction.id}`); onClose(); }}
                   className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors text-left"
                 >
-                  <img src={auction.images[0]} alt="" className="w-16 h-12 object-cover rounded-lg flex-shrink-0" />
+                  <img loading="lazy" src={auction.images[0]} alt="" className="w-16 h-12 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-medium text-white truncate">{auction.title}</div>
                     <div className="flex items-center gap-3 mt-1 text-xs text-slate-500">

@@ -400,7 +400,7 @@ export default function CityGuide() {
               cityAuctions.map((auction) => (
                 <Card key={auction.id} className="border-white/5 hover:border-blue-500/20 transition-all cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
                   <CardContent className="p-4 flex flex-col sm:flex-row gap-4">
-                    <img src={auction.images[0]} alt="" className="w-full sm:w-40 h-24 object-cover rounded-xl flex-shrink-0" />
+                    <img loading="lazy" src={auction.images[0]} alt="" className="w-full sm:w-40 h-24 object-cover rounded-xl flex-shrink-0" />
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <div>

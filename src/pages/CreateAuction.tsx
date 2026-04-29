@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
-import { FEE_TEXTS, calcSellerNet, listingPriceAnomalyMessage } from "@/lib/fees";
+import { FEE_TEXTS, calcSellerNet, listingPriceAnomalyMessage, MEMBERSHIP_DURATION_DAYS } from "@/lib/fees";
 import type { PropertyMarketingMode } from "@/types/auction";
 import { MARKETING_MODE_LABELS } from "@/lib/listingPolicy";
 import { invalidateAuctionsCatalogCache } from "@/lib/auctionsSource";
@@ -56,6 +56,7 @@ export default function CreateAuction() {
   const [commitmentCeilingTRY, setCommitmentCeilingTRY] = useState("");
   const [bindingCommitmentAccepted, setBindingCommitmentAccepted] = useState(false);
   const [officialDocumentsForBuyer, setOfficialDocumentsForBuyer] = useState(false);
+  const [titleDeed, setTitleDeed] = useState("");
 
   const [sizeM2, setSizeM2] = useState("120");
   const [rooms, setRooms] = useState("3+1");
@@ -137,6 +138,11 @@ export default function CreateAuction() {
       }
     }
 
+    if (!titleDeed.trim()) {
+      setError("Tapu numarası veya tapu referansı girin.");
+      return;
+    }
+
     const reserveParsed = refTrim ? parseFloat(refTrim.replace(/\s/g, "")) : null;
     const negotiationMode = marketingMode === "sealed_offers" ? "sealed_offer" : "auction";
     const priceEvent =
@@ -181,6 +187,22 @@ export default function CreateAuction() {
 
     setSubmitLoading(true);
 
+    const { data: membershipRow } = await supabase
+      .from("memberships")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("type", "seller_yearly")
+      .eq("status", "active")
+      .gte("expires_at", new Date().toISOString())
+      .maybeSingle();
+
+    if (!membershipRow) {
+      setError("Aktif satıcı üyeliğiniz yok. Önce yıllık üyelik alın.");
+      setSubmitLoading(false);
+      navigate("/uyelik/yillik");
+      return;
+    }
+
     const categorySlug = CATEGORY_TO_DB[category] ?? "real_estate_residential";
 
     const { data: listing, error: listingError } = await supabase
@@ -205,6 +227,24 @@ export default function CreateAuction() {
       console.error("[CreateAuction] listings.insert", listingError);
       window.alert("İlan oluşturulamadı: " + msg);
       setError("İlan oluşturulamadı: " + msg);
+      setSubmitLoading(false);
+      return;
+    }
+
+    const authExpires = new Date(Date.now() + MEMBERSHIP_DURATION_DAYS * 86400000).toISOString();
+    const { error: authorizationError } = await supabase.from("authorizations").insert({
+      property_title_deed: titleDeed.trim(),
+      owner_id: user.id,
+      listing_id: listing.id,
+      signed_at: new Date().toISOString(),
+      expires_at: authExpires,
+      signed_via: "e_devlet",
+      status: "pending",
+    });
+    if (authorizationError) {
+      console.error("[CreateAuction] authorizations.insert", authorizationError);
+      window.alert("Yetki kaydı oluşturulamadı: " + authorizationError.message);
+      setError("Yetki kaydı oluşturulamadı: " + authorizationError.message);
       setSubmitLoading(false);
       return;
     }
@@ -307,7 +347,7 @@ export default function CreateAuction() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {images.map((img, i) => (
                   <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img src={img} alt="" loading="lazy" className="w-full h-full object-cover" />
                     <button
                       type="button"
                       onClick={() => setImages(images.filter((_, idx) => idx !== i))}
@@ -366,6 +406,16 @@ export default function CreateAuction() {
                   placeholder="Gayrimenkulünüzün detaylı açıklaması..."
                 />
                 <p className="text-[11px] text-slate-600 mt-1">{description.length}/2000</p>
+              </div>
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Tapu numarası / referans *</label>
+                <Input
+                  value={titleDeed}
+                  onChange={(e) => setTitleDeed(e.target.value)}
+                  className="bg-slate-950 border-white/10 text-white"
+                  placeholder="Yetki kaydı ve doğrulama için"
+                  required
+                />
               </div>
             </CardContent>
           </Card>

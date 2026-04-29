@@ -50,7 +50,7 @@ export function RecentlyViewed() {
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
               <div className="relative h-40 overflow-hidden">
-                <img src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                 <div className="absolute top-3 left-3">
                   {auction.status === "live" && (

@@ -98,7 +98,7 @@ export default function Compare() {
                 {AUCTIONS.map((a) => (
                   <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-white/5 bg-white/[0.02] hover:border-white/10"}`}>
                     <Checkbox checked={selectedIds.includes(a.id)} onCheckedChange={() => toggleSelection(a.id)} />
-                    <img src={a.images[0]} alt="" className="w-14 h-10 object-cover rounded-lg shrink-0" />
+                    <img loading="lazy" src={a.images[0]} alt="" className="w-14 h-10 object-cover rounded-lg shrink-0" />
                     <div className="min-w-0">
                       <div className="text-sm font-medium text-white truncate">{a.title}</div>
                       <div className="text-xs text-slate-500">₺{(a.currentBid / 1000000).toFixed(1)}M · {a.district}</div>
@@ -226,7 +226,7 @@ export default function Compare() {
                       <th className="text-left p-4 text-sm font-medium text-slate-500">Özellik</th>
                       {scores.map((s) => <th key={s.auction.id} className="text-center p-4 min-w-[200px]">
                         <div className="flex flex-col items-center gap-2">
-                          <img src={s.auction.images[0]} alt="" className="w-20 h-14 object-cover rounded-lg" />
+                          <img loading="lazy" src={s.auction.images[0]} alt="" className="w-20 h-14 object-cover rounded-lg" />
                           <span className="text-sm font-bold text-white">{s.auction.district}</span>
                           {s.auction.id === winner?.auction.id && <Badge className="bg-blue-500 text-white text-xs">Tavsiye</Badge>}
                         </div>

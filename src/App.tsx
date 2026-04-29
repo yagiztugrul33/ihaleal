@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Layout } from "@/components/Layout";
 import { RouteSeo } from "@/components/RouteSeo";
@@ -43,6 +43,10 @@ const SearchResults        = lazy(() => import("@/pages/SearchResults"));
 const FlowSelector         = lazy(() => import("@/pages/onboarding/FlowSelector"));
 const EDevletAuth          = lazy(() => import("@/pages/auth/EDevletAuth"));
 const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
+const YillikUyelik         = lazy(() => import("@/pages/membership/YillikUyelik"));
+const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
+const PreLaunch            = lazy(() => import("@/pages/PreLaunch"));
+const NotFound             = lazy(() => import("@/pages/NotFound"));
 
 function App() {
   return (
@@ -92,6 +96,10 @@ function App() {
             <Route path="/canliya-hazirlik" element={<OperationalReadiness />} />
             <Route path="/komisyon-modeli" element={<BusinessModel />} />
             <Route path="/veri-ve-endeks" element={<DataStrategy />} />
+            <Route path="/uyelik/yillik" element={<YillikUyelik />} />
+            <Route path="/hizmet-bedelleri" element={<HizmetBedelleri />} />
+            <Route path="/pre-launch" element={<PreLaunch />} />
+            <Route path="/lansman" element={<PreLaunch />} />
             <Route
               path="/onboarding/akis"
               element={
@@ -118,7 +126,7 @@ function App() {
                 </AdminGuard>
               }
             />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </Layout>

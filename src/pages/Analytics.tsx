@@ -552,7 +552,7 @@ export default function Analytics() {
                   <Card key={auction.id} className="bg-slate-900/50 border-white/5 hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-0.5 cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
                     <CardContent className="p-5">
                       <div className="flex flex-col md:flex-row gap-5">
-                        <img src={auction.images[0]} alt={auction.title} className="w-full md:w-48 h-32 object-cover rounded-xl shrink-0" />
+                        <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full md:w-48 h-32 object-cover rounded-xl shrink-0" />
                         <div className="flex-1">
                           <div className="flex items-start justify-between gap-3">
                             <div>
@@ -790,7 +790,7 @@ export default function Analytics() {
                   return (
                     <Card key={auction.id} className="bg-slate-900/50 border-white/5 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-1">
                       <div className="relative h-44">
-                        <img src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover" />
+                        <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                         <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-amber-500 text-white text-xs font-bold">
                           #{idx + 1} Firsat

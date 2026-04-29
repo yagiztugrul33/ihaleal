@@ -6,9 +6,9 @@ describe("fees", () => {
     expect(calcBidBond(1_000_000)).toBe(Math.round(1_000_000 * FEES.bidBondRate));
   });
 
-  it("getListingPackagePrice returns placeholder tier prices", () => {
-    expect(getListingPackagePrice("standart")).toBe(FEES.listingPackages.standart);
-    expect(getListingPackagePrice("pro")).toBe(FEES.listingPackages.pro);
+  it("getListingPackagePrice stub returns 0 (ilan paketi kalktı)", () => {
+    expect(getListingPackagePrice("standart")).toBe(0);
+    expect(getListingPackagePrice("pro")).toBe(0);
   });
 
   it("listingPriceAnomalyMessage is null when within band", () => {

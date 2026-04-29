@@ -1568,6 +1568,29 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 
 ---
 
+### 2026-04-29 — [CURSOR] TUR #20→#25 mega paket (tamamlama)
+
+**Ön kontrol notu:** Uzak Supabase REST bazı tablolarda **403** görülebilir (RLS); kullanıcı **`manual_push_v6`** ve gerekiyorsa **`manual_push_v7.sql`** (pre_launch_signups) SQL Editor sırasını uygulamalıdır.
+
+| Adım | Beklenen | Gerçek | Kanıt |
+|------|----------|--------|-------|
+| `npm run typecheck` | exit 0 | exit 0 | 2026-04-29 yerel çalıştırma |
+| `npm run build` | exit 0 | exit 0 | vite build ~14s |
+| `npm audit --audit-level=high` | 0 high+ | 0 | `found 0 vulnerabilities` |
+| `npm run test:run` | pass | 6 test | vitest |
+| `demo-auctions.json` | 24 kayıt | 24 | `scripts/gen-demo-auctions-json.mjs` çıktısı |
+| Demo seed script | önce demo sil, sonra insert | `clearDemoListings` + döngü | `scripts/seed-demo-auctions.mjs` |
+| Rotalar | `/uyelik/yillik`, `/hizmet-bedelleri`, `/pre-launch`, `/lansman`, `*`→404 | Var | `src/App.tsx` |
+| Navbar Logo | `Logo` bileşeni | Var | `src/components/Navbar.tsx` |
+| Vercel | `vercel.json` | Var | kök |
+| Pre-launch DB | migration + manual v7 | Var | `supabase/migrations/20260430140000_pre_launch_signups.sql` |
+| OG + favicon | güncel meta + svg | Var | `index.html`, `public/favicon.svg` |
+| Lazy img | tüm img | `loading="lazy"` eklendi | `rg "<img "` |
+
+**Commit (tur #20→#25 teslim):** **`07c3b7f`**
+
+---
+
 ## 7. KALAN İŞLER
 
 - Sunucu auth, ödeme, e-posta, gerçek Endeksa (veya lisanslı) API, ilan CRUD tamamı, SSR/prerender (OG sayfa başına), üretim CSP.

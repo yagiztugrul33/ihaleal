@@ -59,7 +59,7 @@ export default function MapPage() {
                 >
                   <CardContent className="p-3 flex flex-col gap-2">
                     <div className="flex gap-3">
-                      <img src={auction.images[0]} alt="" className="w-20 h-14 object-cover rounded-lg flex-shrink-0" />
+                      <img loading="lazy" src={auction.images[0]} alt="" className="w-20 h-14 object-cover rounded-lg flex-shrink-0" />
                       <div className="flex-1 min-w-0">
                         <h4 className="text-sm font-bold truncate">{auction.title}</h4>
                         <div className="flex items-center gap-1 text-xs mt-0.5">

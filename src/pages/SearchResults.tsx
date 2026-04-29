@@ -100,7 +100,7 @@ export default function SearchResults() {
                   onClick={() => navigate(`/ilan/${auction.id}`)}
                   className="w-full text-left rounded-xl border border-white/5 bg-slate-900/40 hover:border-blue-500/30 hover:bg-slate-900/70 transition-colors p-4 flex gap-4"
                 >
-                  <img src={auction.images[0]} alt="" className="w-24 h-16 object-cover rounded-lg flex-shrink-0" />
+                  <img loading="lazy" src={auction.images[0]} alt="" className="w-24 h-16 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-white truncate">{auction.title}</div>
                     <div className="flex flex-wrap gap-3 mt-1 text-xs text-slate-500">
