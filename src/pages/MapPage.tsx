@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, MapPin, Navigation, ExternalLink, Star, TrendingUp, Clock, Home } from "lucide-react";
+import { ArrowLeft, MapPin, Navigation, Star, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AUCTIONS } from "@/data/auctions";
@@ -13,35 +13,34 @@ export default function MapPage() {
   const allAuctions = [...AUCTIONS].sort((a, b) => b.investmentScore - a.investmentScore);
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#061428] to-[#0a0f1e]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-2 mb-2">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
-          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
-            <Navigation className="w-8 h-8 text-blue-400" />
-            Haritada Kesfet
+          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3 text-white">
+            <Navigation className="w-8 h-8 text-cyan-400" />
+            Haritada Keşfet
           </h1>
-          <p className="mt-2">Tum gayrimenkul ihalelerini konumlariyla kesfedin.</p>
+          <p className="mt-2 text-slate-400">Tüm gayrimenkul ihale ilanlarını konumlarıyla keşfedin.</p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Map */}
           <div className="lg:col-span-2">
-            <Card className="overflow-hidden border-white/5 h-[500px] lg:h-[600px]">
-              <div className="w-full h-full bg-slate-800 relative">
+            <Card className="overflow-hidden border-white/10 bg-white/[0.05] backdrop-blur-xl h-[500px] lg:h-[600px] shadow-xl shadow-black/30">
+              <div className="w-full h-full bg-slate-900 relative">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6337652.538633094!2d34.5!3d39.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1str!2str!4v1700000000000"
-                  className="w-full h-full border-0"
+                  className="w-full h-full border-0 opacity-95"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Turkiye Haritasi"
+                  title="Türkiye haritası"
                 />
-                {/* Overlay markers */}
-                <div className="absolute top-4 left-4 p-3 rounded-xl bg-black/70 backdrop-blur border border-white/10">
-                  <div className="text-sm font-bold">{allAuctions.length} Ilan</div>
-                  <div className="text-xs">{new Set(allAuctions.map(a => a.city)).size} Sehir</div>
+                <div className="absolute top-4 left-4 px-3 py-2 rounded-xl bg-black/65 backdrop-blur-md border border-cyan-400/20 shadow-lg">
+                  <div className="text-sm font-bold text-white">{allAuctions.length} İlan</div>
+                  <div className="text-xs text-cyan-100">{new Set(allAuctions.map((a) => a.city)).size} Şehir</div>
                 </div>
               </div>
             </Card>
@@ -53,7 +52,7 @@ export default function MapPage() {
               {allAuctions.map((auction, idx) => (
                 <Card
                   key={auction.id}
-                  className="border-white/5 hover:border-blue-500/20 transition-all cursor-pointer hover:-translate-y-0.5"
+                  className="border-white/10 bg-white/[0.04] backdrop-blur-md hover:border-cyan-400/30 transition-all cursor-pointer hover:-translate-y-0.5"
                   onClick={() => navigate(`/ilan/${auction.id}`)}
                   style={{ animationDelay: `${idx * 50}ms` }}
                 >
@@ -82,13 +81,13 @@ export default function MapPage() {
 
         {/* City clusters */}
         <div className={`mt-10 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h2 className="text-xl font-bold mb-5">Sehirlere Gore Ilanlar</h2>
+          <h2 className="text-xl font-bold mb-5 text-white">Şehirlere göre ilanlar</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {["Istanbul", "Ankara", "Izmir", "Antalya", "Bursa", "Mugla"].map((city) => {
               const cityAuctions = allAuctions.filter((a) => a.city === city);
               if (cityAuctions.length === 0) return null;
               return (
-                <Card key={city} className="border-white/5 p-4">
+                <Card key={city} className="border-white/10 bg-white/[0.04] backdrop-blur-md p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Home className="w-5 h-5 text-blue-400" />
                     <h3 className="font-bold">{city}</h3>

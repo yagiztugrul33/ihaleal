@@ -79,11 +79,11 @@ export default function Compare() {
   const colors = ["#3b82f6", "#14b8a6", "#8b5cf6", "#ec4899"];
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#061428] via-[#0a0f1e] to-[#071018]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3"><GitCompare className="w-8 h-8 text-blue-400" /> Gayrimenkul karşılaştırma</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3"><GitCompare className="w-8 h-8 text-cyan-400" /> Gayrimenkul Karşılaştırma</h1>
           <p className="text-slate-400 mt-2">İlanları yan yana karşılaştırın; AI skorları ve belge özeti ile seçim yapın.</p>
         </div>
 
@@ -94,7 +94,7 @@ export default function Compare() {
                 <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/4)</h3>
                 <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">Karşılaştırmaya başla</Button>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-80 overflow-y-auto">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pr-1">
                 {AUCTIONS.map((a) => (
                   <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-white/5 bg-white/[0.02] hover:border-white/10"}`}>
                     <Checkbox checked={selectedIds.includes(a.id)} onCheckedChange={() => toggleSelection(a.id)} />

@@ -13,7 +13,9 @@ export function Layout({ children }: { children: ReactNode }) {
   const { toasts, removeToast } = useToast();
 
   return (
-    <div className="min-h-screen text-slate-50 flex flex-col" style={{ background: "#0a0f1e" }}>
+    <div
+      className="min-h-screen text-slate-50 flex flex-col bg-[#061428] bg-gradient-to-b from-[#061428] via-[#0a1224] to-[#070d18]"
+    >
       <SeoSync />
       <AntiCopyProtection />
       <Navbar />

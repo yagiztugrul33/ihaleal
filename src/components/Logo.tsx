@@ -16,8 +16,8 @@ export function Logo({
 
   return (
     <div className="flex items-center gap-2">
-      <div className="flex items-center justify-center bg-gradient-to-br from-[#0A1F44] to-amber-600 rounded-lg p-1.5 shadow-md">
-        <Gavel size={sizes[size]} className="text-white" />
+      <div className="flex items-center justify-center rounded-xl p-1.5 shadow-lg shadow-blue-900/40 bg-gradient-to-br from-blue-600 via-cyan-500 to-amber-500 ring-1 ring-white/20">
+        <Gavel size={sizes[size]} className="text-white drop-shadow-md" />
       </div>
       {variant === "full" ? (
         <span className={cn(`font-bold ${textSizes[size]}`, textClassName ?? "text-[#0A1F44] dark:text-white")}>

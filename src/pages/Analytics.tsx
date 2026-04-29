@@ -228,35 +228,36 @@ export default function Analytics() {
   };
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#061428] via-[#0a0f1e] to-[#071018]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-2">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
-            <Activity className="w-8 h-8 text-blue-400" />
+          <h1 className="text-3xl md:text-4xl font-bold text-white flex flex-wrap items-center gap-3">
+            <span aria-hidden>🩺</span>
+            <Activity className="w-8 h-8 text-cyan-400" />
             Gayrimenkul Piyasa Analizi
           </h1>
-          <p className="text-slate-400 mt-2">AI destekli endeks analizi, fiyat tahmini ve yatirim degerlendirmesi</p>
+          <p className="text-slate-400 mt-2">AI destekli endeks özeti, fiyat bandı ve yatırım görünümü (demo veri).</p>
         </div>
 
         {/* Tab Navigation */}
         <div className={`flex gap-2 mb-8 overflow-x-auto pb-2 transition-all duration-700 delay-100 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           {[
-            { key: "overview", label: "Genel Bakis", icon: <BarChart3 className="w-4 h-4" /> },
+            { key: "overview", label: "Genel Bakış", icon: <BarChart3 className="w-4 h-4" /> },
             { key: "prediction", label: "Fiyat Tahmini", icon: <LineChartIcon className="w-4 h-4" /> },
-            { key: "simulator", label: "Getiri Simulatoreu", icon: <Calculator className="w-4 h-4" /> },
-            { key: "opportunities", label: "Yatirim Firsatlari", icon: <Target className="w-4 h-4" /> },
+            { key: "simulator", label: "Getiri Simülatörü", icon: <Calculator className="w-4 h-4" /> },
+            { key: "opportunities", label: "Yatırım Fırsatları", icon: <Target className="w-4 h-4" /> },
           ].map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
-                activeTab === tab.key 
-                  ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25" 
-                  : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all border ${
+                activeTab === tab.key
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20 border-cyan-400/30"
+                  : "bg-white/[0.06] backdrop-blur-md border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
               {tab.icon} {tab.label}
@@ -269,10 +270,10 @@ export default function Analytics() {
           <>
             {/* Platform Ozeti */}
             <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-700 delay-150 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <SummaryCard icon={<Building2 className="w-5 h-5 text-blue-400" />} label="Toplam Ilan" value="12" sub="Aktif Ihale" />
-              <SummaryCard icon={<Wallet className="w-5 h-5 text-emerald-400" />} label="Ort. m2 Fiyati" value="TRY 65.8K" sub="Tum Sehirler" />
-              <SummaryCard icon={<Percent className="w-5 h-5 text-violet-400" />} label="Ort. Getiri" value="%6.5" sub="Yillik Kira" />
-              <SummaryCard icon={<TrendingUp className="w-5 h-5 text-sky-400" />} label="Ort. Yillik Artis" value="%+19.7" sub="Son 12 Ay" />
+              <SummaryCard icon={<Building2 className="w-5 h-5 text-blue-400" />} label="Toplam İlan" value="12" sub="Aktif ihale" />
+              <SummaryCard icon={<Wallet className="w-5 h-5 text-emerald-400" />} label="Ort. m² fiyatı" value="TRY 65.8K" sub="Tüm şehirler" />
+              <SummaryCard icon={<Percent className="w-5 h-5 text-violet-400" />} label="Ort. getiri" value="%6.5" sub="Yıllık kira" />
+              <SummaryCard icon={<TrendingUp className="w-5 h-5 text-sky-400" />} label="Ort. yıllık artış" value="%+19.7" sub="Son 12 ay" />
             </div>
 
             {/* Filters */}

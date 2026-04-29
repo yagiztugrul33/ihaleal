@@ -40,7 +40,6 @@ const OperationalReadiness = lazy(() => import("@/pages/OperationalReadiness"));
 const BusinessModel        = lazy(() => import("@/pages/BusinessModel"));
 const DataStrategy         = lazy(() => import("@/pages/DataStrategy"));
 const SearchResults        = lazy(() => import("@/pages/SearchResults"));
-const LiveAuctions         = lazy(() => import("@/pages/LiveAuctions"));
 const FlowSelector         = lazy(() => import("@/pages/onboarding/FlowSelector"));
 const EDevletAuth          = lazy(() => import("@/pages/auth/EDevletAuth"));
 const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
@@ -65,7 +64,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />
-            <Route path="/ihaleler" element={<LiveAuctions />} />
+            <Route path="/ihaleler" element={<SearchResults />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/analiz" element={<Analytics />} />

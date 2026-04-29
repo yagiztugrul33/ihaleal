@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Clock, Flame, TrendingUp, MapPin, ArrowRight } from "lucide-react";
+import { Clock, MapPin, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AUCTIONS } from "@/data/auctions";
@@ -28,17 +28,19 @@ export function EndingSoon() {
   if (endingSoon.length === 0) return null;
 
   return (
-    <section ref={ref} className="py-16 bg-[#0d1321]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="py-16 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#071228]/95 to-[#0d1326]" />
+      <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-orange-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-              <Flame className="w-7 h-7 text-orange-400" />
-              Yakında biten ihaleler
+              <span aria-hidden>🔥</span>
+              Yakında Biten İhaleler
             </h2>
             <p className="text-slate-400 mt-1">Son teklif süresi yaklaşan fırsatları kaçırmayın</p>
           </div>
-          <Button variant="outline" onClick={() => navigate("/")} className="hidden md:flex border-white/10 text-slate-400 hover:text-white hover:bg-white/5">
+          <Button variant="outline" onClick={() => navigate("/ihaleler")} className="hidden md:flex border-white/15 bg-white/5 backdrop-blur text-slate-300 hover:text-white hover:bg-white/10">
             Tüm ihaleler <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
@@ -49,7 +51,7 @@ export function EndingSoon() {
             return (
               <Card
                 key={auction.id}
-                className={`group bg-slate-900/50 border-white/5 overflow-hidden hover:border-orange-500/20 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-red-500/20" : ""}`}
+                className={`group bg-white/[0.06] backdrop-blur-xl border-white/10 border overflow-hidden hover:border-rose-400/30 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-rose-500/25" : ""}`}
                 onClick={() => navigate(`/ilan/${auction.id}`)}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >

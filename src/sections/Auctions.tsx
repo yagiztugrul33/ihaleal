@@ -12,7 +12,14 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 
-export function Auctions() {
+export function Auctions({
+  hideIntro = false,
+  layout = "home",
+}: {
+  /** Tam sayfa `/ihaleler` için üst başlık gizlenir */
+  hideIntro?: boolean;
+  layout?: "home" | "page";
+}) {
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.1);
   const [filter, setFilter] = useState<"all" | "live" | "upcoming" | "ended">("all");
@@ -63,16 +70,22 @@ export function Auctions() {
     setCompareList((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   };
 
+  const sectionPad = layout === "page" ? "relative py-10 lg:py-14" : "relative py-24 lg:py-32";
+
   return (
-    <section id="auctions" className="relative py-24 lg:py-32">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e] via-[#0a0f1e] to-[#0d1326]" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/5 rounded-full blur-[150px]" />
+    <section id="auctions" className={sectionPad}>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/90 via-[#0a0f1e] to-[#0d1326]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px]" />
 
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`text-center mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Canlı İhaleler</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">Güncel gayrimenkul ve yatırım fırsatlarına göz atın. AI değerleme ve yatırım skoru ile en doğru fırsatları bulun.</p>
-        </div>
+        {!hideIntro && (
+          <div className={`text-center mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Canlı İhaleler</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              Güncel gayrimenkul ve yatırım fırsatlarına göz atın. AI değerleme ve yatırım skoru ile en doğru fırsatları bulun.
+            </p>
+          </div>
+        )}
 
         <div className={`mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
@@ -124,7 +137,7 @@ export function Auctions() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((auction, idx) => (
-            <Card key={auction.id} className={`group bg-slate-900/50 border-white/5 overflow-hidden hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/5 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
+            <Card key={auction.id} className={`group bg-white/[0.06] backdrop-blur-xl border border-white/10 overflow-hidden hover:border-cyan-400/25 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
                 <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
