@@ -55,7 +55,7 @@ _(Cloud ajanı buraya yazar; Cursor bu bölümü değiştirmez.)_
 | `supabase/migrations/20260430120000_write_policies_and_place_bid_v2.sql` | INSERT/UPDATE RLS; `place_bid` teminat satırı zorunlu; `calculate_commission_with_offset` |
 | `supabase/manual_push_v6.sql` | SQL Editor için aynı içerik |
 
-**Commit (tur #19):** hash terminal çıktısı ile tamamlanır.
+**Commit (tur #19):** `d019793`
 
 ---
 
