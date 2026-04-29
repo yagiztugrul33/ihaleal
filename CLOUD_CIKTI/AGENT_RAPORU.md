@@ -1529,7 +1529,7 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 | Build | YEŞIL | YEŞIL | `npm run build` exit **0** |
 | Audit `--audit-level=high` | 0 vuln | 0 vuln | `found 0 vulnerabilities` |
 | Curl smoke `node scripts/smoke-listings-post.mjs` | 201 ideal | **403** | `LISTINGS_POST_HTTP 403` — `profiles` izni / RLS (Dashboard şemasına bağlı) |
-| Git commit tur #12 | hash | _(push sonrası `git log -1`)_ | mesaj: `tur #12 — CreateAuction Supabase INSERT + profiles 4 alan` |
+| Git commit tur #12 | hash | **`31d5c4959b7c773b3163c5805ff6bb7800fc034f`** | mesaj: `tur #12 — CreateAuction Supabase INSERT + profiles 4 alan` |
 | Git push | OK | deneme | _(aşağıda)_ |
 
 ---
