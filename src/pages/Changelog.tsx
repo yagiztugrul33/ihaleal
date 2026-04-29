@@ -11,9 +11,21 @@ import { feeBadgeLabel } from "@/lib/fees";
 
 export default function Changelog() {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = useState<string | null>("v1.5.0");
+  const [expanded, setExpanded] = useState<string | null>("v1.6.0");
 
   const versions = [
+    {
+      version: "v1.6.0",
+      date: "28 Nisan 2026",
+      author: "ihaleal.com AI Agent",
+      status: "Yayında",
+      highlights: [
+        "Tek ürün çizgisi: paralel ihalevar deposu kapatıldı; dokümantasyon ve SQL sırası yalnızca ihaleal.com repo içinde",
+        "README / ARCHITECTURE / STATE: manual_push v2→v5 sırası ve Supabase Replication notları senkron",
+        "Supabase şema (manual_push_v5): memberships, service_fees, authorizations, commission_records, agent_performance + RLS SELECT",
+      ],
+      tags: ["infrastructure", "legal"],
+    },
     {
       version: "v1.5.0",
       date: "28 Nisan 2026",

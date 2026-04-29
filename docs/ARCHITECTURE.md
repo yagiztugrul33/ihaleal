@@ -1,6 +1,6 @@
 # ihaleal.com — mimari özet (repo içi tek kaynak)
 
-Bu depo **Vite + React 19 + TypeScript** ile tek sayfa uygulamasıdır; **HashRouter** kullanılır (`/#/…` URL biçimi). Üretim dağıtımı ve DNS/HTTPS **bulut** tarafında tanımlıdır (ör. `ihalevar-platform/docs/investor-weekend-work-plan-tr.md` §8).
+Bu depo **Vite + React 19 + TypeScript** ile tek sayfa uygulamasıdır; **HashRouter** kullanılır (`/#/…` URL biçimi). Üretim dağıtımı ve DNS/HTTPS **bulut** tarafında tanımlıdır; süreç özeti ve Kimi senkronu **`docs/sync/`** altında tutulur (tek kaynak).
 
 ## Veri ve backend
 
@@ -21,7 +21,7 @@ index.html → main.tsx → ErrorBoundary → App → AuthProvider → HashRoute
 - **Katalog:** `src/lib/auctionsSource.ts` — yerel `localStorage`, statik `src/data/`, uzak `fetchRemoteAuctionsCatalog` birleşimi.
 - **İlan oluşturma:** `CreateAuction.tsx` → `listings.insert` + `auctions.insert`; başarıda `/ihale/:id`.
 - **Detay:** `AuctionDetail.tsx` — katalog + UUID ihalelerde `useAuctionRealtime`.
-- **Admin:** `/#/admin` — `AdminGuard` + `AdminDashboard`. Tam RLS için `manual_push_v4.sql`.
+- **Admin:** `/#/admin` — `AdminGuard` + `AdminDashboard`. Yönetici RLS için `manual_push_v4.sql`; üyelik / hizmet bedeli / yetki / komisyon şeması için `manual_push_v5.sql`.
 
 ## Realtime (canlı ihale)
 

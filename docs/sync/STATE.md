@@ -4,18 +4,21 @@
 
 ```yaml
 state_version: 1
-updated_utc: "2026-04-29T12:00:00Z"
+updated_utc: "2026-04-28T12:00:00Z"
 phase: "MVP-front-admin"
 last_git_sha_short: "(commit sonrası)"
 last_processed_kimi_file: "kimi-20260428-k51-k53.md"
+notes:
+  - "Marka/ürün tek repo: ihaleal.com (ihalevar çizgisi kapalı)."
 blockers:
   - "B2: K51/K53 tam gövde — inbox'ta metin eksik (Kimi)"
 next_kimi_tasks:
   - "K51 tam gövde (800-1200 kelime) inbox veya docs/icerik"
   - "K53 sözlük 20+ satır"
 next_cursor_tasks:
-  - "Supabase SQL: manual_push_v2→v3→v4 sırası + Replication auctions"
+  - "Supabase SQL: manual_push_v2→v3→v4→v5 sırası + Replication public.auctions"
   - "İsteğe bağlı: TRY→₺ son sayfalar (X24)"
+  - "Webhook/RPC yazımı: memberships/service_fees için INSERT politikası veya SECURITY DEFINER"
 ```
 
 ## Ürün kapısı (hepsi true olunca “tur kapalı”)
