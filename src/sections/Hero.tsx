@@ -52,22 +52,20 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6 animate-fade-in-up">
-              <BrainCircuit className="w-3.5 h-3.5" /> Yapay zeka destekli gayrimenkul platformu
+              <BrainCircuit className="w-3.5 h-3.5" /> YAPAY ZEKA DESTEKLI DEĞERLEME
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight mb-6 animate-fade-in-up animate-delay-200">
               <span className="text-white">Gayrimenkul</span><br />
-              <span className="text-gradient">Satış · Pazarlama · İhale</span>
+              <span className="text-gradient">Canlı İhale Vitrini</span>
             </h1>
             <p className="text-base sm:text-lg text-slate-400 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up animate-delay-300">
-              <strong className="text-slate-300">Yapay zeka destekli gayrimenkul platformu:</strong> gerçek alıcı–satıcı ve kiralıkta güvenli eşleşme;{" "}
-              <strong className="text-slate-300">ihale</strong>, <strong className="text-slate-300">kapalı teklif</strong> veya <strong className="text-slate-300">ilan</strong> (kiraya veren seçer). Teklif verenlerin kimlik bilgileri ilanda yer almaz; kabul sonrası süreç ve sözleşmeler ihaleal.com üzerinden (üretim hedefi; şu an demo).
-              Fiyat ve bölge değerlendirmesi, değerleme çizgisi, Findeks ve evrak hedefi. Gelir: <strong className="text-teal-400/90">yalnızca komisyon</strong> — ilan/doping/kullanıcıya reklam ücreti yok (hedef).
+              Şeffaf, hızlı ve güvenli ihale deneyimi. AI destekli fiyat analizi, bölge endeksleri ve yatırım skoru ile doğru kararlar alın.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start animate-fade-in-up animate-delay-400">
               <Button size="lg" onClick={() => navigate("/analiz")} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold gap-2 px-8 h-12 text-base animate-pulse-glow">
                 <BrainCircuit className="w-5 h-5" /> AI Analiz <ArrowUpRight className="w-4 h-4" />
               </Button>
-              <Button size="lg" variant="outline" onClick={() => document.getElementById("auctions")?.scrollIntoView({ behavior: "smooth" })} className="border-white/15 text-white hover:bg-white/5 hover:text-white gap-2 px-8 h-12 text-base">
+              <Button size="lg" variant="outline" onClick={() => navigate("/ihaleler")} className="border-white/15 text-white hover:bg-white/5 hover:text-white gap-2 px-8 h-12 text-base">
                 <Play className="w-4 h-4" /> İhaleleri Keşfet
               </Button>
             </div>
