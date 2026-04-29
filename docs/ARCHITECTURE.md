@@ -8,7 +8,7 @@ Bu depo **Vite + React 19 + TypeScript** ile tek sayfa uygulamasıdır; **HashRo
 |--------|----------|
 | **Supabase Auth** | Oturum: `@supabase/supabase-js` (`src/lib/supabase.ts`), PKCE. |
 | **Supabase Postgres** | İlan (`listings`), ihale (`auctions`), teklif (`bids`), vb. Şema: `supabase/migrations/*.sql`. |
-| **Manuel SQL** | `supabase db push` kullanılmıyor; Dashboard **SQL Editor** ile `manual_push_v2.sql` … `manual_push_v4.sql` sırası. |
+| **Manuel SQL** | `supabase db push` kullanılmıyor; Dashboard **SQL Editor** ile `manual_push_v2.sql` … **`manual_push_v5.sql`** (sırayla). |
 | **RPC** | `place_bid` (teklif + teminat + anti-sniping). |
 | **Edge Functions** | `supabase/functions/place_bid` şablon (deploy kullanıcı ortamında). |
 
