@@ -151,7 +151,7 @@ for (let i = 1; i <= 50; i++) {
     total_sales: rnd(0, 15),
     total_bids_received: rnd(5, 120),
     rating: Number((3.5 + Math.random() * 1.5).toFixed(1)),
-    bio: "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    bio: "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     is_demo: true,
     profile_color: ["#0A1F44", "#1E3A5F", "#2563EB", "#0F766E", "#92400E"][i % 5],
   });
@@ -191,7 +191,7 @@ for (let i = 1; i <= 80; i++) {
     preferred_city: ["İstanbul", "Ankara", "İzmir"][i % 3],
     alerts_email: i % 2 === 0,
     notes_demo:
-      "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için.",
+      "Alıcı tarafında ilan paketi yok; teklif yetkisi için yıllık alıcı üyeliği (demo metni).",
   });
 }
 fs.writeFileSync(path.join(outDir, "03-buyers.json"), JSON.stringify(buyers, null, 2), "utf8");

@@ -9,7 +9,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-12-06T23:59:59+03:00"
+      "expires_at_demo": "2027-10-26T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Mehmet Kaya",
@@ -22,11 +22,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-12-06",
-    "total_sales": 15,
-    "total_bids_received": 84,
-    "rating": 3.7,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-10-26",
+    "total_sales": 7,
+    "total_bids_received": 86,
+    "rating": 4.1,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -40,7 +40,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-11-03T23:59:59+03:00"
+      "expires_at_demo": "2026-06-27T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Zeynep Demir",
@@ -53,11 +53,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-11-03",
-    "total_sales": 5,
-    "total_bids_received": 26,
-    "rating": 4.2,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-06-27",
+    "total_sales": 10,
+    "total_bids_received": 94,
+    "rating": 3.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -71,7 +71,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-10-10T23:59:59+03:00"
+      "expires_at_demo": "2027-08-27T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Can Şahin",
@@ -84,11 +84,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-10-10",
-    "total_sales": 14,
-    "total_bids_received": 66,
-    "rating": 4.5,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-08-27",
+    "total_sales": 10,
+    "total_bids_received": 108,
+    "rating": 4.2,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -102,7 +102,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-06-07T23:59:59+03:00"
+      "expires_at_demo": "2025-02-26T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Elif Çelik",
@@ -115,11 +115,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-06-07",
-    "total_sales": 7,
-    "total_bids_received": 105,
-    "rating": 4.3,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-02-26",
+    "total_sales": 15,
+    "total_bids_received": 10,
+    "rating": 4.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -133,7 +133,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-05-08T23:59:59+03:00"
+      "expires_at_demo": "2027-05-27T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Burak Arslan",
@@ -146,11 +146,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-05-08",
-    "total_sales": 1,
-    "total_bids_received": 48,
-    "rating": 3.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-05-27",
+    "total_sales": 4,
+    "total_bids_received": 44,
+    "rating": 4.4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -164,7 +164,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-12-07T23:59:59+03:00"
+      "expires_at_demo": "2025-02-13T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Selin Öztürk",
@@ -177,11 +177,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-12-07",
-    "total_sales": 8,
-    "total_bids_received": 20,
-    "rating": 3.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-02-13",
+    "total_sales": 9,
+    "total_bids_received": 106,
+    "rating": 4.3,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -195,7 +195,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "expiring_soon",
-      "expires_at_demo": "2027-04-17T23:59:59+03:00"
+      "expires_at_demo": "2027-12-24T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Emre Aydın",
@@ -208,11 +208,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-04-17",
-    "total_sales": 14,
+    "member_since": "2026-12-24",
+    "total_sales": 1,
     "total_bids_received": 82,
-    "rating": 3.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "rating": 4.2,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -226,7 +226,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-12-01T23:59:59+03:00"
+      "expires_at_demo": "2025-06-06T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Deniz Doğan",
@@ -239,11 +239,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-12-01",
-    "total_sales": 14,
-    "total_bids_received": 98,
-    "rating": 4.3,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-06-06",
+    "total_sales": 10,
+    "total_bids_received": 103,
+    "rating": 4.1,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -257,7 +257,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-05-01T23:59:59+03:00"
+      "expires_at_demo": "2025-04-10T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Kerem Kılıç",
@@ -270,11 +270,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-05-01",
-    "total_sales": 0,
-    "total_bids_received": 118,
-    "rating": 3.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-04-10",
+    "total_sales": 12,
+    "total_bids_received": 105,
+    "rating": 4.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -288,7 +288,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-03-15T23:59:59+03:00"
+      "expires_at_demo": "2025-09-09T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Gizem Aslan",
@@ -301,11 +301,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-03-15",
+    "member_since": "2024-09-09",
     "total_sales": 4,
-    "total_bids_received": 62,
-    "rating": 3.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "total_bids_received": 85,
+    "rating": 4.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -319,7 +319,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-11-21T23:59:59+03:00"
+      "expires_at_demo": "2026-10-28T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Onur Polat",
@@ -332,11 +332,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-11-21",
-    "total_sales": 3,
-    "total_bids_received": 46,
-    "rating": 4.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-10-28",
+    "total_sales": 12,
+    "total_bids_received": 80,
+    "rating": 4.8,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -350,7 +350,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-05-22T23:59:59+03:00"
+      "expires_at_demo": "2027-09-16T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Pınar Erdoğan",
@@ -363,11 +363,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-05-22",
-    "total_sales": 15,
-    "total_bids_received": 97,
-    "rating": 4.4,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-09-16",
+    "total_sales": 13,
+    "total_bids_received": 102,
+    "rating": 4.1,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -381,7 +381,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-10-09T23:59:59+03:00"
+      "expires_at_demo": "2027-12-08T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Tolga Koç",
@@ -394,11 +394,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-10-09",
-    "total_sales": 8,
-    "total_bids_received": 93,
-    "rating": 3.7,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-12-08",
+    "total_sales": 2,
+    "total_bids_received": 40,
+    "rating": 4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -412,7 +412,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "expiring_soon",
-      "expires_at_demo": "2025-10-03T23:59:59+03:00"
+      "expires_at_demo": "2026-04-05T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Seda Tekin",
@@ -425,11 +425,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-10-03",
-    "total_sales": 4,
-    "total_bids_received": 73,
-    "rating": 4.1,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-04-05",
+    "total_sales": 6,
+    "total_bids_received": 94,
+    "rating": 4.2,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -443,7 +443,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-04-26T23:59:59+03:00"
+      "expires_at_demo": "2025-09-15T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Barış Yılmaz",
@@ -456,11 +456,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-04-26",
-    "total_sales": 14,
-    "total_bids_received": 63,
-    "rating": 4.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-09-15",
+    "total_sales": 10,
+    "total_bids_received": 83,
+    "rating": 3.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -474,7 +474,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-06-02T23:59:59+03:00"
+      "expires_at_demo": "2027-11-27T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Ceren Kaya",
@@ -487,11 +487,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-06-02",
-    "total_sales": 13,
-    "total_bids_received": 20,
-    "rating": 4.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-11-27",
+    "total_sales": 3,
+    "total_bids_received": 26,
+    "rating": 4.4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -505,7 +505,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-09-07T23:59:59+03:00"
+      "expires_at_demo": "2025-08-23T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Hakan Demir",
@@ -518,11 +518,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-09-07",
-    "total_sales": 7,
-    "total_bids_received": 8,
-    "rating": 3.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-08-23",
+    "total_sales": 10,
+    "total_bids_received": 86,
+    "rating": 3.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -536,7 +536,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-12-20T23:59:59+03:00"
+      "expires_at_demo": "2025-09-28T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "İpek Şahin",
@@ -549,11 +549,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-12-20",
-    "total_sales": 14,
-    "total_bids_received": 76,
-    "rating": 4.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-09-28",
+    "total_sales": 10,
+    "total_bids_received": 28,
+    "rating": 3.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -567,7 +567,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-02-21T23:59:59+03:00"
+      "expires_at_demo": "2026-09-11T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Murat Çelik",
@@ -580,11 +580,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-02-21",
-    "total_sales": 6,
-    "total_bids_received": 108,
-    "rating": 4.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-09-11",
+    "total_sales": 3,
+    "total_bids_received": 77,
+    "rating": 4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -598,7 +598,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-11-14T23:59:59+03:00"
+      "expires_at_demo": "2026-12-21T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Ayşe Arslan",
@@ -611,11 +611,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-11-14",
-    "total_sales": 4,
-    "total_bids_received": 97,
-    "rating": 3.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-12-21",
+    "total_sales": 11,
+    "total_bids_received": 27,
+    "rating": 4.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -629,7 +629,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "expiring_soon",
-      "expires_at_demo": "2027-12-15T23:59:59+03:00"
+      "expires_at_demo": "2026-11-23T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Mehmet Öztürk",
@@ -642,11 +642,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-12-15",
-    "total_sales": 6,
-    "total_bids_received": 13,
-    "rating": 4.3,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-11-23",
+    "total_sales": 10,
+    "total_bids_received": 14,
+    "rating": 3.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -660,7 +660,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-11-25T23:59:59+03:00"
+      "expires_at_demo": "2026-11-14T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Zeynep Aydın",
@@ -673,11 +673,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-11-25",
-    "total_sales": 7,
-    "total_bids_received": 81,
-    "rating": 3.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-11-14",
+    "total_sales": 8,
+    "total_bids_received": 104,
+    "rating": 4.9,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -691,7 +691,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-11-18T23:59:59+03:00"
+      "expires_at_demo": "2025-11-03T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Can Doğan",
@@ -704,11 +704,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-11-18",
+    "member_since": "2024-11-03",
     "total_sales": 5,
-    "total_bids_received": 39,
-    "rating": 4.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "total_bids_received": 23,
+    "rating": 4.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -722,7 +722,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-10-01T23:59:59+03:00"
+      "expires_at_demo": "2027-08-16T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Elif Kılıç",
@@ -735,11 +735,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-10-01",
-    "total_sales": 15,
-    "total_bids_received": 29,
-    "rating": 4.2,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-08-16",
+    "total_sales": 9,
+    "total_bids_received": 90,
+    "rating": 4.4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -753,7 +753,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-01-28T23:59:59+03:00"
+      "expires_at_demo": "2027-06-23T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Burak Aslan",
@@ -766,11 +766,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-01-28",
-    "total_sales": 15,
-    "total_bids_received": 100,
-    "rating": 3.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-06-23",
+    "total_sales": 3,
+    "total_bids_received": 69,
+    "rating": 3.8,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -784,7 +784,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-06-13T23:59:59+03:00"
+      "expires_at_demo": "2025-07-21T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Selin Polat",
@@ -797,11 +797,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-06-13",
-    "total_sales": 10,
-    "total_bids_received": 101,
-    "rating": 3.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-07-21",
+    "total_sales": 9,
+    "total_bids_received": 29,
+    "rating": 4.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -815,7 +815,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-11-23T23:59:59+03:00"
+      "expires_at_demo": "2025-04-26T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Emre Erdoğan",
@@ -828,11 +828,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-11-23",
-    "total_sales": 15,
-    "total_bids_received": 33,
-    "rating": 4.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-04-26",
+    "total_sales": 3,
+    "total_bids_received": 90,
+    "rating": 4.5,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -846,7 +846,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "expiring_soon",
-      "expires_at_demo": "2027-03-02T23:59:59+03:00"
+      "expires_at_demo": "2025-08-11T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Deniz Koç",
@@ -859,11 +859,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-03-02",
-    "total_sales": 0,
-    "total_bids_received": 99,
-    "rating": 4.2,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-08-11",
+    "total_sales": 12,
+    "total_bids_received": 82,
+    "rating": 3.5,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -877,7 +877,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-01-11T23:59:59+03:00"
+      "expires_at_demo": "2026-03-27T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Kerem Tekin",
@@ -890,11 +890,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-01-11",
-    "total_sales": 5,
-    "total_bids_received": 60,
-    "rating": 4.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-03-27",
+    "total_sales": 4,
+    "total_bids_received": 109,
+    "rating": 4.5,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -908,7 +908,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-02-09T23:59:59+03:00"
+      "expires_at_demo": "2027-09-22T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Gizem Yılmaz",
@@ -921,11 +921,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-02-09",
-    "total_sales": 10,
-    "total_bids_received": 43,
-    "rating": 4.7,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-09-22",
+    "total_sales": 9,
+    "total_bids_received": 31,
+    "rating": 4.5,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -939,7 +939,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-06-09T23:59:59+03:00"
+      "expires_at_demo": "2027-01-04T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Onur Kaya",
@@ -952,11 +952,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-06-09",
-    "total_sales": 10,
-    "total_bids_received": 67,
-    "rating": 4.5,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-01-04",
+    "total_sales": 4,
+    "total_bids_received": 33,
+    "rating": 4.4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -970,7 +970,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-01-18T23:59:59+03:00"
+      "expires_at_demo": "2025-05-05T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Pınar Demir",
@@ -983,11 +983,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-01-18",
-    "total_sales": 14,
-    "total_bids_received": 17,
-    "rating": 4.4,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-05-05",
+    "total_sales": 8,
+    "total_bids_received": 9,
+    "rating": 3.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -1001,7 +1001,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-02-01T23:59:59+03:00"
+      "expires_at_demo": "2025-04-10T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Tolga Şahin",
@@ -1014,11 +1014,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2026-02-01",
-    "total_sales": 5,
-    "total_bids_received": 117,
-    "rating": 3.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-04-10",
+    "total_sales": 1,
+    "total_bids_received": 63,
+    "rating": 4.1,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -1032,7 +1032,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-08-03T23:59:59+03:00"
+      "expires_at_demo": "2025-05-07T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Seda Çelik",
@@ -1045,11 +1045,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-08-03",
-    "total_sales": 6,
-    "total_bids_received": 66,
-    "rating": 4.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-05-07",
+    "total_sales": 3,
+    "total_bids_received": 28,
+    "rating": 4.3,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -1063,7 +1063,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "expiring_soon",
-      "expires_at_demo": "2025-07-09T23:59:59+03:00"
+      "expires_at_demo": "2026-03-17T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Barış Arslan",
@@ -1076,11 +1076,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-07-09",
+    "member_since": "2025-03-17",
     "total_sales": 3,
-    "total_bids_received": 24,
-    "rating": 3.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "total_bids_received": 70,
+    "rating": 3.5,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -1094,7 +1094,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-08-16T23:59:59+03:00"
+      "expires_at_demo": "2025-10-15T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Ceren Gayrimenkul Ltd. Şti.",
@@ -1108,11 +1108,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2026-08-16",
-    "total_sales": 10,
-    "total_bids_received": 120,
-    "rating": 4.2,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-10-15",
+    "total_sales": 14,
+    "total_bids_received": 25,
+    "rating": 4.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -1126,7 +1126,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-12-01T23:59:59+03:00"
+      "expires_at_demo": "2026-11-07T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Hakan Gayrimenkul Ltd. Şti.",
@@ -1140,11 +1140,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2024-12-01",
-    "total_sales": 4,
-    "total_bids_received": 117,
-    "rating": 3.7,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-11-07",
+    "total_sales": 8,
+    "total_bids_received": 93,
+    "rating": 4.4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -1158,7 +1158,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-03-17T23:59:59+03:00"
+      "expires_at_demo": "2026-09-10T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "İpek Gayrimenkul Ltd. Şti.",
@@ -1172,11 +1172,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2025-03-17",
-    "total_sales": 2,
-    "total_bids_received": 94,
-    "rating": 4,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-09-10",
+    "total_sales": 0,
+    "total_bids_received": 30,
+    "rating": 4.2,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -1190,7 +1190,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-12-16T23:59:59+03:00"
+      "expires_at_demo": "2025-09-25T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Murat Gayrimenkul Ltd. Şti.",
@@ -1204,11 +1204,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2026-12-16",
-    "total_sales": 3,
-    "total_bids_received": 59,
-    "rating": 4.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-09-25",
+    "total_sales": 11,
+    "total_bids_received": 60,
+    "rating": 3.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -1222,7 +1222,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-02-12T23:59:59+03:00"
+      "expires_at_demo": "2026-04-07T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Ayşe Gayrimenkul Ltd. Şti.",
@@ -1236,11 +1236,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2026-02-12",
+    "member_since": "2025-04-07",
     "total_sales": 14,
-    "total_bids_received": 42,
+    "total_bids_received": 56,
     "rating": 4,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -1254,7 +1254,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-10-02T23:59:59+03:00"
+      "expires_at_demo": "2026-10-09T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Mehmet Gayrimenkul Ltd. Şti.",
@@ -1268,11 +1268,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2026-10-02",
-    "total_sales": 13,
-    "total_bids_received": 60,
-    "rating": 3.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-10-09",
+    "total_sales": 6,
+    "total_bids_received": 5,
+    "rating": 3.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -1286,7 +1286,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "expiring_soon",
-      "expires_at_demo": "2026-04-13T23:59:59+03:00"
+      "expires_at_demo": "2027-05-24T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Zeynep Gayrimenkul Ltd. Şti.",
@@ -1300,11 +1300,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2025-04-13",
-    "total_sales": 1,
-    "total_bids_received": 39,
-    "rating": 4.7,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-05-24",
+    "total_sales": 5,
+    "total_bids_received": 47,
+    "rating": 4.9,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -1318,7 +1318,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-11-23T23:59:59+03:00"
+      "expires_at_demo": "2026-05-05T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Can Gayrimenkul Ltd. Şti.",
@@ -1332,11 +1332,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2026-11-23",
+    "member_since": "2025-05-05",
     "total_sales": 11,
-    "total_bids_received": 48,
-    "rating": 3.5,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "total_bids_received": 25,
+    "rating": 3.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -1350,7 +1350,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2027-12-14T23:59:59+03:00"
+      "expires_at_demo": "2027-01-03T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Elif Gayrimenkul Ltd. Şti.",
@@ -1364,11 +1364,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2026-12-14",
-    "total_sales": 14,
-    "total_bids_received": 13,
-    "rating": 4.7,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-01-03",
+    "total_sales": 9,
+    "total_bids_received": 25,
+    "rating": 4.8,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -1382,7 +1382,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-04-04T23:59:59+03:00"
+      "expires_at_demo": "2026-10-12T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Burak Gayrimenkul Ltd. Şti.",
@@ -1396,11 +1396,11 @@
       "corporate_listing",
       "auction_host"
     ],
-    "member_since": "2025-04-04",
-    "total_sales": 3,
-    "total_bids_received": 43,
+    "member_since": "2025-10-12",
+    "total_sales": 11,
+    "total_bids_received": 72,
     "rating": 4.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   },
@@ -1414,7 +1414,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-02-22T23:59:59+03:00"
+      "expires_at_demo": "2027-07-09T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Ziraat Tasfiye Birimi",
@@ -1427,11 +1427,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-02-22",
-    "total_sales": 11,
-    "total_bids_received": 94,
-    "rating": 4.5,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-07-09",
+    "total_sales": 10,
+    "total_bids_received": 27,
+    "rating": 4.2,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#1E3A5F"
   },
@@ -1445,7 +1445,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2025-03-13T23:59:59+03:00"
+      "expires_at_demo": "2026-12-19T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Vakıfbank Tasfiye Birimi",
@@ -1458,11 +1458,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-03-13",
-    "total_sales": 10,
-    "total_bids_received": 35,
-    "rating": 4.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-12-19",
+    "total_sales": 4,
+    "total_bids_received": 98,
+    "rating": 4.7,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#2563EB"
   },
@@ -1476,7 +1476,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-10-04T23:59:59+03:00"
+      "expires_at_demo": "2025-09-02T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "İş Bankası Tasfiye Birimi",
@@ -1489,11 +1489,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-10-04",
-    "total_sales": 6,
-    "total_bids_received": 40,
-    "rating": 4.9,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2024-09-02",
+    "total_sales": 13,
+    "total_bids_received": 16,
+    "rating": 5,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0F766E"
   },
@@ -1507,7 +1507,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "expiring_soon",
-      "expires_at_demo": "2025-05-22T23:59:59+03:00"
+      "expires_at_demo": "2026-07-27T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Garanti Tasfiye Birimi",
@@ -1520,11 +1520,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2024-05-22",
-    "total_sales": 7,
-    "total_bids_received": 73,
-    "rating": 4.8,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2025-07-27",
+    "total_sales": 4,
+    "total_bids_received": 57,
+    "rating": 4.6,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#92400E"
   },
@@ -1538,7 +1538,7 @@
       "amount_try": 5000,
       "period_days": 365,
       "status": "active",
-      "expires_at_demo": "2026-04-04T23:59:59+03:00"
+      "expires_at_demo": "2027-08-07T23:59:59+03:00"
     },
     "commission_summary": "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     "full_name": "Halkbank Tasfiye Birimi",
@@ -1551,11 +1551,11 @@
     "flows": [
       "individual_sale"
     ],
-    "member_since": "2025-04-04",
-    "total_sales": 0,
-    "total_bids_received": 28,
-    "rating": 3.6,
-    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
+    "member_since": "2026-08-07",
+    "total_sales": 1,
+    "total_bids_received": 35,
+    "rating": 4,
+    "bio": "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; ilan başına paket ücreti uygulanmaz.",
     "is_demo": true,
     "profile_color": "#0A1F44"
   }
