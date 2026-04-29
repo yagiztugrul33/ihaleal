@@ -1,1014 +1,1640 @@
 [
   {
     "id": "demo-buy-001",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Can Aydın",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 001 45 67",
     "email": "demo.alici.1@ornek.local",
-    "findeks_score": 659,
+    "findeks_score": 821,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-003-01",
+    "member_since": "2025-12-03",
     "saved_searches": 3,
-    "bids_placed": 8,
+    "bids_placed": 18,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-002",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Selin Tekin",
     "city": "İzmir",
     "district": "Ortahisar",
     "phone": "+90 532 002 45 67",
     "email": "demo.alici.2@ornek.local",
-    "findeks_score": 616,
+    "findeks_score": 889,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-011-01",
-    "saved_searches": 1,
-    "bids_placed": 22,
+    "member_since": "2026-02-13",
+    "saved_searches": 4,
+    "bids_placed": 21,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-003",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Kerem Öztürk",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 003 45 67",
     "email": "demo.alici.3@ornek.local",
-    "findeks_score": 846,
+    "findeks_score": 721,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2026-009-01",
-    "saved_searches": 2,
-    "bids_placed": 12,
+    "member_since": "2025-10-16",
+    "saved_searches": 8,
+    "bids_placed": 10,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-004",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Pınar Koç",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 004 45 67",
     "email": "demo.alici.4@ornek.local",
-    "findeks_score": 832,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-006-01",
-    "saved_searches": 6,
-    "bids_placed": 5,
-    "preferred_city": "Ankara",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-005",
-    "full_name": "Barış Arslan",
-    "city": "İstanbul",
-    "district": "Merkez",
-    "phone": "+90 532 005 45 67",
-    "email": "demo.alici.5@ornek.local",
-    "findeks_score": 775,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-004-01",
-    "saved_searches": 2,
-    "bids_placed": 14,
-    "preferred_city": "İzmir",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-006",
-    "full_name": "İpek Erdoğan",
-    "city": "Ankara",
-    "district": "Seyhan",
-    "phone": "+90 532 006 45 67",
-    "email": "demo.alici.6@ornek.local",
-    "findeks_score": 681,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2024-003-01",
-    "saved_searches": 8,
-    "bids_placed": 2,
-    "preferred_city": "İstanbul",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-007",
-    "full_name": "Mehmet Çelik",
-    "city": "İzmir",
-    "district": "Ortahisar",
-    "phone": "+90 532 007 45 67",
-    "email": "demo.alici.7@ornek.local",
-    "findeks_score": 647,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-004-01",
-    "saved_searches": 3,
-    "bids_placed": 21,
-    "preferred_city": "Ankara",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-008",
-    "full_name": "Elif Polat",
-    "city": "Adana",
-    "district": "Çankaya",
-    "phone": "+90 532 008 45 67",
-    "email": "demo.alici.8@ornek.local",
-    "findeks_score": 791,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-008-01",
-    "saved_searches": 8,
-    "bids_placed": 6,
-    "preferred_city": "İzmir",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-009",
-    "full_name": "Emre Şahin",
-    "city": "Trabzon",
-    "district": "Konak",
-    "phone": "+90 532 009 45 67",
-    "email": "demo.alici.9@ornek.local",
-    "findeks_score": 766,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2026-006-01",
-    "saved_searches": 0,
-    "bids_placed": 24,
-    "preferred_city": "İstanbul",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-010",
-    "full_name": "Gizem Aslan",
-    "city": "İstanbul",
-    "district": "Merkez",
-    "phone": "+90 532 010 45 67",
-    "email": "demo.alici.10@ornek.local",
-    "findeks_score": 664,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-008-01",
-    "saved_searches": 6,
-    "bids_placed": 20,
-    "preferred_city": "Ankara",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-011",
-    "full_name": "Tolga Demir",
-    "city": "Ankara",
-    "district": "Seyhan",
-    "phone": "+90 532 011 45 67",
-    "email": "demo.alici.11@ornek.local",
-    "findeks_score": 876,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2026-002-01",
-    "saved_searches": 4,
-    "bids_placed": 16,
-    "preferred_city": "İzmir",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-012",
-    "full_name": "Ceren Kılıç",
-    "city": "İzmir",
-    "district": "Ortahisar",
-    "phone": "+90 532 012 45 67",
-    "email": "demo.alici.12@ornek.local",
-    "findeks_score": 807,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2024-002-01",
-    "saved_searches": 1,
-    "bids_placed": 1,
-    "preferred_city": "İstanbul",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-013",
-    "full_name": "Murat Kaya",
-    "city": "Adana",
-    "district": "Çankaya",
-    "phone": "+90 532 013 45 67",
-    "email": "demo.alici.13@ornek.local",
-    "findeks_score": 733,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-004-01",
-    "saved_searches": 3,
-    "bids_placed": 24,
-    "preferred_city": "Ankara",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-014",
-    "full_name": "Zeynep Doğan",
-    "city": "Trabzon",
-    "district": "Konak",
-    "phone": "+90 532 014 45 67",
-    "email": "demo.alici.14@ornek.local",
-    "findeks_score": 636,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-012-01",
-    "saved_searches": 3,
-    "bids_placed": 17,
-    "preferred_city": "İzmir",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-015",
-    "full_name": "Burak Yılmaz",
-    "city": "İstanbul",
-    "district": "Merkez",
-    "phone": "+90 532 015 45 67",
-    "email": "demo.alici.15@ornek.local",
-    "findeks_score": 864,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2025-007-01",
-    "saved_searches": 7,
-    "bids_placed": 13,
-    "preferred_city": "İstanbul",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-016",
-    "full_name": "Deniz Aydın",
-    "city": "Ankara",
-    "district": "Seyhan",
-    "phone": "+90 532 016 45 67",
-    "email": "demo.alici.16@ornek.local",
-    "findeks_score": 762,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-008-01",
-    "saved_searches": 4,
-    "bids_placed": 1,
-    "preferred_city": "Ankara",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-017",
-    "full_name": "Onur Tekin",
-    "city": "İzmir",
-    "district": "Ortahisar",
-    "phone": "+90 532 017 45 67",
-    "email": "demo.alici.17@ornek.local",
-    "findeks_score": 807,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2026-005-01",
-    "saved_searches": 5,
-    "bids_placed": 8,
-    "preferred_city": "İzmir",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-018",
-    "full_name": "Seda Öztürk",
-    "city": "Adana",
-    "district": "Çankaya",
-    "phone": "+90 532 018 45 67",
-    "email": "demo.alici.18@ornek.local",
-    "findeks_score": 836,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2026-004-01",
-    "saved_searches": 3,
-    "bids_placed": 14,
-    "preferred_city": "İstanbul",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-019",
-    "full_name": "Hakan Koç",
-    "city": "Trabzon",
-    "district": "Konak",
-    "phone": "+90 532 019 45 67",
-    "email": "demo.alici.19@ornek.local",
-    "findeks_score": 792,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2026-008-01",
-    "saved_searches": 7,
-    "bids_placed": 4,
-    "preferred_city": "Ankara",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-020",
-    "full_name": "Ayşe Arslan",
-    "city": "İstanbul",
-    "district": "Merkez",
-    "phone": "+90 532 020 45 67",
-    "email": "demo.alici.20@ornek.local",
     "findeks_score": 625,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-002-01",
-    "saved_searches": 4,
-    "bids_placed": 0,
-    "preferred_city": "İzmir",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-021",
-    "full_name": "Can Erdoğan",
-    "city": "Ankara",
-    "district": "Seyhan",
-    "phone": "+90 532 021 45 67",
-    "email": "demo.alici.21@ornek.local",
-    "findeks_score": 740,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2024-008-01",
-    "saved_searches": 1,
-    "bids_placed": 21,
-    "preferred_city": "İstanbul",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-022",
-    "full_name": "Selin Çelik",
-    "city": "İzmir",
-    "district": "Ortahisar",
-    "phone": "+90 532 022 45 67",
-    "email": "demo.alici.22@ornek.local",
-    "findeks_score": 695,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2026-005-01",
-    "saved_searches": 8,
-    "bids_placed": 7,
+    "member_since": "2025-09-09",
+    "saved_searches": 3,
+    "bids_placed": 22,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
-    "id": "demo-buy-023",
-    "full_name": "Kerem Polat",
-    "city": "Adana",
-    "district": "Çankaya",
-    "phone": "+90 532 023 45 67",
-    "email": "demo.alici.23@ornek.local",
-    "findeks_score": 757,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-012-01",
-    "saved_searches": 5,
-    "bids_placed": 3,
-    "preferred_city": "İzmir",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-024",
-    "full_name": "Pınar Şahin",
-    "city": "Trabzon",
-    "district": "Konak",
-    "phone": "+90 532 024 45 67",
-    "email": "demo.alici.24@ornek.local",
-    "findeks_score": 840,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2025-003-01",
-    "saved_searches": 5,
-    "bids_placed": 14,
-    "preferred_city": "İstanbul",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-025",
-    "full_name": "Barış Aslan",
+    "id": "demo-buy-005",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Barış Arslan",
     "city": "İstanbul",
     "district": "Merkez",
-    "phone": "+90 532 025 45 67",
-    "email": "demo.alici.25@ornek.local",
-    "findeks_score": 708,
+    "phone": "+90 532 005 45 67",
+    "email": "demo.alici.5@ornek.local",
+    "findeks_score": 821,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-003-01",
+    "member_since": "2024-11-11",
     "saved_searches": 6,
-    "bids_placed": 17,
-    "preferred_city": "Ankara",
-    "alerts_email": false
+    "bids_placed": 19,
+    "preferred_city": "İzmir",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
-    "id": "demo-buy-026",
-    "full_name": "İpek Demir",
+    "id": "demo-buy-006",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "İpek Erdoğan",
     "city": "Ankara",
     "district": "Seyhan",
-    "phone": "+90 532 026 45 67",
-    "email": "demo.alici.26@ornek.local",
-    "findeks_score": 642,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2026-011-01",
-    "saved_searches": 6,
-    "bids_placed": 9,
-    "preferred_city": "İzmir",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-027",
-    "full_name": "Mehmet Kılıç",
-    "city": "İzmir",
-    "district": "Ortahisar",
-    "phone": "+90 532 027 45 67",
-    "email": "demo.alici.27@ornek.local",
-    "findeks_score": 703,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2026-011-01",
-    "saved_searches": 6,
-    "bids_placed": 12,
-    "preferred_city": "İstanbul",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-028",
-    "full_name": "Elif Kaya",
-    "city": "Adana",
-    "district": "Çankaya",
-    "phone": "+90 532 028 45 67",
-    "email": "demo.alici.28@ornek.local",
-    "findeks_score": 794,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-010-01",
-    "saved_searches": 7,
-    "bids_placed": 24,
-    "preferred_city": "Ankara",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-029",
-    "full_name": "Emre Doğan",
-    "city": "Trabzon",
-    "district": "Konak",
-    "phone": "+90 532 029 45 67",
-    "email": "demo.alici.29@ornek.local",
-    "findeks_score": 689,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-005-01",
-    "saved_searches": 7,
-    "bids_placed": 10,
-    "preferred_city": "İzmir",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-030",
-    "full_name": "Gizem Yılmaz",
-    "city": "İstanbul",
-    "district": "Merkez",
-    "phone": "+90 532 030 45 67",
-    "email": "demo.alici.30@ornek.local",
-    "findeks_score": 867,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2024-011-01",
-    "saved_searches": 1,
-    "bids_placed": 13,
-    "preferred_city": "İstanbul",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-031",
-    "full_name": "Tolga Aydın",
-    "city": "Ankara",
-    "district": "Seyhan",
-    "phone": "+90 532 031 45 67",
-    "email": "demo.alici.31@ornek.local",
-    "findeks_score": 731,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2024-005-01",
-    "saved_searches": 5,
-    "bids_placed": 4,
-    "preferred_city": "Ankara",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-032",
-    "full_name": "Ceren Tekin",
-    "city": "İzmir",
-    "district": "Ortahisar",
-    "phone": "+90 532 032 45 67",
-    "email": "demo.alici.32@ornek.local",
-    "findeks_score": 756,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-005-01",
-    "saved_searches": 0,
-    "bids_placed": 0,
-    "preferred_city": "İzmir",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-033",
-    "full_name": "Murat Öztürk",
-    "city": "Adana",
-    "district": "Çankaya",
-    "phone": "+90 532 033 45 67",
-    "email": "demo.alici.33@ornek.local",
+    "phone": "+90 532 006 45 67",
+    "email": "demo.alici.6@ornek.local",
     "findeks_score": 886,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2025-011-01",
-    "saved_searches": 4,
+    "member_since": "2024-08-07",
+    "saved_searches": 1,
     "bids_placed": 17,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
-    "id": "demo-buy-034",
-    "full_name": "Zeynep Koç",
-    "city": "Trabzon",
-    "district": "Konak",
-    "phone": "+90 532 034 45 67",
-    "email": "demo.alici.34@ornek.local",
-    "findeks_score": 711,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-002-01",
-    "saved_searches": 1,
-    "bids_placed": 7,
-    "preferred_city": "Ankara",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-035",
-    "full_name": "Burak Arslan",
-    "city": "İstanbul",
-    "district": "Merkez",
-    "phone": "+90 532 035 45 67",
-    "email": "demo.alici.35@ornek.local",
-    "findeks_score": 788,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2026-006-01",
-    "saved_searches": 8,
-    "bids_placed": 23,
-    "preferred_city": "İzmir",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-036",
-    "full_name": "Deniz Erdoğan",
-    "city": "Ankara",
-    "district": "Seyhan",
-    "phone": "+90 532 036 45 67",
-    "email": "demo.alici.36@ornek.local",
-    "findeks_score": 888,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2025-003-01",
-    "saved_searches": 4,
-    "bids_placed": 2,
-    "preferred_city": "İstanbul",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-037",
-    "full_name": "Onur Çelik",
+    "id": "demo-buy-007",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Mehmet Çelik",
     "city": "İzmir",
     "district": "Ortahisar",
-    "phone": "+90 532 037 45 67",
-    "email": "demo.alici.37@ornek.local",
-    "findeks_score": 640,
+    "phone": "+90 532 007 45 67",
+    "email": "demo.alici.7@ornek.local",
+    "findeks_score": 623,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-005-01",
-    "saved_searches": 2,
-    "bids_placed": 9,
-    "preferred_city": "Ankara",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-038",
-    "full_name": "Seda Polat",
-    "city": "Adana",
-    "district": "Çankaya",
-    "phone": "+90 532 038 45 67",
-    "email": "demo.alici.38@ornek.local",
-    "findeks_score": 673,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-010-01",
-    "saved_searches": 4,
-    "bids_placed": 7,
-    "preferred_city": "İzmir",
-    "alerts_email": true
-  },
-  {
-    "id": "demo-buy-039",
-    "full_name": "Hakan Şahin",
-    "city": "Trabzon",
-    "district": "Konak",
-    "phone": "+90 532 039 45 67",
-    "email": "demo.alici.39@ornek.local",
-    "findeks_score": 718,
-    "flows": [
-      "auction_bidder"
-    ],
-    "is_demo": true,
-    "member_since": "2026-008-01",
-    "saved_searches": 6,
-    "bids_placed": 16,
-    "preferred_city": "İstanbul",
-    "alerts_email": false
-  },
-  {
-    "id": "demo-buy-040",
-    "full_name": "Ayşe Aslan",
-    "city": "İstanbul",
-    "district": "Merkez",
-    "phone": "+90 532 040 45 67",
-    "email": "demo.alici.40@ornek.local",
-    "findeks_score": 664,
-    "flows": [
-      "browser_only"
-    ],
-    "is_demo": true,
-    "member_since": "2025-001-01",
-    "saved_searches": 0,
+    "member_since": "2024-03-23",
+    "saved_searches": 8,
     "bids_placed": 8,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
-    "id": "demo-buy-041",
-    "full_name": "Can Demir",
-    "city": "Ankara",
-    "district": "Seyhan",
-    "phone": "+90 532 041 45 67",
-    "email": "demo.alici.41@ornek.local",
-    "findeks_score": 681,
+    "id": "demo-buy-008",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Elif Polat",
+    "city": "Adana",
+    "district": "Çankaya",
+    "phone": "+90 532 008 45 67",
+    "email": "demo.alici.8@ornek.local",
+    "findeks_score": 859,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-011-01",
-    "saved_searches": 7,
-    "bids_placed": 0,
+    "member_since": "2026-03-08",
+    "saved_searches": 0,
+    "bids_placed": 17,
     "preferred_city": "İzmir",
-    "alerts_email": false
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
-    "id": "demo-buy-042",
-    "full_name": "Selin Kılıç",
-    "city": "İzmir",
-    "district": "Ortahisar",
-    "phone": "+90 532 042 45 67",
-    "email": "demo.alici.42@ornek.local",
-    "findeks_score": 881,
+    "id": "demo-buy-009",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Emre Şahin",
+    "city": "Trabzon",
+    "district": "Konak",
+    "phone": "+90 532 009 45 67",
+    "email": "demo.alici.9@ornek.local",
+    "findeks_score": 817,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2025-007-01",
-    "saved_searches": 8,
+    "member_since": "2025-01-09",
+    "saved_searches": 7,
     "bids_placed": 20,
     "preferred_city": "İstanbul",
-    "alerts_email": true
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
-    "id": "demo-buy-043",
-    "full_name": "Kerem Kaya",
+    "id": "demo-buy-010",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Gizem Aslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 532 010 45 67",
+    "email": "demo.alici.10@ornek.local",
+    "findeks_score": 787,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-04-12",
+    "saved_searches": 4,
+    "bids_placed": 2,
+    "preferred_city": "Ankara",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-011",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Tolga Demir",
+    "city": "Ankara",
+    "district": "Seyhan",
+    "phone": "+90 532 011 45 67",
+    "email": "demo.alici.11@ornek.local",
+    "findeks_score": 751,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-06-26",
+    "saved_searches": 3,
+    "bids_placed": 17,
+    "preferred_city": "İzmir",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-012",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Ceren Kılıç",
+    "city": "İzmir",
+    "district": "Ortahisar",
+    "phone": "+90 532 012 45 67",
+    "email": "demo.alici.12@ornek.local",
+    "findeks_score": 717,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2026-05-05",
+    "saved_searches": 4,
+    "bids_placed": 1,
+    "preferred_city": "İstanbul",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-013",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Murat Kaya",
     "city": "Adana",
     "district": "Çankaya",
-    "phone": "+90 532 043 45 67",
-    "email": "demo.alici.43@ornek.local",
+    "phone": "+90 532 013 45 67",
+    "email": "demo.alici.13@ornek.local",
+    "findeks_score": 628,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-04-25",
+    "saved_searches": 0,
+    "bids_placed": 22,
+    "preferred_city": "Ankara",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-014",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Zeynep Doğan",
+    "city": "Trabzon",
+    "district": "Konak",
+    "phone": "+90 532 014 45 67",
+    "email": "demo.alici.14@ornek.local",
+    "findeks_score": 883,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2024-03-11",
+    "saved_searches": 7,
+    "bids_placed": 14,
+    "preferred_city": "İzmir",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-015",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Burak Yılmaz",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 532 015 45 67",
+    "email": "demo.alici.15@ornek.local",
+    "findeks_score": 675,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2026-01-15",
+    "saved_searches": 8,
+    "bids_placed": 21,
+    "preferred_city": "İstanbul",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-016",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Deniz Aydın",
+    "city": "Ankara",
+    "district": "Seyhan",
+    "phone": "+90 532 016 45 67",
+    "email": "demo.alici.16@ornek.local",
+    "findeks_score": 738,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-04-01",
+    "saved_searches": 4,
+    "bids_placed": 5,
+    "preferred_city": "Ankara",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-017",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Onur Tekin",
+    "city": "İzmir",
+    "district": "Ortahisar",
+    "phone": "+90 532 017 45 67",
+    "email": "demo.alici.17@ornek.local",
+    "findeks_score": 839,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-12-25",
+    "saved_searches": 6,
+    "bids_placed": 11,
+    "preferred_city": "İzmir",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-018",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Seda Öztürk",
+    "city": "Adana",
+    "district": "Çankaya",
+    "phone": "+90 532 018 45 67",
+    "email": "demo.alici.18@ornek.local",
+    "findeks_score": 705,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2026-07-16",
+    "saved_searches": 5,
+    "bids_placed": 13,
+    "preferred_city": "İstanbul",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-019",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Hakan Koç",
+    "city": "Trabzon",
+    "district": "Konak",
+    "phone": "+90 532 019 45 67",
+    "email": "demo.alici.19@ornek.local",
+    "findeks_score": 688,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-11-24",
+    "saved_searches": 2,
+    "bids_placed": 22,
+    "preferred_city": "Ankara",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-020",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Ayşe Arslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 532 020 45 67",
+    "email": "demo.alici.20@ornek.local",
+    "findeks_score": 626,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-02-18",
+    "saved_searches": 7,
+    "bids_placed": 20,
+    "preferred_city": "İzmir",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-021",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Can Erdoğan",
+    "city": "Ankara",
+    "district": "Seyhan",
+    "phone": "+90 532 021 45 67",
+    "email": "demo.alici.21@ornek.local",
+    "findeks_score": 638,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2026-07-25",
+    "saved_searches": 0,
+    "bids_placed": 12,
+    "preferred_city": "İstanbul",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-022",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Selin Çelik",
+    "city": "İzmir",
+    "district": "Ortahisar",
+    "phone": "+90 532 022 45 67",
+    "email": "demo.alici.22@ornek.local",
+    "findeks_score": 647,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-08-03",
+    "saved_searches": 7,
+    "bids_placed": 14,
+    "preferred_city": "Ankara",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-023",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Kerem Polat",
+    "city": "Adana",
+    "district": "Çankaya",
+    "phone": "+90 532 023 45 67",
+    "email": "demo.alici.23@ornek.local",
+    "findeks_score": 713,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-02-26",
+    "saved_searches": 6,
+    "bids_placed": 9,
+    "preferred_city": "İzmir",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-024",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Pınar Şahin",
+    "city": "Trabzon",
+    "district": "Konak",
+    "phone": "+90 532 024 45 67",
+    "email": "demo.alici.24@ornek.local",
+    "findeks_score": 734,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2025-07-22",
+    "saved_searches": 2,
+    "bids_placed": 10,
+    "preferred_city": "İstanbul",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-025",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Barış Aslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 532 025 45 67",
+    "email": "demo.alici.25@ornek.local",
+    "findeks_score": 700,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-05-01",
+    "saved_searches": 1,
+    "bids_placed": 23,
+    "preferred_city": "Ankara",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-026",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "İpek Demir",
+    "city": "Ankara",
+    "district": "Seyhan",
+    "phone": "+90 532 026 45 67",
+    "email": "demo.alici.26@ornek.local",
     "findeks_score": 735,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-003-01",
+    "member_since": "2025-06-16",
+    "saved_searches": 5,
+    "bids_placed": 24,
+    "preferred_city": "İzmir",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-027",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Mehmet Kılıç",
+    "city": "İzmir",
+    "district": "Ortahisar",
+    "phone": "+90 532 027 45 67",
+    "email": "demo.alici.27@ornek.local",
+    "findeks_score": 642,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2025-06-12",
+    "saved_searches": 5,
+    "bids_placed": 2,
+    "preferred_city": "İstanbul",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-028",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Elif Kaya",
+    "city": "Adana",
+    "district": "Çankaya",
+    "phone": "+90 532 028 45 67",
+    "email": "demo.alici.28@ornek.local",
+    "findeks_score": 639,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-11-17",
     "saved_searches": 2,
-    "bids_placed": 11,
+    "bids_placed": 15,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-029",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Emre Doğan",
+    "city": "Trabzon",
+    "district": "Konak",
+    "phone": "+90 532 029 45 67",
+    "email": "demo.alici.29@ornek.local",
+    "findeks_score": 653,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2024-09-14",
+    "saved_searches": 6,
+    "bids_placed": 3,
+    "preferred_city": "İzmir",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-030",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Gizem Yılmaz",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 532 030 45 67",
+    "email": "demo.alici.30@ornek.local",
+    "findeks_score": 680,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2026-02-09",
+    "saved_searches": 0,
+    "bids_placed": 12,
+    "preferred_city": "İstanbul",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-031",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Tolga Aydın",
+    "city": "Ankara",
+    "district": "Seyhan",
+    "phone": "+90 532 031 45 67",
+    "email": "demo.alici.31@ornek.local",
+    "findeks_score": 618,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-03-26",
+    "saved_searches": 1,
+    "bids_placed": 4,
+    "preferred_city": "Ankara",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-032",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Ceren Tekin",
+    "city": "İzmir",
+    "district": "Ortahisar",
+    "phone": "+90 532 032 45 67",
+    "email": "demo.alici.32@ornek.local",
+    "findeks_score": 684,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-07-22",
+    "saved_searches": 4,
+    "bids_placed": 0,
+    "preferred_city": "İzmir",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-033",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Murat Öztürk",
+    "city": "Adana",
+    "district": "Çankaya",
+    "phone": "+90 532 033 45 67",
+    "email": "demo.alici.33@ornek.local",
+    "findeks_score": 860,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2024-12-07",
+    "saved_searches": 4,
+    "bids_placed": 14,
+    "preferred_city": "İstanbul",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-034",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Zeynep Koç",
+    "city": "Trabzon",
+    "district": "Konak",
+    "phone": "+90 532 034 45 67",
+    "email": "demo.alici.34@ornek.local",
+    "findeks_score": 763,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-03-11",
+    "saved_searches": 0,
+    "bids_placed": 21,
+    "preferred_city": "Ankara",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-035",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Burak Arslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 532 035 45 67",
+    "email": "demo.alici.35@ornek.local",
+    "findeks_score": 815,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-03-17",
+    "saved_searches": 7,
+    "bids_placed": 18,
+    "preferred_city": "İzmir",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-036",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Deniz Erdoğan",
+    "city": "Ankara",
+    "district": "Seyhan",
+    "phone": "+90 532 036 45 67",
+    "email": "demo.alici.36@ornek.local",
+    "findeks_score": 719,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2025-04-21",
+    "saved_searches": 3,
+    "bids_placed": 17,
+    "preferred_city": "İstanbul",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-037",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Onur Çelik",
+    "city": "İzmir",
+    "district": "Ortahisar",
+    "phone": "+90 532 037 45 67",
+    "email": "demo.alici.37@ornek.local",
+    "findeks_score": 832,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-04-09",
+    "saved_searches": 2,
+    "bids_placed": 21,
+    "preferred_city": "Ankara",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-038",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Seda Polat",
+    "city": "Adana",
+    "district": "Çankaya",
+    "phone": "+90 532 038 45 67",
+    "email": "demo.alici.38@ornek.local",
+    "findeks_score": 766,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-07-18",
+    "saved_searches": 2,
+    "bids_placed": 5,
+    "preferred_city": "İzmir",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-039",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Hakan Şahin",
+    "city": "Trabzon",
+    "district": "Konak",
+    "phone": "+90 532 039 45 67",
+    "email": "demo.alici.39@ornek.local",
+    "findeks_score": 711,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2024-11-05",
+    "saved_searches": 0,
+    "bids_placed": 3,
+    "preferred_city": "İstanbul",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-040",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Ayşe Aslan",
+    "city": "İstanbul",
+    "district": "Merkez",
+    "phone": "+90 532 040 45 67",
+    "email": "demo.alici.40@ornek.local",
+    "findeks_score": 868,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2025-06-16",
+    "saved_searches": 4,
+    "bids_placed": 7,
+    "preferred_city": "Ankara",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-041",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Can Demir",
+    "city": "Ankara",
+    "district": "Seyhan",
+    "phone": "+90 532 041 45 67",
+    "email": "demo.alici.41@ornek.local",
+    "findeks_score": 881,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2024-12-25",
+    "saved_searches": 1,
+    "bids_placed": 6,
+    "preferred_city": "İzmir",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-042",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Selin Kılıç",
+    "city": "İzmir",
+    "district": "Ortahisar",
+    "phone": "+90 532 042 45 67",
+    "email": "demo.alici.42@ornek.local",
+    "findeks_score": 667,
+    "flows": [
+      "auction_bidder"
+    ],
+    "is_demo": true,
+    "member_since": "2025-10-04",
+    "saved_searches": 5,
+    "bids_placed": 19,
+    "preferred_city": "İstanbul",
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
+  },
+  {
+    "id": "demo-buy-043",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
+    "full_name": "Kerem Kaya",
+    "city": "Adana",
+    "district": "Çankaya",
+    "phone": "+90 532 043 45 67",
+    "email": "demo.alici.43@ornek.local",
+    "findeks_score": 885,
+    "flows": [
+      "browser_only"
+    ],
+    "is_demo": true,
+    "member_since": "2026-11-23",
+    "saved_searches": 3,
+    "bids_placed": 7,
+    "preferred_city": "Ankara",
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-044",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Pınar Doğan",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 044 45 67",
     "email": "demo.alici.44@ornek.local",
-    "findeks_score": 737,
+    "findeks_score": 649,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-005-01",
+    "member_since": "2026-03-08",
     "saved_searches": 7,
-    "bids_placed": 12,
+    "bids_placed": 15,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-045",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Barış Yılmaz",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 045 45 67",
     "email": "demo.alici.45@ornek.local",
-    "findeks_score": 618,
+    "findeks_score": 720,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2024-011-01",
-    "saved_searches": 7,
-    "bids_placed": 21,
+    "member_since": "2024-08-08",
+    "saved_searches": 5,
+    "bids_placed": 10,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-046",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "İpek Aydın",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 046 45 67",
     "email": "demo.alici.46@ornek.local",
-    "findeks_score": 720,
+    "findeks_score": 601,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-003-01",
-    "saved_searches": 3,
-    "bids_placed": 10,
+    "member_since": "2024-08-13",
+    "saved_searches": 2,
+    "bids_placed": 11,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-047",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Mehmet Tekin",
     "city": "İzmir",
     "district": "Ortahisar",
     "phone": "+90 532 047 45 67",
     "email": "demo.alici.47@ornek.local",
-    "findeks_score": 657,
+    "findeks_score": 835,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-002-01",
-    "saved_searches": 5,
-    "bids_placed": 19,
+    "member_since": "2025-02-24",
+    "saved_searches": 4,
+    "bids_placed": 13,
     "preferred_city": "İzmir",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-048",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Elif Öztürk",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 048 45 67",
     "email": "demo.alici.48@ornek.local",
-    "findeks_score": 688,
+    "findeks_score": 716,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2025-011-01",
-    "saved_searches": 6,
-    "bids_placed": 3,
+    "member_since": "2026-02-12",
+    "saved_searches": 2,
+    "bids_placed": 2,
     "preferred_city": "İstanbul",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-049",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Emre Koç",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 049 45 67",
     "email": "demo.alici.49@ornek.local",
-    "findeks_score": 711,
+    "findeks_score": 887,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-004-01",
-    "saved_searches": 7,
-    "bids_placed": 23,
+    "member_since": "2026-11-20",
+    "saved_searches": 4,
+    "bids_placed": 15,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-050",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Gizem Arslan",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 050 45 67",
     "email": "demo.alici.50@ornek.local",
-    "findeks_score": 629,
+    "findeks_score": 850,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-008-01",
-    "saved_searches": 1,
-    "bids_placed": 19,
+    "member_since": "2025-03-06",
+    "saved_searches": 5,
+    "bids_placed": 7,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-051",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Tolga Erdoğan",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 051 45 67",
     "email": "demo.alici.51@ornek.local",
-    "findeks_score": 818,
+    "findeks_score": 726,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2024-010-01",
-    "saved_searches": 8,
-    "bids_placed": 8,
+    "member_since": "2025-08-15",
+    "saved_searches": 7,
+    "bids_placed": 21,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-052",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Ceren Çelik",
     "city": "İzmir",
     "district": "Ortahisar",
     "phone": "+90 532 052 45 67",
     "email": "demo.alici.52@ornek.local",
-    "findeks_score": 725,
+    "findeks_score": 876,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-003-01",
-    "saved_searches": 8,
-    "bids_placed": 21,
+    "member_since": "2025-08-10",
+    "saved_searches": 2,
+    "bids_placed": 22,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-053",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Murat Polat",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 053 45 67",
     "email": "demo.alici.53@ornek.local",
-    "findeks_score": 662,
+    "findeks_score": 785,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-011-01",
-    "saved_searches": 4,
-    "bids_placed": 9,
+    "member_since": "2026-05-03",
+    "saved_searches": 5,
+    "bids_placed": 5,
     "preferred_city": "İzmir",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-054",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Zeynep Şahin",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 054 45 67",
     "email": "demo.alici.54@ornek.local",
-    "findeks_score": 697,
+    "findeks_score": 864,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2026-001-01",
-    "saved_searches": 7,
-    "bids_placed": 11,
+    "member_since": "2025-01-01",
+    "saved_searches": 0,
+    "bids_placed": 17,
     "preferred_city": "İstanbul",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-055",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Burak Aslan",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 055 45 67",
     "email": "demo.alici.55@ornek.local",
-    "findeks_score": 814,
+    "findeks_score": 799,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-003-01",
-    "saved_searches": 2,
-    "bids_placed": 6,
+    "member_since": "2024-10-24",
+    "saved_searches": 0,
+    "bids_placed": 23,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-056",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Deniz Demir",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 056 45 67",
     "email": "demo.alici.56@ornek.local",
-    "findeks_score": 831,
+    "findeks_score": 740,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2024-009-01",
-    "saved_searches": 1,
-    "bids_placed": 6,
+    "member_since": "2025-12-06",
+    "saved_searches": 5,
+    "bids_placed": 10,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-057",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Onur Kılıç",
     "city": "İzmir",
     "district": "Ortahisar",
@@ -1019,424 +1645,678 @@
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2026-001-01",
-    "saved_searches": 4,
-    "bids_placed": 22,
+    "member_since": "2024-01-07",
+    "saved_searches": 3,
+    "bids_placed": 6,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-058",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Seda Kaya",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 058 45 67",
     "email": "demo.alici.58@ornek.local",
-    "findeks_score": 821,
+    "findeks_score": 705,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-004-01",
-    "saved_searches": 8,
-    "bids_placed": 14,
+    "member_since": "2026-12-19",
+    "saved_searches": 2,
+    "bids_placed": 13,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-059",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Hakan Doğan",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 059 45 67",
     "email": "demo.alici.59@ornek.local",
-    "findeks_score": 773,
+    "findeks_score": 900,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-009-01",
-    "saved_searches": 3,
-    "bids_placed": 14,
+    "member_since": "2024-10-12",
+    "saved_searches": 6,
+    "bids_placed": 9,
     "preferred_city": "İzmir",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-060",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Ayşe Yılmaz",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 060 45 67",
     "email": "demo.alici.60@ornek.local",
-    "findeks_score": 608,
+    "findeks_score": 604,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2026-007-01",
-    "saved_searches": 5,
-    "bids_placed": 20,
+    "member_since": "2026-02-17",
+    "saved_searches": 0,
+    "bids_placed": 23,
     "preferred_city": "İstanbul",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-061",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Can Aydın",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 061 45 67",
     "email": "demo.alici.61@ornek.local",
-    "findeks_score": 685,
+    "findeks_score": 694,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-006-01",
-    "saved_searches": 2,
-    "bids_placed": 9,
+    "member_since": "2026-10-08",
+    "saved_searches": 8,
+    "bids_placed": 14,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-062",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Selin Tekin",
     "city": "İzmir",
     "district": "Ortahisar",
     "phone": "+90 532 062 45 67",
     "email": "demo.alici.62@ornek.local",
-    "findeks_score": 838,
+    "findeks_score": 708,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-003-01",
-    "saved_searches": 5,
-    "bids_placed": 19,
+    "member_since": "2026-07-15",
+    "saved_searches": 2,
+    "bids_placed": 1,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-063",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Kerem Öztürk",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 063 45 67",
     "email": "demo.alici.63@ornek.local",
-    "findeks_score": 791,
+    "findeks_score": 861,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2026-006-01",
-    "saved_searches": 8,
-    "bids_placed": 6,
+    "member_since": "2026-02-07",
+    "saved_searches": 3,
+    "bids_placed": 21,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-064",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Pınar Koç",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 064 45 67",
     "email": "demo.alici.64@ornek.local",
-    "findeks_score": 894,
+    "findeks_score": 662,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-002-01",
-    "saved_searches": 3,
-    "bids_placed": 17,
+    "member_since": "2025-01-15",
+    "saved_searches": 8,
+    "bids_placed": 16,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-065",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Barış Arslan",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 065 45 67",
     "email": "demo.alici.65@ornek.local",
-    "findeks_score": 670,
+    "findeks_score": 737,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-010-01",
-    "saved_searches": 4,
-    "bids_placed": 14,
+    "member_since": "2024-04-07",
+    "saved_searches": 1,
+    "bids_placed": 0,
     "preferred_city": "İzmir",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-066",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "İpek Erdoğan",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 066 45 67",
     "email": "demo.alici.66@ornek.local",
-    "findeks_score": 860,
+    "findeks_score": 654,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2026-006-01",
-    "saved_searches": 0,
-    "bids_placed": 13,
+    "member_since": "2025-01-26",
+    "saved_searches": 4,
+    "bids_placed": 11,
     "preferred_city": "İstanbul",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-067",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Mehmet Çelik",
     "city": "İzmir",
     "district": "Ortahisar",
     "phone": "+90 532 067 45 67",
     "email": "demo.alici.67@ornek.local",
-    "findeks_score": 632,
+    "findeks_score": 693,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-005-01",
-    "saved_searches": 0,
-    "bids_placed": 2,
+    "member_since": "2024-04-04",
+    "saved_searches": 6,
+    "bids_placed": 17,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-068",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Elif Polat",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 068 45 67",
     "email": "demo.alici.68@ornek.local",
-    "findeks_score": 789,
+    "findeks_score": 660,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-011-01",
-    "saved_searches": 3,
-    "bids_placed": 7,
+    "member_since": "2024-04-12",
+    "saved_searches": 5,
+    "bids_placed": 2,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-069",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Emre Şahin",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 069 45 67",
     "email": "demo.alici.69@ornek.local",
-    "findeks_score": 605,
+    "findeks_score": 762,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2024-011-01",
-    "saved_searches": 0,
-    "bids_placed": 16,
+    "member_since": "2024-11-26",
+    "saved_searches": 2,
+    "bids_placed": 19,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-070",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Gizem Aslan",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 070 45 67",
     "email": "demo.alici.70@ornek.local",
-    "findeks_score": 709,
+    "findeks_score": 744,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-010-01",
-    "saved_searches": 4,
-    "bids_placed": 1,
+    "member_since": "2024-09-08",
+    "saved_searches": 1,
+    "bids_placed": 8,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-071",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Tolga Demir",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 071 45 67",
     "email": "demo.alici.71@ornek.local",
-    "findeks_score": 831,
+    "findeks_score": 837,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-002-01",
+    "member_since": "2025-10-04",
     "saved_searches": 7,
-    "bids_placed": 22,
+    "bids_placed": 3,
     "preferred_city": "İzmir",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-072",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Ceren Kılıç",
     "city": "İzmir",
     "district": "Ortahisar",
     "phone": "+90 532 072 45 67",
     "email": "demo.alici.72@ornek.local",
-    "findeks_score": 810,
+    "findeks_score": 890,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2026-001-01",
-    "saved_searches": 5,
-    "bids_placed": 18,
+    "member_since": "2024-08-28",
+    "saved_searches": 7,
+    "bids_placed": 3,
     "preferred_city": "İstanbul",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-073",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Murat Kaya",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 073 45 67",
     "email": "demo.alici.73@ornek.local",
-    "findeks_score": 754,
+    "findeks_score": 636,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-003-01",
-    "saved_searches": 0,
-    "bids_placed": 18,
+    "member_since": "2024-03-28",
+    "saved_searches": 6,
+    "bids_placed": 6,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-074",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Zeynep Doğan",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 074 45 67",
     "email": "demo.alici.74@ornek.local",
-    "findeks_score": 669,
+    "findeks_score": 770,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-006-01",
-    "saved_searches": 0,
-    "bids_placed": 13,
+    "member_since": "2024-07-12",
+    "saved_searches": 1,
+    "bids_placed": 8,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-075",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Burak Yılmaz",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 075 45 67",
     "email": "demo.alici.75@ornek.local",
-    "findeks_score": 673,
+    "findeks_score": 649,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2025-006-01",
+    "member_since": "2025-11-18",
     "saved_searches": 6,
-    "bids_placed": 15,
+    "bids_placed": 10,
     "preferred_city": "İstanbul",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-076",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Deniz Aydın",
     "city": "Ankara",
     "district": "Seyhan",
     "phone": "+90 532 076 45 67",
     "email": "demo.alici.76@ornek.local",
-    "findeks_score": 634,
+    "findeks_score": 710,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-009-01",
-    "saved_searches": 7,
-    "bids_placed": 6,
+    "member_since": "2024-03-08",
+    "saved_searches": 3,
+    "bids_placed": 23,
     "preferred_city": "Ankara",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-077",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Onur Tekin",
     "city": "İzmir",
     "district": "Ortahisar",
     "phone": "+90 532 077 45 67",
     "email": "demo.alici.77@ornek.local",
-    "findeks_score": 882,
+    "findeks_score": 773,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-009-01",
+    "member_since": "2024-11-19",
     "saved_searches": 2,
-    "bids_placed": 0,
+    "bids_placed": 1,
     "preferred_city": "İzmir",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-078",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "none",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Seda Öztürk",
     "city": "Adana",
     "district": "Çankaya",
     "phone": "+90 532 078 45 67",
     "email": "demo.alici.78@ornek.local",
-    "findeks_score": 728,
+    "findeks_score": 661,
     "flows": [
       "auction_bidder"
     ],
     "is_demo": true,
-    "member_since": "2024-006-01",
-    "saved_searches": 2,
-    "bids_placed": 21,
+    "member_since": "2026-01-19",
+    "saved_searches": 8,
+    "bids_placed": 6,
     "preferred_city": "İstanbul",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-079",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Hakan Koç",
     "city": "Trabzon",
     "district": "Konak",
     "phone": "+90 532 079 45 67",
     "email": "demo.alici.79@ornek.local",
-    "findeks_score": 697,
+    "findeks_score": 783,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2026-012-01",
-    "saved_searches": 4,
-    "bids_placed": 7,
+    "member_since": "2024-12-27",
+    "saved_searches": 0,
+    "bids_placed": 16,
     "preferred_city": "Ankara",
-    "alerts_email": false
+    "alerts_email": false,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   },
   {
     "id": "demo-buy-080",
+    "kimi_task": "A_03",
+    "business_model_version": "2026_membership_commission",
+    "pricing_model": "annual_buyer_membership_bid_eligibility",
+    "membership": {
+      "type": "buyer_yearly",
+      "amount_try": 1000,
+      "period_days": 365,
+      "status": "active",
+      "bid_requires_active_membership_demo": true
+    },
     "full_name": "Ayşe Arslan",
     "city": "İstanbul",
     "district": "Merkez",
     "phone": "+90 532 080 45 67",
     "email": "demo.alici.80@ornek.local",
-    "findeks_score": 799,
+    "findeks_score": 890,
     "flows": [
       "browser_only"
     ],
     "is_demo": true,
-    "member_since": "2025-012-01",
-    "saved_searches": 5,
-    "bids_placed": 7,
+    "member_since": "2025-02-23",
+    "saved_searches": 3,
+    "bids_placed": 9,
     "preferred_city": "İzmir",
-    "alerts_email": true
+    "alerts_email": true,
+    "notes_demo": "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için."
   }
 ]

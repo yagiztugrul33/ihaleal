@@ -12,6 +12,8 @@ fs.mkdirSync(outDir, { recursive: true });
 
 const rnd = (a, b) => Math.floor(a + Math.random() * (b - a + 1));
 const pad = (n) => String(n).padStart(3, "0");
+/** Takvim alanları için (YYYY-MM-DD) — ay/gün iki hane */
+const pad2 = (n) => String(n).padStart(2, "0");
 
 /** --- Görev 1: 24 ihale --- */
 const types = [
@@ -58,8 +60,8 @@ for (let i = 1; i <= 24; i++) {
   const est = Math.round(start * (1.05 + Math.random() * 0.2));
   const m = rnd(5, 8);
   const d = rnd(1, 5);
-  const starts_at = `2026-${pad(m)}-${pad(d)}T10:00:00+03:00`;
-  const ends_at = `2026-${pad(m)}-${pad(d + 3)}T18:00:00+03:00`;
+  const starts_at = `2026-${pad2(m)}-${pad2(d)}T10:00:00+03:00`;
+  const ends_at = `2026-${pad2(m)}-${pad2(d + 3)}T18:00:00+03:00`;
   const status = ["live", "scheduled", "ended"][i % 3];
   const seller_type = ["yetkili_emlakçı", "sahibi", "banka"][i % 3];
   auctions.push({
@@ -104,7 +106,7 @@ for (let i = 1; i <= 24; i++) {
 const j1 = JSON.stringify(auctions, null, 2);
 fs.writeFileSync(path.join(outDir, "01-auctions.json"), j1, "utf8");
 
-/** --- Görev 2: 50 satıcı --- */
+/** --- Görev 2: 50 satıcı — A_02 (iş modeli v2026: yıllık satıcı üyeliği + komisyon; ilan paketi yok) --- */
 const firstNames = ["Ayşe", "Mehmet", "Zeynep", "Can", "Elif", "Burak", "Selin", "Emre", "Deniz", "Kerem", "Gizem", "Onur", "Pınar", "Tolga", "Seda", "Barış", "Ceren", "Hakan", "İpek", "Murat"];
 const lastNames = ["Yılmaz", "Kaya", "Demir", "Şahin", "Çelik", "Arslan", "Öztürk", "Aydın", "Doğan", "Kılıç", "Aslan", "Polat", "Erdoğan", "Koç", "Tekin"];
 const banks = ["Halkbank", "Ziraat", "Vakıfbank", "İş Bankası", "Garanti"];
@@ -118,44 +120,78 @@ for (let i = 1; i <= 50; i++) {
   const district = ["Merkez", "Nilüfer", "Kepez", "Bornova", "Kadıköy"][i % 5];
   const mid = String(100 + (i % 900)).padStart(3, "0");
   const phone = `+90 555 ${mid} 12 34`;
+  const y = rnd(2024, 2026);
+  const mo = rnd(1, 12);
+  const day = rnd(1, 28);
+  const membershipExpires = `${y + 1}-${pad2(mo)}-${pad2(day)}`;
   sellers.push({
     id: `demo-sell-${pad(i)}`,
+    kimi_task: "A_02",
+    business_model_version: "2026_membership_commission",
+    /** Eski Standart/Vitrin/Doping/Pro paket modeli kullanılmaz */
+    pricing_model: "annual_seller_membership_unlimited_listings",
+    membership: {
+      type: "seller_yearly",
+      amount_try: 5000,
+      period_days: 365,
+      status: i % 7 === 0 ? "expiring_soon" : "active",
+      expires_at_demo: `${membershipExpires}T23:59:59+03:00`,
+    },
+    commission_summary:
+      "Komisyon hedefi: satıcıdan %2 + alıcıdan %2 (KDV matrahı ayrı hesaplanır). Üyelik bedeli komisyondan mahsup edilebilir.",
     full_name: isBank ? `${banks[i % 5]} Tasfiye Birimi` : isCorp ? `${fn} Gayrimenkul Ltd. Şti.` : `${fn} ${ln}`,
     city,
     district,
     phone,
     email: `demo.satici.${i}@ornek.local`,
     kyc_status: "verified",
+    e_devlet_status_demo: i % 5 === 0 ? "verified" : "pending",
     flows: isCorp ? ["corporate_listing", "auction_host"] : ["individual_sale"],
-    member_since: `${rnd(2024, 2026)}-${pad(rnd(1, 12))}-15`,
+    member_since: `${y}-${pad2(mo)}-${pad2(day)}`,
     total_sales: rnd(0, 15),
     total_bids_received: rnd(5, 120),
     rating: Number((3.5 + Math.random() * 1.5).toFixed(1)),
-    bio: "Demo satıcı profili; gerçek kişi veya kurum değildir.",
+    bio: "Demo satıcı. Yıllık satıcı üyeliği (sınırsız ilan) + komisyon modeli; paket başına 99/299 TL vb. uygulanmaz.",
     is_demo: true,
     profile_color: ["#0A1F44", "#1E3A5F", "#2563EB", "#0F766E", "#92400E"][i % 5],
   });
 }
 fs.writeFileSync(path.join(outDir, "02-sellers.json"), JSON.stringify(sellers, null, 2), "utf8");
 
-/** --- Görev 3: 80 alıcı --- */
+/** --- Görev 3: 80 alıcı — A_03 (iş modeli v2026: yıllık alıcı üyeliği teklif hakkı; arama ücretsiz vurgusu demo) --- */
 const buyers = [];
 for (let i = 1; i <= 80; i++) {
+  const y = rnd(2024, 2026);
+  const mo = rnd(1, 12);
+  const day = rnd(1, 28);
   buyers.push({
     id: `demo-buy-${pad(i)}`,
+    kimi_task: "A_03",
+    business_model_version: "2026_membership_commission",
+    pricing_model: "annual_buyer_membership_bid_eligibility",
+    membership: {
+      type: "buyer_yearly",
+      amount_try: 1000,
+      period_days: 365,
+      status: i % 6 === 0 ? "none" : "active",
+      /** Teklif verebilmek için aktif üyelik; arama/listeler ücretsiz (ürün politikası) */
+      bid_requires_active_membership_demo: true,
+    },
     full_name: `${firstNames[(i * 3) % firstNames.length]} ${lastNames[(i * 7) % lastNames.length]}`,
     city: ["İstanbul", "Ankara", "İzmir", "Adana", "Trabzon"][i % 5],
     district: ["Merkez", "Seyhan", "Ortahisar", "Çankaya", "Konak"][i % 5],
-    phone: `+90 532 ${pad(i)} 45 67`.replace(/ /g, " "),
+    phone: `+90 532 ${pad(i)} 45 67`,
     email: `demo.alici.${i}@ornek.local`,
     findeks_score: rnd(600, 900),
     flows: i % 3 === 0 ? ["auction_bidder"] : ["browser_only"],
     is_demo: true,
-    member_since: `${rnd(2024, 2026)}-${pad(rnd(1, 12))}-01`,
+    member_since: `${y}-${pad2(mo)}-${pad2(day)}`,
     saved_searches: rnd(0, 8),
     bids_placed: rnd(0, 24),
     preferred_city: ["İstanbul", "Ankara", "İzmir"][i % 3],
     alerts_email: i % 2 === 0,
+    notes_demo:
+      "Eski ilan paketi (Standart/Vitrin/Doping/Pro) alıcı tarafında yok; alıcı yıllık üyelik teklif yetkisi için.",
   });
 }
 fs.writeFileSync(path.join(outDir, "03-buyers.json"), JSON.stringify(buyers, null, 2), "utf8");
@@ -436,14 +472,18 @@ Bu klasör, 30 görevlik paketin **dosyaya taşınabilen** kısmını içerir.
 | Dosya | Görev | Kayıt / madde |
 |-------|--------|----------------|
 | 01-auctions.json | 1 | 24 ihale |
-| 02-sellers.json | 2 | 50 satıcı |
-| 03-buyers.json | 3 | 80 alıcı |
+| 02-sellers.json | 2 (**A_02**) | 50 satıcı — **iş modeli v2026** (yıllık satıcı üyeliği 5.000 TL, sınırsız ilan; %2+%2 komisyon özeti; eski paket yok) |
+| 03-buyers.json | 3 (**A_03**) | 80 alıcı — **iş modeli v2026** (yıllık alıcı üyeliği 1.000 TL, teklif yetkisi; eski paket modeli yok) |
 | 04-faq.md | 4 | 40 soru-cevap |
 | 08-push-notifications.json | 8 | 30 push |
 | 09-tooltips.json | 9 | 40 tooltip |
 | 10-errors.json | 10 | 50 hata |
 | 11-testimonials.json | 11 | 50 yorum |
 | 17-glossary.md | 17 | 60 terim |
+
+## İş modeli notu (2026)
+
+**A_02 / A_03** kayıtları \"business_model_version\": \"2026_membership_commission\" ile işaretlenir. Satıcı tarafında **yıllık üyelik (5.000 TL, sınırsız ilan)** + komisyon; alıcıda **yıllık üyelik (1.000 TL)** ile teklif yetkisi varsayımı demo metindedir. Eski **Standart/Vitrin/Doping/Pro** ve **99/299/799/2299 TL** paket modeli bu dosyalarda kullanılmaz.
 
 ## Tek mesajda üretilemeyen görevler (açık itiraf)
 

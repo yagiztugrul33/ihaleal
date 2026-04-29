@@ -7,14 +7,18 @@ Bu klasör, 30 görevlik paketin **dosyaya taşınabilen** kısmını içerir.
 | Dosya | Görev | Kayıt / madde |
 |-------|--------|----------------|
 | 01-auctions.json | 1 | 24 ihale |
-| 02-sellers.json | 2 | 50 satıcı |
-| 03-buyers.json | 3 | 80 alıcı |
+| 02-sellers.json | 2 (**A_02**) | 50 satıcı — **iş modeli v2026** (yıllık satıcı üyeliği 5.000 TL, sınırsız ilan; %2+%2 komisyon özeti; eski paket yok) |
+| 03-buyers.json | 3 (**A_03**) | 80 alıcı — **iş modeli v2026** (yıllık alıcı üyeliği 1.000 TL, teklif yetkisi; eski paket modeli yok) |
 | 04-faq.md | 4 | 40 soru-cevap |
 | 08-push-notifications.json | 8 | 30 push |
 | 09-tooltips.json | 9 | 40 tooltip |
 | 10-errors.json | 10 | 50 hata |
 | 11-testimonials.json | 11 | 50 yorum |
 | 17-glossary.md | 17 | 60 terim |
+
+## İş modeli notu (2026)
+
+**A_02 / A_03** kayıtları "business_model_version": "2026_membership_commission" ile işaretlenir. Satıcı tarafında **yıllık üyelik (5.000 TL, sınırsız ilan)** + komisyon; alıcıda **yıllık üyelik (1.000 TL)** ile teklif yetkisi varsayımı demo metindedir. Eski **Standart/Vitrin/Doping/Pro** ve **99/299/799/2299 TL** paket modeli bu dosyalarda kullanılmaz.
 
 ## Tek mesajda üretilemeyen görevler (açık itiraf)
 
