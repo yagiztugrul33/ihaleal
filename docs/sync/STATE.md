@@ -4,17 +4,18 @@
 
 ```yaml
 state_version: 1
-updated_utc: "2026-04-28T06:25:00Z"
-phase: "C0"
-last_git_sha_short: "(git PATH yok — yerel)"
+updated_utc: "2026-04-29T12:00:00Z"
+phase: "MVP-front-admin"
+last_git_sha_short: "(commit sonrası)"
 last_processed_kimi_file: "kimi-20260428-k51-k53.md"
 blockers:
-  - "B2: K51/K53 tam gövde metni teslim dosyasında yok — yalnızca self-check + SIGNOFF; Kimi tam metni tekrar iletsin veya kullanıcı yapıştırsın"
+  - "B2: K51/K53 tam gövde — inbox'ta metin eksik (Kimi)"
 next_kimi_tasks:
-  - "K51 tam gövde (800-1200 kelime) bu dosyaya veya yeni inbox dosyasına ekle"
-  - "K53 tam sözlük (20+ satır) aynı şekilde ekle"
+  - "K51 tam gövde (800-1200 kelime) inbox veya docs/icerik"
+  - "K53 sözlük 20+ satır"
 next_cursor_tasks:
-  - "X24: Compare/Investor dışı TRY→₺ (MapPage, SearchModal, Analytics, …) ayrı tur"
+  - "Supabase SQL: manual_push_v2→v3→v4 sırası + Replication auctions"
+  - "İsteğe bağlı: TRY→₺ son sayfalar (X24)"
 ```
 
 ## Ürün kapısı (hepsi true olunca “tur kapalı”)

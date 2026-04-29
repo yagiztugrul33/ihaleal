@@ -28,6 +28,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { ShareButton } from "@/components/ShareButton";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
+import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -36,6 +37,7 @@ import {
 export default function AuctionDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const realtime = useAuctionRealtime(id);
   const { ref, isVisible } = useScrollAnimation(0.05);
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
   useEffect(() => {
@@ -84,7 +86,8 @@ export default function AuctionDetail() {
     );
   }
 
-  const priceDiff = auction.aiPredictedPrice - auction.currentBid;
+  const liveBid = realtime.highBidTry ?? auction.currentBid;
+  const priceDiff = auction.aiPredictedPrice - liveBid;
   const priceDiffPercent = ((priceDiff / auction.aiPredictedPrice) * 100).toFixed(1);
   const isUnderpriced = priceDiff > 0;
   const recommendation = auction.investmentScore >= 85 ? "strongBuy" : auction.investmentScore >= 70 ? "buy" : auction.investmentScore >= 50 ? "hold" : "avoid";
@@ -100,14 +103,14 @@ export default function AuctionDetail() {
 
   const handleBid = () => {
     const amount = parseInt(bidAmount.replace(/\D/g, ""));
-    if (amount > auction.currentBid) {
+    if (amount > liveBid) {
       setShowBidDialog(false);
       setBidAmount("");
     }
   };
 
   const bidIncrements = [10000, 50000, 100000, 250000, 500000];
-  const closing = estimateBuyerClosingCosts(auction.currentBid);
+  const closing = estimateBuyerClosingCosts(liveBid);
 
   return (
     <div ref={ref} className="min-h-screen pt-20 pb-16">
@@ -145,7 +148,7 @@ export default function AuctionDetail() {
           </div>
           <div className="flex gap-2 p-3 bg-slate-900/50 border-t border-white/5 overflow-x-auto">
             {auction.images.map((img, i) => (
-              <button key={i} onClick={() => setCurrentImage(i)} className={`relative w-20 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${i === currentImage ? "border-blue-500" : "border-transparent"}`}><img src={img} alt="" className="w-full h-full object-cover" /></button>
+              <button key={i} onClick={() => setCurrentImage(i)} className={`relative w-20 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${i === currentImage ? "border-blue-500" : "border-transparent"}`}><img loading="lazy" src={img} alt="" className="w-full h-full object-cover" /></button>
             ))}
           </div>
         </div>
@@ -156,7 +159,7 @@ export default function AuctionDetail() {
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">{auction.title}</h1>
               <div className="flex items-center gap-2 text-slate-400 mb-4"><MapPin className="w-4 h-4" /> {auction.location}</div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-                <PriceCard label={pricePrimaryLabel} value={`₺${(auction.currentBid / 1000000).toFixed(1)}M`} color="blue" />
+                <PriceCard label={pricePrimaryLabel} value={`₺${(liveBid / 1000000).toFixed(1)}M`} color="blue" />
                 <PriceCard
                   label="Tahmini Değer"
                   value={`₺${(auction.estimatedValue / 1000000).toFixed(1)}M`}
@@ -421,12 +424,12 @@ export default function AuctionDetail() {
               <CardContent className="p-5 space-y-4">
                 <div>
                   <div className="text-xs text-slate-500 mb-1">{pricePrimaryLabel}</div>
-                  <div className="text-3xl font-bold text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
+                  <div className="text-3xl font-bold text-blue-400">₺{liveBid.toLocaleString("tr-TR")}</div>
                   <div className="text-xs text-slate-500 mt-1">₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²</div>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
                   <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
-                  <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
+                  <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed border border-white/5 rounded-lg p-2.5 bg-white/[0.02]">
                   {isListingOnly ? (
@@ -442,7 +445,7 @@ export default function AuctionDetail() {
                 </p>
                 <div className="flex gap-2">
                   {!isListingOnly ? (
-                    <Button className="flex-1 bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11" onClick={() => { setBidAmount((auction.currentBid + 50000).toString()); setShowBidDialog(true); }}>
+                    <Button className="flex-1 bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11" onClick={() => { setBidAmount((liveBid + 50000).toString()); setShowBidDialog(true); }}>
                       <TrendingUp className="w-4 h-4 mr-1.5" /> {isSealedOffer ? "Kapalı teklif ver" : "Teklif ver"}
                     </Button>
                   ) : (
@@ -489,7 +492,7 @@ export default function AuctionDetail() {
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-slate-500">{isListingOnly ? "İlan tutarı (referans)" : "İhale / teklif tutarı (tahmini)"}</span>
                     </div>
-                    <div className="text-lg font-bold text-white">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-lg font-bold text-white">₺{liveBid.toLocaleString("tr-TR")}</div>
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between"><span className="text-slate-400">Platform (alıcı)</span><span className="text-slate-300 font-medium">₺{closing.commission.toLocaleString("tr-TR")}</span></div>
@@ -535,18 +538,18 @@ export default function AuctionDetail() {
             </p>
             <div className="p-3 rounded-xl bg-white/5">
               <p className="text-sm text-slate-400">{auction.title}</p>
-              <p className="text-lg font-bold text-blue-400 mt-1">₺{auction.currentBid.toLocaleString("tr-TR")}</p>
+              <p className="text-lg font-bold text-blue-400 mt-1">₺{liveBid.toLocaleString("tr-TR")}</p>
             </div>
             <div className="p-3 rounded-xl bg-teal-500/5 border border-teal-500/10">
               <p className="text-xs text-slate-400 mb-1">Tahmini Toplam Maliyet (Komisyon + Harclar Dahil)</p>
-              <p className="text-sm font-bold text-teal-400">₺{estimateBuyerClosingCosts(auction.currentBid).total.toLocaleString("tr-TR")}</p>
+              <p className="text-sm font-bold text-teal-400">₺{estimateBuyerClosingCosts(liveBid).total.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-500 mt-1">
                 Alıcı platform: fees.ts · tapu %{(DEED_DUTY_RATE * 100).toFixed(0)} + sabit masraf (demo)
               </p>
             </div>
             <div className="grid grid-cols-5 gap-2">
               {bidIncrements.map((inc) => (
-                <button key={inc} onClick={() => setBidAmount((auction.currentBid + inc).toString())} className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-semibold text-white transition-colors">+₺{(inc / 1000).toFixed(0)}K</button>
+                <button key={inc} onClick={() => setBidAmount((liveBid + inc).toString())} className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-semibold text-white transition-colors">+₺{(inc / 1000).toFixed(0)}K</button>
               ))}
             </div>
             <div><label className="text-sm text-slate-400 mb-1.5 block">Teklif Tutarı (₺)</label><Input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} className="bg-slate-950 border-white/10 text-white focus:ring-blue-500" placeholder="örn: 3000000" /></div>

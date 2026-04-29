@@ -1,3 +1,12 @@
+# ihaleal.com
+
+**İhaleal** — gayrimenkul ilanı ve ihale deneyimi (**Vite + React + TypeScript** SPA). Yerel: `npm install && npm run dev`. Üretim öncesi: `npm run typecheck && npm run build`.
+
+- **Mimari tek kaynak:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- **Supabase:** `.env.local` içinde `VITE_SUPABASE_*`; SQL sırası `supabase/manual_push_v2.sql` → `v3` → `v4` (SQL Editor).
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

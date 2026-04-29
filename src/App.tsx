@@ -5,6 +5,8 @@ import { Layout } from "@/components/Layout";
 import { RouteSeo } from "@/components/RouteSeo";
 import { Home } from "@/pages/Home";
 import "./App.css";
+import { AdminGuard } from "@/components/admin/AdminGuard";
+import { PageLoader } from "@/components/ui/PageLoader";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
@@ -40,6 +42,7 @@ const DataStrategy         = lazy(() => import("@/pages/DataStrategy"));
 const SearchResults        = lazy(() => import("@/pages/SearchResults"));
 const FlowSelector         = lazy(() => import("@/pages/onboarding/FlowSelector"));
 const EDevletAuth          = lazy(() => import("@/pages/auth/EDevletAuth"));
+const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
 
 function App() {
   return (
@@ -103,6 +106,16 @@ function App() {
                 <RouteSeo>
                   <EDevletAuth />
                 </RouteSeo>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <AdminGuard>
+                  <Suspense fallback={<PageLoader label="Panel yükleniyor..." />}>
+                    <AdminDashboard />
+                  </Suspense>
+                </AdminGuard>
               }
             />
             <Route path="*" element={<Navigate to="/" replace />} />

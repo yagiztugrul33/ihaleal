@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, Gavel, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Store } from "lucide-react";
+import { Menu, X, Gavel, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Store, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "@/hooks/useTheme";
@@ -8,7 +8,7 @@ import { SearchModal } from "./SearchModal";
 import { mergedFlowPermissions, readUserFlowsFromStorage, type UserFlow } from "@/lib/userFlows";
 import { sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
 import type { SessionUser } from "@/lib/auth";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
 
 function readSessionUser(): SessionUser | null {
   try {
@@ -21,7 +21,7 @@ function readSessionUser(): SessionUser | null {
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user: supaUser, signOut } = useAuth();
+  const { user: supaUser, signOut, profile } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -37,6 +37,7 @@ export function Navbar() {
   }, [supaUser, localSession]);
 
   const navDisplayLabel = supaUser?.email ?? currentUser?.email ?? currentUser?.name ?? "";
+  const showAdmin = authIsAdmin(profile);
 
   useEffect(() => {
     const sync = () => {
@@ -100,6 +101,9 @@ export function Navbar() {
               </button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 gap-1.5"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-slate-400 hover:text-violet-400 hover:bg-violet-500/10 gap-1.5"><LayoutDashboard className="w-4 h-4" /> Dashboard</Button>
+              {showAdmin ? (
+                <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 gap-1.5"><Shield className="w-4 h-4" /> Admin</Button>
+              ) : null}
               <Button variant="ghost" size="sm" onClick={() => navigate("/harita")} className="text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 gap-1.5"><Navigation className="w-4 h-4" /> Harita</Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/karsilastir")} className="text-slate-400 hover:text-teal-400 hover:bg-teal-500/10 gap-1.5"><GitCompare className="w-4 h-4" /> Karsilastir</Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/favoriler")} className="text-slate-400 hover:text-pink-400 hover:bg-pink-500/10 gap-1.5 relative">
@@ -156,6 +160,9 @@ export function Navbar() {
               <div className="border-t border-white/5 my-2" />
               <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>
               <button onClick={() => { navigate("/dashboard"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-violet-400 hover:bg-violet-500/10 text-left flex items-center gap-2"><LayoutDashboard className="w-4 h-4" /> Dashboard</button>
+              {showAdmin ? (
+                <button onClick={() => { navigate("/admin"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Shield className="w-4 h-4" /> Admin</button>
+              ) : null}
               <button onClick={() => { navigate("/harita"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 text-left flex items-center gap-2"><Navigation className="w-4 h-4" /> Harita</button>
               <button onClick={() => { navigate("/karsilastir"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-teal-400 hover:bg-teal-500/10 text-left flex items-center gap-2"><GitCompare className="w-4 h-4" /> Karsilastir</button>
               <button onClick={() => { navigate("/mortgage"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Mortgage</button>

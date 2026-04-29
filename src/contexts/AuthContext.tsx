@@ -10,10 +10,19 @@ import { persistSupabaseUser } from "@/lib/supabaseAuthBridge";
 
 export type SignUpExtra = { phone?: string };
 
+/** `profiles.role` / `is_admin` — admin panel ve Navbar için (Supabase SELECT). */
+export type AuthProfile = {
+  role: string | null;
+  isAdmin: boolean;
+};
+
 interface AuthState {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  /** Oturum kullanıcısı için `profiles` satırı özeti; Supabase yok veya çıkışta `null`. */
+  profile: AuthProfile | null;
+  profileLoading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
   signUp: (
     email: string,
@@ -30,11 +39,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<AuthProfile | null>(null);
+  const [profileLoading, setProfileLoading] = useState(false);
 
   useEffect(() => {
     if (!isSupabaseConfigured()) {
       setSession(null);
       setUser(null);
+      setProfile(null);
       setLoading(false);
       return;
     }
@@ -60,6 +72,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured() || !user) {
+      setProfile(null);
+      setProfileLoading(false);
+      return;
+    }
+    setProfileLoading(true);
+    void supabase
+      .from("profiles")
+      .select("role,is_admin")
+      .eq("id", user.id)
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (error) {
+          setProfile({ role: null, isAdmin: false });
+        } else {
+          setProfile({
+            role: data?.role ?? null,
+            isAdmin: Boolean(data?.is_admin),
+          });
+        }
+        setProfileLoading(false);
+      });
+  }, [user?.id]);
 
   const signIn = useCallback(async (email: string, password: string) => {
     if (!isSupabaseConfigured()) {
@@ -98,10 +135,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider
+      value={{ user, session, loading, profile, profileLoading, signIn, signUp, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
+}
+
+export function authIsAdmin(profile: AuthProfile | null | undefined): boolean {
+  if (!profile) return false;
+  return profile.isAdmin || profile.role === "admin";
 }
 
 export function useAuth() {
