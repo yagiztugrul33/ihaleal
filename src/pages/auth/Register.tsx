@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Register() {
@@ -26,7 +27,7 @@ export default function Register() {
     setError("");
     setInfo("");
     if (!isSupabaseConfigured()) {
-      setError("Supabase yapılandırması yok (.env.local).");
+      setError(translateAuthError("Supabase yapılandırması yok (.env.local)."));
       return;
     }
     if (!name.trim() || !email.trim() || !password) {
@@ -52,12 +53,7 @@ export default function Register() {
     setLoading(false);
 
     if (supaErr) {
-      const msg = supaErr.message || "";
-      if (msg.includes("already registered") || msg.toLowerCase().includes("user already registered")) {
-        setError("Bu e-posta zaten kayıtlı.");
-      } else {
-        setError(msg || "Kayıt başarısız.");
-      }
+      setError(translateAuthError(supaErr.message ?? ""));
       return;
     }
     if (session?.user) {

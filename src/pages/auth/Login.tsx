@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Login() {
@@ -20,7 +21,7 @@ export default function Login() {
     e.preventDefault();
     setError(null);
     if (!isSupabaseConfigured()) {
-      setError("Supabase yapılandırması yok (.env.local).");
+      setError(translateAuthError("Supabase yapılandırması yok (.env.local)."));
       return;
     }
     if (!email || !password) {
@@ -32,14 +33,7 @@ export default function Login() {
     setLoading(false);
 
     if (authErr) {
-      const msg = authErr.message || "";
-      if (msg.includes("Invalid login") || msg.toLowerCase().includes("invalid login credentials")) {
-        setError("Geçersiz e-posta veya şifre.");
-      } else if (msg.includes("Email not confirmed") || msg.includes("email_not_confirmed")) {
-        setError("E-posta adresinizi onaylamanız gerekiyor. Gelen kutunuza bakın.");
-      } else {
-        setError(msg || "Giriş yapılamadı.");
-      }
+      setError(translateAuthError(authErr.message ?? ""));
       return;
     }
     navigate("/dashboard");
