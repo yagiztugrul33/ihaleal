@@ -1,0 +1,26 @@
+---
+description: ihaleal.com — gayrimenkul ihale/teklif demo platformu için Cursor IDE asistan kuralları
+globs:
+  - "**/*.{ts,tsx}"
+  - "**/*.css"
+alwaysApply: false
+---
+
+# Bağlam
+
+- **Stack:** Vite, React 19, TypeScript, Tailwind CSS, shadcn/ui tarzı bileşenler (`src/components/ui`), **React Router HashRouter** (`#/` URL’leri).
+- **İş modeli:** Yıllık üyelik + komisyon mahsup + B2B emlakçı ortaklığı; rakamlar ve metinler **`src/lib/fees.ts`** ile uyumlu tutulmalı.
+- **Demo:** Üretim öncesi sürüm; “lisanslı”, “garanti”, “paket satışı”, sahte güvenlik vaadi kullanma.
+
+# Kodlama
+
+- Yeni sayfa: `src/pages`, rota **`src/App.tsx`** lazy import ile.
+- SEO başlık/açıklama: **`src/lib/seo.ts`** ve gerekiyorsa `RouteSeo`.
+- Yerel depolama anahtarları `ihaleal_` öneki ile; Auth demo **`ihaleal_user`**.
+- Toast: `window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }))`.
+- Harita: Leaflet; SEO şehir sayfaları: `src/data/seoLandings.ts`.
+
+# Değiştirirken
+
+- Gereksiz refaktör yapma; mevcut dosya stiline uy.
+- Yasal metinleri hukuk ekibi onayı olmadan bağlayıcı iddia gibi sıkılaştırma.

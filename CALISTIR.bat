@@ -18,7 +18,8 @@ if not exist "public\icon-192.png" (
   if errorlevel 1 exit /b 1
 )
 echo.
-echo [ihaleal.com] Gelistirme sunucusu: http://localhost:5173
+echo [ihaleal.com] Gelistirme sunucusu basliyor; tarayici otomatik acilir.
+echo Port 5173 doluysa konsoldaki ^"Local:^" satirindaki adresi kullanin ^(or. 5174^).
 echo Kapatmak icin bu pencerede Ctrl+C basin.
 echo.
 call npm run dev

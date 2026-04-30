@@ -50,7 +50,7 @@ export default function SellerHub() {
         <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 flex gap-3 mb-10">
           <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0" />
           <p className="text-xs text-slate-300 leading-relaxed">
-            <strong className="text-white">Kimi / AI hataları düzeltildi mi?</strong> Evet: rakip matrisinde abartılı “API var” tikleri düzeltildi, kırık rota giderildi,
+            <strong className="text-white">Harici doğrulama veya AI ile yapılan kontroller tamamlandı mı?</strong> Evet: rakip matrisinde abartılı “API var” tikleri düzeltildi, kırık rota giderildi,
             güvenlik sayfasına demo uyarısı eklendi, video yolları <code className="text-slate-500">base: &apos;./&apos;</code> ile düzeltildi, hukuki iddialar yumuşatıldı.
             Hâlâ <strong className="text-amber-200">mümkün olmayan</strong> kısım: gerçek e-Devlet, Findeks, banka, FCM, yayın, blockchain — sunucu ve sözleşme olmadan kod tek başına yetmez.
           </p>

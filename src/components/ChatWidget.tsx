@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Bot, User, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AiAssistantAvatar } from "@/components/AiAssistantAvatar";
 import { formatBidBondPercent } from "@/lib/fees";
+
+const ASSISTANT_NAME = "İhaleAI Asistan";
 
 const AI_RESPONSES: Record<string, string> = {
   merhaba:
-    "Merhaba! Ben Kimi Agent — ihaleal.com için gayrimenkul ihaleleri, analiz ve mortgage konularında yardımcı olabilirim.",
+    `Merhaba! Ben ${ASSISTANT_NAME} — ihaleal.com için gayrimenkul ihaleleri, analiz ve mortgage konularında yardımcı olabilirim.`,
   fiyat: "İlan fiyatlarını karşılaştırmak için detay sayfasındaki grafikleri inceleyebilirsiniz. AI tahminleri demo bandında gösterilir.",
   kredi: "Mortgage hesaplayıcı sayfamızdan aylık taksit ve toplam maliyeti hesaplayabilirsiniz.",
   teklif: "Teklif vermek için ilan detayındaki Teklif Ver butonunu kullanın.",
@@ -38,9 +41,12 @@ export function ChatWidget() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
-  useEffect(() => () => {
-    if (peekTimer.current) clearTimeout(peekTimer.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (peekTimer.current) clearTimeout(peekTimer.current);
+    },
+    []
+  );
 
   const schedulePeek = () => {
     if (open) return;
@@ -74,16 +80,28 @@ export function ChatWidget() {
           onMouseLeave={hidePeek}
         >
           {peek && (
-            <div className="w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-400/25 bg-[#0c1629]/95 backdrop-blur-xl shadow-2xl shadow-cyan-900/30 p-4 animate-scale-in">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shadow-lg">K</span>
+            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-400/30 bg-[#0c1629]/95 backdrop-blur-xl shadow-2xl shadow-cyan-900/40 p-4 ring-1 ring-white/10">
+              <div className="flex items-center gap-3 mb-3">
+                <AiAssistantAvatar size="sm" />
                 <div>
-                  <div className="text-sm font-bold text-white">Kimi Agent</div>
-                  <div className="text-[11px] text-cyan-200/90">Çevrimiçi</div>
+                  <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
+                  <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse motion-reduce:animate-none" />
+                    Çevrimiçi · yapay zeka önerileri
+                  </div>
                 </div>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed mb-3">Reports, slides, sites, sheets... consider it done.</p>
-              <Button size="sm" className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold" onClick={() => { hidePeek(); setOpen(true); }}>
+              <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                İhale, analiz ve mortgage hakkında soru sorabilirsiniz; hızlı yanıtlar demo modunda üretilir.
+              </p>
+              <Button
+                size="sm"
+                className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 motion-reduce:hover:scale-100"
+                onClick={() => {
+                  hidePeek();
+                  setOpen(true);
+                }}
+              >
                 Sohbeti aç
               </Button>
             </div>
@@ -91,54 +109,71 @@ export function ChatWidget() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/15 shadow-xl shadow-cyan-500/25 hover:shadow-cyan-400/40 hover:scale-[1.02] transition-all text-white"
-            aria-label="Kimi Agent sohbet"
+            className="chat-fab flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-400/45 hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 text-white motion-reduce:hover:scale-100 ring-2 ring-white/10 hover:ring-cyan-400/30"
+            aria-label={`${ASSISTANT_NAME} sohbet`}
           >
-            <span className="w-11 h-11 rounded-full bg-black/20 flex items-center justify-center font-bold text-lg ring-2 ring-white/25">K</span>
-            <span className="hidden sm:inline font-bold text-sm tracking-tight">Kimi Agent</span>
+            <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
+            <span className="hidden sm:inline font-bold text-sm tracking-tight bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
+              {ASSISTANT_NAME}
+            </span>
             <MessageCircle className="w-5 h-5 opacity-90 sm:hidden" aria-hidden />
           </button>
         </div>
       )}
 
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[360px] max-h-[500px] bg-[#0c1629]/98 backdrop-blur-xl border border-cyan-400/20 rounded-2xl shadow-2xl shadow-black/50 flex flex-col overflow-hidden animate-scale-in">
-          <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-blue-600/15 to-cyan-500/15">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center font-bold text-white shadow-lg">K</div>
+        <div className="fixed bottom-6 right-6 z-50 w-[360px] max-h-[500px] bg-[#0c1629]/98 backdrop-blur-xl border border-cyan-400/25 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden ring-1 ring-white/10 chat-widget-pop">
+          <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-indigo-600/20 via-blue-600/15 to-cyan-500/15 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[length:200%_100%] bg-[linear-gradient(105deg,transparent_40%,rgba(56,189,248,0.08)_50%,transparent_60%)] animate-shimmer-bg motion-reduce:hidden pointer-events-none opacity-70" />
+            <div className="relative flex items-center gap-3">
+              <AiAssistantAvatar size="md" />
               <div>
-                <div className="text-sm font-bold text-white">Kimi Agent</div>
-                <div className="text-xs text-cyan-200 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Çevrimiçi
+                <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
+                <div className="text-xs text-cyan-200 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse motion-reduce:animate-none shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                  Çevrimiçi
                 </div>
               </div>
             </div>
-            <button type="button" onClick={() => setOpen(false)} className="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="relative p-2 rounded-xl hover:bg-white/10 text-slate-400 hover:text-white transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0"
+              aria-label="Kapat"
+            >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
             {messages.map((msg, i) => (
-              <div key={i} className={`flex gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
-                <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${msg.role === "ai" ? "bg-blue-500/25" : "bg-white/10"}`}>
-                  {msg.role === "ai" ? <Bot className="w-4 h-4 text-cyan-300" /> : <User className="w-4 h-4 text-slate-400" />}
+              <div key={i} className={`flex gap-2.5 animate-fade-in ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+                <div
+                  className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${msg.role === "ai" ? "bg-gradient-to-br from-blue-600/40 to-cyan-500/25 ring-1 ring-cyan-400/25" : "bg-white/10 ring-1 ring-white/10"}`}
+                >
+                  {msg.role === "ai" ? <Bot className="w-4 h-4 text-cyan-200" /> : <User className="w-4 h-4 text-slate-400" />}
                 </div>
-                <div className={`p-2.5 rounded-xl text-sm leading-relaxed max-w-[260px] ${msg.role === "ai" ? "bg-white/[0.05] text-slate-200 border border-white/10" : "bg-blue-500/15 text-white border border-blue-500/25"}`}>
+                <div
+                  className={`p-3 rounded-2xl text-sm leading-relaxed max-w-[260px] transition-all duration-300 hover:border-opacity-40 ${
+                    msg.role === "ai"
+                      ? "bg-white/[0.06] text-slate-200 border border-white/10 shadow-inner shadow-black/20"
+                      : "bg-gradient-to-br from-blue-600/25 to-indigo-600/20 text-white border border-blue-400/25 shadow-lg shadow-blue-900/20"
+                  }`}
+                >
                   {msg.text}
                 </div>
               </div>
             ))}
             {typing && (
-              <div className="flex gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-blue-500/25 flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-4 h-4 text-cyan-300" />
+              <div className="flex gap-2.5 animate-fade-in">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600/40 to-cyan-500/25 ring-1 ring-cyan-400/30 flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse motion-reduce:animate-none" />
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.05] border border-white/10">
+                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10">
                   <div className="flex gap-1">
-                    <span className="w-2 h-2 rounded-full bg-slate-500 animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <span className="w-2 h-2 rounded-full bg-slate-500 animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <span className="w-2 h-2 rounded-full bg-slate-500 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    <span className="w-2 h-2 rounded-full bg-cyan-400/80 animate-bounce motion-reduce:animate-none" style={{ animationDelay: "0ms" }} />
+                    <span className="w-2 h-2 rounded-full bg-cyan-400/80 animate-bounce motion-reduce:animate-none" style={{ animationDelay: "150ms" }} />
+                    <span className="w-2 h-2 rounded-full bg-cyan-400/80 animate-bounce motion-reduce:animate-none" style={{ animationDelay: "300ms" }} />
                   </div>
                 </div>
               </div>
@@ -148,23 +183,32 @@ export function ChatWidget() {
           {messages.length < 3 && (
             <div className="px-4 pb-2 flex flex-wrap gap-1.5">
               {["Fiyat analizi", "Kredi hesapla", "İstanbul", "Yatırım skoru"].map((s) => (
-                <button key={s} type="button" onClick={() => setInput(s)} className="px-2.5 py-1 rounded-lg bg-white/5 text-xs text-slate-400 hover:bg-white/10 hover:text-white transition-colors">
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => setInput(s)}
+                  className="px-3 py-1.5 rounded-xl bg-white/[0.06] text-xs text-slate-400 hover:bg-white/12 hover:text-white hover:scale-[1.03] active:scale-[0.98] border border-white/5 hover:border-cyan-400/20 transition-all duration-200 motion-reduce:hover:scale-100"
+                >
                   {s}
                 </button>
               ))}
             </div>
           )}
 
-          <div className="p-3 border-t border-white/10 flex gap-2">
+          <div className="p-3 border-t border-white/10 flex gap-2 bg-black/20">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              placeholder="Reports, slides, sites, sheets... consider it done."
-              className="flex-1 px-3 py-2 rounded-xl bg-slate-950/80 border border-white/10 text-sm text-white placeholder:text-slate-600 outline-none focus:ring-2 focus:ring-cyan-500/35"
+              placeholder="Sorunuzu yazın…"
+              className="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/80 border border-white/10 text-sm text-white placeholder:text-slate-600 outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400/30 transition-shadow duration-200"
             />
-            <Button size="sm" onClick={sendMessage} className="bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white px-3 h-9 shadow-lg shadow-cyan-900/40">
+            <Button
+              size="sm"
+              onClick={sendMessage}
+              className="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white px-3 h-10 shadow-lg shadow-cyan-900/40 hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300 motion-reduce:hover:scale-100"
+            >
               <Send className="w-4 h-4" />
             </Button>
           </div>

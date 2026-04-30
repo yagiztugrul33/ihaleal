@@ -1,3 +1,12 @@
+/**
+ * Ödeme katmanı — cumartesi yayınında bile gerçek PSP yoksa **mock** kalır.
+ * iyzico / PayTR vb. entegrasyonu için bu dosyada `preAuthorize` ve yakalama akışını değiştirin.
+ *
+ * `import.meta.env.VITE_PAYMENT_MODE` === `"live"` ise (ileride) gerçek sağlayıcı çağrılır;
+ * şimdilik tanımlı değil veya `mock` olduğu sürece aşağıdaki simülasyon çalışır.
+ */
+const PAYMENT_MODE = import.meta.env.VITE_PAYMENT_MODE ?? "mock";
+
 export interface PreAuthRequest {
   amountTRY: number;
   cardToken: string;
@@ -13,8 +22,15 @@ export interface PreAuthResult {
   riskScore?: number;
 }
 
-/** Sandbox/mock — üretimde iyzico veya PayTR entegrasyonu. */
+/** Sandbox/mock — `VITE_PAYMENT_MODE=live` + PSP bağlanana kadar üretim ödemesi yok. */
 export async function preAuthorize(req: PreAuthRequest): Promise<PreAuthResult> {
+  if (PAYMENT_MODE === "live") {
+    return {
+      success: false,
+      error:
+        "Canlı ödeme henüz yapılandırılmadı. Yayın öncesi PSP anahtarlarını ekleyin veya geçici olarak VITE_PAYMENT_MODE=mock kullanın.",
+    };
+  }
   if (req.cardToken === "test-fail") {
     return { success: false, error: "Yetersiz limit" };
   }

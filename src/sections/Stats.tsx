@@ -19,8 +19,8 @@ export function Stats() {
             { icon: <Banknote className="w-6 h-6 text-purple-400" />, value: "₺1.846M+", label: "İşlem Hacmi", color: "from-purple-500/20 to-purple-600/5" },
             { icon: <MapPin className="w-6 h-6 text-amber-400" />, value: "34", label: "Şehir", color: "from-amber-500/20 to-amber-600/5" },
           ].map((s, idx) => (
-            <div key={idx} className={`relative group rounded-2xl p-6 bg-gradient-to-br ${s.color} border border-white/5 hover:border-white/10 transition-all duration-500 hover:-translate-y-1 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 120}ms` }}>
-              <div className="flex items-center justify-between mb-4"><div className="p-2.5 rounded-xl bg-white/5">{s.icon}</div><div className="h-1 w-8 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors" /></div>
+            <div key={idx} className={`relative group rounded-2xl p-6 bg-gradient-to-br ${s.color} border border-white/10 hover:border-cyan-400/20 ring-1 ring-transparent hover:ring-cyan-400/15 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-18px_rgba(56,189,248,0.22)] motion-reduce:hover:translate-y-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 120}ms` }}>
+              <div className="flex items-center justify-between mb-4"><div className="p-2.5 rounded-xl bg-white/10 ring-1 ring-white/5 group-hover:bg-white/[0.14] group-hover:scale-105 transition-all duration-300 motion-reduce:group-hover:scale-100">{s.icon}</div><div className="h-1 w-10 rounded-full bg-gradient-to-r from-white/10 to-cyan-400/40 group-hover:w-14 transition-all duration-500" /></div>
               <div className="text-3xl lg:text-4xl font-bold text-white mb-1">{s.value}</div>
               <div className="text-sm text-slate-500 font-medium">{s.label}</div>
             </div>

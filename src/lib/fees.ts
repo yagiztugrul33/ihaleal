@@ -2,6 +2,8 @@
 // Komisyon hedefi: %2 alıcı + %2 satıcı = toplam %4 (matrah üzerinden); KDV komisyon üzerinden.
 
 export const COMMISSION_RATE = 0.02;
+/** Tek taraf satıcı yüzdesi — iki taraflı modelde satıcı payı COMMISSION_RATE ile aynı */
+export const SELLER_COMMISSION_RATE = COMMISSION_RATE;
 export const VAT_RATE = 0.2;
 export const COMMISSION_PARTIES: "seller_only" | "both" = "both";
 export const MIN_COMMISSION_TRY = 0;
@@ -47,6 +49,9 @@ export const AGENT_SHARE_RATES = {
   portfolio: 0.015,
   full: 0.02,
 } as const;
+
+/** Ortak emlakçı B2B payı (matrah üzerinden) — demo varsayılan: tam işbirliği paketi */
+export const REALTOR_B2B_RATE = AGENT_SHARE_RATES.full;
 
 export const BID_BOND_RATE = 0.05;
 export const MIN_INCREMENT_TRY = 100;

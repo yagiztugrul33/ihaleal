@@ -32,7 +32,7 @@ export default function OperationalReadiness() {
 
         <h1 className="text-2xl font-bold text-white mb-2">Canlıya hazırlık — yapılacaklar listesi</h1>
         <p className="text-sm text-slate-400 mb-8">
-          Kimi veya tek bir front-end projesi bunları <strong className="text-slate-200">otomatik tamamlamaz</strong>.
+          Harici yardımcı araçlar veya tek bir önyüz projesi bunları <strong className="text-slate-200">otomatik tamamlamaz</strong>.
           Aşağıdaki satırlar ekip ve bütçe ile yürütülecek gerçek iş kalemleridir. Bu sayfa “yarım kalan” değil, <strong className="text-teal-300">bilinçli sınır</strong> listesidir.
         </p>
 

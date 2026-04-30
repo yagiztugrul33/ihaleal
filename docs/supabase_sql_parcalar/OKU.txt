@@ -1,0 +1,3 @@
+Cursor: sol panelden bu klasordeki dosyalari ac (01_parca.sql ... 04_parca.sql).
+Her birinin tamamini kopyala -> Supabase SQL Editor -> Run.
+Sira: 01 sonra 02 sonra 03 sonra 04.

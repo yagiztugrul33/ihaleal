@@ -7,6 +7,7 @@ import { Home } from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
 import { PageLoader } from "@/components/ui/PageLoader";
+import { SEO_LANDING_PAGES } from "@/data/seoLandings";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
@@ -49,6 +50,23 @@ const YillikUyelik         = lazy(() => import("@/pages/membership/YillikUyelik"
 const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
 const PreLaunch            = lazy(() => import("@/pages/PreLaunch"));
 const NotFound             = lazy(() => import("@/pages/NotFound"));
+const CityLanding          = lazy(() => import("@/pages/CityLanding"));
+const Iletisim             = lazy(() => import("@/pages/Iletisim"));
+const About                = lazy(() => import("@/pages/About"));
+const Reports              = lazy(() => import("@/pages/Reports"));
+const ReportDetail         = lazy(() => import("@/pages/ReportDetail"));
+const UserPanel            = lazy(() => import("@/pages/UserPanel"));
+const Messages             = lazy(() => import("@/pages/Messages"));
+const Documents            = lazy(() => import("@/pages/Documents"));
+const Settings             = lazy(() => import("@/pages/Settings"));
+const RealtorsPage         = lazy(() => import("@/pages/Realtors"));
+const RealtorProfilePage   = lazy(() => import("@/pages/RealtorProfile"));
+const BlogIndex            = lazy(() => import("@/pages/mega/BlogIndex"));
+const BlogPostPage         = lazy(() => import("@/pages/mega/BlogPost"));
+const CommissionCalculator = lazy(() => import("@/pages/mega/CommissionCalculator"));
+const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
+const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
+const AuctionListPage      = lazy(() => import("@/pages/AuctionListPage"));
 
 function App() {
   return (
@@ -67,6 +85,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />
             <Route path="/ihaleler" element={<LiveAuctions />} />
+            <Route path="/ilanlar" element={<AuctionListPage />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:auctionId/hemen-al" element={<BuyNow />} />
@@ -100,6 +119,25 @@ function App() {
             <Route path="/canliya-hazirlik" element={<OperationalReadiness />} />
             <Route path="/komisyon-modeli" element={<BusinessModel />} />
             <Route path="/veri-ve-endeks" element={<DataStrategy />} />
+            {SEO_LANDING_PAGES.map((cfg) => (
+              <Route key={cfg.path} path={cfg.path} element={<CityLanding />} />
+            ))}
+            <Route path="/iletisim" element={<Iletisim />} />
+            <Route path="/hakkimizda" element={<About />} />
+            <Route path="/raporlar" element={<Reports />} />
+            <Route path="/rapor/:id" element={<ReportDetail />} />
+            <Route path="/panel" element={<UserPanel />} />
+            <Route path="/panel/:tabId" element={<UserPanel />} />
+            <Route path="/mesajlar" element={<Messages />} />
+            <Route path="/belgeler" element={<Documents />} />
+            <Route path="/ayarlar" element={<Settings />} />
+            <Route path="/emlakciler" element={<RealtorsPage />} />
+            <Route path="/emlakci/:slug" element={<RealtorProfilePage />} />
+            <Route path="/blog" element={<BlogIndex />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/komisyon-hesaplayici" element={<CommissionCalculator />} />
+            <Route path="/sifremi-unuttum" element={<PasswordReset />} />
+            <Route path="/yasal-master-brief" element={<LegalMasterBrief />} />
             <Route path="/uyelik/yillik" element={<YillikUyelik />} />
             <Route path="/hizmet-bedelleri" element={<HizmetBedelleri />} />
             <Route path="/pre-launch" element={<PreLaunch />} />

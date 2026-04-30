@@ -21,7 +21,8 @@ export async function fetchRemoteAuctionsCatalog(): Promise<Auction[]> {
         id,
         title,
         body,
-        status
+        status,
+        buy_now_price_try
       )
     `
     )

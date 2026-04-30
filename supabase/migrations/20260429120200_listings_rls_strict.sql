@@ -3,6 +3,7 @@
 
 drop policy if exists "listings_insert_authenticated" on public.listings;
 drop policy if exists "listings_insert_kyc" on public.listings;
+drop policy if exists "listings_insert_kyc_edevlet" on public.listings;
 
 create policy "listings_insert_kyc_edevlet" on public.listings
   for insert with check (

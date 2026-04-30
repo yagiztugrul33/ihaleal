@@ -22,8 +22,8 @@ patch’leri uygula (kullanıcı onayı olmadan ücretli üçüncü parti servis
    - src/App.tsx içindeki tüm Route path’lerini listele.
    - src/ içinde navigate(, <Link to=, href=, window.location ve harici URL’leri
      tarayıp her path’in App.tsx’te karşılığı olduğunu doğrula.
-   - index.html, public/sitemap.xml, public/robots.txt, public/manifest.json içindeki
-     URL’lerin canlıda veya statik build’de 404 üretmediğini kontrol et.
+   - index.html, public/sitemap.xml, public/robots.txt, üretim manifest’i (dist/manifest.webmanifest)
+     içindeki URL’lerin canlıda veya statik build’de 404 üretmediğini kontrol et.
 
 3) KİMLİK VE VERİ
    - src/lib/auth.ts ve Register/Login/Profile/CreateAuction akışında oturum nesnesinde

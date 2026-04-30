@@ -48,7 +48,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Platform</h4>
             <ul className="space-y-2.5">
-              <li><button onClick={() => navigate("/")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> Ihaleler</button></li>
+              <li><button onClick={() => navigate("/ihaleler")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> Ihaleler</button></li>
               <li><button onClick={() => navigate("/analiz")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> AI Analiz</button></li>
               <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> Karsilastir</button></li>
               <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Mortgage</button></li>

@@ -75,6 +75,7 @@ create policy "bid_bonds_insert_self" on public.bid_bonds
   for insert with check (auth.uid() = bidder_id);
 
 drop policy if exists "bid_bonds_update_own" on public.bid_bonds;
+drop policy if exists "bid_bonds_update_self" on public.bid_bonds;
 create policy "bid_bonds_update_self" on public.bid_bonds
   for update using (auth.uid() = bidder_id)
   with check (auth.uid() = bidder_id);

@@ -51,11 +51,17 @@ export function withListingDefaults<T extends Auction>(a: T): T {
   const dealType = a.dealType ?? (a.category === "Kiralık" ? "rent" : "sale");
   const marketingMode = resolveMarketingMode(a);
   const negotiationMode = a.negotiationMode ?? (marketingMode === "sealed_offers" ? "sealed_offer" : "auction");
+  const buyNowPriceTry =
+    a.buyNowPriceTry ??
+    (marketingMode === "auction" && dealType !== "rent" && a.status === "live"
+      ? Math.round(a.currentBid * 1.28)
+      : undefined);
   return {
     ...a,
     contactViaPlatform: a.contactViaPlatform !== false,
     dealType,
     marketingMode,
     negotiationMode,
+    buyNowPriceTry,
   };
 }

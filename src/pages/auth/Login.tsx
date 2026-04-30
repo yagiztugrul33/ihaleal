@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LogIn, Mail, Lock, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -97,6 +97,11 @@ export default function Login() {
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
+                </div>
+                <div className="mt-2 text-right">
+                  <Link to="/sifremi-unuttum" className="text-xs text-slate-500 hover:text-teal-400 transition-colors">
+                    Şifremi unuttum
+                  </Link>
                 </div>
               </div>
               <Button

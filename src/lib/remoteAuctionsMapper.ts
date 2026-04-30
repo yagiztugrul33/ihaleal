@@ -7,6 +7,7 @@ type ListingRow = {
   title: string;
   body: unknown;
   status: string;
+  buy_now_price_try?: number | string | null;
 };
 
 type DbAuctionRow = {
@@ -76,6 +77,12 @@ export function auctionFromRemoteRow(row: DbAuctionRow): Auction {
         ? overlay.description
         : TEMPLATE.description;
 
+  const listingBnRaw =
+    listing.buy_now_price_try != null && String(listing.buy_now_price_try).trim() !== ""
+      ? Number(listing.buy_now_price_try)
+      : NaN;
+  const listingBn = Number.isFinite(listingBnRaw) ? listingBnRaw : undefined;
+
   return withListingDefaults({
     ...TEMPLATE,
     ...overlay,
@@ -91,6 +98,7 @@ export function auctionFromRemoteRow(row: DbAuctionRow): Auction {
     investmentScore: overlay.investmentScore ?? TEMPLATE.investmentScore,
     pricePerSqm: overlay.pricePerSqm ?? TEMPLATE.pricePerSqm,
     bidderCount: overlay.bidderCount ?? TEMPLATE.bidderCount,
+    buyNowPriceTry: overlay.buyNowPriceTry ?? listingBn,
   });
 }
 

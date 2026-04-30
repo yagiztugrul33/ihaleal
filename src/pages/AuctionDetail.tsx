@@ -6,7 +6,7 @@ import {
   XCircle, AlertTriangle, BarChart3, TrendingUp, TrendingDown, Minus,
   MessageSquare, GitCompare, Navigation, CarFront, Video,
   ExternalLink, Eye, Calculator, Receipt, ShieldCheck, Percent,
-  FileText, Scale, Landmark,
+  FileText, Scale, Landmark, ShoppingCart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,6 +42,7 @@ import {
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
 import { preAuthorize } from "@/lib/payment";
+import { placeBidRpc, minNextBidTry } from "@/lib/placeBid";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -95,9 +96,15 @@ export default function AuctionDetail() {
   const [reportApproved, setReportApproved] = useState(false);
   const [legalWithdrawAccepted, setLegalWithdrawAccepted] = useState(false);
   const [depositId, setDepositId] = useState<string | null>(null);
+  const [depositIdBuyNow, setDepositIdBuyNow] = useState<string | null>(null);
   const [preAuthOpen, setPreAuthOpen] = useState(false);
+  const [preAuthBuyNowOpen, setPreAuthBuyNowOpen] = useState(false);
+  const [showBuyNowConfirm, setShowBuyNowConfirm] = useState(false);
+  const [demoBuyNowWon, setDemoBuyNowWon] = useState(false);
   const [cardToken, setCardToken] = useState("test-ok");
   const [preAuthBusy, setPreAuthBusy] = useState(false);
+  const [bidBusy, setBidBusy] = useState(false);
+  const [buyNowBusy, setBuyNowBusy] = useState(false);
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -117,6 +124,9 @@ export default function AuctionDetail() {
       if (sessionStorage.getItem(`ihaleal_report_ok_${id}`) === "1") setReportApproved(true);
       const d = sessionStorage.getItem(`ihaleal_deposit_${id}`);
       if (d) setDepositId(d);
+      const dbn = sessionStorage.getItem(`ihaleal_deposit_buynow_${id}`);
+      if (dbn) setDepositIdBuyNow(dbn);
+      if (sessionStorage.getItem(`ihaleal_buynow_won_${id}`) === "1") setDemoBuyNowWon(true);
     } catch {
       /* ignore */
     }
@@ -176,10 +186,23 @@ export default function AuctionDetail() {
   const recommendation = auction.investmentScore >= 85 ? "strongBuy" : auction.investmentScore >= 70 ? "buy" : auction.investmentScore >= 50 ? "hold" : "avoid";
 
   const effectiveBuyNowTry =
-    buyNowPriceDb ?? (!isAuctionUuid(id ?? "") ? Math.round(liveBid * 1.35) : null);
+    buyNowPriceDb ?? (auction.buyNowPriceTry != null ? auction.buyNowPriceTry : null);
+
+  const auctionEndedVisual = demoBuyNowWon || auction.status === "ended";
+
+  const showBuyNowPanel =
+    !isListingOnly &&
+    isAuctionMode &&
+    !isRent &&
+    auction.status === "live" &&
+    effectiveBuyNowTry != null &&
+    !auctionEndedVisual;
+
+  const buyNowDisabled =
+    !user || !reportApproved || !depositIdBuyNow || buyNowBusy || auctionEndedVisual;
   const bidGateBlocked =
     !isListingOnly && Boolean(user) && (!reportApproved || !depositId);
-  const bidDisabled = !isListingOnly && (!user || !reportApproved || !depositId);
+  const bidDisabled = auctionEndedVisual || (!isListingOnly && (!user || !reportApproved || !depositId));
 
   const handleBuyerReportConfirm = async () => {
     if (!legalWithdrawAccepted || !user || !id || !resolvedReport) return;
@@ -244,6 +267,120 @@ export default function AuctionDetail() {
     }
   };
 
+  const runPreAuthBuyNow = async () => {
+    if (!user || !id || effectiveBuyNowTry == null) return;
+    setPreAuthBusy(true);
+    try {
+      const base = effectiveBuyNowTry;
+      const depositAmt = Math.round(base * 0.015 * 100) / 100;
+      const pr = await preAuthorize({
+        amountTRY: depositAmt,
+        cardToken,
+        buyerId: user.id,
+        listingId: dbListingId ?? id,
+        context: "buy_now",
+      });
+      if (!pr.success) {
+        toastBid(pr.error ?? "Ön yetki reddedildi", "error");
+        return;
+      }
+      if (pr.riskScore != null && pr.riskScore > 70) {
+        toastBid("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).", "warning");
+      }
+      if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
+        const { data, error } = await supabase.rpc("register_bid_deposit", {
+          p_listing_id: dbListingId,
+          p_auction_id: dbAuctionPk,
+          p_base_amount_try: base,
+          p_deposit_amount_try: depositAmt,
+          p_pre_auth_ref: pr.preAuthRef ?? "mock",
+          p_context: "buy_now",
+          p_idempotency_key: crypto.randomUUID(),
+        });
+        if (error) {
+          toastBid(error.message, "error");
+          return;
+        }
+        const row = data as { status?: string; deposit_id?: string };
+        if (row?.status === "ok" && row.deposit_id) {
+          setDepositIdBuyNow(row.deposit_id);
+          sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, row.deposit_id);
+          toastBid("Satın alım için blokaj kaydedildi.", "success");
+        }
+      } else {
+        const mockDep = `mock-buynow-${Date.now()}`;
+        setDepositIdBuyNow(mockDep);
+        sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, mockDep);
+        toastBid("Demo: satın al blokajı yerelde saklandı.", "info");
+      }
+      setPreAuthBuyNowOpen(false);
+    } finally {
+      setPreAuthBusy(false);
+    }
+  };
+
+  const executeBuyNowConfirm = () => {
+    if (!user || effectiveBuyNowTry == null) {
+      toastBid("Giriş yapın.", "warning");
+      return;
+    }
+    if (!reportApproved) {
+      toastBid("Önce AI analiz raporunu onaylayın.", "warning");
+      return;
+    }
+    if (!depositIdBuyNow) {
+      toastBid("Satın alım için önce blokaj (ön yetki) adımını tamamlayın.", "warning");
+      return;
+    }
+    setShowBuyNowConfirm(false);
+    const useServerBuyNow =
+      isAuctionUuid(id ?? "") &&
+      isSupabaseConfigured() &&
+      dbListingId &&
+      depositIdBuyNow &&
+      !depositIdBuyNow.startsWith("mock-buynow");
+    if (useServerBuyNow) {
+      setBuyNowBusy(true);
+      void (async () => {
+        try {
+          const { data, error } = await supabase.rpc("execute_buy_now", {
+            p_listing_id: dbListingId,
+            p_deposit_id: depositIdBuyNow,
+            p_idempotency_key: crypto.randomUUID(),
+          });
+          if (error) {
+            toastBid(error.message, "error");
+            return;
+          }
+          const row = data as { status?: string; message?: string; amount?: number };
+          if (row?.status === "ok") {
+            setDemoBuyNowWon(true);
+            sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
+            toastBid(
+              `Tebrikler! ₺${(row.amount ?? effectiveBuyNowTry).toLocaleString("tr-TR")} ile ihaleyi kazandınız; ihale kapandı.`,
+              "success",
+            );
+            return;
+          }
+          if (row?.status === "duplicate") {
+            toastBid(row.message ?? "Bu işlem zaten kayıtlı.", "info");
+            return;
+          }
+          toastBid(row?.message ?? "Satın alma tamamlanamadı.", "error");
+        } finally {
+          setBuyNowBusy(false);
+        }
+      })();
+      return;
+    }
+    sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
+    setDemoBuyNowWon(true);
+    toastBid(
+      `Tebrikler! ₺${effectiveBuyNowTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız (demo). İhale kapandı.`,
+      "success",
+    );
+  };
+
   const radarData = [
     { subject: "Konum", A: auction.investmentScore * 0.9 + 10, fullMark: 100 },
     { subject: "Fiyat", A: isUnderpriced ? 85 : 60, fullMark: 100 },
@@ -253,12 +390,67 @@ export default function AuctionDetail() {
     { subject: "Talep", A: auction.areaStats.demandIndex, fullMark: 100 },
   ];
 
-  const handleBid = () => {
-    const amount = parseInt(bidAmount.replace(/\D/g, ""));
-    if (amount > liveBid) {
-      setShowBidDialog(false);
-      setBidAmount("");
+  const toastBid = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
+    window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }));
+  };
+
+  const handleBid = async () => {
+    if (auctionEndedVisual) {
+      toastBid("Bu ihale sona ermiş.", "info");
+      return;
     }
+    const amount = parseInt(bidAmount.replace(/\D/g, ""), 10);
+    if (!Number.isFinite(amount) || amount <= 0) {
+      toastBid("Geçerli bir teklif tutarı girin.", "error");
+      return;
+    }
+    const minRequired = isListingOnly ? liveBid + 1 : minNextBidTry(liveBid);
+    if (amount < minRequired) {
+      toastBid(`Teklif en az ₺${minRequired.toLocaleString("tr-TR")} olmalı.`, "warning");
+      return;
+    }
+    if (!user) {
+      toastBid("Teklif için giriş yapın.", "warning");
+      return;
+    }
+    if (!isListingOnly && bidDisabled) {
+      toastBid("Önce AI raporunu onaylayın ve teminat (ön yetki) adımını tamamlayın.", "warning");
+      return;
+    }
+
+    if (isAuctionUuid(id ?? "") && isSupabaseConfigured()) {
+      setBidBusy(true);
+      try {
+        const res = await placeBidRpc({
+          auctionId: id as string,
+          amountTry: amount,
+          idempotencyKey: crypto.randomUUID(),
+        });
+        if (!res.ok) {
+          toastBid(res.message, "error");
+          return;
+        }
+        if (res.status === "duplicate") {
+          toastBid(res.message ?? "Bu teklif zaten kayıtlı.", "info");
+          setShowBidDialog(false);
+          setBidAmount("");
+          return;
+        }
+        toastBid(`Teklif kaydedildi: ₺${amount.toLocaleString("tr-TR")}`, "success");
+        setShowBidDialog(false);
+        setBidAmount("");
+      } finally {
+        setBidBusy(false);
+      }
+      return;
+    }
+
+    toastBid(
+      "Demo ilan: teklif veritabanına yazılmaz. Canlı ihalelerde (Supabase UUID) teklif sunucuda saklanır.",
+      "info",
+    );
+    setShowBidDialog(false);
+    setBidAmount("");
   };
 
   const bidIncrements = [10000, 50000, 100000, 250000, 500000];
@@ -776,8 +968,13 @@ export default function AuctionDetail() {
             <div><label className="text-sm text-slate-400 mb-1.5 block">Teklif Tutarı (₺)</label><Input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} className="bg-slate-950 border-white/10 text-white focus:ring-blue-500" placeholder="örn: 3000000" /></div>
           </div>
           <DialogFooter>
-            <Button onClick={handleBid} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold">
-              {isSealedOffer ? "Kapalı teklifi gönder" : "Teklif Ver"}
+            <Button
+              type="button"
+              disabled={bidBusy}
+              onClick={() => void handleBid()}
+              className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold"
+            >
+              {bidBusy ? "Gönderiliyor..." : isSealedOffer ? "Kapalı teklifi gönder" : "Teklif Ver"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -850,6 +1047,9 @@ export default function AuctionDetail() {
               {liveBid.toLocaleString("tr-TR")} üzerinden %1,5).
             </p>
             <p>Kazanırsanız kaparo / teminat akışına işlenmesi hedeflenir (Ürün koşulları taslak).</p>
+            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
+              Gerçek kart ödemesi yok; şu an demo ön yetki simülasyonu. PSP (iyzico vb.) bağlanınca canlı moda geçilir.
+            </p>
             <p>Cayarsanız yaklaşık %10 kesinti ve kalanın iadesi hedeflenir — detay için cayma politikası.</p>
             <div>
               <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>

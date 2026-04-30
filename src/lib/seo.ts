@@ -1,3 +1,5 @@
+import { SEO_LANDING_PAGES } from "@/data/seoLandings";
+
 /** HashRouter: gerçek URL ör. https://alan.com/#/analiz — paylaşım ve OG için taban. */
 export const SITE_ORIGIN = "https://ihaleal.com";
 
@@ -16,6 +18,10 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
   "/arama": {
     title: "İlan arama — ihaleal.com",
     description: "Şehir, semt ve kategoriye göre gayrimenkul ihale ilanlarında arama yapın.",
+  },
+  "/ihaleler": {
+    title: "İhaleler — ihaleal.com",
+    description: "Aktif gayrimenkul ihale ve ilanları keşfedin (demo veri).",
   },
   "/analiz": {
     title: "AI analiz ve fiyat tahmini — ihaleal.com",
@@ -103,9 +109,65 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "İlan detayı — ihaleal.com",
     description: "Gayrimenkul ilanı, fiyat, konum ve ihale bilgileri (demo içerik).",
   },
+  "/ilanlar": {
+    title: "Tüm ihaleler — ihaleal.com",
+    description: "Şehir, tip ve duruma göre filtrelenmiş demo ihale listesi.",
+  },
+  "/iletisim": {
+    title: "İletişim — ihaleal.com",
+    description: "Destek ve iş birliği için iletişim kanalları (demo).",
+  },
+  "/hakkimizda": {
+    title: "Hakkımızda — ihaleal.com",
+    description: "ihaleal.com vizyonu ve platform özeti (bilgilendirme).",
+  },
+  "/raporlar": {
+    title: "Analiz belgeleri — ihaleal.com",
+    description: "Piyasa ve operasyon özetleri (demo içerik).",
+  },
+  "/blog": {
+    title: "Blog — ihaleal.com",
+    description: "Gayrimenkul ve ihale ekosistemine dair yazılar (demo).",
+  },
+  "/emlakciler": {
+    title: "Ortak emlakçılar — ihaleal.com",
+    description: "Demo emlakçı profilleri ve performans özetleri.",
+  },
+  "/panel": {
+    title: "Hesap paneli — ihaleal.com",
+    description: "Özet, mesajlar ve evraklar için kullanıcı alanı (demo).",
+  },
+  "/mesajlar": {
+    title: "Mesajlar — ihaleal.com",
+    description: "Teklif ve görüşme kutusu (demo akış).",
+  },
+  "/belgeler": {
+    title: "Belgelerim — ihaleal.com",
+    description: "Yüklenen evrakların özeti (demo).",
+  },
+  "/ayarlar": {
+    title: "Ayarlar — ihaleal.com",
+    description: "Hesap ve bildirim tercihleri (demo).",
+  },
+  "/komisyon-hesaplayici": {
+    title: "Komisyon hesaplayıcı — ihaleal.com",
+    description: "Üyelik, hizmet bedeli ve satış komisyonu tahmini (demo).",
+  },
+  "/sifremi-unuttum": {
+    title: "Şifre sıfırlama — ihaleal.com",
+    description: "Hesap kurtarma akışı (taslak / demo).",
+  },
+  "/yasal-master-brief": {
+    title: "Yasal özet brif — ihaleal.com",
+    description: "Master hukuk özeti ve bağlantılı politikalar (taslak).",
+  },
 };
 
 export function getSeoForPath(pathname: string) {
+  const landing = SEO_LANDING_PAGES.find((p) => p.path === pathname);
+  if (landing) {
+    return { title: landing.title, description: landing.description };
+  }
   if (pathname.startsWith("/ilan/")) {
     return ROUTE_SEO["/ilan"] ?? DEFAULT_SEO;
   }
@@ -114,6 +176,27 @@ export function getSeoForPath(pathname: string) {
       title: "Şehir sayfası — ihaleal.com",
       description: "Seçilen şehir için ilanlar ve bölge notları (demo).",
     };
+  }
+  if (pathname.startsWith("/rapor/")) {
+    return {
+      title: "Belge detayı — ihaleal.com",
+      description: "Analiz ve bilgilendirme metni (demo).",
+    };
+  }
+  if (pathname.startsWith("/blog/")) {
+    return {
+      title: "Blog yazısı — ihaleal.com",
+      description: "Gayrimenkul ve ihale ekosistemine dair yazı (demo).",
+    };
+  }
+  if (pathname.startsWith("/emlakci/")) {
+    return {
+      title: "Emlakçı profili — ihaleal.com",
+      description: "Ofis özeti ve demo performans göstergeleri.",
+    };
+  }
+  if (pathname.startsWith("/panel/")) {
+    return ROUTE_SEO["/panel"] ?? DEFAULT_SEO;
   }
   return ROUTE_SEO[pathname] ?? DEFAULT_SEO;
 }

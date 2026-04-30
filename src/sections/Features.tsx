@@ -41,8 +41,8 @@ export function Features() {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((key, idx) => (
-            <div key={key} className={`group relative p-6 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-blue-500/20 hover:bg-slate-900/60 transition-all duration-500 hover:-translate-y-1 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
-              <div className="mb-4 p-3 rounded-xl bg-white/5 w-fit group-hover:bg-white/10 transition-colors">{icons[key]}</div>
+            <div key={key} className={`group relative p-6 rounded-2xl bg-slate-900/45 border border-white/[0.07] hover:border-blue-400/25 hover:bg-slate-900/65 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-20px_rgba(59,130,246,0.18)] ring-1 ring-transparent hover:ring-blue-500/15 motion-reduce:hover:translate-y-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
+              <div className="mb-4 p-3 rounded-xl bg-white/[0.06] w-fit ring-1 ring-white/[0.06] group-hover:bg-white/10 group-hover:scale-105 transition-all duration-300 motion-reduce:group-hover:scale-100">{icons[key]}</div>
               <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{titles[key]}</h3>
               <p className="text-sm text-slate-500 leading-relaxed">{descs[key]}</p>
             </div>

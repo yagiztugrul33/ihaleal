@@ -17,6 +17,8 @@ export interface Auction {
   investmentScore: number;
   pricePerSqm: number;
   bidderCount: number;
+  /** Doğrudan satın al (satıcı belirler veya demo varsayılanı). ₺ */
+  buyNowPriceTry?: number;
   endDate: string;
   images: string[];
   virtualTour?: string;

@@ -1,0 +1,21 @@
+================================================================================
+ihaleal.com — Dosya işleri hazır; senden sadece şunlar kalır
+================================================================================
+
+A) SUPABASE SQL (sen internetten yapıştırırsın)
+   1) Bilgisayarda şu dosyayı aç:
+      ihaleal.com\supabase\SQL_EDITOR_TEK_DOSYA.sql
+      (Güncellemek için bir kez çift tıkla: CALISTIR_SQL_DOSYASI_URET.bat)
+   2) İçindeki METİNİN TAMAMINI kopyala (Ctrl+A, Ctrl+C).
+   3) supabase.com → projen → SQL Editor → yapıştır → Run.
+      NOT: Veritabanında şema ZATEN VARSA bu dosyayı TEKRAR ÇALIŞTIRMA.
+
+B) ANAHTARLAR (3 satır kopyala-yapıştır)
+   1) env.local.SABLON dosyasını kopyala, adını .env.local yap (aynı klasörde).
+   2) Dashboard → Settings → API den URL + anon + service_role yaz (tek satır).
+
+C) İSTEĞE BAĞLI KONTROL (PowerShell)
+   cd "C:\Users\yagiz\Desktop\ihaleal.com"
+   npm run precheck:supabase
+
+================================================================================

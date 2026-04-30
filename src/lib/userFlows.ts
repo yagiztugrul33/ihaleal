@@ -1,6 +1,6 @@
 /**
  * Çoklu kullanıcı akışı — UI / taslak. Backend yok (§D-K3).
- * Kimi brief ile hizalı: A ilan, B satıcı ihale, C teklif, D izleyici.
+ * Ürün akış şeması ile hizalı: A ilan, B satıcı ihale, C teklif, D izleyici.
  */
 
 export type UserFlow = "listing_only" | "auction_seller" | "auction_bidder" | "browser_only";
