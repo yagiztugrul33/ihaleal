@@ -67,6 +67,11 @@ const CommissionCalculator = lazy(() => import("@/pages/mega/CommissionCalculato
 const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
 const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
 const AuctionListPage      = lazy(() => import("@/pages/AuctionListPage"));
+const KullanimKosullari    = lazy(() => import("@/pages/legal/KullanimKosullari"));
+const MesafeliSatisSozlesmesi = lazy(() => import("@/pages/legal/MesafeliSatisSozlesmesi"));
+const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
+const AydinlatmaMetni      = lazy(() => import("@/pages/legal/AydinlatmaMetni"));
+const SSSPage              = lazy(() => import("@/pages/SSS"));
 
 function App() {
   return (
@@ -107,6 +112,11 @@ function App() {
             <Route path="/gizlilik" element={<LegalPrivacy />} />
             <Route path="/ihale-kosullari" element={<LegalAuctionTerms />} />
             <Route path="/cerez-politikasi" element={<LegalCookies />} />
+            <Route path="/kullanim-kosullari" element={<KullanimKosullari />} />
+            <Route path="/mesafeli-satis-sozlesmesi" element={<MesafeliSatisSozlesmesi />} />
+            <Route path="/iade-iptal" element={<IadeIptal />} />
+            <Route path="/aydinlatma-metni" element={<AydinlatmaMetni />} />
+            <Route path="/sss" element={<SSSPage />} />
             <Route path="/ekspertiz" element={<Expertise />} />
             <Route path="/evraklar" element={<DocumentsRequired />} />
             <Route path="/guvenlik" element={<SecurityCenter />} />
