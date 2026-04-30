@@ -7,26 +7,33 @@ interface ErrorPageProps {
 }
 
 export default function ErrorPage({ error, resetError }: ErrorPageProps) {
+  const onRetry = (): void => {
+    if (resetError) resetError();
+    else window.location.reload();
+  };
+
   return (
-    <div className="container mx-auto px-4 py-16 text-center">
-      <h1 className="text-9xl font-bold text-red-300 dark:text-red-700">500</h1>
-      <h2 className="text-3xl font-semibold mt-4">Bir Hata Oluştu</h2>
-      <p className="text-gray-600 dark:text-gray-400 mt-4 max-w-md mx-auto">
+    <div className="min-h-screen bg-[#0a0f1e] flex flex-col items-center justify-center px-6 py-16 text-center">
+      <h1 className="text-7xl sm:text-9xl font-bold text-red-400/90">500</h1>
+      <h2 className="text-2xl sm:text-3xl font-semibold mt-4 text-white">Bir Hata Oluştu</h2>
+      <p className="text-slate-400 mt-4 max-w-md mx-auto">
         Üzgünüz, beklenmedik bir sorun yaşadık. Lütfen tekrar deneyin.
       </p>
-      {error?.message && <p className="text-xs text-gray-500 mt-2 font-mono">{error.message}</p>}
-      <div className="flex gap-3 justify-center mt-8">
+      {error?.message ? (
+        <p className="text-xs text-slate-500 mt-3 font-mono max-w-lg break-words">{error.message}</p>
+      ) : null}
+      <div className="flex flex-wrap gap-3 justify-center mt-10">
         <button
           type="button"
-          onClick={resetError || (() => window.location.reload())}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          onClick={onRetry}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 text-white font-medium hover:opacity-95 transition-opacity"
         >
           <RefreshCw className="h-5 w-5" />
           Tekrar Dene
         </button>
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-slate-200 hover:bg-white/5 transition-colors"
         >
           <Home className="h-5 w-5" />
           Ana Sayfa

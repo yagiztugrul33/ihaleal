@@ -1,57 +1,30 @@
-# ihaleal.com — Cumartesi Yayın Sprinti Final Raporu
+# ihaleal.com — Sprint final raporu (güncel)
 
-Tarih: 2026-04-30
-Sprint Tag: v1.0.0-rc1 (push kullanıcı ortamına bağlı)
+Tarih: 2026-04-28  
+Önceki sprint tag: v1.0.0-rc1  
 
-## Tamamlanan Görevler (repo işleri)
+## Bu turda tamamlanan işler
 
-- [x] Görev 0: Doğru klasör + baseline (`debb382` öncesi toplu baseline commit taşıdığı için süreç içinde güncellendi)
-- [x] Görev 1: Demo uyarı banner (`DemoUyarisi.tsx` + `Layout.tsx`)
-- [x] Görev 2: Türkçe auth hata çevirisi (`authErrors.ts`, Login/Register)
-- [x] Görev 3: Yasal sayfalar (`src/pages/legal/*`, `SSS.tsx`, `App.tsx` rotaları; `/kvkk` ve `/cerez-politikasi` mevcut `Legal*` sayfalarında kaldı)
-- [x] Görev 4: Footer yasal linkler
-- [x] Görev 5: `ErrorPage.tsx` eklendi; `NotFound.tsx` zaten vardı (üzerine yazılmadı); catch-all rota zaten vardı
-- [x] Görev 6: `index.html` içine eksik Apple standalone meta eklendi (mevcut `<title>` / OG bloklarına dokunulmadı)
-- [x] Görev 7: `vercel.json` genişletildi; `.env.production.example` eklendi (`.gitignore` istisnası ile)
-- [x] Görev 8: README „Vercel Deploy“ + `DEPLOY.md`
-- [x] Görev 9: Kaynakta `ihalevar` eşleşmesi yoktu (`grep` kanıtı boş)
-- [ ] Görev 10–13: Aşağıda kanıt / kısıt notları
-- [ ] Görev 14: Bu dosya
+- [x] **FAZ A — `precheck:supabase`:** `select=count` PostgREST uyumsuzluğu giderildi (`select=id&limit=1` + `Prefer: count=exact`). Hata gövdeleri ilk 500 karakter stdout’ta; `jwt_anon_role` / `jwt_service_role` satırları eklendi. `memberships` / `bid_bonds` için 403 olası nedenleri script sonunda tek paragraf not olarak yazılıyor.
+- [x] **FAZ B — Error UX:** `ErrorBoundary` artık `ErrorPage` bileşenini kullanıyor; sınır `HashRouter` içinde (`App.tsx`) böylece `Link` ile ana sayfa çalışır. “Tekrar Dene” `resetError` ile state sıfırlar.
+- [x] **FAZ C — Yasal tek kaynak:** `/kvkk` ve `/cerez-politikasi` rotaları `LegalKVKK` ve `LegalCookies` üzerinden (site temasıyla uyumlu). Taslak `src/pages/legal/KvkkPage.tsx` ve `CerezPolitikasi.tsx` kaldırıldı (çift içerik yok).
+- [x] **FAZ D:** `README.md` ve `DEPLOY.md` içine yerel LAN önizleme + WhatsApp/dış ağ için Vercel/ngrok notları eklendi.
+- [x] **FAZ E:** Bu dosya güncellendi.
 
-## Build Durumu
+## Build / doğrulama
 
-- `npm run typecheck`: SUCCESS
-- `npm run build`: SUCCESS (`✓ built in 33.97s`, vite çıktısı oturumda)
-- `npm run test:run`: **7 passed / 7** (3 test dosyası)
+Yerelde çalıştırın: `npm run verify` (typecheck + test + build).
 
-## Görev 10 — precheck:supabase (çıktı özeti)
+`npm run precheck:supabase` çıktısı ortama bağlıdır; `.env.local` gerekir. **`profiles_anon` için beklenen:** genelde **HTTP 200** (içerik boş veya count 0) veya **401**. Yerel örnekte görülen **42P17 infinite recursion** kök nedeni: `profiles_select_admin` politikası `profiles` üzerinde tekrar `profiles` SELECT etmesi. Çözüm: `supabase/migrations/20260502120000_profiles_rls_recursion_service_grants.sql` (SECURITY DEFINER `is_profile_admin` + aynı dosyada `memberships`/`bid_bonds` için `service_role` SELECT GRANT). Uzak projeye **`supabase db push`** veya SQL Editor ile uygulanmalıdır.
 
-- `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY`: DOLU (maskeli çıktı)
-- `profiles_anon`: **HTTP 500**
-- `memberships_service_role` / `bid_bonds_service_role`: **HTTP 403**
+**service_role JWT decode `(geçersiz-jwt)`** çıkıyorsa `.env.local` içinde anahtarda satır sonu/tırnak/jwt formatı kontrol edilmelidir; REST yine de bazı rollerle yanıt dönebilir.
 
-Bloker değerlendirmesi: `profiles_anon` için **500** beklenen anon/401 yerine sunucu hatası; prod öncesi Supabase tarafı kontrol edilmeli.
+## Bilinen dış bağımlılıklar
 
-## Görev 11–13 — Dev / Preview / Smoke
+- **`ihaleal.com` TLS / host uyumsuzluğu:** Alan adı bazen Vercel dışı bir sunucuya veya yanlış sertifikaya işaret edebilir; canlı demo için Vercel verilen URL veya doğru DNS kayıtları kullanılmalıdır (kullanıcı DNS ayarı).
 
-- Dev (`npm run dev`, tarayıcı, konsol) ve 20 maddelik smoke testleri **bu oturumda tarayıcı ile doğrulanmadı**; yerelde `npm run preview --port 4173` ile doğrulama önerilir.
+## Önemli dosya referansları
 
-## Eklenen / Güncellenen Önemli Dosyalar
-
-- `src/components/DemoUyarisi.tsx`
-- `src/lib/authErrors.ts`
-- `src/pages/legal/*.tsx`, `src/pages/SSS.tsx`, `src/pages/ErrorPage.tsx`
-- `src/App.tsx`, `src/components/Layout.tsx`, `src/components/Footer.tsx`
-- `index.html`, `vercel.json`, `.env.production.example`, `.gitignore`
-- `DEPLOY.md`, `README.md`
-
-## Bilinen Notlar
-
-- `KvkkPage.tsx` ve `CerezPolitikasi.tsx` dosyaları oluşturuldu; `/kvkk` ve `/cerez-politikasi` rotaları halihazırda `LegalKVKK` ve `LegalCookies` bileşenlerine bağlıdır (çift içerik bilinçli şekilde router’da kullanılmıyor).
-- `ErrorPage.tsx` oluşturuldu; global `ErrorBoundary` ile otomatik bağlanmadı (isteğe bağlı takip).
-
-## Yayın İçin Kullanıcı Adımları
-
-1. `git push origin main` ve gerekirse `git push origin v1.0.0-rc1`
-2. Vercel import + env değişkenleri (`.env.production.example`)
-3. DNS / custom domain
+- `scripts/precheck-supabase.mjs`
+- `src/components/ErrorBoundary.tsx`, `src/pages/ErrorPage.tsx`, `src/App.tsx`, `src/main.tsx`
+- `README.md`, `DEPLOY.md`

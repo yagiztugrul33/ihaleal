@@ -15,6 +15,8 @@
 3. **Alan adı:** Vercel projesinde **Domains** → `ihaleal.com` ekleyin; DNS sağlayıcınızda Vercel’in verdiği **A / CNAME** kayıtlarını oluşturun.
 4. SPA için tek sayfa yönlendirmesi `vercel.json` içindeki `rewrites` ile tanımlıdır (`/#/` HashRouter kullanımında tarayıcı doğrudan köke giderse bile statik dosya sunumu çalışır).
 
+**Yatırımcı önizlemesi (aynı Wi‑Fi):** Geliştirici makinede `npm run dev` (`--host` açık); telefon/tablet tarayıcısından `http://<bilgisayarın_yerel_IP_adresi>:5173/#/` (veya Vite’nin yazdığı port) ile açılır. **WhatsApp veya farklı ağdan paylaşım** için yerel IP çalışmaz; Vercel Preview/`*.vercel.app` kullanın veya tünel örneği: `npx ngrok http 5173` (ngrok size HTTPS URL verir).
+
 ---
 
 # React + TypeScript + Vite

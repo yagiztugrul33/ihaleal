@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Layout } from "@/components/Layout";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
 import { Home } from "@/pages/Home";
 import "./App.css";
@@ -77,6 +78,7 @@ function App() {
   return (
     <AuthProvider>
     <HashRouter>
+      <ErrorBoundary>
       <Layout>
         <Suspense fallback={
           <div className="min-h-screen flex items-center justify-center bg-[#0a0f1e]">
@@ -182,6 +184,7 @@ function App() {
           </Routes>
         </Suspense>
       </Layout>
+      </ErrorBoundary>
     </HashRouter>
     </AuthProvider>
   );

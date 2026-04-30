@@ -37,3 +37,8 @@ git push origin main
 - Lighthouse skoru al
 - Smoke test (16 madde)
 - Console hata var mı kontrol
+
+## 7. Yatırımcıya yerel önizleme (LAN / dış ağ)
+
+- **Aynı Wi‑Fi:** `npm run dev` sonrası bilgisayarın LAN IP’si + Vite portu, örn. `http://192.168.1.x:5173/#/`.
+- **Farklı ağ / WhatsApp:** LAN adresi dışarıdan erişilemez. **Vercel Preview** veya tünel kullanın; örnek: `npx ngrok http 5173` → verilen `https://….ngrok-free.app` bağlantısını paylaşın.
