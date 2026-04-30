@@ -1,5 +1,7 @@
 /**
  * Ön kontrol — anahtarları stdout'a yazmaz (.env.local)
+ *
+ * PostgREST: `select=count` geçerli bir kolon değildir; count için gerçek kolon + Prefer: count=exact kullanılır.
  */
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -26,12 +28,34 @@ for (const k of ["VITE_SUPABASE_URL", "VITE_SUPABASE_ANON_KEY", "SUPABASE_SERVIC
   console.log(`${k}=${env[k] ? "***DOLU***" : "***YOK***"}`);
 }
 
+/** JWT payload içinden `role` (secret yazdırmaz). */
+function decodeJwtRole(jwt) {
+  if (!jwt || typeof jwt !== "string") return "(yok)";
+  jwt = jwt.trim();
+  const parts = jwt.split(".");
+  if (parts.length < 2) return "(geçersiz-jwt)";
+  try {
+    let b64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+    const pad = b64.length % 4;
+    if (pad) b64 += "=".repeat(4 - pad);
+    const json = Buffer.from(b64, "base64").toString("utf8");
+    const payload = JSON.parse(json);
+    return payload.role ?? "(role-alanı-yok)";
+  } catch {
+    return "(decode-hatası)";
+  }
+}
+
 const url = env.VITE_SUPABASE_URL;
 const anon = env.VITE_SUPABASE_ANON_KEY;
 const sr = env.SUPABASE_SERVICE_ROLE_KEY;
 
+console.log(`jwt_anon_role=${decodeJwtRole(anon)}`);
+console.log(`jwt_service_role=${decodeJwtRole(sr)}`);
+
 async function rest(table, headers, label) {
-  const res = await fetch(`${url}/rest/v1/${table}?select=count&limit=1`, {
+  const endpoint = `${url}/rest/v1/${table}?select=id&limit=1`;
+  const res = await fetch(endpoint, {
     headers: {
       Accept: "application/json",
       ...headers,
@@ -40,6 +64,11 @@ async function rest(table, headers, label) {
   });
   const range = res.headers.get("content-range") ?? "(no content-range)";
   console.log(`${label}: HTTP ${res.status} content-range=${range}`);
+  if (!res.ok) {
+    const body = await res.text();
+    const snippet = body.slice(0, 500).replace(/\s+/g, " ").trim();
+    console.log(`${label}_body(first500)=${snippet || "(boş)"}`);
+  }
 }
 
 await rest(
@@ -56,4 +85,9 @@ await rest(
   "bid_bonds",
   { apikey: sr, Authorization: `Bearer ${sr}` },
   "bid_bonds_service_role"
+);
+
+console.log("");
+console.log(
+  "Not — memberships_service_role / bid_bonds_service_role: HTTP 403 PostgreSQL \"permission denied\" ise çoğunlukla service_role için GRANT SELECT eksiktir (migration 20260502120000_profiles_rls_recursion_service_grants.sql). jwt_service_role decode başarısızsa .env anahtarında satır sonu/bozuk JWT olabilir."
 );
