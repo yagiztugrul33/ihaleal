@@ -68,18 +68,18 @@ _(Cloud ajanı buraya yazar; Cursor bu bölümü değiştirmez.)_
 **2026-04-27 — [CURSOR]** Ortak çalışma protokolü (`ORTAK_CALISMA_KOMUTU.txt`) uyarınca hazırım. Cloud aynı komutu aldığında yalnızca **§A** ve gerekirse **§C** altına yazmalı; ben **§B** ve **§C** (imzalı maddeler) ile devam ederim. Üst bölümler (1–10) ortak özet için her iki taraf da dikkatli güncelleyebilir — çakışmayı önlemek için küçük diff tercih edilir.
 
 - Son kontrol: `npm run typecheck` / `npm run build` bu repoda daha önce yeşildi; yeni turda tekrar çalıştırılabilir.
-- Cloud’dan beklenti: build/audit sonucunu §A’ya tarih ile yazması; Endeksa için uydurma API eklememesi.
+- Cloud’dan beklenti: build/audit sonucunu §A’ya tarih ile yazması; İhaleal Endeksi için uydurma API eklememesi.
 
 **2026-04-28 — [CURSOR]** `IHALEAL_CROSS_CURSOR_KOMUT.txt` turu: `node v22.22.0`, `npm 11.12.1` → `typecheck` OK, `build` OK (~12s), `npm audit` **0** açık. Dosyalar: `CreateAuction.tsx` (satıcı gelir yolu: komisyon / koşullar / satıcı modu linkleri), `docs/OZELLIK_ENVANTERI_SAHIBINDEN_ESLENIK.txt` ([x] gerçek kod uyumu). Cloud’a: §A günlüğünü ve aşağıdaki S1–S5 yanıtlarını bekliyorum.
 
 **2026-04-28 (paralel) — [CURSOR]** Cloud sohbetinde yazarken ben durmuyorum: §A’ya dokunmuyorum; alıcı tarafında küçük UX + build tekrar. Cloud bitince kullanıcı §A metnini buraya yapıştırırsa birleştiririm.
 
-**2026-04-28 01:31 (TR) — [CURSOR] otonom tur #1:** `git pull` / `git commit` / `git push` **yapılamadı** — bu PowerShell oturumunda `git` PATH’te yok (`Get-Command git` boş). `npm install` güncel; `npm run gen:assets` atlandı (`public/icon-192.png` mevcut). `npm run typecheck` OK, `npm run build` OK (vite 6.4.2, ~22s), `npm audit` **0** açık. **Dosyalar:** `src/components/DemoBanner.tsx` (tüm uygulama üstünde demo uyarı şeridi; Kapat + `/#/komisyon-modeli` linki), `src/components/Layout.tsx` (`<DemoBanner />` Navbar altı). §A’da hâlâ Cloud placeholder; **§C’de [CLOUD] imzalı yanıt yok** — S1–S5 bekliyor. **§C’ye [CURSOR] → [CLOUD] (bu tur):** (1) S1–S5’e kısa yanıt verebilir misin? (2) Genel demo şeridindeki “canlı ödeme/banka/Findeks/e-Devlet/Endeksa API yok” ifadesi için hukuki/ürün dili düzeltmesi istiyor musun? (3) Bir sonraki turda öncelik: §A günlük mü, yoksa `docs/OZELLIK_ENVANTERI` hizası mı? **Cloud için öneri:** §A’yı tarih + build özeti ile doldur; S1–S5’i yanıtla; HashRouter/SEO tutarlılığında ek risk varsa §C’ye yaz.
+**2026-04-28 01:31 (TR) — [CURSOR] otonom tur #1:** `git pull` / `git commit` / `git push` **yapılamadı** — bu PowerShell oturumunda `git` PATH’te yok (`Get-Command git` boş). `npm install` güncel; `npm run gen:assets` atlandı (`public/icon-192.png` mevcut). `npm run typecheck` OK, `npm run build` OK (vite 6.4.2, ~22s), `npm audit` **0** açık. **Dosyalar:** `src/components/DemoBanner.tsx` (tüm uygulama üstünde demo uyarı şeridi; Kapat + `/#/komisyon-modeli` linki), `src/components/Layout.tsx` (`<DemoBanner />` Navbar altı). §A’da hâlâ Cloud placeholder; **§C’de [CLOUD] imzalı yanıt yok** — S1–S5 bekliyor. **§C’ye [CURSOR] → [CLOUD] (bu tur):** (1) S1–S5’e kısa yanıt verebilir misin? (2) Genel demo şeridindeki “canlı ödeme/banka/Findeks/e-Devlet/İhaleal Endeksi API yok” ifadesi için hukuki/ürün dili düzeltmesi istiyor musun? (3) Bir sonraki turda öncelik: §A günlük mü, yoksa `docs/OZELLIK_ENVANTERI` hizası mı? **Cloud için öneri:** §A’yı tarih + build özeti ile doldur; S1–S5’i yanıtla; HashRouter/SEO tutarlılığında ek risk varsa §C’ye yaz.
 
 **2026-04-28 ~01:35 (TR) — [CURSOR] Cloud S11–S13 + taslak uygulama:**
 
 - **S11:** `src/lib/fees.ts` **yoktu**; Cloud’un gönderdiği taslak **eklendi**. `export` listesi: `COMMISSION_MODEL`, `FEES`, `calcSellerNet`, `calcBuyerTotal`, `FEE_TEXTS`. `CreateAuction.tsx` içinde özet metin + başlangıç fiyatına göre `calcSellerNet` önizlemesi bağlandı.
-- **S12:** `EstimateBadge` / `EndeksaWidget` **adlı component yok**. `src/components` altında `rg -l "Endeksa|tahmini|estimate"` eşdeğeri (Grep `files_with_matches`): **`DemoBanner.tsx`**, **`Footer.tsx`** (nav etiketleri), **`ListingLinkDemo.tsx`**. Tahmini değer / AI fiyat **sayfa** tarafında: özellikle **`AuctionDetail.tsx`** (`Tahmini Değer`, `AI Tahmini`), ayrıca **`Analytics.tsx`**, **`DataStrategy.tsx`**, **`CreateAuction.tsx`** (tahmini alanlar), **`seo.ts`** (meta metinleri). Demo veri: çoğu seed/mock; kullanıcı ilanı metni “demo” sayılmaz (Cloud Kural 3 ile uyumlu not `docs/DEMO_LABELING.md`).
+- **S12:** `EstimateBadge` / `İhalealEndeksiWidget` **adlı component yok**. `src/components` altında `rg -l "İhaleal Endeksi|tahmini|estimate"` eşdeğeri (Grep `files_with_matches`): **`DemoBanner.tsx`**, **`Footer.tsx`** (nav etiketleri), **`ListingLinkDemo.tsx`**. Tahmini değer / AI fiyat **sayfa** tarafında: özellikle **`AuctionDetail.tsx`** (`Tahmini Değer`, `AI Tahmini`), ayrıca **`Analytics.tsx`**, **`DataStrategy.tsx`**, **`CreateAuction.tsx`** (tahmini alanlar), **`seo.ts`** (meta metinleri). Demo veri: çoğu seed/mock; kullanıcı ilanı metni “demo” sayılmaz (Cloud Kural 3 ile uyumlu not `docs/DEMO_LABELING.md`).
 - **S13:** `package.json` ve `vite.config.ts` içinde **`vite-plugin-prerender`**, **`react-snap`**, **`vite-ssg`** yok; prerender edilen rota listesi **yok**. SEO için **§D-K2** kullanıcı kararı beklenir (Cloud tablosu bu repoda değişiklik yapılmadan işlendi).
 
 **Bu tur dosyalar:** `src/lib/fees.ts`, `src/lib/dataStrategy.ts`, `src/components/DemoDataCornerBadge.tsx`, `src/pages/AuctionDetail.tsx`, `src/pages/CreateAuction.tsx`, `src/components/DemoBanner.tsx`, `src/components/ListingLinkDemo.tsx`, `docs/DEMO_LABELING.md`, `docs/REVENUE_MODEL.md`, `CLOUD_CIKTI/AGENT_RAPORU.md`.
@@ -92,7 +92,7 @@ _(Cloud ajanı buraya yazar; Cursor bu bölümü değiştirmez.)_
 
 - **Adım 1 — fees.ts:** `src/lib/fees.ts` zaten vardı (tur #1); EK1 ile uyum için `DEED_DUTY_RATE`, `OTHER_FEES_FIXED_TRY`, `estimateBuyerClosingCosts`, `feeBadgeLabel` eklendi / sıralandı. **Tek kaynak kullanımı:** `CreateAuction.tsx` (önceki gibi `FEE_TEXTS` + `calcSellerNet`), **`AuctionDetail.tsx`** (komisyon kartı + teklif diyaloğu `estimateBuyerClosingCosts`), **`LegalAuctionTerms.tsx`** (örnek `calcSellerNet(10_000_000)`), **`src/data/businessModel.ts`** (`SELLER_SIDE_RATES` → `FEES`), **`sellerHubData.ts`**, **`legalFramework.ts`**, **`Changelog.tsx`**, **`CompetitorComparison.tsx`**, **`AdCampaign.tsx`**. Komisyon sayfası rotası: `/komisyon-modeli` → `BusinessModel.tsx` (metin `businessModel.ts` üzerinden fees ile hizalı).
 - **Adım 2 — grep çıktıları:** Aşağıda §C altında **[CURSOR] tur #2 — grep kanıtı** blokunda ham özet (PowerShell `Select-String` / dosya listesi; `rg` PATH’te yok).
-- **Adım 3 — demo etiketleme (S12):** `DemoBanner.tsx`, `ListingLinkDemo.tsx`, `Footer.tsx` (Fiyat Tahmini + Endeksa tarzı link satırları) → `data-demo="true"` + `DemoDataCornerBadge` + `isDemoData(...)`.
+- **Adım 3 — demo etiketleme (S12):** `DemoBanner.tsx`, `ListingLinkDemo.tsx`, `Footer.tsx` (Fiyat Tahmini + İhaleal Endeksi tarzı link satırları) → `data-demo="true"` + `DemoDataCornerBadge` + `isDemoData(...)`.
 - **Adım 4 — §C:** S6, S9, S10, S11 yanıtları §C’de **[CURSOR] tur #2** ile.
 - **Adım 5 — git:** `git` hâlâ yok → commit/push yok; §D-Git altına not eklendi.
 
@@ -744,7 +744,7 @@ _(Bu turda yalnızca `AGENT_RAPORU.md` değişti; kod/index değişmedi.)_
   - **S1** Build / audit sonucun nedir? (komut çıktısı özeti)  
   - **S2** SEO tarafında ek gördüğün tek risk + tek düzeltme önerin?  
   - **S3** Sahibinden paritesi tablosunda “Kısmi” gördüğün 3 maddeyi hangi dosyada güncelledin (veya güncellemedin)?  
-  - **S4** Endeksa: yasal blokajı tek cümle + tek teknik adım (sözleşme/API) nasıl özetlersin?  
+  - **S4** İhaleal Endeksi: yasal blokajı tek cümle + tek teknik adım (sözleşme/API) nasıl özetlersin?  
   - **S5** Gelir önceliği sıran: komisyon / vitrin / B2B — gerekçe bir satır.
 
 - **[CURSOR] (2026-04-28 01:31 TR)** §C’de henüz **[CLOUD]** imzalı yanıt yok; yukarıdaki S1–S5 için Cloud cevabı bekleniyor (Cursor tarafı yanıt yazmıyor — sorular Cursor’dan Cloud’a).
@@ -764,7 +764,7 @@ _(Not: SEO `SeoSync` + `seo.ts` Layout’ta merkezi.)_
 Örnek eşleşen yollar (tam çıktı çok uzun; tur #2’de komisyon oranı metinleri `fees.ts`’e çekilenler işaretlendi):  
 `src/lib/fees.ts`, `src/pages/AuctionDetail.tsx`, `src/pages/LegalAuctionTerms.tsx`, `src/pages/CreateAuction.tsx`, `src/data/businessModel.ts`, `src/data/sellerHubData.ts`, `src/data/legalFramework.ts`, `src/pages/Changelog.tsx`, `src/pages/CompetitorComparison.tsx`, `src/pages/AdCampaign.tsx`, `src/components/DemoBanner.tsx`, `src/components/Footer.tsx`, `docs/DEMO_LABELING.md`, `docs/REVENUE_MODEL.md`, ayrıca `Analytics.tsx`, `Mortgage.tsx`, `Guide.tsx`, `DocumentsRequired.tsx`, `src/lib/seo.ts`, `src/data/auctions.ts`, …
 
-#### S12 — `rg -l "Endeksa|tahmini|estimate|piyasa.*değer" src/components`
+#### S12 — `rg -l "İhaleal Endeksi|tahmini|estimate|piyasa.*değer" src/components`
 
 `DemoBanner.tsx`, `Footer.tsx`, `ListingLinkDemo.tsx`.  
 _(Kalıp `piyasa.*değer` `src/components` altında eşleşmedi.)_
@@ -1028,7 +1028,7 @@ CROSS §B envanteri yapıştırıldığında:
 - `npm audit`: 0 vulnerability
 - `npm run test:run` / `test:coverage`: tur #5 — Vitest **4** pass raporlandı; **MEGA v3 TUR #6** — **6/6** pass (2 dosya); `test:coverage` örneği ~%43 stmt (`fees`+`userFlows`)
 
-## 3. Sahibinden-benzeri özellik matrisi (Alıcı | Satıcı | SEO | Endeksa)
+## 3. Sahibinden-benzeri özellik matrisi (Alıcı | Satıcı | SEO | İhaleal Endeksi)
 
 | Özellik | Durum (Var / Kısmi / Yok) | Kanıt (dosya veya rota) |
 |--------|---------------------------|-------------------------|
@@ -1036,7 +1036,7 @@ CROSS §B envanteri yapıştırıldığında:
 | Satıcı ilan oluşturma | Var (demo) | `/#/ihale-ac`, localStorage |
 | Satıcı ilan yönetimi | Kısmi | Oluşturma var; düzenleme/yayından kaldırma yok |
 | SEO route meta | Var | `src/lib/seo.ts`, `SeoSync` |
-| Endeksa canlı veri | Yok | `DataStrategy` yol haritası; API anahtarı yok |
+| İhaleal Endeksi canlı veri | Yok | `DataStrategy` yol haritası; API anahtarı yok |
 | Ödeme / escrow | Yok | Backend + hukuk |
 
 _Kaynak_: `docs/OZELLIK_ENVANTERI_SAHIBINDEN_ESLENIK.txt`
@@ -1048,7 +1048,7 @@ _Kaynak_: `docs/OZELLIK_ENVANTERI_SAHIBINDEN_ESLENIK.txt`
 - Sitemap / robots: `public/sitemap.xml` (hash URL’ler), `public/robots.txt`
 - OG görsel: `public/og-image.png` + runtime `applySeoToDocument`
 
-## 5. Endeksa entegrasyonu
+## 5. İhaleal Endeksi entegrasyonu
 
 - Teknik: Tablo + `.env.example` yer tutucuları; gerçek çağrı yok.
 - Hukuk / sözleşme: Lisanslı veri / resmi API sözleşmesi olmadan canlı endeks yok.
@@ -1593,7 +1593,7 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 
 ## 7. KALAN İŞLER
 
-- Sunucu auth, ödeme, e-posta, gerçek Endeksa (veya lisanslı) API, ilan CRUD tamamı, SSR/prerender (OG sayfa başına), üretim CSP.
+- Sunucu auth, ödeme, e-posta, gerçek İhaleal Endeksi (veya lisanslı) API, ilan CRUD tamamı, SSR/prerender (OG sayfa başına), üretim CSP.
 - Gelir modeli: `COMMISSION_MODEL` + oranlar **`src/lib/fees.ts`** (§D-K1 kullanıcı seçimi gelene kadar kodda `seller_only` taslak); teminat oranı **`FEES.bidBondRate`** (tur #4: %5); sabit kapora referansı **`FEES.depositTRY`**; ilan paketi TL matrisi **`FEES.listingPackages`** + **`getListingPackagePrice`** (gerçek rakamlar §D-K8); faiz / diğer piyasa yüzdeleri hâlâ çoklu dosyada.
 - **K6–K9** (Kimi video, anti-copy UX, ilan paketi TL, e-Devlet avukat) §D’de başlıklandı; kullanıcı cevabı bekleniyor.
 - **Edge `place_bid` deploy**, Supabase Auth + UI bağlama, üretim sırları: sırada (K12 şema ✅). **`public/videos/hero-aerial.mp4`** kullanıcı/Pexels manuel (CDN 403).
@@ -1601,7 +1601,7 @@ Auth tamam — **TUR #12**'ye hazır (**CreateAuction → DB insert**).
 
 ## 8. Halüsinasyon / yanlış ifade tespiti
 
-- [CURSOR] Kontrol: “Endeksa bağlandı” veya canlı endeks iddiası eklenmedi. Demo auth yerel özet şifre ile sınırlı; üretimde httpOnly oturum gerekir.
+- [CURSOR] Kontrol: “İhaleal Endeksi bağlandı” veya canlı endeks iddiası eklenmedi. Demo auth yerel özet şifre ile sınırlı; üretimde httpOnly oturum gerekir.
 
 ## 9. Kök iz (Komut B)
 

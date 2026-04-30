@@ -1,0 +1,9 @@
+İhaleal Endeksi — şu an (ürün notu)
+
+• Bu React sitesi: canlı lisanslı işlem stoğu veya “son 6 ay satılan / şu an satılık” resmi piyasa tabanı olmadan tam üretim iddiasında değildir; /analiz ekranları gösterim / demo veridir.
+
+• İhaleal Endeksi hedefi: ihale teklif yoğunluğu, bölge bandı, talep ve yapay zeka özetlerini tek karar düzleminde birleştirmek (statik tek rapordan daha verimli senaryo zemini).
+
+• Üçüncü taraf değerleme PDF’ini ürün/hukuk ekibine güvenli kanaldan iletin (e-posta / drive); bu ön yüzde dosya içeriği işlenmez (dosya adı seçimi demo).
+
+• Lisanslı veri veya kurumsal API entegrasyonu yalnızca sözleşme + backend ile mümkündür; istemciye anahtar koymayın.

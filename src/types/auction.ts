@@ -36,7 +36,7 @@ export interface Auction {
   negotiationMode?: "auction" | "sealed_offer";
   /** Doğrudan ilan sahibi telefonu gösterilmez; platform kanalı (varsayılan true). */
   contactViaPlatform?: boolean;
-  /** Endeksa veya benzeri piyasa raporu — yükleme demo: yalnızca dosya adı (sunucuya gitmez). */
+  /** Üçüncü taraf piyasa / değerleme PDF’i — yükleme demo: yalnızca dosya adı (sunucuya gitmez). */
   marketReportPdfName?: string;
   /** SPK uzmanı ekspertiz raporu — dosya adı demo. */
   expertisePdfName?: string;

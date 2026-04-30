@@ -21,9 +21,9 @@ export default function DataStrategy() {
             <LineChart className="w-7 h-7" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Gayrimenkul analizi — şu an ne mümkün?</h1>
+            <h1 className="text-2xl font-bold text-white">İhaleal Endeksi — verimli analiz nedir?</h1>
             <p className="text-sm text-slate-500">
-              Son 6 ay satılık / şu an satılık segmentleri, rapor karşılaştırma. İlan detayındaki «Endeksa / piyasa raporu — analiz» butonu bu sayfaya yönlendirir; aynı dil ve demo sınırları geçerlidir.
+              İhaleal Endeksi; teklif yoğunluğu, bölge fiyat bandı, talep ve yapay zeka sinyallerini <strong className="text-slate-300">aynı karar ekranında</strong> birleştirir. Statik tek rapor yerine, ihale akışına bağlı dinamik görünüm hedeflenir. İlan detayındaki «İhaleal Endeksi — piyasa raporu analizi» akışı burayı işaret eder; demo sınırları aşağıda.
             </p>
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function DataStrategy() {
 
         <Card className="bg-slate-900/50 border-emerald-500/15 mb-6">
           <CardContent className="p-5 space-y-3 text-sm text-slate-400">
-            <h2 className="text-white font-semibold text-base">Harici endeks / veri sağlayıcı — teknik çerçeve (taslak)</h2>
+            <h2 className="text-white font-semibold text-base">Üçüncü taraf veri API — teknik çerçeve (taslak)</h2>
             <p className="text-xs text-slate-500">
               Üçüncü taraf ticari veri ürünleri için <strong className="text-slate-300">resmi API veya sözleşme olmadan</strong> canlı bağlantı kurulmaz.
               Aşağıdaki tablo ürün ekibinin backend’de uygulayacağı <strong className="text-slate-300">hedef sözleşme</strong> alanlarını listeler.
@@ -104,7 +104,7 @@ export default function DataStrategy() {
                 <tbody className="divide-y divide-white/5">
                   <tr><td className="p-2 text-emerald-300">auth</td><td className="p-2">OAuth2 / API key</td><td className="p-2">Sunucuda sakla; istemciye sızdırma.</td></tr>
                   <tr><td className="p-2 text-emerald-300">parsel / adres</td><td className="p-2">Normalize mahalle + ada/parsel</td><td className="p-2">Tapu-Adres birlikte doğrulama (hukuk).</td></tr>
-                  <tr><td className="p-2 text-emerald-300">bölge endeksi</td><td className="p-2">m² birim fiyat bandı</td><td className="p-2">Tarih aralığı + örneklem sayısı göster.</td></tr>
+                  <tr><td className="p-2 text-emerald-300">İhaleal Endeksi bandı</td><td className="p-2">m² birim fiyat + ihale likiditesi</td><td className="p-2">Tarih aralığı + örneklem; ihale verisi ile çapraz doğrulama.</td></tr>
                   <tr><td className="p-2 text-emerald-300">rapor PDF</td><td className="p-2">İhale kartında özet + link</td><td className="p-2">Kullanıcı yüklemesi veya sağlayıcı webhook.</td></tr>
                   <tr><td className="p-2 text-emerald-300">rate limit</td><td className="p-2">Önbellek (Redis)</td><td className="p-2">Analiz sayfası sorgu patlamasını önle.</td></tr>
                 </tbody>

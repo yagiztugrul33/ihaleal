@@ -26,7 +26,7 @@
 
 - Tek muhatap ihaleal.com; ilanda taraf telefonu yok.
 - Üç mod: sadece ilan, teklif al, ihale — satılık + kiralık.
-- Piyasa raporu (Endeksa/eşdeğer) + ekspertiz (şerh/ipotek/haciz) + resmi belgeler butonu + taahhüt limitleri + komisyon matrahı; kira: kiraya verenden 1 aylık kira + KDV.
+- Piyasa raporu + İhaleal Endeksi özeti + ekspertiz (şerh/ipotek/haciz) + resmi belgeler butonu + taahhüt limitleri + komisyon matrahı; kira: kiraya verenden 1 aylık kira + KDV.
 - Gelir: hedef yalnızca başarılı işlem komisyonu; ilan/vitrin/doping satışı yok.
 
 *Bu not maraton başlangıcına denk getirilir; commit alınamadıysa dosyaların yedeğini manuel kopyalayın.*

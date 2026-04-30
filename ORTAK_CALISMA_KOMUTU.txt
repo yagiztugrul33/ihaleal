@@ -29,7 +29,7 @@ YAPILACAKLAR (her iki ajan da aynı listeyi uygular; tekrar iş yapma)
    → npm run build. Kırılırsa minimal düzelt; geniş refactor yok.
 2) SEO: src/lib/seo.ts, SeoSync, index.html SearchAction, public/sitemap.xml —
    HashRouter ile çelişen mutlak path ekleme.
-3) Endeksa: gerçek API veya anahtar UYDURMA; DataStrategy + .env.example ile
+3) İhaleal Endeksi / harici veri: gerçek API veya anahtar UYDURMA; DataStrategy + .env.example ile
    uyumlu teknik/hukuki sınır notu. Halüsinasyon iddiası varsa metni düzelt.
 4) Alıcı + satıcı vizyonu: docs/OZELLIK_ENVANTERI… matrisini güncelle (Var/Kısmi/Yok)
    ve kodda küçük UX tutarlılığı (büyük mimari değişiklik yok).

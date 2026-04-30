@@ -123,7 +123,7 @@ export default function BusinessModel() {
           <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/sat-basla")}>Satıcı modları</Button>
           <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/yasal-cerceve")}>Yasal çerçeve</Button>
           <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/canliya-hazirlik")}>Canlıya hazırlık</Button>
-          <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/veri-ve-endeks")}>Gayrimenkul analizi</Button>
+          <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/veri-ve-endeks")}>İhaleal Endeksi</Button>
         </div>
       </div>
     </div>

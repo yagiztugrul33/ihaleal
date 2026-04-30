@@ -526,7 +526,7 @@ export default function AuctionDetail() {
               <ListingDocumentFooter auction={auction} />
               <div className="flex flex-wrap gap-2 mb-6">
                 <Button type="button" variant="outline" size="sm" className="border-teal-500/35 text-teal-100 gap-2 bg-teal-500/5" onClick={() => setShowMarketReportDialog(true)}>
-                  <FileText className="w-4 h-4 shrink-0" /> Endeksa / piyasa raporu — analiz
+                  <FileText className="w-4 h-4 shrink-0" /> İhaleal Endeksi — piyasa raporu analizi
                 </Button>
                 <Button type="button" variant="outline" size="sm" className="border-sky-500/35 text-sky-100 gap-2 bg-sky-500/5" onClick={() => setShowOfficialDocsDialog(true)}>
                   <Landmark className="w-4 h-4 shrink-0" /> Resmi belgeler (imar, belediye…)
@@ -989,7 +989,7 @@ export default function AuctionDetail() {
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-400">
             <p>
-              Endeksa veya benzeri bölge / fiyat raporu PDF’i yapay zeka destekli özet ve tutarlılık kontrolüne tabidir; hukuki değerleme yerine geçmez. Üçüncü taraf rapor telifine uyum kullanıcı sorumluluğundadır.
+              Yüklediğiniz veya referans gösterdiğiniz bölge / fiyat raporu PDF’leri, İhaleal Endeksi çerçevesinde yapay zeka destekli özet ve tutarlılık kontrolüne tabidir; hukuki değerleme yerine geçmez. Üçüncü taraf rapor telifine uyum kullanıcı sorumluluğundadır.
             </p>
             {auction.marketReportPdfName ? (
               <p className="text-xs">

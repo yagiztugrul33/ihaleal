@@ -22,7 +22,7 @@
 ## 3. Yükümlülükler — yetki veren
 
 - Doğru beyan, ekspertiz ve tapu evraklarını ibraz, şerh/ipotek/haciz bildirimi.
-- Piyasa raporu (ör. Endeksa veya eşdeğer) ve SPK uzmanı ekspertiz raporu sunumu (ürün zorunluluğu ile uyumlu).
+- Piyasa raporu (ör. üçüncü taraf PDF veya lisanslı veri) ve SPK uzmanı ekspertiz raporu sunumu (ürün zorunluluğu ile uyumlu).
 - Taahhüt edilen **alt / üst limit** bandı; **üst limite ulaşıldığında** işlemi platform çizgisinde tamamlama ve aksi halde **müspet zarar / cezai şart** (oran ve tavan avukatça).
 - Kiraya veren: başarılı kira aracılığında **bir aylık kira + KDV** platform hakkı (patron §9 ile uyumlu).
 - **Dolaşım yasağı:** Yetki süresince ve makul süre sonra, platform üzerinden tanışılan karşı taraf ile platformu bypass ederek işlem yapılmaması (tipik “no circumvention”; şekil ve istisnalar avukatça).

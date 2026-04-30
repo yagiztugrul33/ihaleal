@@ -10,9 +10,9 @@
 ### Ana Sayfalar
 1. `/` - Ana Sayfa (Hero + İstatistikler + İhaleler + Özellikler + Nasıl Çalışır + İletişim)
 2. `/ilan/:id` - İlan Detay (Galeri, 6 Sekme, AI Analiz, Komisyon Hesaplayıcı, Güvenlik Kartı, Ekspertiz Linki)
-3. `/analiz` - AI Analiz Merkezi (4 Sekme, 6 Şehir Endeksi, Radar Grafik, Portföy Dağılımı)
+3. `/analiz` - İhaleal Endeksi merkezi (4 Sekme, şehir görünümleri, radar grafik, portföy dağılımı — demo veri)
 4. `/karsilastir` - İlan Karşılaştırma
-5. `/karsilastir-rakipler` - Rakip Analizi (Sahibinden, Endeksa, Emlakjet, Hepsiemlak, Zingat)
+5. `/karsilastir-rakipler` - Rakip Analizi (Sahibinden, tipik analiz siteleri, Emlakjet, Hepsiemlak, Zingat)
 6. `/sehir/:cityName` - Şehir Rehberi Detay
 7. `/sehirler` - Şehir Listesi (81 İl)
 8. `/harita` - Harita Görünümü

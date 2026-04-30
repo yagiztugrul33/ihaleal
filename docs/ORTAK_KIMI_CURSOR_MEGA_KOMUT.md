@@ -33,7 +33,7 @@
 ## 2) Ürün ilkeleri (Cursor kodda uygular; Kimi metinde uyumlar)
 
 1. **Tanıtım videoları:** Metin/storyboard **orijinal**; görüntü **Runway/Pika/own çekim** — rakip sitesinden **kopya video yok**. Stok kullanılacaksa yalnız **lisanslı** (Pexels vb.) + `README` kaydı.
-2. **“Endeksa benzeri” kelimesi ürün arayüzünde yok** — yerine: **“Gayrimenkul analizi”**, **“bölge ve fiyat analizi”**. (Rakip karşılaştırma sayfasında **alan adı** olarak rakip domain yazılabilir; bu hukuki karşılaştırma.)
+2. **Ürün arayüzünde markalı rakip adı yok** — ana dil: **İhaleal Endeksi**, **bölge ve fiyat analizi**. Rakip karşılaştırma sayfasında genel “tipik analiz siteleri” kategorisi kullanılır.
 3. **Fiyat mantığı:** Referans değer / AI bandına göre **aşırı açılış** (ör. 5M mülk 7M açılış) → **uyarı veya blok** (kural oranı `fees.ts` veya ürün politikası).
 4. **Güvenlik + sözleşme:** Metinler “taslak/demo”; canlı iddia yok. Şüpheli cümleleri Kimi işaretler, Cursor metni yumuşatır.
 5. **Butonlar:** Cursor sayfa sayfa **tıklanabilirlik** ve `navigate` hedefi kontrol eder; kırık varsa issue listesi §B’ye.

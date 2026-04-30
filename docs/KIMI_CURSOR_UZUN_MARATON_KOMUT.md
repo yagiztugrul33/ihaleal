@@ -37,7 +37,7 @@
 2. Satılık + kiralık; üç mod: **sadece ilan**, **teklif al**, **ihale**.  
 3. İlanda **taraf telefonu yok**; muhatap **ihaleal.com** (RE/MAX kartındaki danışman adı benzeri).  
 4. Teklifler **platformdan** malike/kiraya verene; anonimlik ilanda.  
-5. **Piyasa raporu** (Endeksa veya eşdeğer PDF) + **AI analiz** butonu; hukuki ekspertiz değil.  
+5. **Piyasa raporu** (üçüncü taraf PDF, izinli kanallar) + **İhaleal Endeksi / AI analiz** butonu; hukuki ekspertiz değil.  
 6. **SPK ekspertiz** zorunluluk çizgisi; **şerh / ipotek / haciz** raporda; evrakta **AI ön tarama + insan onayı**.  
 7. **Taahhüt alt/üst limit**; üst limite gelince işlem yükümlülüğü + cezai şart **sözleşmede**; alıcı/kiracı simetrisi.  
 8. **Resmi belgeler** (imar, belediye, kararlar) ayrı buton; tapu sürprizi yok hedefi.  
@@ -53,7 +53,7 @@
 Aşağıdaki her satır için ya **Kimi metni** ya da **Cursor kodu** üretilmiş olmalı; ikisi birlikte kontrol eder.
 
 - [ ] İlan **altında** (kart + arama sonucu + yakında biten): **piyasa raporu**, **ekspertiz**, **resmi belge**, **taahhüt** durumu görünür (`ListingDocumentFooter` veya eşdeğeri).  
-- [ ] İlan **detay**: “Endeksa / piyasa raporu — analiz” + “Resmi belgeler” **butonları** + diyaloglar; Genel Bakış’ta taahhüt + ekspertiz kartları.  
+- [ ] İlan **detay**: “İhaleal Endeksi — piyasa raporu analizi” + “Resmi belgeler” **butonları** + diyaloglar; Genel Bakış’ta taahhüt + ekspertiz kartları.  
 - [ ] İlan **oluştur**: piyasa PDF adı, ekspertiz PDF + zorunluluk, resmi belge beyanı, taahhüt limitleri + onay; doğrulama kuralları.  
 - [ ] `listingPolicy` / `businessModel` / `fees.ts` ile **çelişki yok**.  
 - [ ] Kiralık + satılık; mortgage metni kiralıkta uygun.  
@@ -71,7 +71,7 @@ Aşağıdaki her satır için ya **Kimi metni** ya da **Cursor kodu** üretilmi�
 - **K37** — **Taahhüt + cezai şart** kullanıcı SSS 10 soru–cevap (iddiasız, “hedef/sözleşme” dili).  
 - **K38** — **Ekspertiz paketi** sayfa metni: şerh, ipotek, haciz checklist; sahte evrak riski; AI+insan.  
 - **K39** — **Resmi belgeler butonu** açıklaması (imar, belediye) — tek sayfa broşür metni.  
-- **K40** — **Piyasa raporu / analiz** kullanıcı metni: Endeksa kelimesi yalnızca “örnek kaynak” cümlesiyle; asıl dil “bölge fiyat raporu”.  
+- **K40** — **Piyasa raporu / analiz** kullanıcı metni: üçüncü taraf PDF “örnek kaynak”; asıl dil **İhaleal Endeksi** ve bölge fiyat raporu.  
 - **K41** — **Alıcı yolculuğu** güncellenmiş (rapor butonları + belge şeridi).  
 - **K42** — **Satıcı yolculuğu** güncellenmiş (CreateAuction alanlarıyla uyumlu).  
 - **K43** — **Kiracı / kiraya veren** bir sayfa; 1 aylık kira ücreti vurgusu.  

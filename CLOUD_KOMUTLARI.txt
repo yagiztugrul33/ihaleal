@@ -9,7 +9,7 @@ GENEL — BU DOSYA İNSAN + YAPAY ZEKA İÇİN ANAŞART
 
 
 ================================================================================
-KOMUT A — CLOUD AGENT: TAMAMLAMA + SEO + ENDEKSA + SAHİBİNDEN PARİTESİ + RAPOR DOSYASI
+KOMUT A — CLOUD AGENT: TAMAMLAMA + SEO + İHALEAL ENDEKSI + SAHİBİNDEN PARİTESİ + RAPOR DOSYASI
 ================================================================================
 Aşağıdaki metni TEK parça olarak cloud agent'a yapıştır.
 
@@ -20,7 +20,7 @@ HEDEF
 1) Siteyi bozmadan `npm run typecheck` ve `npm run build` yeşil olsun.
 2) SEO: `src/lib/seo.ts` + `SeoSync`, `index.html` schema, `public/sitemap.xml` / `robots.txt`,
    HashRouter uyumu, `ShareButton` tam URL. Eksik route meta varsa ekle.
-3) Endeksa: canlı API uydurma; `src/pages/DataStrategy.tsx` ve `docs/` ile uyumlu
+3) İhaleal Endeksi: canlı API uydurma; `src/pages/DataStrategy.tsx` ve `docs/` ile uyumlu
    TEKNİK ve HUKUKİ sınırları açık yaz. `.env.example` ile uyumlu env isimleri kullan.
    Gerçek anahtar / ücretli servis ekleme.
 4) Sahibinden paritesi: docs/OZELLIK_ENVANTERI_SAHIBINDEN_ESLENIK.txt içindeki maddeleri
@@ -37,9 +37,9 @@ ZORUNLU ÇIKTI (DOSYA — CLOUD'A ÖZEL)
   # Cloud Agent Raporu
   ## 1. Özet (max 8 cümle)
   ## 2. Ortam: Node/npm, typecheck/build/audit sonucu
-  ## 3. Sahibinden-benzeri özellik matrisi (Alıcı | Satıcı | SEO | Endeksa) — tablo: Özellik | Durum | Dosya
+  ## 3. Sahibinden-benzeri özellik matrisi (Alıcı | Satıcı | SEO | İhaleal Endeksi) — tablo: Özellik | Durum | Dosya
   ## 4. SEO denetimi: route meta, canonical, OG, SearchAction, sitemap notları
-  ## 5. Endeksa entegrasyonu: yapılabilir adımlar / blokajlar (API sözleşmesi, KVKK)
+  ## 5. Lisanslı veri / İhaleal Endeksi entegrasyonu: yapılabilir adımlar / blokajlar (API sözleşmesi, KVKK)
   ## 6. Yapılan commit'e uygun kod değişiklikleri listesi
   ## 7. KALAN İŞLER (backend, ödeme, e-Devlet, SSR, gerçek e-posta…)
   ## 8. Halüsinasyon / yanlış ifade tespiti (bulunduysa alıntı + düzeltme)

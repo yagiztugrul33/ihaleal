@@ -15,7 +15,7 @@ export const SEO_LANDING_PAGES: SeoLandingConfig[] = [
     path: "/istanbul-ihaleleri",
     title: "İstanbul gayrimenkul ihaleleri — ihaleal.com",
     description:
-      "İstanbul il ve ilçe bazında aktif ihale ilanları, bölge endeksi özeti ve ortak emlakçı ağı (demo veri). Yıllık üyelik ve komisyon mahsup modeli.",
+      "İstanbul il ve ilçe bazında aktif ihale ilanları, İhaleal Endeksi özeti ve ortak emlakçı ağı (demo veri). Yıllık üyelik ve komisyon mahsup modeli.",
     cityTr: "İstanbul",
     analyticsKey: "Istanbul",
     heroKeywords: ["Kadıköy", "Beşiktaş", "Ataşehir", "Şişli"],

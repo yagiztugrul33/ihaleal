@@ -7,6 +7,23 @@ import { Badge } from "@/components/ui/badge";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
 
+/** URL yolu üzerinden üçüncü taraf rapor / değerleme sayfası tahmini — harici veri çekilmez. */
+function urlLooksLikeThirdPartyReport(raw: string): boolean {
+  const u = raw.trim().toLowerCase();
+  if (!u) return false;
+  try {
+    const href = u.startsWith("http") ? u : `https://${u}`;
+    const parsed = new URL(href);
+    const blob = `${parsed.pathname}${parsed.search}`.toLowerCase();
+    return (
+      /\.pdf(\?|$)/i.test(blob) ||
+      /rapor|degerleme|değerleme|analiz|valuation|report|fiyat-tahmin|price-estimate|deger/.test(blob)
+    );
+  } catch {
+    return /\.pdf|rapor|degerleme|analiz|valuation/.test(u);
+  }
+}
+
 /** Harici ilan URL'si için DEMO karşılaştırma — veri çekilmez, hukuki tavsiye değildir. */
 export function ListingLinkDemo() {
   const [input, setInput] = useState("");
@@ -23,8 +40,7 @@ export function ListingLinkDemo() {
       risk: risks[h % risks.length],
       score: 58 + (h % 38),
       isSahibinden: /sahibinden\.com/i.test(u),
-      /** Bilinen rapor / endeks portalları (URL kalıbı; veri çekilmez). */
-      isIndexReportPortal: /endeksa\.com/i.test(u),
+      isThirdPartyReportUrl: urlLooksLikeThirdPartyReport(u),
     };
   }, [active]);
 
@@ -38,7 +54,7 @@ export function ListingLinkDemo() {
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Harici ilan linki (örnek)</h3>
-            <p className="text-xs text-slate-500">Sahibinden veya rapor portallarından örnek URL yapıştırın — site veri çekmez; yalnızca demo özet üretilir.</p>
+            <p className="text-xs text-slate-500">Sahibinden veya üçüncü taraf rapor linklerinden örnek URL yapıştırın — site veri çekmez; yalnızca demo özet üretilir.</p>
           </div>
         </div>
 
@@ -67,8 +83,8 @@ export function ListingLinkDemo() {
           <div className="space-y-2 text-sm">
             <div className="flex flex-wrap gap-2">
               {insight.isSahibinden && <Badge className="bg-blue-500/15 text-blue-300 border-0">Sahibinden formatı (tahmin)</Badge>}
-              {insight.isIndexReportPortal && (
-                <Badge className="bg-emerald-500/15 text-emerald-300 border-0">Rapor / endeks portalı URL’si (tahmin)</Badge>
+              {insight.isThirdPartyReportUrl && (
+                <Badge className="bg-emerald-500/15 text-emerald-300 border-0">Üçüncü taraf rapor URL’si (tahmin)</Badge>
               )}
               <Badge variant="outline" className="border-white/10 text-slate-300">Demo skor: {insight.score}</Badge>
             </div>

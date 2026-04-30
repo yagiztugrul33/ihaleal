@@ -21,7 +21,7 @@ demo SPA arasında dürüst eşleme. "Var / kısmi / yok / üretimde backend" di
 [x] Komisyon / sözleşme PDF imza               → Taslak metin: /#/ihale-kosullari, /#/komisyon-modeli; /#/ihale-ac üstünde hızlı link
 [ ] KYC satıcı doğrulama                       → Yok
 
---- ENDEKSA TARZI VERİ ---
+--- İHALEAL ENDEKSI TARZI VERİ ---
 [ ] Son satışlar / bölge endeksi (canlı)       → Yok; /#/veri-ve-endeks yol haritası
 [x] PDF rapor içe aktarma                       → Kısmi (dosya adı seçimi; sunucu yok)
 [x] API entegrasyon sözleşmesi                  → DataStrategy tablo + .env.example; gerçek anahtar yok

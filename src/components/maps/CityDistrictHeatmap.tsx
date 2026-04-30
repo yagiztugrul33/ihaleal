@@ -48,7 +48,7 @@ type Props = {
   title?: string;
 };
 
-export default function CityDistrictHeatmap({ cityKey, districts, title = "İlçe endeks haritası (demo konumlar)" }: Props) {
+export default function CityDistrictHeatmap({ cityKey, districts, title = "İlçe — İhaleal Endeksi haritası (demo konumlar)" }: Props) {
   const center = CITY_CENTER[cityKey];
   const coords = useMemo(() => (center ? positionsForCity(center, districts) : []), [center, districts]);
 

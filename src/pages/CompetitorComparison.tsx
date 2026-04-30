@@ -37,24 +37,22 @@ export default function CompetitorComparison() {
       color: "blue",
     },
     {
-      name: "endeksa.com",
-      type: "AI Analiz / Değerleme",
-      marketShare: "%12",
+      name: "Tipik analiz & tahmin siteleri",
+      type: "Statik rapor / tek kanallı model",
+      marketShare: "—",
       strengths: [
-        "Gelişmiş AI fiyat tahmini",
-        "Bölge fiyat endeksi",
-        "Yatırım skoru",
-        "Kira getirisi analizi",
-        "Talep/endeks grafikleri",
+        "Tekil PDF veya ekran tahmini",
+        "Temel bölge karşılaştırması",
+        "Hızlı ilk izlenim",
       ],
       weaknesses: [
-        "İhale sistemi YOK (sadece analiz)",
-        "Alım-satım platformu YOK",
-        "Güvenlik doğrulama YOK",
-        "Ekspertiz raporu satışı YOK",
-        "Mortgage hesaplayıcı YOK",
-        "İlan karşılaştırma YOK",
-        "İhale + alıcı–satıcı eşleştirme platformu YOK",
+        "Canlı ihale akışı ve teklif yoğunluğu YOK",
+        "Teklif + likidite + evrak tek çatıda birleşmez",
+        "İhaleal Endeksi gibi çok sinyalli birleşik skor YOK",
+        "Satıcı–alıcı güven omurgası YOK",
+        "Komisyon ve mahsup şeffaflığı YOK",
+        "İlan karşılaştırma ve ihale takvimi YOK",
+        "Yatırımcı paneli + ihale senaryosu YOK",
       ],
       color: "emerald",
     },
@@ -125,7 +123,7 @@ export default function CompetitorComparison() {
     {
       icon: <BrainCircuit className="w-5 h-5" />,
       title: "AI destekli ihale ve pazarlama",
-      desc: "Gayrimenkul analizi, fiyat bandı ve ihale tek akışta; hedef gerçek alıcı–satıcı buluşturma (demoda örnek veri).",
+      desc: "İhaleal Endeksi, fiyat bandı ve ihale tek akışta; hedef gerçek alıcı–satıcı buluşturma (demoda örnek veri).",
       unique: true,
     },
     {
@@ -135,7 +133,7 @@ export default function CompetitorComparison() {
       unique: true,
     },
     { icon: <FileText className="w-5 h-5" />, title: "Tam Evrak Yönetimi", desc: "5 kategori, 20+ zorunlu belge, AI OCR doğrulama, KVKK uyumlu", unique: true },
-    { icon: <BarChart3 className="w-5 h-5" />, title: "Ekspertiz + AI Analiz", desc: "SPK lisanslı rapor + AI fiyat tahmini + kira getirisi birlikte", unique: true },
+    { icon: <BarChart3 className="w-5 h-5" />, title: "Ekspertiz + İhaleal Endeksi", desc: "SPK uzmanı raporu + yapay zeka fiyat bandı + kira senaryosu tek vitrinde (hedef yol haritası).", unique: true },
     { icon: <Video className="w-5 h-5" />, title: "360° Sanal Tur", desc: "Matterport entegrasyonu ile gayrimenkul sanal gezisi", unique: false },
     {
       icon: <Zap className="w-5 h-5" />,
@@ -145,7 +143,7 @@ export default function CompetitorComparison() {
     },
     { icon: <Users className="w-5 h-5" />, title: "Yatırımcı Dashboard", desc: "Portföy takibi, karşılaştırma, yatırım fırsatları listesi", unique: true },
     { icon: <Clock className="w-5 h-5" />, title: "İhale Takvimi", desc: "Yaklaşan ihaleler, hatırlatmalar, otomatik teklif artırma", unique: true },
-    { icon: <Globe className="w-5 h-5" />, title: "Şehir Rehberi + Endeks", desc: "81 il analizi, bölge fiyat endeksi, yatırım skoru haritası", unique: false },
+    { icon: <Globe className="w-5 h-5" />, title: "İhaleal Endeksi + şehir rehberi", desc: "İl–ilçe bandı, talep yoğunluğu ve ihale akışına bağlı çoklu sinyal; statik rapordan daha gerçekçi karar zemini (demo veri).", unique: true },
     { icon: <Lock className="w-5 h-5" />, title: "Anti-Scraping Koruması", desc: "Bot koruması, veri kazıma önlemi, IP sınırlandırma", unique: true },
   ];
 
@@ -195,7 +193,7 @@ export default function CompetitorComparison() {
             <h3 className="text-lg font-bold text-white mb-3">Rakiplerde olup bu front-end sürümde henüz olmayanlar</h3>
             <ul className="space-y-2 text-xs text-slate-400">
               <li className="flex gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong className="text-slate-300">sahibinden.com:</strong> On yıllık ilan stoğu, kurumsal ödeme ve mesajlaşma ekosistemi, native mobil uygulama ölçeği.</span></li>
-              <li className="flex gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong className="text-slate-300">endeksa.com:</strong> Profesyonel veri bilimi ve fiyat modeli (gerçek dünya veri lisansı).</span></li>
+              <li className="flex gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong className="text-slate-300">Tipik analiz siteleri:</strong> Çoğunlukla tek rapor veya tek model; canlı ihale, likidite metrikleri ve İhaleal Endeksi’nin çok sinyalli birleşik görünümü yok.</span></li>
               <li className="flex gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong className="text-slate-300">Genel:</strong> 7/24 SOC, anlık kurumsal WAF logları, hukuken bağlayıcı sözleşme seti (avukat onayı şart).</span></li>
             </ul>
           </CardContent>
@@ -273,7 +271,7 @@ export default function CompetitorComparison() {
                   <th className="text-left py-2 px-3 text-slate-400 font-medium">Özellik</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">ihaleal.com</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">sahibinden</th>
-                  <th className="text-center py-2 px-3 text-slate-400 font-medium">endeksa.com</th>
+                  <th className="text-center py-2 px-3 text-slate-400 font-medium">Tipik analiz siteleri</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">emlakjet</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">hepsiemlak</th>
                 </tr>
@@ -282,7 +280,7 @@ export default function CompetitorComparison() {
                 {[
                   ["İhale / Açık Artırma", true, false, false, false, false],
                   ["AI Fiyat Tahmini", true, false, true, false, false],
-                  ["Bölge Fiyat Endeksi", true, false, true, false, false],
+                  ["İhaleal Endeksi (ihale + bölge)", true, false, false, false, false],
                   ["Yatırım Skoru", true, false, true, false, false],
                   ["Findeks (canlı API)", false, false, false, false, false],
                   ["Ekspertiz Raporu (modül / talep)", true, false, false, false, false],

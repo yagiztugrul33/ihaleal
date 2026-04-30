@@ -87,7 +87,7 @@ export function Hero() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 backdrop-blur-md border border-cyan-400/35 text-cyan-100 text-xs font-bold uppercase tracking-wide mb-6 animate-fade-in-up shadow-lg shadow-blue-900/30 ring-1 ring-white/5">
               <Sparkles className="w-4 h-4 text-cyan-300 shrink-0" aria-hidden />
-              <span>Yapay zeka destekli değerleme</span>
+              <span>İhaleal Endeksi</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.08] tracking-tight mb-6 animate-fade-in-up animate-delay-200">
               <span className="text-white block drop-shadow-sm">Gayrimenkul</span>
@@ -96,7 +96,7 @@ export function Hero() {
               </span>
             </h1>
             <p className="text-base sm:text-lg text-slate-300/95 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up animate-delay-300">
-              Şeffaf, hızlı ve güvenli ihale deneyimi. AI destekli fiyat analizi, bölge endeksleri ve yatırım skoru ile doğru kararlar alın.
+              Şeffaf, hızlı ve güvenli ihale deneyimi. <strong className="text-white">İhaleal Endeksi</strong> ile teklif yoğunluğu, bölge bandı ve yapay zeka sinyallerini bir arada görün; gerçekçi karar için yatırım skoru ve senaryolar tek ekranda (demo veri).
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start animate-fade-in-up animate-delay-400">
               <Button
@@ -105,7 +105,7 @@ export function Hero() {
                 className="bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold gap-2 px-8 h-12 text-base shadow-xl shadow-cyan-500/25 border border-white/10 hover:shadow-cyan-400/35 hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 motion-reduce:hover:scale-100"
               >
                 <BrainCircuit className="w-5 h-5 shrink-0" aria-hidden />
-                AI Analiz
+                İhaleal Endeksi
               </Button>
               <Button
                 size="lg"

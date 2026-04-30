@@ -15,11 +15,11 @@ B) VİDEO AÇILMIYOR İSE
 • Vite base './' olduğu için tarayıcıda /reklam veya ana sayfa üzerinden oynatın.
 • Windows Medya Oynatıcı sorun çıkarırsa VLC kullanın.
 
-C) SAHİBİNDEN / ENDEKSA / DİĞER: ONLARDA OLUP BİZDE OLMAYAN (DÜRÜST)
+C) SAHİBİNDEN / KLASİK ANALİZ SİTELERİ / DİĞER: ONLARDA OLUP BİZDE OLMAYAN (DÜRÜST)
 --------------------------------------------------------------------
 • Çok büyük ilan stoğu ve marka güveni (sahibinden ölçeği).
 • Native iOS/Android uygulamaları (mağaza).
-• Profesyonel fiyat modeli + lisanslı veri (Endeksa seviyesi).
+• Profesyonel fiyat modeli + lisanslı veri (klasik portalların tek kanallı modeline karşı İhaleal Endeksi vizyonu ile kapatılması hedeflenir).
 • Kurumsal ödeme / mesajlaşma / operasyon ekosistemi yılları.
 • 7/24 SOC, üretim WAF — bu demo sitede YOK; metin ve simülasyon var.
 

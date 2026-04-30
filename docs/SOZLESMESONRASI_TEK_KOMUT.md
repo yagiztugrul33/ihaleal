@@ -43,7 +43,7 @@
 7. **Güven zinciri (hedef):** Findeks, yetki ve evrak, sözleşme paketi; kritik adımlarda insan onayı. Demo gerçeği DemoBanner’da saklanmaz.
 8. **Gelir (hedef):** **Yalnızca komisyon** (başarılı işlem). İlan/vitrin/doping/kullanıcıya reklam satışı yok. Komisyon **anlaşılan işlem tutarı** (taahhüt / kapanış matrahı) üzerinden netleşir (sözleşme).
 9. **Kira ücreti (hedef):** **Yalnızca kiraya verenden bir aylık kira + KDV**; kiracıdan ilan ücreti yok.
-10. **Piyasa raporu (Endeksa veya eşdeğer):** İlanda ayrı buton; kullanıcı PDF’i yükler, platform yapay zeka destekli analiz / tutarlılık özetini sunar (resmi ekspertiz yerine geçmez). Üçüncü taraf rapor telifine uyum kullanıcı yükümlülüğünde.
+10. **Piyasa raporu + İhaleal Endeksi:** İlanda ayrı buton; kullanıcı PDF’i yükler, platform yapay zeka destekli analiz / tutarlılık özetini sunar (resmi ekspertiz yerine geçmez). Üçüncü taraf rapor telifine uyum kullanıcı yükümlülüğünde.
 11. **Ekspertiz zorunluluğu (hedef):** SPK uzmanı ekspertiz raporu ilan paketinin parçası; **şerh, ipotek, haciz** ve benzeri hukuki durumlar bu raporda. Evrakların sahte olmadığına dair süreç: AI destekli ön tarama + kritik adımlarda **insan onayı**; hukuki son söz uzman / avukat.
 12. **Taahhüt limitleri + ceza çerçevesi (hedef):** Satıcı ve kiraya veren **alt** ve **üst** limit belirler; piyasa veya süreç **üst limite ulaştığında** işlemi platform çizgisinde tamamlama yükümlülüğü; tamamlanmazsa sözleşmedeki **cezai şart**. **Alıcı** ve **kiracı** için eşdeğer bağlayıcı kurallar (teklif / kabul aşaması) aynı hukuk paketinde tanımlanır — taslak avukat onayı şart.
 13. **Resmi şeffaflık butonu:** Belediye yazıları, **imar planı** ve diğer **resmi karar** özeti alıcı veya kiracıya ilanda **ayrı butonla** gösterilir; tapu tesliminde sürpriz kalmaması ürün hedefidir.
@@ -100,7 +100,7 @@
 - **K29** — Kiralık: **ihale** ve **kapalı teklif** modlarını anlatan 1 sayfalık kullanıcı metni (anonimlik vurgusu).
 - **K30** — **Yetki sözleşmesi** ürün özeti: iletişim ihaleal.com; tarafların birbirine doğrudan çıkmadan sürdürmesi (hukuki taslak değil).
 - **K31** — “Yapay zeka destekli gayrimenkul platformu” ile uyumlu sosyal / reklam metinleri (K3 ile çakışmazsa birleştir).
-- **K32** — İlan detay UX metni: “Endeksa / piyasa raporu — analiz” butonu + “Resmi belgeler” butonu; demo / üretim ayrımı.
+- **K32** — İlan detay UX metni: “İhaleal Endeksi — piyasa raporu analizi” butonu + “Resmi belgeler” butonu; demo / üretim ayrımı.
 - **K33** — Taahhüt limitleri ve cezai şart: kullanıcıya anlaşılır özet (hukuki metin değil); satıcı–alıcı–kiraya veren–kiracı simetrisi tek paragraf.
 - **K34** — Ekspertiz bölümü: şerh / ipotek / haciz checklist; sahte evrak riski ve AI+insan süreci (iddiasız).
 - **K35** — Kirada “bir aylık kira” platform ücreti ile satış komisyonunun aynı patron çizgisinde anlatımı.
@@ -132,7 +132,7 @@
 19. **C19** **İlan detay (`AuctionDetail`):** Platform iletişim kutusu, anonim teklif uyarısı, kiralıkta mortgage gizleme, `dealType` / `negotiationMode` rozetleri — `listingPolicy.ts` ile tutarlı.
 20. **C20** **İlan oluştur (`CreateAuction`):** Kiralık + ihale/kapalı teklif seçimi; kayıtta `contactViaPlatform: true` ve `agent` platform satırı.
 21. **C21** **İlan oluştur — belge ve taahhüt:** Piyasa raporu (PDF adı demo), ekspertiz PDF adı + zorunluluk kutusu, resmi belge beyanı, taahhüt alt/üst limit + onay — `Auction` tipi ile uyumlu.
-22. **C22** **İlan detay — butonlar:** “Endeksa / piyasa raporu — analiz” ve “Resmi belgeler” diyalogları; taahhüt / ekspertiz özet kartları; `listingPolicy` bütünlük maddeleri ile aynı hikâye.
+22. **C22** **İlan detay — butonlar:** “İhaleal Endeksi — piyasa raporu analizi” ve “Resmi belgeler” diyalogları; taahhüt / ekspertiz özet kartları; `listingPolicy` bütünlük maddeleri ile aynı hikâye.
 23. **C23** Bu dosya (§A) ile ürün metni ve sözleşme taslakları senkron; avukat revizyonu sonrası §0 tablosunu güncelle.
 
 ---

@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const CHECKS: { icon: ReactNode; title: string; desc: string; owner: string }[] = [
   { icon: <Server className="w-5 h-5" />, title: "Backend & API", desc: "Kullanıcı, ilan, ihale, ödeme, bildirim; oran sınırlama ve denetim logları.", owner: "Yazılım ekibi" },
   { icon: <Shield className="w-5 h-5" />, title: "WAF + DDoS + SIEM", desc: "sahibinden seviyesi için kurumsal CDN/WAF ve 7/24 izleme.", owner: "DevOps / güvenlik" },
-  { icon: <Database className="w-5 h-5" />, title: "Veri lisansı", desc: "Bölge fiyatı, endeks, harici ilan analizi — kaynak ve KVKK.", owner: "Hukuk + veri satıcısı" },
+  { icon: <Database className="w-5 h-5" />, title: "Veri lisansı", desc: "İhaleal Endeksi, bölge fiyatı ve harici ilan analizi — kaynak ve KVKK.", owner: "Hukuk + veri satıcısı" },
   { icon: <Clock className="w-5 h-5" />, title: "Cron / ETL", desc: "Saatlik veya dakikalık güncelleme; maliyet ve SLA.", owner: "Backend" },
   { icon: <Link2 className="w-5 h-5" />, title: "e-Devlet & Findeks", desc: "Resmi entegrasyon sözleşmeleri ve test ortamları.", owner: "Kurum + hukuk" },
   { icon: <Smartphone className="w-5 h-5" />, title: "SMS / OTP", desc: "İleti yönetimi, izinli gönderim, log saklama.", owner: "Telekom anlaşması" },

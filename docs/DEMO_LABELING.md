@@ -25,7 +25,7 @@ Projede tekrar kullanım: `DemoDataCornerBadge` (içerik yukarıdakiyle aynı).
 
 ## Kural 3 — Hangi yüzeyler
 
-- Endeksa-benzeri tahmini değer, “piyasa fiyatı”, sahte ihale geçmişi, demo yorumlar, sahte teklif sayıları → demo.
+- Üçüncü taraf tahmin sitelerine benzeyen tek başına “piyasa fiyatı” iddiası, sahte ihale geçmişi, demo yorumlar, sahte teklif sayıları → demo (İhaleal Endeksi metinleri demo veri ile etiketlenir).
 - Kullanıcının yüklediği gerçek ilan metni/görseli (üretimde) → demo değil; yalnızca platformun ürettiği sentetik alanlar etiketlenir.
 
 ## Kural 4 — Tek merkez

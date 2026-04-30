@@ -18,7 +18,7 @@ Staging ve prod için ayrı env. GitHub Actions: PR’da typecheck + build."
 (2) satıcı/kiraya veren sözleşmesi, (3) elektronik ihale şartnamesi, (4) KVKK aydınlatma ve açık rıza
 (Findeks için). TBK, İİK, 6563 tüketici çerçevesinde risk maddelerini işaretle."
 
---- 4) VERİ / ENDEKSA TARAFI GÖRÜŞMESİ ---
+--- 4) VERİ / İHALEAL ENDEKSI GÖRÜŞMESİ ---
 "B2B gayrimenkul fiyat API’si veya lisanslı CSV feed için teknik gereksinim listesi çıkar:
 adres normalizasyonu, m² birim fiyat, günlük delta, KVKK, fiyat teşhisi sorumluluk reddi metni."
 

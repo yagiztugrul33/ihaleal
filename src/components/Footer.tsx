@@ -99,7 +99,7 @@ export function Footer() {
               <li><button onClick={() => navigate("/komisyon-modeli")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Target className="w-3.5 h-3.5" /> Komisyon modeli</button></li>
               <li className="relative" data-demo={isDemoData("footerNavEndeks") ? "true" : undefined}>
                 {isDemoData("footerNavEndeks") ? <DemoDataCornerBadge /> : null}
-                <button onClick={() => navigate("/veri-ve-endeks")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><BarChart3 className="w-3.5 h-3.5" /> Gayrimenkul analizi</button>
+                <button onClick={() => navigate("/veri-ve-endeks")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><BarChart3 className="w-3.5 h-3.5" /> İhaleal Endeksi</button>
               </li>
             </ul>
           </div>

@@ -54,7 +54,7 @@ npm run gen:assets
 
 - [ ] Komisyon ve ücret metinleri üretim kararıyla sabit (`src/lib/fees.ts`, üyelik/hizmet sayfaları).
 - [ ] TKHK / ön bilgilendirme ve sözleşme metinleri avukat onayı.
-- [ ] Ödeme entegrasyonu (iyzico vb.), e-posta, tam Endeksa / kurumsal API’ler.
+- [ ] Ödeme entegrasyonu (iyzico vb.), e-posta, İhaleal Endeksi için lisanslı veri / kurumsal API’ler.
 
 ---
 

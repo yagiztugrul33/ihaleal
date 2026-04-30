@@ -33,12 +33,12 @@ E) İŞ MODELİ / HUKUK TASLAK
 • Canlıya hazırlık listesi: /#/canliya-hazirlik
 • Satıcı modları: /#/sat-basla
 • İhale koşulları: abartılı AML/e-Devlet dili yumuşatıldı.
-• Endeksa örnek PDF (Kenan Bey Villa): ENDEKSA_ORNEK_KENAN_VILLA_OZET.txt
+• Örnek üçüncü taraf değerleme PDF şablon notu: IHALEAL_ORNEK_DEGERLEME_RAPORU_NOTU.txt
 
 F) ANALİZ / VERİ DÜRÜSTLÜĞÜ
 ----------------------------
 • /analiz: demo veri; ListingLinkDemo: harici URL demo, tarama yok.
-• /veri-ve-endeks: Endeksa seviyesi için yol haritası + yerel PDF seçimi (dosya adı only).
+• /veri-ve-endeks: İhaleal Endeksi için yol haritası + yerel PDF seçimi (dosya adı only).
 
 G) SEO / PERFORMANS (BU OTURUM)
 --------------------------------
@@ -52,7 +52,7 @@ G) SEO / PERFORMANS (BU OTURUM)
 H) KAYIT DOSYALARI (TXT)
 -------------------------
 TAM_KAYIT_VE_PLAN.txt, ISTEKLER_YAPILDI_MI.txt, SITEYI_GORUNTULE.txt, BEN_YAPAMAM_SUNU_YAPTIM.txt,
-ENDEKSA_VE_KOMISYON_NOTU.txt, KIMI_INDIRME_VE_DURUM.txt, ENDEKSA_ORNEK_KENAN_VILLA_OZET.txt
+IHALEAL_ENDEKSI_VE_KOMISYON_NOTU.txt, KIMI_INDIRME_VE_DURUM.txt, IHALEAL_ORNEK_DEGERLEME_RAPORU_NOTU.txt
 
 I) TÜRKİYE’DE “AYNI PAKET” YOK İDDİASI
 ---------------------------------------

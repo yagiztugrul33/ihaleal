@@ -22,7 +22,7 @@ Siteyi görüntülemek için
 8) Komisyon-only iş modeli (İhale Al şirket taslağı):
    http://localhost:5173/#/komisyon-modeli
 
-9) Endeksa tarzı veri — şu an ne mümkün + PDF örnek seçimi (sunucuya gitmez):
+9) İhaleal Endeksi / veri — şu an ne mümkün + PDF örnek seçimi (sunucuya gitmez):
    http://localhost:5173/#/veri-ve-endeks
 
 Not: Ben uzaktan ekranınızı açamam; linkler yerel bilgisayarınızdadır.

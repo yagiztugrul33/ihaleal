@@ -1,0 +1,7 @@
+Örnek üçüncü taraf değerleme PDF’i — ürün şablonu için okunan alan türleri
+
+• Tipik alanlar: adres özet, m², inşaat yaşı, kat, birim m² fiyat bandı, uyarılar (“taahhüt değil, tavsiye”), tarih.
+
+• Hukuki not: Elektronik değerleme raporları çoğunlukla bağlayıcı ekspertiz yerine bilgilendirme niteliğindedir; İhaleal Endeksi özeti de resmi değerleme yerine geçmez.
+
+• Entegrasyon: Üçüncü taraf içerik için API / lisans veya kullanıcı yükleme akışı gerekir; PDF kopyalamak iş ortaklığı değildir.

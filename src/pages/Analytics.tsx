@@ -238,9 +238,11 @@ export default function Analytics() {
           <h1 className="text-3xl md:text-4xl font-bold text-white flex flex-wrap items-center gap-3">
             <span aria-hidden>🩺</span>
             <Activity className="w-8 h-8 text-cyan-400" />
-            Gayrimenkul Piyasa Analizi
+            İhaleal Endeksi — piyasa görünümü
           </h1>
-          <p className="text-slate-400 mt-2">AI destekli endeks özeti, fiyat bandı ve yatırım görünümü (demo veri).</p>
+          <p className="text-slate-400 mt-2">
+            Teklif yoğunluğu, bölge bandı ve yatırım sinyallerini birlikte okuyun; statik tek rapordan daha zengin senaryo düzlemi (demo veri, kesin değer için resmi ekspertiz gerekir).
+          </p>
         </div>
 
         {/* Tab Navigation */}
@@ -361,12 +363,12 @@ export default function Analytics() {
               </Card>
             </div>
 
-            {/* Bolge Fiyat Endeksi */}
+            {/* İhaleal Endeksi — bölge bandı */}
             <div className={`mb-10 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-blue-400" />
-                  Bolge Fiyat Endeksi
+                  İhaleal Endeksi — bölge bandı
                 </h2>
                 <div className="flex gap-2 flex-wrap">
                   {analysisTabs.map((t) => (

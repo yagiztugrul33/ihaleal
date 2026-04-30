@@ -24,8 +24,9 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     description: "Aktif gayrimenkul ihale ve ilanları keşfedin (demo veri).",
   },
   "/analiz": {
-    title: "AI analiz ve fiyat tahmini — ihaleal.com",
-    description: "Demo verilerle yatırım skoru ve fiyat bandı görünümü. Kesin değer için resmi ekspertiz gerekir.",
+    title: "İhaleal Endeksi — AI analiz ve fiyat tahmini — ihaleal.com",
+    description:
+      "Teklif ve bölge sinyalleriyle zenginleştirilmiş demo analiz; kesin değer için resmi ekspertiz gerekir.",
   },
   "/karsilastir": {
     title: "İlan karşılaştırma — ihaleal.com",
@@ -94,8 +95,9 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     description: "Yalnızca komisyon: ilan, vitrin ve kullanıcıya satılan reklam ücreti yok (hedef). Kira: kiraya verenden bir aylık kira çizgisi (taslak).",
   },
   "/veri-ve-endeks": {
-    title: "Veri stratejisi ve gayrimenkul analizi — ihaleal.com",
-    description: "Bölge ve fiyat analizi, veri kaynakları ve lisanslı rapor entegrasyon planı (demo + yol haritası).",
+    title: "İhaleal Endeksi ve veri stratejisi — ihaleal.com",
+    description:
+      "İhale akışına bağlı çoklu sinyal: bölge bandı, talep ve yapay zeka özetleri; lisanslı veri entegrasyon planı ve demo sınırları.",
   },
   "/onboarding/akis": {
     title: "Kullanıcı akışı seçimi — ihaleal.com",

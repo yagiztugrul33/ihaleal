@@ -7,10 +7,10 @@ sonunda burada şu dosyayı oluşturmalı veya güncellemelidir:
 
 İçinde olması gerekenler (şablon):
   1) Tarih ve ortam (Node sürümü, build sonucu)
-  2) Sahibinden-benzeri özellik matrisi: Alıcı / Satıcı / SEO / Endeksa — Var-Kısmi-Yok
+  2) Sahibinden-benzeri özellik matrisi: Alıcı / Satıcı / SEO / İhaleal Endeksi — Var-Kısmi-Yok
   3) Yapılan kod değişiklikleri özeti
   4) SEO kontrol listesi (HashRouter, sitemap, schema)
-  5) Endeksa entegrasyonu: yasal + teknik blokajlar ve önerilen sonraki adım
+  5) Lisanslı veri / İhaleal Endeksi entegrasyonu: yasal + teknik blokajlar ve önerilen sonraki adım
   6) KALAN İŞLER (madde madde)
   7) Halüsinasyon / yanlış varsayım tespiti (varsa)
 

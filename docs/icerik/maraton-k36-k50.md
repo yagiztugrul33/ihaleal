@@ -35,7 +35,7 @@ ihaleal.com ile çalıştığınızda gayrimenkulünüzün satışı veya kirala
 
 ## K40 — Piyasa raporu dili
 
-Üçüncü taraf **bölge / fiyat raporu** (örnek kaynak olarak Endeksa benzeri PDF) yüklenir; platform yapay zeka destekli **özet ve tutarlılık** sunar — resmi ekspertiz yerine geçmez.
+Üçüncü taraf **bölge / fiyat raporu** PDF’i yüklenir; platform **İhaleal Endeksi** çerçevesinde yapay zeka destekli **özet ve tutarlılık** sunar — resmi ekspertiz yerine geçmez.
 
 ---
 

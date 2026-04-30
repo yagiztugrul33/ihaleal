@@ -22,7 +22,7 @@ export const THREE_MODES_AND_BROKERAGE_RULES = [
   "Mod 3 — İhale: Hem satış hem kiralık için açık artırma; yine kartta ve iletişimde yetkili ihaleal.com. Teklifler kayıt altında, taraflara kurallı şekilde iletilir (hedef).",
   "Bütün modlarda: sahte veya oyun amaçlı teklif, gerçeğe aykırı fiyat, keyfi ihaleye girme yasaktır; tespitte hesap kısıtı, teminat iradı ve sözleşmedeki cezai şartlar (avukat onaylı metin).",
   "Gerçek satıcı / kiraya veren ve gerçek alıcı / kiracı: tapu veya yetki ve Findeks çizgisi tamamlanmadan son adım açılmaz (hedef).",
-  "İlan paketi (hedef): Endeksa veya eşdeğer piyasa raporu + SPK uzmanı ekspertiz (şerh / ipotek / haciz); imar ve belediye özeti ayrı buton; taahhüt alt–üst limit ve limite ulaşıldığında işlem yükümlülüğü sözleşmede; komisyon anlaşılan tutar üzerinden.",
+  "İlan paketi (hedef): İhaleal Endeksi özeti + üçüncü taraf piyasa raporu (izinli kanallar) + SPK uzmanı ekspertiz (şerh / ipotek / haciz); imar ve belediye özeti ayrı buton; taahhüt alt–üst limit ve limite ulaşıldığında işlem yükümlülüğü sözleşmede; komisyon anlaşılan tutar üzerinden.",
 ];
 
 /** Satıcı / kiraya veren — geleneksel emlakçı komisyonuna paralel hedef oran aralığı (sözleşmede netleşir) */

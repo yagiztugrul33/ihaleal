@@ -111,7 +111,7 @@ export default function CityLandingPage() {
         </div>
 
         <p className="mt-10 text-xs text-slate-600 max-w-3xl leading-relaxed">
-          ihaleal.com Endeksa’dan ilham alan bir gayrimenkul ihale platformu vizyonu ile geliştirilmiştir; yıllık üyelik ve komisyon mahsup modeli için{" "}
+          ihaleal.com, <strong className="text-slate-400">İhaleal Endeksi</strong> ile ihale akışına bağlı çoklu sinyalli analiz vizyonunu benimser; yıllık üyelik ve komisyon mahsup modeli için{" "}
           <Link to="/komisyon-modeli" className="text-teal-500 hover:underline">
             iş modeli
           </Link>{" "}
