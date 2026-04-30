@@ -93,6 +93,40 @@ export default defineConfig([
 
 ---
 
+## Vercel Deploy
+
+### Hazırlık
+
+1. GitHub'a push: `git push origin main`
+2. https://vercel.com/new
+3. "Import Git Repository" → ihaleal repo'sunu seç
+4. Framework: Vite (otomatik algılanır)
+
+### Environment Variables (zorunlu)
+
+Vercel Dashboard > Project > Settings > Environment Variables:
+
+- `VITE_SUPABASE_URL` — Supabase project URL
+- `VITE_SUPABASE_ANON_KEY` — Supabase anon public key
+- `VITE_DEMO_MODE=true` — demo modu açık
+- `VITE_PAYMENT_MODE=mock` — sahte ödeme
+- `VITE_APP_URL=https://ihaleal.com` — production URL
+
+### Custom Domain
+
+Vercel > Settings > Domains > ihaleal.com ekle.
+DNS sağlayıcında A veya CNAME kaydını Vercel'in verdiği değere yönlendir.
+
+### Şirket Açıldıktan Sonra
+
+- `VITE_DEMO_MODE=false`
+- `VITE_PAYMENT_MODE=live`
+- iyzico/PayTR entegrasyonu
+- Avukat onaylı yasal metinler
+- Demo banner kaldır
+
+---
+
 ## ihaleal.com — patron / maraton
 
 - Uzun maraton komutu (Kimi + Cursor): `docs/KIMI_CURSOR_UZUN_MARATON_KOMUT.md`
