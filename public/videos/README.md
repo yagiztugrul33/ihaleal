@@ -2,7 +2,7 @@
 
 ## `ihaleal-tanitim.mp4`
 
-- **Kullanım:** Ana sayfa (`Hero`) ve reklam planı (`/reklam`) için birincil tanıtım videosu (CLOUD K16=B + Cursor FAZ 3).
+- **Kullanım:** Ana sayfa (`Hero`), reklam (`/reklam`) ve **giriş / kayıt / şifre sıfırlama / üç tip giriş** arka planı (düşük opaklık, sessiz döngü). Dosya yoksa yalnızca gradient kullanılır. Tanıtım birincil varlık (CLOUD K16=B + Cursor FAZ 3).
 - **Not:** Önceki `hero-aerial.mp4` referansı kaldırıldı; dosya repoda yoksa Pexels’ten manuel ekleme talimatı tarihsel §B notlarında kalır.
 
 ## `reels-01-tanitim.mp4` … `reels-10-reklam.mp4`
