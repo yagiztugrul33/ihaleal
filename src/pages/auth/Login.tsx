@@ -110,8 +110,13 @@ export default function Login() {
                 <p className="font-medium text-amber-200">Müteahhit / üretici şirket oturumu</p>
                 <ul className="list-disc pl-4 space-y-1 text-slate-400">
                   <li>
+                    <Link to="/nihai-anayasa" className="text-amber-300 hover:underline">
+                      Nihai sistem anayasası
+                    </Link>
+                  </li>
+                  <li>
                     <Link to="/yasal/agency-contract" className="text-amber-300 hover:underline">
-                      Sistem anayasası özeti (agency_contract.md)
+                      Ortaklık sözleşmesi (agency_contract taslak)
                     </Link>
                   </li>
                   <li>
