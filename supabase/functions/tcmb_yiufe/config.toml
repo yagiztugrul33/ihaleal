@@ -1,0 +1,2 @@
+# Public TCMB proxy: anon apikey only (no JWT).
+verify_jwt = false

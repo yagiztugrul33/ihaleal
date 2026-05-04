@@ -60,6 +60,16 @@ curl -sS -X POST "$SUPABASE_URL/functions/v1/place_bid" \
   -d '{"auction_id":"...","amount":1000000}'
 ```
 
+### `tcmb_yiufe` (TCMB EVDS proxy, Yİ-ÜFE)
+
+Vergi simülatörü için aylık endeks; `verify_jwt = false` — yalnızca `apikey` (anon) gerekir. Sunucu tarafında `TCMB_EVDS_API_KEY` secret zorunludur.
+
+```bash
+curl -sS "$SUPABASE_URL/functions/v1/tcmb_yiufe" \
+  -H "apikey: $ANON_KEY" \
+  -H "Authorization: Bearer $ANON_KEY"
+```
+
 Gerçek yük için fonksiyon sözleşmesi ve imzalama anahtarları dokümante edilmelidir.
 
 ## Swagger / Postman

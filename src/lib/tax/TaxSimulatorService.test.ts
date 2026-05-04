@@ -17,6 +17,7 @@ import {
   calculateDeedDuty,
 } from "./TaxSimulatorService";
 import type { YiUfeRecord, TaxBracket, TaxConfig, TapuDutyConfig } from "./TaxSimulatorService";
+import { mergeYiUfeRecords } from "./mergeYiUfeRecords";
 
 // ============================================
 // FIXTURES
@@ -353,5 +354,27 @@ describe("Deed Duty & Edge Cases", () => {
   it("28) parseYearMonth format", () => {
     expect(parseYearMonth("2026-05")).toEqual({ year: 2026, month: 5 });
     expect(parseYearMonth("1999-12")).toEqual({ year: 1999, month: 12 });
+  });
+});
+
+describe("mergeYiUfeRecords", () => {
+  it("prefers official TCMB row for same year-month", () => {
+    const demo: YiUfeRecord[] = [
+      { yearMonth: "2021-06", indexValue: 120, source: "manual_entry", stale: false },
+      { yearMonth: "2022-06", indexValue: 150, source: "manual_entry", stale: false },
+    ];
+    const official: YiUfeRecord[] = [
+      { yearMonth: "2021-06", indexValue: 999, source: "tcmb_evds", stale: false },
+    ];
+    const merged = mergeYiUfeRecords(demo, official);
+    expect(merged.find((r) => r.yearMonth === "2021-06")?.indexValue).toBe(999);
+    expect(merged.find((r) => r.yearMonth === "2021-06")?.source).toBe("tcmb_evds");
+    expect(merged.find((r) => r.yearMonth === "2022-06")?.indexValue).toBe(150);
+  });
+
+  it("sorts ascending by year-month", () => {
+    const demo: YiUfeRecord[] = [{ yearMonth: "2020-01", indexValue: 1, source: "manual_entry", stale: false }];
+    const official: YiUfeRecord[] = [{ yearMonth: "2019-06", indexValue: 2, source: "tcmb_evds", stale: false }];
+    expect(mergeYiUfeRecords(demo, official).map((r) => r.yearMonth)).toEqual(["2019-06", "2020-01"]);
   });
 });

@@ -20,3 +20,5 @@ export {
   calculateGV,
   calculateDeedDuty,
 } from "./TaxSimulatorService";
+export { mergeYiUfeRecords } from "./mergeYiUfeRecords";
+export { fetchYiUfeFromTcmbEdge, type TcmbYiUfeFetchResult } from "./tcmbYiUfeClient";

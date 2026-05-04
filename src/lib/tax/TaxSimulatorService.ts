@@ -29,7 +29,7 @@ export type TaxSimulatorInput = z.infer<typeof TaxSimulatorInputSchema>;
 export interface YiUfeRecord {
   yearMonth: string;
   indexValue: number;
-  source: "tuik_api" | "manual_entry" | "cached";
+  source: "tuik_api" | "manual_entry" | "cached" | "tcmb_evds";
   stale: boolean;
 }
 

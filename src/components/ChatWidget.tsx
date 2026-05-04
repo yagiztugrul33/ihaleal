@@ -69,7 +69,7 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
   },
   {
     keys: ["vergi", "tapu", "simülatör"],
-    reply: "/araclar/vergi-simulator bilgilendirme amaçlıdır; resmi hesap için YMM ve tapu sicil şarttır.",
+    reply: "/araclar/vergi-simulator — Yİ-ÜFE için isteğe bağlı TCMB EVDS (Supabase Edge tcmb_yiufe); bilgilendirme, resmi hesap için YMM ve tapu sicil şarttır.",
   },
   {
     keys: ["kvkk", "gizlilik", "cerez"],

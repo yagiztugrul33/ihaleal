@@ -1,12 +1,16 @@
-import { useMemo, useState } from "react";
-import { Calculator } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
+import { Calculator, Database, Loader2, RefreshCw } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import { TaxDisclaimerBanner } from "@/components/tax/TaxDisclaimerBanner";
 import { taxSimulatorService } from "@/lib/tax/TaxSimulatorService";
 import { getDefaultTaxSimulatorDeps } from "@/lib/tax/demoDeps";
+import { mergeYiUfeRecords } from "@/lib/tax/mergeYiUfeRecords";
+import { fetchYiUfeFromTcmbEdge } from "@/lib/tax/tcmbYiUfeClient";
+import type { YiUfeRecord } from "@/lib/tax/TaxSimulatorService";
 
 export default function TaxSimulatorPage() {
   const [purchaseYm, setPurchaseYm] = useState("2021-06");
@@ -15,7 +19,35 @@ export default function TaxSimulatorPage() {
   const [area, setArea] = useState("");
   const [firstRes, setFirstRes] = useState(false);
 
-  const deps = useMemo(() => getDefaultTaxSimulatorDeps(), []);
+  const demoDeps = useMemo(() => getDefaultTaxSimulatorDeps(), []);
+  const [tcmbOverlay, setTcmbOverlay] = useState<YiUfeRecord[] | null>(null);
+  const [tcmbLoading, setTcmbLoading] = useState(false);
+  const [tcmbError, setTcmbError] = useState<string | null>(null);
+  const [tcmbMeta, setTcmbMeta] = useState<{ seriesUsed: string; itemCount: number } | null>(null);
+
+  const deps = useMemo(() => {
+    if (!tcmbOverlay?.length) return demoDeps;
+    return {
+      ...demoDeps,
+      yiUfeRecords: mergeYiUfeRecords(demoDeps.yiUfeRecords, tcmbOverlay),
+    };
+  }, [demoDeps, tcmbOverlay]);
+
+  const loadTcmb = useCallback(async () => {
+    setTcmbLoading(true);
+    setTcmbError(null);
+    const r = await fetchYiUfeFromTcmbEdge();
+    setTcmbLoading(false);
+    if (r.ok) {
+      setTcmbOverlay(r.records);
+      setTcmbMeta({ seriesUsed: r.seriesUsed, itemCount: r.itemCount });
+    } else {
+      setTcmbError(r.message);
+      if (r.code === "not_configured" || r.code === "bad_response") {
+        setTcmbMeta(null);
+      }
+    }
+  }, []);
 
   const result = useMemo(() => {
     const declared = Math.max(0, Number(String(buyTry).replace(/\D/g, "")) || 0);
@@ -53,6 +85,46 @@ export default function TaxSimulatorPage() {
       </div>
 
       <TaxDisclaimerBanner />
+
+      <Card>
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between space-y-0">
+          <div>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Database className="h-5 w-5 text-cyan-500 shrink-0" aria-hidden />
+              YI-UFE (TCMB EVDS)
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              Demo endeks noktalari yerine resmi aylik seri: Supabase Edge <code className="text-xs">tcmb_yiufe</code>{" "}
+              + secret <code className="text-xs">TCMB_EVDS_API_KEY</code>. Anahtar tarayicida degil.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <Button type="button" variant="secondary" size="sm" onClick={loadTcmb} disabled={tcmbLoading} className="gap-2">
+              {tcmbLoading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <RefreshCw className="h-4 w-4" aria-hidden />}
+              TCMB ile guncelle
+            </Button>
+            {tcmbMeta && (
+              <span className="text-xs text-muted-foreground">
+                {tcmbMeta.seriesUsed} · {tcmbMeta.itemCount} ay
+              </span>
+            )}
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          {tcmbError && (
+            <p className="text-sm text-amber-700 dark:text-amber-300 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2">
+              {tcmbError}
+            </p>
+          )}
+          {tcmbOverlay?.length ? (
+            <p className="text-xs text-emerald-700 dark:text-emerald-300">
+              Resmi seri demo ile birlestirildi; ortak aylarda TCMB degeri kullanilir.
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">Henuz TCMB cekilmedi — simulasyon demo YI-UFE ile.</p>
+          )}
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
