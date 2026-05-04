@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Play,
@@ -7,18 +6,14 @@ import {
   BarChart3,
   Shield,
   BrainCircuit,
-  Volume2,
-  VolumeX,
   Sparkles,
   Building2,
   Factory,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { publicAsset } from "@/lib/publicAsset";
 
 export function Hero() {
   const navigate = useNavigate();
-  const [videoMuted, setVideoMuted] = useState(true);
 
   const stats = [
     {
@@ -53,36 +48,23 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 z-0 protected-media">
-        <video
-          autoPlay
-          loop
-          muted={videoMuted}
-          playsInline
-          preload="auto"
-          poster=""
-          className="w-full h-full object-cover opacity-[0.22] transition-opacity duration-700"
-          style={{ filter: "blur(2px) saturate(1.2) contrast(1.05)" }}
-        >
-          <source src={publicAsset("videos/ihaleal-tanitim.mp4")} type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-br from-[#061428]/96 via-[#0a162e]/92 to-[#071018]" />
+      <div className="absolute inset-0 z-0" aria-hidden>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#061428] via-[#0a162e] to-[#071018]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(56,189,248,0.22),_transparent_55%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(59,130,246,0.18),_transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,_rgba(129,140,248,0.08),_transparent_45%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.12] mix-blend-soft-light"
+          style={{
+            backgroundImage:
+              "linear-gradient(115deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(335deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
+            backgroundSize: "48px 48px, 36px 36px",
+          }}
+        />
       </div>
 
       <div className="absolute top-24 left-1/4 w-[520px] h-[520px] bg-cyan-500/15 rounded-full blur-[140px] animate-breathe pointer-events-none motion-reduce:animate-none" />
       <div className="absolute bottom-10 right-0 w-[480px] h-[420px] bg-blue-600/12 rounded-full blur-[130px] pointer-events-none animate-float motion-reduce:animate-none opacity-80" />
-
-      <button
-        type="button"
-        onClick={() => setVideoMuted(!videoMuted)}
-        className="absolute bottom-24 right-8 z-30 p-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white hover:bg-white/15 hover:border-cyan-400/30 hover:shadow-lg hover:shadow-cyan-500/15 transition-all duration-300"
-        aria-label={videoMuted ? "Sesi aç" : "Sesi kapat"}
-      >
-        {videoMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-      </button>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
