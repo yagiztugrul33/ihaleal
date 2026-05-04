@@ -70,21 +70,21 @@ export function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="order-1 text-center lg:order-2 lg:text-left lg:pl-4 xl:pl-8">
+          <div className="order-1 flex w-full flex-col items-center text-center lg:order-2 lg:items-end lg:border-l lg:border-white/[0.07] lg:pl-10 xl:pl-12 lg:text-right">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 backdrop-blur-md border border-cyan-400/35 text-cyan-100 text-xs font-bold uppercase tracking-wide mb-6 animate-fade-in-up shadow-lg shadow-blue-900/30 ring-1 ring-white/5">
               <Sparkles className="w-4 h-4 text-cyan-300 shrink-0" aria-hidden />
               <span>İhaleal Endeksi</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.08] tracking-tight mb-6 animate-fade-in-up animate-delay-200">
+            <h1 className="w-full max-w-xl text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.08] tracking-tight mb-6 animate-fade-in-up animate-delay-200 lg:ml-auto">
               <span className="text-white block drop-shadow-sm">Gayrimenkul</span>
-              <span className="block mt-1 bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent italic font-semibold animate-gradient-text">
+              <span className="block mt-1 bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent italic font-semibold animate-gradient-text lg:bg-gradient-to-l lg:from-blue-200 lg:via-cyan-100 lg:to-white">
                 Canlı İhale Vitrini
               </span>
             </h1>
-            <p className="text-base sm:text-lg text-slate-300/95 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up animate-delay-300">
+            <p className="text-base sm:text-lg text-slate-300/95 leading-relaxed mb-8 w-full max-w-xl mx-auto lg:mx-0 lg:ml-auto animate-fade-in-up animate-delay-300">
               Şeffaf, hızlı ve güvenli ihale deneyimi. <strong className="text-white">İhaleal Endeksi</strong> ile teklif yoğunluğu, bölge bandı ve yapay zeka sinyallerini bir arada görün; gerçekçi karar için yatırım skoru ve senaryolar tek ekranda (demo veri).
             </p>
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start animate-fade-in-up animate-delay-400">
+            <div className="flex w-full max-w-xl flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center lg:ml-auto lg:justify-end animate-fade-in-up animate-delay-400">
               <Button
                 size="lg"
                 onClick={() => navigate("/analiz")}
@@ -103,7 +103,7 @@ export function Hero() {
                 İhaleleri Keşfet
               </Button>
             </div>
-            <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-3 animate-fade-in-up animate-delay-400">
+            <div className="mt-6 flex w-full max-w-xl flex-wrap items-center justify-center gap-3 sm:gap-3 lg:ml-auto lg:justify-end animate-fade-in-up animate-delay-400">
               <Button
                 type="button"
                 variant="outline"
@@ -125,11 +125,11 @@ export function Hero() {
                 Müteahhit Girişi
               </Button>
             </div>
-            <p className="mt-4 max-w-xl mx-auto lg:mx-0 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 py-2.5 text-[11px] sm:text-xs text-slate-400 leading-relaxed text-center lg:text-left shadow-inner shadow-black/20">
+            <p className="mt-4 w-full max-w-xl rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 py-2.5 text-[11px] sm:text-xs text-slate-400 leading-relaxed text-center shadow-inner shadow-black/20 lg:ml-auto lg:text-right">
               {heroRevenueStripLine()}
             </p>
-            <div className="animate-fade-in-up animate-delay-400">
-              <KkaRevenueHubStrip variant="prominent" />
+            <div className="w-full max-w-2xl animate-fade-in-up animate-delay-400 lg:ml-auto">
+              <KkaRevenueHubStrip variant="prominent" className="lg:ml-auto lg:mr-0" />
             </div>
           </div>
 
