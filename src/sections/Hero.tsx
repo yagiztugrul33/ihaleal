@@ -10,6 +10,8 @@ import {
   Volume2,
   VolumeX,
   Sparkles,
+  Building2,
+  Factory,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { publicAsset } from "@/lib/publicAsset";
@@ -115,6 +117,28 @@ export function Hero() {
               >
                 <Play className="w-4 h-4 fill-current opacity-90" aria-hidden />
                 İhaleleri Keşfet
+              </Button>
+            </div>
+            <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 animate-fade-in-up animate-delay-400">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/giris?profil=emlakci")}
+                className="border-teal-400/40 text-teal-100 bg-teal-500/10 hover:bg-teal-500/20 hover:text-white gap-2"
+              >
+                <Building2 className="w-4 h-4 shrink-0" aria-hidden />
+                Emlakçı Girişi
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/giris?profil=muteahhit")}
+                className="border-amber-400/40 text-amber-100 bg-amber-500/10 hover:bg-amber-500/20 hover:text-white gap-2"
+              >
+                <Factory className="w-4 h-4 shrink-0" aria-hidden />
+                Müteahhit Girişi
               </Button>
             </div>
           </div>

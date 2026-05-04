@@ -81,19 +81,38 @@ export function Navbar() {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#061428]/80 backdrop-blur-xl border-b border-white/10 ${scrolled ? "shadow-lg shadow-black/30" : ""}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2.5 group">
+          <div className="flex items-center justify-between h-16 lg:h-20 gap-2">
+            <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2.5 group shrink-0">
               <Logo size="md" variant="full" textClassName="text-white tracking-tight text-xl" />
             </button>
 
-            <div className="hidden lg:flex items-center gap-1 min-w-0 shrink overflow-x-auto max-w-[40vw] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <button type="button" onClick={() => navigate("/")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">Ana Sayfa</button>
               <button type="button" onClick={() => navigate("/ihaleler")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">İhaleler</button>
               <button type="button" onClick={() => scrollTo("howItWorks")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">Nasıl Çalışır</button>
               <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">İletişim</button>
+              {!currentUser ? (
+                <>
+                  <span className="text-white/20 px-0.5 select-none" aria-hidden>|</span>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/giris?profil=emlakci")}
+                    className="px-3 py-2 rounded-lg text-sm font-semibold text-teal-200 hover:text-white hover:bg-teal-500/20 border border-teal-500/35 whitespace-nowrap"
+                  >
+                    Emlakçı Girişi
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/giris?profil=muteahhit")}
+                    className="px-3 py-2 rounded-lg text-sm font-semibold text-amber-200 hover:text-white hover:bg-amber-500/20 border border-amber-500/35 whitespace-nowrap"
+                  >
+                    Müteahhit Girişi
+                  </button>
+                </>
+              ) : null}
             </div>
 
-            <div className="hidden lg:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-2 shrink-0 flex-nowrap">
               <button type="button" onClick={() => setSearchOpen(true)} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 text-slate-400 hover:bg-white/15 hover:text-white transition-all text-sm max-w-[140px] xl:max-w-[180px]">
                 <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
               </button>
@@ -148,7 +167,33 @@ export function Navbar() {
               </Button>
             </div>
 
-            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5"><Menu className="w-6 h-6" /></button>
+            {!currentUser ? (
+              <div className="lg:hidden flex items-center gap-1.5 shrink-0 mr-1">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => navigate("/giris?profil=emlakci")}
+                  className="h-9 px-2.5 text-[11px] sm:text-xs border-teal-500/40 text-teal-100 bg-teal-500/10 hover:bg-teal-500/20"
+                >
+                  <Building2 className="w-3.5 h-3.5 sm:mr-1" />
+                  <span className="hidden sm:inline">Emlakçı</span>
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => navigate("/giris?profil=muteahhit")}
+                  className="h-9 px-2.5 text-[11px] sm:text-xs border-amber-500/40 text-amber-100 bg-amber-500/10 hover:bg-amber-500/20"
+                >
+                  <Factory className="w-3.5 h-3.5 sm:mr-1" />
+                  <span className="hidden sm:inline">Müteahhit</span>
+                </Button>
+              </div>
+            ) : null}
+            <button type="button" onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 shrink-0" aria-label="Menüyü aç">
+              <Menu className="w-6 h-6" />
+            </button>
           </div>
         </div>
 
