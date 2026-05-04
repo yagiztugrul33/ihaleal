@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
-import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield } from "lucide-react";
+import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "@/hooks/useTheme";
@@ -121,7 +121,7 @@ export function Navbar() {
                   ) : null}
                   {flowPerms.canOpenAuction ? (
                     <Button size="sm" onClick={() => navigate("/ihale-ac")} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold gap-1.5">
-                      <PlusCircle className="w-4 h-4" /> Ihale Ac
+                      <PlusCircle className="w-4 h-4" /> İhale Aç
                     </Button>
                   ) : null}
                   <Button variant="ghost" size="sm" onClick={() => navigate("/profil")} className="text-slate-400 hover:text-white" title="Profil">
@@ -132,7 +132,13 @@ export function Navbar() {
                   </Button>
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-end">
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakci")} className="text-slate-300 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
+                    <Building2 className="w-4 h-4" /> Emlakçı
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-300 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
+                    <Factory className="w-4 h-4" /> Müteahhit
+                  </Button>
                   <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-300 hover:text-white gap-1.5 whitespace-nowrap"><LogIn className="w-4 h-4" /> Giriş</Button>
                   <Button size="sm" onClick={() => navigate("/kayit")} className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-400 hover:to-cyan-300 text-white font-semibold whitespace-nowrap shadow-lg shadow-cyan-500/20">Kayıt Ol</Button>
                 </div>
@@ -149,7 +155,7 @@ export function Navbar() {
         {isOpen && (
           <div className="lg:hidden bg-[#0a0f1e]/95 backdrop-blur-xl border-b border-white/5 px-4 pb-4 animate-fade-in">
             <div className="flex flex-col gap-1 mt-2">
-              <button onClick={() => { setSearchOpen(true); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-white/10 text-left flex items-center gap-2"><Search className="w-4 h-4" /> Ilan Ara</button>
+              <button onClick={() => { setSearchOpen(true); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-white/10 text-left flex items-center gap-2"><Search className="w-4 h-4" /> İlan Ara</button>
               <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">Ana Sayfa</button>
               <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">İhaleler</button>
               <button type="button" onClick={() => scrollTo("howItWorks")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">Nasıl Çalışır</button>
@@ -184,7 +190,7 @@ export function Navbar() {
                       }}
                       className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-teal-400 text-left flex items-center gap-2"
                     >
-                      <PlusCircle className="w-4 h-4" /> Ihale Ac
+                      <PlusCircle className="w-4 h-4" /> İhale Aç
                     </button>
                   ) : null}
                   <button onClick={() => { navigate("/profil"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white text-left flex items-center gap-2"><UserPlus className="w-4 h-4" /> Profilim</button>
@@ -199,6 +205,8 @@ export function Navbar() {
                 </>
               ) : (
                 <>
+                  <button type="button" onClick={() => { navigate("/giris?profil=emlakci"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-teal-200 border border-teal-500/25 hover:bg-teal-500/10 text-left flex items-center gap-2"><Building2 className="w-4 h-4" /> Emlakçı girişi</button>
+                  <button type="button" onClick={() => { navigate("/giris?profil=muteahhit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-amber-200 border border-amber-500/25 hover:bg-amber-500/10 text-left flex items-center gap-2"><Factory className="w-4 h-4" /> Müteahhit girişi</button>
                   <button type="button" onClick={() => { navigate("/giris"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white text-left flex items-center gap-2"><LogIn className="w-4 h-4" /> Giriş</button>
                   <button type="button" onClick={() => { navigate("/kayit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-400 text-left">Kayıt Ol</button>
                 </>

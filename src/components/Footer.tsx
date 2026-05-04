@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, ArrowUpRight, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, TrendingUp, Navigation, Trophy, Database, Target } from "lucide-react";
+import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, ArrowUpRight, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target } from "lucide-react";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
 
@@ -53,6 +53,9 @@ export function Footer() {
               <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> Karsilastir</button></li>
               <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Mortgage</button></li>
               <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> Favoriler</button></li>
+              <li><button onClick={() => navigate("/giris?profil=emlakci")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> Emlakçı girişi</button></li>
+              <li><button onClick={() => navigate("/emlakci-ortaklik")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> Emlakçı ortaklığı</button></li>
+              <li><button onClick={() => navigate("/yasal/agency-contract")} className="text-sm text-slate-400 hover:text-sky-400 transition-colors flex items-center gap-2"><FileText className="w-3.5 h-3.5" /> agency_contract (taslak)</button></li>
             </ul>
           </div>
 

@@ -1,4 +1,5 @@
 import type { Auction, PropertyMarketingMode } from "@/types/auction";
+import { normalizeAuctionImages } from "@/lib/listingImage";
 
 /** Listede gösterilen aracılık — RE/MAX’ta ofis kartında danışman adı göründüğü gibi burada yetkili adı ihaleal.com’dur. */
 export const PLATFORM_LISTING_CONTACT = {
@@ -58,6 +59,7 @@ export function withListingDefaults<T extends Auction>(a: T): T {
       : undefined);
   return {
     ...a,
+    images: normalizeAuctionImages(a.images),
     contactViaPlatform: a.contactViaPlatform !== false,
     dealType,
     marketingMode,

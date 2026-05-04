@@ -65,6 +65,7 @@ const RealtorProfilePage   = lazy(() => import("@/pages/RealtorProfile"));
 const BlogIndex            = lazy(() => import("@/pages/mega/BlogIndex"));
 const BlogPostPage         = lazy(() => import("@/pages/mega/BlogPost"));
 const CommissionCalculator = lazy(() => import("@/pages/mega/CommissionCalculator"));
+const RealtorPartnership = lazy(() => import("@/pages/mega/RealtorPartnership"));
 const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
 const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
 const AuctionListPage      = lazy(() => import("@/pages/AuctionListPage"));
@@ -73,6 +74,7 @@ const MesafeliSatisSozlesmesi = lazy(() => import("@/pages/legal/MesafeliSatisSo
 const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
 const AydinlatmaMetni      = lazy(() => import("@/pages/legal/AydinlatmaMetni"));
 const SSSPage              = lazy(() => import("@/pages/SSS"));
+const AgencyContractView   = lazy(() => import("@/pages/legal/AgencyContractView"));
 
 function App() {
   return (
@@ -119,6 +121,7 @@ function App() {
             <Route path="/iade-iptal" element={<IadeIptal />} />
             <Route path="/aydinlatma-metni" element={<AydinlatmaMetni />} />
             <Route path="/sss" element={<SSSPage />} />
+            <Route path="/yasal/agency-contract" element={<AgencyContractView />} />
             <Route path="/ekspertiz" element={<Expertise />} />
             <Route path="/evraklar" element={<DocumentsRequired />} />
             <Route path="/guvenlik" element={<SecurityCenter />} />
@@ -148,6 +151,7 @@ function App() {
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/komisyon-hesaplayici" element={<CommissionCalculator />} />
+            <Route path="/emlakci-ortaklik" element={<RealtorPartnership />} />
             <Route path="/sifremi-unuttum" element={<PasswordReset />} />
             <Route path="/yasal-master-brief" element={<LegalMasterBrief />} />
             <Route path="/uyelik/yillik" element={<YillikUyelik />} />

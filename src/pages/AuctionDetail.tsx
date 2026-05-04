@@ -41,6 +41,7 @@ import {
 } from "@/lib/aiAnalysis";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
+import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { preAuthorize } from "@/lib/payment";
 import { placeBidRpc, minNextBidTry } from "@/lib/placeBid";
 import {
@@ -472,7 +473,7 @@ export default function AuctionDetail() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         <div className={`relative rounded-2xl overflow-hidden mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="relative h-[300px] md:h-[450px] lg:h-[500px]">
-            <img loading="lazy" src={auction.images[currentImage]} alt={auction.title} className="w-full h-full object-cover transition-transform duration-700" />
+            <ListingCoverImage src={auction.images[currentImage]} alt={auction.title} className="w-full h-full object-cover transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
             <button onClick={() => setCurrentImage((prev) => (prev === 0 ? auction.images.length - 1 : prev - 1))} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70"><ChevronLeft className="w-5 h-5" /></button>
             <button onClick={() => setCurrentImage((prev) => (prev === auction.images.length - 1 ? 0 : prev + 1))} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70"><ChevronRight className="w-5 h-5" /></button>
@@ -492,7 +493,9 @@ export default function AuctionDetail() {
           </div>
           <div className="flex gap-2 p-3 bg-slate-900/50 border-t border-white/5 overflow-x-auto">
             {auction.images.map((img, i) => (
-              <button key={i} onClick={() => setCurrentImage(i)} className={`relative w-20 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${i === currentImage ? "border-blue-500" : "border-transparent"}`}><img loading="lazy" src={img} alt="" className="w-full h-full object-cover" /></button>
+              <button key={i} onClick={() => setCurrentImage(i)} className={`relative w-20 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${i === currentImage ? "border-blue-500" : "border-transparent"}`}>
+                <ListingCoverImage src={img} alt="" className="w-full h-full object-cover" />
+              </button>
             ))}
           </div>
         </div>

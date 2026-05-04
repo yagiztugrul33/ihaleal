@@ -11,6 +11,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useFavorites } from "@/hooks/useFavorites";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
+import { ListingCoverImage } from "@/components/ListingCoverImage";
 
 export function Auctions({
   hideIntro = false,
@@ -139,7 +140,7 @@ export function Auctions({
           {filtered.map((auction, idx) => (
             <Card key={auction.id} className={`group bg-white/[0.06] backdrop-blur-xl border border-white/10 overflow-hidden hover:border-cyan-400/25 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
-                <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                 <div className="absolute top-3 left-3 flex gap-2">
                   {auction.status === "live" && <Badge className="bg-red-500/90 text-white gap-1 animate-pulse"><Flame className="w-3 h-3" /> Canlı</Badge>}

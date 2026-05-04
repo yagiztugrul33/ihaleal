@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone } from "lucide-react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
+import { parseKurumsalProfil, postLoginPathForProfil } from "@/lib/authProfile";
 
 export default function Register() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const kurumsalProfil = parseKurumsalProfil(searchParams);
   const { signUp } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -57,7 +60,7 @@ export default function Register() {
       return;
     }
     if (session?.user) {
-      navigate("/dashboard");
+      navigate(postLoginPathForProfil(kurumsalProfil));
       return;
     }
     setInfo("Kayıt tamam! E-postanıza gelen onay bağlantısını tıklayın.");
@@ -73,11 +76,29 @@ export default function Register() {
           <CardContent className="p-6 space-y-5">
             <div className="text-center mb-6">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                <UserPlus className="w-6 h-6 text-white" />
+                {kurumsalProfil === "emlakci" ? (
+                  <Building2 className="w-6 h-6 text-white" />
+                ) : kurumsalProfil === "muteahhit" ? (
+                  <Factory className="w-6 h-6 text-white" />
+                ) : (
+                  <UserPlus className="w-6 h-6 text-white" />
+                )}
               </div>
-              <h1 className="text-2xl font-bold text-white">Kayıt Ol</h1>
+              <h1 className="text-2xl font-bold text-white">
+                {kurumsalProfil === "emlakci"
+                  ? "Kurumsal / emlakçı kaydı"
+                  : kurumsalProfil === "muteahhit"
+                    ? "Müteahhit / proje kaydı"
+                    : "Kayıt Ol"}
+              </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {isSupabaseConfigured() ? "Supabase Auth; profil satırı sunucuda otomatik oluşur." : "Kayıt için Supabase .env yapılandırın."}
+                {kurumsalProfil === "emlakci"
+                  ? "Ofis veya yetkili temsilci hesabı; doğrulama ve B2B sözleşme üretimde tamamlanır."
+                  : kurumsalProfil === "muteahhit"
+                    ? "Ruhsat ve ön tahsis evrak çizgisi üretimde tamamlanır; kayıt sonrası ihale açma ekranına yönlendirilirsiniz."
+                    : isSupabaseConfigured()
+                      ? "Supabase Auth; profil satırı sunucuda otomatik oluşur."
+                      : "Kayıt için Supabase .env yapılandırın."}
               </p>
             </div>
             {info && (
@@ -182,7 +203,19 @@ export default function Register() {
             </form>
             <div className="text-center text-sm text-slate-400">
               Zaten hesabınız var mı?{" "}
-              <button type="button" onClick={() => navigate("/giris")} className="text-blue-400 hover:text-blue-300 font-medium">
+              <button
+                type="button"
+                onClick={() =>
+                  navigate(
+                    kurumsalProfil === "emlakci"
+                      ? "/giris?profil=emlakci"
+                      : kurumsalProfil === "muteahhit"
+                        ? "/giris?profil=muteahhit"
+                        : "/giris",
+                  )
+                }
+                className="text-blue-400 hover:text-blue-300 font-medium"
+              >
                 Giriş Yap
               </button>
             </div>
