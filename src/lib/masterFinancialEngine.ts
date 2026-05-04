@@ -144,5 +144,5 @@ export const KKA_SERVICE_POOL_VAT_RATE = COMMISSION_POOL_VAT_RATE;
 export function heroRevenueStripLine(): string {
   const poolPct = (LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0);
   const vatPct = (COMMISSION_POOL_VAT_RATE * 100).toFixed(0);
-  return `${feeBadgeLabel()} · KKA (MASTER_RULES): rayıç üzerinden %${poolPct} + KDV %${vatPct} hizmet havuzu (taslak)`;
+  return `İhale matrahı: ${feeBadgeLabel()} · Kat karşılığı (MASTER_RULES, taslak): rayıç üzerinden %${poolPct} + KDV %${vatPct} hizmet havuzu — komisyon motoru ile aynı oranlar.`;
 }

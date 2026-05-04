@@ -1,6 +1,6 @@
 /**
- * Kat karşılığı (KKA) ürün hub'ı — rota ve kopya tek kaynak.
- * HashRouter kullanıldığı için `Link` / `navigate` ile göreli path yeterlidir.
+ * Kat karşılığı (KKA) — rota ve navigasyon etiketleri (tek kaynak).
+ * Hub: hak ediş / rayıç havuzu; stüdyo: ada–parsel ve demo imar özeti.
  */
 export const KKA_HUB_PATH = "/kat-karsiligi";
 export const KKA_STUDIO_PATH = "/kat-karsiligi/studio";
@@ -8,4 +8,4 @@ export const KKA_STUDIO_PATH = "/kat-karsiligi/studio";
 export const kkaHubNavLabel = "Kat karşılığı";
 export const kkaHubNavLabelShort = "KKA";
 export const kkaStudioNavLabel = "İmar stüdyosu";
-export const kkaHubSubtitle = "Hak ediş, rayiç havuzu ve ada/parsel stüdyosu";
+export const kkaHubSubtitle = "Hak ediş, rayıç havuzu ve ada/parsel stüdyosu";
