@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { createFetchWithTimeout } from "@/lib/security/fetchWithTimeout";
 
 const url = import.meta.env.VITE_SUPABASE_URL ?? "";
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? "";
@@ -21,10 +22,15 @@ export function isSupabaseConfigured(): boolean {
   return configured;
 }
 
+const SUPABASE_FETCH_TIMEOUT_MS = 28_000;
+
 export const supabase: SupabaseClient = createClient(
   configured ? url : PLACEHOLDER_URL,
   configured ? anonKey : PLACEHOLDER_ANON_KEY,
   {
+    global: {
+      fetch: createFetchWithTimeout(SUPABASE_FETCH_TIMEOUT_MS),
+    },
     auth: {
       persistSession: configured,
       autoRefreshToken: configured,

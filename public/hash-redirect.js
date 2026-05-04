@@ -1,0 +1,1 @@
+(function(){var h=window.location.hash;if(h===''||h==='#'){window.location.replace(window.location.pathname+window.location.search+'#/');}})();

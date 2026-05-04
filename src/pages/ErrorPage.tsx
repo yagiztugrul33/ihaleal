@@ -19,7 +19,7 @@ export default function ErrorPage({ error, resetError }: ErrorPageProps) {
       <p className="text-slate-400 mt-4 max-w-md mx-auto">
         Üzgünüz, beklenmedik bir sorun yaşadık. Lütfen tekrar deneyin.
       </p>
-      {error?.message ? (
+      {import.meta.env.DEV && error?.message ? (
         <p className="text-xs text-slate-500 mt-3 font-mono max-w-lg break-words">{error.message}</p>
       ) : null}
       <div className="flex flex-wrap gap-3 justify-center mt-10">
