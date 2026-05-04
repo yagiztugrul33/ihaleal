@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { KKA_HUB_PATH } from "@/lib/kkaHub";
 import { Shield } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -106,7 +108,11 @@ export default function FinCompliancePlayground() {
         <div>
           <h1 className="font-serif text-2xl font-semibold tracking-tight">Finans ve uyumluluk cekirdegi</h1>
           <p className="text-sm text-muted-foreground">
-            InvoiceComposer, ComplianceNlpService, Takasbank stub (Kimi ZIP TypeScript modulleri).
+            InvoiceComposer, ComplianceNlpService, Takasbank stub. İlgili ürün sayfası:{" "}
+            <Link to={KKA_HUB_PATH} className="text-primary underline-offset-2 hover:underline">
+              Kat karşılığı (KKA)
+            </Link>
+            , hukuk taslağı: <code className="text-xs">docs/hukuk/FINANCE_TAX_BILLING_CORE_RULES_TASLAK.md</code>.
           </p>
         </div>
       </div>

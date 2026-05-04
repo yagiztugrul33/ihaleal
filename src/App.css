@@ -147,3 +147,9 @@
     animation-delay: 0s !important;
   }
 }
+
+/* Uzun yasal / teknik dokümanlarda scroll performansı */
+.legal-doc-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 280px;
+}

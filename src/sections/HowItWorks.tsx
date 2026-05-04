@@ -1,4 +1,4 @@
-import { ArrowRight, Search, Handshake, Trophy, KeyRound } from "lucide-react";
+import { ArrowRight, Search, Handshake, Trophy, KeyRound, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -7,6 +7,13 @@ const StepIcon = {
   bid: Handshake,
   win: Trophy,
   handover: KeyRound,
+} as const;
+
+const STEP_GUIDE_SLUG = {
+  discover: "kesfet",
+  bid: "teklif",
+  win: "kazan",
+  handover: "teslim",
 } as const;
 
 export function HowItWorks() {
@@ -48,10 +55,13 @@ export function HowItWorks() {
           <div className="hidden lg:block absolute top-[5rem] left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent motion-reduce:hidden" />
           {steps.map((s, idx) => {
             const Icon = StepIcon[s.key];
+            const guideSlug = STEP_GUIDE_SLUG[s.key];
             return (
-              <div
+              <button
+                type="button"
                 key={s.key}
-                className={`relative text-center group rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6 hover:border-cyan-400/35 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(34,211,238,0.18)] motion-reduce:hover:translate-y-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                onClick={() => navigate(`/nasil-calisir?adim=${guideSlug}`)}
+                className={`relative text-left w-full group rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6 hover:border-cyan-400/35 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(34,211,238,0.18)] motion-reduce:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ transitionDelay: `${idx * 120}ms`, transitionDuration: "700ms" }}
               >
                 <div className="flex justify-center mb-4">
@@ -59,22 +69,39 @@ export function HowItWorks() {
                     <Icon className="w-9 h-9 text-cyan-300" aria-hidden />
                   </div>
                 </div>
-                <div className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wider">Adım {idx + 1}</div>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-100 transition-colors">{s.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{s.desc}</p>
-              </div>
+                <div className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wider text-center">Adım {idx + 1}</div>
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-100 transition-colors text-center">{s.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed text-center">{s.desc}</p>
+                <div className="mt-4 flex items-center justify-center gap-1 text-xs font-semibold text-cyan-300/90 group-hover:text-cyan-200">
+                  Detaylı rehber
+                  <ChevronRight className="w-3.5 h-3.5" aria-hidden />
+                </div>
+              </button>
             );
           })}
         </div>
         <div className={`text-center mt-16 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <button
-            type="button"
-            onClick={() => navigate("/ihaleler")}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-cyan-500/25 border border-white/10 hover:shadow-cyan-400/35 hover:scale-[1.02] active:scale-[0.99] motion-reduce:hover:scale-100"
-          >
-            Hemen İhalelere Göz At
-            <ArrowRight className="w-4 h-4" aria-hidden />
-          </button>
+          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={() => navigate("/nasil-calisir?from=cta")}
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-cyan-500/25 border border-white/10 hover:shadow-cyan-400/35 hover:scale-[1.02] active:scale-[0.99] motion-reduce:hover:scale-100"
+            >
+              Hemen İhalelere Göz At
+              <ArrowRight className="w-4 h-4" aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/ihaleler")}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/20 bg-white/5 text-white font-semibold text-sm hover:bg-white/10 transition-colors"
+            >
+              Doğrudan ihale listesi
+              <ArrowRight className="w-4 h-4" aria-hidden />
+            </button>
+          </div>
+          <p className="mt-4 text-xs text-slate-500 max-w-xl mx-auto">
+            Birinci düğme platform sürecinin tamamını (adımlar, mimari, süreler, SSS) anlatır; içeriden canlı listeye geçebilirsiniz. Liste sayfasına doğrudan gitmek için ikinci düğmeyi kullanın.
+          </p>
         </div>
       </div>
     </section>

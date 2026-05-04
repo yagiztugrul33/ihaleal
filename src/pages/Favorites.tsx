@@ -6,12 +6,14 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { AUCTIONS } from "@/data/auctions";
 import { ShareButton } from "@/components/ShareButton";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
+import { ListingNumberBadge } from "@/components/ListingNumberBadge";
+import { withListingDefaults } from "@/lib/listingPolicy";
 
 export default function Favorites() {
   const navigate = useNavigate();
   const { favorites, removeFavorite, clearFavorites, count } = useFavorites();
 
-  const favoriteAuctions = AUCTIONS.filter((a) => favorites.includes(a.id));
+  const favoriteAuctions = AUCTIONS.filter((a) => favorites.includes(a.id)).map((a) => withListingDefaults(a));
 
   return (
     <div className="min-h-screen bg-[#0a0f1e] pt-24 pb-16">
@@ -110,6 +112,9 @@ export default function Favorites() {
                 </div>
 
                 <CardContent className="p-5">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <ListingNumberBadge auction={auction} compact />
+                  </div>
                   <h3
                     onClick={() => navigate(`/ilan/${auction.id}`)}
                     className="text-base font-bold text-white line-clamp-2 group-hover:text-blue-400 transition-colors cursor-pointer"

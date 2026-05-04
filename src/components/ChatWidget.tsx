@@ -9,27 +9,80 @@ import {
   Sparkles,
   LineChart,
   Landmark,
+  Banknote,
   MapPin,
   Crosshair,
   Shield,
   Percent,
+  BadgePercent,
   LayoutGrid,
   ChevronRight,
   Smartphone,
+  HelpCircle,
+  Calendar,
+  Handshake,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AiAssistantAvatar } from "@/components/AiAssistantAvatar";
 import { formatBidBondPercent } from "@/lib/fees";
+import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import { KKA_SERVICE_POOL_RATE_EX_VAT, KKA_SERVICE_POOL_VAT_RATE } from "@/lib/masterFinancialEngine";
+import { invokeSystemQa, type SystemQaTurn } from "@/lib/systemQaClient";
 
 const ASSISTANT_NAME = "İhaleAI Asistan";
 
+const QA_MODE_STORAGE = "ihaleal-chat-qa-mode";
+
+const QA_INTRO =
+  "Soru–cevap modu: komisyon, KKA, kiralık/devren, güvenlik ve sayfa yönlendirmeleri hakkında sorularınızı yazın. Yanıtlar, sunucudaki bilgi bankası + yapay zeka ile üretilir (Supabase Edge `ai_qa` + OpenAI). Sunucu bağlı değilse otomatik olarak sitedeki hedef akışa göre kısa özet ve yönlendirme gösterilir. Hukuki kesinlik için site metinleri ve avukat geçerlidir.";
+
 const AI_DEFAULT =
   "Endeks (/analiz), ilan detayı veya mortgage sayfasından devam edebilirsiniz. Anahtar kelimeyle tekrar sorabilirsiniz.";
+
+/** Yerel özet — tam AI (`ai_qa`) yokken veya yönlendirme modunda */
+const BIDDING_RULES_REPLY = [
+  "Teklif verme (hedef platform davranışı; ilan şartnamesi ve sözleşme önceliklidir):",
+  "• İlan moduna göre akış: yalnız vitrin, kapalı teklif veya canlı artırma — teklif düğmesi ve formlar ilan detayında.",
+  "• Geçerli tutar: ekranda gösterilen minimum artış ve zaman penceresine uygun olmalı; hızlı artış butonları yardımcıdır.",
+  "• Onaylanan teklif geri alınamaz; canlı ihalede tipik olarak yalnızca bir öncekinden yüksek teklif verilebilir.",
+  "• Son saniyede verilen teklifte süre uzatılıp uzatılmayacağı ilan / ihale koşullarında yazar.",
+  "• Teminat, üyelik ve ödeme adımları ilan ile yasal metinlere tabidir (demo ortamda kayıtlar sınırlı olabilir).",
+  "• Sahte veya oyun amaçlı teklif yasaktır; tespitte hesap kısıtı ve sözleşmedeki yaptırımlar geçerlidir (hedef).",
+  "",
+  "Ayrıntılı anlatım: /nasil-calisir?adim=teklif — yasal çerçeve: /ihale-kosullari — canlı örnek ilanlar: /ihaleler (şehir filtreleri).",
+].join("\n");
+
+const BIDDING_RULE_KEYS = [
+  "teklif verme",
+  "teklif kurall",
+  "teklif kuralı",
+  "teklif kurali",
+  "teklif nasıl",
+  "teklif nasil",
+  "teklif vermek",
+  "teklif süreci",
+  "teklif sureci",
+  "minimum artış",
+  "minimum artis",
+  "bağlayıcı teklif",
+  "baglayici teklif",
+  "teklif geri",
+  "teklif iptal",
+  "kapalı teklif",
+  "kapali teklif",
+  "ihale kurall",
+  "teklif bağlayıcılık",
+  "teklif baglayicilik",
+];
 
 const AI_RULES: { keys: string[]; reply: string }[] = [
   {
     keys: ["merhaba", "selam", "hey", "günaydın"],
     reply: `Merhaba. Ben ${ASSISTANT_NAME} — ihale akışı, piyasa endeksi ve mortgage tarafında yönlendirme yaparım (demo yanıtlar).`,
+  },
+  {
+    keys: BIDDING_RULE_KEYS,
+    reply: BIDDING_RULES_REPLY,
   },
   {
     keys: ["analiz", "endeks", "analytics", "grafik", "rapor"],
@@ -65,8 +118,30 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
     reply: "Yatırım skoru yüksek örnekler /analiz → Yatırım Fırsatları sekmesinde sıralanır; risk profilinize göre filtreleyin.",
   },
   {
+    keys: ["gelir modeli", "gelir", "emlakçı payı", "emlakci payi", "b2b pay", "ortak emlak"],
+    reply:
+      "Gelir modeli ve emlakçı ağı özeti: /komisyon-modeli (senaryo tablosu, pay kademeleri, mahsup). Canlı rakam için /komisyon-hesaplayici; hizmet kalemleri /hizmet-bedelleri (demo).",
+  },
+  {
+    keys: [
+      "kka",
+      "kat karşılığı",
+      "kat karsiligi",
+      "kat karsılığı",
+      "arsa karşılığı",
+      "arsa karsiligi",
+      "rayiç havuz",
+      "rayic havuz",
+      "imar stüdyosu",
+      "imar studyosu",
+      "parsel stüdyo",
+      "ada parsel",
+    ],
+    reply: `Kat karşılığı (KKA) demosu ve hak ediş projeksiyonu: ${KKA_HUB_PATH} — ada/parsel ve imar kabataslak stüdyosu: ${KKA_STUDIO_PATH}. Rayıç havuzu (MASTER_RULES, komisyon motoru ile aynı oranlar): %${(KKA_SERVICE_POOL_RATE_EX_VAT * 100).toFixed(0)} + KDV %${(KKA_SERVICE_POOL_VAT_RATE * 100).toFixed(0)}; gelir çizgisi: /komisyon-modeli.`,
+  },
+  {
     keys: ["komisyon", "ücret", "bedel"],
-    reply: "/komisyon-hesaplayici ve /hizmet-bedelleri sayfalarında matrah ve hizmet kalemleri özetlenir (demo).",
+    reply: "Önce strateji: /komisyon-modeli — ardından /komisyon-hesaplayici (matrah, KDV, kiralık/satılık). Hizmet bedelleri: /hizmet-bedelleri (demo).",
   },
   {
     keys: ["vergi", "tapu", "simülatör"],
@@ -100,9 +175,28 @@ function getAIResponse(input: string): string {
   return AI_DEFAULT;
 }
 
+function buildQaFailureReply(userMsg: string, code: string, detail?: string): string {
+  const body = getAIResponse(userMsg);
+  if (code === "supabase_not_configured") {
+    return [
+      "Sunucu tarafı soru–cevap (Supabase `ai_qa` + bilgi bankası) bu ortamda yapılandırılmadı; aşağıdaki metin otomatik yerel özet ve yönlendirmedir.",
+      "",
+      body,
+      "",
+      "Tam AI için: projede `VITE_SUPABASE_URL` ve `VITE_SUPABASE_ANON_KEY` tanımlı olmalı, Edge fonksiyonu `ai_qa` deploy edilmeli ve OPENAI_API_KEY sunucuda ayarlanmalıdır.",
+    ].join("\n");
+  }
+  return [
+    `Tam yapay zeka yanıtı şu an alınamadı (${code}${detail ? `: ${detail}` : ""}).`,
+    "",
+    body,
+  ].join("\n");
+}
+
 const QUICK_PROMPTS: { label: string; fill: string; Icon: ComponentType<{ className?: string }> }[] = [
   { label: "Endeks", fill: "analiz özeti", Icon: LineChart },
-  { label: "Mortgage", fill: "kredi taksiti", Icon: Landmark },
+  { label: "Gelir modeli", fill: "gelir modeli emlakçı komisyon", Icon: BadgePercent },
+  { label: "Mortgage", fill: "kredi taksiti", Icon: Banknote },
   { label: "Harita", fill: "harita yoğunluğu", Icon: MapPin },
   { label: "Kıyas", fill: "ilan karşılaştır", Icon: Crosshair },
   { label: "Komisyon", fill: "komisyon hesapla", Icon: Percent },
@@ -110,13 +204,41 @@ const QUICK_PROMPTS: { label: string; fill: string; Icon: ComponentType<{ classN
   { label: "Telefon (lokal)", fill: "telefon lokal nasıl bağlanır", Icon: Smartphone },
 ];
 
+const QA_QUICK: { label: string; fill: string; Icon: ComponentType<{ className?: string }> }[] = [
+  { label: "Teklif kuralları", fill: "teklif verme kuralları neler", Icon: Handshake },
+  { label: "Neden var?", fill: "ihaleal sistemi neden var ne problemi çözüyor", Icon: HelpCircle },
+  { label: "Haftalık ihale", fill: "ihaleler haftada bir mi ne zaman kapanıyor cut-off", Icon: Calendar },
+  { label: "Evraklar", fill: "ihaleye katılmak için hangi evraklar zorunlu Findeks tapu ekspertiz", Icon: Shield },
+  { label: "Komisyon", fill: "satışta komisyon oranları ve KDV nasıl hesaplanıyor", Icon: Percent },
+  { label: "KKA", fill: "kat karşılığı KKA hizmet bedeli ve rayiç", Icon: Landmark },
+  { label: "Kiralık", fill: "kiralık ve devren kira komisyonu ve devir bedeli ayrımı", Icon: LineChart },
+];
+
+type ChatMode = "guide" | "qa";
+
+function readStoredChatMode(): ChatMode {
+  try {
+    const v = sessionStorage.getItem(QA_MODE_STORAGE);
+    return v === "qa" ? "qa" : "guide";
+  } catch {
+    return "guide";
+  }
+}
+
+function toQaThread(msgs: { role: "user" | "ai"; text: string }[]): SystemQaTurn[] {
+  return msgs
+    .filter((m) => m.role === "user" || m.role === "ai")
+    .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text }));
+}
+
 export function ChatWidget() {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [peek, setPeek] = useState(false);
+  const [chatMode, setChatMode] = useState<ChatMode>(() => readStoredChatMode());
   const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([
-    { role: "ai", text: AI_RULES[0].reply },
+    { role: "ai", text: readStoredChatMode() === "qa" ? QA_INTRO : AI_RULES[0].reply },
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
@@ -151,17 +273,49 @@ export function ChatWidget() {
     setPeek(false);
   };
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
-    const userMsg = input.trim();
-    setMessages((prev) => [...prev, { role: "user", text: userMsg }]);
+  const applyChatMode = (mode: ChatMode) => {
+    setChatMode(mode);
+    try {
+      sessionStorage.setItem(QA_MODE_STORAGE, mode);
+    } catch {
+      /* ignore */
+    }
+    setMessages([{ role: "ai", text: mode === "qa" ? QA_INTRO : AI_RULES[0].reply }]);
+  };
+
+  const openPanel = (mode: ChatMode) => {
+    applyChatMode(mode);
+    hidePeek();
+    setOpen(true);
+  };
+
+  const sendUserMessage = async (raw: string) => {
+    const userMsg = raw.trim();
+    if (!userMsg) return;
+    const next = [...messages, { role: "user" as const, text: userMsg }];
+    setMessages(next);
     setInput("");
     setTyping(true);
-    setTimeout(() => {
+
+    if (chatMode === "qa") {
+      const thread = toQaThread(next);
+      const res = await invokeSystemQa(thread);
+      setTyping(false);
+      if (res.ok) {
+        setMessages((prev) => [...prev, { role: "ai", text: res.text }]);
+      } else {
+        setMessages((prev) => [...prev, { role: "ai", text: buildQaFailureReply(userMsg, res.code, res.detail) }]);
+      }
+      return;
+    }
+
+    window.setTimeout(() => {
       setMessages((prev) => [...prev, { role: "ai", text: getAIResponse(userMsg) }]);
       setTyping(false);
-    }, 800);
+    }, 500);
   };
+
+  const sendMessage = () => void sendUserMessage(input);
 
   return (
     <>
@@ -179,61 +333,104 @@ export function ChatWidget() {
                   <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
                   <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30" />
-                    Çevrimiçi · demo yönlendirme
+                    Çevrimiçi · yönlendirme veya soru–cevap
                   </div>
                 </div>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Endeks, kredi ve ilan kıyası için kısa komutlar; aşağıdan paneli açıp detaylı sorabilirsiniz.
+                Hızlı yönlendirme veya bilgi bankası + yapay zeka ile sistem hakkında ayrıntılı soru–cevap.
               </p>
-              <Button
-                size="sm"
-                className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 motion-reduce:hover:scale-100"
-                onClick={() => {
-                  hidePeek();
-                  setOpen(true);
-                }}
-              >
-                Sohbeti aç
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button
+                  size="sm"
+                  className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white font-semibold shadow-lg shadow-violet-900/40 hover:shadow-fuchsia-500/25"
+                  onClick={() => openPanel("qa")}
+                >
+                  <HelpCircle className="w-4 h-4 mr-2 shrink-0" aria-hidden />
+                  Soru–cevap (AI)
+                </Button>
+                <Button
+                  size="sm"
+                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/30"
+                  onClick={() => openPanel("guide")}
+                >
+                  Hızlı yönlendirme
+                </Button>
+              </div>
             </div>
           )}
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
-            aria-label={`${ASSISTANT_NAME} sohbet`}
-          >
-            <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
-            <span className="hidden sm:inline font-bold text-sm tracking-tight bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
-              {ASSISTANT_NAME}
-            </span>
-            <MessageCircle className="w-5 h-5 opacity-90 sm:hidden" aria-hidden />
-          </button>
+          <div className="flex flex-col sm:flex-row items-end gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => openPanel("qa")}
+              className="rounded-full border-violet-400/40 bg-violet-950/80 text-violet-100 hover:bg-violet-900/90 shadow-lg shadow-black/40 px-4 py-2 h-auto font-semibold text-xs sm:text-sm"
+            >
+              <HelpCircle className="w-4 h-4 sm:mr-2 shrink-0" aria-hidden />
+              <span className="hidden sm:inline">Soru–cevap</span>
+            </Button>
+            <button
+              type="button"
+              onClick={() => openPanel("guide")}
+              className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
+              aria-label={`${ASSISTANT_NAME} sohbet`}
+            >
+              <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
+              <span className="hidden sm:inline font-bold text-sm tracking-tight bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
+                {ASSISTANT_NAME}
+              </span>
+              <MessageCircle className="w-5 h-5 opacity-90 sm:hidden" aria-hidden />
+            </button>
+          </div>
         </div>
       )}
 
       {open && (
         <div className="fixed bottom-6 right-6 z-50 w-[min(380px,calc(100vw-1.5rem))] max-h-[min(520px,85vh)] bg-[#0b1426]/98 backdrop-blur-xl border border-cyan-500/20 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden ring-1 ring-white/10 chat-widget-pop">
-          <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-slate-900/90 via-[#0d1830]/95 to-slate-900/90">
-            <div className="flex items-center gap-3">
-              <AiAssistantAvatar size="md" />
-              <div>
-                <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
-                <div className="text-xs text-cyan-200/90 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25" />
-                  Hazır
+          <div className="p-4 border-b border-white/10 space-y-3 bg-gradient-to-r from-slate-900/90 via-[#0d1830]/95 to-slate-900/90">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-3 min-w-0">
+                <AiAssistantAvatar size="md" />
+                <div className="min-w-0">
+                  <div className="text-sm font-bold text-white truncate">{ASSISTANT_NAME}</div>
+                  <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25 shrink-0" />
+                    <span className="truncate">
+                      {chatMode === "qa" ? "Soru–cevap · bilgi bankası + AI" : "Hızlı yönlendirme · anahtar kelime"}
+                    </span>
+                  </div>
                 </div>
               </div>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="relative p-2 rounded-xl hover:bg-white/10 text-slate-400 hover:text-white transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0 shrink-0"
+                aria-label="Kapat"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="relative p-2 rounded-xl hover:bg-white/10 text-slate-400 hover:text-white transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0"
-              aria-label="Kapat"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex rounded-lg bg-black/30 p-0.5 border border-white/10">
+              <button
+                type="button"
+                onClick={() => applyChatMode("guide")}
+                className={`flex-1 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors ${
+                  chatMode === "guide" ? "bg-cyan-500/25 text-white" : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Yönlendirme
+              </button>
+              <button
+                type="button"
+                onClick={() => applyChatMode("qa")}
+                className={`flex-1 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors ${
+                  chatMode === "qa" ? "bg-violet-500/30 text-white" : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Soru–cevap
+              </button>
+            </div>
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
@@ -245,7 +442,7 @@ export function ChatWidget() {
                   {msg.role === "ai" ? <Bot className="w-4 h-4 text-cyan-200" /> : <User className="w-4 h-4 text-slate-400" />}
                 </div>
                 <div
-                  className={`p-3 rounded-2xl text-sm leading-relaxed max-w-[260px] transition-all duration-300 hover:border-opacity-40 ${
+                  className={`p-3 rounded-2xl text-sm leading-relaxed max-w-[260px] transition-all duration-300 hover:border-opacity-40 whitespace-pre-wrap break-words ${
                     msg.role === "ai"
                       ? "bg-white/[0.06] text-slate-200 border border-white/10 shadow-inner shadow-black/20"
                       : "bg-gradient-to-br from-blue-600/25 to-indigo-600/20 text-white border border-blue-400/25 shadow-lg shadow-blue-900/20"
@@ -273,13 +470,15 @@ export function ChatWidget() {
 
           {messages.length < 6 && (
             <div className="px-3 pb-2 space-y-2">
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1">Hızlı ifade</p>
+              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1">
+                {chatMode === "qa" ? "Örnek sorular" : "Hızlı ifade"}
+              </p>
               <div className="flex flex-wrap gap-1.5">
-                {QUICK_PROMPTS.map(({ label, fill, Icon }) => (
+                {(chatMode === "qa" ? QA_QUICK : QUICK_PROMPTS).map(({ label, fill, Icon }) => (
                   <button
                     key={label}
                     type="button"
-                    onClick={() => setInput(fill)}
+                    onClick={() => void sendUserMessage(fill)}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.05] text-[11px] text-slate-300 hover:bg-cyan-500/10 hover:text-white border border-white/8 hover:border-cyan-500/25 transition-colors"
                   >
                     <Icon className="w-3.5 h-3.5 text-cyan-400/90 shrink-0" aria-hidden />
@@ -298,12 +497,30 @@ export function ChatWidget() {
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </Link>
                 <Link
+                  to="/komisyon-modeli"
+                  className="inline-flex items-center gap-1 text-[11px] text-emerald-300/90 hover:text-emerald-200 px-1 py-0.5"
+                  onClick={() => setOpen(false)}
+                >
+                  <BadgePercent className="w-3 h-3" aria-hidden />
+                  Gelir modeli
+                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                </Link>
+                <Link
                   to="/harita"
                   className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
                   onClick={() => setOpen(false)}
                 >
                   <MapPin className="w-3 h-3" aria-hidden />
                   Harita
+                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                </Link>
+                <Link
+                  to={KKA_HUB_PATH}
+                  className="inline-flex items-center gap-1 text-[11px] text-emerald-300/90 hover:text-emerald-200 px-1 py-0.5"
+                  onClick={() => setOpen(false)}
+                >
+                  <Landmark className="w-3 h-3" aria-hidden />
+                  KKA
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </Link>
                 <button
@@ -314,7 +531,7 @@ export function ChatWidget() {
                     navigate("/mortgage");
                   }}
                 >
-                  <Landmark className="w-3 h-3" aria-hidden />
+                  <Banknote className="w-3 h-3" aria-hidden />
                   Mortgage
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </button>
@@ -336,7 +553,9 @@ export function ChatWidget() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") void sendMessage();
+              }}
               placeholder="Sorunuzu yazın…"
               className="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/80 border border-white/10 text-sm text-white placeholder:text-slate-600 outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400/30 transition-shadow duration-200"
             />

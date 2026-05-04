@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AUCTIONS } from "@/data/auctions";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
+import { ListingNumberBadge } from "@/components/ListingNumberBadge";
+import { withListingDefaults } from "@/lib/listingPolicy";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
@@ -18,7 +20,11 @@ export default function Compare() {
   const [selectedIds, setSelectedIds] = useState<string[]>(initialIds);
   const [showSelector, setShowSelector] = useState(initialIds.length < 2);
 
-  const compared = useMemo(() => AUCTIONS.filter((a) => selectedIds.includes(a.id)), [selectedIds]);
+  const catalogNorm = useMemo(() => AUCTIONS.map((a) => withListingDefaults(a)), []);
+  const compared = useMemo(
+    () => catalogNorm.filter((a) => selectedIds.includes(a.id)),
+    [catalogNorm, selectedIds],
+  );
 
   const toggleSelection = (id: string) => {
     setSelectedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : prev.length < 4 ? [...prev, id] : prev);
@@ -95,11 +101,14 @@ export default function Compare() {
                 <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">Karşılaştırmaya başla</Button>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pr-1">
-                {AUCTIONS.map((a) => (
+                {catalogNorm.map((a) => (
                   <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-white/5 bg-white/[0.02] hover:border-white/10"}`}>
                     <Checkbox checked={selectedIds.includes(a.id)} onCheckedChange={() => toggleSelection(a.id)} />
                     <img loading="lazy" src={a.images[0]} alt="" className="w-14 h-10 object-cover rounded-lg shrink-0" />
                     <div className="min-w-0">
+                      <div className="mb-1">
+                        <ListingNumberBadge auction={a} compact />
+                      </div>
                       <div className="text-sm font-medium text-white truncate">{a.title}</div>
                       <div className="text-xs text-slate-500">₺{(a.currentBid / 1000000).toFixed(1)}M · {a.district}</div>
                       <ListingDocumentFooter auction={a} compact showTopRule={false} />
@@ -128,6 +137,9 @@ export default function Compare() {
                   <div className="p-3 rounded-xl bg-blue-500/20"><Star className="w-6 h-6 text-blue-400" /></div>
                   <div className="flex-1">
                     <div className="text-sm text-slate-400">Tavsiye edilen</div>
+                    <div className="mt-1 mb-1">
+                      <ListingNumberBadge auction={winner.auction} compact />
+                    </div>
                     <div className="text-xl font-bold text-white">{winner.auction.title}</div>
                     <div className="flex flex-wrap items-center gap-4 mt-2">
                       <span className="text-sm text-blue-400 font-semibold">Genel skor: {winner.score.overall}/100</span>
@@ -226,6 +238,7 @@ export default function Compare() {
                       <th className="text-left p-4 text-sm font-medium text-slate-500">Özellik</th>
                       {scores.map((s) => <th key={s.auction.id} className="text-center p-4 min-w-[200px]">
                         <div className="flex flex-col items-center gap-2">
+                          <ListingNumberBadge auction={s.auction} compact />
                           <img loading="lazy" src={s.auction.images[0]} alt="" className="w-20 h-14 object-cover rounded-lg" />
                           <span className="text-sm font-bold text-white">{s.auction.district}</span>
                           {s.auction.id === winner?.auction.id && <Badge className="bg-blue-500 text-white text-xs">Tavsiye</Badge>}

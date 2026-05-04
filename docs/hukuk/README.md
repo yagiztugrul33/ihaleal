@@ -17,6 +17,10 @@ Eski workspace yolu da kullanılabilir; repoya koyarken `kaynak/` altında yenid
 | Dosya | Amaç |
 |--------|------|
 | `YETKI_VE_ARACILIK_TASLAK_CERCEVE.md` | ihaleal.com için **orijinal** madde iskeleti (RE/MAX metninin kopyası değil). |
+| `FINANCE_TAX_BILLING_CORE_RULES_TASLAK.md` | Finans / e-Fatura / Teknokent — ürün taslağı (avukat + YMM). |
+| `KIRALIK_DEVREN_ANAYASASI_TASLAK.md` | Kiralık & devren kuralları özeti (`rentalCommissionEngine` ile uyum). |
+| `KKA_SOZLESME_VE_KAZANC_PLANI_TASLAK.md` | Kat karşılığı sözleşme iskeleti ve gelir çerçevesi. |
+| `SUPABASE_RLS_AUDIT_RPC_UYUM_KONTROL_LISTESI.md` | Supabase migration’daki **RLS politika adları**, `audit_log` ve **RPC** ile bire bir eşleşen teknik uyum / denetim izi kontrol listesi (site: `#/yasal/supabase-uyum`). |
 | `kaynak/` | Örnek / karşılaştırma PDF’leri (isteğe bağlı). |
 
 **Uyarı:** Buradaki metinler hukuki danışmanlık değildir; imzalanabilir sözleşme yalnızca Türkiye’de yetkili avukat onayından sonra kullanılır.

@@ -3,7 +3,8 @@
  * Ihaleal / emlakci payi havuz icinde bolunur. Ayrica muteahhit / arsa sahibi odeme yukleri.
  * Kiralik: rentalCommissionEngine.ts | Satis ornek: fees.ts + commission/engine.ts
  */
-import { commissionEngine } from "./commission/engine";
+import { commissionEngine, COMMISSION_POOL_VAT_RATE, LAND_SHARE_TOTAL_EX_VAT_RATE } from "./commission/engine";
+import { feeBadgeLabel } from "./fees";
 
 export type LandEquityListingType = "kat_karsiligi";
 
@@ -129,4 +130,19 @@ export function canReceiveCommissionPayout(params: {
   hasRealEstateTradeLicense: boolean;
 }): boolean {
   return params.isVerified === true && params.hasRealEstateTradeLicense === true;
+}
+
+/** Komisyon motorundaki `LAND_SHARE_TOTAL_EX_VAT_RATE` ile aynı (tek kaynak: commission/engine). */
+export const KKA_SERVICE_POOL_RATE_EX_VAT = LAND_SHARE_TOTAL_EX_VAT_RATE;
+
+/** Komisyon motorundaki KDV oranı (tek kaynak: commission/engine). */
+export const KKA_SERVICE_POOL_VAT_RATE = COMMISSION_POOL_VAT_RATE;
+
+/**
+ * Ana sayfa / hero şerit metni: ihale komisyonu (`fees`) + KKA havuzu oranları (`commission/engine` ile senkron).
+ */
+export function heroRevenueStripLine(): string {
+  const poolPct = (LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0);
+  const vatPct = (COMMISSION_POOL_VAT_RATE * 100).toFixed(0);
+  return `${feeBadgeLabel()} · KKA (MASTER_RULES): rayıç üzerinden %${poolPct} + KDV %${vatPct} hizmet havuzu (taslak)`;
 }

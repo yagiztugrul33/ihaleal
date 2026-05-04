@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
+import { ListingNumberBadge } from "@/components/ListingNumberBadge";
+import { getListingNumber } from "@/lib/listingNumber";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
@@ -36,15 +38,18 @@ export default function SearchResults() {
     const q = normalize(query);
     if (q.length < 2) return [];
     const all = catalog;
-    return all.filter(
-      (a) =>
+    return all.filter((a) => {
+      const ln = normalize(getListingNumber(a));
+      return (
         normalize(a.title).includes(q) ||
         normalize(a.location).includes(q) ||
         normalize(a.city).includes(q) ||
         normalize(a.district).includes(q) ||
         normalize(a.category).includes(q) ||
+        ln.includes(q) ||
         (a.tags && a.tags.some((t) => normalize(t).includes(q)))
-    );
+      );
+    });
   }, [query, catalog]);
 
   const submit = (e: React.FormEvent) => {
@@ -76,7 +81,7 @@ export default function SearchResults() {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Şehir, semt, başlık..."
+            placeholder="Şehir, semt, başlık veya ilan no (ILN-...)"
             className="bg-slate-950 border-white/10 text-white h-11"
             aria-label="Arama kutusu"
           />
@@ -102,6 +107,9 @@ export default function SearchResults() {
                 >
                   <img loading="lazy" src={auction.images[0]} alt="" className="w-24 h-16 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <ListingNumberBadge auction={auction} compact />
+                    </div>
                     <div className="font-medium text-white truncate">{auction.title}</div>
                     <div className="flex flex-wrap gap-3 mt-1 text-xs text-slate-500">
                       <span className="flex items-center gap-1">

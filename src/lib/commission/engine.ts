@@ -47,7 +47,13 @@ export const CommissionResultSchema = z.object({
 
 export type CommissionResult = z.infer<typeof CommissionResultSchema>;
 
-const VAT = 0.2;
+/** KDV, komisyon / KKA hizmet havuzu matrahı üzerinden (çıktı satırı). */
+export const COMMISSION_POOL_VAT_RATE = 0.2 as const;
+
+/** land_share: rayiç üzerinden toplam hizmet bedeli matrahı (KDV hariç, MASTER_RULES). */
+export const LAND_SHARE_TOTAL_EX_VAT_RATE = 0.08 as const;
+
+const VAT = COMMISSION_POOL_VAT_RATE;
 
 function r2(n: number): number {
   return Math.round(n * 100) / 100;
@@ -104,7 +110,7 @@ export class CommissionEngine {
         totalExKDV = r2(baseAmount * 0.04);
         break;
       case "land_share": {
-        totalExKDV = r2(baseAmount * 0.08);
+        totalExKDV = r2(baseAmount * LAND_SHARE_TOTAL_EX_VAT_RATE);
         const ownerAccepts = landShareAgreement?.ownerAcceptsCommission === true;
         if (ownerAccepts) {
           ownerCommission = r2(baseAmount * 0.04);

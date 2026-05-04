@@ -131,6 +131,36 @@ export default function AuctionTerms() {
             </div>
           </Card>
 
+          <Card className="bg-slate-900/50 border-red-500/20 p-5">
+            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+              <Ban className="w-5 h-5 text-red-400" />
+              Teklif verme — risk ve dolandırıcılık önlemleri (taslak)
+            </h3>
+            <p className="text-sm text-slate-400 leading-relaxed mb-3">
+              Aşağıdaki başlıklar ürün ve uyum taslağıdır; bağlayıcı hukuki metin sözleşme + avukat onaylı koşullardır.
+            </p>
+            <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
+              <li>
+                <strong className="text-slate-200">Bağlayıcı teklif:</strong> Onaylanan teklif geri alınamaz; yalnızca kurallara uygun daha yüksek teklif verilebilir. Kullanıcı arayüzü zaman damgası ve kayıt ile delil zinciri hedefler.
+              </li>
+              <li>
+                <strong className="text-slate-200">Şişirme / sahte teklif:</strong> Kendi ilanını manipüle etmek, hayali alıcı veya bot ile teklif göstermek yasaktır; tespitte hesap kapatma, teminat iradı ve sözleşmedeki cezai şartlar uygulanabilir (hedef).
+              </li>
+              <li>
+                <strong className="text-slate-200">Kimlik hırsızlığı / vekâletsiz işlem:</strong> Üçüncü kişi adına teklif; güçlü KYC, OTP ve oturum risk skoru ile engellenmelidir (üretim).
+              </li>
+              <li>
+                <strong className="text-slate-200">Kart / ödeme dolandırıcılığı:</strong> Ön yetki ve tahsilat yalnızca PCI-DSS uyumlu sağlayıcı üzerinden; kart PAN saklanmaz. Şüpheli işlemde MASAK STR ve işlem durdurma.
+              </li>
+              <li>
+                <strong className="text-slate-200">İçeriden bilgi (insider):</strong> Rapor ve teminat kayıtlarına erişen personel için ayrı NDA ve erişim logu; müşteri verisi sızdırma ihlali iş ve ceza hukuku kapsamındadır.
+              </li>
+              <li>
+                <strong className="text-slate-200">Platform dışına çekme:</strong> İletişimi ilan sahibiyle gizlice platform dışına taşımak komisyon kaçağı ve aradan çıkma riski doğurur; sözleşmede cezai şart ve MERNIS adres eşleştirme denetimi hedeflenir (demo metinleri).
+              </li>
+            </ul>
+          </Card>
+
           <Card className="bg-slate-900/50 border-white/5 p-5">
             <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-violet-400" />

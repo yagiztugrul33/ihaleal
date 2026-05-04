@@ -11,6 +11,8 @@ import {
   Factory,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { KkaRevenueHubStrip } from "@/components/KkaRevenueHubStrip";
+import { heroRevenueStripLine } from "@/lib/masterFinancialEngine";
 
 export function Hero() {
   const navigate = useNavigate();
@@ -68,7 +70,7 @@ export function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="text-center lg:text-left">
+          <div className="order-1 text-center lg:order-2 lg:text-left lg:pl-4 xl:pl-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 backdrop-blur-md border border-cyan-400/35 text-cyan-100 text-xs font-bold uppercase tracking-wide mb-6 animate-fade-in-up shadow-lg shadow-blue-900/30 ring-1 ring-white/5">
               <Sparkles className="w-4 h-4 text-cyan-300 shrink-0" aria-hidden />
               <span>İhaleal Endeksi</span>
@@ -82,56 +84,62 @@ export function Hero() {
             <p className="text-base sm:text-lg text-slate-300/95 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up animate-delay-300">
               Şeffaf, hızlı ve güvenli ihale deneyimi. <strong className="text-white">İhaleal Endeksi</strong> ile teklif yoğunluğu, bölge bandı ve yapay zeka sinyallerini bir arada görün; gerçekçi karar için yatırım skoru ve senaryolar tek ekranda (demo veri).
             </p>
-            <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start animate-fade-in-up animate-delay-400">
+            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start animate-fade-in-up animate-delay-400">
               <Button
                 size="lg"
                 onClick={() => navigate("/analiz")}
-                className="bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold gap-2 px-8 h-12 text-base shadow-xl shadow-cyan-500/25 border border-white/10 hover:shadow-cyan-400/35 hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 motion-reduce:hover:scale-100"
+                className="w-full sm:w-auto min-h-[3.25rem] h-auto py-3.5 bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold gap-2.5 px-10 text-lg shadow-2xl shadow-cyan-500/30 border border-white/15 hover:shadow-cyan-400/40 hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 motion-reduce:hover:scale-100"
               >
-                <BrainCircuit className="w-5 h-5 shrink-0" aria-hidden />
+                <BrainCircuit className="w-6 h-6 shrink-0" aria-hidden />
                 İhaleal Endeksi
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 onClick={() => navigate("/ihaleler")}
-                className="border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white/12 hover:text-white hover:border-cyan-400/25 gap-2 px-8 h-12 text-base transition-all duration-300 shadow-lg shadow-transparent hover:shadow-black/20"
+                className="w-full sm:w-auto min-h-[3.25rem] h-auto py-3.5 border-white/25 bg-white/[0.08] backdrop-blur-md text-white hover:bg-white/15 hover:text-white hover:border-cyan-400/35 gap-2.5 px-10 text-lg transition-all duration-300 shadow-xl shadow-black/25 hover:shadow-black/35"
               >
-                <Play className="w-4 h-4 fill-current opacity-90" aria-hidden />
+                <Play className="w-5 h-5 fill-current opacity-90" aria-hidden />
                 İhaleleri Keşfet
               </Button>
             </div>
-            <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 animate-fade-in-up animate-delay-400">
+            <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-3 animate-fade-in-up animate-delay-400">
               <Button
                 type="button"
                 variant="outline"
-                size="sm"
+                size="default"
                 onClick={() => navigate("/giris?profil=emlakci")}
-                className="border-teal-400/40 text-teal-100 bg-teal-500/10 hover:bg-teal-500/20 hover:text-white gap-2"
+                className="min-h-11 border-teal-400/45 text-teal-50 bg-teal-500/15 hover:bg-teal-500/25 hover:text-white gap-2 px-5 font-semibold shadow-md shadow-teal-950/20"
               >
-                <Building2 className="w-4 h-4 shrink-0" aria-hidden />
+                <Building2 className="w-5 h-5 shrink-0" aria-hidden />
                 Emlakçı Girişi
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                size="sm"
+                size="default"
                 onClick={() => navigate("/giris?profil=muteahhit")}
-                className="border-amber-400/40 text-amber-100 bg-amber-500/10 hover:bg-amber-500/20 hover:text-white gap-2"
+                className="min-h-11 border-amber-400/45 text-amber-50 bg-amber-500/15 hover:bg-amber-500/25 hover:text-white gap-2 px-5 font-semibold shadow-md shadow-amber-950/20"
               >
-                <Factory className="w-4 h-4 shrink-0" aria-hidden />
+                <Factory className="w-5 h-5 shrink-0" aria-hidden />
                 Müteahhit Girişi
               </Button>
             </div>
+            <p className="mt-4 max-w-xl mx-auto lg:mx-0 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 py-2.5 text-[11px] sm:text-xs text-slate-400 leading-relaxed text-center lg:text-left shadow-inner shadow-black/20">
+              {heroRevenueStripLine()}
+            </p>
+            <div className="animate-fade-in-up animate-delay-400">
+              <KkaRevenueHubStrip variant="prominent" />
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 animate-fade-in-up animate-delay-500">
+          <div className="order-2 grid grid-cols-2 gap-4 lg:gap-5 animate-fade-in-up animate-delay-500 lg:order-1 lg:pr-2">
             {stats.map((s, i) => {
               const Icon = s.icon;
               return (
                 <div
                   key={i}
-                  className={`relative group p-5 rounded-2xl bg-gradient-to-br ${s.accent} bg-white/[0.06] backdrop-blur-xl border hover:border-cyan-400/35 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_-15px_rgba(34,211,238,0.25)] overflow-hidden motion-reduce:hover:translate-y-0`}
+                  className={`relative group p-6 rounded-2xl bg-gradient-to-br ${s.accent} bg-white/[0.07] backdrop-blur-xl border border-white/[0.06] hover:border-cyan-400/40 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_55px_-12px_rgba(34,211,238,0.28)] overflow-hidden motion-reduce:hover:translate-y-0`}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-white/[0.08] to-transparent pointer-events-none motion-reduce:opacity-0" />
                   <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-cyan-400/15 to-transparent rounded-full blur-2xl opacity-50 group-hover:opacity-90 transition-opacity duration-500" />
@@ -142,8 +150,8 @@ export function Hero() {
                       <Icon className="w-5 h-5" aria-hidden />
                     </div>
                   </div>
-                  <div className="text-2xl lg:text-3xl font-bold text-white mb-1 tracking-tight">{s.value}</div>
-                  <div className="text-xs text-slate-400 font-medium">{s.label}</div>
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1.5 tracking-tight drop-shadow-sm">{s.value}</div>
+                  <div className="text-xs sm:text-sm text-slate-300/90 font-medium">{s.label}</div>
                 </div>
               );
             })}

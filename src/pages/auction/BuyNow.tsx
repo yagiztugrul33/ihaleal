@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, CheckCircle2, AlertTriangle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, AlertTriangle, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { isAuctionUuid } from "@/lib/auctionIds";
+import {
+  HEMEN_AL_CARD_BLOCK,
+  HEMEN_AL_CONTRACT_LINKS,
+  HEMEN_AL_DOCS_BLOCK,
+  HEMEN_AL_GATE_INTRO,
+  HEMEN_AL_MASAK_BLOCK,
+} from "@/legal/hemenAlLansmanMetinleri";
+import { MASTER_LEGAL_DISCLAIMER } from "@/legal/masterContractCheckboxTexts";
 
 type LocState = {
   listingId?: string;
@@ -87,7 +95,26 @@ export default function BuyNow() {
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
         <div className="rounded-2xl border border-cyan-400/20 bg-[#0c1629]/90 backdrop-blur-xl p-6 shadow-xl space-y-4">
-          <h1 className="text-xl font-bold text-white">Hemen Al</h1>
+          <h1 className="text-xl font-bold text-white flex items-center gap-2">
+            <Shield className="w-6 h-6 text-cyan-400" />
+            Hemen Al
+          </h1>
+          <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
+          <p className="text-sm text-slate-400 leading-relaxed">{HEMEN_AL_GATE_INTRO}</p>
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-2 text-xs text-slate-400">
+            <p className="font-semibold text-emerald-200">MASAK / AML</p>
+            <p className="leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
+            <p className="font-semibold text-cyan-200 pt-2">Kart guvenligi</p>
+            <p className="leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
+            <p className="leading-relaxed pt-1">{HEMEN_AL_DOCS_BLOCK}</p>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {HEMEN_AL_CONTRACT_LINKS.map((l) => (
+                <Button key={l.href} type="button" variant="outline" size="sm" className="border-white/15 text-slate-200 text-xs h-8" onClick={() => navigate(l.href)}>
+                  {l.label}
+                </Button>
+              ))}
+            </div>
+          </div>
           <p className="text-sm text-slate-400 leading-relaxed">
             Atomik <code className="text-cyan-300/90 text-xs">execute_buy_now</code> RPC — blokaj ve rapor onayı ön koşulları sunucuda doğrulanır.
           </p>

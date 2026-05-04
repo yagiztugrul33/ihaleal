@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { Logo } from "@/components/Logo";
-import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory } from "lucide-react";
+import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory, BadgePercent, Landmark, DraftingCompass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "@/hooks/useTheme";
@@ -10,6 +10,7 @@ import { mergedFlowPermissions, readUserFlowsFromStorage, type UserFlow } from "
 import { sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
 import type { SessionUser } from "@/lib/auth";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
+import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 
 function readSessionUser(): SessionUser | null {
   try {
@@ -93,6 +94,34 @@ export function Navbar() {
             <div className="hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               <button type="button" onClick={() => navigate("/")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">Ana Sayfa</button>
               <button type="button" onClick={() => navigate("/ihaleler")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">İhaleler</button>
+              <NavLink
+                to={KKA_HUB_PATH}
+                end={false}
+                className={({ isActive }) =>
+                  `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
+                    isActive
+                      ? "text-white bg-emerald-500/25 border-emerald-400/50 shadow-[0_0_0_1px_rgba(52,211,153,0.15)]"
+                      : "text-emerald-200 hover:text-white hover:bg-emerald-500/15 border-emerald-500/30"
+                  }`
+                }
+              >
+                <Landmark className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                {kkaHubNavLabel}
+              </NavLink>
+              <NavLink
+                to={KKA_STUDIO_PATH}
+                end
+                className={({ isActive }) =>
+                  `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
+                    isActive
+                      ? "text-white bg-cyan-500/20 border-cyan-400/45 shadow-[0_0_0_1px_rgba(34,211,238,0.12)]"
+                      : "text-cyan-100 hover:text-white hover:bg-cyan-500/12 border-cyan-500/25"
+                  }`
+                }
+              >
+                <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                {kkaStudioNavLabel}
+              </NavLink>
               <button type="button" onClick={() => scrollTo("howItWorks")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">Nasıl Çalışır</button>
               <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">İletişim</button>
               {!currentUser ? (
@@ -121,6 +150,17 @@ export function Navbar() {
                 <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
               </button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-300 hover:text-cyan-300 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/komisyon-modeli")}
+                className="h-9 shrink-0 rounded-xl border-violet-200/35 bg-gradient-to-br from-violet-400/25 via-fuchsia-400/15 to-violet-300/10 text-violet-50 shadow-md shadow-violet-500/15 hover:border-violet-100/45 hover:from-violet-300/35 hover:via-fuchsia-300/22 hover:to-violet-200/18 hover:text-white hover:shadow-violet-400/25 transition-all gap-1.5 px-2.5 font-semibold text-xs"
+                aria-label="Gelir modeli ve komisyon özeti"
+                title="Komisyon oranları ve emlakçı payı — gelir modeli"
+              >
+                <BadgePercent className="w-[18px] h-[18px] shrink-0" aria-hidden />
+                <span className="hidden min-[1100px]:inline max-w-[9rem] truncate">Komisyon & gelir</span>
+              </Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-slate-300 hover:text-violet-300 hover:bg-violet-500/10 gap-1.5 whitespace-nowrap"><LayoutDashboard className="w-4 h-4" /> Dashboard</Button>
               {showAdmin ? (
                 <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 gap-1.5"><Shield className="w-4 h-4" /> Admin</Button>
@@ -207,10 +247,62 @@ export function Navbar() {
               <button onClick={() => { setSearchOpen(true); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-white/10 text-left flex items-center gap-2"><Search className="w-4 h-4" /> İlan Ara</button>
               <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">Ana Sayfa</button>
               <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">İhaleler</button>
+              <NavLink
+                to={KKA_HUB_PATH}
+                end={false}
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
+                    isActive
+                      ? "text-white bg-emerald-500/25 border-emerald-400/50"
+                      : "text-emerald-200 border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20"
+                  }`
+                }
+              >
+                <Landmark className="w-4 h-4 shrink-0" aria-hidden />
+                {kkaHubNavLabel} (KKA)
+              </NavLink>
+              <NavLink
+                to={KKA_STUDIO_PATH}
+                end
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
+                    isActive
+                      ? "text-white bg-cyan-500/20 border-cyan-400/45"
+                      : "text-cyan-100 border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/18"
+                  }`
+                }
+              >
+                <DraftingCompass className="w-4 h-4 shrink-0" aria-hidden />
+                {kkaStudioNavLabel}
+              </NavLink>
               <button type="button" onClick={() => scrollTo("howItWorks")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">Nasıl Çalışır</button>
               <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">İletişim</button>
               <div className="border-t border-white/5 my-2" />
               <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate("/komisyon-modeli");
+                  setIsOpen(false);
+                }}
+                className="px-3 py-2.5 rounded-lg text-sm font-semibold text-violet-100 border border-violet-400/35 bg-gradient-to-r from-violet-500/20 to-fuchsia-500/15 hover:from-violet-500/30 hover:to-fuchsia-500/25 text-left flex items-center gap-2"
+              >
+                <BadgePercent className="w-4 h-4 shrink-0" aria-hidden />
+                Komisyon oranları & gelir modeli
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate("/komisyon-hesaplayici");
+                  setIsOpen(false);
+                }}
+                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-200 hover:bg-amber-500/10 text-left flex items-center gap-2"
+              >
+                <Calculator className="w-4 h-4 shrink-0" aria-hidden />
+                Komisyon hesaplayıcı
+              </button>
               <button onClick={() => { navigate("/dashboard"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-violet-400 hover:bg-violet-500/10 text-left flex items-center gap-2"><LayoutDashboard className="w-4 h-4" /> Dashboard</button>
               {showAdmin ? (
                 <button onClick={() => { navigate("/admin"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Shield className="w-4 h-4" /> Admin</button>

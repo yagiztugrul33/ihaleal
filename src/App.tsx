@@ -9,6 +9,7 @@ import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
+import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
@@ -65,6 +66,8 @@ const RealtorProfilePage   = lazy(() => import("@/pages/RealtorProfile"));
 const BlogIndex            = lazy(() => import("@/pages/mega/BlogIndex"));
 const BlogPostPage         = lazy(() => import("@/pages/mega/BlogPost"));
 const CommissionCalculator = lazy(() => import("@/pages/mega/CommissionCalculator"));
+const LandEquityPage = lazy(() => import("@/pages/mega/LandEquityPage"));
+const KkaParselStudioPage = lazy(() => import("@/pages/mega/KkaParselStudioPage"));
 const RealtorPartnership = lazy(() => import("@/pages/mega/RealtorPartnership"));
 const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
 const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
@@ -75,11 +78,14 @@ const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
 const AydinlatmaMetni      = lazy(() => import("@/pages/legal/AydinlatmaMetni"));
 const SSSPage              = lazy(() => import("@/pages/SSS"));
 const AgencyContractView   = lazy(() => import("@/pages/legal/AgencyContractView"));
+const FraudDefenseArchitecturePage = lazy(() => import("@/pages/legal/FraudDefenseArchitecturePage"));
+const SupabaseComplianceChecklistPage = lazy(() => import("@/pages/legal/SupabaseComplianceChecklistPage"));
 const Anayasa400           = lazy(() => import("@/pages/Anayasa400"));
 const NihaiAnayasa         = lazy(() => import("@/pages/NihaiAnayasa"));
 const EmlakciGiris         = lazy(() => import("@/pages/EmlakciGiris"));
 const TaxSimulatorPage     = lazy(() => import("@/pages/TaxSimulatorPage"));
 const FinCompliancePlayground = lazy(() => import("@/pages/FinCompliancePlayground"));
+const NasilCalisir          = lazy(() => import("@/pages/NasilCalisir"));
 
 function App() {
   return (
@@ -112,6 +118,14 @@ function App() {
             <Route path="/favoriler" element={<Favorites />} />
             <Route path="/mortgage" element={<Mortgage />} />
             <Route path="/rehber" element={<Guide />} />
+            <Route
+              path="/nasil-calisir"
+              element={
+                <RouteSeo>
+                  <NasilCalisir />
+                </RouteSeo>
+              }
+            />
             <Route path="/harita" element={<MapPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/yatirimci" element={<InvestorDashboard />} />
@@ -127,6 +141,8 @@ function App() {
             <Route path="/aydinlatma-metni" element={<AydinlatmaMetni />} />
             <Route path="/sss" element={<SSSPage />} />
             <Route path="/yasal/agency-contract" element={<AgencyContractView />} />
+            <Route path="/yasal/dolandiricilik-savunmasi" element={<FraudDefenseArchitecturePage />} />
+            <Route path="/yasal/supabase-uyum" element={<SupabaseComplianceChecklistPage />} />
             <Route path="/anayasa" element={<Anayasa400 />} />
             <Route path="/anayasa-400" element={<Anayasa400 />} />
             <Route path="/nihai-anayasa" element={<NihaiAnayasa />} />
@@ -162,6 +178,8 @@ function App() {
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/komisyon-hesaplayici" element={<CommissionCalculator />} />
+            <Route path={KKA_HUB_PATH} element={<LandEquityPage />} />
+            <Route path={KKA_STUDIO_PATH} element={<KkaParselStudioPage />} />
             <Route path="/emlakci-ortaklik" element={<RealtorPartnership />} />
             <Route path="/sifremi-unuttum" element={<PasswordReset />} />
             <Route path="/yasal-master-brief" element={<LegalMasterBrief />} />

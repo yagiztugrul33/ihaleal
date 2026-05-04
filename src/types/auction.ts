@@ -3,6 +3,8 @@ export type PropertyMarketingMode = "listing_only" | "sealed_offers" | "auction"
 
 export interface Auction {
   id: string;
+  /** Insan okunur ilan numarasi (or. ILN-2026-W05-A1B2C3); yoksa withListingDefaults turetir. */
+  listingNumber?: string;
   title: string;
   description: string;
   location: string;

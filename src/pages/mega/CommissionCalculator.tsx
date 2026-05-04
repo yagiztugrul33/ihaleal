@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Calculator, Shield } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,10 +22,12 @@ import {
   RENTAL_COMMISSION_VAT_RATE,
   type RentalSplitScenario,
 } from "@/lib/rentalCommissionEngine";
+import { KKA_HUB_PATH } from "@/lib/kkaHub";
 
 type ServiceKey = keyof typeof SERVICE_FEES;
 
 export default function CommissionCalculator() {
+  const navigate = useNavigate();
   const [saleStr, setSaleStr] = useState("5000000");
   const [rentStr, setRentStr] = useState("35000");
   const [rentTransferStr, setRentTransferStr] = useState("50000");
@@ -354,6 +357,15 @@ export default function CommissionCalculator() {
           <Card className="border-emerald-500/20 bg-[#0F172A]">
             <CardContent className="space-y-4 p-6">
               <h2 className="text-lg font-semibold text-emerald-100">Kat karşılığı arsa (v2.3 — %8 + KDV)</h2>
+              <p className="text-xs text-slate-400 mb-2">
+                <button
+                  type="button"
+                  onClick={() => navigate(KKA_HUB_PATH)}
+                  className="text-teal-400 hover:text-teal-300 hover:underline font-medium"
+                >
+                  Tam modül: hak ediş senaryosu ve havuz seçenekleri → {KKA_HUB_PATH}
+                </button>
+              </p>
               <p className="text-xs text-slate-400">
                 <code className="text-emerald-200/90">commission/engine.ts</code> üzerinden{" "}
                 <code className="text-emerald-200/90">masterFinancialEngine.ts</code> — üstteki{" "}

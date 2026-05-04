@@ -21,7 +21,10 @@ export default function KullanimKosullari() {
           <li>Verilen teklifler bağlayıcıdır.</li>
           <li>İhale kazananı, en yüksek teklifi veren kullanıcıdır.</li>
           <li>&quot;Hemen Al&quot; özelliği seçilmiş ihalelerde, ihale anında sonlanır.</li>
-          <li>Demo modunda yapılan işlemler test amaçlıdır.</li>
+          <li>Teklif öncesi ilan detayında gösterilen ihale katılım koşulları, kullanım koşulları ve (varsa) KVKK aydınlatması okunmalıdır.</li>
+          <li>Sahte veya yanıltıcı teklif, bot veya çoklu hesapla manipülasyon yasaktır; şüpheli işlemde hesap dondurma ve yasal başvuru süreçleri işletilebilir.</li>
+          <li>5549 (MASAK) kapsamında kimlik doğrulama ve ek belge talebine uyum zorunludur (üretim entegrasyonu ile).</li>
+          <li>Demo modunda yapılan işlemler test amaçlıdır; teklif kayıtları sınırlı olabilir.</li>
         </ul>
         <h2>4. Demo Modu</h2>
         <p>

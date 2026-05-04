@@ -97,6 +97,26 @@ export default function SecurityCenter() {
               <FileText className="w-4 h-4 mr-2" />
               Nihai anayasa
             </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="border-rose-500/30 text-rose-100 hover:bg-rose-500/10"
+              onClick={() => navigate("/yasal/dolandiricilik-savunmasi")}
+            >
+              <Shield className="w-4 h-4 mr-2" />
+              Dolandiricilik / dava savunmasi
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="border-cyan-500/30 text-cyan-100 hover:bg-cyan-500/10"
+              onClick={() => navigate("/yasal/supabase-uyum")}
+            >
+              <Server className="w-4 h-4 mr-2" />
+              Supabase RLS / audit / RPC kontrol listesi
+            </Button>
           </div>
         </div>
       </div>

@@ -12,6 +12,8 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
+import { ListingNumberBadge } from "@/components/ListingNumberBadge";
+import { getListingNumber } from "@/lib/listingNumber";
 
 export function Auctions({
   hideIntro = false,
@@ -49,7 +51,12 @@ export function Auctions({
       if (filter !== "all" && a.status !== filter) return false;
       if (a.currentBid < priceRange[0] || a.currentBid > priceRange[1]) return false;
       if (selectedCity !== "all" && a.city !== selectedCity) return false;
-      if (searchQuery && !a.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      if (searchQuery) {
+        const sq = searchQuery.toLowerCase();
+        const inTitle = a.title.toLowerCase().includes(sq);
+        const inNo = getListingNumber(a).toLowerCase().includes(sq);
+        if (!inTitle && !inNo) return false;
+      }
       return true;
     });
   }, [catalog, filter, priceRange, selectedCity, searchQuery]);
@@ -92,7 +99,7 @@ export function Auctions({
           <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Konum veya anahtar kelime ara..." className="pl-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600" />
+              <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Konum, kelime veya ilan no (ILN-...)" className="pl-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600" />
             </div>
             <div className="flex gap-2 flex-wrap">
               {(["all", "live", "upcoming", "ended"] as const).map((f) => (
@@ -153,6 +160,9 @@ export function Auctions({
                 </div>
               </div>
               <CardContent className="p-5">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
+                  <ListingNumberBadge auction={auction} compact />
+                </div>
                 <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className="text-base font-bold text-white line-clamp-2 group-hover:text-blue-400 transition-colors cursor-pointer">{auction.title}</h3>
                 <div className="flex items-center gap-2 text-sm text-slate-500 mt-1"><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
                 <div className="flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-lg bg-white/[0.03] border border-white/5">

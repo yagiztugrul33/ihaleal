@@ -46,6 +46,15 @@ export default function LegalMasterBrief() {
               <FileText className="mr-2 h-4 w-4" />
               400 madde özeti
             </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-rose-500/30 text-rose-100 hover:bg-rose-500/10"
+              onClick={() => navigate("/yasal/dolandiricilik-savunmasi")}
+            >
+              <AlertTriangle className="mr-2 h-4 w-4" />
+              Dolandiricilik savunmasi
+            </Button>
           </div>
         </div>
 

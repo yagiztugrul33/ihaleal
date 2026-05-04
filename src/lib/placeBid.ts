@@ -6,6 +6,22 @@ export type PlaceBidResult =
   | { ok: true; status: "duplicate"; message: string }
   | { ok: false; message: string; code?: string };
 
+/** Makul üst sınır — taşkın / hatalı girişten RPC'yi korur */
+const MAX_BID_TRY = 9_999_999_999_999;
+
+/**
+ * Teklif tutarı girişi: binlik ayraçları temizler, pozitif tam sayı döner.
+ */
+export function parsePositiveTryFromInput(raw: string): number | null {
+  const t = raw.trim();
+  if (t.startsWith("-") || t.startsWith("−")) return null;
+  const digits = t.replace(/\D/g, "");
+  if (!digits) return null;
+  const n = parseInt(digits, 10);
+  if (!Number.isFinite(n) || n <= 0 || n > MAX_BID_TRY) return null;
+  return n;
+}
+
 function parseRpcPayload(data: unknown): Record<string, unknown> | null {
   if (data == null) return null;
   if (typeof data === "object" && !Array.isArray(data)) return data as Record<string, unknown>;
@@ -33,8 +49,8 @@ export async function placeBidRpc(params: {
   if (!isSupabaseConfigured()) {
     return { ok: false, message: "Supabase yapılandırması eksik (.env.local)." };
   }
-  if (!Number.isFinite(params.amountTry) || params.amountTry <= 0) {
-    return { ok: false, message: "Geçersiz tutar." };
+  if (!Number.isFinite(params.amountTry) || params.amountTry <= 0 || params.amountTry > MAX_BID_TRY) {
+    return { ok: false, message: "Geçersiz veya çok büyük tutar." };
   }
 
   const key = params.idempotencyKey ?? crypto.randomUUID();

@@ -31,3 +31,29 @@ export type {
   BatchReconcileResult,
   TakasbankApiClient,
 } from "./TakasbankReconciliationService";
+
+export {
+  computeKkaOwnerHakEdisProjection,
+  computeKkaShareByRatio,
+} from "./kkaHakEdisEngine";
+export type { KkaHakEdisInput, KkaHakEdisResult, KkaScenarioId } from "./kkaHakEdisEngine";
+
+export {
+  buildKkaRollingHakedisRows,
+  formatKkaRollingHakedisContractBlock,
+  formatKkaRollingHakedisScheduleLines,
+  kkaRollingHakedisLegalPrinciplesNoteTr,
+} from "./kkaRollingHakedisEngine";
+export type { KkaRollingHakedisRow } from "./kkaRollingHakedisEngine";
+export {
+  computeKkaBuildingSummary,
+  resolveImarProfile,
+  slugifyTr,
+} from "./kkaParselImarEngine";
+export type {
+  KkaBuildingSummary,
+  KkaImarProfile,
+  KkaImarResolutionSource,
+  KkaParselFormInput,
+} from "./kkaParselImarEngine";
+export { INVOICE_LINE_DESCRIPTION_CANDIDATES, VAT_EXEMPTION_CODE_PLACEHOLDER_TEKNO } from "./billingConfig";
