@@ -8,11 +8,58 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type { RealtorPartnershipPayload } from "@/types/megaContent";
 import { REALTOR_B2B_RATE, VAT_RATE } from "@/lib/fees";
 
-const STEPS = [
-  { title: "Başvuru", desc: "Kurumsal bilgi ve yetki belgesi özeti ile online talep." },
-  { title: "Ön değerlendirme", desc: "Operasyon ekibi uygunluk ve bölge notunu kontrol eder." },
-  { title: "Sözleşme / onboarding", desc: "B2B fatura çizgisi ve iletişim kanalı yazılı olarak tanımlanır." },
-  { title: "Yayında aktifleştirme", desc: "Panel erişimi ve ilan yönlendirme kuralları devreye alınır." },
+type PartnershipStep = {
+  title: string;
+  subtitle: string;
+  desc: string;
+  bullets: string[];
+};
+
+const STEPS: PartnershipStep[] = [
+  {
+    title: "Başvuru",
+    subtitle: "Kurumsal kayıt ve belge paketi",
+    desc:
+      "Ticari ünvan, vergi kimliği ve iletişim matrisi ile birlikte taşınmaz ticareti yetki belgesi özetinizi dijital kanaldan iletirsiniz. Başvuru; KVKK kapsamında işlenecek verilerin doğruluğu ve kurumsal temsil yetkisinin netleşmesi için tek kaynaklı formatta toplanır.",
+    bullets: [
+      "Şirket ve yetkili temsil bilgileri",
+      "VKN / TCKN ve operasyon e-postası",
+      "Yetki belgesi ve ofis kapsamı özeti (TTBS çizgisi ile uyum hedefi)",
+    ],
+  },
+  {
+    title: "Ön değerlendirme",
+    subtitle: "Operasyon ve uygunluk incelemesi",
+    desc:
+      "İhaleal operasyon ekibi; bölge kapasitesi, mevcut iş ortaklığı yoğunluğu ve temel uygunluk notunu değerlendirir. Amaç, platform kalitesi ve tüketici güveni için çakışmasız, ölçeklenebilir bir dağılım sağlamaktır. Üretimde sonuç kayıtlı bildirim veya portal durumu ile paylaşılır (demo: manuel süreç).",
+    bullets: [
+      "Bölge ve segment uygunluğu",
+      "Çakışma / yoğunluk kontrolü",
+      "KYC / AML hattı ile hizalanma (hedef entegrasyon)",
+    ],
+  },
+  {
+    title: "Sözleşme / onboarding",
+    subtitle: "Yazılı çerçeve ve mali netlik",
+    desc:
+      "Ortak emlakçı modeline ilişkin sözleşme ve ekler imzalanır; B2B hizmet bedeli matrahı, KDV ve fatura teslim süreleri yazılı hale getirilir. İletişim ve eskalasyon kanalları (kayıtlı e-posta, destek hattı) resmen tanımlanır; böylece teklif ve kapanış süreçlerinde tek muhataplık korunur.",
+    bullets: [
+      "agency_contract ve ek protokoller (avukat onayı)",
+      "Faturalama periyodu ve e-fatura çizgisi",
+      "Kayıtlı bildirim ve destek SLA metni (hedef)",
+    ],
+  },
+  {
+    title: "Yayında aktifleştirme",
+    subtitle: "Panel ve yayın kuralları",
+    desc:
+      "Yetkilendirilmiş kullanıcılar için panel erişimi açılır; ilan oluşturma, vitrin ve teklif yönlendirme kuralları üretim politikasına göre etkinleştirilir. Komisyon motoru ve denetim izleri ile uyumlu hareket edilmesi için iç eğitim özeti ve hızlı kontrol listesi paylaşılır.",
+    bullets: [
+      "Rol bazlı panel ve yetki matrisi",
+      "İlan / ihale yayın kuralları ve moderasyon hattı",
+      "Performans ve şikâyet yönetimi için teknik iz sütunu (hedef)",
+    ],
+  },
 ];
 
 const ADV = [
@@ -75,22 +122,36 @@ export default function RealtorPartnershipPage() {
           </div>
           <div>
             <h1 className="text-3xl font-bold text-white">Emlakçı ortaklığı</h1>
-            <p className="mt-2 text-sm text-slate-400">
-              Ortak emlakçı payı iş modeli ile uyumlu başvuru (demo: tarayıcıda saklanır). Liste paketi satışı yapılmaz.
+            <p className="mt-2 text-sm text-slate-400 leading-relaxed">
+              Ortak emlakçı payı iş modeline uygun, kurumsal onaylı partner alım süreci. Başvurular demo ortamında tarayıcıda saklanır; üretimde güvenli kanal ve sözleşme akışı tanımlanır. Liste veya vitrin paketi satışı yapılmaz; gelir işlem bazlı tahakkuk eder.
             </p>
           </div>
         </div>
 
         <section>
-          <h2 className="mb-6 text-lg font-semibold text-white">Süreç</h2>
+          <h2 className="text-lg font-semibold text-white">Kurumsal süreç</h2>
+          <p className="mt-2 mb-6 max-w-3xl text-sm leading-relaxed text-slate-400">
+            Dört aşamalı çerçeve; başvurudan canlı ortama kadar şeffaf kontrol noktaları ve yazılı taahhütlerle ilerler. Aşamalar arası geri dönüş, yalnızca operasyon ve hukuk onayı ile yapılır.
+          </p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="relative rounded-2xl border border-white/10 bg-slate-900/40 p-4">
-                <span className="mb-2 inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-full bg-violet-500/20 text-xs font-bold text-violet-300">
+              <div key={s.title} className="relative flex flex-col rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+                <span className="mb-3 inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-full bg-violet-500/20 text-xs font-bold text-violet-300">
                   {i + 1}
                 </span>
-                <h3 className="font-medium text-white">{s.title}</h3>
-                <p className="mt-1 text-xs leading-relaxed text-slate-500">{s.desc}</p>
+                <h3 className="font-semibold text-white">{s.title}</h3>
+                <p className="mt-0.5 text-[11px] font-medium uppercase tracking-wide text-violet-300/90">{s.subtitle}</p>
+                <p className="mt-2 flex-1 text-xs leading-relaxed text-slate-400">{s.desc}</p>
+                <ul className="mt-3 space-y-1.5 border-t border-white/5 pt-3 text-[11px] leading-snug text-slate-500">
+                  {s.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="shrink-0 text-teal-500/80" aria-hidden>
+                        ·
+                      </span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
