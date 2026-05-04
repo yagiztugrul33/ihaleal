@@ -44,22 +44,6 @@
 }
 .animate-float { animation: float 4s ease-in-out infinite; }
 
-/* Giriş / kayıt: çok hafif arka plan parıltısı (video üstü) */
-.auth-backdrop-glow {
-  opacity: 0.92;
-  background: radial-gradient(ellipse 90% 55% at 50% 18%, rgba(34, 211, 238, 0.08), transparent 58%),
-    radial-gradient(ellipse 65% 45% at 85% 95%, rgba(59, 130, 246, 0.06), transparent 52%);
-  animation: authBackdropGlow 40s ease-in-out infinite alternate;
-}
-@keyframes authBackdropGlow {
-  from {
-    opacity: 0.86;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes gradient-text-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -133,10 +117,6 @@
 ::selection { background: hsl(210 80% 55% / 0.3); color: white; }
 
 @media (prefers-reduced-motion: reduce) {
-  .auth-backdrop-glow {
-    animation: none !important;
-    opacity: 1 !important;
-  }
   .animate-breathe,
   .animate-float,
   .animate-shimmer-bg,

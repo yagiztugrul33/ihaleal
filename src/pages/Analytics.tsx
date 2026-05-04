@@ -7,7 +7,7 @@ import {
   Target, ArrowUpRight, ArrowDownRight, Minus, Clock,
   TrendingDown, CircleDollarSign, PieChart, LineChart as LineChartIcon,
   Filter, Download, ChevronUp, ChevronDown, ShieldCheck,
-  AlertTriangle, Info, Gauge, MousePointerClick
+  AlertTriangle, Info, Gauge, MousePointerClick, Stethoscope, Cpu, ExternalLink, Crosshair,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -236,13 +236,37 @@ export default function Analytics() {
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex flex-wrap items-center gap-3">
-            <span aria-hidden>🩺</span>
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/35 bg-cyan-500/10" aria-hidden>
+              <Stethoscope className="h-5 w-5 text-cyan-300" />
+            </span>
             <Activity className="w-8 h-8 text-cyan-400" />
             İhaleal Endeksi — piyasa görünümü
           </h1>
           <p className="text-slate-400 mt-2">
             Teklif yoğunluğu, bölge bandı ve yatırım sinyallerini birlikte okuyun; statik tek rapordan daha zengin senaryo düzlemi (demo veri, kesin değer için resmi ekspertiz gerekir).
           </p>
+        </div>
+
+        <div className="mb-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-900/90 via-[#0c1629]/85 to-indigo-950/50 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 shadow-lg shadow-black/20">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10">
+            <Cpu className="h-6 w-6 text-cyan-300" aria-hidden />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-400/90">Yapay zekâ · özet katmanı</p>
+            <p className="text-sm text-slate-300 mt-1 leading-relaxed">
+              Grafikler ve skorlar demo veriyle üretilir; gerçek portföy için Uzman Görüşü ve tapu sicil doğrulaması şarttır. Sağ alttaki sohbetten hızlı yönlendirme alabilirsiniz.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2 shrink-0">
+            <Button type="button" variant="outline" size="sm" className="border-cyan-500/30 text-cyan-100 hover:bg-cyan-500/10 gap-1.5" onClick={() => navigate("/ekspertiz")}>
+              <ExternalLink className="w-3.5 h-3.5" />
+              Uzman görüşü
+            </Button>
+            <Button type="button" size="sm" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white gap-1.5" onClick={() => navigate("/karsilastir")}>
+              <Crosshair className="w-3.5 h-3.5" />
+              İlan kıyasla
+            </Button>
+          </div>
         </div>
 
         {/* Tab Navigation */}

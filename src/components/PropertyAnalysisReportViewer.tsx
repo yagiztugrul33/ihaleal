@@ -282,7 +282,7 @@ export function PropertyAnalysisReportViewer({
 
       <div className="px-4 py-3 border-t border-amber-400/20 bg-amber-500/5">
         <p className="text-[11px] text-amber-100/90 leading-relaxed flex gap-2">
-          <span aria-hidden>⚠️</span>
+          <span aria-hidden className="inline-flex items-center justify-center w-5 h-5 rounded border border-amber-500/40 text-amber-400 text-xs font-bold">!</span>
           {disclaimer}
         </p>
       </div>

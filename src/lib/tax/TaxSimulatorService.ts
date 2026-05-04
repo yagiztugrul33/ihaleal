@@ -2,7 +2,7 @@
  * TaxSimulatorService.ts
  * İhaleAL — Vergi / Harç Simülatörü
  * Yİ-ÜFE endeksleme, 5 yıl GV istisna, tapu harcı, net satıcı hesaplama.
- * ⚠️ BU HESAPLAMA BİLGİLENDİRME AMAÇLIDIR. RESMİ VERGİ HESABI DEĞİLDİR.
+ * UYARI: Bu hesaplama bilgilendirme amaçlıdır; resmi vergi hesabı değildir.
  */
 import { z } from "zod";
 

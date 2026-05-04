@@ -1,37 +1,110 @@
-import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Bot, User, Sparkles } from "lucide-react";
+import { useState, useRef, useEffect, type ComponentType } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  MessageCircle,
+  X,
+  Send,
+  Bot,
+  User,
+  Sparkles,
+  LineChart,
+  Landmark,
+  MapPin,
+  Crosshair,
+  Shield,
+  Percent,
+  LayoutGrid,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AiAssistantAvatar } from "@/components/AiAssistantAvatar";
 import { formatBidBondPercent } from "@/lib/fees";
 
 const ASSISTANT_NAME = "İhaleAI Asistan";
 
-const AI_RESPONSES: Record<string, string> = {
-  merhaba:
-    `Merhaba! Ben ${ASSISTANT_NAME} — ihaleal.com için gayrimenkul ihaleleri, analiz ve mortgage konularında yardımcı olabilirim.`,
-  fiyat: "İlan fiyatlarını karşılaştırmak için detay sayfasındaki grafikleri inceleyebilirsiniz. AI tahminleri demo bandında gösterilir.",
-  kredi: "Mortgage hesaplayıcı sayfamızdan aylık taksit ve toplam maliyeti hesaplayabilirsiniz.",
-  teklif: "Teklif vermek için ilan detayındaki Teklif Ver butonunu kullanın.",
-  bodrum: "Bodrum ve Muğla hattında turizm gayrimenkulü için örnek ilanları listeleyebilirim.",
-  istanbul: "İstanbul için kurumsal ve konut segmentinde örnek ilanlar listelenir.",
-  getiri: "Kira getirisi bölgelere göre değişir; Analytics sayfasında şehir bazlı özet bulunur.",
-  yatırım: "Yatırım skoru 85+ örnekleri Analytics → Yatırım Fırsatları sekmesinde sıralanır.",
-  güvenli: `Teklifler demo çizgisinde şifreli iletim hedeflenir. Kazanan için ${formatBidBondPercent()} teminat referansı fees.ts üzerinden gösterilir.`,
-  default: "Analytics veya ilan detayından devam edebilirsiniz. Başka bir konuda yardım ister misiniz?",
-};
+const AI_DEFAULT =
+  "Endeks (/analiz), ilan detayı veya mortgage sayfasından devam edebilirsiniz. Anahtar kelimeyle tekrar sorabilirsiniz.";
+
+const AI_RULES: { keys: string[]; reply: string }[] = [
+  {
+    keys: ["merhaba", "selam", "hey", "günaydın"],
+    reply: `Merhaba. Ben ${ASSISTANT_NAME} — ihale akışı, piyasa endeksi ve mortgage tarafında yönlendirme yaparım (demo yanıtlar).`,
+  },
+  {
+    keys: ["analiz", "endeks", "analytics", "grafik", "rapor"],
+    reply:
+      "Piyasa özeti için /analiz sayfasındaki şehir kartları ve sekmeleri kullanın; skorlar demo veridir, hukuki kesinlik için ekspertiz gerekir.",
+  },
+  {
+    keys: ["harita", "konum", "bölge"],
+    reply: "/harita üzerinden ilan yoğunluğu ve bölge seçimi yapılabilir; detaylı kıyas için /karsilastir.",
+  },
+  {
+    keys: ["karşılaştır", "kıyas", "compare"],
+    reply: "İki ilanı yan yana görmek için /karsilastir — fiyat bandı ve m² metrikleri demo katalogdan gelir.",
+  },
+  {
+    keys: ["fiyat", "m2", "metrekare", "tahmin"],
+    reply: "İlan kartında m² fiyatı ve AI tahmin bandı (varsa) gösterilir; teklif öncesi resmi değerleme önerilir.",
+  },
+  {
+    keys: ["kredi", "mortgage", "taksit", "faiz"],
+    reply: "/mortgage ile aylık taksit ve toplam maliyet simülasyonu yapılabilir; banka onayı ayrıdır.",
+  },
+  {
+    keys: ["teklif", "ihale", "bodrum", "muğla", "istanbul", "ankara"],
+    reply: "Teklif için ilan detayındaki akışı kullanın; şehir bazlı örnek ilanlar listede filtrelenir.",
+  },
+  {
+    keys: ["getiri", "kira", "yield"],
+    reply: "Kira getirisi şehir ve segmente göre değişir; /analiz içinde getiri sekmesi ve simülatör bölümüne bakın.",
+  },
+  {
+    keys: ["yatırım", "skor", "fırsat"],
+    reply: "Yatırım skoru yüksek örnekler /analiz → Yatırım Fırsatları sekmesinde sıralanır; risk profilinize göre filtreleyin.",
+  },
+  {
+    keys: ["komisyon", "ücret", "bedel"],
+    reply: "/komisyon-hesaplayici ve /hizmet-bedelleri sayfalarında matrah ve hizmet kalemleri özetlenir (demo).",
+  },
+  {
+    keys: ["vergi", "tapu", "simülatör"],
+    reply: "/araclar/vergi-simulator bilgilendirme amaçlıdır; resmi hesap için YMM ve tapu sicil şarttır.",
+  },
+  {
+    keys: ["kvkk", "gizlilik", "cerez"],
+    reply: "/kvkk ve /gizlilik metinleri yasal çerçevedir; hesap ayarları /ayarlar altında yönetilir.",
+  },
+  {
+    keys: ["güvenlik", "şifre", "hesap"],
+    reply: `Güvenlik merkezi: /guvenlik. Oturum Supabase Auth ile; teminat referansı demo: ${formatBidBondPercent()}.`,
+  },
+];
 
 function getAIResponse(input: string): string {
-  const lower = input.toLowerCase();
-  for (const [key, value] of Object.entries(AI_RESPONSES)) {
-    if (lower.includes(key)) return value;
+  const lower = input.toLowerCase().trim();
+  for (const rule of AI_RULES) {
+    if (rule.keys.some((k) => lower.includes(k))) return rule.reply;
   }
-  return AI_RESPONSES.default;
+  return AI_DEFAULT;
 }
 
+const QUICK_PROMPTS: { label: string; fill: string; Icon: ComponentType<{ className?: string }> }[] = [
+  { label: "Endeks", fill: "analiz özeti", Icon: LineChart },
+  { label: "Mortgage", fill: "kredi taksiti", Icon: Landmark },
+  { label: "Harita", fill: "harita yoğunluğu", Icon: MapPin },
+  { label: "Kıyas", fill: "ilan karşılaştır", Icon: Crosshair },
+  { label: "Komisyon", fill: "komisyon hesapla", Icon: Percent },
+  { label: "Güven", fill: "güvenlik merkezi", Icon: Shield },
+];
+
 export function ChatWidget() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [peek, setPeek] = useState(false);
-  const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([{ role: "ai", text: AI_RESPONSES.merhaba }]);
+  const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([
+    { role: "ai", text: AI_RULES[0].reply },
+  ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -80,19 +153,19 @@ export function ChatWidget() {
           onMouseLeave={hidePeek}
         >
           {peek && (
-            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-400/30 bg-[#0c1629]/95 backdrop-blur-xl shadow-2xl shadow-cyan-900/40 p-4 ring-1 ring-white/10">
+            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-500/25 bg-[#0b1426]/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-4 ring-1 ring-white/10">
               <div className="flex items-center gap-3 mb-3">
                 <AiAssistantAvatar size="sm" />
                 <div>
                   <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
                   <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse motion-reduce:animate-none" />
-                    Çevrimiçi · yapay zeka önerileri
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30" />
+                    Çevrimiçi · demo yönlendirme
                   </div>
                 </div>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                İhale, analiz ve mortgage hakkında soru sorabilirsiniz; hızlı yanıtlar demo modunda üretilir.
+                Endeks, kredi ve ilan kıyası için kısa komutlar; aşağıdan paneli açıp detaylı sorabilirsiniz.
               </p>
               <Button
                 size="sm"
@@ -109,7 +182,7 @@ export function ChatWidget() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="chat-fab flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-400/45 hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 text-white motion-reduce:hover:scale-100 ring-2 ring-white/10 hover:ring-cyan-400/30"
+            className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
             aria-label={`${ASSISTANT_NAME} sohbet`}
           >
             <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
@@ -122,16 +195,15 @@ export function ChatWidget() {
       )}
 
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[360px] max-h-[500px] bg-[#0c1629]/98 backdrop-blur-xl border border-cyan-400/25 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden ring-1 ring-white/10 chat-widget-pop">
-          <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-indigo-600/20 via-blue-600/15 to-cyan-500/15 relative overflow-hidden">
-            <div className="absolute inset-0 bg-[length:200%_100%] bg-[linear-gradient(105deg,transparent_40%,rgba(56,189,248,0.08)_50%,transparent_60%)] animate-shimmer-bg motion-reduce:hidden pointer-events-none opacity-70" />
-            <div className="relative flex items-center gap-3">
+        <div className="fixed bottom-6 right-6 z-50 w-[min(380px,calc(100vw-1.5rem))] max-h-[min(520px,85vh)] bg-[#0b1426]/98 backdrop-blur-xl border border-cyan-500/20 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden ring-1 ring-white/10 chat-widget-pop">
+          <div className="p-4 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-slate-900/90 via-[#0d1830]/95 to-slate-900/90">
+            <div className="flex items-center gap-3">
               <AiAssistantAvatar size="md" />
               <div>
                 <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
-                <div className="text-xs text-cyan-200 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse motion-reduce:animate-none shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                  Çevrimiçi
+                <div className="text-xs text-cyan-200/90 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25" />
+                  Hazır
                 </div>
               </div>
             </div>
@@ -170,32 +242,68 @@ export function ChatWidget() {
                   <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse motion-reduce:animate-none" />
                 </div>
                 <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10">
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400/80 animate-bounce motion-reduce:animate-none" style={{ animationDelay: "0ms" }} />
-                    <span className="w-2 h-2 rounded-full bg-cyan-400/80 animate-bounce motion-reduce:animate-none" style={{ animationDelay: "150ms" }} />
-                    <span className="w-2 h-2 rounded-full bg-cyan-400/80 animate-bounce motion-reduce:animate-none" style={{ animationDelay: "300ms" }} />
+                  <div className="flex gap-1.5 items-center h-4">
+                    <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/70 motion-safe:animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/50 motion-safe:animate-pulse [animation-delay:120ms]" />
+                    <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/35 motion-safe:animate-pulse [animation-delay:240ms]" />
                   </div>
                 </div>
               </div>
             )}
           </div>
 
-          {messages.length < 3 && (
-            <div className="px-4 pb-2 flex flex-wrap gap-1.5">
-              {["Fiyat analizi", "Kredi hesapla", "İstanbul", "Yatırım skoru"].map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setInput(s)}
-                  className="px-3 py-1.5 rounded-xl bg-white/[0.06] text-xs text-slate-400 hover:bg-white/12 hover:text-white hover:scale-[1.03] active:scale-[0.98] border border-white/5 hover:border-cyan-400/20 transition-all duration-200 motion-reduce:hover:scale-100"
+          {messages.length < 6 && (
+            <div className="px-3 pb-2 space-y-2">
+              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1">Hızlı ifade</p>
+              <div className="flex flex-wrap gap-1.5">
+                {QUICK_PROMPTS.map(({ label, fill, Icon }) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setInput(fill)}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.05] text-[11px] text-slate-300 hover:bg-cyan-500/10 hover:text-white border border-white/8 hover:border-cyan-500/25 transition-colors"
+                  >
+                    <Icon className="w-3.5 h-3.5 text-cyan-400/90 shrink-0" aria-hidden />
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2 pt-1 border-t border-white/5 mt-2">
+                <Link
+                  to="/analiz"
+                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                  onClick={() => setOpen(false)}
                 >
-                  {s}
+                  <LayoutGrid className="w-3 h-3" aria-hidden />
+                  Endeks
+                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                </Link>
+                <Link
+                  to="/harita"
+                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                  onClick={() => setOpen(false)}
+                >
+                  <MapPin className="w-3 h-3" aria-hidden />
+                  Harita
+                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                </Link>
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                  onClick={() => {
+                    setOpen(false);
+                    navigate("/mortgage");
+                  }}
+                >
+                  <Landmark className="w-3 h-3" aria-hidden />
+                  Mortgage
+                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </button>
-              ))}
+              </div>
             </div>
           )}
 
-          <div className="p-3 border-t border-white/10 flex gap-2 bg-black/20">
+          <div className="p-3 border-t border-white/10 flex gap-2 bg-black/25">
             <input
               type="text"
               value={input}
