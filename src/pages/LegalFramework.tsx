@@ -36,6 +36,28 @@ export default function LegalFramework() {
         </Card>
 
         <div className="flex flex-wrap gap-2 mb-6">
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="border-white/15 bg-white/[0.06] text-white hover:bg-white/10"
+            onClick={() => navigate("/anayasa-400")}
+          >
+            <BookOpen className="w-4 h-4 mr-2" />
+            400 maddelik hukuk özeti (Anayasa + 4734)
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="border-white/10 text-slate-300"
+            onClick={() => navigate("/nihai-anayasa")}
+          >
+            Nihai sistem anayasası
+          </Button>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-6">
           {LEGAL_SECTIONS.map((s) => (
             <Button
               key={s.id}

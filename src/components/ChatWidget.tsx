@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, type ComponentType } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   MessageCircle,
   X,
@@ -76,6 +76,11 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
     reply: "/kvkk ve /gizlilik metinleri yasal çerçevedir; hesap ayarları /ayarlar altında yönetilir.",
   },
   {
+    keys: ["anayasa", "400 madde", "400", "hukuk", "4734", "kik", "kanun maddesi"],
+    reply:
+      "400 maddelik özet çerçeve: /anayasa-400 (Anayasa + Kamu İhale Kanunu hatırlatıcıları, aranabilir). Sistem kuralları: /nihai-anayasa. Yasal taslak başlıkları: /yasal-cerceve. Bilgilendirme amaçlıdır; bağlayıcı hukuki görüş değildir.",
+  },
+  {
     keys: ["güvenlik", "şifre", "hesap"],
     reply: `Güvenlik merkezi: /guvenlik. Oturum Supabase Auth ile; teminat referansı demo: ${formatBidBondPercent()}.`,
   },
@@ -100,6 +105,7 @@ const QUICK_PROMPTS: { label: string; fill: string; Icon: ComponentType<{ classN
 
 export function ChatWidget() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [peek, setPeek] = useState(false);
   const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([
@@ -120,6 +126,12 @@ export function ChatWidget() {
     },
     []
   );
+
+  useEffect(() => {
+    if (peekTimer.current) clearTimeout(peekTimer.current);
+    setPeek(false);
+    setOpen(false);
+  }, [location.pathname, location.search]);
 
   const schedulePeek = () => {
     if (open) return;
@@ -299,6 +311,15 @@ export function ChatWidget() {
                   Mortgage
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </button>
+                <Link
+                  to="/anayasa-400"
+                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                  onClick={() => setOpen(false)}
+                >
+                  <Shield className="w-3 h-3" aria-hidden />
+                  400 madde
+                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                </Link>
               </div>
             </div>
           )}

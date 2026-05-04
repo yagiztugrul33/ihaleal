@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Scale, AlertTriangle, BookMarked, ExternalLink } from "lucide-react";
+import { ArrowLeft, Scale, AlertTriangle, BookMarked, ExternalLink, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LEGAL_MASTER_PAGE_DISCLAIMER, LEGAL_MASTER_SECTIONS } from "@/data/legalMasterBrief";
@@ -27,15 +27,26 @@ export default function LegalMasterBrief() {
               </p>
             </div>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="shrink-0 border-white/15 text-slate-300 hover:bg-white/5"
-            onClick={() => navigate("/yasal-cerceve")}
-          >
-            <Scale className="mr-2 h-4 w-4" />
-            Yasal çerçeve sayfası
-          </Button>
+          <div className="flex flex-wrap gap-2 shrink-0 justify-end">
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-white/15 text-slate-300 hover:bg-white/5"
+              onClick={() => navigate("/yasal-cerceve")}
+            >
+              <Scale className="mr-2 h-4 w-4" />
+              Yasal çerçeve
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-teal-500/30 text-teal-100 hover:bg-teal-500/10"
+              onClick={() => navigate("/anayasa-400")}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              400 madde özeti
+            </Button>
+          </div>
         </div>
 
         <Card className="mb-8 border-amber-500/25 bg-amber-500/10">

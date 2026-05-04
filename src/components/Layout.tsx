@@ -10,6 +10,7 @@ import { CookieConsent } from "./CookieConsent";
 import { SeoSync } from "./SeoSync";
 import { DemoBanner } from "./DemoBanner";
 import { DemoUyarisi } from "./DemoUyarisi";
+import { ScrollToTop } from "./ScrollToTop";
 import { useToast, type Toast } from "@/hooks/useToast";
 
 const AUTH_MINIMAL_PATHS = ["/giris", "/kayit", "/sifremi-unuttum", "/emlakci-giris"];
@@ -47,6 +48,7 @@ export function Layout({ children }: { children: ReactNode }) {
         ) : null}
       </div>
       <div className="relative z-10 flex flex-col flex-1 min-h-screen">
+      <ScrollToTop />
       <DemoUyarisi />
       <SeoSync />
       <AntiCopyProtection />

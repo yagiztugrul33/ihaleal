@@ -76,6 +76,28 @@ export default function SecurityCenter() {
             </div>
           </div>
           <RoadmapBanner />
+          <div className="flex flex-wrap gap-2 mt-6">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="border-white/15 text-slate-200 hover:bg-white/5"
+              onClick={() => navigate("/anayasa-400")}
+            >
+              <FileText className="w-4 h-4 mr-2" />
+              400 maddelik hukuk özeti
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="border-white/15 text-slate-200 hover:bg-white/5"
+              onClick={() => navigate("/nihai-anayasa")}
+            >
+              <FileText className="w-4 h-4 mr-2" />
+              Nihai anayasa
+            </Button>
+          </div>
         </div>
       </div>
 

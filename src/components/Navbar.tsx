@@ -67,6 +67,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname, location.search]);
+
   const scrollTo = (id: string) => {
     if (location.pathname !== "/") {
       navigate("/");
