@@ -16,6 +16,9 @@ export default defineConfig({
   /** Göreli `./` üretimde `/alt/yol` gibi URL'lerde `./assets` yanlış çözülür (JS 404 → beyaz ekran). Kök taban her zaman doğru asset yolu verir. */
   base: "/",
   server: {
+    host: true,
+    port: 5173,
+    strictPort: false,
     headers: securityHeaders(),
     /** HashRouter: doğrudan köke düşsün */
     open: "/#/",

@@ -15,6 +15,7 @@ import {
   Percent,
   LayoutGrid,
   ChevronRight,
+  Smartphone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AiAssistantAvatar } from "@/components/AiAssistantAvatar";
@@ -84,6 +85,11 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
     keys: ["güvenlik", "şifre", "hesap"],
     reply: `Güvenlik merkezi: /guvenlik. Oturum Supabase Auth ile; teminat referansı demo: ${formatBidBondPercent()}.`,
   },
+  {
+    keys: ["telefon", "mobil", "lokal", "localhost", "5173", "wifi", "wi-fi", "aynı ağ", "geliştirici"],
+    reply:
+      "Telefonda yerel test: bilgisayarda `npm run dev` calissin (Vite LAN acik). Baska bir terminalde `npm run dev:mobile-url` yazin; ekrana http://192.168.x.x:5173/#/ gibi adres gelir, ayni Wi-Fi uzerinde telefondan acin. Windows guvenlik duvarinda 5173 izni gerekebilir.",
+  },
 ];
 
 function getAIResponse(input: string): string {
@@ -101,6 +107,7 @@ const QUICK_PROMPTS: { label: string; fill: string; Icon: ComponentType<{ classN
   { label: "Kıyas", fill: "ilan karşılaştır", Icon: Crosshair },
   { label: "Komisyon", fill: "komisyon hesapla", Icon: Percent },
   { label: "Güven", fill: "güvenlik merkezi", Icon: Shield },
+  { label: "Telefon (lokal)", fill: "telefon lokal nasıl bağlanır", Icon: Smartphone },
 ];
 
 export function ChatWidget() {
