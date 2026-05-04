@@ -9,6 +9,7 @@ import {
   User,
   Home,
   Shield,
+  Server,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,9 @@ import { Card } from "@/components/ui/card";
 import type { ChatMessage, ChatThread } from "@/data/messagesDemo";
 import { DEMO_CHAT_THREADS, getParticipant } from "@/data/messagesDemo";
 import { complianceNlpService } from "@/lib/compliance/ComplianceNlpService";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { isUuid } from "@/lib/chat/isUuid";
+import { postChatMessageViaEdge } from "@/lib/chat/postChatMessageClient";
 
 const STORAGE_KEY = "ihaleal_chat_threads_demo";
 
@@ -49,6 +53,19 @@ export default function MessagesPage() {
   const [draft, setDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
   const sendingRef = useRef(false);
+  const [hasAuthSession, setHasAuthSession] = useState(false);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured()) {
+      setHasAuthSession(false);
+      return;
+    }
+    void supabase.auth.getSession().then(({ data }) => setHasAuthSession(Boolean(data.session)));
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setHasAuthSession(Boolean(session));
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(threads));
@@ -64,39 +81,82 @@ export default function MessagesPage() {
     const text = draft.trim();
     if (!text || !active || sendingRef.current) return;
     sendingRef.current = true;
-    const msgId = `local-${Date.now()}`;
-    try {
-      const signal = await complianceNlpService.scoreChatMessage(text, {
-        messageId: msgId,
-        threadId: active.id,
-        senderId: "p2",
-      });
+    const clientMsgId =
+      typeof globalThis.crypto !== "undefined" && typeof globalThis.crypto.randomUUID === "function"
+        ? globalThis.crypto.randomUUID()
+        : `cm-${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+    const localMsgId = `local-${Date.now()}`;
+
+    const pushLocal = (
+      id: string,
+      scan: { severity: "low" | "medium" | "high"; flaggedKeywords: string[]; modelScore: number },
+      source: "edge" | "local",
+    ) => {
       const msg: ChatMessage = {
-        id: msgId,
+        id,
         threadId: active.id,
         authorId: "p2",
         body: text,
         sentAt: new Date().toISOString(),
         complianceScan: {
+          severity: scan.severity,
+          flaggedKeywords: scan.flaggedKeywords,
+          modelScore: scan.modelScore,
+        },
+        remoteSource: source,
+      };
+      setThreads((prev) => prev.map((t) => (t.id === active.id ? { ...t, messages: [...t.messages, msg] } : t)));
+      setDraft("");
+      const flagged = scan.flaggedKeywords.length > 0;
+      window.dispatchEvent(
+        new CustomEvent("ihaleal:add-toast", {
+          detail: {
+            message: flagged
+              ? `Mesaj kaydedildi. Uyum tarayıcısı şüpheli ifadeler bildirdi: ${scan.flaggedKeywords.slice(0, 3).join(", ")}${scan.flaggedKeywords.length > 3 ? "…" : ""}.`
+              : source === "edge"
+                ? "Mesaj sunucuya iletildi (Edge post_chat_message)."
+                : "Mesajınız demo olarak kaydedildi (simülasyon).",
+            type: flagged ? "warning" : "success",
+          },
+        }),
+      );
+    };
+
+    try {
+      const tryEdge = isSupabaseConfigured() && hasAuthSession && isUuid(active.id);
+      if (tryEdge) {
+        const edge = await postChatMessageViaEdge({
+          threadId: active.id,
+          text,
+          clientMsgId,
+        });
+        if (edge.ok) {
+          pushLocal(edge.messageId, edge.compliance, "edge");
+          return;
+        }
+        window.dispatchEvent(
+          new CustomEvent("ihaleal:add-toast", {
+            detail: {
+              message: `Edge gönderimi başarısız (${edge.code}). Yerel demo ile devam edildi.${edge.detail ? ` · ${edge.detail}` : ""}`,
+              type: "warning",
+            },
+          }),
+        );
+      }
+
+      const signal = await complianceNlpService.scoreChatMessage(text, {
+        messageId: localMsgId,
+        threadId: active.id,
+        senderId: "p2",
+      });
+      pushLocal(
+        localMsgId,
+        {
           severity: signal.severity,
           flaggedKeywords: signal.flaggedKeywords,
           modelScore: signal.modelScore,
         },
-      };
-      setThreads((prev) =>
-        prev.map((t) => (t.id === active.id ? { ...t, messages: [...t.messages, msg] } : t))
-      );
-      setDraft("");
-      window.dispatchEvent(
-        new CustomEvent("ihaleal:add-toast", {
-          detail: {
-            message:
-              signal.flaggedKeywords.length > 0
-                ? `Mesaj kaydedildi. Uyum tarayıcısı şüpheli ifadeler bildirdi (demo): ${signal.flaggedKeywords.slice(0, 3).join(", ")}${signal.flaggedKeywords.length > 3 ? "…" : ""}. Üretimde insan inceleme kuyruğuna düşer.`
-                : "Mesajınız demo olarak kaydedildi (simülasyon).",
-            type: signal.flaggedKeywords.length > 0 ? "warning" : "success",
-          },
-        })
+        "local",
       );
     } finally {
       sendingRef.current = false;
@@ -175,6 +235,20 @@ export default function MessagesPage() {
               <>
                 <div className="px-4 py-3 border-b border-white/10 flex flex-wrap gap-2 items-center">
                   <h1 className="text-lg font-bold text-white flex-1 min-w-[200px]">{active.title}</h1>
+                  {isSupabaseConfigured() && hasAuthSession && isUuid(active.id) ? (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-200/95">
+                      <Server className="h-3 w-3" aria-hidden />
+                      Edge gönderim
+                    </span>
+                  ) : isSupabaseConfigured() && hasAuthSession ? (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-slate-600/60 bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-slate-400">
+                      Demo konu (UUID değil) — yerel kayıt
+                    </span>
+                  ) : isSupabaseConfigured() ? (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-200/90">
+                      Oturum yok — yerel demo
+                    </span>
+                  ) : null}
                   <div className="flex flex-wrap gap-1.5">
                     {active.participants.map((p) => {
                       const b = roleBadge(p.role);
@@ -205,9 +279,14 @@ export default function MessagesPage() {
                               : "bg-slate-800/90 border-white/10 text-slate-100 rounded-bl-md"
                           }`}
                         >
-                          <div className="flex items-center gap-2 mb-1 text-[10px] opacity-90">
+                          <div className="flex flex-wrap items-center gap-2 mb-1 text-[10px] opacity-90">
                             <b.Icon className="w-3.5 h-3.5" />
                             <span>{author?.displayName ?? "Katılımcı"}</span>
+                            {m.remoteSource === "edge" ? (
+                              <span className="rounded bg-emerald-500/20 px-1 py-px text-[9px] font-semibold uppercase tracking-wide text-emerald-200">
+                                Edge
+                              </span>
+                            ) : null}
                             <span className="text-slate-500">
                               {new Date(m.sentAt).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short" })}
                             </span>
@@ -230,7 +309,10 @@ export default function MessagesPage() {
                                     : "border-white/10 bg-black/25 text-slate-300"
                               }`}
                             >
-                              <span className="font-medium">Uyum taraması (demo):</span> eşleşen ifadeler —{" "}
+                              <span className="font-medium">
+                                Uyum taraması{m.remoteSource === "edge" ? " (Edge + RPC)" : " (demo)"}:
+                              </span>{" "}
+                              eşleşen ifadeler —{" "}
                               {m.complianceScan.flaggedKeywords.join(", ")}. Otomatik engel yok; üretimde kayıt altına alınır.{" "}
                               <Link to="/yasal/dolandiricilik-savunmasi" className="underline underline-offset-2 text-teal-300">
                                 Savunma mimarisi
@@ -275,9 +357,11 @@ export default function MessagesPage() {
               İhalelere göz at
             </Link>
           </p>
-          <p className="text-xs text-slate-500">
-            Gönderdiğiniz metinler bu demo ortamında yerelde <strong className="text-slate-400">ComplianceNlpService</strong> ile taranır;
-            şüpheli anahtar kelimeler mesaj altında gösterilir (otomatik ceza yok). Laboratuvar:{" "}
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Gönderdiğiniz metinler önce <strong className="text-slate-400">ComplianceNlpService</strong> ile taranır. Supabase oturumu açık ve
+            konu başlığı UUID ise aynı kurallar Edge üzerinden <code className="text-slate-500">post_chat_message</code> ile RPC ve isteğe bağlı{" "}
+            <code className="text-slate-500">compliance_review_queue</code> kaydına yansır (migration uygulanmış olmalı). Otomatik hesap cezası
+            yoktur. Laboratuvar:{" "}
             <Link to="/araclar/finans-uyumluluk" className="text-teal-400 hover:underline">
               Fin / uyum playground
             </Link>

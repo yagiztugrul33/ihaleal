@@ -25,6 +25,8 @@ export type ChatMessage = {
   sentAt: string;
   /** Yerel demo: ComplianceNlpService skoru (işaretli kelime yoksa genelde düşük şiddet). */
   complianceScan?: ChatMessageComplianceScan;
+  /** Mesajın kaynağı: Edge RPC zinciri veya yalnızca yerel demo. */
+  remoteSource?: "edge" | "local";
 };
 
 export type ChatThread = {
