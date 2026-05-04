@@ -26,7 +26,8 @@ describe("createFetchWithTimeout", () => {
     );
     const f = createFetchWithTimeout(1000);
     const p = f("https://example.com/test", {});
-    vi.advanceTimersByTime(1000);
-    await expect(p).rejects.toMatchObject({ name: "AbortError" });
+    const assertRejected = expect(p).rejects.toMatchObject({ name: "AbortError" });
+    await vi.advanceTimersByTimeAsync(1000);
+    await assertRejected;
   });
 });
