@@ -75,6 +75,11 @@ const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
 const AydinlatmaMetni      = lazy(() => import("@/pages/legal/AydinlatmaMetni"));
 const SSSPage              = lazy(() => import("@/pages/SSS"));
 const AgencyContractView   = lazy(() => import("@/pages/legal/AgencyContractView"));
+const Anayasa400           = lazy(() => import("@/pages/Anayasa400"));
+const NihaiAnayasa         = lazy(() => import("@/pages/NihaiAnayasa"));
+const EmlakciGiris         = lazy(() => import("@/pages/EmlakciGiris"));
+const TaxSimulatorPage     = lazy(() => import("@/pages/TaxSimulatorPage"));
+const FinCompliancePlayground = lazy(() => import("@/pages/FinCompliancePlayground"));
 
 function App() {
   return (
@@ -122,6 +127,12 @@ function App() {
             <Route path="/aydinlatma-metni" element={<AydinlatmaMetni />} />
             <Route path="/sss" element={<SSSPage />} />
             <Route path="/yasal/agency-contract" element={<AgencyContractView />} />
+            <Route path="/anayasa" element={<Anayasa400 />} />
+            <Route path="/anayasa-400" element={<Anayasa400 />} />
+            <Route path="/nihai-anayasa" element={<NihaiAnayasa />} />
+            <Route path="/emlakci-giris" element={<EmlakciGiris />} />
+            <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />
+            <Route path="/araclar/finans-uyumluluk" element={<FinCompliancePlayground />} />
             <Route path="/ekspertiz" element={<Expertise />} />
             <Route path="/evraklar" element={<DocumentsRequired />} />
             <Route path="/guvenlik" element={<SecurityCenter />} />

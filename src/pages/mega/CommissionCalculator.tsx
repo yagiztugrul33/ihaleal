@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { Calculator, Shield } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   MEMBERSHIP_FEES,
   SERVICE_FEES,
@@ -13,11 +13,22 @@ import {
   REALTOR_B2B_RATE,
   SELLER_COMMISSION_RATE,
 } from "@/lib/fees";
+import { distributeLandEquityCommission } from "@/lib/masterFinancialEngine";
+import {
+  splitRentalCommissionMatrah,
+  kdvOnCommissionMatrah,
+  eProvisyon1PercentTry,
+  RENTAL_COMMISSION_VAT_RATE,
+  type RentalSplitScenario,
+} from "@/lib/rentalCommissionEngine";
 
 type ServiceKey = keyof typeof SERVICE_FEES;
 
 export default function CommissionCalculator() {
   const [saleStr, setSaleStr] = useState("5000000");
+  const [rentStr, setRentStr] = useState("35000");
+  const [rentTransferStr, setRentTransferStr] = useState("50000");
+  const [rentScenario, setRentScenario] = useState<RentalSplitScenario>("dual_realtor");
   const [sellerMembershipPaid, setSellerMembershipPaid] = useState(true);
   const [svc, setSvc] = useState<Record<ServiceKey, boolean>>({
     photo: false,
@@ -45,6 +56,52 @@ export default function CommissionCalculator() {
     [saleAmount, mahsupMembership, serviceSum],
   );
 
+  const rentAmount = Math.max(0, Number(String(rentStr).replace(/\D/g, "")) || 0);
+  const rentTransferAmount = Math.max(0, Number(String(rentTransferStr).replace(/\D/g, "")) || 0);
+
+  const landPool = useMemo(() => {
+    const v = saleAmount > 0 ? saleAmount : 1;
+    try {
+      return distributeLandEquityCommission({ expertOrParcelValueTry: v });
+    } catch {
+      return null;
+    }
+  }, [saleAmount]);
+
+  const rentalSplit = useMemo(() => {
+    if (rentAmount <= 0) return null;
+    try {
+      return splitRentalCommissionMatrah({
+        oneMonthlyRentTryBeforeVat: rentAmount,
+        scenario: rentScenario,
+      });
+    } catch {
+      return null;
+    }
+  }, [rentAmount, rentScenario]);
+
+  const rentalEProvNormal = useMemo(() => {
+    if (rentAmount <= 0) return null;
+    try {
+      return eProvisyon1PercentTry({ kind: "normal_rent", monthlyRentTry: rentAmount });
+    } catch {
+      return null;
+    }
+  }, [rentAmount]);
+
+  const rentalEProvDevren = useMemo(() => {
+    if (rentAmount <= 0) return null;
+    try {
+      return eProvisyon1PercentTry({
+        kind: "devren",
+        monthlyRentTry: rentAmount,
+        transferFeeTry: rentTransferAmount,
+      });
+    } catch {
+      return null;
+    }
+  }, [rentAmount, rentTransferAmount]);
+
   function toggleService(k: ServiceKey) {
     setSvc((prev) => ({ ...prev, [k]: !prev[k] }));
   }
@@ -60,7 +117,8 @@ export default function CommissionCalculator() {
             <div>
               <h1 className="text-3xl font-bold text-white">Komisyon hesaplayıcı</h1>
               <p className="mt-2 text-sm text-slate-400">
-                İşlem matrahı üzerinden %{(SELLER_COMMISSION_RATE * 100).toFixed(0)} + KDV; mahsup: ödenen yıllık satıcı üyeliği ve seçilen hizmet bedelleri.
+                Üst blok yalnızca satış işlem matrahı içindir (%{(SELLER_COMMISSION_RATE * 100).toFixed(0)} + KDV; mahsup
+                üyelik ve hizmetler). Kiralık komisyonu ayrı kartta; matrah 1 aylık kira + KDV (satılıkla karıştırılmaz).
               </p>
             </div>
           </div>
@@ -162,7 +220,7 @@ export default function CommissionCalculator() {
                 </div>
                 <div className="flex justify-between text-slate-400">
                   <dt>Ortak emlakçı B2B (matrah %{(REALTOR_B2B_RATE * 100).toFixed(0)})</dt>
-                  <dd className="font-medium text-white">₺{Math.round(b.realtorB2BMatrah).toLocaleString("tr-TR")}</dd>
+                  <dd className="font-medium text-white">₺{Math.round(b.agentShare).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between border-t border-white/10 pt-2 text-slate-400">
                   <dt>Mahsup (üyelik + hizmet)</dt>
@@ -183,6 +241,162 @@ export default function CommissionCalculator() {
               <p className="text-[11px] leading-relaxed text-slate-500">
                 Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme ve fatura ile ilişkilidir.
               </p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-amber-500/20 bg-[#0F172A]">
+            <CardContent className="space-y-4 p-6">
+              <h2 className="text-lg font-semibold text-amber-100">Kiralık ve devren (v.Final — Madde 41-46)</h2>
+              <p className="text-xs text-slate-400">
+                <code className="text-amber-200/90">rentalCommissionEngine.ts</code> — hizmet bedeli matrahı{" "}
+                <strong className="text-amber-100">1 tam aylık kira + KDV</strong>. Devir bedeli üzerinden komisyon
+                kesilmez; %1 e-provizyon ayrı hesaplanır (Madde 66-68, 81-83).
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="rent-matrah" className="text-xs text-slate-400">
+                    1 aylık kira (KDV matrahı, TL)
+                  </Label>
+                  <Input
+                    id="rent-matrah"
+                    inputMode="numeric"
+                    value={rentStr}
+                    onChange={(e) => setRentStr(e.target.value)}
+                    className="border-white/10 bg-black/30 text-white"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="rent-devir" className="text-xs text-slate-400">
+                    Devir bedeli (yalnız e-provizyon örneği, TL)
+                  </Label>
+                  <Input
+                    id="rent-devir"
+                    inputMode="numeric"
+                    value={rentTransferStr}
+                    onChange={(e) => setRentTransferStr(e.target.value)}
+                    className="border-white/10 bg-black/30 text-white"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {(
+                  [
+                    ["c2c", "C2C (platform %100)"],
+                    ["single_realtor", "Tek emlakçı (%50-%50)"],
+                    ["dual_realtor", "Çift emlakçı (%25 + %37.5 + %37.5)"],
+                    ["b2c_cross", "B2C çapraz (%50-%50)"],
+                  ] as const
+                ).map(([key, label]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setRentScenario(key)}
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+                      rentScenario === key ? "bg-amber-500/25 text-amber-100" : "bg-white/5 text-slate-400 hover:bg-white/10"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {rentalSplit ? (
+                <dl className="space-y-2 border-t border-white/10 pt-4 text-sm text-slate-300">
+                  <div className="text-[11px] text-slate-500">{rentalSplit.lawRef}</div>
+                  <div className="flex justify-between">
+                    <dt>İhaleal matrah</dt>
+                    <dd className="font-medium text-white">₺{rentalSplit.ihalealMatrahTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                  {typeof rentalSplit.listingRealtorMatrahTry === "number" ? (
+                    <div className="flex justify-between">
+                      <dt>İlan / portföy emlakçısı matrah</dt>
+                      <dd className="font-medium text-white">
+                        ₺{rentalSplit.listingRealtorMatrahTry.toLocaleString("tr-TR")}
+                      </dd>
+                    </div>
+                  ) : null}
+                  {typeof rentalSplit.buyerRealtorMatrahTry === "number" ? (
+                    <div className="flex justify-between">
+                      <dt>Alıcı tarafı emlakçı matrah</dt>
+                      <dd className="font-medium text-white">
+                        ₺{rentalSplit.buyerRealtorMatrahTry.toLocaleString("tr-TR")}
+                      </dd>
+                    </div>
+                  ) : null}
+                  <div className="flex justify-between border-t border-white/10 pt-2 text-slate-400">
+                    <dt>KDV (komisyon matrahı üzerinden %{(RENTAL_COMMISSION_VAT_RATE * 100).toFixed(0)})</dt>
+                    <dd className="font-medium text-white">
+                      ₺{kdvOnCommissionMatrah(rentAmount).toLocaleString("tr-TR")}
+                    </dd>
+                  </div>
+                  <p className="text-[11px] text-slate-500">
+                    Emlakçı hak edişleri Net-30 blokesi ve IBAN eşleşmesi iş kurallarında uygulanır (Madde 48-55).
+                  </p>
+                </dl>
+              ) : (
+                <p className="text-xs text-amber-200/80">Geçerli bir aylık kira tutarı girin.</p>
+              )}
+              {rentalEProvNormal != null && rentalEProvDevren != null ? (
+                <div className="rounded-lg border border-white/10 p-3 text-xs text-slate-400">
+                  <div className="font-medium text-slate-300">%1 e-provizyon (bloke)</div>
+                  <div className="mt-1 flex justify-between">
+                    <span>Normal kiralık</span>
+                    <span className="text-white">₺{rentalEProvNormal.toLocaleString("tr-TR")}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Devren (kira + devir toplamı × %1)</span>
+                    <span className="text-white">₺{rentalEProvDevren.toLocaleString("tr-TR")}</span>
+                  </div>
+                </div>
+              ) : null}
+            </CardContent>
+          </Card>
+
+          <Card className="border-emerald-500/20 bg-[#0F172A]">
+            <CardContent className="space-y-4 p-6">
+              <h2 className="text-lg font-semibold text-emerald-100">Kat karşılığı arsa (v2.3 — %8 + KDV)</h2>
+              <p className="text-xs text-slate-400">
+                <code className="text-emerald-200/90">commission/engine.ts</code> üzerinden{" "}
+                <code className="text-emerald-200/90">masterFinancialEngine.ts</code> — üstteki{" "}
+                <strong className="text-emerald-100">arsa rayiç matrahı</strong> üzerinden toplam %8 (KDV hariç)
+                hizmet havuzu; İhaleal / emlakçı payı havuz içinde bölünür. Müteahhit en az %4, arsa sahibi noterde
+                kabul ederse +%4 (aksi halde müteahhit kalan %4 dahil tüm %8 yükünü üstlenir — örnekte arsa sahibi
+                noter kabulü yok).
+              </p>
+              <p className="text-xs text-slate-500">
+                Arsa rayiç değeri olarak üstteki işlem tutarı kullanılır (varsayılan: tek emlakçı senaryosu).
+              </p>
+              {landPool ? (
+                <dl className="space-y-2 border-t border-white/10 pt-4 text-sm text-slate-300">
+                  <div className="flex justify-between">
+                    <dt>İhaleal payı (havuzdan)</dt>
+                    <dd className="font-medium text-white">₺{landPool.platformTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt>Emlakçı payı (havuzdan)</dt>
+                    <dd className="font-medium text-white">₺{landPool.agentPoolTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <dt>Müteahhit yükü (matrah)</dt>
+                    <dd className="font-medium text-white">₺{landPool.contractorTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <dt>Arsa sahibi yükü (matrah)</dt>
+                    <dd className="font-medium text-white">₺{landPool.ownerTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                  <div className="flex justify-between border-t border-white/10 pt-2 text-slate-400">
+                    <dt>KDV (havuz matrahı üzerinden %{(RENTAL_COMMISSION_VAT_RATE * 100).toFixed(0)})</dt>
+                    <dd className="font-medium text-white">₺{landPool.totalKdvTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                  <div className="flex justify-between text-slate-500">
+                    <dt>Toplam %8 havuz (KDV hariç)</dt>
+                    <dd>₺{landPool.totalServicePoolTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                  <div className="flex justify-between text-slate-500">
+                    <dt>Genel toplam (KDV dahil)</dt>
+                    <dd>₺{landPool.totalWithKdvTry.toLocaleString("tr-TR")}</dd>
+                  </div>
+                </dl>
+              ) : null}
             </CardContent>
           </Card>
         </div>

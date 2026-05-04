@@ -1,0 +1,216 @@
+// Prisma Schema — İhaleAL Tax & Billing Core v2.0
+// NOT: Bu dosya mevcut schema.prisma'ya eklenecek diff'tir.
+// Tam schema için mevcut modellerinize bu modelleri ekleyin.
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum BillingKind {
+  HEMEN_AL
+  KAT_KARSILIGI_SERVICE
+  RENTAL_SAAS
+  SALE_SAAS
+  PENALTY_INDEMNITY
+  ESCROW_RELEASE
+  REFUND
+}
+
+// ============================================
+// CORE: BillingEvent
+// ============================================
+
+model BillingEvent {
+  id                    String   @id @default(cuid())
+  userId                String
+  propertyId            String?
+  kind                  BillingKind
+  currency              String   @default("TRY")
+  baseAmountTry         Decimal  @db.Decimal(18, 2)
+  vatRate               Decimal  @db.Decimal(5, 4)
+  vatAmountTry          Decimal  @db.Decimal(18, 2)
+  totalAmountTry        Decimal  @db.Decimal(18, 2)
+  isTeknokentExempt     Boolean  @default(false)
+  exemptionCode         String?  // Örn: "350" — sadece onaylı profilde
+  revenueTemplateId     String
+  teknokentProjectCode  String?  // Zorunlu istisna senaryolarında
+  parasutInvoiceId      String?  // Paraşüt e-Fatura ID
+  actualDealAmountTry   Decimal? @db.Decimal(18, 2)  // Platform kapanış tutarı
+  declaredTapuAmountTry Decimal? @db.Decimal(18, 2)  // Kullanıcı tapu beyanı
+  takasbankSynced       Boolean  @default(false)
+  takasbankAmountTry    Decimal? @db.Decimal(18, 2)  // Takasbank API tutarı
+  amountMismatch        Boolean  @default(false)
+  legalEntityId         String   @default("A")       // A=SaaS, B=Ops
+  escrowPoolId          String?
+  isRevenueRecognized   Boolean  @default(false)     // Escrow = FALSE
+  auditLogId            String?
+  featureFlagUsed       String   @default("billing_v2_enabled")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  // İlişkiler
+  revenueTemplate RevenueTemplate? @relation(fields: [revenueTemplateId], references: [sku])
+  auditLog        AuditLog?        @relation(fields: [auditLogId], references: [id])
+
+  @@index([userId, kind])
+  @@index([parasutInvoiceId])
+  @@index([createdAt])
+  @@index([kind, isTeknokentExempt])
+}
+
+// ============================================
+// REFERENCE: Revenue Recognition Templates
+// ============================================
+
+model RevenueTemplate {
+  id                  String   @id @default(cuid())
+  sku                 String   @unique
+  descriptionTr       String
+  descriptionEn       String
+  defaultVatRate      Decimal  @db.Decimal(5, 4)
+  eligibleForTeknokent Boolean @default(false)
+  forbiddenTermCheck  Boolean  @default(true)
+  approvedBy          String   // YMM + Avukat referans ID
+  approvedAt          DateTime
+  isActive            Boolean  @default(true)
+
+  // İlişki
+  billingEvents BillingEvent[]
+}
+
+// ============================================
+// REFERENCE: Tax Profiles
+// ============================================
+
+model TaxProfile {
+  id                String   @id @default(cuid())
+  name              String
+  isTeknokentExempt Boolean  @default(false)
+  exemptionCode     String?
+  effectiveFrom     DateTime
+  effectiveTo       DateTime?
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+
+  @@index([isActive, effectiveFrom])
+}
+
+// ============================================
+// REFERENCE: Yİ-ÜFE Endeks Kayıtları
+// ============================================
+
+model YiUfeRecord {
+  id          String   @id @default(cuid())
+  yearMonth   String   @unique // "YYYY-MM" format
+  indexValue  Decimal  @db.Decimal(18, 6)
+  source      String   // "tuik_api" | "manual_entry" | "cached"
+  stale       Boolean  @default(false)
+  updatedAt   DateTime @updatedAt
+}
+
+// ============================================
+// REFERENCE: Gelir Vergisi Dilimleri
+// ============================================
+
+model TaxBracket {
+  id        String   @id @default(cuid())
+  year      Int
+  limit     Decimal  @db.Decimal(18, 2) // Üst sınır
+  rate      Decimal  @db.Decimal(5, 4)  // Oran (örn: 0.15)
+  createdAt DateTime @default(now())
+
+  @@unique([year, limit])
+  @@index([year])
+}
+
+// ============================================
+// REFERENCE: Takasbank Uzlaştırma
+// ============================================
+
+model SettlementRecord {
+  id                    String   @id @default(cuid())
+  transactionId         String   @unique
+  actualBiddingValue    Decimal  @db.Decimal(18, 2)
+  tapuDeclaredValue     Decimal? @db.Decimal(18, 2)
+  takasbankAmount       Decimal? @db.Decimal(18, 2)
+  takasbankApiResponse  Json?    // Ham API yanıtı
+  amountMismatch        Boolean  @default(false)
+  mismatchSeverity      String   @default("none") // none | warning | critical
+  status                String   @default("pending") // pending | verified | mismatch_flagged | resolved
+  createdAt             DateTime @default(now())
+  resolvedAt            DateTime?
+  resolvedBy            String?
+}
+
+// ============================================
+// AUDIT: Denetim Kayıtları
+// ============================================
+
+model AuditLog {
+  id               String   @id @default(cuid())
+  action           String   // "invoice_created" | "template_changed" | "exemption_override" | "admin_override"
+  actorId          String
+  actorType        String   // "system" | "admin" | "user"
+  targetId         String   // BillingEventId veya InvoiceId
+  payload          Json     // Diff (before / after)
+  reason           String?  // Admin override sebebi
+  secondApproverId String?  // Maker-checker: ikinci onaylayıcı
+  createdAt        DateTime @default(now())
+
+  // İlişki
+  billingEvents BillingEvent[]
+
+  @@index([action, createdAt])
+  @@index([actorId])
+}
+
+// ============================================
+// COMPLIANCE: Chat NLP Risk Bayrakları
+// ============================================
+
+model ChatComplianceFlag {
+  id              String   @id @default(cuid())
+  messageId       String
+  threadId        String
+  senderId        String
+  flaggedKeywords String[]
+  modelScore      Decimal  @db.Decimal(5, 4)
+  severity        String   // "low" | "medium" | "high"
+  adminReviewed   Boolean  @default(false)
+  adminDecision   String?  // "approved" | "rejected" | "false_positive"
+  reviewedBy      String?
+  reviewedAt      DateTime?
+  createdAt       DateTime @default(now())
+
+  @@index([senderId, createdAt])
+  @@index([adminReviewed, severity])
+}
+
+// ============================================
+// CONFIG: Uygulama Yapılandırması
+// ============================================
+
+model TaxConfig {
+  id                        String   @id @default(cuid())
+  key                       String   @unique
+  value                     String
+  numericValue              Decimal? @db.Decimal(18, 6)
+  description               String
+  updatedAt                 DateTime @updatedAt
+  updatedBy                 String
+
+  // Örnek kayıtlar:
+  // key: "TAPU_DUTY_TOTAL_RATE", value: "0.04", description: "Tapu harcı toplam oranı"
+  // key: "ANNUAL_GV_EXEMPTION_2026", value: "87000", description: "2026 yıllık GV istisna tutarı"
+  // key: "FIVE_YEAR_RULE_MODE", value: "calendar_day", description: "5 yıl kuralı modu"
+}
+
+// ============================================
+// MIGRATION PLANI (manuel adımlar)
+// ============================================
+// 1. npx prisma migrate dev --name add_billing_tax_core_v2
+// 2. Seed RevenueTemplate tablosu (ALLOWED_LINE_TEMPLATES)
+// 3. Seed TaxBracket 2026 verileri
+// 4. Seed TaxConfig başlangıç değerleri
+// 5. YiUfeRecord ETL job'unu başlat (TÜİK API cron)
+// 6. Feature flag: billing_v2_enabled = false (kademeli açılış)

@@ -71,6 +71,8 @@ export function Footer() {
               <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> Ilan Karsilastirma</button></li>
               <li><button onClick={() => navigate("/sehirler")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><Navigation className="w-3.5 h-3.5" /> Sehir Rehberi</button></li>
               <li><button onClick={() => navigate("/rehber")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><HelpCircle className="w-3.5 h-3.5" /> Yardim</button></li>
+              <li><button onClick={() => navigate("/araclar/vergi-simulator")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Vergi simülatörü</button></li>
+              <li><button onClick={() => navigate("/araclar/finans-uyumluluk")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><Shield className="w-3.5 h-3.5" /> Finans / uyumluluk</button></li>
             </ul>
           </div>
 
@@ -96,6 +98,9 @@ export function Footer() {
               <li><button onClick={() => navigate("/ekspertiz")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><BarChart3 className="w-3.5 h-3.5" /> Uzman Gorusu & Ekspertiz</button></li>
               <li><button onClick={() => navigate("/degisiklikler")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Degisiklik Kayitlari</button></li>
               <li><button onClick={() => navigate("/reklam")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Target className="w-3.5 h-3.5" /> Reklam Kampanyasi</button></li>
+              <li><button onClick={() => navigate("/anayasa-400")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> 400 madde anayasa</button></li>
+              <li><button onClick={() => navigate("/nihai-anayasa")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Nihai sistem anayasası</button></li>
+              <li><button onClick={() => navigate("/emlakci-giris")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
               <li><button onClick={() => navigate("/yasal-cerceve")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Yasal cerceve (taslak)</button></li>
               <li><button onClick={() => navigate("/canliya-hazirlik")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Canliya hazirlik</button></li>
               <li><button onClick={() => navigate("/sat-basla")} className="text-sm text-slate-400 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Satıcı modu</button></li>

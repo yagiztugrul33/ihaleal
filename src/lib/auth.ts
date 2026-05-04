@@ -2,6 +2,9 @@
 
 const encoder = new TextEncoder();
 
+/** Kimi ZIP / üç tip giriş akışı (bireysel, emlakçı, müteahhit). Yerel demo veya metadata ile dolar. */
+export type AccountSegment = "individual" | "realtor" | "developer";
+
 export type StoredUser = {
   id: string;
   name: string;
@@ -18,11 +21,13 @@ export type StoredUser = {
   auctionsWon?: number;
   memberSince?: string;
   sellerIntent?: string;
+  accountSegment?: AccountSegment;
 };
 
 export type SessionUser = Omit<StoredUser, "password" | "passwordSalt" | "passwordHash"> & {
   /** `supabase`: Supabase Auth oturumu; aksi yerel demo. */
   authBackend?: "local" | "supabase";
+  accountSegment?: AccountSegment;
 };
 
 function randomSalt(): string {
