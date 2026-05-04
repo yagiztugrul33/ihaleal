@@ -1,7 +1,7 @@
 ﻿# Kat karsiligi arsa - sozlesme iskeleti ve kazan plani (TASLAK)
 
 ## Ekonomik cekirdek
-- Rayic uzerinden %8 + KDV havuzu (`land_share`).
+- Rayic uzerinden %4 + KDV havuzu (`land_share`, taslak).
 - Muteahhit / arsa sahibi noter kabulu motor ile orneklenir.
 - Hak edis: birim x fiyat x senaryo - on tahmin.
 

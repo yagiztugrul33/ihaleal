@@ -15,6 +15,7 @@ import {
   SELLER_COMMISSION_RATE,
 } from "@/lib/fees";
 import { distributeLandEquityCommission } from "@/lib/masterFinancialEngine";
+import { LAND_SHARE_TOTAL_EX_VAT_RATE } from "@/lib/commission/engine";
 import {
   splitRentalCommissionMatrah,
   kdvOnCommissionMatrah,
@@ -356,7 +357,9 @@ export default function CommissionCalculator() {
 
           <Card className="border-emerald-500/20 bg-[#0F172A]">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-emerald-100">Kat karşılığı arsa (v2.3 — %8 + KDV)</h2>
+              <h2 className="text-lg font-semibold text-emerald-100">
+                {`Kat karşılığı arsa (v2.3 — %${(LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0)} + KDV)`}
+              </h2>
               <p className="text-xs text-slate-400 mb-2">
                 <button
                   type="button"
@@ -369,10 +372,12 @@ export default function CommissionCalculator() {
               <p className="text-xs text-slate-400">
                 <code className="text-emerald-200/90">commission/engine.ts</code> üzerinden{" "}
                 <code className="text-emerald-200/90">masterFinancialEngine.ts</code> — üstteki{" "}
-                <strong className="text-emerald-100">arsa rayiç matrahı</strong> üzerinden toplam %8 (KDV hariç)
-                hizmet havuzu; İhaleal / emlakçı payı havuz içinde bölünür. Müteahhit en az %4, arsa sahibi noterde
-                kabul ederse +%4 (aksi halde müteahhit kalan %4 dahil tüm %8 yükünü üstlenir — örnekte arsa sahibi
-                noter kabulü yok).
+                <strong className="text-emerald-100">arsa rayiç matrahı</strong> üzerinden toplam{" "}
+                {(LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0)}% (KDV hariç) hizmet havuzu; İhaleal / emlakçı payı
+                havuz içinde bölünür. Müteahhit en az {((LAND_SHARE_TOTAL_EX_VAT_RATE / 2) * 100).toFixed(0)}%, arsa
+                sahibi noterde kabul ederse +{((LAND_SHARE_TOTAL_EX_VAT_RATE / 2) * 100).toFixed(0)}% (aksi halde
+                müteahhit kalan yükü de dahil tüm {(LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0)}% yükünü üstlenir
+                — örnekte arsa sahibi noter kabulü yok).
               </p>
               <p className="text-xs text-slate-500">
                 Arsa rayiç değeri olarak üstteki işlem tutarı kullanılır (varsayılan: tek emlakçı senaryosu).
@@ -400,7 +405,7 @@ export default function CommissionCalculator() {
                     <dd className="font-medium text-white">₺{landPool.totalKdvTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between text-slate-500">
-                    <dt>Toplam %8 havuz (KDV hariç)</dt>
+                    <dt>Toplam {(LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0)}% havuz (KDV hariç)</dt>
                     <dd>₺{landPool.totalServicePoolTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between text-slate-500">

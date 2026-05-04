@@ -19,7 +19,8 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "backup": "node scripts/backup.mjs",
-    "verify": "npm run typecheck && npm run test:run && npm run build",
+    "precheck:encoding": "node scripts/check-source-encoding.mjs",
+    "verify": "npm run typecheck && npm run precheck:encoding && npm run test:run && npm run build",
     "precheck:supabase": "node scripts/precheck-supabase.mjs",
     "site:finish": "cmd /c CALISTIR_SITEYI_BITIR.bat",
     "site:finish:all": "cmd /c SITE_BITIR_TEK_CALISTIR.bat"

@@ -1,5 +1,5 @@
 /**
- * Kat karsiligi (land_share) — MASTER_RULES v2.3: rayic uzerinden %8 + KDV havuzu;
+ * Kat karsiligi (land_share) — MASTER_RULES v2.3 (taslak): rayic uzerinden %4 + KDV havuzu;
  * Ihaleal / emlakci payi havuz icinde bolunur. Ayrica muteahhit / arsa sahibi odeme yukleri.
  * Kiralik: rentalCommissionEngine.ts | Satis ornek: fees.ts + commission/engine.ts
  */
@@ -20,7 +20,7 @@ export interface LandEquityCommissionInput {
 export interface LandEquityCommissionResult {
   platformTry: number;
   agentPoolTry: number;
-  /** Toplam hizmet bedeli matrahi (KDV haric), rayic * %8 */
+  /** Toplam hizmet bedeli matrahi (KDV haric), rayic * LAND_SHARE_TOTAL_EX_VAT_RATE */
   totalServicePoolTry: number;
   contractorTry: number;
   ownerTry: number;

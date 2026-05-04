@@ -1,5 +1,5 @@
 /**
- * Birlesik komisyon motoru (MASTER_RULES v2.3).
+ * Birlesik komisyon motoru (MASTER_RULES v2.3, taslak).
  * KDV matrah uzerinden hesaplanir; KDV ayri satirda (totalWithKDV).
  */
 import { z } from "zod";
@@ -50,8 +50,8 @@ export type CommissionResult = z.infer<typeof CommissionResultSchema>;
 /** KDV, komisyon / KKA hizmet havuzu matrahı üzerinden (çıktı satırı). */
 export const COMMISSION_POOL_VAT_RATE = 0.2 as const;
 
-/** land_share: rayiç üzerinden toplam hizmet bedeli matrahı (KDV hariç, MASTER_RULES). */
-export const LAND_SHARE_TOTAL_EX_VAT_RATE = 0.08 as const;
+/** land_share: rayiç üzerinden toplam hizmet bedeli matrahı (KDV hariç, MASTER_RULES taslak). */
+export const LAND_SHARE_TOTAL_EX_VAT_RATE = 0.04 as const;
 
 const VAT = COMMISSION_POOL_VAT_RATE;
 
@@ -112,9 +112,10 @@ export class CommissionEngine {
       case "land_share": {
         totalExKDV = r2(baseAmount * LAND_SHARE_TOTAL_EX_VAT_RATE);
         const ownerAccepts = landShareAgreement?.ownerAcceptsCommission === true;
+        const halfExVat = r2(baseAmount * (LAND_SHARE_TOTAL_EX_VAT_RATE / 2));
         if (ownerAccepts) {
-          ownerCommission = r2(baseAmount * 0.04);
-          contractorCommission = r2(baseAmount * 0.04);
+          ownerCommission = halfExVat;
+          contractorCommission = halfExVat;
         } else {
           ownerCommission = 0;
           contractorCommission = r2(totalExKDV);
@@ -136,8 +137,9 @@ export class CommissionEngine {
 
     let breakdown = "Standart komisyon";
     if (type === "land_share") {
-      breakdown =
-        "Kat karsiligi: toplam %8 (KDV haric). Muteahhit min %4; arsa sahibi noterde kabul ederse +%4, etmezse muteahhit tum %8 uzerlenir. | Havuz bolusumu: Ihaleal/Emlakci kurallarina gore.";
+      const p = (LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0);
+      const h = ((LAND_SHARE_TOTAL_EX_VAT_RATE / 2) * 100).toFixed(0);
+      breakdown = `Kat karsiligi: toplam %${p} (KDV haric). Muteahhit min %${h}; arsa sahibi noterde kabul ederse +%${h}, etmezse muteahhit tum %${p} uzerlenir. | Havuz bolusumu: Ihaleal/Emlakci kurallarina gore.`;
     } else if (type === "sale") {
       breakdown = "Satilik: toplam %4 + KDV (ornek model: alici %2 + satici %2 matrah dagilimi faturada ayri satir).";
     } else {

@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import type { ChatMessage, ChatThread } from "@/data/messagesDemo";
 import { DEMO_CHAT_THREADS, getParticipant } from "@/data/messagesDemo";
+import { complianceNlpService } from "@/lib/compliance/ComplianceNlpService";
 
 const STORAGE_KEY = "ihaleal_chat_threads_demo";
 
@@ -47,6 +48,7 @@ export default function MessagesPage() {
   const [activeId, setActiveId] = useState<string>(() => threads[0]?.id ?? "");
   const [draft, setDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
+  const sendingRef = useRef(false);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(threads));
@@ -58,25 +60,47 @@ export default function MessagesPage() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [active?.messages.length, activeId]);
 
-  const send = () => {
+  const send = async () => {
     const text = draft.trim();
-    if (!text || !active) return;
-    const msg: ChatMessage = {
-      id: `local-${Date.now()}`,
-      threadId: active.id,
-      authorId: "p2",
-      body: text,
-      sentAt: new Date().toISOString(),
-    };
-    setThreads((prev) =>
-      prev.map((t) => (t.id === active.id ? { ...t, messages: [...t.messages, msg] } : t))
-    );
-    setDraft("");
-    window.dispatchEvent(
-      new CustomEvent("ihaleal:add-toast", {
-        detail: { message: "Mesajınız demo olarak kaydedildi (simülasyon).", type: "success" },
-      })
-    );
+    if (!text || !active || sendingRef.current) return;
+    sendingRef.current = true;
+    const msgId = `local-${Date.now()}`;
+    try {
+      const signal = await complianceNlpService.scoreChatMessage(text, {
+        messageId: msgId,
+        threadId: active.id,
+        senderId: "p2",
+      });
+      const msg: ChatMessage = {
+        id: msgId,
+        threadId: active.id,
+        authorId: "p2",
+        body: text,
+        sentAt: new Date().toISOString(),
+        complianceScan: {
+          severity: signal.severity,
+          flaggedKeywords: signal.flaggedKeywords,
+          modelScore: signal.modelScore,
+        },
+      };
+      setThreads((prev) =>
+        prev.map((t) => (t.id === active.id ? { ...t, messages: [...t.messages, msg] } : t))
+      );
+      setDraft("");
+      window.dispatchEvent(
+        new CustomEvent("ihaleal:add-toast", {
+          detail: {
+            message:
+              signal.flaggedKeywords.length > 0
+                ? `Mesaj kaydedildi. Uyum tarayıcısı şüpheli ifadeler bildirdi (demo): ${signal.flaggedKeywords.slice(0, 3).join(", ")}${signal.flaggedKeywords.length > 3 ? "…" : ""}. Üretimde insan inceleme kuyruğuna düşer.`
+                : "Mesajınız demo olarak kaydedildi (simülasyon).",
+            type: signal.flaggedKeywords.length > 0 ? "warning" : "success",
+          },
+        })
+      );
+    } finally {
+      sendingRef.current = false;
+    }
   };
 
   const attachDemo = () => {
@@ -196,6 +220,23 @@ export default function MessagesPage() {
                               <span className="text-slate-500">(demo)</span>
                             </div>
                           )}
+                          {m.complianceScan && m.complianceScan.flaggedKeywords.length > 0 && (
+                            <div
+                              className={`mt-2 rounded-lg border px-2 py-1.5 text-[10px] leading-snug ${
+                                m.complianceScan.severity === "high"
+                                  ? "border-rose-500/40 bg-rose-950/40 text-rose-100"
+                                  : m.complianceScan.severity === "medium"
+                                    ? "border-amber-500/35 bg-amber-950/30 text-amber-100"
+                                    : "border-white/10 bg-black/25 text-slate-300"
+                              }`}
+                            >
+                              <span className="font-medium">Uyum taraması (demo):</span> eşleşen ifadeler —{" "}
+                              {m.complianceScan.flaggedKeywords.join(", ")}. Otomatik engel yok; üretimde kayıt altına alınır.{" "}
+                              <Link to="/yasal/dolandiricilik-savunmasi" className="underline underline-offset-2 text-teal-300">
+                                Savunma mimarisi
+                              </Link>
+                            </div>
+                          )}
                         </div>
                       </div>
                     );
@@ -227,12 +268,20 @@ export default function MessagesPage() {
           </div>
         </div>
 
-        <Card className="mt-6 border-white/10 bg-slate-900/30 p-4">
+        <Card className="mt-6 border-white/10 bg-slate-900/30 p-4 space-y-2">
           <p className="text-xs text-slate-500">
             İletişim tek kayıt altında tutulma hedefiyle platform kanalından yürür; doğrudan telefon paylaşımı varsayılan olarak kapalıdır.{" "}
             <Link to="/ihaleler" className="text-teal-400 hover:underline">
               İhalelere göz at
             </Link>
+          </p>
+          <p className="text-xs text-slate-500">
+            Gönderdiğiniz metinler bu demo ortamında yerelde <strong className="text-slate-400">ComplianceNlpService</strong> ile taranır;
+            şüpheli anahtar kelimeler mesaj altında gösterilir (otomatik ceza yok). Laboratuvar:{" "}
+            <Link to="/araclar/finans-uyumluluk" className="text-teal-400 hover:underline">
+              Fin / uyum playground
+            </Link>
+            .
           </p>
         </Card>
       </div>

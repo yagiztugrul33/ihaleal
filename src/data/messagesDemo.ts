@@ -8,6 +8,13 @@ export type ChatParticipant = {
   displayName: string;
 };
 
+/** Demo: gönderim sonrası yerel uyum NLP çıktısı (üretimde sunucu kuyruğu). */
+export type ChatMessageComplianceScan = {
+  severity: "low" | "medium" | "high";
+  flaggedKeywords: string[];
+  modelScore: number;
+};
+
 export type ChatMessage = {
   id: string;
   threadId: string;
@@ -16,6 +23,8 @@ export type ChatMessage = {
   /** Ek dosya simülasyonu (ör. ekspertiz pdf adı) */
   attachmentName?: string;
   sentAt: string;
+  /** Yerel demo: ComplianceNlpService skoru (işaretli kelime yoksa genelde düşük şiddet). */
+  complianceScan?: ChatMessageComplianceScan;
 };
 
 export type ChatThread = {

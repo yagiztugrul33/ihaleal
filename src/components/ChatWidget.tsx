@@ -33,11 +33,30 @@ const ASSISTANT_NAME = "İhaleAI Asistan";
 
 const QA_MODE_STORAGE = "ihaleal-chat-qa-mode";
 
-const QA_INTRO =
-  "Soru–cevap modu: komisyon, KKA, kiralık/devren, güvenlik ve sayfa yönlendirmeleri hakkında sorularınızı yazın. Yanıtlar, sunucudaki bilgi bankası + yapay zeka ile üretilir (Supabase Edge `ai_qa` + OpenAI). Sunucu bağlı değilse otomatik olarak sitedeki hedef akışa göre kısa özet ve yönlendirme gösterilir. Hukuki kesinlik için site metinleri ve avukat geçerlidir.";
+/** Soru–cevap sekmesi: ilk mesaj */
+const QA_INTRO = [
+  "Soru–cevap modunda sorunuz önce bilgi bankasıyla eşleştirilir; üretim ortamında Supabase Edge işlevi `ai_qa` ve OpenAI ile bağlamlı yanıt üretilir.",
+  "",
+  "Uç nokta kullanılamıyorsa veya istek tamamlanamazsa, aynı giriş için Hızlı yönlendirme sekmesindeki anahtar kelime motoruyla özdeş yerleşik özet gösterilir; böylece her iki sekmede de aynı özet standardı korunur.",
+  "",
+  "Kapsam: komisyon, KKA, kiralık ve devren, güvenlik ile sayfa yönlendirmeleri. Hukuki kesinlik için yayımlanan sözleşme ve şartnameler ile uzman görüşü esastır.",
+  "",
+  "Piyasa bütünlüğü: asistan, platform dışı kapora, şahsi IBAN veya WhatsApp üzerinden aradan kapanma gibi yöntemleri kolaylaştırmaz; lansman ve ön satışta teknik şartname ile ilan metninin uyumu ve resmi akışlar için /ihale-kosullari, /evraklar ve /yasal/dolandiricilik-savunmasi sayfalarına yönlendirir.",
+].join("\n");
+
+/** Yönlendirme sekmesi: ilk mesaj (merhaba kuralından ayrı, açıklayıcı) */
+const GUIDE_INTRO = [
+  `Merhaba, ben ${ASSISTANT_NAME}.`,
+  "",
+  "Hızlı yönlendirme modunda girdiğiniz ifadeler, önceden tanımlı anahtar kelime kurallarıyla eşleştirilir; kısa yanıt ve rota önerisi sunulur. Bu mod canlı veri veya üretken dil modeli kullanmaz.",
+  "",
+  "Paragraflı, bağlamlı yanıt için Soru–cevap sekmesine geçebilirsiniz. Sunucu tarafı hazırsa model yanıtı üretilir; aksi halde yine aynı yerleşik özet gösterilir.",
+  "",
+  "Platform dışı ödeme veya aradan anlaşma taleplerinde yalnızca yasal metinlere yönlendirme yapılır; /yasal/dolandiricilik-savunmasi ve /ihale-kosullari özet çerçevedir.",
+].join("\n");
 
 const AI_DEFAULT =
-  "Endeks (/analiz), ilan detayı veya mortgage sayfasından devam edebilirsiniz. Anahtar kelimeyle tekrar sorabilirsiniz.";
+  "Sorunuzu birkaç kelimeyle yeniden ifade edebilir veya /analiz, ilan detayı ve /mortgage sayfalarına yönelebilirsiniz.";
 
 /** Yerel özet — tam AI (`ai_qa`) yokken veya yönlendirme modunda */
 const BIDDING_RULES_REPLY = [
@@ -75,10 +94,41 @@ const BIDDING_RULE_KEYS = [
   "teklif baglayicilik",
 ];
 
+const INTEGRITY_BYPASS_REPLY = [
+    "Ihaleal, teklif, rezervasyon ve ödemelerin resmi akışlar üzerinden yürütülmesini hedefler; platformu baypas ederek kapora, şahsi hesap veya dış kanalla kapanış önerilmez.",
+    "",
+    "Muteahhit lansman ve ön satışlarda ilan metni, teknik şartname ve tapu / irtifak senaryosu birlikte değerlendirilmelidir; çelişki veya eksik dokümanda yasal danışmanlık ve resmi inceleme şarttır.",
+    "",
+    "Özet mimari ve delil çizgisi: /yasal/dolandiricilik-savunmasi — ihale ve AML çerçeve: /ihale-kosullari — zorunlu evraklar: /evraklar.",
+  ].join("\n");
+
 const AI_RULES: { keys: string[]; reply: string }[] = [
   {
+    keys: [
+      "aradan cik",
+      "aradan çık",
+      "aradan anlas",
+      "aradan anlaş",
+      "platform disi",
+      "platform dışı",
+      "platformdısı",
+      "dışı kapora",
+      "disi kapora",
+      "uc kagit",
+      "üç kağıt",
+      "sahsi iban",
+      "şahsi iban",
+      "whatsapp kapora",
+      "lansman on satis",
+      "lansman ön satış",
+      "ihaleal baypas",
+      "platformu atla",
+    ],
+    reply: INTEGRITY_BYPASS_REPLY,
+  },
+  {
     keys: ["merhaba", "selam", "hey", "günaydın"],
-    reply: `Merhaba. Ben ${ASSISTANT_NAME} — ihale akışı, piyasa endeksi ve mortgage tarafında yönlendirme yaparım (demo yanıtlar).`,
+    reply: `Merhaba. Ben ${ASSISTANT_NAME}; ihale akışı, endeks ve mortgage konularında kısa yönlendirme yaparım. Paragraflı yanıt için Soru–cevap sekmesine geçebilirsiniz; sunucu tarafı hazırsa model yanıtı üretilir.`,
   },
   {
     keys: BIDDING_RULE_KEYS,
@@ -163,7 +213,7 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
   {
     keys: ["telefon", "mobil", "lokal", "localhost", "5173", "wifi", "wi-fi", "aynı ağ", "geliştirici"],
     reply:
-      "Telefonda yerel test: bilgisayarda `npm run dev` calissin (Vite LAN acik). Baska bir terminalde `npm run dev:mobile-url` yazin; ekrana http://192.168.x.x:5173/#/ gibi adres gelir, ayni Wi-Fi uzerinde telefondan acin. Windows guvenlik duvarinda 5173 izni gerekebilir.",
+      "Yerelde telefondan erişim: bilgisayarda `npm run dev` çalışsın (projede Vite `--host` ile LAN erişimi açıktır). Başka bir terminalde `npm run dev:mobile-url` çalıştırın; ekranda `http://192.168.x.x:5173/#/` gibi bir adres görünür. Telefon ile bilgisayarın aynı Wi-Fi ağında olduğundan emin olun. Windows Güvenlik Duvarında 5173 için gelen bağlantı izni gerekebilir.",
   },
 ];
 
@@ -177,17 +227,34 @@ function getAIResponse(input: string): string {
 
 function buildQaFailureReply(userMsg: string, code: string, detail?: string): string {
   const body = getAIResponse(userMsg);
+
   if (code === "supabase_not_configured") {
     return [
-      "Sunucu tarafı soru–cevap (Supabase `ai_qa` + bilgi bankası) bu ortamda yapılandırılmadı; aşağıdaki metin otomatik yerel özet ve yönlendirmedir.",
+      "Durum: Soru–cevap uç noktasına (Supabase + Edge `ai_qa`) şu an erişilemiyor. Bu genellikle istemci ortam değişkenlerinin eksik olması veya Edge işlevinin dağıtılmamış olmasından kaynaklanır.",
+      "",
+      "Yerleşik yanıt (Hızlı yönlendirme ile aynı anahtar kelime eşlemesi):",
       "",
       body,
       "",
-      "Tam AI için: projede `VITE_SUPABASE_URL` ve `VITE_SUPABASE_ANON_KEY` tanımlı olmalı, Edge fonksiyonu `ai_qa` deploy edilmeli ve OPENAI_API_KEY sunucuda ayarlanmalıdır.",
+      "Üretim kontrol listesi: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`; `supabase functions deploy ai_qa`; OpenAI için `OPENAI_API_KEY` (Supabase Dashboard → Edge Functions → Secrets).",
     ].join("\n");
   }
+
+  if (code === "invalid_thread") {
+    return [
+      "Sohbet geçmişi bu istek için beklenen biçimde değil. Paneli kapatıp yeniden açabilir veya doğrudan yeni bir soru yazabilirsiniz.",
+      "",
+      "Yerleşik yanıt:",
+      "",
+      body,
+    ].join("\n");
+  }
+
   return [
-    `Tam yapay zeka yanıtı şu an alınamadı (${code}${detail ? `: ${detail}` : ""}).`,
+    "Yapay zeka yanıtı şu an tamamlanamadı.",
+    `Hata kodu: ${code}${detail ? ` · ${detail}` : ""}`,
+    "",
+    "Yerleşik özet (anahtar kelime eşlemesi):",
     "",
     body,
   ].join("\n");
@@ -200,7 +267,7 @@ const QUICK_PROMPTS: { label: string; fill: string; Icon: ComponentType<{ classN
   { label: "Harita", fill: "harita yoğunluğu", Icon: MapPin },
   { label: "Kıyas", fill: "ilan karşılaştır", Icon: Crosshair },
   { label: "Komisyon", fill: "komisyon hesapla", Icon: Percent },
-  { label: "Güven", fill: "güvenlik merkezi", Icon: Shield },
+  { label: "Güven", fill: "güvenlik merkezi dolandırıcılık mimarisi", Icon: Shield },
   { label: "Telefon (lokal)", fill: "telefon lokal nasıl bağlanır", Icon: Smartphone },
 ];
 
@@ -212,6 +279,7 @@ const QA_QUICK: { label: string; fill: string; Icon: ComponentType<{ className?:
   { label: "Komisyon", fill: "satışta komisyon oranları ve KDV nasıl hesaplanıyor", Icon: Percent },
   { label: "KKA", fill: "kat karşılığı KKA hizmet bedeli ve rayiç", Icon: Landmark },
   { label: "Kiralık", fill: "kiralık ve devren kira komisyonu ve devir bedeli ayrımı", Icon: LineChart },
+  { label: "Bütünlük", fill: "platform dışı kapora ve aradan çıkma neden yasak lansman ön satış", Icon: Shield },
 ];
 
 type ChatMode = "guide" | "qa";
@@ -238,7 +306,7 @@ export function ChatWidget() {
   const [peek, setPeek] = useState(false);
   const [chatMode, setChatMode] = useState<ChatMode>(() => readStoredChatMode());
   const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([
-    { role: "ai", text: readStoredChatMode() === "qa" ? QA_INTRO : AI_RULES[0].reply },
+    { role: "ai", text: readStoredChatMode() === "qa" ? QA_INTRO : GUIDE_INTRO },
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
@@ -280,7 +348,7 @@ export function ChatWidget() {
     } catch {
       /* ignore */
     }
-    setMessages([{ role: "ai", text: mode === "qa" ? QA_INTRO : AI_RULES[0].reply }]);
+    setMessages([{ role: "ai", text: mode === "qa" ? QA_INTRO : GUIDE_INTRO }]);
   };
 
   const openPanel = (mode: ChatMode) => {
@@ -333,12 +401,12 @@ export function ChatWidget() {
                   <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
                   <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30" />
-                    Çevrimiçi · yönlendirme veya soru–cevap
+                    Hazır · yönlendirme ve soru–cevap
                   </div>
                 </div>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Hızlı yönlendirme veya bilgi bankası + yapay zeka ile sistem hakkında ayrıntılı soru–cevap.
+                Yönlendirme: anahtar kelimeye göre kısa özet. Soru–cevap: üretimde bilgi bankası ve model; uç nokta kapalıyken yine aynı yerleşik özet gösterilir.
               </p>
               <div className="flex flex-col gap-2">
                 <Button
@@ -347,7 +415,7 @@ export function ChatWidget() {
                   onClick={() => openPanel("qa")}
                 >
                   <HelpCircle className="w-4 h-4 mr-2 shrink-0" aria-hidden />
-                  Soru–cevap (AI)
+                  Soru–cevap modu
                 </Button>
                 <Button
                   size="sm"
@@ -397,7 +465,9 @@ export function ChatWidget() {
                   <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25 shrink-0" />
                     <span className="truncate">
-                      {chatMode === "qa" ? "Soru–cevap · bilgi bankası + AI" : "Hızlı yönlendirme · anahtar kelime"}
+                      {chatMode === "qa"
+                        ? "Soru–cevap · model + bilgi bankası; yoksa yerleşik özet"
+                        : "Yönlendirme · anahtar kelime özeti"}
                     </span>
                   </div>
                 </div>

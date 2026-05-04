@@ -107,8 +107,24 @@ export const REAL_ESTATE_RISK_ATLAS: FraudLitigationPillar[] = [
     controls: ["InvoiceComposer + Teknokent / fatura politikasi; KKA icin ayri gelir kodu.", "YMM onayi olmadan uretim faturasi kesilmez (UI uyari mevcut)."],
     evidenceArtifacts: ["fatura JSON log", "matrah kaynak fees.ts"],
   },
+  {
+    id: "RE13",
+    title: "Lansman on-satisi, teknik sartname ile ilan uyumu ve platform baypasi",
+    threats: [
+      "Ilan metninde vaat edilen teslimat, brut-net veya kat irtifaki ile teknik sartname / proje dosyasi arasinda celiski; alici sonradan ayip veya iptal davasi acar.",
+      "Muteahhit veya alici, WhatsApp veya sahsi IBAN ile kapora talep ederek Ihaleal KYC, teminat ve komisyon zincirini baypas eder.",
+      "Lansmana ozel fiyat veya indirim sozunun sozlesmeye ve imzali ek protokole yansimamasi.",
+    ],
+    legalAnchors: ["TBK (ayip, iyiniyet, ifa)", "6502 mesafeli satis ve GM istisna sinirlari (avukat netligi)", "5549 MKKK (supheli odeme kanali)"],
+    controls: [
+      "Teknik sartname + imar + ruhsat + ornek plan: zorunlu yukleme, versiyon hash; ilan snapshot ile eslestirme (hedef).",
+      "Rezervasyon ve kapora yalniz blokeli PSP veya emanet; sahsi hesap yasagi + mesaj NLP sinyali ile admin kuyrugu (ComplianceNlpService).",
+      "Sozlesmesel bypass cezai sarti ve delil paketi (teklif / rezervasyon RPC, KYC snapshot) — penaltyEngine + avukat metni.",
+    ],
+    evidenceArtifacts: ["sartname PDF hash", "ilan snapshot", "rezervasyon RPC", "KYC seviyesi", "moderasyon karar logu"],
+  },
 ];
 
 export function assertRealEstateAtlasComplete(): void {
-  if (REAL_ESTATE_RISK_ATLAS.length < 12) throw new Error("REAL_ESTATE_RISK_ATLAS incomplete");
+  if (REAL_ESTATE_RISK_ATLAS.length < 13) throw new Error("REAL_ESTATE_RISK_ATLAS incomplete");
 }

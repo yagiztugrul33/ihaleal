@@ -10,8 +10,8 @@ describe("fraudDefenseFramework", () => {
     expect(() => assertFraudDefensePillarsComplete()).not.toThrow();
   });
 
-  it("has ten pillars with controls and threats", () => {
-    expect(FRAUD_LITIGATION_PILLARS.length).toBe(10);
+  it("has eleven pillars with controls and threats", () => {
+    expect(FRAUD_LITIGATION_PILLARS.length).toBe(11);
     for (const p of FRAUD_LITIGATION_PILLARS) {
       expect(p.threats.length).toBeGreaterThan(0);
       expect(p.controls.length).toBeGreaterThan(0);

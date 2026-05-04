@@ -33,8 +33,8 @@ Hemen Al islemiyle gayrimenkul teklif ekraninda 15 dakikaligina diger kullanicil
 `.trim();
 
 export const MODULE4_LAND_SHARE_CONTRACTOR_NDA = `
-MADDE 1 - BIRLESTIRILMIS KOMISYON (%8) ODEME TAAHHUDU:
-Kat karsiligi ihaleyi kazanmam ve Arsa Sahibi ile Noterde Kat Karsiligi Insaat Sozlesmesi akdetmem halinde, arsanin islem tarihindeki guncel rayic bedeli uzerinden kendi payima dusen %4 ve Arsa Sahibi adina ustendigim %4 olmak uzere TOPLAM %8 + KDV Proje Gelistirme ve Hizmet Bedelini odemeyi kabul ederim.
+MADDE 1 - BIRLESTIRILMIS KOMISYON (%4) ODEME TAAHHUDU:
+Kat karsiligi ihaleyi kazanmam ve Arsa Sahibi ile Noterde Kat Karsiligi Insaat Sozlesmesi akdetmem halinde, arsanin islem tarihindeki guncel rayic bedeli uzerinden kendi payima dusen %2 ve Arsa Sahibi adina ustendigim %2 olmak uzere TOPLAM %4 + KDV Proje Gelistirme ve Hizmet Bedelini odemeyi kabul ederim.
 
 MADDE 2 - TICARI SIR (NDA):
 Veri Odasina girerek elde ettigim Ada, Parsel ve Malik bilgilerinin Ticari Sir oldugunu kabul ederim. Bu bilgileri kullanarak platformu ekarte edip 1 yil icinde harici sozlesme yaparsam, rayic bedel uzerinden tanimlanan cezai sart hukumlerine riza gosteririm (oran avukat onayli sozlesmede netlestirilir).

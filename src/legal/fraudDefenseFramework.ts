@@ -158,6 +158,35 @@ export const FRAUD_LITIGATION_PILLARS: FraudLitigationPillar[] = [
     ],
     evidenceArtifacts: ["PR review kaydi", "compliance onay etiketi"],
   },
+  {
+    id: "P11",
+    title: "Aradan cikma, lansman on-satisi ve teknik sozlesme uyumu (muteahhit / alici)",
+    threats: [
+      "Ihale / listeleme sonrasi WhatsApp veya sahsi hesapta kapora; platform ve KYC disi kapanis.",
+      "Lansmana ozel konut satislari: sozlesmede yazmayan teslimat, brut-net, kat irtifaki, tapu senaryosu ile alici yaniltma.",
+      "Muteahhit veya alicinin Ihaleal disi mutabakat ile komisyon ve teminat cizgisini baypas etmesi.",
+      "Teknik sartname / proje dosyasi ile ilan metni arasinda celiski; revizyonun izlenmemesi.",
+    ],
+    legalAnchors: [
+      "TBK (ayiptan dogan sorumluluk, ayip bildirimi, iyiniyet — somut olayda avukat yorumu)",
+      "Mesafeli satis ve gayrimenkul istisna sinirlari (6502 + yonetmelik; avukat netligi)",
+      "MKKK 5549 (odeme kanali ve supheli islem)",
+    ],
+    controls: [
+      "Sozlesme ve ilan: tek kaynakli fiyat / komisyon (fees + commission engine); muteahhit modulunde MODULE4 taahhutleri.",
+      "Teknik sartname + imar durumu + insaat ruhsati + ornek mesken plani: yukleme zorunlulugu ve versiyon hash; ilan metnine hash referansi.",
+      "Lansman / on-satis: rezervasyon ve kapora yalniz blokeli odeme veya emanet; sahsi IBAN yasagi (operasyon politikasi + UI uyari).",
+      "Bypass (penaltyEngine): sozlesmede cari cezai sart ve delil paketi (teklif RPC, KYC snapshot, mesaj metadata).",
+      "Alim satim mesajlasmasinda dis iletisim / kapora yonlendirmesi icin ComplianceNlpService + moderasyon kuyrugu (hedef).",
+    ],
+    evidenceArtifacts: [
+      "sartname PDF versiyonu ve hash",
+      "ilan snapshot",
+      "teklif / rezervasyon RPC logu",
+      "KYC seviyesi",
+      "STR veya manuel inceleme kaydi",
+    ],
+  },
 ];
 
 /** INTEGRITY_RULES_SUMMARY ile birlestirilir — tekrar etmeyen ek satirlar */
@@ -168,10 +197,12 @@ export const FRAUD_DEFENSE_PRODUCT_RULES: string[] = [
   "Hizmet durdurma / duzenleyici emir: veri ihraci ve bildirim SLA (Felaket Kurtarma ve operasyon play book).",
   "Sozlesmelerde delil sozlesmesi, yetkili mahkeme / tahkim ve elektronik islem kaydinin hukuki degeri (avukat metni).",
   "Yasal metin ve komisyon: yalnizca onayli PR ile canliya; finansal metin icin YMM + avukat cift kontrol (InvoiceComposer cizgisi).",
+  "Muteahhit lansman satislari: ilan metni + teknik sartname + tapu/irtifak senaryosu uclemesi; revizyonlarin immutable versiyonu ve alici on bilgilendirme kaydi.",
+  "Alici ve satici: platform disi mutabakat ve kapora yasagi; ihlalde sozlesmesel bypass cezasi ve uyum incelemesi (penaltyEngine + avukat metni).",
 ];
 
 export function assertFraudDefensePillarsComplete(): void {
-  if (FRAUD_LITIGATION_PILLARS.length < 10) throw new Error("FRAUD_LITIGATION_PILLARS incomplete");
+  if (FRAUD_LITIGATION_PILLARS.length < 11) throw new Error("FRAUD_LITIGATION_PILLARS incomplete");
   for (const p of FRAUD_LITIGATION_PILLARS) {
     if (!p.controls.length || !p.threats.length) throw new Error(`Pillar ${p.id} incomplete`);
   }

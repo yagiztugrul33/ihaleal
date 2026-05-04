@@ -10,6 +10,8 @@ describe("listingPolicy integrity (sale vs rent vs devren)", () => {
     const text = INTEGRITY_RULES_SUMMARY.join(" ");
     expect(text).toMatch(/SPK/);
     expect(text).toMatch(/tapu sonrası/i);
+    expect(text).toMatch(/Lansman ve ön satış/i);
+    expect(text).toMatch(/dolandiricilik-savunmasi/);
   });
 
   it("uses rent trail without tapu sonrasi for Kiralik", () => {

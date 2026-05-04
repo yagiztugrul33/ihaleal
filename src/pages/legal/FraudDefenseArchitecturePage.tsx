@@ -23,8 +23,9 @@ export default function FraudDefenseArchitecturePage() {
             <p className="text-xs font-medium uppercase tracking-wide text-rose-400/90">Hukuki risk mimarisi</p>
             <h1 className="text-2xl font-bold text-white mt-1">Dolandiricilik ve dava risklerine karsi savunma</h1>
             <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
-              Uc kagit, sahte ilan, teklif manipulasyonu, para birligi, MASAK, KVKK ve sureklilik riskleri; platformun ayakta kalmasi ve
-              kullaniciya guven vermesi icin urun + hukuk + teknik kontrollerin ozeti. Baglayici danismanlik degildir.
+              Uc kagit, sahte ilan, teklif manipulasyonu, platform disi kapora ve aradan cikma, lansman on-satisinda teknik sartname ile
+              ilan uyumu, para birligi, MASAK, KVKK ve sureklilik riskleri; platformun ayakta kalmasi ve kullaniciya guven vermesi icin urun
+              + hukuk + teknik kontrollerin ozeti. Baglayici danismanlik degildir.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 shrink-0">
@@ -110,7 +111,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-cyan-200/80 mb-1">Delil / denetim izi</p>
-                  <p className="text-xs text-slate-500">{p.evidenceArtifacts.join(" 뿯½ ")}</p>
+                  <p className="text-xs text-slate-500">{p.evidenceArtifacts.join(" · ")}</p>
                 </div>
               </CardContent>
             </Card>
@@ -124,7 +125,8 @@ export default function FraudDefenseArchitecturePage() {
           </h2>
           <p className="text-sm text-slate-400 leading-relaxed">
             Emlak ekosisteminde sik gorulen dava hatlari: miras ve paydas zinciri, imar / 6306, ipotek-serh, TBK edimleri, TTK aracilik,
-            iflas ve yabanci edinimi. Asagidaki maddeler bilgilendirme taslagi olup somut dosyada avukat ile netlestirilir.
+            lansman on-satisi ve teknik sartname ile ilan uyumu, platform baypasi, iflas ve yabanci edinimi. Asagidaki maddeler bilgilendirme
+            taslagi olup somut dosyada avukat ile netlestirilir.
           </p>
         </div>
 
@@ -162,7 +164,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-cyan-200/80 mb-1">Delil / denetim izi</p>
-                  <p className="text-xs text-slate-500">{p.evidenceArtifacts.join(" 뿯½ ")}</p>
+                  <p className="text-xs text-slate-500">{p.evidenceArtifacts.join(" · ")}</p>
                 </div>
               </CardContent>
             </Card>

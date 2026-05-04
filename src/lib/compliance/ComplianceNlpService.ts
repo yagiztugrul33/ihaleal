@@ -51,6 +51,15 @@ export const DEFAULT_KEYWORD_RULES: KeywordRule[] = [
   { keyword: "whatsapp", weight: 0.40, category: "dis_iletişim" },
   { keyword: "telefon ver", weight: 0.45, category: "dis_iletişim" },
   { keyword: "dışarıda görüş", weight: 0.55, category: "dis_iletişim" },
+  { keyword: "aradan çık", weight: 0.72, category: "dis_iletişim" },
+  { keyword: "aradan cik", weight: 0.72, category: "dis_iletişim" },
+  { keyword: "platformu bypass", weight: 0.68, category: "dis_iletişim" },
+  { keyword: "şahsi iban", weight: 0.70, category: "dis_iletişim" },
+  { keyword: "sahsi iban", weight: 0.70, category: "dis_iletişim" },
+  { keyword: "komisyonsuz kapat", weight: 0.62, category: "dis_iletişim" },
+  { keyword: "bana direkt öde", weight: 0.68, category: "dis_iletişim" },
+  { keyword: "platformu atlayalım", weight: 0.70, category: "dis_iletişim" },
+  { keyword: "disari tasiyalim", weight: 0.55, category: "dis_iletişim" },
 ];
 
 // ============================================

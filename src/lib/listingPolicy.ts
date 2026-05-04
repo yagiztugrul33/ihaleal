@@ -45,6 +45,7 @@ const INTEGRITY_RULES_SALE_TRAIL: string[] = [
   "İlanda SPK uzmanı ekspertiz raporu çizgisi: şerh, ipotek, haciz ve benzeri hukuki durumlar raporda yer alır; evrak sahteciliği riskine karşı AI destekli ön tarama + insan onayı hedeflenir (hukuki son söz uzman/avukat).",
   "Taahhüt edilen alt/üst limit bandında anlaşma matrahı; limite ulaşıldığında işlemi tamamlama yükümlülüğü ve ihlalde cezai şartlar sözleşmede (satıcı, alıcı, kiracı, kiraya veren simetrisi — üretim).",
   "Belediye / imar planı / resmi karar özeti alıcıya ayrı butonla gösterilir; tapu sonrası sürpriz kalmaması hedeflenir.",
+  "Lansman ve ön satış: ilan metni ile teknik şartname ve ruhsat özeti aynı versiyon zinciriyle eşlenir; platform dışı kapora, şahsi IBAN veya mesajla aradan kapanma politika ve sözleşmede yasaktır; özet çerçeve /yasal/dolandiricilik-savunmasi (hedef operasyon + avukat metni).",
 ];
 
 /** Kiralık (normal); satış SPK / tapu sonrası cümleleri bu hatta yok. */
