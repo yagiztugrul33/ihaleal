@@ -122,7 +122,13 @@ export function Navbar() {
                 <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
                 {kkaStudioNavLabel}
               </NavLink>
-              <button type="button" onClick={() => scrollTo("howItWorks")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">Nasıl Çalışır</button>
+              <button
+                type="button"
+                onClick={() => navigate("/nasil-calisir")}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap"
+              >
+                Nasıl Çalışır
+              </button>
               <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">İletişim</button>
               {!currentUser ? (
                 <>
@@ -277,7 +283,16 @@ export function Navbar() {
                 <DraftingCompass className="w-4 h-4 shrink-0" aria-hidden />
                 {kkaStudioNavLabel}
               </NavLink>
-              <button type="button" onClick={() => scrollTo("howItWorks")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">Nasıl Çalışır</button>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate("/nasil-calisir");
+                  setIsOpen(false);
+                }}
+                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left"
+              >
+                Nasıl Çalışır
+              </button>
               <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">İletişim</button>
               <div className="border-t border-white/5 my-2" />
               <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>

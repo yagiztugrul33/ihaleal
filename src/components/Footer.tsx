@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
-import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, ArrowUpRight, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass } from "lucide-react";
+import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen } from "lucide-react";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
 
@@ -79,7 +79,15 @@ export function Footer() {
               <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Kredi Hesaplayici</button></li>
               <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> Ilan Karsilastirma</button></li>
               <li><button onClick={() => navigate("/sehirler")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><Navigation className="w-3.5 h-3.5" /> Sehir Rehberi</button></li>
-              <li><button onClick={() => navigate("/rehber")} className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2"><HelpCircle className="w-3.5 h-3.5" /> Yardim</button></li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => navigate("/rehber")}
+                  className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-left"
+                >
+                  <HelpCircle className="w-3.5 h-3.5" /> Platform rehberi
+                </button>
+              </li>
               <li>
                 <button onClick={() => navigate("/komisyon-hesaplayici")} className="text-sm text-slate-400 hover:text-emerald-400 transition-colors flex items-center gap-2">
                   <BadgePercent className="w-3.5 h-3.5" /> Komisyon hesaplayıcı
