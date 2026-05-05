@@ -6,7 +6,10 @@ name: CI
 on:
   push:
     branches: [main, master, develop]
+  # PR: fork dahil; aşağıdaki verify + review-hints job’ları aynı mantıkla çalışır.
   pull_request:
+  # Manuel: Actions → CI → “Run workflow” ile dal seçerek tetikleme.
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -29,6 +32,9 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Source encoding (src, tests/smoke, playwright.config)
+        run: npm run precheck:encoding
+
       - name: Typecheck
         run: npm run typecheck
 
@@ -37,6 +43,12 @@ jobs:
 
       - name: Production build
         run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke tests (Playwright)
+        run: npm run test:smoke
 
   review-hints:
     runs-on: ubuntu-latest
