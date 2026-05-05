@@ -1,5 +1,8 @@
 # (C) Sunucuda otomatik doğrulama + review öncesi ipuçları.
 # Cursor IDE veya Cloud Agent API anahtarı zorunlu değildir; istenirse ayrı iş akışına eklenir.
+#
+# Playbook #9: `npm run verify` — typecheck + encoding + vitest + build tek kapı (package.json ile drift yok).
+# Playbook #10: Smoke kırılırsa `test-results/` artefakt (Playwright trace/screenshot; 7 gün saklama).
 
 name: CI
 
@@ -19,6 +22,9 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,23 +38,23 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Source encoding (src, tests/smoke, playwright.config)
-        run: npm run precheck:encoding
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Tests
-        run: npm run test:run
-
-      - name: Production build
-        run: npm run build
+      - name: Verify (typecheck, encoding, tests, build)
+        run: npm run verify
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
       - name: Smoke tests (Playwright)
         run: npm run test:smoke
+
+      - name: Upload Playwright test-results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
 
   review-hints:
     runs-on: ubuntu-latest
