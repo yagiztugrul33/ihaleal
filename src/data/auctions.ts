@@ -1,3 +1,5 @@
+import type { Auction } from "@/types/auction";
+
 export const AUCTIONS = [
   {
     id: "1",
@@ -392,7 +394,6 @@ export const AUCTIONS = [
       "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&fit=crop",
       "https://images.unsplash.com/photo-1500076656116-558758c991c1?w=800&fit=crop",
     ],
-    virtualTour: null,
     mapLat: 40.2139,
     mapLng: 28.9824,
     category: "Arsa",
@@ -542,7 +543,6 @@ export const AUCTIONS = [
       "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&fit=crop",
       "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&fit=crop",
     ],
-    virtualTour: null,
     mapLat: 38.4623,
     mapLng: 27.1179,
     category: "Ticari",
@@ -624,4 +624,4 @@ export const AUCTIONS = [
     },
     agent: { name: "Burcu Aydın", company: "Maslak Rezidans", phone: "+90 539 444 55 66", rating: 4.6, reviewCount: 58, image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=200&fit=crop" },
   },
-];
+] satisfies Auction[];

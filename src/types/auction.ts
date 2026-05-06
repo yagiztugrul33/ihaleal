@@ -24,6 +24,8 @@ export interface Auction {
   endDate: string;
   images: string[];
   virtualTour?: string;
+  /** Kat karşılığı hub / filtre (demo). */
+  katKarsiligiOzellikleri?: Record<string, unknown>;
   mapLat: number;
   mapLng: number;
   category: string;

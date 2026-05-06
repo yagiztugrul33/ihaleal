@@ -71,3 +71,8 @@ export function auctionMatchesRoom(a: Auction, room: RoomFilter): boolean {
   const minRooms = parseInt(room, 10);
   return n >= minRooms;
 }
+
+/** Kat karşılığı hub süzgeci: ilanda kat karşılığı özeti var mı (demo alanı). */
+export function isKatKarsiligiLandAuction(a: Auction): boolean {
+  return Boolean(a.katKarsiligiOzellikleri);
+}
