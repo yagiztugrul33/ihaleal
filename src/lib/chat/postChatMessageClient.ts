@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { sanitizeChatPlainText } from "@/lib/sanitizePlainText";
 
 export type EdgeCompliancePayload = {
   flaggedKeywords: string[];
@@ -47,9 +48,14 @@ export async function postChatMessageViaEdge(args: {
     return { ok: false, code: "supabase_not_configured" };
   }
 
+  const body = sanitizeChatPlainText(args.text);
+  if (!body) {
+    return { ok: false, code: "empty_message" };
+  }
+
   const invokeBody: EdgeInvokeBody = {
     thread_id: args.threadId,
-    body: args.text,
+    body,
     client_msg_id: args.clientMsgId,
   };
 

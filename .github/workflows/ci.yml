@@ -38,8 +38,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Verify (typecheck, encoding, tests, build)
-        run: npm run verify
+      - name: Verify + coverage gate + bundle budget
+        run: npm run verify:ci
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium

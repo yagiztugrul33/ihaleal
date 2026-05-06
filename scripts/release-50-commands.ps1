@@ -24,12 +24,8 @@ Run-Step "06 Dev server (ayri terminal onerilir)" {
   Write-Host "Ayri terminalde calistir: npm run dev -- --host --port 5175" -ForegroundColor Yellow
 }
 
-Run-Step "07-11 Kalite dogrulama" {
-  npm run typecheck
-  npm run precheck:encoding
-  npm run test:run
-  npm run build
-  npm run verify
+Run-Step "07-11 Kalite dogrulama (CI ile ayni kapı)" {
+  npm run verify:ci
 }
 
 Run-Step "12-15 Git inceleme" {

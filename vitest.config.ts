@@ -14,7 +14,19 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
-      include: ["src/lib/fees.ts", "src/lib/userFlows.ts"],
+      include: [
+        "src/lib/fees.ts",
+        "src/lib/userFlows.ts",
+        "src/lib/clientLog.ts",
+        "src/lib/sanitizePlainText.ts",
+        "src/lib/chat/postChatMessageClient.ts",
+      ],
+      thresholds: {
+        statements: 78,
+        branches: 45,
+        functions: 58,
+        lines: 78,
+      },
     },
   },
   resolve: {

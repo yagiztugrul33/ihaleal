@@ -23,6 +23,7 @@
     "backup": "node scripts/backup.mjs",
     "precheck:encoding": "node scripts/check-source-encoding.mjs",
     "verify": "npm run typecheck && npm run precheck:encoding && npm run test:run && npm run build",
+    "verify:ci": "npm run verify && npm run test:coverage && node scripts/check-bundle-budget.mjs",
     "precheck:supabase": "node scripts/precheck-supabase.mjs",
     "site:finish": "cmd /c CALISTIR_SITEYI_BITIR.bat",
     "site:finish:all": "cmd /c SITE_BITIR_TEK_CALISTIR.bat"
