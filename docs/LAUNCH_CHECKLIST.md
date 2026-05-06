@@ -62,7 +62,7 @@ npm run gen:assets
 
 ## Planlı teknik borçlar (acil değil)
 
-- SSR/prerender ve HashRouter ile SEO stratejisi.
+- SSR/prerender ve HashRouter ile SEO stratejisi (demo kural özeti: **`docs/SEO_HASH_CANONICAL.md`**).
 - Kimi mega paket JSON içeriklerinin ürün içine bağlanması (`docs/kimi-mega-pack/`).
 
 ---

@@ -34,6 +34,7 @@ async function main() {
   ensureDir(path.join(pub, "social"));
   ensureDir(path.join(pub, "email"));
 
+  // OG boyutu src/data/homeSeo.ts OG_IMAGE ile aynı kalmalı (Vite index inject + applySeoToDocument).
   await sharp({
     create: { width: 1200, height: 630, channels: 3, background: { r: 10, g: 15, b: 30 } },
   })

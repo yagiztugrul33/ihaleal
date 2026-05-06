@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { landingConfigByPath } from "@/data/seoLandings";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
-import { SITE_ORIGIN } from "@/lib/seo";
+import { SITE_ORIGIN } from "@/data/siteOrigin";
 
 export default function CityLandingPage() {
   const { pathname } = useLocation();

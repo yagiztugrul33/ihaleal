@@ -2,6 +2,43 @@ import path from "path"
 import react from "@vitejs/plugin-react"
 import { VitePWA } from "vite-plugin-pwa"
 import { defineConfig } from "vite"
+import { HOME_SEO, HOME_HASH_URL, OG_IMAGE } from "./src/data/homeSeo"
+import { SITE_ORIGIN } from "./src/data/siteOrigin"
+
+function escapeHtmlText(s: string) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+}
+
+function escapeHtmlAttr(s: string) {
+  return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")
+}
+
+function escapeJsonStringContent(s: string) {
+  return JSON.stringify(s).slice(1, -1)
+}
+
+/** index.html kabuğunu src/data/homeSeo.ts ile senkron tutar (JS çalışmayan botlar). */
+function homePageMetaHtmlPlugin() {
+  return {
+    name: "home-page-meta-from-seo-data",
+    enforce: "pre" as const,
+    transformIndexHtml(html: string) {
+      const absOg = `${SITE_ORIGIN}${OG_IMAGE.path}`
+      const titleHtml = escapeHtmlText(HOME_SEO.title)
+      const titleAttr = escapeHtmlAttr(HOME_SEO.title)
+      const descAttr = escapeHtmlAttr(HOME_SEO.description)
+      return html
+        .replaceAll("__HOME_TITLE_HTML__", titleHtml)
+        .replaceAll("__HOME_TITLE_ATTR__", titleAttr)
+        .replaceAll("__HOME_DESCRIPTION__", descAttr)
+        .replaceAll("__HOME_SHARE_URL__", escapeHtmlAttr(HOME_HASH_URL))
+        .replaceAll("__OG_IMAGE_ABS__", escapeHtmlAttr(absOg))
+        .replaceAll("__OG_IMAGE_W__", String(OG_IMAGE.width))
+        .replaceAll("__OG_IMAGE_H__", String(OG_IMAGE.height))
+        .replaceAll("__WEBSITE_JSON_DESC__", escapeJsonStringContent(HOME_SEO.description))
+    },
+  }
+}
 
 function securityHeaders(): Record<string, string> {
   return {
@@ -28,6 +65,7 @@ export default defineConfig({
     headers: securityHeaders(),
   },
   plugins: [
+    homePageMetaHtmlPlugin(),
     react(),
     VitePWA({
       registerType: "autoUpdate",

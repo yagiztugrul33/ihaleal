@@ -1,14 +1,9 @@
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
+import { HOME_SEO, OG_IMAGE } from "@/data/homeSeo";
+import { SITE_ORIGIN } from "@/data/siteOrigin";
 
-/** HashRouter: gerçek URL ör. https://alan.com/#/analiz — paylaşım ve OG için taban. */
-export const SITE_ORIGIN = "https://ihaleal.com";
-
-/** Ana sayfa; `getSeoForPath("/")` ve bilinmeyen rotalar için aynı metin. */
-const HOME_SEO: { title: string; description: string } = {
-  title: "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
-  description:
-    "İhale, kapalı teklif veya ilan modu; gerçek alıcı–satıcı ve kiralıkta güvenli süreç. Teklif verenler anonim; iletişim platform üzerinden. Yapay zeka destekli fiyat ve bölge değerlendirmesi. Yalnızca komisyon (hedef). Demo.",
-};
+/** HashRouter: paylaşım ve `og:url` için taban; kanonik ayrı (kök URL). */
+export { SITE_ORIGIN };
 
 export const DEFAULT_SEO = HOME_SEO;
 
@@ -220,26 +215,34 @@ function setMeta(attr: "name" | "property", key: string, content: string) {
   el.setAttribute("content", content);
 }
 
+const OG_IMAGE_ALT = "ihaleal.com — gayrimenkul ihale ve analiz platformu ön izleme görseli";
+
 export function applySeoToDocument(pathname: string, search: string) {
   const { title, description } = getSeoForPath(pathname);
   document.title = title;
   setMeta("name", "description", description);
-  const canonicalPath = `${SITE_ORIGIN}/#${pathname}${search || ""}`;
-  const ogImage = `${SITE_ORIGIN}/og-image.png`;
+  const shareUrl = `${SITE_ORIGIN}/#${pathname}${search || ""}`;
+  const ogImageUrl = `${SITE_ORIGIN}${OG_IMAGE.path}`;
+  const canonicalRoot = `${SITE_ORIGIN}/`;
   setMeta("property", "og:title", title);
   setMeta("property", "og:description", description);
-  setMeta("property", "og:url", canonicalPath);
+  setMeta("property", "og:url", shareUrl);
   setMeta("property", "og:type", "website");
-  setMeta("property", "og:image", ogImage);
+  setMeta("property", "og:image", ogImageUrl);
+  setMeta("property", "og:image:width", String(OG_IMAGE.width));
+  setMeta("property", "og:image:height", String(OG_IMAGE.height));
+  setMeta("property", "og:image:alt", OG_IMAGE_ALT);
   setMeta("name", "twitter:card", "summary_large_image");
+  setMeta("name", "twitter:url", shareUrl);
   setMeta("name", "twitter:title", title);
   setMeta("name", "twitter:description", description);
-  setMeta("name", "twitter:image", ogImage);
+  setMeta("name", "twitter:image", ogImageUrl);
+  setMeta("name", "twitter:image:alt", OG_IMAGE_ALT);
   let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (!link) {
     link = document.createElement("link");
     link.rel = "canonical";
     document.head.appendChild(link);
   }
-  link.href = `${SITE_ORIGIN}/`;
+  link.href = canonicalRoot;
 }
