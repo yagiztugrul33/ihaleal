@@ -24,6 +24,13 @@ type ChartContextProps = {
 
 const ChartContext = React.createContext<ChartContextProps | null>(null)
 
+function sanitizeCssIdentifier(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]/g, "-")
+}
+
 function useChart() {
   const context = React.useContext(ChartContext)
 
@@ -47,7 +54,7 @@ function ChartContainer({
   >["children"]
 }) {
   const uniqueId = React.useId()
-  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`
+  const chartId = sanitizeCssIdentifier(`chart-${id || uniqueId.replace(/:/g, "")}`)
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -73,6 +80,7 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
     ([, config]) => config.theme || config.color
   )
+  const safeChartId = sanitizeCssIdentifier(id)
 
   if (!colorConfig.length) {
     return null
@@ -84,13 +92,14 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart="${safeChartId}"] {
 ${colorConfig
   .map(([key, itemConfig]) => {
+    const safeKey = sanitizeCssIdentifier(key)
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
+    return color ? `  --color-${safeKey}: ${color};` : null
   })
   .join("\n")}
 }
