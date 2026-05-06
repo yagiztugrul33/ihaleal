@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import { MEMBERSHIP_DURATION_DAYS, MEMBERSHIP_FEES } from "@/lib/fees";
 import { Button } from "@/components/ui/button";
@@ -12,12 +12,17 @@ export default function YillikUyelik() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const supabaseReady = isSupabaseConfigured();
 
   const expiresAt = () =>
     new Date(Date.now() + MEMBERSHIP_DURATION_DAYS * 86400000).toISOString();
 
   const buy = async (type: keyof typeof MEMBERSHIP_FEES, label: string) => {
     setError(null);
+    if (!supabaseReady) {
+      setError("Demo ödeme şu anda kapalı. Devam etmek için .env.local ile Supabase yapılandırın.");
+      return;
+    }
     if (!user) {
       navigate("/giris");
       return;
@@ -34,7 +39,7 @@ export default function YillikUyelik() {
     });
     setLoading(null);
     if (insErr) {
-      setError(insErr.message);
+      setError("Üyelik kaydı şu anda tamamlanamadı. Lütfen daha sonra tekrar deneyin.");
       return;
     }
     navigate("/profil");
@@ -72,6 +77,11 @@ export default function YillikUyelik() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-white mb-2">Yıllık üyelik</h1>
+        {!supabaseReady ? (
+          <div className="mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-sm">
+            Demo ödeme şu anda pasif. Paket kaydı için <code className="text-amber-100">.env.local</code> ile Supabase yapılandırın.
+          </div>
+        ) : null}
         <p className="text-slate-400 mb-8">
           Demo ödeme: seçtiğiniz paket doğrudan Supabase <code className="text-teal-400/90">memberships</code> tablosuna yazılır (iyzico sonraki sprint).
         </p>
@@ -92,7 +102,7 @@ export default function YillikUyelik() {
                 </div>
                 <Button
                   type="button"
-                  disabled={loading !== null}
+                  disabled={!supabaseReady || loading !== null}
                   onClick={() => void buy(p.id, p.title)}
                   className="mt-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-semibold"
                 >
