@@ -1,26 +1,88 @@
 ---
-description: ihaleal.com — gayrimenkul ihale/teklif demo platformu için Cursor IDE asistan kuralları
-globs:
-  - "**/*.{ts,tsx}"
-  - "**/*.css"
-alwaysApply: false
+description: ihaleal.com — proje sınırları, dil, güvenlik ve HashRouter kuralları
+alwaysApply: true
 ---
 
-# Bağlam
+# Dil (TR / EN)
 
-- **Stack:** Vite, React 19, TypeScript, Tailwind CSS, shadcn/ui tarzı bileşenler (`src/components/ui`), **React Router HashRouter** (`#/` URL’leri).
-- **İş modeli:** Yıllık üyelik + komisyon mahsup + B2B emlakçı ortaklığı; rakamlar ve metinler **`src/lib/fees.ts`** ile uyumlu tutulmalı.
-- **Demo:** Üretim öncesi sürüm; “lisanslı”, “garanti”, “paket satışı”, sahte güvenlik vaadi kullanma.
+- **Arayüz ve ürün metni:** Mevcut sayfayla uyumlu ol; çoğu akış **Türkçe**. Yeni kısa metinlerde tutarlılık.
+- **Kod:** İsimlendirme ve commit mesajları **İngilizce** (repo ile uyumlu). Yorumlar: gerekiyorsa kısa EN veya TR, karışık stil oluşturma.
+- **Yasal taslaklar:** `public/legal/*` İngilizce taslak kalabilir; üstünde/yanında TR özet başlık eklenebilir.
 
-# Kodlama
+# Finans ve entegrasyon
 
-- Yeni sayfa: `src/pages`, rota **`src/App.tsx`** lazy import ile.
-- SEO başlık/açıklama: **`src/lib/seo.ts`** ve gerekiyorsa `RouteSeo`.
-- Yerel depolama anahtarları `ihaleal_` öneki ile; Auth demo **`ihaleal_user`**.
-- Toast: `window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }))`.
-- Harita: Leaflet; SEO şehir sayfaları: `src/data/seoLandings.ts`.
+- **Banka / PSP / iyzico / gerçek ödeme:** Şirket ve ürün kararı olmadan **ekleme**; üretim ana dalında entegrasyon yok (`docs/SISTEM_RISK_ANALIZI_VE_FAZ0.md`).
+- **`SUPABASE_SERVICE_ROLE_KEY`:** Yalnızca yerel / CI / Edge; **`VITE_*` altında asla kullanma** (istemci bundle’a sızmaz).
 
-# Değiştirirken
+# Kaynak ve doğrulama
 
-- Gereksiz refaktör yapma; mevcut dosya stiline uy.
-- Yasal metinleri hukuk ekibi onayı olmadan bağlayıcı iddia gibi sıkılaştırma.
+- **UTF-8:** Kaynak ve `docs/*.md` dosyalarını UTF-16 veya BOM’lu yanlış encoding ile kaydetme (`npm run precheck:encoding`).
+- **Anlamlı commit öncesi:** `npm run verify` yeşil olmalı (`typecheck` + `precheck:encoding` + `test:run` + `build`). Sadece doküman/kural ise en azından ilgili kontrolleri çalıştır.
+
+# HashRouter ve linkler
+
+- **İç rota:** `react-router-dom` `Link` / `NavLink` / `useNavigate` kullan; `src/App.tsx` ile tanımlı path’lerle uyumlu olsun.
+- **`href="#"`** veya dış URL’yi iç navigasyon gibi kullanma; dış linkte `rel="noopener noreferrer"` ve `target="_blank"` tutarlılığı.
+
+# Kod stili
+
+- Gereksiz refaktör yok; mevcut import ve bileşen kalıbına uy.
+- **Stack hatırlatması:** Vite, React 19, TS, Tailwind; ücret metinleri **`src/lib/fees.ts`** ile uyumlu.
+- **Demo:** Bağlayıcı hukuk iddiası veya sahte “garanti / lisanslı satış” vaadi yok.
+
+# TypeScript
+
+- `strict` ile uyumlu tipler; `any` eklemeden önce alternatif (unknown, generic, Zod infer) düşün.
+- Dış API / Supabase yanıtları için mümkünse **Zod** veya net interface; magic string yerine `as const` + union veya `src/lib` / `src/data` sabitleri.
+- Ortak tipler tek yerde; sayfa içinde kopya tip tanımı oluşturma.
+
+# Tailwind ve UI (shadcn / Radix)
+
+- Sınıflarda tutarlı sıra (layout → box → tipografi → durum); tekrarlayan kombinasyonları `cn()` ile birleştir.
+- Radix tabanlı bileşenlerde erişilebilirlik props’larını kırma; odak halkası ve klavye akışını koru.
+- Büyük liste / grafik için gerektiğinde **lazy** route veya dinamik import; her sayfaya ağır paketleri statik import etme.
+
+# İsimlendirme
+
+- Bileşenler: **PascalCase**; hooks: **useX**; util ve dosya adları: repo ile uyumlu (çoğunlukla **camelCase** `.ts` / **PascalCase** `.tsx` sayfa).
+- Rota path’leri `App.tsx` ile aynı sözlükte; SEO için `src/lib/seo.ts` ve `src/data/homeSeo.ts` / `siteOrigin` tek kaynak.
+
+# Hata yönetimi ve güvenlik
+
+- Kullanıcıya ham stack trace veya üçüncü taraf ham mesaj gösterme; `authErrors` / genel Türkçe mesaj kalıbı.
+- `dangerouslySetInnerHTML` ve dış HTML enjekte etme; URL’leri `javascript:` / data URI ile doğrulama.
+- Gizli anahtarlar yalnızca sunucu / script ortamı; istemcide yalnızca anon/public değişkenler.
+
+# Mimari not (Next.js / RSC)
+
+- Repo şu an **Vite SPA + HashRouter**; “Next.js 15 App Router / RSC / Server Actions” önerisi **ayrı migrasyon**dır — tek PR’da karıştırma; karar ve plan olmadan stack değiştirme.
+
+# Tek kaynak ve tekrar iş
+
+- Mimari özeti: **`docs/ARCHITECTURE.md`**. SEO hash/kanonik: **`docs/SEO_HASH_CANONICAL.md`**. Yayın checklist: **`docs/LAUNCH_CHECKLIST.md`**.
+- Yeni doküman veya kural eklemeden önce bu dosyalarda **aynı konu** var mı bak; çift kaynak oluşturma.
+- `src/data/homeSeo.ts`, `src/data/siteOrigin.ts`, `src/lib/seo.ts` — ana sayfa meta ve URL politikası **burada**; `index.html` yalnızca Vite placeholder + inject.
+
+# Agent / Composer disiplini
+
+- **Kapsam:** Kullanıcının tek mesajında yüzlerce madde varsa **tamamını uygula** deme; öncelik sor veya en dar anlamlı paketi seç.
+- **Iddia sınırı:** “OWASP tam kapalı”, “pentest geçti”, “KVKK/MASAK %100 uyumlu”, “Lighthouse 98+ garanti” gibi **ölçülmemiş veya hukuki** iddialar üretme.
+- **Ödeme / PSP:** Ürün kararı olmadan gerçek ödeme, fatura üretimi veya MASAK raporlama otomasyonu **ekleme**.
+- **Dosya encoding:** Windows’ta bazı araçlar UTF-16 yazar; TS/TSX/MD için **UTF-8** koru (`npm run precheck:encoding`).
+
+# Performans ve bundle
+
+- Büyük sayfalar: `React.lazy` + `Suspense` veya route-level split; Recharts / ağır dashboard’ları her yerde statik import etme.
+- “Sub-second” veya sabit Lighthouse skoru **ölçüm ve CDN/hosting** olmadan taahhüt etme; öneri verirken varsayımları yaz.
+- `npm run build` çıktısındaki chunk uyarılarını yeni ağır import eklerken dikkate al.
+
+# Güvenlik (gerçekçi sınırlar)
+
+- SPA + anon Supabase: kritik iş kuralları **RLS + Edge/Functions** ile; istemci yalnızca UX.
+- Kullanıcıya **PII** veya ham `error.message` (üçüncü taraf) sızdırma; `translateAuthError` / genel mesaj kalıbı.
+- CSP, rate limit, WAF: çoğunlukla **hosting / API gateway** katmanı; kodda mümkün olanları öner, “kuruldu” demeden önce yapılandırma doğrula.
+
+# Test ve CI
+
+- Yerel: **`npm run verify`**. Smoke: **`npm run test:smoke`** (Playwright).
+- CI: **`.github/workflows/ci.yml`** — PR’da verify + smoke beklentisi ile uyumlu kal.

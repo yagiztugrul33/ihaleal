@@ -1,0 +1,5 @@
+# ihaleal.com - Cursor / AI (pointer only)
+#
+# Authoritative rules: .cursor/rules/ihaleal.mdc (alwaysApply: true).
+# Edit ihaleal.mdc for quality, security, stack boundaries, and agent discipline.
+# Do not duplicate long rule text here (avoid drift).
