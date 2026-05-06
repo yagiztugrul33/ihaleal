@@ -24,7 +24,7 @@ if not "!DOEC!"=="0" (
 )
 
 echo.
-echo [3/3] Tam bitirme: verify:ci + .bundle yedek + varsa commit/push
+echo [3/3] Site dogrulama + kimi commit (npm ci YOK — Vite acik kalabilir)
 call "%ROOT%\CALISTIR_SITEYI_BITIR.bat" nopause
 set EC=!errorlevel!
 

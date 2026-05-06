@@ -1,37 +1,31 @@
 @echo off
 setlocal
-chcp 65001 >nul
 set "ROOT=%~dp0"
 if "%ROOT:~-1%"=="\" set "ROOT=%ROOT:~0,-1%"
-cd /d "%ROOT%"
+set "GIT=C:\Program Files\Git\bin\git.exe"
 
 echo ============================================
-echo  ihaleal.com — SITEYI BITIRME (CI + yedek)
+echo  ihaleal.com - SITEYI BITIRME (Faz 1 otomatik)
 echo ============================================
 echo.
-echo npm ci calisir. Vite / "npm run dev" kapali olsun (esbuild EPERM onlenir).
-echo Calisma agaci kirli ise pull atlanir; once commit veya stash yapin.
+echo Bu adim: npm install + typecheck + test + build (Vite acik kalabilir).
+echo Tam CI + yedek .bundle icin: BITIR_VERIFY_CI.bat
 echo.
 
-powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%\scripts\bitir-kisitli-butce.ps1"
-set "EC=%ERRORLEVEL%"
-
-if not "%EC%"=="0" (
-  echo.
-  echo [HATA] bitir-kisitli-butce.ps1 cikis kodu: %EC%
-  pause
-  exit /b %EC%
+call "%ROOT%\CALISTIR_KALAN_KONTROL.bat"
+if errorlevel 1 (
+  echo [HATA] CALISTIR_KALAN_KONTROL basarisiz.
+  exit /b 1
 )
 
 echo.
-echo --- Istege bagli: docs\kimi-import altinda gorev* varsa commit ---
-set "GIT=C:\Program Files\Git\bin\git.exe"
+echo --- Faz 1b: kimi-import icinde gorev* varsa commit ---
 set GOREVFILES=0
 if exist "%ROOT%\docs\kimi-import\" (
   for /f %%A in ('2^>nul dir /b "%ROOT%\docs\kimi-import\gorev*" ^| find /c /v ""') do set GOREVFILES=%%A
 )
 if "%GOREVFILES%"=="0" (
-  echo SKIP: gorev* yok.
+  echo SKIP: docs\kimi-import altinda gorev* yok ^(yalnizca betik/README ise commit yok^).
 ) else (
   echo Bulunan gorev* dosya sayisi: %GOREVFILES%
   if exist "%GIT%" (
@@ -49,10 +43,13 @@ if "%GOREVFILES%"=="0" (
 )
 
 echo.
+echo --- Son durum ---
 if exist "%GIT%" "%GIT%" -C "%ROOT%" status -sb
+
 echo.
 echo ============================================
-echo  Bitti. Yerel: npm run dev  veya BASLA_DEV.bat
+echo  Faz 1 tamam. Tam CI+yedek: BITIR_VERIFY_CI.bat
+echo  Sonraki: docs\SITEYI_BITIRME_PLANI.md  npm run dev
 echo ============================================
 if /i not "%~1"=="nopause" pause
 exit /b 0

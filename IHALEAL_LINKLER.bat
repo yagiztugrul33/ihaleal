@@ -24,8 +24,9 @@ echo   %ROOT%\docs\LAUNCH_CHECKLIST.md
 echo   %ROOT%\docs\VERCEL_ENV_AFTER_MAIN_MERGE.md
 echo.
 echo Betikler:
-echo   %ROOT%\scripts\bitir-kisitli-butce.ps1   (verify:ci + yedek .bundle + commit/push)
-echo   %ROOT%\scripts\release-50-commands.ps1   (uzun checklist)
+echo   %ROOT%\BITIR_VERIFY_CI.bat              (verify:ci + yedek; once Viteyi kapat)
+echo   %ROOT%\scripts\bitir-kisitli-butce.ps1  (ayni is, PowerShell)
+echo   %ROOT%\scripts\release-50-commands.ps1  (uzun checklist)
 echo.
 echo Tarayicida canli siteyi aciyorum...
 start "" "https://ihaleal.com/#/"

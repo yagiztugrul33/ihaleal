@@ -10,14 +10,15 @@
 
 | Ne | Dosya |
 |----|--------|
-| Tam bitirme (`verify:ci` + `Downloads` altında `.bundle` yedek + varsa commit/push) | `scripts/bitir-kisitli-butce.ps1` — kökten: **`CALISTIR_SITEYI_BITIR.bat`** |
+| Günlük doğrulama + kimi `gorev*` commit (`npm install`, Vite açık kalabilir) | **`CALISTIR_SITEYI_BITIR.bat`** (`npm run site:finish`) |
+| Tam CI + `.bundle` yedek + varsa commit/push (`npm ci` — **önce Vite’yi kapat**) | **`BITIR_VERIFY_CI.bat`** veya `scripts/bitir-kisitli-butce.ps1` (`npm run site:finish:ci`) |
 | Uzun checklist (git, `npm ci`, `verify:ci`, `rg`, smoke, `gh`, tag) | `scripts/release-50-commands.ps1` |
 | Hızlı adresler (canlı + yerel + repo) | **`IHALEAL_LINKLER.bat`** |
-| Kimi `output.zip` + doğrulama + tam bitirme (tek akış) | **`SITE_BITIR_TEK_CALISTIR.bat`** |
+| Kimi `output.zip` + doğrulama + günlük bitirme (tek akış) | **`SITE_BITIR_TEK_CALISTIR.bat`** (`npm run site:finish:all`) |
 
-**Not:** `npm ci` sırasında `esbuild.exe` EPERM hatası alırsanız, `npm run dev` / Vite çalışan terminali kapatın; ayrıntı için `scripts/bitir-kisitli-butce.ps1` içindeki mesajlara bakın.
+**Not:** `npm ci` yalnızca `BITIR_VERIFY_CI.bat` / `bitir-kisitli-butce.ps1` içindedir; `esbuild.exe` EPERM için Vite’yi kapatın.
 
-`package.json` kısayolları: `npm run site:finish` → `CALISTIR_SITEYI_BITIR.bat`, `npm run site:finish:all` → `SITE_BITIR_TEK_CALISTIR.bat`.
+`package.json`: `site:finish`, `site:finish:all`, `site:finish:ci`.
 
 ---
 
