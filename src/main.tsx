@@ -3,12 +3,15 @@ import { createRoot } from "react-dom/client";
 import { registerSW } from "virtual:pwa-register";
 import "./index.css";
 import App from "./App";
+import { clientLogError } from "@/lib/clientLog";
 
-if (import.meta.env.DEV) {
-  window.addEventListener("unhandledrejection", (ev) => {
-    console.error("[unhandledrejection]", ev.reason);
-  });
-}
+window.addEventListener("unhandledrejection", (ev) => {
+  clientLogError("unhandledrejection", ev.reason);
+});
+
+window.addEventListener("error", (ev) => {
+  clientLogError("window.error", ev.error ?? ev.message);
+});
 
 registerSW({ immediate: true });
 

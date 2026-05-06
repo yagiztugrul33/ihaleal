@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import ErrorPage from "@/pages/ErrorPage";
+import { clientLogError } from "@/lib/clientLog";
 
 interface Props {
   children: ReactNode;
@@ -18,7 +19,9 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.error("[ErrorBoundary]", error, info.componentStack);
+    clientLogError("ErrorBoundary", error, {
+      hasStack: Boolean(info.componentStack),
+    });
   }
 
   resetError = (): void => {

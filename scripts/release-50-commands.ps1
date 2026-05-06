@@ -57,7 +57,7 @@ Run-Step "16-30 Kod taramalari" {
   rg -n "supabase" src/pages/membership/YillikUyelik.tsx
 }
 
-Run-Step "31 Coverage" { npx vitest run --coverage }
+Run-Step "31 Coverage" { npm run test:coverage }
 
 Run-Step "32-35 Commit ve push" {
   git add -A
