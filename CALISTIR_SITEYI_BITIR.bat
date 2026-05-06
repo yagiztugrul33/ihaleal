@@ -1,29 +1,37 @@
 @echo off
 setlocal
+chcp 65001 >nul
 set "ROOT=%~dp0"
 if "%ROOT:~-1%"=="\" set "ROOT=%ROOT:~0,-1%"
-set "GIT=C:\Program Files\Git\bin\git.exe"
+cd /d "%ROOT%"
 
 echo ============================================
-echo  ihaleal.com - SITEYI BITIRME (Faz 1 otomatik)
+echo  ihaleal.com — SITEYI BITIRME (CI + yedek)
 echo ============================================
 echo.
+echo npm ci calisir. Vite / "npm run dev" kapali olsun (esbuild EPERM onlenir).
+echo Calisma agaci kirli ise pull atlanir; once commit veya stash yapin.
+echo.
 
-REM --- Faz 1a: mevcut tam zincir ---
-call "%ROOT%\CALISTIR_KALAN_KONTROL.bat"
-if errorlevel 1 (
-  echo [HATA] CALISTIR_KALAN_KONTROL basarisiz.
-  exit /b 1
+powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%\scripts\bitir-kisitli-butce.ps1"
+set "EC=%ERRORLEVEL%"
+
+if not "%EC%"=="0" (
+  echo.
+  echo [HATA] bitir-kisitli-butce.ps1 cikis kodu: %EC%
+  pause
+  exit /b %EC%
 )
 
 echo.
-echo --- Faz 1b: kimi-import icinde gorev* varsa commit ---
+echo --- Istege bagli: docs\kimi-import altinda gorev* varsa commit ---
+set "GIT=C:\Program Files\Git\bin\git.exe"
 set GOREVFILES=0
 if exist "%ROOT%\docs\kimi-import\" (
   for /f %%A in ('2^>nul dir /b "%ROOT%\docs\kimi-import\gorev*" ^| find /c /v ""') do set GOREVFILES=%%A
 )
 if "%GOREVFILES%"=="0" (
-  echo SKIP: docs\kimi-import altinda gorev* yok ^(yalnizca betik/README ise commit yok^).
+  echo SKIP: gorev* yok.
 ) else (
   echo Bulunan gorev* dosya sayisi: %GOREVFILES%
   if exist "%GIT%" (
@@ -41,13 +49,10 @@ if "%GOREVFILES%"=="0" (
 )
 
 echo.
-echo --- Son durum ---
 if exist "%GIT%" "%GIT%" -C "%ROOT%" status -sb
-
 echo.
 echo ============================================
-echo  Faz 1 tamam. Sonraki adimlar:
-echo   docs\SITEYI_BITIRME_PLANI.md  (Faz 2-5)
-echo   npm run dev  (yerel onizleme)
+echo  Bitti. Yerel: npm run dev  veya BASLA_DEV.bat
 echo ============================================
+if /i not "%~1"=="nopause" pause
 exit /b 0

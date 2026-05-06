@@ -6,18 +6,35 @@
 
 ---
 
+## Windows: çift tıklama ve betikler
+
+| Ne | Dosya |
+|----|--------|
+| Tam bitirme (`verify:ci` + `Downloads` altında `.bundle` yedek + varsa commit/push) | `scripts/bitir-kisitli-butce.ps1` — kökten: **`CALISTIR_SITEYI_BITIR.bat`** |
+| Uzun checklist (git, `npm ci`, `verify:ci`, `rg`, smoke, `gh`, tag) | `scripts/release-50-commands.ps1` |
+| Hızlı adresler (canlı + yerel + repo) | **`IHALEAL_LINKLER.bat`** |
+| Kimi `output.zip` + doğrulama + tam bitirme (tek akış) | **`SITE_BITIR_TEK_CALISTIR.bat`** |
+
+**Not:** `npm ci` sırasında `esbuild.exe` EPERM hatası alırsanız, `npm run dev` / Vite çalışan terminali kapatın; ayrıntı için `scripts/bitir-kisitli-butce.ps1` içindeki mesajlara bakın.
+
+`package.json` kısayolları: `npm run site:finish` → `CALISTIR_SITEYI_BITIR.bat`, `npm run site:finish:all` → `SITE_BITIR_TEK_CALISTIR.bat`.
+
+---
+
 ## A) Teknik teslim (bu liste işaretlenince “deploy’a hazır” sayılır)
 
-### Yerel doğrulama
+### Yerel doğrulama (CI ile aynı)
 
 ```bash
-npm install
-npm run verify
+npm ci
+npm run verify:ci
 ```
 
-`verify`: `typecheck` + `test:run` + `build`.
+`verify:ci`: `verify` (typecheck + encoding + tests + build) + `test:coverage` + `scripts/check-bundle-budget.mjs`.
 
-- [ ] `npm run verify` hatasız tamamlanıyor.
+- [ ] `npm run verify:ci` hatasız tamamlanıyor.
+
+Hafif zincir (yedek): `CALISTIR_KALAN_KONTROL.bat` — `npm install` + typecheck + test + build + audit (CI ile birebir değil; tam eşleşme için `verify:ci` kullanın).
 
 Durum özeti ve sıranın sonundaki kullanıcı adımları: **`docs/KALAN_ADIMLAR_TEK_TEK.md`** · yüzdeler: **`docs/PROJE_ILERLEME_YUZDE.md`**
 
@@ -47,7 +64,7 @@ npm run gen:assets
 
 - [ ] Repo import veya CLI ile proje oluşturuldu.
 - [ ] Build: `npm run build`, çıktı: **`dist`** — kökte **`vercel.json`** kullanılabilir.
-- [ ] Production **Environment Variables**: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (ve gerekiyorsa diğer `VITE_*`).
+- [ ] Production **Environment Variables**: `VITE_*` listesi — **`docs/VERCEL_ENV_AFTER_MAIN_MERGE.md`**
 - [ ] Alan adı ve DNS tamam.
 
 ---

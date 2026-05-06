@@ -6,13 +6,13 @@ if "%ROOT:~-1%"=="\" set "ROOT=%ROOT:~0,-1%"
 cd /d "%ROOT%"
 
 echo ============================================
-echo  ihaleal.com - SITE BITIRME ^(tek calistir^)
+echo  ihaleal.com — TEK CALISTIR (Kimi + tam bitirme)
 echo ============================================
 echo.
 echo [1/3] output.zip: Downloads, Desktop, proje kokinde aranir ve acilir.
 powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%\docs\kimi-import\INDIR_VE_CIKAR_OUTPUT.ps1"
 if errorlevel 1 (
-  echo [BILGI] output.zip bulunamadi veya acilamadi. Kod zinciri yine calisir.
+  echo [BILGI] output.zip bulunamadi veya acilamadi. Devam ediliyor.
 )
 
 echo.
@@ -24,13 +24,14 @@ if not "!DOEC!"=="0" (
 )
 
 echo.
-echo [3/3] Teknik zincir + gorev* varsa git commit/push
-call "%ROOT%\CALISTIR_SITEYI_BITIR.bat"
+echo [3/3] Tam bitirme: verify:ci + .bundle yedek + varsa commit/push
+call "%ROOT%\CALISTIR_SITEYI_BITIR.bat" nopause
 set EC=!errorlevel!
 
 echo.
 echo ============================================
-echo  Bitti. Cikis kodu: !EC!
-echo  Yerel site: npm run dev  veya BASLA_DEV.bat
+echo  Zincir bitti. Son cikis kodu: !EC!
+echo  Hizli linkler: IHALEAL_LINKLER.bat
 echo ============================================
+if not "!EC!"=="0" pause
 exit /b !EC!
