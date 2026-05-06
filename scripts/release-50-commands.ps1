@@ -10,32 +10,35 @@ function Run-Step {
   & $Script
 }
 
-Run-Step "01-04 Repo hazirlik" {
+# 01-04
+Run-Step "01-04 Repo" {
   Set-Location "C:\Users\yagiz\Documents\GitHub\ihaleal"
   git checkout chore/footer-nav-seo-meta
   git pull --rebase origin chore/footer-nav-seo-meta
   git status -sb
 }
 
-Run-Step "05 Bagimliliklar" { npm ci }
+# 05
+Run-Step "05 npm ci" { npm ci }
 
-Run-Step "06 Dev server (ayri terminal onerilir)" {
-  Write-Host "Dev server bu scriptte bloklayacagi icin otomatik atlandi." -ForegroundColor Yellow
-  Write-Host "Ayri terminalde calistir: npm run dev -- --host --port 5175" -ForegroundColor Yellow
+# 06 — bloklar; script icinde calistirilmaz
+Run-Step "06 Dev server (ayri terminal)" {
+  Write-Host "Atlandi: npm run dev -- --host --port 5175" -ForegroundColor Yellow
 }
 
-Run-Step "07-11 Kalite dogrulama (CI ile ayni kapı)" {
-  npm run verify:ci
-}
+# 07
+Run-Step "07 verify:ci" { npm run verify:ci }
 
-Run-Step "12-15 Git inceleme" {
+# 08-11
+Run-Step "08-11 Git inceleme" {
   git fetch origin
   git log --oneline --decorate -20
   git diff --name-only origin/main...HEAD
   git diff --stat origin/main...HEAD
 }
 
-Run-Step "16-30 Kod taramalari" {
+# 12-26
+Run-Step "12-26 rg taramalari" {
   rg -n "\bany\b" src
   rg -n "dangerouslySetInnerHTML" src
   rg -n "TODO|FIXME|HACK" src
@@ -53,36 +56,42 @@ Run-Step "16-30 Kod taramalari" {
   rg -n "supabase" src/pages/membership/YillikUyelik.tsx
 }
 
-Run-Step "31 Coverage" { npm run test:coverage }
+# 27
+Run-Step "27 Playwright smoke" { npm run test:smoke }
 
-Run-Step "32-35 Commit ve push" {
+# 28-31 — yalnizca degisiklik varsa commit
+Run-Step "28-31 Commit ve push (varsa)" {
   git add -A
   git status -sb
-  git commit -m "chore: release hardening pass (quality, checks, cleanup)"
-  git push origin chore/footer-nav-seo-meta
+  if (git status --porcelain) {
+    git commit -m "chore: release hardening pass (quality, checks, cleanup)"
+    git push origin chore/footer-nav-seo-meta
+  } else {
+    Write-Host "Commit atlaniyor: calisma agaci temiz." -ForegroundColor Yellow
+  }
 }
 
-Run-Step "36-45 GH ve PR adimlari" {
+# 32-40 — gh oturumu kullanicida olmali
+Run-Step "32-40 GitHub CLI + PR" {
   gh --version
   gh auth status
-  Write-Host "Gerekirse bir kez gh auth login calistir." -ForegroundColor Yellow
+  Write-Host "34) Etkilesimli: gh auth login (token veya tarayici)" -ForegroundColor Yellow
   gh repo view --json nameWithOwner -q .nameWithOwner
   gh pr list --head chore/footer-nav-seo-meta
-  gh pr diff --name-only
-  gh pr create --base main --head chore/footer-nav-seo-meta --title "release: nav/footer/seo + supabase guard hardening" --body "## Summary`n- Navbar/Footer route and labels aligned`n- SEO meta/OG/Twitter/hreflang alignment`n- PreLaunch + yearly membership safe behavior when Supabase is not configured`n- verify pipeline green`n`n## Test Plan`n- [x] npm run verify`n- [x] route checks`n- [x] form guard checks"
+  gh pr create --base main --head chore/footer-nav-seo-meta --title "release: nav/footer/seo + supabase guard + CI verify:ci" --body "## Summary`n- Nav/Footer/SEO`n- Supabase guard (PreLaunch, yillik uyelik)`n- verify:ci (coverage + bundle budget)`n- Performans chunk ayrimi`n`n## Test`n- [x] npm run verify:ci`n- [x] npm run test:smoke"
   gh pr view --web
   gh pr checks
   gh pr status
 }
 
-Run-Step "46-49 Tag ve son verify" {
+# 41-45
+Run-Step "41-45 Tag (istege bagli) ve son dogrulama" {
   git tag -a ("pre-release-" + (Get-Date -Format "yyyyMMdd-HHmm")) -m "Pre-release checkpoint"
   git push origin --tags
-  npm run verify
+  npm run verify:ci
   git status -sb
+  Write-Output "READY_FOR_MERGE"
 }
 
-Run-Step "50 Tamam" { Write-Output "READY_FOR_MERGE" }
-
 Write-Host ""
-Write-Host "BILGISAYARI YENIDEN BASLATMA (istege bagli): shutdown /r /t 15" -ForegroundColor Magenta
+Write-Host "Not: gh adimlari oturum yoksa hata verir; once gh auth login." -ForegroundColor Magenta
