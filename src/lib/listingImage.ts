@@ -1,4 +1,4 @@
-﻿export const LISTING_IMAGE_PLACEHOLDER =
+export const LISTING_IMAGE_PLACEHOLDER =
   "https://placehold.co/1600x1000/0b1220/5eead4/png?text=ihaleal";
 
 export function normalizeAuctionImages(images: string[] | undefined | null): string[] {

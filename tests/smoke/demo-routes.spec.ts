@@ -15,6 +15,6 @@ test.describe("hash routes (preview)", () => {
 
   test("giris sayfasi", async ({ page }) => {
     await page.goto("/#/giris");
-    await expect(page.locator("h1").first()).toContainText(/Giri\u015f|Giris/i, { timeout: 20_000 });
+    await expect(page.locator("h1").first()).toContainText(/Giriş|Giris/i, { timeout: 20_000 });
   });
 });

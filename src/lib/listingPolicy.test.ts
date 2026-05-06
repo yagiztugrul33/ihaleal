@@ -1,4 +1,4 @@
-﻿import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   INTEGRITY_RULES_SUMMARY,
   integrityRulesSummaryForAuction,

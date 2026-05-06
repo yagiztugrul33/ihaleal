@@ -1,4 +1,4 @@
-﻿import type { FraudLitigationPillar } from "./fraudDefenseFramework";
+import type { FraudLitigationPillar } from "./fraudDefenseFramework";
 
 /**
  * Gayrimenkul ekosisteminde sik dava ve dolandiricilik hatlari (TASLAK atlas).

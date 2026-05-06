@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 const CONTRACT_URL = `${import.meta.env.BASE}legal/agency_contract.md`;

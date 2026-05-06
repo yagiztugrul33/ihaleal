@@ -1,4 +1,4 @@
-﻿# Kat karsiligi arsa - sozlesme iskeleti ve kazan plani (TASLAK)
+# Kat karsiligi arsa - sozlesme iskeleti ve kazan plani (TASLAK)
 
 ## Ekonomik cekirdek
 - Rayic uzerinden %4 + KDV havuzu (`land_share`, taslak).

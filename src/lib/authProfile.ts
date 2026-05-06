@@ -1,4 +1,4 @@
-﻿export type KurumsalProfil = "emlakci" | "muteahhit" | null;
+export type KurumsalProfil = "emlakci" | "muteahhit" | null;
 
 export function parseKurumsalProfil(searchParams: URLSearchParams): KurumsalProfil {
   const raw = (searchParams.get("profil") || "").trim();

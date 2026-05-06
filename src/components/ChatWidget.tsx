@@ -418,13 +418,13 @@ export function ChatWidget() {
                   <HelpCircle className="w-4 h-4 mr-2 shrink-0" aria-hidden />
                   Soru–cevap modu
                 </Button>
-                <Button
-                  size="sm"
+              <Button
+                size="sm"
                   className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/30"
                   onClick={() => openPanel("guide")}
                 >
                   Hızlı yönlendirme
-                </Button>
+              </Button>
               </div>
             </div>
           )}
@@ -439,18 +439,18 @@ export function ChatWidget() {
               <HelpCircle className="w-4 h-4 sm:mr-2 shrink-0" aria-hidden />
               <span className="hidden sm:inline">Soru–cevap</span>
             </Button>
-            <button
-              type="button"
+          <button
+            type="button"
               onClick={() => openPanel("guide")}
               className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
-              aria-label={`${ASSISTANT_NAME} sohbet`}
-            >
-              <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
-              <span className="hidden sm:inline font-bold text-sm tracking-tight bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
-                {ASSISTANT_NAME}
-              </span>
-              <MessageCircle className="w-5 h-5 opacity-90 sm:hidden" aria-hidden />
-            </button>
+            aria-label={`${ASSISTANT_NAME} sohbet`}
+          >
+            <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
+            <span className="hidden sm:inline font-bold text-sm tracking-tight bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
+              {ASSISTANT_NAME}
+            </span>
+            <MessageCircle className="w-5 h-5 opacity-90 sm:hidden" aria-hidden />
+          </button>
           </div>
         </div>
       )}
@@ -460,7 +460,7 @@ export function ChatWidget() {
           <div className="p-4 border-b border-white/10 space-y-3 bg-gradient-to-r from-slate-900/90 via-[#0d1830]/95 to-slate-900/90">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-3 min-w-0">
-                <AiAssistantAvatar size="md" />
+              <AiAssistantAvatar size="md" />
                 <div className="min-w-0">
                   <div className="text-sm font-bold text-white truncate">{ASSISTANT_NAME}</div>
                   <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
@@ -471,16 +471,16 @@ export function ChatWidget() {
                         : "Yönlendirme · anahtar kelime özeti"}
                     </span>
                   </div>
-                </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
+            </div>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
                 className="relative p-2 rounded-xl hover:bg-white/10 text-slate-400 hover:text-white transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0 shrink-0"
-                aria-label="Kapat"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              aria-label="Kapat"
+            >
+              <X className="w-5 h-5" />
+            </button>
             </div>
             <div className="flex rounded-lg bg-black/30 p-0.5 border border-white/10">
               <button

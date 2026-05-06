@@ -1,4 +1,4 @@
-﻿# ihaleal.com agency_contract (draft)
+# ihaleal.com agency_contract (draft)
 
 Version v1.0. See repository docs for full legal pack.
 

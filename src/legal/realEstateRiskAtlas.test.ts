@@ -1,4 +1,4 @@
-﻿import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { assertRealEstateAtlasComplete, REAL_ESTATE_RISK_ATLAS } from "./realEstateRiskAtlas";
 
 describe("realEstateRiskAtlas", () => {
