@@ -373,7 +373,7 @@ export default function CreateAuction() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-screen pt-24 pb-16" data-demo="true">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Geri

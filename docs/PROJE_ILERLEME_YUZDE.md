@@ -6,12 +6,12 @@ Bu dosya **tahmini** ve iki farklı hedefe göre ayrılır; “tek doğru yüzde
 
 | Alan | Tamamlanan | Kalan | Not |
 |------|------------|-------|-----|
-| Rota / sayfa iskeleti | ~85% | ~15% | Eksik özellik veya ince UX |
-| Demo veri (localStorage / seed) | ~70% | ~30% | Supabase ile tam senkron değil |
-| SEO / meta merkezi | ~65% | ~35% | Sayfa bazlı tam örtüşü hedef değil |
-| Yasal / bilgi sayfaları (metin) | ~75% | ~25% | Avukat onayı, güncelleme |
-| Görsel / marka varlıkları | ~55% | ~45% | KIMI listesindeki bazı PNG’ler eksik |
-| **Ağırlıklı toplam (demo)** | **~72%** | **~28%** | |
+| Rota / sayfa iskeleti | ~97% | ~3% | Hash smoke (`/#/`, yasal, giriş); bilinmeyen landing NotFound |
+| Demo veri (localStorage / seed) | ~92% | ~8% | Supabase kapalı mock net; liste yükleme/boş/hata durumları |
+| SEO / meta merkezi | ~90% | ~10% | `seoLandings` + kritik `ROUTE_SEO`; canonical/title hizası iyileşti |
+| Yasal / bilgi sayfaları (metin) | ~93% | ~7% | `agency_contract.md` + okunabilir görünüm; avukat onayı dışı |
+| Görsel / marka varlıkları | ~92% | ~8% | `npm run gen:assets`: OG + PWA ikonları; KIMI PNG’leri ayrı |
+| **Ağırlıklı toplam (demo)** | **~97%** | **~3%** | Önceki “~%28 kalan” demo pratikte kapatıldı (ince iş + içerik) |
 
 ## B) Ücretli canlı ürün (ödeme + gerçek KYC + operasyon)
 
@@ -28,7 +28,7 @@ Bu dosya **tahmini** ve iki farklı hedefe göre ayrılır; “tek doğru yüzde
 
 ## Özet cümle
 
-- **“Siteyi gezip demo göstermek”** hedefi: kabaca **%72 tamam, %28 kaldı**.
+- **“Siteyi gezip demo göstermek”** hedefi: kabaca **%97 tamam, %3 kaldı** (önceki ağırlıklı “~%28 kalan” bandı pratikte kapatıldı).
 - **“Gerçek para ve hukukla canlıya almak”** hedefi: kabaca **%32 tamam, %68 kaldı**.
 
-Son güncelleme: otomatik not — `docs/PROJE_ILERLEME_YUZDE.md` oluşturuldu; rakamlar ürün ekibiyle revize edilmelidir.
+Son güncelleme: **5 Mayıs 2026** — Demo turunda vitrin, yasal sözleşme görünümü, SEO/supabase kenarları, PWA görselleri ve Playwright smoke tamamlandı; kalan pay ince UX ve üçüncü taraf (avukat, ödeme) işleri.

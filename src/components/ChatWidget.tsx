@@ -252,7 +252,7 @@ function buildQaFailureReply(userMsg: string, code: string, detail?: string): st
 
   return [
     "Yapay zeka yanıtı şu an tamamlanamadı.",
-    `Hata kodu: ${code}${detail ? ` · ${detail}` : ""}`,
+    `Hata kodu: ${code}.`,
     "",
     "Yerleşik özet (anahtar kelime eşlemesi):",
     "",
@@ -390,6 +390,7 @@ export function ChatWidget() {
       {!open && (
         <div
           className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
+          data-demo="true"
           onMouseEnter={schedulePeek}
           onMouseLeave={hidePeek}
         >

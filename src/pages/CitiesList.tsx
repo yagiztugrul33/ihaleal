@@ -5,6 +5,16 @@ import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { AUCTIONS } from "@/data/auctions";
 
+/** CityGuide `CITY_PROFILES` anahtarlari (URL ASCII; gorunen isim `name` ile kalir). */
+const CITY_GUIDE_SLUG: Record<string, string> = {
+  İstanbul: "Istanbul",
+  Ankara: "Ankara",
+  İzmir: "Izmir",
+  Antalya: "Antalya",
+  Bursa: "Bursa",
+  Muğla: "Mugla",
+};
+
 const CITIES = [
   {
     name: "İstanbul",
@@ -132,7 +142,7 @@ export default function CitiesList() {
             <Card
               key={city.name}
               className="group border-white/5 overflow-hidden hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-1 cursor-pointer"
-              onClick={() => navigate(`/sehir/${city.name}`)}
+              onClick={() => navigate(`/sehir/${CITY_GUIDE_SLUG[city.name] ?? city.name}`)}
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
               <div className="relative h-48 overflow-hidden">
@@ -196,7 +206,7 @@ export default function CitiesList() {
                     <tr
                       key={city.name}
                       className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors cursor-pointer"
-                      onClick={() => navigate(`/sehir/${city.name}`)}
+                      onClick={() => navigate(`/sehir/${CITY_GUIDE_SLUG[city.name] ?? city.name}`)}
                     >
                       <td className="p-4 font-semibold flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-blue-400" /> {city.name}

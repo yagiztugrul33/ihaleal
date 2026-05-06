@@ -83,6 +83,14 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
   },
   "/sehirler": { title: "Şehir rehberi — ihaleal.com", description: "Şehirlere göre ilan ve bölge notları." },
   "/rehber": { title: "Yardım rehberi — ihaleal.com", description: "İhale ve platform kullanımı için rehber." },
+  "/nasil-calisir": {
+    title: "Nasıl çalışır — ihaleal.com",
+    description: "İlan, teklif ve ihale akışları; demo ve taslak metinler.",
+  },
+  "/yasal/agency-contract": {
+    title: "Acentelik sözleşmesi taslağı — ihaleal.com",
+    description: "agency_contract.md genel çerçeve (demo, avukat onayı gerekir).",
+  },
   "/ihale-ac": { title: "İlan / ihale aç — ihaleal.com", description: "Satıcı olarak ilan oluşturma akışı (demo, tarayıcıda saklama)." },
   "/ekspertiz": { title: "Ekspertiz ve uzman görüşü — ihaleal.com", description: "Değerleme ve rapor süreçleri hakkında bilgilendirme." },
   "/degisiklikler": { title: "Değişiklik kayıtları — ihaleal.com", description: "Sürüm ve özellik güncellemeleri özeti." },

@@ -2,6 +2,8 @@
 
 **“%100” iki katmandır:** (A) **Teknik teslim** — kod + hosting + env ile site yayında ve güvenli yapılandırılmış olabilir. (B) **Ürün / hukuk / ödeme** — avukat, ödeme sağlayıcısı ve iş süreçleri olmadan “tam ürün” bitmez; bunlar ayrı fazdır ve burada kontrol listesi olarak kalır.
 
+**A0 — Demo / hukuk envanteri (tek satır):** Supabase yoksa uçlar mock/yerel; `data-demo="true"`: müzayede listesi `#auctions`, `CreateAuction` form kabuğu, `ChatWidget` launcher; yasal: `public/legal/agency_contract.md` + `AgencyContractView`; smoke: `/#/`, `/#/yasal/agency-contract`, `/#/giris`.
+
 ---
 
 ## A) Teknik teslim (bu liste işaretlenince “deploy’a hazır” sayılır)

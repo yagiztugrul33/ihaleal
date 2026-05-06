@@ -24,7 +24,7 @@ export default function Login() {
     e.preventDefault();
     setError(null);
     if (!isSupabaseConfigured()) {
-      setError(translateAuthError("Supabase yapılandırması yok (.env.local)."));
+      setError("Giriş için Supabase ortam değişkenleri gerekir (.env.local; demo).");
       return;
     }
     if (!email || !password) {

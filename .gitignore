@@ -38,6 +38,8 @@ dist-ssr
 # Test / coverage
 coverage
 *.lcov
+test-results
+playwright-report
 
 # OS
 Thumbs.db

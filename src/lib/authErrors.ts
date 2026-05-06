@@ -29,5 +29,5 @@ export function translateAuthError(error: string | null | undefined): string {
   for (const [key, value] of Object.entries(map)) {
     if (error.toLowerCase().includes(key.toLowerCase())) return value;
   }
-  return error;
+  return "Islem tamamlanamadi. Bilgilerinizi kontrol edip tekrar deneyin.";
 }

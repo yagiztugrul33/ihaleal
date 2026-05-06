@@ -34,12 +34,26 @@ export function Auctions({
   const [selectedCity, setSelectedCity] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
 
   useEffect(() => {
     let ok = true;
-    void loadAllAuctionsForSearch().then((rows) => {
-      if (ok) setCatalog(rows);
-    });
+    setCatalogLoading(true);
+    setCatalogError(null);
+    void loadAllAuctionsForSearch()
+      .then((rows) => {
+        if (ok) setCatalog(rows);
+      })
+      .catch(() => {
+        if (ok) {
+          setCatalogError("Uzak liste alınamadı; yerel demo kayıtları gösteriliyor.");
+          setCatalog(getLocalAndStaticAuctions());
+        }
+      })
+      .finally(() => {
+        if (ok) setCatalogLoading(false);
+      });
     return () => {
       ok = false;
     };
@@ -81,7 +95,7 @@ export function Auctions({
   const sectionPad = layout === "page" ? "relative py-10 lg:py-14" : "relative py-24 lg:py-32";
 
   return (
-    <section id="auctions" className={sectionPad}>
+    <section id="auctions" className={sectionPad} data-demo="true">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/90 via-[#0a0f1e] to-[#0d1326]" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px]" />
 
@@ -94,6 +108,17 @@ export function Auctions({
             </p>
           </div>
         )}
+
+        {catalogError ? (
+          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+            {catalogError}
+          </p>
+        ) : null}
+        {catalogLoading ? (
+          <p className="mb-6 text-sm text-slate-500" aria-live="polite">
+            İlanlar yükleniyor…
+          </p>
+        ) : null}
 
         <div className={`mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
@@ -192,7 +217,26 @@ export function Auctions({
           ))}
         </div>
 
-        {filtered.length === 0 && <div className="text-center py-20 animate-fade-in"><Search className="w-12 h-12 text-slate-600 mx-auto mb-4" /><p className="text-slate-500">İlan bulunamadı.</p></div>}
+        {filtered.length === 0 && !catalogLoading && (
+          <div className="text-center py-20 animate-fade-in rounded-2xl border border-white/10 bg-slate-950/30 px-4">
+            <Search className="w-12 h-12 text-slate-600 mx-auto mb-4" aria-hidden />
+            <p className="text-slate-300 font-medium mb-1">Bu filtrelerle ilan bulunamadı.</p>
+            <p className="text-sm text-slate-500 mb-6">Aramayı veya fiyat aralığını genişletmeyi deneyin.</p>
+            <Button
+              type="button"
+              variant="outline"
+              className="border-white/15 text-slate-200"
+              onClick={() => {
+                setFilter("all");
+                setPriceRange([0, 200000000]);
+                setSelectedCity("all");
+                setSearchQuery("");
+              }}
+            >
+              Filtreleri sıfırla
+            </Button>
+          </div>
+        )}
       </div>
 
       <Dialog open={!!selectedAuction} onOpenChange={() => setSelectedAuction(null)}>
