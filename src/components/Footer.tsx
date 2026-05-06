@@ -82,6 +82,15 @@ export function Footer() {
               <li>
                 <button
                   type="button"
+                  onClick={() => navigate("/nasil-calisir")}
+                  className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-left"
+                >
+                  <BookOpen className="w-3.5 h-3.5" /> Nasıl çalışır
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
                   onClick={() => navigate("/rehber")}
                   className="text-sm text-slate-400 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-left"
                 >
