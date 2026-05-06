@@ -3,18 +3,17 @@ import { SEO_LANDING_PAGES } from "@/data/seoLandings";
 /** HashRouter: gerçek URL ör. https://alan.com/#/analiz — paylaşım ve OG için taban. */
 export const SITE_ORIGIN = "https://ihaleal.com";
 
-export const DEFAULT_SEO = {
+/** Ana sayfa; `getSeoForPath("/")` ve bilinmeyen rotalar için aynı metin. */
+const HOME_SEO: { title: string; description: string } = {
   title: "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
   description:
-    "Yapay zeka destekli gayrimenkul platformu: ihale veya kapalı teklif, ilan yayını, platform aracılığı ve sözleşme çizgisi. Teklif verenler ilanda anonim; Findeks ve evrak hedefi. Gelir yalnızca komisyon (hedef). Demo.",
+    "İhale, kapalı teklif veya ilan modu; gerçek alıcı–satıcı ve kiralıkta güvenli süreç. Teklif verenler anonim; iletişim platform üzerinden. Yapay zeka destekli fiyat ve bölge değerlendirmesi. Yalnızca komisyon (hedef). Demo.",
 };
 
+export const DEFAULT_SEO = HOME_SEO;
+
 const ROUTE_SEO: Record<string, { title: string; description: string }> = {
-  "/": {
-    title: "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
-    description:
-      "İhale, kapalı teklif veya ilan modu; gerçek alıcı–satıcı ve kiralıkta güvenli süreç. Teklif verenler anonim; iletişim platform üzerinden. Yapay zeka destekli fiyat ve bölge değerlendirmesi. Yalnızca komisyon (hedef). Demo.",
-  },
+  "/": HOME_SEO,
   "/arama": {
     title: "İlan arama — ihaleal.com",
     description: "Şehir, semt ve kategoriye göre gayrimenkul ihale ilanlarında arama yapın.",
