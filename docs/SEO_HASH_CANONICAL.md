@@ -1,14 +1,18 @@
 # SEO: HashRouter, canonical ve OG
 
-## Kisa vade (demo) — secilen kural
+## Tek cümle politika (ürün seçimi: **hibrit**)
 
-**Kok canonical + hash paylasim URL (og:url / twitter:url)**
+**HashRouter demo (hibrit): kanonik her zaman kök URL; og:url ve twitter:url ilgili rotanın tam hash adresidir.**
 
-- `<link rel="canonical">` her zaman kok: `https://ihaleal.com/` (rotadan bagimsiz; sinyalleri tek URLde toplar).
-- `og:url` ve `twitter:url` rotaya gore tam hash URL: `https://ihaleal.com/#/...` (paylasim ve JS calisan onizleyiciler icin).
-- Ilk GET `index.html` meta etiketleri Vite `transformIndexHtml` ile `src/data/homeSeo.ts` ile senkron; SPA yuklendiginde `applySeoToDocument` title/description ve hash URLyi gunceller.
-- JS calistirmayan bot/sosyal tarayici: kabuktaki ana sayfa metni gorur; calisan istemci rotaya gore OG metnini gunceller — bu ikilik Hash SPA icin bilinen trade-off; orta vadede asagidaki strateji ile azaltilir.
+Kod: `SEO_CANONICAL_POLICY_TR` (`src/lib/seo.ts`). URL üretimi: `getCanonicalHref()` ve `getShareUrlForPath()` (`src/data/siteOrigin.ts`) — `applySeoToDocument` içinde ikisi de buradan.
 
-## Orta vade (urun karari)
+## Kısa vade (demo) — detay
 
-Onemli landingler icin statik HTML, prerender veya alt alan / path tabanli yayin; hash disi URL ile canonical ve OG tek gerceklikte hizalanir.
+- `<link rel="canonical">` her zaman kök: `CANONICAL_ROOT_HREF` (`https://ihaleal.com/`).
+- `og:url` ve `twitter:url` rotaya göre tam hash URL (`…/#/rota?sorgu`).
+- İlk GET: `index.html` içi Vite `transformIndexHtml` + `src/data/homeSeo.ts` / `siteOrigin`; ikinci faz için ayrı `index` üretim scripti gerekmez (Vite yeterli).
+- JS çalıştırmayan istemciler kabuğu görür; JS’li önizleyiciler route sonrası güncellenmiş OG görür — Hash SPA için bilinen trade-off.
+
+## Orta vade (ürün kararı)
+
+Önemli landing’ler için statik HTML, prerender veya path tabanlı yayın; hash dışı URL ile canonical ve OG tek gerçeklikte hizalanır.

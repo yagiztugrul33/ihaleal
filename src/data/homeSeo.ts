@@ -1,4 +1,4 @@
-import { SITE_ORIGIN } from "./siteOrigin";
+import { getShareUrlForPath } from "./siteOrigin";
 
 export const HOME_SEO: { title: string; description: string } = {
   title: "ihaleal.com \u2014 Yapay zeka destekli gayrimenkul platformu",
@@ -12,4 +12,5 @@ export const OG_IMAGE = {
   height: 630,
 };
 
-export const HOME_HASH_URL = SITE_ORIGIN + "/#/";
+/** Same rule as getShareUrlForPath("/", "") for shell og:url. */
+export const HOME_HASH_URL = getShareUrlForPath("/", "");

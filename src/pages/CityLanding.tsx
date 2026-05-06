@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { landingConfigByPath } from "@/data/seoLandings";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
-import { SITE_ORIGIN } from "@/data/siteOrigin";
+import { getShareUrlForPath } from "@/data/siteOrigin";
 
 export default function CityLandingPage() {
   const { pathname } = useLocation();
@@ -24,7 +24,7 @@ export default function CityLandingPage() {
       "@type": "WebPage",
       name: cfg.title.replace(/\s—.*$/, ""),
       description: cfg.description,
-      url: `${SITE_ORIGIN}/#${pathname}`,
+      url: getShareUrlForPath(pathname, ""),
     };
     const prev = document.getElementById("jsonld-city-landing");
     prev?.remove();

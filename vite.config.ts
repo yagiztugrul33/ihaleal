@@ -2,8 +2,12 @@ import path from "path"
 import react from "@vitejs/plugin-react"
 import { VitePWA } from "vite-plugin-pwa"
 import { defineConfig } from "vite"
-import { HOME_SEO, HOME_HASH_URL, OG_IMAGE } from "./src/data/homeSeo"
-import { SITE_ORIGIN } from "./src/data/siteOrigin"
+import { HOME_SEO, OG_IMAGE } from "./src/data/homeSeo"
+import {
+  CANONICAL_ROOT_HREF,
+  SITE_ORIGIN,
+  getShareUrlForPath,
+} from "./src/data/siteOrigin"
 
 function escapeHtmlText(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;")
@@ -31,7 +35,8 @@ function homePageMetaHtmlPlugin() {
         .replaceAll("__HOME_TITLE_HTML__", titleHtml)
         .replaceAll("__HOME_TITLE_ATTR__", titleAttr)
         .replaceAll("__HOME_DESCRIPTION__", descAttr)
-        .replaceAll("__HOME_SHARE_URL__", escapeHtmlAttr(HOME_HASH_URL))
+        .replaceAll("__CANONICAL_ROOT__", escapeHtmlAttr(CANONICAL_ROOT_HREF))
+        .replaceAll("__HOME_SHARE_URL__", escapeHtmlAttr(getShareUrlForPath("/", "")))
         .replaceAll("__OG_IMAGE_ABS__", escapeHtmlAttr(absOg))
         .replaceAll("__OG_IMAGE_W__", String(OG_IMAGE.width))
         .replaceAll("__OG_IMAGE_H__", String(OG_IMAGE.height))

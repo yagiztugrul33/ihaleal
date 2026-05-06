@@ -1,10 +1,22 @@
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
 import { HOME_SEO, OG_IMAGE } from "@/data/homeSeo";
-import { SITE_ORIGIN } from "@/data/siteOrigin";
+import {
+  SITE_ORIGIN,
+  getCanonicalHref,
+  getShareUrlForPath,
+} from "@/data/siteOrigin";
+
+/**
+ * Tek cümle — müşteri seçimi (hibrit): kanonik her zaman kök URL;
+ * og:url ve twitter:url ilgili rotanın tam hash adresidir.
+ */
+export const SEO_CANONICAL_POLICY_TR =
+  "HashRouter demo (hibrit): kanonik her zaman kök URL; og:url ve twitter:url ilgili rotanın tam hash adresidir.";
 
 /** HashRouter: paylaşım ve `og:url` için taban; kanonik ayrı (kök URL). */
-export { SITE_ORIGIN };
+export { SITE_ORIGIN, getCanonicalHref, getShareUrlForPath };
 
+/** `ROUTES["/"]` ile aynı nesne (`HOME_SEO`), drift yok. */
 export const DEFAULT_SEO = HOME_SEO;
 
 const ROUTE_SEO: Record<string, { title: string; description: string }> = {
@@ -221,9 +233,9 @@ export function applySeoToDocument(pathname: string, search: string) {
   const { title, description } = getSeoForPath(pathname);
   document.title = title;
   setMeta("name", "description", description);
-  const shareUrl = `${SITE_ORIGIN}/#${pathname}${search || ""}`;
+  const shareUrl = getShareUrlForPath(pathname, search);
   const ogImageUrl = `${SITE_ORIGIN}${OG_IMAGE.path}`;
-  const canonicalRoot = `${SITE_ORIGIN}/`;
+  const canonicalRoot = getCanonicalHref();
   setMeta("property", "og:title", title);
   setMeta("property", "og:description", description);
   setMeta("property", "og:url", shareUrl);
