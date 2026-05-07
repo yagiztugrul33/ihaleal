@@ -1,7 +1,7 @@
-/** Production origin: OG, canonical, schema (HashRouter). */
+/** Production origin: OG, canonical, schema (BrowserRouter). */
 export const SITE_ORIGIN = "https://ihaleal.com" as const;
 
-/** HashRouter demo (hybrid): single canonical root; share URLs use full hash path. */
+/** Canonical root (history API paths; no hash). */
 export const CANONICAL_ROOT_HREF = `${SITE_ORIGIN}/` as const;
 
 export function getCanonicalHref(): string {
@@ -11,5 +11,6 @@ export function getCanonicalHref(): string {
 export function getShareUrlForPath(pathname: string, search: string): string {
   const path =
     !pathname || pathname === "/" ? "/" : pathname.startsWith("/") ? pathname : `/${pathname}`;
-  return `${SITE_ORIGIN}/#${path}${search ?? ""}`;
+  const origin = SITE_ORIGIN.replace(/\/$/, "");
+  return `${origin}${path}${search ?? ""}`;
 }

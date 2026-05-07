@@ -18,7 +18,7 @@
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://placeholder.supabase.co; frame-src https://www.google.com; worker-src 'self' blob:; media-src 'self' https:; upgrade-insecure-requests"
+          "value": "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://placeholder.supabase.co https://api.iyzipay.com https://sandbox-api.iyzipay.com https://www.paytr.com; frame-src https://www.google.com; worker-src 'self' blob:; media-src 'self' https:; upgrade-insecure-requests"
         }
       ]
     },

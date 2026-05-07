@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -90,7 +90,7 @@ const NasilCalisir          = lazy(() => import("@/pages/NasilCalisir"));
 function App() {
   return (
     <AuthProvider>
-    <HashRouter>
+    <BrowserRouter>
       <ErrorBoundary>
       <Layout>
         <Suspense fallback={
@@ -218,7 +218,7 @@ function App() {
         </Suspense>
       </Layout>
       </ErrorBoundary>
-    </HashRouter>
+    </BrowserRouter>
     </AuthProvider>
   );
 }

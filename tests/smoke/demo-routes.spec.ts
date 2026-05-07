@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("hash routes (preview)", () => {
+test.describe("history routes (preview)", () => {
   test("ana sayfa yuklenir", async ({ page }) => {
-    await page.goto("/#/");
+    await page.goto("/");
     await expect(page).toHaveTitle(/ihaleal/i);
     await expect(page.locator("main")).toBeVisible();
   });
@@ -14,7 +14,7 @@ test.describe("hash routes (preview)", () => {
   });
 
   test("giris sayfasi", async ({ page }) => {
-    await page.goto("/#/giris");
+    await page.goto("/giris");
     await expect(page.locator("h1").first()).toContainText(/Giriş|Giris/i, { timeout: 20_000 });
   });
 });
