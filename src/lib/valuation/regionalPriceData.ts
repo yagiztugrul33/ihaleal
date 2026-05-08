@@ -32,7 +32,7 @@ export const REGIONAL_PRICE_DATA: CityPrice[] = [
     salePerM2: 105_000,
     rentPerM2: 780,
     districts: {
-      Besiktas: { salePerM2: 185_000, rentPerM2: 1_100 },
+      Besiktas: { salePerM2: 175_000, rentPerM2: 1_100 },
       Sisli: { salePerM2: 148_000, rentPerM2: 980 },
       Kadikoy: { salePerM2: 162_000, rentPerM2: 1_020 },
       Uskudar: { salePerM2: 132_000, rentPerM2: 900 },
@@ -45,7 +45,7 @@ export const REGIONAL_PRICE_DATA: CityPrice[] = [
     salePerM2: 56_000,
     rentPerM2: 310,
     districts: {
-      Cankaya: { salePerM2: 77_000, rentPerM2: 330 },
+      Cankaya: { salePerM2: 77_000, rentPerM2: 300 },
       Yenimahalle: { salePerM2: 61_000, rentPerM2: 295 },
       Etimesgut: { salePerM2: 53_000, rentPerM2: 270 },
       Kecioren: { salePerM2: 48_000, rentPerM2: 245 },
