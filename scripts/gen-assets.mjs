@@ -47,6 +47,27 @@ async function main() {
     await sharp(iconSvg).resize(size, size).png().toFile(path.join(pub, `icon-${size}.png`));
   }
 
+  /** Android adaptive (maskable): içerik ~%80 güvenli alanda, kenarlarda kırpma toleransı. */
+  async function writeMaskablePng(outSize) {
+    const inner = Math.round(outSize * 0.8);
+    const top = Math.round((outSize - inner) / 2);
+    const left = top;
+    const padded = await sharp(iconSvg).resize(inner, inner).png().toBuffer();
+    await sharp({
+      create: {
+        width: outSize,
+        height: outSize,
+        channels: 3,
+        background: { r: 10, g: 15, b: 30 },
+      },
+    })
+      .composite([{ input: padded, top, left }])
+      .png()
+      .toFile(path.join(pub, `icon-maskable-${outSize}.png`));
+  }
+  await writeMaskablePng(192);
+  await writeMaskablePng(512);
+
   await sharp(iconSvg).resize(32, 32).png().toFile(path.join(pub, "favicon.png"));
 
   await sharp(iconSvg)
@@ -82,7 +103,7 @@ async function main() {
   }
 
   console.log(
-    "Wrote public/og-image.png, icon-192.png, icon-512.png, favicon.png, logo/logo-mark-512.png, social/share-card-1200.png, email/email-header-600.png"
+    "Wrote public/og-image.png, icon-192.png, icon-512.png, icon-maskable-192.png, icon-maskable-512.png, favicon.png, logo/logo-mark-512.png, social/share-card-1200.png, email/email-header-600.png"
   );
 }
 
