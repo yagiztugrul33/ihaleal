@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { IHALEAL_PLATFORM_RULES } from "@/data/anayasa400IhalealRules";
 import { motion } from "framer-motion";
 import { Shield, ArrowLeft, AlertTriangle, Info, CheckCircle2, Search, Scale, Gavel, Landmark, Building2, FileText, ClipboardCheck, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,211 +8,15 @@ import { Input } from "@/components/ui/input";
 
 const categories = [
   {
-    id: 1, title: "Anayasa — Temel İlkeler", range: "1-50", color: "blue",
-    icon: Scale,
-    rules: [
-      { id: 1, sev: "K", title: "1982 Anayasası Üst Norm", desc: "1982 Anayasası, hukuk düzeninin üst normudur. Tüm mevzuat Anayasa ile çelişemez.", ref: "Anayasa md.1" },
-      { id: 2, sev: "K", title: "Demokratik Laik Sosyal Hukuk Devleti", desc: "Türkiye Cumhuriyeti demokratik, laik ve sosyal bir hukuk devletidir.", ref: "Anayasa md.2" },
-      { id: 3, sev: "K", title: "Egemenlik Kayıtsız Şartsız Milletindir", desc: "Devletin egemenliği Türk Milleti'ne aittir; hiçbir kişiye, zümreye veya sınıfa devredilemez.", ref: "Anayasa md.6" },
-      { id: 4, sev: "K", title: "Devletin Şekli Cumhuriyettir", desc: "Cumhuriyetin nitelikleri Anayasa'da belirtilir ve devletin ülkesi ile milletiyle bölünmez bütünlüğü esastır.", ref: "Anayasa md.1-5" },
-      { id: 5, sev: "K", title: "Eşitlik İlkesi", desc: "Dil, ırk, renk, cinsiyet, siyasi düşünce, felsefi inanç, din, mezhep vb. ayrım gözetilemez.", ref: "Anayasa md.10" },
-      { id: 6, sev: "K", title: "Temel Hak ve Özgürlüklerin Dokunulmazlığı", desc: "Temel hak ve hürriyetlerin özüne dokunulamaz; nitelikleri gereği devredilemez ve vazgeçilemez.", ref: "Anayasa md.13-14" },
-      { id: 7, sev: "K", title: "Anayasa Değişikliği Özel Usul", desc: "Anayasa değişikliği özel usule tabidir; ilk üç madde değiştirilemez.", ref: "Anayasa md.4, 175" },
-      { id: 8, sev: "K", title: "Yasama Yetkisi TBMM'ye Aittir", desc: "Kanun yapma yetkisi Türkiye Büyük Millet Meclisi'ne aittir.", ref: "Anayasa md.7" },
-      { id: 9, sev: "K", title: "Yürütme Yetkisi", desc: "Yürütme yetkisi ve görevi Cumhurbaşkanı ile Bakanlar Kurulu'ndadır.", ref: "Anayasa md.8" },
-      { id: 10, sev: "K", title: "Yargı Yetkisinin Bağımsızlığı", desc: "Yargı yetkisi bağımsız mahkemelerce kullanılır; yasama ve yürütme organları sınırları içinde yetkilidir.", ref: "Anayasa md.9" },
-      { id: 11, sev: "K", title: "Anayasa Mahkemesi Denetimi", desc: "Anayasa Mahkemesi, yasama ve yürütme organlarının Anayasa'ya uygunluğunu denetler.", ref: "Anayasa md.148-153" },
-      { id: 12, sev: "K", title: "Kanun Önünde Eşitlik", desc: "Hiçbir kişiye, aileye, zümreye veya sınıfa ayrıcalık tanınamaz; kanun önünde eşitlik güvence altındadır.", ref: "Anayasa md.10" },
-      { id: 13, sev: "K", title: "Devletin Refah Hedefi", desc: "Devlet kişilerin ve toplumun refahı, mutluluğu ve hürriyeti içinde adaletli bir düzen kurmakla yükümlüdür.", ref: "Anayasa md.5" },
-      { id: 14, sev: "K", title: "Anayasa'ya Aykırı Organ Kurulamaz", desc: "Anayasa'ya aykırı organ veya makam oluşturulamaz; yetki devri anayasal sınırlara tabidir.", ref: "Anayasa md.8-9" },
-      { id: 15, sev: "K", title: "TBMM Üyeleri Milletvekili Sıfatıyla Görev Yapar", desc: "Milletvekilleri hiçbir engel, talimat ve baskı altında kalmadan oy ve söz kullanır.", ref: "Anayasa md.83" },
-      { id: 16, sev: "U", title: "Anayasa'nın Başlangıç Kısmı", desc: "Başlangıç kısmı devletin temel felsefesini özetler; Atatürk milliyetçiliği ve ilkeleri yönlendirici unsurdur.", ref: "Anayasa Başlangıç" },
-      { id: 17, sev: "U", title: "Değiştirilemezlik İlkesi", desc: "Belirli maddelerin değiştirilmesi yasaklanmış veya çok sıkı bağlarla sınırlandırılmıştır.", ref: "Anayasa md.4" },
-      { id: 18, sev: "U", title: "Kanunların Geriye Yürümesi", desc: "Ceza hukukunda kanunların geriye yürümesi genel ilke olarak yasaktır.", ref: "Anayasa md.38" },
-      { id: 19, sev: "U", title: "Olağanüstü Hal Rejimleri", desc: "Olağanüstü hal ve sıkıyönetim rejimleri Anayasa'da sınırlıdır; temel haklara orantılı sınırlama getirilebilir.", ref: "Anayasa md.119-122" },
-      { id: 20, sev: "U", title: "Uluslararası Andlaşmalar", desc: "Uluslararası andlaşmaların iç hukuk düzenine etkisi Anayasa'da düzenlenir; İHAS başvurusu ayrı bir hukuki süreçtir.", ref: "Anayasa md.90" },
-      { id: 21, sev: "B", title: "Anayasa Değişikliğinin Referanduma Sunulması", desc: "Belirli şartlarda Anayasa değişiklikleri referanduma sunulabilir.", ref: "Anayasa md.175" },
-      { id: 22, sev: "B", title: "Anayasa Mahkemesi Üyelerinin Seçimi", desc: "Üyelerin seçimi ve görev süreleri kanunda düzenlenir; bağımsızlıkları güvence altındadır.", ref: "Anayasa md.146-147" },
-      { id: 23, sev: "B", title: "Anayasa Mahkemesi İptal Kararları", desc: "İptal kararları genellikle geriye etkilidir; istisnalar kanunda düzenlenir.", ref: "Anayasa md.153" },
-      { id: 24, sev: "B", title: "TBMM İçtüzüğü", desc: "İçtüzük ve çalışma usulleri kanunla düzenlenir; Anayasa ile çeliştiğinde Anayasa üstündür.", ref: "Anayasa md.79" },
-      { id: 25, sev: "B", title: "Meclis Soruşturması", desc: "Cumhurbaşkanı ve bakanlar hakkında meclis soruşturması açılabilir; usul Anayasa'da çerçevelenmiştir.", ref: "Anayasa md.105-107" },
-      { id: 26, sev: "B", title: "Siyasi Partilerin Mali Denetimi", desc: "Siyasi partilerin malî denetimi Anayasa ve kanunla sağlanır; kapatma davaları özel usule tabidir.", ref: "Anayasa md.69" },
-      { id: 27, sev: "B", title: "Seçim Güvenliği", desc: "Seçim kurullarının yapısı ve seçim güvenliği Anayasa ve seçim kanunlarında düzenlenir.", ref: "Anayasa md.67" },
-      { id: 28, sev: "B", title: "Millî Güvenlik", desc: "Millî Savunma ve güvenlik organları Anayasa'da çerçevelenir; olağanüstü hal yetkileri sınırlıdır.", ref: "Anayasa md.117-118" },
-      { id: 29, sev: "B", title: "Anayasa Yorumlamasında Sistematik Yaklaşım", desc: "Anayasa'nın yorumlanmasında sistematik ve amaç yorum yöntemleri kullanılır.", ref: "Anayasa md.2, 5" },
-      { id: 30, sev: "B", title: "Pozitif Ödev İhlali", desc: "Devletin pozitif ödev ihlali de bireysel başvuruda ihlal sayılabilir.", ref: "Anayasa md.10, 13" },
-      { id: 31, sev: "B", title: "Avrupa İnsan Hakları Mahkemesi", desc: "AİHM kararlarının iç hukuka etkisi kanunla düzenlenir; bireysel başvuru yolu AYM önünde açıktır.", ref: "Anayasa md.40, 148" },
-      { id: 32, sev: "B", title: "Savaş Hali ve Mülteci", desc: "Savaş hali, mülteci kabulü ve sığınma hakkı uluslararası hukuk boyutlarıyla birlikte düzenlenir.", ref: "Anayasa md.61-62" },
-      { id: 33, sev: "B", title: "Askerlik Yükümlülüğü", desc: "Askerlik yükümlülüğü ve vicdani ret tartışmaları mevzuatla şekillenir.", ref: "Anayasa md.72" },
-      { id: 34, sev: "B", title: "Çifte Vatandaşlık", desc: "Çifte vatandaşlık ve seçilme şartları kanunda belirlenir.", ref: "Anayasa md.66" },
-      { id: 35, sev: "B", title: "Yabancılar", desc: "Yabancıların hakları ve sığınma usulleri kanunla düzenlenir.", ref: "Anayasa md.16" },
-      { id: 36, sev: "B", title: "TBMM Genel Seçimleri", desc: "Genel seçimler dört yılda bir yapılır; güncel süreler mevzuattan takip edilmelidir.", ref: "Anayasa md.77" },
-      { id: 37, sev: "B", title: "Milletvekili Yemini", desc: "Milletvekili yemin ve görevden alma usulleri kanunda düzenlenir.", ref: "Anayasa md.84-85" },
-      { id: 38, sev: "B", title: "Meclis Komisyonları", desc: "Meclis komisyonları kanun yapım sürecinin parçasıdır; araştırma komisyonları için özel usul vardır.", ref: "Anayasa md.98-100" },
-      { id: 39, sev: "B", title: "Bütçe Kanununun Kabulü", desc: "Bütçe kanunu yasama yetkisinin önemli parçasıdır; görüşmelerde denetim ve şeffaflık esastır.", ref: "Anayasa md.161" },
-      { id: 40, sev: "B", title: "Kanun Teklif Etme Yetkisi", desc: "Kanun teklif etme yetkisi Cumhurbaşkanı ve milletvekillerine tanınmıştır.", ref: "Anayasa md.87" },
-    ]
-  },
-  {
-    id: 2, title: "Anayasa — Temel Haklar", range: "41-90", color: "emerald",
+    id: 1,
+    title: "İhaleAL — Nihai sistem ve platform",
+    range: `1–${IHALEAL_PLATFORM_RULES.length}`,
+    color: "blue",
     icon: Shield,
-    rules: [
-      { id: 41, sev: "K", title: "Yaşama Hakkı", desc: "Herkesin yaşama hakkı vardır; maddi ve manevi varlığının korunması esastır.", ref: "Anayasa md.17" },
-      { id: 42, sev: "K", title: "İşkence ve Eziyet Yasağı", desc: "İşkence, eziyet, insan onuruyla bağdaşmayan ceza ve muamele yasaktır.", ref: "Anayasa md.17" },
-      { id: 43, sev: "K", title: "Kişi Hürriyeti ve Güvenliği", desc: "Kişi hürriyeti ve güvenliği güvence altındadır; gözaltı ve tutuklama hukuka uygun olmalıdır.", ref: "Anayasa md.19" },
-      { id: 44, sev: "K", title: "Özel Hayatın Gizliliği", desc: "Özel hayatın ve aile hayatının gizliliği dokunulmazdır; konut dokunulmazlığı usule bağlı istisnalar dışında korunur.", ref: "Anayasa md.20-21" },
-      { id: 45, sev: "K", title: "Haberleşme Hürriyeti", desc: "Haberleşmenin gizliliği esastır; izinsiz dinleme ve kayıt Anayasa ihlali oluşturur.", ref: "Anayasa md.22" },
-      { id: 46, sev: "K", title: "Düşünce ve Kanaat Hürriyeti", desc: "Düşünce ve kanaat hürriyeti güvence altındadır; düşünce cezai yaptırıma konu olamaz.", ref: "Anayasa md.25" },
-      { id: 47, sev: "K", title: "Basın Hürriyeti", desc: "Basın hürriyeti ve yayın hakkı Anayasa'da düzenlenir; haber verme ve eleştirme hakkı korunur.", ref: "Anayasa md.28" },
-      { id: 48, sev: "K", title: "Toplantı ve Gösteri Yürüyüşü Hürriyeti", desc: "Toplantı ve gösteri yürüyüşü hürriyeti usul ve sınırlara tabidir; kamu düzeni orantılı olmalıdır.", ref: "Anayasa md.34" },
-      { id: 49, sev: "K", title: "Dernek Kurma Hürriyeti", desc: "Dernek kurma hürriyeti vardır; örgütlenme özgürlüğü terör suçlarıyla ilişkilendirmede ispat yükü önemlidir.", ref: "Anayasa md.33" },
-      { id: 50, sev: "K", title: "Sendika Kurma Hakkı", desc: "Sendika kurma ve toplu iş sözleşmesi hakkı Anayasa'da düzenlenir; kamu görevlilerinde farklı rejim uygulanır.", ref: "Anayasa md.51-54" },
-      { id: 51, sev: "K", title: "Mülkiyet Hakkı", desc: "Mülkiyet hakkı kamu yararı ve usule bağlı sınırlamalara tabidir; kamulaştırmada bedel ödenir.", ref: "Anayasa md.35" },
-      { id: 52, sev: "K", title: "Çalışma ve Sözleşme Özgürlüğü", desc: "Çalışma ve sözleşme özgürlüğü, adil ücret ve dinlenme gibi unsurlarla ilişkilidir.", ref: "Anayasa md.48-50" },
-      { id: 53, sev: "K", title: "Sosyal Güvenlik Hakkı", desc: "Sosyal güvenlik hakkı devletin koruma yükümlülüğüyle bağlantılıdır.", ref: "Anayasa md.60" },
-      { id: 54, sev: "K", title: "Eğitim ve Öğretim Hakkı", desc: "Eğitim ve öğretim hakkı fırsat eşitliği ve laiklik ilkeleriyle dengelenir; özel okullar kanunla düzenlenir.", ref: "Anayasa md.42-44" },
-      { id: 55, sev: "K", title: "Din ve Vicdan Özgürlüğü", desc: "Din ve vicdan özgürlüğü esastır; zorla ibadet ettirme yasaktır.", ref: "Anayasa md.24" },
-      { id: 56, sev: "K", title: "Seyahat ve Yerleşme Özgürlüğü", desc: "Seyahat ve yerleşme özgürlüğü usul ve kamu düzeni sınırlarına tabidir.", ref: "Anayasa md.23" },
-      { id: 57, sev: "K", title: "Adil Yargılanma Hakkı", desc: "Hukuki dinlenme hakkı ve adil yargılanma ilkesi esastır; suçluluğu mahkeme kararıyla sabit oluncaya kadar kimse suçlu sayılamaz.", ref: "Anayasa md.36-38" },
-      { id: 58, sev: "K", title: "Kanuni Hakim Güvencesi", desc: "Kanuni hakim güvencesi ve yargı yolunun açık olması esastır.", ref: "Anayasa md.37" },
-      { id: 59, sev: "K", title: "Usulüne Uygun Yargı Merciine Başvuru", desc: "Herkes usulüne uygun yargı merciine başvurma hakkına sahiptir.", ref: "Anayasa md.40" },
-      { id: 60, sev: "K", title: "Hukuka Aykırı Delillerle Mahkûmiyet", desc: "Hukuka aykırı delillerle mahkûmiyet yolu kapalıdır.", ref: "Anayasa md.38" },
-      { id: 61, sev: "K", title: "Vergi Yükümlülüğü", desc: "Vergi yükümlülüğü kanuna dayanır; vergilendirme adalet ilkelerine uygun olmalıdır.", ref: "Anayasa md.73" },
-      { id: 62, sev: "U", title: "Seçme ve Seçilme Hakkı", desc: "Seçme ve seçilme hakkı yaşa ve diğer şartlara bağlıdır; seçim barajı ve adaylık şartlarıyla sınırlanabilir.", ref: "Anayasa md.67" },
-      { id: 63, sev: "U", title: "Çocuk Hakları", desc: "Çocuk hakları ve koruma yükümlülüğü devletin ödevleri arasındadır.", ref: "Anayasa md.41" },
-      { id: 64, sev: "U", title: "Çevre Hakkı", desc: "Çevre hakkı ve sürdürülebilirlik Anayasa metninde güçlenmiştir; herkes sağlıklı çevrede yaşama hakkına sahiptir.", ref: "Anayasa md.56" },
-      { id: 65, sev: "U", title: "Kişisel Verilerin Korunması", desc: "Kişisel verilerin korunması temel hak alanında önem kazanmıştır; işlenmesinde meşru amaç ve ölçülülük aranır.", ref: "Anayasa md.20" },
-      { id: 66, sev: "U", title: "İnternet ve İfade Özgürlüğü", desc: "İnternet ortamında yapılan yayınlar ifade özgürlüğü çerçevesinde değerlendirilir; erişim engeli orantılı olmalıdır.", ref: "Anayasa md.22, 26" },
-      { id: 67, sev: "U", title: "Bilim ve Sanat Hürriyeti", desc: "Bilim ve sanat hürriyeti tanınır; akademik özerklik ve ifade özgürlüğü sınırlara tabidir.", ref: "Anayasa md.27" },
-      { id: 68, sev: "U", title: "Ayrımcılık Yasağı", desc: "Ayrımcılık yasağı pozitif ödevlerle birlikte yorumlanabilir.", ref: "Anayasa md.10" },
-      { id: 69, sev: "U", title: "Geçici Tedbirler", desc: "Geçici tedbirler temel haklara müdahalede sıkı denetime tabidir.", ref: "Anayasa md.15" },
-      { id: 70, sev: "U", title: "Ölçülülük İlkesi", desc: "Temel hakların sınırlanmasında ölçülülük ilkesi zorunludur.", ref: "Anayasa md.13" },
-      { id: 71, sev: "B", title: "Güvenlik Tedbirleri", desc: "Güvenlik tedbirleri ve koruma kararları usule tabidir.", ref: "Anayasa md.19" },
-      { id: 72, sev: "B", title: "Özel Hayatın Gizliliği ve İzinsiz Kayıt", desc: "Özel hayatın gizliliği izinsiz kayıt ve gözetim uygulamalarında sınır oluşturur.", ref: "Anayasa md.20" },
-      { id: 73, sev: "B", title: "Haberleşme Gizliliği", desc: "Haberleşme gizliliği teknik dinleme ve veri erişiminde test edilir.", ref: "Anayasa md.22" },
-      { id: 74, sev: "B", title: "Konut Dokunulmazlığı", desc: "Konut dokunulmazlığı arama kararı ve usul şartlarına tabidir.", ref: "Anayasa md.21" },
-      { id: 75, sev: "B", title: "Düşünce Özgürlüğü ve Ceza", desc: "Düşünce özgürlüğü cezai yaptırıma konu düşüncenin kendisiyle sınırlanamaz.", ref: "Anayasa md.25" },
-      { id: 76, sev: "B", title: "Ölüm Cezasının Kaldırılması", desc: "Ölüm cezasının kaldırılması Anayasa değişikliğiyle gerçekleşmiştir.", ref: "Anayasa md.38" },
-      { id: 77, sev: "B", title: "Savunma Hakkı", desc: "Savunma hakkı ve delil hukuku ceza yargılamasının omurgasıdır.", ref: "Anayasa md.36" },
-      { id: 78, sev: "B", title: "Kişi Hürriyeti ve Gözaltı", desc: "Kişi hürriyeti gözaltı süreleri ve tutuklama sebepleri sıkı şekilde bağlanmıştır.", ref: "Anayasa md.19" },
-      { id: 79, sev: "B", title: "İflas ve Konkordato", desc: "İflas, konkordato ve benzeri haller temel hakları etkileyebilir.", ref: "Anayasa md.35" },
-      { id: 80, sev: "B", title: "Laiklik ve Eğitim", desc: "Laiklik ilkesi devletin din işlerine müdahalesinin sınırlarını çizer; eğitimde fırsat eşitliği sağlanır.", ref: "Anayasa md.2, 42" },
-    ]
+    rules: IHALEAL_PLATFORM_RULES,
   },
   {
-    id: 3, title: "Anayasa — Yargı ve İdare", range: "91-140", color: "indigo",
-    icon: Gavel,
-    rules: [
-      { id: 91, sev: "K", title: "Mahkemelerin Bağımsızlığı", desc: "Mahkemelerin bağımsızlığı ve hâkimlik teminatı esastır; hiçbir organ talimat veremez.", ref: "Anayasa md.138-139" },
-      { id: 92, sev: "K", title: "Hâkimler ve Savcılar Kurulu", desc: "HSK düzenlemesi yargısal bağımsızlıkla ilişkilidir; hakimlik mesleğine giriş ve yükselme usulleri kanunla düzenlenir.", ref: "Anayasa md.159" },
-      { id: 93, sev: "K", title: "Yargı Yetkisinin Devredilemezliği", desc: "Yargı yetkisinin devredilemezliği ilkesi vurgulanır; özel yargı mercii kurulamaz.", ref: "Anayasa md.9" },
-      { id: 94, sev: "K", title: "Askerî Yargının Daraltılması", desc: "Askerî yargı yetkisi daraltılmış ve sivil yargıya kaydırılmıştır.", ref: "Anayasa md.142" },
-      { id: 95, sev: "K", title: "Danıştay", desc: "Danıştay idari yargının en üst merciidir; idari işlemlerin hukuka uygunluğunu denetler.", ref: "Anayasa md.155" },
-      { id: 96, sev: "K", title: "Yargıtay", desc: "Yargıtay adli yargının düzenli işleyişini ve birliğini sağlar; içtihadı birleştirme yetkisi vardır.", ref: "Anayasa md.154" },
-      { id: 97, sev: "K", title: "Sayıştay", desc: "Sayıştay kamu gelir ve giderlerinin hesaplarını denetler; hukuka ve bütçeye uygunluğu inceler.", ref: "Anayasa md.160" },
-      { id: 98, sev: "K", title: "İdarenin Hukuka Bağlılığı", desc: "İdarenin hukuka bağlılığı ilkesi tüm kamu ihale süreçlerinin üst ilkesidir.", ref: "Anayasa md.125" },
-      { id: 99, sev: "K", title: "İdari İşlemlerin Yargı Denetimi", desc: "Yürütme organının idareye ilişkin düzenleyici işlemleri yargı denetimine tabidir.", ref: "Anayasa md.125" },
-      { id: 100, sev: "K", title: "İdari Yargıda İptal ve Tam Yargı", desc: "İdari yargıda iptal ve tam yargı davaları ayrı rejimlerdir; usul kanunla düzenlenir.", ref: "Anayasa md.125" },
-      { id: 101, sev: "K", title: "İyi Yönetim İlkeleri", desc: "İyi yönetim ilkeleri şeffaflık ve hesap verebilirlik idare hukukunun parçasıdır.", ref: "Anayasa md.125" },
-      { id: 102, sev: "U", title: "İdarenin Takdir Yetkisi", desc: "İdarenin takdir yetkisi keyfilik ve ayrımcılık yasağıyla sınırlıdır.", ref: "Anayasa md.125" },
-      { id: 103, sev: "U", title: "İdari Şartnamede Gerekçe Gösterme", desc: "İdari işlemlerde gerekçe gösterme yükümlülüğü yargı denetimini kolaylaştırır.", ref: "Anayasa md.125" },
-      { id: 104, sev: "U", title: "Kamu Yararı", desc: "Kamu yararı sınırlama ve kamulaştırmada merkezi kavramdır.", ref: "Anayasa md.5, 46" },
-      { id: 105, sev: "U", title: "Kamu Maliyesi Dengesi", desc: "Kamu maliyesi dengesi Anayasa ve kanunlarla hedeflenir; bütçe açıkları sınırlandırılmalıdır.", ref: "Anayasa md.161-162" },
-      { id: 106, sev: "U", title: "Yargı Yolunun Etkinliği", desc: "Yargı yolunun etkinliği başvurunun sonuçlandırılması ve icra ile ölçülür.", ref: "Anayasa md.36, 40" },
-      { id: 107, sev: "U", title: "İdarenin Tek Taraflı Değişiklik Yetkisi", desc: "İdarenin tek taraflı değişiklik yetkisi sınırlıdır; aksi takdirde hukuka aykırılık doğar.", ref: "Anayasa md.125" },
-      { id: 108, sev: "U", title: "Kamu Görevlilerinin Disiplin İşlemleri", desc: "Kamu görevlilerinin disiplin ve özlük işlemleri usule tabidir; hukuka aykırı delil kullanılamaz.", ref: "Anayasa md.129" },
-      { id: 109, sev: "U", title: "Devlet Sırrı ve Mesleki Sır", desc: "Devlet sırrı ve mesleki sır kavramları temel haklarla dengelenir.", ref: "Anayasa md.20, 22" },
-      { id: 110, sev: "U", title: "Vergi Cezaları", desc: "Vergi cezaları ve idari para cezaları hukuka uygun olmalıdır.", ref: "Anayasa md.38, 73" },
-      { id: 111, sev: "U", title: "Anayasa Mahkemesi Bireysel Başvuru", desc: "Bireysel başvuru yolu temel hak ihlallerinin denetimini sağlar; ihlal tespitinde tazminat yolu açılabilir.", ref: "Anayasa md.148" },
-      { id: 112, sev: "U", title: "Yargı Birliği", desc: "Yargı birliği ilkesi ihtisas mahkemelerinin kurulmasını engellemez.", ref: "Anayasa md.142" },
-      { id: 113, sev: "U", title: "Yerel Yönetimler", desc: "Yerel yönetimler mahallî idareler ilkesiyle özerklik ve yerinden yönetim unsurlarını taşır.", ref: "Anayasa md.127" },
-      { id: 114, sev: "U", title: "Belediyeler", desc: "Belediyeler ve il özel idareleri mahallî idarelerdir; başkan ve meclis seçimle belirlenir.", ref: "Anayasa md.127" },
-      { id: 115, sev: "U", title: "İl Özel İdareleri", desc: "İl özel idareleri il genel meclisi ve encümen yapısıyla yönetilir.", ref: "Anayasa md.127" },
-      { id: 116, sev: "U", title: "Mahallî İdare Birlikleri", desc: "Mahallî idare birlikleri işbirliği ve hizmet bütünlüğü sağlar.", ref: "Anayasa md.127" },
-      { id: 117, sev: "U", title: "Merkezî İdarenin Taşra Teşkilatı", desc: "Merkezî idarenin taşra teşkilatı vali ve kaymakam eliyle yürütülür.", ref: "Anayasa md.126" },
-      { id: 118, sev: "U", title: "İdari Vesayet", desc: "İdari vesayet mahallî idareler üzerinde kanuni denetim çerçevesinde kullanılır.", ref: "Anayasa md.127" },
-      { id: 119, sev: "U", title: "Kamu Denetçiliği", desc: "Kamu denetçiliği kurumu idarenin işleyişinde şikâyet mercii sağlar.", ref: "Anayasa md.74" },
-      { id: 120, sev: "U", title: "Özerk İdareler", desc: "Özerk idarelerin malî yapısı ve denetimi kanunla düzenlenir.", ref: "Anayasa md.127" },
-      { id: 121, sev: "B", title: "Vergi Yetkisi TBMM'ye Aittir", desc: "Vergi yetkisi TBMM'ye aittir; yerel vergiler kanunla düzenlenir.", ref: "Anayasa md.73" },
-      { id: 122, sev: "B", title: "Harcama Yetkileri", desc: "Harcama yetkileri ve delegasyon iç kontrol sisteminin parçasıdır.", ref: "Anayasa md.161" },
-      { id: 123, sev: "B", title: "Bütçe Ödeneği", desc: "Bütçe ödeneği olmadan ihale açılamaz; stratejik planlar ihtiyaç belirlemesine kaynak olur.", ref: "Anayasa md.161" },
-      { id: 124, sev: "B", title: "İdare Hukuku İlkeleri", desc: "İhale mevzuatı ile genel idare hukuku ilkeleri birlikte uygulanır.", ref: "Anayasa md.125" },
-      { id: 125, sev: "B", title: "İdari İşlemlerde Gerekçe", desc: "İdari işlemlerde gerekçe gösterme yükümlülüğü; takdir yetkisinin sınırlandırılması.", ref: "Anayasa md.125" },
-      { id: 126, sev: "B", title: "İdarinin Eylem ve İşlemlerine Başvuru", desc: "İdarenin eylem ve işlemlerine karşı başvuru yolları kanunda düzenlenir.", ref: "Anayasa md.40, 125" },
-      { id: 127, sev: "B", title: "Usul Ekonomisi", desc: "Usul ekonomisi yargı mercilerinde de gözetilir.", ref: "Anayasa md.36" },
-      { id: 128, sev: "B", title: "Geçici Tedbirler", desc: "Geçici tedbirler temel haklara müdahalede sıkı denetime tabidir.", ref: "Anayasa md.15" },
-      { id: 129, sev: "B", title: "Anayasa Mahkemesi İçtihadı", desc: "Anayasa Mahkemesi kararları yargı içtihadını yönlendirir.", ref: "Anayasa md.153" },
-      { id: 130, sev: "B", title: "Avrupa İnsan Hakları Sözleşmesi Ek Protokolleri", desc: "İHAS ek protokolleri iç hukukla uyum çalışmalarına konu olur.", ref: "Anayasa md.90" },
-    ]
-  },
-  {
-    id: 4, title: "Anayasa — Cumhurbaşkanlığı ve TBMM", range: "141-200", color: "amber",
-    icon: Landmark,
-    rules: [
-      { id: 141, sev: "K", title: "Cumhurbaşkanı — Devletin Başı", desc: "Cumhurbaşkanı devletin başı ve yürütmenin başıdır; seçimi ve görev süresi Anayasa ve kanunla belirlenir.", ref: "Anayasa md.101" },
-      { id: 142, sev: "K", title: "Cumhurbaşkanı Kararnamesi", desc: "Cumhurbaşkanı kararnamesi kanunun açık yetki verdiği hallerde çıkarılabilir.", ref: "Anayasa md.104" },
-      { id: 143, sev: "K", title: "Bakanlar Kurulu", desc: "Bakanlar Kurulu üyeleri ve görev alanı kanunla düzenlenir; bakanlar Cumhurbaşkanı tarafından atanır.", ref: "Anayasa md.106, 109" },
-      { id: 144, sev: "K", title: "Milletvekili Dokunulmazlığı", desc: "Milletvekili dokunulmazlığı ve sorumsuzluğu Anayasa'da ayrıntılıdır; fezleke usulü düzenlenmiştir.", ref: "Anayasa md.83" },
-      { id: 145, sev: "U", title: "TBMM Genel Seçimleri", desc: "TBMM genel seçimleri dört yılda bir yapılır; güncel süreler mevzuattan takip edilmelidir.", ref: "Anayasa md.77" },
-      { id: 146, sev: "U", title: "TBMM Kararları ve Nisap", desc: "TBMM kararları çoğunluk ve nisap kurallarına tabidir; gizli oylama usulleri uygulanır.", ref: "Anayasa md.96" },
-      { id: 147, sev: "U", title: "Cumhurbaşkanı'nın Görev ve Yetkileri", desc: "Cumhurbaşkanı'nın görev ve yetkileri Anayasa'da sayılır; yetki devri sınırlıdır.", ref: "Anayasa md.104" },
-      { id: 148, sev: "U", title: "Olağanüstü Halde Yetki Devri", desc: "Olağanüstü halde yetki devri ve kanun hükmünde kararnameler özel usule tabidir.", ref: "Anayasa md.119-121" },
-      { id: 149, sev: "U", title: "Sıkıyönetim", desc: "Sıkıyönetim ilanı ve sonuçları Anayasa'da çerçevelenmiştir.", ref: "Anayasa md.122" },
-      { id: 150, sev: "U", title: "TBMM Başkanlığı", desc: "TBMM Başkanlığı ve büro yapısı içtüzükte düzenlenir; seçim usulleri belirlenmiştir.", ref: "Anayasa md.94" },
-      { id: 151, sev: "B", title: "Cumhurbaşkanı Yardımcıları ve Bakanlar", desc: "Cumhurbaşkanı yardımcıları ve bakanların atanması ve azli usulü Anayasa'da düzenlenir.", ref: "Anayasa md.106-107" },
-      { id: 152, sev: "B", title: "Bakan Sorumluluğu", desc: "TBMM'nin güvensizlik önergesi ve bakan sorumluluğu rejimi güncel Anayasa metniyle değişmiş olabilir.", ref: "Anayasa md.100, 114" },
-      { id: 153, sev: "B", title: "Anayasa Değişikliğinde Görüşme Usulü", desc: "Anayasa değişikliğinde TBMM'de görüşme ve oylama usulleri özeldir.", ref: "Anayasa md.175" },
-      { id: 154, sev: "B", title: "Siyasi Partiler", desc: "Siyasi partiler demokratik hayatın vazgeçilmez unsurlarıdır; kapatma davası özel usule tabidir.", ref: "Anayasa md.68-69" },
-      { id: 155, sev: "B", title: "Sendikalar ve Üst Kuruluşları", desc: "Sendikalar ve üst kuruluşları Anayasa güvencesi altındadır; toplu sözleşme ve grev hakkı sınırlıdır.", ref: "Anayasa md.51-54" },
-      { id: 156, sev: "B", title: "Kamu Görevlilerinin Hakları", desc: "Kamu görevlilerinin temel hakları ve yükümlülükleri kanunla düzenlenir; memur sendikaları özel rejime tabidir.", ref: "Anayasa md.128" },
-      { id: 157, sev: "B", title: "Anayasa'nın Geçici Maddeleri", desc: "Anayasa'nın geçici maddeleri belirli geçiş düzenlemelerini içerir.", ref: "Anayasa md.174" },
-      { id: 158, sev: "B", title: "Anayasa İhlali İddiasıyla İptal Davası", desc: "Anayasa ihlali iddiasıyla iptal davası belirli mercilerce açılabilir.", ref: "Anayasa md.150" },
-      { id: 159, sev: "B", title: "Temel Hakların Somutlaştırılması", desc: "Anayasa'da tanınan sosyal haklar kanunla somutlaştırılır.", ref: "Anayasa md.49-61" },
-      { id: 160, sev: "B", title: "Laiklik ve Din Eğitimi", desc: "Eğitim ve öğretimde laiklik ilkesi din kültürü ve ahlak bilgisi dersleriyle dengelenir.", ref: "Anayasa md.24, 42" },
-      { id: 161, sev: "B", title: "Özel Okulların Denetimi", desc: "Özel okulların kuruluşu ve denetimi kanunla düzenlenir.", ref: "Anayasa md.42" },
-      { id: 162, sev: "B", title: "Yükseköğretim Kurumlarının Özerkliği", desc: "Yükseköğretim kurumlarının özerkliği Anayasa'da vurgulanır.", ref: "Anayasa md.130" },
-      { id: 163, sev: "B", title: "Basın ve Yayın Mali Şeffaflığı", desc: "Basın ve yayın organlarının malî şeffaflığı demokratik denetim için önemlidir.", ref: "Anayasa md.28" },
-      { id: 164, sev: "B", title: "İnternet Haberciliğinde Erişim Engeli", desc: "İnternet haberciliğinde erişim engeli ve içerik kaldırma usulleri kanuna dayanmalıdır.", ref: "Anayasa md.22, 26" },
-      { id: 165, sev: "B", title: "Toplantı Hakkı ve Önceden İzin", desc: "Toplantı hakkı önceden izin rejimlerinde Anayasa Mahkemesi içtihadı önemlidir.", ref: "Anayasa md.34" },
-      { id: 166, sev: "B", title: "Sendika Hakkı ve Kamu Görevlileri", desc: "Kamu görevlilerinde sendika ve toplu sözleşme rejimi özel kanunlara tabidir.", ref: "Anayasa md.53" },
-      { id: 167, sev: "B", title: "Mülkiyet ve Planlama", desc: "Mülkiyet hakkı planlama kararları ve imar kısıtlarıyla sınırlandırılabilir.", ref: "Anayasa md.35, 44" },
-      { id: 168, sev: "B", title: "Kamu Yararı ve Karşılıksız Sınırlama", desc: "Kamu yararı kararı ve bedel ödenmesi kamulaştırmada esastır.", ref: "Anayasa md.46" },
-      { id: 169, sev: "B", title: "Vergi Affı", desc: "Vergi affı ve benzeri düzenlemeler eşitlik ve mülkiyet ilkeleriyle test edilir.", ref: "Anayasa md.10, 38, 73" },
-      { id: 170, sev: "B", title: "Sağlık Hakkı", desc: "Sağlık hakkı ve çevre hakkı birlikte değerlendirilir.", ref: "Anayasa md.56, 60" },
-      { id: 171, sev: "B", title: "Kişisel Verilerin Yurt Dışına Aktarımı", desc: "Kişisel verilerin yurt dışına aktarılması özel şartlara bağlanmıştır.", ref: "Anayasa md.20" },
-      { id: 172, sev: "B", title: "İfade Özgürlüğü ve Kamu Görevlileri", desc: "İfade özgürlüğü kamu görevlileri eleştirisinde daha geniş koruma gerektirebilir.", ref: "Anayasa md.25-26" },
-      { id: 173, sev: "B", title: "Basın Mensuplarının Kaynak Sırrı", desc: "Basın mensuplarının haber kaynağı sırrı ceza ve medeni hukukla ilişkilidir.", ref: "Anayasa md.28" },
-      { id: 174, sev: "B", title: "Anayasa Hukuku Çalışırken Güncel Metin", desc: "Anayasa hukuku çalışırken güncel Resmî Gazete metinleri esas alınmalıdır.", ref: "" },
-      { id: 175, sev: "B", title: "Anayasa Değişikliklerinin Kronolojik Takibi", desc: "Anayasa değişikliklerinin kronolojik takibi sınav sorularında sık çıkar.", ref: "" },
-      { id: 176, sev: "B", title: "İlke-İstisna-Sonuç Üçlüsü", desc: "Sınav için madde ezberinden çok ilke-istisna-sonuç üçlüsü kurularak çalışılmalıdır.", ref: "" },
-      { id: 177, sev: "B", title: "Din ve Vicdan Özgürlüğünün Dengelenmesi", desc: "Din ve vicdan özgürlüğü kamu düzeni ve başkalarının haklarıyla dengelenir.", ref: "Anayasa md.24" },
-      { id: 178, sev: "B", title: "Terör Suçları ve Örgütlenme", desc: "Örgütlenme özgürlüğü terör suçlarıyla ilişkilendirme iddialarında ispat yükü önemlidir.", ref: "Anayasa md.33" },
-      { id: 179, sev: "B", title: "Örgütlenme Özgürlüğü", desc: "Dernek ve sendika kurma hakkı demokratik toplum düzeninin gereklerine uygun sınırlanabilir.", ref: "Anayasa md.33" },
-      { id: 180, sev: "B", title: "Nefret Söylemi", desc: "İfade özgürlüğü nefret söylemi ve şiddeti teşvikle sınırlanabilir.", ref: "Anayasa md.26" },
-      { id: 181, sev: "B", title: "Kamu Görevlilerinin Yargılanması", desc: "Kamu görevlilerinin yargılanması CMK ve özel kanunlara tabidir.", ref: "Anayasa md.129" },
-      { id: 182, sev: "B", title: "Milletvekili Seçilme Şartları", desc: "Seçilme hakkı yaş, vatandaşlık ve adaylık şartlarına bağlıdır.", ref: "Anayasa md.76" },
-      { id: 183, sev: "B", title: "Siyasi Parti Kapatma", desc: "Siyasi partilerin kapatılması demokratik toplum için son çare olmalıdır.", ref: "Anayasa md.69" },
-      { id: 184, sev: "B", title: "AYM Siyasi Parti Kapatma Davalarında Ölçülülük", desc: "Anayasa Mahkemesi siyasi parti kapatma davalarında ölçülülük arar.", ref: "Anayasa md.69" },
-      { id: 185, sev: "B", title: "Yerel Seçimler", desc: "Yerel seçimler ve yerel yönetimlerin yetkileri kanunla genişletilebilir.", ref: "Anayasa md.127" },
-      { id: 186, sev: "B", title: "İmar ve Planlama", desc: "Mülkiyet hakkı imar ve planlama kararlarıyla sınırlandırılabilir.", ref: "Anayasa md.35" },
-      { id: 187, sev: "B", title: "Anayasa Hükümlerinin Birlikte Değerlendirilmesi", desc: "Anayasa hükümleri sistematik ve amaç yorumuyla birlikte değerlendirilmelidir.", ref: "Anayasa md.2" },
-      { id: 188, sev: "B", title: "Temel Hakların Sınırlanması", desc: "Temel hakların sınırlanması demokratik toplum düzeninin gereklerine uygun olmalıdır.", ref: "Anayasa md.13" },
-      { id: 189, sev: "B", title: "Eğitimde Fırsat Eşitliği", desc: "Eğitimde fırsat eşitliği pozitif ayrımcılıkla desteklenebilir.", ref: "Anayasa md.42" },
-      { id: 190, sev: "B", title: "Özel Okullar", desc: "Özel okulların kuruluşu ve denetimi kanunla düzenlenir.", ref: "Anayasa md.42" },
-      { id: 191, sev: "B", title: "Bilimsel Özerklik", desc: "Bilimsel özerklik ve ifade özgürlüğü akademik alanda sınırlara tabidir.", ref: "Anayasa md.27" },
-      { id: 192, sev: "B", title: "Yükseköğretim Özerkliği", desc: "Yükseköğretim kurumlarının özerkliği Anayasa'da vurgulanır.", ref: "Anayasa md.130" },
-      { id: 193, sev: "B", title: "Kamu Yararı ve Sınırlandırma", desc: "Mülkiyet hakkının kamulaştırılması kamu yararı ve karşılık ödenmesiyle bağlantılıdır.", ref: "Anayasa md.46" },
-      { id: 194, sev: "B", title: "İnternet ve Erişim Engeli", desc: "İnternet erişiminin engellenmesi özgürlüklerle orantılı olmalıdır.", ref: "Anayasa md.22" },
-      { id: 195, sev: "B", title: "Anayasa Mahkemesi İçtihadı Birleştirme", desc: "Danıştay içtihadı birleştirme kararları belirsizlikleri giderir.", ref: "Anayasa md.155" },
-      { id: 196, sev: "B", title: "Avrupa İnsan Hakları Sözleşmesi", desc: "AİHS'nin iç hukuka etkisi kanunla düzenlenir.", ref: "Anayasa md.90" },
-      { id: 197, sev: "B", title: "Kamu İhaleleri ve Anayasa", desc: "Rekabet ve eşit muamele kamu kaynaklarının kullanımında anayasal değerlerle uyumludur.", ref: "Anayasa md.10, 125" },
-      { id: 198, sev: "B", title: "Bütçe ve Denetim", desc: "Bütçe görüşmelerinde denetim ve şeffaflık ilkeleri önemlidir.", ref: "Anayasa md.161" },
-      { id: 199, sev: "B", title: "Merkezî ve Yerel Dengesi", desc: "Merkezî idare taşra teşkilatı ve mahallî idareler arasında görev paylaşımı kanunla belirlenir.", ref: "Anayasa md.126-127" },
-      { id: 200, sev: "B", title: "Kamu Denetçiliği Şikâyet Mercii", desc: "Kamu denetçiliği idarenin işleyişinde şikâyet mercii sağlar.", ref: "Anayasa md.74" },
-    ]
-  },
-  {
-    id: 5, title: "İhale — Usul ve İlkeler", range: "201-240", color: "cyan",
+    id: 2, title: "İhale — Usul ve İlkeler", range: "201-240", color: "cyan",
     icon: FileText,
     rules: [
       { id: 201, sev: "K", title: "4734 Sayılı Kanun Amacı", desc: "Kamu kaynaklarının etkili kullanımı, rekabet, güvenirlik ve şeffaflık sağlanır.", ref: "4734 md.1" },
@@ -257,7 +62,7 @@ const categories = [
     ]
   },
   {
-    id: 6, title: "İhale — Teklif ve Teminat", range: "241-280", color: "violet",
+    id: 3, title: "İhale — Teklif ve Teminat", range: "241-280", color: "violet",
     icon: ClipboardCheck,
     rules: [
       { id: 241, sev: "K", title: "Teklif Bağlayıcılığı", desc: "Teklif veren teklifini süresi içinde geri çekemez; geri çekme geçici teminatın gelir kaydedilmesine yol açar.", ref: "4734 md.32" },
@@ -303,7 +108,7 @@ const categories = [
     ]
   },
   {
-    id: 7, title: "İhale — Sözleşme ve İfası", range: "281-320", color: "teal",
+    id: 4, title: "İhale — Sözleşme ve İfası", range: "281-320", color: "teal",
     icon: FileText,
     rules: [
       { id: 281, sev: "K", title: "Sözleşme Hükümleri Şartnameyle Uyumlu", desc: "Sözleşme hükümleri şartnameyle uyumlu olmalıdır; sözleşme tasarısı ile nihai sözleşme arasında çelişki olmamalıdır.", ref: "4734 md.47" },
@@ -349,7 +154,7 @@ const categories = [
     ]
   },
   {
-    id: 8, title: "İhale — Şikayet ve İptal", range: "321-360", color: "rose",
+    id: 5, title: "İhale — Şikayet ve İptal", range: "321-360", color: "rose",
     icon: XCircle,
     rules: [
       { id: 321, sev: "K", title: "Şikayet ve İtiraz Yolları", desc: "İhale süreçlerinde şikayet ve itiraz yolları Kanun'da öngörülmüştür.", ref: "4734 md.53" },
@@ -395,7 +200,7 @@ const categories = [
     ]
   },
   {
-    id: 9, title: "İhale — Özel Haller", range: "361-400", color: "slate",
+    id: 6, title: "İhale — Özel Haller", range: "361-400", color: "slate",
     icon: Building2,
     rules: [
       { id: 361, sev: "K", title: "4735 Yapım İşleri Özel Rejim", desc: "4735 sayılı Kanun yapım işlerinde anahtar teslimi usulü gibi özel rejimleri içerir.", ref: "4735 md.1" },
@@ -472,30 +277,40 @@ export function Anayasa400() {
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
               <Shield className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">ihaleal.com 400 Maddelik Anayasa</h1>
-            <p className="text-slate-400 max-w-2xl mx-auto">1982 Anayasası (1-200) ve Kamu İhale Kanunu 4734 (201-400) kapsamlı hukuki çerçeve.</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">ihaleal.com — Platform ve KİK çerçevesi</h1>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              İlk blokta İhaleAL Nihai sistem + ücret/komisyon kuralları (koddaki fees ve MASTER_RULES özetleri);{" "}
+              <strong className="text-slate-300">201–400</strong> aralığı 4734 sayılı Kanun hatırlatıcı maddeleridir.
+            </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4 text-xs text-slate-500">
               <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-rose-400" /> Kritik: {totalKritik} madde</span>
               <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-amber-400" /> Uyarı: {totalUyari} madde</span>
               <span className="flex items-center gap-1"><Info className="w-3 h-3 text-cyan-400" /> Bilgi: {totalBilgi} madde</span>
-              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Toplam: 400 madde</span>
+              <span className="flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Toplam:{" "}
+                {categories.flatMap((c) => c.rules).length} madde
+              </span>
             </div>
             <div className="mx-auto mt-6 max-w-3xl rounded-xl border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-left text-sm leading-relaxed text-cyan-50">
               <p className="font-semibold text-cyan-100">Bu sayfa “ihaleal” kullanım sözleşmesi değildir</p>
               <p className="mt-2 text-slate-300">
-                <strong className="text-slate-200">Madde 1–200</strong>, 1982 Anayasası’nın özet satırlarıdır (genel hukuk çerçevesi). Örneğin geriye yürümezlik, olağanüstü hal, uluslararası andlaşma, referandum veya Anayasa Mahkemesi üyeliği gibi başlıklar{" "}
-                <strong className="text-slate-100">devlet ve kamu hukuku</strong> ile ilgilidir; gayrimenkul ihale platformunun iş kuralları veya ücret politikasıyla doğrudan bağlantılı değildir.
+                <strong className="text-slate-200">İlk kategori</strong>, depodaki{" "}
+                <code className="text-cyan-200/90">NihaiAnayasa</code>, <code className="text-cyan-200/90">fees.ts</code>,{" "}
+                <code className="text-cyan-200/90">masterFinancialEngine</code> ve komisyon motorundan türetilmiş platform kurallarının özetidir. Tam alt madde listesi için{" "}
+                <Link to="/nihai-anayasa" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                  Nihai sistem anayasası
+                </Link>{" "}
+                sayfasına gidin.
               </p>
               <p className="mt-2 text-slate-400">
-                Platforma özel şartlar için{" "}
+                Yasal şartlar:{" "}
                 <Link to="/kullanim-kosullari" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
                   Kullanım Koşulları
                 </Link>
-                , güven ve uyum için{" "}
+                {" · "}
                 <Link to="/guvenlik" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
                   Güvenlik
-                </Link>{" "}
-                sayfalarına bakın.
+                </Link>
               </p>
             </div>
           </div>
@@ -595,7 +410,7 @@ export function Anayasa400() {
 
         <div className="mt-10 rounded-xl border border-white/10 bg-white/[0.02] p-6 text-center">
           <p className="text-sm text-slate-400 mb-4">
-            Bu doküman 1982 Anayasası ve 4734 sayılı Kamu İhale Kanunu hükümlerini içerir. Tüm geliştirme, test ve hukuki süreçlerde referans alınmalıdır.
+            Üst kısım İhaleAL platform kurallarının özeti; madde numaraları 201–400 olan blok 4734 sayılı Kanun hatırlatıcılarıdır. Bağlayıcı metinler için kullanım koşulları ve güncel mevzuat esas alınmalıdır.
           </p>
           <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-white/10 text-slate-300 hover:text-white">
             <ArrowLeft className="w-4 h-4 mr-2" /> Ana Sayfaya Dön

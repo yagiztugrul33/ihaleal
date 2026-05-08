@@ -204,7 +204,7 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
   {
     keys: ["anayasa", "400 madde", "400", "hukuk", "4734", "kik", "kanun maddesi"],
     reply:
-      "400 maddelik özet çerçeve: /anayasa-400 (Anayasa + Kamu İhale Kanunu hatırlatıcıları, aranabilir). Sistem kuralları: /nihai-anayasa. Yasal taslak başlıkları: /yasal-cerceve. Bilgilendirme amaçlıdır; bağlayıcı hukuki görüş değildir.",
+      "400 maddelik özet çerçeve: /anayasa-400 — ilk blok İhaleAL platform kuralları (Nihai + fees / MASTER_RULES özetleri); 201–400 aralığı 4734 hatırlatıcıları. Tam sistem kuralları: /nihai-anayasa. Yasal taslak başlıkları: /yasal-cerceve. Bilgilendirme amaçlıdır.",
   },
   {
     keys: ["güvenlik", "şifre", "hesap"],
