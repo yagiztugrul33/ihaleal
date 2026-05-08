@@ -1,4 +1,4 @@
-﻿/**
+/**
  * İhaleAL platform kuralları — Nihai Anayasa bölümleri + fees.ts / MASTER_RULES / komisyon motoru özetleri.
  * Bu liste TC Anayasası içermez; tam Nihai metin için /nihai-anayasa.
  */
