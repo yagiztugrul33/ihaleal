@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Shield, ArrowLeft, AlertTriangle, Info, CheckCircle2, Search, Scale, Gavel, Landmark, Building2, FileText, ClipboardCheck, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -479,6 +479,24 @@ export function Anayasa400() {
               <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-amber-400" /> Uyarı: {totalUyari} madde</span>
               <span className="flex items-center gap-1"><Info className="w-3 h-3 text-cyan-400" /> Bilgi: {totalBilgi} madde</span>
               <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Toplam: 400 madde</span>
+            </div>
+            <div className="mx-auto mt-6 max-w-3xl rounded-xl border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-left text-sm leading-relaxed text-cyan-50">
+              <p className="font-semibold text-cyan-100">Bu sayfa “ihaleal” kullanım sözleşmesi değildir</p>
+              <p className="mt-2 text-slate-300">
+                <strong className="text-slate-200">Madde 1–200</strong>, 1982 Anayasası’nın özet satırlarıdır (genel hukuk çerçevesi). Örneğin geriye yürümezlik, olağanüstü hal, uluslararası andlaşma, referandum veya Anayasa Mahkemesi üyeliği gibi başlıklar{" "}
+                <strong className="text-slate-100">devlet ve kamu hukuku</strong> ile ilgilidir; gayrimenkul ihale platformunun iş kuralları veya ücret politikasıyla doğrudan bağlantılı değildir.
+              </p>
+              <p className="mt-2 text-slate-400">
+                Platforma özel şartlar için{" "}
+                <Link to="/kullanim-kosullari" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                  Kullanım Koşulları
+                </Link>
+                , güven ve uyum için{" "}
+                <Link to="/guvenlik" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                  Güvenlik
+                </Link>{" "}
+                sayfalarına bakın.
+              </p>
             </div>
           </div>
         </motion.div>
