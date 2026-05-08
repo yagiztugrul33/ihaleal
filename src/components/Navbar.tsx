@@ -177,6 +177,7 @@ export function Navbar() {
                 <Heart className="w-4 h-4" /> Favoriler
                 {count > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[10px] font-bold flex items-center justify-center">{count}</span>}
               </Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/degerleme")} className="text-slate-300 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Degerleme</Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-300 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
               {currentUser ? (
                 <div className="flex items-center gap-2">
@@ -325,6 +326,7 @@ export function Navbar() {
               <button onClick={() => { navigate("/harita"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 text-left flex items-center gap-2"><Navigation className="w-4 h-4" /> Harita</button>
               <button type="button" onClick={() => { navigate("/karsilastir"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-teal-400 hover:bg-teal-500/10 text-left flex items-center gap-2"><GitCompare className="w-4 h-4" /> Karşılaştır</button>
               <button type="button" onClick={() => { navigate("/mortgage"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Mortgage</button>
+              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Degerleme</button>
               {currentUser ? (
                 <>
                   {userFlows.length === 0 ? (

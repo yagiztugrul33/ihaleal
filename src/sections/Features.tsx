@@ -1,4 +1,5 @@
-import { Radio, ShieldCheck, Eye, Zap, Headphones, BarChart3 } from "lucide-react";
+import { Radio, ShieldCheck, Eye, Zap, Headphones, BarChart3, Calculator } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const icons = {
@@ -8,11 +9,12 @@ const icons = {
   fast: <Zap className="w-6 h-6 text-amber-400" />,
   support: <Headphones className="w-6 h-6 text-pink-400" />,
   analytics: <BarChart3 className="w-6 h-6 text-green-400" />,
+  valuation: <Calculator className="w-6 h-6 text-cyan-300" />,
 };
 
 export function Features() {
   const { ref, isVisible } = useScrollAnimation(0.1);
-  const items = ["live", "secure", "transparent", "fast", "support", "analytics"] as const;
+  const items = ["live", "secure", "transparent", "fast", "support", "analytics", "valuation"] as const;
   const titles = {
     live: "Canlı İhale Deneyimi",
     secure: "Banka Düzeyinde Güvenlik",
@@ -20,6 +22,7 @@ export function Features() {
     fast: "Hızlı Teslimat",
     support: "7/24 Destek",
     analytics: "AI Destekli Analiz",
+    valuation: "Degerleme araci",
   };
   const descs = {
     live: "Gerçek zamanlı teklif verme, anlık güncellemeler ve adil rekabet ortamı.",
@@ -28,6 +31,16 @@ export function Features() {
     fast: "İhale sonrası tapu ve teslimat süreçlerinde hızlı çözüm ortaklığı.",
     support: "Uzman ekibimiz her an yanınızda. Telefon, e-posta ve canlı sohbet.",
     analytics: "Yapay zeka ile fiyat tahmini, yatırım skoru ve bölge karşılaştırması.",
+    valuation: "Il, ilce, m² ve ozelliklerle dakikalar icinde deger ve kira tahmini al.",
+  };
+  const links = {
+    live: undefined,
+    secure: undefined,
+    transparent: undefined,
+    fast: undefined,
+    support: undefined,
+    analytics: undefined,
+    valuation: "/degerleme",
   };
 
   return (
@@ -45,6 +58,11 @@ export function Features() {
               <div className="mb-4 p-3 rounded-xl bg-white/[0.06] w-fit ring-1 ring-white/[0.06] group-hover:bg-white/10 group-hover:scale-105 transition-all duration-300 motion-reduce:group-hover:scale-100">{icons[key]}</div>
               <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{titles[key]}</h3>
               <p className="text-sm text-slate-500 leading-relaxed">{descs[key]}</p>
+              {links[key] ? (
+                <Link to={links[key]} className="mt-3 inline-flex text-sm text-cyan-300 hover:text-cyan-200">
+                  Araci ac
+                </Link>
+              ) : null}
             </div>
           ))}
         </div>

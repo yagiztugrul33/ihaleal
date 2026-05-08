@@ -86,6 +86,7 @@ const EmlakciGiris         = lazy(() => import("@/pages/EmlakciGiris"));
 const TaxSimulatorPage     = lazy(() => import("@/pages/TaxSimulatorPage"));
 const FinCompliancePlayground = lazy(() => import("@/pages/FinCompliancePlayground"));
 const NasilCalisir          = lazy(() => import("@/pages/NasilCalisir"));
+const ValuationTool         = lazy(() => import("@/pages/ValuationTool"));
 
 function App() {
   return (
@@ -149,6 +150,8 @@ function App() {
             <Route path="/emlakci-giris" element={<EmlakciGiris />} />
             <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />
             <Route path="/araclar/finans-uyumluluk" element={<FinCompliancePlayground />} />
+            <Route path="/degerleme" element={<ValuationTool />} />
+            <Route path="/valuation" element={<ValuationTool />} />
             <Route path="/ekspertiz" element={<Expertise />} />
             <Route path="/evraklar" element={<DocumentsRequired />} />
             <Route path="/guvenlik" element={<SecurityCenter />} />
