@@ -3,6 +3,7 @@ import { ArrowLeft, Scale, AlertTriangle, BookMarked, ExternalLink, FileText } f
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LEGAL_MASTER_PAGE_DISCLAIMER, LEGAL_MASTER_SECTIONS } from "@/data/legalMasterBrief";
+import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 export default function LegalMasterBrief() {
   const navigate = useNavigate();
@@ -41,10 +42,10 @@ export default function LegalMasterBrief() {
               variant="outline"
               size="sm"
               className="border-teal-500/30 text-teal-100 hover:bg-teal-500/10"
-              onClick={() => navigate("/anayasa-400")}
+              onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
             >
               <FileText className="mr-2 h-4 w-4" />
-              400 madde özeti
+              Platform çerçeve özeti
             </Button>
             <Button
               variant="outline"

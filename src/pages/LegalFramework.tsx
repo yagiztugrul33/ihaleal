@@ -4,6 +4,7 @@ import { ArrowLeft, Scale, AlertTriangle, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LEGAL_SECTIONS, LEGAL_DISCLAIMER } from "@/data/legalFramework";
+import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 export default function LegalFramework() {
   const navigate = useNavigate();
@@ -41,10 +42,10 @@ export default function LegalFramework() {
             variant="secondary"
             size="sm"
             className="border-white/15 bg-white/[0.06] text-white hover:bg-white/10"
-            onClick={() => navigate("/anayasa-400")}
+            onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
           >
             <BookOpen className="w-4 h-4 mr-2" />
-            400 maddelik hukuk özeti (Anayasa + 4734)
+            Platform + KİK hatırlatıcıları (birleşik liste)
           </Button>
           <Button
             type="button"

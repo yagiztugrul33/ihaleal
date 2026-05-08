@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -10,6 +10,7 @@ import { AdminGuard } from "@/components/admin/AdminGuard";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
@@ -144,8 +145,9 @@ function App() {
             <Route path="/yasal/agency-contract" element={<AgencyContractView />} />
             <Route path="/yasal/dolandiricilik-savunmasi" element={<FraudDefenseArchitecturePage />} />
             <Route path="/yasal/supabase-uyum" element={<SupabaseComplianceChecklistPage />} />
-            <Route path="/anayasa" element={<Anayasa400 />} />
-            <Route path="/anayasa-400" element={<Anayasa400 />} />
+            <Route path={PLATFORM_FRAMEWORK_PATH} element={<Anayasa400 />} />
+            <Route path="/anayasa-400" element={<Navigate to={PLATFORM_FRAMEWORK_PATH} replace />} />
+            <Route path="/anayasa" element={<Navigate to={PLATFORM_FRAMEWORK_PATH} replace />} />
             <Route path="/nihai-anayasa" element={<NihaiAnayasa />} />
             <Route path="/emlakci-giris" element={<EmlakciGiris />} />
             <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />

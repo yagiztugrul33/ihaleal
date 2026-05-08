@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { AiAssistantAvatar } from "@/components/AiAssistantAvatar";
 import { formatBidBondPercent } from "@/lib/fees";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 import { KKA_SERVICE_POOL_RATE_EX_VAT, KKA_SERVICE_POOL_VAT_RATE } from "@/lib/masterFinancialEngine";
 import { invokeSystemQa, type SystemQaTurn } from "@/lib/systemQaClient";
 
@@ -202,9 +203,9 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
     reply: "/kvkk ve /gizlilik metinleri yasal çerçevedir; hesap ayarları /ayarlar altında yönetilir.",
   },
   {
-    keys: ["anayasa", "400 madde", "400", "hukuk", "4734", "kik", "kanun maddesi"],
+    keys: ["anayasa", "400 madde", "400", "hukuk", "4734", "kik", "kanun maddesi", "platform çerçeve", "platform cerceve"],
     reply:
-      "400 maddelik özet çerçeve: /anayasa-400 — ilk blok İhaleAL platform kuralları (Nihai + fees / MASTER_RULES özetleri); 201–400 aralığı 4734 hatırlatıcıları. Tam sistem kuralları: /nihai-anayasa. Yasal taslak başlıkları: /yasal-cerceve. Bilgilendirme amaçlıdır.",
+      "Birleşik çerçeve: /platform-cerceve (eski /anayasa-400 yönlendirilir) — ilk blok İhaleAL platform kuralları (Nihai + fees / MASTER_RULES özetleri); 201–400 aralığı 4734 hatırlatıcıları. Tam sistem kuralları: /nihai-anayasa. Yasal taslak: /yasal-cerceve. Bilgilendirme amaçlıdır.",
   },
   {
     keys: ["güvenlik", "şifre", "hesap"],
@@ -607,12 +608,12 @@ export function ChatWidget() {
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </button>
                 <Link
-                  to="/anayasa-400"
+                  to={PLATFORM_FRAMEWORK_PATH}
                   className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
                   onClick={() => setOpen(false)}
                 >
                   <Shield className="w-3 h-3" aria-hidden />
-                  400 madde
+                  Platform çerçevesi
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </Link>
               </div>

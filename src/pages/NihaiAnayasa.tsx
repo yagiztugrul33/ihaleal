@@ -7,6 +7,7 @@ import {
   Fingerprint, Clock, Banknote, Gavel, Building2, Eye, Award
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 const sections = [
   {
@@ -258,11 +259,12 @@ export function NihaiAnayasa() {
         {/* Cross-Reference */}
         <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.02] p-5 text-center">
           <p className="text-sm text-slate-400 mb-3">
-            Bu Nihai Sistem Anayasası, <strong>400 Maddelik Hukuki Çerçeve</strong> ile birlikte yorumlanmalıdır.
+            Bu Nihai Sistem Anayasası, site üzerindeki{" "}
+            <strong>birleşik çerçeve sayfası</strong> (İhaleAL kuralları + KİK hatırlatıcıları) ile birlikte okunmalıdır.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button variant="outline" size="sm" onClick={() => navigate("/anayasa-400")} className="border-white/10 text-slate-300 hover:text-white">
-              <FileText className="w-4 h-4 mr-2" /> 400 Maddelik Anayasaya Git
+            <Button variant="outline" size="sm" onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="border-white/10 text-slate-300 hover:text-white">
+              <FileText className="w-4 h-4 mr-2" /> Platform ve KİK çerçevesine git
             </Button>
             <Button variant="outline" size="sm" onClick={() => navigate("/yasal/agency-contract")} className="border-white/10 text-slate-300 hover:text-white">
               <Building2 className="w-4 h-4 mr-2" /> Ortaklık sözleşmesi

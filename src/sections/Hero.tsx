@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { KkaRevenueHubStrip } from "@/components/KkaRevenueHubStrip";
 import { heroRevenueStripLine } from "@/lib/masterFinancialEngine";
 import { cn } from "@/lib/utils";
+import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 const HERO_ACTION_MIN = "min-h-12 h-12";
 const HERO_ACTION_TEXT = "text-sm font-semibold sm:text-[0.9375rem]";
@@ -127,14 +128,14 @@ export function Hero() {
           </div>
 
           <p className="animate-fade-in-up animate-delay-300 mb-9 text-[11px] leading-relaxed text-zinc-500 sm:text-xs">
-            Siteye ozel yasa kurgusu ve kapsamli ilke seti icin
+            Siteye özel iş kuralları ve birleşik çerçeve için
             {" "}
             <button
               type="button"
-              onClick={() => navigate("/anayasa-400")}
+              onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
               className="text-sky-300 hover:text-sky-200 underline underline-offset-2"
             >
-              400 maddelik Anayasa'yi
+              platform ve KİK çerçevesini
             </button>
             {" "}
             ve

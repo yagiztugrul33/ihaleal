@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { RoadmapBanner } from "@/components/RoadmapBanner";
+import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 export default function SecurityCenter() {
   const navigate = useNavigate();
@@ -82,10 +83,10 @@ export default function SecurityCenter() {
               variant="outline"
               size="sm"
               className="border-white/15 text-slate-200 hover:bg-white/5"
-              onClick={() => navigate("/anayasa-400")}
+              onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
             >
               <FileText className="w-4 h-4 mr-2" />
-              400 maddelik hukuk özeti
+              Platform ve KİK özeti
             </Button>
             <Button
               type="button"
