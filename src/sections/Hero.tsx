@@ -16,21 +16,33 @@ const heroActionShell = (extra: string) =>
     extra
   );
 
-const TRUST_POINTS: { Icon: typeof ShieldCheck; title: string; desc: string }[] = [
+const TRUST_POINTS: {
+  Icon: typeof ShieldCheck;
+  title: string;
+  desc: string;
+  to: string;
+  cta: string;
+}[] = [
   {
     Icon: ShieldCheck,
     title: "Güven ve uyum",
     desc: "Kimlik doğrulama ve kayıtlı süreç çizgisi; kritik adımlar izlenebilir (hedef mimari).",
+    to: "/guvenlik",
+    cta: "Güvenlik çerçevesini aç",
   },
   {
     Icon: Scale,
     title: "Kurallı ihale",
     desc: "Atomik teklif akışı ve sunucu zamanı ile şeffaf yarışma alanı (üretim hedefi).",
+    to: "/ihale-kosullari",
+    cta: "İhale kurallarını gör",
   },
   {
     Icon: Percent,
     title: "Öngörülebilir ücret",
     desc: "Oranlar tek kaynakla uyumlu; KKA ve komisyon gösterimi taslak MASTER_RULES ile hizalı (demo).",
+    to: "/komisyon-modeli",
+    cta: "Ücret modelini incele",
   },
 ];
 
@@ -96,19 +108,47 @@ export function Hero() {
           </p>
 
           <div className="animate-fade-in-up animate-delay-300 mb-9 mt-8 grid gap-3 sm:grid-cols-3">
-            {TRUST_POINTS.map(({ Icon, title, desc }) => (
-              <div
+            {TRUST_POINTS.map(({ Icon, title, desc, to, cta }) => (
+              <button
                 key={title}
-                className="flex flex-col rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4 backdrop-blur-sm transition-colors duration-200 hover:border-sky-400/22 hover:bg-white/[0.04]"
+                type="button"
+                onClick={() => navigate(to)}
+                className="flex flex-col rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4 text-left backdrop-blur-sm transition-colors duration-200 hover:border-sky-400/22 hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/40"
+                aria-label={`${title}: ${cta}`}
               >
                 <div className="mb-2.5 flex h-9 w-9 items-center justify-center rounded-lg bg-sky-500/12 text-sky-300 ring-1 ring-sky-400/18">
                   <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
                 </div>
                 <h2 className="text-sm font-semibold tracking-tight text-zinc-100">{title}</h2>
                 <p className="mt-1 text-[11px] leading-relaxed text-zinc-500 sm:text-xs">{desc}</p>
-              </div>
+                <span className="mt-3 text-xs font-medium text-sky-300">{cta}</span>
+              </button>
             ))}
           </div>
+
+          <p className="animate-fade-in-up animate-delay-300 mb-9 text-[11px] leading-relaxed text-zinc-500 sm:text-xs">
+            Siteye ozel yasa kurgusu ve kapsamli ilke seti icin
+            {" "}
+            <button
+              type="button"
+              onClick={() => navigate("/anayasa-400")}
+              className="text-sky-300 hover:text-sky-200 underline underline-offset-2"
+            >
+              400 maddelik Anayasa'yi
+            </button>
+            {" "}
+            ve
+            {" "}
+            <button
+              type="button"
+              onClick={() => navigate("/nihai-anayasa")}
+              className="text-sky-300 hover:text-sky-200 underline underline-offset-2"
+            >
+              nihai metni
+            </button>
+            {" "}
+            inceleyebilirsiniz.
+          </p>
 
           <p className="animate-fade-in-up animate-delay-400 mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500 sm:text-[11px] sm:tracking-[0.24em]">
             Hızlı erişim
