@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "sev": "K",
+    "title": "Ruhsat bazlı münhasırlık",
+    "desc": "Müteahhit sisteme bağımsız bölüm bazlı değil, Yapı Ruhsatı (Ada/Parsel) üzerinden giriş yapar. Ruhsattaki tüm birimlerin tek yetkili satış kanalı İhaleAL.com’dur.",
+    "ref": "Nihai I-1"
+  },
+  {
+    "id": 2,
+    "sev": "K",
+    "title": "Barter ve tahsis beyanı",
+    "desc": "Lansman öncesi taşeronlara verilen (Barter) veya müteahhidin kendine ayırdığı birimler TCKN/Sözleşme ile beyan edilmelidir. Beyan dışı her devir hukuki ihlal sayılır.",
+    "ref": "Nihai I-2"
+  },
+  {
+    "id": 3,
+    "sev": "K",
+    "title": "Stok dondurma",
+    "desc": "İhale süreci başladıktan sonra stok geri çekilemez. Platform dışı satış veya mülk dondurma Bypass cezasını tetikler.",
+    "ref": "Nihai I-3"
+  },
+  {
+    "id": 4,
+    "sev": "B",
+    "title": "Endüstriyel varlık validasyonu",
+    "desc": "Fabrika, otel ve ticari alanlarda Trafo Gücü (kVA), ÇED, Sanayi Sicil ve İtfaiye uygunluk doğrulanmadan ilan aktifleşemez.",
+    "ref": "Nihai I-4"
+  },
+  {
+    "id": 5,
+    "sev": "K",
+    "title": "Külli halefiyet",
+    "desc": "Müteahhidin (gerçek kişi) vefatında TMK m.599 uyarınca yükümlülükler mirasçılara geçer; süreç durmaz, satıcı sıfatı mirasçılara devredilir.",
+    "ref": "Nihai II-1"
+  },
+  {
+    "id": 6,
+    "sev": "K",
+    "title": "Mirasın reddi ve iade",
+    "desc": "Mirasın reddi halinde Takasbank havuzundaki alıcı bedelleri kesintisiz alıcılara iade edilir.",
+    "ref": "Nihai II-2"
+  },
+  {
+    "id": 7,
+    "sev": "U",
+    "title": "Ehliyet kaybı ve vasi",
+    "desc": "Satıcının kısıtlanmasında mahkeme vasisi onayı sisteme işlenene kadar işlem hukuki beklemede statüsüne alınır.",
+    "ref": "Nihai II-3"
+  },
+  {
+    "id": 8,
+    "sev": "K",
+    "title": "Konkordato muvafakatı",
+    "desc": "Satıcı konkordato ilan ederse komiser dijital onayı olmadan mülk devri veya satış yapılamaz.",
+    "ref": "Nihai III-1"
+  },
+  {
+    "id": 9,
+    "sev": "K",
+    "title": "İflas masası ve alıcı koruması",
+    "desc": "İflasta alıcı parası müteahhide geçmediyse iflas masasına dahil edilmez; iade edilir. İhaleAL komisyonu imtiyazlı alacak olarak takip edilir.",
+    "ref": "Nihai III-2"
+  },
+  {
+    "id": 10,
+    "sev": "K",
+    "title": "Rehin ve ipotek mahsubu",
+    "desc": "Taşınmaz ipotekleri satış bedelinden otomatik mahsup edilerek tapu temiz şekilde devredilir.",
+    "ref": "Nihai III-3"
+  },
+  {
+    "id": 11,
+    "sev": "K",
+    "title": "Endeksli tamamlama sigortası",
+    "desc": "Poliçeler sabit bedelli olamaz; TÜİK-İME endeksine duyarlı yenileme bedeli (replacement cost) esastır.",
+    "ref": "Nihai IV-1"
+  },
+  {
+    "id": 12,
+    "sev": "K",
+    "title": "Enflasyonist koruma faktörü",
+    "desc": "Cezai şart ve tazminatlar ihlal günü değil, ödeme günündeki güncel rayiç üzerinden hesaplanır.",
+    "ref": "Nihai IV-2"
+  },
+  {
+    "id": 13,
+    "sev": "B",
+    "title": "İşletme kaybı (ALOP)",
+    "desc": "Endüstriyel tesislerde teslim gecikmesinde alıcı kâr kaybı poliçe üzerinden tazmin edilir.",
+    "ref": "Nihai IV-3"
+  },
+  {
+    "id": 14,
+    "sev": "K",
+    "title": "10X ağırlaştırılmış ceza",
+    "desc": "Bypass, hileli barter veya metrekareden çalmada mahrum kalınan hizmet bedeli (%4 + KDV) üzerinden 10 kat cezai şart uygulanır.",
+    "ref": "Nihai V-1"
+  },
+  {
+    "id": 15,
+    "sev": "K",
+    "title": "Ticari avans faizi",
+    "desc": "Cezai bedellere ihlal tarihinden itibaren TCMB en yüksek ticari avans faizi günlük işletilir.",
+    "ref": "Nihai V-2"
+  },
+  {
+    "id": 16,
+    "sev": "K",
+    "title": "Genişletilmiş lead takibi",
+    "desc": "Alıcının üçüncü derece akrabası, ortaklığı veya personeli üzerinden gizli alım müteahhit yardımlı Bypass sayılır.",
+    "ref": "Nihai V-3"
+  },
+  {
+    "id": 17,
+    "sev": "K",
+    "title": "Metrekare hırsızlığı tazminatı",
+    "desc": "Teslim birimi ile proje arasındaki metrekare farkı güncel rayiç üzerinden 10 katı ile tahsil edilir.",
+    "ref": "Nihai V-4"
+  },
+  {
+    "id": 18,
+    "sev": "K",
+    "title": "Net kâr paylaşımı",
+    "desc": "Emlakçı hak edişi brüt komisyondan vergi ve POS düşüldükten sonra kalan net tutarın %50’sidir.",
+    "ref": "Nihai VI-1"
+  },
+  {
+    "id": 19,
+    "sev": "K",
+    "title": "B2B fatura şartı",
+    "desc": "Geçerli hizmet faturası yüklenmeden iş ortağına ödeme çıkışı yapılamaz.",
+    "ref": "Nihai VI-2"
+  },
+  {
+    "id": 20,
+    "sev": "K",
+    "title": "Biyometrik ve zaman damgası",
+    "desc": "Teklifler FaceID/TouchID ve zaman damgasıyla mühürlenir; mahkemede inkâr edilemez delil statüsündedir.",
+    "ref": "Nihai VI-3"
+  },
+  {
+    "id": 21,
+    "sev": "B",
+    "title": "Komisyon matrahı ve KDV",
+    "desc": "Hedef model: satış matrahında alıcı %2 + satıcı %2 komisyon; KDV %20 komisyon üzerinden hesaplanır (fees.ts: COMMISSION_RATE, VAT_RATE, COMMISSION_PARTIES: both).",
+    "ref": "fees.ts"
+  },
+  {
+    "id": 22,
+    "sev": "B",
+    "title": "Yıllık üyelik ücretleri",
+    "desc": "Satıcı yıllık 5.000 TL, alıcı yıllık 1.000 TL; üyelik süresi 365 gün (MEMBERSHIP_FEES, MEMBERSHIP_DURATION_DAYS).",
+    "ref": "fees.ts"
+  },
+  {
+    "id": 23,
+    "sev": "B",
+    "title": "Teminat ve minimum artış",
+    "desc": "Teklif teminatı matrahın %5’i (BID_BOND_RATE); minimum teklif artışı 100 TL (MIN_INCREMENT_TRY).",
+    "ref": "fees.ts"
+  },
+  {
+    "id": 24,
+    "sev": "B",
+    "title": "Anti-sniping süre uzatması",
+    "desc": "Kapanışa 120 saniye kala teklif gelirse süre 120 saniye uzar (ANTI_SNIPING_THRESHOLD_SECONDS, ANTI_SNIPING_EXTEND_SECONDS).",
+    "ref": "fees.ts"
+  },
+  {
+    "id": 25,
+    "sev": "B",
+    "title": "Ortak emlakçı kademeleri",
+    "desc": "Matrah üzerinden yönlendirme %0,5, portföy %1,5, tam işbirliği %2 (AGENT_SHARE_RATES; REALTOR_B2B_RATE varsayılan full).",
+    "ref": "fees.ts"
+  },
+  {
+    "id": 26,
+    "sev": "B",
+    "title": "KKA hizmet havuzu (MASTER_RULES taslak)",
+    "desc": "Kat karşılığı (land_share): rayıç üzerinden toplam %4 + KDV %20 hizmet bedeli matrahı; oranlar komisyon motoru ile senkron (LAND_SHARE_TOTAL_EX_VAT_RATE, COMMISSION_POOL_VAT_RATE).",
+    "ref": "masterFinancialEngine.ts"
+  },
+  {
+    "id": 27,
+    "sev": "B",
+    "title": "Havuz bölüşümü (commissionEngine)",
+    "desc": "Land_share ve diğer tiplerde platform/emlakçı payı senaryoya göre bölünür: örn. iki emlakçıda havuzun %25’i platform, kalan emlakçı havuzu; bireyselde havuz platforma (commission/engine.ts splitPool).",
+    "ref": "commission/engine.ts"
+  },
+  {
+    "id": 28,
+    "sev": "B",
+    "title": "Hizmet bedeli kalemleri",
+    "desc": "Örnek sabit ücretler: fotoğraf 2500, dron 1500, hukuk 1000, ekspertiz 3000, ihaleye giriş 250, sanal tur 1500, video 2000, tapu hazırlık 750 TL (SERVICE_FEES).",
+    "ref": "fees.ts"
+  },
+  {
+    "id": 29,
+    "sev": "B",
+    "title": "Ödeme ve iade pencereleri",
+    "desc": "FEYS: kaybeden teminat iadesi 48 saat, kazanan teminat mahsup 24 saat, cayma 14 gün, ödeme bekletme 7 gün; örnek teminat referansı 5000 TL deposit (FEES).",
+    "ref": "fees.ts"
+  },
+  {
+    "id": 30,
+    "sev": "U",
+    "title": "Tek kaynaklı gelir gösterimi",
+    "desc": "Ana sayfa ve hero şeridinde ihale komisyonu ile KKA havuzu aynı MASTER_RULES taslak oranlarıyla gösterilir; demo metinleri bağlayıcı teklif değildir.",
+    "ref": "masterFinancialEngine.ts / Hero"
+  },
+  {
+    "id": 31,
+    "sev": "U",
+    "title": "Demo ve mock veri",
+    "desc": "Katalog ilanları, şehir kartları, analiz skorları ve örnek teminat satırları demo amaçlıdır; kesin hukuki/ticari sonuç doğurmaz.",
+    "ref": "Hero.tsx / demo katalog"
+  },
+  {
+    "id": 32,
+    "sev": "U",
+    "title": "KVKK ve sözleşmeler",
+    "desc": "Kişisel veri işleme 6698 sayılı KVKK’ya uygun olmalıdır; platform şartları için /kullanim-kosullari sayfası esas alınır.",
+    "ref": "/kullanim-kosullari"
+  },
+  {
+    "id": 33,
+    "sev": "B",
+    "title": "Nihai anayasa tam metin",
+    "desc": "Altı ana bölüm (mülkiyet, miras, mali risk, sigorta, cezaî şartlar, operasyon) tam listesi /nihai-anayasa üzerindedir.",
+    "ref": "/nihai-anayasa"
+  },
+  {
+    "id": 34,
+    "sev": "B",
+    "title": "Güvenlik ve oturum",
+    "desc": "Üretim ortamında kimlik ve oturum güvenli kanallarla yönetilir; geliştirme ortamında kayıtlar sınırlı olabilir.",
+    "ref": "/guvenlik"
+  },
+  {
+    "id": 35,
+    "sev": "B",
+    "title": "Komisyon hesaplama sayfaları",
+    "desc": "Matrah, KDV ve mahsup senaryoları /komisyon-hesaplayici ve /komisyon-modeli üzerinden iş kurallarıyla uyumlu gösterilir.",
+    "ref": "/komisyon-*"
+  },
+  {
+    "id": 36,
+    "sev": "B",
+    "title": "KKA demosu ve stüdyo",
+    "desc": "Kat karşılığı rotası ve imar/kabataslak stüdyosu bilgilendirme ve projeksiyon içindir; bağlayıcı sözleşme için resmi akış ve hukuki inceleme gerekir.",
+    "ref": "kkaHub.ts"
+  }
+]

@@ -26,6 +26,8 @@ dist-ssr
 
 # Environment files (explicit)
 
+tmp/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
