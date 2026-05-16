@@ -13,9 +13,9 @@ const css = `/* ihaleal - Tasarim Sistemi v1 */
   --color-success: #2d6a4f;
   --color-success-light: #40916c;
   --color-bg: #b8e8ef;
-  --color-bg-card: #dcf5f9;
+  --color-bg-card: #e2e8f0;
   --color-bg-soft: #9dd4e3;
-  --color-bg-elevated: #dcf5f9;
+  --color-bg-elevated: #e2e8f0;
   --color-text: #1f2937;
   --color-text-muted: #64748b;
   --color-text-light: #94a3b8;

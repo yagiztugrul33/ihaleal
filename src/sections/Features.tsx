@@ -55,8 +55,8 @@ export function Features() {
           {items.map((key, idx) => (
             <div key={key} className={`card-warm group ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="mb-4 p-3 rounded-xl w-fit" style={{ background: "var(--color-bg-soft)" }}>{icons[key]}</div>
-              <h3 className="text-lg font-bold mb-2" style={{ color: "var(--color-text)" }}>{titles[key]}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{descs[key]}</p>
+              <h3 className="text-lg font-bold mb-2 text-slate-900">{titles[key]}</h3>
+              <p className="text-sm leading-relaxed text-slate-700">{descs[key]}</p>
               {links[key] ? (
                 <Link to={links[key]} className="mt-3 inline-flex text-sm font-medium" style={{ color: "var(--color-primary)" }}>
                   Araci ac

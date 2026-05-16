@@ -3,12 +3,18 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
   :root,
   [data-theme="light"] {
     /* ihaleal acik turkuaz kurumsal palet */
     --background: 192 48% 83%;
     --foreground: 200 35% 18%;
-    --card: 192 52% 91%;
+    --card: 214 20% 90%;
     --card-foreground: 200 35% 18%;
     --popover: 192 52% 91%;
     --popover-foreground: 200 35% 18%;
@@ -17,7 +23,7 @@
     --secondary: 192 45% 88%;
     --secondary-foreground: 200 35% 18%;
     --muted: 192 40% 76%;
-    --muted-foreground: 200 18% 40%;
+    --muted-foreground: 200 25% 28%;
     --accent: 28 54% 51%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
@@ -100,11 +106,11 @@
   }
 
   .section-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground;
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900;
   }
 
   .section-subtitle {
-    @apply text-muted-foreground max-w-2xl;
+    @apply text-slate-700 max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
   }
 }
 

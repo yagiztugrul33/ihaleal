@@ -18,17 +18,16 @@ export function Hero() {
         </div>
 
         <h1
-          className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
-          style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}
+          className="text-4xl font-bold leading-[1.08] tracking-tight text-black sm:text-5xl lg:text-6xl break-words"
+          style={{ fontFamily: "var(--font-display)" }}
         >
           Gayrimenkulde doğru fiyat,
           <br />
-          <span style={{ color: "var(--color-primary)" }}>açık süreç.</span>
+          açık süreç.
         </h1>
 
         <p
-          className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed sm:text-lg md:text-xl"
-          style={{ color: "var(--color-text-muted)" }}
+          className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-slate-800 sm:text-lg md:text-xl font-medium"
         >
           İhaleal; klasik ilan, kapalı teklif ve açık ihale modlarını tek çatı altında toplayan,
           AI destekli fiyatlama ve doğrulanmış satıcı altyapısıyla çalışan Türkiye&apos;nin yeni

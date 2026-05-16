@@ -53,7 +53,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <AntiCopyProtection />
         <Navbar />
         <DemoBanner />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
         <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />

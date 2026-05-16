@@ -96,7 +96,7 @@ export function Auctions({
   const isHome = layout === "home";
 
   return (
-    <section id="auctions" className={`${sectionPad} ${isHome ? "section-warm-alt" : ""}`} data-demo="true">
+    <section id="auctions" className={`${sectionPad} overflow-hidden ${isHome ? "section-warm-alt" : ""}`} data-demo="true">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -106,7 +106,7 @@ export function Auctions({
               : "linear-gradient(180deg, var(--color-bg-soft) 0%, var(--color-bg) 100%)",
         }}
       />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-amber-500/15 rounded-full blur-[150px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[min(100vw,800px)] h-[min(60vh,500px)] bg-amber-500/15 rounded-full blur-[150px]" />
 
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!hideIntro && (
@@ -206,7 +206,7 @@ export function Auctions({
                     <div className={`h-1.5 rounded-full overflow-hidden ${isHome ? "bg-[var(--color-border)]" : "bg-white/10"}`}><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                   </div>
                 </div>
-                <div className={`flex items-center justify-between pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
+                <div className={`flex flex-wrap items-end justify-between gap-3 pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
                   <div>
                     <div className="text-xs text-slate-500 mb-0.5">Güncel Teklif</div>
                     <div className="text-lg font-bold text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
