@@ -189,6 +189,22 @@ button.btn-primary,
   border-radius: 999px;
   border: 1px solid var(--color-border);
 }
+.hero-slogan {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3.5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f8fafc;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+#hero.hero-warm::before,
+#hero.hero-warm::after {
+  opacity: 0.2;
+}
+
 .badge-corp::before {
   content: "";
   width: 6px;

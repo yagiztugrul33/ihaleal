@@ -11,14 +11,19 @@ export function Hero() {
     <section
       id="hero"
       className="hero-warm relative flex min-h-[min(88vh,900px)] items-center justify-center overflow-hidden pt-20 pb-16 sm:pb-20"
+      style={{
+        background: "linear-gradient(180deg, #20374A 0%, #314A5A 45%, #495459 100%)",
+      }}
     >
       <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-        <div className="mb-6 flex justify-center">
-          <span className="badge-corp">Türkiye&apos;nin Şeffaf Gayrimenkul Pazaryeri</span>
+        <div className="mb-8 flex justify-center px-2">
+          <p className="hero-slogan max-w-3xl text-balance">
+            Türkiye&apos;nin Şeffaf Gayrimenkul Pazaryeri
+          </p>
         </div>
 
         <h1
-          className="text-4xl font-bold leading-[1.08] tracking-tight text-black sm:text-5xl lg:text-6xl break-words"
+          className="text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl break-words"
           style={{ fontFamily: "var(--font-display)" }}
         >
           Gayrimenkulde doğru fiyat,
@@ -27,7 +32,7 @@ export function Hero() {
         </h1>
 
         <p
-          className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-slate-800 sm:text-lg md:text-xl font-medium"
+          className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-slate-200 sm:text-lg md:text-xl font-medium"
         >
           İhaleal; klasik ilan, kapalı teklif ve açık ihale modlarını tek çatı altında toplayan,
           AI destekli fiyatlama ve doğrulanmış satıcı altyapısıyla çalışan Türkiye&apos;nin yeni
@@ -43,17 +48,13 @@ export function Hero() {
           </Link>
         </div>
 
-        <div
-          className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t pt-10"
-          style={{ borderColor: "var(--color-border)" }}
-        >
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-white/20 pt-10">
           {TRUST_BADGES.map((label) => (
             <span
               key={label}
-              className="inline-flex items-center gap-2 text-sm font-medium sm:text-base"
-              style={{ color: "var(--color-text)" }}
+              className="inline-flex items-center gap-2 text-sm font-medium text-slate-200 sm:text-base"
             >
-              <span style={{ color: "var(--color-success)" }} aria-hidden>
+              <span className="text-emerald-400" aria-hidden>
                 ✓
               </span>
               {label}
