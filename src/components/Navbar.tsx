@@ -139,7 +139,7 @@ export function Navbar() {
               <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">İletişim</button>
               {!currentUser ? (
                 <>
-                  <span className="text-white/20 px-0.5 select-none" aria-hidden>|</span>
+                  <span className="text-slate-400 px-0.5 select-none" aria-hidden>|</span>
                   <button
                     type="button"
                     onClick={() => navigate("/giris?profil=emlakci")}
@@ -167,25 +167,25 @@ export function Navbar() {
                 variant="outline"
                 size="sm"
                 onClick={() => navigate("/komisyon-modeli")}
-                className="h-9 shrink-0 rounded-xl border-violet-200/35 bg-gradient-to-br from-violet-400/25 via-fuchsia-400/15 to-violet-300/10 text-violet-50 shadow-md shadow-violet-500/15 hover:border-violet-100/45 hover:from-violet-300/35 hover:via-fuchsia-300/22 hover:to-violet-200/18 hover:text-white hover:shadow-violet-400/25 transition-all gap-1.5 px-2.5 font-semibold text-xs"
+                className="h-9 shrink-0 rounded-xl border-violet-700/40 bg-violet-100 text-violet-900 shadow-sm hover:bg-violet-200 transition-all gap-1.5 px-2.5 font-semibold text-xs"
                 aria-label="Gelir modeli ve komisyon özeti"
                 title="Komisyon oranları ve emlakçı payı — gelir modeli"
               >
                 <BadgePercent className="w-[18px] h-[18px] shrink-0" aria-hidden />
                 <span className="hidden min-[1100px]:inline max-w-[9rem] truncate">Komisyon & gelir</span>
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-slate-300 hover:text-violet-300 hover:bg-violet-500/10 gap-1.5 whitespace-nowrap"><LayoutDashboard className="w-4 h-4" /> Dashboard</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-slate-700 hover:text-violet-300 hover:bg-violet-500/10 gap-1.5 whitespace-nowrap"><LayoutDashboard className="w-4 h-4" /> Dashboard</Button>
               {showAdmin ? (
                 <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 gap-1.5"><Shield className="w-4 h-4" /> Admin</Button>
               ) : null}
-              <Button variant="ghost" size="sm" onClick={() => navigate("/harita")} className="text-slate-300 hover:text-emerald-300 hover:bg-emerald-500/10 gap-1.5 whitespace-nowrap"><Navigation className="w-4 h-4" /> Harita</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/karsilastir")} className="text-slate-300 hover:text-teal-300 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap"><GitCompare className="w-4 h-4" /> Karşılaştır</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/favoriler")} className="text-slate-300 hover:text-pink-300 hover:bg-pink-500/10 gap-1.5 relative whitespace-nowrap">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/harita")} className="text-slate-700 hover:text-emerald-300 hover:bg-emerald-500/10 gap-1.5 whitespace-nowrap"><Navigation className="w-4 h-4" /> Harita</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/karsilastir")} className="text-slate-700 hover:text-teal-300 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap"><GitCompare className="w-4 h-4" /> Karşılaştır</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/favoriler")} className="text-slate-700 hover:text-pink-300 hover:bg-pink-500/10 gap-1.5 relative whitespace-nowrap">
                 <Heart className="w-4 h-4" /> Favoriler
                 {count > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[10px] font-bold flex items-center justify-center">{count}</span>}
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/degerleme")} className="text-slate-300 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Degerleme</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-300 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/degerleme")} className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Degerleme</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-700 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
               {currentUser ? (
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-slate-400 max-w-[180px] truncate hidden xl:inline" title={supaUser?.email ?? currentUser.email}>
@@ -210,10 +210,10 @@ export function Navbar() {
                 </div>
               ) : (
                 <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-end">
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakci")} className="text-slate-300 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakci")} className="text-slate-700 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
                     <Building2 className="w-4 h-4" /> Emlakçı
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-300 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
                     <Factory className="w-4 h-4" /> Müteahhit
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-700 hover:text-[var(--color-primary)] gap-1.5 whitespace-nowrap"><LogIn className="w-4 h-4" /> Giriş</Button>
@@ -269,7 +269,7 @@ export function Navbar() {
                   `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
                     isActive
                       ? "text-white bg-emerald-500/25 border-emerald-400/50"
-                      : "text-emerald-200 border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20"
+                      : "text-emerald-900 border-emerald-700/40 bg-emerald-100 hover:bg-emerald-200"
                   }`
                 }
               >
@@ -284,7 +284,7 @@ export function Navbar() {
                   `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
                     isActive
                       ? "text-white bg-cyan-500/20 border-cyan-400/45"
-                      : "text-cyan-100 border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/18"
+                      : "text-cyan-900 border-cyan-700/40 bg-cyan-100 hover:bg-cyan-200"
                   }`
                 }
               >
@@ -303,7 +303,7 @@ export function Navbar() {
               </button>
               <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] text-left">İletişim</button>
               <div className="border-t border-white/5 my-2" />
-              <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>
+              <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>
               <button
                 type="button"
                 onClick={() => {
@@ -321,19 +321,19 @@ export function Navbar() {
                   navigate("/komisyon-hesaplayici");
                   setIsOpen(false);
                 }}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-200 hover:bg-amber-500/10 text-left flex items-center gap-2"
+                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 text-left flex items-center gap-2"
               >
                 <Calculator className="w-4 h-4 shrink-0" aria-hidden />
                 Komisyon hesaplayıcı
               </button>
-              <button onClick={() => { navigate("/dashboard"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-violet-400 hover:bg-violet-500/10 text-left flex items-center gap-2"><LayoutDashboard className="w-4 h-4" /> Dashboard</button>
+              <button onClick={() => { navigate("/dashboard"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-violet-400 hover:bg-violet-500/10 text-left flex items-center gap-2"><LayoutDashboard className="w-4 h-4" /> Dashboard</button>
               {showAdmin ? (
-                <button onClick={() => { navigate("/admin"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Shield className="w-4 h-4" /> Admin</button>
+                <button onClick={() => { navigate("/admin"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Shield className="w-4 h-4" /> Admin</button>
               ) : null}
-              <button onClick={() => { navigate("/harita"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 text-left flex items-center gap-2"><Navigation className="w-4 h-4" /> Harita</button>
-              <button type="button" onClick={() => { navigate("/karsilastir"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-teal-400 hover:bg-teal-500/10 text-left flex items-center gap-2"><GitCompare className="w-4 h-4" /> Karşılaştır</button>
-              <button type="button" onClick={() => { navigate("/mortgage"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Mortgage</button>
-              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Degerleme</button>
+              <button onClick={() => { navigate("/harita"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-emerald-400 hover:bg-emerald-500/10 text-left flex items-center gap-2"><Navigation className="w-4 h-4" /> Harita</button>
+              <button type="button" onClick={() => { navigate("/karsilastir"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-teal-400 hover:bg-teal-500/10 text-left flex items-center gap-2"><GitCompare className="w-4 h-4" /> Karşılaştır</button>
+              <button type="button" onClick={() => { navigate("/mortgage"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Mortgage</button>
+              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Degerleme</button>
               {currentUser ? (
                 <>
                   {userFlows.length === 0 ? (

@@ -43,7 +43,7 @@ function ListingDocumentFooterInner({
           ? "bg-emerald-500/15 text-emerald-200/95 border-emerald-500/25"
           : warn
             ? "bg-amber-500/10 text-amber-100/90 border-amber-500/20"
-            : "bg-white/[0.04] text-slate-500 border-slate-200/80"
+            : "bg-[var(--color-bg-soft)] text-[var(--color-text-muted)] border-[var(--color-border)]"
       }`}
     >
       <Icon className={icon} aria-hidden />
