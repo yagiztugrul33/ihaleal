@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Gavel, AlertTriangle, CheckCircle, Percent, Clock, ShieldCheck, FileText, UserCheck, Ban } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,9 +12,9 @@ export default function AuctionTerms() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-400 hover:text-white">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-500 hover:text-slate-900">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
@@ -66,7 +66,7 @@ export default function AuctionTerms() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
               <UserCheck className="w-5 h-5 text-blue-400" />
               Kimler İhaleye Katılabilir?
@@ -87,7 +87,7 @@ export default function AuctionTerms() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-emerald-400" />
               İhale Süreci
@@ -161,7 +161,7 @@ export default function AuctionTerms() {
             </ul>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-violet-400" />
               Güvenlik ve AML/KYC Politikası
@@ -178,7 +178,7 @@ export default function AuctionTerms() {
             </ul>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
               <Clock className="w-5 h-5 text-amber-400" />
               İptal ve İade Koşulları

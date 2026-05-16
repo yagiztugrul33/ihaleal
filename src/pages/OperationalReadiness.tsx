@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Server, Shield, Database, Clock, Smartphone, Radio, Link2,
@@ -26,7 +26,7 @@ export default function OperationalReadiness() {
   return (
     <div className="min-h-screen pt-20 pb-16">
       <div className="max-w-4xl mx-auto px-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Ana sayfa
         </Button>
 
@@ -38,7 +38,7 @@ export default function OperationalReadiness() {
 
         <div className="space-y-3 mb-10">
           {CHECKS.map((c) => (
-            <Card key={c.title} className="bg-slate-900/50 border-white/5">
+            <Card key={c.title} className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-4 flex gap-4">
                 <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">{c.icon}</div>
                 <div>

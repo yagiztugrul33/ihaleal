@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IHALEAL_PLATFORM_RULES } from "@/data/anayasa400IhalealRules";
 import { motion } from "framer-motion";
@@ -270,7 +270,7 @@ export function Anayasa400() {
     <div className="min-h-screen pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+          <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
             <ArrowLeft className="w-4 h-4" /> Ana Sayfa
           </Button>
           <div className="text-center mb-10">
@@ -323,7 +323,7 @@ export function Anayasa400() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Madde ara (başlık, açıklama, referans)..."
-            className="bg-slate-900/50 border-white/10 text-white pl-10"
+            className="bg-slate-900/50 border-slate-200 text-white pl-10"
           />
         </div>
 
@@ -339,7 +339,7 @@ export function Anayasa400() {
                   className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
                     activeCat === cat.id
                       ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                      : "text-slate-400 hover:text-white hover:bg-white/5 border border-transparent"
+                      : "text-slate-500 hover:text-slate-900 hover:bg-white/5 border border-transparent"
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -408,11 +408,11 @@ export function Anayasa400() {
           </div>
         )}
 
-        <div className="mt-10 rounded-xl border border-white/10 bg-white/[0.02] p-6 text-center">
+        <div className="mt-10 rounded-xl border border-slate-200 bg-white/[0.02] p-6 text-center">
           <p className="text-sm text-slate-400 mb-4">
             Üst kısım İhaleAL platform kurallarının özeti; madde numaraları 201–400 olan blok 4734 sayılı Kanun hatırlatıcılarıdır. Bağlayıcı metinler için kullanım koşulları ve güncel mevzuat esas alınmalıdır.
           </p>
-          <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-white/10 text-slate-300 hover:text-white">
+          <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-slate-200 text-slate-300 hover:text-white">
             <ArrowLeft className="w-4 h-4 mr-2" /> Ana Sayfaya Dön
           </Button>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Mail, Send, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,9 +34,9 @@ export function Newsletter() {
   return (
     <section ref={ref} className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600/20 via-violet-600/20 to-teal-600/20 border border-white/10 p-8 md:p-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600/20 via-violet-600/20 to-teal-600/20 border border-slate-200 p-8 md:p-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&fit=crop')] bg-cover bg-center opacity-10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1e]/90 to-[#0a0f1e]/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/90 to-white/70" />
           
           <div className="relative z-10 max-w-2xl mx-auto text-center">
             <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center mx-auto mb-5">
@@ -65,7 +65,7 @@ export function Newsletter() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="E-posta adresiniz"
                     required
-                    className="flex-1 bg-slate-950/50 border-white/10 text-white placeholder:text-slate-500 h-12"
+                    className="flex-1 bg-slate-950/50 border-slate-200 text-white placeholder:text-slate-500 h-12"
                   />
                   <Button type="submit" disabled={!consent} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold h-12 px-6 disabled:opacity-40">
                     <Send className="w-4 h-4 mr-2" /> Abone Ol

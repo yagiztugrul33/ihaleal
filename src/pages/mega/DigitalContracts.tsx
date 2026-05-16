@@ -1,4 +1,4 @@
-import { FileSignature } from "lucide-react";
+﻿import { FileSignature } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const CONTRACTS = [
@@ -42,7 +42,7 @@ export default function DigitalContractsPage() {
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           {CONTRACTS.map((c) => (
-            <Card key={c.title} className="border-white/10 bg-slate-900/40">
+            <Card key={c.title} className="border-slate-200 bg-slate-900/40">
               <CardContent className="space-y-2 p-6">
                 <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">{c.status}</span>
                 <h2 className="text-lg font-semibold text-white">{c.title}</h2>

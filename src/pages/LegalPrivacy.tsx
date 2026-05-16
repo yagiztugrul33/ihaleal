@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ShieldCheck, Lock, Eye, Database, Trash2, Cookie, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,9 +7,9 @@ export default function PrivacyPolicy() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-400 hover:text-white">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-500 hover:text-slate-900">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
@@ -23,14 +23,14 @@ export default function PrivacyPolicy() {
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">1. Taahhüdümüz</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               ihaleal.com olarak, kullanıcılarımızın gizliliğini en üst düzeyde korumayı taahhüt ediyoruz. Platformumuz üzerindeki tüm kişisel ve finansal veriler banka seviyesinde şifreleme (AES-256, SSL/TLS) ile korunmaktadır. Verileriniz asla izniniz olmadan üçüncü taraflarla pazarlama amacıyla paylaşılmayacaktır.
             </p>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">2. Topladığımız Veriler</h3>
             <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-400">
               <div>
@@ -68,7 +68,7 @@ export default function PrivacyPolicy() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">3. Veri Güvenliği</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Verilerinizin güvenliği için aşağıdaki önlemleri uygulamaktayız:
@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
             </ul>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">4. Çerez Kullanımı</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Platformumuz, kullanıcı deneyimini iyileştirmek ve güvenliği artırmak amacıyla çerezler kullanmaktadır. Kullandığımız çerez türleri:
@@ -98,7 +98,7 @@ export default function PrivacyPolicy() {
             </p>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">5. Veri Silme</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Hesabınızı silmek istediğinizde, tüm kişisel verileriniz 30 gün içinde sistemden kalıcı olarak silinir. Ancak yasal yükümlülüklerimiz nedeniyle bazı kayıtlar (ihale geçmişi, ödeme kayıtları) yasal süreler boyunca saklanabilir. Detaylı bilgi için <a href="mailto:kvkk@ihaleal.com" className="text-blue-400">kvkk@ihaleal.com</a> adresine başvurabilirsiniz.

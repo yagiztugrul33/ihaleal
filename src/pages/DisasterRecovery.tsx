@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Database, Cloud, Server, Shield, Clock,
   Globe, AlertTriangle, FileText, HardDrive,
@@ -92,9 +92,9 @@ export default function DisasterRecovery() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-emerald-500/5 to-transparent border-b border-white/5">
+      <div className="bg-gradient-to-b from-emerald-500/5 to-transparent border-b border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 py-12">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
             <div>
@@ -121,12 +121,12 @@ export default function DisasterRecovery() {
         </div>
 
         {/* Yedekleme Stratejisi */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Database className="w-5 h-5 text-blue-400" /> Yedekleme Stratejisi</h3>
             <div className="space-y-3">
               {backupStrategy.map((b) => (
-                <div key={b.rule} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={b.rule} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">{b.icon}</div>
                   <div>
                     <div className="text-sm font-semibold text-white mb-0.5">{b.rule}</div>
@@ -139,12 +139,12 @@ export default function DisasterRecovery() {
         </Card>
 
         {/* Senaryo Analizi */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><AlertTriangle className="w-5 h-5 text-amber-400" /> Olası Senaryolar ve Kurtarma Planları</h3>
             <div className="space-y-3">
               {disasterScenarios.map((s) => (
-                <div key={s.scenario} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={s.scenario} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-white">{s.scenario}</span>
                     <Badge className="bg-emerald-500/10 text-emerald-400 text-[10px] border-0">{s.status === "hazır" ? "Kurtarma Hazır" : s.status}</Badge>
@@ -161,7 +161,7 @@ export default function DisasterRecovery() {
         </Card>
 
         {/* Yedekleme Lokasyonları */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Globe className="w-5 h-5 text-sky-400" /> Coğrafi Yedekleme Lokasyonları</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -171,7 +171,7 @@ export default function DisasterRecovery() {
                 { city: "Frankfurt (DE-FRA)", role: "EU Yedek", status: "Standby" },
                 { city: "Amsterdam (NL-AMS)", role: "EU Yedek", status: "Standby" },
               ].map((loc) => (
-                <div key={loc.city} className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                <div key={loc.city} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
                   <Server className="w-5 h-5 text-slate-400 mx-auto mb-1.5" />
                   <div className="text-xs font-medium text-white">{loc.city}</div>
                   <div className="text-[10px] text-slate-500">{loc.role}</div>
@@ -183,7 +183,7 @@ export default function DisasterRecovery() {
         </Card>
 
         {/* Kopya / bot — K7 minimal */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Lock className="w-5 h-5 text-violet-400" /> Koruma (K7 — minimal + yol haritası)</h3>
             <div className="grid sm:grid-cols-2 gap-3">
@@ -195,7 +195,7 @@ export default function DisasterRecovery() {
                 { title: "WAF / DDoS (plan)", desc: "Kenar ağda Cloudflare veya eşdeğeri; trafik temizleme ve bot skorları." },
                 { title: "2FA (plan)", desc: "Kritik hesap işlemlerinde TOTP veya WebAuthn (K10 SMS ile birlikte değerlendirilecek)." },
               ].map((item) => (
-                <div key={item.title} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={item.title} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="text-sm font-medium text-white mb-1">{item.title}</div>
                   <p className="text-xs text-slate-400">{item.desc}</p>
                 </div>
@@ -206,7 +206,7 @@ export default function DisasterRecovery() {
 
         <div className="flex gap-3 justify-center pt-4">
           <Button onClick={() => navigate("/guvenlik")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2"><Shield className="w-4 h-4" /> Güvenlik Merkezi</Button>
-          <Button onClick={() => navigate("/evraklar")} variant="outline" className="border-white/10 text-slate-300 hover:text-white gap-2"><FileText className="w-4 h-4" /> Evraklar</Button>
+          <Button onClick={() => navigate("/evraklar")} variant="outline" className="border-slate-200 text-slate-300 hover:text-white gap-2"><FileText className="w-4 h-4" /> Evraklar</Button>
         </div>
       </div>
     </div>

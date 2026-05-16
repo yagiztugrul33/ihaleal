@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, GitCompare, Star, CheckCircle2, XCircle, ArrowRight, TrendingUp, TrendingDown, Minus, Home, BarChart3, BadgePercent, Banknote, Clock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -85,16 +85,16 @@ export default function Compare() {
   const colors = ["#3b82f6", "#14b8a6", "#8b5cf6", "#ec4899"];
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#061428] via-[#0a0f1e] to-[#071018]">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3"><GitCompare className="w-8 h-8 text-cyan-400" /> Gayrimenkul Karşılaştırma</h1>
           <p className="text-slate-400 mt-2">İlanları yan yana karşılaştırın; AI skorları ve belge özeti ile seçim yapın.</p>
         </div>
 
         {showSelector && (
-          <Card className="bg-slate-900/50 border-white/5 mb-8 animate-scale-in">
+          <Card className="bg-slate-900/50 border-slate-200/80 mb-8 animate-scale-in">
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/4)</h3>
@@ -102,7 +102,7 @@ export default function Compare() {
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pr-1">
                 {catalogNorm.map((a) => (
-                  <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-white/5 bg-white/[0.02] hover:border-white/10"}`}>
+                  <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-slate-200/80 bg-white/[0.02] hover:border-slate-200"}`}>
                     <Checkbox checked={selectedIds.includes(a.id)} onCheckedChange={() => toggleSelection(a.id)} />
                     <img loading="lazy" src={a.images[0]} alt="" className="w-14 h-10 object-cover rounded-lg shrink-0" />
                     <div className="min-w-0">
@@ -154,7 +154,7 @@ export default function Compare() {
 
             {/* Deger Analizi Kartlari */}
             <div className="grid md:grid-cols-3 gap-4 mb-8">
-              <Card className="bg-slate-900/50 border-white/5 p-4">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-3"><BadgePercent className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-400">Fiyat analizi</span></div>
                 <div className="space-y-2">
                   {priceAnalysis.map((item) => (
@@ -167,7 +167,7 @@ export default function Compare() {
                   ))}
                 </div>
               </Card>
-              <Card className="bg-slate-900/50 border-white/5 p-4">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-3"><TrendingUp className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-400">Değer artışı potansiyeli</span></div>
                 <div className="space-y-2">
                   {valueAnalysis.map((item) => (
@@ -180,7 +180,7 @@ export default function Compare() {
                   ))}
                 </div>
               </Card>
-              <Card className="bg-slate-900/50 border-white/5 p-4">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-3"><Banknote className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-400">Kira getirisi</span></div>
                 <div className="space-y-2">
                   {scores.map((s) => (
@@ -195,7 +195,7 @@ export default function Compare() {
 
             {/* Radar + Bar Chart */}
             <div className="grid lg:grid-cols-2 gap-6 mb-8">
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4">Çok boyutlu karşılaştırma</h3>
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
@@ -210,7 +210,7 @@ export default function Compare() {
                   </ResponsiveContainer>
                 </div>
               </Card>
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4">Fiyat karşılaştırması (milyon ₺)</h3>
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
@@ -230,11 +230,11 @@ export default function Compare() {
             </div>
 
             {/* Detayli Karsilastirma Tablosu */}
-            <Card className="bg-slate-900/50 border-white/5 overflow-hidden mb-8">
+            <Card className="bg-slate-900/50 border-slate-200/80 overflow-hidden mb-8">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-white/10">
+                    <tr className="border-b border-slate-200">
                       <th className="text-left p-4 text-sm font-medium text-slate-500">Özellik</th>
                       {scores.map((s) => <th key={s.auction.id} className="text-center p-4 min-w-[200px]">
                         <div className="flex flex-col items-center gap-2">
@@ -247,7 +247,7 @@ export default function Compare() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b border-white/5 align-top">
+                    <tr className="border-b border-slate-200/80 align-top">
                       <td className="p-4 text-sm text-slate-400">Rapor / belge</td>
                       {scores.map((s) => (
                         <td key={`doc-${s.auction.id}`} className="p-2 text-center align-top">
@@ -259,7 +259,7 @@ export default function Compare() {
                     {["overall", "price", "location", "features", "investment"].map((field) => {
                       const maxVal = Math.max(...scores.map((s) => s.score[field as keyof typeof s.score] as number));
                       return (
-                        <tr key={field} className="border-b border-white/5">
+                        <tr key={field} className="border-b border-slate-200/80">
                           <td className="p-4 text-sm text-slate-400">{field === "overall" ? "Genel skor" : field === "price" ? "Fiyat avantajı" : field === "location" ? "Konum avantajı" : field === "features" ? "Özellik avantajı" : "Yatırım avantajı"}</td>
                           {scores.map((s) => {
                             const val = s.score[field as keyof typeof s.score] as number;
@@ -277,24 +277,24 @@ export default function Compare() {
                       );
                     })}
                     {/* Fiyat Bilgileri */}
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Güncel teklif</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm font-bold text-blue-400">₺{s.auction.currentBid.toLocaleString("tr-TR")}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">AI tahmini</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-sky-400">₺{s.auction.aiPredictedPrice.toLocaleString("tr-TR")}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Piyasa değeri</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-violet-400">₺{s.auction.estimatedValue.toLocaleString("tr-TR")}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">m² fiyatı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">₺{s.auction.pricePerSqm.toLocaleString("tr-TR")}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Net m²</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.netSqm} m²</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Kira getirisi</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-emerald-400">%{s.auction.areaStats.rentalYield}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Yıllık artış</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-blue-400">%{s.auction.areaStats.priceChangeYearly}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Oda sayısı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.roomCount}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Kat</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.floor}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Bina yaşı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.buildingAge}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Isıtma</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.heating}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Cephe</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.facade}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Asansör</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.elevator ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Otopark</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.parking ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Balkon</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.balcony ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Krediye uygun</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.eligibility ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Eşya durumu</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.furnished ? "Eşyalı" : "Boş"}</td>)}</tr>
-                    <tr className="border-b border-white/5"><td className="p-4 text-sm text-slate-400">Teklif sayısı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.bidderCount}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Güncel teklif</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm font-bold text-blue-400">₺{s.auction.currentBid.toLocaleString("tr-TR")}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">AI tahmini</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-sky-400">₺{s.auction.aiPredictedPrice.toLocaleString("tr-TR")}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Piyasa değeri</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-violet-400">₺{s.auction.estimatedValue.toLocaleString("tr-TR")}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">m² fiyatı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">₺{s.auction.pricePerSqm.toLocaleString("tr-TR")}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Net m²</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.netSqm} m²</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Kira getirisi</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-emerald-400">%{s.auction.areaStats.rentalYield}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Yıllık artış</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-blue-400">%{s.auction.areaStats.priceChangeYearly}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Oda sayısı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.roomCount}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Kat</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.floor}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Bina yaşı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.buildingAge}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Isıtma</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.heating}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Cephe</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.facade}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Asansör</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.elevator ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Otopark</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.parking ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Balkon</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.balcony ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Krediye uygun</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center">{s.auction.propertyDetails.eligibility ? <CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /> : <XCircle className="w-5 h-5 text-red-400 mx-auto" />}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Eşya durumu</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.propertyDetails.furnished ? "Eşyalı" : "Boş"}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Teklif sayısı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.bidderCount}</td>)}</tr>
                     <tr>
                       <td className="p-4" />
                       {scores.map((s) => <td key={s.auction.id} className="p-4 text-center"><Button size="sm" onClick={() => navigate(`/ilan/${s.auction.id}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white text-xs">Detaylar</Button></td>)}
@@ -305,7 +305,7 @@ export default function Compare() {
             </Card>
 
             <div className="mt-6 flex justify-center">
-              <Button variant="outline" onClick={() => setShowSelector(true)} className="border-white/10 text-slate-400 hover:text-white"><GitCompare className="w-4 h-4 mr-2" />Farklı ilanlar karşılaştır</Button>
+              <Button variant="outline" onClick={() => setShowSelector(true)} className="border-slate-200 text-slate-500 hover:text-slate-900"><GitCompare className="w-4 h-4 mr-2" />Farklı ilanlar karşılaştır</Button>
             </div>
           </>
         )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -92,7 +92,7 @@ export default function YillikUyelik() {
           {packs.map((p) => (
             <Card
               key={p.id}
-              className={`border-white/10 bg-slate-900/50 ${p.highlight ? "ring-2 ring-amber-500/40" : ""}`}
+              className={`border-slate-200 bg-slate-900/50 ${p.highlight ? "ring-2 ring-amber-500/40" : ""}`}
             >
               <CardContent className="p-6 flex flex-col gap-4 h-full">
                 <div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Share2, X, Copy, Check, Facebook, Twitter, Linkedin, Mail } from "lucide-react";
 
 interface ShareButtonProps {
@@ -46,7 +46,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all"
+        className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-500 hover:text-slate-900 transition-all"
       >
         <Share2 className="w-4 h-4" />
       </button>
@@ -54,7 +54,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-full mt-2 w-72 p-4 rounded-2xl bg-[#0f1629] border border-white/10 shadow-2xl z-50 animate-scale-in">
+          <div className="absolute right-0 top-full mt-2 w-72 p-4 rounded-2xl bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-semibold text-white">Paylaş</h4>
               <button onClick={() => setOpen(false)} className="text-slate-500 hover:text-white">
@@ -83,7 +83,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
                 type="text"
                 value={fullUrl}
                 readOnly
-                className="flex-1 px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-400 truncate"
+                className="flex-1 px-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-xs text-slate-400 truncate"
               />
               <button
                 onClick={handleCopy}

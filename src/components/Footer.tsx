@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen } from "lucide-react";
@@ -10,7 +10,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/5 bg-[#070c18] relative overflow-hidden">
+    <footer className="border-t border-slate-200 bg-slate-50/90 relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-blue-500/5 rounded-full blur-[120px]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
@@ -21,9 +21,9 @@ export function Footer() {
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center shadow-lg shadow-blue-500/20">
                 <Gavel className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-white">ihaleal.com</span>
+              <span className="text-xl font-bold text-slate-900">ihaleal.com</span>
             </div>
-            <p className="text-sm text-slate-400 leading-relaxed mb-5">
+            <p className="text-sm text-slate-600 leading-relaxed mb-5">
               Turkiye'nin en guvenli gayrimenkul ihale platformu. AI destekli degerleme, seffaf surec, hizli satis.
             </p>
             <div className="space-y-2.5">

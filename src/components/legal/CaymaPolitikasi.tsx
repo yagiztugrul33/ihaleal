@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Taslak metin — hukuki danışmanlık yerine geçmez.
  * Cayma ve kesinti politikası ürün koşullarında netleştirilmelidir.
  */
@@ -10,7 +10,7 @@ export function CaymaPolitikasi({
   onAcceptedChange: (v: boolean) => void;
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 space-y-3 text-xs text-slate-400 leading-relaxed">
+    <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-4 space-y-3 text-xs text-slate-400 leading-relaxed">
       <p className="text-sm font-semibold text-white">Cayma ve kesinti politikası (taslak)</p>
       <p>
         Ön yetkilendirme (blokaj) sonrası işlemden cayma halinde, platform ve ödeme kuruluşu masraflarını karşılamak üzere{" "}

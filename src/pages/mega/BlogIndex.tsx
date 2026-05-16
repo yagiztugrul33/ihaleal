@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, Clock, Search, Tag } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -39,7 +39,7 @@ export default function BlogIndex() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Başlık, özet veya etiket ara..."
-              className="border-white/10 bg-slate-900/60 pl-10 text-white placeholder:text-slate-600"
+              className="border-slate-200 bg-slate-900/60 pl-10 text-white placeholder:text-slate-600"
             />
           </div>
           <div className="flex flex-wrap gap-2">
@@ -58,7 +58,7 @@ export default function BlogIndex() {
           {rows.map((p) => {
             const mins = estimateReadingMinutes(p);
             return (
-              <Card key={p.slug} className="border-white/10 bg-slate-900/40 transition-colors hover:border-teal-500/30">
+              <Card key={p.slug} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-teal-500/30">
                 <CardContent className="p-6">
                   <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-slate-500">
                     <Calendar className="h-3.5 w-3.5" />

@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+﻿import { Link, useParams } from "react-router-dom";
 import {
   ResponsiveContainer,
   BarChart,
@@ -76,7 +76,7 @@ export default function RealtorProfilePage() {
               </div>
             </div>
           </div>
-          <div className="rounded-xl border border-white/10 bg-slate-900/50 px-4 py-3 text-center">
+          <div className="rounded-xl border border-slate-200 bg-slate-900/50 px-4 py-3 text-center">
             <div className="flex items-center justify-center gap-1 text-amber-400">
               <Star className="h-5 w-5 fill-current" />
               <span className="text-2xl font-bold text-white">{r.rating.toFixed(1)}</span>
@@ -93,19 +93,19 @@ export default function RealtorProfilePage() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          <Card className="border-white/10 bg-slate-900/40">
+          <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wide text-slate-500">Kapanan işlem</p>
               <p className="mt-1 text-2xl font-bold text-white">{r.closedDeals}</p>
             </CardContent>
           </Card>
-          <Card className="border-white/10 bg-slate-900/40">
+          <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wide text-slate-500">12 ay hacim (demo)</p>
               <p className="mt-1 text-2xl font-bold text-teal-300">₺{(r.volumeTry / 1e9).toFixed(2)}B</p>
             </CardContent>
           </Card>
-          <Card className="border-white/10 bg-slate-900/40">
+          <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wide text-slate-500">Ortaklık modeli</p>
               <p className="mt-1 text-sm text-slate-300">B2B payı iş modeli ile uyumlu (bilgilendirme).</p>
@@ -113,7 +113,7 @@ export default function RealtorProfilePage() {
           </Card>
         </div>
 
-        <Card className="border-white/10 bg-slate-900/40">
+        <Card className="border-slate-200 bg-slate-900/40">
           <CardContent className="p-6">
             <h2 className="mb-4 text-lg font-semibold text-white">Satış geçmişi (demo)</h2>
             <div className="h-64 w-full">
@@ -135,7 +135,7 @@ export default function RealtorProfilePage() {
           <h2 className="mb-4 text-lg font-semibold text-white">Yorumlar (demo)</h2>
           <div className="space-y-3">
             {r.reviews.map((rv, i) => (
-              <Card key={i} className="border-white/10 bg-slate-900/30">
+              <Card key={i} className="border-slate-200 bg-slate-900/30">
                 <CardContent className="p-5">
                   <div className="flex justify-between text-sm">
                     <span className="font-medium text-white">{rv.author}</span>
@@ -152,7 +152,7 @@ export default function RealtorProfilePage() {
         <p className="text-xs leading-relaxed text-slate-600">{r.bio}</p>
 
         <Dialog open={msgOpen} onOpenChange={setMsgOpen}>
-          <DialogContent className="border-white/10 bg-slate-900 text-white sm:max-w-md">
+          <DialogContent className="border-slate-200 bg-slate-900 text-white sm:max-w-md">
             <DialogHeader>
               <DialogTitle>Mesaj gönder — {r.companyName}</DialogTitle>
             </DialogHeader>
@@ -166,7 +166,7 @@ export default function RealtorProfilePage() {
                   value={msgSubject}
                   onChange={(e) => setMsgSubject(e.target.value)}
                   placeholder="örn. Kadıköy ilanı hakkında"
-                  className="bg-slate-950 border-white/10"
+                  className="bg-slate-950 border-slate-200"
                 />
               </div>
               <div>
@@ -176,7 +176,7 @@ export default function RealtorProfilePage() {
                   onChange={(e) => setMsgBody(e.target.value)}
                   placeholder="Merhaba, ..."
                   rows={4}
-                  className="bg-slate-950 border-white/10 resize-none"
+                  className="bg-slate-950 border-slate-200 resize-none"
                 />
               </div>
             </div>

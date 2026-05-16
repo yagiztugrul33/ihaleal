@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from "react";
+﻿import { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, PlusCircle, Upload, MapPin, X, FileText, Scale, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -375,7 +375,7 @@ export default function CreateAuction() {
   return (
     <div className="min-h-screen pt-24 pb-16" data-demo="true">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
         <h1 className="text-3xl font-bold text-white mb-2">Gayrimenkul ilanı oluştur</h1>
@@ -411,7 +411,7 @@ export default function CreateAuction() {
         ) : null}
         {error && <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 mb-6">{error}</div>}
         <form onSubmit={handleCreate} className="space-y-6">
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Görseller</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -430,7 +430,7 @@ export default function CreateAuction() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="aspect-square rounded-xl border-2 border-dashed border-white/10 flex flex-col items-center justify-center gap-2 hover:border-blue-500/30 hover:bg-blue-500/5 transition-colors"
+                  className="aspect-square rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 hover:border-blue-500/30 hover:bg-blue-500/5 transition-colors"
                 >
                   <Upload className="w-6 h-6 text-slate-500" />
                   <span className="text-xs text-slate-500">Görsel Ekle</span>
@@ -440,17 +440,17 @@ export default function CreateAuction() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Temel Bilgiler</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="sm:col-span-2 lg:col-span-1">
                   <label className="text-sm text-slate-400 mb-1.5 block">İlan Başlığı *</label>
-                  <Input value={title} onChange={(e) => setTitle(e.target.value)} className="bg-slate-950 border-white/10 text-white" placeholder="örn: Levent'te Prestijli Plaza Katı" />
+                  <Input value={title} onChange={(e) => setTitle(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="örn: Levent'te Prestijli Plaza Katı" />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Kategori (gayrimenkul türü)</label>
-                  <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm">
+                  <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
                     <option>Konut</option>
                     <option>Ticari</option>
                     <option>Arsa</option>
@@ -459,7 +459,7 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">İşlem türü</label>
-                  <select value={dealType} onChange={(e) => setDealType(e.target.value as "sale" | "rent")} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm">
+                  <select value={dealType} onChange={(e) => setDealType(e.target.value as "sale" | "rent")} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
                     <option value="sale">Satılık</option>
                     <option value="rent">Kiralık</option>
                   </select>
@@ -472,7 +472,7 @@ export default function CreateAuction() {
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
                   maxLength={2000}
-                  className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="Gayrimenkulünüzün detaylı açıklaması..."
                 />
                 <p className="text-[11px] text-slate-600 mt-1">{description.length}/2000</p>
@@ -482,7 +482,7 @@ export default function CreateAuction() {
                 <Input
                   value={titleDeed}
                   onChange={(e) => setTitleDeed(e.target.value)}
-                  className="bg-slate-950 border-white/10 text-white"
+                  className="bg-slate-950 border-slate-200 text-white"
                   placeholder="Yetki kaydı ve doğrulama için"
                   required
                 />
@@ -501,7 +501,7 @@ export default function CreateAuction() {
                   <label
                     key={mode}
                     className={`flex flex-col gap-2 p-4 rounded-xl border cursor-pointer transition-colors ${
-                      marketingMode === mode ? "border-violet-500/50 bg-violet-500/10" : "border-white/10 bg-white/[0.02]"
+                      marketingMode === mode ? "border-violet-500/50 bg-violet-500/10" : "border-slate-200 bg-white/[0.02]"
                     }`}
                   >
                     <input type="radio" name="marketingMode" className="sr-only" checked={marketingMode === mode} onChange={() => setMarketingMode(mode)} />
@@ -513,7 +513,7 @@ export default function CreateAuction() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-blue-400" /> Konum
@@ -527,7 +527,7 @@ export default function CreateAuction() {
                       setCity(e.target.value);
                       setDistrict("");
                     }}
-                    className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm"
+                    className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm"
                   >
                     {CITIES.map((c) => (
                       <option key={c} value={c}>
@@ -538,7 +538,7 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">İlçe *</label>
-                  <select value={district} onChange={(e) => setDistrict(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm">
+                  <select value={district} onChange={(e) => setDistrict(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
                     <option value="">Seçin</option>
                     {(DISTRICTS[city] || []).map((d) => (
                       <option key={d} value={d}>
@@ -549,10 +549,10 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Mahalle</label>
-                  <Input value={neighborhood} onChange={(e) => setNeighborhood(e.target.value)} className="bg-slate-950 border-white/10 text-white" placeholder="Mahalle adı" />
+                  <Input value={neighborhood} onChange={(e) => setNeighborhood(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="Mahalle adı" />
                 </div>
               </div>
-              <div className="rounded-xl overflow-hidden border border-white/5 h-48 bg-slate-900 flex items-center justify-center">
+              <div className="rounded-xl overflow-hidden border border-slate-200/80 h-48 bg-slate-900 flex items-center justify-center">
                 <div className="text-center">
                   <MapPin className="w-8 h-8 text-blue-500 mx-auto mb-2" />
                   <p className="text-sm text-slate-400">Harita entegrasyonu yakında</p>
@@ -561,33 +561,33 @@ export default function CreateAuction() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Teknik detaylar</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">m² (brüt)</label>
-                  <Input value={sizeM2} onChange={(e) => setSizeM2(e.target.value)} className="bg-slate-950 border-white/10 text-white" />
+                  <Input value={sizeM2} onChange={(e) => setSizeM2(e.target.value)} className="bg-slate-950 border-slate-200 text-white" />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Oda</label>
-                  <Input value={rooms} onChange={(e) => setRooms(e.target.value)} className="bg-slate-950 border-white/10 text-white" placeholder="örn: 3+1" />
+                  <Input value={rooms} onChange={(e) => setRooms(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="örn: 3+1" />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Banyo</label>
-                  <Input type="number" min={0} value={bathCount} onChange={(e) => setBathCount(e.target.value)} className="bg-slate-950 border-white/10 text-white" />
+                  <Input type="number" min={0} value={bathCount} onChange={(e) => setBathCount(e.target.value)} className="bg-slate-950 border-slate-200 text-white" />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Yapım yılı</label>
-                  <Input type="number" value={yearBuilt} onChange={(e) => setYearBuilt(e.target.value)} className="bg-slate-950 border-white/10 text-white" />
+                  <Input type="number" value={yearBuilt} onChange={(e) => setYearBuilt(e.target.value)} className="bg-slate-950 border-slate-200 text-white" />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Bulunduğu kat</label>
-                  <Input type="number" value={floor} onChange={(e) => setFloor(e.target.value)} className="bg-slate-950 border-white/10 text-white" />
+                  <Input type="number" value={floor} onChange={(e) => setFloor(e.target.value)} className="bg-slate-950 border-slate-200 text-white" />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Toplam kat</label>
-                  <Input type="number" value={totalFloors} onChange={(e) => setTotalFloors(e.target.value)} className="bg-slate-950 border-white/10 text-white" />
+                  <Input type="number" value={totalFloors} onChange={(e) => setTotalFloors(e.target.value)} className="bg-slate-950 border-slate-200 text-white" />
                 </div>
               </div>
               <div>
@@ -599,7 +599,7 @@ export default function CreateAuction() {
                       type="button"
                       onClick={() => toggleFeature(f)}
                       className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
-                        featuresSelected.includes(f) ? "border-teal-500/50 bg-teal-500/15 text-teal-100" : "border-white/10 text-slate-400 hover:border-white/20"
+                        featuresSelected.includes(f) ? "border-teal-500/50 bg-teal-500/15 text-teal-100" : "border-slate-200 text-slate-400 hover:border-white/20"
                       }`}
                     >
                       {f}
@@ -610,7 +610,7 @@ export default function CreateAuction() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Fiyat ve süre</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
@@ -625,7 +625,7 @@ export default function CreateAuction() {
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Başlangıç Fiyatı (₺) *</label>
-                  <Input type="number" value={startingBid} onChange={(e) => setStartingBid(e.target.value)} className="bg-slate-950 border-white/10 text-white" placeholder="örn: 2500000" />
+                  <Input type="number" value={startingBid} onChange={(e) => setStartingBid(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="örn: 2500000" />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Referans / rezerv (₺)</label>
@@ -633,14 +633,14 @@ export default function CreateAuction() {
                     type="number"
                     value={referenceValueTRY}
                     onChange={(e) => setReferenceValueTRY(e.target.value)}
-                    className="bg-slate-950 border-white/10 text-white"
+                    className="bg-slate-950 border-slate-200 text-white"
                     placeholder="İsteğe bağlı — uyarı için"
                   />
                   <p className="text-[11px] text-slate-600 mt-1">Doldurursanız uyarı denetimi ve rezerv fiyatı olarak kaydedilir.</p>
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">İhale Süresi</label>
-                  <select value={duration} onChange={(e) => setDuration(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm">
+                  <select value={duration} onChange={(e) => setDuration(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
                     <option value="3">3 Gün</option>
                     <option value="7">7 Gün</option>
                     <option value="14">14 Gün</option>
@@ -653,14 +653,14 @@ export default function CreateAuction() {
                     type="number"
                     value={buyNowPriceTry}
                     onChange={(e) => setBuyNowPriceTry(e.target.value)}
-                    className="bg-slate-950 border-white/10 text-white"
+                    className="bg-slate-950 border-slate-200 text-white"
                     placeholder="Örn: başlangıçtan %30–40 yüksek — ilan erken kapanabilir"
                   />
                   <p className="text-[11px] text-slate-600 mt-1">Doldurursanız rapor onayı sonrası uyarı gösterilir ve kayda yazılır.</p>
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Minimum Artış</label>
-                  <select className="w-full px-3 py-2 rounded-md bg-slate-950 border border-white/10 text-white text-sm">
+                  <select className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
                     <option>₺10.000</option>
                     <option>₺50.000</option>
                     <option>₺100.000</option>
@@ -723,11 +723,11 @@ export default function CreateAuction() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Taahhüt alt limit (₺)</label>
-                  <Input value={commitmentFloorTRY} onChange={(e) => setCommitmentFloorTRY(e.target.value)} className="bg-slate-950 border-white/10 text-white" disabled={!bindingCommitmentAccepted} />
+                  <Input value={commitmentFloorTRY} onChange={(e) => setCommitmentFloorTRY(e.target.value)} className="bg-slate-950 border-slate-200 text-white" disabled={!bindingCommitmentAccepted} />
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Taahhüt üst limit (₺)</label>
-                  <Input value={commitmentCeilingTRY} onChange={(e) => setCommitmentCeilingTRY(e.target.value)} className="bg-slate-950 border-white/10 text-white" disabled={!bindingCommitmentAccepted} />
+                  <Input value={commitmentCeilingTRY} onChange={(e) => setCommitmentCeilingTRY(e.target.value)} className="bg-slate-950 border-slate-200 text-white" disabled={!bindingCommitmentAccepted} />
                 </div>
               </div>
               <label className="flex items-start gap-2 text-sm text-slate-400 cursor-pointer">
@@ -744,7 +744,7 @@ export default function CreateAuction() {
         </form>
 
         <Dialog open={sellerReportModalOpen} onOpenChange={setSellerReportModalOpen}>
-          <DialogContent className="bg-[#0c1629] border-cyan-400/25 text-white max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="bg-white border-cyan-400/25 text-white max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="text-xl font-bold">Satıcı AI analiz özeti</DialogTitle>
               <p className="text-xs text-slate-500 leading-relaxed pt-1">
@@ -776,7 +776,7 @@ export default function CreateAuction() {
         </Dialog>
 
         <Dialog open={buyNowWarnOpen} onOpenChange={setBuyNowWarnOpen}>
-          <DialogContent className="bg-[#0c1629] border-amber-400/25 text-white max-w-md">
+          <DialogContent className="bg-white border-amber-400/25 text-white max-w-md">
             <DialogHeader>
               <DialogTitle>Hemen Al fiyatı</DialogTitle>
             </DialogHeader>

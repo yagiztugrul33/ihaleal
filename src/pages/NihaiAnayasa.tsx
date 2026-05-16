@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -102,7 +102,7 @@ export function NihaiAnayasa() {
     <div className="min-h-screen pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+          <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
             <ArrowLeft className="w-4 h-4" /> Ana Sayfa
           </Button>
 
@@ -134,7 +134,7 @@ export function NihaiAnayasa() {
                   toggle(sec.id);
                   document.getElementById(`section-${sec.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="glass rounded-xl p-4 text-left hover:bg-white/[0.06] transition-all border border-white/5 hover:border-white/15"
+                className="glass rounded-xl p-4 text-left hover:bg-white/[0.06] transition-all border border-slate-200/80 hover:border-white/15"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-${sec.color}-500/10`}>
@@ -155,7 +155,7 @@ export function NihaiAnayasa() {
             const Icon = sec.icon;
             const isOpen = expanded.includes(sec.id);
             return (
-              <div key={sec.id} id={`section-${sec.id}`} className="glass rounded-xl border border-white/5 overflow-hidden">
+              <div key={sec.id} id={`section-${sec.id}`} className="glass rounded-xl border border-slate-200/80 overflow-hidden">
                 <button
                   onClick={() => toggle(sec.id)}
                   className="w-full p-5 flex items-center justify-between text-left hover:bg-white/[0.03] transition-all"
@@ -191,7 +191,7 @@ export function NihaiAnayasa() {
                             className={`rounded-lg p-4 border transition-all cursor-pointer ${
                               activeRule === rule.id
                                 ? "bg-white/[0.08] border-white/20"
-                                : "bg-white/[0.02] border-white/5 hover:border-white/10"
+                                : "bg-white/[0.02] border-slate-200/80 hover:border-slate-200"
                             }`}
                             onClick={() => setActiveRule(activeRule === rule.id ? null : rule.id)}
                           >
@@ -257,16 +257,16 @@ export function NihaiAnayasa() {
         </motion.div>
 
         {/* Cross-Reference */}
-        <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.02] p-5 text-center">
+        <div className="mt-6 rounded-xl border border-slate-200 bg-white/[0.02] p-5 text-center">
           <p className="text-sm text-slate-400 mb-3">
             Bu Nihai Sistem Anayasası, site üzerindeki{" "}
             <strong>birleşik çerçeve sayfası</strong> (İhaleAL kuralları + KİK hatırlatıcıları) ile birlikte okunmalıdır.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button variant="outline" size="sm" onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="border-white/10 text-slate-300 hover:text-white">
+            <Button variant="outline" size="sm" onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="border-slate-200 text-slate-300 hover:text-white">
               <FileText className="w-4 h-4 mr-2" /> Platform ve KİK çerçevesine git
             </Button>
-            <Button variant="outline" size="sm" onClick={() => navigate("/yasal/agency-contract")} className="border-white/10 text-slate-300 hover:text-white">
+            <Button variant="outline" size="sm" onClick={() => navigate("/yasal/agency-contract")} className="border-slate-200 text-slate-300 hover:text-white">
               <Building2 className="w-4 h-4 mr-2" /> Ortaklık sözleşmesi
             </Button>
           </div>

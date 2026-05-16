@@ -1,4 +1,4 @@
-import { ArrowRight, Search, Handshake, Trophy, KeyRound, ChevronRight } from "lucide-react";
+﻿import { ArrowRight, Search, Handshake, Trophy, KeyRound, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -44,7 +44,7 @@ export function HowItWorks() {
 
   return (
     <section id="howItWorks" className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#071022] via-[#0a0f1e] to-[#061428]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-100" />
       <div className="absolute bottom-0 left-0 w-[560px] h-[440px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none animate-breathe motion-reduce:animate-none opacity-70" />
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -61,7 +61,7 @@ export function HowItWorks() {
                 type="button"
                 key={s.key}
                 onClick={() => navigate(`/nasil-calisir?adim=${guideSlug}`)}
-                className={`relative text-left w-full group rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6 hover:border-cyan-400/35 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(34,211,238,0.18)] motion-reduce:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                className={`relative text-left w-full group rounded-2xl border border-slate-200 bg-white/[0.04] backdrop-blur-xl p-6 hover:border-cyan-400/35 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(34,211,238,0.18)] motion-reduce:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ transitionDelay: `${idx * 120}ms`, transitionDuration: "700ms" }}
               >
                 <div className="flex justify-center mb-4">
@@ -85,7 +85,7 @@ export function HowItWorks() {
             <button
               type="button"
               onClick={() => navigate("/nasil-calisir?from=cta")}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-cyan-500/25 border border-white/10 hover:shadow-cyan-400/35 hover:scale-[1.02] active:scale-[0.99] motion-reduce:hover:scale-100"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-cyan-500/25 border border-slate-200 hover:shadow-cyan-400/35 hover:scale-[1.02] active:scale-[0.99] motion-reduce:hover:scale-100"
             >
               Hemen İhalelere Göz At
               <ArrowRight className="w-4 h-4" aria-hidden />

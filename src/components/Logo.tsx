@@ -1,4 +1,4 @@
-import { Gavel, BrainCircuit } from "lucide-react";
+﻿import { Gavel, BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Logo({
@@ -29,7 +29,7 @@ export function Logo({
         </div>
         <div
           className={cn(
-            "absolute -bottom-1 -right-1 flex items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-lg ring-2 ring-[#061428]",
+            "absolute -bottom-1 -right-1 flex items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-lg ring-2 ring-white",
             aiBadge[size]
           )}
           aria-hidden

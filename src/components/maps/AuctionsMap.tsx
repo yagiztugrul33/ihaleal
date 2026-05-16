@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import { Link } from "react-router-dom";
@@ -29,7 +29,7 @@ export default function AuctionsMap({ auctions, className = "" }: Props) {
     points.length > 0 ? points[Math.floor(points.length / 2)] : [39.0, 35.0];
 
   return (
-    <div className={`rounded-2xl overflow-hidden border border-white/10 bg-slate-900/40 ${className}`}>
+    <div className={`rounded-2xl overflow-hidden border border-slate-200 bg-slate-900/40 ${className}`}>
       <MapContainer
         center={center}
         zoom={6}

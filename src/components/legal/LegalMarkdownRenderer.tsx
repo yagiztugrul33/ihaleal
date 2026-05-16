@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from "react";
+﻿import { Fragment, type ReactNode } from "react";
 
 function formatInline(text: string, keyPrefix: string): ReactNode[] {
   const out: ReactNode[] = [];
@@ -108,7 +108,7 @@ export function LegalMarkdownRenderer({ markdown, className }: Props) {
   return (
     <div className={className}>
       {intro ? (
-        <div className="mb-8 rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+        <div className="mb-8 rounded-2xl border border-slate-200 bg-slate-900/40 p-5">
           {renderBodyBlock(intro.split("\n"), "intro")}
         </div>
       ) : null}
@@ -120,10 +120,10 @@ export function LegalMarkdownRenderer({ markdown, className }: Props) {
           return (
             <section
               key={idx}
-              className="legal-doc-section scroll-mt-24 rounded-2xl border border-white/10 bg-slate-950/50 p-5 shadow-lg shadow-black/20"
+              className="legal-doc-section scroll-mt-24 rounded-2xl border border-slate-200 bg-slate-950/50 p-5 shadow-lg shadow-black/20"
             >
               <h2 className="text-lg font-bold text-white">{formatInline(head, `sec-${idx}-h2`)}</h2>
-              <div className="mt-3 border-t border-white/5 pt-3">{renderBodyBlock(body.split("\n"), `sec-${idx}`)}</div>
+              <div className="mt-3 border-t border-slate-200/80 pt-3">{renderBodyBlock(body.split("\n"), `sec-${idx}`)}</div>
             </section>
           );
         })}

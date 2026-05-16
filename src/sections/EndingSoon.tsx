@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clock, MapPin, ArrowRight, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -54,7 +54,7 @@ export function EndingSoon() {
             return (
               <Card
                 key={auction.id}
-                className={`group bg-white/[0.06] backdrop-blur-xl border-white/10 border overflow-hidden hover:border-rose-400/30 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-rose-500/25" : ""}`}
+                className={`group bg-white/[0.06] backdrop-blur-xl border-slate-200 border overflow-hidden hover:border-rose-400/30 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-rose-500/25" : ""}`}
                 onClick={() => navigate(`/ilan/${auction.id}`)}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
@@ -78,7 +78,7 @@ export function EndingSoon() {
                   <div className="flex items-center gap-1 text-xs text-slate-500 mt-1">
                     <MapPin className="w-3 h-3" /> {auction.district}, {auction.city}
                   </div>
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-200/80">
                     <div>
                       <div className="text-xs text-slate-500">Güncel teklif</div>
                       <div className="text-base font-bold text-orange-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>

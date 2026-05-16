@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, Factory } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -69,10 +69,10 @@ export default function Register() {
   return (
     <div className="min-h-screen pt-24 pb-16 flex items-center justify-center" data-demo="true">
       <div className="w-full max-w-md px-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 space-y-5">
             <div className="text-center mb-6">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
@@ -116,7 +116,7 @@ export default function Register() {
                   <Input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="Ali Veli"
                     autoComplete="name"
                   />
@@ -130,7 +130,7 @@ export default function Register() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="ornek@mail.com"
                     autoComplete="email"
                   />
@@ -143,7 +143,7 @@ export default function Register() {
                   <Input
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="5XX XXX XX XX"
                     autoComplete="tel"
                   />
@@ -157,7 +157,7 @@ export default function Register() {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    className="pl-10 pr-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="En az 6 karakter"
                     autoComplete="new-password"
                   />
@@ -178,7 +178,7 @@ export default function Register() {
                     type={showPassword ? "text" : "password"}
                     value={passwordConfirm}
                     onChange={(e) => setPasswordConfirm(e.target.value)}
-                    className="pl-10 bg-slate-950 border-white/10 text-white placeholder:text-slate-600"
+                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="Şifreyi tekrarla"
                     autoComplete="new-password"
                   />

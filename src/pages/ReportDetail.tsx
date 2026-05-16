@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,13 +24,13 @@ export default function ReportDetail() {
   return (
     <div className="min-h-screen px-4 pt-24 pb-16">
       <article className="mx-auto max-w-3xl">
-        <Button asChild variant="ghost" size="sm" className="mb-8 text-slate-400 hover:text-white">
+        <Button asChild variant="ghost" size="sm" className="mb-8 text-slate-500 hover:text-slate-900">
           <Link to="/raporlar" className="gap-2">
             <ArrowLeft className="h-4 w-4" /> Tüm belgeler
           </Link>
         </Button>
 
-        <header className="mb-10 border-b border-white/10 pb-8">
+        <header className="mb-10 border-b border-slate-200 pb-8">
           <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
             <FileText className="h-5 w-5 text-blue-400" />
             <span>Güncelleme: {report.updatedAt}</span>

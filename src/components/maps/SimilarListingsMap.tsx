@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
@@ -39,14 +39,14 @@ export default function SimilarListingsMap({ analyticsCitySlug, maxPins = 18 }: 
 
   if (rows.length === 0) {
     return (
-      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-6 text-sm text-slate-400">
+      <div className="rounded-xl border border-slate-200 bg-slate-950/40 p-6 text-sm text-slate-400">
         Bu şehir için demo katalogda kayıt yok; analiz filtresinde başka şehir seçin.
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/10">
+    <div className="rounded-2xl overflow-hidden border border-slate-200">
       <MapContainer center={center} zoom={11} style={{ height: "320px", width: "100%" }} scrollWheelZoom>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OSM" />
         {rows.map((a) => (
@@ -69,7 +69,7 @@ export default function SimilarListingsMap({ analyticsCitySlug, maxPins = 18 }: 
           </CircleMarker>
         ))}
       </MapContainer>
-      <p className="text-xs text-slate-500 px-3 py-2 bg-slate-950/40 border-t border-white/5">
+      <p className="text-xs text-slate-500 px-3 py-2 bg-slate-950/40 border-t border-slate-200/80">
         AI benzer ilan gösterimi (demo): seçilen şehre göre katalogdan örnek konumlar; pinler çakışmayı azaltmak için hafif kaydırmalıdır.
       </p>
     </div>

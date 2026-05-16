@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Shield, ShieldCheck, ShieldAlert, Lock, Eye, EyeOff,
@@ -66,9 +66,9 @@ export default function SecurityCenter() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-emerald-500/5 to-transparent border-b border-white/5">
+      <div className="bg-gradient-to-b from-emerald-500/5 to-transparent border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 py-12">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
             <div>
@@ -142,7 +142,7 @@ export default function SecurityCenter() {
         {/* Metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {metrics.map((m) => (
-            <Card key={m.label} className="bg-slate-900/50 border-white/5">
+            <Card key={m.label} className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className={`p-1.5 rounded-lg bg-${m.color}-500/10 ${m.color === 'emerald' ? 'text-emerald-400' : m.color === 'blue' ? 'text-blue-400' : m.color === 'violet' ? 'text-violet-400' : 'text-amber-400'}`}>{m.icon}</div>
@@ -156,15 +156,15 @@ export default function SecurityCenter() {
         </div>
 
         {/* Security Layers */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2"><ShieldCheck className="w-5 h-5 text-emerald-400" /> Planlanan güvenlik katmanları (taslak)</h3>
-              <Button size="sm" variant="outline" onClick={startScan} disabled={scanning} className="border-white/10 text-slate-300 hover:text-white gap-2 text-xs"><RefreshCw className={`w-3.5 h-3.5 ${scanning ? 'animate-spin' : ''}`} /> Yenile</Button>
+              <Button size="sm" variant="outline" onClick={startScan} disabled={scanning} className="border-slate-200 text-slate-300 hover:text-white gap-2 text-xs"><RefreshCw className={`w-3.5 h-3.5 ${scanning ? 'animate-spin' : ''}`} /> Yenile</Button>
             </div>
             <div className="space-y-2">
               {layers.map((layer, i) => (
-                <div key={layer.name} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-emerald-500/20 transition-colors">
+                <div key={layer.name} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 hover:border-emerald-500/20 transition-colors">
                   <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">{i + 1}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2"><span className="text-sm font-medium text-white">{layer.name}</span><Badge className="bg-sky-500/10 text-sky-300 text-[10px] border-0">Hedef</Badge></div>
@@ -179,12 +179,12 @@ export default function SecurityCenter() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {/* Threat Log */}
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
               <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><ShieldAlert className="w-5 h-5 text-red-400" /> Son Tehdit Aktiviteleri</h3>
               <div className="space-y-2">
                 {threats.map((t) => (
-                  <div key={t.id} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                  <div key={t.id} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-white">{t.type}</span>
@@ -201,12 +201,12 @@ export default function SecurityCenter() {
           </Card>
 
           {/* Global Node Map */}
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
               <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Globe className="w-5 h-5 text-sky-400" /> Global CDN & Sunucu Durumu</h3>
               <div className="space-y-2">
                 {regions.map((r) => (
-                  <div key={r.city} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                  <div key={r.city} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                     <div className="flex items-center gap-3">
                       <MapPin className="w-4 h-4 text-slate-500" />
                       <span className="text-sm text-white">{r.city}</span>
@@ -228,7 +228,7 @@ export default function SecurityCenter() {
         </div>
 
         {/* AI Analysis */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Cpu className="w-5 h-5 text-violet-400" /> AI Tehdit Analizi & Anomali Tespiti <span className="text-xs font-normal text-slate-500">(taslak / vizyon)</span></h3>
             <div className="grid sm:grid-cols-3 gap-3">
@@ -237,7 +237,7 @@ export default function SecurityCenter() {
                 { title: "Otomatik Yanıt", desc: "Tespit edilen tehditlere karşı otomatik IP ban, CAPTCHA veya session sonlandırma.", icon: <Zap className="w-5 h-5 text-amber-400" /> },
                 { title: "Fiyat Manipülasyon Koruması", desc: "Suni fiyat şişirme (shill bidding) tespiti. Aynı IP'den çoklu hesap engellenir.", icon: <TrendingUp className="w-5 h-5 text-emerald-400" /> },
               ].map((item) => (
-                <div key={item.title} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={item.title} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="mb-2">{item.icon}</div>
                   <div className="text-sm font-semibold text-white mb-1">{item.title}</div>
                   <p className="text-xs text-slate-400">{item.desc}</p>

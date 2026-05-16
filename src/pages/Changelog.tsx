@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Clock, GitCommit, Zap, Shield, BarChart3, FileText,
@@ -133,9 +133,9 @@ export default function Changelog() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-white/5">
+      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-4 py-12">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center"><GitCommit className="w-6 h-6 text-white" /></div>
             <div>
@@ -148,7 +148,7 @@ export default function Changelog() {
 
       <div className="max-w-4xl mx-auto px-4 mt-8 space-y-4">
         {versions.map((v) => (
-          <Card key={v.version} className={`bg-slate-900/50 border-white/5 overflow-hidden ${v.status === 'Yayında' ? 'ring-1 ring-emerald-500/20' : ''}`}>
+          <Card key={v.version} className={`bg-slate-900/50 border-slate-200/80 overflow-hidden ${v.status === 'Yayında' ? 'ring-1 ring-emerald-500/20' : ''}`}>
             <button
               onClick={() => setExpanded(expanded === v.version ? null : v.version)}
               className="w-full p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"

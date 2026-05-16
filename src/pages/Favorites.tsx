@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { Heart, Trash2, ArrowLeft, MapPin, TrendingUp, Star, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,14 +16,14 @@ export default function Favorites() {
   const favoriteAuctions = AUCTIONS.filter((a) => favorites.includes(a.id)).map((a) => withListingDefaults(a));
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] pt-24 pb-16">
+    <div className="min-h-screen bg-slate-50 pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
             <button
               onClick={() => navigate(-1)}
-              className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-3"
+              className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition-colors mb-3"
             >
               <ArrowLeft className="w-4 h-4" /> Geri
             </button>
@@ -41,7 +41,7 @@ export default function Favorites() {
               variant="outline"
               size="sm"
               onClick={clearFavorites}
-              className="border-white/10 text-slate-400 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10 gap-2"
+              className="border-slate-200 text-slate-400 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10 gap-2"
             >
               <Trash2 className="w-4 h-4" /> Tümünü Temizle
             </Button>
@@ -73,7 +73,7 @@ export default function Favorites() {
             {favoriteAuctions.map((auction) => (
               <Card
                 key={auction.id}
-                className="group bg-slate-900/50 border-white/5 overflow-hidden hover:border-pink-500/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-pink-500/5"
+                className="group bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-pink-500/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-pink-500/5"
               >
                 <div className="relative h-52 overflow-hidden">
                   <img
@@ -126,7 +126,7 @@ export default function Favorites() {
                     {auction.location}
                   </div>
 
-                  <div className="flex items-center gap-2 mb-3 mt-3 p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
+                  <div className="flex items-center gap-2 mb-3 mt-3 p-2.5 rounded-lg bg-white/[0.03] border border-slate-200/80">
                     <BarChart3 className="w-4 h-4 text-blue-500" />
                     <div className="flex-1">
                       <div className="flex justify-between text-xs mb-1">
@@ -149,7 +149,7 @@ export default function Favorites() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-200/80">
                     <div>
                       <div className="text-xs text-slate-500 mb-0.5">Güncel Teklif</div>
                       <div className="text-lg font-bold text-blue-400">

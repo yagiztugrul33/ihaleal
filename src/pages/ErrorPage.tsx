@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { Home, RefreshCw } from "lucide-react";
 
 interface ErrorPageProps {
@@ -13,7 +13,7 @@ export default function ErrorPage({ error, resetError }: ErrorPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] flex flex-col items-center justify-center px-6 py-16 text-center">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-6 py-16 text-center">
       <h1 className="text-7xl sm:text-9xl font-bold text-red-400/90">500</h1>
       <h2 className="text-2xl sm:text-3xl font-semibold mt-4 text-white">Bir Hata Oluştu</h2>
       <p className="text-slate-400 mt-4 max-w-md mx-auto">

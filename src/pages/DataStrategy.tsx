@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, LineChart, Upload, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ export default function DataStrategy() {
   return (
     <div className="min-h-screen pt-20 pb-16">
       <div className="max-w-4xl mx-auto px-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Ana sayfa
         </Button>
 
@@ -44,7 +44,7 @@ export default function DataStrategy() {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/50 border-white/5 mb-6">
+        <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5">
             <h2 className="text-white font-semibold flex items-center gap-2 mb-3"><Upload className="w-5 h-5 text-blue-400" /> Örnek fiyat raporu (yerel seçim)</h2>
             <p className="text-xs text-slate-500 mb-4">Üretimde: güvenli depolama + OCR + şablon eşleme. Şimdilik yalnızca dosya adı.</p>
@@ -72,7 +72,7 @@ export default function DataStrategy() {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/50 border-white/5 mb-6">
+        <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5 space-y-4 text-sm text-slate-400">
             <h2 className="text-white font-semibold text-base">Tek tek — kurumsal piyasa analizine giden yol</h2>
             <ol className="space-y-3 list-decimal list-inside text-slate-400">
@@ -92,7 +92,7 @@ export default function DataStrategy() {
               Üçüncü taraf ticari veri ürünleri için <strong className="text-slate-300">resmi API veya sözleşme olmadan</strong> canlı bağlantı kurulmaz.
               Aşağıdaki tablo ürün ekibinin backend’de uygulayacağı <strong className="text-slate-300">hedef sözleşme</strong> alanlarını listeler.
             </p>
-            <div className="overflow-x-auto rounded-lg border border-white/10">
+            <div className="overflow-x-auto rounded-lg border border-slate-200">
               <table className="w-full text-xs text-left">
                 <thead className="bg-white/[0.04] text-slate-300">
                   <tr>

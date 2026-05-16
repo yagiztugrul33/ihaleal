@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+﻿import { useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -136,14 +136,14 @@ export function EmlakciGiris() {
   return (
     <div className="min-h-screen pt-20 pb-12 px-4">
       <div className="max-w-xl mx-auto">
-        <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-4 -ml-2">
+        <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-4 -ml-2">
           <ArrowLeft className="w-4 h-4" /> Ana Sayfa
         </Button>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass rounded-2xl p-6 sm:p-8 border border-white/10"
+          className="glass rounded-2xl p-6 sm:p-8 border border-slate-200"
         >
           <div className="text-center mb-6">
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/20">
@@ -162,7 +162,7 @@ export function EmlakciGiris() {
                 className={`rounded-xl p-3 text-center border transition-all ${
                   activeType === t.id
                     ? "bg-white/10 border-white/30 shadow-lg shadow-white/5"
-                    : "bg-white/[0.02] border-white/5 hover:bg-white/[0.04] hover:border-white/10"
+                    : "bg-white/[0.02] border-slate-200/80 hover:bg-white/[0.04] hover:border-slate-200"
                 }`}
               >
                 <div className={`mx-auto w-9 h-9 rounded-lg flex items-center justify-center mb-2 ${
@@ -177,7 +177,7 @@ export function EmlakciGiris() {
           </div>
 
           {/* Selected Type Description */}
-          <div className="rounded-lg bg-white/[0.03] border border-white/5 p-3 mb-6 flex items-start gap-2">
+          <div className="rounded-lg bg-white/[0.03] border border-slate-200/80 p-3 mb-6 flex items-start gap-2">
             <div className="w-7 h-7 rounded-md bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5">
               {currentType.icon}
             </div>
@@ -188,11 +188,11 @@ export function EmlakciGiris() {
           </div>
 
           {/* Auth Mode Toggle */}
-          <div className="flex rounded-xl bg-white/[0.05] p-1 mb-6 border border-white/5">
+          <div className="flex rounded-xl bg-white/[0.05] p-1 mb-6 border border-slate-200/80">
             <button
               onClick={() => setAuthMode("login")}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                authMode === "login" ? "bg-white/10 text-white shadow" : "text-slate-400 hover:text-white"
+                authMode === "login" ? "bg-white/10 text-white shadow" : "text-slate-500 hover:text-slate-900"
               }`}
             >
               <LogIn className="w-4 h-4" /> Giriş Yap
@@ -200,7 +200,7 @@ export function EmlakciGiris() {
             <button
               onClick={() => setAuthMode("register")}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                authMode === "register" ? "bg-white/10 text-white shadow" : "text-slate-400 hover:text-white"
+                authMode === "register" ? "bg-white/10 text-white shadow" : "text-slate-500 hover:text-slate-900"
               }`}
             >
               <UserPlus className="w-4 h-4" /> Hesap Oluştur
@@ -252,7 +252,7 @@ export function EmlakciGiris() {
                     <Input
                       type="email" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
                       placeholder="ornek@email.com"
-                      className="bg-white/[0.05] border-white/10 text-white pl-10 placeholder:text-slate-600"
+                      className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600"
                     />
                   </div>
                 </div>
@@ -264,7 +264,7 @@ export function EmlakciGiris() {
                       type={showLoginPass ? "text" : "password"} value={loginPassword}
                       onChange={e => setLoginPassword(e.target.value)}
                       placeholder="••••••"
-                      className="bg-white/[0.05] border-white/10 text-white pl-10 pr-10 placeholder:text-slate-600"
+                      className="bg-white/[0.05] border-slate-200 text-white pl-10 pr-10 placeholder:text-slate-600"
                     />
                     <button type="button" onClick={() => setShowLoginPass(!showLoginPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
                       {showLoginPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -301,14 +301,14 @@ export function EmlakciGiris() {
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Ad Soyad</label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input value={regName} onChange={e => setRegName(e.target.value)} placeholder="Ahmet Yılmaz" className="bg-white/[0.05] border-white/10 text-white pl-10 placeholder:text-slate-600" />
+                      <Input value={regName} onChange={e => setRegName(e.target.value)} placeholder="Ahmet Yılmaz" className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Telefon</label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input value={regPhone} onChange={e => setRegPhone(e.target.value)} placeholder="05XX XXX XX XX" className="bg-white/[0.05] border-white/10 text-white pl-10 placeholder:text-slate-600" />
+                      <Input value={regPhone} onChange={e => setRegPhone(e.target.value)} placeholder="05XX XXX XX XX" className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600" />
                     </div>
                   </div>
                 </div>
@@ -316,7 +316,7 @@ export function EmlakciGiris() {
                   <label className="block text-xs font-medium text-slate-400 mb-1.5">E-posta</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                    <Input type="email" value={regEmail} onChange={e => setRegEmail(e.target.value)} placeholder="ornek@email.com" className="bg-white/[0.05] border-white/10 text-white pl-10 placeholder:text-slate-600" />
+                    <Input type="email" value={regEmail} onChange={e => setRegEmail(e.target.value)} placeholder="ornek@email.com" className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600" />
                   </div>
                 </div>
 
@@ -328,18 +328,18 @@ export function EmlakciGiris() {
                       <div className="space-y-3">
                         <div>
                           <label className="block text-xs text-slate-400 mb-1">Firma Adı *</label>
-                          <Input value={regCompany} onChange={e => setRegCompany(e.target.value)} placeholder="Örnek Emlak Ltd. Şti." className="bg-white/[0.05] border-white/10 text-white placeholder:text-slate-600" />
+                          <Input value={regCompany} onChange={e => setRegCompany(e.target.value)} placeholder="Örnek Emlak Ltd. Şti." className="bg-white/[0.05] border-slate-200 text-white placeholder:text-slate-600" />
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
                             <label className="block text-xs text-slate-400 mb-1">Yetki Belge No *</label>
-                            <Input value={regLicense} onChange={e => setRegLicense(e.target.value)} placeholder="E-XXXX" className="bg-white/[0.05] border-white/10 text-white placeholder:text-slate-600" />
+                            <Input value={regLicense} onChange={e => setRegLicense(e.target.value)} placeholder="E-XXXX" className="bg-white/[0.05] border-slate-200 text-white placeholder:text-slate-600" />
                           </div>
                           <div>
                             <label className="block text-xs text-slate-400 mb-1">Çalışma Şehri</label>
                             <div className="relative">
                               <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                              <Input value={regCity} onChange={e => setRegCity(e.target.value)} placeholder="İstanbul" className="bg-white/[0.05] border-white/10 text-white pl-9 placeholder:text-slate-600" />
+                              <Input value={regCity} onChange={e => setRegCity(e.target.value)} placeholder="İstanbul" className="bg-white/[0.05] border-slate-200 text-white pl-9 placeholder:text-slate-600" />
                             </div>
                           </div>
                         </div>
@@ -357,18 +357,18 @@ export function EmlakciGiris() {
                         <div className="grid grid-cols-2 gap-3">
                           <div>
                             <label className="block text-xs text-slate-400 mb-1">Vergi No / TCKN *</label>
-                            <Input value={regTaxNo} onChange={e => setRegTaxNo(e.target.value)} placeholder="1234567890" className="bg-white/[0.05] border-white/10 text-white placeholder:text-slate-600" />
+                            <Input value={regTaxNo} onChange={e => setRegTaxNo(e.target.value)} placeholder="1234567890" className="bg-white/[0.05] border-slate-200 text-white placeholder:text-slate-600" />
                           </div>
                           <div>
                             <label className="block text-xs text-slate-400 mb-1">Yapı Ruhsat No *</label>
-                            <Input value={regRuhsatNo} onChange={e => setRegRuhsatNo(e.target.value)} placeholder="Ruhsat No" className="bg-white/[0.05] border-white/10 text-white placeholder:text-slate-600" />
+                            <Input value={regRuhsatNo} onChange={e => setRegRuhsatNo(e.target.value)} placeholder="Ruhsat No" className="bg-white/[0.05] border-slate-200 text-white placeholder:text-slate-600" />
                           </div>
                         </div>
                         <div>
                           <label className="block text-xs text-slate-400 mb-1">Aktif Projeler (opsiyonel)</label>
                           <div className="relative">
                             <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                            <Input value={regProjects} onChange={e => setRegProjects(e.target.value)} placeholder="Proje isimleri, ada/parsel bilgisi" className="bg-white/[0.05] border-white/10 text-white pl-9 placeholder:text-slate-600" />
+                            <Input value={regProjects} onChange={e => setRegProjects(e.target.value)} placeholder="Proje isimleri, ada/parsel bilgisi" className="bg-white/[0.05] border-slate-200 text-white pl-9 placeholder:text-slate-600" />
                           </div>
                         </div>
                       </div>
@@ -381,7 +381,7 @@ export function EmlakciGiris() {
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre</label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input type={showRegPass ? "text" : "password"} value={regPassword} onChange={e => setRegPassword(e.target.value)} placeholder="En az 6 karakter" className="bg-white/[0.05] border-white/10 text-white pl-10 pr-10 placeholder:text-slate-600" />
+                      <Input type={showRegPass ? "text" : "password"} value={regPassword} onChange={e => setRegPassword(e.target.value)} placeholder="En az 6 karakter" className="bg-white/[0.05] border-slate-200 text-white pl-10 pr-10 placeholder:text-slate-600" />
                       <button type="button" onClick={() => setShowRegPass(!showRegPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
                         {showRegPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -391,7 +391,7 @@ export function EmlakciGiris() {
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre Tekrar</label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input type={showRegConfirm ? "text" : "password"} value={regConfirm} onChange={e => setRegConfirm(e.target.value)} placeholder="••••••" className="bg-white/[0.05] border-white/10 text-white pl-10 pr-10 placeholder:text-slate-600" />
+                      <Input type={showRegConfirm ? "text" : "password"} value={regConfirm} onChange={e => setRegConfirm(e.target.value)} placeholder="••••••" className="bg-white/[0.05] border-slate-200 text-white pl-10 pr-10 placeholder:text-slate-600" />
                       <button type="button" onClick={() => setShowRegConfirm(!showRegConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
                         {showRegConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -416,7 +416,7 @@ export function EmlakciGiris() {
           </AnimatePresence>
 
           {/* Footer note */}
-          <div className="mt-6 pt-4 border-t border-white/10 text-center">
+          <div className="mt-6 pt-4 border-t border-slate-200 text-center">
             <p className="text-xs text-slate-500">
               <Home className="w-3 h-3 inline mr-1" />
               İhaleAL.com — Bireysel, emlakçı ve müteahhit kullanıcılarına özel güvenli platform.

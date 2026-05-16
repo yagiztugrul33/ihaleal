@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+﻿import { useEffect, useMemo } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { MapPin, TrendingUp, ArrowRight, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ export default function CityLandingPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e] px-4">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50 px-4">
       <div className="max-w-6xl mx-auto">
         <nav className="text-xs text-slate-500 mb-6">
           <Link to="/" className="hover:text-teal-400">
@@ -51,7 +51,7 @@ export default function CityLandingPage() {
           <span className="text-slate-400">{cfg.cityTr} landing</span>
         </nav>
 
-        <div className="mb-10 rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-8 md:p-10">
+        <div className="mb-10 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-8 md:p-10">
           <div className="flex flex-wrap gap-2 mb-4">
             {cfg.heroKeywords.map((k) => (
               <Badge key={k} variant="outline" className="border-teal-500/30 text-teal-300 bg-teal-500/10">
@@ -86,7 +86,7 @@ export default function CityLandingPage() {
             <p className="text-slate-500 text-sm col-span-full">Bu şehir için demo kayıt bulunamadı; katalog güncellenince düşer.</p>
           ) : (
             auctions.map((a) => (
-              <Card key={a.id} className="border-white/10 bg-slate-900/45 overflow-hidden hover:border-teal-500/25 transition-colors">
+              <Card key={a.id} className="border-slate-200 bg-slate-900/45 overflow-hidden hover:border-teal-500/25 transition-colors">
                 <div className="h-36 overflow-hidden">
                   <img src={a.images[0]} alt="" className="w-full h-full object-cover" />
                 </div>

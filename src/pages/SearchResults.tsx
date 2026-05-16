@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+﻿import { useMemo, useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, MapPin, Home, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -61,7 +61,7 @@ export default function SearchResults() {
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
@@ -82,7 +82,7 @@ export default function SearchResults() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Şehir, semt, başlık veya ilan no (ILN-...)"
-            className="bg-slate-950 border-white/10 text-white h-11"
+            className="bg-slate-950 border-slate-200 text-white h-11"
             aria-label="Arama kutusu"
           />
           <Button type="submit" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-semibold h-11 px-6">
@@ -93,7 +93,7 @@ export default function SearchResults() {
         {query.length < 2 ? (
           <p className="text-slate-500 text-sm">Aramak için en az 2 karakter girin.</p>
         ) : results.length === 0 ? (
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-8 text-center text-slate-500">Sonuç bulunamadı.</CardContent>
           </Card>
         ) : (
@@ -103,7 +103,7 @@ export default function SearchResults() {
                 <button
                   type="button"
                   onClick={() => navigate(`/ilan/${auction.id}`)}
-                  className="w-full text-left rounded-xl border border-white/5 bg-slate-900/40 hover:border-blue-500/30 hover:bg-slate-900/70 transition-colors p-4 flex gap-4"
+                  className="w-full text-left rounded-xl border border-slate-200/80 bg-slate-900/40 hover:border-blue-500/30 hover:bg-slate-900/70 transition-colors p-4 flex gap-4"
                 >
                   <img loading="lazy" src={auction.images[0]} alt="" className="w-24 h-16 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1 min-w-0">

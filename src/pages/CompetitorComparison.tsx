@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, CheckCircle2, XCircle, Trophy, Target, Zap,
   BrainCircuit, Shield, BarChart3, Users, Globe, Clock,
@@ -149,9 +149,9 @@ export default function CompetitorComparison() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-white/5">
+      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 py-12">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center"><Trophy className="w-6 h-6 text-white" /></div>
             <div>
@@ -188,7 +188,7 @@ export default function CompetitorComparison() {
           </div>
         </div>
 
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white mb-3">Rakiplerde olup bu front-end sürümde henüz olmayanlar</h3>
             <ul className="space-y-2 text-xs text-slate-400">
@@ -200,12 +200,12 @@ export default function CompetitorComparison() {
         </Card>
 
         {/* Rakipler Tablosu */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white mb-4">Rakip Platformlar ve Eksikleri</h3>
             <div className="space-y-4">
               {competitors.map((c) => (
-                <div key={c.name} className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={c.name} className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className={`w-10 h-10 rounded-lg bg-${c.color}-500/10 flex items-center justify-center`}>
@@ -243,12 +243,12 @@ export default function CompetitorComparison() {
         </Card>
 
         {/* Bizim Avantajlarımız */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white mb-4">ihaleal.com Avantajları</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {ourAdvantages.map((a) => (
-                <div key={a.title} className={`p-3 rounded-xl border ${a.unique ? 'bg-blue-500/5 border-blue-500/10' : 'bg-white/[0.03] border-white/5'}`}>
+                <div key={a.title} className={`p-3 rounded-xl border ${a.unique ? 'bg-blue-500/5 border-blue-500/10' : 'bg-white/[0.03] border-slate-200/80'}`}>
                   <div className="flex items-center gap-2 mb-1.5">
                     <div className={`p-1.5 rounded-lg ${a.unique ? 'bg-blue-500/10 text-blue-400' : 'bg-slate-500/10 text-slate-400'}`}>{a.icon}</div>
                     <span className="text-sm font-medium text-white">{a.title}</span>
@@ -262,12 +262,12 @@ export default function CompetitorComparison() {
         </Card>
 
         {/* Özellik Matrisi */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5 overflow-x-auto">
             <h3 className="text-lg font-bold text-white mb-4">Özellik Karşılaştırma Matrisi</h3>
             <table className="w-full text-sm min-w-[600px]">
               <thead>
-                <tr className="border-b border-white/5">
+                <tr className="border-b border-slate-200/80">
                   <th className="text-left py-2 px-3 text-slate-400 font-medium">Özellik</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">ihaleal.com</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">sahibinden</th>
@@ -299,7 +299,7 @@ export default function CompetitorComparison() {
                   ["Mobil native app (Store)", false, true, true, true, true],
                   ["Milyonlarca aktif ilan stoğu", false, true, false, true, true],
                 ].map(([feature, us, s, e, ej, h]) => (
-                  <tr key={feature as string} className="border-b border-white/5 hover:bg-white/[0.02]">
+                  <tr key={feature as string} className="border-b border-slate-200/80 hover:bg-white/[0.02]">
                     <td className="py-2 px-3 text-slate-300">{feature as string}</td>
                     <td className="py-2 px-3 text-center">{us ? <CheckCircle2 className="w-4 h-4 text-emerald-400 mx-auto" /> : <XCircle className="w-4 h-4 text-red-400 mx-auto" />}</td>
                     <td className="py-2 px-3 text-center">{s ? <CheckCircle2 className="w-4 h-4 text-emerald-400 mx-auto" /> : <XCircle className="w-4 h-4 text-red-400/40 mx-auto" />}</td>
@@ -316,7 +316,7 @@ export default function CompetitorComparison() {
         {/* CTA */}
         <div className="flex gap-3 justify-center pt-4">
           <Button onClick={() => navigate("/")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2"><TrendingUp className="w-4 h-4" /> Ana sayfa — İhaleler</Button>
-          <Button onClick={() => navigate("/evraklar")} variant="outline" className="border-white/10 text-slate-300 hover:text-white gap-2"><FileText className="w-4 h-4" /> Evrakları İncele</Button>
+          <Button onClick={() => navigate("/evraklar")} variant="outline" className="border-slate-200 text-slate-300 hover:text-white gap-2"><FileText className="w-4 h-4" /> Evrakları İncele</Button>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { BookOpen } from "lucide-react";
+﻿import { BookOpen } from "lucide-react";
 import { GLOSSARY_TERMS } from "@/data/glossaryTerms";
 
 export default function GlossaryPage() {
@@ -18,12 +18,12 @@ export default function GlossaryPage() {
           {GLOSSARY_TERMS.map((t) => (
             <details
               key={t.term}
-              className="group rounded-xl border border-white/10 bg-slate-900/40 px-4 py-3 open:bg-slate-900/60"
+              className="group rounded-xl border border-slate-200 bg-slate-900/40 px-4 py-3 open:bg-slate-900/60"
             >
               <summary className="cursor-pointer list-none font-medium text-white marker:content-none [&::-webkit-details-marker]:hidden">
                 {t.term}
               </summary>
-              <p className="mt-2 border-t border-white/5 pt-3 text-sm leading-relaxed text-slate-400">{t.definition}</p>
+              <p className="mt-2 border-t border-slate-200/80 pt-3 text-sm leading-relaxed text-slate-400">{t.definition}</p>
             </details>
           ))}
         </div>

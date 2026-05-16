@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Calculator, Banknote, Percent, Clock, Calendar, ChevronDown, TrendingUp, TrendingDown, Info, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -63,11 +63,11 @@ export default function Mortgage() {
   const minIncomeRequired = monthlyPayment * 2.5; // Banks typically require 40% DTI ratio
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 mb-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
@@ -80,7 +80,7 @@ export default function Mortgage() {
         <div className={`grid lg:grid-cols-5 gap-6 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           {/* Inputs */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="bg-slate-900/50 border-white/5 p-5">
+            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
               <h3 className="font-bold text-white mb-5">Kredi Parametreleri</h3>
               
               <div className="space-y-6">
@@ -90,7 +90,7 @@ export default function Mortgage() {
                     <span className="text-white font-semibold">TRY {propertyValue.toLocaleString()}</span>
                   </label>
                   <Slider value={[propertyValue]} onValueChange={(v) => setPropertyValue(v[0])} min={500000} max={50000000} step={100000} className="my-3" />
-                  <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-white/10 text-white" />
+                  <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
                 </div>
 
                 <div>
@@ -114,7 +114,7 @@ export default function Mortgage() {
                       setTermMonths(months);
                       setInterestRate(INTEREST_RATES[months.toString() as keyof typeof INTEREST_RATES] || 5.0);
                     }} 
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-white/10 text-white text-sm"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-200 text-white text-sm"
                   >
                     <option value={12}>1 Yil (12 Ay)</option>
                     <option value={24}>2 Yil (24 Ay)</option>
@@ -132,13 +132,13 @@ export default function Mortgage() {
                     <span className="text-white font-semibold">%{interestRate}</span>
                   </label>
                   <Slider value={[interestRate * 100]} onValueChange={(v) => setInterestRate(v[0] / 100)} min={100} max={1500} step={5} className="my-3" />
-                  <Input type="number" step="0.01" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="bg-slate-950 border-white/10 text-white" />
+                  <Input type="number" step="0.01" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
                 </div>
               </div>
             </Card>
 
             {/* Bank Info */}
-            <Card className="bg-slate-900/50 border-white/5 p-5">
+            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
               <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                 <Info className="w-4 h-4 text-blue-400" />
                 Banka Gereksinimleri
@@ -163,7 +163,7 @@ export default function Mortgage() {
           {/* Results */}
           <div className="lg:col-span-3 space-y-6">
             {/* Main Results */}
-            <Card className="bg-slate-900/50 border-white/5 p-5">
+            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
               <h3 className="font-bold text-white mb-4">Kredi Ozeti</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <ResultCard icon={<Banknote className="w-5 h-5 text-blue-400" />} label="Aylik Taksit" value={`TRY ${Math.round(monthlyPayment).toLocaleString()}`} sub="Duzgun odeme" color="text-blue-400" />
@@ -174,7 +174,7 @@ export default function Mortgage() {
             </Card>
 
             {/* Amortization Graph */}
-            <Card className="bg-slate-900/50 border-white/5 p-5">
+            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
               <h3 className="text-lg font-bold text-white mb-4">Odeme Planı — Kalan Borc Grafiği</h3>
               <div className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
@@ -205,15 +205,15 @@ export default function Mortgage() {
             </Card>
 
             {/* Yearly Breakdown Table */}
-            <Card className="bg-slate-900/50 border-white/5 overflow-hidden">
-              <div className="p-4 border-b border-white/5 flex items-center justify-between">
+            <Card className="bg-slate-900/50 border-slate-200/80 overflow-hidden">
+              <div className="p-4 border-b border-slate-200/80 flex items-center justify-between">
                 <h3 className="font-bold text-white">Yillik Odeme Ozeti</h3>
                 <span className="text-xs text-slate-500">Her yil sonu</span>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-white/5">
+                    <tr className="border-b border-slate-200/80">
                       <th className="text-left p-3 text-slate-400 font-medium">Yil</th>
                       <th className="text-right p-3 text-slate-400 font-medium">Aylik Taksit</th>
                       <th className="text-right p-3 text-slate-400 font-medium">Anapara</th>
@@ -266,7 +266,7 @@ export default function Mortgage() {
 
 function ResultCard({ icon, label, value, sub, color }: { icon: React.ReactNode; label: string; value: string; sub: string; color: string }) {
   return (
-    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+    <div className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
       <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-slate-400">{label}</span></div>
       <div className={`text-lg font-bold ${color}`}>{value}</div>
       <div className="text-xs text-slate-500 mt-0.5">{sub}</div>

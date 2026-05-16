@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -67,7 +67,7 @@ export default function BusinessModel() {
   return (
     <div className="min-h-screen pt-20 pb-16">
       <div className="max-w-4xl mx-auto px-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Ana sayfa
         </Button>
 
@@ -115,7 +115,7 @@ export default function BusinessModel() {
         </section>
 
         <nav
-          className="sticky top-[4.5rem] z-30 mb-8 -mx-1 px-1 py-2 flex flex-wrap gap-2 rounded-xl border border-white/10 bg-[#070d18]/90 backdrop-blur-md"
+          className="sticky top-[4.5rem] z-30 mb-8 -mx-1 px-1 py-2 flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/90 backdrop-blur-md"
           aria-label="Sayfa bölümleri"
         >
           {JUMP_LINKS.map((j) => (
@@ -123,7 +123,7 @@ export default function BusinessModel() {
               key={j.id}
               type="button"
               onClick={() => scrollToId(j.id)}
-              className="text-xs sm:text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:text-white hover:bg-emerald-500/15 hover:border-emerald-500/30 transition-colors"
+              className="text-xs sm:text-sm px-3 py-1.5 rounded-lg border border-slate-200 bg-white/5 text-slate-300 hover:text-white hover:bg-emerald-500/15 hover:border-emerald-500/30 transition-colors"
             >
               {j.label}
             </button>
@@ -171,10 +171,10 @@ export default function BusinessModel() {
             <strong className="text-slate-400">%{ (REALTOR_B2B_RATE * 100).toFixed(1)}</strong> (işlem tutarı üzerinden). Mahsup: örnek satıcı yıllık üyelik ₺
             {sellerMembership.toLocaleString("tr-TR")}.
           </p>
-          <div className="overflow-x-auto rounded-xl border border-white/10">
+          <div className="overflow-x-auto rounded-xl border border-slate-200">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.03] text-slate-400">
+                <tr className="border-b border-slate-200 bg-white/[0.03] text-slate-400">
                   <th className="p-3 font-medium">İşlem (₺)</th>
                   <th className="p-3 font-medium">Komisyon matrahı</th>
                   <th className="p-3 font-medium">KDV ({(VAT_RATE * 100).toFixed(0)}%)</th>
@@ -187,7 +187,7 @@ export default function BusinessModel() {
                 {SCENARIO_SALES_TRY.map((sale) => {
                   const b = calcCommissionBreakdown(sale, sellerMembership, 0, REALTOR_B2B_RATE);
                   return (
-                    <tr key={sale} className="border-b border-white/5 hover:bg-white/[0.02]">
+                    <tr key={sale} className="border-b border-slate-200/80 hover:bg-white/[0.02]">
                       <td className="p-3 font-mono text-white">{sale.toLocaleString("tr-TR")}</td>
                       <td className="p-3">₺{b.totalCommission.toLocaleString("tr-TR", { maximumFractionDigits: 0 })}</td>
                       <td className="p-3">₺{b.totalVAT.toLocaleString("tr-TR", { maximumFractionDigits: 0 })}</td>
@@ -221,7 +221,7 @@ export default function BusinessModel() {
                 { key: "full" as const, title: "Tam işbirliği", hint: "Varsayılan ortaklık çizgisi" },
               ] as const
             ).map(({ key, title, hint }) => (
-              <Card key={key} className={`bg-slate-900/50 border-white/10 ${key === "full" ? "ring-1 ring-violet-500/30" : ""}`}>
+              <Card key={key} className={`bg-slate-900/50 border-slate-200 ${key === "full" ? "ring-1 ring-violet-500/30" : ""}`}>
                 <CardContent className="p-4">
                   <div className="text-xs text-slate-500">{hint}</div>
                   <div className="mt-1 text-white font-semibold">{title}</div>
@@ -281,12 +281,12 @@ export default function BusinessModel() {
         </Card>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
               <h3 className="text-white font-semibold mb-3 flex items-center gap-2"><Ban className="w-4 h-4 text-orange-400" /> Satıcı / kiraya veren</h3>
               <ul className="space-y-3 text-xs text-slate-400">
                 {SELLER_SIDE_RATES.map((r) => (
-                  <li key={r.type} className="border-b border-white/5 pb-2">
+                  <li key={r.type} className="border-b border-slate-200/80 pb-2">
                     <div className="text-slate-200 font-medium">{r.type}</div>
                     <div className="text-emerald-300 mt-0.5">{r.target}</div>
                     <div className="text-slate-600 mt-1">{r.note}</div>
@@ -295,12 +295,12 @@ export default function BusinessModel() {
               </ul>
             </CardContent>
           </Card>
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
               <h3 className="text-white font-semibold mb-3 flex items-center gap-2"><Percent className="w-4 h-4 text-blue-400" /> Alıcı / kiracı</h3>
               <ul className="space-y-3 text-xs text-slate-400">
                 {BUYER_SIDE_RATES.map((r) => (
-                  <li key={r.type} className="border-b border-white/5 pb-2">
+                  <li key={r.type} className="border-b border-slate-200/80 pb-2">
                     <div className="text-slate-200 font-medium">{r.type}</div>
                     <div className="text-blue-300 mt-0.5">{r.target}</div>
                     <div className="text-slate-600 mt-1">{r.note}</div>
@@ -311,7 +311,7 @@ export default function BusinessModel() {
           </Card>
         </div>
 
-        <Card className="bg-slate-900/50 border-white/5 mb-6">
+        <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5">
             <h3 className="text-white font-semibold flex items-center gap-2 mb-3"><Bot className="w-5 h-5 text-violet-400" /> Yapay zeka emlakçı (yol haritası)</h3>
             <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
@@ -323,7 +323,7 @@ export default function BusinessModel() {
         </Card>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
               <h3 className="text-white font-semibold flex items-center gap-2 mb-3"><MessageSquare className="w-5 h-5 text-amber-400" /> SMS akışları</h3>
               <ul className="space-y-2 text-xs text-slate-400 list-disc list-inside">
@@ -333,7 +333,7 @@ export default function BusinessModel() {
               </ul>
             </CardContent>
           </Card>
-          <Card className="bg-slate-900/50 border-white/5">
+          <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
               <h3 className="text-white font-semibold flex items-center gap-2 mb-3"><Landmark className="w-5 h-5 text-teal-400" /> Ödeme (Sahibinden benzeri hazırlık)</h3>
               <ul className="space-y-2 text-xs text-slate-400 list-disc list-inside">

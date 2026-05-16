@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useRef } from "react";
+﻿import { useMemo, useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -42,7 +42,7 @@ function roleBadge(role: string) {
     case "satici":
       return { Icon: Home, label: "Satıcı", className: "bg-amber-500/20 text-amber-200 border-amber-500/30" };
     default:
-      return { Icon: Shield, label: "Platform", className: "bg-slate-600/40 text-slate-300 border-white/10" };
+      return { Icon: Shield, label: "Platform", className: "bg-slate-600/40 text-slate-300 border-slate-200" };
   }
 }
 
@@ -184,10 +184,10 @@ export default function MessagesPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 bg-[#0a0f1e] px-3 sm:px-4">
+    <div className="min-h-screen pt-24 pb-12 bg-slate-50 px-3 sm:px-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 w-fit">
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 w-fit">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
           <p className="text-xs text-slate-500 max-w-xl">
@@ -195,10 +195,10 @@ export default function MessagesPage() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 min-h-[calc(100vh-12rem)] rounded-2xl border border-white/10 bg-slate-900/40 overflow-hidden shadow-xl">
+        <div className="flex flex-col lg:flex-row gap-4 min-h-[calc(100vh-12rem)] rounded-2xl border border-slate-200 bg-slate-900/40 overflow-hidden shadow-xl">
           {/* Sol — konuşmalar */}
-          <aside className="lg:w-80 shrink-0 border-b lg:border-b-0 lg:border-r border-white/10 max-h-52 lg:max-h-none overflow-y-auto lg:overflow-visible">
-            <div className="p-4 border-b border-white/5 flex items-center gap-2 text-white font-semibold">
+          <aside className="lg:w-80 shrink-0 border-b lg:border-b-0 lg:border-r border-slate-200 max-h-52 lg:max-h-none overflow-y-auto lg:overflow-visible">
+            <div className="p-4 border-b border-slate-200/80 flex items-center gap-2 text-white font-semibold">
               <MessageSquare className="w-5 h-5 text-blue-400" />
               Konuşmalar
             </div>
@@ -233,7 +233,7 @@ export default function MessagesPage() {
           <div className="flex-1 flex flex-col min-h-[420px]">
             {active ? (
               <>
-                <div className="px-4 py-3 border-b border-white/10 flex flex-wrap gap-2 items-center">
+                <div className="px-4 py-3 border-b border-slate-200 flex flex-wrap gap-2 items-center">
                   <h1 className="text-lg font-bold text-white flex-1 min-w-[200px]">{active.title}</h1>
                   {isSupabaseConfigured() && hasAuthSession && isUuid(active.id) ? (
                     <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-200/95">
@@ -275,8 +275,8 @@ export default function MessagesPage() {
                         <div
                           className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm border ${
                             self
-                              ? "bg-gradient-to-br from-blue-600/90 to-teal-600/80 border-white/10 text-white rounded-br-md"
-                              : "bg-slate-800/90 border-white/10 text-slate-100 rounded-bl-md"
+                              ? "bg-gradient-to-br from-blue-600/90 to-teal-600/80 border-slate-200 text-white rounded-br-md"
+                              : "bg-slate-800/90 border-slate-200 text-slate-100 rounded-bl-md"
                           }`}
                         >
                           <div className="flex flex-wrap items-center gap-2 mb-1 text-[10px] opacity-90">
@@ -306,7 +306,7 @@ export default function MessagesPage() {
                                   ? "border-rose-500/40 bg-rose-950/40 text-rose-100"
                                   : m.complianceScan.severity === "medium"
                                     ? "border-amber-500/35 bg-amber-950/30 text-amber-100"
-                                    : "border-white/10 bg-black/25 text-slate-300"
+                                    : "border-slate-200 bg-black/25 text-slate-300"
                               }`}
                             >
                               <span className="font-medium">
@@ -326,12 +326,12 @@ export default function MessagesPage() {
                   <div ref={bottomRef} />
                 </div>
 
-                <div className="p-3 border-t border-white/10 bg-slate-950/60 flex flex-col sm:flex-row gap-2">
+                <div className="p-3 border-t border-slate-200 bg-slate-950/60 flex flex-col sm:flex-row gap-2">
                   <Input
                     value={draft}
                     onChange={(e) => setDraft(e.target.value)}
                     placeholder="Mesajınızı yazın…"
-                    className="flex-1 bg-slate-950 border-white/10 text-white"
+                    className="flex-1 bg-slate-950 border-slate-200 text-white"
                     onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && (e.preventDefault(), send())}
                   />
                   <div className="flex gap-2 shrink-0">
@@ -350,7 +350,7 @@ export default function MessagesPage() {
           </div>
         </div>
 
-        <Card className="mt-6 border-white/10 bg-slate-900/30 p-4 space-y-2">
+        <Card className="mt-6 border-slate-200 bg-slate-900/30 p-4 space-y-2">
           <p className="text-xs text-slate-500">
             İletişim tek kayıt altında tutulma hedefiyle platform kanalından yürür; doğrudan telefon paylaşımı varsayılan olarak kapalıdır.{" "}
             <Link to="/ihaleler" className="text-teal-400 hover:underline">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory, BadgePercent, Landmark, DraftingCompass } from "lucide-react";
@@ -84,16 +84,16 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#061428]/80 backdrop-blur-xl border-b border-white/10 ${scrolled ? "shadow-lg shadow-black/30" : ""}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/85 backdrop-blur-xl border-b border-slate-200/90 ${scrolled ? "shadow-md shadow-slate-200/60" : ""}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20 gap-2">
             <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2.5 group shrink-0">
-              <Logo size="md" variant="full" textClassName="text-white tracking-tight text-xl" />
+              <Logo size="md" variant="full" textClassName="text-slate-900 tracking-tight text-xl" />
             </button>
 
             <div className="hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <button type="button" onClick={() => navigate("/")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">Ana Sayfa</button>
-              <button type="button" onClick={() => navigate("/ihaleler")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">İhaleler</button>
+              <button type="button" onClick={() => navigate("/")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all whitespace-nowrap">Ana Sayfa</button>
+              <button type="button" onClick={() => navigate("/ihaleler")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all whitespace-nowrap">İhaleler</button>
               <NavLink
                 to={KKA_HUB_PATH}
                 end={false}
@@ -125,11 +125,11 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => navigate("/nasil-calisir")}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap"
+                className="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all whitespace-nowrap"
               >
                 Nasıl Çalışır
               </button>
-              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">İletişim</button>
+              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all whitespace-nowrap">İletişim</button>
               {!currentUser ? (
                 <>
                   <span className="text-white/20 px-0.5 select-none" aria-hidden>|</span>
@@ -194,7 +194,7 @@ export function Navbar() {
                       <PlusCircle className="w-4 h-4" /> İhale Aç
                     </Button>
                   ) : null}
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/profil")} className="text-slate-400 hover:text-white" title="Profil">
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/profil")} className="text-slate-500 hover:text-slate-900" title="Profil">
                     <UserPlus className="w-4 h-4" />
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => void handleSignOut()} className="text-slate-400 hover:text-rose-300 gap-1.5">
@@ -213,7 +213,7 @@ export function Navbar() {
                   <Button size="sm" onClick={() => navigate("/kayit")} className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-400 hover:to-cyan-300 text-white font-semibold whitespace-nowrap shadow-lg shadow-cyan-500/20">Kayıt Ol</Button>
                 </div>
               )}
-              <Button variant="ghost" size="sm" onClick={toggle} className="text-slate-400 hover:text-white p-2" title={theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}>
+              <Button variant="ghost" size="sm" onClick={toggle} className="text-slate-500 hover:text-slate-900 p-2" title={theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}>
                 {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-violet-400" />}
               </Button>
             </div>
@@ -242,18 +242,18 @@ export function Navbar() {
                 </Button>
               </div>
             ) : null}
-            <button type="button" onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 shrink-0" aria-label="Menüyü aç">
+            <button type="button" onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-white/5 shrink-0" aria-label="Menüyü aç">
               <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
 
         {isOpen && (
-          <div className="lg:hidden bg-[#0a0f1e]/95 backdrop-blur-xl border-b border-white/5 px-4 pb-4 animate-fade-in">
+          <div className="lg:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200 px-4 pb-4 animate-fade-in">
             <div className="flex flex-col gap-1 mt-2">
               <button onClick={() => { setSearchOpen(true); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-white/10 text-left flex items-center gap-2"><Search className="w-4 h-4" /> İlan Ara</button>
-              <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">Ana Sayfa</button>
-              <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">İhaleler</button>
+              <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left">Ana Sayfa</button>
+              <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left">İhaleler</button>
               <NavLink
                 to={KKA_HUB_PATH}
                 end={false}
@@ -290,11 +290,11 @@ export function Navbar() {
                   navigate("/nasil-calisir");
                   setIsOpen(false);
                 }}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left"
+                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left"
               >
                 Nasıl Çalışır
               </button>
-              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left">İletişim</button>
+              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left">İletişim</button>
               <div className="border-t border-white/5 my-2" />
               <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>
               <button
@@ -369,7 +369,7 @@ export function Navbar() {
                   <button type="button" onClick={() => { navigate("/kayit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-400 text-left">Kayıt Ol</button>
                 </>
               )}
-              <button onClick={() => { toggle(); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 text-left flex items-center gap-2">
+              <button onClick={() => { toggle(); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left flex items-center gap-2">
                 {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-violet-400" />}
                 {theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}
               </button>

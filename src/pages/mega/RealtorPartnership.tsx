@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Building2, Send, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -135,14 +135,14 @@ export default function RealtorPartnershipPage() {
           </p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="relative flex flex-col rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+              <div key={s.title} className="relative flex flex-col rounded-2xl border border-slate-200 bg-slate-900/40 p-4">
                 <span className="mb-3 inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-full bg-violet-500/20 text-xs font-bold text-violet-300">
                   {i + 1}
                 </span>
                 <h3 className="font-semibold text-white">{s.title}</h3>
                 <p className="mt-0.5 text-[11px] font-medium uppercase tracking-wide text-violet-300/90">{s.subtitle}</p>
                 <p className="mt-2 flex-1 text-xs leading-relaxed text-slate-400">{s.desc}</p>
-                <ul className="mt-3 space-y-1.5 border-t border-white/5 pt-3 text-[11px] leading-snug text-slate-500">
+                <ul className="mt-3 space-y-1.5 border-t border-slate-200/80 pt-3 text-[11px] leading-snug text-slate-500">
                   {s.bullets.map((b) => (
                     <li key={b} className="flex gap-2">
                       <span className="shrink-0 text-teal-500/80" aria-hidden>
@@ -161,7 +161,7 @@ export default function RealtorPartnershipPage() {
           <h2 className="mb-6 text-lg font-semibold text-white">Avantajlar</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {ADV.map((a) => (
-              <Card key={a.title} className="border-white/10 bg-slate-900/40">
+              <Card key={a.title} className="border-slate-200 bg-slate-900/40">
                 <CardContent className="flex gap-3 p-5">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
                   <div>
@@ -208,29 +208,29 @@ export default function RealtorPartnershipPage() {
         ) : (
           <form onSubmit={submit} className="space-y-6">
             <h2 className="text-lg font-semibold text-white">Başvuru formu</h2>
-            <Card className="border-white/10 bg-slate-900/50">
+            <Card className="border-slate-200 bg-slate-900/50">
               <CardContent className="space-y-4 p-6">
                 <div>
                   <Label className="text-slate-300">Ticari ünvan</Label>
-                  <Input required value={companyLegalName} onChange={(e) => setCompanyLegalName(e.target.value)} className="mt-2 bg-slate-950 border-white/10 text-white" />
+                  <Input required value={companyLegalName} onChange={(e) => setCompanyLegalName(e.target.value)} className="mt-2 bg-slate-950 border-slate-200 text-white" />
                 </div>
                 <div>
                   <Label className="text-slate-300">VKN veya yetkili TCKN</Label>
-                  <Input required value={taxIdOrTc} onChange={(e) => setTaxIdOrTc(e.target.value)} className="mt-2 bg-slate-950 border-white/10 text-white" />
+                  <Input required value={taxIdOrTc} onChange={(e) => setTaxIdOrTc(e.target.value)} className="mt-2 bg-slate-950 border-slate-200 text-white" />
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <Label className="text-slate-300">E-posta</Label>
-                    <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 bg-slate-950 border-white/10 text-white" />
+                    <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 bg-slate-950 border-slate-200 text-white" />
                   </div>
                   <div>
                     <Label className="text-slate-300">Telefon</Label>
-                    <Input required value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-2 bg-slate-950 border-white/10 text-white" />
+                    <Input required value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-2 bg-slate-950 border-slate-200 text-white" />
                   </div>
                 </div>
                 <div>
                   <Label className="text-slate-300">Şehir</Label>
-                  <Input value={city} onChange={(e) => setCity(e.target.value)} className="mt-2 bg-slate-950 border-white/10 text-white" />
+                  <Input value={city} onChange={(e) => setCity(e.target.value)} className="mt-2 bg-slate-950 border-slate-200 text-white" />
                 </div>
                 <div>
                   <Label className="text-slate-300">Notlar</Label>
@@ -238,7 +238,7 @@ export default function RealtorPartnershipPage() {
                     rows={4}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="mt-2 w-full rounded-md border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white placeholder:text-slate-600"
+                    className="mt-2 w-full rounded-md border border-slate-200 bg-slate-950 px-3 py-2 text-sm text-white placeholder:text-slate-600"
                     placeholder="Taşınmaz ticareti yetki belgesi özeti, referans vb."
                   />
                 </div>

@@ -1,4 +1,4 @@
-import { useNavigate, NavLink, useParams } from "react-router-dom";
+﻿import { useNavigate, NavLink, useParams } from "react-router-dom";
 import {
   LayoutDashboard,
   User,
@@ -50,13 +50,13 @@ export default function UserPanel() {
                 : "Özet";
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
         <aside className="lg:w-64 shrink-0 space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2">
             <ArrowLeft className="w-4 h-4" /> Ana sayfa
           </Button>
-          <nav className="rounded-2xl border border-white/10 bg-slate-900/40 p-2 space-y-1">
+          <nav className="rounded-2xl border border-slate-200 bg-slate-900/40 p-2 space-y-1">
             {sidebar.map((item) => (
               <NavLink
                 key={item.to}
@@ -92,7 +92,7 @@ export default function UserPanel() {
           </div>
 
           {tabId ? (
-            <Card className="bg-slate-900/50 border-white/5 border-dashed">
+            <Card className="bg-slate-900/50 border-slate-200/80 border-dashed">
               <CardContent className="p-8 text-center text-slate-400 text-sm">
                 <p className="mb-4">
                   {sectionTitle} içeriği yakında tamamlanacak. Bildirim ve mesaj demo akışları üst menüden kullanılabilir.
@@ -105,21 +105,21 @@ export default function UserPanel() {
           ) : (
             <>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Card className="bg-slate-900/50 border-white/5">
+                <Card className="bg-slate-900/50 border-slate-200/80">
                   <CardContent className="p-5">
                     <div className="text-xs text-slate-500 uppercase tracking-wide">Aktif ihale (demo)</div>
                     <div className="text-3xl font-bold text-emerald-400 mt-1">{liveCount}</div>
                     <p className="text-xs text-slate-600 mt-2">Katalog genelinde canlı kayıt sayısı.</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-slate-900/50 border-white/5">
+                <Card className="bg-slate-900/50 border-slate-200/80">
                   <CardContent className="p-5">
                     <div className="text-xs text-slate-500 uppercase tracking-wide">Bekleyen teklifler</div>
                     <div className="text-3xl font-bold text-amber-400 mt-1">—</div>
                     <p className="text-xs text-slate-600 mt-2">Gerçek teklif akışı bağlandığında dolar.</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-slate-900/50 border-white/5">
+                <Card className="bg-slate-900/50 border-slate-200/80">
                   <CardContent className="p-5">
                     <div className="text-xs text-slate-500 uppercase tracking-wide">Üyelik süresi</div>
                     <div className="text-xl font-bold text-sky-400 mt-1">Yıllık</div>
@@ -128,7 +128,7 @@ export default function UserPanel() {
                 </Card>
               </div>
 
-              <Card className="bg-slate-900/50 border-white/5">
+              <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5">
                   <h2 className="text-lg font-semibold text-white mb-3">Komisyon özeti (taslak)</h2>
                   <p className="text-sm text-slate-400 leading-relaxed">

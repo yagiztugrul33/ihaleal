@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
@@ -495,9 +495,9 @@ export default function AuctionDetail() {
 
   return (
     <div ref={ref} className="min-h-screen pt-20 pb-16">
-      <div className="sticky top-16 z-40 bg-slate-950/90 backdrop-blur-xl border-b border-white/5">
+      <div className="sticky top-16 z-40 bg-slate-950/90 backdrop-blur-xl border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`}><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
             {id && <ShareButton title={auction?.title || ""} url={`/ilan/${id}`} />}
@@ -527,7 +527,7 @@ export default function AuctionDetail() {
               </div>
             )}
           </div>
-          <div className="flex gap-2 p-3 bg-slate-900/50 border-t border-white/5 overflow-x-auto">
+          <div className="flex gap-2 p-3 bg-slate-900/50 border-t border-slate-200/80 overflow-x-auto">
             {auction.images.map((img, i) => (
               <button key={i} onClick={() => setCurrentImage(i)} className={`relative w-20 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${i === currentImage ? "border-blue-500" : "border-transparent"}`}>
                 <ListingCoverImage src={img} alt="" className="w-full h-full object-cover" />
@@ -544,7 +544,7 @@ export default function AuctionDetail() {
               </div>
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">{auction.title}</h1>
               <div className="flex items-center gap-2 text-slate-400 mb-4"><MapPin className="w-4 h-4" /> {auction.location}</div>
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-white/10 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
+              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
                 <p className="font-semibold text-slate-200 text-sm">Haftalık ihale takvimi (hedef)</p>
                 <p>
                   <span className="text-cyan-200/90">{WEEKLY_AUCTION_SLOT_TR}</span> {WEEKLY_AUCTION_POLICY_TR}
@@ -600,7 +600,7 @@ export default function AuctionDetail() {
               </div>
             </div>
 
-            <div className={`sticky top-[7.5rem] z-30 bg-slate-950/95 backdrop-blur-xl border-b border-white/5 -mx-4 px-4 transition-all duration-700 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+            <div className={`sticky top-[7.5rem] z-30 bg-slate-950/95 backdrop-blur-xl border-b border-slate-200/80 -mx-4 px-4 transition-all duration-700 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
               <div className="flex gap-1 overflow-x-auto py-2">
                 {[
                   { key: "overview" as const, label: "Genel Bakış", icon: <Home className="w-4 h-4" /> },
@@ -610,7 +610,7 @@ export default function AuctionDetail() {
                   { key: "priceHistory" as const, label: "Fiyat Geçmişi", icon: <TrendingUp className="w-4 h-4" /> },
                   { key: "ai" as const, label: "AI Analiz", icon: <BarChart3 className="w-4 h-4" />, mandatory: true },
                 ].map((tab) => (
-                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-400 hover:text-white hover:bg-white/5"}`}>{tab.icon} {tab.label}{tab.mandatory ? <Badge className="bg-emerald-600/90 text-white border-0 text-[10px] px-1.5 py-0">ZORUNLU</Badge> : null}</button>
+                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-900 hover:bg-white/5"}`}>{tab.icon} {tab.label}{tab.mandatory ? <Badge className="bg-emerald-600/90 text-white border-0 text-[10px] px-1.5 py-0">ZORUNLU</Badge> : null}</button>
                 ))}
               </div>
             </div>
@@ -699,14 +699,14 @@ export default function AuctionDetail() {
                     { label: "Tapu Durumu", value: auction.propertyDetails.deedStatus },
                     { label: "Uygunluk", value: auction.propertyDetails.eligibility },
                   ].map((item) => (
-                    <div key={item.label as string} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5"><span className="text-sm text-slate-500">{item.label}</span><span className="text-sm font-medium text-white">{item.value}</span></div>
+                    <div key={item.label as string} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><span className="text-sm text-slate-500">{item.label}</span><span className="text-sm font-medium text-white">{item.value}</span></div>
                   ))}
                 </div>
               )}
               {activeTab === "features" && (
                 <div className="animate-fade-in">
                   <div className="flex flex-wrap gap-2">
-                    {auction.features.map((f) => <Badge key={f} variant="outline" className="border-white/10 text-slate-300 px-3 py-1.5 text-sm"><CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> {f}</Badge>)}
+                    {auction.features.map((f) => <Badge key={f} variant="outline" className="border-slate-200 text-slate-300 px-3 py-1.5 text-sm"><CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> {f}</Badge>)}
                   </div>
                 </div>
               )}
@@ -724,7 +724,7 @@ export default function AuctionDetail() {
                           other: <MapPin className="w-4 h-4 text-violet-400" />,
                         };
                         return (
-                          <div key={f.name} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                          <div key={f.name} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                             <div className="p-2 rounded-lg bg-white/5">{icons[f.type]}</div>
                             <div><div className="text-sm font-medium text-white">{f.name}</div><div className="text-xs text-slate-500">{f.distance}m mesafe</div></div>
                           </div>
@@ -732,7 +732,7 @@ export default function AuctionDetail() {
                       })}
                     </div>
                   </div>
-                  <div className="rounded-2xl overflow-hidden border border-white/5 h-64 bg-slate-900">
+                  <div className="rounded-2xl overflow-hidden border border-slate-200/80 h-64 bg-slate-900">
                     <iframe
                       width="100%"
                       height="100%"
@@ -761,7 +761,7 @@ export default function AuctionDetail() {
                   </div>
                   <div className="space-y-2">
                     {auction.priceHistory.map((p, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                      <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                         <div className="flex items-center gap-3">
                           <div className={`w-2 h-2 rounded-full ${p.event === "Fiyat Düşüşü" ? "bg-red-400" : "bg-blue-400"}`} />
                           <span className="text-sm text-slate-400">{p.event}</span>
@@ -848,18 +848,18 @@ export default function AuctionDetail() {
           </div>
 
           <div className="lg:col-span-1 space-y-6">
-            <Card className={`bg-slate-900/50 border-white/5 sticky top-[11rem] transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Card className={`bg-slate-900/50 border-slate-200/80 sticky top-[11rem] transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <CardContent className="p-5 space-y-4">
                 <div>
                   <div className="text-xs text-slate-500 mb-1">{pricePrimaryLabel}</div>
                   <div className="text-3xl font-bold text-blue-400">₺{liveBid.toLocaleString("tr-TR")}</div>
                   <div className="text-xs text-slate-500 mt-1">₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²</div>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
                   <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                 </div>
-                <p className="text-[11px] text-slate-500 leading-relaxed border border-white/5 rounded-lg p-2.5 bg-white/[0.02]">
+                <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-lg p-2.5 bg-white/[0.02]">
                   {isListingOnly ? (
                     <>
                       Bu ilan <strong className="text-slate-400">sadece ilan</strong> modundadır; fiyat bilgisi aşağıdadır. Bilgi veya talep için ihaleal.com ile iletişime geçin; taraf telefonu ilanda yok (ofis kartındaki yetkili adı gibi platform adı).
@@ -947,26 +947,26 @@ export default function AuctionDetail() {
                     </Button>
                   ) : null}
                   {!isListingOnly && auction.dealType !== "rent" ? (
-                    <Button variant="outline" className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 h-11 px-3 shrink-0" onClick={() => navigate("/mortgage")} title="Kredi Hesapla">
+                    <Button variant="outline" className="border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 h-11 px-3 shrink-0" onClick={() => navigate("/mortgage")} title="Kredi Hesapla">
                       <Calculator className="w-4 h-4" />
                     </Button>
                   ) : null}
-                  <Button variant="outline" className="border-white/10 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
+                  <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
-                <div className="pt-4 border-t border-white/5 space-y-3">
+                <div className="pt-4 border-t border-slate-200/80 space-y-3">
                   <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/15">
                     <div className="text-sm font-semibold text-white">{PLATFORM_LISTING_CONTACT.displayName}</div>
                     <div className="text-xs text-slate-500 mt-0.5">{PLATFORM_LISTING_CONTACT.roleLine}</div>
                     <p className="text-[11px] text-slate-500 mt-2 leading-relaxed">{PLATFORM_LISTING_CONTACT.detailLine}</p>
                   </div>
-                  <Button variant="outline" className="w-full border-white/10 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => window.open("mailto:destek@ihaleal.com?subject=İlan%20talebi%20" + encodeURIComponent(auction.id), "_blank")}>
+                  <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => window.open("mailto:destek@ihaleal.com?subject=İlan%20talebi%20" + encodeURIComponent(auction.id), "_blank")}>
                     <Mail className="w-4 h-4" /> Talep oluştur (e-posta)
                   </Button>
-                  <Button variant="outline" className="w-full border-white/10 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
+                  <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
                     <Phone className="w-4 h-4" /> İletişim formu
                   </Button>
                 </div>
-                <div className="pt-4 border-t border-white/5">
+                <div className="pt-4 border-t border-slate-200/80">
                   <button onClick={() => navigate("/ekspertiz")} className="w-full text-left p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
                     <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">Uzman Gorusu Al</span></div>
                     <p className="text-xs text-slate-500">Profesyonel ekspertiz raporu talep edin</p>
@@ -975,14 +975,14 @@ export default function AuctionDetail() {
               </CardContent>
             </Card>
 
-            <Card className={`bg-slate-900/50 border-white/5 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Card className={`bg-slate-900/50 border-slate-200/80 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2 mb-1">
                   <Receipt className="w-4 h-4 text-teal-400" />
                   <h4 className="text-sm font-semibold text-white">Komisyon Hesaplayici</h4>
                   <Badge variant="outline" className="border-teal-500/20 text-teal-400 text-[10px] ml-auto">{feeBadgeLabel()}</Badge>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 space-y-3">
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 space-y-3">
                   <div>
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-slate-500">{isListingOnly ? "İlan tutarı (referans)" : "İhale / teklif tutarı (tahmini)"}</span>
@@ -994,7 +994,7 @@ export default function AuctionDetail() {
                     <div className="flex justify-between"><span className="text-slate-400">KDV (platform)</span><span className="text-slate-300 font-medium">₺{closing.vatOnCommission.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">Tapu Harci (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-medium">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">Döner Sermaye</span><span className="text-slate-300 font-medium">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
-                    <div className="border-t border-white/5 pt-2 flex justify-between font-semibold"><span className="text-teal-400">Toplam Maliyet</span><span className="text-teal-400">₺{closing.total.toLocaleString("tr-TR")}</span></div>
+                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-semibold"><span className="text-teal-400">Toplam Maliyet</span><span className="text-teal-400">₺{closing.total.toLocaleString("tr-TR")}</span></div>
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-600 leading-relaxed px-0.5">{FEE_TEXTS.commissionMatrahLine()}</p>
@@ -1002,7 +1002,7 @@ export default function AuctionDetail() {
               </CardContent>
             </Card>
 
-            <Card className={`bg-slate-900/50 border-white/5 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Card className={`bg-slate-900/50 border-slate-200/80 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <CardContent className="p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <ShieldCheck className="w-4 h-4 text-violet-400" />
@@ -1029,7 +1029,7 @@ export default function AuctionDetail() {
           if (open) setBidGateAck(initialBidGateAck());
         }}
       >
-        <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-lg max-h-[min(90vh,640px)] overflow-y-auto">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-lg max-h-[min(90vh,640px)] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">{isSealedOffer ? "Kapalı teklif ver" : isAuctionMode ? "Teklif ver" : "Teklif"}</DialogTitle>
           </DialogHeader>
@@ -1072,12 +1072,12 @@ export default function AuctionDetail() {
                 inputMode="numeric"
                 value={bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
-                className="bg-slate-950 border-white/10 text-white focus:ring-blue-500"
+                className="bg-slate-950 border-slate-200 text-white focus:ring-blue-500"
                 placeholder="örn: 3000000 veya 3.000.000"
               />
             </div>
             {!isListingOnly ? (
-              <div className="space-y-3 rounded-xl border border-white/10 bg-black/20 p-3">
+              <div className="space-y-3 rounded-xl border border-slate-200 bg-black/20 p-3">
                 <p className="text-xs font-semibold text-white">Zorunlu onaylar</p>
                 <div className="space-y-3">
                   {BID_GATE_CHECKBOXES.map((row) => (
@@ -1126,7 +1126,7 @@ export default function AuctionDetail() {
       </Dialog>
 
       <Dialog open={showMarketReportDialog} onOpenChange={setShowMarketReportDialog}>
-        <DialogContent className="bg-slate-900 border-white/10 text-white max-w-lg">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
               <FileText className="w-5 h-5 text-teal-400" /> Piyasa raporu analizi
@@ -1154,7 +1154,7 @@ export default function AuctionDetail() {
       </Dialog>
 
       <Dialog open={showOfficialDocsDialog} onOpenChange={setShowOfficialDocsDialog}>
-        <DialogContent className="bg-slate-900 border-white/10 text-white max-w-lg">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
               <Landmark className="w-5 h-5 text-sky-400" /> Resmi belgeler özeti
@@ -1182,7 +1182,7 @@ export default function AuctionDetail() {
       </Dialog>
 
       <Dialog open={preAuthOpen} onOpenChange={setPreAuthOpen}>
-        <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-md">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">Blokaj ön yetkisi (mock)</DialogTitle>
           </DialogHeader>
@@ -1198,7 +1198,7 @@ export default function AuctionDetail() {
             <p>Cayarsanız yaklaşık %10 kesinti ve kalanın iadesi hedeflenir — detay için cayma politikası.</p>
             <div>
               <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
-              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-white/10 text-white" placeholder="test-ok veya test-fail" />
+              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="test-ok veya test-fail" />
             </div>
           </div>
           <DialogFooter className="gap-2">
@@ -1213,7 +1213,7 @@ export default function AuctionDetail() {
       </Dialog>
 
       <Dialog open={hemenAlGateOpen} onOpenChange={setHemenAlGateOpen}>
-        <DialogContent className="bg-slate-900 border-white/10 text-white max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
               <ShoppingCart className="w-5 h-5 text-emerald-400" />
@@ -1223,11 +1223,11 @@ export default function AuctionDetail() {
           <div className="space-y-3 text-sm text-slate-300">
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
             <p className="leading-relaxed">{HEMEN_AL_GATE_INTRO}</p>
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3 space-y-2">
+            <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
               <p className="text-xs font-semibold text-emerald-200">MASAK / AML</p>
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
             </div>
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3 space-y-2">
+            <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
               <p className="text-xs font-semibold text-cyan-200">Kart ve 3DS</p>
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
             </div>
@@ -1249,7 +1249,7 @@ export default function AuctionDetail() {
                 </Button>
               ))}
             </div>
-            <div className="space-y-3 border-t border-white/10 pt-3">
+            <div className="space-y-3 border-t border-slate-200 pt-3">
               <label className="flex items-start gap-2 cursor-pointer text-xs">
                 <Checkbox checked={buyNowAcceptContracts} onCheckedChange={(c) => setBuyNowAcceptContracts(c === true)} className="mt-0.5" />
                 <span>Yukaridaki sözlesme ve kosullar baglantilarini inceledim; satilik Hemen Al&apos;in araci satis akisi oldugunu anliyorum.</span>
@@ -1267,7 +1267,7 @@ export default function AuctionDetail() {
                 <span>Hemen Al ihlal / kotuye kullanim uyarilarini okudum.</span>
               </label>
             </div>
-            <pre className="text-[10px] text-slate-500 whitespace-pre-wrap max-h-32 overflow-y-auto rounded border border-white/10 p-2 bg-black/30">
+            <pre className="text-[10px] text-slate-500 whitespace-pre-wrap max-h-32 overflow-y-auto rounded border border-slate-200 p-2 bg-black/30">
               {MODULE3_HEMEN_AL_ACCEPTANCE}
             </pre>
           </div>
@@ -1291,7 +1291,7 @@ export default function AuctionDetail() {
       </Dialog>
 
       <Dialog open={preAuthBuyNowOpen} onOpenChange={setPreAuthBuyNowOpen}>
-        <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-md">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">Hemen Al — kart on yetkisi (mock)</DialogTitle>
           </DialogHeader>
@@ -1313,7 +1313,7 @@ export default function AuctionDetail() {
             </p>
             <div>
               <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
-              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-white/10 text-white" placeholder="test-ok veya test-fail" />
+              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="test-ok veya test-fail" />
             </div>
           </div>
           <DialogFooter className="gap-2">
@@ -1328,7 +1328,7 @@ export default function AuctionDetail() {
       </Dialog>
 
       <Dialog open={showBuyNowConfirm} onOpenChange={setShowBuyNowConfirm}>
-        <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-md">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">Hemen Al — islemi tamamla</DialogTitle>
           </DialogHeader>
@@ -1364,7 +1364,7 @@ export default function AuctionDetail() {
               <Button
                 type="button"
                 variant="secondary"
-                className="border-white/10 text-slate-200"
+                className="border-slate-200 text-slate-200"
                 disabled={!buyNowFinalAck}
                 onClick={() => {
                   setShowBuyNowConfirm(false);
@@ -1381,7 +1381,7 @@ export default function AuctionDetail() {
       </Dialog>
 
       <Dialog open={showVirtualTour} onOpenChange={setShowVirtualTour}>
-        <DialogContent className="bg-slate-900 border-white/10 text-white max-w-4xl">
+        <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-4xl">
           <DialogHeader><DialogTitle className="text-xl font-bold">360° Sanal Tur</DialogTitle></DialogHeader>
           <div className="aspect-video rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center">
             <div className="text-center">
@@ -1411,7 +1411,7 @@ function PriceCard({
   const colors: Record<string, string> = { blue: "text-blue-400", emerald: "text-emerald-400", sky: "text-sky-400", violet: "text-violet-400" };
   return (
     <div
-      className="relative p-3 rounded-xl bg-white/[0.03] border border-white/5"
+      className="relative p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"
       data-demo={showDemoBadge ? "true" : undefined}
     >
       {showDemoBadge ? <DemoDataCornerBadge /> : null}
@@ -1422,7 +1422,7 @@ function PriceCard({
 }
 
 function DetailItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5"><div className="text-blue-500">{icon}</div><div><div className="text-xs text-slate-500">{label}</div><div className="text-sm font-medium text-white">{value}</div></div></div>;
+  return <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><div className="text-blue-500">{icon}</div><div><div className="text-xs text-slate-500">{label}</div><div className="text-sm font-medium text-white">{value}</div></div></div>;
 }
 
 function AIBadge({ label, value, color }: { label: string; value: string; color: string }) {
@@ -1431,5 +1431,5 @@ function AIBadge({ label, value, color }: { label: string; value: string; color:
 }
 
 function StatBadge({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
-  return <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5"><div className="text-xs text-slate-500">{label}</div><div className={`text-sm font-semibold ${positive === true ? "text-emerald-400" : positive === false ? "text-red-400" : "text-white"}`}>{value}</div></div>;
+  return <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><div className="text-xs text-slate-500">{label}</div><div className={`text-sm font-semibold ${positive === true ? "text-emerald-400" : positive === false ? "text-red-400" : "text-white"}`}>{value}</div></div>;
 }

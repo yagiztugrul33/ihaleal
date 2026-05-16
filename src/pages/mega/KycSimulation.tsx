@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { ShieldCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ export default function KycSimulationPage() {
         </div>
 
         {phase === 0 && (
-          <Card className="border-white/10 bg-slate-900/50">
+          <Card className="border-slate-200 bg-slate-900/50">
             <CardContent className="space-y-4 p-6">
               <p className="text-sm text-slate-400">{KYC_SIMULATION_STEPS[0].description}</p>
               <Button type="button" className="w-full" onClick={next}>
@@ -65,10 +65,10 @@ export default function KycSimulationPage() {
         )}
 
         {phase === 1 && (
-          <Card className="border-white/10 bg-slate-900/50">
+          <Card className="border-slate-200 bg-slate-900/50">
             <CardContent className="space-y-4 p-6">
               <Label className="text-slate-300">SMS kodu (demo)</Label>
-              <Input value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))} placeholder="6 hane" className="bg-slate-950 border-white/10 text-white" />
+              <Input value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))} placeholder="6 hane" className="bg-slate-950 border-slate-200 text-white" />
               <Button type="button" className="w-full" onClick={() => otp.length === 6 && next()} disabled={otp.length !== 6}>
                 Doğrula
               </Button>
@@ -77,7 +77,7 @@ export default function KycSimulationPage() {
         )}
 
         {phase === 2 && (
-          <Card className="border-white/10 bg-slate-900/50">
+          <Card className="border-slate-200 bg-slate-900/50">
             <CardContent className="space-y-4 p-6">
               <p className="text-sm text-slate-400">{KYC_SIMULATION_STEPS[2].description}</p>
               <Button type="button" className="w-full" onClick={next}>
@@ -88,7 +88,7 @@ export default function KycSimulationPage() {
         )}
 
         {phase === 3 && (
-          <Card className="border-white/10 bg-slate-900/50">
+          <Card className="border-slate-200 bg-slate-900/50">
             <CardContent className="space-y-4 p-6">
               <p className="text-sm text-slate-400">{KYC_SIMULATION_STEPS[3].description}</p>
               <Button type="button" className="w-full" onClick={next}>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+﻿import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -138,7 +138,7 @@ export default function AdminDashboard() {
               className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
                 tab === id
                   ? "bg-white/10 border-white/20 text-white"
-                  : "bg-slate-900/60 border-white/10 text-slate-400 hover:text-white"
+                  : "bg-slate-900/60 border-slate-200 text-slate-500 hover:text-slate-900"
               }`}
             >
               {label}
@@ -147,7 +147,7 @@ export default function AdminDashboard() {
         </div>
 
         {tab === "users" ? (
-            <div className="rounded-xl border border-white/10 bg-slate-900/40 p-6">
+            <div className="rounded-xl border border-slate-200 bg-slate-900/40 p-6">
               <p className="text-slate-400 text-sm mb-4">
                 Çoklu kullanıcı listesi için Supabase&apos;de admin&apos;e `profiles` SELECT politikası gerekir (
                 <code className="text-teal-400/90">manual_push_v4.sql</code>).
@@ -161,7 +161,7 @@ export default function AdminDashboard() {
         ) : null}
 
         {tab === "listings" ? (
-            <div className="rounded-xl border border-white/10 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-slate-950/80 text-left text-slate-400">
                   <tr>
@@ -205,7 +205,7 @@ export default function AdminDashboard() {
         ) : null}
 
         {tab === "auctions" ? (
-            <div className="rounded-xl border border-white/10 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-slate-950/80 text-left text-slate-400">
                   <tr>
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
         ) : null}
 
         {tab === "audit" ? (
-            <div className="rounded-xl border border-white/10 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-slate-950/80 text-left text-slate-400">
                   <tr>

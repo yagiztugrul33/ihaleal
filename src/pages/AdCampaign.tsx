@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Instagram, Youtube, Video, Target, TrendingUp, Users,
   DollarSign, BarChart3, Play, Calendar, Hash, Globe, Sparkles,
@@ -51,9 +51,9 @@ export default function AdCampaign() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-pink-500/5 to-transparent border-b border-white/5">
+      <div className="bg-gradient-to-b from-pink-500/5 to-transparent border-b border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 py-12">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center"><Target className="w-6 h-6 text-white" /></div>
             <div>
@@ -67,26 +67,26 @@ export default function AdCampaign() {
 
       <div className="max-w-5xl mx-auto px-4 mt-8 space-y-6">
         {/* Bütçe Özeti */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white mb-4">Aylık Reklam Bütçesi Özeti</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
                 <DollarSign className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
                 <div className="text-lg font-bold text-white">₺112.000</div>
                 <div className="text-xs text-slate-500">Toplam Aylık</div>
               </div>
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
                 <Eye className="w-5 h-5 text-blue-400 mx-auto mb-1.5" />
                 <div className="text-lg font-bold text-white">2.5M+</div>
                 <div className="text-xs text-slate-500">Tahmini Erişim</div>
               </div>
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
                 <Users className="w-5 h-5 text-violet-400 mx-auto mb-1.5" />
                 <div className="text-lg font-bold text-white">15.000+</div>
                 <div className="text-xs text-slate-500">Tahmini Dönüşüm</div>
               </div>
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
                 <TrendingUp className="w-5 h-5 text-amber-400 mx-auto mb-1.5" />
                 <div className="text-lg font-bold text-white">%1.35</div>
                 <div className="text-xs text-slate-500">Tahmini CTR</div>
@@ -96,12 +96,12 @@ export default function AdCampaign() {
         </Card>
 
         {/* Platform Stratejisi */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white mb-4">Platform Bazlı Strateji</h3>
             <div className="space-y-3">
               {strategy.map((s) => (
-                <div key={s.platform} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={s.platform} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-sm font-semibold text-white">{s.platform}</span>
                     <Badge variant="outline" className="border-blue-500/20 text-blue-400 text-[10px]">{s.budget}</Badge>
@@ -118,12 +118,12 @@ export default function AdCampaign() {
         </Card>
 
         {/* 10 Video Reels */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Video className="w-5 h-5 text-pink-400" /> 12 Hazır Kreatif (10 özgün + 2 A/B varyant, Reels / Shorts)</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               {reels.map((r) => (
-                <div key={r.id} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={r.id} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-white">{r.id}. {r.title}</span>
                     <Badge variant="outline" className="border-pink-500/20 text-pink-400 text-[10px]">{r.duration}</Badge>
@@ -140,13 +140,13 @@ export default function AdCampaign() {
         </Card>
 
         {/* YouTube 60 sn ana film (storyboard — tek dosyada birleştirme post-prod) */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-3"><Youtube className="w-5 h-5 text-red-500" /> YouTube / Meta — 60 saniyelik ana tanıtım (plan)</h3>
             <p className="text-xs text-slate-500 mb-4">
               Kaynak görüntü: <code className="text-slate-400">ihaleal-tanitim.mp4</code> (`public/videos/`). 60 sn kesim için ek kreatifler (K6) sonrası birleştirilebilir.
             </p>
-            <div className="rounded-xl overflow-hidden border border-white/10 bg-black/40 protected-media">
+            <div className="rounded-xl overflow-hidden border border-slate-200 bg-black/40 protected-media">
               <video src={publicAsset(`videos/${heroStock}`)} className="w-full max-h-[220px] object-cover" controls playsInline preload="metadata" />
             </div>
             <p className="text-[11px] text-slate-600 mt-2">Dosyayı Windows’ta açamıyorsanız VLC kullanın veya <code className="text-slate-500">CALISTIR.bat</code> ile siteyi çalıştırıp /reklam sayfasından oynatın.</p>
@@ -154,12 +154,12 @@ export default function AdCampaign() {
         </Card>
 
         {/* 4 Haftalık Takvim */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Calendar className="w-5 h-5 text-amber-400" /> 4 Haftalık İçerik Takvimi</h3>
             <div className="space-y-3">
               {calendar.map((c) => (
-                <div key={c.week} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={c.week} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0 text-xs font-bold text-amber-400">{c.week.replace("Hafta ", "")}</div>
                   <div>
                     <div className="flex items-center gap-2 mb-1">
@@ -175,7 +175,7 @@ export default function AdCampaign() {
         </Card>
 
         {/* Hashtag & SEO */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Hash className="w-5 h-5 text-sky-400" /> Hashtag ve Anahtar Kelime Stratejisi</h3>
             <div className="flex flex-wrap gap-2">

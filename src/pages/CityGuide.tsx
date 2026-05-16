@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Building2, TrendingUp, Home, DollarSign,
@@ -251,22 +251,22 @@ export default function CityGuide() {
 
         {/* Quick Stats */}
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Card className="border-white/5 p-4">
+          <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><Users className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-400">Nüfus</span></div>
             <div className="text-2xl font-bold">{city.population}</div>
             <div className="text-xs text-slate-500">{city.area}</div>
           </Card>
-          <Card className="border-white/5 p-4">
+          <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><DollarSign className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-400">m² Fiyat</span></div>
             <div className="text-2xl font-bold text-emerald-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
             <div className="text-xs text-emerald-400">+{city.annualGrowth}% yıllık</div>
           </Card>
-          <Card className="border-white/5 p-4">
+          <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-400">Kira Getirisi</span></div>
             <div className="text-2xl font-bold text-violet-400">%{city.rentalYield}</div>
             <div className="text-xs text-slate-500">Ortalama</div>
           </Card>
-          <Card className="border-white/5 p-4">
+          <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-400">Talep Endeksi</span></div>
             <div className="text-2xl font-bold text-amber-400">{city.demandIndex}/100</div>
             <div className="text-xs text-slate-500">{city.marketingDays} gün satış</div>
@@ -296,7 +296,7 @@ export default function CityGuide() {
         {activeTab === "overview" && (
           <div className="space-y-8">
             {/* Price Chart */}
-            <Card className="border-white/5 p-5">
+            <Card className="border-slate-200/80 p-5">
               <h3 className="text-lg font-bold mb-4">Semt Bazında m² Fiyatları</h3>
               <div className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
@@ -312,7 +312,7 @@ export default function CityGuide() {
             </Card>
 
             {/* Growth Chart */}
-            <Card className="border-white/5 p-5">
+            <Card className="border-slate-200/80 p-5">
               <h3 className="text-lg font-bold mb-4">Yıllık Değer Artışı (%)</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
@@ -329,7 +329,7 @@ export default function CityGuide() {
 
             {/* Info Grid */}
             <div className="grid md:grid-cols-3 gap-4">
-              <Card className="border-white/5 p-4">
+              <Card className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-3"><GraduationCap className="w-5 h-5 text-blue-400" /><h4 className="font-bold">Eğitim</h4></div>
                 <div className="space-y-2">
                   {city.education.map((e) => (
@@ -340,7 +340,7 @@ export default function CityGuide() {
                   ))}
                 </div>
               </Card>
-              <Card className="border-white/5 p-4">
+              <Card className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-3"><Heart className="w-5 h-5 text-pink-400" /><h4 className="font-bold">Hastaneler</h4></div>
                 <div className="space-y-2">
                   {city.hospitals.map((h) => (
@@ -351,7 +351,7 @@ export default function CityGuide() {
                   ))}
                 </div>
               </Card>
-              <Card className="border-white/5 p-4">
+              <Card className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-3"><Star className="w-5 h-5 text-amber-400" /><h4 className="font-bold">Yaşam Tarzı</h4></div>
                 <div className="flex flex-wrap gap-2">
                   {city.lifestyle.map((l) => (
@@ -366,7 +366,7 @@ export default function CityGuide() {
         {activeTab === "districts" && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {city.districts.map((d) => (
-              <Card key={d.name} className="border-white/5 p-4 hover:border-blue-500/20 transition-all">
+              <Card key={d.name} className="border-slate-200/80 p-4 hover:border-blue-500/20 transition-all">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="font-bold text-lg">{d.name}</h4>
                   <Badge className="bg-blue-500/10 text-blue-400">{d.type}</Badge>
@@ -398,7 +398,7 @@ export default function CityGuide() {
               </div>
             ) : (
               cityAuctions.map((auction) => (
-                <Card key={auction.id} className="border-white/5 hover:border-blue-500/20 transition-all cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
+                <Card key={auction.id} className="border-slate-200/80 hover:border-blue-500/20 transition-all cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
                   <CardContent className="p-4 flex flex-col sm:flex-row gap-4">
                     <img loading="lazy" src={auction.images[0]} alt="" className="w-full sm:w-40 h-24 object-cover rounded-xl flex-shrink-0" />
                     <div className="flex-1">
@@ -430,7 +430,7 @@ export default function CityGuide() {
         {activeTab === "transport" && (
           <div className="grid md:grid-cols-2 gap-4">
             {city.transport.map((t) => (
-              <Card key={t.type} className="border-white/5 p-4 flex items-center gap-4">
+              <Card key={t.type} className="border-slate-200/80 p-4 flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                   <Bus className="w-6 h-6 text-blue-400" />
                 </div>
@@ -446,7 +446,7 @@ export default function CityGuide() {
         {activeTab === "lifestyle" && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {city.lifestyle.map((item, idx) => (
-              <Card key={idx} className="border-white/5 p-4">
+              <Card key={idx} className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center">
                     <Heart className="w-5 h-5 text-pink-400" />

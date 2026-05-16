@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { FileText, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +28,7 @@ export default function Reports() {
 
         <div className="grid gap-6 md:grid-cols-2">
           {DEMO_REPORTS.map((r) => (
-            <Card key={r.id} className="border-white/10 bg-slate-900/40 transition-colors hover:border-white/20">
+            <Card key={r.id} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-white/20">
               <CardContent className="pt-6">
                 <div className="mb-3 flex items-start gap-2">
                   <FileText className="mt-0.5 h-5 w-5 shrink-0 text-blue-400" />

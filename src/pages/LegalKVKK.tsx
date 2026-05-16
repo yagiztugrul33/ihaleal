@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Shield, FileText, CheckCircle, AlertTriangle, Clock, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,9 +7,9 @@ export default function KVKK() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-400 hover:text-white">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-500 hover:text-slate-900">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
@@ -23,7 +23,7 @@ export default function KVKK() {
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">1. Veri Sorumlusu</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               İhaleal.com olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verilerinizin işlenmesi, saklanması ve korunması konusunda veri sorumlusu sıfatıyla hareket etmekteyiz. Şirketimizin iletişim bilgileri:
@@ -35,7 +35,7 @@ export default function KVKK() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">2. İşlenen Kişisel Veriler</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Platformumuz üzerinden topladığımız kişisel veriler şunlardır:
@@ -50,7 +50,7 @@ export default function KVKK() {
             </ul>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">3. Veri İşleme Amaçları</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:
@@ -65,7 +65,7 @@ export default function KVKK() {
             </ul>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">4. Veri Aktarımı</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz, yalnızca aşağıdaki durumlarda üçüncü taraflarla paylaşılabilir:
@@ -78,7 +78,7 @@ export default function KVKK() {
             </ul>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">5. Haklarınız</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               KVKK kapsamında aşağıdaki haklara sahipsiniz:
@@ -95,7 +95,7 @@ export default function KVKK() {
             </p>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">6. Veri Saklama Süresi</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz, hesabınız aktif olduğu sürece ve yasal yükümlülüklerimizin gerektirdiği süre boyunca saklanır. Hesabınızı sildiğinizde, verileriniz 30 gün içinde sistemden kaldırılır. Ancak yasal mercilerin talep ettiği kayıtlar yasal süreler boyunca saklanabilir.

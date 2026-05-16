@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -77,7 +77,7 @@ export default function FlowDashboard() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4" data-demo="true">
       <div className="max-w-4xl mx-auto space-y-6">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="w-4 h-4" /> Ana sayfa
         </Button>
         <div>
@@ -101,7 +101,7 @@ export default function FlowDashboard() {
 
         <div className="grid sm:grid-cols-2 gap-3">
           {perms.canCreateListing ? (
-            <Card className="border-white/5 bg-slate-900/40">
+            <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-medium">
                   <Store className="w-5 h-5 text-cyan-400" />
@@ -116,7 +116,7 @@ export default function FlowDashboard() {
           ) : null}
 
           {perms.canOpenAuction ? (
-            <Card className="border-white/5 bg-slate-900/40">
+            <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-medium">
                   <Gavel className="w-5 h-5 text-blue-400" />
@@ -131,7 +131,7 @@ export default function FlowDashboard() {
           ) : null}
 
           {perms.canBid ? (
-            <Card className="border-white/5 bg-slate-900/40">
+            <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-medium">
                   <ClipboardList className="w-5 h-5 text-amber-400" />
@@ -145,7 +145,7 @@ export default function FlowDashboard() {
             </Card>
           ) : null}
 
-          <Card className="border-white/5 bg-slate-900/40">
+          <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-4 flex flex-col gap-2">
               <div className="flex items-center gap-2 text-white font-medium">
                 <Heart className="w-5 h-5 text-pink-400" />
@@ -157,7 +157,7 @@ export default function FlowDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-white/5 bg-slate-900/40">
+          <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-4 flex flex-col gap-2">
               <div className="flex items-center gap-2 text-white font-medium">
                 <Search className="w-5 h-5 text-slate-300" />
@@ -170,7 +170,7 @@ export default function FlowDashboard() {
           </Card>
 
           {flows.includes("auction_seller") ? (
-            <Card className="border-white/5 bg-slate-900/40">
+            <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-medium">
                   <Shield className="w-5 h-5 text-teal-400" />
@@ -183,7 +183,7 @@ export default function FlowDashboard() {
             </Card>
           ) : null}
 
-          <Card className="border-white/5 bg-slate-900/40">
+          <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-4 flex flex-col gap-2">
               <div className="flex items-center gap-2 text-white font-medium">
                 <FileText className="w-5 h-5 text-slate-400" />
@@ -196,7 +196,7 @@ export default function FlowDashboard() {
           </Card>
         </div>
 
-        <Card className="border-white/5 bg-slate-950/30">
+        <Card className="border-slate-200/80 bg-slate-950/30">
           <CardContent className="p-4">
             <p className="text-sm text-slate-400 mb-2">Yatırımcı portföy grafikleri (favoriler)</p>
             <Button type="button" variant="secondary" className="w-full sm:w-auto" onClick={() => navigate("/dashboard/yatirimci")}>

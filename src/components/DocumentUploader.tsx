@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+﻿import { useCallback, useState } from "react";
 import { Upload, FileText, X, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { DocumentRequirement } from "@/lib/userFlows";
@@ -42,7 +42,7 @@ export function DocumentUploader({ label = "Evrak yükleme (demo)", requirements
         <span className="text-[10px] text-amber-300/90 uppercase tracking-wide">Demo</span>
       </div>
       {requirements && requirements.length > 0 ? (
-        <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3 text-xs text-slate-300">
+        <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 text-xs text-slate-300">
           <p className="font-medium text-slate-200 mb-2">Akış evrakları (referans)</p>
           <ul className="space-y-1">
             {requirements.map((d) => (
@@ -57,7 +57,7 @@ export function DocumentUploader({ label = "Evrak yükleme (demo)", requirements
           </ul>
         </div>
       ) : null}
-      <label className="flex flex-col items-center justify-center gap-2 py-8 cursor-pointer rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-white/5">
+      <label className="flex flex-col items-center justify-center gap-2 py-8 cursor-pointer rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-slate-200/80">
         <Upload className="w-8 h-8 text-teal-400" />
         <span className="text-xs text-slate-400">Sürükle-bırak veya tıkla — PDF / JPEG, max 10 MB</span>
         <input type="file" className="hidden" accept={ACCEPT} multiple onChange={(e) => onFiles(e.target.files)} />

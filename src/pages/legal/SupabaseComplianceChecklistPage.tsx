@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Database, FileText, Scale, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,12 +24,12 @@ export default function SupabaseComplianceChecklistPage() {
           variant="ghost"
           size="sm"
           onClick={() => navigate(-1)}
-          className="text-slate-400 hover:text-white gap-2"
+          className="text-slate-500 hover:text-slate-900 gap-2"
         >
           <ArrowLeft className="h-4 w-4" /> Geri
         </Button>
 
-        <div className="relative overflow-hidden rounded-3xl border border-teal-500/20 bg-gradient-to-br from-slate-900/90 via-slate-950/95 to-slate-900/90 p-6 sm:p-8 shadow-2xl shadow-teal-950/30">
+        <div className="relative overflow-hidden rounded-3xl border border-teal-500/20 bg-gradient-to-br from-white/90 via-slate-950/95 to-slate-900/90 p-6 sm:p-8 shadow-2xl shadow-teal-950/30">
           <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-teal-500/10 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-cyan-500/10 blur-3xl" />
           <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

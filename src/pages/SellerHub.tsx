@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Store, Gavel, GitBranch, FileSignature, Eye,
@@ -23,7 +23,7 @@ export default function SellerHub() {
   return (
     <div className="min-h-screen pt-20 pb-16">
       <div className="max-w-5xl mx-auto px-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Ana sayfa
         </Button>
 
@@ -58,7 +58,7 @@ export default function SellerHub() {
 
         <div className="space-y-5 mb-14">
           {SELLER_MODES.map((m) => (
-            <Card key={m.id} className="bg-slate-900/50 border-white/5 overflow-hidden">
+            <Card key={m.id} className="bg-slate-900/50 border-slate-200/80 overflow-hidden">
               <CardContent className="p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                   <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export default function SellerHub() {
                     </ul>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-600 mt-4 border-t border-white/5 pt-3">{m.legalNote}</p>
+                <p className="text-[11px] text-slate-600 mt-4 border-t border-slate-200/80 pt-3">{m.legalNote}</p>
               </CardContent>
             </Card>
           ))}
@@ -107,7 +107,7 @@ export default function SellerHub() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm min-w-[520px]">
                 <thead>
-                  <tr className="border-b border-white/10 text-left text-slate-500 text-xs">
+                  <tr className="border-b border-slate-200 text-left text-slate-500 text-xs">
                     <th className="py-2 pr-3">Kalem</th>
                     <th className="py-2 pr-3 text-emerald-400">ihaleal (hedef)</th>
                     <th className="py-2 pr-3">Kıyas notu</th>
@@ -116,7 +116,7 @@ export default function SellerHub() {
                 </thead>
                 <tbody>
                   {PRICING_COMPARISON.rows.map((r) => (
-                    <tr key={r.label} className="border-b border-white/5 text-slate-300">
+                    <tr key={r.label} className="border-b border-slate-200/80 text-slate-300">
                       <td className="py-3 pr-3 text-white font-medium">{r.label}</td>
                       <td className="py-3 pr-3 text-emerald-300">{r.ihaleal}</td>
                       <td className="py-3 pr-3 text-slate-500 text-xs">{r.sahibinden}</td>
@@ -129,7 +129,7 @@ export default function SellerHub() {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
             <div className="flex items-center gap-3">
               <Scale className="w-8 h-8 text-violet-400 shrink-0" />

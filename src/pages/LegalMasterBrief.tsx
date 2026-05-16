@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Scale, AlertTriangle, BookMarked, ExternalLink, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,7 +11,7 @@ export default function LegalMasterBrief() {
   return (
     <div className="min-h-screen pt-20 pb-16">
       <div className="mx-auto max-w-4xl px-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-6 gap-2 text-slate-400 hover:text-white">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-6 gap-2 text-slate-500 hover:text-slate-900">
           <ArrowLeft className="h-4 w-4" /> Ana sayfa
         </Button>
 
@@ -66,7 +66,7 @@ export default function LegalMasterBrief() {
           </CardContent>
         </Card>
 
-        <Card className="mb-10 border-white/10 bg-slate-900/40">
+        <Card className="mb-10 border-slate-200 bg-slate-900/40">
           <CardContent className="space-y-2 p-5 text-sm text-slate-400">
             <p className="font-medium text-slate-200">Tam dokümantasyon (Markdown)</p>
             <ul className="list-inside list-disc space-y-1 text-slate-400">
@@ -91,7 +91,7 @@ export default function LegalMasterBrief() {
 
         <div className="space-y-4">
           {LEGAL_MASTER_SECTIONS.map((s) => (
-            <Card key={s.id} className="border-white/5 bg-slate-900/50">
+            <Card key={s.id} className="border-slate-200/80 bg-slate-900/50">
               <CardContent className="space-y-3 p-5">
                 <h2 className="text-lg font-semibold text-white">{s.title}</h2>
                 <div className="space-y-2 text-sm leading-relaxed text-slate-400">

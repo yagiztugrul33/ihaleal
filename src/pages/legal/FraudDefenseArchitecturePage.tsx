@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Scale, ShieldAlert, Gavel, FileText, Link2, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,7 +14,7 @@ export default function FraudDefenseArchitecturePage() {
   return (
     <div className="min-h-screen pt-20 pb-16 px-4">
       <div className="mx-auto max-w-4xl space-y-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="h-4 w-4" /> Geri
         </Button>
 
@@ -48,7 +48,7 @@ export default function FraudDefenseArchitecturePage() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/10 bg-slate-900/40">
+        <Card className="border-slate-200 bg-slate-900/40">
           <CardContent className="p-5 text-sm text-slate-400 space-y-2">
             <p className="font-medium text-white flex items-center gap-2">
               <Link2 className="w-4 h-4 text-cyan-400" />
@@ -79,7 +79,7 @@ export default function FraudDefenseArchitecturePage() {
 
         <div className="space-y-6">
           {FRAUD_LITIGATION_PILLARS.map((p) => (
-            <Card key={p.id} className="border-white/10 bg-slate-900/50">
+            <Card key={p.id} className="border-slate-200 bg-slate-900/50">
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono text-slate-500">{p.id}</span>

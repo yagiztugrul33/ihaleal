@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Building2, MapPin, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -39,12 +39,12 @@ export default function RealtorsPage() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Ofis veya şehir ara..."
-              className="w-full min-w-[200px] border-white/10 bg-slate-900/60 text-white sm:w-64"
+              className="w-full min-w-[200px] border-slate-200 bg-slate-900/60 text-white sm:w-64"
             />
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-white"
+              className="rounded-lg border border-slate-200 bg-slate-900 px-3 py-2 text-sm text-white"
               aria-label="Şehir filtresi"
             >
               <option value="all">Tüm şehirler</option>
@@ -59,7 +59,7 @@ export default function RealtorsPage() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {rows.map((r) => (
-            <Card key={r.slug} className="border-white/10 bg-slate-900/40 transition-colors hover:border-teal-500/25">
+            <Card key={r.slug} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-teal-500/25">
               <CardContent className="space-y-3 p-6">
                 <div className="flex items-start justify-between gap-2">
                   <h2 className="text-lg font-semibold leading-snug text-white">{r.companyName}</h2>
@@ -78,7 +78,7 @@ export default function RealtorsPage() {
                     </Badge>
                   ))}
                 </div>
-                <div className="flex justify-between border-t border-white/10 pt-3 text-xs text-slate-500">
+                <div className="flex justify-between border-t border-slate-200 pt-3 text-xs text-slate-500">
                   <span>{r.closedDeals} işlem (demo)</span>
                   <span>₺{(r.volumeTry / 1e9).toFixed(2)}B hacim</span>
                 </div>

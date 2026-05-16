@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, HelpCircle, ChevronDown, ChevronUp, Gavel, ShieldCheck, CreditCard, FileText, Mail, MessageSquare, Clock, Users, BarChart3, TrendingUp, Calculator, Heart, Search, Globe, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -57,10 +57,10 @@ export default function Guide() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
@@ -73,7 +73,7 @@ export default function Guide() {
         {/* Quick Links */}
         <div className={`grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           {QUICK_LINKS.map((link) => (
-            <Card key={link.label} className="bg-slate-900/50 border-white/5 p-4 hover:border-white/10 cursor-pointer transition-all hover:-translate-y-0.5" onClick={() => navigate(link.path)}>
+            <Card key={link.label} className="bg-slate-900/50 border-slate-200/80 p-4 hover:border-slate-200 cursor-pointer transition-all hover:-translate-y-0.5" onClick={() => navigate(link.path)}>
               <div className={`${link.color} mb-2`}>{link.icon}</div>
               <div className="text-sm font-semibold text-white">{link.label}</div>
               <div className="text-xs text-slate-500 mt-0.5">{link.desc}</div>
@@ -97,7 +97,7 @@ export default function Guide() {
                   const key = `${section.category}-${idx}`;
                   const isOpen = openFaq === key;
                   return (
-                    <div key={key} className="rounded-xl border border-white/5 overflow-hidden">
+                    <div key={key} className="rounded-xl border border-slate-200/80 overflow-hidden">
                       <button
                         onClick={() => setOpenFaq(isOpen ? null : key)}
                         className={`w-full flex items-center justify-between p-4 text-left transition-colors ${isOpen ? "bg-white/[0.03]" : "hover:bg-white/[0.02]"}`}
@@ -106,7 +106,7 @@ export default function Guide() {
                         {isOpen ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
                       </button>
                       {isOpen && (
-                        <div className="px-4 pb-4 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-3">
+                        <div className="px-4 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-200/80 pt-3">
                           {faq.a}
                         </div>
                       )}
@@ -119,14 +119,14 @@ export default function Guide() {
         </div>
 
         {/* Contact Banner */}
-        <div className={`mt-10 p-6 rounded-2xl bg-slate-900/50 border border-white/5 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`mt-10 p-6 rounded-2xl bg-slate-900/50 border border-slate-200/80 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
               <h3 className="text-lg font-bold text-white mb-1">Cevabini bulamadiniz mi?</h3>
               <p className="text-sm text-slate-400">Uzman ekibimiz size yardimci olmaktan memnuniyet duyar.</p>
             </div>
             <div className="flex items-center gap-3">
-              <a href="mailto:destek@ihaleal.com" className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-sm text-slate-400 hover:text-white transition-all flex items-center gap-2">
+              <a href="mailto:destek@ihaleal.com" className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-sm text-slate-500 hover:text-slate-900 transition-all flex items-center gap-2">
                 <Mail className="w-4 h-4" /> E-posta
               </a>
               <a href="tel:+902121234567" className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-sm text-white font-semibold transition-all flex items-center gap-2">

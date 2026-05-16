@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, FileText, Shield, Building2, BadgeCheck, Banknote,
@@ -89,9 +89,9 @@ export default function DocumentsRequired() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-white/5">
+      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 py-12">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center"><FileCheck className="w-6 h-6 text-white" /></div>
             <div>
@@ -117,7 +117,7 @@ export default function DocumentsRequired() {
 
         {/* Evrak Kategorileri */}
         {gerekliEvraklar.map((section) => (
-          <Card key={section.category} className="bg-slate-900/50 border-white/5 overflow-hidden">
+          <Card key={section.category} className="bg-slate-900/50 border-slate-200/80 overflow-hidden">
             <button
               onClick={() => toggle(section.category)}
               className="w-full p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
@@ -134,7 +134,7 @@ export default function DocumentsRequired() {
             {openSection === section.category && (
               <CardContent className="px-5 pb-5 pt-0 space-y-3">
                 {section.items.map((item) => (
-                  <div key={item.name} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                  <div key={item.name} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                     <div className="flex items-center gap-2 mb-1">
                       {item.required ? <Badge className="bg-red-500/10 text-red-400 text-[10px] border-0">Zorunlu</Badge> : <Badge variant="outline" className="border-slate-600 text-slate-400 text-[10px]">Opsiyonel</Badge>}
                       <span className="text-sm font-medium text-white">{item.name}</span>
@@ -148,12 +148,12 @@ export default function DocumentsRequired() {
         ))}
 
         {/* Yasal Çerçeve */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Shield className="w-5 h-5 text-violet-400" /> Yasal Çerçeve ve Mevzuat</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               {yasalCerceve.map((law) => (
-                <div key={law.law} className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                <div key={law.law} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="text-sm font-semibold text-white mb-1">{law.law}</div>
                   <p className="text-xs text-slate-400">{law.desc}</p>
                 </div>
@@ -163,7 +163,7 @@ export default function DocumentsRequired() {
         </Card>
 
         {/* Süreç Akışı */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Clock className="w-5 h-5 text-teal-400" /> Evrak Teslim Süreci</h3>
             <div className="space-y-4">
@@ -190,12 +190,12 @@ export default function DocumentsRequired() {
         </Card>
 
         {/* Banka ve Findeks Entegrasyonu */}
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><CreditCard className="w-5 h-5 text-emerald-400" /> Entegre Banka ve Kurumlar</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {["Ziraat Bankası", "Halkbank", "İş Bankası", "Garanti BBVA", "Akbank", "Yapı Kredi", "Findeks", "E-Devlet"].map((bank) => (
-                <div key={bank} className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                <div key={bank} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
                   <Landmark className="w-5 h-5 text-slate-400 mx-auto mb-1.5" />
                   <span className="text-xs text-slate-300 font-medium">{bank}</span>
                 </div>
@@ -207,8 +207,8 @@ export default function DocumentsRequired() {
 
         {/* İhale Koşullarına Git */}
         <div className="flex gap-3 justify-center pt-4">
-          <Button onClick={() => navigate("/ihale-kosullari")} variant="outline" className="border-white/10 text-slate-300 hover:text-white gap-2"><Gavel className="w-4 h-4" /> İhale Koşulları</Button>
-          <Button onClick={() => navigate("/ekspertiz")} variant="outline" className="border-white/10 text-slate-300 hover:text-white gap-2"><FileCheck className="w-4 h-4" /> Ekspertiz Talebi</Button>
+          <Button onClick={() => navigate("/ihale-kosullari")} variant="outline" className="border-slate-200 text-slate-300 hover:text-white gap-2"><Gavel className="w-4 h-4" /> İhale Koşulları</Button>
+          <Button onClick={() => navigate("/ekspertiz")} variant="outline" className="border-slate-200 text-slate-300 hover:text-white gap-2"><FileCheck className="w-4 h-4" /> Ekspertiz Talebi</Button>
         </div>
       </div>
     </div>

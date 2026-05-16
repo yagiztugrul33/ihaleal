@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, TrendingUp, MapPin, Home, Star, Search,
@@ -228,11 +228,11 @@ export default function Analytics() {
   };
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#061428] via-[#0a0f1e] to-[#071018]">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex flex-wrap items-center gap-3">
@@ -247,7 +247,7 @@ export default function Analytics() {
           </p>
         </div>
 
-        <div className="mb-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-900/90 via-[#0c1629]/85 to-indigo-950/50 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 shadow-lg shadow-black/20">
+        <div className="mb-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-white/90 via-[#0c1629]/85 to-indigo-950/50 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 shadow-lg shadow-black/20">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10">
             <Cpu className="h-6 w-6 text-cyan-300" aria-hidden />
           </div>
@@ -283,7 +283,7 @@ export default function Analytics() {
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all border ${
                 activeTab === tab.key
                   ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20 border-cyan-400/30"
-                  : "bg-white/[0.06] backdrop-blur-md border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
+                  : "bg-white/[0.06] backdrop-blur-md border-slate-200 text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
               {tab.icon} {tab.label}
@@ -306,13 +306,13 @@ export default function Analytics() {
             <div className={`flex flex-col lg:flex-row gap-3 mb-6 transition-all duration-700 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Il veya anahtar kelime ara..." className="pl-10 bg-slate-900/50 border-white/10 text-white" />
+                <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Il veya anahtar kelime ara..." className="pl-10 bg-slate-900/50 border-slate-200 text-white" />
               </div>
-              <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-white text-sm">
+              <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-200 text-white text-sm">
                 <option value="all">Tum Sehirler</option>
                 {cities.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-white text-sm">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-200 text-white text-sm">
                 <option value="score">Yatirim Skoru</option>
                 <option value="price">m2 Fiyati</option>
                 <option value="yield">Kira Getirisi</option>
@@ -321,7 +321,7 @@ export default function Analytics() {
 
             {/* Piyasa Dongusu + Dagilim */}
             <div className={`grid lg:grid-cols-3 gap-6 mb-10 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <Card className="lg:col-span-2 bg-slate-900/50 border-white/5 p-5">
+              <Card className="lg:col-span-2 bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <Gauge className="w-5 h-5 text-blue-400" />
                   Piyasa Dongusu Gostergesi
@@ -330,7 +330,7 @@ export default function Analytics() {
                   {CITIES.map((city) => {
                     const d = CITY_DATA[city];
                     return (
-                      <div key={city} className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                      <div key={city} className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
                         <div className="flex items-center justify-between mb-3">
                           <span className="font-semibold text-white">{city}</span>
                           <span className={`px-2 py-1 rounded-lg border text-xs font-medium ${getMarketCycleColor(d.marketCycle)}`}>
@@ -366,7 +366,7 @@ export default function Analytics() {
                 </div>
               </Card>
 
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <PieChart className="w-5 h-5 text-pink-400" />
                   Portfoy Dagilimi
@@ -402,11 +402,11 @@ export default function Analytics() {
                   ))}
                 </div>
               </div>
-              <Card className="bg-slate-900/50 border-white/5 overflow-hidden">
+              <Card className="bg-slate-900/50 border-slate-200/80 overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-white/5">
+                      <tr className="border-b border-slate-200/80">
                         <th className="text-left px-4 py-3 text-slate-400 font-medium">Sehir</th>
                         {columns.map((col) => (
                           <th key={col.key} className="text-right px-4 py-3 text-slate-400 font-medium">{col.label}</th>
@@ -435,7 +435,7 @@ export default function Analytics() {
 
             {/* Grafikler */}
             <div className={`grid lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4">Yatirim Skoru Karsilastirmasi</h3>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
@@ -454,7 +454,7 @@ export default function Analytics() {
                   </ResponsiveContainer>
                 </div>
               </Card>
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4">Fiyat / Getiri Dagilimi</h3>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
@@ -473,7 +473,7 @@ export default function Analytics() {
 
             {/* Yatirim Skoru + Stok */}
             <div className={`grid lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <Lightbulb className="w-5 h-5 text-amber-400" />
                   Yatirim Skoru Siralamasi
@@ -481,7 +481,7 @@ export default function Analytics() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-white/5">
+                      <tr className="border-b border-slate-200/80">
                         <th className="text-left py-2 text-slate-400 font-medium">Sehir</th>
                         <th className="text-right py-2 text-slate-400 font-medium">Ort.</th>
                         <th className="text-right py-2 text-slate-400 font-medium">Al-Sat</th>
@@ -511,7 +511,7 @@ export default function Analytics() {
                 </div>
               </Card>
 
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <Layers className="w-5 h-5 text-sky-400" />
                   Piyasa Stok Analizi
@@ -519,7 +519,7 @@ export default function Analytics() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-white/5">
+                      <tr className="border-b border-slate-200/80">
                         <th className="text-left py-2 text-slate-400 font-medium">Sehir</th>
                         <th className="text-right py-2 text-slate-400 font-medium">Ort. Alan</th>
                         <th className="text-right py-2 text-slate-400 font-medium">Satis Suresi</th>
@@ -556,7 +556,7 @@ export default function Analytics() {
                 {CITIES.map((city) => {
                   const d = CITY_DATA[city];
                   return (
-                    <Card key={city} className="bg-slate-900/50 border-white/5 p-4">
+                    <Card key={city} className="bg-slate-900/50 border-slate-200/80 p-4">
                       <h4 className="font-bold text-white mb-3">{city}</h4>
                       <div className="space-y-2.5">
                         <DemoItem icon={<Users className="w-3.5 h-3.5 text-blue-400" />} label="Nufus" value={`${(d.population / 1000000).toFixed(1)}M`} />
@@ -576,7 +576,7 @@ export default function Analytics() {
               {filtered.map((auction) => {
                 const rec = getRec(auction.investmentScore);
                 return (
-                  <Card key={auction.id} className="bg-slate-900/50 border-white/5 hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-0.5 cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
+                  <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-0.5 cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
                     <CardContent className="p-5">
                       <div className="flex flex-col md:flex-row gap-5">
                         <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full md:w-48 h-32 object-cover rounded-xl shrink-0" />
@@ -614,7 +614,7 @@ export default function Analytics() {
               </h2>
               <p className="text-slate-400 mb-6">Gelecek 12 ay icin m2 birim fiyat tahmini (TRY/m2)</p>
               
-              <Card className="bg-slate-900/50 border-white/5 p-5">
+              <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <div className="h-96">
                   <ResponsiveContainer width="100%" height="100%">
                     <ReAreaChart data={predictionData}>
@@ -652,7 +652,7 @@ export default function Analytics() {
                 { label: "Tahmini Artis", value: `+%${(((predictionData[11].predicted - CITY_DATA["Istanbul"].pricePerSqm) / CITY_DATA["Istanbul"].pricePerSqm) * 100).toFixed(1)}`, icon: <ArrowUpRight className="w-5 h-5 text-violet-400" />, color: "text-violet-400" },
                 { label: "Guven Araligi", value: `TRY ${predictionData[11].lower.toLocaleString()} - ${predictionData[11].upper.toLocaleString()}`, icon: <ShieldCheck className="w-5 h-5 text-amber-400" />, color: "text-amber-400" },
               ].map((item) => (
-                <Card key={item.label} className="bg-slate-900/50 border-white/5 p-4">
+                <Card key={item.label} className="bg-slate-900/50 border-slate-200/80 p-4">
                   <div className="flex items-center gap-2 mb-2">{item.icon}<span className="text-sm text-slate-400">{item.label}</span></div>
                   <div className={`text-lg font-bold ${item.color}`}>{item.value}</div>
                 </Card>
@@ -667,7 +667,7 @@ export default function Analytics() {
                   const d = CITY_DATA[city];
                   const futurePrice = Math.round(d.pricePerSqm * (1 + d.nextYearPrediction / 100));
                   return (
-                    <Card key={city} className="bg-slate-900/50 border-white/5 p-4">
+                    <Card key={city} className="bg-slate-900/50 border-slate-200/80 p-4">
                       <div className="flex items-center justify-between mb-3">
                         <h4 className="font-bold text-white">{city}</h4>
                         <span className="text-xs text-slate-500">2026 Tahmini</span>
@@ -710,7 +710,7 @@ export default function Analytics() {
 
             <div className={`grid lg:grid-cols-3 gap-6 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               {/* Inputs */}
-              <Card className="lg:col-span-1 bg-slate-900/50 border-white/5 p-5">
+              <Card className="lg:col-span-1 bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="font-bold text-white mb-5">Parametreler</h3>
                 <div className="space-y-6">
                   <div>
@@ -719,7 +719,7 @@ export default function Analytics() {
                       <span className="text-white font-medium">TRY {propertyValue.toLocaleString()}</span>
                     </label>
                     <Slider value={[propertyValue]} onValueChange={(v) => setPropertyValue(v[0])} min={500000} max={50000000} step={500000} className="my-3" />
-                    <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-white/10 text-white" />
+                    <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
                   </div>
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
@@ -727,7 +727,7 @@ export default function Analytics() {
                       <span className="text-white font-medium">TRY {monthlyRent.toLocaleString()}</span>
                     </label>
                     <Slider value={[monthlyRent]} onValueChange={(v) => setMonthlyRent(v[0])} min={1000} max={100000} step={1000} className="my-3" />
-                    <Input type="number" value={monthlyRent} onChange={(e) => setMonthlyRent(Number(e.target.value))} className="bg-slate-950 border-white/10 text-white" />
+                    <Input type="number" value={monthlyRent} onChange={(e) => setMonthlyRent(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
                   </div>
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
@@ -740,7 +740,7 @@ export default function Analytics() {
               </Card>
 
               {/* Results */}
-              <Card className="lg:col-span-2 bg-slate-900/50 border-white/5 p-5">
+              <Card className="lg:col-span-2 bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="font-bold text-white mb-5">Sonuclar</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <ResultCard label="Brut Getiri" value={`%${grossYield}`} icon={<TrendingUp className="w-5 h-5 text-blue-400" />} color="text-blue-400" />
@@ -776,7 +776,7 @@ export default function Analytics() {
             </div>
 
             {/* Amortisman grafigi */}
-            <Card className={`bg-slate-900/50 border-white/5 p-5 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Card className={`bg-slate-900/50 border-slate-200/80 p-5 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h3 className="text-lg font-bold text-white mb-4">Sehirlere Gore Amortisman Sureleri (Yil)</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
@@ -815,7 +815,7 @@ export default function Analytics() {
                 .map((auction, idx) => {
                   const rec = getRec(auction.investmentScore);
                   return (
-                    <Card key={auction.id} className="bg-slate-900/50 border-white/5 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-1">
+                    <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-1">
                       <div className="relative h-44">
                         <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
@@ -857,7 +857,7 @@ export default function Analytics() {
             </div>
 
             {/* Firsat Matrisi */}
-            <Card className={`bg-slate-900/50 border-white/5 p-5 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Card className={`bg-slate-900/50 border-slate-200/80 p-5 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <MousePointerClick className="w-5 h-5 text-blue-400" />
                 Fiyat / Getiri Matrisi — Tum Ilanlar
@@ -875,7 +875,7 @@ export default function Analytics() {
                         if (active && payload && payload.length) {
                           const data = payload[0].payload;
                           return (
-                            <div className="bg-[#0f172a] border border-white/10 rounded-xl p-3 shadow-xl">
+                            <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-xl">
                               <p className="text-sm font-bold text-white mb-1">{data.name}</p>
                               <p className="text-xs text-slate-400">Fiyat: TRY {data.x.toLocaleString()}</p>
                               <p className="text-xs text-slate-400">Getiri: %{data.y}</p>
@@ -912,7 +912,7 @@ export default function Analytics() {
                   { type: "buy", title: "Izmir Alsancak Kordon'da Daireler", desc: "Turizm sezonu kira getirisi yuksek, deniz manzarali", score: 76 },
                   { type: "watch", title: "Ankara Eryaman'da Aile Daireleri", desc: "Dengeli piyasa, dusuk risk profili ile guvenli yatirim", score: 73 },
                 ].map((item, idx) => (
-                  <Card key={idx} className={`bg-slate-900/50 border-white/5 p-4 hover:border-white/10 transition-all ${item.type === "strong_buy" ? "border-l-4 border-l-emerald-500" : ""}`}>
+                  <Card key={idx} className={`bg-slate-900/50 border-slate-200/80 p-4 hover:border-slate-200 transition-all ${item.type === "strong_buy" ? "border-l-4 border-l-emerald-500" : ""}`}>
                     <div className="flex items-start gap-4">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                         item.type === "strong_buy" ? "bg-emerald-500/10" : item.type === "buy" ? "bg-blue-500/10" : "bg-amber-500/10"
@@ -959,7 +959,7 @@ export default function Analytics() {
 
 function SummaryCard({ icon, label, value, sub }: { icon: React.ReactNode; label: string; value: string; sub: string }) {
   return (
-    <Card className="bg-slate-900/50 border-white/5 p-4">
+    <Card className="bg-slate-900/50 border-slate-200/80 p-4">
       <div className="flex items-center gap-3 mb-2">{icon}<span className="text-sm text-slate-400">{label}</span></div>
       <div className="text-2xl font-bold text-white">{value}</div>
       <div className="text-xs text-slate-500 mt-0.5">{sub}</div>
@@ -987,7 +987,7 @@ function DemoItem({ icon, label, value }: { icon: React.ReactNode; label: string
 
 function ResultCard({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color: string }) {
   return (
-    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+    <div className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
       <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-slate-400">{label}</span></div>
       <div className={`text-2xl font-bold ${color}`}>{value}</div>
     </div>

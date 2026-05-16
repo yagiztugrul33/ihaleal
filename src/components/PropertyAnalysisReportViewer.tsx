@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 type TabKey = "legal" | "socio" | "location" | "economic" | "overall";
 
 function scoreTone(score: number | null | undefined, invertRisk?: boolean): string {
-  if (score == null || Number.isNaN(score)) return "text-slate-400 border-white/10 bg-white/5";
+  if (score == null || Number.isNaN(score)) return "text-slate-400 border-slate-200 bg-white/5";
   const v = invertRisk ? 11 - score : score;
   if (v >= 8) return "text-emerald-300 border-emerald-400/30 bg-emerald-500/10";
   if (v >= 5) return "text-amber-200 border-amber-400/30 bg-amber-500/10";
@@ -42,7 +42,7 @@ function BigRing({
         className={`relative w-28 h-28 rounded-full flex items-center justify-center bg-gradient-to-br ${tone} p-[3px] shadow-lg`}
         aria-hidden
       >
-        <div className="w-full h-full rounded-full bg-[#0c1629]/95 flex flex-col items-center justify-center border border-white/10">
+        <div className="w-full h-full rounded-full bg-white/95 flex flex-col items-center justify-center border border-slate-200">
           <span className="text-2xl font-bold text-white">{score ?? "—"}</span>
           <span className="text-[10px] text-slate-500 uppercase tracking-wide">/10</span>
         </div>
@@ -98,14 +98,14 @@ export function PropertyAnalysisReportViewer({
   const disclaimer = report.overall_disclaimer || AI_REPORT_DISCLAIMER_TR;
 
   return (
-    <div className="rounded-2xl border border-cyan-400/20 bg-[#0c1629]/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden">
+    <div className="rounded-2xl border border-cyan-400/20 bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden">
       {mockBanner ? (
         <div className="px-4 py-2 bg-amber-500/15 border-b border-amber-400/25 text-amber-100 text-xs font-medium text-center">
           MOCK VERİ — gerçek API bağlantısı yok; bilgilendirme amaçlıdır.
         </div>
       ) : null}
 
-      <div className="p-4 md:p-6 flex flex-col md:flex-row gap-6 border-b border-white/10">
+      <div className="p-4 md:p-6 flex flex-col md:flex-row gap-6 border-b border-slate-200">
         <BigRing label="Genel risk skoru (düşük daha iyi)" score={report.overall_risk_score} invertRisk />
         <div className="flex-1 flex flex-col justify-center gap-3">
           <div className="flex flex-wrap gap-2 items-center">
@@ -132,7 +132,7 @@ export function PropertyAnalysisReportViewer({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 p-3 border-b border-white/5 bg-black/20">
+      <div className="flex flex-wrap gap-2 p-3 border-b border-slate-200/80 bg-black/20">
         {tabs.map((t) => (
           <button
             key={t.key}
@@ -141,7 +141,7 @@ export function PropertyAnalysisReportViewer({
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
               tab === t.key
                 ? "bg-blue-500/20 text-white border border-blue-500/35"
-                : "text-slate-400 hover:text-white border border-transparent"
+                : "text-slate-500 hover:text-slate-900 border border-transparent"
             }`}
           >
             {t.label}
@@ -159,12 +159,12 @@ export function PropertyAnalysisReportViewer({
               Tapu durumu (mock): <strong className="text-white">{report.legal_title_deed_status}</strong>. İpotek ve haciz kalemleri tabloda özetlenmiştir — kesin kayıt tapu müdürlüğüdür.
             </p>
             <div className="grid sm:grid-cols-2 gap-3 text-xs">
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-slate-500 mb-1">İmar / ruhsat</div>
                 <div className="text-slate-200">{report.legal_zoning_status ?? "—"}</div>
                 <div className="text-slate-400 mt-2">{report.legal_building_permit_status ?? ""}</div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-slate-500 mb-1">Uyarılar</div>
                 <ul className="list-disc list-inside text-slate-300 space-y-1">
                   {(report.legal_warnings ?? []).map((w, i) => (
@@ -173,7 +173,7 @@ export function PropertyAnalysisReportViewer({
                 </ul>
               </div>
             </div>
-            <div className="h-40 rounded-xl border border-white/10 bg-black/20 p-2">
+            <div className="h-40 rounded-xl border border-slate-200 bg-black/20 p-2">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={[{ name: "İpotek (mock)", adet: Array.isArray(report.legal_mortgages) ? report.legal_mortgages.length : 0 }, { name: "Haciz (mock)", adet: Array.isArray(report.legal_liens) ? report.legal_liens.length : 0 }]}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
@@ -205,15 +205,15 @@ export function PropertyAnalysisReportViewer({
         {tab === "location" && (
           <div className="space-y-3 animate-fade-in">
             <div className="flex flex-wrap gap-2">
-              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300">
+              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-slate-200 text-slate-300">
                 Deprem riski: {report.location_earthquake_risk}
               </span>
-              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300">
+              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-slate-200 text-slate-300">
                 Yeşil alan %: {report.location_green_area_pct ?? "—"}
               </span>
             </div>
             <p className="text-sm text-slate-300">{report.location_commerce_potential}</p>
-            <div className="h-44 rounded-xl border border-white/10 bg-black/20 p-2">
+            <div className="h-44 rounded-xl border border-slate-200 bg-black/20 p-2">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={locationBars}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
@@ -229,7 +229,7 @@ export function PropertyAnalysisReportViewer({
         {tab === "economic" && (
           <div className="space-y-3 animate-fade-in">
             <div className="grid sm:grid-cols-2 gap-3 text-sm">
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-xs text-slate-500">Piyasa değeri (mock)</div>
                 <div className="text-lg font-bold text-cyan-300">
                   {report.economic_fair_market_value_try != null
@@ -241,14 +241,14 @@ export function PropertyAnalysisReportViewer({
                   {report.economic_upper_bound_try?.toLocaleString("tr-TR") ?? "—"}
                 </div>
               </div>
-              <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-xs text-slate-500">Ortalama kira (mock)</div>
                 <div className="text-lg font-bold text-white">
                   {report.economic_avg_rent_try != null ? `₺${report.economic_avg_rent_try.toLocaleString("tr-TR")}` : "—"}
                 </div>
               </div>
             </div>
-            <div className="h-40 rounded-xl border border-white/10 bg-black/20 p-2">
+            <div className="h-40 rounded-xl border border-slate-200 bg-black/20 p-2">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={rentTrend}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
@@ -292,7 +292,7 @@ export function PropertyAnalysisReportViewer({
 
 function StatMini({ label, value, invert }: { label: string; value: string; invert?: boolean }) {
   return (
-    <div className={`rounded-xl border p-3 ${invert ? "border-orange-400/20 bg-orange-500/5" : "border-white/10 bg-white/[0.03]"}`}>
+    <div className={`rounded-xl border p-3 ${invert ? "border-orange-400/20 bg-orange-500/5" : "border-slate-200 bg-white/[0.03]"}`}>
       <div className="text-[11px] text-slate-500 mb-1">{label}</div>
       <div className="text-sm font-semibold text-white">{value}</div>
     </div>

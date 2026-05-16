@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -48,7 +48,7 @@ export default function FlowSelector() {
     <div className="min-h-screen pt-24 pb-16 px-4 relative" data-demo="true">
       {isDemoData("flowOnboarding") ? <DemoDataCornerBadge /> : null}
       <div className="max-w-3xl mx-auto space-y-6">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="w-4 h-4" /> Ana sayfa
         </Button>
         <div>
@@ -71,7 +71,7 @@ export default function FlowSelector() {
                 type="button"
                 onClick={() => toggle(f)}
                 className={`text-left rounded-xl border p-4 transition-colors ${
-                  on ? "border-teal-500/40 bg-teal-500/10" : "border-white/10 bg-slate-900/40 hover:border-white/20"
+                  on ? "border-teal-500/40 bg-teal-500/10" : "border-slate-200 bg-slate-900/40 hover:border-white/20"
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
@@ -86,7 +86,7 @@ export default function FlowSelector() {
           })}
         </div>
 
-        <Card className="bg-slate-900/50 border-white/5">
+        <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5 space-y-3">
             <h2 className="text-sm font-semibold text-white">Birleşik evrak listesi</h2>
             <ul className="space-y-2 text-sm text-slate-300">

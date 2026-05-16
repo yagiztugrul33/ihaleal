@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+﻿import { useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -62,8 +62,8 @@ export default function CityDistrictHeatmap({ cityKey, districts, title = "İlç
   if (!center || districts.length === 0) return null;
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/10 bg-slate-900/40 mb-8">
-      <div className="px-4 py-3 border-b border-white/5 flex flex-wrap items-center justify-between gap-2">
+    <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900/40 mb-8">
+      <div className="px-4 py-3 border-b border-slate-200/80 flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-lg font-bold text-white">{title}</h3>
         <span className="text-xs text-slate-500">Renk: düşük→yüksek m² fiyat (demo)</span>
       </div>

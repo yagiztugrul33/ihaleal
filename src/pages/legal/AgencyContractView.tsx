@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+﻿import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 const CONTRACT_URL = `${import.meta.env.BASE}legal/agency_contract.md`;
@@ -16,7 +16,7 @@ function renderMarkdownLines(md: string): ReactNode[] {
     }
     if (t.startsWith("## ")) {
       return (
-        <h2 key={idx} className="text-xl font-semibold text-teal-200 mt-6 border-b border-white/10 pb-2 scroll-mt-24">
+        <h2 key={idx} className="text-xl font-semibold text-teal-200 mt-6 border-b border-slate-200 pb-2 scroll-mt-24">
           {t.slice(3)}
         </h2>
       );
@@ -70,7 +70,7 @@ export default function AgencyContractView() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 max-w-4xl mx-auto px-4">
-      <Link to="/" className="text-sm text-slate-400 hover:text-white mb-6 inline-block">
+      <Link to="/" className="text-sm text-slate-500 hover:text-slate-900 mb-6 inline-block">
         Ana sayfa
       </Link>
       <h1 className="text-2xl font-bold text-white mb-2">agency_contract.md</h1>
@@ -78,7 +78,7 @@ export default function AgencyContractView() {
         Kaynak: <code className="text-teal-400">public/legal/agency_contract.md</code> (taslak, demo)
       </p>
       {err ? <p className="text-red-400 text-sm mb-4">{err}</p> : null}
-      <article className="rounded-2xl border border-white/10 bg-slate-950/40 p-6 space-y-1 text-sm">
+      <article className="rounded-2xl border border-slate-200 bg-slate-950/40 p-6 space-y-1 text-sm">
         {body ? renderMarkdownLines(body) : <p className="text-slate-500">Yukleniyor...</p>}
       </article>
     </div>

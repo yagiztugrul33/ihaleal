@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, Clock, MapPin, TrendingUp, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,7 +30,7 @@ export function RecentlyViewed() {
   if (recentAuctions.length === 0) return null;
 
   return (
-    <section ref={ref} className="py-16 bg-[#0a0f1e]">
+    <section ref={ref} className="py-16 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div>
@@ -46,7 +46,7 @@ export function RecentlyViewed() {
           {recentAuctions.map((auction: any, idx: number) => (
             <Card
               key={auction.id}
-              className="group bg-slate-900/50 border-white/5 overflow-hidden hover:border-sky-500/20 transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+              className="group bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-sky-500/20 transition-all duration-500 hover:-translate-y-1 cursor-pointer"
               onClick={() => navigate(`/ilan/${auction.id}`)}
               style={{ transitionDelay: `${idx * 100}ms` }}
             >

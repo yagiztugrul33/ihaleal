@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, FolderOpen, Upload, FileCheck, AlertCircle, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import {
 } from "@/data/documentsVaultDemo";
 
 const STATUS_STYLE: Record<DocStatus, { label: string; className: string }> = {
-  bekliyor: { label: "Bekliyor", className: "bg-slate-600/30 text-slate-300 border-white/10" },
+  bekliyor: { label: "Bekliyor", className: "bg-slate-600/30 text-slate-300 border-slate-200" },
   yuklendi: { label: "Yüklendi", className: "bg-sky-500/15 text-sky-300 border-sky-500/25" },
   inceleniyor: { label: "İnceleniyor", className: "bg-amber-500/15 text-amber-200 border-amber-500/25" },
   onaylandi: { label: "Onaylandı", className: "bg-emerald-500/15 text-emerald-300 border-emerald-500/25" },
@@ -62,9 +62,9 @@ export default function DocumentsPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e] px-4">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50 px-4">
       <div className="max-w-4xl mx-auto">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
@@ -94,7 +94,7 @@ export default function DocumentsPage() {
           {docs.map((d) => {
             const st = STATUS_STYLE[d.status];
             return (
-              <Card key={d.id} className="border-white/10 bg-slate-900/45">
+              <Card key={d.id} className="border-slate-200 bg-slate-900/45">
                 <CardContent className="p-5 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1">

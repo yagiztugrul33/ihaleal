@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type ComponentType } from "react";
+﻿import { useState, useRef, useEffect, type ComponentType } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   MessageCircle,
@@ -396,7 +396,7 @@ export function ChatWidget() {
           onMouseLeave={hidePeek}
         >
           {peek && (
-            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-500/25 bg-[#0b1426]/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-4 ring-1 ring-white/10">
+            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-500/25 bg-white/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-4 ring-1 ring-white/10">
               <div className="flex items-center gap-3 mb-3">
                 <AiAssistantAvatar size="sm" />
                 <div>
@@ -457,8 +457,8 @@ export function ChatWidget() {
       )}
 
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[min(380px,calc(100vw-1.5rem))] max-h-[min(520px,85vh)] bg-[#0b1426]/98 backdrop-blur-xl border border-cyan-500/20 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden ring-1 ring-white/10 chat-widget-pop">
-          <div className="p-4 border-b border-white/10 space-y-3 bg-gradient-to-r from-slate-900/90 via-[#0d1830]/95 to-slate-900/90">
+        <div className="fixed bottom-6 right-6 z-50 w-[min(380px,calc(100vw-1.5rem))] max-h-[min(520px,85vh)] bg-white/98 backdrop-blur-xl border border-cyan-500/20 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden ring-1 ring-white/10 chat-widget-pop">
+          <div className="p-4 border-b border-slate-200 space-y-3 bg-gradient-to-r from-white/90 via-slate-50/95 to-slate-900/90">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-3 min-w-0">
               <AiAssistantAvatar size="md" />
@@ -477,18 +477,18 @@ export function ChatWidget() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-                className="relative p-2 rounded-xl hover:bg-white/10 text-slate-400 hover:text-white transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0 shrink-0"
+                className="relative p-2 rounded-xl hover:bg-white/10 text-slate-500 hover:text-slate-900 transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0 shrink-0"
               aria-label="Kapat"
             >
               <X className="w-5 h-5" />
             </button>
             </div>
-            <div className="flex rounded-lg bg-black/30 p-0.5 border border-white/10">
+            <div className="flex rounded-lg bg-black/30 p-0.5 border border-slate-200">
               <button
                 type="button"
                 onClick={() => applyChatMode("guide")}
                 className={`flex-1 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors ${
-                  chatMode === "guide" ? "bg-cyan-500/25 text-white" : "text-slate-400 hover:text-white"
+                  chatMode === "guide" ? "bg-cyan-500/25 text-white" : "text-slate-500 hover:text-slate-900"
                 }`}
               >
                 Yönlendirme
@@ -497,7 +497,7 @@ export function ChatWidget() {
                 type="button"
                 onClick={() => applyChatMode("qa")}
                 className={`flex-1 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors ${
-                  chatMode === "qa" ? "bg-violet-500/30 text-white" : "text-slate-400 hover:text-white"
+                  chatMode === "qa" ? "bg-violet-500/30 text-white" : "text-slate-500 hover:text-slate-900"
                 }`}
               >
                 Soru–cevap
@@ -516,7 +516,7 @@ export function ChatWidget() {
                 <div
                   className={`p-3 rounded-2xl text-sm leading-relaxed max-w-[260px] transition-all duration-300 hover:border-opacity-40 whitespace-pre-wrap break-words ${
                     msg.role === "ai"
-                      ? "bg-white/[0.06] text-slate-200 border border-white/10 shadow-inner shadow-black/20"
+                      ? "bg-white/[0.06] text-slate-200 border border-slate-200 shadow-inner shadow-black/20"
                       : "bg-gradient-to-br from-blue-600/25 to-indigo-600/20 text-white border border-blue-400/25 shadow-lg shadow-blue-900/20"
                   }`}
                 >
@@ -529,7 +529,7 @@ export function ChatWidget() {
                 <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600/40 to-cyan-500/25 ring-1 ring-cyan-400/30 flex items-center justify-center flex-shrink-0">
                   <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse motion-reduce:animate-none" />
                 </div>
-                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10">
+                <div className="p-3 rounded-2xl bg-white/[0.06] border border-slate-200">
                   <div className="flex gap-1.5 items-center h-4">
                     <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/70 motion-safe:animate-pulse" />
                     <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/50 motion-safe:animate-pulse [animation-delay:120ms]" />
@@ -558,7 +558,7 @@ export function ChatWidget() {
                   </button>
                 ))}
               </div>
-              <div className="flex flex-wrap gap-2 pt-1 border-t border-white/5 mt-2">
+              <div className="flex flex-wrap gap-2 pt-1 border-t border-slate-200/80 mt-2">
                 <Link
                   to="/analiz"
                   className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
@@ -620,7 +620,7 @@ export function ChatWidget() {
             </div>
           )}
 
-          <div className="p-3 border-t border-white/10 flex gap-2 bg-black/25">
+          <div className="p-3 border-t border-slate-200 flex gap-2 bg-black/25">
             <input
               type="text"
               value={input}
@@ -629,7 +629,7 @@ export function ChatWidget() {
                 if (e.key === "Enter") void sendMessage();
               }}
               placeholder="Sorunuzu yazın…"
-              className="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/80 border border-white/10 text-sm text-white placeholder:text-slate-600 outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400/30 transition-shadow duration-200"
+              className="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-200 text-sm text-white placeholder:text-slate-600 outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400/30 transition-shadow duration-200"
             />
             <Button
               size="sm"

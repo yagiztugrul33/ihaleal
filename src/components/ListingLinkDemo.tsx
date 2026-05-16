@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Link2, AlertTriangle, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ export function ListingLinkDemo() {
   }, [active]);
 
   return (
-    <Card className="bg-slate-900/50 border-white/5" data-demo="true">
+    <Card className="bg-slate-900/50 border-slate-200/80" data-demo="true">
       <CardContent className="p-5">
         <div className="relative flex items-center gap-2 mb-3">
           {isDemoData("listingLinkDemo") ? <DemoDataCornerBadge /> : null}
@@ -63,7 +63,7 @@ export function ListingLinkDemo() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="https://www.sahibinden.com/ilan/..."
-            className="bg-white/[0.03] border-white/10 text-white placeholder:text-slate-600"
+            className="bg-white/[0.03] border-slate-200 text-white placeholder:text-slate-600"
           />
           <Button type="button" onClick={() => setActive(input)} className="shrink-0 bg-violet-600 hover:bg-violet-500 gap-2">
             <Sparkles className="w-4 h-4" /> Örnek rapor
@@ -86,7 +86,7 @@ export function ListingLinkDemo() {
               {insight.isThirdPartyReportUrl && (
                 <Badge className="bg-emerald-500/15 text-emerald-300 border-0">Üçüncü taraf rapor URL’si (tahmin)</Badge>
               )}
-              <Badge variant="outline" className="border-white/10 text-slate-300">Demo skor: {insight.score}</Badge>
+              <Badge variant="outline" className="border-slate-200 text-slate-300">Demo skor: {insight.score}</Badge>
             </div>
             <p className="text-slate-300"><span className="text-slate-500">Segment:</span> {insight.segment}</p>
             <p className="text-slate-300"><span className="text-slate-500">Risk notu:</span> {insight.risk}</p>

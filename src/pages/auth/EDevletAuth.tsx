@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Loader2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,10 +19,10 @@ export default function EDevletAuth() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4" data-demo="true">
       <div className="max-w-md mx-auto space-y-6">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
-        <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-6 text-center space-y-4">
+        <div className="rounded-2xl border border-slate-200 bg-slate-900/60 p-6 text-center space-y-4">
           <ShieldCheck className="w-12 h-12 text-teal-400 mx-auto" />
           <h1 className="text-xl font-bold text-white">e-Devlet yetkisi (DEMO)</h1>
           {phase === "intro" && (

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, LayoutDashboard, TrendingUp, Target, MapPin, Wallet, Percent } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -95,7 +95,7 @@ export default function InvestorDashboard() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
-              <Card className="border-white/5 p-4">
+              <Card className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Wallet className="w-5 h-5 text-blue-400" />
                   <span className="text-sm">Portföy değeri</span>
@@ -103,7 +103,7 @@ export default function InvestorDashboard() {
                 <div className="text-2xl font-bold">₺{(portfolioValue / 1000000).toFixed(1)}M</div>
                 <div className="text-xs mt-1">{favoriteAuctions.length} ilan</div>
               </Card>
-              <Card className="border-white/5 p-4">
+              <Card className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Target className="w-5 h-5 text-emerald-400" />
                   <span className="text-sm">Tahmini değer</span>
@@ -111,7 +111,7 @@ export default function InvestorDashboard() {
                 <div className="text-2xl font-bold text-emerald-400">₺{(predictedValue / 1000000).toFixed(1)}M</div>
                 <div className="text-xs mt-1 text-emerald-400">+{potentialGainPercent}%</div>
               </Card>
-              <Card className="border-white/5 p-4">
+              <Card className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Percent className="w-5 h-5 text-violet-400" />
                   <span className="text-sm">Ort. getiri</span>
@@ -119,7 +119,7 @@ export default function InvestorDashboard() {
                 <div className="text-2xl font-bold text-violet-400">%{avgYield.toFixed(1)}</div>
                 <div className="text-xs mt-1">Yıllık kira</div>
               </Card>
-              <Card className="border-white/5 p-4">
+              <Card className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingUp className="w-5 h-5 text-amber-400" />
                   <span className="text-sm">Potansiyel</span>
@@ -134,7 +134,7 @@ export default function InvestorDashboard() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
-              <Card className="lg:col-span-2 border-white/5 p-5">
+              <Card className="lg:col-span-2 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold mb-1">Portföy değer artışı</h3>
                 <p className="text-xs mb-4 text-slate-500">Son 6 ay tahmini</p>
                 <div className="h-64">
@@ -162,7 +162,7 @@ export default function InvestorDashboard() {
                   </ResponsiveContainer>
                 </div>
               </Card>
-              <Card className="border-white/5 p-5">
+              <Card className="border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold mb-4">Dağılım</h3>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
@@ -194,7 +194,7 @@ export default function InvestorDashboard() {
               </Card>
             </div>
 
-            <Card className={`border-white/5 p-5 mb-8 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Card className={`border-slate-200/80 p-5 mb-8 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h3 className="text-lg font-bold mb-4">Getiri ve skor</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
@@ -226,7 +226,7 @@ export default function InvestorDashboard() {
                   return (
                     <Card
                       key={auction.id}
-                      className="border-white/5 hover:border-blue-500/20 transition-all cursor-pointer"
+                      className="border-slate-200/80 hover:border-blue-500/20 transition-all cursor-pointer"
                       onClick={() => navigate(`/ilan/${auction.id}`)}
                     >
                       <CardContent className="p-4 flex flex-col sm:flex-row gap-4">

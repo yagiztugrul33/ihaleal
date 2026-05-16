@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { Play, BrainCircuit, Building2, Factory, ShieldCheck, Scale, Percent, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { KkaRevenueHubStrip } from "@/components/KkaRevenueHubStrip";
@@ -56,7 +56,7 @@ export function Hero() {
       className="relative flex min-h-[min(100dvh,920px)] items-center justify-center overflow-hidden pt-20 pb-16 sm:pb-20"
     >
       <div className="absolute inset-0 z-0" aria-hidden>
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-900 to-neutral-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-100" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_100%_0%,_rgba(56,189,248,0.1),_transparent_55%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_100%,_rgba(251,191,36,0.07),_transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_120%,_rgba(255,255,255,0.035),_transparent_55%)]" />
@@ -81,31 +81,31 @@ export function Hero() {
           />
 
           <div className="mb-5 flex flex-wrap items-center gap-2 animate-fade-in-up animate-delay-100">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.1] bg-white/[0.04] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-300">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
               Gayrimenkul
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-500/25 bg-sky-500/[0.12] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-sky-100">
               <Sparkles className="h-3.5 w-3.5 text-sky-300" aria-hidden />
               Canlı ihale vitrini
             </span>
-            <span className="rounded-full border border-white/[0.06] bg-transparent px-2.5 py-1 text-[11px] font-medium text-zinc-500">Demo veri</span>
+            <span className="rounded-full border border-white/[0.06] bg-transparent px-2.5 py-1 text-[11px] font-medium text-slate-500">Demo veri</span>
           </div>
 
-          <p className="animate-fade-in-up animate-delay-100 mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-sky-300/85 sm:text-xs">
+          <p className="animate-fade-in-up animate-delay-100 mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-teal-600 sm:text-xs">
             ihaleal.com
           </p>
 
-          <h1 className="animate-fade-in-up animate-delay-200 mb-5 text-pretty text-4xl font-bold leading-[1.07] tracking-tight text-zinc-50 sm:text-5xl lg:text-[3.25rem] lg:leading-[1.06]">
+          <h1 className="animate-fade-in-up animate-delay-200 mb-5 text-pretty text-4xl font-bold leading-[1.07] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] lg:leading-[1.06]">
             <span className="block">Yatırım kararını güçlendiren</span>
-            <span className="mt-2 block bg-gradient-to-r from-sky-200 via-sky-400 to-cyan-300 bg-clip-text font-semibold text-transparent">
+            <span className="mt-2 block bg-gradient-to-r from-teal-600 via-cyan-500 to-sky-500 bg-clip-text font-semibold text-transparent">
               şeffaf ihale deneyimi
             </span>
           </h1>
 
-          <p className="animate-fade-in-up animate-delay-300 mb-2 max-w-2xl text-pretty text-base font-normal leading-relaxed text-zinc-300 sm:text-lg sm:leading-relaxed">
+          <p className="animate-fade-in-up animate-delay-300 mb-2 max-w-2xl text-pretty text-base font-normal leading-relaxed text-slate-600 sm:text-lg sm:leading-relaxed">
             Tek vitrinde canlı ihale akışı; <strong className="font-semibold text-zinc-100">İhaleal Endeksi</strong> ile teklif
             yoğunluğu, bölge bandı ve yapay zeka sinyalleri bir arada. Yatırım skoru ve senaryolar özetlenir — gösterim{" "}
-            <span className="text-zinc-500">demo veridir</span>, hukuki bağlayıcı değerleme değildir.
+            <span className="text-slate-500">demo veridir</span>, hukuki bağlayıcı değerleme değildir.
           </p>
 
           <div className="animate-fade-in-up animate-delay-300 mb-9 mt-8 grid gap-3 sm:grid-cols-3">
@@ -121,13 +121,13 @@ export function Hero() {
                   <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
                 </div>
                 <h2 className="text-sm font-semibold tracking-tight text-zinc-100">{title}</h2>
-                <p className="mt-1 text-[11px] leading-relaxed text-zinc-500 sm:text-xs">{desc}</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-slate-500 sm:text-xs">{desc}</p>
                 <span className="mt-3 text-xs font-medium text-sky-300">{cta}</span>
               </button>
             ))}
           </div>
 
-          <p className="animate-fade-in-up animate-delay-300 mb-9 text-[11px] leading-relaxed text-zinc-500 sm:text-xs">
+          <p className="animate-fade-in-up animate-delay-300 mb-9 text-[11px] leading-relaxed text-slate-500 sm:text-xs">
             Siteye özel iş kuralları ve birleşik çerçeve için
             {" "}
             <button
@@ -151,7 +151,7 @@ export function Hero() {
             inceleyebilirsiniz.
           </p>
 
-          <p className="animate-fade-in-up animate-delay-400 mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500 sm:text-[11px] sm:tracking-[0.24em]">
+          <p className="animate-fade-in-up animate-delay-400 mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500 sm:text-[11px] sm:tracking-[0.24em]">
             Hızlı erişim
           </p>
           <div className="animate-fade-in-up animate-delay-400 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
@@ -204,8 +204,8 @@ export function Hero() {
 
           <div className="animate-fade-in-up animate-delay-500 mt-12 max-w-3xl space-y-4 border-t border-white/[0.07] pt-10">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 sm:text-[11px]">Ücret çerçevesi</p>
-              <p className="mt-2 text-left text-sm font-normal leading-relaxed text-zinc-300 sm:text-[0.9375rem]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:text-[11px]">Ücret çerçevesi</p>
+              <p className="mt-2 text-left text-sm font-normal leading-relaxed text-slate-600 sm:text-[0.9375rem]">
                 {heroRevenueStripLine()}
               </p>
               <p className="mt-2 text-[11px] leading-relaxed text-zinc-600 sm:text-xs">
@@ -218,7 +218,7 @@ export function Hero() {
       </div>
 
       <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 animate-fade-in animate-delay-700 max-sm:bottom-4">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500">Aşağı kaydır</span>
+        <span className="text-[10px] font-semibold uppercase tracking-[0.32em] text-slate-500">Aşağı kaydır</span>
         <div className="flex h-8 w-5 items-start justify-center rounded-full border border-white/10 bg-white/[0.04] p-1 ring-1 ring-white/[0.06] backdrop-blur-sm">
           <div className="h-2.5 w-1.5 animate-bounce rounded-full bg-sky-400/90 motion-reduce:animate-none" />
         </div>

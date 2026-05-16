@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Building2, Calculator, FileText, Landmark, MapPinned, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -69,7 +69,7 @@ export default function LandEquityPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl space-y-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
@@ -122,7 +122,7 @@ export default function LandEquityPage() {
               </h2>
               <div className="space-y-2">
                 <Label className="text-slate-400">Arsa rayiç / ekspertiz matrahı (TL)</Label>
-                <Input value={parcelStr} onChange={(e) => setParcelStr(e.target.value)} className="bg-slate-950/80 border-white/10" />
+                <Input value={parcelStr} onChange={(e) => setParcelStr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
               </div>
               <div className="space-y-2">
                 <Label className="text-slate-400">Emlakçı havuz senaryosu</Label>
@@ -139,7 +139,7 @@ export default function LandEquityPage() {
                       type="button"
                       onClick={() => setPoolMode(v)}
                       className={`rounded-lg px-3 py-1.5 text-xs font-medium border ${
-                        poolMode === v ? "border-emerald-400 bg-emerald-500/20 text-white" : "border-white/10 text-slate-400"
+                        poolMode === v ? "border-emerald-400 bg-emerald-500/20 text-white" : "border-slate-200 text-slate-400"
                       }`}
                     >
                       {label}
@@ -154,7 +154,7 @@ export default function LandEquityPage() {
                 </label>
               </div>
               {commissionPool ? (
-                <dl className="space-y-2 border-t border-white/10 pt-4 text-sm text-slate-300">
+                <dl className="space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-300">
                   <div className="flex justify-between">
                     <dt>İhaleal (havuz)</dt>
                     <dd className="font-medium text-white">₺{commissionPool.platformTry.toLocaleString("tr-TR")}</dd>
@@ -171,7 +171,7 @@ export default function LandEquityPage() {
                     <dt>Arsa sahibi matrah</dt>
                     <dd>₺{commissionPool.ownerTry.toLocaleString("tr-TR")}</dd>
                   </div>
-                  <div className="flex justify-between border-t border-white/10 pt-2">
+                  <div className="flex justify-between border-t border-slate-200 pt-2">
                     <dt>KDV</dt>
                     <dd className="text-white">₺{commissionPool.totalKdvTry.toLocaleString("tr-TR")}</dd>
                   </div>
@@ -191,11 +191,11 @@ export default function LandEquityPage() {
               <h2 className="text-lg font-semibold text-white">Konut hak ediş (örnekleme)</h2>
               <div className="space-y-2">
                 <Label className="text-slate-400">Arsa sahibine yazılan bağımsız konut adedi</Label>
-                <Input value={unitsStr} onChange={(e) => setUnitsStr(e.target.value)} className="bg-slate-950/80 border-white/10" />
+                <Input value={unitsStr} onChange={(e) => setUnitsStr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
               </div>
               <div className="space-y-2">
                 <Label className="text-slate-400">Birim satış fiyatı (TL, tahmini)</Label>
-                <Input value={priceStr} onChange={(e) => setPriceStr(e.target.value)} className="bg-slate-950/80 border-white/10" />
+                <Input value={priceStr} onChange={(e) => setPriceStr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
               </div>
               <div className="flex flex-wrap gap-2">
                 {(
@@ -210,7 +210,7 @@ export default function LandEquityPage() {
                     type="button"
                     onClick={() => setScenario(v)}
                     className={`rounded-lg px-3 py-1.5 text-xs font-medium border ${
-                      scenario === v ? "border-teal-400 bg-teal-500/20 text-white" : "border-white/10 text-slate-400"
+                      scenario === v ? "border-teal-400 bg-teal-500/20 text-white" : "border-slate-200 text-slate-400"
                     }`}
                   >
                     {label}
@@ -218,7 +218,7 @@ export default function LandEquityPage() {
                 ))}
               </div>
               {hak ? (
-                <dl className="space-y-2 border-t border-white/10 pt-4 text-sm text-slate-300">
+                <dl className="space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-300">
                   <div className="flex justify-between">
                     <dt>Nominal brüt (birim × adet)</dt>
                     <dd className="text-white font-medium">₺{hak.nominalGrossTry.toLocaleString("tr-TR")}</dd>
@@ -255,9 +255,9 @@ export default function LandEquityPage() {
               />
             </div>
             <p className="text-[11px] text-slate-500">{kkaRollingHakedisLegalPrinciplesNoteTr()}</p>
-            <ul className="space-y-3 text-xs text-slate-300 list-none border-t border-white/10 pt-3">
+            <ul className="space-y-3 text-xs text-slate-300 list-none border-t border-slate-200 pt-3">
               {rollingHakedis.map((row) => (
-                <li key={row.trancheIndex} className="rounded-lg border border-white/10 bg-black/20 p-3">
+                <li key={row.trancheIndex} className="rounded-lg border border-slate-200 bg-black/20 p-3">
                   <div className="font-semibold text-cyan-200">Dilim {row.trancheIndex}</div>
                   <div className="mt-1 text-slate-400">{row.retentionUntilTr}</div>
                   <div className="mt-1 text-slate-500">{row.becomesPayableWhenTr}</div>

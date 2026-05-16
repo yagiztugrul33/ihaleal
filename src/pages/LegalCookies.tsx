@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Cookie, Shield, Eye, ToggleLeft, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,9 +7,9 @@ export default function CookiePolicy() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e]">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-400 hover:text-white">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-6 text-slate-500 hover:text-slate-900">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
@@ -22,14 +22,14 @@ export default function CookiePolicy() {
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">Çerez Nedir?</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Çerezler, web sitemizi ziyaret ettiğinizde tarayıcınız aracılığıyla cihazınıza kaydedilen küçük metin dosyalarıdır. Oturum yönetimi, güvenlik, kişiselleştirme ve analitik amaçlarla kullanılırlar.
             </p>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">Kullandığımız Çerezler</h3>
             <div className="space-y-4">
               <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
@@ -47,7 +47,7 @@ export default function CookiePolicy() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-white/5 p-5">
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-bold text-white mb-3">Çerezleri Nasıl Yönetirsiniz?</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Tarayıcı ayarlarınızdan çerezleri silebilir veya engelleyebilirsiniz. Zorunlu çerezler hariç diğer türleri reddetme hakkına sahipsiniz. Çerezleri engellemeniz durumunda, sitenin bazı özellikleri düzgün çalışmayabilir.

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,7 @@ export function CookieConsent() {
       role="dialog"
       aria-label="Çerez bildirimi"
     >
-      <div className="max-w-3xl mx-auto pointer-events-auto rounded-2xl border border-white/10 bg-[#0f1629]/95 backdrop-blur-xl shadow-2xl p-4 md:p-5 flex flex-col md:flex-row md:items-center gap-4">
+      <div className="max-w-3xl mx-auto pointer-events-auto rounded-2xl border border-slate-200 bg-[#0f1629]/95 backdrop-blur-xl shadow-2xl p-4 md:p-5 flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex gap-3 flex-1 min-w-0">
           <div className="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center flex-shrink-0">
             <Cookie className="w-5 h-5 text-amber-400" />

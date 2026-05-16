@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, X, MapPin, Home, Clock, ArrowRight, TrendingUp, Star } from "lucide-react";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
@@ -38,8 +38,8 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center pt-24 px-4" onClick={onClose}>
-      <div className="w-full max-w-2xl bg-[#0f1629] border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-scale-in" onClick={(e) => e.stopPropagation()}>
-        <div className="p-4 border-b border-white/5">
+      <div className="w-full max-w-2xl bg-[#0f1629] border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-scale-in" onClick={(e) => e.stopPropagation()}>
+        <div className="p-4 border-b border-slate-200/80">
           <div className="flex items-center gap-3">
             <Search className="w-5 h-5 text-slate-500 flex-shrink-0" />
             <input
@@ -75,7 +75,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               <div className="mt-5 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Populer Sehirler</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {["Istanbul", "Ankara", "Izmir", "Antalya", "Bursa", "Mugla"].map((city) => (
-                  <button key={city} onClick={() => setQuery(city)} className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.02] hover:bg-white/5 text-sm text-slate-400 hover:text-white transition-all text-left">
+                  <button key={city} onClick={() => setQuery(city)} className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.02] hover:bg-white/5 text-sm text-slate-500 hover:text-slate-900 transition-all text-left">
                     <MapPin className="w-3.5 h-3.5" /> {city}
                   </button>
                 ))}
@@ -115,11 +115,11 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 </div>
               )}
               {query.length >= 2 && (
-                <div className="p-3 border-t border-white/5">
+                <div className="p-3 border-t border-slate-200/80">
                   <Button
                     type="button"
                     variant="outline"
-                    className="w-full border-white/10 text-slate-200 hover:bg-white/5"
+                    className="w-full border-slate-200 text-slate-200 hover:bg-white/5"
                     onClick={() => {
                       navigate(`/arama?q=${encodeURIComponent(query)}`);
                       onClose();

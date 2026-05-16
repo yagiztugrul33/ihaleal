@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -96,14 +96,14 @@ export function Auctions({
 
   return (
     <section id="auctions" className={sectionPad} data-demo="true">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/90 via-[#0a0f1e] to-[#0d1326]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-transparent to-slate-100/60 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px]" />
 
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!hideIntro && (
           <div className={`text-center mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Canlı İhaleler</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
+            <h2 className="section-heading mb-4">Canlı İhaleler</h2>
+            <p className="section-subtitle mx-auto">
               Güncel gayrimenkul ve yatırım fırsatlarına göz atın. AI değerleme ve yatırım skoru ile en doğru fırsatları bulun.
             </p>
           </div>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calculator, Shield } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -140,18 +140,18 @@ export default function CommissionCalculator() {
             </CardContent>
           </Card>
 
-          <Card className="border-white/10 bg-slate-900/50">
+          <Card className="border-slate-200 bg-slate-900/50">
             <CardContent className="space-y-6 p-6">
               <div>
                 <Label className="text-slate-300">Satış / işlem tutarı (₺)</Label>
                 <Input
-                  className="mt-2 bg-slate-950 border-white/10 text-white"
+                  className="mt-2 bg-slate-950 border-slate-200 text-white"
                   value={saleStr}
                   onChange={(e) => setSaleStr(e.target.value)}
                   inputMode="numeric"
                 />
               </div>
-              <div className="flex items-start gap-3 rounded-lg border border-white/10 p-4">
+              <div className="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
                 <Checkbox
                   checked={sellerMembershipPaid}
                   onCheckedChange={(v) => setSellerMembershipPaid(v === true)}
@@ -171,7 +171,7 @@ export default function CommissionCalculator() {
                 <p className="mb-3 text-sm font-medium text-slate-300">Hizmet bedeli mahsuba dahil et</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {(Object.keys(SERVICE_FEES) as ServiceKey[]).map((k) => (
-                    <label key={k} className="flex cursor-pointer items-start gap-2 rounded-lg border border-white/5 p-3 hover:bg-white/5">
+                    <label key={k} className="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-200/80 p-3 hover:bg-white/5">
                       <Checkbox checked={svc[k]} onCheckedChange={() => toggleService(k)} />
                       <span className="text-sm text-slate-400">
                         <span className="text-slate-200">{SERVICE_FEE_LABELS[k]}</span>
@@ -184,7 +184,7 @@ export default function CommissionCalculator() {
             </CardContent>
           </Card>
 
-          <Card className="mt-6 border-white/10 bg-slate-950/60">
+          <Card className="mt-6 border-slate-200 bg-slate-950/60">
             <CardContent className="p-6">
               <h2 className="mb-4 text-sm font-semibold text-white">Mahsup akışı (görsel özet)</h2>
               <div className="rounded-xl border border-dashed border-teal-500/25 bg-[#060912] p-4 font-mono text-[11px] leading-relaxed text-slate-300 sm:text-xs">
@@ -200,7 +200,7 @@ export default function CommissionCalculator() {
                   <div className="rounded-lg bg-violet-500/10 px-3 py-2 text-center text-violet-100">
                     Ortak emlakçı B2B (işlem üzerinden %{(REALTOR_B2B_RATE * 100).toFixed(0)})
                   </div>
-                  <div className="mt-2 border-t border-white/10 pt-3 text-center text-slate-500">
+                  <div className="mt-2 border-t border-slate-200 pt-3 text-center text-slate-500">
                     ≈ Tahmini platform net (sağdaki tablo ile uyumlu)
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export default function CommissionCalculator() {
                   <dt>Ortak emlakçı B2B (matrah %{(REALTOR_B2B_RATE * 100).toFixed(0)})</dt>
                   <dd className="font-medium text-white">₺{Math.round(b.agentShare).toLocaleString("tr-TR")}</dd>
                 </div>
-                <div className="flex justify-between border-t border-white/10 pt-2 text-slate-400">
+                <div className="flex justify-between border-t border-slate-200 pt-2 text-slate-400">
                   <dt>Mahsup (üyelik + hizmet)</dt>
                   <dd className="text-teal-300">−₺{Math.round(b.offsetTotal).toLocaleString("tr-TR")}</dd>
                 </div>
@@ -266,7 +266,7 @@ export default function CommissionCalculator() {
                     inputMode="numeric"
                     value={rentStr}
                     onChange={(e) => setRentStr(e.target.value)}
-                    className="border-white/10 bg-black/30 text-white"
+                    className="border-slate-200 bg-black/30 text-white"
                   />
                 </div>
                 <div className="space-y-2">
@@ -278,7 +278,7 @@ export default function CommissionCalculator() {
                     inputMode="numeric"
                     value={rentTransferStr}
                     onChange={(e) => setRentTransferStr(e.target.value)}
-                    className="border-white/10 bg-black/30 text-white"
+                    className="border-slate-200 bg-black/30 text-white"
                   />
                 </div>
               </div>
@@ -304,7 +304,7 @@ export default function CommissionCalculator() {
                 ))}
               </div>
               {rentalSplit ? (
-                <dl className="space-y-2 border-t border-white/10 pt-4 text-sm text-slate-300">
+                <dl className="space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-300">
                   <div className="text-[11px] text-slate-500">{rentalSplit.lawRef}</div>
                   <div className="flex justify-between">
                     <dt>İhaleal matrah</dt>
@@ -326,7 +326,7 @@ export default function CommissionCalculator() {
                       </dd>
                     </div>
                   ) : null}
-                  <div className="flex justify-between border-t border-white/10 pt-2 text-slate-400">
+                  <div className="flex justify-between border-t border-slate-200 pt-2 text-slate-400">
                     <dt>KDV (komisyon matrahı üzerinden %{(RENTAL_COMMISSION_VAT_RATE * 100).toFixed(0)})</dt>
                     <dd className="font-medium text-white">
                       ₺{kdvOnCommissionMatrah(rentAmount).toLocaleString("tr-TR")}
@@ -340,7 +340,7 @@ export default function CommissionCalculator() {
                 <p className="text-xs text-amber-200/80">Geçerli bir aylık kira tutarı girin.</p>
               )}
               {rentalEProvNormal != null && rentalEProvDevren != null ? (
-                <div className="rounded-lg border border-white/10 p-3 text-xs text-slate-400">
+                <div className="rounded-lg border border-slate-200 p-3 text-xs text-slate-400">
                   <div className="font-medium text-slate-300">%1 e-provizyon (bloke)</div>
                   <div className="mt-1 flex justify-between">
                     <span>Normal kiralık</span>
@@ -383,7 +383,7 @@ export default function CommissionCalculator() {
                 Arsa rayiç değeri olarak üstteki işlem tutarı kullanılır (varsayılan: tek emlakçı senaryosu).
               </p>
               {landPool ? (
-                <dl className="space-y-2 border-t border-white/10 pt-4 text-sm text-slate-300">
+                <dl className="space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-300">
                   <div className="flex justify-between">
                     <dt>İhaleal payı (havuzdan)</dt>
                     <dd className="font-medium text-white">₺{landPool.platformTry.toLocaleString("tr-TR")}</dd>
@@ -400,7 +400,7 @@ export default function CommissionCalculator() {
                     <dt>Arsa sahibi yükü (matrah)</dt>
                     <dd className="font-medium text-white">₺{landPool.ownerTry.toLocaleString("tr-TR")}</dd>
                   </div>
-                  <div className="flex justify-between border-t border-white/10 pt-2 text-slate-400">
+                  <div className="flex justify-between border-t border-slate-200 pt-2 text-slate-400">
                     <dt>KDV (havuz matrahı üzerinden %{(RENTAL_COMMISSION_VAT_RATE * 100).toFixed(0)})</dt>
                     <dd className="font-medium text-white">₺{landPool.totalKdvTry.toLocaleString("tr-TR")}</dd>
                   </div>

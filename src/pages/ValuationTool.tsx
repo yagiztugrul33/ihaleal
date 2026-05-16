@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Calculator, Home, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -85,7 +85,7 @@ export default function ValuationTool() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0f1e] text-slate-100">
+    <main className="min-h-screen bg-slate-50 text-slate-100">
       <section className="max-w-5xl mx-auto px-4 py-24">
         <div className="mb-8">
           <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200">
@@ -106,7 +106,7 @@ export default function ValuationTool() {
 
         <form
           onSubmit={onSubmit}
-          className="grid gap-4 rounded-2xl border border-white/10 bg-slate-900/50 p-5 md:grid-cols-2"
+          className="grid gap-4 rounded-2xl border border-slate-200 bg-slate-900/50 p-5 md:grid-cols-2"
         >
           <label className="space-y-2">
             <span className="text-sm text-slate-300">Il</span>

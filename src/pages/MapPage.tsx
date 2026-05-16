@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import { ArrowLeft, MapPin, Navigation, Star, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,7 +13,7 @@ export default function MapPage() {
   const allAuctions = [...AUCTIONS].sort((a, b) => b.investmentScore - a.investmentScore);
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-[#061428] to-[#0a0f1e]">
+    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-slate-50 to-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-2 mb-2">
@@ -29,7 +29,7 @@ export default function MapPage() {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Map */}
           <div className="lg:col-span-2">
-            <Card className="overflow-hidden border-white/10 bg-white/[0.05] backdrop-blur-xl h-[500px] lg:h-[600px] shadow-xl shadow-black/30">
+            <Card className="overflow-hidden border-slate-200 bg-white/[0.05] backdrop-blur-xl h-[500px] lg:h-[600px] shadow-xl shadow-black/30">
               <div className="w-full h-full bg-slate-900 relative">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6337652.538633094!2d34.5!3d39.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1str!2str!4v1700000000000"
@@ -52,7 +52,7 @@ export default function MapPage() {
               {allAuctions.map((auction, idx) => (
                 <Card
                   key={auction.id}
-                  className="border-white/10 bg-white/[0.04] backdrop-blur-md hover:border-cyan-400/30 transition-all cursor-pointer hover:-translate-y-0.5"
+                  className="border-slate-200 bg-white/[0.04] backdrop-blur-md hover:border-cyan-400/30 transition-all cursor-pointer hover:-translate-y-0.5"
                   onClick={() => navigate(`/ilan/${auction.id}`)}
                   style={{ animationDelay: `${idx * 50}ms` }}
                 >
@@ -87,7 +87,7 @@ export default function MapPage() {
               const cityAuctions = allAuctions.filter((a) => a.city === city);
               if (cityAuctions.length === 0) return null;
               return (
-                <Card key={city} className="border-white/10 bg-white/[0.04] backdrop-blur-md p-4">
+                <Card key={city} className="border-slate-200 bg-white/[0.04] backdrop-blur-md p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Home className="w-5 h-5 text-blue-400" />
                     <h3 className="font-bold">{city}</h3>

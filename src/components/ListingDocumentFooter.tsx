@@ -1,4 +1,4 @@
-import { memo } from "react";
+﻿import { memo } from "react";
 import type { Auction } from "@/types/auction";
 import { FileText, Landmark, Scale } from "lucide-react";
 
@@ -43,7 +43,7 @@ function ListingDocumentFooterInner({
           ? "bg-emerald-500/15 text-emerald-200/95 border-emerald-500/25"
           : warn
             ? "bg-amber-500/10 text-amber-100/90 border-amber-500/20"
-            : "bg-white/[0.04] text-slate-500 border-white/5"
+            : "bg-white/[0.04] text-slate-500 border-slate-200/80"
       }`}
     >
       <Icon className={icon} aria-hidden />
@@ -55,7 +55,7 @@ function ListingDocumentFooterInner({
     <div
       role="region"
       aria-label="İlan belge ve rapor özeti: piyasa raporu, ekspertiz, resmi belge, taahhüt"
-      className={`flex flex-wrap gap-1 ${compact ? "mt-2" : "mt-3"} ${showTopRule ? "pt-2.5 border-t border-white/5" : "pt-1"}`}
+      className={`flex flex-wrap gap-1 ${compact ? "mt-2" : "mt-3"} ${showTopRule ? "pt-2.5 border-t border-slate-200/80" : "pt-1"}`}
       title="Belge ve rapor özeti — tam içerik ilan detayında"
     >
       <Chip ok={hasMarketPdf} label="Piyasa raporu" Icon={FileText} />

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { Landmark, BadgePercent, Calculator, ChevronRight, DraftingCompass } from "lucide-react";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaHubSubtitle, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { cn } from "@/lib/utils";
@@ -76,7 +76,7 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
           <Link
             to="/komisyon-modeli"
             className={cn(
-              "flex flex-1 items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/[0.04] font-semibold text-zinc-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+              "flex flex-1 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white/[0.04] font-semibold text-zinc-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
               linkHover,
               corporate ? "min-h-[2.85rem] px-3.5 py-2.5 text-[13px] sm:text-sm" : prominent ? "min-h-[3rem] px-4 py-2.5 text-sm" : "min-h-[2.75rem] px-3 py-2 text-[13px]"
             )}
@@ -90,7 +90,7 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
           <Link
             to="/komisyon-hesaplayici"
             className={cn(
-              "flex flex-1 items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/[0.04] font-semibold text-zinc-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+              "flex flex-1 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white/[0.04] font-semibold text-zinc-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
               linkHover,
               corporate ? "min-h-[2.85rem] px-3.5 py-2.5 text-[13px] sm:text-sm" : prominent ? "min-h-[3rem] px-4 py-2.5 text-sm" : "min-h-[2.75rem] px-3 py-2 text-[13px]"
             )}
@@ -105,7 +105,7 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
             to={KKA_STUDIO_PATH}
             aria-label={`${kkaStudioNavLabel}: ada, parsel ve demo imar �zeti`}
             className={cn(
-              "flex flex-1 items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/[0.04] font-semibold text-zinc-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+              "flex flex-1 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white/[0.04] font-semibold text-zinc-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
               linkHover,
               corporate ? "min-h-[2.85rem] px-3.5 py-2.5 text-[13px] sm:text-sm" : prominent ? "min-h-[3rem] px-4 py-2.5 text-sm" : "min-h-[2.75rem] px-3 py-2 text-[13px]"
             )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 export default function PreLaunch() {
@@ -45,7 +45,7 @@ export default function PreLaunch() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0A1F44] via-slate-900 to-[#F59E0B]/25 flex items-center justify-center p-6">
-      <div className="bg-slate-950/90 border border-white/10 rounded-2xl p-8 max-w-lg w-full shadow-2xl">
+      <div className="bg-slate-950/90 border border-slate-200 rounded-2xl p-8 max-w-lg w-full shadow-2xl">
         <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent">
           ihaleal.com
         </h1>

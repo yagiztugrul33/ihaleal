@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { HelpCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ export default function FrequentQuestions() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Soru veya cevapta ara..."
-            className="border-white/10 bg-slate-900/60 text-white placeholder:text-slate-600"
+            className="border-slate-200 bg-slate-900/60 text-white placeholder:text-slate-600"
             aria-label="SSS arama"
           />
         </div>
@@ -59,7 +59,7 @@ export default function FrequentQuestions() {
 
         <div className="space-y-3">
           {visible.map((item) => (
-            <Card key={item.id} className="border-white/10 bg-slate-900/40">
+            <Card key={item.id} className="border-slate-200 bg-slate-900/40">
               <CardContent className="p-5">
                 <p className="text-xs font-medium uppercase tracking-wide text-slate-500">#{item.order}</p>
                 <h2 className="mt-1 text-lg font-semibold text-white">{item.question}</h2>

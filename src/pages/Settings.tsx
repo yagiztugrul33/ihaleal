@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Bell, CreditCard, Shield, Smartphone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -48,16 +48,16 @@ export default function SettingsPage() {
   const patch = (p: Partial<NotifPrefs>) => setPrefs((prev) => ({ ...prev, ...p }));
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#0a0f1e] px-4">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50 px-4">
       <div className="max-w-2xl mx-auto">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
 
         <h1 className="text-3xl font-bold text-white mb-2">Ayarlar</h1>
         <p className="text-slate-400 text-sm mb-8">Bildirim tercihleri tarayıcıda saklanır (demo). Üyelik ücretleri iş modeli ile uyumludur.</p>
 
-        <Card className="border-white/10 bg-slate-900/45 mb-6">
+        <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-4 text-white font-semibold">
               <Bell className="w-5 h-5 text-violet-400" />
@@ -94,7 +94,7 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/10 bg-slate-900/45 mb-6">
+        <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-3 text-white font-semibold">
               <CreditCard className="w-5 h-5 text-teal-400" />
@@ -110,7 +110,7 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/10 bg-slate-900/45">
+        <Card className="border-slate-200 bg-slate-900/45">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-3 text-white font-semibold">
               <Shield className="w-5 h-5 text-blue-400" />
@@ -149,7 +149,7 @@ function PrefRow({
   onCheckedChange: (v: boolean) => void;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5">
+    <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200/80 bg-white/[0.02] px-3 py-2.5">
       <Label htmlFor={label} className="text-sm text-slate-300 cursor-pointer flex-1">
         {label}
       </Label>
