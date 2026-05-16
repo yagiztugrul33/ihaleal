@@ -5,30 +5,30 @@
 @layer base {
   :root,
   [data-theme="light"] {
-    /* ihaleal warm corporate palette */
-    --background: 38 42% 72%;
-    --foreground: 215 28% 17%;
-    --card: 38 32% 86%;
-    --card-foreground: 215 28% 17%;
-    --popover: 38 32% 86%;
-    --popover-foreground: 215 28% 17%;
+    /* ihaleal acik turkuaz kurumsal palet */
+    --background: 192 48% 83%;
+    --foreground: 200 35% 18%;
+    --card: 192 52% 91%;
+    --card-foreground: 200 35% 18%;
+    --popover: 192 52% 91%;
+    --popover-foreground: 200 35% 18%;
     --primary: 193 72% 21%;
-    --primary-foreground: 48 43% 96%;
-    --secondary: 42 52% 90%;
-    --secondary-foreground: 215 28% 17%;
-    --muted: 38 30% 78%;
-    --muted-foreground: 215 16% 47%;
+    --primary-foreground: 192 60% 97%;
+    --secondary: 192 45% 88%;
+    --secondary-foreground: 200 35% 18%;
+    --muted: 192 40% 76%;
+    --muted-foreground: 200 18% 40%;
     --accent: 28 54% 51%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 38 35% 84%;
-    --input: 38 35% 84%;
+    --border: 192 38% 72%;
+    --input: 192 38% 72%;
     --ring: 193 72% 21%;
     --radius: 0.75rem;
-    --page-gradient-from: 38 42% 74%;
-    --page-gradient-via: 36 40% 68%;
-    --page-gradient-to: 34 38% 62%;
+    --page-gradient-from: 192 50% 86%;
+    --page-gradient-via: 192 46% 80%;
+    --page-gradient-to: 192 42% 74%;
   }
 
   [data-theme="dark"] {
