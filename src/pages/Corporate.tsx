@@ -85,18 +85,19 @@ export default function Corporate() {
 
           <h1
             className="text-4xl md:text-6xl font-bold leading-tight tracking-tight"
-            style={{ color: "var(--color-text)" }}
+            style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}
           >
-            Türkiye'nin şeffaf gayrimenkul pazaryeri,<br />
-            <span style={{ color: "var(--color-primary)" }}>kurumsal güçle.</span>
+            Emlak ofisleri için
+            <br />
+            <span style={{ color: "var(--color-primary)" }}>modern operasyon altyapısı.</span>
           </h1>
 
           <p
             className="mt-6 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed"
             style={{ color: "var(--color-text-muted)" }}
           >
-            Emlak ofisleri, GYO'lar ve müteahhitler için inşa edildi.
-            Portföy yönetimi, AI fiyatlama, çok kullanıcılı erişim, kurumsal API.
+            Portföy yönetimi, AI destekli fiyatlama, çok kullanıcılı erişim ve şeffaf ihale modülü.
+            RE/MAX, GYO ve büyük emlak grupları için tasarlandı; bireysel emlakçılar için ücretsiz.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
