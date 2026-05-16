@@ -93,9 +93,10 @@ export function Auctions({
   };
 
   const sectionPad = layout === "page" ? "relative py-10 lg:py-14" : "relative py-24 lg:py-32";
+  const isHome = layout === "home";
 
   return (
-    <section id="auctions" className={sectionPad} data-demo="true">
+    <section id="auctions" className={`${sectionPad} ${isHome ? "section-warm-alt" : ""}`} data-demo="true">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -132,7 +133,7 @@ export function Auctions({
           <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Konum, kelime veya ilan no (ILN-...)" className="pl-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600" />
+              <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Konum, kelime veya ilan no (ILN-...)" className={isHome ? "pl-10 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "pl-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600"} />
             </div>
             <div className="flex gap-2 flex-wrap">
               {(["all", "live", "upcoming", "ended"] as const).map((f) => (
@@ -178,10 +179,10 @@ export function Auctions({
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((auction, idx) => (
-            <Card key={auction.id} className={`group bg-white/[0.06] backdrop-blur-xl border border-white/10 overflow-hidden hover:border-cyan-400/25 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
+            <Card key={auction.id} className={`group overflow-hidden transition-all duration-500 hover:-translate-y-2 ${isHome ? "card-warm hover:border-[var(--color-accent-light)]" : "bg-white/[0.06] backdrop-blur-xl border border-white/10 hover:border-cyan-400/25 hover:shadow-2xl hover:shadow-cyan-500/10"} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />
                 <div className="absolute top-3 left-3 flex gap-2">
                   {auction.status === "live" && <Badge className="bg-red-500/90 text-white gap-1 animate-pulse"><Flame className="w-3 h-3" /> Canlı</Badge>}
                   {auction.status === "upcoming" && <Badge variant="outline" className="border-sky-500/30 text-sky-400 gap-1"><Calendar className="w-3 h-3" /> Yaklaşan</Badge>}
@@ -196,16 +197,16 @@ export function Auctions({
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <ListingNumberBadge auction={auction} compact />
                 </div>
-                <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className="text-base font-bold text-white line-clamp-2 group-hover:text-blue-400 transition-colors cursor-pointer">{auction.title}</h3>
-                <div className="flex items-center gap-2 text-sm text-slate-500 mt-1"><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
-                <div className="flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
+                <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className={`text-base font-bold line-clamp-2 transition-colors cursor-pointer ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-blue-400"}`} style={isHome ? { color: "var(--color-text)" } : undefined}>{auction.title}</h3>
+                <div className="flex items-center gap-2 text-sm mt-1" style={{ color: "var(--color-text-muted)" }}><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
+                <div className={`flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-lg border ${isHome ? "bg-[var(--color-bg-soft)] border-[var(--color-border)]" : "bg-white/[0.03] border-white/5"}`}>
                   <BarChart3 className="w-4 h-4 text-blue-500" />
                   <div className="flex-1">
                     <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Değerleme</span><span className="text-blue-400 font-semibold">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</span></div>
                     <div className="h-1.5 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                <div className={`flex items-center justify-between pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
                   <div>
                     <div className="text-xs text-slate-500 mb-0.5">Güncel Teklif</div>
                     <div className="text-lg font-bold text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>

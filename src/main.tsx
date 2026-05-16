@@ -14,7 +14,12 @@ window.addEventListener("error", (ev) => {
   clientLogError("window.error", ev.error ?? ev.message);
 });
 
-registerSW({ immediate: true });
+registerSW({
+  immediate: true,
+  onRegisteredSW(_url, registration) {
+    registration?.update();
+  },
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

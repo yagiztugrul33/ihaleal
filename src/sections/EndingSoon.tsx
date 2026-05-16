@@ -54,7 +54,7 @@ export function EndingSoon() {
             return (
               <Card
                 key={auction.id}
-                className={`group bg-white/[0.06] backdrop-blur-xl border-slate-200 border overflow-hidden hover:border-rose-400/30 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-rose-500/25" : ""}`}
+                className={`group card-warm overflow-hidden hover:border-rose-400/40 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-rose-500/25" : ""}`}
                 onClick={() => navigate(`/ilan/${auction.id}`)}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
@@ -74,8 +74,8 @@ export function EndingSoon() {
                   )}
                 </div>
                 <CardContent className="p-4">
-                  <h3 className="font-bold text-white line-clamp-1 group-hover:text-orange-400 transition-colors">{auction.title}</h3>
-                  <div className="flex items-center gap-1 text-xs text-slate-500 mt-1">
+                  <h3 className="font-bold line-clamp-1 transition-colors group-hover:text-[var(--color-accent)]" style={{ color: "var(--color-text)" }}>{auction.title}</h3>
+                  <div className="flex items-center gap-1 text-xs mt-1" style={{ color: "var(--color-text-muted)" }}>
                     <MapPin className="w-3 h-3" /> {auction.district}, {auction.city}
                   </div>
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-200/80">
