@@ -152,8 +152,8 @@
     <script>
       (function () {
         var k = "ihaleal_theme_rev";
-        if (localStorage.getItem(k) !== "4") {
-          localStorage.setItem(k, "4");
+        if (localStorage.getItem(k) !== "5") {
+          localStorage.setItem(k, "5");
           if ("serviceWorker" in navigator) {
             navigator.serviceWorker.getRegistrations().then(function (r) {
               r.forEach(function (x) { x.unregister(); });

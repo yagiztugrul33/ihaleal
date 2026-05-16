@@ -68,14 +68,14 @@ export function HowItWorks() {
                 style={{ transitionDelay: `${idx * 120}ms`, transitionDuration: "700ms" }}
               >
                 <div className="flex justify-center mb-4">
-                  <div className="rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] p-4 ring-1 ring-white/10 group-hover:ring-cyan-400/25 group-hover:scale-105 transition-all duration-300 motion-reduce:group-hover:scale-100">
-                    <Icon className="w-9 h-9 text-cyan-300" aria-hidden />
+                  <div className="rounded-2xl p-4 ring-1 ring-[var(--color-border)] group-hover:ring-[var(--color-primary)] group-hover:scale-105 transition-all duration-300 motion-reduce:group-hover:scale-100" style={{ background: "var(--color-bg-soft)" }}>
+                    <Icon className="w-9 h-9" style={{ color: "var(--color-primary)" }} aria-hidden />
                   </div>
                 </div>
-                <div className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wider text-center">Adım {idx + 1}</div>
+                <div className="text-xs font-bold mb-2 uppercase tracking-wider text-center" style={{ color: "var(--color-accent)" }}>Adım {idx + 1}</div>
                 <h3 className="text-lg font-bold mb-2 text-center transition-colors group-hover:text-[var(--color-primary)]" style={{ color: "var(--color-text)" }}>{s.title}</h3>
                 <p className="text-sm leading-relaxed text-center" style={{ color: "var(--color-text-muted)" }}>{s.desc}</p>
-                <div className="mt-4 flex items-center justify-center gap-1 text-xs font-semibold text-cyan-300/90 group-hover:text-cyan-200">
+                <div className="mt-4 flex items-center justify-center gap-1 text-xs font-semibold" style={{ color: "var(--color-primary)" }}>
                   Detaylı rehber
                   <ChevronRight className="w-3.5 h-3.5" aria-hidden />
                 </div>

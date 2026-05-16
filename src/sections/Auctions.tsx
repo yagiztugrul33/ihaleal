@@ -148,7 +148,7 @@ export function Auctions({
           </div>
 
           {showFilters && (
-            <div className="mt-4 p-5 rounded-2xl bg-slate-900/50 border border-white/5 grid md:grid-cols-3 gap-5 animate-scale-in">
+            <div className={`mt-4 p-5 rounded-2xl grid md:grid-cols-3 gap-5 animate-scale-in ${isHome ? "card-warm" : "bg-slate-900/50 border border-white/5"}`}>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Fiyat Aralığı</label>
                 <Slider value={priceRange} onValueChange={(v) => setPriceRange(v as [number, number])} max={200000000} step={1000000} className="w-full" />
@@ -156,7 +156,7 @@ export function Auctions({
               </div>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Şehir</label>
-                <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-sm text-white">
+                <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
                   <option value="all">Tüm Şehirler</option>
                   {cities.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
@@ -203,7 +203,7 @@ export function Auctions({
                   <BarChart3 className="w-4 h-4 text-blue-500" />
                   <div className="flex-1">
                     <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Değerleme</span><span className="text-blue-400 font-semibold">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</span></div>
-                    <div className="h-1.5 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
+                    <div className={`h-1.5 rounded-full overflow-hidden ${isHome ? "bg-[var(--color-border)]" : "bg-white/10"}`}><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                   </div>
                 </div>
                 <div className={`flex items-center justify-between pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
@@ -215,8 +215,17 @@ export function Auctions({
                   <div className="text-right">
                     <div className="flex items-center gap-3 text-xs text-slate-500 mb-2"><span className="flex items-center gap-1"><Users className="w-3 h-3" />{auction.bidderCount}</span>{auction.status === "live" && <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{Math.max(0, Math.floor((new Date(auction.endDate).getTime() - Date.now()) / 3600000))}s</span>}</div>
                     <div className="flex gap-1.5">
-                      <Button size="sm" variant="outline" onClick={() => navigate(`/ilan/${auction.id}`)} className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 text-xs h-8 px-3">Detaylar</Button>
-                      <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 mr-1" />Teklif Ver</Button>
+                      {isHome ? (
+                        <>
+                          <button type="button" onClick={() => navigate(`/ilan/${auction.id}`)} className="btn-ghost text-xs h-8 px-3 inline-flex items-center">Detaylar</button>
+                          <button type="button" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="btn-primary text-xs h-8 px-3 inline-flex items-center gap-1"><TrendingUp className="w-3.5 h-3.5" />Teklif Ver</button>
+                        </>
+                      ) : (
+                        <>
+                          <Button size="sm" variant="outline" onClick={() => navigate(`/ilan/${auction.id}`)} className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 text-xs h-8 px-3">Detaylar</Button>
+                          <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 mr-1" />Teklif Ver</Button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -66,7 +66,7 @@ export function Contact() {
             </div>
             <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Telefon</label><Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.phone ? "border-red-500/50" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30`} placeholder="+90 555 123 45 67" />{errors.phone && <p className="text-xs text-red-400 mt-1">{errors.phone}</p>}</div>
             <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Mesajınız</label><Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.message ? "border-red-500/50" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30 min-h-[120px]`} placeholder="Mesajınızı buraya yazın..." />{errors.message && <p className="text-xs text-red-400 mt-1">{errors.message}</p>}</div>
-            <Button type="submit" disabled={status === "sending"} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 gap-2 disabled:opacity-60"><Send className="w-4 h-4" />{status === "sending" ? "Gönderiliyor..." : "Gönder"}</Button>
+            <Button type="submit" disabled={status === "sending"} className="w-full btn-primary h-11 gap-2 disabled:opacity-60 !flex !justify-center"><Send className="w-4 h-4" />{status === "sending" ? "Gönderiliyor..." : "Gönder"}</Button>
           </form>
         </div>
       </div>

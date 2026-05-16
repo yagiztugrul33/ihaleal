@@ -101,7 +101,7 @@ export function Navbar() {
                   `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
                     isActive
                       ? "text-white bg-emerald-500/25 border-emerald-400/50 shadow-[0_0_0_1px_rgba(52,211,153,0.15)]"
-                      : "text-emerald-200 hover:text-white hover:bg-emerald-500/15 border-emerald-500/30"
+                      : "text-emerald-800 hover:text-white hover:bg-emerald-600 border-emerald-600/40"
                   }`
                 }
               >
@@ -115,7 +115,7 @@ export function Navbar() {
                   `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
                     isActive
                       ? "text-white bg-cyan-500/20 border-cyan-400/45 shadow-[0_0_0_1px_rgba(34,211,238,0.12)]"
-                      : "text-cyan-100 hover:text-white hover:bg-cyan-500/12 border-cyan-500/25"
+                      : "text-cyan-800 hover:text-white hover:bg-cyan-600 border-cyan-600/40"
                   }`
                 }
               >
@@ -125,7 +125,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => navigate("/kurumsal")}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-emerald-200 hover:text-emerald-900 hover:bg-emerald-500/15 transition-all whitespace-nowrap"
+                className="px-3 py-2 rounded-lg text-sm font-medium text-emerald-800 hover:text-emerald-950 hover:bg-emerald-100 transition-all whitespace-nowrap"
               >
                 Kurumsal
               </button>
@@ -143,14 +143,14 @@ export function Navbar() {
                   <button
                     type="button"
                     onClick={() => navigate("/giris?profil=emlakci")}
-                    className="px-3 py-2 rounded-lg text-sm font-semibold text-teal-200 hover:text-white hover:bg-teal-500/20 border border-teal-500/35 whitespace-nowrap"
+                    className="px-3 py-2 rounded-lg text-sm font-semibold text-teal-800 hover:text-white hover:bg-teal-600 border border-teal-600/50 whitespace-nowrap"
                   >
                     Emlakçı Girişi
                   </button>
                   <button
                     type="button"
                     onClick={() => navigate("/giris?profil=muteahhit")}
-                    className="px-3 py-2 rounded-lg text-sm font-semibold text-amber-200 hover:text-white hover:bg-amber-500/20 border border-amber-500/35 whitespace-nowrap"
+                    className="px-3 py-2 rounded-lg text-sm font-semibold text-amber-900 hover:text-white hover:bg-amber-600 border border-amber-600/50 whitespace-nowrap"
                   >
                     Müteahhit Girişi
                   </button>
@@ -162,7 +162,7 @@ export function Navbar() {
               <button type="button" onClick={() => setSearchOpen(true)} className="flex items-center gap-2 px-3 py-2 rounded-xl border text-sm max-w-[140px] xl:max-w-[180px] transition-all" style={{ background: "var(--color-bg-soft)", borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
                 <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
               </button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-300 hover:text-cyan-300 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
               <Button
                 variant="outline"
                 size="sm"

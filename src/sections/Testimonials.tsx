@@ -27,8 +27,8 @@ export function Testimonials() {
       <div className="absolute inset-0 section-warm" />
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">Kullanıcı yorumları</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-sm">
+          <h2 className="section-heading mb-3">Kullanıcı yorumları</h2>
+          <p className="section-subtitle max-w-2xl mx-auto text-sm">
             Demo deneyiminden öne çıkan geri bildirimler (tanıtım amaçlı).
           </p>
         </div>
@@ -36,12 +36,12 @@ export function Testimonials() {
           {ITEMS.map((t, i) => (
             <div
               key={t.name}
-              className={`rounded-2xl border border-slate-200 bg-slate-900/40 p-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              className={`card-warm transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
               style={{ transitionDelay: `${i * 90}ms` }}
             >
               <Quote className="h-8 w-8 text-teal-500/60 mb-4" />
-              <p className="text-slate-300 text-sm leading-relaxed">{t.text}</p>
-              <p className="mt-4 text-xs font-medium text-white">{t.name}</p>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{t.text}</p>
+              <p className="mt-4 text-xs font-medium" style={{ color: "var(--color-text)" }}>{t.name}</p>
               <p className="text-[11px] text-slate-500">{t.role}</p>
             </div>
           ))}
