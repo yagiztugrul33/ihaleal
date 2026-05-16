@@ -17,4 +17,18 @@ test.describe("history routes (preview)", () => {
     await page.goto("/giris");
     await expect(page.locator("h1").first()).toContainText(/Giriş|Giris/i, { timeout: 20_000 });
   });
+
+  test("kurumsal sayfasi", async ({ page }) => {
+    await page.goto("/kurumsal");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/kurumsal|pazaryeri/i, {
+      timeout: 20_000,
+    });
+  });
+
+  test("kurumsal iletisim", async ({ page }) => {
+    await page.goto("/kurumsal/iletisim");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Gorusme|Görüşme|Talebi/i, {
+      timeout: 20_000,
+    });
+  });
 });
