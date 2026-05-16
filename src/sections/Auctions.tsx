@@ -137,11 +137,11 @@ export function Auctions({
             </div>
             <div className="flex gap-2 flex-wrap">
               {(["all", "live", "upcoming", "ended"] as const).map((f) => (
-                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${filter === f ? "bg-gradient-to-r from-blue-500 to-teal-400 text-white shadow-lg shadow-blue-500/20" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}>
+                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${filter === f ? "btn-primary !py-2 !px-4" : isHome ? "bg-[var(--color-bg-soft)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-card)]" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}>
                   {f === "all" ? "Tümü" : f === "live" ? "Canlı" : f === "upcoming" ? "Yaklaşan" : "Tamamlandı"}
                 </button>
               ))}
-              <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)} className="border-white/10 text-slate-400 hover:text-white hover:bg-white/5 gap-2">
+              <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)} className={`gap-2 ${isHome ? "btn-ghost" : "border-white/10 text-slate-400 hover:text-white hover:bg-white/5"}`}>
                 <Filter className="w-4 h-4" /> {showFilters ? <X className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </Button>
             </div>

@@ -6,7 +6,7 @@
   :root,
   [data-theme="light"] {
     /* ihaleal warm corporate palette */
-    --background: 42 45% 88%;
+    --background: 38 42% 72%;
     --foreground: 215 28% 17%;
     --card: 45 55% 99%;
     --card-foreground: 215 28% 17%;
@@ -26,9 +26,9 @@
     --input: 38 35% 84%;
     --ring: 193 72% 21%;
     --radius: 0.75rem;
-    --page-gradient-from: 42 48% 90%;
-    --page-gradient-via: 42 45% 86%;
-    --page-gradient-to: 40 40% 82%;
+    --page-gradient-from: 38 42% 74%;
+    --page-gradient-via: 36 40% 68%;
+    --page-gradient-to: 34 38% 62%;
   }
 
   [data-theme="dark"] {

@@ -42,10 +42,10 @@ export function Newsletter() {
             <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center mx-auto mb-5">
               <Mail className="w-7 h-7 text-blue-400" />
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+            <h2 className="section-heading mb-3">
               Yeni Ihalelerden Haberdar Olun
             </h2>
-            <p className="text-slate-400 mb-6">
+            <p className="section-subtitle mb-6">
               Size ozel secilmis gayrimenkul firsatlarini ve piyasa analizlerini haftalik olarak gonderelim.
             </p>
 
@@ -65,7 +65,7 @@ export function Newsletter() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="E-posta adresiniz"
                     required
-                    className="flex-1 bg-slate-950/50 border-slate-200 text-white placeholder:text-slate-500 h-12"
+                    className="flex-1 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] h-12"
                   />
                   <Button type="submit" disabled={!consent} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold h-12 px-6 disabled:opacity-40">
                     <Send className="w-4 h-4 mr-2" /> Abone Ol

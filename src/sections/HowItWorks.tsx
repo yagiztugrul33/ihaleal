@@ -96,7 +96,7 @@ export function HowItWorks() {
             <button
               type="button"
               onClick={() => navigate("/ihaleler")}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/20 bg-white/5 text-white font-semibold text-sm hover:bg-white/10 transition-colors"
+              className="btn-ghost inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm"
             >
               Doğrudan ihale listesi
               <ArrowRight className="w-4 h-4" aria-hidden />

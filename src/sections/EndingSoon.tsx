@@ -43,7 +43,7 @@ export function EndingSoon() {
             </h2>
             <p className="mt-1" style={{ color: "var(--color-text-muted)" }}>Son teklif süresi yaklaşan fırsatları kaçırmayın</p>
           </div>
-          <Button variant="outline" onClick={() => navigate("/ihaleler")} className="hidden md:flex border-white/15 bg-white/5 backdrop-blur text-slate-300 hover:text-white hover:bg-white/10">
+          <Button variant="outline" onClick={() => navigate("/ihaleler")} className="hidden md:flex btn-ghost">
             Tüm ihaleler <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
@@ -85,7 +85,7 @@ export function EndingSoon() {
                     </div>
                     <div className="text-right">
                       <div className="text-xs text-slate-500">m² fiyat</div>
-                      <div className="text-sm text-white">₺{auction.pricePerSqm.toLocaleString("tr-TR")}</div>
+                      <div className="text-sm" style={{ color: "var(--color-text)" }}>₺{auction.pricePerSqm.toLocaleString("tr-TR")}</div>
                     </div>
                   </div>
                   <ListingDocumentFooter auction={auction} compact showTopRule={false} />

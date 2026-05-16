@@ -8,8 +8,8 @@
     <meta name="keywords" content="gayrimenkul ihale, emlak ihale, gayrimenkul analizi, ihaleal, ihaleal.com, yapay zeka değerleme, sahibinden, hepsiemlak, gayrimenkul yatırım, emlak açık artırma, tapu, konut kredisi, mortgage, ekspertiz raporu, findeks, aml kyc, komisyon only" />
     <meta name="author" content="ihaleal.com" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#f4ecd8" />
-    <meta name="msapplication-TileColor" content="#f4ecd8" />
+    <meta name="theme-color" content="#d9c49a" />
+    <meta name="msapplication-TileColor" content="#d9c49a" />
     <!-- PWA / iOS home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -135,7 +135,7 @@
 
     <style>
       /* Critical CSS — ihaleal warm sand (must match theme.css) */
-      html,body,#root{background:#f4ecd8 !important;color:#1f2937}
+      html,body,#root{background:#d9c49a !important;color:#1f2937}
       body{margin:0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
     </style>
   </head>
@@ -149,6 +149,22 @@
     </noscript>
     <!-- HashRouter: boş hash → CSP uyumlu harici betik -->
     <script src="/hash-redirect.js"></script>
+    <script>
+      (function () {
+        var k = "ihaleal_theme_rev";
+        if (localStorage.getItem(k) !== "4") {
+          localStorage.setItem(k, "4");
+          if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (r) {
+              r.forEach(function (x) { x.unregister(); });
+            });
+          }
+          if (window.caches) {
+            caches.keys().then(function (n) { n.forEach(function (x) { caches.delete(x); }); });
+          }
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
