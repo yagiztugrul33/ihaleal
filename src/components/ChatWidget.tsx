@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect, type ComponentType } from "react";
+import { useState, useRef, useEffect, type ComponentType } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   MessageCircle,

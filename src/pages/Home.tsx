@@ -1,4 +1,5 @@
 import { Hero } from "@/sections/Hero";
+import { CorporateBanner } from "@/components/CorporateBanner";
 import { Auctions } from "@/sections/Auctions";
 import { EndingSoon } from "@/sections/EndingSoon";
 import { RecentlyViewed } from "@/sections/RecentlyViewed";
@@ -12,6 +13,7 @@ export function Home() {
   return (
     <>
       <Hero />
+      <CorporateBanner />
       <Stats />
       <Auctions />
       <EndingSoon />

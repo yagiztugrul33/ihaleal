@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IHALEAL_PLATFORM_RULES } from "@/data/anayasa400IhalealRules";
 import { motion } from "framer-motion";

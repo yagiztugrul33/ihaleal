@@ -1,4 +1,4 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Instagram, Youtube, Video, Target, TrendingUp, Users,
   DollarSign, BarChart3, Play, Calendar, Hash, Globe, Sparkles,

@@ -1,4 +1,4 @@
-﻿import { Gavel, Users, Banknote, MapPin } from "lucide-react";
+import { Gavel, Users, Banknote, MapPin } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export function Stats() {

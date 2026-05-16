@@ -1,4 +1,4 @@
-﻿import { ArrowRight, Search, Handshake, Trophy, KeyRound, ChevronRight } from "lucide-react";
+import { ArrowRight, Search, Handshake, Trophy, KeyRound, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 

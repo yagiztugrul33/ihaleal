@@ -1,4 +1,4 @@
-﻿import { Radio, ShieldCheck, Eye, Zap, Headphones, BarChart3, Calculator } from "lucide-react";
+import { Radio, ShieldCheck, Eye, Zap, Headphones, BarChart3, Calculator } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 

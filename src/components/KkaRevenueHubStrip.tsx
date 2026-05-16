@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Landmark, BadgePercent, Calculator, ChevronRight, DraftingCompass } from "lucide-react";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaHubSubtitle, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { cn } from "@/lib/utils";

@@ -1,4 +1,4 @@
-﻿import { Gavel, BrainCircuit } from "lucide-react";
+import { Gavel, BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Logo({

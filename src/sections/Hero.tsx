@@ -1,4 +1,4 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Play, BrainCircuit, Building2, Factory, ShieldCheck, Scale, Percent, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { KkaRevenueHubStrip } from "@/components/KkaRevenueHubStrip";

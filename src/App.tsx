@@ -88,6 +88,11 @@ const TaxSimulatorPage     = lazy(() => import("@/pages/TaxSimulatorPage"));
 const FinCompliancePlayground = lazy(() => import("@/pages/FinCompliancePlayground"));
 const NasilCalisir          = lazy(() => import("@/pages/NasilCalisir"));
 const ValuationTool         = lazy(() => import("@/pages/ValuationTool"));
+const Corporate             = lazy(() => import("@/pages/Corporate"));
+const CorporateContact      = lazy(() => import("@/pages/CorporateContact"));
+const OrganizationDashboard = lazy(() =>
+  import("@/features/organizations/OrganizationDashboard").then((m) => ({ default: m.OrganizationDashboard })),
+);
 
 function App() {
   return (
@@ -96,7 +101,7 @@ function App() {
       <ErrorBoundary>
       <Layout>
         <Suspense fallback={
-          <div className="min-h-screen flex items-center justify-center bg-slate-50">
+          <div className="min-h-screen flex items-center justify-center bg-[#0a0f1e]">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full border-4 border-blue-500 border-t-transparent animate-spin mx-auto mb-4" />
               <p className="text-slate-400">Yukleniyor...</p>
@@ -153,6 +158,9 @@ function App() {
             <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />
             <Route path="/araclar/finans-uyumluluk" element={<FinCompliancePlayground />} />
             <Route path="/degerleme" element={<ValuationTool />} />
+            <Route path="/kurumsal" element={<Corporate />} />
+            <Route path="/kurumsal/iletisim" element={<CorporateContact />} />
+            <Route path="/kurumsal/dashboard" element={<OrganizationDashboard />} />
             <Route path="/valuation" element={<ValuationTool />} />
             <Route path="/ekspertiz" element={<Expertise />} />
             <Route path="/evraklar" element={<DocumentsRequired />} />
