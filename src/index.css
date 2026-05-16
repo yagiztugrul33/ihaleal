@@ -5,30 +5,30 @@
 @layer base {
   :root,
   [data-theme="light"] {
-    /* Light & airy (default) — WCAG-friendly contrast */
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 187 72% 42%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 40%;
-    --accent: 199 89% 48%;
+    /* ihaleal warm corporate palette */
+    --background: 48 43% 96%;
+    --foreground: 215 28% 17%;
+    --card: 45 55% 99%;
+    --card-foreground: 215 28% 17%;
+    --popover: 45 55% 99%;
+    --popover-foreground: 215 28% 17%;
+    --primary: 193 72% 21%;
+    --primary-foreground: 48 43% 96%;
+    --secondary: 42 52% 90%;
+    --secondary-foreground: 215 28% 17%;
+    --muted: 42 45% 92%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 28 54% 51%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 187 72% 42%;
+    --border: 38 35% 84%;
+    --input: 38 35% 84%;
+    --ring: 193 72% 21%;
     --radius: 0.75rem;
-    --page-gradient-from: 210 40% 98%;
-    --page-gradient-via: 0 0% 100%;
-    --page-gradient-to: 210 40% 96%;
+    --page-gradient-from: 48 43% 96%;
+    --page-gradient-via: 42 48% 93%;
+    --page-gradient-to: 42 52% 88%;
   }
 
   [data-theme="dark"] {
@@ -61,17 +61,23 @@
   }
 
   body {
-    font-family: 'Inter', sans-serif;
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    font-family: var(--font-body), "Inter", sans-serif;
+    background-color: var(--color-bg, hsl(var(--background)));
+    color: var(--color-text, hsl(var(--foreground)));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
+  #root {
+    min-height: 100%;
+    background-color: var(--color-bg, hsl(var(--background)));
+  }
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
+    font-family: var(--font-display), "Plus Jakarta Sans", "Inter", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 }
 

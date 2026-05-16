@@ -36,7 +36,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative py-24 lg:py-32">
-      <div className="absolute inset-0 bg-slate-50" />
+      <div className="absolute inset-0 section-warm-alt" />
       <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px]" />
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>

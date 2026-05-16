@@ -1,4 +1,6 @@
-/* ihaleal - Tasarim Sistemi v1 */
+import fs from "fs";
+
+const css = `/* ihaleal - Tasarim Sistemi v1 */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
 
 :root {
@@ -172,3 +174,8 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-accent);
   border-radius: 50%;
 }
+`;
+
+fs.writeFileSync("src/styles/theme.css", css, "utf8");
+const b = fs.readFileSync("src/styles/theme.css");
+console.log("theme.css utf8 ok, null bytes:", b.includes(0), "size:", b.length);

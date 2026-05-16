@@ -96,8 +96,16 @@ export function Auctions({
 
   return (
     <section id="auctions" className={sectionPad} data-demo="true">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-transparent to-slate-100/60 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px]" />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            layout === "page"
+              ? "linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%)"
+              : "linear-gradient(180deg, var(--color-bg-soft) 0%, var(--color-bg) 100%)",
+        }}
+      />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-amber-500/15 rounded-full blur-[150px]" />
 
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!hideIntro && (

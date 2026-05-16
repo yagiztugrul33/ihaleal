@@ -44,7 +44,10 @@ export function HowItWorks() {
 
   return (
     <section id="howItWorks" className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-100" />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(180deg, var(--color-bg-soft) 0%, var(--color-bg) 50%, var(--color-bg-soft) 100%)" }}
+      />
       <div className="absolute bottom-0 left-0 w-[560px] h-[440px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none animate-breathe motion-reduce:animate-none opacity-70" />
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
