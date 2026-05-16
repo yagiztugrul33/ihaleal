@@ -12,18 +12,18 @@ const css = `/* ihaleal - Tasarim Sistemi v1 */
   --color-accent-light: #e2a360;
   --color-success: #2d6a4f;
   --color-success-light: #40916c;
-  --color-bg: #faf8f1;
-  --color-bg-card: #ffffff;
-  --color-bg-soft: #f4ecd8;
-  --color-bg-elevated: #ffffff;
+  --color-bg: #f4ecd8;
+  --color-bg-card: #faf8f1;
+  --color-bg-soft: #e8dcc4;
+  --color-bg-elevated: #faf8f1;
   --color-text: #1f2937;
   --color-text-muted: #64748b;
   --color-text-light: #94a3b8;
   --color-text-on-dark: #faf8f1;
   --color-border: #e5dcc7;
   --color-border-strong: #c9bfa8;
-  --gradient-warm: linear-gradient(135deg, #faf8f1 0%, #f4ecd8 55%, #ebe0cc 100%);
-  --gradient-hero: linear-gradient(180deg, #f4ecd8 0%, #faf8f1 45%, #f0e6d4 100%);
+  --gradient-warm: linear-gradient(160deg, #f4ecd8 0%, #e8dcc4 50%, #ddd0b8 100%);
+  --gradient-hero: linear-gradient(180deg, #e8dcc4 0%, #f4ecd8 40%, #ebe0cc 100%);
   --gradient-cta: linear-gradient(135deg, #0f4c5c 0%, #1e6878 100%);
   --shadow-sm: 0 1px 2px rgba(15, 76, 92, 0.05);
   --shadow-md: 0 4px 12px rgba(15, 76, 92, 0.08);
@@ -38,8 +38,10 @@ const css = `/* ihaleal - Tasarim Sistemi v1 */
 }
 
 html,
-body {
-  background: var(--color-bg);
+body,
+#root {
+  background: var(--color-bg) !important;
+  background-image: var(--gradient-warm) !important;
   color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -141,8 +143,11 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
 }
 
-.page-shell.page-shell-gradient {
+.page-shell,
+.page-shell.page-shell-gradient,
+[data-theme="light"] .page-shell {
   background: var(--gradient-warm) !important;
+  background-color: var(--color-bg) !important;
 }
 
 .section-warm {

@@ -51,8 +51,8 @@ export function HowItWorks() {
       <div className="absolute bottom-0 left-0 w-[560px] h-[440px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none animate-breathe motion-reduce:animate-none opacity-70" />
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">Nasıl Çalışır?</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">Dört adımda gayrimenkul ihale yolculuğunuzu tamamlayın.</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl section-heading mb-4 tracking-tight">Nasıl Çalışır?</h2>
+          <p className="section-subtitle mx-auto text-lg leading-relaxed">Dört adımda gayrimenkul ihale yolculuğunuzu tamamlayın.</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
           <div className="hidden lg:block absolute top-[5rem] left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent motion-reduce:hidden" />
@@ -64,7 +64,7 @@ export function HowItWorks() {
                 type="button"
                 key={s.key}
                 onClick={() => navigate(`/nasil-calisir?adim=${guideSlug}`)}
-                className={`relative text-left w-full group rounded-2xl border border-slate-200 bg-white/[0.04] backdrop-blur-xl p-6 hover:border-cyan-400/35 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(34,211,238,0.18)] motion-reduce:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                className={`relative text-left w-full group card-warm p-6 hover:border-[var(--color-primary)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(34,211,238,0.18)] motion-reduce:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ transitionDelay: `${idx * 120}ms`, transitionDuration: "700ms" }}
               >
                 <div className="flex justify-center mb-4">
@@ -73,8 +73,8 @@ export function HowItWorks() {
                   </div>
                 </div>
                 <div className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wider text-center">Adım {idx + 1}</div>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-100 transition-colors text-center">{s.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed text-center">{s.desc}</p>
+                <h3 className="text-lg font-bold mb-2 text-center transition-colors group-hover:text-[var(--color-primary)]" style={{ color: "var(--color-text)" }}>{s.title}</h3>
+                <p className="text-sm leading-relaxed text-center" style={{ color: "var(--color-text-muted)" }}>{s.desc}</p>
                 <div className="mt-4 flex items-center justify-center gap-1 text-xs font-semibold text-cyan-300/90 group-hover:text-cyan-200">
                   Detaylı rehber
                   <ChevronRight className="w-3.5 h-3.5" aria-hidden />

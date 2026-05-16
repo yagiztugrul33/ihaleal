@@ -30,18 +30,18 @@ export function EndingSoon() {
 
   return (
     <section ref={ref} className="py-16 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#071228]/95 to-[#0d1326]" />
+      <div className="absolute inset-0 section-warm-alt" />
       <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-orange-500/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+            <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3" style={{ color: "var(--color-text)" }}>
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500/25 to-rose-500/15 ring-1 ring-orange-400/25">
                 <Flame className="w-5 h-5 text-orange-300" aria-hidden />
               </span>
               Yakında Biten İhaleler
             </h2>
-            <p className="text-slate-400 mt-1">Son teklif süresi yaklaşan fırsatları kaçırmayın</p>
+            <p className="mt-1" style={{ color: "var(--color-text-muted)" }}>Son teklif süresi yaklaşan fırsatları kaçırmayın</p>
           </div>
           <Button variant="outline" onClick={() => navigate("/ihaleler")} className="hidden md:flex border-white/15 bg-white/5 backdrop-blur text-slate-300 hover:text-white hover:bg-white/10">
             Tüm ihaleler <ArrowRight className="w-4 h-4 ml-1" />
