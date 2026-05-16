@@ -10,10 +10,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="hero-warm relative flex min-h-[min(88vh,900px)] items-center justify-center overflow-hidden pt-20 pb-16 sm:pb-20"
-      style={{
-        background: "linear-gradient(180deg, #20374A 0%, #314A5A 45%, #495459 100%)",
-      }}
+      className="hero-warm relative flex min-h-[min(88vh,900px)] items-center justify-center overflow-hidden pt-20 pb-16 sm:pb-20 bg-transparent"
     >
       <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-center px-2">

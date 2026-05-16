@@ -29,9 +29,7 @@ export function EndingSoon() {
   if (endingSoon.length === 0) return null;
 
   return (
-    <section ref={ref} className="py-16 relative overflow-hidden">
-      <div className="absolute inset-0 section-warm-alt" />
-      <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-orange-500/10 rounded-full blur-[100px] pointer-events-none" />
+    <section ref={ref} className="py-16 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div>

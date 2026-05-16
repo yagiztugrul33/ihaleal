@@ -1,0 +1,14 @@
+import fs from 'fs';
+const p = 'src/components/CorporateBanner.tsx';
+let s = fs.readFileSync(p, 'utf8');
+const oldBlock = '    <section\n      className=\"border-y py-12\"\n      style={{\n        borderColor: \"var(--color-border)\",\n        background: \"linear-gradient(90deg, var(--color-bg-soft) 0%, var(--color-bg) 100%)\",\n      }}\n    >';
+const newBlock = '    <section className=\"border-y border-white/10 py-12\">';
+s = s.split(oldBlock).join(newBlock);
+s = s.replace('text-slate-500', 'text-slate-400');
+s = s.replaceAll('text-slate-600', 'text-slate-300');
+s = s.replace('opacity-60', 'opacity-70');
+fs.writeFileSync(p, s, 'utf8');
+let a = fs.readFileSync('src/App.tsx', 'utf8');
+a = a.replace('background: \"var(--color-bg)\"', 'background: \"var(--gradient-page)\"');
+fs.writeFileSync('src/App.tsx', a, 'utf8');
+console.log('patched');

@@ -96,18 +96,7 @@ export function Auctions({
   const isHome = layout === "home";
 
   return (
-    <section id="auctions" className={`${sectionPad} overflow-hidden ${isHome ? "section-warm-alt" : ""}`} data-demo="true">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            layout === "page"
-              ? "linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%)"
-              : "linear-gradient(180deg, var(--color-bg-soft) 0%, var(--color-bg) 100%)",
-        }}
-      />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[min(100vw,800px)] h-[min(60vh,500px)] bg-amber-500/15 rounded-full blur-[150px]" />
-
+    <section id="auctions" className={sectionPad} data-demo="true">
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!hideIntro && (
           <div className={`text-center mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>

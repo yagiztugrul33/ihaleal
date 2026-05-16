@@ -12,18 +12,19 @@ const css = `/* ihaleal - Tasarim Sistemi v1 */
   --color-accent-light: #e2a360;
   --color-success: #2d6a4f;
   --color-success-light: #40916c;
-  --color-bg: #b8e8ef;
-  --color-bg-card: #e2e8f0;
-  --color-bg-soft: #9dd4e3;
-  --color-bg-elevated: #e2e8f0;
-  --color-text: #1f2937;
-  --color-text-muted: #64748b;
+  --color-bg: #314A5A;
+  --color-bg-card: rgba(255, 255, 255, 0.08);
+  --color-bg-soft: rgba(255, 255, 255, 0.06);
+  --color-bg-elevated: rgba(255, 255, 255, 0.1);
+  --color-text: #f1f5f9;
+  --color-text-muted: #cbd5e1;
   --color-text-light: #94a3b8;
   --color-text-on-dark: #dcf5f9;
-  --color-border: #b8dde8;
-  --color-border-strong: #8ec5d4;
-  --gradient-warm: linear-gradient(160deg, #b8e8ef 0%, #9dd4e3 50%, #8bc4d6 100%);
-  --gradient-hero: linear-gradient(180deg, #9dd4e3 0%, #b8e8ef 45%, #a3d6e5 100%);
+  --color-border: rgba(255, 255, 255, 0.14);
+  --color-border-strong: rgba(255, 255, 255, 0.22);
+  --gradient-page: linear-gradient(180deg, #20374A 0%, #314A5A 45%, #495459 100%);
+  --gradient-warm: linear-gradient(180deg, #20374A 0%, #314A5A 45%, #495459 100%);
+  --gradient-hero: linear-gradient(180deg, #20374A 0%, #314A5A 45%, #495459 100%);
   --gradient-cta: linear-gradient(135deg, #0f4c5c 0%, #1e6878 100%);
   --shadow-sm: 0 1px 2px rgba(15, 76, 92, 0.05);
   --shadow-md: 0 4px 12px rgba(15, 76, 92, 0.08);
@@ -38,10 +39,20 @@ const css = `/* ihaleal - Tasarim Sistemi v1 */
 }
 
 html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+html,
 body,
 #root {
-  background: var(--color-bg) !important;
-  background-image: var(--gradient-warm) !important;
+  background: var(--gradient-page) !important;
+  background-color: var(--color-bg) !important;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
   color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -92,11 +103,11 @@ a.btn-ghost,
 button.btn-ghost,
 [data-slot="button"].btn-ghost {
   background: var(--color-bg-card) !important;
-  color: var(--color-primary) !important;
+  color: #f8fafc !important;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
-  border: 2px solid var(--color-primary) !important;
+  border: 2px solid rgba(255,255,255,0.35) !important;
   box-shadow: var(--shadow-sm);
   transition: all 0.2s ease;
   display: inline-flex;
@@ -139,7 +150,7 @@ button.btn-primary,
   position: relative;
   overflow: hidden;
 }
-.hero-warm::before {
+.hero-warm::before { display: none;
   content: "";
   position: absolute;
   top: -40%;
@@ -149,7 +160,7 @@ button.btn-primary,
   background: radial-gradient(circle, rgba(199, 127, 58, 0.22) 0%, transparent 68%);
   pointer-events: none;
 }
-.hero-warm::after {
+.hero-warm::after { display: none;
   content: "";
   position: absolute;
   bottom: -35%;
@@ -163,16 +174,20 @@ button.btn-primary,
 .page-shell,
 .page-shell.page-shell-gradient,
 [data-theme="light"] .page-shell {
-  background: var(--gradient-warm) !important;
+  background: var(--gradient-page) !important;
   background-color: var(--color-bg) !important;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.section-warm {
-  background: var(--color-bg-soft);
+main > section {
+  background: transparent !important;
 }
 
+.section-warm,
 .section-warm-alt {
-  background: var(--color-bg);
+  background: transparent !important;
 }
 
 .badge-corp {

@@ -11,30 +11,30 @@
 
   :root,
   [data-theme="light"] {
-    /* ihaleal acik turkuaz kurumsal palet */
-    --background: 192 48% 83%;
-    --foreground: 200 35% 18%;
-    --card: 214 20% 90%;
-    --card-foreground: 200 35% 18%;
-    --popover: 192 52% 91%;
-    --popover-foreground: 200 35% 18%;
+    /* ihaleal koyu gradyan palet (#20374A -> #495459) */
+    --background: 204 28% 33%;
+    --foreground: 210 20% 96%;
+    --card: 204 22% 38%;
+    --card-foreground: 210 20% 96%;
+    --popover: 204 22% 38%;
+    --popover-foreground: 210 20% 96%;
     --primary: 193 72% 21%;
-    --primary-foreground: 192 60% 97%;
-    --secondary: 192 45% 88%;
-    --secondary-foreground: 200 35% 18%;
-    --muted: 192 40% 76%;
-    --muted-foreground: 200 25% 28%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 204 20% 42%;
+    --secondary-foreground: 210 20% 96%;
+    --muted: 204 18% 45%;
+    --muted-foreground: 214 15% 78%;
     --accent: 28 54% 51%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 192 38% 72%;
-    --input: 192 38% 72%;
+    --border: 204 15% 55%;
+    --input: 204 15% 55%;
     --ring: 193 72% 21%;
     --radius: 0.75rem;
-    --page-gradient-from: 192 50% 86%;
-    --page-gradient-via: 192 46% 80%;
-    --page-gradient-to: 192 42% 74%;
+    --page-gradient-from: 204 40% 21%;
+    --page-gradient-via: 204 28% 33%;
+    --page-gradient-to: 200 12% 32%;
   }
 
   [data-theme="dark"] {
@@ -68,16 +68,19 @@
 
   body {
     font-family: var(--font-body), "Inter", sans-serif;
-    background-color: var(--color-bg, hsl(var(--background)));
+    background: var(--gradient-page, linear-gradient(180deg, #20374a 0%, #314a5a 45%, #495459 100%));
+    background-color: var(--color-bg, #314a5a);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--color-text, hsl(var(--foreground)));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   #root {
     min-height: 100%;
-    background-color: var(--color-bg, hsl(var(--background)));
+    background: transparent;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -89,16 +92,16 @@
 
 @layer components {
   .page-shell {
-    @apply relative min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground;
+    @apply relative min-h-screen flex flex-col overflow-x-hidden text-foreground;
+    background: transparent !important;
   }
 
   .page-shell-gradient {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--page-gradient-from)) 0%,
-      hsl(var(--page-gradient-via)) 45%,
-      hsl(var(--page-gradient-to)) 100%
-    );
+    background: var(--gradient-page, linear-gradient(180deg, #20374a 0%, #314a5a 45%, #495459 100%)) !important;
+    background-color: var(--color-bg, #314a5a) !important;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .surface-card {
@@ -106,11 +109,11 @@
   }
 
   .section-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900;
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50;
   }
 
   .section-subtitle {
-    @apply text-slate-700 max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
+    @apply text-slate-300 max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
   }
 }
 

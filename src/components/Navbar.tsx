@@ -84,16 +84,16 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md border-b ${scrolled ? "shadow-md" : ""}`} style={{ background: "rgba(184, 232, 239, 0.97)", borderColor: "var(--color-border-strong)" }}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md border-b border-white/15 ${scrolled ? "shadow-md shadow-black/20" : ""}`} style={{ background: "rgba(32, 55, 74, 0.92)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20 gap-2">
             <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2.5 group shrink-0">
-              <Logo size="md" variant="full" textClassName="text-slate-900 tracking-tight text-xl" />
+              <Logo size="md" variant="full" textClassName="text-slate-50 tracking-tight text-xl" />
             </button>
 
             <div className="hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <button type="button" onClick={() => navigate("/")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">Ana Sayfa</button>
-              <button type="button" onClick={() => navigate("/ihaleler")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">İhaleler</button>
+              <button type="button" onClick={() => navigate("/")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">Ana Sayfa</button>
+              <button type="button" onClick={() => navigate("/ihaleler")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">İhaleler</button>
               <NavLink
                 to={KKA_HUB_PATH}
                 end={false}
@@ -132,11 +132,11 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => navigate("/nasil-calisir")}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap"
+                className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap"
               >
                 Nasıl Çalışır
               </button>
-              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">İletişim</button>
+              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">İletişim</button>
               {!currentUser ? (
                 <>
                   <span className="text-slate-400 px-0.5 select-none" aria-hidden>|</span>
@@ -162,7 +162,7 @@ export function Navbar() {
               <button type="button" onClick={() => setSearchOpen(true)} className="flex items-center gap-2 px-3 py-2 rounded-xl border text-sm max-w-[140px] xl:max-w-[180px] transition-all" style={{ background: "var(--color-bg-soft)", borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
                 <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
               </button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
               <Button
                 variant="outline"
                 size="sm"
@@ -216,7 +216,7 @@ export function Navbar() {
                   <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
                     <Factory className="w-4 h-4" /> Müteahhit
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-700 hover:text-[var(--color-primary)] gap-1.5 whitespace-nowrap"><LogIn className="w-4 h-4" /> Giriş</Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-200 hover:text-white gap-1.5 whitespace-nowrap"><LogIn className="w-4 h-4" /> Giriş</Button>
                   <Button size="sm" onClick={() => navigate("/kayit")} className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-400 hover:to-cyan-300 text-white font-semibold whitespace-nowrap shadow-lg shadow-cyan-500/20">Kayıt Ol</Button>
                 </div>
               )}
@@ -259,8 +259,8 @@ export function Navbar() {
           <div className="lg:hidden backdrop-blur-xl border-b px-4 pb-4 animate-fade-in" style={{ background: "var(--color-bg-card)", borderColor: "var(--color-border)" }}>
             <div className="flex flex-col gap-1 mt-2">
               <button onClick={() => { setSearchOpen(true); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-left flex items-center gap-2 btn-primary w-full justify-start"><Search className="w-4 h-4" /> İlan Ara</button>
-              <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] text-left">Ana Sayfa</button>
-              <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] text-left">İhaleler</button>
+              <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">Ana Sayfa</button>
+              <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">İhaleler</button>
               <NavLink
                 to={KKA_HUB_PATH}
                 end={false}
@@ -297,11 +297,11 @@ export function Navbar() {
                   navigate("/nasil-calisir");
                   setIsOpen(false);
                 }}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] text-left"
+                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left"
               >
                 Nasıl Çalışır
               </button>
-              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] text-left">İletişim</button>
+              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">İletişim</button>
               <div className="border-t border-white/5 my-2" />
               <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>
               <button
@@ -358,7 +358,7 @@ export function Navbar() {
                       <PlusCircle className="w-4 h-4" /> İhale Aç
                     </button>
                   ) : null}
-                  <button onClick={() => { navigate("/profil"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] text-left flex items-center gap-2"><UserPlus className="w-4 h-4" /> Profilim</button>
+                  <button onClick={() => { navigate("/profil"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white text-left flex items-center gap-2"><UserPlus className="w-4 h-4" /> Profilim</button>
                   <button
                     onClick={() => {
                       void handleSignOut();
@@ -372,11 +372,11 @@ export function Navbar() {
                 <>
                   <button type="button" onClick={() => { navigate("/giris?profil=emlakci"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-teal-200 border border-teal-500/25 hover:bg-teal-500/10 text-left flex items-center gap-2"><Building2 className="w-4 h-4" /> Emlakçı girişi</button>
                   <button type="button" onClick={() => { navigate("/giris?profil=muteahhit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-amber-200 border border-amber-500/25 hover:bg-amber-500/10 text-left flex items-center gap-2"><Factory className="w-4 h-4" /> Müteahhit girişi</button>
-                  <button type="button" onClick={() => { navigate("/giris"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] text-left flex items-center gap-2"><LogIn className="w-4 h-4" /> Giriş</button>
+                  <button type="button" onClick={() => { navigate("/giris"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white text-left flex items-center gap-2"><LogIn className="w-4 h-4" /> Giriş</button>
                   <button type="button" onClick={() => { navigate("/kayit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-400 text-left">Kayıt Ol</button>
                 </>
               )}
-              <button onClick={() => { toggle(); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] text-left flex items-center gap-2">
+              <button onClick={() => { toggle(); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left flex items-center gap-2">
                 {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-violet-400" />}
                 {theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}
               </button>

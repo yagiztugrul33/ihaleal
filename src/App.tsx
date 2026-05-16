@@ -101,7 +101,7 @@ function App() {
       <ErrorBoundary>
       <Layout>
         <Suspense fallback={
-          <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--color-bg)" }}>
+          <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--gradient-page)" }}>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full border-4 border-[var(--color-primary)] border-t-transparent animate-spin mx-auto mb-4" />
               <p style={{ color: "var(--color-text-muted)" }}>Yukleniyor...</p>

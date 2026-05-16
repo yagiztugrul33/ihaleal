@@ -8,8 +8,8 @@
     <meta name="keywords" content="gayrimenkul ihale, emlak ihale, gayrimenkul analizi, ihaleal, ihaleal.com, yapay zeka değerleme, sahibinden, hepsiemlak, gayrimenkul yatırım, emlak açık artırma, tapu, konut kredisi, mortgage, ekspertiz raporu, findeks, aml kyc, komisyon only" />
     <meta name="author" content="ihaleal.com" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#b8e8ef" />
-    <meta name="msapplication-TileColor" content="#b8e8ef" />
+    <meta name="theme-color" content="#314A5A" />
+    <meta name="msapplication-TileColor" content="#314A5A" />
     <!-- PWA / iOS home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -134,8 +134,8 @@
     <link rel="apple-touch-icon" href="/icon-192.png" />
 
     <style>
-      /* Critical CSS — ihaleal acik turkuaz (must match theme.css) */
-      html,body,#root{background:#b8e8ef !important;color:#1f2937}
+      /* Critical CSS — ihaleal sayfa gradyani (must match theme.css) */
+      html,body,#root{background:linear-gradient(180deg,#20374A 0%,#314A5A 45%,#495459 100%) !important;background-color:#314A5A !important;color:#f1f5f9}
       body{margin:0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
     </style>
   </head>
@@ -152,8 +152,8 @@
     <script>
       (function () {
         var k = "ihaleal_theme_rev";
-        if (localStorage.getItem(k) !== "9") {
-          localStorage.setItem(k, "9");
+        if (localStorage.getItem(k) !== "10") {
+          localStorage.setItem(k, "10");
           if ("serviceWorker" in navigator) {
             navigator.serviceWorker.getRegistrations().then(function (r) {
               r.forEach(function (x) { x.unregister(); });
