@@ -1,0 +1,4 @@
+* text=auto eol=lf
+vite.config.ts text eol=lf
+.github/workflows/* text eol=lf
+*.mjs text eol=lf
