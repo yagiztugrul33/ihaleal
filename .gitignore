@@ -61,3 +61,4 @@ supabase-keys.txt
 
 # Yerel yedek çıktısı (script masaüstüne yazar; repoda oluşursa)
 ihaleal-backups/
+.vercel
