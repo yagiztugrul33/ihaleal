@@ -142,8 +142,9 @@ export default defineConfig({
   resolve: { 
     alias: { "@": path.resolve(__dirname, "./src") } 
   },
-  build: { 
+  build: {
     target: "es2022",
+    reportCompressedSize: false,
     minify: "esbuild",
     /** Üretimde konsol gürültüsünü azaltır (geliştirmede etkisiz) */
     esbuild: { drop: ["console", "debugger"] },
