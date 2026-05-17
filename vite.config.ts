@@ -61,6 +61,12 @@ const skipPwaOnCi =
   process.env.CI === "true" ||
   process.env.CI === "1";
 
+/** GHA/Vercel: manualChunks bellek tuketimini artirir; CI'da tek parcaya yakin bol. */
+const isCiBuild =
+  process.env.CI === "true" ||
+  process.env.CI === "1" ||
+  process.env.GITHUB_ACTIONS === "true";
+
 async function loadPlugins(): Promise<PluginOption[]> {
   const plugins: PluginOption[] = [homePageMetaHtmlPlugin(), react()];
   if (!skipPwaOnCi) {
@@ -149,33 +155,35 @@ export default defineConfig(async () => ({
     cssCodeSplit: true,
     assetsInlineLimit: 4096,
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks(id: string) {
-          if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
-            return "vendor-react";
-          }
-          if (id.includes("node_modules/react-router")) {
-            return "vendor-react";
-          }
-          if (id.includes("node_modules/recharts")) {
-            return "vendor-charts";
-          }
-          if (id.includes("node_modules/lucide-react")) {
-            return "vendor-ui";
-          }
-          if (id.includes("node_modules/framer-motion")) {
-            return "vendor-motion";
-          }
-          if (id.includes("node_modules/@supabase")) {
-            return "vendor-supabase";
-          }
-          if (id.includes("node_modules/zod")) {
-            return "vendor-zod";
-          }
+    rollupOptions: isCiBuild
+      ? {}
+      : {
+          output: {
+            manualChunks(id: string) {
+              if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
+                return "vendor-react";
+              }
+              if (id.includes("node_modules/react-router")) {
+                return "vendor-react";
+              }
+              if (id.includes("node_modules/recharts")) {
+                return "vendor-charts";
+              }
+              if (id.includes("node_modules/lucide-react")) {
+                return "vendor-ui";
+              }
+              if (id.includes("node_modules/framer-motion")) {
+                return "vendor-motion";
+              }
+              if (id.includes("node_modules/@supabase")) {
+                return "vendor-supabase";
+              }
+              if (id.includes("node_modules/zod")) {
+                return "vendor-zod";
+              }
+            },
+          },
         },
-      },
-    },
     chunkSizeWarningLimit: 650 
   },
 }))
