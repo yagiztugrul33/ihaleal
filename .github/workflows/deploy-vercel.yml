@@ -1,8 +1,67 @@
-name: Disabled
+name: Deploy Vercel Production
+
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: vercel-deploy-production
+  cancel-in-progress: true
+
 jobs:
-  noop:
+  deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NODE_ENV: development
+      CI: true
+      DISABLE_PWA: "1"
+      GITHUB_ACTIONS: "true"
     steps:
-      - run: echo "Manuel trigger only - Vercel GitHub integration deploys"
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: |
+          npm ci --include=dev
+          node -e "require('@rollup/rollup-linux-x64-gnu')" 2>/dev/null || npm install @rollup/rollup-linux-x64-gnu@4.60.3 --no-save --no-package-lock
+
+      - name: Build
+        run: |
+          set -eo pipefail
+          npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Pull Vercel settings
+        run: vercel pull --yes --environment=production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Vercel build output
+        run: vercel build --prod
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          NODE_OPTIONS: --max-old-space-size=8192
+          DISABLE_PWA: "1"
+
+      - name: Deploy prebuilt to production
+        run: vercel deploy --prebuilt --prod
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

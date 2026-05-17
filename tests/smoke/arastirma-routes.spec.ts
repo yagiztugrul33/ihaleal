@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
 
 const ROUTES = [
   { path: "/arastirma", heading: /Arazi|terminali|zekasi/i },
@@ -29,8 +30,10 @@ test.describe("intelligence routes (direct refresh)", () => {
       );
       expect(chunkErrors, `console errors: ${errors.join("; ")}`).toHaveLength(0);
 
+      const shotDir = "_audit/komut2";
+      fs.mkdirSync(shotDir, { recursive: true });
       await page.screenshot({
-        path: `_audit/komut2/screenshot-preview${path.replace(/\//g, "-")}.png`,
+        path: `${shotDir}/screenshot-preview${path.replace(/\//g, "-")}.png`,
         fullPage: true,
       });
     });
