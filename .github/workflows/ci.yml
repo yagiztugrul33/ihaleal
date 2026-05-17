@@ -1,7 +1,4 @@
 # (C) Sunucuda otomatik dogrulama + review oncesi ipuclari.
-# Playbook #9: npm run verify â€” typecheck + encoding + vitest + build tek kapi.
-# Playbook #10: Smoke kirilirsa test-results/ artefakt (7 gun saklama).
-
 name: CI
 
 on:
@@ -25,11 +22,9 @@ jobs:
       contents: read
       actions: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
@@ -39,11 +34,8 @@ jobs:
           npm ci --include=dev
           node -e "require('@rollup/rollup-linux-x64-gnu')" 2>/dev/null || npm install @rollup/rollup-linux-x64-gnu@4.60.3 --no-save --no-package-lock
 
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Encoding check
-        run: npm run precheck:encoding
+      - run: npm run typecheck
+      - run: npm run precheck:encoding
 
       - name: Validate env
         run: npm run validate:env
@@ -51,8 +43,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
-      - name: Unit tests
-        run: npm run test:run
+      - run: npm run test:run
 
       - name: Build
         run: |
@@ -60,35 +51,23 @@ jobs:
           npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=8192
-          GITHUB_ACTIONS: true
+          GITHUB_ACTIONS: "true"
+          DISABLE_PWA: "1"
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
-      - name: RLS tests
-        run: npm run test:rls
+      - run: npm run test:rls
+      - run: npm run test:coverage
+      - run: node scripts/check-bundle-budget.mjs
+      - run: npm run lint:ci
+      - run: npm run security:audit
+      - run: npm run rls:matrix
 
-      - name: Coverage gate
-        run: npm run test:coverage
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/smoke/arastirma-routes.spec.ts tests/smoke/demo-routes.spec.ts
 
-      - name: Bundle budget
-        run: node scripts/check-bundle-budget.mjs
-
-      - name: Lint CI
-        run: npm run lint:ci
-
-      - name: Security audit
-        run: npm run security:audit
-
-      - name: Generate RLS matrix artifact
-        run: npm run rls:matrix
-
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
-
-      - name: Smoke tests (Playwright)
-        run: npx playwright test tests/smoke/arastirma-routes.spec.ts tests/smoke/demo-routes.spec.ts
-
-      - name: Upload Playwright test-results on failure
+      - uses: actions/upload-artifact@v4
         if: failure()
-        uses: actions/upload-artifact@v4
         with:
           name: playwright-test-results
           path: test-results/
@@ -98,8 +77,5 @@ jobs:
   review-hints:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Review checklist (stdout)
-        run: node scripts/ci-review-hints.mjs
+      - uses: actions/checkout@v4
+      - run: node scripts/ci-review-hints.mjs
