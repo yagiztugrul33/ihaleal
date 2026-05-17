@@ -13,6 +13,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    if: ${{ secrets.VERCEL_TOKEN != '' }}
     env:
       NODE_ENV: development
       CI: true
@@ -34,7 +35,7 @@ jobs:
       - name: Build
         run: |
           set -eo pipefail
-          npm run build
+          node scripts/vite-build-safe.mjs
         env:
           NODE_OPTIONS: --max-old-space-size=8192
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
@@ -56,8 +57,8 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          NODE_OPTIONS: --max-old-space-size=8192
           DISABLE_PWA: "1"
+          NODE_OPTIONS: --max-old-space-size=8192
 
       - name: Deploy prebuilt to production
         run: vercel deploy --prebuilt --prod
