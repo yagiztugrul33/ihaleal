@@ -1,136 +1,75 @@
 # ihaleal.com
 
-**İhaleal** — gayrimenkul ilanı ve ihale deneyimi (**Vite + React + TypeScript** SPA). Yerel: `npm install && npm run dev`. Üretim öncesi: `npm run typecheck && npm run build`.
+**İhaleal** — gayrimenkul ilanı, ihale ve kurumsal intelligence platformu (Vite + React + TypeScript).
 
-- **Canlı site:** [https://ihaleal.com/#/](https://ihaleal.com/#/)
-- **Hızlı:** çift tık `IHALEAL_LINKLER.bat` (canlıyı tarayıcıda açar; yerel adresleri de gösterir).
+| | |
+|---|---|
+| **Canlı** | https://ihaleal.vercel.app |
+| **Repo** | https://github.com/yagiztugrul33/ihaleal |
+| **Neredeydik?** | [NEREDEYDIK.md](NEREDEYDIK.md) — yarın döndüğünde buradan başla |
+| **Canlı audit** | [_audit/final/01_canli.md](_audit/final/01_canli.md) |
 
-- **Mimari tek kaynak:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- **Supabase:** `.env.local` içinde `VITE_SUPABASE_*`; SQL sırası `supabase/manual_push_v2.sql` → `v3` → `v4` → `v5` → **`v6`** → **`v7`** (`pre_launch_signups`, SQL Editor).
+## Hızlı başlangıç
 
-## Vercel ile yayın
+```bash
+npm install
+npm run dev          # http://localhost:5173
+npm run typecheck
+npm run build
+npm run test         # unit
+npm run test:smoke   # Playwright (yerel veya AUDIT_BASE)
+```
 
-1. Depoyu GitHub’a gönderin; [vercel.com](https://vercel.com) üzerinden **Import Project** ile bağlayın. Framework: **Vite**, Build: `npm run build`, Output: **dist** (veya kökteki `vercel.json` kullanılır).
-2. **Environment Variables:** Supabase **project URL**, **anon (public) key** ve uygulamanın kullandığı diğer `VITE_*` değişkenleri — Production için ekleyin.
-3. **Alan adı:** Vercel projesinde **Domains** → `ihaleal.com` ekleyin; DNS sağlayıcınızda Vercel’in verdiği **A / CNAME** kayıtlarını oluşturun.
-4. SPA için tek sayfa yönlendirmesi `vercel.json` içindeki `rewrites` ile tanımlıdır (`/#/` HashRouter kullanımında tarayıcı doğrudan köke giderse bile statik dosya sunumu çalışır).
+`.env.local`: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` ve diğer `VITE_*` değişkenleri.
 
-**Yatırımcı önizlemesi (aynı Wi‑Fi):** Geliştirici makinede `npm run dev` (`--host` açık); telefon/tablet tarayıcısından `http://<bilgisayarın_yerel_IP_adresi>:5173/#/` (veya Vite’nin yazdığı port) ile açılır. **WhatsApp veya farklı ağdan paylaşım** için yerel IP çalışmaz; Vercel Preview/`*.vercel.app` kullanın veya tünel örneği: `npx ngrok http 5173` (ngrok size HTTPS URL verir).
+## Modüller
+
+| Modül | Route örnekleri |
+|-------|-----------------|
+| Pazaryeri | `/`, `/ilanlar`, `/ihaleler`, `/harita`, `/degerleme` |
+| Kurumsal | `/kurumsal`, `/kurumsal/iletisim`, `/kurumsal/dashboard` |
+| Intelligence | `/arastirma`, `/arastirma/ges`, `/arastirma/parsel`, `/arastirma/war-room` |
+| Kat karşılığı | `/kat-karsiligi`, `/kat-karsiligi/studio` |
+
+`/arastirma/yatirim` → `/arastirma` hub’a yönlendirir.
+
+## Deploy (Vercel)
+
+1. `npm run build` → `dist/`
+2. Prebuilt deploy (lockfile sorunlarında güvenilir): bkz. [docs/DEPLOYMENT_FINAL.md](docs/DEPLOYMENT_FINAL.md)
+3. SPA: `vercel.json` `rewrites` — BrowserRouter, hash (`/#/`) gerekmez
+
+**Environment:** Supabase URL + anon key (Production).
+
+## Mimari ve hukuk
+
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- [docs/hukuk/](docs/hukuk/) — sözleşme çerçevesi; RE/MAX örnek PDF yerel `docs/hukuk/kaynak/`
+
+## Canlı sayfa testi
+
+```bash
+node scripts/final-live-audit.mjs
+# AUDIT_BASE=https://ihaleal.vercel.app (varsayılan)
+```
+
+Çıktı: `_audit/final/01_canli.md`
+
+## Sonraki adımlar
+
+Öncelik listesi ve Murat Bey pilot notları → **[NEREDEYDIK.md](NEREDEYDIK.md)**
 
 ---
 
-# React + TypeScript + Vite
+*Vite şablon notları aşağıda tutuldu (geliştirici referansı).*
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
----
-
-## Vercel Deploy
-
-### Hazırlık
-
-1. GitHub'a push: `git push origin main`
-2. https://vercel.com/new
-3. "Import Git Repository" → ihaleal repo'sunu seç
-4. Framework: Vite (otomatik algılanır)
-
-### Environment Variables (zorunlu)
-
-Vercel Dashboard > Project > Settings > Environment Variables:
-
-- `VITE_SUPABASE_URL` — Supabase project URL
-- `VITE_SUPABASE_ANON_KEY` — Supabase anon public key
-- `VITE_DEMO_MODE=true` — demo modu açık
-- `VITE_PAYMENT_MODE=mock` — sahte ödeme
-- `VITE_APP_URL=https://ihaleal.com` — production URL
-
-### Custom Domain
-
-Vercel > Settings > Domains > ihaleal.com ekle.
-DNS sağlayıcında A veya CNAME kaydını Vercel'in verdiği değere yönlendir.
-
-### Şirket Açıldıktan Sonra
-
-- `VITE_DEMO_MODE=false`
-- `VITE_PAYMENT_MODE=live`
-- iyzico/PayTR entegrasyonu
-- Avukat onaylı yasal metinler
-- Demo banner kaldır
-
----
-
-## ihaleal.com — patron / maraton
-
-- Uzun maraton komutu (Kimi + Cursor): `docs/KIMI_CURSOR_UZUN_MARATON_KOMUT.md`
-- Patron tek kaynak: `docs/SOZLESMESONRASI_TEK_KOMUT.md`
-- Denetim komutu: `KONTROL_KOMUTU.txt`
+See [Vite documentation](https://vite.dev/) for build configuration.
