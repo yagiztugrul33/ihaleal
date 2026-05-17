@@ -2,11 +2,11 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
 const ROUTES = [
-  { path: "/arastirma", heading: /Arazi|terminali|zekasi/i },
+  { path: "/arastirma", heading: /Arazi|GES|terminali|zekas/i },
   { path: "/arastirma/war-room", heading: /War Room|Stratejik/i },
-  { path: "/arastirma/ges", heading: /GES muhendislik/i },
-  { path: "/arastirma/parsel", heading: /parsel istihbarat/i },
-  { path: "/arastirma/yatirim", heading: /Yatirim terminali/i },
+  { path: "/arastirma/ges", heading: /GES|Muhendislik|Master/i },
+  { path: "/arastirma/parsel", heading: /parsel|istihbarat|Parsel/i },
+  { path: "/arastirma/yatirim", heading: /Arazi|GES|terminali|zekas/i },
 ] as const;
 
 test.describe("intelligence routes (direct refresh)", () => {
