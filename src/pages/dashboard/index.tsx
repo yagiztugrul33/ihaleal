@@ -68,8 +68,14 @@ export default function FlowDashboard() {
 
   if (boot === "loading") {
     return (
-      <div className="min-h-screen pt-32 flex justify-center text-slate-400" data-demo="true">
-        Panel yükleniyor…
+      <div className="min-h-screen px-4 pt-28 pb-16" data-demo="true">
+        <div className="mx-auto max-w-4xl space-y-4">
+          <div className="skeleton-shimmer h-8 w-48 rounded-lg" />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="skeleton-shimmer h-28 rounded-xl" />
+            <div className="skeleton-shimmer h-28 rounded-xl" />
+          </div>
+        </div>
       </div>
     );
   }
@@ -208,3 +214,4 @@ export default function FlowDashboard() {
     </div>
   );
 }
+

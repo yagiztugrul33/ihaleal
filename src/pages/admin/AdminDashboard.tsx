@@ -1,8 +1,15 @@
-﻿import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shield } from "lucide-react";
+import { ArrowLeft, Shield, CheckCircle2, Gavel, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import {
+  DashboardShell,
+  DataTable,
+  MetricCard,
+  SkeletonTable,
+  TrustIndicator,
+} from "@/components/enterprise";
 
 type ListingRow = {
   id: string;
@@ -29,13 +36,14 @@ type AuditRow = {
 };
 
 export default function AdminDashboard() {
-  const [tab, setTab] = useState("listings");
+  const [tab, setTab] = useState<"users" | "listings" | "auctions" | "audit">("listings");
   const [listings, setListings] = useState<ListingRow[]>([]);
   const [auctions, setAuctions] = useState<AuctionRow[]>([]);
   const [audits, setAudits] = useState<AuditRow[]>([]);
   const [profileErr, setProfileErr] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const loadListings = useCallback(async () => {
     if (!isSupabaseConfigured()) return;
@@ -79,8 +87,11 @@ export default function AdminDashboard() {
   }, []);
 
   useEffect(() => {
-    void loadListings();
-    void loadProfilesProbe();
+    void (async () => {
+      setLoading(true);
+      await Promise.all([loadListings(), loadProfilesProbe()]);
+      setLoading(false);
+    })();
   }, [loadListings, loadProfilesProbe]);
 
   useEffect(() => {
@@ -92,9 +103,7 @@ export default function AdminDashboard() {
     if (!isSupabaseConfigured()) return;
     setBusyId(id);
     setMsg(null);
-    const { data, error } = await supabase.rpc("admin_approve_listing", {
-      p_listing_id: id,
-    });
+    const { data, error } = await supabase.rpc("admin_approve_listing", { p_listing_id: id });
     setBusyId(null);
     if (error) {
       setMsg(error.message);
@@ -109,178 +118,149 @@ export default function AdminDashboard() {
     setMsg("İlan onaylandı (active).");
   }
 
+  const tabs = [
+    ["users", "Kullanıcılar"],
+    ["listings", "İlanlar"],
+    ["auctions", "İhaleler"],
+    ["audit", "Audit Log"],
+  ] as const;
+
   return (
-    <div className="min-h-screen pt-24 pb-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-3 mb-8">
-          <Shield className="w-8 h-8 text-teal-400" />
-          <div>
-            <h1 className="text-2xl font-bold text-white">Yönetim</h1>
-            <p className="text-sm text-slate-500">Admin — ilan / ihale özeti ve audit log</p>
-          </div>
-          <Link to="/" className="ml-auto">
-            <Button variant="ghost" size="sm" className="text-slate-400 gap-2">
-              <ArrowLeft className="w-4 h-4" /> Siteye dön
-            </Button>
-          </Link>
+    <DashboardShell
+      badge="Kurumsal"
+      title="Yönetim merkezi"
+      subtitle="Moderasyon, onay akışları ve denetim kayıtları — sunucu tarafı yetkilendirme zorunlu."
+      maxWidth="lg"
+      back={
+        <Link to="/">
+          <Button variant="ghost" size="sm" className="gap-2 text-slate-400">
+            <ArrowLeft className="w-4 h-4" /> Siteye dön
+          </Button>
+        </Link>
+      }
+      actions={
+        <div className="flex flex-wrap gap-2">
+          <TrustIndicator icon={Shield} label="RLS korumalı" variant="success" />
+          <TrustIndicator icon={CheckCircle2} label="RPC onay" variant="info" />
         </div>
+      }
+    >
+      {msg ? (
+        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">{msg}</div>
+      ) : null}
 
-        {msg ? (
-          <div className="mb-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-200 text-sm">{msg}</div>
-        ) : null}
-
-        <div className="flex flex-wrap gap-2 mb-6">
-          {(
-            [
-              ["users", "Kullanıcılar"],
-              ["listings", "İlanlar"],
-              ["auctions", "İhaleler"],
-              ["audit", "Audit Log"],
-            ] as const
-          ).map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setTab(id)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-                tab === id
-                  ? "bg-white/10 border-white/20 text-white"
-                  : "bg-slate-900/60 border-slate-200 text-slate-500 hover:text-slate-900"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {tab === "users" ? (
-            <div className="rounded-xl border border-slate-200 bg-slate-900/40 p-6">
-              <p className="text-slate-400 text-sm mb-4">
-                Çoklu kullanıcı listesi için Supabase&apos;de admin&apos;e `profiles` SELECT politikası gerekir (
-                <code className="text-teal-400/90">manual_push_v4.sql</code>).
-              </p>
-              {profileErr ? (
-                <p className="text-red-400 text-sm font-mono">{profileErr}</p>
-              ) : (
-                <p className="text-emerald-400/90 text-sm">Profil tablosuna örnek sorgu başarılı — politikalar uygun olabilir.</p>
-              )}
-            </div>
-        ) : null}
-
-        {tab === "listings" ? (
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-slate-950/80 text-left text-slate-400">
-                  <tr>
-                    <th className="p-3">Başlık</th>
-                    <th className="p-3">Şehir</th>
-                    <th className="p-3">Durum</th>
-                    <th className="p-3 w-[140px]" />
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {listings.length === 0 ? (
-                    <tr>
-                      <td colSpan={4} className="p-6 text-slate-500 text-center">
-                        Onay bekleyen (review) ilan yok veya RLS engelledi.
-                      </td>
-                    </tr>
-                  ) : (
-                    listings.map((row) => (
-                      <tr key={row.id} className="text-slate-200">
-                        <td className="p-3 max-w-[240px] truncate">{row.title}</td>
-                        <td className="p-3 text-slate-400">{row.city ?? "—"}</td>
-                        <td className="p-3">
-                          <span className="text-amber-400">{row.status}</span>
-                        </td>
-                        <td className="p-3">
-                          <Button
-                            size="sm"
-                            disabled={busyId === row.id}
-                            className="bg-teal-600 hover:bg-teal-500 text-white"
-                            onClick={() => void approveListing(row.id)}
-                          >
-                            {busyId === row.id ? "…" : "İlanı onayla"}
-                          </Button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-        ) : null}
-
-        {tab === "auctions" ? (
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-slate-950/80 text-left text-slate-400">
-                  <tr>
-                    <th className="p-3">İhale ID</th>
-                    <th className="p-3">Listing</th>
-                    <th className="p-3">Durum</th>
-                    <th className="p-3">Bitiş</th>
-                    <th className="p-3">Teklif</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {auctions.length === 0 ? (
-                    <tr>
-                      <td colSpan={5} className="p-6 text-slate-500 text-center">
-                        Kayıt yok veya sorgu engellendi.
-                      </td>
-                    </tr>
-                  ) : (
-                    auctions.map((row) => (
-                      <tr key={row.id} className="text-slate-300">
-                        <td className="p-3 font-mono text-xs">{row.id.slice(0, 8)}…</td>
-                        <td className="p-3 font-mono text-xs">{row.listing_id.slice(0, 8)}…</td>
-                        <td className="p-3">{row.status}</td>
-                        <td className="p-3 text-slate-500">{row.ends_at ? new Date(row.ends_at).toLocaleString("tr-TR") : "—"}</td>
-                        <td className="p-3">{row.bid_count ?? 0}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-        ) : null}
-
-        {tab === "audit" ? (
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-slate-950/80 text-left text-slate-400">
-                  <tr>
-                    <th className="p-3">Zaman</th>
-                    <th className="p-3">Aksiyon</th>
-                    <th className="p-3">Varlık</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {audits.length === 0 ? (
-                    <tr>
-                      <td colSpan={3} className="p-6 text-slate-500 text-center">
-                        Audit kaydı yok veya okuma yetkisi yok (`audit_log` + admin RLS).
-                      </td>
-                    </tr>
-                  ) : (
-                    audits.map((row) => (
-                      <tr key={row.id} className="text-slate-300">
-                        <td className="p-3 text-slate-500 whitespace-nowrap">
-                          {new Date(row.created_at).toLocaleString("tr-TR")}
-                        </td>
-                        <td className="p-3">{row.action}</td>
-                        <td className="p-3">
-                          {row.entity_type} {row.entity_id ? `· ${row.entity_id.slice(0, 8)}…` : ""}
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-        ) : null}
+      <div className="grid gap-4 sm:grid-cols-3">
+        <MetricCard label="Onay bekleyen" value={String(listings.length)} icon={FileText} />
+        <MetricCard label="İhale kaydı" value={String(auctions.length)} icon={Gavel} />
+        <MetricCard label="Audit" value={String(audits.length)} icon={Shield} />
       </div>
-    </div>
+
+      <div className="flex flex-wrap gap-2">
+        {tabs.map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => setTab(id)}
+            className={`rounded-lg border px-4 py-2 text-sm font-medium transition-all ${
+              tab === id
+                ? "border-blue-500/40 bg-blue-500/15 text-white shadow-lux"
+                : "border-white/10 bg-white/[0.04] text-slate-400 hover:border-white/20 hover:text-white"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {loading && tab === "listings" ? <SkeletonTable rows={4} /> : null}
+
+      {tab === "users" ? (
+        <div className="card-luxury p-6">
+          <p className="mb-4 text-sm text-slate-400">
+            Çoklu kullanıcı listesi için Supabase&apos;de admin&apos;e profiles SELECT politikası gerekir.
+          </p>
+          {profileErr ? (
+            <p className="font-mono text-sm text-red-400">{profileErr}</p>
+          ) : (
+            <p className="text-sm text-emerald-400">Profil tablosuna örnek sorgu başarılı.</p>
+          )}
+        </div>
+      ) : null}
+
+      {tab === "listings" && !loading ? (
+        <DataTable
+          rows={listings}
+          getRowKey={(r) => r.id}
+          emptyMessage="Onay bekleyen ilan yok veya RLS engelledi."
+          columns={[
+            { key: "title", header: "Başlık", cell: (r) => <span className="max-w-[240px] truncate block">{r.title}</span> },
+            { key: "city", header: "Şehir", cell: (r) => r.city ?? "—" },
+            {
+              key: "status",
+              header: "Durum",
+              cell: (r) => <span className="font-medium text-amber-400">{r.status}</span>,
+            },
+            {
+              key: "action",
+              header: "",
+              className: "w-[140px]",
+              cell: (r) => (
+                <Button
+                  size="sm"
+                  disabled={busyId === r.id}
+                  onClick={() => void approveListing(r.id)}
+                >
+                  {busyId === r.id ? "…" : "Onayla"}
+                </Button>
+              ),
+            },
+          ]}
+        />
+      ) : null}
+
+      {tab === "auctions" ? (
+        <DataTable
+          rows={auctions}
+          getRowKey={(r) => r.id}
+          emptyMessage="Kayıt yok veya sorgu engellendi."
+          columns={[
+            { key: "id", header: "İhale", cell: (r) => <span className="font-mono text-xs">{r.id.slice(0, 8)}…</span> },
+            { key: "listing", header: "Listing", cell: (r) => <span className="font-mono text-xs">{r.listing_id.slice(0, 8)}…</span> },
+            { key: "status", header: "Durum", cell: (r) => r.status },
+            {
+              key: "ends",
+              header: "Bitiş",
+              cell: (r) => (r.ends_at ? new Date(r.ends_at).toLocaleString("tr-TR") : "—"),
+            },
+            { key: "bids", header: "Teklif", cell: (r) => r.bid_count ?? 0 },
+          ]}
+        />
+      ) : null}
+
+      {tab === "audit" ? (
+        <DataTable
+          rows={audits}
+          getRowKey={(r) => r.id}
+          emptyMessage="Audit kaydı yok veya okuma yetkisi yok."
+          columns={[
+            {
+              key: "time",
+              header: "Zaman",
+              cell: (r) => (
+                <span className="whitespace-nowrap text-slate-500">
+                  {new Date(r.created_at).toLocaleString("tr-TR")}
+                </span>
+              ),
+            },
+            { key: "action", header: "Aksiyon", cell: (r) => r.action },
+            {
+              key: "entity",
+              header: "Varlık",
+              cell: (r) => `${r.entity_type}${r.entity_id ? ` · ${r.entity_id.slice(0, 8)}…` : ""}`,
+            },
+          ]}
+        />
+      ) : null}
+    </DashboardShell>
   );
 }

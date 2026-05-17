@@ -495,7 +495,7 @@ export default function AuctionDetail() {
 
   return (
     <div ref={ref} className="min-h-screen pt-20 pb-16">
-      <div className="sticky top-16 z-40 bg-slate-950/90 backdrop-blur-xl border-b border-slate-200/80">
+      <div className="glass-panel sticky top-16 z-40 rounded-none border-x-0 border-t-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-2">
@@ -848,7 +848,7 @@ export default function AuctionDetail() {
           </div>
 
           <div className="lg:col-span-1 space-y-6">
-            <Card className={`bg-slate-900/50 border-slate-200/80 sticky top-[11rem] transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Card className={`card-luxury sticky top-[11rem] !p-0 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <CardContent className="p-5 space-y-4">
                 <div>
                   <div className="text-xs text-slate-500 mb-1">{pricePrimaryLabel}</div>

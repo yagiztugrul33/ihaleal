@@ -457,8 +457,8 @@ export function ChatWidget() {
       )}
 
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[min(380px,calc(100vw-1.5rem))] max-h-[min(520px,85vh)] bg-white/98 backdrop-blur-xl border border-cyan-500/20 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden ring-1 ring-white/10 chat-widget-pop">
-          <div className="p-4 border-b border-slate-200 space-y-3 bg-gradient-to-r from-white/90 via-slate-50/95 to-slate-900/90">
+        <div className="ai-dock-panel fixed bottom-6 right-6 z-50 flex max-h-[min(520px,85vh)] w-[min(400px,calc(100vw-1.5rem))] flex-col overflow-hidden chat-widget-pop">
+          <div className="space-y-3 border-b border-white/10 bg-gradient-to-r from-blue-950/80 via-slate-900/90 to-slate-950/95 p-4">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-3 min-w-0">
               <AiAssistantAvatar size="md" />
@@ -505,7 +505,7 @@ export function ChatWidget() {
             </div>
           </div>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-slate-950/40 p-4">
             {messages.map((msg, i) => (
               <div key={i} className={`flex gap-2.5 animate-fade-in ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
                 <div
@@ -514,10 +514,10 @@ export function ChatWidget() {
                   {msg.role === "ai" ? <Bot className="w-4 h-4 text-cyan-200" /> : <User className="w-4 h-4 text-slate-400" />}
                 </div>
                 <div
-                  className={`p-3 rounded-2xl text-sm leading-relaxed max-w-[260px] transition-all duration-300 hover:border-opacity-40 whitespace-pre-wrap break-words ${
+                  className={`max-w-[260px] whitespace-pre-wrap break-words rounded-2xl border p-3 text-sm leading-relaxed transition-all duration-300 ${
                     msg.role === "ai"
-                      ? "bg-white/[0.06] text-slate-200 border border-slate-200 shadow-inner shadow-black/20"
-                      : "bg-gradient-to-br from-blue-600/25 to-indigo-600/20 text-white border border-blue-400/25 shadow-lg shadow-blue-900/20"
+                      ? "border-white/10 bg-white/[0.06] text-slate-200 shadow-inner shadow-black/20"
+                      : "border-blue-400/25 bg-gradient-to-br from-blue-600/30 to-blue-500/10 text-white shadow-lg shadow-blue-900/30"
                   }`}
                 >
                   {msg.text}

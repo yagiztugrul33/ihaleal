@@ -120,6 +120,38 @@
   .glass-panel {
     @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-xl shadow-lg;
   }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.09) 50%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  .enterprise-table thead {
+    @apply bg-white/[0.04] text-xs font-semibold uppercase tracking-wider text-slate-400;
+  }
+
+  .ai-dock-panel {
+    @apply rounded-2xl border border-white/10 bg-[rgba(8,17,32,0.96)] shadow-2xl shadow-black/50 backdrop-blur-2xl;
+  }
+
+  .ai-insight-card {
+    @apply rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-xs text-slate-300;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @layer utilities {

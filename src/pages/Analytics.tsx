@@ -228,7 +228,7 @@ export default function Analytics() {
   };
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-100">
+    <div ref={ref} className="min-h-screen pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -247,7 +247,7 @@ export default function Analytics() {
           </p>
         </div>
 
-        <div className="mb-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-white/90 via-[#0c1629]/85 to-indigo-950/50 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 shadow-lg shadow-black/20">
+        <div className="mb-8 card-luxury flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:p-5">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10">
             <Cpu className="h-6 w-6 text-cyan-300" aria-hidden />
           </div>

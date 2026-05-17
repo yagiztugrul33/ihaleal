@@ -2,28 +2,37 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, LayoutDashboard, TrendingUp, Target, MapPin, Wallet, Percent } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AUCTIONS } from "@/data/auctions";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
-  BarChart,
+  Area,
+  AreaChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Pie,
+  PieChart as RePieChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart as RePieChart,
-  Pie,
-  Cell,
-  AreaChart,
-  Area,
 } from "recharts";
+import {
+  ChartPanel,
+  DashboardShell,
+  EmptyState,
+  MetricCard,
+  CHART_COLORS,
+  chartAxisFontSize,
+  chartAxisStroke,
+  chartGridStroke,
+  chartTooltipStyle,
+} from "@/components/enterprise";
 
-/** Favori portföy grafikleri (tur #4 öncesi `/dashboard` içeriği). */
 export default function InvestorDashboard() {
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.05);
@@ -42,7 +51,7 @@ export default function InvestorDashboard() {
 
   const yieldData = useMemo(
     () => favoriteAuctions.map((a) => ({ name: a.district, yield: a.areaStats.rentalYield, score: a.investmentScore })),
-    [favoriteAuctions]
+    [favoriteAuctions],
   );
 
   const pieData = useMemo(() => {
@@ -53,11 +62,9 @@ export default function InvestorDashboard() {
     return Array.from(typeMap.entries()).map(([name, value]) => ({ name, value: Math.round(value / 1000000) }));
   }, [favoriteAuctions]);
 
-  const PIE_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"];
-
   const priceHistory = useMemo(() => {
     if (favoriteAuctions.length === 0) return [];
-    const months = ["Haz", "Tem", "Agu", "Eyl", "Eki", "Kas"];
+    const months = ["Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas"];
     return months.map((m, i) => {
       const base = portfolioValue;
       const growth = base * (0.015 * (i + 1));
@@ -66,210 +73,170 @@ export default function InvestorDashboard() {
   }, [portfolioValue, favoriteAuctions.length]);
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16" data-demo="true">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="gap-2 mb-2">
+    <div ref={ref}>
+      <DashboardShell
+        badge="Yatırımcı"
+        title="Yatırımcı paneli"
+        subtitle="Portföy performansı, AI tahminleri ve dağılım analitiği (demo veri)."
+        back={
+          <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="gap-2 text-slate-400">
             <ArrowLeft className="w-4 h-4" /> Panele dön
           </Button>
-          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
-            <LayoutDashboard className="w-8 h-8 text-blue-400" />
-            Yatırımcı paneli
-          </h1>
-          <p className="mt-2 text-slate-400">Portföy takibi (demo veri).</p>
-        </div>
-
+        }
+        actions={
+          <Button variant="outline" size="sm" onClick={() => navigate("/analiz")} className="gap-2">
+            <LayoutDashboard className="w-4 h-4" /> Piyasa analizi
+          </Button>
+        }
+      >
         {favoriteAuctions.length === 0 ? (
-          <div className="text-center py-20">
-            <Wallet className="w-12 h-12 mx-auto mb-4" />
-            <h3 className="text-xl font-bold mb-2">Portföyunuz boş</h3>
-            <p className="mb-6 text-slate-400">İlanları inceleyip favorilere ekleyin.</p>
-            <Button onClick={() => navigate("/")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">
-              İlan keşfet
-            </Button>
-          </div>
+          <EmptyState
+            icon={Wallet}
+            title="Portföyünüz boş"
+            description="İlanları inceleyip favorilere ekleyerek kurumsal portföy görünümünüzü oluşturun."
+            action={
+              <Button onClick={() => navigate("/ilanlar")} className="btn-primary">
+                İlanları keşfet
+              </Button>
+            }
+          />
         ) : (
-          <>
-            <div
-              className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-700 delay-100 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-              }`}
-            >
-              <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Wallet className="w-5 h-5 text-blue-400" />
-                  <span className="text-sm">Portföy değeri</span>
-                </div>
-                <div className="text-2xl font-bold">₺{(portfolioValue / 1000000).toFixed(1)}M</div>
-                <div className="text-xs mt-1">{favoriteAuctions.length} ilan</div>
-              </Card>
-              <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Target className="w-5 h-5 text-emerald-400" />
-                  <span className="text-sm">Tahmini değer</span>
-                </div>
-                <div className="text-2xl font-bold text-emerald-400">₺{(predictedValue / 1000000).toFixed(1)}M</div>
-                <div className="text-xs mt-1 text-emerald-400">+{potentialGainPercent}%</div>
-              </Card>
-              <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Percent className="w-5 h-5 text-violet-400" />
-                  <span className="text-sm">Ort. getiri</span>
-                </div>
-                <div className="text-2xl font-bold text-violet-400">%{avgYield.toFixed(1)}</div>
-                <div className="text-xs mt-1">Yıllık kira</div>
-              </Card>
-              <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-5 h-5 text-amber-400" />
-                  <span className="text-sm">Potansiyel</span>
-                </div>
-                <div className="text-2xl font-bold text-amber-400">₺{(potentialGain / 1000000).toFixed(1)}M</div>
-                <div className="text-xs mt-1">AI tahmini</div>
-              </Card>
+          <div
+            className={`space-y-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          >
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              <MetricCard
+                label="Portföy değeri"
+                value={`₺${(portfolioValue / 1_000_000).toFixed(1)}M`}
+                hint={`${favoriteAuctions.length} ilan`}
+                icon={Wallet}
+              />
+              <MetricCard
+                label="Tahmini değer"
+                value={`₺${(predictedValue / 1_000_000).toFixed(1)}M`}
+                trend={{ value: `+${potentialGainPercent}% AI`, positive: true }}
+                icon={Target}
+              />
+              <MetricCard
+                label="Ort. getiri"
+                value={`%${avgYield.toFixed(1)}`}
+                hint="Yıllık kira"
+                icon={Percent}
+              />
+              <MetricCard
+                label="Potansiyel"
+                value={`₺${(potentialGain / 1_000_000).toFixed(1)}M`}
+                hint="Tahmini fark"
+                icon={TrendingUp}
+              />
             </div>
 
-            <div
-              className={`grid lg:grid-cols-3 gap-6 mb-8 transition-all duration-700 delay-200 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-              }`}
-            >
-              <Card className="lg:col-span-2 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold mb-1">Portföy değer artışı</h3>
-                <p className="text-xs mb-4 text-slate-500">Son 6 ay tahmini</p>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={priceHistory}>
-                      <defs>
-                        <linearGradient id="colorValueInv" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                          <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                      <XAxis dataKey="month" stroke="#71717a" fontSize={11} />
-                      <YAxis stroke="#71717a" fontSize={11} />
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "#0f172a",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                          borderRadius: "12px",
-                          color: "#fff",
-                        }}
-                      />
-                      <Area type="monotone" dataKey="value" stroke="#3b82f6" fill="url(#colorValueInv)" strokeWidth={2} />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </Card>
-              <Card className="border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold mb-4">Dağılım</h3>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RePieChart>
-                      <Pie
-                        data={pieData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={50}
-                        outerRadius={80}
-                        paddingAngle={4}
-                        dataKey="value"
-                      >
-                        {pieData.map((_, index) => (
-                          <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "#0f172a",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                          borderRadius: "12px",
-                          color: "#fff",
-                        }}
-                      />
-                    </RePieChart>
-                  </ResponsiveContainer>
-                </div>
-              </Card>
-            </div>
-
-            <Card className={`border-slate-200/80 p-5 mb-8 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-lg font-bold mb-4">Getiri ve skor</h3>
-              <div className="h-64">
+            <div className="grid gap-6 lg:grid-cols-3">
+              <ChartPanel title="Portföy değer artışı" subtitle="Son 6 ay (tahmini)" className="lg:col-span-2">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={yieldData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                    <XAxis dataKey="name" stroke="#71717a" fontSize={10} />
-                    <YAxis stroke="#71717a" fontSize={11} />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "#0f172a",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        borderRadius: "12px",
-                        color: "#fff",
-                      }}
-                    />
-                    <Bar dataKey="yield" name="Kira getirisi (%)" fill="#10b981" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="score" name="AI skor" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                  </BarChart>
+                  <AreaChart data={priceHistory}>
+                    <defs>
+                      <linearGradient id="invArea" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.35} />
+                        <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke={chartGridStroke} />
+                    <XAxis dataKey="month" stroke={chartAxisStroke} fontSize={chartAxisFontSize} />
+                    <YAxis stroke={chartAxisStroke} fontSize={chartAxisFontSize} />
+                    <Tooltip contentStyle={chartTooltipStyle} />
+                    <Area type="monotone" dataKey="value" stroke="#3B82F6" fill="url(#invArea)" strokeWidth={2} />
+                  </AreaChart>
                 </ResponsiveContainer>
-              </div>
-            </Card>
+              </ChartPanel>
+              <ChartPanel title="Kategori dağılımı" subtitle="Milyon TRY">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RePieChart>
+                    <Pie data={pieData} cx="50%" cy="50%" innerRadius={52} outerRadius={78} paddingAngle={3} dataKey="value">
+                      {pieData.map((_, i) => (
+                        <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip contentStyle={chartTooltipStyle} />
+                  </RePieChart>
+                </ResponsiveContainer>
+              </ChartPanel>
+            </div>
 
-            <div className={`transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-xl font-bold mb-4">Portföy ilanları</h3>
+            <ChartPanel title="Getiri ve AI skoru" subtitle="İlçe bazlı" tall>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={yieldData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartGridStroke} />
+                  <XAxis dataKey="name" stroke={chartAxisStroke} fontSize={10} />
+                  <YAxis stroke={chartAxisStroke} fontSize={chartAxisFontSize} />
+                  <Tooltip contentStyle={chartTooltipStyle} />
+                  <Bar dataKey="yield" name="Kira %" fill="#22C55E" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="score" name="AI skor" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartPanel>
+
+            <section>
+              <h2 className="mb-4 text-lg font-bold text-white">Portföy ilanları</h2>
               <div className="space-y-3">
                 {favoriteAuctions.map((auction) => {
                   const upside = auction.aiPredictedPrice - auction.currentBid;
                   const upsidePercent = ((upside / auction.currentBid) * 100).toFixed(1);
                   return (
-                    <Card
+                    <div
                       key={auction.id}
-                      className="border-slate-200/80 hover:border-blue-500/20 transition-all cursor-pointer"
+                      className="card-luxury cursor-pointer !p-0 transition-all hover:border-blue-400/30"
                       onClick={() => navigate(`/ilan/${auction.id}`)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === "Enter" && navigate(`/ilan/${auction.id}`)}
                     >
-                      <CardContent className="p-4 flex flex-col sm:flex-row gap-4">
-                        <img loading="lazy" src={auction.images[0]} alt="" className="w-full sm:w-32 h-24 object-cover rounded-xl flex-shrink-0" />
-                        <div className="flex-1">
+                      <div className="flex flex-col gap-4 p-4 sm:flex-row">
+                        <img
+                          loading="lazy"
+                          src={auction.images[0]}
+                          alt=""
+                          className="h-24 w-full shrink-0 rounded-xl object-cover sm:w-32"
+                        />
+                        <div className="min-w-0 flex-1">
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <h4 className="font-bold">{auction.title}</h4>
-                              <div className="flex items-center gap-2 text-sm mt-1">
-                                <MapPin className="w-3.5 h-3.5 text-blue-400" />
-                                <span>{auction.location}</span>
+                              <h4 className="font-bold text-white">{auction.title}</h4>
+                              <div className="mt-1 flex items-center gap-2 text-sm text-slate-400">
+                                <MapPin className="h-3.5 w-3.5 text-blue-400" />
+                                {auction.location}
                               </div>
                             </div>
-                            <Badge className={upside > 0 ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"}>
+                            <Badge className={upside > 0 ? "border-emerald-500/30 bg-emerald-500/15 text-emerald-400" : "border-red-500/30 bg-red-500/15 text-red-400"}>
                               {upside > 0 ? "+" : ""}
                               {upsidePercent}%
                             </Badge>
                           </div>
-                          <div className="grid grid-cols-3 gap-3 mt-3">
-                            <div className="p-2 rounded-lg bg-white/[0.03]">
-                              <div className="text-xs">Mevcut</div>
-                              <div className="text-sm font-bold">₺{(auction.currentBid / 1000000).toFixed(1)}M</div>
+                          <div className="mt-3 grid grid-cols-3 gap-2">
+                            <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
+                              <div className="text-[10px] uppercase text-slate-500">Mevcut</div>
+                              <div className="text-sm font-bold text-white">₺{(auction.currentBid / 1_000_000).toFixed(1)}M</div>
                             </div>
-                            <div className="p-2 rounded-lg bg-white/[0.03]">
-                              <div className="text-xs">Tahmini</div>
-                              <div className="text-sm font-bold text-emerald-400">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</div>
+                            <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
+                              <div className="text-[10px] uppercase text-slate-500">Tahmini</div>
+                              <div className="text-sm font-bold text-emerald-400">₺{(auction.aiPredictedPrice / 1_000_000).toFixed(1)}M</div>
                             </div>
-                            <div className="p-2 rounded-lg bg-white/[0.03]">
-                              <div className="text-xs">Getiri</div>
-                              <div className="text-sm font-bold text-violet-400">%{auction.areaStats.rentalYield}</div>
+                            <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
+                              <div className="text-[10px] uppercase text-slate-500">Getiri</div>
+                              <div className="text-sm font-bold text-blue-400">%{auction.areaStats.rentalYield}</div>
                             </div>
                           </div>
                           <ListingDocumentFooter auction={auction} compact showTopRule={false} />
                         </div>
-                      </CardContent>
-                    </Card>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
-            </div>
-          </>
+            </section>
+          </div>
         )}
-      </div>
+      </DashboardShell>
     </div>
   );
 }
