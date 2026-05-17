@@ -1,4 +1,5 @@
 import { Hero } from "@/sections/Hero";
+import { TrustStrip } from "@/sections/TrustStrip";
 import { CorporateBanner } from "@/components/CorporateBanner";
 import { Auctions } from "@/sections/Auctions";
 import { EndingSoon } from "@/sections/EndingSoon";
@@ -13,6 +14,7 @@ export function Home() {
   return (
     <>
       <Hero />
+      <TrustStrip />
       <CorporateBanner />
       <Stats />
       <Auctions />

@@ -1,6 +1,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
 @import "./tokens.css";
+@import "./theme-luxury-ext.css";
 html,body,#root{overflow-x:clip;max-width:100%;background:var(--gradient-page)!important;background-color:var(--lux-bg-base)!important;background-attachment:fixed;background-size:cover;min-height:100%;color:var(--color-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;color:var(--lux-text-primary)}
 .page-shell,.page-shell-gradient{background:var(--gradient-page)!important;background-color:var(--lux-bg-base)!important;background-attachment:fixed;background-size:cover}

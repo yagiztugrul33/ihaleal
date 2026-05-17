@@ -50,7 +50,7 @@ export function HowItWorks() {
           <h2 className="section-heading mb-4 tracking-tight">Nasıl Çalışır?</h2>
           <p className="section-subtitle mx-auto">Dört adımda kurumsal ihale yolculuğunuzu tamamlayın — şeffaf, güvenli ve veri odaklı.</p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+        <div className="steps-rail grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
           <div className="hidden lg:block absolute top-[5rem] left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent motion-reduce:hidden" aria-hidden />
           {steps.map((s, idx) => {
             const Icon = StepIcon[s.key];
@@ -60,7 +60,7 @@ export function HowItWorks() {
                 type="button"
                 key={s.key}
                 onClick={() => navigate(`/nasil-calisir?adim=${guideSlug}`)}
-                className={`relative text-left w-full group card-luxury p-6 transition-all duration-500 hover:-translate-y-1.5 motion-reduce:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                className={`step-card-premium relative text-left w-full group card-luxury p-6 transition-all duration-500 hover:-translate-y-1.5 motion-reduce:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ transitionDelay: `${idx * 120}ms`, transitionDuration: "700ms" }}
               >
                 <div className="flex justify-center mb-4">

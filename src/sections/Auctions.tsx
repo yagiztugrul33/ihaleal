@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -168,7 +168,7 @@ export function Auctions({
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((auction, idx) => (
-            <Card key={auction.id} className={`group overflow-hidden card-luxury !p-0 transition-all duration-500 hover:-translate-y-2 border-white/10 hover:border-blue-400/30 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
+            <Card key={auction.id} className={`property-card group overflow-hidden card-luxury !p-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />

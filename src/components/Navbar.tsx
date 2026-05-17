@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory, BadgePercent, Landmark, DraftingCompass, Radar } from "lucide-react";
@@ -13,6 +13,7 @@ import { readLocalSessionUser } from "@/lib/localSession";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -92,18 +93,12 @@ export function Navbar() {
             </button>
 
             <div className="hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <button type="button" onClick={() => navigate("/")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">Ana Sayfa</button>
-              <button type="button" onClick={() => navigate("/ihaleler")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">İhaleler</button>
+              <button type="button" onClick={() => navigate("/")} className="nav-link">Ana Sayfa</button>
+              <button type="button" onClick={() => navigate("/ihaleler")} className="nav-link">İhaleler</button>
               <NavLink
                 to={KKA_HUB_PATH}
                 end={false}
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
-                    isActive
-                      ? "text-white bg-emerald-500/25 border-emerald-400/50 shadow-[0_0_0_1px_rgba(52,211,153,0.15)]"
-                      : "text-emerald-800 hover:text-white hover:bg-emerald-600 border-emerald-600/40"
-                  }`
-                }
+                className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
               >
                 <Landmark className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
                 {kkaHubNavLabel}
@@ -111,13 +106,7 @@ export function Navbar() {
               <NavLink
                 to={KKA_STUDIO_PATH}
                 end
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
-                    isActive
-                      ? "text-white bg-cyan-500/20 border-cyan-400/45 shadow-[0_0_0_1px_rgba(34,211,238,0.12)]"
-                      : "text-cyan-800 hover:text-white hover:bg-cyan-600 border-cyan-600/40"
-                  }`
-                }
+                className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
               >
                 <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
                 {kkaStudioNavLabel}
@@ -125,13 +114,7 @@ export function Navbar() {
               <NavLink
                 to={INTELLIGENCE_HUB_PATH}
                 end={false}
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
-                    isActive
-                      ? "text-white bg-blue-500/25 border-blue-400/50 shadow-[0_0_0_1px_rgba(96,165,250,0.15)]"
-                      : "text-blue-800 hover:text-white hover:bg-blue-600 border-blue-600/40"
-                  }`
-                }
+                className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
               >
                 <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
                 Arastirma
@@ -139,18 +122,18 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => navigate("/kurumsal")}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-emerald-800 hover:text-emerald-950 hover:bg-emerald-100 transition-all whitespace-nowrap"
+                className="nav-link"
               >
                 Kurumsal
               </button>
               <button
                 type="button"
                 onClick={() => navigate("/nasil-calisir")}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap"
+                className="nav-link"
               >
                 Nasıl Çalışır
               </button>
-              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] transition-all whitespace-nowrap">İletişim</button>
+              <button type="button" onClick={() => scrollTo("contact")} className="nav-link">İletişim</button>
               {!currentUser ? (
                 <>
                   <span className="text-slate-400 px-0.5 select-none" aria-hidden>|</span>
@@ -173,7 +156,7 @@ export function Navbar() {
             </div>
 
             <div className="hidden lg:flex items-center gap-2 shrink-0 flex-nowrap">
-              <button type="button" onClick={() => setSearchOpen(true)} className="flex items-center gap-2 px-3 py-2 rounded-xl border text-sm max-w-[140px] xl:max-w-[180px] transition-all" style={{ background: "var(--color-bg-soft)", borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
+              <button type="button" onClick={() => setSearchOpen(true)} className="nav-search max-w-[140px] xl:max-w-[180px]">
                 <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
               </button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
@@ -231,7 +214,7 @@ export function Navbar() {
                     <Factory className="w-4 h-4" /> Müteahhit
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-200 hover:text-white gap-1.5 whitespace-nowrap"><LogIn className="w-4 h-4" /> Giriş</Button>
-                  <Button size="sm" onClick={() => navigate("/kayit")} className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-400 hover:to-cyan-300 text-white font-semibold whitespace-nowrap shadow-lg shadow-cyan-500/20">Kayıt Ol</Button>
+                  <Button size="sm" onClick={() => navigate("/kayit")}>Kayıt Ol</Button>
                 </div>
               )}
               <Button variant="ghost" size="sm" onClick={toggle} className="text-slate-600 hover:text-[var(--color-primary)] p-2" title={theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}>
