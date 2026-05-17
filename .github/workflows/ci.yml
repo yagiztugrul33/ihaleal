@@ -22,6 +22,8 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      NODE_ENV: development
     permissions:
       contents: read
       actions: write
@@ -36,11 +38,12 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci
+        run: npm ci --include=dev
 
       - name: Verify + coverage gate + bundle budget + security lint/audit
         run: npm run verify:ci
         env:
+          NODE_ENV: development
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
