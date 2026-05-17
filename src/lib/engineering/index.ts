@@ -2,6 +2,19 @@ export * from "./core/types";
 export * from "./core/methodology";
 export * from "./core/pipeline";
 export { runGesAnalysis, type GesAnalysisInput, type GesAnalysisResult } from "./ges/gesEngine";
+export {
+  GesValidationError,
+  calculateGesFeasibility,
+  type GesFeasibilityInput,
+  type GesFeasibilityResult,
+} from "./gesEngine";
+export {
+  ParcelValidationError,
+  calculateParcelFeasibility,
+  type ParcelFeasibilityInput,
+  type ParcelFeasibilityResult,
+} from "./parcelFeasibility";
+export { buildGesPrefeasibilityReport, buildParcelPrefeasibilityReport } from "./reportBuilder";
 export { computeIrradiance } from "./ges/irradiance";
 export { npv, irrBisection, lcoe, computeGesFinancials } from "./ges/financial";
 export { computeZoningProbability } from "./land/zoningProbability";

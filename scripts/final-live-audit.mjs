@@ -50,7 +50,7 @@ async function auditRoute(page, route) {
     if (m.type() === "error") consoleErrors.push(m.text());
   });
 
-  let httpStatus = 0;
+  let httpStatus;
   try {
     const res = await page.goto(`${BASE}${route.path}`, {
       waitUntil: "networkidle",

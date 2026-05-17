@@ -1,6 +1,10 @@
-export const INTELLIGENCE_HUB_PATH = "/arastirma";
-export const GES_ANALYSIS_PATH = "/arastirma/ges";
-export const PARCEL_INTELLIGENCE_PATH = "/arastirma/parsel";
-export const LAND_INVESTMENT_PATH = "/arastirma/yatirim";
-export const WAR_ROOM_PATH = "/arastirma/war-room";
-export const GIS_INTELLIGENCE_PATH = "/arastirma/harita";
+import { ROUTES } from "@/constants/routes";
+
+export { ROUTES, INTELLIGENCE_ROUTES, type AppRoute } from "@/constants/routes";
+
+export const INTELLIGENCE_HUB_PATH = ROUTES.INTELLIGENCE_HUB;
+export const GES_ANALYSIS_PATH = ROUTES.GES_ANALYSIS;
+export const PARCEL_INTELLIGENCE_PATH = ROUTES.PARCEL_INTELLIGENCE;
+export const LAND_INVESTMENT_PATH = ROUTES.LAND_INVESTMENT;
+export const WAR_ROOM_PATH = ROUTES.WAR_ROOM;
+export const GIS_INTELLIGENCE_PATH = ROUTES.GIS_INTELLIGENCE;
