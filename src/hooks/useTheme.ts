@@ -7,9 +7,9 @@ export function useTheme() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored === "dark" || stored === "light") return stored;
-      return "light";
+      return "dark";
     } catch {
-      return "light";
+      return "dark";
     }
   });
 

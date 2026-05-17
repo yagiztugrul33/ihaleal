@@ -41,7 +41,7 @@ const MODULES = [
     badge: "GIS + AI",
   },
   {
-    title: "Kat Karsiligi Studio",
+    title: "Kat Karşılığı Studio",
     desc: "EMSAL/TAKS, hak edis ve sozlesme taslagi.",
     icon: Building2,
     href: KKA_STUDIO_PATH,
@@ -59,7 +59,7 @@ const MODULES = [
 export default function IntelligenceHub() {
   return (
     <motion.div
-      className="min-h-screen pt-24 pb-20"
+      className="min-h-screen pt-24 pb-20 intelligence-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
@@ -73,7 +73,7 @@ export default function IntelligenceHub() {
             Arastirma terminali
           </p>
           <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Arazi, GES ve yatirim zekasi
+            Arazi, GES ve yatırım zekası
           </h1>
           <p className="text-slate-400 mt-4 text-lg leading-relaxed">
             Muhendislik formulleri, olasilik tabanli imar indeksleri ve izlenebilir hesap
@@ -122,8 +122,8 @@ export default function IntelligenceHub() {
         >
           <Shield className="w-5 h-5 text-amber-300 shrink-0" />
           <p className="text-xs text-slate-400 leading-relaxed">
-            Olasilik skorlari ve uretim tahminleri garanti degildir. PVGIS dogrulanmis isinim,
-            resmi imar durumu ve TEIAS/EDAS basvurusu olmadan yatirim karari alinmamalıdır.
+            Olasılık skorları ve üretim tahminleri garanti değildir. PVGIS doğrulanmış ışınım,
+            resmi imar durumu ve TEİAŞ/EDAŞ başvurusu olmadan yatırım kararı alınmamalıdır.
           </p>
         </motion.div>
       </motion.div>

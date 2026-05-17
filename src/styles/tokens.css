@@ -27,11 +27,18 @@
   --duration-base: 250ms;
   --duration-slow: 400ms;
   --color-primary: var(--lux-blue-600);
+  --color-bg: var(--lux-bg-base);
   --color-bg-card: var(--lux-surface-2);
   --color-bg-soft: var(--lux-surface-1);
   --color-text: var(--lux-text-secondary);
   --color-text-muted: var(--lux-text-muted);
+  --color-text-light: var(--lux-text-subtle);
+  --color-text-on-dark: var(--lux-text-primary);
+  --color-accent: var(--lux-trust-sky);
+  --color-accent-light: var(--lux-blue-400);
+  --color-success: var(--lux-trust-green);
   --color-border: var(--lux-border);
   --gradient-page: radial-gradient(120% 80% at 50% -20%, rgba(37, 99, 235, 0.18) 0%, transparent 55%), linear-gradient(180deg, var(--lux-bg-deep) 0%, var(--lux-bg-base) 38%, var(--lux-bg-elevated) 72%, var(--lux-bg-surface) 100%);
+  --gradient-hero: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(37, 99, 235, 0.22) 0%, transparent 65%), linear-gradient(180deg, var(--lux-bg-deep) 0%, var(--lux-bg-base) 100%);
   --gradient-cta: linear-gradient(135deg, var(--lux-blue-600) 0%, var(--lux-blue-500) 48%, var(--lux-blue-400) 100%);
 }

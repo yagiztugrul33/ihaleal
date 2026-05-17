@@ -76,7 +76,7 @@ const plans = [
 
 export default function Corporate() {
   return (
-    <div className="min-h-screen" style={{ background: "var(--color-bg)" }}>
+    <div className="min-h-screen kurumsal-page">
       <section className="hero-warm py-20 md:py-28">
         <div className="mx-auto max-w-5xl px-4 text-center relative z-10">
           <div className="inline-flex items-center gap-2 mb-6">
@@ -126,7 +126,7 @@ export default function Corporate() {
         </div>
       </section>
 
-      <section className="py-20 md:py-24" style={{ background: "var(--color-bg-card)" }}>
+      <section className="py-20 md:py-24" style={{ background: "rgba(15, 23, 42, 0.55)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
             <span className="badge-corp">Özellikler</span>
@@ -159,7 +159,7 @@ export default function Corporate() {
         </div>
       </section>
 
-      <section id="planlar" className="py-20 md:py-24" style={{ background: "var(--color-bg)" }}>
+      <section id="planlar" className="py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
             <span className="badge-corp">Fiyatlandırma</span>

@@ -3,10 +3,10 @@ import { Logo } from "@/components/Logo";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-50">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 intelligence-page">
       <Logo size="lg" />
-      <h1 className="text-6xl font-bold mt-8 mb-4 text-[#0A1F44] dark:text-white">404</h1>
-      <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 text-center max-w-md">
+      <h1 className="text-6xl font-bold mt-8 mb-4 text-white">404</h1>
+      <p className="text-xl text-slate-400 mb-8 text-center max-w-md">
         Aradığınız sayfa bulunamadı.
       </p>
       <Link

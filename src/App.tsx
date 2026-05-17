@@ -117,7 +117,7 @@ function App() {
           <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--gradient-page)" }}>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full border-4 border-[var(--color-primary)] border-t-transparent animate-spin mx-auto mb-4" />
-              <p style={{ color: "var(--color-text-muted)" }}>Yukleniyor...</p>
+              <p style={{ color: "var(--color-text-muted)" }}>Yükleniyor...</p>
             </div>
           </div>
         }>
@@ -206,11 +206,46 @@ function App() {
             <Route path="/komisyon-hesaplayici" element={<CommissionCalculator />} />
             <Route path={KKA_HUB_PATH} element={<LandEquityPage />} />
             <Route path={KKA_STUDIO_PATH} element={<KkaParselStudioPage />} />
-            <Route path={INTELLIGENCE_HUB_PATH} element={<IntelligenceHub />} />
-            <Route path={GES_ANALYSIS_PATH} element={<GesAnalysisPage />} />
-            <Route path={PARCEL_INTELLIGENCE_PATH} element={<ParcelIntelligencePage />} />
-            <Route path={LAND_INVESTMENT_PATH} element={<LandInvestmentPage />} />
-            <Route path={WAR_ROOM_PATH} element={<WarRoomPage />} />
+            <Route
+              path={INTELLIGENCE_HUB_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="Araştırma yükleniyor…" />}>
+                  <IntelligenceHub />
+                </Suspense>
+              }
+            />
+            <Route
+              path={GES_ANALYSIS_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="GES analizi yükleniyor…" />}>
+                  <GesAnalysisPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path={PARCEL_INTELLIGENCE_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="Parsel istihbaratı yükleniyor…" />}>
+                  <ParcelIntelligencePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path={LAND_INVESTMENT_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="Yatırım terminali yükleniyor…" />}>
+                  <LandInvestmentPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path={WAR_ROOM_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="War Room yükleniyor…" />}>
+                  <WarRoomPage />
+                </Suspense>
+              }
+            />
             <Route path="/emlakci-ortaklik" element={<RealtorPartnership />} />
             <Route path="/sifremi-unuttum" element={<PasswordReset />} />
             <Route path="/yasal-master-brief" element={<LegalMasterBrief />} />
