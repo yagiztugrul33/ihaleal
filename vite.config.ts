@@ -150,40 +150,40 @@ export default defineConfig(async () => ({
     reportCompressedSize: false,
     minify: "esbuild",
     /** ├£retimde konsol g├╝r├╝lt├╝s├╝n├╝ azalt─▒r (geli┼ştirmede etkisiz) */
-    esbuild: { drop: ["console", "debugger"] },
+    esbuild: isCiBuild ? {} : { drop: ["console", "debugger"] },
     cssMinify: true,
     cssCodeSplit: true,
     assetsInlineLimit: 4096,
     sourcemap: false,
-    rollupOptions: isCiBuild
-      ? {}
-      : {
-          output: {
-            manualChunks(id: string) {
-              if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
-                return "vendor-react";
-              }
-              if (id.includes("node_modules/react-router")) {
-                return "vendor-react";
-              }
-              if (id.includes("node_modules/recharts")) {
-                return "vendor-charts";
-              }
-              if (id.includes("node_modules/lucide-react")) {
-                return "vendor-ui";
-              }
-              if (id.includes("node_modules/framer-motion")) {
-                return "vendor-motion";
-              }
-              if (id.includes("node_modules/@supabase")) {
-                return "vendor-supabase";
-              }
-              if (id.includes("node_modules/zod")) {
-                return "vendor-zod";
-              }
-            },
-          },
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (isCiBuild) return undefined;
+          if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
+            return "vendor-react";
+          }
+          if (id.includes("node_modules/react-router")) {
+            return "vendor-react";
+          }
+          if (id.includes("node_modules/recharts")) {
+            return "vendor-charts";
+          }
+          if (id.includes("node_modules/lucide-react")) {
+            return "vendor-ui";
+          }
+          if (id.includes("node_modules/framer-motion")) {
+            return "vendor-motion";
+          }
+          if (id.includes("node_modules/@supabase")) {
+            return "vendor-supabase";
+          }
+          if (id.includes("node_modules/zod")) {
+            return "vendor-zod";
+          }
+          return undefined;
         },
-    chunkSizeWarningLimit: 650 
+      },
+    },
+    chunkSizeWarningLimit: isCiBuild ? 4096 : 650,
   },
 }))

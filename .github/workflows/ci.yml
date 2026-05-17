@@ -48,13 +48,19 @@ jobs:
       - name: Build
         run: |
           set -eo pipefail
-          node scripts/vite-build-safe.mjs
+          node scripts/vite-build-safe.mjs 2>&1 | tee build.log
         env:
           NODE_OPTIONS: --max-old-space-size=8192
           GITHUB_ACTIONS: "true"
           DISABLE_PWA: "1"
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vite-build-log
+          path: build.log
+          if-no-files-found: ignore
 
       - run: npm run test:rls
       - run: npm run test:coverage
