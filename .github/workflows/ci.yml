@@ -40,6 +40,9 @@ jobs:
 
       - name: Verify + coverage gate + bundle budget + security lint/audit
         run: npm run verify:ci
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: Generate RLS matrix artifact
         run: npm run rls:matrix
@@ -48,7 +51,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Smoke tests (Playwright)
-        run: npm run test:smoke
+        run: npx playwright test tests/smoke/arastirma-routes.spec.ts tests/smoke/demo-routes.spec.ts
 
       - name: Upload Playwright test-results on failure
         if: failure()
