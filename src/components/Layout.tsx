@@ -9,6 +9,7 @@ import { AntiCopyProtection } from "./AntiCopyProtection";
 import { CookieConsent } from "./CookieConsent";
 import { SeoSync } from "./SeoSync";
 import { DemoBanner } from "./DemoBanner";
+import { ProductionSafetyBanner } from "./ProductionSafetyBanner";
 import { DemoUyarisi } from "./DemoUyarisi";
 import { ScrollToTop } from "./ScrollToTop";
 import { useToast, type Toast } from "@/hooks/useToast";
@@ -43,6 +44,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <SeoSync />
         <AntiCopyProtection />
         <Navbar />
+        <ProductionSafetyBanner />
         <DemoBanner />
         <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
         <Footer />

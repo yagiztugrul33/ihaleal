@@ -9,32 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { AccountSegment } from "@/lib/auth";
-import { dispatchAuthChanged } from "@/lib/auth";
-import type { SessionUser } from "@/lib/auth";
-
-type AuthMode = "login" | "register";
-
-function persistLocalSession(params: {
-  id: string;
-  email: string;
-  name: string;
-  phone?: string;
-  verified: boolean;
-  accountSegment: AccountSegment;
-}): void {
-  const session: SessionUser = {
-    id: params.id,
-    email: params.email,
-    name: params.name,
-    phone: params.phone ?? "",
-    verified: params.verified,
-    authBackend: "local",
-    accountSegment: params.accountSegment,
-    memberSince: new Date().toISOString().split("T")[0],
-  };
-  localStorage.setItem("ihaleal_user", JSON.stringify(session));
-  dispatchAuthChanged();
-}
+import { persistLocalSessionUser } from "@/lib/localSession";
 
 const userTypes: { id: AccountSegment; label: string; icon: ReactNode; desc: string; badge: string }[] = [
   { id: "individual", label: "Bireysel Kullanıcı", icon: <User className="w-5 h-5" />, desc: "Mülk arayan, kiralayan veya satın alan kullanıcı", badge: "Alıcı / Kiracı" },
@@ -86,12 +61,14 @@ export function EmlakciGiris() {
 
     setLoading(true);
     setTimeout(() => {
-      persistLocalSession({
+      persistLocalSessionUser({
         id: "user_" + Math.random().toString(36).slice(2, 10),
         email: loginEmail,
         name: loginEmail.split("@")[0],
+        phone: "",
         verified: true,
         accountSegment: activeType,
+        memberSince: new Date().toISOString().split("T")[0],
       });
       setLoading(false);
       setSuccess("Giriş başarılı! Yönlendiriliyorsunuz...");
@@ -119,13 +96,14 @@ export function EmlakciGiris() {
 
     setLoading(true);
     setTimeout(() => {
-      persistLocalSession({
+      persistLocalSessionUser({
         id: "user_" + Math.random().toString(36).slice(2, 10),
         email: regEmail,
         name: regName,
         phone: regPhone,
         verified: false,
         accountSegment: activeType,
+        memberSince: new Date().toISOString().split("T")[0],
       });
       setLoading(false);
       setSuccess("Kayıt başarılı! Hoş geldiniz.");

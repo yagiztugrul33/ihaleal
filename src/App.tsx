@@ -7,6 +7,7 @@ import { RouteSeo } from "@/components/RouteSeo";
 import { Home } from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
+import { LocalAuthGate } from "@/components/LocalAuthGate";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
@@ -154,7 +155,7 @@ function App() {
             <Route path="/anayasa-400" element={<Navigate to={PLATFORM_FRAMEWORK_PATH} replace />} />
             <Route path="/anayasa" element={<Navigate to={PLATFORM_FRAMEWORK_PATH} replace />} />
             <Route path="/nihai-anayasa" element={<NihaiAnayasa />} />
-            <Route path="/emlakci-giris" element={<EmlakciGiris />} />
+            <Route path="/emlakci-giris" element={<LocalAuthGate><EmlakciGiris /></LocalAuthGate>} />
             <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />
             <Route path="/araclar/finans-uyumluluk" element={<FinCompliancePlayground />} />
             <Route path="/degerleme" element={<ValuationTool />} />

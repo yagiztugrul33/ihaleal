@@ -9,16 +9,9 @@ import { SearchModal } from "./SearchModal";
 import { mergedFlowPermissions, readUserFlowsFromStorage, type UserFlow } from "@/lib/userFlows";
 import { sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
 import type { SessionUser } from "@/lib/auth";
+import { readLocalSessionUser } from "@/lib/localSession";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
-
-function readSessionUser(): SessionUser | null {
-  try {
-    return JSON.parse(localStorage.getItem("ihaleal_user") || "null") as SessionUser | null;
-  } catch {
-    return null;
-  }
-}
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -27,7 +20,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [localSession, setLocalSession] = useState<SessionUser | null>(readSessionUser);
+  const [localSession, setLocalSession] = useState<SessionUser | null>(readLocalSessionUser);
   const [userFlows, setUserFlows] = useState<UserFlow[]>(() => readUserFlowsFromStorage());
   const flowPerms = useMemo(() => mergedFlowPermissions(userFlows), [userFlows]);
   const { count } = useFavorites();
@@ -43,7 +36,7 @@ export function Navbar() {
 
   useEffect(() => {
     const sync = () => {
-      setLocalSession(readSessionUser());
+      setLocalSession(readLocalSessionUser());
       setUserFlows(readUserFlowsFromStorage());
     };
     window.addEventListener("ihaleal-auth", sync);

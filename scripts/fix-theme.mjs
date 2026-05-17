@@ -220,6 +220,17 @@ main > section {
   opacity: 0.2;
 }
 
+
+@media (max-width: 768px) {
+  html,
+  body,
+  #root,
+  .page-shell,
+  .page-shell.page-shell-gradient,
+  [data-theme="light"] .page-shell {
+    background-attachment: scroll !important;
+  }
+}
 .badge-corp::before {
   content: "";
   width: 6px;
