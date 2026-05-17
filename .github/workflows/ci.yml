@@ -1,5 +1,5 @@
 # (C) Sunucuda otomatik dogrulama + review oncesi ipuclari.
-# Playbook #9: npm run verify — typecheck + encoding + vitest + build tek kapi.
+# Playbook #9: npm run verify â€” typecheck + encoding + vitest + build tek kapi.
 # Playbook #10: Smoke kirilirsa test-results/ artefakt (7 gun saklama).
 
 name: CI
@@ -56,7 +56,7 @@ jobs:
 
       - name: Build
         run: |
-          set -euo pipefail
+          set -eo pipefail
           npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=8192

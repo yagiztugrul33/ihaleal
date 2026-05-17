@@ -7,6 +7,7 @@ import path from "node:path";
 
 const ROOT = path.join(process.cwd(), "src");
 const EXT = new Set([".ts", ".tsx", ".js", ".jsx", ".mts", ".cts", ".mjs", ".cjs"]);
+const ROOT_FILES = ["vite.config.ts"];
 
 function walk(dir, out) {
   if (!fs.existsSync(dir)) return;
@@ -38,7 +39,11 @@ function looksUtf16LeAscii(buf) {
 }
 
 const files = [];
-walk(ROOT, files);
+for (const root of ROOTS) walk(root, files);
+for (const name of ROOT_FILES) {
+  const p = path.join(process.cwd(), name);
+  if (fs.existsSync(p)) files.push(p);
+}
 const bad = [];
 for (const f of files) {
   const buf = fs.readFileSync(f);

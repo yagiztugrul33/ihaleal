@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite --host --open",
     "dev:mobile-url": "node scripts/dev-mobile-url.mjs",
-    "build": "node node_modules/vite/bin/vite.js build",
+    "build": "node scripts/vite-build-safe.mjs",
     "preview": "vite preview --port 4173",
     "typecheck": "tsc --noEmit",
     "gen:assets": "node scripts/gen-assets.mjs",
@@ -39,7 +39,8 @@
     "precheck:supabase": "node scripts/precheck-supabase.mjs",
     "site:finish": "cmd /c CALISTIR_SITEYI_BITIR.bat",
     "site:finish:all": "cmd /c SITE_BITIR_TEK_CALISTIR.bat",
-    "site:finish:ci": "cmd /c BITIR_VERIFY_CI.bat"
+    "site:finish:ci": "cmd /c BITIR_VERIFY_CI.bat",
+    "postinstall": "node scripts/postinstall-rollup.mjs"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.0",
