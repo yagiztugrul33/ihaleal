@@ -39,7 +39,7 @@ function looksUtf16LeAscii(buf) {
 }
 
 const files = [];
-for (const root of ROOTS) walk(root, files);
+walk(ROOT, files);
 for (const name of ROOT_FILES) {
   const p = path.join(process.cwd(), name);
   if (fs.existsSync(p)) files.push(p);
