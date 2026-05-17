@@ -129,7 +129,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        cacheId: "ihaleal-luxury-v12",
+        cacheId: "ihaleal-luxury-v13",
         cleanupOutdatedCaches: true,
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
         navigateFallback: "/index.html",
