@@ -1,0 +1,10 @@
+﻿import fs from "node:fs";
+import path from "node:path";
+const root = process.cwd();
+const tokensPath = path.join(root, "src/styles/tokens.css");
+const themePath = path.join(root, "src/styles/theme.css");
+const tokens = fs.readFileSync(path.join(root, "scripts/gen-luxury-theme-source.txt"), "utf8");
+const parts = tokens.split("---THEME---");
+fs.writeFileSync(tokensPath, parts[0], "utf8");
+fs.writeFileSync(themePath, parts[1], "utf8");
+console.log("done");

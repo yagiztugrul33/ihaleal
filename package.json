@@ -10,6 +10,7 @@
     "preview": "vite preview --port 4173",
     "typecheck": "tsc --noEmit",
     "gen:assets": "node scripts/gen-assets.mjs",
+    "theme:luxury": "node scripts/run-gen-luxury.mjs",
     "env:sync": "node scripts/sync-vite-supabase-env.mjs",
     "sql:bundle": "node scripts/push-migrations.mjs",
     "supabase:link": "supabase link --project-ref wsjifesrdaeorrdzbvmk",

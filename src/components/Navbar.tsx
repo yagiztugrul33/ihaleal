@@ -77,8 +77,14 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md border-b border-white/15 ${scrolled ? "shadow-md shadow-black/20" : ""}`} style={{ background: "rgba(32, 55, 74, 0.92)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav
+        className={`fixed z-50 transition-all duration-500 ${
+          scrolled
+            ? "nav-glass nav-glass-scrolled top-3 left-3 right-3 mx-auto max-w-7xl rounded-2xl"
+            : "nav-glass top-0 left-0 right-0 rounded-none border-b"
+        }`}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20 gap-2">
             <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2.5 group shrink-0">
               <Logo size="md" variant="full" textClassName="text-slate-50 tracking-tight text-xl" />

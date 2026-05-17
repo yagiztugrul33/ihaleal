@@ -1,4 +1,41 @@
-
+/* ihaleal tokens v2 */
+:root {
+  --lux-bg-deep: #081120;
+  --lux-bg-base: #0B1120;
+  --lux-bg-elevated: #0F172A;
+  --lux-bg-surface: #111827;
+  --lux-surface-1: rgba(255, 255, 255, 0.04);
+  --lux-surface-2: rgba(255, 255, 255, 0.06);
+  --lux-surface-3: rgba(255, 255, 255, 0.08);
+  --lux-blue-600: #2563EB;
+  --lux-blue-500: #3B82F6;
+  --lux-blue-400: #60A5FA;
+  --lux-trust-green: #22C55E;
+  --lux-trust-sky: #38BDF8;
+  --lux-text-primary: #FFFFFF;
+  --lux-text-secondary: #E2E8F0;
+  --lux-text-muted: #CBD5E1;
+  --lux-text-subtle: #94A3B8;
+  --lux-border: rgba(255, 255, 255, 0.10);
+  --lux-border-strong: rgba(255, 255, 255, 0.16);
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --shadow-glow-blue: 0 12px 40px rgba(37, 99, 235, 0.35);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --color-primary: var(--lux-blue-600);
+  --color-bg-card: var(--lux-surface-2);
+  --color-bg-soft: var(--lux-surface-1);
+  --color-text: var(--lux-text-secondary);
+  --color-text-muted: var(--lux-text-muted);
+  --color-border: var(--lux-border);
+  --gradient-page: radial-gradient(120% 80% at 50% -20%, rgba(37, 99, 235, 0.18) 0%, transparent 55%), linear-gradient(180deg, var(--lux-bg-deep) 0%, var(--lux-bg-base) 38%, var(--lux-bg-elevated) 72%, var(--lux-bg-surface) 100%);
+  --gradient-cta: linear-gradient(135deg, var(--lux-blue-600) 0%, var(--lux-blue-500) 48%, var(--lux-blue-400) 100%);
+}
+---THEME---
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
 @import "./tokens.css";
 html,body,#root{overflow-x:clip;max-width:100%;background:var(--gradient-page)!important;background-color:var(--lux-bg-base)!important;background-attachment:fixed;background-size:cover;min-height:100%;color:var(--color-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}

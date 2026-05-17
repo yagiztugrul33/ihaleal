@@ -11,30 +11,30 @@
 
   :root,
   [data-theme="light"] {
-    /* ihaleal koyu gradyan palet (#20374A -> #495459) */
-    --background: 204 28% 33%;
-    --foreground: 210 20% 96%;
-    --card: 204 22% 38%;
-    --card-foreground: 210 20% 96%;
-    --popover: 204 22% 38%;
-    --popover-foreground: 210 20% 96%;
-    --primary: 193 72% 21%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 204 20% 42%;
-    --secondary-foreground: 210 20% 96%;
-    --muted: 204 18% 45%;
-    --muted-foreground: 214 15% 78%;
-    --accent: 28 54% 51%;
+    /* Luxury institutional — aligned with src/styles/tokens.css */
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 35% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 35% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 25% 14%;
+    --secondary-foreground: 214 32% 91%;
+    --muted: 222 20% 16%;
+    --muted-foreground: 215 20% 72%;
+    --accent: 199 89% 58%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 204 15% 55%;
-    --input: 204 15% 55%;
-    --ring: 193 72% 21%;
+    --border: 222 20% 22%;
+    --input: 222 20% 22%;
+    --ring: 217 91% 53%;
     --radius: 0.75rem;
-    --page-gradient-from: 204 40% 21%;
-    --page-gradient-via: 204 28% 33%;
-    --page-gradient-to: 200 12% 32%;
+    --page-gradient-from: 222 47% 5%;
+    --page-gradient-via: 222 40% 8%;
+    --page-gradient-to: 222 35% 12%;
   }
 
   [data-theme="dark"] {
@@ -68,8 +68,8 @@
 
   body {
     font-family: var(--font-body), "Inter", sans-serif;
-    background: var(--gradient-page, linear-gradient(180deg, #20374a 0%, #314a5a 45%, #495459 100%));
-    background-color: var(--color-bg, #314a5a);
+    background: var(--gradient-page, linear-gradient(180deg, #081120 0%, #0b1120 45%, #111827 100%));
+    background-color: var(--color-bg, #0b1120);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -97,8 +97,8 @@
   }
 
   .page-shell-gradient {
-    background: var(--gradient-page, linear-gradient(180deg, #20374a 0%, #314a5a 45%, #495459 100%)) !important;
-    background-color: var(--color-bg, #314a5a) !important;
+    background: var(--gradient-page, linear-gradient(180deg, #081120 0%, #0b1120 45%, #111827 100%)) !important;
+    background-color: var(--color-bg, #0b1120) !important;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -109,11 +109,16 @@
   }
 
   .section-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50;
+    @apply font-bold text-white;
+    font-family: var(--font-display), "Plus Jakarta Sans", sans-serif;
   }
 
   .section-subtitle {
     @apply text-slate-300 max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-xl shadow-lg;
   }
 }
 

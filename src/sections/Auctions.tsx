@@ -168,7 +168,7 @@ export function Auctions({
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((auction, idx) => (
-            <Card key={auction.id} className={`group overflow-hidden transition-all duration-500 hover:-translate-y-2 ${isHome ? "card-warm hover:border-[var(--color-accent-light)]" : "bg-white/[0.06] backdrop-blur-xl border border-white/10 hover:border-cyan-400/25 hover:shadow-2xl hover:shadow-cyan-500/10"} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
+            <Card key={auction.id} className={`group overflow-hidden card-luxury !p-0 transition-all duration-500 hover:-translate-y-2 border-white/10 hover:border-blue-400/30 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />
