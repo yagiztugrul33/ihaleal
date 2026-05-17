@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite --host --open",
     "dev:mobile-url": "node scripts/dev-mobile-url.mjs",
-    "build": "vite build",
+    "build": "node node_modules/vite/bin/vite.js build",
     "preview": "vite preview --port 4173",
     "typecheck": "tsc --noEmit",
     "gen:assets": "node scripts/gen-assets.mjs",
