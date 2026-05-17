@@ -54,8 +54,11 @@ function securityHeaders(): Record<string, string> {
   }
 }
 
-/** GHA: CI=true, VERCEL yok. Vercel deploy: VERCEL=1 → PWA acik. */
-const skipPwaOnCi = process.env.CI === "true" && process.env.VERCEL !== "1";
+/** CI (GHA + Vercel): workbox precache Linux'ta fail edebilir. */
+const skipPwaOnCi =
+  process.env.GITHUB_ACTIONS === "true" ||
+  process.env.CI === "true" ||
+  process.env.CI === "1";
 
 async function loadPlugins(): Promise<PluginOption[]> {
   const plugins: PluginOption[] = [homePageMetaHtmlPlugin(), react()];

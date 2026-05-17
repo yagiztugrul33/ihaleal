@@ -1,8 +1,6 @@
-# (C) Sunucuda otomatik doğrulama + review öncesi ipuçları.
-
-# Playbook #9: `npm run verify` — typecheck + encoding + vitest + build tek kapı.
-
-# Playbook #10: Smoke kırılırsa `test-results/` artefakt (Playwright trace/screenshot; 7 gün saklama).
+# (C) Sunucuda otomatik dogrulama + review oncesi ipuclari.
+# Playbook #9: npm run verify — typecheck + encoding + vitest + build tek kapi.
+# Playbook #10: Smoke kirilirsa test-results/ artefakt (7 gun saklama).
 
 name: CI
 
@@ -37,7 +35,9 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci --include=dev
+        run: |
+          npm ci --include=dev
+          node -e "require('@rollup/rollup-linux-x64-gnu')" 2>/dev/null || npm install @rollup/rollup-linux-x64-gnu@4.60.3 --no-save --no-package-lock
 
       - name: Typecheck
         run: npm run typecheck
@@ -58,7 +58,7 @@ jobs:
         run: npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=8192
-          VERCEL: ""
+          GITHUB_ACTIONS: true
 
       - name: RLS tests
         run: npm run test:rls

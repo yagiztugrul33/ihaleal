@@ -3,7 +3,7 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm ci --include=dev",
+  "installCommand": "npm ci --include=dev && (node -e \"require('@rollup/rollup-linux-x64-gnu')\" 2>/dev/null || npm install @rollup/rollup-linux-x64-gnu@4.60.3 --no-save --no-package-lock)",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],

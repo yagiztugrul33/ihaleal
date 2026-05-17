@@ -20,9 +20,10 @@ test.describe("history routes (preview)", () => {
 
   test("kurumsal sayfasi", async ({ page }) => {
     await page.goto("/kurumsal");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(/kurumsal|pazaryeri/i, {
-      timeout: 20_000,
-    });
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      /kurumsal|pazaryeri|operasyon altyap/i,
+      { timeout: 20_000 },
+    );
   });
 
   test("kurumsal iletisim", async ({ page }) => {
