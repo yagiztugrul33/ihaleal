@@ -1,9 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-
-const cors: Record<string, string> = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
 const DEFAULT_SERIES = "TP.FG.J0";
 
@@ -37,8 +33,9 @@ function pickSeriesValue(row: Record<string, unknown>, seriesCode: string): numb
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: cors });
+    return handleOptions(req);
   }
+  const cors = corsHeaders(req);
   if (req.method !== "GET") {
     const body = JSON.stringify({ ok: false, error: "method_not_allowed" });
     return new Response(body, {
