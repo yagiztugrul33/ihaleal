@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { Logo } from "@/components/Logo";
-import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory, BadgePercent, Landmark, DraftingCompass } from "lucide-react";
+import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory, BadgePercent, Landmark, DraftingCompass, Radar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "@/hooks/useTheme";
@@ -12,6 +12,7 @@ import type { SessionUser } from "@/lib/auth";
 import { readLocalSessionUser } from "@/lib/localSession";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
+import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -120,6 +121,20 @@ export function Navbar() {
               >
                 <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
                 {kkaStudioNavLabel}
+              </NavLink>
+              <NavLink
+                to={INTELLIGENCE_HUB_PATH}
+                end={false}
+                className={({ isActive }) =>
+                  `px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 border transition-all ${
+                    isActive
+                      ? "text-white bg-blue-500/25 border-blue-400/50 shadow-[0_0_0_1px_rgba(96,165,250,0.15)]"
+                      : "text-blue-800 hover:text-white hover:bg-blue-600 border-blue-600/40"
+                  }`
+                }
+              >
+                <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                Arastirma
               </NavLink>
               <button
                 type="button"

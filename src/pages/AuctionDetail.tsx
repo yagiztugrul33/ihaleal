@@ -2,7 +2,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
-  ChevronLeft, ChevronRight, Home, Building, Layers, CheckCircle2,
+  Home, Building, Layers, CheckCircle2,
   XCircle, AlertTriangle, BarChart3, TrendingUp, TrendingDown, Minus,
   MessageSquare, GitCompare, Navigation, CarFront, Video,
   ExternalLink, Eye, Calculator, Receipt, ShieldCheck, Percent,
@@ -44,6 +44,7 @@ import {
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
+import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIInsight } from "@/components/cinematic";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
@@ -91,7 +92,6 @@ export default function AuctionDetail() {
   const isRent = listingWithDefaults?.dealType === "rent";
   const pricePrimaryLabel =
     marketingMode === "listing_only" ? "İlan fiyatı" : marketingMode === "sealed_offers" ? "Başlangıç / talep" : "Güncel teklif";
-  const [currentImage, setCurrentImage] = useState(0);
   const [bidAmount, setBidAmount] = useState("");
   const [showBidDialog, setShowBidDialog] = useState(false);
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -493,6 +493,41 @@ export default function AuctionDetail() {
   const bidIncrements = [10000, 50000, 100000, 250000, 500000];
   const closing = estimateBuyerClosingCosts(liveBid);
 
+  const galleryBadges = [
+    { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
+    { label: isRent ? "Kiralık" : "Satılık", className: "bg-emerald-600/90 text-white border-0" },
+    { label: MARKETING_MODE_LABELS[marketingMode].badge, className: "bg-slate-700 text-white border border-white/15" },
+  ];
+
+  const aiInsights: AIInsight[] = [
+    {
+      id: "valuation",
+      title: "Değerleme konumu",
+      body: isUnderpriced
+        ? `Model fiyatın %${Math.abs(Number(priceDiffPercent))} altında olduğunu işaret ediyor; bölge ortalaması ₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")}/m².`
+        : `Fiyat piyasa bandına yakın; talep endeksi ${auction.areaStats.demandIndex}/100.`,
+      confidence: isUnderpriced ? 88 : 72,
+      tone: isUnderpriced ? "positive" : "neutral",
+    },
+    {
+      id: "yield",
+      title: "Getiri profili",
+      body: `Tahmini kira getirisi %${auction.areaStats.rentalYield}; amortisman ${Math.round(100 / Math.max(auction.areaStats.rentalYield, 0.1))} yıl bandında.`,
+      confidence: 76,
+      tone: "neutral",
+    },
+    {
+      id: "risk",
+      title: "Risk sinyali",
+      body:
+        recommendation === "avoid"
+          ? "Fiyat baskısı ve düşük skor — ek due diligence önerilir."
+          : "Likidite ve belge paketi kurumsal süreçle doğrulanabilir.",
+      confidence: recommendation === "avoid" ? 58 : 84,
+      tone: recommendation === "avoid" ? "caution" : "positive",
+    },
+  ];
+
   return (
     <div ref={ref} className="min-h-screen pt-20 pb-16">
       <div className="glass-panel sticky top-16 z-40 rounded-none border-x-0 border-t-0">
@@ -507,35 +542,18 @@ export default function AuctionDetail() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-        <div className={`relative rounded-2xl overflow-hidden mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="relative h-[300px] md:h-[450px] lg:h-[500px]">
-            <ListingCoverImage src={auction.images[currentImage]} alt={auction.title} className="w-full h-full object-cover transition-transform duration-700" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-            <button onClick={() => setCurrentImage((prev) => (prev === 0 ? auction.images.length - 1 : prev - 1))} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70"><ChevronLeft className="w-5 h-5" /></button>
-            <button onClick={() => setCurrentImage((prev) => (prev === auction.images.length - 1 ? 0 : prev + 1))} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70"><ChevronRight className="w-5 h-5" /></button>
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {auction.images.map((_, i) => <button key={i} onClick={() => setCurrentImage(i)} className={`w-2 h-2 rounded-full transition-all ${i === currentImage ? "bg-blue-500 w-6" : "bg-white/50"}`} />)}
-            </div>
-            <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-              <Badge className={`${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white gap-1`}>{auction.status === "live" ? "Canlı" : "Yaklaşan"}</Badge>
-              {isRent ? <Badge className="bg-violet-600 text-white border-0">Kiralık</Badge> : <Badge className="bg-emerald-600/90 text-white border-0">Satılık</Badge>}
-              <Badge className="bg-slate-700 text-white border border-white/15">{MARKETING_MODE_LABELS[marketingMode].badge}</Badge>
-            </div>
-            {auction.virtualTour && (
-              <div className="absolute top-4 right-4">
-                <Button size="sm" onClick={() => setShowVirtualTour(true)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2"><Video className="w-4 h-4" /> Sanal Tur</Button>
-              </div>
-            )}
-          </div>
-          <div className="flex gap-2 p-3 bg-slate-900/50 border-t border-slate-200/80 overflow-x-auto">
-            {auction.images.map((img, i) => (
-              <button key={i} onClick={() => setCurrentImage(i)} className={`relative w-20 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${i === currentImage ? "border-blue-500" : "border-transparent"}`}>
-                <ListingCoverImage src={img} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
+        <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <CinematicPropertyGallery
+            images={auction.images}
+            title={auction.title}
+            badges={galleryBadges}
+            aiPredictedPrice={auction.aiPredictedPrice}
+            liveBid={liveBid}
+            investmentScore={auction.investmentScore}
+            hasVirtualTour={Boolean(auction.virtualTour)}
+            onVirtualTour={() => setShowVirtualTour(true)}
+          />
         </div>
-
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <div className={`transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -599,6 +617,8 @@ export default function AuctionDetail() {
                 </div>
               </div>
             </div>
+
+            <AIInsightLayer insights={aiInsights} className="mb-8" />
 
             <div className={`sticky top-[7.5rem] z-30 bg-slate-950/95 backdrop-blur-xl border-b border-slate-200/80 -mx-4 px-4 transition-all duration-700 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
               <div className="flex gap-1 overflow-x-auto py-2">
@@ -1001,6 +1021,8 @@ export default function AuctionDetail() {
                 <button onClick={() => navigate("/ihale-kosullari")} className="text-xs text-slate-500 hover:text-teal-400 transition-colors flex items-center gap-1"><Percent className="w-3 h-3" /> Komisyon yapısını detaylı incele</button>
               </CardContent>
             </Card>
+
+            <InvestorTrustStrip className="mb-6" />
 
             <Card className={`bg-slate-900/50 border-slate-200/80 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <CardContent className="p-5">

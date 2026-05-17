@@ -11,6 +11,13 @@ import { LocalAuthGate } from "@/components/LocalAuthGate";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import {
+  INTELLIGENCE_HUB_PATH,
+  GES_ANALYSIS_PATH,
+  PARCEL_INTELLIGENCE_PATH,
+  LAND_INVESTMENT_PATH,
+  WAR_ROOM_PATH,
+} from "@/lib/intelligenceHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
@@ -70,6 +77,11 @@ const BlogPostPage         = lazy(() => import("@/pages/mega/BlogPost"));
 const CommissionCalculator = lazy(() => import("@/pages/mega/CommissionCalculator"));
 const LandEquityPage = lazy(() => import("@/pages/mega/LandEquityPage"));
 const KkaParselStudioPage = lazy(() => import("@/pages/mega/KkaParselStudioPage"));
+const IntelligenceHub = lazy(() => import("@/pages/intelligence/IntelligenceHub"));
+const GesAnalysisPage = lazy(() => import("@/pages/intelligence/GesAnalysisPage"));
+const ParcelIntelligencePage = lazy(() => import("@/pages/intelligence/ParcelIntelligencePage"));
+const LandInvestmentPage = lazy(() => import("@/pages/intelligence/LandInvestmentPage"));
+const WarRoomPage = lazy(() => import("@/pages/intelligence/WarRoomPage"));
 const RealtorPartnership = lazy(() => import("@/pages/mega/RealtorPartnership"));
 const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
 const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
@@ -194,6 +206,11 @@ function App() {
             <Route path="/komisyon-hesaplayici" element={<CommissionCalculator />} />
             <Route path={KKA_HUB_PATH} element={<LandEquityPage />} />
             <Route path={KKA_STUDIO_PATH} element={<KkaParselStudioPage />} />
+            <Route path={INTELLIGENCE_HUB_PATH} element={<IntelligenceHub />} />
+            <Route path={GES_ANALYSIS_PATH} element={<GesAnalysisPage />} />
+            <Route path={PARCEL_INTELLIGENCE_PATH} element={<ParcelIntelligencePage />} />
+            <Route path={LAND_INVESTMENT_PATH} element={<LandInvestmentPage />} />
+            <Route path={WAR_ROOM_PATH} element={<WarRoomPage />} />
             <Route path="/emlakci-ortaklik" element={<RealtorPartnership />} />
             <Route path="/sifremi-unuttum" element={<PasswordReset />} />
             <Route path="/yasal-master-brief" element={<LegalMasterBrief />} />
