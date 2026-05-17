@@ -13,8 +13,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 25
-    env:
-      NODE_ENV: development
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,20 +24,10 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci --include=dev
+        run: npm ci
 
       - name: Build
-        run: |
-          set -ex
-          rm -rf node_modules/.tmp dist
-          test -f node_modules/vite/package.json
-          npx vite build
-          grep -o 'assets/index-[^"]*\.js' dist/index.html
-          wc -c dist/assets/index-*.js
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: npm run build
 
       - name: Deploy to Vercel (production)
         uses: amondnet/vercel-action@v25
