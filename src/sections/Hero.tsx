@@ -1,109 +1,129 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Building2, Play, Shield, Sparkles, TrendingUp } from "lucide-react";
+import {
+  ArrowRight,
+  Play,
+  Shield,
+  Users,
+  Star,
+  Headphones,
+  TrendingUp,
+  Gavel,
+  BarChart3,
+} from "lucide-react";
 import { cinematicEase, staggerContainer, staggerItem } from "@/lib/motion/presets";
 
-const TRUST_ITEMS = [
-  { icon: TrendingUp, label: "Yatırımcılar tarafından güvenilir" },
-  { icon: Shield, label: "Banka düzeyi altyapı" },
-  { icon: Sparkles, label: "AI destekli değerleme motoru" },
-  { icon: Building2, label: "Güvenli dijital ihale platformu" },
+const TRUST = [
+  { icon: Shield, label: "Banka düzeyi güvenlik" },
+  { icon: Users, label: "10.000+ aktif yatırımcı" },
+  { icon: Star, label: "4,9/5 müşteri puanı" },
+  { icon: Headphones, label: "7/24 destek" },
 ] as const;
 
-const SIDE_METRICS = [
-  { label: "Canlı ihale", value: "284", delta: "+12.5%" },
-  { label: "Başarılı satış", value: "3.420", delta: "+8.2%" },
-  { label: "Aktif yatırımcı", value: "12.8K", delta: "+18%" },
-  { label: "Memnuniyet", value: "4.9/5", delta: "Kurumsal" },
+const SIDE_STATS = [
+  { icon: Gavel, label: "Toplam ihale", value: "12.847", delta: "+12.5%" },
+  { icon: TrendingUp, label: "Başarılı satış", value: "3.420", delta: "+8.2%" },
+  { icon: Users, label: "Aktif yatırımcı", value: "10.284", delta: "+18%" },
+  { icon: Star, label: "Memnuniyet oranı", value: "98%", delta: "+2.1%" },
 ] as const;
 
 export function Hero() {
   return (
-    <section id="hero" className="hero-cinematic relative flex min-h-[min(94vh,960px)] items-center overflow-hidden pt-24 pb-20 sm:pt-28">
-      <motion.div className="hero-architecture-bg" aria-hidden initial={{ opacity: 0 }} animate={{ opacity: 0.45 }} transition={{ duration: 1.2 }} />
-      <motion.div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]" variants={staggerContainer} initial="hidden" animate="show">
+    <section id="hero" className="ref-hero relative min-h-[100vh] overflow-hidden">
+      <motion.div
+        className="ref-hero-bg"
+        aria-hidden
+        initial={{ scale: 1.05 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.div className="ref-hero-overlay" aria-hidden />
+
+      <motion.div className="relative z-10 mx-auto flex min-h-[100vh] max-w-7xl flex-col justify-center px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+        <motion.div
+          className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+        >
           <motion.div variants={staggerItem}>
-            <p className="hero-slogan mb-6">Kurumsal gayrimenkul teknolojisi</p>
-            <h1 className="hero-headline text-balance max-w-3xl">
-              Yüksek değerli
-              <span className="block hero-headline-accent">gayrimenkul işlemleri</span>
-              için akıllı platform
+            <h1 className="ref-hero-title max-w-2xl">
+              Gayrimenkul
+              <span className="ref-hero-title-gradient"> ihalelerinin </span>
+              geleceği
             </h1>
-            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-slate-300 sm:text-lg">
-              İhaleal; şeffaf ihale, AI fiyatlama ve kurumsal güven katmanını tek deneyimde birleştirir.
-              Ciddi yatırımcılar ve kurumlar için tasarlandı.
+            <p className="ref-hero-subtitle mt-6 max-w-xl">
+              Dünya çapında güvenli, şeffaf ve verimli gayrimenkul ihaleleri için AI destekli platform.
             </p>
+
             <motion.div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to="/ilanlar" className="btn-primary min-h-[52px] min-w-[200px] text-base">
-                İlanları Keşfet
+              <Link to="/ilanlar" className="ref-btn-primary">
+                İhaleleri Keşfet
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <Link to="/nasil-calisir" className="btn-secondary min-h-[52px] gap-2">
-                <Play className="h-4 w-4 fill-current opacity-80" aria-hidden />
+              <Link to="/nasil-calisir" className="ref-btn-secondary">
+                <Play className="h-4 w-4 fill-current opacity-90" aria-hidden />
                 Nasıl Çalışır
               </Link>
             </motion.div>
-            <motion.div className="mt-12 flex flex-wrap gap-3">
-              {TRUST_ITEMS.map(({ icon: Icon, label }) => (
-                <span key={label} className="trust-pill">
-                  <Icon className="h-3.5 w-3.5 text-blue-400 shrink-0" aria-hidden />
-                  {label}
-                </span>
+
+            <motion.ul className="ref-trust-row mt-12">
+              {TRUST.map(({ icon: Icon, label }) => (
+                <li key={label} className="ref-trust-item">
+                  <Icon className="h-4 w-4 shrink-0 text-blue-400" aria-hidden />
+                  <span>{label}</span>
+                </li>
               ))}
-            </motion.div>
+            </motion.ul>
           </motion.div>
 
           <motion.div className="relative hidden lg:block" variants={staggerItem}>
-            <motion.div className="glass-panel relative overflow-hidden rounded-2xl p-6 shadow-lux-lg">
-              <div className="flex items-center justify-between gap-3">
+            <motion.div
+              className="ref-live-chart-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, ...cinematicEase }}
+            >
+              <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-blue-300">Canlı piyasa</p>
-                  <p className="mt-1 text-2xl font-bold text-white">AI analitik önizleme</p>
+                  <p className="text-xs font-medium text-slate-400">Canlı ihaleler</p>
+                  <p className="mt-1 text-3xl font-bold text-white">284</p>
                 </div>
-                <span className="live-badge">Live</span>
+                <BarChart3 className="h-8 w-8 text-blue-400 opacity-80" aria-hidden />
               </div>
-              <motion.div className="mt-6 flex h-28 items-end gap-1.5" initial="hidden" animate="show">
-                {[38, 62, 48, 78, 55, 88, 72, 65].map((h, i) => (
+              <div className="ref-mini-chart mt-4 flex h-16 items-end gap-1">
+                {[35, 55, 42, 70, 48, 82, 60, 75].map((h, i) => (
                   <motion.div
                     key={i}
-                    className="flex-1 rounded-sm bg-gradient-to-t from-blue-600 to-blue-400"
+                    className="flex-1 rounded-sm bg-gradient-to-t from-blue-600 to-sky-400"
                     initial={{ height: 0 }}
                     animate={{ height: `${h}%` }}
-                    transition={{ delay: 0.4 + i * 0.05, ...cinematicEase }}
+                    transition={{ delay: 0.5 + i * 0.05, ...cinematicEase }}
                   />
                 ))}
-              </motion.div>
-              <p className="mt-4 text-xs text-slate-400">Portföy değerleme · güven aralığı · bölge karşılaştırma</p>
+              </div>
             </motion.div>
-            <motion.div className="hero-side-stack absolute -right-2 top-8 w-52 xl:-right-6" variants={staggerContainer} initial="hidden" animate="show">
-              {SIDE_METRICS.map((m) => (
-                <motion.div key={m.label} className="hero-floating-metric" variants={staggerItem}>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">{m.label}</p>
-                  <p className="mt-1 text-lg font-bold text-white">{m.value}</p>
-                  <p className="text-xs font-medium text-emerald-400">{m.delta}</p>
+
+            <motion.div
+              className="ref-side-stats absolute -right-4 top-1/2 z-20 flex -translate-y-1/2 flex-col gap-3 xl:-right-8"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="show"
+            >
+              {SIDE_STATS.map((s) => (
+                <motion.div key={s.label} className="ref-side-stat-card" variants={staggerItem}>
+                  <s.icon className="h-4 w-4 text-blue-400" aria-hidden />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+                      {s.label}
+                    </p>
+                    <p className="text-lg font-bold text-white">{s.value}</p>
+                  </div>
+                  <span className="text-xs font-semibold text-emerald-400">{s.delta}</span>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="mt-16 grid gap-4 border-t border-white/10 pt-10 sm:grid-cols-3"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, ...cinematicEase }}
-        >
-          {[
-            { value: "2.4B+", label: "İşlem hacmi hedefi" },
-            { value: "12K+", label: "Doğrulanmış analiz" },
-            { value: "99.9%", label: "Platform erişilebilirliği" },
-          ].map((m) => (
-            <div key={m.label} className="metric-float text-center sm:text-left">
-              <p className="text-2xl font-bold text-white">{m.value}</p>
-              <p className="mt-1 text-sm text-slate-400">{m.label}</p>
-            </div>
-          ))}
         </motion.div>
       </motion.div>
     </section>

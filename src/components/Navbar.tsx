@@ -77,10 +77,14 @@ export function Navbar() {
     setIsOpen(false);
   };
 
+  const isMarketingHome = location.pathname === "/";
+
   return (
     <>
       <nav
         className={`fixed z-50 transition-all duration-500 ${
+          isMarketingHome ? "nav-home-marketing " : ""
+        }${
           scrolled
             ? "nav-glass nav-glass-scrolled top-3 left-3 right-3 mx-auto max-w-7xl rounded-2xl"
             : "nav-glass top-0 left-0 right-0 rounded-none border-b"
@@ -92,33 +96,53 @@ export function Navbar() {
               <Logo size="md" variant="full" textClassName="text-slate-50 tracking-tight text-xl" />
             </button>
 
-            <div className="hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <button type="button" onClick={() => navigate("/")} className="nav-link">Ana Sayfa</button>
+            {isMarketingHome ? (
+              <div className="nav-search-center hidden lg:flex">
+                <button type="button" onClick={() => setSearchOpen(true)} className="nav-search w-full">
+                  <Search className="w-4 h-4 shrink-0" />
+                  <span className="truncate text-slate-500">Konum, mülk tipi veya anahtar kelime ara…</span>
+                </button>
+              </div>
+            ) : null}
+
+            <div
+              className={cn(
+                "hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
+                isMarketingHome && "nav-home-links justify-center flex-none"
+              )}
+            >
+              {!isMarketingHome ? (
+                <button type="button" onClick={() => navigate("/")} className="nav-link">Ana Sayfa</button>
+              ) : null}
               <button type="button" onClick={() => navigate("/ihaleler")} className="nav-link">İhaleler</button>
-              <NavLink
-                to={KKA_HUB_PATH}
-                end={false}
-                className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
-              >
-                <Landmark className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                {kkaHubNavLabel}
-              </NavLink>
-              <NavLink
-                to={KKA_STUDIO_PATH}
-                end
-                className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
-              >
-                <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                {kkaStudioNavLabel}
-              </NavLink>
-              <NavLink
-                to={INTELLIGENCE_HUB_PATH}
-                end={false}
-                className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
-              >
-                <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                Arastirma
-              </NavLink>
+              {!isMarketingHome ? (
+                <>
+                  <NavLink
+                    to={KKA_HUB_PATH}
+                    end={false}
+                    className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
+                  >
+                    <Landmark className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                    {kkaHubNavLabel}
+                  </NavLink>
+                  <NavLink
+                    to={KKA_STUDIO_PATH}
+                    end
+                    className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
+                  >
+                    <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                    {kkaStudioNavLabel}
+                  </NavLink>
+                  <NavLink
+                    to={INTELLIGENCE_HUB_PATH}
+                    end={false}
+                    className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
+                  >
+                    <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                    Arastirma
+                  </NavLink>
+                </>
+              ) : null}
               <button
                 type="button"
                 onClick={() => navigate("/kurumsal")}
@@ -134,7 +158,7 @@ export function Navbar() {
                 Nasıl Çalışır
               </button>
               <button type="button" onClick={() => scrollTo("contact")} className="nav-link">İletişim</button>
-              {!currentUser ? (
+              {!isMarketingHome && !currentUser ? (
                 <>
                   <span className="text-slate-400 px-0.5 select-none" aria-hidden>|</span>
                   <button
@@ -156,33 +180,41 @@ export function Navbar() {
             </div>
 
             <div className="hidden lg:flex items-center gap-2 shrink-0 flex-nowrap">
-              <button type="button" onClick={() => setSearchOpen(true)} className="nav-search max-w-[140px] xl:max-w-[180px]">
-                <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
-              </button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate("/komisyon-modeli")}
-                className="h-9 shrink-0 rounded-xl border-violet-700/40 bg-violet-100 text-violet-900 shadow-sm hover:bg-violet-200 transition-all gap-1.5 px-2.5 font-semibold text-xs"
-                aria-label="Gelir modeli ve komisyon özeti"
-                title="Komisyon oranları ve emlakçı payı — gelir modeli"
-              >
-                <BadgePercent className="w-[18px] h-[18px] shrink-0" aria-hidden />
-                <span className="hidden min-[1100px]:inline max-w-[9rem] truncate">Komisyon & gelir</span>
-              </Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-slate-700 hover:text-violet-300 hover:bg-violet-500/10 gap-1.5 whitespace-nowrap"><LayoutDashboard className="w-4 h-4" /> Dashboard</Button>
-              {showAdmin ? (
-                <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 gap-1.5"><Shield className="w-4 h-4" /> Admin</Button>
+              {!isMarketingHome ? (
+                <button type="button" onClick={() => setSearchOpen(true)} className="nav-search max-w-[140px] xl:max-w-[180px]">
+                  <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
+                </button>
               ) : null}
-              <Button variant="ghost" size="sm" onClick={() => navigate("/harita")} className="text-slate-700 hover:text-emerald-300 hover:bg-emerald-500/10 gap-1.5 whitespace-nowrap"><Navigation className="w-4 h-4" /> Harita</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/karsilastir")} className="text-slate-700 hover:text-teal-300 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap"><GitCompare className="w-4 h-4" /> Karşılaştır</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/favoriler")} className="text-slate-700 hover:text-pink-300 hover:bg-pink-500/10 gap-1.5 relative whitespace-nowrap">
-                <Heart className="w-4 h-4" /> Favoriler
-                {count > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[10px] font-bold flex items-center justify-center">{count}</span>}
-              </Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/degerleme")} className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Degerleme</Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-700 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
+              {!isMarketingHome ? (
+              <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
+              ) : null}
+              {!isMarketingHome ? (
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => navigate("/komisyon-modeli")}
+                    className="h-9 shrink-0 rounded-xl border-violet-700/40 bg-violet-100 text-violet-900 shadow-sm hover:bg-violet-200 transition-all gap-1.5 px-2.5 font-semibold text-xs"
+                    aria-label="Gelir modeli ve komisyon özeti"
+                    title="Komisyon oranları ve emlakçı payı — gelir modeli"
+                  >
+                    <BadgePercent className="w-[18px] h-[18px] shrink-0" aria-hidden />
+                    <span className="hidden min-[1100px]:inline max-w-[9rem] truncate">Komisyon & gelir</span>
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-slate-700 hover:text-violet-300 hover:bg-violet-500/10 gap-1.5 whitespace-nowrap"><LayoutDashboard className="w-4 h-4" /> Dashboard</Button>
+                  {showAdmin ? (
+                    <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 gap-1.5"><Shield className="w-4 h-4" /> Admin</Button>
+                  ) : null}
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/harita")} className="text-slate-700 hover:text-emerald-300 hover:bg-emerald-500/10 gap-1.5 whitespace-nowrap"><Navigation className="w-4 h-4" /> Harita</Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/karsilastir")} className="text-slate-700 hover:text-teal-300 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap"><GitCompare className="w-4 h-4" /> Karşılaştır</Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/favoriler")} className="text-slate-700 hover:text-pink-300 hover:bg-pink-500/10 gap-1.5 relative whitespace-nowrap">
+                    <Heart className="w-4 h-4" /> Favoriler
+                    {count > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[10px] font-bold flex items-center justify-center">{count}</span>}
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/degerleme")} className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Degerleme</Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-700 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
+                </>
+              ) : null}
               {currentUser ? (
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-slate-400 max-w-[180px] truncate hidden xl:inline" title={supaUser?.email ?? currentUser.email}>
@@ -207,14 +239,18 @@ export function Navbar() {
                 </div>
               ) : (
                 <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-end">
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakci")} className="text-slate-700 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
-                    <Building2 className="w-4 h-4" /> Emlakçı
-                  </Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
-                    <Factory className="w-4 h-4" /> Müteahhit
-                  </Button>
+                  {!isMarketingHome ? (
+                    <>
+                      <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakci")} className="text-slate-700 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
+                        <Building2 className="w-4 h-4" /> Emlakçı
+                      </Button>
+                      <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
+                        <Factory className="w-4 h-4" /> Müteahhit
+                      </Button>
+                    </>
+                  ) : null}
                   <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-200 hover:text-white gap-1.5 whitespace-nowrap"><LogIn className="w-4 h-4" /> Giriş</Button>
-                  <Button size="sm" onClick={() => navigate("/kayit")}>Kayıt Ol</Button>
+                  <Button size="sm" onClick={() => navigate("/kayit")} className={isMarketingHome ? "nav-home-cta" : undefined}>Kayıt Ol</Button>
                 </div>
               )}
               <Button variant="ghost" size="sm" onClick={toggle} className="text-slate-600 hover:text-[var(--color-primary)] p-2" title={theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}>
