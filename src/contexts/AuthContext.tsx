@@ -96,7 +96,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         setProfileLoading(false);
       });
-  }, [user?.id]);
+  }, [user]);
 
   const signIn = useCallback(async (email: string, password: string) => {
     if (!isSupabaseConfigured()) {
