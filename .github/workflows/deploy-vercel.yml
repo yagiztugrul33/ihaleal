@@ -1,4 +1,4 @@
-# Production deploy — requires GitHub repo secrets:
+# Production deploy â€” requires GitHub repo secrets:
 # VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
 
 name: Deploy Vercel Production
@@ -30,7 +30,9 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: |
+          rm -rf node_modules/.tmp
+          npm run build:vercel
         env:
           VERCEL_FORCE_NO_BUILD_CACHE: "1"
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
