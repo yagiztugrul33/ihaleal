@@ -1,30 +1,21 @@
-﻿# Vercel / GHA 9 Fail - Nihai Duzeltme
+﻿# Nihai Build Fix Raporu
 
-**Commit:** (push sonrasi)
-**Tarih:** 2026-05-17
+## Kok nedenler (9 ardisik FAIL)
 
-## Kok Neden (kanitli)
+1. **NODE_ENV=production** → npm ci devDependencies kurmuyor (vite/tsc yok)
+2. **deploy-vercel.yml UTF-16 bozuk** + push trigger → workflow fail
+3. **supabase-v2-deploy.yml** → SUPABASE_ACCESS_TOKEN yok, her push fail
+4. **@rollup/rollup-linux-x64-gnu** → Windows lockfile, Linux CI'da eksik
+5. **vite-plugin-pwa workbox** → GHA runner'da ~27sn sonra build fail
 
-1. **NODE_ENV=production** → `npm ci` devDependencies kurmuyor → `vite`/`tsc` yok → build 1-3 sn'de exit 1
-2. **deploy-vercel.yml UTF-16 bozuk** → GHA workflow parse/ calistirma hatasi
-3. **supabase-v2-deploy.yml** her push'ta SUPABASE_ACCESS_TOKEN olmadan fail
-4. **CI verify:ci** tek blokta 11 sn'de fail (hangi adim belirsizdi)
+## Cozumler (commit 80cb3e6+)
 
-## Cozum
+- ci.yml: NODE_ENV=development, npm ci --include=dev, adim adim
+- vercel.json: npm ci --include=dev, npm run build
+- workflows: deploy/supabase sadece workflow_dispatch
+- scripts/vite-build-safe.mjs: rollup linux + explicit vite bin
+- vite.config: GHA'da PWA kapali, Vercel'de PWA acik
 
-| Dosya | Degisiklik |
-|-------|------------|
-| ci.yml | NODE_ENV=development, npm ci --include=dev, adim adim job |
-| vercel.json | npm ci --include=dev |
-| deploy-vercel.yml | UTF-8, sadece workflow_dispatch |
-| supabase-v2-deploy.yml | sadece workflow_dispatch |
-| package.json | engines node>=22, rollup linux optionalDependencies |
+## Yerel kanit
 
-## Yerel test
-
-npm run build → OK (vite build)
-
-## Sonraki
-
-Push sonrasi sadece **CI** workflow tetiklenmeli (3 degil 1).
-GHA'da hangi adim fail ederse artik ad ismi gorunur.
+GITHUB_ACTIONS=true simulate → build OK (28s, PWA yok)

@@ -55,6 +55,76 @@ function securityHeaders(): Record<string, string> {
   }
 }
 
+/** GHA CI: workbox precache Linux runner'da fail edebilir; Vercel'de PWA acik kalir. */
+const isGithubCiBuild =
+  process.env.GITHUB_ACTIONS === "true" && process.env.VERCEL !== "1";
+
+const pwaPlugin = VitePWA({
+  registerType: "autoUpdate",
+  includeAssets: [
+    "favicon.svg",
+    "robots.txt",
+    "icon-192.png",
+    "icon-512.png",
+    "icon-maskable-192.png",
+    "icon-maskable-512.png",
+  ],
+  manifest: {
+    name: "ihaleal.com - Gayrimenkul İhale Platformu",
+    short_name: "ihaleal",
+    description: "Türkiye'nin yapay zeka destekli gayrimenkul ihale platformu",
+    start_url: "/",
+    scope: "/",
+    display: "standalone",
+    background_color: "#0B1120",
+    theme_color: "#0B1120",
+    orientation: "portrait",
+    lang: "tr",
+    categories: ["business", "finance", "productivity"],
+    icons: [
+      {
+        src: "/icon-maskable-192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "maskable",
+      },
+      {
+        src: "/icon-maskable-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+      {
+        src: "/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/favicon.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "any",
+      },
+    ],
+  },
+  workbox: {
+    cacheId: "ihaleal-luxury-v13",
+    cleanupOutdatedCaches: true,
+    globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
+    navigateFallback: "/index.html",
+    navigateFallbackDenylist: [/^\/api\//],
+    skipWaiting: true,
+    clientsClaim: true,
+  },
+});
+
 export default defineConfig({
   /** Göreli `./` üretimde `/alt/yol` gibi URL'lerde `./assets` yanlış çözülür (JS 404 → beyaz ekran). Kök taban her zaman doğru asset yolu verir. */
   base: "/",
@@ -72,75 +142,20 @@ export default defineConfig({
   plugins: [
     homePageMetaHtmlPlugin(),
     react(),
-    VitePWA({
-      registerType: "autoUpdate",
-      includeAssets: [
-        "favicon.svg",
-        "robots.txt",
-        "icon-192.png",
-        "icon-512.png",
-        "icon-maskable-192.png",
-        "icon-maskable-512.png",
-      ],
-      manifest: {
-        name: "ihaleal.com - Gayrimenkul İhale Platformu",
-        short_name: "ihaleal",
-        description:
-          "Türkiye'nin yapay zeka destekli gayrimenkul ihale platformu",
-        start_url: "/",
-        scope: "/",
-        display: "standalone",
-        background_color: "#0B1120",
-        theme_color: "#0B1120",
-        orientation: "portrait",
-        lang: "tr",
-        categories: ["business", "finance", "productivity"],
-        icons: [
-          {
-            src: "/icon-maskable-192.png",
-            sizes: "192x192",
-            type: "image/png",
-            purpose: "maskable",
-          },
-          {
-            src: "/icon-maskable-512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "maskable",
-          },
-          {
-            src: "/icon-192.png",
-            sizes: "192x192",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/icon-512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/favicon.svg",
-            sizes: "any",
-            type: "image/svg+xml",
-            purpose: "any",
-          },
-        ],
-      },
-      workbox: {
-        cacheId: "ihaleal-luxury-v13",
-        cleanupOutdatedCaches: true,
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
-        navigateFallback: "/index.html",
-        navigateFallbackDenylist: [/^\/api\//],
-        skipWaiting: true,
-        clientsClaim: true,
-      },
-    }),
+    ...(isGithubCiBuild ? [] : [pwaPlugin]),
   ],
-  resolve: { 
-    alias: { "@": path.resolve(__dirname, "./src") } 
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+      ...(isGithubCiBuild
+        ? {
+            "virtual:pwa-register": path.resolve(
+              __dirname,
+              "./src/test/pwa-register-stub.ts",
+            ),
+          }
+        : {}),
+    },
   },
   build: {
     target: "es2022",
@@ -152,7 +167,6 @@ export default defineConfig({
     cssCodeSplit: true,
     assetsInlineLimit: 4096,
     sourcemap: false,
-    reportCompressedSize: true,
     rollupOptions: {
       output: {
         manualChunks(id: string) {
