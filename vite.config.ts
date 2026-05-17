@@ -1,6 +1,7 @@
 import path from "path"
 import react from "@vitejs/plugin-react"
-import { defineConfig, type PluginOption } from "vite"
+import { VitePWA } from "vite-plugin-pwa"
+import { defineConfig } from "vite"
 import { HOME_SEO, OG_IMAGE } from "./src/data/homeSeo"
 import {
   CANONICAL_ROOT_HREF,
@@ -20,7 +21,7 @@ function escapeJsonStringContent(s: string) {
   return JSON.stringify(s).slice(1, -1)
 }
 
-/** index.html kabuğunu src/data/homeSeo.ts ile senkron tutar (JS çalışmayan botlar). */
+/** index.html kabu─şunu src/data/homeSeo.ts ile senkron tutar (JS ├ğal─▒┼şmayan botlar). */
 function homePageMetaHtmlPlugin() {
   return {
     name: "home-page-meta-from-seo-data",
@@ -54,77 +55,97 @@ function securityHeaders(): Record<string, string> {
   }
 }
 
-/** CI (GHA + Vercel): workbox precache Linux'ta fail edebilir. */
+/** GHA CI: workbox precache Linux runner'da fail edebilir; Vercel'de PWA acik kalir. */
 const skipPwaOnCi =
   process.env.GITHUB_ACTIONS === "true" ||
   process.env.CI === "true" ||
   process.env.CI === "1";
 
-async function loadPlugins(): Promise<PluginOption[]> {
-  const plugins: PluginOption[] = [homePageMetaHtmlPlugin(), react()];
-  if (!skipPwaOnCi) {
-    const { VitePWA } = await import("vite-plugin-pwa");
-    plugins.push(
-      VitePWA({
-        registerType: "autoUpdate",
-        includeAssets: [
-          "favicon.svg",
-          "robots.txt",
-          "icon-192.png",
-          "icon-512.png",
-          "icon-maskable-192.png",
-          "icon-maskable-512.png",
-        ],
-        manifest: {
-          name: "ihaleal.com - Gayrimenkul İhale Platformu",
-          short_name: "ihaleal",
-          description: "Türkiye'nin yapay zeka destekli gayrimenkul ihale platformu",
-          start_url: "/",
-          scope: "/",
-          display: "standalone",
-          background_color: "#0B1120",
-          theme_color: "#0B1120",
-          orientation: "portrait",
-          lang: "tr",
-          categories: ["business", "finance", "productivity"],
-          icons: [
-            { src: "/icon-maskable-192.png", sizes: "192x192", type: "image/png", purpose: "maskable" },
-            { src: "/icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
-            { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-            { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-            { src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
-          ],
-        },
-        workbox: {
-          cacheId: "ihaleal-luxury-v13",
-          cleanupOutdatedCaches: true,
-          globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
-          navigateFallback: "/index.html",
-          navigateFallbackDenylist: [/^\/api\//],
-          skipWaiting: true,
-          clientsClaim: true,
-        },
-      }),
-    );
-  }
-  return plugins;
-}
+const pwaPlugin = VitePWA({
+  registerType: "autoUpdate",
+  includeAssets: [
+    "favicon.svg",
+    "robots.txt",
+    "icon-192.png",
+    "icon-512.png",
+    "icon-maskable-192.png",
+    "icon-maskable-512.png",
+  ],
+  manifest: {
+    name: "ihaleal.com - Gayrimenkul ─░hale Platformu",
+    short_name: "ihaleal",
+    description: "T├╝rkiye'nin yapay zeka destekli gayrimenkul ihale platformu",
+    start_url: "/",
+    scope: "/",
+    display: "standalone",
+    background_color: "#0B1120",
+    theme_color: "#0B1120",
+    orientation: "portrait",
+    lang: "tr",
+    categories: ["business", "finance", "productivity"],
+    icons: [
+      {
+        src: "/icon-maskable-192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "maskable",
+      },
+      {
+        src: "/icon-maskable-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+      {
+        src: "/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/favicon.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "any",
+      },
+    ],
+  },
+  workbox: {
+    cacheId: "ihaleal-luxury-v13",
+    cleanupOutdatedCaches: true,
+    globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
+    navigateFallback: "/index.html",
+    navigateFallbackDenylist: [/^\/api\//],
+    skipWaiting: true,
+    clientsClaim: true,
+  },
+});
 
-export default defineConfig(async () => ({
-  /** Göreli `./` üretimde `/alt/yol` gibi URL'lerde `./assets` yanlış çözülür (JS 404 → beyaz ekran). Kök taban her zaman doğru asset yolu verir. */
+export default defineConfig({
+  /** G├Âreli `./` ├╝retimde `/alt/yol` gibi URL'lerde `./assets` yanl─▒┼ş ├ğ├Âz├╝l├╝r (JS 404 ÔåÆ beyaz ekran). K├Âk taban her zaman do─şru asset yolu verir. */
   base: "/",
   server: {
     host: true,
     port: 5173,
     strictPort: false,
     headers: securityHeaders(),
-    /** HashRouter: doğrudan köke düşsün */
+    /** HashRouter: do─şrudan k├Âke d├╝┼şs├╝n */
     open: "/#/",
   },
   preview: {
     headers: securityHeaders(),
   },
-  plugins: await loadPlugins(),
+  plugins: [
+    homePageMetaHtmlPlugin(),
+    react(),
+    ...(skipPwaOnCi ? [] : [pwaPlugin]),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -142,7 +163,7 @@ export default defineConfig(async () => ({
     target: "es2022",
     reportCompressedSize: false,
     minify: "esbuild",
-    /** Üretimde konsol gürültüsünü azaltır (geliştirmede etkisiz) */
+    /** ├£retimde konsol g├╝r├╝lt├╝s├╝n├╝ azalt─▒r (geli┼ştirmede etkisiz) */
     esbuild: { drop: ["console", "debugger"] },
     cssMinify: true,
     cssCodeSplit: true,
@@ -177,4 +198,4 @@ export default defineConfig(async () => ({
     },
     chunkSizeWarningLimit: 650 
   },
-}))
+})

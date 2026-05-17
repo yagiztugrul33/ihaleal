@@ -1,5 +1,5 @@
 # (C) Sunucuda otomatik dogrulama + review oncesi ipuclari.
-# Playbook #9: npm run verify — typecheck + encoding + vitest + build tek kapi.
+# Playbook #9: npm run verify â€” typecheck + encoding + vitest + build tek kapi.
 # Playbook #10: Smoke kirilirsa test-results/ artefakt (7 gun saklama).
 
 name: CI
@@ -55,7 +55,9 @@ jobs:
         run: npm run test:run
 
       - name: Build
-        run: npm run build
+        run: |
+          node -e "try{require.resolve('@rollup/rollup-linux-x64-gnu');console.log('rollup-linux OK')}catch(e){console.error('rollup-linux MISSING',e.message);process.exit(1)}"
+          npm run build 2>&1 | tee build.log
         env:
           NODE_OPTIONS: --max-old-space-size=8192
           GITHUB_ACTIONS: true
