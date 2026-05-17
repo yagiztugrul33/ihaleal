@@ -13,6 +13,7 @@ import { readLocalSessionUser } from "@/lib/localSession";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
+import { GES_LAND_PATH, gesLandNavLabel } from "@/lib/gesLandHub";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -132,7 +133,17 @@ export function Navbar() {
                 }
               >
                 <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                Araştırma
+                Arastirma
+              </NavLink>
+              <NavLink
+                to={GES_LAND_PATH}
+                end
+                className={({ isActive }) =>
+                  cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")
+                }
+              >
+                <Sun className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                {gesLandNavLabel}
               </NavLink>
               {!isMarketingHome ? (
                 <>
@@ -321,6 +332,17 @@ export function Navbar() {
               >
                 <Radar className="w-4 h-4 shrink-0" aria-hidden />
                 Araştırma
+              </NavLink>
+              <NavLink
+                to={GES_LAND_PATH}
+                end
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${isActive ? "text-white bg-amber-500/25 border-amber-400/50" : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"}`
+                }
+              >
+                <Sun className="w-4 h-4 shrink-0" aria-hidden />
+                {gesLandNavLabel}
               </NavLink>
               <NavLink
                 to={KKA_HUB_PATH}

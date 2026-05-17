@@ -20,6 +20,7 @@ import {
 } from "@/lib/intelligenceHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 import { IBUYER_PATH } from "@/lib/ibuyerHub";
+import { GES_LAND_PATH } from "@/lib/gesLandHub";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
@@ -81,6 +82,7 @@ const LandEquityPage = lazy(() => import("@/pages/mega/LandEquityPage"));
 const KkaParselStudioPage = lazy(() => import("@/pages/mega/KkaParselStudioPage"));
 const IntelligenceHub = lazy(() => import("@/pages/intelligence/IntelligenceHub"));
 const GesAnalysisPage = lazy(() => import("@/pages/intelligence/GesAnalysisPage"));
+const GesLandEvaluationPage = lazy(() => import("@/pages/ges/GesLandEvaluationPage"));
 const ParcelIntelligencePage = lazy(() => import("@/pages/intelligence/ParcelIntelligencePage"));
 const LandInvestmentPage = lazy(() => import("@/pages/intelligence/LandInvestmentPage"));
 const WarRoomPage = lazy(() => import("@/pages/intelligence/WarRoomPage"));
@@ -291,6 +293,14 @@ function App() {
             />
             <Route path="*" element={<NotFound />} />
             </Route>
+            <Route
+              path={GES_LAND_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="GES arazi degerlendirme yukleniyor..." />}>
+                  <GesLandEvaluationPage />
+                </Suspense>
+              }
+            />
           </Routes>
         </Suspense>
       </ErrorBoundary>

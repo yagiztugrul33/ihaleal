@@ -3,6 +3,7 @@ export const ROUTES = {
   HOME: "/",
   INTELLIGENCE_HUB: "/arastirma",
   GES_ANALYSIS: "/arastirma/ges",
+  GES_LAND_EVAL: "/ges-analiz-arazi",
   PARCEL_INTELLIGENCE: "/arastirma/parsel",
   LAND_INVESTMENT: "/arastirma/yatirim",
   WAR_ROOM: "/arastirma/war-room",
