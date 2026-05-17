@@ -1,11 +1,10 @@
 /**
- * Ödeme katmanı — cumartesi yayınında bile gerçek PSP yoksa **mock** kalır.
- * iyzico / PayTR vb. entegrasyonu için bu dosyada `preAuthorize` ve yakalama akışını değiştirin.
- *
- * `import.meta.env.VITE_PAYMENT_MODE` === `"live"` ise (ileride) gerçek sağlayıcı çağrılır;
- * şimdilik tanımlı değil veya `mock` olduğu sürece aşağıdaki simülasyon çalışır.
+ * Ödeme katmanı — üretimde mock tahsilat kapalı (capabilities).
+ * PSP: iyzico / PayTR Edge Functions + VITE_PAYMENT_MODE=live.
  */
-const PAYMENT_MODE = import.meta.env.VITE_PAYMENT_MODE ?? "mock";
+import { getPaymentCapabilities, paymentBlockedReason } from "@/lib/payment/capabilities";
+
+export { getPaymentCapabilities, paymentBlockedReason } from "@/lib/payment/capabilities";
 
 export interface PreAuthRequest {
   amountTRY: number;
@@ -22,14 +21,15 @@ export interface PreAuthResult {
   riskScore?: number;
 }
 
-/** Sandbox/mock — `VITE_PAYMENT_MODE=live` + PSP bağlanana kadar üretim ödemesi yok. */
+/** Sandbox/mock — üretim build'de mock tahsilat çalışmaz (fail-closed). */
 export async function preAuthorize(req: PreAuthRequest): Promise<PreAuthResult> {
-  if (PAYMENT_MODE === "live") {
-    return {
-      success: false,
-      error:
-        "Canlı ödeme henüz yapılandırılmadı. Yayın öncesi PSP anahtarlarını ekleyin veya geçici olarak VITE_PAYMENT_MODE=mock kullanın.",
-    };
+  const blocked = paymentBlockedReason();
+  if (blocked) {
+    return { success: false, error: blocked };
+  }
+  const caps = getPaymentCapabilities();
+  if (!caps.canPreAuthorize) {
+    return { success: false, error: "Ödeme işlemi bu ortamda kullanılamıyor." };
   }
   if (req.cardToken === "test-fail") {
     return { success: false, error: "Yetersiz limit" };

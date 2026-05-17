@@ -92,10 +92,17 @@ export default function AdminDashboard() {
     if (!isSupabaseConfigured()) return;
     setBusyId(id);
     setMsg(null);
-    const { error } = await supabase.from("listings").update({ status: "active" }).eq("id", id);
+    const { data, error } = await supabase.rpc("admin_approve_listing", {
+      p_listing_id: id,
+    });
     setBusyId(null);
     if (error) {
       setMsg(error.message);
+      return;
+    }
+    const ok = data && typeof data === "object" && (data as { ok?: boolean }).ok === true;
+    if (!ok) {
+      setMsg("Onay işlemi reddedildi.");
       return;
     }
     await loadListings();
