@@ -28,9 +28,16 @@ jobs:
 
       - name: Build
         run: |
-          rm -rf node_modules/.tmp
+          set -euxo pipefail
+          rm -rf node_modules/.tmp dist
+          node -v && npm -v
+          npm ls @rollup/rollup-linux-x64-gnu || npm install @rollup/rollup-linux-x64-gnu@4.60.3 --no-save
           npm run build:vercel
+          test -f dist/index.html
+          grep -o 'assets/index-[^"]*\.js' dist/index.html | head -1
+          ls -la dist/assets/index-*.js
         env:
+          NODE_OPTIONS: --max-old-space-size=4096
           VERCEL_FORCE_NO_BUILD_CACHE: "1"
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
