@@ -17,10 +17,15 @@ window.addEventListener("error", (ev) => {
   reportException("window.error", ev.error ?? ev.message);
 });
 
-registerSW({
+const updateSW = registerSW({
   immediate: true,
   onRegisteredSW(_url, registration) {
-    registration?.update();
+    if (!registration) return;
+    registration.update();
+    window.setInterval(() => registration.update(), 60 * 60 * 1000);
+  },
+  onNeedRefresh() {
+    void updateSW(true);
   },
 });
 

@@ -8,8 +8,8 @@
     <meta name="keywords" content="gayrimenkul ihale, emlak ihale, gayrimenkul analizi, ihaleal, ihaleal.com, yapay zeka deÄŸerleme, sahibinden, hepsiemlak, gayrimenkul yatÄ±rÄ±m, emlak aÃ§Ä±k artÄ±rma, tapu, konut kredisi, mortgage, ekspertiz raporu, findeks, aml kyc, komisyon only" />
     <meta name="author" content="ihaleal.com" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#314A5A" />
-    <meta name="msapplication-TileColor" content="#314A5A" />
+    <meta name="theme-color" content="#0B1120" />
+    <meta name="msapplication-TileColor" content="#0B1120" />
     <!-- PWA / iOS home screen -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -134,8 +134,8 @@
     <link rel="apple-touch-icon" href="/icon-192.png" />
 
     <style>
-      /* Critical CSS â€” ihaleal sayfa gradyani (must match theme.css) */
-      html,body,#root{background:linear-gradient(180deg,#20374A 0%,#314A5A 45%,#495459 100%) !important;background-color:#314A5A !important;color:#f1f5f9}
+      /* Critical CSS — luxury institutional (must match src/styles/tokens.css) */
+      html,body,#root{background:radial-gradient(120% 80% at 50% -20%,rgba(37,99,235,0.18) 0%,transparent 55%),linear-gradient(180deg,#081120 0%,#0B1120 38%,#0F172A 72%,#111827 100%) !important;background-color:#0B1120 !important;color:#E2E8F0}
       body{margin:0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
     </style>
   </head>
@@ -152,8 +152,8 @@
     <script>
       (function () {
         var k = "ihaleal_theme_rev";
-        if (localStorage.getItem(k) !== "11") {
-          localStorage.setItem(k, "11");
+        if (localStorage.getItem(k) !== "12") {
+          localStorage.setItem(k, "12");
           if ("serviceWorker" in navigator) {
             navigator.serviceWorker.getRegistrations().then(function (r) {
               r.forEach(function (x) { x.unregister(); });
