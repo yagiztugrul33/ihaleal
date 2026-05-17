@@ -38,8 +38,11 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Verify + coverage gate + bundle budget
+      - name: Verify + coverage gate + bundle budget + security lint/audit
         run: npm run verify:ci
+
+      - name: Generate RLS matrix artifact
+        run: npm run rls:matrix
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium

@@ -5,13 +5,16 @@ import "./styles/theme.css";
 import "./index.css";
 import App from "./App";
 import { clientLogError } from "@/lib/clientLog";
+import { initObservability, reportException } from "@/lib/observability/initObservability";
+
+void initObservability();
 
 window.addEventListener("unhandledrejection", (ev) => {
-  clientLogError("unhandledrejection", ev.reason);
+  reportException("unhandledrejection", ev.reason);
 });
 
 window.addEventListener("error", (ev) => {
-  clientLogError("window.error", ev.error ?? ev.message);
+  reportException("window.error", ev.error ?? ev.message);
 });
 
 registerSW({
