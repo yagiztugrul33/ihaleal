@@ -135,7 +135,7 @@ export class CommissionEngine {
     const totalKDV = r2(totalExKDV * VAT);
     const totalWithKDV = r2(totalExKDV + totalKDV);
 
-    let breakdown = "Standart komisyon";
+    let breakdown: string;
     if (type === "land_share") {
       const p = (LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0);
       const h = ((LAND_SHARE_TOTAL_EX_VAT_RATE / 2) * 100).toFixed(0);
@@ -145,6 +145,7 @@ export class CommissionEngine {
     } else {
       breakdown = "Kiralik / devren: matrah 1 aylik kira + KDV (devir bedeli komisyona dahil degil).";
     }
+    breakdown ??= "Standart komisyon";
 
     return CommissionResultSchema.parse({
       totalCommission: r2(totalExKDV),

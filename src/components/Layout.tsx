@@ -12,6 +12,7 @@ import { DemoBanner } from "./DemoBanner";
 import { ProductionSafetyBanner } from "./ProductionSafetyBanner";
 import { DemoUyarisi } from "./DemoUyarisi";
 import { ScrollToTop } from "./ScrollToTop";
+import { PageTransition } from "@/components/motion";
 import { useToast, type Toast } from "@/hooks/useToast";
 
 const AUTH_MINIMAL_PATHS = ["/giris", "/kayit", "/sifremi-unuttum", "/emlakci-giris"];
@@ -46,7 +47,9 @@ export function Layout({ children }: { children: ReactNode }) {
         <Navbar />
         <ProductionSafetyBanner />
         <DemoBanner />
-        <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
+        <main className="flex-1 min-w-0 overflow-x-hidden">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />

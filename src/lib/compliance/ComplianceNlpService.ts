@@ -142,7 +142,7 @@ export class ComplianceNlpService {
   private normalize(text: string): string {
     return text
       .toLowerCase()
-      .replace(/[.,;:!?()\[\]{}"']/g, "")
+      .replace(/[.,;:!?()[\]{}'"]/g, "")
       .replace(/\s+/g, " ")
       .trim()
       .replace(/ı/g, "i")
