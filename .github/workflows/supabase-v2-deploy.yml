@@ -1,35 +1,8 @@
-name: Supabase v2 Deploy
-
+name: Disabled
 on:
   workflow_dispatch:
-
 jobs:
-  deploy:
+  noop:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    env:
-      NODE_ENV: development
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-      - run: npm ci --include=dev
-      - name: Link and push migrations
-        continue-on-error: true
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-        run: |
-          npx supabase link --project-ref wsjifesrdaeorrdzbvmk
-          npx supabase db push --include-all
-      - name: Deploy edge functions
-        continue-on-error: true
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-        run: |
-          npx supabase functions deploy place-bid
-          npx supabase functions deploy ai-price-estimate
-          npx supabase functions deploy matching-fanout --no-verify-jwt
-          npx supabase functions deploy bulk-listing-ingest
-          npx supabase functions deploy kyc-submit
+      - run: echo "Manuel trigger only - Vercel GitHub integration deploys"

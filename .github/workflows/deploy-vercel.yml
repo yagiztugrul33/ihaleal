@@ -1,40 +1,8 @@
-name: Deploy Vercel Production
-
-# Production deploys via Vercel GitHub integration. This workflow is manual-only.
+name: Disabled
 on:
   workflow_dispatch:
-
 jobs:
-  deploy:
+  noop:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    env:
-      NODE_ENV: development
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-
-      - name: Install
-        run: npm ci --include=dev
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to Vercel (production)
-        uses: amondnet/vercel-action@v25
-        continue-on-error: true
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod --force"
-          working-directory: ./
-
-      - name: Note
-        run: echo "Vercel auto-deploy from GitHub integration is the primary path."
+      - run: echo "Manuel trigger only - Vercel GitHub integration deploys"
