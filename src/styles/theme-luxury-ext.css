@@ -301,6 +301,31 @@ a.btn-tertiary {
   letter-spacing: -0.02em;
 }
 
+/* —— Corporate / map form inputs —— */
+.corp-input {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  background: rgba(10, 14, 26, 0.8);
+  border: 1px solid var(--lux-border);
+  border-radius: var(--radius-md);
+  color: var(--lux-text-secondary);
+  font-size: 0.9375rem;
+  font-family: var(--font-body);
+  transition: border-color var(--duration-base) var(--ease-out-expo);
+}
+.corp-input::placeholder {
+  color: var(--lux-text-subtle);
+}
+.corp-input:focus {
+  outline: none;
+  border-color: rgba(96, 165, 250, 0.45);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+.corp-input option {
+  background: var(--lux-bg-elevated);
+  color: var(--lux-text-secondary);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-primary::after,
   .live-badge::before,
