@@ -112,7 +112,6 @@ function App() {
     <AuthProvider>
     <BrowserRouter>
       <ErrorBoundary>
-      <Layout>
         <Suspense fallback={
           <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--gradient-page)" }}>
             <div className="text-center">
@@ -122,6 +121,7 @@ function App() {
           </div>
         }>
           <Routes>
+            <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />
             <Route path="/ihaleler" element={<LiveAuctions />} />
@@ -280,9 +280,9 @@ function App() {
               }
             />
             <Route path="*" element={<NotFound />} />
+            </Route>
           </Routes>
         </Suspense>
-      </Layout>
       </ErrorBoundary>
     </BrowserRouter>
     </AuthProvider>

@@ -116,6 +116,15 @@ export function Navbar() {
               ) : null}
               <button type="button" onClick={() => navigate("/ihaleler")} className="nav-link">İhaleler</button>
               <NavLink
+                to="/degerleme"
+                className={({ isActive }) =>
+                  cn("nav-link flex items-center gap-1.5", isActive && "nav-link-active")
+                }
+              >
+                <Calculator className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                Değerleme
+              </NavLink>
+              <NavLink
                 to={INTELLIGENCE_HUB_PATH}
                 end={false}
                 className={({ isActive }) =>
@@ -213,7 +222,9 @@ export function Navbar() {
                     <Heart className="w-4 h-4" /> Favoriler
                     {count > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[10px] font-bold flex items-center justify-center">{count}</span>}
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/degerleme")} className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Degerleme</Button>
+                  <Button variant="ghost" size="sm" asChild className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap">
+                    <NavLink to="/degerleme"><Calculator className="w-4 h-4" /> Değerleme</NavLink>
+                  </Button>
                   <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-700 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
                 </>
               ) : null}

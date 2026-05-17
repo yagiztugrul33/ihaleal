@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ToastContainer } from "./Toast";
@@ -20,7 +19,7 @@ function isAuthMinimalBg(pathname: string): boolean {
   return AUTH_MINIMAL_PATHS.includes(pathname);
 }
 
-export function Layout({ children }: { children: ReactNode }) {
+export function Layout() {
   const location = useLocation();
   const authMinimal = isAuthMinimalBg(location.pathname);
   const { toasts, removeToast, addToast } = useToast();
@@ -46,7 +45,9 @@ export function Layout({ children }: { children: ReactNode }) {
         <Navbar />
         <ProductionSafetyBanner />
         <main className="flex-1 min-w-0 overflow-x-hidden">
-          <PageTransition>{children}</PageTransition>
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
         </main>
         <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />

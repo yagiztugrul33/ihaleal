@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Calculator, Home, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -85,28 +85,28 @@ export default function ValuationTool() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-100">
-      <section className="max-w-5xl mx-auto px-4 py-24">
+    <main className="min-h-screen pt-24 pb-16 text-white">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="mb-8">
           <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200">
             <Calculator className="h-3.5 w-3.5" /> Yatirimci sunumu: hizli degerleme
           </p>
-          <h1 className="mt-3 text-3xl md:text-4xl font-semibold">Ne Kadar Eder?</h1>
+          <h1 className="mt-3 text-3xl md:text-4xl font-bold text-white">Ne Kadar Eder?</h1>
           <p className="mt-2 text-slate-400 max-w-3xl">
-            Il, ilce, m² ve temel ozelliklerle satis veya kira tahmini alabilirsiniz.
+            İl, ilçe, m² ve temel özelliklerle satış veya kira tahmini alabilirsiniz.
           </p>
         </div>
 
         <div className="mb-6 rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-amber-100">
-          <p className="font-medium">Onemli Uyari</p>
+          <p className="font-medium">Önemli uyarı</p>
           <p className="text-sm mt-1">
-            Bu arac sadece tahmin uretir, resmi ekspertiz raporu degildir.
+            Bu araç yalnızca tahmin üretir; resmi ekspertiz raporu değildir. Yatırım tavsiyesi değildir.
           </p>
         </div>
 
         <form
           onSubmit={onSubmit}
-          className="grid gap-4 rounded-2xl border border-slate-200 bg-slate-900/50 p-5 md:grid-cols-2"
+          className="grid gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5 md:grid-cols-2 card-luxury"
         >
           <label className="space-y-2">
             <span className="text-sm text-slate-300">Il</span>
