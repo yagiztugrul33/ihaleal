@@ -35,6 +35,7 @@ export function Features() {
   };
   const links: Partial<Record<(typeof items)[number], string>> = {
     valuation: "/degerleme",
+    analytics: "/arastirma",
   };
 
   return (

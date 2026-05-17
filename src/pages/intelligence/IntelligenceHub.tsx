@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   Building2,
-  FileBarChart,
   Map,
   Sun,
   Shield,
@@ -12,7 +11,6 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   GES_ANALYSIS_PATH,
-  LAND_INVESTMENT_PATH,
   PARCEL_INTELLIGENCE_PATH,
   WAR_ROOM_PATH,
 } from "@/lib/intelligenceHub";

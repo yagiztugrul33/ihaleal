@@ -1,10 +1,11 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen } from "lucide-react";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
-import { localAuthEnabled } from "@/lib/runtimeFlags";
+import { isProdBuild, localAuthEnabled } from "@/lib/runtimeFlags";
+import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 
 export function Footer() {
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ export function Footer() {
               <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> Favoriler</button></li>
               <li><button onClick={() => navigate("/giris?profil=emlakci")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> Emlakçı girişi</button></li>
               <li><button onClick={() => navigate("/emlakci-ortaklik")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> Emlakçı ortaklığı</button></li>
-              <li><button onClick={() => navigate("/yasal/agency-contract")} className="text-sm text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-2"><FileText className="w-3.5 h-3.5" /> agency_contract (taslak)</button></li>
+              <li><button onClick={() => navigate(INTELLIGENCE_HUB_PATH)} className="text-sm text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> Araştırma terminali</button></li>
             </ul>
           </div>
 
@@ -122,7 +123,9 @@ export function Footer() {
           <div className="lg:col-span-2 min-w-0 break-words">
             <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">Kurumsal & Hukuki</h4>
             <ul className="space-y-2.5">
-              <li><button onClick={() => navigate("/karsilastir-rakipler")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Trophy className="w-3.5 h-3.5" /> Rakip Analizi</button></li>
+              {!isProdBuild ? (
+                <li><button onClick={() => navigate("/karsilastir-rakipler")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Trophy className="w-3.5 h-3.5" /> Rakip Analizi</button></li>
+              ) : null}
               <li><button onClick={() => navigate("/ihale-kosullari")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Gavel className="w-3.5 h-3.5" /> Ihale Kosullari & Komisyon</button></li>
               <li><button onClick={() => navigate("/evraklar")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Katilim Evraklari</button></li>
               <li><button onClick={() => navigate("/kvkk")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> KVKK Aydinlatma Metni</button></li>
@@ -136,19 +139,29 @@ export function Footer() {
               <li><button onClick={() => navigate("/hakkimizda")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Hakkımızda</button></li>
               <li><button onClick={() => navigate("/sss")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><HelpCircle className="w-3.5 h-3.5" /> SSS</button></li>
               <li><button onClick={() => navigate("/guvenlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Guvenlik Merkezi</button></li>
-              <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-rose-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Dolandiricilik ve dava savunmasi</button></li>
-              <li><button type="button" onClick={() => navigate("/yasal/supabase-uyum")} className="text-sm text-slate-300 hover:text-cyan-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Supabase RLS / audit / RPC kontrol listesi</button></li>
+              {!isProdBuild ? (
+                <>
+                  <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-rose-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Dolandırıcılık savunması</button></li>
+                  <li><button type="button" onClick={() => navigate("/yasal/supabase-uyum")} className="text-sm text-slate-300 hover:text-cyan-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Supabase uyum listesi</button></li>
+                </>
+              ) : null}
               <li><button onClick={() => navigate("/yedekleme")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Felaket Kurtarma</button></li>
               <li><button onClick={() => navigate("/ekspertiz")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><BarChart3 className="w-3.5 h-3.5" /> Uzman Gorusu & Ekspertiz</button></li>
               <li><button onClick={() => navigate("/degisiklikler")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Degisiklik Kayitlari</button></li>
               <li><button onClick={() => navigate("/reklam")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Target className="w-3.5 h-3.5" /> Reklam Kampanyasi</button></li>
               <li><button onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Platform ve KİK çerçevesi</button></li>
-              <li><button onClick={() => navigate("/nihai-anayasa")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Nihai sistem anayasası</button></li>
+              {!isProdBuild ? (
+                <li><button onClick={() => navigate("/nihai-anayasa")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Nihai sistem anayasası</button></li>
+              ) : null}
               {localAuthEnabled ? (
                 <li><button onClick={() => navigate("/emlakci-giris")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
               ) : null}
-              <li><button onClick={() => navigate("/yasal-cerceve")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Yasal cerceve (taslak)</button></li>
-              <li><button onClick={() => navigate("/canliya-hazirlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Canliya hazirlik</button></li>
+              {!isProdBuild ? (
+                <>
+                  <li><button onClick={() => navigate("/yasal-cerceve")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Yasal çerçeve (taslak)</button></li>
+                  <li><button onClick={() => navigate("/canliya-hazirlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Canlıya hazırlık</button></li>
+                </>
+              ) : null}
               <li><button onClick={() => navigate("/sat-basla")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Satıcı modu</button></li>
               <li><button onClick={() => navigate("/komisyon-modeli")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Target className="w-3.5 h-3.5" /> Komisyon modeli</button></li>
               <li className="relative" data-demo={isDemoData("footerNavEndeks") ? "true" : undefined}>

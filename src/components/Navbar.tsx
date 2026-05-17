@@ -115,6 +115,16 @@ export function Navbar() {
                 <button type="button" onClick={() => navigate("/")} className="nav-link">Ana Sayfa</button>
               ) : null}
               <button type="button" onClick={() => navigate("/ihaleler")} className="nav-link">İhaleler</button>
+              <NavLink
+                to={INTELLIGENCE_HUB_PATH}
+                end={false}
+                className={({ isActive }) =>
+                  cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")
+                }
+              >
+                <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                Araştırma
+              </NavLink>
               {!isMarketingHome ? (
                 <>
                   <NavLink
@@ -132,14 +142,6 @@ export function Navbar() {
                   >
                     <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
                     {kkaStudioNavLabel}
-                  </NavLink>
-                  <NavLink
-                    to={INTELLIGENCE_HUB_PATH}
-                    end={false}
-                    className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
-                  >
-                    <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                    Arastirma
                   </NavLink>
                 </>
               ) : null}
@@ -294,6 +296,21 @@ export function Navbar() {
               <button onClick={() => { setSearchOpen(true); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-left flex items-center gap-2 btn-primary w-full justify-start"><Search className="w-4 h-4" /> İlan Ara</button>
               <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">Ana Sayfa</button>
               <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">İhaleler</button>
+              <NavLink
+                to={INTELLIGENCE_HUB_PATH}
+                end={false}
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
+                    isActive
+                      ? "text-white bg-blue-500/25 border-blue-400/50"
+                      : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"
+                  }`
+                }
+              >
+                <Radar className="w-4 h-4 shrink-0" aria-hidden />
+                Araştırma
+              </NavLink>
               <NavLink
                 to={KKA_HUB_PATH}
                 end={false}

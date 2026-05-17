@@ -37,7 +37,7 @@ export default function CityLandingPage() {
   }, [cfg, pathname]);
 
   if (!cfg) {
-    return <Navigate to="/__landing_not_configured__" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (
