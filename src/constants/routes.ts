@@ -1,5 +1,4 @@
-/** Intelligence & platform route constants — single source of truth */
-
+/** Intelligence & platform route constants (single source of truth) */
 export const ROUTES = {
   HOME: "/",
   INTELLIGENCE_HUB: "/arastirma",
@@ -10,6 +9,7 @@ export const ROUTES = {
   GIS_INTELLIGENCE: "/arastirma/harita",
   KKA_HUB: "/kat-karsiligi",
   KKA_STUDIO: "/kat-karsiligi/studio",
+  IBUYER: "/aninda-teklif",
 } as const;
 
 export type AppRoute = (typeof ROUTES)[keyof typeof ROUTES];

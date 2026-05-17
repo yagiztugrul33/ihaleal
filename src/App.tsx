@@ -19,6 +19,7 @@ import {
   WAR_ROOM_PATH,
 } from "@/lib/intelligenceHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
+import { IBUYER_PATH } from "@/lib/ibuyerHub";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
@@ -60,6 +61,7 @@ const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
 const YillikUyelik         = lazy(() => import("@/pages/membership/YillikUyelik"));
 const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
 const PreLaunch            = lazy(() => import("@/pages/PreLaunch"));
+const IBuyerPage           = lazy(() => import("@/pages/ibuyer/IBuyerPage"));
 const NotFound             = lazy(() => import("@/pages/NotFound"));
 const CityLanding          = lazy(() => import("@/pages/CityLanding"));
 const Iletisim             = lazy(() => import("@/pages/Iletisim"));
@@ -277,6 +279,14 @@ function App() {
                     <AdminDashboard />
                   </Suspense>
                 </AdminGuard>
+              }
+            />
+            <Route
+              path={IBUYER_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="Aninda teklif yukleniyor…" />}>
+                  <IBuyerPage />
+                </Suspense>
               }
             />
             <Route path="*" element={<NotFound />} />
