@@ -168,7 +168,8 @@
 .premium-data-rain {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 1;
+  opacity: 0.12;
   pointer-events: none;
   overflow: hidden;
 }
@@ -177,14 +178,14 @@
   content: "";
   position: absolute;
   inset: -100% 0 0;
-  background: repeating-linear-gradient(
+  background-image: repeating-linear-gradient(
     90deg,
     transparent,
     transparent 18px,
-    rgba(96, 165, 250, 0.12) 18px,
-    rgba(96, 165, 250, 0.12) 19px
+    linear-gradient(to bottom, transparent, rgba(96, 165, 250, 0.45), transparent) 18px,
+    linear-gradient(to bottom, transparent, rgba(96, 165, 250, 0.45), transparent) 19px
   );
-  animation: data-rain-fall 12s linear infinite;
+  animation: data-rain-fall 8s linear infinite;
 }
 
 .premium-search-strip {
@@ -213,7 +214,7 @@
 .premium-hero__media {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 3;
 }
 
 .premium-hero__video {
@@ -480,6 +481,7 @@
 }
 
 .premium-hero {
+  position: relative;
   display: grid;
   grid-template-columns: 1.1fr 1.2fr 0.7fr;
   gap: 40px;
@@ -575,11 +577,14 @@
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: linear-gradient(180deg, rgba(5, 11, 22, 0.2) 0%, rgba(5, 11, 22, 0.8) 100%);
+  pointer-events: none;
 }
 
 .premium-live-card {
   position: absolute;
+  z-index: 4;
   bottom: 24px;
   left: 24px;
   right: 24px;

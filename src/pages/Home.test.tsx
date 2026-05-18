@@ -22,9 +22,9 @@ describe("Home", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       /Gayrimenkul/i,
     );
-    expect(screen.getByRole("heading", { name: /Sistem Nas/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Canlı Müzayedeler/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Nasıl Çalışır/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Öne Çıkan Canlı Müzayedeler/i })).toBeInTheDocument();
     expect(screen.getByText(/Bodrum, Muğla/i)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /ihaleal Kurumsal/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Kurumsal Altyapısı/i })).toBeInTheDocument();
   });
 });

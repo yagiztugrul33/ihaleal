@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 
-const LOGO_SRC = "/ihaleal-logo.png";
+const HOUSE = "\u2302";
+
+const iconSizes = { sm: "text-[18px]", md: "text-[22px]", lg: "text-[28px]" } as const;
+const textSizes = { sm: "text-lg", md: "text-xl", lg: "text-3xl" } as const;
+const gaps = { sm: "gap-1.5", md: "gap-2", lg: "gap-2.5" } as const;
 
 export function Logo({
   size = "md",
@@ -15,26 +19,25 @@ export function Logo({
   /** `.com` rengi — referans nav: `text-blue-400` */
   dotComClassName?: string;
 }) {
-  const heights = { sm: 32, md: 40, lg: 52 };
-  const textSizes = { sm: "text-lg", md: "text-xl", lg: "text-3xl" };
-
   return (
-    <div className="flex items-center gap-2.5">
-      <img
-        src={LOGO_SRC}
-        alt="ihaleal.com"
-        width={Math.round(heights[size] * (651 / 583))}
-        height={heights[size]}
-        className="w-auto object-contain object-left shrink-0"
-        style={{ height: heights[size], width: "auto" }}
-        decoding="async"
-        fetchPriority="high"
-      />
+    <div
+      className={cn("inline-flex items-center", gaps[size])}
+      aria-label="ihaleal.com"
+    >
+      <span
+        className={cn(
+          "leading-none font-semibold text-blue-400 shrink-0",
+          iconSizes[size],
+        )}
+        aria-hidden="true"
+      >
+        {HOUSE}
+      </span>
       {variant === "full" ? (
         <span
           className={cn(
             `font-bold tracking-tight ${textSizes[size]}`,
-            textClassName ?? "text-[#0A1F44] dark:text-white"
+            textClassName ?? "text-[#0A1F44] dark:text-white",
           )}
         >
           ihaleal
@@ -51,3 +54,4 @@ export function Logo({
     </div>
   );
 }
+
