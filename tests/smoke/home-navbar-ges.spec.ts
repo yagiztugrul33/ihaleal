@@ -4,12 +4,11 @@ import { LOCALE_STORAGE_KEY } from "../../src/i18n/messages";
 test.describe("home + navbar GES regression", () => {
   test("homepage shows cinematic hero and live auctions", async ({ page }) => {
     await page.goto("/?fresh=1");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Real Estate Auctions/i, {
-      timeout: 20_000,
-    });
-    await expect(page.getByRole("heading", { name: /Live Auctions/i })).toBeVisible();
-    await expect(page.getByText(/Dubai, UAE/i)).toBeVisible();
-    await expect(page.getByText(/Why Investors Trust iHaleal/i)).toBeVisible();
+    await expect(page.getByTestId("premium-cinematic-home")).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Gayrimenkul/i);
+    await expect(page.getByRole("heading", { name: /Canlı Müzayedeler/i })).toBeVisible();
+    await expect(page.getByText(/Bodrum, Muğla/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /ihaleal Kurumsal/i })).toBeVisible();
   });
 
   test("navbar GES via Services dropdown — desktop", async ({ page }) => {
@@ -33,20 +32,20 @@ test.describe("home + navbar GES regression", () => {
     await expect(page).toHaveURL(/\/arastirma\/ges/, { timeout: 15_000 });
   });
 
-  test("homepage hero English by default", async ({ page }) => {
+  test("homepage hero visible with premium search strip", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Real Estate Auctions/i);
-    await expect(page.getByText(/Dubai, UAE/i)).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Açık Artırma/i);
+    await expect(page.getByPlaceholder(/Müzayede veya bölge ara/i)).toBeVisible();
   });
 
-  test("homepage switches to Turkish", async ({ page }) => {
+  test("homepage shows footer on marketing home", async ({ page }) => {
     await page.goto("/");
     await page.evaluate((key) => {
       localStorage.setItem(key, "tr");
     }, LOCALE_STORAGE_KEY);
     await page.reload();
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(/İhalelerinin Geleceği/i);
-    await expect(page.getByText(/Sarıyer/i)).toBeVisible();
-    await expect(page.getByText("KVKK", { exact: true }).first()).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Geleceği/i);
+    await expect(page.getByText(/Bodrum, Muğla/i)).toBeVisible();
+    await expect(page.getByRole("button", { name: /KVKK/i }).first()).toBeVisible();
   });
 });

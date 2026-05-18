@@ -1,10 +1,15 @@
-﻿import { describe, expect, it } from "vitest";
+﻿import { describe, expect, it, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { Home } from "@/pages/Home";
+import Home from "@/pages/Home";
 import { LocaleProvider } from "@/contexts/LocaleContext";
+import { LOCALE_STORAGE_KEY } from "@/i18n/messages";
 
 describe("Home", () => {
+  beforeEach(() => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, "tr");
+  });
+
   it("renders premium cinematic homepage sections", () => {
     render(
       <MemoryRouter>
@@ -13,10 +18,13 @@ describe("Home", () => {
         </LocaleProvider>
       </MemoryRouter>,
     );
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Real Estate Auctions/i);
-    expect(screen.getByRole("heading", { name: /How It Works\?/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Live Auctions/i })).toBeInTheDocument();
-    expect(screen.getByText(/Dubai, UAE/i)).toBeInTheDocument();
-    expect(screen.getByText(/Why Investors Trust iHaleal/i)).toBeInTheDocument();
+    expect(screen.getByTestId("premium-cinematic-home")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      /Gayrimenkul/i,
+    );
+    expect(screen.getByRole("heading", { name: /Sistem Nas/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Canlı Müzayedeler/i })).toBeInTheDocument();
+    expect(screen.getByText(/Bodrum, Muğla/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /ihaleal Kurumsal/i })).toBeInTheDocument();
   });
 });

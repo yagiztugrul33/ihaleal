@@ -13,15 +13,8 @@ import { ScrollToTop } from "./ScrollToTop";
 import { PageTransition } from "@/components/motion";
 import { useToast, type Toast } from "@/hooks/useToast";
 
-const AUTH_MINIMAL_PATHS = ["/giris", "/kayit", "/sifremi-unuttum", "/emlakçı-giris"];
-
-function isAuthMinimalBg(pathname: string): boolean {
-  return AUTH_MINIMAL_PATHS.includes(pathname);
-}
-
 export function Layout() {
   const location = useLocation();
-  const authMinimal = isAuthMinimalBg(location.pathname);
   const isMarketingHome = location.pathname === "/";
   const { toasts, removeToast, addToast } = useToast();
 
@@ -50,7 +43,7 @@ export function Layout() {
             <Outlet />
           </PageTransition>
         </main>
-        {!isMarketingHome ? <Footer /> : null}
+        <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />
         <CookieConsent />

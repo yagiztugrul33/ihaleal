@@ -1,3 +1,5 @@
+@import "./styles/premium-cinematic-home.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
