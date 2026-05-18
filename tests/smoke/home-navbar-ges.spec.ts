@@ -35,6 +35,6 @@ test.describe("home + navbar GES regression", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/Real Estate Auctions/i);
     await expect(page.getByText(/Dubai, UAE/i)).toBeVisible();
-    await expect(page.getByText(/GDPR/i)).toBeVisible();
+    await expect(page.getByText("GDPR", { exact: true }).first()).toBeVisible();
   });
 });
