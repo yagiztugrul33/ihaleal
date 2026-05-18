@@ -60,7 +60,7 @@ Gizli/ozel sekme alternatifi: https://ihaleal.vercel.app
 | Canli URL | https://ihaleal.vercel.app |
 | Production bundle | `index-Du5sRufL.js` (~837 KB) |
 | Branch | main |
-| Toplam commit | $(git -C 'C:\Users\yagiz\Documents\GitHub\ihaleal' rev-list --count HEAD 2>$null) |
+| Toplam commit | 207 |
 | Son 24 saat commit | 62 |
 | Ana sayfa yanit | ~0.08s |
 | Cache-Control (/) | no-cache, no-store, must-revalidate |
