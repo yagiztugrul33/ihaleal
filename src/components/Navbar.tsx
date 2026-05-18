@@ -13,9 +13,9 @@ import { readLocalSessionUser } from "@/lib/localSession";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
-import { GES_LAND_PATH, gesLandNavLabel } from "@/lib/gesLandHub";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
+import { MarketingNavbar } from "@/components/MarketingNavbar";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -80,6 +80,10 @@ export function Navbar() {
   };
 
   const isMarketingHome = location.pathname === "/";
+
+  if (isMarketingHome) {
+    return <MarketingNavbar />;
+  }
 
   return (
     <>
