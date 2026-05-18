@@ -1,8 +1,9 @@
+﻿import { compactIsoTimestamp } from "@/lib/dateCompact";
 import type { GesEngineInputs, GesEngineResult } from "../ges/gesEngineFeasibility";
 import type { ParcelInputs, ParcelFeasibilityResult } from "../parcel/parcelEngineFeasibility";
 
 export function reportId(prefix: string): string {
-  const t = new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
+  const t = compactIsoTimestamp();
   return `${prefix}-${t}`;
 }
 

@@ -402,7 +402,8 @@ a.btn-tertiary {
   border-radius: var(--radius-lg);
 }
 .home-ref-page {
-  --lux-bg-base: #0a0e1a;
+  --lux-bg-base: #050b16;
+  background-color: #050b16;
 }
 .home-grid-mesh {
   background-image:
@@ -428,7 +429,7 @@ a.btn-tertiary {
   left: -12%;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
 }
 .ref-hero-eyebrow {
   display: inline-flex;
@@ -588,12 +589,17 @@ a.btn-tertiary {
   text-align: center;
 }
 .ref-hero-grid {
-  min-height: min(72vh, 640px);
+  min-height: min(78vh, 680px);
+}
+@media (max-width: 1279px) {
+  .ref-hero-grid {
+    min-height: auto;
+  }
 }
 .ref-hero-subtitle {
   font-size: clamp(1rem, 2vw, 1.125rem);
   line-height: 1.65;
-  color: var(--lux-text-muted);
+  color: #cbd5e1;
 }
 .ref-btn-primary,
 a.ref-btn-primary {
@@ -646,31 +652,36 @@ a.ref-btn-secondary {
 }
 .ref-trust-item {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--lux-text-muted);
+  color: var(--lux-text-secondary);
+  line-height: 1.45;
+}
+.ref-trust-item strong {
+  color: var(--lux-text-primary);
+  font-weight: 600;
 }
 .ref-live-chart-card {
-  background: rgba(15, 23, 42, 0.72);
-  border: 1px solid var(--lux-border);
+  background: rgba(8, 17, 32, 0.92);
+  border: 1px solid rgba(96, 165, 250, 0.22);
   border-radius: var(--radius-xl);
   padding: 1.25rem 1.5rem;
   backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(37, 99, 235, 0.12);
 }
 .ref-side-stat-card {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  min-width: 200px;
-  padding: 0.75rem 1rem;
-  background: rgba(15, 23, 42, 0.88);
-  border: 1px solid var(--lux-border);
+  min-width: 220px;
+  padding: 0.85rem 1rem;
+  background: rgba(5, 11, 22, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 .ref-section {
   position: relative;
