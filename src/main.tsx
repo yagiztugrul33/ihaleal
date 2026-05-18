@@ -1,11 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { registerSW } from "virtual:pwa-register";
 import "./styles/theme.css";
 import "./index.css";
 import "./styles/global-dark.css";
 import App from "./App";
-import { clientLogError } from "@/lib/clientLog";
 import { initObservability, reportException } from "@/lib/observability/initObservability";
 
 void initObservability();
@@ -18,20 +16,8 @@ window.addEventListener("error", (ev) => {
   reportException("window.error", ev.error ?? ev.message);
 });
 
-const updateSW = registerSW({
-  immediate: true,
-  onRegisteredSW(_url, registration) {
-    if (!registration) return;
-    registration.update();
-    window.setInterval(() => registration.update(), 60 * 60 * 1000);
-  },
-  onNeedRefresh() {
-    void updateSW(true);
-  },
-});
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
 );

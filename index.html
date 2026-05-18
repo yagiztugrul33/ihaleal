@@ -153,22 +153,6 @@
     <!-- Legacy hash → pathname redirect (CSP-safe external script) -->
     <script src="/hash-redirect.js"></script>
     <script src="/sw-unregister.js"></script>
-    <script>
-      (function () {
-        var k = "ihaleal_theme_rev";
-        if (localStorage.getItem(k) !== "13") {
-          localStorage.setItem(k, "13");
-          if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function (r) {
-              r.forEach(function (x) { x.unregister(); });
-            });
-          }
-          if (window.caches) {
-            caches.keys().then(function (n) { n.forEach(function (x) { caches.delete(x); }); });
-          }
-        }
-      })();
-    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

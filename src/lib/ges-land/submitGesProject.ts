@@ -3,7 +3,6 @@ import { runGesLandEvaluation } from "./feasibilityEngine";
 import type { GesLandEvaluationInput, GesLandEvaluationResult } from "./types";
 
 export type GesSubmitResult = GesLandEvaluationResult & {
-  demoMode: boolean;
   persisted: boolean;
 };
 
@@ -51,35 +50,29 @@ function mapRpcRow(row: Record<string, unknown>, fallback: GesLandEvaluationResu
     complianceNotes: Array.isArray(row.complianceNotes)
       ? (row.complianceNotes as string[])
       : fallback.complianceNotes,
-    demoMode: false,
     persisted: true,
   };
 }
 
-function localDemoSubmit(input: GesLandEvaluationInput): GesSubmitResult {
-  const result = runGesLandEvaluation(input);
-  return { ...result, demoMode: true, persisted: false };
-}
-
 export async function submitGesProject(input: GesLandEvaluationInput): Promise<GesSubmitResult> {
-  const local = runGesLandEvaluation(input);
   if (!isSupabaseConfigured()) {
-    return { ...local, demoMode: true, persisted: false };
+    throw new Error("Supabase yapılandırması eksik. Lütfen daha sonra tekrar deneyin.");
   }
 
+  const fallback = runGesLandEvaluation(input);
   const { data, error } = await supabase.rpc("submit_ges_land_evaluation", {
     payload: toRpcPayload(input),
   });
 
   if (error) {
-    console.warn("[ges-land] RPC failed, falling back to local demo:", error.message);
-    return { ...local, demoMode: true, persisted: false };
+    console.error("[ges-land] submit_ges_land_evaluation failed:", error);
+    throw new Error(error.message || "Değerlendirme gönderilemedi. Lütfen tekrar deneyin.");
   }
 
-  const row = data as Record<string, unknown> | null;
-  if (!row) {
-    return { ...local, demoMode: true, persisted: false };
+  if (data == null) {
+    console.error("[ges-land] submit_ges_land_evaluation returned empty payload");
+    throw new Error("Sunucudan boş yanıt alındı. Lütfen tekrar deneyin.");
   }
 
-  return mapRpcRow(row, local);
+  return mapRpcRow(data as Record<string, unknown>, fallback);
 }

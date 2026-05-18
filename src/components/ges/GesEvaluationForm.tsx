@@ -246,18 +246,23 @@ export function GesEvaluationForm() {
               {loading ? "Hesaplaniyor..." : "Degerlendirmeyi tamamla"}
             </Button>
           </div>
-          {error && <p className="text-sm text-red-300">{error}</p>}
+          {error && (
+            <div
+              role="alert"
+              className="rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
+            >
+              <p>{error}</p>
+              <Button type="button" size="sm" variant="outline" onClick={onSubmit} disabled={loading}>
+                Tekrar dene
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
       {step === 3 && result && (
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white">{statusLabel(result.status)}</h2>
-          {result.demoMode && (
-            <p className="text-xs text-amber-200/90 rounded-lg border border-amber-400/30 bg-amber-500/10 px-3 py-2">
-              Demo modu: Supabase yapilandirilmadi veya RPC kullanilamadi; sonuc yerel motorla uretildi.
-            </p>
-          )}
           {result.hardKill ? (
             <p className="text-sm text-red-200 border border-red-400/30 bg-red-500/10 rounded-lg p-3">
               {result.rejectionReason}

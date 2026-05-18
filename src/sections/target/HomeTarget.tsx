@@ -70,27 +70,28 @@ export function HomeTarget() {
             >
               🛡 Şeffaf. Güvenli. Akıllı.
               <span
-                className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_12px_#10b981]"
+                className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_12px_#10b981]"
                 aria-hidden
               />
             </div>
 
             <h1
               id="home-hero-title"
-              className="mb-6 text-[clamp(3rem,6vw,5rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-slate-50"
+              className="mb-6 text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#f8fafc]"
               style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}
             >
-              Gayrimenkul İhalelerinin{" "}
+              Gayrimenkul{" "}
               <span
                 style={{
                   background: "linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
                 }}
               >
-                Geleceği
-              </span>
-              .
+                İhalelerinin
+              </span>{" "}
+              Geleceği.
             </h1>
 
             <p
@@ -163,20 +164,18 @@ export function HomeTarget() {
 function LiveChartCard() {
   return (
     <div
-      className="max-w-[420px] rounded-[18px] border border-slate-600/30 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,.4)]"
-      style={{
-        background: "linear-gradient(135deg, rgba(15,23,41,.85), rgba(15,23,41,.65))",
-      }}
+      className="max-w-[420px] rounded-[18px] border border-slate-600/30 p-6 shadow-[0_20px_50px_rgba(0,0,0,.4)] backdrop-blur-[20px]"
+      style={{ background: "rgba(15, 23, 41, 0.85)" }}
     >
       <div className="mb-4 flex items-center justify-between">
         <div className="text-[.95rem] font-semibold text-slate-50">Canlı İhaleler</div>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-1 text-[.7rem] font-semibold text-emerald-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-          CANLI
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+          ● Live
         </span>
       </div>
       <div className="mb-1 text-[4rem] font-extrabold leading-none tracking-tight text-slate-50">284</div>
-      <div className="mb-4 text-sm font-semibold text-emerald-400">+%18 geçen aydan</div>
+      <div className="mb-4 text-[.9rem] font-semibold text-emerald-400">+%18 geçen aydan</div>
       <svg viewBox="0 0 400 80" className="mb-4 h-[70px] w-full" aria-hidden>
         <defs>
           <linearGradient id="liveGrad" x1="0" y1="0" x2="0" y2="1">
@@ -381,8 +380,8 @@ function LiveAuctionsSection() {
                 style={{ backgroundImage: `url('${PROP_IMGS[item.i]}')` }}
               >
                 <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-red-500/95 px-2.5 py-1 text-[.7rem] font-bold tracking-wide text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-white" />
-                  CANLI
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                  ● LIVE
                 </span>
                 <button
                   type="button"
@@ -395,7 +394,7 @@ function LiveAuctionsSection() {
               <div className="p-4">
                 <h3 className="mb-1 text-base font-semibold text-slate-50">{item.t}</h3>
                 <p className="mb-3 text-[.78rem] text-slate-400">📍 {item.l}</p>
-                <p className="mb-1 text-[.65rem] uppercase tracking-wider text-slate-500">Mevcut Teklif</p>
+                <p className="mb-1 text-[.65rem] uppercase tracking-wider text-[#94a3b8]">MEVCUT TEKLİF</p>
                 <div className="mb-3 flex items-baseline justify-between">
                   <span className="text-xl font-bold tracking-tight text-slate-50">{item.p}</span>
                   <span className="text-sm font-semibold text-emerald-400">{item.c}</span>
@@ -426,9 +425,9 @@ function TrustedBySection() {
         <p className="mb-6 text-xs uppercase tracking-widest text-slate-500">
           Dünyanın önde gelen kurumları tarafından güveniliyor
         </p>
-        <div className="mb-8 flex flex-wrap items-center justify-center gap-12 opacity-50">
+        <div className="mb-8 flex flex-wrap items-center justify-center gap-8 opacity-50 md:gap-12">
           {brands.map((b) => (
-            <span key={b} className="text-base font-bold tracking-wide text-slate-400">
+            <span key={b} className="font-mono text-base font-bold tracking-wide text-white">
               {b}
             </span>
           ))}
