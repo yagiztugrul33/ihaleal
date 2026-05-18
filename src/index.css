@@ -208,3 +208,31 @@
 .animate-fade-in {
   animation: fade-in 0.3s ease-out forwards;
 }
+
+/* Home hero wave layers */
+@keyframes home-wave-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.home-wave--back {
+  animation: home-wave-drift 28s linear infinite;
+}
+
+.home-wave--mid {
+  animation: home-wave-drift 22s linear infinite reverse;
+}
+
+.home-wave--front {
+  animation: home-wave-drift 16s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-wave {
+    animation: none !important;
+  }
+}

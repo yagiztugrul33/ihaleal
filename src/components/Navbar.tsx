@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { ChevronDown, Gavel, Globe, Menu, Search, X } from "lucide-react";
+import { ChevronDown, Globe, Menu, Search, X } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { SearchModal } from "@/components/SearchModal";
 import { ROUTES } from "@/constants/routes";
 import { useLocale } from "@/contexts/LocaleContext";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/messages";
 
@@ -131,17 +133,8 @@ export function Navbar() {
         }}
       >
         <div className="relative mx-auto flex h-[68px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <Link to="/" className="flex shrink-0 items-center gap-2.5 no-underline">
-            <div
-              className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] shadow-lg shadow-blue-500/40"
-              style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
-              aria-hidden
-            >
-              <Gavel className="h-5 w-5 text-white" strokeWidth={2} />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-slate-50">
-              ihaleal<span className="text-blue-400">.com</span>
-            </span>
+          <Link to="/" className="shrink-0 no-underline" aria-label="ihaleal.com">
+            <Logo size="sm" textClassName="text-white" dotComClassName="text-blue-400" />
           </Link>
 
           <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-7 lg:flex">
@@ -198,7 +191,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex min-w-[200px] items-center gap-2 rounded-[10px] border border-slate-600/30 bg-slate-900/60 px-3 py-2 text-left text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
+              className="flex h-10 min-w-[200px] items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 text-left text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
             >
               <Search className="h-4 w-4 shrink-0" aria-hidden />
               <span className="flex-1 truncate">{n.search}</span>
@@ -208,7 +201,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setLangOpen((o) => !o)}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/30 px-3 py-2 text-sm text-slate-200"
+                className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-slate-600/30 px-3 text-sm text-slate-200"
                 aria-label="Language"
                 aria-expanded={langOpen}
                 data-testid="nav-lang-trigger"
@@ -245,19 +238,12 @@ export function Navbar() {
                 </div>
               ) : null}
             </div>
-            <Link
-              to="/giris"
-              className="rounded-lg border border-slate-600/30 px-4 py-2 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
-            >
-              {n.logIn}
-            </Link>
-            <Link
-              to="/kayit"
-              className="rounded-lg px-4 py-2 text-sm font-semibold text-white no-underline shadow-lg shadow-blue-500/30"
-              style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
-            >
-              {n.signUp}
-            </Link>
+            <Button asChild variant="outline" size="default" className="h-10 px-4">
+              <Link to="/giris">{n.logIn}</Link>
+            </Button>
+            <Button asChild size="default" className="h-10 px-4">
+              <Link to="/kayit">{n.signUp}</Link>
+            </Button>
           </div>
 
           <button

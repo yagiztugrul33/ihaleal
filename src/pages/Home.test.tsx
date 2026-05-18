@@ -16,6 +16,5 @@ describe("Home", () => {
     expect(screen.getByRole("heading", { name: /GES & Arazi Analizi/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /^AI Değerleme$/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Araştırma Intelligence/i })).toBeInTheDocument();
-    expect(screen.getByText(/3 intelligence modülü/i)).toBeInTheDocument();
   });
 });

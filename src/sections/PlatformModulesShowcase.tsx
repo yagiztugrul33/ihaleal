@@ -5,6 +5,7 @@ import { ROUTES } from "@/constants/routes";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { staggerContainer, staggerItem } from "@/lib/motion/presets";
+import { cn } from "@/lib/utils";
 
 const MODULES = [
   {
@@ -63,30 +64,45 @@ const TONE: Record<string, { card: string; icon: string; badge: string; tag: str
   },
 };
 
-export function PlatformModulesShowcase() {
+export function PlatformModulesShowcase({ embedded = false }: { embedded?: boolean }) {
   const { ref, isVisible } = useScrollAnimation(0.08);
 
   return (
-    <section id="platform-modules" className="ref-section py-14 lg:py-20">
+    <section
+      id="platform-modules"
+      className={cn("ref-section", embedded ? "py-0" : "py-14 lg:py-20")}
+    >
       <motion.div
         ref={ref}
-        className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        className={cn(
+          "transition-all duration-700",
+          embedded ? "max-w-none px-0" : "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+        )}
       >
-        <motion.div className="mb-10 text-center" variants={staggerItem} initial="hidden" animate={isVisible ? "show" : "hidden"}>
-          <p className="ref-modules-eyebrow">Platform Modülleri</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Tek platform,{" "}
-            <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
-              3 intelligence modülü
-            </span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-            İhale tek başına değil: GES arazi, AI değerleme ve kurumsal araştırma suite — emlak, GYO ve yatırımcı için.
-          </p>
-        </motion.div>
+        {!embedded ? (
+          <motion.div
+            className="mb-10 text-center"
+            variants={staggerItem}
+            initial="hidden"
+            animate={isVisible ? "show" : "hidden"}
+          >
+            <p className="ref-modules-eyebrow">Platform Modülleri</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Tek platform,{" "}
+              <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
+                3 intelligence modülü
+              </span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
+              İhale tek başına değil: GES arazi, AI değerleme ve kurumsal araştırma suite — emlak, GYO ve
+              yatırımcı için.
+            </p>
+          </motion.div>
+        ) : null}
 
         <motion.div
-          className="grid gap-5 md:grid-cols-3"
+          className={cn("grid gap-5 md:grid-cols-3", embedded && "gap-3")}
           variants={staggerContainer}
           initial="hidden"
           animate={isVisible ? "show" : "hidden"}
@@ -98,12 +114,20 @@ export function PlatformModulesShowcase() {
               <motion.div key={m.n} variants={staggerItem}>
                 <Link to={m.href} className="ref-module-card group block h-full">
                   <motion.article
-                    className={`flex h-full flex-col rounded-2xl border bg-gradient-to-br p-6 ${t.card}`}
+                    className={cn(
+                      "flex h-full flex-col rounded-2xl border bg-gradient-to-br",
+                      embedded ? "p-4" : "p-6",
+                      t.card,
+                    )}
                     whileHover={{ y: -4 }}
                     transition={{ duration: 0.2 }}
                   >
                     <motion.div
-                      className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-lg ${t.icon}`}
+                      className={cn(
+                        "flex items-center justify-center rounded-2xl text-white shadow-lg",
+                        embedded ? "mb-3 h-11 w-11" : "mb-5 h-14 w-14",
+                        t.icon,
+                      )}
                       whileHover={{ scale: 1.05 }}
                     >
                       <Icon className="h-7 w-7" aria-hidden />

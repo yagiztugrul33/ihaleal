@@ -6,11 +6,14 @@ export function Logo({
   size = "md",
   variant = "full",
   textClassName,
+  dotComClassName,
 }: {
   size?: "sm" | "md" | "lg";
   variant?: "full" | "icon";
   /** Navbar karanlık zeminde beyaz metin için `text-white` */
   textClassName?: string;
+  /** `.com` rengi — referans nav: `text-blue-400` */
+  dotComClassName?: string;
 }) {
   const heights = { sm: 32, md: 40, lg: 52 };
   const textSizes = { sm: "text-lg", md: "text-xl", lg: "text-3xl" };
@@ -35,7 +38,12 @@ export function Logo({
           )}
         >
           ihaleal
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
+          <span
+            className={
+              dotComClassName ??
+              "text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400"
+            }
+          >
             .com
           </span>
         </span>
