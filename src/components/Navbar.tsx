@@ -126,13 +126,12 @@ export function Navbar() {
   return (
     <>
       <nav
-        className="sticky top-0 z-[100] border-b border-slate-700/40 transition-[background] duration-300"
-        style={{
-          background: scrolled ? "rgba(10, 14, 26, 0.95)" : "rgba(10, 14, 26, 0.88)",
-          backdropFilter: "blur(20px)",
-        }}
+        className={cn(
+          "nav-glass sticky top-0 z-[100] border-b border-white/10 transition-[background,box-shadow] duration-300",
+          scrolled && "nav-glass-scrolled shadow-lg",
+        )}
       >
-        <div className="relative mx-auto flex h-[68px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="shrink-0 no-underline" aria-label="ihaleal.com">
             <Logo size="sm" textClassName="text-white" dotComClassName="text-blue-400" />
           </Link>

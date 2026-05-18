@@ -506,8 +506,7 @@ a.btn-tertiary {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(105deg, rgba(6, 12, 24, 0.94) 0%, rgba(6, 12, 24, 0.72) 38%, rgba(6, 12, 24, 0.55) 58%, rgba(6, 12, 24, 0.82) 100%),
-    url("https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=85") center/cover no-repeat;
+    linear-gradient(105deg, rgba(5, 11, 22, 0.98) 0%, rgba(5, 11, 22, 0.88) 42%, rgba(5, 11, 22, 0.65) 62%, rgba(5, 11, 22, 0.92) 100%);
   z-index: 0;
 }
 .ref-hero-overlay {
@@ -527,11 +526,69 @@ a.btn-tertiary {
   letter-spacing: -0.03em;
   color: var(--lux-text-primary);
 }
-.ref-hero-title-gradient {
-  background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 45%, #818cf8 100%);
+.ref-hero-title-gradient,
+.blue-gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 45%, #f8fafc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+.page-background-premium {
+  background-color: #050b16;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(37, 99, 235, 0.14) 0%, transparent 55%),
+    linear-gradient(180deg, #050b16 0%, #081120 40%, #0b1120 100%);
+}
+.intelligence-grid-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
+}
+.glass-panel {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+.glass-card {
+  background: rgba(15, 23, 41, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-shell {
+  position: relative;
+}
+.trust-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 5.5rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 41, 0.55);
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--lux-text-primary);
+  text-align: center;
+}
+.ref-hero-grid {
+  min-height: min(72vh, 640px);
 }
 .ref-hero-subtitle {
   font-size: clamp(1rem, 2vw, 1.125rem);

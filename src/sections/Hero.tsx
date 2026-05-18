@@ -10,128 +10,187 @@ import {
   Headphones,
   TrendingUp,
   Gavel,
+  BarChart3,
 } from "lucide-react";
+import { useLocale } from "@/contexts/LocaleContext";
 import { cinematicEase, staggerContainer, staggerItem } from "@/lib/motion/presets";
 
-const TRUST = [
-  { icon: Shield, label: "Banka düzeyi güvenlik" },
-  { icon: Users, label: "10.000+ aktif yatırımcı" },
-  { icon: Star, label: "4,9/5 müşteri puanı" },
-  { icon: Headphones, label: "7/24 destek" },
+const STAT_VALUES = [
+  { value: "12,458", delta: "+12.5%", icon: Gavel },
+  { value: "3,127", delta: "+8.3%", icon: TrendingUp },
+  { value: "10,843", delta: "+15.2%", icon: Users },
+  { value: "98%", delta: "+2.1%", icon: Star },
 ] as const;
 
-const SIDE_STATS = [
-  { icon: Gavel, label: "Toplam ihale", value: "12.847", delta: "+12.5%" },
-  { icon: TrendingUp, label: "Başarılı satış", value: "3.420", delta: "+8.2%" },
-  { icon: Users, label: "Aktif yatırımcı", value: "10.284", delta: "+18%" },
-  { icon: Star, label: "Memnuniyet oranı", value: "98%", delta: "+2.1%" },
-] as const;
+const TRUST_ICONS = [Shield, Users, Star, Headphones] as const;
 
 export function Hero() {
+  const { t } = useLocale();
+  const h = t.home;
+
   return (
-    <section id="hero" className="ref-hero relative min-h-[100vh] overflow-hidden">
+    <section id="hero" className="ref-hero hero-cinematic page-background-premium relative min-h-[min(100vh,920px)] overflow-hidden">
+      <div className="intelligence-grid-overlay" aria-hidden />
       <motion.div
         className="ref-hero-bg"
         aria-hidden
-        initial={{ scale: 1.05 }}
+        initial={{ scale: 1.04 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.div className="ref-hero-overlay" aria-hidden />
 
-      <motion.div className="relative z-10 mx-auto flex min-h-[100vh] max-w-7xl flex-col justify-center px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+      <motion.div
+        className="relative z-10 mx-auto max-w-[1500px] px-4 pb-16 pt-28 sm:px-6 lg:px-8"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+      >
         <motion.div
-          className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8"
+          className="ref-hero-grid grid items-center gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(340px,1.15fr)_240px] xl:gap-8"
           variants={staggerContainer}
-          initial="hidden"
-          animate="show"
         >
-          <motion.div variants={staggerItem}>
+          <motion.div className="min-w-0" variants={staggerItem}>
             <p className="ref-hero-eyebrow mb-4 inline-flex items-center gap-2">
               <span className="ref-hero-eyebrow-dot" aria-hidden />
-              Türkiye&apos;nin AI destekli yatırım intelligence platformu
+              {h.hero.badge}
             </p>
             <h1 className="ref-hero-title max-w-2xl">
-              Gayrimenkul,
-              <span className="ref-hero-title-gradient"> GES ve arazi </span>
-              yatırımı — tek platformda.
+              {h.hero.titleLead}
+              <span className="ref-hero-title-gradient blue-gradient-text"> {h.hero.titleAccent}</span>
             </h1>
-            <p className="ref-hero-subtitle mt-6 max-w-xl">
-              İhale, değerleme, GES fizibilite ve parsel intelligence — emlak ofisi, GYO ve yatırımcı için tek çatı
-              altında. AI destekli, şeffaf ve denetlenebilir.
-            </p>
+            <p className="ref-hero-subtitle mt-6 max-w-xl">{h.hero.subtitle}</p>
 
             <motion.div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to={ROUTES.AUCTIONS} className="ref-btn-primary">
-                İhaleleri Keşfet
+              <Link to={ROUTES.AUCTIONS} className="ref-btn-primary premium-primary-button">
+                {h.hero.ctaExplore}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <Link to={ROUTES.ARASTIRMA} className="ref-btn-secondary">
+              <Link to={ROUTES.NASIL_CALISIR} className="ref-btn-secondary premium-secondary-button">
                 <Play className="h-4 w-4 fill-current opacity-90" aria-hidden />
-                Araştırma Modülü
+                {h.hero.ctaHow}
               </Link>
             </motion.div>
 
             <motion.ul className="ref-trust-row mt-12">
-              {TRUST.map(({ icon: Icon, label }) => (
-                <li key={label} className="ref-trust-item">
-                  <Icon className="h-4 w-4 shrink-0 text-blue-400" aria-hidden />
-                  <span>{label}</span>
-                </li>
-              ))}
+              {h.trust.map((item, i) => {
+                const Icon = TRUST_ICONS[i] ?? Shield;
+                return (
+                  <li key={item.title} className="ref-trust-item">
+                    <Icon className="h-4 w-4 shrink-0 text-blue-400" aria-hidden />
+                    <span>
+                      <strong className="font-semibold text-slate-200">{item.title}</strong>
+                      {item.sub ? <span className="text-slate-400"> — {item.sub}</span> : null}
+                    </span>
+                  </li>
+                );
+              })}
             </motion.ul>
-          </motion.div>
 
-          <motion.div className="relative hidden lg:block" variants={staggerItem}>
             <motion.div
-              className="ref-live-chart-card"
-              initial={{ opacity: 0, y: 20 }}
+              className="ref-live-chart-card glass-panel mt-10 xl:hidden"
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, ...cinematicEase }}
+              transition={{ delay: 0.3, ...cinematicEase }}
             >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs font-medium text-slate-400">Canlı ihaleler</p>
-                  <p className="mt-1 text-3xl font-bold text-white">284</p>
-                  <p className="text-xs font-semibold text-emerald-400">+18% geçen aydan</p>
-                </div>
-                <span className="ref-live-dot-pill">CANLI</span>
-              </div>
-              <div className="ref-mini-chart mt-4 flex h-16 items-end gap-1">
-                {[35, 55, 42, 70, 48, 82, 60, 75].map((h, i) => (
-                  <motion.div
-                    key={i}
-                    className="flex-1 rounded-sm bg-gradient-to-t from-blue-600 to-sky-400"
-                    initial={{ height: 0 }}
-                    animate={{ height: `${h}%` }}
-                    transition={{ delay: 0.5 + i * 0.05, ...cinematicEase }}
-                  />
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="ref-side-stats absolute -right-4 top-1/2 z-20 flex -translate-y-1/2 flex-col gap-3 xl:-right-8"
-              variants={staggerContainer}
-              initial="hidden"
-              animate="show"
-            >
-              {SIDE_STATS.map((s) => (
-                <motion.div key={s.label} className="ref-side-stat-card" variants={staggerItem}>
-                  <s.icon className="h-4 w-4 text-blue-400" aria-hidden />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
-                      {s.label}
-                    </p>
-                    <p className="text-lg font-bold text-white">{s.value}</p>
-                  </div>
-                  <span className="text-xs font-semibold text-emerald-400">{s.delta}</span>
-                </motion.div>
-              ))}
+              <LiveChartCard live={h.live} />
             </motion.div>
           </motion.div>
+
+          <motion.div className="relative hidden min-h-[380px] xl:block" variants={staggerItem}>
+            <motion.div
+              className="ref-hero-villa-wrap"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, ...cinematicEase }}
+            >
+              <img
+                src="/images/hero-cinematic.jpg"
+                alt=""
+                className="ref-hero-villa-img"
+                width={720}
+                height={540}
+                loading="eager"
+                decoding="async"
+              />
+              <motion.div className="ref-hero-villa-shade" aria-hidden />
+              <motion.div
+                className="ref-live-chart-float glass-panel"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45, ...cinematicEase }}
+              >
+                <LiveChartCard live={h.live} />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div className="hidden flex-col gap-3 xl:flex" variants={staggerContainer}>
+            {h.stats.map((stat, i) => {
+              const meta = STAT_VALUES[i];
+              const Icon = meta?.icon ?? BarChart3;
+              return (
+                <motion.div key={stat.label} className="ref-side-stat-card stat-card" variants={staggerItem}>
+                  <Icon className="h-4 w-4 shrink-0 text-blue-400" aria-hidden />
+                  <motion.div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">{stat.label}</p>
+                    <p className="text-lg font-bold text-white">{meta?.value ?? "—"}</p>
+                  </motion.div>
+                  <span className="text-xs font-semibold text-emerald-400">{meta?.delta ?? ""}</span>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 xl:hidden"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+        >
+          {h.stats.map((stat, i) => {
+            const meta = STAT_VALUES[i];
+            const Icon = meta?.icon ?? BarChart3;
+            return (
+              <motion.div key={stat.label} className="ref-side-stat-card stat-card" variants={staggerItem}>
+                <Icon className="h-4 w-4 text-blue-400" aria-hidden />
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">{stat.label}</p>
+                  <p className="text-base font-bold text-white">{meta?.value ?? "—"}</p>
+                </div>
+                <span className="text-xs font-semibold text-emerald-400">{meta?.delta ?? ""}</span>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </motion.div>
     </section>
+  );
+}
+
+function LiveChartCard({ live }: { live: { title: string; live: string; growth: string } }) {
+  return (
+    <>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-medium text-slate-400">{live.title}</p>
+          <p className="mt-1 text-3xl font-bold text-white">284</p>
+          <p className="text-xs font-semibold text-emerald-400">{live.growth}</p>
+        </div>
+        <span className="ref-live-dot-pill">{live.live}</span>
+      </div>
+      <div className="ref-mini-chart mt-4 flex h-16 items-end gap-1">
+        {[35, 55, 42, 70, 48, 82, 60, 75].map((height, i) => (
+          <motion.div
+            key={i}
+            className="flex-1 rounded-sm bg-gradient-to-t from-blue-600 to-sky-400"
+            initial={{ height: 0 }}
+            animate={{ height: `${height}%` }}
+            transition={{ delay: 0.5 + i * 0.05, ...cinematicEase }}
+          />
+        ))}
+      </div>
+    </>
   );
 }

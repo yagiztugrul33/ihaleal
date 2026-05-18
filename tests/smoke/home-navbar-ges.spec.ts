@@ -1,14 +1,15 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 import { LOCALE_STORAGE_KEY } from "../../src/i18n/messages";
 
 test.describe("home + navbar GES regression", () => {
-  test("homepage shows module showcase (GES, Valuation, Research)", async ({ page }) => {
+  test("homepage shows cinematic hero and live auctions", async ({ page }) => {
     await page.goto("/?fresh=1");
-    await expect(page.getByRole("heading", { name: /GES & Arazi Analizi/i })).toBeVisible({
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Real Estate Auctions/i, {
       timeout: 20_000,
     });
-    await expect(page.getByRole("heading", { name: /^AI Değerleme$/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Araştırma Intelligence/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Live Auctions/i })).toBeVisible();
+    await expect(page.getByText(/Dubai, UAE/i)).toBeVisible();
+    await expect(page.getByText(/Why Investors Trust iHaleal/i)).toBeVisible();
   });
 
   test("navbar GES via Services dropdown — desktop", async ({ page }) => {

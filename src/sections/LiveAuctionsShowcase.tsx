@@ -1,111 +1,153 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
-import { Clock, MapPin, Users, ArrowRight, Shield, Sparkles, Eye, Globe2 } from "lucide-react";
+import {
+  Clock,
+  MapPin,
+  ArrowRight,
+  Shield,
+  Sparkles,
+  Eye,
+  Globe2,
+  Headphones,
+  ChevronRight,
+  Heart,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { useLocale } from "@/contexts/LocaleContext";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { getLocalAndStaticAuctions } from "@/lib/auctionsSource";
-import { ListingCoverImage } from "@/components/ListingCoverImage";
 
-const TRUST_FEATURES = [
-  { icon: Shield, title: "Güvenlik", desc: "Banka düzeyi şifreleme.", color: "text-blue-400", bg: "bg-blue-500/15" },
-  { icon: Sparkles, title: "AI Analitik", desc: "Değerleme motoru ve yatırım skoru.", color: "text-violet-400", bg: "bg-violet-500/15" },
-  { icon: Eye, title: "Şeffaflık", desc: "Her adım denetlenebilir.", color: "text-emerald-400", bg: "bg-emerald-500/15" },
-  { icon: Globe2, title: "Küresel Erişim", desc: "Türkiye ve global ağ.", color: "text-sky-400", bg: "bg-sky-500/15" },
+const CARD_IMAGES = [
+  "/images/auction-1.jpg",
+  "/images/auction-2.jpg",
+  "/images/auction-3.jpg",
+  "/images/auction-4.jpg",
 ] as const;
 
-function formatPrice(n: number) {
-  if (n >= 1_000_000) return "\u20ba" + (n / 1_000_000).toFixed(1) + "M";
-  return "\u20ba" + n.toLocaleString("tr-TR");
-}
-
-function pctIncrease(current: number, estimated: number) {
-  if (!estimated) return 0;
-  return Math.round(((current - estimated * 0.85) / estimated) * 100);
-}
+const SIDEBAR_ICONS = [Shield, Sparkles, Eye, Globe2, Headphones] as const;
+const SIDEBAR_COLORS = [
+  { color: "text-blue-400", bg: "bg-blue-500/15" },
+  { color: "text-sky-400", bg: "bg-sky-500/15" },
+  { color: "text-emerald-400", bg: "bg-emerald-500/15" },
+  { color: "text-cyan-400", bg: "bg-cyan-500/15" },
+  { color: "text-violet-400", bg: "bg-violet-500/15" },
+] as const;
 
 export function LiveAuctionsShowcase() {
-  const navigate = useNavigate();
+  const { t } = useLocale();
+  const auctions = t.home.auctions;
+  const how = t.home.how;
   const { ref, isVisible } = useScrollAnimation(0.08);
-  const live = getLocalAndStaticAuctions().filter((a) => a.status === "live").slice(0, 4);
 
   return (
-    <section id="auctions" className="ref-section py-20 lg:py-28">
+    <section id="auctions" className="ref-section section-shell py-20 lg:py-28">
       <div ref={ref} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
-          className={`grid gap-10 xl:grid-cols-[1fr_320px] xl:gap-8 transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          className={`grid gap-10 transition-all duration-700 xl:grid-cols-[1fr_320px] xl:gap-8 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
           <div>
             <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <h2 className="ref-section-title">Canlı İhaleler</h2>
-                <p className="mt-2 text-slate-400">Güncel fırsatlar — AI değerleme dahil</p>
-              </div>
+              <h2 className="ref-section-title">{auctions.title}</h2>
               <Link to={ROUTES.AUCTIONS} className="ref-link-arrow">
-                Tüm ihaleleri gör
+                {auctions.viewAll}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
-              {live.map((auction, idx) => {
-                const pct = Math.max(5, pctIncrease(auction.currentBid, auction.estimatedValue));
-                const hoursLeft = Math.max(1, Math.floor((new Date(auction.endDate).getTime() - Date.now()) / 3600000));
-                return (
-                  <article
-                    key={auction.id}
-                    className="ref-property-card group cursor-pointer"
-                    style={{ transitionDelay: `${idx * 80}ms` }}
-                    onClick={() => navigate(`/ilan/${auction.id}`)}
-                    onKeyDown={(e) => e.key === "Enter" && navigate(`/ilan/${auction.id}`)}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <div className="ref-property-image-wrap">
-                      <ListingCoverImage src={auction.images[0]} alt={auction.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <div className="ref-property-image-overlay" />
-                      <span className="ref-live-pill">CANLI</span>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="line-clamp-1 text-base font-bold text-white">{auction.title}</h3>
-                      <p className="mt-1 flex items-center gap-1 text-sm text-slate-400">
-                        <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                        {auction.district}, {auction.city}
-                      </p>
-                      <div className="mt-3 flex items-end justify-between gap-2">
-                        <div>
-                          <p className="text-xl font-bold text-white">{formatPrice(auction.currentBid)}</p>
-                          <span className="ref-pct-badge">+{pct}%</span>
-                        </div>
+              {auctions.items.map((item, idx) => (
+                <motion.article
+                  key={item.title}
+                  className="ref-property-card auction-card-premium group"
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.25 }}
+                  style={{ transitionDelay: `${idx * 80}ms` }}
+                >
+                  <div className="ref-property-image-wrap">
+                    <img
+                      src={CARD_IMAGES[idx] ?? CARD_IMAGES[0]}
+                      alt=""
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                      width={640}
+                      height={360}
+                    />
+                    <div className="ref-property-image-overlay" />
+                    <span className="ref-live-pill">{auctions.live}</span>
+                    <button
+                      type="button"
+                      className="absolute right-3 top-3 rounded-full border border-white/20 bg-black/40 p-2 text-white/90 backdrop-blur-sm transition hover:bg-black/60"
+                      aria-label="Favorite"
+                    >
+                      <Heart className="h-4 w-4" aria-hidden />
+                    </button>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="line-clamp-1 text-base font-bold text-white">{item.title}</h3>
+                    <p className="mt-1 flex items-center gap-1 text-sm text-slate-400">
+                      <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                      {item.location}
+                    </p>
+                    <motion.div className="mt-3 flex items-end justify-between gap-2">
+                      <div>
+                        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                          {auctions.currentBid}
+                        </p>
+                        <p className="text-xl font-bold text-white">{item.price}</p>
                       </div>
-                      <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs text-slate-500">
-                        <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" aria-hidden />{hoursLeft}s kaldı</span>
-                        <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5" aria-hidden />{auction.bidderCount} teklif</span>
-                      </div>
+                      <span className="ref-pct-badge">{item.change}</span>
+                    </motion.div>
+                    <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs text-slate-500">
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-3.5 w-3.5" aria-hidden />
+                        {item.time}
+                      </span>
+                      <span>{item.bids}</span>
                     </div>
-                  </article>
-                );
-              })}
+                  </div>
+                </motion.article>
+              ))}
             </div>
           </div>
-          <aside className="ref-trust-sidebar">
-            <h3 className="ref-sidebar-title">Yatırımcılar neden İhaleal&apos;e güvenir</h3>
-            <ul className="mt-6 space-y-4">
-              {TRUST_FEATURES.map(({ icon: Icon, title, desc, color, bg }) => (
-                <li key={title} className="ref-trust-feature">
-                  <div className={`ref-trust-feature-icon ${bg}`}>
-                    <Icon className={`h-5 w-5 ${color}`} aria-hidden />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white">{title}</p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-slate-400">{desc}</p>
-                  </div>
-                </li>
-              ))}
+
+          <aside className="ref-trust-sidebar glass-panel">
+            <h3 className="ref-sidebar-title">{how.sidebarTitle}</h3>
+            <ul className="mt-6 space-y-1">
+              {how.sidebar.map((row, i) => {
+                const Icon = SIDEBAR_ICONS[i] ?? Shield;
+                const palette = SIDEBAR_COLORS[i] ?? SIDEBAR_COLORS[0];
+                return (
+                  <li key={row.title}>
+                    <Link
+                      to={ROUTES.NASIL_CALISIR}
+                      className="ref-trust-feature group flex items-center gap-3 rounded-lg px-2 py-3 no-underline transition hover:bg-white/5"
+                    >
+                      <div className={`ref-trust-feature-icon ${palette.bg}`}>
+                        <Icon className={`h-5 w-5 ${palette.color}`} aria-hidden />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-white">{row.title}</p>
+                        <p className="mt-0.5 text-sm leading-relaxed text-slate-400">{row.sub}</p>
+                      </div>
+                      <ChevronRight
+                        className="h-4 w-4 shrink-0 text-slate-500 transition group-hover:text-blue-400"
+                        aria-hidden
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
-            <div className="ref-compliance-row mt-8">
-              <span>ISO 27001</span>
-              <span>SOC 2 Type II</span>
-              <span>KVKK</span>
+            <div className="ref-compliance-row mt-8 flex flex-wrap gap-3">
+              {how.certs.map((cert) => (
+                <div key={cert.title} className="trust-badge">
+                  {cert.flag ? (
+                    <span className="mb-1 text-[10px] font-bold text-blue-400">{cert.flag}</span>
+                  ) : null}
+                  <span className="text-xs font-bold text-white">{cert.title}</span>
+                  <span className="mt-0.5 text-[10px] text-slate-400">{cert.sub}</span>
+                </div>
+              ))}
             </div>
           </aside>
         </div>

@@ -12,7 +12,7 @@ main>section,.section-warm,.section-warm-alt{background:transparent!important}
 .btn-secondary:hover{background:var(--lux-surface-3);border-color:rgba(96,165,250,.35);transform:translateY(-1px)}
 .btn-ghost,a.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1.25rem;border-radius:var(--radius-md);color:var(--lux-text-muted)!important;font-weight:600;text-decoration:none}
 .btn-ghost:hover{color:var(--lux-text-primary)!important;background:var(--lux-surface-1);border:1px solid var(--lux-border)}
-.nav-glass{background:rgba(8,17,32,.75);border:1px solid var(--lux-border);backdrop-filter:blur(20px);box-shadow:var(--shadow-md)}
+.nav-glass{background:rgba(5,11,22,.82);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .nav-glass-scrolled{background:rgba(8,17,32,.92);box-shadow:var(--shadow-lg)}
 .nav-link{padding:.5rem .75rem;border-radius:var(--radius-md);font-size:.875rem;font-weight:500;color:var(--lux-text-muted);transition:all 150ms ease}
 .nav-link:hover{color:var(--lux-text-primary);background:var(--lux-surface-1)}
