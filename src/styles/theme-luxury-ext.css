@@ -837,6 +837,23 @@ a.ref-btn-secondary {
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
 }
 
+.ref-modules-eyebrow {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+}
+
+.ref-module-card {
+  text-decoration: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-primary::after,
   .live-badge::before,

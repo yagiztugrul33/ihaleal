@@ -49,16 +49,16 @@ export function Hero() {
           <motion.div variants={staggerItem}>
             <p className="ref-hero-eyebrow mb-4 inline-flex items-center gap-2">
               <span className="ref-hero-eyebrow-dot" aria-hidden />
-              Şeffaf. Güvenli. Akıllı.
+              Türkiye&apos;nin AI destekli yatırım intelligence platformu
             </p>
             <h1 className="ref-hero-title max-w-2xl">
-              Gayrimenkulün
-              <span className="ref-hero-title-gradient"> geleceği </span>
-              İhaleal&apos;de.
+              Gayrimenkul,
+              <span className="ref-hero-title-gradient"> GES ve arazi </span>
+              yatırımı — tek platformda.
             </h1>
             <p className="ref-hero-subtitle mt-6 max-w-xl">
-              Türkiye&apos;nin AI destekli gayrimenkul pazaryeri. Şeffaf ilan, kapalı teklif ve açık ihale — tek
-              platformda, güvenli ve denetlenebilir.
+              İhale, değerleme, GES fizibilite ve parsel intelligence — emlak ofisi, GYO ve yatırımcı için tek çatı
+              altında. AI destekli, şeffaf ve denetlenebilir.
             </p>
 
             <motion.div className="mt-10 flex flex-wrap items-center gap-4">
@@ -66,9 +66,9 @@ export function Hero() {
                 İhaleleri Keşfet
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <Link to={ROUTES.HOW_IT_WORKS} className="ref-btn-secondary">
+              <Link to={ROUTES.ARASTIRMA} className="ref-btn-secondary">
                 <Play className="h-4 w-4 fill-current opacity-90" aria-hidden />
-                Nasıl Çalışır
+                Araştırma Modülü
               </Link>
             </motion.div>
 

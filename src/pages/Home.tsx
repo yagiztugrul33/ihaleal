@@ -1,4 +1,5 @@
 import { Hero } from "@/sections/Hero";
+import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 import { HomeStats } from "@/sections/HomeStats";
 import { HowItWorks } from "@/sections/HowItWorks";
 import { LiveAuctionsShowcase } from "@/sections/LiveAuctionsShowcase";
@@ -13,6 +14,7 @@ export function Home() {
       <div className="home-orb home-orb-violet pointer-events-none" aria-hidden />
       <main className="relative z-10 mx-auto max-w-[1600px] space-y-4 px-4 pb-16 pt-2 sm:px-6 lg:px-8 xl:space-y-8">
         <Hero />
+        <PlatformModulesShowcase />
         <HomeStats />
         <HowItWorks />
         <LiveAuctionsShowcase />

@@ -137,14 +137,14 @@ export function Navbar() {
                 Araştırma
               </NavLink>
               <NavLink
-                to={GES_LAND_PATH}
+                to={ROUTES.ARASTIRMA_GES}
                 end
                 className={({ isActive }) =>
                   cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")
                 }
               >
                 <Sun className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                {gesLandNavLabel}
+                GES Arazi
               </NavLink>
               {!isMarketingHome ? (
                 <>
@@ -320,6 +320,36 @@ export function Navbar() {
               <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">Ana Sayfa</button>
               <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">İhaleler</button>
               <NavLink
+                to="/degerleme"
+                end
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
+                    isActive
+                      ? "text-white bg-cyan-500/25 border-cyan-400/50"
+                      : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"
+                  }`
+                }
+              >
+                <Calculator className="w-4 h-4 shrink-0" aria-hidden />
+                Değerleme
+              </NavLink>
+              <NavLink
+                to={ROUTES.ARASTIRMA_GES}
+                end
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
+                    isActive
+                      ? "text-white bg-emerald-500/25 border-emerald-400/50"
+                      : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"
+                  }`
+                }
+              >
+                <Sun className="w-4 h-4 shrink-0" aria-hidden />
+                GES Arazi
+              </NavLink>
+              <NavLink
                 to={INTELLIGENCE_HUB_PATH}
                 end={false}
                 onClick={() => setIsOpen(false)}
@@ -333,17 +363,6 @@ export function Navbar() {
               >
                 <Radar className="w-4 h-4 shrink-0" aria-hidden />
                 Araştırma
-              </NavLink>
-              <NavLink
-                to={GES_LAND_PATH}
-                end
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${isActive ? "text-white bg-amber-500/25 border-amber-400/50" : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"}`
-                }
-              >
-                <Sun className="w-4 h-4 shrink-0" aria-hidden />
-                {gesLandNavLabel}
               </NavLink>
               <NavLink
                 to={KKA_HUB_PATH}
