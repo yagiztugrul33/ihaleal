@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ROUTES } from "@/constants/routes";
+import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 
 const HERO_IMG =
   "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&q=80&auto=format";
@@ -116,6 +117,10 @@ export function HomeTarget() {
               >
                 ▶ Nasıl Çalışır
               </Link>
+            </div>
+
+            <div className="home-target-modules mb-10 max-w-[720px]">
+              <PlatformModulesShowcase />
             </div>
 
             <LiveChartCard />

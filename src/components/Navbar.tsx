@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { to: ROUTES.ILANLAR, label: "İhaleler" },
   { to: "/nasil-calisir", label: "Nasıl Çalışır" },
   { to: ROUTES.ARASTIRMA, label: "Araştırma" },
+  { to: ROUTES.ARASTIRMA_GES, label: "GES Arazi" },
   { to: "/degerleme", label: "Değerleme" },
   { to: "/kurumsal", label: "Kurumsal" },
 ] as const;
