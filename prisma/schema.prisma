@@ -137,3 +137,57 @@ model ParcelAnalysis {
   rawPayload             Json?
   createdAt              DateTime           @default(now())
 }
+
+// Mirrors public.listings (Supabase) — for trade-offer codegen / docs.
+model Listing {
+  id        String   @id @default(uuid()) @db.Uuid
+  sellerId  String   @map("seller_id") @db.Uuid
+  title     String
+  status    String   @default("draft")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tradeOffersReceived TradeOffer[] @relation("TradeTargetListing")
+  tradeOffersOffered  TradeOffer[] @relation("TradeOfferedListing")
+
+  @@index([sellerId])
+  @@map("listings")
+}
+
+enum TradeStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELLED
+  LEGAL_REVIEW
+  COMPLETED
+}
+
+enum TargetType {
+  REAL_ESTATE
+  VEHICLE
+}
+
+model TradeOffer {
+  id                  String      @id @default(uuid()) @db.Uuid
+  listingId           String      @map("listing_id") @db.Uuid
+  proposerId          String      @map("proposer_id") @db.Uuid
+  targetType          TargetType  @map("target_type")
+  offeredListingId    String?     @map("offered_listing_id") @db.Uuid
+  offeredAssetDetails Json?       @map("offered_asset_details")
+  cashDifference      Decimal     @default(0) @map("cash_difference") @db.Decimal(14, 2)
+  currency            String      @default("TRY")
+  status              TradeStatus @default(PENDING)
+  isLegalApproved     Boolean     @default(false) @map("is_legal_approved")
+  isDepositBlocked    Boolean     @default(false) @map("is_deposit_blocked")
+  createdAt           DateTime    @default(now()) @map("created_at")
+  updatedAt           DateTime    @updatedAt @map("updated_at")
+
+  listing        Listing  @relation("TradeTargetListing", fields: [listingId], references: [id], onDelete: Cascade)
+  offeredListing Listing? @relation("TradeOfferedListing", fields: [offeredListingId], references: [id], onDelete: SetNull)
+
+  @@index([listingId])
+  @@index([proposerId])
+  @@index([status])
+  @@map("trade_offers")
+}

@@ -1,0 +1,822 @@
+{
+  "auditedAt": "2026-05-18T23:10:03.699Z",
+  "baseUrl": "http://localhost:5174",
+  "total": 90,
+  "passed": 90,
+  "failed": 0,
+  "paths": [
+    "/",
+    "/admin",
+    "/analiz",
+    "/anayasa",
+    "/anayasa-400",
+    "/araclar/finans-uyumluluk",
+    "/araclar/vergi-simulator",
+    "/arama",
+    "/auth/edevis-mock",
+    "/ayarlar",
+    "/aydinlatma-metni",
+    "/belgeler",
+    "/bildirimler",
+    "/blog",
+    "/canliya-hazirlik",
+    "/cerez-politikasi",
+    "/dashboard",
+    "/dashboard/yatirimci",
+    "/degerleme",
+    "/degisiklikler",
+    "/destek",
+    "/ekspertiz",
+    "/emlakci",
+    "/emlakci-giris",
+    "/emlakci-ortaklik",
+    "/emlakci/panel",
+    "/emlakciler",
+    "/evraklar",
+    "/favoriler",
+    "/fiyatlandirma",
+    "/giris",
+    "/gizlilik",
+    "/guvenlik",
+    "/hakkimizda",
+    "/harita",
+    "/hizmet-bedelleri",
+    "/iade-iptal",
+    "/ibuyer",
+    "/ihale-ac",
+    "/ihale-kosullari",
+    "/ihaleler",
+    "/ilanlar",
+    "/iletisim",
+    "/kapali-teklif",
+    "/karsilastir",
+    "/karsilastir-rakipler",
+    "/kayit",
+    "/komisyon-hesaplayici",
+    "/komisyon-modeli",
+    "/kullanim-kosullari",
+    "/kurumsal",
+    "/kurumsal/basinda-biz",
+    "/kurumsal/dashboard",
+    "/kurumsal/iletisim",
+    "/kvkk",
+    "/kyc",
+    "/lansman",
+    "/mesafeli-satis-sozlesmesi",
+    "/mesajlar",
+    "/mortgage",
+    "/muteahhit",
+    "/muteahhit/panel",
+    "/nasil-calisir",
+    "/nihai-anayasa",
+    "/onboarding/akis",
+    "/panel",
+    "/pre-launch",
+    "/profil",
+    "/raporlar",
+    "/reels",
+    "/rehber",
+    "/reklam",
+    "/sat-basla",
+    "/sehirler",
+    "/sifremi-unuttum",
+    "/sss",
+    "/takas",
+    "/teklif-al",
+    "/uyelik/yillik",
+    "/valuation",
+    "/veri-ve-endeks",
+    "/yasal-cerceve",
+    "/yasal-master-brief",
+    "/yasal/agency-contract",
+    "/yasal/dolandiricilik-savunmasi",
+    "/yasal/guvenlik",
+    "/yasal/supabase-uyum",
+    "/yatirimci/panel",
+    "/yedekleme",
+    "/yorumlar"
+  ],
+  "results": [
+    {
+      "path": "/",
+      "url": "http://localhost:5174/",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/admin",
+      "url": "http://localhost:5174/admin",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/analiz",
+      "url": "http://localhost:5174/analiz",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/anayasa",
+      "url": "http://localhost:5174/anayasa",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/anayasa-400",
+      "url": "http://localhost:5174/anayasa-400",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/araclar/finans-uyumluluk",
+      "url": "http://localhost:5174/araclar/finans-uyumluluk",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/araclar/vergi-simulator",
+      "url": "http://localhost:5174/araclar/vergi-simulator",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/arama",
+      "url": "http://localhost:5174/arama",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/auth/edevis-mock",
+      "url": "http://localhost:5174/auth/edevis-mock",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/ayarlar",
+      "url": "http://localhost:5174/ayarlar",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/aydinlatma-metni",
+      "url": "http://localhost:5174/aydinlatma-metni",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/belgeler",
+      "url": "http://localhost:5174/belgeler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/bildirimler",
+      "url": "http://localhost:5174/bildirimler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/blog",
+      "url": "http://localhost:5174/blog",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/canliya-hazirlik",
+      "url": "http://localhost:5174/canliya-hazirlik",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/cerez-politikasi",
+      "url": "http://localhost:5174/cerez-politikasi",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/dashboard",
+      "url": "http://localhost:5174/dashboard",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/dashboard/yatirimci",
+      "url": "http://localhost:5174/dashboard/yatirimci",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/degerleme",
+      "url": "http://localhost:5174/degerleme",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/degisiklikler",
+      "url": "http://localhost:5174/degisiklikler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/destek",
+      "url": "http://localhost:5174/destek",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/ekspertiz",
+      "url": "http://localhost:5174/ekspertiz",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/emlakci",
+      "url": "http://localhost:5174/emlakci",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/emlakci-giris",
+      "url": "http://localhost:5174/emlakci-giris",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/emlakci-ortaklik",
+      "url": "http://localhost:5174/emlakci-ortaklik",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/emlakci/panel",
+      "url": "http://localhost:5174/emlakci/panel",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/emlakciler",
+      "url": "http://localhost:5174/emlakciler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/evraklar",
+      "url": "http://localhost:5174/evraklar",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/favoriler",
+      "url": "http://localhost:5174/favoriler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/fiyatlandirma",
+      "url": "http://localhost:5174/fiyatlandirma",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/giris",
+      "url": "http://localhost:5174/giris",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/gizlilik",
+      "url": "http://localhost:5174/gizlilik",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/guvenlik",
+      "url": "http://localhost:5174/guvenlik",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/hakkimizda",
+      "url": "http://localhost:5174/hakkimizda",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/harita",
+      "url": "http://localhost:5174/harita",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/hizmet-bedelleri",
+      "url": "http://localhost:5174/hizmet-bedelleri",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/iade-iptal",
+      "url": "http://localhost:5174/iade-iptal",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/ibuyer",
+      "url": "http://localhost:5174/ibuyer",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/ihale-ac",
+      "url": "http://localhost:5174/ihale-ac",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/ihale-kosullari",
+      "url": "http://localhost:5174/ihale-kosullari",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/ihaleler",
+      "url": "http://localhost:5174/ihaleler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/ilanlar",
+      "url": "http://localhost:5174/ilanlar",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/iletisim",
+      "url": "http://localhost:5174/iletisim",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kapali-teklif",
+      "url": "http://localhost:5174/kapali-teklif",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/karsilastir",
+      "url": "http://localhost:5174/karsilastir",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/karsilastir-rakipler",
+      "url": "http://localhost:5174/karsilastir-rakipler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kayit",
+      "url": "http://localhost:5174/kayit",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/komisyon-hesaplayici",
+      "url": "http://localhost:5174/komisyon-hesaplayici",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/komisyon-modeli",
+      "url": "http://localhost:5174/komisyon-modeli",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kullanim-kosullari",
+      "url": "http://localhost:5174/kullanim-kosullari",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kurumsal",
+      "url": "http://localhost:5174/kurumsal",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kurumsal/basinda-biz",
+      "url": "http://localhost:5174/kurumsal/basinda-biz",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kurumsal/dashboard",
+      "url": "http://localhost:5174/kurumsal/dashboard",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kurumsal/iletisim",
+      "url": "http://localhost:5174/kurumsal/iletisim",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kvkk",
+      "url": "http://localhost:5174/kvkk",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/kyc",
+      "url": "http://localhost:5174/kyc",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/lansman",
+      "url": "http://localhost:5174/lansman",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/mesafeli-satis-sozlesmesi",
+      "url": "http://localhost:5174/mesafeli-satis-sozlesmesi",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/mesajlar",
+      "url": "http://localhost:5174/mesajlar",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/mortgage",
+      "url": "http://localhost:5174/mortgage",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/muteahhit",
+      "url": "http://localhost:5174/muteahhit",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/muteahhit/panel",
+      "url": "http://localhost:5174/muteahhit/panel",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/nasil-calisir",
+      "url": "http://localhost:5174/nasil-calisir",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/nihai-anayasa",
+      "url": "http://localhost:5174/nihai-anayasa",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/onboarding/akis",
+      "url": "http://localhost:5174/onboarding/akis",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/panel",
+      "url": "http://localhost:5174/panel",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/pre-launch",
+      "url": "http://localhost:5174/pre-launch",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/profil",
+      "url": "http://localhost:5174/profil",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/raporlar",
+      "url": "http://localhost:5174/raporlar",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/reels",
+      "url": "http://localhost:5174/reels",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/rehber",
+      "url": "http://localhost:5174/rehber",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/reklam",
+      "url": "http://localhost:5174/reklam",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/sat-basla",
+      "url": "http://localhost:5174/sat-basla",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/sehirler",
+      "url": "http://localhost:5174/sehirler",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/sifremi-unuttum",
+      "url": "http://localhost:5174/sifremi-unuttum",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/sss",
+      "url": "http://localhost:5174/sss",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/takas",
+      "url": "http://localhost:5174/takas",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/teklif-al",
+      "url": "http://localhost:5174/teklif-al",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/uyelik/yillik",
+      "url": "http://localhost:5174/uyelik/yillik",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/valuation",
+      "url": "http://localhost:5174/valuation",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/veri-ve-endeks",
+      "url": "http://localhost:5174/veri-ve-endeks",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yasal-cerceve",
+      "url": "http://localhost:5174/yasal-cerceve",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yasal-master-brief",
+      "url": "http://localhost:5174/yasal-master-brief",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yasal/agency-contract",
+      "url": "http://localhost:5174/yasal/agency-contract",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yasal/dolandiricilik-savunmasi",
+      "url": "http://localhost:5174/yasal/dolandiricilik-savunmasi",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yasal/guvenlik",
+      "url": "http://localhost:5174/yasal/guvenlik",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yasal/supabase-uyum",
+      "url": "http://localhost:5174/yasal/supabase-uyum",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yatirimci/panel",
+      "url": "http://localhost:5174/yatirimci/panel",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yedekleme",
+      "url": "http://localhost:5174/yedekleme",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    },
+    {
+      "path": "/yorumlar",
+      "url": "http://localhost:5174/yorumlar",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "consoleErrors": []
+    }
+  ],
+  "globalConsoleErrorCount": 0
+}

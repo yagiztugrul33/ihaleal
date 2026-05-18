@@ -1,10 +1,10 @@
+import { Gavel } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const HOUSE = "\u2302";
-
-const iconSizes = { sm: "text-[18px]", md: "text-[22px]", lg: "text-[28px]" } as const;
+const badgeSizes = { sm: "h-9 w-9", md: "h-10 w-10", lg: "h-12 w-12" } as const;
+const iconSizes = { sm: "h-4 w-4", md: "h-5 w-5", lg: "h-6 w-6" } as const;
 const textSizes = { sm: "text-lg", md: "text-xl", lg: "text-3xl" } as const;
-const gaps = { sm: "gap-1.5", md: "gap-2", lg: "gap-2.5" } as const;
+const gaps = { sm: "gap-2", md: "gap-2.5", lg: "gap-3" } as const;
 
 export function Logo({
   size = "md",
@@ -14,9 +14,7 @@ export function Logo({
 }: {
   size?: "sm" | "md" | "lg";
   variant?: "full" | "icon";
-  /** Navbar karanlık zeminde beyaz metin için `text-white` */
   textClassName?: string;
-  /** `.com` rengi — referans nav: `text-blue-400` */
   dotComClassName?: string;
 }) {
   return (
@@ -26,12 +24,12 @@ export function Logo({
     >
       <span
         className={cn(
-          "leading-none font-semibold text-blue-400 shrink-0",
-          iconSizes[size],
+          "inline-flex shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-500/30",
+          badgeSizes[size],
         )}
         aria-hidden="true"
       >
-        {HOUSE}
+        <Gavel className={cn("text-white", iconSizes[size])} strokeWidth={2.2} />
       </span>
       {variant === "full" ? (
         <span
@@ -41,17 +39,9 @@ export function Logo({
           )}
         >
           ihaleal
-          <span
-            className={
-              dotComClassName ??
-              "text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400"
-            }
-          >
-            .com
-          </span>
+          <span className={dotComClassName ?? "text-blue-400"}>.com</span>
         </span>
       ) : null}
     </div>
   );
 }
-

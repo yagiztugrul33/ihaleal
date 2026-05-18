@@ -1,0 +1,392 @@
+﻿import { useMemo, useRef, type CSSProperties } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  Building2,
+  Home as HomeIcon,
+  Landmark,
+  MapPin,
+  Search,
+  Warehouse,
+} from "lucide-react";
+import { useLocale } from "@/contexts/LocaleContext";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { cinematicEase, staggerContainer, staggerItem } from "@/lib/motion/presets";
+
+const STAT_ICONS = ["\u{1F4CA}", "\u2705", "\u{1F465}", "\u2B50"] as const;
+const TRUST_ICONS = ["\u{1F6E1}\uFE0F", "\u{1F465}", "\u2B50", "\u{1F3A7}"] as const;
+const STEP_ICONS = ["\u{1F50D}", "\u2705", "\u{1F4B0}", "\u{1F3C6}"] as const;
+const STEP_NOS = ["01", "02", "03", "04"] as const;
+const AUCTION_TONES = ["villa", "office", "apartment", "complex"] as const;
+const CATEGORY_META = [
+  { icon: HomeIcon, href: "/ilanlar?tip=villa" },
+  { icon: Building2, href: "/ilanlar?tip=daire" },
+  { icon: Landmark, href: "/ilanlar?tip=ofis" },
+  { icon: MapPin, href: "/ilanlar?tip=arsa" },
+  { icon: Warehouse, href: "/ilanlar?tip=depo" },
+  { icon: Building2, href: "/ilanlar?tip=komple" },
+] as const;
+
+const TESTIMONIAL_AVATARS = [
+  "https://ui-avatars.com/api/?name=Ayse+Korkmaz&background=3b82f6&color=fff",
+  "https://ui-avatars.com/api/?name=Mehmet+Yildiz&background=0ea5e9&color=fff",
+  "https://ui-avatars.com/api/?name=Zeynep+Arslan&background=6366f1&color=fff",
+] as const;
+
+const CHART_HEIGHTS = ["32%", "45%", "38%", "54%", "47%", "61%", "86%"] as const;
+const HERO_POSTER = "/images/hero-cinematic.jpg";
+const HERO_VIDEO = "/videos/ihaleal-tanitim.mp4";
+
+export default function PremiumCinematicHome() {
+  const { t } = useLocale();
+  const home = t.home;
+  const reduced = useReducedMotion();
+  const heroVisualRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroVisualRef,
+    offset: ["start end", "end start"],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+
+  const stats = useMemo(
+    () =>
+      home.stats.map((stat, i) => ({
+        ...stat,
+        icon: STAT_ICONS[i] ?? "\u{1F4CA}",
+      })),
+    [home.stats],
+  );
+
+  const trustItems = useMemo(
+    () =>
+      home.trust.map((item, i) => ({
+        title: item.title,
+        text: item.sub,
+        icon: TRUST_ICONS[i] ?? "\u{1F6E1}\uFE0F",
+      })),
+    [home.trust],
+  );
+
+  const steps = useMemo(
+    () =>
+      home.how.steps.map((step, i) => ({
+        no: STEP_NOS[i] ?? String(i + 1).padStart(2, "0"),
+        title: step.title,
+        text: step.desc,
+        icon: STEP_ICONS[i] ?? "\u{1F50D}",
+      })),
+    [home.how.steps],
+  );
+
+  const auctions = useMemo(
+    () =>
+      home.auctions.items.map((item, i) => ({
+        title: item.title,
+        location: item.location,
+        bid: item.price,
+        delta: item.change,
+        time: item.time,
+        bids: item.bids,
+        tone: AUCTION_TONES[i] ?? "villa",
+      })),
+    [home.auctions.items],
+  );
+
+  const categories = useMemo(
+    () =>
+      home.categories.items.map((item, i) => ({
+        name: item.name,
+        count: item.count,
+        icon: CATEGORY_META[i]?.icon ?? Building2,
+        href: CATEGORY_META[i]?.href ?? "/ilanlar",
+      })),
+    [home.categories.items],
+  );
+
+  const testimonials = useMemo(
+    () =>
+      home.testimonials.items.map((item, i) => ({
+        ...item,
+        stars: 5,
+        avatar: TESTIMONIAL_AVATARS[i] ?? TESTIMONIAL_AVATARS[0],
+      })),
+    [home.testimonials.items],
+  );
+
+  const investorItems = useMemo(
+    () =>
+      home.investor.items.map((item, i) => ({
+        ...item,
+        icon: ["\u{1F6E1}\uFE0F", "\u{1F916}", "\u{1F4C4}", "\u{1F30D}"][i] ?? "\u{1F6E1}\uFE0F",
+      })),
+    [home.investor.items],
+  );
+
+  const heroStyle = {
+    "--villa-image": `url('${HERO_POSTER}')`,
+    position: "relative",
+  } as CSSProperties;
+
+  const statViewProps = reduced
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-40px" },
+        transition: cinematicEase,
+      };
+
+  return (
+    <div className="premium-home" data-testid="premium-cinematic-home">
+      <div className="premium-home__noise" aria-hidden="true" />
+      <div className="premium-home__grid" aria-hidden="true" />
+
+      <section className="premium-search-strip" aria-label={home.search.aria}>
+        <label className="premium-search premium-search--strip">
+          <Search className="premium-search__icon" aria-hidden />
+          <input type="search" placeholder={home.search.placeholder} />
+        </label>
+      </section>
+
+      <section className="premium-hero" aria-labelledby="premium-hero-title">
+        <motion.div
+          className="premium-hero__copy"
+          variants={reduced ? undefined : staggerContainer}
+          initial={reduced ? false : "hidden"}
+          animate={reduced ? undefined : "show"}
+        >
+          <motion.div className="premium-kicker" variants={reduced ? undefined : staggerItem}>
+            <span aria-hidden="true">{"\u2726"}</span>
+            {home.hero.badge}
+            <i aria-hidden="true" />
+          </motion.div>
+          <motion.h1 id="premium-hero-title" variants={reduced ? undefined : staggerItem}>
+            <span>{home.hero.titleLead}</span> {home.hero.titleAccent}
+          </motion.h1>
+          <motion.p className="premium-hero__lead" variants={reduced ? undefined : staggerItem}>
+            {home.hero.subtitle}
+          </motion.p>
+          <motion.div className="premium-hero__ctas" variants={reduced ? undefined : staggerItem}>
+            <a className="premium-btn premium-btn--primary" href="/ilanlar">
+              {home.hero.ctaExplore} <span aria-hidden="true">{"\u2192"}</span>
+            </a>
+            <a className="premium-btn premium-btn--glass" href="#how-it-works">
+              <span className="premium-play" aria-hidden="true">
+                {"\u25B6"}
+              </span>
+              {home.hero.ctaHow}
+            </a>
+          </motion.div>
+          <motion.div
+            className="premium-trust-row"
+            aria-label={home.aria.trustRow}
+            variants={reduced ? undefined : staggerItem}
+          >
+            {trustItems.map((item) => (
+              <article key={item.title} className="premium-trust-row__item">
+                <span aria-hidden="true">{item.icon}</span>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        <div
+          ref={heroVisualRef}
+          className="premium-hero__visual premium-hero__visual--cinematic"
+          style={heroStyle}
+          aria-label={home.aria.heroVisual}
+        >
+          <div className="premium-data-rain" aria-hidden="true" />
+          <motion.div
+            className="premium-hero__media"
+            style={reduced ? undefined : { y: parallaxY }}
+          >
+            <video
+              className="premium-hero__video"
+              src={HERO_VIDEO}
+              poster={HERO_POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          </motion.div>
+          <article className="premium-live-card" aria-label={home.live.title}>
+            <div className="premium-live-card__top">
+              <span>{home.live.title}</span>
+              <b>├óÔÇö┬Å {home.live.live}</b>
+            </div>
+            <strong>284</strong>
+            <p>
+              <span>+18%</span> {home.live.growth}
+            </p>
+            <div className="premium-chart" aria-hidden="true">
+              {CHART_HEIGHTS.map((height) => (
+                <i key={height} style={{ height }} />
+              ))}
+            </div>
+            <a href="/ilanlar">{home.live.view} ÔåÆ</a>
+          </article>
+        </div>
+
+        <aside className="premium-stat-rail" aria-label={home.aria.statRail}>
+          {stats.map((stat) => (
+            <motion.article
+              key={stat.label}
+              className="premium-stat-card"
+              {...statViewProps}
+            >
+              <span className="premium-stat-card__icon" aria-hidden="true">
+                {stat.icon}
+              </span>
+              <div>
+                <p>{stat.label}</p>
+                <strong>{stat.value}</strong>
+              </div>
+              <b>{stat.delta}</b>
+            </motion.article>
+          ))}
+        </aside>
+      </section>
+
+      <section className="premium-categories" aria-labelledby="premium-categories-title">
+        <h2 id="premium-categories-title">{home.categories.heading}</h2>
+        <div className="premium-categories__track">
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            return (
+              <a key={cat.name} href={cat.href} className="premium-category-card">
+                <span className="premium-category-card__icon" aria-hidden>
+                  <Icon className="h-6 w-6" />
+                </span>
+                <strong>{cat.name}</strong>
+                <span className="premium-category-card__count">{cat.count}</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="premium-lower" aria-label={home.aria.lower}>
+        <div className="premium-main-column">
+          <section
+            className="premium-process"
+            id="how-it-works"
+            aria-labelledby="premium-process-title"
+          >
+            <h2 id="premium-process-title">{home.how.title}</h2>
+            <p>{home.how.subtitle}</p>
+            <div className="premium-steps">
+              {steps.map((step) => (
+                <article key={step.no} className="premium-step">
+                  <div className="premium-step__icon" aria-hidden="true">
+                    {step.icon}
+                  </div>
+                  <div>
+                    <span>{step.no}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="premium-auctions" aria-labelledby="premium-auctions-title">
+            <div className="premium-section-head">
+              <h2 id="premium-auctions-title">{home.featured.heading}</h2>
+              <a href="/ilanlar">{home.featured.viewAll}</a>
+            </div>
+            <div className="premium-auction-grid">
+              {auctions.map((auction) => (
+                <article key={auction.title} className="premium-auction-card">
+                  <div
+                    className={`premium-auction-card__image premium-auction-card__image--${auction.tone}`}
+                  >
+                    <span>├óÔÇö┬Å {home.auctions.live}</span>
+                  </div>
+                  <div className="premium-auction-card__body">
+                    <h3>{auction.title}</h3>
+                    <p>─ş┼©ÔÇ£┬ı {auction.location}</p>
+                    <div className="premium-auction-card__bid">
+                      <div>
+                        <small>{home.auctions.currentBid}</small>
+                        <strong>{auction.bid}</strong>
+                      </div>
+                      <b>{auction.delta}</b>
+                    </div>
+                    <div className="premium-auction-card__meta">
+                      <span>{auction.time}</span>
+                      <span>{auction.bids}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <aside className="premium-investor-panel" aria-labelledby="premium-trust-title">
+          <h2 id="premium-trust-title">{home.investor.heading}</h2>
+          <div className="premium-investor-panel__list">
+            {investorItems.map((item) => (
+              <article key={item.title}>
+                <span aria-hidden="true">{item.icon}</span>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="premium-compliance">
+            {home.how.certs.map((cert) => (
+              <div key={cert.title}>
+                <strong>{cert.title}</strong>
+                <span>{cert.sub}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </section>
+
+      <section className="premium-testimonials" aria-labelledby="premium-testimonials-title">
+        <h2 id="premium-testimonials-title">{home.testimonials.heading}</h2>
+        <div className="premium-testimonials__grid">
+          {testimonials.map((item) => (
+            <article key={item.name} className="premium-testimonial-card">
+              <img src={item.avatar} alt="" className="premium-testimonial-card__avatar" />
+              <div
+                className="premium-testimonial-card__stars"
+                aria-label={`${item.stars}`}
+              >
+                {"├ó╦£ÔÇĞ".repeat(item.stars)}
+              </div>
+              <blockquote>{item.quote}</blockquote>
+              <footer>
+                <strong>{item.name}</strong>
+                <span>{item.role}</span>
+              </footer>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="premium-cta-band" aria-labelledby="premium-cta-title">
+        <h2 id="premium-cta-title">{home.cta.title}</h2>
+        <p>{home.cta.subtitle}</p>
+        <div className="premium-cta-band__actions">
+          <a className="premium-btn premium-btn--primary" href="/kayit">
+            {home.cta.primary}
+          </a>
+          <a className="premium-btn premium-btn--glass" href="/iletisim">
+            {home.cta.secondary}
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}

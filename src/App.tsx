@@ -5,7 +5,7 @@ import { LocaleProvider } from "@/contexts/LocaleContext";
 import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
-import { Home } from "@/pages/Home";
+import Home from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
 import { LocalAuthGate } from "@/components/LocalAuthGate";
@@ -112,6 +112,19 @@ const CorporateContact      = lazy(() => import("@/pages/CorporateContact"));
 const OrganizationDashboard = lazy(() =>
   import("@/features/organizations/OrganizationDashboard").then((m) => ({ default: m.OrganizationDashboard })),
 );
+const EmlakciLanding = lazy(() => import("@/pages/EmlakciLanding"));
+const EmlakciFeaturePage = lazy(() => import("@/pages/emlakci/EmlakciFeaturePage"));
+const MuteahhitLanding = lazy(() => import("@/pages/MuteahhitLanding"));
+const TakasPage = lazy(() => import("@/pages/takas/TakasPage"));
+const TeklifAlPage = lazy(() => import("@/pages/TeklifAlPage"));
+const KycPage = lazy(() => import("@/pages/KycPage"));
+const KapaliTeklifPage = lazy(() => import("@/pages/marketing/KapaliTeklifPage"));
+const YorumlarPage = lazy(() => import("@/pages/marketing/YorumlarPage"));
+const DestekPage = lazy(() => import("@/pages/marketing/DestekPage"));
+const FiyatlandirmaPage = lazy(() => import("@/pages/marketing/FiyatlandirmaPage"));
+const ReelsPage = lazy(() => import("@/pages/marketing/ReelsPage"));
+const BasindaBizPage = lazy(() => import("@/pages/marketing/BasindaBizPage"));
+const BildirimlerPage = lazy(() => import("@/pages/BildirimlerPage"));
 
 function App() {
   return (
@@ -133,9 +146,27 @@ function App() {
             <Route path="/arama" element={<SearchResults />} />
             <Route path="/ihaleler" element={<LiveAuctions />} />
             <Route path={ROUTES.AUCTIONS} element={<AuctionListPage />} />
-            <Route path={ROUTES.ILANLAR} element={<Navigate to={ROUTES.AUCTIONS} replace />} />
-            <Route path="/ilanlar" element={<Navigate to={ROUTES.AUCTIONS} replace />} />
+            <Route path={ROUTES.ILANLAR} element={<AuctionListPage />} />
+            <Route path="/ilanlar" element={<AuctionListPage />} />
+            <Route path="/ilanlar/:id" element={<AuctionDetail />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
+            <Route path="/teklif-al" element={<TeklifAlPage />} />
+            <Route path="/kapali-teklif" element={<KapaliTeklifPage />} />
+            <Route path="/emlakci" element={<EmlakciLanding />} />
+            <Route path="/emlakci/panel" element={<OrganizationDashboard />} />
+            <Route path="/emlakci/ozellikler/:slug" element={<EmlakciFeaturePage />} />
+            <Route path="/muteahhit" element={<MuteahhitLanding />} />
+            <Route path="/muteahhit/panel" element={<CreateAuction />} />
+            <Route path="/takas" element={<TakasPage />} />
+            <Route path="/kyc" element={<KycPage />} />
+            <Route path="/yorumlar" element={<YorumlarPage />} />
+            <Route path="/destek" element={<DestekPage />} />
+            <Route path="/reels" element={<ReelsPage />} />
+            <Route path="/fiyatlandirma" element={<FiyatlandirmaPage />} />
+            <Route path="/bildirimler" element={<BildirimlerPage />} />
+            <Route path="/yatirimci/panel" element={<InvestorDashboard />} />
+            <Route path="/yasal/guvenlik" element={<SecurityCenter />} />
+            <Route path="/kurumsal/basinda-biz" element={<BasindaBizPage />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:auctionId/hemen-al" element={<BuyNow />} />
             <Route path="/analiz" element={<Analytics />} />

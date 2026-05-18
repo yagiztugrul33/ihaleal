@@ -16,6 +16,7 @@ export default defineConfig([
     'playwright-report/**',
     'test-results/**',
     '_audit/**',
+    '.vercel/**',
     'scripts/append-light-fix.cjs',
     'scripts/fix-all.cjs',
     'scripts/fix-tags.cjs',
