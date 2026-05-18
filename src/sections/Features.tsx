@@ -54,7 +54,7 @@ export function Features() {
             return (
               <div
                 key={key}
-                className={`card-luxury group ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                className={`card-luxury group relative ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
                 <div className="feature-icon-ring mb-4">
@@ -63,7 +63,10 @@ export function Features() {
                 <h3 className="mb-2 text-lg font-bold text-white">{titles[key]}</h3>
                 <p className="text-sm leading-relaxed text-slate-300">{descs[key]}</p>
                 {links[key] ? (
-                  <Link to={links[key]!} className="btn-tertiary mt-4 inline-flex">
+                  <Link
+                    to={links[key]!}
+                    className="btn-tertiary relative z-10 mt-4 inline-flex cursor-pointer"
+                  >
                     Aracı aç
                   </Link>
                 ) : null}

@@ -14,6 +14,8 @@ export default defineConfig({
       "src/**/*.{test,spec}.{ts,tsx}",
       "tests/rls/**/*.{test,spec}.{ts,tsx}",
       "tests/engineering/**/*.{test,spec}.{ts,tsx}",
+      "tests/ibuyer/**/*.{test,spec}.{ts,tsx}",
+      "tests/ges-land/**/*.{test,spec}.{ts,tsx}",
     ],
     exclude: ["tests/smoke/**", "node_modules/**", "dist/**"],
     coverage: {

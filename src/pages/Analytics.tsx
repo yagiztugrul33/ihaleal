@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, TrendingUp, MapPin, Home, Star, Search,
@@ -137,7 +137,7 @@ export default function Analytics() {
 
   const cities = useMemo(() => [...new Set(AUCTIONS.map((a) => a.city))], []);
   const filtered = useMemo(() => {
-    let data = AUCTIONS.filter((a) => {
+    const data = AUCTIONS.filter((a) => {
       if (selectedCity !== "all" && a.city !== selectedCity) return false;
       if (search && !a.title.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
@@ -638,7 +638,7 @@ export default function Analytics() {
                 <div className="flex items-center gap-2 mt-4 p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
                   <Info className="w-4 h-4 text-blue-400 flex-shrink-0" />
                   <p className="text-xs text-slate-400">
-                    Tahminler %95 guven araligi ile hesaplanmistir. Ust ve alt sinirlar modelin maksimum ve minimum beklentilerini gostermektedir.
+                    Tahminler %95 güven araligi ile hesaplanmistir. Ust ve alt sinirlar modelin maksimum ve minimum beklentilerini gostermektedir.
                   </p>
                 </div>
               </Card>
@@ -705,7 +705,7 @@ export default function Analytics() {
                 <Calculator className="w-6 h-6 text-emerald-400" />
                 Kira Getirisi Simulatoreu
               </h2>
-              <p className="text-slate-400 mb-6">Gayrimenkul yatiriminizin kira getirisini hesaplayin</p>
+              <p className="text-slate-400 mb-6">Gayrimenkul yatırıminizin kira getirisini hesaplayin</p>
             </div>
 
             <div className={`grid lg:grid-cols-3 gap-6 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -804,7 +804,7 @@ export default function Analytics() {
                 <Target className="w-6 h-6 text-amber-400" />
                 AI Yatirim Firsatlari
               </h2>
-              <p className="text-slate-400 mb-6">Yapay zeka tarafindan secilen en iyi yatirim firsatlari</p>
+              <p className="text-slate-400 mb-6">Yapay zeka tarafindan secilen en iyi yatırım firsatlari</p>
             </div>
 
             {/* En Iyi Firsatlar */}
@@ -908,9 +908,9 @@ export default function Analytics() {
                 {[
                   { type: "strong_buy", title: "Mugla Yalikavak'ta Premium Villalar", desc: "Yillik %28.5 deger artisi ve %8.2 kira getirisi ile en yuksek getiri potansiyeli", score: 92 },
                   { type: "strong_buy", title: "Antalya Konyaalti'nda Yeni Proje Daireleri", desc: "8 yillik bina yasi, 12 yil amortisman ve %7.5 kira getirisi", score: 88 },
-                  { type: "buy", title: "Istanbul Maslak'ta Stüdyo Daireler", desc: "Airbnb yatirimi icin ideal, %8.5 kira getirisi potansiyeli", score: 78 },
+                  { type: "buy", title: "Istanbul Maslak'ta Stüdyo Daireler", desc: "Airbnb yatırımi icin ideal, %8.5 kira getirisi potansiyeli", score: 78 },
                   { type: "buy", title: "Izmir Alsancak Kordon'da Daireler", desc: "Turizm sezonu kira getirisi yuksek, deniz manzarali", score: 76 },
-                  { type: "watch", title: "Ankara Eryaman'da Aile Daireleri", desc: "Dengeli piyasa, dusuk risk profili ile guvenli yatirim", score: 73 },
+                  { type: "watch", title: "Ankara Eryaman'da Aile Daireleri", desc: "Dengeli piyasa, dusuk risk profili ile güvenli yatırım", score: 73 },
                 ].map((item, idx) => (
                   <Card key={idx} className={`bg-slate-900/50 border-slate-200/80 p-4 hover:border-slate-200 transition-all ${item.type === "strong_buy" ? "border-l-4 border-l-emerald-500" : ""}`}>
                     <div className="flex items-start gap-4">
@@ -950,7 +950,7 @@ export default function Analytics() {
         </div>
 
         <p className="text-xs text-slate-600 mt-8 text-center leading-relaxed">
-          * Bu tahminler istatistiksel modelleme yontemleri ile uretilmistir ve sapmalar icerebilir. Bilgiler sadece danismanlik amaclidir, yatirim tavsiyesi degildir.
+          * Bu tahminler istatistiksel modelleme yontemleri ile uretilmistir ve sapmalar icerebilir. Bilgiler sadece danismanlik amaclidir, yatırım tavsiyesi degildir.
         </p>
       </div>
     </div>

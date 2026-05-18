@@ -138,7 +138,7 @@ export function Footer() {
               <li><button onClick={() => navigate("/iletisim")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Mail className="w-3.5 h-3.5" /> İletişim</button></li>
               <li><button onClick={() => navigate("/hakkimizda")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Hakkımızda</button></li>
               <li><button onClick={() => navigate("/sss")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><HelpCircle className="w-3.5 h-3.5" /> SSS</button></li>
-              <li><button onClick={() => navigate("/guvenlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Guvenlik Merkezi</button></li>
+              <li><button onClick={() => navigate("/güvenlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Guvenlik Merkezi</button></li>
               {!isProdBuild ? (
                 <>
                   <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-rose-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Dolandırıcılık savunması</button></li>

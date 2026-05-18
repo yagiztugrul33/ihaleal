@@ -121,7 +121,7 @@ export default function SettingsPage() {
             </p>
             <div className="flex flex-wrap gap-2">
               <Button variant="outline" size="sm" className="border-white/15" asChild>
-                <Link to="/guvenlik">Güvenlik merkezi</Link>
+                <Link to="/güvenlik">Güvenlik merkezi</Link>
               </Button>
               <Button variant="outline" size="sm" className="border-white/15 gap-2" asChild>
                 <Link to="/giris">

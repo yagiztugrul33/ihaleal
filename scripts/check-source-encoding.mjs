@@ -1,4 +1,4 @@
-﻿/**
+/**
  * UTF-16LE kaynak dosyaları Vite/esbuild'i kırar (\x00 hatası).
  * src altında .ts/.tsx/.js/.jsx tarar; şüpheli UTF-16LE ASCII deseninde çıkış kodu 1.
  */

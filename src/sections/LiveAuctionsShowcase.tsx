@@ -1,14 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
+import { ROUTES } from "@/constants/routes";
 import { Clock, MapPin, Users, ArrowRight, Shield, Sparkles, Eye, Globe2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { getLocalAndStaticAuctions } from "@/lib/auctionsSource";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 
 const TRUST_FEATURES = [
-  { icon: Shield, title: "Güvenlik", desc: "Banka duzeyi sifreleme.", color: "text-blue-400", bg: "bg-blue-500/15" },
-  { icon: Sparkles, title: "AI Analitik", desc: "Degerleme motoru ve yatirim skoru.", color: "text-violet-400", bg: "bg-violet-500/15" },
-  { icon: Eye, title: "Seffaflik", desc: "Her adim denetlenebilir.", color: "text-emerald-400", bg: "bg-emerald-500/15" },
-  { icon: Globe2, title: "Kuresel Erisim", desc: "Turkiye ve global ag.", color: "text-sky-400", bg: "bg-sky-500/15" },
+  { icon: Shield, title: "Güvenlik", desc: "Banka düzeyi şifreleme.", color: "text-blue-400", bg: "bg-blue-500/15" },
+  { icon: Sparkles, title: "AI Analitik", desc: "Değerleme motoru ve yatırım skoru.", color: "text-violet-400", bg: "bg-violet-500/15" },
+  { icon: Eye, title: "Şeffaflık", desc: "Her adım denetlenebilir.", color: "text-emerald-400", bg: "bg-emerald-500/15" },
+  { icon: Globe2, title: "Küresel Erişim", desc: "Türkiye ve global ağ.", color: "text-sky-400", bg: "bg-sky-500/15" },
 ] as const;
 
 function formatPrice(n: number) {
@@ -38,9 +39,9 @@ export function LiveAuctionsShowcase() {
             <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
               <div>
                 <h2 className="ref-section-title">Canlı İhaleler</h2>
-                <p className="mt-2 text-slate-400">Güncel fırsatlar — AI degerleme dahil</p>
+                <p className="mt-2 text-slate-400">Güncel fırsatlar — AI değerleme dahil</p>
               </div>
-              <Link to="/ilanlar" className="ref-link-arrow">
+              <Link to={ROUTES.AUCTIONS} className="ref-link-arrow">
                 Tüm ihaleleri gör
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>

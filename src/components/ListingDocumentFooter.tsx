@@ -1,4 +1,4 @@
-﻿import { memo } from "react";
+import { memo } from "react";
 import type { Auction } from "@/types/auction";
 import { FileText, Landmark, Scale } from "lucide-react";
 

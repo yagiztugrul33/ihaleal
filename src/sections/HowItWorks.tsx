@@ -1,5 +1,6 @@
 import { Search, Handshake, Trophy, KeyRound } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/constants/routes";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const StepIcon = {
@@ -40,7 +41,7 @@ export function HowItWorks() {
               <button
                 type="button"
                 key={s.key}
-                onClick={() => navigate("/nasil-calisir")}
+                onClick={() => navigate(ROUTES.HOW_IT_WORKS)}
                 className={`ref-step-card group text-left transition-all duration-500 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 }`}

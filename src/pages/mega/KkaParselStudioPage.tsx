@@ -175,7 +175,7 @@ export default function KkaParselStudioPage() {
             <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
               Il, ilce, koy, mahalle, ada ve parsel bilgisi ile demo imar parametreleri eslestirilir; arsa m2 ve arsa sahibi payi
               uzerinden yaklasik insaat hakki, taban ust siniri ve kat adedi ust siniri hesaplanir. Resmi imar durumu, TKGM
-              geometrisi ve muteahhit projesi olmadan baglayici sonuc uretilemez — bu ekran profesorluk duzeyinde cerceve ve
+              geometrisi ve muteahhit projesi olmadan baglayici sonuc uretilemez — bu ekran profesorluk düzeyinde cerceve ve
               kontrol listesi sunar, idari kayit yerine gecmez.
             </p>
           </div>

@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "noEmit": true
+  },
+  "include": [
+    "src/constants/routes.ts",
+    "src/lib/data/pvgisTypes.ts",
+    "src/lib/engineering/core/methodology.ts",
+    "src/lib/engineering/core/pipeline.ts",
+    "src/lib/engineering/core/types.ts",
+    "src/lib/engineering/ges/constants.ts",
+    "src/lib/engineering/ges/financial.ts",
+    "src/lib/engineering/gesEngine.ts",
+    "src/lib/engineering/parcelFeasibility.ts",
+    "src/lib/engineering/reportBuilder.ts",
+    "tests/engineering/verified-core.test.ts"
+  ]
+}

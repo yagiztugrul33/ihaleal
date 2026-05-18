@@ -1,0 +1,25 @@
+﻿20260428120000_initial_schema.sql|108|-- ihaleal.com initial schema (tur #9)
+20260428120100_rls_policies.sql|53|-
+20260428120200_place_bid_function.sql|52|-- SUPERSEDED by migration 20260429120100_bid_bonds_and_antisniping.sq
+20260429120000_profiles_extra_fields.sql|12|-
+20260429120100_bid_bonds_and_antisniping.sql|116|-- TUR #13 — teminat (bid bond) + anti-sniping + place_bid güncellemes
+20260429120200_listings_rls_strict.sql|15|-- ADIM 13.3 — Listings INSERT gevşek moddan sıkı moda (TUR #12 `listi
+20260429120300_audit_log.sql|22|-- TUR #14 ADIM 14.1 — audit trail (admin okuma; yazım Edge/service_ro
+20260429120400_memberships_service_fees_authorizations.sql|143|-- Üyelik, hizmet bedeli, yetki, komisyon ve emlakçı performans tablol
+20260429140000_listings_insert_kyc_edevlet_idempotent.sql|13|-- listings_insert_kyc_edevlet — yeniden çalıştırılabilir (42710: poli
+20260430120000_write_policies_and_place_bid_v2.sql|273|-- TUR #19 — Write RLS (memberships, service_fees, authorizations, bid
+20260430140000_pre_launch_signups.sql|25|-- pre_launch_signups — lansman email (TUR #22)
+20260430150000_profiles_role_place_bid_antisniping.sql|68|-- profiles.role: AuthContext uyumu (minimal şemada eksikse eklenir)
+20260501120000_ai_buynow_deposit.sql|420|-- TUR #26 — AI analiz raporları, rapor onayları, blokaj, hemen al (Su
+20260502120000_profiles_rls_recursion_service_grants.sql|27|-- profiles_select_admin gibi politikalar "profiles" üzerinde tekrar "
+20260504140000_chat_messages_compliance_stub.sql|121|-- TASLAK: uc sohbet + uyum kuyrugu (Messages uretim hatti)
+20260516120000_admin_listing_security.sql|50|-- Admin ilan onayi: RLS (is_profile_admin) + SECURITY DEFINER RPC + a
+20260516120000_v2_core_safety_additive.sql|56|-- v2 core safety (additive, mevcut audit_log / place_bid ile uyumlu)
+20260516120100_v2_multi_tenant.sql|83|-- Multi-tenant foundation (seller_id uyumlu listings RLS)
+20260516120200_v2_liquidity.sql|66|create table if not exists public.buyer_preferences (
+20260516120300_v2_kyc_moderation_bulk.sql|82|create table if not exists public.kyc_verifications (
+20260516120400_v2_pgmq_matching.sql|48|-- pgmq helpers + optional matching cron (pg_cron must be enabled in D
+20260517140000_land_ges_intelligence.sql|23|-- Engineering analysis run audit trail
+20260517150000_engineering_war_room.sql|23|-- Extend engineering analysis types for war room / site intelligence
+20260518120000_ibuyer_trade_in.sql|282|-- iBuyer & Trade-In module
+20260518140000_ges_land_evaluation.sql|346|-- GES land evaluation: projects, technical analyses, legal compliance

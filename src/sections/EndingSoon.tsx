@@ -1,4 +1,4 @@
-﻿import { useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clock, MapPin, ArrowRight, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";

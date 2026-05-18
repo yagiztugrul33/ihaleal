@@ -20,6 +20,7 @@
     "supabase:push": "supabase db push",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:integration:core": "vitest run tests/engineering/integration/coreIntegration.test.ts",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:smoke": "playwright test",

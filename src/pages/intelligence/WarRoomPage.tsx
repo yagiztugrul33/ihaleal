@@ -146,11 +146,11 @@ export default function WarRoomPage() {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-12 bg-[#030712]">
+    <div className="min-h-screen pt-20 pb-12 intelligence-page bg-[#030712]">
       <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-blue-950/70 to-transparent pointer-events-none" />
       <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-400">
-          <Link to={INTELLIGENCE_HUB_PATH}><ArrowLeft className="w-4 h-4 mr-1" /> Arastirma</Link>
+          <Link to={INTELLIGENCE_HUB_PATH}><ArrowLeft className="w-4 h-4 mr-1" /> Araştırma</Link>
         </Button>
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div className="flex gap-3">

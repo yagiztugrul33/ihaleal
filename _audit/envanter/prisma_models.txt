@@ -1,0 +1,6 @@
+﻿model RemaxOffice {
+model RemaxAgent {
+model PropertySubmission {
+model LegalRiskAssessment {
+model GesTechnicalAnalysis {
+model ParcelAnalysis {

@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { registerSW } from "virtual:pwa-register";
 import "./styles/theme.css";
 import "./index.css";
+import "./styles/global-dark.css";
 import App from "./App";
 import { clientLogError } from "@/lib/clientLog";
 import { initObservability, reportException } from "@/lib/observability/initObservability";

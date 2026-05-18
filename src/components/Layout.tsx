@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ToastContainer } from "./Toast";
@@ -20,9 +19,10 @@ function isAuthMinimalBg(pathname: string): boolean {
   return AUTH_MINIMAL_PATHS.includes(pathname);
 }
 
-export function Layout({ children }: { children: ReactNode }) {
+export function Layout() {
   const location = useLocation();
   const authMinimal = isAuthMinimalBg(location.pathname);
+  const isMarketingHome = location.pathname === "/";
   const { toasts, removeToast, addToast } = useToast();
 
   useEffect(() => {
@@ -40,15 +40,17 @@ export function Layout({ children }: { children: ReactNode }) {
     <div className="page-shell page-shell-gradient">
       <div className="relative z-10 flex flex-col flex-1 min-h-screen">
         <ScrollToTop />
-        <DemoUyarisi />
+        {!isMarketingHome ? <DemoUyarisi /> : null}
         <SeoSync />
         <AntiCopyProtection />
         <Navbar />
-        <ProductionSafetyBanner />
+        {!isMarketingHome ? <ProductionSafetyBanner /> : null}
         <main className="flex-1 min-w-0 overflow-x-hidden">
-          <PageTransition>{children}</PageTransition>
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
         </main>
-        <Footer />
+        {!isMarketingHome ? <Footer /> : null}
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />
         <CookieConsent />

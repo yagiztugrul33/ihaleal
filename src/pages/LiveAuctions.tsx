@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Auctions } from "@/sections/Auctions";
 
 /** Tam sayfa "Canlı İhaleler" — Navbar ile uyumlu; içerik `Auctions` bölümünü kullanır. */

@@ -19,6 +19,9 @@ import {
   WAR_ROOM_PATH,
 } from "@/lib/intelligenceHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
+import { IBUYER_PATH } from "@/lib/ibuyerHub";
+import { GES_LAND_PATH } from "@/lib/gesLandHub";
+import { ROUTES } from "@/constants/routes";
 
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
@@ -60,6 +63,7 @@ const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
 const YillikUyelik         = lazy(() => import("@/pages/membership/YillikUyelik"));
 const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
 const PreLaunch            = lazy(() => import("@/pages/PreLaunch"));
+const IBuyerPage           = lazy(() => import("@/pages/ibuyer/IBuyerPage"));
 const NotFound             = lazy(() => import("@/pages/NotFound"));
 const CityLanding          = lazy(() => import("@/pages/CityLanding"));
 const Iletisim             = lazy(() => import("@/pages/Iletisim"));
@@ -79,6 +83,7 @@ const LandEquityPage = lazy(() => import("@/pages/mega/LandEquityPage"));
 const KkaParselStudioPage = lazy(() => import("@/pages/mega/KkaParselStudioPage"));
 const IntelligenceHub = lazy(() => import("@/pages/intelligence/IntelligenceHub"));
 const GesAnalysisPage = lazy(() => import("@/pages/intelligence/GesAnalysisPage"));
+const GesLandEvaluationPage = lazy(() => import("@/pages/ges/GesLandEvaluationPage"));
 const ParcelIntelligencePage = lazy(() => import("@/pages/intelligence/ParcelIntelligencePage"));
 const LandInvestmentPage = lazy(() => import("@/pages/intelligence/LandInvestmentPage"));
 const WarRoomPage = lazy(() => import("@/pages/intelligence/WarRoomPage"));
@@ -112,7 +117,6 @@ function App() {
     <AuthProvider>
     <BrowserRouter>
       <ErrorBoundary>
-      <Layout>
         <Suspense fallback={
           <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--gradient-page)" }}>
             <div className="text-center">
@@ -122,10 +126,13 @@ function App() {
           </div>
         }>
           <Routes>
+            <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />
             <Route path="/ihaleler" element={<LiveAuctions />} />
-            <Route path="/ilanlar" element={<AuctionListPage />} />
+            <Route path={ROUTES.AUCTIONS} element={<AuctionListPage />} />
+            <Route path={ROUTES.ILANLAR} element={<Navigate to={ROUTES.AUCTIONS} replace />} />
+            <Route path="/ilanlar" element={<Navigate to={ROUTES.AUCTIONS} replace />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:auctionId/hemen-al" element={<BuyNow />} />
@@ -139,13 +146,15 @@ function App() {
             <Route path="/mortgage" element={<Mortgage />} />
             <Route path="/rehber" element={<Guide />} />
             <Route
-              path="/nasil-calisir"
+              path={ROUTES.HOW_IT_WORKS}
               element={
                 <RouteSeo>
                   <NasilCalisir />
                 </RouteSeo>
               }
             />
+            <Route path={ROUTES.NASIL_CALISIR} element={<Navigate to={ROUTES.HOW_IT_WORKS} replace />} />
+            <Route path="/nasil-calisir" element={<Navigate to={ROUTES.HOW_IT_WORKS} replace />} />
             <Route path="/harita" element={<MapPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/yatirimci" element={<InvestorDashboard />} />
@@ -171,7 +180,9 @@ function App() {
             <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />
             <Route path="/araclar/finans-uyumluluk" element={<FinCompliancePlayground />} />
             <Route path="/degerleme" element={<ValuationTool />} />
-            <Route path="/kurumsal" element={<Corporate />} />
+            <Route path={ROUTES.SERVICES} element={<Corporate />} />
+            <Route path={ROUTES.KURUMSAL} element={<Navigate to={ROUTES.SERVICES} replace />} />
+            <Route path="/kurumsal" element={<Navigate to={ROUTES.SERVICES} replace />} />
             <Route path="/kurumsal/iletisim" element={<CorporateContact />} />
             <Route path="/kurumsal/dashboard" element={<OrganizationDashboard />} />
             <Route path="/valuation" element={<ValuationTool />} />
@@ -279,10 +290,28 @@ function App() {
                 </AdminGuard>
               }
             />
+            <Route
+              path={IBUYER_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="Aninda teklif yukleniyor…" />}>
+                  <IBuyerPage />
+                </Suspense>
+              }
+            />
+            <Route path={ROUTES.IBUYER_ALIAS} element={<Navigate to={ROUTES.IBUYER} replace />} />
+            <Route path="/ibuyer" element={<Navigate to={ROUTES.IBUYER} replace />} />
             <Route path="*" element={<NotFound />} />
+            </Route>
+            <Route
+              path={GES_LAND_PATH}
+              element={
+                <Suspense fallback={<PageLoader label="GES arazi degerlendirme yukleniyor..." />}>
+                  <GesLandEvaluationPage />
+                </Suspense>
+              }
+            />
           </Routes>
         </Suspense>
-      </Layout>
       </ErrorBoundary>
     </BrowserRouter>
     </AuthProvider>

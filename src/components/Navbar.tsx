@@ -13,7 +13,9 @@ import { readLocalSessionUser } from "@/lib/localSession";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
+import { GES_LAND_PATH, gesLandNavLabel } from "@/lib/gesLandHub";
 import { cn } from "@/lib/utils";
+import { ROUTES } from "@/constants/routes";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -116,6 +118,15 @@ export function Navbar() {
               ) : null}
               <button type="button" onClick={() => navigate("/ihaleler")} className="nav-link">İhaleler</button>
               <NavLink
+                to="/degerleme"
+                className={({ isActive }) =>
+                  cn("nav-link flex items-center gap-1.5", isActive && "nav-link-active")
+                }
+              >
+                <Calculator className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                Değerleme
+              </NavLink>
+              <NavLink
                 to={INTELLIGENCE_HUB_PATH}
                 end={false}
                 className={({ isActive }) =>
@@ -124,6 +135,16 @@ export function Navbar() {
               >
                 <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
                 Araştırma
+              </NavLink>
+              <NavLink
+                to={GES_LAND_PATH}
+                end
+                className={({ isActive }) =>
+                  cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")
+                }
+              >
+                <Sun className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
+                {gesLandNavLabel}
               </NavLink>
               {!isMarketingHome ? (
                 <>
@@ -147,14 +168,14 @@ export function Navbar() {
               ) : null}
               <button
                 type="button"
-                onClick={() => navigate("/kurumsal")}
+                onClick={() => navigate(ROUTES.SERVICES)}
                 className="nav-link"
               >
                 Kurumsal
               </button>
               <button
                 type="button"
-                onClick={() => navigate("/nasil-calisir")}
+                onClick={() => navigate(ROUTES.HOW_IT_WORKS)}
                 className="nav-link"
               >
                 Nasıl Çalışır
@@ -213,7 +234,9 @@ export function Navbar() {
                     <Heart className="w-4 h-4" /> Favoriler
                     {count > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[10px] font-bold flex items-center justify-center">{count}</span>}
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/degerleme")} className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Degerleme</Button>
+                  <Button variant="ghost" size="sm" asChild className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap">
+                    <NavLink to="/degerleme"><Calculator className="w-4 h-4" /> Değerleme</NavLink>
+                  </Button>
                   <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-700 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
                 </>
               ) : null}
@@ -312,6 +335,17 @@ export function Navbar() {
                 Araştırma
               </NavLink>
               <NavLink
+                to={GES_LAND_PATH}
+                end
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${isActive ? "text-white bg-amber-500/25 border-amber-400/50" : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"}`
+                }
+              >
+                <Sun className="w-4 h-4 shrink-0" aria-hidden />
+                {gesLandNavLabel}
+              </NavLink>
+              <NavLink
                 to={KKA_HUB_PATH}
                 end={false}
                 onClick={() => setIsOpen(false)}
@@ -344,7 +378,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => {
-                  navigate("/nasil-calisir");
+                  navigate(ROUTES.HOW_IT_WORKS);
                   setIsOpen(false);
                 }}
                 className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left"
@@ -383,7 +417,7 @@ export function Navbar() {
               <button onClick={() => { navigate("/harita"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-emerald-400 hover:bg-emerald-500/10 text-left flex items-center gap-2"><Navigation className="w-4 h-4" /> Harita</button>
               <button type="button" onClick={() => { navigate("/karsilastir"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-teal-400 hover:bg-teal-500/10 text-left flex items-center gap-2"><GitCompare className="w-4 h-4" /> Karşılaştır</button>
               <button type="button" onClick={() => { navigate("/mortgage"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Mortgage</button>
-              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Degerleme</button>
+              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Değerleme</button>
               {currentUser ? (
                 <>
                   {userFlows.length === 0 ? (
