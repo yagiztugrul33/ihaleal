@@ -1,17 +1,5 @@
-# SABAH RAPORU
+# Bu rapor SABAH_RAPORU_DETAYLI.md dosyasina tasindi.
 
-**2026-05-18 05:41**
+Lutfen ac: SABAH_RAPORU_DETAYLI.md
 
-| | |
-|--|--|
-| Deploy | OK |
-| Bundle canli | `index-Du5sRufL.js` |
-| Cache fix | OK |
-
-## Telefonda ac
-
-https://ihaleal.vercel.app/?fresh=1779072092
-
-Gizli sekme de kullanabilirsin.
-
-Iyı sabahlar.
+Sabah URL: https://ihaleal.vercel.app/?fresh=1779072959
