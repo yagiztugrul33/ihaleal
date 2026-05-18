@@ -1,497 +1,184 @@
-import { useState, useEffect, useMemo } from "react";
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import { Logo } from "@/components/Logo";
-import { Menu, X, BarChart3, GitCompare, UserPlus, LogIn, LogOut, PlusCircle, Heart, Calculator, Search, Sun, Moon, LayoutDashboard, Navigation, Shield, Building2, Factory, BadgePercent, Landmark, DraftingCompass, Radar } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useFavorites } from "@/hooks/useFavorites";
-import { useTheme } from "@/hooks/useTheme";
-import { SearchModal } from "./SearchModal";
-import { mergedFlowPermissions, readUserFlowsFromStorage, type UserFlow } from "@/lib/userFlows";
-import { sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
-import type { SessionUser } from "@/lib/auth";
-import { readLocalSessionUser } from "@/lib/localSession";
-import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
-import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
-import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, Search, X } from "lucide-react";
+import { SearchModal } from "@/components/SearchModal";
 import { ROUTES } from "@/constants/routes";
-import { MarketingNavbar } from "@/components/MarketingNavbar";
+import { cn } from "@/lib/utils";
+
+const NAV_LINKS = [
+  { to: ROUTES.ILANLAR, label: "İhaleler" },
+  { to: "/nasil-calisir", label: "Nasıl Çalışır" },
+  { to: ROUTES.ARASTIRMA, label: "Araştırma" },
+  { to: "/degerleme", label: "Değerleme" },
+  { to: "/kurumsal", label: "Kurumsal" },
+] as const;
 
 export function Navbar() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { user: supaUser, signOut, profile } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [localSession, setLocalSession] = useState<SessionUser | null>(readLocalSessionUser);
-  const [userFlows, setUserFlows] = useState<UserFlow[]>(() => readUserFlowsFromStorage());
-  const flowPerms = useMemo(() => mergedFlowPermissions(userFlows), [userFlows]);
-  const { count } = useFavorites();
-  const { theme, toggle } = useTheme();
-
-  const currentUser = useMemo<SessionUser | null>(() => {
-    if (supaUser) return sessionUserFromSupabaseUser(supaUser);
-    return localSession;
-  }, [supaUser, localSession]);
-
-  const navDisplayLabel = supaUser?.email ?? currentUser?.email ?? currentUser?.name ?? "";
-  const showAdmin = authIsAdmin(profile);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const sync = () => {
-      setLocalSession(readLocalSessionUser());
-      setUserFlows(readUserFlowsFromStorage());
-    };
-    window.addEventListener("ihaleal-auth", sync);
-    window.addEventListener("ihaleal-user-flows", sync);
-    window.addEventListener("storage", sync);
-    return () => {
-      window.removeEventListener("ihaleal-auth", sync);
-      window.removeEventListener("ihaleal-user-flows", sync);
-      window.removeEventListener("storage", sync);
-    };
-  }, []);
-
-  const handleSignOut = async () => {
-    await signOut();
-    setIsOpen(false);
-    navigate("/");
-  };
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    setIsOpen(false);
+    setMobileOpen(false);
   }, [location.pathname, location.search]);
 
-  const scrollTo = (id: string) => {
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300);
-    } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsOpen(false);
-  };
-
-  const isMarketingHome = location.pathname === "/";
-
-  if (isMarketingHome) {
-    return <MarketingNavbar />;
-  }
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
     <>
       <nav
-        className={`fixed z-50 transition-all duration-500 ${
-          isMarketingHome ? "nav-home-marketing " : ""
-        }${
-          scrolled
-            ? "nav-glass nav-glass-scrolled top-3 left-3 right-3 mx-auto max-w-7xl rounded-2xl"
-            : "nav-glass top-0 left-0 right-0 rounded-none border-b"
-        }`}
+        className="sticky top-0 z-[100] border-b border-slate-700/40 transition-[background] duration-300"
+        style={{
+          background: scrolled ? "rgba(10, 14, 26, 0.95)" : "rgba(10, 14, 26, 0.88)",
+          backdropFilter: "blur(20px)",
+        }}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20 gap-2">
-            <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2.5 group shrink-0">
-              <Logo size="md" variant="full" textClassName="text-slate-50 tracking-tight text-xl" />
-            </button>
-
-            {isMarketingHome ? (
-              <div className="nav-search-center hidden lg:flex">
-                <button type="button" onClick={() => setSearchOpen(true)} className="nav-search w-full">
-                  <Search className="w-4 h-4 shrink-0" />
-                  <span className="truncate text-slate-500">Konum, mülk tipi veya anahtar kelime ara…</span>
-                </button>
-              </div>
-            ) : null}
-
+        <div className="relative mx-auto flex h-[68px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <Link to="/" className="flex shrink-0 items-center gap-2.5 no-underline">
             <div
-              className={cn(
-                "hidden lg:flex items-center gap-1 min-w-0 flex-1 overflow-x-auto max-w-[min(52vw,720px)] xl:max-w-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
-                isMarketingHome && "nav-home-links justify-center flex-none"
-              )}
+              className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] text-xl shadow-lg shadow-blue-500/40"
+              style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
+              aria-hidden
             >
-              {!isMarketingHome ? (
-                <button type="button" onClick={() => navigate("/")} className="nav-link">Ana Sayfa</button>
-              ) : null}
-              <button type="button" onClick={() => navigate("/ihaleler")} className="nav-link">İhaleler</button>
-              <NavLink
-                to="/degerleme"
-                className={({ isActive }) =>
-                  cn("nav-link flex items-center gap-1.5", isActive && "nav-link-active")
-                }
-              >
-                <Calculator className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                Değerleme
-              </NavLink>
-              <NavLink
-                to={INTELLIGENCE_HUB_PATH}
-                end={false}
-                className={({ isActive }) =>
-                  cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")
-                }
-              >
-                <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                Araştırma
-              </NavLink>
-              <NavLink
-                to={ROUTES.ARASTIRMA_GES}
-                end
-                className={({ isActive }) =>
-                  cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")
-                }
-              >
-                <Sun className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                GES Arazi
-              </NavLink>
-              {!isMarketingHome ? (
-                <>
-                  <NavLink
-                    to={KKA_HUB_PATH}
-                    end={false}
-                    className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
-                  >
-                    <Landmark className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                    {kkaHubNavLabel}
-                  </NavLink>
-                  <NavLink
-                    to={KKA_STUDIO_PATH}
-                    end
-                    className={({ isActive }) => cn("nav-link font-semibold flex items-center gap-1.5", isActive && "nav-link-active")}
-                  >
-                    <DraftingCompass className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                    {kkaStudioNavLabel}
-                  </NavLink>
-                </>
-              ) : null}
-              <button
-                type="button"
-                onClick={() => navigate(ROUTES.SERVICES)}
-                className="nav-link"
-              >
-                Kurumsal
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate(ROUTES.HOW_IT_WORKS)}
-                className="nav-link"
-              >
-                Nasıl Çalışır
-              </button>
-              <button type="button" onClick={() => scrollTo("contact")} className="nav-link">İletişim</button>
-              {!isMarketingHome && !currentUser ? (
-                <>
-                  <span className="text-slate-400 px-0.5 select-none" aria-hidden>|</span>
-                  <button
-                    type="button"
-                    onClick={() => navigate("/giris?profil=emlakçı")}
-                    className="px-3 py-2 rounded-lg text-sm font-semibold text-teal-800 hover:text-white hover:bg-teal-600 border border-teal-600/50 whitespace-nowrap"
-                  >
-                    Emlakçı Girişi
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => navigate("/giris?profil=muteahhit")}
-                    className="px-3 py-2 rounded-lg text-sm font-semibold text-amber-900 hover:text-white hover:bg-amber-600 border border-amber-600/50 whitespace-nowrap"
-                  >
-                    Müteahhit Girişi
-                  </button>
-                </>
-              ) : null}
+              🔨
             </div>
+            <span className="text-xl font-bold tracking-tight text-slate-50">
+              ihaleal<span className="text-blue-400">.com</span>
+            </span>
+          </Link>
 
-            <div className="hidden lg:flex items-center gap-2 shrink-0 flex-nowrap">
-              {!isMarketingHome ? (
-                <button type="button" onClick={() => setSearchOpen(true)} className="nav-search max-w-[140px] xl:max-w-[180px]">
-                  <Search className="w-4 h-4 shrink-0" /> <span className="truncate text-slate-500">Ara…</span>
-                </button>
-              ) : null}
-              {!isMarketingHome ? (
-              <Button variant="ghost" size="sm" onClick={() => navigate("/analiz")} className="text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] gap-1.5 whitespace-nowrap"><BarChart3 className="w-4 h-4" /> AI Analiz</Button>
-              ) : null}
-              {!isMarketingHome ? (
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => navigate("/komisyon-modeli")}
-                    className="h-9 shrink-0 rounded-xl border-violet-700/40 bg-violet-100 text-violet-900 shadow-sm hover:bg-violet-200 transition-all gap-1.5 px-2.5 font-semibold text-xs"
-                    aria-label="Gelir modeli ve komisyon özeti"
-                    title="Komisyon oranları ve emlakçı payı — gelir modeli"
-                  >
-                    <BadgePercent className="w-[18px] h-[18px] shrink-0" aria-hidden />
-                    <span className="hidden min-[1100px]:inline max-w-[9rem] truncate">Komisyon & gelir</span>
-                  </Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="text-slate-700 hover:text-violet-300 hover:bg-violet-500/10 gap-1.5 whitespace-nowrap"><LayoutDashboard className="w-4 h-4" /> Dashboard</Button>
-                  {showAdmin ? (
-                    <Button variant="ghost" size="sm" onClick={() => navigate("/admin")} className="text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 gap-1.5"><Shield className="w-4 h-4" /> Admin</Button>
-                  ) : null}
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/harita")} className="text-slate-700 hover:text-emerald-300 hover:bg-emerald-500/10 gap-1.5 whitespace-nowrap"><Navigation className="w-4 h-4" /> Harita</Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/karsilastir")} className="text-slate-700 hover:text-teal-300 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap"><GitCompare className="w-4 h-4" /> Karşılaştır</Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/favoriler")} className="text-slate-700 hover:text-pink-300 hover:bg-pink-500/10 gap-1.5 relative whitespace-nowrap">
-                    <Heart className="w-4 h-4" /> Favoriler
-                    {count > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-pink-500 text-white text-[10px] font-bold flex items-center justify-center">{count}</span>}
-                  </Button>
-                  <Button variant="ghost" size="sm" asChild className="text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 gap-1.5 whitespace-nowrap">
-                    <NavLink to="/degerleme"><Calculator className="w-4 h-4" /> Değerleme</NavLink>
-                  </Button>
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/mortgage")} className="text-slate-700 hover:text-amber-300 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap"><Calculator className="w-4 h-4" /> Mortgage</Button>
-                </>
-              ) : null}
-              {currentUser ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-400 max-w-[180px] truncate hidden xl:inline" title={supaUser?.email ?? currentUser.email}>
-                    {navDisplayLabel}
-                  </span>
-                  {userFlows.length === 0 ? (
-                    <Button size="sm" variant="outline" onClick={() => navigate("/onboarding/akis")} className="border-teal-500/40 text-teal-200">
-                      Akış seç
-                    </Button>
-                  ) : null}
-                  {flowPerms.canOpenAuction ? (
-                    <Button size="sm" onClick={() => navigate("/ihale-ac")} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold gap-1.5">
-                      <PlusCircle className="w-4 h-4" /> İhale Aç
-                    </Button>
-                  ) : null}
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/profil")} className="text-slate-600 hover:text-[var(--color-primary)]" title="Profil">
-                    <UserPlus className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm" onClick={() => void handleSignOut()} className="text-slate-400 hover:text-rose-300 gap-1.5">
-                    <LogOut className="w-4 h-4" /> Çıkış
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-end">
-                  {!isMarketingHome ? (
-                    <>
-                      <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakçı")} className="text-slate-700 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
-                        <Building2 className="w-4 h-4" /> Emlakçı
-                      </Button>
-                      <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
-                        <Factory className="w-4 h-4" /> Müteahhit
-                      </Button>
-                    </>
-                  ) : null}
-                  <Button variant="ghost" size="sm" onClick={() => navigate("/giris")} className="text-slate-200 hover:text-white gap-1.5 whitespace-nowrap"><LogIn className="w-4 h-4" /> Giriş</Button>
-                  <Button size="sm" onClick={() => navigate("/kayit")} className={isMarketingHome ? "nav-home-cta" : undefined}>Kayıt Ol</Button>
-                </div>
-              )}
-              <Button variant="ghost" size="sm" onClick={toggle} className="text-slate-600 hover:text-[var(--color-primary)] p-2" title={theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}>
-                {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-violet-400" />}
-              </Button>
-            </div>
-
-            {!currentUser ? (
-              <div className="lg:hidden flex items-center gap-1.5 shrink-0 mr-1">
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={() => navigate("/giris?profil=emlakçı")}
-                  className="h-9 px-2.5 text-[11px] sm:text-xs border-teal-500/40 text-teal-100 bg-teal-500/10 hover:bg-teal-500/20"
-                >
-                  <Building2 className="w-3.5 h-3.5 sm:mr-1" />
-                  <span className="hidden sm:inline">Emlakçı</span>
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={() => navigate("/giris?profil=muteahhit")}
-                  className="h-9 px-2.5 text-[11px] sm:text-xs border-amber-500/40 text-amber-100 bg-amber-500/10 hover:bg-amber-500/20"
-                >
-                  <Factory className="w-3.5 h-3.5 sm:mr-1" />
-                  <span className="hidden sm:inline">Müteahhit</span>
-                </Button>
-              </div>
-            ) : null}
-            <button type="button" onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 rounded-lg text-slate-600 hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-soft)] shrink-0" aria-label="Menüyü aç">
-              <Menu className="w-6 h-6" />
-            </button>
+          <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-8 lg:flex">
+            {NAV_LINKS.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  cn(
+                    "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                    isActive
+                      ? "border-blue-500 text-blue-400"
+                      : "border-transparent text-slate-200 hover:text-white",
+                  )
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
           </div>
+
+          <div className="nav-desktop-actions hidden items-center gap-2 md:flex">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="flex min-w-[200px] items-center gap-2 rounded-[10px] border border-slate-600/30 bg-slate-900/60 px-3 py-2 text-left text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
+            >
+              <Search className="h-4 w-4 shrink-0" aria-hidden />
+              <span className="flex-1 truncate">İhale, lokasyon…</span>
+              <kbd className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
+            </button>
+            <button
+              type="button"
+              className="rounded-lg border border-slate-600/30 px-3 py-2 text-sm text-slate-200"
+              aria-label="Dil"
+            >
+              🌐 TR
+            </button>
+            <Link
+              to="/giris"
+              className="rounded-lg border border-slate-600/30 px-4 py-2 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
+            >
+              Giriş
+            </Link>
+            <Link
+              to="/kayit"
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-white no-underline shadow-lg shadow-blue-500/30"
+              style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
+            >
+              Kayıt Ol
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            className="nav-mobile-toggle hidden rounded-lg border border-slate-600/30 p-2 text-slate-200 lg:hidden"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? "Menüyü kapat" : "Menüyü aç"}
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
 
-        {isOpen && (
-          <div className="lg:hidden backdrop-blur-xl border-b px-4 pb-4 animate-fade-in" style={{ background: "var(--color-bg-card)", borderColor: "var(--color-border)" }}>
-            <div className="flex flex-col gap-1 mt-2">
-              <button onClick={() => { setSearchOpen(true); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-left flex items-center gap-2 btn-primary w-full justify-start"><Search className="w-4 h-4" /> İlan Ara</button>
-              <button type="button" onClick={() => scrollTo("hero")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">Ana Sayfa</button>
-              <button type="button" onClick={() => { navigate("/ihaleler"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">İhaleler</button>
+        {mobileOpen ? (
+          <div className="border-t border-slate-700/40 px-4 py-4 lg:hidden">
+            <button
+              type="button"
+              onClick={() => {
+                setSearchOpen(true);
+                setMobileOpen(false);
+              }}
+              className="mb-3 flex w-full items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 py-2.5 text-sm text-slate-400"
+            >
+              <Search className="h-4 w-4" /> İhale, lokasyon ara…
+            </button>
+            {NAV_LINKS.map((item) => (
               <NavLink
-                to="/degerleme"
-                end
-                onClick={() => setIsOpen(false)}
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobileOpen(false)}
                 className={({ isActive }) =>
-                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
-                    isActive
-                      ? "text-white bg-cyan-500/25 border-cyan-400/50"
-                      : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"
-                  }`
+                  cn(
+                    "block rounded-lg px-3 py-2.5 text-sm font-medium no-underline",
+                    isActive ? "bg-slate-800/60 text-blue-400" : "text-slate-200 hover:bg-slate-800/50",
+                  )
                 }
               >
-                <Calculator className="w-4 h-4 shrink-0" aria-hidden />
-                Değerleme
+                {item.label}
               </NavLink>
-              <NavLink
-                to={ROUTES.ARASTIRMA_GES}
-                end
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
-                    isActive
-                      ? "text-white bg-emerald-500/25 border-emerald-400/50"
-                      : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"
-                  }`
-                }
+            ))}
+            <div className="mt-3 flex gap-2 border-t border-slate-700/40 pt-3">
+              <Link
+                to="/giris"
+                className="flex-1 rounded-lg border border-slate-600/30 py-2.5 text-center text-sm text-slate-200 no-underline"
               >
-                <Sun className="w-4 h-4 shrink-0" aria-hidden />
-                GES Arazi
-              </NavLink>
-              <NavLink
-                to={INTELLIGENCE_HUB_PATH}
-                end={false}
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
-                    isActive
-                      ? "text-white bg-blue-500/25 border-blue-400/50"
-                      : "text-slate-200 border-white/10 hover:bg-[var(--color-bg-soft)]"
-                  }`
-                }
+                Giriş
+              </Link>
+              <Link
+                to="/kayit"
+                className="flex-1 rounded-lg py-2.5 text-center text-sm font-semibold text-white no-underline"
+                style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               >
-                <Radar className="w-4 h-4 shrink-0" aria-hidden />
-                Araştırma
-              </NavLink>
-              <NavLink
-                to={KKA_HUB_PATH}
-                end={false}
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
-                    isActive
-                      ? "text-white bg-emerald-500/25 border-emerald-400/50"
-                      : "text-emerald-900 border-emerald-700/40 bg-emerald-100 hover:bg-emerald-200"
-                  }`
-                }
-              >
-                <Landmark className="w-4 h-4 shrink-0" aria-hidden />
-                {kkaHubNavLabel} (KKA)
-              </NavLink>
-              <NavLink
-                to={KKA_STUDIO_PATH}
-                end
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  `px-3 py-2.5 rounded-lg text-sm font-semibold border text-left flex items-center gap-2 ${
-                    isActive
-                      ? "text-white bg-cyan-500/20 border-cyan-400/45"
-                      : "text-cyan-900 border-cyan-700/40 bg-cyan-100 hover:bg-cyan-200"
-                  }`
-                }
-              >
-                <DraftingCompass className="w-4 h-4 shrink-0" aria-hidden />
-                {kkaStudioNavLabel}
-              </NavLink>
-              <button
-                type="button"
-                onClick={() => {
-                  navigate(ROUTES.HOW_IT_WORKS);
-                  setIsOpen(false);
-                }}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left"
-              >
-                Nasıl Çalışır
-              </button>
-              <button type="button" onClick={() => scrollTo("contact")} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left">İletişim</button>
-              <div className="border-t border-white/5 my-2" />
-              <button onClick={() => { navigate("/analiz"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-blue-400 hover:bg-blue-500/10 text-left flex items-center gap-2"><BarChart3 className="w-4 h-4" /> AI Analiz</button>
-              <button
-                type="button"
-                onClick={() => {
-                  navigate("/komisyon-modeli");
-                  setIsOpen(false);
-                }}
-                className="px-3 py-2.5 rounded-lg text-sm font-semibold text-violet-100 border border-violet-400/35 bg-gradient-to-r from-violet-500/20 to-fuchsia-500/15 hover:from-violet-500/30 hover:to-fuchsia-500/25 text-left flex items-center gap-2"
-              >
-                <BadgePercent className="w-4 h-4 shrink-0" aria-hidden />
-                Komisyon oranları & gelir modeli
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  navigate("/komisyon-hesaplayici");
-                  setIsOpen(false);
-                }}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 text-left flex items-center gap-2"
-              >
-                <Calculator className="w-4 h-4 shrink-0" aria-hidden />
-                Komisyon hesaplayıcı
-              </button>
-              <button onClick={() => { navigate("/dashboard"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-violet-400 hover:bg-violet-500/10 text-left flex items-center gap-2"><LayoutDashboard className="w-4 h-4" /> Dashboard</button>
-              {showAdmin ? (
-                <button onClick={() => { navigate("/admin"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Shield className="w-4 h-4" /> Admin</button>
-              ) : null}
-              <button onClick={() => { navigate("/harita"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-emerald-400 hover:bg-emerald-500/10 text-left flex items-center gap-2"><Navigation className="w-4 h-4" /> Harita</button>
-              <button type="button" onClick={() => { navigate("/karsilastir"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-teal-400 hover:bg-teal-500/10 text-left flex items-center gap-2"><GitCompare className="w-4 h-4" /> Karşılaştır</button>
-              <button type="button" onClick={() => { navigate("/mortgage"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Mortgage</button>
-              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Değerleme</button>
-              {currentUser ? (
-                <>
-                  {userFlows.length === 0 ? (
-                    <button
-                      onClick={() => {
-                        navigate("/onboarding/akis");
-                        setIsOpen(false);
-                      }}
-                      className="px-3 py-2.5 rounded-lg text-sm font-medium text-teal-200 border border-teal-500/30 text-left"
-                    >
-                      Akış seç
-                    </button>
-                  ) : null}
-                  {flowPerms.canOpenAuction ? (
-                    <button
-                      onClick={() => {
-                        navigate("/ihale-ac");
-                        setIsOpen(false);
-                      }}
-                      className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-teal-400 text-left flex items-center gap-2"
-                    >
-                      <PlusCircle className="w-4 h-4" /> İhale Aç
-                    </button>
-                  ) : null}
-                  <button onClick={() => { navigate("/profil"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white text-left flex items-center gap-2"><UserPlus className="w-4 h-4" /> Profilim</button>
-                  <button
-                    onClick={() => {
-                      void handleSignOut();
-                    }}
-                    className="px-3 py-2.5 rounded-lg text-sm font-medium text-rose-300 hover:bg-rose-500/10 text-left flex items-center gap-2"
-                  >
-                    <LogOut className="w-4 h-4" /> Çıkış Yap
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button type="button" onClick={() => { navigate("/giris?profil=emlakçı"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-teal-200 border border-teal-500/25 hover:bg-teal-500/10 text-left flex items-center gap-2"><Building2 className="w-4 h-4" /> Emlakçı girişi</button>
-                  <button type="button" onClick={() => { navigate("/giris?profil=muteahhit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-amber-200 border border-amber-500/25 hover:bg-amber-500/10 text-left flex items-center gap-2"><Factory className="w-4 h-4" /> Müteahhit girişi</button>
-                  <button type="button" onClick={() => { navigate("/giris"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white text-left flex items-center gap-2"><LogIn className="w-4 h-4" /> Giriş</button>
-                  <button type="button" onClick={() => { navigate("/kayit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-400 text-left">Kayıt Ol</button>
-                </>
-              )}
-              <button onClick={() => { toggle(); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left flex items-center gap-2">
-                {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-violet-400" />}
-                {theme === "dark" ? "Aydinlik Tema" : "Karanlik Tema"}
-              </button>
+                Kayıt Ol
+              </Link>
             </div>
           </div>
-        )}
+        ) : null}
       </nav>
-      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />
+      <style>{`
+        @media (max-width: 1024px) {
+          .nav-desktop-links { display: none !important; }
+          .nav-desktop-actions { display: none !important; }
+          .nav-mobile-toggle { display: flex !important; }
+        }
+      `}</style>
     </>
   );
 }
+
+export default Navbar;
