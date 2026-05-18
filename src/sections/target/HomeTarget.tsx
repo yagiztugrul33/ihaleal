@@ -18,6 +18,14 @@ const pageBg: React.CSSProperties = {
   color: "#e2e8f0",
 };
 
+function formatUsd(amount: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
 export function HomeTarget() {
   const [stats, setStats] = useState({ a: 0, b: 0, c: 0, d: 0 });
 
@@ -40,7 +48,6 @@ export function HomeTarget() {
 
   return (
     <div style={pageBg} className="home-target-page">
-      {/* HERO */}
       <section
         className="home-target-hero relative min-h-[720px] overflow-hidden px-4 pb-16 pt-10 sm:px-6"
         aria-labelledby="home-hero-title"
@@ -68,7 +75,7 @@ export function HomeTarget() {
               className="mb-10 inline-flex items-center gap-2 rounded-full border border-slate-600/30 px-4 py-2 text-sm backdrop-blur-md"
               style={{ background: "rgba(15, 23, 41, 0.6)" }}
             >
-              🛡 Şeffaf. Güvenli. Akıllı.
+              🛡 Secure. Transparent. Intelligent.
               <span
                 className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_12px_#10b981]"
                 aria-hidden
@@ -80,7 +87,7 @@ export function HomeTarget() {
               className="mb-6 text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#f8fafc]"
               style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}
             >
-              Gayrimenkul{" "}
+              The Future of{" "}
               <span
                 style={{
                   background: "linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)",
@@ -89,16 +96,15 @@ export function HomeTarget() {
                   backgroundClip: "text",
                 }}
               >
-                İhalelerinin
-              </span>{" "}
-              Geleceği.
+                Real Estate Auctions
+              </span>
             </h1>
 
             <p
-              className="mb-8 max-w-[420px] text-[1.05rem] leading-relaxed text-slate-300"
+              className="mb-8 max-w-[480px] text-[1.05rem] leading-relaxed text-slate-300"
               style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
             >
-              AI destekli platform — güvenli, şeffaf ve verimli gayrimenkul ihaleleri için.
+              AI-powered platform for secure, transparent and efficient real estate auctions worldwide.
             </p>
 
             <div className="mb-12 flex flex-wrap gap-3">
@@ -107,14 +113,14 @@ export function HomeTarget() {
                 className="inline-flex items-center gap-2 rounded-[10px] px-7 py-3.5 text-[.95rem] font-semibold text-white no-underline shadow-[0_10px_30px_rgba(59,130,246,.4)]"
                 style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               >
-                İhaleleri Keşfet →
+                Explore Auctions →
               </Link>
               <Link
-                to="/nasil-calisir"
+                to={ROUTES.NASIL_CALISIR}
                 className="inline-flex items-center gap-2 rounded-[10px] border border-slate-600/30 px-7 py-3.5 text-[.95rem] font-semibold text-slate-200 no-underline backdrop-blur-md"
                 style={{ background: "rgba(15, 23, 41, 0.5)" }}
               >
-                ▶ Nasıl Çalışır
+                ▶ How It Works
               </Link>
             </div>
 
@@ -168,14 +174,14 @@ function LiveChartCard() {
       style={{ background: "rgba(15, 23, 41, 0.85)" }}
     >
       <div className="mb-4 flex items-center justify-between">
-        <div className="text-[.95rem] font-semibold text-slate-50">Canlı İhaleler</div>
+        <div className="text-[.95rem] font-semibold text-[#f8fafc]">Live Auctions</div>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-1 text-[.7rem] font-semibold text-emerald-400">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
           ● Live
         </span>
       </div>
-      <div className="mb-1 text-[4rem] font-extrabold leading-none tracking-tight text-slate-50">284</div>
-      <div className="mb-4 text-[.9rem] font-semibold text-emerald-400">+%18 geçen aydan</div>
+      <div className="mb-1 text-[4rem] font-extrabold leading-none tracking-tight text-[#f8fafc]">284</div>
+      <div className="mb-4 text-[.9rem] font-semibold text-emerald-400">+18% from last month</div>
       <svg viewBox="0 0 400 80" className="mb-4 h-[70px] w-full" aria-hidden>
         <defs>
           <linearGradient id="liveGrad" x1="0" y1="0" x2="0" y2="1">
@@ -195,7 +201,7 @@ function LiveChartCard() {
         />
       </svg>
       <Link to={ROUTES.ILANLAR} className="text-sm font-semibold text-blue-400 no-underline">
-        Canlı Görüntüle →
+        View Live →
       </Link>
     </div>
   );
@@ -203,10 +209,10 @@ function LiveChartCard() {
 
 function TrustSignalsRow() {
   const items = [
-    { i: "🛡", t: "Bank Düzeyi Güvenlik", s: "256-bit SSL şifreleme" },
-    { i: "👥", t: "10.000+", s: "Aktif yatırımcı" },
-    { i: "★", t: "4.9/5", s: "Müşteri puanı" },
-    { i: "🎧", t: "7/24 Destek", s: "Her zaman yanınızda" },
+    { i: "🛡", t: "Bank-Level Security", s: "256-bit SSL encryption" },
+    { i: "👥", t: "10,000+", s: "Active Investors" },
+    { i: "★", t: "4.9/5", s: "Customer Rating" },
+    { i: "🎧", t: "24/7 Support", s: "Always here to help" },
   ];
   return (
     <div className="mt-10 grid max-w-[720px] gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -231,10 +237,10 @@ function StatCardsColumn({
   stats: { a: number; b: number; c: number; d: number };
 }) {
   const cards = [
-    { l: "Toplam İhale", v: stats.a.toLocaleString("tr-TR"), c: "+12.5%", ic: "🏠" },
-    { l: "Başarılı Satış", v: stats.b.toLocaleString("tr-TR"), c: "+8.3%", ic: "✓" },
-    { l: "Aktif Yatırımcı", v: stats.c.toLocaleString("tr-TR"), c: "+15.2%", ic: "👥" },
-    { l: "Memnuniyet", v: `${stats.d}%`, c: "+2.1%", ic: "★" },
+    { l: "Total Auctions", v: stats.a.toLocaleString("en-US"), c: "+12.5%", ic: "🏠" },
+    { l: "Successful Sales", v: stats.b.toLocaleString("en-US"), c: "+8.3%", ic: "✓" },
+    { l: "Active Investors", v: stats.c.toLocaleString("en-US"), c: "+15.2%", ic: "👥" },
+    { l: "Satisfaction Rate", v: `${stats.d}%`, c: "+2.1%", ic: "★" },
   ];
   return (
     <div className="home-target-stat-cards flex flex-col gap-3.5">
@@ -254,7 +260,7 @@ function StatCardsColumn({
                 <span className="text-2xl font-bold tracking-tight text-slate-50">{x.v}</span>
                 <span className="text-[.7rem] font-semibold text-emerald-400">{x.c}</span>
               </div>
-              <div className="mt-0.5 text-[.65rem] text-slate-500">vs geçen ay</div>
+              <div className="mt-0.5 text-[.65rem] text-slate-500">vs last month</div>
             </div>
           </div>
         </div>
@@ -265,17 +271,22 @@ function StatCardsColumn({
 
 function HowItWorksSection() {
   const steps = [
-    { n: "01", i: "🔍", t: "Keşfet", d: "Doğrulanmış ilanlar ve detaylı analitik." },
-    { n: "02", i: "🛡", t: "Kayıt & Doğrulama", d: "KYC doğrulama sürecini tamamla." },
-    { n: "03", i: "🔨", t: "Teklif Ver", d: "Canlı ihalelere gerçek zamanlı katıl." },
-    { n: "04", i: "🏆", t: "Kazan", d: "İhaleyi kazan, güvenli teslimat." },
+    { n: "01", i: "🔍", t: "Discover", d: "Browse verified properties and detailed analytics." },
+    { n: "02", i: "🛡", t: "Register & Verify", d: "Complete your KYC and verification process." },
+    { n: "03", i: "🔨", t: "Place Your Bid", d: "Participate in live auctions with real-time updates." },
+    { n: "04", i: "🏆", t: "Win & Complete", d: "Win the auction and complete securely." },
   ];
   const trust = [
-    { i: "🛡", t: "Bank Düzeyi Güvenlik", s: "256-bit SSL & veri koruması", c: "#3b82f6" },
-    { i: "📊", t: "AI Destekli Analitik", s: "AI insights ile akıllı kararlar", c: "#10b981" },
-    { i: "✓", t: "Şeffaf Süreç", s: "%100 şeffaf bidding", c: "#f59e0b" },
-    { i: "🌐", t: "Küresel Erişim", s: "Türkiye geneli ihaleler", c: "#8b5cf6" },
-    { i: "🎧", t: "7/24 Destek", s: "Her zaman yanınızdayız", c: "#ec4899" },
+    { i: "🛡", t: "Bank-Level Security", s: "256-bit SSL & data protection", c: "#3b82f6" },
+    { i: "📊", t: "AI-Powered Analytics", s: "AI insights for smarter decisions", c: "#10b981" },
+    { i: "✓", t: "Transparent Process", s: "100% transparent bidding", c: "#f59e0b" },
+    { i: "🌐", t: "Global Access", s: "Worldwide property auctions", c: "#8b5cf6" },
+    { i: "🎧", t: "24/7 Support", s: "Always here when you need us", c: "#ec4899" },
+  ];
+  const certs = [
+    { t: "ISO 27001", s: "Certified" },
+    { t: "SOC 2", s: "Type II Compliant" },
+    { t: "GDPR", s: "Compliant", flag: "🇪🇺" },
   ];
   return (
     <section className="px-4 py-16 sm:px-6">
@@ -286,9 +297,9 @@ function HowItWorksSection() {
         <div>
           <div className="mb-10 text-center">
             <h2 className="mb-2 text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight text-slate-50">
-              Nasıl Çalışır?
+              How It Works?
             </h2>
-            <p className="text-sm text-slate-400">4 basit adımda gayrimenkul ihalelerine katılın</p>
+            <p className="text-sm text-slate-400">Four simple steps to participate in real estate auctions</p>
           </div>
           <div className="home-target-steps relative grid grid-cols-4 gap-4">
             <div
@@ -322,7 +333,7 @@ function HowItWorksSection() {
           style={{ background: "rgba(10, 14, 26, 0.5)" }}
         >
           <h3 className="mb-5 text-base font-semibold text-slate-50">
-            Neden Yatırımcılar iHaleal&apos;e Güveniyor
+            Why Investors Trust iHaleal
           </h3>
           <div className="flex flex-col gap-3.5">
             {trust.map((x) => (
@@ -344,6 +355,21 @@ function HowItWorksSection() {
               </div>
             ))}
           </div>
+          <div className="mt-6 flex flex-wrap gap-3 border-t border-slate-600/20 pt-5">
+            {certs.map((b) => (
+              <div
+                key={b.t}
+                className="flex-1 min-w-[90px] rounded-[10px] border border-slate-600/20 px-3 py-2.5 text-center"
+                style={{ background: "rgba(15, 23, 41, 0.5)" }}
+              >
+                <div className="text-xs font-bold text-slate-50">
+                  {b.flag ? `${b.flag} ` : ""}
+                  {b.t}
+                </div>
+                <div className="text-[.65rem] text-slate-400">{b.s}</div>
+              </div>
+            ))}
+          </div>
         </aside>
       </div>
     </section>
@@ -352,20 +378,52 @@ function HowItWorksSection() {
 
 function LiveAuctionsSection() {
   const items = [
-    { t: "Lüks Villa", l: "İstanbul, Sarıyer", p: "₺12.450.000", c: "+12.5%", b: "32 teklif", tm: "15s 24dk", i: 0 },
-    { t: "Modern Ofis Binası", l: "Ankara, Çankaya", p: "₺8.850.000", c: "+8.2%", b: "28 teklif", tm: "1g 5s", i: 1 },
-    { t: "Premium Daire", l: "İzmir, Konak", p: "₺3.950.000", c: "+15.7%", b: "18 teklif", tm: "2s 15dk", i: 2 },
-    { t: "Ticari Kompleks", l: "Bursa, Nilüfer", p: "₺14.250.000", c: "+10.3%", b: "45 teklif", tm: "3g 12s", i: 3 },
+    {
+      t: "Luxury Villa in Dubai Hills",
+      l: "Dubai, UAE",
+      p: formatUsd(2_450_000),
+      c: "+12.5%",
+      b: "32 bids",
+      tm: "15h 24m left",
+      i: 0,
+    },
+    {
+      t: "Modern Office Building",
+      l: "London, UK",
+      p: formatUsd(1_850_000),
+      c: "+8.2%",
+      b: "28 bids",
+      tm: "1d 5h left",
+      i: 1,
+    },
+    {
+      t: "Premium Apartment",
+      l: "Istanbul, Turkey",
+      p: formatUsd(950_000),
+      c: "+15.7%",
+      b: "18 bids",
+      tm: "2h 15m left",
+      i: 2,
+    },
+    {
+      t: "Commercial Complex",
+      l: "New York, USA",
+      p: formatUsd(4_250_000),
+      c: "+10.3%",
+      b: "45 bids",
+      tm: "3d 12h left",
+      i: 3,
+    },
   ];
   return (
     <section className="px-4 pb-16 pt-12 sm:px-6">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <h2 className="m-0 text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight text-slate-50">
-            Canlı İhaleler
+            Live Auctions
           </h2>
           <Link to={ROUTES.ILANLAR} className="text-sm font-semibold text-blue-400 no-underline">
-            Tüm İhaleleri Gör →
+            View All Auctions →
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
@@ -386,7 +444,7 @@ function LiveAuctionsSection() {
                 <button
                   type="button"
                   className="absolute right-3 top-3 flex h-[34px] w-[34px] items-center justify-center rounded-lg border border-slate-600/30 bg-slate-900/80 text-white backdrop-blur-md"
-                  aria-label="Favorilere ekle"
+                  aria-label="Add to favorites"
                 >
                   ♡
                 </button>
@@ -394,7 +452,7 @@ function LiveAuctionsSection() {
               <div className="p-4">
                 <h3 className="mb-1 text-base font-semibold text-slate-50">{item.t}</h3>
                 <p className="mb-3 text-[.78rem] text-slate-400">📍 {item.l}</p>
-                <p className="mb-1 text-[.65rem] uppercase tracking-wider text-[#94a3b8]">MEVCUT TEKLİF</p>
+                <p className="mb-1 text-[.65rem] uppercase tracking-wider text-[#94a3b8]">Current Bid</p>
                 <div className="mb-3 flex items-baseline justify-between">
                   <span className="text-xl font-bold tracking-tight text-slate-50">{item.p}</span>
                   <span className="text-sm font-semibold text-emerald-400">{item.c}</span>
@@ -417,13 +475,13 @@ function TrustedBySection() {
   const certs = [
     { t: "ISO 27001", s: "Certified" },
     { t: "SOC 2", s: "Type II Compliant" },
-    { t: "KVKK", s: "Compliant" },
+    { t: "GDPR", s: "Compliant" },
   ];
   return (
     <section className="border-t border-slate-600/20 px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-[1400px] text-center">
         <p className="mb-6 text-xs uppercase tracking-widest text-slate-500">
-          Dünyanın önde gelen kurumları tarafından güveniliyor
+          Trusted by leading institutions worldwide
         </p>
         <div className="mb-8 flex flex-wrap items-center justify-center gap-8 opacity-50 md:gap-12">
           {brands.map((b) => (

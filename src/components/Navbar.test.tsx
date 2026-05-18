@@ -13,22 +13,19 @@ function renderNavbar(initialPath = "/") {
 }
 
 describe("Navbar", () => {
-  it("GES Arazi linki masaustu menude gorunur ve /arastirma/ges'e gider", () => {
+  it("GES Land link in Services dropdown points to /arastirma/ges", () => {
     renderNavbar();
-    const desktopNav = document.querySelector(".nav-desktop-links");
-    expect(desktopNav).toBeTruthy();
-    const gesLink = desktopNav!.querySelector(`a[href="${ROUTES.ARASTIRMA_GES}"]`);
-    expect(gesLink).toBeTruthy();
-    expect(gesLink?.textContent).toMatch(/GES Arazi/i);
+    fireEvent.click(screen.getByTestId("nav-services-trigger"));
+    const gesLink = screen.getByTestId("nav-services-ges");
+    expect(gesLink).toHaveAttribute("href", ROUTES.ARASTIRMA_GES);
+    expect(gesLink.textContent).toMatch(/GES Land/i);
   });
 
-  it("GES Arazi linki mobil menude gorunur ve /arastirma/ges'e gider", () => {
+  it("GES Land link in mobile Services section", () => {
     renderNavbar();
-    fireEvent.click(screen.getByRole("button", { name: "Menüyü aç" }));
-    const mobileLinks = screen.getAllByRole("link", { name: "GES Arazi" });
-    expect(mobileLinks.length).toBeGreaterThanOrEqual(1);
-    mobileLinks.forEach((link) => {
-      expect(link).toHaveAttribute("href", ROUTES.ARASTIRMA_GES);
-    });
+    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    const gesLink = screen.getByTestId("nav-services-ges-mobile");
+    expect(gesLink).toHaveAttribute("href", ROUTES.ARASTIRMA_GES);
+    expect(gesLink.textContent).toMatch(/GES Land/i);
   });
 });
