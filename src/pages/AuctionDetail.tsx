@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
@@ -1306,7 +1306,7 @@ export default function AuctionDetail() {
                 setPreAuthBuyNowOpen(true);
               }}
             >
-              Kart blokesi (Hemen Al) adimina devam
+              Kart blokesi (Hemen Al) adımina devam
             </Button>
           </DialogFooter>
         </DialogContent>

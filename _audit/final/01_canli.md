@@ -1,6 +1,6 @@
 # ihaleal.com — Final Durum Raporu
 
-**Tarih:** 17.05.2026 22:03:59
+**Tarih:** 17.05.2026 22:39:42
 **Canlı URL:** https://ihaleal.vercel.app
 **Production bundle:** `index-B8quZ-Y0.js`
 
@@ -45,57 +45,3 @@
 - ✅ Başarılı / beklenen: **25**
 - ⚠️ Uyarı: **4**
 - ❌ Hata: **0**
-
-### Uyarıların anlamı
-
-| Sayfa | Not |
-|-------|-----|
-| `/ilanlar` | Sayfa çalışıyor; başlık `<title>` içinde, görünür H1 yok (tasarım tercihi). |
-| `/kurumsal/dashboard` | Auth olmadan genel layout; org paneli giriş sonrası açılır. |
-| `/iletisim` | İletişim formu çalışıyor; H1 yerine section başlığı kullanılıyor. |
-| `/ilan/demo-1` | Demo ID — gerçek ilan slug’ı ile değiştirilmeli. |
-
-## Git Durumu
-
-**Branch:** `main`  
-**Son commit:** `4c914a5` — Fix smoke tests for intelligence routes after yatirim redirect.
-
-**Son 10 commit:**
-
-```
-4c914a5 Fix smoke tests for intelligence routes after yatirim redirect.
-119a2d2 Pre-launch hardening: nav, trust strip, demo UX, hide internal footer links.
-90370cb Replace navbar logo with processed gold emblem from logom.png.
-a94a84e Match homepage to reference luxury PropTech landing layout.
-652505f docs: fix4 sonuc raporu
-b3abf73 fix(ui): /harita ve /kurumsal/iletisim dark theme + Turkce duzeltme
-0083863 feat(ui): luxury institutional design system v3
-05d8401 docs: deploy 3 prebuilt production index-CHOM0KeA
-111ee5c docs: fix3 sonuc raporu
-bdb85e3 fix(ui): kurumsal okunabilirlik, Türkçe ve arastirma route'ları
-```
-
-## Murat Bey Sunum PDF
-
-**Repoda PDF bulunamadı** (`*.pdf`, `*murat*`, `*sunum*`, `*pitch*` araması boş).
-
-| Kaynak | Durum |
-|--------|--------|
-| 12 sayfalık RE/MAX pilot sunumu | Büyük olasılıkla **Claude sohbet ekinde** üretildi; bu repoya commit edilmedi. |
-| `docs/hukuk/kaynak/*.pdf` | RE/MAX örnek sözleşme taraması için **yerel** klasör (telif — repoya zorunlu değil). Klasör şu an boş. |
-| `docs/hukuk/README.md` | Hukuki çerçeve ve PDF yerleştirme talimatları |
-
-**Güncelleme önerisi:** Pilot görüşme öncesi PDF’i `docs/pitch/` altına `murat-bey-remax-pilot-YYYY-MM.pdf` adıyla ekleyip `.gitignore` ile hariç tutabilir veya sadece yerel/Google Drive’da tutabilirsiniz. Canlı ürün durumu bu rapordaki tablo ile uyumlu.
-
-## Proje İstatistikleri
-
-- TypeScript dosya sayısı: **413**
-- Supabase migration: **23**
-- Supabase Edge Function: **12**
-- Sayfa (Page) sayısı: **91**
-
-## Tanıtım demo akışı (önerilen)
-
-`/` → `/arastirma` → `/arastirma/war-room` → `/arastirma/ges` → `/arastirma/parsel` → `/kurumsal` → `/kurumsal/iletisim` → `/harita` → `/ilanlar`
-
-**Kaçının:** Footer’daki iç geliştirme linkleri, `/panel/*` taslakları, `/arastirma/yatirim` (hub’a yönlendirir).

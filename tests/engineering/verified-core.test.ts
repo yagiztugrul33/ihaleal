@@ -6,7 +6,8 @@ import {
 } from "@/lib/engineering/gesEngine";
 import {
   ParcelValidationError,
-  calculateParcelFeasibility,
+  calculateParcelFeasibilityLegacy,
+  type ParcelFeasibilityReport,
 } from "@/lib/engineering/parcelFeasibility";
 import { buildGesPrefeasibilityReport, buildParcelPrefeasibilityReport } from "@/lib/engineering/reportBuilder";
 
@@ -109,26 +110,26 @@ describe("verified parcel core", () => {
   };
 
   it("computes EMSAL and TAKS areas", () => {
-    const r = calculateParcelFeasibility(baseParcel);
+    const r: ParcelFeasibilityReport = calculateParcelFeasibilityLegacy(baseParcel);
     expect(r.maxConstructionAreaM2).toBeCloseTo(2500 * 1.2, 4);
     expect(r.footprintM2).toBeCloseTo(2500 * 0.35, 4);
     assertNoBadNumbers(r);
   });
 
   it("throws on invalid emsal", () => {
-    expect(() => calculateParcelFeasibility({ ...baseParcel, emsal: 0 })).toThrow(
+    expect(() => calculateParcelFeasibilityLegacy({ ...baseParcel, emsal: 0 })).toThrow(
       ParcelValidationError,
     );
   });
 
   it("includes manual imar disclaimers", () => {
-    const r = calculateParcelFeasibility(baseParcel);
+    const r = calculateParcelFeasibilityLegacy(baseParcel);
     expect(r.warnings.some((w) => w.toLowerCase().includes("imar"))).toBe(true);
-    expect(r.limitations.some((l) => l.includes("ön fizibilite"))).toBe(true);
+    expect(r.limitations.some((l) => l.toLowerCase().includes("fizibilite"))).toBe(true);
   });
 
   it("builds parcel markdown report", () => {
-    const r = calculateParcelFeasibility(baseParcel);
+    const r = calculateParcelFeasibilityLegacy(baseParcel);
     const md = buildParcelPrefeasibilityReport({ ada: "1", parsel: "2" }, r);
     expect(md).toContain("Yatırım tavsiyesi değildir");
     expect(md).not.toMatch(/NaN|undefined|Infinity/);

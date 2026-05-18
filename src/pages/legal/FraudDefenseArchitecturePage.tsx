@@ -24,7 +24,7 @@ export default function FraudDefenseArchitecturePage() {
             <h1 className="text-2xl font-bold text-white mt-1">Dolandiricilik ve dava risklerine karsi savunma</h1>
             <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
               Uc kagit, sahte ilan, teklif manipulasyonu, platform disi kapora ve aradan cikma, lansman on-satisinda teknik sartname ile
-              ilan uyumu, para birligi, MASAK, KVKK ve sureklilik riskleri; platformun ayakta kalmasi ve kullaniciya guven vermesi icin urun
+              ilan uyumu, para birligi, MASAK, KVKK ve sureklilik riskleri; platformun ayakta kalmasi ve kullaniciya güven vermesi icin urun
               + hukuk + teknik kontrollerin ozeti. Baglayici danismanlik degildir.
             </p>
           </div>
@@ -35,7 +35,7 @@ export default function FraudDefenseArchitecturePage() {
             <Button variant="outline" size="sm" className="border-white/15 text-slate-200" onClick={() => navigate("/yasal-cerceve")}>
               <Scale className="w-4 h-4 mr-1" /> Yasal cerceve
             </Button>
-            <Button variant="outline" size="sm" className="border-teal-500/30 text-teal-100" onClick={() => navigate("/guvenlik")}>
+            <Button variant="outline" size="sm" className="border-teal-500/30 text-teal-100" onClick={() => navigate("/güvenlik")}>
               <ShieldAlert className="w-4 h-4 mr-1" /> Guvenlik merkezi
             </Button>
           </div>

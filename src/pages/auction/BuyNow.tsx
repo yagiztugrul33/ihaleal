@@ -104,7 +104,7 @@ export default function BuyNow() {
           <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3 space-y-2 text-xs text-slate-400">
             <p className="font-semibold text-emerald-200">MASAK / AML</p>
             <p className="leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
-            <p className="font-semibold text-cyan-200 pt-2">Kart guvenligi</p>
+            <p className="font-semibold text-cyan-200 pt-2">Kart güvenliği</p>
             <p className="leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
             <p className="leading-relaxed pt-1">{HEMEN_AL_DOCS_BLOCK}</p>
             <div className="flex flex-wrap gap-2 pt-2">

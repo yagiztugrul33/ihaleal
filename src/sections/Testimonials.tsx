@@ -1,4 +1,4 @@
-﻿import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Quote } from "lucide-react";
 
 const ITEMS = [

@@ -69,7 +69,7 @@ const BIDDING_RULES_REPLY = [
   "• Teminat, üyelik ve ödeme adımları ilan ile yasal metinlere tabidir (demo ortamda kayıtlar sınırlı olabilir).",
   "• Sahte veya oyun amaçlı teklif yasaktır; tespitte hesap kısıtı ve sözleşmedeki yaptırımlar geçerlidir (hedef).",
   "",
-  "Ayrıntılı anlatım: /nasil-calisir?adim=teklif — yasal çerçeve: /ihale-kosullari — canlı örnek ilanlar: /ihaleler (şehir filtreleri).",
+  "Ayrıntılı anlatım: /nasil-calisir?adım=teklif — yasal çerçeve: /ihale-kosullari — canlı örnek ilanlar: /ihaleler (şehir filtreleri).",
 ].join("\n");
 
 const BIDDING_RULE_KEYS = [
@@ -209,7 +209,7 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
   },
   {
     keys: ["güvenlik", "şifre", "hesap"],
-    reply: `Güvenlik merkezi: /guvenlik. Oturum Supabase Auth ile; teminat referansı demo: ${formatBidBondPercent()}.`,
+    reply: `Güvenlik merkezi: /güvenlik. Oturum Supabase Auth ile; teminat referansı demo: ${formatBidBondPercent()}.`,
   },
   {
     keys: ["telefon", "mobil", "lokal", "localhost", "5173", "wifi", "wi-fi", "aynı ağ", "geliştirici"],

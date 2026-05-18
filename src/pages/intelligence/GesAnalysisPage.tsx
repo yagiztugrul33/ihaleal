@@ -9,11 +9,12 @@ import { Label } from "@/components/ui/label";
 import { fetchPvgisSolar } from "@/lib/data/pvgisClient";
 import type { PvgisSolarResponse } from "@/lib/data/pvgisTypes";
 import {
-  calculateGesFeasibility,
+  safeCalculateGesFeasibility,
   buildGesPrefeasibilityReport,
   type GesFeasibilityResult,
 } from "@/lib/engineering";
-import { fmtNum, fmtPct } from "@/lib/engineering/formatDisplay";
+import { fmtNum, fmtPct, fmtScore } from "@/lib/engineering/formatDisplay";
+import { PreFeasibilityBanner } from "@/components/compliance/PreFeasibilityBanner";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 
 function num(s: string, fallback: number): number {
@@ -34,6 +35,7 @@ export default function GesAnalysisPage() {
   const [pvgisPayload, setPvgisPayload] = useState<PvgisSolarResponse | null>(null);
   const [fetchingPvgis, setFetchingPvgis] = useState(false);
   const [result, setResult] = useState<GesFeasibilityResult | null>(null);
+  const [calcError, setCalcError] = useState("");
 
   const loadPvgis = async () => {
     setFetchingPvgis(true);
@@ -64,8 +66,10 @@ export default function GesAnalysisPage() {
   };
 
   const run = () => {
+    setCalcError("");
+    try {
     setResult(
-      calculateGesFeasibility({
+      safeCalculateGesFeasibility({
         landAreaM2: num(landM2, 100000),
         dcCapacityKwp: num(dcKwp, 5000),
         annualGhiKwhM2: num(ghi, 1780),
@@ -77,6 +81,10 @@ export default function GesAnalysisPage() {
         projectYears: 25,
       }),
     );
+    } catch {
+      setCalcError("Hesaplama tamamlanamadi.");
+      setResult(null);
+    }
   };
 
   const downloadReport = () => {
@@ -131,15 +139,12 @@ export default function GesAnalysisPage() {
             <p className="text-sm text-slate-400">On fizibilite — NPV, IRR, LCOE (bankable degil)</p>
           </motion.div>
         </motion.div>
-        <motion.div className="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-          <strong>On fizibilite:</strong> Bu sayfa yatirim tavsiyesi degildir. Resmi EIA / baglanti / ruhsat yerine gecmez.
-          {result?.dataSource === "ghi_annual_fallback" ? (
-            <span className="block mt-1 text-amber-200/90">
-              PVGIS aylik veri yok — GHI uzerinden mevsimsel profil kullanildi.
-            </span>
-          ) : null}
-          {pvgisNote && !result ? <span className="block mt-1 text-amber-200/80">{pvgisNote}</span> : null}
-        </motion.div>
+        <PreFeasibilityBanner className="mb-6 text-amber-100" />
+        {calcError ? <p className="mb-4 text-sm text-red-300">{calcError}</p> : null}
+        {result?.dataSource === "ghi_annual_fallback" ? (
+          <p className="mb-4 text-xs text-amber-200/90">PVGIS aylik veri yok — GHI uzerinden mevsimsel profil kullanildi.</p>
+        ) : null}
+        {pvgisNote && !result ? <p className="mb-4 text-xs text-amber-200/80">{pvgisNote}</p> : null}
         <motion.div className="grid lg:grid-cols-2 gap-8">
           <Card className="card-luxury border-white/10">
             <CardContent className="p-6 space-y-4">
@@ -197,7 +202,7 @@ export default function GesAnalysisPage() {
                 ).map(([l, v]) => (
                   <motion.div key={l} className="card-luxury p-4 text-center">
                     <p className="text-[10px] text-slate-500">{l}</p>
-                    <p className="text-2xl font-bold text-cyan-300">{v}</p>
+                    <p className="text-2xl font-bold text-cyan-300">{fmtScore(v)}</p>
                   </motion.div>
                 ))}
               </motion.div>

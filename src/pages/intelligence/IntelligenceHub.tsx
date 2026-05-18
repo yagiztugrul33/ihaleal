@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -7,6 +8,9 @@ import {
   Sun,
   Shield,
   Radar,
+  Zap,
+  RefreshCw,
+  Banknote,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,95 +19,133 @@ import {
   WAR_ROOM_PATH,
 } from "@/lib/intelligenceHub";
 import { KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import { IBUYER_PATH } from "@/lib/ibuyerHub";
+import { ROUTES } from "@/constants/routes";
+
+const TICKER_EVENTS = [
+  "Remax Boss -> Pesinat Takasli Islem Dogrulandi",
+  "Remax Borsa Global -> Capraz Ofis Referans %25 Komisyon",
+  "GES On Fizibilite -> Konya Karapinar 12.4 MWp Onay Bekliyor",
+  "Parsel Desk -> EMSAL 1.8 / TAKS 0.35 Kat Karsiligi Hesaplandi",
+  "iBuyer -> Anlik Nakit Teklif 4.100.000 TRY (48s)",
+  "Hukuk Heyeti -> Miras/Intikal Dosyasi Manuel Incelemede",
+];
 
 const MODULES = [
   {
-    title: "Stratejik War Room",
-    desc: "Canli GIS, PVGIS, jeoteknik, deprem, afet ve GES — kurumsal site istihbarati.",
-    icon: Radar,
-    href: WAR_ROOM_PATH,
-    badge: "Palantir",
+    title: "Aninda Teklif (iBuyer)",
+    desc: "400 puanlik anayasa kontrolu, risk primi ve kurumsal nakit teklif motoru.",
+    icon: Banknote,
+    href: IBUYER_PATH,
+    badge: "Remax",
+    accent: "from-red-500/20 to-rose-900/10 border-red-500/30",
+  },
+  {
+    title: "Takas (Trade-In)",
+    desc: "Mevcut mulkunuzu hedef portfoye takaslayin; capraz ofis komisyon izleme.",
+    icon: RefreshCw,
+    href: `${IBUYER_PATH}?flow=trade-in`,
+    badge: "Takas",
+    accent: "from-violet-500/20 to-purple-900/10 border-violet-500/30",
   },
   {
     title: "GES Master Analiz",
-    desc: "IEC/IEA uyumlu isinim, PR, uretim, NPV, IRR, LCOE — muhendislik varsayimlari ile.",
+    desc: "550Wp panel matrisi, 10 yillik CAPEX/OPEX/LCOE/IRR — On Fizibilite.",
     icon: Sun,
     href: GES_ANALYSIS_PATH,
     badge: "Muhendislik",
+    accent: "from-amber-500/20 to-orange-900/10 border-amber-500/30",
   },
   {
     title: "Ada Parsel Istihbarat",
-    desc: "Imar, GES uygunluk, bolge gelisim ve bilesik yatirim skoru.",
+    desc: "EMSAL/TAKS, kat adedi, muteahhit vs arsa sahibi paylasimi, skor /100.",
     icon: Map,
     href: PARCEL_INTELLIGENCE_PATH,
-    badge: "GIS + AI",
+    badge: "GIS",
+    accent: "from-cyan-500/20 to-blue-900/10 border-cyan-500/30",
   },
   {
-    title: "Kat Karşılığı Studio",
-    desc: "EMSAL/TAKS, hak edis ve sozlesme taslagi.",
+    title: "Stratejik War Room",
+    desc: "Canli GIS, PVGIS, jeoteknik ve afet katmani — kurumsal site istihbarati.",
+    icon: Radar,
+    href: WAR_ROOM_PATH,
+    badge: "Palantir",
+    accent: "from-blue-500/20 to-indigo-900/10 border-blue-500/30",
+  },
+  {
+    title: "Kat Karsiligi Studio",
+    desc: "EMSAL/TAKS, hak edis ve sozlesme taslagı.",
     icon: Building2,
     href: KKA_STUDIO_PATH,
     badge: "Mevcut",
-  },
-  {
-    title: "Yatirim Terminali",
-    desc: "Bolge karsilastirma ve portfoy skorlari (yakinda).",
-    icon: FileBarChart,
-    href: LAND_INVESTMENT_PATH,
-    badge: "Beta",
+    accent: "from-emerald-500/20 to-teal-900/10 border-emerald-500/30",
   },
 ];
 
-export default function IntelligenceHub() {
+function LiveTicker() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % TICKER_EVENTS.length);
+    }, 4200);
+    return () => window.clearInterval(id);
+  }, []);
   return (
     <motion.div
-      className="min-h-screen pt-24 pb-20 intelligence-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      className="mb-8 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md"
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
     >
-      <motion.div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-blue-950/40 via-transparent to-transparent"
-        aria-hidden
-      />
+      <motion.div className="flex items-center gap-3 px-4 py-3 text-xs sm:text-sm">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/40 bg-red-500/10 px-2.5 py-0.5 font-semibold uppercase tracking-wider text-red-200">
+          <Zap className="h-3.5 w-3.5" /> Canli
+        </span>
+        <motion.p key={index} className="text-slate-300 truncate font-mono" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          {TICKER_EVENTS[index]}
+        </motion.p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+export default function IntelligenceHub() {
+  return (
+    <motion.div className="min-h-screen bg-[#030712] text-white pt-24 pb-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <motion.div className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-gradient-to-b from-red-950/25 via-blue-950/20 to-transparent" aria-hidden />
       <motion.div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div className="mb-12 max-w-3xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cyan-400/90 mb-3">
-            Arastirma terminali
-          </p>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Arazi, GES ve yatırım zekası
-          </h1>
+        <motion.div className="mb-10 max-w-3xl">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-red-400/90 mb-3">Remax Borsa Global</p>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Arastirma ve Istihbarat Terminali</h1>
           <p className="text-slate-400 mt-4 text-lg leading-relaxed">
-            Muhendislik formulleri, olasilik tabanli imar indeksleri ve izlenebilir hesap
-            adimlari. Sonuclar bilgilendirme amaclidir; resmi rapor ve lisansli onay gerektirir.
+            iBuyer, takas, GES ve parsel masalari tek cati altinda. Sonuclar on fizibilite niteligindedir; resmi rapor ve lisansli onay gerektirir.
           </p>
           <motion.div className="mt-6 flex flex-wrap gap-2">
-            <span className="trust-pill text-xs">IEC / IEA metodoloji</span>
-            <span className="trust-pill text-xs">Guven araligi</span>
-            <span className="trust-pill text-xs">Varsayim seffafligi</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">400 puan hukuk skoru</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Capraz ofis komisyon</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Formul izlenebilirligi</span>
           </motion.div>
         </motion.div>
 
-        <motion.div className="grid md:grid-cols-2 gap-6">
+        <LiveTicker />
+
+        <motion.div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
           {MODULES.map((m, i) => (
             <motion.div
               key={m.href}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="card-luxury group p-6 flex flex-col"
+              transition={{ delay: i * 0.06 }}
+              className={`group flex flex-col rounded-2xl border bg-gradient-to-br p-6 backdrop-blur-xl ${m.accent}`}
             >
               <motion.div className="flex items-start justify-between gap-4">
-                <motion.div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10">
-                  <m.icon className="w-6 h-6 text-cyan-300" />
+                <motion.div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-black/30">
+                  <m.icon className="w-6 h-6 text-white/90" />
                 </motion.div>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 border border-white/10 rounded-full px-2 py-0.5">
-                  {m.badge}
-                </span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 border border-white/10 rounded-full px-2 py-0.5">{m.badge}</span>
               </motion.div>
-              <h2 className="text-xl font-bold text-white mt-4">{m.title}</h2>
+              <h2 className="text-xl font-bold mt-4">{m.title}</h2>
               <p className="text-sm text-slate-400 mt-2 flex-1 leading-relaxed">{m.desc}</p>
-              <Button asChild className="btn-primary mt-6 w-full sm:w-auto gap-2">
+              <Button asChild className="mt-6 w-full sm:w-auto gap-2 bg-white/10 hover:bg-white/15 border border-white/10">
                 <Link to={m.href}>
                   Modulu ac <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -112,18 +154,16 @@ export default function IntelligenceHub() {
           ))}
         </motion.div>
 
-        <motion.div
-          className="mt-12 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 flex gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.35 }}
-        >
+        <motion.div className="mt-12 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 flex gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
           <Shield className="w-5 h-5 text-amber-300 shrink-0" />
           <p className="text-xs text-slate-400 leading-relaxed">
-            Olasılık skorları ve üretim tahminleri garanti değildir. PVGIS doğrulanmış ışınım,
-            resmi imar durumu ve TEİAŞ/EDAŞ başvurusu olmadan yatırım kararı alınmamalıdır.
+            Kesinlikle yatırım tavsiyesi degildir. Girdilere dayali on fizibilitedir. PVGIS dogrulanmis isinim, resmi imar durumu ve TEIAS/EDAS basvurusu olmadan yatırım karari alinmamalidir.
           </p>
         </motion.div>
+
+        <p className="mt-6 text-center text-[10px] text-slate-600">
+          <Link to={ROUTES.SERVICES} className="hover:text-slate-400 underline-offset-2 hover:underline">Kurumsal hizmetler</Link>
+        </p>
       </motion.div>
     </motion.div>
   );

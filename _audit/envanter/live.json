@@ -1,0 +1,140 @@
+﻿[
+    {
+        "Path":  "/",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/ilanlar",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/auctions",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/harita",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/karsilastir",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/favoriler",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/degerleme",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/mortgage",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/giris",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/kayit",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/kurumsal",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/kurumsal/iletisim",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/kurumsal/dashboard",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/arastirma",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/arastirma/war-room",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/arastirma/ges",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/arastirma/parsel",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/arastirma/yatirim",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/admin",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/nasil-calisir",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/how-it-works",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/services",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    },
+    {
+        "Path":  "/aninda-teklif",
+        "Code":  200,
+        "Icerik":  "Mojibake",
+        "Tasarim":  "Beyaz"
+    }
+]

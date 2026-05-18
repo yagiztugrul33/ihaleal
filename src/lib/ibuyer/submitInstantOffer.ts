@@ -24,23 +24,38 @@ function toRpcPayload(payload: IBuyerApplicationPayload) {
 }
 
 function localDemoSubmit(payload: IBuyerApplicationPayload): InstantOfferResult {
-  const assessment = assessLegalRisk(payload.legalFlags);
-  const offerAmountTry =
-    assessment.status === "OFFER_GENERATED"
-      ? calculateAutomatedOfferAmount(payload.marketValueTry, assessment.riskScore)
-      : null;
-  const expiresAt =
-    assessment.status === "OFFER_GENERATED" ? offerExpiresAtIso() : null;
+  try {
+    const assessment = assessLegalRisk(payload.legalFlags);
+    const offerAmountTry =
+      assessment.status === "OFFER_GENERATED"
+        ? calculateAutomatedOfferAmount(payload.marketValueTry, assessment.riskScore)
+        : null;
+    const expiresAt =
+      assessment.status === "OFFER_GENERATED" ? offerExpiresAtIso() : null;
 
-  return {
-    ...assessment,
-    submissionId: `demo-${Date.now()}`,
-    offerRequestId: `demo-offer-${Date.now()}`,
-    offerAmountTry,
-    marketValueTry: payload.marketValueTry,
-    expiresAt,
-    demoMode: true,
-  };
+    return {
+      ...assessment,
+      submissionId: `demo-${Date.now()}`,
+      offerRequestId: `demo-offer-${Date.now()}`,
+      offerAmountTry:
+        offerAmountTry != null && Number.isFinite(offerAmountTry) ? offerAmountTry : null,
+      marketValueTry: Number.isFinite(payload.marketValueTry) ? payload.marketValueTry : 0,
+      expiresAt,
+      demoMode: true,
+    };
+  } catch {
+    const assessment = assessLegalRisk(payload.legalFlags);
+    return {
+      ...assessment,
+      status: "LEGAL_REVIEW",
+      submissionId: `demo-${Date.now()}`,
+      offerRequestId: undefined,
+      offerAmountTry: null,
+      marketValueTry: Number.isFinite(payload.marketValueTry) ? payload.marketValueTry : 0,
+      expiresAt: null,
+      demoMode: true,
+    };
+  }
 }
 
 export async function submitInstantOffer(
@@ -72,9 +87,15 @@ export async function submitInstantOffer(
       : assessLegalRisk(payload.legalFlags).breakdown,
     submissionId: row.submissionId ? String(row.submissionId) : undefined,
     offerRequestId: row.offerRequestId ? String(row.offerRequestId) : undefined,
-    offerAmountTry:
-      row.offerAmountTry != null ? Number(row.offerAmountTry) : null,
-    marketValueTry: Number(row.marketValueTry ?? payload.marketValueTry),
+    offerAmountTry: (() => {
+      if (row.offerAmountTry == null) return null;
+      const n = Number(row.offerAmountTry);
+      return Number.isFinite(n) ? n : null;
+    })(),
+    marketValueTry: (() => {
+      const n = Number(row.marketValueTry ?? payload.marketValueTry);
+      return Number.isFinite(n) ? n : 0;
+    })(),
     expiresAt: row.expiresAt ? String(row.expiresAt) : null,
     demoMode: false,
   };

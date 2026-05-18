@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ROUTES } from "@/constants/routes";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -9,7 +10,6 @@ import {
   Headphones,
   TrendingUp,
   Gavel,
-  BarChart3,
 } from "lucide-react";
 import { cinematicEase, staggerContainer, staggerItem } from "@/lib/motion/presets";
 
@@ -47,21 +47,26 @@ export function Hero() {
           animate="show"
         >
           <motion.div variants={staggerItem}>
+            <p className="ref-hero-eyebrow mb-4 inline-flex items-center gap-2">
+              <span className="ref-hero-eyebrow-dot" aria-hidden />
+              Şeffaf. Güvenli. Akıllı.
+            </p>
             <h1 className="ref-hero-title max-w-2xl">
-              Gayrimenkul
-              <span className="ref-hero-title-gradient"> ihalelerinin </span>
-              geleceği
+              Gayrimenkulün
+              <span className="ref-hero-title-gradient"> geleceği </span>
+              İhaleal&apos;de.
             </h1>
             <p className="ref-hero-subtitle mt-6 max-w-xl">
-              Dünya çapında güvenli, şeffaf ve verimli gayrimenkul ihaleleri için AI destekli platform.
+              Türkiye&apos;nin AI destekli gayrimenkul pazaryeri. Şeffaf ilan, kapalı teklif ve açık ihale — tek
+              platformda, güvenli ve denetlenebilir.
             </p>
 
             <motion.div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to="/ilanlar" className="ref-btn-primary">
+              <Link to={ROUTES.AUCTIONS} className="ref-btn-primary">
                 İhaleleri Keşfet
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <Link to="/nasil-calisir" className="ref-btn-secondary">
+              <Link to={ROUTES.HOW_IT_WORKS} className="ref-btn-secondary">
                 <Play className="h-4 w-4 fill-current opacity-90" aria-hidden />
                 Nasıl Çalışır
               </Link>
@@ -88,8 +93,9 @@ export function Hero() {
                 <div>
                   <p className="text-xs font-medium text-slate-400">Canlı ihaleler</p>
                   <p className="mt-1 text-3xl font-bold text-white">284</p>
+                  <p className="text-xs font-semibold text-emerald-400">+18% geçen aydan</p>
                 </div>
-                <BarChart3 className="h-8 w-8 text-blue-400 opacity-80" aria-hidden />
+                <span className="ref-live-dot-pill">CANLI</span>
               </div>
               <div className="ref-mini-chart mt-4 flex h-16 items-end gap-1">
                 {[35, 55, 42, 70, 48, 82, 60, 75].map((h, i) => (

@@ -287,3 +287,11 @@ export function calculateGesFeasibility(input: GesFeasibilityInput): GesFeasibil
   assertOutputFinite(result);
   return result;
 }
+
+/** Arazi GES on fizibilite motoru (GesEngineInputs) — UI: GesAnalysisPage */
+export {
+  calculateGesEngineFeasibility,
+  calculateGesEngineFeasibility as calculateGesLandFeasibility,
+  type GesEngineInputs,
+  type GesEngineResult,
+} from "./ges/gesEngineFeasibility";

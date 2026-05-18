@@ -38,14 +38,14 @@ function isStepSlug(v: string | null): v is NasilCalisirStepSlug {
 export default function NasilCalisir() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const adimParam = searchParams.get("adim");
+  const adımParam = searchParams.get("adım");
   const fromCta = searchParams.get("from") === "cta";
   const { ref: heroRef, isVisible } = useScrollAnimation(0.08);
   const scrolledRef = useRef(false);
 
   useLayoutEffect(() => {
-    if (!isStepSlug(adimParam)) return;
-    const id = `step-${adimParam}`;
+    if (!isStepSlug(adımParam)) return;
+    const id = `step-${adımParam}`;
     const el = document.getElementById(id);
     if (!el) return;
     const t = window.requestAnimationFrame(() => {
@@ -53,14 +53,14 @@ export default function NasilCalisir() {
       scrolledRef.current = true;
     });
     return () => window.cancelAnimationFrame(t);
-  }, [adimParam]);
+  }, [adımParam]);
 
   const setAdim = (slug: NasilCalisirStepSlug) => {
-    setSearchParams({ adim: slug }, { replace: false });
+    setSearchParams({ adım: slug }, { replace: false });
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-20 bg-slate-50">
+    <div className="min-h-screen bg-[#0a0e1a] pt-20 pb-20 text-slate-200">
       <div className="absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent pointer-events-none" />
 
       <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -174,12 +174,12 @@ export default function NasilCalisir() {
           </pre>
         </section>
 
-        <div className="sticky top-20 z-20 -mx-4 px-4 py-3 mb-10 bg-slate-50/90 backdrop-blur-md border border-slate-200 rounded-xl">
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Adımlar</p>
+        <div className="sticky top-20 z-20 -mx-4 px-4 py-3 mb-10 bg-[#0f1729]/90 backdrop-blur-md border border-slate-700/50 rounded-xl">
+          <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">Adımlar</p>
           <div className="flex flex-wrap gap-2">
             {NASIL_CALISIR_STEPS.map((s) => {
               const Icon = STEP_ICONS[s.slug];
-              const active = adimParam === s.slug;
+              const active = adımParam === s.slug;
               return (
                 <button
                   key={s.slug}

@@ -13,6 +13,8 @@ import {
   type LegalRiskFlagKey,
   type LegalRiskFlags,
 } from "@/lib/ibuyer";
+import { auditSubmissionData } from "@/lib/security/fraudEngine";
+import { PreFeasibilityBanner } from "@/components/compliance/PreFeasibilityBanner";
 
 const EMPTY_FLAGS: LegalRiskFlags = {
   inheritance: false,
@@ -31,6 +33,7 @@ const FLAG_KEYS = Object.keys(EMPTY_FLAGS) as LegalRiskFlagKey[];
 type Step = 1 | 2 | 3;
 
 function formatTry(amount: number): string {
+  if (!Number.isFinite(amount)) return "—";
   return new Intl.NumberFormat("tr-TR", {
     style: "currency",
     currency: "TRY",
@@ -128,9 +131,28 @@ export function SubmissionForm() {
 
   const onSubmit = async () => {
     setError("");
+    const fraud = auditSubmissionData({
+      grossAreaM2: form.grossM2,
+      marketValueTry: form.marketValueTry,
+    });
+    if (fraud.blocked) {
+      setError(
+        "Girdi doğrulaması başarısız: şüpheli veya tutarsız veri tespit edildi. Lütfen alanları kontrol edin veya danışmanınızla iletişime geçin.",
+      );
+      return;
+    }
     setLoading(true);
     try {
-      const res = await submitInstantOffer(buildPayload());
+      const payload = buildPayload();
+      const res = await submitInstantOffer(payload);
+      if (fraud.manualReview && res.status === "OFFER_GENERATED") {
+        setResult({
+          ...res,
+          status: "LEGAL_REVIEW",
+        });
+        setStep(3);
+        return;
+      }
       setResult(res);
       setStep(3);
     } catch (e) {
@@ -141,7 +163,8 @@ export function SubmissionForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md space-y-4">
+      <PreFeasibilityBanner />
       <div className="mb-6 flex gap-2 text-xs text-slate-400">
         {[1, 2, 3].map((n) => (
           <span
@@ -270,7 +293,9 @@ export function SubmissionForm() {
               Demo modu: Supabase yapılandırılmadı veya RPC kullanılamadı; sonuç yerel motorla üretildi.
             </p>
           )}
-          {result.status === "OFFER_GENERATED" && result.offerAmountTry != null && (
+          {result.status === "OFFER_GENERATED" &&
+            result.offerAmountTry != null &&
+            Number.isFinite(result.offerAmountTry) && (
             <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-4">
               <p className="text-emerald-100 text-2xl font-bold">{formatTry(result.offerAmountTry)}</p>
               <p className="text-sm text-emerald-200/80 mt-1">
@@ -280,9 +305,9 @@ export function SubmissionForm() {
             </div>
           )}
           {result.status === "LEGAL_REVIEW" && (
-            <p className="flex items-center gap-2 text-amber-200 text-sm">
-              <ShieldAlert className="h-4 w-4" />
-              Hukuk ekibimiz 1–2 iş günü içinde sizinle iletişime geçecek.
+            <p className="flex items-center gap-2 text-amber-200 text-sm font-medium">
+              <ShieldAlert className="h-4 w-4 shrink-0" />
+              Mülkünüz Hukuk Heyetimiz Tarafından İnceleniyor. 1–2 iş günü içinde sizinle iletişime geçilecektir.
             </p>
           )}
           {result.status === "REJECTED" && (

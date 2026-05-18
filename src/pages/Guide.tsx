@@ -10,9 +10,9 @@ const FAQS = [
   {
     category: "Genel",
     items: [
-      { q: "ihaleal.com nedir?", a: "ihaleal.com, Turkiye icin gayrimenkul ilani ve ihale deneyimi sunan platformdur. Yapay zeka destekli degerleme, seffaf teklif cizgisi ve guvenli odeme hedefi ile kullanicilara uygun firsatlar icin tek adres olarak konumlanir." },
+      { q: "ihaleal.com nedir?", a: "ihaleal.com, Türkiye icin gayrimenkul ilani ve ihale deneyimi sunan platformdur. Yapay zeka destekli degerleme, seffaf teklif cizgisi ve güvenli odeme hedefi ile kullanicilara uygun firsatlar icin tek adres olarak konumlanir." },
       { q: "Nasil uye olabilirim?", a: "Ana sayfadan Kayit Ol butonuna tiklayarak, ad, soyad, e-posta ve telefon bilgilerinizle ucretsiz uye olabilirsiniz. Uyeliginizi e-posta adresinize gelen link ile aktive edebilirsiniz." },
-      { q: "ihaleal.com guvenli mi?", a: "Evet. Teklif ve iletisim cizgisi sifreli kanallar uzerinden tasarlanmistir. Kisisel veriler KVKK odakli saklanir; baglanti SSL ile korunur. Odeme ve PCI iddialari uretim matrisinde netlestirilir ( simdilik demo)." },
+      { q: "ihaleal.com güvenli mi?", a: "Evet. Teklif ve iletisim cizgisi sifreli kanallar uzerinden tasarlanmistir. Kisisel veriler KVKK odakli saklanir; baglanti SSL ile korunur. Odeme ve PCI iddialari uretim matrisinde netlestirilir ( simdilik demo)." },
     ]
   },
   {
@@ -28,7 +28,7 @@ const FAQS = [
     items: [
       {
         q: "Kazandigim ihalede odeme nasil yapilir?",
-        a: `Ihaleyi kazandiginizda ${formatBidBondPercent()} kapora odemesi yapmaniz gerekir (fees.ts). Kalan tutar ${FEES.refundWindowDays} gun icinde tamamlanmalidir (taslak). Tum odemeler escrow hesap uzerinden guvenle gerceklestirilir.`,
+        a: `Ihaleyi kazandiginizda ${formatBidBondPercent()} kapora odemesi yapmaniz gerekir (fees.ts). Kalan tutar ${FEES.refundWindowDays} gun icinde tamamlanmalidir (taslak). Tum odemeler escrow hesap uzerinden güvenle gerceklestirilir.`,
       },
       { q: "Kredi kullanabilir miyim?", a: "Evet, tum ilanlarimiz banka kredisine uygundur. Mortgage hesaplayicimiz ile aylik taksit tutarlarinizi onceden hesaplayabilirsiniz." },
       { q: "Tapu devri nasil gerceklesir?", a: "Ihaleyi kazanan alici, odemelerin tamamlanmasinin ardindan ilgili tapu mudurlugunde resmi devretme islemi gerceklestirir. Platformumuz hukuki sureclerde size rehberlik saglar." },
@@ -37,7 +37,7 @@ const FAQS = [
   {
     category: "Yapay Zeka ve Analiz",
     items: [
-      { q: "AI degerleme nasil calisiyor?", a: "Yapay zeka modelimiz, milyonlarca gercek satis verisi, bolge istatistikleri, piyasa trendleri ve gayrimenkul ozelliklerini analiz ederek fiyat tahmini ve yatirim skoru uretir." },
+      { q: "AI degerleme nasil calisiyor?", a: "Yapay zeka modelimiz, milyonlarca gercek satis verisi, bolge istatistikleri, piyasa trendleri ve gayrimenkul ozelliklerini analiz ederek fiyat tahmini ve yatırım skoru uretir." },
       { q: "Fiyat tahminleri ne kadar dogru?", a: "AI tahminlerimiz gecmis verilere gore %85-90 dogruluk oranina sahiptir. Ancak gayrimenkul piyasasi dalgalanmalara aciktir ve tahminler kesinlik icermez." },
       { q: "Kira getirisi nasil hesaplanir?", a: "Bolgedeki ortalama kira bedelleri, doluluk oranlari ve isletme giderleri analiz edilerek brut ve net kira getirisi hesaplanir. Getiri simulatoreumuz ile kendi parametrelerinizi test edebilirsiniz." },
     ]
@@ -48,7 +48,7 @@ const QUICK_LINKS = [
   { icon: <Gavel className="w-5 h-5" />, label: "Ihaleler", desc: "Tum aktif ihaleleri goruntuleyin", color: "text-blue-400", path: "/" },
   { icon: <BarChart3 className="w-5 h-5" />, label: "AI Analiz", desc: "Piyasa istatistikleri ve ongoruler", color: "text-violet-400", path: "/analiz" },
   { icon: <Calculator className="w-5 h-5" />, label: "Mortgage", desc: "Kredi hesaplayici ve planlama", color: "text-amber-400", path: "/mortgage" },
-  { icon: <TrendingUp className="w-5 h-5" />, label: "Firsatlar", desc: "AI secilmis yatirim firsatlari", color: "text-emerald-400", path: "/analiz" },
+  { icon: <TrendingUp className="w-5 h-5" />, label: "Firsatlar", desc: "AI secilmis yatırım firsatlari", color: "text-emerald-400", path: "/analiz" },
 ];
 
 export default function Guide() {

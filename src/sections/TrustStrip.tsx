@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Shield, Lock, Award, Globe2 } from "lucide-react";
 
 const BADGES = [
-  { icon: Shield, label: "ISO 27001", sub: "Bilgi guvenligi" },
-  { icon: Lock, label: "SOC 2 Type II", sub: "Operasyonel guven" },
+  { icon: Shield, label: "ISO 27001", sub: "Bilgi güvenliği" },
+  { icon: Lock, label: "SOC 2 Type II", sub: "Operasyonel güven" },
   { icon: Award, label: "KVKK uyumlu", sub: "Veri koruma" },
   { icon: Globe2, label: "Kurumsal SLA", sub: "7/24 altyapi" },
 ] as const;
@@ -14,7 +14,7 @@ export function TrustStrip() {
   return (
     <section className="trust-strip-section border-y border-white/5 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="trust-strip-label text-center">Dunya capinda kurumlarin guvendigi altyapi</p>
+        <p className="trust-strip-label text-center">Dünya çapında kurumların güvendiği altyapı</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-10 opacity-50">
           {PARTNERS.map((name) => (
             <span key={name} className="text-sm font-semibold tracking-widest text-slate-400 md:text-base">{name}</span>

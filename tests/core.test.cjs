@@ -7,4 +7,5 @@ function run(cmd, args) {
 
 run("npx", ["tsc", "-p", "tsconfig.test.json", "--noEmit"]);
 run("npx", ["vitest", "run", "tests/engineering/verified-core.test.ts"]);
+run("npx", ["vitest", "run", "tests/engineering/integration/coreIntegration.test.ts"]);
 console.log("core.test.cjs OK");

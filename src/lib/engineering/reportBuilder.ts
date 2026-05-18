@@ -1,5 +1,5 @@
 import type { GesFeasibilityResult } from "./gesEngine";
-import type { ParcelFeasibilityResult } from "./parcelFeasibility";
+import type { ParcelFeasibilityReport } from "./parcelFeasibility";
 
 function fmt(n: number, digits = 0): string {
   if (!Number.isFinite(n)) return "—";
@@ -64,7 +64,7 @@ export function buildGesPrefeasibilityReport(
 
 export function buildParcelPrefeasibilityReport(
   inputs: Record<string, string | number>,
-  result: ParcelFeasibilityResult,
+  result: ParcelFeasibilityReport,
 ): string {
   const id = reportId("PARSEL");
   const lines = [
@@ -109,3 +109,9 @@ export function buildParcelPrefeasibilityReport(
   );
   return lines.join("\n");
 }
+
+export {
+  buildGesMarkdownReport,
+  buildParcelMarkdownReport,
+  reportId as engineeringReportId,
+} from "./reports/markdownReports";

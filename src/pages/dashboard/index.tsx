@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -205,7 +205,7 @@ export default function FlowDashboard() {
         <Card className="border-slate-200/80 bg-slate-950/30">
           <CardContent className="p-4">
             <p className="text-sm text-slate-400 mb-2">Yatırımcı portföy grafikleri (favoriler)</p>
-            <Button type="button" variant="secondary" className="w-full sm:w-auto" onClick={() => navigate("/dashboard/yatirimci")}>
+            <Button type="button" variant="secondary" className="w-full sm:w-auto" onClick={() => navigate("/dashboard/yatırımci")}>
               Portföy görünümüne git
             </Button>
           </CardContent>

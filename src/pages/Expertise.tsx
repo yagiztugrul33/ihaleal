@@ -164,7 +164,7 @@ export default function Expertise() {
 
               <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5 space-y-4">
-                  <h3 className="text-lg font-bold text-white flex items-center gap-2"><Banknote className="w-5 h-5 text-blue-400" /> Degerleme Bilgileri</h3>
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2"><Banknote className="w-5 h-5 text-blue-400" /> Değerleme Bilgileri</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div><label className="text-sm text-slate-400 mb-1 block">Beklentiniz (Opsiyonel)</label><Input type="number" value={form.estimatedValue} onChange={(e) => setForm({...form, estimatedValue: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="Orn: 5000000" /></div>
                     <div><label className="text-sm text-slate-400 mb-1 block">Talep Nedeni</label>
@@ -200,7 +200,7 @@ export default function Expertise() {
                     "Yapi kalitesi ve teknik durum degerlendirmesi",
                     "Hukuki durum ve tapu analizi",
                     "AI destekli fiyat tahmini",
-                    "Kira getirisi ve yatirim analizi",
+                    "Kira getirisi ve yatırım analizi",
                     "Risk faktorleri ve tavsiyeler",
                     "Fotografli ve detayli rapor formati",
                   ].map((item, i) => (
@@ -216,7 +216,7 @@ export default function Expertise() {
             </Card>
 
             <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
-              <div className="flex items-start gap-2"><Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" /><p className="text-xs text-slate-400">Degerleme raporu, SPK ve BDDK düzenlemelerine uygun hazirlanir. Raporlar 6 ay gecerlidir.</p></div>
+              <div className="flex items-start gap-2"><Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" /><p className="text-xs text-slate-400">Değerleme raporu, SPK ve BDDK düzenlemelerine uygun hazirlanir. Raporlar 6 ay gecerlidir.</p></div>
             </div>
           </div>
         </div>

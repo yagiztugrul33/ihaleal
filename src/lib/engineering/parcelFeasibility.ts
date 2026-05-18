@@ -1,3 +1,15 @@
+import {
+  calculateParcelFeasibility as runParcelEngine,
+  type ParcelInputs,
+  type ParcelFeasibilityResult as ParcelEngineResult,
+} from "./parcel/parcelEngineFeasibility";
+
+export {
+  calculateParcelFeasibility,
+  calculateParcelEngineFeasibility,
+} from "./parcel/parcelEngineFeasibility";
+export type { ParcelInputs } from "./parcel/parcelEngineFeasibility";
+
 export class ParcelValidationError extends Error {
   readonly field?: string;
 
@@ -8,6 +20,7 @@ export class ParcelValidationError extends Error {
   }
 }
 
+/** Legacy imar formu — ParcelIntelligencePage ve raporlar */
 export type ParcelFeasibilityInput = {
   landAreaM2: number;
   emsal: number;
@@ -17,9 +30,11 @@ export type ParcelFeasibilityInput = {
   salePriceTryPerM2?: number;
   constructionCostTryPerM2?: number;
   contractorMarginPct?: number;
+  contractorSharePercent?: number;
+  heightLimitM?: number;
 };
 
-export type ParcelFeasibilityResult = {
+export type ParcelFeasibilityReport = {
   studyLabel: "ön fizibilite — manuel imar";
   maxConstructionAreaM2: number;
   footprintM2: number;
@@ -35,7 +50,11 @@ export type ParcelFeasibilityResult = {
   assumptions: string[];
   limitations: string[];
   confidence: "low" | "medium";
+  engine: ParcelEngineResult;
 };
+
+/** @deprecated Use ParcelFeasibilityReport */
+export type ParcelFeasibilityResult = ParcelFeasibilityReport;
 
 function requirePositive(name: string, value: number): void {
   if (!Number.isFinite(value) || value <= 0) {
@@ -43,31 +62,66 @@ function requirePositive(name: string, value: number): void {
   }
 }
 
-function clampScore(n: number): number {
-  return Math.max(0, Math.min(100, Math.round(n)));
+function toEngineInputs(input: ParcelFeasibilityInput): ParcelInputs {
+  const heightLimit =
+    input.heightLimitM ?? (input.maxFloors > 0 ? input.maxFloors * 3 : undefined);
+
+  return {
+    landAreaM2: input.landAreaM2,
+    emsal: input.emsal,
+    taks: input.taks,
+    heightLimit,
+    averageUnitSizeM2: input.netUnitM2,
+    contractorSharePercent:
+      input.contractorSharePercent ??
+      (input.contractorMarginPct != null ? 100 - input.contractorMarginPct : undefined),
+    estimatedSalesPricePerM2: input.salePriceTryPerM2 ?? 45_000,
+    estimatedCostPricePerM2: input.constructionCostTryPerM2 ?? 18_000,
+  };
 }
 
-function assertFiniteResult(r: ParcelFeasibilityResult): void {
-  const nums = [
-    r.maxConstructionAreaM2,
-    r.footprintM2,
-    r.floors,
-    r.unitCount,
-    r.totalSellableM2,
-    r.revenueTry,
-    r.costsTry,
-    r.contractorProfitTry,
-    r.profitMarginPct,
-    r.feasibilityScore,
-  ];
-  for (const v of nums) {
-    if (!Number.isFinite(v)) throw new Error("Parsel çıktısında sonlu olmayan değer");
-  }
-}
-
-export function calculateParcelFeasibility(
+function mapEngineToLegacy(
+  engine: ParcelEngineResult,
   input: ParcelFeasibilityInput,
-): ParcelFeasibilityResult {
+): ParcelFeasibilityReport {
+  const assumptions = [
+    `EMSAL toplam inşaat = arazi × ${input.emsal}`,
+    `TAKS taban alanı = arazi × ${input.taks}`,
+    `Satılabilir brüt = EMSAL × %85 (ortak alan %15)`,
+    `Net alan çarpanı = %82`,
+    `Kat karşılığı müteahhit payı = %${input.contractorSharePercent ?? 50}`,
+  ];
+
+  const limitations = [
+    "Belediye imar planı, ifraz/tevhit ve ruhsat süreçleri modele dahil değildir.",
+    "Otopark, sığınak ve teknik hacimler özet katsayı ile tahmin edilmiştir.",
+    "Ön fizibilite — bankable proforma değildir.",
+  ];
+
+  return {
+    studyLabel: "ön fizibilite — manuel imar",
+    maxConstructionAreaM2: engine.maxConstructionArea,
+    footprintM2: engine.footprint,
+    floors: engine.requiredFloors,
+    unitCount: engine.estimatedUnitCount,
+    totalSellableM2: engine.sellableGrossArea,
+    revenueTry: engine.totalRevenue,
+    costsTry: engine.totalCost,
+    contractorProfitTry: engine.contractorProfit,
+    profitMarginPct: engine.profitMarginPercent,
+    feasibilityScore: engine.feasibilityScore,
+    warnings: engine.warnings,
+    assumptions,
+    limitations,
+    confidence: engine.isHeightLimitExceeded ? "low" : "medium",
+    engine,
+  };
+}
+
+/** UI/rapor uyumluluğu — yeni entegrasyonlar için `calculateParcelFeasibility(ParcelInputs)` kullanın */
+export function calculateParcelFeasibilityLegacy(
+  input: ParcelFeasibilityInput,
+): ParcelFeasibilityReport {
   requirePositive("landAreaM2", input.landAreaM2);
   requirePositive("emsal", input.emsal);
   if (!Number.isFinite(input.taks) || input.taks <= 0 || input.taks > 1) {
@@ -75,75 +129,6 @@ export function calculateParcelFeasibility(
   }
   requirePositive("maxFloors", input.maxFloors);
 
-  const netUnitM2 = input.netUnitM2 ?? 95;
-  const salePrice = input.salePriceTryPerM2 ?? 45_000;
-  const constructionCost = input.constructionCostTryPerM2 ?? 18_000;
-  const contractorMarginPct = input.contractorMarginPct ?? 12;
-
-  const maxConstructionAreaM2 = input.landAreaM2 * input.emsal;
-  const footprintM2 = input.landAreaM2 * input.taks;
-  const floorsFromArea =
-    footprintM2 > 0 ? Math.max(1, Math.floor(maxConstructionAreaM2 / footprintM2)) : 1;
-  const floors = Math.min(input.maxFloors, floorsFromArea);
-
-  const grossBuiltM2 = footprintM2 * floors;
-  const efficiency = 0.82;
-  const totalSellableM2 = grossBuiltM2 * efficiency;
-  const unitCount = Math.max(0, Math.floor(totalSellableM2 / netUnitM2));
-
-  const revenueTry = totalSellableM2 * salePrice;
-  const directCost = grossBuiltM2 * constructionCost;
-  const contractorProfitTry = directCost * (contractorMarginPct / 100);
-  const costsTry = directCost + contractorProfitTry;
-  const profit = revenueTry - costsTry;
-  const profitMarginPct = revenueTry > 0 ? (profit / revenueTry) * 100 : 0;
-
-  const feasibilityScore = clampScore(
-    profitMarginPct * 1.2 + Math.min(30, unitCount / 5) + Math.min(20, input.emsal * 8),
-  );
-
-  const warnings: string[] = [
-    "Manuel imar girdileri (EMSAL/TAKS) resmi imar planı yerine geçmez.",
-    "Ön fizibilite — yatırım tavsiyesi değildir.",
-  ];
-  if (floors < input.maxFloors) {
-    warnings.push("Taban alanı EMSAL kotasını sınırlıyor; kat adedi düşürüldü.");
-  }
-  if (unitCount === 0) {
-    warnings.push("Satılabilir birim sayısı sıfır — girdileri gözden geçirin.");
-  }
-
-  const assumptions = [
-    `EMSAL toplam inşaat = arazi × ${input.emsal}`,
-    `TAKS taban alanı = arazi × ${input.taks}`,
-    `Net verimlilik = %${(efficiency * 100).toFixed(0)}`,
-    `Birim net alan = ${netUnitM2} m²`,
-  ];
-
-  const limitations = [
-    "Belediye imar planı, ifraz/tevhit ve ruhsat süreçleri modele dahil değildir.",
-    "Finansman, KDV, hakediş ve pazarlama maliyetleri basitleştirilmiştir.",
-    "ön fizibilite — bankable proforma değildir.",
-  ];
-
-  const result: ParcelFeasibilityResult = {
-    studyLabel: "ön fizibilite — manuel imar",
-    maxConstructionAreaM2,
-    footprintM2,
-    floors,
-    unitCount,
-    totalSellableM2,
-    revenueTry,
-    costsTry,
-    contractorProfitTry,
-    profitMarginPct,
-    feasibilityScore,
-    warnings,
-    assumptions,
-    limitations,
-    confidence: "low",
-  };
-
-  assertFiniteResult(result);
-  return result;
+  const engine = runParcelEngine(toEngineInputs(input));
+  return mapEngineToLegacy(engine, input);
 }

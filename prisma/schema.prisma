@@ -1,0 +1,139 @@
+// Documentation / codegen schema — runtime DB is Supabase PostgreSQL.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubmissionFlowType {
+  AUCTION
+  INSTANT_CASH_OFFER
+  TRADE_IN_SWAP
+}
+
+enum SubmissionStatus {
+  DRAFT
+  FRAUD_REVIEW
+  LEGAL_REVIEW
+  ACTIVE_AUCTION
+  OFFER_ISSUED
+  CLOSED
+  REJECTED
+}
+
+model RemaxOffice {
+  id                 String               @id @default(cuid())
+  franchiseCode      String               @unique
+  officeName         String
+  displayName        String
+  city               String
+  region             String?
+  district           String?
+  address            String?
+  referralFeePercent Float                @default(25)
+  isActive           Boolean              @default(true)
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  agents             RemaxAgent[]
+  originatingReferrals PropertySubmission[] @relation("OriginatingOffice")
+  receivingReferrals   PropertySubmission[] @relation("ReceivingOffice")
+}
+
+model RemaxAgent {
+  id          String      @id @default(cuid())
+  officeId    String
+  office      RemaxOffice @relation(fields: [officeId], references: [id])
+  firstName   String
+  lastName    String
+  fullName    String
+  licenseNo   String?
+  email       String      @unique
+  phone       String?
+  isBroker    Boolean     @default(false)
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  submissions PropertySubmission[]
+}
+
+model PropertySubmission {
+  id                  String             @id @default(cuid())
+  userId              String?
+  agentId             String?
+  agent               RemaxAgent?        @relation(fields: [agentId], references: [id])
+  flowType            SubmissionFlowType @default(INSTANT_CASH_OFFER)
+  status              SubmissionStatus   @default(DRAFT)
+  city                String
+  district            String?
+  blockNo             String?
+  parcelNo            String?
+  layoutType          String?
+  grossAreaM2         Float?
+  landAreaM2          Float?
+  marketValueTry      Decimal?           @db.Decimal(18, 2)
+  originatingOfficeId String?
+  originatingOffice   RemaxOffice?       @relation("OriginatingOffice", fields: [originatingOfficeId], references: [id])
+  receivingOfficeId   String?
+  receivingOffice     RemaxOffice?       @relation("ReceivingOffice", fields: [receivingOfficeId], references: [id])
+  referralFeePercent  Float?
+  legalAssessment     LegalRiskAssessment?
+  gesAnalysis         GesTechnicalAnalysis?
+  parcelAnalysis      ParcelAnalysis?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+}
+
+model LegalRiskAssessment {
+  id                      String             @id @default(cuid())
+  submissionId            String             @unique
+  submission              PropertySubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  hasInheritanceDispute   Boolean            @default(false)
+  isContractorInConcordat Boolean            @default(false)
+  hasActiveLienOrMortgage Boolean            @default(false)
+  arsaPayiMismatch        Boolean            @default(false)
+  constitutionalPoints    Int                @default(0)
+  legalRiskScore          Int
+  reviewerNotes           String?
+  assessedAt              DateTime           @default(now())
+}
+
+model GesTechnicalAnalysis {
+  id                  String             @id @default(cuid())
+  submissionId        String             @unique
+  submission          PropertySubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  distanceToTrafoKm   Float
+  slopeAspect         String
+  slopeDegree         Float?
+  emsal               Float?
+  taks                Float?
+  targetUnitSize      Float?
+  usableAreaM2        Float?
+  panelCount          Int?
+  dcCapacityKwp       Float?
+  annualProductionKwh Float?
+  irrPercent          Float?
+  lcoe                Float?
+  preFeasibilityLabel String             @default("On Fizibilite (Pre-Feasibility)")
+  rawPayload          Json?
+  createdAt           DateTime           @default(now())
+}
+
+model ParcelAnalysis {
+  id                     String             @id @default(cuid())
+  submissionId           String             @unique
+  submission             PropertySubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  landAreaM2             Float
+  emsal                  Float
+  taks                   Float
+  maxGrossConstructionM2 Float?
+  netSellableM2          Float?
+  requiredFloors         Int?
+  contractorSharePercent Float              @default(50)
+  landownerSharePercent  Float              @default(50)
+  feasibilityScore       Int?
+  rawPayload             Json?
+  createdAt              DateTime           @default(now())
+}

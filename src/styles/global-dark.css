@@ -1,0 +1,45 @@
+/* IHALEAL global dark theme */
+:root {
+  --bg-base: #0a0e1a;
+  --bg-elevated: #0f1729;
+  --bg-card: rgba(15, 23, 41, 0.6);
+  --border-subtle: rgba(148, 163, 184, 0.1);
+  --border-default: rgba(148, 163, 184, 0.2);
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --accent: #f59e0b;
+}
+html, body, #root {
+  background-color: var(--bg-base) !important;
+  color: var(--text-secondary) !important;
+  min-height: 100vh;
+}
+.bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-50, .bg-slate-100 {
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-secondary) !important;
+}
+.text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900,
+.text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900, .text-black {
+  color: var(--text-secondary) !important;
+}
+.text-gray-400, .text-gray-500, .text-slate-400, .text-slate-500 {
+  color: var(--text-muted) !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+textarea, select {
+  background: rgba(10, 14, 26, 0.85) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-default) !important;
+}
+input::placeholder, textarea::placeholder { color: var(--text-dim) !important; }
+nav, header {
+  background: rgba(10, 14, 26, 0.92) !important;
+  backdrop-filter: blur(12px);
+}
+footer {
+  background: var(--bg-elevated) !important;
+  color: var(--text-muted) !important;
+  border-top: 1px solid var(--border-subtle);
+}

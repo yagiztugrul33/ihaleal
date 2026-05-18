@@ -15,6 +15,7 @@ import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 import { GES_LAND_PATH, gesLandNavLabel } from "@/lib/gesLandHub";
 import { cn } from "@/lib/utils";
+import { ROUTES } from "@/constants/routes";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -133,7 +134,7 @@ export function Navbar() {
                 }
               >
                 <Radar className="w-4 h-4 shrink-0 opacity-90" aria-hidden />
-                Arastirma
+                Araştırma
               </NavLink>
               <NavLink
                 to={GES_LAND_PATH}
@@ -167,14 +168,14 @@ export function Navbar() {
               ) : null}
               <button
                 type="button"
-                onClick={() => navigate("/kurumsal")}
+                onClick={() => navigate(ROUTES.SERVICES)}
                 className="nav-link"
               >
                 Kurumsal
               </button>
               <button
                 type="button"
-                onClick={() => navigate("/nasil-calisir")}
+                onClick={() => navigate(ROUTES.HOW_IT_WORKS)}
                 className="nav-link"
               >
                 Nasıl Çalışır
@@ -377,7 +378,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => {
-                  navigate("/nasil-calisir");
+                  navigate(ROUTES.HOW_IT_WORKS);
                   setIsOpen(false);
                 }}
                 className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-[var(--color-bg-soft)] text-left"
@@ -416,7 +417,7 @@ export function Navbar() {
               <button onClick={() => { navigate("/harita"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-emerald-400 hover:bg-emerald-500/10 text-left flex items-center gap-2"><Navigation className="w-4 h-4" /> Harita</button>
               <button type="button" onClick={() => { navigate("/karsilastir"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-teal-400 hover:bg-teal-500/10 text-left flex items-center gap-2"><GitCompare className="w-4 h-4" /> Karşılaştır</button>
               <button type="button" onClick={() => { navigate("/mortgage"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-amber-400 hover:bg-amber-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Mortgage</button>
-              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Degerleme</button>
+              <button type="button" onClick={() => { navigate("/degerleme"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-cyan-200 hover:bg-cyan-500/10 text-left flex items-center gap-2"><Calculator className="w-4 h-4" /> Değerleme</button>
               {currentUser ? (
                 <>
                   {userFlows.length === 0 ? (
