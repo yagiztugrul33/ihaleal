@@ -35,7 +35,7 @@ function loadThreads(): ChatThread[] {
 
 function roleBadge(role: string) {
   switch (role) {
-    case "emlakci":
+    case "emlakçı":
       return { Icon: Building2, label: "Emlakçı", className: "bg-violet-500/20 text-violet-300 border-violet-500/30" };
     case "alici":
       return { Icon: User, label: "Alıcı", className: "bg-sky-500/20 text-sky-300 border-sky-500/30" };

@@ -10,7 +10,7 @@ const FAQS = [
   {
     category: "Genel",
     items: [
-      { q: "ihaleal.com nedir?", a: "ihaleal.com, Türkiye icin gayrimenkul ilani ve ihale deneyimi sunan platformdur. Yapay zeka destekli degerleme, seffaf teklif cizgisi ve güvenli odeme hedefi ile kullanicilara uygun firsatlar icin tek adres olarak konumlanir." },
+      { q: "ihaleal.com nedir?", a: "ihaleal.com, Türkiye icin gayrimenkul ilani ve ihale deneyimi sunan platformdur. Yapay zeka destekli degerleme, şeffaf teklif cizgisi ve güvenli odeme hedefi ile kullanicilara uygun firsatlar icin tek adres olarak konumlanir." },
       { q: "Nasil uye olabilirim?", a: "Ana sayfadan Kayit Ol butonuna tiklayarak, ad, soyad, e-posta ve telefon bilgilerinizle ucretsiz uye olabilirsiniz. Uyeliginizi e-posta adresinize gelen link ile aktive edebilirsiniz." },
       { q: "ihaleal.com güvenli mi?", a: "Evet. Teklif ve iletisim cizgisi sifreli kanallar uzerinden tasarlanmistir. Kisisel veriler KVKK odakli saklanir; baglanti SSL ile korunur. Odeme ve PCI iddialari uretim matrisinde netlestirilir ( simdilik demo)." },
     ]

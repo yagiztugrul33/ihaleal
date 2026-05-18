@@ -42,7 +42,7 @@ const JUMP_LINKS = [
   { id: "cta", label: "Hızlı erişim" },
   { id: "ozet", label: "Gelir özeti" },
   { id: "senaryolar", label: "Senaryo analizi" },
-  { id: "emlakci", label: "Emlakçı ağı" },
+  { id: "emlakçı", label: "Emlakçı ağı" },
   { id: "mahsup", label: "Mahsup" },
   { id: "ilkeler", label: "İlkeler" },
 ] as const;
@@ -100,7 +100,7 @@ export default function BusinessModel() {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => navigate("/emlakci-ortaklik")}
+              onClick={() => navigate("/emlakçı-ortaklik")}
               className="border-violet-500/40 text-violet-100 hover:bg-violet-500/15 gap-2"
             >
               <Handshake className="w-5 h-5" /> Emlakçı ortaklığı başvurusu
@@ -205,7 +205,7 @@ export default function BusinessModel() {
           </p>
         </section>
 
-        <section id="emlakci" className="scroll-mt-28 mb-10">
+        <section id="emlakçı" className="scroll-mt-28 mb-10">
           <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
             <Handshake className="w-5 h-5 text-violet-400" /> Emlakçı ağı — pay kademeleri (işlem tutarı üzerinden)
           </h2>

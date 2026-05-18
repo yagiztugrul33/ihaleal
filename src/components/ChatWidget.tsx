@@ -169,7 +169,7 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
     reply: "Yatırım skoru yüksek örnekler /analiz → Yatırım Fırsatları sekmesinde sıralanır; risk profilinize göre filtreleyin.",
   },
   {
-    keys: ["gelir modeli", "gelir", "emlakçı payı", "emlakci payi", "b2b pay", "ortak emlak"],
+    keys: ["gelir modeli", "gelir", "emlakçı payı", "emlakçı payi", "b2b pay", "ortak emlak"],
     reply:
       "Gelir modeli ve emlakçı ağı özeti: /komisyon-modeli (senaryo tablosu, pay kademeleri, mahsup). Canlı rakam için /komisyon-hesaplayici; hizmet kalemleri /hizmet-bedelleri (demo).",
   },

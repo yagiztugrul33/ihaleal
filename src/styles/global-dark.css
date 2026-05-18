@@ -1,45 +1,78 @@
-/* IHALEAL global dark theme */
+/* IHALEAL global dark theme — all pages */
 :root {
   --bg-base: #0a0e1a;
   --bg-elevated: #0f1729;
   --bg-card: rgba(15, 23, 41, 0.6);
-  --border-subtle: rgba(148, 163, 184, 0.1);
-  --border-default: rgba(148, 163, 184, 0.2);
   --text-primary: #f8fafc;
   --text-secondary: #e2e8f0;
   --text-muted: #94a3b8;
-  --text-dim: #64748b;
   --accent: #f59e0b;
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
 }
-html, body, #root {
-  background-color: var(--bg-base) !important;
+
+html, body, #root, #__next {
+  background: var(--bg-base) !important;
   color: var(--text-secondary) !important;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
-.bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-50, .bg-slate-100 {
-  background-color: var(--bg-elevated) !important;
+
+.bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-50, .bg-slate-100,
+.bg-neutral-50, .bg-neutral-100, [class*="bg-light"] {
+  background: var(--bg-elevated) !important;
   color: var(--text-secondary) !important;
 }
-.text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900,
-.text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900, .text-black {
+
+.text-black, .text-gray-700, .text-gray-800, .text-gray-900,
+.text-slate-700, .text-slate-800, .text-slate-900 {
   color: var(--text-secondary) !important;
 }
-.text-gray-400, .text-gray-500, .text-slate-400, .text-slate-500 {
+
+.text-gray-400, .text-gray-500, .text-gray-600,
+.text-slate-400, .text-slate-500, .text-slate-600 {
   color: var(--text-muted) !important;
 }
-input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
 textarea, select {
-  background: rgba(10, 14, 26, 0.85) !important;
+  background: rgba(10, 14, 26, 0.8) !important;
   color: var(--text-secondary) !important;
-  border-color: var(--border-default) !important;
+  border: 1px solid rgba(148, 163, 184, 0.2) !important;
 }
-input::placeholder, textarea::placeholder { color: var(--text-dim) !important; }
+
+input::placeholder, textarea::placeholder {
+  color: rgba(148, 163, 184, 0.5) !important;
+}
+
 nav, header {
-  background: rgba(10, 14, 26, 0.92) !important;
+  background: rgba(10, 14, 26, 0.95) !important;
   backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
 }
+
 footer {
   background: var(--bg-elevated) !important;
   color: var(--text-muted) !important;
-  border-top: 1px solid var(--border-subtle);
+}
+
+[class*="banner"]:not([class*="error"]):not([class*="success"]) {
+  background: rgba(245, 158, 11, 0.08) !important;
+  color: var(--accent) !important;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2) !important;
+}
+
+a:not([class*="btn"]):not([class*="button"]):not(nav a):not(header a):not(footer a) {
+  color: var(--accent-blue) !important;
+}
+
+table, th, td {
+  background: var(--bg-card) !important;
+  color: var(--text-secondary) !important;
+  border-color: rgba(148, 163, 184, 0.1) !important;
+}
+
+[role="dialog"], .modal {
+  background: var(--bg-elevated) !important;
+  color: var(--text-secondary) !important;
 }

@@ -52,7 +52,7 @@ export default function Login() {
           <CardContent className="p-6 space-y-5">
             <div className="text-center mb-6">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                {kurumsalProfil === "emlakci" ? (
+                {kurumsalProfil === "emlakçı" ? (
                   <Building2 className="w-6 h-6 text-white" />
                 ) : kurumsalProfil === "muteahhit" ? (
                   <Factory className="w-6 h-6 text-white" />
@@ -61,14 +61,14 @@ export default function Login() {
                 )}
               </div>
               <h1 className="text-2xl font-bold text-white">
-                {kurumsalProfil === "emlakci"
+                {kurumsalProfil === "emlakçı"
                   ? "Emlakçı / kurumsal giriş"
                   : kurumsalProfil === "muteahhit"
                     ? "Müteahhit / proje girişi"
                     : "Giriş Yap"}
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {kurumsalProfil === "emlakci"
+                {kurumsalProfil === "emlakçı"
                   ? "Aynı hesap alıcı ve satıcı akışlarıyla da kullanılabilir. Giriş sonrası satıcı merkezine yönlendirilirsiniz."
                   : kurumsalProfil === "muteahhit"
                     ? "Ruhsat / stok ve lansman kilidi kuralları üretimde ayrı modüllerde uygulanır. Giriş sonrası ihale açma akışına yönlendirilirsiniz."
@@ -77,18 +77,18 @@ export default function Login() {
                       : "Supabase .env yok — giriş için yapılandırın."}
               </p>
             </div>
-            {kurumsalProfil === "emlakci" ? (
+            {kurumsalProfil === "emlakçı" ? (
               <div className="rounded-xl border border-teal-500/25 bg-teal-500/5 px-3 py-2.5 text-xs text-teal-100/95 space-y-2 text-left">
                 <p className="font-medium text-teal-200">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
                 <ul className="list-disc pl-4 space-y-1 text-slate-400">
                   <li>
-                    <Link to="/emlakci-ortaklik" className="text-teal-400 hover:underline">
+                    <Link to="/emlakçı-ortaklik" className="text-teal-400 hover:underline">
                       B2B ortaklık başvurusu
                     </Link>{" "}
                     (demo form)
                   </li>
                   <li>
-                    <Link to="/emlakciler" className="text-teal-400 hover:underline">
+                    <Link to="/emlakçıler" className="text-teal-400 hover:underline">
                       Ortak emlakçı vitrini
                     </Link>
                   </li>
@@ -188,8 +188,8 @@ export default function Login() {
                 type="button"
                 onClick={() =>
                   navigate(
-                    kurumsalProfil === "emlakci"
-                      ? "/kayit?profil=emlakci"
+                    kurumsalProfil === "emlakçı"
+                      ? "/kayit?profil=emlakçı"
                       : kurumsalProfil === "muteahhit"
                         ? "/kayit?profil=muteahhit"
                         : "/kayit",
@@ -203,7 +203,7 @@ export default function Login() {
             {kurumsalProfil === null ? (
               <div className="text-center text-xs text-slate-500 space-y-1">
                 <div>
-                  <Link to="/giris?profil=emlakci" className="text-teal-400 hover:underline">
+                  <Link to="/giris?profil=emlakçı" className="text-teal-400 hover:underline">
                     Emlakçı girişi
                   </Link>
                   {" · "}
@@ -217,12 +217,12 @@ export default function Login() {
                 <Link to="/giris" className="text-blue-400 hover:underline block">
                   Standart (bireysel) giriş
                 </Link>
-                {kurumsalProfil === "emlakci" ? (
+                {kurumsalProfil === "emlakçı" ? (
                   <Link to="/giris?profil=muteahhit" className="text-amber-300 hover:underline block">
                     Müteahhit girişi
                   </Link>
                 ) : (
-                  <Link to="/giris?profil=emlakci" className="text-teal-400 hover:underline block">
+                  <Link to="/giris?profil=emlakçı" className="text-teal-400 hover:underline block">
                     Emlakçı girişi
                   </Link>
                 )}

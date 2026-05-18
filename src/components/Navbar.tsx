@@ -186,7 +186,7 @@ export function Navbar() {
                   <span className="text-slate-400 px-0.5 select-none" aria-hidden>|</span>
                   <button
                     type="button"
-                    onClick={() => navigate("/giris?profil=emlakci")}
+                    onClick={() => navigate("/giris?profil=emlakçı")}
                     className="px-3 py-2 rounded-lg text-sm font-semibold text-teal-800 hover:text-white hover:bg-teal-600 border border-teal-600/50 whitespace-nowrap"
                   >
                     Emlakçı Girişi
@@ -266,7 +266,7 @@ export function Navbar() {
                 <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-end">
                   {!isMarketingHome ? (
                     <>
-                      <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakci")} className="text-slate-700 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
+                      <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=emlakçı")} className="text-slate-700 hover:text-teal-200 hover:bg-teal-500/10 gap-1.5 whitespace-nowrap" title="Kurumsal / ortak emlakçı oturumu">
                         <Building2 className="w-4 h-4" /> Emlakçı
                       </Button>
                       <Button variant="ghost" size="sm" onClick={() => navigate("/giris?profil=muteahhit")} className="text-slate-700 hover:text-amber-200 hover:bg-amber-500/10 gap-1.5 whitespace-nowrap" title="Müteahhit / proje stoğu">
@@ -289,7 +289,7 @@ export function Navbar() {
                   type="button"
                   size="sm"
                   variant="outline"
-                  onClick={() => navigate("/giris?profil=emlakci")}
+                  onClick={() => navigate("/giris?profil=emlakçı")}
                   className="h-9 px-2.5 text-[11px] sm:text-xs border-teal-500/40 text-teal-100 bg-teal-500/10 hover:bg-teal-500/20"
                 >
                   <Building2 className="w-3.5 h-3.5 sm:mr-1" />
@@ -454,7 +454,7 @@ export function Navbar() {
                 </>
               ) : (
                 <>
-                  <button type="button" onClick={() => { navigate("/giris?profil=emlakci"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-teal-200 border border-teal-500/25 hover:bg-teal-500/10 text-left flex items-center gap-2"><Building2 className="w-4 h-4" /> Emlakçı girişi</button>
+                  <button type="button" onClick={() => { navigate("/giris?profil=emlakçı"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-teal-200 border border-teal-500/25 hover:bg-teal-500/10 text-left flex items-center gap-2"><Building2 className="w-4 h-4" /> Emlakçı girişi</button>
                   <button type="button" onClick={() => { navigate("/giris?profil=muteahhit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-amber-200 border border-amber-500/25 hover:bg-amber-500/10 text-left flex items-center gap-2"><Factory className="w-4 h-4" /> Müteahhit girişi</button>
                   <button type="button" onClick={() => { navigate("/giris"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white text-left flex items-center gap-2"><LogIn className="w-4 h-4" /> Giriş</button>
                   <button type="button" onClick={() => { navigate("/kayit"); setIsOpen(false); }} className="px-3 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-400 text-left">Kayıt Ol</button>

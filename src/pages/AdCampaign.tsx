@@ -25,7 +25,7 @@ export default function AdCampaign() {
     { id: 6, file: "reels-06-mobil.mp4", title: "Mobil Deneyim", duration: "5s", goal: "Kullanım", copy: "Telefonundan ihalelere katıl, teklif ver, AI analiz yap #mobil #app #telefon" },
     { id: 7, file: "reels-07-yatırımci.mp4", title: "Yatırımcılar", duration: "5s", goal: "Niche", copy: "Portföyünü takip et, karşılaştır, en iyi fırsatları yakala #yatırım #portföy #kira" },
     { id: 8, file: "reels-08-ilkev.mp4", title: "İlk Ev", duration: "5s", goal: "Emotional", copy: "Hayalindeki eve ihale ile sahip ol! Mortgage + ekspertiz + güvenlik #ilkev #ev #mortgage" },
-    { id: 9, file: "reels-09-emlakci.mp4", title: "Emlakçılar", duration: "5s", goal: "B2B", copy: `Mülklerini ihale ile hızlı ve değerinde sat! %${(FEES.sellerCommissionRate * 100).toFixed(0)} komisyon (fees.ts) #emlakçı #ajans #komisyon` },
+    { id: 9, file: "reels-09-emlakçı.mp4", title: "Emlakçılar", duration: "5s", goal: "B2B", copy: `Mülklerini ihale ile hızlı ve değerinde sat! %${(FEES.sellerCommissionRate * 100).toFixed(0)} komisyon (fees.ts) #emlakçı #ajans #komisyon` },
     { id: 10, file: "reels-10-reklam.mp4", title: "Reklam Jingle", duration: "5s", goal: "Viral", copy: "ihaleal.com - Yapay Zeka Destekli İhale Platformu #ihaleal #reklam #viral" },
     { id: 11, file: "reels-01-tanitim.mp4", title: "İhale (A/B varyant)", duration: "5s", goal: "Meta test", copy: "Aynı mesaj farklı kanca — reklam panelinde A/B test için ikinci kreatif #ihale #abtest" },
     { id: 12, file: "reels-02-ai-analiz.mp4", title: "AI Analiz (A/B varyant)", duration: "5s", goal: "Meta test", copy: "İhaleal Endeksi + yatırım skoru vurgusu — YouTube Shorts’ta ikinci başlık #ai #yatırım" },

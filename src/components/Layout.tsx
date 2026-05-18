@@ -13,7 +13,7 @@ import { ScrollToTop } from "./ScrollToTop";
 import { PageTransition } from "@/components/motion";
 import { useToast, type Toast } from "@/hooks/useToast";
 
-const AUTH_MINIMAL_PATHS = ["/giris", "/kayit", "/sifremi-unuttum", "/emlakci-giris"];
+const AUTH_MINIMAL_PATHS = ["/giris", "/kayit", "/sifremi-unuttum", "/emlakçı-giris"];
 
 function isAuthMinimalBg(pathname: string): boolean {
   return AUTH_MINIMAL_PATHS.includes(pathname);
