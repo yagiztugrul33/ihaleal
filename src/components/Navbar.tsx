@@ -1,49 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { ChevronDown, Gavel, Globe, Menu, Search, X } from "lucide-react";
 import { SearchModal } from "@/components/SearchModal";
 import { ROUTES } from "@/constants/routes";
+import { useLocale } from "@/contexts/LocaleContext";
 import { cn } from "@/lib/utils";
-
-type NavItem =
-  | { type: "link"; to: string; label: string; end?: boolean }
-  | {
-      type: "dropdown";
-      label: string;
-      items: { to: string; label: string }[];
-    };
-
-const NAV_ITEMS: NavItem[] = [
-  { type: "link", to: ROUTES.ILANLAR, label: "Auctions" },
-  { type: "link", to: ROUTES.NASIL_CALISIR, label: "How It Works" },
-  {
-    type: "dropdown",
-    label: "Services",
-    items: [
-      { to: ROUTES.ARASTIRMA_GES, label: "GES Land" },
-      { to: "/degerleme", label: "Valuation" },
-      { to: ROUTES.ARASTIRMA, label: "Research Hub" },
-    ],
-  },
-  { type: "link", to: ROUTES.ARASTIRMA, label: "Resources" },
-  {
-    type: "dropdown",
-    label: "Company",
-    items: [
-      { to: ROUTES.KURUMSAL, label: "Corporate" },
-      { to: "/sss", label: "FAQ" },
-    ],
-  },
-];
+import type { Locale } from "@/i18n/messages";
 
 function NavDropdown({
   label,
   items,
   onNavigate,
+  testId,
+  triggerTestId,
+  gesTestId,
 }: {
   label: string;
-  items: { to: string; label: string }[];
+  items: { to: string; label: string; testId?: string }[];
   onNavigate?: () => void;
+  testId?: string;
+  triggerTestId?: string;
+  gesTestId?: string;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -56,14 +33,11 @@ function NavDropdown({
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  const testId =
-    label === "Services" ? "nav-services" : label === "Company" ? "nav-company" : undefined;
-
   return (
     <div ref={ref} className="relative" data-testid={testId}>
       <button
         type="button"
-        data-testid={label === "Services" ? "nav-services-trigger" : undefined}
+        data-testid={triggerTestId}
         onClick={() => setOpen((o) => !o)}
         className={cn(
           "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-200 transition-colors hover:text-white",
@@ -84,9 +58,7 @@ function NavDropdown({
             <Link
               key={item.to}
               to={item.to}
-              data-testid={
-                item.to === ROUTES.ARASTIRMA_GES ? "nav-services-ges" : undefined
-              }
+              data-testid={item.testId ?? (item.to === ROUTES.ARASTIRMA_GES ? gesTestId : undefined)}
               onClick={() => {
                 setOpen(false);
                 onNavigate?.();
@@ -103,11 +75,24 @@ function NavDropdown({
 }
 
 export function Navbar() {
+  const { locale, setLocale, t } = useLocale();
+  const n = t.nav;
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+
+  const serviceItems = [
+    { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
+    { to: "/degerleme", label: n.valuation },
+    { to: ROUTES.ARASTIRMA, label: n.researchHub },
+  ];
+
+  const companyItems = [
+    { to: ROUTES.KURUMSAL, label: n.corporate },
+    { to: "/sss", label: n.faq },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -131,6 +116,11 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  const pickLocale = (next: Locale) => {
+    setLocale(next);
+    setLangOpen(false);
+  };
+
   return (
     <>
       <nav
@@ -143,80 +133,114 @@ export function Navbar() {
         <div className="relative mx-auto flex h-[68px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex shrink-0 items-center gap-2.5 no-underline">
             <div
-              className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] text-xl shadow-lg shadow-blue-500/40"
+              className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] shadow-lg shadow-blue-500/40"
               style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               aria-hidden
             >
-              🔨
+              <Gavel className="h-5 w-5 text-white" strokeWidth={2} />
             </div>
             <span className="text-xl font-bold tracking-tight text-slate-50">
               ihaleal<span className="text-blue-400">.com</span>
             </span>
           </Link>
 
-          <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-8 lg:flex">
-            {NAV_ITEMS.map((item) =>
-              item.type === "link" ? (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.end}
-                  className={({ isActive }) =>
-                    cn(
-                      "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
-                      isActive
-                        ? "border-blue-500 text-blue-400"
-                        : "border-transparent text-slate-200 hover:text-white",
-                    )
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ) : (
-                <NavDropdown key={item.label} label={item.label} items={item.items} />
-              ),
-            )}
+          <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-7 lg:flex">
+            <NavLink
+              to={ROUTES.ILANLAR}
+              className={({ isActive }) =>
+                cn(
+                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  isActive
+                    ? "border-blue-500 text-blue-400"
+                    : "border-transparent text-slate-200 hover:text-white",
+                )
+              }
+            >
+              {n.auctions}
+            </NavLink>
+            <NavLink
+              to={ROUTES.NASIL_CALISIR}
+              className={({ isActive }) =>
+                cn(
+                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  isActive
+                    ? "border-blue-500 text-blue-400"
+                    : "border-transparent text-slate-200 hover:text-white",
+                )
+              }
+            >
+              {n.howItWorks}
+            </NavLink>
+            <NavDropdown
+              label={n.services}
+              items={serviceItems}
+              testId="nav-services"
+              triggerTestId="nav-services-trigger"
+              gesTestId="nav-services-ges"
+            />
+            <NavLink
+              to={ROUTES.ARASTIRMA}
+              className={({ isActive }) =>
+                cn(
+                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  isActive
+                    ? "border-blue-500 text-blue-400"
+                    : "border-transparent text-slate-200 hover:text-white",
+                )
+              }
+            >
+              {n.resources}
+            </NavLink>
+            <NavDropdown label={n.company} items={companyItems} testId="nav-company" />
           </div>
 
           <div className="nav-desktop-actions hidden items-center gap-2 md:flex">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex min-w-[200px] items-center gap-2 rounded-[10px] border border-slate-600/30 bg-slate-900/60 px-3 py-2 text-left text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[260px]"
+              className="flex min-w-[200px] items-center gap-2 rounded-[10px] border border-slate-600/30 bg-slate-900/60 px-3 py-2 text-left text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
             >
               <Search className="h-4 w-4 shrink-0" aria-hidden />
-              <span className="flex-1 truncate">Search auctions, properties…</span>
+              <span className="flex-1 truncate">{n.search}</span>
               <kbd className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
             </button>
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setLangOpen((o) => !o)}
-                className="inline-flex items-center gap-1 rounded-lg border border-slate-600/30 px-3 py-2 text-sm text-slate-200"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-600/30 px-3 py-2 text-sm text-slate-200"
                 aria-label="Language"
                 aria-expanded={langOpen}
+                data-testid="nav-lang-trigger"
               >
-                🌐 EN <ChevronDown className="h-3.5 w-3.5" />
+                <Globe className="h-4 w-4 text-slate-400" />
+                {locale.toUpperCase()}
+                <ChevronDown className={cn("h-3.5 w-3.5", langOpen && "rotate-180")} />
               </button>
               {langOpen ? (
                 <div
-                  className="absolute right-0 top-full z-[110] mt-2 min-w-[120px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
+                  className="absolute right-0 top-full z-[110] mt-2 min-w-[140px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
                   style={{ background: "rgba(15, 23, 41, 0.98)" }}
                 >
                   <button
                     type="button"
-                    className="block w-full px-4 py-2 text-left text-sm font-semibold text-blue-400"
-                    disabled
+                    onClick={() => pickLocale("en")}
+                    className={cn(
+                      "block w-full px-4 py-2 text-left text-sm",
+                      locale === "en" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                    )}
                   >
-                    English
+                    {n.langEn}
                   </button>
                   <button
                     type="button"
-                    className="block w-full px-4 py-2 text-left text-sm text-slate-400"
-                    disabled
-                    title="Coming soon"
+                    onClick={() => pickLocale("tr")}
+                    className={cn(
+                      "block w-full px-4 py-2 text-left text-sm",
+                      locale === "tr" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                    )}
                   >
-                    Türkçe
+                    {n.langTr}
                   </button>
                 </div>
               ) : null}
@@ -225,14 +249,14 @@ export function Navbar() {
               to="/giris"
               className="rounded-lg border border-slate-600/30 px-4 py-2 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
             >
-              Log In
+              {n.logIn}
             </Link>
             <Link
               to="/kayit"
               className="rounded-lg px-4 py-2 text-sm font-semibold text-white no-underline shadow-lg shadow-blue-500/30"
               style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
             >
-              Sign Up
+              {n.signUp}
             </Link>
           </div>
 
@@ -240,7 +264,7 @@ export function Navbar() {
             type="button"
             className="nav-mobile-toggle hidden rounded-lg border border-slate-600/30 p-2 text-slate-200 lg:hidden"
             onClick={() => setMobileOpen((o) => !o)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-label={mobileOpen ? n.closeMenu : n.openMenu}
           >
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -256,62 +280,95 @@ export function Navbar() {
               }}
               className="mb-3 flex w-full items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 py-2.5 text-sm text-slate-400"
             >
-              <Search className="h-4 w-4" /> Search auctions, properties…
+              <Search className="h-4 w-4" /> {n.search}
             </button>
-            {NAV_ITEMS.map((item) =>
-              item.type === "link" ? (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setMobileOpen(false)}
-                  className={({ isActive }) =>
-                    cn(
-                      "block rounded-lg px-3 py-2.5 text-sm font-medium no-underline",
-                      isActive ? "bg-slate-800/60 text-blue-400" : "text-slate-200 hover:bg-slate-800/50",
-                    )
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ) : (
-                <div key={item.label} className="mt-2">
-                  <p className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    {item.label}
-                  </p>
-                  {item.items.map((sub) => (
-                    <NavLink
-                      key={sub.to}
-                      to={sub.to}
-                      data-testid={
-                        sub.to === ROUTES.ARASTIRMA_GES ? "nav-services-ges-mobile" : undefined
-                      }
-                      onClick={() => setMobileOpen(false)}
-                      className={({ isActive }) =>
-                        cn(
-                          "block rounded-lg px-3 py-2.5 text-sm no-underline",
-                          isActive ? "bg-slate-800/60 text-blue-400" : "text-slate-200 hover:bg-slate-800/50",
-                        )
-                      }
-                    >
-                      {sub.label}
-                    </NavLink>
-                  ))}
-                </div>
-              ),
-            )}
+            <NavLink
+              to={ROUTES.ILANLAR}
+              onClick={() => setMobileOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
+            >
+              {n.auctions}
+            </NavLink>
+            <NavLink
+              to={ROUTES.NASIL_CALISIR}
+              onClick={() => setMobileOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
+            >
+              {n.howItWorks}
+            </NavLink>
+            <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {n.services}
+            </p>
+            {serviceItems.map((sub) => (
+              <NavLink
+                key={sub.to}
+                to={sub.to}
+                data-testid={sub.to === ROUTES.ARASTIRMA_GES ? "nav-services-ges-mobile" : undefined}
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              >
+                {sub.label}
+              </NavLink>
+            ))}
+            <NavLink
+              to={ROUTES.ARASTIRMA}
+              onClick={() => setMobileOpen(false)}
+              className="mt-1 block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+            >
+              {n.resources}
+            </NavLink>
+            <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {n.company}
+            </p>
+            {companyItems.map((sub) => (
+              <NavLink
+                key={sub.to}
+                to={sub.to}
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              >
+                {sub.label}
+              </NavLink>
+            ))}
             <div className="mt-3 flex gap-2 border-t border-slate-700/40 pt-3">
+              <button
+                type="button"
+                onClick={() => pickLocale("en")}
+                className={cn(
+                  "flex-1 rounded-lg border py-2 text-center text-sm",
+                  locale === "en"
+                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    : "border-slate-600/30 text-slate-400",
+                )}
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => pickLocale("tr")}
+                className={cn(
+                  "flex-1 rounded-lg border py-2 text-center text-sm",
+                  locale === "tr"
+                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    : "border-slate-600/30 text-slate-400",
+                )}
+              >
+                TR
+              </button>
+            </div>
+            <div className="mt-2 flex gap-2">
               <Link
                 to="/giris"
                 className="flex-1 rounded-lg border border-slate-600/30 py-2.5 text-center text-sm text-slate-200 no-underline"
               >
-                Log In
+                {n.logIn}
               </Link>
               <Link
                 to="/kayit"
                 className="flex-1 rounded-lg py-2.5 text-center text-sm font-semibold text-white no-underline"
                 style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               >
-                Sign Up
+                {n.signUp}
               </Link>
             </div>
           </div>

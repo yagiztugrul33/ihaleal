@@ -1,10 +1,29 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type LucideIcon } from "react";
+import {
+  ArrowRight,
+  BarChart3,
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Gavel,
+  Globe,
+  Headphones,
+  Heart,
+  Home,
+  MapPin,
+  Play,
+  Search,
+  Shield,
+  Star,
+  Trophy,
+  Users,
+} from "lucide-react";
 import { ROUTES } from "@/constants/routes";
+import { useLocale } from "@/contexts/LocaleContext";
 import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=85&auto=format";
 const PROP_IMGS = [
   "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80&auto=format",
   "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&auto=format",
@@ -12,21 +31,25 @@ const PROP_IMGS = [
   "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80&auto=format",
 ];
 
+/** Küçük, orantılı hero vurgusu — tam ekran villa fotoğrafı yok */
+const HERO_ACCENT =
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=720&q=80&auto=format";
+
 const pageBg: React.CSSProperties = {
   minHeight: "100vh",
   background: "linear-gradient(180deg, #0a0e1a 0%, #0f1729 50%, #0a0e1a 100%)",
   color: "#e2e8f0",
 };
 
-function formatUsd(amount: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
+const TRUST_ICONS: LucideIcon[] = [Shield, Users, Star, Headphones];
+const STAT_ICONS: LucideIcon[] = [Home, Check, Users, Star];
+const STEP_ICONS: LucideIcon[] = [Search, Shield, Gavel, Trophy];
+const SIDEBAR_ICONS: LucideIcon[] = [Shield, BarChart3, CheckCircle2, Globe, Headphones];
+const SIDEBAR_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"];
 
 export function HomeTarget() {
+  const { t } = useLocale();
+  const h = t.home;
   const [stats, setStats] = useState({ a: 0, b: 0, c: 0, d: 0 });
 
   useEffect(() => {
@@ -46,106 +69,138 @@ export function HomeTarget() {
     return () => clearInterval(tm);
   }, []);
 
+  const statValues = [
+    stats.a.toLocaleString(),
+    stats.b.toLocaleString(),
+    stats.c.toLocaleString(),
+    `${stats.d}%`,
+  ];
+  const statChanges = ["+12.5%", "+8.3%", "+15.2%", "+2.1%"];
+
   return (
     <div style={pageBg} className="home-target-page">
       <section
-        className="home-target-hero relative min-h-[720px] overflow-hidden px-4 pb-16 pt-10 sm:px-6"
+        className="home-target-hero relative min-h-[min(88vh,760px)] overflow-hidden px-4 pb-16 pt-8 sm:px-6"
         aria-labelledby="home-hero-title"
       >
+        {/* Soyut mesh — orantılı, sakin arka plan */}
         <div
           className="pointer-events-none absolute inset-0 z-0"
           style={{
-            backgroundImage: `linear-gradient(90deg, rgba(10,14,26,.95) 0%, rgba(10,14,26,.6) 50%, rgba(10,14,26,.2) 100%), url('${HERO_IMG}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center right",
+            background: `
+              radial-gradient(ellipse 70% 55% at 85% 35%, rgba(59,130,246,.22) 0%, transparent 55%),
+              radial-gradient(ellipse 50% 40% at 15% 80%, rgba(139,92,246,.14) 0%, transparent 50%),
+              radial-gradient(ellipse 40% 35% at 70% 85%, rgba(236,72,153,.08) 0%, transparent 45%),
+              linear-gradient(180deg, #0a0e1a 0%, #0f1729 100%)
+            `,
           }}
         />
         <div
-          className="pointer-events-none absolute inset-0 z-[1]"
+          className="pointer-events-none absolute inset-0 z-[1] opacity-40"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(148,163,184,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.04) 1px,transparent 1px)",
-            backgroundSize: "50px 50px",
+              "linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px)",
+            backgroundSize: "48px 48px",
           }}
         />
 
+        {/* Küçük mimari vurgu — sağ üst, kart içinde */}
+        <div
+          className="home-hero-accent pointer-events-none absolute right-[2%] top-[14%] z-[1] hidden w-[min(340px,32vw)] overflow-hidden rounded-2xl border border-slate-600/25 shadow-2xl lg:block"
+          style={{ aspectRatio: "4/3" }}
+          aria-hidden
+        >
+          <img
+            src={HERO_ACCENT}
+            alt=""
+            className="h-full w-full object-cover opacity-70"
+            loading="eager"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(10,14,26,.75) 0%, rgba(10,14,26,.2) 50%, transparent 100%)",
+            }}
+          />
+        </div>
+
         <div className="home-target-hero-grid relative z-[2] mx-auto grid max-w-[1500px] grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <div className="relative min-w-0">
+          <div className="relative z-[2] min-w-0 max-w-[640px]">
             <div
-              className="mb-10 inline-flex items-center gap-2 rounded-full border border-slate-600/30 px-4 py-2 text-sm backdrop-blur-md"
-              style={{ background: "rgba(15, 23, 41, 0.6)" }}
+              className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-slate-600/30 px-4 py-2 text-sm backdrop-blur-md"
+              style={{ background: "rgba(15, 23, 41, 0.65)" }}
             >
-              🛡 Secure. Transparent. Intelligent.
+              <Shield className="h-4 w-4 text-blue-400" strokeWidth={2} />
+              <span className="text-slate-200">{h.hero.badge}</span>
               <span
-                className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_12px_#10b981]"
+                className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"
                 aria-hidden
               />
             </div>
 
             <h1
               id="home-hero-title"
-              className="mb-6 text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#f8fafc]"
-              style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}
+              className="mb-5 text-[clamp(2.25rem,5.5vw,4.25rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-[#f8fafc]"
             >
-              The Future of{" "}
+              {h.hero.titleLead}{" "}
               <span
-                style={{
-                  background: "linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
+                className="bg-gradient-to-br from-blue-500 via-violet-500 to-pink-500 bg-clip-text text-transparent"
               >
-                Real Estate Auctions
+                {h.hero.titleAccent}
               </span>
             </h1>
 
-            <p
-              className="mb-8 max-w-[480px] text-[1.05rem] leading-relaxed text-slate-300"
-              style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
-            >
-              AI-powered platform for secure, transparent and efficient real estate auctions worldwide.
+            <p className="mb-8 max-w-[460px] text-[1.02rem] leading-relaxed text-slate-400">
+              {h.hero.subtitle}
             </p>
 
-            <div className="mb-12 flex flex-wrap gap-3">
+            <div className="mb-10 flex flex-wrap gap-3">
               <Link
                 to={ROUTES.ILANLAR}
-                className="inline-flex items-center gap-2 rounded-[10px] px-7 py-3.5 text-[.95rem] font-semibold text-white no-underline shadow-[0_10px_30px_rgba(59,130,246,.4)]"
+                className="inline-flex items-center gap-2 rounded-[10px] px-6 py-3.5 text-[.95rem] font-semibold text-white no-underline shadow-[0_10px_28px_rgba(59,130,246,.35)]"
                 style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               >
-                Explore Auctions →
+                {h.hero.ctaExplore}
+                <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to={ROUTES.NASIL_CALISIR}
-                className="inline-flex items-center gap-2 rounded-[10px] border border-slate-600/30 px-7 py-3.5 text-[.95rem] font-semibold text-slate-200 no-underline backdrop-blur-md"
-                style={{ background: "rgba(15, 23, 41, 0.5)" }}
+                className="inline-flex items-center gap-2 rounded-[10px] border border-slate-600/35 px-6 py-3.5 text-[.95rem] font-semibold text-slate-200 no-underline backdrop-blur-md"
+                style={{ background: "rgba(15, 23, 41, 0.45)" }}
               >
-                ▶ How It Works
+                <Play className="h-4 w-4 fill-current" />
+                {h.hero.ctaHow}
               </Link>
             </div>
 
-            <div className="home-target-modules mb-10 max-w-[720px]">
+            <div className="home-target-modules mb-8 max-w-[720px]">
               <PlatformModulesShowcase />
             </div>
 
-            <TrustSignalsRow />
+            <TrustSignalsRow items={h.trust} />
 
-            <div className="home-target-live-overlay mt-8 lg:absolute lg:right-0 lg:top-[52%] lg:mt-0 lg:max-w-[420px] lg:-translate-y-1/2 z-[3]">
-              <LiveChartCard />
+            <div className="home-target-live-overlay mt-6 lg:absolute lg:left-[min(52%,420px)] lg:top-[48%] lg:mt-0 lg:max-w-[400px] lg:-translate-y-1/2 xl:left-[55%] z-[3]">
+              <LiveChartCard live={h.live} />
             </div>
           </div>
 
-          <StatCardsColumn stats={stats} />
+          <StatCardsColumn
+            labels={h.stats}
+            values={statValues}
+            changes={statChanges}
+          />
         </div>
       </section>
 
-      <HowItWorksSection />
-      <LiveAuctionsSection />
-      <TrustedBySection />
+      <HowItWorksSection how={h.how} />
+      <LiveAuctionsSection auctions={h.auctions} />
+      <TrustedBySection trusted={h.trusted} />
 
       <style>{`
         @media (max-width: 1024px) {
           .home-target-hero-grid { grid-template-columns: 1fr !important; }
+          .home-hero-accent { display: none !important; }
           .home-target-stat-cards {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
@@ -154,6 +209,7 @@ export function HomeTarget() {
             position: static !important;
             transform: none !important;
             max-width: 100% !important;
+            left: auto !important;
           }
           .home-target-how-grid { grid-template-columns: 1fr !important; }
           .home-target-steps { grid-template-columns: repeat(2, 1fr) !important; }
@@ -167,25 +223,27 @@ export function HomeTarget() {
   );
 }
 
-function LiveChartCard() {
+function LiveChartCard({ live }: { live: HomeMessages["live"] }) {
   return (
     <div
-      className="max-w-[420px] rounded-[18px] border border-slate-600/30 p-6 shadow-[0_20px_50px_rgba(0,0,0,.4)] backdrop-blur-[20px]"
-      style={{ background: "rgba(15, 23, 41, 0.85)" }}
+      className="max-w-[400px] rounded-[16px] border border-slate-600/30 p-5 shadow-[0_16px_40px_rgba(0,0,0,.35)] backdrop-blur-[20px]"
+      style={{ background: "rgba(15, 23, 41, 0.88)" }}
     >
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-[.95rem] font-semibold text-[#f8fafc]">Live Auctions</div>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-1 text-[.7rem] font-semibold text-emerald-400">
+      <div className="mb-3 flex items-center justify-between">
+        <span className="text-[.9rem] font-semibold text-[#f8fafc]">{live.title}</span>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/12 px-2 py-0.5 text-[.68rem] font-semibold uppercase tracking-wide text-emerald-400">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-          ● Live
+          {live.live}
         </span>
       </div>
-      <div className="mb-1 text-[4rem] font-extrabold leading-none tracking-tight text-[#f8fafc]">284</div>
-      <div className="mb-4 text-[.9rem] font-semibold text-emerald-400">+18% from last month</div>
-      <svg viewBox="0 0 400 80" className="mb-4 h-[70px] w-full" aria-hidden>
+      <div className="mb-0.5 text-[3.5rem] font-extrabold leading-none tracking-tight text-[#f8fafc]">
+        284
+      </div>
+      <div className="mb-3 text-[.88rem] font-semibold text-emerald-400">{live.growth}</div>
+      <svg viewBox="0 0 400 80" className="mb-3 h-[64px] w-full" aria-hidden>
         <defs>
           <linearGradient id="liveGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3b82f6" stopOpacity=".5" />
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity=".45" />
             <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
           </linearGradient>
         </defs>
@@ -200,173 +258,161 @@ function LiveChartCard() {
           strokeWidth="2"
         />
       </svg>
-      <Link to={ROUTES.ILANLAR} className="text-sm font-semibold text-blue-400 no-underline">
-        View Live →
+      <Link
+        to={ROUTES.ILANLAR}
+        className="inline-flex items-center gap-1 text-sm font-semibold text-blue-400 no-underline"
+      >
+        {live.view}
+        <ChevronRight className="h-4 w-4" />
       </Link>
     </div>
   );
 }
 
-function TrustSignalsRow() {
-  const items = [
-    { i: "🛡", t: "Bank-Level Security", s: "256-bit SSL encryption" },
-    { i: "👥", t: "10,000+", s: "Active Investors" },
-    { i: "★", t: "4.9/5", s: "Customer Rating" },
-    { i: "🎧", t: "24/7 Support", s: "Always here to help" },
-  ];
+type HomeMessages = import("@/i18n/messages").HomeMessages;
+
+function TrustSignalsRow({ items }: { items: HomeMessages["trust"] }) {
   return (
-    <div className="mt-10 grid max-w-[720px] gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {items.map((x) => (
-        <div key={x.t} className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-blue-500/25 bg-blue-500/10 text-base">
-            {x.i}
+    <div className="mt-6 grid max-w-[720px] gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {items.map((x, i) => {
+        const Icon = TRUST_ICONS[i] ?? Shield;
+        return (
+          <div key={x.title} className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-blue-500/25 bg-blue-500/10">
+              <Icon className="h-4 w-4 text-blue-400" strokeWidth={2} />
+            </div>
+            <div>
+              <div className="text-xs font-semibold text-slate-50">{x.title}</div>
+              <div className="text-[.7rem] text-slate-500">{x.sub}</div>
+            </div>
           </div>
-          <div>
-            <div className="text-xs font-semibold text-slate-50">{x.t}</div>
-            <div className="text-[.7rem] text-slate-400">{x.s}</div>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
 function StatCardsColumn({
-  stats,
+  labels,
+  values,
+  changes,
 }: {
-  stats: { a: number; b: number; c: number; d: number };
+  labels: HomeMessages["stats"];
+  values: string[];
+  changes: string[];
 }) {
-  const cards = [
-    { l: "Total Auctions", v: stats.a.toLocaleString("en-US"), c: "+12.5%", ic: "🏠" },
-    { l: "Successful Sales", v: stats.b.toLocaleString("en-US"), c: "+8.3%", ic: "✓" },
-    { l: "Active Investors", v: stats.c.toLocaleString("en-US"), c: "+15.2%", ic: "👥" },
-    { l: "Satisfaction Rate", v: `${stats.d}%`, c: "+2.1%", ic: "★" },
-  ];
   return (
-    <div className="home-target-stat-cards flex flex-col gap-3.5">
-      {cards.map((x) => (
-        <div
-          key={x.l}
-          className="rounded-xl border border-slate-600/20 p-4 backdrop-blur-xl shadow-lg"
-          style={{ background: "rgba(15, 23, 41, 0.7)" }}
-        >
-          <div className="flex items-start gap-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/15 text-sm">
-              {x.ic}
-            </div>
-            <div className="flex-1">
-              <div className="mb-0.5 text-[.7rem] uppercase tracking-wider text-slate-400">{x.l}</div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold tracking-tight text-slate-50">{x.v}</span>
-                <span className="text-[.7rem] font-semibold text-emerald-400">{x.c}</span>
+    <div className="home-target-stat-cards relative z-[2] flex flex-col gap-3">
+      {labels.map((x, i) => {
+        const Icon = STAT_ICONS[i] ?? Home;
+        return (
+          <div
+            key={x.label}
+            className="rounded-xl border border-slate-600/20 p-3.5 backdrop-blur-xl"
+            style={{ background: "rgba(15, 23, 41, 0.72)" }}
+          >
+            <div className="flex items-start gap-2.5">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/12">
+                <Icon className="h-4 w-4 text-blue-400" strokeWidth={2} />
               </div>
-              <div className="mt-0.5 text-[.65rem] text-slate-500">vs last month</div>
+              <div className="min-w-0 flex-1">
+                <div className="mb-0.5 text-[.65rem] uppercase tracking-wider text-slate-500">
+                  {x.label}
+                </div>
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
+                  <span className="text-xl font-bold tracking-tight text-slate-50">{values[i]}</span>
+                  <span className="text-[.68rem] font-semibold text-emerald-400">{changes[i]}</span>
+                </div>
+                <div className="mt-0.5 text-[.62rem] text-slate-600">{x.vs}</div>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
-function HowItWorksSection() {
-  const steps = [
-    { n: "01", i: "🔍", t: "Discover", d: "Browse verified properties and detailed analytics." },
-    { n: "02", i: "🛡", t: "Register & Verify", d: "Complete your KYC and verification process." },
-    { n: "03", i: "🔨", t: "Place Your Bid", d: "Participate in live auctions with real-time updates." },
-    { n: "04", i: "🏆", t: "Win & Complete", d: "Win the auction and complete securely." },
-  ];
-  const trust = [
-    { i: "🛡", t: "Bank-Level Security", s: "256-bit SSL & data protection", c: "#3b82f6" },
-    { i: "📊", t: "AI-Powered Analytics", s: "AI insights for smarter decisions", c: "#10b981" },
-    { i: "✓", t: "Transparent Process", s: "100% transparent bidding", c: "#f59e0b" },
-    { i: "🌐", t: "Global Access", s: "Worldwide property auctions", c: "#8b5cf6" },
-    { i: "🎧", t: "24/7 Support", s: "Always here when you need us", c: "#ec4899" },
-  ];
-  const certs = [
-    { t: "ISO 27001", s: "Certified" },
-    { t: "SOC 2", s: "Type II Compliant" },
-    { t: "GDPR", s: "Compliant", flag: "🇪🇺" },
-  ];
+function HowItWorksSection({ how }: { how: HomeMessages["how"] }) {
   return (
-    <section className="px-4 py-16 sm:px-6">
+    <section className="px-4 py-14 sm:px-6">
       <div
-        className="home-target-how-grid mx-auto grid max-w-[1400px] gap-12 rounded-[20px] border border-slate-600/20 p-8 lg:grid-cols-[1fr_320px] lg:p-12"
-        style={{ background: "rgba(15, 23, 41, 0.5)" }}
+        className="home-target-how-grid mx-auto grid max-w-[1400px] gap-10 rounded-[20px] border border-slate-600/20 p-6 lg:grid-cols-[1fr_300px] lg:p-10"
+        style={{ background: "rgba(15, 23, 41, 0.45)" }}
       >
         <div>
-          <div className="mb-10 text-center">
-            <h2 className="mb-2 text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight text-slate-50">
-              How It Works?
+          <div className="mb-8 text-center">
+            <h2 className="mb-2 text-[clamp(1.6rem,3.5vw,2.35rem)] font-bold tracking-tight text-slate-50">
+              {how.title}
             </h2>
-            <p className="text-sm text-slate-400">Four simple steps to participate in real estate auctions</p>
+            <p className="text-sm text-slate-500">{how.subtitle}</p>
           </div>
-          <div className="home-target-steps relative grid grid-cols-4 gap-4">
+          <div className="home-target-steps relative grid grid-cols-4 gap-3">
             <div
-              className="home-target-step-line absolute left-[12%] right-[12%] top-8 z-0 h-0.5"
+              className="home-target-step-line absolute left-[10%] right-[10%] top-7 z-0 h-0.5"
               style={{
                 backgroundImage:
-                  "linear-gradient(90deg, rgba(59,130,246,.5) 50%, transparent 50%)",
-                backgroundSize: "12px 2px",
+                  "linear-gradient(90deg, rgba(59,130,246,.45) 50%, transparent 50%)",
+                backgroundSize: "10px 2px",
               }}
             />
-            {steps.map((x) => (
-              <div key={x.n} className="relative z-[1] text-center">
-                <div
-                  className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-blue-500/40 text-2xl shadow-lg shadow-blue-500/25"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(59,130,246,.2), rgba(30,64,175,.4))",
-                  }}
-                >
-                  {x.i}
+            {how.steps.map((x, i) => {
+              const Icon = STEP_ICONS[i] ?? Search;
+              const num = String(i + 1).padStart(2, "0");
+              return (
+                <div key={x.title} className="relative z-[1] text-center">
+                  <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-blue-500/35 bg-gradient-to-br from-blue-500/20 to-indigo-900/50 shadow-lg shadow-blue-500/15">
+                    <Icon className="h-6 w-6 text-blue-300" strokeWidth={1.75} />
+                  </div>
+                  <div className="mb-1 text-[10px] font-bold tracking-widest text-blue-400">
+                    {num}
+                  </div>
+                  <h3 className="mb-1.5 text-sm font-semibold text-slate-50">{x.title}</h3>
+                  <p className="m-0 text-[.75rem] leading-snug text-slate-500">{x.desc}</p>
                 </div>
-                <div className="mb-1 text-xs font-bold tracking-widest text-blue-400">{x.n}</div>
-                <h3 className="mb-2 text-base font-semibold text-slate-50">{x.t}</h3>
-                <p className="m-0 text-[.78rem] leading-snug text-slate-400">{x.d}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
         <aside
-          className="rounded-2xl border border-slate-600/20 p-6"
-          style={{ background: "rgba(10, 14, 26, 0.5)" }}
+          className="rounded-2xl border border-slate-600/20 p-5"
+          style={{ background: "rgba(10, 14, 26, 0.55)" }}
         >
-          <h3 className="mb-5 text-base font-semibold text-slate-50">
-            Why Investors Trust iHaleal
-          </h3>
-          <div className="flex flex-col gap-3.5">
-            {trust.map((x) => (
-              <div key={x.t} className="flex items-start gap-2.5">
-                <div
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm"
-                  style={{
-                    background: `${x.c}20`,
-                    border: `1px solid ${x.c}40`,
-                  }}
-                >
-                  {x.i}
+          <h3 className="mb-4 text-[.95rem] font-semibold text-slate-50">{how.sidebarTitle}</h3>
+          <div className="flex flex-col gap-3">
+            {how.sidebar.map((x, i) => {
+              const Icon = SIDEBAR_ICONS[i] ?? Shield;
+              const c = SIDEBAR_COLORS[i] ?? "#3b82f6";
+              return (
+                <div key={x.title} className="flex items-start gap-2.5">
+                  <div
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+                    style={{ background: `${c}18`, border: `1px solid ${c}35` }}
+                  >
+                    <Icon className="h-4 w-4" style={{ color: c }} strokeWidth={2} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[.8rem] font-semibold text-slate-100">{x.title}</div>
+                    <div className="text-[.7rem] text-slate-500">{x.sub}</div>
+                  </div>
+                  <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-slate-600" />
                 </div>
-                <div className="flex-1">
-                  <div className="text-[.825rem] font-semibold text-slate-50">{x.t}</div>
-                  <div className="text-[.72rem] text-slate-400">{x.s}</div>
-                </div>
-                <span className="text-slate-500">›</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
-          <div className="mt-6 flex flex-wrap gap-3 border-t border-slate-600/20 pt-5">
-            {certs.map((b) => (
+          <div className="mt-5 flex flex-wrap gap-2 border-t border-slate-700/40 pt-4">
+            {how.certs.map((b) => (
               <div
-                key={b.t}
-                className="flex-1 min-w-[90px] rounded-[10px] border border-slate-600/20 px-3 py-2.5 text-center"
+                key={b.title}
+                className="min-w-[88px] flex-1 rounded-lg border border-slate-600/20 px-2.5 py-2 text-center"
                 style={{ background: "rgba(15, 23, 41, 0.5)" }}
               >
-                <div className="text-xs font-bold text-slate-50">
+                <div className="text-[10px] font-bold text-slate-100">
                   {b.flag ? `${b.flag} ` : ""}
-                  {b.t}
+                  {b.title}
                 </div>
-                <div className="text-[.65rem] text-slate-400">{b.s}</div>
+                <div className="text-[.62rem] text-slate-500">{b.sub}</div>
               </div>
             ))}
           </div>
@@ -376,90 +422,67 @@ function HowItWorksSection() {
   );
 }
 
-function LiveAuctionsSection() {
-  const items = [
-    {
-      t: "Luxury Villa in Dubai Hills",
-      l: "Dubai, UAE",
-      p: formatUsd(2_450_000),
-      c: "+12.5%",
-      b: "32 bids",
-      tm: "15h 24m left",
-      i: 0,
-    },
-    {
-      t: "Modern Office Building",
-      l: "London, UK",
-      p: formatUsd(1_850_000),
-      c: "+8.2%",
-      b: "28 bids",
-      tm: "1d 5h left",
-      i: 1,
-    },
-    {
-      t: "Premium Apartment",
-      l: "Istanbul, Turkey",
-      p: formatUsd(950_000),
-      c: "+15.7%",
-      b: "18 bids",
-      tm: "2h 15m left",
-      i: 2,
-    },
-    {
-      t: "Commercial Complex",
-      l: "New York, USA",
-      p: formatUsd(4_250_000),
-      c: "+10.3%",
-      b: "45 bids",
-      tm: "3d 12h left",
-      i: 3,
-    },
-  ];
+function LiveAuctionsSection({ auctions }: { auctions: HomeMessages["auctions"] }) {
   return (
-    <section className="px-4 pb-16 pt-12 sm:px-6">
+    <section className="px-4 pb-14 pt-10 sm:px-6">
       <div className="mx-auto max-w-[1400px]">
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <h2 className="m-0 text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight text-slate-50">
-            Live Auctions
+        <div className="mb-7 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="m-0 text-[clamp(1.4rem,2.8vw,1.85rem)] font-bold text-slate-50">
+            {auctions.title}
           </h2>
-          <Link to={ROUTES.ILANLAR} className="text-sm font-semibold text-blue-400 no-underline">
-            View All Auctions →
+          <Link
+            to={ROUTES.ILANLAR}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-blue-400 no-underline"
+          >
+            {auctions.viewAll}
+            <ChevronRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {items.map((item, idx) => (
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {auctions.items.map((item, idx) => (
             <article
-              key={idx}
-              className="overflow-hidden rounded-[14px] border border-slate-600/20 transition-transform hover:scale-[1.01]"
-              style={{ background: "rgba(15, 23, 41, 0.6)" }}
+              key={item.title}
+              className="overflow-hidden rounded-[14px] border border-slate-600/20 transition hover:border-slate-500/35"
+              style={{ background: "rgba(15, 23, 41, 0.55)" }}
             >
               <div
-                className="relative h-[180px] bg-cover bg-center"
-                style={{ backgroundImage: `url('${PROP_IMGS[item.i]}')` }}
+                className="relative h-[168px] bg-cover bg-center"
+                style={{ backgroundImage: `url('${PROP_IMGS[idx]}')` }}
               >
-                <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-red-500/95 px-2.5 py-1 text-[.7rem] font-bold tracking-wide text-white">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
-                  ● LIVE
+                <span className="absolute left-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-red-500/95 px-2 py-0.5 text-[.65rem] font-bold uppercase tracking-wide text-white">
+                  <span className="h-1 w-1 animate-pulse rounded-full bg-white" />
+                  {auctions.live}
                 </span>
                 <button
                   type="button"
-                  className="absolute right-3 top-3 flex h-[34px] w-[34px] items-center justify-center rounded-lg border border-slate-600/30 bg-slate-900/80 text-white backdrop-blur-md"
-                  aria-label="Add to favorites"
+                  className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-slate-900/75 text-slate-200 backdrop-blur-sm"
+                  aria-label="Favorites"
                 >
-                  ♡
+                  <Heart className="h-4 w-4" strokeWidth={2} />
                 </button>
               </div>
-              <div className="p-4">
-                <h3 className="mb-1 text-base font-semibold text-slate-50">{item.t}</h3>
-                <p className="mb-3 text-[.78rem] text-slate-400">📍 {item.l}</p>
-                <p className="mb-1 text-[.65rem] uppercase tracking-wider text-[#94a3b8]">Current Bid</p>
-                <div className="mb-3 flex items-baseline justify-between">
-                  <span className="text-xl font-bold tracking-tight text-slate-50">{item.p}</span>
-                  <span className="text-sm font-semibold text-emerald-400">{item.c}</span>
+              <div className="p-3.5">
+                <h3 className="mb-0.5 text-[.95rem] font-semibold text-slate-50">{item.title}</h3>
+                <p className="mb-2.5 flex items-center gap-1 text-[.75rem] text-slate-500">
+                  <MapPin className="h-3 w-3 shrink-0" />
+                  {item.location}
+                </p>
+                <p className="mb-1 text-[.62rem] font-medium uppercase tracking-wider text-slate-500">
+                  {auctions.currentBid}
+                </p>
+                <div className="mb-2.5 flex items-baseline justify-between gap-2">
+                  <span className="text-lg font-bold text-slate-50">{item.price}</span>
+                  <span className="text-xs font-semibold text-emerald-400">{item.change}</span>
                 </div>
-                <div className="flex items-center justify-between border-t border-slate-600/20 pt-3 text-[.72rem] text-slate-400">
-                  <span>⏱ {item.tm}</span>
-                  <span className="font-semibold text-blue-400">{item.b} →</span>
+                <div className="flex items-center justify-between border-t border-slate-700/50 pt-2.5 text-[.7rem] text-slate-500">
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3 w-3" />
+                    {item.time}
+                  </span>
+                  <span className="inline-flex items-center gap-0.5 font-medium text-blue-400">
+                    {item.bids}
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </span>
                 </div>
               </div>
             </article>
@@ -470,35 +493,28 @@ function LiveAuctionsSection() {
   );
 }
 
-function TrustedBySection() {
+function TrustedBySection({ trusted }: { trusted: HomeMessages["trusted"] }) {
   const brands = ["JLL", "CBRE", "Colliers", "Knight Frank", "Cushman & Wakefield", "Savills", "EY"];
-  const certs = [
-    { t: "ISO 27001", s: "Certified" },
-    { t: "SOC 2", s: "Type II Compliant" },
-    { t: "GDPR", s: "Compliant" },
-  ];
   return (
-    <section className="border-t border-slate-600/20 px-4 py-12 sm:px-6">
+    <section className="border-t border-slate-700/40 px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-[1400px] text-center">
-        <p className="mb-6 text-xs uppercase tracking-widest text-slate-500">
-          Trusted by leading institutions worldwide
-        </p>
-        <div className="mb-8 flex flex-wrap items-center justify-center gap-8 opacity-50 md:gap-12">
+        <p className="mb-5 text-[11px] uppercase tracking-[0.2em] text-slate-600">{trusted.title}</p>
+        <div className="mb-6 flex flex-wrap items-center justify-center gap-6 opacity-45 md:gap-10">
           {brands.map((b) => (
-            <span key={b} className="font-mono text-base font-bold tracking-wide text-white">
+            <span key={b} className="font-mono text-sm font-semibold tracking-wide text-slate-300">
               {b}
             </span>
           ))}
         </div>
-        <div className="flex flex-wrap justify-center gap-6">
-          {certs.map((b) => (
+        <div className="flex flex-wrap justify-center gap-4">
+          {trusted.certs.map((b) => (
             <div
-              key={b.t}
-              className="rounded-[10px] border border-slate-600/20 px-5 py-3 text-center"
-              style={{ background: "rgba(15, 23, 41, 0.5)" }}
+              key={b.title}
+              className="rounded-lg border border-slate-600/20 px-4 py-2.5"
+              style={{ background: "rgba(15, 23, 41, 0.45)" }}
             >
-              <div className="text-sm font-bold text-slate-50">{b.t}</div>
-              <div className="text-[.7rem] text-slate-400">{b.s}</div>
+              <div className="text-xs font-bold text-slate-100">{b.title}</div>
+              <div className="text-[.65rem] text-slate-500">{b.sub}</div>
             </div>
           ))}
         </div>
