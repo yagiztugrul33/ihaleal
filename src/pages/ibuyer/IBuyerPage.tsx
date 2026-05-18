@@ -10,7 +10,7 @@ export default function IBuyerPage() {
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200">
             <Banknote className="h-3.5 w-3.5" /> iBuyer
           </p>
-          <h1 className="mt-3 text-3xl md:text-4xl font-bold">Aninda Nakit Teklif</h1>
+          <h1 className="mt-3 text-3xl md:text-4xl font-bold">Anında Nakit Teklif</h1>
           <p className="mt-2 text-slate-400 max-w-2xl">{ibuyerSubtitle}</p>
         </div>
         <p className="mb-6 flex items-center gap-2 text-sm text-slate-500">

@@ -135,8 +135,8 @@ export default function GesAnalysisPage() {
             <Sun className="w-5 h-5 text-amber-300" />
           </motion.div>
           <motion.div>
-            <h1 className="text-2xl font-bold text-white">GES muhendislik analizi</h1>
-            <p className="text-sm text-slate-400">On fizibilite — NPV, IRR, LCOE (bankable degil)</p>
+            <h1 className="text-2xl font-bold text-white">GES mühendislik analizi</h1>
+            <p className="text-sm text-slate-400">Ön fizibilite — NPV, IRR, LCOE (bankable değil)</p>
           </motion.div>
         </motion.div>
         <PreFeasibilityBanner className="mb-6 text-amber-100" />
@@ -224,7 +224,7 @@ export default function GesAnalysisPage() {
                 </CardContent>
               </Card>
               <Button variant="outline" className="w-full" onClick={downloadReport}>
-                On fizibilite raporu indir
+                Ön fizibilite raporu indir
               </Button>
               <p className="text-[10px] text-slate-500">{result.limitations[result.limitations.length - 1]}</p>
             </motion.div>

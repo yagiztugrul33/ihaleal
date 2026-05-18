@@ -135,7 +135,7 @@ export default function ParcelIntelligencePage() {
         <motion.div className="flex items-center gap-3 mb-4">
           <MapPinned className="w-8 h-8 text-cyan-400" />
           <motion.div>
-            <h1 className="text-2xl font-bold">Ada Parsel Istihbarat (On Fizibilite)</h1>
+            <h1 className="text-2xl font-bold">Ada Parsel İstihbarat (Ön Fizibilite)</h1>
             <p className="text-sm text-slate-400">EMSAL/TAKS, kat adedi, muteahhit paylasimi</p>
           </motion.div>
         </motion.div>
@@ -198,7 +198,7 @@ export default function ParcelIntelligencePage() {
             <motion.div className="space-y-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <div className="rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-6">
                 <p className="text-4xl font-bold text-cyan-300">{fmtScore(feasResult.feasibilityScore)}/100</p>
-                <p className="text-xs text-slate-400 mt-1">Uygunluk skoru (on fizibilite)</p>
+                <p className="text-xs text-slate-400 mt-1">Uygunluk skoru (ön fizibilite)</p>
               </div>
               <Card className="border border-white/10 bg-white/[0.04]">
                 <CardContent className="p-5 text-sm text-slate-300 space-y-2">

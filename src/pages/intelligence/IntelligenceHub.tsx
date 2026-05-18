@@ -23,18 +23,18 @@ import { IBUYER_PATH } from "@/lib/ibuyerHub";
 import { ROUTES } from "@/constants/routes";
 
 const TICKER_EVENTS = [
-  "Remax Boss -> Pesinat Takasli Islem Dogrulandi",
-  "Remax Borsa Global -> Capraz Ofis Referans %25 Komisyon",
-  "GES On Fizibilite -> Konya Karapinar 12.4 MWp Onay Bekliyor",
-  "Parsel Desk -> EMSAL 1.8 / TAKS 0.35 Kat Karsiligi Hesaplandi",
-  "iBuyer -> Anlik Nakit Teklif 4.100.000 TRY (48s)",
-  "Hukuk Heyeti -> Miras/Intikal Dosyasi Manuel Incelemede",
+  "Remax Boss → Peşinat takaslı işlem doğrulandı",
+  "Remax Borsa Global → Çapraz ofis referans %25 komisyon",
+  "GES ön fizibilite → Konya Karapınar 12,4 MWp onay bekliyor",
+  "Parsel Desk → EMSAL 1,8 / TAKS 0,35 kat karşılığı hesaplandı",
+  "iBuyer → Anlık nakit teklif 4.100.000 TRY (48s)",
+  "Hukuk heyeti → Miras/intikal dosyası manuel incelemede",
 ];
 
 const MODULES = [
   {
-    title: "Aninda Teklif (iBuyer)",
-    desc: "400 puanlik anayasa kontrolu, risk primi ve kurumsal nakit teklif motoru.",
+    title: "Anında Teklif (iBuyer)",
+    desc: "400 puanlık anayasa kontrolü, risk primi ve kurumsal nakit teklif motoru.",
     icon: Banknote,
     href: IBUYER_PATH,
     badge: "Remax",
@@ -50,14 +50,14 @@ const MODULES = [
   },
   {
     title: "GES Master Analiz",
-    desc: "550Wp panel matrisi, 10 yillik CAPEX/OPEX/LCOE/IRR — On Fizibilite.",
+    desc: "550Wp panel matrisi, 10 yıllık CAPEX/OPEX/LCOE/IRR — ön fizibilite.",
     icon: Sun,
     href: GES_ANALYSIS_PATH,
-    badge: "Muhendislik",
+    badge: "Mühendislik",
     accent: "from-amber-500/20 to-orange-900/10 border-amber-500/30",
   },
   {
-    title: "Ada Parsel Istihbarat",
+    title: "Ada Parsel İstihbarat",
     desc: "EMSAL/TAKS, kat adedi, muteahhit vs arsa sahibi paylasimi, skor /100.",
     icon: Map,
     href: PARCEL_INTELLIGENCE_PATH,
@@ -66,7 +66,7 @@ const MODULES = [
   },
   {
     title: "Stratejik War Room",
-    desc: "Canli GIS, PVGIS, jeoteknik ve afet katmani — kurumsal site istihbarati.",
+    desc: "Canlı GIS, PVGIS, jeoteknik ve afet katmanı — kurumsal site istihbaratı.",
     icon: Radar,
     href: WAR_ROOM_PATH,
     badge: "Palantir",
@@ -98,7 +98,7 @@ function LiveTicker() {
     >
       <motion.div className="flex items-center gap-3 px-4 py-3 text-xs sm:text-sm">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/40 bg-red-500/10 px-2.5 py-0.5 font-semibold uppercase tracking-wider text-red-200">
-          <Zap className="h-3.5 w-3.5" /> Canli
+          <Zap className="h-3.5 w-3.5" /> Canlı
         </span>
         <motion.p key={index} className="text-slate-300 truncate font-mono" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           {TICKER_EVENTS[index]}
@@ -115,14 +115,14 @@ export default function IntelligenceHub() {
       <motion.div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="mb-10 max-w-3xl">
           <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-red-400/90 mb-3">Remax Borsa Global</p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Arastirma ve Istihbarat Terminali</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Araştırma ve İstihbarat Terminali</h1>
           <p className="text-slate-400 mt-4 text-lg leading-relaxed">
-            iBuyer, takas, GES ve parsel masalari tek cati altinda. Sonuclar on fizibilite niteligindedir; resmi rapor ve lisansli onay gerektirir.
+            iBuyer, takas, GES ve parsel masaları tek çatı altında. Sonuçlar ön fizibilite niteliğindedir; resmi rapor ve lisanslı onay gerektirir.
           </p>
           <motion.div className="mt-6 flex flex-wrap gap-2">
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">400 puan hukuk skoru</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Capraz ofis komisyon</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Formul izlenebilirligi</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Çapraz ofis komisyon</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Formül izlenebilirliği</span>
           </motion.div>
         </motion.div>
 
@@ -147,7 +147,7 @@ export default function IntelligenceHub() {
               <p className="text-sm text-slate-400 mt-2 flex-1 leading-relaxed">{m.desc}</p>
               <Button asChild className="mt-6 w-full sm:w-auto gap-2 bg-white/10 hover:bg-white/15 border border-white/10">
                 <Link to={m.href}>
-                  Modulu ac <ArrowRight className="w-4 h-4" />
+                  Modülü aç <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
             </motion.div>
@@ -157,7 +157,7 @@ export default function IntelligenceHub() {
         <motion.div className="mt-12 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 flex gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
           <Shield className="w-5 h-5 text-amber-300 shrink-0" />
           <p className="text-xs text-slate-400 leading-relaxed">
-            Kesinlikle yatırım tavsiyesi degildir. Girdilere dayali on fizibilitedir. PVGIS dogrulanmis isinim, resmi imar durumu ve TEIAS/EDAS basvurusu olmadan yatırım karari alinmamalidir.
+            Kesinlikle yatırım tavsiyesi değildir. Girdilere dayalı ön fizibilitedir. PVGIS doğrulanmış ışınım, resmi imar durumu ve TEİAŞ/EDAŞ başvurusu olmadan yatırım kararı alınmamalıdır.
           </p>
         </motion.div>
 

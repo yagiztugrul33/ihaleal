@@ -293,7 +293,7 @@ function App() {
             <Route
               path={IBUYER_PATH}
               element={
-                <Suspense fallback={<PageLoader label="Aninda teklif yukleniyor…" />}>
+                <Suspense fallback={<PageLoader label="Anında teklif yükleniyor…" />}>
                   <IBuyerPage />
                 </Suspense>
               }

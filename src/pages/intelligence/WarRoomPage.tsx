@@ -157,7 +157,7 @@ export default function WarRoomPage() {
             <Radar className="w-10 h-10 text-blue-400 shrink-0" />
             <div>
               <h1 className="text-3xl font-bold text-white">Stratejik War Room</h1>
-              <p className="text-sm text-slate-400 mt-1">GIS + muhendislik istihbarati</p>
+              <p className="text-sm text-slate-400 mt-1">GIS + mühendislik istihbaratı</p>
             </div>
           </div>
           {env ? <DataQualityBadge quality={env.dataQuality} limitations={env.limitations} /> : null}
