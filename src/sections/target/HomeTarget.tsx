@@ -4,7 +4,7 @@ import { ROUTES } from "@/constants/routes";
 import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 
 const HERO_IMG =
-  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&q=80&auto=format";
+  "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=85&auto=format";
 const PROP_IMGS = [
   "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80&auto=format",
   "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&auto=format",
@@ -48,7 +48,7 @@ export function HomeTarget() {
         <div
           className="pointer-events-none absolute inset-0 z-0"
           style={{
-            backgroundImage: `linear-gradient(90deg, rgba(10,14,26,.95) 0%, rgba(10,14,26,.7) 40%, rgba(10,14,26,.3) 100%), url('${HERO_IMG}')`,
+            backgroundImage: `linear-gradient(90deg, rgba(10,14,26,.95) 0%, rgba(10,14,26,.6) 50%, rgba(10,14,26,.2) 100%), url('${HERO_IMG}')`,
             backgroundSize: "cover",
             backgroundPosition: "center right",
           }}
@@ -62,8 +62,8 @@ export function HomeTarget() {
           }}
         />
 
-        <div className="home-target-hero-grid relative z-[2] mx-auto grid max-w-[1500px] grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_240px]">
-          <div>
+        <div className="home-target-hero-grid relative z-[2] mx-auto grid max-w-[1500px] grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <div className="relative min-w-0">
             <div
               className="mb-10 inline-flex items-center gap-2 rounded-full border border-slate-600/30 px-4 py-2 text-sm backdrop-blur-md"
               style={{ background: "rgba(15, 23, 41, 0.6)" }}
@@ -77,11 +77,10 @@ export function HomeTarget() {
 
             <h1
               id="home-hero-title"
-              className="mb-6 text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1.05] tracking-tight text-slate-50"
+              className="mb-6 text-[clamp(3rem,6vw,5rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-slate-50"
               style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}
             >
-              Gayrimenkul
-              <br />
+              Gayrimenkul İhalelerinin{" "}
               <span
                 style={{
                   background: "linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899)",
@@ -89,10 +88,9 @@ export function HomeTarget() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                İhalelerinin
+                Geleceği
               </span>
-              <br />
-              Geleceği.
+              .
             </h1>
 
             <p
@@ -123,9 +121,11 @@ export function HomeTarget() {
               <PlatformModulesShowcase />
             </div>
 
-            <LiveChartCard />
-
             <TrustSignalsRow />
+
+            <div className="home-target-live-overlay mt-8 lg:absolute lg:right-0 lg:top-[52%] lg:mt-0 lg:max-w-[420px] lg:-translate-y-1/2 z-[3]">
+              <LiveChartCard />
+            </div>
           </div>
 
           <StatCardsColumn stats={stats} />
@@ -143,9 +143,17 @@ export function HomeTarget() {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
           }
+          .home-target-live-overlay {
+            position: static !important;
+            transform: none !important;
+            max-width: 100% !important;
+          }
           .home-target-how-grid { grid-template-columns: 1fr !important; }
           .home-target-steps { grid-template-columns: repeat(2, 1fr) !important; }
           .home-target-step-line { display: none !important; }
+        }
+        @media (max-width: 768px) {
+          .home-target-steps { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>
@@ -167,7 +175,7 @@ function LiveChartCard() {
           CANLI
         </span>
       </div>
-      <div className="mb-1 text-5xl font-extrabold leading-none tracking-tight text-slate-50">284</div>
+      <div className="mb-1 text-[4rem] font-extrabold leading-none tracking-tight text-slate-50">284</div>
       <div className="mb-4 text-sm font-semibold text-emerald-400">+%18 geçen aydan</div>
       <svg viewBox="0 0 400 80" className="mb-4 h-[70px] w-full" aria-hidden>
         <defs>
@@ -247,7 +255,7 @@ function StatCardsColumn({
                 <span className="text-2xl font-bold tracking-tight text-slate-50">{x.v}</span>
                 <span className="text-[.7rem] font-semibold text-emerald-400">{x.c}</span>
               </div>
-              <div className="mt-0.5 text-[.65rem] text-slate-500">geçen aydan</div>
+              <div className="mt-0.5 text-[.65rem] text-slate-500">vs geçen ay</div>
             </div>
           </div>
         </div>
@@ -259,13 +267,13 @@ function StatCardsColumn({
 function HowItWorksSection() {
   const steps = [
     { n: "01", i: "🔍", t: "Keşfet", d: "Doğrulanmış ilanlar ve detaylı analitik." },
-    { n: "02", i: "🛡", t: "Kayıt & KYC", d: "Kimlik doğrulama sürecini tamamla." },
+    { n: "02", i: "🛡", t: "Kayıt & Doğrulama", d: "KYC doğrulama sürecini tamamla." },
     { n: "03", i: "🔨", t: "Teklif Ver", d: "Canlı ihalelere gerçek zamanlı katıl." },
     { n: "04", i: "🏆", t: "Kazan", d: "İhaleyi kazan, güvenli teslimat." },
   ];
   const trust = [
     { i: "🛡", t: "Bank Düzeyi Güvenlik", s: "256-bit SSL & veri koruması", c: "#3b82f6" },
-    { i: "📈", t: "AI Analitik", s: "AI insights ile akıllı kararlar", c: "#10b981" },
+    { i: "📊", t: "AI Destekli Analitik", s: "AI insights ile akıllı kararlar", c: "#10b981" },
     { i: "✓", t: "Şeffaf Süreç", s: "%100 şeffaf bidding", c: "#f59e0b" },
     { i: "🌐", t: "Küresel Erişim", s: "Türkiye geneli ihaleler", c: "#8b5cf6" },
     { i: "🎧", t: "7/24 Destek", s: "Her zaman yanınızdayız", c: "#ec4899" },
@@ -345,10 +353,10 @@ function HowItWorksSection() {
 
 function LiveAuctionsSection() {
   const items = [
-    { t: "Lüks Villa", l: "Bodrum, Türkiye", p: "₺12.450.000", c: "+12.5%", b: "32 teklif", tm: "15s 24dk", i: 0 },
-    { t: "Modern Ofis Binası", l: "İstanbul, Levent", p: "₺8.850.000", c: "+8.2%", b: "28 teklif", tm: "1g 5s", i: 1 },
-    { t: "Premium Daire", l: "Ankara, Çankaya", p: "₺3.950.000", c: "+15.7%", b: "18 teklif", tm: "2s 15dk", i: 2 },
-    { t: "Ticari Kompleks", l: "İzmir, Konak", p: "₺14.250.000", c: "+10.3%", b: "45 teklif", tm: "3g 12s", i: 3 },
+    { t: "Lüks Villa", l: "İstanbul, Sarıyer", p: "₺12.450.000", c: "+12.5%", b: "32 teklif", tm: "15s 24dk", i: 0 },
+    { t: "Modern Ofis Binası", l: "Ankara, Çankaya", p: "₺8.850.000", c: "+8.2%", b: "28 teklif", tm: "1g 5s", i: 1 },
+    { t: "Premium Daire", l: "İzmir, Konak", p: "₺3.950.000", c: "+15.7%", b: "18 teklif", tm: "2s 15dk", i: 2 },
+    { t: "Ticari Kompleks", l: "Bursa, Nilüfer", p: "₺14.250.000", c: "+10.3%", b: "45 teklif", tm: "3g 12s", i: 3 },
   ];
   return (
     <section className="px-4 pb-16 pt-12 sm:px-6">
@@ -406,17 +414,17 @@ function LiveAuctionsSection() {
 }
 
 function TrustedBySection() {
-  const brands = ["RE/MAX", "CENTURY 21", "Coldwell Banker", "Engel & Völkers", "Sotheby's"];
+  const brands = ["JLL", "CBRE", "Colliers", "Knight Frank", "Cushman & Wakefield", "Savills", "EY"];
   const certs = [
-    { t: "ISO 27001", s: "Sertifikalı" },
-    { t: "SOC 2", s: "Type II Uyumlu" },
-    { t: "KVKK", s: "Uyumlu" },
+    { t: "ISO 27001", s: "Certified" },
+    { t: "SOC 2", s: "Type II Compliant" },
+    { t: "KVKK", s: "Compliant" },
   ];
   return (
     <section className="border-t border-slate-600/20 px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-[1400px] text-center">
         <p className="mb-6 text-xs uppercase tracking-widest text-slate-500">
-          Türkiye&apos;nin önde gelen kurumları tarafından güvenilen
+          Dünyanın önde gelen kurumları tarafından güveniliyor
         </p>
         <div className="mb-8 flex flex-wrap items-center justify-center gap-12 opacity-50">
           {brands.map((b) => (

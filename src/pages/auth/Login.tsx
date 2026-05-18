@@ -39,7 +39,9 @@ export default function Login() {
       setError(translateAuthError(authErr.message ?? ""));
       return;
     }
-    navigate(postLoginPathForProfil(kurumsalProfil));
+    const next = searchParams.get("next");
+    const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+    navigate(safeNext ?? postLoginPathForProfil(kurumsalProfil));
   };
 
   return (

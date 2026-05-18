@@ -60,7 +60,9 @@ export default function Register() {
       return;
     }
     if (session?.user) {
-      navigate(postLoginPathForProfil(kurumsalProfil));
+      const next = searchParams.get("next");
+      const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+      navigate(safeNext ?? postLoginPathForProfil(kurumsalProfil));
       return;
     }
     setInfo("Kayıt tamam! E-postanıza gelen onay bağlantısını tıklayın.");

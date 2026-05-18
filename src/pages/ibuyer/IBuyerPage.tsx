@@ -1,8 +1,13 @@
 import { Banknote, RefreshCw } from "lucide-react";
 import { SubmissionForm } from "@/components/ibuyer/SubmissionForm";
+import { RequireAuthGate } from "@/components/auth/RequireAuthGate";
+import { useAuth } from "@/contexts/AuthContext";
 import { ibuyerSubtitle } from "@/lib/ibuyerHub";
+import { ROUTES } from "@/constants/routes";
 
 export default function IBuyerPage() {
+  const { user, loading } = useAuth();
+
   return (
     <main className="min-h-screen pt-24 pb-16 text-white">
       <section className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -15,9 +20,24 @@ export default function IBuyerPage() {
         </div>
         <p className="mb-6 flex items-center gap-2 text-sm text-slate-500">
           <RefreshCw className="h-4 w-4" />
-          Hukuki risk matrisi ile 72 saat gecerli teklif
+          Hukuki risk matrisi ile 72 saat geçerli teklif
         </p>
-        <SubmissionForm />
+
+        {loading ? (
+          <div
+            data-testid="ibuyer-loading"
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 animate-pulse space-y-4"
+          >
+            <div className="h-4 w-1/3 rounded bg-slate-700" />
+            <div className="h-10 rounded bg-slate-700" />
+            <div className="h-10 rounded bg-slate-700" />
+            <div className="h-10 w-1/2 rounded bg-slate-700" />
+          </div>
+        ) : user ? (
+          <SubmissionForm />
+        ) : (
+          <RequireAuthGate redirectTo={ROUTES.IBUYER} />
+        )}
       </section>
     </main>
   );

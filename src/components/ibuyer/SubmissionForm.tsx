@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, ShieldAlert } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Loader2, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -162,8 +162,16 @@ export function SubmissionForm() {
     }
   };
 
+  const retrySubmit = () => {
+    setError("");
+    void onSubmit();
+  };
+
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md space-y-4">
+    <div
+      data-testid="ibuyer-form"
+      className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md space-y-4"
+    >
       <PreFeasibilityBanner />
       <div className="mb-6 flex gap-2 text-xs text-slate-400">
         {[1, 2, 3].map((n) => (
@@ -278,21 +286,33 @@ export function SubmissionForm() {
               <ArrowLeft className="h-4 w-4" /> Geri
             </Button>
             <Button type="button" disabled={loading} onClick={onSubmit}>
-              {loading ? "Hesaplanıyor…" : "Teklifi hesapla"}
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Hesaplanıyor…
+                </>
+              ) : (
+                "Teklifi hesapla"
+              )}
             </Button>
           </div>
-          {error && <p className="text-sm text-red-300">{error}</p>}
+          {error && (
+            <div
+              role="alert"
+              className="rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
+            >
+              <p>{error}</p>
+              <Button type="button" size="sm" variant="outline" onClick={retrySubmit} disabled={loading}>
+                Tekrar dene
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
       {step === 3 && result && (
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white">{statusLabel(result.status)}</h2>
-          {result.demoMode && (
-            <p className="text-xs text-amber-200/90 rounded-lg border border-amber-400/30 bg-amber-500/10 px-3 py-2">
-              Demo modu: Supabase yapılandırılmadı veya RPC kullanılamadı; sonuç yerel motorla üretildi.
-            </p>
-          )}
           {result.status === "OFFER_GENERATED" &&
             result.offerAmountTry != null &&
             Number.isFinite(result.offerAmountTry) && (

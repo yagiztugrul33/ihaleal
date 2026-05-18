@@ -91,5 +91,4 @@ export type InstantOfferResult = OfferDetermination & {
   offerAmountTry: number | null;
   marketValueTry: number;
   expiresAt: string | null;
-  demoMode?: boolean;
 };
