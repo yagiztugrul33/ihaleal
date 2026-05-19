@@ -10,16 +10,19 @@ async function setLocaleTr(page: import("@playwright/test").Page) {
 }
 
 test.describe("home + navbar GES regression", () => {
-  test("homepage shows cinematic hero and live auctions", async ({ page }) => {
+  test("homepage shows cinematic hero, deprem bands and live auctions", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await setLocaleTr(page);
     await expect(page.getByTestId("premium-cinematic-home")).toBeVisible({ timeout: 20_000 });
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/Gayrimenkul/i);
     await expect(page.getByRole("heading", { name: /Öne Çıkan Canlı Müzayedeler/i })).toBeVisible();
     await expect(page.getByText(/LIVE/i).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: /Kurumsal Altyapısı/i })).toBeVisible();
+    await expect(page.getByText(/Stratejik War Room/i)).toBeVisible();
+    await expect(page.locator(".premium-hero__visual .premium-live-card__value")).toBeVisible();
   });
 
-  test("navbar GES via Services dropdown — desktop", async ({ page }) => {
+  test("navbar GES via Services mega menu — desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
     await page.getByTestId("nav-services-trigger").click();
@@ -40,10 +43,10 @@ test.describe("home + navbar GES regression", () => {
     await expect(page).toHaveURL(/\/arastirma\/ges/, { timeout: 15_000 });
   });
 
-  test("homepage hero visible with premium search strip", async ({ page }) => {
+  test("homepage hero visible with navbar search", async ({ page }) => {
     await setLocaleTr(page);
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/Geleceği/i);
-    await expect(page.getByPlaceholder(/Müzayede veya bölge ara/i)).toBeVisible();
+    await expect(page.getByText(/İhale, lokasyon ara/i)).toBeVisible();
   });
 
   test("homepage shows footer on marketing home", async ({ page }) => {

@@ -76,6 +76,140 @@ function NavDropdown({
   );
 }
 
+function NavMegaMenu({
+  label,
+  columns,
+  testId,
+  triggerTestId,
+  onNavigate,
+}: {
+  label: string;
+  columns: { title: string; items: { to: string; label: string; testId?: string }[] }[];
+  testId?: string;
+  triggerTestId?: string;
+  onNavigate?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative" data-testid={testId}>
+      <button
+        type="button"
+        data-testid={triggerTestId}
+        onClick={() => setOpen((o) => !o)}
+        className={cn(
+          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-200 transition-colors hover:text-white",
+          open && "text-white",
+        )}
+        aria-expanded={open}
+        aria-haspopup="true"
+      >
+        {label}
+        <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+      </button>
+      {open ? (
+        <div
+          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-xl border border-slate-600/30 p-4 shadow-xl"
+          style={{ background: "rgba(15, 23, 41, 0.98)", backdropFilter: "blur(20px)" }}
+        >
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {columns.map((col) => (
+              <div key={col.title}>
+                <p className="mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  {col.title}
+                </p>
+                {col.items.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    data-testid={item.testId}
+                    onClick={() => {
+                      setOpen(false);
+                      onNavigate?.();
+                    }}
+                    className="block rounded-lg px-2 py-2 text-sm text-slate-200 no-underline hover:bg-slate-800/60 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function NavPortalDropdown({
+  label,
+  items,
+  variant,
+  onNavigate,
+}: {
+  label: string;
+  items: { to: string; label: string; sub?: string }[];
+  variant: "outline" | "default";
+  onNavigate?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative" data-testid={variant === "outline" ? "nav-login-portal" : "nav-signup-portal"}>
+      <Button
+        type="button"
+        variant={variant === "outline" ? "outline" : "default"}
+        size="default"
+        className="h-10 gap-1 px-4"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+      >
+        {label}
+        <ChevronDown className={cn("h-3.5 w-3.5", open && "rotate-180")} />
+      </Button>
+      {open ? (
+        <div
+          className="absolute right-0 top-full z-[110] mt-2 min-w-[220px] rounded-xl border border-slate-600/30 py-1 shadow-xl"
+          style={{ background: "rgba(15, 23, 41, 0.98)" }}
+        >
+          {items.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              onClick={() => {
+                setOpen(false);
+                onNavigate?.();
+              }}
+              className="block px-4 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/60"
+            >
+              <span className="font-medium">{item.label}</span>
+              {item.sub ? <span className="mt-0.5 block text-xs text-slate-500">{item.sub}</span> : null}
+            </Link>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export function Navbar() {
   const { locale, setLocale, t } = useLocale();
   const n = t.nav;
@@ -89,6 +223,50 @@ export function Navbar() {
     { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
     { to: "/degerleme", label: n.valuation },
     { to: ROUTES.ARASTIRMA, label: n.researchHub },
+  ];
+
+  const megaColumns = [
+    {
+      title: "Yatırımcı",
+      items: [
+        { to: ROUTES.ILANLAR, label: "Canlı ihaleler" },
+        { to: "/degerleme", label: "AI değerleme" },
+        { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
+        { to: "/dashboard/yatirimci", label: "Yatırımcı paneli" },
+      ],
+    },
+    {
+      title: "Emlakçı",
+      items: [
+        { to: "/emlakci", label: "Emlakçı vitrini" },
+        { to: "/emlakci/panel", label: "Ofis paneli" },
+        { to: "/emlakci-giris", label: "Emlakçı girişi" },
+        { to: "/emlakci-ortaklik", label: "B2B ortaklık" },
+      ],
+    },
+    {
+      title: "Müteahhit",
+      items: [
+        { to: "/muteahhit", label: "Müteahhit lansman" },
+        { to: "/muteahhit/panel", label: "Proje paneli" },
+        { to: "/ihale-ac", label: "İhale aç" },
+        { to: ROUTES.KKA_HUB, label: "Kat karşılığı" },
+      ],
+    },
+  ];
+
+  const loginPortals = [
+    { to: "/giris", label: "Bireysel giriş", sub: "Alıcı / satıcı hesabı" },
+    { to: "/giris?next=/dashboard/yatirimci", label: "Yatırımcı portalı", sub: "Portföy dashboard" },
+    { to: "/giris?profil=emlakci", label: "Emlakçı portalı", sub: "Ofis ve ilan yönetimi" },
+    { to: "/giris?profil=muteahhit", label: "Müteahhit portalı", sub: "Proje ve ihale akışı" },
+  ];
+
+  const signupPortals = [
+    { to: "/kayit", label: "Bireysel kayıt", sub: "Ücretsiz hesap" },
+    { to: "/kayit?next=/dashboard/yatirimci", label: "Yatırımcı kaydı", sub: "Portföy takibi" },
+    { to: "/kayit?profil=emlakci", label: "Emlakçı kaydı", sub: "Ofis hesabı" },
+    { to: "/kayit?profil=muteahhit", label: "Müteahhit kaydı", sub: "Proje hesabı" },
   ];
 
   const companyItems = [
@@ -163,12 +341,11 @@ export function Navbar() {
             >
               {n.howItWorks}
             </NavLink>
-            <NavDropdown
+            <NavMegaMenu
               label={n.services}
-              items={serviceItems}
+              columns={megaColumns}
               testId="nav-services"
               triggerTestId="nav-services-trigger"
-              gesTestId="nav-services-ges"
             />
             <NavLink
               to={ROUTES.ARASTIRMA}
@@ -237,12 +414,8 @@ export function Navbar() {
                 </div>
               ) : null}
             </div>
-            <Button asChild variant="outline" size="default" className="h-10 px-4">
-              <Link to="/giris">{n.logIn}</Link>
-            </Button>
-            <Button asChild size="default" className="h-10 px-4">
-              <Link to="/kayit">{n.signUp}</Link>
-            </Button>
+            <NavPortalDropdown label={n.logIn} items={loginPortals} variant="outline" />
+            <NavPortalDropdown label={n.signUp} items={signupPortals} variant="default" />
           </div>
 
           <button

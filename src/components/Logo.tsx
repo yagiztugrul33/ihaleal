@@ -1,9 +1,9 @@
 import { Gavel } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const badgeSizes = { sm: "h-9 w-9", md: "h-10 w-10", lg: "h-12 w-12" } as const;
-const iconSizes = { sm: "h-4 w-4", md: "h-5 w-5", lg: "h-6 w-6" } as const;
-const textSizes = { sm: "text-lg", md: "text-xl", lg: "text-3xl" } as const;
+const badgeSizes = { sm: "h-7 w-7", md: "h-9 w-9", lg: "h-11 w-11" } as const;
+const iconSizes = { sm: "h-3.5 w-3.5", md: "h-5 w-5", lg: "h-6 w-6" } as const;
+const wordSizes = { sm: "text-lg", md: "text-[22px]", lg: "text-3xl" } as const;
 const gaps = { sm: "gap-2", md: "gap-2.5", lg: "gap-3" } as const;
 
 export function Logo({
@@ -21,25 +21,24 @@ export function Logo({
     <div
       className={cn("inline-flex items-center", gaps[size])}
       aria-label="ihaleal.com"
+      data-testid="logo-root"
     >
       <span
-        className={cn(
-          "inline-flex shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-500/30",
-          badgeSizes[size],
-        )}
+        className={cn("inline-flex shrink-0 items-center justify-center rounded-[10px] shadow-lg shadow-blue-500/25", badgeSizes[size])}
+        style={{ background: "linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)" }}
         aria-hidden="true"
+        data-testid="logo-badge"
       >
         <Gavel className={cn("text-white", iconSizes[size])} strokeWidth={2.2} />
       </span>
       {variant === "full" ? (
-        <span
-          className={cn(
-            `font-bold tracking-tight ${textSizes[size]}`,
-            textClassName ?? "text-[#0A1F44] dark:text-white",
-          )}
-        >
-          ihaleal
-          <span className={dotComClassName ?? "text-blue-400"}>.com</span>
+        <span className={cn("inline-flex items-baseline font-extrabold tracking-tight", wordSizes[size])}>
+          <span className={textClassName ?? "text-[#0A1F44] dark:text-white"} data-testid="logo-wordmark">
+            ihaleal
+          </span>
+          <span className={dotComClassName ?? "font-bold text-[#60a5fa]"} data-testid="logo-dot-com">
+            .com
+          </span>
         </span>
       ) : null}
     </div>

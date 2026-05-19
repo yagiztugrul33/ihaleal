@@ -18,7 +18,7 @@ export type HomeMessages = {
     view: string;
   };
   trust: Array<{ title: string; sub: string }>;
-  stats: Array<{ label: string; value: string; delta: string }>;
+  stats: Array<{ label: string; value: string; delta: string; vs: string }>;
   search: { placeholder: string; aria: string };
   categories: {
     heading: string;
@@ -145,10 +145,10 @@ export const messages: Record<Locale, Messages> = {
         { title: "24/7 Support", sub: "Always here to help" },
       ],
       stats: [
-        { label: "Total Open Auctions", value: "12,458", delta: "+12.5%" },
-        { label: "Successful Sales", value: "3,127", delta: "+8.3%" },
-        { label: "Active Investors", value: "10,843", delta: "+15.2%" },
-        { label: "Satisfaction Rate", value: "98%", delta: "+2.1%" },
+        { label: "Total Open Auctions", value: "12,458", delta: "+12.5%", vs: "vs last month" },
+        { label: "Successful Sales", value: "3,127", delta: "+8.3%", vs: "vs last month" },
+        { label: "Active Investors", value: "10,843", delta: "+15.2%", vs: "vs last month" },
+        { label: "Satisfaction Rate", value: "98%", delta: "+2.1%", vs: "vs last month" },
       ],
       search: {
         placeholder: "Search auctions or regions…",
@@ -329,10 +329,10 @@ export const messages: Record<Locale, Messages> = {
         { title: "7/24 Destek", sub: "Her zaman yanınızda" },
       ],
       stats: [
-        { label: "Toplam Açık Artırma", value: "12.458", delta: "+%12,5" },
-        { label: "Başarılı Satışlar", value: "3.127", delta: "+%8,3" },
-        { label: "Aktif Yatırımcılar", value: "10.843", delta: "+%15,2" },
-        { label: "Memnuniyet Oranı", value: "%98", delta: "+%2,1" },
+        { label: "Toplam Açık Artırma", value: "12.458", delta: "+%12,5", vs: "geçen aya göre" },
+        { label: "Başarılı Satışlar", value: "3.127", delta: "+%8,3", vs: "geçen aya göre" },
+        { label: "Aktif Yatırımcılar", value: "10.843", delta: "+%15,2", vs: "geçen aya göre" },
+        { label: "Memnuniyet Oranı", value: "%98", delta: "+%2,1", vs: "geçen aya göre" },
       ],
       search: {
         placeholder: "Müzayede veya bölge ara...",

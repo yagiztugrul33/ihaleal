@@ -1,17 +1,23 @@
-﻿import { useMemo, useRef, type CSSProperties } from "react";
+﻿import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
+  Activity,
+  ArrowRight,
   BarChart3,
   Building2,
+  ChevronRight,
   Factory,
   Gavel,
+  Globe,
   Headphones,
   Heart,
   Home as HomeIcon,
   Hotel,
   Landmark,
   MapPin,
+  Play,
+  Radar,
   Search,
   Shield,
   Star,
@@ -23,8 +29,10 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cinematicEase, staggerContainer, staggerItem } from "@/lib/motion/presets";
 import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
+import { HeroLiveAuctionCard } from "@/components/home/HeroLiveAuctionCard";
 import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
 import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
+import { ROUTES } from "@/constants/routes";
 import { getAllProperties, getFeaturedAuctions } from "@/lib/demo-data";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { getPropertyHero, getPropertyLocation, getPropertyTitle } from "@/types/property";
@@ -32,6 +40,7 @@ import type { CategoryKey } from "@/types/property";
 
 const STAT_ICONS = [BarChart3, Shield, Users, Star] as const;
 const TRUST_ICONS = [Shield, Users, Star, Headphones] as const;
+const TRUST_LINKS = ["/guvenlik", ROUTES.ILANLAR, "/yorumlar", "/destek"] as const;
 const STEP_ICONS = [Search, Shield, Gavel, Star] as const;
 const STEP_NOS = ["01", "02", "03", "04"] as const;
 
@@ -40,15 +49,73 @@ const H8_CATEGORIES: {
   icon: typeof HomeIcon;
   gradient: string;
 }[] = [
-  { key: "konut", icon: HomeIcon, gradient: "linear-gradient(135deg,#1d4ed8,#3b82f6)" },
-  { key: "ticari", icon: Building2, gradient: "linear-gradient(135deg,#0f766e,#14b8a6)" },
-  { key: "endustri", icon: Factory, gradient: "linear-gradient(135deg,#b45309,#f59e0b)" },
-  { key: "konaklama", icon: Hotel, gradient: "linear-gradient(135deg,#7c3aed,#a78bfa)" },
-  { key: "arsa", icon: MapPin, gradient: "linear-gradient(135deg,#15803d,#22c55e)" },
-  { key: "komple", icon: Landmark, gradient: "linear-gradient(135deg,#be123c,#f43f5e)" },
-  { key: "altyapi", icon: Zap, gradient: "linear-gradient(135deg,#0369a1,#38bdf8)" },
-  { key: "devren", icon: Warehouse, gradient: "linear-gradient(135deg,#4b5563,#9ca3af)" },
+  { key: "konut", icon: HomeIcon, gradient: "linear-gradient(135deg,#1e3a5f,#1d4ed8)" },
+  { key: "ticari", icon: Building2, gradient: "linear-gradient(135deg,#134e4a,#0f766e)" },
+  { key: "endustri", icon: Factory, gradient: "linear-gradient(135deg,#78350f,#b45309)" },
+  { key: "konaklama", icon: Hotel, gradient: "linear-gradient(135deg,#5b21b6,#7c3aed)" },
+  { key: "arsa", icon: MapPin, gradient: "linear-gradient(135deg,#14532d,#15803d)" },
+  { key: "komple", icon: Landmark, gradient: "linear-gradient(135deg,#9f1239,#be123c)" },
+  { key: "altyapi", icon: Zap, gradient: "linear-gradient(135deg,#0c4a6e,#0369a1)" },
+  { key: "devren", icon: Warehouse, gradient: "linear-gradient(135deg,#374151,#4b5563)" },
 ];
+
+const CATEGORY_LABELS: Record<string, string> = {
+  konut: "Konut",
+  ticari: "Ticari",
+  endustri: "Endüstri",
+  konaklama: "Konaklama",
+  arsa: "Arsa",
+  komple: "Komple",
+  altyapi: "Altyapı",
+  devren: "Devren",
+};
+
+const WHY_IHALAL_CARDS = [
+  {
+    title: "Banka Düzeyinde Güvenlik",
+    text: "256-bit SSL, oturum koruması ve denetlenebilir teklif günlükleri.",
+    href: "/guvenlik",
+    Icon: Shield,
+    highlight: false,
+  },
+  {
+    title: "Yapay Zeka Destekli Analiz",
+    text: "Bölge bandı, emsal ve aşırı açılış uyarıları tek panelde.",
+    href: "/degerleme",
+    Icon: BarChart3,
+    highlight: false,
+  },
+  {
+    title: "Deprem Şeffaflık Omurgası",
+    text: "Bina riski, canlı Kandilli akışı, aile acil planı ve risk haritası.",
+    href: "/modul/deprem-risk-haritasi",
+    Icon: Activity,
+    highlight: true,
+  },
+  {
+    title: "Şeffaf Teklif Geçmişi",
+    text: "Manipülasyondan uzak, izlenebilir müzayede oturumları.",
+    href: ROUTES.ILANLAR,
+    Icon: Gavel,
+    highlight: false,
+  },
+  {
+    title: "Küresel Erişim",
+    text: "Türkiye geneli portföy; kurumsal ve bireysel katılım.",
+    href: ROUTES.KURUMSAL,
+    Icon: Globe,
+    highlight: false,
+  },
+  {
+    title: "7/24 Destek",
+    text: "Canlı ihale, evrak ve moderasyon hattı.",
+    href: "/destek",
+    Icon: Headphones,
+    highlight: false,
+  },
+] as const;
+
+const TRUSTED_BRANDS = ["JLL", "CBRE", "Colliers", "Knight Frank", "Cushman & Wakefield", "Savills", "EY"] as const;
 
 const DEMO_TESTIMONIALS = [
   {
@@ -67,7 +134,7 @@ const DEMO_TESTIMONIALS = [
     company: "SPK Lisanslı",
     date: "Şubat 2026",
     quote:
-      "12 sekmeli ilan detayı ve ekspertiz indirme akışı, saha ziyaretinden önce ön analizi hızlandırıyor. Özellikle endüstri ve otel tipleri zengin.",
+      "12 sekmeli ilan detayı ve ekspertiz indirme akışı, saha ziyaretinden önce ön analizi hızlandırıyor.",
     initials: "MY",
     hue: 200,
   },
@@ -77,45 +144,21 @@ const DEMO_TESTIMONIALS = [
     company: "Ege Portföy",
     date: "Ocak 2026",
     quote:
-      "Canlı ihale kartları ve kalan süre göstergesi portföy takibini tek ekranda topluyor. Bodrum ve İzmir segmentlerinde likidite iyi.",
+      "Canlı ihale kartları ve deprem risk modülleri portföy takibini tek ekranda topluyor.",
     initials: "ZA",
     hue: 260,
   },
-  {
-    name: "Can Demir",
-    role: "Müteahhit",
-    company: "Kentsel Yapı",
-    date: "Aralık 2025",
-    quote:
-      "Kat karşılığı arsa modülü ile parsel ve imar verisini aynı yerden okuyoruz. GES analizi sayfası enerji projelerinde ayrı değer.",
-    initials: "CD",
-    hue: 180,
-  },
-  {
-    name: "Elif Sarı",
-    role: "Emlak Ofisi Sahibi",
-    company: "Merkez Emlak",
-    date: "Kasım 2025",
-    quote:
-      "Toplu ilan yükleme ve AI fiyat tahmini demo ortamında bile ekip içi eğitimi hızlandırdı. Müşteri paneli sade ve anlaşılır.",
-    initials: "ES",
-    hue: 300,
-  },
-  {
-    name: "Burak Yılmaz",
-    role: "Kurumsal Satın Alma",
-    company: "Lojistik A.Ş.",
-    date: "Ekim 2025",
-    quote:
-      "Depo ve OSB filtreleri gerçekten sektöre özel. Elektrik kW ve rampa sayısı gibi alanlar klasik ilan sitelerinde yok.",
-    initials: "BY",
-    hue: 30,
-  },
 ] as const;
 
-const CHART_HEIGHTS = ["32%", "45%", "38%", "54%", "47%", "61%", "86%"] as const;
 const HERO_POSTER = "/images/hero-cinematic.jpg";
+const HERO_VILLA =
+  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&q=85&auto=format";
 const HERO_VIDEO = "/videos/ihaleal-tanitim.mp4";
+
+function parseStatNumber(raw: string): number {
+  const digits = raw.replace(/[^\d]/g, "");
+  return digits ? Number(digits) : 0;
+}
 
 export default function PremiumCinematicHome() {
   const { t } = useLocale();
@@ -128,13 +171,35 @@ export default function PremiumCinematicHome() {
   });
   const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
+  const statTargets = useMemo(
+    () => home.stats.map((s) => ({ ...s, target: parseStatNumber(s.value) })),
+    [home.stats],
+  );
+
+  const [animatedStats, setAnimatedStats] = useState<number[]>(() =>
+    statTargets.map(() => 0),
+  );
+
+  useEffect(() => {
+    let frame = 0;
+    const id = window.setInterval(() => {
+      frame += 1;
+      const p = Math.min(frame / 60, 1);
+      setAnimatedStats(statTargets.map((s) => Math.floor(s.target * p)));
+      if (p >= 1) window.clearInterval(id);
+    }, 25);
+    return () => window.clearInterval(id);
+  }, [statTargets]);
+
   const stats = useMemo(
     () =>
-      home.stats.map((stat, i) => ({
+      statTargets.map((stat, i) => ({
         ...stat,
         Icon: STAT_ICONS[i] ?? BarChart3,
+        display:
+          stat.value.includes("%") ? `${animatedStats[i]}%` : animatedStats[i].toLocaleString("tr-TR"),
       })),
-    [home.stats],
+    [animatedStats, statTargets],
   );
 
   const steps = useMemo(
@@ -158,17 +223,8 @@ export default function PremiumCinematicHome() {
 
   const liveAuctions = useMemo(() => getFeaturedAuctions(4), []);
 
-  const investorItems = useMemo(
-    () =>
-      home.investor.items.map((item, i) => ({
-        ...item,
-        Icon: [Shield, BarChart3, Gavel, MapPin][i] ?? Shield,
-      })),
-    [home.investor.items],
-  );
-
   const heroStyle = {
-    "--villa-image": `url('${HERO_POSTER}')`,
+    "--villa-image": `url('${HERO_VILLA}')`,
     position: "relative",
   } as CSSProperties;
 
@@ -186,15 +242,6 @@ export default function PremiumCinematicHome() {
       <div className="premium-home__noise" aria-hidden="true" />
       <div className="premium-home__grid" aria-hidden="true" />
 
-      <section className="premium-search-strip" aria-label={home.search.aria}>
-        <label className="premium-search premium-search--strip">
-          <Search className="premium-search__icon" aria-hidden />
-          <input type="search" placeholder={home.search.placeholder} />
-        </label>
-      </section>
-
-      <LiveEarthquakeTicker />
-
       <section className="premium-hero" aria-labelledby="premium-hero-title">
         <motion.div
           className="premium-hero__copy"
@@ -203,27 +250,37 @@ export default function PremiumCinematicHome() {
           animate={reduced ? undefined : "show"}
         >
           <motion.div className="premium-kicker" variants={reduced ? undefined : staggerItem}>
-            <span aria-hidden="true">{"\u2726"}</span>
+            <Shield className="h-4 w-4" aria-hidden />
             {home.hero.badge}
             <i aria-hidden="true" />
           </motion.div>
           <motion.h1 id="premium-hero-title" variants={reduced ? undefined : staggerItem}>
-            <span>{home.hero.titleLead}</span> {home.hero.titleAccent}
+            {home.hero.titleLead}{" "}
+            <span className="premium-hero__accent">{home.hero.titleAccent}</span>
           </motion.h1>
           <motion.p className="premium-hero__lead" variants={reduced ? undefined : staggerItem}>
             {home.hero.subtitle}
           </motion.p>
           <motion.div className="premium-hero__ctas" variants={reduced ? undefined : staggerItem}>
-            <a className="premium-btn premium-btn--primary" href="/ilanlar">
+            <Link className="premium-btn premium-btn--primary" to={ROUTES.ILANLAR}>
               {home.hero.ctaExplore} <span aria-hidden="true">{"\u2192"}</span>
-            </a>
-            <a className="premium-btn premium-btn--glass" href="#how-it-works">
+            </Link>
+            <Link className="premium-btn premium-btn--glass" to={ROUTES.NASIL_CALISIR}>
               <span className="premium-play" aria-hidden="true">
                 {"\u25B6"}
               </span>
               {home.hero.ctaHow}
-            </a>
+            </Link>
           </motion.div>
+          <div className="premium-hero__live-mobile">
+            <HeroLiveAuctionCard
+              className="premium-live-card--inline"
+              title={home.live.title}
+              liveLabel={home.live.live}
+              growthLabel={home.live.growth}
+              viewLabel={home.live.view}
+            />
+          </div>
         </motion.div>
 
         <div
@@ -247,37 +304,25 @@ export default function PremiumCinematicHome() {
               playsInline
             />
           </motion.div>
-          <article className="premium-live-card" aria-label={home.live.title}>
-            <div className="premium-live-card__top">
-              <span>{home.live.title}</span>
-              <b>â— {home.live.live}</b>
-            </div>
-            <strong>284</strong>
-            <p>
-              <span>+18%</span> {home.live.growth}
-            </p>
-            <div className="premium-chart" aria-hidden="true">
-              {CHART_HEIGHTS.map((height) => (
-                <i key={height} style={{ height }} />
-              ))}
-            </div>
-            <a href="/ilanlar">{home.live.view} →</a>
-          </article>
+          <HeroLiveAuctionCard
+            className="premium-live-card--overlay"
+            title={home.live.title}
+            liveLabel={home.live.live}
+            growthLabel={home.live.growth}
+            viewLabel={home.live.view}
+          />
         </div>
 
         <aside className="premium-stat-rail" aria-label={home.aria.statRail}>
           {stats.map((stat) => (
-            <motion.article
-              key={stat.label}
-              className="premium-stat-card"
-              {...statViewProps}
-            >
+            <motion.article key={stat.label} className="premium-stat-card" {...statViewProps}>
               <span className="premium-stat-card__icon" aria-hidden="true">
                 <stat.Icon className="h-5 w-5" />
               </span>
               <div>
                 <p>{stat.label}</p>
-                <strong>{stat.value}</strong>
+                <strong>{stat.display}</strong>
+                <small>{stat.vs}</small>
               </div>
               <b>{stat.delta}</b>
             </motion.article>
@@ -285,32 +330,146 @@ export default function PremiumCinematicHome() {
         </aside>
       </section>
 
+      <section className="premium-trust-strip" aria-label={home.aria.trustRow}>
+        {home.trust.map((item, i) => {
+          const Icon = TRUST_ICONS[i] ?? Shield;
+          return (
+            <Link key={item.title} to={TRUST_LINKS[i] ?? ROUTES.ILANLAR} className="premium-trust-strip__item">
+              <Icon className="h-4 w-4 text-blue-400" aria-hidden />
+              <strong>{item.title}</strong>
+              <span>{item.sub}</span>
+            </Link>
+          );
+        })}
+      </section>
+
+      <DepremTransparencyBand />
+      <LiveEarthquakeTicker />
+
+      <section className="premium-process premium-process--standalone" id="how-it-works" aria-labelledby="premium-process-title">
+        <h2 id="premium-process-title">{home.how.title}</h2>
+        <p>{home.how.subtitle}</p>
+        <div className="premium-steps premium-steps--connected">
+          <div className="premium-steps__line" aria-hidden="true" />
+          {steps.map((step) => (
+            <article key={step.no} className="premium-step">
+              <div className="premium-step__icon" aria-hidden="true">
+                <step.Icon className="h-6 w-6" />
+              </div>
+              <div>
+                <span>{step.no}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="premium-auctions premium-auctions--standalone" aria-labelledby="premium-auctions-title">
+        <div className="premium-section-head">
+          <h2 id="premium-auctions-title">{home.featured.heading}</h2>
+          <Link to={ROUTES.ILANLAR}>{home.featured.viewAll}</Link>
+        </div>
+        <div className="premium-auction-grid">
+          {liveAuctions.map((p) => (
+            <Link key={p.id} to={`/ilanlar/${p.id}`} className="premium-auction-card premium-auction-card--v2">
+              <div
+                className="premium-auction-card__image"
+                style={{
+                  backgroundImage: `linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55)), url(${getPropertyHero(p) ?? "/images/auction-1.jpg"})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <span className="premium-auction-card__live">
+                  <i aria-hidden /> LIVE
+                </span>
+                <button
+                  type="button"
+                  className="premium-auction-card__fav"
+                  aria-label="Favori"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <Heart className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="premium-auction-card__body">
+                <h3>{getPropertyTitle(p)}</h3>
+                <p>
+                  <MapPin className="h-3.5 w-3.5" aria-hidden /> {getPropertyLocation(p)}
+                </p>
+                <div className="premium-auction-card__bid">
+                  <div>
+                    <small>Cari Teklif</small>
+                    <strong>{p.currentBidTry != null ? formatTry(p.currentBidTry) : "—"}</strong>
+                  </div>
+                  <b>+4%</b>
+                </div>
+                <div className="premium-auction-card__meta">
+                  <span>Canlı ihale</span>
+                  <span>{p.bidCount ?? 0} teklif</span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="premium-why-grid" aria-labelledby="premium-why-title">
+        <h2 id="premium-why-title">{home.investor.heading}</h2>
+        <div className="premium-why-grid__cards">
+          {WHY_IHALAL_CARDS.map((card) => (
+            <Link
+              key={card.title}
+              to={card.href}
+              className={card.highlight ? "premium-why-card premium-why-card--highlight" : "premium-why-card"}
+            >
+              <span className="premium-why-card__icon" aria-hidden>
+                <card.Icon className="h-5 w-5" />
+              </span>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <ChevronRight className="premium-why-card__chev" aria-hidden />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="premium-war-room" aria-labelledby="premium-war-room-title">
+        <div className="premium-war-room__copy">
+          <p className="premium-war-room__eyebrow">Stratejik War Room</p>
+          <h2 id="premium-war-room-title">Intelligence Hub — kurumsal karar terminali</h2>
+          <p>
+            Parsel istihbaratı, GES fizibilite, iBuyer senaryoları ve Palantir-tarzı war room tek çatıda.
+            Demo ortamında senaryo verisi; üretimde RLS ve denetim kaydı hedeflenir.
+          </p>
+          <Link to={ROUTES.WAR_ROOM} className="premium-btn premium-btn--primary">
+            War Room&apos;a git <Radar className="h-4 w-4" />
+          </Link>
+        </div>
+        <div className="premium-war-room__visual" aria-hidden>
+          <div className="premium-war-room__panel" />
+          <div className="premium-war-room__panel premium-war-room__panel--accent" />
+        </div>
+      </section>
+
       <section className="premium-categories" aria-labelledby="premium-categories-title">
         <h2 id="premium-categories-title">{home.categories.heading}</h2>
         <div className="premium-categories__track premium-categories__track--h8">
           {categoryCards.map((cat) => {
             const Icon = cat.icon;
-            const labels: Record<string, string> = {
-              konut: "Konut",
-              ticari: "Ticari",
-              endustri: "Endüstri",
-              konaklama: "Konaklama",
-              arsa: "Arsa",
-              komple: "Komple",
-              altyapi: "Altyapı",
-              devren: "Devren",
-            };
             return (
               <Link
                 key={cat.key}
                 to={`/ilanlar/${cat.key}`}
-                className="premium-category-card premium-category-card--rich"
+                className="premium-category-card premium-category-card--rich premium-category-card--calm"
                 style={{ backgroundImage: cat.gradient }}
               >
                 <span className="premium-category-card__icon" aria-hidden>
                   <Icon className="h-6 w-6" />
                 </span>
-                <strong>{labels[cat.key] ?? cat.key}</strong>
+                <strong>{CATEGORY_LABELS[cat.key] ?? cat.key}</strong>
                 <span className="premium-category-card__count">{cat.count} ilan</span>
               </Link>
             );
@@ -318,104 +477,11 @@ export default function PremiumCinematicHome() {
         </div>
       </section>
 
-      <DepremTransparencyBand />
-
       <PlatformModulesShowcase embedded />
-
-      <section className="premium-lower" aria-label={home.aria.lower}>
-        <div className="premium-main-column">
-          <section
-            className="premium-process"
-            id="how-it-works"
-            aria-labelledby="premium-process-title"
-          >
-            <h2 id="premium-process-title">{home.how.title}</h2>
-            <p>{home.how.subtitle}</p>
-            <div className="premium-steps">
-              {steps.map((step) => (
-                <article key={step.no} className="premium-step">
-                  <div className="premium-step__icon" aria-hidden="true">
-                    <step.Icon className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <span>{step.no}</span>
-                    <h3>{step.title}</h3>
-                    <p>{step.text}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="premium-auctions" aria-labelledby="premium-auctions-title">
-            <div className="premium-section-head">
-              <h2 id="premium-auctions-title">{home.featured.heading}</h2>
-              <a href="/ilanlar">{home.featured.viewAll}</a>
-            </div>
-            <div className="premium-auction-grid">
-              {liveAuctions.map((p) => (
-                <Link key={p.id} to={`/ilanlar/${p.id}`} className="premium-auction-card premium-auction-card--v2">
-                  <div
-                    className="premium-auction-card__image"
-                    style={{
-                      backgroundImage: `linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55)), url(${getPropertyHero(p) ?? "/images/auction-1.jpg"})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  >
-                    <span className="premium-auction-card__live"><i /> LIVE</span>
-                    <button type="button" className="premium-auction-card__fav" aria-label="Favori" onClick={(e) => e.preventDefault()}>
-                      <Heart className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <div className="premium-auction-card__body">
-                    <h3>{getPropertyTitle(p)}</h3>
-                    <p><MapPin className="h-3.5 w-3.5" aria-hidden /> {getPropertyLocation(p)}</p>
-                    <div className="premium-auction-card__bid">
-                      <div>
-                        <small>Cari Teklif</small>
-                        <strong>{p.currentBidTry != null ? formatTry(p.currentBidTry) : "—"}</strong>
-                      </div>
-                      <b>+4%</b>
-                    </div>
-                    <div className="premium-auction-card__meta">
-                      <span>Canlı ihale</span>
-                      <span>{p.bidCount ?? 0} bid</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        <aside className="premium-investor-panel" aria-labelledby="premium-trust-title">
-          <h2 id="premium-trust-title">{home.investor.heading}</h2>
-          <div className="premium-investor-panel__list">
-            {investorItems.map((item) => (
-              <article key={item.title}>
-                <span aria-hidden="true"><item.Icon className="h-5 w-5" /></span>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="premium-compliance">
-            {home.how.certs.map((cert) => (
-              <div key={cert.title}>
-                <strong>{cert.title}</strong>
-                <span>{cert.sub}</span>
-              </div>
-            ))}
-          </div>
-        </aside>
-      </section>
 
       <section className="premium-testimonials" aria-labelledby="premium-testimonials-title">
         <h2 id="premium-testimonials-title">{home.testimonials.heading}</h2>
-        <div className="premium-testimonials__grid">
+        <div className="premium-testimonials__grid premium-testimonials__grid--three">
           {DEMO_TESTIMONIALS.map((item) => (
             <article key={item.name} className="premium-testimonial-card">
               <div
@@ -448,16 +514,26 @@ export default function PremiumCinematicHome() {
         </p>
       </section>
 
-      <section className="premium-cta-band" aria-labelledby="premium-cta-title">
-        <h2 id="premium-cta-title">{home.cta.title}</h2>
-        <p>{home.cta.subtitle}</p>
-        <div className="premium-cta-band__actions">
-          <a className="premium-btn premium-btn--primary" href="/kayit">
-            {home.cta.primary}
-          </a>
-          <a className="premium-btn premium-btn--glass" href="/iletisim">
-            {home.cta.secondary}
-          </a>
+      <section className="premium-certs-band" aria-label="Uyumluluk rozetleri">
+        {home.how.certs.map((cert) => (
+          <div key={cert.title} className="premium-certs-band__item">
+            <strong>
+              {cert.flag ? `${cert.flag} ` : ""}
+              {cert.title}
+            </strong>
+            <span>{cert.sub}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="premium-institutions" aria-labelledby="premium-trusted-title">
+        <p id="premium-trusted-title">{home.trusted.title}</p>
+        <div className="premium-institutions__logos">
+          {TRUSTED_BRANDS.map((brand) => (
+            <span key={brand} className="premium-institutions__logo">
+              {brand}
+            </span>
+          ))}
         </div>
       </section>
     </div>
