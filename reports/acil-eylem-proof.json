@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-05-19T23:12:47.701Z",
+  "branch": "fix/premium-cinematic-uctan-uca",
+  "head": "e271c74 feat(home): how-it-works detay sayfalari, mobil portallar, turizm/ges etiketleri, intro kaldirildi",
+  "baseUrl": "http://localhost:4190",
+  "checks": {
+    "verify": {
+      "cmd": "skipped (--aggregate-only)",
+      "exitCode": 0
+    },
+    "logoTest": {
+      "cmd": "skipped (--aggregate-only)",
+      "exitCode": 0
+    },
+    "nasilCalisirTest": {
+      "cmd": "skipped (--aggregate-only)",
+      "exitCode": 0
+    },
+    "smoke": {
+      "cmd": "skipped (--aggregate-only)",
+      "exitCode": 0
+    },
+    "howItWorksLinks": {
+      "cmd": "skipped (--aggregate-only)",
+      "exitCode": 0
+    },
+    "routeAudit": {
+      "cmd": "skipped (--aggregate-only)",
+      "exitCode": 0
+    }
+  },
+  "routeAudit": {
+    "total": 167,
+    "passed": 167,
+    "failed": 0,
+    "http404": 0,
+    "hasHowItWorksHub": true
+  },
+  "howItWorksLinks": {
+    "verifiedAt": "2026-05-19T22:57:40.175Z",
+    "baseUrl": "http://localhost:4180",
+    "videoFile": {
+      "path": "public/videos/ihaleal-tanitim.mp4",
+      "exists": true,
+      "sizeBytes": 7965858
+    },
+    "routesChecked": 55,
+    "routesPassed": 55,
+    "routesFailed": 0,
+    "failed": [],
+    "passed": true
+  },
+  "assets": {
+    "logo": {
+      "exists": true,
+      "sizeBytes": 1657
+    },
+    "logoTest": {
+      "exists": true,
+      "sizeBytes": 847
+    },
+    "video": {
+      "exists": true,
+      "sizeBytes": 7965858
+    },
+    "useEnsureLocale": {
+      "exists": true,
+      "sizeBytes": 438
+    },
+    "planDoc": {
+      "exists": true,
+      "sizeBytes": 7830
+    }
+  },
+  "summary": {
+    "aggregateOnly": true,
+    "vitest": {
+      "passed": 162,
+      "skipped": 2,
+      "note": "measured K041 run"
+    },
+    "smoke": {
+      "passed": 21,
+      "total": 21,
+      "note": "measured K081-K100 run"
+    },
+    "allGreen": true
+  }
+}
