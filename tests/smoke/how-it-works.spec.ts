@@ -66,6 +66,19 @@ test.describe("how-it-works hub + detail pages", () => {
     await expect(page).toHaveURL(/\/how-it-works\?yol=alici/);
   });
 
+  test("journey page forces Turkish navbar when locale was en", async ({ page }) => {
+    await page.goto("/how-it-works/yol/alici");
+    await page.evaluate(() => {
+      localStorage.setItem("ihaleal_cookie_consent_v1", new Date().toISOString());
+      localStorage.setItem("ihaleal_locale", "en");
+    });
+    await page.reload();
+
+    await expect(page.getByRole("link", { name: /^İhaleler$/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /^Auctions$/i })).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /^Nasıl Çalışır$/i })).toBeVisible();
+  });
+
   test("home how-it-works steps link to detail pages", async ({ page }) => {
     await page.goto("/");
     await page.evaluate((key) => localStorage.setItem(key, "tr"), LOCALE_STORAGE_KEY);

@@ -3,8 +3,11 @@ import { PageShell } from "@/components/marketing/PageShell";
 import { NasilCalisirBackNav, RelatedLinksBlock } from "@/components/nasilCalisir/NasilCalisirShared";
 import { ROUTES } from "@/constants/routes";
 import { getStepBySlug, isStepSlug, NASIL_CALISIR_STEPS } from "@/data/nasilCalisirContent";
+import { useEnsureLocale } from "@/hooks/useEnsureLocale";
 
 export default function NasilCalisirStepPage() {
+  useEnsureLocale("tr");
+
   const { slug } = useParams<{ slug: string }>();
   if (!isStepSlug(slug ?? null)) {
     return <Navigate to={ROUTES.HOW_IT_WORKS} replace />;

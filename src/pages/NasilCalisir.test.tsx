@@ -5,6 +5,7 @@ import NasilCalisir from "@/pages/NasilCalisir";
 import NasilCalisirJourneyPage from "@/pages/NasilCalisirJourneyPage";
 import NasilCalisirStepPage from "@/pages/NasilCalisirStepPage";
 import { LocaleProvider } from "@/contexts/LocaleContext";
+import { LOCALE_STORAGE_KEY } from "@/i18n/messages";
 
 beforeEach(() => {
   vi.stubGlobal(
@@ -65,6 +66,12 @@ describe("NasilCalisir journey detail", () => {
     expect(screen.getByRole("heading", { name: /Alıcı ve yatırımcı/i })).toBeInTheDocument();
     expect(screen.getByText(/Keşif ve filtreleme/i)).toBeInTheDocument();
     expect(screen.getByText(/Kapanış ve tapu hazırlığı/i)).toBeInTheDocument();
+  });
+
+  it("forces Turkish locale when storage was English", () => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, "en");
+    wrapJourney("/how-it-works/yol/alici");
+    expect(localStorage.getItem(LOCALE_STORAGE_KEY)).toBe("tr");
   });
 });
 

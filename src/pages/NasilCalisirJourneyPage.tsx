@@ -3,8 +3,11 @@ import { PageShell } from "@/components/marketing/PageShell";
 import { JourneyIcon, NasilCalisirBackNav, RelatedLinksBlock } from "@/components/nasilCalisir/NasilCalisirShared";
 import { ROUTES } from "@/constants/routes";
 import { getJourneyBySlug, isJourneySlug } from "@/data/nasilCalisirContent";
+import { useEnsureLocale } from "@/hooks/useEnsureLocale";
 
 export default function NasilCalisirJourneyPage() {
+  useEnsureLocale("tr");
+
   const { slug } = useParams<{ slug: string }>();
   if (!isJourneySlug(slug ?? null)) {
     return <Navigate to={ROUTES.HOW_IT_WORKS} replace />;

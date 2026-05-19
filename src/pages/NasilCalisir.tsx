@@ -17,6 +17,7 @@ import {
   isJourneySlug,
   type NasilCalisirJourneySlug,
 } from "@/data/nasilCalisirContent";
+import { useEnsureLocale } from "@/hooks/useEnsureLocale";
 
 const MINI_SSS = [
   {
@@ -48,6 +49,8 @@ const MINI_SSS = [
 ];
 
 export default function NasilCalisir() {
+  useEnsureLocale("tr");
+
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const yParam = searchParams.get("yol");

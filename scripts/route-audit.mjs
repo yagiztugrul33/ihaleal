@@ -71,6 +71,7 @@ const TAXONOMY_SAMPLE = [
 ];
 
 const EXTRA_PATHS = [
+  "/how-it-works",
   "/how-it-works/yol/alici",
   "/how-it-works/yol/satici",
   "/how-it-works/yol/danisman",
