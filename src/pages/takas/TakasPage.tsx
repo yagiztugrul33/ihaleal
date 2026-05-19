@@ -155,6 +155,50 @@ function StepDots({ step }: { step: Step }) {
   );
 }
 
+const TRADE_CARDS = Array.from({ length: 8 }, (_, i) => ({
+  id: `t${i + 1}`,
+  from: ["Konut 3+1 Kadikoy", "Villa Bodrum", "Ofis Levent", "Arsa Bursa", "Daire Izmir", "Rezidans Ankara", "Yazlik Mugla", "Dukkan Antalya"][i],
+  to: ["Villa Cesme", "Konut Ankara", "Arsa Izmir", "Konut Istanbul", "Ticari Bursa", "Villa Antalya", "Konut Eskisehir", "Arsa Konya"][i],
+  delta: [-450_000, 1_200_000, 800_000, -200_000, 350_000, 2_100_000, -80_000, 520_000][i],
+}));
+
+function TakasShowcase() {
+  const [mine, setMine] = useState(5_000_000);
+  const [target, setTarget] = useState(5_800_000);
+  const diff = target - mine;
+  return (
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+      <h2 className="text-xl font-bold text-white text-center">Ornek takas firsatlari (8)</h2>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {TRADE_CARDS.map((t) => (
+          <article key={t.id} className="rounded-xl border border-white/10 bg-white/[0.04] p-4 text-sm">
+            <p className="text-slate-400">{t.from}</p>
+            <p className="text-white font-medium my-1">→ {t.to}</p>
+            <p className={t.delta >= 0 ? "text-emerald-400" : "text-amber-300"}>
+              {t.delta >= 0 ? "+" : ""}
+              {formatTry(t.delta)}
+            </p>
+          </article>
+        ))}
+      </div>
+      <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 grid gap-4 sm:grid-cols-3 items-end">
+        <label className="text-sm text-slate-300">
+          Mevcut mulk (TRY)
+          <Input type="number" value={mine} onChange={(e) => setMine(Number(e.target.value))} className="mt-1" />
+        </label>
+        <label className="text-sm text-slate-300">
+          Hedef mulk (TRY)
+          <Input type="number" value={target} onChange={(e) => setTarget(Number(e.target.value))} className="mt-1" />
+        </label>
+        <div className="text-sm">
+          <span className="text-slate-500">Fark</span>
+          <p className="text-lg font-bold text-white">{formatTry(diff)}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function TakasForm() {
   const [step, setStep] = useState<Step>(1);
   const [flags, setFlags] = useState<LegalRiskFlags>(EMPTY_FLAGS);
@@ -667,6 +711,7 @@ export default function TakasPage() {
   return (
     <main className="min-h-screen text-white">
       <TakasHero />
+      <TakasShowcase />
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
         {loading ? (
           <div

@@ -1,4 +1,11 @@
-import { useState } from "react";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const out = path.join(__dirname, "../src/components/ilan/IlanDetailTabs.tsx");
+
+const content = `import { useState } from "react";
 import type { PropertyRecord } from "@/types/property";
 import { getTypeExtraTab, type TypeExtraTab } from "@/lib/property/kind";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -86,31 +93,31 @@ export function IlanDetailTabs({ property, typeExtras }: IlanDetailTabsProps) {
             </select>
           </label>
         ) : (
-          <div className="ilan-tabs__nav" role="tablist" aria-label="Detay sekmeleri">
+          <motionless className="ilan-tabs__nav" role="tablist" aria-label="Detay sekmeleri">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 type="button"
                 role="tab"
-                id={`ilan-tab-${tab}`}
+                id={\`ilan-tab-\${tab}\`}
                 aria-selected={active === tab}
-                aria-controls={`ilan-panel-${tab}`}
+                aria-controls={\`ilan-panel-\${tab}\`}
                 className={active === tab ? "ilan-tabs__tab is-active" : "ilan-tabs__tab"}
                 onClick={() => setActive(tab)}
               >
                 {labelFor(tab)}
               </button>
             ))}
-          </div>
+          </motionless>
         )}
-      </div>
+      </motionless>
 
       {tabs.map((tab) => (
-        <div
+        <motionless
           key={tab}
-          id={`ilan-panel-${tab}`}
+          id={\`ilan-panel-\${tab}\`}
           role="tabpanel"
-          aria-labelledby={`ilan-tab-${tab}`}
+          aria-labelledby={\`ilan-tab-\${tab}\`}
           hidden={active !== tab}
           className="ilan-tabs__content"
         >
@@ -126,10 +133,15 @@ export function IlanDetailTabs({ property, typeExtras }: IlanDetailTabsProps) {
               <TypeExtraPanel kind={tab as TypeExtraTab} property={property} />
             )
           ) : null}
-        </div>
+        </motionless>
       ))}
     </section>
   );
 }
 
 export default IlanDetailTabs;
+`;
+
+const fixed = content.split("motionless").join("div");
+fs.writeFileSync(out, fixed, { encoding: "utf8" });
+console.log("wrote tabs", fs.readFileSync(out)[0]);

@@ -11,6 +11,7 @@ import { ProductionSafetyBanner } from "./ProductionSafetyBanner";
 import { DemoUyarisi } from "./DemoUyarisi";
 import { ScrollToTop } from "./ScrollToTop";
 import { PageTransition } from "@/components/motion";
+import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { useToast, type Toast } from "@/hooks/useToast";
 
 export function Layout() {
@@ -38,11 +39,12 @@ export function Layout() {
         <AntiCopyProtection />
         <Navbar />
         {!isMarketingHome ? <ProductionSafetyBanner /> : null}
-        <main className="flex-1 min-w-0 overflow-x-hidden">
+        <main className="flex-1 min-w-0 overflow-x-hidden pb-16 md:pb-0">
           <PageTransition>
             <Outlet />
           </PageTransition>
         </main>
+        <MobileBottomNav />
         <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />

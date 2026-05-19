@@ -273,6 +273,21 @@ export default function LandEquityPage() {
           </Button>
         </div>
 
+        <Card className="border-emerald-500/20 bg-slate-900/40">
+          <CardContent className="p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-white">12 örnek arsa vitrin</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 12 }, (_, i) => (
+                <div key={i} className="rounded-lg border border-white/10 p-3 text-sm">
+                  <p className="font-medium text-white">Parsel #{i + 1}</p>
+                  <p className="text-slate-400 mt-1">{420 + i * 85} m² · Konut imar</p>
+                  <p className="text-emerald-300 mt-1">₺{(6_500_000 + i * 1_100_000).toLocaleString("tr-TR")}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
         <p className="text-[11px] text-slate-500">
           Sözleşme taslağı: repoda <code className="text-slate-400">docs/hukuk/KKA_SOZLESME_VE_KAZANC_PLANI_TASLAK.md</code>.
         </p>

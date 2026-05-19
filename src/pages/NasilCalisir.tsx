@@ -1,326 +1,297 @@
-﻿import { useLayoutEffect, useRef } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+﻿import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
-  BookOpen,
-  ChevronRight,
-  Layers,
-  Search,
+  Building2,
+  ClipboardCheck,
+  FileText,
+  Gavel,
   Handshake,
-  Trophy,
-  KeyRound,
-  AlertCircle,
+  Home,
+  LineChart,
+  MapPin,
+  PlayCircle,
+  Shield,
+  UserCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  NASIL_CALISIR_ARCHITECTURE,
-  NASIL_CALISIR_INTRO,
-  NASIL_CALISIR_STEPS,
-  type NasilCalisirStepSlug,
-} from "@/data/nasilCalisirContent";
+import { PageShell } from "@/components/marketing/PageShell";
 import { FEES, formatBidBondPercent } from "@/lib/fees";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const STEP_ICONS = {
-  kesfet: Search,
-  teklif: Handshake,
-  kazan: Trophy,
-  teslim: KeyRound,
-} as const;
+type JourneySlug = "alici" | "satici" | "danisman" | "kurumsal" | "operasyon";
 
-function isStepSlug(v: string | null): v is NasilCalisirStepSlug {
-  return v === "kesfet" || v === "teklif" || v === "kazan" || v === "teslim";
+const YOLCULUKLAR: {
+  slug: JourneySlug;
+  baslik: string;
+  ozet: string;
+  icon: typeof Home;
+  adımlar: { baslik: string; metin: string; icon: typeof Home }[];
+}[] = [
+  {
+    slug: "alici",
+    baslik: "Alıcı ve yatırımcı",
+    ozet: "İlan keşfinden teklif netleşmesine kadar uçtan uca güvenli rota.",
+    icon: Home,
+    adımlar: [
+      { baslik: "Keşif ve filtreleme", metin: "Konum, bütçe ve ilan türüne göre arayın; AI özetleri karar destek içindir.", icon: MapPin },
+      { baslik: "Detay ve analiz", metin: "Şartname, görseller ve piyasa kıyasını okuyun; risk işaretleri ilan kartında vurgulanır.", icon: LineChart },
+      { baslik: "Teminat ve teklif", metin: "Ön yetki ve teklif adımlarında kutuları tek tek onaylayın; minimum artışa uyun.", icon: Gavel },
+      { baslik: "Kapanış ve tapu hazırlığı", metin: "Kazanan netleşince sözleşme ve ödeme hattına yönlendirilirsiniz (üretim planı).", icon: ClipboardCheck },
+    ],
+  },
+  {
+    slug: "satici",
+    baslik: "Satıcı ve malik",
+    ozet: "İlan yayınından en iyi teklifi seçmeye kadar kontrollü süreç.",
+    icon: UserCheck,
+    adımlar: [
+      { baslik: "Portföy bilgisi", metin: "Tapu, imar ve varsa kiracı durumunu eksiksiz girin; yanlış beyan riskini azaltır.", icon: FileText },
+      { baslik: "İlan modeli seçimi", metin: "Açık artırma, kapalı teklif veya hibrit; süre ile Hemen Al eşiğini belirleyin.", icon: PlayCircle },
+      { baslik: "Teklif izleme", metin: "Panoda teklif yoğunluğu ve katılımcı sayısını takip edin; gerekirse soru-cevap turu açın.", icon: LineChart },
+      { baslik: "Kazanan ile sözleşme", metin: "Müzakerede anlaşılan rakam sözleşmeye işlenir; tapu için vekalet ve evrak listesi üretilir.", icon: Handshake },
+    ],
+  },
+  {
+    slug: "danisman",
+    baslik: "Emlak danışmanı",
+    ozet: "Müşteri portföyünü profesyonel araçlarla yönetme.",
+    icon: Building2,
+    adımlar: [
+      { baslik: "Yetki ve vekalet", metin: "Satıcıdan yetki alın; platforma yüklenen belgeler denetim izi ile saklanır.", icon: FileText },
+      { baslik: "Çoklu ilan yönetimi", metin: "Kota dahilinde ilan açın; şablonlarla süre ve tavan fiyatını hızlı ayarlayın.", icon: Building2 },
+      { baslik: "Müşteri ile paylaşım", metin: "Özel bağlantı ve rapor çıktılarıyla alıcıyı bilgilendirin; şeffaf iletişim.", icon: UserCheck },
+      { baslik: "Kapanış desteği", metin: "Komisyon ve fatura adımları üretimde netleşir; operasyon ekibiyle senkron kalın.", icon: ClipboardCheck },
+    ],
+  },
+  {
+    slug: "kurumsal",
+    baslik: "Müteahhit ve GYO",
+    ozet: "Proje çıkışlarında ölçek ve raporlama.",
+    icon: Building2,
+    adımlar: [
+      { baslik: "Lot ve faz planı", metin: "Çok ünite ve fazlı satış için gruplu ilanlar oluşturun; stok gerçek zamanlı güncellenir.", icon: MapPin },
+      { baslik: "Rol ve onay", metin: "Finans ve hukuk onay hatları ile teklif kapanışları çift kontrollü yapılabilir.", icon: Shield },
+      { baslik: "Kurumsal rapor", metin: "Pazarlık seviyesi, süre ve dönüşüm oranları yönetim özetine aktarılır.", icon: LineChart },
+      { baslik: "Entegrasyon", metin: "CRM ve ERP ile webhook; kurumsal planda API kotası genişletilir.", icon: Handshake },
+    ],
+  },
+  {
+    slug: "operasyon",
+    baslik: "Platform operasyonu",
+    ozet: "İç ekip ve uyum için referans katmanlar.",
+    icon: Shield,
+    adımlar: [
+      { baslik: "Kural motoru", metin: "Minimum artış, uzatma, ücret matrisi ve ülke ayarları merkezi yapılandırmadan okunur.", icon: Gavel },
+      { baslik: "KYC ve risk", metin: "Kimlik ve kara liste taramaları yüksek tutarlı işlemler için devreye alınır (yol haritası).", icon: UserCheck },
+      { baslik: "Bildirim ve kanıt", metin: "E-posta ve uygulama içi olaylar kayıt altına alınır; süre tutanakları üretilir.", icon: FileText },
+      { baslik: "Destek ve SLA", metin: "Öncelik kuyrukları plana göre ayrılır; kritik arızalarda nöbet hattı hedeflenir.", icon: ClipboardCheck },
+    ],
+  },
+];
+
+const MINI_SSS = [
+  {
+    soru: "Teklifim geçerli sayılması için AI raporunu onaylamak zorunlu mu?",
+    cevap:
+      "Demo akışında güvenlik ve uyum simülasyonu için sıkça istenir. Canlı üretimde ilan şartnamesi ve regülasyon hangi onayların zorunlu olduğunu belirler.",
+  },
+  {
+    soru: "Teminat yüzdesi nereden geliyor?",
+    cevap: `Referans bid bond yüzdesi şu anda ${formatBidBondPercent()} olarak yapılandırmada tutulur; yasal metinler onaylandığında güncellenir.`,
+  },
+  {
+    soru: "Bakiye iade penceresi ne kadar?",
+    cevap: `Taslak refund penceresi ${FEES.refundWindowDays} gün olarak referans alınır; teklif koşullarında farklı yazılabilir.`,
+  },
+  {
+    soru: "Kapalı teklifte kimler fiyat görür?",
+    cevap: "Kapanışa kadar yalnızca satıcı ve yetkili operasyon rolleri tüm teklifleri görebilir; katılımcılar kendi tekliflerini görür.",
+  },
+  {
+    soru: "Yurtdışından katılabilir miyim?",
+    cevap: "Ülke ve ödeme kurallarına göre değişir; bazı ihaleler yalnızca yerel kimlikle sınırlanabilir. İlan etiketlerini okuyun.",
+  },
+  {
+    soru: "Video oynatılamıyorsa ne yapmalıyım?",
+    cevap: "Dosya yolunun /videos/ihaleal-tanitim.mp4 olarak erişilebilir olduğundan emin olun; ağ kısıtı veya tarayıcı otomatik oynatma engelleri devre dışı bırakılabilir.",
+  },
+];
+
+function isJourneySlug(v: string | null): v is JourneySlug {
+  return v === "alici" || v === "satici" || v === "danisman" || v === "kurumsal" || v === "operasyon";
 }
 
 export default function NasilCalisir() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const adımParam = searchParams.get("adım");
-  const fromCta = searchParams.get("from") === "cta";
-  const { ref: heroRef, isVisible } = useScrollAnimation(0.08);
-  const scrolledRef = useRef(false);
+  const yParam = searchParams.get("yol");
+  const aktifYol: JourneySlug = isJourneySlug(yParam) ? yParam : "alici";
 
-  useLayoutEffect(() => {
-    if (!isStepSlug(adımParam)) return;
-    const id = `step-${adımParam}`;
-    const el = document.getElementById(id);
-    if (!el) return;
-    const t = window.requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: scrolledRef.current ? "smooth" : "auto", block: "start" });
-      scrolledRef.current = true;
-    });
-    return () => window.cancelAnimationFrame(t);
-  }, [adımParam]);
-
-  const setAdim = (slug: NasilCalisirStepSlug) => {
-    setSearchParams({ adım: slug }, { replace: false });
+  const setYol = (slug: JourneySlug) => {
+    setSearchParams({ yol: slug }, { replace: true });
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] pt-20 pb-20 text-slate-200">
-      <div className="absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent pointer-events-none" />
-
-      <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => navigate("/")}
-          className="text-slate-500 hover:text-slate-900 gap-2 mb-6"
-        >
-          <ArrowLeft className="w-4 h-4" /> Ana sayfa
+    <PageShell
+      badge="Rehber"
+      title="Nasıl çalışır?"
+      subtitle="Tanıtım videosu ve beş tipik yolculuk: her biri dört adımda özetlenir. Süreler ve ücretler yapılandırılabilir; hukuki kesinlik ilan şartnamesi ve sözleşmededir."
+      cta={{ label: "Canlı ihaleler", to: "/ihaleler" }}
+    >
+      <div className="pb-4">
+        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-4 -ml-2" style={{ color: "var(--color-text-muted)" }}>
+          <ArrowLeft className="w-4 h-4" />
+          Geri
         </Button>
+      </div>
 
-        <div
-          className={`mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-        >
-          <div className="flex items-start gap-4 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/20">
-              <BookOpen className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <Badge className="mb-2 bg-white/10 text-cyan-200 border-cyan-400/30">Rehber</Badge>
-              <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                {NASIL_CALISIR_INTRO.title}
-              </h1>
-              <p className="text-slate-400 mt-3 text-lg leading-relaxed max-w-3xl">{NASIL_CALISIR_INTRO.lead}</p>
-              <p className="text-slate-500 mt-2 text-sm leading-relaxed max-w-3xl">{NASIL_CALISIR_INTRO.audience}</p>
-            </div>
-          </div>
-
-          {fromCta && (
-            <Card className="mb-8 border-amber-500/25 bg-amber-500/5">
-              <CardContent className="pt-6 flex gap-3">
-                <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-amber-100">İhale listesine geçmeden önce</p>
-                  <p className="text-sm text-slate-400 mt-1">
-                    Bu sayfa platformun dört adımını, rolleri ve referans süreleri özetler. Hazır olduğunuzda aşağıdaki
-                    düğme ile canlı ilanlara gidebilirsiniz.
-                  </p>
-                  <Button
-                    className="mt-4 gap-2 bg-gradient-to-r from-blue-600 to-cyan-400"
-                    onClick={() => navigate("/ihaleler")}
-                  >
-                    İhale listesine git
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          <div className="flex flex-wrap gap-3 mt-6">
-            <Button variant="secondary" className="gap-2 bg-white/10 hover:bg-white/15 border border-slate-200" asChild>
-              <Link to="/ihaleler">
-                Canlı ihaleler <ChevronRight className="w-4 h-4" />
-              </Link>
-            </Button>
-            <Button variant="ghost" className="text-slate-300" asChild>
-              <Link to="/rehber">Yardım merkezi</Link>
-            </Button>
-            <Button variant="ghost" className="text-slate-300" asChild>
-              <Link to="/ihale-kosullari">İhale koşulları</Link>
-            </Button>
-          </div>
+      <section className="py-8">
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <PlayCircle className="w-6 h-6" style={{ color: "var(--color-primary)" }} />
+          <h2 className="text-xl font-bold text-center" style={{ color: "var(--color-text)" }}>
+            Tanıtım videosu
+          </h2>
         </div>
-
-        <Card className="mb-12 border-slate-200 bg-white/[0.03] backdrop-blur-sm">
-          <CardContent className="pt-6 pb-6">
-            <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-cyan-400" />
-              Referans iş kuralları (yapılandırma)
-            </h2>
-            <p className="text-sm text-slate-400 mb-4 leading-relaxed">
-              Arayüz ve yardım metinleri aşağıdaki merkezi sabitlerle uyumludur; üretim öncesi hukuk ve muhasebe onayı
-              gerekir.
-            </p>
-            <ul className="text-sm text-slate-300 space-y-2 list-disc pl-5">
-              <li>
-                Kazanan taraf için teminat referansı: <strong className="text-white">{formatBidBondPercent()}</strong>{" "}
-                (bid bond yüzdesi; detay <code className="text-cyan-300 text-xs">fees.ts</code>)
-              </li>
-              <li>
-                Bakiye tamamlama penceresi (taslak referans):{" "}
-                <strong className="text-white">{FEES.refundWindowDays} gün</strong>
-              </li>
-              <li>Son dakika tekliflerinde süre uzatma ve beraberlik kuralları ilan şartnamesinde netleştirilir.</li>
-            </ul>
-          </CardContent>
-        </Card>
-
-        <section className="mb-16" id="mimari">
-          <h2 className="text-2xl font-bold text-white mb-2">{NASIL_CALISIR_ARCHITECTURE.title}</h2>
-          <p className="text-slate-400 mb-6 leading-relaxed">{NASIL_CALISIR_ARCHITECTURE.flowSummary}</p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {NASIL_CALISIR_ARCHITECTURE.layers.map((layer) => (
-              <Card key={layer.name} className="border-slate-200 bg-white/[0.04]">
-                <CardContent className="pt-5 pb-5">
-                  <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">Katman</div>
-                  <h3 className="text-white font-semibold mb-2">{layer.name}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{layer.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <pre className="mt-6 p-4 rounded-xl bg-black/40 border border-slate-200 text-xs text-slate-400 overflow-x-auto font-mono leading-relaxed">
-            {`[Kullanıcı] → [Web istemcisi] → [Kural motoru + doğrulama]
-                    ↓
-            [İlan / teklif kaydı] ←→ [Bildirim servisi] → e-posta / uygulama içi
-                    ↓
-            [Kapanış] → [Kazanan atama] → [Ödeme ve tapu süreçleri — sözleşme]`}
-          </pre>
-        </section>
-
-        <div className="sticky top-20 z-20 -mx-4 px-4 py-3 mb-10 bg-[#0f1729]/90 backdrop-blur-md border border-slate-700/50 rounded-xl">
-          <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">Adımlar</p>
-          <div className="flex flex-wrap gap-2">
-            {NASIL_CALISIR_STEPS.map((s) => {
-              const Icon = STEP_ICONS[s.slug];
-              const active = adımParam === s.slug;
-              return (
-                <button
-                  key={s.slug}
-                  type="button"
-                  onClick={() => setAdim(s.slug)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                    active
-                      ? "bg-cyan-500/20 text-cyan-100 ring-1 ring-cyan-400/40"
-                      : "bg-white/5 text-slate-500 hover:text-slate-900 hover:bg-white/10"
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  {s.stepNum}. {s.title}
-                </button>
-              );
-            })}
-          </div>
+        <p className="text-sm text-center max-w-2xl mx-auto mb-6" style={{ color: "var(--color-text-muted)" }}>
+          ihaleal ürün vizyonunu iki dakikada özetleyen görsel anlatım. Dosya{" "}
+          <code className="text-xs px-1 rounded" style={{ background: "var(--color-bg-soft)" }}>
+            public/videos/ihaleal-tanitim.mp4
+          </code>{" "}
+          altından servis edilir.
+        </p>
+        <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border shadow-lg" style={{ borderColor: "var(--color-border)" }}>
+          <video className="w-full aspect-video bg-black" controls playsInline preload="metadata">
+            <source src="/videos/ihaleal-tanitim.mp4" type="video/mp4" />
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
         </div>
+      </section>
 
-        <div className="space-y-20">
-          {NASIL_CALISIR_STEPS.map((step) => {
-            const Icon = STEP_ICONS[step.slug];
+      <section className="py-8 rounded-2xl border px-4 md:px-6 mb-10" style={{ borderColor: "var(--color-border)", background: "var(--color-bg-soft)" }}>
+        <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          <Shield className="w-4 h-4 inline-block mr-1 align-text-bottom" style={{ color: "var(--color-primary)" }} />
+          <strong style={{ color: "var(--color-text)" }}>Referans teminat: </strong>
+          Kazanan taraf için bid bond referansı {formatBidBondPercent()}; bakiye tamamlama penceresi {FEES.refundWindowDays} gün — detay{" "}
+          <code className="text-xs">fees.ts</code>.
+        </p>
+      </section>
+
+      <section className="pb-6">
+        <h2 className="text-xl md:text-2xl font-bold mb-6 text-center" style={{ color: "var(--color-text)" }}>
+          Beş yolculuk, her biri dört adım
+        </h2>
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {YOLCULUKLAR.map((y) => {
+            const Icon = y.icon;
+            const active = aktifYol === y.slug;
             return (
-              <section key={step.slug} id={`step-${step.slug}`} className="scroll-mt-28">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/15 to-white/5 flex items-center justify-center ring-1 ring-white/10">
-                    <Icon className="w-6 h-6 text-cyan-300" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Adım {step.stepNum}</div>
-                    <h2 className="text-2xl font-bold text-white">{step.title}</h2>
-                    <p className="text-slate-400 text-sm">{step.tagline}</p>
-                  </div>
-                </div>
-
-                <p className="text-slate-300 leading-relaxed mb-8">{step.intro}</p>
-
-                <div className="grid lg:grid-cols-2 gap-6 mb-8">
-                  {step.userJourney.map((block) => (
-                    <Card key={block.title} className="border-slate-200 bg-white/[0.03]">
-                      <CardContent className="pt-5 pb-5">
-                        <h3 className="text-white font-semibold mb-3">{block.title}</h3>
-                        <ul className="space-y-2 text-sm text-slate-400 list-disc pl-5">
-                          {block.bullets.map((b) => (
-                            <li key={b} className="leading-relaxed">
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                {step.platformSide.map((block) => (
-                  <Card key={block.title} className="border-cyan-500/20 bg-cyan-500/5 mb-6">
-                    <CardContent className="pt-5 pb-5">
-                      <h3 className="text-cyan-100 font-semibold mb-3">{block.title}</h3>
-                      {block.paragraphs.map((p) => (
-                        <p key={p} className="text-sm text-slate-400 leading-relaxed mb-2 last:mb-0">
-                          {p}
-                        </p>
-                      ))}
-                    </CardContent>
-                  </Card>
-                ))}
-
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <Card className="border-slate-200">
-                    <CardContent className="pt-5 pb-5">
-                      <h3 className="text-white font-semibold mb-2 text-sm">Veri ve güven</h3>
-                      <ul className="text-sm text-slate-400 space-y-2 list-disc pl-5">
-                        {step.dataAndTrust.map((t) => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-amber-500/15 bg-amber-500/[0.03]">
-                    <CardContent className="pt-5 pb-5">
-                      <h3 className="text-amber-100 font-semibold mb-2 text-sm">Risk ve sınırlar</h3>
-                      <ul className="text-sm text-slate-400 space-y-2 list-disc pl-5">
-                        {step.risksAndLimits.map((t) => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <div className="mb-8">
-                  <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">İlgili sayfalar</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {step.relatedRoutes.map((r) => (
-                      <Button key={r.path + r.label} variant="secondary" size="sm" className="bg-white/5 border-slate-200" asChild>
-                        <Link to={r.path}>
-                          {r.label}
-                          {r.note ? ` (${r.note})` : ""}
-                        </Link>
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Sık sorulanlar</h3>
-                  {step.faq.map((f) => (
-                    <details key={f.q} className="group border border-slate-200 rounded-lg bg-white/[0.02] open:bg-white/[0.04]">
-                      <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-slate-200 list-none flex justify-between items-center">
-                        {f.q}
-                        <ChevronRight className="w-4 h-4 text-slate-500 group-open:rotate-90 transition-transform" />
-                      </summary>
-                      <div className="px-4 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-200/80 pt-3">{f.a}</div>
-                    </details>
-                  ))}
-                </div>
-              </section>
+              <button
+                key={y.slug}
+                type="button"
+                onClick={() => setYol(y.slug)}
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-transform"
+                style={{
+                  borderColor: active ? "var(--color-primary)" : "var(--color-border)",
+                  background: active ? "rgba(37,99,235,0.12)" : "var(--color-bg-card)",
+                  color: "var(--color-text)",
+                }}
+              >
+                <Icon className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+                {y.baslik}
+              </button>
             );
           })}
         </div>
 
-        <Card className="mt-16 border-slate-200 bg-gradient-to-br from-blue-600/20 to-cyan-500/10">
-          <CardContent className="pt-8 pb-8 text-center">
-            <h2 className="text-xl font-bold text-white mb-2">Hazırsanız ilanlara geçin</h2>
-            <p className="text-slate-400 text-sm max-w-lg mx-auto mb-6">
-              Filtreleri kullanın, ilan detayını okuyun ve kurallara uygun teklif verin. Sorularınız için yardım merkezine
-              göz atın.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Button className="gap-2 bg-gradient-to-r from-blue-600 to-cyan-400" asChild>
-                <Link to="/ihaleler">
-                  İhalelere göz at <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>
-                <Link to="/rehber">SSS ve yardım</Link>
-              </Button>
+        {YOLCULUKLAR.filter((y) => y.slug === aktifYol).map((y) => {
+          const HeroIcon = y.icon;
+          return (
+            <div key={y.slug} className="card-warm mb-10">
+              <div className="flex flex-col md:flex-row md:items-start gap-4 mb-8">
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0"
+                  style={{ background: "var(--color-bg-soft)", color: "var(--color-primary)" }}
+                >
+                  <HeroIcon className="w-7 h-7" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold" style={{ color: "var(--color-text)" }}>
+                    {y.baslik}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                    {y.ozet}
+                  </p>
+                </div>
+              </div>
+              <ol className="grid gap-4 sm:grid-cols-2">
+                {y.adımlar.map((adim, i) => {
+                  const StepIcon = adim.icon;
+                  return (
+                    <li key={adim.baslik} className="flex gap-4 rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+                      <div
+                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm text-white"
+                        style={{ background: "var(--color-primary)" }}
+                      >
+                        {i + 1}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <StepIcon className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+                          <span className="font-semibold" style={{ color: "var(--color-text)" }}>
+                            {adim.baslik}
+                          </span>
+                        </div>
+                        <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                          {adim.metin}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+          );
+        })}
+      </section>
+
+      <section className="py-10 mb-8">
+        <h2 className="text-xl font-bold mb-6 text-center" style={{ color: "var(--color-text)" }}>
+          Mini SSS
+        </h2>
+        <div className="max-w-3xl mx-auto space-y-2">
+          {MINI_SSS.map((row) => (
+            <details key={row.soru} className="group card-warm overflow-hidden">
+              <summary
+                className="cursor-pointer px-5 py-4 text-sm font-medium list-none flex justify-between gap-4 items-center"
+                style={{ color: "var(--color-text)" }}
+              >
+                {row.soru}
+                <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-open:rotate-90" style={{ color: "var(--color-text-muted)" }} />
+              </summary>
+              <div className="px-5 pb-4 text-sm leading-relaxed border-t" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
+                {row.cevap}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="py-12 flex flex-wrap gap-4 justify-center border-t" style={{ borderColor: "var(--color-border)" }}>
+        <Link to="/ihaleler" className="btn-primary inline-flex gap-2">
+          İhale listesi
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+        <Link
+          to="/sss"
+          className="inline-flex items-center justify-center px-6 py-3 rounded-xl border font-semibold"
+          style={{ borderColor: "var(--color-border)", color: "var(--color-text)" }}
+        >
+          Tüm SSS
+        </Link>
+        <Link to="/iletisim" className="text-sm font-medium underline-offset-4 hover:underline" style={{ color: "var(--color-primary)" }}>
+          Kurumsal görüşme
+        </Link>
+      </section>
+    </PageShell>
   );
 }

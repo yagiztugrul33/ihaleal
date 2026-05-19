@@ -69,7 +69,7 @@ const BIDDING_RULES_REPLY = [
   "• Teminat, üyelik ve ödeme adımları ilan ile yasal metinlere tabidir (demo ortamda kayıtlar sınırlı olabilir).",
   "• Sahte veya oyun amaçlı teklif yasaktır; tespitte hesap kısıtı ve sözleşmedeki yaptırımlar geçerlidir (hedef).",
   "",
-  "Ayrıntılı anlatım: /nasil-calisir?adım=teklif — yasal çerçeve: /ihale-kosullari — canlı örnek ilanlar: /ihaleler (şehir filtreleri).",
+  "Ayrıntılı anlatım: /nasil-calisir?yol=alici — yasal çerçeve: /ihale-kosullari — canlı örnek ilanlar: /ihaleler (şehir filtreleri).",
 ].join("\n");
 
 const BIDDING_RULE_KEYS = [

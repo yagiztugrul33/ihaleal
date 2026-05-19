@@ -1,5 +1,5 @@
 ﻿import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LocaleProvider } from "@/contexts/LocaleContext";
 import { Layout } from "@/components/Layout";
@@ -101,6 +101,7 @@ const AgencyContractView   = lazy(() => import("@/pages/legal/AgencyContractView
 const FraudDefenseArchitecturePage = lazy(() => import("@/pages/legal/FraudDefenseArchitecturePage"));
 const SupabaseComplianceChecklistPage = lazy(() => import("@/pages/legal/SupabaseComplianceChecklistPage"));
 const Anayasa400           = lazy(() => import("@/pages/Anayasa400"));
+const AnayasaIhalealPage   = lazy(() => import("@/pages/AnayasaIhalealPage"));
 const NihaiAnayasa         = lazy(() => import("@/pages/NihaiAnayasa"));
 const EmlakciGiris         = lazy(() => import("@/pages/EmlakciGiris"));
 const TaxSimulatorPage     = lazy(() => import("@/pages/TaxSimulatorPage"));
@@ -123,9 +124,30 @@ const YorumlarPage = lazy(() => import("@/pages/marketing/YorumlarPage"));
 const DestekPage = lazy(() => import("@/pages/marketing/DestekPage"));
 const FiyatlandirmaPage = lazy(() => import("@/pages/marketing/FiyatlandirmaPage"));
 const ReelsPage = lazy(() => import("@/pages/marketing/ReelsPage"));
+const PiyasaRaporlariPage = lazy(() => import("@/pages/marketing/PiyasaRaporlariPage"));
+const EmlakciPanelPage = lazy(() => import("@/pages/portals/EmlakciPanelPage"));
+const MuteahhitPanelPage = lazy(() => import("@/pages/portals/MuteahhitPanelPage"));
+const SozlesmelerIndexPage = lazy(() => import("@/pages/legal/SozlesmelerIndexPage"));
+const SozlesmeTemplatePage = lazy(() => import("@/pages/legal/SozlesmeTemplatePage"));
 const BasindaBizPage = lazy(() => import("@/pages/marketing/BasindaBizPage"));
 const BildirimlerPage = lazy(() => import("@/pages/BildirimlerPage"));
 const IlanlarSegmentRouter = lazy(() => import("@/pages/ilan/IlanlarSegmentRouter"));
+const ParselZekasiPage = lazy(() => import("@/pages/modules/ParselZekasiPage"));
+const GesAnaliziModulPage = lazy(() => import("@/pages/modules/GesAnaliziModulPage"));
+const DegerlemeModulPage = lazy(() => import("@/pages/modules/DegerlemeModulPage"));
+const AirbnbPotansiyelPage = lazy(() => import("@/pages/modules/AirbnbPotansiyelPage"));
+const RenovasyonRoiPage = lazy(() => import("@/pages/modules/RenovasyonRoiPage"));
+const AfetRiskHaritasiPage = lazy(() => import("@/pages/modules/AfetRiskHaritasiPage"));
+const ImarSorguPage = lazy(() => import("@/pages/modules/ImarSorguPage"));
+const YatirimOnerisiPage = lazy(() => import("@/pages/modules/YatirimOnerisiPage"));
+const PortfoyYonetimiModulPage = lazy(() => import("@/pages/modules/PortfoyYonetimiModulPage"));
+const SigortaPazaryeriPage = lazy(() => import("@/pages/modules/SigortaPazaryeriPage"));
+const KrediPazaryeriPage = lazy(() => import("@/pages/modules/KrediPazaryeriPage"));
+
+function RedirectHowItWorksPreservingQuery() {
+  const { search } = useLocation();
+  return <Navigate to={`${ROUTES.HOW_IT_WORKS}${search}`} replace />;
+}
 
 function App() {
   return (
@@ -156,15 +178,19 @@ function App() {
             <Route path="/teklif-al" element={<TeklifAlPage />} />
             <Route path="/kapali-teklif" element={<KapaliTeklifPage />} />
             <Route path="/emlakci" element={<EmlakciLanding />} />
-            <Route path="/emlakci/panel" element={<OrganizationDashboard />} />
+            <Route path="/emlakci/panel" element={<EmlakciPanelPage />} />
             <Route path="/emlakci/ozellikler/:slug" element={<EmlakciFeaturePage />} />
             <Route path="/muteahhit" element={<MuteahhitLanding />} />
-            <Route path="/muteahhit/panel" element={<CreateAuction />} />
+            <Route path="/muteahhit/panel" element={<MuteahhitPanelPage />} />
             <Route path="/takas" element={<TakasPage />} />
             <Route path="/kyc" element={<KycPage />} />
             <Route path="/yorumlar" element={<YorumlarPage />} />
             <Route path="/destek" element={<DestekPage />} />
             <Route path="/reels" element={<ReelsPage />} />
+            <Route path="/piyasa-raporlari" element={<PiyasaRaporlariPage />} />
+            <Route path="/kat-karsiligi-arsa" element={<LandEquityPage />} />
+            <Route path="/yasal/sozlesmeler" element={<SozlesmelerIndexPage />} />
+            <Route path="/yasal/sozlesmeler/:slug" element={<SozlesmeTemplatePage />} />
             <Route path="/fiyatlandirma" element={<FiyatlandirmaPage />} />
             <Route path="/bildirimler" element={<BildirimlerPage />} />
             <Route path="/yatirimci/panel" element={<InvestorDashboard />} />
@@ -189,8 +215,8 @@ function App() {
                 </RouteSeo>
               }
             />
-            <Route path={ROUTES.NASIL_CALISIR} element={<Navigate to={ROUTES.HOW_IT_WORKS} replace />} />
-            <Route path="/nasil-calisir" element={<Navigate to={ROUTES.HOW_IT_WORKS} replace />} />
+            <Route path={ROUTES.NASIL_CALISIR} element={<RedirectHowItWorksPreservingQuery />} />
+            <Route path="/nasil-calisir" element={<RedirectHowItWorksPreservingQuery />} />
             <Route path="/harita" element={<MapPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/yatirimci" element={<InvestorDashboard />} />
@@ -210,7 +236,7 @@ function App() {
             <Route path="/yasal/supabase-uyum" element={<SupabaseComplianceChecklistPage />} />
             <Route path={PLATFORM_FRAMEWORK_PATH} element={<Anayasa400 />} />
             <Route path="/anayasa-400" element={<Navigate to={PLATFORM_FRAMEWORK_PATH} replace />} />
-            <Route path="/anayasa" element={<Navigate to={PLATFORM_FRAMEWORK_PATH} replace />} />
+            <Route path="/anayasa" element={<AnayasaIhalealPage />} />
             <Route path="/nihai-anayasa" element={<NihaiAnayasa />} />
             <Route path="/emlakci-giris" element={<LocalAuthGate><EmlakciGiris /></LocalAuthGate>} />
             <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />
@@ -336,6 +362,17 @@ function App() {
             />
             <Route path={ROUTES.IBUYER_ALIAS} element={<Navigate to={ROUTES.IBUYER} replace />} />
             <Route path="/ibuyer" element={<Navigate to={ROUTES.IBUYER} replace />} />
+            <Route path="/modul/parsel-zekasi" element={<ParselZekasiPage />} />
+            <Route path="/modul/ges-analizi" element={<GesAnaliziModulPage />} />
+            <Route path="/modul/degerleme" element={<DegerlemeModulPage />} />
+            <Route path="/modul/airbnb-potansiyeli" element={<AirbnbPotansiyelPage />} />
+            <Route path="/modul/renovasyon-roi" element={<RenovasyonRoiPage />} />
+            <Route path="/modul/afet-risk-haritasi" element={<AfetRiskHaritasiPage />} />
+            <Route path="/modul/imar-sorgu" element={<ImarSorguPage />} />
+            <Route path="/modul/yatirim-onerisi" element={<YatirimOnerisiPage />} />
+            <Route path="/modul/portfoy-yonetimi" element={<PortfoyYonetimiModulPage />} />
+            <Route path="/modul/sigorta-pazaryeri" element={<SigortaPazaryeriPage />} />
+            <Route path="/modul/kredi-pazaryeri" element={<KrediPazaryeriPage />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route

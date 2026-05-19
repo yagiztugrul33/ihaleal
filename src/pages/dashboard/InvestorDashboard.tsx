@@ -32,6 +32,11 @@ import {
   chartGridStroke,
   chartTooltipStyle,
 } from "@/components/enterprise";
+import {
+  INVESTOR_DEMO_OFFERS,
+  INVESTOR_DEMO_WATCHLIST,
+  INVESTOR_DEMO_TAX,
+} from "@/data/portalDemo";
 
 export default function InvestorDashboard() {
   const navigate = useNavigate();
@@ -175,6 +180,71 @@ export default function InvestorDashboard() {
                 </BarChart>
               </ResponsiveContainer>
             </ChartPanel>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              <section className="lg:col-span-2 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <h2 className="mb-3 text-lg font-bold text-white">Tekliflerim (demo)</h2>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left">
+                    <thead className="text-slate-500 text-xs uppercase">
+                      <tr>
+                        <th className="pb-2">İlan</th>
+                        <th className="pb-2">Tutar</th>
+                        <th className="pb-2">Durum</th>
+                        <th className="pb-2">Tarih</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-slate-300">
+                      {INVESTOR_DEMO_OFFERS.map((o) => (
+                        <tr key={o.id} className="border-t border-white/5">
+                          <td className="py-2 pr-2">{o.listing}</td>
+                          <td className="py-2">₺{o.amount.toLocaleString("tr-TR")}</td>
+                          <td className="py-2 capitalize">{o.status}</td>
+                          <td className="py-2 text-slate-500">{o.date}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+              <section className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <h2 className="mb-3 text-lg font-bold text-white">İzleme listesi</h2>
+                <ul className="space-y-2 text-sm">
+                  {INVESTOR_DEMO_WATCHLIST.map((w) => (
+                    <li key={w.id} className="flex justify-between gap-2">
+                      <span className="text-slate-300 truncate">{w.title}</span>
+                      <span className={w.changePct >= 0 ? "text-emerald-400" : "text-red-400"}>
+                        {w.changePct >= 0 ? "+" : ""}
+                        {w.changePct}%
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </div>
+
+            <section className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
+              <h2 className="text-lg font-bold text-amber-100 mb-2">Vergi özeti (demo)</h2>
+              <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+                <div>
+                  <dt className="text-slate-500">Tahmini kazanç</dt>
+                  <dd className="font-semibold text-white">₺{INVESTOR_DEMO_TAX.estimatedGainTry.toLocaleString("tr-TR")}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">KDV</dt>
+                  <dd>₺{INVESTOR_DEMO_TAX.kdvTry.toLocaleString("tr-TR")}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">Damga</dt>
+                  <dd>₺{INVESTOR_DEMO_TAX.damgaTry.toLocaleString("tr-TR")}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-500">Net</dt>
+                  <dd className="text-emerald-400 font-semibold">₺{INVESTOR_DEMO_TAX.netTry.toLocaleString("tr-TR")}</dd>
+                </div>
+              </dl>
+              <p className="mt-3 text-xs text-slate-500">{INVESTOR_DEMO_TAX.note}</p>
+            </section>
 
             <section>
               <h2 className="mb-4 text-lg font-bold text-white">Portföy ilanları</h2>
