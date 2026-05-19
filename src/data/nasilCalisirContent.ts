@@ -274,3 +274,337 @@ export const NASIL_CALISIR_STEPS: NasilCalisirStep[] = [
     ],
   },
 ];
+
+export type NasilCalisirJourneySlug = "alici" | "satici" | "danisman" | "kurumsal" | "operasyon";
+
+export type NasilCalisirJourneyStep = {
+  baslik: string;
+  metin: string;
+  yapilacaklar: string[];
+  belgeler: { label: string; path: string }[];
+  sure?: string;
+};
+
+export type NasilCalisirJourney = {
+  slug: NasilCalisirJourneySlug;
+  baslik: string;
+  ozet: string;
+  icon: "Home" | "UserCheck" | "Building2" | "Shield";
+  adimlar: NasilCalisirJourneyStep[];
+  ilgiliSozlesmeler: { label: string; path: string }[];
+  ilgiliSayfalar: { label: string; path: string }[];
+};
+
+export const NASIL_CALISIR_VIDEO = {
+  title: "Platform tanıtımı",
+  lead:
+    "Bu bölüm ürün tanıtım videosu içindir — ana sayfa hero’sundaki kısa intro değil. Videoda keşif, teklif, kapanış ve teslimat akışı; güven katmanları ve belge süreçleri özetlenir. Dosya henüz yüklenmemişse aşağıdaki bölüm anlatımı otomatik gösterilir.",
+  src: "/videos/ihaleal-tanitim.mp4",
+  poster: "/images/auction-1.jpg",
+  durationLabel: "~2 dk",
+  chapters: [
+    { at: "0:00", title: "Keşif ve analiz", desc: "İlan listesi, AI özet ve risk işaretleri." },
+    { at: "0:30", title: "Teklif ve teminat", desc: "Canlı ihale kuralları, minimum artış, bid bond." },
+    { at: "1:00", title: "Kapanış", desc: "Kazanan bildirimi, sözleşme ve ödeme hattı." },
+    { at: "1:30", title: "Teslim ve tapu", desc: "Evrak listesi, noter ve tapu rehberliği." },
+  ],
+} as const;
+
+export const NASIL_CALISIR_PRENSIPLER = {
+  title: "Çalışma prensibi",
+  lead:
+    "ihaleal.com, gayrimenkul ihalelerinde keşiften tapu teslimine kadar tekrarlanabilir bir akış sunar. Platform aracılık ve dijital süreç yönetimi sağlar; tapu devri ve ödeme yükümlülükleri taraflar arası sözleşme ve mevzuata tabidir.",
+  items: [
+    {
+      title: "Şeffaf kurallar",
+      body: "Minimum artış, süre uzatma, teminat ve ücretler ilan şartnamesinde ve merkezi yapılandırmada tutarlı gösterilir.",
+    },
+    {
+      title: "Rol bazlı erişim",
+      body: "Alıcı, satıcı, emlakçı, müteahhit ve operasyon rolleri farklı paneller ve onay hatları kullanır.",
+    },
+    {
+      title: "Denetim izi",
+      body: "Teklif, bildirim ve belge yüklemeleri hesap ve zaman damgası ile izlenir (üretim hedefi).",
+    },
+    {
+      title: "Hukuki çerçeve",
+      body: "Kesin yükümlülükler ihale şartnamesi, mesafeli satış ve ilgili sözleşme eklerinde tanımlanır.",
+    },
+  ],
+} as const;
+
+export const NASIL_CALISIR_BELGELER = {
+  title: "İstenilen belgeler (özet)",
+  lead: "Aşağıdaki liste rol ve işlem tipine göre değişir. Tam kontrol listesi evraklar sayfasındadır.",
+  categories: [
+    {
+      title: "Kimlik ve uyum",
+      items: ["Nüfus cüzdanı / pasaport", "Adli sicil kaydı", "KYC doğrulama (yüksek tutarlı işlemler)"],
+      path: "/evraklar",
+    },
+    {
+      title: "Finansal",
+      items: ["IBAN doğrulama", "Gelir belgesi / bordro", "Teminat mektubu veya kapora dekontu"],
+      path: "/hizmet-bedelleri",
+    },
+    {
+      title: "Gayrimenkul",
+      items: ["Tapu kayıt örneği", "Ekspertiz raporu", "İmar durumu (varsa)"],
+      path: "/evraklar",
+    },
+    {
+      title: "Kurumsal / vekalet",
+      items: ["Ticaret sicil gazetesi", "İmza sirküleri", "Noter onaylı vekaletname"],
+      path: "/evraklar",
+    },
+  ],
+} as const;
+
+export const NASIL_CALISIR_SOZLESMELER = {
+  title: "İlgili sözleşmeler",
+  lead: "Taslak metinler bilgilendirme amaçlıdır; nihai metinler avukat onayı ile yürürlüğe girer.",
+  links: [
+    { label: "İhale katılım sözleşmesi", path: "/yasal/sozlesmeler/ihale-katilim" },
+    { label: "Kapalı teklif gizlilik", path: "/yasal/sozlesmeler/kapali-teklif" },
+    { label: "Emlak aracılık", path: "/yasal/sozlesmeler/emlak-aracilik" },
+    { label: "Kat karşılığı arsa", path: "/yasal/sozlesmeler/kat-karsiligi" },
+    { label: "Mesafeli satış", path: "/mesafeli-satis-sozlesmesi" },
+    { label: "İhale koşulları", path: "/ihale-kosullari" },
+    { label: "Tüm şablonlar", path: "/yasal/sozlesmeler" },
+  ],
+} as const;
+
+export const NASIL_CALISIR_JOURNEYS: NasilCalisirJourney[] = [
+  {
+    slug: "alici",
+    baslik: "Alıcı ve yatırımcı",
+    ozet: "İlan keşfinden teklif netleşmesine ve tapu hazırlığına kadar uçtan uca güvenli rota.",
+    icon: "Home",
+    adimlar: [
+      {
+        baslik: "Keşif ve filtreleme",
+        metin: "Konum, bütçe, ilan türü ve risk etiketlerine göre arayın. AI özetleri karar destek içindir; nihai kararı ekspertiz ile pekiştirin.",
+        yapilacaklar: ["Favori ilanları kaydedin", "Harita ve analiz sayfalarını inceleyin", "İlan şartnamesini okuyun"],
+        belgeler: [
+          { label: "İlan listesi", path: "/ilanlar" },
+          { label: "Analiz", path: "/analiz" },
+        ],
+        sure: "1–3 gün (araştırma)",
+      },
+      {
+        baslik: "Detay ve analiz",
+        metin: "Şartname, görseller, tapu uyarıları ve piyasa kıyasını değerlendirin. KYC gereksinimi tutara göre açılabilir.",
+        yapilacaklar: ["Ekspertiz talep edin", "Finansman planını netleştirin", "KYC adımlarını tamamlayın"],
+        belgeler: [
+          { label: "KYC", path: "/kyc" },
+          { label: "Ekspertiz", path: "/ekspertiz" },
+        ],
+      },
+      {
+        baslik: "Teminat ve teklif",
+        metin: "Ön yetki kutularını onaylayın; minimum artışa uyun. Onaylanan teklif geri alınamaz.",
+        yapilacaklar: ["Teminat yatırın", "Canlı veya kapalı teklif verin", "Bildirim tercihlerini açın"],
+        belgeler: [
+          { label: "İhale koşulları", path: "/ihale-kosullari" },
+          { label: "Hizmet bedelleri", path: "/hizmet-bedelleri" },
+        ],
+      },
+      {
+        baslik: "Kapanış ve tapu hazırlığı",
+        metin: "Kazanan netleşince sözleşme, ödeme ve evrak takvimi panelde görünür. Tapu resmi makamlarda tamamlanır.",
+        yapilacaklar: ["Sözleşmeyi imzalayın", "Kapora ve bakiyeyi planlayın", "Evrak listesini tamamlayın"],
+        belgeler: [
+          { label: "Evraklar", path: "/evraklar" },
+          { label: "Mesafeli satış", path: "/mesafeli-satis-sozlesmesi" },
+        ],
+        sure: "30–90 gün (tapu tipine göre)",
+      },
+    ],
+    ilgiliSozlesmeler: [
+      { label: "İhale katılım", path: "/yasal/sozlesmeler/ihale-katilim" },
+      { label: "Kapalı teklif", path: "/yasal/sozlesmeler/kapali-teklif" },
+    ],
+    ilgiliSayfalar: [
+      { label: "Canlı ihaleler", path: "/ihaleler" },
+      { label: "Adım: Keşfet", path: "/how-it-works/adim/kesfet" },
+      { label: "Adım: Teklif", path: "/how-it-works/adim/teklif" },
+    ],
+  },
+  {
+    slug: "satici",
+    baslik: "Satıcı ve malik",
+    ozet: "İlan yayınından en iyi teklifi seçmeye ve sözleşmeye kadar kontrollü süreç.",
+    icon: "UserCheck",
+    adimlar: [
+      {
+        baslik: "Portföy bilgisi",
+        metin: "Tapu, imar, ipotek ve kiracı durumunu eksiksiz girin. Yanlış beyan riski azaltır ve teklif güvenini artırır.",
+        yapilacaklar: ["Tapu belgesini yükleyin", "İmar durumunu ekleyin", "Satıcı beyan formunu doldurun"],
+        belgeler: [{ label: "Evrak rehberi", path: "/evraklar" }],
+      },
+      {
+        baslik: "İlan modeli seçimi",
+        metin: "Açık artırma, kapalı teklif veya hibrit model; süre, minimum artış ve Hemen Al eşiğini belirleyin.",
+        yapilacaklar: ["İhale aç formunu doldurun", "Minimum artış ve süreyi belirleyin", "Hemen Al eşiğini ayarlayın"],
+        belgeler: [{ label: "İhale aç", path: "/ihale-ac" }],
+      },
+      {
+        baslik: "Teklif izleme",
+        metin: "Panoda teklif yoğunluğu ve katılımcı sayısını takip edin; gerekirse soru-cevap turu açın.",
+        yapilacaklar: ["Panelden teklifleri izleyin", "Uzatma kurallarını kontrol edin"],
+        belgeler: [{ label: "Panel", path: "/panel" }],
+      },
+      {
+        baslik: "Kazanan ile sözleşme",
+        metin: "Anlaşılan rakam sözleşmeye işlenir; tapu için vekalet ve evrak listesi üretilir.",
+        yapilacaklar: ["Kazanan teklifi onaylayın", "Komisyon ve fatura adımlarını takip edin"],
+        belgeler: [
+          { label: "Komisyon modeli", path: "/komisyon-modeli" },
+          { label: "İade ve iptal", path: "/iade-iptal" },
+        ],
+      },
+    ],
+    ilgiliSozlesmeler: [{ label: "İhale katılım", path: "/yasal/sozlesmeler/ihale-katilim" }],
+    ilgiliSayfalar: [
+      { label: "Satışa başla", path: "/sat-basla" },
+      { label: "Adım: Kazan", path: "/how-it-works/adim/kazan" },
+    ],
+  },
+  {
+    slug: "danisman",
+    baslik: "Emlak danışmanı",
+    ozet: "Müşteri portföyünü profesyonel araçlarla yönetme ve kapanış desteği.",
+    icon: "Building2",
+    adimlar: [
+      {
+        baslik: "Yetki ve vekalet",
+        metin: "Satıcıdan yetki alın; platforma yüklenen belgeler denetim izi ile saklanır.",
+        yapilacaklar: ["Emlakçı kaydı", "Ofis paneline giriş"],
+        belgeler: [
+          { label: "Emlakçı girişi", path: "/emlakci-giris" },
+          { label: "Aracılık sözleşmesi", path: "/yasal/sozlesmeler/emlak-aracilik" },
+        ],
+      },
+      {
+        baslik: "Çoklu ilan yönetimi",
+        metin: "Kota dahilinde ilan açın; şablonlarla süre ve tavan fiyatını hızlı ayarlayın.",
+        yapilacaklar: ["CRM özellikleri", "İlan şablonları"],
+        belgeler: [{ label: "Emlakçı paneli", path: "/emlakci/panel" }],
+      },
+      {
+        baslik: "Müşteri ile paylaşım",
+        metin: "Özel bağlantı ve rapor çıktılarıyla alıcıyı bilgilendirin.",
+        yapilacaklar: ["Rapor paylaşımı", "Mesajlaşma"],
+        belgeler: [{ label: "Mesajlar", path: "/mesajlar" }],
+      },
+      {
+        baslik: "Kapanış desteği",
+        metin: "Komisyon ve fatura adımları üretimde netleşir; operasyon ekibiyle senkron kalın.",
+        yapilacaklar: ["Komisyon hesaplayıcı", "Ortaklık programı"],
+        belgeler: [
+          { label: "Komisyon hesaplayıcı", path: "/komisyon-hesaplayici" },
+          { label: "B2B ortaklık", path: "/emlakci-ortaklik" },
+        ],
+      },
+    ],
+    ilgiliSozlesmeler: [{ label: "Emlak aracılık", path: "/yasal/sozlesmeler/emlak-aracilik" }],
+    ilgiliSayfalar: [{ label: "Emlakçı vitrini", path: "/emlakci" }],
+  },
+  {
+    slug: "kurumsal",
+    baslik: "Müteahhit ve GYO",
+    ozet: "Proje çıkışlarında ölçek, onay hatları ve raporlama.",
+    icon: "Building2",
+    adimlar: [
+      {
+        baslik: "Lot ve faz planı",
+        metin: "Çok ünite ve fazlı satış için gruplu ilanlar; stok gerçek zamanlı güncellenir.",
+        yapilacaklar: ["Proje paneli", "Kat karşılığı modülü"],
+        belgeler: [
+          { label: "Müteahhit paneli", path: "/muteahhit/panel" },
+          { label: "Kat karşılığı", path: "/kat-karsiligi-arsa" },
+        ],
+      },
+      {
+        baslik: "Rol ve onay",
+        metin: "Finans ve hukuk onay hatları ile teklif kapanışları çift kontrollü yapılabilir.",
+        yapilacaklar: ["Kurumsal dashboard", "Rol atamaları"],
+        belgeler: [{ label: "Kurumsal", path: "/kurumsal" }],
+      },
+      {
+        baslik: "Kurumsal rapor",
+        metin: "Pazarlık seviyesi, süre ve dönüşüm oranları yönetim özetine aktarılır.",
+        yapilacaklar: ["Piyasa raporları", "Analitik"],
+        belgeler: [{ label: "Piyasa raporları", path: "/piyasa-raporlari" }],
+      },
+      {
+        baslik: "Entegrasyon",
+        metin: "CRM ve ERP ile webhook; kurumsal planda API kotası genişletilir.",
+        yapilacaklar: ["API dokümantasyonu (yol haritası)", "Webhook yapılandırması"],
+        belgeler: [{ label: "Kat karşılığı sözleşme", path: "/yasal/sozlesmeler/kat-karsiligi" }],
+      },
+    ],
+    ilgiliSozlesmeler: [
+      { label: "Kat karşılığı", path: "/yasal/sozlesmeler/kat-karsiligi" },
+      { label: "Müteahhit hakediş", path: "/yasal/sozlesmeler/muteahhit-hakedis" },
+    ],
+    ilgiliSayfalar: [{ label: "Müteahhit lansman", path: "/muteahhit" }],
+  },
+  {
+    slug: "operasyon",
+    baslik: "Platform operasyonu",
+    ozet: "İç ekip, uyum ve destek için referans katmanlar.",
+    icon: "Shield",
+    adimlar: [
+      {
+        baslik: "Kural motoru",
+        metin: "Minimum artış, uzatma, ücret matrisi ve ülke ayarları merkezi yapılandırmadan okunur.",
+        yapilacaklar: ["Admin paneli", "Ücret matrisi"],
+        belgeler: [{ label: "Hizmet bedelleri", path: "/hizmet-bedelleri" }],
+      },
+      {
+        baslik: "KYC ve risk",
+        metin: "Kimlik ve kara liste taramaları yüksek tutarlı işlemler için devreye alınır.",
+        yapilacaklar: ["KYC akışı", "Dolandırıcılık savunması"],
+        belgeler: [
+          { label: "Güvenlik merkezi", path: "/yasal/guvenlik" },
+          { label: "Dolandırıcılık mimarisi", path: "/yasal/dolandiricilik-savunmasi" },
+        ],
+      },
+      {
+        baslik: "Bildirim ve kanıt",
+        metin: "E-posta ve uygulama içi olaylar kayıt altına alınır; süre tutanakları üretilir.",
+        yapilacaklar: ["Bildirim şablonları", "Denetim logları"],
+        belgeler: [{ label: "Yedekleme", path: "/yedekleme" }],
+      },
+      {
+        baslik: "Destek ve SLA",
+        metin: "Öncelik kuyrukları plana göre ayrılır; kritik arızalarda nöbet hattı hedeflenir.",
+        yapilacaklar: ["Destek merkezi", "Canlıya hazırlık"],
+        belgeler: [
+          { label: "Destek", path: "/destek" },
+          { label: "Canlıya hazırlık", path: "/canliya-hazirlik" },
+        ],
+      },
+    ],
+    ilgiliSozlesmeler: [{ label: "Gizlilik eki", path: "/yasal/sozlesmeler/gizlilik-ek" }],
+    ilgiliSayfalar: [{ label: "Supabase uyum", path: "/yasal/supabase-uyum" }],
+  },
+];
+
+export function getJourneyBySlug(slug: string): NasilCalisirJourney | undefined {
+  return NASIL_CALISIR_JOURNEYS.find((j) => j.slug === slug);
+}
+
+export function getStepBySlug(slug: string): NasilCalisirStep | undefined {
+  return NASIL_CALISIR_STEPS.find((s) => s.slug === slug);
+}
+
+export function isJourneySlug(v: string | null): v is NasilCalisirJourneySlug {
+  return v === "alici" || v === "satici" || v === "danisman" || v === "kurumsal" || v === "operasyon";
+}
+
+export function isStepSlug(v: string | null): v is NasilCalisirStepSlug {
+  return v === "kesfet" || v === "teklif" || v === "kazan" || v === "teslim";
+}

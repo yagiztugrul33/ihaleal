@@ -33,7 +33,7 @@ const TAB_LABELS: Record<string, string> = {
   GENEL: "Genel",
   YAPI: "Yapı",
   AFET: "Afet",
-  ALTYAPI: "Altyapı",
+  ALTYAPI: "GES",
   CEVRE: "Çevre",
   SOSYAL: "Sosyal",
   MALI: "Mali",

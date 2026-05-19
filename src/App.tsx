@@ -1,5 +1,5 @@
 ﻿import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LocaleProvider } from "@/contexts/LocaleContext";
 import { Layout } from "@/components/Layout";
@@ -108,6 +108,8 @@ const EmlakciGiris         = lazy(() => import("@/pages/EmlakciGiris"));
 const TaxSimulatorPage     = lazy(() => import("@/pages/TaxSimulatorPage"));
 const FinCompliancePlayground = lazy(() => import("@/pages/FinCompliancePlayground"));
 const NasilCalisir          = lazy(() => import("@/pages/NasilCalisir"));
+const NasilCalisirJourneyPage = lazy(() => import("@/pages/NasilCalisirJourneyPage"));
+const NasilCalisirStepPage = lazy(() => import("@/pages/NasilCalisirStepPage"));
 const ValuationTool         = lazy(() => import("@/pages/ValuationTool"));
 const Corporate             = lazy(() => import("@/pages/Corporate"));
 const CorporateContact      = lazy(() => import("@/pages/CorporateContact"));
@@ -174,6 +176,12 @@ function RedirectHowItWorksPreservingQuery() {
   return <Navigate to={`${ROUTES.HOW_IT_WORKS}${search}`} replace />;
 }
 
+function RedirectHowItWorksSubpath({ segment }: { segment: "yol" | "adim" }) {
+  const { slug } = useParams<{ slug: string }>();
+  if (!slug) return <Navigate to={ROUTES.HOW_IT_WORKS} replace />;
+  return <Navigate to={`${ROUTES.HOW_IT_WORKS}/${segment}/${slug}`} replace />;
+}
+
 function App() {
   return (
     <LocaleProvider>
@@ -196,6 +204,8 @@ function App() {
             <Route path={ROUTES.AUCTIONS} element={<AuctionListPage />} />
             <Route path={ROUTES.ILANLAR} element={<IlanlarKatalog />} />
             <Route path="/ilanlar" element={<IlanlarKatalog />} />
+            <Route path="/ilanlar/turizm" element={<Navigate to="/ilanlar/konaklama" replace />} />
+            <Route path="/ilanlar/ges" element={<Navigate to="/ilanlar/altyapi" replace />} />
             <Route path="/ilanlar/:kategori/:alt/:tip" element={<IlanlarSegmentRouter />} />
             <Route path="/ilanlar/:kategori/:alt" element={<IlanlarSegmentRouter />} />
             <Route path="/ilanlar/:kategori" element={<IlanlarSegmentRouter />} />
@@ -240,8 +250,26 @@ function App() {
                 </RouteSeo>
               }
             />
+            <Route
+              path={`${ROUTES.HOW_IT_WORKS}/yol/:slug`}
+              element={
+                <RouteSeo>
+                  <NasilCalisirJourneyPage />
+                </RouteSeo>
+              }
+            />
+            <Route
+              path={`${ROUTES.HOW_IT_WORKS}/adim/:slug`}
+              element={
+                <RouteSeo>
+                  <NasilCalisirStepPage />
+                </RouteSeo>
+              }
+            />
             <Route path={ROUTES.NASIL_CALISIR} element={<RedirectHowItWorksPreservingQuery />} />
             <Route path="/nasil-calisir" element={<RedirectHowItWorksPreservingQuery />} />
+            <Route path="/nasil-calisir/yol/:slug" element={<RedirectHowItWorksSubpath segment="yol" />} />
+            <Route path="/nasil-calisir/adim/:slug" element={<RedirectHowItWorksSubpath segment="adim" />} />
             <Route path="/harita" element={<MapPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/yatirimci" element={<InvestorDashboard />} />

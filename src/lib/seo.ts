@@ -93,6 +93,26 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "Nasıl çalışır — ihaleal.com",
     description: "İlan, teklif ve ihale akışları; demo ve taslak metinler.",
   },
+  "/how-it-works": {
+    title: "Nasıl çalışır — ihaleal.com",
+    description: "Platform tanıtımı, dört adım, beş rol yolculuğu, belgeler ve sözleşmeler.",
+  },
+  "/how-it-works/adim/kesfet": {
+    title: "Adım 1: Keşfet — ihaleal.com",
+    description: "İlan keşfi, analiz ve karar destek araçları.",
+  },
+  "/how-it-works/adim/teklif": {
+    title: "Adım 2: Teklif ver — ihaleal.com",
+    description: "Canlı ihale ve kapalı teklif süreçleri.",
+  },
+  "/how-it-works/adim/kazan": {
+    title: "Adım 3: Kazan — ihaleal.com",
+    description: "Kapanış, bildirim ve sözleşme adımları.",
+  },
+  "/how-it-works/adim/teslim": {
+    title: "Adım 4: Teslim al — ihaleal.com",
+    description: "Ödeme, tapu ve teslim rehberi.",
+  },
   "/yasal/agency-contract": {
     title: "Acentelik sözleşmesi taslağı — ihaleal.com",
     description: "agency_contract.md genel çerçeve (demo, avukat onayı gerekir).",

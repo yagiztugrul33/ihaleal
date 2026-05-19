@@ -49,10 +49,33 @@ test.describe("home + navbar GES regression", () => {
     await expect(page.getByText(/İhale, lokasyon ara/i)).toBeVisible();
   });
 
-  test("homepage shows footer on marketing home", async ({ page }) => {
+  test("mobile menu shows login and signup portal sections", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await page.getByRole("button", { name: /Open menu|Menüyü aç/i }).click();
+    const menu = page.getByTestId("nav-mobile-menu");
+    await expect(menu).toBeVisible();
+    await expect(menu.getByText("Bireysel giriş")).toBeVisible();
+    await expect(menu.getByText("Yatırımcı portalı")).toBeVisible();
+    await expect(menu.getByText("Emlakçı portalı")).toBeVisible();
+    await expect(menu.getByText("Müteahhit portalı")).toBeVisible();
+    await expect(menu.getByText("Bireysel kayıt")).toBeVisible();
+    await expect(menu.getByText("Müteahhit kaydı")).toBeVisible();
+  });
+
+  test("homepage hero has no intro video", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await setLocaleTr(page);
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Geleceği/i);
-    await expect(page.getByText(/LIVE/i).first()).toBeVisible();
-    await expect(page.getByRole("button", { name: /KVKK/i }).first()).toBeVisible();
+    await expect(page.locator(".premium-hero__video")).toHaveCount(0);
+    await expect(page.locator(".premium-kicker")).toHaveCount(0);
+  });
+
+  test("homepage category cards use turizm and ges public slugs", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await setLocaleTr(page);
+    await expect(page.locator('a.premium-category-card[href="/ilanlar/turizm"]')).toBeVisible();
+    await expect(page.locator('a.premium-category-card[href="/ilanlar/ges"]')).toBeVisible();
+    await page.locator('a.premium-category-card[href="/ilanlar/turizm"]').click();
+    await expect(page).toHaveURL(/\/ilanlar\/konaklama/, { timeout: 15_000 });
   });
 });

@@ -31,6 +31,24 @@ describe("Navbar", () => {
     expect(gesLink).toHaveAttribute("href", ROUTES.ARASTIRMA_GES);
   });
 
+  it("mobile menu lists four login portals", () => {
+    renderNavbar();
+    fireEvent.click(screen.getByRole("button", { name: /Open menu|Menüyü aç/i }));
+    expect(screen.getByText("Bireysel giriş")).toBeInTheDocument();
+    expect(screen.getByText("Yatırımcı portalı")).toBeInTheDocument();
+    expect(screen.getByText("Emlakçı portalı")).toBeInTheDocument();
+    expect(screen.getByText("Müteahhit portalı")).toBeInTheDocument();
+  });
+
+  it("mobile menu lists four signup portals", () => {
+    renderNavbar();
+    fireEvent.click(screen.getByRole("button", { name: /Open menu|Menüyü aç/i }));
+    expect(screen.getByText("Bireysel kayıt")).toBeInTheDocument();
+    expect(screen.getByText("Yatırımcı kaydı")).toBeInTheDocument();
+    expect(screen.getByText("Emlakçı kaydı")).toBeInTheDocument();
+    expect(screen.getByText("Müteahhit kaydı")).toBeInTheDocument();
+  });
+
   it("switches locale to Turkish", () => {
     renderNavbar();
     fireEvent.click(screen.getByTestId("nav-lang-trigger"));

@@ -26,5 +26,7 @@ describe("Home", () => {
     expect(screen.getByText(/Stratejik War Room/i)).toBeInTheDocument();
     expect(screen.getAllByText(/LIVE/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText("284").length).toBeGreaterThan(0);
+    expect(document.querySelector(".premium-hero__video")).toBeNull();
+    expect(document.querySelector(".premium-kicker")).toBeNull();
   });
 });

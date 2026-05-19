@@ -1,93 +1,22 @@
 ﻿import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Building2,
-  ClipboardCheck,
-  FileText,
-  Gavel,
-  Handshake,
-  Home,
-  LineChart,
-  MapPin,
-  PlayCircle,
-  Shield,
-  UserCheck,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/marketing/PageShell";
+import { NasilCalisirVideoSection } from "@/components/nasilCalisir/NasilCalisirVideoSection";
+import { JourneyIcon } from "@/components/nasilCalisir/NasilCalisirShared";
+import { ROUTES } from "@/constants/routes";
 import { FEES, formatBidBondPercent } from "@/lib/fees";
-
-type JourneySlug = "alici" | "satici" | "danisman" | "kurumsal" | "operasyon";
-
-const YOLCULUKLAR: {
-  slug: JourneySlug;
-  baslik: string;
-  ozet: string;
-  icon: typeof Home;
-  adımlar: { baslik: string; metin: string; icon: typeof Home }[];
-}[] = [
-  {
-    slug: "alici",
-    baslik: "Alıcı ve yatırımcı",
-    ozet: "İlan keşfinden teklif netleşmesine kadar uçtan uca güvenli rota.",
-    icon: Home,
-    adımlar: [
-      { baslik: "Keşif ve filtreleme", metin: "Konum, bütçe ve ilan türüne göre arayın; AI özetleri karar destek içindir.", icon: MapPin },
-      { baslik: "Detay ve analiz", metin: "Şartname, görseller ve piyasa kıyasını okuyun; risk işaretleri ilan kartında vurgulanır.", icon: LineChart },
-      { baslik: "Teminat ve teklif", metin: "Ön yetki ve teklif adımlarında kutuları tek tek onaylayın; minimum artışa uyun.", icon: Gavel },
-      { baslik: "Kapanış ve tapu hazırlığı", metin: "Kazanan netleşince sözleşme ve ödeme hattına yönlendirilirsiniz (üretim planı).", icon: ClipboardCheck },
-    ],
-  },
-  {
-    slug: "satici",
-    baslik: "Satıcı ve malik",
-    ozet: "İlan yayınından en iyi teklifi seçmeye kadar kontrollü süreç.",
-    icon: UserCheck,
-    adımlar: [
-      { baslik: "Portföy bilgisi", metin: "Tapu, imar ve varsa kiracı durumunu eksiksiz girin; yanlış beyan riskini azaltır.", icon: FileText },
-      { baslik: "İlan modeli seçimi", metin: "Açık artırma, kapalı teklif veya hibrit; süre ile Hemen Al eşiğini belirleyin.", icon: PlayCircle },
-      { baslik: "Teklif izleme", metin: "Panoda teklif yoğunluğu ve katılımcı sayısını takip edin; gerekirse soru-cevap turu açın.", icon: LineChart },
-      { baslik: "Kazanan ile sözleşme", metin: "Müzakerede anlaşılan rakam sözleşmeye işlenir; tapu için vekalet ve evrak listesi üretilir.", icon: Handshake },
-    ],
-  },
-  {
-    slug: "danisman",
-    baslik: "Emlak danışmanı",
-    ozet: "Müşteri portföyünü profesyonel araçlarla yönetme.",
-    icon: Building2,
-    adımlar: [
-      { baslik: "Yetki ve vekalet", metin: "Satıcıdan yetki alın; platforma yüklenen belgeler denetim izi ile saklanır.", icon: FileText },
-      { baslik: "Çoklu ilan yönetimi", metin: "Kota dahilinde ilan açın; şablonlarla süre ve tavan fiyatını hızlı ayarlayın.", icon: Building2 },
-      { baslik: "Müşteri ile paylaşım", metin: "Özel bağlantı ve rapor çıktılarıyla alıcıyı bilgilendirin; şeffaf iletişim.", icon: UserCheck },
-      { baslik: "Kapanış desteği", metin: "Komisyon ve fatura adımları üretimde netleşir; operasyon ekibiyle senkron kalın.", icon: ClipboardCheck },
-    ],
-  },
-  {
-    slug: "kurumsal",
-    baslik: "Müteahhit ve GYO",
-    ozet: "Proje çıkışlarında ölçek ve raporlama.",
-    icon: Building2,
-    adımlar: [
-      { baslik: "Lot ve faz planı", metin: "Çok ünite ve fazlı satış için gruplu ilanlar oluşturun; stok gerçek zamanlı güncellenir.", icon: MapPin },
-      { baslik: "Rol ve onay", metin: "Finans ve hukuk onay hatları ile teklif kapanışları çift kontrollü yapılabilir.", icon: Shield },
-      { baslik: "Kurumsal rapor", metin: "Pazarlık seviyesi, süre ve dönüşüm oranları yönetim özetine aktarılır.", icon: LineChart },
-      { baslik: "Entegrasyon", metin: "CRM ve ERP ile webhook; kurumsal planda API kotası genişletilir.", icon: Handshake },
-    ],
-  },
-  {
-    slug: "operasyon",
-    baslik: "Platform operasyonu",
-    ozet: "İç ekip ve uyum için referans katmanlar.",
-    icon: Shield,
-    adımlar: [
-      { baslik: "Kural motoru", metin: "Minimum artış, uzatma, ücret matrisi ve ülke ayarları merkezi yapılandırmadan okunur.", icon: Gavel },
-      { baslik: "KYC ve risk", metin: "Kimlik ve kara liste taramaları yüksek tutarlı işlemler için devreye alınır (yol haritası).", icon: UserCheck },
-      { baslik: "Bildirim ve kanıt", metin: "E-posta ve uygulama içi olaylar kayıt altına alınır; süre tutanakları üretilir.", icon: FileText },
-      { baslik: "Destek ve SLA", metin: "Öncelik kuyrukları plana göre ayrılır; kritik arızalarda nöbet hattı hedeflenir.", icon: ClipboardCheck },
-    ],
-  },
-];
+import {
+  NASIL_CALISIR_ARCHITECTURE,
+  NASIL_CALISIR_BELGELER,
+  NASIL_CALISIR_INTRO,
+  NASIL_CALISIR_JOURNEYS,
+  NASIL_CALISIR_PRENSIPLER,
+  NASIL_CALISIR_SOZLESMELER,
+  NASIL_CALISIR_STEPS,
+  isJourneySlug,
+  type NasilCalisirJourneySlug,
+} from "@/data/nasilCalisirContent";
 
 const MINI_SSS = [
   {
@@ -97,7 +26,7 @@ const MINI_SSS = [
   },
   {
     soru: "Teminat yüzdesi nereden geliyor?",
-    cevap: `Referans bid bond yüzdesi şu anda ${formatBidBondPercent()} olarak yapılandırmada tutulur; yasal metinler onaylandığında güncellenir.`,
+    cevap: `Referans bid bond yüzdesi ${formatBidBondPercent()} olarak yapılandırmada tutulur; yasal metinler onaylandığında güncellenir.`,
   },
   {
     soru: "Bakiye iade penceresi ne kadar?",
@@ -112,30 +41,29 @@ const MINI_SSS = [
     cevap: "Ülke ve ödeme kurallarına göre değişir; bazı ihaleler yalnızca yerel kimlikle sınırlanabilir. İlan etiketlerini okuyun.",
   },
   {
-    soru: "Video oynatılamıyorsa ne yapmalıyım?",
-    cevap: "Dosya yolunun /videos/ihaleal-tanitim.mp4 olarak erişilebilir olduğundan emin olun; ağ kısıtı veya tarayıcı otomatik oynatma engelleri devre dışı bırakılabilir.",
+    soru: "Ana sayfadaki intro ile bu tanıtım videosu aynı mı?",
+    cevap:
+      "Hayır. Ana sayfa hero’sunda kısa görsel alan vardır; bu sayfadaki bölüm ürün tanıtım videosu ve adım adım platform anlatımı içindir.",
   },
 ];
-
-function isJourneySlug(v: string | null): v is JourneySlug {
-  return v === "alici" || v === "satici" || v === "danisman" || v === "kurumsal" || v === "operasyon";
-}
 
 export default function NasilCalisir() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const yParam = searchParams.get("yol");
-  const aktifYol: JourneySlug = isJourneySlug(yParam) ? yParam : "alici";
+  const aktifYol: NasilCalisirJourneySlug = isJourneySlug(yParam) ? yParam : "alici";
 
-  const setYol = (slug: JourneySlug) => {
+  const setYol = (slug: NasilCalisirJourneySlug) => {
     setSearchParams({ yol: slug }, { replace: true });
   };
+
+  const aktifJourney = NASIL_CALISIR_JOURNEYS.find((y) => y.slug === aktifYol)!;
 
   return (
     <PageShell
       badge="Rehber"
       title="Nasıl çalışır?"
-      subtitle="Tanıtım videosu ve beş tipik yolculuk: her biri dört adımda özetlenir. Süreler ve ücretler yapılandırılabilir; hukuki kesinlik ilan şartnamesi ve sözleşmededir."
+      subtitle="Platform tanıtımı, dört genel adım, beş rol yolculuğu, belgeler ve sözleşmeler. Süreler ve ücretler yapılandırılabilir; hukuki kesinlik ilan şartnamesi ve sözleşmededir."
       cta={{ label: "Canlı ihaleler", to: "/ihaleler" }}
     >
       <div className="pb-4">
@@ -145,44 +73,110 @@ export default function NasilCalisir() {
         </Button>
       </div>
 
-      <section className="py-8">
-        <div className="flex items-center justify-center gap-2 mb-6">
-          <PlayCircle className="w-6 h-6" style={{ color: "var(--color-primary)" }} />
-          <h2 className="text-xl font-bold text-center" style={{ color: "var(--color-text)" }}>
-            Tanıtım videosu
-          </h2>
-        </div>
-        <p className="text-sm text-center max-w-2xl mx-auto mb-6" style={{ color: "var(--color-text-muted)" }}>
-          ihaleal ürün vizyonunu iki dakikada özetleyen görsel anlatım. Dosya{" "}
-          <code className="text-xs px-1 rounded" style={{ background: "var(--color-bg-soft)" }}>
-            public/videos/ihaleal-tanitim.mp4
-          </code>{" "}
-          altından servis edilir.
+      <section className="card-warm mb-10">
+        <h2 className="text-lg font-bold mb-2" style={{ color: "var(--color-text)" }}>
+          {NASIL_CALISIR_INTRO.title}
+        </h2>
+        <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--color-text-muted)" }}>
+          {NASIL_CALISIR_INTRO.lead}
         </p>
-        <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border shadow-lg" style={{ borderColor: "var(--color-border)" }}>
-          <video className="w-full aspect-video bg-black" controls playsInline preload="metadata">
-            <source src="/videos/ihaleal-tanitim.mp4" type="video/mp4" />
-            Tarayıcınız video etiketini desteklemiyor.
-          </video>
-        </div>
+        <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
+          {NASIL_CALISIR_INTRO.audience}
+        </p>
       </section>
+
+      <NasilCalisirVideoSection />
 
       <section className="py-8 rounded-2xl border px-4 md:px-6 mb-10" style={{ borderColor: "var(--color-border)", background: "var(--color-bg-soft)" }}>
         <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
           <Shield className="w-4 h-4 inline-block mr-1 align-text-bottom" style={{ color: "var(--color-primary)" }} />
           <strong style={{ color: "var(--color-text)" }}>Referans teminat: </strong>
-          Kazanan taraf için bid bond referansı {formatBidBondPercent()}; bakiye tamamlama penceresi {FEES.refundWindowDays} gün — detay{" "}
-          <code className="text-xs">fees.ts</code>.
+          Kazanan taraf için bid bond referansı {formatBidBondPercent()}; bakiye tamamlama penceresi {FEES.refundWindowDays} gün —{" "}
+          <Link to="/hizmet-bedelleri" className="underline-offset-2 hover:underline" style={{ color: "var(--color-primary)" }}>
+            hizmet bedelleri
+          </Link>
+          .
         </p>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-xl md:text-2xl font-bold mb-2 text-center" style={{ color: "var(--color-text)" }}>
+          Dört genel adım
+        </h2>
+        <p className="text-sm text-center max-w-2xl mx-auto mb-8" style={{ color: "var(--color-text-muted)" }}>
+          Her adımın detay sayfasında kullanıcı yolculuğu, platform tarafı, riskler ve ilgili linkler yer alır.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {NASIL_CALISIR_STEPS.map((step) => (
+            <Link
+              key={step.slug}
+              to={`/how-it-works/adim/${step.slug}`}
+              className="card-warm block no-underline hover:border-blue-500/40 transition-colors"
+              style={{ color: "var(--color-text)" }}
+            >
+              <span className="text-xs font-bold" style={{ color: "var(--color-primary)" }}>
+                Adım {step.stepNum}
+              </span>
+              <h3 className="font-bold mt-1">{step.title}</h3>
+              <p className="text-sm mt-2" style={{ color: "var(--color-text-muted)" }}>
+                {step.tagline}
+              </p>
+              <span className="inline-flex items-center gap-1 text-xs font-medium mt-3" style={{ color: "var(--color-primary)" }}>
+                Detaylı rehber <ArrowRight className="w-3 h-3" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-xl font-bold mb-2" style={{ color: "var(--color-text)" }}>
+          {NASIL_CALISIR_PRENSIPLER.title}
+        </h2>
+        <p className="text-sm mb-6 max-w-3xl" style={{ color: "var(--color-text-muted)" }}>
+          {NASIL_CALISIR_PRENSIPLER.lead}
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {NASIL_CALISIR_PRENSIPLER.items.map((item) => (
+            <article key={item.title} className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+              <h3 className="font-semibold text-sm mb-2" style={{ color: "var(--color-text)" }}>
+                {item.title}
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                {item.body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12 card-warm">
+        <h2 className="text-xl font-bold mb-2" style={{ color: "var(--color-text)" }}>
+          {NASIL_CALISIR_ARCHITECTURE.title}
+        </h2>
+        <p className="text-sm mb-6" style={{ color: "var(--color-text-muted)" }}>
+          {NASIL_CALISIR_ARCHITECTURE.flowSummary}
+        </p>
+        <div className="space-y-4">
+          {NASIL_CALISIR_ARCHITECTURE.layers.map((layer) => (
+            <div key={layer.name} className="border-l-2 pl-4" style={{ borderColor: "var(--color-primary)" }}>
+              <h3 className="font-semibold text-sm" style={{ color: "var(--color-text)" }}>
+                {layer.name}
+              </h3>
+              <p className="text-sm mt-1 leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                {layer.desc}
+              </p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="pb-6">
         <h2 className="text-xl md:text-2xl font-bold mb-6 text-center" style={{ color: "var(--color-text)" }}>
           Beş yolculuk, her biri dört adım
         </h2>
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {YOLCULUKLAR.map((y) => {
-            const Icon = y.icon;
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {NASIL_CALISIR_JOURNEYS.map((y) => {
             const active = aktifYol === y.slug;
             return (
               <button
@@ -196,62 +190,99 @@ export default function NasilCalisir() {
                   color: "var(--color-text)",
                 }}
               >
-                <Icon className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
                 {y.baslik}
               </button>
             );
           })}
         </div>
 
-        {YOLCULUKLAR.filter((y) => y.slug === aktifYol).map((y) => {
-          const HeroIcon = y.icon;
-          return (
-            <div key={y.slug} className="card-warm mb-10">
-              <div className="flex flex-col md:flex-row md:items-start gap-4 mb-8">
+        <div className="card-warm mb-6">
+          <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
+            <JourneyIcon icon={aktifJourney.icon} />
+            <div className="flex-1">
+              <h3 className="text-xl font-bold" style={{ color: "var(--color-text)" }}>
+                {aktifJourney.baslik}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                {aktifJourney.ozet}
+              </p>
+              <Link
+                to={`/how-it-works/yol/${aktifJourney.slug}`}
+                className="inline-flex items-center gap-1 text-sm font-semibold mt-4"
+                style={{ color: "var(--color-primary)" }}
+              >
+                Tam yolculuk rehberi
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+          <ol className="grid gap-4 sm:grid-cols-2">
+            {aktifJourney.adimlar.map((adim, i) => (
+              <li key={adim.baslik} className="flex gap-4 rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0"
-                  style={{ background: "var(--color-bg-soft)", color: "var(--color-primary)" }}
+                  className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm text-white"
+                  style={{ background: "var(--color-primary)" }}
                 >
-                  <HeroIcon className="w-7 h-7" />
+                  {i + 1}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold" style={{ color: "var(--color-text)" }}>
-                    {y.baslik}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-                    {y.ozet}
+                  <span className="font-semibold block mb-1" style={{ color: "var(--color-text)" }}>
+                    {adim.baslik}
+                  </span>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                    {adim.metin}
                   </p>
                 </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="mb-12 grid gap-6 lg:grid-cols-2">
+        <div className="card-warm">
+          <h2 className="text-lg font-bold mb-2" style={{ color: "var(--color-text)" }}>
+            {NASIL_CALISIR_BELGELER.title}
+          </h2>
+          <p className="text-sm mb-4" style={{ color: "var(--color-text-muted)" }}>
+            {NASIL_CALISIR_BELGELER.lead}
+          </p>
+          <div className="space-y-4">
+            {NASIL_CALISIR_BELGELER.categories.map((cat) => (
+              <div key={cat.title}>
+                <Link to={cat.path} className="font-semibold text-sm hover:underline" style={{ color: "var(--color-primary)" }}>
+                  {cat.title}
+                </Link>
+                <ul className="list-disc pl-5 mt-1 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                  {cat.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
-              <ol className="grid gap-4 sm:grid-cols-2">
-                {y.adımlar.map((adim, i) => {
-                  const StepIcon = adim.icon;
-                  return (
-                    <li key={adim.baslik} className="flex gap-4 rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm text-white"
-                        style={{ background: "var(--color-primary)" }}
-                      >
-                        {i + 1}
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <StepIcon className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
-                          <span className="font-semibold" style={{ color: "var(--color-text)" }}>
-                            {adim.baslik}
-                          </span>
-                        </div>
-                        <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-                          {adim.metin}
-                        </p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
-          );
-        })}
+            ))}
+          </div>
+          <Link to="/evraklar" className="inline-flex items-center gap-1 text-sm font-medium mt-4" style={{ color: "var(--color-primary)" }}>
+            Tam evrak rehberi <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="card-warm">
+          <h2 className="text-lg font-bold mb-2" style={{ color: "var(--color-text)" }}>
+            {NASIL_CALISIR_SOZLESMELER.title}
+          </h2>
+          <p className="text-sm mb-4" style={{ color: "var(--color-text-muted)" }}>
+            {NASIL_CALISIR_SOZLESMELER.lead}
+          </p>
+          <ul className="space-y-2">
+            {NASIL_CALISIR_SOZLESMELER.links.map((link) => (
+              <li key={link.path}>
+                <Link to={link.path} className="text-sm font-medium hover:underline" style={{ color: "var(--color-primary)" }}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="py-10 mb-8">
@@ -288,8 +319,8 @@ export default function NasilCalisir() {
         >
           Tüm SSS
         </Link>
-        <Link to="/iletisim" className="text-sm font-medium underline-offset-4 hover:underline" style={{ color: "var(--color-primary)" }}>
-          Kurumsal görüşme
+        <Link to="/yasal-cerceve" className="text-sm font-medium underline-offset-4 hover:underline" style={{ color: "var(--color-primary)" }}>
+          Yasal çerçeve
         </Link>
       </section>
     </PageShell>

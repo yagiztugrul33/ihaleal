@@ -117,7 +117,7 @@ export const TAXONOMY: Record<CategoryKey, CategoryMeta> = {
     ]),
   ]),
 
-  konaklama: cat("konaklama", "Konaklama", "Hospitality", "bed-double", [
+  konaklama: cat("konaklama", "Turizm", "Tourism", "bed-double", [
     sub("otel", "Otel", "Hotel", [
       { key: "butik", labelTR: "Butik Otel", labelEN: "Boutique Hotel" },
       { key: "resort", labelTR: "Resort Otel", labelEN: "Resort Hotel" },
@@ -152,7 +152,7 @@ export const TAXONOMY: Record<CategoryKey, CategoryMeta> = {
     ]),
   ]),
 
-  altyapi: cat("altyapi", "Altyapı / Enerji", "Infrastructure / Energy", "zap", [
+  altyapi: cat("altyapi", "GES", "Solar / GES", "zap", [
     sub("ges", "GES", "Solar PV", [
       { key: "arazi", labelTR: "Arazi GES", labelEN: "Ground-Mount Solar" },
       { key: "cati", labelTR: "Çatı GES", labelEN: "Rooftop Solar" },

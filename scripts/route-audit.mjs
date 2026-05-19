@@ -47,6 +47,8 @@ const DYNAMIC_DEMOS = {
   "/rapor/:id": "/rapor/ornek",
   "/panel/:tabId": "/panel/ozet",
   "/yasal/sozlesmeler/:slug": "/yasal/sozlesmeler/ornek",
+  "/how-it-works/yol/:slug": "/how-it-works/yol/alici",
+  "/how-it-works/adim/:slug": "/how-it-works/adim/kesfet",
 };
 
 const TAXONOMY_SAMPLE = [
@@ -69,6 +71,17 @@ const TAXONOMY_SAMPLE = [
 ];
 
 const EXTRA_PATHS = [
+  "/how-it-works/yol/alici",
+  "/how-it-works/yol/satici",
+  "/how-it-works/yol/danisman",
+  "/how-it-works/yol/kurumsal",
+  "/how-it-works/yol/operasyon",
+  "/how-it-works/adim/kesfet",
+  "/how-it-works/adim/teklif",
+  "/how-it-works/adim/kazan",
+  "/how-it-works/adim/teslim",
+  "/ilanlar/turizm",
+  "/ilanlar/ges",
   "/ilanlar/prop-001",
   "/modul/kentsel-donusum",
   "/modul/afet-toplanma-alanlari",

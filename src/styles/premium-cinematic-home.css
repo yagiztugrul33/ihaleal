@@ -916,6 +916,22 @@
   line-height: 1.5;
 }
 
+.premium-step--link {
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.premium-step--link:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  transform: translateY(-2px);
+}
+
+.premium-process__cta {
+  margin-top: 28px;
+  text-align: center;
+}
+
 .premium-section-head {
   display: flex;
   justify-content: space-between;

@@ -1,9 +1,8 @@
-﻿import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+﻿import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Activity,
-  ArrowRight,
   BarChart3,
   Building2,
   ChevronRight,
@@ -16,7 +15,6 @@ import {
   Hotel,
   Landmark,
   MapPin,
-  Play,
   Radar,
   Search,
   Shield,
@@ -33,6 +31,7 @@ import { HeroLiveAuctionCard } from "@/components/home/HeroLiveAuctionCard";
 import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
 import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 import { ROUTES } from "@/constants/routes";
+import { homeStepHref } from "@/data/nasilCalisirRoutes";
 import { getAllProperties, getFeaturedAuctions } from "@/lib/demo-data";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { getPropertyHero, getPropertyLocation, getPropertyTitle } from "@/types/property";
@@ -63,11 +62,17 @@ const CATEGORY_LABELS: Record<string, string> = {
   konut: "Konut",
   ticari: "Ticari",
   endustri: "Endüstri",
-  konaklama: "Konaklama",
+  konaklama: "Turizm",
   arsa: "Arsa",
   komple: "Komple",
-  altyapi: "Altyapı",
+  altyapi: "GES",
   devren: "Devren",
+};
+
+/** Public URL slug (taxonomy key unchanged). */
+const CATEGORY_PATH: Partial<Record<string, string>> = {
+  konaklama: "/ilanlar/turizm",
+  altyapi: "/ilanlar/ges",
 };
 
 const WHY_IHALAL_CARDS = [
@@ -150,10 +155,8 @@ const DEMO_TESTIMONIALS = [
   },
 ] as const;
 
-const HERO_POSTER = "/images/hero-cinematic.jpg";
 const HERO_VILLA =
   "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&q=85&auto=format";
-const HERO_VIDEO = "/videos/ihaleal-tanitim.mp4";
 
 function parseStatNumber(raw: string): number {
   const digits = raw.replace(/[^\d]/g, "");
@@ -164,12 +167,6 @@ export default function PremiumCinematicHome() {
   const { t } = useLocale();
   const home = t.home;
   const reduced = useReducedMotion();
-  const heroVisualRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroVisualRef,
-    offset: ["start end", "end start"],
-  });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   const statTargets = useMemo(
     () => home.stats.map((s) => ({ ...s, target: parseStatNumber(s.value) })),
@@ -209,6 +206,7 @@ export default function PremiumCinematicHome() {
         title: step.title,
         text: step.desc,
         Icon: STEP_ICONS[i] ?? Search,
+        href: homeStepHref(i),
       })),
     [home.how.steps],
   );
@@ -249,11 +247,6 @@ export default function PremiumCinematicHome() {
           initial={reduced ? false : "hidden"}
           animate={reduced ? undefined : "show"}
         >
-          <motion.div className="premium-kicker" variants={reduced ? undefined : staggerItem}>
-            <Shield className="h-4 w-4" aria-hidden />
-            {home.hero.badge}
-            <i aria-hidden="true" />
-          </motion.div>
           <motion.h1 id="premium-hero-title" variants={reduced ? undefined : staggerItem}>
             {home.hero.titleLead}{" "}
             <span className="premium-hero__accent">{home.hero.titleAccent}</span>
@@ -266,9 +259,6 @@ export default function PremiumCinematicHome() {
               {home.hero.ctaExplore} <span aria-hidden="true">{"\u2192"}</span>
             </Link>
             <Link className="premium-btn premium-btn--glass" to={ROUTES.NASIL_CALISIR}>
-              <span className="premium-play" aria-hidden="true">
-                {"\u25B6"}
-              </span>
               {home.hero.ctaHow}
             </Link>
           </motion.div>
@@ -284,26 +274,10 @@ export default function PremiumCinematicHome() {
         </motion.div>
 
         <div
-          ref={heroVisualRef}
           className="premium-hero__visual premium-hero__visual--cinematic"
           style={heroStyle}
           aria-label={home.aria.heroVisual}
         >
-          <div className="premium-data-rain" aria-hidden="true" />
-          <motion.div
-            className="premium-hero__media"
-            style={reduced ? undefined : { y: parallaxY }}
-          >
-            <video
-              className="premium-hero__video"
-              src={HERO_VIDEO}
-              poster={HERO_POSTER}
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-          </motion.div>
           <HeroLiveAuctionCard
             className="premium-live-card--overlay"
             title={home.live.title}
@@ -352,7 +326,7 @@ export default function PremiumCinematicHome() {
         <div className="premium-steps premium-steps--connected">
           <div className="premium-steps__line" aria-hidden="true" />
           {steps.map((step) => (
-            <article key={step.no} className="premium-step">
+            <Link key={step.no} to={step.href} className="premium-step premium-step--link">
               <div className="premium-step__icon" aria-hidden="true">
                 <step.Icon className="h-6 w-6" />
               </div>
@@ -361,8 +335,13 @@ export default function PremiumCinematicHome() {
                 <h3>{step.title}</h3>
                 <p>{step.text}</p>
               </div>
-            </article>
+            </Link>
           ))}
+        </div>
+        <div className="premium-process__cta">
+          <Link to={ROUTES.HOW_IT_WORKS} className="premium-btn premium-btn--glass">
+            Tüm rehber ve tanıtım videosu
+          </Link>
         </div>
       </section>
 
@@ -462,7 +441,7 @@ export default function PremiumCinematicHome() {
             return (
               <Link
                 key={cat.key}
-                to={`/ilanlar/${cat.key}`}
+                to={CATEGORY_PATH[cat.key] ?? `/ilanlar/${cat.key}`}
                 className="premium-category-card premium-category-card--rich premium-category-card--calm"
                 style={{ backgroundImage: cat.gradient }}
               >

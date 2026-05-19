@@ -219,12 +219,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
 
-  const serviceItems = [
-    { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
-    { to: "/degerleme", label: n.valuation },
-    { to: ROUTES.ARASTIRMA, label: n.researchHub },
-  ];
-
   const megaColumns = [
     {
       title: "Yatırımcı",
@@ -363,7 +357,7 @@ export function Navbar() {
             <NavDropdown label={n.company} items={companyItems} testId="nav-company" />
           </div>
 
-          <div className="nav-desktop-actions hidden items-center gap-2 md:flex">
+          <div className="nav-desktop-actions hidden items-center gap-2 lg:flex">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
@@ -429,7 +423,10 @@ export function Navbar() {
         </div>
 
         {mobileOpen ? (
-          <div className="border-t border-slate-700/40 px-4 py-4 lg:hidden">
+          <div
+            data-testid="nav-mobile-menu"
+            className="nav-mobile-panel fixed inset-x-0 top-[72px] z-[210] max-h-[calc(100dvh-72px)] overflow-y-auto overscroll-contain border-t border-slate-700/40 bg-[#0a0f1c] px-4 py-4 pb-28 shadow-2xl lg:hidden"
+          >
             <button
               type="button"
               onClick={() => {
@@ -454,19 +451,60 @@ export function Navbar() {
             >
               {n.howItWorks}
             </NavLink>
+            <p className="mt-3 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {n.logIn}
+            </p>
+            {loginPortals.map((portal) => (
+              <Link
+                key={portal.to}
+                to={portal.to}
+                data-testid={`nav-login-mobile-${portal.to}`}
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-lg px-3 py-2.5 no-underline hover:bg-slate-800/50"
+              >
+                <span className="block text-sm font-medium text-slate-200">{portal.label}</span>
+                <span className="block text-xs text-slate-500">{portal.sub}</span>
+              </Link>
+            ))}
             <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {n.signUp}
+            </p>
+            {signupPortals.map((portal) => (
+              <Link
+                key={portal.to}
+                to={portal.to}
+                data-testid={`nav-signup-mobile-${portal.to}`}
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-lg px-3 py-2.5 no-underline hover:bg-slate-800/50"
+              >
+                <span className="block text-sm font-medium text-slate-200">{portal.label}</span>
+                <span className="block text-xs text-slate-500">{portal.sub}</span>
+              </Link>
+            ))}
+            <p className="mt-3 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               {n.services}
             </p>
-            {serviceItems.map((sub) => (
-              <NavLink
-                key={sub.to}
-                to={sub.to}
-                data-testid={sub.to === ROUTES.ARASTIRMA_GES ? "nav-services-ges-mobile" : undefined}
-                onClick={() => setMobileOpen(false)}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
-              >
-                {sub.label}
-              </NavLink>
+            {megaColumns.map((col) => (
+              <div key={col.title} className="mb-2">
+                <p className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                  {col.title}
+                </p>
+                {col.items.map((sub) => (
+                  <NavLink
+                    key={sub.to}
+                    to={sub.to}
+                    data-testid={
+                      sub.to === ROUTES.ARASTIRMA_GES
+                        ? "nav-services-ges-mobile"
+                        : sub.testId
+                    }
+                    onClick={() => setMobileOpen(false)}
+                    className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+                  >
+                    {sub.label}
+                  </NavLink>
+                ))}
+              </div>
             ))}
             <NavLink
               to={ROUTES.ARASTIRMA}
@@ -513,21 +551,6 @@ export function Navbar() {
               >
                 TR
               </button>
-            </div>
-            <div className="mt-2 flex gap-2">
-              <Link
-                to="/giris"
-                className="flex-1 rounded-lg border border-slate-600/30 py-2.5 text-center text-sm text-slate-200 no-underline"
-              >
-                {n.logIn}
-              </Link>
-              <Link
-                to="/kayit"
-                className="flex-1 rounded-lg py-2.5 text-center text-sm font-semibold text-white no-underline"
-                style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
-              >
-                {n.signUp}
-              </Link>
             </div>
           </div>
         ) : null}

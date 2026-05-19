@@ -1,0 +1,14 @@
+{
+  "verifiedAt": "2026-05-19T22:20:54.433Z",
+  "baseUrl": "http://localhost:4188",
+  "videoFile": {
+    "path": "public/videos/ihaleal-tanitim.mp4",
+    "exists": true,
+    "sizeBytes": 7965858
+  },
+  "routesChecked": 55,
+  "routesPassed": 55,
+  "routesFailed": 0,
+  "failed": [],
+  "passed": true
+}
