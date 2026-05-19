@@ -10,8 +10,14 @@ import {
   getPropertiesByTaxonomy,
 } from "@/lib/demo-data";
 import { PropertyListingCard } from "@/components/ilan/PropertyListingCard";
+import {
+  EarthquakeFilters,
+  propertyMatchesEarthquakeUrlParams,
+} from "@/components/search/EarthquakeFilters";
+import { ensureEarthquakeScore } from "@/lib/property/earthquakeScore";
 import { getPropertyPrice } from "@/types/property";
 import "@/styles/ilan-pages.css";
+import "@/styles/afet-disaster-hub.css";
 
 export interface CategoryLandingPageProps {
   category?: string;
@@ -19,7 +25,7 @@ export interface CategoryLandingPageProps {
   type?: string;
 }
 
-type SortKey = "fiyat" | "m2" | "yeni";
+type SortKey = "fiyat" | "m2" | "yeni" | "deprem";
 
 const CATEGORY_BULLETS: Partial<Record<CategoryKey, string[]>> = {
   konut: [
@@ -134,7 +140,18 @@ export default function CategoryLandingPage({
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const sort = (searchParams.get("siralama") as SortKey) || "yeni";
+  const rawSort = searchParams.get("siralama") as SortKey | null;
+  const sort: SortKey =
+    rawSort === "fiyat" || rawSort === "m2" || rawSort === "yeni" || rawSort === "deprem"
+      ? rawSort
+      : "yeni";
+
+  const hasEarthquakeFilters = useMemo(() => {
+    for (const k of searchParams.keys()) {
+      if (k.startsWith("dp")) return true;
+    }
+    return false;
+  }, [searchParams]);
   const minPrice = searchParams.get("minFiyat");
   const maxPrice = searchParams.get("maxFiyat");
   const minSqm = searchParams.get("minM2");
@@ -200,12 +217,21 @@ export default function CategoryLandingPage({
       list = list.filter((p) => p.city?.toLowerCase().includes(city.toLowerCase()));
     }
 
+    if (hasEarthquakeFilters) {
+      list = list.filter((p) => propertyMatchesEarthquakeUrlParams(p, searchParams));
+    }
+
     const sorted = [...list];
     if (sort === "fiyat") {
       sorted.sort((a, b) => (getPropertyPrice(a) ?? 0) - (getPropertyPrice(b) ?? 0));
     } else if (sort === "m2") {
       sorted.sort(
         (a, b) => (b.grossSqm ?? b.landSqm ?? 0) - (a.grossSqm ?? a.landSqm ?? 0)
+      );
+    } else if (sort === "deprem") {
+      sorted.sort(
+        (a, b) =>
+          ensureEarthquakeScore(b).composite - ensureEarthquakeScore(a).composite
       );
     } else {
       sorted.sort(
@@ -215,7 +241,19 @@ export default function CategoryLandingPage({
     }
 
     return sorted.slice(0, 12);
-  }, [category, sub, type, minPrice, maxPrice, minSqm, room, city, sort]);
+  }, [
+    category,
+    sub,
+    type,
+    minPrice,
+    maxPrice,
+    minSqm,
+    room,
+    city,
+    sort,
+    hasEarthquakeFilters,
+    searchParams,
+  ]);
 
   const updateParam = (key: string, value: string) => {
     const next = new URLSearchParams(searchParams);
@@ -312,6 +350,7 @@ export default function CategoryLandingPage({
             <option value="yeni">En yeni</option>
             <option value="fiyat">Fiyat (artan)</option>
             <option value="m2">m² (büyükten küçüğe)</option>
+            <option value="deprem">Deprem puani (yuksekten)</option>
           </select>
         </label>
       </div>
@@ -374,6 +413,11 @@ export default function CategoryLandingPage({
               placeholder="İstanbul, Ankara…"
             />
           </label>
+
+          <EarthquakeFilters
+            searchParams={searchParams}
+            onChangeKey={(key, value) => updateParam(key, value)}
+          />
         </aside>
 
         <section className="ilan-landing__grid-wrap" aria-label="İlan listesi">

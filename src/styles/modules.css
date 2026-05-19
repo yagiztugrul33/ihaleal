@@ -341,3 +341,30 @@
   color: #64748b;
   font-size: 0.875rem;
 }
+
+.mod-print-root {
+  position: relative;
+}
+
+@media print {
+  .mod-no-print {
+    display: none !important;
+  }
+
+  .mod-print-root {
+    break-inside: avoid;
+    color: #0f172a !important;
+    background: #fff !important;
+  }
+
+  .mod-print-root * {
+    color: inherit !important;
+    border-color: #cbd5e1 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .mod-print-root .mod-tag {
+    border: 1px solid #94a3b8 !important;
+  }
+}

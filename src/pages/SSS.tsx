@@ -178,7 +178,7 @@ const SORULAR: Soru[] = [
     kategori: "kurumsal",
     soru: "Eğitim ve müşteri başarısı sunuyor musunuz?",
     cevap:
-      "Pilot müşterilere süreç eğitimi ve şablon şartname desteği sağlanır; büyük roll-out\'larda sahaya yakın destek planı yapılır.",
+      "Pilot müşterilere süreç eğitimi ve şablon şartname desteği sağlanır; büyük roll-out'larda sahaya yakın destek planı yapılır.",
   },
 ];
 

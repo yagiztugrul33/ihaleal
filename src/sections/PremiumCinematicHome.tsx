@@ -22,6 +22,9 @@ import {
 import { useLocale } from "@/contexts/LocaleContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cinematicEase, staggerContainer, staggerItem } from "@/lib/motion/presets";
+import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
+import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
+import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 import { getAllProperties, getFeaturedAuctions } from "@/lib/demo-data";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { getPropertyHero, getPropertyLocation, getPropertyTitle } from "@/types/property";
@@ -190,6 +193,8 @@ export default function PremiumCinematicHome() {
         </label>
       </section>
 
+      <LiveEarthquakeTicker />
+
       <section className="premium-hero" aria-labelledby="premium-hero-title">
         <motion.div
           className="premium-hero__copy"
@@ -312,6 +317,10 @@ export default function PremiumCinematicHome() {
           })}
         </div>
       </section>
+
+      <DepremTransparencyBand />
+
+      <PlatformModulesShowcase embedded />
 
       <section className="premium-lower" aria-label={home.aria.lower}>
         <div className="premium-main-column">

@@ -1,5 +1,6 @@
 import type { PropertyBase } from "./base";
 import type { CategoryKey } from "./taxonomy";
+import type { EarthquakeScorePayload } from "./earthquake";
 
 export type {
   PropertyBase,
@@ -18,6 +19,27 @@ export type {
   EngagementFields,
   ModalityFields,
 } from "./base";
+
+export type {
+  DisasterData,
+  FaultData,
+  SoilData,
+  StructuralData,
+  DamageHistory,
+  RetrofitData,
+  NeighborStructure,
+  EmergencyData,
+  InsuranceProtection,
+  CommunityPrep,
+  Certificates,
+  AiDerived,
+  EarthquakeSubScoreKey,
+  SubScoreBreakdown,
+  ScoreBand,
+  EarthquakeScore12,
+} from "./disaster";
+
+export { SUB_SCORE_WEIGHTS, assertSubScoreWeightsSum } from "./disaster";
 
 export type {
   CategoryKey,
@@ -59,6 +81,14 @@ export type { KompleBinaDetay } from "./variants/komple_bina";
 export type { ResDetay } from "./variants/res";
 export type { TokenizeDetay } from "./variants/tokenize";
 
+export type {
+  EarthquakeBand,
+  EarthquakeFacets,
+  EarthquakeFacetKey,
+  EarthquakeScorePayload,
+  EarthquakeSubScore,
+} from "./earthquake";
+
 export interface PropertyTaxonomy {
   category: CategoryKey | string;
   sub: string;
@@ -69,6 +99,8 @@ export interface PropertyTaxonomy {
 export type PropertyRecord = PropertyBase & {
   taxonomy: PropertyTaxonomy;
   details: Partial<Record<string, unknown>>;
+  /** Demo deprem / afet uygunluğu çıktıları; eksik ise `calculateEarthquakeScore`. */
+  earthquakeScore?: EarthquakeScorePayload;
 };
 
 export function isKonutVilla(p: PropertyRecord): boolean {

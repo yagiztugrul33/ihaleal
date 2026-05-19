@@ -1,0 +1,605 @@
+{
+  "updated": "2026-05-19T06:46:56.804Z",
+  "events": [
+    {
+      "id": "eq-1",
+      "time": "2026-05-19T06:46:56.777Z",
+      "magnitude": 2.5,
+      "depthKm": 5,
+      "lat": 36,
+      "lng": 27,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-2",
+      "time": "2026-05-18T16:22:56.777Z",
+      "magnitude": 2.8,
+      "depthKm": 6,
+      "lat": 36.5,
+      "lng": 27.4,
+      "place": "Duzce",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-3",
+      "time": "2026-05-18T01:58:56.777Z",
+      "magnitude": 3.1,
+      "depthKm": 7,
+      "lat": 37,
+      "lng": 27.8,
+      "place": "Van",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-4",
+      "time": "2026-05-17T11:34:56.777Z",
+      "magnitude": 3.4,
+      "depthKm": 8,
+      "lat": 37.5,
+      "lng": 28.2,
+      "place": "Izmir",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-5",
+      "time": "2026-05-16T21:10:56.777Z",
+      "magnitude": 3.7,
+      "depthKm": 9,
+      "lat": 38,
+      "lng": 28.6,
+      "place": "Elazig",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-6",
+      "time": "2026-05-16T06:46:56.777Z",
+      "magnitude": 4,
+      "depthKm": 10,
+      "lat": 38.5,
+      "lng": 29,
+      "place": "Malatya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-7",
+      "time": "2026-05-15T16:22:56.777Z",
+      "magnitude": 4.3,
+      "depthKm": 11,
+      "lat": 39,
+      "lng": 29.4,
+      "place": "Antalya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-8",
+      "time": "2026-05-15T01:58:56.777Z",
+      "magnitude": 4.6,
+      "depthKm": 12,
+      "lat": 39.5,
+      "lng": 29.8,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-9",
+      "time": "2026-05-14T11:34:56.777Z",
+      "magnitude": 4.9,
+      "depthKm": 13,
+      "lat": 36,
+      "lng": 30.2,
+      "place": "Duzce",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-10",
+      "time": "2026-05-13T21:10:56.777Z",
+      "magnitude": 5.2,
+      "depthKm": 14,
+      "lat": 36.5,
+      "lng": 30.6,
+      "place": "Van",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-11",
+      "time": "2026-05-13T06:46:56.777Z",
+      "magnitude": 5.5,
+      "depthKm": 15,
+      "lat": 37,
+      "lng": 27,
+      "place": "Izmir",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-12",
+      "time": "2026-05-12T16:22:56.777Z",
+      "magnitude": 5.8,
+      "depthKm": 16,
+      "lat": 37.5,
+      "lng": 27.4,
+      "place": "Elazig",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-13",
+      "time": "2026-05-12T01:58:56.777Z",
+      "magnitude": 6.1,
+      "depthKm": 17,
+      "lat": 38,
+      "lng": 27.8,
+      "place": "Malatya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-14",
+      "time": "2026-05-11T11:34:56.777Z",
+      "magnitude": 6.4,
+      "depthKm": 18,
+      "lat": 38.5,
+      "lng": 28.2,
+      "place": "Antalya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-15",
+      "time": "2026-05-10T21:10:56.777Z",
+      "magnitude": 6.7,
+      "depthKm": 19,
+      "lat": 39,
+      "lng": 28.6,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-16",
+      "time": "2026-05-10T06:46:56.777Z",
+      "magnitude": 2.5,
+      "depthKm": 20,
+      "lat": 39.5,
+      "lng": 29,
+      "place": "Duzce",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-17",
+      "time": "2026-05-09T16:22:56.777Z",
+      "magnitude": 2.8,
+      "depthKm": 21,
+      "lat": 36,
+      "lng": 29.4,
+      "place": "Van",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-18",
+      "time": "2026-05-09T01:58:56.777Z",
+      "magnitude": 3.1,
+      "depthKm": 22,
+      "lat": 36.5,
+      "lng": 29.8,
+      "place": "Izmir",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-19",
+      "time": "2026-05-08T11:34:56.777Z",
+      "magnitude": 3.4,
+      "depthKm": 23,
+      "lat": 37,
+      "lng": 30.2,
+      "place": "Elazig",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-20",
+      "time": "2026-05-07T21:10:56.777Z",
+      "magnitude": 3.7,
+      "depthKm": 24,
+      "lat": 37.5,
+      "lng": 30.6,
+      "place": "Malatya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-21",
+      "time": "2026-05-07T06:46:56.777Z",
+      "magnitude": 4,
+      "depthKm": 5,
+      "lat": 38,
+      "lng": 27,
+      "place": "Antalya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-22",
+      "time": "2026-05-06T16:22:56.777Z",
+      "magnitude": 4.3,
+      "depthKm": 6,
+      "lat": 38.5,
+      "lng": 27.4,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-23",
+      "time": "2026-05-06T01:58:56.777Z",
+      "magnitude": 4.6,
+      "depthKm": 7,
+      "lat": 39,
+      "lng": 27.8,
+      "place": "Duzce",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-24",
+      "time": "2026-05-05T11:34:56.777Z",
+      "magnitude": 4.9,
+      "depthKm": 8,
+      "lat": 39.5,
+      "lng": 28.2,
+      "place": "Van",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-25",
+      "time": "2026-05-04T21:10:56.777Z",
+      "magnitude": 5.2,
+      "depthKm": 9,
+      "lat": 36,
+      "lng": 28.6,
+      "place": "Izmir",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-26",
+      "time": "2026-05-04T06:46:56.777Z",
+      "magnitude": 5.5,
+      "depthKm": 10,
+      "lat": 36.5,
+      "lng": 29,
+      "place": "Elazig",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-27",
+      "time": "2026-05-03T16:22:56.777Z",
+      "magnitude": 5.8,
+      "depthKm": 11,
+      "lat": 37,
+      "lng": 29.4,
+      "place": "Malatya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-28",
+      "time": "2026-05-03T01:58:56.777Z",
+      "magnitude": 6.1,
+      "depthKm": 12,
+      "lat": 37.5,
+      "lng": 29.8,
+      "place": "Antalya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-29",
+      "time": "2026-05-02T11:34:56.777Z",
+      "magnitude": 6.4,
+      "depthKm": 13,
+      "lat": 38,
+      "lng": 30.2,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-30",
+      "time": "2026-05-01T21:10:56.777Z",
+      "magnitude": 6.7,
+      "depthKm": 14,
+      "lat": 38.5,
+      "lng": 30.6,
+      "place": "Duzce",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-31",
+      "time": "2026-05-01T06:46:56.777Z",
+      "magnitude": 2.5,
+      "depthKm": 15,
+      "lat": 39,
+      "lng": 27,
+      "place": "Van",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-32",
+      "time": "2026-04-30T16:22:56.777Z",
+      "magnitude": 2.8,
+      "depthKm": 16,
+      "lat": 39.5,
+      "lng": 27.4,
+      "place": "Izmir",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-33",
+      "time": "2026-04-30T01:58:56.777Z",
+      "magnitude": 3.1,
+      "depthKm": 17,
+      "lat": 36,
+      "lng": 27.8,
+      "place": "Elazig",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-34",
+      "time": "2026-04-29T11:34:56.777Z",
+      "magnitude": 3.4,
+      "depthKm": 18,
+      "lat": 36.5,
+      "lng": 28.2,
+      "place": "Malatya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-35",
+      "time": "2026-04-28T21:10:56.777Z",
+      "magnitude": 3.7,
+      "depthKm": 19,
+      "lat": 37,
+      "lng": 28.6,
+      "place": "Antalya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-36",
+      "time": "2026-04-28T06:46:56.777Z",
+      "magnitude": 4,
+      "depthKm": 20,
+      "lat": 37.5,
+      "lng": 29,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-37",
+      "time": "2026-04-27T16:22:56.777Z",
+      "magnitude": 4.3,
+      "depthKm": 21,
+      "lat": 38,
+      "lng": 29.4,
+      "place": "Duzce",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-38",
+      "time": "2026-04-27T01:58:56.777Z",
+      "magnitude": 4.6,
+      "depthKm": 22,
+      "lat": 38.5,
+      "lng": 29.8,
+      "place": "Van",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-39",
+      "time": "2026-04-26T11:34:56.777Z",
+      "magnitude": 4.9,
+      "depthKm": 23,
+      "lat": 39,
+      "lng": 30.2,
+      "place": "Izmir",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-40",
+      "time": "2026-04-25T21:10:56.777Z",
+      "magnitude": 5.2,
+      "depthKm": 24,
+      "lat": 39.5,
+      "lng": 30.6,
+      "place": "Elazig",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-41",
+      "time": "2026-04-25T06:46:56.777Z",
+      "magnitude": 5.5,
+      "depthKm": 5,
+      "lat": 36,
+      "lng": 27,
+      "place": "Malatya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-42",
+      "time": "2026-04-24T16:22:56.777Z",
+      "magnitude": 5.8,
+      "depthKm": 6,
+      "lat": 36.5,
+      "lng": 27.4,
+      "place": "Antalya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-43",
+      "time": "2026-04-24T01:58:56.777Z",
+      "magnitude": 6.1,
+      "depthKm": 7,
+      "lat": 37,
+      "lng": 27.8,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-44",
+      "time": "2026-04-23T11:34:56.777Z",
+      "magnitude": 6.4,
+      "depthKm": 8,
+      "lat": 37.5,
+      "lng": 28.2,
+      "place": "Duzce",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-45",
+      "time": "2026-04-22T21:10:56.777Z",
+      "magnitude": 6.7,
+      "depthKm": 9,
+      "lat": 38,
+      "lng": 28.6,
+      "place": "Van",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-46",
+      "time": "2026-04-22T06:46:56.777Z",
+      "magnitude": 2.5,
+      "depthKm": 10,
+      "lat": 38.5,
+      "lng": 29,
+      "place": "Izmir",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-47",
+      "time": "2026-04-21T16:22:56.777Z",
+      "magnitude": 2.8,
+      "depthKm": 11,
+      "lat": 39,
+      "lng": 29.4,
+      "place": "Elazig",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-48",
+      "time": "2026-04-21T01:58:56.777Z",
+      "magnitude": 3.1,
+      "depthKm": 12,
+      "lat": 39.5,
+      "lng": 29.8,
+      "place": "Malatya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-49",
+      "time": "2026-04-20T11:34:56.777Z",
+      "magnitude": 3.4,
+      "depthKm": 13,
+      "lat": 36,
+      "lng": 30.2,
+      "place": "Antalya",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    },
+    {
+      "id": "eq-50",
+      "time": "2026-04-19T21:10:56.777Z",
+      "magnitude": 3.7,
+      "depthKm": 14,
+      "lat": 36.5,
+      "lng": 30.6,
+      "place": "Canakkale",
+      "affectedProvinces": [
+        "Canakkale"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,422 @@
+{
+  "prop-001": {
+    "status": "gecerli",
+    "policyNo": "DASK-100001",
+    "amountTry": 815000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-002": {
+    "status": "gecerli",
+    "policyNo": "DASK-100002",
+    "amountTry": 830000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-003": {
+    "status": "gecerli",
+    "policyNo": "DASK-100003",
+    "amountTry": 845000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-004": {
+    "status": "gecerli",
+    "policyNo": "DASK-100004",
+    "amountTry": 860000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-005": {
+    "status": "gecerli",
+    "policyNo": "DASK-100005",
+    "amountTry": 875000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-006": {
+    "status": "gecerli",
+    "policyNo": "DASK-100006",
+    "amountTry": 890000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-007": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100007",
+    "amountTry": 905000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-008": {
+    "status": "gecerli",
+    "policyNo": "DASK-100008",
+    "amountTry": 920000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-009": {
+    "status": "gecerli",
+    "policyNo": "DASK-100009",
+    "amountTry": 935000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-010": {
+    "status": "gecerli",
+    "policyNo": "DASK-100010",
+    "amountTry": 950000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-011": {
+    "status": "gecerli",
+    "policyNo": "DASK-100011",
+    "amountTry": 965000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-012": {
+    "status": "gecerli",
+    "policyNo": "DASK-100012",
+    "amountTry": 980000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-013": {
+    "status": "gecerli",
+    "policyNo": "DASK-100013",
+    "amountTry": 995000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-014": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100014",
+    "amountTry": 1010000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-015": {
+    "status": "gecerli",
+    "policyNo": "DASK-100015",
+    "amountTry": 1025000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-016": {
+    "status": "gecerli",
+    "policyNo": "DASK-100016",
+    "amountTry": 1040000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-017": {
+    "status": "gecerli",
+    "policyNo": "DASK-100017",
+    "amountTry": 1055000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-018": {
+    "status": "gecerli",
+    "policyNo": "DASK-100018",
+    "amountTry": 1070000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-019": {
+    "status": "gecerli",
+    "policyNo": "DASK-100019",
+    "amountTry": 1085000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-020": {
+    "status": "gecerli",
+    "policyNo": "DASK-100020",
+    "amountTry": 1100000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-021": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100021",
+    "amountTry": 1115000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-022": {
+    "status": "gecerli",
+    "policyNo": "DASK-100022",
+    "amountTry": 1130000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-023": {
+    "status": "gecerli",
+    "policyNo": "DASK-100023",
+    "amountTry": 1145000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-024": {
+    "status": "gecerli",
+    "policyNo": "DASK-100024",
+    "amountTry": 1160000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-025": {
+    "status": "gecerli",
+    "policyNo": "DASK-100025",
+    "amountTry": 1175000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-026": {
+    "status": "gecerli",
+    "policyNo": "DASK-100026",
+    "amountTry": 1190000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-027": {
+    "status": "gecerli",
+    "policyNo": "DASK-100027",
+    "amountTry": 1205000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-028": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100028",
+    "amountTry": 1220000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-029": {
+    "status": "gecerli",
+    "policyNo": "DASK-100029",
+    "amountTry": 1235000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-030": {
+    "status": "gecerli",
+    "policyNo": "DASK-100030",
+    "amountTry": 1250000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-031": {
+    "status": "gecerli",
+    "policyNo": "DASK-100031",
+    "amountTry": 1265000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-032": {
+    "status": "gecerli",
+    "policyNo": "DASK-100032",
+    "amountTry": 1280000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-033": {
+    "status": "gecerli",
+    "policyNo": "DASK-100033",
+    "amountTry": 1295000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-034": {
+    "status": "gecerli",
+    "policyNo": "DASK-100034",
+    "amountTry": 1310000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-035": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100035",
+    "amountTry": 1325000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-036": {
+    "status": "gecerli",
+    "policyNo": "DASK-100036",
+    "amountTry": 1340000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-037": {
+    "status": "gecerli",
+    "policyNo": "DASK-100037",
+    "amountTry": 1355000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-038": {
+    "status": "gecerli",
+    "policyNo": "DASK-100038",
+    "amountTry": 1370000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-039": {
+    "status": "gecerli",
+    "policyNo": "DASK-100039",
+    "amountTry": 1385000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-040": {
+    "status": "gecerli",
+    "policyNo": "DASK-100040",
+    "amountTry": 1400000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-041": {
+    "status": "gecerli",
+    "policyNo": "DASK-100041",
+    "amountTry": 1415000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-042": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100042",
+    "amountTry": 1430000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-043": {
+    "status": "gecerli",
+    "policyNo": "DASK-100043",
+    "amountTry": 1445000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-044": {
+    "status": "gecerli",
+    "policyNo": "DASK-100044",
+    "amountTry": 1460000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-045": {
+    "status": "gecerli",
+    "policyNo": "DASK-100045",
+    "amountTry": 1475000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-046": {
+    "status": "gecerli",
+    "policyNo": "DASK-100046",
+    "amountTry": 1490000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-047": {
+    "status": "gecerli",
+    "policyNo": "DASK-100047",
+    "amountTry": 1505000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-048": {
+    "status": "gecerli",
+    "policyNo": "DASK-100048",
+    "amountTry": 1520000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-049": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100049",
+    "amountTry": 1535000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-050": {
+    "status": "gecerli",
+    "policyNo": "DASK-100050",
+    "amountTry": 1550000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-051": {
+    "status": "gecerli",
+    "policyNo": "DASK-100051",
+    "amountTry": 1565000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-052": {
+    "status": "gecerli",
+    "policyNo": "DASK-100052",
+    "amountTry": 1580000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-053": {
+    "status": "gecerli",
+    "policyNo": "DASK-100053",
+    "amountTry": 1595000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-054": {
+    "status": "gecerli",
+    "policyNo": "DASK-100054",
+    "amountTry": 1610000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-055": {
+    "status": "gecerli",
+    "policyNo": "DASK-100055",
+    "amountTry": 1625000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  },
+  "prop-056": {
+    "status": "gecersiz",
+    "policyNo": "DASK-100056",
+    "amountTry": 1640000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-057": {
+    "status": "gecerli",
+    "policyNo": "DASK-100057",
+    "amountTry": 1655000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-058": {
+    "status": "gecerli",
+    "policyNo": "DASK-100058",
+    "amountTry": 1670000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-059": {
+    "status": "gecerli",
+    "policyNo": "DASK-100059",
+    "amountTry": 1685000,
+    "lastPayment": "2026-01-15",
+    "adequate": true
+  },
+  "prop-060": {
+    "status": "gecerli",
+    "policyNo": "DASK-100060",
+    "amountTry": 1700000,
+    "lastPayment": "2026-01-15",
+    "adequate": false
+  }
+}

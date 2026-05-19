@@ -1,0 +1,464 @@
+/* Afet merkezi: deprem sekmesi için yerel stiller */
+
+.afet-hub {
+  --afet-accent: rgb(234 179 8);
+  --afet-muted: rgb(148 163 184);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.afet-hub__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.afet-hub__tab {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgb(51 65 85 / 0.65);
+  background: rgb(15 23 42 / 0.4);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.afet-hub__tab[data-state="active"] {
+  border-color: var(--afet-accent);
+  background: rgb(234 179 8 / 0.12);
+}
+
+.afet-hub__panel {
+  padding: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.afet-hub__cols {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .afet-hub__cols--2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.afet-hub__rings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.afet-hub__subs {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .afet-hub__subs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.afet-hub__subcard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: 1px solid rgb(51 65 85 / 0.45);
+  background: rgb(2 6 23 / 0.35);
+  text-align: left;
+  cursor: pointer;
+  min-height: 44px;
+  font: inherit;
+  color: inherit;
+}
+
+.afet-hub__subcard:hover {
+  border-color: var(--afet-accent);
+}
+
+.afet-hub__sub-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.afet-hub__bar {
+  height: 8px;
+  border-radius: 999px;
+  background: rgb(30 41 59);
+  overflow: hidden;
+}
+
+.afet-hub__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgb(234 179 8), rgb(251 191 36));
+}
+
+.afet-hub__map {
+  height: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgb(51 65 85 / 0.5);
+}
+
+.afet-hub__muted {
+  color: var(--afet-muted);
+  font-size: 0.9rem;
+}
+
+.afet-hub__narrative p {
+  margin: 0 0 0.65rem;
+  line-height: 1.5;
+}
+
+.afet-hub__lazy-fallback {
+  min-height: 200px;
+  display: grid;
+  place-items: center;
+  color: var(--afet-muted);
+}
+
+.afet-hub__assemble-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.afet-hub__assemble-list li {
+  padding: 0.65rem;
+  border-radius: 10px;
+  border: 1px solid rgb(51 65 85 / 0.4);
+}
+
+/* Liste karti — deprem rozeti */
+
+.eq-badge-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.eq-badge-wrap .eq-badge__panel {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .eq-badge-wrap:focus-within .eq-badge__panel,
+  .eq-badge-wrap:hover .eq-badge__panel {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + 8px);
+    right: 0;
+    width: min(280px, 70vw);
+    padding: 0.75rem;
+    border-radius: 12px;
+    background: rgb(15 23 42 / 0.98);
+    border: 1px solid rgb(51 65 85 / 0.7);
+    box-shadow: 0 12px 40px rgb(0 0 0 / 0.35);
+  }
+}
+
+.eq-badge {
+  position: relative;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: default;
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: 50%;
+}
+
+.eq-badge:focus-visible {
+  outline: 2px solid rgb(251 191 36);
+  outline-offset: 2px;
+}
+
+.eq-badge__ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.eq-badge__val {
+  position: absolute;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.eq-badge__track {
+  stroke: rgb(51 65 85);
+}
+
+.eq-badge__prog {
+  stroke: rgb(251 191 36);
+}
+
+.eq-badge--critical .eq-badge__prog {
+  stroke: rgb(248 113 113);
+}
+
+.eq-badge--low .eq-badge__prog {
+  stroke: rgb(251 146 60);
+}
+
+.eq-badge--moderate .eq-badge__prog {
+  stroke: rgb(250 204 21);
+}
+
+.eq-badge--good .eq-badge__prog {
+  stroke: rgb(74 222 128);
+}
+
+.eq-badge--excellent .eq-badge__prog {
+  stroke: rgb(52 211 153);
+}
+
+.eq-badge__title {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.eq-badge__band {
+  margin: 0 0 0.5rem;
+  color: rgb(226 232 240);
+}
+
+.eq-badge__subs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.eq-badge__subs li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Modal */
+.afet-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.55);
+  z-index: 50;
+}
+
+.afet-modal-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 51;
+  width: min(520px, 92vw);
+  max-height: 85vh;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  padding: 1.25rem;
+  border-radius: 16px;
+  background: rgb(15 23 42);
+  border: 1px solid rgb(51 65 85 / 0.8);
+}
+
+.afet-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.afet-modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.afet-modal-close {
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 10px;
+  background: rgb(30 41 59);
+  color: inherit;
+  cursor: pointer;
+}
+
+.afet-modal-score {
+  margin: 1rem 0 0;
+}
+
+.afet-modal-weight {
+  opacity: 0.75;
+  font-weight: normal;
+}
+
+.afet-modal-formula {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+
+.afet-modal-explain {
+  line-height: 1.55;
+}
+
+.afet-modal-inputs {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.afet-modal-input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.afet-modal-input-row dd {
+  margin: 0;
+  text-align: right;
+}
+
+.afet-modal-tips h3 {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.afet-modal-tips ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.afet-modal-tips li {
+  margin-bottom: 0.35rem;
+}
+
+/* Kategori sayfasi — deprem filtre formu */
+
+.eqfil-root {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(51 65 85 / 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.eqfil-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.eqfil-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.eqfil-chip {
+  min-height: 44px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgb(51 65 85 / 0.65);
+  background: rgb(254 249 195 / 0.15);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.eqfil-chip--ghost {
+  background: transparent;
+}
+
+.eqfil-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+}
+
+.eqfil-field input,
+.eqfil-select {
+  min-height: 44px;
+  padding: 0.45rem 0.55rem;
+  border-radius: 10px;
+  border: 1px solid rgb(148 163 184 / 0.5);
+  background: inherit;
+  color: inherit;
+  font: inherit;
+}
+
+.eqfil-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eqfil-checkbox input {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* Liste kartları — konum rozeti */
+
+.ilan-card__media-wrap {
+  position: relative;
+  display: block;
+}
+
+.ilan-card__media-wrap > .ilan-card__media {
+  display: block;
+}
+
+.ilan-card__eq-badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .afet-hub__tab,
+  .eq-badge__prog {
+    transition: none;
+  }
+
+  .afet-hub__lazy-fallback {
+    animation: none;
+  }
+
+  *,
+  .leaflet-zoom-animated,
+  .leaflet-interactive {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

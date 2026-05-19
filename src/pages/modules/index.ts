@@ -7,6 +7,11 @@ export { default as DegerlemeModulPage } from "./DegerlemeModulPage";
 export { default as AirbnbPotansiyelPage } from "./AirbnbPotansiyelPage";
 export { default as RenovasyonRoiPage } from "./RenovasyonRoiPage";
 export { default as AfetRiskHaritasiPage } from "./AfetRiskHaritasiPage";
+export { default as DepremRiskHaritasiPage } from "./DepremRiskHaritasiPage";
+export { default as BinaRiskSorguPage } from "./BinaRiskSorguPage";
+export { default as CanliDepremTakipPage } from "./CanliDepremTakipPage";
+export { default as AileAcilPlanPage } from "./AileAcilPlanPage";
+export { default as GuclendirmeRehberiPage } from "./GuclendirmeRehberiPage";
 export { default as ImarSorguPage } from "./ImarSorguPage";
 export { default as YatirimOnerisiPage } from "./YatirimOnerisiPage";
 export { default as PortfoyYonetimiModulPage } from "./PortfoyYonetimiModulPage";
@@ -19,7 +24,12 @@ export const MODULE_ROUTES = {
   DEGERLEME: "/modul/degerleme",
   AIRBNB_POTANSIYEL: "/modul/airbnb-potansiyeli",
   RENOVASYON_ROI: "/modul/renovasyon-roi",
-  AFET_RISK: "/modul/afet-risk-haritasi",
+  AFET_RISK_HARITASI_LEGACY: "/modul/afet-risk-haritasi",
+  DEPREM_RISK_HARITASI: "/modul/deprem-risk-haritasi",
+  BINA_RISK_SORGU: "/modul/bina-risk-sorgu",
+  CANLI_DEPREM_TAKIP: "/modul/canli-deprem-takip",
+  AILE_ACIL_PLAN: "/modul/aile-acil-plan",
+  GUCLENDIRME_REHBERI: "/modul/guclendirme-rehberi",
   IMAR_SORGU: "/modul/imar-sorgu",
   YATIRIM_ONERISI: "/modul/yatirim-onerisi",
   PORTFOY_YONETIMI: "/modul/portfoy-yonetimi",

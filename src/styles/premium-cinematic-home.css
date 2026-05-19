@@ -1146,4 +1146,315 @@
     animation: none !important;
     transform: none !important;
   }
+
+  .home-eq-ticker__track--marquee,
+  .deprem-ticker-track--marquee {
+    animation: none !important;
+  }
+}
+
+/* Deprem home band + ticker + emergency strip */
+.deprem-band {
+  margin: 0 16px 32px;
+  padding: 28px 24px 32px;
+  border-radius: 24px;
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  background: linear-gradient(135deg, rgba(30, 27, 12, 0.92), rgba(15, 23, 42, 0.88));
+}
+
+@media (min-width: 640px) {
+  .deprem-band {
+    margin-inline: auto;
+    max-width: min(1180px, calc(100% - 32px));
+  }
+}
+
+.deprem-band__inner {
+  display: grid;
+  gap: 22px;
+}
+
+.deprem-band__head {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.deprem-band__icon {
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
+  color: #fcd34d;
+}
+
+.deprem-band__head h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.25;
+}
+
+.deprem-band__head p {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+
+.deprem-band__stats {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.deprem-band__stat {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.deprem-band__stat-icon {
+  height: 20px;
+  width: 20px;
+  flex-shrink: 0;
+  color: #38bdf8;
+  margin-top: 2px;
+}
+
+.deprem-band__stat-label {
+  margin: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+}
+
+.deprem-band__stat-value {
+  margin: 4px 0 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.deprem-band__stat-hint {
+  margin: 4px 0 0;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.deprem-band__search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.deprem-band__search-icon {
+  height: 20px;
+  width: 20px;
+  color: #38bdf8;
+}
+
+.deprem-band__search input {
+  flex: 1;
+  min-width: 200px;
+  border: none;
+  background: transparent;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.deprem-band__search input::placeholder {
+  color: #64748b;
+}
+
+.deprem-band__search button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #0f172a;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+}
+
+.deprem-band__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.deprem-band__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e0f2fe;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: rgba(56, 189, 248, 0.08);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.deprem-band__link:hover {
+  background: rgba(56, 189, 248, 0.15);
+}
+
+.home-eq-ticker {
+  margin: 0 16px 24px;
+  padding: 12px 16px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  background: rgba(15, 8, 2, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+@media (min-width: 640px) {
+  .home-eq-ticker {
+    margin-inline: auto;
+    max-width: min(1180px, calc(100% - 32px));
+  }
+}
+
+.home-eq-ticker__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fed7aa;
+}
+
+.home-eq-ticker__cta {
+  margin-left: auto;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fdba74;
+  text-decoration: none;
+}
+
+.home-eq-ticker__cta:hover {
+  text-decoration: underline;
+}
+
+.home-eq-ticker__track {
+  margin-top: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.home-eq-ticker__track--static .home-eq-ticker__text {
+  display: block;
+  white-space: normal;
+}
+
+.home-eq-ticker__track--marquee {
+  display: flex;
+  width: max-content;
+  animation: home-eq-marquee 38s linear infinite;
+}
+
+.home-eq-ticker__track--marquee .home-eq-ticker__text {
+  display: inline-block;
+  padding-right: 3rem;
+}
+
+@keyframes home-eq-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.home-eq-ticker__text {
+  font-size: 0.85rem;
+  color: #ffedd5;
+}
+
+.deprem-ticker-track--marquee {
+  display: flex;
+  width: max-content;
+  animation: home-eq-marquee 42s linear infinite;
+}
+
+.deprem-ticker-track--marquee .deprem-ticker-text {
+  display: inline-block;
+  padding-right: 3rem;
+}
+
+.deprem-ticker-track--static .deprem-ticker-text {
+  display: block;
+  white-space: normal;
+}
+
+.deprem-ticker-text {
+  font-size: 0.82rem;
+  color: #ffedd5;
+}
+
+.emergency-action-band {
+  border-top: 1px solid rgba(251, 191, 36, 0.25);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.88));
+}
+
+.emergency-action-band__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  justify-content: space-between;
+}
+
+.emergency-action-band__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #fef3c7;
+}
+
+.emergency-action-band__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.emergency-action-band__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fde68a;
+  border: 1px solid rgba(253, 230, 138, 0.25);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.emergency-action-band__link:hover {
+  background: rgba(255, 255, 255, 0.08);
 }

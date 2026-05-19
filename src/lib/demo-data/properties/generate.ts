@@ -84,6 +84,7 @@ const CITIES: {
   { city: "Eskişehir", districts: ["Odunpazarı", "Tepebaşı"], lat: 39.78, lng: 30.52 },
   { city: "Trabzon", districts: ["Ortahisar", "Akçaabat"], lat: 41.0, lng: 39.72 },
   { city: "Adana", districts: ["Seyhan", "Çukurova", "Yüreğir"], lat: 37.0, lng: 35.32 },
+  { city: "Hatay", districts: ["Antakya", "Defne", "İskenderun"], lat: 36.2, lng: 36.16 },
 ];
 
 const AUCTION_INDICES = new Set([0, 1, 9, 24, 39]);

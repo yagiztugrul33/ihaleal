@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Heart, MapPin } from "lucide-react";
 import type { PropertyRecord } from "@/types/property";
+import { EarthquakeScoreBadge } from "@/components/property/EarthquakeScoreBadge";
+import "@/styles/afet-disaster-hub.css";
 import {
   getPropertyHero,
   getPropertyLocation,
@@ -28,18 +30,23 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
 
   return (
     <article className="ilan-card">
-      <Link to={`/ilanlar/${property.id}`} className="ilan-card__media">
-        {hero ? (
-          <img src={hero} alt="" loading="lazy" />
-        ) : (
-          <div className="ilan-card__media-fallback" aria-hidden />
-        )}
-        {live ? (
-          <span className="ilan-card__live">
-            <i /> LIVE
-          </span>
-        ) : null}
-      </Link>
+      <div className="ilan-card__media-wrap">
+        <Link to={`/ilanlar/${property.id}`} className="ilan-card__media">
+          {hero ? (
+            <img src={hero} alt="" loading="lazy" />
+          ) : (
+            <div className="ilan-card__media-fallback" aria-hidden />
+          )}
+          {live ? (
+            <span className="ilan-card__live">
+              <i /> LIVE
+            </span>
+          ) : null}
+        </Link>
+        <div className="ilan-card__eq-badge">
+          <EarthquakeScoreBadge property={property} />
+        </div>
+      </div>
 
       <div className="ilan-card__body">
         <div className="ilan-card__head">

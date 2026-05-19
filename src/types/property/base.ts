@@ -1,5 +1,7 @@
 /** Universal property field groups combined into PropertyBase. */
 
+import type { DisasterData, EarthquakeScore12 } from "./disaster";
+
 export interface IdentityFields {
   id: string;
   title: string;
@@ -204,4 +206,7 @@ export interface PropertyBase
     MediaFields,
     AiFields,
     EngagementFields,
-    ModalityFields {}
+    ModalityFields {
+  disaster?: DisasterData;
+  earthquakeScore?: EarthquakeScore12;
+}

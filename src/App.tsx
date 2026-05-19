@@ -137,7 +137,11 @@ const GesAnaliziModulPage = lazy(() => import("@/pages/modules/GesAnaliziModulPa
 const DegerlemeModulPage = lazy(() => import("@/pages/modules/DegerlemeModulPage"));
 const AirbnbPotansiyelPage = lazy(() => import("@/pages/modules/AirbnbPotansiyelPage"));
 const RenovasyonRoiPage = lazy(() => import("@/pages/modules/RenovasyonRoiPage"));
-const AfetRiskHaritasiPage = lazy(() => import("@/pages/modules/AfetRiskHaritasiPage"));
+const DepremRiskHaritasiPage = lazy(() => import("@/pages/modules/DepremRiskHaritasiPage"));
+const BinaRiskSorguPage = lazy(() => import("@/pages/modules/BinaRiskSorguPage"));
+const CanliDepremTakipPage = lazy(() => import("@/pages/modules/CanliDepremTakipPage"));
+const AileAcilPlanPage = lazy(() => import("@/pages/modules/AileAcilPlanPage"));
+const GuclendirmeRehberiPage = lazy(() => import("@/pages/modules/GuclendirmeRehberiPage"));
 const ImarSorguPage = lazy(() => import("@/pages/modules/ImarSorguPage"));
 const YatirimOnerisiPage = lazy(() => import("@/pages/modules/YatirimOnerisiPage"));
 const PortfoyYonetimiModulPage = lazy(() => import("@/pages/modules/PortfoyYonetimiModulPage"));
@@ -367,7 +371,12 @@ function App() {
             <Route path="/modul/degerleme" element={<DegerlemeModulPage />} />
             <Route path="/modul/airbnb-potansiyeli" element={<AirbnbPotansiyelPage />} />
             <Route path="/modul/renovasyon-roi" element={<RenovasyonRoiPage />} />
-            <Route path="/modul/afet-risk-haritasi" element={<AfetRiskHaritasiPage />} />
+            <Route path="/modul/afet-risk-haritasi" element={<Navigate to="/modul/deprem-risk-haritasi" replace />} />
+            <Route path="/modul/deprem-risk-haritasi" element={<DepremRiskHaritasiPage />} />
+            <Route path="/modul/bina-risk-sorgu" element={<BinaRiskSorguPage />} />
+            <Route path="/modul/canli-deprem-takip" element={<CanliDepremTakipPage />} />
+            <Route path="/modul/aile-acil-plan" element={<AileAcilPlanPage />} />
+            <Route path="/modul/guclendirme-rehberi" element={<GuclendirmeRehberiPage />} />
             <Route path="/modul/imar-sorgu" element={<ImarSorguPage />} />
             <Route path="/modul/yatirim-onerisi" element={<YatirimOnerisiPage />} />
             <Route path="/modul/portfoy-yonetimi" element={<PortfoyYonetimiModulPage />} />

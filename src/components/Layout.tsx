@@ -12,6 +12,7 @@ import { DemoUyarisi } from "./DemoUyarisi";
 import { ScrollToTop } from "./ScrollToTop";
 import { PageTransition } from "@/components/motion";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
+import { EmergencyActionBand } from "@/components/EmergencyActionBand";
 import { useToast, type Toast } from "@/hooks/useToast";
 
 export function Layout() {
@@ -45,6 +46,7 @@ export function Layout() {
           </PageTransition>
         </main>
         <MobileBottomNav />
+        <EmergencyActionBand />
         <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />

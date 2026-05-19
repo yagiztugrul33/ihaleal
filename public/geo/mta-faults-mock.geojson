@@ -1,0 +1,65 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kuzey Anadolu (Adalar)",
+        "code": "NAF-ADL"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            28.9,
+            40.8
+          ],
+          [
+            29.3,
+            40.4
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kuzey Anadolu (Sapanca)",
+        "code": "NAF-SAP"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            30.2,
+            40.7
+          ],
+          [
+            30.8,
+            40.3
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dogu Anadolu",
+        "code": "DAF-ERZ"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.4,
+            39.7
+          ],
+          [
+            39.8,
+            39.3
+          ]
+        ]
+      }
+    }
+  ]
+}
