@@ -217,17 +217,32 @@ function CevrePanel({ property }: { property: PropertyRecord }) {
 }
 
 function SosyalPanel({ property }: { property: PropertyRecord }) {
-  const socio = [
-    { name: "Eğitim", value: 78 },
-    { name: "Sağlık", value: 72 },
-    { name: "Ulaşım", value: 85 },
-    { name: "Yeşil alan", value: property.greenAreaRatio ?? 55 },
-  ];
+  const n = property.neighborhood;
+  const socio = n
+    ? [
+        { name: "Egitim", value: n.education.yakinOkullar[0]?.lgsScore ?? 70 },
+        { name: "Saglik", value: n.health.yakinHastaneler[0]?.emergencyQuality ?? 75 },
+        { name: "Ulasim", value: n.transportation.yurunebilir },
+        { name: "Is imkani", value: n.jobOpportunityIndex },
+      ]
+    : [
+        { name: "Eğitim", value: 78 },
+        { name: "Sağlık", value: 72 },
+        { name: "Ulaşım", value: 85 },
+        { name: "Yeşil alan", value: property.greenAreaRatio ?? 55 },
+      ];
+  const demoPie = n?.demographics.yasDagilimi ?? DEMO_PIE;
+  const walk = n?.transportation.yurunebilir ?? 60;
   return (
     <section className="idr-panel idr-panel--sosyal">
+      {n ? <p className="idr-muted">{n.aiMahalleOzeti}</p> : null}
+      <div className="idr-walk-badge">
+        <strong>{walk}</strong>
+        <span>Yurunebilirlik</span>
+      </div>
       <div className="idr-charts-row">
         <article className="idr-card">
-          <SectionTitle title="Suç endeksi (demo)" />
+          <SectionTitle title="Suç orani (TR ort. kiyas)" />
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={CRIME_DATA}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -239,7 +254,7 @@ function SosyalPanel({ property }: { property: PropertyRecord }) {
           </ResponsiveContainer>
         </article>
         <article className="idr-card">
-          <SectionTitle title="Sosyo-ekonomik skor" />
+          <SectionTitle title={`Sosyoekonomik duzey: ${n?.socioEconomicLevel ?? 3}/5`} />
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={socio} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -251,11 +266,19 @@ function SosyalPanel({ property }: { property: PropertyRecord }) {
           </ResponsiveContainer>
         </article>
         <article className="idr-card">
-          <SectionTitle title="Demografi (mock)" />
+          <SectionTitle title="Demografi" />
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
-              <Pie data={DEMO_PIE} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={70} label>
-                {DEMO_PIE.map((_, i) => (
+              <Pie
+                data={demoPie}
+                dataKey={n ? "pct" : "value"}
+                nameKey={n ? "band" : "name"}
+                cx="50%"
+                cy="50%"
+                outerRadius={70}
+                label
+              >
+                {demoPie.map((_, i) => (
                   <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
                 ))}
               </Pie>
@@ -264,6 +287,25 @@ function SosyalPanel({ property }: { property: PropertyRecord }) {
           </ResponsiveContainer>
         </article>
       </div>
+      <div className="idr-stats-row">
+        <StatCard label="Yasam maliyeti" value={String(n?.livingCostIndex ?? "—")} />
+        <StatCard label="Egitim LGS" value={String(n?.education.yakinOkullar[0]?.lgsScore ?? "—")} />
+      </div>
+      {n?.nearbyPoints?.length ? (
+        <>
+          <SectionTitle title="Yakin 10 nokta" />
+          <ul className="idr-nearby-list">
+            {n.nearbyPoints.slice(0, 10).map((pt) => (
+              <li key={pt.name}>
+                <span>{pt.name}</span>
+                <span>
+                  {pt.distanceKm.toFixed(1)} km · {pt.walkMin} dk
+                </span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
       <SectionTitle title="Sosyal tesisler" />
       <BadgeRow items={property.socialFacilities ?? ["Güvenlik", "Otopark", "Asansör"]} />
     </section>

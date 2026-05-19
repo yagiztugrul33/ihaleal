@@ -14,7 +14,7 @@ import {
   EarthquakeFilters,
   propertyMatchesEarthquakeUrlParams,
 } from "@/components/search/EarthquakeFilters";
-import { ensureEarthquakeScore } from "@/lib/property/earthquakeScore";
+import { getEarthquakeScore } from "@/lib/scoring/getEarthquakeScore";
 import { getPropertyPrice } from "@/types/property";
 import "@/styles/ilan-pages.css";
 import "@/styles/afet-disaster-hub.css";
@@ -231,7 +231,7 @@ export default function CategoryLandingPage({
     } else if (sort === "deprem") {
       sorted.sort(
         (a, b) =>
-          ensureEarthquakeScore(b).composite - ensureEarthquakeScore(a).composite
+          getEarthquakeScore(b).totalScore - getEarthquakeScore(a).totalScore
       );
     } else {
       sorted.sort(

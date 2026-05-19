@@ -92,6 +92,7 @@ const RealtorPartnership = lazy(() => import("@/pages/mega/RealtorPartnership"))
 const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
 const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
 const AuctionListPage      = lazy(() => import("@/pages/AuctionListPage"));
+const IlanlarKatalog       = lazy(() => import("@/pages/IlanlarKatalog"));
 const KullanimKosullari    = lazy(() => import("@/pages/legal/KullanimKosullari"));
 const MesafeliSatisSozlesmesi = lazy(() => import("@/pages/legal/MesafeliSatisSozlesmesi"));
 const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
@@ -147,6 +148,26 @@ const YatirimOnerisiPage = lazy(() => import("@/pages/modules/YatirimOnerisiPage
 const PortfoyYonetimiModulPage = lazy(() => import("@/pages/modules/PortfoyYonetimiModulPage"));
 const SigortaPazaryeriPage = lazy(() => import("@/pages/modules/SigortaPazaryeriPage"));
 const KrediPazaryeriPage = lazy(() => import("@/pages/modules/KrediPazaryeriPage"));
+const KentselDonusumPage = lazy(() => import("@/pages/modules/KentselDonusumPage"));
+const AfetToplanmaAlanlariPage = lazy(() => import("@/pages/modules/AfetToplanmaAlanlariPage"));
+const DepremCantasiPage = lazy(() => import("@/pages/modules/DepremCantasiPage"));
+const DepremSigortasiPage = lazy(() => import("@/pages/modules/DepremSigortasiPage"));
+const KomsulukRiskAnaliziPage = lazy(() => import("@/pages/modules/KomsulukRiskAnaliziPage"));
+const TatbikatRehberiPage = lazy(() => import("@/pages/modules/TatbikatRehberiPage"));
+const YapayZekaHasarTahminiPage = lazy(() => import("@/pages/modules/YapayZekaHasarTahminiPage"));
+const DepremEgitimiPage = lazy(() => import("@/pages/modules/DepremEgitimiPage"));
+const YikilanBinalarArsiviPage = lazy(() => import("@/pages/modules/YikilanBinalarArsiviPage"));
+const UzmanRandevuPage = lazy(() => import("@/pages/modules/UzmanRandevuPage"));
+const Ders1 = lazy(() => import("@/pages/modules/egitim/Ders1"));
+const Ders2 = lazy(() => import("@/pages/modules/egitim/Ders2"));
+const Ders3 = lazy(() => import("@/pages/modules/egitim/Ders3"));
+const Ders4 = lazy(() => import("@/pages/modules/egitim/Ders4"));
+const Ders5 = lazy(() => import("@/pages/modules/egitim/Ders5"));
+const Ders6 = lazy(() => import("@/pages/modules/egitim/Ders6"));
+const Ders7 = lazy(() => import("@/pages/modules/egitim/Ders7"));
+const Ders8 = lazy(() => import("@/pages/modules/egitim/Ders8"));
+const Ders9 = lazy(() => import("@/pages/modules/egitim/Ders9"));
+const Ders10 = lazy(() => import("@/pages/modules/egitim/Ders10"));
 
 function RedirectHowItWorksPreservingQuery() {
   const { search } = useLocation();
@@ -173,8 +194,8 @@ function App() {
             <Route path="/arama" element={<SearchResults />} />
             <Route path="/ihaleler" element={<LiveAuctions />} />
             <Route path={ROUTES.AUCTIONS} element={<AuctionListPage />} />
-            <Route path={ROUTES.ILANLAR} element={<AuctionListPage />} />
-            <Route path="/ilanlar" element={<AuctionListPage />} />
+            <Route path={ROUTES.ILANLAR} element={<IlanlarKatalog />} />
+            <Route path="/ilanlar" element={<IlanlarKatalog />} />
             <Route path="/ilanlar/:kategori/:alt/:tip" element={<IlanlarSegmentRouter />} />
             <Route path="/ilanlar/:kategori/:alt" element={<IlanlarSegmentRouter />} />
             <Route path="/ilanlar/:kategori" element={<IlanlarSegmentRouter />} />
@@ -382,6 +403,26 @@ function App() {
             <Route path="/modul/portfoy-yonetimi" element={<PortfoyYonetimiModulPage />} />
             <Route path="/modul/sigorta-pazaryeri" element={<SigortaPazaryeriPage />} />
             <Route path="/modul/kredi-pazaryeri" element={<KrediPazaryeriPage />} />
+            <Route path="/modul/kentsel-donusum" element={<KentselDonusumPage />} />
+            <Route path="/modul/afet-toplanma-alanlari" element={<AfetToplanmaAlanlariPage />} />
+            <Route path="/modul/deprem-cantasi" element={<DepremCantasiPage />} />
+            <Route path="/modul/deprem-sigortasi" element={<DepremSigortasiPage />} />
+            <Route path="/modul/komsuluk-risk-analizi" element={<KomsulukRiskAnaliziPage />} />
+            <Route path="/modul/tatbikat-rehberi" element={<TatbikatRehberiPage />} />
+            <Route path="/modul/yapay-zeka-hasar-tahmini" element={<YapayZekaHasarTahminiPage />} />
+            <Route path="/modul/deprem-egitimi" element={<DepremEgitimiPage />} />
+            <Route path="/modul/deprem-egitimi/ders-1" element={<Ders1 />} />
+            <Route path="/modul/deprem-egitimi/ders-2" element={<Ders2 />} />
+            <Route path="/modul/deprem-egitimi/ders-3" element={<Ders3 />} />
+            <Route path="/modul/deprem-egitimi/ders-4" element={<Ders4 />} />
+            <Route path="/modul/deprem-egitimi/ders-5" element={<Ders5 />} />
+            <Route path="/modul/deprem-egitimi/ders-6" element={<Ders6 />} />
+            <Route path="/modul/deprem-egitimi/ders-7" element={<Ders7 />} />
+            <Route path="/modul/deprem-egitimi/ders-8" element={<Ders8 />} />
+            <Route path="/modul/deprem-egitimi/ders-9" element={<Ders9 />} />
+            <Route path="/modul/deprem-egitimi/ders-10" element={<Ders10 />} />
+            <Route path="/modul/yikilan-binalar-arsivi" element={<YikilanBinalarArsiviPage />} />
+            <Route path="/modul/uzman-randevu" element={<UzmanRandevuPage />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route

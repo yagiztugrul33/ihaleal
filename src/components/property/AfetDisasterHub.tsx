@@ -9,11 +9,9 @@ import {
   type ReactNode,
 } from "react";
 import type { PropertyRecord } from "@/types/property";
-import type { EarthquakeFacets, EarthquakeSubScore } from "@/types/property/earthquake";
-import {
-  ensureEarthquakeScore,
-  generateEarthquakeNarrative,
-} from "@/lib/property/earthquakeScore";
+import type { SubScoreBreakdown } from "@/types/property/disaster";
+import { generateEarthquakeNarrative } from "@/lib/ai/earthquakeNarrative";
+import { getEarthquakeScore, scoreBandLabelTr } from "@/lib/scoring/getEarthquakeScore";
 import { ScoreRing } from "@/components/ilan/detail/shared";
 import { SubScoreBreakdownModal } from "@/components/property/SubScoreBreakdownModal";
 import "@/styles/afet-disaster-hub.css";
@@ -27,20 +25,20 @@ type AfetTabId =
   | "fay"
   | "zemin"
   | "yapi"
-  | "kat"
-  | "tahliye"
+  | "hasar"
+  | "guclendirme"
   | "acil"
   | "sigorta";
 
 const TABS: { id: AfetTabId; label: string }[] = [
-  { id: "genel", label: "Genel" },
-  { id: "fay", label: "Fay haritasi" },
+  { id: "genel", label: "Genel Bakis" },
+  { id: "fay", label: "Fay & Sismik" },
   { id: "zemin", label: "Zemin" },
-  { id: "yapi", label: "Yapi sinifi" },
-  { id: "kat", label: "Kat performansi" },
-  { id: "tahliye", label: "Tahliye" },
-  { id: "acil", label: "Acil ve toplanma" },
-  { id: "sigorta", label: "Sigorta" },
+  { id: "yapi", label: "Bina Yapisal" },
+  { id: "hasar", label: "Hasar Gecmisi" },
+  { id: "guclendirme", label: "Guclendirme" },
+  { id: "acil", label: "Acil Durum" },
+  { id: "sigorta", label: "Sigorta & Topluluk" },
 ];
 
 type LatLngTuple = [number, number];
@@ -217,9 +215,9 @@ function facetBlock(title: string, rows: [string, string][]) {
   );
 }
 
-function pickSubscores(subs: EarthquakeSubScore[], ids: string[]) {
-  const m = new Map(subs.map((s) => [s.id, s]));
-  return ids.map((id) => m.get(id)).filter(Boolean) as EarthquakeSubScore[];
+function pickBreakdown(subs: SubScoreBreakdown[], keys: string[]) {
+  const m = new Map(subs.map((s) => [s.key, s]));
+  return keys.map((k) => m.get(k)).filter(Boolean) as SubScoreBreakdown[];
 }
 
 function SuspenseMap({ children }: { children: ReactNode }) {
@@ -234,16 +232,17 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
   const faultFetchStarted = useRef(false);
   const assemblyFetchStarted = useRef(false);
   const [tab, setTab] = useState<AfetTabId>("genel");
-  const [modalSub, setModalSub] = useState<EarthquakeSubScore | null>(null);
+  const [modalSub, setModalSub] = useState<SubScoreBreakdown | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [faultGeo, setFaultGeo] = useState<object | null>(null);
   const [assemblies, setAssemblies] = useState<AssemblyRow[]>([]);
 
-  const payload = useMemo(() => ensureEarthquakeScore(property), [property]);
+  const score = useMemo(() => getEarthquakeScore(property), [property]);
   const narrative = useMemo(
-    () => generateEarthquakeNarrative(property, payload),
-    [property, payload]
+    () => generateEarthquakeNarrative(property).paragraphs,
+    [property]
   );
+  const d = property.disaster;
   const center = useMemo(() => centerOf(property), [property]);
 
   useEffect(() => {
@@ -285,32 +284,31 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     };
   }, [tab, property.city, center]);
 
-  const openSubModal = useCallback((s: EarthquakeSubScore) => {
+  const openSubModal = useCallback((s: SubScoreBreakdown) => {
     setModalSub(s);
     setModalOpen(true);
   }, []);
 
-  const f: EarthquakeFacets = payload.facets;
+  const zeminSubs = pickBreakdown(score.breakdown, ["soilClass"]);
+  const yapiSubs = pickBreakdown(score.breakdown, ["structuralSystem", "certificates"]);
+  const hasarSubs = pickBreakdown(score.breakdown, ["ageCondition", "damageHistory"]);
+  const guclendirmeSubs = pickBreakdown(score.breakdown, ["retrofit"]);
+  const acilSubs = pickBreakdown(score.breakdown, ["emergency", "neighborRisk"]);
+  const sigortaSubs = pickBreakdown(score.breakdown, ["insurance", "community"]);
 
-  const zeminSubs = pickSubscores(payload.subScores, ["zemin_sinifi"]);
-  const yapiSubs = pickSubscores(payload.subScores, ["yapi_sinifi"]);
-  const katSubs = pickSubscores(payload.subScores, ["kat_performansi", "bina_yasi"]);
-  const tahliyeSubs = pickSubscores(payload.subScores, ["acil_cikis", "yangin_hatlar"]);
-  const sigortaSubs = pickSubscores(payload.subScores, ["sigorta_dask"]);
-
-  function renderBars(list: EarthquakeSubScore[]) {
+  function renderBars(list: SubScoreBreakdown[]) {
     return (
       <div className="afet-hub__subs">
         {list.map((s) => (
           <button
-            key={s.id}
+            key={s.key}
             type="button"
             className="afet-hub__subcard"
             onClick={() => openSubModal(s)}
           >
             <div className="afet-hub__sub-meta">
-              <span>{s.label}</span>
-              <strong>{s.score}</strong>
+              <span>{s.labelTr}</span>
+              <strong>{Math.round(s.score)}</strong>
             </div>
             <div className="afet-hub__bar" aria-hidden>
               <span style={{ width: `${Math.min(100, s.score)}%` }} />
@@ -327,28 +325,29 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <div className="afet-hub__rings">
-            <ScoreRing score={payload.composite} label="Deprem uygunlugu (demo)" size={128} />
+            <ScoreRing score={Math.round(score.totalScore)} label="Deprem uygunlugu (demo)" size={128} />
             <div>
               <p style={{ margin: "0 0 0.5rem", fontWeight: 700 }}>
-                {payload.bandLabelTR}
+                {scoreBandLabelTr(score.band)}
               </p>
               <p className="afet-hub__muted" style={{ margin: 0 }}>
-                Fay mesafesi ~{f.faultDistanceKm} km • Toplanma yuruyusu ~{f.assemblyWalkMinutes}{" "}
-                dk • Guncelleme {payload.updatedAtDemo}
+                Fay mesafesi ~{d?.fault.distanceToFaultKm ?? "—"} km • Toplanma yuruyusu ~
+                {Math.round((d?.emergency.assemblyAreaWalkDistanceM ?? 800) / 80)} dk • Guncelleme{" "}
+                {score.computedAtIso.slice(0, 10)}
               </p>
             </div>
           </div>
           <div className="afet-hub__subs">
-            {payload.subScores.map((s) => (
+            {score.breakdown.map((s) => (
               <button
-                key={s.id}
+                key={s.key}
                 type="button"
                 className="afet-hub__subcard"
                 onClick={() => openSubModal(s)}
               >
                 <div className="afet-hub__sub-meta">
-                  <span>{s.label}</span>
-                  <strong>{s.score}</strong>
+                  <span>{s.labelTr}</span>
+                  <strong>{Math.round(s.score)}</strong>
                 </div>
                 <div className="afet-hub__bar">
                   <span style={{ width: `${Math.min(100, s.score)}%` }} />
@@ -368,7 +367,8 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <p className="afet-hub__muted">
-            MTA demo cizgisi: `/geo/mta-faults-mock.geojson`. Fay mesafe ~{f.faultDistanceKm} km.
+            MTA demo cizgisi: `/geo/mta-faults-mock.geojson`. Fay mesafe ~
+            {d?.fault.distanceToFaultKm ?? "—"} km ({d?.fault.nearestFaultNameTr ?? "—"}).
           </p>
           <SuspenseMap>
             <LazyFaultMap center={center} data={faultGeo} />
@@ -380,10 +380,10 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           {facetBlock("Zemin ve risk ipuclari", [
-            ["Zemin grubu", f.soilBand],
-            ["Sıvılasmaya acik parsel", f.liquefactionFlag ? "Evet" : "Hayir"],
-            ["Yumuşak kat / soft story", f.softStoryFlag ? "Isaretli" : "Yok"],
-            ["Bolgesel tehlike", f.regionalHazard],
+            ["Zemin sinifi (TBDY)", d?.soil.zeminSinifiTbdly ?? "—"],
+            ["Vs30 (m/s)", String(d?.soil.vs30MpsEst ?? "—")],
+            ["Sivilasma indeksi", String(d?.soil.liquefactionSusceptibilityIdx ?? "—")],
+            ["Tasarim PGA (g)", String(d?.fault.afadDesignPgaG ?? "—")],
           ])}
           {renderBars(zeminSubs)}
         </>
@@ -393,9 +393,10 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           {facetBlock("Yapi kabugu", [
-            ["Tahmini sinif", f.seismicClassGuess],
-            ["Görünür yüzey hasari", f.damageVisible],
-            ["Guclendirme", f.reinforcement],
+            ["Tasiyici sistem", d?.structural.structuralSystemType ?? "—"],
+            ["Hummer sinifi", d?.structural.hammerEarthquakeClass ?? "—"],
+            ["Kat adedi", String(d?.structural.effectiveStoryCount ?? "—")],
+            ["Yumusak kat indeksi", String(d?.structural.softStoryIndex ?? "—")],
           ])}
           {renderBars(yapiSubs)}
           <p className="afet-hub__muted">
@@ -404,25 +405,29 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
         </>
       );
       break;
-    case "kat":
+    case "hasar":
       panel = (
         <>
-          {facetBlock("Dikey tasima", [
-            ["Dikey kat riski", f.verticalRisk],
-            ["Bina yasi bandı", f.buildingAgeBand],
+          {facetBlock("Hasar gecmisi", [
+            ["Insaat yili", String(d?.structural.yearOfConstruction ?? "—")],
+            ["Denetim sinifi", d?.damageHistory.auditSeverityClass ?? "—"],
+            ["Hasar bayragi", d?.damageHistory.progressiveDamageFlag ? "Izleniyor" : "Kayit yok"],
+            ["Sigorta talebi", d?.damageHistory.insuranceClaimFiled ? "Var" : "Yok"],
           ])}
-          {renderBars(katSubs)}
+          {renderBars(hasarSubs)}
         </>
       );
       break;
-    case "tahliye":
+    case "guclendirme":
       panel = (
         <>
-          <p className="afet-hub__muted">
-            Acilis ve yangin güzergahi demo skorlari; kritik çıkış ve hidrant bilgisi ilan kartinda
-            teyit edilmelidir.
-          </p>
-          {renderBars(tahliyeSubs)}
+          {facetBlock("Guclendirme durumu", [
+            ["Uygulandi", d?.retrofit.retrofitExecuted ? "Evet" : "Hayir"],
+            ["Standart", d?.retrofit.retrofitDesignStandard ?? "—"],
+            ["Perde eklenen (m)", String(d?.retrofit.shearWallAddedLinearM ?? 0)],
+            ["Kolon mantosu", String(d?.retrofit.columnJacketEquivalentCount ?? 0)],
+          ])}
+          {renderBars(guclendirmeSubs)}
         </>
       );
       break;
@@ -430,9 +435,10 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <p className="afet-hub__muted">
-            AFAD demo toplanma noktalari `/data/afad-assembly-mock.json`; sehir ya da ≤35 km
-            mesafe ile süzülür.
+            AFAD demo toplanma noktalari ve tahliye erisim skorlari; sehir ya da ≤35 km mesafe ile
+            süzülür.
           </p>
+          {renderBars(acilSubs)}
           <ul className="afet-hub__assemble-list">
             {assemblies.map((a) => (
               <li key={a.id}>
@@ -449,9 +455,10 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     case "sigorta":
       panel = (
         <>
-          {facetBlock("Sigorta", [
-            ["DASK kaydı (demo)", f.daskLikelyKnown ? "Olumlu" : "Tekrar kontrol"],
-            ["Toplanma erisim dk", `${f.assemblyWalkMinutes}`],
+          {facetBlock("Sigorta ve topluluk", [
+            ["DASK aktif", d?.insurance.daskPolicyActive ? "Evet" : "Kontrol gerekli"],
+            ["Bekleme suresi (gun)", String(d?.insurance.waitingPeriodDays ?? "—")],
+            ["Gonullu yogunlugu", String(d?.community.afadVolunteerTeamNearby ? "Yuksek" : "Orta")],
           ])}
           {renderBars(sigortaSubs)}
           <ul className="afet-hub__muted" style={{ margin: 0, paddingLeft: "1.1rem" }}>

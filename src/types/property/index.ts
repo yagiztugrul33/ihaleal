@@ -100,7 +100,7 @@ export type PropertyRecord = PropertyBase & {
   taxonomy: PropertyTaxonomy;
   details: Partial<Record<string, unknown>>;
   /** Demo deprem / afet uygunluğu çıktıları; eksik ise `calculateEarthquakeScore`. */
-  earthquakeScore?: EarthquakeScorePayload;
+  earthquakeScore?: import("@/types/property/disaster").EarthquakeScore12;
 };
 
 export function isKonutVilla(p: PropertyRecord): boolean {

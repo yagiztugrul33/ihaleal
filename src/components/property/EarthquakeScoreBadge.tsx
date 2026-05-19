@@ -1,19 +1,14 @@
 import { useMemo } from "react";
-import type { EarthquakeScorePayload } from "@/types/property/earthquake";
-import { ensureEarthquakeScore } from "@/lib/property/earthquakeScore";
 import type { PropertyRecord } from "@/types/property";
+import { getEarthquakeScore, scoreBandLabelTr, topSubScores } from "@/lib/scoring/getEarthquakeScore";
 
 const bandClass: Record<string, string> = {
-  critical: "eq-badge--critical",
-  low: "eq-badge--low",
-  moderate: "eq-badge--moderate",
-  good: "eq-badge--good",
-  excellent: "eq-badge--excellent",
+  A: "eq-badge--excellent",
+  B: "eq-badge--good",
+  C: "eq-badge--moderate",
+  D: "eq-badge--low",
+  E: "eq-badge--critical",
 };
-
-function topFour(data: EarthquakeScorePayload) {
-  return [...data.subScores].sort((a, b) => b.score - a.score).slice(0, 4);
-}
 
 export interface EarthquakeScoreBadgeProps {
   property: PropertyRecord;
@@ -21,16 +16,17 @@ export interface EarthquakeScoreBadgeProps {
 }
 
 export function EarthquakeScoreBadge({ property, className }: EarthquakeScoreBadgeProps) {
-  const data = useMemo(() => ensureEarthquakeScore(property), [property]);
-  const top = useMemo(() => topFour(data), [data]);
+  const data = useMemo(() => getEarthquakeScore(property), [property]);
+  const top = useMemo(() => topSubScores(data, 4), [data]);
   const bc = bandClass[data.band] ?? "eq-badge--moderate";
+  const composite = Math.round(data.totalScore);
 
   return (
     <div className={`eq-badge-wrap ${className ?? ""}`.trim()}>
       <div
         className={`eq-badge ${bc}`}
         role="img"
-        aria-label={`Deprem puanı yaklaşık ${data.composite} üzerinden 100`}
+        aria-label={`Deprem puani ${composite} uzerinden 100`}
       >
         <span className="eq-badge__ring" aria-hidden>
           <svg viewBox="0 0 56 56" width="56" height="56">
@@ -43,21 +39,21 @@ export function EarthquakeScoreBadge({ property, className }: EarthquakeScoreBad
               className="eq-badge__prog"
               strokeWidth="6"
               strokeLinecap="round"
-              strokeDasharray={`${(data.composite / 100) * 150.8} 150.8`}
+              strokeDasharray={`${(composite / 100) * 150.8} 150.8`}
               transform="rotate(-90 28 28)"
             />
           </svg>
-          <span className="eq-badge__val">{data.composite}</span>
+          <span className="eq-badge__val">{composite}</span>
         </span>
       </div>
       <div className="eq-badge__panel" role="status">
-        <p className="eq-badge__title">Deprem özeti</p>
-        <p className="eq-badge__band">{data.bandLabelTR}</p>
+        <p className="eq-badge__title">Deprem ozeti</p>
+        <p className="eq-badge__band">{scoreBandLabelTr(data.band)}</p>
         <ul className="eq-badge__subs">
           {top.map((s) => (
-            <li key={s.id}>
-              <span>{s.label}</span>
-              <strong>{s.score}</strong>
+            <li key={s.key}>
+              <span>{s.labelTr}</span>
+              <strong>{Math.round(s.score)}</strong>
             </li>
           ))}
         </ul>

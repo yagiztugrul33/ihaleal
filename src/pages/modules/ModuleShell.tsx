@@ -152,7 +152,7 @@ export function ModulePdfCta({ label = "Detayli PDF raporu indir" }: { label?: s
   return (
     <div className="mod-pdf-cta">
       <p>Kurumsal formatli PDF rapor, harita ekleri ve yonetici ozeti ile hazirlanir.</p>
-      <button type="button" className="mod-btn-secondary" onClick={() => window.alert("PDF raporu yakinda aktif olacak.")}>
+      <button type="button" className="mod-btn-secondary" onClick={() => window.print()}>
         <FileDown className="h-4 w-4" aria-hidden />
         {label}
       </button>

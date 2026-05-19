@@ -1,6 +1,9 @@
-import type { EarthquakeBand, EarthquakeFacets } from "@/types/property/earthquake";
+import type { ScoreBand } from "@/types/property/disaster";
 import type { PropertyRecord } from "@/types/property";
-import { ensureEarthquakeScore } from "@/lib/property/earthquakeScore";
+import {
+  getEarthquakeFilterSnapshot,
+  type EarthquakeFilterSnapshot,
+} from "@/lib/scoring/earthquakeFilterAdapter";
 
 function num(sp: URLSearchParams, key: string): number | undefined {
   const raw = sp.get(key);
@@ -14,36 +17,35 @@ export function propertyMatchesEarthquakeUrlParams(
   p: PropertyRecord,
   sp: URLSearchParams
 ): boolean {
-  const d = ensureEarthquakeScore(p);
-  const f = d.facets;
+  const f = getEarthquakeFilterSnapshot(p);
 
   const minC = num(sp, "dpMin");
   const maxC = num(sp, "dpMax");
-  if (minC != null && d.composite < minC) return false;
-  if (maxC != null && d.composite > maxC) return false;
+  if (minC != null && f.totalScore < minC) return false;
+  if (maxC != null && f.totalScore > maxC) return false;
 
   const fay = num(sp, "dpFay");
   if (fay != null && f.faultDistanceKm < fay) return false;
 
-  const z = sp.get("dpZemin") as EarthquakeFacets["soilBand"] | "";
+  const z = sp.get("dpZemin") as EarthquakeFilterSnapshot["soilBand"] | "";
   if (z && f.soilBand !== z) return false;
 
-  const y = sp.get("dpYas") as EarthquakeFacets["buildingAgeBand"] | "";
+  const y = sp.get("dpYas") as EarthquakeFilterSnapshot["buildingAgeBand"] | "";
   if (y && f.buildingAgeBand !== y) return false;
 
-  const cls = sp.get("dpSinif") as EarthquakeFacets["seismicClassGuess"] | "";
+  const cls = sp.get("dpSinif") as EarthquakeFilterSnapshot["seismicClassGuess"] | "";
   if (cls && f.seismicClassGuess !== cls) return false;
 
   const rg = sp.get("dpBolge") as EarthquakeFacets["regionalHazard"] | "";
   if (rg && f.regionalHazard !== rg) return false;
 
-  const vr = sp.get("dpKat") as EarthquakeFacets["verticalRisk"] | "";
+  const vr = sp.get("dpKat") as EarthquakeFilterSnapshot["verticalRisk"] | "";
   if (vr && f.verticalRisk !== vr) return false;
 
-  const g = sp.get("dpGuclendirme") as EarthquakeFacets["reinforcement"] | "";
+  const g = sp.get("dpGuclendirme") as EarthquakeFilterSnapshot["reinforcement"] | "";
   if (g && f.reinforcement !== g) return false;
 
-  const h = sp.get("dpHasar") as EarthquakeFacets["damageVisible"] | "";
+  const h = sp.get("dpHasar") as EarthquakeFilterSnapshot["damageVisible"] | "";
   if (h && f.damageVisible !== h) return false;
 
   const walkMax = num(sp, "dpYuruMax");
@@ -53,8 +55,8 @@ export function propertyMatchesEarthquakeUrlParams(
   if (dask === "evet" && !f.daskLikelyKnown) return false;
   if (dask === "hayir" && f.daskLikelyKnown) return false;
 
-  const dpBand = sp.get("dpBand") as EarthquakeBand | "";
-  if (dpBand && d.band !== dpBand) return false;
+  const dpBand = sp.get("dpBand") as ScoreBand | "";
+  if (dpBand && f.band !== dpBand) return false;
 
   const soft = sp.get("dpSoft");
   if (soft === "1" && !f.softStoryFlag) return false;
@@ -62,7 +64,7 @@ export function propertyMatchesEarthquakeUrlParams(
   return true;
 }
 
-const ZEMIN: EarthquakeFacets["soilBand"][] = ["kayalik", "siki_kill", "gevsek", "dolgu"];
+const ZEMIN: EarthquakeFilterSnapshot["soilBand"][] = ["kayalik", "siki_kill", "gevsek", "dolgu"];
 
 const EMPTY = "(bos)";
 
@@ -322,11 +324,11 @@ export function EarthquakeFilters({ searchParams: sp, onChangeKey }: EarthquakeF
           onChange={(e) => onChangeKey("dpBand", e.target.value)}
         >
           <option value="">{EMPTY}</option>
-          <option value="critical">critical</option>
-          <option value="low">low</option>
-          <option value="moderate">moderate</option>
-          <option value="good">good</option>
-          <option value="excellent">excellent</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
         </select>
       </label>
 

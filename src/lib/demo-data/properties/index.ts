@@ -1,6 +1,7 @@
 import type { CategoryKey, PropertyRecord } from "@/types/property";
 import { buildDemoProperties } from "./generate";
 import { seedDisasterForProperty } from "@/lib/demo-data/disaster/seedDisasterData";
+import { seedNeighborhoodForProperty } from "@/lib/demo-data/neighborhood/seedNeighborhoodData";
 
 export { buildDemoProperties, DEMO_PROPERTY_COUNT } from "./generate";
 
@@ -8,7 +9,9 @@ let cache: PropertyRecord[] | null = null;
 
 function getCache(): PropertyRecord[] {
   if (!cache) {
-    cache = buildDemoProperties().map(seedDisasterForProperty);
+    cache = buildDemoProperties()
+      .map(seedDisasterForProperty)
+      .map(seedNeighborhoodForProperty);
   }
   return cache;
 }

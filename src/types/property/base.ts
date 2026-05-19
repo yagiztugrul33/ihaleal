@@ -209,4 +209,5 @@ export interface PropertyBase
     ModalityFields {
   disaster?: DisasterData;
   earthquakeScore?: EarthquakeScore12;
+  neighborhood?: import("@/types/property/neighborhood").NeighborhoodData;
 }
