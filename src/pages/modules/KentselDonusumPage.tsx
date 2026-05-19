@@ -267,7 +267,7 @@ export default function KentselDonusumPage() {
       </ModulePanel>
 
       <div className="mod-cta-row mod-no-print">
-        <Link to="/modul/kat-karsiligi-arsa" className="mod-btn-primary">
+        <Link to="/kat-karsiligi-arsa" className="mod-btn-primary">
           <Landmark className="h-4 w-4" aria-hidden />
           Kat karşılığı arsa modülü
           <ChevronRight className="h-4 w-4" aria-hidden />

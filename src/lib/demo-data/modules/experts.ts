@@ -1,9 +1,11 @@
 export type ExpertCategoryId =
-  | "statik"
-  | "imar"
-  | "sigorta"
-  | "hukuk"
-  | "psikoloji"
+  | "insaat-muhendisi"
+  | "jeoloji-muhendisi"
+  | "mimar"
+  | "spk-ekspertiz"
+  | "sigorta-brokeri"
+  | "avukat"
+  | "psikolog"
   | "afet-koordinator";
 
 export interface ExpertCategory {
@@ -17,149 +19,147 @@ export interface ExpertProfile {
   categoryId: ExpertCategoryId;
   name: string;
   title: string;
+  chamberNo: string;
   city: string;
   experienceYears: number;
+  completedJobs: number;
   rating: number;
   reviewCount: number;
   languages: string[];
   specialties: string[];
-  nextSlot: string;
-  feeBand: string;
+  hourlyRateMin: number;
+  hourlyRateMax: number;
+  availableSlotsThisWeek: string[];
   licensed: boolean;
 }
 
 export const EXPERT_CATEGORIES: ExpertCategory[] = [
   {
-    id: "statik",
-    label: "Statik ve güçlendirme",
-    description: "Bina performans analizi, güçlendirme projesi ve saha denetimi.",
+    id: "insaat-muhendisi",
+    label: "Insaat muhendisi (statik)",
+    description: "Tasiyici sistem, performans analizi, guclendirme projesi ve saha denetimi.",
   },
   {
-    id: "imar",
-    label: "İmar ve ruhsat",
-    description: "Parsel durumu, ruhsat uyumu ve kentsel dönüşüm süreçleri.",
+    id: "jeoloji-muhendisi",
+    label: "Jeoloji muhendisi (zemin)",
+    description: "Zemin etudu, mikro bolgeleme, sivilasma ve temel tasarim danismanligi.",
   },
   {
-    id: "sigorta",
-    label: "Sigorta ve hasar",
-    description: "DASK, konut poliçesi ve hasar tespit koordinasyonu.",
+    id: "mimar",
+    label: "Mimar (proje)",
+    description: "Ruhsat, mimari proje, kentsel donusum uyumu ve uygulama koordinasyonu.",
   },
   {
-    id: "hukuk",
-    label: "Hukuk ve tapu",
-    description: "Ortak mülkiyet, tahliye ve sözleşme danışmanlığı.",
+    id: "spk-ekspertiz",
+    label: "SPK ekspertiz uzmani",
+    description: "Gayrimenkul degerleme, hasar sonrasi ekspertiz ve raporlama.",
   },
   {
-    id: "psikoloji",
-    label: "Psikososyal destek",
-    description: "Travma sonrası aile ve çocuk destek programları.",
+    id: "sigorta-brokeri",
+    label: "Sigorta brokeri",
+    description: "DASK, konut ve deprem teminatlari, hasar dosyasi koordinasyonu.",
+  },
+  {
+    id: "avukat",
+    label: "Avukat (gayrimenkul + afet)",
+    description: "Kat mulkiyeti, tahliye, sigorta ve kentsel donusum sozlesmeleri.",
+  },
+  {
+    id: "psikolog",
+    label: "Psikolog (afet sonrasi travma)",
+    description: "Travma sonrasi aile ve cocuk destek programlari.",
   },
   {
     id: "afet-koordinator",
-    label: "Afet koordinasyonu",
-    description: "Kurumsal tatbikat, acil plan ve toplanma alanı planlaması.",
+    label: "Afet koordinatoru (kurumsal hazirlik)",
+    description: "Kurumsal tatbikat, acil plan, toplanma alani ve kriz yonetimi.",
   },
 ];
 
 const FIRST = [
-  "Ayşe",
-  "Mehmet",
-  "Zeynep",
-  "Can",
-  "Elif",
-  "Burak",
-  "Selin",
-  "Emre",
-  "Deniz",
-  "Kerem",
-  "Merve",
-  "Oğuz",
-  "Ece",
-  "Barış",
-  "Cem",
-  "Gül",
-  "Hakan",
-  "İrem",
-  "Kaan",
-  "Lale",
+  "Ayse", "Mehmet", "Zeynep", "Can", "Elif", "Burak", "Selin", "Emre", "Deniz", "Kerem",
+  "Merve", "Oguz", "Ece", "Baris", "Cem", "Gul", "Hakan", "Irem", "Kaan", "Lale",
 ];
 const LAST = [
-  "Yılmaz",
-  "Kaya",
-  "Demir",
-  "Çelik",
-  "Şahin",
-  "Aydın",
-  "Öztürk",
-  "Arslan",
-  "Koç",
-  "Polat",
-  "Aksoy",
-  "Erdoğan",
-  "Güneş",
-  "Kurt",
-  "Aslan",
-  "Tekin",
-  "Bulut",
-  "Sarı",
-  "Taş",
-  "Özkan",
+  "Yilmaz", "Kaya", "Demir", "Celik", "Sahin", "Aydin", "Ozturk", "Arslan", "Koc", "Polat",
+  "Aksoy", "Erdogan", "Gunes", "Kurt", "Aslan", "Tekin", "Bulut", "Sari", "Tas", "Ozkan",
 ];
-const CITIES = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya", "Adana", "Kocaeli", "Gaziantep", "Konya", "Mersin"];
+const CITIES = ["Istanbul", "Ankara", "Izmir", "Bursa", "Antalya", "Adana", "Kocaeli", "Gaziantep", "Konya", "Mersin"];
+
+const CHAMBER_PREFIX: Record<ExpertCategoryId, string> = {
+  "insaat-muhendisi": "IMO",
+  "jeoloji-muhendisi": "JMO",
+  mimar: "TMMOB",
+  "spk-ekspertiz": "SPK",
+  "sigorta-brokeri": "SEDDK",
+  avukat: "TBB",
+  psikolog: "TPD",
+  "afet-koordinator": "AFAD",
+};
 
 const SPECIALTIES: Record<ExpertCategoryId, string[][]> = {
-  statik: [
-    ["Karbon lif güçlendirme", "Perde takviyesi"],
-    ["Yumuşak kat analizi", "Mikro modelleme"],
-    ["Yığma bina güçlendirme", "Sıvama"],
-    ["Temel iyileştirme", "Zemin etüdü"],
-    ["Hasar tespit", "Performans analizi"],
+  "insaat-muhendisi": [
+    ["Karbon lif guclendirme", "Perde takviyesi"],
+    ["Yumusak kat analizi", "Performans degerlendirme"],
+    ["Yigma bina guclendirme", "Sivama"],
+    ["Temel-perde baglantisi", "Hasar tespit"],
   ],
-  imar: [
-    ["Kentsel dönüşüm", "Parsel birleştirme"],
-    ["Ruhsat ihyası", "İskan"],
-    ["İmar planı yorumu", "Emsal"],
-    ["Sit alanı", "Koruma"],
-    ["Kat irtifakı", "Arsa payı"],
+  "jeoloji-muhendisi": [
+    ["Mikro bolgeleme", "Vs30"],
+    ["Sivilasma riski", "Dolgu zemin"],
+    ["Heyelan analizi", "Sondaj yorumu"],
+    ["Zemin sinifi", "TBDY raporu"],
   ],
-  sigorta: [
-    ["DASK yenileme", "Eksper koordinasyonu"],
-    ["Konut poliçesi", "Makine kırılması"],
-    ["Hasar dosyası", "Tazminat süreci"],
-    ["Ticari risk", "İşyeri"],
-    ["Ferdi kaza", "Ek teminat"],
+  mimar: [
+    ["Kentsel donusum projesi", "Ruhsat"],
+    ["Restorasyon", "Koruma"],
+    ["Kat irtifaki", "Uygulama denetimi"],
+    ["Emsal hesabi", "Cephe cozumu"],
   ],
-  hukuk: [
-    ["Ortak alan uyuşmazlığı", "Kat malikleri"],
-    ["Tahliye", "Kira"],
-    ["Tapu iptali", "Şerh"],
-    ["Müteahhit sözleşmesi", "Garanti"],
-    ["Sigorta davası", "Tazminat"],
+  "spk-ekspertiz": [
+    ["Konut ekspertizi", "Ticari gayrimenkul"],
+    ["Hasar sonrasi deger", "Sigorta raporu"],
+    ["Arsa degerleme", "Gelir yaklasimi"],
+    ["SPK lisansli rapor", "Karsilastirmali analiz"],
   ],
-  psikoloji: [
-    ["Travma sonrası", "Aile terapisi"],
-    ["Çocuk ve ergen", "Okul uyumu"],
+  "sigorta-brokeri": [
+    ["DASK yenileme", "Konut paketi"],
+    ["Hasar dosyasi", "Eksper koordinasyonu"],
+    ["Isyeri deprem", "Makine kirilmasi"],
+    ["Teminat karsilastirma", "Prim optimizasyonu"],
+  ],
+  avukat: [
+    ["Kat malikleri kurulu", "Tahliye"],
+    ["Muteahhit sozlesmesi", "Tapu"],
+    ["Sigorta davasi", "Kentsel donusum"],
+    ["Ortak alan", "Garanti ihtiyati"],
+  ],
+  psikolog: [
+    ["Travma sonrasi", "Aile terapisi"],
+    ["Cocuk ve ergen", "Okul uyumu"],
     ["Grup destek", "Kurumsal EAP"],
-    ["Uyku ve kaygı", "Stres yönetimi"],
-    ["Yaşlı bakım", "Bakıcı desteği"],
+    ["Uyku ve kaygi", "Stres yonetimi"],
   ],
   "afet-koordinator": [
-    ["Kurumsal tatbikat", "Senaryo yazımı"],
-    ["Toplanma alanı", "Lojistik"],
-    ["Bina tahliye planı", "Asansör prosedürü"],
-    ["İletişim krizi", "Medya"],
+    ["Kurumsal tatbikat", "Senaryo yazimi"],
+    ["Toplanma alani", "Lojistik"],
+    ["Bina tahliye plani", "Kriz masasi"],
     ["Tedarik zinciri", "Acil stok"],
   ],
 };
 
 const TITLES: Record<ExpertCategoryId, string[]> = {
-  statik: ["İnşaat Mühendisi", "Yapı Mühendisi", "Statik Proje Mühendisi"],
-  imar: ["Şehir Plancısı", "İmar Uzmanı", "Mimar"],
-  sigorta: ["Sigorta Eksperi", "Risk Danışmanı", "Hasar Uzmanı"],
-  hukuk: ["Avukat", "Hukuk Danışmanı"],
-  psikoloji: ["Klinik Psikolog", "Psikolojik Danışman"],
-  "afet-koordinator": ["Afet Yönetimi Uzmanı", "İSG Uzmanı", "Kriz Koordinatörü"],
+  "insaat-muhendisi": ["Insaat Muhendisi", "Statik Proje Muhendisi", "Yapi Muhendisi"],
+  "jeoloji-muhendisi": ["Jeoloji Muhendisi", "Jeoteknik Uzman", "Zemin Etudu Muhendisi"],
+  mimar: ["Mimar", "Proje Mimari", "Restorasyon Mimari"],
+  "spk-ekspertiz": ["SPK Lisansli Ekspertiz Uzmani", "Gayrimenkul Degerleme Uzmani"],
+  "sigorta-brokeri": ["Sigorta Brokeri", "Risk Danismani", "Hasar Uzmani"],
+  avukat: ["Avukat", "Gayrimenkul Avukati"],
+  psikolog: ["Klinik Psikolog", "Psikolojik Danisman"],
+  "afet-koordinator": ["Afet Yonetimi Uzmani", "Kriz Koordinatoru", "ISG Uzmani"],
 };
+
+const SLOT_POOL = ["Pzt 09:00", "Pzt 14:00", "Sal 10:30", "Sal 16:00", "Car 11:00", "Per 09:30", "Cum 15:00"];
 
 function buildExpertsForCategory(categoryId: ExpertCategoryId, count: number): ExpertProfile[] {
   const specs = SPECIALTIES[categoryId];
@@ -169,38 +169,48 @@ function buildExpertsForCategory(categoryId: ExpertCategoryId, count: number): E
     const name = `${FIRST[i % FIRST.length]} ${LAST[(i * 3) % LAST.length]}`;
     const city = CITIES[(seed + i) % CITIES.length]!;
     const experienceYears = 5 + ((seed + i * 2) % 22);
+    const completedJobs = 40 + ((seed + i * 7) % 320);
     const rating = Math.round((4.2 + ((seed + i) % 8) * 0.1) * 10) / 10;
     const reviewCount = 12 + ((seed + i * 5) % 180);
-    const day = 1 + (i % 12);
-    const hour = 9 + (i % 6);
+    const hourlyBase = experienceYears > 15 ? 1800 : experienceYears > 8 ? 1200 : 850;
+    const hourlyMax = hourlyBase + 400 + (i % 3) * 100;
+    const slotCount = 2 + (i % 3);
+    const slots = Array.from({ length: slotCount }, (_, s) => SLOT_POOL[(i + s) % SLOT_POOL.length]!);
     return {
       id: `exp-${categoryId}-${String(i + 1).padStart(2, "0")}`,
       categoryId,
       name,
       title: titles[i % titles.length]!,
+      chamberNo: `${CHAMBER_PREFIX[categoryId]}-${city.slice(0, 3).toUpperCase()}-${10000 + seed + i}`,
       city,
       experienceYears,
+      completedJobs,
       rating: Math.min(5, rating),
       reviewCount,
-      languages: i % 4 === 0 ? ["Türkçe", "İngilizce"] : ["Türkçe"],
+      languages: i % 4 === 0 ? ["Turkce", "Ingilizce"] : ["Turkce"],
       specialties: specs[i % specs.length]!,
-      nextSlot: `${day} gün sonra ${hour}:00`,
-      feeBand: experienceYears > 15 ? "1.800 – 2.400 TL" : experienceYears > 8 ? "1.200 – 1.700 TL" : "850 – 1.150 TL",
+      hourlyRateMin: hourlyBase,
+      hourlyRateMax: hourlyMax,
+      availableSlotsThisWeek: slots,
       licensed: i % 9 !== 0,
     };
   });
 }
 
 const COUNTS: Record<ExpertCategoryId, number> = {
-  statik: 18,
-  imar: 16,
-  sigorta: 17,
-  hukuk: 15,
-  psikoloji: 16,
-  "afet-koordinator": 18,
+  "insaat-muhendisi": 13,
+  "jeoloji-muhendisi": 12,
+  mimar: 13,
+  "spk-ekspertiz": 12,
+  "sigorta-brokeri": 13,
+  avukat: 12,
+  psikolog: 13,
+  "afet-koordinator": 12,
 };
 
-export const ALL_EXPERTS: ExpertProfile[] = EXPERT_CATEGORIES.flatMap((c) => buildExpertsForCategory(c.id, COUNTS[c.id]));
+export const ALL_EXPERTS: ExpertProfile[] = EXPERT_CATEGORIES.flatMap((c) =>
+  buildExpertsForCategory(c.id, COUNTS[c.id]),
+);
 
 export function expertsByCategory(categoryId: ExpertCategoryId): ExpertProfile[] {
   return ALL_EXPERTS.filter((e) => e.categoryId === categoryId);
@@ -219,4 +229,16 @@ export function filterExperts(
     const hay = `${e.name} ${e.title} ${e.city} ${e.specialties.join(" ")}`.toLocaleLowerCase("tr-TR");
     return hay.includes(q);
   });
+}
+
+export function expertInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+export function hourlyRateLabel(e: ExpertProfile): string {
+  return `${e.hourlyRateMin.toLocaleString("tr-TR")} – ${e.hourlyRateMax.toLocaleString("tr-TR")} TL/saat`;
 }

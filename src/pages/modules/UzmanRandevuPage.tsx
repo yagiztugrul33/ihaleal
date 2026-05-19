@@ -7,11 +7,12 @@ import {
   Filter,
   Search,
   Star,
-  UserCircle2,
 } from "lucide-react";
 import {
   EXPERT_CATEGORIES,
+  expertInitials,
   filterExperts,
+  hourlyRateLabel,
   type ExpertCategoryId,
   type ExpertProfile,
 } from "@/lib/demo-data/modules/experts";
@@ -19,8 +20,23 @@ import { ModulePanel, ModuleShell, ModuleTag } from "./ModuleShell";
 
 type WizardStep = 1 | 2 | 3;
 
+function ExpertAvatar({ name }: { name: string }) {
+  const initials = expertInitials(name);
+  return (
+    <div
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+      style={{
+        background: "linear-gradient(135deg, #0d9488 0%, #6366f1 55%, #1e293b 100%)",
+      }}
+      aria-hidden
+    >
+      {initials}
+    </div>
+  );
+}
+
 export default function UzmanRandevuPage() {
-  const [category, setCategory] = useState<ExpertCategoryId>("statik");
+  const [category, setCategory] = useState<ExpertCategoryId>("insaat-muhendisi");
   const [city, setCity] = useState("all");
   const [licensedOnly, setLicensedOnly] = useState(false);
   const [minRating, setMinRating] = useState(0);
@@ -47,7 +63,7 @@ export default function UzmanRandevuPage() {
     window.dispatchEvent(
       new CustomEvent("ihaleal:add-toast", {
         detail: {
-          message: `${selected?.name} ile ${date} ${slot} randevunuz oluşturuldu. Onay SMS'i g뿯½nderildi.`,
+          message: `${selected?.name} ile ${date} ${slot} randevunuz olusturuldu. Onay e-postasi gonderildi.`,
           type: "success",
         },
       }),
@@ -62,12 +78,12 @@ export default function UzmanRandevuPage() {
   return (
     <ModuleShell
       title="Uzman Randevu"
-      subtitle="Statik, imar, sigorta, hukuk, psikososyal destek ve afet koordinasyonu uzmanlarından online randevu alın."
-      badge="Uzman Ağı"
+      subtitle="Statik, zemin, mimari proje, SPK ekspertiz, sigorta, hukuk, psikososyal destek ve afet koordinasyonu uzmanlarindan randevu alin."
+      badge="Uzman Agi"
       icon={Calendar}
       iconAccent="text-cyan-300"
     >
-      <ModulePanel title="Uzmanlık alanı">
+      <ModulePanel title="Uzmanlik alani">
         <div className="flex flex-wrap gap-2" role="tablist">
           {EXPERT_CATEGORIES.map((c) => (
             <button
@@ -104,10 +120,10 @@ export default function UzmanRandevuPage() {
           }
         >
           <div className="mod-form-grid">
-              <div>
-              <label htmlFor="ur-il">Şehir</label>
+            <div>
+              <label htmlFor="ur-il">Sehir</label>
               <select id="ur-il" value={city} onChange={(e) => setCity(e.target.value)}>
-                <option value="all">T뿯½m뿯½</option>
+                <option value="all">Tumu</option>
                 {cities.map((ci) => (
                   <option key={ci} value={ci}>
                     {ci}
@@ -115,18 +131,17 @@ export default function UzmanRandevuPage() {
                 ))}
               </select>
             </div>
-            
             <div>
               <label htmlFor="ur-puan">Minimum puan</label>
               <select id="ur-puan" value={minRating} onChange={(e) => setMinRating(Number(e.target.value))}>
-                <option value={0}>T뿯½m뿯½</option>
+                <option value={0}>Tumu</option>
                 <option value={4}>4.0+</option>
                 <option value={4.5}>4.5+</option>
               </select>
             </div>
             <label className="flex items-center gap-2 text-sm text-slate-300">
               <input type="checkbox" checked={licensedOnly} onChange={(e) => setLicensedOnly(e.target.checked)} />
-              Yalnızca lisanslı / belgeli
+              Yalnizca lisansli / belgeli
             </label>
             <div>
               <label htmlFor="ur-ara">Arama</label>
@@ -135,9 +150,10 @@ export default function UzmanRandevuPage() {
                 <input
                   id="ur-ara"
                   className="pl-9"
+                  style={{ fontSize: "16px" }}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="İsim veya uzmanlık"
+                  placeholder="Isim veya uzmanlik"
                 />
               </div>
             </div>
@@ -159,17 +175,26 @@ export default function UzmanRandevuPage() {
                 }}
               >
                 <div className="flex items-start gap-2">
-                  <UserCircle2 className="h-8 w-8 shrink-0 text-slate-500" />
+                  <ExpertAvatar name={e.name} />
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold text-white">{e.name}</p>
                     <p className="text-xs text-slate-400">
-                      {e.title} 뿯½ {e.city} 뿯½ {e.experienceYears} yıl
+                      {e.title} · {e.city} · {e.experienceYears} yil · {e.completedJobs} is
                     </p>
+                    <p className="text-xs text-slate-500">Oda sicil: {e.chamberNo}</p>
                     <p className="mt-1 flex items-center gap-1 text-xs text-amber-200">
                       <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-                      {e.rating} ({e.reviewCount})
+                      {e.rating} ({e.reviewCount} yorum)
                     </p>
-                    <p className="text-xs text-slate-500">{e.specialties.join(" 뿯½ ")}</p>
+                    <p className="text-xs text-emerald-200">{hourlyRateLabel(e)}</p>
+                    <p className="text-xs text-slate-500">{e.specialties.join(" · ")}</p>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {e.availableSlotsThisWeek.map((s) => (
+                        <span key={s} className="rounded bg-cyan-500/15 px-1.5 py-0.5 text-[10px] text-cyan-100">
+                          Bu hafta: {s}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                   {e.licensed ? <ModuleTag tone="ok">Belgeli</ModuleTag> : null}
                 </div>
@@ -180,15 +205,16 @@ export default function UzmanRandevuPage() {
       </div>
 
       {selected ? (
-        <ModulePanel title="Randevu sihirbazı">
+        <ModulePanel title="Randevu sihirbazi">
           <p className="text-sm text-slate-400">
-            Adım {step} / 3 — {selected.name}
+            Adim {step} / 3 — {selected.name}
           </p>
           {step === 1 ? (
             <div className="mt-3 space-y-2 text-sm text-slate-300">
-              <p>뿯½cret bandı: {selected.feeBand}</p>
-              <p>En yakın slot: {selected.nextSlot}</p>
-              <p>Diller: {selected.languages.join(", ")}</p>
+              <p>Oda sicil: {selected.chamberNo}</p>
+              <p>Tamamlanan is: {selected.completedJobs}</p>
+              <p>Ucret: {hourlyRateLabel(selected)}</p>
+              <p>Musait saatler: {selected.availableSlotsThisWeek.join(", ")}</p>
               <button type="button" className="mod-btn-primary mt-2" onClick={() => setStep(2)}>
                 Devam
                 <ChevronRight className="h-4 w-4" />
@@ -203,24 +229,27 @@ export default function UzmanRandevuPage() {
               </div>
               <div>
                 <label htmlFor="ur-saat">Saat</label>
-                <select id="ur-saat" value={slot} onChange={(ev) => setSlot(ev.target.value)} required>
-                  <option value="">Se뿯½in</option>
+                <select id="ur-saat" value={slot} onChange={(ev) => setSlot(ev.target.value)} required style={{ fontSize: "16px" }}>
+                  <option value="">Secin</option>
+                  {selected.availableSlotsThisWeek.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
                   <option value="09:00">09:00</option>
-                  <option value="11:00">11:00</option>
                   <option value="14:00">14:00</option>
-                  <option value="16:30">16:30</option>
                 </select>
               </div>
               <div>
                 <label htmlFor="ur-not">Not</label>
-                <textarea id="ur-not" value={note} onChange={(ev) => setNote(ev.target.value)} placeholder="Kısa 뿯½zet" />
+                <textarea id="ur-not" value={note} onChange={(ev) => setNote(ev.target.value)} placeholder="Kisa ozet" />
               </div>
               <div className="mod-form-actions">
                 <button type="button" className="mod-btn-secondary" onClick={() => setStep(1)}>
                   <ChevronLeft className="h-4 w-4" /> Geri
                 </button>
                 <button type="button" className="mod-btn-primary" onClick={() => setStep(3)} disabled={!date || !slot}>
-                  뿯½zet
+                  Ozet
                 </button>
               </div>
             </div>
