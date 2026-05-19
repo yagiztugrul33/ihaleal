@@ -273,6 +273,32 @@
   gap: 16px;
 }
 
+.premium-categories__track--h8 {
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+}
+
+.premium-category-card--rich {
+  scroll-snap-align: start;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  min-height: 120px;
+  transform: scale(1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.premium-category-card--rich:hover {
+  transform: scale(1.03);
+  border-color: rgba(96, 165, 250, 0.7);
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.35);
+}
+
+.premium-category-card--rich .premium-category-card__icon {
+  background: rgba(0, 0, 0, 0.25);
+}
+
 .premium-category-card {
   display: flex;
   flex-direction: column;
@@ -844,8 +870,95 @@
 }
 
 .premium-auction-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-4px);
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2);
+}
+
+.premium-auction-card--v2 {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.premium-auction-card--v2:hover .premium-auction-card__image {
+  transform: scale(1.05);
+}
+
+.premium-auction-card__live {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(220, 38, 38, 0.95);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.premium-auction-card__live i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: premium-live-pulse 1.2s ease infinite;
+}
+
+@keyframes premium-live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.premium-auction-card__fav {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(15, 23, 42, 0.65);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.premium-testimonial-card__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+.premium-star {
+  width: 14px;
+  height: 14px;
+  color: rgba(148, 163, 184, 0.5);
+}
+
+.premium-star--on {
+  color: #fbbf24;
+}
+
+.premium-testimonials__cta {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.premium-testimonials__cta a {
+  color: var(--premium-blue-bright);
+  font-weight: 600;
 }
 
 .premium-auction-card__image {

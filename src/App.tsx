@@ -125,6 +125,7 @@ const FiyatlandirmaPage = lazy(() => import("@/pages/marketing/FiyatlandirmaPage
 const ReelsPage = lazy(() => import("@/pages/marketing/ReelsPage"));
 const BasindaBizPage = lazy(() => import("@/pages/marketing/BasindaBizPage"));
 const BildirimlerPage = lazy(() => import("@/pages/BildirimlerPage"));
+const IlanlarSegmentRouter = lazy(() => import("@/pages/ilan/IlanlarSegmentRouter"));
 
 function App() {
   return (
@@ -148,7 +149,9 @@ function App() {
             <Route path={ROUTES.AUCTIONS} element={<AuctionListPage />} />
             <Route path={ROUTES.ILANLAR} element={<AuctionListPage />} />
             <Route path="/ilanlar" element={<AuctionListPage />} />
-            <Route path="/ilanlar/:id" element={<AuctionDetail />} />
+            <Route path="/ilanlar/:kategori/:alt/:tip" element={<IlanlarSegmentRouter />} />
+            <Route path="/ilanlar/:kategori/:alt" element={<IlanlarSegmentRouter />} />
+            <Route path="/ilanlar/:kategori" element={<IlanlarSegmentRouter />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
             <Route path="/teklif-al" element={<TeklifAlPage />} />
             <Route path="/kapali-teklif" element={<KapaliTeklifPage />} />

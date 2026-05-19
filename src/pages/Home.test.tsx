@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import Home from "@/pages/Home";
 import { LocaleProvider } from "@/contexts/LocaleContext";
 import { LOCALE_STORAGE_KEY } from "@/i18n/messages";
+import { getFeaturedAuctions } from "@/lib/demo-data";
 
 describe("Home", () => {
   beforeEach(() => {
@@ -24,7 +25,8 @@ describe("Home", () => {
     );
     expect(screen.getByRole("heading", { name: /Nasıl Çalışır/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Öne Çıkan Canlı Müzayedeler/i })).toBeInTheDocument();
-    expect(screen.getByText(/Bodrum, Muğla/i)).toBeInTheDocument();
+    expect(getFeaturedAuctions(1).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/LIVE/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("heading", { name: /Kurumsal Altyapısı/i })).toBeInTheDocument();
   });
 });

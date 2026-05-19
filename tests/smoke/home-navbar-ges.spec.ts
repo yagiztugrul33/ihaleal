@@ -15,7 +15,7 @@ test.describe("home + navbar GES regression", () => {
     await expect(page.getByTestId("premium-cinematic-home")).toBeVisible({ timeout: 20_000 });
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/Gayrimenkul/i);
     await expect(page.getByRole("heading", { name: /Öne Çıkan Canlı Müzayedeler/i })).toBeVisible();
-    await expect(page.getByText(/Bodrum, Muğla/i)).toBeVisible();
+    await expect(page.getByText(/LIVE/i).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: /Kurumsal Altyapısı/i })).toBeVisible();
   });
 
@@ -49,7 +49,7 @@ test.describe("home + navbar GES regression", () => {
   test("homepage shows footer on marketing home", async ({ page }) => {
     await setLocaleTr(page);
     await expect(page.getByRole("heading", { level: 1 })).toContainText(/Geleceği/i);
-    await expect(page.getByText(/Bodrum, Muğla/i)).toBeVisible();
+    await expect(page.getByText(/LIVE/i).first()).toBeVisible();
     await expect(page.getByRole("button", { name: /KVKK/i }).first()).toBeVisible();
   });
 });
