@@ -1,0 +1,2810 @@
+{
+  "auditedAt": "2026-05-19T09:24:20.206Z",
+  "baseUrl": "http://localhost:4173",
+  "total": 155,
+  "passed": 155,
+  "failed": 0,
+  "http200": 155,
+  "http404": [],
+  "http500": [],
+  "consoleErrorTotal": 0,
+  "consoleErrorByPath": [],
+  "mobileOverflowCount": 0,
+  "mobileOverflowPaths": [],
+  "screenshotDir": "screenshots/audit/wave3-final",
+  "screenshotCount": 310,
+  "paths": [
+    "/",
+    "/admin",
+    "/analiz",
+    "/anayasa",
+    "/anayasa-400",
+    "/araclar/finans-uyumluluk",
+    "/araclar/vergi-simulator",
+    "/arama",
+    "/auth/edevis-mock",
+    "/ayarlar",
+    "/aydinlatma-metni",
+    "/belgeler",
+    "/bildirimler",
+    "/blog",
+    "/blog/ornek-yazi",
+    "/canliya-hazirlik",
+    "/cerez-politikasi",
+    "/dashboard",
+    "/dashboard/yatirimci",
+    "/degerleme",
+    "/degisiklikler",
+    "/destek",
+    "/ekspertiz",
+    "/emlakci",
+    "/emlakci-giris",
+    "/emlakci-ortaklik",
+    "/emlakci/demo-emlakci",
+    "/emlakci/ozellikler/crm",
+    "/emlakci/panel",
+    "/emlakciler",
+    "/evraklar",
+    "/favoriler",
+    "/fiyatlandirma",
+    "/giris",
+    "/gizlilik",
+    "/guvenlik",
+    "/hakkimizda",
+    "/harita",
+    "/hizmet-bedelleri",
+    "/iade-iptal",
+    "/ibuyer",
+    "/ihale-ac",
+    "/ihale-kosullari",
+    "/ihale/demo-ihale-1",
+    "/ihale/demo-ihale-1/hemen-al",
+    "/ihaleler",
+    "/ilanlar",
+    "/ilanlar/altyapi",
+    "/ilanlar/altyapi/ges",
+    "/ilanlar/arsa",
+    "/ilanlar/arsa/tarla",
+    "/ilanlar/devren",
+    "/ilanlar/endustri",
+    "/ilanlar/endustri/fabrika",
+    "/ilanlar/komple",
+    "/ilanlar/konaklama",
+    "/ilanlar/konaklama/otel",
+    "/ilanlar/konut",
+    "/ilanlar/konut/villa",
+    "/ilanlar/konut/villa/mustakil",
+    "/ilanlar/prop-001",
+    "/ilanlar/ticari",
+    "/ilanlar/ticari/ofis",
+    "/ilanlar/ticari/ofis/a_sinif",
+    "/iletisim",
+    "/kapali-teklif",
+    "/karsilastir",
+    "/karsilastir-rakipler",
+    "/kat-karsiligi-arsa",
+    "/kayit",
+    "/komisyon-hesaplayici",
+    "/komisyon-modeli",
+    "/kullanim-kosullari",
+    "/kurumsal",
+    "/kurumsal/basinda-biz",
+    "/kurumsal/dashboard",
+    "/kurumsal/iletisim",
+    "/kvkk",
+    "/kyc",
+    "/lansman",
+    "/mesafeli-satis-sozlesmesi",
+    "/mesajlar",
+    "/modul/afet-risk-haritasi",
+    "/modul/afet-toplanma-alanlari",
+    "/modul/aile-acil-plan",
+    "/modul/airbnb-potansiyeli",
+    "/modul/bina-risk-sorgu",
+    "/modul/canli-deprem-takip",
+    "/modul/degerleme",
+    "/modul/deprem-cantasi",
+    "/modul/deprem-egitimi",
+    "/modul/deprem-egitimi/ders-1",
+    "/modul/deprem-egitimi/ders-10",
+    "/modul/deprem-egitimi/ders-2",
+    "/modul/deprem-egitimi/ders-3",
+    "/modul/deprem-egitimi/ders-4",
+    "/modul/deprem-egitimi/ders-5",
+    "/modul/deprem-egitimi/ders-6",
+    "/modul/deprem-egitimi/ders-7",
+    "/modul/deprem-egitimi/ders-8",
+    "/modul/deprem-egitimi/ders-9",
+    "/modul/deprem-risk-haritasi",
+    "/modul/deprem-sigortasi",
+    "/modul/ges-analizi",
+    "/modul/guclendirme-rehberi",
+    "/modul/imar-sorgu",
+    "/modul/kentsel-donusum",
+    "/modul/komsuluk-risk-analizi",
+    "/modul/kredi-pazaryeri",
+    "/modul/parsel-zekasi",
+    "/modul/portfoy-yonetimi",
+    "/modul/renovasyon-roi",
+    "/modul/sigorta-pazaryeri",
+    "/modul/tatbikat-rehberi",
+    "/modul/uzman-randevu",
+    "/modul/yapay-zeka-hasar-tahmini",
+    "/modul/yatirim-onerisi",
+    "/modul/yikilan-binalar-arsivi",
+    "/mortgage",
+    "/muteahhit",
+    "/muteahhit/panel",
+    "/nasil-calisir",
+    "/nihai-anayasa",
+    "/onboarding/akis",
+    "/panel",
+    "/panel/ozet",
+    "/piyasa-raporlari",
+    "/pre-launch",
+    "/profil",
+    "/rapor/ornek",
+    "/raporlar",
+    "/reels",
+    "/rehber",
+    "/reklam",
+    "/sat-basla",
+    "/sehir/istanbul",
+    "/sehirler",
+    "/sifremi-unuttum",
+    "/sss",
+    "/takas",
+    "/teklif-al",
+    "/uyelik/yillik",
+    "/valuation",
+    "/veri-ve-endeks",
+    "/yasal-cerceve",
+    "/yasal-master-brief",
+    "/yasal/agency-contract",
+    "/yasal/dolandiricilik-savunmasi",
+    "/yasal/guvenlik",
+    "/yasal/sozlesmeler",
+    "/yasal/sozlesmeler/ornek",
+    "/yasal/supabase-uyum",
+    "/yatirimci/panel",
+    "/yedekleme",
+    "/yorumlar"
+  ],
+  "results": [
+    {
+      "path": "/",
+      "url": "http://localhost:4173/",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 4323,
+      "loadMsMobile": 4215,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/root--desktop.png",
+        "screenshots/audit/wave3-final/root--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/admin",
+      "url": "http://localhost:4173/admin",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1119,
+      "loadMsMobile": 1144,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/admin--desktop.png",
+        "screenshots/audit/wave3-final/admin--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/analiz",
+      "url": "http://localhost:4173/analiz",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1009,
+      "loadMsMobile": 1432,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/analiz--desktop.png",
+        "screenshots/audit/wave3-final/analiz--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/anayasa",
+      "url": "http://localhost:4173/anayasa",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 996,
+      "loadMsMobile": 997,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/anayasa--desktop.png",
+        "screenshots/audit/wave3-final/anayasa--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/anayasa-400",
+      "url": "http://localhost:4173/anayasa-400",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 980,
+      "loadMsMobile": 1165,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/anayasa-400--desktop.png",
+        "screenshots/audit/wave3-final/anayasa-400--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/araclar/finans-uyumluluk",
+      "url": "http://localhost:4173/araclar/finans-uyumluluk",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 992,
+      "loadMsMobile": 1204,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/araclar__finans-uyumluluk--desktop.png",
+        "screenshots/audit/wave3-final/araclar__finans-uyumluluk--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/araclar/vergi-simulator",
+      "url": "http://localhost:4173/araclar/vergi-simulator",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 975,
+      "loadMsMobile": 1139,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/araclar__vergi-simulator--desktop.png",
+        "screenshots/audit/wave3-final/araclar__vergi-simulator--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/arama",
+      "url": "http://localhost:4173/arama",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1077,
+      "loadMsMobile": 1041,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/arama--desktop.png",
+        "screenshots/audit/wave3-final/arama--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/auth/edevis-mock",
+      "url": "http://localhost:4173/auth/edevis-mock",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1024,
+      "loadMsMobile": 1009,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/auth__edevis-mock--desktop.png",
+        "screenshots/audit/wave3-final/auth__edevis-mock--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ayarlar",
+      "url": "http://localhost:4173/ayarlar",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 985,
+      "loadMsMobile": 1018,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ayarlar--desktop.png",
+        "screenshots/audit/wave3-final/ayarlar--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/aydinlatma-metni",
+      "url": "http://localhost:4173/aydinlatma-metni",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1015,
+      "loadMsMobile": 994,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/aydinlatma-metni--desktop.png",
+        "screenshots/audit/wave3-final/aydinlatma-metni--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/belgeler",
+      "url": "http://localhost:4173/belgeler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1003,
+      "loadMsMobile": 1009,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/belgeler--desktop.png",
+        "screenshots/audit/wave3-final/belgeler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/bildirimler",
+      "url": "http://localhost:4173/bildirimler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1037,
+      "loadMsMobile": 985,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/bildirimler--desktop.png",
+        "screenshots/audit/wave3-final/bildirimler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/blog",
+      "url": "http://localhost:4173/blog",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 993,
+      "loadMsMobile": 1101,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/blog--desktop.png",
+        "screenshots/audit/wave3-final/blog--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/blog/ornek-yazi",
+      "url": "http://localhost:4173/blog/ornek-yazi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1011,
+      "loadMsMobile": 1016,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/blog__ornek-yazi--desktop.png",
+        "screenshots/audit/wave3-final/blog__ornek-yazi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/canliya-hazirlik",
+      "url": "http://localhost:4173/canliya-hazirlik",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 973,
+      "loadMsMobile": 973,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/canliya-hazirlik--desktop.png",
+        "screenshots/audit/wave3-final/canliya-hazirlik--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/cerez-politikasi",
+      "url": "http://localhost:4173/cerez-politikasi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1037,
+      "loadMsMobile": 1251,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/cerez-politikasi--desktop.png",
+        "screenshots/audit/wave3-final/cerez-politikasi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/dashboard",
+      "url": "http://localhost:4173/dashboard",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1168,
+      "loadMsMobile": 1196,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/dashboard--desktop.png",
+        "screenshots/audit/wave3-final/dashboard--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/dashboard/yatirimci",
+      "url": "http://localhost:4173/dashboard/yatirimci",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1029,
+      "loadMsMobile": 1072,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/dashboard__yatirimci--desktop.png",
+        "screenshots/audit/wave3-final/dashboard__yatirimci--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/degerleme",
+      "url": "http://localhost:4173/degerleme",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1032,
+      "loadMsMobile": 1105,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/degerleme--desktop.png",
+        "screenshots/audit/wave3-final/degerleme--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/degisiklikler",
+      "url": "http://localhost:4173/degisiklikler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1035,
+      "loadMsMobile": 1117,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/degisiklikler--desktop.png",
+        "screenshots/audit/wave3-final/degisiklikler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/destek",
+      "url": "http://localhost:4173/destek",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1090,
+      "loadMsMobile": 1106,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/destek--desktop.png",
+        "screenshots/audit/wave3-final/destek--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ekspertiz",
+      "url": "http://localhost:4173/ekspertiz",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1011,
+      "loadMsMobile": 2047,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ekspertiz--desktop.png",
+        "screenshots/audit/wave3-final/ekspertiz--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/emlakci",
+      "url": "http://localhost:4173/emlakci",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1008,
+      "loadMsMobile": 1176,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/emlakci--desktop.png",
+        "screenshots/audit/wave3-final/emlakci--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/emlakci-giris",
+      "url": "http://localhost:4173/emlakci-giris",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1061,
+      "loadMsMobile": 1384,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/emlakci-giris--desktop.png",
+        "screenshots/audit/wave3-final/emlakci-giris--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/emlakci-ortaklik",
+      "url": "http://localhost:4173/emlakci-ortaklik",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1060,
+      "loadMsMobile": 1153,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/emlakci-ortaklik--desktop.png",
+        "screenshots/audit/wave3-final/emlakci-ortaklik--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/emlakci/demo-emlakci",
+      "url": "http://localhost:4173/emlakci/demo-emlakci",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1215,
+      "loadMsMobile": 1080,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/emlakci__demo-emlakci--desktop.png",
+        "screenshots/audit/wave3-final/emlakci__demo-emlakci--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/emlakci/ozellikler/crm",
+      "url": "http://localhost:4173/emlakci/ozellikler/crm",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1012,
+      "loadMsMobile": 1259,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/emlakci__ozellikler__crm--desktop.png",
+        "screenshots/audit/wave3-final/emlakci__ozellikler__crm--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/emlakci/panel",
+      "url": "http://localhost:4173/emlakci/panel",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1123,
+      "loadMsMobile": 1030,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/emlakci__panel--desktop.png",
+        "screenshots/audit/wave3-final/emlakci__panel--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/emlakciler",
+      "url": "http://localhost:4173/emlakciler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1065,
+      "loadMsMobile": 1042,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/emlakciler--desktop.png",
+        "screenshots/audit/wave3-final/emlakciler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/evraklar",
+      "url": "http://localhost:4173/evraklar",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1051,
+      "loadMsMobile": 1067,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/evraklar--desktop.png",
+        "screenshots/audit/wave3-final/evraklar--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/favoriler",
+      "url": "http://localhost:4173/favoriler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 985,
+      "loadMsMobile": 1048,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/favoriler--desktop.png",
+        "screenshots/audit/wave3-final/favoriler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/fiyatlandirma",
+      "url": "http://localhost:4173/fiyatlandirma",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 989,
+      "loadMsMobile": 999,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/fiyatlandirma--desktop.png",
+        "screenshots/audit/wave3-final/fiyatlandirma--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/giris",
+      "url": "http://localhost:4173/giris",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1010,
+      "loadMsMobile": 1058,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/giris--desktop.png",
+        "screenshots/audit/wave3-final/giris--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/gizlilik",
+      "url": "http://localhost:4173/gizlilik",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1346,
+      "loadMsMobile": 1072,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/gizlilik--desktop.png",
+        "screenshots/audit/wave3-final/gizlilik--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/guvenlik",
+      "url": "http://localhost:4173/guvenlik",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1067,
+      "loadMsMobile": 1059,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/guvenlik--desktop.png",
+        "screenshots/audit/wave3-final/guvenlik--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/hakkimizda",
+      "url": "http://localhost:4173/hakkimizda",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1257,
+      "loadMsMobile": 1096,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/hakkimizda--desktop.png",
+        "screenshots/audit/wave3-final/hakkimizda--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/harita",
+      "url": "http://localhost:4173/harita",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1098,
+      "loadMsMobile": 1248,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/harita--desktop.png",
+        "screenshots/audit/wave3-final/harita--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/hizmet-bedelleri",
+      "url": "http://localhost:4173/hizmet-bedelleri",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1045,
+      "loadMsMobile": 1001,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/hizmet-bedelleri--desktop.png",
+        "screenshots/audit/wave3-final/hizmet-bedelleri--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/iade-iptal",
+      "url": "http://localhost:4173/iade-iptal",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1002,
+      "loadMsMobile": 1145,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/iade-iptal--desktop.png",
+        "screenshots/audit/wave3-final/iade-iptal--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ibuyer",
+      "url": "http://localhost:4173/ibuyer",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1012,
+      "loadMsMobile": 1252,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ibuyer--desktop.png",
+        "screenshots/audit/wave3-final/ibuyer--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ihale-ac",
+      "url": "http://localhost:4173/ihale-ac",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1077,
+      "loadMsMobile": 1028,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ihale-ac--desktop.png",
+        "screenshots/audit/wave3-final/ihale-ac--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ihale-kosullari",
+      "url": "http://localhost:4173/ihale-kosullari",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1034,
+      "loadMsMobile": 1114,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ihale-kosullari--desktop.png",
+        "screenshots/audit/wave3-final/ihale-kosullari--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ihale/demo-ihale-1",
+      "url": "http://localhost:4173/ihale/demo-ihale-1",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1032,
+      "loadMsMobile": 1005,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ihale__demo-ihale-1--desktop.png",
+        "screenshots/audit/wave3-final/ihale__demo-ihale-1--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ihale/demo-ihale-1/hemen-al",
+      "url": "http://localhost:4173/ihale/demo-ihale-1/hemen-al",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 984,
+      "loadMsMobile": 1024,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ihale__demo-ihale-1__hemen-al--desktop.png",
+        "screenshots/audit/wave3-final/ihale__demo-ihale-1__hemen-al--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ihaleler",
+      "url": "http://localhost:4173/ihaleler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 968,
+      "loadMsMobile": 1044,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ihaleler--desktop.png",
+        "screenshots/audit/wave3-final/ihaleler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar",
+      "url": "http://localhost:4173/ilanlar",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 968,
+      "loadMsMobile": 1051,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/altyapi",
+      "url": "http://localhost:4173/ilanlar/altyapi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1180,
+      "loadMsMobile": 1149,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__altyapi--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__altyapi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/altyapi/ges",
+      "url": "http://localhost:4173/ilanlar/altyapi/ges",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1155,
+      "loadMsMobile": 2606,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__altyapi__ges--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__altyapi__ges--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/arsa",
+      "url": "http://localhost:4173/ilanlar/arsa",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1031,
+      "loadMsMobile": 1016,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__arsa--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__arsa--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/arsa/tarla",
+      "url": "http://localhost:4173/ilanlar/arsa/tarla",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1002,
+      "loadMsMobile": 1032,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__arsa__tarla--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__arsa__tarla--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/devren",
+      "url": "http://localhost:4173/ilanlar/devren",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1122,
+      "loadMsMobile": 1017,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__devren--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__devren--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/endustri",
+      "url": "http://localhost:4173/ilanlar/endustri",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 987,
+      "loadMsMobile": 1063,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__endustri--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__endustri--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/endustri/fabrika",
+      "url": "http://localhost:4173/ilanlar/endustri/fabrika",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 993,
+      "loadMsMobile": 1015,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__endustri__fabrika--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__endustri__fabrika--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/komple",
+      "url": "http://localhost:4173/ilanlar/komple",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1025,
+      "loadMsMobile": 1034,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__komple--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__komple--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/konaklama",
+      "url": "http://localhost:4173/ilanlar/konaklama",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 969,
+      "loadMsMobile": 1149,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__konaklama--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__konaklama--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/konaklama/otel",
+      "url": "http://localhost:4173/ilanlar/konaklama/otel",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1074,
+      "loadMsMobile": 1090,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__konaklama__otel--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__konaklama__otel--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/konut",
+      "url": "http://localhost:4173/ilanlar/konut",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 995,
+      "loadMsMobile": 1004,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__konut--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__konut--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/konut/villa",
+      "url": "http://localhost:4173/ilanlar/konut/villa",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 972,
+      "loadMsMobile": 1021,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__konut__villa--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__konut__villa--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/konut/villa/mustakil",
+      "url": "http://localhost:4173/ilanlar/konut/villa/mustakil",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 971,
+      "loadMsMobile": 1003,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__konut__villa__mustakil--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__konut__villa__mustakil--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/prop-001",
+      "url": "http://localhost:4173/ilanlar/prop-001",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1120,
+      "loadMsMobile": 1060,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__prop-001--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__prop-001--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/ticari",
+      "url": "http://localhost:4173/ilanlar/ticari",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1152,
+      "loadMsMobile": 1155,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__ticari--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__ticari--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/ticari/ofis",
+      "url": "http://localhost:4173/ilanlar/ticari/ofis",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 991,
+      "loadMsMobile": 1044,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__ticari__ofis--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__ticari__ofis--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/ilanlar/ticari/ofis/a_sinif",
+      "url": "http://localhost:4173/ilanlar/ticari/ofis/a_sinif",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 983,
+      "loadMsMobile": 989,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/ilanlar__ticari__ofis__a_sinif--desktop.png",
+        "screenshots/audit/wave3-final/ilanlar__ticari__ofis__a_sinif--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/iletisim",
+      "url": "http://localhost:4173/iletisim",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1053,
+      "loadMsMobile": 1130,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/iletisim--desktop.png",
+        "screenshots/audit/wave3-final/iletisim--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kapali-teklif",
+      "url": "http://localhost:4173/kapali-teklif",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 981,
+      "loadMsMobile": 1060,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kapali-teklif--desktop.png",
+        "screenshots/audit/wave3-final/kapali-teklif--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/karsilastir",
+      "url": "http://localhost:4173/karsilastir",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 973,
+      "loadMsMobile": 1803,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/karsilastir--desktop.png",
+        "screenshots/audit/wave3-final/karsilastir--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/karsilastir-rakipler",
+      "url": "http://localhost:4173/karsilastir-rakipler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 992,
+      "loadMsMobile": 1049,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/karsilastir-rakipler--desktop.png",
+        "screenshots/audit/wave3-final/karsilastir-rakipler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kat-karsiligi-arsa",
+      "url": "http://localhost:4173/kat-karsiligi-arsa",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 994,
+      "loadMsMobile": 1088,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kat-karsiligi-arsa--desktop.png",
+        "screenshots/audit/wave3-final/kat-karsiligi-arsa--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kayit",
+      "url": "http://localhost:4173/kayit",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 998,
+      "loadMsMobile": 1016,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kayit--desktop.png",
+        "screenshots/audit/wave3-final/kayit--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/komisyon-hesaplayici",
+      "url": "http://localhost:4173/komisyon-hesaplayici",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 976,
+      "loadMsMobile": 1071,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/komisyon-hesaplayici--desktop.png",
+        "screenshots/audit/wave3-final/komisyon-hesaplayici--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/komisyon-modeli",
+      "url": "http://localhost:4173/komisyon-modeli",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 991,
+      "loadMsMobile": 1030,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/komisyon-modeli--desktop.png",
+        "screenshots/audit/wave3-final/komisyon-modeli--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kullanim-kosullari",
+      "url": "http://localhost:4173/kullanim-kosullari",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 998,
+      "loadMsMobile": 1025,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kullanim-kosullari--desktop.png",
+        "screenshots/audit/wave3-final/kullanim-kosullari--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kurumsal",
+      "url": "http://localhost:4173/kurumsal",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 988,
+      "loadMsMobile": 1257,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kurumsal--desktop.png",
+        "screenshots/audit/wave3-final/kurumsal--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kurumsal/basinda-biz",
+      "url": "http://localhost:4173/kurumsal/basinda-biz",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1005,
+      "loadMsMobile": 1011,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kurumsal__basinda-biz--desktop.png",
+        "screenshots/audit/wave3-final/kurumsal__basinda-biz--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kurumsal/dashboard",
+      "url": "http://localhost:4173/kurumsal/dashboard",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1044,
+      "loadMsMobile": 1051,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kurumsal__dashboard--desktop.png",
+        "screenshots/audit/wave3-final/kurumsal__dashboard--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kurumsal/iletisim",
+      "url": "http://localhost:4173/kurumsal/iletisim",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1037,
+      "loadMsMobile": 1049,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kurumsal__iletisim--desktop.png",
+        "screenshots/audit/wave3-final/kurumsal__iletisim--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kvkk",
+      "url": "http://localhost:4173/kvkk",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1008,
+      "loadMsMobile": 1014,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kvkk--desktop.png",
+        "screenshots/audit/wave3-final/kvkk--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/kyc",
+      "url": "http://localhost:4173/kyc",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1066,
+      "loadMsMobile": 1144,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/kyc--desktop.png",
+        "screenshots/audit/wave3-final/kyc--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/lansman",
+      "url": "http://localhost:4173/lansman",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 959,
+      "loadMsMobile": 1016,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/lansman--desktop.png",
+        "screenshots/audit/wave3-final/lansman--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/mesafeli-satis-sozlesmesi",
+      "url": "http://localhost:4173/mesafeli-satis-sozlesmesi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1090,
+      "loadMsMobile": 1223,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/mesafeli-satis-sozlesmesi--desktop.png",
+        "screenshots/audit/wave3-final/mesafeli-satis-sozlesmesi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/mesajlar",
+      "url": "http://localhost:4173/mesajlar",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1003,
+      "loadMsMobile": 1015,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/mesajlar--desktop.png",
+        "screenshots/audit/wave3-final/mesajlar--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/afet-risk-haritasi",
+      "url": "http://localhost:4173/modul/afet-risk-haritasi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1016,
+      "loadMsMobile": 1188,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__afet-risk-haritasi--desktop.png",
+        "screenshots/audit/wave3-final/modul__afet-risk-haritasi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/afet-toplanma-alanlari",
+      "url": "http://localhost:4173/modul/afet-toplanma-alanlari",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1055,
+      "loadMsMobile": 1543,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__afet-toplanma-alanlari--desktop.png",
+        "screenshots/audit/wave3-final/modul__afet-toplanma-alanlari--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/aile-acil-plan",
+      "url": "http://localhost:4173/modul/aile-acil-plan",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 991,
+      "loadMsMobile": 1123,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__aile-acil-plan--desktop.png",
+        "screenshots/audit/wave3-final/modul__aile-acil-plan--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/airbnb-potansiyeli",
+      "url": "http://localhost:4173/modul/airbnb-potansiyeli",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1034,
+      "loadMsMobile": 1124,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__airbnb-potansiyeli--desktop.png",
+        "screenshots/audit/wave3-final/modul__airbnb-potansiyeli--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/bina-risk-sorgu",
+      "url": "http://localhost:4173/modul/bina-risk-sorgu",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 992,
+      "loadMsMobile": 5235,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__bina-risk-sorgu--desktop.png",
+        "screenshots/audit/wave3-final/modul__bina-risk-sorgu--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/canli-deprem-takip",
+      "url": "http://localhost:4173/modul/canli-deprem-takip",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1150,
+      "loadMsMobile": 1267,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__canli-deprem-takip--desktop.png",
+        "screenshots/audit/wave3-final/modul__canli-deprem-takip--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/degerleme",
+      "url": "http://localhost:4173/modul/degerleme",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1039,
+      "loadMsMobile": 1231,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__degerleme--desktop.png",
+        "screenshots/audit/wave3-final/modul__degerleme--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-cantasi",
+      "url": "http://localhost:4173/modul/deprem-cantasi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 2448,
+      "loadMsMobile": 1154,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-cantasi--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-cantasi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi",
+      "url": "http://localhost:4173/modul/deprem-egitimi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1011,
+      "loadMsMobile": 1167,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-1",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-1",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1087,
+      "loadMsMobile": 1151,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-1--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-1--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-10",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-10",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1050,
+      "loadMsMobile": 1153,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-10--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-10--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-2",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-2",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1022,
+      "loadMsMobile": 1147,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-2--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-2--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-3",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-3",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1016,
+      "loadMsMobile": 1120,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-3--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-3--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-4",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-4",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1000,
+      "loadMsMobile": 1111,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-4--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-4--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-5",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-5",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1124,
+      "loadMsMobile": 2019,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-5--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-5--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-6",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-6",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1038,
+      "loadMsMobile": 1248,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-6--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-6--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-7",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-7",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1272,
+      "loadMsMobile": 2908,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-7--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-7--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-8",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-8",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1171,
+      "loadMsMobile": 1573,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-8--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-8--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-egitimi/ders-9",
+      "url": "http://localhost:4173/modul/deprem-egitimi/ders-9",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1002,
+      "loadMsMobile": 1380,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-9--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-egitimi__ders-9--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-risk-haritasi",
+      "url": "http://localhost:4173/modul/deprem-risk-haritasi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1030,
+      "loadMsMobile": 1238,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-risk-haritasi--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-risk-haritasi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/deprem-sigortasi",
+      "url": "http://localhost:4173/modul/deprem-sigortasi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1007,
+      "loadMsMobile": 1298,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__deprem-sigortasi--desktop.png",
+        "screenshots/audit/wave3-final/modul__deprem-sigortasi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/ges-analizi",
+      "url": "http://localhost:4173/modul/ges-analizi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1058,
+      "loadMsMobile": 1205,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__ges-analizi--desktop.png",
+        "screenshots/audit/wave3-final/modul__ges-analizi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/guclendirme-rehberi",
+      "url": "http://localhost:4173/modul/guclendirme-rehberi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1227,
+      "loadMsMobile": 1153,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__guclendirme-rehberi--desktop.png",
+        "screenshots/audit/wave3-final/modul__guclendirme-rehberi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/imar-sorgu",
+      "url": "http://localhost:4173/modul/imar-sorgu",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1010,
+      "loadMsMobile": 1170,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__imar-sorgu--desktop.png",
+        "screenshots/audit/wave3-final/modul__imar-sorgu--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/kentsel-donusum",
+      "url": "http://localhost:4173/modul/kentsel-donusum",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1052,
+      "loadMsMobile": 1307,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__kentsel-donusum--desktop.png",
+        "screenshots/audit/wave3-final/modul__kentsel-donusum--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/komsuluk-risk-analizi",
+      "url": "http://localhost:4173/modul/komsuluk-risk-analizi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1160,
+      "loadMsMobile": 3824,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__komsuluk-risk-analizi--desktop.png",
+        "screenshots/audit/wave3-final/modul__komsuluk-risk-analizi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/kredi-pazaryeri",
+      "url": "http://localhost:4173/modul/kredi-pazaryeri",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1031,
+      "loadMsMobile": 1155,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__kredi-pazaryeri--desktop.png",
+        "screenshots/audit/wave3-final/modul__kredi-pazaryeri--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/parsel-zekasi",
+      "url": "http://localhost:4173/modul/parsel-zekasi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1056,
+      "loadMsMobile": 1188,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__parsel-zekasi--desktop.png",
+        "screenshots/audit/wave3-final/modul__parsel-zekasi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/portfoy-yonetimi",
+      "url": "http://localhost:4173/modul/portfoy-yonetimi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1011,
+      "loadMsMobile": 1172,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__portfoy-yonetimi--desktop.png",
+        "screenshots/audit/wave3-final/modul__portfoy-yonetimi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/renovasyon-roi",
+      "url": "http://localhost:4173/modul/renovasyon-roi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1033,
+      "loadMsMobile": 1366,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__renovasyon-roi--desktop.png",
+        "screenshots/audit/wave3-final/modul__renovasyon-roi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/sigorta-pazaryeri",
+      "url": "http://localhost:4173/modul/sigorta-pazaryeri",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1004,
+      "loadMsMobile": 1175,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__sigorta-pazaryeri--desktop.png",
+        "screenshots/audit/wave3-final/modul__sigorta-pazaryeri--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/tatbikat-rehberi",
+      "url": "http://localhost:4173/modul/tatbikat-rehberi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1004,
+      "loadMsMobile": 2246,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__tatbikat-rehberi--desktop.png",
+        "screenshots/audit/wave3-final/modul__tatbikat-rehberi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/uzman-randevu",
+      "url": "http://localhost:4173/modul/uzman-randevu",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 979,
+      "loadMsMobile": 1131,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__uzman-randevu--desktop.png",
+        "screenshots/audit/wave3-final/modul__uzman-randevu--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/yapay-zeka-hasar-tahmini",
+      "url": "http://localhost:4173/modul/yapay-zeka-hasar-tahmini",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 999,
+      "loadMsMobile": 1056,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__yapay-zeka-hasar-tahmini--desktop.png",
+        "screenshots/audit/wave3-final/modul__yapay-zeka-hasar-tahmini--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/yatirim-onerisi",
+      "url": "http://localhost:4173/modul/yatirim-onerisi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 995,
+      "loadMsMobile": 1195,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__yatirim-onerisi--desktop.png",
+        "screenshots/audit/wave3-final/modul__yatirim-onerisi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/modul/yikilan-binalar-arsivi",
+      "url": "http://localhost:4173/modul/yikilan-binalar-arsivi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 999,
+      "loadMsMobile": 1148,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/modul__yikilan-binalar-arsivi--desktop.png",
+        "screenshots/audit/wave3-final/modul__yikilan-binalar-arsivi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/mortgage",
+      "url": "http://localhost:4173/mortgage",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1059,
+      "loadMsMobile": 1149,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/mortgage--desktop.png",
+        "screenshots/audit/wave3-final/mortgage--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/muteahhit",
+      "url": "http://localhost:4173/muteahhit",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1004,
+      "loadMsMobile": 1032,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/muteahhit--desktop.png",
+        "screenshots/audit/wave3-final/muteahhit--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/muteahhit/panel",
+      "url": "http://localhost:4173/muteahhit/panel",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1075,
+      "loadMsMobile": 1057,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/muteahhit__panel--desktop.png",
+        "screenshots/audit/wave3-final/muteahhit__panel--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/nasil-calisir",
+      "url": "http://localhost:4173/nasil-calisir",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 980,
+      "loadMsMobile": 1331,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/nasil-calisir--desktop.png",
+        "screenshots/audit/wave3-final/nasil-calisir--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/nihai-anayasa",
+      "url": "http://localhost:4173/nihai-anayasa",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1005,
+      "loadMsMobile": 1268,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/nihai-anayasa--desktop.png",
+        "screenshots/audit/wave3-final/nihai-anayasa--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/onboarding/akis",
+      "url": "http://localhost:4173/onboarding/akis",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 975,
+      "loadMsMobile": 2619,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/onboarding__akis--desktop.png",
+        "screenshots/audit/wave3-final/onboarding__akis--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/panel",
+      "url": "http://localhost:4173/panel",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 974,
+      "loadMsMobile": 1048,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/panel--desktop.png",
+        "screenshots/audit/wave3-final/panel--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/panel/ozet",
+      "url": "http://localhost:4173/panel/ozet",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1004,
+      "loadMsMobile": 1021,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/panel__ozet--desktop.png",
+        "screenshots/audit/wave3-final/panel__ozet--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/piyasa-raporlari",
+      "url": "http://localhost:4173/piyasa-raporlari",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1042,
+      "loadMsMobile": 1026,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/piyasa-raporlari--desktop.png",
+        "screenshots/audit/wave3-final/piyasa-raporlari--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/pre-launch",
+      "url": "http://localhost:4173/pre-launch",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1144,
+      "loadMsMobile": 1070,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/pre-launch--desktop.png",
+        "screenshots/audit/wave3-final/pre-launch--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/profil",
+      "url": "http://localhost:4173/profil",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1007,
+      "loadMsMobile": 1033,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/profil--desktop.png",
+        "screenshots/audit/wave3-final/profil--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/rapor/ornek",
+      "url": "http://localhost:4173/rapor/ornek",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1067,
+      "loadMsMobile": 1142,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/rapor__ornek--desktop.png",
+        "screenshots/audit/wave3-final/rapor__ornek--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/raporlar",
+      "url": "http://localhost:4173/raporlar",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 967,
+      "loadMsMobile": 1144,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/raporlar--desktop.png",
+        "screenshots/audit/wave3-final/raporlar--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/reels",
+      "url": "http://localhost:4173/reels",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 975,
+      "loadMsMobile": 1407,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/reels--desktop.png",
+        "screenshots/audit/wave3-final/reels--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/rehber",
+      "url": "http://localhost:4173/rehber",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1052,
+      "loadMsMobile": 1158,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/rehber--desktop.png",
+        "screenshots/audit/wave3-final/rehber--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/reklam",
+      "url": "http://localhost:4173/reklam",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 958,
+      "loadMsMobile": 1076,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/reklam--desktop.png",
+        "screenshots/audit/wave3-final/reklam--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/sat-basla",
+      "url": "http://localhost:4173/sat-basla",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 956,
+      "loadMsMobile": 1150,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/sat-basla--desktop.png",
+        "screenshots/audit/wave3-final/sat-basla--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/sehir/istanbul",
+      "url": "http://localhost:4173/sehir/istanbul",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 980,
+      "loadMsMobile": 1058,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/sehir__istanbul--desktop.png",
+        "screenshots/audit/wave3-final/sehir__istanbul--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/sehirler",
+      "url": "http://localhost:4173/sehirler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 973,
+      "loadMsMobile": 1152,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/sehirler--desktop.png",
+        "screenshots/audit/wave3-final/sehirler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/sifremi-unuttum",
+      "url": "http://localhost:4173/sifremi-unuttum",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1731,
+      "loadMsMobile": 1132,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/sifremi-unuttum--desktop.png",
+        "screenshots/audit/wave3-final/sifremi-unuttum--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/sss",
+      "url": "http://localhost:4173/sss",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1002,
+      "loadMsMobile": 1014,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/sss--desktop.png",
+        "screenshots/audit/wave3-final/sss--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/takas",
+      "url": "http://localhost:4173/takas",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 934,
+      "loadMsMobile": 1050,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/takas--desktop.png",
+        "screenshots/audit/wave3-final/takas--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/teklif-al",
+      "url": "http://localhost:4173/teklif-al",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 994,
+      "loadMsMobile": 1118,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/teklif-al--desktop.png",
+        "screenshots/audit/wave3-final/teklif-al--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/uyelik/yillik",
+      "url": "http://localhost:4173/uyelik/yillik",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 989,
+      "loadMsMobile": 1063,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/uyelik__yillik--desktop.png",
+        "screenshots/audit/wave3-final/uyelik__yillik--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/valuation",
+      "url": "http://localhost:4173/valuation",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1134,
+      "loadMsMobile": 1104,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/valuation--desktop.png",
+        "screenshots/audit/wave3-final/valuation--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/veri-ve-endeks",
+      "url": "http://localhost:4173/veri-ve-endeks",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1070,
+      "loadMsMobile": 1031,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/veri-ve-endeks--desktop.png",
+        "screenshots/audit/wave3-final/veri-ve-endeks--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal-cerceve",
+      "url": "http://localhost:4173/yasal-cerceve",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1015,
+      "loadMsMobile": 1041,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal-cerceve--desktop.png",
+        "screenshots/audit/wave3-final/yasal-cerceve--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal-master-brief",
+      "url": "http://localhost:4173/yasal-master-brief",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 964,
+      "loadMsMobile": 1127,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal-master-brief--desktop.png",
+        "screenshots/audit/wave3-final/yasal-master-brief--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal/agency-contract",
+      "url": "http://localhost:4173/yasal/agency-contract",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 981,
+      "loadMsMobile": 1337,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal__agency-contract--desktop.png",
+        "screenshots/audit/wave3-final/yasal__agency-contract--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal/dolandiricilik-savunmasi",
+      "url": "http://localhost:4173/yasal/dolandiricilik-savunmasi",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1043,
+      "loadMsMobile": 1168,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal__dolandiricilik-savunmasi--desktop.png",
+        "screenshots/audit/wave3-final/yasal__dolandiricilik-savunmasi--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal/guvenlik",
+      "url": "http://localhost:4173/yasal/guvenlik",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1012,
+      "loadMsMobile": 1083,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal__guvenlik--desktop.png",
+        "screenshots/audit/wave3-final/yasal__guvenlik--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal/sozlesmeler",
+      "url": "http://localhost:4173/yasal/sozlesmeler",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1007,
+      "loadMsMobile": 1192,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal__sozlesmeler--desktop.png",
+        "screenshots/audit/wave3-final/yasal__sozlesmeler--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal/sozlesmeler/ornek",
+      "url": "http://localhost:4173/yasal/sozlesmeler/ornek",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1003,
+      "loadMsMobile": 1169,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal__sozlesmeler__ornek--desktop.png",
+        "screenshots/audit/wave3-final/yasal__sozlesmeler__ornek--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yasal/supabase-uyum",
+      "url": "http://localhost:4173/yasal/supabase-uyum",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 980,
+      "loadMsMobile": 1057,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yasal__supabase-uyum--desktop.png",
+        "screenshots/audit/wave3-final/yasal__supabase-uyum--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yatirimci/panel",
+      "url": "http://localhost:4173/yatirimci/panel",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1038,
+      "loadMsMobile": 1051,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yatirimci__panel--desktop.png",
+        "screenshots/audit/wave3-final/yatirimci__panel--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yedekleme",
+      "url": "http://localhost:4173/yedekleme",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 1077,
+      "loadMsMobile": 1034,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yedekleme--desktop.png",
+        "screenshots/audit/wave3-final/yedekleme--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    },
+    {
+      "path": "/yorumlar",
+      "url": "http://localhost:4173/yorumlar",
+      "ok": true,
+      "status": 200,
+      "statusMobile": 200,
+      "loadMsDesktop": 972,
+      "loadMsMobile": 1063,
+      "error": null,
+      "consoleErrors": [],
+      "screenshots": [
+        "screenshots/audit/wave3-final/yorumlar--desktop.png",
+        "screenshots/audit/wave3-final/yorumlar--mobile.png"
+      ],
+      "mobileOverflow": false,
+      "overflowOffenders": []
+    }
+  ]
+}
