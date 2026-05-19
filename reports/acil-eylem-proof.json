@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-05-19T23:12:47.701Z",
+  "generatedAt": "2026-05-19T23:15:12.607Z",
   "branch": "fix/premium-cinematic-uctan-uca",
-  "head": "e271c74 feat(home): how-it-works detay sayfalari, mobil portallar, turizm/ges etiketleri, intro kaldirildi",
+  "head": "eefd5a9 chore: acil eylem plan 120 komut, audit 167/167 proof",
   "baseUrl": "http://localhost:4190",
   "checks": {
     "verify": {
