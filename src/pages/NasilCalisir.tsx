@@ -5,7 +5,7 @@ import { PageShell } from "@/components/marketing/PageShell";
 import { NasilCalisirVideoSection } from "@/components/nasilCalisir/NasilCalisirVideoSection";
 import { JourneyIcon } from "@/components/nasilCalisir/NasilCalisirShared";
 import { ROUTES } from "@/constants/routes";
-import { FEES, formatBidBondPercent } from "@/lib/fees";
+import { ANTI_SNIPING_EXTEND_SECONDS, ANTI_SNIPING_THRESHOLD_SECONDS, FEES, formatBidBondPercent } from "@/lib/fees";
 import {
   NASIL_CALISIR_ARCHITECTURE,
   NASIL_CALISIR_BELGELER,
@@ -100,6 +100,29 @@ export default function NasilCalisir() {
           </Link>
           .
         </p>
+      </section>
+      <section className="card-warm mb-10">
+        <h2 className="text-lg font-bold mb-2" style={{ color: "var(--color-text)" }}>
+          Şeffaflık panosu
+        </h2>
+        <ul className="space-y-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+          <li>• Teminat oranı referansı: {formatBidBondPercent()} · Komisyon hedefi: %2 (+KDV).</li>
+          <li>• Anti-sniping kuralı: son {ANTI_SNIPING_THRESHOLD_SECONDS} saniyede geçerli teklifte süre {ANTI_SNIPING_EXTEND_SECONDS} saniye uzar.</li>
+          <li>• Nihai yasal metin ve oranlar, ilan koşulları + avukat onayı ile kesinleşir.</li>
+        </ul>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link to="/komisyon-hesaplayici" className="btn-primary inline-flex items-center gap-2">
+            Ücret hesaplayıcı
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            to="/ihale-kosullari"
+            className="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold"
+            style={{ borderColor: "var(--color-border)", color: "var(--color-text)" }}
+          >
+            Kural setini aç
+          </Link>
+        </div>
       </section>
 
       <section className="mb-12">
