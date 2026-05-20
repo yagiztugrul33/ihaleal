@@ -1,5 +1,5 @@
 ﻿import { useMemo, useState, useRef, useEffect } from "react";
-import { Bell, CheckCheck, Trash2 } from "lucide-react";
+import { Bell, CheckCheck, Trophy, AlertTriangle, CircleDollarSign, ShieldCheck, Trash2 } from "lucide-react";
 import { DEMO_NOTIFICATIONS, type DemoNotification } from "@/data/notificationsDemo";
 import { Button } from "@/components/ui/button";
 
@@ -24,8 +24,10 @@ export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [items, setItems] = useState<DemoNotification[]>(() => loadNotifications());
+  const [onlyUnread, setOnlyUnread] = useState(false);
 
   const unread = useMemo(() => items.filter((i) => !i.read).length, [items]);
+  const visibleItems = useMemo(() => (onlyUnread ? items.filter((i) => !i.read) : items), [items, onlyUnread]);
 
   useEffect(() => {
     const fn = (e: MouseEvent) => {
@@ -47,9 +49,15 @@ export function NotificationBell() {
   };
 
   const markOne = (id: string) => {
-    const next = items.map((i) => (i.id === id ? { ...i, read: true } : i));
+    const next = items.map((i) => (i.id === id ? { ...i, read: !i.read } : i));
     setItems(next);
     saveNotifications(next);
+  };
+  const iconFor = (type: DemoNotification["type"]) => {
+    if (type === "won") return <Trophy className="h-3.5 w-3.5 text-emerald-300" />;
+    if (type === "bid" || type === "payment") return <CircleDollarSign className="h-3.5 w-3.5 text-blue-300" />;
+    if (type === "ending") return <AlertTriangle className="h-3.5 w-3.5 text-amber-300" />;
+    return <ShieldCheck className="h-3.5 w-3.5 text-violet-300" />;
   };
 
   return (
@@ -77,6 +85,9 @@ export function NotificationBell() {
           <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200/80">
             <span className="text-sm font-semibold text-white">Bildirimler</span>
             <div className="flex gap-1">
+              <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-400" onClick={() => setOnlyUnread((v) => !v)}>
+                {onlyUnread ? "Tümü" : "Okunmayan"}
+              </Button>
               <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-400" onClick={markAllRead}>
                 <CheckCheck className="w-3.5 h-3.5 mr-1" /> Okundu
               </Button>
@@ -86,24 +97,27 @@ export function NotificationBell() {
             </div>
           </div>
           <div className="max-h-80 overflow-y-auto">
-            {items.length === 0 ? (
+            {visibleItems.length === 0 ? (
               <div className="px-4 py-8 text-center text-sm text-slate-500">Bildirim yok.</div>
             ) : (
-              items.map((n) => (
+              visibleItems.map((n) => (
                 <button
                   key={n.id}
                   type="button"
                   onClick={() => markOne(n.id)}
                   className={`w-full text-left px-3 py-2.5 border-b border-slate-200/80 hover:bg-white/[0.04] transition-colors ${n.read ? "opacity-70" : "bg-blue-500/5"}`}
                 >
-                  <div className="text-xs font-semibold text-white">{n.title}</div>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-white">
+                    {iconFor(n.type)}
+                    {n.title}
+                  </div>
                   <div className="text-[11px] text-slate-400 mt-0.5 leading-snug">{n.body}</div>
                   <div className="text-[10px] text-slate-600 mt-1">{new Date(n.createdAt).toLocaleString("tr-TR")}</div>
                 </button>
               ))
             )}
           </div>
-          <p className="text-[10px] text-slate-600 px-3 py-2 border-t border-slate-200/80">Demo bildirimler — gerçek zamanlı kanal bağlı değildir.</p>
+          <p className="text-[10px] text-slate-600 px-3 py-2 border-t border-slate-200/80">Demo bildirimler — tıklayarak okundu/okunmadı durumunu değiştirebilirsiniz.</p>
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@ export type DemoNotification = {
   id: string;
   title: string;
   body: string;
-  type: "bid" | "ending" | "price_drop" | "kyc" | "payment" | "message";
+  type: "bid" | "ending" | "price_drop" | "kyc" | "payment" | "message" | "won";
   read: boolean;
   createdAt: string;
 };
@@ -19,8 +19,8 @@ export const DEMO_NOTIFICATIONS: DemoNotification[] = [
   },
   {
     id: "n2",
-    title: "İhale bitişine az kaldı",
-    body: "Takip ettiğiniz ihale 24 saat içinde kapanıyor; güncel teklifleri kontrol edin.",
+    title: "İhale bitiyor",
+    body: "Takip ettiğiniz ihale 24 saat içinde kapanıyor; son teklifinizi güncelleyin.",
     type: "ending",
     read: false,
     createdAt: new Date(Date.now() - 3600000).toISOString(),
@@ -40,5 +40,21 @@ export const DEMO_NOTIFICATIONS: DemoNotification[] = [
     type: "kyc",
     read: true,
     createdAt: new Date(Date.now() - 172800000).toISOString(),
+  },
+  {
+    id: "n5",
+    title: "Teklifiniz geçildi",
+    body: "Kadıköy sahil hattı ilanında yeni en yüksek teklif oluştu.",
+    type: "bid",
+    read: false,
+    createdAt: new Date(Date.now() - 1200000).toISOString(),
+  },
+  {
+    id: "n6",
+    title: "Kazandınız",
+    body: "Beşiktaş ofis ihalesinde en yüksek teklif sizde kaldı. Evrak adımına geçebilirsiniz.",
+    type: "won",
+    read: false,
+    createdAt: new Date(Date.now() - 5400000).toISOString(),
   },
 ];
