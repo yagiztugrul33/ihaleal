@@ -2,7 +2,7 @@ export default function IadeIptal() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded text-xs text-amber-800 dark:text-amber-200">
-        Bu metin taslak niteliğindedir. Yasal yayın öncesi avukat onayı şarttır.
+        Bu metin taslak niteliğindedir — AVUKAT ONAYI BEKLER.
       </div>
       <h1 className="text-3xl font-bold mb-6">İade ve İptal Koşulları</h1>
       <div className="prose dark:prose-invert max-w-none">

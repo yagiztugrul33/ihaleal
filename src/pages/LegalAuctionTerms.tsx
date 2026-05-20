@@ -24,7 +24,7 @@ export default function AuctionTerms() {
             İhale Katılım Koşulları ve Komisyon Yapısı
           </h1>
           <p className="text-slate-400 mt-2">Yasal çerçeve, yükümlülükler ve komisyon bilgileri</p>
-          <p className="text-xs text-slate-600 mt-1">Son güncelleme: 27.04.2026 — taslak; avukat onayı beklenmelidir.</p>
+          <p className="text-xs text-slate-600 mt-1">Son güncelleme: 27.04.2026 — taslak; AVUKAT ONAYI BEKLER.</p>
         </div>
 
         <Card className="bg-amber-500/10 border-amber-500/25 p-5 mb-6">

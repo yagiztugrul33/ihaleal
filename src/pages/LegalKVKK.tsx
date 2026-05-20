@@ -21,6 +21,9 @@ export default function KVKK() {
           <p className="text-slate-400 mt-2">Kişisel Verilerin Korunması Kanunu kapsamında bilgilendirme</p>
           <p className="text-xs text-slate-600 mt-1">Son güncelleme: 01.01.2025</p>
         </div>
+        <Card className="mb-6 border-amber-500/30 bg-amber-500/10">
+          <CardContent className="p-4 text-xs text-amber-100">Bu metin taslak niteliğindedir — AVUKAT ONAYI BEKLER.</CardContent>
+        </Card>
 
         <div className="space-y-6">
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
