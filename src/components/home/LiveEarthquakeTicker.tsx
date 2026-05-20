@@ -4,7 +4,7 @@ import { Activity } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type Eq = { id: string; time: string; magnitude: number; place: string; depthKm?: number };
-type DataSource = "afad" | "demo";
+type DataSource = "edge" | "afad" | "demo";
 
 const PLACE_POOL = [
   "Marmara Denizi",
@@ -157,6 +157,36 @@ async function fetchAfadEvents(signal: AbortSignal): Promise<Eq[]> {
   return normalized;
 }
 
+function shouldUseSupabaseEdge(): boolean {
+  const url = String(import.meta.env.VITE_SUPABASE_URL ?? "").trim();
+  const key = String(import.meta.env.VITE_SUPABASE_ANON_KEY ?? "").trim();
+  if (!url || !key) return false;
+  if (url.includes("placeholder.supabase.co")) return false;
+  if (!/^https?:\/\//i.test(url)) return false;
+  return true;
+}
+
+async function fetchViaEdge(signal: AbortSignal): Promise<Eq[]> {
+  const url = String(import.meta.env.VITE_SUPABASE_URL ?? "").replace(/\/$/, "");
+  const key = String(import.meta.env.VITE_SUPABASE_ANON_KEY ?? "");
+  const res = await fetch(`${url}/functions/v1/earthquakes_latest`, {
+    signal,
+    headers: {
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+    },
+  });
+  if (!res.ok) throw new Error(`edge_http_${res.status}`);
+  const payload = (await res.json()) as { ok?: boolean; events?: unknown[] };
+  if (!payload?.ok || !Array.isArray(payload.events)) throw new Error("edge_invalid_payload");
+  const normalized = payload.events
+    .map((row, i) => normalizeAfadEvent(row, i))
+    .filter((x): x is Eq => Boolean(x))
+    .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
+  if (normalized.length < 8) throw new Error("edge_insufficient_rows");
+  return normalized;
+}
+
 export function LiveEarthquakeTicker() {
   const [items, setItems] = useState<Eq[]>([]);
   const [source, setSource] = useState<DataSource>("demo");
@@ -171,28 +201,46 @@ export function LiveEarthquakeTicker() {
       setItems(buildRealisticDemoEvents(seedIso).slice(0, 18));
     };
 
-    void fetchAfadEvents(controller.signal)
-      .then((afadRows) => {
-        if (cancel) return;
-        setSource("afad");
-        setItems(afadRows.slice(0, 18));
-      })
-      .catch(() =>
-        fetch("/data/kandilli-feed-mock.json", { signal: controller.signal })
-      .then((r) => r.json())
-      .then((data: { events?: Eq[]; updated?: string }) => {
+    const load = async () => {
+      try {
+        if (shouldUseSupabaseEdge()) {
+          const edgeRows = await fetchViaEdge(controller.signal);
+          if (!cancel) {
+            setSource("edge");
+            setItems(edgeRows.slice(0, 18));
+          }
+          return;
+        }
+      } catch {
+        // Edge route optional: fail-soft to open AFAD endpoint.
+      }
+
+      try {
+        const afadRows = await fetchAfadEvents(controller.signal);
+        if (!cancel) {
+          setSource("afad");
+          setItems(afadRows.slice(0, 18));
+        }
+        return;
+      } catch {
+        // Fall through to mock feed + realistic randomization.
+      }
+
+      try {
+        const resp = await fetch("/data/kandilli-feed-mock.json", { signal: controller.signal });
+        const data = (await resp.json()) as { events?: Eq[]; updated?: string };
         if (cancel || !data?.events) return;
         const sorted = [...data.events].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
-        const realistic = looksTooSynthetic(sorted) ? buildRealisticDemoEvents(data.updated ?? new Date().toISOString()) : sorted;
+        const realistic =
+          looksTooSynthetic(sorted) ? buildRealisticDemoEvents(data.updated ?? new Date().toISOString()) : sorted;
         setSource("demo");
         setItems(realistic.slice(0, 18));
-      })
-      .catch(() => {
+      } catch {
         fallbackToDemo(new Date().toISOString());
-      }))
-      .catch(() => {
-        fallbackToDemo(new Date().toISOString());
-      });
+      }
+    };
+
+    void load();
     return () => {
       cancel = true;
       controller.abort();
@@ -206,7 +254,9 @@ export function LiveEarthquakeTicker() {
       <div className="home-eq-ticker__label">
         <Activity className="h-4 w-4 text-orange-300" aria-hidden />
         <span>Canlı deprem bandı</span>
-        {source === "afad" ? (
+        {source === "edge" ? (
+          <span className="home-eq-ticker__live-pill">AFAD/Kandilli (edge)</span>
+        ) : source === "afad" ? (
           <span className="home-eq-ticker__live-pill">AFAD açık veri</span>
         ) : (
           <span className="home-eq-ticker__demo-pill">demo veri</span>
