@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +15,17 @@ import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { getListingNumber } from "@/lib/listingNumber";
 
+const PRICE_MIN = 0;
+const PRICE_MAX = 200_000_000;
+
+type AuctionStatusFilter = "all" | "live" | "upcoming" | "ended";
+type AuctionSort = "popular" | "price_desc" | "price_asc" | "date_asc" | "date_desc";
+
+function toInt(input: string | null, fallback: number): number {
+  const n = Number(input);
+  return Number.isFinite(n) ? n : fallback;
+}
+
 export function Auctions({
   hideIntro = false,
   layout = "home",
@@ -24,18 +35,63 @@ export function Auctions({
   layout?: "home" | "page";
 }) {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { ref, isVisible } = useScrollAnimation(0.1);
-  const [filter, setFilter] = useState<"all" | "live" | "upcoming" | "ended">("all");
+  const [filter, setFilter] = useState<AuctionStatusFilter>("all");
   const [selectedAuction, setSelectedAuction] = useState<any>(null);
   const [bidAmount, setBidAmount] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [compareList, setCompareList] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([PRICE_MIN, PRICE_MAX]);
   const [selectedCity, setSelectedCity] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState<AuctionSort>("popular");
+  const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [catalogError, setCatalogError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const status = (searchParams.get("status") as AuctionStatusFilter | null) ?? "all";
+    const city = searchParams.get("city") ?? "all";
+    const category = searchParams.get("type") ?? "all";
+    const sort = (searchParams.get("sort") as AuctionSort | null) ?? "popular";
+    const q = searchParams.get("q") ?? "";
+    const min = toInt(searchParams.get("min"), PRICE_MIN);
+    const max = toInt(searchParams.get("max"), PRICE_MAX);
+
+    setFilter(["all", "live", "upcoming", "ended"].includes(status) ? status : "all");
+    setSelectedCity(city);
+    setSelectedCategory(category);
+    setSortBy(["popular", "price_desc", "price_asc", "date_asc", "date_desc"].includes(sort) ? sort : "popular");
+    setSearchInput(q);
+    setSearchQuery(q.trim().toLowerCase());
+    setPriceRange([Math.max(PRICE_MIN, min), Math.min(PRICE_MAX, max)]);
+  }, [searchParams]);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setSearchQuery(searchInput.trim().toLowerCase());
+    }, 240);
+    return () => window.clearTimeout(id);
+  }, [searchInput]);
+
+  useEffect(() => {
+    const next = new URLSearchParams();
+    if (filter !== "all") next.set("status", filter);
+    if (selectedCity !== "all") next.set("city", selectedCity);
+    if (selectedCategory !== "all") next.set("type", selectedCategory);
+    if (sortBy !== "popular") next.set("sort", sortBy);
+    if (searchInput.trim()) next.set("q", searchInput.trim());
+    if (priceRange[0] > PRICE_MIN) next.set("min", String(priceRange[0]));
+    if (priceRange[1] < PRICE_MAX) next.set("max", String(priceRange[1]));
+    const nextStr = next.toString();
+    const currStr = searchParams.toString();
+    if (nextStr !== currStr) {
+      setSearchParams(next);
+    }
+  }, [filter, selectedCity, selectedCategory, sortBy, searchInput, priceRange, searchParams, setSearchParams]);
 
   useEffect(() => {
     let ok = true;
@@ -60,20 +116,35 @@ export function Auctions({
   }, []);
 
   const cities = useMemo(() => [...new Set(catalog.map((a) => a.city))], [catalog]);
+  const categories = useMemo(() => [...new Set(catalog.map((a) => a.category))], [catalog]);
+
   const filtered = useMemo(() => {
     return catalog.filter((a) => {
       if (filter !== "all" && a.status !== filter) return false;
       if (a.currentBid < priceRange[0] || a.currentBid > priceRange[1]) return false;
       if (selectedCity !== "all" && a.city !== selectedCity) return false;
+      if (selectedCategory !== "all" && a.category !== selectedCategory) return false;
       if (searchQuery) {
-        const sq = searchQuery.toLowerCase();
-        const inTitle = a.title.toLowerCase().includes(sq);
-        const inNo = getListingNumber(a).toLowerCase().includes(sq);
-        if (!inTitle && !inNo) return false;
+        const inTitle = a.title.toLowerCase().includes(searchQuery);
+        const inNo = getListingNumber(a).toLowerCase().includes(searchQuery);
+        const inLocation = a.location.toLowerCase().includes(searchQuery);
+        if (!inTitle && !inNo && !inLocation) return false;
       }
       return true;
     });
-  }, [catalog, filter, priceRange, selectedCity, searchQuery]);
+  }, [catalog, filter, priceRange, selectedCity, selectedCategory, searchQuery]);
+
+  const filteredSorted = useMemo(() => {
+    const rows = [...filtered];
+    rows.sort((a, b) => {
+      if (sortBy === "price_desc") return b.currentBid - a.currentBid;
+      if (sortBy === "price_asc") return a.currentBid - b.currentBid;
+      if (sortBy === "date_asc") return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
+      if (sortBy === "date_desc") return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
+      return b.bidderCount - a.bidderCount;
+    });
+    return rows;
+  }, [filtered, sortBy]);
 
   const { toggleFavorite, isFavorite } = useFavorites();
 
@@ -122,7 +193,12 @@ export function Auctions({
           <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Konum, kelime veya ilan no (ILN-...)" className={isHome ? "pl-10 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "pl-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600"} />
+              <Input
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Konum, kelime veya ilan no (ILN-...)"
+                className={isHome ? "pl-10 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "pl-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600"}
+              />
             </div>
             <div className="flex gap-2 flex-wrap">
               {(["all", "live", "upcoming", "ended"] as const).map((f) => (
@@ -137,7 +213,7 @@ export function Auctions({
           </div>
 
           {showFilters && (
-            <div className={`mt-4 p-5 rounded-2xl grid md:grid-cols-3 gap-5 animate-scale-in ${isHome ? "card-warm" : "bg-slate-900/50 border border-white/5"}`}>
+            <div className={`mt-4 p-5 rounded-2xl grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 animate-scale-in ${isHome ? "card-warm" : "bg-slate-900/50 border border-white/5"}`}>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Fiyat Aralığı</label>
                 <Slider value={priceRange} onValueChange={(v) => setPriceRange(v as [number, number])} max={200000000} step={1000000} className="w-full" />
@@ -150,11 +226,33 @@ export function Auctions({
                   {cities.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
+              <div>
+                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Mülk Tipi</label>
+                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                  <option value="all">Tüm Tipler</option>
+                  {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Sıralama</label>
+                <select value={sortBy} onChange={(e) => setSortBy(e.target.value as AuctionSort)} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                  <option value="popular">Popüler (teklif)</option>
+                  <option value="price_desc">Fiyat (yüksekten)</option>
+                  <option value="price_asc">Fiyat (düşükten)</option>
+                  <option value="date_asc">Bitiş (yakın)</option>
+                  <option value="date_desc">Bitiş (uzak)</option>
+                </select>
+              </div>
               <div className="flex items-end justify-end">
-                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setSearchQuery(""); }} className="text-xs text-slate-500 hover:text-blue-400 transition-colors">Filtreleri Temizle</button>
+                <button onClick={() => { setPriceRange([PRICE_MIN, PRICE_MAX]); setSelectedCity("all"); setSelectedCategory("all"); setSortBy("popular"); setSearchInput(""); setSearchQuery(""); setFilter("all"); }} className="text-xs text-slate-500 hover:text-blue-400 transition-colors">Filtreleri Temizle</button>
               </div>
             </div>
           )}
+
+          <p className="mt-3 text-xs text-slate-500">
+            {filteredSorted.length.toLocaleString("tr-TR")} sonuç gösteriliyor
+            {searchQuery ? ` · arama: "${searchInput.trim()}"` : ""}
+          </p>
 
           {compareList.length > 0 && (
             <div className="mt-3 flex items-center gap-3 p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 animate-fade-in">
@@ -167,7 +265,7 @@ export function Auctions({
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((auction, idx) => (
+          {filteredSorted.map((auction, idx) => (
             <Card key={auction.id} className={`property-card group overflow-hidden card-luxury !p-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -224,19 +322,28 @@ export function Auctions({
           ))}
         </div>
 
-        {filtered.length === 0 && !catalogLoading && (
+        {filteredSorted.length === 0 && !catalogLoading && (
           <div className="text-center py-20 animate-fade-in rounded-2xl border border-white/10 bg-slate-950/30 px-4">
             <Search className="w-12 h-12 text-slate-600 mx-auto mb-4" aria-hidden />
-            <p className="text-slate-300 font-medium mb-1">Bu filtrelerle ilan bulunamadı.</p>
-            <p className="text-sm text-slate-500 mb-6">Aramayı veya fiyat aralığını genişletmeyi deneyin.</p>
+            <p className="text-slate-300 font-medium mb-1">
+              {searchQuery ? "Arama kriterinizle eşleşen ilan bulunamadı." : "Bu filtrelerle ilan bulunamadı."}
+            </p>
+            <p className="text-sm text-slate-500 mb-6">
+              {searchQuery
+                ? "Yazımı sadeleştirip şehir/tip filtresini gevşeterek tekrar deneyin."
+                : "Aramayı veya fiyat aralığını genişletmeyi deneyin."}
+            </p>
             <Button
               type="button"
               variant="outline"
               className="border-white/15 text-slate-200"
               onClick={() => {
                 setFilter("all");
-                setPriceRange([0, 200000000]);
+                setPriceRange([PRICE_MIN, PRICE_MAX]);
                 setSelectedCity("all");
+                setSelectedCategory("all");
+                setSortBy("popular");
+                setSearchInput("");
                 setSearchQuery("");
               }}
             >
