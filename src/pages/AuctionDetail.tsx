@@ -22,7 +22,18 @@ import {
   integrityRulesSummaryForAuction,
   withListingDefaults,
 } from "@/lib/listingPolicy";
-import { DEED_DUTY_RATE, estimateBuyerClosingCosts, feeBadgeLabel, FEE_TEXTS } from "@/lib/fees";
+import {
+  ANTI_SNIPING_EXTEND_SECONDS,
+  ANTI_SNIPING_THRESHOLD_SECONDS,
+  BID_BOND_RATE,
+  COMMISSION_RATE,
+  DEED_DUTY_RATE,
+  FEE_TEXTS,
+  calcBuyerTotal,
+  calcSellerNet,
+  estimateBuyerClosingCosts,
+  feeBadgeLabel,
+} from "@/lib/fees";
 import { isDemoData } from "@/lib/dataStrategy";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -144,6 +155,7 @@ export default function AuctionDetail() {
   const [bidTape, setBidTape] = useState<BidTapeItem[]>([]);
   const [flashBidId, setFlashBidId] = useState<string | null>(null);
   const [watchers, setWatchers] = useState<number>(0);
+  const [calculatorBid, setCalculatorBid] = useState<number>(0);
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -170,6 +182,11 @@ export default function AuctionDetail() {
       /* ignore */
     }
   }, [id]);
+
+  useEffect(() => {
+    if (!auction) return;
+    setCalculatorBid(Math.max(1, realtime.highBidTry ?? auction.currentBid));
+  }, [auction, realtime.highBidTry]);
 
   useEffect(() => {
     if (!id || !isAuctionUuid(id) || !isSupabaseConfigured()) return;
@@ -548,7 +565,10 @@ export default function AuctionDetail() {
   };
 
   const bidIncrements = [10000, 50000, 100000, 250000, 500000];
-  const closing = estimateBuyerClosingCosts(liveBid);
+  const effectiveCalcBid = Number.isFinite(calculatorBid) && calculatorBid > 0 ? calculatorBid : liveBid;
+  const closing = estimateBuyerClosingCosts(effectiveCalcBid);
+  const buyerTotals = calcBuyerTotal(effectiveCalcBid);
+  const sellerTotals = calcSellerNet(effectiveCalcBid);
 
   const galleryBadges = [
     { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
@@ -619,6 +639,9 @@ export default function AuctionDetail() {
               </div>
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">{auction.title}</h1>
               <div className="flex items-center gap-2 text-slate-400 mb-4"><MapPin className="w-4 h-4" /> {auction.location}</div>
+              <p className="mb-4 rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2 text-xs text-slate-400">
+                Bu sayfa, tekliften sözleşmeye tüm adımı tek ekranda şeffaflaştırır: kural seti, maliyet hesabı ve güven doğrulamaları birlikte gösterilir.
+              </p>
               <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
                 <p className="font-semibold text-slate-200 text-sm">Haftalık ihale takvimi (hedef)</p>
                 <p>
@@ -632,6 +655,17 @@ export default function AuctionDetail() {
                   (kimlik, Findeks, ekspertiz, tapu özeti, teminat vb.; hukuki son söz sözleşme ve avukat).
                 </p>
               </div>
+              {!isListingOnly ? (
+                <div className="mb-6 rounded-xl border border-sky-500/25 bg-sky-500/10 p-4">
+                  <h3 className="mb-2 text-sm font-semibold text-sky-100">İhale nasıl çalışır? (özet)</h3>
+                  <ul className="space-y-1.5 text-xs text-slate-300">
+                    <li>• Minimum artış kuralı sistem tarafından uygulanır; geçersiz teklif kabul edilmez.</li>
+                    <li>• Son {ANTI_SNIPING_THRESHOLD_SECONDS} saniyede gelen geçerli teklifte süre {ANTI_SNIPING_EXTEND_SECONDS} saniye uzatılır (anti-sniping).</li>
+                    <li>• Katılım teminatı hedefi: %{(BID_BOND_RATE * 100).toFixed(0)} blokaj / ön yetki modeli.</li>
+                    <li>• Komisyon yapısı: alıcı %{(COMMISSION_RATE * 100).toFixed(0)} + satıcı %{(COMMISSION_RATE * 100).toFixed(0)} (+KDV).</li>
+                  </ul>
+                </div>
+              ) : null}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                 <PriceCard label={pricePrimaryLabel} value={`₺${(liveBid / 1000000).toFixed(1)}M`} color="blue" />
                 <PriceCard
@@ -1104,22 +1138,39 @@ export default function AuctionDetail() {
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2 mb-1">
                   <Receipt className="w-4 h-4 text-teal-400" />
-                  <h4 className="text-sm font-semibold text-white">Komisyon Hesaplayici</h4>
+                  <h4 className="text-sm font-semibold text-white">Komisyon ve Maliyet Hesaplayıcı</h4>
                   <Badge variant="outline" className="border-teal-500/20 text-teal-400 text-[10px] ml-auto">{feeBadgeLabel()}</Badge>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 space-y-3">
                   <div>
+                    <label htmlFor="detail-cost-basis" className="text-[11px] text-slate-500">
+                      Hesaplama tutarı (₺)
+                    </label>
+                    <Input
+                      id="detail-cost-basis"
+                      inputMode="numeric"
+                      value={String(effectiveCalcBid)}
+                      onChange={(e) => {
+                        const normalized = Number(e.target.value.replace(/[^\d]/g, ""));
+                        setCalculatorBid(Number.isFinite(normalized) && normalized > 0 ? normalized : liveBid);
+                      }}
+                      className="mt-1 bg-slate-950 border-slate-200 text-white"
+                    />
+                  </div>
+                  <div>
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-slate-500">{isListingOnly ? "İlan tutarı (referans)" : "İhale / teklif tutarı (tahmini)"}</span>
                     </div>
-                    <div className="text-lg font-bold text-white">₺{liveBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-lg font-bold text-white">₺{effectiveCalcBid.toLocaleString("tr-TR")}</div>
                   </div>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between"><span className="text-slate-400">Platform (alıcı)</span><span className="text-slate-300 font-medium">₺{closing.commission.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">KDV (platform)</span><span className="text-slate-300 font-medium">₺{closing.vatOnCommission.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Alıcı komisyonu</span><span className="text-slate-300 font-medium">₺{buyerTotals.commission.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Alıcı KDV</span><span className="text-slate-300 font-medium">₺{buyerTotals.vatOnCommission.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">Tapu Harci (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-medium">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">Döner Sermaye</span><span className="text-slate-300 font-medium">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
-                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-semibold"><span className="text-teal-400">Toplam Maliyet</span><span className="text-teal-400">₺{closing.total.toLocaleString("tr-TR")}</span></div>
+                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-semibold"><span className="text-teal-400">Alıcı toplam öder</span><span className="text-teal-400">₺{closing.total.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between text-xs"><span className="text-slate-500">Satıcı komisyon + KDV</span><span className="text-slate-400">₺{(sellerTotals.commission + sellerTotals.vatOnCommission).toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between text-xs"><span className="text-slate-500">Satıcı net (calcSellerNet)</span><span className="text-emerald-300">₺{sellerTotals.net.toLocaleString("tr-TR")}</span></div>
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-600 leading-relaxed px-0.5">{FEE_TEXTS.commissionMatrahLine()}</p>
@@ -1133,16 +1184,14 @@ export default function AuctionDetail() {
               <CardContent className="p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <ShieldCheck className="w-4 h-4 text-violet-400" />
-                  <h4 className="text-sm font-semibold text-white">Guvenlik Dogrulamasi</h4>
+                  <h4 className="text-sm font-semibold text-white">Güven ve Uyum Göstergeleri</h4>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Kimlik dogrulamasi zorunlu</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Findeks kredi notu kontrolu</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> SMS ile iki asamali dogrulama</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Banka API ile odeme garantisi</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> AML/KYC uyumu</div>
+                <div className="space-y-2 text-xs text-slate-300">
+                  <div className="flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-2 py-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0" /> KYC doğrulama: teklif öncesi zorunlu adım.</div>
+                  <div className="flex items-center gap-2 rounded-lg border border-sky-500/20 bg-sky-500/10 px-2 py-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-sky-300 shrink-0" /> Güvenli ödeme: PSP bağlantısında 3D Secure + blokaj modeli.</div>
+                  <div className="flex items-center gap-2 rounded-lg border border-violet-500/20 bg-violet-500/10 px-2 py-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-violet-300 shrink-0" /> Yasal uyum: sözleşme, MASAK/AML ve kayıt zinciri politikası.</div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-3">ihaleal.com, 7263 sayili Kanun kapsaminda faaliyet gosterir.</p>
+                <p className="text-[10px] text-slate-500 mt-3">Not: nihai hukuki statü, sözleşme paketleri ve avukat incelemesiyle kesinleşir.</p>
               </CardContent>
             </Card>
           </div>
