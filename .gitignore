@@ -63,3 +63,7 @@ supabase-keys.txt
 # Yerel yedek çıktısı (script masaüstüne yazar; repoda oluşursa)
 ihaleal-backups/
 .vercel
+
+# audit gorselleri - repo disi
+screenshots/audit/wave3-final/
+_audit/komut2/*.png
