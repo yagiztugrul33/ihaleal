@@ -211,9 +211,9 @@ export default function TatbikatRehberiPage() {
             className="aspect-video w-full"
             controls
             preload="metadata"
-            poster="/images/placeholders/video-guvenlik-poster.jpg"
+            poster="/images/auction-1.jpg"
           >
-            <source src="/videos/reels-04-guvenlik.mp4" type="video/mp4" />
+            <source src="/videos/ihaleal-tanitim.mp4" type="video/mp4" />
             Tarayıcınız video etiketini desteklemiyor.
           </video>
           <p className="flex items-center gap-2 px-3 py-2 text-xs text-slate-400">
