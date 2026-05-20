@@ -66,6 +66,7 @@ export default function CreateAuction() {
   const [sellerReportRow, setSellerReportRow] = useState<PropertyAnalysisReportRecord | null>(null);
   const [pendingCtx, setPendingCtx] = useState<{ listingId: string; auctionId: string } | null>(null);
   const [aiPhaseLabel, setAiPhaseLabel] = useState("");
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
 
   const [sizeM2, setSizeM2] = useState("120");
   const [rooms, setRooms] = useState("3+1");
@@ -80,6 +81,14 @@ export default function CreateAuction() {
     if (!Number.isFinite(n) || n <= 0) return null;
     return calcSellerNet(n);
   }, [startingBid]);
+  const sellerListings = useMemo(
+    () => [
+      { id: "my-1", title: "Levent Plaza Katı", status: "active", updatedAt: "Bugün 10:12" },
+      { id: "my-2", title: "Üsküdar Villa Portföyü", status: "draft", updatedAt: "Dün 18:45" },
+      { id: "my-3", title: "Ankara Ofis Bloku", status: "sold", updatedAt: "12 May 2026" },
+    ],
+    [],
+  );
 
   const toggleFeature = (f: string) => {
     setFeaturesSelected((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]));
@@ -410,7 +419,52 @@ export default function CreateAuction() {
           </div>
         ) : null}
         {error && <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 mb-6">{error}</div>}
+        <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
+          <CardContent className="p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-white">İlanlarım Yönetimi (mock)</h2>
+            <div className="space-y-2">
+              {sellerListings.map((listing) => (
+                <div key={listing.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2 text-sm">
+                  <div>
+                    <p className="font-medium text-white">{listing.title}</p>
+                    <p className="text-xs text-slate-500">Son güncelleme: {listing.updatedAt}</p>
+                  </div>
+                  <span className={`rounded-full px-2 py-0.5 text-xs ${
+                    listing.status === "active" ? "bg-emerald-500/20 text-emerald-300" : listing.status === "sold" ? "bg-blue-500/20 text-blue-300" : "bg-amber-500/20 text-amber-300"
+                  }`}>
+                    {listing.status === "active" ? "Aktif" : listing.status === "sold" ? "Satıldı" : "Taslak"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="bg-violet-500/5 border-violet-500/20 mb-6">
+          <CardContent className="p-4">
+            <div className="grid gap-2 sm:grid-cols-3">
+              {[
+                { id: 1, title: "1) Temel Bilgiler" },
+                { id: 2, title: "2) Konum ve Teknik" },
+                { id: 3, title: "3) Fiyat ve Yayın" },
+              ].map((step) => (
+                <button
+                  key={step.id}
+                  type="button"
+                  onClick={() => setCurrentStep(step.id as 1 | 2 | 3)}
+                  className={`rounded-lg border px-3 py-2 text-left text-xs transition-colors ${
+                    currentStep === step.id
+                      ? "border-violet-500/40 bg-violet-500/15 text-violet-100"
+                      : "border-slate-200/80 bg-white/[0.02] text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  {step.title}
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
         <form onSubmit={handleCreate} className="space-y-6">
+          {currentStep === 1 ? (
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Görseller</h3>
@@ -439,7 +493,9 @@ export default function CreateAuction() {
               <input ref={fileInputRef} type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
             </CardContent>
           </Card>
+          ) : null}
 
+          {currentStep === 1 ? (
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Temel Bilgiler</h3>
@@ -489,7 +545,9 @@ export default function CreateAuction() {
               </div>
             </CardContent>
           </Card>
+          ) : null}
 
+          {currentStep === 1 ? (
           <Card className="bg-violet-500/5 border-violet-500/20">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Nasıl satacak / kiralayacaksınız?</h3>
@@ -512,7 +570,9 @@ export default function CreateAuction() {
               </div>
             </CardContent>
           </Card>
+          ) : null}
 
+          {currentStep === 2 ? (
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
@@ -560,7 +620,9 @@ export default function CreateAuction() {
               </div>
             </CardContent>
           </Card>
+          ) : null}
 
+          {currentStep === 2 ? (
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Teknik detaylar</h3>
@@ -609,7 +671,9 @@ export default function CreateAuction() {
               </div>
             </CardContent>
           </Card>
+          ) : null}
 
+          {currentStep === 3 ? (
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Fiyat ve süre</h3>
@@ -671,7 +735,9 @@ export default function CreateAuction() {
               </div>
             </CardContent>
           </Card>
+          ) : null}
 
+          {currentStep === 2 ? (
           <Card className="bg-teal-500/5 border-teal-500/20">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
@@ -713,7 +779,9 @@ export default function CreateAuction() {
               </label>
             </CardContent>
           </Card>
+          ) : null}
 
+          {currentStep === 2 ? (
           <Card className="bg-amber-500/5 border-amber-500/20">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
@@ -736,11 +804,35 @@ export default function CreateAuction() {
               </label>
             </CardContent>
           </Card>
+          ) : null}
 
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-white/15 text-slate-200"
+              onClick={() => setCurrentStep((v) => (v === 1 ? 1 : ((v - 1) as 1 | 2 | 3)))}
+              disabled={currentStep === 1}
+            >
+              Geri adım
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="border-white/15 text-slate-200"
+              onClick={() => setCurrentStep((v) => (v === 3 ? 3 : ((v + 1) as 1 | 2 | 3)))}
+              disabled={currentStep === 3}
+            >
+              Sonraki adım
+            </Button>
+          </div>
+
+          {currentStep === 3 ? (
           <Button type="submit" disabled={submitLoading} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-12 text-base disabled:opacity-60">
             <PlusCircle className="w-5 h-5 mr-2" />
             {submitLoading ? (aiPhaseLabel || "Kaydediliyor...") : "İlanı kaydet ve yayınla"}
           </Button>
+          ) : null}
         </form>
 
         <Dialog open={sellerReportModalOpen} onOpenChange={setSellerReportModalOpen}>
