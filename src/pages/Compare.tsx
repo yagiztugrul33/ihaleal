@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, GitCompare, Star, CheckCircle2, XCircle, ArrowRight, TrendingUp, TrendingDown, Minus, Home, BarChart3, BadgePercent, Banknote, Clock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,8 +14,8 @@ import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 
 export default function Compare() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const initialIds = searchParams.get("ids")?.split(",") || [];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialIds = (searchParams.get("ids")?.split(",") || []).slice(0, 3);
   const { ref, isVisible } = useScrollAnimation(0.05);
   const [selectedIds, setSelectedIds] = useState<string[]>(initialIds);
   const [showSelector, setShowSelector] = useState(initialIds.length < 2);
@@ -27,8 +27,17 @@ export default function Compare() {
   );
 
   const toggleSelection = (id: string) => {
-    setSelectedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : prev.length < 4 ? [...prev, id] : prev);
+    setSelectedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : prev.length < 3 ? [...prev, id] : prev);
   };
+
+  useEffect(() => {
+    const next = new URLSearchParams(searchParams);
+    if (selectedIds.length > 0) next.set("ids", selectedIds.join(","));
+    else next.delete("ids");
+    if (next.toString() !== searchParams.toString()) {
+      setSearchParams(next);
+    }
+  }, [selectedIds, searchParams, setSearchParams]);
 
   const calculateScore = (auction: any) => {
     const priceScore = Math.max(0, 100 - (auction.pricePerSqm / 2000));
@@ -97,9 +106,10 @@ export default function Compare() {
           <Card className="bg-slate-900/50 border-slate-200/80 mb-8 animate-scale-in">
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/4)</h3>
+                <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/3)</h3>
                 <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">Karşılaştırmaya başla</Button>
               </div>
+              <p className="mb-3 text-xs text-slate-500">Karşılaştırma 2 veya 3 ilanla optimize edilmiştir; link paylaşımı için URL otomatik güncellenir.</p>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pr-1">
                 {catalogNorm.map((a) => (
                   <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-slate-200/80 bg-white/[0.02] hover:border-slate-200"}`}>
