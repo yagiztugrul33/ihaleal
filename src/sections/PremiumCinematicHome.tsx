@@ -337,10 +337,10 @@ export default function PremiumCinematicHome() {
             {home.hero.subtitle}
           </motion.p>
           <motion.div className="flex flex-wrap gap-3" variants={reduced ? undefined : staggerItem}>
-            <Link className="inline-flex items-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400" to={ROUTES.ILANLAR}>
+            <Link className="inline-flex items-center rounded-xl border border-cyan-200/40 bg-gradient-to-r from-blue-500 to-cyan-500 px-5 py-3 text-sm font-bold text-white shadow-[0_14px_34px_rgba(14,116,255,0.38)] transition hover:from-blue-400 hover:to-cyan-400" to={ROUTES.ILANLAR}>
               {home.hero.ctaExplore} <span aria-hidden="true">{"\u2192"}</span>
             </Link>
-            <Link className="inline-flex items-center rounded-xl border border-blue-400/35 bg-slate-900/40 px-5 py-3 text-sm font-semibold text-blue-100 transition hover:border-blue-300 hover:text-white" to={ROUTES.NASIL_CALISIR}>
+            <Link className="inline-flex items-center rounded-xl border border-slate-200/40 bg-slate-950/85 px-5 py-3 text-sm font-bold text-slate-50 shadow-[0_12px_28px_rgba(2,6,23,0.45)] transition hover:border-cyan-300/70 hover:text-cyan-100" to={ROUTES.NASIL_CALISIR}>
               {home.hero.ctaHow}
             </Link>
           </motion.div>
@@ -459,7 +459,7 @@ export default function PremiumCinematicHome() {
           ))}
         </div>
           <div className="mt-6">
-            <Link to={ROUTES.HOW_IT_WORKS} className="inline-flex items-center rounded-xl border border-blue-400/35 bg-slate-900/40 px-5 py-2.5 text-sm font-semibold text-blue-100 transition hover:border-blue-300 hover:text-white">
+            <Link to={ROUTES.HOW_IT_WORKS} className="inline-flex items-center rounded-xl border border-cyan-300/35 bg-slate-950/80 px-5 py-2.5 text-sm font-bold text-cyan-100 shadow-[0_10px_24px_rgba(2,6,23,0.4)] transition hover:border-cyan-200/70 hover:text-white">
             Tüm rehber ve tanıtım videosu
           </Link>
           </div>
@@ -471,7 +471,7 @@ export default function PremiumCinematicHome() {
           <h2 id="premium-auctions-title" className="text-2xl font-black text-white lg:text-3xl">
             {home.featured.heading}
           </h2>
-          <Link to={ROUTES.ILANLAR} className="text-sm font-semibold text-blue-300 transition hover:text-blue-200">
+          <Link to={ROUTES.ILANLAR} className="rounded-lg border border-cyan-400/30 bg-slate-950/75 px-3 py-1.5 text-sm font-bold text-cyan-200 transition hover:border-cyan-300/70 hover:text-white">
             {home.featured.viewAll}
           </Link>
         </div>

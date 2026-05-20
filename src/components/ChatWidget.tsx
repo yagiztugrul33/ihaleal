@@ -396,7 +396,7 @@ export function ChatWidget() {
           onMouseLeave={hidePeek}
         >
           {peek && (
-            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-500/25 bg-white/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-4 ring-1 ring-white/10">
+            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-500/25 bg-slate-950/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-4 ring-1 ring-white/10">
               <div className="flex items-center gap-3 mb-3">
                 <AiAssistantAvatar size="sm" />
                 <div>
@@ -429,28 +429,29 @@ export function ChatWidget() {
               </div>
             </div>
           )}
-          <div className="flex flex-col sm:flex-row items-end gap-2">
+          <div className="flex items-end gap-2 rounded-full border border-slate-700/70 bg-slate-950/80 p-1.5 shadow-lg shadow-black/45 backdrop-blur">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => openPanel("qa")}
-              className="rounded-full border-violet-400/40 bg-violet-950/80 text-violet-100 hover:bg-violet-900/90 shadow-lg shadow-black/40 px-4 py-2 h-auto font-semibold text-xs sm:text-sm"
+              className="h-9 rounded-full border-slate-600/70 bg-slate-900/80 px-3 py-2 text-slate-200 shadow-none hover:border-violet-300/40 hover:bg-slate-800/90 hover:text-violet-100"
+              aria-label="Soru-cevap modu"
             >
-              <HelpCircle className="w-4 h-4 sm:mr-2 shrink-0" aria-hidden />
-              <span className="hidden sm:inline">Soru–cevap</span>
+              <HelpCircle className="h-4 w-4 shrink-0" aria-hidden />
+              <span className="hidden lg:inline">Soru–cevap</span>
             </Button>
           <button
             type="button"
               onClick={() => openPanel("guide")}
-              className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
+              className="flex h-9 items-center gap-2 rounded-full border border-cyan-400/30 bg-slate-900/95 pl-2 pr-3 text-cyan-100 shadow-none transition-all duration-200 hover:border-cyan-300/60 hover:bg-slate-800/90 hover:text-white"
             aria-label={`${ASSISTANT_NAME} sohbet`}
           >
-            <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
-            <span className="hidden sm:inline font-bold text-sm tracking-tight bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
+            <AiAssistantAvatar size="sm" className="ring-1 ring-black/30 shadow-inner" />
+            <span className="hidden sm:inline text-xs font-semibold tracking-tight">
               {ASSISTANT_NAME}
             </span>
-            <MessageCircle className="w-5 h-5 opacity-90 sm:hidden" aria-hidden />
+            <MessageCircle className="h-4 w-4 opacity-90 sm:hidden" aria-hidden />
           </button>
           </div>
         </div>
