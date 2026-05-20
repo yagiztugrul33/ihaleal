@@ -1884,3 +1884,56 @@
 .emergency-action-band__link:hover {
   background: rgba(255, 255, 255, 0.08);
 }
+
+.market-board-ticker__viewport {
+  overflow: hidden;
+}
+
+.market-board-ticker__lane {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: market-board-marquee 36s linear infinite;
+}
+
+.market-board-ticker__lane--static {
+  animation: none;
+}
+
+.market-board-ticker__seq {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.market-board-ticker__chip {
+  display: inline-flex;
+  min-width: 212px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  border: 1px solid;
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.72rem;
+}
+
+@keyframes market-board-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .market-board-ticker__viewport {
+    overflow-x: auto;
+  }
+
+  .market-board-ticker__lane {
+    animation: none;
+  }
+}

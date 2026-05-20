@@ -1,11 +1,11 @@
 ﻿import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Activity,
   BarChart3,
   Building2,
   ChevronRight,
+  Clock3,
   Factory,
   Gavel,
   Globe,
@@ -25,11 +25,12 @@ import {
   Warehouse,
   Zap,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { useLocale } from "@/contexts/LocaleContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { cinematicEase, staggerContainer, staggerItem } from "@/lib/motion/presets";
 import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
-import { HeroLiveAuctionCard } from "@/components/home/HeroLiveAuctionCard";
 import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
 import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 import { ROUTES } from "@/constants/routes";
@@ -38,8 +39,14 @@ import { getAllProperties, getFeaturedAuctions } from "@/lib/demo-data";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { getPropertyHero, getPropertyLocation, getPropertyTitle } from "@/types/property";
 import type { CategoryKey } from "@/types/property";
+import { BID_BOND_RATE, COMMISSION_RATE } from "@/lib/fees";
 
-const STAT_ICONS = [BarChart3, Shield, Users, Star] as const;
+const BOARD_TICKER_CODES = ["KADIKÖY-D", "ÇEŞME-A", "LEVENT-O", "BODRUM-V"] as const;
+const BOARD_FILTER_TABS = [
+  { key: "active", label: "En Aktif" },
+  { key: "rising", label: "Yükselen" },
+  { key: "ending", label: "Bitiyor" },
+] as const;
 const TRUST_ICONS = [Shield, Users, Star, Headphones] as const;
 const TRUST_LINKS = ["/guvenlik", ROUTES.ILANLAR, "/yorumlar", "/destek"] as const;
 const STEP_ICONS = [Search, Shield, Gavel, Star] as const;
@@ -157,25 +164,62 @@ const DEMO_TESTIMONIALS = [
   },
 ] as const;
 
-const MARKET_TICKER_ROWS = [
-  { symbol: "IST · KONUT", last: "₺74.200/m²", change: 1.8 },
-  { symbol: "ANK · TICARI", last: "₺52.800/m²", change: -0.6 },
-  { symbol: "IZM · VILLA", last: "₺91.400/m²", change: 2.4 },
-  { symbol: "BUR · SANAYI", last: "₺38.700/m²", change: 0.9 },
-  { symbol: "ANT · TURIZM", last: "₺68.100/m²", change: 1.2 },
-  { symbol: "GES · ALTYAPI", last: "₺44.900/m²", change: -0.4 },
+type BoardFilter = (typeof BOARD_FILTER_TABS)[number]["key"];
+type BoardRow = {
+  id: string;
+  code: string;
+  title: string;
+  bid: number;
+  changePct: number;
+  remainingMin: number;
+  sparkline: number[];
+};
+
+type HeroMetrics = {
+  volume: number;
+  active: number;
+  avgRise: number;
+  watchers: number;
+};
+
+const REGION_INDEXES = [
+  { name: "İstanbul Konut", value: 124.3, changePct: 1.7 },
+  { name: "Ege Arsa", value: 111.6, changePct: -0.5 },
+  { name: "Akdeniz Villa", value: 138.2, changePct: 2.1 },
+  { name: "Ankara Ofis", value: 104.8, changePct: 0.8 },
 ] as const;
 
-const MARKET_SUMMARY = [
-  { key: "volume", label: "24s Hacim", value: 128_400_000, suffix: "₺", delta: "+6.2%" },
-  { key: "active", label: "Aktif İhale", value: 312, suffix: "", delta: "+12" },
-  { key: "avgRise", label: "Ort. Artış", value: 14.8, suffix: "%", delta: "+1.1 puan" },
-  { key: "investorFlow", label: "Yeni İzleyici", value: 1896, suffix: "", delta: "+8.4%" },
-] as const;
+function sparklinePath(values: number[]): string {
+  if (!values.length) return "";
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+  const range = Math.max(1, max - min);
+  return values
+    .map((v, i) => {
+      const x = (i / Math.max(1, values.length - 1)) * 100;
+      const y = 100 - ((v - min) / range) * 100;
+      return `${x},${y}`;
+    })
+    .join(" ");
+}
 
-function parseStatNumber(raw: string): number {
-  const digits = raw.replace(/[^\d]/g, "");
-  return digits ? Number(digits) : 0;
+function buildHeroRows(): BoardRow[] {
+  const featured = getFeaturedAuctions(4);
+  return featured.map((item, i) => {
+    const starting = item.startingBidTry ?? item.priceTry ?? 1_500_000;
+    const bid = item.currentBidTry ?? starting;
+    const changePct = starting > 0 ? ((bid - starting) / starting) * 100 : 0;
+    const line = [0.91, 0.95, 0.97, 1.01, 1.03].map((m) => Math.round(bid * m));
+    return {
+      id: item.id,
+      code: BOARD_TICKER_CODES[i] ?? `KOD-${i + 1}`,
+      title: getPropertyTitle(item),
+      bid,
+      changePct: Number(changePct.toFixed(1)),
+      remainingMin: 340 - i * 44,
+      sparkline: line,
+    };
+  });
 }
 
 function formatRemaining(raw: unknown): string {
@@ -194,57 +238,91 @@ export default function PremiumCinematicHome() {
   const { t } = useLocale();
   const home = t.home;
   const reduced = useReducedMotion();
+  const navigate = useNavigate();
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
-
-  const statTargets = useMemo(
-    () => home.stats.map((s) => ({ ...s, target: parseStatNumber(s.value) })),
-    [home.stats],
-  );
-
-  const [animatedStats, setAnimatedStats] = useState<number[]>(() =>
-    statTargets.map(() => 0),
-  );
-  const [marketSummaryValues, setMarketSummaryValues] = useState<number[]>(() =>
-    MARKET_SUMMARY.map(() => 0),
-  );
+  const [heroRows, setHeroRows] = useState<BoardRow[]>(() => buildHeroRows());
+  const [heroFilter, setHeroFilter] = useState<BoardFilter>("active");
+  const [flashRowId, setFlashRowId] = useState<string | null>(null);
+  const [heroMetrics, setHeroMetrics] = useState<HeroMetrics>({
+    volume: 126_400_000,
+    active: 284,
+    avgRise: 2.6,
+    watchers: 1932,
+  });
 
   useEffect(() => {
-    let frame = 0;
     const id = window.setInterval(() => {
-      frame += 1;
-      const p = Math.min(frame / 60, 1);
-      setAnimatedStats(statTargets.map((s) => Math.floor(s.target * p)));
-      if (p >= 1) window.clearInterval(id);
-    }, 25);
-    return () => window.clearInterval(id);
-  }, [statTargets]);
-
-  useEffect(() => {
-    let frame = 0;
-    const id = window.setInterval(() => {
-      frame += 1;
-      const progress = Math.min(frame / 70, 1);
-      setMarketSummaryValues(
-        MARKET_SUMMARY.map((item) =>
-          item.key === "avgRise"
-            ? Number((item.value * progress).toFixed(1))
-            : Math.floor(item.value * progress),
-        ),
-      );
-      if (progress >= 1) window.clearInterval(id);
-    }, 20);
+      setHeroRows((prev) => {
+        if (!prev.length) return prev;
+        const index = Math.floor(Math.random() * prev.length);
+        const updated = [...prev];
+        const current = updated[index];
+        const move = current.bid * (Math.random() * 0.003 + 0.0008);
+        const sign = Math.random() > 0.3 ? 1 : -1;
+        const nextBid = Math.max(80_000, Math.round(current.bid + move * sign));
+        updated[index] = {
+          ...current,
+          bid: nextBid,
+          changePct: Number((current.changePct + (sign > 0 ? 0.2 : -0.15)).toFixed(1)),
+          remainingMin: Math.max(3, current.remainingMin - Math.floor(Math.random() * 3)),
+          sparkline: [...current.sparkline.slice(-5), nextBid],
+        };
+        setFlashRowId(current.id);
+        return updated;
+      });
+      setHeroMetrics((prev) => ({
+        volume: prev.volume + Math.round((Math.random() * 2_100_000 - 650_000)),
+        active: 284,
+        avgRise: Number((prev.avgRise + (Math.random() > 0.5 ? 0.1 : -0.08)).toFixed(1)),
+        watchers: Math.max(1200, prev.watchers + Math.round(Math.random() * 22 - 8)),
+      }));
+    }, 5400);
     return () => window.clearInterval(id);
   }, []);
 
-  const stats = useMemo(
-    () =>
-      statTargets.map((stat, i) => ({
-        ...stat,
-        Icon: STAT_ICONS[i] ?? BarChart3,
-        display:
-          stat.value.includes("%") ? `${animatedStats[i]}%` : animatedStats[i].toLocaleString("tr-TR"),
-      })),
-    [animatedStats, statTargets],
+  useEffect(() => {
+    if (!flashRowId) return;
+    const id = window.setTimeout(() => setFlashRowId(null), 900);
+    return () => window.clearTimeout(id);
+  }, [flashRowId]);
+
+  const tickerRows = useMemo(() => heroRows.map((row) => ({ code: row.code, bid: row.bid, changePct: row.changePct })), [heroRows]);
+
+  const filteredRows = useMemo(() => {
+    const rows = [...heroRows];
+    if (heroFilter === "rising") return rows.sort((a, b) => b.changePct - a.changePct);
+    if (heroFilter === "ending") return rows.sort((a, b) => a.remainingMin - b.remainingMin);
+    return rows.sort((a, b) => b.bid - a.bid);
+  }, [heroRows, heroFilter]);
+
+  const metricCards = useMemo(
+    () => [
+      {
+        key: "volume",
+        label: "İşlem Hacmi",
+        value: `₺${Math.max(0, heroMetrics.volume).toLocaleString("tr-TR")}`,
+        sparkline: [82, 86, 84, 90, 95, 98],
+      },
+      {
+        key: "active",
+        label: "Aktif İhale",
+        value: "284",
+        sparkline: [278, 281, 283, 284, 284, 284],
+      },
+      {
+        key: "avgRise",
+        label: "Ort. Artış",
+        value: `%${heroMetrics.avgRise.toFixed(1)}`,
+        sparkline: [1.4, 1.8, 2.1, 2.4, 2.6, heroMetrics.avgRise],
+      },
+      {
+        key: "watchers",
+        label: "İzleyen",
+        value: heroMetrics.watchers.toLocaleString("tr-TR"),
+        sparkline: [1610, 1680, 1750, 1820, 1890, heroMetrics.watchers],
+      },
+    ],
+    [heroMetrics],
   );
 
   const steps = useMemo(
@@ -269,15 +347,6 @@ export default function PremiumCinematicHome() {
 
   const liveAuctions = useMemo(() => getFeaturedAuctions(4), []);
 
-  const statViewProps = reduced
-    ? {}
-    : {
-        initial: { opacity: 0, y: 24 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-40px" },
-        transition: cinematicEase,
-      };
-
   return (
     <div
       className="premium-home relative overflow-x-clip bg-slate-950 text-slate-100"
@@ -291,113 +360,184 @@ export default function PremiumCinematicHome() {
           <div className="border-b border-slate-800/80 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-200/90">
             Piyasa Akışı
           </div>
-          <div className="flex w-max min-w-full animate-[home-eq-marquee_38s_linear_infinite] items-center gap-3 px-4 py-2.5 [@media(max-width:768px)]:animate-none [@media(max-width:768px)]:flex-wrap">
-            {[...MARKET_TICKER_ROWS, ...MARKET_TICKER_ROWS].map((row, idx) => {
-              const up = row.change >= 0;
-              return (
-                <div
-                  key={`${row.symbol}-${idx}`}
-                  className={`inline-flex min-w-[200px] items-center justify-between gap-3 rounded-lg border px-3 py-2 text-xs ${
-                    up
-                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
-                      : "border-rose-500/30 bg-rose-500/10 text-rose-200"
-                  }`}
-                >
-                  <span className="font-semibold tracking-wide text-slate-100">{row.symbol}</span>
-                  <span className="font-bold">{row.last}</span>
-                  <span className="inline-flex items-center gap-1 font-bold">
-                    {up ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}
-                    {up ? "+" : ""}
-                    {row.change.toFixed(1)}%
-                  </span>
+          <div className="market-board-ticker__viewport px-3 py-2.5">
+            <div className={`market-board-ticker__lane ${reduced ? "market-board-ticker__lane--static" : ""}`}>
+              {[0, 1].map((dup) => (
+                <div key={dup} className="market-board-ticker__seq">
+                  {tickerRows.map((row) => {
+                    const up = row.changePct >= 0;
+                    return (
+                      <div
+                        key={`${dup}-${row.code}`}
+                        className={`market-board-ticker__chip ${
+                          up
+                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
+                            : "border-rose-500/30 bg-rose-500/10 text-rose-200"
+                        }`}
+                      >
+                        <span className="font-semibold tracking-wide text-slate-100">{row.code}</span>
+                        <span className="font-bold">{formatTry(row.bid)}</span>
+                        <span className="inline-flex items-center gap-1 font-bold">
+                          {up ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}
+                          {up ? "+" : ""}
+                          {row.changePct.toFixed(1)}%
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section
-        className="relative mx-auto grid w-full max-w-[1240px] gap-6 px-4 pb-10 pt-10 lg:grid-cols-[1.2fr_1fr_0.9fr] lg:items-start lg:px-6"
-        aria-labelledby="premium-hero-title"
-      >
-        <div className="absolute inset-0 -z-10 rounded-[32px] border border-blue-500/20 bg-gradient-to-b from-[#0a1628] via-[#0a1f3d] to-slate-950/95 shadow-[0_40px_120px_rgba(15,23,42,0.65)]" />
-        <motion.div
-          className="space-y-6 p-2 lg:space-y-7 lg:p-6"
-          variants={reduced ? undefined : staggerContainer}
-          initial={reduced ? false : "hidden"}
-          animate={reduced ? undefined : "show"}
-        >
-          <motion.p className="inline-flex items-center rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200" variants={reduced ? undefined : staggerItem}>
-            Premium İhale Terminali
-          </motion.p>
-          <motion.h1 id="premium-hero-title" className="max-w-2xl text-4xl font-black leading-[1.04] tracking-[-0.02em] text-white lg:text-[3.3rem]" variants={reduced ? undefined : staggerItem}>
-            {home.hero.titleLead}{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
-              {home.hero.titleAccent}
-            </span>
-          </motion.h1>
-          <motion.p className="max-w-2xl text-[15px] leading-7 text-slate-300 lg:text-[18px] lg:leading-8" variants={reduced ? undefined : staggerItem}>
-            {home.hero.subtitle}
-          </motion.p>
-          <motion.div className="flex flex-wrap gap-3" variants={reduced ? undefined : staggerItem}>
-            <Link className="inline-flex items-center rounded-xl border border-cyan-200/40 bg-gradient-to-r from-blue-500 to-cyan-500 px-5 py-3 text-sm font-bold text-white shadow-[0_14px_34px_rgba(14,116,255,0.38)] transition hover:from-blue-400 hover:to-cyan-400" to={ROUTES.ILANLAR}>
-              {home.hero.ctaExplore} <span aria-hidden="true">{"\u2192"}</span>
-            </Link>
-            <Link className="inline-flex items-center rounded-xl border border-slate-200/40 bg-slate-950/85 px-5 py-3 text-sm font-bold text-slate-50 shadow-[0_12px_28px_rgba(2,6,23,0.45)] transition hover:border-cyan-300/70 hover:text-cyan-100" to={ROUTES.NASIL_CALISIR}>
-              {home.hero.ctaHow}
-            </Link>
-          </motion.div>
-          <div className="lg:hidden">
-            <HeroLiveAuctionCard
-              className="border-blue-400/35 bg-slate-950/90"
-              title={home.live.title}
-              liveLabel={home.live.live}
-              growthLabel={home.live.growth}
-              viewLabel={home.live.view}
-            />
+      <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-10 lg:px-6" aria-labelledby="premium-hero-title">
+        <div className="rounded-[32px] border border-blue-500/20 bg-gradient-to-b from-[#0a1628] via-[#0a1f3d] to-slate-950/95 p-4 shadow-[0_40px_120px_rgba(15,23,42,0.65)] lg:p-6">
+          <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+            <div className="space-y-3">
+              <Badge className="border border-blue-400/30 bg-blue-500/10 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200">
+                Borsa Paneli
+              </Badge>
+              <h1 id="premium-hero-title" className="text-4xl font-black leading-[1.04] tracking-[-0.02em] text-white lg:text-[3.2rem]">
+                Gayrimenkul Borsası
+              </h1>
+              <p className="max-w-2xl text-[15px] leading-7 text-slate-300 lg:text-[18px] lg:leading-8">
+                Şeffaf, gerçek zamanlı, AI destekli açık artırma
+              </p>
+            </div>
+            <Button asChild className="h-11 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-5 text-sm font-bold text-white hover:from-blue-400 hover:to-cyan-400">
+              <Link to={ROUTES.ILANLAR}>
+                İhaleleri Keşfet <ChevronRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
-        </motion.div>
 
-        <div className="premium-hero__visual relative hidden min-h-[360px] overflow-hidden rounded-3xl border border-slate-700/50 bg-slate-900 shadow-2xl lg:block" aria-label={home.aria.heroVisual}>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(56,189,248,0.35),transparent_38%),radial-gradient(circle_at_76%_22%,rgba(59,130,246,0.28),transparent_42%),radial-gradient(circle_at_50%_78%,rgba(14,165,233,0.16),transparent_45%),linear-gradient(150deg,#020617_0%,#07152d_52%,#0b2445_100%)]" />
-          <div className="absolute -left-20 top-16 h-64 w-64 rounded-full border border-cyan-400/20 bg-cyan-400/10 blur-2xl" aria-hidden="true" />
-          <div className="absolute right-8 top-8 h-48 w-48 rounded-full border border-blue-400/20 bg-blue-500/10 blur-2xl" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/90 via-[#0d1f39]/70 to-transparent" />
-          <div className="absolute left-8 top-8 right-8 grid grid-cols-2 gap-2 text-[11px] text-slate-300/80" aria-hidden="true">
-            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1">Likidite: canlı</span>
-            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1 text-right">Risk bandı: şeffaf</span>
-            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1">Emsal veri: aktif</span>
-            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1 text-right">Uyum: denetlenebilir</span>
-          </div>
-          <HeroLiveAuctionCard
-            className="absolute bottom-5 left-5 right-5 border-blue-400/30 bg-[#081425]/90"
-            title={home.live.title}
-            liveLabel={home.live.live}
-            growthLabel={home.live.growth}
-            viewLabel={home.live.view}
-          />
-        </div>
-
-        <aside className="grid gap-3 p-2 lg:p-6" aria-label={home.aria.statRail}>
-          {stats.map((stat) => (
-            <motion.article
-              key={stat.label}
-              className="rounded-2xl border border-blue-500/20 bg-slate-900/75 p-4 shadow-lg shadow-slate-950/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(37,99,235,0.22)]"
-              {...statViewProps}
-            >
-              <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-blue-300" aria-hidden="true">
-                <stat.Icon className="h-4 w-4" />
-              </span>
-              <div className="space-y-1">
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">{stat.label}</p>
-                <strong className="block text-2xl font-extrabold text-white">{stat.display}</strong>
-                <small className="text-xs text-slate-400">{stat.vs}</small>
+          <div className="grid gap-5 lg:grid-cols-[1.55fr_1fr]">
+            <div className="space-y-5">
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                {metricCards.map((metric) => (
+                  <Card key={metric.key} className="border border-slate-700/80 bg-slate-950/75">
+                    <CardContent className="p-4">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">{metric.label}</p>
+                      <strong className="mt-1 block text-2xl font-black text-white">{metric.value}</strong>
+                      {metric.key === "active" ? (
+                        <p className="mt-1 text-xs font-semibold text-cyan-200">Aktif İhale: 284</p>
+                      ) : null}
+                      <svg viewBox="0 0 100 100" className="mt-2 h-8 w-full" preserveAspectRatio="none" aria-hidden>
+                        <polyline
+                          fill="none"
+                          stroke={metric.key === "avgRise" ? "#facc15" : "#38bdf8"}
+                          strokeWidth="4"
+                          points={sparklinePath(metric.sparkline)}
+                        />
+                      </svg>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-              <b className="mt-2 inline-block text-xs font-bold text-emerald-300">{stat.delta}</b>
-            </motion.article>
-          ))}
-        </aside>
+
+              <Card className="border border-slate-700/80 bg-slate-950/75">
+                <CardContent className="p-4">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                    <h2 className="text-lg font-bold text-white">En Aktif İhaleler</h2>
+                    <div className="flex flex-wrap gap-2">
+                      {BOARD_FILTER_TABS.map((tab) => (
+                        <Button
+                          key={tab.key}
+                          size="sm"
+                          variant={heroFilter === tab.key ? "default" : "outline"}
+                          className={
+                            heroFilter === tab.key
+                              ? "bg-blue-600 text-white hover:bg-blue-500"
+                              : "border-slate-600 bg-slate-900 text-slate-200 hover:bg-slate-800"
+                          }
+                          onClick={() => setHeroFilter(tab.key)}
+                        >
+                          {tab.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-[720px] w-full text-sm text-slate-200">
+                      <thead className="text-left text-[11px] uppercase tracking-[0.14em] text-slate-400">
+                        <tr>
+                          <th className="pb-2 pr-3">Kod</th>
+                          <th className="pb-2 pr-3">Mülk</th>
+                          <th className="pb-2 pr-3">Teklif</th>
+                          <th className="pb-2 pr-3">Değişim%</th>
+                          <th className="pb-2">Süre</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredRows.map((row) => {
+                          const up = row.changePct >= 0;
+                          return (
+                            <tr
+                              key={row.id}
+                              onClick={() => navigate(`/ihale/${row.id}`)}
+                              className={`cursor-pointer border-t border-slate-800/80 transition ${
+                                flashRowId === row.id ? "bg-emerald-500/15" : "hover:bg-slate-900/70"
+                              }`}
+                            >
+                              <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
+                              <td className="py-2.5 pr-3 text-slate-100">{row.title}</td>
+                              <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.bid)}</td>
+                              <td className={`py-2.5 pr-3 font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>
+                                {up ? "+" : ""}
+                                {row.changePct.toFixed(1)}%
+                              </td>
+                              <td className="py-2.5 text-slate-300">
+                                <span className="inline-flex items-center gap-1">
+                                  <Clock3 className="h-3.5 w-3.5 text-slate-500" />
+                                  {`${Math.floor(row.remainingMin / 60)}s ${row.remainingMin % 60}dk`}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <aside className="space-y-4">
+              <Card className="border border-slate-700/80 bg-slate-950/75">
+                <CardContent className="space-y-3 p-4">
+                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-200">Bölge Endeksleri</h3>
+                  {REGION_INDEXES.map((item) => {
+                    const up = item.changePct >= 0;
+                    return (
+                      <div key={item.name} className="flex items-center justify-between rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2">
+                        <span className="text-sm text-slate-200">{item.name}</span>
+                        <span className={`text-xs font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>
+                          {up ? "+" : ""}
+                          {item.changePct.toFixed(1)}%
+                        </span>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </Card>
+
+              <Card className="border border-slate-700/80 bg-slate-950/75">
+                <CardContent className="space-y-2 p-4">
+                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-200">Güven Göstergeleri</h3>
+                  <p className="inline-flex items-center gap-2 text-sm text-slate-300"><Shield className="h-4 w-4 text-cyan-300" /> KYC doğrulama</p>
+                  <p className="inline-flex items-center gap-2 text-sm text-slate-300"><Landmark className="h-4 w-4 text-cyan-300" /> Lisanslı ödeme</p>
+                  <p className="inline-flex items-center gap-2 text-sm text-slate-300"><Zap className="h-4 w-4 text-cyan-300" /> Anti-sniping</p>
+                  <div className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-300">
+                    <p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p>
+                    <p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </aside>
+          </div>
+        </div>
       </section>
 
       <section className="premium-trust-strip" aria-label={home.aria.trustRow}>
@@ -415,32 +555,6 @@ export default function PremiumCinematicHome() {
 
       <DepremTransparencyBand />
       <LiveEarthquakeTicker />
-
-      <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6" aria-label="Piyasa özeti">
-        <div className="grid gap-4 rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-xl shadow-slate-950/60 md:grid-cols-2 xl:grid-cols-4 xl:p-6">
-          {MARKET_SUMMARY.map((item, i) => {
-            const value = marketSummaryValues[i] ?? 0;
-            const formatted =
-              item.key === "volume"
-                ? `${item.suffix}${Math.round(value).toLocaleString("tr-TR")}`
-                : item.key === "avgRise"
-                  ? `${value.toFixed(1)}${item.suffix}`
-                  : `${Math.round(value).toLocaleString("tr-TR")}${item.suffix}`;
-            return (
-              <article
-                key={item.key}
-                className="rounded-2xl border border-slate-700/70 bg-slate-950/70 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:shadow-[0_16px_45px_rgba(30,64,175,0.25)]"
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">{item.label}</p>
-                <strong className="mt-2 block text-2xl font-black text-white">{formatted}</strong>
-                <p className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-emerald-300">
-                  <TrendingUp className="h-3.5 w-3.5" /> {item.delta}
-                </p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
 
       <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 lg:px-6" id="how-it-works" aria-labelledby="premium-process-title">
         <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/60 lg:p-8">
