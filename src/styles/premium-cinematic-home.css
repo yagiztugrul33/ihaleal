@@ -1682,6 +1682,17 @@
   color: #94a3b8;
 }
 
+.home-eq-ticker__live-pill {
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  background: rgba(14, 116, 144, 0.22);
+  padding: 2px 8px;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #bae6fd;
+}
+
 .home-eq-ticker__cta {
   margin-left: auto;
   font-size: 0.78rem;

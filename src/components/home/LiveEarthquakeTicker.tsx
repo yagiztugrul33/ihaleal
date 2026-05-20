@@ -4,6 +4,7 @@ import { Activity } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type Eq = { id: string; time: string; magnitude: number; place: string; depthKm?: number };
+type DataSource = "afad" | "demo";
 
 const PLACE_POOL = [
   "Marmara Denizi",
@@ -95,28 +96,106 @@ function magnitudeClass(magnitude: number): "small" | "medium" | "large" {
   return "small";
 }
 
+function asNum(v: unknown): number | null {
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v === "string") {
+    const n = Number(v.replace(",", "."));
+    return Number.isFinite(n) ? n : null;
+  }
+  return null;
+}
+
+function asStr(v: unknown): string | null {
+  if (typeof v === "string" && v.trim()) return v.trim();
+  return null;
+}
+
+function parseAfadDate(v: unknown): string | null {
+  const text = asStr(v);
+  if (!text) return null;
+  const normalized = text.replace(" ", "T");
+  const iso = new Date(normalized);
+  return Number.isNaN(iso.getTime()) ? null : iso.toISOString();
+}
+
+function normalizeAfadEvent(raw: unknown, i: number): Eq | null {
+  if (!raw || typeof raw !== "object") return null;
+  const rec = raw as Record<string, unknown>;
+  const magnitude = asNum(rec.m ?? rec.mag ?? rec.magnitude);
+  const place = asStr(rec.location ?? rec.lokasyon ?? rec.place ?? rec.city);
+  const time = parseAfadDate(rec.date ?? rec.time ?? rec.eventDate);
+  if (magnitude == null || !place || !time) return null;
+  return {
+    id: asStr(rec.eventID ?? rec.id) ?? `afad-${i + 1}`,
+    time,
+    magnitude,
+    place,
+    depthKm: asNum(rec.depth ?? rec.depthKm) ?? undefined,
+  };
+}
+
+async function fetchAfadEvents(signal: AbortSignal): Promise<Eq[]> {
+  const end = new Date();
+  const start = new Date(end.getTime() - 2 * 24 * 60 * 60 * 1000);
+  const params = new URLSearchParams({
+    start: start.toISOString(),
+    end: end.toISOString(),
+    orderby: "timedesc",
+    limit: "80",
+    minmag: "1",
+  });
+  const url = `https://deprem.afad.gov.tr/apiv2/event/filter?${params.toString()}`;
+  const res = await fetch(url, { signal });
+  if (!res.ok) throw new Error(`afad_http_${res.status}`);
+  const payload = await res.json();
+  const rows = Array.isArray(payload) ? payload : Array.isArray(payload?.events) ? payload.events : [];
+  const normalized = rows
+    .map((row, i) => normalizeAfadEvent(row, i))
+    .filter((x): x is Eq => Boolean(x))
+    .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
+  if (normalized.length < 8) throw new Error("afad_insufficient_rows");
+  return normalized;
+}
+
 export function LiveEarthquakeTicker() {
   const [items, setItems] = useState<Eq[]>([]);
+  const [source, setSource] = useState<DataSource>("demo");
   const reduced = useReducedMotion();
 
   useEffect(() => {
     let cancel = false;
-    void fetch("/data/kandilli-feed-mock.json")
+    const controller = new AbortController();
+    const fallbackToDemo = (seedIso: string) => {
+      if (cancel) return;
+      setSource("demo");
+      setItems(buildRealisticDemoEvents(seedIso).slice(0, 18));
+    };
+
+    void fetchAfadEvents(controller.signal)
+      .then((afadRows) => {
+        if (cancel) return;
+        setSource("afad");
+        setItems(afadRows.slice(0, 18));
+      })
+      .catch(() =>
+        fetch("/data/kandilli-feed-mock.json", { signal: controller.signal })
       .then((r) => r.json())
-      .then((data: { events?: Eq[] }) => {
-        if (cancel || !data.events) return;
+      .then((data: { events?: Eq[]; updated?: string }) => {
+        if (cancel || !data?.events) return;
         const sorted = [...data.events].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
-        const realistic = looksTooSynthetic(sorted)
-          ? buildRealisticDemoEvents(data.updated ?? new Date().toISOString())
-          : sorted;
+        const realistic = looksTooSynthetic(sorted) ? buildRealisticDemoEvents(data.updated ?? new Date().toISOString()) : sorted;
+        setSource("demo");
         setItems(realistic.slice(0, 18));
       })
       .catch(() => {
-        if (cancel) return;
-        setItems(buildRealisticDemoEvents(new Date().toISOString()).slice(0, 18));
+        fallbackToDemo(new Date().toISOString());
+      }))
+      .catch(() => {
+        fallbackToDemo(new Date().toISOString());
       });
     return () => {
       cancel = true;
+      controller.abort();
     };
   }, []);
 
@@ -127,7 +206,11 @@ export function LiveEarthquakeTicker() {
       <div className="home-eq-ticker__label">
         <Activity className="h-4 w-4 text-orange-300" aria-hidden />
         <span>Canlı deprem bandı</span>
-        <span className="home-eq-ticker__demo-pill">demo veri</span>
+        {source === "afad" ? (
+          <span className="home-eq-ticker__live-pill">AFAD açık veri</span>
+        ) : (
+          <span className="home-eq-ticker__demo-pill">demo veri</span>
+        )}
         <Link to="/modul/canli-deprem-takip" className="home-eq-ticker__cta">
           Modüle git →
         </Link>

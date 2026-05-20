@@ -61,10 +61,14 @@ export function LessonView({ lesson }: { lesson: LessonDefinition }) {
       icon={PlayCircle}
       iconAccent="text-emerald-300"
     >
-      <ModulePanel title="Ders videosu (placeholder)">
-        <div className="flex aspect-video items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/30 text-sm text-slate-400">
-          <PlayCircle className="mr-2 h-6 w-6" aria-hidden />
-          Eğitim videosu alanı
+      <ModulePanel title="Ders videosu (demo)">
+        <div className="relative aspect-video overflow-hidden rounded-xl border border-white/15 bg-slate-950">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_20%,rgba(56,189,248,0.36),transparent_42%),radial-gradient(circle_at_78%_72%,rgba(59,130,246,0.22),transparent_45%),linear-gradient(145deg,#020617_0%,#0b1b34_60%,#0f2f5f_100%)]" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-200">
+            <PlayCircle className="h-10 w-10 text-cyan-200" aria-hidden />
+            <p className="text-sm font-semibold">Ders video özeti (demo)</p>
+            <p className="text-xs text-slate-300/90">Tam içerik lansman öncesi eğitim stüdyosunda yayınlanacaktır.</p>
+          </div>
         </div>
       </ModulePanel>
 

@@ -194,6 +194,7 @@ export default function PremiumCinematicHome() {
   const { t } = useLocale();
   const home = t.home;
   const reduced = useReducedMotion();
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
 
   const statTargets = useMemo(
     () => home.stats.map((s) => ({ ...s, target: parseStatNumber(s.value) })),
@@ -479,7 +480,9 @@ export default function PremiumCinematicHome() {
           </Link>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {liveAuctions.map((p) => (
+          {liveAuctions.map((p) => {
+            const isFavorite = favoriteIds.includes(p.id);
+            return (
             <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
               <div
                 className="relative h-40"
@@ -495,10 +498,16 @@ export default function PremiumCinematicHome() {
                 <button
                   type="button"
                   className="absolute right-3 top-3 rounded-full bg-black/40 p-2 text-white/90"
-                  aria-label="Favori"
-                  onClick={(e) => e.preventDefault()}
+                  aria-label={isFavorite ? "Favorilerden çıkar" : "Favoriye ekle"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setFavoriteIds((prev) =>
+                      prev.includes(p.id) ? prev.filter((x) => x !== p.id) : [...prev, p.id],
+                    );
+                  }}
                 >
-                  <Heart className="h-4 w-4" />
+                  <Heart className={`h-4 w-4 ${isFavorite ? "fill-current text-rose-400" : ""}`} />
                 </button>
               </div>
               <div className="space-y-3 p-4">
@@ -529,7 +538,8 @@ export default function PremiumCinematicHome() {
                 </div>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 

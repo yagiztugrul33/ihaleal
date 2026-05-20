@@ -612,11 +612,21 @@ export default function CreateAuction() {
                   <Input value={neighborhood} onChange={(e) => setNeighborhood(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="Mahalle adı" />
                 </div>
               </div>
-              <div className="rounded-xl overflow-hidden border border-slate-200/80 h-48 bg-slate-900 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                  <p className="text-sm text-slate-400">Harita entegrasyonu yakında</p>
+              <div className="relative h-48 overflow-hidden rounded-xl border border-slate-200/80 bg-slate-950">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_24%,rgba(56,189,248,0.34),transparent_40%),radial-gradient(circle_at_74%_38%,rgba(59,130,246,0.24),transparent_42%),linear-gradient(145deg,#020617_0%,#0b1b34_62%,#0f2f5f_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.15)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20" />
+                <div className="absolute left-8 top-8 rounded-full border border-cyan-300/50 bg-cyan-400/15 px-2 py-1 text-[11px] font-semibold text-cyan-100">
+                  {district || city}
                 </div>
+                <div className="absolute bottom-5 right-6 rounded-full border border-blue-300/45 bg-blue-500/18 px-2 py-1 text-[11px] font-semibold text-blue-100">
+                  {neighborhood || "Merkez"}
+                </div>
+                <div className="absolute left-1/2 top-[56%] -translate-x-1/2 -translate-y-1/2">
+                  <MapPin className="h-8 w-8 text-blue-300 drop-shadow-[0_0_16px_rgba(56,189,248,0.7)]" />
+                </div>
+                <p className="absolute bottom-2 left-3 text-[11px] text-slate-300/85">
+                  Konum önizlemesi (demo) — kaydetmeden önce adres doğrulaması yapın.
+                </p>
               </div>
             </CardContent>
           </Card>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, MapPin } from "lucide-react";
 import type { PropertyRecord } from "@/types/property";
@@ -23,6 +24,7 @@ function isLiveAuction(property: PropertyRecord): boolean {
 }
 
 export function PropertyListingCard({ property }: PropertyListingCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
   const hero = getPropertyHero(property);
   const price = getPropertyPrice(property);
   const location = getPropertyLocation(property);
@@ -56,10 +58,14 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           <button
             type="button"
             className="ilan-card__heart"
-            aria-label="Favorilere ekle"
-            onClick={(e) => e.preventDefault()}
+            aria-label={isFavorite ? "Favorilerden çıkar" : "Favorilere ekle"}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsFavorite((v) => !v);
+            }}
           >
-            <Heart className="h-4 w-4" />
+            <Heart className={`h-4 w-4 ${isFavorite ? "fill-current text-rose-400" : ""}`} />
           </button>
         </div>
 
