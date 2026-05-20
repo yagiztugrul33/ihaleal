@@ -1,4 +1,5 @@
-﻿import { useNavigate, NavLink, useParams } from "react-router-dom";
+﻿import { useEffect, useMemo, useState } from "react";
+import { useNavigate, NavLink, useParams } from "react-router-dom";
 import {
   LayoutDashboard,
   User,
@@ -15,6 +16,8 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
+import { DEMO_NOTIFICATIONS } from "@/data/notificationsDemo";
+import { Input } from "@/components/ui/input";
 
 const sidebar = [
   { to: "/panel", label: "Özet", icon: LayoutDashboard, end: true },
@@ -33,6 +36,35 @@ export default function UserPanel() {
   const navigate = useNavigate();
   const { tabId } = useParams<{ tabId?: string }>();
   const liveCount = DEMO_AUCTION_CATALOG.filter((a) => a.status === "live").length;
+  const [profile, setProfile] = useState(() => {
+    try {
+      const raw = localStorage.getItem("ihaleal_profile_demo");
+      if (raw) return JSON.parse(raw) as { fullName: string; phone: string; city: string; role: string; bio: string };
+    } catch {
+      // ignore
+    }
+    return { fullName: "Demo Kullanıcı", phone: "+90 5xx xxx xx xx", city: "İstanbul", role: "Yatırımcı", bio: "Gayrimenkul odaklı uzun vadeli yatırım ilgisi." };
+  });
+  const [profileSaved, setProfileSaved] = useState(false);
+
+  const watchedAuctions = useMemo(() => DEMO_AUCTION_CATALOG.slice(0, 3), []);
+  const bidRows = useMemo(
+    () =>
+      watchedAuctions.map((a, idx) => ({
+        id: `${a.id}-bid`,
+        title: a.title,
+        myBid: a.currentBid - (idx + 1) * 50_000,
+        currentBid: a.currentBid,
+        status: a.currentBid - (idx + 1) * 50_000 >= a.currentBid ? "leading" : "outbid",
+      })),
+    [watchedAuctions],
+  );
+
+  useEffect(() => {
+    if (!profileSaved) return;
+    const t = window.setTimeout(() => setProfileSaved(false), 1800);
+    return () => window.clearTimeout(t);
+  }, [profileSaved]);
 
   const sectionTitle =
     tabId === "profil"
@@ -48,6 +80,133 @@ export default function UserPanel() {
               : tabId === "ayarlar"
                 ? "Ayarlar"
                 : "Özet";
+
+  const renderTabContent = () => {
+    if (tabId === "profil") {
+      return (
+        <Card className="bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-white">Profil Bilgileri</h2>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="mb-1 block text-xs text-slate-500">Ad soyad</label>
+                <Input value={profile.fullName} onChange={(e) => setProfile((p) => ({ ...p, fullName: e.target.value }))} className="bg-slate-950 border-slate-200 text-white" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs text-slate-500">Telefon</label>
+                <Input value={profile.phone} onChange={(e) => setProfile((p) => ({ ...p, phone: e.target.value }))} className="bg-slate-950 border-slate-200 text-white" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs text-slate-500">Şehir</label>
+                <Input value={profile.city} onChange={(e) => setProfile((p) => ({ ...p, city: e.target.value }))} className="bg-slate-950 border-slate-200 text-white" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs text-slate-500">Rol</label>
+                <Input value={profile.role} onChange={(e) => setProfile((p) => ({ ...p, role: e.target.value }))} className="bg-slate-950 border-slate-200 text-white" />
+              </div>
+            </div>
+            <div>
+              <label className="mb-1 block text-xs text-slate-500">Kısa bio</label>
+              <textarea
+                rows={3}
+                value={profile.bio}
+                onChange={(e) => setProfile((p) => ({ ...p, bio: e.target.value }))}
+                className="w-full rounded-md border border-slate-200 bg-slate-950 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"
+                onClick={() => {
+                  localStorage.setItem("ihaleal_profile_demo", JSON.stringify(profile));
+                  setProfileSaved(true);
+                }}
+              >
+                Profili kaydet (mock)
+              </Button>
+              {profileSaved ? <span className="text-xs text-emerald-400">Kaydedildi</span> : null}
+            </div>
+          </CardContent>
+        </Card>
+      );
+    }
+    if (tabId === "tekliflerim") {
+      return (
+        <Card className="bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-6 space-y-3">
+            <h2 className="text-lg font-semibold text-white">Tekliflerim</h2>
+            {bidRows.length === 0 ? (
+              <p className="text-sm text-slate-500">Henüz teklifiniz bulunmuyor. İhale detayından teklif vererek başlayın.</p>
+            ) : (
+              bidRows.map((row) => (
+                <div key={row.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2 text-sm">
+                  <div>
+                    <p className="font-medium text-white">{row.title}</p>
+                    <p className="text-xs text-slate-500">Teklifim: ₺{row.myBid.toLocaleString("tr-TR")} · Güncel: ₺{row.currentBid.toLocaleString("tr-TR")}</p>
+                  </div>
+                  <span className={`rounded-full px-2 py-0.5 text-xs ${row.status === "leading" ? "bg-emerald-500/20 text-emerald-300" : "bg-amber-500/20 text-amber-300"}`}>
+                    {row.status === "leading" ? "Öndesin" : "Teklifin geçildi"}
+                  </span>
+                </div>
+              ))
+            )}
+          </CardContent>
+        </Card>
+      );
+    }
+    if (tabId === "ihalelerim") {
+      return (
+        <Card className="bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-6 space-y-3">
+            <h2 className="text-lg font-semibold text-white">İzlediğim İhaleler</h2>
+            {watchedAuctions.map((row) => (
+              <div key={row.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2 text-sm">
+                <div>
+                  <p className="font-medium text-white">{row.title}</p>
+                  <p className="text-xs text-slate-500">{row.location} · ₺{row.currentBid.toLocaleString("tr-TR")}</p>
+                </div>
+                <Button type="button" size="sm" variant="outline" className="border-white/15" onClick={() => navigate(`/ilan/${row.id}`)}>
+                  Detaya git
+                </Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      );
+    }
+    if (tabId === "bildirimler") {
+      return (
+        <Card className="bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-6 space-y-3">
+            <h2 className="text-lg font-semibold text-white">Bildirimler</h2>
+            {DEMO_NOTIFICATIONS.map((n) => (
+              <div key={n.id} className="rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2">
+                <p className="text-sm font-medium text-white">{n.title}</p>
+                <p className="text-xs text-slate-500">{n.body}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      );
+    }
+    if (tabId === "komisyon") {
+      return (
+        <Card className="bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-6 space-y-2 text-sm text-slate-400">
+            <h2 className="text-lg font-semibold text-white">Komisyon Raporu (mock)</h2>
+            <p>Son 30 gün işlem hacmi: ₺12.450.000</p>
+            <p>Tahmini platform komisyonu (mahsup öncesi): ₺498.000</p>
+            <p>Detaylı simülasyon için komisyon hesaplayıcıya geçebilirsiniz.</p>
+            <Button type="button" size="sm" className="mt-2 bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => navigate("/komisyon-hesaplayici")}>
+              Komisyon hesaplayıcı
+            </Button>
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="min-h-screen pt-24 pb-16 bg-slate-50">
@@ -92,25 +251,15 @@ export default function UserPanel() {
           </div>
 
           {tabId ? (
-            <Card className="bg-slate-900/50 border-slate-200/80 border-dashed">
-              <CardContent className="p-8 text-center text-slate-400 text-sm space-y-4">
-                <p>
-                  {sectionTitle} bölümünde henüz kayıt görünmüyor. Bu alan canlı veride teklif, bildirim ve evrak adımlarınızı gösterecek.
-                </p>
-                <div className="mx-auto grid max-w-xl gap-2 text-left text-xs text-slate-500">
-                  <div className="rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2">1) İhaleler sayfasından bir ilan favorileyin veya teklif sürecini başlatın.</div>
-                  <div className="rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2">2) Mesajlar ve belgeler bölümünden doğrulama adımlarını tamamlayın.</div>
-                </div>
-                <div className="flex flex-wrap justify-center gap-2">
-                  <Button type="button" variant="outline" className="border-white/15" onClick={() => navigate("/ihaleler")}>
-                    Sonraki adım: İhalelere git
-                  </Button>
-                  <Button type="button" variant="outline" className="border-white/15" onClick={() => navigate("/panel")}>
-                    Panele dön
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <>
+              {renderTabContent() ?? (
+                <Card className="bg-slate-900/50 border-slate-200/80 border-dashed">
+                  <CardContent className="p-8 text-center text-slate-400 text-sm">
+                    {sectionTitle} bölümü hazırlanıyor.
+                  </CardContent>
+                </Card>
+              )}
+            </>
           ) : (
             <>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
