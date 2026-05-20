@@ -134,6 +134,18 @@ const SORULAR: Soru[] = [
   },
   {
     kategori: "odeme",
+    soru: "Teminat oranı neden %5 olarak gösteriliyor?",
+    cevap:
+      "Teminat oranı, gerçek teklif niyetini doğrulamak ve sahte teklif riskini azaltmak için hedeflenen başlangıç eşiğidir. Nihai oran, ilan bazlı sözleşmede ve hukuk onayında kesinleşir.",
+  },
+  {
+    kategori: "odeme",
+    soru: "Komisyon neden %2 olarak belirtiliyor?",
+    cevap:
+      "Platform genelinde şeffaflık için %2 (+KDV) hedef komisyon oranı referans verilir. Üretimde nihai oran, satıcı/alıcı sözleşmesine ve hizmet paketine göre değişebilir.",
+  },
+  {
+    kategori: "odeme",
     soru: "Komisyon ve ücretler nasıl hesaplanır?",
     cevap:
       "Oranlar ürün ve sözleşme paketine göre tanımlanır. Fiyatlandırma sayfası referans planlar sunar; nihai ücret tablosu sözleşmede yer alır.",

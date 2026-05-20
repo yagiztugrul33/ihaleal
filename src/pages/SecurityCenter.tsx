@@ -138,6 +138,21 @@ export default function SecurityCenter() {
             Gerçek sahibinden.com seviyesinde koruma için üretim ortamında WAF, DDoS koruması, SIEM, sızma testi ve 7/24 SOC hizmeti zorunludur.
           </p>
         </div>
+        <Card className="bg-sky-500/10 border-sky-500/20">
+          <CardContent className="p-4 text-sm text-slate-300 space-y-2">
+            <h3 className="text-base font-semibold text-white">Güven katmanı özeti</h3>
+            <p>KYC doğrulaması teklif öncesi zorunlu adım olarak hedeflenir; güvenli ödeme akışı 3D Secure + blokaj modeliyle tasarlanır.</p>
+            <p>Şeffaf oranlar: teminat hedefi <strong className="text-sky-300">%5</strong>, komisyon hedefi <strong className="text-sky-300">%2</strong> (+KDV) — nihai oran sözleşme metninde netleşir.</p>
+            <div className="flex flex-wrap gap-2">
+              <Button type="button" size="sm" variant="outline" className="border-sky-400/30 text-sky-100 hover:bg-sky-500/10" onClick={() => navigate("/sss")}>
+                SSS / Yardım merkezi
+              </Button>
+              <Button type="button" size="sm" variant="outline" className="border-sky-400/30 text-sky-100 hover:bg-sky-500/10" onClick={() => navigate("/ihale-kosullari")}>
+                Teminat ve komisyon koşulları
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
