@@ -270,7 +270,7 @@ export default function AileAcilPlanPage() {
                   <button type="button" className="mod-btn-secondary mod-no-print" onClick={copyPlan}>
                     Metni kopyala
                   </button>
-                  <a className="mod-btn-primary mod-no-print" href={waLink} target="_blank" rel="noreferrer">
+                  <a className="mod-btn-primary mod-no-print" href={waLink} target="_blank" rel="noopener noreferrer">
                     WhatsApp ile paylaş
                   </a>
                   <button type="button" className="mod-btn-secondary" onClick={() => window.print()}>
