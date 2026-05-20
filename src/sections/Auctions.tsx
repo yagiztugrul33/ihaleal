@@ -51,6 +51,7 @@ export function Auctions({
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [catalogError, setCatalogError] = useState<string | null>(null);
+  const [reloadToken, setReloadToken] = useState(0);
 
   useEffect(() => {
     const status = (searchParams.get("status") as AuctionStatusFilter | null) ?? "all";
@@ -113,7 +114,7 @@ export function Auctions({
     return () => {
       ok = false;
     };
-  }, []);
+  }, [reloadToken]);
 
   const cities = useMemo(() => [...new Set(catalog.map((a) => a.city))], [catalog]);
   const categories = useMemo(() => [...new Set(catalog.map((a) => a.category))], [catalog]);
@@ -179,15 +180,20 @@ export function Auctions({
         )}
 
         {catalogError ? (
-          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
-            {catalogError}
-          </p>
+          <div className="mb-4 flex flex-col gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+            <p>{catalogError}</p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-fit border-amber-300/40 text-amber-100 hover:bg-amber-500/10"
+              onClick={() => setReloadToken((v) => v + 1)}
+            >
+              Tekrar dene
+            </Button>
+          </div>
         ) : null}
-        {catalogLoading ? (
-          <p className="mb-6 text-sm text-slate-500" aria-live="polite">
-            İlanlar yükleniyor…
-          </p>
-        ) : null}
+        {catalogLoading ? <p className="mb-6 text-sm text-slate-500" aria-live="polite">İlanlar yükleniyor…</p> : null}
 
         <div className={`mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
@@ -264,8 +270,30 @@ export function Auctions({
           )}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSorted.map((auction, idx) => (
+        {catalogLoading ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" aria-live="polite" aria-label="Yükleniyor kartları">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={`skeleton-${idx}`} className="animate-pulse overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-900/40">
+                <div className="h-52 w-full bg-slate-800/80" />
+                <div className="space-y-3 p-5">
+                  <div className="h-4 w-28 rounded bg-slate-700/70" />
+                  <div className="h-4 w-4/5 rounded bg-slate-700/70" />
+                  <div className="h-3 w-3/5 rounded bg-slate-700/60" />
+                  <div className="h-16 w-full rounded bg-slate-800/70" />
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-2">
+                      <div className="h-3 w-24 rounded bg-slate-700/60" />
+                      <div className="h-5 w-32 rounded bg-slate-700/70" />
+                    </div>
+                    <div className="h-8 w-24 rounded bg-slate-700/70" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredSorted.map((auction, idx) => (
             <Card key={auction.id} className={`property-card group overflow-hidden card-luxury !p-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -319,8 +347,9 @@ export function Auctions({
                 <ListingDocumentFooter auction={auction} />
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {filteredSorted.length === 0 && !catalogLoading && (
           <div className="text-center py-20 animate-fade-in rounded-2xl border border-white/10 bg-slate-950/30 px-4">

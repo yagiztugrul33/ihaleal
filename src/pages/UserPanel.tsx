@@ -93,13 +93,22 @@ export default function UserPanel() {
 
           {tabId ? (
             <Card className="bg-slate-900/50 border-slate-200/80 border-dashed">
-              <CardContent className="p-8 text-center text-slate-400 text-sm">
-                <p className="mb-4">
-                  {sectionTitle} içeriği yakında tamamlanacak. Bildirim ve mesaj demo akışları üst menüden kullanılabilir.
+              <CardContent className="p-8 text-center text-slate-400 text-sm space-y-4">
+                <p>
+                  {sectionTitle} bölümünde henüz kayıt görünmüyor. Bu alan canlı veride teklif, bildirim ve evrak adımlarınızı gösterecek.
                 </p>
-                <Button type="button" variant="outline" className="border-white/15" onClick={() => navigate("/panel")}>
-                  Panele dön
-                </Button>
+                <div className="mx-auto grid max-w-xl gap-2 text-left text-xs text-slate-500">
+                  <div className="rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2">1) İhaleler sayfasından bir ilan favorileyin veya teklif sürecini başlatın.</div>
+                  <div className="rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2">2) Mesajlar ve belgeler bölümünden doğrulama adımlarını tamamlayın.</div>
+                </div>
+                <div className="flex flex-wrap justify-center gap-2">
+                  <Button type="button" variant="outline" className="border-white/15" onClick={() => navigate("/ihaleler")}>
+                    Sonraki adım: İhalelere git
+                  </Button>
+                  <Button type="button" variant="outline" className="border-white/15" onClick={() => navigate("/panel")}>
+                    Panele dön
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ) : (
@@ -115,8 +124,8 @@ export default function UserPanel() {
                 <Card className="bg-slate-900/50 border-slate-200/80">
                   <CardContent className="p-5">
                     <div className="text-xs text-slate-500 uppercase tracking-wide">Bekleyen teklifler</div>
-                    <div className="text-3xl font-bold text-amber-400 mt-1">—</div>
-                    <p className="text-xs text-slate-600 mt-2">Gerçek teklif akışı bağlandığında dolar.</p>
+                    <div className="text-3xl font-bold text-amber-400 mt-1">0</div>
+                    <p className="text-xs text-slate-600 mt-2">Henüz aktif teklifiniz yok. İhale detayından ilk teklifinizi verin.</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-900/50 border-slate-200/80">
@@ -138,6 +147,14 @@ export default function UserPanel() {
                     </button>
                     .
                   </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Button type="button" size="sm" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => navigate("/ihaleler")}>
+                      Sonraki adım: Uygun ihale seç
+                    </Button>
+                    <Button type="button" size="sm" variant="outline" className="border-white/15" onClick={() => navigate("/favoriler")}>
+                      Favorilerimi aç
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </>

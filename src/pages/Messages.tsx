@@ -53,6 +53,8 @@ export default function MessagesPage() {
   const [draft, setDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
   const sendingRef = useRef(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const [hasAuthSession, setHasAuthSession] = useState(false);
 
   useEffect(() => {
@@ -81,6 +83,8 @@ export default function MessagesPage() {
     const text = draft.trim();
     if (!text || !active || sendingRef.current) return;
     sendingRef.current = true;
+    setSending(true);
+    setSendError(null);
     const clientMsgId =
       typeof globalThis.crypto !== "undefined" && typeof globalThis.crypto.randomUUID === "function"
         ? globalThis.crypto.randomUUID()
@@ -137,7 +141,7 @@ export default function MessagesPage() {
         window.dispatchEvent(
           new CustomEvent("ihaleal:add-toast", {
             detail: {
-              message: `Edge gönderimi başarısız (${edge.code}). Yerel demo ile devam edildi.${edge.detail ? ` · ${edge.detail}` : ""}`,
+              message: "Mesaj şu anda sunucuya iletilemedi, demo kayıt ile devam edildi.",
               type: "warning",
             },
           }),
@@ -158,8 +162,19 @@ export default function MessagesPage() {
         },
         "local",
       );
+    } catch {
+      setSendError("Mesaj gönderilemedi. Bağlantınızı kontrol edip tekrar deneyin.");
+      window.dispatchEvent(
+        new CustomEvent("ihaleal:add-toast", {
+          detail: {
+            message: "Mesaj gönderilemedi. Tekrar denemenizi öneririz.",
+            type: "warning",
+          },
+        }),
+      );
     } finally {
       sendingRef.current = false;
+      setSending(false);
     }
   };
 
@@ -327,19 +342,35 @@ export default function MessagesPage() {
                 </div>
 
                 <div className="p-3 border-t border-slate-200 bg-slate-950/60 flex flex-col sm:flex-row gap-2">
+                  {sendError ? (
+                    <div className="w-full rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs text-amber-100 sm:col-span-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span>{sendError}</span>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="border-amber-300/40 text-amber-50 hover:bg-amber-500/10"
+                          onClick={() => void send()}
+                        >
+                          Tekrar dene
+                        </Button>
+                      </div>
+                    </div>
+                  ) : null}
                   <Input
                     value={draft}
                     onChange={(e) => setDraft(e.target.value)}
                     placeholder="Mesajınızı yazın…"
                     className="flex-1 bg-slate-950 border-slate-200 text-white"
-                    onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && (e.preventDefault(), send())}
+                    onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && (e.preventDefault(), void send())}
                   />
                   <div className="flex gap-2 shrink-0">
                     <Button type="button" variant="outline" size="icon" className="border-white/15" onClick={attachDemo} title="Dosya ekle (demo)">
                       <Paperclip className="w-4 h-4" />
                     </Button>
-                    <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2 px-6" onClick={send}>
-                      <Send className="w-4 h-4" /> Gönder
+                    <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2 px-6" onClick={() => void send()} disabled={sending}>
+                      <Send className="w-4 h-4" /> {sending ? "Gönderiliyor..." : "Gönder"}
                     </Button>
                   </div>
                 </div>
