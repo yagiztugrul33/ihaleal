@@ -157,9 +157,6 @@ const DEMO_TESTIMONIALS = [
   },
 ] as const;
 
-const HERO_VILLA =
-  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&q=85&auto=format";
-
 const MARKET_TICKER_ROWS = [
   { symbol: "IST · KONUT", last: "₺74.200/m²", change: 1.8 },
   { symbol: "ANK · TICARI", last: "₺52.800/m²", change: -0.6 },
@@ -359,8 +356,16 @@ export default function PremiumCinematicHome() {
         </motion.div>
 
         <div className="premium-hero__visual relative hidden min-h-[360px] overflow-hidden rounded-3xl border border-slate-700/50 bg-slate-900 shadow-2xl lg:block" aria-label={home.aria.heroVisual}>
-          <img src={HERO_VILLA} alt="" className="h-full w-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(56,189,248,0.35),transparent_38%),radial-gradient(circle_at_76%_22%,rgba(59,130,246,0.28),transparent_42%),radial-gradient(circle_at_50%_78%,rgba(14,165,233,0.16),transparent_45%),linear-gradient(150deg,#020617_0%,#07152d_52%,#0b2445_100%)]" />
+          <div className="absolute -left-20 top-16 h-64 w-64 rounded-full border border-cyan-400/20 bg-cyan-400/10 blur-2xl" aria-hidden="true" />
+          <div className="absolute right-8 top-8 h-48 w-48 rounded-full border border-blue-400/20 bg-blue-500/10 blur-2xl" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/90 via-[#0d1f39]/70 to-transparent" />
+          <div className="absolute left-8 top-8 right-8 grid grid-cols-2 gap-2 text-[11px] text-slate-300/80" aria-hidden="true">
+            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1">Likidite: canlı</span>
+            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1 text-right">Risk bandı: şeffaf</span>
+            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1">Emsal veri: aktif</span>
+            <span className="rounded-md border border-white/10 bg-slate-900/40 px-2 py-1 text-right">Uyum: denetlenebilir</span>
+          </div>
           <HeroLiveAuctionCard
             className="absolute bottom-5 left-5 right-5 border-blue-400/30 bg-[#081425]/90"
             title={home.live.title}
