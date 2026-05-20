@@ -81,17 +81,17 @@ export function NotificationBell() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-[min(100vw-2rem,22rem)] rounded-xl border border-slate-200 bg-white shadow-2xl z-[80] overflow-hidden animate-scale-in">
+        <div className="absolute right-0 mt-2 w-[min(100vw-2rem,22rem)] rounded-xl border border-slate-200/80 bg-slate-950 shadow-2xl z-[80] overflow-hidden animate-scale-in">
           <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200/80">
             <span className="text-sm font-semibold text-white">Bildirimler</span>
             <div className="flex gap-1">
-              <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-400" onClick={() => setOnlyUnread((v) => !v)}>
+              <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-300 hover:text-white" onClick={() => setOnlyUnread((v) => !v)}>
                 {onlyUnread ? "Tümü" : "Okunmayan"}
               </Button>
-              <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-400" onClick={markAllRead}>
+              <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-300 hover:text-white" onClick={markAllRead}>
                 <CheckCheck className="w-3.5 h-3.5 mr-1" /> Okundu
               </Button>
-              <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-400" onClick={clearAll}>
+              <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-300 hover:text-white" onClick={clearAll}>
                 <Trash2 className="w-3.5 h-3.5" />
               </Button>
             </div>
