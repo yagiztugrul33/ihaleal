@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState, type CSSProperties } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -163,6 +163,18 @@ function parseStatNumber(raw: string): number {
   return digits ? Number(digits) : 0;
 }
 
+function formatRemaining(raw: unknown): string {
+  if (typeof raw !== "string" || !raw) return "Süre güncelleniyor";
+  const ms = new Date(raw).getTime() - Date.now();
+  if (!Number.isFinite(ms) || ms <= 0) return "Süre doldu";
+  const totalMinutes = Math.floor(ms / 60000);
+  const d = Math.floor(totalMinutes / (60 * 24));
+  const h = Math.floor((totalMinutes % (60 * 24)) / 60);
+  const m = totalMinutes % 60;
+  if (d > 0) return `${d}g ${h}s kaldı`;
+  return `${h}s ${m}dk kaldı`;
+}
+
 export default function PremiumCinematicHome() {
   const { t } = useLocale();
   const home = t.home;
@@ -221,11 +233,6 @@ export default function PremiumCinematicHome() {
 
   const liveAuctions = useMemo(() => getFeaturedAuctions(4), []);
 
-  const heroStyle = {
-    "--villa-image": `url('${HERO_VILLA}')`,
-    position: "relative",
-  } as CSSProperties;
-
   const statViewProps = reduced
     ? {}
     : {
@@ -236,35 +243,44 @@ export default function PremiumCinematicHome() {
       };
 
   return (
-    <div className="premium-home" data-testid="premium-cinematic-home">
+    <div
+      className="premium-home relative overflow-x-clip bg-slate-950 text-slate-100"
+      data-testid="premium-cinematic-home"
+    >
       <div className="premium-home__noise" aria-hidden="true" />
       <div className="premium-home__grid" aria-hidden="true" />
 
-      <section className="premium-hero" aria-labelledby="premium-hero-title">
+      <section
+        className="relative mx-auto grid w-full max-w-[1240px] gap-6 px-4 pb-8 pt-8 lg:grid-cols-[1.15fr_1fr_0.9fr] lg:items-start lg:px-6"
+        aria-labelledby="premium-hero-title"
+      >
+        <div className="absolute inset-0 -z-10 rounded-[32px] border border-blue-500/20 bg-gradient-to-b from-[#0a1628] via-[#0a1f3d] to-slate-950/95 shadow-[0_40px_120px_rgba(15,23,42,0.65)]" />
         <motion.div
-          className="premium-hero__copy"
+          className="space-y-6 p-2 lg:p-6"
           variants={reduced ? undefined : staggerContainer}
           initial={reduced ? false : "hidden"}
           animate={reduced ? undefined : "show"}
         >
-          <motion.h1 id="premium-hero-title" variants={reduced ? undefined : staggerItem}>
+          <motion.h1 id="premium-hero-title" className="text-4xl font-black leading-tight text-white lg:text-5xl" variants={reduced ? undefined : staggerItem}>
             {home.hero.titleLead}{" "}
-            <span className="premium-hero__accent">{home.hero.titleAccent}</span>
+            <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+              {home.hero.titleAccent}
+            </span>
           </motion.h1>
-          <motion.p className="premium-hero__lead" variants={reduced ? undefined : staggerItem}>
+          <motion.p className="max-w-xl text-base leading-7 text-slate-300 lg:text-lg" variants={reduced ? undefined : staggerItem}>
             {home.hero.subtitle}
           </motion.p>
-          <motion.div className="premium-hero__ctas" variants={reduced ? undefined : staggerItem}>
-            <Link className="premium-btn premium-btn--primary" to={ROUTES.ILANLAR}>
+          <motion.div className="flex flex-wrap gap-3" variants={reduced ? undefined : staggerItem}>
+            <Link className="inline-flex items-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400" to={ROUTES.ILANLAR}>
               {home.hero.ctaExplore} <span aria-hidden="true">{"\u2192"}</span>
             </Link>
-            <Link className="premium-btn premium-btn--glass" to={ROUTES.NASIL_CALISIR}>
+            <Link className="inline-flex items-center rounded-xl border border-blue-400/35 bg-slate-900/40 px-5 py-3 text-sm font-semibold text-blue-100 transition hover:border-blue-300 hover:text-white" to={ROUTES.NASIL_CALISIR}>
               {home.hero.ctaHow}
             </Link>
           </motion.div>
-          <div className="premium-hero__live-mobile">
+          <div className="lg:hidden">
             <HeroLiveAuctionCard
-              className="premium-live-card--inline"
+              className="border-blue-400/35 bg-slate-950/90"
               title={home.live.title}
               liveLabel={home.live.live}
               growthLabel={home.live.growth}
@@ -273,13 +289,11 @@ export default function PremiumCinematicHome() {
           </div>
         </motion.div>
 
-        <div
-          className="premium-hero__visual premium-hero__visual--cinematic"
-          style={heroStyle}
-          aria-label={home.aria.heroVisual}
-        >
+        <div className="premium-hero__visual relative hidden min-h-[360px] overflow-hidden rounded-3xl border border-slate-700/50 bg-slate-900 shadow-2xl lg:block" aria-label={home.aria.heroVisual}>
+          <img src={HERO_VILLA} alt="" className="h-full w-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/90 via-[#0d1f39]/70 to-transparent" />
           <HeroLiveAuctionCard
-            className="premium-live-card--overlay"
+            className="absolute bottom-5 left-5 right-5 border-blue-400/30 bg-[#081425]/90"
             title={home.live.title}
             liveLabel={home.live.live}
             growthLabel={home.live.growth}
@@ -287,18 +301,22 @@ export default function PremiumCinematicHome() {
           />
         </div>
 
-        <aside className="premium-stat-rail" aria-label={home.aria.statRail}>
+        <aside className="grid gap-3 p-2 lg:p-6" aria-label={home.aria.statRail}>
           {stats.map((stat) => (
-            <motion.article key={stat.label} className="premium-stat-card" {...statViewProps}>
-              <span className="premium-stat-card__icon" aria-hidden="true">
-                <stat.Icon className="h-5 w-5" />
+            <motion.article
+              key={stat.label}
+              className="rounded-2xl border border-blue-500/20 bg-slate-900/75 p-4 shadow-lg shadow-slate-950/50"
+              {...statViewProps}
+            >
+              <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-blue-300" aria-hidden="true">
+                <stat.Icon className="h-4 w-4" />
               </span>
-              <div>
-                <p>{stat.label}</p>
-                <strong>{stat.display}</strong>
-                <small>{stat.vs}</small>
+              <div className="space-y-1">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">{stat.label}</p>
+                <strong className="block text-2xl font-extrabold text-white">{stat.display}</strong>
+                <small className="text-xs text-slate-400">{stat.vs}</small>
               </div>
-              <b>{stat.delta}</b>
+              <b className="mt-2 inline-block text-xs font-bold text-emerald-300">{stat.delta}</b>
             </motion.article>
           ))}
         </aside>
@@ -320,74 +338,91 @@ export default function PremiumCinematicHome() {
       <DepremTransparencyBand />
       <LiveEarthquakeTicker />
 
-      <section className="premium-process premium-process--standalone" id="how-it-works" aria-labelledby="premium-process-title">
-        <h2 id="premium-process-title">{home.how.title}</h2>
-        <p>{home.how.subtitle}</p>
-        <div className="premium-steps premium-steps--connected">
-          <div className="premium-steps__line" aria-hidden="true" />
+      <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 lg:px-6" id="how-it-works" aria-labelledby="premium-process-title">
+        <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/60 lg:p-8">
+          <h2 id="premium-process-title" className="text-2xl font-black text-white lg:text-3xl">
+            {home.how.title}
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-slate-300 lg:text-base">{home.how.subtitle}</p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {steps.map((step) => (
-            <Link key={step.no} to={step.href} className="premium-step premium-step--link">
-              <div className="premium-step__icon" aria-hidden="true">
-                <step.Icon className="h-6 w-6" />
+            <Link key={step.no} to={step.href} className="premium-step--link group rounded-2xl border border-slate-700/70 bg-slate-950/75 p-4 transition hover:border-blue-400/50 hover:bg-slate-900">
+              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/15 text-blue-300" aria-hidden="true">
+                <step.Icon className="h-5 w-5" />
               </div>
-              <div>
-                <span>{step.no}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
+              <div className="space-y-2">
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-blue-300/90">{step.no}</span>
+                <h3 className="text-lg font-bold text-white group-hover:text-blue-200">{step.title}</h3>
+                <p className="text-sm text-slate-400">{step.text}</p>
               </div>
             </Link>
           ))}
         </div>
-        <div className="premium-process__cta">
-          <Link to={ROUTES.HOW_IT_WORKS} className="premium-btn premium-btn--glass">
+          <div className="mt-6">
+            <Link to={ROUTES.HOW_IT_WORKS} className="inline-flex items-center rounded-xl border border-blue-400/35 bg-slate-900/40 px-5 py-2.5 text-sm font-semibold text-blue-100 transition hover:border-blue-300 hover:text-white">
             Tüm rehber ve tanıtım videosu
           </Link>
+          </div>
         </div>
       </section>
 
-      <section className="premium-auctions premium-auctions--standalone" aria-labelledby="premium-auctions-title">
-        <div className="premium-section-head">
-          <h2 id="premium-auctions-title">{home.featured.heading}</h2>
-          <Link to={ROUTES.ILANLAR}>{home.featured.viewAll}</Link>
+      <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 pb-4 lg:px-6" aria-labelledby="premium-auctions-title">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <h2 id="premium-auctions-title" className="text-2xl font-black text-white lg:text-3xl">
+            {home.featured.heading}
+          </h2>
+          <Link to={ROUTES.ILANLAR} className="text-sm font-semibold text-blue-300 transition hover:text-blue-200">
+            {home.featured.viewAll}
+          </Link>
         </div>
-        <div className="premium-auction-grid">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {liveAuctions.map((p) => (
-            <Link key={p.id} to={`/ilanlar/${p.id}`} className="premium-auction-card premium-auction-card--v2">
+            <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition hover:border-blue-400/45">
               <div
-                className="premium-auction-card__image"
+                className="relative h-40"
                 style={{
                   backgroundImage: `linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55)), url(${getPropertyHero(p) ?? "/images/auction-1.jpg"})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
               >
-                <span className="premium-auction-card__live">
-                  <i aria-hidden /> LIVE
+                <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-rose-500/90 px-2 py-1 text-[11px] font-bold text-white">
+                  <i aria-hidden className="h-1.5 w-1.5 rounded-full bg-white" /> LIVE
                 </span>
                 <button
                   type="button"
-                  className="premium-auction-card__fav"
+                  className="absolute right-3 top-3 rounded-full bg-black/40 p-2 text-white/90"
                   aria-label="Favori"
                   onClick={(e) => e.preventDefault()}
                 >
                   <Heart className="h-4 w-4" />
                 </button>
               </div>
-              <div className="premium-auction-card__body">
-                <h3>{getPropertyTitle(p)}</h3>
-                <p>
+              <div className="space-y-3 p-4">
+                <h3 className="line-clamp-2 text-base font-bold text-white">{getPropertyTitle(p)}</h3>
+                <p className="flex items-center gap-1 text-xs text-slate-400">
                   <MapPin className="h-3.5 w-3.5" aria-hidden /> {getPropertyLocation(p)}
                 </p>
-                <div className="premium-auction-card__bid">
+                <div className="flex items-end justify-between gap-2">
                   <div>
-                    <small>Cari Teklif</small>
-                    <strong>{p.currentBidTry != null ? formatTry(p.currentBidTry) : "—"}</strong>
+                    <small className="block text-[11px] uppercase tracking-wide text-slate-500">Cari Teklif</small>
+                    <strong className="text-lg font-extrabold text-white">{p.currentBidTry != null ? formatTry(p.currentBidTry) : "—"}</strong>
                   </div>
-                  <b>+4%</b>
+                  <b className="text-sm font-bold text-emerald-300">
+                    {(() => {
+                      const start = p.startingBidTry ?? p.priceTry ?? p.currentBidTry ?? 0;
+                      if (!start || !p.currentBidTry) return "+4%";
+                      const pct = Math.max(1, Math.round(((p.currentBidTry - start) / start) * 100));
+                      return `+${pct}%`;
+                    })()}
+                  </b>
                 </div>
-                <div className="premium-auction-card__meta">
-                  <span>Canlı ihale</span>
-                  <span>{p.bidCount ?? 0} teklif</span>
+                <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-950/60 p-2 text-[11px] text-slate-300">
+                  <span className="font-medium">Canlı ihale</span>
+                  <span className="text-right">{p.bidCount ?? 0} teklif</span>
+                  <span className="col-span-2 text-slate-400">
+                    {formatRemaining((p.details?.auctionEndDate as string | undefined) ?? (p.details?.endDate as string | undefined))}
+                  </span>
                 </div>
               </div>
             </Link>
