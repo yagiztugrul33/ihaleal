@@ -304,15 +304,29 @@ export function Auctions({
                   <Badge variant="outline" className={`gap-1 text-xs ${auction.investmentScore >= 85 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : auction.investmentScore >= 70 ? "bg-blue-500/20 text-blue-400 border-blue-500/30" : "bg-slate-500/20 text-slate-400 border-slate-500/30"}`}><Star className="w-3 h-3" /> {auction.investmentScore}</Badge>
                 </div>
                 <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={(e) => { e.stopPropagation(); toggleCompare(auction.id); }} className={`p-2 rounded-lg backdrop-blur-md transition-colors ${compareList.includes(auction.id) ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70"}`}><GitCompare className="w-4 h-4" /></button>
-                  <button onClick={(e) => handleFavoriteClick(e, auction.id)} className={`p-2 rounded-lg backdrop-blur-md transition-colors ${isFavorite(auction.id) ? "bg-pink-500 text-white" : "bg-black/50 text-white hover:bg-black/70"}`}><Heart className={`w-4 h-4 ${isFavorite(auction.id) ? "fill-current" : ""}`} /></button>
+                  <button aria-label={`Karşılaştırmaya ekle: ${auction.title}`} onClick={(e) => { e.stopPropagation(); toggleCompare(auction.id); }} className={`p-2 rounded-lg backdrop-blur-md transition-colors ${compareList.includes(auction.id) ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70"}`}><GitCompare className="w-4 h-4" /></button>
+                  <button aria-label={`${isFavorite(auction.id) ? "Favoriden çıkar" : "Favoriye ekle"}: ${auction.title}`} onClick={(e) => handleFavoriteClick(e, auction.id)} className={`p-2 rounded-lg backdrop-blur-md transition-colors ${isFavorite(auction.id) ? "bg-pink-500 text-white" : "bg-black/50 text-white hover:bg-black/70"}`}><Heart className={`w-4 h-4 ${isFavorite(auction.id) ? "fill-current" : ""}`} /></button>
                 </div>
               </div>
               <CardContent className="p-5">
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <ListingNumberBadge auction={auction} compact />
                 </div>
-                <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className={`text-base font-bold line-clamp-2 transition-colors cursor-pointer ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-blue-400"}`} style={isHome ? { color: "var(--color-text)" } : undefined}>{auction.title}</h3>
+                <h3
+                  onClick={() => navigate(`/ilan/${auction.id}`)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      navigate(`/ilan/${auction.id}`);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="link"
+                  className={`text-base font-bold line-clamp-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-blue-400"}`}
+                  style={isHome ? { color: "var(--color-text)" } : undefined}
+                >
+                  {auction.title}
+                </h3>
                 <div className="flex items-center gap-2 text-sm mt-1" style={{ color: "var(--color-text-muted)" }}><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
                 <div className={`flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-lg border ${isHome ? "bg-[var(--color-bg-soft)] border-[var(--color-border)]" : "bg-white/[0.03] border-white/5"}`}>
                   <BarChart3 className="w-4 h-4 text-blue-500" />

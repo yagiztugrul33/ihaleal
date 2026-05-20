@@ -79,6 +79,8 @@ export default function Favorites() {
                   <img
                     src={auction.images[0]}
                     alt={auction.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
@@ -104,6 +106,7 @@ export default function Favorites() {
                     <ShareButton title={auction.title} url={`/ilan/${auction.id}`} />
                     <button
                       onClick={() => removeFavorite(auction.id)}
+                      aria-label={`Favoriden kaldır: ${auction.title}`}
                       className="p-2.5 rounded-xl bg-pink-500 text-white hover:bg-pink-600 transition-colors"
                     >
                       <Heart className="w-4 h-4 fill-current" />
@@ -117,7 +120,15 @@ export default function Favorites() {
                   </div>
                   <h3
                     onClick={() => navigate(`/ilan/${auction.id}`)}
-                    className="text-base font-bold text-white line-clamp-2 group-hover:text-blue-400 transition-colors cursor-pointer"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        navigate(`/ilan/${auction.id}`);
+                      }
+                    }}
+                    tabIndex={0}
+                    role="link"
+                    className="text-base font-bold text-white line-clamp-2 group-hover:text-blue-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
                   >
                     {auction.title}
                   </h3>

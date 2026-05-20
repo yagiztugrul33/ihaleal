@@ -611,9 +611,9 @@ export default function AuctionDetail() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`}><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
+            <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} aria-label={saved ? "Favorilerden çıkar" : "Favorilere ekle"} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`}><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
             {id && <ShareButton title={auction?.title || ""} url={`/ilan/${id}`} />}
-            <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} className="text-slate-400 hover:text-blue-400"><GitCompare className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} aria-label="Karşılaştırma listesine ekle" className="text-slate-400 hover:text-blue-400"><GitCompare className="w-4 h-4" /></Button>
           </div>
         </div>
       </div>
@@ -845,6 +845,7 @@ export default function AuctionDetail() {
                   </div>
                   <div className="rounded-2xl overflow-hidden border border-slate-200/80 h-64 bg-slate-900">
                     <iframe
+                      title={`${auction.title} konum haritası`}
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -1062,7 +1063,7 @@ export default function AuctionDetail() {
                       <Calculator className="w-4 h-4" />
                     </Button>
                   ) : null}
-                  <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
+                    <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" aria-label="İletişim formuna git" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
                 {!isListingOnly ? (
                   <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-3">
