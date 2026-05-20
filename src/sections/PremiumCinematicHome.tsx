@@ -317,23 +317,26 @@ export default function PremiumCinematicHome() {
       </section>
 
       <section
-        className="relative mx-auto grid w-full max-w-[1240px] gap-6 px-4 pb-8 pt-8 lg:grid-cols-[1.15fr_1fr_0.9fr] lg:items-start lg:px-6"
+        className="relative mx-auto grid w-full max-w-[1240px] gap-6 px-4 pb-10 pt-10 lg:grid-cols-[1.2fr_1fr_0.9fr] lg:items-start lg:px-6"
         aria-labelledby="premium-hero-title"
       >
         <div className="absolute inset-0 -z-10 rounded-[32px] border border-blue-500/20 bg-gradient-to-b from-[#0a1628] via-[#0a1f3d] to-slate-950/95 shadow-[0_40px_120px_rgba(15,23,42,0.65)]" />
         <motion.div
-          className="space-y-6 p-2 lg:p-6"
+          className="space-y-6 p-2 lg:space-y-7 lg:p-6"
           variants={reduced ? undefined : staggerContainer}
           initial={reduced ? false : "hidden"}
           animate={reduced ? undefined : "show"}
         >
-          <motion.h1 id="premium-hero-title" className="text-4xl font-black leading-tight text-white lg:text-5xl" variants={reduced ? undefined : staggerItem}>
+          <motion.p className="inline-flex items-center rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200" variants={reduced ? undefined : staggerItem}>
+            Premium İhale Terminali
+          </motion.p>
+          <motion.h1 id="premium-hero-title" className="max-w-2xl text-4xl font-black leading-[1.04] tracking-[-0.02em] text-white lg:text-[3.3rem]" variants={reduced ? undefined : staggerItem}>
             {home.hero.titleLead}{" "}
             <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
               {home.hero.titleAccent}
             </span>
           </motion.h1>
-          <motion.p className="max-w-xl text-base leading-7 text-slate-300 lg:text-lg" variants={reduced ? undefined : staggerItem}>
+          <motion.p className="max-w-2xl text-[15px] leading-7 text-slate-300 lg:text-[18px] lg:leading-8" variants={reduced ? undefined : staggerItem}>
             {home.hero.subtitle}
           </motion.p>
           <motion.div className="flex flex-wrap gap-3" variants={reduced ? undefined : staggerItem}>
