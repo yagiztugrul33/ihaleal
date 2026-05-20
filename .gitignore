@@ -67,3 +67,6 @@ ihaleal-backups/
 # audit gorselleri - repo disi
 screenshots/audit/wave3-final/
 _audit/komut2/*.png
+
+screenshots/*.png
+_audit/

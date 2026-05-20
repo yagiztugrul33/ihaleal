@@ -1,5 +1,0 @@
-﻿elevationClient.ts|53
-openMeteoClient.ts|60
-pvgisClient.ts|96
-pvgisTypes.ts|83
-siteEnvironmentalData.ts|43
