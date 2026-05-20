@@ -19,6 +19,8 @@ import {
   Search,
   Shield,
   Star,
+  TrendingDown,
+  TrendingUp,
   Users,
   Warehouse,
   Zap,
@@ -158,6 +160,22 @@ const DEMO_TESTIMONIALS = [
 const HERO_VILLA =
   "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&q=85&auto=format";
 
+const MARKET_TICKER_ROWS = [
+  { symbol: "IST · KONUT", last: "₺74.200/m²", change: 1.8 },
+  { symbol: "ANK · TICARI", last: "₺52.800/m²", change: -0.6 },
+  { symbol: "IZM · VILLA", last: "₺91.400/m²", change: 2.4 },
+  { symbol: "BUR · SANAYI", last: "₺38.700/m²", change: 0.9 },
+  { symbol: "ANT · TURIZM", last: "₺68.100/m²", change: 1.2 },
+  { symbol: "GES · ALTYAPI", last: "₺44.900/m²", change: -0.4 },
+] as const;
+
+const MARKET_SUMMARY = [
+  { key: "volume", label: "24s Hacim", value: 128_400_000, suffix: "₺", delta: "+6.2%" },
+  { key: "active", label: "Aktif İhale", value: 312, suffix: "", delta: "+12" },
+  { key: "avgRise", label: "Ort. Artış", value: 14.8, suffix: "%", delta: "+1.1 puan" },
+  { key: "investorFlow", label: "Yeni İzleyici", value: 1896, suffix: "", delta: "+8.4%" },
+] as const;
+
 function parseStatNumber(raw: string): number {
   const digits = raw.replace(/[^\d]/g, "");
   return digits ? Number(digits) : 0;
@@ -188,6 +206,9 @@ export default function PremiumCinematicHome() {
   const [animatedStats, setAnimatedStats] = useState<number[]>(() =>
     statTargets.map(() => 0),
   );
+  const [marketSummaryValues, setMarketSummaryValues] = useState<number[]>(() =>
+    MARKET_SUMMARY.map(() => 0),
+  );
 
   useEffect(() => {
     let frame = 0;
@@ -199,6 +220,23 @@ export default function PremiumCinematicHome() {
     }, 25);
     return () => window.clearInterval(id);
   }, [statTargets]);
+
+  useEffect(() => {
+    let frame = 0;
+    const id = window.setInterval(() => {
+      frame += 1;
+      const progress = Math.min(frame / 70, 1);
+      setMarketSummaryValues(
+        MARKET_SUMMARY.map((item) =>
+          item.key === "avgRise"
+            ? Number((item.value * progress).toFixed(1))
+            : Math.floor(item.value * progress),
+        ),
+      );
+      if (progress >= 1) window.clearInterval(id);
+    }, 20);
+    return () => window.clearInterval(id);
+  }, []);
 
   const stats = useMemo(
     () =>
@@ -249,6 +287,37 @@ export default function PremiumCinematicHome() {
     >
       <div className="premium-home__noise" aria-hidden="true" />
       <div className="premium-home__grid" aria-hidden="true" />
+
+      <section className="mx-auto w-full max-w-[1240px] px-4 pt-5 lg:px-6">
+        <div className="overflow-hidden rounded-xl border border-blue-500/25 bg-[#071325]/90 shadow-[0_18px_60px_rgba(2,6,23,0.45)]">
+          <div className="border-b border-slate-800/80 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-200/90">
+            Piyasa Akışı
+          </div>
+          <div className="flex w-max min-w-full animate-[home-eq-marquee_38s_linear_infinite] items-center gap-3 px-4 py-2.5 [@media(max-width:768px)]:animate-none [@media(max-width:768px)]:flex-wrap">
+            {[...MARKET_TICKER_ROWS, ...MARKET_TICKER_ROWS].map((row, idx) => {
+              const up = row.change >= 0;
+              return (
+                <div
+                  key={`${row.symbol}-${idx}`}
+                  className={`inline-flex min-w-[200px] items-center justify-between gap-3 rounded-lg border px-3 py-2 text-xs ${
+                    up
+                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
+                      : "border-rose-500/30 bg-rose-500/10 text-rose-200"
+                  }`}
+                >
+                  <span className="font-semibold tracking-wide text-slate-100">{row.symbol}</span>
+                  <span className="font-bold">{row.last}</span>
+                  <span className="inline-flex items-center gap-1 font-bold">
+                    {up ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}
+                    {up ? "+" : ""}
+                    {row.change.toFixed(1)}%
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <section
         className="relative mx-auto grid w-full max-w-[1240px] gap-6 px-4 pb-8 pt-8 lg:grid-cols-[1.15fr_1fr_0.9fr] lg:items-start lg:px-6"
@@ -305,7 +374,7 @@ export default function PremiumCinematicHome() {
           {stats.map((stat) => (
             <motion.article
               key={stat.label}
-              className="rounded-2xl border border-blue-500/20 bg-slate-900/75 p-4 shadow-lg shadow-slate-950/50"
+              className="rounded-2xl border border-blue-500/20 bg-slate-900/75 p-4 shadow-lg shadow-slate-950/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(37,99,235,0.22)]"
               {...statViewProps}
             >
               <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-blue-300" aria-hidden="true">
@@ -337,6 +406,32 @@ export default function PremiumCinematicHome() {
 
       <DepremTransparencyBand />
       <LiveEarthquakeTicker />
+
+      <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6" aria-label="Piyasa özeti">
+        <div className="grid gap-4 rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-xl shadow-slate-950/60 md:grid-cols-2 xl:grid-cols-4 xl:p-6">
+          {MARKET_SUMMARY.map((item, i) => {
+            const value = marketSummaryValues[i] ?? 0;
+            const formatted =
+              item.key === "volume"
+                ? `${item.suffix}${Math.round(value).toLocaleString("tr-TR")}`
+                : item.key === "avgRise"
+                  ? `${value.toFixed(1)}${item.suffix}`
+                  : `${Math.round(value).toLocaleString("tr-TR")}${item.suffix}`;
+            return (
+              <article
+                key={item.key}
+                className="rounded-2xl border border-slate-700/70 bg-slate-950/70 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:shadow-[0_16px_45px_rgba(30,64,175,0.25)]"
+              >
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">{item.label}</p>
+                <strong className="mt-2 block text-2xl font-black text-white">{formatted}</strong>
+                <p className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-emerald-300">
+                  <TrendingUp className="h-3.5 w-3.5" /> {item.delta}
+                </p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
 
       <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 lg:px-6" id="how-it-works" aria-labelledby="premium-process-title">
         <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/60 lg:p-8">
@@ -377,7 +472,7 @@ export default function PremiumCinematicHome() {
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {liveAuctions.map((p) => (
-            <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition hover:border-blue-400/45">
+            <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
               <div
                 className="relative h-40"
                 style={{
@@ -408,7 +503,7 @@ export default function PremiumCinematicHome() {
                     <small className="block text-[11px] uppercase tracking-wide text-slate-500">Cari Teklif</small>
                     <strong className="text-lg font-extrabold text-white">{p.currentBidTry != null ? formatTry(p.currentBidTry) : "—"}</strong>
                   </div>
-                  <b className="text-sm font-bold text-emerald-300">
+                  <b className="text-sm font-bold text-emerald-300 transition-colors duration-500 group-hover:text-emerald-200">
                     {(() => {
                       const start = p.startingBidTry ?? p.priceTry ?? p.currentBidTry ?? 0;
                       if (!start || !p.currentBidTry) return "+4%";

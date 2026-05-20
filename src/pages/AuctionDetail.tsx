@@ -64,6 +64,15 @@ import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from "recharts";
 
+type BidTapeItem = {
+  id: string;
+  bidder: string;
+  amount: number;
+  at: string;
+};
+
+const BIDDER_MASKS = ["ALC-01", "YTR-22", "KRM-07", "FON-13", "TRD-09", "PRT-17"] as const;
+
 export default function AuctionDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -132,6 +141,9 @@ export default function AuctionDetail() {
   const [buyNowAcceptModule3, setBuyNowAcceptModule3] = useState(false);
   const [buyNowFinalAck, setBuyNowFinalAck] = useState(false);
   const [bidGateAck, setBidGateAck] = useState(initialBidGateAck);
+  const [bidTape, setBidTape] = useState<BidTapeItem[]>([]);
+  const [flashBidId, setFlashBidId] = useState<string | null>(null);
+  const [watchers, setWatchers] = useState<number>(0);
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -230,6 +242,51 @@ export default function AuctionDetail() {
   const bidGateBlocked =
     !isListingOnly && Boolean(user) && (!reportApproved || !depositId);
   const bidDisabled = auctionEndedVisual || (!isListingOnly && (!user || !reportApproved || !depositId));
+  const latestTapeBid = bidTape[0]?.amount ?? liveBid;
+  const previousTapeBid = bidTape[1]?.amount ?? auction.currentBid;
+  const tapeDirection = latestTapeBid > previousTapeBid ? "up" : latestTapeBid < previousTapeBid ? "down" : "flat";
+  const liveBidCount = Math.max(auction.bidderCount, (auction.bidderCount ?? 0) + bidTape.length);
+
+  useEffect(() => {
+    const seed: BidTapeItem[] = Array.from({ length: 5 }).map((_, i) => ({
+      id: `${id ?? "auc"}-seed-${i}`,
+      bidder: BIDDER_MASKS[i % BIDDER_MASKS.length],
+      amount: Math.max(auction.currentBid - i * 25_000, 1),
+      at: new Date(Date.now() - i * 120_000).toLocaleTimeString("tr-TR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    }));
+    setBidTape(seed);
+    setFlashBidId(null);
+    setWatchers(Math.max(18, (auction.bidderCount ?? 12) * 3));
+  }, [auction.currentBid, auction.bidderCount, id]);
+
+  useEffect(() => {
+    if (isListingOnly || auctionEndedVisual || auction.status !== "live") return;
+    const interval = window.setInterval(() => {
+      setBidTape((prev) => {
+        const top = prev[0]?.amount ?? liveBid;
+        const nextAmount = top + (Math.floor(Math.random() * 4) + 1) * 10_000;
+        const next: BidTapeItem = {
+          id: `${id ?? "auc"}-${Date.now()}`,
+          bidder: BIDDER_MASKS[Math.floor(Math.random() * BIDDER_MASKS.length)],
+          amount: nextAmount,
+          at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+        };
+        setFlashBidId(next.id);
+        return [next, ...prev].slice(0, 7);
+      });
+      setWatchers((prev) => Math.max(1, prev + (Math.random() > 0.5 ? 1 : -1)));
+    }, 9_000);
+    return () => window.clearInterval(interval);
+  }, [auction.status, auctionEndedVisual, id, isListingOnly, liveBid]);
+
+  useEffect(() => {
+    if (!flashBidId) return;
+    const idTimer = window.setTimeout(() => setFlashBidId(null), 1300);
+    return () => window.clearTimeout(idTimer);
+  }, [flashBidId]);
 
   const handleBuyerReportConfirm = async () => {
     if (!legalWithdrawAccepted || !user || !id || !resolvedReport) return;
@@ -973,6 +1030,54 @@ export default function AuctionDetail() {
                   ) : null}
                   <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
+                {!isListingOnly ? (
+                  <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-3">
+                    <div className="mb-2 flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-slate-400">
+                      <span>Canlı Teklif Akışı</span>
+                      <span
+                        className={
+                          tapeDirection === "up"
+                            ? "text-emerald-300"
+                            : tapeDirection === "down"
+                              ? "text-rose-300"
+                              : "text-slate-400"
+                        }
+                      >
+                        {tapeDirection === "up" ? "Yukarı" : tapeDirection === "down" ? "Aşağı" : "Yatay"}
+                      </span>
+                    </div>
+                    <div className="mb-2 grid grid-cols-3 gap-2 text-[11px]">
+                      <div className="rounded-lg border border-slate-700 bg-slate-950/70 p-2">
+                        <p className="text-slate-500">İzleyen</p>
+                        <p className="mt-1 text-sm font-bold text-white">{watchers.toLocaleString("tr-TR")}</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-700 bg-slate-950/70 p-2">
+                        <p className="text-slate-500">Teklif</p>
+                        <p className="mt-1 text-sm font-bold text-white">{liveBidCount.toLocaleString("tr-TR")}</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-700 bg-slate-950/70 p-2">
+                        <p className="text-slate-500">Son Teklif</p>
+                        <p className="mt-1 text-sm font-bold text-emerald-300">₺{latestTapeBid.toLocaleString("tr-TR")}</p>
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {bidTape.slice(0, 5).map((row) => (
+                        <div
+                          key={row.id}
+                          className={`flex items-center justify-between rounded-md border px-2 py-1.5 text-xs transition ${
+                            flashBidId === row.id
+                              ? "border-emerald-400/60 bg-emerald-500/15"
+                              : "border-slate-800 bg-slate-950/60"
+                          }`}
+                        >
+                          <span className="font-semibold text-slate-300">{row.bidder}</span>
+                          <span className="text-slate-400">{row.at}</span>
+                          <span className="font-bold text-white">₺{row.amount.toLocaleString("tr-TR")}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
                 <div className="pt-4 border-t border-slate-200/80 space-y-3">
                   <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/15">
                     <div className="text-sm font-semibold text-white">{PLATFORM_LISTING_CONTACT.displayName}</div>

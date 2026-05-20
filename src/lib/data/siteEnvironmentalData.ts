@@ -13,6 +13,22 @@ export type SiteEnvironmentalBundle = {
   limitations: string[];
 };
 
+async function withTimeout<T>(task: Promise<T>, ms: number): Promise<T | null> {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  try {
+    return await Promise.race([
+      task,
+      new Promise<null>((resolve) => {
+        timer = setTimeout(() => resolve(null), ms);
+      }),
+    ]);
+  } catch {
+    return null;
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
 export async function fetchSiteEnvironmentalData(params: {
   lat: number;
   lon: number;
@@ -20,9 +36,9 @@ export async function fetchSiteEnvironmentalData(params: {
   aspectDeg?: number;
 }): Promise<SiteEnvironmentalBundle> {
   const [pvgis, climate, elevation] = await Promise.all([
-    fetchPvgisSolar(params),
-    fetchOpenMeteoClimate(params.lat, params.lon),
-    fetchElevation(params.lat, params.lon),
+    withTimeout(fetchPvgisSolar(params), 8000),
+    withTimeout(fetchOpenMeteoClimate(params.lat, params.lon), 8000),
+    withTimeout(fetchElevation(params.lat, params.lon), 8000),
   ]);
 
   const limitations: string[] = [];
