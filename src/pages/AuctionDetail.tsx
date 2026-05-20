@@ -569,6 +569,15 @@ export default function AuctionDetail() {
   const closing = estimateBuyerClosingCosts(effectiveCalcBid);
   const buyerTotals = calcBuyerTotal(effectiveCalcBid);
   const sellerTotals = calcSellerNet(effectiveCalcBid);
+  const nearbyHighlights = useMemo(() => {
+    const pick = (type: "education" | "transport" | "health") =>
+      auction.nearbyFacilities.filter((x) => x.type === type).slice(0, 2);
+    return {
+      education: pick("education"),
+      transport: pick("transport"),
+      health: pick("health"),
+    };
+  }, [auction.nearbyFacilities]);
 
   const galleryBadges = [
     { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
@@ -770,6 +779,33 @@ export default function AuctionDetail() {
                     </div>
                   ) : null}
                   <div><h3 className="text-lg font-bold text-white mb-3">Açıklama</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{auction.description}</p></div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
+                      <h4 className="mb-2 text-sm font-semibold text-white">Tapu ve İmar Özeti</h4>
+                      <div className="space-y-1.5 text-xs text-slate-400">
+                        <p>Tapu durumu: <span className="text-slate-200">{auction.propertyDetails.deedStatus || "Belirtilmedi"}</span></p>
+                        <p>İmar uygunluğu: <span className="text-slate-200">{auction.propertyDetails.eligibility || "Belirtilmedi"}</span></p>
+                        <p>Resmi belge paketi: <span className="text-slate-200">{auction.officialDocumentsForBuyer ? "Alıcıya açılıyor (demo)" : "Eksik / doğrulama bekliyor"}</span></p>
+                      </div>
+                    </div>
+                    <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
+                      <h4 className="mb-2 text-sm font-semibold text-white">Çevre Bilgisi (mock)</h4>
+                      <div className="grid grid-cols-3 gap-2 text-[11px] text-slate-400">
+                        <div>
+                          <p className="mb-1 font-semibold text-slate-300">Okul</p>
+                          {nearbyHighlights.education.map((item) => <p key={item.name}>{item.name}</p>)}
+                        </div>
+                        <div>
+                          <p className="mb-1 font-semibold text-slate-300">Ulaşım</p>
+                          {nearbyHighlights.transport.map((item) => <p key={item.name}>{item.name}</p>)}
+                        </div>
+                        <div>
+                          <p className="mb-1 font-semibold text-slate-300">Hastane</p>
+                          {nearbyHighlights.health.map((item) => <p key={item.name}>{item.name}</p>)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <DetailItem icon={<Building className="w-5 h-5" />} label="Oda" value={auction.propertyDetails.roomCount} />
                     <DetailItem icon={<Layers className="w-5 h-5" />} label="Net m²" value={`${auction.propertyDetails.netSqm} m²`} />
