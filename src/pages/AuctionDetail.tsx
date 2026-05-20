@@ -223,6 +223,68 @@ export default function AuctionDetail() {
     };
   }, [user?.id, resolvedReport?.id]);
 
+  const liveBidPreview = auction ? realtime.highBidTry ?? auction.currentBid : 0;
+  const auctionEndedVisualPreview = demoBuyNowWon || auction?.status === "ended";
+
+  useEffect(() => {
+    if (!auction) return;
+    const seed: BidTapeItem[] = Array.from({ length: 5 }).map((_, i) => ({
+      id: `${id ?? "auc"}-seed-${i}`,
+      bidder: BIDDER_MASKS[i % BIDDER_MASKS.length],
+      amount: Math.max(auction.currentBid - i * 25_000, 1),
+      at: new Date(Date.now() - i * 120_000).toLocaleTimeString("tr-TR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    }));
+    setBidTape(seed);
+    setFlashBidId(null);
+    setWatchers(Math.max(18, (auction.bidderCount ?? 12) * 3));
+  }, [auction, id]);
+
+  useEffect(() => {
+    if (!auction || isListingOnly || auctionEndedVisualPreview || auction.status !== "live") return;
+    const interval = window.setInterval(() => {
+      setBidTape((prev) => {
+        const top = prev[0]?.amount ?? liveBidPreview;
+        const nextAmount = top + (Math.floor(Math.random() * 4) + 1) * 10_000;
+        const next: BidTapeItem = {
+          id: `${id ?? "auc"}-${Date.now()}`,
+          bidder: BIDDER_MASKS[Math.floor(Math.random() * BIDDER_MASKS.length)],
+          amount: nextAmount,
+          at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+        };
+        setFlashBidId(next.id);
+        return [next, ...prev].slice(0, 7);
+      });
+      setWatchers((prev) => Math.max(1, prev + (Math.random() > 0.5 ? 1 : -1)));
+    }, 9_000);
+    return () => window.clearInterval(interval);
+  }, [auction, auctionEndedVisualPreview, id, isListingOnly, liveBidPreview]);
+
+  useEffect(() => {
+    if (!flashBidId) return;
+    const idTimer = window.setTimeout(() => setFlashBidId(null), 1300);
+    return () => window.clearTimeout(idTimer);
+  }, [flashBidId]);
+
+  const nearbyHighlights = useMemo(() => {
+    if (!auction) {
+      return {
+        education: [],
+        transport: [],
+        health: [],
+      };
+    }
+    const pick = (type: "education" | "transport" | "health") =>
+      auction.nearbyFacilities.filter((x) => x.type === type).slice(0, 2);
+    return {
+      education: pick("education"),
+      transport: pick("transport"),
+      health: pick("health"),
+    };
+  }, [auction]);
+
   if (!auction) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
@@ -263,47 +325,6 @@ export default function AuctionDetail() {
   const previousTapeBid = bidTape[1]?.amount ?? auction.currentBid;
   const tapeDirection = latestTapeBid > previousTapeBid ? "up" : latestTapeBid < previousTapeBid ? "down" : "flat";
   const liveBidCount = Math.max(auction.bidderCount, (auction.bidderCount ?? 0) + bidTape.length);
-
-  useEffect(() => {
-    const seed: BidTapeItem[] = Array.from({ length: 5 }).map((_, i) => ({
-      id: `${id ?? "auc"}-seed-${i}`,
-      bidder: BIDDER_MASKS[i % BIDDER_MASKS.length],
-      amount: Math.max(auction.currentBid - i * 25_000, 1),
-      at: new Date(Date.now() - i * 120_000).toLocaleTimeString("tr-TR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    }));
-    setBidTape(seed);
-    setFlashBidId(null);
-    setWatchers(Math.max(18, (auction.bidderCount ?? 12) * 3));
-  }, [auction.currentBid, auction.bidderCount, id]);
-
-  useEffect(() => {
-    if (isListingOnly || auctionEndedVisual || auction.status !== "live") return;
-    const interval = window.setInterval(() => {
-      setBidTape((prev) => {
-        const top = prev[0]?.amount ?? liveBid;
-        const nextAmount = top + (Math.floor(Math.random() * 4) + 1) * 10_000;
-        const next: BidTapeItem = {
-          id: `${id ?? "auc"}-${Date.now()}`,
-          bidder: BIDDER_MASKS[Math.floor(Math.random() * BIDDER_MASKS.length)],
-          amount: nextAmount,
-          at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
-        };
-        setFlashBidId(next.id);
-        return [next, ...prev].slice(0, 7);
-      });
-      setWatchers((prev) => Math.max(1, prev + (Math.random() > 0.5 ? 1 : -1)));
-    }, 9_000);
-    return () => window.clearInterval(interval);
-  }, [auction.status, auctionEndedVisual, id, isListingOnly, liveBid]);
-
-  useEffect(() => {
-    if (!flashBidId) return;
-    const idTimer = window.setTimeout(() => setFlashBidId(null), 1300);
-    return () => window.clearTimeout(idTimer);
-  }, [flashBidId]);
 
   const handleBuyerReportConfirm = async () => {
     if (!legalWithdrawAccepted || !user || !id || !resolvedReport) return;
@@ -582,15 +603,6 @@ export default function AuctionDetail() {
   const closing = estimateBuyerClosingCosts(effectiveCalcBid);
   const buyerTotals = calcBuyerTotal(effectiveCalcBid);
   const sellerTotals = calcSellerNet(effectiveCalcBid);
-  const nearbyHighlights = useMemo(() => {
-    const pick = (type: "education" | "transport" | "health") =>
-      auction.nearbyFacilities.filter((x) => x.type === type).slice(0, 2);
-    return {
-      education: pick("education"),
-      transport: pick("transport"),
-      health: pick("health"),
-    };
-  }, [auction.nearbyFacilities]);
 
   const galleryBadges = [
     { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
