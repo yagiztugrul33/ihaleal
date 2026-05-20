@@ -71,7 +71,7 @@ import { MASTER_LEGAL_DISCLAIMER, MODULE3_HEMEN_AL_ACCEPTANCE } from "@/legal/ma
 import { BID_GATE_CHECKBOXES, initialBidGateAck, isBidGateComplete } from "@/legal/bidGateAgreement";
 import { placeBidRpc, minNextBidTry, parsePositiveTryFromInput } from "@/lib/placeBid";
 import {
-  ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip,
+  ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, LineChart, Line,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from "recharts";
 
@@ -494,6 +494,19 @@ export default function AuctionDetail() {
     { subject: "Getiri", A: auction.areaStats.rentalYield * 10, fullMark: 100 },
     { subject: "Talep", A: auction.areaStats.demandIndex, fullMark: 100 },
   ];
+  const regionTrendData = [
+    { period: "6ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.86) },
+    { period: "5ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.89) },
+    { period: "4ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.92) },
+    { period: "3ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.95) },
+    { period: "2ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.98) },
+    { period: "1ay", sqm: Math.round(auction.areaStats.avgPricePerSqm) },
+  ];
+  const comparableSales = [
+    { id: `${auction.id}-cmp-1`, title: `${auction.district} benzer satış A`, price: Math.round(liveBid * 0.93), sqm: auction.propertyDetails.netSqm - 8, closedAt: "2026-03" },
+    { id: `${auction.id}-cmp-2`, title: `${auction.district} benzer satış B`, price: Math.round(liveBid * 1.02), sqm: auction.propertyDetails.netSqm + 6, closedAt: "2026-02" },
+    { id: `${auction.id}-cmp-3`, title: `${auction.district} benzer satış C`, price: Math.round(liveBid * 0.98), sqm: auction.propertyDetails.netSqm - 2, closedAt: "2026-01" },
+  ];
 
   const toastBid = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
     window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }));
@@ -906,6 +919,34 @@ export default function AuctionDetail() {
                         <Area type="monotone" dataKey="price" stroke="#3b82f6" strokeWidth={2} fill="url(#priceGradient)" />
                       </AreaChart>
                     </ResponsiveContainer>
+                  </div>
+                  <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
+                    <h4 className="mb-3 text-sm font-semibold text-white">Bölge m² fiyat trendi (mock)</h4>
+                    <div className="h-56">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={regionTrendData}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                          <XAxis dataKey="period" stroke="#71717a" fontSize={12} />
+                          <YAxis stroke="#71717a" fontSize={12} tickFormatter={(v) => `₺${(v / 1000).toFixed(0)}K`} />
+                          <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", color: "#fff" }} />
+                          <Line type="monotone" dataKey="sqm" stroke="#22d3ee" strokeWidth={2.5} dot={{ r: 2 }} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
+                    <h4 className="mb-3 text-sm font-semibold text-white">Benzer satışlar (mock)</h4>
+                    <div className="space-y-2">
+                      {comparableSales.map((row) => (
+                        <div key={row.id} className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-950/60 px-3 py-2 text-xs">
+                          <div>
+                            <p className="font-semibold text-slate-200">{row.title}</p>
+                            <p className="text-slate-500">{row.sqm} m² · kapanış {row.closedAt}</p>
+                          </div>
+                          <p className="font-bold text-emerald-300">₺{row.price.toLocaleString("tr-TR")}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div className="space-y-2">
                     {auction.priceHistory.map((p, i) => (
