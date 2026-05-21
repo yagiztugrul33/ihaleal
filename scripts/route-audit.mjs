@@ -118,14 +118,14 @@ function slugify(routePath) {
 async function detectOverflow(page) {
   const readOverflow = () =>
     page.evaluate(() => {
-      const doc = document.documentElement;
-      const body = document.body;
+      const doc = globalThis.document.documentElement;
+      const body = globalThis.document.body;
       const scrollW = Math.max(doc.scrollWidth, body?.scrollWidth ?? 0);
       const clientW = doc.clientWidth;
       const overflow = scrollW > clientW + 2;
       const offenders = [];
       if (overflow) {
-        for (const el of document.querySelectorAll("*")) {
+        for (const el of globalThis.document.querySelectorAll("*")) {
           const r = el.getBoundingClientRect();
           if (r.width <= 0 || r.height <= 0) continue;
           if (r.right > clientW + 2) {
@@ -163,7 +163,7 @@ async function auditRoute(page, routePath, viewport, label) {
   page.on("console", handler);
   let status = 0;
   let error = null;
-  let loadMs = 0;
+  let loadMs;
   const t0 = Date.now();
   try {
     const res = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });

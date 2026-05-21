@@ -7,6 +7,8 @@ import { AUCTIONS } from "@/data/auctions";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 
+type AuctionItem = (typeof AUCTIONS)[number];
+
 export function RecentlyViewed() {
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.1);
@@ -14,7 +16,8 @@ export function RecentlyViewed() {
   const recentIds = useMemo(() => {
     try {
       const stored = localStorage.getItem("ihaleal_recently_viewed");
-      return stored ? JSON.parse(stored) : [];
+      const parsed: unknown = stored ? JSON.parse(stored) : [];
+      return Array.isArray(parsed) ? parsed.filter((id): id is string => typeof id === "string") : [];
     } catch {
       return [];
     }
@@ -23,7 +26,7 @@ export function RecentlyViewed() {
   const recentAuctions = useMemo(() => {
     return recentIds
       .map((id: string) => AUCTIONS.find((a) => a.id === id))
-      .filter(Boolean)
+      .filter((auction): auction is AuctionItem => Boolean(auction))
       .slice(0, 4);
   }, [recentIds]);
 
@@ -43,7 +46,7 @@ export function RecentlyViewed() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {recentAuctions.map((auction: any, idx: number) => (
+          {recentAuctions.map((auction, idx: number) => (
             <Card
               key={auction.id}
               className="group card-warm overflow-hidden hover:border-[var(--color-accent)] transition-all duration-500 hover:-translate-y-1 cursor-pointer"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
@@ -580,10 +580,10 @@ export default function AuctionDetail() {
   const toastBid = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
     window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }));
   };
-  const scrollToContact = useCallback(() => {
+  const scrollToContact = () => {
     navigate("/");
     window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100);
-  }, [navigate]);
+  };
 
   const handleBid = async () => {
     if (auctionEndedVisual) {
@@ -950,7 +950,7 @@ export default function AuctionDetail() {
                     <h3 className="text-lg font-bold text-white mb-3">Yakın Çevre</h3>
                     <div className="grid sm:grid-cols-2 gap-3">
                       {nearbyFacilities.map((f) => {
-                        const icons: Record<string, any> = {
+                        const icons: Record<string, JSX.Element> = {
                           transport: <Navigation className="w-4 h-4 text-sky-400" />,
                           education: <Building className="w-4 h-4 text-emerald-400" />,
                           health: <Heart className="w-4 h-4 text-red-400" />,

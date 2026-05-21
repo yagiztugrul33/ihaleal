@@ -20,6 +20,7 @@ const PRICE_MAX = 200_000_000;
 
 type AuctionStatusFilter = "all" | "live" | "upcoming" | "ended";
 type AuctionSort = "popular" | "price_desc" | "price_asc" | "date_asc" | "date_desc";
+type AuctionRow = ReturnType<typeof getLocalAndStaticAuctions>[number];
 
 function toInt(input: string | null, fallback: number): number {
   const n = Number(input);
@@ -48,7 +49,7 @@ export function Auctions({
   const [searchParams, setSearchParams] = useSearchParams();
   const { ref, isVisible } = useScrollAnimation(0.1);
   const [filter, setFilter] = useState<AuctionStatusFilter>("all");
-  const [selectedAuction, setSelectedAuction] = useState<any>(null);
+  const [selectedAuction, setSelectedAuction] = useState<AuctionRow | null>(null);
   const [bidAmount, setBidAmount] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [compareList, setCompareList] = useState<string[]>([]);

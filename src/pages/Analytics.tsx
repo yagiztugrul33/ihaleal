@@ -93,6 +93,19 @@ const CITY_DATA: Record<string, {
 };
 
 const MONTHS = ["Oca", "Sub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Eki", "Kas", "Ara"];
+type CityData = (typeof CITY_DATA)[keyof typeof CITY_DATA];
+type AnalyticsColumnKey =
+  | "pricePerSqm"
+  | "avgValue"
+  | "amortization"
+  | "yield"
+  | "annualChange"
+  | "monthlyChange"
+  | "totalChange"
+  | "nextYearPrediction"
+  | "twoYearPrediction"
+  | "avgArea"
+  | "marketingDays";
 
 // Generate prediction data
 const generatePrediction = (city: string) => {
@@ -180,7 +193,7 @@ export default function Analytics() {
     { key: "amortization", label: "Amortisman" },
   ];
 
-  const columns = analysisType === "unitPrice" ? [
+  const columns: { key: AnalyticsColumnKey; label: string; color: string }[] = analysisType === "unitPrice" ? [
     { key: "pricePerSqm", label: "m2 Birim Fiyat", color: "text-blue-400" },
     { key: "avgValue", label: "Ort. Deger", color: "text-sky-400" },
     { key: "amortization", label: "Amortisman", color: "text-violet-400" },
@@ -206,7 +219,7 @@ export default function Analytics() {
     { key: "marketingDays", label: "Satis Suresi", color: "text-amber-400" },
   ];
 
-  const formatValue = (key: string, val: number) => {
+  const formatValue = (key: AnalyticsColumnKey, val: number) => {
     if (key === "pricePerSqm") return `TRY ${val.toLocaleString()}`;
     if (key === "avgValue") return `TRY ${(val / 1000000).toFixed(1)}M`;
     if (key === "avgArea") return `${val}m2`;
@@ -421,7 +434,7 @@ export default function Analytics() {
                             <td className="px-4 py-3"><span className="font-semibold text-white">{city}</span></td>
                             {columns.map((col) => (
                               <td key={col.key} className={`text-right px-4 py-3 font-semibold ${col.color}`}>
-                                {formatValue(col.key, (d as any)[col.key])}
+                                {formatValue(col.key, d[col.key] as CityData[AnalyticsColumnKey])}
                               </td>
                             ))}
                           </tr>

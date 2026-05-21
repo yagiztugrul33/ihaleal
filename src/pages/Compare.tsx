@@ -12,6 +12,8 @@ import { withListingDefaults } from "@/lib/listingPolicy";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
+type ComparedAuction = ReturnType<typeof withListingDefaults>;
+
 export default function Compare() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,7 +41,7 @@ export default function Compare() {
     }
   }, [selectedIds, searchParams, setSearchParams]);
 
-  const calculateScore = (auction: any) => {
+  const calculateScore = (auction: ComparedAuction) => {
     const priceScore = Math.max(0, 100 - (auction.pricePerSqm / 2000));
     const locationScore = auction.areaStats.demandIndex;
     const featureScore = auction.propertyDetails.elevator && auction.propertyDetails.parking && auction.propertyDetails.balcony ? 90 : 70;

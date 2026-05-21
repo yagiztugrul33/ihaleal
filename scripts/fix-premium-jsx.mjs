@@ -8,15 +8,6 @@ text = text.replace(
   '<div className="premium-home__grid" aria-hidden="true" />',
 );
 
-const pairs = [
-  ["          </motion.div>\n          <article className=\"premium-live-card\"", "          </motion.div>\n          <article className=\"premium-live-card\""],
-];
-
-// Manual line-based fixes
-const fixes = [
-  [/\n          <\/motion\.motion>\n          <article className="premium-live-card"/, "\n          </motion.div>\n          <article className=\"premium-live-card\""],
-];
-
 // Simple global: wrong closes after div opens - fix known blocks
 text = text.replace(
   `            ))}
@@ -26,10 +17,6 @@ text = text.replace(
             </motion.div>
             <Link to="/ilanlar">{home.live.view}</Link>`,
 );
-
-const replacements = [
-  [`          </motion.div>\n          <article className="premium-live-card"`, `          </motion.div>\n          <article className="premium-live-card"`],
-];
 
 for (const [from, to] of [
   ["          </motion.div>\n          <article className=\"premium-live-card\"", "          </motion.div>\n          <article className=\"premium-live-card\""],
