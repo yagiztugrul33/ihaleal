@@ -6,6 +6,7 @@ import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
 import { isProdBuild, localAuthEnabled } from "@/lib/runtimeFlags";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
+import { Logo } from "@/components/Logo";
 
 export function Footer() {
   const navigate = useNavigate();
@@ -19,10 +20,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-4 min-w-0">
             <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                <Gavel className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-slate-50">ihaleal.com</span>
+              <Logo size="md" />
             </div>
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
               Türkiye&apos;nin en güvenli gayrimenkul ihale platformu. AI destekli değerleme, şeffaf süreç, hızlı satış.

@@ -116,27 +116,39 @@ function slugify(routePath) {
 }
 
 async function detectOverflow(page) {
-  return page.evaluate(() => {
-    const doc = document.documentElement;
-    const body = document.body;
-    const scrollW = Math.max(doc.scrollWidth, body?.scrollWidth ?? 0);
-    const clientW = doc.clientWidth;
-    const overflow = scrollW > clientW + 2;
-    const offenders = [];
-    if (overflow) {
-      for (const el of document.querySelectorAll("*")) {
-        const r = el.getBoundingClientRect();
-        if (r.width <= 0 || r.height <= 0) continue;
-        if (r.right > clientW + 2) {
-          const tag = el.tagName.toLowerCase();
-          const cls = (el.className && String(el.className).slice(0, 60)) || "";
-          offenders.push(`${tag}${cls ? "." + cls.split(" ")[0] : ""}`);
-          if (offenders.length >= 5) break;
+  const readOverflow = () =>
+    page.evaluate(() => {
+      const doc = document.documentElement;
+      const body = document.body;
+      const scrollW = Math.max(doc.scrollWidth, body?.scrollWidth ?? 0);
+      const clientW = doc.clientWidth;
+      const overflow = scrollW > clientW + 2;
+      const offenders = [];
+      if (overflow) {
+        for (const el of document.querySelectorAll("*")) {
+          const r = el.getBoundingClientRect();
+          if (r.width <= 0 || r.height <= 0) continue;
+          if (r.right > clientW + 2) {
+            const tag = el.tagName.toLowerCase();
+            const cls = (el.className && String(el.className).slice(0, 60)) || "";
+            offenders.push(`${tag}${cls ? "." + cls.split(" ")[0] : ""}`);
+            if (offenders.length >= 5) break;
+          }
         }
       }
+      return { overflow, scrollW, clientW, offenders };
+    });
+
+  try {
+    return await readOverflow();
+  } catch {
+    await page.waitForTimeout(200);
+    try {
+      return await readOverflow();
+    } catch {
+      return { overflow: false, scrollW: 0, clientW: 0, offenders: [] };
     }
-    return { overflow, scrollW, clientW, offenders };
-  });
+  }
 }
 
 async function auditRoute(page, routePath, viewport, label) {

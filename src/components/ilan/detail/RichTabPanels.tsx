@@ -218,11 +218,14 @@ function CevrePanel({ property }: { property: PropertyRecord }) {
 
 function SosyalPanel({ property }: { property: PropertyRecord }) {
   const n = property.neighborhood;
+  const nearestSchool = n?.education?.yakinOkullar?.[0];
+  const nearestHospital = n?.health?.yakinHastaneler?.[0];
+  const walkability = n?.transportation?.yurunebilir;
   const socio = n
     ? [
-        { name: "Egitim", value: n.education.yakinOkullar[0]?.lgsScore ?? 70 },
-        { name: "Saglik", value: n.health.yakinHastaneler[0]?.emergencyQuality ?? 75 },
-        { name: "Ulasim", value: n.transportation.yurunebilir },
+        { name: "Egitim", value: nearestSchool?.lgsScore ?? 70 },
+        { name: "Saglik", value: nearestHospital?.emergencyQuality ?? 75 },
+        { name: "Ulasim", value: walkability ?? 60 },
         { name: "Is imkani", value: n.jobOpportunityIndex },
       ]
     : [
@@ -231,8 +234,8 @@ function SosyalPanel({ property }: { property: PropertyRecord }) {
         { name: "Ulaşım", value: 85 },
         { name: "Yeşil alan", value: property.greenAreaRatio ?? 55 },
       ];
-  const demoPie = n?.demographics.yasDagilimi ?? DEMO_PIE;
-  const walk = n?.transportation.yurunebilir ?? 60;
+  const demoPie = n?.demographics?.yasDagilimi ?? DEMO_PIE;
+  const walk = walkability ?? 60;
   return (
     <section className="idr-panel idr-panel--sosyal">
       {n ? <p className="idr-muted">{n.aiMahalleOzeti}</p> : null}
@@ -289,7 +292,7 @@ function SosyalPanel({ property }: { property: PropertyRecord }) {
       </div>
       <div className="idr-stats-row">
         <StatCard label="Yasam maliyeti" value={String(n?.livingCostIndex ?? "—")} />
-        <StatCard label="Egitim LGS" value={String(n?.education.yakinOkullar[0]?.lgsScore ?? "—")} />
+        <StatCard label="Egitim LGS" value={String(nearestSchool?.lgsScore ?? "—")} />
       </div>
       {n?.nearbyPoints?.length ? (
         <>

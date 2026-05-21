@@ -277,7 +277,7 @@ export default function AuctionDetail() {
       };
     }
     const pick = (type: "education" | "transport" | "health") =>
-      auction.nearbyFacilities.filter((x) => x.type === type).slice(0, 2);
+      (auction.nearbyFacilities ?? []).filter((x) => x.type === type).slice(0, 2);
     return {
       education: pick("education"),
       transport: pick("transport"),
@@ -297,9 +297,42 @@ export default function AuctionDetail() {
     );
   }
 
+  const propertyDetails = {
+    roomCount: auction.propertyDetails?.roomCount ?? "—",
+    grossSqm: auction.propertyDetails?.grossSqm ?? 0,
+    netSqm: auction.propertyDetails?.netSqm ?? 0,
+    floor: auction.propertyDetails?.floor ?? "—",
+    totalFloors: auction.propertyDetails?.totalFloors ?? 0,
+    buildingAge: auction.propertyDetails?.buildingAge ?? 0,
+    heating: auction.propertyDetails?.heating ?? "Belirtilmedi",
+    facade: auction.propertyDetails?.facade ?? "Belirtilmedi",
+    bathroom: auction.propertyDetails?.bathroom ?? 0,
+    balcony: Boolean(auction.propertyDetails?.balcony),
+    elevator: Boolean(auction.propertyDetails?.elevator),
+    parking: Boolean(auction.propertyDetails?.parking),
+    furnished: Boolean(auction.propertyDetails?.furnished),
+    usingStatus: auction.propertyDetails?.usingStatus ?? "Belirtilmedi",
+    deedStatus: auction.propertyDetails?.deedStatus ?? "Belirtilmedi",
+    eligibility: auction.propertyDetails?.eligibility ?? "Belirtilmedi",
+  };
+  const areaStats = {
+    avgPricePerSqm: auction.areaStats?.avgPricePerSqm ?? 0,
+    demandIndex: auction.areaStats?.demandIndex ?? 0,
+    rentalYield: auction.areaStats?.rentalYield ?? 0,
+    priceChangeMonthly: auction.areaStats?.priceChangeMonthly ?? 0,
+    priceChangeYearly: auction.areaStats?.priceChangeYearly ?? 0,
+    avgDaysOnMarket: auction.areaStats?.avgDaysOnMarket ?? 0,
+    supplyCount: auction.areaStats?.supplyCount ?? 0,
+  };
+  const features = auction.features ?? [];
+  const nearbyFacilities = auction.nearbyFacilities ?? [];
+  const priceHistory = auction.priceHistory ?? [];
+  const galleryImages = auction.images ?? [];
+
   const liveBid = realtime.highBidTry ?? auction.currentBid;
-  const priceDiff = auction.aiPredictedPrice - liveBid;
-  const priceDiffPercent = ((priceDiff / auction.aiPredictedPrice) * 100).toFixed(1);
+  const safeAiPredictedPrice = auction.aiPredictedPrice > 0 ? auction.aiPredictedPrice : liveBid || 1;
+  const priceDiff = safeAiPredictedPrice - liveBid;
+  const priceDiffPercent = ((priceDiff / safeAiPredictedPrice) * 100).toFixed(1);
   const isUnderpriced = priceDiff > 0;
   const recommendation = auction.investmentScore >= 85 ? "strongBuy" : auction.investmentScore >= 70 ? "buy" : auction.investmentScore >= 50 ? "hold" : "avoid";
 
@@ -510,23 +543,23 @@ export default function AuctionDetail() {
   const radarData = [
     { subject: "Konum", A: auction.investmentScore * 0.9 + 10, fullMark: 100 },
     { subject: "Fiyat", A: isUnderpriced ? 85 : 60, fullMark: 100 },
-    { subject: "Özellikler", A: auction.propertyDetails.elevator && auction.propertyDetails.parking ? 80 : 65, fullMark: 100 },
-    { subject: "Piyasa", A: auction.areaStats.demandIndex, fullMark: 100 },
-    { subject: "Getiri", A: auction.areaStats.rentalYield * 10, fullMark: 100 },
-    { subject: "Talep", A: auction.areaStats.demandIndex, fullMark: 100 },
+    { subject: "Özellikler", A: propertyDetails.elevator && propertyDetails.parking ? 80 : 65, fullMark: 100 },
+    { subject: "Piyasa", A: areaStats.demandIndex, fullMark: 100 },
+    { subject: "Getiri", A: areaStats.rentalYield * 10, fullMark: 100 },
+    { subject: "Talep", A: areaStats.demandIndex, fullMark: 100 },
   ];
   const regionTrendData = [
-    { period: "6ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.86) },
-    { period: "5ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.89) },
-    { period: "4ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.92) },
-    { period: "3ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.95) },
-    { period: "2ay", sqm: Math.round(auction.areaStats.avgPricePerSqm * 0.98) },
-    { period: "1ay", sqm: Math.round(auction.areaStats.avgPricePerSqm) },
+    { period: "6ay", sqm: Math.round(areaStats.avgPricePerSqm * 0.86) },
+    { period: "5ay", sqm: Math.round(areaStats.avgPricePerSqm * 0.89) },
+    { period: "4ay", sqm: Math.round(areaStats.avgPricePerSqm * 0.92) },
+    { period: "3ay", sqm: Math.round(areaStats.avgPricePerSqm * 0.95) },
+    { period: "2ay", sqm: Math.round(areaStats.avgPricePerSqm * 0.98) },
+    { period: "1ay", sqm: Math.round(areaStats.avgPricePerSqm) },
   ];
   const comparableSales = [
-    { id: `${auction.id}-cmp-1`, title: `${auction.district} benzer satış A`, price: Math.round(liveBid * 0.93), sqm: auction.propertyDetails.netSqm - 8, closedAt: "2026-03" },
-    { id: `${auction.id}-cmp-2`, title: `${auction.district} benzer satış B`, price: Math.round(liveBid * 1.02), sqm: auction.propertyDetails.netSqm + 6, closedAt: "2026-02" },
-    { id: `${auction.id}-cmp-3`, title: `${auction.district} benzer satış C`, price: Math.round(liveBid * 0.98), sqm: auction.propertyDetails.netSqm - 2, closedAt: "2026-01" },
+    { id: `${auction.id}-cmp-1`, title: `${auction.district} benzer satış A`, price: Math.round(liveBid * 0.93), sqm: Math.max(1, propertyDetails.netSqm - 8), closedAt: "2026-03" },
+    { id: `${auction.id}-cmp-2`, title: `${auction.district} benzer satış B`, price: Math.round(liveBid * 1.02), sqm: Math.max(1, propertyDetails.netSqm + 6), closedAt: "2026-02" },
+    { id: `${auction.id}-cmp-3`, title: `${auction.district} benzer satış C`, price: Math.round(liveBid * 0.98), sqm: Math.max(1, propertyDetails.netSqm - 2), closedAt: "2026-01" },
   ];
 
   const toastBid = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
@@ -615,15 +648,15 @@ export default function AuctionDetail() {
       id: "valuation",
       title: "Değerleme konumu",
       body: isUnderpriced
-        ? `Model fiyatın %${Math.abs(Number(priceDiffPercent))} altında olduğunu işaret ediyor; bölge ortalaması ₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")}/m².`
-        : `Fiyat piyasa bandına yakın; talep endeksi ${auction.areaStats.demandIndex}/100.`,
+        ? `Model fiyatın %${Math.abs(Number(priceDiffPercent))} altında olduğunu işaret ediyor; bölge ortalaması ₺${areaStats.avgPricePerSqm.toLocaleString("tr-TR")}/m².`
+        : `Fiyat piyasa bandına yakın; talep endeksi ${areaStats.demandIndex}/100.`,
       confidence: isUnderpriced ? 88 : 72,
       tone: isUnderpriced ? "positive" : "neutral",
     },
     {
       id: "yield",
       title: "Getiri profili",
-      body: `Tahmini kira getirisi %${auction.areaStats.rentalYield}; amortisman ${Math.round(100 / Math.max(auction.areaStats.rentalYield, 0.1))} yıl bandında.`,
+      body: `Tahmini kira getirisi %${areaStats.rentalYield}; amortisman ${Math.round(100 / Math.max(areaStats.rentalYield, 0.1))} yıl bandında.`,
       confidence: 76,
       tone: "neutral",
     },
@@ -638,6 +671,16 @@ export default function AuctionDetail() {
       tone: recommendation === "avoid" ? "caution" : "positive",
     },
   ];
+  const detailedDescription = (() => {
+    const raw = auction.description?.trim() ?? "";
+    if (raw.length > 340 && raw.includes("\n")) return raw;
+    return [
+      `${auction.location} lokasyonundaki bu ilan, yatırım ve kullanım dengesini birlikte sunan bir profile sahip. Bölgedeki ana ulaşım akslarına yakınlık, mülkün hem kısa vadeli likiditesini hem de uzun vadeli değer korunmasını destekliyor.`,
+      `Yapısal tarafta ${propertyDetails.netSqm} m² net kullanım alanı, ${propertyDetails.roomCount} planı ve ${propertyDetails.heating} altyapısı öne çıkıyor. ${propertyDetails.deedStatus} tapu durumu ve ${propertyDetails.eligibility} uygunluk notu, işlem öncesi kontrol listesiyle birlikte şeffaf biçimde sunuluyor.`,
+      `Piyasa göstergelerinde bölge ortalama m² değeri ₺${areaStats.avgPricePerSqm.toLocaleString("tr-TR")} bandında. Talep endeksi ${areaStats.demandIndex}/100 ve kira getirisi tahmini %${areaStats.rentalYield} seviyesinde; bu da özellikle düzenli nakit akışı arayan yatırımcı profili için dengeleyici bir sinyal oluşturuyor.`,
+      `Yakın çevrede eğitim, ulaşım ve sağlık noktalarının bulunması günlük kullanım senaryolarını güçlendiriyor. Teklif tarafında canlı akış, anti-sniping ve maliyet hesaplayıcı birlikte çalıştığı için alıcı toplam maliyeti daha teklif aşamasında öngörülebiliyor.`,
+    ].join("\n\n");
+  })();
 
   return (
     <div ref={ref} className="min-h-screen pt-20 pb-16">
@@ -655,7 +698,7 @@ export default function AuctionDetail() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <CinematicPropertyGallery
-            images={auction.images}
+            images={galleryImages}
             title={auction.title}
             badges={galleryBadges}
             aiPredictedPrice={auction.aiPredictedPrice}
@@ -803,13 +846,13 @@ export default function AuctionDetail() {
                       </p>
                     </div>
                   ) : null}
-                  <div><h3 className="text-lg font-bold text-white mb-3">Açıklama</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{auction.description}</p></div>
+                  <div><h3 className="text-lg font-bold text-white mb-3">Açıklama</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{detailedDescription}</p></div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
                       <h4 className="mb-2 text-sm font-semibold text-white">Tapu ve İmar Özeti</h4>
                       <div className="space-y-1.5 text-xs text-slate-400">
-                        <p>Tapu durumu: <span className="text-slate-200">{auction.propertyDetails.deedStatus || "Belirtilmedi"}</span></p>
-                        <p>İmar uygunluğu: <span className="text-slate-200">{auction.propertyDetails.eligibility || "Belirtilmedi"}</span></p>
+                        <p>Tapu durumu: <span className="text-slate-200">{propertyDetails.deedStatus}</span></p>
+                        <p>İmar uygunluğu: <span className="text-slate-200">{propertyDetails.eligibility}</span></p>
                         <p>Resmi belge paketi: <span className="text-slate-200">{auction.officialDocumentsForBuyer ? "Alıcıya açılıyor (demo)" : "Eksik / doğrulama bekliyor"}</span></p>
                       </div>
                     </div>
@@ -832,10 +875,10 @@ export default function AuctionDetail() {
                     </div>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <DetailItem icon={<Building className="w-5 h-5" />} label="Oda" value={auction.propertyDetails.roomCount} />
-                    <DetailItem icon={<Layers className="w-5 h-5" />} label="Net m²" value={`${auction.propertyDetails.netSqm} m²`} />
-                    <DetailItem icon={<Layers className="w-5 h-5" />} label="Kat" value={auction.propertyDetails.floor} />
-                    <DetailItem icon={<Building className="w-5 h-5" />} label="Bina Yaşı" value={auction.propertyDetails.buildingAge} />
+                    <DetailItem icon={<Building className="w-5 h-5" />} label="Oda" value={propertyDetails.roomCount} />
+                    <DetailItem icon={<Layers className="w-5 h-5" />} label="Net m²" value={`${propertyDetails.netSqm} m²`} />
+                    <DetailItem icon={<Layers className="w-5 h-5" />} label="Kat" value={propertyDetails.floor} />
+                    <DetailItem icon={<Building className="w-5 h-5" />} label="Bina Yaşı" value={propertyDetails.buildingAge} />
                   </div>
                   {auction.virtualTour && (
                     <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
@@ -854,22 +897,22 @@ export default function AuctionDetail() {
               {activeTab === "details" && (
                 <div className="grid sm:grid-cols-2 gap-3 animate-fade-in">
                   {[
-                    { label: "Oda + Salon", value: auction.propertyDetails.roomCount },
-                    { label: "Brüt m²", value: `${auction.propertyDetails.grossSqm} m²` },
-                    { label: "Net m²", value: `${auction.propertyDetails.netSqm} m²` },
-                    { label: "Bulunduğu Kat", value: auction.propertyDetails.floor },
-                    { label: "Toplam Kat", value: `${auction.propertyDetails.totalFloors}` },
-                    { label: "Bina Yaşı", value: `${auction.propertyDetails.buildingAge} Yıl` },
-                    { label: "Isıtma", value: auction.propertyDetails.heating },
-                    { label: "Cephe", value: auction.propertyDetails.facade },
-                    { label: "Banyo", value: `${auction.propertyDetails.bathroom}` },
-                    { label: "Balkon", value: auction.propertyDetails.balcony ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Asansör", value: auction.propertyDetails.elevator ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Otopark", value: auction.propertyDetails.parking ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Eşyalı", value: auction.propertyDetails.furnished ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Kullanım Durumu", value: auction.propertyDetails.usingStatus },
-                    { label: "Tapu Durumu", value: auction.propertyDetails.deedStatus },
-                    { label: "Uygunluk", value: auction.propertyDetails.eligibility },
+                    { label: "Oda + Salon", value: propertyDetails.roomCount },
+                    { label: "Brüt m²", value: `${propertyDetails.grossSqm} m²` },
+                    { label: "Net m²", value: `${propertyDetails.netSqm} m²` },
+                    { label: "Bulunduğu Kat", value: propertyDetails.floor },
+                    { label: "Toplam Kat", value: `${propertyDetails.totalFloors}` },
+                    { label: "Bina Yaşı", value: `${propertyDetails.buildingAge} Yıl` },
+                    { label: "Isıtma", value: propertyDetails.heating },
+                    { label: "Cephe", value: propertyDetails.facade },
+                    { label: "Banyo", value: `${propertyDetails.bathroom}` },
+                    { label: "Balkon", value: propertyDetails.balcony ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: "Asansör", value: propertyDetails.elevator ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: "Otopark", value: propertyDetails.parking ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: "Eşyalı", value: propertyDetails.furnished ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: "Kullanım Durumu", value: propertyDetails.usingStatus },
+                    { label: "Tapu Durumu", value: propertyDetails.deedStatus },
+                    { label: "Uygunluk", value: propertyDetails.eligibility },
                   ].map((item) => (
                     <div key={item.label as string} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><span className="text-sm text-slate-500">{item.label}</span><span className="text-sm font-medium text-white">{item.value}</span></div>
                   ))}
@@ -878,7 +921,7 @@ export default function AuctionDetail() {
               {activeTab === "features" && (
                 <div className="animate-fade-in">
                   <div className="flex flex-wrap gap-2">
-                    {auction.features.map((f) => <Badge key={f} variant="outline" className="border-slate-200 text-slate-300 px-3 py-1.5 text-sm"><CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> {f}</Badge>)}
+                    {features.map((f) => <Badge key={f} variant="outline" className="border-slate-200 text-slate-300 px-3 py-1.5 text-sm"><CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> {f}</Badge>)}
                   </div>
                 </div>
               )}
@@ -887,7 +930,7 @@ export default function AuctionDetail() {
                   <div>
                     <h3 className="text-lg font-bold text-white mb-3">Yakın Çevre</h3>
                     <div className="grid sm:grid-cols-2 gap-3">
-                      {auction.nearbyFacilities.map((f) => {
+                      {nearbyFacilities.map((f) => {
                         const icons: Record<string, any> = {
                           transport: <Navigation className="w-4 h-4 text-sky-400" />,
                           education: <Building className="w-4 h-4 text-emerald-400" />,
@@ -922,7 +965,7 @@ export default function AuctionDetail() {
                 <div className="space-y-6 animate-fade-in">
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={auction.priceHistory.map((p) => ({ date: new Date(p.date).toLocaleDateString("tr-TR", { month: "short", year: "2-digit" }), price: p.price / 1000000 }))}>
+                      <AreaChart data={priceHistory.map((p) => ({ date: new Date(p.date).toLocaleDateString("tr-TR", { month: "short", year: "2-digit" }), price: p.price / 1000000 }))}>
                         <defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} /><stop offset="95%" stopColor="#3b82f6" stopOpacity={0} /></linearGradient></defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                         <XAxis dataKey="date" stroke="#71717a" fontSize={12} />
@@ -961,7 +1004,7 @@ export default function AuctionDetail() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    {auction.priceHistory.map((p, i) => (
+                    {priceHistory.map((p, i) => (
                       <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                         <div className="flex items-center gap-3">
                           <div className={`w-2 h-2 rounded-full ${p.event === "Fiyat Düşüşü" ? "bg-red-400" : "bg-blue-400"}`} />
@@ -1020,27 +1063,27 @@ export default function AuctionDetail() {
                       <div className={`p-4 rounded-xl border ${isUnderpriced ? "bg-emerald-500/10 border-emerald-500/20" : "bg-amber-500/10 border-amber-500/20"}`}>
                         <p className="text-sm text-slate-300 leading-relaxed">
                           {isUnderpriced
-                            ? `Bu gayrimenkul AI değerleme modelimize göre %${Math.abs(Number(priceDiffPercent))} oranında değerinin altında fiyatlandırılmış. ${auction.location} bölgesinde ortalama m² fiyatı ₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")} iken, bu ilan ₺${auction.pricePerSqm.toLocaleString("tr-TR")} / m² fiyatla listeleniyor.`
-                            : `Bu gayrimenkul AI değerleme modelimize göre piyasa ortalamasına yakın fiyatlandırılmış. Talep endeksi ${auction.areaStats.demandIndex}/100.`}
+                            ? `Bu gayrimenkul AI değerleme modelimize göre %${Math.abs(Number(priceDiffPercent))} oranında değerinin altında fiyatlandırılmış. ${auction.location} bölgesinde ortalama m² fiyatı ₺${areaStats.avgPricePerSqm.toLocaleString("tr-TR")} iken, bu ilan ₺${auction.pricePerSqm.toLocaleString("tr-TR")} / m² fiyatla listeleniyor.`
+                            : `Bu gayrimenkul AI değerleme modelimize göre piyasa ortalamasına yakın fiyatlandırılmış. Talep endeksi ${areaStats.demandIndex}/100.`}
                         </p>
                       </div>
                       <div className="grid grid-cols-2 gap-3">
                         <AIBadge label="Yatırım Skoru" value={`${auction.investmentScore}/100`} color={auction.investmentScore >= 80 ? "emerald" : auction.investmentScore >= 60 ? "blue" : "slate"} />
-                        <AIBadge label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} color="sky" />
-                        <AIBadge label="Talep Endeksi" value={`${auction.areaStats.demandIndex}/100`} color="violet" />
-                        <AIBadge label="Yıllık Artış" value={`%${auction.areaStats.priceChangeYearly}`} color="amber" />
+                        <AIBadge label="Kira Getirisi" value={`%${areaStats.rentalYield}`} color="sky" />
+                        <AIBadge label="Talep Endeksi" value={`${areaStats.demandIndex}/100`} color="violet" />
+                        <AIBadge label="Yıllık Artış" value={`%${areaStats.priceChangeYearly}`} color="amber" />
                       </div>
                     </div>
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-white mb-4">Bölge İstatistikleri — {auction.district}</h3>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                      <StatBadge label="Ort. m² Fiyat" value={`₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")}`} />
-                      <StatBadge label="Aylık Değişim" value={`%${auction.areaStats.priceChangeMonthly}`} positive={auction.areaStats.priceChangeMonthly > 0} />
-                      <StatBadge label="Yıllık Değişim" value={`%${auction.areaStats.priceChangeYearly}`} positive={auction.areaStats.priceChangeYearly > 0} />
-                      <StatBadge label="Ort. Satış Süresi" value={`${auction.areaStats.avgDaysOnMarket} gün`} />
-                      <StatBadge label="Aktif İlan" value={`${auction.areaStats.supplyCount}`} />
-                      <StatBadge label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} />
+                      <StatBadge label="Ort. m² Fiyat" value={`₺${areaStats.avgPricePerSqm.toLocaleString("tr-TR")}`} />
+                      <StatBadge label="Aylık Değişim" value={`%${areaStats.priceChangeMonthly}`} positive={areaStats.priceChangeMonthly > 0} />
+                      <StatBadge label="Yıllık Değişim" value={`%${areaStats.priceChangeYearly}`} positive={areaStats.priceChangeYearly > 0} />
+                      <StatBadge label="Ort. Satış Süresi" value={`${areaStats.avgDaysOnMarket} gün`} />
+                      <StatBadge label="Aktif İlan" value={`${areaStats.supplyCount}`} />
+                      <StatBadge label="Kira Getirisi" value={`%${areaStats.rentalYield}`} />
                     </div>
                   </div>
                 </div>

@@ -100,8 +100,8 @@ const WHY_IHALAL_CARDS = [
     highlight: false,
   },
   {
-    title: "Deprem Şeffaflık Omurgası",
-    text: "Bina riski, canlı Kandilli akışı, aile acil planı ve risk haritası.",
+    title: "Risk & Analiz Merkezi",
+    text: "Bina riski, deprem şeffaflık akışı ve acil plan modülleri tek merkezde.",
     href: "/modul/deprem-risk-haritasi",
     Icon: Activity,
     highlight: true,
@@ -553,9 +553,6 @@ export default function PremiumCinematicHome() {
         })}
       </section>
 
-      <DepremTransparencyBand />
-      <LiveEarthquakeTicker />
-
       <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 lg:px-6" id="how-it-works" aria-labelledby="premium-process-title">
         <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/60 lg:p-8">
           <h2 id="premium-process-title" className="text-2xl font-black text-white lg:text-3xl">
@@ -719,6 +716,24 @@ export default function PremiumCinematicHome() {
       </section>
 
       <PlatformModulesShowcase embedded />
+
+      <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 lg:px-6" aria-labelledby="risk-analiz-title">
+        <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-xl shadow-slate-950/60 lg:p-6">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <h2 id="risk-analiz-title" className="text-xl font-black text-white lg:text-2xl">
+              Risk & Analiz
+            </h2>
+            <Link
+              to="/modul/deprem-risk-haritasi"
+              className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200 hover:text-white"
+            >
+              Detay modüller
+            </Link>
+          </div>
+          <DepremTransparencyBand />
+          <LiveEarthquakeTicker />
+        </div>
+      </section>
 
       <section className="premium-testimonials" aria-labelledby="premium-testimonials-title">
         <h2 id="premium-testimonials-title">{home.testimonials.heading}</h2>
