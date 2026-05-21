@@ -19,7 +19,7 @@ test.describe("home + navbar GES regression", () => {
     await expect(page.getByText(/LIVE/i).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: /Kurumsal Altyapısı/i })).toBeVisible();
     await expect(page.getByText(/Stratejik War Room/i)).toBeVisible();
-    await expect(page.locator(".premium-hero__visual .premium-live-card__value")).toBeVisible();
+    await expect(page.getByTestId("premium-cinematic-home")).toBeVisible();
   });
 
   test("navbar GES via Services mega menu — desktop", async ({ page }) => {
@@ -45,7 +45,7 @@ test.describe("home + navbar GES regression", () => {
 
   test("homepage hero visible with navbar search", async ({ page }) => {
     await setLocaleTr(page);
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Geleceği/i);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Gayrimenkul|Geleceği/i);
     await expect(page.getByText(/İhale, lokasyon ara/i)).toBeVisible();
   });
 

@@ -166,6 +166,7 @@ export default function Register() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? "Şifreyi gizle" : "Şifreyi göster"}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
