@@ -32,6 +32,7 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
 import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
+import { EmergencyActionBand } from "@/components/EmergencyActionBand";
 import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
 import { ROUTES } from "@/constants/routes";
 import { homeStepHref } from "@/data/nasilCalisirRoutes";
@@ -687,8 +688,20 @@ export default function PremiumCinematicHome() {
           </Link>
         </div>
         <div className="premium-war-room__visual" aria-hidden>
-          <div className="premium-war-room__panel" />
-          <div className="premium-war-room__panel premium-war-room__panel--accent" />
+          <div className="premium-war-room__panel">
+            <p className="premium-war-room__panel-title">Saha Alarmı</p>
+            <p className="premium-war-room__panel-text">
+              Kritik bölgelerde teklif yoğunluğu, fiyat sıçraması ve likidite baskısı tek kartta izlenir.
+            </p>
+            <span className="premium-war-room__panel-chip">Canlı veri akışı</span>
+          </div>
+          <div className="premium-war-room__panel premium-war-room__panel--accent">
+            <p className="premium-war-room__panel-title">Risk Triage</p>
+            <p className="premium-war-room__panel-text">
+              Deprem, ekspertiz ve belge sinyalleri birleşik skorla aksiyon listesine düşer.
+            </p>
+            <span className="premium-war-room__panel-chip">Analiz hazır</span>
+          </div>
         </div>
       </section>
 
@@ -732,6 +745,9 @@ export default function PremiumCinematicHome() {
           </div>
           <DepremTransparencyBand />
           <LiveEarthquakeTicker />
+          <div className="mt-4">
+            <EmergencyActionBand />
+          </div>
         </div>
       </section>
 

@@ -8,6 +8,7 @@ import {
   GitCompare,
   MessageCircle,
   Gavel,
+  ShoppingCart,
   X,
 } from "lucide-react";
 import { getPropertyById, getRelatedProperties } from "@/lib/demo-data";
@@ -186,6 +187,12 @@ function HeroSection(props: {
             <Gavel className="h-4 w-4" aria-hidden />
             Teklif Ver
           </Link>
+          {property.dealType !== "rent" && property.buyNowPriceTry != null ? (
+            <Link to={`/ihale/${property.id}`} className="ilan-detay__btn ilan-detay__btn--buy-now">
+              <ShoppingCart className="h-4 w-4" aria-hidden />
+              Hemen Al
+            </Link>
+          ) : null}
           <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Favori">
             <Heart className="h-4 w-4" />
           </button>

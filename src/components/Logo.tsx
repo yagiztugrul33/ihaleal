@@ -18,7 +18,7 @@ export function Logo({
     <img
       src="/ihaleal_com_logo.png"
       alt="ihaleal.com"
-      className={cn("w-auto select-none", sizeClass)}
+      className={cn("w-auto select-none drop-shadow-[0_2px_10px_rgba(2,6,23,0.55)]", sizeClass)}
       data-testid="logo-image"
       loading="eager"
       decoding="async"

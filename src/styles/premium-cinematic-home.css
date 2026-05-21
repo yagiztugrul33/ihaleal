@@ -1343,11 +1343,45 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(15, 23, 42, 0.65);
   min-height: 140px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .premium-war-room__panel--accent {
   background: linear-gradient(180deg, rgba(59, 130, 246, 0.25), rgba(15, 23, 42, 0.4));
   border-color: rgba(96, 165, 250, 0.35);
+}
+
+.premium-war-room__panel-title {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #dbeafe;
+}
+
+.premium-war-room__panel-text {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.premium-war-room__panel-chip {
+  margin-top: auto;
+  width: fit-content;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.45);
+  padding: 0.2rem 0.55rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e2e8f0;
 }
 
 .premium-certs-band {

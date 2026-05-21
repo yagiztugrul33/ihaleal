@@ -19,8 +19,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 min-w-0">
           {/* Brand */}
           <div className="lg:col-span-4 min-w-0">
-            <div className="flex items-center gap-2.5 mb-5">
-              <Logo size="md" />
+            <div className="mb-5 flex items-center gap-2.5 rounded-xl bg-slate-950/35 px-2 py-1.5 ring-1 ring-white/10 w-fit">
+              <Logo size="lg" />
             </div>
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
               Türkiye&apos;nin en güvenli gayrimenkul ihale platformu. AI destekli değerleme, şeffaf süreç, hızlı satış.

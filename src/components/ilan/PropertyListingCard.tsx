@@ -106,6 +106,11 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           <span>{remainingText}</span>
         </div>
         <div className="ilan-card__actions">
+          {property.dealType !== "rent" && property.buyNowPriceTry != null ? (
+            <Link to={`/ihale/${property.id}`} className="ilan-card__buy-now">
+              Hemen Al
+            </Link>
+          ) : null}
           <Link to={`/ilanlar/${property.id}`} className="ilan-card__watch">
             İzle
           </Link>

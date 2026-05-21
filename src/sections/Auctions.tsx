@@ -372,6 +372,15 @@ export function Auctions({
                   <div className="text-right">
                     <div className="flex items-center gap-3 text-xs text-slate-500 mb-2"><span className="flex items-center gap-1"><Users className="w-3 h-3" />{auction.bidderCount}</span><span className="flex items-center gap-1"><Clock className="w-3 h-3" />{formatRemaining(auction.endDate)}</span></div>
                     <div className="flex gap-1.5">
+                      {auction.dealType !== "rent" && auction.buyNowPriceTry != null ? (
+                        <button
+                          type="button"
+                          onClick={() => navigate(`/ihale/${auction.id}`)}
+                          className={isHome ? "btn-ghost text-xs h-8 px-3 inline-flex items-center text-emerald-300" : "border border-emerald-500/35 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20 rounded-md text-xs h-8 px-3 inline-flex items-center"}
+                        >
+                          Hemen Al
+                        </button>
+                      ) : null}
                       {isHome ? (
                         <>
                           <button
