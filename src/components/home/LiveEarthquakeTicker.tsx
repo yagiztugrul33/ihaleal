@@ -4,7 +4,7 @@ import { Activity } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type Eq = { id: string; time: string; magnitude: number; place: string; depthKm?: number };
-type DataSource = "edge" | "afad" | "demo";
+type DataSource = "edge" | "demo";
 
 const PLACE_POOL = [
   "Marmara Denizi",
@@ -134,29 +134,6 @@ function normalizeAfadEvent(raw: unknown, i: number): Eq | null {
   };
 }
 
-async function fetchAfadEvents(signal: AbortSignal): Promise<Eq[]> {
-  const end = new Date();
-  const start = new Date(end.getTime() - 2 * 24 * 60 * 60 * 1000);
-  const params = new URLSearchParams({
-    start: start.toISOString(),
-    end: end.toISOString(),
-    orderby: "timedesc",
-    limit: "80",
-    minmag: "1",
-  });
-  const url = `https://deprem.afad.gov.tr/apiv2/event/filter?${params.toString()}`;
-  const res = await fetch(url, { signal });
-  if (!res.ok) throw new Error(`afad_http_${res.status}`);
-  const payload = await res.json();
-  const rows = Array.isArray(payload) ? payload : Array.isArray(payload?.events) ? payload.events : [];
-  const normalized = rows
-    .map((row, i) => normalizeAfadEvent(row, i))
-    .filter((x): x is Eq => Boolean(x))
-    .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
-  if (normalized.length < 8) throw new Error("afad_insufficient_rows");
-  return normalized;
-}
-
 function shouldUseSupabaseEdge(): boolean {
   const url = String(import.meta.env.VITE_SUPABASE_URL ?? "").trim();
   const key = String(import.meta.env.VITE_SUPABASE_ANON_KEY ?? "").trim();
@@ -212,17 +189,6 @@ export function LiveEarthquakeTicker() {
           return;
         }
       } catch {
-        // Edge route optional: fail-soft to open AFAD endpoint.
-      }
-
-      try {
-        const afadRows = await fetchAfadEvents(controller.signal);
-        if (!cancel) {
-          setSource("afad");
-          setItems(afadRows.slice(0, 18));
-        }
-        return;
-      } catch {
         // Fall through to mock feed + realistic randomization.
       }
 
@@ -256,8 +222,6 @@ export function LiveEarthquakeTicker() {
         <span>Canlı deprem bandı</span>
         {source === "edge" ? (
           <span className="home-eq-ticker__live-pill">AFAD/Kandilli (edge)</span>
-        ) : source === "afad" ? (
-          <span className="home-eq-ticker__live-pill">AFAD açık veri</span>
         ) : (
           <span className="home-eq-ticker__demo-pill">demo veri</span>
         )}
