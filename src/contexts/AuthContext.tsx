@@ -10,6 +10,21 @@ import { persistSupabaseUser } from "@/lib/supabaseAuthBridge";
 
 export type SignUpExtra = { phone?: string };
 
+const AUTH_MIN_ATTEMPT_INTERVAL_MS = 1500;
+const authAttemptLastSeen = new Map<string, number>();
+
+function authAttemptKey(action: "signin" | "signup", email: string): string {
+  return `${action}:${email.trim().toLowerCase()}`;
+}
+
+function isAuthAttemptThrottled(action: "signin" | "signup", email: string): boolean {
+  const key = authAttemptKey(action, email);
+  const now = Date.now();
+  const prev = authAttemptLastSeen.get(key) ?? 0;
+  authAttemptLastSeen.set(key, now);
+  return now - prev < AUTH_MIN_ATTEMPT_INTERVAL_MS;
+}
+
 /** `profiles.role` / `is_admin` — admin panel ve Navbar için (Supabase SELECT). */
 export type AuthProfile = {
   role: string | null;
@@ -102,6 +117,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!isSupabaseConfigured()) {
       return { error: configAuthError("Supabase yapılandırması eksik (.env.local).") };
     }
+    if (isAuthAttemptThrottled("signin", email)) {
+      return { error: configAuthError("Çok sık giriş denemesi. Lütfen kısa bir süre bekleyin.") };
+    }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error };
   }, []);
@@ -109,6 +127,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signUp = useCallback(async (email: string, password: string, fullName: string, extra?: SignUpExtra) => {
     if (!isSupabaseConfigured()) {
       return { error: configAuthError("Supabase yapılandırması eksik (.env.local).") };
+    }
+    if (isAuthAttemptThrottled("signup", email)) {
+      return { error: configAuthError("Çok sık kayıt denemesi. Lütfen kısa bir süre bekleyin."), session: null };
     }
     const meta: Record<string, unknown> = { full_name: fullName.trim() };
     if (extra?.phone?.trim()) meta.phone = extra.phone.trim();
