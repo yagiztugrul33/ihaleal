@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Building2,
+  Check,
   ChevronDown,
   HelpCircle,
   Layers,
@@ -10,99 +11,95 @@ import {
   Rocket,
   Send,
   User,
+  X,
 } from "lucide-react";
 import { PageShell } from "@/components/marketing/PageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { COMMISSION_RATE, MEMBERSHIP_FEES, VAT_RATE } from "@/lib/fees";
 import { z } from "zod";
 
 const PLANS = [
   {
-    name: "Bireysel",
+    name: "Free",
     price: "Ücretsiz",
-    desc: "İlk adım: keşif ve sınırlı ilan deneyimi",
-    features: ["5 ilan / ay (referans kotası)", "Temel analitik paneli", "E-posta destek sırası"],
+    desc: "Bireysel danışmanlar için başlangıç paketi",
+    features: ["5 ilan / ay", "Temel analitik paneli", "E-posta destek sırası"],
     highlight: false,
+    ctaTo: "/giris",
+    ctaLabel: "Ücretsiz başla",
   },
   {
-    name: "Profesyonel",
-    price: "₺1.490 / ay",
-    desc: "Yoğun emlak danışmanları ve broker ajansları",
-    features: ["50 ilan / ay (yükseltilebilir)", "Kapalı teklif modülü", "Öncelikli destek hattı", "Gelişmiş fiyat içgörüleri"],
+    name: "Agency",
+    price: "₺2.490 / ay",
+    desc: "1-10 kişilik ofisler için operasyon paketi",
+    features: ["100 ilan / ay", "5 kullanıcı koltuğu", "Kapalı teklif modülü", "Öncelikli destek hattı"],
     highlight: true,
+    ctaTo: "/emlakci-ortaklik",
+    ctaLabel: "Agency'ye geç",
   },
   {
-    name: "Kurumsal",
-    price: "Özel fiyat",
-    desc: "GYO, müteahhit ve portföy yöneticileri",
-    features: ["Sınırsız ilan (adil kullanım)", "API ve webhook erişimi", "SLA ve hesap yöneticisi", "Özel raporlama ve etiketler"],
+    name: "GYO",
+    price: "₺7.490 / ay",
+    desc: "Yüksek hacimli kurumsal portföy yönetimi",
+    features: ["Sınırsız ilan", "25 kullanıcı koltuğu", "API + webhook erişimi", "Özel hesap yöneticisi"],
     highlight: false,
+    ctaTo: "/kurumsal/iletisim",
+    ctaLabel: "GYO demo iste",
+  },
+  {
+    name: "Enterprise",
+    price: "Özel teklif",
+    desc: "50+ kullanıcı, çoklu şirket ve SLA ihtiyacı",
+    features: ["Sınırsız kullanıcı/ofis", "SSO-SAML", "White-label opsiyonu", "SLA sözleşmesi"],
+    highlight: false,
+    ctaTo: "/kurumsal/iletisim",
+    ctaLabel: "Kurumsal görüşme planla",
   },
 ] as const;
 
-const COMPARE_ROWS: { feature: string; bireysel: string; pro: string; kurumsal: string }[] = [
-  { feature: "Aylık ilan kotası", bireysel: "5", pro: "50", kurumsal: "Sınırsız" },
-  { feature: "Kullanıcı koltuğu", bireysel: "1", pro: "5 dahil", kurumsal: "Özel" },
-  { feature: "Kapalı teklif odaları", bireysel: "—", pro: "10 eşzamanlı", kurumsal: "Sınırsız" },
-  { feature: "AI fiyat bandı", bireysel: "Temel", pro: "Gelişmiş", kurumsal: "Kurumsal model" },
-  { feature: "Bölge kıyas raporu", bireysel: "Aylık 3", pro: "Sınırsız", kurumsal: "Özel veri seti" },
-  { feature: "Harita ve komşu yoğunluk", bireysel: "Standart", pro: "Gelişmiş", kurumsal: "API ile çekilebilir" },
-  { feature: "Çoklu ofis / şube", bireysel: "—", pro: "2 ofis", kurumsal: "Sınırsız" },
-  { feature: "Marka beyaz etiket", bireysel: "—", pro: "—", kurumsal: "Teklif" },
-  { feature: "Özel alan adı (CNAME)", bireysel: "—", pro: "—", kurumsal: "Evet" },
-  { feature: "REST API erişimi", bireysel: "—", pro: "Okuma (beta)", kurumsal: "Tam" },
-  { feature: "Webhook olayları", bireysel: "—", pro: "5 olay türü", kurumsal: "Tümü" },
-  { feature: "SSO / SAML", bireysel: "—", pro: "—", kurumsal: "Yol haritası" },
-  { feature: "Rol ve yetki matrisi", bireysel: "Temel", pro: "Gelişmiş", kurumsal: "Özelleştirilebilir" },
-  { feature: "Denetim günlüğü saklama", bireysel: "30 gün", pro: "1 yıl", kurumsal: "7 yıl (KVKK planı)" },
-  { feature: "Veri dışa aktarma", bireysel: "CSV aylık 1", pro: "CSV / XLS", kurumsal: "Veri ambarı aktarımı" },
-  { feature: "Destek kanalı", bireysel: "E-posta", pro: "Öncelikli", kurumsal: "Telefon + Slack" },
-  { feature: "Yanıt süresi hedefi", bireysel: "48 saat", pro: "8 iş saati", kurumsal: "SLA sözleşmesi" },
-  { feature: "Eğitim oturumu", bireysel: "Kayıtlı webinar", pro: "2 saat / çeyrek", kurumsal: "Saha + özel" },
-  { feature: "Entegrasyon danışmanlığı", bireysel: "—", pro: "Ek ücretli", kurumsal: "Dahil (kapsama göre)" },
-  { feature: "Ücretlendirme modeli", bireysel: "Sabit ücretsiz", pro: "Aylık sabit", kurumsal: "Hacim + sabit" },
+const COMPARE_ROWS: { feature: string; free: string; agency: string; gyo: string; enterprise: string }[] = [
+  { feature: "Aylık ilan kotası", free: "5", agency: "100", gyo: "Sınırsız", enterprise: "Sınırsız" },
+  { feature: "Kullanıcı koltuğu", free: "1", agency: "5", gyo: "25", enterprise: "Özel" },
+  { feature: "Kapalı teklif odaları", free: "✗", agency: "✓", gyo: "✓", enterprise: "✓" },
+  { feature: "AI fiyat bandı", free: "Temel", agency: "Gelişmiş", gyo: "Kurumsal", enterprise: "Özel model" },
+  { feature: "Bölge trend raporu", free: "✗", agency: "✓", gyo: "✓", enterprise: "✓" },
+  { feature: "REST API erişimi", free: "✗", agency: "✗", gyo: "✓", enterprise: "✓" },
+  { feature: "Webhook olayları", free: "✗", agency: "✗", gyo: "✓", enterprise: "✓" },
+  { feature: "SSO / SAML", free: "✗", agency: "✗", gyo: "✗", enterprise: "✓" },
+  { feature: "SLA ve hesap yöneticisi", free: "✗", agency: "✗", gyo: "✓", enterprise: "✓" },
+  { feature: "White-label opsiyonu", free: "✗", agency: "✗", gyo: "✗", enterprise: "✓" },
+  { feature: "Ücret modeli", free: "Üyeliksiz", agency: "Aylık + komisyon", gyo: "Aylık + komisyon", enterprise: "Sözleşmeli" },
 ];
 
 const FiyatSSS = [
   {
-    q: "Fiyatlar neden şimdiden kesin değil?",
-    a: "Resmi fiyat listesi hukuk ve muhasebe onayıyla yayınlanır. Bu sayfa referans planları ve ürün yönünü gösterir.",
+    q: "Satış komisyonu nasıl hesaplanıyor?",
+    a: `Model satıcı %${(COMMISSION_RATE * 100).toFixed(0)} + alıcı %${(COMMISSION_RATE * 100).toFixed(
+      0,
+    )} ve komisyon üzerinden KDV %${(VAT_RATE * 100).toFixed(0)} mantığıyla ilerler.`,
   },
   {
-    q: "Profesyonel planda kotayı aşarsam ne olur?",
-    a: "Sistem sizi uyarır; geçici yükseltme veya kurumsal görüşme önerilir. Ani kesinti yerine yumuşak sınır hedeflenir.",
+    q: "Kiralık işlemlerde model nedir?",
+    a: "Kiralıkta referans model 1 kira bedeli + KDV şeklindedir; detay sözleşme ve mevzuatla netleşir.",
   },
   {
-    q: "Kurumsal planda API limitleri var mı?",
-    a: "Evet, adil kullanım ve güvenlik için dakika başına istek tavanı tanımlanır; yoğun müşterilerde özel limit müzakere edilir.",
+    q: "Yıllık üyelik ücretleri ne kadar?",
+    a: `Satıcı yıllık üyelik ${MEMBERSHIP_FEES.seller_yearly.toLocaleString(
+      "tr-TR",
+    )} TL, alıcı yıllık üyelik ${MEMBERSHIP_FEES.buyer_yearly.toLocaleString("tr-TR")} TL olarak uygulanır.`,
   },
   {
-    q: "Ödeme yöntemleri neler olacak?",
-    a: "Kredi kartı, havale ve kurumsal fatura seçenekleri planlanır. Vergi ve fatura unvanı sözleşme aşamasında teyit edilir.",
+    q: "Agency planı kime uygun?",
+    a: "Düzenli ilan yayınlayan ve ekip içi görev paylaşımı yapan 1-10 kişilik ofisler için önerilir.",
   },
   {
-    q: "Yıllık taahhüt indirimi var mı?",
-    a: "Profesyonel ve kurumsal paketlerde yıllık faturalamada hedeflenen indirim oranları satış ekibiyle netleşir.",
+    q: "GYO ve Enterprise farkı nedir?",
+    a: "GYO sabit kurumsal ihtiyaçları kapsar, Enterprise ise SSO, SLA ve özel entegrasyon gibi ileri özelleştirmeler içerir.",
   },
   {
-    q: "Deneme süresi sunulacak mı?",
-    a: "Pilot müşterilere sınırlı süreli erişim müzakere edilebilir; genel self-servis deneme takvimi duyurulur.",
-  },
-  {
-    q: "Yurtdışı faturalama mümkün mü?",
-    a: "Kurumsal sözleşmelerde döviz ve yurt dışı kurum faturası için ayrı süreç tanımlanır.",
-  },
-  {
-    q: "Destek saatleri dışında kritik arıza?",
-    a: "Kurumsal SLA paketinde nöbet hattı hedeflenir; diğer planlar mesai içi önceliklidir.",
-  },
-  {
-    q: "İlan başına kullanım ücreti düşünülüyor mu?",
-    a: "Hibrit model (sabit + işlem başı) büyük portföyler için değerlendirilebilir; tabloya yansıtılır.",
-  },
-  {
-    q: "Öğrenci veya STK indirimi var mı?",
-    a: "Toplumsal projeler için başvuru bazlı indirim değerlendirilir; iletişim formundan talep iletin.",
+    q: "Planlar arası geçiş yapılabiliyor mu?",
+    a: "Evet, işlem yoğunluğuna göre plan yükseltme/düşürme yapılır; geçiş tarihi mevcut dönem sonunda uygulanır.",
   },
 ];
 
@@ -112,16 +109,23 @@ const demoSchema = z.object({
   not: z.string().optional(),
 });
 
-type WizardRole = "bireysel" | "profesyonel" | "kurumsal" | null;
+type WizardRole = "free" | "agency" | "gyo" | "enterprise" | null;
 type WizardVolume = "dusuk" | "orta" | "yuksek" | null;
 
 function wizardPlan(role: WizardRole, volume: WizardVolume): string {
   if (!role || !volume) return "Seçimlerinizi tamamlayın.";
-  if (role === "bireysel") return "Bireysel plan uygun. İhale kotası düşük hacim için tasarlandı.";
-  if (role === "profesyonel" && (volume === "dusuk" || volume === "orta")) return "Profesyonel plan önerilir: kapalı teklif ve öncelikli destek kritik.";
-  if (role === "profesyonel" && volume === "yuksek") return "Yüksek hacimde Profesyonel üst katman veya Kurumsal geçiş konuşulmalı.";
-  if (role === "kurumsal") return "Kurumsal plan ve özel SLA: API, çoklu ofis ve raporlama ile ölçekleyin.";
+  if (role === "free") return "Free plan uygun: platformu düşük hacimde maliyetsiz test edebilirsiniz.";
+  if (role === "agency" && (volume === "dusuk" || volume === "orta")) return "Agency plan önerilir: ekip ve teklif operasyonu için dengeli kapsama sağlar.";
+  if (role === "agency" && volume === "yuksek") return "Yüksek hacim için Agency üstü GYO planına geçiş düşünülmeli.";
+  if (role === "gyo") return "GYO planı uygun: API, çoklu ekip ve raporlama ile kurumsal operasyonu yönetir.";
+  if (role === "enterprise") return "Enterprise planı uygun: SSO, SLA ve özel entegrasyon gerektiren yapılara yöneliktir.";
   return "Satış ekibiyle görüşün.";
+}
+
+function renderCompareCell(value: string) {
+  if (value === "✓") return <Check className="mx-auto h-4 w-4 text-emerald-300" />;
+  if (value === "✗") return <X className="mx-auto h-4 w-4 text-slate-500" />;
+  return value;
 }
 
 export default function FiyatlandirmaPage() {
@@ -160,9 +164,21 @@ export default function FiyatlandirmaPage() {
     <PageShell
       badge="Fiyatlandırma"
       title="İhtiyacınıza uygun plan"
-      subtitle="Bireysel kullanımdan kurumsal entegrasyona kadar esnek seçenekler; rakamlar bilgilendirme amaçlıdır ve sözleşmeyle kesinleşir."
+      subtitle="Free, Agency, GYO ve Enterprise planlarını net kapsamlarla kıyaslayın; üyelik ve komisyon modelini tek sayfada görün."
     >
-      <section className="py-10 grid gap-6 md:grid-cols-3">
+      <section className="rounded-2xl border border-blue-500/25 bg-blue-950/30 px-5 py-4 text-sm text-slate-200">
+        <p className="font-semibold text-blue-100">Komisyon mantığı (özet)</p>
+        <p className="mt-1">
+          Satış modeli: satıcı %{(COMMISSION_RATE * 100).toFixed(0)} + alıcı %{(COMMISSION_RATE * 100).toFixed(0)} +
+          KDV %{(VAT_RATE * 100).toFixed(0)}. Kiralık model: 1 kira bedeli + KDV.
+        </p>
+        <p className="mt-1 text-xs text-slate-300">
+          Yıllık üyelik: satıcı {MEMBERSHIP_FEES.seller_yearly.toLocaleString("tr-TR")} TL, alıcı{" "}
+          {MEMBERSHIP_FEES.buyer_yearly.toLocaleString("tr-TR")} TL.
+        </p>
+      </section>
+
+      <section className="py-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {PLANS.map((p) => (
           <div
             key={p.name}
@@ -186,8 +202,15 @@ export default function FiyatlandirmaPage() {
             <p className="text-3xl font-bold my-2" style={{ color: "var(--color-primary)" }}>
               {p.price}
             </p>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-2 text-blue-300">{p.desc}</p>
             <p className="text-sm mb-4" style={{ color: "var(--color-text-muted)" }}>
-              {p.desc}
+              {p.name === "Free"
+                ? "Bireysel başlangıç ve düşük hacimli denemeler için."
+                : p.name === "Agency"
+                  ? "Ofis operasyonu ve ekip yönetimi odaklı orta hacim."
+                  : p.name === "GYO"
+                    ? "Kurumsal portföy, entegrasyon ve çoklu ekip ihtiyacı."
+                    : "SLA, SSO ve özel entegrasyon gerektiren büyük yapılar."}
             </p>
             <ul className="space-y-2 text-sm mb-6">
               {p.features.map((f) => (
@@ -196,8 +219,8 @@ export default function FiyatlandirmaPage() {
                 </li>
               ))}
             </ul>
-            <Link to="/iletisim" className="btn-primary block text-center text-sm">
-              Başvur
+            <Link to={p.ctaTo} className="btn-primary block text-center text-sm">
+              {p.ctaLabel}
             </Link>
           </div>
         ))}
@@ -221,9 +244,10 @@ export default function FiyatlandirmaPage() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { id: "bireysel" as const, label: "Bireysel yatırımcı", icon: User },
-                  { id: "profesyonel" as const, label: "Profesyonel danışman", icon: Building2 },
-                  { id: "kurumsal" as const, label: "Kurumsal portföy", icon: Rocket },
+                  { id: "free" as const, label: "Bireysel başlangıç (Free)", icon: User },
+                  { id: "agency" as const, label: "Ajans/Ofis (Agency)", icon: Building2 },
+                  { id: "gyo" as const, label: "GYO/Kurumsal", icon: Rocket },
+                  { id: "enterprise" as const, label: "Enterprise ağ", icon: Layers },
                 ].map((opt) => {
                   const Icon = opt.icon;
                   const active = wn1 === opt.id;
@@ -282,7 +306,7 @@ export default function FiyatlandirmaPage() {
               <strong style={{ color: "var(--color-text)" }}>Öneri: </strong>
               <span style={{ color: "var(--color-text-muted)" }}>{wizardPlan(wn1, wn2)}</span>
             </div>
-            <Link to="/iletisim" className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--color-primary)" }}>
+            <Link to="/kurumsal/iletisim" className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--color-primary)" }}>
               Teklif iste
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -342,22 +366,25 @@ export default function FiyatlandirmaPage() {
 
       <section className="py-12 overflow-x-auto">
         <h2 className="text-xl font-bold mb-6 text-center" style={{ color: "var(--color-text)" }}>
-          Plan karşılaştırması (20 özellik)
+          Özellik karşılaştırması (Free / Agency / GYO / Enterprise)
         </h2>
-        <table className="w-full min-w-[640px] text-sm border-collapse">
+        <table className="w-full min-w-[760px] text-sm border-collapse">
           <thead>
             <tr style={{ borderBottom: "2px solid var(--color-border)" }}>
               <th className="text-left py-3 px-2" style={{ color: "var(--color-text-muted)" }}>
                 Özellik
               </th>
               <th className="py-3 px-2" style={{ color: "var(--color-text)" }}>
-                Bireysel
+                Free
               </th>
               <th className="py-3 px-2" style={{ color: "var(--color-text)" }}>
-                Profesyonel
+                Agency
               </th>
               <th className="py-3 px-2" style={{ color: "var(--color-text)" }}>
-                Kurumsal
+                GYO
+              </th>
+              <th className="py-3 px-2" style={{ color: "var(--color-text)" }}>
+                Enterprise
               </th>
             </tr>
           </thead>
@@ -368,13 +395,16 @@ export default function FiyatlandirmaPage() {
                   {row.feature}
                 </td>
                 <td className="py-3 px-2 text-center" style={{ color: "var(--color-text-muted)" }}>
-                  {row.bireysel}
+                  {renderCompareCell(row.free)}
                 </td>
                 <td className="py-3 px-2 text-center" style={{ color: "var(--color-text-muted)" }}>
-                  {row.pro}
+                  {renderCompareCell(row.agency)}
                 </td>
                 <td className="py-3 px-2 text-center" style={{ color: "var(--color-text-muted)" }}>
-                  {row.kurumsal}
+                  {renderCompareCell(row.gyo)}
+                </td>
+                <td className="py-3 px-2 text-center" style={{ color: "var(--color-text-muted)" }}>
+                  {renderCompareCell(row.enterprise)}
                 </td>
               </tr>
             ))}
@@ -382,11 +412,38 @@ export default function FiyatlandirmaPage() {
         </table>
       </section>
 
+      <section className="py-8">
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <Crown className="w-5 h-5 text-amber-300" />
+          <h2 className="text-xl font-bold text-center" style={{ color: "var(--color-text)" }}>
+            Hangi plan bana uygun?
+          </h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {[
+            ["Yeni başlayan bireysel danışman", "Free", "Düşük hacimde maliyetsiz başlamak isteyenler."],
+            ["Düzenli işlem yapan ofis", "Agency", "Ekip yönetimi ve kapalı teklif akışı gerekir."],
+            ["GYO / kurumsal portföy", "GYO", "Yüksek hacim, API ve detaylı raporlama beklentisi."],
+            ["Büyük ağ / holding yapısı", "Enterprise", "SSO, SLA ve özel entegrasyon ihtiyacı."],
+          ].map(([title, plan, desc]) => (
+            <div key={title} className="card-warm">
+              <p className="text-xs uppercase tracking-wide text-blue-300">{plan}</p>
+              <h3 className="mt-1 font-semibold" style={{ color: "var(--color-text)" }}>
+                {title}
+              </h3>
+              <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                {desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="py-10 pb-16">
         <div className="flex items-center justify-center gap-2 mb-8">
           <HelpCircle className="w-6 h-6" style={{ color: "var(--color-primary)" }} />
           <h2 className="text-xl font-bold text-center" style={{ color: "var(--color-text)" }}>
-            Fiyatlandırma hakkında 10 soru
+            Plan & fiyatlandırma SSS
           </h2>
         </div>
         <div className="max-w-3xl mx-auto space-y-3">
