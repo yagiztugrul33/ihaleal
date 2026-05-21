@@ -440,6 +440,19 @@ function buildOne(seq: number, slot: TaxonSlot): PropertyRecord {
 
   const title = `${district} — ${pickTitle(slot, seq)}`;
   const slug = `${slot.category}-${district.toLowerCase().replace(/\s+/g, "-")}-${seq}`;
+  const operationModeText =
+    marketingMode === "auction"
+      ? "canlı ihale"
+      : marketingMode === "sealed_offers"
+        ? "kapalı teklif"
+        : "doğrudan ilan";
+  const longDescription = [
+    `${place.city} ${district} bölgesinde konumlanan bu ${slot.sub} ilanı, ${operationModeText} akışıyla yönetilecek şekilde hazırlanmıştır. Lokasyonun ana ulaşım akslarına yakınlığı, günlük kullanım kolaylığını artırırken yatırım tarafında da likidite avantajı sağlar.`,
+    `Mülk tarafında toplam ${sqm} m² ölçek, ${dealType === "rent" ? "kiralama" : "satış"} hedefi için dengeli bir kullanım profili sunar. Yapı ve alan detayları, ekspertiz referansı ve doküman paketine uyumlu biçimde tek panelde görülebilir; alıcı veya kiracı kararını verirken eksik bilgiyle ilerlemez.`,
+    `Çevre bileşenlerinde okul, hastane, AVM ve toplu taşıma noktalarına erişim avantajı bulunur. Bu dağılım sadece oturum amaçlı kullanıcılar için değil, düzenli getiri veya uzun vadeli değer artışı arayan yatırımcı profili için de sürdürülebilir bir senaryo üretir.`,
+    `Fiyatlama tarafında bölge emsalleri ve demo AI bandı birlikte değerlendirilir. Bu yaklaşım, satıcı beklentisini piyasa gerçekleriyle hizalarken alıcıya da müzakere ve teklif kararında daha ölçülebilir bir çerçeve sunar.`,
+    `İşlem akışında iletişim ve belge paylaşımı platform içinde kalır; nihai hukuki kesinlik sözleşme seti ve resmi doğrulama adımlarıyla tamamlanır. Demo ortamda tüm içerik bilgilendirme amaçlıdır, canlı ödeme ve resmi devir adımları üretim süreçlerine bağlıdır.`,
+  ].join("\n\n");
 
   const aiValuation = {
     estimatedValueTry: price,
@@ -481,7 +494,7 @@ function buildOne(seq: number, slot: TaxonSlot): PropertyRecord {
     title,
     listingNumber: computeListingNumber(id, endDate),
     slug,
-    description: `${place.city} ${district} bölgesinde ${slot.sub}/${slot.type} segmentinde konumlanan demo ilan. Platform üzerinden iletişim; SPK ekspertiz ve resmi belge paketi talebe göre sunulur.`,
+    description: longDescription,
     shortDescription: `${district} · ${sqm} m² · ${dealType === "rent" ? "Kiralık" : dealType === "transfer" ? "Devren" : "Satılık"}`,
     status: "active",
     createdAt: isoDaysFromNow(-30 - (h % 60)),

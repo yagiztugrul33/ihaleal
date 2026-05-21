@@ -124,6 +124,28 @@ export default function NasilCalisir() {
           </Link>
         </div>
       </section>
+      <section className="card-warm mb-10">
+        <h2 className="text-lg font-bold mb-3" style={{ color: "var(--color-text)" }}>
+          Alıcı ve satıcı için süreç nasıl ilerler?
+        </h2>
+        <div className="space-y-4 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          <p>
+            Alıcı tarafında akış; ilan keşfi, doküman inceleme, teklif ve kapanış adımlarına ayrılır. Her adımda kullanıcıya hangi
+            belgenin eksik olduğu, hangi onayın zorunlu olduğu ve bir sonraki adıma nasıl geçileceği açıkça gösterilir. Böylece
+            teklif verirken belirsizlik azalır ve işlem sırasında son dakika sürprizleri en aza iner.
+          </p>
+          <p>
+            Satıcı tarafında odak; doğru fiyat bandını belirlemek, talepleri filtrelemek ve teklifleri şeffaf bir kuralla yönetmektir.
+            Listeleme sonrası gelen talepler tek panelde toplanır, uygun adaylar hızla ayrıştırılır, kabul/ret kararları ise kayıt altına
+            alınır. Bu yapı hem bireysel satıcı hem de kurumsal ekipler için tekrar edilebilir bir satış disiplini sağlar.
+          </p>
+          <p>
+            Komisyon, teminat ve ücret başlıkları işlem başlamadan önce görünür olur: satışta %{(FEES.sellerCommissionRate * 100).toFixed(0)} + %{(FEES.buyerCommissionRate * 100).toFixed(0)} + KDV, kiralıkta
+            1 kira bedeli + KDV referansı; teminat tarafında ise {formatBidBondPercent()} bid bond bandı esas alınır. Nihai oranlar
+            her zaman ilan sözleşmesiyle kesinleşir; bu sayfa operasyonel çerçeveyi anlaşılır kılmak için hazırlanmıştır.
+          </p>
+        </div>
+      </section>
 
       <section className="mb-12">
         <h2 className="text-xl md:text-2xl font-bold mb-2 text-center" style={{ color: "var(--color-text)" }}>

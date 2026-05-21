@@ -108,6 +108,26 @@ export default function About() {
           </p>
         </div>
       </section>
+      <section className="py-10">
+        <div className="card-warm space-y-4">
+          <h2 className="text-xl md:text-2xl font-bold" style={{ color: "var(--color-text)" }}>
+            Ne yapıyoruz, kimin için yapıyoruz?
+          </h2>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            ihaleal; gayrimenkul teklif ve satış süreçlerini aynı çatı altında toplayan bir ürün yaklaşımı geliştirir. İlan yayınlama,
+            alıcı iletişimi, teklif toplama, evrak doğrulama ve kapanış hazırlığı tek bir operasyon zinciri olarak tasarlanır.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            Bireysel kullanıcılar için daha anlaşılır bir alım-satım deneyimi, emlak ofisleri ve kurumsal ekipler için ise ölçeklenebilir
+            bir çalışma düzeni hedeflenir. Aynı zamanda eğitim sayfaları ve rehber içeriklerle, teknik olmayan kullanıcıların da süreci
+            adım adım takip edebilmesi amaçlanır.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            Ürün yol haritasında güvenlik, şeffaflık ve operasyon kalitesi birlikte ele alınır: süreç netliği artarken işlem riski düşsün,
+            kararlar daha ölçülebilir hale gelsin. Canlı ortama geçen her özellik için hukuki ve teknik doğrulama adımları ayrı ayrı tamamlanır.
+          </p>
+        </div>
+      </section>
 
       <section className="py-12">
         <div className="flex items-center gap-2 mb-8">

@@ -92,13 +92,21 @@ export default function Corporate() {
             <span style={{ color: "var(--color-primary)" }}>modern operasyon altyapısı.</span>
           </h1>
 
-          <p
-            className="mt-6 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            Portföy yönetimi, AI destekli fiyatlama, çok kullanıcılı erişim ve şeffaf ihale modülü.
-            RE/MAX, GYO ve büyük emlak grupları için tasarlandı; bireysel emlakçılar için ücretsiz.
-          </p>
+          <div className="mt-6 max-w-3xl mx-auto space-y-4 text-left md:text-center">
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+              İhaleal Kurumsal; portföy yönetimi, ekip koordinasyonu ve teklif süreçlerini tek bir operasyon katmanında toplar.
+              Aynı panelde ilan yaşam döngüsü, AI fiyat sinyali, evrak rotası ve müşteri iletişim adımlarını birlikte yönetebilirsiniz.
+            </p>
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+              Çözüm özellikle çok ofisli yapılar, GYO ekipleri, franchise ağları ve büyüyen emlak operasyonları için tasarlanır.
+              Rol bazlı yetkilerle her ekip üyesi yalnızca kendi sorumluluğundaki akışı görür; yöneticiler ise tek bakışta performans
+              ve risk durumunu izler.
+            </p>
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+              Amaç yalnızca ilan yayınlamak değil; tekliften sözleşmeye uzanan süreci ölçülebilir, denetlenebilir ve tekrar üretilebilir
+              hale getirmektir. Böylece ekip büyüdükçe operasyon kalitesi korunur, müşteriye verilen hizmet standardı düşmez.
+            </p>
+          </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link to="/kurumsal/iletisim" className="btn-primary">

@@ -1927,7 +1927,7 @@
   display: flex;
   width: max-content;
   align-items: center;
-  animation: market-board-marquee 36s linear infinite;
+  animation: marquee 30s linear infinite;
 }
 
 .market-board-ticker__lane--static {
@@ -1953,7 +1953,7 @@
   font-size: 0.72rem;
 }
 
-@keyframes market-board-marquee {
+@keyframes marquee {
   from {
     transform: translateX(0);
   }
@@ -1963,11 +1963,7 @@
 }
 
 @media (max-width: 768px) {
-  .market-board-ticker__viewport {
-    overflow-x: auto;
-  }
-
   .market-board-ticker__lane {
-    animation: none;
+    animation-duration: 30s;
   }
 }

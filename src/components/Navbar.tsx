@@ -305,7 +305,10 @@ export function Navbar() {
       >
         <div className="relative mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="shrink-0 no-underline rounded-lg bg-slate-950/35 px-1.5 py-1 ring-1 ring-white/10" aria-label="ihaleal.com">
-            <Logo size="lg" />
+            <span className="flex items-center gap-2">
+              <Logo size="lg" />
+              <span className="hidden text-sm font-semibold tracking-wide text-slate-100 sm:inline">ihaleal</span>
+            </span>
           </Link>
 
           <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-7 lg:flex">

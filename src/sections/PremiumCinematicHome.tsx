@@ -244,6 +244,7 @@ export default function PremiumCinematicHome() {
   const [heroRows, setHeroRows] = useState<BoardRow[]>(() => buildHeroRows());
   const [heroFilter, setHeroFilter] = useState<BoardFilter>("active");
   const [flashRowId, setFlashRowId] = useState<string | null>(null);
+  const [flashDirection, setFlashDirection] = useState<"up" | "down">("up");
   const [heroMetrics, setHeroMetrics] = useState<HeroMetrics>({
     volume: 126_400_000,
     active: 284,
@@ -268,6 +269,7 @@ export default function PremiumCinematicHome() {
           remainingMin: Math.max(3, current.remainingMin - Math.floor(Math.random() * 3)),
           sparkline: [...current.sparkline.slice(-5), nextBid],
         };
+        setFlashDirection(sign > 0 ? "up" : "down");
         setFlashRowId(current.id);
         return updated;
       });
@@ -277,7 +279,7 @@ export default function PremiumCinematicHome() {
         avgRise: Number((prev.avgRise + (Math.random() > 0.5 ? 0.1 : -0.08)).toFixed(1)),
         watchers: Math.max(1200, prev.watchers + Math.round(Math.random() * 22 - 8)),
       }));
-    }, 5400);
+    }, 2600);
     return () => window.clearInterval(id);
   }, []);
 
@@ -479,7 +481,11 @@ export default function PremiumCinematicHome() {
                               key={row.id}
                               onClick={() => navigate(`/ihale/${row.id}`)}
                               className={`cursor-pointer border-t border-slate-800/80 transition ${
-                                flashRowId === row.id ? "bg-emerald-500/15" : "hover:bg-slate-900/70"
+                                flashRowId === row.id
+                                  ? flashDirection === "up"
+                                    ? "bg-emerald-500/15"
+                                    : "bg-rose-500/15"
+                                  : "hover:bg-slate-900/70"
                               }`}
                             >
                               <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>

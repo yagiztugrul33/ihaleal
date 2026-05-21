@@ -260,7 +260,7 @@ export default function AuctionDetail() {
         return [next, ...prev].slice(0, 7);
       });
       setWatchers((prev) => Math.max(1, prev + (Math.random() > 0.5 ? 1 : -1)));
-    }, 9_000);
+    }, 2600);
     return () => window.clearInterval(interval);
   }, [auction, auctionEndedVisualPreview, id, isListingOnly, liveBidPreview]);
 
