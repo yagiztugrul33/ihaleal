@@ -1,5 +1,20 @@
-# ihaleal.com - Cursor / AI (pointer only)
-#
-# Authoritative rules: .cursor/rules/ihaleal.mdc (alwaysApply: true).
-# Edit ihaleal.mdc for quality, security, stack boundaries, and agent discipline.
-# Do not duplicate long rule text here (avoid drift).
+# ihaleal.com — Cursor Çalışma Kuralları
+
+## Her görevde geçerli değişmez kurallar
+- Mevcut testleri (unit + smoke) ASLA bozma. Değişiklik sonrası npm run verify:ci YEŞİL olmalı.
+- Şu dosya/akışlara DOKUNMA (guardrail): Logo bileşeni, place-bid, place_bid, payment.ts, preAuthorize, BID_GATE_CHECKBOXES, legal/KYC/ödeme mantığı. Bunların üstüne sadece görsel katman eklenebilir, mantık değiştirilemez.
+- Mock/simülasyon veri kullan. Gerçek backend bağlantısı açma, deploy etme, dosya silme, hesap/anahtar isteme.
+- Tasarım dili: koyu lacivert + mavi gradient. Yeni renk şeması icat etme. Mevcut bileşenleri (Card/Button/Badge) ve kurulu kütüphaneleri (recharts) kullan; yeni ağır kütüphane ekleme (bundle budget korunmalı).
+- Mobil: responsive olmalı, route-audit'te mobil overflow 0 kalmalı.
+- Commit: tek satır mesaj kullan (git commit -m "kisa mesaj"). Çok satırlı commit mesajı KULLANMA (terminal takılıyor).
+- ASLA git push YAPMA. Push'u kullanıcı manuel yapar.
+- Kırık kod commit etme. Bir değişiklik verify:ci'yi kırarsa ve 2 denemede düzeltemezsen, git checkout ile o değişikliği geri al, "atlandı: sebep" diye not et, devam et.
+- Büyük/riskli değişiklikleri yapma, raporla. Şüphedeysen değiştirme.
+
+## Çalışma şekli
+- Onay/seçenek sorma; kendi başına çalış, takılırsan maddeyi atla + not düş + devam et.
+- Her görev sonunda tek kapsamlı rapor ver: ne değişti, hangi dosyalar, verify:ci sonucu, route-audit (kaç/167, mobil overflow), commit listesi (hash+mesaj), atlanan maddeler+sebep, PUSH EDİLMEDİ notu.
+- Ara doğrulamalarda geçici hata görülürse panik yapma, işi bitir, final doğrulamayı raporla.
+
+## Doğrulama zinciri (her görev sonu)
+npm run verify:ci (typecheck + test + build + lint:ci + security:audit) ve node scripts/route-audit.mjs çalıştır, sonuçları rapora kanıt olarak ekle.
