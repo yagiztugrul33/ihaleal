@@ -88,6 +88,13 @@ type TradeEventItem = {
   at: string;
   tone: "up" | "sold";
 };
+type PublicBidTapeRow = {
+  bid_id: string;
+  bidder_mask: string;
+  amount_try: number | string;
+  created_at: string;
+  depth_rank: number;
+};
 
 function isValidDemoCardToken(value: string): boolean {
   return /^[a-zA-Z0-9_-]{3,64}$/.test(value.trim());
@@ -174,6 +181,7 @@ export default function AuctionDetail() {
   const [buyNowFinalAck, setBuyNowFinalAck] = useState(false);
   const [bidGateAck, setBidGateAck] = useState(initialBidGateAck);
   const [bidTape, setBidTape] = useState<BidTapeItem[]>([]);
+  const [publicBidTapeActive, setPublicBidTapeActive] = useState(false);
   const [flashBidId, setFlashBidId] = useState<string | null>(null);
   const [tradeEvents, setTradeEvents] = useState<TradeEventItem[]>([]);
   const [watchers, setWatchers] = useState<number>(0);
@@ -248,9 +256,51 @@ export default function AuctionDetail() {
 
   const liveBidPreview = auction ? realtime.highBidTry ?? auction.currentBid : 0;
   const auctionEndedVisualPreview = demoBuyNowWon || auction?.status === "ended";
+  const usePublicBidTape = Boolean(id && isAuctionUuid(id) && isSupabaseConfigured());
 
   useEffect(() => {
-    if (!auction) return;
+    if (!usePublicBidTape || !id) {
+      setPublicBidTapeActive(false);
+      return;
+    }
+    let alive = true;
+    void (async () => {
+      const { data } = await supabase
+        .from("auction_bid_public_tape")
+        .select("bid_id,bidder_mask,amount_try,created_at,depth_rank")
+        .eq("auction_id", id)
+        .order("depth_rank", { ascending: true })
+        .limit(7);
+      if (!alive) return;
+      const rows = ((data ?? []) as PublicBidTapeRow[]).map((row) => ({
+        id: row.bid_id,
+        bidder: row.bidder_mask || "A***z",
+        amount: Number(row.amount_try) || 0,
+        at: new Date(row.created_at).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+      }));
+      if (rows.length > 0) {
+        setBidTape(rows);
+        setTradeEvents(
+          rows.slice(0, 4).map((row, idx) => ({
+            id: `${row.id}-event-${idx}`,
+            bidder: row.bidder,
+            amount: row.amount,
+            at: row.at,
+            tone: "up",
+          })),
+        );
+        setPublicBidTapeActive(true);
+      } else {
+        setPublicBidTapeActive(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [id, usePublicBidTape]);
+
+  useEffect(() => {
+    if (!auction || usePublicBidTape) return;
     const seed: BidTapeItem[] = Array.from({ length: 5 }).map((_, i) => ({
       id: `${id ?? "auc"}-seed-${i}`,
       bidder: BIDDER_MASKS[i % BIDDER_MASKS.length],
@@ -272,10 +322,11 @@ export default function AuctionDetail() {
     );
     setFlashBidId(null);
     setWatchers(Math.max(18, (auction.bidderCount ?? 12) * 3));
-  }, [auction, id]);
+  }, [auction, id, usePublicBidTape]);
 
   useEffect(() => {
     if (!auction || isListingOnly || auctionEndedVisualPreview || auction.status !== "live") return;
+    if (usePublicBidTape || publicBidTapeActive) return;
     const interval = window.setInterval(() => {
       setBidTape((prev) => {
         const top = prev[0]?.amount ?? liveBidPreview;
@@ -303,7 +354,7 @@ export default function AuctionDetail() {
       setWatchers((prev) => Math.max(1, prev + (Math.random() > 0.5 ? 1 : -1)));
     }, 2600);
     return () => window.clearInterval(interval);
-  }, [auction, auctionEndedVisualPreview, id, isListingOnly, liveBidPreview]);
+  }, [auction, auctionEndedVisualPreview, id, isListingOnly, liveBidPreview, publicBidTapeActive, usePublicBidTape]);
 
   useEffect(() => {
     if (!flashBidId) return;

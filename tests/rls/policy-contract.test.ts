@@ -42,6 +42,30 @@ describe("RLS policy contract (static)", () => {
     expect(sql).toContain("listings_update_own");
     expect(sql).toMatch(/listings_update_admin|is_profile_admin\(auth\.uid\(\)\)/);
   });
+
+  it("hardens bid read scope and exposes only public aggregate views", () => {
+    const hardening = readFileSync(
+      join(migDir, "20260521221500_harden_bids_visibility_and_public_views.sql"),
+      "utf8"
+    );
+    expect(hardening).toContain('create policy "bids_select_bidder_or_listing_owner"');
+    expect(hardening).toContain("auth.uid() = bidder_id");
+    expect(hardening).toContain("l.seller_id = auth.uid()");
+    expect(hardening).toContain("auction_bid_public_summary");
+    expect(hardening).toContain("auction_bid_public_tape");
+    expect(hardening).toContain("grant select on public.auction_bid_public_summary to anon, authenticated");
+    expect(hardening).toContain("grant select on public.auction_bid_public_tape to anon, authenticated");
+  });
+
+  it("place_bid enforces server-side self-bid rejection", () => {
+    const placeBid = readFileSync(
+      join(migDir, "20260430120000_write_policies_and_place_bid_v2.sql"),
+      "utf8"
+    );
+    expect(placeBid).toContain("v_seller_id");
+    expect(placeBid).toContain("v_bidder = v_seller_id");
+    expect(placeBid).toContain("Kendi ilanınıza teklif veremezsiniz");
+  });
 });
 
 describe("Admin attack surface (static expectations)", () => {

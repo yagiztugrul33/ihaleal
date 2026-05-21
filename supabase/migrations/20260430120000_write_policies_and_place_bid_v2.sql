@@ -94,6 +94,7 @@ as $fn$
 declare
   v_auction record;
   v_bidder uuid := auth.uid();
+  v_seller_id uuid;
   v_min_increment numeric;
   v_bond_rate numeric := 0.05;
   v_bond_try numeric;
@@ -134,6 +135,16 @@ begin
   if v_auction is null then
     return json_build_object('status','error','message','İhale bulunamadı');
   end if;
+
+  select seller_id into v_seller_id
+    from public.listings
+    where id = v_auction.listing_id
+    limit 1;
+
+  if v_seller_id is not null and v_bidder = v_seller_id then
+    return json_build_object('status','error','message','Kendi ilanınıza teklif veremezsiniz');
+  end if;
+
   if v_auction.status <> 'live' then
     return json_build_object('status','error','message','İhale aktif değil');
   end if;
