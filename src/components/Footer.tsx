@@ -62,8 +62,8 @@ export function Footer() {
               </li>
               <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Mortgage</button></li>
               <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> Favoriler</button></li>
-              <li><button onClick={() => navigate("/giris?profil=emlakçı")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> Emlakçı girişi</button></li>
-              <li><button onClick={() => navigate("/emlakçı-ortaklik")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> Emlakçı ortaklığı</button></li>
+              <li><button onClick={() => navigate("/giris?profil=emlakci")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> Emlakçı girişi</button></li>
+              <li><button onClick={() => navigate("/emlakci-ortaklik")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> Emlakçı ortaklığı</button></li>
               <li><button onClick={() => navigate(INTELLIGENCE_HUB_PATH)} className="text-sm text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> Araştırma terminali</button></li>
             </ul>
           </div>

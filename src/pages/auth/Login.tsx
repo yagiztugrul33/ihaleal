@@ -84,13 +84,13 @@ export default function Login() {
                 <p className="font-medium text-teal-200">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
                 <ul className="list-disc pl-4 space-y-1 text-slate-400">
                   <li>
-                    <Link to="/emlakçı-ortaklik" className="text-teal-400 hover:underline">
+                    <Link to="/emlakci-ortaklik" className="text-teal-400 hover:underline">
                       B2B ortaklık başvurusu
                     </Link>{" "}
                     (demo form)
                   </li>
                   <li>
-                    <Link to="/emlakçıler" className="text-teal-400 hover:underline">
+                    <Link to="/emlakciler" className="text-teal-400 hover:underline">
                       Ortak emlakçı vitrini
                     </Link>
                   </li>
@@ -191,7 +191,7 @@ export default function Login() {
                 onClick={() =>
                   navigate(
                     kurumsalProfil === "emlakçı"
-                      ? "/kayit?profil=emlakçı"
+                      ? "/kayit?profil=emlakci"
                       : kurumsalProfil === "muteahhit"
                         ? "/kayit?profil=muteahhit"
                         : "/kayit",
@@ -205,7 +205,7 @@ export default function Login() {
             {kurumsalProfil === null ? (
               <div className="text-center text-xs text-slate-500 space-y-1">
                 <div>
-                  <Link to="/giris?profil=emlakçı" className="text-teal-400 hover:underline">
+                  <Link to="/giris?profil=emlakci" className="text-teal-400 hover:underline">
                     Emlakçı girişi
                   </Link>
                   {" · "}
@@ -224,7 +224,7 @@ export default function Login() {
                     Müteahhit girişi
                   </Link>
                 ) : (
-                  <Link to="/giris?profil=emlakçı" className="text-teal-400 hover:underline block">
+                  <Link to="/giris?profil=emlakci" className="text-teal-400 hover:underline block">
                     Emlakçı girişi
                   </Link>
                 )}

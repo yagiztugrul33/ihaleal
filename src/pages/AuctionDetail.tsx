@@ -83,6 +83,8 @@ type BidTapeItem = {
 };
 
 const BIDDER_MASKS = ["ALC-01", "YTR-22", "KRM-07", "FON-13", "TRD-09", "PRT-17"] as const;
+const GALLERY_FALLBACK =
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%230a1f44'/><stop offset='100%' stop-color='%233b82f6'/></linearGradient></defs><rect width='1200' height='675' fill='url(%23g)'/><text x='50%' y='50%' fill='white' text-anchor='middle' font-family='Arial' font-size='34'>ihaleal.com ilan gorseli</text></svg>";
 
 export default function AuctionDetail() {
   const { id } = useParams<{ id: string }>();
@@ -327,7 +329,8 @@ export default function AuctionDetail() {
   const features = auction.features ?? [];
   const nearbyFacilities = auction.nearbyFacilities ?? [];
   const priceHistory = auction.priceHistory ?? [];
-  const galleryImages = auction.images ?? [];
+  const galleryImages = (auction.images ?? []).filter((img) => typeof img === "string" && img.trim().length > 0);
+  const safeGalleryImages = galleryImages.length > 0 ? galleryImages : [GALLERY_FALLBACK];
 
   const liveBid = realtime.highBidTry ?? auction.currentBid;
   const safeAiPredictedPrice = auction.aiPredictedPrice > 0 ? auction.aiPredictedPrice : liveBid || 1;
@@ -698,7 +701,7 @@ export default function AuctionDetail() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <CinematicPropertyGallery
-            images={galleryImages}
+            images={safeGalleryImages}
             title={auction.title}
             badges={galleryBadges}
             aiPredictedPrice={auction.aiPredictedPrice}
