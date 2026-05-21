@@ -5,6 +5,7 @@ import {
   Building2,
   Check,
   ChevronDown,
+  Crown,
   HelpCircle,
   Layers,
   Mail,

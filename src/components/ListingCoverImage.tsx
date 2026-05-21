@@ -8,11 +8,19 @@ type Props = {
   loading?: "lazy" | "eager";
 };
 
+function normalizeImageUrl(input: string): string {
+  const raw = String(input ?? "").trim();
+  if (!raw) return LISTING_IMAGE_PLACEHOLDER;
+  if (/^https?:\/\//i.test(raw) || raw.startsWith("data:")) return raw;
+  if (raw.startsWith("/")) return raw;
+  return `/${raw.replace(/^\.?\//, "")}`;
+}
+
 export function ListingCoverImage({ src, alt, className, loading = "lazy" }: Props) {
-  const [url, setUrl] = useState(src);
+  const [url, setUrl] = useState(() => normalizeImageUrl(src));
 
   useEffect(() => {
-    setUrl(src);
+    setUrl(normalizeImageUrl(src));
   }, [src]);
 
   return (

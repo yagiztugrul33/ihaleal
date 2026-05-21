@@ -152,7 +152,7 @@ export function Footer() {
                 <li><button onClick={() => navigate("/nihai-anayasa")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Nihai sistem anayasası</button></li>
               ) : null}
               {localAuthEnabled ? (
-                <li><button onClick={() => navigate("/emlakçı-giris")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
+                <li><button onClick={() => navigate("/emlakci-giris")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
               ) : null}
               {!isProdBuild ? (
                 <>
