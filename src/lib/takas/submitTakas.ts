@@ -1,5 +1,6 @@
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { assessLegalRisk } from "@/lib/ibuyer/riskAssessment";
+import { clientLogError } from "@/lib/clientLog";
 import type { InstantOfferResult } from "@/lib/ibuyer/types";
 import type { TakasApplicationPayload, TakasResult } from "./types";
 import { previewMatchScore } from "./matchEngine";
@@ -69,14 +70,14 @@ export async function submitTakas(
   });
 
   if (error) {
-    console.error("[takas] submit_takas_application failed:", error);
+    clientLogError("takas.submit_takas_application", error);
     throw new Error(
       error.message || "Takas başvurusu gönderilemedi. Lütfen tekrar deneyin.",
     );
   }
 
   if (data == null) {
-    console.error("[takas] submit_takas_application returned empty payload");
+    clientLogError("takas.submit_takas_application.empty_payload", "empty_payload");
     throw new Error("Sunucudan boş yanıt alındı. Lütfen tekrar deneyin.");
   }
 

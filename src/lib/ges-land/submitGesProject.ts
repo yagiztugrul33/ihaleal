@@ -1,4 +1,5 @@
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { clientLogError } from "@/lib/clientLog";
 import { runGesLandEvaluation } from "./feasibilityEngine";
 import type { GesLandEvaluationInput, GesLandEvaluationResult } from "./types";
 
@@ -65,12 +66,12 @@ export async function submitGesProject(input: GesLandEvaluationInput): Promise<G
   });
 
   if (error) {
-    console.error("[ges-land] submit_ges_land_evaluation failed:", error);
+    clientLogError("ges.submit_ges_land_evaluation", error);
     throw new Error(error.message || "Değerlendirme gönderilemedi. Lütfen tekrar deneyin.");
   }
 
   if (data == null) {
-    console.error("[ges-land] submit_ges_land_evaluation returned empty payload");
+    clientLogError("ges.submit_ges_land_evaluation.empty_payload", "empty_payload");
     throw new Error("Sunucudan boş yanıt alındı. Lütfen tekrar deneyin.");
   }
 

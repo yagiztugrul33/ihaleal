@@ -10,7 +10,9 @@ import { z } from "zod";
 const schema = z.object({
   name: z.string().min(2, "Ad soyad en az 2 karakter olmalı"),
   email: z.string().email("Geçerli bir e-posta adresi girin"),
-  phone: z.string().min(10, "Geçerli bir telefon numarası girin"),
+  phone: z
+    .string()
+    .regex(/^\+?[0-9\s()-]{10,20}$/, "Geçerli bir telefon numarası girin"),
   konu: z.string().min(3, "Konu en az 3 karakter olmalı"),
   message: z.string().min(10, "Mesaj en az 10 karakter olmalı"),
 });

@@ -31,6 +31,10 @@ function sanitizeCssIdentifier(value: string): string {
     .replace(/[^a-z0-9_-]/g, "-")
 }
 
+function sanitizeCssValue(value: string): string {
+  return value.trim().replace(/[;{}<>`]/g, "")
+}
+
 function useChart() {
   const context = React.useContext(ChartContext)
 
@@ -99,7 +103,11 @@ ${colorConfig
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color
-    return color ? `  --color-${safeKey}: ${color};` : null
+    const safeColor =
+      typeof color === "string" && color.trim().length > 0
+        ? sanitizeCssValue(color)
+        : ""
+    return safeColor ? `  --color-${safeKey}: ${safeColor};` : null
   })
   .join("\n")}
 }

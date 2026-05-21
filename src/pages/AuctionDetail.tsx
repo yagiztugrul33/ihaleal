@@ -82,6 +82,10 @@ type BidTapeItem = {
   at: string;
 };
 
+function isValidDemoCardToken(value: string): boolean {
+  return /^[a-zA-Z0-9_-]{3,64}$/.test(value.trim());
+}
+
 const BIDDER_MASKS = ["ALC-01", "YTR-22", "KRM-07", "FON-13", "TRD-09", "PRT-17"] as const;
 const GALLERY_FALLBACK =
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%230a1f44'/><stop offset='100%' stop-color='%233b82f6'/></linearGradient></defs><rect width='1200' height='675' fill='url(%23g)'/><text x='50%' y='50%' fill='white' text-anchor='middle' font-family='Arial' font-size='34'>ihaleal.com ilan gorseli</text></svg>";
@@ -377,6 +381,10 @@ export default function AuctionDetail() {
 
   const runPreAuth = async () => {
     if (!user || !id) return;
+    if (!isValidDemoCardToken(cardToken)) {
+      toastBid("Kart token formatı geçersiz. Yalnızca harf, rakam, _ veya - kullanın.", "warning");
+      return;
+    }
     setPreAuthBusy(true);
     try {
       const base = liveBid;
@@ -427,6 +435,10 @@ export default function AuctionDetail() {
 
   const runPreAuthBuyNow = async () => {
     if (!user || !id || effectiveBuyNowTry == null) return;
+    if (!isValidDemoCardToken(cardToken)) {
+      toastBid("Kart token formatı geçersiz. Yalnızca harf, rakam, _ veya - kullanın.", "warning");
+      return;
+    }
     setPreAuthBusy(true);
     try {
       const base = effectiveBuyNowTry;

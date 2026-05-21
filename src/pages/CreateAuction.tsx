@@ -13,6 +13,7 @@ import { invalidateAuctionsCatalogCache } from "@/lib/auctionsSource";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { generateMockReport, saveReportToDb, type PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
+import { clientLogError } from "@/lib/clientLog";
 
 const CITIES = ["İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Adana", "Konya", "Gaziantep"];
 const DISTRICTS: Record<string, string[]> = {
@@ -243,7 +244,7 @@ export default function CreateAuction() {
 
     if (listingError || !listing) {
       const msg = listingError?.message ?? "bilinmeyen hata";
-      console.error("[CreateAuction] listings.insert", listingError);
+      clientLogError("create_auction.listings_insert", listingError ?? msg);
       window.alert("İlan oluşturulamadı: " + msg);
       setError("İlan oluşturulamadı: " + msg);
       setSubmitLoading(false);
@@ -261,7 +262,7 @@ export default function CreateAuction() {
       status: "pending",
     });
     if (authorizationError) {
-      console.error("[CreateAuction] authorizations.insert", authorizationError);
+      clientLogError("create_auction.authorizations_insert", authorizationError);
       window.alert("Yetki kaydı oluşturulamadı: " + authorizationError.message);
       setError("Yetki kaydı oluşturulamadı: " + authorizationError.message);
       setSubmitLoading(false);
@@ -281,7 +282,7 @@ export default function CreateAuction() {
 
     if (auctionError || !auction) {
       const msg = auctionError?.message ?? "bilinmeyen hata";
-      console.error("[CreateAuction] auctions.insert", auctionError);
+      clientLogError("create_auction.auctions_insert", auctionError ?? msg);
       window.alert("İhale oluşturulamadı: " + msg);
       setError("İhale oluşturulamadı: " + msg);
       setSubmitLoading(false);
@@ -300,7 +301,7 @@ export default function CreateAuction() {
     const { data: savedReport, error: repErr } = await saveReportToDb(supabase, listing.id, mock);
     setAiPhaseLabel("");
     if (repErr || !savedReport) {
-      console.error("[CreateAuction] saveReportToDb", repErr);
+      clientLogError("create_auction.save_report", repErr ?? "save_report_failed");
       window.alert(
         "AI raporu kaydedilemedi (Supabase migration / tablo eksik olabilir). İlan taslak olarak kayıtlıdır.",
       );
