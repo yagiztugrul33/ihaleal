@@ -12,11 +12,11 @@ const Body = z.object({
 Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
-  if (req.method !== "POST") return fail(405, "method_not_allowed");
+  if (req.method !== "POST") return fail(req, 405, "method_not_allowed");
 
   try {
     const ctx = await getAuthContext(req);
-    if (!ctx) return fail(401, "unauthenticated");
+    if (!ctx) return fail(req, 401, "unauthenticated");
     requireOrg(ctx, ctx.activeOrgId, "manager");
 
     const body = await parseBody(req, Body);
@@ -31,9 +31,9 @@ Deno.serve(async (req) => {
     }).select("id").single();
 
     if (error) throw new HttpError(500, "job_create_failed", error.message);
-    return json({ ok: true, job_id: job.id, status: "queued" });
+    return json(req, { ok: true, job_id: job.id, status: "queued" });
   } catch (e) {
-    if (e instanceof HttpError) return fail(e.status, e.code, { detail: e.detail });
-    return fail(500, "internal");
+    if (e instanceof HttpError) return fail(req, e.status, e.code, { detail: e.detail });
+    return fail(req, 500, "internal");
   }
 });

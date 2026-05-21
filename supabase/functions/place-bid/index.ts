@@ -13,11 +13,11 @@ const BidSchema = z.object({
 Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
-  if (req.method !== "POST") return fail(405, "method_not_allowed");
+  if (req.method !== "POST") return fail(req, 405, "method_not_allowed");
 
   const log = logger({ fn: "place-bid" });
   const ctx = await getAuthContext(req);
-  if (!ctx) return fail(401, "unauthenticated");
+  if (!ctx) return fail(req, 401, "unauthenticated");
 
   let body: z.infer<typeof BidSchema>;
   try {
@@ -67,7 +67,7 @@ Deno.serve(async (req) => {
     },
   });
 
-  return json(result.body, {
+  return json(req, result.body, {
     status: result.status,
     headers: { "x-idempotent-replay": String(result.replayed) },
   });

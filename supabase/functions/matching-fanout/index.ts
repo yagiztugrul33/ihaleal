@@ -10,7 +10,7 @@ Deno.serve(async (req) => {
   if (pf) return pf;
 
   const secret = req.headers.get("x-internal-secret");
-  if (secret !== env.INTERNAL_CRON_SECRET) return fail(401, "unauthorized");
+  if (secret !== env.INTERNAL_CRON_SECRET) return fail(req, 401, "unauthorized");
 
   const log = logger({ fn: "matching-fanout" });
   const db = supabaseAdmin();
@@ -25,9 +25,9 @@ Deno.serve(async (req) => {
 
   if (error) {
     log.error("listings_query", { err: error.message });
-    return fail(500, "db_error");
+    return fail(req, 500, "db_error");
   }
-  if (!listings?.length) return json({ ok: true, processed: 0 });
+  if (!listings?.length) return json(req, { ok: true, processed: 0 });
 
   let total = 0;
   for (const l of listings) {
@@ -78,5 +78,5 @@ Deno.serve(async (req) => {
     }
   }
 
-  return json({ ok: true, processed: listings.length, matches: total });
+  return json(req, { ok: true, processed: listings.length, matches: total });
 });

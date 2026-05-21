@@ -57,6 +57,7 @@ Deno.serve(async (req) => {
   if (req.method === "GET") {
     const e = envOk();
     return json(
+      req,
       {
         ok: true,
         provider: "iyzico",
@@ -69,12 +70,12 @@ Deno.serve(async (req) => {
   }
 
   if (req.method !== "POST") {
-    return fail(405, "method_not_allowed", { provider: "iyzico" });
+    return fail(req, 405, "method_not_allowed", { provider: "iyzico" });
   }
 
   const auth = await getAuthContext(req);
   if (!auth) {
-    return json({ ok: false, error: "unauthenticated" }, { status: 401, headers: cors });
+    return json(req, { ok: false, error: "unauthenticated" }, { status: 401, headers: cors });
   }
 
   let body: PaymentInitBody;
@@ -87,6 +88,7 @@ Deno.serve(async (req) => {
   const e = envOk();
   if (!e.ok) {
     return json(
+      req,
       {
         ok: false,
         error: "secrets_missing",
@@ -166,5 +168,5 @@ Deno.serve(async (req) => {
   if (result.replayed) {
     headers.set("x-idempotency-replayed", "1");
   }
-  return json(result.body, { status: result.status, headers });
+  return json(req, result.body, { status: result.status, headers });
 });

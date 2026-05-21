@@ -8,14 +8,11 @@
  */
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { IHALEAL_KNOWLEDGE_FOR_LLM } from "../_shared/ihalealKnowledge.ts";
-
-const cors = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
 const MAX_MSG = 24;
 const MAX_USER_CHARS = 4000;
+const MAX_BODY_BYTES = 64 * 1024;
 
 function systemPrompt(): string {
   return [
@@ -33,13 +30,16 @@ function systemPrompt(): string {
 type ChatMsg = { role: string; content: string };
 
 Deno.serve(async (req) => {
+  const cors = corsHeaders(req);
+  const jsonHeaders = { ...cors, "Content-Type": "application/json" };
+
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: cors });
+    return handleOptions(req);
   }
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "method_not_allowed" }), {
       status: 405,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   }
 
@@ -47,17 +47,32 @@ Deno.serve(async (req) => {
   if (!apiKey) {
     return new Response(JSON.stringify({ error: "openai_not_configured" }), {
       status: 503,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   }
 
   let body: { messages?: ChatMsg[] };
+  const lenRaw = req.headers.get("content-length");
+  const len = lenRaw ? Number(lenRaw) : 0;
+  if (Number.isFinite(len) && len > MAX_BODY_BYTES) {
+    return new Response(JSON.stringify({ error: "payload_too_large" }), {
+      status: 413,
+      headers: jsonHeaders,
+    });
+  }
   try {
-    body = await req.json();
+    const text = await req.text();
+    if (text.length > MAX_BODY_BYTES) {
+      return new Response(JSON.stringify({ error: "payload_too_large" }), {
+        status: 413,
+        headers: jsonHeaders,
+      });
+    }
+    body = JSON.parse(text) as { messages?: ChatMsg[] };
   } catch {
     return new Response(JSON.stringify({ error: "invalid_json" }), {
       status: 400,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   }
 
@@ -70,7 +85,7 @@ Deno.serve(async (req) => {
   if (messages.length === 0 || messages[messages.length - 1]?.role !== "user") {
     return new Response(JSON.stringify({ error: "last_message_must_be_user" }), {
       status: 400,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   }
 
@@ -93,10 +108,9 @@ Deno.serve(async (req) => {
   });
 
   if (!r.ok) {
-    const t = await r.text();
-    return new Response(JSON.stringify({ error: "openai_http", detail: t.slice(0, 500) }), {
+    return new Response(JSON.stringify({ error: "openai_http" }), {
       status: 502,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   }
 
@@ -107,12 +121,12 @@ Deno.serve(async (req) => {
   if (!reply) {
     return new Response(JSON.stringify({ error: "empty_completion" }), {
       status: 502,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers: jsonHeaders,
     });
   }
 
   return new Response(JSON.stringify({ reply }), {
     status: 200,
-    headers: { ...cors, "Content-Type": "application/json" },
+    headers: jsonHeaders,
   });
 });

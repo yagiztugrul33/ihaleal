@@ -13,10 +13,10 @@ const Body = z.object({
 Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
-  if (req.method !== "POST") return fail(405, "method_not_allowed");
+  if (req.method !== "POST") return fail(req, 405, "method_not_allowed");
 
   const ctx = await getAuthContext(req);
-  if (!ctx) return fail(401, "unauthenticated");
+  if (!ctx) return fail(req, 401, "unauthenticated");
 
   let input: z.infer<typeof Body>;
   try {
@@ -43,7 +43,7 @@ Deno.serve(async (req) => {
     ? prices[Math.floor(prices.length / 2)] * input.area_m2
     : 0;
 
-  return json({
+  return json(req, {
     ok: true,
     source: prices.length >= 8 ? "heuristic" : "fallback_static",
     method: "heuristic",

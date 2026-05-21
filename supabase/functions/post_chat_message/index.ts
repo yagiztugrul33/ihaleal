@@ -7,6 +7,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
 type KeywordRule = { keyword: string; weight: number };
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 /** ComplianceNlpService DEFAULT_KEYWORD_RULES ile aynı ağırlıklar (senkron tutun). */
 const KEYWORD_RULES: KeywordRule[] = [
@@ -136,6 +137,18 @@ Deno.serve(async (req) => {
       headers: { ...cors, "Content-Type": "application/json" },
     });
   }
+  if (!UUID_RE.test(threadId)) {
+    return new Response(JSON.stringify({ ok: false, error: "invalid_thread_id" }), {
+      status: 400,
+      headers: { ...cors, "Content-Type": "application/json" },
+    });
+  }
+  if (clientMsgId.length > 128) {
+    return new Response(JSON.stringify({ ok: false, error: "invalid_client_msg_id" }), {
+      status: 400,
+      headers: { ...cors, "Content-Type": "application/json" },
+    });
+  }
   if (msgBody.length > 8000) {
     return new Response(JSON.stringify({ ok: false, error: "body_too_long" }), {
       status: 400,
@@ -153,7 +166,7 @@ Deno.serve(async (req) => {
 
   if (rpcErr) {
     return new Response(
-      JSON.stringify({ ok: false, error: "rpc_failed", detail: rpcErr.message }),
+      JSON.stringify({ ok: false, error: "rpc_failed" }),
       { status: 400, headers: { ...cors, "Content-Type": "application/json" } },
     );
   }

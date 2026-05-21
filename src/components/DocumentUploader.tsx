@@ -5,6 +5,8 @@ import type { DocumentRequirement } from "@/lib/userFlows";
 
 const MAX_BYTES = 10 * 1024 * 1024;
 const ACCEPT = ".pdf,.jpeg,.jpg,image/jpeg,application/pdf";
+const ALLOWED_EXTENSIONS = new Set(["pdf", "jpeg", "jpg"]);
+const ALLOWED_MIME_TYPES = new Set(["application/pdf", "image/jpeg"]);
 
 type Props = {
   label?: string;
@@ -26,7 +28,12 @@ export function DocumentUploader({ label = "Evrak yükleme (demo)", requirements
         setError(`${f.name}: maksimum 10 MB`);
         return;
       }
-      if (!/pdf|jpe?g/i.test(f.name)) {
+      const ext = f.name.split(".").pop()?.toLowerCase() ?? "";
+      if (!ALLOWED_EXTENSIONS.has(ext)) {
+        setError(`${f.name}: dosya uzantısı yalnız PDF/JPEG olmalı`);
+        return;
+      }
+      if (f.type && !ALLOWED_MIME_TYPES.has(f.type)) {
         setError(`${f.name}: yalnız PDF veya JPEG`);
         return;
       }

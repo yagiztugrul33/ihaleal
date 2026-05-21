@@ -17,10 +17,10 @@ const Body = z.object({
 Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
-  if (req.method !== "POST") return fail(405, "method_not_allowed");
+  if (req.method !== "POST") return fail(req, 405, "method_not_allowed");
 
   const ctx = await getAuthContext(req);
-  if (!ctx) return fail(401, "unauthenticated");
+  if (!ctx) return fail(req, 401, "unauthenticated");
 
   let body: z.infer<typeof Body>;
   try {
@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
   }
 
   if (body.subject_type === "individual" && body.subject_id !== ctx.user.id) {
-    return fail(403, "forbidden");
+    return fail(req, 403, "forbidden");
   }
 
   const db = supabaseAdmin();
@@ -46,8 +46,8 @@ Deno.serve(async (req) => {
 
   if (error) {
     logger({ fn: "kyc-submit" }).error("kyc_insert", { err: error.message });
-    return fail(500, "db_error");
+    return fail(req, 500, "db_error");
   }
 
-  return json({ ok: true, kyc_id: kyc.id, status: "in_review" });
+  return json(req, { ok: true, kyc_id: kyc.id, status: "in_review" });
 });
