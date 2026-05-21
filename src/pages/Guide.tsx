@@ -45,7 +45,7 @@ const FAQS = [
 ];
 
 const QUICK_LINKS = [
-  { icon: <Gavel className="w-5 h-5" />, label: "Ihaleler", desc: "Tum aktif ihaleleri goruntuleyin", color: "text-blue-400", path: "/" },
+  { icon: <Gavel className="w-5 h-5" />, label: "Ihaleler", desc: "Tum aktif ihaleleri goruntuleyin", color: "text-blue-400", path: "/ihaleler" },
   { icon: <BarChart3 className="w-5 h-5" />, label: "AI Analiz", desc: "Piyasa istatistikleri ve ongoruler", color: "text-violet-400", path: "/analiz" },
   { icon: <Calculator className="w-5 h-5" />, label: "Mortgage", desc: "Kredi hesaplayici ve planlama", color: "text-amber-400", path: "/mortgage" },
   { icon: <TrendingUp className="w-5 h-5" />, label: "Firsatlar", desc: "AI secilmis yatırım firsatlari", color: "text-emerald-400", path: "/analiz" },

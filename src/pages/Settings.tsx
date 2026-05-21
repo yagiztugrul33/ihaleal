@@ -121,15 +121,15 @@ export default function SettingsPage() {
             </p>
             <div className="flex flex-wrap gap-2">
               <Button variant="outline" size="sm" className="border-white/15" asChild>
-                <Link to="/güvenlik">Güvenlik merkezi</Link>
+                <Link to="/guvenlik">Güvenlik merkezi</Link>
               </Button>
               <Button variant="outline" size="sm" className="border-white/15 gap-2" asChild>
                 <Link to="/giris">
                   <Mail className="w-4 h-4" /> Oturum (giriş)
                 </Link>
               </Button>
-              <Button variant="outline" size="sm" className="border-white/15 gap-2" type="button" disabled title="Üretim entegrasyonu">
-                <Smartphone className="w-4 h-4" /> MFA kurulumu (yakında)
+              <Button variant="outline" size="sm" className="border-white/15 gap-2" type="button" onClick={() => navigate("/guvenlik")} title="Güvenlik yol haritası">
+                <Smartphone className="w-4 h-4" /> MFA yol haritası
               </Button>
             </div>
           </CardContent>

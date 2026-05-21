@@ -209,7 +209,7 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
   },
   {
     keys: ["güvenlik", "şifre", "hesap"],
-    reply: `Güvenlik merkezi: /güvenlik. Oturum Supabase Auth ile; teminat referansı demo: ${formatBidBondPercent()}.`,
+    reply: `Güvenlik merkezi: /guvenlik. Oturum Supabase Auth ile; teminat referansı demo: ${formatBidBondPercent()}.`,
   },
   {
     keys: ["telefon", "mobil", "lokal", "localhost", "5173", "wifi", "wi-fi", "aynı ağ", "geliştirici"],

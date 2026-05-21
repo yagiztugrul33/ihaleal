@@ -55,6 +55,23 @@ export function ModuleShell({
               <p className="mod-hero__subtitle">{subtitle}</p>
             </div>
           </div>
+          <div className="mod-hero__narrative" aria-label="Modül kapsam özeti">
+            <p>
+              {title}, yatırım kararı öncesinde ihtiyaç duyulan saha, finans ve operasyon verisini tek akışta birleştiren
+              analiz katmanıdır. Çıktılar yalnızca skor göstermekle kalmaz; belirsizlik noktalarını, teyit edilmesi gereken
+              adımları ve belge ihtiyacını da açıkça işaretler.
+            </p>
+            <p>
+              Modül içinde üretilen senaryolar tr-TR sayı ve para formatlarıyla standartlaştırılır; böylece ekipler aynı
+              raporu hukuk, ekspertiz ve satış tarafında ortak bir dil ile okuyabilir. Bu yaklaşım, yatırım komitesi
+              toplantılarında karar süresini kısaltırken hatalı varsayım riskini görünür hale getirir.
+            </p>
+            <p>
+              Her rapor çıktısı bir başlangıç noktası olarak tasarlanır: resmi tapu, imar, sigorta ve teknik onay adımları
+              ile birlikte değerlendirildiğinde en yüksek verimi sağlar. Bu nedenle modül ekranlarında “ne yapılmalı”
+              önerileri de sunularak uygulama planı netleştirilir.
+            </p>
+          </div>
         </header>
 
         {children}
@@ -148,7 +165,7 @@ export function ModuleDataTable<T extends { id: string }>({
   );
 }
 
-export function ModulePdfCta({ label = "Detayli PDF raporu indir" }: { label?: string }) {
+export function ModulePdfCta({ label = "Yazdır / PDF olarak kaydet" }: { label?: string }) {
   return (
     <div className="mod-pdf-cta">
       <p>Kurumsal formatli PDF rapor, harita ekleri ve yonetici ozeti ile hazirlanir.</p>

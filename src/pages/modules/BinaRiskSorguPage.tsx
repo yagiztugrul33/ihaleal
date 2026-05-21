@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Building2,
   ChevronRight,
@@ -152,8 +152,17 @@ const DEFAULT_FORM: FormState = {
 };
 
 export default function BinaRiskSorguPage() {
+  const [searchParams] = useSearchParams();
   const [step, setStep] = useState<Step>(0);
-  const [form, setForm] = useState<FormState>(DEFAULT_FORM);
+  const [form, setForm] = useState<FormState>(() => {
+    const seed = searchParams.get("q")?.trim();
+    if (!seed) return DEFAULT_FORM;
+    return {
+      ...DEFAULT_FORM,
+      district: seed,
+      parselNote: `Deprem şeffaflık bandından gelen sorgu: ${seed}`,
+    };
+  });
   const [done, setDone] = useState(false);
 
   const breakdown = useMemo(() => computeBreakdown(form), [form]);

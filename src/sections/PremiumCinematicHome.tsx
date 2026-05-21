@@ -536,7 +536,7 @@ export default function PremiumCinematicHome() {
                           return (
                             <tr
                               key={row.id}
-                              onClick={() => navigate(`/ihale/${row.id}`)}
+                              onClick={() => navigate(`/ilanlar/${row.id}`)}
                               className={`cursor-pointer border-t border-slate-800/80 transition ${
                                 flashRowId === row.id
                                   ? flashDirection === "up"
@@ -696,7 +696,7 @@ export default function PremiumCinematicHome() {
           {liveAuctions.map((p) => {
             const isFavorite = favoriteIds.includes(p.id);
             return (
-            <Link key={p.id} to={`/ilan/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
+            <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
               <div
                 className="relative h-40"
                 style={{

@@ -54,7 +54,7 @@ export default function SupabaseComplianceChecklistPage() {
               variant="outline"
               size="sm"
               className="border-white/15 text-slate-200 hover:bg-white/5"
-              onClick={() => navigate("/güvenlik")}
+              onClick={() => navigate("/guvenlik")}
             >
               <Shield className="mr-1 h-4 w-4" /> Güvenlik merkezi
             </Button>

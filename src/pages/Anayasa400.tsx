@@ -308,7 +308,7 @@ export function Anayasa400() {
                   Kullanım Koşulları
                 </Link>
                 {" · "}
-                <Link to="/güvenlik" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                <Link to="/guvenlik" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
                   Güvenlik
                 </Link>
               </p>

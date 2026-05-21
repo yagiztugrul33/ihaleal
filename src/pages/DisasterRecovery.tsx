@@ -205,7 +205,7 @@ export default function DisasterRecovery() {
         </Card>
 
         <div className="flex gap-3 justify-center pt-4">
-          <Button onClick={() => navigate("/güvenlik")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2"><Shield className="w-4 h-4" /> Güvenlik Merkezi</Button>
+          <Button onClick={() => navigate("/guvenlik")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2"><Shield className="w-4 h-4" /> Güvenlik Merkezi</Button>
           <Button onClick={() => navigate("/evraklar")} variant="outline" className="border-slate-200 text-slate-300 hover:text-white gap-2"><FileText className="w-4 h-4" /> Evraklar</Button>
         </div>
       </div>

@@ -49,10 +49,23 @@ export default function PreLaunch() {
         <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent">
           ihaleal.com
         </h1>
-        <p className="text-xl text-slate-300 mb-6">Türkiye&apos;nin gayrimenkul ihale deneyimi yakında.</p>
-        <p className="mb-6 text-slate-400 text-sm leading-relaxed">
-          Lansman listesi için kayıt olun; ilk haberdar olanlar arasında olun.
-        </p>
+        <p className="text-xl text-slate-300 mb-4">Türkiye&apos;nin kurumsal gayrimenkul ihale terminaline erken erişim.</p>
+        <div className="mb-6 space-y-3 text-slate-400 text-sm leading-relaxed">
+          <p>
+            Erken erişim listesi; yatırımcı, emlak danışmanı ve kurumsal ekiplerin aynı veri seti üzerinden ilerlemesi için
+            tasarlanan ihale akışlarına öncelikli davet sunar. Her davet paketinde canlı katalog, teklif çizgisi ve karar
+            ekranlarının güncel sürümü paylaşılır.
+          </p>
+          <p>
+            Kayıt sonrası gönderilen içerikler yalnızca ürün duyurusu değil; kullanım senaryoları, modül bazlı eğitim
+            notları ve yeni yayınlanan piyasa çıktılarının kısa özetlerini de içerir. Böylece yatırım toplantıları için
+            gereken hazırlık tek akışta tamamlanır.
+          </p>
+          <p>
+            Erişim sırası başvuru yoğunluğuna göre ilerler ve her katılımcı için kademeli doğrulama uygulanır. Amaç, canlı
+            ortama geçişten önce güçlü ve denetlenebilir bir kullanıcı tabanı oluşturmaktır.
+          </p>
+        </div>
         {error ? <div className="mb-4 text-sm text-red-400">{error}</div> : null}
         {!supabaseReady ? (
           <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">

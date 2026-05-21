@@ -18,7 +18,7 @@ export const YORUM_REVIEWS: YorumReview[] = [
   { name: "Elif Şahin", company: "Şahin Ofis", city: "Antalya", date: "2026-03-15", stars: 4, role: "emlakci", text: "Kapalı teklif modu müşterilerimiz için gizlilik sağlıyor; KYC akışı net." },
   { name: "Burak Öztürk", company: "Öztürk GYO", city: "İstanbul", date: "2026-03-02", stars: 5, role: "yatirimci", text: "Portföy yönetimi modülünde sat-tut önerileri haftalık brief ile geliyor, pratik." },
   { name: "Selin Aydın", company: "Aydın Proje", city: "Kocaeli", date: "2026-02-22", stars: 5, role: "muteahhit", text: "Kat karşılığı arsa eşleştirmede fizibilite skoru komşu parsel analiziyle birlikte sunuldu." },
-  { name: "Hakan Güler", company: "Güler Emlak", city: "Adana", date: "2026-02-18", stars: 4, role: "emlakci", text: "İlan detayında 12 sekme çok kapsamlı; müşteriye PDF özet göndermek isterdim (yakında)." },
+  { name: "Hakan Güler", company: "Güler Emlak", city: "Adana", date: "2026-02-18", stars: 4, role: "emlakci", text: "İlan detayındaki 12 sekme müşteri toplantısında çok işe yarıyor; yazdır/PDF çıktısıyla teklif öncesi hızlı özet paylaşabiliyoruz." },
   { name: "Deniz Koç", company: "Koç Yatırım", city: "İstanbul", date: "2026-02-10", stars: 5, role: "yatirimci", text: "GES analiz modülü ile geri ödeme süresi ve IRR projeksiyonu tek oturumda çıktı." },
   { name: "Murat Çelik", company: "Çelik Yapı", city: "Gaziantep", date: "2026-01-30", stars: 4, role: "muteahhit", text: "Tedarikçi listesi ve Gantt demo inşaat takvimimizi toplantıda göstermek için yeterliydi." },
   { name: "Gül Erdoğan", company: "Erdoğan Danışmanlık", city: "Eskişehir", date: "2026-01-22", stars: 5, role: "emlakci", text: "Sahte teklif rozeti ihale sırasında şüpheli davranışları erken işaretledi." },

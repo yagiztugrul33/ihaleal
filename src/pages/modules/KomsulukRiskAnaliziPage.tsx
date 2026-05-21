@@ -166,7 +166,7 @@ export default function KomsulukRiskAnaliziPage() {
               <MapPin className="h-4 w-4" aria-hidden />
               Mahalle ilanlarını gör
             </Link>
-            <Link to={`/ilan/${property.id}`} className="mod-btn-secondary">
+            <Link to={`/ilanlar/${property.id}`} className="mod-btn-secondary">
               <BarChart3 className="h-4 w-4" aria-hidden />
               Seçili ilan detayı
             </Link>

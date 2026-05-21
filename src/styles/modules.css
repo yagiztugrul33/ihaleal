@@ -97,6 +97,20 @@
   color: var(--color-text-muted, #94a3b8);
 }
 
+.mod-hero__narrative {
+  margin-top: 0.9rem;
+  max-width: 60rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.mod-hero__narrative p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
 .mod-layout {
   display: grid;
   gap: 1.5rem;

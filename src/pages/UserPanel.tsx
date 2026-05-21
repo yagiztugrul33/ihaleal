@@ -123,7 +123,7 @@ export default function UserPanel() {
                   setProfileSaved(true);
                 }}
               >
-                Profili kaydet (mock)
+                Profili kaydet
               </Button>
               {profileSaved ? <span className="text-xs text-emerald-400">Kaydedildi</span> : null}
             </div>
@@ -194,7 +194,7 @@ export default function UserPanel() {
       return (
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 space-y-2 text-sm text-slate-400">
-            <h2 className="text-lg font-semibold text-white">Komisyon Raporu (mock)</h2>
+            <h2 className="text-lg font-semibold text-white">Komisyon Raporu</h2>
             <p>Son 30 gün işlem hacmi: ₺12.450.000</p>
             <p>Tahmini platform komisyonu (mahsup öncesi): ₺498.000</p>
             <p>Detaylı simülasyon için komisyon hesaplayıcıya geçebilirsiniz.</p>
@@ -254,8 +254,16 @@ export default function UserPanel() {
             <>
               {renderTabContent() ?? (
                 <Card className="bg-slate-900/50 border-slate-200/80 border-dashed">
-                  <CardContent className="p-8 text-center text-slate-400 text-sm">
-                    {sectionTitle} bölümü hazırlanıyor.
+                  <CardContent className="p-8 text-center text-slate-400 text-sm space-y-3">
+                    <p>{sectionTitle} için temel ayarlar bu sürümde merkezi sayfalarda sunuluyor.</p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <Button type="button" size="sm" variant="outline" className="border-white/15" onClick={() => navigate("/ayarlar")}>
+                        Ayarlar
+                      </Button>
+                      <Button type="button" size="sm" variant="outline" className="border-white/15" onClick={() => navigate("/belgeler")}>
+                        Belgeler
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               )}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
   Clock,
   Heart,
@@ -135,7 +135,32 @@ function HeroSection(props: {
   isLive: boolean;
   onOpenLightbox: (src: string) => void;
 }) {
+  const navigate = useNavigate();
+  const [isFavorite, setIsFavorite] = useState(false);
   const { hero, images, property, price, location, isLive, onOpenLightbox } = props;
+  const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/#/ilanlar/${property.id}` : `/ilanlar/${property.id}`;
+
+  const pushToast = (message: string) => {
+    window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type: "success" } }));
+  };
+
+  const handleCompare = () => {
+    navigate(`/karsilastir?ids=${property.id}`);
+  };
+
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: getPropertyTitle(property), text: `${getPropertyTitle(property)} ilanını inceleyin.`, url: shareUrl });
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      }
+      pushToast("İlan bağlantısı paylaşıldı.");
+    } catch {
+      // user cancelled share dialog
+    }
+  };
+
   return (
     <div className="ilan-detay__hero">
       <div className="ilan-detay__gallery">
@@ -188,18 +213,26 @@ function HeroSection(props: {
             Teklif Ver
           </Link>
           {property.dealType !== "rent" && property.buyNowPriceTry != null ? (
-            <Link to={`/ihale/${property.id}`} className="ilan-detay__btn ilan-detay__btn--buy-now">
+            <Link to={`/ilanlar/${property.id}?mode=buy-now`} className="ilan-detay__btn ilan-detay__btn--buy-now">
               <ShoppingCart className="h-4 w-4" aria-hidden />
               Hemen Al
             </Link>
           ) : null}
-          <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Favori">
-            <Heart className="h-4 w-4" />
+          <button
+            type="button"
+            className="ilan-detay__btn ilan-detay__btn--ghost"
+            aria-label={isFavorite ? "Favoriden kaldır" : "Favorilere ekle"}
+            onClick={() => {
+              setIsFavorite((prev) => !prev);
+              pushToast(isFavorite ? "İlan favorilerden çıkarıldı." : "İlan favorilere eklendi.");
+            }}
+          >
+            <Heart className={`h-4 w-4 ${isFavorite ? "fill-current text-rose-400" : ""}`} />
           </button>
-          <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Karşılaştır">
+          <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Karşılaştır" onClick={handleCompare}>
             <GitCompare className="h-4 w-4" />
           </button>
-          <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Paylaş">
+          <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Paylaş" onClick={() => void handleShare()}>
             <Share2 className="h-4 w-4" />
           </button>
           <Link to="/destek" className="ilan-detay__btn ilan-detay__btn--ghost">

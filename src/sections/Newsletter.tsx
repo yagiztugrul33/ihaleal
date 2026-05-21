@@ -72,7 +72,7 @@ export function Newsletter() {
                 <label className="flex items-start gap-2 text-xs text-slate-500 text-left cursor-pointer">
                   <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 accent-teal-500" />
                   <span>
-                    <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/gizlilik")}>Aydınlatma metni</button>
+                    <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/aydinlatma-metni")}>Aydınlatma metni</button>
                     {" "}kapsamında iletişim için e-postamın işlenmesini istiyorum.
                   </span>
                 </label>
