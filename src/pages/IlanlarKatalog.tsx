@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { LayoutGrid, List, Map as MapIcon, Search } from "lucide-react";
 import { TAXONOMY, isCategoryKey } from "@/types/property";
@@ -31,6 +31,7 @@ export default function IlanlarKatalog() {
   const [view, setView] = useState<ViewMode>(
     (searchParams.get("gorunum") as ViewMode) || "grid"
   );
+  const [loadingList, setLoadingList] = useState(false);
 
   const q = searchParams.get("q") ?? "";
   const category = searchParams.get("kategori") ?? "";
@@ -147,6 +148,12 @@ export default function IlanlarKatalog() {
     setView(v);
     updateParam("gorunum", v);
   };
+
+  useEffect(() => {
+    setLoadingList(true);
+    const timer = window.setTimeout(() => setLoadingList(false), 220);
+    return () => window.clearTimeout(timer);
+  }, [searchParams]);
 
   return (
     <div className="ilan-landing ilan-katalog" data-testid="ilan-katalog">
@@ -281,6 +288,18 @@ export default function IlanlarKatalog() {
             <Suspense fallback={<p className="ilan-landing__empty">Harita yukleniyor…</p>}>
               <IlanlarMapInner properties={filtered} />
             </Suspense>
+          ) : loadingList ? (
+            <div className="ilan-katalog__skeleton" aria-live="polite" aria-label="İlanlar yükleniyor">
+              {Array.from({ length: 6 }).map((_, idx) => (
+                <div key={`ilan-skeleton-${idx}`} className="ilan-katalog__skeleton-card">
+                  <div className="ilan-katalog__skeleton-lines">
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : pageItems.length > 0 ? (
             <div className={view === "list" ? "ilan-katalog__list" : "ilan-landing__grid"}>
               {pageItems.map((property) => (
@@ -290,6 +309,13 @@ export default function IlanlarKatalog() {
           ) : (
             <div className="ilan-landing__empty">
               <p>Bu filtrelerle eslesen ilan bulunamadi.</p>
+              <button
+                type="button"
+                onClick={() => setSearchParams(new URLSearchParams(), { replace: true })}
+                className="ilan-card__watch"
+              >
+                Filtreleri temizle
+              </button>
             </div>
           )}
 

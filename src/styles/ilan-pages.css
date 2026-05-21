@@ -82,8 +82,15 @@
 .ilan-card__location { display: flex; align-items: center; gap: 0.3rem; margin: 0; font-size: 0.78rem; color: #64748b; }
 .ilan-card__price { margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--color-primary, #0d9488); }
 .ilan-card__price small { font-size: 0.72rem; font-weight: 500; color: #64748b; margin-left: 0.25rem; }
+.ilan-card__auction-line { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.72rem; color: #64748b; }
+.ilan-card__change { font-weight: 700; }
+.ilan-card__change.is-up { color: #059669; }
+.ilan-card__change.is-down { color: #dc2626; }
 .ilan-card__meta { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.72rem; color: #94a3b8; }
 .ilan-card__meta span { padding: 0.15rem 0.45rem; border-radius: 6px; background: rgba(15, 23, 42, 0.04); }
+.ilan-card__actions { display: flex; justify-content: flex-end; }
+.ilan-card__watch { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0.3rem 0.7rem; border-radius: 999px; border: 1px solid rgba(13, 148, 136, 0.25); color: #0d9488; text-decoration: none; font-size: 0.75rem; font-weight: 700; }
+.ilan-card__watch:hover { background: rgba(13, 148, 136, 0.08); }
 
 .ilan-detay__hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem; margin-bottom: 2rem; }
 @media (max-width: 900px) { .ilan-detay__hero { grid-template-columns: 1fr; } }
@@ -170,6 +177,14 @@
 .ilan-landing__empty { padding: 2.5rem 1rem; text-align: center; border-radius: 14px; background: rgba(15, 23, 42, 0.03); }
 .ilan-landing__empty p { margin: 0 0 0.5rem; color: #64748b; }
 .ilan-landing__empty a { color: var(--color-primary, #0d9488); font-weight: 600; text-decoration: none; }
+.ilan-katalog__skeleton { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.ilan-katalog__skeleton-card { border-radius: 14px; border: 1px solid rgba(148, 163, 184, 0.2); background: rgba(15, 23, 42, 0.06); overflow: hidden; }
+.ilan-katalog__skeleton-card::before { content: ""; display: block; width: 100%; aspect-ratio: 4 / 3; background: linear-gradient(90deg, rgba(148, 163, 184, 0.15), rgba(148, 163, 184, 0.25), rgba(148, 163, 184, 0.15)); animation: ilan-skeleton 1.3s infinite ease-in-out; }
+.ilan-katalog__skeleton-lines { padding: 0.85rem; display: grid; gap: 0.55rem; }
+.ilan-katalog__skeleton-lines i { display: block; height: 10px; border-radius: 999px; background: rgba(148, 163, 184, 0.2); }
+.ilan-katalog__skeleton-lines i:nth-child(2) { width: 72%; }
+.ilan-katalog__skeleton-lines i:nth-child(3) { width: 46%; }
+@keyframes ilan-skeleton { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 .ilan-landing__faq { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(15, 23, 42, 0.08); }
 .ilan-landing__faq h2 { margin: 0 0 1rem; font-size: 1.15rem; }
 .ilan-landing__faq-list { display: grid; gap: 0.65rem; }
