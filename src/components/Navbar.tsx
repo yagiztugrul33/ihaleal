@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ChevronDown, Globe, Menu, Search, X } from "lucide-react";
-import { Logo } from "@/components/Logo";
+import { BrandLockup } from "@/components/Logo";
 import { SearchModal } from "@/components/SearchModal";
 import { ROUTES } from "@/constants/routes";
 import { useLocale } from "@/contexts/LocaleContext";
@@ -304,11 +304,12 @@ export function Navbar() {
         )}
       >
         <div className="relative mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <Link to="/" className="shrink-0 no-underline rounded-lg bg-slate-950/35 px-1.5 py-1 ring-1 ring-white/10" aria-label="ihaleal.com">
-            <span className="flex items-center gap-2">
-              <Logo size="lg" />
-              <span className="hidden text-sm font-semibold tracking-wide text-slate-100 sm:inline">ihaleal</span>
-            </span>
+          <Link
+            to="/"
+            className="shrink-0 rounded-xl bg-slate-950/45 px-2 py-1.5 no-underline ring-1 ring-white/10"
+            aria-label="ihaleal.com"
+          >
+            <BrandLockup logoSize="lg" wordmarkClassName="text-[1.04rem]" hideWordmarkOnMobile />
           </Link>
 
           <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-7 lg:flex">

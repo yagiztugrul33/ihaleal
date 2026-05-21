@@ -6,7 +6,7 @@ import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
 import { isProdBuild, localAuthEnabled } from "@/lib/runtimeFlags";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
-import { Logo } from "@/components/Logo";
+import { BrandLockup } from "@/components/Logo";
 
 export function Footer() {
   const navigate = useNavigate();
@@ -19,8 +19,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 min-w-0">
           {/* Brand */}
           <div className="lg:col-span-4 min-w-0">
-            <div className="mb-5 flex items-center gap-2.5 rounded-xl bg-slate-950/35 px-2 py-1.5 ring-1 ring-white/10 w-fit">
-              <Logo size="lg" />
+            <div className="mb-5 flex w-fit items-center gap-2.5 rounded-xl bg-slate-950/45 px-2.5 py-2 ring-1 ring-white/10">
+              <BrandLockup
+                logoSize="lg"
+                hideWordmarkOnMobile={false}
+                wordmarkClassName="text-lg leading-none"
+              />
             </div>
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
               Türkiye&apos;nin en güvenli gayrimenkul ihale platformu. AI destekli değerleme, şeffaf süreç, hızlı satış.
