@@ -29,7 +29,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLocale } from "@/contexts/LocaleContext";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
 import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
 import { EmergencyActionBand } from "@/components/EmergencyActionBand";
@@ -182,6 +181,16 @@ type HeroMetrics = {
   avgRise: number;
   watchers: number;
 };
+type MetricKey = "volume" | "active" | "avgRise" | "watchers";
+
+type TradeFeedItem = {
+  id: string;
+  code: string;
+  label: string;
+  amount: number;
+  tone: "up" | "down" | "sold";
+  at: string;
+};
 
 const REGION_INDEXES = [
   { name: "İstanbul Konut", value: 124.3, changePct: 1.7 },
@@ -238,7 +247,6 @@ function formatRemaining(raw: unknown): string {
 export default function PremiumCinematicHome() {
   const { t } = useLocale();
   const home = t.home;
-  const reduced = useReducedMotion();
   const navigate = useNavigate();
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [heroRows, setHeroRows] = useState<BoardRow[]>(() => buildHeroRows());
@@ -251,9 +259,27 @@ export default function PremiumCinematicHome() {
     avgRise: 2.6,
     watchers: 1932,
   });
+  const [flashMetricKey, setFlashMetricKey] = useState<MetricKey | null>(null);
+  const [flashTickerCode, setFlashTickerCode] = useState<string | null>(null);
+  const [tradeFeed, setTradeFeed] = useState<TradeFeedItem[]>([]);
+
+  useEffect(() => {
+    const seeded = buildHeroRows().slice(0, 4).map((row, idx) => ({
+        id: `${row.id}-seed-${idx}`,
+        code: row.code,
+        label: row.title,
+        amount: row.bid,
+        tone: row.changePct >= 0 ? "up" : "down",
+        at: new Date(Date.now() - idx * 90_000).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+      }));
+    setTradeFeed(seeded);
+  }, []);
 
   useEffect(() => {
     const id = window.setInterval(() => {
+      const metricKeys: MetricKey[] = ["volume", "active", "avgRise", "watchers"];
+      const randomMetric = metricKeys[Math.floor(Math.random() * metricKeys.length)];
+      setFlashMetricKey(randomMetric);
       setHeroRows((prev) => {
         if (!prev.length) return prev;
         const index = Math.floor(Math.random() * prev.length);
@@ -271,11 +297,25 @@ export default function PremiumCinematicHome() {
         };
         setFlashDirection(sign > 0 ? "up" : "down");
         setFlashRowId(current.id);
+        setFlashTickerCode(current.code);
+        setTradeFeed((prevFeed) => {
+          const sold = Math.random() < 0.13;
+          const tone: TradeFeedItem["tone"] = sold ? "sold" : sign > 0 ? "up" : "down";
+          const entry: TradeFeedItem = {
+            id: `${current.id}-${Date.now()}`,
+            code: current.code,
+            label: sold ? "SATILDI bildirimi" : "Yeni teklif",
+            amount: nextBid,
+            tone,
+            at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+          };
+          return [entry, ...prevFeed].slice(0, 8);
+        });
         return updated;
       });
       setHeroMetrics((prev) => ({
         volume: prev.volume + Math.round((Math.random() * 2_100_000 - 650_000)),
-        active: 284,
+        active: Math.max(210, prev.active + Math.round(Math.random() * 7 - 3)),
         avgRise: Number((prev.avgRise + (Math.random() > 0.5 ? 0.1 : -0.08)).toFixed(1)),
         watchers: Math.max(1200, prev.watchers + Math.round(Math.random() * 22 - 8)),
       }));
@@ -288,6 +328,18 @@ export default function PremiumCinematicHome() {
     const id = window.setTimeout(() => setFlashRowId(null), 900);
     return () => window.clearTimeout(id);
   }, [flashRowId]);
+
+  useEffect(() => {
+    if (!flashMetricKey) return;
+    const id = window.setTimeout(() => setFlashMetricKey(null), 700);
+    return () => window.clearTimeout(id);
+  }, [flashMetricKey]);
+
+  useEffect(() => {
+    if (!flashTickerCode) return;
+    const id = window.setTimeout(() => setFlashTickerCode(null), 650);
+    return () => window.clearTimeout(id);
+  }, [flashTickerCode]);
 
   const tickerRows = useMemo(() => heroRows.map((row) => ({ code: row.code, bid: row.bid, changePct: row.changePct })), [heroRows]);
 
@@ -309,7 +361,7 @@ export default function PremiumCinematicHome() {
       {
         key: "active",
         label: "Aktif İhale",
-        value: "284",
+        value: heroMetrics.active.toLocaleString("tr-TR"),
         sparkline: [278, 281, 283, 284, 284, 284],
       },
       {
@@ -364,7 +416,7 @@ export default function PremiumCinematicHome() {
             Piyasa Akışı
           </div>
           <div className="market-board-ticker__viewport px-3 py-2.5">
-            <div className={`market-board-ticker__lane ${reduced ? "market-board-ticker__lane--static" : ""}`}>
+            <div className="market-board-ticker__lane">
               {[0, 1].map((dup) => (
                 <div key={dup} className="market-board-ticker__seq">
                   {tickerRows.map((row) => {
@@ -376,7 +428,7 @@ export default function PremiumCinematicHome() {
                           up
                             ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
                             : "border-rose-500/30 bg-rose-500/10 text-rose-200"
-                        }`}
+                        } ${flashTickerCode === row.code ? (up ? "market-board-ticker__chip--flash-up" : "market-board-ticker__chip--flash-down") : ""}`}
                       >
                         <span className="font-semibold tracking-wide text-slate-100">{row.code}</span>
                         <span className="font-bold">{formatTry(row.bid)}</span>
@@ -420,12 +472,17 @@ export default function PremiumCinematicHome() {
             <div className="space-y-5">
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 {metricCards.map((metric) => (
-                  <Card key={metric.key} className="border border-slate-700/80 bg-slate-950/75">
+                  <Card
+                    key={metric.key}
+                    className={`border border-slate-700/80 bg-slate-950/75 ${
+                      flashMetricKey === metric.key ? "premium-metric-card--flash" : ""
+                    }`}
+                  >
                     <CardContent className="p-4">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">{metric.label}</p>
                       <strong className="mt-1 block text-2xl font-black text-white">{metric.value}</strong>
                       {metric.key === "active" ? (
-                        <p className="mt-1 text-xs font-semibold text-cyan-200">Aktif İhale: 284</p>
+                        <p className="mt-1 text-xs font-semibold text-cyan-200">Aktif İhale: {heroMetrics.active}</p>
                       ) : null}
                       <svg viewBox="0 0 100 100" className="mt-2 h-8 w-full" preserveAspectRatio="none" aria-hidden>
                         <polyline
@@ -542,6 +599,44 @@ export default function PremiumCinematicHome() {
                   </div>
                 </CardContent>
               </Card>
+
+              <Card className="border border-slate-700/80 bg-slate-950/75">
+                <CardContent className="space-y-3 p-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-200">Canlı İşlem Akışı</h3>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-300">
+                      <i className="market-live-dot" aria-hidden /> CANLI
+                    </span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {tradeFeed.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => navigate("/ihaleler")}
+                        className={`w-full rounded-lg border px-2.5 py-2 text-left transition ${
+                          item.tone === "sold"
+                            ? "border-amber-500/35 bg-amber-500/10"
+                            : item.tone === "up"
+                              ? "border-emerald-500/30 bg-emerald-500/10"
+                              : "border-rose-500/30 bg-rose-500/10"
+                        }`}
+                      >
+                        <p className="flex items-center justify-between text-[11px] font-bold">
+                          <span className="text-slate-100">{item.code}</span>
+                          <span className={item.tone === "sold" ? "text-amber-200" : item.tone === "up" ? "text-emerald-200" : "text-rose-200"}>
+                            {item.tone === "sold" ? "SATILDI" : formatTry(item.amount)}
+                          </span>
+                        </p>
+                        <p className="mt-1 flex items-center justify-between text-[10px] text-slate-400">
+                          <span>{item.label}</span>
+                          <span>{item.at}</span>
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </aside>
           </div>
         </div>
@@ -601,7 +696,7 @@ export default function PremiumCinematicHome() {
           {liveAuctions.map((p) => {
             const isFavorite = favoriteIds.includes(p.id);
             return (
-            <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
+            <Link key={p.id} to={`/ilan/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
               <div
                 className="relative h-40"
                 style={{

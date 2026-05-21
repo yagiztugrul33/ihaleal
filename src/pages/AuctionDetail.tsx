@@ -81,6 +81,13 @@ type BidTapeItem = {
   amount: number;
   at: string;
 };
+type TradeEventItem = {
+  id: string;
+  bidder: string;
+  amount: number;
+  at: string;
+  tone: "up" | "sold";
+};
 
 function isValidDemoCardToken(value: string): boolean {
   return /^[a-zA-Z0-9_-]{3,64}$/.test(value.trim());
@@ -89,6 +96,14 @@ function isValidDemoCardToken(value: string): boolean {
 const BIDDER_MASKS = ["ALC-01", "YTR-22", "KRM-07", "FON-13", "TRD-09", "PRT-17"] as const;
 const GALLERY_FALLBACK =
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%230a1f44'/><stop offset='100%' stop-color='%233b82f6'/></linearGradient></defs><rect width='1200' height='675' fill='url(%23g)'/><text x='50%' y='50%' fill='white' text-anchor='middle' font-family='Arial' font-size='34'>ihaleal.com ilan gorseli</text></svg>";
+
+function maskBidderName(raw: string): string {
+  const normalized = raw.replace(/[^a-zA-Z0-9]/g, "");
+  const seed = normalized.length > 0 ? normalized : "Alici";
+  const first = seed.slice(0, 1).toUpperCase();
+  const last = seed.slice(-1).toLowerCase();
+  return `${first}***${last}`;
+}
 
 export default function AuctionDetail() {
   const { id } = useParams<{ id: string }>();
@@ -160,8 +175,10 @@ export default function AuctionDetail() {
   const [bidGateAck, setBidGateAck] = useState(initialBidGateAck);
   const [bidTape, setBidTape] = useState<BidTapeItem[]>([]);
   const [flashBidId, setFlashBidId] = useState<string | null>(null);
+  const [tradeEvents, setTradeEvents] = useState<TradeEventItem[]>([]);
   const [watchers, setWatchers] = useState<number>(0);
   const [calculatorBid, setCalculatorBid] = useState<number>(0);
+  const [priceRange, setPriceRange] = useState<"1H" | "1G" | "1A" | "1Y">("1G");
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -244,6 +261,15 @@ export default function AuctionDetail() {
       }),
     }));
     setBidTape(seed);
+    setTradeEvents(
+      seed.slice(0, 4).map((row, idx) => ({
+        id: `${row.id}-event-${idx}`,
+        bidder: row.bidder,
+        amount: row.amount,
+        at: row.at,
+        tone: "up",
+      })),
+    );
     setFlashBidId(null);
     setWatchers(Math.max(18, (auction.bidderCount ?? 12) * 3));
   }, [auction, id]);
@@ -261,6 +287,17 @@ export default function AuctionDetail() {
           at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
         };
         setFlashBidId(next.id);
+        setTradeEvents((prevEvents) => {
+          const sold = Math.random() < 0.12;
+          const stream: TradeEventItem = {
+            id: `${next.id}-stream`,
+            bidder: next.bidder,
+            amount: next.amount,
+            at: next.at,
+            tone: sold ? "sold" : "up",
+          };
+          return [stream, ...prevEvents].slice(0, 8);
+        });
         return [next, ...prev].slice(0, 7);
       });
       setWatchers((prev) => Math.max(1, prev + (Math.random() > 0.5 ? 1 : -1)));
@@ -362,9 +399,44 @@ export default function AuctionDetail() {
     !isListingOnly && Boolean(user) && (!reportApproved || !depositId);
   const bidDisabled = auctionEndedVisual || (!isListingOnly && (!user || !reportApproved || !depositId));
   const latestTapeBid = bidTape[0]?.amount ?? liveBid;
-  const previousTapeBid = bidTape[1]?.amount ?? auction.currentBid;
-  const tapeDirection = latestTapeBid > previousTapeBid ? "up" : latestTapeBid < previousTapeBid ? "down" : "flat";
   const liveBidCount = Math.max(auction.bidderCount, (auction.bidderCount ?? 0) + bidTape.length);
+  const orderDepthRows = (() => {
+    const sorted = [...bidTape].sort((a, b) => b.amount - a.amount).slice(0, 6);
+    const top = sorted[0]?.amount ?? 1;
+    return sorted.map((row, idx) => ({
+      ...row,
+      maskedBidder: maskBidderName(row.bidder),
+      depthPct: Math.max(12, Math.round((row.amount / top) * 100)),
+      rank: idx + 1,
+    }));
+  })();
+
+  const rangePriceData = (() => {
+    const source = priceHistory.length > 0 ? priceHistory : [{ date: new Date().toISOString(), price: liveBid, event: "Anlık" }];
+    const toSeries = (slice: typeof source) =>
+      slice.map((p, idx) => ({
+        date:
+          priceRange === "1H"
+            ? new Date(p.date).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })
+            : new Date(p.date).toLocaleDateString("tr-TR", { month: "short", day: "2-digit" }),
+        price: Math.max(1, Math.round(p.price / 1000000)),
+        open: Math.max(1, Math.round((idx === 0 ? p.price : slice[idx - 1].price) / 1000000)),
+        close: Math.max(1, Math.round(p.price / 1000000)),
+      }));
+    if (priceRange === "1H") return toSeries(source.slice(-6));
+    if (priceRange === "1G") return toSeries(source.slice(-12));
+    if (priceRange === "1A") return toSeries(source.slice(-24));
+    const expanded = [...source];
+    for (let i = 0; i < 8; i++) {
+      const last = expanded[expanded.length - 1];
+      expanded.push({
+        date: new Date(Date.now() - (8 - i) * 30 * 86_400_000).toISOString(),
+        price: Math.round(last.price * (0.95 + Math.random() * 0.1)),
+        event: "Trend",
+      });
+    }
+    return toSeries(expanded.slice(-32));
+  })();
 
   const handleBuyerReportConfirm = async () => {
     if (!legalWithdrawAccepted || !user || !id || !resolvedReport) return;
@@ -982,15 +1054,33 @@ export default function AuctionDetail() {
               )}
               {activeTab === "priceHistory" && (
                 <div className="space-y-6 animate-fade-in">
+                  <div className="flex flex-wrap gap-2">
+                    {(["1H", "1G", "1A", "1Y"] as const).map((range) => (
+                      <Button
+                        key={range}
+                        type="button"
+                        size="sm"
+                        variant={priceRange === range ? "default" : "outline"}
+                        className={
+                          priceRange === range
+                            ? "bg-blue-600 text-white hover:bg-blue-500"
+                            : "border-slate-700 bg-slate-950/70 text-slate-300 hover:bg-slate-900"
+                        }
+                        onClick={() => setPriceRange(range)}
+                      >
+                        {range}
+                      </Button>
+                    ))}
+                  </div>
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={priceHistory.map((p) => ({ date: new Date(p.date).toLocaleDateString("tr-TR", { month: "short", year: "2-digit" }), price: p.price / 1000000 }))}>
+                      <AreaChart data={rangePriceData}>
                         <defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} /><stop offset="95%" stopColor="#3b82f6" stopOpacity={0} /></linearGradient></defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                         <XAxis dataKey="date" stroke="#71717a" fontSize={12} />
                         <YAxis stroke="#71717a" fontSize={12} tickFormatter={(v) => `₺${v}M`} />
                         <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", color: "#fff" }} />
-                        <Area type="monotone" dataKey="price" stroke="#3b82f6" strokeWidth={2} fill="url(#priceGradient)" />
+                        <Area type="monotone" dataKey="close" stroke="#3b82f6" strokeWidth={2} fill="url(#priceGradient)" />
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
@@ -1219,17 +1309,9 @@ export default function AuctionDetail() {
                 {!isListingOnly ? (
                   <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-3">
                     <div className="mb-2 flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-slate-400">
-                      <span>Canlı Teklif Akışı</span>
-                      <span
-                        className={
-                          tapeDirection === "up"
-                            ? "text-emerald-300"
-                            : tapeDirection === "down"
-                              ? "text-rose-300"
-                              : "text-slate-400"
-                        }
-                      >
-                        {tapeDirection === "up" ? "Yukarı" : tapeDirection === "down" ? "Aşağı" : "Yatay"}
+                      <span>Teklif Derinliği</span>
+                      <span className="inline-flex items-center gap-1 text-emerald-300">
+                        <i className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" aria-hidden /> CANLI
                       </span>
                     </div>
                     <div className="mb-2 grid grid-cols-3 gap-2 text-[11px]">
@@ -1247,7 +1329,7 @@ export default function AuctionDetail() {
                       </div>
                     </div>
                     <div className="space-y-1.5">
-                      {bidTape.slice(0, 5).map((row) => (
+                      {orderDepthRows.map((row) => (
                         <div
                           key={row.id}
                           className={`flex items-center justify-between rounded-md border px-2 py-1.5 text-xs transition ${
@@ -1256,11 +1338,45 @@ export default function AuctionDetail() {
                               : "border-slate-800 bg-slate-950/60"
                           }`}
                         >
-                          <span className="font-semibold text-slate-300">{row.bidder}</span>
-                          <span className="text-slate-400">{row.at}</span>
+                          <div className="relative mr-2 flex-1 overflow-hidden rounded bg-slate-900/70 px-2 py-1">
+                            <div
+                              className="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-500/35 to-transparent"
+                              style={{ width: `${row.depthPct}%` }}
+                              aria-hidden
+                            />
+                            <div className="relative z-10 flex items-center justify-between">
+                              <span className="font-semibold text-slate-200">#{row.rank} {row.maskedBidder}</span>
+                              <span className="text-slate-400">{row.at}</span>
+                            </div>
+                          </div>
                           <span className="font-bold text-white">₺{row.amount.toLocaleString("tr-TR")}</span>
                         </div>
                       ))}
+                    </div>
+                    <p className="mt-2 text-[11px] text-slate-400">
+                      {liveBidCount.toLocaleString("tr-TR")} teklif · {watchers.toLocaleString("tr-TR")} izleyen ·
+                      <span className="ml-1 inline-flex items-center gap-1 text-emerald-300">
+                        <i className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" aria-hidden />CANLI
+                      </span>
+                    </p>
+                    <div className="mt-3 rounded-lg border border-slate-700 bg-slate-950/60 p-2">
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">Canlı İşlem Akışı</p>
+                      <div className="space-y-1.5">
+                        {tradeEvents.slice(0, 5).map((event) => (
+                          <div
+                            key={event.id}
+                            className={`flex items-center justify-between rounded-md border px-2 py-1.5 text-xs ${
+                              event.tone === "sold" ? "border-amber-500/40 bg-amber-500/10" : "border-emerald-500/30 bg-emerald-500/10"
+                            }`}
+                          >
+                            <span className="font-semibold text-slate-200">{maskBidderName(event.bidder)}</span>
+                            <span className="text-slate-400">{event.at}</span>
+                            <span className={event.tone === "sold" ? "font-bold text-amber-200" : "font-bold text-emerald-200"}>
+                              {event.tone === "sold" ? "SATILDI" : `₺${event.amount.toLocaleString("tr-TR")}`}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 ) : null}

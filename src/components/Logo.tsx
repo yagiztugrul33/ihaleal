@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 const logoSizes = {
   sm: { full: "h-8", icon: "h-8 w-8" },
   md: { full: "h-10", icon: "h-10 w-10" },
-  lg: { full: "h-12", icon: "h-12 w-12" },
+  lg: { full: "h-11", icon: "h-11 w-11" },
 } as const;
 
 export function Logo({
