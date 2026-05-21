@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Clock,
   Heart,
@@ -42,7 +42,26 @@ export default function IlanDetayPage({ id }: { id: string }) {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   if (!property) {
-    return <Navigate to="/ilanlar" replace />;
+    return (
+      <div className="ilan-detay" data-testid="ilan-detay">
+        <section className="ilan-detay__hero" style={{ padding: "3rem 1rem" }}>
+          <div className="max-w-3xl mx-auto rounded-2xl border border-slate-200/80 bg-white/[0.03] p-6 text-center">
+            <h1 className="text-2xl font-bold text-white">İlan detayı bulunamadı</h1>
+            <p className="mt-3 text-slate-400">
+              Bu kayıt taşınmış veya erişim kapsamı dışında olabilir. Listeye dönüp güncel ilanları inceleyebilirsiniz.
+            </p>
+            <div className="mt-5 flex items-center justify-center gap-3">
+              <Link to="/ilanlar" className="inline-flex rounded-lg border border-cyan-400/35 px-4 py-2 text-sm text-cyan-200 hover:bg-cyan-500/10">
+                İlanlara dön
+              </Link>
+              <Link to="/destek" className="inline-flex rounded-lg border border-slate-200/80 px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.04]">
+                Destek talebi oluştur
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
   }
 
   const hero = getPropertyHero(property) ?? "/images/auction-1.jpg";

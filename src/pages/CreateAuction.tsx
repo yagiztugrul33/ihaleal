@@ -82,17 +82,29 @@ export default function CreateAuction() {
     if (!Number.isFinite(n) || n <= 0) return null;
     return calcSellerNet(n);
   }, [startingBid]);
-  const sellerListings = useMemo(
-    () => [
-      { id: "my-1", title: "Levent Plaza Katı", status: "active", updatedAt: "Bugün 10:12" },
-      { id: "my-2", title: "Üsküdar Villa Portföyü", status: "draft", updatedAt: "Dün 18:45" },
-      { id: "my-3", title: "Ankara Ofis Bloku", status: "sold", updatedAt: "12 May 2026" },
-    ],
-    [],
-  );
+  const [sellerListings, setSellerListings] = useState(() => [
+    { id: "my-1", title: "Levent Plaza Katı", status: "active" as "active" | "draft" | "sold", updatedAt: "Bugün 10:12" },
+    { id: "my-2", title: "Üsküdar Villa Portföyü", status: "draft" as "active" | "draft" | "sold", updatedAt: "Dün 18:45" },
+    { id: "my-3", title: "Ankara Ofis Bloku", status: "sold" as "active" | "draft" | "sold", updatedAt: "12 May 2026" },
+  ]);
 
   const toggleFeature = (f: string) => {
     setFeaturesSelected((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]));
+  };
+
+  const updateListingStatus = (listingId: string, nextStatus: "active" | "draft") => {
+    const stamp = `Bugün ${new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}`;
+    setSellerListings((prev) =>
+      prev.map((item) =>
+        item.id === listingId
+          ? {
+              ...item,
+              status: nextStatus,
+              updatedAt: stamp,
+            }
+          : item,
+      ),
+    );
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -422,7 +434,7 @@ export default function CreateAuction() {
         {error && <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 mb-6">{error}</div>}
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-white">İlanlarım Yönetimi (mock)</h2>
+            <h2 className="text-lg font-semibold text-white">İlanlarım Yönetimi</h2>
             <div className="space-y-2">
               {sellerListings.map((listing) => (
                 <div key={listing.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2 text-sm">
@@ -435,6 +447,29 @@ export default function CreateAuction() {
                   }`}>
                     {listing.status === "active" ? "Aktif" : listing.status === "sold" ? "Satıldı" : "Taslak"}
                   </span>
+                  <div className="flex items-center gap-2">
+                    {listing.status === "active" ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="border-amber-500/35 text-amber-200"
+                        onClick={() => updateListingStatus(listing.id, "draft")}
+                      >
+                        Yayından çıkar
+                      </Button>
+                    ) : listing.status === "draft" ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="border-emerald-500/35 text-emerald-200"
+                        onClick={() => updateListingStatus(listing.id, "active")}
+                      >
+                        Yayına al
+                      </Button>
+                    ) : null}
+                  </div>
                 </div>
               ))}
             </div>
