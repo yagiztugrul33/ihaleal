@@ -16,7 +16,7 @@ import {
 import { PageShell } from "@/components/marketing/PageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { COMMISSION_RATE, MEMBERSHIP_FEES, VAT_RATE } from "@/lib/fees";
+import { COMMISSION_RATE, MEMBERSHIP_FEES, VAT_RATE, feeBadgeLabel } from "@/lib/fees";
 import { z } from "zod";
 
 const PLANS = [
@@ -176,6 +176,7 @@ export default function FiyatlandirmaPage() {
           Yıllık üyelik: satıcı {MEMBERSHIP_FEES.seller_yearly.toLocaleString("tr-TR")} TL, alıcı{" "}
           {MEMBERSHIP_FEES.buyer_yearly.toLocaleString("tr-TR")} TL.
         </p>
+        <p className="mt-1 text-xs text-slate-400">Satış etiket özeti: {feeBadgeLabel()}</p>
       </section>
 
       <section className="py-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -222,6 +223,14 @@ export default function FiyatlandirmaPage() {
             <Link to={p.ctaTo} className="btn-primary block text-center text-sm">
               {p.ctaLabel}
             </Link>
+            <div className="mt-2 flex items-center justify-center gap-3 text-[11px]">
+              <Link to="/komisyon-modeli" className="text-slate-400 hover:text-blue-300">
+                Komisyon modeli
+              </Link>
+              <Link to="/hizmet-bedelleri" className="text-slate-400 hover:text-blue-300">
+                Hizmet bedelleri
+              </Link>
+            </div>
           </div>
         ))}
       </section>
