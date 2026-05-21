@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
       if (status === "error") {
         return {
           status: 422,
-          body: { ok: false, error: row?.message ?? "bid_rejected", detail: row },
+          body: { ok: false, error: row?.message ?? "bid_rejected" },
         };
       }
 

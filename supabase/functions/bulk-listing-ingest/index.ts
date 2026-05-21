@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
     if (error) throw new HttpError(500, "job_create_failed", error.message);
     return json(req, { ok: true, job_id: job.id, status: "queued" });
   } catch (e) {
-    if (e instanceof HttpError) return fail(req, e.status, e.code, { detail: e.detail });
+    if (e instanceof HttpError) return fail(req, e.status, e.code);
     return fail(req, 500, "internal");
   }
 });

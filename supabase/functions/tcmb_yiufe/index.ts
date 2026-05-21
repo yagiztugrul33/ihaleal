@@ -2,6 +2,12 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
 const DEFAULT_SERIES = "TP.FG.J0";
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Cache-Control": "no-store",
+} as const;
 
 function pad2(n: number): string {
   return String(n).padStart(2, "0");
@@ -36,18 +42,19 @@ Deno.serve(async (req) => {
     return handleOptions(req);
   }
   const cors = corsHeaders(req);
+  const headers = { ...cors, ...SECURITY_HEADERS, "Content-Type": "application/json" };
   if (req.method !== "GET") {
     const body = JSON.stringify({ ok: false, error: "method_not_allowed" });
     return new Response(body, {
       status: 405,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
   const apiKey = Deno.env.get("TCMB_EVDS_API_KEY")?.trim();
   if (!apiKey) {
     const body = JSON.stringify({ ok: false, error: "TCMB_EVDS_API_KEY missing" });
-    return new Response(body, { status: 503, headers: { ...cors, "Content-Type": "application/json" } });
+    return new Response(body, { status: 503, headers });
   }
 
   const series = (Deno.env.get("TCMB_EVDS_SERIES") || DEFAULT_SERIES).trim();
@@ -71,21 +78,20 @@ Deno.serve(async (req) => {
       const body = JSON.stringify({
         ok: false,
         error: "evds_http_" + String(res.status),
-        detail: text.slice(0, 200),
       });
-      return new Response(body, { status: 502, headers: { ...cors, "Content-Type": "application/json" } });
+      return new Response(body, { status: 502, headers });
     }
     evdsJson = JSON.parse(text) as { items?: Array<Record<string, unknown>> };
   } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e);
-    const body = JSON.stringify({ ok: false, error: "evds_parse_failed", detail: msg });
-    return new Response(body, { status: 502, headers: { ...cors, "Content-Type": "application/json" } });
+    void e;
+    const body = JSON.stringify({ ok: false, error: "evds_parse_failed" });
+    return new Response(body, { status: 502, headers });
   }
 
   const items = evdsJson.items;
   if (!Array.isArray(items)) {
     const body = JSON.stringify({ ok: false, error: "evds_no_items" });
-    return new Response(body, { status: 502, headers: { ...cors, "Content-Type": "application/json" } });
+    return new Response(body, { status: 502, headers });
   }
 
   const records: Array<{ yearMonth: string; indexValue: number }> = [];
@@ -105,5 +111,5 @@ Deno.serve(async (req) => {
     seriesUsed: series,
     itemCount: records.length,
   });
-  return new Response(out, { status: 200, headers: { ...cors, "Content-Type": "application/json" } });
+  return new Response(out, { status: 200, headers });
 });

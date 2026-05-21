@@ -2,6 +2,12 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
 type RawEvent = Record<string, unknown>;
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Cache-Control": "no-store",
+} as const;
 
 function asNum(v: unknown): number | null {
   if (typeof v === "number" && Number.isFinite(v)) return v;
@@ -41,10 +47,11 @@ function normalize(raw: RawEvent, i: number) {
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return handleOptions(req);
   const cors = corsHeaders(req);
+  const headers = { ...cors, ...SECURITY_HEADERS, "Content-Type": "application/json" };
   if (req.method !== "GET") {
     return new Response(JSON.stringify({ ok: false, error: "method_not_allowed" }), {
       status: 405,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
@@ -62,9 +69,10 @@ Deno.serve(async (req) => {
     const upstream = await fetch(`https://deprem.afad.gov.tr/apiv2/event/filter?${params.toString()}`);
     const text = await upstream.text();
     if (!upstream.ok) {
-      return new Response(JSON.stringify({ ok: false, error: `afad_http_${upstream.status}`, detail: text.slice(0, 180) }), {
+      void text;
+      return new Response(JSON.stringify({ ok: false, error: `afad_http_${upstream.status}` }), {
         status: 502,
-        headers: { ...cors, "Content-Type": "application/json" },
+        headers,
       });
     }
     const payload = JSON.parse(text) as unknown;
@@ -76,13 +84,13 @@ Deno.serve(async (req) => {
 
     return new Response(JSON.stringify({ ok: true, provider: "afad", events }), {
       status: 200,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   } catch (e) {
-    const detail = e instanceof Error ? e.message : String(e);
-    return new Response(JSON.stringify({ ok: false, error: "afad_fetch_failed", detail }), {
+    void e;
+    return new Response(JSON.stringify({ ok: false, error: "afad_fetch_failed" }), {
       status: 502,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 });

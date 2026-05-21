@@ -8,6 +8,12 @@ import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
 type KeywordRule = { keyword: string; weight: number };
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Cache-Control": "no-store",
+} as const;
 
 /** ComplianceNlpService DEFAULT_KEYWORD_RULES ile aynı ağırlıklar (senkron tutun). */
 const KEYWORD_RULES: KeywordRule[] = [
@@ -82,10 +88,11 @@ function scoreCompliance(text: string): {
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return handleOptions(req);
   const cors = corsHeaders(req);
+  const headers = { ...cors, ...SECURITY_HEADERS, "Content-Type": "application/json" };
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ ok: false, error: "method_not_allowed" }), {
       status: 405,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
@@ -93,7 +100,7 @@ Deno.serve(async (req) => {
   if (!authHeader?.startsWith("Bearer ")) {
     return new Response(JSON.stringify({ ok: false, error: "unauthorized" }), {
       status: 401,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
@@ -102,7 +109,7 @@ Deno.serve(async (req) => {
   if (!supabaseUrl || !anonKey) {
     return new Response(JSON.stringify({ ok: false, error: "server_misconfigured" }), {
       status: 500,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
@@ -114,7 +121,7 @@ Deno.serve(async (req) => {
   if (userErr || !userData?.user) {
     return new Response(JSON.stringify({ ok: false, error: "unauthorized" }), {
       status: 401,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
@@ -124,7 +131,7 @@ Deno.serve(async (req) => {
   } catch {
     return new Response(JSON.stringify({ ok: false, error: "invalid_json" }), {
       status: 400,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
@@ -134,25 +141,25 @@ Deno.serve(async (req) => {
   if (!threadId || !msgBody) {
     return new Response(JSON.stringify({ ok: false, error: "missing_fields" }), {
       status: 400,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
   if (!UUID_RE.test(threadId)) {
     return new Response(JSON.stringify({ ok: false, error: "invalid_thread_id" }), {
       status: 400,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
   if (clientMsgId.length > 128) {
     return new Response(JSON.stringify({ ok: false, error: "invalid_client_msg_id" }), {
       status: 400,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
   if (msgBody.length > 8000) {
     return new Response(JSON.stringify({ ok: false, error: "body_too_long" }), {
       status: 400,
-      headers: { ...cors, "Content-Type": "application/json" },
+      headers,
     });
   }
 
@@ -167,7 +174,7 @@ Deno.serve(async (req) => {
   if (rpcErr) {
     return new Response(
       JSON.stringify({ ok: false, error: "rpc_failed" }),
-      { status: 400, headers: { ...cors, "Content-Type": "application/json" } },
+      { status: 400, headers },
     );
   }
 
@@ -195,6 +202,6 @@ Deno.serve(async (req) => {
         modelScore: compliance.modelScore,
       },
     }),
-    { status: 200, headers: { ...cors, "Content-Type": "application/json" } },
+    { status: 200, headers },
   );
 });
