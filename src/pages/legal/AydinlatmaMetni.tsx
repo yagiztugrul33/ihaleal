@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function AydinlatmaMetni() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -12,9 +14,9 @@ export default function AydinlatmaMetni() {
         </p>
         <p>
           Detaylı bilgi için{" "}
-          <a href="#/kvkk" className="text-blue-600 hover:underline">
+          <Link to="/kvkk" className="text-blue-600 hover:underline">
             KVKK sayfamızı
-          </a>{" "}
+          </Link>{" "}
           ziyaret edebilirsiniz.
         </p>
         <h2>Açık Rıza</h2>
