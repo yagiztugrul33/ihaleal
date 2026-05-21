@@ -119,7 +119,7 @@ export default function IlanDetayPage({ id }: { id: string }) {
           >
             <X className="h-6 w-6" />
           </button>
-          <img src={lightbox} alt="" onClick={(e) => e.stopPropagation()} />
+          <img src={lightbox} alt="" loading="eager" decoding="async" width={1600} height={900} onClick={(e) => e.stopPropagation()} />
         </div>
       ) : null}
     </div>
@@ -144,7 +144,7 @@ function HeroSection(props: {
           className="ilan-detay__gallery-main"
           onClick={() => onOpenLightbox(hero)}
         >
-          <img src={hero} alt="" />
+          <img src={hero} alt="" loading="eager" decoding="async" width={1280} height={800} />
         </button>
         <div className="ilan-detay__gallery-thumbs">
           {images.slice(0, 4).map((src) => (
@@ -154,7 +154,7 @@ function HeroSection(props: {
               className="ilan-detay__thumb"
               onClick={() => onOpenLightbox(src)}
             >
-              <img src={src} alt="" />
+              <img src={src} alt="" loading="lazy" decoding="async" width={320} height={320} />
             </button>
           ))}
         </div>

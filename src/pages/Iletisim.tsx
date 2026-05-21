@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Building2, Clock, Linkedin, Mail, MapPin, Phone, Send, Youtube } from "lucide-react";
 import { PageShell } from "@/components/marketing/PageShell";
@@ -26,6 +26,15 @@ export default function Iletisim() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", konu: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sending, setSending] = useState(false);
+  const submitTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (submitTimerRef.current != null) {
+        window.clearTimeout(submitTimerRef.current);
+      }
+    };
+  }, []);
 
   const toastSuccess = (message: string) => {
     window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type: "success" } }));
@@ -44,7 +53,8 @@ export default function Iletisim() {
       return;
     }
     setSending(true);
-    window.setTimeout(() => {
+    if (submitTimerRef.current != null) window.clearTimeout(submitTimerRef.current);
+    submitTimerRef.current = window.setTimeout(() => {
       setSending(false);
       setForm({ name: "", email: "", phone: "", konu: "", message: "" });
       toastSuccess("Mesajınız alındı. En kısa sürede size dönüş yapacağız.");

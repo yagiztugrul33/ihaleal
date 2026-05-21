@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
@@ -8,6 +7,19 @@ const TREND = Array.from({ length: 12 }, (_, i) => ({
   x: i,
   y: 42 + i * 6 + (i % 3) * 4,
 }));
+
+function getSparklinePoints() {
+  const min = Math.min(...TREND.map((d) => d.y));
+  const max = Math.max(...TREND.map((d) => d.y));
+  const range = Math.max(1, max - min);
+  return TREND.map((d, idx) => {
+    const x = (idx / Math.max(TREND.length - 1, 1)) * 100;
+    const y = 100 - ((d.y - min) / range) * 100;
+    return `${x},${y}`;
+  }).join(" ");
+}
+
+const SPARKLINE_POINTS = getSparklinePoints();
 
 export function HeroLiveAuctionCard({
   title,
@@ -45,24 +57,22 @@ export function HeroLiveAuctionCard({
         {growthLabel}
       </p>
       <div className="mt-3 h-14" aria-hidden>
-        <ResponsiveContainer width="100%" height={56}>
-          <AreaChart data={TREND} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
-            <defs>
-              <linearGradient id="heroLiveFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.55} />
-                <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <Area
-              type="monotone"
-              dataKey="y"
-              stroke="#60a5fa"
-              strokeWidth={2}
-              fill="url(#heroLiveFill)"
-              isAnimationActive={!reduced}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-14 w-full">
+          <defs>
+            <linearGradient id="heroLiveFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.55} />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <polyline
+            points={SPARKLINE_POINTS}
+            fill="none"
+            stroke="#60a5fa"
+            strokeWidth="3"
+            className={reduced ? "" : "motion-safe:[stroke-dasharray:280] motion-safe:[stroke-dashoffset:0]"}
+          />
+          <polygon points={`0,100 ${SPARKLINE_POINTS} 100,100`} fill="url(#heroLiveFill)" />
+        </svg>
       </div>
       <Link
         to={ROUTES.ILANLAR}

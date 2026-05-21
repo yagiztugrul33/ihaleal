@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
@@ -580,6 +580,10 @@ export default function AuctionDetail() {
   const toastBid = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
     window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }));
   };
+  const scrollToContact = useCallback(() => {
+    navigate("/");
+    window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100);
+  }, [navigate]);
 
   const handleBid = async () => {
     if (auctionEndedVisual) {
@@ -1154,7 +1158,7 @@ export default function AuctionDetail() {
                       <TrendingUp className="w-4 h-4 mr-1.5" /> {isSealedOffer ? "Kapalı teklif ver" : "Teklif ver"}
                     </Button>
                   ) : (
-                    <Button className="flex-1 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white font-bold h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
+                    <Button className="flex-1 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white font-bold h-11" type="button" onClick={scrollToContact}>
                       Gösterim / bilgi talebi
                     </Button>
                   )}
@@ -1210,7 +1214,7 @@ export default function AuctionDetail() {
                       <Calculator className="w-4 h-4" />
                     </Button>
                   ) : null}
-                    <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" aria-label="İletişim formuna git" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
+                    <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" aria-label="İletişim formuna git" onClick={scrollToContact} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
                 {!isListingOnly ? (
                   <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-3">
@@ -1269,7 +1273,7 @@ export default function AuctionDetail() {
                   <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => window.open("mailto:destek@ihaleal.com?subject=İlan%20talebi%20" + encodeURIComponent(auction.id), "_blank")}>
                     <Mail className="w-4 h-4" /> Talep oluştur (e-posta)
                   </Button>
-                  <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
+                  <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={scrollToContact}>
                     <Phone className="w-4 h-4" /> İletişim formu
                   </Button>
                 </div>

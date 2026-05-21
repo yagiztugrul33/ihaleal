@@ -5,7 +5,6 @@ import { LocaleProvider } from "@/contexts/LocaleContext";
 import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
-import Home from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
 import { LocalAuthGate } from "@/components/LocalAuthGate";
@@ -24,6 +23,7 @@ import { IBUYER_PATH } from "@/lib/ibuyerHub";
 import { GES_LAND_PATH } from "@/lib/gesLandHub";
 import { ROUTES } from "@/constants/routes";
 
+const Home             = lazy(() => import("@/pages/Home"));
 const AuctionDetail    = lazy(() => import("@/pages/AuctionDetail"));
 const Analytics        = lazy(() => import("@/pages/Analytics"));
 const Compare          = lazy(() => import("@/pages/Compare"));

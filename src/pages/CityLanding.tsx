@@ -88,7 +88,15 @@ export default function CityLandingPage() {
             auctions.map((a) => (
               <Card key={a.id} className="border-slate-200 bg-slate-900/45 overflow-hidden hover:border-teal-500/25 transition-colors">
                 <div className="h-36 overflow-hidden">
-                  <img src={a.images[0]} alt="" className="w-full h-full object-cover" />
+                  <img
+                    src={a.images[0]}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width={640}
+                    height={360}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <CardContent className="p-4">
                   <p className="text-xs text-slate-500 flex items-center gap-1 mb-1">

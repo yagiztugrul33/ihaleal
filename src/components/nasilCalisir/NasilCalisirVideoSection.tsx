@@ -68,7 +68,15 @@ export function NasilCalisirVideoSection() {
             style={{ borderColor: "var(--color-border)" }}
             aria-label="Tanıtım videosunu oynat"
           >
-            <img src={NASIL_CALISIR_VIDEO.poster} alt="" className="absolute inset-0 w-full h-full object-cover opacity-80" />
+            <img
+              src={NASIL_CALISIR_VIDEO.poster}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              width={1280}
+              height={720}
+              className="absolute inset-0 w-full h-full object-cover opacity-80"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
             <div className="relative z-10 flex h-full flex-col items-center justify-center gap-3 p-6">
               <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/15 backdrop-blur group-hover:scale-105 transition-transform">

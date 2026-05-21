@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { Share2, X, Copy, Check, Facebook, Twitter, Linkedin, Mail } from "lucide-react";
 
 interface ShareButtonProps {
@@ -9,6 +9,15 @@ interface ShareButtonProps {
 export function ShareButton({ title, url }: ShareButtonProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const copiedTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copiedTimerRef.current != null) {
+        window.clearTimeout(copiedTimerRef.current);
+      }
+    };
+  }, []);
 
   const fullUrl =
     typeof window !== "undefined"
@@ -22,7 +31,8 @@ export function ShareButton({ title, url }: ShareButtonProps) {
     try {
       await navigator.clipboard.writeText(fullUrl);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (copiedTimerRef.current != null) window.clearTimeout(copiedTimerRef.current);
+      copiedTimerRef.current = window.setTimeout(() => setCopied(false), 2000);
     } catch {
       const input = document.createElement("input");
       input.value = fullUrl;
@@ -31,7 +41,8 @@ export function ShareButton({ title, url }: ShareButtonProps) {
       document.execCommand("copy");
       document.body.removeChild(input);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (copiedTimerRef.current != null) window.clearTimeout(copiedTimerRef.current);
+      copiedTimerRef.current = window.setTimeout(() => setCopied(false), 2000);
     }
   };
 
