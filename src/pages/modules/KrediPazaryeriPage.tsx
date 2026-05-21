@@ -112,7 +112,7 @@ export default function KrediPazaryeriPage() {
             <ModulePdfCta label="Kredi karsilastirma raporu PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Basvuru bilgilerini girip teklif alin.</div>
+          <div className="mod-empty">Başvuru bilgilerini girin; faiz, vade ve toplam maliyet kırılımını karşılaştırmalı kredi teklifleriyle inceleyin.</div>
         )}
       </div>
     </ModuleShell>

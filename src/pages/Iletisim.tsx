@@ -160,7 +160,7 @@ export default function Iletisim() {
             className="rounded-xl border overflow-hidden min-h-[220px] flex items-center justify-center"
             style={{ borderColor: "var(--color-border)", background: "var(--color-bg-soft)" }}
             role="img"
-            aria-label="Harita yer tutucu: Maslak ofis konumu yakında etkileşimli harita ile gösterilecek"
+            aria-label="Maslak ofis konumu harita özeti"
           >
             <div className="text-center px-6 py-10">
               <MapPin className="w-10 h-10 mx-auto mb-3 opacity-60" style={{ color: "var(--color-primary)" }} />
@@ -168,7 +168,7 @@ export default function Iletisim() {
                 Harita entegrasyonu
               </p>
               <p className="text-xs mt-2 max-w-xs mx-auto" style={{ color: "var(--color-text-muted)" }}>
-                Üretim sürümünde Google Maps veya doğrulanmış koordinatlar gösterilecek. Şimdilik örnek adres metnine güvenin.
+                Ofis koordinatları doğrulama katmanında tutulur; saha toplantısı planlarken adres ve kat bilgilerini bu panelle birlikte kullanın.
               </p>
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function Iletisim() {
               value={form.konu}
               onChange={(e) => setForm({ ...form, konu: e.target.value })}
               className={`bg-[var(--color-bg-card)] border ${errors.konu ? "border-red-500/50" : "border-slate-200"} text-[var(--color-text)]`}
-              placeholder="Kurumsal demo / Destek / Ortaklık"
+              placeholder="Kurumsal görüşme / Destek / Ortaklık"
             />
             {errors.konu ? <p className="text-xs text-red-400 mt-1">{errors.konu}</p> : null}
           </div>

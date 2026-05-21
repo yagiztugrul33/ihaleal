@@ -120,7 +120,7 @@ export default function SigortaPazaryeriPage() {
             <ModulePdfCta label="Sigorta karsilastirma raporu PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Profil bilgilerini girip teklif alin.</div>
+          <div className="mod-empty">Profil ve varlık bilgilerini girin; kapsam, prim ve muafiyet karşılaştırmasını aynı tabloda değerlendirin.</div>
         )}
       </div>
     </ModuleShell>

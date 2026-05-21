@@ -108,7 +108,7 @@ export default function ImarSorguPage() {
             <ModulePdfCta label="Imar durum ozeti PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Parsel bilgilerini girip sorgu baslatin.</div>
+          <div className="mod-empty">Parsel bilgilerini girin; imar durumu, yapılaşma sınırları ve sözleşme öncesi kontrol başlıkları birlikte listelensin.</div>
         )}
       </div>
     </ModuleShell>

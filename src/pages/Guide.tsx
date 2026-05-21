@@ -12,7 +12,7 @@ const FAQS = [
     items: [
       { q: "ihaleal.com nedir?", a: "ihaleal.com, Türkiye icin gayrimenkul ilani ve ihale deneyimi sunan platformdur. Yapay zeka destekli degerleme, şeffaf teklif cizgisi ve güvenli odeme hedefi ile kullanicilara uygun firsatlar icin tek adres olarak konumlanir." },
       { q: "Nasil uye olabilirim?", a: "Ana sayfadan Kayit Ol butonuna tiklayarak, ad, soyad, e-posta ve telefon bilgilerinizle ucretsiz uye olabilirsiniz. Uyeliginizi e-posta adresinize gelen link ile aktive edebilirsiniz." },
-      { q: "ihaleal.com güvenli mi?", a: "Evet. Teklif ve iletisim cizgisi sifreli kanallar uzerinden tasarlanmistir. Kisisel veriler KVKK odakli saklanir; baglanti SSL ile korunur. Odeme ve PCI iddialari uretim matrisinde netlestirilir ( simdilik demo)." },
+      { q: "ihaleal.com güvenli mi?", a: "Teklif ve iletişim hatları şifreli bağlantı üzerinden yürütülür; kayıtlar denetlenebilir işlem günlüğü ile izlenir. Kişisel veri süreçleri KVKK yükümlülükleriyle uyumlu biçimde yönetilir. Canlıya geçişte operasyonel güvenlik kontrolleri ve erişim katmanları kademeli olarak devreye alınır." },
     ]
   },
   {
@@ -28,7 +28,7 @@ const FAQS = [
     items: [
       {
         q: "Kazandigim ihalede odeme nasil yapilir?",
-        a: `Ihaleyi kazandiginizda ${formatBidBondPercent()} kapora odemesi yapmaniz gerekir (fees.ts). Kalan tutar ${FEES.refundWindowDays} gun icinde tamamlanmalidir (taslak). Tum odemeler escrow hesap uzerinden güvenle gerceklestirilir.`,
+        a: `İhaleyi kazanan alıcı için kapora oranı ${formatBidBondPercent()} olarak uygulanır. Kalan tutar ${FEES.refundWindowDays} gün içinde sözleşme akışına göre tamamlanır. Ödeme süreçleri, ilan koşulları ve yürürlükteki hukuki çerçeve ile birlikte ilerletilir.`,
       },
       { q: "Kredi kullanabilir miyim?", a: "Evet, tum ilanlarimiz banka kredisine uygundur. Mortgage hesaplayicimiz ile aylik taksit tutarlarinizi onceden hesaplayabilirsiniz." },
       { q: "Tapu devri nasil gerceklesir?", a: "Ihaleyi kazanan alici, odemelerin tamamlanmasinin ardindan ilgili tapu mudurlugunde resmi devretme islemi gerceklestirir. Platformumuz hukuki sureclerde size rehberlik saglar." },

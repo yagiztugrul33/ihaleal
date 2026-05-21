@@ -119,7 +119,7 @@ export default function AirbnbPotansiyelPage() {
             <ModulePdfCta label="Airbnb potansiyel raporu PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Konut profilini girip analiz baslatin.</div>
+          <div className="mod-empty">Konut profilini girin; kısa dönem kira geliri, doluluk oynaklığı ve gider baskısını senaryo bazında ölçün.</div>
         )}
       </div>
     </ModuleShell>

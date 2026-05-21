@@ -144,7 +144,7 @@ export default function ParselZekasiPage() {
               </ModulePanel>
             </>
           ) : (
-            <div className="mod-empty">Parsel bilgilerini girip analiz baslatin.</div>
+            <div className="mod-empty">Parsel bilgilerini girin; değer potansiyeli, hukuki sınırlar ve geliştirme senaryoları için özet rapor üretin.</div>
           )}
         </div>
       </div>

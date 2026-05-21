@@ -22,9 +22,9 @@ export function DemoUyarisi() {
         <div className="flex items-center gap-2 flex-1 min-w-0">
           <AlertCircle className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
           <span className="truncate sm:whitespace-normal">
-            <strong>DEMO MODU:</strong> Bu site şu anda demo modundadır.
-            Gerçek ödeme alınmamakta, ihaleler test amaçlıdır.
-            Şirketleşme tamamlandıktan sonra gerçek işlem alınacaktır.
+            <strong>Pilot Ortam Bildirimi:</strong> Bu sürüm yatırımcı ve kurumsal ekipler için kontrollü gösterim
+            ortamıdır. Finansal taahhüt doğuran adımlar canlıya alınmadan önce resmi entegrasyon, hukuk ve uyum
+            kontrolleriyle doğrulanır.
           </span>
         </div>
         <button

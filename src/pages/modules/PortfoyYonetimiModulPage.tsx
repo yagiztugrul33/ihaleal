@@ -119,7 +119,7 @@ export default function PortfoyYonetimiModulPage() {
             <ModulePdfCta label="Portfoy performans raporu PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Portfoy bilgilerini yukleyin.</div>
+          <div className="mod-empty">Portföy kalemlerinizi yükleyin; getiri, risk dağılımı ve likidite önceliklerini kurumsal görünümde takip edin.</div>
         )}
       </div>
     </ModuleShell>

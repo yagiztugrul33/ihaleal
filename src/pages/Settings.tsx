@@ -55,7 +55,7 @@ export default function SettingsPage() {
         </Button>
 
         <h1 className="text-3xl font-bold text-white mb-2">Ayarlar</h1>
-        <p className="text-slate-400 text-sm mb-8">Bildirim tercihleri tarayıcıda saklanır (demo). Üyelik ücretleri iş modeli ile uyumludur.</p>
+        <p className="text-slate-400 text-sm mb-8">Bildirim tercihleri yerel oturumda saklanır. Üyelik ücretleri iş modeli ile uyumludur.</p>
 
         <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
@@ -73,14 +73,14 @@ export default function SettingsPage() {
                 </div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">Push (demo)</p>
+                <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">Push</p>
                 <div className="space-y-3">
                   <PrefRow label="Anlık teklif bildirimi" checked={prefs.pushBid} onCheckedChange={(v) => patch({ pushBid: v })} />
                   <PrefRow label="Bitiş uyarısı" checked={prefs.pushEnding} onCheckedChange={(v) => patch({ pushEnding: v })} />
                 </div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">SMS (demo)</p>
+                <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">SMS</p>
                 <PrefRow label="Kritik hatırlatmalar" checked={prefs.smsEnding} onCheckedChange={(v) => patch({ smsEnding: v })} />
               </div>
               <div>

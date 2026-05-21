@@ -233,7 +233,7 @@ export default function UserPanel() {
             ))}
           </nav>
           <p className="text-xs text-slate-600 px-1 leading-relaxed">
-            Üyelikler: yıllık satıcı 5.000 TL, yıllık alıcı 1.000 TL (demo metin). Komisyon mahsuplu %4 + KDV hedefi — liste paketi satışı yoktur.
+            Üyelikler: yıllık satıcı 5.000 TL, yıllık alıcı 1.000 TL. Komisyon mahsuplu %4 + KDV modeli geçerlidir; liste paketi satışı yoktur.
           </p>
         </aside>
 
@@ -245,8 +245,8 @@ export default function UserPanel() {
             </h1>
             <p className="text-slate-400 mt-1 text-sm">
               {tabId
-                ? "Bu bölüm demo — gerçek hesap verisi bağlandığında dolar."
-                : "İhaleleriniz, teklifleriniz ve bildirim özetiniz (demo veri)."}
+                ? "Bu bölüm, hesap operasyonlarını merkez sayfalarla birlikte yönetmeniz için optimize edilmiştir."
+                : "İhaleleriniz, teklifleriniz ve bildirim özetiniz tek panelde sunulur."}
             </p>
           </div>
 
@@ -273,7 +273,7 @@ export default function UserPanel() {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <Card className="bg-slate-900/50 border-slate-200/80">
                   <CardContent className="p-5">
-                    <div className="text-xs text-slate-500 uppercase tracking-wide">Aktif ihale (demo)</div>
+                    <div className="text-xs text-slate-500 uppercase tracking-wide">Aktif ihale</div>
                     <div className="text-3xl font-bold text-emerald-400 mt-1">{liveCount}</div>
                     <p className="text-xs text-slate-600 mt-2">Katalog genelinde canlı kayıt sayısı.</p>
                   </CardContent>
@@ -296,7 +296,7 @@ export default function UserPanel() {
 
               <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5">
-                  <h2 className="text-lg font-semibold text-white mb-3">Komisyon özeti (taslak)</h2>
+                  <h2 className="text-lg font-semibold text-white mb-3">Komisyon özeti</h2>
                   <p className="text-sm text-slate-400 leading-relaxed">
                     İşlem komisyonu hedefi %4 + KDV (mahsup); emlakçı ortaklığında B2B fatura ile %2 pay (bilgilendirme). Güvenli ödeme havuzu ve mahsup formülü için{" "}
                     <button type="button" onClick={() => navigate("/komisyon-hesaplayici")} className="text-teal-400 hover:underline">

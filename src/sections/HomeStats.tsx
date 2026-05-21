@@ -5,10 +5,10 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const TARGETS = { auctions: 12458, sales: 3127, investors: 10843, satisfaction: 98 } as const;
 
 const METRICS = [
-  { key: "auctions" as const, label: "Toplam İhale", icon: Gavel, color: "text-blue-400", bg: "bg-blue-500/15" },
-  { key: "sales" as const, label: "Başarılı Satış", icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/15" },
-  { key: "investors" as const, label: "Aktif Yatırımcı", icon: Users, color: "text-violet-400", bg: "bg-violet-500/15" },
-  { key: "satisfaction" as const, label: "Memnuniyet", icon: Star, color: "text-amber-400", bg: "bg-amber-500/15" },
+  { key: "auctions" as const, label: "Kapsanan İhale", icon: Gavel, color: "text-blue-400", bg: "bg-blue-500/15" },
+  { key: "sales" as const, label: "Sonuçlanan Süreç", icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/15" },
+  { key: "investors" as const, label: "İzleyen Yatırımcı", icon: Users, color: "text-violet-400", bg: "bg-violet-500/15" },
+  { key: "satisfaction" as const, label: "Hizmet Skoru", icon: Star, color: "text-amber-400", bg: "bg-amber-500/15" },
 ];
 
 export function HomeStats() {
@@ -47,7 +47,7 @@ export function HomeStats() {
                 </div>
                 <p className="text-xs font-medium uppercase tracking-wider text-slate-500">{m.label}</p>
                 <p className="mt-1 text-2xl font-bold tracking-tight text-white md:text-3xl">{display}</p>
-                <p className="mt-1 text-xs font-semibold text-emerald-400">+{((idx + 1) * 2.1).toFixed(1)}%</p>
+                <p className="mt-1 text-xs font-semibold text-slate-400">Haftalık güncelleme döngüsü</p>
               </div>
             );
           })}

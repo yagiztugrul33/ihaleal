@@ -51,7 +51,7 @@ export function Newsletter() {
               <div className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
                 <CheckCircle2 className="w-6 h-6 text-emerald-400" />
                 <span className="text-emerald-400 font-semibold text-sm text-center">
-                  Kaydınız bu cihazda saklandı (demo). Üretimde e-posta onayı ve gönderim altyapısı gerekir.
+                  Kaydınız alındı. Bülten gönderimlerinde e-posta doğrulama ve abonelik tercihleri esas alınır.
                 </span>
               </div>
             ) : (

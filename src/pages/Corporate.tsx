@@ -110,7 +110,7 @@ export default function Corporate() {
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link to="/kurumsal/iletisim" className="btn-primary">
-              Demo Talep Et
+              Kurumsal Görüşme Talep Et
             </Link>
             <a href="#planlar" className="btn-ghost">
               Planları İncele
@@ -122,7 +122,7 @@ export default function Corporate() {
               className="text-xs uppercase tracking-widest mb-6"
               style={{ color: "var(--color-text-light)" }}
             >
-              Güvenen kurumsal hesaplar
+              Görüşme yürütülen kurumsal profiller
             </p>
             <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-70">
               <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>RE/MAX</span>
@@ -249,14 +249,14 @@ export default function Corporate() {
       <section className="py-20 md:py-24" style={{ background: "var(--gradient-cta)" }}>
         <div className="mx-auto max-w-4xl px-4 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ color: "var(--color-text-on-dark)" }}>
-            Demo görüşmesi planlayalım.
+            Kurumsal keşif görüşmesi planlayalım.
           </h2>
           <p
             className="mb-10 text-lg max-w-2xl mx-auto"
             style={{ color: "rgba(250,248,241,0.85)" }}
           >
-            RE/MAX, GYO veya büyük emlak grubu yöneticisiyseniz, ekibimiz size özel
-            bir demo hazırlasın. 30 dakikalık görüşme, ihtiyaçlarınıza özel çözüm.
+            GYO, franchise veya çok şubeli emlak operasyonu yönetiyorsanız; ekibimiz mevcut süreçlerinize göre
+            uyarlanmış bir kullanım senaryosu hazırlar. 30 dakikalık toplantıda ihtiyaç, risk ve entegrasyon planı netleşir.
           </p>
           <Link
             to="/kurumsal/iletisim"

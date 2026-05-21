@@ -26,6 +26,7 @@ import {
 } from "@/types/property";
 import { PropertyListingCard } from "@/components/ilan/PropertyListingCard";
 import { IlanDetailTabs } from "@/components/ilan/IlanDetailTabs";
+import { useFavorites } from "@/hooks/useFavorites";
 import "@/styles/ilan-pages.css";
 
 function formatTry(amount: number): string {
@@ -136,7 +137,7 @@ function HeroSection(props: {
   onOpenLightbox: (src: string) => void;
 }) {
   const navigate = useNavigate();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite, toggleFavorite } = useFavorites();
   const { hero, images, property, price, location, isLive, onOpenLightbox } = props;
   const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/#/ilanlar/${property.id}` : `/ilanlar/${property.id}`;
 
@@ -221,13 +222,14 @@ function HeroSection(props: {
           <button
             type="button"
             className="ilan-detay__btn ilan-detay__btn--ghost"
-            aria-label={isFavorite ? "Favoriden kaldır" : "Favorilere ekle"}
+            aria-label={isFavorite(property.id) ? "Favoriden kaldır" : "Favorilere ekle"}
             onClick={() => {
-              setIsFavorite((prev) => !prev);
-              pushToast(isFavorite ? "İlan favorilerden çıkarıldı." : "İlan favorilere eklendi.");
+              const nextFavorited = !isFavorite(property.id);
+              toggleFavorite(property.id);
+              pushToast(nextFavorited ? "İlan favorilere eklendi." : "İlan favorilerden çıkarıldı.");
             }}
           >
-            <Heart className={`h-4 w-4 ${isFavorite ? "fill-current text-rose-400" : ""}`} />
+            <Heart className={`h-4 w-4 ${isFavorite(property.id) ? "fill-current text-rose-400" : ""}`} />
           </button>
           <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Karşılaştır" onClick={handleCompare}>
             <GitCompare className="h-4 w-4" />

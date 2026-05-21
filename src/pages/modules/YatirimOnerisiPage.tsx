@@ -129,7 +129,7 @@ export default function YatirimOnerisiPage() {
             <ModulePdfCta label="Yatirim stratejisi PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Profil bilgilerini girip oneri alin.</div>
+          <div className="mod-empty">Yatırım profilinizi girin; risk iştahı, vade ve nakit akışı hedeflerine göre portföy önerisi oluşturulsun.</div>
         )}
       </div>
     </ModuleShell>

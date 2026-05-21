@@ -112,7 +112,7 @@ export default function GesAnaliziModulPage() {
             <ModulePdfCta label="GES muhendislik raporu PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Parametreleri girip hesaplama baslatin.</div>
+          <div className="mod-empty">Saha parametrelerini girin; üretim potansiyeli, geri ödeme süresi ve gelir bandı hesaplamasını aynı akışta başlatın.</div>
         )}
       </div>
     </ModuleShell>

@@ -119,7 +119,7 @@ export default function RenovasyonRoiPage() {
             <ModulePdfCta label="Renovasyon ROI raporu PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Butce bilgilerini girip hesaplama baslatin.</div>
+          <div className="mod-empty">Bütçe ve kapsam bilgilerini girin; renovasyon maliyeti, geri dönüş süresi ve satış etkisini ölçülü biçimde hesaplayın.</div>
         )}
       </div>
     </ModuleShell>

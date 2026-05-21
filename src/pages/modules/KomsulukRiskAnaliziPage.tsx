@@ -173,7 +173,7 @@ export default function KomsulukRiskAnaliziPage() {
           </div>
         </>
       ) : (
-        <div className="mod-empty">Adres veya ilan seçip analiz başlatın.</div>
+        <div className="mod-empty">Adres veya ilan seçin; komşuluk riski, erişim skoru ve deprem bileşenleri tek panelde karşılaştırmalı olarak gösterilsin.</div>
       )}
 
       <ModuleRelatedStrip modules={RELATED} />

@@ -125,7 +125,7 @@ export default function DegerlemeModulPage() {
             <ModulePdfCta label="Resmi format degerleme PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Mulk bilgilerini girip degerleme baslatin.</div>
+          <div className="mod-empty">Mülk bilgilerini girerek değerleme başlatın; sistem m² bandı, emsal karşılaştırması ve risk notunu tek raporda üretir.</div>
         )}
       </div>
     </ModuleShell>

@@ -119,7 +119,7 @@ export default function AfetRiskHaritasiPage() {
             <ModulePdfCta label="Afet risk haritasi PDF" />
           </ModulePanel>
         ) : (
-          <div className="mod-empty">Konum bilgisi girip analiz baslatin.</div>
+          <div className="mod-empty">Konum bilgisini girin; fay yakınlığı, zemin bandı ve operasyonel risk katmanlarını tek harita çıktısında görün.</div>
         )}
       </div>
     </ModuleShell>
