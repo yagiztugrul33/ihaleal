@@ -4,6 +4,7 @@ import { RequireAuthGate } from "@/components/auth/RequireAuthGate";
 import { useAuth } from "@/contexts/AuthContext";
 import { ibuyerSubtitle } from "@/lib/ibuyerHub";
 import { ROUTES } from "@/constants/routes";
+import { IBUYER_DISCLAIMER, MASTER_INFO_DISCLAIMER } from "@/legal/platformDisclaimers";
 
 export default function IBuyerPage() {
   const { user, loading } = useAuth();
@@ -22,6 +23,10 @@ export default function IBuyerPage() {
           <RefreshCw className="h-4 w-4" />
           Hukuki risk matrisi ile 72 saat geçerli teklif
         </p>
+        <div className="mb-6 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-100">
+          <p>{IBUYER_DISCLAIMER}</p>
+          <p className="mt-1">{MASTER_INFO_DISCLAIMER}</p>
+        </div>
         <div className="mb-8 space-y-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-relaxed text-slate-300">
           <p>
             iBuyer akışı, mülkünü hızlı nakde çevirmek isteyen kullanıcı için operasyonu sadeleştirir. Klasik yöntemde günler süren

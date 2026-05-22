@@ -13,6 +13,17 @@ export default function AydinlatmaMetni() {
           yükümlülüğümüzü yerine getirmek amacıyla bu metni hazırladık.
         </p>
         <p>
+          Platform, fiziksel taşınmazlar için gayrimenkul ticaret ve açık artırma hizmeti sunan dijital aracı sistemdir; sermaye piyasası
+          kurumu veya SPK&apos;ya tabi yatırım borsası değildir.
+        </p>
+        <p>
+          Platformda yayınlanan skor/sinyal/endeks/değerleme çıktıları genel bilgilendirme amaçlıdır; yatırım, hukuk veya vergi
+          tavsiyesi/danışmanlığı değildir.
+        </p>
+        <p>
+          Ödeme ve teminat süreçlerinde platform kendi nezdinde para tutmaz; süreç lisanslı ödeme kuruluşu altyapısı üzerinden yönetilir.
+        </p>
+        <p>
           Detaylı bilgi için{" "}
           <Link to="/kvkk" className="text-blue-600 hover:underline">
             KVKK sayfamızı

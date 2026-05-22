@@ -8,8 +8,11 @@ export default function KullanimKosullari() {
       <div className="prose dark:prose-invert max-w-none">
         <h2>1. Genel Hükümler</h2>
         <p>
-          ihaleal.com (&quot;Platform&quot;) kullanımı, aşağıdaki koşullara tabidir. Platforma erişerek bu koşulları kabul etmiş
-          sayılırsınız.
+          ihaleal.com (&quot;Platform&quot;) fiziksel taşınmazlar için gayrimenkul ticaret ve açık artırma platformudur. Platform, aracı
+          hizmet sağlar; sermaye piyasası kurumu veya SPK&apos;ya tabi yatırım borsası değildir.
+        </p>
+        <p>
+          Platforma erişen her kullanıcı, aşağıdaki kullanım koşullarını okumuş ve kabul etmiş sayılır.
         </p>
         <h2>2. Üyelik</h2>
         <p>
@@ -21,14 +24,24 @@ export default function KullanimKosullari() {
           <li>Verilen teklifler bağlayıcıdır.</li>
           <li>İhale kazananı, en yüksek teklifi veren kullanıcıdır.</li>
           <li>&quot;Hemen Al&quot; özelliği seçilmiş ihalelerde, ihale anında sonlanır.</li>
+          <li>Platform parayı tutmaz; ödeme ve teminat akışı lisanslı ödeme kuruluşu üzerinden yürütülür.</li>
           <li>Teklif öncesi ilan detayında gösterilen ihale katılım koşulları, kullanım koşulları ve (varsa) KVKK aydınlatması okunmalıdır.</li>
           <li>Sahte veya yanıltıcı teklif, bot veya çoklu hesapla manipülasyon yasaktır; şüpheli işlemde hesap dondurma ve yasal başvuru süreçleri işletilebilir.</li>
           <li>5549 (MASAK) kapsamında kimlik doğrulama ve ek belge talebine uyum zorunludur (üretim entegrasyonu ile).</li>
           <li>Demo modunda yapılan işlemler test amaçlıdır; teklif kayıtları sınırlı olabilir.</li>
         </ul>
+        <h2>4. Bilgilendirme ve Sorumluluk Sınırı</h2>
+        <p>
+          Platformda yer alan skor, sinyal, endeks, değerleme ve simülasyon çıktıları genel bilgilendirme amaçlıdır; yatırım, hukuk veya
+          vergi tavsiyesi/danışmanlığı değildir.
+        </p>
         <h2>4. Demo Modu</h2>
         <p>
           Platform şu anda demo modundadır. Bu süreçte gerçek ödeme alınmamakta, ihaleler test amaçlı yapılmaktadır.
+        </p>
+        <h2>5. Fiziksel Mülk Kapsamı</h2>
+        <p>
+          Platform yalnızca fiziksel taşınmaz ilanlarını kapsar. Fraksiyonel/pay bazlı satış bu sürümde sunulmamaktadır.
         </p>
         <h2>5. Yasak Davranışlar</h2>
         <ul>

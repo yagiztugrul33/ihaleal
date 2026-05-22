@@ -15,7 +15,8 @@ export default function MesafeliSatisSozlesmesi() {
         </p>
         <h2>2. Konu</h2>
         <p>
-          İşbu sözleşme, alıcının ihaleal.com üzerinden seçtiği ürün veya hizmetin satın alınmasına ilişkin koşulları düzenler.
+          İşbu sözleşme, platform üzerinden yürütülen gayrimenkul ticaret ve açık artırma süreçlerinde dijital aracılık hizmetinin genel
+          koşullarını düzenler. Platform sermaye piyasası kurumu veya SPK&apos;ya tabi yatırım borsası değildir.
         </p>
         <h2>3. Cayma Hakkı</h2>
         <p>
@@ -23,7 +24,15 @@ export default function MesafeliSatisSozlesmesi() {
           özel nitelikli mallar bu kapsamda istisnadır.
         </p>
         <h2>4. Ödeme ve Teslimat</h2>
-        <p>Şirketleşme sonrası ödeme yöntemleri ve teslimat süreçleri burada ilan edilecektir.</p>
+        <p>
+          Platform parayı tutmaz; ödeme, teminat ve varsa tahsilat adımları lisanslı ödeme kuruluşu entegrasyonu üzerinden yürütülür.
+          Nihai işleyiş hukuk onayı sonrasında yayınlanacaktır.
+        </p>
+        <h2>5. Bilgilendirme Notu</h2>
+        <p>
+          Platform ekranlarında yer alan skor, sinyal, endeks, değerleme ve simülasyon içerikleri genel bilgilendirme amaçlıdır;
+          yatırım, hukuk veya vergi tavsiyesi/danışmanlığı değildir.
+        </p>
         <h2>5. Uyuşmazlık</h2>
         <p>Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir.</p>
         <p className="text-sm text-gray-500 mt-8">Son güncelleme: 30 Nisan 2026</p>
