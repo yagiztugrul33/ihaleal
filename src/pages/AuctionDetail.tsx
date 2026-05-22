@@ -816,11 +816,31 @@ export default function AuctionDetail() {
   const detailedDescription = (() => {
     const raw = auction.description?.trim() ?? "";
     if (raw.length > 340 && raw.includes("\n")) return raw;
+
+    const segmentNarrative =
+      auction.category === "Ticari"
+        ? "Ticari segmentte bu varlık, gelir üretimi ve kurumsal kiracı profili açısından dikkat çeken bir konumlanma sunuyor. Operasyonel kullanım kolaylığı ve bölgesel erişim avantajı, özellikle uzun vadeli kira odaklı yatırımcılar için dosyayı daha öngörülebilir hale getiriyor."
+        : auction.category === "Arsa"
+          ? "Arsa segmentinde bu dosya, geliştirme potansiyeli ve plan notu uyumu bakımından incelendiğinde güçlü bir proje zemini oluşturuyor. Emsal ve kullanım senaryosu doğru kurgulandığında, hem değer artışı hem de ortak geliştirme modelleri için esnek bir alan açıyor."
+          : "Konut segmentinde bu ilan, günlük yaşam konforu ile yatırım dengesini bir araya getiriyor. Oturum amaçlı alıcı için erişim ve çevre avantajı sunarken, yatırım amaçlı alıcı için bölgesel talep ve satış hızı anlamında güçlü sinyaller üretiyor.";
+
+    const mobilityHighlights = nearbyFacilities
+      .filter((item) => item.type === "transport")
+      .slice(0, 2)
+      .map((item) => `${item.name} (${item.distance} m)`)
+      .join(", ");
+    const lifestyleHighlights = nearbyFacilities
+      .filter((item) => item.type !== "transport")
+      .slice(0, 2)
+      .map((item) => `${item.name} (${item.distance} m)`)
+      .join(", ");
+
     return [
-      `${auction.location} lokasyonundaki bu ilan, yatırım ve kullanım dengesini birlikte sunan bir profile sahip. Bölgedeki ana ulaşım akslarına yakınlık, mülkün hem kısa vadeli likiditesini hem de uzun vadeli değer korunmasını destekliyor.`,
-      `Yapısal tarafta ${propertyDetails.netSqm} m² net kullanım alanı, ${propertyDetails.roomCount} planı ve ${propertyDetails.heating} altyapısı öne çıkıyor. ${propertyDetails.deedStatus} tapu durumu ve ${propertyDetails.eligibility} uygunluk notu, işlem öncesi kontrol listesiyle birlikte şeffaf biçimde sunuluyor.`,
-      `Piyasa göstergelerinde bölge ortalama m² değeri ₺${areaStats.avgPricePerSqm.toLocaleString("tr-TR")} bandında. Talep endeksi ${areaStats.demandIndex}/100 ve kira getirisi tahmini %${areaStats.rentalYield} seviyesinde; bu da özellikle düzenli nakit akışı arayan yatırımcı profili için dengeleyici bir sinyal oluşturuyor.`,
-      `Yakın çevrede eğitim, ulaşım ve sağlık noktalarının bulunması günlük kullanım senaryolarını güçlendiriyor. Teklif tarafında canlı akış, anti-sniping ve maliyet hesaplayıcı birlikte çalıştığı için alıcı toplam maliyeti daha teklif aşamasında öngörülebiliyor.`,
+      `${auction.location} lokasyonundaki bu ilan, mikro bölge dinamikleriyle birlikte okunduğunda güçlü bir karar zemini sunuyor. Son dönemdeki fiyat hareketleri ve talep ritmi, varlığın yalnızca bugünkü değerini değil orta vadeli konumunu da anlamayı mümkün kılıyor.`,
+      `${segmentNarrative} ${auction.status === "live" ? "İhalenin canlı statüde olması, fiyat keşfinin gerçek rekabet içinde oluşmasını sağlıyor." : "Yaklaşan ihale statüsü ise teklif öncesi hazırlık ve due diligence için ek zaman yaratıyor."}`,
+      `Yapısal tarafta ${propertyDetails.netSqm} m² net kullanım alanı, ${propertyDetails.roomCount} planı ve ${propertyDetails.heating} altyapısı öne çıkıyor. ${propertyDetails.deedStatus} tapu statüsü, ${propertyDetails.eligibility} uygunluk notu ve teknik özellik seti birlikte değerlendirildiğinde işlem öncesi risklerin önemli bölümü erken aşamada görünür hale geliyor.`,
+      `Bölge verilerinde ortalama m² değeri ₺${areaStats.avgPricePerSqm.toLocaleString("tr-TR")} bandında. Talep endeksi ${areaStats.demandIndex}/100, yıllık değişim %${areaStats.priceChangeYearly} ve kira getirisi %${areaStats.rentalYield} seviyesinde; bu kombinasyon, hem değer koruma hem nakit akışı perspektifini aynı tabloda okumaya imkan tanıyor.`,
+      `Ulaşım tarafında ${mobilityHighlights || "ana akslara yakın konum"}; yaşam ve hizmet tarafında ${lifestyleHighlights || "güçlü çevre bileşenleri"} dikkat çekiyor. Teklif akışında anti-sniping, maliyet hesaplayıcı ve canlı derinlik paneli birlikte çalıştığı için alıcı toplam yükümlülüğü teklif anında daha net görebiliyor; bu da karar kalitesini belirgin şekilde artırıyor.`,
     ].join("\n\n");
   })();
 
