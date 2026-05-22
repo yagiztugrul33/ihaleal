@@ -32,6 +32,7 @@ export default function IlanlarKatalog() {
     (searchParams.get("gorunum") as ViewMode) || "grid"
   );
   const [loadingList, setLoadingList] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   const q = searchParams.get("q") ?? "";
   const category = searchParams.get("kategori") ?? "";
@@ -149,6 +150,23 @@ export default function IlanlarKatalog() {
     updateParam("gorunum", v);
   };
 
+  const activeFilters = useMemo(
+    () =>
+      [
+        category ? { key: "kategori", label: "Kategori", value: category } : null,
+        sub ? { key: "alt", label: "Alt kategori", value: sub } : null,
+        type ? { key: "tip", label: "Tip", value: type } : null,
+        modality ? { key: "modalite", label: "Modalite", value: modality } : null,
+        minPrice ? { key: "minFiyat", label: "Min fiyat", value: `₺${Number(minPrice).toLocaleString("tr-TR")}` } : null,
+        maxPrice ? { key: "maxFiyat", label: "Max fiyat", value: `₺${Number(maxPrice).toLocaleString("tr-TR")}` } : null,
+        minSqm ? { key: "minM2", label: "Min m²", value: minSqm } : null,
+        maxSqm ? { key: "maxM2", label: "Max m²", value: maxSqm } : null,
+        city ? { key: "sehir", label: "Şehir", value: city } : null,
+        district ? { key: "ilce", label: "İlçe", value: district } : null,
+      ].filter((item): item is { key: string; label: string; value: string } => Boolean(item)),
+    [category, sub, type, modality, minPrice, maxPrice, minSqm, maxSqm, city, district]
+  );
+
   useEffect(() => {
     setLoadingList(true);
     const timer = window.setTimeout(() => setLoadingList(false), 220);
@@ -171,7 +189,7 @@ export default function IlanlarKatalog() {
           <Search className="h-5 w-5" aria-hidden />
           <input
             type="search"
-            placeholder="Adres, baslik, il, ilan no..."
+            placeholder="Adres, başlık, il, ilan no..."
             value={q}
             onChange={(e) => updateParam("q", e.target.value)}
             style={{ fontSize: "16px" }}
@@ -180,19 +198,22 @@ export default function IlanlarKatalog() {
       </header>
 
       <div className="ilan-katalog__toolbar">
-        <div className="ilan-katalog__view-toggle" role="group" aria-label="Gorunum">
-          <button type="button" className={view === "list" ? "is-active" : ""} onClick={() => setViewMode("list")}>
+        <div className="ilan-katalog__view-toggle" role="group" aria-label="Görünüm">
+          <button type="button" aria-pressed={view === "list"} className={view === "list" ? "is-active" : ""} onClick={() => setViewMode("list")}>
             <List className="h-4 w-4" aria-hidden /> Liste
           </button>
-          <button type="button" className={view === "grid" ? "is-active" : ""} onClick={() => setViewMode("grid")}>
+          <button type="button" aria-pressed={view === "grid"} className={view === "grid" ? "is-active" : ""} onClick={() => setViewMode("grid")}>
             <LayoutGrid className="h-4 w-4" aria-hidden /> Grid
           </button>
-          <button type="button" className={view === "map" ? "is-active" : ""} onClick={() => setViewMode("map")}>
+          <button type="button" aria-pressed={view === "map"} className={view === "map" ? "is-active" : ""} onClick={() => setViewMode("map")}>
             <MapIcon className="h-4 w-4" aria-hidden /> Harita
           </button>
         </div>
+        <button type="button" className="ilan-katalog__filters-toggle" onClick={() => setShowFilters((prev) => !prev)}>
+          {showFilters ? "Filtreleri gizle" : "Filtreleri göster"}
+        </button>
         <label>
-          <span className="sr-only">Siralama</span>
+          <span className="sr-only">Sıralama</span>
           <select value={sort} onChange={(e) => updateParam("siralama", e.target.value)}>
             <option value="yeni">En yeni</option>
             <option value="fiyat">Fiyat (artan)</option>
@@ -203,14 +224,29 @@ export default function IlanlarKatalog() {
           </select>
         </label>
       </div>
+      <div className="ilan-katalog__result-meta" aria-live="polite">
+        <span>{filtered.length} sonuç bulundu</span>
+      </div>
+      {activeFilters.length > 0 ? (
+        <div className="ilan-katalog__active-filters" aria-label="Aktif filtreler">
+          {activeFilters.map((filter) => (
+            <button key={filter.key} type="button" onClick={() => updateParam(filter.key, "")}>
+              {filter.label}: {filter.value} ×
+            </button>
+          ))}
+          <button type="button" className="ilan-katalog__clear-all" onClick={() => setSearchParams(new URLSearchParams(), { replace: true })}>
+            Tümünü temizle
+          </button>
+        </div>
+      ) : null}
 
       <div className="ilan-landing__layout">
-        <aside className="ilan-landing__filters" aria-label="Filtreler">
+        <aside className={`ilan-landing__filters ${showFilters ? "is-open" : ""}`} aria-label="Filtreler">
           <h2>Filtreler</h2>
           <label>
             <span>Kategori</span>
             <select value={category} onChange={(e) => updateParam("kategori", e.target.value)}>
-              <option value="">Tumu</option>
+              <option value="">Tümü</option>
               {Object.values(TAXONOMY).map((c) => (
                 <option key={c.key} value={c.key}>
                   {c.labelTR}
@@ -221,7 +257,7 @@ export default function IlanlarKatalog() {
           <label>
             <span>Alt kategori</span>
             <select value={sub} disabled={!category} onChange={(e) => updateParam("alt", e.target.value)}>
-              <option value="">Tumu</option>
+              <option value="">Tümü</option>
               {subOptions.map((s) => (
                 <option key={s.key} value={s.key}>
                   {s.labelTR}
@@ -232,7 +268,7 @@ export default function IlanlarKatalog() {
           <label>
             <span>Tip</span>
             <select value={type} disabled={!sub} onChange={(e) => updateParam("tip", e.target.value)}>
-              <option value="">Tumu</option>
+              <option value="">Tümü</option>
               {typeOptions.map((t) => (
                 <option key={t.key} value={t.key}>
                   {t.labelTR}
@@ -243,7 +279,7 @@ export default function IlanlarKatalog() {
           <label>
             <span>Modalite</span>
             <select value={modality ?? ""} onChange={(e) => updateParam("modalite", e.target.value)}>
-              <option value="">Tumu</option>
+              <option value="">Tümü</option>
               <option value="listing_only">Satılık / kiralık</option>
               <option value="auction">İhale</option>
               <option value="sealed_offers">Kapalı teklif</option>
@@ -266,11 +302,11 @@ export default function IlanlarKatalog() {
             <input type="number" value={maxSqm ?? ""} onChange={(e) => updateParam("maxM2", e.target.value)} />
           </label>
           <label>
-            <span>Sehir</span>
+            <span>Şehir</span>
             <input type="search" value={city ?? ""} onChange={(e) => updateParam("sehir", e.target.value)} style={{ fontSize: "16px" }} />
           </label>
           <label>
-            <span>Ilce / mahalle</span>
+            <span>İlçe / mahalle</span>
             <input type="search" value={district ?? ""} onChange={(e) => updateParam("ilce", e.target.value)} style={{ fontSize: "16px" }} />
           </label>
           <EarthquakeFilters searchParams={searchParams} onChangeKey={updateParam} />
@@ -283,9 +319,9 @@ export default function IlanlarKatalog() {
           ) : null}
         </aside>
 
-        <section className="ilan-landing__grid-wrap" aria-label="Ilan listesi">
+        <section className="ilan-landing__grid-wrap" aria-label="İlan listesi">
           {view === "map" ? (
-            <Suspense fallback={<p className="ilan-landing__empty">Harita yukleniyor…</p>}>
+            <Suspense fallback={<p className="ilan-landing__empty">Harita yükleniyor…</p>}>
               <IlanlarMapInner properties={filtered} />
             </Suspense>
           ) : loadingList ? (
@@ -327,7 +363,7 @@ export default function IlanlarKatalog() {
                 disabled={safePage <= 1}
                 onClick={() => updateParam("sayfa", String(safePage - 1))}
               >
-                Onceki
+                Önceki
               </button>
               <span>
                 Sayfa {safePage} / {totalPages}
