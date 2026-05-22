@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Clock3, Heart, MapPin } from "lucide-react";
 import type { PropertyRecord } from "@/types/property";
 import { EarthquakeScoreBadge } from "@/components/property/EarthquakeScoreBadge";
+import { ListingCoverImage } from "@/components/ListingCoverImage";
 import "@/styles/afet-disaster-hub.css";
 import {
   getPropertyHero,
@@ -57,7 +58,7 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
       <div className="ilan-card__media-wrap">
         <Link to={`/ilanlar/${property.id}`} className="ilan-card__media">
           {hero ? (
-            <img src={hero} alt="" loading="lazy" />
+            <ListingCoverImage src={hero} alt={getPropertyTitle(property)} className="w-full h-full object-cover" />
           ) : (
             <div className="ilan-card__media-fallback" aria-hidden />
           )}

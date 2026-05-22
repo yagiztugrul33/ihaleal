@@ -32,6 +32,7 @@ import {
 } from "@/types/property";
 import { PropertyListingCard } from "@/components/ilan/PropertyListingCard";
 import { IlanDetailTabs } from "@/components/ilan/IlanDetailTabs";
+import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { useFavorites } from "@/hooks/useFavorites";
 import "@/styles/ilan-pages.css";
 
@@ -225,7 +226,12 @@ function HeroSection(props: {
           className="ilan-detay__gallery-main"
           onClick={() => onOpenLightbox(hero)}
         >
-          <img src={hero} alt="" loading="eager" decoding="async" width={1280} height={800} />
+          <ListingCoverImage
+            src={hero}
+            alt={getPropertyTitle(property)}
+            loading="eager"
+            className="w-full h-full object-cover"
+          />
           <span className="ilan-detay__zoom-chip">
             <Expand className="h-3.5 w-3.5" />
             Büyüt
@@ -239,7 +245,7 @@ function HeroSection(props: {
               className={`ilan-detay__thumb ${src === hero ? "is-active" : ""}`}
               onClick={() => onSelectImage(src)}
             >
-              <img src={src} alt="" loading="lazy" decoding="async" width={320} height={320} />
+              <ListingCoverImage src={src} alt={getPropertyTitle(property)} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>
