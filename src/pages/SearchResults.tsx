@@ -10,10 +10,13 @@ import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { getListingNumber } from "@/lib/listingNumber";
 import { resolveListingDetailPath } from "@/lib/listingRoutes";
+import { formatTry } from "@/lib/valuation/valuationEngine";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
 }
+
+const QUICK_SEARCHES = ["Kadıköy", "Villa", "İzmir", "Arsa", "İhale"] as const;
 
 export default function SearchResults() {
   const navigate = useNavigate();
@@ -71,7 +74,7 @@ export default function SearchResults() {
           <Search className="w-8 h-8 text-blue-400" />
           İlan arama
         </h1>
-        <p className="text-slate-400 text-sm mb-2">Şema.org SearchAction ile uyumlu arama sayfası (demo veri + tarayıcıda kayıtlı ilanlar).</p>
+        <p className="text-slate-400 text-sm mb-2">İl, ilçe, kategori veya ilan numarasına göre hızlı arama yapın.</p>
         <p className="text-sm text-slate-500 mb-6">
           Platform ücreti (taslak):{" "}
           <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/komisyon-modeli")}>komisyon modeli</button>
@@ -93,10 +96,45 @@ export default function SearchResults() {
         </form>
 
         {query.length < 2 ? (
-          <p className="text-slate-500 text-sm">Aramak için en az 2 karakter girin.</p>
+          <div className="space-y-3">
+            <p className="text-slate-500 text-sm">Aramak için en az 2 karakter girin.</p>
+            <div className="flex flex-wrap gap-2">
+              {QUICK_SEARCHES.map((term) => (
+                <button
+                  key={term}
+                  type="button"
+                  className="rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs text-slate-300 transition hover:border-cyan-400/60 hover:text-white"
+                  onClick={() => {
+                    setQuery(term);
+                    setParams({ q: term });
+                  }}
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
+          </div>
         ) : results.length === 0 ? (
           <Card className="bg-slate-900/50 border-slate-200/80">
-            <CardContent className="p-8 text-center text-slate-500">Sonuç bulunamadı.</CardContent>
+            <CardContent className="space-y-3 p-8 text-center text-slate-500">
+              <p>Sonuç bulunamadı.</p>
+              <p className="text-xs text-slate-400">Daha geniş bir arama terimi deneyin veya hazır aramalardan birini seçin.</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {QUICK_SEARCHES.map((term) => (
+                  <button
+                    key={`empty-${term}`}
+                    type="button"
+                    className="rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs text-slate-300 transition hover:border-cyan-400/60 hover:text-white"
+                    onClick={() => {
+                      setQuery(term);
+                      setParams({ q: term });
+                    }}
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </CardContent>
           </Card>
         ) : (
           <ul className="space-y-3">
@@ -129,7 +167,7 @@ export default function SearchResults() {
                     <ListingDocumentFooter auction={auction} compact />
                     </div>
                     <div className="flex-shrink-0 self-center text-sm font-bold text-blue-400">
-                      {(auction.currentBid / 1_000_000).toFixed(1)}M ₺
+                      {formatTry(auction.currentBid)}
                     </div>
                   </div>
                 </button>
