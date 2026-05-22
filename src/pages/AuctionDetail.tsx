@@ -67,9 +67,10 @@ import {
   HEMEN_AL_GATE_TITLE,
   HEMEN_AL_MASAK_BLOCK,
 } from "@/legal/hemenAlLansmanMetinleri";
-import { MASTER_LEGAL_DISCLAIMER, MODULE3_HEMEN_AL_ACCEPTANCE } from "@/legal/masterContractCheckboxTexts";
+import { MODULE3_HEMEN_AL_ACCEPTANCE } from "@/legal/masterContractCheckboxTexts";
 import { BID_GATE_CHECKBOXES, initialBidGateAck, isBidGateComplete } from "@/legal/bidGateAgreement";
 import { placeBidRpc, minNextBidTry, parsePositiveTryFromInput } from "@/lib/placeBid";
+import { AI_VALUATION_DISCLAIMER, MASTER_INFO_DISCLAIMER } from "@/legal/platformDisclaimers";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, LineChart, Line,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -103,6 +104,7 @@ function isValidDemoCardToken(value: string): boolean {
 const BIDDER_MASKS = ["ALC-01", "YTR-22", "KRM-07", "FON-13", "TRD-09", "PRT-17"] as const;
 const GALLERY_FALLBACK =
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%230a1f44'/><stop offset='100%' stop-color='%233b82f6'/></linearGradient></defs><rect width='1200' height='675' fill='url(%23g)'/><text x='50%' y='50%' fill='white' text-anchor='middle' font-family='Arial' font-size='34'>ihaleal.com ilan gorseli</text></svg>";
+const AUCTION_INFO_DISCLAIMER = `${MASTER_INFO_DISCLAIMER} ${AI_VALUATION_DISCLAIMER}`;
 
 function maskBidderName(raw: string): string {
   const normalized = raw.replace(/[^a-zA-Z0-9]/g, "");
@@ -1253,6 +1255,9 @@ export default function AuctionDetail() {
                         <AIBadge label="Talep Endeksi" value={`${areaStats.demandIndex}/100`} color="violet" />
                         <AIBadge label="Yıllık Artış" value={`%${areaStats.priceChangeYearly}`} color="amber" />
                       </div>
+                      <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5 mt-3">
+                        {MASTER_INFO_DISCLAIMER}
+                      </p>
                     </div>
                   </div>
                   <div>
@@ -1280,7 +1285,7 @@ export default function AuctionDetail() {
                   <div className="text-xs text-slate-500 mt-1">₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²</div>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
+                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini (resmi ekspertiz değildir)</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
                   <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-lg p-2.5 bg-white/[0.02]">
@@ -1380,7 +1385,7 @@ export default function AuctionDetail() {
                 {!isListingOnly ? (
                   <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-3">
                     <div className="mb-2 flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-slate-400">
-                      <span>Teklif Derinliği</span>
+                      <span>Açık artırma teklif derinliği</span>
                       <span className="inline-flex items-center gap-1 text-emerald-300">
                         <i className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" aria-hidden /> CANLI
                       </span>
@@ -1550,7 +1555,7 @@ export default function AuctionDetail() {
           </DialogHeader>
           <div className="space-y-4 py-2">
             <p className="text-[10px] text-amber-200/90 leading-relaxed rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2">
-              {MASTER_LEGAL_DISCLAIMER}
+              {AUCTION_INFO_DISCLAIMER}
             </p>
             <p className="text-[11px] text-slate-500 leading-relaxed">
               Kimlik ve iletişim bilginiz ilan sahibine <strong className="text-slate-400">açıkça gösterilmez</strong>. Kabul ve sözleşme aşamasında süreç ihaleal.com üzerinden yürütülür (üretim hedefi; bu ekran demo).
@@ -1567,6 +1572,20 @@ export default function AuctionDetail() {
               </p>
             </div>
             <div className="grid grid-cols-5 gap-2">
+              <button
+                type="button"
+                onClick={() => setBidAmount(String(Math.round(liveBid * 1.05)))}
+                className="px-2 py-2 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/30 text-xs font-semibold text-cyan-100 transition-colors"
+              >
+                +%5
+              </button>
+              <button
+                type="button"
+                onClick={() => setBidAmount(String(Math.round(liveBid * 1.1)))}
+                className="px-2 py-2 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/30 text-xs font-semibold text-cyan-100 transition-colors"
+              >
+                +%10
+              </button>
               {bidIncrements.map((inc) => (
                 <button
                   key={inc}
@@ -1736,7 +1755,7 @@ export default function AuctionDetail() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
-            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
+            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">{AUCTION_INFO_DISCLAIMER}</p>
             <p className="leading-relaxed">{HEMEN_AL_GATE_INTRO}</p>
             <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
               <p className="text-xs font-semibold text-emerald-200">MASAK / AML</p>
