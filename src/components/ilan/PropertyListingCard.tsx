@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Clock3, Heart, MapPin } from "lucide-react";
+import { BadgeCheck, Clock3, Heart, MapPin, ShieldCheck } from "lucide-react";
 import type { PropertyRecord } from "@/types/property";
 import { EarthquakeScoreBadge } from "@/components/property/EarthquakeScoreBadge";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
@@ -12,6 +12,7 @@ import {
 } from "@/types/property";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { useFavorites } from "@/hooks/useFavorites";
+import { buildSellerTrustProfile } from "@/lib/sellerTrust";
 
 export interface PropertyListingCardProps {
   property: PropertyRecord;
@@ -43,6 +44,7 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
   const positive = changePct >= 0;
   const details = (property.details ?? {}) as Record<string, unknown>;
   const modeBadge = listingModeBadge(property);
+  const seller = buildSellerTrustProfile(property.id);
   const endDateRaw = typeof details.auctionEndAt === "string" ? details.auctionEndAt : null;
   const remainingText = (() => {
     if (!endDateRaw) return "Süre: Bilgi yok";
@@ -104,6 +106,10 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           {price != null ? formatTry(price) : "Fiyat sorunuz"}
           {property.dealType === "rent" ? <small>/ ay</small> : null}
         </p>
+        <p className="flex items-center gap-1 text-xs text-emerald-300">
+          <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
+          Doğrulanmış satıcı · {seller.completedDeals} işlem
+        </p>
         <div className="ilan-card__auction-line">
           <span>Güncel teklif: {currentBid > 0 ? formatTry(currentBid) : "—"}</span>
           <span className={positive ? "ilan-card__change is-up" : "ilan-card__change is-down"}>
@@ -130,6 +136,10 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           ) : null}
           <Link to={`/ilanlar/${property.id}`} className="ilan-card__watch">
             İzle
+          </Link>
+          <Link to={`/emlakci/${seller.slug}`} className="ilan-card__watch" aria-label="Satıcı profilini aç">
+            <ShieldCheck className="mr-1 h-3.5 w-3.5" aria-hidden />
+            Satıcı Profili
           </Link>
         </div>
       </div>

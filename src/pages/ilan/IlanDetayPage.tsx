@@ -4,6 +4,7 @@ import {
   BedDouble,
   Building2,
   CalendarDays,
+  BadgeCheck,
   Clock,
   Expand,
   Heart,
@@ -15,6 +16,7 @@ import {
   MessageCircle,
   Gavel,
   ShoppingCart,
+  ShieldCheck,
   X,
 } from "lucide-react";
 import { getPropertyById, getRelatedProperties } from "@/lib/demo-data";
@@ -35,6 +37,7 @@ import { IlanDetailTabs } from "@/components/ilan/IlanDetailTabs";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { buildSellerTrustProfile } from "@/lib/sellerTrust";
 import "@/styles/ilan-pages.css";
 
 function formatTry(amount: number): string {
@@ -201,6 +204,7 @@ function HeroSection(props: {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { hero, images, property, price, location, isLive, onSelectImage, onOpenLightbox } = props;
+  const seller = buildSellerTrustProfile(property.id);
   const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/#/ilanlar/${property.id}` : `/ilanlar/${property.id}`;
 
   const pushToast = (message: string) => {
@@ -312,6 +316,25 @@ function HeroSection(props: {
             <MessageCircle className="h-4 w-4" />
             Soru Sor
           </Link>
+        </div>
+        <div className="mt-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-100">
+          <p className="mb-2 flex items-center gap-2 font-semibold">
+            <BadgeCheck className="h-4 w-4" aria-hidden /> Güven katmanı aktif
+          </p>
+          <p className="mb-2">
+            {seller.displayName} · {seller.completedDeals} tamamlanan işlem · {seller.membershipMonths} ay üyelik
+            · Puan {seller.score.toFixed(1)}/5
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {seller.badges.map((badge) => (
+              <span key={badge} className="inline-flex items-center gap-1 rounded-full border border-emerald-300/40 px-2 py-1">
+                <ShieldCheck className="h-3 w-3" aria-hidden /> {badge}
+              </span>
+            ))}
+            <Link to={`/emlakci/${seller.slug}`} className="inline-flex items-center rounded-full border border-cyan-300/40 px-2 py-1 text-cyan-100">
+              Satıcı profiline git
+            </Link>
+          </div>
         </div>
         <dl className="ilan-detay__quick-facts">
           {property.grossSqm ? (
