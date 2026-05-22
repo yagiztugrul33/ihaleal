@@ -211,6 +211,34 @@ function buildComparables(seq: number, basePrice: number, city: string): Record<
   });
 }
 
+function resolveSqm(slot: TaxonSlot, h: number): number {
+  if (slot.category === "konut") {
+    if (slot.sub === "villa") return 180 + (h % 260);
+    if (slot.sub === "rezidans") return 95 + (h % 180);
+    if (slot.sub === "yazlik") return 80 + (h % 170);
+    return 80 + (h % 170);
+  }
+  if (slot.category === "ticari") return 70 + (h % 360);
+  if (slot.category === "endustri") return 650 + (h % 2900);
+  if (slot.category === "konaklama") return 380 + (h % 2300);
+  if (slot.category === "arsa" || slot.category === "altyapi") return 900 + (h % 11500);
+  if (slot.category === "komple") return 900 + (h % 5200);
+  if (slot.category === "devren") return 60 + (h % 380);
+  return 100 + (h % 240);
+}
+
+function resolveUnitPrice(slot: TaxonSlot, h: number): number {
+  if (slot.category === "konut") return 55_000 + (h % 125) * 1_000;
+  if (slot.category === "ticari") return 45_000 + (h % 110) * 1_000;
+  if (slot.category === "endustri") return 20_000 + (h % 55) * 1_000;
+  if (slot.category === "konaklama") return 60_000 + (h % 120) * 1_000;
+  if (slot.category === "arsa") return 4_000 + (h % 40) * 1_000;
+  if (slot.category === "altyapi") return 3_000 + (h % 26) * 1_000;
+  if (slot.category === "komple") return 32_000 + (h % 90) * 1_000;
+  if (slot.category === "devren") return 25_000 + (h % 65) * 1_000;
+  return 35_000 + (h % 80) * 1_000;
+}
+
 function buildBids(propertyId: string, seq: number, start: number, current: number): Record<string, unknown>[] {
   const count = 4 + (hashSeed(seq) % 5);
   const bids: Record<string, unknown>[] = [];
@@ -420,10 +448,8 @@ function buildOne(seq: number, slot: TaxonSlot): PropertyRecord {
   const place = CITIES[(seq - 1) % CITIES.length];
   const district = place.districts[(seq - 1) % place.districts.length];
   const neighborhood = ["Merkez", "Yeni Mahalle", "Sahil", "İş Merkezi"][(seq - 1) % 4];
-  const sqm = slot.category === "arsa" || slot.category === "altyapi"
-    ? 1200 + (h % 18000)
-    : 75 + (h % 4200);
-  const price = roundMoney(sqm * (18_000 + (h % 45) * 1000));
+  const sqm = resolveSqm(slot, h);
+  const price = roundMoney(sqm * resolveUnitPrice(slot, h));
   const startingBid = roundMoney(price * 0.88);
   const currentBid = roundMoney(price * 0.94);
   const endDate = isoDaysFromNow(3 + (h % 21));
