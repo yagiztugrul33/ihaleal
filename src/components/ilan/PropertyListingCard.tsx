@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BadgeCheck, Clock3, Heart, MapPin, ShieldCheck } from "lucide-react";
+import { BadgeCheck, Clock3, GitCompare, Heart, MapPin, ShieldCheck } from "lucide-react";
 import type { PropertyRecord } from "@/types/property";
 import { EarthquakeScoreBadge } from "@/components/property/EarthquakeScoreBadge";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
@@ -12,6 +12,7 @@ import {
 } from "@/types/property";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useCompareSelection } from "@/hooks/useCompareSelection";
 import { buildSellerTrustProfile } from "@/lib/sellerTrust";
 
 export interface PropertyListingCardProps {
@@ -34,6 +35,7 @@ function listingModeBadge(property: PropertyRecord): { label: string; tone: "auc
 
 export function PropertyListingCard({ property }: PropertyListingCardProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { has, toggle, isFull } = useCompareSelection();
   const hero = getPropertyHero(property);
   const price = getPropertyPrice(property);
   const location = getPropertyLocation(property);
@@ -137,6 +139,16 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           <Link to={`/ilanlar/${property.id}`} className="ilan-card__watch">
             İzle
           </Link>
+          <button
+            type="button"
+            className="ilan-card__watch"
+            aria-label={has(property.id) ? "Karşılaştırmadan çıkar" : "Karşılaştırmaya ekle"}
+            onClick={() => toggle(property.id)}
+            disabled={!has(property.id) && isFull}
+          >
+            <GitCompare className="mr-1 h-3.5 w-3.5" aria-hidden />
+            {has(property.id) ? "Seçildi" : "Karşılaştır"}
+          </button>
           <Link to={`/emlakci/${seller.slug}`} className="ilan-card__watch" aria-label="Satıcı profilini aç">
             <ShieldCheck className="mr-1 h-3.5 w-3.5" aria-hidden />
             Satıcı Profili

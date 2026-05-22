@@ -334,6 +334,11 @@
 .ilan-katalog__view-toggle button.is-active { background: rgba(13,148,136,0.15); border-color: #0d9488; }
 .ilan-katalog__filters-toggle { display: none; min-height: 44px; padding: 0.45rem 0.8rem; border-radius: 8px; border: 1px solid rgba(148,163,184,0.35); background: #fff; }
 .ilan-katalog__result-meta { margin-bottom: 0.6rem; font-size: 0.85rem; color: #64748b; }
+.ilan-katalog__compare-tray { margin-bottom: 0.75rem; border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 0.6rem 0.75rem; background: rgba(14, 116, 144, 0.08); font-size: 0.78rem; color: #0f172a; }
+.ilan-katalog__compare-tray-items { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
+.ilan-katalog__compare-tray-items span { border-radius: 999px; background: rgba(56, 189, 248, 0.18); border: 1px solid rgba(56, 189, 248, 0.3); padding: 0.15rem 0.55rem; }
+.ilan-katalog__compare-tray-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; margin-top: 0.5rem; }
+.ilan-katalog__compare-tray-actions a, .ilan-katalog__compare-tray-actions button { min-height: 34px; border-radius: 999px; border: 1px solid rgba(15, 23, 42, 0.15); background: #fff; padding: 0.2rem 0.7rem; font-size: 0.74rem; text-decoration: none; color: #0f172a; }
 .ilan-katalog__active-filters { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1rem; }
 .ilan-katalog__active-filters button { min-height: 36px; border-radius: 999px; border: 1px solid rgba(13,148,136,0.24); background: rgba(13,148,136,0.08); padding: 0.25rem 0.65rem; font-size: 0.74rem; color: #0f172a; }
 .ilan-katalog__active-filters .ilan-katalog__clear-all { border-color: rgba(148,163,184,0.4); background: rgba(148,163,184,0.1); }

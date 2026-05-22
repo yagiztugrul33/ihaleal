@@ -10,6 +10,7 @@ import {
 } from "@/components/search/EarthquakeFilters";
 import { getEarthquakeScore } from "@/lib/scoring/getEarthquakeScore";
 import { getPropertyPrice } from "@/types/property";
+import { useCompareSelection } from "@/hooks/useCompareSelection";
 import "@/styles/ilan-pages.css";
 
 const IlanlarMapInner = lazy(() => import("@/pages/ilan/IlanlarMapInner"));
@@ -33,6 +34,7 @@ export default function IlanlarKatalog() {
   );
   const [loadingList, setLoadingList] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const { ids: compareIds, clear: clearCompare } = useCompareSelection();
 
   const q = searchParams.get("q") ?? "";
   const category = searchParams.get("kategori") ?? "";
@@ -144,6 +146,10 @@ export default function IlanlarKatalog() {
   const catMeta = category && isCategoryKey(category) ? TAXONOMY[category] : null;
   const subOptions = catMeta?.subcategories ?? [];
   const typeOptions = subOptions.find((s) => s.key === sub)?.types ?? [];
+  const compareItems = useMemo(
+    () => getAllProperties().filter((p) => compareIds.includes(p.id)),
+    [compareIds]
+  );
 
   const setViewMode = (v: ViewMode) => {
     setView(v);
@@ -227,6 +233,22 @@ export default function IlanlarKatalog() {
       <div className="ilan-katalog__result-meta" aria-live="polite">
         <span>{filtered.length} sonuç bulundu</span>
       </div>
+      {compareItems.length > 0 ? (
+        <div className="ilan-katalog__compare-tray" aria-label="Karşılaştırma tepsisi">
+          <span>{compareItems.length}/3 ilan karşılaştırma listesinde</span>
+          <div className="ilan-katalog__compare-tray-items">
+            {compareItems.map((item) => (
+              <span key={item.id}>{item.title}</span>
+            ))}
+          </div>
+          <div className="ilan-katalog__compare-tray-actions">
+            <Link to={`/karsilastir?ids=${compareItems.map((item) => item.id).join(",")}`}>Karşılaştırmaya git</Link>
+            <button type="button" onClick={clearCompare}>
+              Temizle
+            </button>
+          </div>
+        </div>
+      ) : null}
       {activeFilters.length > 0 ? (
         <div className="ilan-katalog__active-filters" aria-label="Aktif filtreler">
           {activeFilters.map((filter) => (
