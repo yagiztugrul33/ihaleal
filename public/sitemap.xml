@@ -5,6 +5,8 @@
   <url><loc>https://ihaleal.com/analiz</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/anayasa</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/anayasa-400</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/ankara-gayrimenkul</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/antalya-gayrimenkul-ihale</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/araclar/finans-uyumluluk</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/araclar/vergi-simulator</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/arama</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -15,6 +17,8 @@
   <url><loc>https://ihaleal.com/bildirimler</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/borsa</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/borsa/portfoy</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/bursa-emlak-ihale</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/canliya-hazirlik</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/cerez-politikasi</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/dashboard</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -46,6 +50,8 @@
   <url><loc>https://ihaleal.com/ilanlar/ges</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/ilanlar/turizm</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/iletisim</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/istanbul-ihaleleri</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/izmir-acik-artirma</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/kapali-teklif</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/karsilastir</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/karsilastir-rakipler</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -114,6 +120,12 @@
   <url><loc>https://ihaleal.com/rehber</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://ihaleal.com/reklam</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/sat-basla</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/sehir/Adana</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/sehir/Ankara</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/sehir/Antalya</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/sehir/Bursa</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/sehir/Istanbul</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/sehir/Izmir</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/sehirler</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/sifremi-unuttum</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/sss</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>

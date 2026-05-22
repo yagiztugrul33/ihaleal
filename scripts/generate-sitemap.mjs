@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const appPath = path.join(root, "src", "App.tsx");
+const seoLandingsPath = path.join(root, "src", "data", "seoLandings.ts");
 const sitemapPath = path.join(root, "public", "sitemap.xml");
 const origin = "https://ihaleal.com";
 
@@ -45,9 +46,24 @@ function asXml(routes) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 }
 
+function extractSeoLandingPaths(source) {
+  const out = new Set();
+  const re = /path:\s*"([^"]+)"/g;
+  let m;
+  while ((m = re.exec(source)) !== null) {
+    const p = m[1];
+    if (p.startsWith("/")) out.add(p);
+  }
+  return [...out];
+}
+
 async function main() {
   const source = await fs.readFile(appPath, "utf8");
-  const routes = extractPaths(source);
+  const seoLandingsSource = await fs.readFile(seoLandingsPath, "utf8");
+  const baseRoutes = extractPaths(source);
+  const seoLandingRoutes = extractSeoLandingPaths(seoLandingsSource);
+  const cityGuides = ["/sehir/Istanbul", "/sehir/Ankara", "/sehir/Izmir", "/sehir/Antalya", "/sehir/Bursa", "/sehir/Adana"];
+  const routes = [...new Set([...baseRoutes, ...seoLandingRoutes, ...cityGuides])].sort();
   await fs.writeFile(sitemapPath, asXml(routes), "utf8");
   console.log(`[generate-sitemap] wrote ${routes.length} routes to public/sitemap.xml`);
 }
