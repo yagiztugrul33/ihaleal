@@ -31,6 +31,15 @@ export default function CommissionCalculator() {
   const navigate = useNavigate();
   const [saleStr, setSaleStr] = useState("5000000");
   const [rentStr, setRentStr] = useState("35000");
+  const [loanPrincipalStr, setLoanPrincipalStr] = useState("3000000");
+  const [loanMonthsStr, setLoanMonthsStr] = useState("120");
+  const [loanRateStr, setLoanRateStr] = useState("2.89");
+  const [yieldPriceStr, setYieldPriceStr] = useState("6000000");
+  const [yieldRentStr, setYieldRentStr] = useState("32000");
+  const [titleFeeBaseStr, setTitleFeeBaseStr] = useState("5000000");
+  const [gainBuyStr, setGainBuyStr] = useState("3000000");
+  const [gainSellStr, setGainSellStr] = useState("5000000");
+  const [gainYearsStr, setGainYearsStr] = useState("3");
   const [rentTransferStr, setRentTransferStr] = useState("50000");
   const [rentScenario, setRentScenario] = useState<RentalSplitScenario>("dual_realtor");
   const [sellerMembershipPaid, setSellerMembershipPaid] = useState(true);
@@ -61,6 +70,25 @@ export default function CommissionCalculator() {
   );
 
   const rentAmount = Math.max(0, Number(String(rentStr).replace(/\D/g, "")) || 0);
+  const loanPrincipal = Math.max(0, Number(String(loanPrincipalStr).replace(/\D/g, "")) || 0);
+  const loanMonths = Math.max(1, Number(String(loanMonthsStr).replace(/\D/g, "")) || 1);
+  const loanRate = Math.max(0, Number(String(loanRateStr).replace(",", ".")) || 0);
+  const monthlyRate = loanRate / 100;
+  const monthlyInstallment =
+    monthlyRate > 0
+      ? (loanPrincipal * monthlyRate * Math.pow(1 + monthlyRate, loanMonths)) / (Math.pow(1 + monthlyRate, loanMonths) - 1)
+      : loanPrincipal / loanMonths;
+  const yieldPrice = Math.max(1, Number(String(yieldPriceStr).replace(/\D/g, "")) || 1);
+  const yieldRent = Math.max(0, Number(String(yieldRentStr).replace(/\D/g, "")) || 0);
+  const annualYieldPct = (yieldRent * 12 * 100) / yieldPrice;
+  const amortizationYears = yieldRent > 0 ? yieldPrice / (yieldRent * 12) : 0;
+  const titleFeeBase = Math.max(0, Number(String(titleFeeBaseStr).replace(/\D/g, "")) || 0);
+  const titleFee = titleFeeBase * 0.04;
+  const gainBuy = Math.max(0, Number(String(gainBuyStr).replace(/\D/g, "")) || 0);
+  const gainSell = Math.max(0, Number(String(gainSellStr).replace(/\D/g, "")) || 0);
+  const gainYears = Math.max(0, Number(String(gainYearsStr).replace(/\D/g, "")) || 0);
+  const capitalGain = Math.max(0, gainSell - gainBuy);
+  const estimatedCapitalGainTax = gainYears >= 5 ? 0 : capitalGain * 0.15;
   const rentTransferAmount = Math.max(0, Number(String(rentTransferStr).replace(/\D/g, "")) || 0);
 
   const landPool = useMemo(() => {
@@ -414,6 +442,53 @@ export default function CommissionCalculator() {
                   </div>
                 </dl>
               ) : null}
+            </CardContent>
+          </Card>
+
+          <Card className="border-cyan-500/20 bg-[#071326]">
+            <CardContent className="space-y-4 p-6">
+              <h2 className="text-lg font-semibold text-cyan-100">Araçlar / Hesaplayıcılar (yatırımcı)</h2>
+              <p className="text-xs text-slate-400">
+                Bu blok teklif/ödeme çekirdeğine dokunmadan sadece ön karar desteği sağlar (mock hesap).
+              </p>
+              <div className="grid gap-4">
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Kredi hesaplayıcı</p>
+                  <div className="grid gap-2 sm:grid-cols-3">
+                    <Input value={loanPrincipalStr} onChange={(e) => setLoanPrincipalStr(e.target.value)} inputMode="numeric" />
+                    <Input value={loanMonthsStr} onChange={(e) => setLoanMonthsStr(e.target.value)} inputMode="numeric" />
+                    <Input value={loanRateStr} onChange={(e) => setLoanRateStr(e.target.value)} inputMode="decimal" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">Aylık taksit (tahmini): ₺{Math.round(monthlyInstallment).toLocaleString("tr-TR")}</p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Kira getirisi</p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <Input value={yieldPriceStr} onChange={(e) => setYieldPriceStr(e.target.value)} inputMode="numeric" />
+                    <Input value={yieldRentStr} onChange={(e) => setYieldRentStr(e.target.value)} inputMode="numeric" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">
+                    Yıllık brüt getiri: %{annualYieldPct.toFixed(2)} · Amortisman: {amortizationYears.toFixed(1)} yıl
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Tapu harcı (%4)</p>
+                  <Input value={titleFeeBaseStr} onChange={(e) => setTitleFeeBaseStr(e.target.value)} inputMode="numeric" />
+                  <p className="mt-2 text-sm text-white">Tahmini tapu harcı: ₺{Math.round(titleFee).toLocaleString("tr-TR")}</p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Değer artışı vergisi</p>
+                  <div className="grid gap-2 sm:grid-cols-3">
+                    <Input value={gainBuyStr} onChange={(e) => setGainBuyStr(e.target.value)} inputMode="numeric" />
+                    <Input value={gainSellStr} onChange={(e) => setGainSellStr(e.target.value)} inputMode="numeric" />
+                    <Input value={gainYearsStr} onChange={(e) => setGainYearsStr(e.target.value)} inputMode="numeric" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">
+                    Tahmini vergi: ₺{Math.round(estimatedCapitalGainTax).toLocaleString("tr-TR")}
+                    {gainYears >= 5 ? " (5 yıl+ istisna varsayımı)" : ""}
+                  </p>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>

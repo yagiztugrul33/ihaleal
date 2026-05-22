@@ -160,6 +160,16 @@ export default function IlanDetayPage({ id }: { id: string }) {
         </div>
       </section>
 
+      <section className="ilan-detay__qa" aria-labelledby="ilan-tools-title">
+        <h2 id="ilan-tools-title">Yatırımcı hesaplayıcıları</h2>
+        <p className="ilan-detay__empty-hint">
+          Kredi taksiti, kira getirisi, tapu harcı ve değer artışı vergisi için birleşik hesaplayıcıyı açın.
+        </p>
+        <Link to="/komisyon-hesaplayici" className="ilan-detay__cta-link">
+          Araçlar / Hesaplayıcılar
+        </Link>
+      </section>
+
       <aside className="ilan-detay__ai-panel" aria-label="AI asistan">
         <h3>Bu ilan hakkında soru sor</h3>
         <p>Demo: &quot;Bu bölgede m² fiyatı nasıl?&quot;, &quot;İhaleye katılım şartları neler?&quot;</p>
