@@ -33,6 +33,7 @@ import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand
 import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
 import { EmergencyActionBand } from "@/components/EmergencyActionBand";
 import { PlatformModulesShowcase } from "@/sections/PlatformModulesShowcase";
+import { RecentlyViewed } from "@/sections/RecentlyViewed";
 import { ROUTES } from "@/constants/routes";
 import { homeStepHref } from "@/data/nasilCalisirRoutes";
 import { getAllProperties, getFeaturedAuctions } from "@/lib/demo-data";
@@ -851,6 +852,8 @@ export default function PremiumCinematicHome() {
           </div>
         </div>
       </section>
+
+      <RecentlyViewed />
 
       <section className="premium-testimonials" aria-labelledby="premium-testimonials-title">
         <h2 id="premium-testimonials-title">{home.testimonials.heading}</h2>

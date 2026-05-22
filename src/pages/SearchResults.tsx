@@ -9,6 +9,7 @@ import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { getListingNumber } from "@/lib/listingNumber";
+import { resolveListingDetailPath } from "@/lib/listingRoutes";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
@@ -103,7 +104,7 @@ export default function SearchResults() {
               <li key={`${auction.id}-${auction.title}`}>
                 <button
                   type="button"
-                  onClick={() => navigate(`/ilan/${auction.id}`)}
+                  onClick={() => navigate(resolveListingDetailPath(auction.id))}
                   className="w-full min-w-0 text-left rounded-xl border border-slate-200/80 bg-slate-900/40 p-4 transition-colors hover:border-blue-500/30 hover:bg-slate-900/70"
                 >
                   <div className="flex min-w-0 gap-4">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   BedDouble,
@@ -34,6 +34,7 @@ import { PropertyListingCard } from "@/components/ilan/PropertyListingCard";
 import { IlanDetailTabs } from "@/components/ilan/IlanDetailTabs";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import "@/styles/ilan-pages.css";
 
 function formatTry(amount: number): string {
@@ -48,6 +49,11 @@ export default function IlanDetayPage({ id }: { id: string }) {
   const property = getPropertyById(id);
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const { addRecent } = useRecentlyViewed();
+
+  useEffect(() => {
+    addRecent(id);
+  }, [addRecent, id]);
 
   if (!property) {
     return (

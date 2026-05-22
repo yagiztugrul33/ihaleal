@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AUCTIONS } from "@/data/auctions";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
+import { resolveListingDetailPath } from "@/lib/listingRoutes";
 
 type AuctionItem = (typeof AUCTIONS)[number];
 
@@ -41,7 +42,7 @@ export function RecentlyViewed() {
               <Eye className="w-7 h-7 text-sky-400" />
               Son Inceledikleriniz
             </h2>
-            <p className="section-subtitle mt-1">Son ziyaret ettiginiz gayrimenkul ihaleleri</p>
+            <p className="section-subtitle mt-1">Son ziyaret ettiğiniz gayrimenkul ilanları</p>
           </div>
         </div>
 
@@ -50,7 +51,7 @@ export function RecentlyViewed() {
             <Card
               key={auction.id}
               className="group card-warm overflow-hidden hover:border-[var(--color-accent)] transition-all duration-500 hover:-translate-y-1 cursor-pointer"
-              onClick={() => navigate(`/ilan/${auction.id}`)}
+              onClick={() => navigate(resolveListingDetailPath(auction.id))}
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
               <div className="relative h-40 overflow-hidden">

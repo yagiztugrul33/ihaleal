@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
 import { DEMO_NOTIFICATIONS } from "@/data/notificationsDemo";
 import { Input } from "@/components/ui/input";
+import { resolveListingDetailPath } from "@/lib/listingRoutes";
 
 const sidebar = [
   { to: "/panel", label: "Özet", icon: LayoutDashboard, end: true },
@@ -55,7 +56,7 @@ export default function UserPanel() {
         title: a.title,
         myBid: a.currentBid - (idx + 1) * 50_000,
         currentBid: a.currentBid,
-        status: a.currentBid - (idx + 1) * 50_000 >= a.currentBid ? "leading" : "outbid",
+        status: idx === 0 ? "leading" : "outbid",
       })),
     [watchedAuctions],
   );
@@ -166,7 +167,7 @@ export default function UserPanel() {
                   <p className="font-medium text-white">{row.title}</p>
                   <p className="text-xs text-slate-500">{row.location} · ₺{row.currentBid.toLocaleString("tr-TR")}</p>
                 </div>
-                <Button type="button" size="sm" variant="outline" className="border-white/15" onClick={() => navigate(`/ilan/${row.id}`)}>
+                <Button type="button" size="sm" variant="outline" className="border-white/15" onClick={() => navigate(resolveListingDetailPath(row.id))}>
                   Detaya git
                 </Button>
               </div>
@@ -209,7 +210,7 @@ export default function UserPanel() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
         <aside className="lg:w-64 shrink-0 space-y-4">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2">
