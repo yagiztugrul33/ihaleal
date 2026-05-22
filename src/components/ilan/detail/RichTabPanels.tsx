@@ -46,6 +46,8 @@ import {
 } from "./shared";
 import { buildYapiRows, dealLabel, istanbulCoords, priceOf } from "./tabHelpers";
 import { AfetDisasterHub } from "@/components/property/AfetDisasterHub";
+import { ListingCoverImage } from "@/components/ListingCoverImage";
+import { normalizeAuctionImages } from "@/lib/listingImage";
 import "leaflet/dist/leaflet.css";
 
 export type RichTabKey =
@@ -446,16 +448,12 @@ function AiPanel({ property }: { property: PropertyRecord }) {
 
 function GaleriPanel({ property }: { property: PropertyRecord }) {
   const images = useMemo(() => {
-    const base = property.images?.length
-      ? property.images
-      : property.heroImage
-        ? [property.heroImage]
-        : [];
+    const base = normalizeAuctionImages(property.images?.length ? property.images : property.heroImage ? [property.heroImage] : []);
     const out = [...base];
-    while (out.length < 12) {
-      out.push(base[out.length % Math.max(base.length, 1)] ?? "/images/auction-1.jpg");
+    while (out.length < 8) {
+      out.push(base[out.length % Math.max(base.length, 1)] ?? "/images/listing-placeholder.svg");
     }
-    return out.slice(0, 12);
+    return out.slice(0, 8);
   }, [property.heroImage, property.images]);
   const [lightbox, setLightbox] = useState<string | null>(null);
   return (
@@ -463,7 +461,7 @@ function GaleriPanel({ property }: { property: PropertyRecord }) {
       <div className="idr-gallery-grid">
         {images.map((src, i) => (
           <button key={`${src}-${i}`} type="button" className="idr-gallery-item" onClick={() => setLightbox(src)}>
-            <img src={src} alt="" loading="lazy" />
+            <ListingCoverImage src={src} alt={`${property.title} galeri ${i + 1}`} className="h-full w-full" />
           </button>
         ))}
       </div>
@@ -484,7 +482,7 @@ function GaleriPanel({ property }: { property: PropertyRecord }) {
       </div>
       {lightbox ? (
         <div className="idr-lightbox" role="dialog" aria-modal onClick={() => setLightbox(null)}>
-          <img src={lightbox} alt="" />
+          <ListingCoverImage src={lightbox} alt={property.title} loading="eager" className="max-h-[90vh] max-w-[min(1100px,100%)] rounded-xl" />
         </div>
       ) : null}
     </section>

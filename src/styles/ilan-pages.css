@@ -126,6 +126,7 @@
 
 .ilan-detay__hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem; margin-bottom: 2rem; }
 @media (max-width: 900px) { .ilan-detay__hero { grid-template-columns: 1fr; } }
+.ilan-detay__gallery { display: grid; gap: 0.6rem; }
 .ilan-detay__gallery-main { display: block; width: 100%; padding: 0; border: none; border-radius: 16px; overflow: hidden; cursor: zoom-in; aspect-ratio: 16 / 10; background: linear-gradient(135deg, #0d9488, #1e3a5f); }
 .ilan-detay__gallery-main img { width: 100%; height: 100%; object-fit: cover; }
 .ilan-detay__zoom-chip {
@@ -144,7 +145,7 @@
   border: 1px solid rgba(148, 163, 184, 0.25);
 }
 .ilan-detay__gallery-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.5rem; }
-.ilan-detay__thumb { padding: 0; border: none; border-radius: 10px; overflow: hidden; cursor: pointer; aspect-ratio: 1; opacity: 0.85; transition: opacity 0.15s; }
+.ilan-detay__thumb { padding: 0; border: 1px solid rgba(158, 188, 225, 0.25); border-radius: 10px; overflow: hidden; cursor: pointer; aspect-ratio: 1; opacity: 0.9; transition: opacity 0.15s, border-color 0.15s; background: rgba(8, 17, 31, 0.8); }
 .ilan-detay__thumb:hover { opacity: 1; }
 .ilan-detay__thumb.is-active { outline: 2px solid rgba(13, 148, 136, 0.85); opacity: 1; }
 .ilan-detay__thumb img { width: 100%; height: 100%; object-fit: cover; }

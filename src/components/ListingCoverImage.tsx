@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LISTING_IMAGE_PLACEHOLDER } from "@/lib/listingImage";
+import { LISTING_IMAGE_PLACEHOLDER, normalizeListingImageUrl } from "@/lib/listingImage";
 
 type Props = {
   src: string;
@@ -8,36 +8,45 @@ type Props = {
   loading?: "lazy" | "eager";
 };
 
-function normalizeImageUrl(input: string): string {
-  const raw = String(input ?? "").trim();
-  if (!raw) return LISTING_IMAGE_PLACEHOLDER;
-  if (/^https?:\/\//i.test(raw) || raw.startsWith("data:")) return raw;
-  if (raw.startsWith("/")) return raw;
-  return `/${raw.replace(/^\.?\//, "")}`;
-}
-
 export function ListingCoverImage({ src, alt, className, loading = "lazy" }: Props) {
-  const [url, setUrl] = useState(() => normalizeImageUrl(src));
+  const [url, setUrl] = useState(() => normalizeListingImageUrl(src));
   const [loaded, setLoaded] = useState(false);
+  const [errored, setErrored] = useState(false);
 
   useEffect(() => {
-    setUrl(normalizeImageUrl(src));
+    setUrl(normalizeListingImageUrl(src));
     setLoaded(false);
+    setErrored(false);
   }, [src]);
 
   return (
-    <img
-      loading={loading}
-      decoding="async"
-      src={url}
-      alt={alt}
-      className={`${className ?? ""} transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(14, 116, 144, 0.35) 0%, rgba(30, 64, 175, 0.35) 48%, rgba(15, 23, 42, 0.65) 100%)",
-      }}
-      onLoad={() => setLoaded(true)}
-      onError={() => setUrl((u) => (u === LISTING_IMAGE_PLACEHOLDER ? u : LISTING_IMAGE_PLACEHOLDER))}
-    />
+    <span className={`relative block overflow-hidden ${className ?? ""}`}>
+      <img
+        loading={loading}
+        decoding="async"
+        src={url}
+        alt={alt}
+        className={`h-full w-full object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(14, 116, 144, 0.35) 0%, rgba(30, 64, 175, 0.35) 48%, rgba(15, 23, 42, 0.65) 100%)",
+        }}
+        onLoad={() => setLoaded(true)}
+        onError={() => {
+          if (url === LISTING_IMAGE_PLACEHOLDER) {
+            setErrored(true);
+            setLoaded(true);
+            return;
+          }
+          setErrored(true);
+          setUrl(LISTING_IMAGE_PLACEHOLDER);
+        }}
+      />
+      {!loaded || errored ? (
+        <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-900/70 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-100">
+          Gorsel yok
+        </span>
+      ) : null}
+    </span>
   );
 }

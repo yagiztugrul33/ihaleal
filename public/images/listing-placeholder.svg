@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="80" x2="1440" y2="920" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10243D" />
+      <stop offset="1" stop-color="#1B3D63" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" rx="32" fill="url(#bg)" />
+  <g opacity="0.25">
+    <circle cx="1320" cy="180" r="140" fill="#5EAAD9" />
+    <circle cx="300" cy="860" r="180" fill="#2E5F8B" />
+  </g>
+  <g transform="translate(650 330)">
+    <path d="M150 20L280 130V330H20V130L150 20Z" fill="#2D5D87" stroke="#B4D2EE" stroke-width="18" />
+    <rect x="95" y="190" width="110" height="140" rx="12" fill="#173A5A" stroke="#B4D2EE" stroke-width="12" />
+    <rect x="55" y="170" width="55" height="55" rx="8" fill="#1F4C73" stroke="#B4D2EE" stroke-width="10" />
+    <rect x="190" y="170" width="55" height="55" rx="8" fill="#1F4C73" stroke="#B4D2EE" stroke-width="10" />
+  </g>
+  <text x="800" y="760" text-anchor="middle" fill="#F8FBFF" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="700">
+    Gorsel yok
+  </text>
+  <text x="800" y="818" text-anchor="middle" fill="#B4D2EE" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="500">
+    ilan gorseli henuz yuklenmedi
+  </text>
+</svg>
