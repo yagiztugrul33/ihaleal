@@ -7,6 +7,7 @@ import { isDemoData } from "@/lib/dataStrategy";
 import { isProdBuild, localAuthEnabled } from "@/lib/runtimeFlags";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 import { BrandLockup } from "@/components/Logo";
+import { PLATFORM_LEGAL_DEFINITION, PSP_FLOW_DISCLAIMER } from "@/legal/platformDisclaimers";
 
 export function Footer() {
   const navigate = useNavigate();
@@ -27,8 +28,12 @@ export function Footer() {
               />
             </div>
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
-              Türkiye&apos;nin en güvenli gayrimenkul ihale platformu. AI destekli değerleme, şeffaf süreç, hızlı satış.
+              Türkiye&apos;nin gayrimenkul ticaret ve açık artırma platformu. AI destekli analiz, şeffaf süreç ve denetlenebilir ihale akışı.
             </p>
+            <div className="mb-5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-[11px] leading-relaxed text-amber-100">
+              <p>{PLATFORM_LEGAL_DEFINITION}</p>
+              <p className="mt-1">{PSP_FLOW_DISCLAIMER}</p>
+            </div>
             <div className="space-y-2.5">
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-blue-400" />

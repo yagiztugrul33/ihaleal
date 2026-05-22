@@ -1,12 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BarChart3, Clock3, TrendingDown, TrendingUp } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, BarChart3, BriefcaseBusiness, Clock3, TrendingDown, TrendingUp } from "lucide-react";
+import { Logo } from "@/components/Logo";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { MarketAsset, useLiveMarket } from "@/borsa/useLiveMarket";
-import { BorsaShell } from "@/borsa/BorsaShell";
+import { useLiveMarket } from "@/borsa/useLiveMarket";
+import type { MarketAsset } from "@/borsa/useLiveMarket";
+import {
+  IHALEAL_INDEX_DISCLAIMER,
+  MASTER_INFO_DISCLAIMER,
+  PLATFORM_LEGAL_DEFINITION,
+  PSP_FLOW_DISCLAIMER,
+} from "@/legal/platformDisclaimers";
 import "@/borsa/borsa.css";
 import { Line, LineChart, ResponsiveContainer } from "recharts";
 
+type TerminalTab = "piyasa" | "portfoy" | "izleme" | "veri";
 type MarketTableTab = "en_aktif" | "yukselen" | "cok_islem" | "bitiyor";
 type FlashDir = "up" | "down";
 type FeedEvent = {
@@ -17,6 +26,13 @@ type FeedEvent = {
   dir: FlashDir;
   relative: string;
 };
+
+const TERMINAL_TABS: Array<{ id: TerminalTab; label: string; disabled?: boolean }> = [
+  { id: "piyasa", label: "Piyasa" },
+  { id: "portfoy", label: "Portföy" },
+  { id: "izleme", label: "İzleme", disabled: true },
+  { id: "veri", label: "Veri", disabled: true },
+];
 
 const REGION_HEAT = [
   { name: "İstanbul Konut", key: "istanbul" },
@@ -48,10 +64,12 @@ function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: st
 export default function BorsaPage() {
   const navigate = useNavigate();
   const { data } = useLiveMarket();
+  const [activeTab, setActiveTab] = useState<TerminalTab>("piyasa");
   const [tableTab, setTableTab] = useState<MarketTableTab>("en_aktif");
   const [flashRows, setFlashRows] = useState<Record<string, FlashDir>>({});
   const [feedEvents, setFeedEvents] = useState<FeedEvent[]>([]);
   const [watchers, setWatchers] = useState(1892);
+  const [summaryFlash, setSummaryFlash] = useState<FlashDir | null>(null);
   const [historyMap, setHistoryMap] = useState<Record<string, number[]>>({});
   const prevRef = useRef<MarketAsset[] | null>(null);
 
@@ -91,6 +109,8 @@ export default function BorsaPage() {
     });
     if (Object.keys(nextFlash).length > 0) {
       setFlashRows((prevFlash) => ({ ...prevFlash, ...nextFlash }));
+      const upCount = Object.values(nextFlash).filter((value) => value === "up").length;
+      setSummaryFlash(upCount >= Math.ceil(Object.keys(nextFlash).length / 2) ? "up" : "down");
       window.setTimeout(() => {
         setFlashRows((prevFlash) => {
           const cloned = { ...prevFlash };
@@ -98,6 +118,7 @@ export default function BorsaPage() {
           return cloned;
         });
       }, 600);
+      window.setTimeout(() => setSummaryFlash(null), 600);
       setWatchers((p) => Math.max(1, p + (Math.random() > 0.5 ? 1 : -1)));
     }
     if (nextEvents.length > 0) {
@@ -167,7 +188,64 @@ export default function BorsaPage() {
     tableTab === "en_aktif" ? "En Aktif" : tableTab === "yukselen" ? "Yükselen" : tableTab === "cok_islem" ? "Çok İşlem" : "Bitiyor";
 
   return (
-    <BorsaShell activeTab="piyasa" title="Piyasa Terminali">
+    <div className="borsa-root text-slate-100">
+      <header className="sticky top-0 z-40 border-b border-slate-700/60 bg-slate-950/95 backdrop-blur-xl">
+        <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between gap-3 px-4 py-3 lg:px-6">
+          <div className="flex items-center gap-3">
+            <Logo size="lg" />
+            <div className="leading-tight">
+              <p className="text-sm font-black tracking-[0.08em] text-[#E9C56A]">GAYRİMENKUL BORSASI</p>
+              <p className="text-xs text-slate-400">gayrimenkul ticaret ve açık artırma platformu</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-slate-600 bg-slate-900/70 text-slate-200"
+              onClick={() => navigate("/borsa/portfoy")}
+            >
+              <BriefcaseBusiness className="mr-1.5 h-4 w-4" /> Portföy
+            </Button>
+            <Button asChild variant="outline" className="border-slate-600 bg-slate-900/70 text-slate-200">
+              <Link to="/">
+                <ArrowLeft className="mr-1.5 h-4 w-4" /> Ana Site
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <div className="mx-auto flex w-full max-w-[1600px] items-center gap-2 px-4 pb-3 lg:px-6">
+          {TERMINAL_TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              className={cn(
+                "borsa-nav-tab rounded-md border px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em]",
+                activeTab === tab.id ? "border-cyan-400/70 bg-cyan-500/15 text-cyan-200" : "border-slate-700 bg-slate-900/70 text-slate-400",
+              )}
+              disabled={tab.disabled}
+              aria-disabled={tab.disabled ? "true" : "false"}
+              onClick={() => {
+                if (tab.disabled) return;
+                if (tab.id === "portfoy") {
+                  navigate("/borsa/portfoy");
+                  return;
+                }
+                setActiveTab(tab.id);
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-[1600px] space-y-4 px-4 py-4 lg:px-6">
+        <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-3 py-2.5 text-[11px] leading-relaxed text-amber-100">
+          <p>{PLATFORM_LEGAL_DEFINITION}</p>
+          <p className="mt-1">{MASTER_INFO_DISCLAIMER}</p>
+          <p className="mt-1">{PSP_FLOW_DISCLAIMER}</p>
+        </section>
         <section className="borsa-card rounded-xl p-3">
           <div className="mb-2 flex items-center justify-between">
             <h2 className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Piyasa Ticker</h2>
@@ -200,7 +278,14 @@ export default function BorsaPage() {
 
         <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {summaryCards.map((card) => (
-            <article key={card.key} className="borsa-card rounded-xl p-3">
+            <article
+              key={card.key}
+              className={cn(
+                "borsa-card rounded-xl p-3",
+                summaryFlash === "up" && "borsa-flash-up",
+                summaryFlash === "down" && "borsa-flash-down",
+              )}
+            >
               <p className="text-[11px] font-bold uppercase tracking-[0.13em] text-slate-400">{card.label}</p>
               <p className="mt-1 text-2xl font-black text-white">{card.value}</p>
               <Sparkline points={card.points} color={card.color} />
@@ -212,6 +297,9 @@ export default function BorsaPage() {
           <div className="space-y-4">
             <article className="borsa-card rounded-xl p-3">
               <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bölge Endeksleri</h3>
+              <p className="mb-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
+                İhaleal Endeksi: {IHALEAL_INDEX_DISCLAIMER}
+              </p>
               <div className="space-y-2">
                 {regionIndexes.map((idx) => {
                   const up = idx.change >= 0;
@@ -359,6 +447,13 @@ export default function BorsaPage() {
             </article>
           </div>
         </section>
-    </BorsaShell>
+      </main>
+      <footer className="border-t border-slate-700/60 bg-slate-950/90 px-4 py-3 text-[11px] text-slate-300 lg:px-6">
+        <div className="mx-auto w-full max-w-[1600px] space-y-1">
+          <p>{PLATFORM_LEGAL_DEFINITION}</p>
+          <p>{PSP_FLOW_DISCLAIMER}</p>
+        </div>
+      </footer>
+    </div>
   );
 }

@@ -35,8 +35,9 @@ export function useLiveMarket() {
     const id = window.setInterval(() => {
       setData((prev) =>
         prev.map((asset) => {
-          const drift = Math.random() - 0.48;
-          const delta = drift * asset.price * 0.008;
+          const magnitudePct = 0.003 + Math.random() * 0.007;
+          const direction = Math.random() > 0.32 ? 1 : -1;
+          const delta = direction * asset.price * magnitudePct;
           const nextPrice = Math.max(1, asset.price + delta);
           const nextPct = asset.changePct + (delta / Math.max(asset.price, 1)) * 100;
           const nextVolume = Math.max(10, asset.volume + Math.round((Math.random() - 0.45) * 34));
