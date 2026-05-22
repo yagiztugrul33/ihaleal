@@ -68,6 +68,7 @@ export default function CreateAuction() {
   const [pendingCtx, setPendingCtx] = useState<{ listingId: string; auctionId: string } | null>(null);
   const [aiPhaseLabel, setAiPhaseLabel] = useState("");
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
   const [sizeM2, setSizeM2] = useState("120");
   const [rooms, setRooms] = useState("3+1");
@@ -119,6 +120,7 @@ export default function CreateAuction() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAttemptedSubmit(true);
     setError("");
     if (!user) {
       setError("Önce giriş yapmalısınız.");
@@ -477,6 +479,16 @@ export default function CreateAuction() {
         </Card>
         <Card className="bg-violet-500/5 border-violet-500/20 mb-6">
           <CardContent className="p-4">
+            <div className="mb-3 flex items-center justify-between text-xs text-slate-400">
+              <span>Adım {currentStep}/3</span>
+              <span>{currentStep === 1 ? "Temel bilgiler ve görseller" : currentStep === 2 ? "Konum, teknik detaylar ve raporlar" : "Fiyatlama ve yayın ayarı"}</span>
+            </div>
+            <div className="mb-4 h-1.5 overflow-hidden rounded-full bg-slate-800">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 transition-all duration-300"
+                style={{ width: `${(currentStep / 3) * 100}%` }}
+              />
+            </div>
             <div className="grid gap-2 sm:grid-cols-3">
               {[
                 { id: 1, title: "1) Temel Bilgiler" },
@@ -504,6 +516,7 @@ export default function CreateAuction() {
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Görseller</h3>
+              <p className="text-xs text-slate-500">Kapak görseli olarak ilk yüklenen medya kullanılır. Tüm kart/detay oranları otomatik korunur.</p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {images.map((img, i) => (
                   <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
@@ -527,6 +540,9 @@ export default function CreateAuction() {
                 </button>
               </div>
               <input ref={fileInputRef} type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
+              {attemptedSubmit && images.length === 0 ? (
+                <p className="text-xs text-red-300">En az bir görsel yüklemeniz gerekiyor.</p>
+              ) : null}
             </CardContent>
           </Card>
           ) : null}
@@ -539,6 +555,7 @@ export default function CreateAuction() {
                 <div className="sm:col-span-2 lg:col-span-1">
                   <label className="text-sm text-slate-400 mb-1.5 block">İlan Başlığı *</label>
                   <Input value={title} onChange={(e) => setTitle(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="örn: Levent'te Prestijli Plaza Katı" />
+                  {attemptedSubmit && !title.trim() ? <p className="mt-1 text-xs text-red-300">Başlık zorunludur.</p> : null}
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Kategori (gayrimenkul türü)</label>
@@ -568,6 +585,7 @@ export default function CreateAuction() {
                   placeholder="Gayrimenkulünüzün detaylı açıklaması..."
                 />
                 <p className="text-[11px] text-slate-600 mt-1">{description.length}/2000</p>
+                {attemptedSubmit && !description.trim() ? <p className="mt-1 text-xs text-red-300">Açıklama zorunludur.</p> : null}
               </div>
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Tapu numarası / referans *</label>
@@ -578,6 +596,7 @@ export default function CreateAuction() {
                   placeholder="Yetki kaydı ve doğrulama için"
                   required
                 />
+                {attemptedSubmit && !titleDeed.trim() ? <p className="mt-1 text-xs text-red-300">Tapu referansı zorunludur.</p> : null}
               </div>
             </CardContent>
           </Card>
@@ -642,6 +661,7 @@ export default function CreateAuction() {
                       </option>
                     ))}
                   </select>
+                  {attemptedSubmit && !district ? <p className="mt-1 text-xs text-red-300">İlçe seçimi zorunludur.</p> : null}
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Mahalle</label>
@@ -736,6 +756,7 @@ export default function CreateAuction() {
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Başlangıç Fiyatı (₺) *</label>
                   <Input type="number" value={startingBid} onChange={(e) => setStartingBid(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="örn: 2500000" />
+                  {attemptedSubmit && !startingBid ? <p className="mt-1 text-xs text-red-300">Başlangıç fiyatı zorunludur.</p> : null}
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Referans / rezerv (₺)</label>
