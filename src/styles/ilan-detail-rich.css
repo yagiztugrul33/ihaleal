@@ -50,9 +50,9 @@
 .idr-card {
   padding: 1rem 1.1rem;
   border-radius: 14px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  background: var(--color-bg, #fff);
-  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(133, 178, 228, 0.24);
+  background: linear-gradient(160deg, rgba(14, 29, 49, 0.95), rgba(21, 39, 65, 0.92));
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.4);
 }
 
 .idr-card--center {
@@ -71,7 +71,7 @@
 .idr-muted {
   margin: 0;
   font-size: 0.85rem;
-  color: #64748b;
+  color: #c0d5eb;
   line-height: 1.5;
 }
 
@@ -87,13 +87,13 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #f8fbff;
 }
 
 .idr-section-title p {
   margin: 0.2rem 0 0;
   font-size: 0.8rem;
-  color: #64748b;
+  color: #aec4e0;
 }
 
 .idr-stat {
@@ -101,8 +101,8 @@
   gap: 0.65rem;
   padding: 0.85rem;
   border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  background: rgba(15, 23, 42, 0.02);
+  border: 1px solid rgba(142, 181, 223, 0.24);
+  background: rgba(42, 72, 112, 0.28);
 }
 
 .idr-stat--primary {
@@ -118,7 +118,7 @@
   display: block;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #64748b;
+  color: #aec4e0;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -127,13 +127,13 @@
   display: block;
   font-size: 1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #f8fbff;
 }
 
 .idr-stat__hint {
   display: block;
   font-size: 0.72rem;
-  color: #94a3b8;
+  color: #c1d4e9;
   margin-top: 0.15rem;
 }
 
@@ -169,19 +169,19 @@
 .idr-score__value {
   font-size: 1.35rem;
   font-weight: 800;
-  color: #0f172a;
+  color: #f8fbff;
   line-height: 1;
 }
 
 .idr-score__unit {
   font-size: 0.65rem;
-  color: #64748b;
+  color: #c1d4e9;
 }
 
 .idr-score__label {
   margin-top: 0.35rem;
   font-size: 0.75rem;
-  color: #64748b;
+  color: #c1d4e9;
 }
 
 .idr-badges {
@@ -197,18 +197,18 @@
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background: rgba(15, 23, 42, 0.06);
-  color: #334155;
+  background: rgba(47, 80, 122, 0.32);
+  color: #d2e4f8;
 }
 
 .idr-badges--good .idr-badge {
-  background: rgba(13, 148, 136, 0.12);
-  color: #0f766e;
+  background: rgba(16, 185, 129, 0.2);
+  color: #9ef7d5;
 }
 
 .idr-badges--warn .idr-badge {
-  background: rgba(245, 158, 11, 0.15);
-  color: #b45309;
+  background: rgba(245, 158, 11, 0.22);
+  color: #fde68a;
 }
 
 .idr-list {
@@ -225,7 +225,7 @@
   align-items: flex-start;
   gap: 0.45rem;
   font-size: 0.85rem;
-  color: #334155;
+  color: #d3e5f8;
 }
 
 .idr-list--good svg {
@@ -254,8 +254,8 @@
   padding: 0.25rem 0.55rem;
   border-radius: 8px;
   font-size: 0.75rem;
-  background: rgba(99, 102, 241, 0.1);
-  color: #4338ca;
+  background: rgba(99, 102, 241, 0.24);
+  color: #dbeafe;
 }
 
 .idr-minimap {
@@ -291,13 +291,13 @@
   position: relative;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #f8fbff;
 }
 
 .idr-minimap__sub {
   position: relative;
   font-size: 0.75rem;
-  color: #64748b;
+  color: #c0d5eb;
 }
 
 .idr-table-wrap {
@@ -306,7 +306,7 @@
 
 .idr-table-caption {
   font-size: 0.8rem;
-  color: #64748b;
+  color: #bdd2e9;
   margin: 0 0 0.5rem;
 }
 
@@ -326,8 +326,12 @@
 
 .idr-table th {
   width: 38%;
-  color: #64748b;
+  color: #aec4e0;
   font-weight: 600;
+}
+
+.idr-table td {
+  color: #f8fbff;
 }
 
 .idr-table-cards {
@@ -342,21 +346,21 @@
 .idr-table-card {
   padding: 0.65rem 0.75rem;
   border-radius: 10px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(15, 23, 42, 0.02);
+  border: 1px solid rgba(139, 179, 222, 0.24);
+  background: rgba(37, 67, 104, 0.22);
 }
 
 .idr-table-card__label {
   display: block;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #64748b;
+  color: #aec4e0;
 }
 
 .idr-table-card__value {
   display: block;
   font-size: 0.88rem;
-  color: #0f172a;
+  color: #f8fbff;
   word-break: break-word;
 }
 
@@ -409,7 +413,7 @@
 .idr-feature-card p {
   margin: 0;
   font-size: 0.82rem;
-  color: #64748b;
+  color: #bed4eb;
 }
 
 .idr-afet-top {
@@ -491,7 +495,7 @@
 .idr-infra-card p {
   margin: 0;
   font-size: 0.75rem;
-  color: #64748b;
+  color: #bfd4eb;
 }
 
 .idr-map-wrap {
@@ -524,7 +528,7 @@
 
 .idr-poi-type {
   text-transform: capitalize;
-  color: #64748b;
+  color: #aec4e0;
   font-weight: 600;
 }
 
@@ -548,7 +552,7 @@
 .idr-yield {
   margin: 0.35rem 0 0;
   font-weight: 700;
-  color: #0d9488;
+  color: #fbbf24;
 }
 
 .idr-deed-flags {
@@ -563,12 +567,12 @@
   font-size: 0.78rem;
   font-weight: 600;
   background: rgba(34, 197, 94, 0.12);
-  color: #15803d;
+  color: #bbf7d0;
 }
 
 .idr-flag.is-warn {
   background: rgba(245, 158, 11, 0.15);
-  color: #b45309;
+  color: #fde68a;
 }
 
 .idr-doc-links {
@@ -586,8 +590,8 @@
   gap: 0.35rem;
   padding: 0.45rem 0.75rem;
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.05);
-  color: var(--color-primary, #0d9488);
+  background: rgba(59, 130, 246, 0.18);
+  color: #fbbf24;
   font-weight: 600;
   font-size: 0.82rem;
   text-decoration: none;
@@ -609,7 +613,7 @@
   margin: 0.25rem 0;
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--color-primary, #0d9488);
+  color: #fbbf24;
 }
 
 .idr-comparables {
@@ -760,7 +764,7 @@
   font-size: 1.75rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
-  color: #0f172a;
+  color: #f8fbff;
 }
 
 .idr-cta-row {
@@ -772,7 +776,7 @@
 .idr-link {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--color-primary, #0d9488);
+  color: #fbbf24;
 }
 
 .sr-only {
@@ -790,4 +794,10 @@
 .idr-walk-badge strong { font-size: 1.75rem; line-height: 1; }
 .idr-nearby-list { list-style: none; padding: 0; margin: 0 0 1rem; }
 .idr-nearby-list li { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(148,163,184,0.2); }
+.idr-nearby-list li { color: #d3e5f8; }
 .idr-stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+
+.idr-panel .recharts-text,
+.idr-panel .recharts-cartesian-axis-tick-value {
+  fill: #c6d8ed;
+}
