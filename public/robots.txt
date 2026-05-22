@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /panel
+Disallow: /ayarlar
+Disallow: /mesajlar
 
 Sitemap: https://ihaleal.com/sitemap.xml

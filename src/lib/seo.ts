@@ -249,6 +249,83 @@ function setMeta(attr: "name" | "property", key: string, content: string) {
 
 const OG_IMAGE_ALT = "ihaleal.com — gayrimenkul ihale ve analiz platformu ön izleme görseli";
 
+function upsertJsonLd(id: string, json: Record<string, unknown>) {
+  const prev = document.getElementById(id);
+  prev?.remove();
+  const script = document.createElement("script");
+  script.id = id;
+  script.type = "application/ld+json";
+  script.text = JSON.stringify(json);
+  document.head.appendChild(script);
+}
+
+function humanizeSegment(segment: string): string {
+  return decodeURIComponent(segment)
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function injectStructuredData(pathname: string, search: string, title: string, description: string) {
+  const shareUrl = getShareUrlForPath(pathname, search);
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const itemListElement = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Ana Sayfa",
+      item: getShareUrlForPath("/", ""),
+    },
+    ...pathSegments.map((segment, index) => ({
+      "@type": "ListItem",
+      position: index + 2,
+      name: humanizeSegment(segment),
+      item: getShareUrlForPath(`/${pathSegments.slice(0, index + 1).join("/")}`, ""),
+    })),
+  ];
+
+  upsertJsonLd("jsonld-breadcrumb", {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement,
+  });
+
+  upsertJsonLd("jsonld-organization", {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ihaleal.com",
+    url: SITE_ORIGIN,
+    logo: `${SITE_ORIGIN}/ihaleal_com_logo.png`,
+    sameAs: [SITE_ORIGIN],
+    description:
+      "Yapay zeka destekli gayrimenkul ihale, analiz ve operasyon platformu.",
+  });
+
+  if (pathname.startsWith("/ilan/") || pathname.startsWith("/ihale/")) {
+    const fallbackName = title.replace(/\s—\sihaleal\.com$/i, "").trim();
+    const domName =
+      document.querySelector("h1")?.textContent?.trim() ||
+      document.querySelector("[data-listing-title]")?.textContent?.trim() ||
+      fallbackName ||
+      "Gayrimenkul ilanı";
+    upsertJsonLd("jsonld-real-estate-listing", {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      name: domName,
+      description,
+      url: shareUrl,
+      image: `${SITE_ORIGIN}${OG_IMAGE.path}`,
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "TRY",
+        availability: "https://schema.org/InStock",
+      },
+    });
+    return;
+  }
+
+  document.getElementById("jsonld-real-estate-listing")?.remove();
+}
+
 export function applySeoToDocument(pathname: string, search: string) {
   const { title, description } = getSeoForPath(pathname);
   document.title = title;
@@ -277,4 +354,5 @@ export function applySeoToDocument(pathname: string, search: string) {
     document.head.appendChild(link);
   }
   link.href = canonicalRoot;
+  injectStructuredData(pathname, search, title, description);
 }
