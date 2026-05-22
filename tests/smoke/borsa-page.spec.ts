@@ -4,8 +4,11 @@ test.describe("Borsa page smoke", () => {
   test("renders /borsa market terminal and running ticker", async ({ page }) => {
     await page.goto("/borsa");
     await expect(page.getByText("GAYRİMENKUL BORSASI")).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByRole("button", { name: "Piyasa" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Portföy" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Piyasa" }).first()).toBeVisible();
+
+    const portfolioNavTab = page.locator("button.borsa-nav-tab", { hasText: "Portföy" });
+    await expect(portfolioNavTab).toBeVisible();
+    await expect(portfolioNavTab).toBeEnabled();
 
     const playState = await page.evaluate(() => {
       const track = document.querySelector("[data-testid='borsa-ticker-track']");
