@@ -462,8 +462,8 @@ export default function PremiumCinematicHome() {
               </p>
             </div>
             <Button asChild className="h-11 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-5 text-sm font-bold text-white hover:from-blue-400 hover:to-cyan-400">
-              <Link to={ROUTES.ILANLAR}>
-                İhaleleri Keşfet <ChevronRight className="h-4 w-4" />
+              <Link to={ROUTES.BORSA}>
+                Borsaya Gir <ChevronRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>

@@ -122,6 +122,7 @@ const MuteahhitLanding = lazy(() => import("@/pages/MuteahhitLanding"));
 const TakasPage = lazy(() => import("@/pages/takas/TakasPage"));
 const TeklifAlPage = lazy(() => import("@/pages/TeklifAlPage"));
 const KycPage = lazy(() => import("@/pages/KycPage"));
+const BorsaPage = lazy(() => import("@/pages/BorsaPage"));
 const KapaliTeklifPage = lazy(() => import("@/pages/marketing/KapaliTeklifPage"));
 const YorumlarPage = lazy(() => import("@/pages/marketing/YorumlarPage"));
 const DestekPage = lazy(() => import("@/pages/marketing/DestekPage"));
@@ -197,6 +198,14 @@ function App() {
           </div>
         }>
           <Routes>
+            <Route
+              path="/borsa"
+              element={
+                <Suspense fallback={<PageLoader label="Borsa terminali yükleniyor..." />}>
+                  <BorsaPage />
+                </Suspense>
+              }
+            />
             <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />

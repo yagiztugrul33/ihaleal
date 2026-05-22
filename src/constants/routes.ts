@@ -20,6 +20,7 @@ export const ROUTES = {
   KKA_STUDIO: "/kat-karsiligi/istudio",
   IBUYER: "/aninda-teklif",
   IBUYER_ALIAS: "/ibuyer",
+  BORSA: "/borsa",
   ILANLAR: "/ilanlar",
   NASIL_CALISIR: "/nasil-calisir",
   KURUMSAL: "/kurumsal",
