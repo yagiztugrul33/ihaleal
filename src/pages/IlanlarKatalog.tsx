@@ -165,7 +165,7 @@ export default function IlanlarKatalog() {
         </nav>
         <h1>Gayrimenkul ilan katalogu</h1>
         <p className="ilan-landing__hero-sub">
-          {filtered.length} demo ilan 뿯½ Deprem skoru ve mahalle verisi entegre
+          {filtered.length} demo ilan · Deprem skoru ve mahalle verisi entegre
         </p>
         <label className="ilan-katalog__search">
           <Search className="h-5 w-5" aria-hidden />
@@ -197,9 +197,9 @@ export default function IlanlarKatalog() {
             <option value="yeni">En yeni</option>
             <option value="fiyat">Fiyat (artan)</option>
             <option value="fiyat-desc">Fiyat (azalan)</option>
-            <option value="m2">m뿯½ (buyukten)</option>
-            <option value="m2-asc">m뿯½ (kucukten)</option>
-            <option value="deprem">Deprem guvenligi</option>
+            <option value="m2">m² (büyükten)</option>
+            <option value="m2-asc">m² (küçükten)</option>
+            <option value="deprem">Deprem güvenliği</option>
           </select>
         </label>
       </div>
@@ -244,9 +244,9 @@ export default function IlanlarKatalog() {
             <span>Modalite</span>
             <select value={modality ?? ""} onChange={(e) => updateParam("modalite", e.target.value)}>
               <option value="">Tumu</option>
-              <option value="listing_only">Satilik / kiralik</option>
-              <option value="auction">Ihale</option>
-              <option value="sealed_offers">Kapali teklif</option>
+              <option value="listing_only">Satılık / kiralık</option>
+              <option value="auction">İhale</option>
+              <option value="sealed_offers">Kapalı teklif</option>
             </select>
           </label>
           <label>
@@ -258,11 +258,11 @@ export default function IlanlarKatalog() {
             <input type="number" value={maxPrice ?? ""} onChange={(e) => updateParam("maxFiyat", e.target.value)} />
           </label>
           <label>
-            <span>Min m뿯½</span>
+            <span>Min m²</span>
             <input type="number" value={minSqm ?? ""} onChange={(e) => updateParam("minM2", e.target.value)} />
           </label>
           <label>
-            <span>Max m뿯½</span>
+            <span>Max m²</span>
             <input type="number" value={maxSqm ?? ""} onChange={(e) => updateParam("maxM2", e.target.value)} />
           </label>
           <label>
@@ -277,7 +277,7 @@ export default function IlanlarKatalog() {
           {category ? (
             <p className="ilan-katalog__taxonomy-link">
               <Link to={buildTaxonomyPath(category, sub || undefined, type || undefined)}>
-                Kategori sayfasina git 뿯↽
+                Kategori sayfasına git →
               </Link>
             </p>
           ) : null}
@@ -308,7 +308,8 @@ export default function IlanlarKatalog() {
             </div>
           ) : (
             <div className="ilan-landing__empty">
-              <p>Bu filtrelerle eslesen ilan bulunamadi.</p>
+              <p>Bu filtrelerle eşleşen ilan bulunamadı.</p>
+              <p className="text-xs text-slate-500">Aramayı genişletin veya filtreleri sıfırlayıp tekrar deneyin.</p>
               <button
                 type="button"
                 onClick={() => setSearchParams(new URLSearchParams(), { replace: true })}

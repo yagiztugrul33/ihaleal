@@ -11,6 +11,7 @@
 .ilan-card {
   display: flex;
   flex-direction: column;
+  height: 100%;
   border-radius: 14px;
   overflow: hidden;
   background: var(--color-bg, #fff);
@@ -44,10 +45,36 @@
   background: linear-gradient(135deg, #14b8a6 0%, #2563eb 50%, #1e293b 100%);
 }
 
-.ilan-card__live {
+.ilan-card__media-wrap { position: relative; }
+
+.ilan-card__badges {
   position: absolute;
   top: 0.65rem;
   left: 0.65rem;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  z-index: 2;
+}
+
+.ilan-card__mode-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ilan-card__mode-badge--auction { background: rgba(37, 99, 235, 0.9); color: #dbeafe; }
+.ilan-card__mode-badge--sale { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.35); }
+.ilan-card__mode-badge--rent { background: rgba(139, 92, 246, 0.18); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.35); }
+.ilan-card__mode-badge--sealed { background: rgba(245, 158, 11, 0.18); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.35); }
+
+.ilan-card__live {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -74,6 +101,7 @@
 }
 
 .ilan-card__body { padding: 0.9rem 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.ilan-card__body { flex: 1; }
 .ilan-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
 .ilan-card__title { font-size: 0.95rem; font-weight: 700; line-height: 1.35; color: inherit; text-decoration: none; }
 .ilan-card__title:hover { color: var(--color-primary, #0d9488); }
@@ -88,7 +116,9 @@
 .ilan-card__change.is-down { color: #dc2626; }
 .ilan-card__meta { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.72rem; color: #94a3b8; }
 .ilan-card__meta span { padding: 0.15rem 0.45rem; border-radius: 6px; background: rgba(15, 23, 42, 0.04); }
+.ilan-card__remaining { display: inline-flex; align-items: center; gap: 0.25rem; }
 .ilan-card__actions { display: flex; justify-content: flex-end; gap: 0.4rem; }
+.ilan-card__actions { margin-top: auto; }
 .ilan-card__watch { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0.3rem 0.7rem; border-radius: 999px; border: 1px solid rgba(13, 148, 136, 0.25); color: #0d9488; text-decoration: none; font-size: 0.75rem; font-weight: 700; }
 .ilan-card__watch:hover { background: rgba(13, 148, 136, 0.08); }
 .ilan-card__buy-now { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0.3rem 0.7rem; border-radius: 999px; border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; text-decoration: none; font-size: 0.75rem; font-weight: 700; }
@@ -177,7 +207,8 @@
 .ilan-landing__filters h2 { margin: 0 0 0.85rem; font-size: 0.95rem; }
 .ilan-landing__filters label { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.75rem; font-size: 0.75rem; color: #64748b; }
 .ilan-landing__filters input, .ilan-landing__filters select { padding: 0.5rem 0.6rem; border-radius: 8px; border: 1px solid rgba(15, 23, 42, 0.12); font-size: 0.85rem; }
-.ilan-landing__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.ilan-landing__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; align-items: stretch; }
+.ilan-landing__grid > * { min-width: 0; }
 .ilan-landing__empty { padding: 2.5rem 1rem; text-align: center; border-radius: 14px; background: rgba(15, 23, 42, 0.03); }
 .ilan-landing__empty p { margin: 0 0 0.5rem; color: #64748b; }
 .ilan-landing__empty a { color: var(--color-primary, #0d9488); font-weight: 600; text-decoration: none; }
@@ -207,7 +238,20 @@
 .ilan-katalog__view-toggle button { min-height: 44px; padding: 0.4rem 0.75rem; border-radius: 8px; border: 1px solid rgba(148,163,184,0.35); background: transparent; display: inline-flex; align-items: center; gap: 0.35rem; }
 .ilan-katalog__view-toggle button.is-active { background: rgba(13,148,136,0.15); border-color: #0d9488; }
 .ilan-katalog__list { display: flex; flex-direction: column; gap: 1rem; }
+.ilan-katalog__list .ilan-card { min-height: 100%; }
 .ilan-katalog__pager { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
 .ilan-katalog__pager button { min-height: 44px; min-width: 44px; padding: 0.5rem 1rem; }
 .ilan-katalog__map { width: 100%; min-height: 420px; border-radius: 12px; }
 .ilan-katalog__taxonomy-link { margin-top: 1rem; font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+  .ilan-landing,
+  .ilan-detay {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  .ilan-landing__grid {
+    grid-template-columns: 1fr;
+  }
+}

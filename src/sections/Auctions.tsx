@@ -303,9 +303,9 @@ export function Auctions({
             ))}
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid items-stretch md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredSorted.map((auction, idx) => (
-            <Card key={auction.id} className={`property-card group overflow-hidden card-luxury !p-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
+            <Card key={auction.id} className={`property-card group flex h-full flex-col overflow-hidden card-luxury !p-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />
@@ -319,7 +319,7 @@ export function Auctions({
                   <button aria-label={`${isFavorite(auction.id) ? "Favoriden çıkar" : "Favoriye ekle"}: ${auction.title}`} onClick={(e) => handleFavoriteClick(e, auction.id)} className={`p-2 rounded-lg backdrop-blur-md transition-colors ${isFavorite(auction.id) ? "bg-pink-500 text-white" : "bg-black/50 text-white hover:bg-black/70"}`}><Heart className={`w-4 h-4 ${isFavorite(auction.id) ? "fill-current" : ""}`} /></button>
                 </div>
               </div>
-              <CardContent className="p-5">
+              <CardContent className="flex flex-1 flex-col p-5">
                 {(() => {
                   const changePct = ((auction.currentBid - auction.startingBid) / Math.max(auction.startingBid, 1)) * 100;
                   const changeTone = changePct >= 0 ? "text-emerald-300" : "text-rose-300";
@@ -364,7 +364,7 @@ export function Auctions({
                     <div className={`h-1.5 rounded-full overflow-hidden ${isHome ? "bg-[var(--color-border)]" : "bg-white/10"}`}><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                   </div>
                 </div>
-                <div className={`flex flex-wrap items-end justify-between gap-3 pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
+                <div className={`mt-auto flex flex-wrap items-end justify-between gap-3 pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
                   <div>
                     <div className="text-xs text-slate-500 mb-0.5">Güncel Teklif</div>
                     <div className="text-lg font-bold text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>

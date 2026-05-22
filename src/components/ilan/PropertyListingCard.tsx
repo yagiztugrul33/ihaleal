@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Heart, MapPin } from "lucide-react";
+import { Clock3, Heart, MapPin } from "lucide-react";
 import type { PropertyRecord } from "@/types/property";
 import { EarthquakeScoreBadge } from "@/components/property/EarthquakeScoreBadge";
 import "@/styles/afet-disaster-hub.css";
@@ -23,6 +23,13 @@ function isLiveAuction(property: PropertyRecord): boolean {
   );
 }
 
+function listingModeBadge(property: PropertyRecord): { label: string; tone: "auction" | "sale" | "rent" | "sealed" } {
+  if (property.marketingMode === "auction") return { label: "İhale", tone: "auction" };
+  if (property.marketingMode === "sealed_offers") return { label: "Kapalı Teklif", tone: "sealed" };
+  if (property.dealType === "rent") return { label: "Kiralık", tone: "rent" };
+  return { label: "Satılık", tone: "sale" };
+}
+
 export function PropertyListingCard({ property }: PropertyListingCardProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
   const hero = getPropertyHero(property);
@@ -34,6 +41,7 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
   const changePct = currentBid > 0 ? ((currentBid - startingBid) / Math.max(startingBid, 1)) * 100 : 0;
   const positive = changePct >= 0;
   const details = (property.details ?? {}) as Record<string, unknown>;
+  const modeBadge = listingModeBadge(property);
   const endDateRaw = typeof details.auctionEndAt === "string" ? details.auctionEndAt : null;
   const remainingText = (() => {
     if (!endDateRaw) return "Süre: Bilgi yok";
@@ -53,11 +61,14 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           ) : (
             <div className="ilan-card__media-fallback" aria-hidden />
           )}
-          {live ? (
-            <span className="ilan-card__live">
-              <i /> LIVE
-            </span>
-          ) : null}
+          <div className="ilan-card__badges">
+            <span className={`ilan-card__mode-badge ilan-card__mode-badge--${modeBadge.tone}`}>{modeBadge.label}</span>
+            {live ? (
+              <span className="ilan-card__live">
+                <i /> LIVE
+              </span>
+            ) : null}
+          </div>
         </Link>
         <div className="ilan-card__eq-badge">
           <EarthquakeScoreBadge property={property} />
@@ -103,7 +114,12 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
         <div className="ilan-card__meta">
           {property.grossSqm ? <span>{property.grossSqm} m²</span> : null}
           {property.roomCount ? <span>{property.roomCount}</span> : null}
-          <span>{remainingText}</span>
+          {property.marketingMode === "auction" ? (
+            <span className="ilan-card__remaining">
+              <Clock3 className="h-3.5 w-3.5" aria-hidden />
+              {remainingText}
+            </span>
+          ) : null}
         </div>
         <div className="ilan-card__actions">
           {property.dealType !== "rent" && property.buyNowPriceTry != null ? (
