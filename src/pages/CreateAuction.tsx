@@ -1,5 +1,5 @@
-﻿import { useState, useRef, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, PlusCircle, Upload, MapPin, X, FileText, Scale, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { generateMockReport, saveReportToDb, type PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { clientLogError } from "@/lib/clientLog";
+import { getPropertyById } from "@/lib/demo-data";
+import { getPropertyTitle } from "@/types/property";
 
 const CITIES = ["İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Adana", "Konya", "Gaziantep"];
 const DISTRICTS: Record<string, string[]> = {
@@ -32,8 +34,17 @@ const CATEGORY_TO_DB: Record<string, string> = {
 
 const FEATURE_OPTIONS = ["Asansör", "Otopark", "Balkon", "Site içi", "Deniz manzarası", "Güvenlik"];
 
+const PORTFOLIO_MODE_PREFILL: Record<string, { marketingMode: PropertyMarketingMode; dealType: "sale" | "rent"; category?: string }> = {
+  auction: { marketingMode: "auction", dealType: "sale" },
+  fixed: { marketingMode: "listing_only", dealType: "sale" },
+  rent: { marketingMode: "listing_only", dealType: "rent", category: "Konut" },
+  "trade-in": { marketingMode: "sealed_offers", dealType: "sale", category: "Ticari" },
+  transfer: { marketingMode: "listing_only", dealType: "sale", category: "Ticari" },
+};
+
 export default function CreateAuction() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user, loading: authLoading } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const marketReportInputRef = useRef<HTMLInputElement>(null);
@@ -88,6 +99,37 @@ export default function CreateAuction() {
     { id: "my-2", title: "Üsküdar Villa Portföyü", status: "draft" as "active" | "draft" | "sold", updatedAt: "Dün 18:45" },
     { id: "my-3", title: "Ankara Ofis Bloku", status: "sold" as "active" | "draft" | "sold", updatedAt: "12 May 2026" },
   ]);
+
+  useEffect(() => {
+    if (searchParams.get("source") !== "portfoy") return;
+    const assetId = searchParams.get("asset");
+    const mode = searchParams.get("mode");
+
+    if (mode && PORTFOLIO_MODE_PREFILL[mode]) {
+      const preset = PORTFOLIO_MODE_PREFILL[mode];
+      setMarketingMode(preset.marketingMode);
+      setDealType(preset.dealType);
+      if (preset.category) setCategory(preset.category);
+    }
+
+    if (!assetId) return;
+    const property = getPropertyById(assetId);
+    if (!property) return;
+    setTitle(getPropertyTitle(property));
+    setDescription(property.description?.trim() || "");
+    setCity(property.city || "İstanbul");
+    setDistrict(property.district || "");
+    setNeighborhood(property.neighborhood || "");
+    setStartingBid(String(Math.round(property.currentBidTry ?? property.priceTry ?? property.aiPredictedPriceTry ?? 0)));
+    setReferenceValueTRY(String(Math.round(property.priceTry ?? property.currentBidTry ?? 0)));
+    setSizeM2(String(Math.round(property.grossSqm ?? property.netSqm ?? property.landSqm ?? 120)));
+    setRooms(property.roomCount || "3+1");
+    setBathCount(String(property.bathroomCount ?? 1));
+    setFloor(String(property.floor ?? "1"));
+    setTotalFloors(String(property.totalFloors ?? 5));
+    setYearBuilt(String(property.buildingAge && /^\d+$/.test(property.buildingAge) ? property.buildingAge : 2018));
+    setImages(property.images?.slice(0, 6) ?? []);
+  }, [searchParams]);
 
   const toggleFeature = (f: string) => {
     setFeaturesSelected((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]));
