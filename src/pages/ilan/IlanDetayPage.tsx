@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  BedDouble,
+  Building2,
+  CalendarDays,
   Clock,
+  Expand,
   Heart,
+  Map,
   MapPin,
+  Ruler,
   Share2,
   GitCompare,
   MessageCircle,
@@ -39,6 +45,7 @@ function formatTry(amount: number): string {
 
 export default function IlanDetayPage({ id }: { id: string }) {
   const property = getPropertyById(id);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   if (!property) {
@@ -66,6 +73,7 @@ export default function IlanDetayPage({ id }: { id: string }) {
 
   const hero = getPropertyHero(property) ?? "/images/auction-1.jpg";
   const images = property.images?.length ? property.images : [hero];
+  const currentImage = activeImage ?? images[0];
   const price = getPropertyPrice(property);
   const location = getPropertyLocation(property);
   const related = getRelatedProperties(property, 4);
@@ -76,12 +84,13 @@ export default function IlanDetayPage({ id }: { id: string }) {
   return (
     <div className="ilan-detay" data-testid="ilan-detay">
       <HeroSection
-        hero={hero}
+        hero={currentImage}
         images={images}
         property={property}
         price={price}
         location={location}
         isLive={isLive}
+        onSelectImage={setActiveImage}
         onOpenLightbox={setLightbox}
       />
 
@@ -113,6 +122,32 @@ export default function IlanDetayPage({ id }: { id: string }) {
         <Link to="/destek" className="ilan-detay__cta-link">
           Soru sor
         </Link>
+      </section>
+
+      <section className="ilan-detay__location-block" aria-labelledby="ilan-location-title">
+        <h2 id="ilan-location-title">Konum ve çevre özeti</h2>
+        <div className="ilan-detay__location-grid">
+          <article className="ilan-detay__location-map">
+            <p className="ilan-detay__location-text">
+              <MapPin className="h-4 w-4" aria-hidden /> {location}
+            </p>
+            <p className="ilan-detay__location-sub">
+              Ulaşım, sosyal yaşam ve çevresel olanaklar için detaylı saha değerlendirmesini teklif öncesi kontrol edin.
+            </p>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ilan-detay__cta-link"
+            >
+              Haritada aç
+            </a>
+          </article>
+          <article className="ilan-detay__location-map is-soft" aria-hidden>
+            <Map className="h-8 w-8 text-cyan-300/80" />
+            <p>Harita önizleme paneli</p>
+          </article>
+        </div>
       </section>
 
       <aside className="ilan-detay__ai-panel" aria-label="AI asistan">
@@ -153,11 +188,12 @@ function HeroSection(props: {
   price: number | undefined;
   location: string;
   isLive: boolean;
+  onSelectImage: (src: string) => void;
   onOpenLightbox: (src: string) => void;
 }) {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
-  const { hero, images, property, price, location, isLive, onOpenLightbox } = props;
+  const { hero, images, property, price, location, isLive, onSelectImage, onOpenLightbox } = props;
   const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/#/ilanlar/${property.id}` : `/ilanlar/${property.id}`;
 
   const pushToast = (message: string) => {
@@ -190,14 +226,18 @@ function HeroSection(props: {
           onClick={() => onOpenLightbox(hero)}
         >
           <img src={hero} alt="" loading="eager" decoding="async" width={1280} height={800} />
+          <span className="ilan-detay__zoom-chip">
+            <Expand className="h-3.5 w-3.5" />
+            Büyüt
+          </span>
         </button>
         <div className="ilan-detay__gallery-thumbs">
           {images.slice(0, 4).map((src) => (
             <button
               key={src}
               type="button"
-              className="ilan-detay__thumb"
-              onClick={() => onOpenLightbox(src)}
+              className={`ilan-detay__thumb ${src === hero ? "is-active" : ""}`}
+              onClick={() => onSelectImage(src)}
             >
               <img src={src} alt="" loading="lazy" decoding="async" width={320} height={320} />
             </button>
@@ -281,6 +321,55 @@ function HeroSection(props: {
             </>
           ) : null}
         </dl>
+        <div className="ilan-detay__facts-grid">
+          {property.grossSqm ? (
+            <article>
+              <Ruler className="h-4 w-4" />
+              <div>
+                <small>Brüt Alan</small>
+                <strong>{property.grossSqm} m²</strong>
+              </div>
+            </article>
+          ) : null}
+          {property.roomCount ? (
+            <article>
+              <BedDouble className="h-4 w-4" />
+              <div>
+                <small>Oda Planı</small>
+                <strong>{property.roomCount}</strong>
+              </div>
+            </article>
+          ) : null}
+          {property.buildingAge ? (
+            <article>
+              <CalendarDays className="h-4 w-4" />
+              <div>
+                <small>Bina Yaşı</small>
+                <strong>{property.buildingAge}</strong>
+              </div>
+            </article>
+          ) : null}
+          {property.deedStatus ? (
+            <article>
+              <Building2 className="h-4 w-4" />
+              <div>
+                <small>Tapu</small>
+                <strong>{property.deedStatus}</strong>
+              </div>
+            </article>
+          ) : null}
+        </div>
+        <div className="ilan-detay__description">
+          <p>
+            Bu ilan, {location} bölgesinde yer alan ve {property.roomCount ?? "çok odalı"} planı ile farklı kullanım senaryolarına uyum
+            sağlayan bir varlık profili sunar. Mikro konum, ulaşım bağlantıları ve çevresel olanaklar birlikte değerlendirildiğinde
+            hem oturum hem yatırım tarafında dengeli bir karar zemini üretir.
+          </p>
+          <p>
+            Teklif öncesinde fiyat/m² dengesi, tapu uygunluğu ve operasyon maliyetlerini birlikte okumak önemlidir. Detay sekmeleri
+            ve teklif bölümü, süreci adım adım izlenebilir kılmak için düzenlenmiştir.
+          </p>
+        </div>
       </aside>
     </div>
   );
