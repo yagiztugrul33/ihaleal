@@ -187,7 +187,6 @@ export default function AuctionDetail() {
   const [watchers, setWatchers] = useState<number>(0);
   const [calculatorBid, setCalculatorBid] = useState<number>(0);
   const [priceRange, setPriceRange] = useState<"1H" | "1G" | "1A" | "1Y">("1G");
-  const [countdownSeconds, setCountdownSeconds] = useState(5_400);
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -219,14 +218,6 @@ export default function AuctionDetail() {
     if (!auction) return;
     setCalculatorBid(Math.max(1, realtime.highBidTry ?? auction.currentBid));
   }, [auction, realtime.highBidTry]);
-
-  useEffect(() => {
-    if (auctionEndedVisualPreview || isListingOnly) return;
-    const interval = window.setInterval(() => {
-      setCountdownSeconds((prev) => (prev <= 0 ? 0 : prev - 1));
-    }, 1_000);
-    return () => window.clearInterval(interval);
-  }, [auctionEndedVisualPreview, isListingOnly]);
 
   useEffect(() => {
     if (!id || !isAuctionUuid(id) || !isSupabaseConfigured()) return;
@@ -783,16 +774,7 @@ export default function AuctionDetail() {
   };
 
   const bidIncrements = [10000, 50000, 100000, 250000, 500000];
-  const quickPctIncrements = [5, 10];
   const effectiveCalcBid = Number.isFinite(calculatorBid) && calculatorBid > 0 ? calculatorBid : liveBid;
-  const ownershipChain = [
-    { year: "2019", value: Math.round(liveBid * 0.62), label: "Ilk kayitli satis" },
-    { year: "2022", value: Math.round(liveBid * 0.79), label: "Bolge revizyonu sonrasi devri" },
-    { year: "2025", value: liveBid, label: "Ihale asamasi" },
-  ];
-  const antiSnipingArmed = countdownSeconds <= ANTI_SNIPING_THRESHOLD_SECONDS;
-  const countdownLabel = `${Math.floor(countdownSeconds / 3600)}s ${Math.floor((countdownSeconds % 3600) / 60)}dk ${countdownSeconds % 60}sn`;
-
   const closing = estimateBuyerClosingCosts(effectiveCalcBid);
   const buyerTotals = calcBuyerTotal(effectiveCalcBid);
   const sellerTotals = calcSellerNet(effectiveCalcBid);
@@ -1192,20 +1174,6 @@ export default function AuctionDetail() {
                       </div>
                     ))}
                   </div>
-                  <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
-                    <h4 className="mb-3 text-sm font-semibold text-white">Seffaf fiyat gecmisi zinciri</h4>
-                    <div className="space-y-2 text-xs">
-                      {ownershipChain.map((item, idx) => (
-                        <div key={item.year} className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-950/60 px-3 py-2">
-                          <span className="text-slate-300">
-                            {item.year} · {item.label}
-                            {idx < ownershipChain.length - 1 ? " ->" : ""}
-                          </span>
-                          <span className="font-bold text-emerald-300">₺{item.value.toLocaleString("tr-TR")}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               )}
               {activeTab === "ai" && resolvedReport && (
@@ -1391,12 +1359,6 @@ export default function AuctionDetail() {
                 </div>
                 {!isListingOnly ? (
                   <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-3">
-                    <div className="mb-2 rounded-lg border border-slate-700 bg-slate-950/70 px-2 py-1.5 text-xs text-slate-300">
-                      <p className="font-semibold text-slate-200">Canli geri sayim: {countdownLabel}</p>
-                      <p className={antiSnipingArmed ? "text-amber-200" : "text-slate-400"}>
-                        Anti-sniping: {antiSnipingArmed ? `devrede (+${ANTI_SNIPING_EXTEND_SECONDS}sn uzatma)` : "beklemede"}
-                      </p>
-                    </div>
                     <div className="mb-2 flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-slate-400">
                       <span>Teklif Derinliği</span>
                       <span className="inline-flex items-center gap-1 text-emerald-300">
@@ -1593,18 +1555,6 @@ export default function AuctionDetail() {
                   className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-semibold text-white transition-colors"
                 >
                   +₺{(inc / 1000).toFixed(0)}K
-                </button>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {quickPctIncrements.map((pct) => (
-                <button
-                  key={pct}
-                  type="button"
-                  onClick={() => setBidAmount(String(Math.round(liveBid * (1 + pct / 100))))}
-                  className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-2 py-2 text-xs font-semibold text-emerald-200 transition-colors hover:bg-emerald-500/20"
-                >
-                  +%{pct} hizli artis
                 </button>
               ))}
             </div>
