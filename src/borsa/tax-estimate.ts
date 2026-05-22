@@ -1,48 +1,50 @@
-export type TaxEstimateInput = {
-  acquisitionDate: string;
-  buyPrice: number;
-  currentValue: number;
-  isSwap?: boolean;
-  now?: Date;
+import { DEED_DUTY_RATE } from "@/lib/fees";
+
+export type PortfolioTaxInput = {
+  purchaseTry: number;
+  currentTry: number;
+  purchasedAt: string;
+  sellMode: "yeniden_ihale" | "sabit_satis" | "kiraya_ver" | "takasa_ac" | "devren";
 };
 
-export type TaxEstimateResult = {
-  fiveYearExempt: boolean;
-  monthsUntilExempt: number;
-  valueGain: number;
-  estimatedValueGainTax: number;
-  deedDuty: number;
-  swapWarning: string | null;
+export type PortfolioTaxEstimate = {
+  yearsHeld: number;
+  titleDeedFeeTry: number;
+  estimatedValueGainTaxTry: number;
+  tradeInDoubleLiabilityWarning: boolean;
+  notes: string[];
 };
 
-const VALUE_GAIN_TAX_RATE = 0.15;
-const DEED_DUTY_RATE = 0.04;
+export function estimatePortfolioTax(input: PortfolioTaxInput): PortfolioTaxEstimate {
+  const purchaseDate = new Date(input.purchasedAt);
+  const yearsHeld = Number.isFinite(purchaseDate.getTime())
+    ? Math.max(0, (Date.now() - purchaseDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000))
+    : 0;
+  const roundedYears = Number(yearsHeld.toFixed(1));
 
-function monthDiff(from: Date, to: Date): number {
-  const years = to.getFullYear() - from.getFullYear();
-  const months = to.getMonth() - from.getMonth();
-  return years * 12 + months;
-}
+  const gain = Math.max(0, input.currentTry - input.purchaseTry);
+  const overFiveYears = yearsHeld >= 5;
+  const estimatedValueGainTaxTry = overFiveYears ? 0 : Math.round(gain * 0.15);
+  const titleDeedFeeTry = Math.round(input.currentTry * DEED_DUTY_RATE);
+  const tradeInDoubleLiabilityWarning = input.sellMode === "takasa_ac";
 
-export function estimateTax(input: TaxEstimateInput): TaxEstimateResult {
-  const now = input.now ?? new Date();
-  const acquiredAt = new Date(input.acquisitionDate);
-  const heldMonths = Math.max(0, monthDiff(acquiredAt, now));
-  const fiveYearExempt = heldMonths >= 60;
-  const monthsUntilExempt = Math.max(0, 60 - heldMonths);
-  const valueGain = Math.max(0, input.currentValue - input.buyPrice);
-  const estimatedValueGainTax = fiveYearExempt ? 0 : Math.round(valueGain * VALUE_GAIN_TAX_RATE);
-  const deedDuty = Math.round(input.currentValue * DEED_DUTY_RATE);
-  const swapWarning = input.isSwap
-    ? "Takasta cift yukumluluk dogabilir: iki taraf icin ayri tapu harci ve vergi kalemi olusabilir."
-    : null;
+  const notes: string[] = [
+    "Tahmini vergi görünümüdür; nihai hesap için mali müşavire danışın.",
+    overFiveYears
+      ? "5 yıl üzeri elde tutma varsayımı ile değer artışı vergisi 0 kabul edilmiştir."
+      : "5 yıl altı elde tutma için tahmini değer artışı vergisi hesaplanmıştır.",
+    `Tapu harcı yaklaşık %${Math.round(DEED_DUTY_RATE * 100)} oranı ile hesaplanmıştır.`,
+  ];
+
+  if (tradeInDoubleLiabilityWarning) {
+    notes.push("Takas senaryosunda taraflar için çift yükümlülük ve ek masraf doğabilir.");
+  }
 
   return {
-    fiveYearExempt,
-    monthsUntilExempt,
-    valueGain,
-    estimatedValueGainTax,
-    deedDuty,
-    swapWarning,
+    yearsHeld: roundedYears,
+    titleDeedFeeTry,
+    estimatedValueGainTaxTry,
+    tradeInDoubleLiabilityWarning,
+    notes,
   };
 }

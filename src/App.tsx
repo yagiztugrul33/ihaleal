@@ -210,7 +210,7 @@ function App() {
             <Route
               path="/borsa/portfoy"
               element={
-                <Suspense fallback={<PageLoader label="Borsa portfoy yukleniyor..." />}>
+                <Suspense fallback={<PageLoader label="Borsa portföy yükleniyor..." />}>
                   <BorsaPortfolioPage />
                 </Suspense>
               }

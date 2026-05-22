@@ -22,8 +22,6 @@ export const ROUTES = {
   IBUYER_ALIAS: "/ibuyer",
   BORSA: "/borsa",
   BORSA_PORTFOY: "/borsa/portfoy",
-  BORSA_IZLEME: "/borsa/izleme",
-  BORSA_VERI: "/borsa/veri",
   ILANLAR: "/ilanlar",
   NASIL_CALISIR: "/nasil-calisir",
   KURUMSAL: "/kurumsal",
