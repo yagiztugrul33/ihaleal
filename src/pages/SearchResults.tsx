@@ -17,6 +17,8 @@ function normalize(s: string) {
 }
 
 const QUICK_SEARCHES = ["Kadıköy", "Villa", "İzmir", "Arsa", "İhale"] as const;
+const SAVED_SEARCHES_KEY = "ihaleal_saved_searches";
+const FOLLOWED_SEARCHES_KEY = "ihaleal_followed_searches";
 
 export default function SearchResults() {
   const navigate = useNavigate();
@@ -24,6 +26,8 @@ export default function SearchResults() {
   const initialQ = params.get("q") || "";
   const [query, setQuery] = useState(initialQ);
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
+  const [savedSearches, setSavedSearches] = useState<string[]>([]);
+  const [followedSearches, setFollowedSearches] = useState<string[]>([]);
 
   useEffect(() => {
     setQuery(params.get("q") || "");
@@ -37,6 +41,20 @@ export default function SearchResults() {
     return () => {
       ok = false;
     };
+  }, []);
+
+  useEffect(() => {
+    try {
+      const savedRaw = localStorage.getItem(SAVED_SEARCHES_KEY);
+      const followedRaw = localStorage.getItem(FOLLOWED_SEARCHES_KEY);
+      const saved = savedRaw ? (JSON.parse(savedRaw) as string[]) : [];
+      const followed = followedRaw ? (JSON.parse(followedRaw) as string[]) : [];
+      setSavedSearches(Array.isArray(saved) ? saved.slice(0, 8) : []);
+      setFollowedSearches(Array.isArray(followed) ? followed.slice(0, 8) : []);
+    } catch {
+      setSavedSearches([]);
+      setFollowedSearches([]);
+    }
   }, []);
 
   const results = useMemo(() => {
@@ -61,6 +79,47 @@ export default function SearchResults() {
     e.preventDefault();
     const next = query.trim();
     setParams(next ? { q: next } : {});
+  };
+
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLocaleLowerCase("tr-TR");
+    if (q.length < 2) return [];
+    const pool = new Set<string>();
+    catalog.forEach((item) => {
+      pool.add(item.city);
+      pool.add(item.district);
+      item.tags?.forEach((tag) => pool.add(tag));
+    });
+    return Array.from(pool)
+      .filter((value) => value.toLocaleLowerCase("tr-TR").includes(q))
+      .slice(0, 6);
+  }, [catalog, query]);
+
+  const persistList = (key: string, next: string[]) => localStorage.setItem(key, JSON.stringify(next.slice(0, 8)));
+  const saveCurrentSearch = () => {
+    const value = query.trim();
+    if (value.length < 2) return;
+    const next = [value, ...savedSearches.filter((item) => item.toLocaleLowerCase("tr-TR") !== value.toLocaleLowerCase("tr-TR"))];
+    setSavedSearches(next.slice(0, 8));
+    persistList(SAVED_SEARCHES_KEY, next);
+  };
+  const toggleFollowSearch = () => {
+    const value = query.trim();
+    if (value.length < 2) return;
+    const exists = followedSearches.some((item) => item.toLocaleLowerCase("tr-TR") === value.toLocaleLowerCase("tr-TR"));
+    const next = exists
+      ? followedSearches.filter((item) => item.toLocaleLowerCase("tr-TR") !== value.toLocaleLowerCase("tr-TR"))
+      : [value, ...followedSearches];
+    setFollowedSearches(next.slice(0, 8));
+    persistList(FOLLOWED_SEARCHES_KEY, next);
+    window.dispatchEvent(
+      new CustomEvent("ihaleal:add-toast", {
+        detail: {
+          message: exists ? "Arama takibi kapatıldı." : "Arama takibi açıldı (demo bildirim).",
+          type: "success",
+        },
+      })
+    );
   };
 
   return (
@@ -94,6 +153,55 @@ export default function SearchResults() {
             Ara
           </Button>
         </form>
+        {suggestions.length > 0 ? (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {suggestions.map((item) => (
+              <button
+                key={`suggest-${item}`}
+                type="button"
+                onClick={() => {
+                  setQuery(item);
+                  setParams({ q: item });
+                }}
+                className="rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs text-slate-300 transition hover:border-cyan-400/60 hover:text-white"
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        ) : null}
+        <div className="mb-6 flex flex-wrap gap-2">
+          <button type="button" onClick={saveCurrentSearch} className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs text-slate-300 hover:border-cyan-400/60 hover:text-white">
+            Aramayı kaydet
+          </button>
+          <button type="button" onClick={toggleFollowSearch} className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs text-slate-300 hover:border-cyan-400/60 hover:text-white">
+            Bu aramayı takip et
+          </button>
+        </div>
+        {(savedSearches.length > 0 || followedSearches.length > 0) ? (
+          <div className="mb-6 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3">
+              <p className="mb-2 text-xs font-semibold text-slate-400">Kayıtlı aramalar</p>
+              <div className="flex flex-wrap gap-2">
+                {savedSearches.map((item) => (
+                  <button key={`saved-${item}`} type="button" onClick={() => { setQuery(item); setParams({ q: item }); }} className="rounded-full border border-slate-700 px-2.5 py-1 text-xs text-slate-300">
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3">
+              <p className="mb-2 text-xs font-semibold text-slate-400">Takip edilen aramalar</p>
+              <div className="flex flex-wrap gap-2">
+                {followedSearches.map((item) => (
+                  <span key={`follow-${item}`} className="rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2.5 py-1 text-xs text-emerald-200">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         {query.length < 2 ? (
           <div className="space-y-3">
