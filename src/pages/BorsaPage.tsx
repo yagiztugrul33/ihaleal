@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, BarChart3, BriefcaseBusiness, Clock3, TrendingDown, TrendingUp } from "lucide-react";
+import { ArrowLeft, BarChart3, Bell, BriefcaseBusiness, Clock3, TrendingDown, TrendingUp } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useLiveMarket } from "@/borsa/useLiveMarket";
+import { INITIAL_MARKET_ASSETS, useLiveMarket } from "@/borsa/useLiveMarket";
 import type { MarketAsset } from "@/borsa/useLiveMarket";
 import {
   IHALEAL_INDEX_DISCLAIMER,
   MASTER_INFO_DISCLAIMER,
+  PHYSICAL_ASSET_ONLY_DISCLAIMER,
   PLATFORM_LEGAL_DEFINITION,
   PSP_FLOW_DISCLAIMER,
 } from "@/legal/platformDisclaimers";
@@ -18,6 +19,7 @@ import { Line, LineChart, ResponsiveContainer } from "recharts";
 type TerminalTab = "piyasa" | "portfoy" | "izleme" | "veri";
 type MarketTableTab = "en_aktif" | "yukselen" | "cok_islem" | "bitiyor";
 type FlashDir = "up" | "down";
+type AlertDirection = "above" | "below";
 type FeedEvent = {
   id: string;
   code: string;
@@ -26,12 +28,26 @@ type FeedEvent = {
   dir: FlashDir;
   relative: string;
 };
+type PriceAlert = {
+  id: string;
+  assetId: string;
+  target: number;
+  direction: AlertDirection;
+  enabled: boolean;
+};
+type AutoBidRule = {
+  id: string;
+  assetId: string;
+  maxBid: number;
+  stepTry: number;
+  enabled: boolean;
+};
 
 const TERMINAL_TABS: Array<{ id: TerminalTab; label: string; disabled?: boolean }> = [
   { id: "piyasa", label: "Piyasa" },
   { id: "portfoy", label: "Portföy" },
-  { id: "izleme", label: "İzleme", disabled: true },
-  { id: "veri", label: "Veri", disabled: true },
+  { id: "izleme", label: "İzleme" },
+  { id: "veri", label: "Veri" },
 ];
 
 const REGION_HEAT = [
@@ -71,7 +87,54 @@ export default function BorsaPage() {
   const [watchers, setWatchers] = useState(1892);
   const [summaryFlash, setSummaryFlash] = useState<FlashDir | null>(null);
   const [historyMap, setHistoryMap] = useState<Record<string, number[]>>({});
+  const [watchlistIds, setWatchlistIds] = useState<string[]>(() => {
+    try {
+      const raw = localStorage.getItem("borsa_watchlist_ids");
+      if (!raw) return INITIAL_MARKET_ASSETS.slice(0, 3).map((row) => row.id);
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed.map((x) => String(x)) : [];
+    } catch {
+      return INITIAL_MARKET_ASSETS.slice(0, 3).map((row) => row.id);
+    }
+  });
+  const [priceAlerts, setPriceAlerts] = useState<PriceAlert[]>(() => {
+    try {
+      const raw = localStorage.getItem("borsa_price_alerts");
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? (parsed as PriceAlert[]) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [autoBidRules, setAutoBidRules] = useState<AutoBidRule[]>(() => {
+    try {
+      const raw = localStorage.getItem("borsa_auto_bid_rules");
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? (parsed as AutoBidRule[]) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [selectedAssetId, setSelectedAssetId] = useState(() => INITIAL_MARKET_ASSETS[0]?.id ?? "");
+  const [alertTarget, setAlertTarget] = useState("");
+  const [alertDirection, setAlertDirection] = useState<AlertDirection>("above");
+  const [ruleMaxBid, setRuleMaxBid] = useState("");
+  const [ruleStep, setRuleStep] = useState("50000");
   const prevRef = useRef<MarketAsset[] | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("borsa_watchlist_ids", JSON.stringify(watchlistIds));
+  }, [watchlistIds]);
+
+  useEffect(() => {
+    localStorage.setItem("borsa_price_alerts", JSON.stringify(priceAlerts));
+  }, [priceAlerts]);
+
+  useEffect(() => {
+    localStorage.setItem("borsa_auto_bid_rules", JSON.stringify(autoBidRules));
+  }, [autoBidRules]);
 
   useEffect(() => {
     setHistoryMap((prev) => {
@@ -186,6 +249,59 @@ export default function BorsaPage() {
 
   const sectionTitle =
     tableTab === "en_aktif" ? "En Aktif" : tableTab === "yukselen" ? "Yükselen" : tableTab === "cok_islem" ? "Çok İşlem" : "Bitiyor";
+  const watchlistRows = useMemo(
+    () => data.filter((row) => watchlistIds.includes(row.id)),
+    [data, watchlistIds],
+  );
+  const activeAlerts = useMemo(
+    () =>
+      priceAlerts
+        .filter((alert) => alert.enabled)
+        .map((alert) => {
+          const asset = data.find((row) => row.id === alert.assetId);
+          if (!asset) return { ...alert, hit: false, current: 0, code: "—" };
+          const hit = alert.direction === "above" ? asset.price >= alert.target : asset.price <= alert.target;
+          return { ...alert, hit, current: asset.price, code: asset.code };
+        }),
+    [data, priceAlerts],
+  );
+
+  const toggleWatchlist = (assetId: string) => {
+    setWatchlistIds((prev) => (prev.includes(assetId) ? prev.filter((id) => id !== assetId) : [...prev, assetId]));
+  };
+
+  const createPriceAlert = () => {
+    const target = Number(alertTarget);
+    if (!selectedAssetId || !Number.isFinite(target) || target <= 0) return;
+    setPriceAlerts((prev) => [
+      {
+        id: `${selectedAssetId}-${Date.now()}`,
+        assetId: selectedAssetId,
+        target,
+        direction: alertDirection,
+        enabled: true,
+      },
+      ...prev,
+    ]);
+    setAlertTarget("");
+  };
+
+  const createAutoBidRule = () => {
+    const maxBid = Number(ruleMaxBid);
+    const stepTry = Number(ruleStep);
+    if (!selectedAssetId || !Number.isFinite(maxBid) || maxBid <= 0 || !Number.isFinite(stepTry) || stepTry <= 0) return;
+    setAutoBidRules((prev) => [
+      {
+        id: `${selectedAssetId}-${Date.now()}`,
+        assetId: selectedAssetId,
+        maxBid,
+        stepTry,
+        enabled: true,
+      },
+      ...prev,
+    ]);
+    setRuleMaxBid("");
+  };
 
   return (
     <div className="borsa-root text-slate-100">
@@ -245,6 +361,7 @@ export default function BorsaPage() {
           <p>{PLATFORM_LEGAL_DEFINITION}</p>
           <p className="mt-1">{MASTER_INFO_DISCLAIMER}</p>
           <p className="mt-1">{PSP_FLOW_DISCLAIMER}</p>
+          <p className="mt-1">{PHYSICAL_ASSET_ONLY_DISCLAIMER}</p>
         </section>
         <section className="borsa-card rounded-xl p-3">
           <div className="mb-2 flex items-center justify-between">
@@ -293,7 +410,7 @@ export default function BorsaPage() {
           ))}
         </section>
 
-        <section className="grid gap-4 xl:grid-cols-3">
+        <section className={cn("grid gap-4 xl:grid-cols-3", activeTab !== "piyasa" && "hidden")}>
           <div className="space-y-4 xl:col-span-2">
             <article className="borsa-card rounded-xl p-3">
               <div className="mb-3 flex items-center justify-between">
@@ -446,6 +563,183 @@ export default function BorsaPage() {
               </div>
             </article>
           </div>
+        </section>
+
+        <section className={cn("grid gap-4 xl:grid-cols-[1.4fr_1fr]", activeTab !== "izleme" && "hidden")}>
+          <article className="borsa-card rounded-xl p-3">
+            <div className="mb-3 flex items-center justify-between">
+              <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">İzleme Listesi</h3>
+              <span className="text-xs text-slate-400">{watchlistRows.length} varlık</span>
+            </div>
+            <div className="space-y-2">
+              {data.map((row) => {
+                const selected = watchlistIds.includes(row.id);
+                return (
+                  <button
+                    key={row.id}
+                    type="button"
+                    onClick={() => toggleWatchlist(row.id)}
+                    className={cn(
+                      "flex w-full items-center justify-between rounded-lg border px-3 py-2 text-left text-sm transition",
+                      selected
+                        ? "border-cyan-400/60 bg-cyan-500/10 text-cyan-100"
+                        : "border-slate-700/80 bg-slate-900/70 text-slate-200 hover:border-slate-500",
+                    )}
+                  >
+                    <span className="font-semibold">{row.code}</span>
+                    <span className="text-xs">{selected ? "İzleniyor" : "İzle"}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </article>
+
+          <article className="borsa-card rounded-xl p-3">
+            <div className="mb-3 flex items-center justify-between">
+              <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Fiyat Alarmı</h3>
+              <Bell className="h-4 w-4 text-cyan-300" />
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <select
+                value={selectedAssetId}
+                onChange={(e) => setSelectedAssetId(e.target.value)}
+                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100"
+              >
+                {data.map((row) => (
+                  <option key={row.id} value={row.id}>
+                    {row.code}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={alertDirection}
+                onChange={(e) => setAlertDirection(e.target.value as AlertDirection)}
+                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100"
+              >
+                <option value="above">Üzeri</option>
+                <option value="below">Altı</option>
+              </select>
+              <input
+                value={alertTarget}
+                onChange={(e) => setAlertTarget(e.target.value)}
+                placeholder="Hedef fiyat (₺)"
+                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100 placeholder:text-slate-500 sm:col-span-2"
+              />
+              <button
+                type="button"
+                onClick={createPriceAlert}
+                className="rounded-md border border-cyan-400/60 bg-cyan-500/15 px-2.5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100 sm:col-span-2"
+              >
+                Alarm Ekle
+              </button>
+            </div>
+            <div className="mt-3 space-y-2">
+              {activeAlerts.length === 0 ? (
+                <p className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
+                  Henüz aktif alarm yok.
+                </p>
+              ) : (
+                activeAlerts.map((alert) => (
+                  <div key={alert.id} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2">
+                    <p className="text-xs font-semibold text-slate-100">
+                      {alert.code} · {alert.direction === "above" ? "Üzeri" : "Altı"} {formatTry(alert.target)}
+                    </p>
+                    <p className={cn("mt-1 text-[11px]", alert.hit ? "text-emerald-300" : "text-slate-400")}>
+                      Güncel: {formatTry(alert.current)} {alert.hit ? "· Tetiklendi (demo)" : ""}
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+          </article>
+        </section>
+
+        <section className={cn("grid gap-4 lg:grid-cols-2", activeTab !== "veri" && "hidden")}>
+          <article className="borsa-card rounded-xl p-3">
+            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Otomatik Teklif (Demo)</h3>
+            <p className="mb-3 rounded-md border border-amber-500/35 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
+              Bu panel simülasyondur. Gerçek emir göndermez; yalnızca strateji taslağını yerelde saklar.
+            </p>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <select
+                value={selectedAssetId}
+                onChange={(e) => setSelectedAssetId(e.target.value)}
+                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100"
+              >
+                {data.map((row) => (
+                  <option key={row.id} value={row.id}>
+                    {row.code}
+                  </option>
+                ))}
+              </select>
+              <input
+                value={ruleMaxBid}
+                onChange={(e) => setRuleMaxBid(e.target.value)}
+                placeholder="Maks teklif (₺)"
+                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100 placeholder:text-slate-500"
+              />
+              <input
+                value={ruleStep}
+                onChange={(e) => setRuleStep(e.target.value)}
+                placeholder="Artış adımı (₺)"
+                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100 placeholder:text-slate-500"
+              />
+              <button
+                type="button"
+                onClick={createAutoBidRule}
+                className="rounded-md border border-cyan-400/60 bg-cyan-500/15 px-2.5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100"
+              >
+                Kural Ekle
+              </button>
+            </div>
+          </article>
+          <article className="borsa-card rounded-xl p-3">
+            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Kural Listesi</h3>
+            <div className="space-y-2">
+              {autoBidRules.length === 0 ? (
+                <p className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
+                  Kural bulunmuyor.
+                </p>
+              ) : (
+                autoBidRules.map((rule) => {
+                  const asset = data.find((row) => row.id === rule.assetId);
+                  return (
+                    <div key={rule.id} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
+                      <p className="font-semibold text-slate-100">{asset?.code ?? "—"}</p>
+                      <p className="mt-0.5 text-slate-300">
+                        Maks: {formatTry(rule.maxBid)} · Adım: {formatTry(rule.stepTry)}
+                      </p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setAutoBidRules((prev) =>
+                              prev.map((item) => (item.id === rule.id ? { ...item, enabled: !item.enabled } : item)),
+                            )
+                          }
+                          className={cn(
+                            "rounded border px-2 py-0.5 text-[10px] uppercase tracking-[0.1em]",
+                            rule.enabled
+                              ? "border-emerald-400/50 bg-emerald-500/15 text-emerald-200"
+                              : "border-slate-600 bg-slate-800 text-slate-400",
+                          )}
+                        >
+                          {rule.enabled ? "Aktif" : "Pasif"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setAutoBidRules((prev) => prev.filter((item) => item.id !== rule.id))}
+                          className="rounded border border-rose-500/40 bg-rose-500/10 px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-rose-200"
+                        >
+                          Sil
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </article>
         </section>
       </main>
       <footer className="border-t border-slate-700/60 bg-slate-950/90 px-4 py-3 text-[11px] text-slate-300 lg:px-6">
