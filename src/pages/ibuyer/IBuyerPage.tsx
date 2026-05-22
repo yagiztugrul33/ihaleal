@@ -22,6 +22,21 @@ export default function IBuyerPage() {
           <RefreshCw className="h-4 w-4" />
           Hukuki risk matrisi ile 72 saat geçerli teklif
         </p>
+        <div className="mb-8 space-y-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-relaxed text-slate-300">
+          <p>
+            iBuyer akışı, mülkünü hızlı nakde çevirmek isteyen kullanıcı için operasyonu sadeleştirir. Klasik yöntemde günler süren
+            ön görüşme, belge toplama ve teklif turu tek bir başvuru hattına indirilir; kullanıcı hangi adımda olduğunu anlık takip eder.
+          </p>
+          <p>
+            Sistem değerleme, risk sinyali ve likidite parametrelerini birlikte yorumlar. Amaç en yüksek rakamı vaat etmek değil;
+            sürdürülebilir ve kapanışa gidebilir bir teklif bandı üretmektir. Bu nedenle başvuru sonucunda verilen teklif, hukuki ve
+            operasyonel kontrollerle birlikte değerlendirilir.
+          </p>
+          <p>
+            Çıktılar demo modunda simülasyon niteliğindedir. Canlı uygulamada nihai bedel, yerinde ekspertiz, resmi belge doğrulaması ve
+            sözleşme onayı sonrasında kesinleşir. Bu ekran karar öncesi hızlı çerçeve sunmak için tasarlanmıştır.
+          </p>
+        </div>
 
         {loading ? (
           <div

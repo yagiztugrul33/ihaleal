@@ -134,6 +134,32 @@ export default function Corporate() {
         </div>
       </section>
 
+      <section className="py-14">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="card-warm space-y-4">
+            <h2 className="text-2xl md:text-3xl font-bold" style={{ color: "var(--color-text)" }}>
+              Kurumsal model nasıl çalışır?
+            </h2>
+            <p className="text-sm md:text-base leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+              İlk adımda mevcut operasyonunuz birlikte haritalanır: portföy girişi, müşteri aday yönetimi, teklif toplama, hukuki
+              kontrol ve kapanış süreçleri tek tek çıkarılır. Sonrasında ihaleal içinde rol bazlı erişim, ekip hiyerarşisi ve ilan
+              akış şablonları tanımlanır. Böylece her ofis aynı standardı kullanırken, her bölge kendi çalışma ritmine göre
+              uyarlanmış bir panelle çalışır.
+            </p>
+            <p className="text-sm md:text-base leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+              İkinci aşama performans ve kontrol katmanıdır. Hangi ilan daha hızlı dönüşüyor, hangi danışman hangi segmentte daha
+              iyi sonuç alıyor, tekliften satışa geçiş nerede yavaşlıyor gibi sorular tek panelde izlenir. Kurumlar yalnızca "kaç ilan
+              yayınladık?" sorusuna değil, "hangi ilanlar gerçekten kapanışa gidiyor?" sorusuna da net cevap alır.
+            </p>
+            <p className="text-sm md:text-base leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+              Üçüncü aşama entegrasyon ve büyümedir. API/webhook katmanı sayesinde mevcut CRM, muhasebe veya çağrı merkezi
+              sistemleriyle veri akışı kurulabilir. Amaç tek bir yazılımı dayatmak değil; var olan kurumsal altyapıya uyumlu,
+              gerektiğinde ölçeklenebilen bir çekirdek operasyon platformu sunmaktır.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-20 md:py-24" style={{ background: "rgba(15, 23, 42, 0.55)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">

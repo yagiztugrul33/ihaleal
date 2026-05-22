@@ -60,6 +60,21 @@ export default function ParselZekasiPage() {
       iconAccent="text-cyan-300"
       badge="GIS + AI"
     >
+      <div className="mod-panel mb-4 space-y-3 text-sm leading-relaxed text-slate-300">
+        <p>
+          Parsel Zekası, ada-parsel seviyesindeki imar bilgisini yatırım diliyle birleştirir. Sorgu ekranında yalnızca kimlik bilgisi
+          değil; emsal, kullanım türü, çevre parseller ve potansiyel geliştirme kapasitesi birlikte okunur.
+        </p>
+        <p>
+          Modül özellikle arsa toplama, kat karşılığı ön görüşme ve bölgesel portföy kararlarında hız kazandırır. Komşu parsellerle
+          kıyas tablosu; hangi parselin daha avantajlı olduğu, hangi parselde hak kaybı riski bulunduğu gibi kritik sorulara erken
+          aşamada yanıt üretir.
+        </p>
+        <p>
+          Buradaki skor ve çıktıların tamamı ön değerlendirme amaçlıdır. Nihai yatırım kararında belediye plan notları, resmi imar
+          belgeleri ve hukuki inceleme dosyası esas alınmalıdır. Amaç, ekiplerin sahaya inmeden önce daha hazırlıklı hareket etmesidir.
+        </p>
+      </div>
       <div className="mod-layout mod-layout--split">
         <ModulePanel title="Sorgu Formu">
           <form

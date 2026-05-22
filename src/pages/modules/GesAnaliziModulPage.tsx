@@ -41,6 +41,23 @@ export default function GesAnaliziModulPage() {
       iconAccent="text-amber-300"
       badge="Muhendislik Modulu"
     >
+      <div className="mod-panel mb-4 space-y-3 text-sm leading-relaxed text-slate-300">
+        <p>
+          GES Analizi modülü, arazi fizibilitesini yalnızca üretim tahminiyle değil finansal karar diliyle birlikte ele alır.
+          Kullanıcı DC kapasite, ışınım ve satış fiyatı girdiğinde sistem; gelir, opex, net nakit akışı ve geri ödeme hattını
+          aynı ekranda görünür hale getirir.
+        </p>
+        <p>
+          Bu yapı yatırım komiteleri için "tek sayı" yerine "senaryo okuma" yaklaşımı sunar. İyi, nötr ve baskı senaryolarında
+          IRR/NPV dengesinin nasıl değiştiği takip edilebilir; böylece proje kararı yalnızca bugünkü fiyat varsayımına bağlı
+          kalmaz. Özellikle arazi seçimi aşamasında farklı lokasyonların hızlı karşılaştırması için operasyonel bir çerçeve üretir.
+        </p>
+        <p>
+          Ekrandaki sonuçlar ön fizibilite niteliğindedir; şebeke bağlantısı, lisans süreçleri ve saha mühendisliği çıktılarıyla
+          birlikte kesinleşmelidir. Modülün amacı, teknik ekip ve yatırım ekibinin aynı veri seti üzerinde hızlı hizalanmasını
+          sağlamaktır.
+        </p>
+      </div>
       <div className="mod-layout mod-layout--split">
         <ModulePanel title="Proje Parametreleri">
           <form

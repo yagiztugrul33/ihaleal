@@ -712,6 +712,25 @@ export default function TakasPage() {
     <main className="min-h-screen text-white">
       <TakasHero />
       <TakasShowcase />
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-2">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 space-y-3 text-sm leading-relaxed text-slate-300">
+          <h2 className="text-base font-semibold text-white">Takas modeli ne zaman avantajlıdır?</h2>
+          <p>
+            Takas, satıştan gelen nakdi beklemeden yeni portföye geçmek isteyen kullanıcı için zaman avantajı sağlar. Özellikle
+            piyasanın dalgalı olduğu dönemlerde "önce sat sonra al" riskini azaltır; geçiş sürecinde alternatif senaryoları görünür
+            hale getirir.
+          </p>
+          <p>
+            Bu modelde iki unsur kritik olur: verilen mülkün hukuki temizliği ve hedef mülkle değer farkının doğru hesaplanması.
+            Form akışı bu yüzden yalnızca fiyat değil, risk bayrakları ve zaman tercihini de toplar. Böylece teklif üretilse bile
+            operasyon ekibi hangi dosyanın ek inceleme gerektirdiğini erken görür.
+          </p>
+          <p>
+            Takas çıktısı bir yatırım tavsiyesi değil, işlem öncesi karar desteğidir. Nihai sözleşme, taraf mutabakatı ve resmi kayıt
+            adımları tamamlandıktan sonra bağlayıcı hale gelir.
+          </p>
+        </div>
+      </section>
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
         {loading ? (
           <div

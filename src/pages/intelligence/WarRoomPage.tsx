@@ -1,6 +1,6 @@
 ﻿import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, ArrowLeft, Download, Layers, Loader2, MapPin, Radar, RefreshCw } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Download, Layers, Loader2, MapPin, Radar, RefreshCw, ShieldCheck, Building2, Waves, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -167,6 +167,52 @@ export default function WarRoomPage() {
             <AlertTriangle className="w-4 h-4 shrink-0" />{error}
           </div>
         ) : null}
+        <div className="mb-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Card className="card-luxury">
+            <CardContent className="p-4">
+              <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/10">
+                <ShieldCheck className="h-4 w-4 text-cyan-300" />
+              </div>
+              <h2 className="text-sm font-semibold text-white">Saha Güvenliği</h2>
+              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+                Deprem, zemin ve afet katmanları aynı panelde okunur; yüksek risk bölgeleri operasyon planında erken işaretlenir.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="card-luxury">
+            <CardContent className="p-4">
+              <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/10">
+                <Building2 className="h-4 w-4 text-emerald-300" />
+              </div>
+              <h2 className="text-sm font-semibold text-white">Yapısal Uygunluk</h2>
+              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+                Yükseklik, eğim ve geoteknik sinyaller üzerinden proje uygunluğu değerlendirilir; kırmızı alanlar net biçimde ayrılır.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="card-luxury">
+            <CardContent className="p-4">
+              <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-amber-500/30 bg-amber-500/10">
+                <Waves className="h-4 w-4 text-amber-300" />
+              </div>
+              <h2 className="text-sm font-semibold text-white">Enerji Potansiyeli</h2>
+              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+                PVGIS ışınım ve saha parametreleri birleştirilir; enerji tarafındaki fırsat/risk dengesi finansal okuma için hazırlanır.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="card-luxury">
+            <CardContent className="p-4">
+              <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10">
+                <Activity className="h-4 w-4 text-violet-300" />
+              </div>
+              <h2 className="text-sm font-semibold text-white">Operasyon Ritmi</h2>
+              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+                Analiz geçmişi, rapor çıktısı ve karar notları tek akışta tutulur; ekipler aynı referans üzerinden aksiyon alır.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
         <div className="grid xl:grid-cols-12 gap-4">
           <Card className="xl:col-span-3 card-luxury"><CardContent className="p-5 space-y-3">
             <Label>Etiket</Label><Input value={label} onChange={(e) => setLabel(e.target.value)} />

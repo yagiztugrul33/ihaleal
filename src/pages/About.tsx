@@ -294,6 +294,30 @@ export default function About() {
         </p>
       </section>
 
+      <section className="py-10">
+        <div className="card-warm space-y-4">
+          <h2 className="text-xl md:text-2xl font-bold" style={{ color: "var(--color-text)" }}>
+            Neden ihaleal?
+          </h2>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            Gayrimenkul tarafında en büyük sorunlardan biri, karar anında bilgilerin dağınık kalmasıdır. İhale koşulu bir yerde, ücret
+            kalemleri başka bir yerde, belge beklentileri ise çoğu zaman son anda görünür olur. ihaleal bu dağınıklığı azaltmak için
+            teklif sürecini tek bir operasyon diliyle kurgular: hangi adımda ne yapılacağı, hangi evrakın eksik olduğu ve kapanışa
+            nasıl gidileceği kullanıcıya net şekilde gösterilir.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            Ekip yaklaşımımız "önce anlaşılabilirlik, sonra otomasyon" ilkesine dayanır. Bu nedenle ürün ekranlarında yalnızca sonuç
+            değil, sonuca nasıl gidildiği de anlatılır. Komisyon, teminat, anti-sniping, teklif günlüğü ve sözleşme ön koşulları gibi
+            kritik başlıklar tek tek görünür hale getirilir. Kullanıcı deneyimi kadar, sürecin denetlenebilir olması da temel hedefimizdir.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            Kurumsal tarafta ise sürdürülebilirlik öne çıkar: ofis sayısı arttığında bile kalite düşmeden ilerleyebilen standart bir iş
+            akışı kurmak isteriz. Bu yüzden ihaleal, bireysel alıcı-satıcı yolculuğunun yanında emlak ofisleri ve operasyon ekipleri için
+            ortak bir çalışma zemini sunar. Kısa vadede verim, orta vadede daha güvenli ve ölçülebilir bir pazar hedeflenir.
+          </p>
+        </div>
+      </section>
+
       <section className="py-14 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center border-t" style={{ borderColor: "var(--color-border)" }}>
         <Link to="/ihaleler" className="btn-primary gap-2 inline-flex">
           İhalelere göz at
