@@ -104,14 +104,15 @@ export default function SearchResults() {
                 <button
                   type="button"
                   onClick={() => navigate(`/ilan/${auction.id}`)}
-                  className="w-full text-left rounded-xl border border-slate-200/80 bg-slate-900/40 hover:border-blue-500/30 hover:bg-slate-900/70 transition-colors p-4 flex gap-4"
+                  className="w-full min-w-0 text-left rounded-xl border border-slate-200/80 bg-slate-900/40 p-4 transition-colors hover:border-blue-500/30 hover:bg-slate-900/70"
                 >
-                  <ListingCoverImage
-                    src={auction.images[0]}
-                    alt={auction.title}
-                    className="w-24 h-16 object-cover rounded-lg flex-shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
+                  <div className="flex min-w-0 gap-4">
+                    <ListingCoverImage
+                      src={auction.images[0]}
+                      alt={auction.title}
+                      className="h-16 w-24 flex-shrink-0 rounded-lg object-cover"
+                    />
+                    <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <ListingNumberBadge auction={auction} compact />
                     </div>
@@ -125,9 +126,10 @@ export default function SearchResults() {
                       </span>
                     </div>
                     <ListingDocumentFooter auction={auction} compact />
-                  </div>
-                  <div className="text-sm font-bold text-blue-400 flex-shrink-0 self-center">
-                    {(auction.currentBid / 1_000_000).toFixed(1)}M ₺
+                    </div>
+                    <div className="flex-shrink-0 self-center text-sm font-bold text-blue-400">
+                      {(auction.currentBid / 1_000_000).toFixed(1)}M ₺
+                    </div>
                   </div>
                 </button>
               </li>
