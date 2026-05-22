@@ -11,15 +11,15 @@ type NotificationItem = {
 };
 
 const ALL: NotificationItem[] = [
-  { id: "1", title: "Yeni teklif", body: "Kadikoy 3+1 ilaniniza teklif geldi.", time: "5 dk once", icon: Bell, unread: true },
-  { id: "2", title: "Ihale sona erdi", body: "Ankara ticari plaza ihalesi kapandi.", time: "1 saat once", icon: CheckCircle2 },
-  { id: "3", title: "KYC onaylandi", body: "Kimlik dogrulamaniz tamamlandi.", time: "Dun", icon: CheckCircle2 },
-  { id: "4", title: "Sistem", body: "Bakim penceresi 02:00-04:00.", time: "2 gun once", icon: Info },
+  { id: "1", title: "Yeni teklif", body: "Kadıköy 3+1 ilanınıza yeni teklif geldi.", time: "5 dk önce", icon: Bell, unread: true },
+  { id: "2", title: "İhale sona erdi", body: "Ankara ticari plaza ihalesi kapandı.", time: "1 saat önce", icon: CheckCircle2 },
+  { id: "3", title: "Fiyat düştü", body: "İzlediğiniz ilanda %2,1 fiyat düşüşü var.", time: "Dün", icon: Info },
+  { id: "4", title: "KYC onaylandı", body: "Kimlik doğrulamanız tamamlandı.", time: "2 gün önce", icon: CheckCircle2 },
 ];
 
 const TABS = [
-  { id: "all" as const, label: "Tumu", items: ALL },
-  { id: "unread" as const, label: "Okunmamis", items: ALL.filter((n) => n.unread) },
+  { id: "all" as const, label: "Tümü", items: ALL },
+  { id: "unread" as const, label: "Okunmamış", items: ALL.filter((n) => n.unread) },
   { id: "system" as const, label: "Sistem", items: ALL.filter((n) => n.icon === Info) },
 ];
 

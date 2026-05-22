@@ -33,6 +33,12 @@ const sidebar = [
   { to: "/ayarlar", label: "Ayarlar", icon: Settings },
 ] as const;
 
+const RECENT_ACTIVITY = [
+  { id: "a1", title: "Teklif verdin", body: "Kadıköy deniz manzaralı ilanda teklifin sisteme işlendi.", at: "3 dk önce" },
+  { id: "a2", title: "İzlediğin ilan güncellendi", body: "Levent ofis ilanında fiyat bandı revize edildi.", at: "38 dk önce" },
+  { id: "a3", title: "Fiyat düştü", body: "Bodrum villa ilanında %2,8 fiyat düşüşü görüldü.", at: "Bugün" },
+] as const;
+
 export default function UserPanel() {
   const navigate = useNavigate();
   const { tabId } = useParams<{ tabId?: string }>();
@@ -312,6 +318,21 @@ export default function UserPanel() {
                     <Button type="button" size="sm" variant="outline" className="border-white/15" onClick={() => navigate("/favoriler")}>
                       Favorilerimi aç
                     </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-slate-900/50 border-slate-200/80">
+                <CardContent className="p-5">
+                  <h2 className="mb-3 text-lg font-semibold text-white">Son aktiviteler</h2>
+                  <div className="space-y-2">
+                    {RECENT_ACTIVITY.map((item) => (
+                      <article key={item.id} className="rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2">
+                        <p className="text-sm font-medium text-white">{item.title}</p>
+                        <p className="text-xs text-slate-400">{item.body}</p>
+                        <p className="text-[11px] text-slate-500">{item.at}</p>
+                      </article>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
