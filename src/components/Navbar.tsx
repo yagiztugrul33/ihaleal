@@ -306,7 +306,7 @@ export function Navbar() {
         <div className="relative mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link
             to="/"
-            className="shrink-0 rounded-xl bg-slate-950/45 px-2 py-1.5 no-underline ring-1 ring-white/10"
+            className="shrink-0 px-1 py-1 no-underline"
             aria-label="ihaleal.com"
           >
             <BrandLockup logoSize="lg" wordmarkClassName="text-[1.04rem]" hideWordmarkOnMobile />

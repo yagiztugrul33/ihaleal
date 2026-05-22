@@ -293,31 +293,8 @@ export default function BorsaPage() {
           ))}
         </section>
 
-        <section className="grid gap-4 xl:grid-cols-[1.6fr_1fr]">
-          <div className="space-y-4">
-            <article className="borsa-card rounded-xl p-3">
-              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bölge Endeksleri</h3>
-              <p className="mb-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
-                İhaleal Endeksi: {IHALEAL_INDEX_DISCLAIMER}
-              </p>
-              <div className="space-y-2">
-                {regionIndexes.map((idx) => {
-                  const up = idx.change >= 0;
-                  return (
-                    <div key={idx.name} className="grid grid-cols-[1.1fr_auto_auto_100px] items-center gap-2 rounded-lg border border-slate-700/80 bg-slate-900/65 px-3 py-2">
-                      <span className="text-sm text-slate-200">{idx.name}</span>
-                      <span className="text-sm font-bold text-white">{formatTry(idx.index)}</span>
-                      <span className={cn("text-xs font-bold", up ? "text-emerald-300" : "text-rose-300")}>
-                        {up ? "+" : ""}
-                        {idx.change.toFixed(2)}%
-                      </span>
-                      <Sparkline points={idx.trend} color={up ? "#22c55e" : "#f43f5e"} />
-                    </div>
-                  );
-                })}
-              </div>
-            </article>
-
+        <section className="grid gap-4 xl:grid-cols-3">
+          <div className="space-y-4 xl:col-span-2">
             <article className="borsa-card rounded-xl p-3">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Varlık Tablosu</h3>
@@ -384,6 +361,29 @@ export default function BorsaPage() {
                     })}
                   </tbody>
                 </table>
+              </div>
+            </article>
+
+            <article className="borsa-card rounded-xl p-3">
+              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bölge Endeksleri</h3>
+              <p className="mb-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
+                İhaleal Endeksi: {IHALEAL_INDEX_DISCLAIMER}
+              </p>
+              <div className="space-y-2">
+                {regionIndexes.map((idx) => {
+                  const up = idx.change >= 0;
+                  return (
+                    <div key={idx.name} className="grid grid-cols-[1.1fr_auto_auto_100px] items-center gap-2 rounded-lg border border-slate-700/80 bg-slate-900/65 px-3 py-2">
+                      <span className="text-sm text-slate-200">{idx.name}</span>
+                      <span className="text-sm font-bold text-white">{formatTry(idx.index)}</span>
+                      <span className={cn("text-xs font-bold", up ? "text-emerald-300" : "text-rose-300")}>
+                        {up ? "+" : ""}
+                        {idx.change.toFixed(2)}%
+                      </span>
+                      <Sparkline points={idx.trend} color={up ? "#22c55e" : "#f43f5e"} />
+                    </div>
+                  );
+                })}
               </div>
             </article>
           </div>
