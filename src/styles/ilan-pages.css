@@ -208,6 +208,36 @@
 .ilan-detay__description p { margin: 0; font-size: 0.86rem; line-height: 1.6; color: #c8dbef; }
 .ilan-detay__related, .ilan-detay__qa { margin-top: 2.5rem; }
 .ilan-detay__related h2, .ilan-detay__qa h2, .ilan-detay__location-block h2 { color: #f8fbff; }
+.ilan-detay__sponsored-context {
+  margin-top: 2rem;
+  border: 1px solid rgba(125, 211, 252, 0.28);
+  border-radius: 14px;
+  background: linear-gradient(150deg, rgba(7, 20, 36, 0.88), rgba(17, 35, 55, 0.9));
+  padding: 0.85rem;
+}
+.ilan-detay__sponsored-head p {
+  margin: 0;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7dd3fc;
+}
+.ilan-detay__sponsored-head h2 { margin: 0.2rem 0 0.6rem; font-size: 1rem; }
+.ilan-detay__sponsored-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.55rem;
+}
+.ilan-detay__sponsored-card {
+  border-radius: 10px;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  background: rgba(15, 23, 42, 0.58);
+  padding: 0.6rem;
+  text-decoration: none;
+}
+.ilan-detay__sponsored-card strong { display: block; color: #fff; font-size: 0.83rem; }
+.ilan-detay__sponsored-card span { display: block; margin-top: 0.25rem; color: #bfdbfe; font-size: 0.73rem; }
+.ilan-detay__sponsored-card small { display: block; margin-top: 0.35rem; color: #93c5fd; font-size: 0.67rem; }
 .ilan-detay__location-block {
   margin-top: 2.5rem;
   padding: 1rem;

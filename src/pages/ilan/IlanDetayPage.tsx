@@ -170,6 +170,30 @@ export default function IlanDetayPage({ id }: { id: string }) {
         </Link>
       </section>
 
+      <section className="ilan-detay__sponsored-context" aria-labelledby="ilan-sponsored-title">
+        <div className="ilan-detay__sponsored-head">
+          <p>Reklam</p>
+          <h2 id="ilan-sponsored-title">Bağlamsal sponsorlu öneriler</h2>
+        </div>
+        <div className="ilan-detay__sponsored-grid">
+          <Link to="/mortgage" className="ilan-detay__sponsored-card">
+            <strong>Bu evi finanse et</strong>
+            <span>Konut kredisi tekliflerini karşılaştır (banka mock).</span>
+            <small>Sponsorlu · kredi hesaplayıcıyla uyumlu</small>
+          </Link>
+          <Link to="/modul/deprem-sigortasi" className="ilan-detay__sponsored-card">
+            <strong>DASK / Sigorta teklifleri</strong>
+            <span>Bina riskine göre demo prim aralığı ve poliçe önerisi.</span>
+            <small>Sponsorlu · sigorta iş ortağı (mock)</small>
+          </Link>
+          <Link to="/modul/renovasyon-roi" className="ilan-detay__sponsored-card">
+            <strong>Taşınma & Tadilat çözümleri</strong>
+            <span>Taşınma planı, renovasyon bütçesi ve ROI aracı.</span>
+            <small>Sponsorlu · yan hizmet önerisi</small>
+          </Link>
+        </div>
+      </section>
+
       <aside className="ilan-detay__ai-panel" aria-label="AI asistan">
         <h3>Bu ilan hakkında soru sor</h3>
         <p>Demo: &quot;Bu bölgede m² fiyatı nasıl?&quot;, &quot;İhaleye katılım şartları neler?&quot;</p>
