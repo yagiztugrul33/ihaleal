@@ -22,7 +22,9 @@ export default function KVKK() {
           <p className="text-xs text-slate-600 mt-1">Son güncelleme: 01.01.2025</p>
         </div>
         <Card className="mb-6 border-amber-500/30 bg-amber-500/10">
-          <CardContent className="p-4 text-xs text-amber-100">Bu metin taslak niteliğindedir — AVUKAT ONAYI BEKLER.</CardContent>
+          <CardContent className="p-4 text-xs text-amber-100">
+            Bu metin taslaktır; yürürlük öncesi hukuki danışman onayı gerekir.
+          </CardContent>
         </Card>
 
         <div className="space-y-6">
@@ -102,6 +104,22 @@ export default function KVKK() {
             <h3 className="text-lg font-bold text-white mb-3">6. Veri Saklama Süresi</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz, hesabınız aktif olduğu sürece ve yasal yükümlülüklerimizin gerektirdiği süre boyunca saklanır. Hesabınızı sildiğinizde, verileriniz 30 gün içinde sistemden kaldırılır. Ancak yasal mercilerin talep ettiği kayıtlar yasal süreler boyunca saklanabilir.
+            </p>
+          </Card>
+
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
+            <h3 className="text-lg font-bold text-white mb-3">7. Başvuru ve Yanıt Süreci</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              KVKK kapsamındaki taleplerinizi kimliğinizi doğrulayacak bilgilerle birlikte iletebilirsiniz. Başvurular, mevzuatta belirtilen
+              sürelerde değerlendirilir ve sonucu kayıtlı iletişim kanalınız üzerinden tarafınıza bildirilir.
+            </p>
+          </Card>
+
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
+            <h3 className="text-lg font-bold text-white mb-3">8. Demo Ortamı Notu</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Demo ortamında kullanılan bazı veri setleri simülasyon amaçlıdır. Üretime geçişte veri minimizasyonu, erişim yetkilendirmesi ve
+              log denetimi süreçleri ayrıca gözden geçirilir.
             </p>
           </Card>
 
