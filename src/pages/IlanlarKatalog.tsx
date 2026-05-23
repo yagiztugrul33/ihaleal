@@ -49,6 +49,7 @@ export default function IlanlarKatalog() {
   const city = searchParams.get("sehir");
   const district = searchParams.get("ilce");
   const modality = searchParams.get("modalite");
+  const devrenOnly = searchParams.get("devren") === "1";
   const sort = (searchParams.get("siralama") as SortKey) || "yeni";
   const page = Math.max(1, Number(searchParams.get("sayfa") || "1") || 1);
 
@@ -107,6 +108,9 @@ export default function IlanlarKatalog() {
         p.district?.toLocaleLowerCase("tr-TR").includes(district.toLocaleLowerCase("tr-TR"))
       );
     }
+    if (devrenOnly) {
+      list = list.filter((p) => p.dealType === "transfer" || p.taxonomy.category === "devren");
+    }
     if (hasEarthquakeFilters) {
       list = list.filter((p) => propertyMatchesEarthquakeUrlParams(p, searchParams));
     }
@@ -136,6 +140,7 @@ export default function IlanlarKatalog() {
     maxSqm,
     city,
     district,
+    devrenOnly,
     sort,
     hasEarthquakeFilters,
     searchParams,
@@ -151,6 +156,14 @@ export default function IlanlarKatalog() {
   const compareItems = useMemo(
     () => getAllProperties().filter((p) => compareIds.includes(p.id)),
     [compareIds]
+  );
+  const devrenHighlights = useMemo(
+    () =>
+      filtered
+        .filter((p) => p.dealType === "transfer" || p.taxonomy.category === "devren")
+        .sort((a, b) => (b.aiInvestmentScore ?? 0) - (a.aiInvestmentScore ?? 0))
+        .slice(0, 4),
+    [filtered],
   );
 
   const setViewMode = (v: ViewMode) => {
@@ -171,8 +184,9 @@ export default function IlanlarKatalog() {
         maxSqm ? { key: "maxM2", label: "Max m²", value: maxSqm } : null,
         city ? { key: "sehir", label: "Şehir", value: city } : null,
         district ? { key: "ilce", label: "İlçe", value: district } : null,
+        devrenOnly ? { key: "devren", label: "Devren", value: "Sadece devren işletmeler" } : null,
       ].filter((item): item is { key: string; label: string; value: string } => Boolean(item)),
-    [category, sub, type, modality, minPrice, maxPrice, minSqm, maxSqm, city, district]
+    [category, sub, type, modality, minPrice, maxPrice, minSqm, maxSqm, city, district, devrenOnly]
   );
 
   useEffect(() => {
@@ -227,6 +241,13 @@ export default function IlanlarKatalog() {
         </div>
         <button type="button" className="ilan-katalog__filters-toggle" onClick={() => setShowFilters((prev) => !prev)}>
           {showFilters ? "Filtreleri gizle" : "Filtreleri göster"}
+        </button>
+        <button
+          type="button"
+          className={`ilan-katalog__devren-toggle ${devrenOnly ? "is-active" : ""}`}
+          onClick={() => updateParam("devren", devrenOnly ? "" : "1")}
+        >
+          Devren işletmeler
         </button>
         <label>
           <span className="sr-only">Sıralama</span>
@@ -318,6 +339,12 @@ export default function IlanlarKatalog() {
               <option value="sealed_offers">Kapalı teklif</option>
             </select>
           </label>
+          <label className="ilan-katalog__devren-checkbox">
+            <span>Devren filtresi</span>
+            <button type="button" onClick={() => updateParam("devren", devrenOnly ? "" : "1")}>
+              {devrenOnly ? "Sadece devren açık" : "Devren fırsatlarını öne çıkar"}
+            </button>
+          </label>
           <label>
             <span>Min fiyat</span>
             <input type="number" value={minPrice ?? ""} onChange={(e) => updateParam("minFiyat", e.target.value)} />
@@ -353,6 +380,35 @@ export default function IlanlarKatalog() {
         </aside>
 
         <section className="ilan-landing__grid-wrap" aria-label="İlan listesi">
+          {view !== "map" && devrenHighlights.length > 0 ? (
+            <section className="ilan-katalog__devren-section" aria-label="Devren fırsatları">
+              <div className="ilan-katalog__devren-head">
+                <h3>Devren İşletme Fırsatları</h3>
+                <p>Kafe / dükkan / işletme devri için ciro, kira ve sözleşme süresi bilgileri</p>
+              </div>
+              <div className="ilan-katalog__devren-grid">
+                {devrenHighlights.map((property) => {
+                  const details = (property.details ?? {}) as Record<string, unknown>;
+                  return (
+                    <Link key={property.id} to={`/ilan/${property.id}`} className="ilan-katalog__devren-card">
+                      <strong>{property.title}</strong>
+                      <span>{property.city} · {property.district}</span>
+                      <p>
+                        Devir: {Number(details.transferPriceTry ?? getPropertyPrice(property) ?? 0).toLocaleString("tr-TR")} TRY
+                      </p>
+                      <p>
+                        Aylık ciro: {Number(details.monthlyRevenueTry ?? 0).toLocaleString("tr-TR")} TRY ·
+                        Kira: {Number(details.monthlyRentTry ?? 0).toLocaleString("tr-TR")} TRY
+                      </p>
+                      <small>
+                        Çalışan: {String(details.employeeCount ?? "—")} · Süre: {String(details.leaseRemainingMonths ?? "—")} ay
+                      </small>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
           {view === "map" ? (
             <Suspense fallback={<p className="ilan-landing__empty">Harita yükleniyor…</p>}>
               <IlanlarMapInner properties={filtered} />

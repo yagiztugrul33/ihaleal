@@ -94,7 +94,11 @@ export function OpportunityRadar({ properties }: OpportunityRadarProps) {
         };
       })
       .filter((point) => point.distanceKm <= 80)
-      .sort((a, b) => a.distanceKm - b.distanceKm)
+      .sort((a, b) => {
+        const aw = a.dealType === "transfer" ? -15 : 0;
+        const bw = b.dealType === "transfer" ? -15 : 0;
+        return a.distanceKm + aw - (b.distanceKm + bw);
+      })
       .slice(0, 8);
   }, [currentCenter.lat, currentCenter.lng, properties]);
 
@@ -285,6 +289,7 @@ export function OpportunityRadar({ properties }: OpportunityRadarProps) {
                   <span>
                     <MapPin className="h-3.5 w-3.5" /> {point.district}, {point.city}
                   </span>
+                  {point.dealType === "transfer" ? <span>Devren öncelikli fırsat</span> : null}
                 </div>
                 <div className="ilan-radar__item-meta">
                   <strong>{formatTry(point.price)}</strong>

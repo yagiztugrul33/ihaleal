@@ -341,6 +341,21 @@
 .ilan-katalog__view-toggle button { min-height: 44px; padding: 0.4rem 0.75rem; border-radius: 8px; border: 1px solid rgba(148,163,184,0.35); background: transparent; display: inline-flex; align-items: center; gap: 0.35rem; }
 .ilan-katalog__view-toggle button.is-active { background: rgba(13,148,136,0.15); border-color: #0d9488; }
 .ilan-katalog__filters-toggle { display: none; min-height: 44px; padding: 0.45rem 0.8rem; border-radius: 8px; border: 1px solid rgba(148,163,184,0.35); background: #fff; }
+.ilan-katalog__devren-toggle {
+  min-height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.45);
+  color: #dbeafe;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.ilan-katalog__devren-toggle.is-active {
+  border-color: rgba(244, 114, 182, 0.5);
+  background: rgba(190, 24, 93, 0.2);
+  color: #ffe4f2;
+}
 .ilan-katalog__result-meta { margin-bottom: 0.6rem; font-size: 0.85rem; color: #64748b; }
 .ilan-katalog__compare-tray { margin-bottom: 0.75rem; border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 0.6rem 0.75rem; background: rgba(14, 116, 144, 0.08); font-size: 0.78rem; color: #0f172a; }
 .ilan-katalog__compare-tray-items { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
@@ -409,6 +424,41 @@
   color: #fff;
 }
 .ilan-katalog__taxonomy-link { margin-top: 1rem; font-size: 0.85rem; }
+.ilan-katalog__devren-checkbox button {
+  min-height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.55);
+  color: #e2e8f0;
+  font-size: 0.76rem;
+  text-align: left;
+  padding: 0.35rem 0.55rem;
+}
+.ilan-katalog__devren-section {
+  margin-bottom: 0.9rem;
+  border: 1px solid rgba(244, 114, 182, 0.35);
+  border-radius: 14px;
+  background: linear-gradient(150deg, rgba(63, 8, 42, 0.42), rgba(30, 16, 65, 0.34));
+  padding: 0.7rem;
+}
+.ilan-katalog__devren-head h3 { margin: 0; font-size: 1rem; color: #fff; }
+.ilan-katalog__devren-head p { margin: 0.25rem 0 0.55rem; color: #f5d0fe; font-size: 0.78rem; }
+.ilan-katalog__devren-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.55rem;
+}
+.ilan-katalog__devren-card {
+  border: 1px solid rgba(244, 114, 182, 0.22);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 0.55rem;
+  text-decoration: none;
+}
+.ilan-katalog__devren-card strong { color: #fff; font-size: 0.84rem; display: block; }
+.ilan-katalog__devren-card span { color: #f9a8d4; font-size: 0.72rem; display: block; margin-top: 0.2rem; }
+.ilan-katalog__devren-card p { color: #cbd5e1; font-size: 0.72rem; margin: 0.35rem 0 0; line-height: 1.4; }
+.ilan-katalog__devren-card small { color: #e9d5ff; font-size: 0.68rem; display: block; margin-top: 0.35rem; }
 
 .ilan-radar {
   margin: 0 0 1rem;
@@ -518,6 +568,7 @@
   }
   .ilan-radar__stats { grid-template-columns: 1fr 1fr; }
   .ilan-radar__layout { grid-template-columns: 1fr; }
+  .ilan-katalog__devren-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 900px) {

@@ -240,6 +240,7 @@ function DevrenPanel({ d }: { d: Record<string, unknown> }) {
         <StatCard title="İşletme" value={detailStr(d, "businessName") ?? "—"} icon={<UtensilsCrossed size={18} />} />
         <StatCard title="Sektör" value={detailStr(d, "sector") ?? "—"} />
         <StatCard title="Personel" value={String(d.employeeCount ?? "—")} />
+        <StatCard title="Devir bedeli" value={d.transferPriceTry ? formatTry(Number(d.transferPriceTry)) : "—"} tone="primary" />
       </div>
       <article className="idr-card">
         <SectionTitle title="Aylık P&L (TRY)" />
@@ -255,7 +256,10 @@ function DevrenPanel({ d }: { d: Record<string, unknown> }) {
       </article>
       <DataTable
         rows={[
+          { label: "Aylık kira", value: d.monthlyRentTry ? formatTry(Number(d.monthlyRentTry)) : "—" },
           { label: "Kalan kira süresi", value: d.leaseRemainingMonths ? `${d.leaseRemainingMonths} ay` : "—" },
+          { label: "Sözleşme", value: detailStr(d, "contractType") ?? "—" },
+          { label: "Ekipman özeti", value: detailStr(d, "equipmentSummary") ?? "—" },
           { label: "Ekipman dahil", value: d.equipmentIncluded ? "Evet" : "Hayır" },
           { label: "Marka hakkı", value: d.brandRights ? "Evet" : "Hayır" },
         ]}

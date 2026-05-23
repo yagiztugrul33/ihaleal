@@ -423,13 +423,21 @@ function buildTypeDetails(slot: TaxonSlot, seq: number, sqm: number): Record<str
       return d as Record<string, unknown>;
     }
     case "devren": {
+      const transferPriceTry = roundMoney(2_200_000 + h * 25_000);
       const d: DevrenDetay = {
         businessName: slot.type === "restoran" ? "Meyhane 1924" : "Kahve Durağı",
         sector: slot.type === "restoran" ? "Restoran" : "Kafe",
+        transferPriceTry,
+        monthlyRentTry: roundMoney(95_000 + h * 3_000),
         monthlyRevenueTry: roundMoney(420_000 + h * 8000),
         monthlyProfitTry: roundMoney(95_000 + h * 3000),
         employeeCount: 6 + (h % 14),
+        equipmentSummary:
+          slot.type === "restoran"
+            ? "Endüstriyel mutfak, soğuk hava deposu, servis seti"
+            : "Bar ekipmanı, espresso hattı, POS ve oturma grubu",
         leaseRemainingMonths: 24 + (h % 36),
+        contractType: h % 2 === 0 ? "5+5 yıl kira sözleşmesi" : "3 yıl uzatma opsiyonlu sözleşme",
         equipmentIncluded: true,
         brandRights: slot.type === "cafe",
         franchiseFeeTry: slot.type === "cafe" ? roundMoney(250_000) : undefined,
