@@ -12,6 +12,7 @@ import { getEarthquakeScore } from "@/lib/scoring/getEarthquakeScore";
 import { getPropertyPrice } from "@/types/property";
 import { useCompareSelection } from "@/hooks/useCompareSelection";
 import { ShareButton } from "@/components/ShareButton";
+import { OpportunityRadar } from "@/components/location/OpportunityRadar";
 import "@/styles/ilan-pages.css";
 
 const IlanlarMapInner = lazy(() => import("@/pages/ilan/IlanlarMapInner"));
@@ -242,6 +243,7 @@ export default function IlanlarKatalog() {
       <div className="ilan-katalog__result-meta" aria-live="polite">
         <span>{filtered.length} sonuç bulundu</span>
       </div>
+      <OpportunityRadar properties={filtered} />
       {compareItems.length > 0 ? (
         <div className="ilan-katalog__compare-tray" aria-label="Karşılaştırma tepsisi">
           <span>{compareItems.length}/3 ilan karşılaştırma listesinde</span>
