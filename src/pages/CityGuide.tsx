@@ -297,6 +297,23 @@ export default function CityGuide() {
           </div>
         </Card>
 
+        <Card className="mb-8 border-cyan-400/25 bg-slate-900/55 p-4">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.12em] text-cyan-300">Sponsorlu</p>
+              <h3 className="text-lg font-bold text-white">Bu bölgede hizmet veren ofisler</h3>
+              <p className="text-sm text-slate-200">Yerel emlak ofisi, ekspertiz ve taşınma servisleri (reklam/mock).</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {["Atlas Realty Hub", "Ege Ekspertiz", "MoveFast Taşınma"].map((office) => (
+                <span key={office} className="rounded-full border border-cyan-400/35 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-100">
+                  {office}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Card>
+
         {/* Tabs */}
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
           {[

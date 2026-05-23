@@ -521,6 +521,29 @@
 .ilan-katalog__sponsored-card span { display: block; margin-top: 0.2rem; color: #f5d0fe; font-size: 0.72rem; }
 .ilan-katalog__sponsored-card small { display: block; margin-top: 0.3rem; color: #cbd5e1; font-size: 0.67rem; }
 .ilan-katalog__sponsored-note { margin: 0.45rem 0 0; color: #d8b4fe; font-size: 0.68rem; }
+.ilan-katalog__native-ad {
+  margin-top: 0.6rem;
+  border: 1px dashed rgba(125, 211, 252, 0.45);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.55rem 0.7rem;
+}
+.ilan-katalog__native-ad p {
+  margin: 0;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7dd3fc;
+}
+.ilan-katalog__native-ad a {
+  display: inline-block;
+  margin-top: 0.2rem;
+  color: #f8fafc;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.ilan-katalog__native-ad small { display: block; margin-top: 0.2rem; color: #cbd5e1; font-size: 0.67rem; }
 
 .ilan-radar {
   margin: 0 0 1rem;

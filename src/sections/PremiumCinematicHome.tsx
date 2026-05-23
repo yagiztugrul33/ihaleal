@@ -470,6 +470,25 @@ export default function PremiumCinematicHome() {
         </div>
       </section>
 
+      <section className="mx-auto mt-3 grid w-full max-w-[1240px] gap-3 px-4 md:grid-cols-2 lg:px-6">
+        <article className="rounded-xl border border-cyan-400/25 bg-slate-900/65 p-4">
+          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-300">Reklam</p>
+          <h3 className="mt-1 text-lg font-bold text-white">Akıllı Konut Kredisi Teklifleri</h3>
+          <p className="mt-1 text-sm text-slate-300">İlan fiyatına göre hızlı taksit simülasyonu (mock sponsor).</p>
+          <Link to="/mortgage" className="mt-2 inline-flex rounded-md border border-cyan-400/40 px-3 py-1.5 text-xs font-semibold text-cyan-100">
+            İncele
+          </Link>
+        </article>
+        <article className="rounded-xl border border-emerald-400/25 bg-slate-900/65 p-4">
+          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-300">Sponsorlu</p>
+          <h3 className="mt-1 text-lg font-bold text-white">DASK + Taşınma Paketi</h3>
+          <p className="mt-1 text-sm text-slate-300">Sigorta ve taşınma servislerini tek panelde karşılaştır (mock).</p>
+          <Link to="/modul/deprem-sigortasi" className="mt-2 inline-flex rounded-md border border-emerald-400/40 px-3 py-1.5 text-xs font-semibold text-emerald-100">
+            Teklif Al
+          </Link>
+        </article>
+      </section>
+
       <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-10 lg:px-6" aria-labelledby="premium-hero-title">
         <div className="rounded-[32px] border border-blue-500/20 bg-gradient-to-b from-[#0a1628] via-[#0a1f3d] to-slate-950/95 p-4 shadow-[0_40px_120px_rgba(15,23,42,0.65)] lg:p-6">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">

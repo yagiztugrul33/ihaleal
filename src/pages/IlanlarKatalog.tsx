@@ -167,6 +167,7 @@ export default function IlanlarKatalog() {
     [filtered],
   );
   const sponsoredTop = useMemo(() => getSponsoredListings(3), []);
+  const nativeProjects = useMemo(() => getSponsoredListings(6), []);
 
   const setViewMode = (v: ViewMode) => {
     setView(v);
@@ -447,8 +448,19 @@ export default function IlanlarKatalog() {
             </div>
           ) : pageItems.length > 0 ? (
             <div className={view === "list" ? "ilan-katalog__list" : "ilan-landing__grid"}>
-              {pageItems.map((property) => (
-                <PropertyListingCard key={property.id} property={property} />
+              {pageItems.map((property, index) => (
+                <div key={property.id}>
+                  <PropertyListingCard property={property} />
+                  {(index + 1) % 5 === 0 && nativeProjects[index % nativeProjects.length] ? (
+                    <article className="ilan-katalog__native-ad" aria-label="Sponsorlu proje kartı">
+                      <p>Reklam · Sponsorlu Proje</p>
+                      <Link to={`/ilan/${nativeProjects[index % nativeProjects.length].id}`}>
+                        {nativeProjects[index % nativeProjects.length].title}
+                      </Link>
+                      <small>Liste akışını kapatmayan seyrek native yerleşim</small>
+                    </article>
+                  ) : null}
+                </div>
               ))}
             </div>
           ) : (
