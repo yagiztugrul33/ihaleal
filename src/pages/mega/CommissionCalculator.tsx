@@ -40,6 +40,8 @@ export default function CommissionCalculator() {
   const [gainBuyStr, setGainBuyStr] = useState("3000000");
   const [gainSellStr, setGainSellStr] = useState("5000000");
   const [gainYearsStr, setGainYearsStr] = useState("3");
+  const [monthlyAidatStr, setMonthlyAidatStr] = useState("3500");
+  const [monthlyOpsStr, setMonthlyOpsStr] = useState("2200");
   const [rentTransferStr, setRentTransferStr] = useState("50000");
   const [rentScenario, setRentScenario] = useState<RentalSplitScenario>("dual_realtor");
   const [sellerMembershipPaid, setSellerMembershipPaid] = useState(true);
@@ -89,6 +91,9 @@ export default function CommissionCalculator() {
   const gainYears = Math.max(0, Number(String(gainYearsStr).replace(/\D/g, "")) || 0);
   const capitalGain = Math.max(0, gainSell - gainBuy);
   const estimatedCapitalGainTax = gainYears >= 5 ? 0 : capitalGain * 0.15;
+  const monthlyAidat = Math.max(0, Number(String(monthlyAidatStr).replace(/\D/g, "")) || 0);
+  const monthlyOps = Math.max(0, Number(String(monthlyOpsStr).replace(/\D/g, "")) || 0);
+  const annualOpsTotal = (monthlyAidat + monthlyOps) * 12;
   const rentTransferAmount = Math.max(0, Number(String(rentTransferStr).replace(/\D/g, "")) || 0);
 
   const landPool = useMemo(() => {
@@ -147,10 +152,10 @@ export default function CommissionCalculator() {
               <Calculator className="h-8 w-8" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Komisyon hesaplayıcı</h1>
+              <h1 className="text-3xl font-bold text-white">Araçlar / Hesaplayıcılar</h1>
               <p className="mt-2 text-sm text-slate-400">
-                Üst blok yalnızca satış işlem matrahı içindir (%{(SELLER_COMMISSION_RATE * 100).toFixed(0)} + KDV; mahsup
-                üyelik ve hizmetler). Kiralık komisyonu ayrı kartta; matrah 1 aylık kira + KDV (satılıkla karıştırılmaz).
+                Satış komisyonu, kiralık/devren dağılımı ve yatırımcı hesapları tek ekranda. Kredi taksiti, kira getirisi, tapu
+                harcı, değer artışı vergisi ve aidat/gider etkisi için hızlı simülasyon (mock) içerir.
               </p>
             </div>
           </div>
@@ -271,7 +276,7 @@ export default function CommissionCalculator() {
                 </p>
               ) : null}
               <p className="text-[11px] leading-relaxed text-slate-500">
-                Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme ve fatura ile ilişkilidir.
+                Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme, resmi kurum hesapları ve uzman görüşü ile netleşir.
               </p>
             </CardContent>
           </Card>
@@ -488,7 +493,20 @@ export default function CommissionCalculator() {
                     {gainYears >= 5 ? " (5 yıl+ istisna varsayımı)" : ""}
                   </p>
                 </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Aidat / gider etkisi</p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <Input value={monthlyAidatStr} onChange={(e) => setMonthlyAidatStr(e.target.value)} inputMode="numeric" />
+                    <Input value={monthlyOpsStr} onChange={(e) => setMonthlyOpsStr(e.target.value)} inputMode="numeric" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">
+                    Yıllık toplam aidat+gider: ₺{annualOpsTotal.toLocaleString("tr-TR")} (Aylık ₺{(monthlyAidat + monthlyOps).toLocaleString("tr-TR")})
+                  </p>
+                </div>
               </div>
+              <p className="text-[11px] leading-relaxed text-slate-500">
+                Bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.
+              </p>
             </CardContent>
           </Card>
         </div>
