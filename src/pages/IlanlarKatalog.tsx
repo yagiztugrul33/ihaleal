@@ -13,6 +13,7 @@ import { getPropertyPrice } from "@/types/property";
 import { useCompareSelection } from "@/hooks/useCompareSelection";
 import { ShareButton } from "@/components/ShareButton";
 import { OpportunityRadar } from "@/components/location/OpportunityRadar";
+import { getSponsoredListings, SPONSORED_DISCLOSURE } from "@/ads/mockAds";
 import "@/styles/ilan-pages.css";
 
 const IlanlarMapInner = lazy(() => import("@/pages/ilan/IlanlarMapInner"));
@@ -165,6 +166,7 @@ export default function IlanlarKatalog() {
         .slice(0, 4),
     [filtered],
   );
+  const sponsoredTop = useMemo(() => getSponsoredListings(3), []);
 
   const setViewMode = (v: ViewMode) => {
     setView(v);
@@ -264,6 +266,24 @@ export default function IlanlarKatalog() {
       <div className="ilan-katalog__result-meta" aria-live="polite">
         <span>{filtered.length} sonuç bulundu</span>
       </div>
+      {view !== "map" && sponsoredTop.length > 0 ? (
+        <section className="ilan-katalog__sponsored-strip" aria-label="Öne çıkan sponsorlu ilanlar">
+          <header>
+            <p>Sponsorlu</p>
+            <h3>Öne Çıkan Vitrin İlanlar</h3>
+          </header>
+          <div className="ilan-katalog__sponsored-grid">
+            {sponsoredTop.map((item) => (
+              <Link key={item.id} to={`/ilan/${item.id}`} className="ilan-katalog__sponsored-card">
+                <strong>{item.title}</strong>
+                <span>{item.city} · {item.district}</span>
+                <small>İçeriği kapatmayan native sponsorlu öneri</small>
+              </Link>
+            ))}
+          </div>
+          <p className="ilan-katalog__sponsored-note">{SPONSORED_DISCLOSURE}</p>
+        </section>
+      ) : null}
       <OpportunityRadar properties={filtered} />
       {compareItems.length > 0 ? (
         <div className="ilan-katalog__compare-tray" aria-label="Karşılaştırma tepsisi">

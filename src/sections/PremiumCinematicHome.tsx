@@ -41,6 +41,7 @@ import { formatTry } from "@/lib/valuation/valuationEngine";
 import { getPropertyHero, getPropertyLocation, getPropertyTitle } from "@/types/property";
 import type { CategoryKey } from "@/types/property";
 import { BID_BOND_RATE, COMMISSION_RATE } from "@/lib/fees";
+import { getSponsoredListings } from "@/ads/mockAds";
 
 const BOARD_TICKER_CODES = ["KADIKÖY-D", "ÇEŞME-A", "LEVENT-O", "BODRUM-V"] as const;
 const BOARD_FILTER_TABS = [
@@ -402,6 +403,7 @@ export default function PremiumCinematicHome() {
   }, []);
 
   const liveAuctions = useMemo(() => getFeaturedAuctions(4), []);
+  const sponsoredOpportunities = useMemo(() => getSponsoredListings(4), []);
 
   return (
     <div
@@ -775,6 +777,26 @@ export default function PremiumCinematicHome() {
             </Link>
             );
           })}
+        </div>
+      </section>
+
+      <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6" aria-labelledby="featured-sponsored-title">
+        <div className="rounded-2xl border border-fuchsia-400/25 bg-slate-900/70 p-4">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <h2 id="featured-sponsored-title" className="text-xl font-black text-white">Öne Çıkan Fırsatlar</h2>
+            <span className="rounded-full border border-fuchsia-400/40 bg-fuchsia-500/10 px-2.5 py-1 text-[11px] font-semibold text-fuchsia-200">
+              Sponsorlu
+            </span>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {sponsoredOpportunities.map((p) => (
+              <Link key={p.id} to={`/ilan/${p.id}`} className="rounded-xl border border-slate-700 bg-slate-950/65 p-3 no-underline transition hover:border-fuchsia-300/60">
+                <p className="text-sm font-semibold text-white">{getPropertyTitle(p)}</p>
+                <p className="mt-1 text-xs text-slate-400">{getPropertyLocation(p)}</p>
+                <p className="mt-2 text-xs text-fuchsia-200">Reklam · bağlamsal vitrin yerleşimi</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
