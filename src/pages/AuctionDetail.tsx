@@ -153,7 +153,7 @@ export default function AuctionDetail() {
       addRecent(id);
     }
   }, [id, addRecent]);
-  const [activeTab, setActiveTab] = useState<"overview" | "details" | "features" | "location" | "priceHistory" | "ai">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "details" | "features" | "location" | "virtualTour" | "priceHistory" | "ai">("overview");
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [showMarketReportDialog, setShowMarketReportDialog] = useState(false);
   const [showOfficialDocsDialog, setShowOfficialDocsDialog] = useState(false);
@@ -959,6 +959,7 @@ export default function AuctionDetail() {
                   { key: "details" as const, label: "Detaylar", icon: <Building className="w-4 h-4" /> },
                   { key: "features" as const, label: "Özellikler", icon: <CheckCircle2 className="w-4 h-4" /> },
                   { key: "location" as const, label: "Konum", icon: <MapPin className="w-4 h-4" /> },
+                  { key: "virtualTour" as const, label: "Sanal Tur", icon: <Video className="w-4 h-4" /> },
                   { key: "priceHistory" as const, label: "Fiyat Geçmişi", icon: <TrendingUp className="w-4 h-4" /> },
                   { key: "ai" as const, label: "AI Analiz", icon: <BarChart3 className="w-4 h-4" />, mandatory: true },
                 ].map((tab) => (
@@ -1123,6 +1124,43 @@ export default function AuctionDetail() {
                       src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${auction.mapLng}!3d${auction.mapLat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA1JzEwLjEiTiAyOcKwMDEnMzYuNiJF!5e0!3m2!1str!2str!4v1`}
                     />
                   </div>
+                </div>
+              )}
+              {activeTab === "virtualTour" && (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="rounded-2xl border border-cyan-500/25 bg-cyan-500/5 p-4">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Video className="h-5 w-5 text-cyan-300" />
+                      <div>
+                        <p className="text-sm font-semibold text-white">360° Sanal Tur (mock)</p>
+                        <p className="text-xs text-slate-400">Panoramik görünüm ve 3D tur entegrasyonu için demo alanı.</p>
+                      </div>
+                      <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ml-auto bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
+                        Sanal turu aç
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-900/60">
+                    <img
+                      src={safeGalleryImages[0] ?? GALLERY_FALLBACK}
+                      alt={`${auction.title} sanal tur önizleme`}
+                      className="h-[280px] w-full object-cover md:h-[360px]"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                    {safeGalleryImages.slice(0, 4).map((src, idx) => (
+                      <button
+                        key={`${src}-${idx}`}
+                        type="button"
+                        className="overflow-hidden rounded-xl border border-slate-200/80 bg-slate-900/50"
+                        onClick={() => setShowVirtualTour(true)}
+                      >
+                        <img src={src} alt={`${auction.title} galeri ${idx + 1}`} className="h-20 w-full object-cover md:h-24" loading="lazy" />
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-xs text-slate-500">Yakında 3D tur bağlantısı (Matterport / Momento360) bu sekmede canlı olarak açılacaktır.</p>
                 </div>
               )}
               {activeTab === "priceHistory" && (
