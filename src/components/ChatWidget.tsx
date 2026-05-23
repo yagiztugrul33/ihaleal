@@ -29,6 +29,9 @@ import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 import { KKA_SERVICE_POOL_RATE_EX_VAT, KKA_SERVICE_POOL_VAT_RATE } from "@/lib/masterFinancialEngine";
 import { invokeSystemQa, type SystemQaTurn } from "@/lib/systemQaClient";
+import { getAllProperties } from "@/lib/demo-data";
+import { getPropertyPrice, getPropertyTitle } from "@/types/property";
+import { getEarthquakeScore } from "@/lib/scoring/getEarthquakeScore";
 
 const ASSISTANT_NAME = "İhaleAI Asistan";
 
@@ -58,6 +61,8 @@ const GUIDE_INTRO = [
 
 const AI_DEFAULT =
   "Sorunuzu birkaç kelimeyle yeniden ifade edebilir veya /analiz, ilan detayı ve /mortgage sayfalarına yönelebilirsiniz.";
+
+const AI_INVESTMENT_DISCLAIMER = "Uyarı: Bu içerik yatırım tavsiyesi değildir; nihai karar için resmi ekspertiz ve uzman görüşü gerekir.";
 
 /** Yerel özet — tam AI (`ai_qa`) yokken veya yönlendirme modunda */
 const BIDDING_RULES_REPLY = [
@@ -220,10 +225,77 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
 
 function getAIResponse(input: string): string {
   const lower = input.toLowerCase().trim();
+  const smartReply = getSmartSearchReply(lower);
+  if (smartReply) return smartReply;
   for (const rule of AI_RULES) {
     if (rule.keys.some((k) => lower.includes(k))) return rule.reply;
   }
-  return AI_DEFAULT;
+  return [AI_DEFAULT, "", AI_INVESTMENT_DISCLAIMER].join("\n");
+}
+
+function getSmartSearchReply(lower: string): string | null {
+  const intentHit =
+    lower.includes(" bul") ||
+    lower.startsWith("bul") ||
+    lower.includes("öner") ||
+    lower.includes("oner") ||
+    lower.includes("listele");
+  if (!intentHit) return null;
+
+  const all = getAllProperties();
+  const cities = ["istanbul", "ankara", "izmir", "antalya", "bursa", "muğla", "mugla"] as const;
+  const cityMatch = cities.find((city) => lower.includes(city));
+  const cityNormalized =
+    cityMatch === "mugla" ? "Muğla" : cityMatch ? cityMatch.charAt(0).toUpperCase() + cityMatch.slice(1) : null;
+
+  const millionBudget = lower.match(/(\d+(?:[.,]\d+)?)\s*m(?:\s|$)/);
+  const plainBudget = lower.match(/(\d[\d.]*)\s*(?:tl|try|₺)/);
+  let budgetTry: number | null = null;
+  if (millionBudget) {
+    budgetTry = Number(millionBudget[1].replace(",", ".")) * 1_000_000;
+  } else if (plainBudget) {
+    budgetTry = Number(plainBudget[1].replace(/\./g, ""));
+  }
+  if (budgetTry != null && !Number.isFinite(budgetTry)) budgetTry = null;
+
+  const askHighSecurity = lower.includes("güvenlikli") || lower.includes("guvenlikli") || lower.includes("deprem");
+  const askApartment = lower.includes("daire");
+
+  let filtered = [...all];
+  if (cityNormalized) filtered = filtered.filter((p) => p.city?.toLocaleLowerCase("tr-TR") === cityNormalized.toLocaleLowerCase("tr-TR"));
+  if (budgetTry != null) filtered = filtered.filter((p) => (getPropertyPrice(p) ?? Number.MAX_SAFE_INTEGER) <= budgetTry);
+  if (askHighSecurity) filtered = filtered.filter((p) => getEarthquakeScore(p).totalScore >= 70);
+  if (askApartment) {
+    filtered = filtered.filter((p) => {
+      const title = getPropertyTitle(p).toLocaleLowerCase("tr-TR");
+      return title.includes("daire") || p.taxonomy.category === "konut";
+    });
+  }
+
+  const top = filtered
+    .sort((a, b) => (b.aiInvestmentScore ?? 0) - (a.aiInvestmentScore ?? 0))
+    .slice(0, 3);
+
+  if (!top.length) {
+    return [
+      "İhaleAI asistanı bu kriterlerle eşleşen ilan bulamadı. Filtreyi biraz genişletelim: bütçe/şehir/daire şartlarından birini gevşetin.",
+      "",
+      AI_INVESTMENT_DISCLAIMER,
+    ].join("\n");
+  }
+
+  const lines = top.map((p, idx) => {
+    const price = getPropertyPrice(p);
+    const safe = getEarthquakeScore(p).totalScore;
+    return `${idx + 1}) ${getPropertyTitle(p)} · ${p.city}/${p.district} · ${price ? `₺${price.toLocaleString("tr-TR")}` : "Fiyat sor"} · Güvenlik skoru ${safe}/100 · /ilan/${p.id}`;
+  });
+  return [
+    "Kriterlerinize göre mock akıllı eşleşme sonuçları:",
+    ...lines,
+    "",
+    "İsterseniz aynı listeyi /ilanlar sayfasında filtreleyip detaylandırabilirim.",
+    AI_INVESTMENT_DISCLAIMER,
+  ].join("\n");
 }
 
 function buildQaFailureReply(userMsg: string, code: string, detail?: string): string {
