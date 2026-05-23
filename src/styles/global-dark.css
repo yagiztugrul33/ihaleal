@@ -3,9 +3,12 @@
   --bg-base: #0a0e1a;
   --bg-elevated: #0f1729;
   --bg-card: rgba(15, 23, 41, 0.6);
-  --text-primary: #f8fafc;
+  /* Readability baseline (WCAG AA target on dark surfaces) */
+  --text-primary: #ffffff;
   --text-secondary: #e2e8f0;
-  --text-muted: #94a3b8;
+  --text-muted: #aec4e0;
+  --text-subtle: #8fa7c4;
+  --heading-accent: #e9c56a;
   --accent: #f59e0b;
   --accent-blue: #3b82f6;
   --accent-purple: #8b5cf6;
@@ -16,6 +19,16 @@ html, body, #root, #__next {
   color: var(--text-secondary) !important;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+
+.text-white,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary) !important;
 }
 
 .bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-50, .bg-slate-100,
@@ -29,9 +42,25 @@ html, body, #root, #__next {
   color: var(--text-secondary) !important;
 }
 
-.text-gray-400, .text-gray-500, .text-gray-600,
-.text-slate-400, .text-slate-500, .text-slate-600 {
+.text-gray-300, .text-gray-400, .text-gray-500, .text-gray-600,
+.text-slate-300, .text-slate-400, .text-slate-500, .text-slate-600,
+.text-zinc-400, .text-zinc-500, .text-zinc-600 {
   color: var(--text-muted) !important;
+}
+
+.text-slate-700, .text-gray-700 {
+  color: var(--text-subtle) !important;
+}
+
+.text-amber-400, .text-yellow-400, .text-gold-400 {
+  color: var(--heading-accent) !important;
+}
+
+.hover\:text-slate-900:hover,
+.hover\:text-slate-800:hover,
+.hover\:text-gray-900:hover,
+.hover\:text-gray-800:hover {
+  color: var(--text-primary) !important;
 }
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
@@ -75,6 +104,14 @@ table, th, td {
 [role="dialog"], .modal {
   background: var(--bg-elevated) !important;
   color: var(--text-secondary) !important;
+}
+
+/* Dark-surface utility classes often carry low-contrast text by default. */
+[class*="bg-slate-9"],
+[class*="bg-slate-8"],
+[class*="bg-gray-9"],
+[class*="bg-gray-8"] {
+  color: var(--text-secondary);
 }
 
 .card,
