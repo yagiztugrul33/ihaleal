@@ -355,6 +355,59 @@
 .ilan-katalog__pager { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
 .ilan-katalog__pager button { min-height: 44px; min-width: 44px; padding: 0.5rem 1rem; }
 .ilan-katalog__map { width: 100%; min-height: 420px; border-radius: 12px; }
+.ilan-katalog__map-wrap { display: grid; gap: 0.85rem; }
+.ilan-katalog__map-preview {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 0.85rem;
+}
+.ilan-katalog__map-preview-empty { margin: 0; color: #cbd5e1; font-size: 0.85rem; }
+.ilan-katalog__map-preview-card h3 { margin: 0.2rem 0 0.25rem; font-size: 1rem; color: #fff; }
+.ilan-katalog__map-preview-card p { margin: 0; color: #aec4e0; font-size: 0.85rem; }
+.ilan-katalog__map-preview-id {
+  margin: 0;
+  display: inline-flex;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.2);
+  color: #dbeafe;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.ilan-katalog__map-preview-row {
+  margin-top: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+.ilan-katalog__map-preview-row span { color: #f8fafc; font-weight: 800; }
+.ilan-katalog__map-preview-row a {
+  color: #7dd3fc;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.ilan-katalog__price-pin-wrap { background: transparent; border: 0; }
+.ilan-katalog__price-pin {
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.35);
+  cursor: pointer;
+}
+.ilan-katalog__price-pin.is-selected {
+  border-color: rgba(56, 189, 248, 0.85);
+  background: rgba(14, 116, 144, 0.92);
+  color: #fff;
+}
 .ilan-katalog__taxonomy-link { margin-top: 1rem; font-size: 0.85rem; }
 
 @media (max-width: 768px) {
