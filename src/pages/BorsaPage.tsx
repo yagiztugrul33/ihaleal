@@ -122,6 +122,7 @@ export default function BorsaPage() {
   const [alertDirection, setAlertDirection] = useState<AlertDirection>("above");
   const [ruleMaxBid, setRuleMaxBid] = useState("");
   const [ruleStep, setRuleStep] = useState("50000");
+  const [selectedBookAssetId, setSelectedBookAssetId] = useState("");
   const prevRef = useRef<MarketAsset[] | null>(null);
 
   useEffect(() => {
@@ -265,6 +266,37 @@ export default function BorsaPage() {
         }),
     [data, priceAlerts],
   );
+
+  useEffect(() => {
+    if (!selectedBookAssetId && tableRows[0]?.id) {
+      setSelectedBookAssetId(tableRows[0].id);
+    }
+  }, [selectedBookAssetId, tableRows]);
+
+  const selectedBookAsset = useMemo(
+    () => data.find((row) => row.id === selectedBookAssetId) ?? tableRows[0] ?? null,
+    [data, selectedBookAssetId, tableRows],
+  );
+
+  const orderBookLevels = useMemo(() => {
+    if (!selectedBookAsset) return [];
+    return Array.from({ length: 6 }, (_, idx) => {
+      const spread = (idx + 1) * 10_000;
+      const bidPrice = Math.max(1, selectedBookAsset.price - spread);
+      const askPrice = selectedBookAsset.price + spread;
+      const bidVolume = Math.max(10, Math.round(selectedBookAsset.volume / (18 + idx * 3)));
+      const askVolume = Math.max(10, Math.round(selectedBookAsset.volume / (20 + idx * 3)));
+      const bidderMask = `${selectedBookAsset.code.slice(0, 2)}***${String((idx + 7) * 13).slice(-2)}`;
+      return {
+        level: idx + 1,
+        bidPrice,
+        askPrice,
+        bidVolume,
+        askVolume,
+        bidderMask,
+      };
+    });
+  }, [selectedBookAsset]);
 
   const toggleWatchlist = (assetId: string) => {
     setWatchlistIds((prev) => (prev.includes(assetId) ? prev.filter((id) => id !== assetId) : [...prev, assetId]));
@@ -462,7 +494,10 @@ export default function BorsaPage() {
                             flashRows[row.id] === "up" && "borsa-flash-up",
                             flashRows[row.id] === "down" && "borsa-flash-down",
                           )}
-                          onClick={() => navigate(`/ilan/${row.id}`)}
+                          onClick={() => {
+                            setSelectedBookAssetId(row.id);
+                            navigate(`/ilan/${row.id}`);
+                          }}
                         >
                           <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
                           <td className="py-2.5 pr-3 text-slate-200">{row.property}</td>
@@ -561,6 +596,42 @@ export default function BorsaPage() {
                 <Clock3 className="h-3.5 w-3.5" />
                 Anlık güncelleme periyodu: 2.5 sn
               </div>
+            </article>
+
+            <article className="borsa-card rounded-xl p-3">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Order Book (Maskeli)</h3>
+                <span className="text-[11px] text-slate-300">{selectedBookAsset?.code ?? "—"}</span>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead className="text-left uppercase tracking-[0.1em] text-slate-300">
+                    <tr>
+                      <th className="pb-2 pr-2">Seviye</th>
+                      <th className="pb-2 pr-2">Alış ₺</th>
+                      <th className="pb-2 pr-2">Lot</th>
+                      <th className="pb-2 pr-2">Satış ₺</th>
+                      <th className="pb-2 pr-2">Lot</th>
+                      <th className="pb-2">Teklifçi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orderBookLevels.map((level) => (
+                      <tr key={level.level} className="border-t border-slate-800/80 text-slate-200">
+                        <td className="py-1.5 pr-2">{level.level}</td>
+                        <td className="py-1.5 pr-2 text-emerald-300">{formatTry(level.bidPrice)}</td>
+                        <td className="py-1.5 pr-2">{level.bidVolume.toLocaleString("tr-TR")}</td>
+                        <td className="py-1.5 pr-2 text-rose-300">{formatTry(level.askPrice)}</td>
+                        <td className="py-1.5 pr-2">{level.askVolume.toLocaleString("tr-TR")}</td>
+                        <td className="py-1.5 text-slate-300">{level.bidderMask}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 text-[11px] text-slate-300">
+                Gizlilik gereği kullanıcı kimlikleri maskeleme ile gösterilir; ekran simülasyon amaçlıdır.
+              </p>
             </article>
           </div>
         </section>
