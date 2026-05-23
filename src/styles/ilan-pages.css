@@ -555,6 +555,7 @@
 .ilan-radar__item-meta strong { color: #fef9c3; font-size: 0.78rem; display: block; }
 .ilan-radar__item-meta small { color: #cbd5e1; font-size: 0.68rem; }
 .ilan-radar__empty { margin: 0; color: #cbd5e1; font-size: 0.78rem; }
+.ilan-radar__footnote { margin: 0.7rem 0 0; font-size: 0.72rem; color: #c7d9ee; }
 
 @media (max-width: 768px) {
   .ilan-landing,

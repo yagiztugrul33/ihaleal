@@ -305,6 +305,9 @@ export function OpportunityRadar({ properties }: OpportunityRadarProps) {
           </div>
         </article>
       </div>
+      <p className="ilan-radar__footnote">
+        Konum, mesafe ve bildirim akışı demo/simülasyon verisiyle çalışır; anlık konum bildirimleri yakında mobil uygulamada tam güç açılacaktır.
+      </p>
     </section>
   );
 }
