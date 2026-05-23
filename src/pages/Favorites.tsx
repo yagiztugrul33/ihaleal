@@ -14,6 +14,11 @@ export default function Favorites() {
   const { favorites, removeFavorite, clearFavorites, count } = useFavorites();
 
   const favoriteAuctions = AUCTIONS.filter((a) => favorites.includes(a.id)).map((a) => withListingDefaults(a));
+  const shareListUrl = `/favoriler?ids=${favorites.join(",")}`;
+  const shareListText = favoriteAuctions
+    .slice(0, 3)
+    .map((a) => a.title)
+    .join(" · ");
 
   return (
     <div className="min-h-screen bg-slate-50 pt-24 pb-16">
@@ -37,14 +42,22 @@ export default function Favorites() {
             <p className="text-slate-400 mt-2">Favorilerinize eklediğiniz gayrimenkul ihaleleri</p>
           </div>
           {count > 0 && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={clearFavorites}
-              className="border-slate-200 text-slate-400 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10 gap-2"
-            >
-              <Trash2 className="w-4 h-4" /> Tümünü Temizle
-            </Button>
+            <div className="flex items-center gap-2">
+              <ShareButton
+                title="İhaleal Favori Listem"
+                url={shareListUrl}
+                inviteText={`Favori ihalelerime bak: ${shareListText}${favoriteAuctions.length > 3 ? " ve daha fazlası" : ""}`}
+                className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-cyan-100 hover:bg-cyan-500/20"
+              />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={clearFavorites}
+                className="border-slate-200 text-slate-400 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10 gap-2"
+              >
+                <Trash2 className="w-4 h-4" /> Tümünü Temizle
+              </Button>
+            </div>
           )}
         </div>
 

@@ -15,6 +15,7 @@ import {
 } from "@/legal/platformDisclaimers";
 import "@/borsa/borsa.css";
 import { Line, LineChart, ResponsiveContainer } from "recharts";
+import { ShareButton } from "@/components/ShareButton";
 
 type TerminalTab = "piyasa" | "portfoy" | "izleme" | "veri";
 type MarketTableTab = "en_aktif" | "yukselen" | "cok_islem" | "bitiyor";
@@ -347,6 +348,12 @@ export default function BorsaPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <ShareButton
+              title="İhaleal Borsa Terminali"
+              url="/borsa"
+              inviteText="Borsa ekranına göz at: canlı gayrimenkul işlem akışı burada."
+              className="rounded-md border border-slate-600 bg-slate-900/70 px-2.5 py-2 text-slate-200 hover:bg-slate-800"
+            />
             <Button
               type="button"
               variant="outline"

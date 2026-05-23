@@ -11,6 +11,7 @@ import {
 import { getEarthquakeScore } from "@/lib/scoring/getEarthquakeScore";
 import { getPropertyPrice } from "@/types/property";
 import { useCompareSelection } from "@/hooks/useCompareSelection";
+import { ShareButton } from "@/components/ShareButton";
 import "@/styles/ilan-pages.css";
 
 const IlanlarMapInner = lazy(() => import("@/pages/ilan/IlanlarMapInner"));
@@ -191,6 +192,14 @@ export default function IlanlarKatalog() {
         <p className="ilan-landing__hero-sub">
           {filtered.length} demo ilan · Deprem skoru ve mahalle verisi entegre
         </p>
+        <div className="mb-2 flex items-center justify-end">
+          <ShareButton
+            title="İhaleal İlan Kataloğu"
+            url="/ilanlar"
+            inviteText="Bu ihaleye bak: İhaleal ilan kataloğunda filtrelenmiş fırsatlar."
+            className="rounded-lg border border-slate-200/80 bg-white/5 px-3 py-2 text-slate-200 hover:text-white"
+          />
+        </div>
         <label className="ilan-katalog__search">
           <Search className="h-5 w-5" aria-hidden />
           <input

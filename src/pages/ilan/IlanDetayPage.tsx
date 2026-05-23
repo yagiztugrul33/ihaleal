@@ -11,7 +11,6 @@ import {
   Map,
   MapPin,
   Ruler,
-  Share2,
   GitCompare,
   MessageCircle,
   Gavel,
@@ -38,6 +37,7 @@ import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { buildSellerTrustProfile } from "@/lib/sellerTrust";
+import { ShareButton } from "@/components/ShareButton";
 import "@/styles/ilan-pages.css";
 
 function formatTry(amount: number): string {
@@ -225,19 +225,6 @@ function HeroSection(props: {
     navigate(`/karsilastir?ids=${property.id}`);
   };
 
-  const handleShare = async () => {
-    try {
-      if (navigator.share) {
-        await navigator.share({ title: getPropertyTitle(property), text: `${getPropertyTitle(property)} ilanını inceleyin.`, url: shareUrl });
-      } else if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(shareUrl);
-      }
-      pushToast("İlan bağlantısı paylaşıldı.");
-    } catch {
-      // user cancelled share dialog
-    }
-  };
-
   return (
     <div className="ilan-detay__hero">
       <div className="ilan-detay__gallery">
@@ -319,9 +306,14 @@ function HeroSection(props: {
           <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Karşılaştır" onClick={handleCompare}>
             <GitCompare className="h-4 w-4" />
           </button>
-          <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Paylaş" onClick={() => void handleShare()}>
-            <Share2 className="h-4 w-4" />
-          </button>
+          <ShareButton
+            title={getPropertyTitle(property)}
+            url={`/ilan/${property.id}`}
+            priceText={price != null ? formatTry(price) : undefined}
+            imageUrl={hero}
+            inviteText={`Bu ihaleye bak: ${getPropertyTitle(property)}${price != null ? ` · ${formatTry(price)}` : ""}`}
+            className="ilan-detay__btn ilan-detay__btn--ghost"
+          />
           <Link to="/destek" className="ilan-detay__btn ilan-detay__btn--ghost">
             <MessageCircle className="h-4 w-4" />
             Soru Sor

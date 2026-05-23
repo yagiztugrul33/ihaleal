@@ -1,20 +1,49 @@
 ﻿import { useEffect, useRef, useState } from "react";
-import { Share2, X, Copy, Check, Facebook, Twitter, Linkedin, Mail } from "lucide-react";
+import {
+  Share2,
+  X,
+  Copy,
+  Check,
+  Facebook,
+  Instagram,
+  MessageCircle,
+  Send,
+  QrCode,
+  ExternalLink,
+} from "lucide-react";
 
 interface ShareButtonProps {
   title: string;
   url: string;
+  priceText?: string;
+  imageUrl?: string;
+  inviteText?: string;
+  className?: string;
 }
 
-export function ShareButton({ title, url }: ShareButtonProps) {
+type ShareLink = {
+  name: string;
+  href: string;
+  icon: JSX.Element;
+  className: string;
+  onClick?: () => void;
+};
+
+export function ShareButton({ title, url, priceText, imageUrl, inviteText, className }: ShareButtonProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copiedInvite, setCopiedInvite] = useState(false);
+  const [showQr, setShowQr] = useState(false);
   const copiedTimerRef = useRef<number | null>(null);
+  const inviteTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     return () => {
       if (copiedTimerRef.current != null) {
         window.clearTimeout(copiedTimerRef.current);
+      }
+      if (inviteTimerRef.current != null) {
+        window.clearTimeout(inviteTimerRef.current);
       }
     };
   }, []);
@@ -25,39 +54,98 @@ export function ShareButton({ title, url }: ShareButtonProps) {
         ? `${window.location.origin}/#${url}`
         : `${window.location.origin}${url}`
       : url;
-  const shareText = `${title} - İhaleal.com'da`;
+  const shareText = inviteText ?? `Bu ihaleye bak: ${title}${priceText ? ` (${priceText})` : ""} · İhaleal`;
+  const encodedText = encodeURIComponent(shareText);
+  const encodedUrl = encodeURIComponent(fullUrl);
+  const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodedUrl}`;
 
-  const handleCopy = async () => {
+  const setCopyToast = (
+    setState: (value: boolean) => void,
+    timerRef: { current: number | null },
+  ) => {
+    setState(true);
+    if (timerRef.current != null) window.clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(() => setState(false), 2000);
+  };
+
+  const copyText = async (value: string, onDone: () => void) => {
     try {
-      await navigator.clipboard.writeText(fullUrl);
-      setCopied(true);
-      if (copiedTimerRef.current != null) window.clearTimeout(copiedTimerRef.current);
-      copiedTimerRef.current = window.setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(value);
+      onDone();
     } catch {
       const input = document.createElement("input");
-      input.value = fullUrl;
+      input.value = value;
       document.body.appendChild(input);
       input.select();
       document.execCommand("copy");
       document.body.removeChild(input);
-      setCopied(true);
-      if (copiedTimerRef.current != null) window.clearTimeout(copiedTimerRef.current);
-      copiedTimerRef.current = window.setTimeout(() => setCopied(false), 2000);
+      onDone();
     }
   };
 
-  const shareLinks = [
-    { name: "Facebook", icon: <Facebook className="w-4 h-4" />, color: "bg-blue-600 hover:bg-blue-500", href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullUrl)}` },
-    { name: "Twitter", icon: <Twitter className="w-4 h-4" />, color: "bg-sky-500 hover:bg-sky-400", href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(fullUrl)}` },
-    { name: "LinkedIn", icon: <Linkedin className="w-4 h-4" />, color: "bg-blue-700 hover:bg-blue-600", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(fullUrl)}` },
-    { name: "E-posta", icon: <Mail className="w-4 h-4" />, color: "bg-slate-600 hover:bg-slate-500", href: `mailto:?subject=${encodeURIComponent(shareText)}&body=${encodeURIComponent(fullUrl)}` },
+  const handleCopyLink = async () => {
+    await copyText(fullUrl, () => setCopyToast(setCopied, copiedTimerRef));
+  };
+
+  const handleInstagram = async () => {
+    await copyText(`${shareText}\n${fullUrl}`, () => setCopyToast(setCopiedInvite, inviteTimerRef));
+  };
+
+  const handleNativeShare = async () => {
+    if (!navigator.share) return;
+    try {
+      await navigator.share({
+        title,
+        text: shareText,
+        url: fullUrl,
+      });
+      setOpen(false);
+    } catch {
+      // user canceled native share
+    }
+  };
+
+  const shareLinks: ShareLink[] = [
+    {
+      name: "WhatsApp",
+      icon: <MessageCircle className="h-4 w-4" />,
+      className: "bg-emerald-600 hover:bg-emerald-500",
+      href: `https://wa.me/?text=${encodedText}%20${encodedUrl}`,
+    },
+    {
+      name: "X",
+      icon: <ExternalLink className="h-4 w-4" />,
+      className: "bg-slate-700 hover:bg-slate-600",
+      href: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+    },
+    {
+      name: "Facebook",
+      icon: <Facebook className="h-4 w-4" />,
+      className: "bg-blue-600 hover:bg-blue-500",
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    },
+    {
+      name: "Telegram",
+      icon: <Send className="h-4 w-4" />,
+      className: "bg-sky-600 hover:bg-sky-500",
+      href: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
+    },
+    {
+      name: "Instagram",
+      icon: <Instagram className="h-4 w-4" />,
+      className: "bg-fuchsia-600 hover:bg-fuchsia-500",
+      href: "https://www.instagram.com/",
+      onClick: () => void handleInstagram(),
+    },
   ];
 
   return (
     <div className="relative">
       <button
+        type="button"
         onClick={() => setOpen(!open)}
-        className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-500 hover:text-slate-900 transition-all"
+        className={className ?? "p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all"}
+        aria-label="Paylaşım seçeneklerini aç"
       >
         <Share2 className="w-4 h-4" />
       </button>
@@ -65,7 +153,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-full mt-2 w-72 p-4 rounded-2xl bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
+          <div className="absolute right-0 top-full mt-2 w-80 p-4 rounded-2xl bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-semibold text-white">Paylaş</h4>
               <button onClick={() => setOpen(false)} className="text-slate-500 hover:text-white">
@@ -73,15 +161,37 @@ export function ShareButton({ title, url }: ShareButtonProps) {
               </button>
             </div>
 
-            <div className="grid grid-cols-4 gap-2 mb-4">
+            {(priceText || imageUrl) && (
+              <div className="mb-3 rounded-xl border border-slate-200/80 bg-slate-950/50 p-2.5 text-xs text-slate-200">
+                <p className="line-clamp-2 font-medium">{title}</p>
+                {priceText ? <p className="mt-1 text-cyan-300">{priceText}</p> : null}
+                {imageUrl ? <p className="mt-1 truncate text-slate-400">Görsel: {imageUrl}</p> : null}
+              </div>
+            )}
+
+            {navigator.share ? (
+              <button
+                type="button"
+                onClick={() => void handleNativeShare()}
+                className="mb-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-500/15 px-3 py-2 text-xs font-semibold text-cyan-100 hover:bg-cyan-500/25"
+              >
+                <Share2 className="h-4 w-4" />
+                Cihaz paylaşımını aç
+              </button>
+            ) : null}
+
+            <div className="grid grid-cols-3 gap-2 mb-4">
               {shareLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl ${link.color} text-white transition-all`}
-                  onClick={() => setOpen(false)}
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl ${link.className} text-white transition-all`}
+                  onClick={() => {
+                    link.onClick?.();
+                    setOpen(false);
+                  }}
                 >
                   {link.icon}
                   <span className="text-[10px] font-medium">{link.name}</span>
@@ -97,12 +207,30 @@ export function ShareButton({ title, url }: ShareButtonProps) {
                 className="flex-1 px-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-xs text-slate-400 truncate"
               />
               <button
-                onClick={handleCopy}
+                type="button"
+                onClick={() => void handleCopyLink()}
                 className={`px-3 py-2 rounded-lg text-xs font-medium transition-all ${copied ? "bg-emerald-500 text-white" : "bg-white/10 text-white hover:bg-white/20"}`}
+                aria-label="Bağlantıyı kopyala"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               </button>
             </div>
+            <div className="mt-2 flex items-center justify-between gap-2 text-[11px]">
+              <button
+                type="button"
+                onClick={() => setShowQr((prev) => !prev)}
+                className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white"
+              >
+                <QrCode className="h-3.5 w-3.5" />
+                {showQr ? "QR gizle" : "QR göster"}
+              </button>
+              {copiedInvite ? <span className="text-emerald-300">Instagram için metin kopyalandı</span> : null}
+            </div>
+            {showQr ? (
+              <div className="mt-2 rounded-xl border border-slate-200/80 bg-slate-950/50 p-2">
+                <img src={qrSrc} alt="Paylaşım QR kodu" width={180} height={180} className="mx-auto rounded-lg" />
+              </div>
+            ) : null}
           </div>
         </>
       )}

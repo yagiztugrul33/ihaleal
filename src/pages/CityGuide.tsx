@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { AUCTIONS } from "@/data/auctions";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { ShareButton } from "@/components/ShareButton";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart as ReLineChart, Line, PieChart as RePieChart, Pie, Cell, AreaChart, Area
@@ -242,6 +243,12 @@ export default function CityGuide() {
               <p className="mt-2 max-w-2xl">{city.description}</p>
             </div>
             <div className="flex flex-wrap gap-2">
+              <ShareButton
+                title={`${cityName} Bölge Raporu`}
+                url={`/sehir/${cityName}`}
+                inviteText={`${cityName} bölge raporuna bak: talep, fiyat, kira getirisi ve yatırım sinyalleri.`}
+                className="rounded-lg border border-slate-200/80 bg-white/5 px-3 py-2 text-slate-200 hover:text-white"
+              />
               {city.highlights.map((h) => (
                 <Badge key={h} className="bg-blue-500/10 text-blue-400 border-blue-500/20">{h}</Badge>
               ))}
@@ -272,6 +279,23 @@ export default function CityGuide() {
             <div className="text-xs text-slate-300">{city.marketingDays} gün satış</div>
           </Card>
         </div>
+
+        <Card className="mb-8 border-slate-200/80 bg-slate-950/50 p-4">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.12em] text-slate-300">Paylaşılabilir bölge kartı</p>
+              <h3 className="text-lg font-bold text-white">{cityName} · Talep {city.demandIndex}/100</h3>
+              <p className="text-sm text-slate-200">m² ort.: ₺{city.avgPricePerSqm.toLocaleString("tr-TR")} · Kira getirisi: %{city.rentalYield}</p>
+            </div>
+            <ShareButton
+              title={`${cityName} Bölge Rapor Kartı`}
+              url={`/sehir/${cityName}`}
+              priceText={`m² ₺${city.avgPricePerSqm.toLocaleString("tr-TR")} · Talep ${city.demandIndex}/100`}
+              inviteText={`Bu bölge raporuna bak: ${cityName} için yatırım sinyalleri ve piyasa özeti.`}
+              className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-cyan-100 hover:bg-cyan-500/20"
+            />
+          </div>
+        </Card>
 
         {/* Tabs */}
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
