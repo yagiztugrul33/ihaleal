@@ -1,8 +1,14 @@
 import { useMemo, useState } from "react";
-import { BadgeCheck, Gift, History, Medal, PlusCircle } from "lucide-react";
+import { BadgeCheck, Gamepad2, Gift, History, Medal, PlusCircle, Trophy } from "lucide-react";
+import { getAllProperties } from "@/lib/demo-data";
+import { getPropertyPrice, getPropertyTitle } from "@/types/property";
 import {
+  BADGE_DEFINITIONS,
   buildTransactionPoints,
+  DEMO_LEADERBOARD,
   DEMO_REWARDS_NOTE,
+  GAMIFICATION_NOTE,
+  MISSIONS,
   REWARD_ACTIONS,
   REWARD_CATALOG,
   type RewardLedgerItem,
@@ -10,6 +16,8 @@ import {
 
 const LEDGER_KEY = "ihaleal_rewards_ledger";
 const BALANCE_KEY = "ihaleal_rewards_balance";
+const MISSION_KEY = "ihaleal_rewards_missions";
+type TabKey = "points" | "game";
 
 function loadLedger(): RewardLedgerItem[] {
   try {
@@ -33,14 +41,43 @@ function loadBalance(): number {
 }
 
 export default function LoyaltyProgramPage() {
+  const [activeTab, setActiveTab] = useState<TabKey>("points");
   const [balance, setBalance] = useState<number>(() => loadBalance());
   const [ledger, setLedger] = useState<RewardLedgerItem[]>(() => loadLedger());
   const [transactionAmount, setTransactionAmount] = useState("500000");
+  const [missionsDone, setMissionsDone] = useState<string[]>(() => {
+    try {
+      const raw = localStorage.getItem(MISSION_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  });
+  const [predictionValue, setPredictionValue] = useState("");
+  const [predictionResult, setPredictionResult] = useState<string>("");
+
+  const predictionAsset = useMemo(() => {
+    const pool = getAllProperties().filter((p) => getPropertyPrice(p));
+    return pool[Math.floor(Date.now() / 1000) % Math.max(1, pool.length)] ?? null;
+  }, []);
 
   const progressRatio = useMemo(() => {
     const target = 1500;
     return Math.min(100, Math.round((balance / target) * 100));
   }, [balance]);
+
+  const badges = useMemo(() => {
+    const joinCount = ledger.filter((item) => item.action.includes("İhaleye katılma")).length;
+    return BADGE_DEFINITIONS.map((badge) => {
+      const unlocked =
+        (badge.id === "first_bid" && joinCount >= 1) ||
+        (badge.id === "five_auctions" && joinCount >= 5) ||
+        (badge.id === "region_expert" && missionsDone.includes("first_share")) ||
+        (badge.id === "early_user" && ledger.length >= 3);
+      return { ...badge, unlocked };
+    });
+  }, [ledger, missionsDone]);
 
   const persist = (nextBalance: number, nextLedger: RewardLedgerItem[]) => {
     setBalance(nextBalance);
@@ -77,6 +114,31 @@ export default function LoyaltyProgramPage() {
     persist(nextBalance, nextLedger);
   };
 
+  const completeMission = (id: string) => {
+    if (missionsDone.includes(id)) return;
+    const mission = MISSIONS.find((item) => item.id === id);
+    if (!mission) return;
+    const next = [...missionsDone, id];
+    setMissionsDone(next);
+    localStorage.setItem(MISSION_KEY, JSON.stringify(next));
+    addPoints(`Görev tamamlandı: ${mission.title}`, mission.points, "Gamification görev bonusu");
+  };
+
+  const submitPrediction = () => {
+    if (!predictionAsset) return;
+    const estimate = Number(predictionValue);
+    const actual = getPropertyPrice(predictionAsset) ?? 0;
+    if (!Number.isFinite(estimate) || estimate <= 0 || actual <= 0) return;
+    const diffRatio = Math.abs(actual - estimate) / actual;
+    const points = diffRatio <= 0.05 ? 80 : diffRatio <= 0.1 ? 45 : diffRatio <= 0.2 ? 25 : 10;
+    const title = diffRatio <= 0.05 ? "Tahminin çok yakın!" : "Tahmin oyunu tamamlandı";
+    setPredictionResult(
+      `${title} Gerçek: ${actual.toLocaleString("tr-TR")} TRY, Tahmin: ${estimate.toLocaleString("tr-TR")} TRY.`,
+    );
+    addPoints("İhaleal Tahmin Oyunu", points, `${Math.round(diffRatio * 100)}% sapma`);
+    setPredictionValue("");
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 px-4 pb-16 pt-24 text-slate-100 lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
@@ -84,8 +146,26 @@ export default function LoyaltyProgramPage() {
           <p className="text-xs uppercase tracking-[0.14em] text-cyan-300">İhaleal Rewards</p>
           <h1 className="mt-1 text-3xl font-black">Puanlarım</h1>
           <p className="mt-2 text-sm text-slate-300">{DEMO_REWARDS_NOTE}</p>
+          <div className="mt-4 inline-flex rounded-lg border border-slate-600/70 bg-slate-950/70 p-1">
+            <button
+              type="button"
+              onClick={() => setActiveTab("points")}
+              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "points" ? "bg-cyan-500/20 text-cyan-100" : "text-slate-300"}`}
+            >
+              Ödül & Puan
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("game")}
+              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "game" ? "bg-cyan-500/20 text-cyan-100" : "text-slate-300"}`}
+            >
+              Oyunlaştırma
+            </button>
+          </div>
         </section>
 
+        {activeTab === "points" ? (
+          <>
         <section className="grid gap-4 md:grid-cols-3">
           <article className="rounded-xl border border-slate-700/80 bg-slate-900/60 p-4">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-400">Puan bakiyesi</p>
@@ -203,6 +283,102 @@ export default function LoyaltyProgramPage() {
             İşlem bazlı ödül puanları temsili/demo akışıdır.
           </p>
         </section>
+          </>
+        ) : (
+          <>
+            <section className="rounded-2xl border border-violet-400/20 bg-slate-900/70 p-4">
+              <p className="text-sm text-violet-200">{GAMIFICATION_NOTE}</p>
+            </section>
+            <section className="grid gap-4 lg:grid-cols-[1.05fr_1fr]">
+              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold">
+                  <Trophy className="h-5 w-5 text-amber-300" /> Rozetler & Başarımlar
+                </h2>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {badges.map((badge) => (
+                    <div key={badge.id} className={`rounded-lg border p-3 ${badge.unlocked ? "border-amber-400/40 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}>
+                      <p className="text-lg">{badge.icon}</p>
+                      <p className="mt-1 text-sm font-semibold text-white">{badge.title}</p>
+                      <p className="text-xs text-slate-400">{badge.rule}</p>
+                      <p className={`mt-2 text-[11px] font-bold ${badge.unlocked ? "text-emerald-300" : "text-slate-500"}`}>
+                        {badge.unlocked ? "Kazanıldı" : "Kilitli"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold">
+                  <Medal className="h-5 w-5 text-cyan-300" /> Liderlik Tablosu
+                </h2>
+                <div className="space-y-2">
+                  {DEMO_LEADERBOARD.map((row, idx) => (
+                    <div key={row.alias} className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2">
+                      <span className="text-sm text-slate-200">#{idx + 1} {row.alias}</span>
+                      <strong className="text-sm text-cyan-200">{row.score.toLocaleString("tr-TR")} puan</strong>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-3 text-xs text-slate-400">Takma ad/anonim leaderboard demo verisiyle oluşturulur.</p>
+              </article>
+            </section>
+            <section className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
+              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold">
+                  <Gamepad2 className="h-5 w-5 text-cyan-300" /> İHALEAL Tahmin Oyunu
+                </h2>
+                <p className="text-sm text-slate-300">
+                  Zestimate uyarlaması (demo): mülk fiyatını tahmin et, yaklaştıkça puan kazan.
+                </p>
+                {predictionAsset ? (
+                  <div className="mt-3 rounded-lg border border-slate-700 bg-slate-950/70 p-3">
+                    <p className="text-sm font-semibold text-white">{getPropertyTitle(predictionAsset)}</p>
+                    <label className="mt-2 block text-xs text-slate-300">
+                      Tahmin fiyatı (TRY)
+                      <input
+                        value={predictionValue}
+                        onChange={(e) => setPredictionValue(e.target.value)}
+                        className="mt-1 w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      onClick={submitPrediction}
+                      className="mt-3 rounded-lg border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-100"
+                    >
+                      Tahmini gönder
+                    </button>
+                    {predictionResult ? <p className="mt-3 text-xs text-emerald-300">{predictionResult}</p> : null}
+                  </div>
+                ) : null}
+              </article>
+              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 text-lg font-bold text-white">Görevler</h2>
+                <div className="space-y-2">
+                  {MISSIONS.map((mission) => {
+                    const done = missionsDone.includes(mission.id);
+                    return (
+                      <div key={mission.id} className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-950/70 p-3">
+                        <div>
+                          <p className="text-sm font-semibold text-white">{mission.title}</p>
+                          <p className="text-xs text-slate-400">+{mission.points} puan</p>
+                        </div>
+                        <button
+                          type="button"
+                          disabled={done}
+                          onClick={() => completeMission(mission.id)}
+                          className="rounded-md border border-emerald-400/50 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-100 disabled:opacity-40"
+                        >
+                          {done ? "Tamamlandı" : "Tamamla"}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </article>
+            </section>
+          </>
+        )}
       </div>
     </div>
   );

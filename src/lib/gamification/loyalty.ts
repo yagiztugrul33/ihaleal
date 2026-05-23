@@ -29,6 +29,19 @@ export interface RewardLedgerItem {
   note?: string;
 }
 
+export interface BadgeDefinition {
+  id: string;
+  title: string;
+  rule: string;
+  icon: string;
+}
+
+export interface MissionDefinition {
+  id: string;
+  title: string;
+  points: number;
+}
+
 export const REWARD_ACTIONS: RewardAction[] = [
   {
     key: "daily_login",
@@ -103,6 +116,30 @@ export const REWARD_CATALOG: RewardCatalogItem[] = [
 
 export const DEMO_REWARDS_NOTE =
   "Ödül/puan sistemi demo ve temsili amaçlıdır; canlı ortamda hukuki ve finansal şartlar ayrıca yayınlanır.";
+
+export const GAMIFICATION_NOTE =
+  "Rozet, liderlik ve tahmin oyunu akışı Zillow/Redfin benzeri modelin temsili demo uyarlamasıdır.";
+
+export const BADGE_DEFINITIONS: BadgeDefinition[] = [
+  { id: "first_bid", title: "İlk Teklif", rule: "İlk ihaleye katılım", icon: "🥇" },
+  { id: "five_auctions", title: "5 İhale", rule: "5+ ihale katılımı", icon: "⚡" },
+  { id: "region_expert", title: "Bölge Uzmanı", rule: "3+ bölge analizi", icon: "🗺️" },
+  { id: "early_user", title: "Erken Kullanıcı", rule: "İlk 30 gün içinde aktiflik", icon: "🚀" },
+];
+
+export const MISSIONS: MissionDefinition[] = [
+  { id: "complete_profile", title: "Profili tamamla", points: 35 },
+  { id: "first_favorite", title: "İlk favoriyi ekle", points: 20 },
+  { id: "first_share", title: "İlk paylaşımını yap", points: 18 },
+];
+
+export const DEMO_LEADERBOARD = [
+  { alias: "BlueFalcon", score: 2420 },
+  { alias: "AnatoliaBidder", score: 2285 },
+  { alias: "MapInvestor", score: 2140 },
+  { alias: "EarlyDelta", score: 1970 },
+  { alias: "GeoHunter", score: 1865 },
+] as const;
 
 export function buildTransactionPoints(amountTry: number): number {
   if (!Number.isFinite(amountTry) || amountTry <= 0) return 0;
