@@ -293,6 +293,8 @@ function App() {
             <Route path="/dashboard/yatirimci" element={<InvestorDashboard />} />
             <Route path="/sehirler" element={<CitiesList />} />
             <Route path="/sehir/:cityName" element={<CityGuide />} />
+            <Route path="/bolge" element={<Navigate to="/sehirler" replace />} />
+            <Route path="/bolge/:cityName" element={<Navigate to="/sehir/:cityName" replace />} />
             <Route path="/kvkk" element={<LegalKVKK />} />
             <Route path="/gizlilik" element={<LegalPrivacy />} />
             <Route path="/ihale-kosullari" element={<LegalAuctionTerms />} />
