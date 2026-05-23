@@ -149,7 +149,7 @@ export default function WarRoomPage() {
     <div className="min-h-screen pt-20 pb-12 intelligence-page bg-[#030712]">
       <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-blue-950/70 to-transparent pointer-events-none" />
       <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6">
-        <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-400">
+        <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-200">
           <Link to={INTELLIGENCE_HUB_PATH}><ArrowLeft className="w-4 h-4 mr-1" /> Araştırma</Link>
         </Button>
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
@@ -157,7 +157,7 @@ export default function WarRoomPage() {
             <Radar className="w-10 h-10 text-blue-400 shrink-0" />
             <div>
               <h1 className="text-3xl font-bold text-white">Stratejik War Room</h1>
-              <p className="text-sm text-slate-400 mt-1">GIS + mühendislik istihbaratı</p>
+              <p className="text-sm text-slate-200 mt-1">GIS + mühendislik istihbaratı</p>
             </div>
           </div>
           {env ? <DataQualityBadge quality={env.dataQuality} limitations={env.limitations} /> : null}
@@ -174,7 +174,7 @@ export default function WarRoomPage() {
                 <ShieldCheck className="h-4 w-4 text-cyan-300" />
               </div>
               <h2 className="text-sm font-semibold text-white">Saha Güvenliği</h2>
-              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+              <p className="mt-1 text-xs leading-relaxed text-slate-200">
                 Deprem, zemin ve afet katmanları aynı panelde okunur; yüksek risk bölgeleri operasyon planında erken işaretlenir.
               </p>
             </CardContent>
@@ -185,7 +185,7 @@ export default function WarRoomPage() {
                 <Building2 className="h-4 w-4 text-emerald-300" />
               </div>
               <h2 className="text-sm font-semibold text-white">Yapısal Uygunluk</h2>
-              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+              <p className="mt-1 text-xs leading-relaxed text-slate-200">
                 Yükseklik, eğim ve geoteknik sinyaller üzerinden proje uygunluğu değerlendirilir; kırmızı alanlar net biçimde ayrılır.
               </p>
             </CardContent>
@@ -196,7 +196,7 @@ export default function WarRoomPage() {
                 <Waves className="h-4 w-4 text-amber-300" />
               </div>
               <h2 className="text-sm font-semibold text-white">Enerji Potansiyeli</h2>
-              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+              <p className="mt-1 text-xs leading-relaxed text-slate-200">
                 PVGIS ışınım ve saha parametreleri birleştirilir; enerji tarafındaki fırsat/risk dengesi finansal okuma için hazırlanır.
               </p>
             </CardContent>
@@ -207,7 +207,7 @@ export default function WarRoomPage() {
                 <Activity className="h-4 w-4 text-violet-300" />
               </div>
               <h2 className="text-sm font-semibold text-white">Operasyon Ritmi</h2>
-              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+              <p className="mt-1 text-xs leading-relaxed text-slate-200">
                 Analiz geçmişi, rapor çıktısı ve karar notları tek akışta tutulur; ekipler aynı referans üzerinden aksiyon alır.
               </p>
             </CardContent>
@@ -225,7 +225,7 @@ export default function WarRoomPage() {
               {ZEMIN_OPTIONS.map((z) => <option key={z} value={z}>{z}</option>)}
             </select>
             <Label>PGA (g)</Label><Input value={pga} onChange={(e) => setPga(e.target.value)} />
-            <label className="flex gap-2 text-xs text-slate-400"><input type="checkbox" checked={showRiskLayer} onChange={(e) => setShowRiskLayer(e.target.checked)} /><Layers className="w-4 h-4" />Risk katmani</label>
+            <label className="flex gap-2 text-xs text-slate-200"><input type="checkbox" checked={showRiskLayer} onChange={(e) => setShowRiskLayer(e.target.checked)} /><Layers className="w-4 h-4" />Risk katmani</label>
             <Button className="btn-primary w-full gap-2" onClick={runAnalysis} disabled={loading}>{loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <MapPin className="w-4 h-4" />}Analiz</Button>
             {result ? <Button variant="outline" className="w-full gap-2" onClick={downloadReport}><Download className="w-4 h-4" />Rapor</Button> : null}
           </CardContent></Card>
@@ -235,7 +235,7 @@ export default function WarRoomPage() {
           </div>
           <div className="xl:col-span-3 space-y-3">
             {result ? (<>
-              <Card className="card-luxury"><CardContent className="p-5"><p className="text-xs text-slate-500">Skor</p><p className="text-5xl font-bold text-cyan-300">{fmtScore(result.strategicScore)}</p></CardContent></Card>
+              <Card className="card-luxury"><CardContent className="p-5"><p className="text-xs text-slate-300">Skor</p><p className="text-5xl font-bold text-cyan-300">{fmtScore(result.strategicScore)}</p></CardContent></Card>
               <div className="grid grid-cols-2 gap-2">
                 <ScoreBadge label="Deprem" score={result.seismic.value.seismicRiskScore} />
                 <ScoreBadge label="Afet" score={result.disaster.value.compositeHazardScore} />
@@ -244,12 +244,12 @@ export default function WarRoomPage() {
               </div>
               <Card className="card-luxury"><CardContent className="p-4 text-xs text-slate-300 max-h-40 overflow-y-auto">{result.executiveSummary.map((l) => <p key={l}>{l}</p>)}</CardContent></Card>
             </>) : (
-              <Card className="card-luxury"><CardContent className="p-6 text-sm text-slate-400"><RefreshCw className="w-8 h-8 mb-2" />Sonuclar burada.</CardContent></Card>
+              <Card className="card-luxury"><CardContent className="p-6 text-sm text-slate-200"><RefreshCw className="w-8 h-8 mb-2" />Sonuclar burada.</CardContent></Card>
             )}
-            {history.length > 0 ? <Card className="card-luxury"><CardContent className="p-4 text-xs text-slate-500">{history.map((h) => <p key={h.id}>{h.analysis_type}</p>)}</CardContent></Card> : null}
+            {history.length > 0 ? <Card className="card-luxury"><CardContent className="p-4 text-xs text-slate-300">{history.map((h) => <p key={h.id}>{h.analysis_type}</p>)}</CardContent></Card> : null}
           </div>
         </div>
-        {result ? <Card className="mt-4 card-luxury"><CardContent className="p-4 text-xs text-slate-500"><ul className="list-disc list-inside">{result.aiReasoning.map((r) => <li key={r}>{r}</li>)}</ul><p className="mt-2">{result.disclaimer.legal}</p></CardContent></Card> : null}
+        {result ? <Card className="mt-4 card-luxury"><CardContent className="p-4 text-xs text-slate-300"><ul className="list-disc list-inside">{result.aiReasoning.map((r) => <li key={r}>{r}</li>)}</ul><p className="mt-2">{result.disclaimer.legal}</p></CardContent></Card> : null}
         </div>
       </div>
     );

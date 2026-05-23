@@ -117,22 +117,22 @@ export default function CitiesList() {
         {/* Stats */}
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><MapPin className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-400">Şehir</span></div>
+            <div className="flex items-center gap-2 mb-2"><MapPin className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-200">Şehir</span></div>
             <div className="text-2xl font-bold">{CITIES.length}</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><Building2 className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-400">Toplam İlan</span></div>
+            <div className="flex items-center gap-2 mb-2"><Building2 className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-200">Toplam İlan</span></div>
             <div className="text-2xl font-bold text-emerald-400">{AUCTIONS.length}</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-400">En Yüksek Artış</span></div>
+            <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-200">En Yüksek Artış</span></div>
             <div className="text-2xl font-bold text-amber-400">%+28.5</div>
-            <div className="text-xs text-slate-500">Muğla</div>
+            <div className="text-xs text-slate-300">Muğla</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-400">En İyi Getiri</span></div>
+            <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-200">En İyi Getiri</span></div>
             <div className="text-2xl font-bold text-violet-400">%8.2</div>
-            <div className="text-xs text-slate-500">Muğla</div>
+            <div className="text-xs text-slate-300">Muğla</div>
           </Card>
         </div>
 
@@ -165,15 +165,15 @@ export default function CitiesList() {
               <CardContent className="p-4">
                 <div className="grid grid-cols-3 gap-3">
                   <div className="text-center">
-                    <div className="text-xs text-slate-500">m² Fiyat</div>
+                    <div className="text-xs text-slate-300">m² Fiyat</div>
                     <div className="text-sm font-bold text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs text-slate-500">Getiri</div>
+                    <div className="text-xs text-slate-300">Getiri</div>
                     <div className="text-sm font-bold text-emerald-400">%{city.rentalYield}</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs text-slate-500">Talep</div>
+                    <div className="text-xs text-slate-300">Talep</div>
                     <div className="text-sm font-bold text-amber-400">{city.demandIndex}/100</div>
                   </div>
                 </div>
@@ -193,12 +193,12 @@ export default function CitiesList() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-200/80">
-                    <th className="text-left p-4 text-slate-400 font-medium">Şehir</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">m² Fiyat</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">Yıllık Artış</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">Kira Getirisi</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">Talep Endeksi</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">İlan</th>
+                    <th className="text-left p-4 text-slate-200 font-medium">Şehir</th>
+                    <th className="text-right p-4 text-slate-200 font-medium">m² Fiyat</th>
+                    <th className="text-right p-4 text-slate-200 font-medium">Yıllık Artış</th>
+                    <th className="text-right p-4 text-slate-200 font-medium">Kira Getirisi</th>
+                    <th className="text-right p-4 text-slate-200 font-medium">Talep Endeksi</th>
+                    <th className="text-right p-4 text-slate-200 font-medium">İlan</th>
                   </tr>
                 </thead>
                 <tbody>

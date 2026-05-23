@@ -116,7 +116,7 @@ export default function IntelligenceHub() {
         <motion.div className="mb-10 max-w-3xl">
           <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-red-400/90 mb-3">Remax Borsa Global</p>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Araştırma ve İstihbarat Terminali</h1>
-          <p className="text-slate-400 mt-4 text-lg leading-relaxed">
+          <p className="text-slate-200 mt-4 text-lg leading-relaxed">
             iBuyer, takas, GES ve parsel masaları tek çatı altında. Sonuçlar ön fizibilite niteliğindedir; resmi rapor ve lisanslı onay gerektirir.
           </p>
           <motion.div className="mt-6 flex flex-wrap gap-2">
@@ -141,10 +141,10 @@ export default function IntelligenceHub() {
                 <motion.div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-black/30">
                   <m.icon className="w-6 h-6 text-white/90" />
                 </motion.div>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 border border-white/10 rounded-full px-2 py-0.5">{m.badge}</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-200 border border-white/10 rounded-full px-2 py-0.5">{m.badge}</span>
               </motion.div>
               <h2 className="text-xl font-bold mt-4">{m.title}</h2>
-              <p className="text-sm text-slate-400 mt-2 flex-1 leading-relaxed">{m.desc}</p>
+              <p className="text-sm text-slate-200 mt-2 flex-1 leading-relaxed">{m.desc}</p>
               <Button asChild className="mt-6 w-full sm:w-auto gap-2 bg-white/10 hover:bg-white/15 border border-white/10">
                 <Link to={m.href}>
                   Modülü aç <ArrowRight className="w-4 h-4" />
@@ -156,13 +156,13 @@ export default function IntelligenceHub() {
 
         <motion.div className="mt-12 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 flex gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
           <Shield className="w-5 h-5 text-amber-300 shrink-0" />
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <p className="text-xs text-slate-200 leading-relaxed">
             Kesinlikle yatırım tavsiyesi değildir. Girdilere dayalı ön fizibilitedir. PVGIS doğrulanmış ışınım, resmi imar durumu ve TEİAŞ/EDAŞ başvurusu olmadan yatırım kararı alınmamalıdır.
           </p>
         </motion.div>
 
-        <p className="mt-6 text-center text-[10px] text-slate-600">
-          <Link to={ROUTES.SERVICES} className="hover:text-slate-400 underline-offset-2 hover:underline">Kurumsal hizmetler</Link>
+        <p className="mt-6 text-center text-[10px] text-slate-300">
+          <Link to={ROUTES.SERVICES} className="hover:text-white underline-offset-2 hover:underline">Kurumsal hizmetler</Link>
         </p>
       </motion.div>
     </motion.div>
