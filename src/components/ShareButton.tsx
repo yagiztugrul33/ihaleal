@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import {
   Share2,
   X,
@@ -34,19 +34,18 @@ export function ShareButton({ title, url, priceText, imageUrl, inviteText, class
   const [copied, setCopied] = useState(false);
   const [copiedInvite, setCopiedInvite] = useState(false);
   const [showQr, setShowQr] = useState(false);
-  const copiedTimerRef = useRef<number | null>(null);
-  const inviteTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    return () => {
-      if (copiedTimerRef.current != null) {
-        window.clearTimeout(copiedTimerRef.current);
-      }
-      if (inviteTimerRef.current != null) {
-        window.clearTimeout(inviteTimerRef.current);
-      }
-    };
-  }, []);
+    if (!copied) return;
+    const timer = window.setTimeout(() => setCopied(false), 2000);
+    return () => window.clearTimeout(timer);
+  }, [copied]);
+
+  useEffect(() => {
+    if (!copiedInvite) return;
+    const timer = window.setTimeout(() => setCopiedInvite(false), 2000);
+    return () => window.clearTimeout(timer);
+  }, [copiedInvite]);
 
   const fullUrl =
     typeof window !== "undefined"
@@ -58,15 +57,6 @@ export function ShareButton({ title, url, priceText, imageUrl, inviteText, class
   const encodedText = encodeURIComponent(shareText);
   const encodedUrl = encodeURIComponent(fullUrl);
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodedUrl}`;
-
-  const setCopyToast = (
-    setState: (value: boolean) => void,
-    timerRef: { current: number | null },
-  ) => {
-    setState(true);
-    if (timerRef.current != null) window.clearTimeout(timerRef.current);
-    timerRef.current = window.setTimeout(() => setState(false), 2000);
-  };
 
   const copyText = async (value: string, onDone: () => void) => {
     try {
@@ -84,11 +74,11 @@ export function ShareButton({ title, url, priceText, imageUrl, inviteText, class
   };
 
   const handleCopyLink = async () => {
-    await copyText(fullUrl, () => setCopyToast(setCopied, copiedTimerRef));
+    await copyText(fullUrl, () => setCopied(true));
   };
 
   const handleInstagram = async () => {
-    await copyText(`${shareText}\n${fullUrl}`, () => setCopyToast(setCopiedInvite, inviteTimerRef));
+    await copyText(`${shareText}\n${fullUrl}`, () => setCopiedInvite(true));
   };
 
   const handleNativeShare = async () => {

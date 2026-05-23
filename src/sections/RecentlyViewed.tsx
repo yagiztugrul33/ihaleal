@@ -31,6 +31,23 @@ export function RecentlyViewed() {
       .slice(0, 4);
   }, [recentIds]);
 
+  const personalizedAuctions = useMemo(() => {
+    if (!recentAuctions.length) return [];
+    const preferredDistricts = new Set(recentAuctions.map((a) => a.district));
+    const preferredCategories = new Set(recentAuctions.map((a) => a.category));
+    return AUCTIONS
+      .filter((a) => !recentIds.includes(a.id))
+      .map((a) => {
+        let score = a.investmentScore;
+        if (preferredDistricts.has(a.district)) score += 10;
+        if (preferredCategories.has(a.category)) score += 6;
+        return { auction: a, score };
+      })
+      .sort((x, y) => y.score - x.score)
+      .slice(0, 4)
+      .map((x) => x.auction);
+  }, [recentAuctions, recentIds]);
+
   if (recentAuctions.length === 0) return null;
 
   return (
@@ -89,6 +106,44 @@ export function RecentlyViewed() {
             </Card>
           ))}
         </div>
+
+        {personalizedAuctions.length > 0 ? (
+          <div className={`mt-10 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-semibold text-white">Sana Ozel</h3>
+                <p className="text-xs text-slate-400">Ilgine gore mock AI onerileri (yatirim tavsiyesi degildir).</p>
+              </div>
+              <Button variant="ghost" size="sm" className="text-cyan-300" onClick={() => navigate("/ilanlar")}>
+                Tumunu gor <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {personalizedAuctions.map((auction, idx: number) => (
+                <Card
+                  key={auction.id}
+                  className="group card-warm overflow-hidden border-cyan-500/25 bg-cyan-500/5 transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+                  onClick={() => navigate(resolveListingDetailPath(auction.id))}
+                  style={{ transitionDelay: `${idx * 80}ms` }}
+                >
+                  <div className="relative h-36 overflow-hidden">
+                    <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                    <span className="absolute left-2 top-2 rounded-md bg-cyan-500/80 px-2 py-1 text-[11px] font-semibold text-white">
+                      Sana Ozel
+                    </span>
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="line-clamp-1 text-sm font-semibold text-white">{auction.title}</h4>
+                    <p className="mt-1 text-xs text-slate-400">
+                      {auction.district} · AI skor {auction.investmentScore}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );

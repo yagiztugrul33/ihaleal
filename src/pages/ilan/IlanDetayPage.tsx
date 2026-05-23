@@ -261,7 +261,7 @@ function HeroSection(props: {
             src={hero}
             alt={getPropertyTitle(property)}
             loading="eager"
-            className="h-full w-full"
+            className="w-full h-full object-cover"
           />
           <span className="ilan-detay__zoom-chip">
             <Expand className="h-3.5 w-3.5" />
@@ -276,7 +276,7 @@ function HeroSection(props: {
               className={`ilan-detay__thumb ${src === hero ? "is-active" : ""}`}
               onClick={() => onSelectImage(src)}
             >
-              <ListingCoverImage src={src} alt={getPropertyTitle(property)} className="h-full w-full" />
+              <ListingCoverImage src={src} alt={getPropertyTitle(property)} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>
