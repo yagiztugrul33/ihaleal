@@ -10,10 +10,10 @@ import {
   getPropertyPrice,
   getPropertyTitle,
 } from "@/types/property";
-import { formatTry } from "@/lib/valuation/valuationEngine";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useCompareSelection } from "@/hooks/useCompareSelection";
 import { buildSellerTrustProfile } from "@/lib/sellerTrust";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export interface PropertyListingCardProps {
   property: PropertyRecord;
@@ -34,6 +34,7 @@ function listingModeBadge(property: PropertyRecord): { label: string; tone: "auc
 }
 
 export function PropertyListingCard({ property }: PropertyListingCardProps) {
+  const { formatFromTry, usdRate } = useCurrency();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { has, toggle, isFull } = useCompareSelection();
   const hero = getPropertyHero(property);
@@ -47,6 +48,7 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
   const details = (property.details ?? {}) as Record<string, unknown>;
   const modeBadge = listingModeBadge(property);
   const seller = buildSellerTrustProfile(property.id);
+  const citizenshipEligible = price != null && price / usdRate >= 400_000;
   const endDateRaw = typeof details.auctionEndAt === "string" ? details.auctionEndAt : null;
   const remainingText = (() => {
     if (!endDateRaw) return "Süre: Bilgi yok";
@@ -68,6 +70,9 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           )}
           <div className="ilan-card__badges">
             <span className={`ilan-card__mode-badge ilan-card__mode-badge--${modeBadge.tone}`}>{modeBadge.label}</span>
+            {citizenshipEligible ? (
+              <span className="ilan-card__mode-badge ilan-card__mode-badge--sale">400K+ Citizen</span>
+            ) : null}
             {live ? (
               <span className="ilan-card__live">
                 <i /> LIVE
@@ -105,7 +110,7 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
         </p>
 
         <p className="ilan-card__price">
-          {price != null ? formatTry(price) : "Fiyat sorunuz"}
+          {price != null ? formatFromTry(price) : "Fiyat sorunuz"}
           {property.dealType === "rent" ? <small>/ ay</small> : null}
         </p>
         <p className="flex items-center gap-1 text-xs text-emerald-300">
@@ -113,7 +118,7 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           Doğrulanmış satıcı · {seller.completedDeals} işlem
         </p>
         <div className="ilan-card__auction-line">
-          <span>Güncel teklif: {currentBid > 0 ? formatTry(currentBid) : "—"}</span>
+          <span>Güncel teklif: {currentBid > 0 ? formatFromTry(currentBid) : "—"}</span>
           <span className={positive ? "ilan-card__change is-up" : "ilan-card__change is-down"}>
             {positive ? "+" : ""}
             %{changePct.toFixed(2)}

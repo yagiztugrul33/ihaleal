@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LocaleProvider } from "@/contexts/LocaleContext";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
@@ -113,6 +114,7 @@ const NasilCalisirStepPage = lazy(() => import("@/pages/NasilCalisirStepPage"));
 const ValuationTool         = lazy(() => import("@/pages/ValuationTool"));
 const LoyaltyProgramPage    = lazy(() => import("@/pages/LoyaltyProgramPage"));
 const CampaignsPage         = lazy(() => import("@/pages/CampaignsPage"));
+const InternationalInvestorPage = lazy(() => import("@/pages/InternationalInvestorPage"));
 const Corporate             = lazy(() => import("@/pages/Corporate"));
 const CorporateContact      = lazy(() => import("@/pages/CorporateContact"));
 const OrganizationDashboard = lazy(() =>
@@ -189,6 +191,7 @@ function RedirectHowItWorksSubpath({ segment }: { segment: "yol" | "adim" }) {
 function App() {
   return (
     <LocaleProvider>
+    <CurrencyProvider>
     <AuthProvider>
     <BrowserRouter>
       <ErrorBoundary>
@@ -320,6 +323,9 @@ function App() {
             <Route path="/oduller" element={<LoyaltyProgramPage />} />
             <Route path="/puanlarim" element={<Navigate to="/oduller" replace />} />
             <Route path="/kampanyalar" element={<CampaignsPage />} />
+            <Route path="/uluslararasi" element={<InternationalInvestorPage />} />
+            <Route path="/foreign-investor" element={<InternationalInvestorPage />} />
+            <Route path="/foreign-process" element={<Navigate to="/uluslararasi" replace />} />
             <Route path={ROUTES.SERVICES} element={<Corporate />} />
             <Route path={ROUTES.KURUMSAL} element={<Navigate to={ROUTES.SERVICES} replace />} />
             <Route path="/kurumsal" element={<Navigate to={ROUTES.SERVICES} replace />} />
@@ -491,6 +497,7 @@ function App() {
       </ErrorBoundary>
     </BrowserRouter>
     </AuthProvider>
+    </CurrencyProvider>
     </LocaleProvider>
   );
 }

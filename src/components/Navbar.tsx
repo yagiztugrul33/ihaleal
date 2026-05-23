@@ -8,6 +8,7 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/messages";
+import { useCurrency, type CurrencyCode } from "@/contexts/CurrencyContext";
 
 function NavDropdown({
   label,
@@ -212,12 +213,14 @@ function NavPortalDropdown({
 
 export function Navbar() {
   const { locale, setLocale, t } = useLocale();
+  const { currency, setCurrency } = useCurrency();
   const n = t.nav;
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [currencyOpen, setCurrencyOpen] = useState(false);
 
   const megaColumns = [
     {
@@ -267,6 +270,7 @@ export function Navbar() {
     { to: ROUTES.KURUMSAL, label: n.corporate },
     { to: "/oduller", label: "Ödül & Puan" },
     { to: "/kampanyalar", label: "Kampanyalar" },
+    { to: "/uluslararasi", label: "Uluslararası" },
     { to: "/sss", label: n.faq },
   ];
 
@@ -279,6 +283,7 @@ export function Navbar() {
   useEffect(() => {
     setMobileOpen(false);
     setLangOpen(false);
+    setCurrencyOpen(false);
   }, [location.pathname, location.search]);
 
   useEffect(() => {
@@ -295,6 +300,10 @@ export function Navbar() {
   const pickLocale = (next: Locale) => {
     setLocale(next);
     setLangOpen(false);
+  };
+  const pickCurrency = (next: CurrencyCode) => {
+    setCurrency(next);
+    setCurrencyOpen(false);
   };
 
   return (
@@ -411,6 +420,38 @@ export function Navbar() {
                   >
                     {n.langTr}
                   </button>
+                </div>
+              ) : null}
+            </div>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setCurrencyOpen((o) => !o)}
+                className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-slate-600/30 px-3 text-sm text-slate-200"
+                aria-label="Currency"
+                aria-expanded={currencyOpen}
+              >
+                {currency}
+                <ChevronDown className={cn("h-3.5 w-3.5", currencyOpen && "rotate-180")} />
+              </button>
+              {currencyOpen ? (
+                <div
+                  className="absolute right-0 top-full z-[110] mt-2 min-w-[120px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
+                  style={{ background: "rgba(15, 23, 41, 0.98)" }}
+                >
+                  {(["TRY", "USD", "EUR", "GBP"] as const).map((code) => (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => pickCurrency(code)}
+                      className={cn(
+                        "block w-full px-4 py-2 text-left text-sm",
+                        currency === code ? "font-semibold text-cyan-300" : "text-slate-300 hover:bg-slate-800/50",
+                      )}
+                    >
+                      {code}
+                    </button>
+                  ))}
                 </div>
               ) : null}
             </div>
@@ -557,6 +598,23 @@ export function Navbar() {
               >
                 TR
               </button>
+            </div>
+            <div className="mt-2 flex gap-2">
+              {(["TRY", "USD", "EUR", "GBP"] as const).map((code) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => pickCurrency(code)}
+                  className={cn(
+                    "flex-1 rounded-lg border py-2 text-center text-xs",
+                    currency === code
+                      ? "border-cyan-500/50 bg-cyan-500/10 text-cyan-300"
+                      : "border-slate-600/30 text-slate-400",
+                  )}
+                >
+                  {code}
+                </button>
+              ))}
             </div>
           </div>
         ) : null}
