@@ -11,13 +11,16 @@ import {
   MISSIONS,
   REWARD_ACTIONS,
   REWARD_CATALOG,
+  VIP_TIERS,
   type RewardLedgerItem,
 } from "@/lib/gamification/loyalty";
 
 const LEDGER_KEY = "ihaleal_rewards_ledger";
 const BALANCE_KEY = "ihaleal_rewards_balance";
 const MISSION_KEY = "ihaleal_rewards_missions";
-type TabKey = "points" | "game";
+const REFERRAL_KEY = "ihaleal_referral_count";
+const VOLUME_KEY = "ihaleal_vip_volume";
+type TabKey = "points" | "game" | "vip";
 
 function loadLedger(): RewardLedgerItem[] {
   try {
@@ -56,6 +59,17 @@ export default function LoyaltyProgramPage() {
   });
   const [predictionValue, setPredictionValue] = useState("");
   const [predictionResult, setPredictionResult] = useState<string>("");
+  const [referralCount, setReferralCount] = useState<number>(() => {
+    const raw = localStorage.getItem(REFERRAL_KEY);
+    const value = raw ? Number(raw) : 0;
+    return Number.isFinite(value) ? value : 0;
+  });
+  const [vipVolumeTry, setVipVolumeTry] = useState<number>(() => {
+    const raw = localStorage.getItem(VOLUME_KEY);
+    const value = raw ? Number(raw) : 0;
+    return Number.isFinite(value) ? value : 0;
+  });
+  const [volumeInput, setVolumeInput] = useState("");
 
   const predictionAsset = useMemo(() => {
     const pool = getAllProperties().filter((p) => getPropertyPrice(p));
@@ -78,6 +92,16 @@ export default function LoyaltyProgramPage() {
       return { ...badge, unlocked };
     });
   }, [ledger, missionsDone]);
+
+  const vipTier = useMemo(() => {
+    const reversed = [...VIP_TIERS].reverse();
+    return reversed.find((tier) => balance >= tier.minPoints && vipVolumeTry >= tier.minVolumeTry) ?? VIP_TIERS[0];
+  }, [balance, vipVolumeTry]);
+
+  const referralLink = useMemo(() => {
+    const seed = "IH" + Math.abs(Math.round((balance + referralCount * 17) * 1.37)).toString(36).toUpperCase();
+    return `${window.location.origin}/kayit?ref=${seed}`;
+  }, [balance, referralCount]);
 
   const persist = (nextBalance: number, nextLedger: RewardLedgerItem[]) => {
     setBalance(nextBalance);
@@ -139,6 +163,23 @@ export default function LoyaltyProgramPage() {
     setPredictionValue("");
   };
 
+  const recordReferral = () => {
+    const next = referralCount + 1;
+    setReferralCount(next);
+    localStorage.setItem(REFERRAL_KEY, String(next));
+    addPoints("Davet ile yeni kullanıcı", 60, "Davet et, ikiniz kazanın (demo)");
+  };
+
+  const addVipVolume = () => {
+    const amount = Number(volumeInput);
+    if (!Number.isFinite(amount) || amount <= 0) return;
+    const next = vipVolumeTry + amount;
+    setVipVolumeTry(next);
+    localStorage.setItem(VOLUME_KEY, String(next));
+    setVolumeInput("");
+    addPoints("VIP işlem hacmi", Math.max(10, Math.round(amount / 90_000)), `${amount.toLocaleString("tr-TR")} TRY işlem`);
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 px-4 pb-16 pt-24 text-slate-100 lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
@@ -160,6 +201,13 @@ export default function LoyaltyProgramPage() {
               className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "game" ? "bg-cyan-500/20 text-cyan-100" : "text-slate-300"}`}
             >
               Oyunlaştırma
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("vip")}
+              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "vip" ? "bg-cyan-500/20 text-cyan-100" : "text-slate-300"}`}
+            >
+              Davet & VIP
             </button>
           </div>
         </section>
@@ -284,7 +332,7 @@ export default function LoyaltyProgramPage() {
           </p>
         </section>
           </>
-        ) : (
+        ) : activeTab === "game" ? (
           <>
             <section className="rounded-2xl border border-violet-400/20 bg-slate-900/70 p-4">
               <p className="text-sm text-violet-200">{GAMIFICATION_NOTE}</p>
@@ -376,6 +424,88 @@ export default function LoyaltyProgramPage() {
                   })}
                 </div>
               </article>
+            </section>
+          </>
+        ) : (
+          <>
+            <section className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
+              <article className="rounded-2xl border border-cyan-400/20 bg-slate-900/70 p-4">
+                <h2 className="text-lg font-bold text-white">Davet Programı</h2>
+                <p className="mt-1 text-sm text-slate-300">Kişiye özel linkle davet et, ikiniz de puan kazan (demo/temsili).</p>
+                <div className="mt-3 rounded-lg border border-slate-700 bg-slate-950/70 p-3">
+                  <p className="text-xs text-slate-400">Davet linkin</p>
+                  <p className="mt-1 break-all text-sm font-semibold text-cyan-200">{referralLink}</p>
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void navigator.clipboard.writeText(referralLink);
+                    }}
+                    className="rounded-md border border-cyan-400/50 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold text-cyan-100"
+                  >
+                    Linki kopyala
+                  </button>
+                  <button
+                    type="button"
+                    onClick={recordReferral}
+                    className="rounded-md border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-100"
+                  >
+                    Davet dönüşümü simüle et
+                  </button>
+                </div>
+                <p className="mt-3 text-sm text-slate-300">
+                  Toplam başarılı davet: <strong className="text-cyan-200">{referralCount}</strong>
+                </p>
+              </article>
+              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="text-lg font-bold text-white">VIP Kademe Profili</h2>
+                <p className="mt-1 text-sm text-slate-300">
+                  Aktif kademe: <strong className="text-amber-200">{vipTier.title}</strong>
+                </p>
+                <p className="mt-1 text-xs text-slate-400">
+                  Puan: {balance.toLocaleString("tr-TR")} · Hacim: {vipVolumeTry.toLocaleString("tr-TR")} TRY
+                </p>
+                <label className="mt-3 block text-xs text-slate-300">
+                  Yeni işlem hacmi (TRY)
+                  <input
+                    value={volumeInput}
+                    onChange={(e) => setVolumeInput(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+                  />
+                </label>
+                <button
+                  type="button"
+                  onClick={addVipVolume}
+                  className="mt-3 rounded-md border border-amber-400/50 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-100"
+                >
+                  Hacim ekle
+                </button>
+              </article>
+            </section>
+            <section className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
+              <h3 className="mb-3 text-lg font-bold text-white">Kademe Ayrıcalıkları</h3>
+              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                {VIP_TIERS.map((tier) => (
+                  <article
+                    key={tier.id}
+                    className={`rounded-xl border p-3 ${tier.id === vipTier.id ? "border-amber-400/60 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}
+                  >
+                    <p className="text-sm font-bold text-white">{tier.title}</p>
+                    <p className="mt-1 text-[11px] text-slate-400">
+                      Min {tier.minPoints} puan · {tier.minVolumeTry.toLocaleString("tr-TR")} TRY
+                    </p>
+                    <ul className="mt-2 space-y-1 text-xs text-slate-300">
+                      {tier.perks.map((perk) => (
+                        <li key={perk}>• {perk}</li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
+              </div>
+              <p className="mt-3 text-xs text-cyan-200">
+                VIP kademe, ayrıcalık ve davet akışı demo/temsili modeldir.
+              </p>
             </section>
           </>
         )}

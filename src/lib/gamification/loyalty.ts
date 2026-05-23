@@ -42,6 +42,14 @@ export interface MissionDefinition {
   points: number;
 }
 
+export interface VipTier {
+  id: "bronze" | "silver" | "gold" | "platinum";
+  title: string;
+  minPoints: number;
+  minVolumeTry: number;
+  perks: string[];
+}
+
 export const REWARD_ACTIONS: RewardAction[] = [
   {
     key: "daily_login",
@@ -140,6 +148,37 @@ export const DEMO_LEADERBOARD = [
   { alias: "EarlyDelta", score: 1970 },
   { alias: "GeoHunter", score: 1865 },
 ] as const;
+
+export const VIP_TIERS: VipTier[] = [
+  {
+    id: "bronze",
+    title: "Bronze",
+    minPoints: 0,
+    minVolumeTry: 0,
+    perks: ["Standart komisyon", "Temel rapor erişimi"],
+  },
+  {
+    id: "silver",
+    title: "Silver",
+    minPoints: 700,
+    minVolumeTry: 1_500_000,
+    perks: ["%2 demo komisyon indirimi", "Öncelikli destek sırası"],
+  },
+  {
+    id: "gold",
+    title: "Gold",
+    minPoints: 1500,
+    minVolumeTry: 5_000_000,
+    perks: ["%4 demo komisyon indirimi", "Özel ihale ön bildirimi", "Premium veri akışı"],
+  },
+  {
+    id: "platinum",
+    title: "Platinum",
+    minPoints: 2600,
+    minVolumeTry: 10_000_000,
+    perks: ["%6 demo komisyon indirimi", "VIP canlı ihale hattı", "Tam premium veri seti"],
+  },
+];
 
 export function buildTransactionPoints(amountTry: number): number {
   if (!Number.isFinite(amountTry) || amountTry <= 0) return 0;
