@@ -265,6 +265,7 @@ export function Navbar() {
 
   const companyItems = [
     { to: ROUTES.KURUMSAL, label: n.corporate },
+    { to: "/oduller", label: "Ödül & Puan" },
     { to: "/sss", label: n.faq },
   ];
 

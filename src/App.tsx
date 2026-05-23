@@ -111,6 +111,7 @@ const NasilCalisir          = lazy(() => import("@/pages/NasilCalisir"));
 const NasilCalisirJourneyPage = lazy(() => import("@/pages/NasilCalisirJourneyPage"));
 const NasilCalisirStepPage = lazy(() => import("@/pages/NasilCalisirStepPage"));
 const ValuationTool         = lazy(() => import("@/pages/ValuationTool"));
+const LoyaltyProgramPage    = lazy(() => import("@/pages/LoyaltyProgramPage"));
 const Corporate             = lazy(() => import("@/pages/Corporate"));
 const CorporateContact      = lazy(() => import("@/pages/CorporateContact"));
 const OrganizationDashboard = lazy(() =>
@@ -315,6 +316,8 @@ function App() {
             <Route path="/araclar/vergi-simulator" element={<TaxSimulatorPage />} />
             <Route path="/araclar/finans-uyumluluk" element={<FinCompliancePlayground />} />
             <Route path="/degerleme" element={<ValuationTool />} />
+            <Route path="/oduller" element={<LoyaltyProgramPage />} />
+            <Route path="/puanlarim" element={<Navigate to="/oduller" replace />} />
             <Route path={ROUTES.SERVICES} element={<Corporate />} />
             <Route path={ROUTES.KURUMSAL} element={<Navigate to={ROUTES.SERVICES} replace />} />
             <Route path="/kurumsal" element={<Navigate to={ROUTES.SERVICES} replace />} />
