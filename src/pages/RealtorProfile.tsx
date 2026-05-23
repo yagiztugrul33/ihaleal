@@ -8,7 +8,7 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-import { ArrowLeft, Building2, MapPin, Star, MessageSquare } from "lucide-react";
+import { ArrowLeft, Building2, MapPin, Star, MessageSquare, ShieldCheck, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +30,9 @@ export default function RealtorProfilePage() {
   const [msgOpen, setMsgOpen] = useState(false);
   const [msgSubject, setMsgSubject] = useState("");
   const [msgBody, setMsgBody] = useState("");
+  const [reviewText, setReviewText] = useState("");
+  const [reviewScore, setReviewScore] = useState("5");
+  const [reviews, setReviews] = useState(r?.reviews ?? []);
 
   if (!r) {
     return (
@@ -64,6 +67,9 @@ export default function RealtorProfilePage() {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-white">{r.companyName}</h1>
+              <p className="mt-1 inline-flex items-center gap-1 rounded-full border border-emerald-400/35 bg-emerald-500/10 px-2 py-1 text-xs text-emerald-200">
+                <BadgeCheck className="h-3.5 w-3.5" /> Doğrulanmış satıcı
+              </p>
               <p className="mt-1 flex items-center gap-2 text-sm text-slate-400">
                 <MapPin className="h-4 w-4" /> {r.city}
               </p>
@@ -113,6 +119,22 @@ export default function RealtorProfilePage() {
           </Card>
         </div>
 
+        <Card className="border-emerald-500/25 bg-emerald-500/10">
+          <CardContent className="p-5">
+            <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-emerald-100">
+              <ShieldCheck className="h-4 w-4" /> Güvenli işlem rozetleri
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {["Kimlik Doğrulandı", "Evrak Kontrolü", "Güvenli Ödeme Akışı", "Platform İçi Mesajlaşma"].map((badge) => (
+                <span key={badge} className="rounded-full border border-emerald-300/35 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-100">
+                  {badge}
+                </span>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-slate-300">Rozetler demo/mock veridir; canlı ortamda doğrulama kayıtları ile güncellenir.</p>
+          </CardContent>
+        </Card>
+
         <Card className="border-slate-200 bg-slate-900/40">
           <CardContent className="p-6">
             <h2 className="mb-4 text-lg font-semibold text-white">Satış geçmişi (demo)</h2>
@@ -134,7 +156,7 @@ export default function RealtorProfilePage() {
         <div>
           <h2 className="mb-4 text-lg font-semibold text-white">Yorumlar (demo)</h2>
           <div className="space-y-3">
-            {r.reviews.map((rv, i) => (
+            {reviews.map((rv, i) => (
               <Card key={i} className="border-slate-200 bg-slate-900/30">
                 <CardContent className="p-5">
                   <div className="flex justify-between text-sm">
@@ -148,6 +170,31 @@ export default function RealtorProfilePage() {
             ))}
           </div>
         </div>
+
+        <Card className="border-slate-200 bg-slate-900/30">
+          <CardContent className="p-5">
+            <h3 className="text-base font-semibold text-white">Yorum bırak (demo)</h3>
+            <p className="mt-1 text-xs text-slate-400">Bu form yalnızca mock değerlendirme akışını gösterir.</p>
+            <div className="mt-3 grid gap-2 sm:grid-cols-[120px,1fr]">
+              <Input value={reviewScore} onChange={(e) => setReviewScore(e.target.value)} placeholder="Puan (1-5)" />
+              <Input value={reviewText} onChange={(e) => setReviewText(e.target.value)} placeholder="Deneyiminizi yazın..." />
+            </div>
+            <Button
+              type="button"
+              className="mt-3 bg-gradient-to-r from-violet-500 to-cyan-500 text-white"
+              onClick={() => {
+                const numeric = Math.max(1, Math.min(5, Number(reviewScore) || 5));
+                const text = reviewText.trim();
+                if (!text) return;
+                setReviews((prev) => [{ author: "Demo Kullanıcı", score: numeric, text, date: "Bugün · demo" }, ...prev].slice(0, 8));
+                setReviewText("");
+                setReviewScore("5");
+              }}
+            >
+              Yorumu ekle
+            </Button>
+          </CardContent>
+        </Card>
 
         <p className="text-xs leading-relaxed text-slate-600">{r.bio}</p>
 
