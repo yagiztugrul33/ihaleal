@@ -448,6 +448,26 @@ export default function PremiumCinematicHome() {
         </div>
       </section>
 
+      <section className="mx-auto mt-3 w-full max-w-[1240px] px-4 lg:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-fuchsia-400/30 bg-gradient-to-r from-fuchsia-600/15 via-violet-600/10 to-cyan-600/10 px-4 py-3">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-fuchsia-200">Kampanya Bülteni</p>
+            <p className="mt-1 text-sm text-slate-200">
+              İlk 100 işlemde sıfır komisyon ve yeni üye bonusu kampanyalarını inceleyin.
+            </p>
+            <p className="mt-1 text-xs text-slate-400">
+              Kampanya içerikleri demo/temsili amaçlıdır.
+            </p>
+          </div>
+          <Link
+            to="/kampanyalar"
+            className="rounded-lg border border-fuchsia-300/50 bg-fuchsia-500/15 px-4 py-2 text-xs font-semibold text-fuchsia-100 transition hover:border-fuchsia-200 hover:text-white"
+          >
+            Kampanyaları gör
+          </Link>
+        </div>
+      </section>
+
       <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-10 lg:px-6" aria-labelledby="premium-hero-title">
         <div className="rounded-[32px] border border-blue-500/20 bg-gradient-to-b from-[#0a1628] via-[#0a1f3d] to-slate-950/95 p-4 shadow-[0_40px_120px_rgba(15,23,42,0.65)] lg:p-6">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
