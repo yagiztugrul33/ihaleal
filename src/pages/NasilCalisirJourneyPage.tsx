@@ -25,11 +25,13 @@ export default function NasilCalisirJourneyPage() {
       <div className="flex flex-col md:flex-row md:items-start gap-4 mb-8">
         <JourneyIcon icon={journey.icon} />
         <div>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-            Bu sayfa <strong style={{ color: "var(--color-text)" }}>{journey.baslik}</strong> rolü için dört adımlık
-            uçtan uca akışı detaylandırır. Süreler ve ücretler yapılandırılabilir; hukuki kesinlik ilan şartnamesi ve
-            imzalanan sözleşmelerdedir.
-          </p>
+          <ul className="text-sm space-y-1.5" style={{ color: "var(--color-text-muted)" }}>
+            <li>
+              <strong style={{ color: "var(--color-text)" }}>{journey.baslik}</strong> rolü için 4 adımlı net akış.
+            </li>
+            <li>Her adımda yapılacaklar, belge ihtiyacı ve sonraki aksiyon listelenir.</li>
+            <li>Hukuki kesinlik daima ilan şartnamesi ve sözleşme metinlerindedir.</li>
+          </ul>
         </div>
       </div>
 

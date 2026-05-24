@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Activity,
@@ -163,6 +163,33 @@ const DEMO_TESTIMONIALS = [
       "Canlı ihale kartları ve deprem risk modülleri portföy takibini tek ekranda topluyor.",
     initials: "ZA",
     hue: 260,
+  },
+] as const;
+
+const PHOTO_SHOWCASE_CARDS = [
+  {
+    id: "showcase-1",
+    title: "Levent Prime Residence",
+    location: "Levent, Istanbul",
+    price: "₺28.500.000",
+    image:
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    id: "showcase-2",
+    title: "Bodrum Hills Villa",
+    location: "Bodrum, Mugla",
+    price: "₺42.900.000",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    id: "showcase-3",
+    title: "Maslak Campus Plaza",
+    location: "Maslak, Istanbul",
+    price: "₺61.400.000",
+    image:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80",
   },
 ] as const;
 
@@ -407,15 +434,15 @@ export default function PremiumCinematicHome() {
 
   return (
     <div
-      className="premium-home relative overflow-x-clip bg-slate-950 text-slate-100"
+      className="premium-home relative overflow-x-clip bg-background text-foreground"
       data-testid="premium-cinematic-home"
     >
       <div className="premium-home__noise" aria-hidden="true" />
       <div className="premium-home__grid" aria-hidden="true" />
 
       <section className="mx-auto w-full max-w-[1240px] px-4 pt-5 lg:px-6">
-        <div className="overflow-hidden rounded-xl border border-blue-500/25 bg-[#071325]/90 shadow-[0_18px_60px_rgba(2,6,23,0.45)]">
-          <div className="border-b border-slate-800/80 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-blue-200/90">
+        <div className="overflow-hidden rounded-[20px] border border-border bg-card shadow-xl">
+          <div className="border-b border-border px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
             Piyasa Akışı
           </div>
           <div className="market-board-ticker__viewport px-3 py-2.5">
@@ -433,7 +460,7 @@ export default function PremiumCinematicHome() {
                             : "border-rose-500/30 bg-rose-500/10 text-rose-200"
                         } ${flashTickerCode === row.code ? (up ? "market-board-ticker__chip--flash-up" : "market-board-ticker__chip--flash-down") : ""}`}
                       >
-                        <span className="font-semibold tracking-wide text-slate-100">{row.code}</span>
+                        <span className="font-semibold tracking-wide text-foreground">{row.code}</span>
                         <span className="font-bold">{formatTry(row.bid)}</span>
                         <span className="inline-flex items-center gap-1 font-bold">
                           {up ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}
@@ -451,19 +478,19 @@ export default function PremiumCinematicHome() {
       </section>
 
       <section className="mx-auto mt-3 w-full max-w-[1240px] px-4 lg:px-6">
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-fuchsia-400/30 bg-gradient-to-r from-fuchsia-600/15 via-violet-600/10 to-cyan-600/10 px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-border bg-secondary px-4 py-3">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-fuchsia-200">Kampanya Bülteni</p>
-            <p className="mt-1 text-sm text-slate-200">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">Kampanya Bülteni</p>
+            <p className="mt-1 text-sm text-foreground">
               İlk 100 işlemde sıfır komisyon ve yeni üye bonusu kampanyalarını inceleyin.
             </p>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 text-xs text-muted-foreground">
               Kampanya içerikleri demo/temsili amaçlıdır.
             </p>
           </div>
           <Link
             to="/kampanyalar"
-            className="rounded-lg border border-fuchsia-300/50 bg-fuchsia-500/15 px-4 py-2 text-xs font-semibold text-fuchsia-100 transition hover:border-fuchsia-200 hover:text-white"
+            className="rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-primary transition hover:border-primary/50 hover:text-primary"
           >
             Kampanyaları gör
           </Link>
@@ -471,18 +498,18 @@ export default function PremiumCinematicHome() {
       </section>
 
       <section className="mx-auto mt-3 grid w-full max-w-[1240px] gap-3 px-4 md:grid-cols-2 lg:px-6">
-        <article className="rounded-xl border border-cyan-400/25 bg-slate-900/65 p-4">
+        <article className="rounded-xl border border-cyan-400/25 bg-card p-4">
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-300">Reklam</p>
-          <h3 className="mt-1 text-lg font-bold text-white">Akıllı Konut Kredisi Teklifleri</h3>
-          <p className="mt-1 text-sm text-slate-300">İlan fiyatına göre hızlı taksit simülasyonu (mock sponsor).</p>
+          <h3 className="mt-1 text-lg font-bold text-foreground">Akıllı Konut Kredisi Teklifleri</h3>
+          <p className="mt-1 text-sm text-muted-foreground">İlan fiyatına göre hızlı taksit simülasyonu (mock sponsor).</p>
           <Link to="/mortgage" className="mt-2 inline-flex rounded-md border border-cyan-400/40 px-3 py-1.5 text-xs font-semibold text-cyan-100">
             İncele
           </Link>
         </article>
-        <article className="rounded-xl border border-emerald-400/25 bg-slate-900/65 p-4">
+        <article className="rounded-xl border border-emerald-400/25 bg-card p-4">
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-300">Sponsorlu</p>
-          <h3 className="mt-1 text-lg font-bold text-white">DASK + Taşınma Paketi</h3>
-          <p className="mt-1 text-sm text-slate-300">Sigorta ve taşınma servislerini tek panelde karşılaştır (mock).</p>
+          <h3 className="mt-1 text-lg font-bold text-foreground">DASK + Taşınma Paketi</h3>
+          <p className="mt-1 text-sm text-muted-foreground">Sigorta ve taşınma servislerini tek panelde karşılaştır (mock).</p>
           <Link to="/modul/deprem-sigortasi" className="mt-2 inline-flex rounded-md border border-emerald-400/40 px-3 py-1.5 text-xs font-semibold text-emerald-100">
             Teklif Al
           </Link>
@@ -490,42 +517,48 @@ export default function PremiumCinematicHome() {
       </section>
 
       <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-10 lg:px-6" aria-labelledby="premium-hero-title">
-        <div className="rounded-[32px] border border-blue-500/20 bg-gradient-to-b from-[#0a1628] via-[#0a1f3d] to-slate-950/95 p-4 shadow-[0_40px_120px_rgba(15,23,42,0.65)] lg:p-6">
+        <div className="rounded-[32px] border border-border bg-card p-4 shadow-xl lg:p-6">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
             <div className="space-y-3">
-              <Badge className="border border-blue-400/30 bg-blue-500/10 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-200">
+              <Badge className="border border-border bg-secondary text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
                 Borsa Paneli
               </Badge>
-              <h1 id="premium-hero-title" className="text-4xl font-black leading-[1.04] tracking-[-0.02em] text-white lg:text-[3.2rem]">
-                Gayrimenkul Borsası
+              <h1 id="premium-hero-title" className="text-4xl font-black leading-[1.04] tracking-[-0.02em] text-foreground lg:text-[3.2rem]">
+                Türkiye&apos;nin gayrimenkulü.
               </h1>
-              <p className="max-w-2xl text-[15px] leading-7 text-slate-300 lg:text-[18px] lg:leading-8">
-                Şeffaf, gerçek zamanlı, AI destekli açık artırma
+              <p className="max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[18px] lg:leading-8">
+                Şeffaf açık artırmayla en doğru fiyat.
               </p>
+              <div className="grid grid-cols-2 gap-2 pt-1 text-[12px] text-muted-foreground md:grid-cols-4">
+                <span className="rounded-full border border-border bg-secondary px-3 py-1.5">12.840 doğrulanmış işlem</span>
+                <span className="rounded-full border border-border bg-secondary px-3 py-1.5">68.900 aktif kullanıcı</span>
+                <span className="rounded-full border border-border bg-secondary px-3 py-1.5">Escrow + KYC koruması</span>
+                <span className="rounded-full border border-border bg-secondary px-3 py-1.5">Maskeli teklif akışı</span>
+              </div>
             </div>
-            <Button asChild className="h-11 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-5 text-sm font-bold text-white hover:from-blue-400 hover:to-cyan-400">
+            <Button asChild className="h-11 px-5 text-sm font-bold">
               <Link to={ROUTES.BORSA}>
-                <span className="font-extrabold tracking-[0.02em] text-white">Borsaya Gir</span>
-                <ChevronRight className="h-4 w-4 text-white" />
+                <span className="font-extrabold tracking-[0.02em]">Borsaya Gir</span>
+                <ChevronRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-[1.55fr_1fr]">
-            <div className="space-y-5">
+          <div className="grid gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(340px,1fr)]">
+            <div className="min-w-0 space-y-5">
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 {metricCards.map((metric) => (
                   <Card
                     key={metric.key}
-                    className={`border border-slate-700/80 bg-slate-950/75 ${
+                    className={`border border-border bg-card ${
                       flashMetricKey === metric.key ? "premium-metric-card--flash" : ""
                     }`}
                   >
                     <CardContent className="p-4">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">{metric.label}</p>
-                      <strong className="mt-1 block text-2xl font-black text-white">{metric.value}</strong>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{metric.label}</p>
+                      <strong className="mt-1 block text-2xl font-black text-foreground">{metric.value}</strong>
                       {metric.key === "active" ? (
-                        <p className="mt-1 text-xs font-semibold text-cyan-200">Aktif İhale: {heroMetrics.active}</p>
+                        <p className="mt-1 text-xs font-semibold text-primary">Aktif İhale: {heroMetrics.active}</p>
                       ) : null}
                       <svg viewBox="0 0 100 100" className="mt-2 h-8 w-full" preserveAspectRatio="none" aria-hidden>
                         <polyline
@@ -540,10 +573,10 @@ export default function PremiumCinematicHome() {
                 ))}
               </div>
 
-              <Card className="border border-slate-700/80 bg-slate-950/75">
+              <Card className="border border-border bg-card">
                 <CardContent className="p-4">
                   <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                    <h2 className="text-lg font-bold text-white">En Aktif İhaleler</h2>
+                    <h2 className="text-lg font-bold text-foreground">En Aktif İhaleler</h2>
                     <div className="flex flex-wrap gap-2">
                       {BOARD_FILTER_TABS.map((tab) => (
                         <Button
@@ -552,8 +585,8 @@ export default function PremiumCinematicHome() {
                           variant={heroFilter === tab.key ? "default" : "outline"}
                           className={
                             heroFilter === tab.key
-                              ? "bg-blue-600 text-white hover:bg-blue-500"
-                              : "border-slate-600 bg-slate-900 text-slate-200 hover:bg-slate-800"
+                              ? "bg-blue-600 text-foreground hover:bg-blue-500"
+                              : "border-border bg-secondary text-muted-foreground hover:bg-secondary/80"
                           }
                           onClick={() => setHeroFilter(tab.key)}
                         >
@@ -563,8 +596,8 @@ export default function PremiumCinematicHome() {
                     </div>
                   </div>
                   <div className="overflow-x-auto">
-                    <table className="min-w-[720px] w-full text-sm text-slate-200">
-                      <thead className="text-left text-[11px] uppercase tracking-[0.14em] text-slate-400">
+                    <table className="min-w-[720px] w-full text-sm text-muted-foreground">
+                      <thead className="text-left text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                         <tr>
                           <th className="pb-2 pr-3">Kod</th>
                           <th className="pb-2 pr-3">Mülk</th>
@@ -580,24 +613,24 @@ export default function PremiumCinematicHome() {
                             <tr
                               key={row.id}
                               onClick={() => navigate(`/ilanlar/${row.id}`)}
-                              className={`cursor-pointer border-t border-slate-800/80 transition ${
+                              className={`cursor-pointer border-t border-border transition ${
                                 flashRowId === row.id
                                   ? flashDirection === "up"
                                     ? "bg-emerald-500/15"
                                     : "bg-rose-500/15"
-                                  : "hover:bg-slate-900/70"
+                                  : "hover:bg-secondary/80"
                               }`}
                             >
-                              <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
-                              <td className="py-2.5 pr-3 text-slate-100">{row.title}</td>
-                              <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.bid)}</td>
+                              <td className="py-2.5 pr-3 font-semibold text-primary">{row.code}</td>
+                              <td className="py-2.5 pr-3 text-foreground">{row.title}</td>
+                              <td className="py-2.5 pr-3 font-bold text-foreground">{formatTry(row.bid)}</td>
                               <td className={`py-2.5 pr-3 font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>
                                 {up ? "+" : ""}
                                 {row.changePct.toFixed(1)}%
                               </td>
-                              <td className="py-2.5 text-slate-300">
+                              <td className="py-2.5 text-muted-foreground">
                                 <span className="inline-flex items-center gap-1">
-                                  <Clock3 className="h-3.5 w-3.5 text-slate-500" />
+                                  <Clock3 className="h-3.5 w-3.5 text-muted-foreground" />
                                   {`${Math.floor(row.remainingMin / 60)}s ${row.remainingMin % 60}dk`}
                                 </span>
                               </td>
@@ -609,79 +642,160 @@ export default function PremiumCinematicHome() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
 
-            <aside className="space-y-4">
-              <Card className="border border-slate-700/80 bg-slate-950/75">
+              <Card className="border border-border bg-card">
                 <CardContent className="space-y-3 p-4">
-                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-200">Bölge Endeksleri</h3>
-                  {REGION_INDEXES.map((item) => {
-                    const up = item.changePct >= 0;
-                    return (
-                      <div key={item.name} className="flex items-center justify-between rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2">
-                        <span className="text-sm text-slate-200">{item.name}</span>
-                        <span className={`text-xs font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>
-                          {up ? "+" : ""}
-                          {item.changePct.toFixed(1)}%
-                        </span>
-                      </div>
-                    );
-                  })}
-                </CardContent>
-              </Card>
-
-              <Card className="border border-slate-700/80 bg-slate-950/75">
-                <CardContent className="space-y-2 p-4">
-                  <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-200">Güven Göstergeleri</h3>
-                  <p className="inline-flex items-center gap-2 text-sm text-slate-300"><Shield className="h-4 w-4 text-cyan-300" /> KYC doğrulama</p>
-                  <p className="inline-flex items-center gap-2 text-sm text-slate-300"><Landmark className="h-4 w-4 text-cyan-300" /> Lisanslı ödeme</p>
-                  <p className="inline-flex items-center gap-2 text-sm text-slate-300"><Zap className="h-4 w-4 text-cyan-300" /> Anti-sniping</p>
-                  <div className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-300">
-                    <p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p>
-                    <p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border border-slate-700/80 bg-slate-950/75">
-                <CardContent className="space-y-3 p-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-200">Canlı İşlem Akışı</h3>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-300">
-                      <i className="market-live-dot" aria-hidden /> CANLI
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Demo Kampanya</p>
+                    <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-300">
+                      Sınırlı
                     </span>
                   </div>
-                  <div className="space-y-1.5">
-                    {tradeFeed.map((item) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => navigate("/ihaleler")}
-                        className={`w-full rounded-lg border px-2.5 py-2 text-left transition ${
-                          item.tone === "sold"
-                            ? "border-amber-500/35 bg-amber-500/10"
-                            : item.tone === "up"
-                              ? "border-emerald-500/30 bg-emerald-500/10"
-                              : "border-rose-500/30 bg-rose-500/10"
-                        }`}
-                      >
-                        <p className="flex items-center justify-between text-[11px] font-bold">
-                          <span className="text-slate-100">{item.code}</span>
-                          <span className={item.tone === "sold" ? "text-amber-200" : item.tone === "up" ? "text-emerald-200" : "text-rose-200"}>
-                            {item.tone === "sold" ? "SATILDI" : formatTry(item.amount)}
-                          </span>
-                        </p>
-                        <p className="mt-1 flex items-center justify-between text-[10px] text-slate-400">
-                          <span>{item.label}</span>
-                          <span>{item.at}</span>
-                        </p>
-                      </button>
-                    ))}
+                  <h3 className="text-lg font-bold text-foreground">İlk 100 İşlemde Sıfır Komisyon</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Yeni alıcı ve satıcılar için demo kampanya akışı. Erken dönem katılımı hızlandırmak için işlem maliyeti avantajı sunulur.
+                  </p>
+                  <Button asChild size="sm" className="rounded-full px-4 text-xs font-semibold">
+                    <Link to="/kampanyalar">Kampanyaları Gör</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border border-border bg-card">
+                <CardContent className="space-y-3 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Hızlı İstatistik Şeridi · Demo</p>
+                  <div className="grid gap-2 md:grid-cols-3">
+                    <div className="rounded-lg border border-border bg-secondary px-3 py-2">
+                      <p className="text-[11px] text-muted-foreground">Bugün yeni ilan</p>
+                      <p className="text-base font-bold text-foreground">24</p>
+                    </div>
+                    <div className="rounded-lg border border-border bg-secondary px-3 py-2">
+                      <p className="text-[11px] text-muted-foreground">Aktif teklif</p>
+                      <p className="text-base font-bold text-primary">137</p>
+                    </div>
+                    <div className="rounded-lg border border-border bg-secondary px-3 py-2">
+                      <p className="text-[11px] text-muted-foreground">Tamamlanan işlem</p>
+                      <p className="text-base font-bold text-emerald-400">19</p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
+
+              <Card className="border border-border bg-card">
+                <CardContent className="space-y-3 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Öne Çıkan Bölge · Demo</p>
+                  <div className="rounded-xl border border-border bg-secondary p-3">
+                    <p className="text-sm text-muted-foreground">
+                      Bu hafta en çok işlem gören bölge:
+                      <strong className="ml-1 text-foreground">Kadıköy</strong>
+                    </p>
+                    <div className="mt-2 h-2 overflow-hidden rounded-full bg-background">
+                      <div className="h-full w-[72%] rounded-full bg-gradient-to-r from-primary to-emerald-400" />
+                    </div>
+                    <p className="mt-2 text-[11px] text-muted-foreground">
+                      Hacim artışı
+                      <span className="ml-1 font-semibold text-emerald-400">+%12.4</span>
+                      · ortalama kapanış süresi
+                      <span className="ml-1 font-semibold text-foreground">3.2 gün</span>
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <aside className="min-w-0 space-y-4">
+              <div className="grid gap-4">
+                <Card className="border border-border bg-card">
+                  <CardContent className="space-y-3 p-4">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Bölge Endeksleri</h3>
+                    {REGION_INDEXES.map((item) => {
+                      const up = item.changePct >= 0;
+                      return (
+                        <div key={item.name} className="flex items-center justify-between rounded-lg border border-border bg-secondary px-3 py-2">
+                          <span className="text-sm text-muted-foreground">{item.name}</span>
+                          <span className={`text-xs font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>
+                            {up ? "+" : ""}
+                            {item.changePct.toFixed(1)}%
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </CardContent>
+                </Card>
+
+                <Card className="border border-border bg-card">
+                  <CardContent className="space-y-2 p-4">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Güven Göstergeleri</h3>
+                    <p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Shield className="h-4 w-4 text-cyan-300" /> KYC doğrulama</p>
+                    <p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Landmark className="h-4 w-4 text-cyan-300" /> Lisanslı ödeme</p>
+                    <p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Zap className="h-4 w-4 text-cyan-300" /> Anti-sniping</p>
+                    <div className="rounded-lg border border-border bg-secondary p-3 text-xs text-muted-foreground">
+                      <p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p>
+                      <p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border border-border bg-card">
+                  <CardContent className="space-y-3 p-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Canlı İşlem Akışı</h3>
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-300">
+                        <i className="market-live-dot" aria-hidden /> CANLI
+                      </span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {tradeFeed.map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => navigate("/ihaleler")}
+                          className={`w-full rounded-lg border px-2.5 py-2 text-left transition ${
+                            item.tone === "sold"
+                              ? "border-amber-500/35 bg-amber-500/10"
+                              : item.tone === "up"
+                                ? "border-emerald-500/30 bg-emerald-500/10"
+                                : "border-rose-500/30 bg-rose-500/10"
+                          }`}
+                        >
+                          <p className="flex items-center justify-between text-[11px] font-bold">
+                            <span className="text-foreground">{item.code}</span>
+                            <span className={item.tone === "sold" ? "text-amber-200" : item.tone === "up" ? "text-emerald-200" : "text-rose-200"}>
+                              {item.tone === "sold" ? "SATILDI" : formatTry(item.amount)}
+                            </span>
+                          </p>
+                          <p className="mt-1 flex items-center justify-between text-[10px] text-muted-foreground">
+                            <span>{item.label}</span>
+                            <span>{item.at}</span>
+                          </p>
+                        </button>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </aside>
           </div>
+        </div>
+      </section>
+ 
+      <section className="mx-auto mt-5 w-full max-w-[1240px] px-4 lg:px-6" aria-label="Vitrin Kartları">
+        <div className="grid gap-4 md:grid-cols-3">
+          {PHOTO_SHOWCASE_CARDS.map((card) => (
+            <article key={card.id} className="overflow-hidden rounded-2xl border border-border bg-card">
+              <img src={card.image} alt={card.title} className="h-44 w-full object-cover" loading="lazy" />
+              <div className="space-y-2 p-4">
+                <h3 className="text-base font-bold text-foreground">{card.title}</h3>
+                <p className="text-xs text-muted-foreground">{card.location}</p>
+                <div className="flex items-center justify-between gap-2">
+                  <strong className="text-sm font-extrabold text-cyan-200">{card.price}</strong>
+                  <Button asChild size="sm" className="rounded-full px-4 text-xs font-semibold">
+                    <Link to={ROUTES.ILANLAR}>İncele</Link>
+                  </Button>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -699,27 +813,27 @@ export default function PremiumCinematicHome() {
       </section>
 
       <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 lg:px-6" id="how-it-works" aria-labelledby="premium-process-title">
-        <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/60 lg:p-8">
-          <h2 id="premium-process-title" className="text-2xl font-black text-white lg:text-3xl">
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-xl lg:p-8">
+          <h2 id="premium-process-title" className="text-2xl font-black text-foreground lg:text-3xl">
             {home.how.title}
           </h2>
-          <p className="mt-2 max-w-3xl text-sm text-slate-300 lg:text-base">{home.how.subtitle}</p>
+          <p className="mt-2 max-w-3xl text-sm text-muted-foreground lg:text-base">{home.how.subtitle}</p>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {steps.map((step) => (
-            <Link key={step.no} to={step.href} className="premium-step--link group rounded-2xl border border-slate-700/70 bg-slate-950/75 p-4 transition hover:border-blue-400/50 hover:bg-slate-900">
+            <Link key={step.no} to={step.href} className="premium-step--link group rounded-2xl border border-border bg-secondary p-4 transition hover:border-blue-400/50 hover:bg-secondary/80">
               <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/15 text-blue-300" aria-hidden="true">
                 <step.Icon className="h-5 w-5" />
               </div>
               <div className="space-y-2">
                 <span className="text-xs font-bold uppercase tracking-[0.18em] text-blue-300/90">{step.no}</span>
-                <h3 className="text-lg font-bold text-white group-hover:text-blue-200">{step.title}</h3>
-                <p className="text-sm text-slate-400">{step.text}</p>
+                <h3 className="text-lg font-bold text-foreground group-hover:text-blue-200">{step.title}</h3>
+                <p className="text-sm text-muted-foreground">{step.text}</p>
               </div>
             </Link>
           ))}
         </div>
           <div className="mt-6">
-            <Link to={ROUTES.HOW_IT_WORKS} className="inline-flex items-center rounded-xl border border-cyan-300/35 bg-slate-950/80 px-5 py-2.5 text-sm font-bold text-cyan-100 shadow-[0_10px_24px_rgba(2,6,23,0.4)] transition hover:border-cyan-200/70 hover:text-white">
+            <Link to={ROUTES.HOW_IT_WORKS} className="inline-flex items-center rounded-xl border border-cyan-300/35 bg-card px-5 py-2.5 text-sm font-bold text-cyan-100 shadow-[0_10px_24px_rgba(2,6,23,0.4)] transition hover:border-cyan-200/70 hover:text-foreground">
             Tüm rehber ve tanıtım videosu
           </Link>
           </div>
@@ -728,10 +842,10 @@ export default function PremiumCinematicHome() {
 
       <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 pb-4 lg:px-6" aria-labelledby="premium-auctions-title">
         <div className="mb-5 flex items-center justify-between gap-4">
-          <h2 id="premium-auctions-title" className="text-2xl font-black text-white lg:text-3xl">
+          <h2 id="premium-auctions-title" className="text-2xl font-black text-foreground lg:text-3xl">
             {home.featured.heading}
           </h2>
-          <Link to={ROUTES.ILANLAR} className="rounded-lg border border-cyan-400/30 bg-slate-950/75 px-3 py-1.5 text-sm font-bold text-cyan-200 transition hover:border-cyan-300/70 hover:text-white">
+          <Link to={ROUTES.ILANLAR} className="rounded-lg border border-cyan-400/30 bg-card px-3 py-1.5 text-sm font-bold text-cyan-200 transition hover:border-cyan-300/70 hover:text-foreground">
             {home.featured.viewAll}
           </Link>
         </div>
@@ -739,7 +853,7 @@ export default function PremiumCinematicHome() {
           {liveAuctions.map((p) => {
             const isFavorite = favoriteIds.includes(p.id);
             return (
-            <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
+            <Link key={p.id} to={`/ilanlar/${p.id}`} className="group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/45 hover:shadow-[0_18px_50px_rgba(15,23,42,0.65)]">
               <div
                 className="relative h-40"
                 style={{
@@ -748,12 +862,12 @@ export default function PremiumCinematicHome() {
                   backgroundPosition: "center",
                 }}
               >
-                <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-rose-500/90 px-2 py-1 text-[11px] font-bold text-white">
+                <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-rose-500/90 px-2 py-1 text-[11px] font-bold text-foreground">
                   <i aria-hidden className="h-1.5 w-1.5 rounded-full bg-white" /> LIVE
                 </span>
                 <button
                   type="button"
-                  className="absolute right-3 top-3 rounded-full bg-black/40 p-2 text-white/90"
+                  className="absolute right-3 top-3 rounded-full bg-black/40 p-2 text-foreground/90"
                   aria-label={isFavorite ? "Favorilerden çıkar" : "Favoriye ekle"}
                   onClick={(e) => {
                     e.preventDefault();
@@ -767,14 +881,14 @@ export default function PremiumCinematicHome() {
                 </button>
               </div>
               <div className="space-y-3 p-4">
-                <h3 className="line-clamp-2 text-base font-bold text-white">{getPropertyTitle(p)}</h3>
-                <p className="flex items-center gap-1 text-xs text-slate-400">
+                <h3 className="line-clamp-2 text-base font-bold text-foreground">{getPropertyTitle(p)}</h3>
+                <p className="flex items-center gap-1 text-xs text-muted-foreground">
                   <MapPin className="h-3.5 w-3.5" aria-hidden /> {getPropertyLocation(p)}
                 </p>
                 <div className="flex items-end justify-between gap-2">
                   <div>
-                    <small className="block text-[11px] uppercase tracking-wide text-slate-500">Cari Teklif</small>
-                    <strong className="text-lg font-extrabold text-white">{p.currentBidTry != null ? formatTry(p.currentBidTry) : "—"}</strong>
+                    <small className="block text-[11px] uppercase tracking-wide text-muted-foreground">Cari Teklif</small>
+                    <strong className="text-lg font-extrabold text-foreground">{p.currentBidTry != null ? formatTry(p.currentBidTry) : "—"}</strong>
                   </div>
                   <b className="text-sm font-bold text-emerald-300 transition-colors duration-500 group-hover:text-emerald-200">
                     {(() => {
@@ -785,10 +899,10 @@ export default function PremiumCinematicHome() {
                     })()}
                   </b>
                 </div>
-                <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-950/60 p-2 text-[11px] text-slate-300">
+                <div className="grid grid-cols-2 gap-2 rounded-xl bg-secondary p-2 text-[11px] text-muted-foreground">
                   <span className="font-medium">Canlı ihale</span>
                   <span className="text-right">{p.bidCount ?? 0} teklif</span>
-                  <span className="col-span-2 text-slate-400">
+                  <span className="col-span-2 text-muted-foreground">
                     {formatRemaining((p.details?.auctionEndDate as string | undefined) ?? (p.details?.endDate as string | undefined))}
                   </span>
                 </div>
@@ -800,22 +914,22 @@ export default function PremiumCinematicHome() {
       </section>
 
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6" aria-labelledby="featured-sponsored-title">
-        <div className="rounded-2xl border border-fuchsia-400/25 bg-slate-900/70 p-4">
+        <div className="rounded-2xl border border-fuchsia-400/25 bg-card p-4">
           <div className="mb-3 flex items-center justify-between gap-2">
-            <h2 id="featured-sponsored-title" className="text-xl font-black text-white">Öne Çıkan Fırsatlar</h2>
+            <h2 id="featured-sponsored-title" className="text-xl font-black text-foreground">Öne Çıkan Fırsatlar</h2>
             <span className="rounded-full border border-fuchsia-400/40 bg-fuchsia-500/10 px-2.5 py-1 text-[11px] font-semibold text-fuchsia-200">
               Sponsorlu
             </span>
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {sponsoredOpportunities.map((p) => (
-              <Link key={p.id} to={`/ilan/${p.id}`} className="rounded-xl border border-slate-700 bg-slate-950/65 p-3 no-underline transition hover:border-fuchsia-300/60">
-                <p className="text-sm font-semibold text-white">{getPropertyTitle(p)}</p>
-                <p className="mt-1 text-xs text-slate-400">{getPropertyLocation(p)}</p>
+              <Link key={p.id} to={`/ilan/${p.id}`} className="rounded-xl border border-border bg-card p-3 no-underline transition hover:border-fuchsia-300/60">
+                <p className="text-sm font-semibold text-foreground">{getPropertyTitle(p)}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{getPropertyLocation(p)}</p>
                 <p className="mt-2 text-xs text-fuchsia-200">Reklam · bağlamsal vitrin yerleşimi</p>
               </Link>
-            ))}
-          </div>
+              ))}
+            </div>
         </div>
       </section>
 
@@ -841,14 +955,14 @@ export default function PremiumCinematicHome() {
 
       <section className="premium-war-room" aria-labelledby="premium-war-room-title">
         <div className="premium-war-room__copy">
-          <p className="premium-war-room__eyebrow">Stratejik War Room</p>
-          <h2 id="premium-war-room-title">Intelligence Hub — kurumsal karar terminali</h2>
+          <p className="premium-war-room__eyebrow">Stratejik Karar Odası</p>
+          <h2 id="premium-war-room-title">Zekâ Merkezi — kurumsal karar terminali</h2>
           <p>
             Parsel istihbaratı, GES fizibilite, iBuyer senaryoları ve Palantir-tarzı war room tek çatıda.
             Demo ortamında senaryo verisi; üretimde RLS ve denetim kaydı hedeflenir.
           </p>
           <Link to={ROUTES.WAR_ROOM} className="premium-btn premium-btn--primary">
-            War Room&apos;a git <Radar className="h-4 w-4" />
+            Karar odasına git <Radar className="h-4 w-4" />
           </Link>
         </div>
         <div className="premium-war-room__visual" aria-hidden>
@@ -890,22 +1004,25 @@ export default function PremiumCinematicHome() {
             );
           })}
         </div>
+        <p className="premium-categories__hint" aria-hidden>
+          Kaydırmak için sola/sağa sürükleyin
+        </p>
       </section>
 
       <PlatformModulesShowcase embedded />
 
       <section className="mx-auto mt-10 w-full max-w-[1240px] px-4 lg:px-6" aria-labelledby="risk-analiz-title">
-        <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-xl shadow-slate-950/60 lg:p-6">
+        <div className="rounded-3xl border border-border bg-card p-5 shadow-xl lg:p-6">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-            <h2 id="risk-analiz-title" className="text-xl font-black text-white lg:text-2xl">
+            <h2 id="risk-analiz-title" className="text-xl font-black text-foreground lg:text-2xl">
               Risk & Analiz
             </h2>
             <Link
               to="/modul/deprem-risk-haritasi"
-              className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200 hover:text-white"
+              className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200 hover:text-foreground"
             >
               Detay modüller
-            </Link>
+                </Link>
           </div>
           <DepremTransparencyBand />
           <LiveEarthquakeTicker />

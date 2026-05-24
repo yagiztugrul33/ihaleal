@@ -340,7 +340,7 @@ export default function FiyatlandirmaPage() {
             <Input
               value={demo.firma}
               onChange={(e) => setDemo({ ...demo, firma: e.target.value })}
-              className="bg-[var(--color-bg-card)] border border-slate-200 text-[var(--color-text)]"
+              className="bg-[var(--color-bg-card)] border border-border text-[var(--color-text)]"
             />
             {demoErr.firma ? <p className="text-xs text-red-400 mt-1">{demoErr.firma}</p> : null}
           </div>
@@ -352,7 +352,7 @@ export default function FiyatlandirmaPage() {
               type="email"
               value={demo.email}
               onChange={(e) => setDemo({ ...demo, email: e.target.value })}
-              className="bg-[var(--color-bg-card)] border border-slate-200 text-[var(--color-text)]"
+              className="bg-[var(--color-bg-card)] border border-border text-[var(--color-text)]"
             />
             {demoErr.email ? <p className="text-xs text-red-400 mt-1">{demoErr.email}</p> : null}
           </div>
@@ -363,7 +363,7 @@ export default function FiyatlandirmaPage() {
             <Input
               value={demo.not ?? ""}
               onChange={(e) => setDemo({ ...demo, not: e.target.value })}
-              className="bg-[var(--color-bg-card)] border border-slate-200 text-[var(--color-text)]"
+              className="bg-[var(--color-bg-card)] border border-border text-[var(--color-text)]"
               placeholder="Örn. il sayısı, entegrasyon ihtiyacı"
             />
           </div>

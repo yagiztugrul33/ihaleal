@@ -43,7 +43,7 @@ export default function CityLandingPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 bg-slate-50 px-4">
       <div className="max-w-6xl mx-auto">
-        <nav className="text-xs text-slate-500 mb-6">
+        <nav className="mb-6 text-xs text-muted-foreground">
           <Link to="/" className="hover:text-teal-400">
             Ana sayfa
           </Link>
@@ -51,7 +51,7 @@ export default function CityLandingPage() {
           <span className="text-slate-400">{cfg.cityTr} landing</span>
         </nav>
 
-        <div className="mb-10 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-8 md:p-10">
+        <div className="mb-10 rounded-3xl border border-border bg-gradient-to-br from-card to-secondary p-8 md:p-10">
           <div className="flex flex-wrap gap-2 mb-4">
             {cfg.heroKeywords.map((k) => (
               <Badge key={k} variant="outline" className="border-teal-500/30 text-teal-300 bg-teal-500/10">
@@ -59,7 +59,7 @@ export default function CityLandingPage() {
               </Badge>
             ))}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{cfg.cityTr} gayrimenkul ihaleleri ve ilanlar</h1>
+          <h1 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">{cfg.cityTr} gayrimenkul ihaleleri ve ilanlar</h1>
           <p className="text-slate-400 max-w-3xl leading-relaxed mb-6">{cfg.description}</p>
           <div className="flex flex-wrap gap-3">
             <Button asChild className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2">
@@ -76,17 +76,17 @@ export default function CityLandingPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 mb-4 text-white font-semibold">
+        <div className="mb-4 flex items-center gap-2 font-semibold text-foreground">
           <Building2 className="w-5 h-5 text-blue-400" />
           {cfg.cityTr} — örnek aktif ilanlar (demo katalog)
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {auctions.length === 0 ? (
-            <p className="text-slate-500 text-sm col-span-full">Bu şehir için demo kayıt bulunamadı; katalog güncellenince düşer.</p>
+            <p className="col-span-full text-sm text-muted-foreground">Bu şehir için demo kayıt bulunamadı; katalog güncellenince düşer.</p>
           ) : (
             auctions.map((a) => (
-              <Card key={a.id} className="border-slate-200 bg-slate-900/45 overflow-hidden hover:border-teal-500/25 transition-colors">
+              <Card key={a.id} className="overflow-hidden border-border bg-card transition-colors hover:border-teal-500/25">
                 <div className="h-36 overflow-hidden">
                   <img
                     src={a.images[0]}
@@ -99,12 +99,12 @@ export default function CityLandingPage() {
                   />
                 </div>
                 <CardContent className="p-4">
-                  <p className="text-xs text-slate-500 flex items-center gap-1 mb-1">
+                  <p className="mb-1 flex items-center gap-1 text-xs text-muted-foreground">
                     <MapPin className="w-3 h-3" /> {a.district}
                   </p>
-                  <h2 className="text-sm font-semibold text-white line-clamp-2 mb-2">{a.title}</h2>
+                  <h2 className="mb-2 line-clamp-2 text-sm font-semibold text-foreground">{a.title}</h2>
                   <p className="text-lg font-bold text-blue-400">₺{a.currentBid.toLocaleString("tr-TR")}</p>
-                  <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
+                  <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <TrendingUp className="w-3 h-3 text-emerald-400" /> Skor {a.investmentScore}
                     </span>
@@ -118,7 +118,7 @@ export default function CityLandingPage() {
           )}
         </div>
 
-        <p className="mt-10 text-xs text-slate-600 max-w-3xl leading-relaxed">
+        <p className="mt-10 max-w-3xl text-xs leading-relaxed text-muted-foreground">
           ihaleal.com, <strong className="text-slate-400">İhaleal Endeksi</strong> ile ihale akışına bağlı çoklu sinyalli analiz vizyonunu benimser; yıllık üyelik ve komisyon mahsup modeli için{" "}
           <Link to="/komisyon-modeli" className="text-teal-500 hover:underline">
             iş modeli

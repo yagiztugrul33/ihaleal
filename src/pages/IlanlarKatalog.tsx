@@ -215,7 +215,7 @@ export default function IlanlarKatalog() {
             title="İhaleal İlan Kataloğu"
             url="/ilanlar"
             inviteText="Bu ihaleye bak: İhaleal ilan kataloğunda filtrelenmiş fırsatlar."
-            className="rounded-lg border border-slate-200/80 bg-white/5 px-3 py-2 text-slate-200 hover:text-white"
+            className="rounded-lg border border-border bg-secondary/60 px-3 py-2 text-muted-foreground hover:text-foreground"
           />
         </div>
         <label className="ilan-katalog__search">
@@ -285,6 +285,10 @@ export default function IlanlarKatalog() {
           <p className="ilan-katalog__sponsored-note">{SPONSORED_DISCLOSURE}</p>
         </section>
       ) : null}
+      <section className="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-2.5 mb-3">
+        <p className="text-xs uppercase tracking-[0.12em] text-cyan-300">Konum Fırsat Radarı</p>
+        <p className="text-sm text-slate-200">Yakınımdaki Fırsatlar görünümü aktif. Konum izni verildiğinde yakın ilanlar otomatik sıralanır.</p>
+      </section>
       <OpportunityRadar properties={filtered} />
       {compareItems.length > 0 ? (
         <div className="ilan-katalog__compare-tray" aria-label="Karşılaştırma tepsisi">
@@ -466,7 +470,7 @@ export default function IlanlarKatalog() {
           ) : (
             <div className="ilan-landing__empty">
               <p>Bu filtrelerle eşleşen ilan bulunamadı.</p>
-              <p className="text-xs text-slate-500">Aramayı genişletin veya filtreleri sıfırlayıp tekrar deneyin.</p>
+              <p className="text-xs text-muted-foreground">Aramayı genişletin veya filtreleri sıfırlayıp tekrar deneyin.</p>
               <button
                 type="button"
                 onClick={() => setSearchParams(new URLSearchParams(), { replace: true })}

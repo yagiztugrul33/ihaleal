@@ -69,7 +69,7 @@ export const LEGAL_MASTER_SECTIONS: LegalMasterSection[] = [
     id: "7",
     title: "7. Ürün iş modeli ile uyum",
     body: [
-      "Komisyon ve ücret tek kaynak kod dosyasından okunur: `src/lib/fees.ts` (satıcı işlem komisyonu %4 + KDV hedefi; ortak B2B %2 + KDV; alıcı işlem komisyonu sıfır — kod gerçeği).",
+      "Komisyon ve ücret tek kaynak kod dosyasından okunur: `src/lib/fees.ts` (satıcı %2 + alıcı %2 + KDV; toplam komisyon matrahı %4 hedefi).",
       "Üyelik ve hizmet mahsup mantığı üretim faturası politikasıyla yazışmalıdır.",
     ],
   },

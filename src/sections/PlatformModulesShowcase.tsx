@@ -30,13 +30,13 @@ const MODULES = [
   },
   {
     n: "03",
-    title: "Araştırma Intelligence",
-    desc: "War Room, parsel istihbaratı, iBuyer ve kurumsal yatırım terminali tek çatıda.",
+    title: "Araştırma Zekâsı",
+    desc: "Karar odası, parsel istihbaratı, anlık alım senaryoları ve kurumsal yatırım terminali tek çatıda.",
     href: INTELLIGENCE_HUB_PATH,
     cta: "Araştırma modülü",
     icon: Radar,
     tone: "violet",
-    tags: ["War Room", "Parsel", "iBuyer"],
+    tags: ["Karar Odası", "Parsel", "Anlık Alım"],
   },
 ] as const;
 
@@ -159,14 +159,14 @@ export function PlatformModulesShowcase({ embedded = false }: { embedded?: boole
             animate={isVisible ? "show" : "hidden"}
           >
             <p className="ref-modules-eyebrow">Platform Modülleri</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-3 break-words text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
               Tek platform,{" "}
               <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
-                intelligence + deprem araçları
+                zekâ ve deprem araçları
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-              GES arazi, AI değerleme ve kurumsal araştırma suite yanında; bina riski, harita, canlı takip ve aile acil
+              GES arazi, AI değerleme ve kurumsal araştırma paketi yanında; bina riski, harita, canlı takip ve aile acil
               planı ile deprem şeffaflığını artırıyoruz.
             </p>
           </motion.div>
@@ -180,8 +180,8 @@ export function PlatformModulesShowcase({ embedded = false }: { embedded?: boole
             animate={isVisible ? "show" : "hidden"}
           >
             <p className="ref-modules-eyebrow">Platform modülleri</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              Intelligence suite ve deprem hazırlığı
+            <h2 className="mt-2 break-words text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl">
+              Zekâ Paketi ve Canlıya Hazırlık
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-400">
               Aynı ekranda GES, değerleme ve araştırma modülleri; alt bantta deprem araçları.

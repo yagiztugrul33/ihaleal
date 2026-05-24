@@ -37,8 +37,8 @@ function f(order: number, c: FaqCategoryId, q: string, a: string): MegaFaqItem {
 export const MEGA_FAQ_ITEMS: MegaFaqItem[] = [
   f(1, "membership", "Yıllık satıcı ücreti neye karşılık gelir?", "Platformda ilan ve açık artırma süreçlerine erişim, şeffaf ücret çizelgesi ve komisyon mahsubu (satıcı) ile ilişkilidir. İlan başına veya aylık ‘paket’ satışı yoktur."),
   f(2, "membership", "Alıcı yıllık ücreti zorunlu mu?", "Ürün kuralına göre alıcı yıllık ücreti tanımlanır; teklif ve içerik erişimi bu çerçevede yönetilir. Kesin koşullar sözleşme ve ön bilgilendirmede yer alır."),
-  f(3, "commission", "Komisyon oranı nedir?", "İşlem matrahı üzerinden satıcıdan %4 + KDV hedeflenir; alıcıdan işlem komisyonu matrahı 0’dır (fees.ts tek kaynak)."),
-  f(4, "commission", "Mahsup nasıl çalışır?", "Ödenen yıllık satıcı üyeliği ve seçilen hizmet bedelleri, satıcı komisyon faturasından düşülmeye mahsup edilir; net tutar üretim fatura politikasına bağlıdır."),
+  f(3, "commission", "Komisyon oranı nedir?", "İşlem matrahı üzerinden satıcı %2 + alıcı %2 + KDV hedeflenir (fees.ts tek kaynak). Toplam komisyon matrahı %4’tür."),
+  f(4, "commission", "Mahsup nasıl çalışır?", "Ödenen yıllık satıcı üyeliği ve seçilen hizmet bedelleri satıcı komisyonuna mahsup edilir; alıcı tarafı kendi %2 + KDV payını ayrıca görür."),
   f(5, "commission", "B2B emlakçı payı kim öder?", "İşlem tutarı üzerinden ortak emlakçı payı (matrah %2 + KDV) ayrı kalem olarak düzenlenir; ödeme hedefi operasyonel olarak tanımlanır."),
   f(6, "commission", "Hizmet bedelleri nelerdir?", "Fotoğraf, ekspertiz, hukuki danışmanlık gibi kalemler `SERVICE_FEES` ile tek kaynaklıdır; ‘doping’ veya ‘vitrin’ satışı değildir."),
   f(7, "commission", "Komisyon KDV’si kime yansır?", "KDV, komisyon matrahı üzerinden hesaplanır; gösterimde ön bilgilendirme ile uyum hedeflenir."),

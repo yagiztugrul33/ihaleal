@@ -39,7 +39,7 @@ export function InvestorTrustStrip({ className = "" }: { className?: string }) {
       variants={mp.staggerContainer}
     >
       <motion.div variants={mp.staggerItem} className="mb-6">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Kurumsal güven</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">Kurumsal güven</p>
         <h3 className="text-xl font-bold text-white mt-1">Yatirimcilar ve kurumlar icin tasarlandi</h3>
       </motion.div>
       <motion.div className="grid sm:grid-cols-2 gap-4">
@@ -49,7 +49,7 @@ export function InvestorTrustStrip({ className = "" }: { className?: string }) {
               <item.icon className="w-5 h-5 text-blue-400 shrink-0" aria-hidden />
               <div>
                 <p className="text-sm font-semibold text-white">{item.title}</p>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">{item.detail}</p>
+                <p className="mt-1 text-xs leading-relaxed text-slate-200">{item.detail}</p>
               </div>
             </div>
           </motion.div>

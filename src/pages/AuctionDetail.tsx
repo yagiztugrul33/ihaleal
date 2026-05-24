@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
@@ -26,9 +26,10 @@ import {
   ANTI_SNIPING_EXTEND_SECONDS,
   ANTI_SNIPING_THRESHOLD_SECONDS,
   BID_BOND_RATE,
-  COMMISSION_RATE,
-  DEED_DUTY_RATE,
   FEE_TEXTS,
+  PLATFORM_PENALTY_RATE,
+  VICTIM_COMPENSATION_RATE,
+  WITHDRAWAL_PENALTY_RATE,
   calcBuyerTotal,
   calcSellerNet,
   estimateBuyerClosingCosts,
@@ -58,6 +59,7 @@ import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIInsight } from "@/components/cinematic";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
+import { ensureHouseGalleryImages } from "@/lib/listingImage";
 import { preAuthorize } from "@/lib/payment";
 import {
   HEMEN_AL_CARD_BLOCK,
@@ -70,7 +72,21 @@ import {
 import { MODULE3_HEMEN_AL_ACCEPTANCE } from "@/legal/masterContractCheckboxTexts";
 import { BID_GATE_CHECKBOXES, initialBidGateAck, isBidGateComplete } from "@/legal/bidGateAgreement";
 import { placeBidRpc, minNextBidTry, parsePositiveTryFromInput } from "@/lib/placeBid";
-import { AI_VALUATION_DISCLAIMER, MASTER_INFO_DISCLAIMER } from "@/legal/platformDisclaimers";
+import {
+  createStandardOffer,
+  getStandardOffers,
+  updateStandardOfferDecision,
+  type StandardOffer,
+} from "@/lib/standardListingOffers";
+import { persistConsentAudit } from "@/lib/legal/consentAudit";
+import { getTaxRuntimeConfig, getTaxRuntimeConfigSignature } from "@/lib/taxConfig";
+import { getSponsoredListings, SPONSORED_DISCLOSURE } from "@/ads/mockAds";
+import {
+  AI_VALUATION_DISCLAIMER,
+  EXPERT_APPROVAL_PENDING_NOTE,
+  MASTER_INFO_DISCLAIMER,
+  PSP_FLOW_DISCLAIMER,
+} from "@/legal/platformDisclaimers";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, LineChart, Line,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -97,17 +113,28 @@ type PublicBidTapeRow = {
   depth_rank: number;
 };
 
+type MyBidSnapshot = {
+  amountTry: number;
+  atIso: string;
+};
+
+type SecurityActionType = "bid" | "buy_now";
+
+type SecurityActionPayload = {
+  type: SecurityActionType;
+  amountTry: number;
+  listingTitle: string;
+};
+
 function isValidDemoCardToken(value: string): boolean {
   return /^[a-zA-Z0-9_-]{3,64}$/.test(value.trim());
 }
 
 const BIDDER_MASKS = ["ALC-01", "YTR-22", "KRM-07", "FON-13", "TRD-09", "PRT-17"] as const;
-const GALLERY_FALLBACK =
-  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%230a1f44'/><stop offset='100%' stop-color='%233b82f6'/></linearGradient></defs><rect width='1200' height='675' fill='url(%23g)'/><text x='50%' y='50%' fill='white' text-anchor='middle' font-family='Arial' font-size='34'>ihaleal.com ilan gorseli</text></svg>";
 const AUCTION_INFO_DISCLAIMER = `${MASTER_INFO_DISCLAIMER} ${AI_VALUATION_DISCLAIMER}`;
 
 function maskBidderName(raw: string): string {
-  const normalized = raw.replace(/[^a-zA-Z0-9]/g, "");
+  const normalized = raw.replace(/[^a-zA-Z]/g, "");
   const seed = normalized.length > 0 ? normalized : "Alici";
   const first = seed.slice(0, 1).toUpperCase();
   const last = seed.slice(-1).toLowerCase();
@@ -140,6 +167,11 @@ export default function AuctionDetail() {
     [listingWithDefaults],
   );
   const isRent = listingWithDefaults?.dealType === "rent";
+  const isDevrenFlow =
+    auction?.category?.toLowerCase().includes("devren") ||
+    auction?.title?.toLowerCase().includes("devren") ||
+    auction?.tags?.some((tag) => tag.toLowerCase().includes("devren")) ||
+    Boolean((auction?.propertyDetails as Record<string, unknown> | undefined)?.transferPriceTry);
   const pricePrimaryLabel =
     marketingMode === "listing_only" ? "İlan fiyatı" : marketingMode === "sealed_offers" ? "Başlangıç / talep" : "Güncel teklif";
   const [bidAmount, setBidAmount] = useState("");
@@ -161,14 +193,17 @@ export default function AuctionDetail() {
   const { user } = useAuth();
   const [dbListingId, setDbListingId] = useState<string | null>(null);
   const [dbAuctionPk, setDbAuctionPk] = useState<string | null>(null);
+  const [listingSellerId, setListingSellerId] = useState<string | null>(null);
   const [dbReportLoaded, setDbReportLoaded] = useState<PropertyAnalysisReportRecord | null>(null);
   const [buyNowPriceDb, setBuyNowPriceDb] = useState<number | null>(null);
   const [reportApproved, setReportApproved] = useState(false);
   const [legalWithdrawAccepted, setLegalWithdrawAccepted] = useState(false);
   const [depositId, setDepositId] = useState<string | null>(null);
   const [depositIdBuyNow, setDepositIdBuyNow] = useState<string | null>(null);
+  const [sellerDepositId, setSellerDepositId] = useState<string | null>(null);
   const [preAuthOpen, setPreAuthOpen] = useState(false);
   const [preAuthBuyNowOpen, setPreAuthBuyNowOpen] = useState(false);
+  const [preAuthSellerOpen, setPreAuthSellerOpen] = useState(false);
   const [showBuyNowConfirm, setShowBuyNowConfirm] = useState(false);
   const [demoBuyNowWon, setDemoBuyNowWon] = useState(false);
   const [cardToken, setCardToken] = useState("test-ok");
@@ -180,6 +215,7 @@ export default function AuctionDetail() {
   const [buyNowAcceptMasak, setBuyNowAcceptMasak] = useState(false);
   const [buyNowAcceptCard, setBuyNowAcceptCard] = useState(false);
   const [buyNowAcceptModule3, setBuyNowAcceptModule3] = useState(false);
+  const [buyNowAcceptPenaltyPolicy, setBuyNowAcceptPenaltyPolicy] = useState(false);
   const [buyNowFinalAck, setBuyNowFinalAck] = useState(false);
   const [bidGateAck, setBidGateAck] = useState(initialBidGateAck);
   const [bidTape, setBidTape] = useState<BidTapeItem[]>([]);
@@ -189,6 +225,25 @@ export default function AuctionDetail() {
   const [watchers, setWatchers] = useState<number>(0);
   const [calculatorBid, setCalculatorBid] = useState<number>(0);
   const [priceRange, setPriceRange] = useState<"1H" | "1G" | "1A" | "1Y">("1G");
+  const [standardOffers, setStandardOffers] = useState<StandardOffer[]>([]);
+  const [myBidSnapshot, setMyBidSnapshot] = useState<MyBidSnapshot | null>(null);
+  const [endingSoonNotified, setEndingSoonNotified] = useState(false);
+  const [bidStatusNotified, setBidStatusNotified] = useState<"winning" | "outbid" | null>(null);
+  const [standardRulesAccepted, setStandardRulesAccepted] = useState(false);
+  const bidStatusInitRef = useRef(false);
+  const [securityDialogOpen, setSecurityDialogOpen] = useState(false);
+  const [securityStage, setSecurityStage] = useState<"summary" | "verify">("summary");
+  const [securityAction, setSecurityAction] = useState<SecurityActionPayload | null>(null);
+  const [txPassword, setTxPassword] = useState("");
+  const [txPin, setTxPin] = useState("");
+  const [txOtp, setTxOtp] = useState("");
+  const [txRiskOtp, setTxRiskOtp] = useState("");
+  const [txBiometricAck, setTxBiometricAck] = useState(false);
+  const [txEsignAck, setTxEsignAck] = useState(false);
+  const [txNotifyAck, setTxNotifyAck] = useState(false);
+  const [txInformedConsentAck, setTxInformedConsentAck] = useState(false);
+  const [newDeviceRisk, setNewDeviceRisk] = useState(false);
+  const pendingSecureActionRef = useRef<null | (() => Promise<void> | void)>(null);
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -210,11 +265,64 @@ export default function AuctionDetail() {
       if (d) setDepositId(d);
       const dbn = sessionStorage.getItem(`ihaleal_deposit_buynow_${id}`);
       if (dbn) setDepositIdBuyNow(dbn);
+      const sd = sessionStorage.getItem(`ihaleal_seller_deposit_${id}`);
+      if (sd) setSellerDepositId(sd);
       if (sessionStorage.getItem(`ihaleal_buynow_won_${id}`) === "1") setDemoBuyNowWon(true);
     } catch {
       /* ignore */
     }
   }, [id]);
+
+  useEffect(() => {
+    if (!id || !user?.id) {
+      setMyBidSnapshot(null);
+      return;
+    }
+    try {
+      const raw = localStorage.getItem(`ihaleal_my_bid_${id}_${user.id}`);
+      if (!raw) {
+        setMyBidSnapshot(null);
+        return;
+      }
+      const parsed = JSON.parse(raw) as MyBidSnapshot;
+      if (!parsed || typeof parsed.amountTry !== "number") {
+        setMyBidSnapshot(null);
+        return;
+      }
+      setMyBidSnapshot(parsed);
+    } catch {
+      setMyBidSnapshot(null);
+    }
+  }, [id, user?.id]);
+
+  useEffect(() => {
+    bidStatusInitRef.current = false;
+    setBidStatusNotified(null);
+    setEndingSoonNotified(false);
+  }, [id]);
+
+  useEffect(() => {
+    if (!user?.id) {
+      setNewDeviceRisk(false);
+      return;
+    }
+    try {
+      const fp = `${navigator.userAgent}|${navigator.language}|${navigator.platform}`;
+      const key = `ihaleal_device_fp_${user.id}`;
+      const known = localStorage.getItem(key);
+      if (!known) {
+        localStorage.setItem(key, fp);
+        setNewDeviceRisk(false);
+        return;
+      }
+      setNewDeviceRisk(known !== fp);
+      if (known !== fp) {
+        localStorage.setItem(key, fp);
+      }
+    } catch {
+      setNewDeviceRisk(false);
+    }
+  }, [user?.id]);
 
   useEffect(() => {
     if (!auction) return;
@@ -234,11 +342,12 @@ export default function AuctionDetail() {
       if (rep) setDbReportLoaded(rep);
       const { data: listingRow } = await supabase
         .from("listings")
-        .select("buy_now_price_try")
+        .select("buy_now_price_try,seller_id")
         .eq("id", auc.listing_id)
         .maybeSingle();
       if (!alive) return;
       if (listingRow?.buy_now_price_try != null) setBuyNowPriceDb(Number(listingRow.buy_now_price_try));
+      if (listingRow?.seller_id) setListingSellerId(String(listingRow.seller_id));
     })();
     return () => {
       alive = false;
@@ -381,6 +490,48 @@ export default function AuctionDetail() {
     };
   }, [auction]);
 
+  useEffect(() => {
+    if (!id || !isListingOnly) {
+      setStandardOffers([]);
+      return;
+    }
+    setStandardOffers(getStandardOffers(id));
+  }, [id, isListingOnly]);
+
+  useEffect(() => {
+    if (!id || !myBidSnapshot) return;
+    const latestBid = bidTape[0]?.amount ?? realtime.highBidTry ?? auction?.currentBid ?? 0;
+    const myStatus: "winning" | "outbid" | "pending" =
+      myBidSnapshot.amountTry >= latestBid
+        ? "winning"
+        : bidTape.length > 0
+          ? "outbid"
+          : "pending";
+    if (!bidStatusInitRef.current) {
+      bidStatusInitRef.current = true;
+      setBidStatusNotified(myStatus === "pending" ? null : myStatus);
+      return;
+    }
+    if (myStatus === "pending" || myStatus === bidStatusNotified) return;
+    if (myStatus === "winning") {
+      toastBid("Kazanıyorsun: teklifin şu an lider.", "success");
+    } else {
+      toastBid("Teklifin geçildi. Sıra kaybettin.", "warning");
+    }
+    setBidStatusNotified(myStatus);
+  }, [auction?.currentBid, bidStatusNotified, bidTape, id, myBidSnapshot, realtime.highBidTry]);
+
+  useEffect(() => {
+    if (!auction || endingSoonNotified || auction.status !== "live") return;
+    const msLeft = new Date(auction.endDate).getTime() - Date.now();
+    if (msLeft > 0 && msLeft <= 60 * 60 * 1000) {
+      toastBid("İhale bitiyor: son 60 dakika.", "warning");
+      setEndingSoonNotified(true);
+    }
+  }, [auction, endingSoonNotified]);
+
+  const detailSponsored = useMemo(() => getSponsoredListings(2), []);
+
   if (!auction) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
@@ -423,10 +574,39 @@ export default function AuctionDetail() {
   const features = auction.features ?? [];
   const nearbyFacilities = auction.nearbyFacilities ?? [];
   const priceHistory = auction.priceHistory ?? [];
-  const galleryImages = (auction.images ?? []).filter((img) => typeof img === "string" && img.trim().length > 0);
-  const safeGalleryImages = galleryImages.length > 0 ? galleryImages : [GALLERY_FALLBACK];
+  const safeGalleryImages = ensureHouseGalleryImages(auction.images, 6);
+  const virtualTourCards = [
+    {
+      id: "vt-main",
+      title: `${auction.title} · Dis Cephe`,
+      location: auction.location,
+      price: `₺${auction.currentBid.toLocaleString("tr-TR")}`,
+      image:
+        "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1400&q=80",
+    },
+    {
+      id: "vt-living",
+      title: "Salon ve Yasam Alani",
+      location: auction.district,
+      price: "Foto tur",
+      image:
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
+    },
+    {
+      id: "vt-office",
+      title: "Is / Yatirim Potansiyeli",
+      location: auction.city,
+      price: "Detay inceleme",
+      image:
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80",
+    },
+  ];
 
   const liveBid = realtime.highBidTry ?? auction.currentBid;
+  const standardFloorTry =
+    auction.commitmentFloorTRY ?? Math.round((auction.startingBid > 0 ? auction.startingBid : liveBid) * 0.95);
+  const standardCeilingTry =
+    auction.commitmentCeilingTRY ?? Math.round((auction.buyNowPriceTry ?? liveBid) * 1.05);
   const safeAiPredictedPrice = auction.aiPredictedPrice > 0 ? auction.aiPredictedPrice : liveBid || 1;
   const priceDiff = safeAiPredictedPrice - liveBid;
   const priceDiffPercent = ((priceDiff / safeAiPredictedPrice) * 100).toFixed(1);
@@ -446,11 +626,12 @@ export default function AuctionDetail() {
     effectiveBuyNowTry != null &&
     !auctionEndedVisual;
 
-  const buyNowDisabled =
-    !user || !reportApproved || !depositIdBuyNow || buyNowBusy || auctionEndedVisual;
+  const buyNowDisabled = isListingOnly
+    ? !user || buyNowBusy || auctionEndedVisual
+    : !user || !reportApproved || !depositIdBuyNow || buyNowBusy || auctionEndedVisual;
   const bidGateBlocked =
-    !isListingOnly && Boolean(user) && (!reportApproved || !depositId);
-  const bidDisabled = auctionEndedVisual || (!isListingOnly && (!user || !reportApproved || !depositId));
+    isAuctionMode && Boolean(user) && (!reportApproved || !depositId);
+  const bidDisabled = auctionEndedVisual || (isAuctionMode && (!user || !reportApproved || !depositId));
   const latestTapeBid = bidTape[0]?.amount ?? liveBid;
   const liveBidCount = Math.max(auction.bidderCount, (auction.bidderCount ?? 0) + bidTape.length);
   const orderDepthRows = (() => {
@@ -463,6 +644,40 @@ export default function AuctionDetail() {
       rank: idx + 1,
     }));
   })();
+  const myBidRank =
+    myBidSnapshot == null ? null : Math.max(1, orderDepthRows.filter((row) => row.amount > myBidSnapshot.amountTry).length + 1);
+  const myBidStatus: "winning" | "outbid" | "pending" | null =
+    myBidSnapshot == null
+      ? null
+      : myBidSnapshot.amountTry >= latestTapeBid
+        ? "winning"
+        : orderDepthRows.length > 0
+          ? "outbid"
+          : "pending";
+  const isStandardSeller =
+    Boolean(user?.id) &&
+    (listingSellerId === user?.id || (user?.email ?? "").toLowerCase().includes("seller") || (user?.email ?? "").toLowerCase().includes("satici"));
+  const isAuctionCollateralFlow = isAuctionMode;
+  const isLightVerificationFlow = !isAuctionMode;
+  const buyerGuaranteeMissing =
+    isAuctionCollateralFlow && !isStandardSeller && Boolean(user) && (!reportApproved || !depositId);
+  const sellerGuaranteeMissing = isAuctionCollateralFlow && isStandardSeller && !sellerDepositId;
+  const withdrawalBaseTry = Math.max(1, Math.round(latestTapeBid || liveBid));
+  const totalPenaltyTry = Math.round(withdrawalBaseTry * WITHDRAWAL_PENALTY_RATE);
+  const victimCompensationTry = Math.round(withdrawalBaseTry * VICTIM_COMPENSATION_RATE);
+  const platformPenaltyTry = Math.round(withdrawalBaseTry * PLATFORM_PENALTY_RATE);
+  const platformPenaltyVatTry = Math.round(platformPenaltyTry * 0.2);
+  const runtimeTax = getTaxRuntimeConfig();
+  const bidPreAuthRate = 0.05;
+  const buyerEscrowHeldTry = depositId ? Math.round(withdrawalBaseTry * bidPreAuthRate * 100) / 100 : 0;
+  const sellerEscrowHeldTry = sellerDepositId ? Math.round(withdrawalBaseTry * 0.01 * 100) / 100 : 0;
+  const pendingEscrowFloatTry = Math.round((buyerEscrowHeldTry + sellerEscrowHeldTry) * 100) / 100;
+  const compensationReceiptRef = `GP-${(id ?? "X").toString().slice(0, 6).toUpperCase()}-${new Date().getFullYear()}`;
+  const refundReferenceMethod = depositIdBuyNow ? "Aynı kart (pre-auth hattı)" : "Aynı IBAN / kart (işlem kaynağı)";
+  const backupBidders = orderDepthRows.slice(1, 3);
+  const visibleStandardOffers = isStandardSeller
+    ? standardOffers
+    : standardOffers.filter((row) => row.bidderUserId === user?.id);
 
   const rangePriceData = (() => {
     const source = priceHistory.length > 0 ? priceHistory : [{ date: new Date().toISOString(), price: liveBid, event: "Anlık" }];
@@ -513,7 +728,7 @@ export default function AuctionDetail() {
     setPreAuthBusy(true);
     try {
       const base = liveBid;
-      const depositAmt = Math.round(base * 0.015 * 100) / 100;
+      const depositAmt = Math.round(base * bidPreAuthRate * 100) / 100;
       const pr = await preAuthorize({
         amountTRY: depositAmt,
         cardToken,
@@ -553,6 +768,37 @@ export default function AuctionDetail() {
         sessionStorage.setItem(`ihaleal_deposit_${id}`, mockDep);
       }
       setPreAuthOpen(false);
+    } finally {
+      setPreAuthBusy(false);
+    }
+  };
+
+  const runSellerPreAuth = async () => {
+    if (!user || !id) return;
+    if (!isValidDemoCardToken(cardToken)) {
+      toastBid("Kart token formatı geçersiz. Yalnızca harf, rakam, _ veya - kullanın.", "warning");
+      return;
+    }
+    setPreAuthBusy(true);
+    try {
+      const base = liveBid;
+      const depositAmt = Math.round(base * 0.01 * 100) / 100;
+      const pr = await preAuthorize({
+        amountTRY: depositAmt,
+        cardToken,
+        buyerId: user.id,
+        listingId: dbListingId ?? id,
+        context: "seller_commitment",
+      });
+      if (!pr.success) {
+        toastBid(pr.error ?? "Satıcı güvencesi ön yetkisi reddedildi", "error");
+        return;
+      }
+      const mockDep = `mock-seller-${Date.now()}`;
+      setSellerDepositId(mockDep);
+      sessionStorage.setItem(`ihaleal_seller_deposit_${id}`, mockDep);
+      toastBid("Satıcı güvencesi (simetrik teminat) kaydedildi.", "success");
+      setPreAuthSellerOpen(false);
     } finally {
       setPreAuthBusy(false);
     }
@@ -614,7 +860,7 @@ export default function AuctionDetail() {
     }
   };
 
-  const executeBuyNowConfirm = () => {
+  const executeBuyNowConfirmCore = () => {
     if (!user || effectiveBuyNowTry == null) {
       toastBid("Giriş yapın.", "warning");
       return;
@@ -655,6 +901,7 @@ export default function AuctionDetail() {
           if (row?.status === "ok") {
             setDemoBuyNowWon(true);
             sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
+            dispatchTransactionNotifications("Hemen Al", row.amount ?? effectiveBuyNowTry);
             toastBid(
               `Tebrikler! ₺${(row.amount ?? effectiveBuyNowTry).toLocaleString("tr-TR")} ile ihaleyi kazandınız; ihale kapandı.`,
               "success",
@@ -674,9 +921,31 @@ export default function AuctionDetail() {
     }
     sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
     setDemoBuyNowWon(true);
+    dispatchTransactionNotifications("Hemen Al", effectiveBuyNowTry);
     toastBid(
       `Tebrikler! ₺${effectiveBuyNowTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız (demo). İhale kapandı.`,
       "success",
+    );
+  };
+
+  const executeBuyNowConfirm = () => {
+    if (!user) {
+      toastBid("Giriş yapın.", "warning");
+      return;
+    }
+    if (effectiveBuyNowTry == null) {
+      toastBid("Hemen Al tutarı yok.", "warning");
+      return;
+    }
+    openSecurityFlow(
+      {
+        type: "buy_now",
+        amountTry: effectiveBuyNowTry,
+        listingTitle: auction.title,
+      },
+      () => {
+        executeBuyNowConfirmCore();
+      },
     );
   };
 
@@ -702,15 +971,92 @@ export default function AuctionDetail() {
     { id: `${auction.id}-cmp-3`, title: `${auction.district} benzer satış C`, price: Math.round(liveBid * 0.98), sqm: Math.max(1, propertyDetails.netSqm - 2), closedAt: "2026-01" },
   ];
 
-  const toastBid = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
+  function toastBid(message: string, type: "success" | "error" | "info" | "warning" = "info") {
     window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }));
+  }
+  const resetSecurityInputs = () => {
+    setTxPassword("");
+    setTxPin("");
+    setTxOtp("");
+    setTxRiskOtp("");
+    setTxBiometricAck(false);
+    setTxEsignAck(false);
+    setTxNotifyAck(false);
+    setTxInformedConsentAck(false);
+    setSecurityStage("summary");
+  };
+  const dispatchTransactionNotifications = (actionLabel: string, amountTry: number) => {
+    const amountText = `₺${amountTry.toLocaleString("tr-TR")}`;
+    toastBid(`SMS teyit (mock): ${actionLabel} işlemi ${amountText} için iletildi.`, "info");
+    toastBid(`E-posta teyit (mock): ${actionLabel} işlemi ${amountText} için iletildi.`, "info");
+  };
+  const openSecurityFlow = (
+    payload: SecurityActionPayload,
+    onConfirm: () => Promise<void> | void,
+  ) => {
+    pendingSecureActionRef.current = onConfirm;
+    setSecurityAction(payload);
+    resetSecurityInputs();
+    setSecurityDialogOpen(true);
+    if (newDeviceRisk) {
+      toastBid("Yeni cihaz algılandı: ek doğrulama (risk OTP) zorunlu.", "warning");
+    }
+  };
+  const confirmSecurityStep = async () => {
+    if (!txPassword.trim() && txPin.trim().length < 4) {
+      toastBid("İşlem şifresi veya en az 4 haneli PIN zorunlu.", "warning");
+      return;
+    }
+    if (!/^\d{6}$/.test(txOtp.trim())) {
+      toastBid("OTP/SMS kodu 6 haneli olmalı.", "warning");
+      return;
+    }
+    if (!txNotifyAck) {
+      toastBid("SMS + e-posta teyit onayını işaretleyin.", "warning");
+      return;
+    }
+    if (!txInformedConsentAck) {
+      toastBid("İşlem için 'okudum, anladım, kabul ediyorum' onayı zorunludur.", "warning");
+      return;
+    }
+    if (!txBiometricAck) {
+      toastBid("Biyometrik doğrulama adımını onaylayın (mock).", "warning");
+      return;
+    }
+    if (user?.email && !txEsignAck) {
+      toastBid("E-imza/e-onay kutusu zorunludur.", "warning");
+      return;
+    }
+    if (newDeviceRisk && !/^\d{6}$/.test(txRiskOtp.trim())) {
+      toastBid("Yeni cihaz için ek risk OTP (6 hane) girin.", "warning");
+      return;
+    }
+    if (securityAction && user?.id) {
+      const now = new Date();
+      persistConsentAudit({
+        listingId: id ?? "unknown-listing",
+        action: securityAction.type,
+        userId: user.id,
+        acceptedAtIso: now.toISOString(),
+        acceptedAtLocal: now.toLocaleString("tr-TR"),
+        note: "Okudum, anladım, kabul ediyorum (işlem öncesi bilgilendirilmiş onay).",
+        bidGateVersion: "v2.0-demo",
+        taxConfigSignature: getTaxRuntimeConfigSignature(),
+      });
+    }
+    const pending = pendingSecureActionRef.current;
+    setSecurityDialogOpen(false);
+    resetSecurityInputs();
+    if (!pending) return;
+    await pending();
+    pendingSecureActionRef.current = null;
   };
   const scrollToContact = () => {
     navigate("/");
     window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100);
   };
 
-  const handleBid = async () => {
+  const submitBidCore = async () => {
     if (auctionEndedVisual) {
       toastBid("Bu ihale sona ermiş.", "info");
       return;
@@ -720,20 +1066,48 @@ export default function AuctionDetail() {
       toastBid("Geçerli bir teklif tutarı girin (pozitif tam sayı, makul üst sınır içinde).", "error");
       return;
     }
-    const minRequired = isListingOnly ? liveBid + 1 : minNextBidTry(liveBid);
-    if (amount < minRequired) {
-      toastBid(`Teklif en az ₺${minRequired.toLocaleString("tr-TR")} olmalı.`, "warning");
-      return;
-    }
     if (!user) {
       toastBid("Teklif için giriş yapın.", "warning");
       return;
     }
-    if (!isListingOnly && bidDisabled) {
+    if (isListingOnly) {
+      const bidderMask = maskBidderName(
+        user.email?.split("@")[0] || String(user.user_metadata?.full_name ?? "Alici"),
+      );
+      const offer = createStandardOffer({
+        listingId: id ?? auction.id,
+        bidderUserId: user.id,
+        bidderMask,
+        amountTry: amount,
+        floorTry: standardFloorTry,
+        ceilingTry: standardCeilingTry,
+      });
+      setStandardOffers(getStandardOffers(id ?? auction.id));
+      if (offer.status === "rejected") {
+        toastBid("Teklif kaydedildi fakat alt limit altında olduğu için satıcı reddetti.", "warning");
+      } else if (offer.status === "countered") {
+        toastBid(
+          `Teklif özel olarak kaydedildi. Satıcı karşı teklif: ₺${(offer.counterAmountTry ?? 0).toLocaleString("tr-TR")}`,
+          "info",
+        );
+      } else {
+        toastBid("Özel teklif kaydedildi. İlan fiyatı sabit kalır, satıcı panelde karar verir.", "success");
+      }
+      dispatchTransactionNotifications("Özel teklif", amount);
+      setShowBidDialog(false);
+      setBidAmount("");
+      return;
+    }
+    const minRequired = minNextBidTry(liveBid);
+    if (amount < minRequired) {
+      toastBid(`Teklif en az ₺${minRequired.toLocaleString("tr-TR")} olmalı.`, "warning");
+      return;
+    }
+    if (isAuctionMode && bidDisabled) {
       toastBid("Önce AI raporunu onaylayın ve teminat (ön yetki) adımını tamamlayın.", "warning");
       return;
     }
-    if (!isListingOnly && !isBidGateComplete(bidGateAck)) {
+    if (isAuctionMode && !isBidGateComplete(bidGateAck)) {
       toastBid("Teklifi göndermek için tüm sözleşme ve beyan kutularını işaretleyin.", "warning");
       return;
     }
@@ -758,6 +1132,12 @@ export default function AuctionDetail() {
           return;
         }
         toastBid(`Teklif kaydedildi: ₺${amount.toLocaleString("tr-TR")}`, "success");
+        dispatchTransactionNotifications("Teklif", amount);
+        const nextSnapshot: MyBidSnapshot = { amountTry: amount, atIso: new Date().toISOString() };
+        setMyBidSnapshot(nextSnapshot);
+        if (id && user?.id) {
+          localStorage.setItem(`ihaleal_my_bid_${id}_${user.id}`, JSON.stringify(nextSnapshot));
+        }
         setShowBidDialog(false);
         setBidAmount("");
         setBidGateAck(initialBidGateAck());
@@ -771,8 +1151,36 @@ export default function AuctionDetail() {
       "Demo ilan: teklif veritabanına yazılmaz. Canlı ihalelerde (Supabase UUID) teklif sunucuda saklanır.",
       "info",
     );
+    const demoSnapshot: MyBidSnapshot = { amountTry: amount, atIso: new Date().toISOString() };
+    dispatchTransactionNotifications("Teklif", amount);
+    setMyBidSnapshot(demoSnapshot);
+    if (id && user?.id) {
+      localStorage.setItem(`ihaleal_my_bid_${id}_${user.id}`, JSON.stringify(demoSnapshot));
+    }
     setShowBidDialog(false);
     setBidAmount("");
+  };
+
+  const handleBid = async () => {
+    const amount = parsePositiveTryFromInput(bidAmount);
+    if (amount == null) {
+      toastBid("Geçerli bir teklif tutarı girin (pozitif tam sayı, makul üst sınır içinde).", "error");
+      return;
+    }
+    if (!user) {
+      toastBid("Teklif için giriş yapın.", "warning");
+      return;
+    }
+    openSecurityFlow(
+      {
+        type: "bid",
+        amountTry: amount,
+        listingTitle: auction.title,
+      },
+      async () => {
+        await submitBidCore();
+      },
+    );
   };
 
   const bidIncrements = [10000, 50000, 100000, 250000, 500000];
@@ -780,6 +1188,38 @@ export default function AuctionDetail() {
   const closing = estimateBuyerClosingCosts(effectiveCalcBid);
   const buyerTotals = calcBuyerTotal(effectiveCalcBid);
   const sellerTotals = calcSellerNet(effectiveCalcBid);
+  const applyStandardDecision = (offerId: string, decision: "accepted" | "rejected" | "countered") => {
+    if (!id || !isStandardSeller) return;
+    const current = standardOffers.find((row) => row.id === offerId);
+    const suggestedCounter =
+      current != null
+        ? Math.min(
+            standardCeilingTry,
+            Math.max(standardFloorTry, Math.round((current.amountTry + liveBid) / 2)),
+          )
+        : undefined;
+    const updated = updateStandardOfferDecision({
+      listingId: id,
+      offerId,
+      decision,
+      counterAmountTry: decision === "countered" ? suggestedCounter : undefined,
+      note:
+        decision === "accepted"
+          ? "Satıcı özel teklifi kabul etti."
+          : decision === "rejected"
+            ? "Satıcı özel teklifi reddetti."
+            : `Satıcı karşı teklif döndü: ₺${(suggestedCounter ?? 0).toLocaleString("tr-TR")}`,
+    });
+    setStandardOffers(updated);
+    toastBid(
+      decision === "accepted"
+        ? "Satıcı teklifi kabul etti (demo). Escrow/sözleşme çekirdeği aynı akıştan ilerler."
+        : decision === "rejected"
+          ? "Satıcı teklifi reddetti (demo)."
+          : "Satıcı karşı teklif verdi (demo).",
+      decision === "rejected" ? "warning" : "success",
+    );
+  };
 
   const galleryBadges = [
     { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
@@ -896,14 +1336,18 @@ export default function AuctionDetail() {
                   (kimlik, Findeks, ekspertiz, tapu özeti, teminat vb.; hukuki son söz sözleşme ve avukat).
                 </p>
               </div>
-              {!isListingOnly ? (
+              {isAuctionMode ? (
                 <div className="mb-6 rounded-xl border border-sky-500/25 bg-sky-500/10 p-4">
                   <h3 className="mb-2 text-sm font-semibold text-sky-100">İhale nasıl çalışır? (özet)</h3>
                   <ul className="space-y-1.5 text-xs text-slate-300">
                     <li>• Minimum artış kuralı sistem tarafından uygulanır; geçersiz teklif kabul edilmez.</li>
                     <li>• Son {ANTI_SNIPING_THRESHOLD_SECONDS} saniyede gelen geçerli teklifte süre {ANTI_SNIPING_EXTEND_SECONDS} saniye uzatılır (anti-sniping).</li>
                     <li>• Katılım teminatı hedefi: %{(BID_BOND_RATE * 100).toFixed(0)} blokaj / ön yetki modeli.</li>
-                    <li>• Komisyon yapısı: alıcı %{(COMMISSION_RATE * 100).toFixed(0)} + satıcı %{(COMMISSION_RATE * 100).toFixed(0)} (+KDV).</li>
+                    <li>
+                      • Komisyon yapısı: alıcı %{(runtimeTax.buyerCommissionRate * 100).toFixed(0)} + satıcı %{(runtimeTax.sellerCommissionRate * 100).toFixed(0)} (+KDV %{
+                        (runtimeTax.vatRate * 100).toFixed(0)
+                      }).
+                    </li>
                   </ul>
                 </div>
               ) : null}
@@ -1012,6 +1456,37 @@ export default function AuctionDetail() {
                     </div>
                   ) : null}
                   <div><h3 className="text-lg font-bold text-white mb-3">Açıklama</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{detailedDescription}</p></div>
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="rounded-xl border border-teal-500/20 bg-teal-500/5 p-4">
+                      <h4 className="text-sm font-semibold text-white mb-2">Hızlı Hesaplayıcılar</h4>
+                      <p className="text-xs text-slate-300 mb-3">
+                        Demo detayında kredi, vergi ve komisyon hesaplayıcılarına hızlı erişim.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <Button type="button" size="sm" variant="outline" className="border-teal-400/30 text-teal-100" onClick={() => navigate("/komisyon-hesaplayici")}>
+                          <Calculator className="w-3.5 h-3.5 mr-1" /> Komisyon
+                        </Button>
+                        <Button type="button" size="sm" variant="outline" className="border-teal-400/30 text-teal-100" onClick={() => navigate("/araclar/vergi-simulator")}>
+                          <Receipt className="w-3.5 h-3.5 mr-1" /> Vergi
+                        </Button>
+                        <Button type="button" size="sm" variant="outline" className="border-teal-400/30 text-teal-100" onClick={() => navigate("/fiyatlandirma")}>
+                          <Percent className="w-3.5 h-3.5 mr-1" /> Fiyatlandırma
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="rounded-xl border border-amber-500/25 bg-amber-500/10 p-4">
+                      <h4 className="text-sm font-semibold text-white mb-2">Sponsorlu İçerik Alanı</h4>
+                      <div className="space-y-2">
+                        {detailSponsored.map((item) => (
+                          <Link key={item.id} to={`/ilan/${item.id}`} className="block rounded-lg border border-amber-400/20 bg-black/20 px-3 py-2 text-xs text-slate-200 hover:border-amber-300/40">
+                            <p className="font-semibold text-amber-100">{item.title}</p>
+                            <p className="text-slate-400">{item.city} · {item.district}</p>
+                          </Link>
+                        ))}
+                      </div>
+                      <p className="mt-2 text-[10px] text-slate-400">{SPONSORED_DISCLOSURE}</p>
+                    </div>
+                  </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
                       <h4 className="mb-2 text-sm font-semibold text-white">Tapu ve İmar Özeti</h4>
@@ -1053,6 +1528,9 @@ export default function AuctionDetail() {
                           <div className="text-sm font-semibold text-white">360° Sanal Tur</div>
                           <div className="text-xs text-slate-400">Bu mülkü sanal olarak gezebilirsiniz.</div>
                         </div>
+                        <Badge variant="outline" className="border-cyan-400/40 bg-cyan-500/10 text-cyan-200">
+                          Foto Tur
+                        </Badge>
                         <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ml-auto bg-gradient-to-r from-blue-500 to-teal-400 text-white">Sanal Turu Başlat</Button>
                       </div>
                     </div>
@@ -1133,7 +1611,7 @@ export default function AuctionDetail() {
                       <Video className="h-5 w-5 text-cyan-300" />
                       <div>
                         <p className="text-sm font-semibold text-white">360° Sanal Tur (mock)</p>
-                        <p className="text-xs text-slate-400">Panoramik görünüm ve 3D tur entegrasyonu için demo alanı.</p>
+                        <p className="text-xs text-slate-300">Panoramik gorunum ve fotograf odakli vitrin galerisi.</p>
                       </div>
                       <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ml-auto bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
                         Sanal turu aç
@@ -1142,25 +1620,32 @@ export default function AuctionDetail() {
                   </div>
                   <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-900/60">
                     <img
-                      src={safeGalleryImages[0] ?? GALLERY_FALLBACK}
-                      alt={`${auction.title} sanal tur önizleme`}
+                      src={safeGalleryImages[0]}
+                      alt={`${auction.title} sanal tur onizleme`}
                       className="h-[280px] w-full object-cover md:h-[360px]"
                       loading="lazy"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                    {safeGalleryImages.slice(0, 4).map((src, idx) => (
-                      <button
-                        key={`${src}-${idx}`}
-                        type="button"
-                        className="overflow-hidden rounded-xl border border-slate-200/80 bg-slate-900/50"
-                        onClick={() => setShowVirtualTour(true)}
-                      >
-                        <img src={src} alt={`${auction.title} galeri ${idx + 1}`} className="h-20 w-full object-cover md:h-24" loading="lazy" />
-                      </button>
+                  <div className="grid gap-3 md:grid-cols-3">
+                    {virtualTourCards.map((card) => (
+                      <article key={card.id} className="overflow-hidden rounded-xl border border-slate-200/80 bg-slate-900/60">
+                        <img src={card.image} alt={card.title} className="h-24 w-full object-cover md:h-28" loading="lazy" />
+                        <div className="space-y-1.5 p-3">
+                          <p className="text-xs font-semibold text-white">{card.title}</p>
+                          <p className="text-[11px] text-slate-300">{card.location}</p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-semibold text-cyan-200">{card.price}</span>
+                            <Button type="button" size="sm" className="h-7 rounded-full px-3 text-[11px]" onClick={() => setShowVirtualTour(true)}>
+                              İncele
+                            </Button>
+                          </div>
+                        </div>
+                      </article>
                     ))}
                   </div>
-                  <p className="text-xs text-slate-500">Yakında 3D tur bağlantısı (Matterport / Momento360) bu sekmede canlı olarak açılacaktır.</p>
+                  <p className="text-xs text-slate-400">
+                    Fotograf vitrin kartlari yalnizca demo amaclidir; canli entegrasyonda dogrudan ilan medyasi acilir.
+                  </p>
                 </div>
               )}
               {activeTab === "priceHistory" && (
@@ -1329,7 +1814,7 @@ export default function AuctionDetail() {
                 <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-lg p-2.5 bg-white/[0.02]">
                   {isListingOnly ? (
                     <>
-                      Bu ilan <strong className="text-slate-400">sadece ilan</strong> modundadır; fiyat bilgisi aşağıdadır. Bilgi veya talep için ihaleal.com ile iletişime geçin; taraf telefonu ilanda yok (ofis kartındaki yetkili adı gibi platform adı).
+                      Bu ilan <strong className="text-slate-400">standart ilan</strong> modundadır: fiyat sabittir, özel teklifler ilan fiyatını değiştirmez. Satıcı alt/üst limit bandında teklifleri kabul, ret veya karşı teklif ile yönetir.
                     </>
                   ) : (
                     <>
@@ -1338,11 +1823,77 @@ export default function AuctionDetail() {
                     </>
                   )}
                 </p>
+                <div className="flex flex-wrap gap-2 text-[11px]">
+                  <span className="rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2 py-1 text-emerald-200">
+                    Doğrulanmış satıcı
+                  </span>
+                  <span className="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-2 py-1 text-cyan-100">
+                    Doğrulanmış mülk
+                  </span>
+                  <span className="rounded-full border border-amber-400/40 bg-amber-500/10 px-2 py-1 text-amber-200">
+                    {EXPERT_APPROVAL_PENDING_NOTE}
+                  </span>
+                </div>
+                {isAuctionMode ? (
+                  <div className="space-y-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs">
+                    <p className="rounded-lg border border-rose-400/35 bg-rose-500/10 px-2 py-1.5 text-rose-100">
+                      Bu ilanda teklifiniz bağlayıcıdır, geri alınamaz ve ihale sonuna kadar geçerlidir.
+                    </p>
+                    <p className="font-semibold text-amber-100">Sürpriz yok: cayma/ceza ve süreler işlem öncesi</p>
+                    <div className="grid gap-2 text-[11px] text-slate-200 md:grid-cols-2">
+                      <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-2">
+                        Cayma cezası: %{(WITHDRAWAL_PENALTY_RATE * 100).toFixed(0)} = %{(VICTIM_COMPENSATION_RATE * 100).toFixed(0)} mağdura + %{(PLATFORM_PENALTY_RATE * 100).toFixed(0)} + KDV platforma.
+                      </div>
+                      <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-2">
+                        Kazanan ödeme süresi: <strong className="text-cyan-200">3 iş günü</strong>. Ödeme yoksa cayma, teminat iradı, yedek alıcı sırası.
+                      </div>
+                    </div>
+                    <div className="overflow-x-auto rounded-lg border border-slate-700">
+                      <table className="min-w-full text-left text-[11px]">
+                        <thead className="bg-slate-900/80 text-slate-300">
+                          <tr>
+                            <th className="px-2 py-1.5">Adım</th>
+                            <th className="px-2 py-1.5">Süre / Kural</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-800 text-slate-200">
+                          <tr><td className="px-2 py-1.5">Kazanan ödeme</td><td className="px-2 py-1.5">3 iş günü</td></tr>
+                          <tr><td className="px-2 py-1.5">Yedek alıcı #2</td><td className="px-2 py-1.5">3 iş günü öncelik</td></tr>
+                          <tr><td className="px-2 py-1.5">Yedek alıcı #3</td><td className="px-2 py-1.5">3 iş günü öncelik</td></tr>
+                          <tr><td className="px-2 py-1.5">Satıcı tapu süreci</td><td className="px-2 py-1.5">15–20 iş günü hedefi</td></tr>
+                          <tr><td className="px-2 py-1.5">Satıcı cayması</td><td className="px-2 py-1.5">Satıcı güvencesi iradı + alıcı tazminat/iade önceliği</td></tr>
+                          <tr><td className="px-2 py-1.5">Kaybeden iade</td><td className="px-2 py-1.5">24–48 saat hedefi</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2 text-cyan-100">
+                      {backupBidders.length > 0 ? (
+                        <>
+                          Yedek alıcı listesi:{" "}
+                          {backupBidders.map((row) => `${row.rank}. ${row.maskedBidder}`).join(" · ")} (sırayla 3’er iş günü).
+                        </>
+                      ) : (
+                        <>Yedek alıcı listesi teklif akışı geldikçe 2. ve 3. sıradan otomatik oluşturulur (mock).</>
+                      )}
+                    </div>
+                    <p className="text-[10px] text-amber-100/90">{EXPERT_APPROVAL_PENDING_NOTE}</p>
+                  </div>
+                ) : null}
                 <div className="flex gap-2 flex-wrap">
-                  {!isListingOnly ? (
+                  {isListingOnly ? (
+                    <Button
+                      className="flex-1 min-w-[8rem] bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11"
+                      onClick={() => {
+                        setBidAmount(String(Math.max(standardFloorTry, liveBid)));
+                        setShowBidDialog(true);
+                      }}
+                    >
+                      <TrendingUp className="w-4 h-4 mr-1.5" /> Özel teklif ver
+                    </Button>
+                  ) : (
                     <Button
                       className="flex-1 min-w-[8rem] bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-40 disabled:grayscale"
-                      disabled={bidDisabled}
+                      disabled={auctionEndedVisual}
                       title={
                         bidDisabled
                           ? !user
@@ -1361,18 +1912,16 @@ export default function AuctionDetail() {
                     >
                       <TrendingUp className="w-4 h-4 mr-1.5" /> {isSealedOffer ? "Kapalı teklif ver" : "Teklif ver"}
                     </Button>
-                  ) : (
-                    <Button className="flex-1 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white font-bold h-11" type="button" onClick={scrollToContact}>
-                      Gösterim / bilgi talebi
-                    </Button>
                   )}
-                  {!isListingOnly && auction.dealType !== "rent" && effectiveBuyNowTry != null ? (
+                  {auction.dealType !== "rent" && effectiveBuyNowTry != null ? (
                     <Button
                       variant="outline"
                       className="border-emerald-400/40 text-emerald-100 hover:bg-emerald-500/10 h-11 px-3 shrink-0"
                       disabled={buyNowDisabled}
                       title={
-                        buyNowDisabled
+                        isListingOnly
+                          ? "Standart ilanda hemen al: sözleşme ve ödeme adımlarına geçiş."
+                          : buyNowDisabled
                           ? !user
                             ? "Giriş gerekli"
                             : !reportApproved
@@ -1385,6 +1934,10 @@ export default function AuctionDetail() {
                             : ""
                       }
                       onClick={() => {
+                        if (isListingOnly) {
+                          navigate(`/ihale/${auction.id}/hemen-al`);
+                          return;
+                        }
                         if (!user) {
                           toastBid("Giriş yapın.", "warning");
                           return;
@@ -1402,15 +1955,26 @@ export default function AuctionDetail() {
                         setBuyNowAcceptMasak(false);
                         setBuyNowAcceptCard(false);
                         setBuyNowAcceptModule3(false);
+                        setBuyNowAcceptPenaltyPolicy(false);
                         setHemenAlGateOpen(true);
                       }}
                     >
                       Hemen Al ₺{(effectiveBuyNowTry / 1e6).toFixed(2)}M
                     </Button>
                   ) : null}
-                  {!isListingOnly && user && reportApproved && !depositId ? (
+                  {isAuctionMode && !isStandardSeller && user && reportApproved && !depositId ? (
                     <Button type="button" variant="secondary" className="h-11 px-3 bg-white/10 text-white shrink-0" onClick={() => setPreAuthOpen(true)}>
                       Blokaj (demo)
+                    </Button>
+                  ) : null}
+                  {isAuctionMode && isStandardSeller && user && !sellerDepositId ? (
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      className="h-11 px-3 bg-violet-500/20 text-violet-100 shrink-0"
+                      onClick={() => setPreAuthSellerOpen(true)}
+                    >
+                      Satıcı güvencesi (demo)
                     </Button>
                   ) : null}
                   {!isListingOnly && auction.dealType !== "rent" ? (
@@ -1420,7 +1984,7 @@ export default function AuctionDetail() {
                   ) : null}
                     <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" aria-label="İletişim formuna git" onClick={scrollToContact} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
-                {!isListingOnly ? (
+                {isAuctionMode ? (
                   <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-3">
                     <div className="mb-2 flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-slate-400">
                       <span>Açık artırma teklif derinliği</span>
@@ -1428,6 +1992,9 @@ export default function AuctionDetail() {
                         <i className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" aria-hidden /> CANLI
                       </span>
                     </div>
+                    <p className="mb-2 text-[11px] text-slate-400">
+                      Kaynak: {publicBidTapeActive ? <code>auction_bid_public_tape</code> : "maskeli demo akış"} · Ham teklif satırı kullanılmaz.
+                    </p>
                     <div className="mb-2 grid grid-cols-3 gap-2 text-[11px]">
                       <div className="rounded-lg border border-slate-700 bg-slate-950/70 p-2">
                         <p className="text-slate-500">İzleyen</p>
@@ -1442,6 +2009,27 @@ export default function AuctionDetail() {
                         <p className="mt-1 text-sm font-bold text-emerald-300">₺{latestTapeBid.toLocaleString("tr-TR")}</p>
                       </div>
                     </div>
+                    {myBidSnapshot ? (
+                      <div className="mb-2 rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2 text-xs">
+                        <p className="font-semibold text-cyan-100">
+                          Senin teklifin: ₺{myBidSnapshot.amountTry.toLocaleString("tr-TR")} ·{" "}
+                          {myBidRank != null ? `${myBidRank}. sıradasın` : "Sıra hesaplanıyor"}
+                        </p>
+                        <p className={myBidStatus === "winning" ? "mt-1 text-emerald-200" : "mt-1 text-amber-200"}>
+                          {myBidStatus === "winning"
+                            ? "Kazanıyorsun"
+                            : myBidStatus === "outbid"
+                              ? "Teklifin geçildi"
+                              : "Teklifin işleniyor"}
+                          {" · "}
+                          {watchers.toLocaleString("tr-TR")} kişi izliyor
+                        </p>
+                      </div>
+                    ) : user ? (
+                      <p className="mb-2 text-[11px] text-slate-500">
+                        Henüz teklifin yok. İlk tekliften sonra konumun ve "geçildi/kazanıyorsun" durumu burada görünür.
+                      </p>
+                    ) : null}
                     <div className="space-y-1.5">
                       {orderDepthRows.map((row) => (
                         <div
@@ -1491,6 +2079,83 @@ export default function AuctionDetail() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  </div>
+                ) : null}
+                {isListingOnly ? (
+                  <div className="rounded-xl border border-cyan-400/25 bg-cyan-500/10 p-3">
+                    <div className="mb-2 flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-cyan-100">
+                      <span>Standart İlan Pazarlık Masası</span>
+                      <span>Özel</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="rounded-lg border border-cyan-500/25 bg-slate-950/70 p-2">
+                        <p className="text-slate-500">İlan fiyatı</p>
+                        <p className="mt-1 text-sm font-bold text-white">₺{liveBid.toLocaleString("tr-TR")}</p>
+                      </div>
+                      <div className="rounded-lg border border-cyan-500/25 bg-slate-950/70 p-2">
+                        <p className="text-slate-500">Satıcı limit bandı</p>
+                        <p className="mt-1 text-sm font-bold text-cyan-100">
+                          ₺{standardFloorTry.toLocaleString("tr-TR")} - ₺{standardCeilingTry.toLocaleString("tr-TR")}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-[11px] text-slate-300">
+                      Standart ilanda teklifler özeldir: alıcı yalnızca kendi teklifini görür, satıcı tüm teklifleri görür. Vitrin fiyatı değişmez.
+                    </p>
+                    {isLightVerificationFlow ? (
+                      <p className="mt-2 text-[11px] text-cyan-100">
+                        Kademeli güvence: bu mod teminatsızdır; KYC + mülk doğrulama zorunludur. Hukuki süreç {EXPERT_APPROVAL_PENDING_NOTE.toLocaleLowerCase("tr-TR")}
+                      </p>
+                    ) : null}
+                    <div className="mt-3 space-y-1.5">
+                      {visibleStandardOffers.slice(0, 4).map((offer) => (
+                        <div key={offer.id} className="rounded-md border border-slate-800 bg-slate-950/60 px-2 py-1.5 text-xs">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-semibold text-slate-200">{offer.bidderMask}</span>
+                            <span className="font-bold text-white">₺{offer.amountTry.toLocaleString("tr-TR")}</span>
+                          </div>
+                          <p className="mt-0.5 text-[11px] text-slate-400">
+                            {offer.status === "pending"
+                              ? "Satıcı değerlendirmesinde"
+                              : offer.status === "accepted"
+                                ? "Kabul edildi"
+                                : offer.status === "rejected"
+                                  ? "Reddedildi"
+                                  : `Karşı teklif: ₺${(offer.counterAmountTry ?? 0).toLocaleString("tr-TR")}`}
+                          </p>
+                          {offer.status === "pending" && isStandardSeller ? (
+                            <div className="mt-2 flex flex-wrap gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => applyStandardDecision(offer.id, "accepted")}
+                                className="rounded border border-emerald-400/40 bg-emerald-500/10 px-2 py-1 text-[11px] text-emerald-200"
+                              >
+                                Kabul
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => applyStandardDecision(offer.id, "rejected")}
+                                className="rounded border border-rose-400/40 bg-rose-500/10 px-2 py-1 text-[11px] text-rose-200"
+                              >
+                                Ret
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => applyStandardDecision(offer.id, "countered")}
+                                className="rounded border border-amber-400/40 bg-amber-500/10 px-2 py-1 text-[11px] text-amber-200"
+                              >
+                                Karşı teklif
+                              </button>
+                            </div>
+                          ) : null}
+                        </div>
+                      ))}
+                      {visibleStandardOffers.length === 0 ? (
+                        <p className="text-[11px] text-slate-500">
+                          {user ? "Görüntülenecek özel teklif yok." : "Özel teklifleri görmek için giriş yapın."}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                 ) : null}
@@ -1548,7 +2213,7 @@ export default function AuctionDetail() {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between"><span className="text-slate-400">Alıcı komisyonu</span><span className="text-slate-300 font-medium">₺{buyerTotals.commission.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">Alıcı KDV</span><span className="text-slate-300 font-medium">₺{buyerTotals.vatOnCommission.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Tapu Harci (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-medium">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Tapu Harci (%{(runtimeTax.deedDutyRate * 100).toFixed(0)})</span><span className="text-slate-300 font-medium">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">Döner Sermaye</span><span className="text-slate-300 font-medium">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
                     <div className="border-t border-slate-200/80 pt-2 flex justify-between font-semibold"><span className="text-teal-400">Alıcı toplam öder</span><span className="text-teal-400">₺{closing.total.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between text-xs"><span className="text-slate-500">Satıcı komisyon + KDV</span><span className="text-slate-400">₺{(sellerTotals.commission + sellerTotals.vatOnCommission).toLocaleString("tr-TR")}</span></div>
@@ -1556,7 +2221,41 @@ export default function AuctionDetail() {
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-600 leading-relaxed px-0.5">{FEE_TEXTS.commissionMatrahLine()}</p>
+                <p className="text-[10px] text-amber-200/90 leading-relaxed px-0.5">
+                  Vergi notu: satış kazancınız vergiye tabi olabilir, mali müşavire danışın. 2026 referansı: kira istisnası ₺
+                  {runtimeTax.rentalExemptionTry2026.toLocaleString("tr-TR")}, 5 yıl+ satış istisnası {runtimeTax.saleTaxFreeAfterYears} yıl,
+                  yeniden değerleme %{Math.round(runtimeTax.revaluationRate2026 * 100)} (mali müşavir onayı bekliyor).
+                </p>
                 <button onClick={() => navigate("/ihale-kosullari")} className="text-xs text-slate-500 hover:text-teal-400 transition-colors flex items-center gap-1"><Percent className="w-3 h-3" /> Komisyon yapısını detaylı incele</button>
+              </CardContent>
+            </Card>
+
+            <Card className={`bg-slate-900/50 border-slate-200/80 transition-all duration-700 delay-450 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <CardContent className="p-5 space-y-4">
+                <div>
+                  <h4 className="text-sm font-semibold text-white">Hızlı Hesaplayıcılar</h4>
+                  <p className="text-xs text-slate-400 mt-1">İlan detayından araçlara tek tık geçiş (demo).</p>
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                  <Button type="button" size="sm" variant="outline" className="justify-start border-slate-700 text-slate-200" onClick={() => navigate("/komisyon-hesaplayici")}>
+                    <Calculator className="w-3.5 h-3.5 mr-2" /> Komisyon hesaplayıcı
+                  </Button>
+                  <Button type="button" size="sm" variant="outline" className="justify-start border-slate-700 text-slate-200" onClick={() => navigate("/araclar/vergi-simulator")}>
+                    <Receipt className="w-3.5 h-3.5 mr-2" /> Vergi simülatörü
+                  </Button>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-white">Sponsorlu İçerik Alanı</h4>
+                  <div className="mt-2 space-y-2">
+                    {detailSponsored.map((item) => (
+                      <Link key={`sticky-${item.id}`} to={`/ilan/${item.id}`} className="block rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-2 text-xs text-slate-200 hover:border-amber-400/40">
+                        <p className="font-semibold text-amber-100">{item.title}</p>
+                        <p className="text-slate-500">{item.city} · {item.district}</p>
+                      </Link>
+                    ))}
+                  </div>
+                  <p className="mt-2 text-[10px] text-slate-500">{SPONSORED_DISCLOSURE}</p>
+                </div>
               </CardContent>
             </Card>
 
@@ -1569,16 +2268,221 @@ export default function AuctionDetail() {
                   <h4 className="text-sm font-semibold text-white">Güven ve Uyum Göstergeleri</h4>
                 </div>
                 <div className="space-y-2 text-xs text-slate-300">
-                  <div className="flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-2 py-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0" /> KYC doğrulama: teklif öncesi zorunlu adım.</div>
-                  <div className="flex items-center gap-2 rounded-lg border border-sky-500/20 bg-sky-500/10 px-2 py-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-sky-300 shrink-0" /> Güvenli ödeme: PSP bağlantısında 3D Secure + blokaj modeli.</div>
-                  <div className="flex items-center gap-2 rounded-lg border border-violet-500/20 bg-violet-500/10 px-2 py-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-violet-300 shrink-0" /> Yasal uyum: sözleşme, MASAK/AML ve kayıt zinciri politikası.</div>
+                  <div className="flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-2 py-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                    KYC + mülk sahipliği doğrulama: sahte ilanı önleme katmanı.
+                  </div>
+                  <div className="flex items-center gap-2 rounded-lg border border-sky-500/20 bg-sky-500/10 px-2 py-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-sky-300 shrink-0" />
+                    Kademeli model: standart ilanda teminatsız/doğrulamalı, borsada çift taraflı teminat.
+                  </div>
+                  <div className="flex items-center gap-2 rounded-lg border border-violet-500/20 bg-violet-500/10 px-2 py-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-violet-300 shrink-0" />
+                    Simetri: alıcı cayarsa teminat riski, satıcı cayarsa satıcı güvencesi devreye girer (mock).
+                  </div>
+                  <div className="rounded-lg border border-amber-500/25 bg-amber-500/10 px-2 py-1.5 text-amber-100">
+                    {PSP_FLOW_DISCLAIMER} · {EXPERT_APPROVAL_PENDING_NOTE}
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-[11px]">
+                    <div className="rounded-md border border-slate-700 bg-slate-950/70 px-2 py-1.5">
+                      <p className="text-slate-400">Alıcı teminatı</p>
+                      <p className={buyerGuaranteeMissing ? "font-semibold text-amber-200" : "font-semibold text-emerald-300"}>
+                        {isAuctionCollateralFlow ? (depositId ? "Hazır" : "Bekliyor") : "Gerekmiyor"}
+                      </p>
+                    </div>
+                    <div className="rounded-md border border-slate-700 bg-slate-950/70 px-2 py-1.5">
+                      <p className="text-slate-400">Satıcı güvencesi</p>
+                      <p className={sellerGuaranteeMissing ? "font-semibold text-amber-200" : "font-semibold text-emerald-300"}>
+                        {isAuctionCollateralFlow ? (sellerDepositId ? "Hazır" : "Bekliyor") : "Gerekmiyor"}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <p className="text-[10px] text-slate-500 mt-3">Not: nihai hukuki statü, sözleşme paketleri ve avukat incelemesiyle kesinleşir.</p>
               </CardContent>
             </Card>
+
+            <Card className={`mt-4 bg-slate-900/50 border-slate-200/80 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <CardContent className="p-5 space-y-3">
+                <div className="flex items-center gap-2">
+                  <Landmark className="w-4 h-4 text-cyan-300" />
+                  <h4 className="text-sm font-semibold text-white">Escrow & Float Yönetimi (mock)</h4>
+                </div>
+                <p className="text-xs text-cyan-100">{PSP_FLOW_DISCLAIMER}</p>
+                <div className="grid gap-2 text-[11px] md:grid-cols-2">
+                  <div className="rounded-lg border border-slate-700 bg-slate-950/70 px-2 py-2">
+                    <p className="text-slate-400">Bekleyen escrow float</p>
+                    <p className="font-semibold text-cyan-200">₺{pendingEscrowFloatTry.toLocaleString("tr-TR")}</p>
+                    <p className="mt-1 text-[10px] text-slate-500">Platform bakiyesinde tutulmaz; lisanslı PSP emanet hesabında izlenir.</p>
+                  </div>
+                  <div className="rounded-lg border border-slate-700 bg-slate-950/70 px-2 py-2">
+                    <p className="text-slate-400">Tapu devri sonrası serbest bırakma</p>
+                    <p className="font-semibold text-emerald-200">
+                      {demoBuyNowWon ? "Onaylandı: satıcıya net ödeme + komisyon kesintisi" : "Tapu devri onayı bekliyor"}
+                    </p>
+                    <p className="mt-1 text-[10px] text-slate-500">
+                      Devir onayıyla satıcı ödemesi tetiklenir; komisyon kalemi eşzamanlı mahsup edilir (mock akış).
+                    </p>
+                  </div>
+                </div>
+                <div className="rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-[11px] text-amber-100">
+                  İade prensibi: "geldiği yoldan geri" ({refundReferenceMethod}) + KYC eşleşme kontrolü (AML). Kaybeden teminat iadesi hedefi 24-48 saat, kusursuz öncelikli.
+                </div>
+                <div className="rounded-lg border border-violet-500/25 bg-violet-500/10 px-3 py-2 text-[11px] text-violet-100">
+                  Mağdur %2 tazminat: gider pusulası referansı <strong>{compensationReceiptRef}</strong>, PSP dekontu ve doğrulanmış hesaba transfer (mükellef olmayan için gider pusulası akışı).
+                </div>
+                <p className="text-[10px] text-slate-500">{EXPERT_APPROVAL_PENDING_NOTE}</p>
+              </CardContent>
+            </Card>
+
+            {isRent ? (
+              <Card className={`mt-4 bg-slate-900/50 border-slate-200/80 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                <CardContent className="p-5 space-y-3">
+                  <h4 className="text-sm font-semibold text-white">Kiralama Koruma Akışı (kiraya veren + kiralayan)</h4>
+                  <p className="text-xs text-slate-300">
+                    Kira sözleşmesi, depozito escrow (lisanslı PSP), bir aylık kira komisyonu ve ödeme takibi iki tarafı birlikte koruyacak şekilde tasarlanır (mock).
+                  </p>
+                  <ul className="space-y-1 text-[11px] text-slate-300">
+                    <li>• Depozito emanet: platform parayı tutmaz, lisanslı escrow/PSP hesabında bloke kalır.</li>
+                    <li>• Komisyon: kiralama başarıyla tamamlandığında 1 aylık kira + KDV referansı.</li>
+                    <li>• Ödeme takibi: kiraya veren/kiralayan için gecikme, tahsilat ve iade adımları kayıtlı ilerler.</li>
+                    <li>• İki taraf koruması: sözleşme ihlali ve depozito ihtilafında kayıt/kanıt akışı.</li>
+                  </ul>
+                  <p className="text-[11px] text-amber-200">
+                    Kira istisnası 2026 referansı: ₺{runtimeTax.rentalExemptionTry2026.toLocaleString("tr-TR")} (mali müşavir teyidi gerekir).
+                  </p>
+                </CardContent>
+              </Card>
+            ) : null}
+
+            {isDevrenFlow ? (
+              <Card className={`mt-4 bg-slate-900/50 border-slate-200/80 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                <CardContent className="p-5 space-y-3">
+                  <h4 className="text-sm font-semibold text-white">Devren İşletme Koruma Akışı (devreden + devralan)</h4>
+                  <p className="text-xs text-slate-300">
+                    Devir sözleşmesi taslağı; ciro, kira, devir bedeli, ekipman/çalışan devri ve mevcut sözleşmelerin maddeli kontrolü ile iki tarafı korur (mock).
+                  </p>
+                  <ul className="space-y-1 text-[11px] text-slate-300">
+                    <li>• Finansal paket: ciro-kira-devir bedeli doğrulama + belge eşleştirme.</li>
+                    <li>• Varlık devri: ekipman listesi, personel geçişi, marka/franchise hakları kontrolü.</li>
+                    <li>• Sözleşme devri: kira sözleşmesi ve tedarik sözleşmelerinin devre uygunluk incelemesi.</li>
+                    <li>• İki taraf koruması: gizli borç/haciz/sözleşme feshi risklerine karşı beyan + kayıt katmanı.</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            ) : null}
           </div>
         </div>
       </div>
+
+      <Dialog open={securityDialogOpen} onOpenChange={setSecurityDialogOpen}>
+        <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">
+              {securityStage === "summary" ? "2 aşamalı güvenli onay" : "Şifre + OTP doğrulama"}
+            </DialogTitle>
+          </DialogHeader>
+          {securityAction ? (
+            <div className="space-y-3">
+              {securityStage === "summary" ? (
+                <>
+                  <div className="rounded-xl border border-cyan-400/30 bg-cyan-500/10 p-3 text-sm text-cyan-100">
+                    {securityAction.listingTitle} mülküne <strong>₺{securityAction.amountTry.toLocaleString("tr-TR")}</strong>{" "}
+                    {securityAction.type === "buy_now" ? "Hemen Al" : "teklif"} işlemi başlatılıyor.
+                  </div>
+                  <p className="text-xs text-amber-100">
+                    Cayma durumunda sözleşme taslağındaki %{(WITHDRAWAL_PENALTY_RATE * 100).toFixed(0)} ceza kuralı uygulanır.
+                    {newDeviceRisk ? " Yeni cihaz algılandı; ek doğrulama zorunlu." : ""}
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    İşlem sonrası SMS + e-posta teyitleri otomatik gönderilir (mock). {EXPERT_APPROVAL_PENDING_NOTE}
+                  </p>
+                  <p className="text-[11px] text-cyan-100">
+                    Bu adımda vereceğiniz "okudum, anladım, kabul ediyorum" onayı zaman damgası ile kayıt altına alınır (mock audit kaydı).
+                  </p>
+                  <p className="text-[11px] text-slate-300">
+                    Sözleşme/teklif verileri maskeleme ve erişim politikası ile korunur; reklam verenler kullanıcı verisine erişemez (RLS/rol bazlı taslak).
+                  </p>
+                </>
+              ) : (
+                <>
+                  <Input
+                    type="password"
+                    value={txPassword}
+                    onChange={(e) => setTxPassword(e.target.value)}
+                    className="bg-slate-950 border-slate-200 text-white"
+                    placeholder="İşlem şifresi (veya PIN)"
+                  />
+                  <Input
+                    inputMode="numeric"
+                    value={txPin}
+                    onChange={(e) => setTxPin(e.target.value)}
+                    className="bg-slate-950 border-slate-200 text-white"
+                    placeholder="PIN (min 4 hane)"
+                  />
+                  <Input
+                    inputMode="numeric"
+                    value={txOtp}
+                    onChange={(e) => setTxOtp(e.target.value)}
+                    className="bg-slate-950 border-slate-200 text-white"
+                    placeholder="OTP/SMS kodu (6 hane)"
+                  />
+                  {newDeviceRisk ? (
+                    <Input
+                      inputMode="numeric"
+                      value={txRiskOtp}
+                      onChange={(e) => setTxRiskOtp(e.target.value)}
+                      className="bg-slate-950 border-amber-400/40 text-white"
+                      placeholder="Yeni cihaz ek doğrulama kodu (6 hane)"
+                    />
+                  ) : null}
+                  <label className="flex items-start gap-2 text-xs text-slate-300 cursor-pointer">
+                    <Checkbox checked={txBiometricAck} onCheckedChange={(c) => setTxBiometricAck(c === true)} className="mt-0.5" />
+                    <span>Mobil biyometrik/yüz doğrulama adımını tamamladım (mock).</span>
+                  </label>
+                  <label className="flex items-start gap-2 text-xs text-slate-300 cursor-pointer">
+                    <Checkbox checked={txNotifyAck} onCheckedChange={(c) => setTxNotifyAck(c === true)} className="mt-0.5" />
+                    <span>Bu işlem için SMS + e-posta teyitlerinin gönderileceğini kabul ediyorum.</span>
+                  </label>
+                  <label className="flex items-start gap-2 text-xs text-slate-300 cursor-pointer">
+                    <Checkbox checked={txInformedConsentAck} onCheckedChange={(c) => setTxInformedConsentAck(c === true)} className="mt-0.5" />
+                    <span>Okudum, anladım, kabul ediyorum (bilgilendirilmiş onay).</span>
+                  </label>
+                  {user?.email ? (
+                    <label className="flex items-start gap-2 text-xs text-slate-300 cursor-pointer">
+                      <Checkbox checked={txEsignAck} onCheckedChange={(c) => setTxEsignAck(c === true)} className="mt-0.5" />
+                      <span>E-imza/e-onay: {user.email} adresiyle elektronik onayı veriyorum.</span>
+                    </label>
+                  ) : null}
+                </>
+              )}
+            </div>
+          ) : null}
+          <DialogFooter className="gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-white/15 text-slate-200"
+              onClick={() => {
+                setSecurityDialogOpen(false);
+                resetSecurityInputs();
+                pendingSecureActionRef.current = null;
+              }}
+            >
+              Vazgeç
+            </Button>
+            {securityStage === "summary" ? (
+              <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setSecurityStage("verify")}>
+                Onayla ve doğrulamaya geç
+              </Button>
+            ) : (
+              <Button type="button" className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white" onClick={() => void confirmSecurityStep()}>
+                Şifre + OTP ile işlemi tamamla
+              </Button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog
         open={showBidDialog}
@@ -1589,7 +2493,9 @@ export default function AuctionDetail() {
       >
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-lg max-h-[min(90vh,640px)] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">{isSealedOffer ? "Kapalı teklif ver" : isAuctionMode ? "Teklif ver" : "Teklif"}</DialogTitle>
+            <DialogTitle className="text-xl font-bold">
+              {isListingOnly ? "Özel teklif ver" : isSealedOffer ? "Kapalı teklif ver" : isAuctionMode ? "Teklif ver" : "Teklif"}
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
             <p className="text-[10px] text-amber-200/90 leading-relaxed rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2">
@@ -1601,12 +2507,17 @@ export default function AuctionDetail() {
             <div className="p-3 rounded-xl bg-white/5">
               <p className="text-sm text-slate-400">{auction.title}</p>
               <p className="text-lg font-bold text-blue-400 mt-1">₺{liveBid.toLocaleString("tr-TR")}</p>
+              {isListingOnly ? (
+                <p className="mt-1 text-[11px] text-cyan-100">
+                  Standart ilan fiyatı sabit: özel teklif aralığı ₺{standardFloorTry.toLocaleString("tr-TR")} - ₺{standardCeilingTry.toLocaleString("tr-TR")}
+                </p>
+              ) : null}
             </div>
             <div className="p-3 rounded-xl bg-teal-500/5 border border-teal-500/10">
               <p className="text-xs text-slate-400 mb-1">Tahmini Toplam Maliyet (Komisyon + Harçlar Dahil)</p>
               <p className="text-sm font-bold text-teal-400">₺{estimateBuyerClosingCosts(liveBid).total.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-500 mt-1">
-                Alıcı platform: fees.ts · tapu %{(DEED_DUTY_RATE * 100).toFixed(0)} + sabit masraf (demo)
+                Alıcı platform: fees.ts · tapu %{(runtimeTax.deedDutyRate * 100).toFixed(0)} + sabit masraf (demo)
               </p>
             </div>
             <div className="grid grid-cols-5 gap-2">
@@ -1628,7 +2539,7 @@ export default function AuctionDetail() {
                 <button
                   key={inc}
                   type="button"
-                  onClick={() => setBidAmount(String(liveBid + inc))}
+                  onClick={() => setBidAmount(String((isListingOnly ? standardFloorTry : liveBid) + inc))}
                   className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-semibold text-white transition-colors"
                 >
                   +₺{(inc / 1000).toFixed(0)}K
@@ -1648,8 +2559,43 @@ export default function AuctionDetail() {
                 placeholder="örn: 3000000 veya 3.000.000"
               />
             </div>
-            {!isListingOnly ? (
+            {isAuctionMode ? (
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-[11px] leading-relaxed text-amber-100">
+                <p>
+                  Teklifiniz için kartınızda{" "}
+                  <strong className="text-amber-50">₺{(Math.round(liveBid * bidPreAuthRate * 100) / 100).toLocaleString("tr-TR")}</strong>{" "}
+                  (teminat %{(bidPreAuthRate * 100).toFixed(0)}) bloke edilecektir.
+                </p>
+                <p className="mt-1">
+                  Bu tutar <strong>çekilmez</strong>, yalnızca rezerve edilir. Kazanırsanız ödemeye sayılır; kazanmazsanız blokaj çözülür.
+                </p>
+                <p className="mt-1 text-[10px] text-amber-200/90">
+                  {EXPERT_APPROVAL_PENDING_NOTE} · demo ön yetki simülasyonu.
+                </p>
+                {user && reportApproved && !depositId ? (
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    className="mt-2 h-8 bg-amber-500/20 text-amber-50 hover:bg-amber-500/30"
+                    onClick={() => setPreAuthOpen(true)}
+                  >
+                    Kart blokesini şimdi başlat
+                  </Button>
+                ) : null}
+              </div>
+            ) : null}
+            {isAuctionMode ? (
               <div className="space-y-3 rounded-xl border border-slate-200 bg-black/20 p-3">
+                <div className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-2 text-[11px] text-cyan-100">
+                  <p className="font-semibold">Teklif süreç kuralları (özet)</p>
+                  <ul className="mt-1.5 space-y-1 leading-snug text-cyan-50/90">
+                    <li>• Borsa modunda teklif geri alınamaz; geçerlilik ihale sonuna kadardır.</li>
+                    <li>• Standart modda teklif kabul öncesi geri alınabilir; kabul sonrası çekme cezası uygulanır.</li>
+                    <li>• Fiyat değişimi: borsada açılış sonrası sabit; standartta düşürme serbest, aktif teklif varken yükseltme kısıtlıdır.</li>
+                    <li>• Kazanan ödeme süresi 3 iş günü; süresi geçen işlemlerde cayma/teminat süreci devreye girer.</li>
+                  </ul>
+                </div>
                 <p className="text-xs font-semibold text-white">Zorunlu onaylar</p>
                 <div className="space-y-3">
                   {BID_GATE_CHECKBOXES.map((row) => (
@@ -1678,7 +2624,25 @@ export default function AuctionDetail() {
                   ))}
                 </div>
               </div>
-            ) : null}
+            ) : (
+              <div className="space-y-3 rounded-xl border border-slate-200 bg-black/20 p-3">
+                <p className="text-xs font-semibold text-white">Teklif süreç kuralları</p>
+                <ul className="space-y-1 text-[11px] leading-snug text-slate-300">
+                  <li>Standart teklif kabul öncesi geri alınabilir; kabul sonrası çekme cezası devreye girer.</li>
+                  <li>Standart teklif geçerlilik süresi 48 saat, karşı teklif geçerlilik süresi 24 saattir.</li>
+                  <li>Standart modda satıcı fiyat düşürebilir; aktif teklif varken fiyat yükseltme kısıtlıdır.</li>
+                  <li>İşlem tamamlanmadan haksız çekilme, ilgili ceza/tazmin akışını tetikler (demo kural seti).</li>
+                </ul>
+                <label className="flex gap-3 text-left text-[11px] text-slate-300 leading-snug cursor-pointer">
+                  <Checkbox
+                    checked={standardRulesAccepted}
+                    onCheckedChange={(v) => setStandardRulesAccepted(v === true)}
+                    className="mt-0.5 border-white/25 data-[state=checked]:bg-blue-600"
+                  />
+                  <span>Bu kuralları okudum ve kabul ediyorum.</span>
+                </label>
+              </div>
+            )}
           </div>
           <DialogFooter className="flex-col sm:flex-row gap-2 sm:justify-end">
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setShowBidDialog(false)}>
@@ -1686,12 +2650,24 @@ export default function AuctionDetail() {
             </Button>
             <Button
               type="button"
-              disabled={bidBusy || (!isListingOnly && !isBidGateComplete(bidGateAck))}
-              title={!isListingOnly && !isBidGateComplete(bidGateAck) ? "Tüm onay kutularını işaretleyin" : undefined}
+              disabled={bidBusy || (isAuctionMode && !isBidGateComplete(bidGateAck)) || (!isAuctionMode && !standardRulesAccepted)}
+              title={
+                isAuctionMode && !isBidGateComplete(bidGateAck)
+                  ? "Tüm onay kutularını işaretleyin"
+                  : !isAuctionMode && !standardRulesAccepted
+                    ? "Standart teklif kurallarını onaylayın"
+                    : undefined
+              }
               onClick={() => void handleBid()}
               className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold disabled:opacity-40"
             >
-              {bidBusy ? "Gönderiliyor..." : isSealedOffer ? "Kapalı teklifi gönder" : "Teklif Ver"}
+              {bidBusy
+                ? "Gönderiliyor..."
+                : isListingOnly
+                  ? "Özel teklifi gönder"
+                  : isSealedOffer
+                    ? "Kapalı teklifi gönder"
+                    : "Teklif Ver"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1760,14 +2736,26 @@ export default function AuctionDetail() {
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
             <p>
-              Blokaj tutarı: <strong className="text-white">₺{(Math.round(liveBid * 0.015 * 100) / 100).toLocaleString("tr-TR")}</strong> (taban ₺
-              {liveBid.toLocaleString("tr-TR")} üzerinden %1,5).
+              Teklifiniz için kartınızda{" "}
+              <strong className="text-white">₺{(Math.round(liveBid * bidPreAuthRate * 100) / 100).toLocaleString("tr-TR")}</strong>{" "}
+              (teminat %{(bidPreAuthRate * 100).toFixed(0)}) bloke edilecektir.
             </p>
-            <p>Kazanırsanız kaparo / teminat akışına işlenmesi hedeflenir (Ürün koşulları taslak).</p>
+            <p>Bu tutar çekilmez, yalnızca rezerve edilir. Kazanırsanız ödemeye sayılır; kazanmazsanız blokaj çözülür.</p>
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
-              Gerçek kart ödemesi yok; şu an demo ön yetki simülasyonu. PSP (iyzico vb.) bağlanınca canlı moda geçilir.
+              Gerçek kart tahsilatı yok; demo pre-auth simülasyonu çalışır. {EXPERT_APPROVAL_PENDING_NOTE}
             </p>
-            <p>Cayarsanız yaklaşık %10 kesinti ve kalanın iadesi hedeflenir — detay için cayma politikası.</p>
+            <p className="text-[11px] text-slate-300">
+              İade "geldiği yoldan geri" kuralıyla aynı kart/IBAN kanalına yönlenir; KYC eşleşmesi olmadan çıkış yapılmaz (AML taslağı).
+            </p>
+            <p>
+              Cayma cezası taslağı: toplam %{(WITHDRAWAL_PENALTY_RATE * 100).toFixed(0)} (₺{totalPenaltyTry.toLocaleString("tr-TR")}) —
+              mağdur tarafa %{(VICTIM_COMPENSATION_RATE * 100).toFixed(0)} tazminat (₺{victimCompensationTry.toLocaleString("tr-TR")}),
+              platforma %{(PLATFORM_PENALTY_RATE * 100).toFixed(0)} + KDV (₺{platformPenaltyTry.toLocaleString("tr-TR")} + ₺{platformPenaltyVatTry.toLocaleString("tr-TR")}).
+            </p>
+            <p className="text-[11px] text-slate-400">
+              Float görünümü yalnızca panelde raporlanır; fonlar platform hesabına geçmeden lisanslı escrow/PSP tarafında bekler.
+            </p>
+            <p className="text-[11px] text-amber-200/90">{EXPERT_APPROVAL_PENDING_NOTE}</p>
             <div>
               <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
               <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="test-ok veya test-fail" />
@@ -1779,6 +2767,40 @@ export default function AuctionDetail() {
             </Button>
             <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" disabled={preAuthBusy} onClick={() => void runPreAuth()}>
               {preAuthBusy ? "İşleniyor..." : "Ön yetkilendir"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={preAuthSellerOpen} onOpenChange={setPreAuthSellerOpen}>
+        <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">Satıcı güvencesi (simetrik, mock)</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 text-sm text-slate-300">
+            <p>
+              Satıcı cayma riskine karşı güvence tutarı:{" "}
+              <strong className="text-white">₺{(Math.round(liveBid * 0.01 * 100) / 100).toLocaleString("tr-TR")}</strong>
+              {" "}(%1,0 referans).
+            </p>
+            <p>{PSP_FLOW_DISCLAIMER}</p>
+            <p className="text-[11px] text-slate-300">
+              Satıcı sözleşmeden haksız dönerse satıcı güvencesi irat sürecine girer; mağdur alıcıya tazminat, öncelikli iade ve ek zarar talebi kanalı açılır (mock akış).
+            </p>
+            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
+              {EXPERT_APPROVAL_PENDING_NOTE}
+            </p>
+            <div>
+              <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
+              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="test-ok veya test-fail" />
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setPreAuthSellerOpen(false)}>
+              Vazgeç
+            </Button>
+            <Button type="button" className="bg-gradient-to-r from-violet-600 to-cyan-500 text-white" disabled={preAuthBusy} onClick={() => void runSellerPreAuth()}>
+              {preAuthBusy ? "İşleniyor..." : "Satıcı güvencesini kaydet"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1824,19 +2846,26 @@ export default function AuctionDetail() {
             <div className="space-y-3 border-t border-slate-200 pt-3">
               <label className="flex items-start gap-2 cursor-pointer text-xs">
                 <Checkbox checked={buyNowAcceptContracts} onCheckedChange={(c) => setBuyNowAcceptContracts(c === true)} className="mt-0.5" />
-                <span>Yukaridaki sözlesme ve kosullar baglantilarini inceledim; satilik Hemen Al&apos;in araci satis akisi oldugunu anliyorum.</span>
+                <span>Yukarıdaki sözleşme ve koşul bağlantılarını inceledim; satılık Hemen Al&apos;ın aracı satış akışı olduğunu anlıyorum.</span>
               </label>
               <label className="flex items-start gap-2 cursor-pointer text-xs">
                 <Checkbox checked={buyNowAcceptMasak} onCheckedChange={(c) => setBuyNowAcceptMasak(c === true)} className="mt-0.5" />
-                <span>MASAK / KYC ve supheli islem prosedurune uygun veri islenmesini kabul ediyorum.</span>
+                <span>MASAK / KYC ve şüpheli işlem prosedürüne uygun veri işlenmesini kabul ediyorum.</span>
               </label>
               <label className="flex items-start gap-2 cursor-pointer text-xs">
                 <Checkbox checked={buyNowAcceptCard} onCheckedChange={(c) => setBuyNowAcceptCard(c === true)} className="mt-0.5" />
-                <span>Kart blokesi ve PSP kurallarini (3D Secure, capture) okudum.</span>
+                <span>Kart blokesi ve PSP kurallarını (3D Secure, capture) okudum.</span>
               </label>
               <label className="flex items-start gap-2 cursor-pointer text-xs">
                 <Checkbox checked={buyNowAcceptModule3} onCheckedChange={(c) => setBuyNowAcceptModule3(c === true)} className="mt-0.5" />
-                <span>Hemen Al ihlal / kotuye kullanim uyarilarini okudum.</span>
+                <span>Hemen Al ihlal / kötüye kullanım uyarılarını okudum.</span>
+              </label>
+              <label className="flex items-start gap-2 cursor-pointer text-xs">
+                <Checkbox checked={buyNowAcceptPenaltyPolicy} onCheckedChange={(c) => setBuyNowAcceptPenaltyPolicy(c === true)} className="mt-0.5" />
+                <span>
+                  Cayma-ceza ve süre tablosunu işlem öncesi gördüm: %{(WITHDRAWAL_PENALTY_RATE * 100).toFixed(0)} ceza dağılımı (%2 mağdur, %3+KDV platform),
+                  kazanan 3 iş günü, yedek alıcılar 3’er iş günü.
+                </span>
               </label>
             </div>
             <pre className="text-[10px] text-slate-500 whitespace-pre-wrap max-h-32 overflow-y-auto rounded border border-slate-200 p-2 bg-black/30">
@@ -1850,7 +2879,7 @@ export default function AuctionDetail() {
             <Button
               type="button"
               className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white"
-              disabled={!(buyNowAcceptContracts && buyNowAcceptMasak && buyNowAcceptCard && buyNowAcceptModule3)}
+                disabled={!(buyNowAcceptContracts && buyNowAcceptMasak && buyNowAcceptCard && buyNowAcceptModule3 && buyNowAcceptPenaltyPolicy)}
               onClick={() => {
                 setHemenAlGateOpen(false);
                 setPreAuthBuyNowOpen(true);
@@ -1883,6 +2912,9 @@ export default function AuctionDetail() {
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
               Gercek odeme baglaninca 3D Secure zorunlu olur; simdi demo token ile on yetki simule edilir.
             </p>
+            <p className="text-[11px] text-slate-300">
+              Kaybeden veya kusursuz iptal iadesi aynı kart/IBAN kanalına 24-48 saat hedefiyle döner; doğrulanmamış hesaba iade yapılmaz (AML/KYC).
+            </p>
             <div>
               <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
               <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="test-ok veya test-fail" />
@@ -1893,7 +2925,7 @@ export default function AuctionDetail() {
               Vazgec
             </Button>
             <Button type="button" className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white" disabled={preAuthBusy} onClick={() => void runPreAuthBuyNow()}>
-              {preAuthBusy ? "İşleniyor..." : "Blokaji baslat"}
+              {preAuthBusy ? "İşleniyor..." : "Blokajı başlat"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1902,7 +2934,7 @@ export default function AuctionDetail() {
       <Dialog open={showBuyNowConfirm} onOpenChange={setShowBuyNowConfirm}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">Hemen Al — islemi tamamla</DialogTitle>
+            <DialogTitle className="text-xl font-bold">Hemen Al — işlemi tamamla</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
             <p>

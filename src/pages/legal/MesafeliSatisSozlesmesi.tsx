@@ -2,7 +2,7 @@ export default function MesafeliSatisSozlesmesi() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded text-xs text-amber-800 dark:text-amber-200">
-        Bu metin taslaktır; yürürlük öncesi hukuki danışman onayı gerekir.
+        Bu metin profesyonel taslaktır; yürürlük öncesi hukuki danışman onayı gerekir.
       </div>
       <h1 className="text-3xl font-bold mb-6">Mesafeli Satış Sözleşmesi</h1>
       <div className="prose dark:prose-invert max-w-none">
@@ -18,10 +18,13 @@ export default function MesafeliSatisSozlesmesi() {
           İşbu sözleşme, platform üzerinden yürütülen gayrimenkul ticaret ve açık artırma süreçlerinde dijital aracılık hizmetinin genel
           koşullarını düzenler. Platform sermaye piyasası kurumu veya SPK&apos;ya tabi yatırım borsası değildir.
         </p>
-        <h2>3. Sözleşme Kurulumu ve Ön Bilgilendirme</h2>
+        <h2>3. Sözleşme Kurulumu ve Bilgilendirilmiş Onay</h2>
         <p>
           Kullanıcı, işlem adımına geçmeden önce sözleşme metinlerini, ihale katılım koşullarını, ödeme/teminat açıklamalarını ve KVKK
-          metinlerini elektronik ortamda görür. Onay kutuları işaretlenmeden işlem tamamlanamaz.
+          metinlerini elektronik ortamda görür. &quot;Okudum, anladım, kabul ediyorum&quot; onayı işaretlenmeden işlem tamamlanamaz.
+        </p>
+        <p>
+          Onay kayıtları işlem zamanı, kullanıcı kimliği ve işlem türüyle birlikte zaman damgası olarak saklanır (taslak/mock kayıt akışı).
         </p>
         <h2>4. Cayma Hakkı</h2>
         <p>
@@ -37,24 +40,33 @@ export default function MesafeliSatisSozlesmesi() {
           <li>Teminat iadesi/mahsup kuralları ilgili işlem koşullarına göre uygulanır.</li>
           <li>Tapu devri ve resmi devir işlemleri yetkili kurumlar üzerinden yürütülür.</li>
           <li>Platform, taraflar arası evrak ve adım takibinde dijital kayıt tutar.</li>
+          <li>Platform kendi nezdinde para tutmaz; tahsilat lisanslı ödeme kuruluşu katmanından yürür.</li>
         </ul>
-        <h2>6. Bilgilendirme Notu</h2>
+        <h2>6. Gizlilik ve Veri Koruma</h2>
+        <p>
+          Sözleşme ve teklif bilgileri yetkisiz üçüncü kişilere açılmaz; kişisel veriler maskeleme, erişim kontrolü ve kayıt politikaları ile
+          korunur. Reklam verenler işlem/sözleşme detaylarına erişemez.
+        </p>
+        <h2>7. Bilgilendirme Notu</h2>
         <p>
           Platform ekranlarında yer alan skor, sinyal, endeks, değerleme ve simülasyon içerikleri genel bilgilendirme amaçlıdır;
           yatırım, hukuk veya vergi tavsiyesi/danışmanlığı değildir.
         </p>
-        <h2>7. Aykırılık ve Sorumluluk</h2>
+        <h2>8. Aykırılık ve Sorumluluk</h2>
         <p>
           Sahte belge, yanıltıcı beyan, teklif manipülasyonu veya sözleşme ihlali durumlarında işlem askıya alınabilir, hesap kısıtlanabilir
           ve ilgili yasal süreçler başlatılabilir.
         </p>
-        <h2>8. Demo Modu</h2>
+        <h2>9. Demo Modu</h2>
         <p>
           Demo ortamında işlem kayıtları test amaçlıdır ve gerçek sözleşme/ödeme/devir etkisi doğurmaz. Bu dönemde görülen içerikler nihai
           ticari teklif olarak yorumlanmamalıdır.
         </p>
-        <h2>9. Uyuşmazlık</h2>
+        <h2>10. Uyuşmazlık</h2>
         <p>Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir.</p>
+        <p className="text-sm text-amber-700 dark:text-amber-300">
+          Yürürlük öncesi hukuki danışman onayı gerekir; metin &quot;uzman onayı bekliyor&quot; statüsündedir.
+        </p>
         <p className="text-sm text-gray-500 mt-8">Son güncelleme: 30 Nisan 2026</p>
       </div>
     </div>

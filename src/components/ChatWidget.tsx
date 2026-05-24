@@ -32,6 +32,7 @@ import { invokeSystemQa, type SystemQaTurn } from "@/lib/systemQaClient";
 import { getAllProperties } from "@/lib/demo-data";
 import { getPropertyPrice, getPropertyTitle } from "@/types/property";
 import { getEarthquakeScore } from "@/lib/scoring/getEarthquakeScore";
+import { PLATFORM_CONSISTENCY_RULES } from "@/data/platformConsistencyRules";
 
 const ASSISTANT_NAME = "İhaleAI Asistan";
 
@@ -73,6 +74,7 @@ const BIDDING_RULES_REPLY = [
   "• Son saniyede verilen teklifte süre uzatılıp uzatılmayacağı ilan / ihale koşullarında yazar.",
   "• Teminat, üyelik ve ödeme adımları ilan ile yasal metinlere tabidir (demo ortamda kayıtlar sınırlı olabilir).",
   "• Sahte veya oyun amaçlı teklif yasaktır; tespitte hesap kısıtı ve sözleşmedeki yaptırımlar geçerlidir (hedef).",
+  `• Sistem kuralı: ${PLATFORM_CONSISTENCY_RULES[0]?.detail}`,
   "",
   "Ayrıntılı anlatım: /nasil-calisir?yol=alici — yasal çerçeve: /ihale-kosullari — canlı örnek ilanlar: /ihaleler (şehir filtreleri).",
 ].join("\n");
@@ -131,6 +133,10 @@ const AI_RULES: { keys: string[]; reply: string }[] = [
       "platformu atla",
     ],
     reply: INTEGRITY_BYPASS_REPLY,
+  },
+  {
+    keys: ["insan destek", "canli destek", "müşteri temsilcisi", "musteri temsilcisi", "agent support"],
+    reply: "İsterseniz insan desteğe aktaralım: /destek. Ödeme/ceza/sözleşme konularında nihai teyit için destek ve uzman onayı önerilir.",
   },
   {
     keys: ["merhaba", "selam", "hey", "günaydın"],
@@ -687,6 +693,15 @@ export function ChatWidget() {
                 >
                   <Shield className="w-3 h-3" aria-hidden />
                   Platform çerçevesi
+                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                </Link>
+                <Link
+                  to="/destek"
+                  className="inline-flex items-center gap-1 text-[11px] text-amber-300/90 hover:text-amber-200 px-1 py-0.5"
+                  onClick={() => setOpen(false)}
+                >
+                  <HelpCircle className="w-3 h-3" aria-hidden />
+                  İnsan destek
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </Link>
               </div>

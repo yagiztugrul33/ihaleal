@@ -1,0 +1,52 @@
+{
+  "at": "2026-05-24T06:27:40.043Z",
+  "passCount": 3,
+  "warningCount": 6,
+  "scenarios": [
+    {
+      "id": "buyer-withdrawal-penalty",
+      "status": "warning",
+      "evidence": "Cayma cezası ve dağılımı sözleşme kutuları + fee sabitleri kontrol edildi."
+    },
+    {
+      "id": "backup-buyer-flow",
+      "status": "pass",
+      "evidence": "Yedek alıcı metni ve sıralama görünürlüğü kontrol edildi."
+    },
+    {
+      "id": "seller-withdrawal-compensation",
+      "status": "warning",
+      "evidence": "Satıcı cayma tazminat metni kontrol edildi."
+    },
+    {
+      "id": "unauthorized-transaction-prevention",
+      "status": "warning",
+      "evidence": "Yetkisiz işlem önleme (şifre/PIN/OTP + oturum uyarısı) kontrol edildi."
+    },
+    {
+      "id": "refund-back-to-source",
+      "status": "warning",
+      "evidence": "İade akışında geldiği yoldan geri prensibi kontrol edildi."
+    },
+    {
+      "id": "race-condition-and-anti-sniping",
+      "status": "pass",
+      "evidence": "Eş zamanlı teklif riskine karşı anti-sniping sabitleri kontrol edildi."
+    },
+    {
+      "id": "escrow-disclaimer",
+      "status": "warning",
+      "evidence": "Escrow ve platform para tutmaz beyanları kontrol edildi."
+    },
+    {
+      "id": "tcmb-multi-currency",
+      "status": "pass",
+      "evidence": "Parametrik vergi ve çoklu para görünürlük bağlantıları kontrol edildi."
+    },
+    {
+      "id": "privacy-third-party-sharing",
+      "status": "warning",
+      "evidence": "KVKK/gizlilik sayfalarında üçüncü taraf paylaşım sınırları kontrol edildi."
+    }
+  ]
+}

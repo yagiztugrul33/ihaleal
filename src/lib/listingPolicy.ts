@@ -16,9 +16,9 @@ export const MARKETING_MODE_LABELS: Record<
   { badge: string; headline: string; hint: string }
 > = {
   listing_only: {
-    badge: "Sadece ilan",
-    headline: "Yalnız ilan yayını",
-    hint: "Fiyat ilanda görünür; doğrudan alıcı–satıcı hattı yok. Talepler ihaleal.com üzerinden (RE/MAX ofis kartındaki danışman adı gibi kartta platform adı).",
+    badge: "Standart ilan",
+    headline: "Standart ilan (sabit fiyat + özel teklif)",
+    hint: "İlan fiyatı vitrin referansıdır; teklifler özel gider, satıcı alt/üst limit bandında kabul-ret-karşı teklif yönetir. Fiyat bandı değişse bile kart fiyatı satıcı güncellemesi olmadan değişmez.",
   },
   sealed_offers: {
     badge: "Teklif al",
@@ -26,9 +26,9 @@ export const MARKETING_MODE_LABELS: Record<
     hint: "Teklifler kayıt altında; kimlik bilgileri ilanda yer almaz. Kabul sonrası sözleşme ve evrak platform çizgisinde (hedef).",
   },
   auction: {
-    badge: "İhale",
-    headline: "Açık artırma",
-    hint: "Teklifler sıralı ve kurallı; sahte veya keyfi teklif için hesap kısıtı ve cezai şartlar sözleşmede (hedef).",
+    badge: "Borsa",
+    headline: "Borsa (açık artırma)",
+    hint: "Teklifler görünür ve yükselir; canlı derinlik paneli kamuya açık akışla ilerler. Sahte veya keyfi teklif için hesap kısıtı ve cezai şartlar sözleşmede (hedef).",
   },
 };
 

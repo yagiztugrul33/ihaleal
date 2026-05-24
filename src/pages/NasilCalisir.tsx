@@ -1,4 +1,4 @@
-﻿import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/marketing/PageShell";
@@ -88,6 +88,32 @@ export default function NasilCalisir() {
         </p>
       </section>
 
+      <section className="mb-10 grid gap-4 md:grid-cols-3">
+        {[
+          {
+            title: "1) Keşfet ve karşılaştır",
+            body: "İlanları filtrele, risk/gelir dengesini gör, favori ve karşılaştırma listeni oluştur.",
+          },
+          {
+            title: "2) Teklifini güvenle ver",
+            body: "Şartname, onay ve teminat adımlarını tamamla; kurallar tek ekranda şeffaf görünür.",
+          },
+          {
+            title: "3) Kapanışa ilerle",
+            body: "Kazanan akışta sözleşme, ödeme ve devir adımları adım adım izlenir.",
+          },
+        ].map((step) => (
+          <article key={step.title} className="card-warm">
+            <h3 className="text-base font-bold" style={{ color: "var(--color-text)" }}>
+              {step.title}
+            </h3>
+            <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              {step.body}
+            </p>
+          </article>
+        ))}
+      </section>
+
       <NasilCalisirVideoSection />
 
       <section className="py-8 rounded-2xl border px-4 md:px-6 mb-10" style={{ borderColor: "var(--color-border)", background: "var(--color-bg-soft)" }}>
@@ -128,22 +154,28 @@ export default function NasilCalisir() {
         <h2 className="text-lg font-bold mb-3" style={{ color: "var(--color-text)" }}>
           Alıcı ve satıcı için süreç nasıl ilerler?
         </h2>
-        <div className="space-y-4 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-          <p>
-            Alıcı tarafında akış; ilan keşfi, doküman inceleme, teklif ve kapanış adımlarına ayrılır. Her adımda kullanıcıya hangi
-            belgenin eksik olduğu, hangi onayın zorunlu olduğu ve bir sonraki adıma nasıl geçileceği açıkça gösterilir. Böylece
-            teklif verirken belirsizlik azalır ve işlem sırasında son dakika sürprizleri en aza iner.
-          </p>
-          <p>
-            Satıcı tarafında odak; doğru fiyat bandını belirlemek, talepleri filtrelemek ve teklifleri şeffaf bir kuralla yönetmektir.
-            Listeleme sonrası gelen talepler tek panelde toplanır, uygun adaylar hızla ayrıştırılır, kabul/ret kararları ise kayıt altına
-            alınır. Bu yapı hem bireysel satıcı hem de kurumsal ekipler için tekrar edilebilir bir satış disiplini sağlar.
-          </p>
-          <p>
-            Komisyon, teminat ve ücret başlıkları işlem başlamadan önce görünür olur: satışta %{(FEES.sellerCommissionRate * 100).toFixed(0)} + %{(FEES.buyerCommissionRate * 100).toFixed(0)} + KDV, kiralıkta
-            1 kira bedeli + KDV referansı; teminat tarafında ise {formatBidBondPercent()} bid bond bandı esas alınır. Nihai oranlar
-            her zaman ilan sözleşmesiyle kesinleşir; bu sayfa operasyonel çerçeveyi anlaşılır kılmak için hazırlanmıştır.
-          </p>
+        <div className="grid gap-4 md:grid-cols-3 text-sm" style={{ color: "var(--color-text-muted)" }}>
+          <article className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+            <h3 className="font-semibold mb-2" style={{ color: "var(--color-text)" }}>Alıcı akışı</h3>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Keşfet, belgeyi doğrula, teklif ver.</li>
+              <li>Eksik adımlar panelde açıkça gösterilir.</li>
+            </ul>
+          </article>
+          <article className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+            <h3 className="font-semibold mb-2" style={{ color: "var(--color-text)" }}>Satıcı akışı</h3>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Doğru fiyat bandını belirle.</li>
+              <li>Talepleri filtrele, kararları kayıt altına al.</li>
+            </ul>
+          </article>
+          <article className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+            <h3 className="font-semibold mb-2" style={{ color: "var(--color-text)" }}>Ücret şeffaflığı</h3>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Satış referansı: %{(FEES.sellerCommissionRate * 100).toFixed(0)} + %{(FEES.buyerCommissionRate * 100).toFixed(0)} + KDV.</li>
+              <li>Teminat referansı: {formatBidBondPercent()} bid bond.</li>
+            </ul>
+          </article>
         </div>
       </section>
 

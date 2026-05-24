@@ -1,9 +1,10 @@
 ﻿import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, Factory } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { BrandLockup } from "@/components/Logo";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
@@ -71,22 +72,20 @@ export default function Register() {
   return (
     <div className="min-h-screen pt-24 pb-16 flex items-center justify-center" data-demo="true">
       <div className="w-full max-w-md px-4">
-        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
+        <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-6 gap-2 text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        <Card className="border-border bg-card">
           <CardContent className="p-6 space-y-5">
             <div className="text-center mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                {kurumsalProfil === "emlakçı" ? (
-                  <Building2 className="w-6 h-6 text-white" />
-                ) : kurumsalProfil === "muteahhit" ? (
-                  <Factory className="w-6 h-6 text-white" />
-                ) : (
-                  <UserPlus className="w-6 h-6 text-white" />
-                )}
+              <div className="mb-4 flex justify-center">
+                <BrandLockup
+                  logoSize="lg"
+                  showSlogan
+                  sloganClassName="text-[10px] tracking-[0.2em] text-amber-200/90"
+                />
               </div>
-              <h1 className="text-2xl font-bold text-white">
+              <h1 className="text-2xl font-bold text-foreground">
                 {kurumsalProfil === "emlakçı"
                   ? "Kurumsal / emlakçı kaydı"
                   : kurumsalProfil === "muteahhit"
@@ -114,11 +113,11 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Ad Soyad</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="border-border bg-secondary pl-10 text-foreground placeholder:text-muted-foreground"
                     placeholder="Ali Veli"
                     autoComplete="name"
                   />
@@ -127,12 +126,12 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="border-border bg-secondary pl-10 text-foreground placeholder:text-muted-foreground"
                     placeholder="ornek@mail.com"
                     autoComplete="email"
                   />
@@ -141,11 +140,11 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Telefon (isteğe bağlı)</label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="border-border bg-secondary pl-10 text-foreground placeholder:text-muted-foreground"
                     placeholder="5XX XXX XX XX"
                     autoComplete="tel"
                   />
@@ -154,12 +153,12 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Şifre</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="border-border bg-secondary pl-10 pr-10 text-foreground placeholder:text-muted-foreground"
                     placeholder="En az 6 karakter"
                     autoComplete="new-password"
                   />
@@ -167,7 +166,7 @@ export default function Register() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Şifreyi gizle" : "Şifreyi göster"}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -176,12 +175,12 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Şifre tekrar</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     type={showPassword ? "text" : "password"}
                     value={passwordConfirm}
                     onChange={(e) => setPasswordConfirm(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="border-border bg-secondary pl-10 text-foreground placeholder:text-muted-foreground"
                     placeholder="Şifreyi tekrarla"
                     autoComplete="new-password"
                   />

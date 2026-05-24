@@ -56,15 +56,27 @@ export default function CampaignsPage() {
   return (
     <div className="min-h-screen bg-slate-950 px-4 pb-16 pt-24 text-slate-100 lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
-        <section className="rounded-2xl border border-fuchsia-400/25 bg-slate-900/70 p-5">
+        <section className="rounded-2xl border border-fuchsia-400/25 bg-gradient-to-r from-fuchsia-500/15 via-cyan-500/10 to-blue-500/10 p-5">
           <p className="text-xs uppercase tracking-[0.16em] text-fuchsia-300">Kampanyalar</p>
-          <h1 className="mt-1 text-3xl font-black text-white">Promosyon Merkezi</h1>
+          <h1 className="mt-1 text-3xl font-black text-white">Promosyon & Kampanya Merkezi</h1>
           <p className="mt-2 text-sm text-slate-300">
-            Kampanya/ödül içerikleri demo ve temsili amaçlıdır; canlı ortamda ayrı hukuki metin ve ticari şartlar geçerlidir.
+            Aktif fırsatları tek ekranda görün, süresi bitmeden aksiyon alın. Kampanya içerikleri demo/temsili olup canlı koşullar sözleşme ile kesinleşir.
           </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {[
+              { k: "Aktif Kampanya", v: String(campaigns.length) },
+              { k: "En Yakın Bitiş", v: remainText(campaigns[1]?.endAt ?? campaigns[0].endAt, now) },
+              { k: "Hedef", v: "Daha hızlı dönüşüm" },
+            ].map((metric) => (
+              <article key={metric.k} className="rounded-xl border border-white/15 bg-slate-900/60 p-3">
+                <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400">{metric.k}</p>
+                <p className="mt-1 text-base font-bold text-white">{metric.v}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
-        <section className="rounded-2xl border border-cyan-400/20 bg-slate-900/60 p-4">
+        <section className="rounded-2xl border border-cyan-400/25 bg-cyan-500/10 p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="inline-flex items-center gap-2 text-lg font-bold">
               <Megaphone className="h-5 w-5 text-cyan-300" />
@@ -77,19 +89,26 @@ export default function CampaignsPage() {
           </div>
           <h3 className="mt-2 text-xl font-bold text-white">{highlighted.title}</h3>
           <p className="mt-1 text-sm text-slate-300">{highlighted.subtitle}</p>
+          <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-slate-200">
+            <li>Koşulları başvuru öncesi kart detayından okuyun.</li>
+            <li>Kampanya kombinasyonu ilan ve kullanıcı tipine göre değişebilir.</li>
+          </ul>
           <div className="mt-3 flex flex-wrap gap-2">
-            <Link to="/oduller" className="rounded-lg border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-100">
+            <Link to="/oduller" className="rounded-lg border border-cyan-300/60 bg-cyan-400/20 px-3 py-2 text-xs font-semibold text-cyan-100">
               Ödül merkezine git
             </Link>
-            <Link to="/ihaleler" className="rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-xs font-semibold text-slate-200">
+            <Link to="/ihaleler" className="rounded-lg border border-slate-500 bg-slate-950 px-3 py-2 text-xs font-semibold text-slate-100">
               İhaleleri incele
+            </Link>
+            <Link to="/fiyatlandirma" className="rounded-lg border border-fuchsia-300/50 bg-fuchsia-500/10 px-3 py-2 text-xs font-semibold text-fuchsia-100">
+              Planları karşılaştır
             </Link>
           </div>
         </section>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {campaigns.map((campaign) => (
-            <article key={campaign.id} className="rounded-xl border border-slate-700/80 bg-slate-900/60 p-4">
+            <article key={campaign.id} className="rounded-xl border border-slate-600/80 bg-gradient-to-b from-slate-900/80 to-slate-950/70 p-4 transition-transform duration-300 hover:-translate-y-1 hover:border-cyan-400/40">
               <p className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-300">
                 <Gift className="h-4 w-4" />
                 Demo Campaign

@@ -33,7 +33,7 @@ const MOCK_PORTFOLIO: PortfolioAsset[] = [
 ];
 
 const ACTIONS = [
-  { key: "yeniden_ihale", label: "Yeniden İhale", icon: Gavel, mode: "auction" },
+  { key: "yeniden_ihale", label: "Borsaya Koy", icon: Gavel, mode: "auction" },
   { key: "sabit_satis", label: "Sabit Satış", icon: HandCoins, mode: "fixed" },
   { key: "kiraya_ver", label: "Kiraya Ver", icon: Building2, mode: "rent" },
   { key: "takasa_ac", label: "Takasa Aç", icon: ArrowLeftRight, mode: "trade-in" },
@@ -47,12 +47,12 @@ export default function BorsaPortfolioPage() {
   const pnlPct = totalPurchase > 0 ? (pnl / totalPurchase) * 100 : 0;
 
   return (
-    <main className="min-h-screen bg-slate-950 px-4 py-8 text-slate-100">
-      <div className="mx-auto w-full max-w-6xl space-y-5">
-        <header className="rounded-2xl border border-slate-700/70 bg-slate-900/65 p-5">
+    <main className="min-h-screen bg-background px-4 py-8 text-foreground lg:px-8 2xl:px-12">
+      <div className="mx-auto w-full max-w-7xl space-y-5">
+        <header className="app-section app-premium-gradient">
           <p className="text-xs uppercase tracking-[0.16em] text-cyan-200">Borsa Portföy</p>
-          <h1 className="mt-1 text-2xl font-black text-white">Varlık Döngüsü ve Portföy Yönetimi</h1>
-          <p className="mt-2 text-sm text-slate-300">
+          <h1 className="mt-1 text-2xl font-black text-foreground">Varlık Döngüsü ve Portföy Yönetimi</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
             Portföydeki fiziksel taşınmaz varlıklarınızı yeniden ihale, sabit satış, kiralama, takas ve devren akışlarına ön dolu olarak
             yönlendirebilirsiniz.
           </p>
@@ -63,15 +63,15 @@ export default function BorsaPortfolioPage() {
         </header>
 
         <section className="grid gap-3 sm:grid-cols-3">
-          <article className="rounded-xl border border-slate-700/70 bg-slate-900/70 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Portföy Alış</p>
-            <p className="mt-1 text-2xl font-black text-white">{formatTry(totalPurchase)}</p>
+          <article className="app-kpi hover-premium">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Portföy Alış</p>
+            <p className="mt-1 text-2xl font-black text-foreground">{formatTry(totalPurchase)}</p>
           </article>
-          <article className="rounded-xl border border-slate-700/70 bg-slate-900/70 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Güncel Değer</p>
-            <p className="mt-1 text-2xl font-black text-white">{formatTry(totalCurrent)}</p>
+          <article className="app-kpi hover-premium">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Güncel Değer</p>
+            <p className="mt-1 text-2xl font-black text-foreground">{formatTry(totalCurrent)}</p>
           </article>
-          <article className="rounded-xl border border-slate-700/70 bg-slate-900/70 p-4">
+          <article className="app-kpi hover-premium">
             <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">K/Z</p>
             <p className={`mt-1 text-2xl font-black ${pnl >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
               {pnl >= 0 ? "+" : ""}
@@ -90,11 +90,11 @@ export default function BorsaPortfolioPage() {
             });
 
             return (
-              <article key={asset.id} className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-4">
+              <article key={asset.id} className="app-section hover-premium">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <h2 className="text-lg font-bold text-white">{asset.title}</h2>
-                    <p className="text-sm text-slate-400">{asset.location}</p>
+                    <h2 className="text-lg font-bold text-foreground">{asset.title}</h2>
+                    <p className="text-sm text-muted-foreground">{asset.location}</p>
                   </div>
                   <Link
                     to={`/ilan/${asset.id}`}
@@ -111,22 +111,25 @@ export default function BorsaPortfolioPage() {
                       <Link
                         key={action.key}
                         to={`/ihale-ac?source=portfoy&asset=${asset.id}&mode=${action.mode}`}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-600 bg-slate-950/70 px-2 py-2 text-xs font-semibold text-slate-200 hover:border-cyan-400/60 hover:text-cyan-100"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-secondary px-2 py-2 text-xs font-semibold text-muted-foreground hover:border-cyan-400/60 hover:text-cyan-100"
                       >
                         <Icon className="h-3.5 w-3.5" /> {action.label}
                       </Link>
                     );
                   })}
                 </div>
+                <p className="mt-2 text-xs text-slate-400">
+                  Tek mod kuralı: <strong className="text-slate-200">Borsaya Koy</strong> seçildiğinde bu varlık standart akıştan çıkar ve yalnızca açık artırma fiyatı görünür.
+                </p>
 
                 <div className="mt-4 grid gap-3 lg:grid-cols-3">
-                  <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-3 text-sm">
-                    <p className="mb-1 flex items-center gap-1 font-semibold text-white">
+                  <div className="rounded-lg border border-border bg-secondary/80 p-3 text-sm">
+                    <p className="mb-1 flex items-center gap-1 font-semibold text-foreground">
                       <Percent className="h-3.5 w-3.5 text-cyan-300" /> Vergi Ön Hesap
                     </p>
-                    <p className="text-slate-300">Elde tutma: {tax.yearsHeld.toFixed(1)} yıl</p>
-                    <p className="text-slate-300">Tapu harcı (%4): {formatTry(tax.titleDeedFeeTry)}</p>
-                    <p className="text-slate-300">Değer artışı vergisi (tahmini): {formatTry(tax.estimatedValueGainTaxTry)}</p>
+                    <p className="text-muted-foreground">Elde tutma: {tax.yearsHeld.toFixed(1)} yıl</p>
+                    <p className="text-muted-foreground">Tapu harcı (%4): {formatTry(tax.titleDeedFeeTry)}</p>
+                    <p className="text-muted-foreground">Değer artışı vergisi (tahmini): {formatTry(tax.estimatedValueGainTaxTry)}</p>
                     <p className="mt-1 text-[11px] text-amber-200">Not: Mali müşavire danışın.</p>
                   </div>
                   <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-3 text-sm">
@@ -155,7 +158,7 @@ export default function BorsaPortfolioPage() {
           })}
         </section>
 
-        <section className="rounded-xl border border-slate-700/70 bg-slate-900/70 p-4">
+        <section className="app-section">
           <p className="mb-1 flex items-center gap-2 text-sm font-semibold text-white">
             <BadgePercent className="h-4 w-4 text-cyan-300" /> Fraksiyonel / Paylı Mülkiyet
           </p>

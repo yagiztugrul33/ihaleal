@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, User, Building2, HardHat, LogIn, UserPlus,
   Eye, EyeOff, Mail, Lock, Phone, MapPin, FileText,
-  ShieldCheck, CheckCircle2, AlertTriangle, Home
+  CheckCircle2, AlertTriangle, Home
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { AccountSegment } from "@/lib/auth";
 import { persistLocalSessionUser } from "@/lib/localSession";
+import { BrandLockup } from "@/components/Logo";
 
 const userTypes: { id: AccountSegment; label: string; icon: ReactNode; desc: string; badge: string }[] = [
   { id: "individual", label: "Bireysel Kullanıcı", icon: <User className="w-5 h-5" />, desc: "Mülk arayan, kiralayan veya satın alan kullanıcı", badge: "Alıcı / Kiracı" },
@@ -124,10 +125,14 @@ export function EmlakciGiris() {
           className="glass rounded-2xl p-6 sm:p-8 border border-slate-200"
         >
           <div className="text-center mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/20">
-              <ShieldCheck className="w-7 h-7 text-white" />
+            <div className="mb-4 flex justify-center">
+              <BrandLockup
+                logoSize="lg"
+                showSlogan
+                sloganClassName="text-[10px] tracking-[0.2em] text-amber-200/90"
+              />
             </div>
-            <h1 className="text-2xl font-bold text-white">İhaleAL Giriş / Kayıt</h1>
+            <h1 className="text-2xl font-bold text-white">Giriş / Kayıt</h1>
             <p className="text-sm text-slate-400 mt-1">Hesap tipinizi seçin ve giriş yapın veya yeni hesap oluşturun</p>
           </div>
 

@@ -65,6 +65,13 @@ function formatTry(value: number): string {
   return `₺${Math.round(value).toLocaleString("tr-TR")}`;
 }
 
+function maskOrderBookAlias(code: string, level: number): string {
+  const seed = `${code}${level}`.replace(/[^a-zA-Z]/g, "").toLowerCase();
+  const first = (seed[0] ?? "a").toUpperCase();
+  const last = seed[seed.length - 1] ?? "z";
+  return `${first}***${last}`;
+}
+
 function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: string }) {
   const data = points.map((v, i) => ({ i, v }));
   return (
@@ -124,6 +131,17 @@ export default function BorsaPage() {
   const [ruleMaxBid, setRuleMaxBid] = useState("");
   const [ruleStep, setRuleStep] = useState("50000");
   const [selectedBookAssetId, setSelectedBookAssetId] = useState("");
+  const [myBidDraft, setMyBidDraft] = useState("");
+  const [myBidsByAsset, setMyBidsByAsset] = useState<Record<string, number>>(() => {
+    try {
+      const raw = localStorage.getItem("borsa_my_bid_by_asset");
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? (parsed as Record<string, number>) : {};
+    } catch {
+      return {};
+    }
+  });
   const prevRef = useRef<MarketAsset[] | null>(null);
 
   useEffect(() => {
@@ -137,6 +155,10 @@ export default function BorsaPage() {
   useEffect(() => {
     localStorage.setItem("borsa_auto_bid_rules", JSON.stringify(autoBidRules));
   }, [autoBidRules]);
+
+  useEffect(() => {
+    localStorage.setItem("borsa_my_bid_by_asset", JSON.stringify(myBidsByAsset));
+  }, [myBidsByAsset]);
 
   useEffect(() => {
     setHistoryMap((prev) => {
@@ -294,13 +316,31 @@ export default function BorsaPage() {
         askPrice,
         bidVolume,
         askVolume,
-        bidderMask,
+        bidderMask: maskOrderBookAlias(selectedBookAsset.code, idx + 1),
       };
     });
   }, [selectedBookAsset]);
+  const myOrderBid = selectedBookAsset ? myBidsByAsset[selectedBookAsset.id] ?? null : null;
+  const myOrderRank = selectedBookAsset && myOrderBid
+    ? Math.max(1, orderBookLevels.filter((level) => level.bidPrice > myOrderBid).length + 1)
+    : null;
+  const myOrderStatus =
+    selectedBookAsset && myOrderBid
+      ? myOrderBid >= (orderBookLevels[0]?.bidPrice ?? selectedBookAsset.price)
+        ? "kazanıyorsun"
+        : "geçildin"
+      : null;
 
   const toggleWatchlist = (assetId: string) => {
     setWatchlistIds((prev) => (prev.includes(assetId) ? prev.filter((id) => id !== assetId) : [...prev, assetId]));
+  };
+
+  const submitMyOrderBid = () => {
+    if (!selectedBookAsset) return;
+    const normalized = Number(myBidDraft.replace(/[^\d]/g, ""));
+    if (!Number.isFinite(normalized) || normalized <= 0) return;
+    setMyBidsByAsset((prev) => ({ ...prev, [selectedBookAsset.id]: normalized }));
+    setMyBidDraft("");
   };
 
   const createPriceAlert = () => {
@@ -338,16 +378,23 @@ export default function BorsaPage() {
 
   return (
     <div className="borsa-root text-slate-100">
-      <header className="sticky top-0 z-40 border-b border-slate-700/60 bg-slate-950/95 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between gap-3 px-4 py-3 lg:px-6">
-          <div className="flex items-center gap-3">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-xl">
+        <div className="flex w-full flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between lg:px-8 2xl:px-12">
+          <div className="flex min-w-0 items-center gap-3">
             <Logo size="lg" />
-            <div className="leading-tight">
+            <div className="min-w-0 leading-tight">
               <p className="text-sm font-black tracking-[0.08em] text-[#E9C56A]">GAYRİMENKUL BORSASI</p>
               <p className="text-xs text-slate-400">gayrimenkul ticaret ve açık artırma platformu</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-wrap items-center justify-start gap-2 sm:w-auto sm:justify-end">
+            <Button
+              type="button"
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
+              onClick={() => navigate("/giris")}
+            >
+              Borsaya Gir
+            </Button>
             <ShareButton
               title="İhaleal Borsa Terminali"
               url="/borsa"
@@ -369,13 +416,13 @@ export default function BorsaPage() {
             </Button>
           </div>
         </div>
-        <div className="mx-auto flex w-full max-w-[1600px] items-center gap-2 px-4 pb-3 lg:px-6">
+        <div className="flex w-full items-center gap-2 overflow-x-auto px-4 pb-3 lg:px-8 2xl:px-12">
           {TERMINAL_TABS.map((tab) => (
             <button
               key={tab.id}
               type="button"
               className={cn(
-                "borsa-nav-tab rounded-md border px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em]",
+                "borsa-nav-tab shrink-0 whitespace-nowrap rounded-md border px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em]",
                 activeTab === tab.id ? "border-cyan-400/70 bg-cyan-500/15 text-cyan-200" : "border-slate-700 bg-slate-900/70 text-slate-400",
               )}
               disabled={tab.disabled}
@@ -395,7 +442,7 @@ export default function BorsaPage() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-[1600px] space-y-4 px-4 py-4 lg:px-6">
+      <main className="w-full space-y-4 px-4 py-4 lg:px-8 2xl:px-12">
         <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-3 py-2.5 text-[11px] leading-relaxed text-amber-100">
           <p>{PLATFORM_LEGAL_DEFINITION}</p>
           <p className="mt-1">{MASTER_INFO_DISCLAIMER}</p>
@@ -449,8 +496,8 @@ export default function BorsaPage() {
           ))}
         </section>
 
-        <section className={cn("grid gap-4 xl:grid-cols-3", activeTab !== "piyasa" && "hidden")}>
-          <div className="space-y-4 xl:col-span-2">
+        <section className={cn("grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(320px,1fr)]", activeTab !== "piyasa" && "hidden")}>
+          <div className="min-w-0 space-y-4">
             <article className="borsa-card rounded-xl p-3">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Varlık Tablosu</h3>
@@ -479,7 +526,7 @@ export default function BorsaPage() {
                 ))}
               </div>
               <div className="overflow-x-auto">
-                <table className="min-w-[760px] w-full text-sm">
+                <table className="pro-table min-w-[760px] w-full text-sm">
                   <thead className="text-left text-[11px] uppercase tracking-[0.12em] text-slate-400">
                     <tr>
                       <th className="pb-2 pr-3">Kod</th>
@@ -547,7 +594,7 @@ export default function BorsaPage() {
             </article>
           </div>
 
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <article className="borsa-card rounded-xl p-3">
               <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Isı Haritası</h3>
               <div className="grid gap-2 sm:grid-cols-2">
@@ -610,6 +657,32 @@ export default function BorsaPage() {
                 <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Order Book (Maskeli)</h3>
                 <span className="text-[11px] text-slate-300">{selectedBookAsset?.code ?? "—"}</span>
               </div>
+              <div className="mb-3 rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2 text-xs">
+                <p className="text-cyan-100">
+                  Kendi teklifin:
+                  {myOrderBid ? ` ${formatTry(myOrderBid)} · ${myOrderRank ?? "-"}. sıradasın` : " henüz yok"}
+                </p>
+                <p className={cn("mt-1", myOrderStatus === "kazanıyorsun" ? "text-emerald-200" : "text-amber-200")}>
+                  {myOrderStatus
+                    ? `${myOrderStatus} · ${watchers.toLocaleString("tr-TR")} kişi izliyor`
+                    : `Teklif ver, sıranı canlı takip et · ${watchers.toLocaleString("tr-TR")} kişi izliyor`}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <input
+                    value={myBidDraft}
+                    onChange={(e) => setMyBidDraft(e.target.value)}
+                    placeholder="Kendi teklifin (₺)"
+                    className="min-w-[10rem] flex-1 rounded-md border border-cyan-400/40 bg-secondary px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground"
+                  />
+                  <button
+                    type="button"
+                    onClick={submitMyOrderBid}
+                    className="rounded-md border border-cyan-400/60 bg-cyan-500/20 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-100"
+                  >
+                    Teklifimi Kaydet
+                  </button>
+                </div>
+              </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
                   <thead className="text-left uppercase tracking-[0.1em] text-slate-300">
@@ -637,7 +710,7 @@ export default function BorsaPage() {
                 </table>
               </div>
               <p className="mt-2 text-[11px] text-slate-300">
-                Gizlilik gereği kullanıcı kimlikleri maskeleme ile gösterilir; ekran simülasyon amaçlıdır.
+                Gizlilik gereği kullanıcı kimlikleri maskelidir (`A***z`). Açık artırmada order book görünür; pazarlık modunda teklifler özel kalır.
               </p>
             </article>
           </div>
@@ -681,7 +754,7 @@ export default function BorsaPage() {
               <select
                 value={selectedAssetId}
                 onChange={(e) => setSelectedAssetId(e.target.value)}
-                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100"
+                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
                 {data.map((row) => (
                   <option key={row.id} value={row.id}>
@@ -692,7 +765,7 @@ export default function BorsaPage() {
               <select
                 value={alertDirection}
                 onChange={(e) => setAlertDirection(e.target.value as AlertDirection)}
-                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100"
+                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
                 <option value="above">Üzeri</option>
                 <option value="below">Altı</option>
@@ -701,7 +774,7 @@ export default function BorsaPage() {
                 value={alertTarget}
                 onChange={(e) => setAlertTarget(e.target.value)}
                 placeholder="Hedef fiyat (₺)"
-                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100 placeholder:text-slate-500 sm:col-span-2"
+                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground sm:col-span-2"
               />
               <button
                 type="button"
@@ -742,7 +815,7 @@ export default function BorsaPage() {
               <select
                 value={selectedAssetId}
                 onChange={(e) => setSelectedAssetId(e.target.value)}
-                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100"
+                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
                 {data.map((row) => (
                   <option key={row.id} value={row.id}>
@@ -754,13 +827,13 @@ export default function BorsaPage() {
                 value={ruleMaxBid}
                 onChange={(e) => setRuleMaxBid(e.target.value)}
                 placeholder="Maks teklif (₺)"
-                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100 placeholder:text-slate-500"
+                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground"
               />
               <input
                 value={ruleStep}
                 onChange={(e) => setRuleStep(e.target.value)}
                 placeholder="Artış adımı (₺)"
-                className="rounded-md border border-slate-700 bg-slate-950/70 px-2.5 py-2 text-sm text-slate-100 placeholder:text-slate-500"
+                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground"
               />
               <button
                 type="button"
@@ -820,8 +893,8 @@ export default function BorsaPage() {
           </article>
         </section>
       </main>
-      <footer className="border-t border-slate-700/60 bg-slate-950/90 px-4 py-3 text-[11px] text-slate-300 lg:px-6">
-        <div className="mx-auto w-full max-w-[1600px] space-y-1">
+      <footer className="border-t border-border bg-card px-4 py-3 text-[11px] text-muted-foreground lg:px-6">
+        <div className="w-full space-y-1 px-0 lg:px-2 2xl:px-4">
           <p>{PLATFORM_LEGAL_DEFINITION}</p>
           <p>{PSP_FLOW_DISCLAIMER}</p>
         </div>

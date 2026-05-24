@@ -19,6 +19,18 @@ export default function IBuyerPage() {
           <h1 className="mt-3 text-3xl md:text-4xl font-bold">Anında Nakit Teklif</h1>
           <p className="mt-2 text-slate-400 max-w-2xl">{ibuyerSubtitle}</p>
         </div>
+        <section className="mb-6 grid gap-3 sm:grid-cols-3">
+          {[
+            { title: "Hızlı", desc: "Başvurunu birkaç dakikada tamamla." },
+            { title: "Şeffaf", desc: "Fiyat bandı ve risk notunu birlikte gör." },
+            { title: "Kontrollü", desc: "Nihai adım öncesi hukuki doğrulama al." },
+          ].map((item) => (
+            <article key={item.title} className="rounded-xl border border-cyan-400/25 bg-cyan-500/10 p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">{item.title}</p>
+              <p className="mt-1 text-sm text-slate-200">{item.desc}</p>
+            </article>
+          ))}
+        </section>
         <p className="mb-6 flex items-center gap-2 text-sm text-slate-500">
           <RefreshCw className="h-4 w-4" />
           Hukuki risk matrisi ile 72 saat geçerli teklif
@@ -27,19 +39,15 @@ export default function IBuyerPage() {
           <p>{IBUYER_DISCLAIMER}</p>
           <p className="mt-1">{MASTER_INFO_DISCLAIMER}</p>
         </div>
-        <div className="mb-8 space-y-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-relaxed text-slate-300">
-          <p>
-            iBuyer akışı, mülkünü hızlı nakde çevirmek isteyen kullanıcı için operasyonu sadeleştirir. Klasik yöntemde günler süren
-            ön görüşme, belge toplama ve teklif turu tek bir başvuru hattına indirilir; kullanıcı hangi adımda olduğunu anlık takip eder.
-          </p>
-          <p>
-            Sistem değerleme, risk sinyali ve likidite parametrelerini birlikte yorumlar. Amaç en yüksek rakamı vaat etmek değil;
-            sürdürülebilir ve kapanışa gidebilir bir teklif bandı üretmektir. Bu nedenle başvuru sonucunda verilen teklif, hukuki ve
-            operasyonel kontrollerle birlikte değerlendirilir.
-          </p>
-          <p>
-            Çıktılar demo modunda simülasyon niteliğindedir. Canlı uygulamada nihai bedel, yerinde ekspertiz, resmi belge doğrulaması ve
-            sözleşme onayı sonrasında kesinleşir. Bu ekran karar öncesi hızlı çerçeve sunmak için tasarlanmıştır.
+        <div className="mb-8 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <h2 className="text-base font-bold text-white">3 adımda anında teklif</h2>
+          <ol className="mt-3 space-y-2 text-sm text-slate-300">
+            <li><strong className="text-slate-100">1) Bilgileri gir:</strong> Mülk ve iletişim detayını tek formda tamamla.</li>
+            <li><strong className="text-slate-100">2) Ön fiyat bandını gör:</strong> Sistem değerleme + risk sinyalini birlikte üretir.</li>
+            <li><strong className="text-slate-100">3) Kararı netleştir:</strong> Uygunsa ekspertiz ve sözleşme adımıyla ilerle.</li>
+          </ol>
+          <p className="mt-3 text-xs text-slate-400">
+            Not: Demo çıktıları bilgilendirme amaçlıdır; canlıda nihai fiyat ekspertiz + resmi doğrulama sonrası kesinleşir.
           </p>
         </div>
 

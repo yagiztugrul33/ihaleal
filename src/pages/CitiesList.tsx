@@ -116,20 +116,20 @@ export default function CitiesList() {
 
         {/* Stats */}
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><MapPin className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-200">Şehir</span></div>
             <div className="text-2xl font-bold">{CITIES.length}</div>
           </Card>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><Building2 className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-200">Toplam İlan</span></div>
             <div className="text-2xl font-bold text-emerald-400">{AUCTIONS.length}</div>
           </Card>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-200">En Yüksek Artış</span></div>
             <div className="text-2xl font-bold text-amber-400">%+28.5</div>
             <div className="text-xs text-slate-300">Muğla</div>
           </Card>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-200">En İyi Getiri</span></div>
             <div className="text-2xl font-bold text-violet-400">%8.2</div>
             <div className="text-xs text-slate-300">Muğla</div>
@@ -141,7 +141,7 @@ export default function CitiesList() {
           {citiesWithCounts.map((city, idx) => (
             <Card
               key={city.name}
-              className="group border-slate-200/80 overflow-hidden hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+              className="group cursor-pointer overflow-hidden border-border transition-all duration-500 hover:-translate-y-1 hover:border-blue-500/20"
               onClick={() => navigate(`/sehir/${CITY_GUIDE_SLUG[city.name] ?? city.name}`)}
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
@@ -188,11 +188,11 @@ export default function CitiesList() {
         {/* Comparison Table */}
         <div className={`mt-10 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <h2 className="text-xl font-bold mb-4">Şehir Karşılaştırma</h2>
-          <Card className="border-slate-200/80 overflow-hidden">
+          <Card className="overflow-hidden border-border">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200/80">
+                  <tr className="border-b border-border">
                     <th className="text-left p-4 text-slate-200 font-medium">Şehir</th>
                     <th className="text-right p-4 text-slate-200 font-medium">m² Fiyat</th>
                     <th className="text-right p-4 text-slate-200 font-medium">Yıllık Artış</th>

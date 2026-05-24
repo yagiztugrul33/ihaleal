@@ -1,4 +1,4 @@
-﻿import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlertTriangle, ArrowLeft, Download, Layers, Loader2, MapPin, Radar, RefreshCw, ShieldCheck, Building2, Waves, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";

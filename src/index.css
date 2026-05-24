@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 @import "./styles/premium-cinematic-home.css";
 
 @tailwind base;
@@ -11,32 +12,60 @@
     max-width: 100%;
   }
 
-  :root,
-  [data-theme="light"] {
-    /* Luxury institutional — aligned with src/styles/tokens.css */
-    --background: 222 47% 7%;
-    --foreground: 210 40% 98%;
-    --card: 222 35% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 35% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 53%;
+  :root {
+    --background: 222 38% 11%;
+    --foreground: 210 30% 96%;
+    --card: 221 32% 16%;
+    --card-foreground: 210 30% 96%;
+    --popover: 221 32% 16%;
+    --popover-foreground: 210 30% 96%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 222 25% 14%;
-    --secondary-foreground: 214 32% 91%;
-    --muted: 222 20% 16%;
-    --muted-foreground: 215 20% 72%;
-    --accent: 199 89% 58%;
+    --secondary: 221 28% 20%;
+    --secondary-foreground: 210 30% 96%;
+    --muted: 221 24% 22%;
+    --muted-foreground: 215 18% 70%;
+    --accent: 172 66% 50%;
+    --accent-foreground: 222 38% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 221 26% 24%;
+    --input: 221 26% 24%;
+    --ring: 217 91% 60%;
+    --radius: 0.75rem;
+    --page-gradient-from: 222 38% 11%;
+    --page-gradient-via: 222 34% 9%;
+    --page-gradient-to: 222 38% 11%;
+    --premium-gold: 40 60% 58%;
+    --premium-teal: 172 66% 50%;
+  }
+
+  [data-theme="light"] {
+    --background: 240 5% 96%;
+    --foreground: 240 6% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 12%;
+    --primary: 211 100% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 8% 94%;
+    --secondary-foreground: 240 6% 20%;
+    --muted: 240 8% 95%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 187 88% 38%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 222 20% 22%;
-    --input: 222 20% 22%;
-    --ring: 217 91% 53%;
+    --border: 240 6% 90%;
+    --input: 240 8% 90%;
+    --ring: 211 100% 45%;
     --radius: 0.75rem;
-    --page-gradient-from: 222 47% 5%;
-    --page-gradient-via: 222 40% 8%;
-    --page-gradient-to: 222 35% 12%;
+    --page-gradient-from: 240 13% 96%;
+    --page-gradient-via: 0 0% 100%;
+    --page-gradient-to: 240 13% 96%;
+    --premium-gold: 43 74% 52%;
+    --premium-teal: 189 87% 39%;
   }
 
   [data-theme="dark"] {
@@ -69,15 +98,16 @@
   }
 
   body {
-    font-family: var(--font-body), "Inter", sans-serif;
-    background: var(--gradient-page, linear-gradient(180deg, #081120 0%, #0b1120 45%, #111827 100%));
-    background-color: var(--color-bg, #0b1120);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    background: hsl(var(--background));
+    background-color: hsl(var(--background));
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    color: var(--color-text, hsl(var(--foreground)));
+    color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
   }
 
   #root {
@@ -86,8 +116,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display), "Plus Jakarta Sans", "Inter", sans-serif;
-    font-weight: 700;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    font-weight: 800;
     letter-spacing: -0.02em;
   }
 }
@@ -99,28 +129,52 @@
   }
 
   .page-shell-gradient {
-    background: var(--gradient-page, linear-gradient(180deg, #081120 0%, #0b1120 45%, #111827 100%)) !important;
-    background-color: var(--color-bg, #0b1120) !important;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: hsl(var(--background)) !important;
+    background-color: hsl(var(--background)) !important;
   }
 
   .surface-card {
-    @apply rounded-2xl border border-border bg-card text-card-foreground shadow-sm;
+    @apply rounded-[20px] border border-border bg-card text-card-foreground shadow-sm;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   }
 
   .section-heading {
-    @apply font-bold text-white;
-    font-family: var(--font-display), "Plus Jakarta Sans", sans-serif;
+    @apply font-black text-foreground;
   }
 
   .section-subtitle {
-    @apply text-slate-300 max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
+    @apply max-w-2xl text-base sm:text-lg font-medium leading-relaxed text-muted-foreground;
   }
 
   .glass-panel {
-    @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-xl shadow-lg;
+    @apply rounded-[20px] border border-border bg-card/90 backdrop-blur-xl shadow-sm;
+  }
+
+  .app-page-frame {
+    @apply mx-auto w-full max-w-7xl px-4;
+  }
+
+  .app-section {
+    @apply rounded-[20px] border border-border bg-card p-5 md:p-6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .app-eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-primary;
+  }
+
+  .app-kpi {
+    @apply rounded-2xl border border-border bg-secondary p-4;
+  }
+
+  .app-kpi strong {
+    @apply text-2xl font-black text-foreground;
+  }
+
+  .app-premium-gradient {
+    background:
+      radial-gradient(120% 70% at 50% -20%, rgba(0, 113, 227, 0.08) 0%, transparent 50%),
+      radial-gradient(80% 60% at 100% 0%, rgba(212, 161, 37, 0.1) 0%, transparent 45%);
   }
 
   .skeleton-shimmer {
@@ -139,11 +193,11 @@
   }
 
   .ai-dock-panel {
-    @apply rounded-2xl border border-white/10 bg-[rgba(8,17,32,0.96)] shadow-2xl shadow-black/50 backdrop-blur-2xl;
+    @apply rounded-[20px] border border-border bg-card shadow-sm backdrop-blur-2xl;
   }
 
   .ai-insight-card {
-    @apply rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-xs text-slate-300;
+    @apply rounded-xl border border-border bg-secondary p-3 text-xs text-muted-foreground;
   }
 }
 
@@ -158,14 +212,14 @@
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(135deg, hsl(187 72% 42%) 0%, hsl(199 89% 48%) 100%);
+    background: linear-gradient(135deg, #0071e3 0%, #0ea5a9 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.72);
+    background: hsl(var(--card) / 0.82);
     backdrop-filter: blur(14px);
     border: 1px solid hsl(var(--border));
     box-shadow: 0 4px 24px -8px rgba(15, 23, 42, 0.08);
@@ -178,9 +232,38 @@
   }
 
   [data-theme="light"] .glass {
-    background: rgba(255, 255, 255, 0.78);
+    background: hsl(var(--card) / 0.9);
     border: 1px solid hsl(var(--border));
     box-shadow: 0 8px 32px -12px rgba(15, 23, 42, 0.1);
+  }
+
+  .hover-premium {
+    transition: transform 250ms var(--ease-out-expo), box-shadow 250ms var(--ease-out-expo), border-color 250ms ease;
+  }
+
+  .hover-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 113, 227, 0.14);
+    border-color: rgba(0, 113, 227, 0.26);
+  }
+
+  .pro-table thead th {
+    @apply pb-2 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400;
+  }
+
+  .pro-table tbody tr {
+    @apply border-t border-slate-700/70;
+  }
+
+  .pro-table tbody td {
+    @apply py-2.5 text-sm text-slate-200;
+  }
+}
+
+@layer utilities {
+  /* Normalize legacy white utility usage into theme tokens. */
+  .bg-white {
+    background-color: hsl(var(--card)) !important;
   }
 }
 
@@ -200,15 +283,15 @@
 }
 
 .animate-slide-in-right {
-  animation: slide-in-right 0.3s ease-out forwards;
+  animation: slide-in-right 0.34s ease-out forwards;
 }
 
 .animate-scale-in {
-  animation: scale-in 0.2s ease-out forwards;
+  animation: scale-in 0.32s ease-out forwards;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
+  animation: fade-in 0.34s ease-out forwards;
 }
 
 /* Home hero wave layers */
@@ -222,15 +305,15 @@
 }
 
 .home-wave--back {
-  animation: home-wave-drift 28s linear infinite;
+  animation: none;
 }
 
 .home-wave--mid {
-  animation: home-wave-drift 22s linear infinite reverse;
+  animation: none;
 }
 
 .home-wave--front {
-  animation: home-wave-drift 16s linear infinite;
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

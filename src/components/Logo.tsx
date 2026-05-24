@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
 const logoSizes = {
-  sm: { full: "h-9", icon: "h-9 w-9" },
-  md: { full: "h-10", icon: "h-10 w-10" },
-  lg: { full: "h-[44px]", icon: "h-[44px] w-[44px]" },
+  sm: { full: "h-[44px]", icon: "h-[44px] w-[44px]" },
+  md: { full: "h-[44px] sm:h-[54px]", icon: "h-[44px] w-[44px] sm:h-[54px] sm:w-[54px]" },
+  lg: { full: "h-[52px] sm:h-[60px]", icon: "h-[52px] w-[52px] sm:h-[60px] sm:w-[60px]" },
 } as const;
 
 export function Logo({
@@ -18,8 +18,8 @@ export function Logo({
   const sizeClass = variant === "icon" ? logoSizes[size].icon : logoSizes[size].full;
   return (
     <img
-      src="/ihaleal_com_logo.png"
-      alt="ihaleal.com"
+      src="/ihaleal-logo.png"
+      alt="ihaleal"
       className={cn(
         "w-auto max-w-none select-none object-contain drop-shadow-[0_2px_12px_rgba(2,6,23,0.65)]",
         sizeClass,
@@ -35,25 +35,31 @@ export function Logo({
 
 export function BrandLockup({
   logoSize = "lg",
-  wordmarkClassName,
-  hideWordmarkOnMobile = true,
+  className,
+  showSlogan = false,
+  sloganClassName,
+  hideSloganOnMobile = false,
 }: {
   logoSize?: "sm" | "md" | "lg";
-  wordmarkClassName?: string;
-  hideWordmarkOnMobile?: boolean;
+  className?: string;
+  showSlogan?: boolean;
+  sloganClassName?: string;
+  hideSloganOnMobile?: boolean;
 }) {
   return (
-    <span className="inline-flex items-center gap-2.5 align-middle">
+    <span className={cn("inline-flex flex-col items-center gap-1 align-middle", className)}>
       <Logo size={logoSize} />
-      <span
-        className={cn(
-          "font-black tracking-[0.08em] text-[#E9C56A] drop-shadow-[0_1px_8px_rgba(233,197,106,0.25)]",
-          hideWordmarkOnMobile && "hidden sm:inline",
-          wordmarkClassName,
-        )}
-      >
-        ihaleal
-      </span>
+      {showSlogan ? (
+        <span
+          className={cn(
+            "max-w-[16rem] text-center text-[10px] font-medium uppercase tracking-[0.08em] text-amber-200/90",
+            hideSloganOnMobile && "hidden sm:inline",
+            sloganClassName,
+          )}
+        >
+          TÜRKİYE'NİN GAYRİMENKUL BORSASI
+        </span>
+      ) : null}
     </span>
   );
 }

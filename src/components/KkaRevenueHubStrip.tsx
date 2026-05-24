@@ -39,7 +39,7 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
     : "hover:border-red-500/35 hover:bg-white/[0.07] focus-visible:outline-zinc-400";
 
   return (
-    <div className={shell} role="navigation" aria-label="Gelir modeli ve kat kar_1l11 k1sayollar1">
+    <div className={shell} role="navigation" aria-label="Gelir modeli ve kat karşılığı kısayolları">
       <div className={cn("flex flex-col sm:flex-row sm:items-stretch", innerPad)}>
         <Link
           to={KKA_HUB_PATH}
@@ -103,7 +103,7 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
           </Link>
           <Link
             to={KKA_STUDIO_PATH}
-            aria-label={`${kkaStudioNavLabel}: ada, parsel ve demo imar �zeti`}
+            aria-label={`${kkaStudioNavLabel}: ada, parsel ve demo imar özeti`}
             className={cn(
               "flex flex-1 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white/[0.04] font-semibold text-zinc-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
               linkHover,

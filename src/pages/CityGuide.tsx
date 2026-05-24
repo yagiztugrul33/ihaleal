@@ -247,7 +247,7 @@ export default function CityGuide() {
                 title={`${cityName} Bölge Raporu`}
                 url={`/sehir/${cityName}`}
                 inviteText={`${cityName} bölge raporuna bak: talep, fiyat, kira getirisi ve yatırım sinyalleri.`}
-                className="rounded-lg border border-slate-200/80 bg-white/5 px-3 py-2 text-slate-200 hover:text-white"
+                className="rounded-lg border border-border bg-secondary/70 px-3 py-2 text-muted-foreground hover:text-foreground"
               />
               {city.highlights.map((h) => (
                 <Badge key={h} className="bg-blue-500/10 text-blue-400 border-blue-500/20">{h}</Badge>
@@ -258,29 +258,29 @@ export default function CityGuide() {
 
         {/* Quick Stats */}
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><Users className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-200">Nüfus</span></div>
             <div className="text-2xl font-bold">{city.population}</div>
             <div className="text-xs text-slate-300">{city.area}</div>
           </Card>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><DollarSign className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-200">m² Fiyat</span></div>
             <div className="text-2xl font-bold text-emerald-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
             <div className="text-xs text-emerald-400">+{city.annualGrowth}% yıllık</div>
           </Card>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-200">Kira Getirisi</span></div>
             <div className="text-2xl font-bold text-violet-400">%{city.rentalYield}</div>
             <div className="text-xs text-slate-300">Ortalama</div>
           </Card>
-          <Card className="border-slate-200/80 p-4">
+          <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-200">Talep Endeksi</span></div>
             <div className="text-2xl font-bold text-amber-400">{city.demandIndex}/100</div>
             <div className="text-xs text-slate-300">{city.marketingDays} gün satış</div>
           </Card>
         </div>
 
-        <Card className="mb-8 border-slate-200/80 bg-slate-950/50 p-4">
+        <Card className="mb-8 border-border bg-card p-4">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.12em] text-slate-300">Paylaşılabilir bölge kartı</p>

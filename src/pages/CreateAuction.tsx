@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, PlusCircle, Upload, MapPin, X, FileText, Scale, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,15 @@ const PORTFOLIO_MODE_PREFILL: Record<string, { marketingMode: PropertyMarketingM
   transfer: { marketingMode: "listing_only", dealType: "sale", category: "Ticari" },
 };
 
+type SellerListingMode = "listing_only" | "auction";
+type SellerListingRow = {
+  id: string;
+  title: string;
+  status: "active" | "draft" | "sold";
+  updatedAt: string;
+  mode: SellerListingMode;
+};
+
 export default function CreateAuction() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -73,6 +82,8 @@ export default function CreateAuction() {
   const [officialDocumentsForBuyer, setOfficialDocumentsForBuyer] = useState(false);
   const [titleDeed, setTitleDeed] = useState("");
   const [buyNowPriceTry, setBuyNowPriceTry] = useState("");
+  const [sellerNoSurpriseAccepted, setSellerNoSurpriseAccepted] = useState(false);
+  const [listingRulesAccepted, setListingRulesAccepted] = useState(false);
   const [sellerReportModalOpen, setSellerReportModalOpen] = useState(false);
   const [buyNowWarnOpen, setBuyNowWarnOpen] = useState(false);
   const [sellerReportRow, setSellerReportRow] = useState<PropertyAnalysisReportRecord | null>(null);
@@ -94,10 +105,10 @@ export default function CreateAuction() {
     if (!Number.isFinite(n) || n <= 0) return null;
     return calcSellerNet(n);
   }, [startingBid]);
-  const [sellerListings, setSellerListings] = useState(() => [
-    { id: "my-1", title: "Levent Plaza Katı", status: "active" as "active" | "draft" | "sold", updatedAt: "Bugün 10:12" },
-    { id: "my-2", title: "Üsküdar Villa Portföyü", status: "draft" as "active" | "draft" | "sold", updatedAt: "Dün 18:45" },
-    { id: "my-3", title: "Ankara Ofis Bloku", status: "sold" as "active" | "draft" | "sold", updatedAt: "12 May 2026" },
+  const [sellerListings, setSellerListings] = useState<SellerListingRow[]>(() => [
+    { id: "my-1", title: "Levent Plaza Katı", status: "active", updatedAt: "Bugün 10:12", mode: "auction" },
+    { id: "my-2", title: "Üsküdar Villa Portföyü", status: "draft", updatedAt: "Dün 18:45", mode: "listing_only" },
+    { id: "my-3", title: "Ankara Ofis Bloku", status: "sold", updatedAt: "12 May 2026", mode: "listing_only" },
   ]);
 
   useEffect(() => {
@@ -143,6 +154,34 @@ export default function CreateAuction() {
           ? {
               ...item,
               status: nextStatus,
+              updatedAt: stamp,
+            }
+          : item,
+      ),
+    );
+  };
+
+  const moveListingMode = (listingId: string, nextMode: SellerListingMode) => {
+    const current = sellerListings.find((item) => item.id === listingId);
+    if (!current) return;
+    if (current.status === "sold") {
+      setError("Satılan mülkte mod değişimi yapılamaz.");
+      return;
+    }
+    if (current.status === "active" && current.mode !== nextMode) {
+      const confirmed = window.confirm(
+        "Bu mülk için tek mod kuralı uygulanacak. Mod değişimi mevcut akışı kapatır. Devam edilsin mi?",
+      );
+      if (!confirmed) return;
+    }
+    const stamp = `Bugün ${new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}`;
+    setSellerListings((prev) =>
+      prev.map((item) =>
+        item.id === listingId
+          ? {
+              ...item,
+              mode: nextMode,
+              status: item.status === "sold" ? "sold" : nextMode === "auction" ? "active" : "draft",
               updatedAt: stamp,
             }
           : item,
@@ -215,6 +254,14 @@ export default function CreateAuction() {
 
     if (!titleDeed.trim()) {
       setError("Tapu numarası veya tapu referansı girin.");
+      return;
+    }
+    if (!sellerNoSurpriseAccepted) {
+      setError("Ceza/süre tablosu ve bilgilendirilmiş onay kutusunu işaretleyin (sürpriz yok).");
+      return;
+    }
+    if (!listingRulesAccepted) {
+      setError("Mod bazlı teklif/ilan süreç kurallarını onaylayın.");
       return;
     }
 
@@ -479,12 +526,17 @@ export default function CreateAuction() {
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-6 space-y-4">
             <h2 className="text-lg font-semibold text-white">İlanlarım Yönetimi</h2>
+            <p className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-xs text-cyan-100">
+              Tek mod kuralı: bir mülk aynı anda hem standart listede hem borsada olamaz. <strong>Borsaya koy</strong> aksiyonu standart akışı kapatır ve mülkü yalnızca açık artırma moduna taşır.
+            </p>
             <div className="space-y-2">
               {sellerListings.map((listing) => (
                 <div key={listing.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200/80 bg-white/[0.02] px-3 py-2 text-sm">
                   <div>
                     <p className="font-medium text-white">{listing.title}</p>
-                    <p className="text-xs text-slate-500">Son güncelleme: {listing.updatedAt}</p>
+                    <p className="text-xs text-slate-500">
+                      Son güncelleme: {listing.updatedAt} · Mod: {listing.mode === "auction" ? "Borsa (açık artırma)" : "Standart ilan"}
+                    </p>
                   </div>
                   <span className={`rounded-full px-2 py-0.5 text-xs ${
                     listing.status === "active" ? "bg-emerald-500/20 text-emerald-300" : listing.status === "sold" ? "bg-blue-500/20 text-blue-300" : "bg-amber-500/20 text-amber-300"
@@ -511,6 +563,28 @@ export default function CreateAuction() {
                         onClick={() => updateListingStatus(listing.id, "active")}
                       >
                         Yayına al
+                      </Button>
+                    ) : null}
+                    {listing.status !== "sold" && listing.mode !== "auction" ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="border-cyan-500/35 text-cyan-200"
+                        onClick={() => moveListingMode(listing.id, "auction")}
+                      >
+                        Borsaya koy
+                      </Button>
+                    ) : null}
+                    {listing.status !== "sold" && listing.mode === "auction" ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="border-fuchsia-500/35 text-fuchsia-200"
+                        onClick={() => moveListingMode(listing.id, "listing_only")}
+                      >
+                        Standarta al
                       </Button>
                     ) : null}
                   </div>
@@ -638,6 +712,9 @@ export default function CreateAuction() {
                   placeholder="Yetki kaydı ve doğrulama için"
                   required
                 />
+                <p className="mt-1 text-[11px] text-cyan-200">
+                  KYC + mülk sahipliği doğrulaması sonrası ilanda "Doğrulanmış satıcı/mülk" rozeti görünür (mock).
+                </p>
                 {attemptedSubmit && !titleDeed.trim() ? <p className="mt-1 text-xs text-red-300">Tapu referansı zorunludur.</p> : null}
               </div>
             </CardContent>
@@ -842,6 +919,72 @@ export default function CreateAuction() {
                   </select>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+          ) : null}
+
+          {currentStep === 3 ? (
+          <Card className="bg-amber-500/5 border-amber-500/20">
+            <CardContent className="p-6 space-y-4">
+              <h3 className="text-lg font-bold text-white">Cayma, ceza ve süre tablosu (sürpriz yok)</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Borsa akışında bilgilendirilmiş onay zorunludur. Ceza dağılımı taslağı: <strong className="text-amber-200">%5</strong> toplam,
+                bunun <strong className="text-amber-200">%2</strong> mağdura tazminat, <strong className="text-amber-200">%3 + KDV</strong> platform kalemi.
+              </p>
+              <div className="overflow-x-auto rounded-lg border border-slate-700">
+                <table className="min-w-full text-left text-xs">
+                  <thead className="bg-slate-900/80 text-slate-300">
+                    <tr>
+                      <th className="px-3 py-2">Konu</th>
+                      <th className="px-3 py-2">Süre / Kural</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800 text-slate-200">
+                    <tr><td className="px-3 py-2">Kazanan ödeme</td><td className="px-3 py-2">3 iş günü</td></tr>
+                    <tr><td className="px-3 py-2">Yedek alıcı #2</td><td className="px-3 py-2">3 iş günü öncelik</td></tr>
+                    <tr><td className="px-3 py-2">Yedek alıcı #3</td><td className="px-3 py-2">3 iş günü öncelik</td></tr>
+                    <tr><td className="px-3 py-2">Satıcı tapu süreci</td><td className="px-3 py-2">15–20 iş günü hedefi</td></tr>
+                    <tr><td className="px-3 py-2">Satıcı cayması</td><td className="px-3 py-2">Satıcı güvencesi iradı + alıcı tazminat/iade önceliği</td></tr>
+                    <tr><td className="px-3 py-2">Kaybeden iade</td><td className="px-3 py-2">24–48 saat hedefi</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <label className="flex items-start gap-2 text-sm text-slate-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={sellerNoSurpriseAccepted}
+                  onChange={(e) => setSellerNoSurpriseAccepted(e.target.checked)}
+                  className="mt-1 rounded border-white/20"
+                />
+                <span>
+                  Satıcı olarak ceza/süre/yedek alıcı ve satıcı cayma sonuçlarını işlem öncesi gördüm, sürpriz yok ilkesini kabul ediyorum.
+                  <span className="block text-[11px] text-amber-200 mt-1">Uzman onayı bekliyor (mock).</span>
+                </span>
+              </label>
+              {attemptedSubmit && !sellerNoSurpriseAccepted ? (
+                <p className="text-xs text-red-300">Devam etmek için bilgilendirilmiş onay zorunlu.</p>
+              ) : null}
+              <div className="rounded-lg border border-cyan-500/25 bg-cyan-500/10 p-3 text-[11px] text-cyan-100">
+                <p className="font-semibold">Mod bazlı süreç kuralları</p>
+                <ul className="mt-2 space-y-1 text-cyan-50/90">
+                  <li>Borsa: teklif bağlayıcıdır, geri alınamaz; geçerlilik ihale sonuna kadardır.</li>
+                  <li>Standart teklif: kabul öncesi geri alınabilir; geçerlilik 48 saat, karşı teklif 24 saattir.</li>
+                  <li>Fiyat değişimi: borsa açıldığında sabit; standartta düşürme serbest, aktif teklif varken yükseltme kısıtlı.</li>
+                  <li>Haksız çekme/kural ihlali halinde cayma-ceza akışı devreye girer (demo).</li>
+                </ul>
+              </div>
+              <label className="flex items-start gap-2 text-sm text-slate-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={listingRulesAccepted}
+                  onChange={(e) => setListingRulesAccepted(e.target.checked)}
+                  className="mt-1 rounded border-white/20"
+                />
+                <span>Mod bazlı teklif/ilan süreç kurallarını gördüm ve onaylıyorum.</span>
+              </label>
+              {attemptedSubmit && !listingRulesAccepted ? (
+                <p className="text-xs text-red-300">Devam etmek için mod bazlı kuralları onaylayın.</p>
+              ) : null}
             </CardContent>
           </Card>
           ) : null}

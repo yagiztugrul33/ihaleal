@@ -264,6 +264,9 @@ function DevrenPanel({ d }: { d: Record<string, unknown> }) {
           { label: "Marka hakkı", value: d.brandRights ? "Evet" : "Hayır" },
         ]}
       />
+      <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs text-slate-300">
+        Devren koruma notu (mock): devreden/devralan için devir sözleşmesi, ciro-kira-devir bedeli teyidi, çalışan/ekipman listesi ve sözleşme devri uygunluğu birlikte kontrol edilir.
+      </div>
     </section>
   );
 }

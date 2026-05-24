@@ -28,13 +28,13 @@ const SORULAR: Soru[] = [
     kategori: "genel",
     soru: "ihaleal.com nedir ve kimi hedefler?",
     cevap:
-      "Gayrimenkul ilanlarını açık artırma, kapalı teklif ve bilgi zengin detaylarla birleştiren bir proptech platformudur. Alıcı, satıcı ve emlak profesyonelleri için ortak bir süreç dili sunmayı amaçlar; şu an kurumsal tanıtım ve demo deneyimi ağırlıklıdır.",
+      "Açık artırma, kapalı teklif ve ilan analitiğini tek akışta birleştiren bir proptech platformudur.",
   },
   {
     kategori: "genel",
     soru: "Demo modu ile canlı ortam arasındaki fark nedir?",
     cevap:
-      "Demo modunda ödeme alınmaz, ihale sonuçları ve blokajlar simüle edilebilir ve hukuki kesinlik taşımaz. Canlı ortamda KYC, sözleşme ve ödeme kuruluşları ile entegrasyon zorunludur.",
+      "Demo modunda ödeme alınmaz ve sonuçlar simüledir. Canlıda KYC, sözleşme ve ödeme entegrasyonu zorunludur.",
   },
   {
     kategori: "genel",
@@ -64,7 +64,7 @@ const SORULAR: Soru[] = [
     kategori: "uye",
     soru: "Nasıl üye olurum?",
     cevap:
-      "Kayıt Ol ile e-posta ve şifre oluşturun; ardından profilinizden iletişim bilgilerinizi tamamlayın. Bazı işlemler için telefon veya KYC doğrulaması istenebilir.",
+      "Kayıt Ol ile hesabı açın, profilinizi tamamlayın. Yüksek riskli işlemlerde ek kimlik doğrulama istenebilir.",
   },
   {
     kategori: "uye",
@@ -94,7 +94,7 @@ const SORULAR: Soru[] = [
     kategori: "ihale",
     soru: "Teklif vermek için hangi adımlar gerekir?",
     cevap:
-      "İlan detayında minimum artış ve bitiş zamanını okuyun, gerekli onay kutularını işaretleyin, yeterli bakiye veya teminat tanımı varsa tamamlayıp teklifinizi gönderin.",
+      "Şartnameyi onaylayın, min. artış ve bitişi kontrol edin, teminat/limit uygunsa teklif gönderin.",
   },
   {
     kategori: "ihale",
@@ -130,7 +130,7 @@ const SORULAR: Soru[] = [
     kategori: "odeme",
     soru: "Ödeme ve teminat emanet hesabında mı tutulur?",
     cevap:
-      "Üretimde ödeme kuruluşu veya banka API ile bloke, emanet ve komisyon mahsupları hedeflenir. Demo ortamında ödeme işlemi gerçekleştirilmez.",
+      "Canlıda emanet/bloke akışları ödeme kuruluşu ile yönetilir. Demo ortamında gerçek tahsilat yoktur.",
   },
   {
     kategori: "odeme",
@@ -172,7 +172,7 @@ const SORULAR: Soru[] = [
     kategori: "kurumsal",
     soru: "Emlak ofisi olarak nasıl ortak olurum?",
     cevap:
-      "Kurumsal iletişim formu veya satış hattı üzerinden pilot başvurusu yapın. Liste entegrasyonu ve ekip rolleri birlikte planlanır.",
+      "Kurumsal formdan pilot başvuru yapın; entegrasyon ve ekip yetkileri birlikte planlanır.",
   },
   {
     kategori: "kurumsal",
@@ -191,6 +191,24 @@ const SORULAR: Soru[] = [
     soru: "Eğitim ve müşteri başarısı sunuyor musunuz?",
     cevap:
       "Pilot müşterilere süreç eğitimi ve şablon şartname desteği sağlanır; büyük roll-out'larda sahaya yakın destek planı yapılır.",
+  },
+  {
+    kategori: "kurumsal",
+    soru: "Kampanyalar tüm kullanıcılara aynı mı uygulanır?",
+    cevap:
+      "Hayır. Kampanya kapsamı segment, bölge ve işlem tipine göre değişebilir; detaylar kampanya kartlarında belirtilir.",
+  },
+  {
+    kategori: "ihale",
+    soru: "İhalenin adil yürütüldüğünü nasıl anlarım?",
+    cevap:
+      "Teklif zamanları, kural seti ve kapanış kayıtları denetlenebilir tutulur. Nihai kural ilan şartnamesidir.",
+  },
+  {
+    kategori: "odeme",
+    soru: "İade süresi neye göre belirlenir?",
+    cevap:
+      "İade penceresi ilan tipi ve sözleşmeye göre değişir; referans süreler ücret/koşul sayfalarında yayınlanır.",
   },
 ];
 
@@ -220,9 +238,23 @@ export default function SSS() {
     <PageShell
       badge="Yardım"
       title="Sıkça sorulan sorular"
-      subtitle="Arama kutusu ile konu bazında gezinin. Toplam 26 soru, beş kategori; hukuki kesinlik için sözleşme ve ilan şartnamesine bakın."
+      subtitle="Kategori seç, sorunu ara, cevabı hızlıca gör. Nihai hukuki çerçeve için ilan şartnamesi ve sözleşmeyi esas al."
       cta={{ label: "İletişime geç", to: "/iletisim" }}
     >
+      <section className="grid gap-3 py-6 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { title: "Üyelik", desc: "Kayıt, giriş, güvenlik" },
+          { title: "İhale", desc: "Teklif, kapanış, kurallar" },
+          { title: "Ödeme", desc: "Teminat, komisyon, iade" },
+          { title: "Kurumsal", desc: "Ofis, entegrasyon, ortaklık" },
+        ].map((card) => (
+          <article key={card.title} className="card-warm !p-4">
+            <p className="text-sm font-semibold" style={{ color: "var(--color-text)" }}>{card.title}</p>
+            <p className="mt-1 text-xs" style={{ color: "var(--color-text-muted)" }}>{card.desc}</p>
+          </article>
+        ))}
+      </section>
+
       <section className="py-8 flex flex-col lg:flex-row gap-6 items-stretch">
         <div className="flex-1 card-warm flex items-center gap-3 px-4 py-3">
           <Search className="w-5 h-5 shrink-0" style={{ color: "var(--color-primary)" }} />

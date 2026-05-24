@@ -294,7 +294,7 @@ function injectStructuredData(pathname: string, search: string, title: string, d
     "@type": "Organization",
     name: "ihaleal.com",
     url: SITE_ORIGIN,
-    logo: `${SITE_ORIGIN}/ihaleal_com_logo.png`,
+    logo: `${SITE_ORIGIN}/ihaleal-logo.png`,
     sameAs: [SITE_ORIGIN],
     description:
       "Yapay zeka destekli gayrimenkul ihale, analiz ve operasyon platformu.",

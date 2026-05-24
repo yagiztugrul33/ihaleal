@@ -43,7 +43,7 @@ function NavDropdown({
         data-testid={triggerTestId}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-200 transition-colors hover:text-white",
+          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-300 transition-colors hover:text-white",
           open && "text-white",
         )}
         aria-expanded={open}
@@ -54,7 +54,7 @@ function NavDropdown({
       </button>
       {open ? (
         <div
-          className="absolute left-0 top-full z-[110] mt-2 min-w-[200px] rounded-xl border border-slate-600/30 py-1 shadow-xl"
+          className="absolute left-0 top-full z-[110] mt-2 min-w-[200px] rounded-2xl border border-slate-600/30 py-1 shadow-xl"
           style={{ background: "rgba(15, 23, 41, 0.98)", backdropFilter: "blur(20px)" }}
         >
           {items.map((item) => (
@@ -108,7 +108,7 @@ function NavMegaMenu({
         data-testid={triggerTestId}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-200 transition-colors hover:text-white",
+          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-300 transition-colors hover:text-white",
           open && "text-white",
         )}
         aria-expanded={open}
@@ -119,7 +119,7 @@ function NavMegaMenu({
       </button>
       {open ? (
         <div
-          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-xl border border-slate-600/30 p-4 shadow-xl"
+          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-slate-600/30 p-4 shadow-xl"
           style={{ background: "rgba(15, 23, 41, 0.98)", backdropFilter: "blur(20px)" }}
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -213,7 +213,18 @@ function NavPortalDropdown({
 
 export function Navbar() {
   const { locale, setLocale, t } = useLocale();
-  const { currency, setCurrency } = useCurrency();
+  const {
+    currency,
+    setCurrency,
+    usdRate,
+    eurRate,
+    gbpRate,
+    goldGramTry,
+    eurUsdParity,
+    ratesUpdatedAtIso,
+    ratesSource,
+    refreshRates,
+  } = useCurrency();
   const n = t.nav;
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -305,22 +316,31 @@ export function Navbar() {
     setCurrency(next);
     setCurrencyOpen(false);
   };
+  const shortTime = new Date(ratesUpdatedAtIso).toLocaleTimeString("tr-TR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return (
     <>
       <nav
-        className={cn(
-          "nav-glass sticky top-0 z-[100] border-b border-white/10 transition-[background,box-shadow] duration-300",
-          scrolled && "nav-glass-scrolled shadow-lg",
-        )}
+          className={cn(
+            "nav-glass sticky top-0 z-[100] border-b border-border transition-[background,box-shadow] duration-300 bg-card/90 backdrop-blur-xl",
+            scrolled && "nav-glass-scrolled shadow-[0_8px_24px_rgba(0,0,0,0.08)]",
+          )}
       >
-        <div className="relative mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto flex h-[88px] max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link
             to="/"
             className="shrink-0 px-1 py-1 no-underline"
             aria-label="ihaleal.com"
           >
-            <BrandLockup logoSize="lg" wordmarkClassName="text-[1.04rem]" hideWordmarkOnMobile />
+            <BrandLockup
+              logoSize="md"
+              showSlogan
+              hideSloganOnMobile
+              sloganClassName="hidden xl:block text-[8px] tracking-[0.08em] text-amber-200/80"
+            />
           </Link>
 
           <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-7 lg:flex">
@@ -330,8 +350,8 @@ export function Navbar() {
                 cn(
                   "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
                   isActive
-                    ? "border-blue-500 text-blue-400"
-                    : "border-transparent text-slate-200 hover:text-white",
+                    ? "border-[#0071E3] text-[#0071E3]"
+                    : "border-transparent text-slate-300 hover:text-white",
                 )
               }
             >
@@ -343,8 +363,8 @@ export function Navbar() {
                 cn(
                   "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
                   isActive
-                    ? "border-blue-500 text-blue-400"
-                    : "border-transparent text-slate-200 hover:text-white",
+                    ? "border-[#0071E3] text-[#0071E3]"
+                    : "border-transparent text-slate-300 hover:text-white",
                 )
               }
             >
@@ -362,8 +382,8 @@ export function Navbar() {
                 cn(
                   "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
                   isActive
-                    ? "border-blue-500 text-blue-400"
-                    : "border-transparent text-slate-200 hover:text-white",
+                    ? "border-[#0071E3] text-[#0071E3]"
+                    : "border-transparent text-slate-300 hover:text-white",
                 )
               }
             >
@@ -376,11 +396,11 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 min-w-[200px] items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 text-left text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
+              className="flex h-10 min-w-[200px] items-center gap-2 rounded-full border border-slate-600/40 bg-slate-900/60 px-3 text-left text-sm text-slate-400 transition hover:border-slate-500 lg:min-w-[240px]"
             >
               <Search className="h-4 w-4 shrink-0" aria-hidden />
               <span className="flex-1 truncate">{n.search}</span>
-              <kbd className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
+              <kbd className="rounded bg-secondary px-1.5 py-0.5 text-[10px] text-slate-400">⌘K</kbd>
             </button>
             <div className="relative">
               <button
@@ -436,9 +456,21 @@ export function Navbar() {
               </button>
               {currencyOpen ? (
                 <div
-                  className="absolute right-0 top-full z-[110] mt-2 min-w-[120px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
+                  className="absolute right-0 top-full z-[110] mt-2 min-w-[220px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
                   style={{ background: "rgba(15, 23, 41, 0.98)" }}
                 >
+                  <div className="px-4 pb-2 pt-1 text-[11px] text-slate-400 border-b border-slate-700/40">
+                    <p>USD/TRY {usdRate.toFixed(4)} · EUR/TRY {eurRate.toFixed(4)}</p>
+                    <p>GBP/TRY {gbpRate.toFixed(4)} · Altın (gr) ₺{goldGramTry.toFixed(2)}</p>
+                    <p>EUR/USD {eurUsdParity.toFixed(4)} · {ratesSource === "tcmb_api" ? "TCMB" : "Mock"} · {shortTime}</p>
+                    <button
+                      type="button"
+                      onClick={() => void refreshRates()}
+                      className="mt-1 text-cyan-300 hover:text-cyan-200"
+                    >
+                      Kurları yenile
+                    </button>
+                  </div>
                   {(["TRY", "USD", "EUR", "GBP"] as const).map((code) => (
                     <button
                       key={code}
@@ -472,8 +504,11 @@ export function Navbar() {
         {mobileOpen ? (
           <div
             data-testid="nav-mobile-menu"
-            className="nav-mobile-panel fixed inset-x-0 top-[72px] z-[210] max-h-[calc(100dvh-72px)] overflow-y-auto overscroll-contain border-t border-slate-700/40 bg-[#0a0f1c] px-4 py-4 pb-28 shadow-2xl lg:hidden"
+            className="nav-mobile-panel fixed inset-x-0 top-[88px] z-[210] max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain border-t border-slate-700/40 bg-[#0a0f1c] px-4 py-4 pb-28 shadow-2xl lg:hidden"
           >
+            <Link to="/" onClick={() => setMobileOpen(false)} className="mb-3 inline-flex no-underline">
+              <BrandLockup logoSize="md" />
+            </Link>
             <button
               type="button"
               onClick={() => {
@@ -616,6 +651,9 @@ export function Navbar() {
                 </button>
               ))}
             </div>
+            <p className="mt-2 text-[11px] text-slate-500">
+              USD/TRY {usdRate.toFixed(4)} · Altın ₺{goldGramTry.toFixed(2)} · {ratesSource === "tcmb_api" ? "TCMB" : "Mock"}
+            </p>
           </div>
         ) : null}
       </nav>

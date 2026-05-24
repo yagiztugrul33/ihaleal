@@ -29,9 +29,14 @@ export default function NasilCalisirStepPage() {
     >
       <NasilCalisirBackNav />
 
-      <p className="text-sm leading-relaxed mb-8 max-w-3xl" style={{ color: "var(--color-text-muted)" }}>
-        {step.intro}
-      </p>
+      <section className="mb-8 rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+        <h2 className="text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: "var(--color-text-muted)" }}>
+          Bu adımın özeti
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed max-w-3xl" style={{ color: "var(--color-text-muted)" }}>
+          {step.intro}
+        </p>
+      </section>
 
       <div className="grid gap-6 lg:grid-cols-2 mb-8">
         <section className="card-warm">

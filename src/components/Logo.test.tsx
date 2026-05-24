@@ -7,8 +7,8 @@ describe("Logo", () => {
     render(<Logo size="md" />);
     const logoImage = screen.getByTestId("logo-image");
     expect(logoImage).toBeInTheDocument();
-    expect(logoImage).toHaveAttribute("src", "/ihaleal_com_logo.png");
-    expect(screen.getByAltText("ihaleal.com")).toBeInTheDocument();
+    expect(logoImage).toHaveAttribute("src", "/ihaleal-logo.png");
+    expect(screen.getByAltText("ihaleal")).toBeInTheDocument();
   });
 
   it("icon variant still renders logo image", () => {

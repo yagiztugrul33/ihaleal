@@ -245,7 +245,7 @@ export default function Analytics() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-2 gap-2 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex flex-wrap items-center gap-3">
@@ -732,7 +732,7 @@ export default function Analytics() {
                       <span className="text-white font-medium">TRY {propertyValue.toLocaleString()}</span>
                     </label>
                     <Slider value={[propertyValue]} onValueChange={(v) => setPropertyValue(v[0])} min={500000} max={50000000} step={500000} className="my-3" />
-                    <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
+                    <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="border-border bg-secondary text-foreground" />
                   </div>
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
@@ -740,7 +740,7 @@ export default function Analytics() {
                       <span className="text-white font-medium">TRY {monthlyRent.toLocaleString()}</span>
                     </label>
                     <Slider value={[monthlyRent]} onValueChange={(v) => setMonthlyRent(v[0])} min={1000} max={100000} step={1000} className="my-3" />
-                    <Input type="number" value={monthlyRent} onChange={(e) => setMonthlyRent(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
+                    <Input type="number" value={monthlyRent} onChange={(e) => setMonthlyRent(Number(e.target.value))} className="border-border bg-secondary text-foreground" />
                   </div>
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
@@ -962,7 +962,7 @@ export default function Analytics() {
           <ListingLinkDemo />
         </div>
 
-        <p className="text-xs text-slate-600 mt-8 text-center leading-relaxed">
+        <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
           * Bu tahminler istatistiksel modelleme yontemleri ile uretilmistir ve sapmalar icerebilir. Bilgiler sadece danismanlik amaclidir, yatırım tavsiyesi degildir.
         </p>
       </div>

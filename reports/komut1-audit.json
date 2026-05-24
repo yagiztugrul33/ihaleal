@@ -1,0 +1,382 @@
+[
+  {
+    "route": "/",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 0,
+    "hasWhiteBg": false,
+    "navSnippet": "",
+    "lang": "tr"
+  },
+  {
+    "route": "/",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/ihaleler",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/ihaleler",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/ihale/1",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/ihale/1",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/borsa",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/borsa",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/borsa/portfoy",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/borsa/portfoy",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/fiyatlandirma",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/fiyatlandirma",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/oduller",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/oduller",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/uluslararasi",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/uluslararasi",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/nasil-calisir",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/nasil-calisir",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/aninda-teklif",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/aninda-teklif",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/sss",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/sss",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/karsilastir",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/karsilastir",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/rehber",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/rehber",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/analiz",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/analiz",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/mortgage",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/mortgage",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/sehirler",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/sehirler",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/giris",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/giris",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/kayit",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/kayit",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/yasal/supabase-uyum",
+    "viewport": "1366x900",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  },
+  {
+    "route": "/yasal/supabase-uyum",
+    "viewport": "390x844",
+    "overflowPx": 0,
+    "englishHits": [],
+    "lowContrastNodes": 4,
+    "hasWhiteBg": false,
+    "navSnippet": "TÜRKİYE'NİN GAYRİMENKUL BORSASIİhalelerNasıl ÇalışırHizmetlerKaynaklarKurumsalİhale, lokasyon ara…⌘KTRTRYGirişKayıt Ol Bina riskRisk haritasıCanlı takipAile planıGüçlendirme",
+    "lang": "tr"
+  }
+]

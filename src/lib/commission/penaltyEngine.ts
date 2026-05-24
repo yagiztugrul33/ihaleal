@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { WITHDRAWAL_PENALTY_RATE } from "@/lib/fees";
 
 export const PenaltyTypeSchema = z.enum([
   "early_cancel",
@@ -44,7 +45,7 @@ export class PenaltyEngine {
         break;
       case "post_match_cancel":
         penalty =
-          transactionType === "rental" ? r2(baseAmount) : r2(baseAmount * 0.02);
+          transactionType === "rental" ? r2(baseAmount) : r2(baseAmount * WITHDRAWAL_PENALTY_RATE);
         reason = "Eslesme sonrasi cayma";
         break;
       case "bypass":

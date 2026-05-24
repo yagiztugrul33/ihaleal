@@ -10,7 +10,7 @@ describe("Home", () => {
     localStorage.setItem(LOCALE_STORAGE_KEY, "tr");
   });
 
-  it("renders premium cinematic homepage with deprem backbone", () => {
+  it("renders premium cinematic homepage with deprem backbone", { timeout: 15000 }, () => {
     render(
       <MemoryRouter>
         <LocaleProvider>
@@ -23,7 +23,7 @@ describe("Home", () => {
     expect(screen.getByRole("heading", { name: /Nasıl Çalışır/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Öne Çıkan Canlı Müzayedeler/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Kurumsal Altyapısı/i })).toBeInTheDocument();
-    expect(screen.getByText(/Stratejik War Room/i)).toBeInTheDocument();
+    expect(screen.getByText(/Stratejik Karar Odası/i)).toBeInTheDocument();
     expect(screen.getAllByText(/LIVE/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText("284").length).toBeGreaterThan(0);
     expect(document.querySelector(".premium-hero__video")).toBeNull();

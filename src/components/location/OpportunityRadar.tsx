@@ -190,12 +190,15 @@ export function OpportunityRadar({ properties }: OpportunityRadarProps) {
   };
 
   return (
-    <section className="ilan-radar">
+    <section className="ilan-radar" data-testid="nearby-opportunity-radar">
       <header className="ilan-radar__header">
         <div>
           <p className="ilan-radar__eyebrow">Konum Bazlı Fırsat Radarı</p>
           <h2>Yakınımdaki Fırsatlar</h2>
           <p className="ilan-radar__sub">{locationMessage}</p>
+          <p className="mt-1 text-[11px] text-cyan-200">
+            Geolocation + yakın ilanlar aktif (demo): anlık konuma göre fırsatlar sıralanır.
+          </p>
         </div>
         <div className="ilan-radar__controls">
           <button type="button" onClick={requestLocation}>

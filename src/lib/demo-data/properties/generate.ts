@@ -14,8 +14,17 @@ import type {
   DepoDetay,
 } from "@/types/property";
 
+const PHOTO_POOL = [
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1600607687644-c7f34b5b0f58?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1600585154154-712f8f9f0d1f?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1600607687645-c7171b42498f?auto=format&fit=crop&w=1600&q=80",
+] as const;
 const PHOTO_COUNT = 6;
-const PHOTO_BASE = "/images/auction";
 
 export const DEMO_PROPERTY_COUNT = 60;
 
@@ -172,8 +181,8 @@ function roundMoney(n: number, step = 50_000): number {
 
 function photosFor(seq: number): string[] {
   return Array.from({ length: PHOTO_COUNT }, (_, i) => {
-    const idx = ((seq - 1 + i) % PHOTO_COUNT) + 1;
-    return `${PHOTO_BASE}-${idx}.jpg`;
+    const idx = (seq - 1 + i) % PHOTO_POOL.length;
+    return PHOTO_POOL[idx];
   });
 }
 
@@ -664,7 +673,12 @@ function buildOne(seq: number, slot: TaxonSlot): PropertyRecord {
     depositTry: dealType === "rent" ? roundMoney(56_000) : undefined,
     duesTry: 900 + (h % 12) * 100,
     pricePerSqmTry: Math.round(price / sqm),
-    buyNowPriceTry: isAuction ? roundMoney(currentBid * 1.06) : undefined,
+    buyNowPriceTry:
+      dealType === "rent"
+        ? undefined
+        : isAuction
+          ? roundMoney(currentBid * 1.06)
+          : roundMoney(price * 1.02),
     startingBidTry: isAuction || isSealed ? startingBid : undefined,
     currentBidTry: isAuction ? currentBid : undefined,
     commitmentFloorTry: roundMoney(startingBid * 0.95),

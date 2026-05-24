@@ -339,7 +339,7 @@ export const messages: Record<Locale, Messages> = {
         aria: "Mülk arama",
       },
       categories: {
-        heading: "Kategorilere Göre Keşfet",
+        heading: "Kategoriye Göre Gözat",
         items: [
           { name: "Villa", count: "842 ilan" },
           { name: "Daire", count: "3.240 ilan" },
@@ -473,5 +473,6 @@ export const messages: Record<Locale, Messages> = {
 };
 
 export function resolveLocale(raw: string | null): Locale {
-  return raw === "tr" ? "tr" : "en";
+  if (raw === "tr" || raw === "en") return raw;
+  return "tr";
 }

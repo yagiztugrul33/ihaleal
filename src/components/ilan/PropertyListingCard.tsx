@@ -27,10 +27,10 @@ function isLiveAuction(property: PropertyRecord): boolean {
 }
 
 function listingModeBadge(property: PropertyRecord): { label: string; tone: "auction" | "sale" | "rent" | "sealed" } {
-  if (property.marketingMode === "auction") return { label: "İhale", tone: "auction" };
+  if (property.marketingMode === "auction") return { label: "Borsa", tone: "auction" };
   if (property.marketingMode === "sealed_offers") return { label: "Kapalı Teklif", tone: "sealed" };
   if (property.dealType === "rent") return { label: "Kiralık", tone: "rent" };
-  return { label: "Satılık", tone: "sale" };
+  return { label: "Standart İlan", tone: "sale" };
 }
 
 export function PropertyListingCard({ property }: PropertyListingCardProps) {
@@ -117,12 +117,24 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
           Doğrulanmış satıcı · {seller.completedDeals} işlem
         </p>
+        <p className="flex items-center gap-1 text-xs text-cyan-200">
+          <ShieldCheck className="h-3.5 w-3.5" aria-hidden />
+          Doğrulanmış mülk · {property.marketingMode === "auction" ? "Çift taraflı teminat" : "KYC + mülk doğrulama"}
+        </p>
         <div className="ilan-card__auction-line">
-          <span>Güncel teklif: {currentBid > 0 ? formatFromTry(currentBid) : "—"}</span>
-          <span className={positive ? "ilan-card__change is-up" : "ilan-card__change is-down"}>
-            {positive ? "+" : ""}
-            %{changePct.toFixed(2)}
+          <span>
+            {property.marketingMode === "auction"
+              ? `Güncel teklif: ${currentBid > 0 ? formatFromTry(currentBid) : "—"}`
+              : `İlan fiyatı: ${price != null ? formatFromTry(price) : "—"}`}
           </span>
+          {property.marketingMode === "auction" ? (
+            <span className={positive ? "ilan-card__change is-up" : "ilan-card__change is-down"}>
+              {positive ? "+" : ""}
+              %{changePct.toFixed(2)}
+            </span>
+          ) : (
+            <span className="ilan-card__change">Sabit fiyat</span>
+          )}
         </div>
 
         <div className="ilan-card__meta">

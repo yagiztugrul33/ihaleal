@@ -18,3 +18,6 @@ export const PSP_FLOW_DISCLAIMER =
 
 export const PHYSICAL_ASSET_ONLY_DISCLAIMER =
   "Platformda yalnızca fiziksel taşınmazlar listelenir. Fraksiyonel/pay satış modeli yasal düzenleme sonrası değerlendirilecektir.";
+
+export const EXPERT_APPROVAL_PENDING_NOTE =
+  "Hukuki ve operasyonel bazı adımlar uzman onayı bekliyor (mock/taslak).";

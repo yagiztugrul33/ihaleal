@@ -21,7 +21,7 @@ export type NasilCalisirStep = {
 export const NASIL_CALISIR_INTRO = {
   title: "Gayrimenkul ihale yolculuğu: uçtan uca çerçeve",
   lead:
-    "ihaleal.com, ilan keşfinden tapu teslimine kadar tekrarlanabilir bir akış sunar. Aşağıdaki dört adım, hem sizin yapmanız gerekenleri hem de platformun arka planda hedeflediği süreçleri ayırır. Ödeme, teminat ve tapu adımları yürürlükteki mevzuat ve sözleşme metinlerine tabidir; arayüzde gördüğünüz tutarlar ve süreler yapılandırılabilir referans değerler içerebilir.",
+    "ihaleal.com, ilan keşfinden teslimata kadar net ve tekrarlanabilir bir akış sunar. Aşağıdaki adımlar, kullanıcı aksiyonları ile platform sorumluluklarını ayrı gösterir.",
   audience:
     "Bu rehber öncelikle alıcı ve yatırımcılar içindir; satıcı, emlak danışmanı ve yönetici akışları panel ve sözleşme ekranlarında ayrıca tanımlanır.",
 };

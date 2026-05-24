@@ -13,6 +13,7 @@ import { ScrollToTop } from "./ScrollToTop";
 import { PageTransition } from "@/components/motion";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { useToast, type Toast } from "@/hooks/useToast";
+import { SessionSecurityGuard } from "@/components/security/SessionSecurityGuard";
 
 export function Layout() {
   const location = useLocation();
@@ -40,13 +41,16 @@ export function Layout() {
         <Navbar />
         {!isMarketingHome ? <ProductionSafetyBanner /> : null}
         <main className="flex-1 min-w-0 overflow-x-hidden pb-16 md:pb-0">
-          <PageTransition>
-            <Outlet />
-          </PageTransition>
+          <div className="app-page-frame py-4 md:py-6">
+            <PageTransition>
+              <Outlet />
+            </PageTransition>
+          </div>
         </main>
         <MobileBottomNav />
         <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
+        <SessionSecurityGuard />
         <ChatWidget />
         <CookieConsent />
       </div>

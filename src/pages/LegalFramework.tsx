@@ -1,9 +1,10 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Scale, AlertTriangle, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LEGAL_SECTIONS, LEGAL_DISCLAIMER } from "@/data/legalFramework";
+import { PLATFORM_CONSISTENCY_RULES } from "@/data/platformConsistencyRules";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 
 export default function LegalFramework() {
@@ -97,6 +98,19 @@ export default function LegalFramework() {
                 ))}
               </ul>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6 bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-6 space-y-3">
+            <h3 className="text-sm font-semibold text-slate-300">Sistem tutarlılık kuralları (10/10)</h3>
+            <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
+              {PLATFORM_CONSISTENCY_RULES.map((rule) => (
+                <li key={rule.id}>
+                  <span className="font-medium text-slate-300">{rule.title}:</span> {rule.detail}
+                </li>
+              ))}
+            </ul>
           </CardContent>
         </Card>
       </div>

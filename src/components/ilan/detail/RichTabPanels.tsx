@@ -47,7 +47,7 @@ import {
 import { buildYapiRows, dealLabel, istanbulCoords, priceOf } from "./tabHelpers";
 import { AfetDisasterHub } from "@/components/property/AfetDisasterHub";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
-import { normalizeAuctionImages } from "@/lib/listingImage";
+import { ensureHouseGalleryImages } from "@/lib/listingImage";
 import "leaflet/dist/leaflet.css";
 
 export type RichTabKey =
@@ -447,14 +447,10 @@ function AiPanel({ property }: { property: PropertyRecord }) {
 }
 
 function GaleriPanel({ property }: { property: PropertyRecord }) {
-  const images = useMemo(() => {
-    const base = normalizeAuctionImages(property.images?.length ? property.images : property.heroImage ? [property.heroImage] : []);
-    const out = [...base];
-    while (out.length < 8) {
-      out.push(base[out.length % Math.max(base.length, 1)] ?? "/images/listing-placeholder.svg");
-    }
-    return out.slice(0, 8);
-  }, [property.heroImage, property.images]);
+  const images = useMemo(
+    () => ensureHouseGalleryImages(property.images?.length ? property.images : property.heroImage ? [property.heroImage] : [], 8),
+    [property.heroImage, property.images],
+  );
   const [lightbox, setLightbox] = useState<string | null>(null);
   return (
     <section className="idr-panel idr-panel--galeri">

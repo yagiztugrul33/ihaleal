@@ -96,33 +96,33 @@ export default function Compare() {
   const colors = ["#3b82f6", "#14b8a6", "#8b5cf6", "#ec4899"];
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-100">
+    <div ref={ref} className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/30 pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-200 hover:text-white gap-2 mb-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3"><GitCompare className="w-8 h-8 text-cyan-400" /> Gayrimenkul Karşılaştırma</h1>
-          <p className="text-slate-200 mt-2">İlanları yan yana karşılaştırın; AI skorları ve belge özeti ile seçim yapın.</p>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-2 gap-2 text-muted-foreground hover:text-foreground"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <h1 className="flex items-center gap-3 text-3xl font-bold text-foreground md:text-4xl"><GitCompare className="w-8 h-8 text-cyan-400" /> Gayrimenkul Karşılaştırma</h1>
+          <p className="mt-2 text-muted-foreground">İlanları yan yana karşılaştırın; AI skorları ve belge özeti ile seçim yapın.</p>
         </div>
 
         {showSelector && (
-          <Card className="bg-slate-900/50 border-slate-200/80 mb-8 animate-scale-in">
+          <Card className="mb-8 animate-scale-in border-border bg-card">
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/3)</h3>
+                <h3 className="text-lg font-bold text-foreground">İlan seç ({selectedIds.length}/3)</h3>
                 <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">Karşılaştırmaya başla</Button>
               </div>
               <p className="mb-3 text-xs text-slate-300">Karşılaştırma 2 veya 3 ilanla optimize edilmiştir; link paylaşımı için URL otomatik güncellenir.</p>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pr-1">
                 {catalogNorm.map((a) => (
-                  <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-slate-200/80 bg-white/[0.02] hover:border-slate-200"}`}>
+                  <label key={a.id} className={`flex items-center gap-3 rounded-xl border p-3 transition-all cursor-pointer ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-border bg-secondary/30 hover:border-border/80"}`}>
                     <Checkbox checked={selectedIds.includes(a.id)} onCheckedChange={() => toggleSelection(a.id)} />
                     <img loading="lazy" src={a.images[0]} alt="" className="w-14 h-10 object-cover rounded-lg shrink-0" />
                     <div className="min-w-0">
                       <div className="mb-1">
                         <ListingNumberBadge auction={a} compact />
                       </div>
-                      <div className="text-sm font-medium text-white truncate">{a.title}</div>
-                      <div className="text-xs text-slate-300">₺{(a.currentBid / 1000000).toFixed(1)}M · {a.district}</div>
+                      <div className="truncate text-sm font-medium text-foreground">{a.title}</div>
+                      <div className="text-xs text-muted-foreground">₺{(a.currentBid / 1000000).toFixed(1)}M · {a.district}</div>
                       <ListingDocumentFooter auction={a} compact showTopRule={false} />
                     </div>
                   </label>
@@ -134,8 +134,8 @@ export default function Compare() {
 
         {!showSelector && selectedIds.length < 2 && (
           <div className="text-center py-20">
-            <GitCompare className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-            <p className="text-slate-200">Karşılaştırma için en az iki ilan seçmelisiniz.</p>
+            <GitCompare className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+            <p className="text-muted-foreground">Karşılaştırma için en az iki ilan seçmelisiniz.</p>
             <Button onClick={() => setShowSelector(true)} className="mt-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white">İlan seç</Button>
           </div>
         )}

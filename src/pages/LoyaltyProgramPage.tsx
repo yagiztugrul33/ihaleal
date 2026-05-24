@@ -181,31 +181,31 @@ export default function LoyaltyProgramPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 px-4 pb-16 pt-24 text-slate-100 lg:px-6">
+    <div className="min-h-screen bg-background px-4 pb-16 pt-24 text-foreground lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
         <section className="rounded-2xl border border-cyan-400/20 bg-slate-900/70 p-5">
           <p className="text-xs uppercase tracking-[0.14em] text-cyan-300">İhaleal Rewards</p>
           <h1 className="mt-1 text-3xl font-black">Puanlarım</h1>
-          <p className="mt-2 text-sm text-slate-300">{DEMO_REWARDS_NOTE}</p>
-          <div className="mt-4 inline-flex rounded-lg border border-slate-600/70 bg-slate-950/70 p-1">
+          <p className="mt-2 text-sm text-muted-foreground">{DEMO_REWARDS_NOTE}</p>
+          <div className="mt-4 inline-flex rounded-lg border border-border bg-secondary p-1">
             <button
               type="button"
               onClick={() => setActiveTab("points")}
-              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "points" ? "bg-cyan-500/20 text-cyan-100" : "text-slate-300"}`}
+              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "points" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
             >
               Ödül & Puan
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("game")}
-              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "game" ? "bg-cyan-500/20 text-cyan-100" : "text-slate-300"}`}
+              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "game" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
             >
               Oyunlaştırma
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("vip")}
-              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "vip" ? "bg-cyan-500/20 text-cyan-100" : "text-slate-300"}`}
+              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "vip" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
             >
               Davet & VIP
             </button>

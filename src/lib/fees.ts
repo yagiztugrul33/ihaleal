@@ -1,5 +1,6 @@
 // src/lib/fees.ts — ihaleal.com komisyon, üyelik, hizmet bedeli merkezi
 // Komisyon hedefi: %2 alıcı + %2 satıcı = toplam %4 (matrah üzerinden); KDV komisyon üzerinden.
+import { getTaxRuntimeConfig } from "@/lib/taxConfig";
 
 export const COMMISSION_RATE = 0.02;
 /** Tek taraf satıcı yüzdesi — iki taraflı modelde satıcı payı COMMISSION_RATE ile aynı */
@@ -54,6 +55,10 @@ export const AGENT_SHARE_RATES = {
 export const REALTOR_B2B_RATE = AGENT_SHARE_RATES.full;
 
 export const BID_BOND_RATE = 0.05;
+/** Cayma/ceza taslak oranları (uzman onayı bekliyor) */
+export const WITHDRAWAL_PENALTY_RATE = 0.05;
+export const VICTIM_COMPENSATION_RATE = 0.02;
+export const PLATFORM_PENALTY_RATE = 0.03;
 export const MIN_INCREMENT_TRY = 100;
 export const ANTI_SNIPING_THRESHOLD_SECONDS = 120;
 export const ANTI_SNIPING_EXTEND_SECONDS = 120;
@@ -77,10 +82,11 @@ export function calcCommissionBreakdown(
   paidServiceFees: number = 0,
   agentShareRate: number = 0,
 ): CommissionBreakdown {
-  const sellerCommission = saleAmount * COMMISSION_RATE;
-  const buyerCommission = saleAmount * COMMISSION_RATE;
+  const runtime = getTaxRuntimeConfig();
+  const sellerCommission = saleAmount * runtime.sellerCommissionRate;
+  const buyerCommission = saleAmount * runtime.buyerCommissionRate;
   const totalCommission = sellerCommission + buyerCommission;
-  const totalVAT = totalCommission * VAT_RATE;
+  const totalVAT = totalCommission * runtime.vatRate;
   const offsetTotal = paidMembership + paidServiceFees;
   const agentShare = saleAmount * agentShareRate;
   const platformNet = totalCommission - offsetTotal - agentShare;
@@ -128,9 +134,10 @@ export function calcSellerNet(salePriceTRY: number): {
   vatOnCommission: number;
   net: number;
 } {
+  const runtime = getTaxRuntimeConfig();
   const gross = salePriceTRY;
-  const commission = Math.max(gross * FEES.sellerCommissionRate, FEES.minCommissionTRY);
-  const vatOnCommission = commission * FEES.vatRate;
+  const commission = Math.max(gross * runtime.sellerCommissionRate, FEES.minCommissionTRY);
+  const vatOnCommission = commission * runtime.vatRate;
   const net = gross - commission - vatOnCommission;
   return { gross, commission, vatOnCommission, net };
 }
@@ -141,10 +148,11 @@ export function calcBuyerTotal(bidPriceTRY: number): {
   vatOnCommission: number;
   total: number;
 } {
+  const runtime = getTaxRuntimeConfig();
   const bid = bidPriceTRY;
   const commission =
-    COMMISSION_PARTIES === "both" ? bid * FEES.buyerCommissionRate : 0;
-  const vatOnCommission = commission * FEES.vatRate;
+    COMMISSION_PARTIES === "both" ? bid * runtime.buyerCommissionRate : 0;
+  const vatOnCommission = commission * runtime.vatRate;
   const total = bid + commission + vatOnCommission;
   return { bid, commission, vatOnCommission, total };
 }
@@ -157,15 +165,17 @@ export function estimateBuyerClosingCosts(bidTRY: number): {
   fixed: number;
   total: number;
 } {
+  const runtime = getTaxRuntimeConfig();
   const { bid, commission, vatOnCommission } = calcBuyerTotal(bidTRY);
-  const deed = Math.round(bidTRY * DEED_DUTY_RATE);
+  const deed = Math.round(bidTRY * runtime.deedDutyRate);
   const fixed = OTHER_FEES_FIXED_TRY;
   const total = bid + commission + vatOnCommission + deed + fixed;
   return { bid, commission, vatOnCommission, deed, fixed, total };
 }
 
 export function feeBadgeLabel(): string {
-  return `%${(FEES.sellerCommissionRate * 100).toFixed(0)}+%${(FEES.buyerCommissionRate * 100).toFixed(0)} satıcı/alıcı + KDV`;
+  const runtime = getTaxRuntimeConfig();
+  return `%${(runtime.sellerCommissionRate * 100).toFixed(0)}+%${(runtime.buyerCommissionRate * 100).toFixed(0)} satıcı/alıcı + KDV`;
 }
 
 export function formatBidBondPercent(): string {
@@ -207,9 +217,9 @@ export function calcBidBondAmount(auctionOrBidTRY: number): number {
 
 export const FEE_TEXTS = {
   sellerSummary: () =>
-    `Satıcı komisyonu: %${(FEES.sellerCommissionRate * 100).toFixed(0)} + KDV %${(FEES.vatRate * 100).toFixed(0)}` +
+    `Satıcı komisyonu: %${(getTaxRuntimeConfig().sellerCommissionRate * 100).toFixed(0)} + KDV %${(getTaxRuntimeConfig().vatRate * 100).toFixed(0)}` +
     (COMMISSION_PARTIES === "both"
-      ? ` · Alıcı komisyonu: %${(FEES.buyerCommissionRate * 100).toFixed(0)} + KDV (hedef toplam %${((FEES.sellerCommissionRate + FEES.buyerCommissionRate) * 100).toFixed(0)} komisyon matrahı)`
+      ? ` · Alıcı komisyonu: %${(getTaxRuntimeConfig().buyerCommissionRate * 100).toFixed(0)} + KDV (hedef toplam %${((getTaxRuntimeConfig().sellerCommissionRate + getTaxRuntimeConfig().buyerCommissionRate) * 100).toFixed(0)} komisyon matrahı)`
       : ""),
   refundWindow: () => `${FEES.refundWindowDays} gün içinde iade`,
   payoutHold: () => `İhale bitiminden ${FEES.payoutHoldDays} gün sonra ödeme`,

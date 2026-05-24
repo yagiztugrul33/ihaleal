@@ -50,6 +50,7 @@ const EMPTY_FLAGS: LegalRiskFlags = {
 
 const FLAG_KEYS = Object.keys(EMPTY_FLAGS) as LegalRiskFlagKey[];
 const ROOMS_OPTIONS: TakasRooms[] = ["1+0", "1+1", "2+1", "3+1", "4+1", "5+"];
+const TAKAS_HIGH_VALUE_THRESHOLD_TRY = 15_000_000;
 
 type Step = 1 | 2 | 3;
 
@@ -133,6 +134,10 @@ function TakasHero() {
             <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
             Bankable ön fizibilite
           </span>
+          <span className="inline-flex items-center gap-1.5">
+            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+            Çift KYC + çift değerleme
+          </span>
         </div>
       </div>
     </header>
@@ -205,6 +210,11 @@ function TakasForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<TakasResult | null>(null);
+  const [doubleValuationAck, setDoubleValuationAck] = useState(false);
+  const [doubleKycAck, setDoubleKycAck] = useState(false);
+  const [doubleDeedTaxAck, setDoubleDeedTaxAck] = useState(false);
+  const [tradeContractAck, setTradeContractAck] = useState(false);
+  const [highValueAmlAck, setHighValueAmlAck] = useState(false);
 
   const [form, setForm] = useState<TakasFormState>({
     city: "İstanbul",
@@ -268,9 +278,20 @@ function TakasForm() {
     Number(form.marketValueTry) > 0;
   const canProceedFromStep2 =
     form.desiredCity.trim().length > 0 && Number(form.desiredBudgetTry) > 0;
+  const highValueTrade =
+    Number(form.marketValueTry) >= TAKAS_HIGH_VALUE_THRESHOLD_TRY ||
+    Number(form.desiredBudgetTry) >= TAKAS_HIGH_VALUE_THRESHOLD_TRY;
 
   const handleSubmit = async () => {
     setError("");
+    if (!doubleValuationAck || !doubleKycAck || !doubleDeedTaxAck || !tradeContractAck) {
+      setError("Çift değerleme, çift KYC, çift tapu/vergi uyarısı ve takas sözleşmesi onayları zorunludur.");
+      return;
+    }
+    if (highValueTrade && !highValueAmlAck) {
+      setError("Yüksek değerli takas için AML ek doğrulama onayı zorunludur.");
+      return;
+    }
     setLoading(true);
     try {
       const res = await submitTakas(buildPayload());
@@ -657,6 +678,31 @@ function TakasForm() {
             kesin hesaplamayı yapacaktır. Bu sayfa yatırım tavsiyesi değildir, ön
             fizibilite niteliğindedir.
           </div>
+          <div className="rounded-xl border border-cyan-400/20 bg-cyan-500/5 p-4 text-xs text-slate-200 space-y-2">
+            <p className="font-semibold text-cyan-100">İki taraf koruma onayları</p>
+            <label className="flex items-start gap-2 cursor-pointer">
+              <Checkbox checked={doubleValuationAck} onCheckedChange={(v) => setDoubleValuationAck(v === true)} className="mt-0.5" />
+              <span>Çift değerleme onayı: iki mülk için bağımsız değerleme referansını gördüm.</span>
+            </label>
+            <label className="flex items-start gap-2 cursor-pointer">
+              <Checkbox checked={doubleKycAck} onCheckedChange={(v) => setDoubleKycAck(v === true)} className="mt-0.5" />
+              <span>Çift KYC onayı: devreden ve devralan tarafın kimlik doğrulaması zorunlu.</span>
+            </label>
+            <label className="flex items-start gap-2 cursor-pointer">
+              <Checkbox checked={doubleDeedTaxAck} onCheckedChange={(v) => setDoubleDeedTaxAck(v === true)} className="mt-0.5" />
+              <span>Çift tapu/vergi uyarısını okudum; her iki taraf için ayrı harç/vergi doğabilir.</span>
+            </label>
+            <label className="flex items-start gap-2 cursor-pointer">
+              <Checkbox checked={tradeContractAck} onCheckedChange={(v) => setTradeContractAck(v === true)} className="mt-0.5" />
+              <span>Takas sözleşmesi taslağı ve iki taraf koruma hükümlerini okudum, kabul ediyorum.</span>
+            </label>
+            {highValueTrade ? (
+              <label className="flex items-start gap-2 cursor-pointer rounded-lg border border-amber-400/30 bg-amber-500/10 px-2 py-1.5 text-amber-100">
+                <Checkbox checked={highValueAmlAck} onCheckedChange={(v) => setHighValueAmlAck(v === true)} className="mt-0.5" />
+                <span>Yüksek değerli takas için AML ek doğrulama adımını kabul ediyorum.</span>
+              </label>
+            ) : null}
+          </div>
 
           {error ? (
             <div
@@ -728,6 +774,10 @@ export default function TakasPage() {
           <p>
             Takas çıktısı bir yatırım tavsiyesi değil, işlem öncesi karar desteğidir. Nihai sözleşme, taraf mutabakatı ve resmi kayıt
             adımları tamamlandıktan sonra bağlayıcı hale gelir.
+          </p>
+          <p>
+            Süreçte iki mülk için çift değerleme, çift KYC, çift tapu/vergi uyarısı ve yüksek değerde AML ek doğrulama yaklaşımı uygulanır
+            (mock). Hedef: devreden ve devralan tarafın birlikte korunması.
           </p>
         </div>
       </section>

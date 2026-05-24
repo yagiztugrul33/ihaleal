@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LISTING_IMAGE_PLACEHOLDER, normalizeListingImageUrl } from "@/lib/listingImage";
+import { ImageIcon } from "lucide-react";
 
 type Props = {
   src: string;
@@ -43,8 +44,11 @@ export function ListingCoverImage({ src, alt, className, loading = "lazy" }: Pro
         }}
       />
       {!loaded || errored ? (
-        <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-900/70 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-100">
-          Gorsel yok
+        <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900/80 via-slate-900/70 to-blue-950/60">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-slate-900/60 px-3 py-1 text-xs font-medium text-slate-200">
+            <ImageIcon className="h-3.5 w-3.5" aria-hidden />
+            Yükleniyor
+          </span>
         </span>
       ) : null}
     </span>

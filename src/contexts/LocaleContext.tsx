@@ -24,11 +24,16 @@ type LocaleContextValue = {
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 function readStoredLocale(): Locale {
-  if (typeof window === "undefined") return "en";
+  if (typeof window === "undefined") return "tr";
   try {
-    return resolveLocale(localStorage.getItem(LOCALE_STORAGE_KEY));
+    const stored = resolveLocale(localStorage.getItem(LOCALE_STORAGE_KEY));
+    if (stored === "en") {
+      localStorage.setItem(LOCALE_STORAGE_KEY, "tr");
+      return "tr";
+    }
+    return stored;
   } catch {
-    return "en";
+    return "tr";
   }
 }
 

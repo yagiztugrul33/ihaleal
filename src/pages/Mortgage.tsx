@@ -63,50 +63,50 @@ export default function Mortgage() {
   const minIncomeRequired = monthlyPayment * 2.5; // Banks typically require 40% DTI ratio
 
   return (
-    <div ref={ref} className="min-h-screen pt-24 pb-16 bg-slate-50">
+    <div ref={ref} className="min-h-screen bg-background pt-24 pb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mb-2 gap-2 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-4 h-4" /> Geri
           </Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
+          <h1 className="flex items-center gap-3 text-3xl font-bold text-foreground md:text-4xl">
             <Calculator className="w-8 h-8 text-blue-400" />
             Mortgage / Kredi Hesaplayici
           </h1>
-          <p className="text-slate-400 mt-2">Gayrimenkul aliminda aylik taksit ve toplam maliyeti hesaplayin.</p>
+          <p className="mt-2 text-muted-foreground">Gayrimenkul aliminda aylik taksit ve toplam maliyeti hesaplayin.</p>
         </div>
 
         <div className={`grid lg:grid-cols-5 gap-6 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           {/* Inputs */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h3 className="font-bold text-white mb-5">Kredi Parametreleri</h3>
+            <Card className="border-border bg-card p-5">
+              <h3 className="mb-5 font-bold text-foreground">Kredi Parametreleri</h3>
               
               <div className="space-y-6">
                 <div>
-                  <label className="text-sm text-slate-400 mb-2 block flex justify-between">
+                    <label className="mb-2 block flex justify-between text-sm text-muted-foreground">
                     <span>Gayrimenkul Degeri</span>
-                    <span className="text-white font-semibold">TRY {propertyValue.toLocaleString()}</span>
+                    <span className="font-semibold text-foreground">TRY {propertyValue.toLocaleString()}</span>
                   </label>
                   <Slider value={[propertyValue]} onValueChange={(v) => setPropertyValue(v[0])} min={500000} max={50000000} step={100000} className="my-3" />
-                  <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
+                  <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="border-border bg-secondary text-foreground" />
                 </div>
 
                 <div>
-                  <label className="text-sm text-slate-400 mb-2 block flex justify-between">
+                  <label className="mb-2 block flex justify-between text-sm text-muted-foreground">
                     <span>Peşinat Orani</span>
-                    <span className="text-white font-semibold">%{downPaymentPercent}</span>
+                    <span className="font-semibold text-foreground">%{downPaymentPercent}</span>
                   </label>
                   <Slider value={[downPaymentPercent]} onValueChange={(v) => setDownPaymentPercent(v[0])} min={10} max={50} step={5} className="my-3" />
-                  <div className="flex justify-between text-xs text-slate-500">
+                  <div className="flex justify-between text-xs text-muted-foreground">
                     <span>Peşinat: TRY {downPayment.toLocaleString()}</span>
                     <span>Kredi: TRY {loanAmount.toLocaleString()}</span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-sm text-slate-400 mb-2 block">Vade</label>
+                  <label className="mb-2 block text-sm text-muted-foreground">Vade</label>
                   <select 
                     value={termMonths} 
                     onChange={(e) => {
@@ -114,7 +114,7 @@ export default function Mortgage() {
                       setTermMonths(months);
                       setInterestRate(INTEREST_RATES[months.toString() as keyof typeof INTEREST_RATES] || 5.0);
                     }} 
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-200 text-white text-sm"
+                    className="w-full rounded-xl border border-border bg-secondary px-4 py-2.5 text-sm text-foreground"
                   >
                     <option value={12}>1 Yil (12 Ay)</option>
                     <option value={24}>2 Yil (24 Ay)</option>
@@ -127,34 +127,34 @@ export default function Mortgage() {
                 </div>
 
                 <div>
-                  <label className="text-sm text-slate-400 mb-2 block flex justify-between">
+                  <label className="mb-2 block flex justify-between text-sm text-muted-foreground">
                     <span>Faiz Orani (Yillik)</span>
-                    <span className="text-white font-semibold">%{interestRate}</span>
+                    <span className="font-semibold text-foreground">%{interestRate}</span>
                   </label>
                   <Slider value={[interestRate * 100]} onValueChange={(v) => setInterestRate(v[0] / 100)} min={100} max={1500} step={5} className="my-3" />
-                  <Input type="number" step="0.01" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
+                  <Input type="number" step="0.01" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="border-border bg-secondary text-foreground" />
                 </div>
               </div>
             </Card>
 
             {/* Bank Info */}
-            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+            <Card className="border-border bg-card p-5">
+              <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
                 <Info className="w-4 h-4 text-blue-400" />
                 Banka Gereksinimleri
               </h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Min. Aylik Gelir</span>
+                  <span className="text-muted-foreground">Min. Aylik Gelir</span>
                   <span className="text-amber-400 font-semibold">TRY {Math.round(minIncomeRequired).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Peşinat Orani</span>
-                  <span className="text-white">Min %20</span>
+                  <span className="text-muted-foreground">Peşinat Orani</span>
+                  <span className="text-foreground">Min %20</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Kredi/Tapu Orani</span>
-                  <span className="text-white">Max %80</span>
+                  <span className="text-muted-foreground">Kredi/Tapu Orani</span>
+                  <span className="text-foreground">Max %80</span>
                 </div>
               </div>
             </Card>
@@ -163,8 +163,8 @@ export default function Mortgage() {
           {/* Results */}
           <div className="lg:col-span-3 space-y-6">
             {/* Main Results */}
-            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h3 className="font-bold text-white mb-4">Kredi Ozeti</h3>
+            <Card className="border-border bg-card p-5">
+              <h3 className="mb-4 font-bold text-foreground">Kredi Ozeti</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <ResultCard icon={<Banknote className="w-5 h-5 text-blue-400" />} label="Aylik Taksit" value={`TRY ${Math.round(monthlyPayment).toLocaleString()}`} sub="Duzgun odeme" color="text-blue-400" />
                 <ResultCard icon={<Percent className="w-5 h-5 text-amber-400" />} label="Toplam Faiz" value={`TRY ${Math.round(totalInterest).toLocaleString()}`} sub={`%${((totalInterest / loanAmount) * 100).toFixed(1)} maliyet`} color="text-amber-400" />
@@ -174,8 +174,8 @@ export default function Mortgage() {
             </Card>
 
             {/* Amortization Graph */}
-            <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h3 className="text-lg font-bold text-white mb-4">Odeme Planı — Kalan Borc Grafiği</h3>
+            <Card className="border-border bg-card p-5">
+              <h3 className="mb-4 text-lg font-bold text-foreground">Odeme Planı — Kalan Borc Grafiği</h3>
               <div className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={amortizationData}>
@@ -205,15 +205,15 @@ export default function Mortgage() {
             </Card>
 
             {/* Yearly Breakdown Table */}
-            <Card className="bg-slate-900/50 border-slate-200/80 overflow-hidden">
-              <div className="p-4 border-b border-slate-200/80 flex items-center justify-between">
-                <h3 className="font-bold text-white">Yillik Odeme Ozeti</h3>
+            <Card className="overflow-hidden border-border bg-card">
+              <div className="flex items-center justify-between border-b border-border p-4">
+                <h3 className="font-bold text-foreground">Yillik Odeme Ozeti</h3>
                 <span className="text-xs text-slate-500">Her yil sonu</span>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-200/80">
+                    <tr className="border-b border-border">
                       <th className="text-left p-3 text-slate-400 font-medium">Yil</th>
                       <th className="text-right p-3 text-slate-400 font-medium">Aylik Taksit</th>
                       <th className="text-right p-3 text-slate-400 font-medium">Anapara</th>
@@ -223,9 +223,9 @@ export default function Mortgage() {
                   </thead>
                   <tbody>
                     {amortizationData.filter((_, i) => i % 2 === 0 || i === amortizationData.length - 1).map((row, idx) => (
-                      <tr key={idx} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
-                        <td className="p-3 text-white font-medium">{row.year}. Yil</td>
-                        <td className="p-3 text-right text-white">TRY {row.payment.toLocaleString()}</td>
+                      <tr key={idx} className="border-b border-border/60 hover:bg-secondary/30">
+                        <td className="p-3 font-medium text-foreground">{row.year}. Yil</td>
+                        <td className="p-3 text-right text-foreground">TRY {row.payment.toLocaleString()}</td>
                         <td className="p-3 text-right text-emerald-400">TRY {row.principal.toLocaleString()}</td>
                         <td className="p-3 text-right text-amber-400">TRY {row.interest.toLocaleString()}</td>
                         <td className="p-3 text-right text-blue-400">TRY {row.remaining.toLocaleString()}</td>
@@ -256,7 +256,7 @@ export default function Mortgage() {
           </div>
         </div>
 
-        <p className="text-xs text-slate-600 mt-8 text-center leading-relaxed">
+        <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
           * Bu hesaplama bilgilendirme amaclidir. Gercek kredi kosullari bankaya ve kredi notunuza gore degisiklik gosterebilir.
         </p>
       </div>
@@ -266,7 +266,7 @@ export default function Mortgage() {
 
 function ResultCard({ icon, label, value, sub, color }: { icon: React.ReactNode; label: string; value: string; sub: string; color: string }) {
   return (
-    <div className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
+    <div className="rounded-xl border border-border bg-secondary/50 p-4">
       <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-slate-400">{label}</span></div>
       <div className={`text-lg font-bold ${color}`}>{value}</div>
       <div className="text-xs text-slate-500 mt-0.5">{sub}</div>

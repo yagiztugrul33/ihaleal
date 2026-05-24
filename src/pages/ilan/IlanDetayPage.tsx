@@ -38,6 +38,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { buildSellerTrustProfile } from "@/lib/sellerTrust";
 import { ShareButton } from "@/components/ShareButton";
+import { ensureHouseGalleryImages } from "@/lib/listingImage";
 import "@/styles/ilan-pages.css";
 
 function formatTry(amount: number): string {
@@ -81,8 +82,8 @@ export default function IlanDetayPage({ id }: { id: string }) {
     );
   }
 
-  const hero = getPropertyHero(property) ?? "/images/auction-1.jpg";
-  const images = property.images?.length ? property.images : [hero];
+  const hero = getPropertyHero(property);
+  const images = ensureHouseGalleryImages(property.images?.length ? property.images : hero ? [hero] : [], 6);
   const currentImage = activeImage ?? images[0];
   const price = getPropertyPrice(property);
   const location = getPropertyLocation(property);
@@ -238,6 +239,7 @@ function HeroSection(props: {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { hero, images, property, price, location, isLive, onSelectImage, onOpenLightbox } = props;
+  const isAuctionMode = property.marketingMode === "auction";
   const seller = buildSellerTrustProfile(property.id);
   const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/#/ilanlar/${property.id}` : `/ilanlar/${property.id}`;
 
@@ -269,7 +271,7 @@ function HeroSection(props: {
           </span>
         </button>
         <div className="ilan-detay__gallery-thumbs">
-          {images.slice(0, 4).map((src) => (
+          {images.slice(0, 5).map((src) => (
             <button
               key={src}
               type="button"
@@ -307,7 +309,7 @@ function HeroSection(props: {
         <div className="ilan-detay__actions">
           <Link to={`/teklif-al?ilan=${property.id}`} className="ilan-detay__btn ilan-detay__btn--primary">
             <Gavel className="h-4 w-4" aria-hidden />
-            Teklif Ver
+            {isAuctionMode ? "Borsa Teklifi Ver" : "Özel Teklif Ver"}
           </Link>
           {property.dealType !== "rent" && property.buyNowPriceTry != null ? (
             <Link to={`/ilanlar/${property.id}?mode=buy-now`} className="ilan-detay__btn ilan-detay__btn--buy-now">
@@ -326,9 +328,11 @@ function HeroSection(props: {
             }}
           >
             <Heart className={`h-4 w-4 ${isFavorite(property.id) ? "fill-current text-rose-400" : ""}`} />
+            Favori
           </button>
           <button type="button" className="ilan-detay__btn ilan-detay__btn--ghost" aria-label="Karşılaştır" onClick={handleCompare}>
             <GitCompare className="h-4 w-4" />
+            Karşılaştır
           </button>
           <ShareButton
             title={getPropertyTitle(property)}
@@ -362,6 +366,9 @@ function HeroSection(props: {
             </Link>
           </div>
         </div>
+        <p className="rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-xs text-cyan-100">
+          Mod: {isAuctionMode ? "Borsa (açık artırma, teklifler görünür/yükselir)." : "Standart ilan (fiyat sabit, teklifler özel)."} Bir mülk aynı anda tek modda listelenir.
+        </p>
         <dl className="ilan-detay__quick-facts">
           {property.grossSqm ? (
             <>
