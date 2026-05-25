@@ -180,6 +180,28 @@ export default function FiyatlandirmaPage() {
         <p className="mt-1 text-xs text-slate-400">Satış etiket özeti: {feeBadgeLabel()}</p>
       </section>
 
+      <section className="mt-6 grid gap-4 md:grid-cols-3">
+        <article className="card-warm">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-blue-300">Maliyet Çerçevesi</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Plan bedeli + komisyon + KDV birlikte okunur. Operasyon hacmi arttıkça sabit ücretten çok süreç verimi kritik hale gelir.
+          </p>
+        </article>
+        <article className="card-warm">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-300">Geçiş Disiplini</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Plan yükseltme/düşürme aylık ritimde yönetilir; ekip koltuğu, API ve destek SLA’sı sözleşmede netleşir.
+          </p>
+        </article>
+        <article className="card-warm">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-300">Hızlı Aksiyon</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Önce <Link to="/komisyon-hesaplayici" className="text-primary hover:text-foreground">komisyon simülasyonu</Link>, sonra demo talebi.
+            Böylece plan seçimi veriyle yapılır.
+          </p>
+        </article>
+      </section>
+
       <section className="py-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {PLANS.map((p) => (
           <div

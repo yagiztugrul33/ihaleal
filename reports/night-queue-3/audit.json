@@ -1,0 +1,290 @@
+{
+  "baseUrl": "http://127.0.0.1:5179",
+  "routes": [
+    "/borsa",
+    "/borsa/portfoy",
+    "/ihaleler",
+    "/sat-basla",
+    "/nasil-calisir",
+    "/guvenlik",
+    "/fiyatlandirma",
+    "/komisyon-hesaplayici",
+    "/sehirler",
+    "/giris",
+    "/kayit"
+  ],
+  "desktopResults": [
+    {
+      "route": "/borsa",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [],
+      "screenshot": "reports/night-queue-3/rootborsa--desktop.png"
+    },
+    {
+      "route": "/borsa/portfoy",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [],
+      "screenshot": "reports/night-queue-3/rootborsa__portfoy--desktop.png"
+    },
+    {
+      "route": "/ihaleler",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "button.px-4",
+        "button.px-4",
+        "button.px-4"
+      ],
+      "screenshot": "reports/night-queue-3/rootihaleler--desktop.png"
+    },
+    {
+      "route": "/sat-basla",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "span.inline-flex",
+        "span.inline-flex",
+        "span.inline-flex",
+        "span.inline-flex"
+      ],
+      "screenshot": "reports/night-queue-3/rootsat-basla--desktop.png"
+    },
+    {
+      "route": "/nasil-calisir",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50"
+      ],
+      "screenshot": "reports/night-queue-3/rootnasil-calisir--desktop.png"
+    },
+    {
+      "route": "/guvenlik",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "div.h-2",
+        "span.inline-flex",
+        "span.inline-flex",
+        "span.inline-flex"
+      ],
+      "screenshot": "reports/night-queue-3/rootguvenlik--desktop.png"
+    },
+    {
+      "route": "/fiyatlandirma",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50"
+      ],
+      "screenshot": "reports/night-queue-3/rootfiyatlandirma--desktop.png"
+    },
+    {
+      "route": "/komisyon-hesaplayici",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "div.rounded-lg",
+        "button.rounded-md",
+        "button.rounded-md",
+        "button.rounded-md"
+      ],
+      "screenshot": "reports/night-queue-3/rootkomisyon-hesaplayici--desktop.png"
+    },
+    {
+      "route": "/sehirler",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "div.absolute",
+        "div.absolute",
+        "div.absolute",
+        "div.absolute"
+      ],
+      "screenshot": "reports/night-queue-3/rootsehirler--desktop.png"
+    },
+    {
+      "route": "/giris",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50"
+      ],
+      "screenshot": "reports/night-queue-3/rootgiris--desktop.png"
+    },
+    {
+      "route": "/kayit",
+      "viewport": "desktop",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50"
+      ],
+      "screenshot": "reports/night-queue-3/rootkayit--desktop.png"
+    }
+  ],
+  "mobileResults": [
+    {
+      "route": "/borsa",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [],
+      "screenshot": "reports/night-queue-3/rootborsa--mobile.png"
+    },
+    {
+      "route": "/borsa/portfoy",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [],
+      "screenshot": "reports/night-queue-3/rootborsa__portfoy--mobile.png"
+    },
+    {
+      "route": "/ihaleler",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "button.px-4",
+        "button.px-4",
+        "button.px-4"
+      ],
+      "screenshot": "reports/night-queue-3/rootihaleler--mobile.png"
+    },
+    {
+      "route": "/sat-basla",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "span.inline-flex",
+        "span.inline-flex",
+        "span.inline-flex",
+        "span.inline-flex"
+      ],
+      "screenshot": "reports/night-queue-3/rootsat-basla--mobile.png"
+    },
+    {
+      "route": "/nasil-calisir",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "span.flex"
+      ],
+      "screenshot": "reports/night-queue-3/rootnasil-calisir--mobile.png"
+    },
+    {
+      "route": "/guvenlik",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "div.h-2",
+        "span.inline-flex",
+        "span.inline-flex",
+        "span.inline-flex"
+      ],
+      "screenshot": "reports/night-queue-3/rootguvenlik--mobile.png"
+    },
+    {
+      "route": "/fiyatlandirma",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50"
+      ],
+      "screenshot": "reports/night-queue-3/rootfiyatlandirma--mobile.png"
+    },
+    {
+      "route": "/komisyon-hesaplayici",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "div.rounded-lg",
+        "button.rounded-md",
+        "button.rounded-md",
+        "button.rounded-md"
+      ],
+      "screenshot": "reports/night-queue-3/rootkomisyon-hesaplayici--mobile.png"
+    },
+    {
+      "route": "/sehirler",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50",
+        "div.absolute",
+        "div.absolute",
+        "div.absolute",
+        "div.absolute"
+      ],
+      "screenshot": "reports/night-queue-3/rootsehirler--mobile.png"
+    },
+    {
+      "route": "/giris",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50"
+      ],
+      "screenshot": "reports/night-queue-3/rootgiris--mobile.png"
+    },
+    {
+      "route": "/kayit",
+      "viewport": "mobile",
+      "overflow": false,
+      "englishHits": [],
+      "lightNodes": [
+        "div.bg-amber-50"
+      ],
+      "screenshot": "reports/night-queue-3/rootkayit--mobile.png"
+    }
+  ],
+  "navbar": {
+    "checks": [
+      {
+        "name": "/İhale/i",
+        "href": "/ilanlar"
+      },
+      {
+        "name": "/Nasıl Çalışır/i",
+        "href": "/nasil-calisir"
+      }
+    ],
+    "servicesPanelVisible": true,
+    "companyDropdownVisible": true,
+    "mobileMenuVisible": true,
+    "screenshots": [
+      "reports/night-queue-3/navbar-desktop-dropdowns.png",
+      "reports/night-queue-3/navbar-mobile-menu.png"
+    ]
+  }
+}

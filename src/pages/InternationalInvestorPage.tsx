@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Globe2, Languages, Landmark, PlaneTakeoff } from "lucide-react";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
@@ -153,6 +154,24 @@ export default function InternationalInvestorPage() {
             </p>
             <p className="mt-2 text-xs text-slate-400">
               Etiketleme kuralı temsili/demo eşik üzerinden çalışır.
+            </p>
+          </article>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-400/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">Pazar Masası</p>
+            <p className="mt-2 text-sm text-slate-300">Bölgesel fiyat, döviz oynaklığı ve likidite işaretleri tek panelde toplanır.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-400/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">Uygunluk Akışı</p>
+            <p className="mt-2 text-sm text-slate-300">KYC, AML ve evrak kontrolü adım adım ilerler; kritik riskler erken işaretlenir.</p>
+          </article>
+          <article className="rounded-xl border border-violet-400/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">Aksiyon</p>
+            <p className="mt-2 text-sm text-slate-300">
+              <Link to="/ihaleler" className="text-primary hover:text-foreground">İhalelere geç</Link> veya{" "}
+              <Link to="/komisyon-hesaplayici" className="text-primary hover:text-foreground">maliyetleri simüle et</Link>.
             </p>
           </article>
         </section>

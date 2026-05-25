@@ -393,6 +393,11 @@ export function Navbar() {
           </div>
 
           <div className="nav-desktop-actions hidden items-center gap-2 lg:flex">
+            <Button asChild className="h-10 px-4 text-sm font-semibold">
+              <Link to="/borsa" className="no-underline">
+                Borsaya Gir
+              </Link>
+            </Button>
             <button
               type="button"
               onClick={() => setSearchOpen(true)}

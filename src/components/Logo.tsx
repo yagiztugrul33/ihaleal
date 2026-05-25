@@ -2,8 +2,8 @@ import { cn } from "@/lib/utils";
 
 const logoSizes = {
   sm: { full: "h-[44px]", icon: "h-[44px] w-[44px]" },
-  md: { full: "h-[44px] sm:h-[54px]", icon: "h-[44px] w-[44px] sm:h-[54px] sm:w-[54px]" },
-  lg: { full: "h-[52px] sm:h-[60px]", icon: "h-[52px] w-[52px] sm:h-[60px] sm:w-[60px]" },
+  md: { full: "h-[52px] sm:h-[60px]", icon: "h-[52px] w-[52px] sm:h-[60px] sm:w-[60px]" },
+  lg: { full: "h-[64px] sm:h-[72px]", icon: "h-[64px] w-[64px] sm:h-[72px] sm:w-[72px]" },
 } as const;
 
 export function Logo({
@@ -52,7 +52,7 @@ export function BrandLockup({
       {showSlogan ? (
         <span
           className={cn(
-            "max-w-[16rem] text-center text-[10px] font-medium uppercase tracking-[0.08em] text-amber-200/90",
+            "max-w-[18rem] text-center text-[11px] font-medium uppercase tracking-[0.1em] text-amber-200/90",
             hideSloganOnMobile && "hidden sm:inline",
             sloganClassName,
           )}

@@ -17,7 +17,7 @@ export function DemoUyarisi() {
   if (!visible) return null;
 
   return (
-    <div className="bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 relative z-50">
+    <div className="relative z-50 border-b border-amber-500/30 bg-amber-500/10 text-amber-100">
       <div className="container mx-auto px-4 py-2 flex items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-2 flex-1 min-w-0">
           <AlertCircle className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
@@ -31,7 +31,7 @@ export function DemoUyarisi() {
           type="button"
           onClick={dismiss}
           aria-label="Demo uyarısını kapat"
-          className="flex-shrink-0 p-1 rounded hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors"
+          className="flex-shrink-0 rounded p-1 transition-colors hover:bg-amber-500/20"
         >
           <X className="h-4 w-4" />
         </button>

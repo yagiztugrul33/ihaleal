@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { Calculator, Database, Loader2, RefreshCw } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -77,12 +78,29 @@ export default function TaxSimulatorPage() {
           <Calculator className="h-7 w-7" />
         </div>
         <div>
-          <h1 className="font-serif text-2xl font-semibold tracking-tight">Vergi / harc simulatoru</h1>
+          <h1 className="font-serif text-2xl font-semibold tracking-tight">Vergi / harç simülatörü</h1>
           <p className="text-sm text-muted-foreground">
-            TaxSimulatorService (Kimi ZIP) — tahmini matrah; resmi hesap degildir.
+            TaxSimulatorService (Kimi ZIP) ile ön hesaplama: tahmini matrah, resmi hesap değildir.
           </p>
         </div>
       </div>
+
+      <section className="grid gap-3 md:grid-cols-3">
+        <article className="rounded-xl border border-border bg-card p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">1) Endeks</p>
+          <p className="mt-1 text-sm text-muted-foreground">Yİ-ÜFE verisi demo veya TCMB EVDS kaynağından birleştirilir.</p>
+        </article>
+        <article className="rounded-xl border border-border bg-card p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">2) Matrah</p>
+          <p className="mt-1 text-sm text-muted-foreground">Alış-satış, metrekare ve istisna bilgisiyle vergi ön projeksiyonu çıkar.</p>
+        </article>
+        <article className="rounded-xl border border-border bg-card p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">3) Aksiyon</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Sonucu <Link to="/komisyon-hesaplayici" className="text-primary hover:text-foreground">Komisyon Hesaplayıcı</Link> ve hukuki kontrolle birlikte değerlendirin.
+          </p>
+        </article>
+      </section>
 
       <TaxDisclaimerBanner />
 
@@ -94,14 +112,14 @@ export default function TaxSimulatorPage() {
               YI-UFE (TCMB EVDS)
             </CardTitle>
             <p className="text-sm text-muted-foreground mt-1">
-              Demo endeks noktalari yerine resmi aylik seri: Supabase Edge <code className="text-xs">tcmb_yiufe</code>{" "}
-              + secret <code className="text-xs">TCMB_EVDS_API_KEY</code>. Anahtar tarayicida degil.
+              Demo endeks noktaları yerine resmi aylık seri: Supabase Edge <code className="text-xs">tcmb_yiufe</code>{" "}
+              + secret <code className="text-xs">TCMB_EVDS_API_KEY</code>. Anahtar tarayıcıda değil.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 shrink-0">
             <Button type="button" variant="secondary" size="sm" onClick={loadTcmb} disabled={tcmbLoading} className="gap-2">
               {tcmbLoading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <RefreshCw className="h-4 w-4" aria-hidden />}
-              TCMB ile guncelle
+              TCMB ile güncelle
             </Button>
             {tcmbMeta && (
               <span className="text-xs text-muted-foreground">
@@ -118,10 +136,10 @@ export default function TaxSimulatorPage() {
           )}
           {tcmbOverlay?.length ? (
             <p className="text-xs text-emerald-700 dark:text-emerald-300">
-              Resmi seri demo ile birlestirildi; ortak aylarda TCMB degeri kullanilir.
+              Resmi seri demo ile birleştirildi; ortak aylarda TCMB değeri kullanılır.
             </p>
           ) : (
-            <p className="text-xs text-muted-foreground">Henuz TCMB cekilmedi — simulasyon demo YI-UFE ile.</p>
+            <p className="text-xs text-muted-foreground">Henüz TCMB çekilmedi — simülasyon demo Yİ-ÜFE ile çalışır.</p>
           )}
         </CardContent>
       </Card>
@@ -132,7 +150,7 @@ export default function TaxSimulatorPage() {
         </CardHeader>
         <CardContent className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="pur">Alis tarihi (YYYY-AA)</Label>
+            <Label htmlFor="pur">Alış tarihi (YYYY-AA)</Label>
             <Input id="pur" value={purchaseYm} onChange={(e) => setPurchaseYm(e.target.value)} placeholder="2021-06" />
           </div>
           <div className="space-y-2">
@@ -140,11 +158,11 @@ export default function TaxSimulatorPage() {
             <Input id="area" value={area} onChange={(e) => setArea(e.target.value)} placeholder="120" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="buy">Tapu beyan alis (TRY)</Label>
+            <Label htmlFor="buy">Tapu beyan alış (TRY)</Label>
             <Input id="buy" inputMode="numeric" value={buyTry} onChange={(e) => setBuyTry(e.target.value)} />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="sale">Beklenen satis (TRY)</Label>
+            <Label htmlFor="sale">Beklenen satış (TRY)</Label>
             <Input id="sale" inputMode="numeric" value={saleTry} onChange={(e) => setSaleTry(e.target.value)} />
           </div>
           <div className="sm:col-span-2 flex items-center gap-2">
@@ -164,7 +182,7 @@ export default function TaxSimulatorPage() {
           <CardContent className="space-y-3 text-sm">
             <div className="grid sm:grid-cols-2 gap-2">
               <p>
-                <span className="text-muted-foreground">Tapu harci (satici payi):</span>{" "}
+                <span className="text-muted-foreground">Tapu harcı (satıcı payı):</span>{" "}
                 <strong>{result.deedDuty.sellerShare.toLocaleString("tr-TR")} TL</strong>
               </p>
               <p>
@@ -179,7 +197,7 @@ export default function TaxSimulatorPage() {
                 <strong>{result.platformFee.total.toLocaleString("tr-TR")} TL</strong>
               </p>
               <p>
-                <span className="text-muted-foreground">Saticiya tahmini net:</span>{" "}
+                <span className="text-muted-foreground">Satıcıya tahmini net:</span>{" "}
                 <strong>{result.netToSeller.estimatedNet.toLocaleString("tr-TR")} TL</strong>
               </p>
             </div>

@@ -1,0 +1,84 @@
+{
+  "baseUrl": "http://127.0.0.1:5179",
+  "commandH": {
+    "standard": {
+      "route": "/ilan/prop-001",
+      "tag": "standard",
+      "modalOpened": false,
+      "preAuthVisible": false,
+      "rulesVisible": false,
+      "ackRequired": false,
+      "submitBlockedWhenUnchecked": false,
+      "hemenAlWorks": false,
+      "notes": [
+        "Teklif butonu bulunamadı"
+      ],
+      "screenshotBefore": "reports/night-queue-4/h-standard-before.png"
+    },
+    "borsa": {
+      "route": "/ihale/demo-ihale-1",
+      "tag": "borsa",
+      "modalOpened": false,
+      "preAuthVisible": false,
+      "rulesVisible": false,
+      "ackRequired": false,
+      "submitBlockedWhenUnchecked": false,
+      "hemenAlWorks": false,
+      "notes": [
+        "Teklif butonu bulunamadı"
+      ],
+      "screenshotBefore": "reports/night-queue-4/h-borsa-before.png"
+    }
+  },
+  "commandI": {
+    "totalLinksChecked": 12,
+    "routesChecked": [
+      "/",
+      "/ilanlar",
+      "/nasil-calisir",
+      "/arastirma",
+      "/borsa",
+      "/oduller",
+      "/uluslararasi",
+      "/kat-karsiligi-arsa",
+      "/araclar/vergi-simulator",
+      "/analiz",
+      "/veri-ve-endeks",
+      "/komisyon-hesaplayici"
+    ],
+    "problems": []
+  },
+  "commandJ": {
+    "order": [
+      {
+        "text": "Türkiye'nin Gayrimenkul Borsası",
+        "y": 193
+      },
+      {
+        "text": "Borsa nasıl çalışır",
+        "y": 1507
+      },
+      {
+        "text": "Kampanya",
+        "y": 2114
+      },
+      {
+        "text": "Öne Çıkan İhaleler",
+        "y": 2668
+      },
+      {
+        "text": "Platform Modülleri",
+        "y": 4490
+      },
+      {
+        "text": "Güven & Kurumsal",
+        "y": 6356
+      }
+    ],
+    "desktopHero": "reports/night-queue-4/j-home-desktop-hero.png",
+    "desktopFull": "reports/night-queue-4/j-home-desktop-full.png",
+    "mobileHero": "reports/night-queue-4/j-home-mobile-hero.png",
+    "mobileFull": "reports/night-queue-4/j-home-mobile-full.png",
+    "mobileOverflow": false
+  }
+}

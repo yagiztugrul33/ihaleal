@@ -1,0 +1,189 @@
+{
+  "baseUrl": "http://127.0.0.1:5179",
+  "desktopLinks": [
+    "/",
+    "/ilanlar",
+    "/nasil-calisir",
+    "/arastirma",
+    "/kurumsal",
+    "/oduller",
+    "/kampanyalar",
+    "/uluslararasi",
+    "/sss",
+    "/borsa"
+  ],
+  "mobileLinks": [],
+  "totalChecked": 17,
+  "checks": [
+    {
+      "route": "/",
+      "textLength": 11109,
+      "headingCount": 52,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/ilanlar",
+      "textLength": 5839,
+      "headingCount": 6,
+      "hasPlaceholder": true,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/nasil-calisir",
+      "textLength": 8190,
+      "headingCount": 31,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/arastirma",
+      "textLength": 3301,
+      "headingCount": 7,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/kurumsal",
+      "textLength": 6021,
+      "headingCount": 13,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/oduller",
+      "textLength": 3354,
+      "headingCount": 4,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/kampanyalar",
+      "textLength": 3301,
+      "headingCount": 6,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/uluslararasi",
+      "textLength": 3545,
+      "headingCount": 6,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/sss",
+      "textLength": 3813,
+      "headingCount": 2,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/borsa",
+      "textLength": 3096,
+      "headingCount": 10,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/kat-karsiligi-arsa",
+      "textLength": 5052,
+      "headingCount": 5,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/araclar/vergi-simulator",
+      "textLength": 3514,
+      "headingCount": 1,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": true
+    },
+    {
+      "route": "/analiz",
+      "textLength": 7593,
+      "headingCount": 11,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/veri-ve-endeks",
+      "textLength": 4366,
+      "headingCount": 4,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/komisyon-hesaplayici",
+      "textLength": 5622,
+      "headingCount": 7,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/araclar/finans-uyumluluk",
+      "textLength": 2749,
+      "headingCount": 1,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": true
+    },
+    {
+      "route": "/degerleme",
+      "textLength": 2730,
+      "headingCount": 1,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": true
+    }
+  ],
+  "problems": [
+    {
+      "route": "/ilanlar",
+      "textLength": 5839,
+      "headingCount": 6,
+      "hasPlaceholder": true,
+      "hasBroken": false,
+      "isShallow": false
+    },
+    {
+      "route": "/araclar/vergi-simulator",
+      "textLength": 3514,
+      "headingCount": 1,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": true
+    },
+    {
+      "route": "/araclar/finans-uyumluluk",
+      "textLength": 2749,
+      "headingCount": 1,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": true
+    },
+    {
+      "route": "/degerleme",
+      "textLength": 2730,
+      "headingCount": 1,
+      "hasPlaceholder": false,
+      "hasBroken": false,
+      "isShallow": true
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "baseUrl": "http://127.0.0.1:5179",
+  "order": [
+    {
+      "label": "Türkiye'nin Gayrimenkul Borsası",
+      "y": 193
+    },
+    {
+      "label": "Borsa nasıl çalışır",
+      "y": 1507
+    },
+    {
+      "label": "Öne Çıkan İhaleler",
+      "y": 2453
+    },
+    {
+      "label": "Neden",
+      "y": 3596
+    },
+    {
+      "label": "Platform Modülleri",
+      "y": 4274
+    },
+    {
+      "label": "Kampanya",
+      "y": 6125
+    },
+    {
+      "label": "Güven & Kurumsal",
+      "y": 6356
+    }
+  ],
+  "desktopHero": "reports/night-queue-4/j-home-desktop-hero-v2.png",
+  "desktopFull": "reports/night-queue-4/j-home-desktop-full-v2.png",
+  "mobileHero": "reports/night-queue-4/j-home-mobile-hero-v2.png",
+  "mobileFull": "reports/night-queue-4/j-home-mobile-full-v2.png",
+  "mobileOverflow": false
+}

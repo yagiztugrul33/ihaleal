@@ -1,0 +1,33 @@
+{
+  "baseUrl": "http://127.0.0.1:5179",
+  "standard": {
+    "route": "/ilan/std-local-1",
+    "modeTag": "standard",
+    "bidButtonFound": true,
+    "modalOpened": true,
+    "preAuthTextVisible": false,
+    "rulesVisible": true,
+    "checkboxCount": 1,
+    "submitDisabledBeforeAck": true,
+    "buyNowInteractionWorks": true,
+    "notes": [],
+    "beforeScreenshot": "reports/night-queue-4/h-standard-before.png",
+    "modalScreenshot": "reports/night-queue-4/h-standard-modal.png",
+    "buyNowScreenshot": "reports/night-queue-4/h-standard-hemen-al.png"
+  },
+  "auction": {
+    "route": "/ilan/1",
+    "modeTag": "auction",
+    "bidButtonFound": true,
+    "modalOpened": true,
+    "preAuthTextVisible": true,
+    "rulesVisible": true,
+    "checkboxCount": 12,
+    "submitDisabledBeforeAck": true,
+    "buyNowInteractionWorks": true,
+    "notes": [],
+    "beforeScreenshot": "reports/night-queue-4/h-auction-before.png",
+    "modalScreenshot": "reports/night-queue-4/h-auction-modal.png",
+    "buyNowScreenshot": "reports/night-queue-4/h-auction-hemen-al.png"
+  }
+}

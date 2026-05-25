@@ -238,13 +238,13 @@ export default function LandEquityPage() {
 
         <Card className="border-cyan-500/25 bg-slate-900/40">
           <CardContent className="space-y-4 p-6">
-            <h2 className="text-lg font-semibold text-white">Muteahhit hakedisi: yuvarlanan blokaj</h2>
+            <h2 className="text-lg font-semibold text-white">Müteahhit hakedişi: yuvarlanan blokaj</h2>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Ilk hakedis tutari odeme emanet hesabinda kalir; sonraki hakedis raporu / kismi kabul onaylandiginda bir onceki dilim odenebilir hale gelir.
-              Son dilim kesin kabul veya tapu zincirine baglanir. TBK iyiniyet ve orantilik; cezai sart degildir. Metin avukat taslagidir.
+              İlk hakediş tutarı ödeme emanet hesabında kalır; sonraki hakediş raporu / kısmi kabul onaylandığında bir önceki dilim ödenebilir hale gelir.
+              Son dilim kesin kabul veya tapu zincirine bağlanır. TBK iyi niyet ve orantılılık ilkesi gözetilir; cezai şart değildir. Metin avukat taslağıdır.
             </p>
             <div className="space-y-2">
-              <Label className="text-slate-400">Hakedis dilimi sayisi: {hakedisTrancheCount}</Label>
+              <Label className="text-slate-400">Hakediş dilimi sayısı: {hakedisTrancheCount}</Label>
               <input
                 type="range"
                 min={2}

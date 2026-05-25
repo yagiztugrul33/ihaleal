@@ -42,7 +42,7 @@ const MODULES = [
   },
   {
     title: "Takas (Trade-In)",
-    desc: "Mevcut mulkunuzu hedef portfoye takaslayin; capraz ofis komisyon izleme.",
+    desc: "Mevcut mülkünüzü hedef portföye takaslayın; çapraz ofis komisyonunu adım adım izleyin.",
     icon: RefreshCw,
     href: `${IBUYER_PATH}?flow=trade-in`,
     badge: "Takas",
@@ -58,7 +58,7 @@ const MODULES = [
   },
   {
     title: "Ada Parsel İstihbarat",
-    desc: "EMSAL/TAKS, kat adedi, muteahhit vs arsa sahibi paylasimi, skor /100.",
+    desc: "EMSAL/TAKS, kat adedi, müteahhit vs arsa sahibi paylaşımı ve skor /100 analizi.",
     icon: Map,
     href: PARCEL_INTELLIGENCE_PATH,
     badge: "GIS",
@@ -73,8 +73,8 @@ const MODULES = [
     accent: "from-blue-500/20 to-indigo-900/10 border-blue-500/30",
   },
   {
-    title: "Kat Karsiligi Studio",
-    desc: "EMSAL/TAKS, hak edis ve sozlesme taslagı.",
+    title: "Kat Karşılığı Stüdyo",
+    desc: "EMSAL/TAKS, hakediş ve sözleşme taslağıyla proje ön çerçevesi.",
     icon: Building2,
     href: KKA_STUDIO_PATH,
     badge: "Mevcut",
@@ -127,6 +127,21 @@ export default function IntelligenceHub() {
         </motion.div>
 
         <LiveTicker />
+
+        <section className="mb-8 grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">Veri Katmanı</p>
+            <p className="mt-1 text-xs text-slate-300">Modüller fiyat, risk, saha ve mevzuat sinyallerini tek terminal mantığında toplar.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">Karar Katmanı</p>
+            <p className="mt-1 text-xs text-slate-300">Her modül aksiyon çıktısı verir: teklif, izleme, rapor veya uzman inceleme yönlendirmesi.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">Uyum Katmanı</p>
+            <p className="mt-1 text-xs text-slate-300">Demo çıktıları nihai karar değildir; hukuki, teknik ve finansal uzman onayıyla tamamlanır.</p>
+          </article>
+        </section>
 
         <motion.div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
           {MODULES.map((m, i) => (

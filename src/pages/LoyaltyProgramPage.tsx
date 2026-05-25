@@ -211,6 +211,20 @@ export default function LoyaltyProgramPage() {
             </button>
           </div>
         </section>
+        <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">Program Mimarisi</p>
+            <p className="mt-2 text-sm text-slate-300">Puan, görev ve VIP katmanı tek cüzdanda birleşir; kullanıcı davranışı ölçülebilir hale gelir.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">Operasyon Notu</p>
+            <p className="mt-2 text-sm text-slate-300">Ödül maliyeti ve kazanım oranı aylık raporlanır; sürdürülebilir olmayan kampanyalar erken revize edilir.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">Demo Etiketi</p>
+            <p className="mt-2 text-sm text-slate-300">Bu ekran demo akıştır; gerçek puan/ödül kuralları ürün kararına ve sözleşmelere göre güncellenir.</p>
+          </article>
+        </section>
 
         {activeTab === "points" ? (
           <>

@@ -133,7 +133,7 @@ export default function KkaParselStudioPage() {
     const land = parseNum(landM2Str);
     const netU = parseNum(netUnitStr);
     if (!Number.isFinite(land) || land <= 0) {
-      setError("Gecerli bir arsa alani (m2) girin.");
+      setError("Geçerli bir arsa alanı (m²) girin.");
       setSummary(null);
       return;
     }
@@ -155,7 +155,7 @@ export default function KkaParselStudioPage() {
       setSummary(computeKkaBuildingSummary(input));
     } catch (e) {
       setSummary(null);
-      setError(e instanceof Error ? e.message : "Hesaplama hatasi");
+      setError(e instanceof Error ? e.message : "Hesaplama hatası");
     }
   }
 
@@ -163,7 +163,7 @@ export default function KkaParselStudioPage() {
     <div className="min-h-screen pt-24 pb-20 px-4 bg-slate-50">
       <div className="mx-auto max-w-5xl space-y-8">
         <Button variant="ghost" size="sm" onClick={() => navigate(KKA_HUB_PATH)} className="text-slate-500 hover:text-slate-900 gap-2">
-          <ArrowLeft className="w-4 h-4" /> Kat karsiligi modulune don
+          <ArrowLeft className="w-4 h-4" /> Kat karşılığı modülüne dön
         </Button>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
@@ -173,16 +173,16 @@ export default function KkaParselStudioPage() {
               Ada / parsel ve imar stüdyosu
             </h1>
             <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
-              Il, ilce, koy, mahalle, ada ve parsel bilgisi ile demo imar parametreleri eslestirilir; arsa m2 ve arsa sahibi payi
-              uzerinden yaklasik insaat hakki, taban ust siniri ve kat adedi ust siniri hesaplanir. Resmi imar durumu, TKGM
-              geometrisi ve muteahhit projesi olmadan baglayici sonuc uretilemez — bu ekran profesorluk düzeyinde cerceve ve
-              kontrol listesi sunar, idari kayit yerine gecmez.
+              İl, ilçe, köy, mahalle, ada ve parsel bilgisi ile demo imar parametreleri eşleştirilir; arsa m² ve arsa sahibi payı
+              üzerinden yaklaşık inşaat hakkı, taban üst sınırı ve kat adedi üst sınırı hesaplanır. Resmi imar durumu, TKGM
+              geometrisi ve müteahhit projesi olmadan bağlayıcı sonuç üretilemez — bu ekran profesyonel çerçeve ve kontrol listesi sunar,
+              idari kayıt yerine geçmez.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 shrink-0">
             <Button variant="outline" className="border-emerald-500/40 text-emerald-100" onClick={() => setContractsOpen(true)} disabled={!summary}>
               <FileStack className="w-4 h-4" />
-              Sozlesme paketi (tek tik)
+              Sözleşme paketi (tek tık)
             </Button>
             <Button variant="outline" className="border-white/15" onClick={() => navigate("/komisyon-hesaplayici")}>
               <Scale className="w-4 h-4" /> Komisyon
@@ -192,11 +192,26 @@ export default function KkaParselStudioPage() {
 
         <Card className="border-amber-500/25 bg-amber-500/5">
           <CardContent className="p-4 text-xs text-amber-100/95 leading-relaxed">
-            <strong className="font-semibold">Yasal uyari:</strong> 6306 sayili kanun, imar plani notlari, sit alanlari, kentsel
-            donusum kararlari ve belediye mevzuati hesaplari kokten degistirebilir. Bu modul yalnizca ihaleal icinde egitim ve
-            kabataslak hazirlik icindir; imza oncesi mutlaka imar muhendisi ve avukat ile dosya bazinda calisiniz.
+            <strong className="font-semibold">Yasal uyarı:</strong> 6306 sayılı kanun, imar planı notları, sit alanları, kentsel
+            dönüşüm kararları ve belediye mevzuatı hesapları kökten değiştirebilir. Bu modül yalnızca İhaleal içinde eğitim ve
+            kabataslak hazırlık içindir; imza öncesi mutlaka imar mühendisi ve avukat ile dosya bazında çalışınız.
           </CardContent>
         </Card>
+
+        <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-slate-900/60 p-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">Parsel Okuma</p>
+            <p className="mt-1 text-xs text-slate-300">Emsal, TAKS ve kat sınırı birlikte yorumlanır; tek başına bir metrik karar verdirmez.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-slate-900/60 p-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">Hakediş Disiplini</p>
+            <p className="mt-1 text-xs text-slate-300">Dilimli akış ile risk dağıtılır; her onay önceki aşamanın ödemesini tetikler.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/25 bg-slate-900/60 p-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">Sözleşme Kontrolü</p>
+            <p className="mt-1 text-xs text-slate-300">Taslak metinler yalnızca başlangıçtır; nihai metin uzman incelemesiyle kesinleşir.</p>
+          </article>
+        </section>
 
         <div className="grid gap-6 lg:grid-cols-2">
           <Card className="border-slate-200 bg-slate-900/50">
@@ -207,15 +222,15 @@ export default function KkaParselStudioPage() {
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <Label className="text-slate-400">Il</Label>
+                  <Label className="text-slate-400">İl</Label>
                   <Input value={il} onChange={(e) => setIl(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-slate-400">Ilce</Label>
+                  <Label className="text-slate-400">İlçe</Label>
                   <Input value={ilce} onChange={(e) => setIlce(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-slate-400">Koy (opsiyonel)</Label>
+                  <Label className="text-slate-400">Köy (opsiyonel)</Label>
                   <Input value={koy} onChange={(e) => setKoy(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
                 <div className="space-y-1.5">
@@ -232,11 +247,11 @@ export default function KkaParselStudioPage() {
                 </div>
               </div>
               <div className="space-y-1.5">
-                <Label className="text-slate-400">Arsa yuzolcumu (m2, kabataslak)</Label>
+                <Label className="text-slate-400">Arsa yüzölçümü (m², kabataslak)</Label>
                 <Input value={landM2Str} onChange={(e) => setLandM2Str(e.target.value)} className="bg-slate-950/80 border-slate-200" />
               </div>
               <div className="space-y-2">
-                <Label className="text-slate-400">Arsa sahibi satilabilir insaat payi: %{ownerSharePct}</Label>
+                <Label className="text-slate-400">Arsa sahibi satılabilir inşaat payı: %{ownerSharePct}</Label>
                 <input
                   type="range"
                   min={10}
@@ -247,11 +262,11 @@ export default function KkaParselStudioPage() {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-slate-400">Varsayilan net konut birimi (m2)</Label>
+                <Label className="text-slate-400">Varsayılan net konut birimi (m²)</Label>
                 <Input value={netUnitStr} onChange={(e) => setNetUnitStr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
               </div>
               <div className="space-y-2">
-                <Label className="text-slate-400">Hakedis dilimi sayisi sozlesme taslagi: {hakedisTrancheCount}</Label>
+                <Label className="text-slate-400">Hakediş dilimi sayısı sözleşme taslağı: {hakedisTrancheCount}</Label>
                 <input
                   type="range"
                   min={2}
@@ -261,25 +276,25 @@ export default function KkaParselStudioPage() {
                   className="w-full accent-cyan-500"
                 />
                 <p className="text-[11px] text-slate-500 leading-relaxed">
-                  Ilk hakedis tutari sonraki kismi kabul onayina kadar bloke; her yeni dilim onayinda bir onceki odenebilir. Son dilim kesin kabul / tapu zincirine bagli.
+                  İlk hakediş tutarı sonraki kısmi kabul onayına kadar bloke; her yeni dilim onayında bir önceki ödenebilir. Son dilim kesin kabul / tapu zincirine bağlı.
                 </p>
               </div>
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="space-y-1.5">
                   <Label className="text-slate-400 text-xs">Emsal (KAKS) override</Label>
-                  <Input placeholder="bos = profil" value={emsalOr} onChange={(e) => setEmsalOr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
+                  <Input placeholder="boş = profil" value={emsalOr} onChange={(e) => setEmsalOr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-slate-400 text-xs">TAKS override</Label>
-                  <Input placeholder="bos = profil" value={taksOr} onChange={(e) => setTaksOr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
+                  <Input placeholder="boş = profil" value={taksOr} onChange={(e) => setTaksOr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-slate-400 text-xs">Max kat override</Label>
-                  <Input placeholder="bos = profil" value={maxKatOr} onChange={(e) => setMaxKatOr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
+                  <Input placeholder="boş = profil" value={maxKatOr} onChange={(e) => setMaxKatOr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
               </div>
               <Button className="w-full bg-emerald-600 hover:bg-emerald-500" onClick={runCalculate}>
-                Teknik ve imar ozetini hesapla
+                Teknik ve imar özetini hesapla
               </Button>
               {error && <p className="text-sm text-red-400">{error}</p>}
             </CardContent>
@@ -292,11 +307,11 @@ export default function KkaParselStudioPage() {
                 Sonuc panosu
               </h2>
               {!summary ? (
-                <p className="text-sm text-slate-500">Once hesapla dugmesine basin.</p>
+                <p className="text-sm text-slate-500">Önce hesapla düğmesine basın.</p>
               ) : (
                 <div className="space-y-4 text-sm">
                   <div className="rounded-lg border border-slate-200 bg-black/20 p-3">
-                    <div className="text-xs uppercase tracking-wide text-slate-500">Imar profili</div>
+                    <div className="text-xs uppercase tracking-wide text-slate-500">İmar profili</div>
                     <div className="text-white font-medium mt-1">{summary.profile.zoningLabel}</div>
                     <div className="text-xs text-slate-500 mt-2">
                       Kaynak: {summary.profile.resolutionSource} — anahtar: <code className="text-cyan-300">{summary.profile.matchedKey}</code>
@@ -316,11 +331,11 @@ export default function KkaParselStudioPage() {
                       <dd className="text-white font-medium">{summary.effectiveMaxStoreys}</dd>
                     </div>
                     <div className="flex justify-between gap-4 border-t border-slate-200 pt-2">
-                      <dt>Taban oturumu ust siniri (m2)</dt>
+                      <dt>Taban oturumu üst sınırı (m²)</dt>
                       <dd className="text-emerald-200 font-semibold">{Math.round(summary.maxFootprintM2).toLocaleString("tr-TR")}</dd>
                     </div>
                     <div className="flex justify-between gap-4">
-                      <dt>Brut insaat hakki kabullu (m2)</dt>
+                      <dt>Brüt inşaat hakkı kabullü (m²)</dt>
                       <dd className="text-emerald-200 font-semibold">{Math.round(summary.grossConstructionRightM2).toLocaleString("tr-TR")}</dd>
                     </div>
                     <div className="flex justify-between gap-4">
@@ -328,30 +343,30 @@ export default function KkaParselStudioPage() {
                       <dd className="text-white">{summary.floorsFromEmsalTaks}</dd>
                     </div>
                     <div className="flex justify-between gap-4">
-                      <dt>Uygulanan ust kat (min sinir)</dt>
+                      <dt>Uygulanan üst kat (min sınır)</dt>
                       <dd className="text-teal-200 font-bold text-lg">{summary.cappedFloorsBuildable}</dd>
                     </div>
                     {summary.storeysLimitedByHeight != null && (
                       <div className="flex justify-between gap-4 text-xs text-slate-500">
-                        <dt>Yukseklik ile teorik kat</dt>
+                        <dt>Yükseklik ile teorik kat</dt>
                         <dd>{summary.storeysLimitedByHeight}</dd>
                       </div>
                     )}
                     <div className="flex justify-between gap-4 border-t border-slate-200 pt-2">
-                      <dt>Arsa sahibi yaklasik satilabilir brut (m2)</dt>
+                      <dt>Arsa sahibi yaklaşık satılabilir brüt (m²)</dt>
                       <dd className="text-white font-medium">{Math.round(summary.ownerApproxSellableM2).toLocaleString("tr-TR")}</dd>
                     </div>
                     <div className="flex justify-between gap-4">
-                      <dt>Muteahhit yaklasik satilabilir brut (m2)</dt>
+                      <dt>Müteahhit yaklaşık satılabilir brüt (m²)</dt>
                       <dd className="text-slate-400">{Math.round(summary.contractorApproxSellableM2).toLocaleString("tr-TR")}</dd>
                     </div>
                     <div className="flex justify-between gap-4">
-                      <dt>Birim esdegeri ({netUnitStr} m2)</dt>
+                      <dt>Birim eşdeğeri ({netUnitStr} m²)</dt>
                       <dd className="text-teal-200 font-semibold">{summary.ownerEquivalentUnits} adet</dd>
                     </div>
                   </dl>
                   <div className="space-y-1">
-                    <div className="text-xs font-semibold text-amber-200/90">Uyari ve notlar</div>
+                    <div className="text-xs font-semibold text-amber-200/90">Uyarı ve notlar</div>
                     <ul className="list-disc pl-4 text-xs text-slate-500 space-y-1">
                       {summary.profile.planNotes.map((n) => (
                         <li key={n}>{n}</li>
@@ -362,7 +377,7 @@ export default function KkaParselStudioPage() {
                     </ul>
                   </div>
                   <Button variant="secondary" className="w-full border-slate-200" onClick={() => setContractsOpen(true)}>
-                    <Gavel className="w-4 h-4" /> Tum sozlesme metinlerini goster
+                    <Gavel className="w-4 h-4" /> Tüm sözleşme metinlerini göster
                   </Button>
                 </div>
               )}
@@ -371,7 +386,7 @@ export default function KkaParselStudioPage() {
         </div>
 
         <p className="text-[11px] text-slate-600">
-          Ek dokuman: repoda{" "}
+          Ek doküman: repoda{" "}
           <code className="text-slate-500">docs/hukuk/KKA_SOZLESME_VE_KAZANC_PLANI_TASLAK.md</code>
         </p>
       </div>
@@ -382,9 +397,9 @@ export default function KkaParselStudioPage() {
           className="!w-full !max-w-[min(100vw,48rem)] overflow-y-auto border-l border-slate-200 bg-[#0b1020] text-slate-200 sm:!max-w-[48rem]"
         >
           <SheetHeader>
-            <SheetTitle className="text-white">KKA sozlesme paketi (taslak)</SheetTitle>
+            <SheetTitle className="text-white">KKA sözleşme paketi (taslak)</SheetTitle>
             <SheetDescription className="text-slate-400">
-              Asagidaki bolumleri tek tikla inceleyebilir veya kopyalayabilirsiniz. Imza oncesi avukat onayi zorunludur.
+              Aşağıdaki bölümleri tek tıkla inceleyebilir veya kopyalayabilirsiniz. İmza öncesi avukat onayı zorunludur.
             </SheetDescription>
           </SheetHeader>
           <div className="space-y-4 px-2 pb-8">
@@ -396,7 +411,7 @@ export default function KkaParselStudioPage() {
               disabled={!contractText}
               onClick={() => void navigator.clipboard.writeText(contractText)}
             >
-              Tumunu panoya kopyala
+              Tümünü panoya kopyala
             </Button>
             {KKA_STUDIO_CONTRACT_SECTIONS.map((sec) => (
               <details key={sec.id} className="group rounded-lg border border-slate-200 bg-white/[0.03] open:bg-white/[0.05]">
@@ -427,7 +442,7 @@ export default function KkaParselStudioPage() {
                           hakedisTrancheCount,
                         ),
                       )
-                    : "Once ana formdan hesaplama yapin."}
+                    : "Önce ana formdan hesaplama yapın."}
                 </pre>
               </details>
             ))}

@@ -159,6 +159,20 @@ export default function CommissionCalculator() {
               </p>
             </div>
           </div>
+          <section className="mb-6 grid gap-3 sm:grid-cols-3">
+            <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">1) Matrah</p>
+              <p className="mt-1 text-xs text-slate-300">Satış/kira tutarıyla temel komisyon matrahı kurulur.</p>
+            </article>
+            <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">2) Dağılım</p>
+              <p className="mt-1 text-xs text-slate-300">Mahsup, B2B payı, KDV ve net platform kalemi birlikte hesaplanır.</p>
+            </article>
+            <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">3) Karar</p>
+              <p className="mt-1 text-xs text-slate-300">Sonuçlar teklif stratejisi ve hukuki/vergisel kontrolle yorumlanır.</p>
+            </article>
+          </section>
 
           <Card className="mb-6 border-sky-500/25 bg-sky-950/30">
             <CardContent className="flex gap-3 p-4">

@@ -136,6 +136,21 @@ export default function CitiesList() {
           </Card>
         </div>
 
+        <section className={`mb-10 grid gap-4 md:grid-cols-3 transition-all duration-700 delay-150 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <article className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-blue-300">Nasıl okunur?</p>
+            <p className="mt-2 text-sm text-muted-foreground">Yıllık artış kısa vadeli ivmeyi, kira getirisi nakit akışını, talep endeksi likiditeyi gösterir.</p>
+          </article>
+          <article className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-300">Risk Notu</p>
+            <p className="mt-2 text-sm text-muted-foreground">Yüksek büyüme olan şehirlerde fiyat oynaklığı da artabilir; teklif öncesi mahalle düzeyi inceleme önerilir.</p>
+          </article>
+          <article className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-300">Aksiyon</p>
+            <p className="mt-2 text-sm text-muted-foreground">Şehir kartına tıklayıp alt bölgelere inin; sonra ilgili ilanlardan teklif planı kurun.</p>
+          </article>
+        </section>
+
         {/* City Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {citiesWithCounts.map((city, idx) => (

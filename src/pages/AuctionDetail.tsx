@@ -626,9 +626,8 @@ export default function AuctionDetail() {
     effectiveBuyNowTry != null &&
     !auctionEndedVisual;
 
-  const buyNowDisabled = isListingOnly
-    ? !user || buyNowBusy || auctionEndedVisual
-    : !user || !reportApproved || !depositIdBuyNow || buyNowBusy || auctionEndedVisual;
+  // Demo/öğrenme akışında butonun pasif kalması yerine, guard mesajlarıyla kullanıcıyı bir sonraki adıma yönlendir.
+  const buyNowDisabled = buyNowBusy || auctionEndedVisual;
   const bidGateBlocked =
     isAuctionMode && Boolean(user) && (!reportApproved || !depositId);
   const bidDisabled = auctionEndedVisual || (isAuctionMode && (!user || !reportApproved || !depositId));
@@ -1456,6 +1455,43 @@ export default function AuctionDetail() {
                     </div>
                   ) : null}
                   <div><h3 className="text-lg font-bold text-white mb-3">Açıklama</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{detailedDescription}</p></div>
+                  <div className="rounded-xl border border-sky-500/25 bg-sky-500/10 p-4">
+                    <h3 className="text-sm font-semibold text-sky-100 mb-2">İlan Kontrol Merkezi — alıcı checklist</h3>
+                    <div className="grid gap-2 text-xs text-slate-300 md:grid-cols-2">
+                      <div className="rounded-lg border border-slate-200/80 bg-black/20 px-3 py-2">
+                        <p className="font-semibold text-slate-100">Yüksek kalite görsel galeri</p>
+                        <p className="mt-1 text-slate-400">Üstteki galeri ve sanal tur kartıyla mülkü detaylı inceleyin.</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-200/80 bg-black/20 px-3 py-2">
+                        <p className="font-semibold text-slate-100">Canlı teklif + sayaç</p>
+                        <p className="mt-1 text-slate-400">En yüksek teklif, minimum artış kuralı ve ihale zaman penceresi görünür.</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-200/80 bg-black/20 px-3 py-2">
+                        <p className="font-semibold text-slate-100">Blokaj ve teklif kuralları</p>
+                        <p className="mt-1 text-slate-400">Kart blokesi (%{(BID_BOND_RATE * 100).toFixed(0)}) ve sözleşme onay adımları teklif öncesi zorunlu.</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-200/80 bg-black/20 px-3 py-2">
+                        <p className="font-semibold text-slate-100">Yasal & tapu & imar</p>
+                        <p className="mt-1 text-slate-400">Tapu durumu, mülkiyet ve imar notları tek dosyada kontrol edilir.</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-200/80 bg-black/20 px-3 py-2">
+                        <p className="font-semibold text-slate-100">Konum + harita + risk özeti</p>
+                        <p className="mt-1 text-slate-400">Konum sekmesi, çevre verisi ve risk sinyalleri birlikte değerlendirilir.</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-200/80 bg-black/20 px-3 py-2">
+                        <p className="font-semibold text-slate-100">Toplam maliyet hesaplayıcı</p>
+                        <p className="mt-1 text-slate-400">Komisyon, tapu harcı ve kapanış kalemleri anlık maliyet panelinde görünür.</p>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <Button type="button" size="sm" variant="outline" className="border-sky-400/30 text-sky-100" onClick={() => setActiveTab("location")}>
+                        <MapPin className="w-3.5 h-3.5 mr-1" /> Harita & Konum
+                      </Button>
+                      <Button type="button" size="sm" variant="outline" className="border-sky-400/30 text-sky-100" onClick={() => navigate("/komisyon-hesaplayici")}>
+                        <Calculator className="w-3.5 h-3.5 mr-1" /> Komisyon hesaplayıcı
+                      </Button>
+                    </div>
+                  </div>
                   <div className="grid gap-3 md:grid-cols-2">
                     <div className="rounded-xl border border-teal-500/20 bg-teal-500/5 p-4">
                       <h4 className="text-sm font-semibold text-white mb-2">Hızlı Hesaplayıcılar</h4>

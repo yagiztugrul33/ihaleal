@@ -20,11 +20,11 @@ describe("Home", () => {
     );
     expect(screen.getByTestId("premium-cinematic-home")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Gayrimenkul/i);
-    expect(screen.getByRole("heading", { name: /Nasıl Çalışır/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Öne Çıkan Canlı Müzayedeler/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Kurumsal Altyapısı/i })).toBeInTheDocument();
-    expect(screen.getByText(/Stratejik Karar Odası/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/LIVE/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("heading", { name: /Nasıl Çalışır/i }).length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { name: /Öne Çıkan İhaleler/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Canlı Güven Göstergeleri/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/Stratejik Karar Odası/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/CANLI/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText("284").length).toBeGreaterThan(0);
     expect(document.querySelector(".premium-hero__video")).toBeNull();
     expect(document.querySelector(".premium-kicker")).toBeNull();
