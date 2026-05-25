@@ -342,13 +342,45 @@ export default function PremiumCinematicHome() {
             <div className="min-w-0 space-y-5">
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{metricCards.map((metric) => (<Card key={metric.key} className={`border border-border bg-card ${flashMetricKey === metric.key ? "premium-metric-card--flash" : ""}`}><CardContent className="p-4"><p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{metric.label}</p><strong className="mt-1 block text-2xl font-black text-foreground">{metric.value}</strong><svg viewBox="0 0 100 100" className="mt-2 h-8 w-full" preserveAspectRatio="none"><polyline fill="none" stroke={metric.key === "avgRise" ? "#facc15" : "#38bdf8"} strokeWidth="4" points={sparklinePath(metric.sparkline)} /></svg></CardContent></Card>))}</div>
               <Card className="border border-border bg-card"><CardContent className="p-4"><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-bold text-foreground">En Aktif İhaleler</h2><div className="flex flex-wrap gap-2">{BOARD_FILTER_TABS.map((tab) => (<Button key={tab.key} size="sm" variant={heroFilter === tab.key ? "default" : "outline"} className={heroFilter === tab.key ? "bg-blue-600 text-white hover:bg-blue-500" : "border-border bg-secondary text-muted-foreground hover:bg-secondary/80"} onClick={() => setHeroFilter(tab.key)}>{tab.label}</Button>))}</div></div><div className="overflow-x-auto"><table className="min-w-[720px] w-full text-sm text-muted-foreground"><thead className="text-left text-[11px] uppercase tracking-[0.14em] text-muted-foreground"><tr><th className="pb-2 pr-3">Kod</th><th className="pb-2 pr-3">Mülk</th><th className="pb-2 pr-3">Teklif</th><th className="pb-2 pr-3">Değişim%</th><th className="pb-2">Süre</th></tr></thead><tbody>{filteredRows.map((row) => { const up = row.changePct >= 0; return (<tr key={row.id} className={`cursor-pointer border-t border-border transition ${flashRowId === row.id ? (flashDirection === "up" ? "bg-emerald-500/15" : "bg-rose-500/15") : "hover:bg-secondary/80"}`} onClick={() => navigate(`/ilanlar/${row.id}`)}><td className="py-2.5 pr-3 font-semibold text-primary">{row.code}</td><td className="py-2.5 pr-3 text-foreground">{row.title}</td><td className="py-2.5 pr-3 font-bold text-foreground">{formatTry(row.bid)}</td><td className={`py-2.5 pr-3 font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>{up ? "+" : ""}{row.changePct.toFixed(1)}%</td><td className="py-2.5 text-muted-foreground"><span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" />{`${Math.floor(row.remainingMin / 60)}s ${row.remainingMin % 60}dk`}</span></td></tr>); })}</tbody></table></div></CardContent></Card>
-              <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Kategoriler</p><div className="grid gap-2 sm:grid-cols-2">{categoryCards.map((cat) => { const Icon = cat.icon; return (<Link key={cat.key} to={CATEGORY_PATH[cat.key] ?? `/ilanlar/${cat.key}`} className={`group flex items-center gap-2 rounded-xl border bg-gradient-to-br px-3 py-2 transition hover:-translate-y-0.5 hover:shadow-lg ${CATEGORY_GRADIENTS[cat.key] ?? "from-slate-500/20 to-slate-900/10 border-slate-400/30"}`}><span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-black/20 text-white"><Icon className="h-4 w-4" /></span><span className="min-w-0"><strong className="block text-sm text-white">{CATEGORY_LABELS[cat.key] ?? cat.key}</strong><span className="block text-[11px] text-slate-100/90">{cat.count} ilan</span></span></Link>); })}</div></CardContent></Card>
             </div>
             <aside className="min-w-0 space-y-4">
               <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Bölge Endeksleri</h3>{REGION_INDEXES.map((item) => { const up = item.changePct >= 0; return (<div key={item.name} className="flex items-center justify-between rounded-lg border border-border bg-secondary px-3 py-2"><span className="text-sm text-muted-foreground">{item.name}</span><span className={`text-xs font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>{up ? "+" : ""}{item.changePct.toFixed(1)}%</span></div>); })}</CardContent></Card>
               <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Güven Göstergeleri</h3><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Shield className="h-4 w-4 text-cyan-300" /> KYC doğrulama</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Landmark className="h-4 w-4 text-cyan-300" /> Escrow destekli ödeme</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Zap className="h-4 w-4 text-cyan-300" /> Anti-sniping</p><div className="rounded-lg border border-border bg-secondary p-3 text-xs text-muted-foreground"><p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p><p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p></div></CardContent></Card>
             </aside>
           </div>
+          <Card className="mt-5 border border-border bg-card">
+            <CardContent className="space-y-5 p-5 lg:p-6">
+              <div className="space-y-2">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Kategoriler</p>
+                <h2 className="text-2xl font-black text-foreground lg:text-3xl">Canlı Kategori Pazarı</h2>
+                <p className="text-sm text-muted-foreground">
+                  Tüm portföy tek bakışta: kategoriye gir, ilan yoğunluğunu gör, doğrudan uygun listeye geç.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {categoryCards.map((cat) => {
+                  const Icon = cat.icon;
+                  return (
+                    <Link
+                      key={cat.key}
+                      to={CATEGORY_PATH[cat.key] ?? `/ilanlar/${cat.key}`}
+                      className={`group flex min-h-[108px] items-center gap-3 rounded-2xl border bg-gradient-to-br px-4 py-4 transition duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30 ${CATEGORY_GRADIENTS[cat.key] ?? "from-slate-500/20 to-slate-900/10 border-slate-400/30"}`}
+                    >
+                      <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/25 text-white ring-1 ring-white/15">
+                        <Icon className="h-6 w-6" />
+                      </span>
+                      <span className="min-w-0">
+                        <strong className="block text-base font-extrabold text-white lg:text-lg">
+                          {CATEGORY_LABELS[cat.key] ?? cat.key}
+                        </strong>
+                        <span className="mt-1 block text-sm text-slate-100/95">{cat.count} ilan</span>
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
