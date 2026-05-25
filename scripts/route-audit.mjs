@@ -25,9 +25,10 @@ function extractPaths(appSource) {
   const re = /path=["']([^"']+)["']/g;
   let m;
   while ((m = re.exec(appSource)) !== null) {
-    const p = m[1];
+    const raw = m[1];
+    if (raw === "*") continue;
+    const p = raw.startsWith("/") ? raw : `/${raw}`;
     if (p.includes(":")) continue;
-    if (p === "*") continue;
     paths.add(p);
   }
   return [...paths].sort();

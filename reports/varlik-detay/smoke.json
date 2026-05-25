@@ -1,0 +1,7 @@
+{
+  "url": "http://127.0.0.1:5179/#/borsa/varlik/1",
+  "teklif_paneli_status": "Çekirdek yanıtı: Supabase yapılandırması eksik (.env.local).",
+  "orderbook_satir_sayisi": 10,
+  "alt_sekme_bulundu": true,
+  "checked_at": "2026-05-25T10:31:46.219Z"
+}

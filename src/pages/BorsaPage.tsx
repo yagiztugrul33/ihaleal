@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, BarChart3, Bell, BriefcaseBusiness, Clock3, TrendingDown, TrendingUp } from "lucide-react";
-import { Logo } from "@/components/Logo";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BarChart3, Bell, Clock3, Search, Star, TrendingDown, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { INITIAL_MARKET_ASSETS, useLiveMarket } from "@/borsa/useLiveMarket";
@@ -15,12 +14,17 @@ import {
 } from "@/legal/platformDisclaimers";
 import "@/borsa/borsa.css";
 import { Line, LineChart, ResponsiveContainer } from "recharts";
-import { ShareButton } from "@/components/ShareButton";
+import { createMarketSnapshot } from "@/lib/borsa/marketData";
+import { createRealtimeMockInterval, REALTIME_INTEGRATION_NOTE } from "@/lib/borsa/realtime";
+import { buildOrderBook, maskBidder } from "@/lib/borsa/orderBook";
+import { isOutbid } from "@/lib/borsa/auctionEngine";
 
-type TerminalTab = "piyasa" | "portfoy" | "izleme" | "veri";
-type MarketTableTab = "en_aktif" | "yukselen" | "cok_islem" | "bitiyor";
+type TerminalTab = "piyasa" | "varliklar" | "izleme" | "veri";
+type MarketTableTab = "en_aktif" | "yukselen" | "dusen" | "cok_islem" | "bitiyor";
 type FlashDir = "up" | "down";
 type AlertDirection = "above" | "below";
+type SortKey = "code" | "property" | "price" | "changePct" | "volume" | "remainingMin";
+type SortDir = "asc" | "desc";
 type FeedEvent = {
   id: string;
   code: string;
@@ -43,13 +47,6 @@ type AutoBidRule = {
   stepTry: number;
   enabled: boolean;
 };
-
-const TERMINAL_TABS: Array<{ id: TerminalTab; label: string; disabled?: boolean }> = [
-  { id: "piyasa", label: "Piyasa" },
-  { id: "portfoy", label: "Portföy" },
-  { id: "izleme", label: "İzleme" },
-  { id: "veri", label: "Veri" },
-];
 
 const REGION_HEAT = [
   { name: "İstanbul Konut", key: "istanbul" },
@@ -74,13 +71,6 @@ function getRegionLabel(region: string): string {
   return "Türkiye";
 }
 
-function maskOrderBookAlias(code: string, level: number): string {
-  const seed = `${code}${level}`.replace(/[^a-zA-Z]/g, "").toLowerCase();
-  const first = (seed[0] ?? "a").toUpperCase();
-  const last = seed[seed.length - 1] ?? "z";
-  return `${first}***${last}`;
-}
-
 function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: string }) {
   const data = points.map((v, i) => ({ i, v }));
   return (
@@ -96,9 +86,13 @@ function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: st
 
 export default function BorsaPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { data } = useLiveMarket();
-  const [activeTab, setActiveTab] = useState<TerminalTab>("piyasa");
   const [tableTab, setTableTab] = useState<MarketTableTab>("en_aktif");
+  const [sortKey, setSortKey] = useState<SortKey>("volume");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
+  const [tableSearch, setTableSearch] = useState("");
+  const [guideOpen, setGuideOpen] = useState(true);
   const [flashRows, setFlashRows] = useState<Record<string, FlashDir>>({});
   const [feedEvents, setFeedEvents] = useState<FeedEvent[]>([]);
   const [watchers, setWatchers] = useState(1892);
@@ -152,6 +146,21 @@ export default function BorsaPage() {
     }
   });
   const prevRef = useRef<MarketAsset[] | null>(null);
+  const activeTab = useMemo<TerminalTab>(() => {
+    if (location.pathname.startsWith("/borsa/izleme")) return "izleme";
+    if (location.pathname.startsWith("/borsa/veri")) return "veri";
+    if (location.pathname.startsWith("/borsa/varliklar")) return "varliklar";
+    return "piyasa";
+  }, [location.pathname]);
+  const q = useMemo(() => new URLSearchParams(location.search).get("q")?.trim().toLocaleLowerCase("tr-TR") ?? "", [location.search]);
+  const filteredData = useMemo(() => {
+    if (!q) return data;
+    return data.filter((item) => {
+      const region = getRegionLabel(item.region).toLocaleLowerCase("tr-TR");
+      const basis = `${item.code} ${item.property} ${region}`.toLocaleLowerCase("tr-TR");
+      return basis.includes(q);
+    });
+  }, [data, q]);
 
   useEffect(() => {
     localStorage.setItem("borsa_watchlist_ids", JSON.stringify(watchlistIds));
@@ -172,24 +181,24 @@ export default function BorsaPage() {
   useEffect(() => {
     setHistoryMap((prev) => {
       const next = { ...prev };
-      data.forEach((item) => {
+      filteredData.forEach((item) => {
         const arr = [...(next[item.id] ?? []), item.price].slice(-12);
         next[item.id] = arr;
       });
       return next;
     });
-  }, [data]);
+  }, [filteredData]);
 
   useEffect(() => {
     const prev = prevRef.current;
     if (!prev) {
-      prevRef.current = data;
+      prevRef.current = filteredData;
       return;
     }
     const prevMap = new Map(prev.map((p) => [p.id, p]));
     const nextFlash: Record<string, FlashDir> = {};
     const nextEvents: FeedEvent[] = [];
-    data.forEach((item) => {
+    filteredData.forEach((item) => {
       const before = prevMap.get(item.id);
       if (!before || before.price === item.price) return;
       nextFlash[item.id] = item.dir;
@@ -220,37 +229,54 @@ export default function BorsaPage() {
     if (nextEvents.length > 0) {
       setFeedEvents((prevEvents) => [...nextEvents, ...prevEvents].slice(0, 8));
     }
-    prevRef.current = data;
-  }, [data]);
+    prevRef.current = filteredData;
+  }, [filteredData]);
 
   const tickerRows = useMemo(
-    () => TICKER_CODES.map((code) => data.find((d) => d.code === code)).filter((x): x is MarketAsset => Boolean(x)),
-    [data],
+    () => TICKER_CODES.map((code) => filteredData.find((d) => d.code === code)).filter((x): x is MarketAsset => Boolean(x)),
+    [filteredData],
   );
 
-  const totalVolume = useMemo(() => data.reduce((acc, row) => acc + row.volume, 0), [data]);
-  const averageChange = useMemo(() => data.reduce((acc, row) => acc + row.changePct, 0) / Math.max(1, data.length), [data]);
+  const totalVolume = useMemo(() => filteredData.reduce((acc, row) => acc + row.volume, 0), [filteredData]);
+  const averageChange = useMemo(
+    () => filteredData.reduce((acc, row) => acc + row.changePct, 0) / Math.max(1, filteredData.length),
+    [filteredData],
+  );
+  const marketSnapshot = useMemo(
+    () =>
+      createMarketSnapshot(
+        filteredData.map((row) => ({
+          id: row.id,
+          code: row.code,
+          property: row.property,
+          price: row.price,
+          changePct: row.changePct,
+          volume: row.volume,
+        })),
+      ),
+    [filteredData],
+  );
 
   const summaryCards = useMemo(
     () => [
-      { key: "volume", label: "Toplam İşlem Hacmi", value: totalVolume.toLocaleString("tr-TR"), points: data.map((d) => d.volume), color: "#38bdf8" },
-      { key: "active", label: "Aktif Varlık", value: String(data.length), points: data.map((d) => d.price / 1_000_000), color: "#22d3ee" },
-      { key: "avg", label: "Ort. Değişim%", value: `${averageChange >= 0 ? "+" : ""}${averageChange.toFixed(2)}%`, points: data.map((d) => d.changePct), color: averageChange >= 0 ? "#22c55e" : "#f43f5e" },
-      { key: "watchers", label: "İzleyen", value: watchers.toLocaleString("tr-TR"), points: data.map((_, i) => watchers - (data.length - i) * 2), color: "#c084fc" },
+      { key: "volume", label: "Toplam İşlem Hacmi", value: totalVolume.toLocaleString("tr-TR"), points: filteredData.map((d) => d.volume), color: "#38bdf8" },
+      { key: "active", label: "Aktif Varlık", value: String(filteredData.length), points: filteredData.map((d) => d.price / 1_000_000), color: "#22d3ee" },
+      { key: "avg", label: "Ort. Değişim%", value: `${averageChange >= 0 ? "+" : ""}${averageChange.toFixed(2)}%`, points: filteredData.map((d) => d.changePct), color: averageChange >= 0 ? "#22c55e" : "#f43f5e" },
+      { key: "watchers", label: "İzleyen", value: watchers.toLocaleString("tr-TR"), points: filteredData.map((_, i) => watchers - (filteredData.length - i) * 2), color: "#c084fc" },
     ],
-    [averageChange, data, totalVolume, watchers],
+    [averageChange, filteredData, totalVolume, watchers],
   );
 
   const regionIndexes = useMemo(() => {
     const grouped = REGION_HEAT.map((meta) => {
-      const rows = data.filter((d) => d.region === meta.key);
+      const rows = filteredData.filter((d) => d.region === meta.key);
       const index = rows.reduce((acc, r) => acc + r.price, 0) / Math.max(1, rows.length);
       const change = rows.reduce((acc, r) => acc + r.changePct, 0) / Math.max(1, rows.length);
       const trend = rows.flatMap((r) => historyMap[r.id] ?? []).slice(-10);
       return { ...meta, index, change, trend: trend.length ? trend : [index] };
     });
     return grouped;
-  }, [data, historyMap]);
+  }, [filteredData, historyMap]);
 
   const heatCells = useMemo(
     () =>
@@ -265,40 +291,70 @@ export default function BorsaPage() {
       })),
     [regionIndexes],
   );
-  const bestRisers = useMemo(() => [...data].sort((a, b) => b.changePct - a.changePct).slice(0, 3), [data]);
-  const endingSoon = useMemo(() => [...data].sort((a, b) => a.remainingMin - b.remainingMin).slice(0, 3), [data]);
+  const bestRisers = useMemo(() => [...filteredData].sort((a, b) => b.changePct - a.changePct).slice(0, 3), [filteredData]);
+  const endingSoon = useMemo(() => [...filteredData].sort((a, b) => a.remainingMin - b.remainingMin).slice(0, 3), [filteredData]);
 
   const tableRows = useMemo(() => {
-    const sorted = [...data];
+    const normalizedSearch = tableSearch.trim().toLocaleLowerCase("tr-TR");
+    let rows = [...filteredData];
+    if (normalizedSearch) {
+      rows = rows.filter((row) =>
+        `${row.code} ${row.property} ${getRegionLabel(row.region)}`
+          .toLocaleLowerCase("tr-TR")
+          .includes(normalizedSearch),
+      );
+    }
     if (tableTab === "en_aktif") {
-      return sorted.sort((a, b) => b.volume - a.volume);
+      rows = rows.sort((a, b) => b.volume - a.volume);
     }
     if (tableTab === "yukselen") {
-      return sorted.sort((a, b) => b.changePct - a.changePct);
+      rows = rows.sort((a, b) => b.changePct - a.changePct);
+    }
+    if (tableTab === "dusen") {
+      rows = rows.sort((a, b) => a.changePct - b.changePct);
     }
     if (tableTab === "cok_islem") {
-      return sorted.sort((a, b) => b.volume - a.volume);
+      rows = rows.sort((a, b) => b.volume - a.volume);
     }
-    return sorted.sort((a, b) => a.remainingMin - b.remainingMin);
-  }, [data, tableTab]);
+    if (tableTab === "bitiyor") {
+      rows = rows.sort((a, b) => a.remainingMin - b.remainingMin);
+    }
+
+    const dirMultiplier = sortDir === "asc" ? 1 : -1;
+    rows.sort((a, b) => {
+      const av = a[sortKey];
+      const bv = b[sortKey];
+      if (typeof av === "string" && typeof bv === "string") return av.localeCompare(bv, "tr") * dirMultiplier;
+      return ((Number(av) || 0) - (Number(bv) || 0)) * dirMultiplier;
+    });
+    return rows;
+  }, [filteredData, sortDir, sortKey, tableSearch, tableTab]);
 
   const sectionTitle =
-    tableTab === "en_aktif" ? "En Aktif" : tableTab === "yukselen" ? "Yükselen" : tableTab === "cok_islem" ? "Çok İşlem" : "Bitiyor";
+    tableTab === "en_aktif"
+      ? "En Aktif"
+      : tableTab === "yukselen"
+        ? "Yükselen"
+        : tableTab === "dusen"
+          ? "Düşen"
+          : tableTab === "cok_islem"
+            ? "Çok İşlem"
+            : "Bitiyor";
   const watchlistRows = useMemo(
-    () => data.filter((row) => watchlistIds.includes(row.id)),
-    [data, watchlistIds],
+    () => filteredData.filter((row) => watchlistIds.includes(row.id)),
+    [filteredData, watchlistIds],
   );
   const activeAlerts = useMemo(
     () =>
       priceAlerts
         .filter((alert) => alert.enabled)
         .map((alert) => {
-          const asset = data.find((row) => row.id === alert.assetId);
+          const asset = filteredData.find((row) => row.id === alert.assetId);
           if (!asset) return { ...alert, hit: false, current: 0, code: "—" };
           const hit = alert.direction === "above" ? asset.price >= alert.target : asset.price <= alert.target;
           return { ...alert, hit, current: asset.price, code: asset.code };
         }),
-    [data, priceAlerts],
+    [filteredData, priceAlerts],
   );
 
   useEffect(() => {
@@ -307,43 +363,72 @@ export default function BorsaPage() {
     }
   }, [selectedBookAssetId, tableRows]);
 
+  useEffect(() => {
+    const stop = createRealtimeMockInterval(() => {
+      setFeedEvents((prevEvents) =>
+        prevEvents.map((event, idx) => ({
+          ...event,
+          relative: idx === 0 ? "şimdi" : idx <= 2 ? "az önce" : "birkaç sn önce",
+        })),
+      );
+    }, 3000);
+    return stop;
+  }, []);
+
   const selectedBookAsset = useMemo(
-    () => data.find((row) => row.id === selectedBookAssetId) ?? tableRows[0] ?? null,
-    [data, selectedBookAssetId, tableRows],
+    () => filteredData.find((row) => row.id === selectedBookAssetId) ?? tableRows[0] ?? null,
+    [filteredData, selectedBookAssetId, tableRows],
   );
 
   const orderBookLevels = useMemo(() => {
     if (!selectedBookAsset) return [];
-    return Array.from({ length: 6 }, (_, idx) => {
+    const seed = Array.from({ length: 6 }, (_, idx) => {
       const spread = (idx + 1) * 10_000;
-      const bidPrice = Math.max(1, selectedBookAsset.price - spread);
-      const askPrice = selectedBookAsset.price + spread;
-      const bidVolume = Math.max(10, Math.round(selectedBookAsset.volume / (18 + idx * 3)));
-      const askVolume = Math.max(10, Math.round(selectedBookAsset.volume / (20 + idx * 3)));
-      const bidderMask = `${selectedBookAsset.code.slice(0, 2)}***${String((idx + 7) * 13).slice(-2)}`;
+      const bidPrice = Math.max(1, Math.round(selectedBookAsset.price - spread));
+      const askPrice = Math.round(selectedBookAsset.price + spread);
+      const bidVolume = Math.max(1, Math.round(selectedBookAsset.volume / (18 + idx * 3)));
+      const askVolume = Math.max(1, Math.round(selectedBookAsset.volume / (20 + idx * 3)));
       return {
-        level: idx + 1,
-        bidPrice,
-        askPrice,
-        bidVolume,
-        askVolume,
-        bidderMask: maskOrderBookAlias(selectedBookAsset.code, idx + 1),
+        bid: { bidder: `${selectedBookAsset.code}-B${idx + 1}`, price: bidPrice, quantity: bidVolume, side: "bid" as const },
+        ask: { bidder: `${selectedBookAsset.code}-A${idx + 1}`, price: askPrice, quantity: askVolume, side: "ask" as const },
       };
     });
+    const book = buildOrderBook(seed.flatMap((item) => [item.bid, item.ask]));
+    const maxLen = Math.max(book.bids.length, book.asks.length);
+    return Array.from({ length: maxLen }, (_, idx) => ({
+      level: idx + 1,
+      bidPrice: book.bids[idx]?.price ?? 0,
+      askPrice: book.asks[idx]?.price ?? 0,
+      bidVolume: book.bids[idx]?.quantity ?? 0,
+      askVolume: book.asks[idx]?.quantity ?? 0,
+      bidderMask: maskBidder(`${selectedBookAsset.code}${idx + 1}`),
+    }));
   }, [selectedBookAsset]);
   const myOrderBid = selectedBookAsset ? myBidsByAsset[selectedBookAsset.id] ?? null : null;
   const myOrderRank = selectedBookAsset && myOrderBid
     ? Math.max(1, orderBookLevels.filter((level) => level.bidPrice > myOrderBid).length + 1)
     : null;
+  const currentlyOutbid = selectedBookAsset
+    ? isOutbid(myOrderBid, orderBookLevels[0]?.bidPrice ?? selectedBookAsset.price)
+    : false;
   const myOrderStatus =
     selectedBookAsset && myOrderBid
-      ? myOrderBid >= (orderBookLevels[0]?.bidPrice ?? selectedBookAsset.price)
-        ? "kazanıyorsun"
-        : "geçildin"
+      ? currentlyOutbid
+        ? "geçildin"
+        : "kazanıyorsun"
       : null;
 
   const toggleWatchlist = (assetId: string) => {
     setWatchlistIds((prev) => (prev.includes(assetId) ? prev.filter((id) => id !== assetId) : [...prev, assetId]));
+  };
+
+  const toggleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      setSortDir((prev) => (prev === "asc" ? "desc" : "asc"));
+      return;
+    }
+    setSortKey(key);
+    setSortDir(key === "code" || key === "property" ? "asc" : "desc");
   };
 
   const submitMyOrderBid = () => {
@@ -388,72 +473,7 @@ export default function BorsaPage() {
   };
 
   return (
-    <div className="borsa-root text-slate-100">
-      <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-xl">
-        <div className="flex w-full flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between lg:px-8 2xl:px-12">
-          <div className="flex min-w-0 items-center gap-3">
-            <Logo size="lg" />
-            <div className="min-w-0 leading-tight">
-              <p className="text-sm font-black tracking-[0.08em] text-[#E9C56A]">GAYRİMENKUL BORSASI</p>
-              <p className="text-xs text-slate-400">gayrimenkul ticaret ve açık artırma platformu</p>
-            </div>
-          </div>
-          <div className="flex w-full flex-wrap items-center justify-start gap-2 sm:w-auto sm:justify-end">
-            <Button
-              type="button"
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
-              onClick={() => navigate("/giris")}
-            >
-              Borsaya Gir
-            </Button>
-            <ShareButton
-              title="İhaleal Borsa Terminali"
-              url="/borsa"
-              inviteText="Borsa ekranına göz at: canlı gayrimenkul işlem akışı burada."
-              className="rounded-md border border-slate-600 bg-slate-900/70 px-2.5 py-2 text-slate-200 hover:bg-slate-800"
-            />
-            <Button
-              type="button"
-              variant="outline"
-              className="border-slate-600 bg-slate-900/70 text-slate-200"
-              onClick={() => navigate("/borsa/portfoy")}
-            >
-              <BriefcaseBusiness className="mr-1.5 h-4 w-4" /> Portföy
-            </Button>
-            <Button asChild variant="outline" className="border-slate-600 bg-slate-900/70 text-slate-200">
-              <Link to="/">
-                <ArrowLeft className="mr-1.5 h-4 w-4" /> Ana Site
-              </Link>
-            </Button>
-          </div>
-        </div>
-        <div className="flex w-full items-center gap-2 overflow-x-auto px-4 pb-3 lg:px-8 2xl:px-12">
-          {TERMINAL_TABS.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              className={cn(
-                "borsa-nav-tab shrink-0 whitespace-nowrap rounded-md border px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em]",
-                activeTab === tab.id ? "border-cyan-400/70 bg-cyan-500/15 text-cyan-200" : "border-slate-700 bg-slate-900/70 text-slate-400",
-              )}
-              disabled={tab.disabled}
-              aria-disabled={tab.disabled ? "true" : "false"}
-              onClick={() => {
-                if (tab.disabled) return;
-                if (tab.id === "portfoy") {
-                  navigate("/borsa/portfoy");
-                  return;
-                }
-                setActiveTab(tab.id);
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </header>
-
-      <main className="w-full space-y-4 px-4 py-4 lg:px-8 2xl:px-12">
+    <main className="borsa-root w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
         <section className="grid gap-3 xl:grid-cols-[minmax(0,1.35fr)_minmax(280px,1fr)]">
           <article className="rounded-xl border border-cyan-500/30 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
             <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Gayrimenkul Borsası</p>
@@ -461,20 +481,29 @@ export default function BorsaPage() {
             <p className="mt-2 text-sm text-slate-300">
               Kod, fiyat, değişim ve hacim birlikte okunur. Yeşil yükselişi, kırmızı düşüşü gösterir; satır tıklayınca teklif akışına geçersiniz.
             </p>
-            <div className="mt-4 grid gap-2 md:grid-cols-3">
-              <div className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 p-2.5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-emerald-200">Yeşil / Kırmızı</p>
-                <p className="mt-1 text-xs text-slate-300">Yeşil anlık yükseliş, kırmızı anlık geri çekilme eğilimidir.</p>
+            <button
+              type="button"
+              onClick={() => setGuideOpen((prev) => !prev)}
+              className="mt-3 inline-flex rounded-md border border-cyan-400/45 bg-cyan-500/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-cyan-100"
+            >
+              Nasıl okunur? {guideOpen ? "Gizle" : "Göster"}
+            </button>
+            {guideOpen ? (
+              <div className="mt-3 grid gap-2 md:grid-cols-3">
+                <div className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 p-2.5">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-emerald-200">Yeşil / Kırmızı</p>
+                  <p className="mt-1 text-xs text-slate-300">Yeşil yükseliş, kırmızı geri çekilme; trend yönünü tek bakışta okursun.</p>
+                </div>
+                <div className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2.5">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-200">Kod ve Hacim</p>
+                  <p className="mt-1 text-xs text-slate-300">Kod varlığın kısa kimliği; hacim o varlıkta işlem derinliğini gösterir.</p>
+                </div>
+                <div className="rounded-lg border border-amber-400/30 bg-amber-500/10 p-2.5">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Teklif Akışı</p>
+                  <p className="mt-1 text-xs text-slate-300">Satırı aç, order book ve süreyi incele, sonra detaydan teklif ver.</p>
+                </div>
               </div>
-              <div className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2.5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-200">Kod Ne?</p>
-                <p className="mt-1 text-xs text-slate-300">Kod varlığın kısa kimliğidir; detayda mülk adı ve bölgesi açılır.</p>
-              </div>
-              <div className="rounded-lg border border-amber-400/30 bg-amber-500/10 p-2.5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Nasıl Teklif Verilir?</p>
-                <p className="mt-1 text-xs text-slate-300">Varlık satırını açın, ilan detayından "Teklif Ver" ile akışa katılın.</p>
-              </div>
-            </div>
+            ) : null}
           </article>
           <article className="rounded-xl border border-border bg-card p-4">
             <h2 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bugünün Fırsatları</h2>
@@ -483,7 +512,7 @@ export default function BorsaPage() {
                 <button
                   key={`riser-${row.id}`}
                   type="button"
-                  onClick={() => navigate(`/ilan/${row.id}`)}
+                  onClick={() => navigate(`/borsa/varlik/${row.id}`)}
                   className="flex w-full items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-left transition hover:bg-emerald-500/20"
                 >
                   <span className="text-xs font-semibold text-emerald-100">{row.code}</span>
@@ -496,7 +525,7 @@ export default function BorsaPage() {
                 <button
                   key={`ending-${row.id}`}
                   type="button"
-                  onClick={() => navigate(`/ilan/${row.id}`)}
+                  onClick={() => navigate(`/borsa/varlik/${row.id}`)}
                   className="flex w-full items-center justify-between rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-left transition hover:bg-amber-500/20"
                 >
                   <span className="text-xs font-semibold text-amber-100">{row.code}</span>
@@ -561,7 +590,53 @@ export default function BorsaPage() {
           ))}
         </section>
 
-        <section className={cn("grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(360px,1fr)]", activeTab !== "piyasa" && "hidden")}>
+        <section
+          className={cn(
+            "grid gap-3 xl:grid-cols-5",
+            activeTab !== "piyasa" && activeTab !== "varliklar" && "hidden",
+          )}
+        >
+          <article className="borsa-card rounded-xl p-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-200">Piyasa Özeti</p>
+            <p className="mt-2 text-xs text-slate-300">Toplam hacim: <strong className="text-white">₺{marketSnapshot.totalVolumeTry.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">İşlem adedi: <strong className="text-white">{marketSnapshot.tradeCount.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Ort. işlem: <strong className="text-white">₺{marketSnapshot.averageTradeSizeTry.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Aktif emir: <strong className="text-white">{marketSnapshot.activeOrders.toLocaleString("tr-TR")}</strong></p>
+          </article>
+          <article className="borsa-card rounded-xl p-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-200">Likidite & Derinlik</p>
+            <p className="mt-2 text-xs text-slate-300">Spread: <strong className="text-white">₺{marketSnapshot.liquidity.spread.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Derinlik: <strong className="text-white">{marketSnapshot.liquidity.depth.toLocaleString("tr-TR")} lot</strong></p>
+            <p className="mt-1 text-xs text-slate-300">En likit 3: <strong className="text-white">{marketSnapshot.liquidity.mostLiquidCodes.join(" · ")}</strong></p>
+          </article>
+          <article className="borsa-card rounded-xl p-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-amber-200">Fiyat Hareketi</p>
+            <p className="mt-2 text-xs text-slate-300">Gün yüksek/düşük: <strong className="text-white">{formatTry(marketSnapshot.range.dayHigh)} / {formatTry(marketSnapshot.range.dayLow)}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Açılış/Kapanış: <strong className="text-white">{formatTry(marketSnapshot.range.open)} / {formatTry(marketSnapshot.range.close)}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Volatilite: <strong className="text-white">{marketSnapshot.volatility.marketStdDev.toLocaleString("tr-TR")}</strong></p>
+          </article>
+          <article className="borsa-card rounded-xl p-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-violet-200">Piyasa Genişliği</p>
+            <p className="mt-2 text-xs text-slate-300">Yükselen: <strong className="text-emerald-300">{marketSnapshot.breadth.rising}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Düşen: <strong className="text-rose-300">{marketSnapshot.breadth.falling}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Sabit: <strong className="text-white">{marketSnapshot.breadth.flat}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">En çok işlem: <strong className="text-white">{marketSnapshot.liquidity.mostLiquidCodes.join(", ")}</strong></p>
+          </article>
+          <article className="borsa-card rounded-xl p-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-200">Segment Dağılımı</p>
+            <p className="mt-2 text-xs text-slate-300">Konut: <strong className="text-white">%{marketSnapshot.segmentDistributionPct.konut.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Ticari: <strong className="text-white">%{marketSnapshot.segmentDistributionPct.ticari.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Arsa: <strong className="text-white">%{marketSnapshot.segmentDistributionPct.arsa.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Turizm: <strong className="text-white">%{marketSnapshot.segmentDistributionPct.turizm.toLocaleString("tr-TR")}</strong></p>
+          </article>
+        </section>
+
+        <section
+          className={cn(
+            "grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(360px,1fr)]",
+            activeTab !== "piyasa" && activeTab !== "varliklar" && "hidden",
+          )}
+        >
           <div className="min-w-0 space-y-4">
             <article className="borsa-card rounded-xl p-3">
               <div className="mb-3 flex items-center justify-between">
@@ -572,6 +647,7 @@ export default function BorsaPage() {
                 {[
                   { id: "en_aktif", label: "En Aktif" },
                   { id: "yukselen", label: "Yükselen" },
+                  { id: "dusen", label: "Düşen" },
                   { id: "cok_islem", label: "Çok İşlem" },
                   { id: "bitiyor", label: "Bitiyor" },
                 ].map((tab) => (
@@ -590,16 +666,53 @@ export default function BorsaPage() {
                   </button>
                 ))}
               </div>
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <div className="inline-flex min-w-[220px] flex-1 items-center gap-2 rounded-md border border-slate-700 bg-slate-900/70 px-2 py-1.5">
+                  <Search className="h-3.5 w-3.5 text-slate-400" />
+                  <input
+                    value={tableSearch}
+                    onChange={(e) => setTableSearch(e.target.value)}
+                    placeholder="Kod / mülk / lokasyon ara"
+                    className="w-full bg-transparent text-xs text-slate-200 placeholder:text-slate-500 outline-none"
+                  />
+                </div>
+                <span className="text-[11px] text-slate-400">{tableRows.length} sonuç</span>
+              </div>
               <div className="overflow-x-auto">
                 <table className="pro-table min-w-[860px] w-full text-sm">
                   <thead className="text-left text-[11px] uppercase tracking-[0.12em] text-slate-400">
                     <tr>
-                      <th className="pb-2 pr-3" title="Borsadaki kısa varlık kodu">Kod</th>
-                      <th className="pb-2 pr-3" title="İlan başlığı ve mülk tipi">Mülk</th>
-                      <th className="pb-2 pr-3" title="Son gerçekleşen teklif/fiyat">Güncel ₺</th>
-                      <th className="pb-2 pr-3" title="Başlangıça göre yüzde değişim">Değişim%</th>
-                      <th className="pb-2 pr-3" title="Son penceredeki işlem yoğunluğu (lot)">Hacim</th>
-                      <th className="pb-2 pr-3" title="İhalenin kapanmasına kalan süre">Süre</th>
+                      <th className="pb-2 pr-3" title="Favori">★</th>
+                      <th className="pb-2 pr-3" title="Borsadaki kısa varlık kodu">
+                        <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("code")}>
+                          Kod {sortKey === "code" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                        </button>
+                      </th>
+                      <th className="pb-2 pr-3" title="İlan başlığı ve mülk tipi">
+                        <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("property")}>
+                          Mülk {sortKey === "property" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                        </button>
+                      </th>
+                      <th className="pb-2 pr-3" title="Son gerçekleşen teklif/fiyat">
+                        <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("price")}>
+                          Güncel ₺ {sortKey === "price" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                        </button>
+                      </th>
+                      <th className="pb-2 pr-3" title="Başlangıça göre yüzde değişim">
+                        <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("changePct")}>
+                          24s Değişim% {sortKey === "changePct" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                        </button>
+                      </th>
+                      <th className="pb-2 pr-3" title="Son penceredeki işlem yoğunluğu (lot)">
+                        <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("volume")}>
+                          Hacim {sortKey === "volume" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                        </button>
+                      </th>
+                      <th className="pb-2 pr-3" title="İhalenin kapanmasına kalan süre">
+                        <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("remainingMin")}>
+                          Süre {sortKey === "remainingMin" ? (sortDir === "asc" ? "▲" : "▼") : ""}
+                        </button>
+                      </th>
                       <th className="pb-2" title="Hızlı işlem düğmeleri">Aksiyon</th>
                     </tr>
                   </thead>
@@ -616,9 +729,27 @@ export default function BorsaPage() {
                           )}
                           onClick={() => {
                             setSelectedBookAssetId(row.id);
-                            navigate(`/ilan/${row.id}`);
+                            navigate(`/borsa/varlik/${row.id}`);
                           }}
                         >
+                          <td className="py-2.5 pr-3">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleWatchlist(row.id);
+                              }}
+                              className={cn(
+                                "inline-flex h-6 w-6 items-center justify-center rounded border text-[10px]",
+                                watchlistIds.includes(row.id)
+                                  ? "border-amber-400/60 bg-amber-500/20 text-amber-200"
+                                  : "border-slate-600 bg-slate-900/60 text-slate-500",
+                              )}
+                              title={watchlistIds.includes(row.id) ? "Favoriden çıkar" : "Favoriye ekle"}
+                            >
+                              <Star className="h-3.5 w-3.5" fill={watchlistIds.includes(row.id) ? "currentColor" : "none"} />
+                            </button>
+                          </td>
                           <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
                           <td className="py-2.5 pr-3 text-slate-200">{row.property}</td>
                           <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.price)}</td>
@@ -634,7 +765,7 @@ export default function BorsaPage() {
                                 type="button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  navigate(`/ilan/${row.id}`);
+                                  navigate(`/borsa/varlik/${row.id}`);
                                 }}
                                 className="rounded-md border border-cyan-400/50 bg-cyan-500/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-cyan-100"
                               >
@@ -644,7 +775,7 @@ export default function BorsaPage() {
                                 type="button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  navigate(`/ihale/${row.id}`);
+                                  navigate(`/borsa/varlik/${row.id}?intent=bid`);
                                 }}
                                 className="rounded-md border border-emerald-400/50 bg-emerald-500/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-emerald-100"
                               >
@@ -750,7 +881,7 @@ export default function BorsaPage() {
 
             <article className="borsa-card rounded-xl p-3">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Order Book (Maskeli)</h3>
+                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Emir Defteri Önizleme (Maskeli)</h3>
                 <span className="text-[11px] text-slate-300">{selectedBookAsset?.code ?? "—"}</span>
               </div>
               <div className="mb-3 rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2 text-xs">
@@ -841,7 +972,7 @@ export default function BorsaPage() {
               <span className="text-xs text-slate-400">{watchlistRows.length} varlık</span>
             </div>
             <div className="space-y-2">
-              {data.map((row) => {
+              {filteredData.map((row) => {
                 const selected = watchlistIds.includes(row.id);
                 return (
                   <button
@@ -874,7 +1005,7 @@ export default function BorsaPage() {
                 onChange={(e) => setSelectedAssetId(e.target.value)}
                 className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
-                {data.map((row) => (
+                {filteredData.map((row) => (
                   <option key={row.id} value={row.id}>
                     {row.code}
                   </option>
@@ -924,6 +1055,28 @@ export default function BorsaPage() {
         </section>
 
         <section className={cn("grid gap-4 lg:grid-cols-2", activeTab !== "veri" && "hidden")}>
+          <article className="borsa-card rounded-xl p-3 lg:col-span-2">
+            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Piyasa Verisi Özeti</h3>
+            <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 p-2.5 text-xs text-cyan-100">
+                <p>Spread: ₺{marketSnapshot.liquidity.spread.toLocaleString("tr-TR")}</p>
+                <p className="mt-1">Derinlik: {marketSnapshot.liquidity.depth.toLocaleString("tr-TR")} lot</p>
+              </div>
+              <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-2.5 text-xs text-emerald-100">
+                <p>Yükselen: {marketSnapshot.breadth.rising}</p>
+                <p className="mt-1">Düşen: {marketSnapshot.breadth.falling}</p>
+              </div>
+              <div className="rounded-lg border border-violet-500/30 bg-violet-500/10 p-2.5 text-xs text-violet-100">
+                <p>Konut: %{marketSnapshot.segmentDistributionPct.konut}</p>
+                <p className="mt-1">Ticari: %{marketSnapshot.segmentDistributionPct.ticari}</p>
+              </div>
+              <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-2.5 text-xs text-amber-100">
+                <p>Arsa: %{marketSnapshot.segmentDistributionPct.arsa}</p>
+                <p className="mt-1">Volatilite: {marketSnapshot.volatility.marketStdDev}</p>
+              </div>
+            </div>
+            <p className="mt-3 text-[11px] text-slate-300">{REALTIME_INTEGRATION_NOTE}</p>
+          </article>
           <article className="borsa-card rounded-xl p-3">
             <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Otomatik Teklif (Demo)</h3>
             <p className="mb-3 rounded-md border border-amber-500/35 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
@@ -935,7 +1088,7 @@ export default function BorsaPage() {
                 onChange={(e) => setSelectedAssetId(e.target.value)}
                 className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
-                {data.map((row) => (
+                {filteredData.map((row) => (
                   <option key={row.id} value={row.id}>
                     {row.code}
                   </option>
@@ -971,7 +1124,7 @@ export default function BorsaPage() {
                 </p>
               ) : (
                 autoBidRules.map((rule) => {
-                  const asset = data.find((row) => row.id === rule.assetId);
+                  const asset = filteredData.find((row) => row.id === rule.assetId);
                   return (
                     <div key={rule.id} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
                       <p className="font-semibold text-slate-100">{asset?.code ?? "—"}</p>
@@ -1011,12 +1164,5 @@ export default function BorsaPage() {
           </article>
         </section>
       </main>
-      <footer className="border-t border-border bg-card px-4 py-3 text-[11px] text-muted-foreground lg:px-6">
-        <div className="w-full space-y-1 px-0 lg:px-2 2xl:px-4">
-          <p>{PLATFORM_LEGAL_DEFINITION}</p>
-          <p>{PSP_FLOW_DISCLAIMER}</p>
-        </div>
-      </footer>
-    </div>
   );
 }

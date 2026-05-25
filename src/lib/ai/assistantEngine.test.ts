@@ -19,7 +19,7 @@ describe("assistantEngine", () => {
     const reply = buildAssistantReply("Emsal ve imar durumu nasıl okunur?");
     expect(reply.text.toLocaleLowerCase("tr-TR")).toContain("emsal");
     expect(reply.text.toLocaleLowerCase("tr-TR")).toContain("uzman");
-    expect(reply.actions.some((a) => a.to === "/imar-studyo")).toBe(true);
+    expect(reply.actions.some((a) => a.to === "/modul/imar-sorgu")).toBe(true);
   });
 
   it("yönlendirme: satıcı niyetinde sat-basla aksiyonu verir", () => {
@@ -31,5 +31,26 @@ describe("assistantEngine", () => {
     const reply = buildAssistantReply("Foton motoru ile yıldızlararası rota optimizasyonu yapar mısın?");
     expect(reply.text.toLocaleLowerCase("tr-TR")).toContain("demo notu");
     expect(reply.actions.length).toBeGreaterThan(0);
+  });
+
+  it("borsa niyeti: varlık teklif sorusunda detay ve izleme yönlendirmesi verir", () => {
+    const reply = buildAssistantReply("Şu varlığa nasıl teklif veririm?");
+    expect(reply.actions.some((a) => a.to === "/borsa/varliklar")).toBe(true);
+    expect(reply.actions.some((a) => a.to === "/borsa/izleme")).toBe(true);
+  });
+
+  it("borsa niyeti: belirli varlık kodunda dinamik detay rotası verir", () => {
+    const reply = buildAssistantReply("KADIKÖY-D varlığına nasıl teklif veririm?");
+    expect(reply.actions.some((a) => a.to.startsWith("/borsa/varlik/1"))).toBe(true);
+  });
+
+  it("borsa niyeti: bölge belirtilince filtreli varlık listesine yönlendirir", () => {
+    const reply = buildAssistantReply("Ankara bölgesinde varlığa nasıl teklif veririm?");
+    expect(reply.actions.some((a) => a.to.includes("/borsa/varliklar?q="))).toBe(true);
+  });
+
+  it("borsa niyeti: kadıköy fırsat sorusunda filtreli piyasa aksiyonu verir", () => {
+    const reply = buildAssistantReply("Kadıköy'de fırsat var mı?");
+    expect(reply.actions.some((a) => a.to.includes("/borsa?q=KADIK"))).toBe(true);
   });
 });

@@ -18,6 +18,8 @@ type ChatMessage = {
 };
 
 const GUIDE_INTRO = `Ben ${ASSISTANT_NAME} — gayrimenkulün her şeyini bilirim. Borsa, teklif, emsal, imar, değerleme... sor, yönlendireyim.`;
+const BORSA_INTRO =
+  "İhaleAI — Borsa Uzmanı modunda: emir defteri (order book), alış-satış aralığı (spread), likidite, teklif stratejisi, emsal/imar, komisyon ve hukuki notları tek panelde yönlendiririm.";
 const QA_INTRO = [
   `${GUIDE_INTRO}`,
   "",
@@ -57,6 +59,12 @@ export function ChatWidget() {
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  const isBorsaRoute = location.pathname.startsWith("/borsa");
+  const liveIntro = isBorsaRoute ? BORSA_INTRO : GUIDE_INTRO;
+  const liveQaIntro = [liveIntro, "", "Soru–cevap modunda mümkünse sunucu tarafı yanıtı kullanılır.", "Her yanıtta bir sonraki adım aksiyonu sunarım.", LIVE_AI_NOTE].join(
+    "\n",
+  );
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const peekTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -84,7 +92,7 @@ export function ChatWidget() {
     } catch {
       /* ignore */
     }
-    setMessages([{ role: "ai", text: mode === "qa" ? QA_INTRO : GUIDE_INTRO, actions: [{ label: "Borsa terminali", to: "/borsa" }] }]);
+    setMessages([{ role: "ai", text: mode === "qa" ? liveQaIntro : liveIntro, actions: [{ label: "Borsa terminali", to: "/borsa" }] }]);
   };
 
   const openPanel = (mode: ChatMode) => {
@@ -142,7 +150,7 @@ export function ChatWidget() {
     <>
       {!open ? (
         <div
-          className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
+          className={`fixed right-6 z-50 flex flex-col items-end gap-3 ${isBorsaRoute ? "bottom-16" : "bottom-6"}`}
           onMouseEnter={() => {
             if (peekTimer.current) clearTimeout(peekTimer.current);
             peekTimer.current = setTimeout(() => setPeek(true), 120);
@@ -158,10 +166,10 @@ export function ChatWidget() {
                 <AiAssistantAvatar size="sm" />
                 <div>
                   <p className="text-sm font-bold text-white">{ASSISTANT_NAME}</p>
-                  <p className="text-[11px] text-cyan-200">İş yapan asistan · yönlendirir</p>
+                  <p className="text-[11px] text-cyan-200">{isBorsaRoute ? "Borsa Uzmanı · canlı yönlendirir" : "İş yapan asistan · yönlendirir"}</p>
                 </div>
               </div>
-              <p className="text-xs leading-relaxed text-slate-300">{GUIDE_INTRO}</p>
+              <p className="text-xs leading-relaxed text-slate-300">{liveIntro}</p>
             </div>
           ) : null}
 
@@ -176,7 +184,7 @@ export function ChatWidget() {
               <AiAssistantAvatar size="md" className="ring-1 ring-black/30 shadow-inner" />
               <div className="hidden sm:block text-left">
                 <p className="text-sm font-semibold">{ASSISTANT_NAME}</p>
-                <p className="text-[11px] text-cyan-200/90">Beyin / rehber / uzman</p>
+                <p className="text-[11px] text-cyan-200/90">{isBorsaRoute ? "Borsa Uzmanı / strateji / hukuk" : "Beyin / rehber / uzman"}</p>
               </div>
               <MessageCircle className="h-5 w-5 sm:hidden" aria-hidden />
             </button>
@@ -185,20 +193,22 @@ export function ChatWidget() {
           <div className="max-w-[390px] rounded-xl border border-cyan-500/30 bg-slate-950/95 px-4 py-3 text-xs leading-relaxed text-slate-200 shadow-lg shadow-cyan-950/30">
             <p className="inline-flex items-center gap-1.5 font-semibold text-cyan-200">
               <Home className="h-3.5 w-3.5" /> <KeyRound className="h-3.5 w-3.5" /> <Bot className="h-3.5 w-3.5" />
-              Ben İhaleAI
+              {isBorsaRoute ? "İhaleAI — Borsa Uzmanı" : "Ben İhaleAI"}
             </p>
-            <p className="mt-1">Ben İhaleAI — gayrimenkulün her şeyini bilirim. Borsa, teklif, emsal, imar, değerleme... sor, yönlendireyim.</p>
+            <p className="mt-1">{isBorsaRoute ? BORSA_INTRO : GUIDE_INTRO}</p>
           </div>
         </div>
       ) : (
-        <div className="ai-dock-panel chat-widget-pop fixed bottom-5 right-5 z-50 flex max-h-[90vh] w-[min(680px,calc(100vw-1rem))] flex-col overflow-hidden">
+        <div className={`ai-dock-panel chat-widget-pop fixed right-5 z-50 flex max-h-[90vh] w-[min(680px,calc(100vw-1rem))] flex-col overflow-hidden ${isBorsaRoute ? "bottom-16" : "bottom-5"}`}>
           <div className="space-y-3 border-b border-white/10 bg-gradient-to-r from-blue-950/85 via-slate-900/95 to-slate-950 p-4">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-3">
                 <AiAssistantAvatar size="md" />
                 <div>
-                  <p className="text-sm font-bold text-white">{ASSISTANT_NAME}</p>
-                  <p className="text-[11px] text-cyan-200">{chatMode === "qa" ? "Soru–cevap + aksiyon" : "Yönlendirme + aksiyon"}</p>
+                  <p className="text-sm font-bold text-white">{isBorsaRoute ? `${ASSISTANT_NAME} — Borsa Uzmanı` : ASSISTANT_NAME}</p>
+                  <p className="text-[11px] text-cyan-200">
+                    {chatMode === "qa" ? "Soru–cevap + aksiyon" : "Yönlendirme + aksiyon"} · {isBorsaRoute ? "Borsa Derin Mod" : "Platform Mod"}
+                  </p>
                 </div>
               </div>
               <button type="button" onClick={() => setOpen(false)} className="rounded-xl p-2 text-slate-300 hover:bg-white/10 hover:text-white" aria-label="Kapat">

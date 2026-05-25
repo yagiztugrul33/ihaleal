@@ -1,4 +1,4 @@
-﻿import { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LocaleProvider } from "@/contexts/LocaleContext";
@@ -128,6 +128,12 @@ const TeklifAlPage = lazy(() => import("@/pages/TeklifAlPage"));
 const KycPage = lazy(() => import("@/pages/KycPage"));
 const BorsaPage = lazy(() => import("@/pages/BorsaPage"));
 const BorsaPortfolioPage = lazy(() => import("@/pages/BorsaPortfolioPage"));
+const BorsaAssetDetailPage = lazy(() => import("@/pages/BorsaAssetDetailPage"));
+const BorsaWatchlistPage = lazy(() => import("@/pages/BorsaWatchlistPage"));
+const BorsaDataAnalysisPage = lazy(() => import("@/pages/BorsaDataAnalysisPage"));
+const BorsaLayout = lazy(() =>
+  import("@/components/borsa/BorsaLayout").then((m) => ({ default: m.BorsaLayout })),
+);
 const KapaliTeklifPage = lazy(() => import("@/pages/marketing/KapaliTeklifPage"));
 const YorumlarPage = lazy(() => import("@/pages/marketing/YorumlarPage"));
 const DestekPage = lazy(() => import("@/pages/marketing/DestekPage"));
@@ -207,19 +213,60 @@ function App() {
             <Route
               path="/borsa"
               element={
-                <Suspense fallback={<PageLoader label="Borsa terminali yükleniyor..." />}>
-                  <BorsaPage />
+                <Suspense fallback={<PageLoader label="Borsa shell yükleniyor..." />}>
+                  <BorsaLayout />
                 </Suspense>
               }
-            />
-            <Route
-              path="/borsa/portfoy"
-              element={
-                <Suspense fallback={<PageLoader label="Borsa portföy yükleniyor..." />}>
-                  <BorsaPortfolioPage />
-                </Suspense>
-              }
-            />
+            >
+              <Route
+                index
+                element={
+                  <Suspense fallback={<PageLoader label="Borsa terminali yükleniyor..." />}>
+                    <BorsaPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="varliklar"
+                element={
+                  <Suspense fallback={<PageLoader label="Varlık terminali yükleniyor..." />}>
+                    <BorsaPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="izleme"
+                element={
+                  <Suspense fallback={<PageLoader label="İzleme terminali yükleniyor..." />}>
+                    <BorsaWatchlistPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="veri"
+                element={
+                  <Suspense fallback={<PageLoader label="Veri terminali yükleniyor..." />}>
+                    <BorsaDataAnalysisPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="portfoy"
+                element={
+                  <Suspense fallback={<PageLoader label="Borsa portföy yükleniyor..." />}>
+                    <BorsaPortfolioPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="varlik/:id"
+                element={
+                  <Suspense fallback={<PageLoader label="Varlık ekranı yükleniyor..." />}>
+                    <BorsaAssetDetailPage />
+                  </Suspense>
+                }
+              />
+            </Route>
             <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />

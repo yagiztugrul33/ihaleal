@@ -1,0 +1,33 @@
+{
+  "checks": {
+    "visible_borsa_expert_title": true,
+    "answer_has_orderbook": true,
+    "answer_has_spread": true,
+    "answer_has_varlik_action": true,
+    "answer_has_uzman_warning": true,
+    "answer_has_demo_note": true
+  },
+  "answers": [
+    {
+      "question": "order book nasıl okunur?",
+      "answer": "Emir Defteri, Alış-Satış Aralığı (Spread), Likidite, Volatilite:\n- Emir defteri okumada alış/satış kademesi, lot ve kümülatif derinlik birlikte yorumlanır; tek satıra bakarak karar verilmez.\n- Alış-satış aralığı (spread) dar ise likidite daha güçlüdür; spread açıldıkça fiyat kayması ve maliyet riski artar.\n- Volatilite yükseldiğinde teklif adımı ve tavan teklif (proxy bid) disiplinli belirlenmelidir.\n- Outbid sinyali geldiğinde kör yükseltme yerine süre, spread ve kalan rakip kademesini kontrol ederek aksiyon alınır.\n- Soft close (anti-sniping) senaryolarında bitişe yakın teklifler süreyi uzatabilir; son saniye stratejisi tek başına yeterli değildir.\n\nKaynaklar: /borsa · /borsa/varlik/1 · /borsa/izleme · /borsa/veri\n\nSonraki adım: aşağıdaki aksiyonlardan birini seç.\nDemo notu: Bu cevap kural tabanlı bilgi bankasından üretilir, bağlayıcı nihai görüş değildir.\nUyarı: Hukuki/vergisel/teknik kesinlik için avukat, mali müşavir ve lisanslı uzman görüşü şarttır.\nAltyapı notu: Canlıda gerçek AI (Claude/GPT API) entegrasyonu ile dinamik cevap üretilecek; mevcut sürüm kural tabanlı demodur.\nSeviye 2 notu: Bu bilgi bankası canlıda AI API + kurumsal veri katmanına beslenecek şekilde yapılandırıldı."
+    },
+    {
+      "question": "spread ve likidite ne demek?",
+      "answer": "Emir Defteri, Alış-Satış Aralığı (Spread), Likidite, Volatilite:\n- Emir defteri okumada alış/satış kademesi, lot ve kümülatif derinlik birlikte yorumlanır; tek satıra bakarak karar verilmez.\n- Alış-satış aralığı (spread) dar ise likidite daha güçlüdür; spread açıldıkça fiyat kayması ve maliyet riski artar.\n- Volatilite yükseldiğinde teklif adımı ve tavan teklif (proxy bid) disiplinli belirlenmelidir.\n- Outbid sinyali geldiğinde kör yükseltme yerine süre, spread ve kalan rakip kademesini kontrol ederek aksiyon alınır.\n- Soft close (anti-sniping) senaryolarında bitişe yakın teklifler süreyi uzatabilir; son saniye stratejisi tek başına yeterli değildir.\n\nKaynaklar: /borsa · /borsa/varlik/1 · /borsa/izleme · /borsa/veri\n\nSonraki adım: aşağıdaki aksiyonlardan birini seç.\nDemo notu: Bu cevap kural tabanlı bilgi bankasından üretilir, bağlayıcı nihai görüş değildir.\nUyarı: Hukuki/vergisel/teknik kesinlik için avukat, mali müşavir ve lisanslı uzman görüşü şarttır.\nAltyapı notu: Canlıda gerçek AI (Claude/GPT API) entegrasyonu ile dinamik cevap üretilecek; mevcut sürüm kural tabanlı demodur.\nSeviye 2 notu: Bu bilgi bankası canlıda AI API + kurumsal veri katmanına beslenecek şekilde yapılandırıldı."
+    },
+    {
+      "question": "şu varlığa nasıl teklif veririm?",
+      "answer": "Varlık bazlı teklif adımı:\n1) Önce ilgili varlığın detay ekranını aç ve order book + süreyi kontrol et.\n2) Hedef teklifini spread ve likiditeye göre belirle; son saniye yerine kontrollü adımla ilerle.\n3) Blokaj/teminat ve sözleşme maddelerini doğrula (demo modelde blokaj hedefi %5).\n4) Teklifi gönder, outbid alarmını aç ve izleme ekranından takip et.\nDemo notu: Bu cevap kural tabanlı bilgi bankasından üretilir, bağlayıcı nihai görüş değildir.\nUyarı: Hukuki/vergisel/teknik kesinlik için avukat, mali müşavir ve lisanslı uzman görüşü şarttır.\nAltyapı notu: Canlıda gerçek AI (Claude/GPT API) entegrasyonu ile dinamik cevap üretilecek; mevcut sürüm kural tabanlı demodur.\nSeviye 2 notu: Bu bilgi bankası canlıda AI API + kurumsal veri katmanına beslenecek şekilde yapılandırıldı."
+    },
+    {
+      "question": "emsal ve KAKS nasıl yorumlanır?",
+      "answer": "Teknik + Hukuki + İstatistik Uzmanlık:\n- Hukuki tarafta tapu, ipotek, şerh, takyidat ve imar belgesi birlikte okunur; tek belgeyle karar verilmez.\n- Teknik tarafta zemin etüdü, beton sınıfı, deprem yönetmeliği uyumu ve ruhsat geçmişi kritik kontrol noktalarıdır.\n- İstatistik tarafta endeks yönü, hacim artışı ve trend kalitesi birlikte değerlendirilir; anlık sıçrama yanıltıcı olabilir.\n- Emsal/KAKS/gabari verileri proje potansiyelini etkiler; hukuki uygunluk ve teknik uygulanabilirlik ile çapraz kontrol gerekir.\n- Değerleme yorumu her zaman senaryo bazlı yapılır: baz, iyimser, temkinli.\n\nKaynaklar: /borsa/veri · /modul/imar-sorgu · /degerleme · /guvenlik\n\nSonraki adım: aşağıdaki aksiyonlardan birini seç.\nDemo notu: Bu cevap kural tabanlı bilgi bankasından üretilir, bağlayıcı nihai görüş değildir.\nUyarı: Hukuki/vergisel/teknik kesinlik için avukat, mali müşavir ve lisanslı uzman görüşü şarttır.\nAltyapı notu: Canlıda gerçek AI (Claude/GPT API) entegrasyonu ile dinamik cevap üretilecek; mevcut sürüm kural tabanlı demodur.\nSeviye 2 notu: Bu bilgi bankası canlıda AI API + kurumsal veri katmanına beslenecek şekilde yapılandırıldı."
+    },
+    {
+      "question": "komisyon ne kadar?",
+      "answer": "Satış tarafında referans komisyon çerçevesi %2 + %2 modelidir; KDV ve sözleşme maddeleri ayrıca değerlendirilir.\nÖrnek yaklaşım: işlem matrahını hesaplayıcıya gir, hizmet kalemlerini ekle ve net dağılımı gör.\nDemo notu: Bu cevap kural tabanlı bilgi bankasından üretilir, bağlayıcı nihai görüş değildir.\nUyarı: Hukuki/vergisel/teknik kesinlik için avukat, mali müşavir ve lisanslı uzman görüşü şarttır.\nAltyapı notu: Canlıda gerçek AI (Claude/GPT API) entegrasyonu ile dinamik cevap üretilecek; mevcut sürüm kural tabanlı demodur.\nSeviye 2 notu: Bu bilgi bankası canlıda AI API + kurumsal veri katmanına beslenecek şekilde yapılandırıldı."
+    }
+  ],
+  "checked_at": "2026-05-25T17:02:42.569Z"
+}

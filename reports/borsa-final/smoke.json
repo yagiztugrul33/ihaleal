@@ -1,0 +1,11 @@
+{
+  "result": {
+    "market_row_click_to_detail": true,
+    "detail_bid_flow_message": true,
+    "portfolio_action_modal": true,
+    "watchlist_add_interaction": true,
+    "ai_borsa_answer": true,
+    "data_analysis_loaded": true
+  },
+  "checked_at": "2026-05-25T15:35:32.531Z"
+}
