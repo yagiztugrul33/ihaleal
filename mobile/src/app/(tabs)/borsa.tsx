@@ -244,8 +244,7 @@ export default function BorsaScreen() {
             <Text style={styles.submitText}>{submitting ? 'Gönderiliyor…' : 'Teklif Ver'}</Text>
           </Pressable>
           <Text style={[styles.bidNote, { color: palette.textSecondary }]}>
-            * Üretimde teklif çekirdek placeBid RPC'sine yönlendirilir (Tool B Supabase istemcisi
-            bağlanınca etkinleşir). Bu sürüm istemci-tarafı doğrulama + simülasyondur.
+            {`* Üretimde teklif çekirdek placeBid RPC'sine yönlendirilir (Tool B Supabase istemcisi bağlanınca etkinleşir). Bu sürüm istemci-tarafı doğrulama + simülasyondur.`}
           </Text>
         </View>
 

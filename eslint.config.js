@@ -17,6 +17,7 @@ export default defineConfig([
     'test-results/**',
     '_audit/**',
     '.vercel/**',
+    'mobile/**',
     'scripts/append-light-fix.cjs',
     'scripts/fix-all.cjs',
     'scripts/fix-tags.cjs',

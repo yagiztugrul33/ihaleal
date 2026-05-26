@@ -272,6 +272,7 @@ const LAYER_WEIGHTS = deriveFahpWeights();
 function withDefaults(input: LocationIntelligenceInput): Required<LocationIntelligenceInput> {
   return {
     ...input,
+    parcelRef: input.parcelRef ?? "",
     educationAttainmentIndex: input.educationAttainmentIndex ?? input.higherEducationRate,
     formalEmploymentRate: input.formalEmploymentRate ?? input.whiteCollarRate,
     youthDependencyRatio: input.youthDependencyRatio ?? 46,

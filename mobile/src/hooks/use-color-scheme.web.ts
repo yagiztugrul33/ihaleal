@@ -8,6 +8,7 @@ export function useColorScheme() {
   const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration probe: synchronous setState on mount is the standard SSR-detection pattern
     setHasHydrated(true);
   }, []);
 
