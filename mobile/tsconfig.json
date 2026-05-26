@@ -1,0 +1,24 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@web/*": ["../src/*"],
+      "@/types/*": ["../src/types/*"],
+      "@/lib/borsa/*": ["../src/lib/borsa/*"],
+      "@/lib/valuation/*": ["../src/lib/valuation/*"],
+      "@/lib/calculators/*": ["../src/lib/calculators/*"],
+      "@/lib/location/*": ["../src/lib/location/*"],
+      "@/*": ["./src/*"],
+      "@/assets/*": ["./assets/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "types.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}

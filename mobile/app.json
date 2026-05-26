@@ -1,0 +1,77 @@
+{
+  "expo": {
+    "name": "İhaleal",
+    "slug": "ihaleal",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "ihaleal",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "com.ihaleal.mobile",
+      "supportsTablet": true,
+      "icon": "./assets/expo.icon",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Yakındaki gayrimenkul fırsatlarını mesafe sıralı göstermek için konumunuzu kullanırız.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Belirlediğiniz bölgeye yeni ilan girdiğinde size haber verebilmek için arka planda konum kullanırız.",
+        "NSFaceIDUsageDescription": "Oturum açma sürecinizi hızlandırmak için Face ID ile kimlik doğrulama isteriz.",
+        "NSCameraUsageDescription": "İlanlarınıza eklemek için fotoğraf çekmenize izin verir.",
+        "NSPhotoLibraryUsageDescription": "İlanlarınıza eklemek için galeriden fotoğraf seçmenize izin verir.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.ihaleal.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#0E1A2B",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "POST_NOTIFICATIONS",
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0E1A2B",
+          "android": {
+            "image": "./assets/images/splash-icon.png",
+            "imageWidth": 96
+          }
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": "Oturum açma sürecinizi hızlandırmak için Face ID ile kimlik doğrulama isteriz."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "PLACEHOLDER_EAS_PROJECT_ID"
+      }
+    }
+  }
+}
