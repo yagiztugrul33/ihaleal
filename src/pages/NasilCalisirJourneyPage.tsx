@@ -93,6 +93,36 @@ export default function NasilCalisirJourneyPage() {
 
       <RelatedLinksBlock title="İlgili sözleşmeler" links={journey.ilgiliSozlesmeler} />
       <RelatedLinksBlock title="İlgili sayfalar" links={journey.ilgiliSayfalar} />
+      <section className="card-warm mt-8">
+        <h2 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>Kime göre / dürüst sınır</h2>
+        <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          Bu yol haritası, ilgili rolde karar sırasını sadeleştirir: önce uygunluk, sonra belge, ardından teklif/operasyon aksiyonu.
+          Bireysel kullanıcılar için kısa uygulama rehberi, kurumsal ekipler için süreç hizalama aracı olarak çalışır.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          Dürüst sınır: Rehber metni operasyon kolaylaştırır; bağlayıcı hüküm her zaman ihale şartnamesi ve sözleşme dokümanındadır.
+        </p>
+      </section>
+      <section className="card-warm mt-4">
+        <h2 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>CTA</h2>
+        <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          Bu rolde yol haritasını tamamladıktan sonra ilgili belge sayfasına gidin, ardından dashboard üzerinde yarım kalan adımı
+          kapatın ve mesaj merkezinden doğrulama geri dönüşünü takip edin.
+        </p>
+      </section>
+      <section className="card-warm mt-4">
+        <h2 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>Örnek işlem</h2>
+        <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          Kullanıcı bu yol haritasını izlediğinde hangi adımda hangi belgeye ihtiyaç duyacağını önceden bilir; böylece teklif ve onay süreci
+          daha az geri dönüşle tamamlanır.
+        </p>
+      </section>
+      <section className="card-warm mt-4">
+        <h2 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>Dürüst sınır</h2>
+        <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          Bu yol haritası işlem rehberidir; nihai bağlayıcılık yine sözleşme, ilan şartnamesi ve resmi kayıt süreçlerindedir.
+        </p>
+      </section>
 
       <div className="mt-10 flex flex-wrap gap-3 justify-center border-t pt-8" style={{ borderColor: "var(--color-border)" }}>
         <Link to={`${ROUTES.HOW_IT_WORKS}?yol=${journey.slug}`} className="btn-primary inline-flex">

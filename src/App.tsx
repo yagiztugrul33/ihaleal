@@ -538,7 +538,7 @@ function App() {
             <Route
               path={GES_LAND_PATH}
               element={
-                <Suspense fallback={<PageLoader label="GES arazi degerlendirme yukleniyor..." />}>
+                <Suspense fallback={<PageLoader label="GES arazi değerlendirme yükleniyor..." />}>
                   <GesLandEvaluationPage />
                 </Suspense>
               }

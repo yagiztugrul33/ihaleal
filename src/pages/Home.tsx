@@ -132,6 +132,7 @@ export default function Home() {
           <p className="mt-2 text-sm text-slate-200">
             Sonuç hedefi: kullanıcıyı yalnızca "gezinme" değil, güvenli ve tutarlı bir işlem yaşam döngüsüne taşımaktır.
           </p>
+          <p className="mt-2 text-sm text-slate-200">CTA: Ana panelden rol yolunu seçin ve modül karar zincirini adım adım tamamlayın.</p>
         </div>
       </section>
     </>

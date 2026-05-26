@@ -94,6 +94,46 @@ export default function RealtorsPage() {
         </div>
 
         {rows.length === 0 ? <p className="py-16 text-center text-slate-500">Sonuç yok.</p> : null}
+        <section className="mt-8 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h3 className="font-semibold text-slate-100">Nedir / neden</h3>
+            <p className="mt-2">Ortak emlakçı sayfası, yatırımcı ile danışman arasında güvenli ilk temas katmanı oluşturur.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h3 className="font-semibold text-slate-100">İçerik</h3>
+            <p className="mt-2">Şehir, uzmanlık, işlem hacmi ve yorum sinyalleri aynı kartta görünür; hızlı ön eleme yapılır.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h3 className="font-semibold text-slate-100">Örnek</h3>
+            <p className="mt-2">İstanbul ticari ofis arayan kullanıcı, şehir filtresiyle yüksek hacimli uzman danışmanı seçer.</p>
+          </article>
+        </section>
+        <section className="mt-4 grid gap-3 md:grid-cols-2">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h3 className="font-semibold text-slate-100">Kime göre</h3>
+            <p className="mt-2">
+              Bireysel kullanıcı güvenilir danışman arar, kurumsal kullanıcı ise uzmanlık dağılımı ve portföy uyumuna göre seçim yapar.
+            </p>
+          </article>
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-slate-200">
+            <h3 className="font-semibold text-amber-100">Dürüst sınır + CTA</h3>
+            <p className="mt-2">
+              Bu liste tanıtım ve demo sinyali sunar; nihai çalışma kararı sözleşme ve bağımsız değerlendirme ile verilmelidir.
+            </p>
+            <p className="mt-2">CTA: Profili inceleyin, kısa görüşme planlayın ve işlem kapsamını yazılı olarak netleştirin.</p>
+          </article>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+          <h3 className="font-semibold text-slate-100">Onboarding ve geri dönüş</h3>
+          <p className="mt-2">
+            Yeni kullanıcı ilk eşleşmeyi bu ekran üzerinden yapar; geri dönen kullanıcı son görüştüğü danışmana doğrudan dönerek teklif
+            sürecini hızlandırır.
+          </p>
+        </section>
+        <section className="mt-4 rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4 text-xs text-slate-200">
+          <h3 className="font-semibold text-cyan-100">CTA</h3>
+          <p className="mt-2">Uygun danışmanı seçin, kısa plan görüşmesi yapın ve süreç sorumluluklarını yazılı netleştirin.</p>
+        </section>
       </div>
     </div>
   );

@@ -36,21 +36,21 @@ const PIE = [
 
 export default function PortfoyYonetimiModulPage() {
   const envReady = isSupabaseConfigured();
-  const [owner, setOwner] = useState("Kurumsal Portfoy A.Ş.");
+  const [owner, setOwner] = useState("Kurumsal Portföy A.Ş.");
   const [view, setView] = useState("tumu");
   const [loaded, setLoaded] = useState(true);
 
   const stats = [
     { label: "Toplam Deger", value: "136,5M TRY", hint: "9 aktif varlik" },
-    { label: "Yillik Getiri", value: "%7,8", hint: "Brut ortalama" },
+    { label: "Yıllık Getiri", value: "%7,8", hint: "Brüt ortalama" },
     { label: "Nakit Akisi", value: "892K TRY/ay", hint: "Kira + GES" },
     { label: "Risk Dagilimi", value: "Dengeli", hint: "Segment cesitliligi" },
   ];
 
   return (
     <ModuleShell
-      title="Portfoy Yonetimi"
-      subtitle="Tum gayrimenkul varliklarinizi tek panelde izleyin; deger, getiri ve durum guncellemelerini anlik takip edin."
+      title="Portföy Yönetimi"
+      subtitle="Tüm gayrimenkul varlıklarınızı tek panelde izleyin; değer, getiri ve durum güncellemelerini anlık takip edin."
       icon={Briefcase}
       iconAccent="text-indigo-300"
       badge="Kurumsal Panel"
@@ -61,7 +61,7 @@ export default function PortfoyYonetimiModulPage() {
         </div>
       ) : null}
       <div className="mod-layout mod-layout--split">
-        <ModulePanel title="Portfoy Filtreleri">
+        <ModulePanel title="Portföy Filtreleri">
           <form
             className="mod-form-grid"
             onSubmit={(e) => {
@@ -70,13 +70,13 @@ export default function PortfoyYonetimiModulPage() {
             }}
           >
             <div>
-              <label htmlFor="py-owner">Portfoy sahibi</label>
+              <label htmlFor="py-owner">Portföy sahibi</label>
               <input id="py-owner" value={owner} onChange={(e) => setOwner(e.target.value)} />
             </div>
             <div>
-              <label htmlFor="py-view">Gorunum</label>
+              <label htmlFor="py-view">Görünüm</label>
               <select id="py-view" value={view} onChange={(e) => setView(e.target.value)}>
-                <option value="tumu">Tum varliklar</option>
+                <option value="tumu">Tüm varlıklar</option>
                 <option value="konut">Konut</option>
                 <option value="ticari">Ticari</option>
                 <option value="arsa">Arsa</option>
@@ -84,21 +84,21 @@ export default function PortfoyYonetimiModulPage() {
             </div>
             <div className="mod-form-actions">
               <button type="submit" className="mod-btn-primary">
-                <PieChart className="h-4 w-4" /> Portfoyu Yukle
+                <PieChart className="h-4 w-4" /> Portföyü Yükle
               </button>
             </div>
           </form>
         </ModulePanel>
 
         {loaded ? (
-          <ModulePanel title={`${owner} — portfoy ozeti`}>
+          <ModulePanel title={`${owner} — portföy özeti`}>
             <ModuleStatGrid stats={stats} />
             <ModuleDataTable
-              caption="Portfoy varlik listesi"
+              caption="Portföy varlık listesi"
               columns={[
                 { key: "varlik", header: "Varlik", render: (r) => r.varlik },
                 { key: "tip", header: "Tip", render: (r) => r.tip },
-                { key: "deger", header: "Deger", render: (r) => r.deger },
+                { key: "deger", header: "Değer", render: (r) => r.deger },
                 { key: "getiri", header: "Getiri", render: (r) => r.getiri },
                 {
                   key: "durum",
@@ -123,7 +123,7 @@ export default function PortfoyYonetimiModulPage() {
                 </RePieChart>
               </ResponsiveContainer>
             </div>
-            <ModulePdfCta label="Portfoy performans raporu PDF" />
+            <ModulePdfCta label="Portföy performans raporu PDF" />
           </ModulePanel>
         ) : (
           <div className="mod-empty">Portföy kalemlerinizi yükleyin; getiri, risk dağılımı ve likidite önceliklerini kurumsal görünümde takip edin.</div>

@@ -131,7 +131,7 @@ export const MEGA_BLOG_POSTS: MegaBlogPost[] = [
   },
   {
     slug: "yatirimci-icin-kira-verimliligi-kontrol-listesi",
-    title: "Yatirimci icin kira verimliligi kontrol listesi",
+    title: "Yatırımcı için kira verimliliği kontrol listesi",
     excerpt: "Brut/net getiri, bosluk riski ve gider kalemleriyle hizli on analiz.",
     publishedAt: "2026-05-03",
     category: "komisyon",
@@ -140,7 +140,7 @@ export const MEGA_BLOG_POSTS: MegaBlogPost[] = [
     author: { name: "ihaleal.com İçerik" },
     paragraphs: [
       "Kira odakli bir yatirimda brut getiri tek basina yeterli degildir. Aidat, bos kalma suresi, yenileme gideri ve vergisel etkiler net getiriyi ciddi sekilde degistirir.",
-      "Yillik kira / fiyat oraniyla baslayin, ardindan en az uc senaryo (iyimser, baz, temkinli) kurun ve geri donus suresini bu senaryolara gore test edin.",
+      "Yıllık kira / fiyat oranıyla başlayın, ardından en az üç senaryo (iyimser, baz, temkinli) kurun ve geri dönüş süresini bu senaryolara göre test edin.",
       "Bolge trendi guclu olsa bile kiraci devir hizi ve tahsilat riski goz ardi edilmemelidir.",
       "Bu kontrol listesi bilgilendirme amaclidir; kesin finansal plan icin mali mustavir ve uzman destegi alin.",
     ],
@@ -215,7 +215,7 @@ export const MEGA_BLOG_POSTS: MegaBlogPost[] = [
   },
   {
     slug: "yatirimci-icin-portfoy-dengeleme-rehberi",
-    title: "Yatirimci icin portfoy dengeleme rehberi: tek ilandan sepete gecis",
+    title: "Yatırımcı için portföy dengeleme rehberi: tek ilandan sepete geçiş",
     excerpt: "Getiri odagi ile risk dagilimini ayni tabloda kurmak isteyen kullanicilar icin pratik adimlar.",
     publishedAt: "2026-05-22",
     category: "komisyon",
@@ -224,10 +224,10 @@ export const MEGA_BLOG_POSTS: MegaBlogPost[] = [
     author: { name: "ihaleal.com İçerik", role: "Portföy Notu" },
     paragraphs: [
       "Tek bir ilana yuksek sermaye baglamak yerine, farkli risk profillerine dagilmis portfoy kurmak uzun vadede daha dengeli sonuc verir.",
-      "Portfoy dengesinde ilk prensip, ayni bolge ve ayni varlik tipine yigilmayi onlemektir. Konut, ticari ve arsa varliklari farkli dongulerde hareket eder.",
+      "Portföy dengesinde ilk prensip, aynı bölge ve aynı varlık tipine yığılmayı önlemektir. Konut, ticari ve arsa varlıkları farklı döngülerde hareket eder.",
       "Ikinci prensip, nakit akis takvimini dagitmaktir. Tumu ayni ay teslim olacak varliklar operasyonel baski olusturabilir.",
       "Ucuncu prensip, stres senaryosu testidir: bosluk riski, faiz oynakligi ve beklenmeyen gider artisini baz alip net getiri yeniden hesaplanmalidir.",
-      "Dorduncu prensip, cikis stratejisidir. Portfoyde her varlik icin hedef tutma suresi, hedef fiyat ve kabul edilen zarar esigi yazili olmalidir.",
+      "Dördüncü prensip, çıkış stratejisidir. Portföyde her varlık için hedef tutma süresi, hedef fiyat ve kabul edilen zarar eşiği yazılı olmalıdır.",
       "Bu rehber finansal tavsiye degildir; portfoy kararlari kurum ici risk politikasi ve uzman gorusu ile birlikte alinmalidir.",
     ],
   },

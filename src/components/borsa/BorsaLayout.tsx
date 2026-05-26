@@ -57,16 +57,19 @@ export function BorsaLayout() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-xl">
-        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 lg:px-8 2xl:px-12">
-          <div className="flex min-w-0 items-center gap-3">
+        <div className="grid gap-3 px-4 py-3 lg:px-8 2xl:px-12">
+          <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
+            <div className="flex min-w-0 items-center gap-3">
             <Logo size="lg" />
             <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-[#E9C56A]">Gayrimenkul Borsası</p>
+              <p className="text-[11px] font-semibold text-cyan-100">TÜRKİYE'NİN GAYRİMENKUL BORSASI</p>
               <p className="text-[11px] text-muted-foreground">Profesyonel işlem terminali</p>
             </div>
           </div>
-
-          <div className="flex min-w-[280px] flex-1 items-center gap-2 rounded-lg border border-border bg-secondary px-2 py-1.5 md:max-w-xl">
+            <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-200">Demo veri</span>
+          </div>
+          <div className="flex w-full items-center gap-2 rounded-lg border border-border bg-secondary px-2 py-1.5 md:max-w-xl">
             <Search className="h-4 w-4 text-muted-foreground" />
             <input
               value={searchInput}
@@ -85,7 +88,6 @@ export function BorsaLayout() {
               Ara
             </button>
           </div>
-
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-md border border-border bg-secondary px-2 py-1 text-[11px] text-muted-foreground">
               <Clock3 className="h-3.5 w-3.5 text-cyan-300" />
@@ -93,7 +95,7 @@ export function BorsaLayout() {
             </span>
             <Button type="button" size="sm" className="h-8 text-xs" onClick={() => navigate("/giris")}>
               <LogIn className="mr-1.5 h-3.5 w-3.5" />
-              Borsaya Gir/Giriş
+              Borsaya giriş
             </Button>
             <Button type="button" size="sm" variant="outline" className="h-8 text-xs" onClick={() => navigate("/borsa/portfoy")}>
               <Wallet className="mr-1.5 h-3.5 w-3.5" />
@@ -106,9 +108,9 @@ export function BorsaLayout() {
               </Link>
             </Button>
             <ShareButton
-              title="Ihaleal Borsa"
+              title="İhaleal Borsa"
               url={location.pathname + location.search}
-              inviteText="Gayrimenkul Borsasi terminalini inceleyin."
+              inviteText="Gayrimenkul Borsası terminalini inceleyin."
               className="inline-flex h-8 items-center rounded-md border border-border bg-secondary px-2 text-xs text-muted-foreground hover:text-foreground"
             />
             <button
@@ -116,7 +118,7 @@ export function BorsaLayout() {
               className="inline-flex h-8 items-center rounded-md border border-border bg-secondary px-2 text-xs text-muted-foreground hover:text-foreground"
               onClick={() => setIsDark((prev) => !prev)}
             >
-              Tema: {isDark ? "Koyu" : "Aydinlik"}
+              Tema: {isDark ? "Koyu" : "Aydınlık"}
             </button>
             <details className="relative">
               <summary className="inline-flex h-8 cursor-pointer list-none items-center rounded-md border border-border bg-secondary px-2 text-xs text-muted-foreground hover:text-foreground">

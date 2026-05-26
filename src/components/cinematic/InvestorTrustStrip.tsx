@@ -7,22 +7,22 @@ const TRUST_ITEMS = [
   {
     icon: ShieldCheck,
     title: "Banka düzeyi güvenlik",
-    detail: "Sifreleme, 3DS ve AML/KYC katmanlari kurumsal standartta hedeflenir.",
+    detail: "Şifreleme, 3DS ve AML/KYC katmanları kurumsal standartta hedeflenir.",
   },
   {
     icon: Scale,
-    title: "Seffaf ihale sureci",
-    detail: "Her adım denetlenebilir; gizli maliyet ve surpriz yukumluluk yok.",
+    title: "Şeffaf ihale süreci",
+    detail: "Her adım denetlenebilir; gizli maliyet ve sürpriz yükümlülük yok.",
   },
   {
     icon: Building2,
-    title: "Kurumsal altyapi",
-    detail: "GYO, banka ve emlak ofisleri icin cok kiracili portfoy yonetimi.",
+    title: "Kurumsal altyapı",
+    detail: "GYO, banka ve emlak ofisleri için çok kiracılı portföy yönetimi.",
   },
   {
     icon: Lock,
-    title: "Uyumluluk hazirligi",
-    detail: "KVKK, MASAK ve sozlesme paketleri uretim yol haritasinda.",
+    title: "Uyumluluk hazırlığı",
+    detail: "KVKK, MASAK ve sözleşme paketleri üretim yol haritasında.",
   },
 ];
 
@@ -40,7 +40,7 @@ export function InvestorTrustStrip({ className = "" }: { className?: string }) {
     >
       <motion.div variants={mp.staggerItem} className="mb-6">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">Kurumsal güven</p>
-        <h3 className="text-xl font-bold text-white mt-1">Yatirimcilar ve kurumlar icin tasarlandi</h3>
+        <h3 className="text-xl font-bold text-white mt-1">Yatırımcılar ve kurumlar için tasarlandı</h3>
       </motion.div>
       <motion.div className="grid sm:grid-cols-2 gap-4">
         {TRUST_ITEMS.map((item) => (

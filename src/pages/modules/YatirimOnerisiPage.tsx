@@ -103,6 +103,38 @@ export default function YatirimOnerisiPage() {
         </p>
         <p className="mt-1">CTA: Sonraki adım olarak Mortgage, Airbnb ve Vergi modülleriyle çapraz kontrol yapın.</p>
       </section>
+      <section className="mod-note-box mt-3">
+        <p>
+          Nedir/Neden: Bu ekran, yatırım kararını tek metrikten çıkarıp kira, gider, değer artışı ve vadeyi birlikte okuyan bir karar
+          çerçevesi sağlar.
+        </p>
+        <p className="mt-1">
+          Örnek: Aynı fiyatta iki varlıkta net getiri ve çarpan farkı görüldüğünde, risk iştahına uygun alternatif seçimi yapılır.
+        </p>
+        <p className="mt-1">
+          Kime göre: bireysel yatırımcı hızlı ön eleme, kurumsal ekip ise portföy senaryo karşılaştırması için kullanır.
+        </p>
+      </section>
+      <section className="mod-note-box mt-3">
+        <p>
+          Dürüst sınır: Model çıktıları piyasa belirsizliklerini bütünüyle kapsamaz; resmi ekspertiz, tapu incelemesi ve mali danışmanlık
+          olmadan nihai karar verilmemelidir.
+        </p>
+        <p className="mt-1">
+          CTA: Hesaplanan senaryoyu PDF olarak kaydedin, ardından borsa/ilan ekranında karşılaştırmalı teklif aralığı çıkarın.
+        </p>
+      </section>
+      <section className="mod-note-box mt-3">
+        <p>
+          Onboarding: Yeni kullanıcıya önce tek varlık senaryosu önerilir, sonra çoklu senaryo karşılaştırmasına geçiş kartı açılır.
+        </p>
+      </section>
+      <section className="mod-note-box mt-3">
+        <p>
+          Örnek: Aynı bütçeyle iki farklı şehir seçeneğinde net getiri ve amortisman süresi karşılaştırılarak risk iştahına uygun portföy
+          dağılımı planlanır.
+        </p>
+      </section>
     </ModuleShell>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Bell, CheckCircle2, Info } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -132,6 +132,10 @@ export default function BildirimlerPage() {
           <p className="mt-2">Bildirim merkezini günlük kontrol ederek yarım kalan adımları panel ve mesaj ekranında tamamlayın.</p>
           <p className="mt-2">Kritik bildirimleri sabitleyerek teklif, belge ve sözleşme akışını tek yerden takip edin.</p>
           <p className="mt-2">Aksiyon alınan bildirimleri arşivleyip okunmamış kuyruğunu temiz tutun.</p>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+          <p className="font-semibold text-slate-100">Platform modülleri dili</p>
+          <p className="mt-1">Bildirimler; sinyal, aksiyon, sınır ve takip adımı başlıklarıyla diğer modüllerle aynı terminolojiyi kullanır.</p>
         </section>
       </div>
     </div>

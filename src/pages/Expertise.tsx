@@ -138,7 +138,7 @@ export default function Expertise() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5 space-y-4">
-                  <h3 className="text-lg font-bold text-white flex items-center gap-2"><User className="w-5 h-5 text-blue-400" /> Iletisim Bilgileri</h3>
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2"><User className="w-5 h-5 text-blue-400" /> İletişim Bilgileri</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div><label className="text-sm text-slate-400 mb-1 block">Ad Soyad *</label><Input required value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="Orn: Ahmet Yilmaz" /></div>
                     <div><label className="text-sm text-slate-400 mb-1 block">E-posta *</label><Input required type="email" value={form.email} onChange={(e) => setForm({...form, email: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="ahmet@email.com" /></div>
@@ -243,7 +243,7 @@ export default function Expertise() {
                 <div className="space-y-3">
                   {[
                     "Piyasa analizi ve bolge karsilastirmasi",
-                    "Yapi kalitesi ve teknik durum degerlendirmesi",
+                    "Yapı kalitesi ve teknik durum değerlendirmesi",
                     "Hukuki durum ve tapu analizi",
                     "AI destekli fiyat tahmini",
                     "Kira getirisi ve yatırım analizi",

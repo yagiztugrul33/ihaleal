@@ -124,6 +124,17 @@ export default function FlowSelector() {
         <p className="text-[10px] text-slate-600">
           Kaynak: <code className="text-slate-500">src/lib/userFlows.ts</code> — CLOUD şeması ile uyum için genişletilebilir.
         </p>
+        <section className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+          <h3 className="font-semibold text-slate-100">Kime göre / dürüst sınır / CTA</h3>
+          <p className="mt-2">
+            Bu seçim ekranı yeni kullanıcı onboarding adımıdır. Rol bazlı akış seçimiyle belge listesi ve ilk dashboard görevleri
+            kişiselleştirilir.
+          </p>
+          <p className="mt-1">
+            Dürüst sınır: Bu modül demo yönlendirme katmanıdır; canlıda belge doğrulama ve kimlik süreçleri ayrı güvenlik kontrolleriyle ilerler.
+          </p>
+          <p className="mt-1">CTA: Akış seçimini kaydedin, panele geçin ve ilk operasyon kartını tamamlayın.</p>
+        </section>
       </div>
     </div>
   );

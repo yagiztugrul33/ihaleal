@@ -594,7 +594,7 @@ export default function AuctionDetail() {
     },
     {
       id: "vt-office",
-      title: "Is / Yatirim Potansiyeli",
+      title: "İş / Yatırım Potansiyeli",
       location: auction.city,
       price: "Detay inceleme",
       image:

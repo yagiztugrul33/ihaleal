@@ -28,13 +28,13 @@ function formatTry(n: number): string {
 function statusLabel(status: GesSubmitResult["status"]): string {
   switch (status) {
     case "HIGH_VIABILITY":
-      return "Yuksek fizibilite";
+      return "Yüksek fizibilite";
     case "TECHNICAL_REJECTION":
       return "Teknik red";
     case "SUBMITTED_TO_INVESTORS":
-      return "Yatirimciya iletildi";
+      return "Yatırımcıya iletildi";
     case "ENGINEERING_CALCULATION":
-      return "Muhendislik hesabi";
+      return "Mühendislik hesabı";
     default:
       return "Veri toplama";
   }
@@ -79,7 +79,7 @@ export function GesEvaluationForm() {
       setResult(res);
       setStep(3);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Degerlendirme gonderilemedi.");
+      setError(e instanceof Error ? e.message : "Değerlendirme gönderilemedi.");
     } finally {
       setLoading(false);
     }
@@ -95,7 +95,7 @@ export function GesEvaluationForm() {
               step === n ? "border-amber-400/50 bg-amber-500/15 text-amber-100" : "border-white/10"
             }`}
           >
-            Adim {n}
+            Adım {n}
           </span>
         ))}
       </div>
@@ -107,11 +107,11 @@ export function GesEvaluationForm() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
-              Il
+              İl
               <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Ilce
+              İlçe
               <Input value={form.district} onChange={(e) => setForm({ ...form, district: e.target.value })} />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
@@ -135,7 +135,7 @@ export function GesEvaluationForm() {
               />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Guneslenme (kWh/m2)
+              Güneşlenme (kWh/m2)
               <Input
                 type="number"
                 min={1200}
@@ -153,10 +153,10 @@ export function GesEvaluationForm() {
       {step === 2 && (
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-            <Zap className="h-5 w-5 text-cyan-300" /> Sebeke ve mevzuat
+            <Zap className="h-5 w-5 text-cyan-300" /> Şebeke ve mevzuat
           </h2>
           <p className="text-sm text-slate-400">
-            On skor: <span className="text-amber-200 font-medium">{preview.gesFeasibilityScore}</span> / 100
+            Ön skor: <span className="text-amber-200 font-medium">{preview.gesFeasibilityScore}</span> / 100
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
@@ -179,7 +179,7 @@ export function GesEvaluationForm() {
               />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Egim (derece)
+              Eğim (derece)
               <Input
                 type="number"
                 min={0}
@@ -202,7 +202,7 @@ export function GesEvaluationForm() {
               </select>
             </label>
             <label className="space-y-1 text-sm text-slate-300 sm:col-span-2">
-              Tarim sinifi
+              Tarım sınıfı
               <select
                 className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white"
                 value={form.agriculturalClass}
@@ -219,10 +219,10 @@ export function GesEvaluationForm() {
           <ul className="space-y-2 text-sm">
             {(
               [
-                ["isMarginalTarimApproved", "Marjinal tarim / GEPA onayi mevcut"],
+                ["isMarginalTarimApproved", "Marjinal tarım / GEPA onayı mevcut"],
                 ["hasCadastralRoad", "Kadastro yolu var"],
-                ["hasSitAreaConflict", "SIT alani cakismasi"],
-                ["hasMilitaryZoneConflict", "Askeri yasak bolge"],
+                ["hasSitAreaConflict", "SİT alanı çakışması"],
+                ["hasMilitaryZoneConflict", "Askeri yasak bölge"],
                 ["hasArchaeologicalSite", "Arkeolojik sit"],
               ] as const
             ).map(([key, label]) => (
@@ -243,7 +243,7 @@ export function GesEvaluationForm() {
               <ArrowLeft className="h-4 w-4" /> Geri
             </Button>
             <Button type="button" disabled={loading} onClick={onSubmit}>
-              {loading ? "Hesaplaniyor..." : "Degerlendirmeyi tamamla"}
+              {loading ? "Hesaplanıyor..." : "Değerlendirmeyi tamamla"}
             </Button>
           </div>
           {error && (
@@ -276,14 +276,14 @@ export function GesEvaluationForm() {
                 Kapasite: <strong>{formatMw(result.estimatedCapacityMw)} MW</strong>
               </p>
               <p>
-                Yillik: <strong>{formatMw(result.estimatedAnnualMwh)} MWh</strong>
+                Yıllık: <strong>{formatMw(result.estimatedAnnualMwh)} MWh</strong>
               </p>
               <p>
                 CAPEX: <strong>{formatTry(result.estimatedCapexTry)}</strong>
               </p>
               {result.paybackYears != null && (
                 <p className="sm:col-span-2">
-                  Geri odeme: <strong>{result.paybackYears} yil</strong> (varsayilan fiyat)
+                  Geri ödeme: <strong>{result.paybackYears} yıl</strong> (varsayılan fiyat)
                 </p>
               )}
             </div>
@@ -294,7 +294,7 @@ export function GesEvaluationForm() {
             ))}
           </ul>
           <Button type="button" variant="outline" onClick={() => { setStep(1); setResult(null); }}>
-            <CheckCircle2 className="h-4 w-4" /> Yeni degerlendirme
+            <CheckCircle2 className="h-4 w-4" /> Yeni değerlendirme
           </Button>
         </div>
       )}

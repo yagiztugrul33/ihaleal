@@ -84,6 +84,54 @@ export default function IadeIptal() {
         <p className="text-sm text-amber-700 dark:text-amber-300">
           Yürürlük öncesi hukuki danışman onayı gerekir; metin &quot;uzman onayı bekliyor&quot; statüsündedir.
         </p>
+        <h2>12. Örnek İşlem Akışı</h2>
+        <p>
+          Örnek senaryoda alıcı, ilan detayında beyan edilen metrekare ile resmi kayıt arasında farklılık tespit eder. Destek kaydı açılır,
+          ekspertiz ve belge doğrulama adımı tamamlanır, taraf görüşleri toplanır ve iade/iptal kararı süreç kaydıyla birlikte bildirilir.
+        </p>
+        <h2>13. Kime Göre?</h2>
+        <p>
+          Bireysel kullanıcı için bu metin temel hak ve yükümlülük çerçevesini sunar; kurumsal kullanıcı için sözleşme ekleri, teminat
+          yönetimi ve denetim izi gerekliliklerini netleştirir.
+        </p>
+        <h2>14. Dürüst Sınır ve CTA</h2>
+        <p>
+          Bu sayfa bilgilendirme amaçlı genel çerçevedir; somut uyuşmazlıklarda nihai yorum yetkili hukuk danışmanı ve resmi mercilerdedir.
+          İşlem öncesi sözleşme maddelerini ve iade/iptal koşullarını ayrı bir kontrol listesiyle teyit ederek ilerleyin.
+        </p>
+        <h2>15. Platform Modülleri Dili</h2>
+        <p>
+          Metin, diğer modüllerle aynı karar şablonunu izler: önce kapsam, sonra gerekçe, ardından örnek durum ve sınır. Böylece kullanıcı
+          farklı ekranlarda farklı hukuk diliyle karşılaşmaz ve işlem öncesi doğrulama adımlarını daha net takip eder.
+        </p>
+        <h2>16. CTA</h2>
+        <p>
+          İşlem yapmadan önce iade/iptal koşullarını ilgili ilan sayfasındaki kurallarla birlikte okuyun; belirsiz başlıklarda yazılı destek
+          kaydı açarak onay izi oluşturun.
+        </p>
+        <h2>17. Kime Göre</h2>
+        <p>
+          Bireysel kullanıcı bu metni hak ve yükümlülük özeti olarak kullanır. Kurumsal kullanıcılar için metin; teminat yönetimi,
+          süreç sorumluluğu ve denetim izi gerekliliklerinin başlangıç kontrol listesi işlevini görür.
+        </p>
+        <h2>18. Örnek Operasyon Notu</h2>
+        <p>
+          İptal talebinde taraflardan gelen belgeler ve zaman damgaları tek dosyada toplanır; değerlendirme sonucu taraflara yazılı
+          bildirimle iletilir ve süreç geçmişi saklama politikasına uygun arşivlenir.
+        </p>
+        <h2>19. Hero / Nedir-Neden</h2>
+        <p>
+          Bu metin, iade ve iptal süreçlerinde kullanıcıyı belirsizlikten korumak için hazırlanmış operasyonel bir rehberdir. Amaç, işlem
+          öncesinde olası riskleri şeffaflaştırmak ve tarafların aynı kurallarda hizalanmasını sağlamaktır.
+        </p>
+        <h2>20. İçerik Özeti</h2>
+        <p>
+          Metinde cayma hakkı, ihale iptal koşulları, teminat yönetimi, belge doğrulama, gizlilik ve uyuşmazlık çözümü adımları bütüncül
+          bir akışta ele alınır. Böylece kullanıcı hangi durumda hangi kanaldan ilerleyeceğini net biçimde görebilir.
+        </p>
+        <p>
+          CTA: İşleme başlamadan önce bu maddeleri ilan ve sözleşme ekranlarıyla birlikte kontrol ederek yazılı onay izi oluşturun.
+        </p>
         <p className="text-sm text-gray-500 mt-8">Son güncelleme: 30 Nisan 2026</p>
       </div>
     </div>

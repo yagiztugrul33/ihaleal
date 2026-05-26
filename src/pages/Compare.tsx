@@ -83,7 +83,7 @@ export default function Compare() {
     { subject: "Konum", ...Object.fromEntries(scores.map((s) => [s.auction.district, s.score.location])) },
     { subject: "Ozellikler", ...Object.fromEntries(scores.map((s) => [s.auction.district, s.score.features])) },
     { subject: "Piyasa", ...Object.fromEntries(scores.map((s) => [s.auction.district, s.score.market])) },
-    { subject: "Yatirim", ...Object.fromEntries(scores.map((s) => [s.auction.district, s.score.investment])) },
+    { subject: "Yatırım", ...Object.fromEntries(scores.map((s) => [s.auction.district, s.score.investment])) },
   ];
 
   const barData = scores.map((s) => ({
@@ -241,7 +241,7 @@ export default function Compare() {
               </Card>
             </div>
 
-            {/* Detayli Karsilastirma Tablosu */}
+            {/* Detaylı Karşılaştırma Tablosu */}
             <Card className="bg-slate-900/50 border-slate-200/80 overflow-hidden mb-8">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">

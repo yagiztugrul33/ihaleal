@@ -180,7 +180,7 @@ export default function Analytics() {
   const paybackYears = (propertyValue / netAnnualRent).toFixed(1);
 
   const getRec = (score: number) => {
-    if (score >= 85) return { text: "Guclu Al", color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" };
+    if (score >= 85) return { text: "Güçlü Al", color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" };
     if (score >= 70) return { text: "Al", color: "text-emerald-300 bg-emerald-500/5 border-emerald-500/10" };
     if (score >= 50) return { text: "Bekle", color: "text-amber-400 bg-amber-500/10 border-amber-500/20" };
     return { text: "Kacin", color: "text-red-400 bg-red-500/10 border-red-500/20" };
@@ -198,10 +198,10 @@ export default function Analytics() {
     { key: "avgValue", label: "Ort. Deger", color: "text-sky-400" },
     { key: "amortization", label: "Amortisman", color: "text-violet-400" },
     { key: "yield", label: "Getiri", color: "text-emerald-400" },
-    { key: "annualChange", label: "Yillik Degisim", color: "text-emerald-400" },
+    { key: "annualChange", label: "Yıllık Değişim", color: "text-emerald-400" },
   ] : analysisType === "change" ? [
-    { key: "monthlyChange", label: "Aylik Degisim", color: "text-blue-400" },
-    { key: "annualChange", label: "Yillik Degisim", color: "text-emerald-400" },
+    { key: "monthlyChange", label: "Aylık Değişim", color: "text-blue-400" },
+    { key: "annualChange", label: "Yıllık Değişim", color: "text-emerald-400" },
     { key: "totalChange", label: "Toplam Degisim", color: "text-sky-400" },
     { key: "nextYearPrediction", label: "1 Yil Tahmini", color: "text-amber-400" },
     { key: "twoYearPrediction", label: "2 Yil Tahmini", color: "text-pink-400" },
@@ -209,14 +209,14 @@ export default function Analytics() {
     { key: "yield", label: "Kira Getirisi", color: "text-emerald-400" },
     { key: "amortization", label: "Amortisman", color: "text-violet-400" },
     { key: "avgValue", label: "Ort. Deger", color: "text-sky-400" },
-    { key: "marketingDays", label: "Satis Suresi", color: "text-amber-400" },
-    { key: "annualChange", label: "Yillik Artis", color: "text-blue-400" },
+    { key: "marketingDays", label: "Satış Süresi", color: "text-amber-400" },
+    { key: "annualChange", label: "Yıllık Artış", color: "text-blue-400" },
   ] : [
     { key: "amortization", label: "Amortisman", color: "text-violet-400" },
     { key: "yield", label: "Getiri", color: "text-emerald-400" },
     { key: "pricePerSqm", label: "m2 Fiyat", color: "text-blue-400" },
     { key: "avgArea", label: "Ort. Alan", color: "text-sky-400" },
-    { key: "marketingDays", label: "Satis Suresi", color: "text-amber-400" },
+    { key: "marketingDays", label: "Satış Süresi", color: "text-amber-400" },
   ];
 
   const formatValue = (key: AnalyticsColumnKey, val: number) => {
@@ -322,11 +322,11 @@ export default function Analytics() {
                 <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Il veya anahtar kelime ara..." className="pl-10 bg-slate-900/50 border-slate-200 text-white" />
               </div>
               <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-200 text-white text-sm">
-                <option value="all">Tum Sehirler</option>
+                <option value="all">Tüm Şehirler</option>
                 {cities.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
               <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-200 text-white text-sm">
-                <option value="score">Yatirim Skoru</option>
+                <option value="score">Yatırım Skoru</option>
                 <option value="price">m2 Fiyati</option>
                 <option value="yield">Kira Getirisi</option>
               </select>
@@ -356,7 +356,7 @@ export default function Analytics() {
                             <span className="text-red-400">{d.stockChange}%</span>
                           </div>
                           <div className="flex justify-between text-xs">
-                            <span className="text-slate-500">Satis Suresi</span>
+                            <span className="text-slate-500">Satış Süresi</span>
                             <span className="text-amber-400">{d.marketingDays} gun</span>
                           </div>
                           <div className="flex justify-between text-xs">
@@ -382,7 +382,7 @@ export default function Analytics() {
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <PieChart className="w-5 h-5 text-pink-400" />
-                  Portfoy Dagilimi
+                  Portföy Dağılımı
                 </h3>
                 <div className="h-56">
                   <ResponsiveContainer width="100%" height="100%">
@@ -449,7 +449,7 @@ export default function Analytics() {
             {/* Grafikler */}
             <div className={`grid lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4">Yatirim Skoru Karsilastirmasi</h3>
+                <h3 className="text-lg font-bold text-white mb-4">Yatırım Skoru Karşılaştırması</h3>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart data={barData}>
@@ -484,12 +484,12 @@ export default function Analytics() {
               </Card>
             </div>
 
-            {/* Yatirim Skoru + Stok */}
+            {/* Yatırım Skoru + Stok */}
             <div className={`grid lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <Lightbulb className="w-5 h-5 text-amber-400" />
-                  Yatirim Skoru Siralamasi
+                  Yatırım Skoru Sıralaması
                 </h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
@@ -535,7 +535,7 @@ export default function Analytics() {
                       <tr className="border-b border-slate-200/80">
                         <th className="text-left py-2 text-slate-400 font-medium">Sehir</th>
                         <th className="text-right py-2 text-slate-400 font-medium">Ort. Alan</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Satis Suresi</th>
+                        <th className="text-right py-2 text-slate-400 font-medium">Satış Süresi</th>
                         <th className="text-right py-2 text-slate-400 font-medium">Bina Yasi</th>
                         <th className="text-right py-2 text-slate-400 font-medium">Stok Degisim</th>
                       </tr>
@@ -602,10 +602,10 @@ export default function Analytics() {
                             <div className={`px-3 py-1.5 rounded-lg border text-xs font-semibold whitespace-nowrap ${rec.color}`}>{rec.text}</div>
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-                            <MiniStat icon={<Star className="w-4 h-4 text-blue-400" />} label="Yatirim Skoru" value={`${auction.investmentScore}/100`} />
+                            <MiniStat icon={<Star className="w-4 h-4 text-blue-400" />} label="Yatırım Skoru" value={`${auction.investmentScore}/100`} />
                             <MiniStat icon={<BarChart3 className="w-4 h-4 text-sky-400" />} label="m2 Fiyati" value={`TRY ${auction.pricePerSqm.toLocaleString()}`} />
                             <MiniStat icon={<TrendingUp className="w-4 h-4 text-emerald-400" />} label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} />
-                            <MiniStat icon={<Home className="w-4 h-4 text-violet-400" />} label="Yillik Artis" value={`%${auction.areaStats.priceChangeYearly}`} />
+                            <MiniStat icon={<Home className="w-4 h-4 text-violet-400" />} label="Yıllık Artış" value={`%${auction.areaStats.priceChangeYearly}`} />
                           </div>
                         </div>
                       </div>
@@ -674,7 +674,7 @@ export default function Analytics() {
 
             {/* Tum sehirler tahmin */}
             <div className={`transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-xl font-bold text-white mb-4">Sehirlere Gore 1 Yillik Fiyat Tahmini</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Şehirlere Göre 1 Yıllık Fiyat Tahmini</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {CITIES.map((city) => {
                   const d = CITY_DATA[city];
@@ -736,7 +736,7 @@ export default function Analytics() {
                   </div>
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
-                      <span>Aylik Kira Geliri</span>
+                      <span>Aylık Kira Geliri</span>
                       <span className="text-white font-medium">TRY {monthlyRent.toLocaleString()}</span>
                     </label>
                     <Slider value={[monthlyRent]} onValueChange={(v) => setMonthlyRent(v[0])} min={1000} max={100000} step={1000} className="my-3" />
@@ -758,12 +758,12 @@ export default function Analytics() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <ResultCard label="Brut Getiri" value={`%${grossYield}`} icon={<TrendingUp className="w-5 h-5 text-blue-400" />} color="text-blue-400" />
                   <ResultCard label="Net Getiri" value={`%${netYield}`} icon={<TrendingUp className="w-5 h-5 text-emerald-400" />} color="text-emerald-400" />
-                  <ResultCard label="Yillik Net Gelir" value={`TRY ${netAnnualRent.toLocaleString()}`} icon={<CircleDollarSign className="w-5 h-5 text-violet-400" />} color="text-violet-400" />
+                  <ResultCard label="Yıllık Net Gelir" value={`TRY ${netAnnualRent.toLocaleString()}`} icon={<CircleDollarSign className="w-5 h-5 text-violet-400" />} color="text-violet-400" />
                   <ResultCard label="Amortisman" value={`${paybackYears} yil`} icon={<Clock className="w-5 h-5 text-amber-400" />} color="text-amber-400" />
                 </div>
 
                 {/* Comparison with cities */}
-                <h4 className="text-sm font-semibold text-white mb-3">Sehirlerle Karsilastirma</h4>
+                <h4 className="text-sm font-semibold text-white mb-3">Şehirlerle Karşılaştırma</h4>
                 <div className="space-y-3">
                   {CITIES.map((city) => {
                     const d = CITY_DATA[city];
@@ -815,7 +815,7 @@ export default function Analytics() {
             <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
                 <Target className="w-6 h-6 text-amber-400" />
-                AI Yatirim Firsatlari
+                AI Yatırım Fırsatları
               </h2>
               <p className="text-slate-400 mb-6">Yapay zeka tarafindan secilen en iyi yatırım firsatlari</p>
             </div>
@@ -850,7 +850,7 @@ export default function Analytics() {
                             <div className="text-sm font-bold text-emerald-400">%{auction.areaStats.rentalYield}</div>
                           </div>
                           <div className="p-2 rounded-lg bg-white/[0.03]">
-                            <div className="text-xs text-slate-500">Yillik Artis</div>
+                            <div className="text-xs text-slate-500">Yıllık Artış</div>
                             <div className="text-sm font-bold text-blue-400">%{auction.areaStats.priceChangeYearly}</div>
                           </div>
                         </div>
@@ -908,7 +908,7 @@ export default function Analytics() {
                 </ResponsiveContainer>
               </div>
               <div className="flex items-center gap-4 mt-4 justify-center">
-                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-emerald-500" /> Guclu Al (85+)</div>
+                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-emerald-500" /> Güçlü Al (85+)</div>
                 <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-blue-500" /> Al (70-84)</div>
                 <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-amber-500" /> Bekle (&lt;70)</div>
               </div>
@@ -916,10 +916,10 @@ export default function Analytics() {
 
             {/* Tavsiye Listesi */}
             <div className={`transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-xl font-bold text-white mb-4">AI Yatirim Tavsiyeleri</h3>
+              <h3 className="text-xl font-bold text-white mb-4">AI Yatırım Tavsiyeleri</h3>
               <div className="space-y-3">
                 {[
-                  { type: "strong_buy", title: "Mugla Yalikavak'ta Premium Villalar", desc: "Yillik %28.5 deger artisi ve %8.2 kira getirisi ile en yuksek getiri potansiyeli", score: 92 },
+                  { type: "strong_buy", title: "Muğla Yalıkavak'ta Premium Villalar", desc: "Yıllık %28.5 değer artışı ve %8.2 kira getirisi ile en yüksek getiri potansiyeli", score: 92 },
                   { type: "strong_buy", title: "Antalya Konyaalti'nda Yeni Proje Daireleri", desc: "8 yillik bina yasi, 12 yil amortisman ve %7.5 kira getirisi", score: 88 },
                   { type: "buy", title: "Istanbul Maslak'ta Stüdyo Daireler", desc: "Airbnb yatırımi icin ideal, %8.5 kira getirisi potansiyeli", score: 78 },
                   { type: "buy", title: "Izmir Alsancak Kordon'da Daireler", desc: "Turizm sezonu kira getirisi yuksek, deniz manzarali", score: 76 },
@@ -941,7 +941,7 @@ export default function Analytics() {
                             item.type === "strong_buy" ? "bg-emerald-500/10 text-emerald-400" : 
                             item.type === "buy" ? "bg-blue-500/10 text-blue-400" : "bg-amber-500/10 text-amber-400"
                           }`}>
-                            {item.type === "strong_buy" ? "Guclu Al" : item.type === "buy" ? "Al" : "Izle"}
+                            {item.type === "strong_buy" ? "Güçlü Al" : item.type === "buy" ? "Al" : "İzle"}
                           </span>
                         </div>
                         <p className="text-sm text-slate-400">{item.desc}</p>

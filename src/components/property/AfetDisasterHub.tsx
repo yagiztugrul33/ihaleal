@@ -31,12 +31,12 @@ type AfetTabId =
   | "sigorta";
 
 const TABS: { id: AfetTabId; label: string }[] = [
-  { id: "genel", label: "Genel Bakis" },
+  { id: "genel", label: "Genel Bakış" },
   { id: "fay", label: "Fay & Sismik" },
   { id: "zemin", label: "Zemin" },
-  { id: "yapi", label: "Bina Yapisal" },
-  { id: "hasar", label: "Hasar Gecmisi" },
-  { id: "guclendirme", label: "Guclendirme" },
+  { id: "yapi", label: "Bina Yapısal" },
+  { id: "hasar", label: "Hasar Geçmişi" },
+  { id: "guclendirme", label: "Güçlendirme" },
   { id: "acil", label: "Acil Durum" },
   { id: "sigorta", label: "Sigorta & Topluluk" },
 ];
@@ -75,7 +75,7 @@ interface AssemblyRow {
   capacity?: number;
 }
 
-/** Dinamik `react-leaflet` — sadece fay ve acil sekmelerinde yuklenir. */
+/** Dinamik `react-leaflet` — sadece fay ve acil sekmelerinde yüklenir. */
 function makeLazyFaultMap() {
   return lazy(async () => {
     await import("leaflet/dist/leaflet.css");
@@ -103,7 +103,7 @@ function makeLazyFaultMap() {
           >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution="&copy; OpenStreetMap katkilicilar"
+              attribution="&copy; OpenStreetMap katkıcılar"
             />
             <GeoJSON
               pane="overlayPane"
@@ -154,7 +154,7 @@ function makeLazyAssemblyMap() {
           >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution="&copy; OpenStreetMap katkilicilar"
+              attribution="&copy; OpenStreetMap katkıcılar"
             />
             <CircleMarker
               center={center}
@@ -222,7 +222,7 @@ function pickBreakdown(subs: SubScoreBreakdown[], keys: string[]) {
 
 function SuspenseMap({ children }: { children: ReactNode }) {
   return (
-    <Suspense fallback={<div className="afet-hub__lazy-fallback">Harita yukleniyor…</div>}>
+    <Suspense fallback={<div className="afet-hub__lazy-fallback">Harita yükleniyor…</div>}>
       {children}
     </Suspense>
   );
@@ -325,14 +325,14 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <div className="afet-hub__rings">
-            <ScoreRing score={Math.round(score.totalScore)} label="Deprem uygunlugu (demo)" size={128} />
+            <ScoreRing score={Math.round(score.totalScore)} label="Deprem uygunluğu (demo)" size={128} />
             <div>
               <p style={{ margin: "0 0 0.5rem", fontWeight: 700 }}>
                 {scoreBandLabelTr(score.band)}
               </p>
               <p className="afet-hub__muted" style={{ margin: 0 }}>
-                Fay mesafesi ~{d?.fault.distanceToFaultKm ?? "—"} km • Toplanma yuruyusu ~
-                {Math.round((d?.emergency.assemblyAreaWalkDistanceM ?? 800) / 80)} dk • Guncelleme{" "}
+                Fay mesafesi ~{d?.fault.distanceToFaultKm ?? "—"} km • Toplanma yürüyüşü ~
+                {Math.round((d?.emergency.assemblyAreaWalkDistanceM ?? 800) / 80)} dk • Güncelleme{" "}
                 {score.computedAtIso.slice(0, 10)}
               </p>
             </div>
@@ -367,7 +367,7 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <p className="afet-hub__muted">
-            MTA demo cizgisi: `/geo/mta-faults-mock.geojson`. Fay mesafe ~
+            MTA demo çizgisi: `/geo/mta-faults-mock.geojson`. Fay mesafe ~
             {d?.fault.distanceToFaultKm ?? "—"} km ({d?.fault.nearestFaultNameTr ?? "—"}).
           </p>
           <SuspenseMap>
@@ -379,10 +379,10 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     case "zemin":
       panel = (
         <>
-          {facetBlock("Zemin ve risk ipuclari", [
-            ["Zemin sinifi (TBDY)", d?.soil.zeminSinifiTbdly ?? "—"],
+          {facetBlock("Zemin ve risk ipuçları", [
+            ["Zemin sınıfı (TBDY)", d?.soil.zeminSinifiTbdly ?? "—"],
             ["Vs30 (m/s)", String(d?.soil.vs30MpsEst ?? "—")],
-            ["Sivilasma indeksi", String(d?.soil.liquefactionSusceptibilityIdx ?? "—")],
+            ["Sıvılaşma indeksi", String(d?.soil.liquefactionSusceptibilityIdx ?? "—")],
             ["Tasarim PGA (g)", String(d?.fault.afadDesignPgaG ?? "—")],
           ])}
           {renderBars(zeminSubs)}
@@ -392,15 +392,15 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     case "yapi":
       panel = (
         <>
-          {facetBlock("Yapi kabugu", [
-            ["Tasiyici sistem", d?.structural.structuralSystemType ?? "—"],
+          {facetBlock("Yapı kabuğu", [
+            ["Taşıyıcı sistem", d?.structural.structuralSystemType ?? "—"],
             ["Hummer sinifi", d?.structural.hammerEarthquakeClass ?? "—"],
             ["Kat adedi", String(d?.structural.effectiveStoryCount ?? "—")],
-            ["Yumusak kat indeksi", String(d?.structural.softStoryIndex ?? "—")],
+            ["Yumuşak kat indeksi", String(d?.structural.softStoryIndex ?? "—")],
           ])}
           {renderBars(yapiSubs)}
           <p className="afet-hub__muted">
-            Detay için ilgili kartlara basin; formul ve veri kalemleri acilir.
+            Detay için ilgili kartlara basın; formül ve veri kalemleri açılır.
           </p>
         </>
       );
@@ -408,10 +408,10 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     case "hasar":
       panel = (
         <>
-          {facetBlock("Hasar gecmisi", [
-            ["Insaat yili", String(d?.structural.yearOfConstruction ?? "—")],
+          {facetBlock("Hasar geçmişi", [
+            ["İnşaat yılı", String(d?.structural.yearOfConstruction ?? "—")],
             ["Denetim sinifi", d?.damageHistory.auditSeverityClass ?? "—"],
-            ["Hasar bayragi", d?.damageHistory.progressiveDamageFlag ? "Izleniyor" : "Kayit yok"],
+            ["Hasar bayrağı", d?.damageHistory.progressiveDamageFlag ? "İzleniyor" : "Kayıt yok"],
             ["Sigorta talebi", d?.damageHistory.insuranceClaimFiled ? "Var" : "Yok"],
           ])}
           {renderBars(hasarSubs)}
@@ -421,8 +421,8 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     case "guclendirme":
       panel = (
         <>
-          {facetBlock("Guclendirme durumu", [
-            ["Uygulandi", d?.retrofit.retrofitExecuted ? "Evet" : "Hayir"],
+          {facetBlock("Güçlendirme durumu", [
+            ["Uygulandı", d?.retrofit.retrofitExecuted ? "Evet" : "Hayır"],
             ["Standart", d?.retrofit.retrofitDesignStandard ?? "—"],
             ["Perde eklenen (m)", String(d?.retrofit.shearWallAddedLinearM ?? 0)],
             ["Kolon mantosu", String(d?.retrofit.columnJacketEquivalentCount ?? 0)],
@@ -435,7 +435,7 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <p className="afet-hub__muted">
-            AFAD demo toplanma noktalari ve tahliye erisim skorlari; sehir ya da ≤35 km mesafe ile
+            AFAD demo toplanma noktaları ve tahliye erişim skorları; şehir ya da ≤35 km mesafe ile
             süzülür.
           </p>
           {renderBars(acilSubs)}
@@ -457,13 +457,13 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
         <>
           {facetBlock("Sigorta ve topluluk", [
             ["DASK aktif", d?.insurance.daskPolicyActive ? "Evet" : "Kontrol gerekli"],
-            ["Bekleme suresi (gun)", String(d?.insurance.waitingPeriodDays ?? "—")],
-            ["Gonullu yogunlugu", String(d?.community.afadVolunteerTeamNearby ? "Yuksek" : "Orta")],
+            ["Bekleme süresi (gün)", String(d?.insurance.waitingPeriodDays ?? "—")],
+            ["Gönüllü yoğunluğu", String(d?.community.afadVolunteerTeamNearby ? "Yüksek" : "Orta")],
           ])}
           {renderBars(sigortaSubs)}
           <ul className="afet-hub__muted" style={{ margin: 0, paddingLeft: "1.1rem" }}>
-            <li>Guncel policenizi ve adres eslesmesini doğrulayın.</li>
-            <li>Hasar bildirimi ve fotograf arsivi tutun.</li>
+            <li>Güncel poliçenizi ve adres eşleşmesini doğrulayın.</li>
+            <li>Hasar bildirimi ve fotoğraf arşivi tutun.</li>
           </ul>
         </>
       );

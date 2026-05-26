@@ -109,6 +109,32 @@ export default function KycSimulationPage() {
             </CardContent>
           </Card>
         )}
+        <section className="mt-6 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h2 className="font-semibold text-slate-100">Nedir?</h2>
+            <p className="mt-2">KYC simülasyonu, kimlik doğrulama yaşam döngüsünü kullanıcıya anlaşılır adımlarla gösterir.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h2 className="font-semibold text-slate-100">Neden?</h2>
+            <p className="mt-2">Kullanıcı hangi adımda ne beklendiğini bilirse terk oranı düşer ve destek yükü azalır.</p>
+          </article>
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-slate-200">
+            <h2 className="font-semibold text-amber-100">Dürüst sınır + CTA</h2>
+            <p className="mt-2">Bu ekran demo akıştır; canlı doğrulama backend ve mevzuat politikasına göre tamamlanır.</p>
+            <p className="mt-1">CTA: Simülasyon sonrası gerçek hesapta KYC adımlarını tamamlayın.</p>
+          </article>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+          <h3 className="font-semibold text-slate-100">Örnek geri dönüş akışı</h3>
+          <p className="mt-2">
+            Kullanıcı SMS adımında kalırsa sistem bir sonraki girişte aynı adımdan devam ettirir, eksik belge ve doğrulama notlarını panelde
+            görünür hale getirir.
+          </p>
+        </section>
+        <section className="mt-4 rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4 text-xs text-slate-200">
+          <h3 className="font-semibold text-cyan-100">CTA</h3>
+          <p className="mt-2">Simülasyonu tamamladıktan sonra gerçek hesapta KYC adımlarını bitirip teklif ekranına geçin.</p>
+        </section>
       </div>
     </div>
   );

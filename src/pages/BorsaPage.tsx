@@ -496,11 +496,12 @@ export default function BorsaPage() {
   };
 
   return (
-    <main className="borsa-root w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
+    <main className="borsa-root w-full space-y-4 px-3 py-4 text-slate-100 sm:px-4 lg:px-8 2xl:px-12">
         <section className="grid gap-3 xl:grid-cols-[minmax(0,1.35fr)_minmax(280px,1fr)]">
           <article className="rounded-xl border border-cyan-500/30 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Gayrimenkul Borsası</p>
-            <h1 className="mt-1 text-2xl font-black text-white lg:text-3xl">Canlı terminale hoş geldiniz</h1>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">GAYRİMENKUL BORSASI</p>
+            <h1 className="mt-1 text-xl font-black leading-tight text-white sm:text-2xl lg:text-3xl">Türkiye'nin Gayrimenkul Borsası</h1>
+            <p className="mt-1 text-sm font-semibold text-cyan-100">Canlı terminale hoş geldiniz</p>
             <p className="mt-2 text-sm text-slate-300">
               Kod, fiyat, değişim ve hacim birlikte okunur. Yeşil yükselişi, kırmızı düşüşü gösterir; satır tıklayınca teklif akışına geçersiniz.
             </p>
@@ -685,7 +686,7 @@ export default function BorsaPage() {
                 <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Varlık Tablosu</h3>
                 <span className="text-xs text-slate-400">{sectionTitle}</span>
               </div>
-              <div className="mb-3 flex flex-wrap gap-2">
+              <div className="mb-3 flex flex-nowrap gap-2 overflow-x-auto pb-1">
                 {[
                   { id: "en_aktif", label: "En Aktif" },
                   { id: "yukselen", label: "Yükselen" },
@@ -720,8 +721,8 @@ export default function BorsaPage() {
                 </div>
                 <span className="text-[11px] text-slate-400">{tableRows.length} sonuç</span>
               </div>
-              <div className="overflow-x-auto">
-                <table className="pro-table min-w-[860px] w-full text-sm">
+              <div className="overflow-x-auto rounded-lg border border-slate-700/70">
+                <table className="pro-table min-w-[760px] w-full text-sm">
                   <thead className="text-left text-[11px] uppercase tracking-[0.12em] text-slate-400">
                     <tr>
                       <th className="pb-2 pr-3" title="Favori">★</th>
@@ -994,12 +995,12 @@ export default function BorsaPage() {
                     ? `${myOrderStatus} · ${watchers.toLocaleString("tr-TR")} kişi izliyor`
                     : `Teklif ver, sıranı canlı takip et · ${watchers.toLocaleString("tr-TR")} kişi izliyor`}
                 </p>
-                <div className="mt-2 flex flex-wrap gap-2">
+                <div className="mt-2 flex flex-col gap-2 sm:flex-row">
                   <input
                     value={myBidDraft}
                     onChange={(e) => setMyBidDraft(e.target.value)}
                     placeholder="Kendi teklifin (₺)"
-                    className="min-w-[10rem] flex-1 rounded-md border border-cyan-400/40 bg-secondary px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground"
+                    className="w-full flex-1 rounded-md border border-cyan-400/40 bg-secondary px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground"
                   />
                   <button
                     type="button"
@@ -1010,7 +1011,7 @@ export default function BorsaPage() {
                   </button>
                 </div>
               </div>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto rounded-lg border border-slate-700/70">
                 <table className="w-full text-xs">
                   <thead className="text-left uppercase tracking-[0.1em] text-slate-300">
                     <tr>

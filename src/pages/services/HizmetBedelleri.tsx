@@ -90,6 +90,54 @@ export default function HizmetBedelleri() {
             üretim aktivasyonu sonrası yürütülür.
           </p>
         </div>
+        <section className="mt-4 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h2 className="text-sm font-semibold text-white">Nedir?</h2>
+            <p className="mt-2 text-xs text-slate-300">Hizmet bedelleri, işlem öncesi operasyon kalemlerini şeffaf şekilde planlamak için kullanılır.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h2 className="text-sm font-semibold text-white">Neden?</h2>
+            <p className="mt-2 text-xs text-slate-300">Önceden netleşmeyen maliyet kalemleri teklif-kapanış sürecinde gecikme ve güven kaybı üretir.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h2 className="text-sm font-semibold text-white">Örnek</h2>
+            <p className="mt-2 text-xs text-slate-300">Drone + ekspertiz + tapu hazırlık kombinasyonu, arsa satışında karar süresini azaltabilir.</p>
+          </article>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h2 className="text-sm font-semibold text-white">Kime göre / dürüst sınır / CTA</h2>
+          <p className="mt-2 text-xs leading-relaxed text-slate-300">
+            Bireysel satıcı tekil paketlerden yararlanırken, kurumsal ekipler çoklu kalemleri operasyon planına bağlar. Bu sayfa bilgilendirme
+            ve demo kayıt ekranıdır; nihai bedel ve kapsam sözleşme ile kesinleşir.
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-slate-300">
+            CTA: İhtiyacınıza uygun kalemleri seçin, ardından dashboard ve evrak akışıyla birlikte maliyet planını işlemden önce sabitleyin.
+          </p>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h2 className="text-sm font-semibold text-white">Onboarding örneği</h2>
+          <p className="mt-2 text-xs text-slate-300">
+            Yeni satıcı kullanıcıya ilk girişte "foto + ekspertiz + tapu hazırlık" öneri paketi gösterilir. Kurumsal kullanıcıda ise
+            çoklu portföy yönetimi için toplu hizmet kalemleri ve aylık operasyon planı öne çıkarılır.
+          </p>
+        </section>
+        <section className="mt-4 rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+          <h2 className="text-sm font-semibold text-cyan-100">CTA</h2>
+          <p className="mt-2 text-xs text-slate-200">Gerekli kalemleri seçip raporu kaydedin, sonra işlem öncesi kontrol listesinde maliyetleri teyit edin.</p>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h2 className="text-sm font-semibold text-white">Dürüst sınır</h2>
+          <p className="mt-2 text-xs text-slate-300">
+            Bu ekran planlama ve demo kayıt katmanıdır; gerçek fiyat ve sözleşme koşulları proje kapsamı ile resmileştirilmeden bağlayıcı değildir.
+          </p>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h2 className="text-sm font-semibold text-white">Kime göre / örnek</h2>
+          <p className="mt-2 text-xs text-slate-300">
+            Örnek senaryoda yatırımcı yalnızca ekspertiz kalemini seçerken, kurumsal kullanıcı aynı işlemde hukuk + video + tapu hazırlık
+            paketini birlikte planlayabilir. Bu farklılık maliyet yönetimini rol bazlı optimize eder.
+          </p>
+        </section>
       </div>
     </div>
   );

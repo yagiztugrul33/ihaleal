@@ -52,6 +52,87 @@ export default function DigitalContractsPage() {
             </Card>
           ))}
         </div>
+        <section className="mt-6 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h2 className="font-semibold text-slate-100">Nedir?</h2>
+            <p className="mt-2">Dijital sözleşme alanı, işlem yaşam döngüsündeki temel metinleri tek akışta görünür kılar.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h2 className="font-semibold text-slate-100">Neden?</h2>
+            <p className="mt-2">Tarafların aynı metni ve aynı sürümü görmesi, kapanışta uyum riskini ve iletişim maliyetini azaltır.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h2 className="font-semibold text-slate-100">Örnek</h2>
+            <p className="mt-2">Teklif şartnamesi ile komisyon çerçevesi eş zamanlı incelenerek operasyon planı netleştirilir.</p>
+          </article>
+        </section>
+        <section className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-slate-200">
+          <h2 className="font-semibold text-amber-100">Kime göre / dürüst sınır / CTA</h2>
+          <p className="mt-2">
+            Bu ekran yatırımcı, satıcı ve danışman ekipleri için sözleşme hazırlık rehberidir. Taslak metinler bilgilendirme amaçlıdır,
+            hukuki bağlayıcılık için avukat onayı ve nihai imza süreci gerekir.
+          </p>
+          <p className="mt-2">CTA: İlgili taslağı seçin, kontrol listenizi tamamlayın ve resmi sözleşme adımına geçin.</p>
+        </section>
+        <section className="mt-4 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h3 className="font-semibold text-slate-100">İçerik</h3>
+            <p className="mt-2">
+              Her sözleşme kartı kapsam, risk ve operasyon etkisiyle birlikte okunur. Böylece yalnızca metin değil süreç etkisi de görünür.
+            </p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h3 className="font-semibold text-slate-100">Örnek</h3>
+            <p className="mt-2">
+              Teklif şartnamesinde teminat ve süre maddesi güncellenince komisyon çerçevesi ve ödeme adımları da eş zamanlı gözden geçirilir.
+            </p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <h3 className="font-semibold text-slate-100">Kime göre</h3>
+            <p className="mt-2">
+              Bireysel kullanıcı metin özetine odaklanır, kurumsal ekip ise versiyon takibi ve onay zinciri yönetimini önceliklendirir.
+            </p>
+          </article>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+          <h3 className="font-semibold text-slate-100">Platform modülleri dili</h3>
+          <p className="mt-2">
+            Sözleşme içerikleri diğer modüllerle aynı çerçevede sunulur: nedir, neden, kapsam, örnek, sınır ve sonraki aksiyon.
+            Bu yapı kullanıcıyı dağınık hukuki metin hissinden çıkarıp operasyon akışına bağlar.
+          </p>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+          <h3 className="font-semibold text-slate-100">İçerik (açıklamalı)</h3>
+          <p className="mt-2">
+            Sözleşme tipleri işlem yaşam döngüsündeki sorumluluk paylaşımını netleştirir: hangi adımda kim onay verir, hangi belge zorunludur
+            ve hangi durumda süreç durdurulur sorularına standart cevap üretir.
+          </p>
+          <p className="mt-2">
+            Kurumsal kullanıcı için versiyon yönetimi kritik olduğundan, sözleşme kartları farklı revizyonların izlenebileceği şekilde
+            tasarlanmıştır. Böylece ekipler güncel metin üzerinden hizalanır.
+          </p>
+        </section>
+        <section className="mt-4 grid gap-3 md:grid-cols-2">
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-slate-200">
+            <h3 className="font-semibold text-amber-100">Dürüst sınır</h3>
+            <p className="mt-2">
+              Bu sayfa sözleşme hazırlık rehberidir; nihai hukuki yorum ve bağlayıcılık yetkili hukuk uzmanı ve resmi imza süreciyle oluşur.
+            </p>
+          </article>
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4 text-xs text-slate-200">
+            <h3 className="font-semibold text-cyan-100">CTA</h3>
+            <p className="mt-2">
+              İlgili sözleşme kartını seçin, kontrol listenizi tamamlayın ve işlem öncesi taraf sorumluluklarını yazılı doğrulayın.
+            </p>
+          </article>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+          <h3 className="font-semibold text-slate-100">Onboarding ve geri dönüş</h3>
+          <p className="mt-2">
+            Yeni kullanıcı sözleşme tiplerini kısa özetlerle öğrenir; geri dönen kullanıcı son açtığı taslak kartına dönerek revizyon
+            adımını kaldığı yerden sürdürebilir.
+          </p>
+        </section>
       </div>
     </div>
   );

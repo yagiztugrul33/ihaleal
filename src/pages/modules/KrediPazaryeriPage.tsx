@@ -41,7 +41,7 @@ export default function KrediPazaryeriPage() {
   const stats = [
     { label: "Kredi Tutari", value: "5,2M TRY", hint: "Pesinat dusulmus" },
     { label: "En Dusuk Faiz", value: "%2,79", hint: "Halkbank Genç" },
-    { label: "Aylik Taksit", value: "41.200 TRY", hint: "120 ay vade" },
+    { label: "Aylık Taksit", value: "41.200 TRY", hint: "120 ay vade" },
     { label: "Onay Olasiligi", value: "%88", hint: "Gelir/deger orani" },
   ];
 
@@ -76,7 +76,7 @@ export default function KrediPazaryeriPage() {
               <input id="kr-pesinat" value={pesinat} onChange={(e) => setPesinat(e.target.value)} />
             </div>
             <div>
-              <label htmlFor="kr-gelir">Aylik net gelir (TRY)</label>
+              <label htmlFor="kr-gelir">Aylık net gelir (TRY)</label>
               <input id="kr-gelir" value={gelir} onChange={(e) => setGelir(e.target.value)} />
             </div>
             <div className="mod-form-actions">

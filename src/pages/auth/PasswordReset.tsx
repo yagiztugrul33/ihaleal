@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -132,6 +132,10 @@ export default function PasswordReset() {
           <p className="mt-2 text-xs text-slate-300">
             Hesap güvenliği için şüpheli durumlarda kullanıcıya ek kimlik doğrulama adımı uygulanabilir.
           </p>
+        </section>
+        <section className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4 text-xs text-slate-200">
+          <h3 className="font-semibold text-cyan-100">CTA</h3>
+          <p className="mt-2">Şifre yenileme sonrası profil güvenlik ayarlarını ve bildirim tercihlerini güncelleyerek akışı kapatın.</p>
         </section>
       </div>
     </div>

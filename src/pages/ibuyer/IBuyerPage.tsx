@@ -50,6 +50,82 @@ export default function IBuyerPage() {
             Not: Demo çıktıları bilgilendirme amaçlıdır; canlıda nihai fiyat ekspertiz + resmi doğrulama sonrası kesinleşir.
           </p>
         </div>
+        <section className="mb-6 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Nedir / neden</h3>
+            <p className="mt-2 text-xs text-slate-300">
+              iBuyer ekranı, satış kararını uzun pazarlık döngüsü yerine ölçülebilir bir teklif hattına taşımak için tasarlanır.
+            </p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">İçerik (açıklamalı)</h3>
+            <p className="mt-2 text-xs text-slate-300">
+              Mülk girdisi, fiyat bandı, risk notu, doğrulama adımı ve sözleşme öncesi kontrol tek akışta gösterilir.
+            </p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Örnek</h3>
+            <p className="mt-2 text-xs text-slate-300">
+              Acil nakit ihtiyacı olan satıcı, ilk fiyat bandını görüp ekspertiz adımına geçerek zaman kaybını azaltır.
+            </p>
+          </article>
+        </section>
+        <section className="mb-6 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Kime göre / dürüst sınır</h3>
+          <p className="mt-2 text-xs text-slate-300">
+            Bu akış özellikle hızlı likidite isteyen satıcılar ve portföy devir planı yapan kurumsal ekipler içindir. Nihai teklif bağlayıcılığı
+            resmi ekspertiz, belge doğrulama ve sözleşme adımı tamamlandığında oluşur.
+          </p>
+          <p className="mt-2 text-xs text-slate-300">
+            Demo veriler karar desteği sunar; üretimde saha incelemesi, hukuki inceleme ve operasyonel onay zorunludur.
+          </p>
+        </section>
+        <section className="mb-6 rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+          <h3 className="text-sm font-semibold text-cyan-100">CTA</h3>
+          <p className="mt-2 text-xs text-slate-200">
+            Formu tamamlayın, ön teklif bandını alın ve dashboard üzerinden ekspertiz + sözleşme hazırlık adımına geçin.
+          </p>
+        </section>
+        <section className="mb-6 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Hero</h3>
+            <p className="mt-2 text-xs text-slate-300">Hızlı nakit teklif yaklaşımı, uzun pazarlık sürecinde bekleme maliyetini düşürmeye odaklanır.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Neden?</h3>
+            <p className="mt-2 text-xs text-slate-300">Likidite ihtiyacı olan kullanıcı için hız kritik olduğundan ilk fiyat bandı ve risk notu birlikte gösterilir.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">CTA</h3>
+            <p className="mt-2 text-xs text-slate-300">Başvuruyu tamamlayın, kısa listeye girin ve iBuyer uzman görüşüyle kapanış planı oluşturun.</p>
+          </article>
+        </section>
+        <section className="mb-6 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Dürüst sınır</h3>
+          <p className="mt-2 text-xs text-slate-300">
+            Bu ekran hızlı teklif ön değerlendirmesi sağlar; gerçek satın alma kararı resmi ekspertiz ve sözleşme onayı olmadan kesinleşmez.
+          </p>
+        </section>
+        <section className="mb-6 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">İçerik (açıklamalı)</h3>
+          <p className="mt-2 text-xs text-slate-300">
+            Süreç dört basamakta ilerler: başvuru verisi, ön fiyat bandı, risk doğrulaması ve kapanış hazırlığı. Her basamakta kullanıcıya
+            bir sonraki adım açıkça gösterilir.
+          </p>
+          <p className="mt-2 text-xs text-slate-300">
+            Kurumsal satıcılar için çoklu portföy değerlendirmesi, bireysel kullanıcılar için tek varlık odaklı hızlı karar ekranı sunulur.
+          </p>
+        </section>
+        <section className="mb-6 grid gap-3 md:grid-cols-2">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Kime göre</h3>
+            <p className="mt-2 text-xs text-slate-300">Likidite ihtiyacı yüksek satıcılar ve hızlı devir planlayan kurumsal ekipler için uygundur.</p>
+          </article>
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+            <h3 className="text-sm font-semibold text-cyan-100">CTA</h3>
+            <p className="mt-2 text-xs text-slate-200">Başvuruyu tamamlayın, ön teklif bandını doğrulayın ve uzman inceleme adımına geçin.</p>
+          </article>
+        </section>
 
         {loading ? (
           <div

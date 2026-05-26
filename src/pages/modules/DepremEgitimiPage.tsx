@@ -97,6 +97,43 @@ export default function DepremEgitimiPage() {
           <li>`/modul/bina-risk-sorgu` ile bina güven skorunu teknik verilerle ölçün.</li>
         </ul>
       </ModulePanel>
+      <ModulePanel title="Kime göre / dürüst sınır / CTA">
+        <p className="text-sm text-slate-300">
+          Eğitim; bireysel kullanıcı, aile ve kurumsal ekipler için ortak afet dili üretir. Rol farkına göre ders öncelikleri değişse de
+          temel refleks seti aynıdır.
+        </p>
+        <p className="mt-2 text-sm text-slate-300">
+          Dürüst sınır: Bu modül farkındalık ve hazırlık içindir; yapısal dayanım veya resmi afet uygunluk raporu yerine geçmez.
+        </p>
+        <p className="mt-2 text-sm text-slate-300">
+          CTA: Eğitim sonrası Aile Acil Plan + Tatbikat Rehberi + Bina Risk sorgu üçlüsünü tamamlayarak öğrenmeyi aksiyona bağlayın.
+        </p>
+      </ModulePanel>
+      <ModulePanel title="Örnek senaryo">
+        <p className="text-sm text-slate-300">
+          Kullanıcı dersleri tamamladıktan sonra aile iletişim zinciri ve toplanma noktası planını uygulamaya geçirir. Bir sonraki deprem
+          tatbikatında süre ve görev dağılımı ölçülür, eksik alanlar eğitim notlarına geri beslenir.
+        </p>
+      </ModulePanel>
+      <ModulePanel title="CTA">
+        <p className="text-sm text-slate-300">
+          Eğitim planını tamamladıktan sonra sertifika çıktısını alın ve dashboard üzerinde aylık tatbikat görevini aktif edin.
+        </p>
+      </ModulePanel>
+      <ModulePanel title="İçerik (açıklamalı)">
+        <p className="text-sm text-slate-300">
+          Her ders, teorik bilgi ile uygulama adımını birlikte verir: önce kavram anlatımı, ardından kısa quiz ve saha uygulaması önerisi.
+        </p>
+        <p className="mt-2 text-sm text-slate-300">
+          Böylece kullanıcı yalnızca içerik tüketmez; kriz anında kullanacağı somut adımları düzenli tatbikat döngüsüne bağlar.
+        </p>
+      </ModulePanel>
+      <ModulePanel title="Kime göre / dürüst sınır">
+        <p className="text-sm text-slate-300">
+          Bireysel kullanıcı, aile ve kurumsal ekiplerin tamamı bu eğitim omurgasını kullanabilir. Ancak modül içerikleri teknik dayanım
+          raporu yerine geçmez; yapısal güvenlik değerlendirmesi lisanslı uzmanlarla tamamlanmalıdır.
+        </p>
+      </ModulePanel>
     </ModuleShell>
   );
 }

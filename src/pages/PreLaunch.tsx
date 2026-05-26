@@ -107,6 +107,37 @@ export default function PreLaunch() {
         <p className="text-xs text-slate-500 mt-6 text-center leading-relaxed">
           KVKK kapsamında verileriniz yalnızca lansman bildirimleri için kullanılır.
         </p>
+        <section className="mt-6 grid gap-3 md:grid-cols-3 text-xs">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300">
+            <h2 className="font-semibold text-slate-100">Nedir?</h2>
+            <p className="mt-1">Erken erişim havuzu, canlıya geçmeden önce ürün geri bildirimi toplayan kontrollü kullanıcı grubudur.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300">
+            <h2 className="font-semibold text-slate-100">Neden?</h2>
+            <p className="mt-1">Açık lansman öncesinde operasyon yükü, güvenlik akışı ve içerik dili gerçek kullanıcılarla test edilir.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300">
+            <h2 className="font-semibold text-slate-100">Örnek</h2>
+            <p className="mt-1">Kurumsal kullanıcıya dashboard denemesi, bireysel kullanıcıya ilan-teklif akışı pilot erişimi sağlanır.</p>
+          </article>
+        </section>
+        <section className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-100">
+          <h2 className="font-semibold">Dürüst sınır + CTA</h2>
+          <p className="mt-1">
+            Erken erişim formu bilgilendirme ve sıraya alma amaçlıdır; canlı işlem yetkisi doğrudan vermez. Kayıt sonrası doğrulama adımlarını
+            tamamlayarak ürün davet sürecine geçin.
+          </p>
+        </section>
+        <section className="mt-4 rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-3 text-xs text-slate-200">
+          <h2 className="font-semibold text-cyan-100">CTA</h2>
+          <p className="mt-1">Kayıt sonrası e-posta doğrulamasını yapın, profil adımlarını tamamlayın ve ilk ürün demosunu planlayın.</p>
+        </section>
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs text-slate-300">
+          <h2 className="font-semibold text-slate-100">Kime göre / örnek</h2>
+          <p className="mt-1">
+            Bireysel kullanıcı lansman erişiminde temel modülleri öğrenirken, kurumsal kullanıcı ekip içi karar akışını pilot ortamda test eder.
+          </p>
+        </section>
       </div>
     </div>
   );

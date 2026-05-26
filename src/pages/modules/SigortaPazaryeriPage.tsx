@@ -102,7 +102,7 @@ export default function SigortaPazaryeriPage() {
               columns={[
                 { key: "sirket", header: "Sirket", render: (r) => r.sirket },
                 { key: "urun", header: "Urun", render: (r) => r.urun },
-                { key: "prim", header: "Yillik Prim", render: (r) => r.prim },
+                { key: "prim", header: "Yıllık Prim", render: (r) => r.prim },
                 { key: "teminat", header: "Teminat", render: (r) => r.teminat },
                 {
                   key: "skor",

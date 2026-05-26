@@ -5,7 +5,7 @@ import { YORUM_REVIEWS, type YorumRole } from "@/data/yorumReviews";
 
 function Stars({ n }: { n: number }) {
   return (
-    <span className="inline-flex gap-0.5" aria-label={`${n} yildiz`}>
+    <span className="inline-flex gap-0.5" aria-label={`${n} yıldız`}>
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
@@ -19,9 +19,9 @@ function Stars({ n }: { n: number }) {
 }
 
 function roleLabel(r: YorumRole): string {
-  if (r === "yatirimci") return "Yatirimci";
-  if (r === "emlakci") return "Emlakci";
-  return "Muteahhit";
+  if (r === "yatirimci") return "Yatırımcı";
+  if (r === "emlakci") return "Emlakçı";
+  return "Müteahhit";
 }
 
 function Avatar({ name }: { name: string }) {
@@ -58,17 +58,17 @@ export default function YorumlarPage() {
   }));
 
   return (
-    <PageShell badge="Topluluk" title="Kullanici yorumlari" subtitle="Yatirimci, emlakci ve muteahhit deneyimleri">
+    <PageShell badge="Topluluk" title="Kullanıcı yorumları" subtitle="Yatırımcı, emlakçı ve müteahhit deneyimleri">
       <div className="mx-auto max-w-5xl px-4 flex flex-col md:flex-row gap-8 mb-10">
         <div className="text-center md:text-left">
           <p className="text-5xl font-bold">{avg.toFixed(1)}</p>
           <Stars n={5} />
-          <p className="text-sm text-slate-400 mt-1">{YORUM_REVIEWS.length} degerlendirme</p>
+          <p className="text-sm text-slate-400 mt-1">{YORUM_REVIEWS.length} değerlendirme</p>
         </div>
         <div className="flex-1 space-y-2 max-w-md">
           {dist.map((d) => (
             <div key={d.stars} className="flex items-center gap-3 text-sm">
-              <span className="w-14 shrink-0">{d.stars} yildiz</span>
+              <span className="w-14 shrink-0">{d.stars} yıldız</span>
               <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
                 <div
                   className="h-full bg-amber-400"
@@ -124,10 +124,10 @@ function RoleTabs({
     <div className="mx-auto max-w-5xl px-4 flex flex-wrap gap-2 mb-4">
       {(
         [
-          ["all", "Tumu"],
-          ["yatirimci", "Yatirimci"],
-          ["emlakci", "Emlakci"],
-          ["muteahhit", "Muteahhit"],
+          ["all", "Tümü"],
+          ["yatirimci", "Yatırımcı"],
+          ["emlakci", "Emlakçı"],
+          ["muteahhit", "Müteahhit"],
         ] as const
       ).map(([key, label]) => (
         <button
@@ -165,7 +165,7 @@ function StarTabs({
             : "px-3 py-2 min-h-[44px] rounded-lg border border-slate-600 text-slate-400 text-xs"
         }
       >
-        Tum yildizlar
+        Tüm yıldızlar
       </button>
       {[5, 4, 3, 2, 1].map((s) => (
         <button
@@ -178,7 +178,7 @@ function StarTabs({
               : "px-3 py-2 min-h-[44px] rounded-lg border border-slate-600 text-slate-400 text-xs"
           }
         >
-          {s} yildiz
+          {s} yıldız
         </button>
       ))}
     </div>
