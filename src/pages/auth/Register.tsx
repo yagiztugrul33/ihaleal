@@ -9,6 +9,8 @@ import { isSupabaseConfigured } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
 import { parseKurumsalProfil, postLoginPathForProfil } from "@/lib/authProfile";
+import { getCsrfToken, verifyCsrfToken } from "@/lib/security/csrf";
+import { sanitizeEmail, sanitizePhone, sanitizeText, validateStrongPassword } from "@/lib/security/inputGuards";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
+  const csrfToken = getCsrfToken();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,16 +37,24 @@ export default function Register() {
       setError("Kayıt için Supabase ortam değişkenleri gerekir (.env.local; demo).");
       return;
     }
-    if (!name.trim() || !email.trim() || !password) {
+    const safeName = sanitizeText(name, 80);
+    const safeEmail = sanitizeEmail(email);
+    const safePhone = sanitizePhone(phone);
+    if (!safeName || !safeEmail || !password) {
       setError("Ad soyad, e-posta ve şifre zorunludur.");
+      return;
+    }
+    if (!verifyCsrfToken(csrfToken)) {
+      setError("Güvenlik doğrulaması yenilenemedi. Sayfayı tazeleyip tekrar deneyin.");
       return;
     }
     if (password !== passwordConfirm) {
       setError("Şifreler eşleşmiyor.");
       return;
     }
-    if (password.length < 6) {
-      setError("Şifre en az 6 karakter olmalı.");
+    const pwPolicy = validateStrongPassword(password);
+    if (!pwPolicy.ok) {
+      setError(pwPolicy.error ?? "Şifre politikası sağlanamadı.");
       return;
     }
     if (!kvkkAccepted) {
@@ -51,8 +62,8 @@ export default function Register() {
       return;
     }
     setLoading(true);
-    const { error: supaErr, session } = await signUp(email.trim(), password, name.trim(), {
-      phone: phone.trim() || undefined,
+    const { error: supaErr, session } = await signUp(safeEmail, password, safeName, {
+      phone: safePhone || undefined,
     });
     setLoading(false);
 
@@ -110,6 +121,7 @@ export default function Register() {
             )}
             {error && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
             <form onSubmit={handleSubmit} className="space-y-4">
+              <input type="hidden" name="_csrf" value={csrfToken} />
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Ad Soyad</label>
                 <div className="relative">
@@ -159,7 +171,7 @@ export default function Register() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="border-border bg-secondary pl-10 pr-10 text-foreground placeholder:text-muted-foreground"
-                    placeholder="En az 6 karakter"
+                    placeholder="En az 10 karakter, büyük/küçük, rakam, özel"
                     autoComplete="new-password"
                   />
                   <button

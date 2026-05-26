@@ -25,6 +25,7 @@ import { preAuthorize } from "@/lib/payment";
 import { buildOrderBook, maskBidder } from "@/lib/borsa/orderBook";
 import { calculateProxyBid, shouldExtend, submitBidViaCore, validateBid } from "@/lib/borsa/auctionEngine";
 import { PLATFORM_LEGAL_DEFINITION, PSP_FLOW_DISCLAIMER } from "@/legal/platformDisclaimers";
+import { runSecurityGuard } from "@/lib/security/securityGuardClient";
 import "@/borsa/borsa.css";
 
 type DetailTab = "detay" | "islem" | "degerleme" | "belgeler" | "benzer";
@@ -205,6 +206,12 @@ export default function BorsaAssetDetailPage() {
 
     setBusy(true);
     try {
+      const payGuard = await runSecurityGuard("payment", `demo-user:${id}:bid`);
+      if (!payGuard.ok) {
+        setActionMessage({ tone: "error", text: `Ödeme güvenlik limiti aktif. ${payGuard.retryAfterSec ?? 60} sn sonra tekrar deneyin.` });
+        dispatchToast(`Ödeme güvenlik limiti aktif. ${payGuard.retryAfterSec ?? 60} sn sonra tekrar deneyin.`, "error");
+        return;
+      }
       const preAuth = await preAuthorize({
         amountTRY: bidBond,
         cardToken: "demo-card-token",
@@ -219,6 +226,12 @@ export default function BorsaAssetDetailPage() {
       }
 
       // Core teklif akisi sadece cagrilir; cekirdek degistirilmez.
+      const bidGuard = await runSecurityGuard("bid", `demo-user:${id}:core`);
+      if (!bidGuard.ok) {
+        setActionMessage({ tone: "error", text: `Teklif güvenlik limiti aktif. ${bidGuard.retryAfterSec ?? 60} sn sonra tekrar deneyin.` });
+        dispatchToast(`Teklif güvenlik limiti aktif. ${bidGuard.retryAfterSec ?? 60} sn sonra tekrar deneyin.`, "error");
+        return;
+      }
       const result = await submitBidViaCore({
         placeBid: async ({ auctionId, amount }) => placeBidRpc({ auctionId, amountTry: amount }),
         auctionId: id,

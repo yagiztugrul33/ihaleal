@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "vite --host --open",
+    "dev:mobile": "vite --host 0.0.0.0 --port 5185 --strictPort",
+    "dev:mobile:follow": "set VITE_DEV_PORT=5185&& npm run dev:mobile-url && npm run dev:mobile",
     "dev:mobile-url": "node scripts/dev-mobile-url.mjs",
     "build": "node scripts/vite-build-safe.mjs",
     "preview": "vite preview --port 4173",

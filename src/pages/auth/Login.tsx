@@ -9,6 +9,8 @@ import { isSupabaseConfigured } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
 import { parseKurumsalProfil, postLoginPathForProfil } from "@/lib/authProfile";
+import { getCsrfToken, verifyCsrfToken } from "@/lib/security/csrf";
+import { sanitizeEmail } from "@/lib/security/inputGuards";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const csrfToken = getCsrfToken();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,12 +31,17 @@ export default function Login() {
       setError("Giriş için Supabase ortam değişkenleri gerekir (.env.local; demo).");
       return;
     }
-    if (!email || !password) {
+    const safeEmail = sanitizeEmail(email);
+    if (!safeEmail || !password) {
       setError("E-posta ve şifre gereklidir.");
       return;
     }
+    if (!verifyCsrfToken(csrfToken)) {
+      setError("Güvenlik doğrulaması yenilenemedi. Sayfayı tazeleyip tekrar deneyin.");
+      return;
+    }
     setLoading(true);
-    const { error: authErr } = await signIn(email.trim(), password);
+    const { error: authErr } = await signIn(safeEmail, password);
     setLoading(false);
 
     if (authErr) {
@@ -135,6 +143,7 @@ export default function Login() {
             ) : null}
             {error && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
             <form onSubmit={handleSubmit} className="space-y-4">
+              <input type="hidden" name="_csrf" value={csrfToken} />
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>
                 <div className="relative">

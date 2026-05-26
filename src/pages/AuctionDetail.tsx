@@ -87,6 +87,7 @@ import {
   MASTER_INFO_DISCLAIMER,
   PSP_FLOW_DISCLAIMER,
 } from "@/legal/platformDisclaimers";
+import { runSecurityGuard } from "@/lib/security/securityGuardClient";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, LineChart, Line,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -726,6 +727,11 @@ export default function AuctionDetail() {
     }
     setPreAuthBusy(true);
     try {
+      const guard = await runSecurityGuard("payment", `${user.id}:${dbListingId ?? id}:bid`);
+      if (!guard.ok) {
+        toastBid(`Ödeme güvenlik limiti etkin. ${guard.retryAfterSec ?? 60} saniye sonra tekrar deneyin.`, "warning");
+        return;
+      }
       const base = liveBid;
       const depositAmt = Math.round(base * bidPreAuthRate * 100) / 100;
       const pr = await preAuthorize({
@@ -780,6 +786,11 @@ export default function AuctionDetail() {
     }
     setPreAuthBusy(true);
     try {
+      const guard = await runSecurityGuard("payment", `${user.id}:${dbListingId ?? id}:seller_commitment`);
+      if (!guard.ok) {
+        toastBid(`Ödeme güvenlik limiti etkin. ${guard.retryAfterSec ?? 60} saniye sonra tekrar deneyin.`, "warning");
+        return;
+      }
       const base = liveBid;
       const depositAmt = Math.round(base * 0.01 * 100) / 100;
       const pr = await preAuthorize({
@@ -811,6 +822,11 @@ export default function AuctionDetail() {
     }
     setPreAuthBusy(true);
     try {
+      const guard = await runSecurityGuard("payment", `${user.id}:${dbListingId ?? id}:buy_now`);
+      if (!guard.ok) {
+        toastBid(`Ödeme güvenlik limiti etkin. ${guard.retryAfterSec ?? 60} saniye sonra tekrar deneyin.`, "warning");
+        return;
+      }
       const base = effectiveBuyNowTry;
       const depositAmt = Math.round(base * 0.015 * 100) / 100;
       const pr = await preAuthorize({

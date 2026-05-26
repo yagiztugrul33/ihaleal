@@ -7,6 +7,9 @@ function configAuthError(message: string): AuthError {
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { dispatchAuthChanged } from "@/lib/auth";
 import { persistSupabaseUser } from "@/lib/supabaseAuthBridge";
+import { validateStrongPassword, sanitizeEmail, sanitizePhone, sanitizeText } from "@/lib/security/inputGuards";
+import { getAuthBlockRemainingMs, markAuthAttempt } from "@/lib/security/authAttemptLimiter";
+import { runSecurityGuard } from "@/lib/security/securityGuardClient";
 
 export type SignUpExtra = { phone?: string };
 
@@ -117,10 +120,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!isSupabaseConfigured()) {
       return { error: configAuthError("Supabase yapılandırması eksik (.env.local).") };
     }
-    if (isAuthAttemptThrottled("signin", email)) {
+    const safeEmail = sanitizeEmail(email);
+    if (isAuthAttemptThrottled("signin", safeEmail)) {
       return { error: configAuthError("Çok sık giriş denemesi. Lütfen kısa bir süre bekleyin.") };
     }
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const blockedMs = getAuthBlockRemainingMs("signin", safeEmail);
+    if (blockedMs > 0) {
+      return { error: configAuthError(`Çok fazla deneme algılandı. ${Math.ceil(blockedMs / 1000)} saniye sonra tekrar deneyin.`) };
+    }
+    const guard = await runSecurityGuard("login", safeEmail);
+    if (!guard.ok) {
+      return { error: configAuthError(`Giriş denemesi geçici olarak sınırlandı. ${guard.retryAfterSec ?? 60} saniye bekleyin.`) };
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({ email: safeEmail, password });
+    markAuthAttempt("signin", safeEmail, !error);
     return { error };
   }, []);
 
@@ -128,19 +142,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!isSupabaseConfigured()) {
       return { error: configAuthError("Supabase yapılandırması eksik (.env.local).") };
     }
-    if (isAuthAttemptThrottled("signup", email)) {
+    const safeEmail = sanitizeEmail(email);
+    const safeName = sanitizeText(fullName, 80);
+    const safePhone = extra?.phone ? sanitizePhone(extra.phone) : undefined;
+    if (isAuthAttemptThrottled("signup", safeEmail)) {
       return { error: configAuthError("Çok sık kayıt denemesi. Lütfen kısa bir süre bekleyin."), session: null };
     }
-    const meta: Record<string, unknown> = { full_name: fullName.trim() };
-    if (extra?.phone?.trim()) meta.phone = extra.phone.trim();
+    const blockedMs = getAuthBlockRemainingMs("signup", safeEmail);
+    if (blockedMs > 0) {
+      return { error: configAuthError(`Çok fazla kayıt denemesi algılandı. ${Math.ceil(blockedMs / 1000)} saniye sonra tekrar deneyin.`), session: null };
+    }
+    const pwPolicy = validateStrongPassword(password);
+    if (!pwPolicy.ok) {
+      return { error: configAuthError(pwPolicy.error ?? "Şifre politikası sağlanamadı."), session: null };
+    }
+
+    const guard = await runSecurityGuard("login", safeEmail);
+    if (!guard.ok) {
+      return { error: configAuthError(`Kayıt denemesi geçici olarak sınırlandı. ${guard.retryAfterSec ?? 60} saniye bekleyin.`), session: null };
+    }
+
+    const meta: Record<string, unknown> = { full_name: safeName };
+    if (safePhone?.trim()) meta.phone = safePhone.trim();
     const { data, error } = await supabase.auth.signUp({
-      email,
+      email: safeEmail,
       password,
       options: {
         emailRedirectTo: window.location.origin,
         data: meta,
       },
     });
+    markAuthAttempt("signup", safeEmail, !error);
     if (!error && data.session?.user) persistSupabaseUser(data.session.user);
     return { error, session: data.session ?? null };
   }, []);
