@@ -48,6 +48,35 @@ export default function LiveAuctions() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <div className="grid gap-4 md:grid-cols-3">
+          <article className="card-warm">
+            <h2 className="text-lg font-semibold" style={{ color: "var(--color-text)" }}>
+              1) İlan detayını doğrula
+            </h2>
+            <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Galeri, AI değerleme, deprem skoru, emsal ve satıcı geçmişini teklif öncesi kontrol edin.
+            </p>
+          </article>
+          <article className="card-warm">
+            <h2 className="text-lg font-semibold" style={{ color: "var(--color-text)" }}>
+              2) Teklif modunu seç
+            </h2>
+            <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Açık artırma, kapalı teklif, hemen al veya anında teklif (iBuyer) akışına uygun ilerleyin.
+            </p>
+          </article>
+          <article className="card-warm">
+            <h2 className="text-lg font-semibold" style={{ color: "var(--color-text)" }}>
+              3) Maliyeti net gör
+            </h2>
+            <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Toplam yükümlülükte komisyon/vergileri ayrı izleyin; karar kalitesini teklif anında yükseltin.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <Auctions hideIntro layout="page" />
     </div>
   );

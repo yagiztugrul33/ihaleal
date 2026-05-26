@@ -14,6 +14,8 @@ import { ModuleDataTable, ModulePanel, ModuleShell, ModuleStatGrid, ModuleTag } 
 import { ModuleRelatedStrip } from "./ModuleRelatedStrip";
 import type { RelatedModuleCard } from "./ModuleRelatedStrip";
 import { ShieldCheck, HeartHandshake, ClipboardList } from "lucide-react";
+import { calculateEarthquakeRisk } from "@/lib/risk/earthquakeRiskEngine";
+import { runParcelIntelligence } from "@/lib/engineering";
 
 const KentselDonusumMapInner = lazy(() => import("./KentselDonusumMapInner"));
 
@@ -112,6 +114,10 @@ export default function KentselDonusumPage() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<(typeof ADDRESS_PRESETS)[0] | null>(ADDRESS_PRESETS[0]);
   const [highlightId, setHighlightId] = useState<string | null>("kd-ist-kadikoy");
+  const [landM2, setLandM2] = useState("950");
+  const [preValueTry, setPreValueTry] = useState("8900000");
+  const [ownerSharePct, setOwnerSharePct] = useState("32");
+  const [muafiyet6306, setMuafiyet6306] = useState(true);
 
   const search = useCallback(() => {
     const q = query.trim().toLowerCase();
@@ -131,6 +137,63 @@ export default function KentselDonusumPage() {
     ],
     [result],
   );
+
+  const donusumModel = useMemo(() => {
+    const risk = calculateEarthquakeRisk({
+      city: result?.city ?? "Istanbul",
+      district: result?.district ?? "Kadikoy",
+      neighborhood: "",
+      faultDistanceKm: result?.district === "Esenler" ? 7 : result?.district === "Bornova" ? 9 : 11,
+      pgaG: result?.district === "Esenler" ? 0.48 : 0.41,
+      soilClass: result?.district === "Esenler" ? "ZD" : "ZC",
+      fsCoefficient: result?.district === "Esenler" ? 1.48 : 1.24,
+      f1Coefficient: result?.district === "Esenler" ? 1.58 : 1.34,
+      sptN160: result?.district === "Esenler" ? 22 : 35,
+      groundwaterDepthM: result?.district === "Esenler" ? 2.1 : 4.6,
+      alluviumPercent: result?.district === "Esenler" ? 64 : 34,
+      buildingAge: 24,
+      structuralSystem: "reinforced_concrete",
+      codeEra: "pre_2018",
+      storyCount: 8,
+      softStory: true,
+    });
+    const parcel = runParcelIntelligence({
+      parcel: {
+        il: result?.city ?? "Istanbul",
+        ilce: result?.district ?? "Kadikoy",
+        koy: "",
+        mahalle: "",
+        ada: "1204",
+        parsel: "18",
+        landAreaM2: Number(landM2),
+        ownerShareOfSellable: Math.max(0.1, Math.min(0.55, Number(ownerSharePct) / 100)),
+        assumedNetUnitM2: 110,
+      },
+      zoningFactors: {
+        urbanProximityScore: 74,
+        transportProjectScore: 69,
+        industrialExpansionScore: 58,
+        demographicGrowthScore: 66,
+        existingZoningDensityScore: 71,
+        currentLandUse: "konut",
+        horizonYears: 7,
+      },
+    });
+    const pre = Number(preValueTry);
+    const riskDiscountPct = Math.max(4, (100 - risk.totalScore) * 0.22);
+    const newProjectPremiumPct = 12 + parcel.compositeScore * 0.26;
+    const grossAfterTry = pre * (1 + newProjectPremiumPct / 100);
+    const netAfterTry = grossAfterTry * (1 - (muafiyet6306 ? 0.01 : 0.055));
+    const upliftTry = netAfterTry - pre;
+    return {
+      risk,
+      parcel,
+      riskDiscountPct: Number(riskDiscountPct.toFixed(1)),
+      newProjectPremiumPct: Number(newProjectPremiumPct.toFixed(1)),
+      netAfterTry: Math.round(netAfterTry),
+      upliftTry: Math.round(upliftTry),
+    };
+  }, [result, landM2, preValueTry, ownerSharePct, muafiyet6306]);
 
   return (
     <ModuleShell
@@ -229,6 +292,49 @@ export default function KentselDonusumPage() {
             </div>
           ))}
         </div>
+      </ModulePanel>
+
+      <ModulePanel title="6306 muafiyet + riskli→yeni proje değer artışı modeli">
+        <div className="grid gap-3 lg:grid-cols-2">
+          <div className="grid gap-2 md:grid-cols-2">
+            <label className="text-sm text-slate-300">
+              Parsel m²
+              <input className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-white" value={landM2} onChange={(e) => setLandM2(e.target.value)} />
+            </label>
+            <label className="text-sm text-slate-300">
+              Riskli mevcut değer (₺)
+              <input className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-white" value={preValueTry} onChange={(e) => setPreValueTry(e.target.value)} />
+            </label>
+            <label className="text-sm text-slate-300">
+              Malik payı (%)
+              <input className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-white" value={ownerSharePct} onChange={(e) => setOwnerSharePct(e.target.value)} />
+            </label>
+            <label className="inline-flex items-center gap-2 rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-slate-200">
+              <input type="checkbox" checked={muafiyet6306} onChange={(e) => setMuafiyet6306(e.target.checked)} />
+              6306 muafiyet varsayımı aktif
+            </label>
+          </div>
+          <div className="space-y-2 text-sm">
+            <p className="rounded-lg border border-cyan-500/35 bg-cyan-500/10 p-2 text-cyan-100">
+              Deprem güven skoru: <strong>{donusumModel.risk.totalScore}/100</strong> (TBDY katmanlı risk motoru)
+            </p>
+            <p className="rounded-lg border border-violet-500/35 bg-violet-500/10 p-2 text-violet-100">
+              İmar/geçiş skoru: <strong>{donusumModel.parcel.compositeScore}/100</strong> (parcel + imar motoru)
+            </p>
+            <p className="rounded-lg border border-slate-700 bg-slate-900/70 p-2 text-slate-200">
+              Risk indirimi %{donusumModel.riskDiscountPct} → yeni proje primi %{donusumModel.newProjectPremiumPct}
+            </p>
+            <p className="rounded-lg border border-emerald-500/35 bg-emerald-500/10 p-2 text-emerald-100">
+              Dönüşüm sonrası net değer: <strong>₺{donusumModel.netAfterTry.toLocaleString("tr-TR")}</strong>
+            </p>
+            <p className="rounded-lg border border-emerald-500/35 bg-emerald-500/10 p-2 text-emerald-100">
+              Riskli→yeni proje değer artışı: <strong>₺{donusumModel.upliftTry.toLocaleString("tr-TR")}</strong>
+            </p>
+          </div>
+        </div>
+        <p className="mt-3 text-xs text-amber-100 rounded-lg border border-amber-500/35 bg-amber-500/10 p-2">
+          Dürüst sınır: Bu değer artış modeli ön analizdir; 6306 istisna kapsamı, resmi imar planı ve lisanslı mühendislik raporları ile teyit edilmelidir.
+        </p>
       </ModulePanel>
 
       <ModulePanel title="Kurum destek tablosu">

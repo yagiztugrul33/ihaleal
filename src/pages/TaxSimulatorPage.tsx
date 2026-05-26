@@ -18,6 +18,9 @@ export default function TaxSimulatorPage() {
   const [purchaseYm, setPurchaseYm] = useState("2021-06");
   const [buyTry, setBuyTry] = useState("1000000");
   const [saleTry, setSaleTry] = useState("2500000");
+  const [officialAssessmentTry2026, setOfficialAssessmentTry2026] = useState("2800000");
+  const [revolvingFundCoefficient, setRevolvingFundCoefficient] = useState("1.00");
+  const [urbanTransformation6306Exempt, setUrbanTransformation6306Exempt] = useState(false);
   const [area, setArea] = useState("");
   const [firstRes, setFirstRes] = useState(false);
 
@@ -83,8 +86,11 @@ export default function TaxSimulatorPage() {
       purchasePriceTry: buy,
       salePriceTry: sale,
       holdingYears: years,
+      officialAssessmentTry2026: Math.max(0, Number(String(officialAssessmentTry2026).replace(/\D/g, "")) || 0),
+      revolvingFundCoefficient: Math.max(0, Number(String(revolvingFundCoefficient).replace(",", ".")) || 0),
+      isUrbanTransformationExempt6306: urbanTransformation6306Exempt,
     });
-  }, [buyTry, saleTry, purchaseYm, deps.currentDate]);
+  }, [buyTry, saleTry, purchaseYm, deps.currentDate, officialAssessmentTry2026, revolvingFundCoefficient, urbanTransformation6306Exempt]);
 
   return (
     <div className="container max-w-3xl py-10 px-4 space-y-6">
@@ -103,13 +109,38 @@ export default function TaxSimulatorPage() {
       <section className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4 text-sm">
         <h2 className="font-semibold text-cyan-100">Gerçek formül özeti</h2>
         <p className="mt-2 text-slate-200">
-          Tapu harcı = satış fiyatı × %4 (alıcı %2 + satıcı %2). Değer artış kazancı = satış - alış; 5 yıl üstünde kazanç
-          vergisi istisna, altında örnek alt dilim %15 yaklaşımı.
+          Tapu maliyeti = max(satış, 2026 matrah) × %4 + döner sermaye (2.227 × katsayı). 6306 kapsamı seçildiğinde tapu
+          maliyetleri muafiyet varsayımıyla sıfırlanır. Değer artış kazancı = satış - alış; 5 yıl üstünde istisna.
         </p>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <Label htmlFor="tax-assessment" className="text-xs text-slate-200">2026 matrah (TL)</Label>
+            <Input id="tax-assessment" value={officialAssessmentTry2026} onChange={(e) => setOfficialAssessmentTry2026(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="tax-revolving" className="text-xs text-slate-200">Döner sermaye katsayısı</Label>
+            <Input id="tax-revolving" value={revolvingFundCoefficient} onChange={(e) => setRevolvingFundCoefficient(e.target.value)} />
+          </div>
+          <div className="sm:col-span-2 flex items-end">
+            <label className="inline-flex items-center gap-2 text-xs text-slate-100">
+              <Checkbox
+                checked={urbanTransformation6306Exempt}
+                onCheckedChange={(v) => setUrbanTransformation6306Exempt(v === true)}
+              />
+              Kentsel dönüşüm (6306) muafiyet varsayımı
+            </label>
+          </div>
+        </div>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
-          <p className="text-slate-100">Tapu toplam: <strong data-testid="tax-deed-total">{quickTax.deedDutyTotalTry.toLocaleString("tr-TR")} TL</strong></p>
+          <p className="text-slate-100">Hesap matrahı: <strong>{quickTax.deedDutyAssessmentBaseTry.toLocaleString("tr-TR")} TL</strong></p>
+          <p className="text-slate-100">Tapu harcı toplam: <strong data-testid="tax-deed-total">{quickTax.deedDutyTotalTry.toLocaleString("tr-TR")} TL</strong></p>
+          <p className="text-slate-100">Döner sermaye: <strong>{quickTax.revolvingFundFeeTry.toLocaleString("tr-TR")} TL</strong></p>
+          <p className="text-slate-100">Tapu toplam maliyet: <strong>{quickTax.totalTitleDeedCostTry.toLocaleString("tr-TR")} TL</strong></p>
           <p className="text-slate-100">Değer artış vergisi: <strong data-testid="tax-gain-tax">{quickTax.capitalGainTaxTry.toLocaleString("tr-TR")} TL</strong></p>
         </div>
+        <p className="mt-2 text-xs text-slate-300">
+          Güncel referans notu: KFE Nisan 2026 reel örnek -%4,3; kira çarpanı referansı TR 214 ay, İstanbul 212 ay.
+        </p>
       </section>
 
       <section className="grid gap-3 md:grid-cols-3">

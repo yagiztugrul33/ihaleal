@@ -46,6 +46,13 @@ export default function BlogPostPage() {
             {post.author.name}
             {post.author.role ? ` · ${post.author.role}` : ""}
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span key={tag} className="rounded-full border border-white/15 bg-white/[0.03] px-2 py-0.5 text-xs text-slate-300">
+                #{tag}
+              </span>
+            ))}
+          </div>
         </header>
         <div className="space-y-5 text-sm leading-relaxed text-slate-300">
           {post.paragraphs.map((para, i) => (

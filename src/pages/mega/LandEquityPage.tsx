@@ -11,8 +11,10 @@ import { computeKkaOwnerHakEdisProjection, type KkaScenarioId } from "@/lib/fina
 import { buildKkaRollingHakedisRows, kkaRollingHakedisLegalPrinciplesNoteTr } from "@/lib/finance/kkaRollingHakedisEngine";
 import { INVOICE_LINE_DESCRIPTION_CANDIDATES } from "@/lib/finance/billingConfig";
 import { KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import { computeKkaBuildingSummary } from "@/lib/finance/kkaParselImarEngine";
 
 type PoolMode = "c2c" | "single" | "dual";
+type KkaUsul = "istanbul" | "ankara";
 
 function poolToInput(
   valueTry: number,
@@ -37,6 +39,7 @@ export default function LandEquityPage() {
   const [priceStr, setPriceStr] = useState("8500000");
   const [scenario, setScenario] = useState<KkaScenarioId>("realistic");
   const [hakedisTrancheCount, setHakedisTrancheCount] = useState(4);
+  const [usul, setUsul] = useState<KkaUsul>("istanbul");
 
   const parcelTry = Math.max(0, Number(String(parcelStr).replace(/\D/g, "")) || 0);
   const ownerUnits = Math.max(0, Number(String(unitsStr).replace(/\D/g, "")) || 0);
@@ -65,6 +68,23 @@ export default function LandEquityPage() {
   }, [ownerUnits, unitPriceTry, scenario]);
 
   const rollingHakedis = useMemo(() => buildKkaRollingHakedisRows(hakedisTrancheCount), [hakedisTrancheCount]);
+  const usulImar = useMemo(() => {
+    try {
+      return computeKkaBuildingSummary({
+        il: usul === "istanbul" ? "İstanbul" : "Ankara",
+        ilce: usul === "istanbul" ? "Kadıköy" : "Çankaya",
+        koy: "",
+        mahalle: "",
+        ada: "15",
+        parsel: "200",
+        landAreaM2: 1000,
+        ownerShareOfSellable: 0.3,
+        assumedNetUnitM2: 110,
+      });
+    } catch {
+      return null;
+    }
+  }, [usul]);
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
@@ -124,6 +144,48 @@ export default function LandEquityPage() {
             </p>
           </article>
         </section>
+
+        <Card className="border-blue-500/25 bg-blue-500/5">
+          <CardContent className="p-5">
+            <h2 className="text-lg font-semibold text-white">Ankara / İstanbul usulü imar referansı</h2>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setUsul("istanbul")}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium border ${usul === "istanbul" ? "border-blue-400 bg-blue-500/20 text-white" : "border-slate-200 text-slate-400"}`}
+              >
+                İstanbul usulü
+              </button>
+              <button
+                type="button"
+                onClick={() => setUsul("ankara")}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium border ${usul === "ankara" ? "border-blue-400 bg-blue-500/20 text-white" : "border-slate-200 text-slate-400"}`}
+              >
+                Ankara usulü
+              </button>
+            </div>
+            {usulImar ? (
+              <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 text-sm text-slate-200">
+                <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-xs text-slate-400">KAKS (emsal)</p>
+                  <p className="mt-1 font-semibold">{usulImar.effectiveEmsal.toFixed(2)}</p>
+                </div>
+                <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-xs text-slate-400">TAKS</p>
+                  <p className="mt-1 font-semibold">{usulImar.effectiveTaks.toFixed(2)}</p>
+                </div>
+                <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-xs text-slate-400">Gabari / Hmax</p>
+                  <p className="mt-1 font-semibold">{usulImar.profile.maxBuildingHeightM} m</p>
+                </div>
+                <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-xs text-slate-400">Kat üst sınırı</p>
+                  <p className="mt-1 font-semibold">{usulImar.cappedFloorsBuildable}</p>
+                </div>
+              </div>
+            ) : null}
+          </CardContent>
+        </Card>
 
         <Card className="border-amber-500/25 bg-amber-500/5">
           <CardContent className="p-4 text-xs text-amber-100/90">

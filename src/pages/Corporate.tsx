@@ -74,6 +74,30 @@ const plans = [
   },
 ];
 
+const b2bValueProps = [
+  {
+    title: "Gelir kalitesi",
+    detail:
+      "Sadece yayınlanan ilan adedini değil, tekliften kapanışa giden gerçek dönüşüm hattını ölçersiniz.",
+  },
+  {
+    title: "Operasyon standardı",
+    detail:
+      "Çok ofisli yapılarda aynı işlem disiplini korunur; rol bazlı ekranlar hatalı işlem ve gecikmeyi azaltır.",
+  },
+  {
+    title: "Risk görünürlüğü",
+    detail:
+      "Evrak/KYC/süreç riskleri satış sonuna kalmadan panelde işaretlenir, yönetici aksiyonu erkene çekilir.",
+  },
+] as const;
+
+const b2bKpis = [
+  { label: "Lead -> teklif süresi", target: "-%28 operasyon süresi (hedef)" },
+  { label: "Teklif -> kapanış dönüşümü", target: "+%14 iyileşme (hedef)" },
+  { label: "Ekip performans görünürlüğü", target: "Tek panelde ofis/ajan kırılımı" },
+] as const;
+
 export default function Corporate() {
   return (
     <div className="min-h-screen kurumsal-page">
@@ -155,6 +179,38 @@ export default function Corporate() {
               Üçüncü aşama entegrasyon ve büyümedir. API/webhook katmanı sayesinde mevcut CRM, muhasebe veya çağrı merkezi
               sistemleriyle veri akışı kurulabilir. Amaç tek bir yazılımı dayatmak değil; var olan kurumsal altyapıya uyumlu,
               gerektiğinde ölçeklenebilen bir çekirdek operasyon platformu sunmaktır.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="grid gap-4 md:grid-cols-3">
+            {b2bValueProps.map((item) => (
+              <article key={item.title} className="card-warm">
+                <h2 className="text-lg font-semibold" style={{ color: "var(--color-text)" }}>
+                  {item.title}
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                  {item.detail}
+                </p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-4 card-warm">
+            <h2 className="text-lg font-semibold" style={{ color: "var(--color-text)" }}>
+              B2B değer önermesi: yönetici KPI seti
+            </h2>
+            <ul className="mt-3 space-y-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              {b2bKpis.map((kpi) => (
+                <li key={kpi.label}>
+                  <strong style={{ color: "var(--color-text)" }}>{kpi.label}:</strong> {kpi.target}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-xs" style={{ color: "var(--color-text-light)" }}>
+              Not: KPI sonuçları kurumun veri kalitesi ve süreç olgunluğuna göre değişir; rakamlar ürün hedefi amaçlı demo göstergedir.
             </p>
           </div>
         </div>

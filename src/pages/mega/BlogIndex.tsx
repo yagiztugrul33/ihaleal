@@ -23,6 +23,7 @@ export default function BlogIndex() {
       return hay.includes(ql);
     });
   }, [q, cat]);
+  const featured = rows[0];
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
@@ -31,6 +32,16 @@ export default function BlogIndex() {
         <p className="mb-8 text-sm text-slate-400">
           {MEGA_BLOG_POSTS.length} yazı; kategori ve arama ile süzün. Okuma süreleri tahminidir.
         </p>
+
+        {featured ? (
+          <section className="mb-8 rounded-2xl border border-cyan-500/25 bg-cyan-500/10 p-5">
+            <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">Öne çıkan yazı</p>
+            <Link to={`/blog/${featured.slug}`} className="mt-1 block text-xl font-semibold text-white hover:text-cyan-100">
+              {featured.title}
+            </Link>
+            <p className="mt-2 text-sm text-slate-300">{featured.excerpt}</p>
+          </section>
+        ) : null}
 
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="relative flex-1">

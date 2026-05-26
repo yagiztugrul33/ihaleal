@@ -1,9 +1,14 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MapPin, TrendingUp, DollarSign, Users, Percent, ArrowRight, Building2, Navigation } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { AUCTIONS } from "@/data/auctions";
+import {
+  buildLocationInputFromProfile,
+  calculateCompositeLocationScore,
+  type DemoLocationKey,
+} from "@/lib/location/locationIntelligenceEngine";
 
 /** CityGuide `CITY_PROFILES` anahtarlari (URL ASCII; gorunen isim `name` ile kalir). */
 const CITY_GUIDE_SLUG: Record<string, string> = {
@@ -90,6 +95,15 @@ const CITIES = [
   },
 ];
 
+const CITY_PROFILE_KEY: Record<string, DemoLocationKey> = {
+  İstanbul: "istanbul-kadikoy",
+  Ankara: "ankara-cankaya",
+  İzmir: "izmir-karsiyaka",
+  Antalya: "antalya-muratpasa",
+  Bursa: "ankara-cankaya",
+  Muğla: "antalya-muratpasa",
+};
+
 export default function CitiesList() {
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.05);
@@ -98,6 +112,9 @@ export default function CitiesList() {
   const citiesWithCounts = CITIES.map((city) => ({
     ...city,
     listingCount: AUCTIONS.filter((a) => a.city === city.name).length,
+    locationScore: calculateCompositeLocationScore(
+      buildLocationInputFromProfile(CITY_PROFILE_KEY[city.name], { city: city.name }),
+    ).locationScore,
   })).sort((a, b) => b.annualGrowth - a.annualGrowth);
 
   return (
@@ -178,7 +195,7 @@ export default function CitiesList() {
                 </div>
               </div>
               <CardContent className="p-4">
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-4 gap-3">
                   <div className="text-center">
                     <div className="text-xs text-slate-300">m² Fiyat</div>
                     <div className="text-sm font-bold text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
@@ -190,6 +207,10 @@ export default function CitiesList() {
                   <div className="text-center">
                     <div className="text-xs text-slate-300">Talep</div>
                     <div className="text-sm font-bold text-amber-400">{city.demandIndex}/100</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs text-slate-300">Bölge zeka</div>
+                    <div className="text-sm font-bold text-cyan-300">{city.locationScore}/100</div>
                   </div>
                 </div>
                 <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold">

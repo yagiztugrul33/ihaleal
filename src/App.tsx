@@ -61,6 +61,7 @@ const LiveAuctions         = lazy(() => import("@/pages/LiveAuctions"));
 const FlowSelector         = lazy(() => import("@/pages/onboarding/FlowSelector"));
 const EDevletAuth          = lazy(() => import("@/pages/auth/EDevletAuth"));
 const BuyNow               = lazy(() => import("@/pages/auction/BuyNow"));
+const HemenAlLanding       = lazy(() => import("@/pages/auction/HemenAlLanding"));
 const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
 const YillikUyelik         = lazy(() => import("@/pages/membership/YillikUyelik"));
 const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
@@ -94,6 +95,7 @@ const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
 const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
 const AuctionListPage      = lazy(() => import("@/pages/AuctionListPage"));
 const IlanlarKatalog       = lazy(() => import("@/pages/IlanlarKatalog"));
+const IlanDetailRouter     = lazy(() => import("@/pages/ilan/IlanDetailRouter"));
 const KullanimKosullari    = lazy(() => import("@/pages/legal/KullanimKosullari"));
 const MesafeliSatisSozlesmesi = lazy(() => import("@/pages/legal/MesafeliSatisSozlesmesi"));
 const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
@@ -153,6 +155,7 @@ const DegerlemeModulPage = lazy(() => import("@/pages/modules/DegerlemeModulPage
 const AirbnbPotansiyelPage = lazy(() => import("@/pages/modules/AirbnbPotansiyelPage"));
 const RenovasyonRoiPage = lazy(() => import("@/pages/modules/RenovasyonRoiPage"));
 const DepremRiskHaritasiPage = lazy(() => import("@/pages/modules/DepremRiskHaritasiPage"));
+const AfetRiskHaritasiPage = lazy(() => import("@/pages/modules/AfetRiskHaritasiPage"));
 const BinaRiskSorguPage = lazy(() => import("@/pages/modules/BinaRiskSorguPage"));
 const CanliDepremTakipPage = lazy(() => import("@/pages/modules/CanliDepremTakipPage"));
 const AileAcilPlanPage = lazy(() => import("@/pages/modules/AileAcilPlanPage"));
@@ -279,7 +282,7 @@ function App() {
             <Route path="/ilanlar/:kategori/:alt/:tip" element={<IlanlarSegmentRouter />} />
             <Route path="/ilanlar/:kategori/:alt" element={<IlanlarSegmentRouter />} />
             <Route path="/ilanlar/:kategori" element={<IlanlarSegmentRouter />} />
-            <Route path="/ilan/:id" element={<AuctionDetail />} />
+            <Route path="/ilan/:id" element={<IlanDetailRouter />} />
             <Route path="/teklif-al" element={<TeklifAlPage />} />
             <Route path="/kapali-teklif" element={<KapaliTeklifPage />} />
             <Route path="/emlakci" element={<EmlakciLanding />} />
@@ -303,6 +306,7 @@ function App() {
             <Route path="/kurumsal/basinda-biz" element={<BasindaBizPage />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:auctionId/hemen-al" element={<BuyNow />} />
+            <Route path="/hemen-al" element={<HemenAlLanding />} />
             <Route path="/analiz" element={<Analytics />} />
             <Route path="/karsilastir" element={<Compare />} />
             <Route path="/giris" element={<Login />} />
@@ -498,7 +502,7 @@ function App() {
             <Route path="/modul/degerleme" element={<DegerlemeModulPage />} />
             <Route path="/modul/airbnb-potansiyeli" element={<AirbnbPotansiyelPage />} />
             <Route path="/modul/renovasyon-roi" element={<RenovasyonRoiPage />} />
-            <Route path="/modul/afet-risk-haritasi" element={<Navigate to="/modul/deprem-risk-haritasi" replace />} />
+            <Route path="/modul/afet-risk-haritasi" element={<AfetRiskHaritasiPage />} />
             <Route path="/modul/deprem-risk-haritasi" element={<DepremRiskHaritasiPage />} />
             <Route path="/modul/bina-risk-sorgu" element={<BinaRiskSorguPage />} />
             <Route path="/modul/canli-deprem-takip" element={<CanliDepremTakipPage />} />

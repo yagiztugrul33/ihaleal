@@ -1,5 +1,6 @@
 ﻿import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { AlertTriangle, ShieldCheck } from "lucide-react";
 
 const CONTRACT_URL = `${import.meta.env.BASE}legal/agency_contract.md`;
 
@@ -77,10 +78,25 @@ export default function AgencyContractView() {
       <p className="text-sm text-slate-500 mb-6">
         Kaynak: <code className="text-teal-400">public/legal/agency_contract.md</code> (taslak, demo)
       </p>
+      <div className="mb-6 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-3 text-xs text-slate-300">
+          <p className="font-semibold text-cyan-200">Sablon amaci</p>
+          <p className="mt-1">Emlakci-platform-satici iliskisinde rol, komisyon ve sorumluluk sinirlarini netlestirmek.</p>
+        </div>
+        <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs text-slate-300">
+          <p className="font-semibold text-amber-200 flex items-center gap-2">
+            <AlertTriangle className="h-4 w-4" /> Durust sinir
+          </p>
+          <p className="mt-1">Nihai imza metni avukat onayi olmadan kullanilmamalidir; bu sayfa yalnizca taslak gorunumu sunar.</p>
+        </div>
+      </div>
       {err ? <p className="text-red-400 text-sm mb-4">{err}</p> : null}
       <article className="rounded-2xl border border-slate-200 bg-slate-950/40 p-6 space-y-1 text-sm">
         {body ? renderMarkdownLines(body) : <p className="text-slate-500">Yukleniyor...</p>}
       </article>
+      <p className="mt-4 text-xs text-emerald-200 flex items-center gap-2">
+        <ShieldCheck className="h-4 w-4" /> Onerilen akis: taslak -&gt; hukuk revizyonu -&gt; taraf mutabakati -&gt; imza.
+      </p>
     </div>
   );
 }

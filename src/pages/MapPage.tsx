@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, MapPin, Navigation, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,33 @@ export default function MapPage() {
           a.district.toLowerCase().includes(cityFilter.toLowerCase())
       )
     : allAuctions;
+  const heatRows = Object.entries(
+    filtered.reduce<Record<string, { count: number; avgScore: number }>>((acc, row) => {
+      const key = row.city;
+      if (!acc[key]) acc[key] = { count: 0, avgScore: 0 };
+      const nextCount = acc[key].count + 1;
+      acc[key].avgScore = (acc[key].avgScore * acc[key].count + row.investmentScore) / nextCount;
+      acc[key].count = nextCount;
+      return acc;
+    }, {}),
+  )
+    .map(([city, value]) => ({
+      city,
+      count: value.count,
+      avgScore: Math.round(value.avgScore),
+      heat: Math.min(100, Math.round(value.count * 14 + value.avgScore * 0.5)),
+    }))
+    .sort((a, b) => b.heat - a.heat);
+  const districtHeatRows = filtered
+    .map((row) => ({
+      key: `${row.city}-${row.district}`,
+      city: row.city,
+      district: row.district,
+      score: row.investmentScore,
+      bidTry: row.currentBid,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10);
 
   return (
     <div ref={ref} className="intelligence-page min-h-screen pt-24 pb-16">
@@ -90,6 +117,49 @@ export default function MapPage() {
           </div>
 
           <div className="lg:col-span-1">
+            <Card className="card-luxury mb-3 border-white/10">
+              <CardContent className="p-3">
+                <h2 className="text-sm font-semibold text-white">Şehir ısı haritası (talep yoğunluğu)</h2>
+                <div className="mt-2 space-y-2">
+                  {heatRows.slice(0, 6).map((row) => (
+                    <div key={row.city}>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-300">{row.city}</span>
+                        <span className="text-cyan-300">
+                          Isı {row.heat}/100 · {row.count} ilan
+                        </span>
+                      </div>
+                      <div className="mt-1 h-1.5 rounded-full bg-white/10">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-emerald-400"
+                          style={{ width: `${row.heat}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="card-luxury mb-3 border-white/10">
+              <CardContent className="p-3">
+                <h2 className="text-sm font-semibold text-white">Bölgesel ısı matrisi (ilan + skor)</h2>
+                <div className="mt-2 space-y-2">
+                  {districtHeatRows.map((row) => (
+                    <div key={row.key} className="rounded-lg border border-white/10 bg-black/20 px-2 py-1.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-300">
+                          {row.city} / {row.district}
+                        </span>
+                        <span className="text-amber-300">Skor {row.score}</span>
+                      </div>
+                      <div className="mt-1 text-[11px] text-slate-400">
+                        Teklif: ₺{row.bidTry.toLocaleString("tr-TR")}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
             <div className="max-h-[600px] space-y-3 overflow-y-auto pr-1">
               {filtered.map((auction, idx) => (
                 <Card

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { KKA_HUB_PATH } from "@/lib/kkaHub";
 import { Shield } from "lucide-react";
@@ -16,6 +16,8 @@ import {
   type TaxProfile,
 } from "@/lib/finance";
 import { complianceNlpService } from "@/lib/compliance";
+import { calculateRealFxReturn } from "@/lib/calculators/realFxReturnEngine";
+import { calculateInvestmentReturns } from "@/lib/calculators/investmentReturnsEngine";
 
 const DEMO_TEMPLATE: RevenueTemplate = {
   sku: "IHALEAL-DEMO-001",
@@ -40,6 +42,41 @@ export default function FinCompliancePlayground() {
   const [chatText, setChatText] = useState("Merhaba, dusuk gosterelim mi?");
   const [nlpResult, setNlpResult] = useState<string>("");
   const [tbResult, setTbResult] = useState<string>("");
+  const referenceReal = useMemo(
+    () =>
+      calculateRealFxReturn({
+        initialTry: 1_000_000,
+        finalTry: 1_350_000,
+        annualInflationPct: 41.1,
+        startUsdTry: 32.4,
+        endUsdTry: 38.7,
+      }),
+    [],
+  );
+  const multiplierTr = useMemo(
+    () =>
+      calculateInvestmentReturns({
+        propertyPriceTry: 6_000_000,
+        monthlyRentTry: 28_000,
+        annualExpensesTry: 42_000,
+        annualAppreciationPct: 12,
+        holdingYears: 5,
+        city: "tr",
+      }),
+    [],
+  );
+  const multiplierIstanbul = useMemo(
+    () =>
+      calculateInvestmentReturns({
+        propertyPriceTry: 6_000_000,
+        monthlyRentTry: 28_000,
+        annualExpensesTry: 42_000,
+        annualAppreciationPct: 12,
+        holdingYears: 5,
+        city: "istanbul",
+      }),
+    [],
+  );
 
   const runInvoice = () => {
     setInvoiceErr("");
@@ -118,6 +155,22 @@ export default function FinCompliancePlayground() {
       </div>
 
       <InvoiceDisclaimerBanner />
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Hesaplama referans tutarlılığı (2026)</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2 text-sm">
+          <p className="text-muted-foreground">
+            KFE Nisan 2026 örneği: nominal +%35 getiri, enflasyon +%41,1 ise reel getiri{" "}
+            <strong>%{referenceReal.realReturnPct.toFixed(2)}</strong> olur.
+          </p>
+          <p className="text-muted-foreground">
+            Kira çarpanı benchmark: Türkiye <strong>{multiplierTr.referenceMultiplierMonths}</strong> ay, İstanbul{" "}
+            <strong>{multiplierIstanbul.referenceMultiplierMonths}</strong> ay.
+          </p>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

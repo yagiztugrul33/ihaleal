@@ -1,8 +1,10 @@
 import type { LucideIcon } from "lucide-react";
-import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { AlertTriangle } from "lucide-react";
+import { useMemo, useState, type ReactNode } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronRight, FileDown } from "lucide-react";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
+import { calculateEarthquakeRisk, type SoilClass } from "@/lib/risk/earthquakeRiskEngine";
 import "@/styles/modules.css";
 
 export interface ModuleShellProps {
@@ -14,6 +16,25 @@ export interface ModuleShellProps {
   children: ReactNode;
 }
 
+const RISK_BLOCK_PATHS = new Set([
+  "/modul/deprem-risk-haritasi",
+  "/modul/bina-risk-sorgu",
+  "/modul/canli-deprem-takip",
+  "/modul/kentsel-donusum",
+  "/modul/guclendirme-rehberi",
+  "/modul/afet-toplanma-alanlari",
+  "/modul/afet-risk-haritasi",
+  "/modul/komsuluk-risk-analizi",
+  "/modul/yapay-zeka-hasar-tahmini",
+  "/modul/yikilan-binalar-arsivi",
+  "/modul/deprem-cantasi",
+  "/modul/deprem-sigortasi",
+  "/modul/aile-acil-plan",
+  "/modul/tatbikat-rehberi",
+  "/modul/uzman-randevu",
+  "/modul/deprem-egitimi",
+]);
+
 export function ModuleShell({
   title,
   subtitle,
@@ -22,6 +43,37 @@ export function ModuleShell({
   iconAccent = "text-sky-300",
   children,
 }: ModuleShellProps) {
+  const location = useLocation();
+  const [faultDistanceKm, setFaultDistanceKm] = useState(11);
+  const [pgaG, setPgaG] = useState(0.36);
+  const [soilClass, setSoilClass] = useState<SoilClass>("ZC");
+  const [sptN160, setSptN160] = useState(34);
+  const [buildingAge, setBuildingAge] = useState(14);
+  const [softStory, setSoftStory] = useState(false);
+  const showRiskCard = RISK_BLOCK_PATHS.has(location.pathname);
+  const quickRisk = useMemo(
+    () =>
+      calculateEarthquakeRisk({
+        city: "Istanbul",
+        district: "Kadikoy",
+        neighborhood: "",
+        faultDistanceKm,
+        pgaG,
+        soilClass,
+        fsCoefficient: soilClass === "ZA" ? 1.0 : soilClass === "ZB" ? 1.1 : soilClass === "ZC" ? 1.24 : soilClass === "ZD" ? 1.45 : 1.65,
+        f1Coefficient: soilClass === "ZA" ? 1.0 : soilClass === "ZB" ? 1.1 : soilClass === "ZC" ? 1.34 : soilClass === "ZD" ? 1.55 : 1.75,
+        sptN160,
+        groundwaterDepthM: sptN160 < 30 ? 2.4 : 4.8,
+        alluviumPercent: sptN160 < 30 ? 58 : 36,
+        buildingAge,
+        structuralSystem: "reinforced_concrete",
+        codeEra: buildingAge > 8 ? "pre_2018" : "post_2018",
+        storyCount: 7,
+        softStory,
+      }),
+    [faultDistanceKm, pgaG, soilClass, sptN160, buildingAge, softStory],
+  );
+
   return (
     <div className="mod-page">
       <div className="mod-page__bg" aria-hidden />
@@ -73,6 +125,59 @@ export function ModuleShell({
             </p>
           </div>
         </header>
+
+        {showRiskCard ? (
+          <section className="rounded-xl border border-rose-500/35 bg-rose-500/10 p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">TBDY 2018 hızlı risk kartı</p>
+                <p className="mt-1 text-sm text-slate-200">Fay + PGA + zemin + SPT N1,60 + yapısal yaş etkisiyle ön risk skoru.</p>
+              </div>
+              <p className="text-2xl font-black text-white">{quickRisk.totalScore}/100</p>
+            </div>
+            <div className="mt-3 grid gap-2 md:grid-cols-3 xl:grid-cols-6">
+              <label className="text-xs text-slate-200">
+                Fay km
+                <input className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-sm" type="number" value={faultDistanceKm} onChange={(e) => setFaultDistanceKm(Number(e.target.value || 0))} />
+              </label>
+              <label className="text-xs text-slate-200">
+                PGA g
+                <input className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-sm" type="number" step="0.01" value={pgaG} onChange={(e) => setPgaG(Number(e.target.value || 0))} />
+              </label>
+              <label className="text-xs text-slate-200">
+                Zemin
+                <select className="mt-1 h-8 w-full rounded-md border border-slate-700 bg-slate-900 px-2 text-sm" value={soilClass} onChange={(e) => setSoilClass(e.target.value as SoilClass)}>
+                  <option value="ZA">ZA</option>
+                  <option value="ZB">ZB</option>
+                  <option value="ZC">ZC</option>
+                  <option value="ZD">ZD</option>
+                  <option value="ZE">ZE</option>
+                </select>
+              </label>
+              <label className="text-xs text-slate-200">
+                SPT N1,60
+                <input className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-sm" type="number" value={sptN160} onChange={(e) => setSptN160(Number(e.target.value || 0))} />
+              </label>
+              <label className="text-xs text-slate-200">
+                Yapı yaşı
+                <input className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-sm" type="number" value={buildingAge} onChange={(e) => setBuildingAge(Number(e.target.value || 0))} />
+              </label>
+              <label className="inline-flex items-center gap-2 self-end rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs text-slate-200">
+                <input type="checkbox" checked={softStory} onChange={(e) => setSoftStory(e.target.checked)} />
+                Yumuşak kat
+              </label>
+            </div>
+            <div className="mt-2 grid gap-2 md:grid-cols-2 text-xs">
+              <p className="rounded-md border border-slate-700 bg-slate-900/60 px-2 py-1.5 text-slate-300">
+                Katmanlar: Fay/PGA {quickRisk.hazard.score}, Zemin {quickRisk.soil.score}, Sıvılaşma {quickRisk.liquefaction.score}, Yapısal {quickRisk.structural.score}
+              </p>
+              <p className="rounded-md border border-amber-500/35 bg-amber-500/10 px-2 py-1.5 text-amber-100 inline-flex items-center gap-1">
+                <AlertTriangle className="h-3.5 w-3.5" />
+                Ön analizdir; lisanslı jeoloji/inşaat müh. raporu olmadan bağlayıcı değildir.
+              </p>
+            </div>
+          </section>
+        ) : null}
 
         {children}
 

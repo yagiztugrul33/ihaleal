@@ -1,5 +1,12 @@
 import { PageShell } from "@/components/marketing/PageShell";
 import { FileBarChart } from "lucide-react";
+
+const KFE_2026 = {
+  nominal: 26.6,
+  reel: -4.3,
+  ankaraNominal: 36.7,
+} as const;
+
 const REPORTS = [
   {
     id: "r-istanbul-ofis-q2",
@@ -54,6 +61,23 @@ const REPORTS = [
 export default function PiyasaRaporlariPage() {
   return (
     <PageShell badge="Piyasa" title="Piyasa rapor merkezi" subtitle="Yönetici özeti, saha notu ve senaryo tabloları">
+      <section className="py-6 grid gap-3 sm:grid-cols-3">
+        <article className="card-warm">
+          <p className="text-xs uppercase tracking-[0.12em] text-cyan-300">KFE 2026 nominal</p>
+          <p className="mt-2 text-2xl font-bold text-slate-100">+%{KFE_2026.nominal.toFixed(1)}</p>
+          <p className="mt-1 text-xs text-slate-400">Türkiye konut fiyat endeksi yıllık nominal değişim</p>
+        </article>
+        <article className="card-warm">
+          <p className="text-xs uppercase tracking-[0.12em] text-amber-300">KFE 2026 reel</p>
+          <p className="mt-2 text-2xl font-bold text-slate-100">%{KFE_2026.reel.toFixed(1)}</p>
+          <p className="mt-1 text-xs text-slate-400">Enflasyondan arındırılmış yıllık değişim (reel)</p>
+        </article>
+        <article className="card-warm">
+          <p className="text-xs uppercase tracking-[0.12em] text-emerald-300">Ankara yıllık</p>
+          <p className="mt-2 text-2xl font-bold text-slate-100">+%{KFE_2026.ankaraNominal.toFixed(1)}</p>
+          <p className="mt-1 text-xs text-slate-400">Ankara özelinde yıllık nominal değişim</p>
+        </article>
+      </section>
       <section className="py-6 space-y-3 text-sm leading-relaxed text-slate-300">
         <p>
           Bu merkezde yayınlanan raporlar, ihale ve ilan akışlarında kullanılan değerleme varsayımlarını görünür kılar.
@@ -64,6 +88,20 @@ export default function PiyasaRaporlariPage() {
           İçerikler haftalık olarak güncellenir ve her sürümde kullanılan veri aralığı ayrıca belirtilir. Böylece yönetim
           ekipleri hangi tablonun hangi döneme ait olduğunu açıkça görebilir ve karşılaştırmalı karar alabilir.
         </p>
+        <p>
+          2026 KFE görünümü, nominal artışın güçlü kalmasına rağmen reel tarafta baskı olduğunu gösterir. Bu nedenle rapor
+          kartlarında hem nominal hem reel sinyal birlikte verilir; Ankara gibi bölgesel pozitif ayrışmalar ayrı izlenir.
+        </p>
+      </section>
+      <section className="py-2">
+        <article className="card-warm p-4">
+          <h2 className="text-base font-semibold text-slate-100">Yönetici özeti: 2026 okuması</h2>
+          <ul className="mt-2 space-y-1 text-xs text-slate-300">
+            <li>- Nominal fiyat artışı tek başına yeterli sinyal değildir; reel bant zorunlu KPI olarak izlenmelidir.</li>
+            <li>- Ankara gibi yüksek nominal ivme yakalayan şehirlerde likidite ve işlem süresi birlikte kontrol edilmelidir.</li>
+            <li>- İhaleal rapor seti, fiyat + talep + süre + risk bileşenini aynı tabloda toplar (demo metodoloji).</li>
+          </ul>
+        </article>
       </section>
       <section className="py-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {REPORTS.map((r) => (

@@ -48,6 +48,25 @@ export default function DepremRiskHaritasiPage() {
           </Suspense>
         </ModulePanel>
 
+        <ModulePanel title="Yöntem, terimler ve karar disiplini">
+          <div className="grid gap-3 lg:grid-cols-2">
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-300">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">TBDY 2018 okuma notu</h3>
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                <li>Fay + PGA tek başına yeterli değildir; zemin sınıfı ve yapı davranışı birlikte okunur.</li>
+                <li>SPT N1,60&lt;30 bandı, sıvılaşma hassasiyetini belirgin artırır.</li>
+                <li>Yumuşak kat ve kat adedi yükseldikçe yapısal katman puanı düşebilir.</li>
+              </ul>
+            </article>
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-300">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Terimler</h3>
+              <p className="mt-2"><strong className="text-slate-100">PGA:</strong> beklenen yer ivmesi; tehlike katmanının ana girdisidir.</p>
+              <p className="mt-1"><strong className="text-slate-100">FS/F1:</strong> TBDY spektral katsayıları; zemin etkisini büyütebilir.</p>
+              <p className="mt-1"><strong className="text-slate-100">SPT N1,60:</strong> zemin dayanım göstergesi; düşükse sıvılaşma riski artar.</p>
+            </article>
+          </div>
+        </ModulePanel>
+
         <div className="grid gap-3 lg:grid-cols-3">
           <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
             <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Örnek</h3>

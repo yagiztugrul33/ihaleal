@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Building2, TrendingUp, Home, DollarSign,
@@ -13,6 +13,11 @@ import { AUCTIONS } from "@/data/auctions";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ShareButton } from "@/components/ShareButton";
+import {
+  buildLocationInputFromProfile,
+  calculateCompositeLocationScore,
+  type DemoLocationKey,
+} from "@/lib/location/locationIntelligenceEngine";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart as ReLineChart, Line, PieChart as RePieChart, Pie, Cell, AreaChart, Area
@@ -197,19 +202,81 @@ const CITY_PROFILES: Record<string, {
   },
 };
 
+const CITY_LABEL_TR: Record<string, string> = {
+  Istanbul: "İstanbul",
+  Ankara: "Ankara",
+  Izmir: "İzmir",
+  Antalya: "Antalya",
+  Bursa: "Bursa",
+  Mugla: "Muğla",
+};
+
+const CITY_PROFILE_KEY: Record<string, DemoLocationKey> = {
+  Istanbul: "istanbul-kadikoy",
+  Ankara: "ankara-cankaya",
+  Izmir: "izmir-karsiyaka",
+  Antalya: "antalya-muratpasa",
+  Bursa: "ankara-cankaya",
+  Mugla: "antalya-muratpasa",
+};
+
+const CITY_KFE_REGIONAL: Record<string, { nominal: number; reel: number }> = {
+  Istanbul: { nominal: 26.6, reel: -4.3 },
+  Ankara: { nominal: 36.7, reel: 3.1 },
+  Izmir: { nominal: 29.8, reel: -1.2 },
+  Antalya: { nominal: 31.4, reel: 0.2 },
+  Bursa: { nominal: 24.1, reel: -6.0 },
+  Mugla: { nominal: 33.5, reel: 1.8 },
+};
+
+function normalizeCityName(value: string): string {
+  return value
+    .toLocaleLowerCase("tr-TR")
+    .replaceAll("ı", "i")
+    .replaceAll("ğ", "g")
+    .replaceAll("ü", "u")
+    .replaceAll("ö", "o")
+    .replaceAll("ş", "s")
+    .replaceAll("ç", "c");
+}
+
 export default function CityGuide() {
   const { cityName } = useParams<{ cityName: string }>();
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.05);
   const [activeTab, setActiveTab] = useState("overview");
 
-  const city = cityName ? CITY_PROFILES[cityName] : null;
-  const cityAuctions = useMemo(() => {
-    if (!cityName) return [];
-    return AUCTIONS.filter((a) => a.city === cityName).sort((a, b) => b.investmentScore - a.investmentScore);
+  const resolvedCityKey = useMemo(() => {
+    if (!cityName) return null;
+    const candidates = Object.keys(CITY_PROFILES);
+    const exact = candidates.find((key) => normalizeCityName(key) === normalizeCityName(cityName));
+    if (exact) return exact;
+    return candidates.find((key) => normalizeCityName(CITY_LABEL_TR[key] ?? key) === normalizeCityName(cityName)) ?? null;
   }, [cityName]);
 
-  if (!city || !cityName) {
+  const city = resolvedCityKey ? CITY_PROFILES[resolvedCityKey] : null;
+  const cityLabel = resolvedCityKey ? CITY_LABEL_TR[resolvedCityKey] ?? resolvedCityKey : cityName ?? "";
+  const locationScore = useMemo(() => {
+    if (!resolvedCityKey) return null;
+    const profileKey = CITY_PROFILE_KEY[resolvedCityKey];
+    const input = buildLocationInputFromProfile(profileKey, {
+      city: cityLabel,
+      district: city?.districts[0]?.name ?? "",
+      neighborhood: city?.districts[0]?.name ?? "",
+    });
+    return calculateCompositeLocationScore(input);
+  }, [resolvedCityKey, cityLabel, city]);
+
+  const kfeRegional = resolvedCityKey ? CITY_KFE_REGIONAL[resolvedCityKey] : null;
+  const cityAuctions = useMemo(() => {
+    if (!resolvedCityKey) return [];
+    const target = normalizeCityName(cityLabel);
+    return AUCTIONS
+      .filter((a) => normalizeCityName(a.city) === target)
+      .sort((a, b) => b.investmentScore - a.investmentScore);
+  }, [resolvedCityKey, cityLabel]);
+
+  if (!city || !resolvedCityKey) {
     return (
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
@@ -238,7 +305,7 @@ export default function CityGuide() {
             <div>
               <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
                 <MapPin className="w-8 h-8 text-blue-400" />
-                {cityName} Şehir Rehberi
+                {cityLabel} Şehir Rehberi
               </h1>
               <p className="mt-2 max-w-2xl">{city.description}</p>
             </div>
@@ -257,7 +324,7 @@ export default function CityGuide() {
         </div>
 
         {/* Quick Stats */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`grid grid-cols-2 md:grid-cols-5 gap-4 mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-border p-4">
             <div className="flex items-center gap-2 mb-2"><Users className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-200">Nüfus</span></div>
             <div className="text-2xl font-bold">{city.population}</div>
@@ -278,13 +345,18 @@ export default function CityGuide() {
             <div className="text-2xl font-bold text-amber-400">{city.demandIndex}/100</div>
             <div className="text-xs text-slate-300">{city.marketingDays} gün satış</div>
           </Card>
+          <Card className="border-border p-4">
+            <div className="flex items-center gap-2 mb-2"><Activity className="w-5 h-5 text-cyan-400" /><span className="text-sm text-slate-200">Bölge zeka skoru</span></div>
+            <div className="text-2xl font-bold text-cyan-300">{locationScore?.locationScore ?? city.demandIndex}/100</div>
+            <div className="text-xs text-slate-300">SES + erişim + eğitim + güvenlik</div>
+          </Card>
         </div>
 
         <Card className="mb-8 border-border bg-card p-4">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.12em] text-slate-300">Paylaşılabilir bölge kartı</p>
-              <h3 className="text-lg font-bold text-white">{cityName} · Talep {city.demandIndex}/100</h3>
+              <h3 className="text-lg font-bold text-white">{cityLabel} · Talep {city.demandIndex}/100</h3>
               <p className="text-sm text-slate-200">m² ort.: ₺{city.avgPricePerSqm.toLocaleString("tr-TR")} · Kira getirisi: %{city.rentalYield}</p>
             </div>
             <ShareButton
@@ -295,6 +367,51 @@ export default function CityGuide() {
               className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-cyan-100 hover:bg-cyan-500/20"
             />
           </div>
+        </Card>
+
+        <Card className="mb-8 border-cyan-400/25 bg-cyan-500/10 p-4">
+          <div className="grid gap-3 md:grid-cols-3">
+            <div>
+              <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">KFE bölgesel nominal</p>
+              <p className="mt-1 text-xl font-bold text-white">+%{(kfeRegional?.nominal ?? 26.6).toFixed(1)}</p>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">KFE bölgesel reel</p>
+              <p className="mt-1 text-xl font-bold text-white">%{(kfeRegional?.reel ?? -4.3).toFixed(1)}</p>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">Yatırım skoru (konum motoru)</p>
+              <p className="mt-1 text-xl font-bold text-white">{locationScore?.investmentScore ?? city.demandIndex}/100</p>
+            </div>
+          </div>
+          <p className="mt-3 text-xs text-cyan-100/90">
+            Not: KFE satırı bölgesel ön analiz amaçlıdır; resmi karar süreçlerinde güncel kurum verisi ile teyit edilir.
+          </p>
+        </Card>
+
+        <Card className="mb-8 border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-base font-semibold text-white">Bölge zekası + KFE trend özeti</h3>
+          <div className="mt-3 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+            <article className="rounded-lg border border-white/10 bg-black/20 p-3">
+              <p className="text-xs uppercase tracking-[0.12em] text-slate-300">SES skoru</p>
+              <p className="mt-1 text-xl font-bold text-cyan-200">{locationScore?.ses.score ?? "—"}</p>
+            </article>
+            <article className="rounded-lg border border-white/10 bg-black/20 p-3">
+              <p className="text-xs uppercase tracking-[0.12em] text-slate-300">Fiyat trendi (yıllık)</p>
+              <p className="mt-1 text-xl font-bold text-emerald-200">+%{city.annualGrowth.toFixed(1)}</p>
+            </article>
+            <article className="rounded-lg border border-white/10 bg-black/20 p-3">
+              <p className="text-xs uppercase tracking-[0.12em] text-slate-300">KFE nominal</p>
+              <p className="mt-1 text-xl font-bold text-amber-200">+%{(kfeRegional?.nominal ?? 26.6).toFixed(1)}</p>
+            </article>
+            <article className="rounded-lg border border-white/10 bg-black/20 p-3">
+              <p className="text-xs uppercase tracking-[0.12em] text-slate-300">Yatırım skoru</p>
+              <p className="mt-1 text-xl font-bold text-violet-200">{locationScore?.investmentScore ?? city.demandIndex}/100</p>
+            </article>
+          </div>
+          <p className="mt-3 text-xs text-slate-300">
+            Konum motoru katkısı: SES, erişilebilirlik, eğitim ve güvenlik katmanları FAHP ağırlık modeliyle birleştirilir (demo).
+          </p>
         </Card>
 
         <Card className="mb-8 border-cyan-400/25 bg-slate-900/55 p-4">
@@ -401,6 +518,21 @@ export default function CityGuide() {
                 </div>
               </Card>
             </div>
+            {locationScore ? (
+              <Card className="border-slate-200/80 p-5">
+                <h3 className="text-lg font-bold mb-3">Bölge zekası katkı dökümü</h3>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {locationScore.contributions.map((item) => (
+                    <article key={item.key} className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                      <p className="text-sm font-semibold text-slate-100">{item.label}</p>
+                      <p className="mt-1 text-xs text-slate-300">
+                        Skor {item.score}/100 · Ağırlık %{item.weightPct} · Katkı {item.contributionPts}
+                      </p>
+                    </article>
+                  ))}
+                </div>
+              </Card>
+            ) : null}
           </div>
         )}
 

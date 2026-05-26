@@ -13,8 +13,11 @@ export default function IlanlarSegmentRouter() {
     tip?: string;
   }>();
 
-  if (kategori && isPropertyDetailId(kategori)) {
-    return <IlanDetayPage id={kategori} />;
+  const detailIdCandidate = [kategori, alt, tip].find((value) =>
+    value ? isPropertyDetailId(value) : false,
+  );
+  if (detailIdCandidate) {
+    return <IlanDetayPage id={detailIdCandidate} />;
   }
 
   return (

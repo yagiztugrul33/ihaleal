@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { MapPin, TrendingUp, ArrowRight, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,27 @@ import { Badge } from "@/components/ui/badge";
 import { landingConfigByPath } from "@/data/seoLandings";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
 import { getShareUrlForPath } from "@/data/siteOrigin";
+import {
+  buildLocationInputFromProfile,
+  calculateCompositeLocationScore,
+  type DemoLocationKey,
+} from "@/lib/location/locationIntelligenceEngine";
+
+const CITY_PROFILE_KEY: Record<string, DemoLocationKey> = {
+  Istanbul: "istanbul-kadikoy",
+  Ankara: "ankara-cankaya",
+  Izmir: "izmir-karsiyaka",
+  Antalya: "antalya-muratpasa",
+  Bursa: "ankara-cankaya",
+};
+
+const CITY_KFE: Record<string, { nominal: number; reel: number }> = {
+  Istanbul: { nominal: 26.6, reel: -4.3 },
+  Ankara: { nominal: 36.7, reel: 3.1 },
+  Izmir: { nominal: 29.8, reel: -1.2 },
+  Antalya: { nominal: 31.4, reel: 0.2 },
+  Bursa: { nominal: 24.1, reel: -6.0 },
+};
 
 export default function CityLandingPage() {
   const { pathname } = useLocation();
@@ -16,6 +37,16 @@ export default function CityLandingPage() {
     if (!cfg) return [];
     return DEMO_AUCTION_CATALOG.filter((a) => a.city === cfg.cityTr).slice(0, 12);
   }, [cfg]);
+  const locationScore = useMemo(() => {
+    if (!cfg) return null;
+    const key = CITY_PROFILE_KEY[cfg.analyticsKey] ?? "istanbul-kadikoy";
+    return calculateCompositeLocationScore(
+      buildLocationInputFromProfile(key, {
+        city: cfg.cityTr,
+      }),
+    );
+  }, [cfg]);
+  const kfe = cfg ? CITY_KFE[cfg.analyticsKey] : null;
 
   useEffect(() => {
     if (!cfg) return;
@@ -79,6 +110,34 @@ export default function CityLandingPage() {
         <div className="mb-4 flex items-center gap-2 font-semibold text-foreground">
           <Building2 className="w-5 h-5 text-blue-400" />
           {cfg.cityTr} — örnek aktif ilanlar (demo katalog)
+        </div>
+
+        <div className="mb-6 grid gap-3 sm:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">Bölge zeka skoru</p>
+            <p className="mt-1 text-xl font-bold text-white">{locationScore?.locationScore ?? 0}/100</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-emerald-200">Yaşanabilirlik</p>
+            <p className="mt-1 text-xl font-bold text-white">{locationScore?.livabilityScore ?? 0}/100</p>
+          </article>
+          <article className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-amber-200">Yatırım skoru</p>
+            <p className="mt-1 text-xl font-bold text-white">{locationScore?.investmentScore ?? 0}/100</p>
+          </article>
+        </div>
+        <div className="mb-6 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs text-slate-300">
+          KFE bölgesel ön okuma: nominal <strong className="text-slate-100">+%{(kfe?.nominal ?? 26.6).toFixed(1)}</strong> · reel{" "}
+          <strong className="text-slate-100">%{(kfe?.reel ?? -4.3).toFixed(1)}</strong>. Resmi karar için kurum verisiyle teyit gerekir.
+        </div>
+        <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {(locationScore?.contributions ?? []).map((item) => (
+            <article key={item.key} className="rounded-xl border border-white/10 bg-black/20 p-3 text-xs">
+              <p className="uppercase tracking-[0.12em] text-slate-300">{item.label}</p>
+              <p className="mt-1 text-lg font-bold text-cyan-200">{item.score}/100</p>
+              <p className="text-slate-400">Ağırlık %{item.weightPct}</p>
+            </article>
+          ))}
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -13,6 +13,7 @@ import {
   type LegalRiskFlagKey,
   type LegalRiskFlags,
 } from "@/lib/ibuyer";
+import { calculateAutomatedOfferAmount } from "@/lib/ibuyer/offerEngine";
 import { auditSubmissionData } from "@/lib/security/fraudEngine";
 import { PreFeasibilityBanner } from "@/components/compliance/PreFeasibilityBanner";
 
@@ -106,6 +107,10 @@ export function SubmissionForm() {
   });
 
   const preview = useMemo(() => assessLegalRisk(flags), [flags]);
+  const liveOfferPreview = useMemo(
+    () => calculateAutomatedOfferAmount(form.marketValueTry, preview.riskScore),
+    [form.marketValueTry, preview.riskScore],
+  );
 
   const toggleFlag = (key: LegalRiskFlagKey, checked: boolean) => {
     setFlags((prev) => ({ ...prev, [key]: checked }));
@@ -220,6 +225,15 @@ export function SubmissionForm() {
                 onChange={(e) => setForm({ ...form, marketValueTry: Number(e.target.value) })}
               />
             </label>
+          </div>
+          <div className="rounded-xl border border-emerald-400/25 bg-emerald-500/10 p-4">
+            <p className="text-xs uppercase tracking-[0.12em] text-emerald-200">
+              offerEngine canlı önizleme
+            </p>
+            <p className="mt-1 text-2xl font-bold text-emerald-100">{formatTry(liveOfferPreview)}</p>
+            <p className="mt-1 text-xs text-slate-300">
+              Formül: piyasa değeri x baz oran - risk etkisi. Nihai teklif canlı doğrulama ve hukuk kontrolü sonrası kesinleşir.
+            </p>
           </div>
           <Button type="button" onClick={() => setStep(2)} className="mt-2">
             Devam <ArrowRight className="h-4 w-4" />

@@ -83,6 +83,7 @@ export default function ImarSorguPage() {
     ? [
         { label: "Guncel Fonksiyon", value: summary.profile.zoningLabel, hint: `Plan anahtarı ${summary.profile.matchedKey}` },
         { label: "Max EMSAL", value: summary.effectiveEmsal.toFixed(2), hint: "kkaParselImarEngine" },
+        { label: "Gabari (Hmax)", value: `${summary.profile.maxBuildingHeightM} m`, hint: "Plan notu referansı" },
         { label: "Insaat Hakki", value: `${Math.round(summary.grossConstructionRightM2).toLocaleString("tr-TR")} m2`, hint: "Parsel alani x EMSAL" },
         { label: "Plan Uyum Skoru", value: parcelIntelligence ? `${parcelIntelligence.compositeScore} / 100` : "—", hint: "parcelEngine birleşik skor" },
       ]
@@ -106,6 +107,15 @@ export default function ImarSorguPage() {
           emsal: "—",
           taks: summary.effectiveTaks.toFixed(2),
           kat: `${Math.round(summary.maxFootprintM2)} m2`,
+          durum: "Hesaplandi",
+        },
+        {
+          id: "2b",
+          plan: "Gabari / yukseklik",
+          fonksiyon: "Hmax ve kat limiti",
+          emsal: "—",
+          taks: "—",
+          kat: `${summary.profile.maxBuildingHeightM}m / ${summary.cappedFloorsBuildable} kat`,
           durum: "Hesaplandi",
         },
         {
@@ -144,6 +154,29 @@ export default function ImarSorguPage() {
           tapu kayıtları ve uzman görüşü olmadan bağlayıcı kabul edilmez.
         </p>
       </div>
+      <ModulePanel title="Gerçek hesap özeti (TAKS / KAKS / gabari)">
+        <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-200">
+          <article className="rounded-lg border border-white/10 bg-black/20 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">TAKS taban hesabı</p>
+            <p className="mt-1">Taban oturumu = arsa m² x TAKS</p>
+          </article>
+          <article className="rounded-lg border border-white/10 bg-black/20 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-emerald-200">KAKS/emsal hesabı</p>
+            <p className="mt-1">Toplam inşaat hakkı = arsa m² x EMSAL</p>
+          </article>
+          <article className="rounded-lg border border-white/10 bg-black/20 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-amber-200">Gabari etkisi</p>
+            <p className="mt-1">Kat üst sınırı = min(plan kat limiti, Hmax kaynaklı kat)</p>
+          </article>
+        </div>
+        {summary ? (
+          <div className="mt-3 rounded-lg border border-white/10 bg-white/[0.02] p-3 text-xs text-slate-300">
+            Hesaplanan değerler: taban <strong>{Math.round(summary.maxFootprintM2).toLocaleString("tr-TR")} m²</strong>, brüt inşaat
+            hakkı <strong>{Math.round(summary.grossConstructionRightM2).toLocaleString("tr-TR")} m²</strong>, uygulanan kat sınırı{" "}
+            <strong>{summary.cappedFloorsBuildable}</strong>.
+          </div>
+        ) : null}
+      </ModulePanel>
       <div className="mod-layout mod-layout--split">
         <ModulePanel title="Imar Sorgu Formu">
           <form

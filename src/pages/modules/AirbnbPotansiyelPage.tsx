@@ -49,6 +49,10 @@ export default function AirbnbPotansiyelPage() {
           Yıllık gelir = gecelik × doluluk × 365. Net gelir = brüt - (temizlik + platform komisyonu + işletme + boşluk rezervi).
           Sonuç, uzun dönem kira ile aynı ekranda kıyaslanır.
         </p>
+        <p className="mt-2 text-xs text-slate-300">
+          Güncel referans: kira çarpanı Türkiye 214 ay, İstanbul 212 ay benchmark. KFE Nisan 2026 örnek reel getirisi -%4,3
+          olduğu için nominal kazançlar reel/döviz filtresiyle ayrıca okunmalıdır.
+        </p>
       </section>
 
       <div className="mod-layout mod-layout--split">

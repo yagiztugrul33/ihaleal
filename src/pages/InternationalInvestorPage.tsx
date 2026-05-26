@@ -28,6 +28,32 @@ const snippets: Record<LocalMode, { title: string; subtitle: string; guideTitle:
   },
 };
 
+const FX_ADVANTAGES = [
+  {
+    title: "Kur bazlı karşılaştırma",
+    detail:
+      "Teklif aşamasında TRY ve yabancı para görünümü aynı panelde izlenir; kur oynaklığı karar notu otomatik gösterilir.",
+  },
+  {
+    title: "Vergi kalemi görünürlüğü",
+    detail:
+      "Tapu, harç ve potansiyel değer artış vergisi kalemleri işlem öncesi ayrı satırlarla açıklanır.",
+  },
+  {
+    title: "Süreç şeffaflığı",
+    detail:
+      "KYC, AML, sözleşme dili ve resmi evrak adımları sıra numarasıyla işlenir; eksik adım atlanmaz.",
+  },
+] as const;
+
+const FOREIGN_PROCESS = [
+  "1) Ön uygunluk: hedef varlık tipi, bütçe ve risk iştahı tanımlanır.",
+  "2) Kur + vergi ön analizi: ödeme para birimi, olası vergi yükleri ve toplam maliyet görünür.",
+  "3) Evrak / KYC / AML: pasaport, adres, fon kaynağı ve işlem amacı kontrolleri tamamlanır.",
+  "4) Teklif ve sözleşme: çoklu dilde bilgilendirme + bağlayıcı adım öncesi hukuki doğrulama.",
+  "5) Kapanış ve portföy takibi: işlem sonrası performans ekranı ve rapor akışı aktif edilir.",
+] as const;
+
 export default function InternationalInvestorPage() {
   const [languageMode, setLanguageMode] = useState<LocalMode>("tr");
   const {
@@ -176,6 +202,21 @@ export default function InternationalInvestorPage() {
           </article>
         </section>
 
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-900/60 p-4">
+          <h2 className="text-lg font-bold text-foreground">Döviz / vergi avantajı ve süreç disiplini</h2>
+          <div className="mt-3 grid gap-3 md:grid-cols-3">
+            {FX_ADVANTAGES.map((item) => (
+              <article key={item.title} className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                <p className="text-sm font-semibold text-slate-100">{item.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-slate-400">
+            Dürüst sınır: Vergi ve vatandaşlık etkileri kişisel duruma göre değişir; nihai değerlendirme için uzman hukuk/mali müşavir görüşü gerekir.
+          </p>
+        </section>
+
         <section className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
           <h2 className="text-lg font-bold text-foreground">Yabancı yatırımcı operasyon akışı (dolu demo)</h2>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
@@ -196,6 +237,13 @@ export default function InternationalInvestorPage() {
               </ul>
             </div>
           </div>
+          <ol className="mt-4 space-y-2 text-xs text-slate-300">
+            {FOREIGN_PROCESS.map((step) => (
+              <li key={step} className="rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2">
+                {step}
+              </li>
+            ))}
+          </ol>
         </section>
       </div>
     </div>

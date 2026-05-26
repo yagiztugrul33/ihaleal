@@ -37,6 +37,18 @@ function parseNum(s: string): number {
   return Number.isFinite(n) ? n : NaN;
 }
 
+function applyRegionalPreset(mode: "istanbul" | "ankara"): {
+  il: string;
+  ilce: string;
+  ada: string;
+  parsel: string;
+} {
+  if (mode === "ankara") {
+    return { il: "Ankara", ilce: "Çankaya", ada: "100", parsel: "20" };
+  }
+  return { il: "İstanbul", ilce: "Kadıköy", ada: "15", parsel: "200" };
+}
+
 function buildContractCtx(
   form: Omit<KkaParselFormInput, "landAreaM2" | "ownerShareOfSellable" | "assumedNetUnitM2" | "emsalOverride" | "taksOverride" | "maxStoreysOverride"> & {
     landAreaM2: number;
@@ -267,6 +279,34 @@ export default function KkaParselStudioPage() {
                   <Input value={parsel} onChange={(e) => setParsel(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
               </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const preset = applyRegionalPreset("istanbul");
+                    setIl(preset.il);
+                    setIlce(preset.ilce);
+                    setAda(preset.ada);
+                    setParsel(preset.parsel);
+                  }}
+                  className="rounded-lg border border-cyan-400/40 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-100"
+                >
+                  İstanbul usulü preset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const preset = applyRegionalPreset("ankara");
+                    setIl(preset.il);
+                    setIlce(preset.ilce);
+                    setAda(preset.ada);
+                    setParsel(preset.parsel);
+                  }}
+                  className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-100"
+                >
+                  Ankara usulü preset
+                </button>
+              </div>
               <div className="space-y-1.5">
                 <Label className="text-slate-400">Arsa yüzölçümü (m², kabataslak)</Label>
                 <Input value={landM2Str} onChange={(e) => setLandM2Str(e.target.value)} className="bg-slate-950/80 border-slate-200" />
@@ -336,6 +376,9 @@ export default function KkaParselStudioPage() {
                     <div className="text-white font-medium mt-1">{summary.profile.zoningLabel}</div>
                     <div className="text-xs text-slate-500 mt-2">
                       Kaynak: {summary.profile.resolutionSource} — anahtar: <code className="text-cyan-300">{summary.profile.matchedKey}</code>
+                    </div>
+                    <div className="text-xs text-slate-500 mt-1">
+                      Gabari (Hmax): {summary.profile.maxBuildingHeightM} m · Tipik kat yüksekliği: {summary.profile.typicalFloorHeightM} m
                     </div>
                   </div>
                   <dl className="grid gap-2 text-slate-300">

@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { Lock, EyeOff, Shield, Clock, Users, FileCheck, Scale, Gavel } from "lucide-react";
 import { PageShell } from "@/components/marketing/PageShell";
 
@@ -13,6 +14,21 @@ const DEMO_CARDS = [
 ];
 
 export default function KapaliTeklifPage() {
+  const [myBidTry, setMyBidTry] = useState("4850000");
+  const [remainingHours, setRemainingHours] = useState("48");
+  const [revealMode, setRevealMode] = useState<"sealed" | "revealed">("sealed");
+
+  const rankingPreview = useMemo(() => {
+    const base = Number(myBidTry) || 0;
+    if (base <= 0) return [];
+    const offsets = [0, -120_000, -180_000];
+    return offsets.map((offset, index) => ({
+      rank: index + 1,
+      amount: base + offset,
+      label: index === 0 ? "Sizin teklifiniz" : `Rakip ${index}`,
+    }));
+  }, [myBidTry]);
+
   return (
     <PageShell
       badge="Kapalı teklif"
@@ -73,6 +89,80 @@ export default function KapaliTeklifPage() {
             );
           })}
         </div>
+      </section>
+
+      <section className="py-6 grid gap-6 md:grid-cols-2">
+        <article className="card-warm">
+          <h2 className="text-xl font-bold mb-3" style={{ color: "var(--color-text)" }}>
+            Kapalı teklif mekaniği (simülasyon)
+          </h2>
+          <label className="block text-sm mb-3" style={{ color: "var(--color-text-muted)" }}>
+            Sizin teklifiniz (TRY)
+            <input
+              type="number"
+              min={0}
+              value={myBidTry}
+              onChange={(event) => setMyBidTry(event.target.value)}
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white"
+            />
+          </label>
+          <label className="block text-sm mb-3" style={{ color: "var(--color-text-muted)" }}>
+            Kalan süre (saat)
+            <input
+              type="number"
+              min={1}
+              value={remainingHours}
+              onChange={(event) => setRemainingHours(event.target.value)}
+              className="mt-2 w-full rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white"
+            />
+          </label>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setRevealMode("sealed")}
+              className={`rounded-lg px-3 py-2 text-xs ${revealMode === "sealed" ? "bg-cyan-500/20 text-cyan-200" : "bg-white/5 text-slate-300"}`}
+            >
+              Süre devam ediyor
+            </button>
+            <button
+              type="button"
+              onClick={() => setRevealMode("revealed")}
+              className={`rounded-lg px-3 py-2 text-xs ${revealMode === "revealed" ? "bg-emerald-500/20 text-emerald-200" : "bg-white/5 text-slate-300"}`}
+            >
+              Süre doldu (aç)
+            </button>
+          </div>
+          <p className="mt-3 text-xs" style={{ color: "var(--color-text-light)" }}>
+            Canlıda teklif tutarları süre bitene kadar gizlenir. Süre dolunca sıralama raporu ilan sahibine açılır.
+          </p>
+        </article>
+
+        <article className="card-warm">
+          <h2 className="text-xl font-bold mb-3" style={{ color: "var(--color-text)" }}>
+            Sonuç paneli
+          </h2>
+          <p className="text-sm mb-3" style={{ color: "var(--color-text-muted)" }}>
+            Durum: {revealMode === "sealed" ? "Teklifler gizli" : "Teklifler açıldı"} · Kalan süre: {remainingHours} saat
+          </p>
+          {revealMode === "sealed" ? (
+            <div className="rounded-lg border border-white/10 bg-black/20 p-3 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Sıralama gizli. Katılımcılar yalnızca başvurunun alındığını görür.
+            </div>
+          ) : (
+            <ul className="space-y-2">
+              {rankingPreview.map((row) => (
+                <li key={row.rank} className="flex items-center justify-between rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm">
+                  <span style={{ color: "var(--color-text)" }}>
+                    {row.rank}. {row.label}
+                  </span>
+                  <strong style={{ color: "var(--color-primary)" }}>
+                    ₺{row.amount.toLocaleString("tr-TR")}
+                  </strong>
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
       </section>
     </PageShell>
   );

@@ -1,9 +1,28 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, LineChart, Upload, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
+const INDEX_METHOD = [
+  {
+    title: "Likidite katmanı (%35)",
+    detail: "Teklif yoğunluğu, aktif alıcı sayısı ve kapanış süresi sinyalleri normalize edilerek likidite puanı üretilir.",
+  },
+  {
+    title: "Fiyat katmanı (%30)",
+    detail: "m² fiyat trendi, bölgesel sapma ve yakın dönem satış bantları birlikte değerlendirilir.",
+  },
+  {
+    title: "Risk katmanı (%20)",
+    detail: "Deprem/imar/hukuki risk bayrakları endeks skorundan düşürücü etki olarak uygulanır.",
+  },
+  {
+    title: "Talep katmanı (%15)",
+    detail: "İzleme listesi, arama yoğunluğu ve segment bazlı talep artış hızıyla kısa dönem ivme hesaplanır.",
+  },
+] as const;
 
 export default function DataStrategy() {
   const navigate = useNavigate();
@@ -35,6 +54,10 @@ export default function DataStrategy() {
               <p>
                 <strong className="text-white">Şu an bu sitede:</strong> Lisanslı piyasa verisiyle aynı kalitede, güncel “son 6 ayda satılanlar / şimdi satılıklar”
                 <strong className="text-white"> verisi yok</strong>. /analiz sayfasındaki grafikler <Badge className="mx-1 bg-slate-600 text-white border-0">gösterim / demo</Badge> verisidir.
+              </p>
+              <p>
+                <strong className="text-white">İhaleal Endeksi resmi bir kamu endeksi değildir.</strong> Bu ekran ürün metodolojisini açıklayan
+                demo bir karar destek katmanıdır; yatırım tavsiyesi veya resmi değerleme yerine geçmez.
               </p>
               <p className="text-xs text-slate-500">
                 Örnek ekspertiz / fiyat raporu PDF’i ürün ve avukatla “hangi alanları otomatik doldurabiliriz” diye incelemek faydalıdır.
@@ -82,6 +105,24 @@ export default function DataStrategy() {
               <li><strong className="text-slate-200">Harici site tarama:</strong> Önerilmez; ToS + KVKK + haksız rekabet riski. Yerine API / kullanıcı yüklemesi.</li>
               <li><strong className="text-slate-200">Rapor şablonu:</strong> Örnek PDF’inizi şablona map eden ürün + hukuk onayı.</li>
             </ol>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-cyan-500/5 border-cyan-500/20 mb-6">
+          <CardContent className="p-5 space-y-4 text-sm text-slate-300">
+            <h2 className="text-white font-semibold text-base">İhaleal Endeksi metodoloji özeti (demo)</h2>
+            <div className="grid gap-3 md:grid-cols-2">
+              {INDEX_METHOD.map((item) => (
+                <article key={item.title} className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-sm font-semibold text-cyan-200">{item.title}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.detail}</p>
+                </article>
+              ))}
+            </div>
+            <div className="rounded-lg border border-white/10 bg-black/20 p-3 text-xs leading-relaxed text-slate-300">
+              Endeks skoru (demo): <code className="text-cyan-200">score = 0.35*Likidite + 0.30*Fiyat + 0.15*Talep - 0.20*Risk</code>.
+              Skor bantları yalnızca karar önceliklendirmesi içindir; bağlayıcı ekspertiz veya resmi piyasa verisi değildir.
+            </div>
           </CardContent>
         </Card>
 

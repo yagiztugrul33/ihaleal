@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { calculateMortgage } from "@/lib/calculators/mortgageEngine";
+import { calculateRealFxReturn } from "@/lib/calculators/realFxReturnEngine";
 
 export default function Mortgage() {
   const navigate = useNavigate();
@@ -12,6 +13,11 @@ export default function Mortgage() {
   const [downPaymentPct, setDownPaymentPct] = useState("20");
   const [annualRate, setAnnualRate] = useState("36");
   const [termMonths, setTermMonths] = useState("120");
+  const [realInitialTry, setRealInitialTry] = useState("1000000");
+  const [realFinalTry, setRealFinalTry] = useState("1350000");
+  const [kfeInflationPct, setKfeInflationPct] = useState("41.1");
+  const [usdStart, setUsdStart] = useState("32.4");
+  const [usdEnd, setUsdEnd] = useState("38.7");
 
   const property = Math.max(0, Number(propertyPrice) || 0);
   const downPct = Math.max(0, Math.min(90, Number(downPaymentPct) || 0));
@@ -34,6 +40,17 @@ export default function Mortgage() {
     annualInterestRatePct: 34,
     termMonths: 120,
   });
+  const realFx = useMemo(
+    () =>
+      calculateRealFxReturn({
+        initialTry: Math.max(1, Number(realInitialTry) || 1),
+        finalTry: Math.max(0, Number(realFinalTry) || 0),
+        annualInflationPct: Number(kfeInflationPct) || 0,
+        startUsdTry: Math.max(0.0001, Number(usdStart) || 0.0001),
+        endUsdTry: Math.max(0.0001, Number(usdEnd) || 0.0001),
+      }),
+    [realInitialTry, realFinalTry, kfeInflationPct, usdStart, usdEnd],
+  );
 
   return (
     <div className="min-h-screen bg-background pt-24 pb-16">
@@ -53,6 +70,10 @@ export default function Mortgage() {
           </p>
           <p className="mt-3 rounded-lg border border-cyan-400/30 bg-slate-950/60 p-3 text-xs text-cyan-100">
             Formül: <code>Aylık Taksit = P × [r(1+r)^n] / [(1+r)^n−1]</code> (P=anapara, r=aylık faiz, n=ay sayısı).
+          </p>
+          <p className="mt-2 text-xs text-slate-300">
+            Güncel referans: KFE Nisan 2026 reel örnek <strong>- %4,3</strong> (nominal +%35, enflasyon +%41,1). Kira
+            çarpanı benchmark: Türkiye <strong>214 ay</strong>, İstanbul <strong>212 ay</strong>.
           </p>
         </section>
 
@@ -158,6 +179,53 @@ export default function Mortgage() {
               </p>
             </CardContent>
           </Card>
+        </section>
+
+        <section className="mt-6 rounded-2xl border border-violet-500/30 bg-violet-500/10 p-5">
+          <h2 className="text-xl font-bold text-violet-100">Reel / döviz getiri modülü (yatırım-mortgage)</h2>
+          <p className="mt-2 text-sm text-slate-200">
+            TL nominal getiri, KFE bazlı reel getiri ve USD bazlı performans aynı tabloda karşılaştırılır.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            <div>
+              <label className="text-xs text-slate-200">Başlangıç TL</label>
+              <Input value={realInitialTry} onChange={(e) => setRealInitialTry(e.target.value)} inputMode="numeric" />
+            </div>
+            <div>
+              <label className="text-xs text-slate-200">Bitiş TL</label>
+              <Input value={realFinalTry} onChange={(e) => setRealFinalTry(e.target.value)} inputMode="numeric" />
+            </div>
+            <div>
+              <label className="text-xs text-slate-200">KFE enflasyon (%)</label>
+              <Input value={kfeInflationPct} onChange={(e) => setKfeInflationPct(e.target.value)} inputMode="decimal" />
+            </div>
+            <div>
+              <label className="text-xs text-slate-200">USD başlangıç</label>
+              <Input value={usdStart} onChange={(e) => setUsdStart(e.target.value)} inputMode="decimal" />
+            </div>
+            <div>
+              <label className="text-xs text-slate-200">USD bitiş</label>
+              <Input value={usdEnd} onChange={(e) => setUsdEnd(e.target.value)} inputMode="decimal" />
+            </div>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-3">
+              <p className="text-xs text-cyan-200">TL nominal</p>
+              <p data-testid="mortgage-nominal-return" className="text-lg font-bold text-cyan-100">
+                %{realFx.nominalReturnPct.toFixed(2)}
+              </p>
+            </div>
+            <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3">
+              <p className="text-xs text-amber-200">Reel (KFE)</p>
+              <p data-testid="mortgage-real-return" className="text-lg font-bold text-amber-100">
+                %{realFx.realReturnPct.toFixed(2)}
+              </p>
+            </div>
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3">
+              <p className="text-xs text-emerald-200">USD bazlı</p>
+              <p className="text-lg font-bold text-emerald-100">%{realFx.usdReturnPct.toFixed(2)}</p>
+            </div>
+          </div>
         </section>
 
         <section className="mt-6 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-5">

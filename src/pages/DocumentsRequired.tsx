@@ -87,6 +87,14 @@ export default function DocumentsRequired() {
     { law: "193 sayılı Gelir Vergisi Kanunu", desc: "Gayrimenkul alım-satım vergi yükümlülükleri. Tapu harcı ve KDV hesaplamaları." },
   ];
 
+  const quickChecklist = [
+    "Kimlik + adli sicil + adres belgeleri guncel mi?",
+    "Findeks / banka hesap dogrulama belgeleri hazir mi?",
+    "Tapu + ekspertiz raporu + (varsa) imar dokumani yüklendi mi?",
+    "Teminat dekontu ve zorunlu beyanlar eksiksiz mi?",
+    "Sirket/vekalet dosyalarinda imza sirkuleri ve ticaret sicil gazetesi eklendi mi?",
+  ];
+
   return (
     <div className="min-h-screen pt-20 pb-16">
       <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-slate-200/80">
@@ -114,6 +122,20 @@ export default function DocumentsRequired() {
             </p>
           </div>
         </div>
+
+        <Card className="bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-5">
+            <h2 className="text-lg font-bold text-white mb-3">Hizli kontrol listesi (5 adim)</h2>
+            <ul className="space-y-2 text-sm text-slate-400 list-disc pl-5">
+              {quickChecklist.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <p className="mt-3 text-xs text-slate-500">
+              Bu kontrol listesi operasyonel kolaylik icindir; nihai gecerlilik ilgili kurum ve hukuk denetimi ile kesinlesir.
+            </p>
+          </CardContent>
+        </Card>
 
         {/* Evrak Kategorileri */}
         {gerekliEvraklar.map((section) => (
@@ -185,6 +207,26 @@ export default function DocumentsRequired() {
                   </div>
                 </div>
               ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-5">
+            <h3 className="text-lg font-bold text-white mb-3">Belge yukleme standartlari</h3>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <article className="rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">Format</p>
+                <p className="mt-1 text-xs text-slate-300">PDF/JPG, okunakli ve tek belge tek dosya prensibi.</p>
+              </article>
+              <article className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-emerald-200">Tutarlilik</p>
+                <p className="mt-1 text-xs text-slate-300">Ad-soyad, TCKN, parsel ve adres bilgileri belgeler arasi uyumlu olmali.</p>
+              </article>
+              <article className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-amber-200">Durust sinir</p>
+                <p className="mt-1 text-xs text-slate-300">Sahte/eksik belge tespitinde hesap ve ihale erisimi gecici veya kalici kisitlanabilir.</p>
+              </article>
             </div>
           </CardContent>
         </Card>

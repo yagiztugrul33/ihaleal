@@ -134,6 +134,8 @@ export default function BorsaPage() {
   const [ruleMaxBid, setRuleMaxBid] = useState("");
   const [ruleStep, setRuleStep] = useState("50000");
   const [selectedBookAssetId, setSelectedBookAssetId] = useState("");
+  const [comparePrimaryId, setComparePrimaryId] = useState("");
+  const [compareSecondaryId, setCompareSecondaryId] = useState("");
   const [myBidDraft, setMyBidDraft] = useState("");
   const [myBidsByAsset, setMyBidsByAsset] = useState<Record<string, number>>(() => {
     try {
@@ -364,6 +366,15 @@ export default function BorsaPage() {
   }, [selectedBookAssetId, tableRows]);
 
   useEffect(() => {
+    if (!comparePrimaryId && tableRows[0]?.id) {
+      setComparePrimaryId(tableRows[0].id);
+    }
+    if (!compareSecondaryId && tableRows[1]?.id) {
+      setCompareSecondaryId(tableRows[1].id);
+    }
+  }, [comparePrimaryId, compareSecondaryId, tableRows]);
+
+  useEffect(() => {
     const stop = createRealtimeMockInterval(() => {
       setFeedEvents((prevEvents) =>
         prevEvents.map((event, idx) => ({
@@ -417,6 +428,18 @@ export default function BorsaPage() {
         ? "geçildin"
         : "kazanıyorsun"
       : null;
+
+  const comparePrimary = useMemo(
+    () => filteredData.find((row) => row.id === comparePrimaryId) ?? null,
+    [filteredData, comparePrimaryId],
+  );
+  const compareSecondary = useMemo(
+    () => filteredData.find((row) => row.id === compareSecondaryId) ?? null,
+    [filteredData, compareSecondaryId],
+  );
+  const compareSpreadDelta = comparePrimary && compareSecondary ? comparePrimary.price - compareSecondary.price : null;
+  const compareVolumeDelta = comparePrimary && compareSecondary ? comparePrimary.volume - compareSecondary.volume : null;
+  const compareChangeDelta = comparePrimary && compareSecondary ? comparePrimary.changePct - compareSecondary.changePct : null;
 
   const toggleWatchlist = (assetId: string) => {
     setWatchlistIds((prev) => (prev.includes(assetId) ? prev.filter((id) => id !== assetId) : [...prev, assetId]));
@@ -588,6 +611,25 @@ export default function BorsaPage() {
               <Sparkline points={card.points} color={card.color} />
             </article>
           ))}
+        </section>
+
+        <section className="grid gap-2 md:grid-cols-2 xl:grid-cols-4">
+          <article className="rounded-xl border border-slate-700/80 bg-slate-900/70 p-2.5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-200">Spread nedir?</p>
+            <p className="mt-1 text-xs text-slate-300">En iyi satış ile en iyi alış arasındaki farktır. Dar spread daha verimli fiyat keşfi demektir.</p>
+          </article>
+          <article className="rounded-xl border border-slate-700/80 bg-slate-900/70 p-2.5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-200">Likidite nedir?</p>
+            <p className="mt-1 text-xs text-slate-300">Varlığın fiyatı bozulmadan alınıp satılabilme kolaylığıdır. Hacim arttıkça likidite güçlenir.</p>
+          </article>
+          <article className="rounded-xl border border-slate-700/80 bg-slate-900/70 p-2.5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-200">Derinlik nedir?</p>
+            <p className="mt-1 text-xs text-slate-300">Order book katmanlarında biriken toplam lot miktarıdır. Yüksek derinlik ani fiyat sıçramasını yumuşatır.</p>
+          </article>
+          <article className="rounded-xl border border-slate-700/80 bg-slate-900/70 p-2.5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-200">Volatilite nedir?</p>
+            <p className="mt-1 text-xs text-slate-300">Fiyatın kısa sürede ne kadar sert dalgalandığını gösterir. Volatilite arttıkça risk ve fırsat birlikte büyür.</p>
+          </article>
         </section>
 
         <section
@@ -790,6 +832,64 @@ export default function BorsaPage() {
                 </table>
               </div>
             </article>
+
+            {activeTab === "varliklar" ? (
+              <article className="borsa-card rounded-xl p-3">
+                <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Varlık Karşılaştırma</h3>
+                <p className="mb-2 text-xs text-slate-300">
+                  Filtrelenen listedeki iki varlığı fiyat, hacim ve momentum açısından yan yana kıyasla.
+                </p>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <select
+                    value={comparePrimaryId}
+                    onChange={(e) => setComparePrimaryId(e.target.value)}
+                    className="rounded-md border border-border bg-secondary px-2.5 py-2 text-xs text-foreground"
+                  >
+                    {filteredData.map((row) => (
+                      <option key={`cmp-a-${row.id}`} value={row.id}>
+                        A: {row.code}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={compareSecondaryId}
+                    onChange={(e) => setCompareSecondaryId(e.target.value)}
+                    className="rounded-md border border-border bg-secondary px-2.5 py-2 text-xs text-foreground"
+                  >
+                    {filteredData.map((row) => (
+                      <option key={`cmp-b-${row.id}`} value={row.id}>
+                        B: {row.code}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {comparePrimary && compareSecondary ? (
+                  <div className="mt-3 grid gap-2 md:grid-cols-3">
+                    <div className="rounded-md border border-cyan-500/35 bg-cyan-500/10 p-2 text-xs text-cyan-100">
+                      Fiyat farkı (A-B):{" "}
+                      <strong>
+                        {compareSpreadDelta && compareSpreadDelta >= 0 ? "+" : ""}
+                        {formatTry(compareSpreadDelta ?? 0)}
+                      </strong>
+                    </div>
+                    <div className="rounded-md border border-violet-500/35 bg-violet-500/10 p-2 text-xs text-violet-100">
+                      Hacim farkı (A-B):{" "}
+                      <strong>
+                        {compareVolumeDelta && compareVolumeDelta >= 0 ? "+" : ""}
+                        {(compareVolumeDelta ?? 0).toLocaleString("tr-TR")}
+                      </strong>
+                    </div>
+                    <div className="rounded-md border border-emerald-500/35 bg-emerald-500/10 p-2 text-xs text-emerald-100">
+                      Momentum farkı (A-B):{" "}
+                      <strong>
+                        {compareChangeDelta && compareChangeDelta >= 0 ? "+" : ""}
+                        {(compareChangeDelta ?? 0).toFixed(2)}%
+                      </strong>
+                    </div>
+                  </div>
+                ) : null}
+              </article>
+            ) : null}
 
             <article className="borsa-card rounded-xl p-3">
               <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bölge Endeksleri</h3>

@@ -1,5 +1,5 @@
 ﻿import { Link } from "react-router-dom";
-import { FileText, Calendar } from "lucide-react";
+import { Calendar, FileText, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DEMO_REPORTS } from "@/data/reportsDemo";
@@ -11,6 +11,12 @@ const CATEGORY_LABEL: Record<string, string> = {
 };
 
 export default function Reports() {
+  const KFE_2026 = {
+    nominal: 26.6,
+    reel: -4.3,
+    ankara: 36.7,
+  };
+
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl">
@@ -25,6 +31,33 @@ export default function Reports() {
             Demo veri
           </Badge>
         </div>
+
+        <section className="mb-8 grid gap-3 sm:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-3">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-cyan-200">KFE 2026 nominal</p>
+            <p className="mt-1 text-xl font-bold text-white">+%{KFE_2026.nominal}</p>
+          </article>
+          <article className="rounded-xl border border-amber-500/25 bg-amber-500/10 p-3">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-amber-200">KFE 2026 reel</p>
+            <p className="mt-1 text-xl font-bold text-white">%{KFE_2026.reel}</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-3">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-emerald-200">Ankara yıllık</p>
+            <p className="mt-1 text-xl font-bold text-white">+%{KFE_2026.ankara}</p>
+          </article>
+        </section>
+
+        <section className="mb-8 rounded-xl border border-slate-200 bg-slate-900/40 p-4">
+          <h2 className="text-lg font-semibold text-white inline-flex items-center gap-2">
+            <TrendingUp className="h-4 w-4 text-blue-400" />
+            Raporları nasıl okumalı?
+          </h2>
+          <ul className="mt-3 list-disc pl-5 text-sm text-slate-400 space-y-1">
+            <li>Nominal ve reel metrikleri birlikte okuyun; tek başına nominal artış yanıltıcı olabilir.</li>
+            <li>Piyasa raporunu operasyon ve uyumluluk raporuyla birlikte değerlendirin.</li>
+            <li>Rapor çıktısı karar desteğidir; nihai yatırım/hukuk kararı için uzman görüşü gerekir.</li>
+          </ul>
+        </section>
 
         <div className="grid gap-6 md:grid-cols-2">
           {DEMO_REPORTS.map((r) => (

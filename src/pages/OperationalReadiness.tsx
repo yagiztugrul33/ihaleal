@@ -20,6 +20,14 @@ const CHECKS: { icon: ReactNode; title: string; desc: string; owner: string }[] 
   { icon: <Scale className="w-5 h-5" />, title: "Sözleşme seti", desc: "Alıcı, satıcı, platform, KVKK, çerez, ihale şartnamesi.", owner: "Avukat" },
 ];
 
+const TRUST_LAUNCH_GATES = [
+  "Escrow / blokaj akisinda mutabakat senaryolari test edildi mi?",
+  "KYC/AML supheli islem akislarinda manuel inceleme adimlari tanimli mi?",
+  "Ekspertiz ve evrak sureclerinde zorunlu alanlar tum rollerde ayni mi?",
+  "Sozlesme setleri (alici/satici/emlakci) hukuk tarafindan son surum onayi aldi mi?",
+  "Incident response: ihlal durumunda 24 saat icinde aksiyon sahipligi net mi?",
+];
+
 export default function OperationalReadiness() {
   const navigate = useNavigate();
 
@@ -50,6 +58,17 @@ export default function OperationalReadiness() {
             </Card>
           ))}
         </div>
+
+        <Card className="bg-slate-900/50 border-slate-200/80 mb-8">
+          <CardContent className="p-5">
+            <h2 className="text-lg font-semibold text-white mb-3">Guvenlik ve hukuk canliya gecis kapilari</h2>
+            <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
+              {TRUST_LAUNCH_GATES.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
 
         <Card className="bg-emerald-500/5 border-emerald-500/20">
           <CardContent className="p-5 text-sm text-slate-400">

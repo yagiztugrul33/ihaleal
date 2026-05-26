@@ -27,6 +27,7 @@ import {
   type RentalSplitScenario,
 } from "@/lib/rentalCommissionEngine";
 import { KKA_HUB_PATH } from "@/lib/kkaHub";
+import { calculateRealFxReturn } from "@/lib/calculators/realFxReturnEngine";
 
 type ServiceKey = keyof typeof SERVICE_FEES;
 
@@ -46,6 +47,11 @@ export default function CommissionCalculator() {
   const [monthlyAidatStr, setMonthlyAidatStr] = useState("3500");
   const [monthlyOpsStr, setMonthlyOpsStr] = useState("2200");
   const [rentTransferStr, setRentTransferStr] = useState("50000");
+  const [rfInitialTryStr, setRfInitialTryStr] = useState("1000000");
+  const [rfFinalTryStr, setRfFinalTryStr] = useState("1350000");
+  const [rfKfePctStr, setRfKfePctStr] = useState("41.1");
+  const [rfUsdStartStr, setRfUsdStartStr] = useState("32.4");
+  const [rfUsdEndStr, setRfUsdEndStr] = useState("38.7");
   const [rentScenario, setRentScenario] = useState<RentalSplitScenario>("dual_realtor");
   const [sellerMembershipPaid, setSellerMembershipPaid] = useState(true);
   const [svc, setSvc] = useState<Record<ServiceKey, boolean>>({
@@ -105,6 +111,13 @@ export default function CommissionCalculator() {
   const monthlyOps = Math.max(0, Number(String(monthlyOpsStr).replace(/\D/g, "")) || 0);
   const annualOpsTotal = (monthlyAidat + monthlyOps) * 12;
   const rentTransferAmount = Math.max(0, Number(String(rentTransferStr).replace(/\D/g, "")) || 0);
+  const realFx = calculateRealFxReturn({
+    initialTry: Math.max(1, Number(String(rfInitialTryStr).replace(/\D/g, "")) || 1),
+    finalTry: Math.max(0, Number(String(rfFinalTryStr).replace(/\D/g, "")) || 0),
+    annualInflationPct: Number(String(rfKfePctStr).replace(",", ".")) || 0,
+    startUsdTry: Math.max(0.0001, Number(String(rfUsdStartStr).replace(",", ".")) || 0.0001),
+    endUsdTry: Math.max(0.0001, Number(String(rfUsdEndStr).replace(",", ".")) || 0.0001),
+  });
 
   const landPool = useMemo(() => {
     const v = saleAmount > 0 ? saleAmount : 1;
@@ -516,6 +529,9 @@ export default function CommissionCalculator() {
               <p className="text-xs text-slate-400">
                 Bu blok teklif/ödeme çekirdeğine dokunmadan sadece ön karar desteği sağlar (mock hesap).
               </p>
+              <p className="text-xs text-slate-500">
+                Güncel referanslar: KFE Nisan 2026 reel örnek -%4,3; kira çarpanı Türkiye 214 ay, İstanbul 212 ay.
+              </p>
               <div className="grid gap-4">
                 <div className="rounded-xl border border-slate-700/70 p-3">
                   <p className="mb-2 text-xs font-semibold text-cyan-200">Kredi hesaplayıcı</p>
@@ -561,6 +577,19 @@ export default function CommissionCalculator() {
                   </div>
                   <p className="mt-2 text-sm text-white">
                     Yıllık toplam aidat+gider: ₺{annualOpsTotal.toLocaleString("tr-TR")} (Aylık ₺{(monthlyAidat + monthlyOps).toLocaleString("tr-TR")})
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Reel / döviz getiri kıyası</p>
+                  <div className="grid gap-2 sm:grid-cols-3">
+                    <Input value={rfInitialTryStr} onChange={(e) => setRfInitialTryStr(e.target.value)} inputMode="numeric" />
+                    <Input value={rfFinalTryStr} onChange={(e) => setRfFinalTryStr(e.target.value)} inputMode="numeric" />
+                    <Input value={rfKfePctStr} onChange={(e) => setRfKfePctStr(e.target.value)} inputMode="decimal" />
+                    <Input value={rfUsdStartStr} onChange={(e) => setRfUsdStartStr(e.target.value)} inputMode="decimal" />
+                    <Input value={rfUsdEndStr} onChange={(e) => setRfUsdEndStr(e.target.value)} inputMode="decimal" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">
+                    Nominal %{realFx.nominalReturnPct.toFixed(2)} · Reel %{realFx.realReturnPct.toFixed(2)} · USD %{realFx.usdReturnPct.toFixed(2)}
                   </p>
                 </div>
               </div>

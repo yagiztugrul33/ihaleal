@@ -37,6 +37,9 @@ export default function RenovasyonRoiPage() {
           ROI = (değer artışı - renovasyon maliyeti) / renovasyon maliyeti. Pozitif ROI değer yaratır, negatif ROI yatırımın
           maliyeti karşılamadığını gösterir.
         </p>
+        <p className="mt-2 text-xs text-slate-300">
+          Not: Nominal ROI tek başına yeterli değildir; KFE 2026 gibi enflasyon etkisiyle reel ROI ayrıca yorumlanmalıdır.
+        </p>
       </section>
 
       <div className="mod-layout mod-layout--split">

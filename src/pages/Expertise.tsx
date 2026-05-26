@@ -47,6 +47,20 @@ export default function Expertise() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const processSteps = [
+    { title: "On inceleme", detail: "Adres, tapu ve piyasa kayitlari toplanir; rapor kapsam sinirlari belirlenir.", eta: "Ayni gun" },
+    { title: "Saha kontrolu", detail: "Uzman ekip yerinde fiziksel durum, cevre ve emsal denetimi yapar.", eta: "Randevuya bagli" },
+    { title: "Modelleme", detail: "Emsal, gelir ve maliyet yaklasimlari birlestirilerek deger bandi olusturulur.", eta: "1-2 is gunu" },
+    { title: "Rapor ve devir", detail: "Rapor kalemleri aciklanir; alim/satis/ihale kararina destek dokumani sunulur.", eta: "Toplam 2-3 is gunu" },
+  ];
+
+  const whyImportant = [
+    "Asiri fiyatlama ve eksik fiyatlama riskini azaltir.",
+    "Banka, kredi ve ihale sureclerinde ortak referans dili olusturur.",
+    "Tapu/imar/teknik riskleri islem oncesi gorunur hale getirir.",
+    "Pazarlik surecini belgeye dayali ve daha seffaf yurutmeye yardim eder.",
+  ];
+
   if (submitted) {
     return (
       <div className="min-h-screen pt-24 pb-16">
@@ -87,6 +101,38 @@ export default function Expertise() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 mt-8">
+        <section className="mb-6 grid gap-3 sm:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-cyan-200">Nedir?</p>
+            <p className="mt-1 text-xs text-slate-300">Ekspertiz, gayrimenkulun degerini ve risklerini dosya bazli olcen profesyonel surectir.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-emerald-200">Neden onemli?</p>
+            <p className="mt-1 text-xs text-slate-300">Satis/kredi/ihale kararlarini tek bir fiyata degil, kanitlanabilir deger setine baglar.</p>
+          </article>
+          <article className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-amber-200">Durust sinir</p>
+            <p className="mt-1 text-xs text-slate-300">Bu form hukuki gorus yerine gecmez; nihai karar icin lisansli uzman + avukat onayi gerekir.</p>
+          </article>
+        </section>
+
+        <Card className="mb-6 bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-5">
+            <h2 className="text-lg font-bold text-white mb-4">Ekspertiz sureci nasil isler?</h2>
+            <div className="space-y-3">
+              {processSteps.map((step, idx) => (
+                <div key={step.title} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold text-white">{idx + 1}. {step.title}</p>
+                    <Badge variant="outline" className="border-blue-500/20 text-blue-300 text-[10px]">{step.eta}</Badge>
+                  </div>
+                  <p className="mt-1 text-xs text-slate-400">{step.detail}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
         <div className="grid md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -212,6 +258,17 @@ export default function Expertise() {
                   <div className="flex justify-between text-sm mb-2"><span className="text-slate-400">Hizli Rapor (24s)</span><span className="text-white font-semibold">₺8.250</span></div>
                   <Badge variant="outline" className="border-amber-500/20 text-amber-400 text-xs mt-2 w-full justify-center">Ihale kazananlara %50 indirim</Badge>
                 </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-5">
+                <h4 className="text-sm font-semibold text-white mb-3">Ekspertiz neden kritik?</h4>
+                <ul className="space-y-2 text-xs text-slate-400 list-disc pl-4">
+                  {whyImportant.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </CardContent>
             </Card>
 

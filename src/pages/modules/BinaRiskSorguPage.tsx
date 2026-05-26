@@ -29,6 +29,24 @@ export default function BinaRiskSorguPage() {
 
         <EarthquakeRiskWorkbench title="Bina risk sorgu sihirbazı" />
 
+        <ModulePanel title="Skor nasıl okunur?">
+          <div className="grid gap-3 lg:grid-cols-2 text-sm text-slate-300">
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Katman katkıları</h3>
+              <p className="mt-2">Çıktı tek sayı değildir: fay/PGA, zemin, sıvılaşma ve yapısal katman ayrı izlenir.</p>
+              <p className="mt-1">Hangi katman zayıfsa aksiyon planı o alandan başlatılır (etüd, güçlendirme, yeniden proje).</p>
+            </article>
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Örnek karar kuralı</h3>
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                <li>80+ : düşük risk bandı, yine de yerinde teknik teyit zorunlu.</li>
+                <li>65-79 : orta band, güçlendirme alternatifi mutlaka masada.</li>
+                <li>64 ve altı : yüksek dikkat, bağımsız mühendislik raporu olmadan ilerleme yok.</li>
+              </ul>
+            </article>
+          </div>
+        </ModulePanel>
+
         <div className="grid gap-3 lg:grid-cols-3">
           <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
             <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Örnek</h3>

@@ -22,6 +22,23 @@ export default function DepremEgitimiPage() {
       icon={BookOpen}
       iconAccent="text-emerald-300"
     >
+      <ModulePanel title="Neden bu eğitim kritik?">
+        <div className="grid gap-3 lg:grid-cols-3 text-sm text-slate-300">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-emerald-200">Amaç</h3>
+            <p className="mt-2">Acil durum refleksini güçlendirmek, aile ve ekip için ortak hareket dili oluşturmak.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-emerald-200">Kapsam</h3>
+            <p className="mt-2">Çök-kapan-tutun, toplanma planı, tahliye rotası, acil çanta, tatbikat ve iletişim zinciri.</p>
+          </article>
+          <article className="rounded-lg border border-amber-500/35 bg-amber-500/10 p-3 text-amber-100">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em]">Dürüst sınır</h3>
+            <p className="mt-2">Eğitim içerikleri farkındalık amaçlıdır; yapısal güvenlik için lisanslı uzman raporu gerekir.</p>
+          </article>
+        </div>
+      </ModulePanel>
+
       <ModulePanel title="Ders programı">
         <p className="mb-3 text-sm text-slate-400">
           Tamamlanan: {done.length} / 10 ders
@@ -72,6 +89,14 @@ export default function DepremEgitimiPage() {
           </div>
         </ModulePanel>
       ) : null}
+
+      <ModulePanel title="Program sonrası önerilen adımlar">
+        <ul className="list-inside list-disc space-y-1 text-sm text-slate-300">
+          <li>`/modul/aile-acil-plan` ile iletişim ve buluşma zincirini yazılı hale getirin.</li>
+          <li>`/modul/tatbikat-rehberi` ekranında aylık tatbikat ritmi kurun.</li>
+          <li>`/modul/bina-risk-sorgu` ile bina güven skorunu teknik verilerle ölçün.</li>
+        </ul>
+      </ModulePanel>
     </ModuleShell>
   );
 }
