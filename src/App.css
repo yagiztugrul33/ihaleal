@@ -1,4 +1,6 @@
 .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+.page-transition { animation: fadeInUp 0.24s cubic-bezier(0.16,1,0.3,1) both; }
+@media (prefers-reduced-motion: reduce) { .page-transition { animation: none; } }
 .animate-fade-in-up { animation: fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards; opacity: 0; }
 .animate-slide-in-left { animation: slideInLeft 0.9s cubic-bezier(0.16,1,0.3,1) forwards; opacity: 0; }
 .animate-scale-in { animation: scaleIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards; opacity: 0; }

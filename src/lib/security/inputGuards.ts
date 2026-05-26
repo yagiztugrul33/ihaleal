@@ -1,6 +1,8 @@
 const TAG_TOKENS = /[<>]/g;
 const MULTI_SPACE = /\s+/g;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/** Canonical e-posta deseni — `formValidation.ts` buradan re-export eder. */
+export const EMAIL_REGEX = EMAIL_RE;
 
 function stripControlChars(value: string): string {
   let out = "";

@@ -32,7 +32,14 @@ export async function saveAnalysisRun(
   if (!isSupabaseConfigured()) {
     const id = `local-${Date.now()}`;
     const key = "ihaleal-engineering-runs";
-    const prev = JSON.parse(localStorage.getItem(key) ?? "[]") as AnalysisRunRow[];
+    let prev: AnalysisRunRow[] = [];
+    try {
+      const raw = localStorage.getItem(key);
+      prev = raw ? (JSON.parse(raw) as AnalysisRunRow[]) : [];
+      if (!Array.isArray(prev)) prev = [];
+    } catch {
+      prev = [];
+    }
     prev.unshift({
       id,
       analysis_type: input.analysisType,
@@ -70,7 +77,14 @@ export async function saveAnalysisRun(
 export async function listAnalysisRuns(limit = 20): Promise<AnalysisRunRow[]> {
   if (!isSupabaseConfigured()) {
     const key = "ihaleal-engineering-runs";
-    return JSON.parse(localStorage.getItem(key) ?? "[]") as AnalysisRunRow[];
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw) as unknown;
+      return Array.isArray(parsed) ? (parsed as AnalysisRunRow[]) : [];
+    } catch {
+      return [];
+    }
   }
 
   const { data: userData } = await supabase.auth.getUser();

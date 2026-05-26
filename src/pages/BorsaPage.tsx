@@ -58,9 +58,7 @@ const REGION_HEAT = [
 
 const TICKER_CODES = ["KADIKÖY-D", "ÇEŞME-A", "LEVENT-O", "BODRUM-V", "BEŞİKTAŞ-D", "İZMİR-K", "ANKARA-O"] as const;
 
-function formatTry(value: number): string {
-  return `₺${Math.round(value).toLocaleString("tr-TR")}`;
-}
+import { formatTry } from "@/lib/format/currency";
 
 function getRegionLabel(region: string): string {
   if (region === "istanbul") return "İstanbul";

@@ -62,7 +62,14 @@ export default function Profile() {
       setTimeout(() => setSuccess(""), 3000);
       return;
     }
-    const users = JSON.parse(localStorage.getItem("ihaleal_users") || "[]") as StoredUser[];
+    let users: StoredUser[] = [];
+    try {
+      const raw = localStorage.getItem("ihaleal_users");
+      const parsed = raw ? (JSON.parse(raw) as unknown) : [];
+      users = Array.isArray(parsed) ? (parsed as StoredUser[]) : [];
+    } catch {
+      users = [];
+    }
     const idx = users.findIndex((u) => u.id === user.id);
     if (idx < 0) return;
     const merged: StoredUser = { ...users[idx], name, email, phone };

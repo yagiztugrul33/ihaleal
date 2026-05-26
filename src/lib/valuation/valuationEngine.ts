@@ -24,10 +24,4 @@ export function estimatePropertyValue(input: ValuationInput): ValuationResult {
   });
 }
 
-export function formatTry(value: number): string {
-  return new Intl.NumberFormat("tr-TR", {
-    style: "currency",
-    currency: "TRY",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
+export { formatTry } from "@/lib/format/currency";

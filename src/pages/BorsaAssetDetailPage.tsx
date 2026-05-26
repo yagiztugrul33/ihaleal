@@ -31,9 +31,7 @@ import "@/borsa/borsa.css";
 type DetailTab = "detay" | "islem" | "degerleme" | "belgeler" | "benzer";
 type RangeKey = "1g" | "7g" | "30g";
 
-function formatTry(value: number): string {
-  return `₺${Math.round(value).toLocaleString("tr-TR")}`;
-}
+import { formatTry } from "@/lib/format/currency";
 
 function dispatchToast(message: string, type: "success" | "error" | "info" = "info"): void {
   window.dispatchEvent(new CustomEvent("ihaleal:add-toast", { detail: { message, type } }));
@@ -281,7 +279,7 @@ export default function BorsaAssetDetailPage() {
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-cyan-200">Varlık Detay · Demo Veri</p>
             <h1 className="mt-1 text-2xl font-black text-white lg:text-3xl">{title}</h1>
             <p className="mt-1 text-sm text-slate-300">
-              Lokasyon: {asset.region.toUpperCase("tr-TR")} · Tip: Açık artırma gayrimenkul varlığı
+              Lokasyon: {asset.region.toLocaleUpperCase("tr-TR")} · Tip: Açık artırma gayrimenkul varlığı
             </p>
           </div>
           <div className="text-right">

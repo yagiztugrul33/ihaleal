@@ -21,9 +21,7 @@ type NotifyPrefs = {
   kvkkOptIn: boolean;
 };
 
-function formatTry(value: number): string {
-  return `₺${Math.round(value).toLocaleString("tr-TR")}`;
-}
+import { formatTry } from "@/lib/format/currency";
 
 function formatRemaining(totalMin: number): string {
   const h = Math.floor(totalMin / 60);

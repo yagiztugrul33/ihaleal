@@ -1,6 +1,7 @@
-/** Pratik e-posta kontrolü (tam RFC yerine UI doğrulaması). */
-export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/** UI doğrulama yardımcıları. Canonical kaynak: `@/lib/security/inputGuards`. */
+import { EMAIL_REGEX } from "@/lib/security/inputGuards";
 
+export { EMAIL_REGEX };
 export const MIN_PASSWORD_LENGTH = 8;
 
 export function isValidEmail(value: string): boolean {
