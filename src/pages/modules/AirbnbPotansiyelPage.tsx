@@ -1,127 +1,119 @@
-import { useState } from "react";
-import { BedDouble, TrendingUp } from "lucide-react";
-import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { ModuleDataTable, ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid, ModuleTag } from "./ModuleShell";
-
-type SezonRow = {
-  id: string;
-  ay: string;
-  doluluk: string;
-  gecelik: string;
-  gelir: string;
-  rekabet: string;
-};
-
-const MOCK_SEASON: SezonRow[] = [
-  { id: "1", ay: "Ocak", doluluk: "%42", gecelik: "2.450 TRY", gelir: "31.900 TRY", rekabet: "Orta" },
-  { id: "2", ay: "Subat", doluluk: "%48", gecelik: "2.680 TRY", gelir: "35.900 TRY", rekabet: "Orta" },
-  { id: "3", ay: "Mart", doluluk: "%58", gecelik: "3.100 TRY", gelir: "55.800 TRY", rekabet: "Yuksek" },
-  { id: "4", ay: "Nisan", doluluk: "%72", gecelik: "3.850 TRY", gelir: "83.200 TRY", rekabet: "Yuksek" },
-  { id: "5", ay: "Mayis", doluluk: "%78", gecelik: "4.200 TRY", gelir: "101.600 TRY", rekabet: "Yuksek" },
-  { id: "6", ay: "Haziran", doluluk: "%88", gecelik: "5.100 TRY", gelir: "135.400 TRY", rekabet: "Cok yuksek" },
-  { id: "7", ay: "Temmuz", doluluk: "%94", gecelik: "5.800 TRY", gelir: "168.900 TRY", rekabet: "Cok yuksek" },
-  { id: "8", ay: "Agustos", doluluk: "%92", gecelik: "5.650 TRY", gelir: "156.400 TRY", rekabet: "Cok yuksek" },
-  { id: "9", ay: "Eylul", doluluk: "%76", gecelik: "4.050 TRY", gelir: "92.300 TRY", rekabet: "Yuksek" },
-];
-
-const CHART = MOCK_SEASON.map((s) => ({
-  ay: s.ay.slice(0, 3),
-  gelir: Number(s.gelir.replace(/[^\d]/g, "")) / 1000,
-}));
+import { useMemo, useState } from "react";
+import { BedDouble } from "lucide-react";
+import { ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid } from "./ModuleShell";
+import { calculateAirbnbPotential } from "@/lib/calculators/airbnbEngine";
 
 export default function AirbnbPotansiyelPage() {
-  const [sehir, setSehir] = useState("Antalya");
-  const [oda, setOda] = useState("2+1");
-  const [kapasite, setKapasite] = useState("4");
-  const [result, setResult] = useState(true);
+  const [nightlyRate, setNightlyRate] = useState("3200");
+  const [occupancyRate, setOccupancyRate] = useState("68");
+  const [cleaningPerStay, setCleaningPerStay] = useState("1200");
+  const [staysPerYear, setStaysPerYear] = useState("85");
+  const [platformCommissionPct, setPlatformCommissionPct] = useState("18");
+  const [annualOperatingCost, setAnnualOperatingCost] = useState("210000");
+  const [vacancyReservePct, setVacancyReservePct] = useState("8");
+  const [longTermMonthlyRent, setLongTermMonthlyRent] = useState("42000");
+
+  const result = useMemo(
+    () =>
+      calculateAirbnbPotential({
+        nightlyRateTry: Number(nightlyRate) || 0,
+        occupancyRatePct: Number(occupancyRate) || 0,
+        cleaningCostPerStayTry: Number(cleaningPerStay) || 0,
+        expectedStaysPerYear: Number(staysPerYear) || 0,
+        platformCommissionRatePct: Number(platformCommissionPct) || 0,
+        annualOperatingCostTry: Number(annualOperatingCost) || 0,
+        vacancyReserveRatePct: Number(vacancyReservePct) || 0,
+        longTermMonthlyRentTry: Number(longTermMonthlyRent) || 0,
+      }),
+    [nightlyRate, occupancyRate, cleaningPerStay, staysPerYear, platformCommissionPct, annualOperatingCost, vacancyReservePct, longTermMonthlyRent],
+  );
 
   const stats = [
-    { label: "Yillik Brut Gelir", value: "1,42M TRY", hint: "Temizlik haric" },
-    { label: "Ort. Doluluk", value: "%71", hint: "12 ay agirlikli" },
-    { label: "Net Getiri", value: "%11,8", hint: "Maliyet sonrasi" },
-    { label: "Rekabet Skoru", value: "68 / 100", hint: "Bolge supply" },
+    { label: "Yıllık brüt gelir", value: `${Math.round(result.annualGrossRevenueTry).toLocaleString("tr-TR")} TL`, hint: "Gecelik × doluluk × 365" },
+    { label: "Yıllık net gelir", value: `${Math.round(result.annualNetRevenueTry).toLocaleString("tr-TR")} TL`, hint: "Temizlik+komisyon+işletme+boşluk düşülü" },
+    { label: "Uzun dönem kira", value: `${Math.round(result.longTermAnnualRentTry).toLocaleString("tr-TR")} TL`, hint: "Aylık × 12" },
+    { label: "Fark", value: `${Math.round(result.differenceVsLongTermTry).toLocaleString("tr-TR")} TL`, hint: "Kısa dönem - uzun dönem" },
   ];
 
   return (
     <ModuleShell
       title="Airbnb Potansiyeli"
-      subtitle="Kisa donem kiralama talebi, sezonluk doluluk ve rekabet yogunluguna gore gelir projeksiyonu."
+      subtitle="Kısa dönem kira gelirini gerçek formülle hesaplar ve uzun dönem kira ile kıyaslar."
       icon={BedDouble}
       iconAccent="text-rose-300"
-      badge="Gelir Optimizasyonu"
+      badge="Kısa Dönem Gelir Motoru"
     >
+      <section className="mod-hero-panel">
+        <h2>Formül seti</h2>
+        <p>
+          Yıllık gelir = gecelik × doluluk × 365. Net gelir = brüt - (temizlik + platform komisyonu + işletme + boşluk rezervi).
+          Sonuç, uzun dönem kira ile aynı ekranda kıyaslanır.
+        </p>
+      </section>
+
       <div className="mod-layout mod-layout--split">
-        <ModulePanel title="Konut Profili">
-          <form
-            className="mod-form-grid"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setResult(true);
-            }}
-          >
+        <ModulePanel title="Girdi">
+          <form className="mod-form-grid">
             <div>
-              <label htmlFor="ab-sehir">Sehir / Bolge</label>
-              <input id="ab-sehir" value={sehir} onChange={(e) => setSehir(e.target.value)} />
+              <label htmlFor="ab-night">Gecelik fiyat (TL)</label>
+              <input id="ab-night" value={nightlyRate} onChange={(e) => setNightlyRate(e.target.value)} />
             </div>
             <div>
-              <label htmlFor="ab-oda">Oda tipi</label>
-              <select id="ab-oda" value={oda} onChange={(e) => setOda(e.target.value)}>
-                <option>1+1</option>
-                <option>2+1</option>
-                <option>3+1</option>
-                <option>Villa</option>
-              </select>
+              <label htmlFor="ab-occ">Doluluk (%)</label>
+              <input id="ab-occ" value={occupancyRate} onChange={(e) => setOccupancyRate(e.target.value)} />
             </div>
             <div>
-              <label htmlFor="ab-kap">Misafir kapasitesi</label>
-              <input id="ab-kap" value={kapasite} onChange={(e) => setKapasite(e.target.value)} />
+              <label htmlFor="ab-clean">Temizlik / konaklama (TL)</label>
+              <input id="ab-clean" value={cleaningPerStay} onChange={(e) => setCleaningPerStay(e.target.value)} />
             </div>
-            <div className="mod-form-actions">
-              <button type="submit" className="mod-btn-primary">
-                <TrendingUp className="h-4 w-4" /> Projeksiyon Al
-              </button>
+            <div>
+              <label htmlFor="ab-stays">Yıllık konaklama adedi</label>
+              <input id="ab-stays" value={staysPerYear} onChange={(e) => setStaysPerYear(e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="ab-com">Platform komisyonu (%)</label>
+              <input id="ab-com" value={platformCommissionPct} onChange={(e) => setPlatformCommissionPct(e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="ab-op">Yıllık işletme gideri (TL)</label>
+              <input id="ab-op" value={annualOperatingCost} onChange={(e) => setAnnualOperatingCost(e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="ab-vac">Boşluk rezervi (%)</label>
+              <input id="ab-vac" value={vacancyReservePct} onChange={(e) => setVacancyReservePct(e.target.value)} />
+            </div>
+            <div>
+              <label htmlFor="ab-ltr">Uzun dönem aylık kira (TL)</label>
+              <input id="ab-ltr" value={longTermMonthlyRent} onChange={(e) => setLongTermMonthlyRent(e.target.value)} />
             </div>
           </form>
         </ModulePanel>
 
-        {result ? (
-          <ModulePanel title={`${sehir} — ${oda} kisa donem analizi`}>
-            <ModuleStatGrid stats={stats} />
-            <ModuleDataTable
-              caption="Aylik sezon tablosu"
-              columns={[
-                { key: "ay", header: "Ay", render: (r) => r.ay },
-                { key: "doluluk", header: "Doluluk", render: (r) => r.doluluk },
-                { key: "gecelik", header: "Gecelik", render: (r) => r.gecelik },
-                { key: "gelir", header: "Aylik Gelir", render: (r) => r.gelir },
-                {
-                  key: "rekabet",
-                  header: "Rekabet",
-                  render: (r) => (
-                    <ModuleTag tone={r.rekabet.includes("Cok") ? "risk" : r.rekabet === "Yuksek" ? "warn" : "ok"}>
-                      {r.rekabet}
-                    </ModuleTag>
-                  ),
-                },
-              ]}
-              rows={MOCK_SEASON}
-            />
-            <div className="mod-chart">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={CHART}>
-                  <XAxis dataKey="ay" tick={{ fill: "#94a3b8", fontSize: 11 }} />
-                  <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} />
-                  <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155" }} />
-                  <Area type="monotone" dataKey="gelir" stroke="#fb7185" fill="rgba(251,113,133,0.25)" />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-            <ModulePdfCta label="Airbnb potansiyel raporu PDF" />
-          </ModulePanel>
-        ) : (
-          <div className="mod-empty">Konut profilini girin; kısa dönem kira geliri, doluluk oynaklığı ve gider baskısını senaryo bazında ölçün.</div>
-        )}
+        <ModulePanel title="Sonuç">
+          <ModuleStatGrid stats={stats} />
+          <div className="mod-note-box">
+            <p>
+              Temizlik gideri: <strong>{Math.round(result.annualCleaningCostTry).toLocaleString("tr-TR")} TL</strong> ·
+              Komisyon: <strong> {Math.round(result.annualCommissionTry).toLocaleString("tr-TR")} TL</strong> ·
+              Boşluk rezervi: <strong> {Math.round(result.annualVacancyReserveTry).toLocaleString("tr-TR")} TL</strong>
+            </p>
+            <p className="mt-1">
+              Net gelir testi: <strong data-testid="airbnb-net">{Math.round(result.annualNetRevenueTry).toLocaleString("tr-TR")} TL</strong>
+            </p>
+          </div>
+          <div className="mod-note-box mt-3">
+            <p>Örnek: 3.200 TL gecelik ve %68 dolulukta model farklı girdilerde otomatik farklı sonuç üretir.</p>
+          </div>
+          <ModulePdfCta label="Airbnb potansiyel raporu PDF" />
+        </ModulePanel>
       </div>
+
+      <section className="mod-note-box">
+        <p>
+          Dürüst sınır: Bu çıktı ön analizdir; belediye kısıtları, ruhsat ve vergi yükümlülükleri ayrıca teyit edilmelidir.
+        </p>
+        <p className="mt-1">CTA: Vergi simülatörü ve yatırım önerisi modülleriyle birleşik karar tablosu oluşturun.</p>
+      </section>
     </ModuleShell>
   );
 }

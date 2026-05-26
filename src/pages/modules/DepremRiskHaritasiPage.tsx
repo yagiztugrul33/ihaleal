@@ -1,6 +1,9 @@
 import { lazy, Suspense } from "react";
-import { Map as MapIcon } from "lucide-react";
+import { ArrowRight, Map as MapIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { ModulePanel, ModuleShell } from "./ModuleShell";
+import { EarthquakeRiskWorkbench } from "@/components/risk/EarthquakeRiskWorkbench";
 
 const DepremRiskHaritasiMapInner = lazy(() => import("./DepremRiskHaritasiMapInner"));
 
@@ -13,22 +16,62 @@ export default function DepremRiskHaritasiPage() {
       icon={MapIcon}
       iconAccent="text-rose-300"
     >
-      <ModulePanel title="Gerçek zamanlı harita yüzeyi ve katman seçiciler">
-        <p className="mb-4 text-sm leading-relaxed text-slate-400">
-          Harita chunk’ı gerektiğinde yüklenir; çevrim içi bağlamda daha hızlı açılması için daha önce ziyaret
-          ettiğiniz sayfayı önbellekten okuyarak OSM karolarını tutarınız düşmez. Mobil cihazlarda tek parmak iki
-          parmak yakınlaştırmasını kullanınız — masaüstünde ise tekerlek ile hassas yakınlık yakalayabilirsiniz.
-        </p>
-        <Suspense
-          fallback={
-            <div className="flex min-h-[420px] items-center justify-center rounded-2xl border border-white/15 bg-slate-950/50 text-sm text-slate-400">
-              Harita yükleniyor — katman seçicisi ve bağlantılar hazırlandığında yüzeye oturur…
-            </div>
-          }
-        >
-          <DepremRiskHaritasiMapInner />
-        </Suspense>
-      </ModulePanel>
+      <div className="space-y-4">
+        <ModulePanel title="Neden deprem risk katmanı">
+          <div className="space-y-3 text-sm leading-relaxed text-slate-300">
+            <p>
+              Risk yalnızca fay hattına bakılarak ölçülmez. TBDY 2018 yaklaşımında tehlike (PGA), zemin, sıvılaşma ve bina
+              davranışı birlikte değerlendirilir. Bu modül bu katmanları tek puanda birleştirir.
+            </p>
+            <p>
+              Yüksek skor = düşük risk bandı olacak şekilde 0-100 güven skoru üretilir. Katman katkıları açıklanabilir şekilde
+              bar/radar görsellerine dökülür.
+            </p>
+          </div>
+        </ModulePanel>
+
+        <EarthquakeRiskWorkbench title="TBDY 2018 katmanlı deprem risk analizi" compact />
+
+        <ModulePanel title="Gerçek zamanlı harita yüzeyi ve katman seçiciler">
+          <p className="mb-4 text-sm leading-relaxed text-slate-400">
+            Harita katmanı, noktasal risk sorgusunu mekansal bağlama taşır. Fay yakınlığı, zemin sınıfı ve yapı yoğunluğu
+            aynı ekranda birlikte okunur.
+          </p>
+          <Suspense
+            fallback={
+              <div className="flex min-h-[420px] items-center justify-center rounded-2xl border border-white/15 bg-slate-950/50 text-sm text-slate-400">
+                Harita yükleniyor — katman seçicisi ve bağlantılar hazırlandığında yüzeye oturur…
+              </div>
+            }
+          >
+            <DepremRiskHaritasiMapInner />
+          </Suspense>
+        </ModulePanel>
+
+        <div className="grid gap-3 lg:grid-cols-3">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Örnek</h3>
+            <p className="mt-2">Skor 72/100: orta-iyi band. Yine de zemin etüdü + taşıyıcı sistem doğrulaması olmadan karar verilmez.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Kime göre</h3>
+            <p className="mt-2">Alıcı: hasar riski. Satıcı: güven artırıcı rapor. Yatırımcı: güçlendirme maliyet etkisi.</p>
+          </article>
+          <article className="rounded-lg border border-amber-500/35 bg-amber-500/10 p-3 text-sm text-amber-100">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em]">Dürüst sınır</h3>
+            <p className="mt-2">Bu çıktı ön analizdir. Lisanslı jeoloji/inşaat mühendisliği zemin etüdü ve performans raporu şarttır.</p>
+          </article>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3">
+          <p className="text-sm text-rose-100">Bina risk sorgusuna geçip katman skorunu adım adım raporlayın.</p>
+          <Button asChild className="bg-rose-300 text-slate-900 hover:bg-rose-200">
+            <Link to="/modul/bina-risk-sorgu">
+              Risk sorgusu başlat <ArrowRight className="ml-1.5 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </div>
     </ModuleShell>
   );
 }

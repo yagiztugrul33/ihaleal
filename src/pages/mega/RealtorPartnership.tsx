@@ -128,6 +128,27 @@ export default function RealtorPartnershipPage() {
           </div>
         </div>
 
+        <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <h2 className="text-sm font-semibold text-cyan-100">Neden bu ortaklık?</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              İşlem tamamlanmadan gelir yazmaz; bu sayede operasyon kalitesi ve müşteri güveni paket satışından önde tutulur.
+            </p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <h2 className="text-sm font-semibold text-emerald-100">By-pass etmeyen model</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              Gelir akışı platform içi kayıtlı işleme bağlıdır; kısa yol veya kayıt dışı yönlendirme modeli teşvik edilmez.
+            </p>
+          </article>
+          <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+            <h2 className="text-sm font-semibold text-violet-100">Dürüst sınır</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              Oranlar demo/ön analiz niteliğindedir; nihai tutarlar sözleşme, fatura ve uzman onayıyla kesinleşir.
+            </p>
+          </article>
+        </section>
+
         <section>
           <h2 className="text-lg font-semibold text-white">Kurumsal süreç</h2>
           <p className="mt-2 mb-6 max-w-3xl text-sm leading-relaxed text-slate-400">
@@ -255,6 +276,24 @@ export default function RealtorPartnershipPage() {
             </Card>
           </form>
         )}
+
+        <section>
+          <h2 className="mb-4 text-lg font-semibold text-white">SSS</h2>
+          <div className="grid gap-3 md:grid-cols-3">
+            <article className="rounded-xl border border-slate-200 bg-slate-900/30 p-4">
+              <p className="text-sm font-semibold text-white">Sabit üyelik bedeli zorunlu mu?</p>
+              <p className="mt-2 text-xs text-slate-400">Hayır. Ortaklık modeli işlem bazlıdır, zorunlu vitrin paketi yoktur.</p>
+            </article>
+            <article className="rounded-xl border border-slate-200 bg-slate-900/30 p-4">
+              <p className="text-sm font-semibold text-white">B2B oranı değişebilir mi?</p>
+              <p className="mt-2 text-xs text-slate-400">Evet. Bölge, hacim ve sözleşme çerçevesine göre revize edilebilir.</p>
+            </article>
+            <article className="rounded-xl border border-slate-200 bg-slate-900/30 p-4">
+              <p className="text-sm font-semibold text-white">Kapanışta hangi belge zorunlu?</p>
+              <p className="mt-2 text-xs text-slate-400">Yetki, kimlik, mali evrak ve sözleşme ekleri operasyon hattında kontrol edilir.</p>
+            </article>
+          </div>
+        </section>
       </div>
     </div>
   );

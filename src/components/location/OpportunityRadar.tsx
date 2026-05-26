@@ -191,6 +191,14 @@ export function OpportunityRadar({ properties }: OpportunityRadarProps) {
 
   return (
     <section className="ilan-radar" data-testid="nearby-opportunity-radar">
+      <div className="ilan-radar__hero">
+        <p className="ilan-radar__hero-badge">Konum Fırsat Radarı · Demo</p>
+        <h2>Yakındaki fırsatları kaçırma: teklif penceresi kapanmadan harekete geç.</h2>
+        <p className="ilan-radar__hero-lead">
+          Bu radar modeli, konum sinyali + ihale yoğunluğu + devren fırsatlarını tek ekranda birleştirir. Demo akışında
+          Türkiye pazarında benzeri az görülen "yakına göre öncelik" deneyimini simüle eder.
+        </p>
+      </div>
       <header className="ilan-radar__header">
         <div>
           <p className="ilan-radar__eyebrow">Konum Bazlı Fırsat Radarı</p>
@@ -219,6 +227,25 @@ export function OpportunityRadar({ properties }: OpportunityRadarProps) {
           </button>
         </div>
       </header>
+
+      <div className="ilan-radar__explain-grid">
+        <article>
+          <h3>Nasıl çalışır?</h3>
+          <ul>
+            <li>Konumu alır, şehir merkezini ve sana en yakın ilanları 80 km içinde sıralar.</li>
+            <li>Devren + ihale fırsatlarını mesafe avantajı ile öne taşır.</li>
+            <li>Deprem güvenliği ve AI yatırım skorunu aynı satırda gösterir.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Neden benzersiz?</h3>
+          <ul>
+            <li>Katalog, harita ve fırsat alarmını tek panelde birleştirir.</li>
+            <li>E-posta yerine anlık mobil bildirim hedefiyle daha hızlı aksiyon sağlar.</li>
+            <li>Karar ekranında sadece fiyat değil, mesafe + risk + fırsat yoğunluğu birlikte görünür.</li>
+          </ul>
+        </article>
+      </div>
 
       <div className="ilan-radar__stats">
         <article>
@@ -308,8 +335,15 @@ export function OpportunityRadar({ properties }: OpportunityRadarProps) {
           </div>
         </article>
       </div>
+      <div className="ilan-radar__mobile-promise">
+        <p>
+          Faz B mobil planı (demo): push tetikleyicileriyle e-posta kanallarına göre 3-10x etkileşim hedeflenir. KVKK
+          kapsamında konum verisi yalnızca izinli ve sınırlı amaçla işlenmelidir.
+        </p>
+      </div>
       <p className="ilan-radar__footnote">
-        Konum, mesafe ve bildirim akışı demo/simülasyon verisiyle çalışır; anlık konum bildirimleri yakında mobil uygulamada tam güç açılacaktır.
+        Dürüst not: Konum, mesafe ve bildirim akışı demo/simülasyon verisiyle çalışır; canlı kararlarda saha doğrulaması
+        ve resmi veri kontrolleri zorunludur.
       </p>
     </section>
   );

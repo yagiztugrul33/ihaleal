@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building, Hammer, HardHat, Landmark, Ruler, Truck } from "lucide-react";
+import { Building, CheckCircle2, Hammer, HardHat, Landmark, Ruler, Truck } from "lucide-react";
 
 const PROJECTS = [
   { title: "Konut Kule", city: "Kadikoy", type: "Konut", units: "124 daire", status: "Ihale", icon: Building },
@@ -38,6 +38,28 @@ export default function MuteahhitLanding() {
         </div>
       </section>
 
+      <section className="py-14 md:py-16" style={{ background: "rgba(15,23,42,0.45)" }}>
+        <div className="mx-auto max-w-6xl px-4">
+          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+            Neden müteahhitler bu modeli kullanıyor?
+          </h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {[
+              "Proje bazlı teklif akışı ile yüklenici seçimleri kayıtlı ve karşılaştırılabilir ilerler.",
+              "Kat karşılığı, ihale açma ve panel yönetimi tek sistemde birleşir; operasyon kopmaz.",
+              "Dürüst ön analiz ile finansal ve teknik riskler daha erken görünür.",
+            ].map((item) => (
+              <article key={item} className="card-warm">
+                <CheckCircle2 className="mb-2 h-5 w-5 text-emerald-300" />
+                <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                  {item}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-12 border-y border-[var(--color-border)]" style={{ background: "rgba(15,23,42,0.4)" }}>
         <div className="mx-auto max-w-5xl px-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
@@ -51,6 +73,48 @@ export default function MuteahhitLanding() {
           <Link to="/kat-karsiligi" className="btn-primary shrink-0">
             KKA Studio
           </Link>
+        </div>
+      </section>
+
+      <section className="py-10 border-b border-[var(--color-border)]" style={{ background: "rgba(15,23,42,0.42)" }}>
+        <div className="mx-auto max-w-6xl px-4">
+          <h2 className="text-2xl font-bold md:text-3xl" style={{ color: "var(--color-text)" }}>
+            Bağlı araçlar
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link to="/muteahhit/panel" className="btn-ghost text-sm">Proje paneli</Link>
+            <Link to="/ihale-ac" className="btn-ghost text-sm">İhale aç</Link>
+            <Link to="/kat-karsiligi" className="btn-ghost text-sm">Kat karşılığı merkezi</Link>
+            <Link to="/kat-karsiligi/studio" className="btn-ghost text-sm">KKA Studio</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-18">
+        <div className="mx-auto max-w-6xl px-4">
+          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+            Nasıl çalışır?
+          </h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <article className="card-warm">
+              <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>1) Proje panelini kur</h3>
+              <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                Faz, lot, maliyet ve hakediş adımlarını panelde tanımla.
+              </p>
+            </article>
+            <article className="card-warm">
+              <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>2) İhaleyi aç ve yönet</h3>
+              <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                Kapalı teklif veya açık ihale modelini seç, teklifleri karşılaştır.
+              </p>
+            </article>
+            <article className="card-warm">
+              <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>3) Kapanış ve devir</h3>
+              <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                Uyum adımları ve sözleşme kontrolleriyle proje kapanışına geç.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -105,6 +169,65 @@ export default function MuteahhitLanding() {
             <video className="w-full aspect-video bg-black object-cover" controls playsInline preload="metadata">
               <source src="/videos/reels-07.mp4" type="video/mp4" />
             </video>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-18" style={{ background: "rgba(15,23,42,0.45)" }}>
+        <div className="mx-auto max-w-6xl px-4">
+          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+            Örnek senaryo ve SSS
+          </h2>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <article className="card-warm">
+              <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>Örnek senaryo</h3>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+                Ankara’daki karma proje için müteahhit panelde lot bazlı ihaleyi açıyor, teklifleri karşılaştırıyor ve hakediş
+                dilimlerini güvenli biçimde yönetiyor. Kat karşılığı modülüyle arsa sahibine düşen paylar anlık simüle ediliyor.
+              </p>
+            </article>
+            <div className="grid gap-3">
+              <article className="card-warm">
+                <p className="text-sm font-semibold text-white">KKA zorunlu mu?</p>
+                <p className="mt-1 text-xs text-slate-400">Hayır. Proje tipine göre bağımsız ihale akışı da kullanılabilir.</p>
+              </article>
+              <article className="card-warm">
+                <p className="text-sm font-semibold text-white">Finansal hesaplar bağlayıcı mı?</p>
+                <p className="mt-1 text-xs text-slate-400">Hayır, demo/ön analizdir. Sözleşme ve uzman onayı ile kesinleşir.</p>
+              </article>
+              <article className="card-warm">
+                <p className="text-sm font-semibold text-white">Hangi CTA ile başlamak gerekir?</p>
+                <p className="mt-1 text-xs text-slate-400">Önce proje paneli, sonra ihale açma akışı önerilir.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14">
+        <div className="mx-auto max-w-6xl px-4">
+          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+            Kazanç / komisyon yaklaşımı
+          </h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <article className="card-warm">
+              <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>İşlem bazlı tahakkuk</h3>
+              <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                Gelir proje ve teslim adımlarına bağlı ilerler; sadece ilan paketi satışıyla gelir yazılmaz.
+              </p>
+            </article>
+            <article className="card-warm">
+              <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>By-pass yok</h3>
+              <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                Tekliften kapanışa kayıtlı akış korunur; platform dışı kısa yol modeli teşvik edilmez.
+              </p>
+            </article>
+            <article className="card-warm">
+              <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>Dürüst sınır</h3>
+              <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                Nihai komisyon, vergi ve fatura detayları sözleşme + mali müşavir doğrulamasıyla kesinleşir.
+              </p>
+            </article>
           </div>
         </div>
       </section>

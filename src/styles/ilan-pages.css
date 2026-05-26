@@ -8,6 +8,12 @@
   color: var(--color-text, #d3e3f7);
 }
 
+.ilan-landing.ilan-katalog {
+  max-width: 1440px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .ilan-card {
   display: flex;
   flex-direction: column;
@@ -336,11 +342,13 @@
 .ilan-landing__cascade select { padding: 0.55rem 0.65rem; border-radius: 10px; border: 1px solid rgba(15, 23, 42, 0.12); background: var(--color-bg, #fff); font-size: 0.85rem; color: #0f172a; }
 .ilan-landing__layout { display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; align-items: start; }
 @media (max-width: 900px) { .ilan-landing__layout { grid-template-columns: 1fr; } }
+.ilan-landing.ilan-katalog .ilan-landing__layout { grid-template-columns: minmax(220px, 260px) minmax(0, 1fr); gap: 1.25rem; }
 .ilan-landing__filters { position: sticky; top: 4.5rem; padding: 1rem; border-radius: 14px; background: var(--color-bg, #fff); border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04); }
 .ilan-landing__filters h2 { margin: 0 0 0.85rem; font-size: 0.95rem; }
 .ilan-landing__filters label { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.75rem; font-size: 0.75rem; color: #64748b; }
 .ilan-landing__filters input, .ilan-landing__filters select { padding: 0.5rem 0.6rem; border-radius: 8px; border: 1px solid rgba(15, 23, 42, 0.12); font-size: 0.85rem; }
 .ilan-landing__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; align-items: stretch; }
+.ilan-landing.ilan-katalog .ilan-landing__grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
 .ilan-landing__grid > * { min-width: 0; }
 .ilan-landing__empty { padding: 2.5rem 1rem; text-align: center; border-radius: 14px; background: rgba(15, 23, 42, 0.03); }
 .ilan-landing__empty p { margin: 0 0 0.5rem; color: #64748b; }
@@ -552,6 +560,31 @@
   background: linear-gradient(155deg, rgba(8, 24, 43, 0.92), rgba(12, 34, 59, 0.88));
   padding: 0.95rem;
 }
+.ilan-radar__hero {
+  border: 1px solid rgba(125, 211, 252, 0.28);
+  border-radius: 12px;
+  background: rgba(2, 6, 23, 0.32);
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.ilan-radar__hero-badge {
+  margin: 0;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7dd3fc;
+}
+.ilan-radar__hero h2 {
+  margin: 0.25rem 0;
+  font-size: 1.08rem;
+  color: #fff;
+}
+.ilan-radar__hero-lead {
+  margin: 0;
+  color: #dbeafe;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
 .ilan-radar__header {
   display: flex;
   flex-wrap: wrap;
@@ -585,6 +618,32 @@
 }
 .ilan-radar__controls button { display: inline-flex; align-items: center; gap: 0.35rem; }
 .ilan-radar__controls label { display: inline-flex; flex-direction: column; gap: 0.2rem; color: #aec4e0; font-size: 0.7rem; }
+.ilan-radar__explain-grid {
+  margin-top: 0.7rem;
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ilan-radar__explain-grid article {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(2, 6, 23, 0.35);
+  padding: 0.55rem 0.65rem;
+}
+.ilan-radar__explain-grid h3 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 0.83rem;
+}
+.ilan-radar__explain-grid ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.22rem;
+  color: #bfd7ee;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
 .ilan-radar__stats {
   margin-top: 0.8rem;
   display: grid;
@@ -640,6 +699,19 @@
 .ilan-radar__item-meta strong { color: #fef9c3; font-size: 0.78rem; display: block; }
 .ilan-radar__item-meta small { color: #cbd5e1; font-size: 0.68rem; }
 .ilan-radar__empty { margin: 0; color: #cbd5e1; font-size: 0.78rem; }
+.ilan-radar__mobile-promise {
+  margin-top: 0.65rem;
+  border-radius: 10px;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  background: rgba(76, 29, 149, 0.25);
+  padding: 0.5rem 0.65rem;
+}
+.ilan-radar__mobile-promise p {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: #e9d5ff;
+}
 .ilan-radar__footnote { margin: 0.7rem 0 0; font-size: 0.72rem; color: #c7d9ee; }
 
 @media (max-width: 768px) {
@@ -652,8 +724,12 @@
   .ilan-landing__grid {
     grid-template-columns: 1fr;
   }
+  .ilan-landing.ilan-katalog .ilan-landing__grid {
+    grid-template-columns: 1fr;
+  }
   .ilan-radar__stats { grid-template-columns: 1fr 1fr; }
   .ilan-radar__layout { grid-template-columns: 1fr; }
+  .ilan-radar__explain-grid { grid-template-columns: 1fr; }
   .ilan-katalog__devren-grid { grid-template-columns: 1fr; }
   .ilan-katalog__sponsored-grid { grid-template-columns: 1fr; }
 }

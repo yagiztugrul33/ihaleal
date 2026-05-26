@@ -91,8 +91,6 @@ const WHY_IHALAL_CARDS = [
   { title: "7/24 Destek", text: "Canlı ihale, evrak ve moderasyon hattı.", href: "/destek", Icon: Headphones, highlight: false },
 ] as const;
 
-const TRUSTED_BRANDS = ["JLL", "CBRE", "Colliers", "Knight Frank", "Cushman & Wakefield", "Savills", "EY"] as const;
-
 const PHOTO_SHOWCASE_CARDS = [
   {
     id: "showcase-1",
@@ -544,9 +542,37 @@ export default function PremiumCinematicHome() {
 
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
         <div className="rounded-3xl border border-border bg-card p-6 shadow-xl lg:p-8">
-          <h2 className="text-2xl font-black text-foreground lg:text-3xl">Kurumsal Logolar</h2>
-          <p className="mt-2 text-sm text-muted-foreground">Kurumsal çözüm demosunda referans alınan marka diline uygun örnek logo bandı.</p>
-          <section className="premium-institutions mt-5 p-0"><p>Sektör liderleri tarafından tercih ediliyor</p><div className="premium-institutions__logos">{TRUSTED_BRANDS.map((brand) => (<span key={brand} className="premium-institutions__logo">{brand}</span>))}</div></section>
+          <h2 className="text-2xl font-black text-foreground lg:text-3xl">Kurumsal Güven Panosu</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Logo vitrinleri yerine ölçülebilir ve dürüst güven metrikleri gösterilir (demo verisi).
+          </p>
+          <section className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+            <article className="rounded-xl border border-border bg-secondary p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">İşlem Hacmi</p>
+              <strong className="mt-2 block text-2xl font-black text-foreground">₺12.8B+</strong>
+              <p className="mt-1 text-xs text-muted-foreground">Son 12 ay demo toplamı</p>
+            </article>
+            <article className="rounded-xl border border-border bg-secondary p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Doğrulanmış Kullanıcı</p>
+              <strong className="mt-2 block text-2xl font-black text-foreground">68.9K+</strong>
+              <p className="mt-1 text-xs text-muted-foreground">KYC adımı tamamlayan hesaplar</p>
+            </article>
+            <article className="rounded-xl border border-border bg-secondary p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Escrow Uyum</p>
+              <strong className="mt-2 block text-2xl font-black text-foreground">%96.4</strong>
+              <p className="mt-1 text-xs text-muted-foreground">Escrow kurallarıyla kapanan işlemler</p>
+            </article>
+            <article className="rounded-xl border border-border bg-secondary p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">KYC Uyum</p>
+              <strong className="mt-2 block text-2xl font-black text-foreground">%97.2</strong>
+              <p className="mt-1 text-xs text-muted-foreground">Kimlik doğrulama tamamlama oranı</p>
+            </article>
+            <article className="rounded-xl border border-border bg-secondary p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Sertifika Durumu</p>
+              <strong className="mt-2 block text-xl font-black text-foreground">ISO 27001 (Demo)</strong>
+              <p className="mt-1 text-xs text-muted-foreground">Canlıya geçişte resmi audit gerekir</p>
+            </article>
+          </section>
         </div>
       </section>
 

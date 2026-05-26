@@ -213,6 +213,37 @@ export default function WarRoomPage() {
             </CardContent>
           </Card>
         </div>
+        <section className="mb-4 grid gap-4 lg:grid-cols-2">
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+            <h2 className="text-lg font-bold text-white">Nedir?</h2>
+            <p className="mt-2 text-sm text-slate-300">
+              War Room; deprem, zemin, yangın, enerji ve saha sinyallerini tek stratejik karar ekranında birleştirir.
+            </p>
+            <h3 className="mt-4 text-sm font-semibold text-cyan-200">Yöntem</h3>
+            <ul className="mt-2 list-disc pl-5 text-xs text-slate-300 space-y-1">
+              <li>GIS katmanları + mühendislik skorları runSiteIntelligence içinde toplanır.</li>
+              <li>Veri kalitesi badge’i ile güven seviyesi ve limitler görünür kalır.</li>
+              <li>Kurumsal rapor çıktısı markdown formatında dışa alınır.</li>
+            </ul>
+          </article>
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+            <h2 className="text-lg font-bold text-white">Örnek ve dürüst sınır</h2>
+            <p className="mt-2 text-sm text-slate-300">
+              Örnek kullanım: yeni proje sahasında stratejik skor + afet skoru eşik altındaysa yatırım komitesi kırmızı bayrakla toplanır.
+            </p>
+            <p className="mt-2 text-xs text-amber-200">
+              Dürüst not: Model, resmi jeoloji/imar/tapu kararının yerini tutmaz; lisanslı uzman incelemesi ve hukuki doğrulama zorunludur.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/arastirma/yatirim">Yatırım analizi</Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/modul/imar-sorgu">İmar sorgu</Link>
+              </Button>
+            </div>
+          </article>
+        </section>
         <div className="grid xl:grid-cols-12 gap-4">
           <Card className="xl:col-span-3 card-luxury"><CardContent className="p-5 space-y-3">
             <Label>Etiket</Label><Input value={label} onChange={(e) => setLabel(e.target.value)} />

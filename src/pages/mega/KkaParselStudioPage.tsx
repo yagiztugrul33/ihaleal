@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -199,6 +199,27 @@ export default function KkaParselStudioPage() {
         </Card>
 
         <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <h2 className="text-sm font-semibold text-cyan-100">Nedir?</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              Ada/parsel + imar profilini hızlıca okuyup olası inşaat hakkı ve kat sınırı veren ön karar stüdyosu.
+            </p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <h2 className="text-sm font-semibold text-emerald-100">Yöntem</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              `computeKkaBuildingSummary` emsal/TAKS/kat ve pay dağılımını tek modelde birleştirir.
+            </p>
+          </article>
+          <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+            <h2 className="text-sm font-semibold text-violet-100">Örnek kullanım</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              İki farklı parseli aynı pay oranıyla çalıştırıp olası birim farkını hızlıca kıyaslayın.
+            </p>
+          </article>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-3">
           <article className="rounded-xl border border-cyan-500/25 bg-slate-900/60 p-3">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">Parsel Okuma</p>
             <p className="mt-1 text-xs text-slate-300">Emsal, TAKS ve kat sınırı birlikte yorumlanır; tek başına bir metrik karar verdirmez.</p>
@@ -389,6 +410,24 @@ export default function KkaParselStudioPage() {
           Ek doküman: repoda{" "}
           <code className="text-slate-500">docs/hukuk/KKA_SOZLESME_VE_KAZANC_PLANI_TASLAK.md</code>
         </p>
+
+        <section className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <h2 className="text-lg font-semibold text-white">Dürüst sınır + SSS</h2>
+          <div className="mt-3 grid gap-3 md:grid-cols-3 text-sm">
+            <article>
+              <p className="font-semibold text-slate-100">Stüdyo çıktısı resmi imar yerine geçer mi?</p>
+              <p className="mt-1 text-slate-400">Hayır, belediye ve tapu kayıtları olmadan bağlayıcı değildir.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Sözleşme metni otomatik imzaya hazır mı?</p>
+              <p className="mt-1 text-slate-400">Hayır, avukat onayı ve taraf mutabakatı olmadan kullanım önerilmez.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Sonraki adım?</p>
+              <p className="mt-1 text-slate-400">KKA hub ve komisyon hesaplayıcıyla finansal senaryoyu netleştirin.</p>
+            </article>
+          </div>
+        </section>
       </div>
 
       <Sheet open={contractsOpen} onOpenChange={setContractsOpen}>

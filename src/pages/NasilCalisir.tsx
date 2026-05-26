@@ -88,6 +88,63 @@ export default function NasilCalisir() {
         </p>
       </section>
 
+      <section className="mb-10 grid gap-4 lg:grid-cols-2">
+        <article className="card-warm">
+          <h2 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>
+            Satıcı akışı (somut)
+          </h2>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm" style={{ color: "var(--color-text-muted)" }}>
+            <li>Değerle: emsal, konum ve risk katmanlarıyla başlangıç bandını belirle.</li>
+            <li>Borsaya koy: ihale süresi, rezerv fiyat ve anti-sniping kuralını aç.</li>
+            <li>Teklif izle: canlı teklifleri panelde takip et, kural dışı girişleri filtrele.</li>
+            <li>En yüksek geçerli teklifi onayla: yedek alıcı senaryosunu hazır tut.</li>
+            <li>Güvenli devir: escrow koşullarını tamamla, tapu devrini resmi adımlarla kapat.</li>
+          </ol>
+        </article>
+        <article className="card-warm">
+          <h2 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>
+            Alıcı akışı (somut)
+          </h2>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm" style={{ color: "var(--color-text-muted)" }}>
+            <li>Keşfet: ilanları filtrele, deprem ve konum analizini birlikte oku.</li>
+            <li>Analiz et: belge seti, fiyat bandı ve risk uyarılarını doğrula.</li>
+            <li>Teklif ver: %{formatBidBondPercent()} teminat blokajı + proxy teklif stratejisini kullan.</li>
+            <li>Kazan: kapanışta en yüksek geçerli teklifte otomatik kazanan bildirimini al.</li>
+            <li>Escrow devir: ödeme ve tapu adımlarını sözleşmeye uygun sırayla tamamla.</li>
+          </ol>
+        </article>
+      </section>
+
+      <section className="card-warm mb-10">
+        <h2 className="text-lg font-bold mb-3" style={{ color: "var(--color-text)" }}>
+          Açık artırma mekaniği ve güvenceler
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <article className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+            <h3 className="text-sm font-semibold" style={{ color: "var(--color-text)" }}>
+              Mekanikler
+            </h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              <li>Anti-sniping: son {ANTI_SNIPING_THRESHOLD_SECONDS} saniyede geçerli teklif gelirse süre {ANTI_SNIPING_EXTEND_SECONDS} saniye uzar.</li>
+              <li>Proxy bid: üst limit belirlenir, sistem minimum artış kadar otomatik karşı teklif verir.</li>
+              <li>Rezerv fiyat: satıcının alt sınırı sağlanmazsa "satılmadı" kapanışı uygulanır.</li>
+              <li>Yedek alıcı: kazananın yükümlülüğü tamamlanmazsa ikinci sıraya geçiş senaryosu çalışır.</li>
+            </ul>
+          </article>
+          <article className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+            <h3 className="text-sm font-semibold" style={{ color: "var(--color-text)" }}>
+              Güvence katmanı
+            </h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm" style={{ color: "var(--color-text-muted)" }}>
+              <li>Escrow: ödeme, devir şartları tamamlanmadan doğrudan aktarılmaz.</li>
+              <li>KYC: yüksek riskli ve yüksek tutarlı işlemler için kimlik doğrulama zorunlu hale gelir.</li>
+              <li>Denetim izi: teklif, onay ve bildirim adımları zaman damgası ile kayıtlanır.</li>
+              <li>Dürüst sınır: hukuki kesinlik yalnızca ilan şartnamesi ve imzalı sözleşme metnindedir.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section className="mb-10 grid gap-4 md:grid-cols-3">
         {[
           {

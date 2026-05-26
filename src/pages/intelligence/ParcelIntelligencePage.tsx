@@ -20,6 +20,7 @@ import { fmtNum, fmtScore } from "@/lib/engineering/formatDisplay";
 import { PreFeasibilityBanner } from "@/components/compliance/PreFeasibilityBanner";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 import { auditSubmissionData } from "@/lib/security/fraudEngine";
+import { LocationIntelligenceWorkbench } from "@/components/location/LocationIntelligenceWorkbench";
 
 function n(s: string, fb: number) {
   const v = Number(String(s).replace(/\s/g, "").replace(",", "."));
@@ -135,10 +136,50 @@ export default function ParcelIntelligencePage() {
         <motion.div className="flex items-center gap-3 mb-4">
           <MapPinned className="w-8 h-8 text-cyan-400" />
           <motion.div>
-            <h1 className="text-2xl font-bold">Ada Parsel İstihbarat (Ön Fizibilite)</h1>
-            <p className="text-sm text-slate-400">EMSAL/TAKS, kat adedi, muteahhit paylasimi</p>
+            <h1 className="text-2xl font-bold md:text-4xl">Bir mülkün gerçek değeri dört duvarından çok çevresidir</h1>
+            <p className="text-sm text-slate-400">Konum zekası + ada/parsel ön fizibilite: katman skorları ve imar ekonomisi tek akışta.</p>
           </motion.div>
         </motion.div>
+
+        <section className="mb-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-3 text-xs text-slate-200">
+            <p className="font-semibold uppercase tracking-[0.12em] text-cyan-200">SES katmanı</p>
+            <p className="mt-1">SEGE + TÜİK proxy mantığıyla gelir/eğitim/meslek bileşenleri.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-slate-200">
+            <p className="font-semibold uppercase tracking-[0.12em] text-emerald-200">POI erişimi</p>
+            <p className="mt-1">Market, okul, hastane, metro, park mesafesi ve yoğunluğu.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-3 text-xs text-slate-200">
+            <p className="font-semibold uppercase tracking-[0.12em] text-violet-200">Eğitim katmanı</p>
+            <p className="mt-1">Okul erişimi, okul yoğunluğu ve bölgesel eğitim düzeyi.</p>
+          </article>
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-slate-200">
+            <p className="font-semibold uppercase tracking-[0.12em] text-amber-200">Güvenlik katmanı</p>
+            <p className="mt-1">Proxy güvenlik göstergeleri ile ön analiz; kesinlik iddiası yok.</p>
+          </article>
+        </section>
+
+        <LocationIntelligenceWorkbench title="Konum/parsel analizi (SES + POI + eğitim + güvenlik)" compact />
+
+        <section className="mb-6 mt-5 grid gap-3 lg:grid-cols-3">
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h2 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Neden konum zekası</h2>
+            <p className="mt-2">
+              Hedonik teoriye göre çevresel katmanlar fiyatın belirleyici kısmını taşır. Aynı parsel alanında bile metro ve
+              eğitim katmanı farklıysa değer çarpanı ciddi değişir.
+            </p>
+          </article>
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h2 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Kime göre</h2>
+            <p className="mt-2">Alıcı: fazla ödeme riskini düşürür. Satıcı: konumsal primi kanıtlar. Yatırımcı: fırsat/risk dengesini filtreler.</p>
+          </article>
+          <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4 text-sm text-cyan-100">
+            <h2 className="text-xs font-black uppercase tracking-[0.12em]">CTA</h2>
+            <p className="mt-2">Konum zekası, imar fizibilitesi ve GES senaryosunu aynı raporda birleştirin.</p>
+            <Button className="mt-3">Değerleme başlat</Button>
+          </article>
+        </section>
 
         <div className="mb-6 flex gap-2 text-xs text-slate-500">
           {[1, 2, 3].map((s) => (
@@ -149,6 +190,14 @@ export default function ParcelIntelligencePage() {
         </div>
 
         <PreFeasibilityBanner />
+
+        <section className="mb-6 mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm text-slate-300">
+          <p className="font-semibold text-slate-100">Örnek</p>
+          <p className="mt-1">
+            Kadıköy 3+1 120m² 8 yaş bir mülkte konum katmanları yüksek geldiğinde pazarlık bandı daralır; düşük güvenlik veya ulaşım
+            skorunda yatırım indirimi ihtiyacı artar. Aynı yaklaşım parsel seçiminde komşuluk kalitesini erken safhada görünür kılar.
+          </p>
+        </section>
 
         {error && <p className="mb-4 text-sm text-red-300">{error}</p>}
 
@@ -225,6 +274,14 @@ export default function ParcelIntelligencePage() {
             </motion.div>
           ) : null}
         </motion.div>
+
+        <section className="mt-8 rounded-xl border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">
+          <p className="font-semibold">Veri kaynağı + dürüst sınır</p>
+          <p className="mt-2">
+            Bu sayfa demo + kamuya açık veri mantığıyla ön analiz üretir. Türkiye'de mahalle suç verisi sınırlı olduğundan güvenlik
+            katmanı proxy+beyan içerir; kesin değildir. Resmi karar için lisanslı uzman, belediye ve resmi kurum doğrulaması gerekir.
+          </p>
+        </section>
       </motion.div>
     </motion.div>
   );

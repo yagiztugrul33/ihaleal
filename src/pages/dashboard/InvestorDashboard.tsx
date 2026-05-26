@@ -94,6 +94,50 @@ export default function InvestorDashboard() {
           </Button>
         }
       >
+        <section className="mb-6 grid gap-4 lg:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <h2 className="text-sm font-semibold text-cyan-100">Neden bu panel?</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              Portföy, teklif, vergi ve risk özetini tek akışta toplar; yatırım kararını modüller arasında bölmez.
+            </p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <h2 className="text-sm font-semibold text-emerald-100">Araç seti</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              AI değerleme, GES, borsa ve deprem modülleri bağlı çalışır.
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2 text-[11px]">
+              <button type="button" onClick={() => navigate("/degerleme")} className="rounded-full border border-emerald-300/50 px-2 py-0.5 text-emerald-100">AI değerleme</button>
+              <button type="button" onClick={() => navigate("/arastirma/ges")} className="rounded-full border border-emerald-300/50 px-2 py-0.5 text-emerald-100">GES</button>
+              <button type="button" onClick={() => navigate("/borsa")} className="rounded-full border border-emerald-300/50 px-2 py-0.5 text-emerald-100">Borsa</button>
+              <button type="button" onClick={() => navigate("/modul/deprem-risk-haritasi")} className="rounded-full border border-emerald-300/50 px-2 py-0.5 text-emerald-100">Deprem</button>
+            </div>
+          </article>
+          <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+            <h2 className="text-sm font-semibold text-violet-100">Örnek senaryo</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              Yatırımcı aynı gün değerleme, deprem ve GES analiziyle fırsatı puanlayıp borsa teklifine geçer.
+            </p>
+          </article>
+        </section>
+        <section className="mb-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <h2 className="text-lg font-bold text-white">Nasıl çalışır?</h2>
+          <div className="mt-3 grid gap-3 md:grid-cols-3 text-sm">
+            <article className="rounded-lg border border-white/10 p-3">
+              <p className="font-semibold text-slate-100">1) Fırsat seçimi</p>
+              <p className="mt-1 text-slate-400">İlanı favoriye al, değerleme/risk katmanını birlikte oku.</p>
+            </article>
+            <article className="rounded-lg border border-white/10 p-3">
+              <p className="font-semibold text-slate-100">2) Senaryo analizi</p>
+              <p className="mt-1 text-slate-400">Getiri, vergi ve konum verisini tek panelde kıyasla.</p>
+            </article>
+            <article className="rounded-lg border border-white/10 p-3">
+              <p className="font-semibold text-slate-100">3) Teklif aksiyonu</p>
+              <p className="mt-1 text-slate-400">Borsa/teklif adımına geç, karar zincirini kayıt altında tut.</p>
+            </article>
+          </div>
+        </section>
+
         {favoriteAuctions.length === 0 ? (
           <EmptyState
             icon={Wallet}
@@ -306,6 +350,38 @@ export default function InvestorDashboard() {
             </section>
           </div>
         )}
+        <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <h3 className="text-lg font-bold text-white">Kazanç / komisyon notu</h3>
+          <p className="mt-2 text-sm text-slate-300">
+            Bu panel yatırım karar desteği üretir; komisyon, vergi ve resmi mali kalemler işlem tipine göre ayrı hesaplanır. Nihai karar ve
+            sözleşme sorumluluğu kullanıcıdadır.
+          </p>
+        </section>
+        <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <h3 className="text-lg font-bold text-white">SSS</h3>
+          <div className="mt-3 grid gap-3 md:grid-cols-3 text-sm">
+            <article>
+              <p className="font-semibold text-slate-100">Bu panel canlı finansal tavsiye üretir mi?</p>
+              <p className="text-slate-400 mt-1">Hayır. Demo/ön analiz çıktısı verir; yatırım kararı kullanıcı sorumluluğundadır.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Deprem ve değerleme skorları bağlı mı?</p>
+              <p className="text-slate-400 mt-1">Evet, karar desteğinde birlikte okunur fakat resmi ekspertizin yerini tutmaz.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">En iyi başlangıç akışı nedir?</p>
+              <p className="text-slate-400 mt-1">Önce değerleme + risk analizi, sonra borsa teklif adımı önerilir.</p>
+            </article>
+          </div>
+        </section>
+        <section className="mt-6 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-5">
+          <h3 className="text-lg font-bold text-cyan-100">CTA</h3>
+          <p className="mt-2 text-sm text-slate-200">Önce değerleme + deprem + GES analizini tamamla, sonra teklif ekranına geç.</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Button size="sm" onClick={() => navigate("/degerleme")}>AI değerleme aç</Button>
+            <Button size="sm" variant="outline" onClick={() => navigate("/borsa")}>Borsa ekranına git</Button>
+          </div>
+        </section>
       </DashboardShell>
     </div>
   );

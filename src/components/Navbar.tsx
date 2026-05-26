@@ -278,7 +278,7 @@ export function Navbar() {
   ];
 
   const companyItems = [
-    { to: ROUTES.KURUMSAL, label: n.corporate },
+    { to: "/hakkimizda", label: n.corporate },
     { to: "/oduller", label: "Ödül & Puan" },
     { to: "/kampanyalar", label: "Kampanyalar" },
     { to: "/uluslararasi", label: "Uluslararası" },

@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Building2, Calculator, FileText, Landmark, MapPinned, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -103,6 +103,27 @@ export default function LandEquityPage() {
             </Button>
           </div>
         </div>
+
+        <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <h2 className="text-sm font-semibold text-cyan-100">Nedir?</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              Kat karşılığı sürecinde pay, komisyon ve hakediş etkilerini tek panelde modelleyen yatırım ön analiz ekranı.
+            </p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <h2 className="text-sm font-semibold text-emerald-100">Yöntem</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              `masterFinancialEngine`, `kkaHakEdisEngine` ve rolling blokaj modeli birlikte değerlendirilir.
+            </p>
+          </article>
+          <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+            <h2 className="text-sm font-semibold text-violet-100">Dürüst sınır</h2>
+            <p className="mt-2 text-xs leading-relaxed text-slate-200">
+              Bu ekran demo/ön analizdir; resmi sözleşme, imar ve mali onay olmadan bağlayıcı karar üretilmez.
+            </p>
+          </article>
+        </section>
 
         <Card className="border-amber-500/25 bg-amber-500/5">
           <CardContent className="p-4 text-xs text-amber-100/90">
@@ -287,6 +308,27 @@ export default function LandEquityPage() {
             </div>
           </CardContent>
         </Card>
+
+        <section className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <h2 className="text-lg font-semibold text-white">Örnek senaryo + SSS</h2>
+          <p className="mt-2 text-sm text-slate-300">
+            Örnek: 8M TL rayiçte tek emlakçı senaryosunda havuz dağılımı, hakediş blokajı ve taraf yükü birlikte okunur.
+          </p>
+          <div className="mt-4 grid gap-3 md:grid-cols-3 text-sm">
+            <article>
+              <p className="font-semibold text-slate-100">İlk adım ne olmalı?</p>
+              <p className="mt-1 text-slate-400">Önce KKA Studio ile parsel/imar kontrolü, sonra havuz hesabı.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Canlı kararda tek başına yeterli mi?</p>
+              <p className="mt-1 text-slate-400">Hayır. Hukuk, mühendislik ve mali müşavir onayı zorunludur.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">By-pass nasıl engellenir?</p>
+              <p className="mt-1 text-slate-400">İşlem bazlı kayıtlı akış ve sözleşme şartlarıyla platform dışı kısa yol azaltılır.</p>
+            </article>
+          </div>
+        </section>
 
         <p className="text-[11px] text-slate-500">
           Sözleşme taslağı: repoda <code className="text-slate-400">docs/hukuk/KKA_SOZLESME_VE_KAZANC_PLANI_TASLAK.md</code>.

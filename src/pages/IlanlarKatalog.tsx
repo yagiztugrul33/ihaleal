@@ -285,9 +285,13 @@ export default function IlanlarKatalog() {
           <p className="ilan-katalog__sponsored-note">{SPONSORED_DISCLOSURE}</p>
         </section>
       ) : null}
-      <section className="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-2.5 mb-3">
-        <p className="text-xs uppercase tracking-[0.12em] text-cyan-300">Konum Fırsat Radarı</p>
-        <p className="text-sm text-slate-200">Yakınımdaki Fırsatlar görünümü aktif. Konum izni verildiğinde yakın ilanlar otomatik sıralanır.</p>
+      <section className="mb-3 rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-3">
+        <p className="text-xs uppercase tracking-[0.12em] text-cyan-300">Konum Fırsat Radarı · Demo</p>
+        <h2 className="mt-1 text-lg font-bold text-slate-100">Yakındaki fırsatları tek panelde yakala</h2>
+        <p className="mt-1 text-sm text-slate-200">
+          Konum + ihale + devren fırsatları aynı radar ekranında birleşir. Mobil fazda push akışıyla e-posta trafiğine göre
+          daha hızlı geri dönüş hedeflenir; KVKK kapsamında izin yönetimi zorunludur.
+        </p>
       </section>
       <OpportunityRadar properties={filtered} />
       {compareItems.length > 0 ? (

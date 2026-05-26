@@ -12,6 +12,7 @@ import { getDefaultTaxSimulatorDeps } from "@/lib/tax/demoDeps";
 import { mergeYiUfeRecords } from "@/lib/tax/mergeYiUfeRecords";
 import { fetchYiUfeFromTcmbEdge } from "@/lib/tax/tcmbYiUfeClient";
 import type { YiUfeRecord } from "@/lib/tax/TaxSimulatorService";
+import { calculatePropertyTax } from "@/lib/calculators/propertyTaxEngine";
 
 export default function TaxSimulatorPage() {
   const [purchaseYm, setPurchaseYm] = useState("2021-06");
@@ -71,6 +72,20 @@ export default function TaxSimulatorPage() {
     }
   }, [purchaseYm, buyTry, saleTry, area, firstRes, deps]);
 
+  const quickTax = useMemo(() => {
+    const buy = Math.max(0, Number(String(buyTry).replace(/\D/g, "")) || 0);
+    const sale = Math.max(0, Number(String(saleTry).replace(/\D/g, "")) || 0);
+    const [y, m] = purchaseYm.split("-").map(Number);
+    const [cy, cm] = (deps.currentDate || "2026-05").split("-").map(Number);
+    const months = Number.isFinite(y) && Number.isFinite(m) ? (cy - y) * 12 + (cm - m) : 0;
+    const years = Math.max(0, Math.floor(months / 12));
+    return calculatePropertyTax({
+      purchasePriceTry: buy,
+      salePriceTry: sale,
+      holdingYears: years,
+    });
+  }, [buyTry, saleTry, purchaseYm, deps.currentDate]);
+
   return (
     <div className="container max-w-3xl py-10 px-4 space-y-6">
       <div className="flex items-center gap-3">
@@ -84,6 +99,18 @@ export default function TaxSimulatorPage() {
           </p>
         </div>
       </div>
+
+      <section className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4 text-sm">
+        <h2 className="font-semibold text-cyan-100">Gerçek formül özeti</h2>
+        <p className="mt-2 text-slate-200">
+          Tapu harcı = satış fiyatı × %4 (alıcı %2 + satıcı %2). Değer artış kazancı = satış - alış; 5 yıl üstünde kazanç
+          vergisi istisna, altında örnek alt dilim %15 yaklaşımı.
+        </p>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          <p className="text-slate-100">Tapu toplam: <strong data-testid="tax-deed-total">{quickTax.deedDutyTotalTry.toLocaleString("tr-TR")} TL</strong></p>
+          <p className="text-slate-100">Değer artış vergisi: <strong data-testid="tax-gain-tax">{quickTax.capitalGainTaxTry.toLocaleString("tr-TR")} TL</strong></p>
+        </div>
+      </section>
 
       <section className="grid gap-3 md:grid-cols-3">
         <article className="rounded-xl border border-border bg-card p-3">
@@ -209,9 +236,23 @@ export default function TaxSimulatorPage() {
               </ul>
             )}
             <p className="text-xs text-muted-foreground">{result.disclaimer}</p>
+            <p className="text-xs text-muted-foreground">
+              Dürüst sınır: Kesin vergi için mali müşavir/YMM görüşü alın; bu ekran karar desteği içindir.
+            </p>
           </CardContent>
         </Card>
       )}
+
+      <section className="rounded-xl border border-border bg-card p-4 text-sm">
+        <p>
+          Örnek: Aynı alış/satış girdisini değiştirince tapu harcı ve değer artış kazancı vergisi otomatik değişir; sabit sonuç
+          üretmez.
+        </p>
+        <p className="mt-2">
+          CTA: Sonraki adım olarak <Link to="/komisyon-hesaplayici" className="text-primary hover:text-foreground">komisyon hesaplayıcı</Link> ve{" "}
+          <Link to="/modul/yatirim-onerisi" className="text-primary hover:text-foreground">yatırım önerisi</Link> ile birleşik net hesabı kurun.
+        </p>
+      </section>
     </div>
   );
 }

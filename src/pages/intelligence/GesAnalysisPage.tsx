@@ -1,236 +1,76 @@
-import { useMemo, useState } from "react";
+import { ArrowLeft, ArrowRight, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Calculator, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { fetchPvgisSolar } from "@/lib/data/pvgisClient";
-import type { PvgisSolarResponse } from "@/lib/data/pvgisTypes";
-import {
-  safeCalculateGesFeasibility,
-  buildGesPrefeasibilityReport,
-  type GesFeasibilityResult,
-} from "@/lib/engineering";
-import { fmtNum, fmtPct, fmtScore } from "@/lib/engineering/formatDisplay";
-import { PreFeasibilityBanner } from "@/components/compliance/PreFeasibilityBanner";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
-
-function num(s: string, fallback: number): number {
-  const n = Number(String(s).replace(/\s/g, "").replace(",", "."));
-  return Number.isFinite(n) ? n : fallback;
-}
+import { GesIntelligenceWorkbench } from "@/components/energy/GesIntelligenceWorkbench";
 
 export default function GesAnalysisPage() {
-  const [dcKwp, setDcKwp] = useState("5000");
-  const [ghi, setGhi] = useState("1780");
-  const [landM2, setLandM2] = useState("100000");
-  const [price, setPrice] = useState("2.8");
-  const [capexPerKwp, setCapexPerKwp] = useState("12000");
-  const [discount, setDiscount] = useState("10");
-  const [lat, setLat] = useState("37.87");
-  const [lon, setLon] = useState("32.49");
-  const [pvgisNote, setPvgisNote] = useState<string | null>(null);
-  const [pvgisPayload, setPvgisPayload] = useState<PvgisSolarResponse | null>(null);
-  const [fetchingPvgis, setFetchingPvgis] = useState(false);
-  const [result, setResult] = useState<GesFeasibilityResult | null>(null);
-  const [calcError, setCalcError] = useState("");
-
-  const loadPvgis = async () => {
-    setFetchingPvgis(true);
-    setPvgisNote(null);
-    setPvgisPayload(null);
-    try {
-      const data = await fetchPvgisSolar({ lat: num(lat, 37.87), lon: num(lon, 32.49), tiltDeg: 25 });
-      if (data) {
-        setGhi(String(Math.round(data.annualIrradiationKwhM2)));
-        const monthly = data.monthly.map((m) => m.H_i_m ?? m.E_m);
-        setPvgisPayload({
-          source: "pvgis_live",
-          lat: data.lat,
-          lon: data.lon,
-          tiltDeg: data.tilt,
-          annualIrradiationKwhM2: data.annualIrradiationKwhM2,
-          monthlyIrradiationKwhM2: monthly,
-          fetchedAt: new Date().toISOString(),
-          providerAvailable: true,
-        });
-        setPvgisNote(`PVGIS: ${data.source}`);
-      } else {
-        setPvgisNote("PVGIS ulasilamadi — manuel GHI ve mevsimsel profil kullanilir.");
-      }
-    } finally {
-      setFetchingPvgis(false);
-    }
-  };
-
-  const run = () => {
-    setCalcError("");
-    try {
-    setResult(
-      safeCalculateGesFeasibility({
-        landAreaM2: num(landM2, 100000),
-        dcCapacityKwp: num(dcKwp, 5000),
-        annualGhiKwhM2: num(ghi, 1780),
-        pvgis: pvgisPayload,
-        electricityPriceTryPerKwh: num(price, 2.5),
-        capexTryPerKwp: num(capexPerKwp, 12000),
-        annualOpexTry: num(dcKwp, 5000) * 120,
-        discountRatePct: num(discount, 10),
-        projectYears: 25,
-      }),
-    );
-    } catch {
-      setCalcError("Hesaplama tamamlanamadi.");
-      setResult(null);
-    }
-  };
-
-  const downloadReport = () => {
-    if (!result) return;
-    const md = buildGesPrefeasibilityReport(
-      {
-        enlem: lat,
-        boylam: lon,
-        arazi_m2: landM2,
-        dc_kwp: dcKwp,
-        ghi: ghi,
-        veri: result.dataSource,
-      },
-      result,
-    );
-    const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "ges-on-fizibilite.md";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const scores = useMemo(
-    () =>
-      result
-        ? {
-            suitability: result.suitabilityScore,
-            investment: result.investmentScore,
-            risk: result.riskScore,
-          }
-        : null,
-    [result],
-  );
-
   return (
-    <motion.div className="min-h-screen pt-24 pb-16">
-      <motion.div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-blue-950/50 to-transparent pointer-events-none" aria-hidden />
-      <motion.div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+    <motion.main className="min-h-screen pb-16 pt-24 text-white" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-400">
           <Link to={INTELLIGENCE_HUB_PATH}>
-            <ArrowLeft className="w-4 h-4 mr-1" /> Arastirma
+            <ArrowLeft className="mr-1 h-4 w-4" /> Arastirma
           </Link>
         </Button>
-        <motion.div className="flex items-center gap-3 mb-4">
-          <motion.div className="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10">
-            <Sun className="w-5 h-5 text-amber-300" />
-          </motion.div>
-          <motion.div>
-            <h1 className="text-2xl font-bold text-white">GES mühendislik analizi</h1>
-            <p className="text-sm text-slate-400">Ön fizibilite — NPV, IRR, LCOE (bankable değil)</p>
-          </motion.div>
-        </motion.div>
-        <PreFeasibilityBanner className="mb-6 text-amber-100" />
-        {calcError ? <p className="mb-4 text-sm text-red-300">{calcError}</p> : null}
-        {result?.dataSource === "ghi_annual_fallback" ? (
-          <p className="mb-4 text-xs text-amber-200/90">PVGIS aylik veri yok — GHI uzerinden mevsimsel profil kullanildi.</p>
-        ) : null}
-        {pvgisNote && !result ? <p className="mb-4 text-xs text-amber-200/80">{pvgisNote}</p> : null}
-        <motion.div className="grid lg:grid-cols-2 gap-8">
-          <Card className="card-luxury border-white/10">
-            <CardContent className="p-6 space-y-4">
-              <motion.div className="grid grid-cols-2 gap-4">
-                <motion.div className="col-span-2">
-                  <Label>Enlem / Boylam</Label>
-                  <motion.div className="grid grid-cols-2 gap-2 mt-1">
-                    <Input value={lat} onChange={(e) => setLat(e.target.value)} />
-                    <Input value={lon} onChange={(e) => setLon(e.target.value)} />
-                  </motion.div>
-                  <Button type="button" variant="outline" size="sm" className="mt-2 w-full" onClick={loadPvgis} disabled={fetchingPvgis}>
-                    {fetchingPvgis ? "PVGIS..." : "PVGIS ile GHI doldur"}
-                  </Button>
-                  {pvgisNote ? <p className="text-[10px] text-slate-500 mt-1">{pvgisNote}</p> : null}
-                </motion.div>
-                <motion.div>
-                  <Label>DC kWp</Label>
-                  <Input value={dcKwp} onChange={(e) => setDcKwp(e.target.value)} className="mt-1" />
-                </motion.div>
-                <motion.div>
-                  <Label>GHI</Label>
-                  <Input value={ghi} onChange={(e) => setGhi(e.target.value)} className="mt-1" />
-                </motion.div>
-                <motion.div>
-                  <Label>Arazi m2</Label>
-                  <Input value={landM2} onChange={(e) => setLandM2(e.target.value)} className="mt-1" />
-                </motion.div>
-                <motion.div>
-                  <Label>Fiyat TRY/kWh</Label>
-                  <Input value={price} onChange={(e) => setPrice(e.target.value)} className="mt-1" />
-                </motion.div>
-                <motion.div>
-                  <Label>CAPEX/kWp</Label>
-                  <Input value={capexPerKwp} onChange={(e) => setCapexPerKwp(e.target.value)} className="mt-1" />
-                </motion.div>
-                <motion.div>
-                  <Label>Iskonto %</Label>
-                  <Input value={discount} onChange={(e) => setDiscount(e.target.value)} className="mt-1" />
-                </motion.div>
-              </motion.div>
-              <Button className="btn-primary w-full gap-2" onClick={run}>
-                <Calculator className="w-4 h-4" /> Analiz
-              </Button>
-            </CardContent>
-          </Card>
-          {result && scores ? (
-            <motion.div className="space-y-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-              <motion.div className="grid grid-cols-3 gap-3">
-                {(
-                  [
-                    ["Uygunluk", scores.suitability],
-                    ["Yatirim", scores.investment],
-                    ["Risk", scores.risk],
-                  ] as const
-                ).map(([l, v]) => (
-                  <motion.div key={l} className="card-luxury p-4 text-center">
-                    <p className="text-[10px] text-slate-500">{l}</p>
-                    <p className="text-2xl font-bold text-cyan-300">{fmtScore(v)}</p>
-                  </motion.div>
-                ))}
-              </motion.div>
-              <Card className="card-luxury">
-                <CardContent className="p-5 text-sm text-slate-300 space-y-2">
-                  <p>
-                    Yillik: <strong>{fmtNum(result.annualProductionKwh)} kWh</strong>
-                  </p>
-                  <p>
-                    NPV: <strong>{fmtNum(result.npvTry, { suffix: " TRY" })}</strong>
-                  </p>
-                  <p>
-                    IRR: <strong>{fmtPct(result.irrPct)}</strong>
-                  </p>
-                  <p>
-                    LCOE: <strong>{fmtNum(result.lcoeTryPerKwh, { digits: 2, suffix: " TRY/kWh" })}</strong>
-                  </p>
-                  <p className="text-[10px] text-slate-500">Veri: {result.dataSource} | Guven: {result.confidence}</p>
-                </CardContent>
-              </Card>
-              <Button variant="outline" className="w-full" onClick={downloadReport}>
-                Ön fizibilite raporu indir
-              </Button>
-              <p className="text-[10px] text-slate-500">{result.limitations[result.limitations.length - 1]}</p>
-            </motion.div>
-          ) : null}
-        </motion.div>
-      </motion.div>
-    </motion.div>
+
+        <header className="rounded-2xl border border-amber-500/35 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 p-6 md:p-8">
+          <p className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-200">
+            <Sun className="h-3.5 w-3.5" /> GES AR-GE analiz laboratuvarı
+          </p>
+          <h1 className="mt-3 text-3xl font-black leading-tight md:text-5xl">GES arazi kararını katmanlı finans + saha zekasıyla verin</h1>
+          <p className="mt-3 max-w-4xl text-sm text-slate-300 md:text-base">
+            Solar fizibilite, siting koşulları, NPV/IRR/LCOE finans modeli ve TR mevzuat katmanı tek motor içinde birleşir.
+            Çıktı demo veri / ön analiz niteliğindedir.
+          </p>
+        </header>
+
+        <section className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+            <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-200">Solar fizibilite</p>
+            <p className="mt-2 text-sm text-slate-200">GHI, üretim tahmini ve 10 dönüm ≈ 1 MWp ölçek uyumu.</p>
+          </article>
+          <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Siting</p>
+            <p className="mt-2 text-sm text-slate-200">Eğim, trafo/şebeke mesafesi ve imar uygunluğu.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <p className="text-xs font-black uppercase tracking-[0.12em] text-emerald-200">Finansal</p>
+            <p className="mt-2 text-sm text-slate-200">NPV (DCF), IRR, LCOE, payback ve CAPEX dinamikleri.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+            <p className="text-xs font-black uppercase tracking-[0.12em] text-violet-200">TR mevzuat</p>
+            <p className="mt-2 text-sm text-slate-200">5 MW lisanssız, 5.1.h, saatlik mahsuplaşma 2026, %1 KDV referansı.</p>
+          </article>
+        </section>
+
+        <GesIntelligenceWorkbench title="GES fizibilite motorunu çalıştır" />
+
+        <section className="mt-5 grid gap-3 lg:grid-cols-3">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-amber-200">NPV / IRR / LCOE</h3>
+            <p className="mt-2">NPV &gt; 0 proje değeri üretir, IRR iskonto oranını aşmalı, LCOE satış fiyatının altında kalmalıdır.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-amber-200">Örnek</h3>
+            <p className="mt-2">10 dönüm ≈ 1 MWp senaryosunda doğru GHI ve şebeke erişimi ile geri ödeme bandı ~5 yıl civarına yaklaşabilir.</p>
+          </article>
+          <article className="rounded-lg border border-amber-500/35 bg-amber-500/10 p-3 text-sm text-amber-100">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em]">Dürüst sınır</h3>
+            <p className="mt-2">Bankable fizibilite değildir; lisanslı mühendislik, şebeke görüşü ve resmi süreçler zorunludur.</p>
+          </article>
+        </section>
+
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
+          <p className="text-sm text-amber-100">Katman skorunu modül görünümünde yönetici paneli formatında paylaşın.</p>
+          <Button asChild className="bg-amber-300 text-slate-900 hover:bg-amber-200">
+            <Link to="/modul/ges-analizi">
+              Modül görünümünü aç <ArrowRight className="ml-1.5 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </motion.main>
   );
 }

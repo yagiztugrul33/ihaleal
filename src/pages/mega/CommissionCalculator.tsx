@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calculator, Shield } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,6 +13,9 @@ import {
   VAT_RATE,
   REALTOR_B2B_RATE,
   SELLER_COMMISSION_RATE,
+  COMMISSION_RATE,
+  BID_BOND_RATE,
+  WITHDRAWAL_PENALTY_RATE,
 } from "@/lib/fees";
 import { distributeLandEquityCommission } from "@/lib/masterFinancialEngine";
 import { LAND_SHARE_TOTAL_EX_VAT_RATE } from "@/lib/commission/engine";
@@ -70,6 +73,13 @@ export default function CommissionCalculator() {
     () => calcCommissionBreakdown(saleAmount, mahsupMembership, serviceSum, REALTOR_B2B_RATE),
     [saleAmount, mahsupMembership, serviceSum],
   );
+  const buyerCommission = saleAmount * COMMISSION_RATE;
+  const sellerCommission = saleAmount * SELLER_COMMISSION_RATE;
+  const buyerCommissionVat = buyerCommission * VAT_RATE;
+  const sellerCommissionVat = sellerCommission * VAT_RATE;
+  const bidBond = saleAmount * BID_BOND_RATE;
+  const withdrawalPenalty = saleAmount * WITHDRAWAL_PENALTY_RATE;
+  const commissionTotalWithVat = buyerCommission + sellerCommission + buyerCommissionVat + sellerCommissionVat;
 
   const rentAmount = Math.max(0, Number(String(rentStr).replace(/\D/g, "")) || 0);
   const loanPrincipal = Math.max(0, Number(String(loanPrincipalStr).replace(/\D/g, "")) || 0);
@@ -184,6 +194,42 @@ export default function CommissionCalculator() {
                   Bu ekran yalnızca komisyon matematığını gösterir; havuz hesabı ve ödeme sağlayıcı entegrasyonu üretimde tanımlanır.
                 </p>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6 border-emerald-500/25 bg-emerald-950/20">
+            <CardContent className="p-5 space-y-3">
+              <h2 className="text-lg font-semibold text-white">Temel komisyon/teminat hesabı (gerçek formül)</h2>
+              <p className="text-xs text-slate-300">
+                Satıcı %{(SELLER_COMMISSION_RATE * 100).toFixed(0)} + alıcı %{(COMMISSION_RATE * 100).toFixed(0)} + KDV %{(VAT_RATE * 100).toFixed(0)}.
+                Teminat blokajı %{(BID_BOND_RATE * 100).toFixed(0)}. Cayma cezası örnek oranı %{(WITHDRAWAL_PENALTY_RATE * 100).toFixed(0)}.
+              </p>
+              <dl className="grid gap-2 text-sm md:grid-cols-2">
+                <div className="flex justify-between text-slate-300"><dt>Satıcı komisyonu</dt><dd>₺{Math.round(sellerCommission).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>Satıcı komisyon KDV</dt><dd>₺{Math.round(sellerCommissionVat).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>Alıcı komisyonu</dt><dd>₺{Math.round(buyerCommission).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>Alıcı komisyon KDV</dt><dd>₺{Math.round(buyerCommissionVat).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-amber-300"><dt>%5 teminat blokajı</dt><dd data-testid="commission-bid-bond">₺{Math.round(bidBond).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-rose-300"><dt>Cayma cezası (örnek)</dt><dd data-testid="commission-withdrawal-penalty">₺{Math.round(withdrawalPenalty).toLocaleString("tr-TR")}</dd></div>
+              </dl>
+              <p className="text-[11px] text-slate-500">
+                Dürüst sınır: tapu harcı, resmi vergiler ve özel durumlar bu blok dışında ayrıca hesaplanır; nihai hesap için mali müşavir desteği gerekir.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6 border-cyan-500/20 bg-cyan-950/20">
+            <CardContent className="p-5 space-y-2">
+              <h2 className="text-lg font-semibold text-cyan-100">Örnek hesap (anlık güncellenir)</h2>
+              <p className="text-sm text-slate-300">
+                İşlem tutarı <strong>₺{saleAmount.toLocaleString("tr-TR")}</strong> için toplam komisyon+KDV yükü yaklaşık{" "}
+                <strong data-testid="commission-total-with-vat">₺{Math.round(commissionTotalWithVat).toLocaleString("tr-TR")}</strong>,
+                teminat blokajı <strong>₺{Math.round(bidBond).toLocaleString("tr-TR")}</strong>, cayma cezası örneği{" "}
+                <strong>₺{Math.round(withdrawalPenalty).toLocaleString("tr-TR")}</strong> olur.
+              </p>
+              <p className="text-[11px] text-slate-500">
+                Not: Tapu harcı, gelir vergisi, damga vergisi ve sözleşmeye özel kalemler ayrıca değerlendirilmelidir.
+              </p>
             </CardContent>
           </Card>
 

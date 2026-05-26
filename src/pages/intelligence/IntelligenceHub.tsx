@@ -1,26 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Building2,
-  Map,
-  Sun,
-  Shield,
-  Radar,
-  Zap,
-  RefreshCw,
-  Banknote,
-} from "lucide-react";
+import { ArrowRight, Banknote, Building2, Map, Radar, RefreshCw, Shield, Sun, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  GES_ANALYSIS_PATH,
-  PARCEL_INTELLIGENCE_PATH,
-  WAR_ROOM_PATH,
-} from "@/lib/intelligenceHub";
+import { GES_ANALYSIS_PATH, PARCEL_INTELLIGENCE_PATH, WAR_ROOM_PATH } from "@/lib/intelligenceHub";
 import { KKA_STUDIO_PATH } from "@/lib/kkaHub";
 import { IBUYER_PATH } from "@/lib/ibuyerHub";
 import { ROUTES } from "@/constants/routes";
+import { LocationIntelligenceWorkbench } from "@/components/location/LocationIntelligenceWorkbench";
 
 const TICKER_EVENTS = [
   "Remax Boss → Peşinat takaslı işlem doğrulandı",
@@ -113,33 +100,83 @@ export default function IntelligenceHub() {
     <motion.div className="min-h-screen bg-[#030712] text-white pt-24 pb-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <motion.div className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-gradient-to-b from-red-950/25 via-blue-950/20 to-transparent" aria-hidden />
       <motion.div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div className="mb-10 max-w-3xl">
+        <motion.div className="mb-8 max-w-4xl">
           <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-red-400/90 mb-3">Remax Borsa Global</p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Araştırma ve İstihbarat Terminali</h1>
-          <p className="text-slate-200 mt-4 text-lg leading-relaxed">
-            iBuyer, takas, GES ve parsel masaları tek çatı altında. Sonuçlar ön fizibilite niteliğindedir; resmi rapor ve lisanslı onay gerektirir.
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight">Bir mülkün gerçek değeri dört duvarından çok çevresidir</h1>
+          <p className="text-slate-200 mt-4 text-base leading-relaxed sm:text-lg">
+            Konum zekası katmanlarıyla mahalleyi satır satır çözümleriz: SES, erişilebilirlik, eğitim ve güvenlik sinyalleri ağırlıklı
+            birleşik skora dönüşür. Sonuçlar demo veri / ön analiz niteliğindedir.
           </p>
           <motion.div className="mt-6 flex flex-wrap gap-2">
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">400 puan hukuk skoru</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Çapraz ofis komisyon</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Formül izlenebilirliği</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">SEGE + TÜİK mantığı</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Walk Score yaklaşımı</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Açıklanabilir katman katkısı</span>
           </motion.div>
         </motion.div>
 
         <LiveTicker />
 
+        <section className="mb-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <h2 className="text-sm font-black uppercase tracking-[0.16em] text-cyan-200">Neden konum zekası</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-200">
+            Hedonik teoriye göre fiyatın önemli kısmı çevresel kalite, erişim ve komşuluk yapısından gelir. Bu yüzden yalnızca metrekare
+            değil, çevre katmanlarının birlikte okunması gerekir. Bu terminal, Palantir tarzı katman birleştirme yaklaşımıyla ön karar
+            üretmek için tasarlandı.
+          </p>
+        </section>
+
         <section className="mb-8 grid gap-4 md:grid-cols-3">
           <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">Veri Katmanı</p>
-            <p className="mt-1 text-xs text-slate-300">Modüller fiyat, risk, saha ve mevzuat sinyallerini tek terminal mantığında toplar.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">SES (SEGE + TÜİK proxy)</p>
+            <p className="mt-1 text-xs text-slate-300">Gelir, eğitim, meslek yapısı ve gelişmişlik sinyaliyle mahalle sosyoekonomik skoru.</p>
           </article>
           <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">Karar Katmanı</p>
-            <p className="mt-1 text-xs text-slate-300">Her modül aksiyon çıktısı verir: teklif, izleme, rapor veya uzman inceleme yönlendirmesi.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">POI / erişilebilirlik</p>
+            <p className="mt-1 text-xs text-slate-300">Market, okul, hastane, metro, park mesafesi ve yoğunluğu. Toplu taşıma en güçlü faktör.</p>
           </article>
           <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">Uyum Katmanı</p>
-            <p className="mt-1 text-xs text-slate-300">Demo çıktıları nihai karar değildir; hukuki, teknik ve finansal uzman onayıyla tamamlanır.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">Eğitim + güvenlik</p>
+            <p className="mt-1 text-xs text-slate-300">Okul erişimi ve bölgesel eğitim seviyesi ile proxy güvenlik göstergeleri birleşik okunur.</p>
+          </article>
+        </section>
+
+        <LocationIntelligenceWorkbench title="Konum/parsel gir, katman skorlarını üret" compact />
+
+        <section className="mt-8 grid gap-4 lg:grid-cols-2">
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+            <h3 className="text-xs font-black uppercase tracking-[0.14em] text-cyan-200">Örnek analiz (demo)</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-200">
+              Kadıköy 3+1, metro mesafesi 350m, okul yoğunluğu 17 ve risk proxy 33 olduğunda birleşik skor güçlü bandda oluşur.
+              Aynı girdide metro mesafesi 1.8km ve risk proxy 58'e çıktığında skor aşağı gelir. Bu fark, fiyat pazarlığında
+              konumsal primin ne kadar korunacağını görünür kılar.
+            </p>
+          </article>
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+            <h3 className="text-xs font-black uppercase tracking-[0.14em] text-amber-100">Veri kaynağı + dürüst sınır</h3>
+            <p className="mt-2 text-sm leading-relaxed text-amber-50">
+              Demo veri / ön analiz katmanı, kamuya açık göstergelerden türetilen proxy yaklaşımı kullanır. Canlıda kesin karar
+              için TÜİK, SEGE ve resmi kurum entegrasyonları ile yerel saha doğrulaması zorunludur.
+            </p>
+            <Button asChild className="mt-3 bg-amber-300 text-slate-900 hover:bg-amber-200">
+              <Link to={PARCEL_INTELLIGENCE_PATH}>
+                Konum zekası başlat <ArrowRight className="ml-1.5 h-4 w-4" />
+              </Link>
+            </Button>
+          </article>
+        </section>
+
+        <section className="my-8 grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Alıcı için</h3>
+            <p className="mt-2">Yaşam kalitesi ile fiyat dengesini karşılaştırır; aşırı fiyatlanmış bölgeleri erken işaretler.</p>
+          </article>
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Satıcı için</h3>
+            <p className="mt-2">Çevresel güçlü yönleri netleştirir; rezerv fiyat ve pazarlama argümanı için veri sağlar.</p>
+          </article>
+          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Yatırımcı için</h3>
+            <p className="mt-2">Yaşanabilirlik ve yatırım puanını ayrıştırır; kısa/orta vadeli fırsat filtresi üretir.</p>
           </article>
         </section>
 
@@ -172,7 +209,9 @@ export default function IntelligenceHub() {
         <motion.div className="mt-12 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 flex gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
           <Shield className="w-5 h-5 text-amber-300 shrink-0" />
           <p className="text-xs text-slate-200 leading-relaxed">
-            Kesinlikle yatırım tavsiyesi değildir. Girdilere dayalı ön fizibilitedir. PVGIS doğrulanmış ışınım, resmi imar durumu ve TEİAŞ/EDAŞ başvurusu olmadan yatırım kararı alınmamalıdır.
+            Veri kaynağı ve dürüst sınır: Bu ekran demo + kamuya açık veri mantığıyla ön analiz üretir. Canlı sürümde TÜİK/SEGE ve resmi
+            kurum entegrasyonları tamamlanmadan kesin karar verilmemelidir. Türkiye'de mahalle suç verisi sınırlı olduğu için güvenlik
+            katmanı proxy+beyan içerir; kesin değildir.
           </p>
         </motion.div>
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Bot, HelpCircle, Home, KeyRound, MessageCircle, Send, Sparkles, User, X } from "lucide-react";
+import { Bot, HelpCircle, MessageCircle, Send, Sparkles, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AiAssistantAvatar } from "@/components/AiAssistantAvatar";
 import { buildAssistantReply, CHAT_GUIDE_CHIPS } from "@/lib/ai/assistantEngine";
@@ -52,7 +52,6 @@ export function ChatWidget() {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const [peek, setPeek] = useState(false);
   const [chatMode, setChatMode] = useState<ChatMode>(() => readStoredChatMode());
   const [messages, setMessages] = useState<ChatMessage[]>([
     { role: "ai", text: readStoredChatMode() === "qa" ? QA_INTRO : GUIDE_INTRO, actions: [{ label: "İlanlara geç", to: "/ilanlar" }] },
@@ -66,22 +65,12 @@ export function ChatWidget() {
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
-  const peekTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
-  useEffect(
-    () => () => {
-      if (peekTimer.current) clearTimeout(peekTimer.current);
-    },
-    [],
-  );
-
   useEffect(() => {
-    if (peekTimer.current) clearTimeout(peekTimer.current);
-    setPeek(false);
     setOpen(false);
   }, [location.pathname, location.search]);
 
@@ -97,7 +86,6 @@ export function ChatWidget() {
 
   const openPanel = (mode: ChatMode) => {
     applyChatMode(mode);
-    setPeek(false);
     setOpen(true);
   };
 
@@ -149,57 +137,27 @@ export function ChatWidget() {
   return (
     <>
       {!open ? (
-        <div
-          className={`fixed right-6 z-50 flex flex-col items-end gap-3 ${isBorsaRoute ? "bottom-16" : "bottom-6"}`}
-          onMouseEnter={() => {
-            if (peekTimer.current) clearTimeout(peekTimer.current);
-            peekTimer.current = setTimeout(() => setPeek(true), 120);
-          }}
-          onMouseLeave={() => {
-            if (peekTimer.current) clearTimeout(peekTimer.current);
-            setPeek(false);
-          }}
-        >
-          {peek ? (
-            <div className="chat-widget-pop w-[min(380px,calc(100vw-1.5rem))] rounded-2xl border border-cyan-500/30 bg-slate-950/95 p-4 shadow-2xl shadow-black/50">
-              <div className="mb-3 flex items-center gap-3">
-                <AiAssistantAvatar size="sm" />
-                <div>
-                  <p className="text-sm font-bold text-white">{ASSISTANT_NAME}</p>
-                  <p className="text-[11px] text-cyan-200">{isBorsaRoute ? "Borsa Uzmanı · canlı yönlendirir" : "İş yapan asistan · yönlendirir"}</p>
-                </div>
-              </div>
-              <p className="text-xs leading-relaxed text-slate-300">{liveIntro}</p>
-            </div>
-          ) : null}
-
-          <div className="relative">
-            <span className="pointer-events-none absolute -inset-2 rounded-full border border-cyan-400/45 motion-safe:animate-pulse" />
-            <button
-              type="button"
-              onClick={() => openPanel("guide")}
-              className="relative flex h-16 items-center gap-3 rounded-full border border-cyan-400/45 bg-slate-950/95 pl-3 pr-5 text-cyan-100 shadow-xl shadow-black/45 transition hover:border-cyan-300/70"
-              aria-label={`${ASSISTANT_NAME} sohbet`}
-            >
-              <AiAssistantAvatar size="md" className="ring-1 ring-black/30 shadow-inner" />
-              <div className="hidden sm:block text-left">
-                <p className="text-sm font-semibold">{ASSISTANT_NAME}</p>
-                <p className="text-[11px] text-cyan-200/90">{isBorsaRoute ? "Borsa Uzmanı / strateji / hukuk" : "Beyin / rehber / uzman"}</p>
-              </div>
-              <MessageCircle className="h-5 w-5 sm:hidden" aria-hidden />
-            </button>
-          </div>
-
-          <div className="max-w-[390px] rounded-xl border border-cyan-500/30 bg-slate-950/95 px-4 py-3 text-xs leading-relaxed text-slate-200 shadow-lg shadow-cyan-950/30">
-            <p className="inline-flex items-center gap-1.5 font-semibold text-cyan-200">
-              <Home className="h-3.5 w-3.5" /> <KeyRound className="h-3.5 w-3.5" /> <Bot className="h-3.5 w-3.5" />
-              {isBorsaRoute ? "İhaleAI — Borsa Uzmanı" : "Ben İhaleAI"}
-            </p>
-            <p className="mt-1">{isBorsaRoute ? BORSA_INTRO : GUIDE_INTRO}</p>
-          </div>
+        <div className={`fixed z-[120] flex flex-col items-end ${isBorsaRoute ? "bottom-20 sm:bottom-6" : "bottom-20 sm:bottom-6"} right-4 sm:right-5`}>
+          <button
+            type="button"
+            onClick={() => openPanel("guide")}
+            className="group relative inline-flex h-14 w-14 items-center justify-center rounded-full border border-cyan-400/55 bg-slate-950/95 text-cyan-100 shadow-xl shadow-black/45 transition hover:-translate-y-0.5 hover:border-cyan-300/80"
+            aria-label={`${ASSISTANT_NAME} sohbet`}
+          >
+            <span className="pointer-events-none absolute -inset-1.5 rounded-full border border-cyan-400/40 motion-safe:animate-pulse" />
+            <AiAssistantAvatar size="md" className="ring-1 ring-black/30 shadow-inner" />
+            <MessageCircle className="absolute -right-1 -top-1 h-4 w-4 rounded-full border border-cyan-300/60 bg-slate-900 p-[1px] text-cyan-100" aria-hidden />
+          </button>
+          <span className="mt-2 hidden rounded-full border border-cyan-500/25 bg-slate-950/90 px-2.5 py-1 text-[11px] font-semibold text-cyan-100 sm:inline-flex">
+            {isBorsaRoute ? "İhaleAI Borsa Uzmanı" : "İhaleAI"}
+          </span>
         </div>
       ) : (
-        <div className={`ai-dock-panel chat-widget-pop fixed right-5 z-50 flex max-h-[90vh] w-[min(680px,calc(100vw-1rem))] flex-col overflow-hidden ${isBorsaRoute ? "bottom-16" : "bottom-5"}`}>
+        <div
+          className={`ai-dock-panel chat-widget-pop fixed z-[120] flex max-h-[84vh] w-[min(420px,calc(100vw-1rem))] flex-col overflow-hidden right-2 sm:right-5 ${
+            isBorsaRoute ? "bottom-20 sm:bottom-5" : "bottom-20 sm:bottom-5"
+          }`}
+        >
           <div className="space-y-3 border-b border-white/10 bg-gradient-to-r from-blue-950/85 via-slate-900/95 to-slate-950 p-4">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-3">

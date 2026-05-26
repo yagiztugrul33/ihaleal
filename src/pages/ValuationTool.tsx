@@ -1,289 +1,110 @@
-import { useMemo, useState } from "react";
-import { Calculator, Home, MapPin } from "lucide-react";
+import { ArrowRight, BarChart3, Calculator, Layers3, Scale, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  CITY_OPTIONS,
-  getCityByKey,
-  type CityKey,
-  type TransactionType,
-} from "@/lib/valuation/regionalPriceData";
-import {
-  estimatePropertyValue,
-  formatTry,
-  type PropertyCondition,
-} from "@/lib/valuation/valuationEngine";
-
-type FormState = {
-  city: CityKey;
-  district: string;
-  grossM2: number;
-  buildingAge: number;
-  transactionType: TransactionType;
-  condition: PropertyCondition;
-  hasElevator: boolean;
-  hasParking: boolean;
-  parcelInfo: string;
-  addressNote: string;
-};
-
-const INITIAL_STATE: FormState = {
-  city: "istanbul",
-  district: "Besiktas",
-  grossM2: 120,
-  buildingAge: 10,
-  transactionType: "sale",
-  condition: "good",
-  hasElevator: true,
-  hasParking: true,
-  parcelInfo: "",
-  addressNote: "",
-};
+import { ValuationWorkbench } from "@/components/valuation/ValuationWorkbench";
 
 export default function ValuationTool() {
-  const [form, setForm] = useState<FormState>(INITIAL_STATE);
-  const [error, setError] = useState<string>("");
-  const [result, setResult] = useState<ReturnType<typeof estimatePropertyValue> | null>(null);
-
-  const districtOptions = useMemo(() => {
-    return Object.keys(getCityByKey(form.city)?.districts ?? {});
-  }, [form.city]);
-
-  const onCityChange = (nextCity: CityKey) => {
-    const nextDistricts = Object.keys(getCityByKey(nextCity)?.districts ?? {});
-    setForm((prev) => ({
-      ...prev,
-      city: nextCity,
-      district: nextDistricts[0] ?? "",
-    }));
-  };
-
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError("");
-
-    if (form.grossM2 <= 10) {
-      setError("Metrekare 10 m² uzerinde olmalidir.");
-      return;
-    }
-    if (form.buildingAge < 0) {
-      setError("Bina yasi negatif olamaz.");
-      return;
-    }
-
-    const next = estimatePropertyValue({
-      city: form.city,
-      district: form.district || undefined,
-      grossM2: form.grossM2,
-      buildingAge: form.buildingAge,
-      transactionType: form.transactionType,
-      condition: form.condition,
-      hasElevator: form.hasElevator,
-      hasParking: form.hasParking,
-    });
-    setResult(next);
-  };
-
   return (
-    <main className="min-h-screen pt-24 pb-16 text-white">
-      <section className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="mb-8">
-          <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200">
-            <Calculator className="h-3.5 w-3.5" /> Yatirimci sunumu: hizli degerleme
+    <main className="min-h-screen pb-16 pt-24 text-white">
+      <section className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6">
+        <header className="rounded-2xl border border-cyan-500/35 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 p-6 md:p-8">
+          <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-200">
+            <Calculator className="h-3.5 w-3.5" />
+            AR-GE değerleme laboratuvarı
           </p>
-          <h1 className="mt-3 text-3xl md:text-4xl font-bold text-white">Ne Kadar Eder?</h1>
-          <p className="mt-2 text-slate-400 max-w-3xl">
-            İl, ilçe, m² ve temel özelliklerle satış veya kira tahmini alabilirsiniz.
+          <h1 className="mt-4 text-3xl font-black leading-tight text-white md:text-5xl">
+            Gayrimenkulünüzün gerçek değerini yapay zeka ile öğrenin
+          </h1>
+          <p className="mt-3 max-w-4xl text-sm text-slate-300 md:text-base">
+            Emsal + hedonik + mekansal düzeltme katmanları aynı modelde birleşir. Tek sayı yerine güven aralıklı tahmin,
+            faktör katkı dökümü ve SPK yaklaşımı karşılaştırması üretilir.
           </p>
-        </div>
+        </header>
 
-        <div className="mb-6 rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-amber-100">
-          <p className="font-medium">Önemli uyarı</p>
-          <p className="text-sm mt-1">
-            Bu araç yalnızca tahmin üretir; resmi ekspertiz raporu değildir. Yatırım tavsiyesi değildir.
+        <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+            <h2 className="text-sm font-black uppercase tracking-[0.12em] text-violet-200">SPK - Emsal yaklaşımı</h2>
+            <p className="mt-2 text-sm text-slate-200">
+              Benzer satılmış mülkler m², oda, yaş ve mesafe farklarına göre normalize edilir; ağırlıklı ortalama ile değer
+              üretilir.
+            </p>
+          </article>
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+            <h2 className="text-sm font-black uppercase tracking-[0.12em] text-amber-200">SPK - Maliyet yaklaşımı</h2>
+            <p className="mt-2 text-sm text-slate-200">
+              Yeniden inşa maliyeti, yıpranma etkisi ve arsa payı birlikte hesaplanır; özellikle düşük emsal yoğunluklu
+              bölgelerde kontrol katmanı sağlar.
+            </p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <h2 className="text-sm font-black uppercase tracking-[0.12em] text-emerald-200">SPK - Gelir yaklaşımı</h2>
+            <p className="mt-2 text-sm text-slate-200">
+              Beklenen kira nakit akışı kapitalizasyon oranı ile bugüne çekilir; yatırımcı için getiri odaklı ikinci görüş
+              sunar.
+            </p>
+          </article>
+        </section>
+
+        <section className="rounded-xl border border-slate-700 bg-slate-900/60 p-4 md:p-5">
+          <h2 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">
+            <Layers3 className="h-4 w-4" /> AI katmanı
+          </h2>
+          <div className="mt-3 grid gap-3 md:grid-cols-3">
+            <p className="rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-sm text-slate-200">
+              Hedonik regresyon ile mülkün her özelliğinin örtük fiyat katkısı (implicit price) ayrı modellenir.
+            </p>
+            <p className="rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-sm text-slate-200">
+              Emsal katmanında benzer satışlar benzerlik skoru ile ağırlıklandırılır; ham ortalama yerine düzeltilmiş birim
+              fiyat kullanılır.
+            </p>
+            <p className="rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-sm text-slate-200">
+              Mekansal düzeltme komşu bölge etkisini hesaba katar; fiyat seviyesi yakın çevre trendi ile kalibre edilir.
+            </p>
+          </div>
+        </section>
+
+        <ValuationWorkbench title="Değerleme başlat" />
+
+        <section className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Satıcı için</h3>
+            <p className="mt-2">Rezerv fiyatı belirlerken aşırı yüksek veya düşük açılış riskini azaltır.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Alıcı için</h3>
+            <p className="mt-2">Fazla ödeme ihtimalini güven aralığı ile görünür kılar; pazarlık bandı sağlar.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-200">
+            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Yatırımcı için</h3>
+            <p className="mt-2">Emsal, maliyet ve gelir yaklaşımı farklarını kıyaslayıp fırsat/disiplin kararına destek olur.</p>
+          </article>
+        </section>
+
+        <section className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+          <h3 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-100">
+            <BarChart3 className="h-4 w-4" />
+            Örnek senaryo
+          </h3>
+          <p className="mt-2 text-sm text-cyan-50">
+            Kadıköy 3+1 120m² 8 yaş → 14 emsal → tahmini değer merkez bandı üretilir (örn. ±%8). Katkı dökümü:
+            konum +%12, yaş -%8, m² +%20 gibi satırlarla açıklanır.
           </p>
-        </div>
+        </section>
 
-        <form
-          onSubmit={onSubmit}
-          className="grid gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5 md:grid-cols-2 card-luxury"
-        >
-          <label className="space-y-2">
-            <span className="text-sm text-slate-300">Il</span>
-            <select
-              value={form.city}
-              onChange={(event) => onCityChange(event.target.value as CityKey)}
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
-            >
-              {CITY_OPTIONS.map((city) => (
-                <option key={city.value} value={city.value}>
-                  {city.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="space-y-2">
-            <span className="text-sm text-slate-300">Ilce (opsiyonel)</span>
-            <select
-              value={form.district}
-              onChange={(event) => setForm((prev) => ({ ...prev, district: event.target.value }))}
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
-            >
-              {districtOptions.length > 0 ? (
-                districtOptions.map((district) => (
-                  <option key={district} value={district}>
-                    {district}
-                  </option>
-                ))
-              ) : (
-                <option value="">Bu ilde ilce bazli veri yok</option>
-              )}
-            </select>
-          </label>
-
-          <label className="space-y-2">
-            <span className="text-sm text-slate-300">Brut m²</span>
-            <Input
-              type="number"
-              min={10}
-              value={form.grossM2}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, grossM2: Number(event.target.value || 0) }))
-              }
-            />
-          </label>
-
-          <label className="space-y-2">
-            <span className="text-sm text-slate-300">Bina yasi</span>
-            <Input
-              type="number"
-              min={0}
-              value={form.buildingAge}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, buildingAge: Number(event.target.value || 0) }))
-              }
-            />
-          </label>
-
-          <label className="space-y-2">
-            <span className="text-sm text-slate-300">Islem tipi</span>
-            <select
-              value={form.transactionType}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, transactionType: event.target.value as TransactionType }))
-              }
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
-            >
-              <option value="sale">Satilik</option>
-              <option value="rent">Kiralik</option>
-            </select>
-          </label>
-
-          <label className="space-y-2">
-            <span className="text-sm text-slate-300">Daire durumu</span>
-            <select
-              value={form.condition}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, condition: event.target.value as PropertyCondition }))
-              }
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
-            >
-              <option value="new">Sifira yakin</option>
-              <option value="good">Iyi durumda</option>
-              <option value="needs_renovation">Tadilat gerekir</option>
-            </select>
-          </label>
-
-          <label className="flex items-center gap-2 text-sm text-slate-300">
-            <input
-              type="checkbox"
-              checked={form.hasElevator}
-              onChange={(event) => setForm((prev) => ({ ...prev, hasElevator: event.target.checked }))}
-            />
-            Asansor var
-          </label>
-          <label className="flex items-center gap-2 text-sm text-slate-300">
-            <input
-              type="checkbox"
-              checked={form.hasParking}
-              onChange={(event) => setForm((prev) => ({ ...prev, hasParking: event.target.checked }))}
-            />
-            Otopark var
-          </label>
-
-          <label className="space-y-2 md:col-span-2">
-            <span className="text-sm text-slate-300">Ada / Parsel (sadece referans)</span>
-            <Input
-              value={form.parcelInfo}
-              placeholder="Orn: 123 ada 45 parsel"
-              onChange={(event) => setForm((prev) => ({ ...prev, parcelInfo: event.target.value }))}
-            />
-          </label>
-          <label className="space-y-2 md:col-span-2">
-            <span className="text-sm text-slate-300">Adres notu (sadece referans)</span>
-            <Input
-              value={form.addressNote}
-              placeholder="Mahalle / sokak notu"
-              onChange={(event) => setForm((prev) => ({ ...prev, addressNote: event.target.value }))}
-            />
-          </label>
-
-          <div className="md:col-span-2 flex flex-wrap items-center gap-3">
-            <Button type="submit" className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold">
-              <Calculator className="h-4 w-4" /> Ne Kadar Eder?
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                setForm(INITIAL_STATE);
-                setResult(null);
-                setError("");
-              }}
-            >
-              Formu sifirla
+        <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 p-4 text-amber-100">
+          <p className="inline-flex items-center gap-2 text-sm font-semibold">
+            <ShieldAlert className="h-4 w-4" />
+            Dürüst sınır
+          </p>
+          <p className="mt-2 text-sm">
+            Bu çıktı ön değerlemedir. Resmi rapor ve hukuki bağlayıcılık için SPK lisanslı değerleme uzmanı (TDUB)
+            onayı gerekir.
+          </p>
+          <div className="mt-3">
+            <Button type="button" className="bg-amber-300 font-semibold text-slate-900 hover:bg-amber-200">
+              Değerleme başlat <ArrowRight className="ml-1.5 h-4 w-4" />
             </Button>
           </div>
-          {error ? <p className="md:col-span-2 text-sm text-rose-300">{error}</p> : null}
-        </form>
-
-        {result ? (
-          <section className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-5">
-            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-              <Home className="h-5 w-5" /> Tahmini sonuc
-            </h2>
-            <div className="grid gap-3 md:grid-cols-2">
-              <p>
-                <span className="text-slate-300">Merkez tahmin:</span>{" "}
-                <strong>{formatTry(result.estimatedValue)}</strong>
-                {form.transactionType === "rent" ? " / ay" : ""}
-              </p>
-              <p>
-                <span className="text-slate-300">Aralik:</span>{" "}
-                <strong>
-                  {formatTry(result.minValue)} - {formatTry(result.maxValue)}
-                </strong>
-                {form.transactionType === "rent" ? " / ay" : ""}
-              </p>
-              <p>
-                <span className="text-slate-300">Birim fiyat:</span>{" "}
-                <strong>{formatTry(result.unitPrice)}/m²</strong>
-              </p>
-              <p>
-                <span className="text-slate-300">Guven seviyesi:</span>{" "}
-                <strong>{result.confidence === "high" ? "Yuksek" : "Orta"}</strong>
-              </p>
-            </div>
-            <p className="mt-3 text-sm text-emerald-100">{result.note}</p>
-            {form.parcelInfo || form.addressNote ? (
-              <p className="mt-2 text-xs text-slate-300 flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5" />
-                Ada/parsel/adres notlari yalnizca referans icin saklandi, hesaplamaya dahil edilmedi.
-              </p>
-            ) : null}
-          </section>
-        ) : null}
+        </section>
       </section>
     </main>
   );
