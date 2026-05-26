@@ -6,6 +6,10 @@ const ROUTES = [
   { href: "/araclar/mortgage", title: "Mortgage", desc: "Anapara/faiz/vade ile aylık taksit." },
   { href: "/araclar/komisyon", title: "Komisyon", desc: "Gelir ve komisyon kırılımı." },
   { href: "/araclar/vergi-simulatoru", title: "Vergi Simülatörü", desc: "Tapu ve değer artış vergisi ön hesap." },
+  { href: "/araclar/renovation-roi", title: "Renovasyon ROI", desc: "Tadilat maliyeti ve net kar analizi." },
+  { href: "/araclar/investment-returns", title: "Yatırım Getirisi", desc: "Kira + gider + değer artışı performansı." },
+  { href: "/araclar/real-fx-returns", title: "Döviz / RealFx", desc: "Nominal, reel ve USD getiri kıyası." },
+  { href: "/araclar/airbnb-potential", title: "Airbnb Potansiyeli", desc: "Kısa dönem kira gelir potansiyeli." },
 ] as const;
 
 export default function AraclarIndexScreen() {
