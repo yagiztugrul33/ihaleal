@@ -1,78 +1,31 @@
-import { calculateAirbnbPotential } from "../../../shared/calculators";
 import { parseNumericInput } from "./formatters";
 
-type AirbnbResult = ReturnType<typeof calculateAirbnbPotential>;
-
 export type CommissionForm = {
-  nightlyRateTry: string;
-  occupancyRatePct: string;
-  cleaningCostPerStayTry: string;
-  expectedStaysPerYear: string;
-  platformCommissionRatePct: string;
-  annualOperatingCostTry: string;
-  vacancyReserveRatePct: string;
-  longTermMonthlyRentTry: string;
+  saleAmountTry: string;
+  membershipOffsetTry: string;
+  serviceOffsetTry: string;
+  agentRatePct: string;
 };
 
 export function getDefaultCommissionForm(): CommissionForm {
   return {
-    nightlyRateTry: "3.500",
-    occupancyRatePct: "68",
-    cleaningCostPerStayTry: "750",
-    expectedStaysPerYear: "85",
-    platformCommissionRatePct: "18",
-    annualOperatingCostTry: "220.000",
-    vacancyReserveRatePct: "7",
-    longTermMonthlyRentTry: "48.000",
+    saleAmountTry: "5.000.000",
+    membershipOffsetTry: "5.000",
+    serviceOffsetTry: "0",
+    agentRatePct: "2",
   };
 }
 
 export function validateCommissionForm(form: CommissionForm): string | null {
-  const nightly = parseNumericInput(form.nightlyRateTry);
-  const occupancy = parseNumericInput(form.occupancyRatePct);
-  const cleaning = parseNumericInput(form.cleaningCostPerStayTry);
-  const stays = parseNumericInput(form.expectedStaysPerYear);
-  const commission = parseNumericInput(form.platformCommissionRatePct);
-  const annualOps = parseNumericInput(form.annualOperatingCostTry);
-  const vacancy = parseNumericInput(form.vacancyReserveRatePct);
-  const longTerm = parseNumericInput(form.longTermMonthlyRentTry);
+  const sale = parseNumericInput(form.saleAmountTry);
+  const membership = parseNumericInput(form.membershipOffsetTry);
+  const service = parseNumericInput(form.serviceOffsetTry);
+  const agentRate = parseNumericInput(form.agentRatePct);
 
-  if (!Number.isFinite(nightly) || nightly < 0) return "Gecelik fiyat geçersiz.";
-  if (!Number.isFinite(occupancy) || occupancy < 0 || occupancy > 100) return "Doluluk oranı %0-100 arasında olmalı.";
-  if (!Number.isFinite(cleaning) || cleaning < 0) return "Temizlik bedeli negatif olamaz.";
-  if (!Number.isFinite(stays) || stays < 0 || stays > 365) return "Yıllık konaklama adedi 0-365 olmalı.";
-  if (!Number.isFinite(commission) || commission < 0 || commission > 100) return "Komisyon oranı %0-100 arasında olmalı.";
-  if (!Number.isFinite(annualOps) || annualOps < 0) return "Yıllık işletme gideri negatif olamaz.";
-  if (!Number.isFinite(vacancy) || vacancy < 0 || vacancy > 100) return "Boşluk rezerv oranı %0-100 arasında olmalı.";
-  if (!Number.isFinite(longTerm) || longTerm < 0) return "Uzun dönem kira değeri negatif olamaz.";
+  if (!Number.isFinite(sale) || sale <= 0) return "Satış/işlem tutarı 0'dan büyük olmalı.";
+  if (!Number.isFinite(membership) || membership < 0) return "Üyelik mahsubu negatif olamaz.";
+  if (!Number.isFinite(service) || service < 0) return "Hizmet mahsubu negatif olamaz.";
+  if (!Number.isFinite(agentRate) || agentRate < 0 || agentRate > 100) return "B2B oranı %0-100 arasında olmalı.";
 
   return null;
-}
-
-export function computeCommission(form: CommissionForm): { error: string } | { value: AirbnbResult } {
-  const error = validateCommissionForm(form);
-  if (error) return { error };
-
-  const result = calculateAirbnbPotential({
-    nightlyRateTry: parseNumericInput(form.nightlyRateTry),
-    occupancyRatePct: parseNumericInput(form.occupancyRatePct),
-    cleaningCostPerStayTry: parseNumericInput(form.cleaningCostPerStayTry),
-    expectedStaysPerYear: parseNumericInput(form.expectedStaysPerYear),
-    platformCommissionRatePct: parseNumericInput(form.platformCommissionRatePct),
-    annualOperatingCostTry: parseNumericInput(form.annualOperatingCostTry),
-    vacancyReserveRatePct: parseNumericInput(form.vacancyReserveRatePct),
-    longTermMonthlyRentTry: parseNumericInput(form.longTermMonthlyRentTry),
-  });
-
-  if (result.annualGrossRevenueTry <= 0) return { error: "Motor 0 gelir döndürdü. Fiyat/doluluk gibi girdileri artırın." };
-  return { value: result };
-}
-
-export function buildCommissionSummaryRows(result: AirbnbResult): { label: string; value: number }[] {
-  return [
-    { label: "Yıllık brüt gelir", value: result.annualGrossRevenueTry },
-    { label: "Platform komisyonu", value: result.annualCommissionTry },
-    { label: "Yıllık net gelir", value: result.annualNetRevenueTry },
-    { label: "Uzun dönem kiraya göre fark", value: result.differenceVsLongTermTry },
-  ];
 }
