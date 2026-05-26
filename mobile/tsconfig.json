@@ -9,6 +9,7 @@
       "@/lib/valuation/*": ["../src/lib/valuation/*"],
       "@/lib/calculators/*": ["../src/lib/calculators/*"],
       "@/lib/location/*": ["../src/lib/location/*"],
+      "@/lib/format/*": ["../src/lib/format/*"],
       "@/*": ["./src/*"],
       "@/assets/*": ["./assets/*"]
     }
