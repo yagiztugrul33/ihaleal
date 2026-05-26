@@ -1,8 +1,10 @@
 import { ArrowRight, BarChart3, Calculator, Layers3, Scale, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ValuationWorkbench } from "@/components/valuation/ValuationWorkbench";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export default function ValuationTool() {
+  const envReady = isSupabaseConfigured();
   return (
     <main className="min-h-screen pb-16 pt-24 text-white">
       <section className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6">
@@ -18,6 +20,11 @@ export default function ValuationTool() {
             Emsal + hedonik + mekansal düzeltme katmanları aynı modelde birleşir. Tek sayı yerine güven aralıklı tahmin,
             faktör katkı dökümü ve SPK yaklaşımı karşılaştırması üretilir.
           </p>
+          {!envReady ? (
+            <p className="mt-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+              Supabase ortamı bulunmadığında canlı kayıt yerine demo değerleme laboratuvarı açılır; yöntem ve karar notları tam görünür.
+            </p>
+          ) : null}
         </header>
 
         <section className="grid gap-4 md:grid-cols-3">
@@ -104,6 +111,28 @@ export default function ValuationTool() {
               Değerleme başlat <ArrowRight className="ml-1.5 h-4 w-4" />
             </Button>
           </div>
+        </section>
+        <section className="grid gap-4 md:grid-cols-2">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Karar matrisi</h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-300">
+              <li>Fiyat sapması yüksekse teklif aralığı daraltılır.</li>
+              <li>Güven aralığı genişse ek emsal doğrulaması zorunlu tutulur.</li>
+              <li>Deprem/hukuki risk yüksekse değerleme tek başına yeterli sayılmaz.</li>
+            </ul>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Hesaplama sonrası aksiyon</h3>
+            <p className="mt-2 text-sm text-slate-300">
+              Çıktıyı doğrudan teklife çevirmeden önce emsal, deprem ve maliyet modülleriyle ikinci tur karar kontrolü yapılır.
+            </p>
+            <p className="mt-2 text-sm text-slate-300">
+              Böylece değerleme, tek seferlik tahmin yerine işlem akışına bağlanan operasyonel bir karar adımına dönüşür.
+            </p>
+          </article>
+        </section>
+        <section className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm text-slate-300">
+          Değerleme modülü tek başına nihai karar üretmez; operasyonel doğrulama katmanlarıyla birlikte kullanılır.
         </section>
       </section>
     </main>

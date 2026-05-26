@@ -61,6 +61,20 @@ const REPORTS = [
 export default function PiyasaRaporlariPage() {
   return (
     <PageShell badge="Piyasa" title="Piyasa rapor merkezi" subtitle="Yönetici özeti, saha notu ve senaryo tabloları">
+      <section className="py-4 grid gap-3 md:grid-cols-3">
+        <article className="card-warm p-4">
+          <p className="text-xs uppercase tracking-[0.12em] text-cyan-300">Nedir?</p>
+          <p className="mt-2 text-sm text-slate-300">Piyasa rapor merkezi, yatırım kararında kullanılan veri setlerini standart formatta birleştirir.</p>
+        </article>
+        <article className="card-warm p-4">
+          <p className="text-xs uppercase tracking-[0.12em] text-emerald-300">Neden?</p>
+          <p className="mt-2 text-sm text-slate-300">Nominal/reel ayrımını görünür kılar, bölgesel sapmaları tek tabloda kıyaslamayı kolaylaştırır.</p>
+        </article>
+        <article className="card-warm p-4">
+          <p className="text-xs uppercase tracking-[0.12em] text-violet-300">Demo etiketi</p>
+          <p className="mt-2 text-sm text-slate-300">Kartlar karar desteği içindir; resmi rapor onayı kurum verisi ve uzman incelemesiyle tamamlanır.</p>
+        </article>
+      </section>
       <section className="py-6 grid gap-3 sm:grid-cols-3">
         <article className="card-warm">
           <p className="text-xs uppercase tracking-[0.12em] text-cyan-300">KFE 2026 nominal</p>
@@ -93,6 +107,23 @@ export default function PiyasaRaporlariPage() {
           kartlarında hem nominal hem reel sinyal birlikte verilir; Ankara gibi bölgesel pozitif ayrışmalar ayrı izlenir.
         </p>
       </section>
+      <section className="py-2 grid gap-3 md:grid-cols-2">
+        <article className="card-warm p-4">
+          <h2 className="text-base font-semibold text-slate-100">Yöntem (açıklamalı)</h2>
+          <ul className="mt-2 list-disc pl-5 space-y-1 text-xs text-slate-300">
+            <li>Fiyat sinyali: nominal + reel birlikte okunur.</li>
+            <li>Likidite sinyali: pazarda kalma süresi ve teklif yoğunluğu.</li>
+            <li>Risk sinyali: gelir oynaklığı, boşluk riski, operasyon maliyeti.</li>
+            <li>Karar: tek metrik yerine çoklu skor matrisi.</li>
+          </ul>
+        </article>
+        <article className="card-warm p-4">
+          <h2 className="text-base font-semibold text-slate-100">Örnek</h2>
+          <p className="mt-2 text-sm text-slate-300">
+            Ankara’da nominal ivme güçlüyken reel tarafta baskı sınırlı kalabilir; bu durumda yatırım kararı için kira devamlılığı ve satış süresi birlikte değerlendirilir.
+          </p>
+        </article>
+      </section>
       <section className="py-2">
         <article className="card-warm p-4">
           <h2 className="text-base font-semibold text-slate-100">Yönetici özeti: 2026 okuması</h2>
@@ -101,6 +132,20 @@ export default function PiyasaRaporlariPage() {
             <li>- Ankara gibi yüksek nominal ivme yakalayan şehirlerde likidite ve işlem süresi birlikte kontrol edilmelidir.</li>
             <li>- İhaleal rapor seti, fiyat + talep + süre + risk bileşenini aynı tabloda toplar (demo metodoloji).</li>
           </ul>
+        </article>
+      </section>
+      <section className="py-3 grid gap-3 md:grid-cols-2">
+        <article className="card-warm p-4">
+          <h3 className="font-semibold text-slate-100">Kime göre</h3>
+          <p className="mt-2 text-sm text-slate-300">
+            Kurumsal yatırımcı, fon yöneticisi ve saha operasyon ekipleri için aynı raporun rol bazlı okuma katmanları sunulur.
+          </p>
+        </article>
+        <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+          <h3 className="font-semibold text-amber-100">Dürüst sınır</h3>
+          <p className="mt-2 text-sm text-slate-200">
+            İçerik yatırım tavsiyesi değildir; raporlar ön değerlendirme ve karar önceliklendirme amacıyla hazırlanır.
+          </p>
         </article>
       </section>
       <section className="py-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -112,6 +157,14 @@ export default function PiyasaRaporlariPage() {
             <p className="text-xs leading-relaxed text-slate-300">{r.summary}</p>
           </article>
         ))}
+      </section>
+      <section className="py-2 flex flex-wrap gap-2">
+        <a href="/services" className="rounded-lg border border-cyan-500/35 bg-cyan-500/10 px-3 py-2 text-sm text-cyan-100">
+          Kurumsal hizmetler
+        </a>
+        <a href="/veri-ve-endeks" className="rounded-lg border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100">
+          Veri ve endeks metodolojisi
+        </a>
       </section>
     </PageShell>
   );

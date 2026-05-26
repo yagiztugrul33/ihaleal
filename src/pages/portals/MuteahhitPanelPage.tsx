@@ -5,6 +5,28 @@ import { DashboardShell, MetricCard } from "@/components/enterprise";
 import { MUTEAHHIT_DEMO_STATS, MUTEAHHIT_DEMO_PROJECTS } from "@/data/portalDemo";
 import { KKA_HUB_PATH } from "@/lib/kkaHub";
 
+const MUTEAHHIT_WORKFLOW = [
+  {
+    step: "1) Proje ve faz planı",
+    detail: "Ada/parsel, lot dağılımı ve faz takvimi proje kartında açılır.",
+  },
+  {
+    step: "2) İhale + KKA senaryosu",
+    detail: "Açık ihale ve kat karşılığı senaryoları aynı risk/gelir görünümünde karşılaştırılır.",
+  },
+  {
+    step: "3) Hakediş ve teslim",
+    detail: "Hakediş dilimleri onaylandıkça ödeme ve teslim checklist'i otomatik ilerler.",
+  },
+] as const;
+
+const MUTEAHHIT_ACTIONS = [
+  { label: "Yeni ihale aç", to: "/ihale-ac" },
+  { label: "KKA merkezine git", to: KKA_HUB_PATH },
+  { label: "Parsel zekası", to: "/modul/parsel-zekasi" },
+  { label: "Deprem risk haritası", to: "/modul/deprem-risk-haritasi" },
+] as const;
+
 export default function MuteahhitPanelPage() {
   const s = MUTEAHHIT_DEMO_STATS;
 
@@ -94,6 +116,32 @@ export default function MuteahhitPanelPage() {
           </article>
         </div>
       </section>
+      <section className="mt-6 grid gap-4 lg:grid-cols-2">
+        <article className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <h3 className="text-lg font-bold text-white">Rol bazlı iş akışı</h3>
+          <ul className="mt-3 space-y-2 text-sm text-slate-300">
+            {MUTEAHHIT_WORKFLOW.map((item) => (
+              <li key={item.step} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+                <p className="font-semibold text-slate-100">{item.step}</p>
+                <p className="mt-1 text-xs text-slate-400">{item.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </article>
+        <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5">
+          <h3 className="text-lg font-bold text-emerald-100">Bağlı araç aksiyonları</h3>
+          <p className="mt-2 text-sm text-slate-200">
+            Şantiye kararlarında ihale, KKA, parsel ve deprem araçlarını aynı operasyon hattında tutmak için hızlı geçişler.
+          </p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {MUTEAHHIT_ACTIONS.map((action) => (
+              <Button key={action.label} asChild size="sm" variant="outline" className="justify-start">
+                <Link to={action.to}>{action.label}</Link>
+              </Button>
+            ))}
+          </div>
+        </article>
+      </section>
       <section className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5">
         <h3 className="text-lg font-bold text-emerald-100">Kazanç / komisyon notu</h3>
         <p className="mt-2 text-sm text-slate-200">
@@ -129,6 +177,20 @@ export default function MuteahhitPanelPage() {
             <Link to={KKA_HUB_PATH}>KKA merkezine git</Link>
           </Button>
         </div>
+      </section>
+      <section className="mt-6 grid gap-3 md:grid-cols-2">
+        <article className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4">
+          <h3 className="font-semibold text-slate-100">Onboarding / geri dönüş akışı</h3>
+          <p className="mt-2 text-sm text-slate-300">
+            Yeni kullanıcıda: proje kaydı -&gt; hakediş takvimi -&gt; ihale açılışı; geri dönen kullanıcıda bekleyen dilim ve riskli proje kartları öne çekilir.
+          </p>
+        </article>
+        <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+          <h3 className="font-semibold text-amber-100">Dürüst sınır</h3>
+          <p className="mt-2 text-sm text-slate-200">
+            Bu panel operasyon koordinasyonu sağlar; teknik keşif, ruhsat ve mali onay olmadan yapım kararını tek başına doğrulamaz.
+          </p>
+        </article>
       </section>
     </DashboardShell>
   );

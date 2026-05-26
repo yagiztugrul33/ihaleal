@@ -1,4 +1,4 @@
-﻿import { useMemo } from "react";
+import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,6 +50,21 @@ export default function ReportDetail() {
           </ul>
         </section>
 
+        <section className="mb-8 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-3">
+            <p className="text-xs font-semibold text-cyan-100">Yöntem</p>
+            <p className="mt-1 text-xs text-slate-200">Rapor metni standartlaştırılmış şablonla hazırlanır: sinyal, risk, aksiyon.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-3">
+            <p className="text-xs font-semibold text-emerald-100">Örnek okuma</p>
+            <p className="mt-1 text-xs text-slate-200">Nominal artış güçlü görünse de reel baskı varsa temkinli senaryo önce okunmalıdır.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-3">
+            <p className="text-xs font-semibold text-violet-100">Geri dönüş akışı</p>
+            <p className="mt-1 text-xs text-slate-200">Rapor sonrası kullanıcı paneline dönüp favori ve teklif adımlarını günceller.</p>
+          </article>
+        </section>
+
         <div className="prose prose-invert max-w-none space-y-4 text-slate-300">
           {report.body.map((p, i) => (
             <p key={i}>{p}</p>
@@ -72,6 +87,48 @@ export default function ReportDetail() {
               Degerleme araci
             </Link>
           </div>
+        </section>
+
+        <section className="mt-6 rounded-xl border border-amber-500/25 bg-amber-500/10 p-4">
+          <h3 className="text-sm font-semibold text-amber-100">Kime göre / dürüst sınır</h3>
+          <p className="mt-2 text-xs text-slate-200">
+            Bu detay ekranı yönetici, analist ve operasyon ekipleri için ortak referanstır; bağlayıcı yatırım/hukuk görüşü yerine geçmez.
+          </p>
+        </section>
+
+        <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Kullanım kılavuzu</h3>
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-xs text-slate-300">
+            <li>Önce yönetici özetini okuyup risk başlıklarını işaretleyin.</li>
+            <li>Ardından detay paragraflarda ilgili metrikleri not alın.</li>
+            <li>Panelde aynı başlıkları takip kartlarına dönüştürün.</li>
+            <li>Gerekli hallerde favori/mesajlar ekranında ekip içi paylaşım yapın.</li>
+          </ol>
+        </section>
+
+        <section className="mt-4 rounded-xl border border-blue-500/25 bg-blue-500/10 p-4">
+          <h3 className="text-sm font-semibold text-blue-100">CTA</h3>
+          <p className="mt-2 text-xs text-slate-200">
+            Bu rapordan çıkan aksiyonları kullanıcı panelinize aktarın ve bir sonraki raporu aynı metodolojiyle karşılaştırın.
+          </p>
+        </section>
+
+        <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Soru-cevap</h3>
+          <div className="mt-2 space-y-2 text-xs text-slate-300">
+            <p><strong className="text-slate-100">Bu raporla doğrudan yatırım kararı alınır mı?</strong> Hayır, bu içerik ön analizdir.</p>
+            <p><strong className="text-slate-100">En kritik bölüm hangisi?</strong> Yönetici özeti ve risk maddeleri birlikte okunmalıdır.</p>
+            <p><strong className="text-slate-100">Kime paylaşmalıyım?</strong> Operasyon, hukuk ve yatırım ekibine aynı sürüm gönderilmelidir.</p>
+            <p><strong className="text-slate-100">Güncel veri nasıl anlaşılır?</strong> Güncelleme tarihi ve sürüm notu kart başlığında yer alır.</p>
+          </div>
+        </section>
+
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Kullanıcı döngüsü bağlantısı</h3>
+          <p className="mt-2 text-xs text-slate-300">
+            Rapor detayından çıkan aksiyonlar favori listesi, mesaj merkezi ve kullanıcı panelindeki görev kartlarıyla
+            eşleştirilerek takip edilir. Böylece rapor yalnızca okunan bir metin değil, uygulanan bir iş planına dönüşür.
+          </p>
         </section>
 
         <p className="mt-12 rounded-lg border border-amber-500/25 bg-amber-500/5 p-4 text-sm text-amber-100/90">

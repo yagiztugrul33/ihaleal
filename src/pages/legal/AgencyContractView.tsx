@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { AlertTriangle, ShieldCheck } from "lucide-react";
 
@@ -90,12 +90,49 @@ export default function AgencyContractView() {
           <p className="mt-1">Nihai imza metni avukat onayi olmadan kullanilmamalidir; bu sayfa yalnizca taslak gorunumu sunar.</p>
         </div>
       </div>
+      <div className="mb-6 grid gap-3 md:grid-cols-3">
+        <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs text-slate-300">
+          <p className="font-semibold text-slate-100">Nedir?</p>
+          <p className="mt-1">Agency contract; emlakçı, platform ve taraflar arasındaki temsil, yetki ve komisyon sınırlarını tanımlar.</p>
+        </article>
+        <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs text-slate-300">
+          <p className="font-semibold text-slate-100">Neden?</p>
+          <p className="mt-1">Yetki karmaşasını önler, ihtilaf anında sorumluluk ve delil zincirini netleştirir.</p>
+        </article>
+        <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-xs text-slate-300">
+          <p className="font-semibold text-slate-100">Kime göre</p>
+          <p className="mt-1">Emlak ofisi, platform operasyonu ve mülk sahibinin ortak çalışma zemini için hazırlanır.</p>
+        </article>
+      </div>
       {err ? <p className="text-red-400 text-sm mb-4">{err}</p> : null}
       <article className="rounded-2xl border border-slate-200 bg-slate-950/40 p-6 space-y-1 text-sm">
         {body ? renderMarkdownLines(body) : <p className="text-slate-500">Yukleniyor...</p>}
       </article>
       <p className="mt-4 text-xs text-emerald-200 flex items-center gap-2">
         <ShieldCheck className="h-4 w-4" /> Onerilen akis: taslak -&gt; hukuk revizyonu -&gt; taraf mutabakati -&gt; imza.
+      </p>
+      <div className="mt-4 rounded-xl border border-blue-500/25 bg-blue-500/10 p-4 text-xs text-slate-200">
+        <p className="font-semibold text-blue-100">CTA</p>
+        <p className="mt-1">
+          Şablonu dosya verileriyle eşleştirin, revizyon notlarını tutun ve yalnızca hukuk onayından sonra taraflara imzaya açın.
+        </p>
+      </div>
+      <div className="mt-4 rounded-xl border border-slate-200/80 bg-white/[0.03] p-4 text-xs text-slate-300">
+        <p className="font-semibold text-slate-100">Ek kontrol</p>
+        <ul className="mt-2 list-disc pl-5 space-y-1">
+          <li>Komisyon oranı, ödeme tarihi ve fesih maddeleri somut dosyaya göre güncellenir.</li>
+          <li>Yetki kapsamı ve temsil sınırları açık şekilde yazılır.</li>
+          <li>İmza öncesi son sürüm numarası taraflara yazılı teyit ettirilir.</li>
+        </ul>
+      </div>
+      <div className="mt-4 rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4 text-xs text-slate-200">
+        <p className="font-semibold text-emerald-100">Yürütme notu</p>
+        <p className="mt-1">
+          Agency sözleşmesi; evrak, ekspertiz ve işlem kayıtlarıyla birlikte dosyalanmalı, revizyon geçmişi kapanışa kadar korunmalıdır.
+        </p>
+      </div>
+      <p className="mt-3 text-xs text-slate-400">
+        Son adım: taraf temsil yetkileri, komisyon oranı ve fesih şartlarının nihai sürümde avukat tarafından teyit edilmesi.
       </p>
     </div>
   );

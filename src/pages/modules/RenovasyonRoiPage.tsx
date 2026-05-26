@@ -2,8 +2,10 @@ import { useMemo, useState } from "react";
 import { Hammer } from "lucide-react";
 import { ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid } from "./ModuleShell";
 import { calculateRenovationRoi } from "@/lib/calculators/renovationRoiEngine";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export default function RenovasyonRoiPage() {
+  const envReady = isSupabaseConfigured();
   const [renovationCostTry, setRenovationCostTry] = useState("1200000");
   const [valueIncreaseTry, setValueIncreaseTry] = useState("1850000");
 
@@ -31,6 +33,13 @@ export default function RenovasyonRoiPage() {
       iconAccent="text-orange-300"
       badge="Renovasyon Getiri Motoru"
     >
+      {!envReady ? (
+        <section className="mod-note-box">
+          <p>
+            Supabase ortamı olmadan bu ekran demo hesaplama modunda çalışır. Boş ekran yerine formül, senaryo ve karar notları aktif kalır.
+          </p>
+        </section>
+      ) : null}
       <section className="mod-hero-panel">
         <h2>Formül</h2>
         <p>
@@ -73,6 +82,57 @@ export default function RenovasyonRoiPage() {
           öncesi uzman görüşü alın.
         </p>
         <p className="mt-1">CTA: Yatırım önerisi ve vergi simülatörü ile toplam yatırım döngüsünü birlikte hesaplayın.</p>
+      </section>
+      <section className="mod-hero-panel">
+        <h2>Karar metni (hesaplama sonrası)</h2>
+        <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">ROI pozitif ama düşükse</p>
+            <p className="mt-1">İşçilik kalemi ve satış süresi riskini yeniden modelleyin; acele yatırım kararı vermeyin.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">ROI yüksekse</p>
+            <p className="mt-1">Deprem riski, hukuki uygunluk ve finansman maliyetini birlikte doğrulayarak teklif aşamasına geçin.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">ROI negatifse</p>
+            <p className="mt-1">Proje kapsamını küçültün veya alternatif kullanım senaryosu (kiralama/segment değişimi) değerlendirin.</p>
+          </article>
+        </div>
+      </section>
+      <section className="mod-note-box">
+        <p className="font-semibold text-slate-100">Kime göre</p>
+        <p className="mt-1">
+          Satıcı için renovasyon bütçe sınırı, yatırımcı için geri dönüş eşiği, danışman için fiyatlama anlatısı üretir.
+        </p>
+      </section>
+      <section className="mod-note-box">
+        <p className="font-semibold text-slate-100">SSS</p>
+        <p className="mt-1">ROI neden yüksek görünür? -&gt; Gider kalemleri eksik girildiğinde sonuç yapay olarak şişebilir.</p>
+        <p className="mt-1">Reel getiri nasıl okunur? -&gt; Enflasyon etkisi düşülerek ikinci tur değerlendirme yapılmalıdır.</p>
+        <p className="mt-1">Sonraki adım? -&gt; Kredi ve vergi simülatörüyle toplam yatırım döngüsünü birleştirin.</p>
+      </section>
+      <section className="mod-hero-panel">
+        <h2>Kime göre</h2>
+        <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Satıcı</p>
+            <p className="mt-1">Hangi yenileme kaleminin fiyat algısına daha fazla katkı verdiğini görür.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Yatırımcı</p>
+            <p className="mt-1">Capex kararını geri dönüş süresi ve alternatif kullanım getirisi ile karşılaştırır.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Danışman</p>
+            <p className="mt-1">Müşteriye veri temelli fiyatlandırma ve pazarlık bandı önerisi sunar.</p>
+          </article>
+        </div>
+        <p className="mt-3 text-sm text-slate-300">
+          Çıktıyı satış öncesi checkliste bağlamak, renovasyon yatırımlarında sürpriz maliyet riskini düşürür.
+        </p>
+        <p className="mt-2 text-sm text-slate-300">Aynı zamanda teklif görüşmelerinde ortak bir fiyat dili oluşturur.</p>
+        <p className="mt-2 text-sm text-slate-300">Karar döngüsü tamamlandığında yatırım planı daha öngörülebilir hale gelir.</p>
       </section>
     </ModuleShell>
   );

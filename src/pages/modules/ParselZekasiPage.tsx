@@ -3,6 +3,39 @@ import { ModulePanel, ModuleShell } from "./ModuleShell";
 import { LocationIntelligenceWorkbench } from "@/components/location/LocationIntelligenceWorkbench";
 import { Button } from "@/components/ui/button";
 
+const DECISION_FRAME = [
+  {
+    title: "Likidite okunabilirliği",
+    detail: "Parselin bulunduğu bölgede satış süresi ve talep yoğunluğu birlikte değerlendirilir.",
+  },
+  {
+    title: "Operasyon erişimi",
+    detail: "Ulaşım, lojistik ve kamu hizmetlerine erişim proje teslim süresini doğrudan etkiler.",
+  },
+  {
+    title: "Risk tamponu",
+    detail: "Deprem, zemin, güvenlik ve plan notu belirsizlikleri skor üzerinde aşağı yönlü etki yapar.",
+  },
+  {
+    title: "Gelir potansiyeli",
+    detail: "Kira/satış bandı ve segment talebiyle gelir üretim kapasitesi önceliklendirilir.",
+  },
+] as const;
+
+const DECISION_STEPS = [
+  "1) Ada/parsel veya konum pin'i girilir; temel çevresel veri seti çekilir.",
+  "2) SES + erişim + eğitim + güvenlik skorları normalize edilip tek panelde görünür.",
+  "3) Zayıf katmanlar için risk notu açılır ve aksiyon önerisi üretilir.",
+  "4) Sonuç, değerleme ve fizibilite modülüne karar özeti olarak aktarılır.",
+] as const;
+
+const LINKED_TOOLS = [
+  { label: "Şehir rehberi", hint: "Makro şehir sinyalini önce oku" },
+  { label: "Deprem risk haritası", hint: "Afet riskini karar öncesi doğrula" },
+  { label: "GES analizi", hint: "Enerji uyumlu arazi senaryosu çalış" },
+  { label: "Değerleme modülü", hint: "Nihai fiyat bandını konum skoru ile birleştir" },
+] as const;
+
 export default function ParselZekasiPage() {
   return (
     <ModuleShell
@@ -48,6 +81,58 @@ export default function ParselZekasiPage() {
         </ModulePanel>
 
         <LocationIntelligenceWorkbench title="Konum/parsel gir, katman skorlarını üret" compact />
+
+        <ModulePanel title="Karar çerçevesi (operasyonel)">
+          <div className="grid gap-3 md:grid-cols-2 text-sm text-slate-200">
+            {DECISION_FRAME.map((item) => (
+              <article key={item.title} className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+                <h3 className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">{item.title}</h3>
+                <p className="mt-2 leading-relaxed">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-slate-400">
+            Amaç tek skor üretmek değil; yatırım, satış ve proje ekipleri için açıklanabilir karar notu oluşturmaktır.
+          </p>
+        </ModulePanel>
+
+        <ModulePanel title="Adım adım kullanım kılavuzu">
+          <ol className="space-y-2 text-sm text-slate-200">
+            {DECISION_STEPS.map((step) => (
+              <li key={step} className="rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-2">
+                {step}
+              </li>
+            ))}
+          </ol>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            <article className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-slate-200">
+              <h3 className="font-semibold text-emerald-100">Kime göre</h3>
+              <p className="mt-1">
+                Yatırımcı riskli bölgeleri erken eler, müteahhit faz planını günceller, emlakçı fiyat anlatısını veriyle güçlendirir.
+              </p>
+            </article>
+            <article className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-slate-100">
+              <h3 className="font-semibold">Dürüst sınır</h3>
+              <p className="mt-1">
+                Konum skoru resmi ekspertiz veya imar uygunluk onayının yerine geçmez; karar öncesi saha ve hukuk doğrulaması gerekir.
+              </p>
+            </article>
+          </div>
+        </ModulePanel>
+
+        <ModulePanel title="Bağlı araçlar ve entegrasyon">
+          <div className="grid gap-3 md:grid-cols-2">
+            {LINKED_TOOLS.map((tool) => (
+              <article key={tool.label} className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
+                <p className="font-semibold text-slate-100">{tool.label}</p>
+                <p className="mt-1 text-xs text-slate-400">{tool.hint}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-slate-400">
+            Bu modülün çıktısı şehir/GES/değerleme akışına taşındığında rol bazlı iş akışında karar tutarlılığı artar.
+          </p>
+        </ModulePanel>
 
         <ModulePanel title="Örnek ve Dürüst Sınır">
           <div className="grid gap-3 lg:grid-cols-3">

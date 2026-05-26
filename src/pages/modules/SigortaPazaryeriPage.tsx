@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Shield, ShieldCheck } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ModuleDataTable, ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid, ModuleTag } from "./ModuleShell";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 type TeklifRow = {
   id: string;
@@ -31,6 +32,7 @@ const CHART = MOCK_TEKLIF.slice(0, 6).map((t) => ({
 }));
 
 export default function SigortaPazaryeriPage() {
+  const envReady = isSupabaseConfigured();
   const [deger, setDeger] = useState("9800000");
   const [tip, setTip] = useState("konut");
   const [dask, setDask] = useState("evet");
@@ -51,6 +53,11 @@ export default function SigortaPazaryeriPage() {
       iconAccent="text-teal-300"
       badge="Finans Marketplace"
     >
+      {!envReady ? (
+        <div className="mod-note-box">
+          <p>Canlı sigorta teklif servisi yok: karşılaştırma tablosu demo veriyle gösterilir ve karar desteği akışı devam eder.</p>
+        </div>
+      ) : null}
       <div className="mod-layout mod-layout--split">
         <ModulePanel title="Sigorta Profili">
           <form
@@ -123,6 +130,22 @@ export default function SigortaPazaryeriPage() {
           <div className="mod-empty">Profil ve varlık bilgilerini girin; kapsam, prim ve muafiyet karşılaştırmasını aynı tabloda değerlendirin.</div>
         )}
       </div>
+      <ModulePanel title="Karar çerçevesi">
+        <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Teminat yeterliliği</p>
+            <p className="mt-1">Prim düşük olsa bile teminat tavanı varlık değerini karşılamıyorsa teklif elenmelidir.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Skor + süre dengesi</p>
+            <p className="mt-1">Yüksek skor ama yavaş onay, acil kapanış senaryosunda operasyon riski yaratabilir.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Portföy etkisi</p>
+            <p className="mt-1">Sigorta maliyeti portföy toplam getirisinde ayrı bir kalem olarak izlenmelidir.</p>
+          </article>
+        </div>
+      </ModulePanel>
     </ModuleShell>
   );
 }

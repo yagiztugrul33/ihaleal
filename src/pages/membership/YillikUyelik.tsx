@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -116,6 +116,29 @@ export default function YillikUyelik() {
             </Card>
           ))}
         </div>
+
+        <section className="mt-8 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+            <h3 className="text-sm font-semibold text-cyan-100">Nedir / neden</h3>
+            <p className="mt-2 text-xs text-slate-200">Üyelik ekranı, kullanıcı yaşam döngüsünde plan seçimi ve panel erişim seviyesini netleştirir.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4">
+            <h3 className="text-sm font-semibold text-emerald-100">Onboarding</h3>
+            <p className="mt-2 text-xs text-slate-200">Plan seçimi sonrası kullanıcı profil, favori ve teklif adımına yönlendirilir.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-4">
+            <h3 className="text-sm font-semibold text-violet-100">Geri dönüş</h3>
+            <p className="mt-2 text-xs text-slate-200">Süre bitimine yaklaşan üyelikler bildirim ve panel kartı ile görünür hale getirilir.</p>
+          </article>
+        </section>
+
+        <section className="mt-4 rounded-xl border border-amber-500/25 bg-amber-500/10 p-4">
+          <h3 className="text-sm font-semibold text-amber-100">Dürüst sınır + CTA</h3>
+          <p className="mt-2 text-xs text-slate-200">
+            Demo ödeme kayıtları canlı tahsilat yerine geçmez. Canlıya geçişte ödeme kuruluşu, fatura ve sözleşme süreçleriyle birlikte
+            üyelik aktivasyonu tamamlanmalıdır.
+          </p>
+        </section>
       </div>
     </div>
   );

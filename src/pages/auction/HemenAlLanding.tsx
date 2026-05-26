@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { CheckCircle2, ShieldCheck, Timer, Wallet } from "lucide-react";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 const STEPS = [
   {
@@ -24,7 +25,15 @@ const STEPS = [
   },
 ];
 
+const BUY_NOW_CHECKLIST = [
+  "İlan kimliği, satıcı doğrulaması ve evrak seti tamam mı?",
+  "AI değerleme ile ilan fiyatı uyumlu bandda mı?",
+  "Deprem/emsal/hukuki sekmeleri minimum eşikleri geçiyor mu?",
+  "Ödeme ve sözleşme adımlarında işlem engeli var mı?",
+] as const;
+
 export default function HemenAlLanding() {
+  const envReady = isSupabaseConfigured();
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 text-white">
       <section className="mx-auto max-w-4xl">
@@ -36,6 +45,12 @@ export default function HemenAlLanding() {
           Bu sayfa Hemen Al modelinin mekanik özetidir. Gerçek satın alma butonu ilan detay ekranındaki
           uygun ihalelerde açılır ve işlem akışı sunucu tarafında yürütülür.
         </p>
+        {!envReady ? (
+          <div className="mt-4 rounded-xl border border-amber-400/30 bg-amber-500/10 p-3 text-xs text-amber-100">
+            Supabase ortam değişkenleri eksik: canlı "Hemen Al" tetikleyicisi yerine demo akış anlatımı gösteriliyor.
+            Boş ekran yerine tüm adımlar ve kontrol listesi kullanılabilir durumda.
+          </div>
+        ) : null}
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           <article className="rounded-xl border border-cyan-400/25 bg-cyan-500/10 p-4">
@@ -68,6 +83,39 @@ export default function HemenAlLanding() {
               </li>
             ))}
           </ol>
+        </section>
+        <section className="mt-6 grid gap-3 md:grid-cols-2">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+            <h3 className="text-sm font-semibold text-cyan-100">Karar çerçevesi</h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-200">
+              <li>AI değerleme aralığı ile satış fiyatı tutarlı mı?</li>
+              <li>Deprem ve emsal skorları minimum eşikleri geçiyor mu?</li>
+              <li>Toplam maliyet (komisyon+vergi) teklif stratejisine uygun mu?</li>
+            </ul>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4">
+            <h3 className="text-sm font-semibold text-emerald-100">Operasyonel sonuç</h3>
+            <p className="mt-2 text-xs text-slate-200">
+              Hemen Al, zaman kazandırır; ancak belge, KYC ve uygunluk zincirini atlamaz. Yalnızca hızlı bir "satın al" tuşu değil,
+              kontrollü işlem protokolüdür.
+            </p>
+          </article>
+        </section>
+        <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Sık sorulanlar</h3>
+          <div className="mt-2 grid gap-2 md:grid-cols-3 text-xs text-slate-300">
+            <p><strong className="text-slate-100">Süre uzar mı?</strong> Uygunluk veya belge eksikse kapanış adımı beklemeye alınır.</p>
+            <p><strong className="text-slate-100">İptal mümkün mü?</strong> Kural ve sözleşme durumuna göre cayma-ceza akışı devreye girer.</p>
+            <p><strong className="text-slate-100">Kime göre?</strong> Hızlı kapanış isteyen ama risk disiplininden vazgeçmeyen kullanıcılar için.</p>
+          </div>
+        </section>
+        <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">İşlem öncesi kontrol listesi</h3>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-300">
+            {BUY_NOW_CHECKLIST.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </section>
 
         <section className="mt-6 rounded-xl border border-amber-400/25 bg-amber-500/10 p-4 text-xs text-amber-100">

@@ -2,8 +2,10 @@ import { useMemo, useState } from "react";
 import { BedDouble } from "lucide-react";
 import { ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid } from "./ModuleShell";
 import { calculateAirbnbPotential } from "@/lib/calculators/airbnbEngine";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export default function AirbnbPotansiyelPage() {
+  const envReady = isSupabaseConfigured();
   const [nightlyRate, setNightlyRate] = useState("3200");
   const [occupancyRate, setOccupancyRate] = useState("68");
   const [cleaningPerStay, setCleaningPerStay] = useState("1200");
@@ -43,6 +45,11 @@ export default function AirbnbPotansiyelPage() {
       iconAccent="text-rose-300"
       badge="Kısa Dönem Gelir Motoru"
     >
+      {!envReady ? (
+        <section className="mod-note-box">
+          <p>Canlı rezervasyon verisi olmadan demo gelir modeli kullanılır; tüm karar adımları açıklamalı şekilde korunur.</p>
+        </section>
+      ) : null}
       <section className="mod-hero-panel">
         <h2>Formül seti</h2>
         <p>
@@ -117,6 +124,23 @@ export default function AirbnbPotansiyelPage() {
           Dürüst sınır: Bu çıktı ön analizdir; belediye kısıtları, ruhsat ve vergi yükümlülükleri ayrıca teyit edilmelidir.
         </p>
         <p className="mt-1">CTA: Vergi simülatörü ve yatırım önerisi modülleriyle birleşik karar tablosu oluşturun.</p>
+      </section>
+      <section className="mod-hero-panel">
+        <h2>Karar metni</h2>
+        <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Doluluk riski</p>
+            <p className="mt-1">Sezon dışı doluluk düşüşü için minimum gelir senaryosu mutlaka test edilmelidir.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Maliyet kontrolü</p>
+            <p className="mt-1">Temizlik, platform komisyonu ve bakım gideri net getiri üzerinde ana belirleyici etkidir.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Uzun dönem kıyas</p>
+            <p className="mt-1">Kısa dönem gelir üstün değilse, daha düşük operasyon riski için uzun dönem kira tercih edilebilir.</p>
+          </article>
+        </div>
       </section>
     </ModuleShell>
   );

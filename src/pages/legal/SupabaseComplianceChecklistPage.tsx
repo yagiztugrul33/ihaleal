@@ -1,4 +1,4 @@
-﻿import { useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Database, FileText, Scale, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -84,6 +84,54 @@ export default function SupabaseComplianceChecklistPage() {
             <strong className="text-amber-200">Bilgilendirme:</strong> Liste, kod tabanındaki isimlerle senkron
             tutulmalıdır. Migration değiştiğinde bu Markdown dosyası ve uygulama davranışı birlikte gözden
             geçirilmelidir. Şüpheli işlem RPC adları taslaktır; veritabanında karşılığı yoksa uygulanmış sayılmaz.
+          </CardContent>
+        </Card>
+
+        <div className="grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <p className="font-semibold text-slate-100">Nedir?</p>
+            <p className="mt-1">RLS, RPC ve audit zincirinin tek listede denetlenmesini sağlayan uyum panelidir.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <p className="font-semibold text-slate-100">Neden?</p>
+            <p className="mt-1">Kodda görünen güvenlik iddialarını ölçülebilir checklist adımlarına çevirir.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-xs text-slate-300">
+            <p className="font-semibold text-slate-100">Kime göre</p>
+            <p className="mt-1">Backend, güvenlik, hukuk ve denetim ekiplerinin aynı sözlükte çalışmasını sağlar.</p>
+          </article>
+        </div>
+
+        <Card className="border-slate-200/80 bg-slate-900/50">
+          <CardContent className="p-5 text-sm text-slate-300 space-y-2">
+            <h3 className="text-base font-semibold text-white">Dürüst sınır</h3>
+            <p>
+              Bu checklist teknik kanıt görünürlüğü sağlar; bağımsız sızma testi, sertifikasyon veya bağlayıcı hukuk görüşü yerine geçmez.
+              Canlıya geçişte avukat ve güvenlik sorumlusu birlikte imza süreci yürütmelidir.
+            </p>
+            <p>
+              CTA: Migration değişikliği yapıldığında aynı gün checklist güncellemesi ve test çıktısı zorunlu tutulmalıdır.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-slate-200/80 bg-slate-900/50">
+          <CardContent className="p-5 text-sm text-slate-300">
+            <h3 className="text-base font-semibold text-white mb-2">Ek operasyon adımı</h3>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Her güvenlik migration’ı sonrası politika kontrat testleri yeniden çalıştırılır.</li>
+              <li>RLS kapsam dışı tablo kalırsa risk kaydı açılır ve sorumlu atanır.</li>
+              <li>Audit log rotasyonu ve saklama süresi hukuk/güvenlik ortak kararıyla güncellenir.</li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="border-emerald-500/25 bg-emerald-500/10">
+          <CardContent className="p-5 text-sm text-slate-200">
+            <h3 className="text-base font-semibold text-emerald-100 mb-2">CTA</h3>
+            <p>
+              Her release öncesi bu checklisti test çıktılarıyla birlikte güncelleyin ve hukuk/güvenlik onayını release notuna ekleyin.
+            </p>
           </CardContent>
         </Card>
 

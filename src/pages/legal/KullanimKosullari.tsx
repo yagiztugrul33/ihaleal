@@ -74,6 +74,64 @@ export default function KullanimKosullari() {
         <p>Bu koşullar haber vermeksizin güncellenebilir.</p>
         <h2>13. Yetkili Mahkeme</h2>
         <p>Uyuşmazlıklarda Ankara Mahkemeleri yetkilidir.</p>
+        <h2>14. Güvenlik Merkezi ile İlişki</h2>
+        <p>
+          Kullanım koşulları, platformun güvenlik merkezi politikalarıyla birlikte uygulanır. Escrow, KYC, blokaj, sahtecilik alarmı ve
+          erişim kontrolü gibi kritik adımlar güvenlik politikalarında tanımlanan ek doğrulamaya tabi tutulabilir.
+        </p>
+        <h2>15. Evrak ve Ekspertiz Yükümlülüğü</h2>
+        <p>
+          Kullanıcılar, işlem türüne göre zorunlu evrak setini eksiksiz sunmakla yükümlüdür. Ekspertiz, tapu, imar ve teknik rapor gibi
+          belgelerin eksikliği halinde platform işlemi durdurma veya ek doğrulama isteme hakkını saklı tutar.
+        </p>
+        <h2>16. Sözleşme Şablonlarının Kullanımı</h2>
+        <p>
+          Platformdaki sözleşme şablonları bilgi ve hız amaçlıdır. Nihai sözleşmeler dosya bazlı risklere göre avukat tarafından
+          güncellenmeden imza sürecine alınmamalıdır.
+        </p>
+        <ul>
+          <li>Taraf kimlikleri, ödeme koşulları ve cezai şartlar somut olaya göre düzenlenir.</li>
+          <li>Veri işleme, KVKK ve saklama hükümleri güncel mevzuata göre revize edilir.</li>
+          <li>Her revizyon sürüm numarası ve tarih ile kayıt altına alınır.</li>
+        </ul>
+        <h2>17. Dürüst Sınır</h2>
+        <p>
+          Bu koşullar kapsamlı platform kullanım metnidir; hukuki danışmanlık veya bağlayıcı mütalaa yerine geçmez. Nihai yürürlük için
+          avukat onayı zorunludur.
+        </p>
+        <h2>18. CTA</h2>
+        <p>
+          İşlem öncesi sözleşmeler, evrak listesi ve güvenlik merkezi notlarını birlikte inceleyin; anlamadığınız maddeler için destek ve
+          hukuk kanalı üzerinden yazılı açıklama talep edin.
+        </p>
+        <h2>19. Ek Uyum Kontrol Listesi</h2>
+        <ul>
+          <li>Kullanıcı doğrulama adımlarının işlem tipine göre ayrıştırılması.</li>
+          <li>Yetkisiz erişim denemelerinde otomatik alarm ve geçici kısıtlama mekanizması.</li>
+          <li>Belge eksikliği halinde zorunlu ekrana yönlendirme ve işlem durdurma politikası.</li>
+          <li>Güncel yasal metin sürümü ile işlem ekranı bağlantılarının tutarlılığı.</li>
+          <li>Uyuşmazlık anında delil zinciri için log ve onay kayıtlarının saklama planı.</li>
+          <li>Platform dışı ödeme ve iletişim teşviklerinin açıkça yasaklanması.</li>
+        </ul>
+        <h2>20. Hukuki Gözden Geçirme Notu</h2>
+        <p>
+          Mevzuat veya ürün akışı değiştiğinde bu koşulların tamamı yeniden gözden geçirilir. Revizyonlarda sürüm tarihi, değişen madde
+          numarası ve onaylayan sorumlu ekip bilgisi kayıt altına alınır.
+        </p>
+        <h2>21. Operasyonel Uygulama Rehberi</h2>
+        <p>Bu koşulların günlük operasyon karşılığı aşağıdaki uygulamalarla yürütülür:</p>
+        <ul>
+          <li>Hesap ve rol değişikliklerinde kimlik doğrulama kaydı tutulur.</li>
+          <li>İhale kapanışında sözleşme ve evrak kontrolü tamamlanmadan devir adımı açılmaz.</li>
+          <li>Şüpheli hareketlerde kullanıcı bilgilendirilir ve inceleme kaydı saklanır.</li>
+          <li>Kritik kullanıcı bildirimleri sözleşme/koşul değişikliğinde tekrar gösterilir.</li>
+        </ul>
+        <h2>22. CTA - İşlem Öncesi Son Kontrol</h2>
+        <p>
+          Kullanım koşullarını okuyup onayladıktan sonra yasal metinler, evrak listesi ve güvenlik merkezi adımlarını tek ekran üzerinden
+          tamamlayın; eksik adım varsa işlem başlatmayın.
+        </p>
+        <p>Bu koşulların güncel sürümü işlem ekranlarında görünür ve kullanıcı tarafından yeniden onaylanabilir olmalıdır.</p>
         <p className="text-sm text-gray-500 mt-8">Son güncelleme: 30 Nisan 2026</p>
       </div>
     </div>

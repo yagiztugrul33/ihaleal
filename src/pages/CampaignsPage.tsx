@@ -127,6 +127,26 @@ export default function CampaignsPage() {
             </article>
           ))}
         </section>
+
+        <section className="grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Onboarding</h3>
+            <p className="mt-2 text-xs text-slate-300">Yeni kullanıcıya kampanya kartı + gerekli adımlar (KYC, ilk teklif, ilk favori) birlikte gösterilir.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Boş durum</h3>
+            <p className="mt-2 text-xs text-slate-300">Aktif kampanya yoksa kullanıcıya üyelik/ödül merkezine yönlendiren açıklamalı boş durum kartı sunulur.</p>
+          </article>
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Geri dönüş</h3>
+            <p className="mt-2 text-xs text-slate-300">Kullanıcı tekrar geldiğinde bitişe yakın kampanyalar öncelikli sıralanır.</p>
+          </article>
+        </section>
+
+        <section className="rounded-xl border border-amber-500/25 bg-amber-500/10 p-4">
+          <h3 className="text-sm font-semibold text-amber-100">Dürüst sınır</h3>
+          <p className="mt-2 text-xs text-slate-200">Kampanya metinleri finansal taahhüt değildir; canlı koşullar sözleşme ve resmi duyuru ile kesinleşir.</p>
+        </section>
       </div>
     </div>
   );

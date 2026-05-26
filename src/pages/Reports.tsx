@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Calendar, FileText, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -59,6 +59,21 @@ export default function Reports() {
           </ul>
         </section>
 
+        <section className="mb-8 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+            <p className="text-xs font-semibold text-cyan-100">Nedir?</p>
+            <p className="mt-2 text-xs text-slate-200">Rapor merkezi; piyasa, operasyon ve uyumluluk çıktılarının tek formatta toplandığı kullanıcı alanıdır.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4">
+            <p className="text-xs font-semibold text-emerald-100">Neden?</p>
+            <p className="mt-2 text-xs text-slate-200">Kullanıcı, karar öncesi aynı veriyi farklı ekranlarda aramak yerine rapor kartlarından doğrudan okuyabilir.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-4">
+            <p className="text-xs font-semibold text-violet-100">Güncel veri notu</p>
+            <p className="mt-2 text-xs text-slate-200">KFE 2026 ve bölgesel sinyaller son rapor sürümüyle görünür; tarih ve kapsam her kartta açıkça yazılır.</p>
+          </article>
+        </section>
+
         <div className="grid gap-6 md:grid-cols-2">
           {DEMO_REPORTS.map((r) => (
             <Card key={r.id} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-white/20">
@@ -93,6 +108,31 @@ export default function Reports() {
             </Card>
           ))}
         </div>
+
+        <section className="mt-8 grid gap-3 md:grid-cols-2">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <h3 className="text-sm font-semibold text-slate-100">Kime göre</h3>
+            <p className="mt-2 text-xs text-slate-300">Yatırımcı için piyasa sinyali, operasyon ekibi için iş akışı, hukuk/uyum ekibi için risk görünürlüğü sağlar.</p>
+          </article>
+          <article className="rounded-xl border border-amber-500/25 bg-amber-500/10 p-4">
+            <h3 className="text-sm font-semibold text-amber-100">Dürüst sınır</h3>
+            <p className="mt-2 text-xs text-slate-200">Raporlar karar desteğidir; nihai yatırım, hukuk ve vergi kararı için uzman onayı gereklidir.</p>
+          </article>
+        </section>
+
+        <section className="mt-4 rounded-xl border border-blue-500/25 bg-blue-500/10 p-4">
+          <h3 className="text-sm font-semibold text-blue-100">CTA</h3>
+          <p className="mt-2 text-xs text-slate-200">Bir rapor seçip detay ekranında aksiyon kartlarını tamamlayın; ardından favori/panel akışına geri dönün.</p>
+        </section>
+
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Kullanıcı yaşam döngüsü bağı</h3>
+          <p className="mt-2 text-xs text-slate-300">
+            Raporlar ekranı; keşif aşamasından teklif aşamasına geçerken kullanıcıyı belge, favori ve panel adımlarıyla bağlayarak karar
+            zincirini tamamlamayı hedefler.
+          </p>
+          <p className="mt-2 text-xs text-slate-300">Rapor geçmişi düzenli izlendiğinde kullanıcı geri dönüşlerinde karar kalitesi artar.</p>
+        </section>
       </div>
     </div>
   );

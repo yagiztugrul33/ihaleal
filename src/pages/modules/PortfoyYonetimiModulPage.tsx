@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Briefcase, PieChart } from "lucide-react";
 import { Cell, Pie, PieChart as RePieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { ModuleDataTable, ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid, ModuleTag } from "./ModuleShell";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 type PortfoyRow = {
   id: string;
@@ -21,7 +22,7 @@ const MOCK_PORTFOY: PortfoyRow[] = [
   { id: "5", varlik: "Konya GES Arazi", tip: "GES", deger: "32,0M TRY", getiri: "%13,8", durum: "Uretimde", guncelleme: "16 Mar 2026" },
   { id: "6", varlik: "Ankara Rezidans", tip: "Konut", deger: "7,1M TRY", getiri: "%4,9", durum: "Bos", guncelleme: "12 Mar 2026" },
   { id: "7", varlik: "Mersin Depo", tip: "Lojistik", deger: "21,8M TRY", getiri: "%9,6", durum: "Kirada", guncelleme: "14 Mar 2026" },
-  { id: "8", varlik: "Trabzon Arsa", tip: "Arsa", deger: "4,2M TRY", getiri: "—", durum: "Satista", guncelleme: "08 Mar 2026" },
+  { id: "8", varlik: "Trabzon Arsa", tip: "Arsa", deger: "4,2M TRY", getiri: "—", durum: "Satışta", guncelleme: "08 Mar 2026" },
   { id: "9", varlik: "Alanya 2+1", tip: "Konut", deger: "6,5M TRY", getiri: "%11,2", durum: "Airbnb", guncelleme: "18 Mar 2026" },
 ];
 
@@ -34,6 +35,7 @@ const PIE = [
 ];
 
 export default function PortfoyYonetimiModulPage() {
+  const envReady = isSupabaseConfigured();
   const [owner, setOwner] = useState("Kurumsal Portfoy A.Ş.");
   const [view, setView] = useState("tumu");
   const [loaded, setLoaded] = useState(true);
@@ -53,6 +55,11 @@ export default function PortfoyYonetimiModulPage() {
       iconAccent="text-indigo-300"
       badge="Kurumsal Panel"
     >
+      {!envReady ? (
+        <div className="mod-note-box">
+          <p>Canlı portföy servisi olmadığında demo varlık seti gösterilir; kullanıcıya boş tablo yerine karar odaklı özet sunulur.</p>
+        </div>
+      ) : null}
       <div className="mod-layout mod-layout--split">
         <ModulePanel title="Portfoy Filtreleri">
           <form
@@ -100,7 +107,7 @@ export default function PortfoyYonetimiModulPage() {
                     <ModuleTag tone={r.durum === "Kirada" || r.durum === "Uretimde" ? "ok" : "warn"}>{r.durum}</ModuleTag>
                   ),
                 },
-                { key: "guncelleme", header: "Guncelleme", render: (r) => r.guncelleme },
+                { key: "guncelleme", header: "Güncelleme", render: (r) => r.guncelleme },
               ]}
               rows={MOCK_PORTFOY}
             />
@@ -122,6 +129,22 @@ export default function PortfoyYonetimiModulPage() {
           <div className="mod-empty">Portföy kalemlerinizi yükleyin; getiri, risk dağılımı ve likidite önceliklerini kurumsal görünümde takip edin.</div>
         )}
       </div>
+      <ModulePanel title="Portföy karar çerçevesi">
+        <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Likidite önceliği</p>
+            <p className="mt-1">Satış süresi uzayan varlıklar düzenli nakit akışını baskılar; öncelik sırası yeniden kurulmalıdır.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Risk dengesi</p>
+            <p className="mt-1">Deprem, finansman ve segment riski aynı sepet içinde dengelenerek tek tip yoğunlaşma azaltılır.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Aksiyon</p>
+            <p className="mt-1">Zayıf getiri üreten varlıklar için yenileme, satış veya kullanım tipi dönüşümü senaryosu çalıştırın.</p>
+          </article>
+        </div>
+      </ModulePanel>
     </ModuleShell>
   );
 }

@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ModulePanel, ModuleShell } from "./ModuleShell";
 import { EarthquakeRiskWorkbench } from "@/components/risk/EarthquakeRiskWorkbench";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 const DepremRiskHaritasiMapInner = lazy(() => import("./DepremRiskHaritasiMapInner"));
 
 export default function DepremRiskHaritasiPage() {
+  const envReady = isSupabaseConfigured();
   return (
     <ModuleShell
       title="Deprem Risk Haritası"
@@ -17,6 +19,13 @@ export default function DepremRiskHaritasiPage() {
       iconAccent="text-rose-300"
     >
       <div className="space-y-4">
+        {!envReady ? (
+          <ModulePanel title="Ortam fallback bildirimi">
+            <p className="text-sm text-amber-100">
+              Harita katmanı canlı servis olmadan demo verilerle çalışır; kullanıcıya anlamlı risk açıklaması ve yol haritası sunulur.
+            </p>
+          </ModulePanel>
+        ) : null}
         <ModulePanel title="Neden deprem risk katmanı">
           <div className="space-y-3 text-sm leading-relaxed text-slate-300">
             <p>
@@ -90,6 +99,41 @@ export default function DepremRiskHaritasiPage() {
             </Link>
           </Button>
         </div>
+        <ModulePanel title="Karar ve aksiyon notları">
+          <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="font-semibold text-slate-100">Alıcı</h3>
+              <p className="mt-1">Yüksek riskli bölgelerde teklif limiti düşürülür, sigorta ve güçlendirme maliyeti eklenir.</p>
+            </article>
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="font-semibold text-slate-100">Satıcı</h3>
+              <p className="mt-1">Güçlendirme raporu ve zemin belgesiyle güven puanı artırılarak satış süresi kısaltılabilir.</p>
+            </article>
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="font-semibold text-slate-100">Yatırımcı</h3>
+              <p className="mt-1">Portföy dağılımında deprem riski, getiri hedefiyle birlikte sınırlayıcı kriter olarak kullanılır.</p>
+            </article>
+          </div>
+        </ModulePanel>
+        <ModulePanel title="SSS">
+          <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+            <article>
+              <p className="font-semibold text-slate-100">Harita skoru bağlayıcı mı?</p>
+              <p className="mt-1">Hayır, teknik rapor ve saha doğrulaması olmadan bağlayıcı karar üretilmez.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Kime göre en kritik çıktı?</p>
+              <p className="mt-1">Alıcı için risk bandı, yatırımcı için maliyet etkisi, satıcı için güven notu.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Sonraki adım ne?</p>
+              <p className="mt-1">Bina risk sorgusu ve sigorta modülüyle birleşik karar raporu oluşturun.</p>
+            </article>
+          </div>
+        </ModulePanel>
+        <ModulePanel title="CTA">
+          <p className="text-sm text-slate-300">Harita çıktısını teklif ve sigorta kararlarına bağlayarak deprem riskini operasyonel hale getirin.</p>
+        </ModulePanel>
       </div>
     </ModuleShell>
   );

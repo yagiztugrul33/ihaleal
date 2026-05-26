@@ -12,12 +12,27 @@ export type DemoReport = {
 
 export const DEMO_REPORTS: DemoReport[] = [
   {
+    id: "piyasa-guncel-mayis-2026",
+    title: "Piyasa nabzi - Mayis 2026 guncel veri ozet raporu",
+    category: "piyasa",
+    excerpt:
+      "KFE nominal/reel ayrimi, bolgesel likidite farklari ve teklif hizinin son aylik gorunumu.",
+    updatedAt: "2026-05-20",
+    readingMinutes: 9,
+    body: [
+      "Bu rapor, kullanici panelinde gorulen fiyat ve talep sinyallerini tek yerde birlestiren guncel ozet dokumandir.",
+      "KFE 2026 nominal +%26,6 ve reel -%4,3 gorunumu birlikte degerlendirildiginde bolge seciminde likidite ve kira devamligi daha kritik hale gelmektedir.",
+      "Ankara tarafinda gozlenen +%36,7 nominal sapma, tek basina karar gerekcesi degil; satis hizi ve gelir devamliligi ile birlikte okunmalidir.",
+      "Bu icerik bilgilendirme amaclidir; baglayici yatirim veya hukuk gorusu olarak kullanilmamalidir.",
+    ],
+  },
+  {
     id: "gm-endeks-q1",
     title: "Gayrimenkul talebi — bölgeler arası özet (demo)",
     category: "piyasa",
     excerpt:
       "İstanbul ve Ankara için talep göstergeleri ve liste süresi varsayımları; kesin veri değildir.",
-    updatedAt: "2026-03-15",
+    updatedAt: "2026-05-10",
     readingMinutes: 8,
     body: [
       "Bu metin tanıtım ve demo amaçlıdır; yatırım tavsiyesi değildir.",
@@ -32,7 +47,7 @@ export const DEMO_REPORTS: DemoReport[] = [
     category: "operasyon",
     excerpt:
       "Mahsup çizgisinin nasıl okunduğuna dair iç kullanıcı özeti; resmi muhasebe belgesi değildir.",
-    updatedAt: "2026-02-01",
+    updatedAt: "2026-05-08",
     readingMinutes: 5,
     body: [
       "Üye işlem başına komisyon hesapları `src/lib/fees.ts` ile tutarlı özet sunar.",
@@ -46,7 +61,7 @@ export const DEMO_REPORTS: DemoReport[] = [
     category: "uyumluluk",
     excerpt:
       "Kimlik doğrulama ve teminat havuzu için beklenen belge sırası; hukuki danışmanlık yerine geçmez.",
-    updatedAt: "2026-01-10",
+    updatedAt: "2026-05-05",
     readingMinutes: 6,
     body: [
       "Temel kimlik ve adres doğrulaması sonrası Findeks / ekspertiz istekleri tutarına göre tetiklenebilir.",
@@ -60,7 +75,7 @@ export const DEMO_REPORTS: DemoReport[] = [
     category: "piyasa",
     excerpt:
       "Zemin sinifi, bina yasi ve guclendirme sinyallerinin birlikte okunmasi icin yonetici ozeti.",
-    updatedAt: "2026-04-20",
+    updatedAt: "2026-05-12",
     readingMinutes: 7,
     body: [
       "Deprem riskini tek bir puanla degil, yapi + zemin + mevzuat + sigorta katmanlariyla birlikte yorumlamak gerekir.",
@@ -74,7 +89,7 @@ export const DEMO_REPORTS: DemoReport[] = [
     category: "operasyon",
     excerpt:
       "Brut/net getiri, bosluk riski ve gider kalemleriyle uc senaryolu yatirim okuma notu.",
-    updatedAt: "2026-04-28",
+    updatedAt: "2026-05-15",
     readingMinutes: 6,
     body: [
       "Brut kira getirisi sadece ilk sinyaldir; net getiri icin bos kalma suresi ve isletme giderleri mutlaka eklenmelidir.",

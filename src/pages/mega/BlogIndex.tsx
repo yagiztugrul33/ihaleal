@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, Clock, Search, Tag } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -99,6 +99,38 @@ export default function BlogIndex() {
             );
           })}
         </div>
+
+        <section className="mt-8 grid gap-3 md:grid-cols-3">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+            <h3 className="text-sm font-semibold text-cyan-100">Nedir?</h3>
+            <p className="mt-2 text-xs text-slate-200">Blog; gayrimenkul, deprem riski ve yatırım kararlarında kullanıcıya rehberlik eden içerik merkezidir.</p>
+          </article>
+          <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4">
+            <h3 className="text-sm font-semibold text-emerald-100">Yöntem</h3>
+            <p className="mt-2 text-xs text-slate-200">Her yazı aynı formatta ilerler: bağlam, kontrol listesi, kime göre, dürüst sınır ve aksiyon.</p>
+          </article>
+          <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-4">
+            <h3 className="text-sm font-semibold text-violet-100">Kime göre</h3>
+            <p className="mt-2 text-xs text-slate-200">Yeni kullanıcı için onboarding içeriği, geri dönen kullanıcı için derin analiz ve karar notu sunar.</p>
+          </article>
+        </section>
+
+        <section className="mt-4 rounded-xl border border-amber-500/25 bg-amber-500/10 p-4">
+          <h3 className="text-sm font-semibold text-amber-100">Dürüst sınır + CTA</h3>
+          <p className="mt-2 text-xs text-slate-200">
+            Yazılar bilgilendirme amaçlıdır; resmi yatırım, hukuk veya mühendislik raporu yerine geçmez. Yazı detayına girip kontrol listesini
+            kendi dosyanızla karşılaştırın, ardından panelde aksiyona dönün.
+          </p>
+        </section>
+
+        <section className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <h3 className="text-sm font-semibold text-slate-100">Gerçek makale seti</h3>
+          <p className="mt-2 text-xs text-slate-300">
+            Blogda gayrimenkul, deprem riski ve yatırım odaklı uzun formlu rehber yazılar bulunur; her yazı uygulama adımı içeren kontrol
+            listesiyle tamamlanır.
+          </p>
+          <p className="mt-2 text-xs text-slate-300">İçerikler yeni kullanıcı ve geri dönen kullanıcı için farklı karar derinliği sunar.</p>
+        </section>
 
         {rows.length === 0 ? <p className="py-16 text-center text-sm text-slate-500">Sonuç yok; filtreyi veya aramayı değiştirin.</p> : null}
       </div>

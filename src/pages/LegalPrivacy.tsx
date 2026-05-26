@@ -1,4 +1,4 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ShieldCheck, Lock, Eye, Database, Trash2, Cookie, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -106,6 +106,26 @@ export default function PrivacyPolicy() {
             <p className="text-sm text-slate-400 leading-relaxed">
               Hesabınızı silmek istediğinizde, tüm kişisel verileriniz 30 gün içinde sistemden kalıcı olarak silinir. Ancak yasal yükümlülüklerimiz nedeniyle bazı kayıtlar (ihale geçmişi, ödeme kayıtları) yasal süreler boyunca saklanabilir. Detaylı bilgi için <a href="mailto:kvkk@ihaleal.com" className="text-blue-400">kvkk@ihaleal.com</a> adresine başvurabilirsiniz.
             </p>
+          </Card>
+
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
+            <h3 className="text-lg font-bold text-white mb-3">6. Kime Göre ve Operasyonel Etki</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Bireysel kullanıcı için gizlilik ayarlarının kontrolü, kurumsal kullanıcı için denetim izi ve erişim raporları,
+              platform ekibi için ise veri minimizasyonu ve olay müdahale yükümlülükleri bu politika altında yönetilir.
+            </p>
+          </Card>
+
+          <Card className="bg-amber-500/10 border-amber-500/25 p-5">
+            <h3 className="text-base font-semibold text-amber-100 mb-2">Dürüst Sınır</h3>
+            <p className="text-sm text-slate-200">
+              Politika metni kapsamlıdır ancak bağlayıcı hukuki mütalaa değildir; yürürlük ve değişiklikler için avukat onayı zorunludur.
+            </p>
+          </Card>
+
+          <Card className="bg-emerald-500/10 border-emerald-500/25 p-5">
+            <h3 className="text-base font-semibold text-emerald-100 mb-2">CTA</h3>
+            <p className="text-sm text-slate-200">Gizlilik tercihlerinizi hesap ayarlarından güncelleyin ve kritik güvenlik bildirimlerini açık tutun.</p>
           </Card>
 
           <div className="flex justify-center pt-6">

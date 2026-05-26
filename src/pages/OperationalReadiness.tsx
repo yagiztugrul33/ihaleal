@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Server, Shield, Database, Clock, Smartphone, Radio, Link2,
@@ -74,6 +74,67 @@ export default function OperationalReadiness() {
           <CardContent className="p-5 text-sm text-slate-400">
             <strong className="text-emerald-300">Özet:</strong> “Yapay zeka ajanları her şeyi sürekli kontrol etsin, üçüncü taraf raporu satır satır taklit edelim, banka AI arasın” gibi maddeler
             <strong className="text-white"> ürün kararı + altyapı + hukuk</strong> gerektirir. İstekleri reddetmiyoruz; teknik olarak burada yapılabilecek kısım bu kontrol listesi ve yasal taslak sayfalarıdır.
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6 bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-5">
+            <h2 className="text-lg font-semibold text-white mb-3">Yöntem (açıklamalı) - canlıya geçiş sırası</h2>
+            <ol className="space-y-2 text-sm text-slate-400 list-decimal list-inside">
+              <li><strong className="text-slate-200">Kritik çekirdek doğrulama:</strong> ödeme, escrow, KYC ve erişim politikaları için regresyon testi.</li>
+              <li><strong className="text-slate-200">Hukuk metin kilidi:</strong> KVKK, gizlilik, mesafeli satış ve sözleşme setlerinde avukat onaylı sürüm numarası.</li>
+              <li><strong className="text-slate-200">Operasyon runbook:</strong> incident, fraud alarmı, belge eksikliği ve işlem uyuşmazlığı için görev sahibi ataması.</li>
+              <li><strong className="text-slate-200">SLA + izleme:</strong> log, alarm ve cevap sürelerinin ölçümü; haftalık güvenlik raporlaması.</li>
+            </ol>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6 bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-5">
+            <h2 className="text-lg font-semibold text-white mb-3">Örnek canlı senaryo</h2>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Kapanışa 6 saat kala şüpheli teklif dalgası tespit edildiğinde sistem otomatik alarm üretir; operasyon ekibi hesabı kısıtlar,
+              hukuk ekibi sözleşme ihlal maddesini işletir, güvenlik ekibi log delillerini saklar ve kullanıcıya şeffaf durum bildirimi gönderir.
+              Bu akışın tüm adımları tek bir olay kaydında timestamp ile izlenmelidir.
+            </p>
+          </CardContent>
+        </Card>
+
+        <div className="mt-6 grid gap-3 md:grid-cols-2">
+          <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-4">
+            <h3 className="text-sm font-semibold text-cyan-100">Kime göre</h3>
+            <p className="mt-2 text-xs text-slate-200">
+              Ürün ve yazılım ekipleri için teknik kapanış listesi; hukuk ve uyum ekipleri için sözleşme/KVKK kapanış listesi;
+              operasyon ekipleri için olay yönetimi playbook’u.
+            </p>
+          </article>
+          <article className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+            <h3 className="text-sm font-semibold text-amber-100">Dürüst sınır</h3>
+            <p className="mt-2 text-xs text-slate-200">
+              Bu sayfa bir canlıya çıkış planıdır; resmi hukuk görüşü veya bağımsız güvenlik sertifikası yerine geçmez.
+              Nihai onay, kurum avukatı ve güvenlik sorumlusu imzasıyla tamamlanır.
+            </p>
+          </article>
+        </div>
+
+        <Card className="mt-6 bg-blue-500/10 border-blue-500/25">
+          <CardContent className="p-5">
+            <h3 className="text-base font-semibold text-blue-100 mb-2">CTA - yayına çıkmadan son adım</h3>
+            <p className="text-sm text-slate-200">
+              Kontrol listesini ekip bazında işaretleyin, açık maddeleri sahipli olarak kapatın ve yalnızca
+              avukat + güvenlik + operasyon ortak onayı sonrası üretim geçişini başlatın.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6 bg-slate-900/50 border-slate-200/80">
+          <CardContent className="p-5">
+            <h3 className="text-base font-semibold text-white mb-2">Ek kontrol başlıkları</h3>
+            <ul className="list-disc list-inside text-sm text-slate-400 space-y-1">
+              <li>Üretim alarm eşikleri ve kritik olay bildirim kanalları test edildi.</li>
+              <li>Yedekleme, geri yükleme ve felaket kurtarma tatbikatı tamamlandı.</li>
+              <li>Hukuk metin sürümleri ve uygulama linkleri birebir eşitlendi.</li>
+            </ul>
           </CardContent>
         </Card>
       </div>

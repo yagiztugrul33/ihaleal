@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ModulePanel, ModuleShell } from "./ModuleShell";
 import { EarthquakeRiskWorkbench } from "@/components/risk/EarthquakeRiskWorkbench";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export default function BinaRiskSorguPage() {
+  const envReady = isSupabaseConfigured();
   return (
     <ModuleShell
       title="Bina Risk Sorgu"
@@ -14,6 +16,13 @@ export default function BinaRiskSorguPage() {
       badge="Deprem Risk Motoru"
     >
       <div className="space-y-4">
+        {!envReady ? (
+          <ModulePanel title="Ortam fallback bildirimi">
+            <p className="text-sm text-amber-100">
+              Canlı veri kaynakları bulunmadığında sorgu ekranı demo risk katmanlarıyla çalışır; kullanıcıya boş ekran gösterilmez.
+            </p>
+          </ModulePanel>
+        ) : null}
         <ModulePanel title="Neden bu sorgu gerekli">
           <div className="space-y-3 text-sm leading-relaxed text-slate-300">
             <p>
@@ -28,6 +37,26 @@ export default function BinaRiskSorguPage() {
         </ModulePanel>
 
         <EarthquakeRiskWorkbench title="Bina risk sorgu sihirbazı" />
+        <ModulePanel title="Karar matrisi">
+          <div className="grid gap-3 md:grid-cols-2 text-sm text-slate-300">
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Satın alma kararı</h3>
+              <p className="mt-2">Skor orta-alt banddaysa fiyat pazarlığına güçlendirme maliyeti kalemi eklenir.</p>
+            </article>
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Satıcı aksiyonu</h3>
+              <p className="mt-2">Riskli katmanlar için rapor ve güçlendirme planı yayınlanarak güven puanı yükseltilir.</p>
+            </article>
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Yatırımcı filtresi</h3>
+              <p className="mt-2">Yüksek riskli varlıklar portföyde ağırlık düşürülerek veya sigorta tamponuyla yönetilir.</p>
+            </article>
+            <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+              <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Operasyon akışı</h3>
+              <p className="mt-2">Sorgu sonucu deprem haritası + bina dosyası + teklif sürecine bağlı kayıt zincirine yazılır.</p>
+            </article>
+          </div>
+        </ModulePanel>
 
         <ModulePanel title="Skor nasıl okunur?">
           <div className="grid gap-3 lg:grid-cols-2 text-sm text-slate-300">
@@ -76,6 +105,34 @@ export default function BinaRiskSorguPage() {
             </Link>
           </Button>
         </div>
+        <ModulePanel title="Soru-cevap">
+          <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+            <article>
+              <p className="font-semibold text-slate-100">Skor yükseltilebilir mi?</p>
+              <p className="mt-1">Evet, güçlendirme ve zemin iyileştirme sonrası risk bandı güncellenebilir.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Hangi rapor zorunlu?</p>
+              <p className="mt-1">Yerinde zemin etüdü ve performans analizi olmadan resmi karar verilmez.</p>
+            </article>
+            <article>
+              <p className="font-semibold text-slate-100">Sonraki adım ne?</p>
+              <p className="mt-1">Deprem risk haritası ve sigorta modülü ile mali etkiler birlikte incelenir.</p>
+            </article>
+          </div>
+        </ModulePanel>
+        <ModulePanel title="CTA">
+          <p className="text-sm text-slate-300">
+            Risk skorunu teklif sürecine taşımadan önce harita katmanı ve sigorta karşılaştırmasıyla mali etkiyi birlikte doğrulayın.
+          </p>
+          <p className="mt-2 text-sm text-slate-300">
+            Böylece risk analizi tek seferlik rapor değil, sürekli güncellenen karar desteği olarak kullanılır.
+          </p>
+          <p className="mt-2 text-sm text-slate-300">Kritik kararlar için bağımsız mühendislik raporu zorunluluğu korunur.</p>
+          <p className="mt-2 text-sm text-slate-300">Bu kural, yanlış güven hissini engelleyerek işlem kalitesini korur.</p>
+          <p className="mt-2 text-sm text-slate-300">Risk katmanları değiştiğinde rapor periyodik olarak yenilenmelidir.</p>
+          <p className="mt-2 text-sm text-slate-300">Periyodik güncelleme, riskin zamana bağlı sürüklenmesini görünür kılar.</p>
+        </ModulePanel>
       </div>
     </ModuleShell>
   );

@@ -78,3 +78,52 @@ describe("Admin attack surface (static expectations)", () => {
     expect(adminBlock).toContain("is_profile_admin");
   });
 });
+
+describe("RLS contract for moderation/events hardening", () => {
+  const migration = readFileSync(
+    join(migDir, "20260526162000_harden_events_moderation_rls_soft_delete.sql"),
+    "utf8"
+  );
+
+  it("enables RLS for previously open user-data tables", () => {
+    expect(migration).toContain("alter table public.moderation_queue enable row level security");
+    expect(migration).toContain("alter table public.events enable row level security");
+  });
+
+  it("defines owner/admin policies across CRUD", () => {
+    expect(migration).toContain("mq_select_own_or_admin");
+    expect(migration).toContain("mq_insert_own");
+    expect(migration).toContain("mq_update_own_or_admin");
+    expect(migration).toContain("mq_delete_soft_own_or_admin");
+
+    expect(migration).toContain("ev_select_own_or_admin");
+    expect(migration).toContain("ev_insert_own");
+    expect(migration).toContain("ev_update_own_or_admin");
+    expect(migration).toContain("ev_delete_soft_own_or_admin");
+
+    expect(migration).toContain("auth.uid()");
+  });
+
+  it("converts delete into audited soft delete", () => {
+    expect(migration).toContain("create or replace function public.soft_delete_moderation_queue()");
+    expect(migration).toContain("create or replace function public.soft_delete_events()");
+    expect(migration).toContain("before delete on public.moderation_queue");
+    expect(migration).toContain("before delete on public.events");
+    expect(migration).toContain("write_audit_v2");
+    expect(migration).toContain("deleted_at");
+    expect(migration).toContain("deleted_by");
+  });
+});
+
+describe("RLS contract for rate limit storage hardening", () => {
+  const migration = readFileSync(
+    join(migDir, "20260526200500_harden_rate_limit_buckets_rls.sql"),
+    "utf8"
+  );
+
+  it("enables RLS and restricts direct access to service role", () => {
+    expect(migration).toContain("alter table public.rate_limit_buckets enable row level security");
+    expect(migration).toContain('create policy "rate_limit_buckets_service_only"');
+    expect(migration).toContain("auth.role() = 'service_role'");
+  });
+});

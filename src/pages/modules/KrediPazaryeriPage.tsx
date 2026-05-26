@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Banknote, CreditCard } from "lucide-react";
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ModuleDataTable, ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid, ModuleTag } from "./ModuleShell";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 type KrediRow = {
   id: string;
@@ -31,6 +32,7 @@ const CHART = MOCK_KREDI.slice(0, 8).map((k) => ({
 }));
 
 export default function KrediPazaryeriPage() {
+  const envReady = isSupabaseConfigured();
   const [tutar, setTutar] = useState("6500000");
   const [pesinat, setPesinat] = useState("1300000");
   const [gelir, setGelir] = useState("95000");
@@ -51,6 +53,11 @@ export default function KrediPazaryeriPage() {
       iconAccent="text-blue-300"
       badge="Finans Marketplace"
     >
+      {!envReady ? (
+        <div className="mod-note-box">
+          <p>Canlı banka bağlantısı yok: bu sayfa demo teklif tablosu ve karar çerçevesiyle çalışır, boş ekran göstermez.</p>
+        </div>
+      ) : null}
       <div className="mod-layout mod-layout--split">
         <ModulePanel title="Kredi Basvuru Formu">
           <form
@@ -74,7 +81,7 @@ export default function KrediPazaryeriPage() {
             </div>
             <div className="mod-form-actions">
               <button type="submit" className="mod-btn-primary">
-                <Banknote className="h-4 w-4" /> Teklifleri Karsilastir
+                <Banknote className="h-4 w-4" /> Teklifleri Karşılaştır
               </button>
             </div>
           </form>
@@ -115,6 +122,22 @@ export default function KrediPazaryeriPage() {
           <div className="mod-empty">Başvuru bilgilerini girin; faiz, vade ve toplam maliyet kırılımını karşılaştırmalı kredi teklifleriyle inceleyin.</div>
         )}
       </div>
+      <ModulePanel title="Karar metni">
+        <div className="grid gap-3 md:grid-cols-3 text-sm text-slate-300">
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Taksit / gelir oranı</p>
+            <p className="mt-1">Aylık taksit net gelirin güvenli oranını aşıyorsa teklif puanı düşürülmelidir.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Faiz hassasiyeti</p>
+            <p className="mt-1">Küçük faiz farkı toplam geri ödemede büyük etki yaratır; vadeyle birlikte okuyun.</p>
+          </article>
+          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3">
+            <p className="font-semibold text-slate-100">Sonraki adım</p>
+            <p className="mt-1">Kredi çıktısını ilan teklif senaryosu ve vergi simülasyonuyla birleştirin.</p>
+          </article>
+        </div>
+      </ModulePanel>
     </ModuleShell>
   );
 }

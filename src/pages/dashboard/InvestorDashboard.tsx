@@ -38,6 +38,28 @@ import {
   INVESTOR_DEMO_TAX,
 } from "@/data/portalDemo";
 
+const INVESTOR_WORKFLOW = [
+  {
+    step: "1) Tarama ve kısa liste",
+    detail: "İlanlar favoriye alınır, fiyat/risk/getiri eşikleriyle ilk filtreleme yapılır.",
+  },
+  {
+    step: "2) Çoklu modül doğrulama",
+    detail: "Değerleme, deprem, GES ve konum sinyalleri birlikte okunur.",
+  },
+  {
+    step: "3) Teklif ve kapanış hazırlığı",
+    detail: "Seçilen varlık için teklif aksiyonu başlatılır; evrak ve vergi ön notu tamamlanır.",
+  },
+] as const;
+
+const INVESTOR_ACTIONS = [
+  { label: "İlanları keşfet", to: "/ilanlar" },
+  { label: "AI değerleme", to: "/degerleme" },
+  { label: "Parsel zekası", to: "/modul/parsel-zekasi" },
+  { label: "Borsa terminali", to: "/borsa" },
+] as const;
+
 export default function InvestorDashboard() {
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.05);
@@ -136,6 +158,32 @@ export default function InvestorDashboard() {
               <p className="mt-1 text-slate-400">Borsa/teklif adımına geç, karar zincirini kayıt altında tut.</p>
             </article>
           </div>
+        </section>
+        <section className="mb-6 grid gap-4 lg:grid-cols-2">
+          <article className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+            <h2 className="text-lg font-bold text-white">Rol bazlı yatırım iş akışı</h2>
+            <ul className="mt-3 space-y-2 text-sm text-slate-300">
+              {INVESTOR_WORKFLOW.map((item) => (
+                <li key={item.step} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+                  <p className="font-semibold text-slate-100">{item.step}</p>
+                  <p className="mt-1 text-xs text-slate-400">{item.detail}</p>
+                </li>
+              ))}
+            </ul>
+          </article>
+          <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5">
+            <h2 className="text-lg font-bold text-emerald-100">Bağlı araç aksiyon panosu</h2>
+            <p className="mt-2 text-sm text-slate-200">
+              Karar öncesi kullanılan temel araçlar tek yerde toplanır; modüller arası geçişte bağlam kaybı azaltılır.
+            </p>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {INVESTOR_ACTIONS.map((action) => (
+                <Button key={action.label} size="sm" variant="outline" onClick={() => navigate(action.to)} className="justify-start">
+                  {action.label}
+                </Button>
+              ))}
+            </div>
+          </article>
         </section>
 
         {favoriteAuctions.length === 0 ? (

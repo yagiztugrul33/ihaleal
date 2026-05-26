@@ -1,4 +1,4 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Shield, FileText, CheckCircle, AlertTriangle, Clock, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -120,6 +120,21 @@ export default function KVKK() {
             <p className="text-sm text-slate-400 leading-relaxed">
               Demo ortamında kullanılan bazı veri setleri simülasyon amaçlıdır. Üretime geçişte veri minimizasyonu, erişim yetkilendirmesi ve
               log denetimi süreçleri ayrıca gözden geçirilir.
+            </p>
+          </Card>
+
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
+            <h3 className="text-lg font-bold text-white mb-3">9. Dürüst Sınır ve Hukuki Gözden Geçirme</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Bu sayfa kapsamlı bilgilendirme metnidir; ancak nihai yürürlük metni olarak kullanılmadan önce avukat, KVKK danışmanı ve veri koruma
+              sorumlusu tarafından madde bazlı gözden geçirilmelidir. Mevzuat değişikliğinde metin revizyon tarihi ve sürüm numarası güncellenir.
+            </p>
+          </Card>
+
+          <Card className="bg-emerald-500/10 border-emerald-500/25 p-5">
+            <h3 className="text-base font-semibold text-emerald-100 mb-2">CTA</h3>
+            <p className="text-sm text-slate-200">
+              KVKK hak başvurusu, veri erişim talebi veya silme talebi için resmi başvuru kanalını kullanın ve kimlik doğrulama adımlarını tamamlayın.
             </p>
           </Card>
 

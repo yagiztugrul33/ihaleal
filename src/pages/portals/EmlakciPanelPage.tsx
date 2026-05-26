@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Building2, Plus, TrendingUp, Users, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DashboardShell, MetricCard } from "@/components/enterprise";
@@ -43,6 +43,28 @@ function DemoEmlakciPanel() {
     </>
   );
 }
+
+const EMLAKCI_WORKFLOW = [
+  {
+    step: "1) Lead toplama ve nitelik",
+    detail: "Müşteri adayı, bütçe ve hedef segment bilgisiyle panelde sınıflanır.",
+  },
+  {
+    step: "2) Portföy eşleme ve saha",
+    detail: "Uygun ilanlar fiyat/risk notuyla eşlenir, saha randevusu görev kartına düşer.",
+  },
+  {
+    step: "3) Teklif ve evrak tamamlama",
+    detail: "Teklif geçmişi, evrak checklist ve kapanış hazırlığı aynı işlem kartında tutulur.",
+  },
+] as const;
+
+const EMLAKCI_ACTIONS = [
+  { label: "İlan açılışı", to: "/ihale-ac" },
+  { label: "Portföy karşılaştır", to: "/karsilastir" },
+  { label: "Komisyon simülasyonu", to: "/komisyon-hesaplayici" },
+  { label: "Evrak merkezi", to: "/evraklar" },
+] as const;
 
 export default function EmlakciPanelPage() {
   const useLive = isSupabaseConfigured();
@@ -102,6 +124,32 @@ export default function EmlakciPanelPage() {
             <p className="mt-1 text-slate-400">İşlem kapanınca gelir tahakkuk eder; liste satışı modeli yoktur.</p>
           </article>
         </div>
+      </section>
+      <section className="mt-6 grid gap-4 lg:grid-cols-2">
+        <article className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <h3 className="text-lg font-bold text-white">Rol bazlı iş akışı</h3>
+          <ul className="mt-3 space-y-2 text-sm text-slate-300">
+            {EMLAKCI_WORKFLOW.map((item) => (
+              <li key={item.step} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+                <p className="font-semibold text-slate-100">{item.step}</p>
+                <p className="mt-1 text-xs text-slate-400">{item.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </article>
+        <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5">
+          <h3 className="text-lg font-bold text-emerald-100">Hızlı aksiyon panosu</h3>
+          <p className="mt-2 text-sm text-slate-200">
+            Günlük operasyonda en sık kullanılan bağlı araçlara tek tık erişim vererek iş akışındaki kopmayı azaltır.
+          </p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {EMLAKCI_ACTIONS.map((action) => (
+              <Button key={action.label} asChild size="sm" variant="outline" className="justify-start">
+                <Link to={action.to}>{action.label}</Link>
+              </Button>
+            ))}
+          </div>
+        </article>
       </section>
       <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
         <h3 className="text-lg font-bold text-white">SSS</h3>
