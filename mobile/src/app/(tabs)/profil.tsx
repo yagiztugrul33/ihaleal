@@ -10,12 +10,12 @@ import {
   requestLocationWithConsent,
   startRadarGeofencing,
   type RadarPoint,
-} from '../../../../features/location/locationRadar';
+} from '../../../features/location/locationRadar';
 import {
   bindNotificationDeepLinking,
   registerPushTokenToSupabase,
   setupPushNotifications,
-} from '../../../../features/notifications/pushNotifications';
+} from '../../../features/notifications/pushNotifications';
 import {
   clearAuthSession,
   getBiometricOptIn,
@@ -34,6 +34,7 @@ export default function ProfilScreen() {
   const styles = useMemo(() => createStyles(palette), [palette]);
 
   const [email, setEmail] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [sessionReady, setSessionReady] = useState(false);
   const [biometricEnabled, setBiometricEnabledState] = useState(false);
   const [kvkkOptIn, setKvkkOptIn] = useState(false);
@@ -55,6 +56,7 @@ export default function ProfilScreen() {
       const client = await getSupabaseClient();
       const { data } = await client.auth.getSession();
       setEmail(data.session?.user?.email ?? (await getStoredEmail()));
+      setUserId(data.session?.user?.id ?? null);
       setSessionReady(true);
       setBiometricEnabledState(await getBiometricOptIn());
     })();
@@ -98,12 +100,12 @@ export default function ProfilScreen() {
         setPushStatus(setup.note);
         return;
       }
-      const saveResult = await registerPushTokenToSupabase(setup.token);
+      const saveResult = await registerPushTokenToSupabase(setup.token, userId);
       setPushStatus(`${setup.note} ${saveResult}`);
     } finally {
       setPushBusy(false);
     }
-  }, []);
+  }, [userId]);
 
   const MapView = mapModule.moduleReady ? mapModule.MapView : null;
   const Marker = mapModule.moduleReady ? mapModule.Marker : null;
@@ -211,7 +213,7 @@ export default function ProfilScreen() {
   );
 }
 
-function createStyles(palette: (typeof Colors)['light']) {
+function createStyles(palette: (typeof Colors)[keyof typeof Colors]) {
   return StyleSheet.create({
     safe: { flex: 1 },
     container: { padding: Spacing.four, gap: Spacing.three, paddingBottom: 120 },
