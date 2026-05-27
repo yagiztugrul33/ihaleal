@@ -62,3 +62,9 @@ supabase-keys.txt
 # Yerel yedek çıktısı (script masaüstüne yazar; repoda oluşursa)
 ihaleal-backups/
 .vercel
+
+# AI/IDE lokal state (Claude Code session/plan dosyaları)
+.claude/
+
+# Web UI QA screenshot artefaktları (Playwright/manuel test çıktıları)
+screenshots/
