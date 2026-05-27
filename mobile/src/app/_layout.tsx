@@ -6,7 +6,19 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseClient } from './(auth)/authClient';
 
 const AUTH_ROUTES = new Set(['login', 'register', 'reset-password']);
-const PROTECTED_ROUTES = new Set(['profil', 'bildirimler', 'mesajlar', 'favoriler', 'belgeler']);
+const PROTECTED_ROUTES = new Set([
+  'profil',
+  'bildirimler',
+  'mesajlar',
+  'favoriler',
+  'belgeler',
+  'ihale',
+  'ihaleler',
+  'ilan',
+  'analiz',
+  'uluslararasi',
+  'borsa-detay',
+]);
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -62,6 +74,8 @@ export default function RootLayout() {
       router.replace('/(tabs)/profil');
     }
   }, [authReady, isAuthRoute, isProtectedRoute, isSignedIn, router]);
+
+  if (!authReady) return null;
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
