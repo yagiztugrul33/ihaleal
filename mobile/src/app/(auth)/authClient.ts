@@ -25,15 +25,11 @@ type SupabaseStorageAdapter = {
   removeItem: (key: string) => Promise<void>;
 };
 
-function getEnvValue(key: 'EXPO_PUBLIC_SUPABASE_URL' | 'EXPO_PUBLIC_SUPABASE_ANON_KEY' | 'VITE_SUPABASE_URL' | 'VITE_SUPABASE_ANON_KEY'): string | undefined {
+function getEnvValue(key: 'EXPO_PUBLIC_SUPABASE_URL' | 'EXPO_PUBLIC_SUPABASE_ANON_KEY'): string | undefined {
   const fromEnv =
     key === 'EXPO_PUBLIC_SUPABASE_URL'
       ? process.env.EXPO_PUBLIC_SUPABASE_URL
-      : key === 'EXPO_PUBLIC_SUPABASE_ANON_KEY'
-        ? process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY
-        : key === 'VITE_SUPABASE_URL'
-          ? process.env.VITE_SUPABASE_URL
-          : process.env.VITE_SUPABASE_ANON_KEY;
+      : process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
   if (fromEnv?.trim()) return fromEnv;
   const extra = Constants.expoConfig?.extra as Record<string, unknown> | undefined;
   const lowered = key.toLowerCase();
@@ -42,8 +38,8 @@ function getEnvValue(key: 'EXPO_PUBLIC_SUPABASE_URL' | 'EXPO_PUBLIC_SUPABASE_ANO
 }
 
 function resolveSupabaseConfig(): { url: string; anon: string } {
-  const url = getEnvValue('EXPO_PUBLIC_SUPABASE_URL') ?? getEnvValue('VITE_SUPABASE_URL') ?? '';
-  const anon = getEnvValue('EXPO_PUBLIC_SUPABASE_ANON_KEY') ?? getEnvValue('VITE_SUPABASE_ANON_KEY') ?? '';
+  const url = getEnvValue('EXPO_PUBLIC_SUPABASE_URL') ?? '';
+  const anon = getEnvValue('EXPO_PUBLIC_SUPABASE_ANON_KEY') ?? '';
   if (!url || !anon) {
     throw new Error('Supabase env eksik. EXPO_PUBLIC_SUPABASE_URL ve EXPO_PUBLIC_SUPABASE_ANON_KEY tanımlayın.');
   }
