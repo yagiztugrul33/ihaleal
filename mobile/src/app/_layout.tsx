@@ -1,8 +1,68 @@
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { useEffect, useMemo, useState } from 'react';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter, useSegments } from 'expo-router';
 import { useColorScheme } from 'react-native';
+import type { SupabaseClient } from '@supabase/supabase-js';
+
+import { getSupabaseClient } from './(auth)/authClient';
+
+const AUTH_ROUTES = new Set(['login', 'register', 'reset-password']);
+const PROTECTED_ROUTES = new Set(['profil', 'bildirimler', 'mesajlar', 'favoriler', 'belgeler']);
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const router = useRouter();
+  const segments = useSegments();
+  const [authReady, setAuthReady] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  const topRoute = useMemo(() => {
+    const visibleSegments = segments.filter((segment) => !segment.startsWith('(') && !segment.endsWith(')'));
+    return visibleSegments[0] ?? '';
+  }, [segments]);
+
+  const isAuthRoute = AUTH_ROUTES.has(topRoute);
+  const isProtectedRoute = PROTECTED_ROUTES.has(topRoute);
+
+  useEffect(() => {
+    let active = true;
+    let unsubscribe: (() => void) | undefined;
+
+    void (async () => {
+      try {
+        const client = (await getSupabaseClient()) as unknown as SupabaseClient;
+        const { data } = await client.auth.getSession();
+        if (!active) return;
+        setIsSignedIn(Boolean(data.session));
+        setAuthReady(true);
+
+        const authListener = client.auth.onAuthStateChange((_event, session) => {
+          setIsSignedIn(Boolean(session));
+        });
+        unsubscribe = () => authListener.data.subscription.unsubscribe();
+      } catch {
+        if (!active) return;
+        setIsSignedIn(false);
+        setAuthReady(true);
+      }
+    })();
+
+    return () => {
+      active = false;
+      unsubscribe?.();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!authReady) return;
+    if (isProtectedRoute && !isSignedIn) {
+      router.replace('/(auth)/login');
+      return;
+    }
+    if (isAuthRoute && isSignedIn) {
+      router.replace('/(tabs)/profil');
+    }
+  }, [authReady, isAuthRoute, isProtectedRoute, isSignedIn, router]);
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>
