@@ -1,1 +1,1 @@
-export * from '@/lib/location/locationIntelligenceEngine';
+export * from "@/lib/location/locationIntelligenceEngine";
