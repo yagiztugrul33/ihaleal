@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import {
   Alert,
+  FlatList,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -10,6 +11,7 @@ import {
   useColorScheme,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
 
 import { Colors, Spacing } from '@/constants/theme';
 import { type Palette } from '@/constants/palette';
@@ -23,6 +25,16 @@ import {
   type MarketDataAsset,
   type OrderBookBid,
 } from '../../../shared';
+import {
+  createAutoBidRule,
+  createPriceAlert,
+  readAutoBidRules,
+  readPriceAlerts,
+  readWatchlistIds,
+  toggleAutoBidRule,
+  toggleWatchlistAsset,
+} from '../borsa-detay/data';
+import { FeedbackStateCard } from '@/components/FeedbackStateCard';
 
 const MIN_INCREMENT = 25_000;
 
@@ -54,6 +66,12 @@ export default function BorsaScreen() {
   const [selectedId, setSelectedId] = useState<string>(DEMO_MARKET_ASSETS[0]?.id ?? '');
   const [bidInput, setBidInput] = useState('');
   const [proxyInput, setProxyInput] = useState('');
+  const [alertTarget, setAlertTarget] = useState('');
+  const [ruleMax, setRuleMax] = useState('');
+  const [ruleStep, setRuleStep] = useState('50000');
+  const [watchlistIds, setWatchlistIds] = useState<string[]>(() => readWatchlistIds());
+  const [priceAlerts, setPriceAlerts] = useState(() => readPriceAlerts());
+  const [autoBidRules, setAutoBidRules] = useState(() => readAutoBidRules());
   const [submitting, setSubmitting] = useState(false);
 
   const snapshot = useMemo(() => createMarketSnapshot(DEMO_MARKET_ASSETS), []);
@@ -62,6 +80,19 @@ export default function BorsaScreen() {
     [selectedId],
   );
   const orderBook = useMemo(() => (selected ? buildOrderBook(deriveDemoBids(selected)) : null), [selected]);
+  const activeAlerts = useMemo(
+    () =>
+      priceAlerts
+        .filter((item) => item.enabled)
+        .map((item) => {
+          const asset = DEMO_MARKET_ASSETS.find((row) => row.id === item.assetId);
+          if (!asset) return null;
+          const hit = item.direction === 'above' ? asset.price >= item.targetPrice : asset.price <= item.targetPrice;
+          return { ...item, code: asset.code, current: asset.price, hit };
+        })
+        .filter((item): item is NonNullable<typeof item> => Boolean(item)),
+    [priceAlerts],
+  );
 
   const handleSubmit = async () => {
     if (!selected) return;
@@ -94,6 +125,45 @@ export default function BorsaScreen() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleToggleWatch = (assetId: string) => {
+    setWatchlistIds(toggleWatchlistAsset(assetId));
+  };
+
+  const handleCreateAlert = () => {
+    if (!selected) return;
+    const target = Number(alertTarget.replace(/[^\d]/g, ''));
+    if (!Number.isFinite(target) || target <= 0) {
+      Alert.alert('Geçersiz alarm', 'Lütfen geçerli hedef fiyat girin.');
+      return;
+    }
+    setPriceAlerts(
+      createPriceAlert({
+        assetId: selected.id,
+        direction: 'above',
+        targetPrice: target,
+      }),
+    );
+    setAlertTarget('');
+  };
+
+  const handleCreateRule = () => {
+    if (!selected) return;
+    const maxBid = Number(ruleMax.replace(/[^\d]/g, ''));
+    const stepTry = Number(ruleStep.replace(/[^\d]/g, ''));
+    if (!Number.isFinite(maxBid) || maxBid <= 0 || !Number.isFinite(stepTry) || stepTry <= 0) {
+      Alert.alert('Geçersiz kural', 'Maks teklif ve adım değerlerini kontrol edin.');
+      return;
+    }
+    setAutoBidRules(
+      createAutoBidRule({
+        assetId: selected.id,
+        maxBid,
+        stepTry,
+      }),
+    );
+    setRuleMax('');
   };
 
   return (
@@ -140,10 +210,37 @@ export default function BorsaScreen() {
                   {positive ? '+' : ''}
                   {asset.changePct.toFixed(2)}%
                 </Text>
+                <Pressable
+                  onPress={() => handleToggleWatch(asset.id)}
+                  style={[styles.watchBtn, { borderColor: palette.backgroundSelected }]}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${asset.code} izleme durumunu değiştir`}>
+                  <Text style={[styles.watchBtnText, { color: watchlistIds.includes(asset.id) ? '#22d3ee' : palette.textSecondary }]}>
+                    {watchlistIds.includes(asset.id) ? 'İzleniyor' : 'İzle'}
+                  </Text>
+                </Pressable>
               </Pressable>
             );
           })}
         </ScrollView>
+
+        <View style={[styles.quickNav, { backgroundColor: palette.backgroundElement }]}>
+          <Link href="/borsa-detay/izleme" asChild>
+            <Pressable style={styles.quickBtn} accessibilityRole="button" accessibilityLabel="İzleme ekranına git">
+              <Text style={[styles.quickText, { color: palette.text }]}>İzleme</Text>
+            </Pressable>
+          </Link>
+          <Link href="/borsa-detay/veri" asChild>
+            <Pressable style={styles.quickBtn} accessibilityRole="button" accessibilityLabel="Veri ekranına git">
+              <Text style={[styles.quickText, { color: palette.text }]}>Veri/Endeks</Text>
+            </Pressable>
+          </Link>
+          <Link href="/borsa-detay/portfoy" asChild>
+            <Pressable style={styles.quickBtn} accessibilityRole="button" accessibilityLabel="Portföy ekranına git">
+              <Text style={[styles.quickText, { color: palette.text }]}>Portföy</Text>
+            </Pressable>
+          </Link>
+        </View>
 
         {selected && (
           <View style={[styles.detailCard, { backgroundColor: palette.backgroundElement }]}>
@@ -248,6 +345,104 @@ export default function BorsaScreen() {
           </Text>
         </View>
 
+        <Text style={[styles.sectionLabel, { color: palette.text }]}>Fiyat Alarmı (mock)</Text>
+        <View style={[styles.bidCard, { backgroundColor: palette.backgroundElement }]}>
+          <Text style={[styles.bidHint, { color: palette.textSecondary }]}>
+            Seçili varlık: {selected?.code ?? '—'} · Aktif alarm: {activeAlerts.length}
+          </Text>
+          <TextInput
+            value={alertTarget}
+            onChangeText={setAlertTarget}
+            keyboardType="number-pad"
+            placeholder="Hedef fiyat (₺)"
+            placeholderTextColor={palette.textSecondary}
+            style={[styles.input, { borderColor: palette.backgroundSelected, color: palette.text }]}
+          />
+          <Pressable
+            onPress={handleCreateAlert}
+            style={({ pressed }) => [styles.submitBtn, { backgroundColor: '#0ea5e9', opacity: pressed ? 0.85 : 1 }]}>
+            <Text style={styles.submitText}>Alarm Ekle</Text>
+          </Pressable>
+          {activeAlerts.length === 0 ? (
+            <FeedbackStateCard title="Boş" detail="Henüz aktif alarm yok." variant="empty" />
+          ) : (
+            <FlatList
+              data={activeAlerts}
+              keyExtractor={(item) => item.id}
+              scrollEnabled={false}
+              ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
+              renderItem={({ item }) => (
+                <View style={styles.trackRow}>
+                  <Text style={[styles.trackBidder, { color: palette.text }]}>
+                    {item.code} {item.direction === 'above' ? '≥' : '≤'} {formatTry(item.targetPrice)}
+                  </Text>
+                  <Text style={[styles.trackQty, { color: item.hit ? '#16a34a' : palette.textSecondary }]}>
+                    {item.hit ? 'Tetiklendi' : formatTry(item.current)}
+                  </Text>
+                </View>
+              )}
+            />
+          )}
+        </View>
+
+        <Text style={[styles.sectionLabel, { color: palette.text }]}>Otomatik Teklif Kuralı (mock)</Text>
+        <View style={[styles.bidCard, { backgroundColor: palette.backgroundElement }]}>
+          <Text style={[styles.bidHint, { color: palette.textSecondary }]}>
+            Seçili varlık: {selected?.code ?? '—'} · Kural sayısı: {autoBidRules.length}
+          </Text>
+          <TextInput
+            value={ruleMax}
+            onChangeText={setRuleMax}
+            keyboardType="number-pad"
+            placeholder="Maks teklif (₺)"
+            placeholderTextColor={palette.textSecondary}
+            style={[styles.input, { borderColor: palette.backgroundSelected, color: palette.text }]}
+          />
+          <TextInput
+            value={ruleStep}
+            onChangeText={setRuleStep}
+            keyboardType="number-pad"
+            placeholder="Adım (₺)"
+            placeholderTextColor={palette.textSecondary}
+            style={[styles.input, { borderColor: palette.backgroundSelected, color: palette.text }]}
+          />
+          <Pressable
+            onPress={handleCreateRule}
+            style={({ pressed }) => [styles.submitBtn, { backgroundColor: '#0ea5e9', opacity: pressed ? 0.85 : 1 }]}>
+            <Text style={styles.submitText}>Kural Ekle</Text>
+          </Pressable>
+          {autoBidRules.length === 0 ? (
+            <FeedbackStateCard title="Boş" detail="Henüz otomatik teklif kuralı yok." variant="empty" />
+          ) : (
+            <FlatList
+              data={autoBidRules}
+              keyExtractor={(item) => item.id}
+              scrollEnabled={false}
+              ItemSeparatorComponent={() => <View style={{ height: 6 }} />}
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() => setAutoBidRules(toggleAutoBidRule(item.id))}
+                  style={styles.trackRow}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${item.assetId} kural durumunu değiştir`}>
+                  <Text style={[styles.trackBidder, { color: palette.text }]}>
+                    {item.assetId} · Max {formatTry(item.maxBid)} · Adım {formatTry(item.stepTry)}
+                  </Text>
+                  <Text style={[styles.trackQty, { color: item.enabled ? '#16a34a' : palette.textSecondary }]}>
+                    {item.enabled ? 'Aktif' : 'Pasif'}
+                  </Text>
+                </Pressable>
+              )}
+            />
+          )}
+        </View>
+
+        <FeedbackStateCard
+          title="Çekirdek Bekleyen Borsa Özellikleri"
+          detail="Gerçek işlem için gerekli çekirdekler: canlı market feedi, place_bid RPC, watchlist/notifications tabloları, server-side alarm motoru."
+          variant="empty"
+        />
+
         <Text style={[styles.sectionLabel, { color: palette.text }]}>Demo Bidder İzleri</Text>
         <View style={[styles.tracksCard, { backgroundColor: palette.backgroundElement }]}>
           {selected &&
@@ -305,6 +500,8 @@ const styles = StyleSheet.create({
   sectionLabel: { fontSize: 18, fontWeight: '600', marginTop: Spacing.three, marginBottom: Spacing.two },
   assetsRow: { gap: Spacing.two, paddingRight: Spacing.three },
   assetChip: { paddingHorizontal: Spacing.three, paddingVertical: Spacing.two, borderRadius: 12, minWidth: 120 },
+  watchBtn: { marginTop: 6, borderWidth: 1, borderRadius: 8, paddingVertical: 4, alignItems: 'center' },
+  watchBtnText: { fontSize: 11, fontWeight: '700' },
   assetCode: { fontSize: 13, fontWeight: '700' },
   assetPrice: { fontSize: 13, marginTop: 2 },
   assetChange: { fontSize: 12, marginTop: 2, fontWeight: '600' },
@@ -320,6 +517,9 @@ const styles = StyleSheet.create({
   bookEmpty: { fontSize: 12, textAlign: 'center', paddingVertical: 8 },
   bookFooter: { fontSize: 11, marginTop: 6, textAlign: 'center' },
   bidCard: { padding: Spacing.three, borderRadius: 14, gap: Spacing.two },
+  quickNav: { borderRadius: 12, padding: Spacing.two, flexDirection: 'row', gap: Spacing.two, marginTop: Spacing.two },
+  quickBtn: { flex: 1, borderRadius: 8, borderWidth: 1, borderColor: '#334155', backgroundColor: '#111827', paddingVertical: 8, alignItems: 'center' },
+  quickText: { fontSize: 12, fontWeight: '700' },
   bidHint: { fontSize: 12 },
   inputBlock: { gap: 4 },
   inputLabel: { fontSize: 12 },

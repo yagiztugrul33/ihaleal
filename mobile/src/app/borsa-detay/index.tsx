@@ -6,12 +6,17 @@ const ROUTES = [
   {
     href: "/borsa-detay/izleme",
     title: "İzleme Listesi",
-    desc: "Takip edilen varlıklar, fiyat/değişim, ekle-çıkar.",
+    desc: "Takip edilen varlıklar, fiyat alarmı ve outbid görünümü.",
   },
   {
     href: "/borsa-detay/veri",
     title: "Veri / Endeks",
-    desc: "Piyasa özeti, trend ve sıralı varlık tablosu.",
+    desc: "Piyasa özeti, trend kıyasları ve ısı kartları.",
+  },
+  {
+    href: "/borsa-detay/portfoy",
+    title: "Portföy",
+    desc: "Mock pozisyonlar, PnL ve segment dağılımı.",
   },
 ] as const;
 
@@ -20,7 +25,7 @@ export default function BorsaDetayIndexScreen() {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <View style={styles.container}>
         <Text style={styles.title}>Borsa Alt Ekranları</Text>
-        <Text style={styles.subtitle}>Sadece görüntüleme amaçlı izleme ve veri görünümü.</Text>
+        <Text style={styles.subtitle}>İzleme, veri/endeks ve portföy modülleri (demo/mock).</Text>
         {ROUTES.map((item) => (
           <Link key={item.href} href={item.href} style={styles.linkCard}>
             <Text style={styles.linkTitle}>{item.title}</Text>

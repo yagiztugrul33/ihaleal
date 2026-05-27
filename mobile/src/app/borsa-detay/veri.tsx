@@ -3,7 +3,8 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-import { buildSnapshotFromAssets, fetchBorsaAssets } from "./data";
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
+import { buildSnapshotFromAssets, fetchBorsaAssets, readAutoBidRules, readPriceAlerts } from "./data";
 import { formatPercent, formatTl, marketTrendLabel, sortAssets } from "./helpers";
 import type { DataSort } from "./types";
 
@@ -14,6 +15,8 @@ export default function BorsaVeriScreen() {
   const [error, setError] = useState<string | null>(null);
   const [forceError, setForceError] = useState(false);
   const [sort, setSort] = useState<DataSort>("changeDesc");
+  const [ruleCount, setRuleCount] = useState(0);
+  const [alertCount, setAlertCount] = useState(0);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -21,6 +24,8 @@ export default function BorsaVeriScreen() {
     try {
       const data = await fetchBorsaAssets(forceError);
       setRows(sortAssets(data, sort));
+      setRuleCount(readAutoBidRules().filter((item) => item.enabled).length);
+      setAlertCount(readPriceAlerts().filter((item) => item.enabled).length);
     } catch {
       setRows([]);
       setError("Piyasa verisi yüklenemedi.");
@@ -36,6 +41,8 @@ export default function BorsaVeriScreen() {
         const data = await fetchBorsaAssets(forceError);
         if (!cancelled) {
           setRows(sortAssets(data, sort));
+          setRuleCount(readAutoBidRules().filter((item) => item.enabled).length);
+          setAlertCount(readPriceAlerts().filter((item) => item.enabled).length);
           setError(null);
           setLoading(false);
         }
@@ -67,7 +74,7 @@ export default function BorsaVeriScreen() {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={styles.title}>Borsa / Veri</Text>
-        <Text style={styles.subtitle}>Endeks ve trend görünümü (sadece okuma).</Text>
+        <Text style={styles.subtitle}>Endeks, trend ve alarm/otomatik teklif özeti (mock).</Text>
 
         <View style={styles.controls}>
           <Pressable style={styles.btn} onPress={load} accessibilityLabel="Veri ekranını yenile">
@@ -96,9 +103,9 @@ export default function BorsaVeriScreen() {
           </Pressable>
         </View>
 
-        {loading ? <StateCard title="Yükleniyor" detail="Piyasa verisi hazırlanıyor..." /> : null}
-        {!loading && error ? <StateCard title="Hata" detail={error} /> : null}
-        {!loading && !error && rows.length === 0 ? <StateCard title="Boş" detail="Gösterilecek veri yok." /> : null}
+        {loading ? <FeedbackStateCard title="Yükleniyor" detail="Piyasa verisi hazırlanıyor..." /> : null}
+        {!loading && error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
+        {!loading && !error && rows.length === 0 ? <FeedbackStateCard title="Boş" detail="Gösterilecek veri yok." variant="empty" /> : null}
 
         {!loading && !error && rows.length > 0 ? (
           <View style={styles.summary}>
@@ -108,6 +115,8 @@ export default function BorsaVeriScreen() {
             <Text style={styles.summaryText}>Ortalama değişim: {formatPercent(avgChange)}</Text>
             <Text style={styles.summaryText}>Trend: {marketTrendLabel(avgChange)}</Text>
             <Text style={styles.summaryText}>Snapshot alan sayısı: {snapshotFieldCount}</Text>
+            <Text style={styles.summaryText}>Aktif fiyat alarmı: {alertCount}</Text>
+            <Text style={styles.summaryText}>Aktif otomatik teklif kuralı: {ruleCount}</Text>
           </View>
         ) : null}
 
@@ -130,17 +139,13 @@ export default function BorsaVeriScreen() {
               </View>
             </Pressable>
           ))}
+        <FeedbackStateCard
+          title="Çekirdek Bekleyen Kısım"
+          detail="Gerçek veri/endeks için gerekli API: lisanslı canlı fiyat feedi + event stream + server-side index hesaplama."
+          variant="empty"
+        />
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function StateCard({ title, detail }: { title: string; detail: string }) {
-  return (
-    <View style={styles.stateCard}>
-      <Text style={styles.stateTitle}>{title}</Text>
-      <Text style={styles.stateDetail}>{detail}</Text>
-    </View>
   );
 }
 
@@ -155,9 +160,6 @@ const styles = StyleSheet.create({
   btnText: { color: "#fff", fontSize: 12, fontWeight: "700" },
   sortBtn: { borderRadius: 10, backgroundColor: "#0f172a", borderWidth: 1, borderColor: "#334155", paddingHorizontal: 10, paddingVertical: 8 },
   sortText: { color: "#cbd5e1", fontSize: 12, fontWeight: "700" },
-  stateCard: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, backgroundColor: "#0f172a" },
-  stateTitle: { color: "#f8fafc", fontWeight: "700" },
-  stateDetail: { color: "#cbd5e1", fontSize: 12, marginTop: 2 },
   summary: { borderWidth: 1, borderColor: "#1e3a8a", borderRadius: 12, padding: 12, gap: 4, backgroundColor: "#0b1220" },
   summaryTitle: { color: "#dbeafe", fontSize: 14, fontWeight: "700" },
   summaryText: { color: "#cbd5e1", fontSize: 12 },

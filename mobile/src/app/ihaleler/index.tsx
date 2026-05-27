@@ -3,6 +3,7 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 import { applyAuctionFilters, formatRemaining, getAuctionStatus } from "./filters";
 import { formatTl, parseFilterNumber } from "./formatters";
 import type { AuctionFilters, AuctionStatus } from "./types";
@@ -42,7 +43,7 @@ export default function IhalelerListScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Live Auctions</Text>
+        <Text style={styles.title}>Canlı İhaleler</Text>
         <Text style={styles.subtitle}>Listeleme/filtreleme ekranı. Teklif ve para işlemi içermez.</Text>
 
         <View style={styles.filterCard}>
@@ -142,10 +143,10 @@ export default function IhalelerListScreen() {
           </Pressable>
         </View>
 
-        {loading ? <StateCard title="Yükleniyor" detail="İhale listesi hazırlanıyor..." /> : null}
-        {!loading && error ? <StateCard title="Hata" detail={error} kind="error" /> : null}
+        {loading ? <FeedbackStateCard title="Yükleniyor" detail="İhale listesi hazırlanıyor..." /> : null}
+        {!loading && error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
         {!loading && !error && filtered.length === 0 ? (
-          <StateCard title="Boş durum" detail="Filtrelere uygun ihale bulunamadı." kind="empty" />
+          <FeedbackStateCard title="Boş durum" detail="Filtrelere uygun ihale bulunamadı." variant="empty" />
         ) : null}
 
         {!loading && !error
@@ -157,6 +158,7 @@ export default function IhalelerListScreen() {
                   style={styles.card}
                   accessibilityRole="button"
                   accessibilityLabel={`${item.title} ihale kartı`}
+                  accessibilityHint="Detay ekranını açar, teklif paneli demo modundadır."
                   onPress={() => router.push(`/ihale/${item.id}`)}>
                   <Image source={{ uri: item.imageUrl }} style={styles.image} />
                   <View style={styles.cardBody}>
@@ -178,18 +180,14 @@ export default function IhalelerListScreen() {
 
 function FilterChip({ label, active, onPress }: { label: string; active: boolean; onPress: () => void }) {
   return (
-    <Pressable onPress={onPress} style={[styles.chip, active ? styles.chipActive : undefined]} accessibilityLabel={label}>
+    <Pressable
+      onPress={onPress}
+      style={[styles.chip, active ? styles.chipActive : undefined]}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ selected: active }}>
       <Text style={[styles.chipText, active ? styles.chipTextActive : undefined]}>{label}</Text>
     </Pressable>
-  );
-}
-
-function StateCard({ title, detail, kind }: { title: string; detail: string; kind?: "error" | "empty" }) {
-  return (
-    <View style={[styles.stateCard, kind === "error" ? styles.stateError : kind === "empty" ? styles.stateEmpty : undefined]}>
-      <Text style={styles.stateTitle}>{title}</Text>
-      <Text style={styles.stateDetail}>{detail}</Text>
-    </View>
   );
 }
 
@@ -241,11 +239,6 @@ const styles = StyleSheet.create({
   },
   actionWarn: { borderColor: "#b45309", backgroundColor: "#b45309" },
   actionText: { color: "#f8fafc", fontSize: 12, fontWeight: "700" },
-  stateCard: { borderRadius: 12, borderWidth: 1, borderColor: "#334155", backgroundColor: "#0f172a", padding: 12 },
-  stateError: { borderColor: "#7f1d1d", backgroundColor: "#3f1317" },
-  stateEmpty: { borderColor: "#365314", backgroundColor: "#1a2f12" },
-  stateTitle: { color: "#e2e8f0", fontSize: 14, fontWeight: "700" },
-  stateDetail: { color: "#cbd5e1", fontSize: 12, marginTop: 4 },
   card: { borderWidth: 1, borderColor: "#1e293b", borderRadius: 14, overflow: "hidden", backgroundColor: "#0b1220" },
   image: { width: "100%", height: 160, backgroundColor: "#1f2937" },
   cardBody: { padding: 12, gap: 4 },

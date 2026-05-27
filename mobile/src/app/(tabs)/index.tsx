@@ -79,8 +79,12 @@ export default function AnaScreen() {
         <Text style={[styles.sectionLabel, { color: palette.text }]}>Hızlı Erişim</Text>
         <View style={styles.quickGrid}>
           <QuickLink href="/borsa" label="Borsa Terminali" palette={palette} />
+          <QuickLink href="/ihaleler" label="Canlı İhaleler" palette={palette} />
           <QuickLink href="/ilanlar" label="Tüm İlanlar" palette={palette} />
           <QuickLink href="/degerleme" label="AI Değerleme" palette={palette} />
+          <QuickLink href="/moduller/deprem" label="Deprem Modülü" palette={palette} />
+          <QuickLink href="/moduller" label="Modüller Hub" palette={palette} />
+          <QuickLink href="/araclar" label="Finansal Araçlar" palette={palette} />
           <QuickLink href="/profil" label="Profil" palette={palette} />
         </View>
       </ScrollView>
@@ -104,13 +108,23 @@ function QuickLink({
   label,
   palette,
 }: {
-  href: '/borsa' | '/ilanlar' | '/degerleme' | '/profil';
+  href:
+    | '/borsa'
+    | '/ihaleler'
+    | '/ilanlar'
+    | '/degerleme'
+    | '/moduller/deprem'
+    | '/moduller'
+    | '/araclar'
+    | '/profil';
   label: string;
   palette: Palette;
 }) {
   return (
     <Link href={href} asChild>
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={label}
         style={({ pressed }) => [
           styles.quickCell,
           { backgroundColor: palette.backgroundElement, opacity: pressed ? 0.7 : 1 },

@@ -3,7 +3,8 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-import { fetchBorsaAssets } from "./data";
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
+import { createPriceAlert, fetchBorsaAssets, readPriceAlerts, readWatchlistIds, toggleWatchlistAsset } from "./data";
 import { formatPercent, formatTl } from "./helpers";
 import type { WatchlistItem } from "./types";
 
@@ -13,13 +14,16 @@ export default function BorsaIzlemeScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [forceError, setForceError] = useState(false);
+  const [alertCount, setAlertCount] = useState(0);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const data = await fetchBorsaAssets(forceError);
-      setRows(data.map((asset, idx) => ({ ...asset, watching: idx < 3 })));
+      const watchlist = readWatchlistIds();
+      setRows(data.map((asset) => ({ ...asset, watching: watchlist.includes(asset.id) })));
+      setAlertCount(readPriceAlerts().filter((item) => item.enabled).length);
     } catch {
       setRows([]);
       setError("İzleme listesi yüklenemedi.");
@@ -34,7 +38,9 @@ export default function BorsaIzlemeScreen() {
       try {
         const data = await fetchBorsaAssets(forceError);
         if (!cancelled) {
-          setRows(data.map((asset, idx) => ({ ...asset, watching: idx < 3 })));
+          const watchlist = readWatchlistIds();
+          setRows(data.map((asset) => ({ ...asset, watching: watchlist.includes(asset.id) })));
+          setAlertCount(readPriceAlerts().filter((item) => item.enabled).length);
           setError(null);
           setLoading(false);
         }
@@ -54,14 +60,24 @@ export default function BorsaIzlemeScreen() {
   const watchingCount = useMemo(() => rows.filter((r) => r.watching).length, [rows]);
 
   const toggleWatch = (id: string) => {
-    setRows((prev) => prev.map((item) => (item.id === id ? { ...item, watching: !item.watching } : item)));
+    const nextWatchlist = toggleWatchlistAsset(id);
+    setRows((prev) => prev.map((item) => ({ ...item, watching: nextWatchlist.includes(item.id) })));
+  };
+
+  const createQuickAlert = (id: string, currentPrice: number) => {
+    createPriceAlert({
+      assetId: id,
+      direction: "above",
+      targetPrice: Math.round(currentPrice * 1.02),
+    });
+    setAlertCount(readPriceAlerts().filter((item) => item.enabled).length);
   };
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={styles.title}>Borsa / İzleme</Text>
-        <Text style={styles.subtitle}>Takip edilen varlıklar: {watchingCount}</Text>
+        <Text style={styles.subtitle}>Takip edilen varlıklar: {watchingCount} · Aktif alarm: {alertCount}</Text>
 
         <View style={styles.controls}>
           <Pressable style={styles.btn} onPress={load} accessibilityLabel="İzleme listesini yenile">
@@ -78,9 +94,9 @@ export default function BorsaIzlemeScreen() {
           </Pressable>
         </View>
 
-        {loading ? <StateCard title="Yükleniyor" detail="Varlıklar hazırlanıyor..." /> : null}
-        {!loading && error ? <StateCard title="Hata" detail={error} /> : null}
-        {!loading && !error && rows.length === 0 ? <StateCard title="Boş" detail="İzleme listesi boş." /> : null}
+        {loading ? <FeedbackStateCard title="Yükleniyor" detail="Varlıklar hazırlanıyor..." /> : null}
+        {!loading && error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
+        {!loading && !error && rows.length === 0 ? <FeedbackStateCard title="Boş" detail="İzleme listesi boş." variant="empty" /> : null}
 
         {!loading &&
           !error &&
@@ -101,6 +117,12 @@ export default function BorsaIzlemeScreen() {
                 </Pressable>
                 <Pressable
                   style={styles.linkBtn}
+                  onPress={() => createQuickAlert(item.id, item.price)}
+                  accessibilityLabel={`${item.property} için hızlı alarm oluştur`}>
+                  <Text style={styles.linkText}>Alarm +2%</Text>
+                </Pressable>
+                <Pressable
+                  style={styles.linkBtn}
                   onPress={() => toggleWatch(item.id)}
                   accessibilityLabel={`${item.property} izleme durumunu değiştir`}>
                   <Text style={styles.linkText}>{item.watching ? "Çıkar" : "Ekle"}</Text>
@@ -108,17 +130,13 @@ export default function BorsaIzlemeScreen() {
               </View>
             </View>
           ))}
+        <FeedbackStateCard
+          title="Çekirdek Bekleyen Kısım"
+          detail="Gerçek izleme/alarm için gerekli API: watchlist tablosu + notification delivery + user preference kaydı."
+          variant="empty"
+        />
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function StateCard({ title, detail }: { title: string; detail: string }) {
-  return (
-    <View style={styles.stateCard}>
-      <Text style={styles.stateTitle}>{title}</Text>
-      <Text style={styles.stateDetail}>{detail}</Text>
-    </View>
   );
 }
 
@@ -131,9 +149,6 @@ const styles = StyleSheet.create({
   btn: { borderRadius: 10, backgroundColor: "#1d4ed8", paddingHorizontal: 10, paddingVertical: 8 },
   warnBtn: { backgroundColor: "#b45309" },
   btnText: { color: "#fff", fontSize: 12, fontWeight: "700" },
-  stateCard: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, backgroundColor: "#0f172a" },
-  stateTitle: { color: "#f8fafc", fontWeight: "700" },
-  stateDetail: { color: "#cbd5e1", fontSize: 12, marginTop: 2 },
   card: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, gap: 6, backgroundColor: "#0f172a" },
   rowBetween: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   code: { color: "#bfdbfe", fontSize: 12, fontWeight: "700" },
