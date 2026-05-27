@@ -37,7 +37,10 @@ export default function ProfilScreen() {
   const [email, setEmail] = useState<string | null>(null);
   const [sessionReady, setSessionReady] = useState(false);
   const [biometricEnabled, setBiometricEnabledState] = useState(false);
-  const [kvkkOptIn, setKvkkOptIn] = useState(false);
+  const [locationIlluminationAccepted, setLocationIlluminationAccepted] = useState(false);
+  const [locationConsentAccepted, setLocationConsentAccepted] = useState(false);
+  const [pushIlluminationAccepted, setPushIlluminationAccepted] = useState(false);
+  const [pushConsentAccepted, setPushConsentAccepted] = useState(false);
   const [locationBusy, setLocationBusy] = useState(false);
   const [locationStatus, setLocationStatus] = useState('Konum radarı kapalı.');
   const [radarPoints, setRadarPoints] = useState<RadarPoint[]>([]);
@@ -73,9 +76,15 @@ export default function ProfilScreen() {
   }, []);
 
   const onEnableRadar = useCallback(async () => {
+    const hasLocationConsent = locationIlluminationAccepted && locationConsentAccepted;
+    if (!hasLocationConsent) {
+      setLocationStatus('Konum radarı için aydınlatma + açık rıza onayı zorunlu.');
+      return;
+    }
+
     setLocationBusy(true);
     try {
-      const result = await requestLocationWithConsent(kvkkOptIn);
+      const result = await requestLocationWithConsent(true);
       setLocationStatus(result.message);
       if (!result.ok || !result.coords) return;
       setUserCoords(result.coords);
@@ -90,9 +99,14 @@ export default function ProfilScreen() {
     } finally {
       setLocationBusy(false);
     }
-  }, [kvkkOptIn]);
+  }, [locationConsentAccepted, locationIlluminationAccepted]);
 
   const onEnablePush = useCallback(async () => {
+    if (!(pushIlluminationAccepted && pushConsentAccepted)) {
+      setPushStatus('Push için aydınlatma + açık rıza onayı zorunlu.');
+      return;
+    }
+
     setPushBusy(true);
     try {
       const setup = await setupPushNotifications();
@@ -105,7 +119,7 @@ export default function ProfilScreen() {
     } finally {
       setPushBusy(false);
     }
-  }, []);
+  }, [pushConsentAccepted, pushIlluminationAccepted]);
 
   const MapView = mapModule.moduleReady ? mapModule.MapView : null;
   const Marker = mapModule.moduleReady ? mapModule.Marker : null;
@@ -151,9 +165,24 @@ export default function ProfilScreen() {
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Konum Radarı (KVKK onayı zorunlu)</Text>
+          <Text style={styles.note}>Aydınlatma ve açık rıza ayrı onaylanmalıdır.</Text>
           <View style={styles.row}>
-            <Text style={styles.rowLabel}>KVKK konum opt-in</Text>
-            <Switch value={kvkkOptIn} onValueChange={setKvkkOptIn} trackColor={{ false: '#475569', true: '#16a34a' }} />
+            <Text style={styles.rowLabel}>Aydınlatma metnini okudum</Text>
+            <Switch
+              value={locationIlluminationAccepted}
+              onValueChange={setLocationIlluminationAccepted}
+              trackColor={{ false: '#475569', true: '#16a34a' }}
+              accessibilityLabel="Konum aydınlatma metnini okudum"
+            />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>Açık rıza veriyorum</Text>
+            <Switch
+              value={locationConsentAccepted}
+              onValueChange={setLocationConsentAccepted}
+              trackColor={{ false: '#475569', true: '#16a34a' }}
+              accessibilityLabel="Konum verisi için açık rıza veriyorum"
+            />
           </View>
           <Pressable
             style={styles.primaryBtn}
@@ -167,10 +196,12 @@ export default function ProfilScreen() {
           {radarPoints.map((point) => (
             <View key={point.id} style={styles.listRow}>
               <Text style={styles.listTitle} numberOfLines={1}>
-                {point.title}
+                {locationIlluminationAccepted && locationConsentAccepted ? point.title : 'Rıza olmadan maske'}
               </Text>
               <Text style={styles.listMeta}>
-                {point.city}/{point.district} · {formatKm(point.distanceKm)} · skor {point.score}
+                {locationIlluminationAccepted && locationConsentAccepted
+                  ? `${point.city}/${point.district} · ${formatKm(point.distanceKm)} · skor ${point.score}`
+                  : `*** / *** · ${formatKm(point.distanceKm)} · skor **`}
               </Text>
             </View>
           ))}
@@ -209,6 +240,25 @@ export default function ProfilScreen() {
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Push Bildirim</Text>
+          <Text style={styles.note}>Push kaydı için aydınlatma ve açık rıza ayrı onaylanmalıdır.</Text>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>Aydınlatma metnini okudum</Text>
+            <Switch
+              value={pushIlluminationAccepted}
+              onValueChange={setPushIlluminationAccepted}
+              trackColor={{ false: '#475569', true: '#16a34a' }}
+              accessibilityLabel="Push aydınlatma metnini okudum"
+            />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>Push için açık rıza veriyorum</Text>
+            <Switch
+              value={pushConsentAccepted}
+              onValueChange={setPushConsentAccepted}
+              trackColor={{ false: '#475569', true: '#16a34a' }}
+              accessibilityLabel="Push bildirimi için açık rıza veriyorum"
+            />
+          </View>
           <Pressable
             style={styles.primaryBtn}
             onPress={onEnablePush}
