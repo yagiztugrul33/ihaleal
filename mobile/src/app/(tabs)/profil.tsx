@@ -15,6 +15,7 @@ import {
   bindNotificationDeepLinking,
   registerPushTokenToSupabase,
   setupPushNotifications,
+  unregisterPushTokenFromSupabase,
 } from '../../../features/notifications/pushNotifications';
 import {
   clearAuthSession,
@@ -34,7 +35,6 @@ export default function ProfilScreen() {
   const styles = useMemo(() => createStyles(palette), [palette]);
 
   const [email, setEmail] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
   const [sessionReady, setSessionReady] = useState(false);
   const [biometricEnabled, setBiometricEnabledState] = useState(false);
   const [kvkkOptIn, setKvkkOptIn] = useState(false);
@@ -56,7 +56,6 @@ export default function ProfilScreen() {
       const client = await getSupabaseClient();
       const { data } = await client.auth.getSession();
       setEmail(data.session?.user?.email ?? (await getStoredEmail()));
-      setUserId(data.session?.user?.id ?? null);
       setSessionReady(true);
       setBiometricEnabledState(await getBiometricOptIn());
     })();
@@ -68,6 +67,7 @@ export default function ProfilScreen() {
   }, []);
 
   const onSignOut = useCallback(async () => {
+    await unregisterPushTokenFromSupabase();
     await clearAuthSession();
     router.replace('/(auth)/login');
   }, []);
@@ -100,12 +100,12 @@ export default function ProfilScreen() {
         setPushStatus(setup.note);
         return;
       }
-      const saveResult = await registerPushTokenToSupabase(setup.token, userId);
+      const saveResult = await registerPushTokenToSupabase(setup.token);
       setPushStatus(`${setup.note} ${saveResult}`);
     } finally {
       setPushBusy(false);
     }
-  }, [userId]);
+  }, []);
 
   const MapView = mapModule.moduleReady ? mapModule.MapView : null;
   const Marker = mapModule.moduleReady ? mapModule.Marker : null;
