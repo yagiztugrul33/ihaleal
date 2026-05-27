@@ -59,6 +59,7 @@ import {
 import { MASTER_LEGAL_DISCLAIMER, MODULE3_HEMEN_AL_ACCEPTANCE } from "@/legal/masterContractCheckboxTexts";
 import { BID_GATE_CHECKBOXES, initialBidGateAck, isBidGateComplete } from "@/legal/bidGateAgreement";
 import { placeBidRpc, minNextBidTry, parsePositiveTryFromInput } from "@/lib/placeBid";
+import { executeBuyNow } from "@/lib/buyNow";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -374,30 +375,34 @@ export default function AuctionDetail() {
       setBuyNowBusy(true);
       void (async () => {
         try {
-          const { data, error } = await supabase.rpc("execute_buy_now", {
-            p_listing_id: dbListingId,
-            p_deposit_id: depositIdBuyNow,
-            p_idempotency_key: crypto.randomUUID(),
+          const result = await executeBuyNow({
+            listingId: dbListingId,
+            depositId: depositIdBuyNow,
           });
-          if (error) {
-            toastBid(error.message, "error");
-            return;
+          switch (result.status) {
+            case "ok":
+              setDemoBuyNowWon(true);
+              sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
+              toastBid(
+                `Tebrikler! ₺${result.amountTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız; ihale kapandı.`,
+                "success",
+              );
+              return;
+            case "duplicate":
+              toastBid(result.message, "info");
+              return;
+            case "kyc_required":
+              // Kademeli UX: net uyarı + KYC sayfasına yönlendirme (kullanıcı önce mesajı görür)
+              toastBid(result.message, "warning");
+              window.setTimeout(() => navigate("/kyc"), 2500);
+              return;
+            case "auth_required":
+            case "preconditions_failed":
+            case "rpc_error":
+            case "config_missing":
+              toastBid(result.message, "error");
+              return;
           }
-          const row = data as { status?: string; message?: string; amount?: number };
-          if (row?.status === "ok") {
-            setDemoBuyNowWon(true);
-            sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
-            toastBid(
-              `Tebrikler! ₺${(row.amount ?? effectiveBuyNowTry).toLocaleString("tr-TR")} ile ihaleyi kazandınız; ihale kapandı.`,
-              "success",
-            );
-            return;
-          }
-          if (row?.status === "duplicate") {
-            toastBid(row.message ?? "Bu işlem zaten kayıtlı.", "info");
-            return;
-          }
-          toastBid(row?.message ?? "Satın alma tamamlanamadı.", "error");
         } finally {
           setBuyNowBusy(false);
         }

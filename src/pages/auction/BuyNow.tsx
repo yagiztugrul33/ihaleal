@@ -3,7 +3,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, AlertTriangle, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { executeBuyNow } from "@/lib/buyNow";
 import { isAuctionUuid } from "@/lib/auctionIds";
 import {
   HEMEN_AL_CARD_BLOCK,
@@ -25,7 +26,7 @@ export default function BuyNow() {
   const location = useLocation();
   const { user, loading: authLoading } = useAuth();
   const st = location.state as LocState;
-  const [status, setStatus] = useState<"idle" | "running" | "ok" | "err">("idle");
+  const [status, setStatus] = useState<"idle" | "running" | "ok" | "err" | "kyc">("idle");
   const [message, setMessage] = useState("");
 
   const listingId = st?.listingId;
@@ -49,38 +50,31 @@ export default function BuyNow() {
     let cancelled = false;
     (async () => {
       setStatus("running");
-      const { data: profile } = await supabase.from("profiles").select("kyc_status").eq("id", user.id).maybeSingle();
+      const result = await executeBuyNow({ listingId, depositId });
       if (cancelled) return;
-      if (profile?.kyc_status !== "verified") {
-        setStatus("err");
-        setMessage("KYC doğrulaması gerekli. Profilinizde Kimlik doğrulama tamamlayın (demo: verified olmayabilir).");
-        return;
-      }
 
-      const { data, error } = await supabase.rpc("execute_buy_now", {
-        p_listing_id: listingId,
-        p_deposit_id: depositId,
-        p_idempotency_key: crypto.randomUUID(),
-      });
-      if (cancelled) return;
-      if (error) {
-        setStatus("err");
-        setMessage(error.message);
-        return;
+      switch (result.status) {
+        case "ok":
+          setStatus("ok");
+          setMessage("Tebrikler! Satın alma isteği kaydedildi. Tapu süreci için ekibimiz sizi bilgilendirecek (MVP).");
+          return;
+        case "duplicate":
+          setStatus("err");
+          setMessage(result.message);
+          return;
+        case "kyc_required":
+          // Kademeli UX: kullanıcı KYC doğrulamayı tamamlasın diye yönlendirme CTA gösterilir.
+          setStatus("kyc");
+          setMessage("KYC doğrulaması gerekli. Profilinizde Kimlik doğrulama tamamlayın.");
+          return;
+        case "auth_required":
+        case "preconditions_failed":
+        case "rpc_error":
+        case "config_missing":
+          setStatus("err");
+          setMessage(result.message);
+          return;
       }
-      const row = data as { status?: string; message?: string } | null;
-      if (row?.status === "ok") {
-        setStatus("ok");
-        setMessage("Tebrikler! Satın alma isteği kaydedildi. Tapu süreci için ekibimiz sizi bilgilendirecek (MVP).");
-        return;
-      }
-      if (row?.status === "duplicate") {
-        setStatus("err");
-        setMessage(row.message ?? "Yinelenen işlem.");
-        return;
-      }
-      setStatus("err");
-      setMessage(row?.message ?? "İşlem tamamlanamadı.");
     })();
 
     return () => {
@@ -134,6 +128,22 @@ export default function BuyNow() {
             <div className="flex gap-2 items-start text-amber-200 text-sm">
               <AlertTriangle className="w-5 h-5 shrink-0 text-amber-400" />
               {message}
+            </div>
+          ) : null}
+          {status === "kyc" ? (
+            <div className="space-y-2">
+              <div className="flex gap-2 items-start text-amber-200 text-sm">
+                <AlertTriangle className="w-5 h-5 shrink-0 text-amber-400" />
+                {message}
+              </div>
+              <Button
+                type="button"
+                size="sm"
+                className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold"
+                onClick={() => navigate("/kyc")}
+              >
+                KYC Doğrulamayı Tamamla
+              </Button>
             </div>
           ) : null}
           <p className="text-[11px] text-slate-600 leading-relaxed">
