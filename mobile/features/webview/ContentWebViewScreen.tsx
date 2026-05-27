@@ -11,6 +11,7 @@ import {
   isBlockedInWebView,
   mapBlockedPathToNative,
   toAbsoluteWebUrl,
+  WEB_BASE_URL,
 } from "./webContentConfig";
 
 type RequestPayload = {
@@ -24,6 +25,11 @@ export function ContentWebViewScreen({ item }: { item: WebContentItem }) {
   const [loading, setLoading] = useState(true);
 
   const targetUrl = useMemo(() => toAbsoluteWebUrl(item.path), [item.path]);
+  const originWhitelist = useMemo(() => {
+    const baseHost = new URL(WEB_BASE_URL).hostname.toLowerCase();
+    const altHost = baseHost.startsWith("www.") ? baseHost.slice(4) : `www.${baseHost}`;
+    return [`https://${baseHost}`, `https://${altHost}`];
+  }, []);
   const webViewModule = useMemo(() => {
     try {
       const runtimeRequire = (
@@ -126,7 +132,7 @@ export function ContentWebViewScreen({ item }: { item: WebContentItem }) {
               setLoading(false);
               setError("Sayfa yüklenemedi.");
             }}
-            originWhitelist={["https://*"]}
+            originWhitelist={originWhitelist}
             javaScriptEnabled
             domStorageEnabled
             startInLoadingState={false}
