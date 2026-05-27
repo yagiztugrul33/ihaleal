@@ -33,6 +33,7 @@ import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { registerBidDeposit } from "@/lib/depositRegister";
 import { isAuctionUuid } from "@/lib/auctionIds";
 import {
   approveReport,
@@ -266,23 +267,23 @@ export default function AuctionDetail() {
         window.alert("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).");
       }
       if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
-        const { data, error } = await supabase.rpc("register_bid_deposit", {
-          p_listing_id: dbListingId,
-          p_auction_id: dbAuctionPk,
-          p_base_amount_try: base,
-          p_deposit_amount_try: depositAmt,
-          p_pre_auth_ref: pr.preAuthRef ?? "mock",
-          p_context: "bid",
-          p_idempotency_key: crypto.randomUUID(),
+        const result = await registerBidDeposit({
+          listingId: dbListingId,
+          auctionId: dbAuctionPk,
+          context: "bid",
+          baseAmountTry: base,
+          depositAmountTry: depositAmt,
+          preAuthRef: pr.preAuthRef ?? "mock",
         });
-        if (error) {
-          window.alert(error.message);
+        if (result.ok) {
+          setDepositId(result.depositId);
+          sessionStorage.setItem(`ihaleal_deposit_${id}`, result.depositId);
+        } else {
+          window.alert(result.message);
+          if (result.status === "kyc_required") {
+            window.setTimeout(() => navigate("/kyc"), 2500);
+          }
           return;
-        }
-        const row = data as { status?: string; deposit_id?: string };
-        if (row?.status === "ok" && row.deposit_id) {
-          setDepositId(row.deposit_id);
-          sessionStorage.setItem(`ihaleal_deposit_${id}`, row.deposit_id);
         }
       } else {
         const mockDep = `mock-local-${Date.now()}`;
@@ -316,24 +317,24 @@ export default function AuctionDetail() {
         toastBid("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).", "warning");
       }
       if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
-        const { data, error } = await supabase.rpc("register_bid_deposit", {
-          p_listing_id: dbListingId,
-          p_auction_id: dbAuctionPk,
-          p_base_amount_try: base,
-          p_deposit_amount_try: depositAmt,
-          p_pre_auth_ref: pr.preAuthRef ?? "mock",
-          p_context: "buy_now",
-          p_idempotency_key: crypto.randomUUID(),
+        const result = await registerBidDeposit({
+          listingId: dbListingId,
+          auctionId: dbAuctionPk,
+          context: "buy_now",
+          baseAmountTry: base,
+          depositAmountTry: depositAmt,
+          preAuthRef: pr.preAuthRef ?? "mock",
         });
-        if (error) {
-          toastBid(error.message, "error");
-          return;
-        }
-        const row = data as { status?: string; deposit_id?: string };
-        if (row?.status === "ok" && row.deposit_id) {
-          setDepositIdBuyNow(row.deposit_id);
-          sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, row.deposit_id);
+        if (result.ok) {
+          setDepositIdBuyNow(result.depositId);
+          sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, result.depositId);
           toastBid("Satın alım için blokaj kaydedildi.", "success");
+        } else {
+          toastBid(result.message, result.status === "kyc_required" ? "warning" : "error");
+          if (result.status === "kyc_required") {
+            window.setTimeout(() => navigate("/kyc"), 2500);
+          }
+          return;
         }
       } else {
         const mockDep = `mock-buynow-${Date.now()}`;
