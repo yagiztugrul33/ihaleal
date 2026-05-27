@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import {
+  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -13,15 +14,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Colors, Spacing } from '@/constants/theme';
 import { type Palette } from '@/constants/palette';
-import { formatTry } from '../../../../shared';
+import { executeBuyNow, formatTry } from '../../../../shared';
 import { findDemoAuction } from '../../../../features/auction/demoAuctions';
 
 /**
- * Hemen Al ekranı — ÖNİZLEME modu.
+ * Hemen Al ekranı — AKTİF.
  *
- * Submit kapalı çünkü çekirdek `execute_buy_now` helper'ı henüz mobil tarafa
- * bağlanmadı (bkz. mobile/shared/bidActions.ts). Form doldurulabilir (önizleme),
- * gönderim kapalı. Para mantığı istemcide YOK.
+ * `executeBuyNow` (çekirdek helper, src/lib/buyNow.ts) çağrılır. KYC sunucu
+ * tarafında sertçe enforce edilir (migration 20260527120000); istemci sadece
+ * hızlı UX feedback için kontrol yapar. Para mantığı istemcide YAZILMAZ.
  */
 export default function HemenAl() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -34,9 +35,9 @@ export default function HemenAl() {
     [id],
   );
 
-  // Önizleme alanları — değer toplanır ama gönderilmez.
   const [kycVerified, setKycVerified] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   if (!auction) {
     return (
@@ -77,6 +78,63 @@ export default function HemenAl() {
     );
   }
 
+  const canSubmit = kycVerified && termsAccepted && !submitting;
+
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    try {
+      // NOT: demo auction id'leri gerçek UUID değil — gerçek üretimde
+      // burada Supabase'den çekilmiş listing UUID + önceden register_bid_deposit ile
+      // alınmış depositId iletilmelidir. Şu an demo veri ile executeBuyNow
+      // sunucudan precondition hatası alıp tipli mesaj döner — UI bunu zarif gösterir.
+      const result = await executeBuyNow({
+        listingId: auction.id,
+        depositId: `demo-deposit-${auction.id}`,
+      });
+
+      switch (result.status) {
+        case 'ok':
+          Alert.alert(
+            'Satın alma tamam',
+            `Tutar: ${formatTry(result.amountTry)}\nReferans: ${result.buyNowId}`,
+            [{ text: 'Tamam', onPress: () => router.back() }],
+          );
+          return;
+        case 'duplicate':
+          Alert.alert('Tekrarlanan işlem', result.message);
+          return;
+        case 'kyc_required':
+          // Kademeli UX: kullanıcıya KYC sayfasına gitme seçeneği sunulur (sessiz kesme yok).
+          Alert.alert('KYC Doğrulaması Gerekli', result.message, [
+            { text: 'Vazgeç', style: 'cancel' },
+            {
+              text: 'Profil / KYC',
+              onPress: () => router.push('/(tabs)/profil'),
+            },
+          ]);
+          return;
+        case 'auth_required':
+          Alert.alert('Giriş Gerekli', result.message, [
+            { text: 'Vazgeç', style: 'cancel' },
+            { text: 'Giriş Yap', onPress: () => router.push('/(auth)/login') },
+          ]);
+          return;
+        case 'config_missing':
+          Alert.alert(
+            'Yapılandırma Eksik',
+            `${result.message}\n\n(Demo modu — gerçek Hemen Al için Supabase istemcisi gerekir.)`,
+          );
+          return;
+        case 'preconditions_failed':
+        case 'rpc_error':
+          Alert.alert('İşlem tamamlanamadı', result.message);
+          return;
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: palette.background }]} edges={['bottom']}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -84,19 +142,6 @@ export default function HemenAl() {
         <Text style={[styles.subtitle, { color: palette.textSecondary }]} numberOfLines={2}>
           {auction.title}
         </Text>
-
-        <View
-          style={[
-            styles.notice,
-            { backgroundColor: palette.backgroundElement, borderColor: '#0E5FFF' },
-          ]}>
-          <Text style={[styles.noticeTitle, { color: palette.text }]}>Hemen Al yakında aktif olacak</Text>
-          <Text style={[styles.noticeText, { color: palette.textSecondary }]}>
-            Bu ekran şu an önizleme modunda. Çekirdek ödeme/escrow zinciri (execute_buy_now RPC)
-            mobil istemciye bağlanınca aktive olacak. Form alanları doldurulabilir ama henüz
-            gönderim yapılmaz.
-          </Text>
-        </View>
 
         <View style={[styles.priceCard, { backgroundColor: palette.backgroundElement }]}>
           <Text style={[styles.priceLabel, { color: palette.textSecondary }]}>Hemen Al Fiyatı</Text>
@@ -108,7 +153,7 @@ export default function HemenAl() {
           </Text>
         </View>
 
-        <Section title="Ön Koşullar (önizleme)" palette={palette}>
+        <Section title="Ön Koşullar" palette={palette}>
           <ToggleRow
             label="KYC doğrulaması tamam"
             description="Hemen Al için kimlik doğrulaması zorunlu (KVKK + finansal uyum)."
@@ -126,33 +171,47 @@ export default function HemenAl() {
         </Section>
 
         <View style={[styles.flowCard, { backgroundColor: palette.backgroundElement }]}>
-          <Text style={[styles.flowTitle, { color: palette.text }]}>
-            Sonraki Adımlar (üretim akışı)
+          <Text style={[styles.flowTitle, { color: palette.text }]}>Sunucu Akışı</Text>
+          <Text style={[styles.flowItem, { color: palette.textSecondary }]}>
+            1. Sunucu KYC guard (profiles.kyc_status = &apos;verified&apos;)
           </Text>
           <Text style={[styles.flowItem, { color: palette.textSecondary }]}>
-            1. Kart preAuthorize (çekirdek payment modülü)
+            2. Rate-limit + duplicate check
           </Text>
           <Text style={[styles.flowItem, { color: palette.textSecondary }]}>
-            2. Escrow lock (çekirdek escrow modülü)
+            3. listings/auctions/report/deposit precondition&apos;ları (FOR UPDATE kilitleri)
           </Text>
           <Text style={[styles.flowItem, { color: palette.textSecondary }]}>
-            3. execute_buy_now RPC (çekirdek + idempotency key)
-          </Text>
-          <Text style={[styles.flowItem, { color: palette.textSecondary }]}>
-            4. Tapu süreci başlatma + sözleşme imza akışı
+            4. buy_now_purchases INSERT + auction status=&apos;ended&apos; + listing status=&apos;sold&apos;
           </Text>
         </View>
 
         <Pressable
-          disabled
-          style={[styles.submitBtnDisabled, { backgroundColor: palette.backgroundSelected }]}>
-          <Text style={[styles.submitText, { color: palette.textSecondary }]}>
-            Hemen Al — Yakında ({formatTry(auction.buyNowPriceTry)})
+          disabled={!canSubmit}
+          onPress={handleSubmit}
+          style={({ pressed }) => [
+            styles.submitBtn,
+            {
+              backgroundColor: canSubmit
+                ? '#16a34a'
+                : palette.backgroundSelected,
+              opacity: pressed && canSubmit ? 0.85 : 1,
+            },
+          ]}>
+          <Text
+            style={[
+              styles.submitText,
+              { color: canSubmit ? 'white' : palette.textSecondary },
+            ]}>
+            {submitting
+              ? 'İşleniyor…'
+              : `Onayla ve Devam Et — ${formatTry(auction.buyNowPriceTry)}`}
           </Text>
         </Pressable>
 
         <Text style={[styles.demoNote, { color: palette.textSecondary }]}>
-          Önizleme modu — gerçek ödeme/escrow için çekirdek helper bekleniyor.
+          Bu ekran çekirdek executeBuyNow helper&apos;ını çağırır; sunucu
+          KYC/önkoşullarını otoriteyle uygular. İstemcide para mantığı yok.
         </Text>
       </ScrollView>
     </SafeAreaView>
@@ -212,9 +271,6 @@ const styles = StyleSheet.create({
   scroll: { paddingHorizontal: Spacing.three, paddingBottom: Spacing.six },
   title: { fontSize: 26, fontWeight: '700', marginTop: Spacing.three },
   subtitle: { fontSize: 14, marginTop: 4, marginBottom: Spacing.three },
-  notice: { padding: Spacing.three, borderRadius: 12, borderWidth: 1, gap: 6, marginBottom: Spacing.three },
-  noticeTitle: { fontSize: 14, fontWeight: '700' },
-  noticeText: { fontSize: 12, lineHeight: 18 },
   priceCard: { padding: Spacing.three, borderRadius: 14, gap: 4, marginBottom: Spacing.three },
   priceLabel: { fontSize: 12 },
   priceValue: { fontSize: 32, fontWeight: '700' },
@@ -234,11 +290,10 @@ const styles = StyleSheet.create({
   flowCard: { padding: Spacing.three, borderRadius: 14, gap: 6, marginBottom: Spacing.three },
   flowTitle: { fontSize: 14, fontWeight: '700' },
   flowItem: { fontSize: 12, lineHeight: 18 },
-  submitBtnDisabled: {
+  submitBtn: {
     paddingVertical: Spacing.three,
     borderRadius: 12,
     alignItems: 'center',
-    opacity: 0.6,
   },
   submitText: { fontWeight: '700', fontSize: 15 },
   demoNote: { fontSize: 11, fontStyle: 'italic', marginTop: Spacing.three, textAlign: 'center' },

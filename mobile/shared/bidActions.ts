@@ -59,42 +59,17 @@ export async function submitBid(params: SubmitBidParams): Promise<SubmitBidOutco
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Hemen Al + Kapalı Teklif — KISIR FACADE (henüz bağlanmadı)
+// Hemen Al — çekirdek `executeBuyNow` helper'i (src/lib/buyNow.ts) artık BAĞLI.
+// Bu dosyadan kaldırıldı; mobil ekran `mobile/shared/buyNow.ts` üzerinden import eder.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Kapalı Teklif — KISIR FACADE (henüz bağlanmadı; ayrı çekirdek görevi)
 // ─────────────────────────────────────────────────────────────────────────────
 //
-// Bu iki metot şu an sıfır iş mantığı içerir. Sebep: ihaleal çekirdeğinde mobile
-// için exposed JS helper YOK — `execute_buy_now` Postgres RPC'si web sayfaları
-// içinde inline çağrılıyor (src/pages/auction/BuyNow.tsx), sealed-bid için ise
-// çekirdekte hiç fonksiyon yok. İstemcide KYC/eşik/komisyon/ref-üretimi
-// yapmıyoruz; aksi takdirde para mantığı client-side'a sızar.
-//
-// Çekirdek `executeBuyNow` (KYC + RPC sarmalayıcı) ve `submitSealedBid` (RPC + escrow)
-// helper'ları bağlanınca bu facade'ler İNCE KÖPRÜYE dönüşür: parametreyi iletir,
-// sonucu çevirir, başka mantık yok. Tasarım çekirdek görev sahibinin.
-
-export type SubmitBuyNowParams = {
-  auctionId: string;
-  bidderId: string;
-  buyNowPriceTry: number;
-  kycVerified: boolean;
-  termsAccepted: boolean;
-};
-
-export type SubmitBuyNowOutcome = {
-  ok: false;
-  status: 'not_wired';
-  reason: 'core_api_missing';
-};
-
-/**
- * Hemen Al — KISIR FACADE.
- *
- * Çekirdek `execute_buy_now` helper'ı bağlanınca ince köprüye dönüşecek —
- * ŞU AN İSTEMCİDE PARA MANTIĞI YOK (güvenlik).
- */
-export async function submitBuyNow(_params: SubmitBuyNowParams): Promise<SubmitBuyNowOutcome> {
-  return { ok: false, status: 'not_wired', reason: 'core_api_missing' };
-}
+// Sealed-bid çekirdekte RPC'si henüz yok. Ayrı bir çekirdek görevi olarak
+// tasarlanacak; mobil tarafta o helper bağlanınca bu facade ince köprüye dönüşür.
+// Şu an sıfır iş mantığı içerir.
 
 export type SubmitSealedBidParams = {
   auctionId: string;

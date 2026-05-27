@@ -10,6 +10,9 @@
       "@/lib/calculators/*": ["../src/lib/calculators/*"],
       "@/lib/location/*": ["../src/lib/location/*"],
       "@/lib/format/*": ["../src/lib/format/*"],
+      "@/lib/security/*": ["../src/lib/security/*"],
+      "@/lib/supabase": ["../src/lib/supabase"],
+      "@/lib/buyNow": ["../src/lib/buyNow"],
       "@/*": ["./src/*"],
       "@/assets/*": ["./assets/*"]
     }
