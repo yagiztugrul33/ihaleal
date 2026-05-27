@@ -24,4 +24,4 @@ export function estimatePropertyValue(input: ValuationInput): ValuationResult {
   });
 }
 
-export { formatTry } from "@/lib/format/currency";
+export { formatTry } from "../format/currency";

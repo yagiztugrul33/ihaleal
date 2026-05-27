@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as DocumentPicker from "expo-document-picker";
 
 import { mockTapuAiService } from "./aiService";
 import { canSendToAi } from "./privacy";
@@ -19,38 +20,10 @@ import type {
   TapuDocumentSelection,
 } from "./types";
 
-type OptionalDocumentPicker = {
-  getDocumentAsync: (options: {
-    type: string[] | string;
-    multiple: boolean;
-    copyToCacheDirectory: boolean;
-  }) => Promise<{
-    canceled: boolean;
-    assets?: {
-      uri: string;
-      name?: string;
-      mimeType?: string;
-    }[];
-  }>;
-};
-
 const INITIAL_CONSENT: TapuAiConsentState = {
   illuminationAccepted: false,
   explicitConsentAccepted: false,
 };
-
-function getOptionalDocumentPicker(): OptionalDocumentPicker | null {
-  const req = (globalThis as { require?: (moduleName: string) => unknown }).require;
-  if (!req) {
-    return null;
-  }
-
-  try {
-    return req("expo-document-picker") as OptionalDocumentPicker;
-  } catch {
-    return null;
-  }
-}
 
 function normalizeDocument(asset: {
   uri: string;
@@ -68,16 +41,13 @@ function normalizeDocument(asset: {
 }
 
 async function pickTapuDocument(): Promise<TapuDocumentSelection | null> {
-  const documentPicker = getOptionalDocumentPicker();
-  if (documentPicker) {
-    const docResult = await documentPicker.getDocumentAsync({
-      type: ["application/pdf", "image/*"],
-      multiple: false,
-      copyToCacheDirectory: false,
-    });
-    if (!docResult.canceled && docResult.assets?.length) {
-      return normalizeDocument(docResult.assets[0]);
-    }
+  const docResult = await DocumentPicker.getDocumentAsync({
+    type: ["application/pdf", "image/*"],
+    multiple: false,
+    copyToCacheDirectory: false,
+  });
+  if (!docResult.canceled && docResult.assets?.length) {
+    return normalizeDocument(docResult.assets[0]);
   }
 
   const imagePermission = await ImagePicker.requestMediaLibraryPermissionsAsync();

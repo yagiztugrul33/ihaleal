@@ -1,7 +1,10 @@
 import { DEMO_LISTINGS } from '../../shared/demoMarket';
+import * as ExpoLocation from 'expo-location';
+import * as TaskManager from 'expo-task-manager';
+import MapView, { Circle, Marker } from 'react-native-maps';
 import {
   DEMO_DISTRICT_PROFILES,
-  runLocationIntelligence,
+  calculateCompositeLocationScore,
   type DemoLocationKey,
 } from '../../shared/locationIntelligence';
 
@@ -42,7 +45,7 @@ export function buildRadarPoints(userLat: number, userLng: number): RadarPoint[]
     if (!profile) continue;
     const coords = DEMO_COORDS[profile.key];
     const distanceKm = haversineKm(userLat, userLng, coords.lat, coords.lng);
-    const result = runLocationIntelligence({
+    const result = calculateCompositeLocationScore({
       city: profile.city,
       district: profile.district,
       neighborhood: profile.defaultNeighborhood,
@@ -73,9 +76,6 @@ export async function requestLocationWithConsent(kvkkOptIn: boolean): Promise<Lo
     return { ok: false, message: 'KVKK konum onayı olmadan radar açılamaz.' };
   }
   try {
-    // eslint-disable-next-line no-eval
-    const req = eval('require') as NodeRequire;
-    const ExpoLocation = req('expo-location') as any;
     const fg = await ExpoLocation.requestForegroundPermissionsAsync();
     if (fg.status !== 'granted') {
       return { ok: false, message: 'Konum izni verilmedi.' };
@@ -89,15 +89,11 @@ export async function requestLocationWithConsent(kvkkOptIn: boolean): Promise<Lo
 
 export async function startRadarGeofencing(regionId: string, lat: number, lng: number): Promise<string> {
   try {
-    // eslint-disable-next-line no-eval
-    const req = eval('require') as NodeRequire;
-    const TaskManager = req('expo-task-manager') as any;
-    const ExpoLocation = req('expo-location') as any;
     const taskName = `ihaleal-geofence-${regionId}`;
 
     if (!TaskManager.isTaskDefined(taskName)) {
-      TaskManager.defineTask(taskName, ({ error }: { error?: Error }) => {
-        if (error) return;
+      TaskManager.defineTask(taskName, async (body) => {
+        if (body.error) return;
       });
     }
 
@@ -120,20 +116,17 @@ export async function startRadarGeofencing(regionId: string, lat: number, lng: n
 
 export function getMapModule():
   | {
-      MapView: any;
-      Marker: any;
-      Circle: any;
+      MapView: typeof MapView;
+      Marker: typeof Marker;
+      Circle: typeof Circle;
       moduleReady: true;
     }
   | { moduleReady: false } {
   try {
-    // eslint-disable-next-line no-eval
-    const req = eval('require') as NodeRequire;
-    const mod = req('react-native-maps') as any;
     return {
-      MapView: mod.default,
-      Marker: mod.Marker,
-      Circle: mod.Circle,
+      MapView,
+      Marker,
+      Circle,
       moduleReady: true,
     };
   } catch {
