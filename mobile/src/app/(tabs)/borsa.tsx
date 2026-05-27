@@ -15,6 +15,7 @@ import { Link } from 'expo-router';
 
 import { Colors, Spacing } from '@/constants/theme';
 import { type Palette } from '@/constants/palette';
+import { getSupabaseClient } from '../(auth)/authClient';
 import {
   DEMO_MARKET_ASSETS,
   buildOrderBook,
@@ -96,6 +97,19 @@ export default function BorsaScreen() {
 
   const handleSubmit = async () => {
     if (!selected) return;
+    let bidderId: string | null = null;
+    try {
+      const client = await getSupabaseClient();
+      const { data } = await client.auth.getSession();
+      bidderId = data.session?.user?.id ?? null;
+    } catch {
+      bidderId = null;
+    }
+    if (!bidderId) {
+      Alert.alert('Giriş gerekli', 'Teklif göndermek için aktif oturum gerekli.');
+      return;
+    }
+
     const parsed = Number(bidInput.replace(/[^0-9]/g, ''));
     if (!Number.isFinite(parsed) || parsed <= 0) {
       Alert.alert('Geçersiz teklif', 'Lütfen pozitif bir tutar girin.');
@@ -106,7 +120,7 @@ export default function BorsaScreen() {
     try {
       const result = await submitBid({
         auctionId: selected.id,
-        bidderId: 'demo-mobile',
+        bidderId,
         currentBid: selected.price,
         newBid: parsed,
         minIncrement: MIN_INCREMENT,
