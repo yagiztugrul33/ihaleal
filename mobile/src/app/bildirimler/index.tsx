@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { fetchMockNotifications } from "./data";
 import { formatDateTime, notificationBadgeLabel } from "./helpers";
 import type { NotificationItem } from "./types";
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 
 export default function BildirimlerScreen() {
   const [rows, setRows] = useState<NotificationItem[]>([]);
@@ -60,7 +61,7 @@ export default function BildirimlerScreen() {
         <Text style={styles.subtitle}>Okundu/okunmadı durumlarını listeleyin.</Text>
 
         <View style={styles.controls}>
-          <Pressable style={styles.btn} onPress={load} accessibilityLabel="Bildirimleri yenile">
+          <Pressable style={styles.btn} onPress={load} accessibilityRole="button" accessibilityLabel="Bildirimleri yenile">
             <Text style={styles.btnText}>Yenile</Text>
           </Pressable>
           <Pressable
@@ -69,14 +70,15 @@ export default function BildirimlerScreen() {
               setLoading(true);
               setForceError((v) => !v);
             }}
+            accessibilityRole="button"
             accessibilityLabel="Hata modu aç kapa">
             <Text style={styles.btnText}>{forceError ? "Hata: Açık" : "Hata: Kapalı"}</Text>
           </Pressable>
         </View>
 
-        {loading ? <StateCard title="Yükleniyor" detail="Bildirimler hazırlanıyor..." /> : null}
-        {!loading && error ? <StateCard title="Hata" detail={error} /> : null}
-        {!loading && !error && rows.length === 0 ? <StateCard title="Boş" detail="Henüz bildiriminiz yok." /> : null}
+        {loading ? <FeedbackStateCard title="Yükleniyor" detail="Bildirimler hazırlanıyor..." variant="info" /> : null}
+        {!loading && error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
+        {!loading && !error && rows.length === 0 ? <FeedbackStateCard title="Boş" detail="Henüz bildiriminiz yok." variant="empty" /> : null}
 
         {!loading &&
           !error &&
@@ -91,6 +93,7 @@ export default function BildirimlerScreen() {
                 <Text style={styles.meta}>{formatDateTime(item.createdAtIso)}</Text>
                 <Pressable
                   onPress={() => toggleRead(item.id)}
+                  accessibilityRole="button"
                   accessibilityLabel={`${item.title} okundu durumunu değiştir`}
                   style={styles.linkBtn}>
                   <Text style={styles.linkText}>{item.read ? "Okunmadı yap" : "Okundu yap"}</Text>
@@ -103,15 +106,6 @@ export default function BildirimlerScreen() {
   );
 }
 
-function StateCard({ title, detail }: { title: string; detail: string }) {
-  return (
-    <View style={styles.stateCard}>
-      <Text style={styles.stateTitle}>{title}</Text>
-      <Text style={styles.stateDetail}>{detail}</Text>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: "#020617" },
   scroll: { paddingHorizontal: 16, paddingBottom: 30, gap: 10 },
@@ -121,9 +115,6 @@ const styles = StyleSheet.create({
   btn: { borderRadius: 10, backgroundColor: "#1d4ed8", paddingHorizontal: 10, paddingVertical: 8 },
   warnBtn: { backgroundColor: "#b45309" },
   btnText: { color: "#fff", fontSize: 12, fontWeight: "700" },
-  stateCard: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, backgroundColor: "#0f172a" },
-  stateTitle: { color: "#f8fafc", fontWeight: "700" },
-  stateDetail: { color: "#cbd5e1", fontSize: 12, marginTop: 2 },
   card: { borderWidth: 1, borderRadius: 12, padding: 12, gap: 6 },
   cardRead: { borderColor: "#334155", backgroundColor: "#0f172a" },
   cardUnread: { borderColor: "#1d4ed8", backgroundColor: "#0b1220" },

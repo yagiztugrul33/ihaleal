@@ -126,7 +126,11 @@ export default function ProfilScreen() {
           ) : email ? (
             <Text style={styles.value}>{email}</Text>
           ) : (
-            <Pressable style={styles.primaryBtn} onPress={() => router.push('/(auth)/login')}>
+            <Pressable
+              style={styles.primaryBtn}
+              onPress={() => router.push('/(auth)/login')}
+              accessibilityRole="button"
+              accessibilityLabel="Giriş yap sayfasını aç">
               <Text style={styles.primaryText}>Giriş Yap</Text>
             </Pressable>
           )}
@@ -140,7 +144,7 @@ export default function ProfilScreen() {
             />
           </View>
 
-          <Pressable style={styles.secondaryBtn} onPress={onSignOut}>
+          <Pressable style={styles.secondaryBtn} onPress={onSignOut} accessibilityRole="button" accessibilityLabel="Hesaptan çıkış yap">
             <Text style={styles.secondaryText}>Çıkış Yap</Text>
           </Pressable>
         </View>
@@ -151,7 +155,12 @@ export default function ProfilScreen() {
             <Text style={styles.rowLabel}>KVKK konum opt-in</Text>
             <Switch value={kvkkOptIn} onValueChange={setKvkkOptIn} trackColor={{ false: '#475569', true: '#16a34a' }} />
           </View>
-          <Pressable style={styles.primaryBtn} onPress={onEnableRadar} disabled={locationBusy}>
+          <Pressable
+            style={styles.primaryBtn}
+            onPress={onEnableRadar}
+            disabled={locationBusy}
+            accessibilityRole="button"
+            accessibilityLabel="Konum radarını çalıştır">
             {locationBusy ? <ActivityIndicator color="#fff" /> : <Text style={styles.primaryText}>Radarı Çalıştır</Text>}
           </Pressable>
           <Text style={styles.status}>{locationStatus}</Text>
@@ -200,7 +209,12 @@ export default function ProfilScreen() {
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Push Bildirim</Text>
-          <Pressable style={styles.primaryBtn} onPress={onEnablePush} disabled={pushBusy}>
+          <Pressable
+            style={styles.primaryBtn}
+            onPress={onEnablePush}
+            disabled={pushBusy}
+            accessibilityRole="button"
+            accessibilityLabel="Push token alma işlemini başlat">
             {pushBusy ? <ActivityIndicator color="#fff" /> : <Text style={styles.primaryText}>Push Token Al</Text>}
           </Pressable>
           <Text style={styles.status}>{pushStatus}</Text>

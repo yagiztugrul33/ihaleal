@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { fetchMockDocuments } from "./data";
 import { docTypeLabel, formatDate, formatDocumentSize } from "./helpers";
 import type { DocumentItem } from "./types";
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 
 export default function BelgelerScreen() {
   const [rows, setRows] = useState<DocumentItem[]>([]);
@@ -59,7 +60,7 @@ export default function BelgelerScreen() {
         <Text style={styles.subtitle}>Belge listesi ve görüntüle/indir placeholder aksiyonları.</Text>
 
         <View style={styles.controls}>
-          <Pressable style={styles.btn} onPress={load} accessibilityLabel="Belgeleri yenile">
+          <Pressable style={styles.btn} onPress={load} accessibilityRole="button" accessibilityLabel="Belgeleri yenile">
             <Text style={styles.btnText}>Yenile</Text>
           </Pressable>
           <Pressable
@@ -68,14 +69,15 @@ export default function BelgelerScreen() {
               setLoading(true);
               setForceError((v) => !v);
             }}
+            accessibilityRole="button"
             accessibilityLabel="Belge hata modu aç kapa">
             <Text style={styles.btnText}>{forceError ? "Hata: Açık" : "Hata: Kapalı"}</Text>
           </Pressable>
         </View>
 
-        {loading ? <StateCard title="Yükleniyor" detail="Belgeler hazırlanıyor..." /> : null}
-        {!loading && error ? <StateCard title="Hata" detail={error} /> : null}
-        {!loading && !error && rows.length === 0 ? <StateCard title="Boş" detail="Henüz belgeniz yok." /> : null}
+        {loading ? <FeedbackStateCard title="Yükleniyor" detail="Belgeler hazırlanıyor..." variant="info" /> : null}
+        {!loading && error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
+        {!loading && !error && rows.length === 0 ? <FeedbackStateCard title="Boş" detail="Henüz belgeniz yok." variant="empty" /> : null}
 
         {!loading &&
           !error &&
@@ -92,12 +94,14 @@ export default function BelgelerScreen() {
                 <Pressable
                   style={styles.linkBtn}
                   onPress={() => onView(item.name)}
+                  accessibilityRole="button"
                   accessibilityLabel={`${item.name} görüntüle`}>
                   <Text style={styles.linkText}>Görüntüle</Text>
                 </Pressable>
                 <Pressable
                   style={styles.linkBtn}
                   onPress={() => onDownload(item.name)}
+                  accessibilityRole="button"
                   accessibilityLabel={`${item.name} indir`}>
                   <Text style={styles.linkText}>İndir</Text>
                 </Pressable>
@@ -106,15 +110,6 @@ export default function BelgelerScreen() {
           ))}
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function StateCard({ title, detail }: { title: string; detail: string }) {
-  return (
-    <View style={styles.stateCard}>
-      <Text style={styles.stateTitle}>{title}</Text>
-      <Text style={styles.stateDetail}>{detail}</Text>
-    </View>
   );
 }
 
@@ -127,9 +122,6 @@ const styles = StyleSheet.create({
   btn: { borderRadius: 10, backgroundColor: "#1d4ed8", paddingHorizontal: 10, paddingVertical: 8 },
   warnBtn: { backgroundColor: "#b45309" },
   btnText: { color: "#fff", fontSize: 12, fontWeight: "700" },
-  stateCard: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, backgroundColor: "#0f172a" },
-  stateTitle: { color: "#f8fafc", fontWeight: "700" },
-  stateDetail: { color: "#cbd5e1", fontSize: 12, marginTop: 2 },
   card: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, gap: 6, backgroundColor: "#0f172a" },
   rowBetween: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 8 },
   cardTitle: { color: "#f8fafc", fontSize: 14, fontWeight: "700", flex: 1 },

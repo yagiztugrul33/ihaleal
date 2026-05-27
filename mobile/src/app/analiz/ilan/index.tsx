@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import {
-  ActivityIndicator,
   Modal,
   Pressable,
   SafeAreaView,
@@ -14,6 +13,7 @@ import { findListing } from "../../../../shared/demoMarket";
 
 import { mockIlanAiService } from "./aiService";
 import type { IlanAiAnalysisResult, IlanAiConsentState, IlanRecord } from "./types";
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 
 const INITIAL_CONSENT: IlanAiConsentState = {
   illuminationAccepted: false,
@@ -91,6 +91,8 @@ function ConsentModal({
               onPress={onApprove}
               style={[styles.actionButton, canAnalyzeIlan(consent) ? styles.primaryButton : styles.disabledButton]}
               disabled={!canAnalyzeIlan(consent)}
+              accessibilityRole="button"
+              accessibilityLabel="Onayla ve ilan analizini çalıştır"
             >
               <Text style={styles.primaryButtonText}>Onayla ve Analiz Et</Text>
             </Pressable>
@@ -215,18 +217,9 @@ export default function IlanAiAnalysisScreen() {
           </Pressable>
         </View>
 
-        {isLoading ? (
-          <View style={styles.stateCard}>
-            <ActivityIndicator />
-            <Text style={styles.stateText}>İlan analizi hazırlanıyor...</Text>
-          </View>
-        ) : null}
+        {isLoading ? <FeedbackStateCard title="Yükleniyor" detail="İlan analizi hazırlanıyor..." variant="info" /> : null}
 
-        {error ? (
-          <View style={styles.errorCard}>
-            <Text style={styles.errorText}>{error}</Text>
-          </View>
-        ) : null}
+        {error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
 
         {result ? (
           <View style={styles.card}>
@@ -243,11 +236,11 @@ export default function IlanAiAnalysisScreen() {
             ))}
           </View>
         ) : (
-          <View style={styles.stateCard}>
-            <Text style={styles.stateText}>
-              Sonuç alanı boş. İlan seçip rıza adımını tamamladığınızda analiz görünür.
-            </Text>
-          </View>
+          <FeedbackStateCard
+            title="Boş"
+            detail="Sonuç alanı boş. İlan seçip rıza adımını tamamladığınızda analiz görünür."
+            variant="empty"
+          />
         )}
       </ScrollView>
 
@@ -293,16 +286,6 @@ const styles = StyleSheet.create({
   secondaryButtonText: { color: "#e5e7eb", fontWeight: "600" },
   inlinePanel: { backgroundColor: "#1e293b", borderRadius: 10, padding: 10, gap: 4 },
   inlineInfo: { color: "#93c5fd", fontSize: 13 },
-  stateCard: {
-    backgroundColor: "#1e293b",
-    borderRadius: 12,
-    padding: 12,
-    alignItems: "center",
-    gap: 8,
-  },
-  stateText: { color: "#cbd5e1", textAlign: "center" },
-  errorCard: { backgroundColor: "#7f1d1d", borderRadius: 12, padding: 12 },
-  errorText: { color: "#fee2e2", fontWeight: "600" },
   resultRow: { color: "#e2e8f0", fontSize: 13 },
   noteItem: { color: "#94a3b8", fontSize: 12 },
   modalOverlay: {

@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 
 import { fetchMockFavorites, type FavoriteItem } from "./data";
 import { formatTl } from "./helpers";
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 
 export default function FavorilerScreen() {
   const router = useRouter();
@@ -61,7 +62,7 @@ export default function FavorilerScreen() {
         <Text style={styles.subtitle}>Kaydedilen ilan/ihale kartlarını yönet.</Text>
 
         <View style={styles.controls}>
-          <Pressable style={styles.btn} onPress={load} accessibilityLabel="Favorileri yenile">
+          <Pressable style={styles.btn} onPress={load} accessibilityRole="button" accessibilityLabel="Favorileri yenile">
             <Text style={styles.btnText}>Yenile</Text>
           </Pressable>
           <Pressable
@@ -70,14 +71,15 @@ export default function FavorilerScreen() {
               setLoading(true);
               setForceError((v) => !v);
             }}
+            accessibilityRole="button"
             accessibilityLabel="Favori hata modu aç kapa">
             <Text style={styles.btnText}>{forceError ? "Hata: Açık" : "Hata: Kapalı"}</Text>
           </Pressable>
         </View>
 
-        {loading ? <StateCard title="Yükleniyor" detail="Favoriler hazırlanıyor..." /> : null}
-        {!loading && error ? <StateCard title="Hata" detail={error} /> : null}
-        {!loading && !error && rows.length === 0 ? <StateCard title="Boş" detail="Favori listeniz boş." /> : null}
+        {loading ? <FeedbackStateCard title="Yükleniyor" detail="Favoriler hazırlanıyor..." variant="info" /> : null}
+        {!loading && error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
+        {!loading && !error && rows.length === 0 ? <FeedbackStateCard title="Boş" detail="Favori listeniz boş." variant="empty" /> : null}
 
         {!loading &&
           !error &&
@@ -97,12 +99,14 @@ export default function FavorilerScreen() {
                 <Pressable
                   style={styles.linkBtn}
                   onPress={() => router.push(`/ihale/${item.id}`)}
+                  accessibilityRole="button"
                   accessibilityLabel={`${item.title} detayına git`}>
                   <Text style={styles.linkText}>Detaya Git</Text>
                 </Pressable>
                 <Pressable
                   style={styles.removeBtn}
                   onPress={() => removeFavorite(item.id)}
+                  accessibilityRole="button"
                   accessibilityLabel={`${item.title} favoriden kaldır`}>
                   <Text style={styles.removeText}>Kaldır</Text>
                 </Pressable>
@@ -111,15 +115,6 @@ export default function FavorilerScreen() {
           ))}
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function StateCard({ title, detail }: { title: string; detail: string }) {
-  return (
-    <View style={styles.stateCard}>
-      <Text style={styles.stateTitle}>{title}</Text>
-      <Text style={styles.stateDetail}>{detail}</Text>
-    </View>
   );
 }
 
@@ -132,9 +127,6 @@ const styles = StyleSheet.create({
   btn: { borderRadius: 10, backgroundColor: "#1d4ed8", paddingHorizontal: 10, paddingVertical: 8 },
   warnBtn: { backgroundColor: "#b45309" },
   btnText: { color: "#fff", fontSize: 12, fontWeight: "700" },
-  stateCard: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, backgroundColor: "#0f172a" },
-  stateTitle: { color: "#f8fafc", fontWeight: "700" },
-  stateDetail: { color: "#cbd5e1", fontSize: 12, marginTop: 2 },
   card: { borderWidth: 1, borderColor: "#334155", borderRadius: 12, padding: 12, gap: 6, backgroundColor: "#0f172a" },
   rowBetween: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 8 },
   badge: { color: "#bfdbfe", fontSize: 11, fontWeight: "700" },

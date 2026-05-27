@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import {
-  ActivityIndicator,
   Modal,
   Pressable,
   SafeAreaView,
@@ -14,6 +13,7 @@ import * as DocumentPicker from "expo-document-picker";
 
 import { mockTapuAiService } from "./aiService";
 import { canSendToAi } from "./privacy";
+import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 import type {
   TapuAiAnalysisResult,
   TapuAiConsentState,
@@ -125,6 +125,8 @@ function ConsentModal({
               onPress={onApprove}
               style={[styles.actionButton, canSendToAi(consent) ? styles.primaryButton : styles.disabledButton]}
               disabled={!canSendToAi(consent)}
+              accessibilityRole="button"
+              accessibilityLabel="Onayla ve tapu analizine gönder"
             >
               <Text style={styles.primaryButtonText}>Onayla ve Gönder</Text>
             </Pressable>
@@ -227,18 +229,9 @@ export default function TapuAiAnalysisScreen() {
           </Pressable>
         </View>
 
-        {isLoading ? (
-          <View style={styles.stateCard}>
-            <ActivityIndicator />
-            <Text style={styles.stateText}>Belge analiz ediliyor...</Text>
-          </View>
-        ) : null}
+        {isLoading ? <FeedbackStateCard title="Yükleniyor" detail="Belge analiz ediliyor..." variant="info" /> : null}
 
-        {error ? (
-          <View style={styles.errorCard}>
-            <Text style={styles.errorText}>{error}</Text>
-          </View>
-        ) : null}
+        {error ? <FeedbackStateCard title="Hata" detail={error} variant="error" /> : null}
 
         {result ? (
           <View style={styles.card}>
@@ -256,11 +249,11 @@ export default function TapuAiAnalysisScreen() {
             ))}
           </View>
         ) : (
-          <View style={styles.stateCard}>
-            <Text style={styles.stateText}>
-              Sonuç alanı boş. Belge seçip rıza adımını tamamladığınızda analiz gösterilir.
-            </Text>
-          </View>
+          <FeedbackStateCard
+            title="Boş"
+            detail="Sonuç alanı boş. Belge seçip rıza adımını tamamladığınızda analiz gösterilir."
+            variant="empty"
+          />
         )}
       </ScrollView>
 
@@ -296,16 +289,6 @@ const styles = StyleSheet.create({
   primaryButtonText: { color: "#ffffff", fontWeight: "600" },
   secondaryButtonText: { color: "#e5e7eb", fontWeight: "600" },
   inlineInfo: { color: "#93c5fd", fontSize: 13 },
-  stateCard: {
-    backgroundColor: "#1e293b",
-    borderRadius: 12,
-    padding: 12,
-    alignItems: "center",
-    gap: 8,
-  },
-  stateText: { color: "#cbd5e1", textAlign: "center" },
-  errorCard: { backgroundColor: "#7f1d1d", borderRadius: 12, padding: 12 },
-  errorText: { color: "#fee2e2", fontWeight: "600" },
   resultRow: { color: "#e2e8f0", fontSize: 13 },
   noteItem: { color: "#94a3b8", fontSize: 12 },
   modalOverlay: {
