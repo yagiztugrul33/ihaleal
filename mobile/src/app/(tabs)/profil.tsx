@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Switch, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 import { Colors, Spacing } from '@/constants/theme';
 import {
@@ -208,10 +208,45 @@ export default function ProfilScreen() {
             Bildirim tipleri: yeni fırsat (konum bazlı), outbid, açık artırma bitiş. Bildirim tıklaması deep link ile ekrana taşınır.
           </Text>
         </View>
+
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Hesabım</Text>
+          <Text style={styles.note}>Kişisel ekranlara hızlı erişim.</Text>
+          <View style={styles.accountGrid}>
+            <AccountLink href="/bildirimler" label="Bildirimler" />
+            <AccountLink href="/mesajlar" label="Mesajlar" />
+            <AccountLink href="/favoriler" label="Favoriler" />
+            <AccountLink href="/belgeler" label="Belgeler" />
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+function AccountLink({ href, label }: { href: '/bildirimler' | '/mesajlar' | '/favoriler' | '/belgeler'; label: string }) {
+  return (
+    <Link href={href} asChild>
+      <Pressable style={stylesShared.accountBtn}>
+        <Text style={stylesShared.accountBtnText}>{label}</Text>
+      </Pressable>
+    </Link>
+  );
+}
+
+const stylesShared = StyleSheet.create({
+  accountBtn: {
+    minHeight: 40,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#334155',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#111827',
+    paddingHorizontal: 10,
+  },
+  accountBtnText: { color: '#e2e8f0', fontWeight: '600', fontSize: 12 },
+});
 
 function createStyles(palette: (typeof Colors)[keyof typeof Colors]) {
   return StyleSheet.create({
@@ -253,5 +288,6 @@ function createStyles(palette: (typeof Colors)[keyof typeof Colors]) {
     listTitle: { color: '#f8fafc', fontSize: 13, fontWeight: '600' },
     listMeta: { color: '#94a3b8', fontSize: 12, marginTop: 2 },
     map: { height: 240, borderRadius: 12, overflow: 'hidden', marginTop: 4 },
+    accountGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
   });
 }

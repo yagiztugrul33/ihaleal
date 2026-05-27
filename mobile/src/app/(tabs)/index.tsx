@@ -85,6 +85,8 @@ export default function AnaScreen() {
           <QuickLink href="/moduller/deprem" label="Deprem Modülü" palette={palette} />
           <QuickLink href="/moduller" label="Modüller Hub" palette={palette} />
           <QuickLink href="/araclar" label="Finansal Araçlar" palette={palette} />
+          <QuickLink href="/borsa-detay" label="Borsa Detay" palette={palette} />
+          <QuickLink href="/icerik" label="Hukuki / İçerik" palette={palette} />
           <QuickLink href="/profil" label="Profil" palette={palette} />
         </View>
       </ScrollView>
@@ -116,6 +118,8 @@ function QuickLink({
     | '/moduller/deprem'
     | '/moduller'
     | '/araclar'
+    | '/borsa-detay'
+    | '/icerik'
     | '/profil';
   label: string;
   palette: Palette;
