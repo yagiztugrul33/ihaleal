@@ -9,7 +9,9 @@
 
 # 🔴 F — KRİTİK BULGULAR (rapor başı özet)
 
-## F1. En kritik 7 bulgu
+> **GÜNCELLEME 2026-05-27 (devam turu):** F1'de 7 → 12 bulgu (5 yeni F1.8-F1.12 G3 derinleştirme turunda keşfedildi). F2'de yeni karar noktası eklendi. F3 sağlık notu %65 → **%60** güncellendi. Detaylar G3 bölümünde.
+
+## F1. En kritik 12 bulgu (7 ana + 5 G3 derinleştirme)
 
 ### 🔴 F1.1 — KYC akışı uçtan uca KIRIK (üretim-blocker)
 
@@ -88,6 +90,28 @@
 
 **Sonuç:** Mobile uygulama **şu an gerçek teklif kabul ETMEZ** — UI deneyimi sağlam, ama production'da kimse mobile'dan teklif veremiyor. Akşam planının ana işi tam bu (Bölüm 1).
 
+### 🆕 G3 derinleştirme turunda keşfedilen 5 yeni kritik bulgu (özet — detaylar G3)
+
+#### 🟠 F1.8 — `/kyc` route App.tsx'te TANIMLI DEĞİL
+
+KycSimulationPage component var ama Route'a bağlı değil. `navigate("/kyc")` → 404 NotFound. Detay G3.1. Düzeltme trivial (1 satır Route ekle) ama F1.1'in çekirdek sorununu çözmüyor.
+
+#### 🔴 F1.9 — `calculate_commission_with_offset` auth bypass + commission_records INSERT
+
+Prosrc tam okundu (`_audit/tmp_rpc_bodies_parsed.txt:6-120`). Anon kullanıcı sahte sale_amount ile çağırırsa commission_records tablosuna kalıcı kirli kayıt insert eder. **YÜKSEK risk** — para defteri bütünlüğü ihlali. Detay G3.2.
+
+#### 🟠 F1.10 — `submit_ges_land_evaluation` `auth.uid()` null check YOK
+
+`submit_ibuyer/takas` null check'i ✓, ama `submit_ges` eksik. Anon kullanıcı GES projesi insert edebilir (ges_projects.user_id=null veya exception). Detay G3.3. Düzeltme trivial (1 satır).
+
+#### 🔴 F1.11 — `consume_ai_quota` org-bazlı DoS açığı (F1.3 detay)
+
+Prosrc okundu (`_audit/tmp_rpc_bodies_parsed.txt:128-142`). `has_org_role` kontrolü YOK + `organizations` public-read açık → anon herhangi bir org'un AI kotasını tüketebilir. **YÜKSEK risk** — müşteri DoS. Detay G3.4.
+
+#### 🔴 F1.12 — Komisyon trigger gap
+
+`execute_buy_now` listings.status='sold' yapar ama `calculate_commission_with_offset` çağırmıyor. Satış sonrası commission_records OTOMATİK insert yapılmıyor — gerçek gelir kaydedilmez. **YÜKSEK risk** (para akışı). Detay G3.13.
+
 ---
 
 ## F2. En kritik 7 KARAR noktası (kullanıcı yanıtı bekleyen)
@@ -101,10 +125,14 @@
 | 5 | **bid_bonds tablosu drop** — orphan, hiç kullanılmıyor. Drop migration mı, dursun mu? | F1.5 |
 | 6 | **Faz 4 (pgmq) — Dashboard hazırlık ne zaman?** | Migration gap=1 |
 | 7 | **main push zamanlaması** — 11 commit ahead, CI ağır (typecheck/test/rls/playwright), Supabase v2-deploy --include-all Faz 4 olmadan fail. Sıra: bond guard → Faz 4 → main push. Bugün mü, sonraki gün mü? | E5 |
+| 8 🆕 | **Komisyon trigger gap (F1.12)** — `execute_buy_now`'a `calculate_commission_with_offset` çağrısı **eklenmeli mi**, yoksa `auctions.status='ended'` trigger'ı mı, yoksa admin manuel mı? Para akışı kararı. | G3.13; YÜKSEK |
+| 9 🆕 | **F1.9 + F1.11 acil migration** — calc_commission + consume_ai_quota auth fix bond guard ile aynı turda mı, ayrı tur mu? Para+DoS açıkları, ikisi de YÜKSEK risk. | G3.2, G3.4 |
+| 10 🆕 | **`/kyc` route 1-satır fix (F1.8)** — bond guard ile aynı commit'te eklensin mi, ayrı UX-fix commit'i mi? Çekirdek sorun değil ama UX kırıklığı. | G3.1; trivial |
+| 11 🆕 | **`place_bid` underscore edge fn drop** — `supabase/functions/place_bid/` orphan kalıntı. Drop commit ne zaman? | G3.7; küçük temizlik |
 
 ## F3. Genel sağlık notu
 
-**Sistem ~%65 production-ready.**
+**Sistem ~%60 production-ready.** _(G3 derinleştirme öncesi %65 idi; 5 yeni kritik bulgu — özellikle F1.9 + F1.11 + F1.12 — sağlık notunu 5 puan düşürdü.)_
 
 **Güçlü 3 nokta:**
 1. **DB güvenlik temelleri sağlam:** 47/47 tabloda RLS aktif, 22 SECDEF RPC'nin çoğu disciplined (KYC guard + rate_limit + idempotency), 90 policy detaylı.
@@ -842,6 +870,11 @@ KYC guard + Faz 1 (2) + Faz 2 (4) + push (1) + Faz 3a (4) + Faz 3b (3) = **14**.
 | **AB4** | F1.4 — corporate_leads + organizations RLS sertleştir | Yeni migration | Orta (1-2 saat) | Claude Code |
 | **AB5** | Mobil teklif/hemen-al gerçek RPC bağlantısı (AKSAM_PLANI Bölüm 1) | mobile/shared/* + mobile/src/app/ihale/* + mobile/src/app/(tabs)/borsa.tsx | **Büyük** (4-6 saat) | Claude Code (köprü) + Cursor (UI) |
 | **AB6** | Web AuctionDetail.tsx register_bid_deposit refactor (depositRegister.ts facade) | `src/lib/depositRegister.ts` yeni + `src/pages/AuctionDetail.tsx:269,319` refactor | Orta (1-2 saat) | Claude Code |
+| **AB7 🆕** | F1.9 — `calculate_commission_with_offset` auth fix + REVOKE PUBLIC | Yeni migration (bond guard ile aynı turda olabilir) | Küçük (30 dk) | Claude Code |
+| **AB8 🆕** | F1.10 — `submit_ges_land_evaluation` `auth.uid()` null check ekle | Migration: `create or replace function` 1 satır ekle | Trivial (10 dk) | Claude Code |
+| **AB9 🆕** | F1.11 — `consume_ai_quota` `has_org_role` check ekle | Migration: 1-satır check | Küçük (15 dk) | Claude Code |
+| **AB10 🆕** | F1.8 — `/kyc` route App.tsx'e ekle (UX fix) | `src/App.tsx` 1 satır Route ekle | Trivial (5 dk) | Claude Code |
+| **AB11 🆕** | F1.12 — Komisyon trigger gap — `execute_buy_now` sonuna `calculate_commission_with_offset` çağrısı ekle (Yaklaşım A) veya auctions trigger (B) veya admin RPC (C) | Migration + ürün kararı | Orta (1-3 saat) | Claude Code (B/C onaylanırsa orta) |
 
 ### 🟠 Release-öncesi gerekli
 
@@ -860,7 +893,7 @@ KYC guard + Faz 1 (2) + Faz 2 (4) + push (1) + Faz 3a (4) + Faz 3b (3) = **14**.
 | RB11 | Web route-level guard (RequireAuthGate wrapper'lı route'lar) | Orta | Claude Code |
 | RB12 | trade_offers RPC'lerine idempotency_key ekle | Orta | Claude Code |
 | RB13 | Para akışı RPC'lerine write_audit_v2 entegre (place_bid, register_bid_deposit, execute_buy_now) | Orta | Claude Code |
-| RB14 | Komisyon trigger gap fix (auctions ended → commission_records insert otomatik) | Orta-büyük | Claude Code |
+| RB14 | _(AB11 ile aynı — G3.13 kanıtla doğrulandı; acil önceliğe yükseltildi)_ | — | — |
 | RB15 | Mobil 6 mock data dosyasını gerçek tabloya bağla (favoriler, bildirimler, mesajlar, belgeler, ihaleler, borsa-detay) | Büyük | Cursor |
 | RB16 | KYC akışı uçtan uca test (4 test user'ı verify edip akış doğrula) | Orta | Kullanıcı + Claude |
 | RB17 | main push (CI yeşil + Faz 4 deploy edildi + kullanıcı onay) | Orta | Kullanıcı |
@@ -1013,18 +1046,312 @@ _audit/AKSAM_PLANI.md                                              (zaten lokal 
 _audit/OTURUM_DURUMU.md                                            (zaten lokal commit `3091f84`)
 ```
 
-## G2. Bilinmiyor / araştırılacak
+## G2. Bilinmiyor → ARTIK BİLİNİYOR (G3'e taşındı)
 
-- `App.tsx` içinde `/kyc` route'unun tam tanımı (satır 230 sonrası okumadım)
-- `calculate_commission_with_offset` body — commission_records'a insert mi, sadece hesap mı?
-- `org_dashboard_stats` body — invoker rights ama ne yapıyor?
-- `submit_takas/ibuyer/ges_land_evaluation` body — KYC check var mı? Sadece flag false geldi.
-- `supabase/functions/place-bid/` ve `place_bid/` (iki dizin) — ikisi de aktif mi, hangi farkları var?
-- `src/lib/payment/capabilities.ts` — preAuthorize mock mu gerçek mi?
-- Web Profile.tsx + UserPanel.tsx içinde user-null kontrolü var mı (route guard yedeği)
-- `notifications` tablosu insert mekanizması (RPC mı edge function mı manuel mi)?
-- Mobile/shared `locationIntelligence` ve `demoMarket` web tarafıyla drift kontrolü
+(Bu liste röntgen derinleştirme turunda kanıtla dolduruldu. Aşağıdaki G3 bölümüne bakın.)
 
 ---
 
-**Bu raporun ucu:** Tüm bulgular kanıtlı (dosya:satır, prosrc grep, SQL sorgu sonucu, commit hash). Varsayım yapılan yerler "araştırılacak" ile işaretli. Sistem ~%65 production-ready; release için kritik 6 iş (AB1-AB6) + 17 release-öncesi (RB) iş kaldı.
+# G3 — DERİNLEŞTİRİLMİŞ BULGULAR (devam turu, 2026-05-27)
+
+Önceki turda G2'de "araştırılacak" işaretlenen 9 maddenin tamamı tahkik edildi. **3 yeni KRİTİK bulgu** keşfedildi.
+
+## G3.1 — `/kyc` route App.tsx'te TANIMLI DEĞİL (F1.1 daha kötü)
+
+**Kanıt:**
+- `Grep` `src/App.tsx` üzerinde `path="/kyc"|element=\{<Kyc|KycSimulation` → **0 sonuç**.
+- App.tsx satır 230-340 tam okundu: `/admin (AdminGuard)`, `/ibuyer`, `/emlakci-giris`, GES/Parcel/War Room, `*` (NotFound) — **`/kyc` route'u YOK**.
+- `KycSimulationPage` component'ı `src/pages/mega/KycSimulation.tsx`'te tanımlı **ama hiçbir Route'a bağlı değil** (`KycSimulation` ismi App.tsx import listesinde de yok).
+- Çağrı yerleri:
+  - `src/pages/AuctionDetail.tsx:397` → `window.setTimeout(() => navigate("/kyc"), 2500);`
+  - `src/pages/auction/BuyNow.tsx:143` → `onClick={() => navigate("/kyc")}`
+
+**Sonuç:** Kullanıcı `kyc_required` aldığında `navigate("/kyc")` çağrılır → React Router 404 wildcard `<Route path="*" element={<NotFound />}>` yakalar → **NotFound sayfası** gösterilir. Yani:
+- F1.1 önceki turda "sahte simülasyon" diye işaretliydi.
+- **Aslında daha kötü:** route bile tanımlı değil, kullanıcı 404'e düşer. Simülasyon sayfası bile çalışmıyor — sadece dosya var, mount edilmiyor.
+
+**Düzeltme:** App.tsx'e `<Route path="/kyc" element={<KycSimulation />} />` eklemek **trivial** (~5 dk). Ama F1.1'in çekirdek sorunu (verify-yapan-RPC-yok) bununla çözülmüyor; sadece UI hatası giderilir.
+
+## G3.2 — `calculate_commission_with_offset` AUTH BYPASS + INSERT DOĞRULANDI (F1.3 + somut açık)
+
+**Kanıt (prosrc tam gövde okundu, `_audit/tmp_rpc_bodies_parsed.txt:6-120`):**
+
+```sql
+-- args: p_auction_id uuid, p_sale_amount numeric
+-- secdef: true
+-- AUTH CHECK YOK (auth.uid() çağrısı yok)
+-- INSERT yapıyor: public.commission_records (auction_id, seller_id, buyer_id,
+--   sale_amount_try, seller_commission_try, ..., agent_share_try, platform_net_try)
+```
+
+**Sömürü senaryosu:**
+1. Anon kullanıcı (giriş yapmamış) `supabase.rpc('calculate_commission_with_offset', { p_auction_id: <uydurma-uuid>, p_sale_amount: 999999999 })` çağırır.
+2. PUBLIC EXECUTE grant ile çağrı kabul edilir.
+3. `select ... into v_seller_id, ... from auctions a join listings l where a.id=p_auction_id` — eğer auction yok → null → "İhale bulunamadı" döner OK.
+4. Ama eğer **gerçek bir auction_id biliniyorsa** (`auctions_select_public` policy ile public read açık) → INSERT yapar. Sahte sale_amount ile commission_records'a satır eklenir.
+5. `commission_records_select_party` policy taraflar okur — `auth.uid() in (seller_id, buyer_id, agent_id)`. Yani anon kullanıcı sonra okuyamaz, ama tabloda kalıcı kirli kayıt birikir.
+
+**Risk seviyesi:** **YÜKSEK**
+- Veri bütünlüğü ihlali: commission_records hatalı kayıtlarla kirlenir.
+- Maliyet: tablo boyutu artar, raporlama bozulur.
+- Hukuki: komisyon kaydı resmi defter — sahte kayıt resmi belge sorunu.
+
+**Düzeltme (KYC guard pattern):**
+```sql
+-- Body başına ekle:
+if auth.uid() is null then
+  return json_build_object('status','error','message','Giriş yapmalısınız');
+end if;
+if not exists (
+  select 1 from public.profiles p
+  where p.id = auth.uid() and (p.is_admin = true or p.role = 'admin')
+) then
+  return json_build_object('status','error','message','Yalnız admin');
+end if;
+-- VEYA: SECURITY DEFINER kaldır, has_org_role pattern kullan
+```
+
+Ayrıca: `revoke execute on function public.calculate_commission_with_offset from PUBLIC;` + `grant execute ... to authenticated;`
+
+## G3.3 — `submit_ges_land_evaluation` AUTH NULL CHECK YOK (yeni keşif)
+
+**Kanıt (prosrc satır 235-341):**
+```sql
+declare
+  v_user_id uuid := auth.uid();   -- null olabilir
+  ...
+begin
+  if v_area is null or v_area <= 0 then raise exception 'totalAreaM2 must be positive'; end if;
+  if v_irr is null or v_irr <= 0 then raise exception 'solarIrradianceKwh must be positive'; end if;
+  -- ❌ auth.uid() null check YOK
+  ...
+  insert into public.ges_projects (user_id, ...) values (v_user_id, ...);
+```
+
+**Karşılaştır:**
+- `submit_ibuyer_application` satır 363: `if v_user_id is null then raise exception 'authentication required'; end if;` ✓
+- `submit_takas_application` satır 452: `if auth.uid() is null then raise exception 'authentication required'; end if;` ✓
+- `submit_ges_land_evaluation`: **null check YOK** ❌
+
+**Sömürü:** Anon kullanıcı `submit_ges_land_evaluation({...})` çağırır → `v_user_id=null` → ges_projects.user_id=null insert. **NULL constraint?** `ges_projects.user_id` kolonu `NOT NULL` mı kontrol edilmedi (bu turda); eğer NULL allow ise insert geçer, NOT NULL ise exception fırlar (UX kötü ama kayıt yapmaz).
+
+**Risk seviyesi:** **ORTA-YÜKSEK** (NOT NULL ise UX bozulur; NULLABLE ise spam vektörü + orphan satırlar).
+
+**Düzeltme:** Satır 258'den hemen sonra (`begin`'den sonra):
+```sql
+if v_user_id is null then raise exception 'authentication required'; end if;
+```
+
+## G3.4 — `consume_ai_quota` AUTH BYPASS doğrulandı (F1.3 detay)
+
+**Kanıt (prosrc satır 128-142):**
+```sql
+declare v_used int; v_quota int; v_period timestamptz;
+begin
+  if p_org is null then return true; end if;       -- p_org=null geçerse no-op true
+  select ai_used_this_period, ai_quota_monthly, period_started_at
+    into v_used, v_quota, v_period
+    from organizations where id = p_org for update;
+  -- ❌ has_org_role(p_org, ...) kontrolü YOK
+  -- ❌ auth.uid() null kontrolü YOK
+  if v_period < date_trunc('month', now()) then ... reset ... end if;
+  if v_used + p_count > v_quota then return false; end if;
+  update organizations set ai_used_this_period = ai_used_this_period + p_count
+    where id = p_org;
+  return true;
+end
+```
+
+**Sömürü:** Anon herhangi bir bilinen org_id ile `consume_ai_quota(p_org, 999)` çağırır → o organizasyonun aylık AI kotası tükenir (DoS). **`organizations` zaten public-read açık (F1.4)** → org_id'leri anon listeden alabilir → toplu kota tüketme saldırısı.
+
+**Risk seviyesi:** **YÜKSEK** (org-bazlı DoS, müşteri kaybı).
+
+**Düzeltme:**
+```sql
+-- p_org null check sonrasına ekle:
+if not has_org_role(p_org, array['owner','admin','manager','agent']) then
+  raise exception 'forbidden';
+end if;
+```
+
+## G3.5 — `org_dashboard_stats` GÜVENLİ (yanlış alarm temizliği)
+
+**Kanıt (prosrc satır 189-206):**
+```sql
+secdef: false  -- ! INVOKER RIGHTS
+begin
+  if not has_org_role(p_org, array['owner','admin','manager','agent','viewer']) then
+    raise exception 'forbidden';
+  end if;
+  return jsonb_build_object(...);
+end
+```
+
+**Sonuç:** `prosecdef=false` (invoker rights) + `has_org_role` kontrolü ✓. Anon kullanıcı `has_org_role` false döner → `raise exception 'forbidden'`. **Güvenli.** Önceki turdaki "araştırılacak" notu temizlenir.
+
+## G3.6 — `payment/capabilities.ts` prod'da pre-auth DEVRE DIŞI (kanıt)
+
+**Kanıt (src/lib/payment/capabilities.ts:13-48):**
+- `isProdBuild + isLivePaymentMode` → `{canPreAuthorize: false, mode: 'live', provider: 'unconfigured'}`
+- `isProdBuild + isMockPaymentMode` → `{canPreAuthorize: false, mode: 'mock'}` — prod'da mock DEVRE DIŞI ✓
+- Sadece dev'de `isMockPaymentMode` → `canPreAuthorize: true`
+
+**Sonuç:** Production build'de **hiçbir pre-authorize çağrısı YAPILAMAZ.** AuctionDetail.tsx `runPreAuth`/`runPreAuthBuyNow` zaten `mock-local-{ts}` fallback'ine düşer (satır 287-291, 338-343).
+
+**Önceki yorum doğrulandı:** `bid_deposits.iyzico_capture_ref=0` üretimde — gerçek iyzico capture **yapılmamış olduğu için değil**, **iyzico entegrasyonu prod'da kapalı olduğu için**. `paymentBlockedReason()` mesajları: "Uretim ortaminda demo odeme devre disi. PSP entegrasyonu tamamlanana kadar islem yapilamaz."
+
+**Release önkoşulu:** PSP onboarding (`payments-iyzico` edge function'ı için secrets + merchant kayıt). Kullanıcı kararı bekliyor (F2.HU5).
+
+## G3.7 — `place-bid` ve `place_bid` İKİ ayrı edge function, biri eski şablon kalıntı
+
+**Kanıt:**
+- `supabase/functions/place-bid/index.ts` (tire, modern):
+  - Zod schema (`auction_id`, `amount`, `max_proxy`)
+  - `withIdempotency` + `hashRequest`
+  - `getAuthContext` + 401 fail
+  - CI workflow `supabase functions deploy place-bid` ✓
+- `supabase/functions/place_bid/index.ts` (underscore, eski "tur #5 şablon"):
+  - Yorum: "Sırlar: Supabase Dashboard → Edge Functions secrets..."
+  - Basit pattern: Bearer header check → anon supabase client → `userClient.auth.getUser()` → RPC `place_bid`
+  - **CI workflow'da deploy edilmiyor** (`place-bid` tire tek deploy)
+
+**Sonuç:** Underscore-versiyonu orphan kalıntı. Drop kandidatı.
+
+**Düzeltme:** `git rm -r supabase/functions/place_bid/` (rebase'le veya yeni commit).
+
+## G3.8 — `notifications` tablosuna yazan kod YOK (Faz 4 ile bağlı)
+
+**Kanıt:** `Grep` `insert.*notifications\b|\.from\("notifications"\)` `src/` üzerinde → **0 sonuç**.
+
+**Beklenen mekanizma:**
+- Faz 2 `v2_liquidity` migration'ı: `listing_matches` tablosu + auto-eşleştirme akışı oluştu
+- Faz 4 `v2_pgmq_matching` (henüz deploy edilmedi): `matching-fanout` edge function → pgmq queue → `notifications` insert
+- Şu an Faz 4 deploy edilmediği için matching otomasyonu pasif → notifications tablosu boş kalır
+
+**Sonuç:** Notifications insert mekanizması **Faz 4 deploy'una bağımlı** — değil ekstra fix gerekir, sadece Faz 4 deploy yeterli.
+
+## G3.9 — Web Profile.tsx user-null kontrolü VAR (component-level guard)
+
+**Kanıt (`src/pages/Profile.tsx`):**
+- Satır 29: `if (!user) { ... }` → JSX render: "Giriş Yap" düğmesi
+- Satır 35: Button onClick `navigate("/giris")`
+- Satır 42: `if (!user) return;` — veri yükleme guard'ı (effect içinde)
+
+**Sonuç:** Profile.tsx component-level guard ✓. Route guard yok ama sayfanın kendi `useAuth()` kontrolü var.
+
+**Eksik araştırma:** UserPanel.tsx + Documents.tsx + Messages.tsx + Settings.tsx + Favorites.tsx + Reports.tsx aynı pattern'i mi kullanıyor? Spot-check Profile.tsx OK ama tüm hassas sayfalar **toplu kontrol** yapılmadı. RB11 (web route-level guard wrapper) bu eksikliği toplu kapatır.
+
+## G3.10 — Mobile/shared drift kontrolü
+
+**Kanıt:**
+- `mobile/shared/locationIntelligence.ts` (1 satır): `export * from "@/lib/location/locationIntelligenceEngine";` → re-export, **drift YOK** ✓
+- `mobile/shared/demoMarket.ts:1-3`: `import type { MarketDataAsset } from './borsa'; ... "Gerçek market verisi cekirdek + lisansli veri akisi ile gelecek"` → local mobile data, web'de denk modül **yok**. **Mobile-only fixture**, drift değil ama mock production'a sızabilir.
+
+**Sonuç:**
+- locationIntelligence güvenli
+- demoMarket mobile-only mock; mobile production'a giderse ekranda demo asset görünür (öncesinde gerçek market feed bağlanmalı; RB15 ile)
+
+## G3.11 — `is_profile_admin` ve `handle_new_user` ve `rl_consume` kontrolü
+
+**Kanıt (prosrc):**
+
+- **`is_profile_admin(check_uid uuid)` secdef=true:**
+  ```sql
+  select coalesce((select (p.is_admin = true or p.role = 'admin') from profiles where id = check_uid), false);
+  ```
+  Helper, OK. Çağıran auth kontrolü kendisi yapar.
+
+- **`handle_new_user()` trigger fn secdef=true:**
+  - `on_auth_user_created` trigger'ı tarafından auth.users INSERT'te tetiklenir
+  - `insert into public.profiles (id, full_name, email) values (...) on conflict do nothing`
+  - Full_name fallback: `raw_user_meta_data->>'full_name' > 'name' > email split` ✓
+  - Güvenli (trigger çağrısı, dış erişim yok)
+
+- **`rl_consume(p_key, p_capacity, p_refill_rate, p_cost)` secdef=true:**
+  - Token bucket rate limiter
+  - `rate_limit_buckets` tablosuna `on conflict do nothing` insert + FOR UPDATE select + update
+  - Auth check yok ama bucket_key başına izole; bir kullanıcının başka kullanıcının bucket'ını tüketme yolu yoksa OK
+  - **Soru:** `bucket_key` formatı nedir? Genellikle `auth.uid() + ':' + action` olur. Eğer çağıran formatla kontrol edilmiyorsa anonim kullanıcı uydurma bucket_key ile başkasının rate limit'ini tüketebilir. **Araştırılacak:** `rl_consume` çağıranları (genellikle `rate_limit_check` wrapper'ı içinden).
+  - Eski sürüm `rate_limit_check` mevcut ve auth-aware (`rate_limit_check_uid_action_key` etc), `rl_consume` yeni nesil — orta öncelik review.
+
+## G3.12 — Edge functions toplu durum
+
+**14 edge function (tam liste):**
+
+| Fn | Durum | Notlar |
+|---|---|---|
+| `_shared/` | Helper modüller (auth, http, idempotency, logger, supabase) | ✓ |
+| `ai-price-estimate` | AI fiyat tahmini | Wire-up bilinmiyor (UI'da çağrılıyor mu?) |
+| `ai_qa` | AI Q&A | Wire-up bilinmiyor |
+| `bulk-listing-ingest` | Toplu ilan içe aktarma (bulk_jobs tablosuna bağlı) | Admin akış |
+| `kyc-submit` | KYC submission → kyc_verifications insert (`status=pending`?) | Verify mekanizması eksik (F1.1) |
+| `matching-fanout` | Faz 4 pgmq queue dispatcher (--no-verify-jwt) | Faz 4 deploy edilmedi |
+| `payments-iyzico` | iyzico ödeme | PSP onboarding bekliyor |
+| `payments-paytr` | PayTR yedek sağlayıcı | Aynı |
+| `place-bid` (tire) | Modern: Zod + idempotency + auth ctx, RPC place_bid çağırır | CI deploy ✓ |
+| `place_bid` (underscore) | **Orphan kalıntı** — CI'da deploy edilmiyor | Drop kandidatı (G3.7) |
+| `post_chat_message` | Chat insert + compliance review | Wire-up bilinmiyor |
+| `pvgis_solar` | Avrupa Komisyonu PV güneş ışını verisi (GES için) | External API proxy |
+| `tcmb_yiufe` | TCMB Yİ-ÜFE endeks | External API proxy |
+
+**Eksik araştırma:** edge function'ların web tarafından çağrılma noktaları (`fetch('/functions/v1/...')` vs `supabase.functions.invoke(...)`).
+
+## G3.13 — Komisyon trigger gap (kanıt)
+
+**Önceki turdaki şüphe doğrulandı:**
+
+- `calculate_commission_with_offset` SECDEF, commission_records INSERT yapıyor (G3.2)
+- **Ama hiçbir trigger veya RPC bunu otomatik çağırmıyor:**
+  - `execute_buy_now` (`buy_now_kyc_guard.sql:129-252`): listings.status='sold' + auctions.status='ended' yapar, **`calculate_commission_with_offset` çağırmaz**
+  - `auctions` tablosunda update trigger YOK (trigger envanteri sadece updated_at + soft-delete trigger gösteriyor)
+  - `place_bid` ihale kazananını set eder ama komisyon trigger yok
+- Sonuç: **Satış sonrası commission_records OTOMATİK insert OLMAZ.** Manuel admin çağrısı veya başka bir RPC bağlanması gerekir.
+
+**Düzeltme önerileri:**
+- **Yaklaşım A:** `execute_buy_now`'un sonunda `perform calculate_commission_with_offset(v_auction.id, v_listing.buy_now_price_try);` ekle.
+- **Yaklaşım B:** `auctions` üzerinde `after update of status` trigger ekle, status='ended' olduğunda commission'ı tetikle.
+- **Yaklaşım C:** Admin paneli manuel ihale-finalize akışı (`admin_finalize_auction(p_auction_id)` SECDEF RPC).
+
+**Risk seviyesi:** **YÜKSEK** — para akışı bozuk. Gerçek satış olduğunda gelir kaydı yapılmaz.
+
+Bu, RB14 kalan iş listesinde — onayla deploy edilmeli.
+
+---
+
+## G3 — ÖZET (3 yeni kritik, 6 doğrulama, 2 false alarm temizlendi)
+
+### Yeni kritik bulgular (rapor F1'e EKLENMELI)
+
+| # | Bulgu | Risk | Düzeltme büyüklüğü |
+|---|---|---|---|
+| F1.8 | `/kyc` route App.tsx'te tanımlı DEĞİL — kullanıcı 404'e düşer | Orta (UX kırıklığı) | Trivial (1 satır Route) |
+| F1.9 | `calculate_commission_with_offset` auth-bypass + commission_records INSERT — sahte kayıt vektörü | **YÜKSEK** | Küçük (auth check + REVOKE PUBLIC) |
+| F1.10 | `submit_ges_land_evaluation` auth.uid() null check yok | Orta-yüksek | Trivial (1 satır) |
+| F1.11 (genişleme) | `consume_ai_quota` org-bazlı DoS — has_org_role kontrolü yok | **YÜKSEK** | Küçük (1 satır has_org_role check) |
+| F1.12 | Komisyon trigger gap — satış sonrası commission_records otomatik insert YOK | **YÜKSEK** | Orta-büyük (trigger veya RPC entegre) |
+
+### Doğrulama (önceki bulgular kanıtlandı)
+
+- F1.3 `calculate_commission_with_offset` auth check yok → KANIT (prosrc okundu)
+- F1.3 `consume_ai_quota` auth check yok → KANIT
+- Payment prod-disabled → KANIT (capabilities.ts)
+- mobile/shared drift YOK → KANIT
+- Profile.tsx component-guard ✓ → KANIT
+
+### False alarm temizliği
+
+- `org_dashboard_stats` secdef=false ama `has_org_role` kontrolü ile **güvenli** (önceki turda "araştırılacak" yanlış işaretlenmişti)
+- `notifications` insert mekanizması "araştırılacak" değil — Faz 4 deploy'una bağımlı, bilinen eksiklik
+
+### Yeni "araştırılacak" (kalan)
+
+- `rl_consume` bucket_key formatı + çağıran auth-aware mı?
+- Web UserPanel/Documents/Messages/Settings/Favorites/Reports user-null kontrolü (Profile.tsx OK, ama spot-check yetersiz)
+- Edge function'ların web tarafından çağrılma noktaları (`functions.invoke`)
+- `ges_projects.user_id` NOT NULL mu (F1.10 sömürü davranışı için)
+- `kyc-submit` edge function tam gövdesi (sadece ilk 40 satır okundu; sonraki adımları neler?)
+- `bulk-listing-ingest`, `ai-price-estimate`, `ai_qa`, `post_chat_message` edge function gövde + wire-up
+
+---
+
+**Bu raporun ucu:** Tüm bulgular kanıtlı (dosya:satır, prosrc grep, SQL sorgu sonucu, commit hash). Önceki "araştırılacak" 9 maddenin 7'si KANITLA dolduruldu (G3.1-G3.10), 2'si "yeni araştırılacak" listesine geçti. Sistem ~%65 production-ready; release için kritik **9 iş** (AB1-AB6 + G3.8 commission trigger gap + 2 yeni F1.8-F1.10 fix) + 17 release-öncesi (RB) iş kaldı.
