@@ -45,6 +45,7 @@ import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { registerBidDeposit } from "@/lib/depositRegister";
 import { isAuctionUuid } from "@/lib/auctionIds";
 import {
   approveReport,
@@ -72,6 +73,7 @@ import {
 import { MODULE3_HEMEN_AL_ACCEPTANCE } from "@/legal/masterContractCheckboxTexts";
 import { BID_GATE_CHECKBOXES, initialBidGateAck, isBidGateComplete } from "@/legal/bidGateAgreement";
 import { placeBidRpc, minNextBidTry, parsePositiveTryFromInput } from "@/lib/placeBid";
+import { executeBuyNow } from "@/lib/buyNow";
 import {
   createStandardOffer,
   getStandardOffers,
@@ -749,23 +751,23 @@ export default function AuctionDetail() {
         window.alert("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).");
       }
       if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
-        const { data, error } = await supabase.rpc("register_bid_deposit", {
-          p_listing_id: dbListingId,
-          p_auction_id: dbAuctionPk,
-          p_base_amount_try: base,
-          p_deposit_amount_try: depositAmt,
-          p_pre_auth_ref: pr.preAuthRef ?? "mock",
-          p_context: "bid",
-          p_idempotency_key: crypto.randomUUID(),
+        const result = await registerBidDeposit({
+          listingId: dbListingId,
+          auctionId: dbAuctionPk,
+          context: "bid",
+          baseAmountTry: base,
+          depositAmountTry: depositAmt,
+          preAuthRef: pr.preAuthRef ?? "mock",
         });
-        if (error) {
-          window.alert(error.message);
+        if (result.ok) {
+          setDepositId(result.depositId);
+          sessionStorage.setItem(`ihaleal_deposit_${id}`, result.depositId);
+        } else {
+          window.alert(result.message);
+          if (result.status === "kyc_required") {
+            window.setTimeout(() => navigate("/kyc"), 2500);
+          }
           return;
-        }
-        const row = data as { status?: string; deposit_id?: string };
-        if (row?.status === "ok" && row.deposit_id) {
-          setDepositId(row.deposit_id);
-          sessionStorage.setItem(`ihaleal_deposit_${id}`, row.deposit_id);
         }
       } else {
         const mockDep = `mock-local-${Date.now()}`;
@@ -844,24 +846,24 @@ export default function AuctionDetail() {
         toastBid("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).", "warning");
       }
       if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
-        const { data, error } = await supabase.rpc("register_bid_deposit", {
-          p_listing_id: dbListingId,
-          p_auction_id: dbAuctionPk,
-          p_base_amount_try: base,
-          p_deposit_amount_try: depositAmt,
-          p_pre_auth_ref: pr.preAuthRef ?? "mock",
-          p_context: "buy_now",
-          p_idempotency_key: crypto.randomUUID(),
+        const result = await registerBidDeposit({
+          listingId: dbListingId,
+          auctionId: dbAuctionPk,
+          context: "buy_now",
+          baseAmountTry: base,
+          depositAmountTry: depositAmt,
+          preAuthRef: pr.preAuthRef ?? "mock",
         });
-        if (error) {
-          toastBid(error.message, "error");
-          return;
-        }
-        const row = data as { status?: string; deposit_id?: string };
-        if (row?.status === "ok" && row.deposit_id) {
-          setDepositIdBuyNow(row.deposit_id);
-          sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, row.deposit_id);
+        if (result.ok) {
+          setDepositIdBuyNow(result.depositId);
+          sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, result.depositId);
           toastBid("Satın alım için blokaj kaydedildi.", "success");
+        } else {
+          toastBid(result.message, result.status === "kyc_required" ? "warning" : "error");
+          if (result.status === "kyc_required") {
+            window.setTimeout(() => navigate("/kyc"), 2500);
+          }
+          return;
         }
       } else {
         const mockDep = `mock-buynow-${Date.now()}`;
@@ -903,31 +905,35 @@ export default function AuctionDetail() {
       setBuyNowBusy(true);
       void (async () => {
         try {
-          const { data, error } = await supabase.rpc("execute_buy_now", {
-            p_listing_id: dbListingId,
-            p_deposit_id: depositIdBuyNow,
-            p_idempotency_key: crypto.randomUUID(),
+          const result = await executeBuyNow({
+            listingId: dbListingId,
+            depositId: depositIdBuyNow,
           });
-          if (error) {
-            toastBid(error.message, "error");
-            return;
+          switch (result.status) {
+            case "ok":
+              setDemoBuyNowWon(true);
+              sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
+              dispatchTransactionNotifications("Hemen Al", result.amountTry);
+              toastBid(
+                `Tebrikler! ₺${result.amountTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız; ihale kapandı.`,
+                "success",
+              );
+              return;
+            case "duplicate":
+              toastBid(result.message, "info");
+              return;
+            case "kyc_required":
+              // Kademeli UX: net uyarı + KYC sayfasına yönlendirme (kullanıcı önce mesajı görür)
+              toastBid(result.message, "warning");
+              window.setTimeout(() => navigate("/kyc"), 2500);
+              return;
+            case "auth_required":
+            case "preconditions_failed":
+            case "rpc_error":
+            case "config_missing":
+              toastBid(result.message, "error");
+              return;
           }
-          const row = data as { status?: string; message?: string; amount?: number };
-          if (row?.status === "ok") {
-            setDemoBuyNowWon(true);
-            sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
-            dispatchTransactionNotifications("Hemen Al", row.amount ?? effectiveBuyNowTry);
-            toastBid(
-              `Tebrikler! ₺${(row.amount ?? effectiveBuyNowTry).toLocaleString("tr-TR")} ile ihaleyi kazandınız; ihale kapandı.`,
-              "success",
-            );
-            return;
-          }
-          if (row?.status === "duplicate") {
-            toastBid(row.message ?? "Bu işlem zaten kayıtlı.", "info");
-            return;
-          }
-          toastBid(row?.message ?? "Satın alma tamamlanamadı.", "error");
         } finally {
           setBuyNowBusy(false);
         }

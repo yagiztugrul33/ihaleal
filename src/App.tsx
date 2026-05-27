@@ -82,6 +82,7 @@ const RealtorProfilePage   = lazy(() => import("@/pages/RealtorProfile"));
 const BlogIndex            = lazy(() => import("@/pages/mega/BlogIndex"));
 const BlogPostPage         = lazy(() => import("@/pages/mega/BlogPost"));
 const CommissionCalculator = lazy(() => import("@/pages/mega/CommissionCalculator"));
+const KycSimulation        = lazy(() => import("@/pages/mega/KycSimulation"));
 const LandEquityPage = lazy(() => import("@/pages/mega/LandEquityPage"));
 const KkaParselStudioPage = lazy(() => import("@/pages/mega/KkaParselStudioPage"));
 const IntelligenceHub = lazy(() => import("@/pages/intelligence/IntelligenceHub"));
@@ -312,6 +313,7 @@ function App() {
             <Route path="/giris" element={<Login />} />
             <Route path="/kayit" element={<Register />} />
             <Route path="/profil" element={<Profile />} />
+            <Route path="/kyc" element={<KycSimulation />} />
             <Route path="/ihale-ac" element={<CreateAuction />} />
             <Route path="/favoriler" element={<Favorites />} />
             <Route path="/mortgage" element={<Mortgage />} />

@@ -69,5 +69,9 @@ screenshots/audit/wave3-final/
 _audit/komut2/*.png
 
 screenshots/*.png
-_audit/
+
+# AI/IDE lokal state (Claude Code session/plan dosyaları)
+.claude/
+
+# Web UI QA screenshot artefaktları (Playwright/manuel test çıktıları)
 screenshots/
