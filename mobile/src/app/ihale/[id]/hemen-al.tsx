@@ -23,6 +23,7 @@ export default function IhaleHemenAlScreen() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
+    // SDK56: expo-screen-capture works via module autolinking; adding it to app.json plugins breaks expo export.
     void ScreenCapture.preventScreenCaptureAsync("ihale-hemen-al-sensitive");
     return () => {
       void ScreenCapture.allowScreenCaptureAsync("ihale-hemen-al-sensitive");

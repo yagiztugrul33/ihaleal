@@ -66,6 +66,7 @@ export default function ProfilScreen() {
   }, []);
 
   useEffect(() => {
+    // SDK56: expo-screen-capture works via module autolinking; adding it to app.json plugins breaks expo export.
     void ScreenCapture.preventScreenCaptureAsync('profil-sensitive');
     return () => {
       void ScreenCapture.allowScreenCaptureAsync('profil-sensitive');

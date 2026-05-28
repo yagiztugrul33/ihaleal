@@ -26,6 +26,7 @@ export default function IhaleTeklifScreen() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    // SDK56: expo-screen-capture works via module autolinking; adding it to app.json plugins breaks expo export.
     void ScreenCapture.preventScreenCaptureAsync("ihale-teklif-sensitive");
     return () => {
       void ScreenCapture.allowScreenCaptureAsync("ihale-teklif-sensitive");
