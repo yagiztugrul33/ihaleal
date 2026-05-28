@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import {
   Alert,
   FlatList,
+  Linking,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -11,7 +12,7 @@ import {
   useColorScheme,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 import { Colors, Spacing } from '@/constants/theme';
 import { type Palette } from '@/constants/palette';
@@ -95,6 +96,26 @@ export default function BorsaScreen() {
     [priceAlerts],
   );
 
+  const handleKycRedirect = (message: string) => {
+    Alert.alert(
+      'KYC Doğrulaması Gerekli',
+      `${message}\n\nWeb sayfasında kimlik doğrulamayı tamamlayın, sonra bu ekrana dönün.`,
+      [
+        { text: 'İptal', style: 'cancel' },
+        {
+          text: 'KYC Sayfasını Aç',
+          onPress: async () => {
+            try {
+              await Linking.openURL('https://www.ihaleal.com/kyc');
+            } catch {
+              Alert.alert('Hata', 'KYC sayfası açılamadı. Tarayıcıdan ihaleal.com/kyc adresine gidin.');
+            }
+          },
+        },
+      ],
+    );
+  };
+
   const handleSubmit = async () => {
     if (!selected) return;
     let bidderId: string | null = null;
@@ -134,7 +155,36 @@ export default function BorsaScreen() {
         setBidInput('');
         setProxyInput('');
       } else {
-        Alert.alert('Reddedildi', `${result.message}\nMin gerekli: ${formatTry(result.requiredMinimum)}`);
+        switch (result.code) {
+          case 'kyc_required':
+            handleKycRedirect(result.message);
+            break;
+          case 'deposit_required':
+            Alert.alert(
+              'Teminat gerekli',
+              `${result.message}\n\nÖnce teminat yatırmalısınız.`,
+              [
+                { text: 'Kapat', style: 'cancel' },
+                { text: 'İhale Detayına Git', onPress: () => router.push(`/ihale/${selected.id}`) },
+              ],
+            );
+            break;
+          case 'rate_limited':
+            Alert.alert('Çok sık deneme', `${result.message}\nLütfen biraz bekleyin.`);
+            break;
+          case 'auction_ended':
+            Alert.alert('İhale kapandı', result.message);
+            break;
+          case 'auth_required':
+            Alert.alert('Giriş gerekli', result.message);
+            router.push('/(auth)/login');
+            break;
+          case 'bid_too_low':
+          case 'validation':
+          default:
+            Alert.alert('Reddedildi', `${result.message}\nMin gerekli: ${formatTry(result.requiredMinimum)}`);
+            break;
+        }
       }
     } finally {
       setSubmitting(false);
@@ -355,7 +405,7 @@ export default function BorsaScreen() {
             <Text style={styles.submitText}>{submitting ? 'Gönderiliyor…' : 'Teklif Ver'}</Text>
           </Pressable>
           <Text style={[styles.bidNote, { color: palette.textSecondary }]}>
-            {`* Üretimde teklif çekirdek placeBid RPC'sine yönlendirilir (Tool B Supabase istemcisi bağlanınca etkinleşir). Bu sürüm istemci-tarafı doğrulama + simülasyondur.`}
+            {'* Teklif gönderimi place_bid RPC akışına bağlıdır. Teminat/KYC eksik durumlarında ilgili yönlendirmeler gösterilir.'}
           </Text>
         </View>
 

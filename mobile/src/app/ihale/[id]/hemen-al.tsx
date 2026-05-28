@@ -1,21 +1,121 @@
-import { Stack, useLocalSearchParams } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { router, Stack, useLocalSearchParams } from "expo-router";
+import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { FeedbackStateCard } from "@/components/FeedbackStateCard";
+import { executeBuyNow, registerBidDeposit } from "../../../../shared";
+import { toAuctionDetailViewModel } from "../viewModel";
+
+const BUY_NOW_DEPOSIT_RATE = 0.015;
 
 export default function IhaleHemenAlScreen() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const { id: listingId } = useLocalSearchParams<{ id?: string }>();
+  const auction = useMemo(
+    () => (typeof listingId === "string" ? toAuctionDetailViewModel(listingId) : null),
+    [listingId],
+  );
   const [confirmed, setConfirmed] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
 
-  const onMockBuyNow = () => {
+  const handleKycRedirect = (message: string) => {
+    Alert.alert(
+      "KYC Doğrulaması Gerekli",
+      `${message}\n\nWeb sayfasında kimlik doğrulamayı tamamlayın, sonra bu ekrana dönün.`,
+      [
+        { text: "İptal", style: "cancel" },
+        {
+          text: "KYC Sayfasını Aç",
+          onPress: async () => {
+            try {
+              await Linking.openURL("https://www.ihaleal.com/kyc");
+            } catch {
+              Alert.alert("Hata", "KYC sayfası açılamadı. Tarayıcıdan ihaleal.com/kyc adresine gidin.");
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const handleBuyNow = async () => {
+    if (!listingId || !auction) return;
     if (!confirmed) {
       setStatus("Hemen Al için sözleşme/KVKK onayı zorunlu.");
       return;
     }
-    setStatus("Hemen Al ön-akışı kaydedildi (mock).");
+
+    setBusy(true);
+    setStatus(null);
+    try {
+      const depositResult = await registerBidDeposit({
+        listingId,
+        auctionId: auction.id,
+        context: "buy_now",
+        baseAmountTry: auction.currentBidTry,
+        depositAmountTry: Math.round(auction.currentBidTry * BUY_NOW_DEPOSIT_RATE),
+        preAuthRef: "mobile-mock-preauth",
+      });
+
+      if (!depositResult.ok) {
+        switch (depositResult.status) {
+          case "kyc_required":
+            handleKycRedirect(depositResult.message);
+            break;
+          case "auth_required":
+            Alert.alert("Giriş gerekli", depositResult.message);
+            router.push("/(auth)/login");
+            break;
+          case "rate_limited":
+            Alert.alert("Çok sık deneme", `${depositResult.message}\nLütfen biraz bekleyin.`);
+            break;
+          default:
+            Alert.alert("Teminat hatası", depositResult.message);
+            break;
+        }
+        return;
+      }
+
+      const buyResult = await executeBuyNow({
+        listingId,
+        depositId: depositResult.depositId,
+      });
+
+      if (buyResult.ok) {
+        if (buyResult.status === "ok") {
+          Alert.alert(
+            "Hemen Al başarılı",
+            `₺${buyResult.amountTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız.\nbuyNowId: ${buyResult.buyNowId}`,
+          );
+          router.back();
+        } else {
+          Alert.alert("Zaten kayıtlı", buyResult.message);
+        }
+        return;
+      }
+
+      switch (buyResult.status) {
+        case "kyc_required":
+          handleKycRedirect(buyResult.message);
+          break;
+        case "auth_required":
+          Alert.alert("Giriş gerekli", buyResult.message);
+          router.push("/(auth)/login");
+          break;
+        case "preconditions_failed":
+          Alert.alert("İşlem tamamlanamadı", buyResult.message);
+          break;
+        case "rpc_error":
+          Alert.alert("Sunucu hatası", `${buyResult.message}\nLütfen tekrar deneyin.`);
+          break;
+        case "config_missing":
+          Alert.alert("Yapılandırma eksik", buyResult.message);
+          break;
+      }
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -23,12 +123,17 @@ export default function IhaleHemenAlScreen() {
       <Stack.Screen options={{ headerShown: true, title: "Hemen Al" }} />
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={styles.title}>Hemen Al (Mobil Ön-izleme)</Text>
-        <Text style={styles.subtitle}>İhale: {id ?? "bilinmiyor"} · Atomik satın alma akışı çekirdek API bekliyor.</Text>
+        <Text style={styles.subtitle}>İhale: {listingId ?? "bilinmiyor"} · Atomik satın alma akışı canlı RPC kullanır.</Text>
+
+        {!auction ? <FeedbackStateCard title="İhale bulunamadı" detail="Geçersiz ihale kimliği." variant="error" /> : null}
 
         <View style={styles.card}>
           <Text style={styles.row}>1) KYC durumu kontrol edilir.</Text>
-          <Text style={styles.row}>2) Kart blokajı / teminat doğrulaması yapılır.</Text>
-          <Text style={styles.row}>3) `execute_buy_now` ile tek transaction kapanışı yapılır.</Text>
+          <Text style={styles.row}>2) Teminat ön-yetkisi register_bid_deposit ile açılır.</Text>
+          <Text style={styles.row}>3) execute_buy_now ile atomik kapanış yapılır.</Text>
+          <Text style={styles.row}>
+            Cari tutar: {auction ? `${new Intl.NumberFormat("tr-TR").format(auction.currentBidTry)} TL` : "—"}
+          </Text>
           <Pressable
             onPress={() => setConfirmed((prev) => !prev)}
             style={[styles.checkbox, confirmed ? styles.checkboxOn : undefined]}
@@ -36,19 +141,19 @@ export default function IhaleHemenAlScreen() {
             accessibilityState={{ checked: confirmed }}
             accessibilityLabel="Hemen al onay kutusu">
             <Text style={styles.checkboxIcon}>{confirmed ? "☑" : "☐"}</Text>
-            <Text style={styles.checkboxText}>KVKK + ihale koşullarını okudum, mock Hemen Al ön-akışını onaylıyorum.</Text>
+            <Text style={styles.checkboxText}>KVKK + ihale koşullarını okudum, Hemen Al işlemini onaylıyorum.</Text>
           </Pressable>
-          <Pressable style={styles.primaryBtn} onPress={onMockBuyNow} accessibilityRole="button" accessibilityLabel="Hemen al ön akışı başlat">
-            <Text style={styles.primaryText}>Hemen Al Ön-akışı Başlat (mock)</Text>
+          <Pressable
+            style={[styles.primaryBtn, busy ? styles.primaryBtnDisabled : undefined]}
+            onPress={() => void handleBuyNow()}
+            disabled={busy || !auction}
+            accessibilityRole="button"
+            accessibilityLabel="Hemen al işlemini başlat">
+            <Text style={styles.primaryText}>{busy ? "İşleniyor..." : "Hemen Al"}</Text>
           </Pressable>
         </View>
 
         {status ? <FeedbackStateCard title="Durum" detail={status} variant={status.includes("zorunlu") ? "error" : "info"} /> : null}
-        <FeedbackStateCard
-          title="Gerekli Çekirdek API"
-          detail="execute_buy_now RPC + register_bid_deposit + payment preAuthorize/capture + KYC verified kontrolü."
-          variant="empty"
-        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -66,5 +171,6 @@ const styles = StyleSheet.create({
   checkboxIcon: { color: "#f8fafc", fontSize: 14 },
   checkboxText: { color: "#e2e8f0", fontSize: 12, flex: 1 },
   primaryBtn: { borderRadius: 10, backgroundColor: "#1d4ed8", paddingHorizontal: 10, paddingVertical: 10 },
+  primaryBtnDisabled: { opacity: 0.6 },
   primaryText: { color: "#f8fafc", fontSize: 13, fontWeight: "700", textAlign: "center" },
 });
