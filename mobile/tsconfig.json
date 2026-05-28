@@ -9,6 +9,9 @@
       "@/lib/valuation/*": ["../src/lib/valuation/*"],
       "@/lib/calculators/*": ["../src/lib/calculators/*"],
       "@/lib/location/*": ["../src/lib/location/*"],
+      "@/lib/depositRegister": ["../src/lib/depositRegister"],
+      "@/lib/buyNow": ["../src/lib/buyNow"],
+      "@/lib/placeBid": ["../src/lib/placeBid"],
       "@/*": ["./src/*"],
       "@/assets/*": ["./assets/*"]
     }
