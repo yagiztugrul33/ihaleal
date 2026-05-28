@@ -21,22 +21,11 @@
  * tek noktaya toplar; iki çağıran tek import'la bunu kullanır.
  */
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import type { ExecuteBuyNowParams, ExecuteBuyNowResult } from "./buyNow.types";
 
-export type ExecuteBuyNowParams = {
-  listingId: string;
-  depositId: string;
-  /** İstemci sabit anahtar; verilmezse helper üretir. Sunucu idempotency'i kontrol eder. */
-  idempotencyKey?: string;
-};
-
-export type ExecuteBuyNowResult =
-  | { ok: true; status: "ok"; buyNowId: string; amountTry: number }
-  | { ok: true; status: "duplicate"; message: string }
-  | { ok: false; status: "kyc_required"; message: string }
-  | { ok: false; status: "auth_required"; message: string }
-  | { ok: false; status: "preconditions_failed"; message: string }
-  | { ok: false; status: "rpc_error"; message: string; code?: string }
-  | { ok: false; status: "config_missing"; message: string };
+// Tipleri ayrı modülden re-export — mobile facade'lar transitive supabase resolve
+// etmek zorunda kalmadan tipleri kullanabilsin (mimari karar 2026-05-28).
+export type { ExecuteBuyNowParams, ExecuteBuyNowResult };
 
 const KYC_REQUIRED_MESSAGE =
   "Hemen Al için KYC doğrulaması zorunlu. Profilinizden kimlik doğrulamayı tamamlayın.";

@@ -1,10 +1,10 @@
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { MIN_INCREMENT_TRY } from "@/lib/fees";
+import type { PlaceBidResult } from "./placeBid.types";
 
-export type PlaceBidResult =
-  | { ok: true; status: "ok"; amount: number }
-  | { ok: true; status: "duplicate"; message: string }
-  | { ok: false; message: string; code?: string };
+// Tipi ayrı modülden re-export — mobile facade'lar transitive supabase resolve
+// etmek zorunda kalmadan tipi kullanabilsin (mimari karar 2026-05-28).
+export type { PlaceBidResult };
 
 /** Makul üst sınır — taşkın / hatalı girişten RPC'yi korur */
 const MAX_BID_TRY = 9_999_999_999_999;

@@ -21,31 +21,19 @@
  * akışını tek noktaya toplar.
  */
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import type {
+  DepositContext,
+  RegisterBidDepositParams,
+  RegisterBidDepositResult,
+} from "./depositRegister.types";
 
-export type DepositContext = "bid" | "buy_now";
-
-export type RegisterBidDepositParams = {
-  listingId: string;
-  auctionId: string;
-  context: DepositContext;
-  baseAmountTry: number;
-  depositAmountTry: number;
-  /** PSP (iyzico) ön-yetki referansı; mock veya unconfigured ortamda 'mock'. */
-  preAuthRef: string;
-  /** İstemci sabit anahtar; verilmezse helper üretir. Sunucu idempotency kontrol eder. */
-  idempotencyKey?: string;
+// Tipleri ayrı modülden re-export — mobile facade'lar transitive supabase resolve
+// etmek zorunda kalmadan tipleri kullanabilsin (mimari karar 2026-05-28).
+export type {
+  DepositContext,
+  RegisterBidDepositParams,
+  RegisterBidDepositResult,
 };
-
-export type RegisterBidDepositResult =
-  | { ok: true; status: "ok"; depositId: string }
-  | { ok: false; status: "kyc_required"; message: string }
-  | { ok: false; status: "auth_required"; message: string }
-  | { ok: false; status: "rate_limited"; message: string }
-  | { ok: false; status: "invalid_context"; message: string }
-  | { ok: false; status: "listing_not_found"; message: string }
-  | { ok: false; status: "preconditions_failed"; message: string }
-  | { ok: false; status: "rpc_error"; message: string; code?: string }
-  | { ok: false; status: "config_missing"; message: string };
 
 const KYC_REQUIRED_MESSAGE =
   "Teminat/ödeme yetkisi için KYC doğrulaması zorunlu. Profilinizden kimlik doğrulamayı tamamlayın.";
