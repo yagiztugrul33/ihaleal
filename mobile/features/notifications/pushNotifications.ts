@@ -8,7 +8,10 @@ import { getSupabaseClient } from '../../src/app/(auth)/authClient';
 const PUSH_TOKEN_KEY = 'ihaleal_mobile_push_token';
 
 type RpcClientLike = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ error: { message?: string } | null }>;
+  rpc: (
+    fn: string,
+    params?: Record<string, unknown>,
+  ) => Promise<{ data: unknown; error: { message?: string; code?: string } | null }>;
 };
 
 type PushSetupResult = {
@@ -41,12 +44,26 @@ export async function setupPushNotifications(): Promise<PushSetupResult> {
   };
 }
 
+function extractRpcPayloadError(data: unknown): string | null {
+  const row =
+    Array.isArray(data) && data.length > 0
+      ? data[0]
+      : data;
+  if (!row || typeof row !== 'object') return null;
+  const payload = row as Record<string, unknown>;
+  if (payload.status !== 'error') return null;
+  const message = payload.message;
+  return typeof message === 'string' && message.trim().length > 0
+    ? message
+    : 'Sunucu islem durumunu hata olarak bildirdi.';
+}
+
 export async function registerPushTokenToSupabase(token: string): Promise<string> {
   try {
     const client = (await getSupabaseClient()) as unknown as RpcClientLike;
     const appVersion = Constants.expoConfig?.version ?? 'unknown';
     const deviceLabel = `${Platform.OS}-${String(Platform.Version ?? 'unknown')}`;
-    const { error } = await client.rpc('register_push_token', {
+    const { data, error } = await client.rpc('register_push_token', {
       p_token: token,
       p_platform: Platform.OS,
       p_device_label: deviceLabel,
@@ -54,6 +71,10 @@ export async function registerPushTokenToSupabase(token: string): Promise<string
     });
     if (error) {
       return `Push token RPC hatası: ${error.message ?? 'bilinmeyen hata'}`;
+    }
+    const payloadError = extractRpcPayloadError(data);
+    if (payloadError) {
+      return `Push token payload hatası: ${payloadError}`;
     }
     await SecureStore.setItemAsync(PUSH_TOKEN_KEY, token).catch(() => null);
     return 'Push token kaydı tamamlandı.';
@@ -75,6 +96,10 @@ export async function unregisterPushTokenFromSupabase(token?: string): Promise<s
     }
     if (response.error) {
       return `Push token kaldırılamadı: ${response.error.message ?? 'bilinmeyen hata'}`;
+    }
+    const payloadError = extractRpcPayloadError(response.data);
+    if (payloadError) {
+      return `Push token payload hatası: ${payloadError}`;
     }
     await SecureStore.deleteItemAsync(PUSH_TOKEN_KEY).catch(() => null);
     return 'Push token kaldırıldı.';
