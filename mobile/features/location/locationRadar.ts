@@ -71,7 +71,10 @@ export type LocationPermissionResult = {
   coords?: { latitude: number; longitude: number };
 };
 
-export async function requestLocationWithConsent(kvkkOptIn: boolean): Promise<LocationPermissionResult> {
+export async function requestLocationWithConsent(
+  kvkkOptIn: boolean,
+  requireBackgroundPermission = false,
+): Promise<LocationPermissionResult> {
   if (!kvkkOptIn) {
     return { ok: false, message: 'KVKK konum onayı olmadan radar açılamaz.' };
   }
@@ -79,6 +82,12 @@ export async function requestLocationWithConsent(kvkkOptIn: boolean): Promise<Lo
     const fg = await ExpoLocation.requestForegroundPermissionsAsync();
     if (fg.status !== 'granted') {
       return { ok: false, message: 'Konum izni verilmedi.' };
+    }
+    if (requireBackgroundPermission) {
+      const bg = await ExpoLocation.requestBackgroundPermissionsAsync();
+      if (bg.status !== 'granted') {
+        return { ok: false, message: 'Arka plan konum izni verilmedi.' };
+      }
     }
     const loc = await ExpoLocation.getCurrentPositionAsync({ accuracy: ExpoLocation.Accuracy.Balanced });
     return { ok: true, message: 'Konum alındı.', coords: loc.coords };

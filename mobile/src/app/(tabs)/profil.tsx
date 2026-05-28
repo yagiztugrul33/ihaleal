@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Switch, Text, View, useColorScheme } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Switch, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
@@ -32,6 +32,7 @@ function formatKm(km: number): string {
 
 const LOCATION_ILLUMINATION_KEY = 'ihaleal_kvkk_location_illumination_v1';
 const LOCATION_CONSENT_KEY = 'ihaleal_kvkk_location_consent_v1';
+const LOCATION_BACKGROUND_CONSENT_KEY = 'ihaleal_kvkk_location_background_consent_v1';
 const PUSH_ILLUMINATION_KEY = 'ihaleal_kvkk_push_illumination_v1';
 const PUSH_CONSENT_KEY = 'ihaleal_kvkk_push_consent_v1';
 
@@ -45,6 +46,7 @@ export default function ProfilScreen() {
   const [biometricEnabled, setBiometricEnabledState] = useState(false);
   const [locationIlluminationAccepted, setLocationIlluminationAccepted] = useState(false);
   const [locationConsentAccepted, setLocationConsentAccepted] = useState(false);
+  const [locationBackgroundConsentAccepted, setLocationBackgroundConsentAccepted] = useState(false);
   const [pushIlluminationAccepted, setPushIlluminationAccepted] = useState(false);
   const [pushConsentAccepted, setPushConsentAccepted] = useState(false);
   const [locationBusy, setLocationBusy] = useState(false);
@@ -69,6 +71,7 @@ export default function ProfilScreen() {
       setBiometricEnabledState(await getBiometricOptIn());
       setLocationIlluminationAccepted((await SecureStore.getItemAsync(LOCATION_ILLUMINATION_KEY)) === '1');
       setLocationConsentAccepted((await SecureStore.getItemAsync(LOCATION_CONSENT_KEY)) === '1');
+      setLocationBackgroundConsentAccepted((await SecureStore.getItemAsync(LOCATION_BACKGROUND_CONSENT_KEY)) === '1');
       setPushIlluminationAccepted((await SecureStore.getItemAsync(PUSH_ILLUMINATION_KEY)) === '1');
       setPushConsentAccepted((await SecureStore.getItemAsync(PUSH_CONSENT_KEY)) === '1');
     })();
@@ -121,16 +124,48 @@ export default function ProfilScreen() {
     }
   }, []);
 
+  const onToggleLocationBackgroundConsent = useCallback(async (value: boolean) => {
+    setLocationBackgroundConsentAccepted(value);
+    if (value) {
+      await SecureStore.setItemAsync(LOCATION_BACKGROUND_CONSENT_KEY, '1');
+    } else {
+      await SecureStore.deleteItemAsync(LOCATION_BACKGROUND_CONSENT_KEY).catch(() => null);
+    }
+  }, []);
+
+  const confirmBackgroundLocationModal = useCallback(async (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      Alert.alert(
+        'Arka Plan Konum Onayı',
+        'Arka plan konum izni, uygulama kapaliyken yakindaki firsatlari izlemek icin kullanilir. Onayliyor musunuz?',
+        [
+          { text: 'Vazgec', style: 'cancel', onPress: () => resolve(false) },
+          { text: 'Onayliyorum', onPress: () => resolve(true) },
+        ],
+      );
+    });
+  }, []);
+
   const onEnableRadar = useCallback(async () => {
     const hasLocationConsent = locationIlluminationAccepted && locationConsentAccepted;
     if (!hasLocationConsent) {
       setLocationStatus('Konum radarı için aydınlatma + açık rıza onayı zorunlu.');
       return;
     }
+    if (!locationBackgroundConsentAccepted) {
+      setLocationStatus('Arka plan konum izni icin ayri acik riza onayi zorunlu.');
+      return;
+    }
+
+    const modalConfirmed = await confirmBackgroundLocationModal();
+    if (!modalConfirmed) {
+      setLocationStatus('Arka plan konum modal onayi verilmedi.');
+      return;
+    }
 
     setLocationBusy(true);
     try {
-      const result = await requestLocationWithConsent(true);
+      const result = await requestLocationWithConsent(true, true);
       setLocationStatus(result.message);
       if (!result.ok || !result.coords) return;
       setUserCoords(result.coords);
@@ -145,7 +180,7 @@ export default function ProfilScreen() {
     } finally {
       setLocationBusy(false);
     }
-  }, [locationConsentAccepted, locationIlluminationAccepted]);
+  }, [confirmBackgroundLocationModal, locationBackgroundConsentAccepted, locationConsentAccepted, locationIlluminationAccepted]);
 
   const onEnablePush = useCallback(async () => {
     if (!(pushIlluminationAccepted && pushConsentAccepted)) {
@@ -228,6 +263,15 @@ export default function ProfilScreen() {
               onValueChange={(value) => void onToggleLocationConsent(value)}
               trackColor={{ false: '#475569', true: '#16a34a' }}
               accessibilityLabel="Konum verisi için açık rıza veriyorum"
+            />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>Arka plan konum izni icin acik riza veriyorum</Text>
+            <Switch
+              value={locationBackgroundConsentAccepted}
+              onValueChange={(value) => void onToggleLocationBackgroundConsent(value)}
+              trackColor={{ false: '#475569', true: '#16a34a' }}
+              accessibilityLabel="Arka plan konum verisi icin acik riza veriyorum"
             />
           </View>
           <Pressable
