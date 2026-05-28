@@ -14,4 +14,6 @@ export * from './borsa';
 export * from './calculators';
 export * from './locationIntelligence';
 export * from './bidActions';
+export * from './depositRegister';
+export * from './buyNow';
 export * from './demoMarket';
