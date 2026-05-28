@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Switch, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 
 import { Colors, Spacing } from '@/constants/theme';
 import {
@@ -28,6 +29,11 @@ import {
 function formatKm(km: number): string {
   return `${km.toFixed(1)} km`;
 }
+
+const LOCATION_ILLUMINATION_KEY = 'ihaleal_kvkk_location_illumination_v1';
+const LOCATION_CONSENT_KEY = 'ihaleal_kvkk_location_consent_v1';
+const PUSH_ILLUMINATION_KEY = 'ihaleal_kvkk_push_illumination_v1';
+const PUSH_CONSENT_KEY = 'ihaleal_kvkk_push_consent_v1';
 
 export default function ProfilScreen() {
   const scheme = useColorScheme();
@@ -61,6 +67,10 @@ export default function ProfilScreen() {
       setEmail(data.session?.user?.email ?? (await getStoredEmail()));
       setSessionReady(true);
       setBiometricEnabledState(await getBiometricOptIn());
+      setLocationIlluminationAccepted((await SecureStore.getItemAsync(LOCATION_ILLUMINATION_KEY)) === '1');
+      setLocationConsentAccepted((await SecureStore.getItemAsync(LOCATION_CONSENT_KEY)) === '1');
+      setPushIlluminationAccepted((await SecureStore.getItemAsync(PUSH_ILLUMINATION_KEY)) === '1');
+      setPushConsentAccepted((await SecureStore.getItemAsync(PUSH_CONSENT_KEY)) === '1');
     })();
   }, []);
 
@@ -73,6 +83,42 @@ export default function ProfilScreen() {
     await unregisterPushTokenFromSupabase();
     await clearAuthSession();
     router.replace('/(auth)/login');
+  }, []);
+
+  const onToggleLocationIllumination = useCallback(async (value: boolean) => {
+    setLocationIlluminationAccepted(value);
+    if (value) {
+      await SecureStore.setItemAsync(LOCATION_ILLUMINATION_KEY, '1');
+    } else {
+      await SecureStore.deleteItemAsync(LOCATION_ILLUMINATION_KEY).catch(() => null);
+    }
+  }, []);
+
+  const onToggleLocationConsent = useCallback(async (value: boolean) => {
+    setLocationConsentAccepted(value);
+    if (value) {
+      await SecureStore.setItemAsync(LOCATION_CONSENT_KEY, '1');
+    } else {
+      await SecureStore.deleteItemAsync(LOCATION_CONSENT_KEY).catch(() => null);
+    }
+  }, []);
+
+  const onTogglePushIllumination = useCallback(async (value: boolean) => {
+    setPushIlluminationAccepted(value);
+    if (value) {
+      await SecureStore.setItemAsync(PUSH_ILLUMINATION_KEY, '1');
+    } else {
+      await SecureStore.deleteItemAsync(PUSH_ILLUMINATION_KEY).catch(() => null);
+    }
+  }, []);
+
+  const onTogglePushConsent = useCallback(async (value: boolean) => {
+    setPushConsentAccepted(value);
+    if (value) {
+      await SecureStore.setItemAsync(PUSH_CONSENT_KEY, '1');
+    } else {
+      await SecureStore.deleteItemAsync(PUSH_CONSENT_KEY).catch(() => null);
+    }
   }, []);
 
   const onEnableRadar = useCallback(async () => {
@@ -170,7 +216,7 @@ export default function ProfilScreen() {
             <Text style={styles.rowLabel}>Aydınlatma metnini okudum</Text>
             <Switch
               value={locationIlluminationAccepted}
-              onValueChange={setLocationIlluminationAccepted}
+              onValueChange={(value) => void onToggleLocationIllumination(value)}
               trackColor={{ false: '#475569', true: '#16a34a' }}
               accessibilityLabel="Konum aydınlatma metnini okudum"
             />
@@ -179,7 +225,7 @@ export default function ProfilScreen() {
             <Text style={styles.rowLabel}>Açık rıza veriyorum</Text>
             <Switch
               value={locationConsentAccepted}
-              onValueChange={setLocationConsentAccepted}
+              onValueChange={(value) => void onToggleLocationConsent(value)}
               trackColor={{ false: '#475569', true: '#16a34a' }}
               accessibilityLabel="Konum verisi için açık rıza veriyorum"
             />
@@ -245,7 +291,7 @@ export default function ProfilScreen() {
             <Text style={styles.rowLabel}>Aydınlatma metnini okudum</Text>
             <Switch
               value={pushIlluminationAccepted}
-              onValueChange={setPushIlluminationAccepted}
+              onValueChange={(value) => void onTogglePushIllumination(value)}
               trackColor={{ false: '#475569', true: '#16a34a' }}
               accessibilityLabel="Push aydınlatma metnini okudum"
             />
@@ -254,7 +300,7 @@ export default function ProfilScreen() {
             <Text style={styles.rowLabel}>Push için açık rıza veriyorum</Text>
             <Switch
               value={pushConsentAccepted}
-              onValueChange={setPushConsentAccepted}
+              onValueChange={(value) => void onTogglePushConsent(value)}
               trackColor={{ false: '#475569', true: '#16a34a' }}
               accessibilityLabel="Push bildirimi için açık rıza veriyorum"
             />
