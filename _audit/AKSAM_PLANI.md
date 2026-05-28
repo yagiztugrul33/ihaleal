@@ -5,6 +5,28 @@
 
 ---
 
+## ⚠️ MİMARİ KARAR — 2026-05-28 (Adım 1 C sonrası eklendi)
+
+**Sorun:** Adım 1 C (mobile/shared/depositRegister.ts re-export bridge) denemesinde keşfedildi: web `src/lib/depositRegister.ts` içinde `import { supabase } from "@/lib/supabase"` var. Web `supabase` client browser-tabanlı (window/document); mobile'da fail eder. Mobile'da `mobile/src/app/(auth)/authClient.ts`'in `getSupabaseClient()` (SecureStore adapter) farklı bir client.
+
+**Karar:** **Mobile facade'lar Adım 4'te mobile-specific yazılacak** — re-export DEĞİL.
+- **Tipler** (DepositContext, RegisterBidDepositResult vb.): `export type { ... } from "@/lib/depositRegister"` ile re-export. Tek doğruluk kaynağı.
+- **Runtime fonksiyonu** (registerBidDeposit, executeBuyNow, placeBidRpc): mobile'da kendi implementasyonu — `getSupabaseClient()` (mobile authClient) ile RPC çağrısı. Web facade'ın iş mantığı (KYC ön-check, hata code eşleştirme) mobile'a taşınır ama supabase client mobile'ın.
+
+**Etki:**
+- Adım 1 C iptal (mobile bridge bu şekilde mümkün değil)
+- Adım 2 (bidActions gerçek RPC) **revize edilmeli**: bidActions zaten mobile-side facade, `placeBidRpc`'i değil mobile-equivalent'ini çağıracak
+- Pure logic re-export'ları (borsa/valuation/calculators/locationIntelligence) sorun değil — bunlar supabase'siz
+- mobile bidActions, depositRegister, buyNow için **3 paralel mobile facade** yazılır Adım 4'te
+
+**Kanıt:**
+- Mobile branch (`feat/mobile-calculators`) merge commit `c36f540` ile main ile sync edildi (15 commit + merge)
+- `src/lib/depositRegister.ts`, `buyNow.ts`, `placeBid.ts` artık mobile worktree'de mevcut
+- Bridge denemesinde tsc fail: `Cannot find module '@/lib/supabase'` → kanıt re-export semantically uygun değil
+- Restore + temizlik yapıldı; merge commit korundu
+
+---
+
 ## YÖNETİCİ ÖZETİ
 
 Akşamın ana işi: **mobil teklif/hemen-al akışını mock'tan gerçek RPC'ye köprülemek**. 4 mobil ekran (`borsa.tsx`, `ihale/[id]/teklif.tsx`, `hemen-al.tsx`, `kapali-teklif.tsx`) bugün tamamen mock; bidActions.ts `setTimeout(250)` ile fake-success döner (D-7 doğrulandı). Çekirdek tarafı zaten hazır: `placeBidRpc` + `executeBuyNow` facade'leri discriminated union döndürür, sunucuda KYC guard sert. Bağlantı için 3 köprü işi var: (i) mobile `authClient.ts`'in `SupabaseClientLike` tipini `.rpc()` exposed yapacak şekilde genişletmek, (ii) mobile/shared'a `placeBidMobile`/`executeBuyNowMobile` ince köprü eklemek, (iii) mobil ekranların handler'larını mock yerine bu köprülere bağlamak.
