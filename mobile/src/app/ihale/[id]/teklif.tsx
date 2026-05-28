@@ -80,7 +80,7 @@ export default function IhaleTeklifScreen() {
     setStatus(null);
     try {
       const depositResult = await registerBidDeposit({
-        listingId: auction.id,
+        listingId: auction.listingId,
         auctionId,
         context: "bid",
         baseAmountTry: parsedAmount,
@@ -150,6 +150,16 @@ export default function IhaleTeklifScreen() {
         case "auth_required":
           Alert.alert("Giriş gerekli", bidResult.message);
           router.push("/(auth)/login");
+          break;
+        case "listing_not_found":
+          Alert.alert("İlan bulunamadı", `${bidResult.message}\nİhale listesine yönlendiriliyorsunuz.`);
+          router.replace("/ihaleler");
+          break;
+        case "config_missing":
+          Alert.alert("Yapılandırma eksik", "Sistem yapılandırması eksik görünüyor. Lütfen daha sonra tekrar deneyin.");
+          break;
+        case "rpc_error":
+          Alert.alert("Sunucu hatası", `${bidResult.message}\nLütfen tekrar deneyin.`);
           break;
         default:
           Alert.alert("Reddedildi", bidResult.message);

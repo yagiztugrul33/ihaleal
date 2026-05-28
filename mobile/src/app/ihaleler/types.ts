@@ -2,6 +2,7 @@ export type AuctionStatus = "open" | "closing" | "closed";
 
 export type AuctionListItem = {
   id: string;
+  listingId: string;
   title: string;
   imageUrl: string;
   currentBidTry: number;

@@ -10,10 +10,10 @@ import { toAuctionDetailViewModel } from "../viewModel";
 const BUY_NOW_DEPOSIT_RATE = 0.015;
 
 export default function IhaleHemenAlScreen() {
-  const { id: listingId } = useLocalSearchParams<{ id?: string }>();
+  const { id: auctionId } = useLocalSearchParams<{ id?: string }>();
   const auction = useMemo(
-    () => (typeof listingId === "string" ? toAuctionDetailViewModel(listingId) : null),
-    [listingId],
+    () => (typeof auctionId === "string" ? toAuctionDetailViewModel(auctionId) : null),
+    [auctionId],
   );
   const [confirmed, setConfirmed] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
@@ -39,8 +39,16 @@ export default function IhaleHemenAlScreen() {
     );
   };
 
+  const dispatchTransactionNotifications = (actionLabel: string, amountTry: number) => {
+    const amountText = `₺${amountTry.toLocaleString("tr-TR")}`;
+    Alert.alert(
+      "Bildirimler (mock)",
+      `SMS teyit: ${actionLabel} işlemi ${amountText} için iletildi.\nE-posta teyit: ${actionLabel} işlemi ${amountText} için iletildi.`,
+    );
+  };
+
   const handleBuyNow = async () => {
-    if (!listingId || !auction) return;
+    if (!auctionId || !auction) return;
     if (!confirmed) {
       setStatus("Hemen Al için sözleşme/KVKK onayı zorunlu.");
       return;
@@ -50,8 +58,8 @@ export default function IhaleHemenAlScreen() {
     setStatus(null);
     try {
       const depositResult = await registerBidDeposit({
-        listingId,
-        auctionId: auction.id,
+        listingId: auction.listingId,
+        auctionId,
         context: "buy_now",
         baseAmountTry: auction.currentBidTry,
         depositAmountTry: Math.round(auction.currentBidTry * BUY_NOW_DEPOSIT_RATE),
@@ -78,12 +86,13 @@ export default function IhaleHemenAlScreen() {
       }
 
       const buyResult = await executeBuyNow({
-        listingId,
+        listingId: auction.listingId,
         depositId: depositResult.depositId,
       });
 
       if (buyResult.ok) {
         if (buyResult.status === "ok") {
+          dispatchTransactionNotifications("Hemen Al", buyResult.amountTry);
           Alert.alert(
             "Hemen Al başarılı",
             `₺${buyResult.amountTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız.\nbuyNowId: ${buyResult.buyNowId}`,
@@ -123,7 +132,7 @@ export default function IhaleHemenAlScreen() {
       <Stack.Screen options={{ headerShown: true, title: "Hemen Al" }} />
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={styles.title}>Hemen Al (Mobil Ön-izleme)</Text>
-        <Text style={styles.subtitle}>İhale: {listingId ?? "bilinmiyor"} · Atomik satın alma akışı canlı RPC kullanır.</Text>
+        <Text style={styles.subtitle}>İhale: {auctionId ?? "bilinmiyor"} · Atomik satın alma akışı canlı RPC kullanır.</Text>
 
         {!auction ? <FeedbackStateCard title="İhale bulunamadı" detail="Geçersiz ihale kimliği." variant="error" /> : null}
 

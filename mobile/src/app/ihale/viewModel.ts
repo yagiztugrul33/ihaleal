@@ -2,6 +2,7 @@ import { MOCK_AUCTIONS } from "../ihaleler/data";
 
 export type AuctionDetailViewModel = {
   id: string;
+  listingId: string;
   title: string;
   imageUrl: string;
   currentBidTry: number;
@@ -21,6 +22,7 @@ export function toAuctionDetailViewModel(auctionId: string, nowMs = Date.now()):
 
   return {
     id: row.id,
+    listingId: row.listingId,
     title: row.title,
     imageUrl: row.imageUrl,
     currentBidTry: row.currentBidTry,
