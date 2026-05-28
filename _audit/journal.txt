@@ -1,0 +1,12 @@
+ihaleal — Sprint Journal
+========================
+
+Format: YYYY-MM-DD | sprint | özet | snapshot
+(Yeni satır en alta, kronolojik artan)
+
+
+2026-05-16/17 | sprint 1 | Sistem röntgeni + Faz 1-3 hazırlık + 5 unmerged migration land + bundle 5-fix planı | _audit/OTURUM_DURUMU.md + _audit/SISTEM_ROENTGENI.md
+
+2026-05-27/28 sabah | sprint 2 | 5-fix security bundle deploy (Faz 1.2/1.9/1.10/1.11) + AB10 /kyc route + mobile facade altyapısı (Adım 1-2) + Cursor Adım 4 UI bağlama + müfettiş turu (K-M1/K-M2 listingId===auctionId KESİN bug) + Adım 6 düzeltme + Cursor RB4 mobil sertleştirme push (5 commit: 637f341/93de0dc/e687199/9e73ba8/4da7c43) | _audit/OTURUM_DURUMU_2.md
+
+2026-05-28 öğleden sonra | sprint 3 | RB1/RB2 RLS hardening (c81de0d, 36/36) + Faz 4 pgmq+vault (94e4df6, 47/47) + db_error sürpriz teşhis (GRANT bug initial_schema'dan beri, 47 tablodan 45'inde service_role SELECT eksik) + sistemik grants restore (78c127c, 67/67) + main push (31 commit, 3fd5776, Supabase SUCCESS + Vercel Git Connect deploy) + Vercel env (VITE_SUPABASE_URL + ANON_KEY) eklendi + bundle gerçek URL teyit + REST API canlı kanıt (listings/auctions 200, profiles/bids/bid_deposits 401) + Cloudflare DNS NS geçişi (R11 devam) | _audit/OTURUM_DURUMU_3.md
