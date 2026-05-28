@@ -1,5 +1,15 @@
 # ihaleal — Akşam Oturumu Planı (2026-05-27)
 
+> ## 📍 GÜNCEL DURUM (2026-05-28 sabah)
+>
+> **Adım 1-2** (mobil facade altyapısı — depositRegister + buyNow + bidActions D-7 fix + barrel) ve **Adım 4** (UI bağlama, Cursor commit `1589337`) **TAMAMLANDI.**
+>
+> **SIRADAKİ: Adım 5 — Müfettiş turu değerlendirmesi.** Detay ve müfettiş şüpheleri (özellikle `listingId===auctionId` varsayımı, Sürpriz #2 — production'da KESİN BUG) `_audit/OTURUM_DURUMU_2.md`'de.
+>
+> Bu dosyanın altındaki Adım 1-2 revize planı **tarihseldir** — güncel durum için `OTURUM_DURUMU_2.md`'ye bak. Kurallar için `_audit/GARANTI_YOL_KURALLARI.md`.
+
+---
+
 **Hazırlık modu:** SALT-OKUMA tamamlandı. Production'a/git'e yazma YOK; bu plan dosyası lokal commit edilecek, push YOK.
 **Bağlam:** `_audit/OTURUM_DURUMU.md` ile tamamlayıcı — orada "ne yapıldı", burada "akşam ne yapılacak".
 
