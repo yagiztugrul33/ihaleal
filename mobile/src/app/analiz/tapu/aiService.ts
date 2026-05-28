@@ -1,3 +1,4 @@
+// MOCK DATA — sentetik, gerçek değil
 import { maskOwnerName, maskParcel, maskTckn } from "./privacy";
 import type {
   TapuAiAnalysisInput,
@@ -22,8 +23,8 @@ function deriveRisk(document: TapuDocumentSelection): "Düşük" | "Orta" | "Yü
 export const mockTapuAiService: TapuAiAnalysisService = {
   async analyzeTapu(input) {
     const risk = deriveRisk(input.document);
-    const owner = "Ahmet Demir";
-    const tckn = "12345678910";
+    const owner = "TEST KULLANICI 1";
+    const tckn = "00000000000";
     const parcel = "123 Ada 45 Parsel";
 
     await new Promise((resolve) => setTimeout(resolve, 450));

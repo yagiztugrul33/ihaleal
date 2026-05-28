@@ -103,7 +103,7 @@ export default function LoginScreen() {
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="email-address"
-            placeholder="ornek@mail.com"
+            placeholder="test@example.invalid"
             placeholderTextColor={palette.textSecondary}
             style={styles.input}
             value={email}
