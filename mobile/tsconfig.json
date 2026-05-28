@@ -9,9 +9,9 @@
       "@/lib/valuation/*": ["../src/lib/valuation/*"],
       "@/lib/calculators/*": ["../src/lib/calculators/*"],
       "@/lib/location/*": ["../src/lib/location/*"],
-      "@/lib/depositRegister": ["../src/lib/depositRegister"],
-      "@/lib/buyNow": ["../src/lib/buyNow"],
-      "@/lib/placeBid": ["../src/lib/placeBid"],
+      "@/lib/depositRegister.types": ["../src/lib/depositRegister.types"],
+      "@/lib/buyNow.types": ["../src/lib/buyNow.types"],
+      "@/lib/placeBid.types": ["../src/lib/placeBid.types"],
       "@/*": ["./src/*"],
       "@/assets/*": ["./assets/*"]
     }
