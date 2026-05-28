@@ -58,7 +58,9 @@ export default function ProfilScreen() {
   const mapModule = useMemo(() => getMapModule(), []);
 
   useEffect(() => {
-    const dispose = bindNotificationDeepLinking();
+    const dispose = bindNotificationDeepLinking((route) => {
+      router.push(route);
+    });
     return () => dispose();
   }, []);
 

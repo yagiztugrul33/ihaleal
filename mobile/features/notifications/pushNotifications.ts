@@ -1,6 +1,5 @@
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
-import * as Linking from 'expo-linking';
 import * as Notifications from 'expo-notifications';
 import * as SecureStore from 'expo-secure-store';
 
@@ -84,18 +83,27 @@ export async function unregisterPushTokenFromSupabase(token?: string): Promise<s
   }
 }
 
-export function bindNotificationDeepLinking(): () => void {
+type InternalPushRoute = '/(tabs)/profil' | `/ilan/${string}`;
+
+function resolveNotificationRoute(type?: string, listingId?: string): InternalPushRoute | null {
+  if ((type === 'outbid' || type === 'auction_end') && listingId) {
+    return `/ilan/${listingId}`;
+  }
+  if (type === 'new_opportunity') {
+    return '/(tabs)/profil';
+  }
+  return null;
+}
+
+export function bindNotificationDeepLinking(navigateToRoute: (route: InternalPushRoute) => void): () => void {
   let sub: { remove: () => void } | null = null;
   void (async () => {
     sub = Notifications.addNotificationResponseReceivedListener((response: any) => {
       const type = response?.notification?.request?.content?.data?.type as string | undefined;
       const listingId = response?.notification?.request?.content?.data?.listingId as string | undefined;
-      if (type === 'outbid' && listingId) {
-        void Linking.openURL(`ihaleal://ilan/${listingId}`);
-      } else if (type === 'auction_end' && listingId) {
-        void Linking.openURL(`ihaleal://ilan/${listingId}`);
-      } else if (type === 'new_opportunity') {
-        void Linking.openURL('ihaleal://(tabs)/profil');
+      const route = resolveNotificationRoute(type, listingId);
+      if (route) {
+        navigateToRoute(route);
       }
     });
   })();
