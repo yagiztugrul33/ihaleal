@@ -5,6 +5,8 @@ import { useMemo, useState } from "react";
 
 import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 import { executeBuyNow, registerBidDeposit } from "../../../../shared";
+import { getBiometricOptIn } from "../../(auth)/authClient";
+import { authenticateBiometric } from "../../(auth)/biometric";
 import { toAuctionDetailViewModel } from "../viewModel";
 
 const BUY_NOW_DEPOSIT_RATE = 0.015;
@@ -52,6 +54,17 @@ export default function IhaleHemenAlScreen() {
     if (!confirmed) {
       setStatus("Hemen Al için sözleşme/KVKK onayı zorunlu.");
       return;
+    }
+
+    const biometricOptIn = await getBiometricOptIn();
+    if (biometricOptIn) {
+      const biometricOk = await authenticateBiometric('Yuksek degerli satin alim islemi icin biyometrik dogrulama gerekli.', {
+        strict: true,
+      });
+      if (!biometricOk) {
+        Alert.alert('Dogrulama basarisiz', 'Hemen Al islemi icin biyometrik dogrulama tamamlanmadi.');
+        return;
+      }
     }
 
     setBusy(true);

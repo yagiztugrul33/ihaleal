@@ -5,7 +5,8 @@ import { useMemo, useState } from "react";
 
 import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 import { registerBidDeposit, submitBid } from "../../../../shared";
-import { getSupabaseClient } from "../../(auth)/authClient";
+import { getBiometricOptIn, getSupabaseClient } from "../../(auth)/authClient";
+import { authenticateBiometric } from "../../(auth)/biometric";
 import { toAuctionDetailViewModel } from "../viewModel";
 
 const DEPOSIT_RATE = 0.05;
@@ -74,6 +75,17 @@ export default function IhaleTeklifScreen() {
       Alert.alert("Giriş gerekli", "Teklif vermek için giriş yapmalısınız.");
       router.push("/(auth)/login");
       return;
+    }
+
+    const biometricOptIn = await getBiometricOptIn();
+    if (biometricOptIn) {
+      const biometricOk = await authenticateBiometric('Yuksek degerli teklif islemi icin biyometrik dogrulama gerekli.', {
+        strict: true,
+      });
+      if (!biometricOk) {
+        Alert.alert('Dogrulama basarisiz', 'Teklif gondermek icin biyometrik dogrulama tamamlanmadi.');
+        return;
+      }
     }
 
     setSubmitting(true);
