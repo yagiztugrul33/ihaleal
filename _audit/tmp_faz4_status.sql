@@ -24,12 +24,19 @@ select 'schema_migrations_faz4',
   case when exists (select 1 from supabase_migrations.schema_migrations where version='20260516120400')
        then 'PRESENT' else 'ABSENT' end
 union all
-select 'GUC_functions_url',
-  coalesce(nullif(current_setting('app.functions_url', true), ''), 'NOT_SET')
+-- Vault pattern (GUC değil — Supabase resmi cron + secret yaklaşımı)
+select 'vault_secret_exists',
+  case when exists (select 1 from pg_extension where extname='supabase_vault' or extname='vault')
+       then case when exists (select 1 from vault.secrets where name='matching_fanout_cron_secret')
+                 then 'PRESENT' else 'ABSENT' end
+       else 'vault_extension_yok' end
 union all
-select 'GUC_cron_secret_set',
-  case when nullif(current_setting('app.cron_secret', true), '') is null
-       then 'NOT_SET' else 'SET' end
+select 'vault_secret_decryptable',
+  case when exists (select 1 from pg_extension where extname='supabase_vault' or extname='vault')
+       then coalesce((select 'PRESENT (' || length(decrypted_secret)::text || ' chars)'
+                      from vault.decrypted_secrets where name='matching_fanout_cron_secret' limit 1),
+                     'ABSENT_OR_DECRYPT_FAIL')
+       else 'vault_extension_yok' end
 union all
 select 'pgmq_in_other_migrations',
   case when exists (select 1 from supabase_migrations.schema_migrations where statements::text ilike '%pgmq%')

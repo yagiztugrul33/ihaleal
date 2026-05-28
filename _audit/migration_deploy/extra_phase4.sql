@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════════
--- DEPLOY — FAZ 4 ASYNC ALTYAPI (atomik, RB1/RB2 patterniyle yükseltilmiş)
+-- DEPLOY — FAZ 4 ASYNC ALTYAPI (atomik, RB1/RB2 patterniyle, Vault revize)
 -- ═══════════════════════════════════════════════════════════════════════════
 --
 -- KULLANIM:
@@ -12,25 +12,34 @@
 --     - pg_cron job (matching-fanout-every-minute) — pg_net üzerinden edge function tetik
 --
 -- KAYNAK:
---   supabase/migrations/20260516120400_v2_pgmq_matching.sql
+--   supabase/migrations/20260516120400_v2_pgmq_matching.sql (canonical)
 --   _audit/migration_deploy/phase4_async.sql (eski sürüm — atomik smoke yoktu)
+--
+-- VAULT PATTERN (NEDEN GUC DEĞİL):
+--   Supabase managed DB'de `alter database postgres set app.X` superuser
+--   gerektirir — SQL Editor ve CLI service_role'den fail (permission denied).
+--   GUC yerine Supabase resmi pattern: vault.secrets + URL hardcode.
+--   - URL hassas değil (web bundle'da zaten görünür), hardcode → audit temiz
+--   - Cron secret vault'ta encrypted, cron job vault.decrypted_secrets'tan okur
+--   - vault.create_secret() postgres role'e EXECUTE — SQL Editor'den çalışır
 --
 -- ÖN-KOŞUL DASHBOARD (BU SQL'DEN ÖNCE ZORUNLU — eksikse smoke fail → abort):
 --
 --   1. Database → Extensions → pgmq ENABLE
 --   2. Database → Extensions → pg_cron ENABLE
 --   3. Database → Extensions → pg_net ENABLE
---   4. SQL Editor — TEK SEFERLİK:
---        alter database postgres set app.functions_url = 'https://wsjifesrdaeorrdzbvmk.supabase.co/functions/v1';
---        alter database postgres set app.cron_secret = '<random-64-hex>';
+--   4. SQL Editor — Vault secret oluştur (TEK SEFERLİK):
+--        select vault.create_secret(
+--          '<64-hex-random-secret>',
+--          'matching_fanout_cron_secret'
+--        );
 --   5. Edge Functions → matching-fanout → Secrets:
---        INTERNAL_CRON_SECRET = <yukarıdaki app.cron_secret ile AYNI değer>
+--        INTERNAL_CRON_SECRET = <adım 4 ile AYNI 64-hex değer>
 --   6. matching-fanout edge function production'a deploy:
 --        npx supabase functions deploy matching-fanout --no-verify-jwt
---      (matching-fanout 1 dakika sonra cron tarafından çağrılmaya başlar — 404
---      penceresini önlemek için migration'dan ÖNCE deploy önerilir)
+--      (bu deploy zaten 2026-05-28 turunda yapıldı)
 --
--- Smoke 48 check (11 Faz 4 self + 35 önceki regression + 2 schema row),
+-- Smoke 47 check (10 Faz 4 self + 35 önceki regression + 2 schema row),
 -- atomik transaction içinde — fail → abort, DB değişmez.
 --
 -- REVERSE (geri alma) — atomik tek blok:
@@ -54,23 +63,25 @@
 --   do $reverse_q1$ begin perform pgmq.drop_queue('bulk_listings'); exception when others then null; end $reverse_q1$;
 --   do $reverse_q2$ begin perform pgmq.drop_queue('kyc_prescan'); exception when others then null; end $reverse_q2$;
 --
---   -- pgmq extension drop önerilmez (başka queue kullanımı varsa veri kaybı):
+--   -- Vault secret sil (SQL Editor'den ayrıca — bu dosyanın dışında):
+--   --   select vault.delete_secret(
+--   --     (select id from vault.secrets where name='matching_fanout_cron_secret')
+--   --   );
+--
+--   -- pgmq extension drop önerilmez (başka queue kullanımı varsa kayıp):
 --   -- drop extension if exists pgmq cascade;
 --
 --   -- schema_migrations satırını sil
 --   delete from supabase_migrations.schema_migrations where version='20260516120400';
 --   commit;
 --
---   -- Dashboard ek temizlik (bu deploy dosyasının DIŞINDA — SQL Editor):
---   --   alter database postgres reset app.functions_url;
---   --   alter database postgres reset app.cron_secret;
 --   -- Edge function env var INTERNAL_CRON_SECRET — Dashboard UI'dan sil.
 -- ═══════════════════════════════════════════════════════════════════════════
 
 begin;
 
 -- ──────────────────────────────────────────────────────────────────────────
--- Faz 4 DDL — pgmq core + queues + RPCs + cron schedule
+-- Faz 4 DDL — pgmq core + queues + RPCs + cron schedule (Vault okuma)
 -- ──────────────────────────────────────────────────────────────────────────
 
 create extension if not exists pgmq cascade;
@@ -108,9 +119,11 @@ returns boolean language sql security definer set search_path = public, pgmq as 
 $pmd$;
 grant execute on function public.pgmq_delete(text, bigint) to service_role;
 
--- matching cron — pg_cron + pg_net + GUC bağımlı
+-- matching cron — pg_cron + pg_net + Vault secret bağımlı
 -- Dashboard ön-koşul gerekli; eksikse smoke check exception atar (strict mode).
 -- DDL bloğu best-effort sarmalanmış (cron yoksa skip), smoke katmanında strict.
+-- URL hardcoded (production canonical /functions/v1/<name> pattern).
+-- Secret: vault.decrypted_secrets runtime'da okur (cron job postgres role olarak çalışır).
 do $cron$
 begin
   if exists (select 1 from pg_extension where extname = 'pg_cron') then
@@ -123,10 +136,10 @@ begin
       '* * * * *',
       $cmd$
         select net.http_post(
-          url := current_setting('app.functions_url', true) || '/matching-fanout',
+          url := 'https://wsjifesrdaeorrdzbvmk.supabase.co/functions/v1/matching-fanout',
           headers := jsonb_build_object(
             'content-type', 'application/json',
-            'x-internal-secret', current_setting('app.cron_secret', true)
+            'x-internal-secret', (select decrypted_secret from vault.decrypted_secrets where name = 'matching_fanout_cron_secret' limit 1)
           ),
           body := '{}'::jsonb
         )
@@ -148,22 +161,23 @@ insert into supabase_migrations.schema_migrations (version, name, statements)
     'v2_pgmq_matching',
     array[
       '-- Deployed via _audit/migration_deploy/extra_phase4.sql on 2026-05-28. ' ||
-      'Atomik BEGIN/COMMIT + 48-check smoke. pgmq + pg_cron + pg_net Dashboard ön-koşul. ' ||
-      'GUCs app.functions_url + app.cron_secret + edge function INTERNAL_CRON_SECRET set.'
+      'Atomik BEGIN/COMMIT + 47-check smoke (Vault pattern). ' ||
+      'pgmq + pg_cron + pg_net Dashboard ön-koşul. ' ||
+      'Vault secret matching_fanout_cron_secret + edge function INTERNAL_CRON_SECRET set.'
     ]
   )
 on conflict (version) do nothing;
 
 -- ──────────────────────────────────────────────────────────────────────────
--- Atomik regression smoke — 48 check
---   11 Faz 4 self (extension + queue + RPC + cron + GUC)
+-- Atomik regression smoke — 47 check
+--   10 Faz 4 self (extension + queue + RPC + cron + vault)
 --   35 önceki regression (6 RB + 4 bundle + 3 grant + 2 KYC + 4 Faz1 + 12 tablo + 4 RPC)
 --   2 schema_migrations row (RB1/RB2 + Faz 4)
 -- ──────────────────────────────────────────────────────────────────────────
 
 do $regress$
 declare
-  -- 11 Faz 4 self
+  -- 10 Faz 4 self
   v_pgmq_extension boolean;
   v_pg_cron_extension boolean;
   v_pg_net_extension boolean;
@@ -173,8 +187,7 @@ declare
   v_pgmq_read_rpc boolean;
   v_pgmq_delete_rpc boolean;
   v_cron_job boolean;
-  v_guc_functions_url boolean;
-  v_guc_cron_secret boolean;
+  v_vault_cron_secret boolean := false;
   -- 35 önceki regression
   v_cl_dublike_insert_dropped boolean;
   v_cl_select_admin_only boolean;
@@ -215,7 +228,7 @@ declare
   v_schema_migrations_rb_row boolean;
   v_schema_migrations_faz4_row boolean;
 begin
-  -- ═══ FAZ 4 SELF (11) ═══
+  -- ═══ FAZ 4 SELF (10) ═══
 
   -- Extensions (3)
   select exists (select 1 from pg_extension where extname='pgmq') into v_pgmq_extension;
@@ -240,11 +253,17 @@ begin
   select exists (select 1 from cron.job where jobname='matching-fanout-every-minute')
   into v_cron_job;
 
-  -- GUC'lar (2)
-  select nullif(current_setting('app.functions_url', true), '') is not null
-  into v_guc_functions_url;
-  select nullif(current_setting('app.cron_secret', true), '') is not null
-  into v_guc_cron_secret;
+  -- Vault secret (1) — permission denied senaryosunda false (cron job da fail eder)
+  begin
+    select exists (
+      select 1 from vault.decrypted_secrets
+      where name = 'matching_fanout_cron_secret'
+        and decrypted_secret is not null
+        and decrypted_secret <> ''
+    ) into v_vault_cron_secret;
+  exception when others then
+    v_vault_cron_secret := false;
+  end;
 
   -- ═══ RB1/RB2 SELF (6) ═══
 
@@ -364,9 +383,9 @@ begin
   select exists (select 1 from supabase_migrations.schema_migrations where version='20260516120400')
   into v_schema_migrations_faz4_row;
 
-  -- ═══ RAISE EXCEPTION (48 check) ═══
+  -- ═══ RAISE EXCEPTION (47 check) ═══
 
-  -- Faz 4 self (11)
+  -- Faz 4 self (10)
   if not v_pgmq_extension then raise exception 'FAZ4 FAIL: pgmq extension YOK (Dashboard → Extensions → pgmq ENABLE)'; end if;
   if not v_pg_cron_extension then raise exception 'FAZ4 FAIL: pg_cron extension YOK (Dashboard → Extensions → pg_cron ENABLE)'; end if;
   if not v_pg_net_extension then raise exception 'FAZ4 FAIL: pg_net extension YOK (Dashboard → Extensions → pg_net ENABLE)'; end if;
@@ -376,8 +395,7 @@ begin
   if not v_pgmq_read_rpc then raise exception 'FAZ4 FAIL: pgmq_read RPC YOK'; end if;
   if not v_pgmq_delete_rpc then raise exception 'FAZ4 FAIL: pgmq_delete RPC YOK'; end if;
   if not v_cron_job then raise exception 'FAZ4 FAIL: cron job matching-fanout-every-minute YOK'; end if;
-  if not v_guc_functions_url then raise exception 'FAZ4 FAIL: app.functions_url GUC set değil (Dashboard SQL Editor)'; end if;
-  if not v_guc_cron_secret then raise exception 'FAZ4 FAIL: app.cron_secret GUC set değil (Dashboard SQL Editor)'; end if;
+  if not v_vault_cron_secret then raise exception 'FAZ4 FAIL: vault.secrets matching_fanout_cron_secret YOK veya boş (SQL Editor: select vault.create_secret(...))'; end if;
 
   -- RB1/RB2 regression (6)
   if not v_cl_dublike_insert_dropped then raise exception 'REGRESSION: corp_leads cl_insert_anyone geri gelmiş'; end if;
@@ -432,7 +450,7 @@ begin
   if not v_schema_migrations_rb_row then raise exception 'REGRESSION: schema_migrations RB1/RB2 satırı kayıp'; end if;
   if not v_schema_migrations_faz4_row then raise exception 'FAZ4 FAIL: schema_migrations Faz 4 satırı kayıp'; end if;
 
-  raise notice 'Faz 4 smoke OK — 48/48 check geçti (11 Faz 4 self + 35 önceki regression + 2 schema row)';
+  raise notice 'Faz 4 smoke OK — 47/47 check geçti (10 Faz 4 self + 35 önceki regression + 2 schema row)';
 end
 $regress$;
 
@@ -452,7 +470,9 @@ select
   (select count(*) from pg_proc p join pg_namespace n on n.oid=p.pronamespace
     where n.nspname='public' and p.proname in ('pgmq_send','pgmq_read','pgmq_delete')) as pgmq_rpc_count,
   (select exists (select 1 from cron.job where jobname='matching-fanout-every-minute')) as cron_job_present,
-  nullif(current_setting('app.functions_url', true), '') as functions_url,
-  case when nullif(current_setting('app.cron_secret', true), '') is null then false else true end as cron_secret_set,
+  (select exists (
+    select 1 from vault.decrypted_secrets
+    where name = 'matching_fanout_cron_secret' and decrypted_secret is not null and decrypted_secret <> ''
+  )) as vault_secret_set,
   (select exists (select 1 from supabase_migrations.schema_migrations where version='20260516120400')) as schema_migrations_row,
   now() as deployed_at;
