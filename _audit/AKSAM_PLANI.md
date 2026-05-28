@@ -27,6 +27,152 @@
 
 ---
 
+## 📋 ADIM 2 — REVİZE PLAN (Adım 2.0 keşif sonucu, 2026-05-28)
+
+### A) Web placeBid/bidActions durumu (kanıt)
+
+| Bulgu | Sonuç |
+|---|---|
+| `src/lib/bidActions.ts` var mı? | **YOK** — web tarafında bidActions.ts yok |
+| Web placeBidRpc tüketici | Tek nokta: `src/pages/AuctionDetail.tsx:62,465` (handleBid) |
+| `placeBidRpc` türü | Zaten **discriminated union** facade: `PlaceBidResult = ok+status:ok / ok+status:duplicate / not-ok+message+code?` |
+| handleBid pattern | `if (!res.ok)` + `res.status === "duplicate"` — temiz discriminated union tüketim ✓ |
+| Web refactor gerek | **YOK** — defterdeki "bdaa42e partial" depositRegister ile zaten kapandı |
+
+### B) Mobile authClient pattern (kanıt — Cursor zaten kurmuş)
+
+**SupabaseClientLike tipi** (`mobile/src/app/(auth)/authClient.ts:11`) yine `.rpc()` exposed değil **ama Cursor cast pattern'i pushNotifications.ts'te kuruldu:**
+
+```typescript
+// mobile/features/notifications/pushNotifications.ts:11-13, 47, 50
+type RpcClientLike = {
+  rpc: (fn: string, params?: Record<string, unknown>) =>
+    Promise<{ error: { message?: string } | null }>;
+};
+
+const client = (await getSupabaseClient()) as unknown as RpcClientLike;
+const { error } = await client.rpc('register_push_token', { p_token, ... });
+```
+
+**Pattern hazır** — bidActions/depositRegister/buyNow için aynı kullanılır. Tek genişleme: `data` da döndürmesi gerek (push token sadece error, biz discriminated union dönüşü için data lazım):
+
+```typescript
+type RpcClientLike = {
+  rpc: <T = unknown>(fn: string, params?: Record<string, unknown>) =>
+    Promise<{ data: T | null; error: { message?: string; code?: string } | null }>;
+};
+```
+
+**crypto.randomUUID() durumu:** Mobile bundle export'unda `uuid` modülü `crypto.randomUUID()` kullanıyor (Hermes 0.71+ ve SDK 56'da global mevcut). **Polyfill gerek YOK.**
+
+### C) Mobile facade şablonu
+
+**Yapı (KYC pattern + mobile authClient):**
+
+```typescript
+// mobile/shared/depositRegister.ts (revize — mobile-specific runtime)
+
+import { getSupabaseClient } from '../src/app/(auth)/authClient';
+
+// Tipler web'den re-export — tek doğruluk kaynağı
+export type {
+  DepositContext,
+  RegisterBidDepositParams,
+  RegisterBidDepositResult,
+} from "@/lib/depositRegister";
+
+import type {
+  RegisterBidDepositParams,
+  RegisterBidDepositResult,
+} from "@/lib/depositRegister";
+
+type RpcClientLike = {
+  rpc: <T = unknown>(fn: string, params?: Record<string, unknown>) =>
+    Promise<{ data: T | null; error: { message?: string; code?: string } | null }>;
+  from: (table: string) => any;  // profile select için
+  auth: { getUser: () => Promise<{ data: { user: { id: string } | null } }> };
+};
+
+const KYC_REQUIRED_MESSAGE =
+  "Teminat/ödeme yetkisi için KYC doğrulaması zorunlu. Profilinizden kimlik doğrulamayı tamamlayın.";
+
+function parseRpcRow(data: unknown): Record<string, unknown> | null { /* aynı web */ }
+function readString(...) { /* aynı web */ }
+
+export async function registerBidDeposit(
+  params: RegisterBidDepositParams
+): Promise<RegisterBidDepositResult> {
+  const client = (await getSupabaseClient()) as unknown as RpcClientLike;
+
+  // Auth check
+  const { data: authData } = await client.auth.getUser();
+  if (!authData.user) {
+    return { ok: false, status: "auth_required", message: "Teminat için giriş yapmalısınız." };
+  }
+
+  // KYC ön-check (hızlı UX; sunucu yine enforce)
+  const profile = await client.from("profiles").select("kyc_status").eq("id", authData.user.id).maybeSingle();
+  // ... (web buyNow.ts paterniyle aynı)
+
+  // RPC
+  const key = params.idempotencyKey ?? crypto.randomUUID();
+  const { data, error } = await client.rpc("register_bid_deposit", { p_listing_id: ..., ... });
+
+  // ... error/data parse → discriminated union dönüş (web depositRegister.ts ile birebir)
+}
+```
+
+**Tipler web'den, runtime mobile-specific** — supabase client web ile mobile farklı, hata code eşleştirme + KYC ön-check + idempotency aynı mantık.
+
+**KYC redirect:** Facade'da YOK — sadece `{status:'kyc_required'}` döner. UI tarafı `Linking.openURL("https://www.ihaleal.com/kyc")` ya da `router.push('/(auth)/kyc-redirect')` çağırır (önerim: UI'da kalsın, web buyNow.ts paterniyle uyum).
+
+### D) Parça sırası
+
+| Adım | Dosya | İş | Tahmini satır | Test |
+|---|---|---|---|---|
+| **2.1** | `mobile/shared/depositRegister.ts` (revize, mobile-specific) | KYC + RPC + discriminated union; web tipler re-export | ~140 satır | tsc + lint + expo export |
+| **2.2** | `mobile/shared/buyNow.ts` (yeni, mobile-specific) | execute_buy_now için aynı pattern | ~150 satır | tsc + lint + expo export |
+| **2.3** | `mobile/shared/bidActions.ts` (revize) | setTimeout(250) D-7 kaldır + placeBidRpc çağrısı (mobile-spesifik); validateBid pure logic kalır | ~80 satır (mevcut 56 → +24) | tsc + lint + expo export |
+| **2.4** | `mobile/shared/index.ts` (barrel) | depositRegister + buyNow re-export ekle | +2 satır | tsc |
+| **2.5** | `mobile/tsconfig.json` path map | `@/lib/depositRegister`, `@/lib/buyNow`, `@/lib/placeBid` (tipler için — runtime'ı tüketmiyoruz, ama tip resolve gerek) | +3 satır | tsc |
+
+**Sıra mantığı:** En küçük risk → büyük. depositRegister ilk çünkü web ile yeni karşılaştırma (1d51c5d güncel). Buy_now ikinci (önceki tur'da test edildi). bidActions üçüncü (mevcut dosya revize, dikkat). Hepsinden sonra barrel + tsconfig path. Her parça **AYRI COMMIT** (kanıt birikimi için).
+
+**Mobile UI (mobile/src/app/**) bu adımlarda DOKUNULMAZ** — Cursor'ın alanı, Adım 4 (talimat ayrı tur).
+
+### E) Risk + Karar Noktası
+
+**3 karar noktası:**
+
+1. **K-2A — KYC redirect facade'da mı UI'da mı?**
+   - **Önerim: UI'da.** Mobile facade `{status:'kyc_required'}` döner, mobile ekran (örn. ihale/[id]/hemen-al.tsx) `Linking.openURL('https://www.ihaleal.com/kyc')` çağırır. Web buyNow.ts paterniyle uyumlu.
+   - Alternatif: facade içinde Linking çağrısı — daha az çağıran kodu ama "facade UI side-effect yapmaz" prensibini bozar.
+
+2. **K-2B — RpcClientLike tipi nerede tanımlı?**
+   - **Önerim:** `mobile/shared/_rpcClient.ts` (yeni, küçük) — paylaşılan tip + cast helper. 3 facade'da tekrar etmeyiz.
+   - Alternatif: Her facade'da local kopya (pushNotifications.ts paterni).
+
+3. **K-2C — Web bidActions facade yazılsın mı?**
+   - **Önerim: HAYIR.** Web tarafında zaten placeBidRpc tek noktada (AuctionDetail.tsx:465) discriminated union tüketicisi var. Yeni bir bidActions.ts katmanı ekstra abstraction — gerek yok. Web AuctionDetail direkt placeBidRpc çağırmaya devam.
+
+**Risk seviyesi (genel):** Düşük-orta.
+- Para akışı kodu, ama 4 server-side fix ve KYC guard zaten aktif → bypass mümkün değil
+- Mobile traffic 0 — fix yapısal, gerçek kullanıcı etkisi yok
+- tsc + lint + expo export build smoke her parça sonrası kanıt
+- Mobile UI henüz facade'leri kullanmıyor; bu sadece library katmanı
+
+**Reverse:** Her parça ayrı commit → individual revert mümkün. Cursor mobile UI commits zaten Adım 4'te ayrı, bu turda etkilenmiyor.
+
+### Karar bekleyen sorular (özet)
+
+- **K-2A:** KYC redirect facade'da mı UI'da mı? *(Önerim: UI'da)*
+- **K-2B:** RpcClientLike tipi paylaşılan dosya mı? *(Önerim: evet, mobile/shared/_rpcClient.ts)*
+- **K-2C:** Web bidActions.ts yazılsın mı? *(Önerim: hayır, gerek yok)*
+
+Karar verince **"BAS Adım 2.1"** ile depositRegister mobile facade'tan başlanır.
+
+---
+
 ## YÖNETİCİ ÖZETİ
 
 Akşamın ana işi: **mobil teklif/hemen-al akışını mock'tan gerçek RPC'ye köprülemek**. 4 mobil ekran (`borsa.tsx`, `ihale/[id]/teklif.tsx`, `hemen-al.tsx`, `kapali-teklif.tsx`) bugün tamamen mock; bidActions.ts `setTimeout(250)` ile fake-success döner (D-7 doğrulandı). Çekirdek tarafı zaten hazır: `placeBidRpc` + `executeBuyNow` facade'leri discriminated union döndürür, sunucuda KYC guard sert. Bağlantı için 3 köprü işi var: (i) mobile `authClient.ts`'in `SupabaseClientLike` tipini `.rpc()` exposed yapacak şekilde genişletmek, (ii) mobile/shared'a `placeBidMobile`/`executeBuyNowMobile` ince köprü eklemek, (iii) mobil ekranların handler'larını mock yerine bu köprülere bağlamak.
