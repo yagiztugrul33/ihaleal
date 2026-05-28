@@ -3,6 +3,7 @@ import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Switch, Te
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
+import * as ScreenCapture from 'expo-screen-capture';
 
 import { Colors, Spacing } from '@/constants/theme';
 import {
@@ -62,6 +63,13 @@ export default function ProfilScreen() {
       router.push(route);
     });
     return () => dispose();
+  }, []);
+
+  useEffect(() => {
+    void ScreenCapture.preventScreenCaptureAsync('profil-sensitive');
+    return () => {
+      void ScreenCapture.allowScreenCaptureAsync('profil-sensitive');
+    };
   }, []);
 
   useEffect(() => {

@@ -1,7 +1,8 @@
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import * as ScreenCapture from "expo-screen-capture";
 
 import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 import { executeBuyNow, registerBidDeposit } from "../../../../shared";
@@ -20,6 +21,13 @@ export default function IhaleHemenAlScreen() {
   const [confirmed, setConfirmed] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    void ScreenCapture.preventScreenCaptureAsync("ihale-hemen-al-sensitive");
+    return () => {
+      void ScreenCapture.allowScreenCaptureAsync("ihale-hemen-al-sensitive");
+    };
+  }, []);
 
   const handleKycRedirect = (message: string) => {
     Alert.alert(

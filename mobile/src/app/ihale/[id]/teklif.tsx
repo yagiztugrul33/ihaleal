@@ -1,7 +1,8 @@
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import * as ScreenCapture from "expo-screen-capture";
 
 import { FeedbackStateCard } from "@/components/FeedbackStateCard";
 import { registerBidDeposit, submitBid } from "../../../../shared";
@@ -23,6 +24,13 @@ export default function IhaleTeklifScreen() {
   const [proxyAmount, setProxyAmount] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    void ScreenCapture.preventScreenCaptureAsync("ihale-teklif-sensitive");
+    return () => {
+      void ScreenCapture.allowScreenCaptureAsync("ihale-teklif-sensitive");
+    };
+  }, []);
 
   const handleKycRedirect = (message: string) => {
     Alert.alert(
