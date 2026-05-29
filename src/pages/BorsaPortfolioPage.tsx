@@ -207,7 +207,7 @@ export default function BorsaPortfolioPage() {
             <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-300">
               {segmentData.map((item) => (
                 <span key={item.name} className="rounded-full border border-border bg-secondary px-2 py-1">
-                  {item.name.toUpperCase("tr-TR")}: {formatTry(item.value)}
+                  {item.name.toLocaleUpperCase("tr-TR")}: {formatTry(item.value)}
                 </span>
               ))}
             </div>

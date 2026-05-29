@@ -184,7 +184,7 @@ export default function BorsaDataAnalysisPage() {
           </div>
           <p className="mt-2 text-xs text-slate-300">
             Seçili bölge: <strong className="text-white">{regionLabel(selectedRegion)}</strong> · seçili segment:{" "}
-            <strong className="text-white">{selectedSegment.toUpperCase("tr-TR")}</strong>
+            <strong className="text-white">{selectedSegment.toLocaleUpperCase("tr-TR")}</strong>
           </p>
         </article>
 
@@ -231,7 +231,7 @@ export default function BorsaDataAnalysisPage() {
             {segmentTrends.map((item) => (
               <div key={item.segment} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-slate-100">{item.segment.toUpperCase("tr-TR")}</span>
+                  <span className="font-semibold text-slate-100">{item.segment.toLocaleUpperCase("tr-TR")}</span>
                   <span className={cn("font-bold", item.avgChange >= 0 ? "text-emerald-300" : "text-rose-300")}>
                     {item.avgChange >= 0 ? "+" : ""}
                     {item.avgChange.toFixed(2)}%

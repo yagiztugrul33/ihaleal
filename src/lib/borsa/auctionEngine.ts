@@ -127,12 +127,12 @@ export function isReserveMet(highestBid: number, reserve: number): boolean {
 }
 
 export function nextWinner(bids: RankedBid[], defaulted: string[] = []): RankedBid | null {
-  const excluded = new Set(defaulted.map((x) => x.toLowerCase("tr-TR")));
+  const excluded = new Set(defaulted.map((x) => x.toLocaleLowerCase("tr-TR")));
   const ranked = [...bids].sort((a, b) => {
     if (b.amount !== a.amount) return b.amount - a.amount;
     return toMs(a.timestamp) - toMs(b.timestamp);
   });
-  return ranked.find((bid) => !excluded.has(bid.bidder.toLowerCase("tr-TR"))) ?? null;
+  return ranked.find((bid) => !excluded.has(bid.bidder.toLocaleLowerCase("tr-TR"))) ?? null;
 }
 
 export function isOutbid(myBid: number | null | undefined, currentHighest: number): boolean {

@@ -268,7 +268,7 @@ export default function BorsaAssetDetailPage() {
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-cyan-200">Varlık Detay · Demo Veri</p>
             <h1 className="mt-1 text-2xl font-black text-white lg:text-3xl">{title}</h1>
             <p className="mt-1 text-sm text-slate-300">
-              Lokasyon: {asset.region.toUpperCase("tr-TR")} · Tip: Açık artırma gayrimenkul varlığı
+              Lokasyon: {asset.region.toLocaleUpperCase("tr-TR")} · Tip: Açık artırma gayrimenkul varlığı
             </p>
           </div>
           <div className="text-right">
