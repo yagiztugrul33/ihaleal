@@ -141,6 +141,17 @@ const AfetRiskHaritasiPage       = lazy(() => import("@/pages/modules/AfetRiskHa
 const ParselZekasiPage           = lazy(() => import("@/pages/modules/ParselZekasiPage"));
 const KentselDonusumPage         = lazy(() => import("@/pages/modules/KentselDonusumPage"));
 const AfetToplanmaAlanlariPage   = lazy(() => import("@/pages/modules/AfetToplanmaAlanlariPage"));
+// R12.14 Faz A-3 — Eğitim modülleri (10 ders)
+const Ders1  = lazy(() => import("@/pages/modules/egitim/Ders1"));
+const Ders2  = lazy(() => import("@/pages/modules/egitim/Ders2"));
+const Ders3  = lazy(() => import("@/pages/modules/egitim/Ders3"));
+const Ders4  = lazy(() => import("@/pages/modules/egitim/Ders4"));
+const Ders5  = lazy(() => import("@/pages/modules/egitim/Ders5"));
+const Ders6  = lazy(() => import("@/pages/modules/egitim/Ders6"));
+const Ders7  = lazy(() => import("@/pages/modules/egitim/Ders7"));
+const Ders8  = lazy(() => import("@/pages/modules/egitim/Ders8"));
+const Ders9  = lazy(() => import("@/pages/modules/egitim/Ders9"));
+const Ders10 = lazy(() => import("@/pages/modules/egitim/Ders10"));
 
 function App() {
   return (
@@ -409,6 +420,17 @@ function App() {
             <Route path="/modul/parsel-zekasi" element={<ParselZekasiPage />} />
             <Route path="/modul/kentsel-donusum" element={<KentselDonusumPage />} />
             <Route path="/modul/afet-toplanma-alanlari" element={<AfetToplanmaAlanlariPage />} />
+            {/* R12.14 Faz A-3 — Eğitim modülleri (10 ders) */}
+            <Route path="/modul/egitim/ders-1"  element={<Ders1 />} />
+            <Route path="/modul/egitim/ders-2"  element={<Ders2 />} />
+            <Route path="/modul/egitim/ders-3"  element={<Ders3 />} />
+            <Route path="/modul/egitim/ders-4"  element={<Ders4 />} />
+            <Route path="/modul/egitim/ders-5"  element={<Ders5 />} />
+            <Route path="/modul/egitim/ders-6"  element={<Ders6 />} />
+            <Route path="/modul/egitim/ders-7"  element={<Ders7 />} />
+            <Route path="/modul/egitim/ders-8"  element={<Ders8 />} />
+            <Route path="/modul/egitim/ders-9"  element={<Ders9 />} />
+            <Route path="/modul/egitim/ders-10" element={<Ders10 />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route

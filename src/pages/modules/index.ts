@@ -24,3 +24,18 @@ export { default as AfetToplanmaAlanlariPage } from "./AfetToplanmaAlanlariPage"
 
 export { default as KomsulukRiskCharts } from "./KomsulukRiskCharts";
 export { ModuleRelatedStrip, type RelatedModuleCard } from "./ModuleRelatedStrip";
+
+// R12.14 Faz A-3 — Eğitim modülleri (10 Ders + LessonView + data)
+export { LessonView } from "./egitim/LessonView";
+export { LESSONS, getLessonById } from "./egitim/lessons";
+export type { LessonDefinition, QuizQuestion } from "./egitim/lessonTypes";
+export { default as Ders1 } from "./egitim/Ders1";
+export { default as Ders2 } from "./egitim/Ders2";
+export { default as Ders3 } from "./egitim/Ders3";
+export { default as Ders4 } from "./egitim/Ders4";
+export { default as Ders5 } from "./egitim/Ders5";
+export { default as Ders6 } from "./egitim/Ders6";
+export { default as Ders7 } from "./egitim/Ders7";
+export { default as Ders8 } from "./egitim/Ders8";
+export { default as Ders9 } from "./egitim/Ders9";
+export { default as Ders10 } from "./egitim/Ders10";
