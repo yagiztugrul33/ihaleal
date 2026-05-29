@@ -1,7 +1,11 @@
 # Logo Asset Audit — R12 Kapanış Sonrası
 
-**Tarih:** 2026-05-30 (R12 FINAL refresh)  
-**Referans HEAD:** `6331110`  
+> **⚠️ GÜNCEL DEĞİL (2026-05-30):** Bu dosya tarihsel kayıt. **UI canlı asset: `/logo.svg`** (mavi-teal gradient + ev silhouette, vektör 0.7 KB, [`2fa878a`](https://github.com/yagiztugrul33/ihaleal/commit/2fa878a) ile finalleşti). `ihaleal-logo.png` (305 KB) ve `ihaleal_com_logo.png` (116 KB) artık UI'da KULLANILMIYOR — `Logo.tsx:27` `src="/logo.svg"`. Master tekrar "eski logo" derse: tarayıcı cache temizliği (Edge Ctrl+Shift+R, iPhone tab kapat-aç) gerekli. Bu dosyadaki "UI canlı" iddiası eski HEAD'e ait, güncel canli bundle `index-*.js` `/logo.svg` baked teyit edildi.
+
+---
+
+**Tarih:** 2026-05-30 (R12 FINAL refresh)
+**Referans HEAD:** `6331110`
 **Tetikleyici:** Master WhatsApp — "eski logo görünüyor" (DEV-FIZIBILITE N1)
 
 ---
