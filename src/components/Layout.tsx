@@ -50,7 +50,7 @@ export function Layout() {
             <Outlet />
           </PageTransition>
         </main>
-        {!isMarketingHome ? <Footer /> : null}
+        <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />
         <CookieConsent />
