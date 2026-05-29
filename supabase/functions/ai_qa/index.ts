@@ -83,26 +83,50 @@ Deno.serve(async (req) => {
     messages: [{ role: "system", content: systemPrompt() }, ...messages],
   };
 
-  const r = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  if (!r.ok) {
-    const t = await r.text();
-    return new Response(JSON.stringify({ error: "openai_http", detail: t.slice(0, 500) }), {
-      status: 502,
-      headers: { ...cors, "Content-Type": "application/json" },
+  // OpenAI cagrisi — network/parse exception'lari acik handle (502 yerine kontrollu JSON)
+  let r: Response;
+  try {
+    r = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(25_000),
     });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return new Response(
+      JSON.stringify({ error: "openai_network", detail: msg.slice(0, 300) }),
+      { status: 502, headers: { ...cors, "Content-Type": "application/json" } },
+    );
   }
 
-  const data = (await r.json()) as {
-    choices?: Array<{ message?: { content?: string } }>;
-  };
+  if (!r.ok) {
+    let t = "";
+    try {
+      t = await r.text();
+    } catch {
+      /* body read fail — bos birak */
+    }
+    return new Response(
+      JSON.stringify({ error: "openai_http", status: r.status, detail: t.slice(0, 500) }),
+      { status: 502, headers: { ...cors, "Content-Type": "application/json" } },
+    );
+  }
+
+  let data: { choices?: Array<{ message?: { content?: string } }> };
+  try {
+    data = (await r.json()) as typeof data;
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return new Response(
+      JSON.stringify({ error: "openai_parse", detail: msg.slice(0, 300) }),
+      { status: 502, headers: { ...cors, "Content-Type": "application/json" } },
+    );
+  }
+
   const reply = data.choices?.[0]?.message?.content?.trim() ?? "";
   if (!reply) {
     return new Response(JSON.stringify({ error: "empty_completion" }), {
