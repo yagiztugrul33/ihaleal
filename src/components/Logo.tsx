@@ -24,7 +24,7 @@ export function Logo({
   const sizeClass = variant === "icon" ? logoSizes[size].icon : logoSizes[size].full;
   return (
     <img
-      src="/icon-512.png"
+      src="/logo.svg"
       alt="ihaleal"
       className={cn(
         "w-auto max-w-none select-none object-contain drop-shadow-[0_2px_12px_rgba(2,6,23,0.65)]",
