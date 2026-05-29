@@ -1,21 +1,17 @@
-import { Hero } from "@/sections/Hero";
-import { HowItWorks } from "@/sections/HowItWorks";
-import { LiveAuctionsShowcase } from "@/sections/LiveAuctionsShowcase";
-import { TrustStrip } from "@/sections/TrustStrip";
-// R12.3 — Deprem modülü mount (backup/blok1-borsa cherry-pick)
-import { LiveEarthquakeTicker } from "@/components/home/LiveEarthquakeTicker";
+// R12.5 — Premium cinematic homepage (backup/blok1-borsa swap)
+// PremiumCinematicHome kendi içinde: Borsa Hero + Ticker + Metrics + Region
+// Endeksleri + Borsa Nasıl Çalışır + Öne Çıkan İhaleler + Güven & Kurumsal
+// + WHY_IHALAL_CARDS + Role Gateways içerir. Hero/HowItWorks/LiveAuctions
+// Showcase/TrustStrip duplicate olduğundan kaldırıldı.
+// LiveEarthquakeTicker /modul/canli-deprem-takip sayfasına taşındı.
+import PremiumCinematicHome from "@/sections/PremiumCinematicHome";
 import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
 
-/** Premium cinematic homepage — reference/proje.png parity stack */
 export function Home() {
   return (
     <div className="page-background-premium home-ref-page">
-      <Hero />
-      <LiveEarthquakeTicker />
-      <HowItWorks />
-      <LiveAuctionsShowcase />
+      <PremiumCinematicHome />
       <DepremTransparencyBand />
-      <TrustStrip />
     </div>
   );
 }

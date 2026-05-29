@@ -1,53 +1,71 @@
 import { cn } from "@/lib/utils";
 
-const LOGO_SRC = "/ihaleal-logo.png";
+const logoSizes = {
+  sm: { full: "h-[44px]", icon: "h-[44px] w-[44px]" },
+  md: { full: "h-[52px] sm:h-[60px]", icon: "h-[52px] w-[52px] sm:h-[60px] sm:w-[60px]" },
+  lg: { full: "h-[64px] sm:h-[72px]", icon: "h-[64px] w-[64px] sm:h-[72px] sm:w-[72px]" },
+} as const;
 
 export function Logo({
   size = "md",
   variant = "full",
-  textClassName,
-  dotComClassName,
+  className,
+  // Geriye dönük uyum — eski tekstli Logo'nun props'ları, yeni img-tabanlı
+  // sürümde işlevsel değil ama Navbar gibi mevcut çağırıcılar TS hatasız çalışsın.
+  textClassName: _textClassName,
+  dotComClassName: _dotComClassName,
 }: {
   size?: "sm" | "md" | "lg";
   variant?: "full" | "icon";
-  /** Navbar karanlık zeminde beyaz metin için `text-white` */
+  className?: string;
   textClassName?: string;
-  /** `.com` rengi — referans nav: `text-blue-400` */
   dotComClassName?: string;
 }) {
-  const heights = { sm: 32, md: 40, lg: 52 };
-  const textSizes = { sm: "text-lg", md: "text-xl", lg: "text-3xl" };
-
+  const sizeClass = variant === "icon" ? logoSizes[size].icon : logoSizes[size].full;
   return (
-    <div className="flex items-center gap-2.5">
-      <img
-        src={LOGO_SRC}
-        alt="ihaleal.com"
-        width={Math.round(heights[size] * (651 / 583))}
-        height={heights[size]}
-        className="w-auto object-contain object-left shrink-0"
-        style={{ height: heights[size], width: "auto" }}
-        decoding="async"
-        fetchPriority="high"
-      />
-      {variant === "full" ? (
+    <img
+      src="/ihaleal-logo.png"
+      alt="ihaleal"
+      className={cn(
+        "w-auto max-w-none select-none object-contain drop-shadow-[0_2px_12px_rgba(2,6,23,0.65)]",
+        sizeClass,
+        className,
+      )}
+      data-testid="logo-image"
+      loading="eager"
+      decoding="async"
+      draggable={false}
+    />
+  );
+}
+
+export function BrandLockup({
+  logoSize = "lg",
+  className,
+  showSlogan = false,
+  sloganClassName,
+  hideSloganOnMobile = false,
+}: {
+  logoSize?: "sm" | "md" | "lg";
+  className?: string;
+  showSlogan?: boolean;
+  sloganClassName?: string;
+  hideSloganOnMobile?: boolean;
+}) {
+  return (
+    <span className={cn("inline-flex flex-col items-center gap-1 align-middle", className)}>
+      <Logo size={logoSize} />
+      {showSlogan ? (
         <span
           className={cn(
-            `font-bold tracking-tight ${textSizes[size]}`,
-            textClassName ?? "text-[#0A1F44] dark:text-white"
+            "max-w-[18rem] text-center text-[11px] font-medium uppercase tracking-[0.1em] text-amber-200/90",
+            hideSloganOnMobile && "hidden sm:inline",
+            sloganClassName,
           )}
         >
-          ihaleal
-          <span
-            className={
-              dotComClassName ??
-              "text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400"
-            }
-          >
-            .com
-          </span>
+          TÜRKİYE'NİN GAYRİMENKUL BORSASI
         </span>
       ) : null}
-    </div>
+    </span>
   );
 }
