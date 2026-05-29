@@ -441,16 +441,16 @@ function App() {
             <Route path="/modul/kentsel-donusum" element={<KentselDonusumPage />} />
             <Route path="/modul/afet-toplanma-alanlari" element={<AfetToplanmaAlanlariPage />} />
             {/* R12.14 Faz A-3 — Eğitim modülleri (10 ders) */}
-            <Route path="/modul/egitim/ders-1"  element={<Ders1 />} />
-            <Route path="/modul/egitim/ders-2"  element={<Ders2 />} />
-            <Route path="/modul/egitim/ders-3"  element={<Ders3 />} />
-            <Route path="/modul/egitim/ders-4"  element={<Ders4 />} />
-            <Route path="/modul/egitim/ders-5"  element={<Ders5 />} />
-            <Route path="/modul/egitim/ders-6"  element={<Ders6 />} />
-            <Route path="/modul/egitim/ders-7"  element={<Ders7 />} />
-            <Route path="/modul/egitim/ders-8"  element={<Ders8 />} />
-            <Route path="/modul/egitim/ders-9"  element={<Ders9 />} />
-            <Route path="/modul/egitim/ders-10" element={<Ders10 />} />
+            <Route path="/modul/deprem-egitimi/ders-1"  element={<Ders1 />} />
+            <Route path="/modul/deprem-egitimi/ders-2"  element={<Ders2 />} />
+            <Route path="/modul/deprem-egitimi/ders-3"  element={<Ders3 />} />
+            <Route path="/modul/deprem-egitimi/ders-4"  element={<Ders4 />} />
+            <Route path="/modul/deprem-egitimi/ders-5"  element={<Ders5 />} />
+            <Route path="/modul/deprem-egitimi/ders-6"  element={<Ders6 />} />
+            <Route path="/modul/deprem-egitimi/ders-7"  element={<Ders7 />} />
+            <Route path="/modul/deprem-egitimi/ders-8"  element={<Ders8 />} />
+            <Route path="/modul/deprem-egitimi/ders-9"  element={<Ders9 />} />
+            <Route path="/modul/deprem-egitimi/ders-10" element={<Ders10 />} />
             {/* R12.14 Faz A-4 — İkincil modüller (16 sayfa) */}
             <Route path="/modul/aile-acil-plan"          element={<AileAcilPlanPage />} />
             <Route path="/modul/airbnb-potansiyel"       element={<AirbnbPotansiyelPage />} />
