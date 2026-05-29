@@ -116,6 +116,11 @@ export default function AuctionDetail() {
   const [dbAuctionPk, setDbAuctionPk] = useState<string | null>(null);
   const [dbReportLoaded, setDbReportLoaded] = useState<PropertyAnalysisReportRecord | null>(null);
   const [buyNowPriceDb, setBuyNowPriceDb] = useState<number | null>(null);
+  // R14 PAKET 5 — lansman alanları (listings.is_lansman, project_id, unit_id)
+  const [isLansman, setIsLansman] = useState(false);
+  const [lansmanProjectId, setLansmanProjectId] = useState<string | null>(null);
+  const [lansmanUnitId, setLansmanUnitId] = useState<string | null>(null);
+  const [lansmanProjectName, setLansmanProjectName] = useState<string | null>(null);
   const [reportApproved, setReportApproved] = useState(false);
   const [legalWithdrawAccepted, setLegalWithdrawAccepted] = useState(false);
   const [depositId, setDepositId] = useState<string | null>(null);
@@ -167,19 +172,40 @@ export default function AuctionDetail() {
     let alive = true;
     void (async () => {
       const { data: auc } = await supabase.from("auctions").select("id, listing_id").eq("id", id).maybeSingle();
-      if (!alive || !auc?.listing_id) return;
-      setDbAuctionPk(auc.id);
-      setDbListingId(auc.listing_id);
-      const { data: rep } = await fetchReportForListing(supabase, auc.listing_id);
+      if (!alive) return;
+      // R14 PAKET 5 — id ya bir auctions PK (auctioned listing) ya da doğrudan bir listings PK (lansman ilanı)
+      const listingId = auc?.listing_id ?? id;
+      if (auc?.id) setDbAuctionPk(auc.id);
+      setDbListingId(listingId);
+      const { data: rep } = await fetchReportForListing(supabase, listingId);
       if (!alive) return;
       if (rep) setDbReportLoaded(rep);
       const { data: listingRow } = await supabase
         .from("listings")
-        .select("buy_now_price_try")
-        .eq("id", auc.listing_id)
+        .select("buy_now_price_try, is_lansman, project_id, unit_id")
+        .eq("id", listingId)
         .maybeSingle();
       if (!alive) return;
       if (listingRow?.buy_now_price_try != null) setBuyNowPriceDb(Number(listingRow.buy_now_price_try));
+      const lansmanRow = listingRow as
+        | { is_lansman?: boolean; project_id?: string | null; unit_id?: string | null }
+        | null;
+      if (lansmanRow?.is_lansman) {
+        setIsLansman(true);
+        if (lansmanRow.project_id) {
+          setLansmanProjectId(lansmanRow.project_id);
+          // Proje adı için ek fetch (görsel bağ)
+          const { data: proj } = await supabase
+            .from("developer_projects")
+            .select("project_name")
+            .eq("id", lansmanRow.project_id)
+            .maybeSingle();
+          if (alive && proj) {
+            setLansmanProjectName((proj as { project_name?: string }).project_name ?? null);
+          }
+        }
+        if (lansmanRow.unit_id) setLansmanUnitId(lansmanRow.unit_id);
+      }
     })();
     return () => {
       alive = false;
@@ -504,6 +530,10 @@ export default function AuctionDetail() {
     { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
     { label: isRent ? "Kiralık" : "Satılık", className: "bg-emerald-600/90 text-white border-0" },
     { label: MARKETING_MODE_LABELS[marketingMode].badge, className: "bg-slate-700 text-white border border-white/15" },
+    // R14 PAKET 5 — lansman branding badge
+    ...(isLansman
+      ? [{ label: "🏗️ LANSMAN", className: "bg-cyan-500 text-slate-950 font-bold border-0" }]
+      : []),
   ];
 
   const aiInsights: AIInsight[] = [
@@ -566,9 +596,32 @@ export default function AuctionDetail() {
             <div className={`transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <ListingNumberBadge auction={auction} />
+                {/* R14 PAKET 5 — lansman badge */}
+                {isLansman && (
+                  <Badge className="bg-cyan-500 text-slate-950 font-bold border-0 gap-1">
+                    🏗️ Lansman birimi
+                  </Badge>
+                )}
               </div>
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">{auction.title}</h1>
               <div className="flex items-center gap-2 text-slate-400 mb-4"><MapPin className="w-4 h-4" /> {auction.location}</div>
+              {/* R14 PAKET 5 — Lansman proje bağlantı kartı */}
+              {isLansman && lansmanProjectId && (
+                <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/30 mb-4 flex items-center justify-between gap-3 flex-wrap">
+                  <div className="text-xs text-cyan-100">
+                    <p className="font-semibold text-cyan-50 text-sm mb-0.5">Bu ilan bir lansman projesinin birimidir</p>
+                    <p>
+                      Müteahhit projesi: <span className="font-semibold">{lansmanProjectName ?? "Lansman projesi"}</span>
+                      {lansmanUnitId ? ` · Birim #${lansmanUnitId.slice(0, 8)}` : ""}
+                    </p>
+                  </div>
+                  <Link to={`/proje/${lansmanProjectId}`} className="shrink-0">
+                    <Button size="sm" variant="outline" className="gap-1.5 border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/15">
+                      <Eye className="w-3.5 h-3.5" /> Proje sayfası
+                    </Button>
+                  </Link>
+                </div>
+              )}
               <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
                 <p className="font-semibold text-slate-200 text-sm">Haftalık ihale takvimi (hedef)</p>
                 <p>
