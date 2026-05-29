@@ -152,6 +152,23 @@ const Ders7  = lazy(() => import("@/pages/modules/egitim/Ders7"));
 const Ders8  = lazy(() => import("@/pages/modules/egitim/Ders8"));
 const Ders9  = lazy(() => import("@/pages/modules/egitim/Ders9"));
 const Ders10 = lazy(() => import("@/pages/modules/egitim/Ders10"));
+// R12.14 Faz A-4 — İkincil modüller (16 sayfa)
+const AileAcilPlanPage          = lazy(() => import("@/pages/modules/AileAcilPlanPage"));
+const AirbnbPotansiyelPage      = lazy(() => import("@/pages/modules/AirbnbPotansiyelPage"));
+const DepremCantasiPage         = lazy(() => import("@/pages/modules/DepremCantasiPage"));
+const DepremEgitimiPage         = lazy(() => import("@/pages/modules/DepremEgitimiPage"));
+const DepremSigortasiPage       = lazy(() => import("@/pages/modules/DepremSigortasiPage"));
+const ImarSorguPage             = lazy(() => import("@/pages/modules/ImarSorguPage"));
+const KomsulukRiskAnaliziPage   = lazy(() => import("@/pages/modules/KomsulukRiskAnaliziPage"));
+const KrediPazaryeriPage        = lazy(() => import("@/pages/modules/KrediPazaryeriPage"));
+const PortfoyYonetimiModulPage  = lazy(() => import("@/pages/modules/PortfoyYonetimiModulPage"));
+const RenovasyonRoiPage         = lazy(() => import("@/pages/modules/RenovasyonRoiPage"));
+const SigortaPazaryeriPage      = lazy(() => import("@/pages/modules/SigortaPazaryeriPage"));
+const TatbikatRehberiPage       = lazy(() => import("@/pages/modules/TatbikatRehberiPage"));
+const UzmanRandevuPage          = lazy(() => import("@/pages/modules/UzmanRandevuPage"));
+const YapayZekaHasarTahminiPage = lazy(() => import("@/pages/modules/YapayZekaHasarTahminiPage"));
+const YatirimOnerisiPage        = lazy(() => import("@/pages/modules/YatirimOnerisiPage"));
+const YikilanBinalarArsiviPage  = lazy(() => import("@/pages/modules/YikilanBinalarArsiviPage"));
 
 function App() {
   return (
@@ -431,6 +448,23 @@ function App() {
             <Route path="/modul/egitim/ders-8"  element={<Ders8 />} />
             <Route path="/modul/egitim/ders-9"  element={<Ders9 />} />
             <Route path="/modul/egitim/ders-10" element={<Ders10 />} />
+            {/* R12.14 Faz A-4 — İkincil modüller (16 sayfa) */}
+            <Route path="/modul/aile-acil-plan"          element={<AileAcilPlanPage />} />
+            <Route path="/modul/airbnb-potansiyel"       element={<AirbnbPotansiyelPage />} />
+            <Route path="/modul/deprem-cantasi"          element={<DepremCantasiPage />} />
+            <Route path="/modul/deprem-egitimi"          element={<DepremEgitimiPage />} />
+            <Route path="/modul/deprem-sigortasi"        element={<DepremSigortasiPage />} />
+            <Route path="/modul/imar-sorgu"              element={<ImarSorguPage />} />
+            <Route path="/modul/komsuluk-risk-analizi"   element={<KomsulukRiskAnaliziPage />} />
+            <Route path="/modul/kredi-pazaryeri"         element={<KrediPazaryeriPage />} />
+            <Route path="/modul/portfoy-yonetimi"        element={<PortfoyYonetimiModulPage />} />
+            <Route path="/modul/renovasyon-roi"          element={<RenovasyonRoiPage />} />
+            <Route path="/modul/sigorta-pazaryeri"       element={<SigortaPazaryeriPage />} />
+            <Route path="/modul/tatbikat-rehberi"        element={<TatbikatRehberiPage />} />
+            <Route path="/modul/uzman-randevu"           element={<UzmanRandevuPage />} />
+            <Route path="/modul/yapay-zeka-hasar-tahmini" element={<YapayZekaHasarTahminiPage />} />
+            <Route path="/modul/yatirim-onerisi"         element={<YatirimOnerisiPage />} />
+            <Route path="/modul/yikilan-binalar-arsivi"  element={<YikilanBinalarArsiviPage />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route
