@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calculator, Shield } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,6 +13,9 @@ import {
   VAT_RATE,
   REALTOR_B2B_RATE,
   SELLER_COMMISSION_RATE,
+  COMMISSION_RATE,
+  BID_BOND_RATE,
+  WITHDRAWAL_PENALTY_RATE,
 } from "@/lib/fees";
 import { distributeLandEquityCommission } from "@/lib/masterFinancialEngine";
 import { LAND_SHARE_TOTAL_EX_VAT_RATE } from "@/lib/commission/engine";
@@ -31,6 +34,17 @@ export default function CommissionCalculator() {
   const navigate = useNavigate();
   const [saleStr, setSaleStr] = useState("5000000");
   const [rentStr, setRentStr] = useState("35000");
+  const [loanPrincipalStr, setLoanPrincipalStr] = useState("3000000");
+  const [loanMonthsStr, setLoanMonthsStr] = useState("120");
+  const [loanRateStr, setLoanRateStr] = useState("2.89");
+  const [yieldPriceStr, setYieldPriceStr] = useState("6000000");
+  const [yieldRentStr, setYieldRentStr] = useState("32000");
+  const [titleFeeBaseStr, setTitleFeeBaseStr] = useState("5000000");
+  const [gainBuyStr, setGainBuyStr] = useState("3000000");
+  const [gainSellStr, setGainSellStr] = useState("5000000");
+  const [gainYearsStr, setGainYearsStr] = useState("3");
+  const [monthlyAidatStr, setMonthlyAidatStr] = useState("3500");
+  const [monthlyOpsStr, setMonthlyOpsStr] = useState("2200");
   const [rentTransferStr, setRentTransferStr] = useState("50000");
   const [rentScenario, setRentScenario] = useState<RentalSplitScenario>("dual_realtor");
   const [sellerMembershipPaid, setSellerMembershipPaid] = useState(true);
@@ -59,8 +73,37 @@ export default function CommissionCalculator() {
     () => calcCommissionBreakdown(saleAmount, mahsupMembership, serviceSum, REALTOR_B2B_RATE),
     [saleAmount, mahsupMembership, serviceSum],
   );
+  const buyerCommission = saleAmount * COMMISSION_RATE;
+  const sellerCommission = saleAmount * SELLER_COMMISSION_RATE;
+  const buyerCommissionVat = buyerCommission * VAT_RATE;
+  const sellerCommissionVat = sellerCommission * VAT_RATE;
+  const bidBond = saleAmount * BID_BOND_RATE;
+  const withdrawalPenalty = saleAmount * WITHDRAWAL_PENALTY_RATE;
+  const commissionTotalWithVat = buyerCommission + sellerCommission + buyerCommissionVat + sellerCommissionVat;
 
   const rentAmount = Math.max(0, Number(String(rentStr).replace(/\D/g, "")) || 0);
+  const loanPrincipal = Math.max(0, Number(String(loanPrincipalStr).replace(/\D/g, "")) || 0);
+  const loanMonths = Math.max(1, Number(String(loanMonthsStr).replace(/\D/g, "")) || 1);
+  const loanRate = Math.max(0, Number(String(loanRateStr).replace(",", ".")) || 0);
+  const monthlyRate = loanRate / 100;
+  const monthlyInstallment =
+    monthlyRate > 0
+      ? (loanPrincipal * monthlyRate * Math.pow(1 + monthlyRate, loanMonths)) / (Math.pow(1 + monthlyRate, loanMonths) - 1)
+      : loanPrincipal / loanMonths;
+  const yieldPrice = Math.max(1, Number(String(yieldPriceStr).replace(/\D/g, "")) || 1);
+  const yieldRent = Math.max(0, Number(String(yieldRentStr).replace(/\D/g, "")) || 0);
+  const annualYieldPct = (yieldRent * 12 * 100) / yieldPrice;
+  const amortizationYears = yieldRent > 0 ? yieldPrice / (yieldRent * 12) : 0;
+  const titleFeeBase = Math.max(0, Number(String(titleFeeBaseStr).replace(/\D/g, "")) || 0);
+  const titleFee = titleFeeBase * 0.04;
+  const gainBuy = Math.max(0, Number(String(gainBuyStr).replace(/\D/g, "")) || 0);
+  const gainSell = Math.max(0, Number(String(gainSellStr).replace(/\D/g, "")) || 0);
+  const gainYears = Math.max(0, Number(String(gainYearsStr).replace(/\D/g, "")) || 0);
+  const capitalGain = Math.max(0, gainSell - gainBuy);
+  const estimatedCapitalGainTax = gainYears >= 5 ? 0 : capitalGain * 0.15;
+  const monthlyAidat = Math.max(0, Number(String(monthlyAidatStr).replace(/\D/g, "")) || 0);
+  const monthlyOps = Math.max(0, Number(String(monthlyOpsStr).replace(/\D/g, "")) || 0);
+  const annualOpsTotal = (monthlyAidat + monthlyOps) * 12;
   const rentTransferAmount = Math.max(0, Number(String(rentTransferStr).replace(/\D/g, "")) || 0);
 
   const landPool = useMemo(() => {
@@ -119,13 +162,27 @@ export default function CommissionCalculator() {
               <Calculator className="h-8 w-8" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Komisyon hesaplayıcı</h1>
+              <h1 className="text-3xl font-bold text-white">Araçlar / Hesaplayıcılar</h1>
               <p className="mt-2 text-sm text-slate-400">
-                Üst blok yalnızca satış işlem matrahı içindir (%{(SELLER_COMMISSION_RATE * 100).toFixed(0)} + KDV; mahsup
-                üyelik ve hizmetler). Kiralık komisyonu ayrı kartta; matrah 1 aylık kira + KDV (satılıkla karıştırılmaz).
+                Satış komisyonu, kiralık/devren dağılımı ve yatırımcı hesapları tek ekranda. Kredi taksiti, kira getirisi, tapu
+                harcı, değer artışı vergisi ve aidat/gider etkisi için hızlı simülasyon (mock) içerir.
               </p>
             </div>
           </div>
+          <section className="mb-6 grid gap-3 sm:grid-cols-3">
+            <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">1) Matrah</p>
+              <p className="mt-1 text-xs text-slate-300">Satış/kira tutarıyla temel komisyon matrahı kurulur.</p>
+            </article>
+            <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">2) Dağılım</p>
+              <p className="mt-1 text-xs text-slate-300">Mahsup, B2B payı, KDV ve net platform kalemi birlikte hesaplanır.</p>
+            </article>
+            <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">3) Karar</p>
+              <p className="mt-1 text-xs text-slate-300">Sonuçlar teklif stratejisi ve hukuki/vergisel kontrolle yorumlanır.</p>
+            </article>
+          </section>
 
           <Card className="mb-6 border-sky-500/25 bg-sky-950/30">
             <CardContent className="flex gap-3 p-4">
@@ -137,6 +194,42 @@ export default function CommissionCalculator() {
                   Bu ekran yalnızca komisyon matematığını gösterir; havuz hesabı ve ödeme sağlayıcı entegrasyonu üretimde tanımlanır.
                 </p>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6 border-emerald-500/25 bg-emerald-950/20">
+            <CardContent className="p-5 space-y-3">
+              <h2 className="text-lg font-semibold text-white">Temel komisyon/teminat hesabı (gerçek formül)</h2>
+              <p className="text-xs text-slate-300">
+                Satıcı %{(SELLER_COMMISSION_RATE * 100).toFixed(0)} + alıcı %{(COMMISSION_RATE * 100).toFixed(0)} + KDV %{(VAT_RATE * 100).toFixed(0)}.
+                Teminat blokajı %{(BID_BOND_RATE * 100).toFixed(0)}. Cayma cezası örnek oranı %{(WITHDRAWAL_PENALTY_RATE * 100).toFixed(0)}.
+              </p>
+              <dl className="grid gap-2 text-sm md:grid-cols-2">
+                <div className="flex justify-between text-slate-300"><dt>Satıcı komisyonu</dt><dd>₺{Math.round(sellerCommission).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>Satıcı komisyon KDV</dt><dd>₺{Math.round(sellerCommissionVat).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>Alıcı komisyonu</dt><dd>₺{Math.round(buyerCommission).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>Alıcı komisyon KDV</dt><dd>₺{Math.round(buyerCommissionVat).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-amber-300"><dt>%5 teminat blokajı</dt><dd data-testid="commission-bid-bond">₺{Math.round(bidBond).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-rose-300"><dt>Cayma cezası (örnek)</dt><dd data-testid="commission-withdrawal-penalty">₺{Math.round(withdrawalPenalty).toLocaleString("tr-TR")}</dd></div>
+              </dl>
+              <p className="text-[11px] text-slate-500">
+                Dürüst sınır: tapu harcı, resmi vergiler ve özel durumlar bu blok dışında ayrıca hesaplanır; nihai hesap için mali müşavir desteği gerekir.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6 border-cyan-500/20 bg-cyan-950/20">
+            <CardContent className="p-5 space-y-2">
+              <h2 className="text-lg font-semibold text-cyan-100">Örnek hesap (anlık güncellenir)</h2>
+              <p className="text-sm text-slate-300">
+                İşlem tutarı <strong>₺{saleAmount.toLocaleString("tr-TR")}</strong> için toplam komisyon+KDV yükü yaklaşık{" "}
+                <strong data-testid="commission-total-with-vat">₺{Math.round(commissionTotalWithVat).toLocaleString("tr-TR")}</strong>,
+                teminat blokajı <strong>₺{Math.round(bidBond).toLocaleString("tr-TR")}</strong>, cayma cezası örneği{" "}
+                <strong>₺{Math.round(withdrawalPenalty).toLocaleString("tr-TR")}</strong> olur.
+              </p>
+              <p className="text-[11px] text-slate-500">
+                Not: Tapu harcı, gelir vergisi, damga vergisi ve sözleşmeye özel kalemler ayrıca değerlendirilmelidir.
+              </p>
             </CardContent>
           </Card>
 
@@ -243,7 +336,7 @@ export default function CommissionCalculator() {
                 </p>
               ) : null}
               <p className="text-[11px] leading-relaxed text-slate-500">
-                Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme ve fatura ile ilişkilidir.
+                Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme, resmi kurum hesapları ve uzman görüşü ile netleşir.
               </p>
             </CardContent>
           </Card>
@@ -414,6 +507,66 @@ export default function CommissionCalculator() {
                   </div>
                 </dl>
               ) : null}
+            </CardContent>
+          </Card>
+
+          <Card className="border-cyan-500/20 bg-[#071326]">
+            <CardContent className="space-y-4 p-6">
+              <h2 className="text-lg font-semibold text-cyan-100">Araçlar / Hesaplayıcılar (yatırımcı)</h2>
+              <p className="text-xs text-slate-400">
+                Bu blok teklif/ödeme çekirdeğine dokunmadan sadece ön karar desteği sağlar (mock hesap).
+              </p>
+              <div className="grid gap-4">
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Kredi hesaplayıcı</p>
+                  <div className="grid gap-2 sm:grid-cols-3">
+                    <Input value={loanPrincipalStr} onChange={(e) => setLoanPrincipalStr(e.target.value)} inputMode="numeric" />
+                    <Input value={loanMonthsStr} onChange={(e) => setLoanMonthsStr(e.target.value)} inputMode="numeric" />
+                    <Input value={loanRateStr} onChange={(e) => setLoanRateStr(e.target.value)} inputMode="decimal" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">Aylık taksit (tahmini): ₺{Math.round(monthlyInstallment).toLocaleString("tr-TR")}</p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Kira getirisi</p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <Input value={yieldPriceStr} onChange={(e) => setYieldPriceStr(e.target.value)} inputMode="numeric" />
+                    <Input value={yieldRentStr} onChange={(e) => setYieldRentStr(e.target.value)} inputMode="numeric" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">
+                    Yıllık brüt getiri: %{annualYieldPct.toFixed(2)} · Amortisman: {amortizationYears.toFixed(1)} yıl
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Tapu harcı (%4)</p>
+                  <Input value={titleFeeBaseStr} onChange={(e) => setTitleFeeBaseStr(e.target.value)} inputMode="numeric" />
+                  <p className="mt-2 text-sm text-white">Tahmini tapu harcı: ₺{Math.round(titleFee).toLocaleString("tr-TR")}</p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Değer artışı vergisi</p>
+                  <div className="grid gap-2 sm:grid-cols-3">
+                    <Input value={gainBuyStr} onChange={(e) => setGainBuyStr(e.target.value)} inputMode="numeric" />
+                    <Input value={gainSellStr} onChange={(e) => setGainSellStr(e.target.value)} inputMode="numeric" />
+                    <Input value={gainYearsStr} onChange={(e) => setGainYearsStr(e.target.value)} inputMode="numeric" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">
+                    Tahmini vergi: ₺{Math.round(estimatedCapitalGainTax).toLocaleString("tr-TR")}
+                    {gainYears >= 5 ? " (5 yıl+ istisna varsayımı)" : ""}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-semibold text-cyan-200">Aidat / gider etkisi</p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <Input value={monthlyAidatStr} onChange={(e) => setMonthlyAidatStr(e.target.value)} inputMode="numeric" />
+                    <Input value={monthlyOpsStr} onChange={(e) => setMonthlyOpsStr(e.target.value)} inputMode="numeric" />
+                  </div>
+                  <p className="mt-2 text-sm text-white">
+                    Yıllık toplam aidat+gider: ₺{annualOpsTotal.toLocaleString("tr-TR")} (Aylık ₺{(monthlyAidat + monthlyOps).toLocaleString("tr-TR")})
+                  </p>
+                </div>
+              </div>
+              <p className="text-[11px] leading-relaxed text-slate-500">
+                Bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.
+              </p>
             </CardContent>
           </Card>
         </div>

@@ -54,6 +54,8 @@ export const AGENT_SHARE_RATES = {
 export const REALTOR_B2B_RATE = AGENT_SHARE_RATES.full;
 
 export const BID_BOND_RATE = 0.05;
+// R12.6.b: Added for CommissionCalculator withdrawal penalty
+export const WITHDRAWAL_PENALTY_RATE = 0.05;
 export const MIN_INCREMENT_TRY = 100;
 export const ANTI_SNIPING_THRESHOLD_SECONDS = 120;
 export const ANTI_SNIPING_EXTEND_SECONDS = 120;
