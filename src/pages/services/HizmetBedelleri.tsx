@@ -1,7 +1,7 @@
 ﻿import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
-import { SERVICE_FEES, SERVICE_FEE_LABELS } from "@/lib/fees";
+import { SERVICE_FEES, SERVICE_FEE_LABELS, SERVICE_FEE_DYNAMIC } from "@/lib/fees";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -12,7 +12,7 @@ const SERVICE_DESCRIPTIONS: Record<ServiceKey, string> = {
   drone: "Parsel, çevre ve ulaşım bağlantılarını yukarıdan gösteren dron çekimleri. Özellikle arsa ve büyük ölçekli portföylerde karar süresini kısaltır.",
   legal: "Hukuki ön kontrol paketi. Sözleşme dili, evrak bütünlüğü ve işlem sırası netleşir; nihai hukuki görüş ilgili uzmanla tamamlanır.",
   expertise: "Ekspertiz raporu üretim hazırlığı. Değer bandı, teknik durum ve karşılaştırmalı analiz başlıkları tek raporda toplanır.",
-  bid_entry: "İhaleye giriş operasyonu. Katılım şartlarının doğrulanması, teklif adımı hazırlığı ve kullanıcı bilgilendirme süreci için başlangıç kalemidir.",
+  bid_entry: "İhaleye giriş için gayrimenkul değerinin %5'i bloke/teminat olarak havale edilir. Kazanmazsanız 24 saat içinde iade edilir; sabit ücret yoktur, dinamik orana göre hesaplanır.",
   virtual_tour: "360 sanal tur üretimi. Uzaktan inceleme oranını artırır, fiziksel ziyaret öncesi ön eleme kalitesini yükseltir.",
   video: "Kısa video tanıtım paketi. Sosyal ve kampanya dağıtımı için optimize edilmiş hızlı anlatım formatı sağlar.",
   tapu_prep: "Tapu randevu ve dosya hazırlık kalemi. Evrak setinin doğru sıra ile toplanmasına ve kapanış gününün gecikmeden ilerlemesine destek olur.",
@@ -67,7 +67,9 @@ export default function HizmetBedelleri() {
                 <p className="text-sm font-semibold text-white leading-snug">{SERVICE_FEE_LABELS[key]}</p>
                 <p className="text-xs leading-relaxed text-slate-400">{SERVICE_DESCRIPTIONS[key]}</p>
                 <p className="text-lg font-bold text-amber-400">
-                  ₺{SERVICE_FEES[key].toLocaleString("tr-TR")}
+                  {SERVICE_FEE_DYNAMIC[key]
+                    ? SERVICE_FEE_DYNAMIC[key]
+                    : `₺${SERVICE_FEES[key].toLocaleString("tr-TR")}`}
                 </p>
                 <Button
                   type="button"

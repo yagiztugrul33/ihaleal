@@ -22,15 +22,17 @@ export const MEMBERSHIP_FEES = {
 
 export const MEMBERSHIP_DURATION_DAYS = 365;
 
+// Master 2026-05-29 WhatsApp güncelleme: yeni fiyatlar (8 kalem)
+// bid_entry: sabit ücret yerine DİNAMİK %5 bloke (calcBidBond / BID_BOND_RATE)
 export const SERVICE_FEES = {
-  photo: 2500,
-  drone: 1500,
-  legal: 1000,
-  expertise: 3000,
-  bid_entry: 250,
-  virtual_tour: 1500,
-  video: 2000,
-  tapu_prep: 750,
+  photo: 9000,
+  drone: 25000,
+  legal: 45000,
+  expertise: 40000,
+  bid_entry: 0, // DİNAMİK — Gayrimenkul değerinin %5'i (BID_BOND_RATE), UI'da "Dinamik %5" gösterilir
+  virtual_tour: 15000,
+  video: 25000,
+  tapu_prep: 15000,
 } as const;
 
 export const SERVICE_FEE_LABELS: Record<keyof typeof SERVICE_FEES, string> = {
@@ -38,10 +40,15 @@ export const SERVICE_FEE_LABELS: Record<keyof typeof SERVICE_FEES, string> = {
   drone: "Dron Çekim",
   legal: "Hukuki Danışmanlık",
   expertise: "Ekspertiz Raporu",
-  bid_entry: "İhaleye Giriş",
+  bid_entry: "İhaleye Giriş (Dinamik %5 bloke)",
   virtual_tour: "Sanal Tur 360°",
   video: "Video Tanıtım",
   tapu_prep: "Tapu Randevu / Dosya",
+};
+
+// bid_entry için DİNAMİK fiyat etiketi (UI'da fixedTry yerine kullanılır)
+export const SERVICE_FEE_DYNAMIC: Partial<Record<keyof typeof SERVICE_FEES, string>> = {
+  bid_entry: "Gayrimenkul değerinin %5'i (bloke/teminat havale)",
 };
 
 export const AGENT_SHARE_RATES = {
