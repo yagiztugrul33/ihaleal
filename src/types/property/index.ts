@@ -163,7 +163,7 @@ export function getPropertyPrice(p: PropertyRecord): number | undefined {
 
 export function getPropertyLocation(p: PropertyRecord): string {
   const parts = [p.neighborhood, p.district, p.city, p.country].filter(
-    (part): part is string => Boolean(part && part.trim())
+    (part): part is string => typeof part === "string" && part.trim().length > 0
   );
   if (parts.length > 0) {
     return parts.join(", ");

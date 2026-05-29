@@ -12,7 +12,7 @@ import {
   safeCalculateParcelFeasibility,
   reportId,
   runParcelIntelligence,
-  type ParcelFeasibilityResult,
+  type ParcelEngineFeasibilityResult as ParcelFeasibilityResult,
   type ParcelInputs,
   type ParcelIntelligenceResult,
 } from "@/lib/engineering";

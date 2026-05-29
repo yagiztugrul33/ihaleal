@@ -72,7 +72,7 @@ export function DocumentUploader({ label = "Evrak yükleme (demo)", requirements
               <span className="text-slate-600 shrink-0">({(f.size / 1024).toFixed(0)} KB)</span>
             </span>
             <span className="flex items-center gap-1 shrink-0">
-              {f.done ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" title="Mock: kaydedildi" /> : null}
+              {f.done ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" aria-label="Mock: kaydedildi" /> : null}
               <Button
                 type="button"
                 variant="ghost"

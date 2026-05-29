@@ -216,7 +216,7 @@ function facetBlock(title: string, rows: [string, string][]) {
 }
 
 function pickBreakdown(subs: SubScoreBreakdown[], keys: string[]) {
-  const m = new Map(subs.map((s) => [s.key, s]));
+  const m = new Map(subs.map((s) => [String(s.key), s]));
   return keys.map((k) => m.get(k)).filter(Boolean) as SubScoreBreakdown[];
 }
 

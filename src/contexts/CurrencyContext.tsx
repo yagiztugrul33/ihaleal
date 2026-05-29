@@ -104,7 +104,7 @@ function readStoredSnapshot(): RateSnapshot | null {
         EUR: parsed.tryPerUnit.EUR,
         GBP: parsed.tryPerUnit.GBP,
       },
-      goldGramTry: Number.isFinite(parsed.goldGramTry) ? parsed.goldGramTry : 0,
+      goldGramTry: Number.isFinite(parsed.goldGramTry) ? (parsed.goldGramTry as number) : 0,
       eurUsdParity:
         Number.isFinite(parsed.eurUsdParity) && (parsed.eurUsdParity ?? 0) > 0
           ? (parsed.eurUsdParity as number)

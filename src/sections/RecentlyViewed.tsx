@@ -23,8 +23,8 @@ export function RecentlyViewed() {
 
   const recentAuctions = useMemo(() => {
     return recentIds
-      .map((id: string) => AUCTIONS.find((a) => a.id === id))
-      .filter((a): a is Auction => Boolean(a))
+      .map((id: string) => AUCTIONS.find((a: Auction) => a.id === id))
+      .filter((a: Auction | undefined): a is Auction => Boolean(a))
       .slice(0, 4);
   }, [recentIds]);
 

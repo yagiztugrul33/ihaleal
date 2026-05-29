@@ -56,7 +56,7 @@ export function analyzeFireSafety(input: FireSafetyInput): EngineeringResult<Fir
   recordStep(ctx, {
     label: "Max travel distance",
     formula: "d_max ≈ f(h, sprinkler) [indikatif]",
-    inputs: { height_m: h, sprinkler },
+    inputs: { height_m: h, sprinkler: sprinkler ? 1 : 0 },
     output: maxTravel,
     unit: "m",
     methodologyId: methodology.id,

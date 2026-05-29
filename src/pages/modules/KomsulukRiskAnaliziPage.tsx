@@ -18,7 +18,8 @@ const RELATED: RelatedModuleCard[] = [
 ];
 
 function neighborhoodLabel(p: PropertyRecord): string {
-  return p.neighborhood?.trim() || p.district?.trim() || "Mahalle";
+  const nbh = typeof p.neighborhood === "string" ? p.neighborhood : "";
+  return nbh.trim() || p.district?.trim() || "Mahalle";
 }
 
 function buildAdvice(property: PropertyRecord, neighbors: PropertyRecord[]): [string, string, string] {
@@ -49,7 +50,7 @@ export default function KomsulukRiskAnaliziPage() {
       all.find(
         (p) =>
           p.address?.toLowerCase().includes(q) ||
-          p.neighborhood?.toLowerCase().includes(q) ||
+          (typeof p.neighborhood === "string" && (p.neighborhood as string).toLowerCase().includes(q)) ||
           `${p.district} ${p.city}`.toLowerCase().includes(q),
       ) ?? all[0]
     );
@@ -63,7 +64,7 @@ export default function KomsulukRiskAnaliziPage() {
         (p) =>
           p.id !== property.id &&
           p.city === property.city &&
-          (p.neighborhood?.toLowerCase() === mah || p.district === property.district),
+          ((typeof p.neighborhood === "string" && (p.neighborhood as string).toLowerCase() === mah) || p.district === property.district),
       )
       .slice(0, 12);
   }, [property, all]);

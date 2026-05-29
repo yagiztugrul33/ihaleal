@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState, type LucideIcon } from "react";
+import { useEffect, useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
   BarChart3,
