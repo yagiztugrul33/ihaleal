@@ -60,6 +60,32 @@ Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) exit code 2 
 - Önceki 18 commit'in build aldığı doğru, ama tip katmanı yamalı durum
 - **Master uyandığında BU bölüm ÖNCE okunmalı**
 
+### 🔄 GÜNCEL DURUM (2026-05-29 ~15:30)
+
+Bugün master sabah 500 hata gördü, **5 hotfix** deploy edildi:
+
+| Commit | İçerik |
+|---|---|
+| `c66e875` | i18n `home.investor` fallback (production / crash hotfix) |
+| `bdc8554` | Gradient buton CSS + logo PNG swap |
+| `62e23aa` | Footer ana sayfada + Site Haritası link |
+| `a385675` | Navbar mobil + premium-btn `Button asChild` pattern |
+| `2fa878a` | Logo SVG vektör final (mavi-teal gradient + ev silhouette) |
+
+**Bundle son hash (prod):** `index-CxLieDEe.js`  
+**Site sağlam:** HTTP 200, runtime crash yok (ErrorBoundary tetiklenmiyor).
+
+**Claude Code paralel TS sağlık sprint** (6 paket, ~3–5 saat):
+
+1. npm modül restore (`@radix-ui/*` sub-paketler + react-day-picker + cmdk + vaul + sonner)
+2. Valuation lib finalize (`advancedValuation.ts` + `valuationEngine` wrapper)
+3. Faz A tip senkron (AfetDisasterHub + EarthquakeFilters + ParselZekasi + KomsulukRiskAnalizi)
+4. i18n schema fix (`home.investor` block; hotfix fallback kaldırılır)
+5. Prop/auth/misc fix (ShareButton + SearchModal + Auth)
+6. Fresh `tsc` → **v0.12.8** tag (TS yeşil sonrası)
+
+**Tahmini bitiş:** master akşam dönmesinden önce.
+
 ### ⚠️ Ek Sorun — v0.12.7 Tag Yanlış Atıldı ✅ ÇÖZÜLDÜ (2026-05-29 ~01:30)
 
 Bu uyarı yazıldıktan **SONRA** Claude Code şu işleri yaptı:
@@ -141,13 +167,13 @@ v0.12.7 yerine `v0.12.7-pre-stable` veya bekle `v0.12.8` ile temiz baseline'a ta
 
 | ID | Konu | Kaynak | Öncelik |
 |---|---|---|---|
-| **N1** | Logo asset — UI `ihaleal-logo.png` (305 KB, May 17); `ihaleal_com_logo.png` (116 KB) kullanılmıyor | `_audit/LOGO_AUDIT.md` | 🟡 Master karar |
+| **N1** | Logo asset | ✅ **ÇÖZÜLDÜ** — `logo.svg` vektör (708 B, `2fa878a`); eski PNG audit geçmişi [`LOGO_AUDIT.md`](./LOGO_AUDIT.md) | — |
 | **N2** | PDF export | ✅ **ÇÖZÜLDÜ** (`488fc69`) | — |
-| **N3** | PremiumCinematicHome code-split (~79 KB index şişmesi) | `_audit/BUNDLE_FINAL.md` | 🟢 1–2 saat |
+| **N3** | PremiumCinematicHome code-split | ⏸️ **DÜŞÜK ÖNCELİK** — bundle margin ~%62 boş; optimizasyon şart değil ([`BUNDLE_FINAL.md`](./BUNDLE_FINAL.md)) | 🟢 |
 | **N4** | Ders route bug | ✅ **ÇÖZÜLDÜ** (`b11f8b6`) | — |
-| **N5** | %5 kapora UI prominent gösterim (backend guard var) | Ürün kararı | 🟡 |
-| **N6** | ChatWidget → `buildAssistantReply` rewire (hibrit öneri) | `_audit/AI_CHATWIDGET_REWIRE.md` | 🟡 ~1 saat |
-| **K-M6** | Mobile auth-bound: mesajlar/bildirimler/favoriler/belgeler mock → Supabase | `_audit/K_M6_KAPSAM.md` | 🟡 ~11–16 saat |
+| **N5** | %5 kapora UI prominent gösterim (backend guard var) | Ürün kararı | ⏳ **AÇIK** |
+| **N6** | ChatWidget → hibrit rewire (`buildAssistantReply` + Edge `ai_qa`) | [`AI_CHATWIDGET_REWIRE.md`](./AI_CHATWIDGET_REWIRE.md) | ⏳ **AÇIK** (TS sprint sonrası UX karar) |
+| **K-M6** | Mobile auth-bound: mesajlar/bildirimler/favoriler/belgeler mock → Supabase | [`K_M6_KAPSAM.md`](./K_M6_KAPSAM.md) | ⏳ **AÇIK** (4 tablo + 4 ekran, ~11–16 saat) |
 | **Faz A-5 gap** | `src/lib/valuation/advancedValuation.ts` eksik → Değerleme runtime risk | Faz A-5 envanter | 🔴 |
 | **Prod bundle** | Canlı 930 KB monolit — R6 PR merge + redeploy | `_audit/BUNDLE_FINAL.md` | 🔴 |
 
@@ -193,24 +219,23 @@ Master sabah: DNS apex, Vercel plan, isimtescil hosting paket kontrolü (önceki
 
 ---
 
-## 🎯 Önerilen sıra (Master sabah)
+## 🎯 Önerilen sıra (Master akşam)
 
-1. 🔴 **TS sağlık temizliği** — fresh `tsc` yeşil olana kadar (valuation lib → Faz A tip → npm ci → prop fix); ~3–5 saat
-2. 🔴 **R6 + Console PR merge BEKLET** — TS baseline temizlenince
-3. 🔴 **DNS + Plan** kontrol
-4. 🔴 **KYC** — 1 user manuel verify (`KYC_VERIFY_TASLAK.md`)
-5. 🟡 **R6 PR merge** → redeploy → prod bundle < 819 KB (TS yeşil sonrası)
-6. 🟡 **N1 Logo** — `ihaleal_com_logo.png` veya yeni master asset
-7. 🟡 **N6 ChatWidget** UX kararı + rewire
-8. 🟡 **K-M6.1** favorites (en basit auth-bound ekran)
-9. 🟢 **N3** PremiumCinematic lazy
+1. 🔴 **TS sağlık sprint raporu** — Claude Code paralel çıktı; fresh `tsc` yeşil mi?
+2. 🔴 **v0.12.8 tag** — TS yeşil sonrası (Claude Code veya master teyit)
+3. 🔴 **R6 + Console PR merge** — TS baseline temizlenince (`gh auth login` + ~5 dk)
+4. 🔴 **KYC** — 1 user manuel verify ([`KYC_VERIFY_TASLAK.md`](./KYC_VERIFY_TASLAK.md))
+5. 🟡 **Edge function selektif deploy** — `ai_qa` + `earthquakes_latest` + `pvgis_solar` ([`EDGE_FUNCTIONS_DEPLOY_STATUS.md`](./EDGE_FUNCTIONS_DEPLOY_STATUS.md))
+6. 🟡 **N6 ChatWidget** hibrit UX kararı + rewire (~1 saat)
+7. 🟡 **K-M6.1** favorites (en basit auth-bound ekran)
+8. 🟢 **N3** PremiumCinematic lazy (düşük öncelik)
 
-**Production shell sağlam; TS tip katmanı acil.** v0.12.7 tag TS yeşil olmadan atılmamalı.
+**Production crisis recovery ✅ (5 hotfix). TS tip katmanı hâlâ acil.** v0.12.8 tag TS yeşil olmadan atılmamalı.
 
 ---
 
-**Son güncelleme:** 2026-05-30 — Cursor R12 FINAL BATCH MOD A (8 audit iş)
+**Son güncelleme:** 2026-05-29 ~15:30 — Cursor FINAL audit temizlik (5 hotfix kaydı + N1 logo ✅ + TS sprint paralel)
 
-**Güncelleme:** 2026-05-29 ~01:00 — Cursor fresh tsc denetimi
+**Güncelleme:** 2026-05-30 — Cursor R12 FINAL BATCH MOD A (8 audit iş)
 
 **Güncelleme:** 2026-05-29 sabah — v0.12.7 tag durumu netleşti (hiçbir yerde yok, ✅ çözüldü)
