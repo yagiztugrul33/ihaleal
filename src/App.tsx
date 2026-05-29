@@ -130,6 +130,9 @@ const MuteahhitPanelPage     = lazy(() => import("@/pages/portals/MuteahhitPanel
 const LoyaltyProgramPage     = lazy(() => import("@/pages/LoyaltyProgramPage"));
 const CampaignsPage          = lazy(() => import("@/pages/CampaignsPage"));
 const InternationalInvestorPage = lazy(() => import("@/pages/InternationalInvestorPage"));
+// R12.3 — Deprem modülü 2 sayfa (backup/blok1-borsa cherry-pick)
+const BinaRiskSorguPage      = lazy(() => import("@/pages/modules/BinaRiskSorguPage"));
+const DepremRiskHaritasiPage = lazy(() => import("@/pages/modules/DepremRiskHaritasiPage"));
 
 function App() {
   return (
@@ -387,6 +390,9 @@ function App() {
             <Route path="/oduller" element={<LoyaltyProgramPage />} />
             <Route path="/kampanyalar" element={<CampaignsPage />} />
             <Route path="/uluslararasi" element={<InternationalInvestorPage />} />
+            {/* R12.3 — Deprem modülü 2 sayfa (backup/blok1-borsa cherry-pick) */}
+            <Route path="/modul/bina-risk-sorgu" element={<BinaRiskSorguPage />} />
+            <Route path="/modul/deprem-risk-haritasi" element={<DepremRiskHaritasiPage />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route
