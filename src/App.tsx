@@ -5,6 +5,7 @@ import { LocaleProvider } from "@/contexts/LocaleContext";
 import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
+import { WebAnalytics } from "@/components/WebAnalytics";
 import { Home } from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
@@ -497,6 +498,7 @@ function App() {
           </Routes>
         </Suspense>
       </ErrorBoundary>
+      <WebAnalytics />
     </BrowserRouter>
     </AuthProvider>
     </LocaleProvider>

@@ -23,6 +23,7 @@ export function CookieConsent() {
     } catch {
       /* ignore */
     }
+    window.dispatchEvent(new CustomEvent("ihaleal:cookie-consent"));
     setOpen(false);
   };
 

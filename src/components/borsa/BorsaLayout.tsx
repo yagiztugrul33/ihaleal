@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Activity, ArrowLeft, Clock3, LogIn, Search, UserCircle2, Wallet } from "lucide-react";
-import { Logo } from "@/components/Logo";
+import { BrandLockup } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { ShareButton } from "@/components/ShareButton";
 import { ChatWidget } from "@/components/ChatWidget";
@@ -59,11 +59,8 @@ export function BorsaLayout() {
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-xl">
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 lg:px-8 2xl:px-12">
           <div className="flex min-w-0 items-center gap-3">
-            <Logo size="lg" />
-            <div className="min-w-0">
-              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#E9C56A]">Gayrimenkul Borsası</p>
-              <p className="text-[11px] text-muted-foreground">Profesyonel işlem terminali</p>
-            </div>
+            <BrandLockup logoSize="sm" layout="inline" showSlogan />
+            <p className="hidden min-w-0 text-[11px] text-muted-foreground sm:block">Profesyonel işlem terminali</p>
           </div>
 
           <div className="flex min-w-[280px] flex-1 items-center gap-2 rounded-lg border border-border bg-secondary px-2 py-1.5 md:max-w-xl">

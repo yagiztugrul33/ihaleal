@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { BrandLockup } from "@/components/Logo";
 
 export default function PreLaunch() {
   const [email, setEmail] = useState("");
@@ -36,6 +37,9 @@ export default function PreLaunch() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0A1F44] to-slate-900 px-4">
         <div className="text-center max-w-md">
+          <div className="flex justify-center mb-6">
+            <BrandLockup logoSize="lg" layout="stack" showSlogan />
+          </div>
           <h1 className="text-3xl font-bold text-white mb-4">Teşekkürler!</h1>
           <p className="text-slate-300">Lansman duyurularımızı e-postanıza göndereceğiz.</p>
         </div>
@@ -46,10 +50,10 @@ export default function PreLaunch() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0A1F44] via-slate-900 to-[#F59E0B]/25 flex items-center justify-center p-6">
       <div className="bg-slate-950/90 border border-slate-200 rounded-2xl p-8 max-w-lg w-full shadow-2xl">
-        <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent">
-          ihaleal.com
-        </h1>
-        <p className="text-xl text-slate-300 mb-6">Türkiye&apos;nin gayrimenkul ihale deneyimi yakında.</p>
+        <div className="flex justify-center mb-6">
+          <BrandLockup logoSize="lg" layout="stack" showSlogan />
+        </div>
+        <p className="text-xl text-slate-300 mb-6 text-center">Türkiye&apos;nin gayrimenkul ihale deneyimi yakında.</p>
         <p className="mb-6 text-slate-400 text-sm leading-relaxed">
           Lansman listesi için kayıt olun; ilk haberdar olanlar arasında olun.
         </p>

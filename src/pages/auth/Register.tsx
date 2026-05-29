@@ -1,9 +1,10 @@
 ﻿import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, Factory, FileText, Hash } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, FileText, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { AuthBrandHeader } from "@/components/auth/AuthBrandHeader";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
@@ -138,33 +139,24 @@ export default function Register() {
         </Button>
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 space-y-5">
-            <div className="text-center mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                {kurumsalProfil === "emlakci" ? (
-                  <Building2 className="w-6 h-6 text-white" />
-                ) : kurumsalProfil === "muteahhit" ? (
-                  <Factory className="w-6 h-6 text-white" />
-                ) : (
-                  <UserPlus className="w-6 h-6 text-white" />
-                )}
-              </div>
-              <h1 className="text-2xl font-bold text-white">
-                {kurumsalProfil === "emlakci"
+            <AuthBrandHeader
+              title={
+                kurumsalProfil === "emlakci"
                   ? "Kurumsal / emlakçı kaydı"
                   : kurumsalProfil === "muteahhit"
                     ? "Müteahhit / proje kaydı"
-                    : "Kayıt Ol"}
-              </h1>
-              <p className="text-sm text-slate-400 mt-1">
-                {kurumsalProfil === "emlakci"
+                    : "Kayıt Ol"
+              }
+              subtitle={
+                kurumsalProfil === "emlakci"
                   ? "Ofis veya yetkili temsilci hesabı; doğrulama ve B2B sözleşme üretimde tamamlanır."
                   : kurumsalProfil === "muteahhit"
                     ? "Ruhsat ve ön tahsis evrak çizgisi üretimde tamamlanır; kayıt sonrası ihale açma ekranına yönlendirilirsiniz."
                     : isSupabaseConfigured()
                       ? "Supabase Auth; profil satırı sunucuda otomatik oluşur."
-                      : "Kayıt için Supabase .env yapılandırın."}
-              </p>
-            </div>
+                      : "Kayıt için Supabase .env yapılandırın."
+              }
+            />
             {info && (
               <div className="flex items-center gap-2 p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-200 text-sm">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />

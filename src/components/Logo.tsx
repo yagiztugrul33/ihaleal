@@ -1,33 +1,38 @@
 import { cn } from "@/lib/utils";
 
+/** Onaylı altın amblem — ev + kalkan + tokmak (tek kaynak). */
+export const BRAND_LOGO_SRC = "/ihaleal_com_logo.png";
+
+export const BRAND_SLOGAN = "Türkiye'nin Gayrimenkul Borsası";
+
 const logoSizes = {
-  sm: { full: "h-[44px]", icon: "h-[44px] w-[44px]" },
-  md: { full: "h-[52px] sm:h-[60px]", icon: "h-[52px] w-[52px] sm:h-[60px] sm:w-[60px]" },
-  lg: { full: "h-[64px] sm:h-[72px]", icon: "h-[64px] w-[64px] sm:h-[72px] sm:w-[72px]" },
+  sm: "h-10 w-10 min-h-10 min-w-10",
+  md: "h-11 w-11 min-h-11 min-w-11",
+  lg: "h-14 w-14 min-h-14 min-w-14 sm:h-16 sm:w-16 sm:min-h-16 sm:min-w-16",
 } as const;
 
 export function Logo({
   size = "md",
   variant = "full",
   className,
-  // Geriye dönük uyum — eski tekstli Logo'nun props'ları, yeni img-tabanlı
-  // sürümde işlevsel değil ama Navbar gibi mevcut çağırıcılar TS hatasız çalışsın.
   textClassName: _textClassName,
   dotComClassName: _dotComClassName,
 }: {
   size?: "sm" | "md" | "lg";
   variant?: "full" | "icon";
   className?: string;
+  /** @deprecated Altın PNG tek parça; geriye dönük Navbar props */
   textClassName?: string;
   dotComClassName?: string;
 }) {
-  const sizeClass = variant === "icon" ? logoSizes[size].icon : logoSizes[size].full;
+  const sizeClass = logoSizes[size];
   return (
     <img
-      src="/logo.svg"
-      alt="ihaleal"
+      src={BRAND_LOGO_SRC}
+      alt="ihaleal.com"
       className={cn(
-        "w-auto max-w-none select-none object-contain drop-shadow-[0_2px_12px_rgba(2,6,23,0.65)]",
+        "shrink-0 select-none object-contain object-center",
+        "drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]",
         sizeClass,
         className,
       )}
@@ -35,37 +40,58 @@ export function Logo({
       loading="eager"
       decoding="async"
       draggable={false}
+      width={size === "lg" ? 64 : size === "md" ? 44 : 40}
+      height={size === "lg" ? 64 : size === "md" ? 44 : 40}
     />
   );
 }
 
 export function BrandLockup({
-  logoSize = "lg",
+  logoSize = "md",
+  layout = "inline",
   className,
-  showSlogan = false,
+  showSlogan = true,
   sloganClassName,
   hideSloganOnMobile = false,
+  tone = "default",
 }: {
   logoSize?: "sm" | "md" | "lg";
+  layout?: "inline" | "stack";
   className?: string;
   showSlogan?: boolean;
   sloganClassName?: string;
   hideSloganOnMobile?: boolean;
+  /** Auth kartları için biraz daha geniş slogan tipografisi */
+  tone?: "default" | "auth";
 }) {
+  const slogan = showSlogan ? (
+    <span
+      className={cn(
+        "font-semibold uppercase leading-snug text-amber-200/95",
+        layout === "inline"
+          ? "max-w-[8.75rem] text-[9px] tracking-[0.05em] sm:max-w-[12rem] sm:text-[10px] sm:tracking-[0.07em]"
+          : tone === "auth"
+            ? "max-w-[20rem] text-center text-[10px] tracking-[0.08em] sm:max-w-[22rem] sm:text-[11px] sm:tracking-[0.1em]"
+            : "max-w-[18rem] text-center text-[10px] tracking-[0.1em] sm:text-[11px]",
+        hideSloganOnMobile && "hidden sm:inline",
+        sloganClassName,
+      )}
+    >
+      {BRAND_SLOGAN.toLocaleUpperCase("tr-TR")}
+    </span>
+  ) : null;
+
   return (
-    <span className={cn("inline-flex flex-col items-center gap-1 align-middle", className)}>
+    <span
+      className={cn(
+        layout === "inline"
+          ? "inline-flex items-center gap-2 sm:gap-2.5"
+          : "inline-flex flex-col items-center gap-1.5 sm:gap-2",
+        className,
+      )}
+    >
       <Logo size={logoSize} />
-      {showSlogan ? (
-        <span
-          className={cn(
-            "max-w-[18rem] text-center text-[11px] font-medium uppercase tracking-[0.1em] text-amber-200/90",
-            hideSloganOnMobile && "hidden sm:inline",
-            sloganClassName,
-          )}
-        >
-          TÜRKİYE'NİN GAYRİMENKUL BORSASI
-        </span>
-      ) : null}
+      {slogan}
     </span>
   );
 }

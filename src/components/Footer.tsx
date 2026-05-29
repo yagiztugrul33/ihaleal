@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { BrandLockup } from "@/components/Logo";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
-import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen } from "lucide-react";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
 import { isProdBuild, localAuthEnabled } from "@/lib/runtimeFlags";
@@ -18,14 +19,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 min-w-0">
           {/* Brand */}
           <div className="lg:col-span-4 min-w-0">
-            <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                <Gavel className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-slate-50">ihaleal.com</span>
+            <div className="mb-5">
+              <BrandLockup logoSize="md" layout="inline" showSlogan />
             </div>
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
-              Türkiye&apos;nin en güvenli gayrimenkul ihale platformu. AI destekli değerleme, şeffaf süreç, hızlı satış.
+              AI destekli değerleme, şeffaf ihale süreci ve güvenli işlem altyapısı.
             </p>
             <div className="space-y-2.5">
               <div className="flex items-center gap-2.5">

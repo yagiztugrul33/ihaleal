@@ -1,9 +1,10 @@
 ﻿import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { LogIn, Mail, Lock, Eye, EyeOff, ArrowLeft, Building2, Factory } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { AuthBrandHeader } from "@/components/auth/AuthBrandHeader";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
@@ -52,33 +53,24 @@ export default function Login() {
         </Button>
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 space-y-5">
-            <div className="text-center mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                {kurumsalProfil === "emlakci" ? (
-                  <Building2 className="w-6 h-6 text-white" />
-                ) : kurumsalProfil === "muteahhit" ? (
-                  <Factory className="w-6 h-6 text-white" />
-                ) : (
-                  <LogIn className="w-6 h-6 text-white" />
-                )}
-              </div>
-              <h1 className="text-2xl font-bold text-white">
-                {kurumsalProfil === "emlakci"
+            <AuthBrandHeader
+              title={
+                kurumsalProfil === "emlakci"
                   ? "Emlakçı / kurumsal giriş"
                   : kurumsalProfil === "muteahhit"
                     ? "Müteahhit / proje girişi"
-                    : "Giriş Yap"}
-              </h1>
-              <p className="text-sm text-slate-400 mt-1">
-                {kurumsalProfil === "emlakci"
+                    : "Giriş Yap"
+              }
+              subtitle={
+                kurumsalProfil === "emlakci"
                   ? "Aynı hesap alıcı ve satıcı akışlarıyla da kullanılabilir. Giriş sonrası satıcı merkezine yönlendirilirsiniz."
                   : kurumsalProfil === "muteahhit"
                     ? "Ruhsat / stok ve lansman kilidi kuralları üretimde ayrı modüllerde uygulanır. Giriş sonrası ihale açma akışına yönlendirilirsiniz."
                     : isSupabaseConfigured()
                       ? "Supabase Auth ile güvenli oturum."
-                      : "Supabase .env yok — giriş için yapılandırın."}
-              </p>
-            </div>
+                      : "Supabase .env yok — giriş için yapılandırın."
+              }
+            />
             {kurumsalProfil === "emlakci" ? (
               <div className="rounded-xl border border-teal-500/25 bg-teal-500/5 px-3 py-2.5 text-xs text-teal-100/95 space-y-2 text-left">
                 <p className="font-medium text-teal-200">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
