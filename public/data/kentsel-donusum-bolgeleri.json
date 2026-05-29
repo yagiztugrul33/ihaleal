@@ -1,0 +1,487 @@
+{
+  "type": "FeatureCollection",
+  "name": "kentsel-donusum-bolgeleri-demo",
+  "updatedAt": "2026-05-19",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ist-kadikoy",
+        "city": "İstanbul",
+        "district": "Kadıköy",
+        "status": "riskli_alan",
+        "program": "6306 / rezerv alan",
+        "riskScore": 78,
+        "households": 1240,
+        "yearDeclared": 2019
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.01,
+              40.975
+            ],
+            [
+              29.06,
+              40.975
+            ],
+            [
+              29.06,
+              41.005
+            ],
+            [
+              29.01,
+              41.005
+            ],
+            [
+              29.01,
+              40.975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ist-fatih",
+        "city": "İstanbul",
+        "district": "Fatih",
+        "status": "yenileme",
+        "program": "6306",
+        "riskScore": 71,
+        "households": 890,
+        "yearDeclared": 2018
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              28.92,
+              41.005
+            ],
+            [
+              28.98,
+              41.005
+            ],
+            [
+              28.98,
+              41.035
+            ],
+            [
+              28.92,
+              41.035
+            ],
+            [
+              28.92,
+              41.005
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ist-umraniye",
+        "city": "İstanbul",
+        "district": "Ümraniye",
+        "status": "riskli_alan",
+        "program": "6306",
+        "riskScore": 82,
+        "households": 2100,
+        "yearDeclared": 2020
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.08,
+              41.01
+            ],
+            [
+              29.14,
+              41.01
+            ],
+            [
+              29.14,
+              41.05
+            ],
+            [
+              29.08,
+              41.05
+            ],
+            [
+              29.08,
+              41.01
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ist-kartal",
+        "city": "İstanbul",
+        "district": "Kartal",
+        "status": "rezerv",
+        "program": "rezerv alan / 6306",
+        "riskScore": 74,
+        "households": 1560,
+        "yearDeclared": 2017
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.16,
+              40.87
+            ],
+            [
+              29.22,
+              40.87
+            ],
+            [
+              29.22,
+              40.91
+            ],
+            [
+              29.16,
+              40.91
+            ],
+            [
+              29.16,
+              40.87
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ist-esenler",
+        "city": "İstanbul",
+        "district": "Esenler",
+        "status": "riskli_alan",
+        "program": "6306",
+        "riskScore": 85,
+        "households": 3200,
+        "yearDeclared": 2021
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              28.86,
+              41.04
+            ],
+            [
+              28.92,
+              41.04
+            ],
+            [
+              28.92,
+              41.08
+            ],
+            [
+              28.86,
+              41.08
+            ],
+            [
+              28.86,
+              41.04
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-izm-bornova",
+        "city": "İzmir",
+        "district": "Bornova",
+        "status": "yenileme",
+        "program": "6306",
+        "riskScore": 66,
+        "households": 720,
+        "yearDeclared": 2019
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              27.2,
+              38.44
+            ],
+            [
+              27.26,
+              38.44
+            ],
+            [
+              27.26,
+              38.48
+            ],
+            [
+              27.2,
+              38.48
+            ],
+            [
+              27.2,
+              38.44
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-izm-konak",
+        "city": "İzmir",
+        "district": "Konak",
+        "status": "riskli_alan",
+        "program": "6306 / sit yakini",
+        "riskScore": 73,
+        "households": 540,
+        "yearDeclared": 2018
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              27.12,
+              38.41
+            ],
+            [
+              27.18,
+              38.41
+            ],
+            [
+              27.18,
+              38.44
+            ],
+            [
+              27.12,
+              38.44
+            ],
+            [
+              27.12,
+              38.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-izm-karsiyaka",
+        "city": "İzmir",
+        "district": "Karşıyaka",
+        "status": "yenileme",
+        "program": "6306",
+        "riskScore": 69,
+        "households": 980,
+        "yearDeclared": 2020
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              27.08,
+              38.45
+            ],
+            [
+              27.14,
+              38.45
+            ],
+            [
+              27.14,
+              38.49
+            ],
+            [
+              27.08,
+              38.49
+            ],
+            [
+              27.08,
+              38.45
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-izm-bayrakli",
+        "city": "İzmir",
+        "district": "Bayrakli",
+        "status": "riskli_alan",
+        "program": "6306",
+        "riskScore": 80,
+        "households": 1850,
+        "yearDeclared": 2021
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              27.16,
+              38.45
+            ],
+            [
+              27.22,
+              38.45
+            ],
+            [
+              27.22,
+              38.49
+            ],
+            [
+              27.16,
+              38.49
+            ],
+            [
+              27.16,
+              38.45
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ank-cankaya",
+        "city": "Ankara",
+        "district": "Çankaya",
+        "status": "yenileme",
+        "program": "6306",
+        "riskScore": 58,
+        "households": 410,
+        "yearDeclared": 2019
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              32.82,
+              39.88
+            ],
+            [
+              32.88,
+              39.88
+            ],
+            [
+              32.88,
+              39.92
+            ],
+            [
+              32.82,
+              39.92
+            ],
+            [
+              32.82,
+              39.88
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ank-kecioren",
+        "city": "Ankara",
+        "district": "Keçiören",
+        "status": "riskli_alan",
+        "program": "6306",
+        "riskScore": 76,
+        "households": 1680,
+        "yearDeclared": 2020
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              32.84,
+              39.96
+            ],
+            [
+              32.9,
+              39.96
+            ],
+            [
+              32.9,
+              40
+            ],
+            [
+              32.84,
+              40
+            ],
+            [
+              32.84,
+              39.96
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kd-ank-etimesgut",
+        "city": "Ankara",
+        "district": "Etimesgut",
+        "status": "rezerv",
+        "program": "rezerv alan",
+        "riskScore": 64,
+        "households": 920,
+        "yearDeclared": 2018
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              32.62,
+              39.94
+            ],
+            [
+              32.68,
+              39.94
+            ],
+            [
+              32.68,
+              39.98
+            ],
+            [
+              32.62,
+              39.98
+            ],
+            [
+              32.62,
+              39.94
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

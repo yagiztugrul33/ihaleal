@@ -16,5 +16,11 @@ export { default as BinaRiskSorguPage } from "./BinaRiskSorguPage";
 export { default as CanliDepremTakipPage } from "./CanliDepremTakipPage";
 export { default as GuclendirmeRehberiPage } from "./GuclendirmeRehberiPage";
 
+// R12.14 Faz A-2 — Harita modülleri
+export { default as AfetRiskHaritasiPage } from "./AfetRiskHaritasiPage";
+export { default as ParselZekasiPage } from "./ParselZekasiPage";
+export { default as KentselDonusumPage } from "./KentselDonusumPage";
+export { default as AfetToplanmaAlanlariPage } from "./AfetToplanmaAlanlariPage";
+
 export { default as KomsulukRiskCharts } from "./KomsulukRiskCharts";
 export { ModuleRelatedStrip, type RelatedModuleCard } from "./ModuleRelatedStrip";

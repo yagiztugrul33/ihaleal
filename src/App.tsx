@@ -136,6 +136,11 @@ const DepremRiskHaritasiPage = lazy(() => import("@/pages/modules/DepremRiskHari
 // R12.5 — Deprem modülü 2 sayfa daha (canli takip + güçlendirme)
 const CanliDepremTakipPage   = lazy(() => import("@/pages/modules/CanliDepremTakipPage"));
 const GuclendirmeRehberiPage = lazy(() => import("@/pages/modules/GuclendirmeRehberiPage"));
+// R12.14 Faz A-2 — Harita modülleri (4 sayfa)
+const AfetRiskHaritasiPage       = lazy(() => import("@/pages/modules/AfetRiskHaritasiPage"));
+const ParselZekasiPage           = lazy(() => import("@/pages/modules/ParselZekasiPage"));
+const KentselDonusumPage         = lazy(() => import("@/pages/modules/KentselDonusumPage"));
+const AfetToplanmaAlanlariPage   = lazy(() => import("@/pages/modules/AfetToplanmaAlanlariPage"));
 
 function App() {
   return (
@@ -399,6 +404,11 @@ function App() {
             {/* R12.5 — Deprem modülü 2 sayfa daha */}
             <Route path="/modul/canli-deprem-takip" element={<CanliDepremTakipPage />} />
             <Route path="/modul/guclendirme-rehberi" element={<GuclendirmeRehberiPage />} />
+            {/* R12.14 Faz A-2 — Harita modülleri (4 sayfa) */}
+            <Route path="/modul/afet-risk-haritasi" element={<AfetRiskHaritasiPage />} />
+            <Route path="/modul/parsel-zekasi" element={<ParselZekasiPage />} />
+            <Route path="/modul/kentsel-donusum" element={<KentselDonusumPage />} />
+            <Route path="/modul/afet-toplanma-alanlari" element={<AfetToplanmaAlanlariPage />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route
