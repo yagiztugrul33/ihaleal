@@ -36,7 +36,7 @@ export function propertyMatchesEarthquakeUrlParams(
   const cls = sp.get("dpSinif") as EarthquakeFilterSnapshot["seismicClassGuess"] | "";
   if (cls && f.seismicClassGuess !== cls) return false;
 
-  const rg = sp.get("dpBolge") as EarthquakeFacets["regionalHazard"] | "";
+  const rg = sp.get("dpBolge") as EarthquakeFilterSnapshot["regionalHazard"] | "";
   if (rg && f.regionalHazard !== rg) return false;
 
   const vr = sp.get("dpKat") as EarthquakeFilterSnapshot["verticalRisk"] | "";

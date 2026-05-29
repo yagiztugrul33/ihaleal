@@ -4,6 +4,8 @@ import { Share2, X, Copy, Check, Facebook, Twitter, Linkedin, Mail } from "lucid
 interface ShareButtonProps {
   title: string;
   url: string;
+  inviteText?: string;
+  className?: string;
 }
 
 export function ShareButton({ title, url }: ShareButtonProps) {

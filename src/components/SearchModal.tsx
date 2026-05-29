@@ -5,17 +5,21 @@ import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/aucti
 import { Button } from "@/components/ui/button";
 
 interface SearchModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function SearchModal({ isOpen, onClose }: SearchModalProps) {
+export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModalProps) {
+  const effectiveOpen = isOpen ?? open ?? false;
+  const handleClose = onClose ?? (() => onOpenChange?.(false));
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!effectiveOpen) return;
     let ok = true;
     void loadAllAuctionsForSearch().then((rows) => {
       if (ok) setCatalog(rows);
@@ -23,7 +27,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     return () => {
       ok = false;
     };
-  }, [isOpen]);
+  }, [effectiveOpen]);
 
   const results = query.length >= 2 ? catalog.filter((a) =>
     a.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -34,13 +38,13 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     (a.tags && a.tags.some((t) => t.toLowerCase().includes(query.toLowerCase())))
   ) : [];
 
-  if (!isOpen) return null;
+  if (!effectiveOpen) return null;
 
   return (
     <div
       className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center pt-24 px-4"
-      onClick={onClose}
-      onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
+      onClick={handleClose}
+      onKeyDown={(e) => { if (e.key === "Escape") handleClose(); }}
       role="button"
       tabIndex={-1}
       aria-label="Arama modalını kapat"
@@ -68,7 +72,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 <X className="w-4 h-4" />
               </button>
             )}
-            <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-white/10 text-slate-500">
+            <button onClick={handleClose} className="p-1.5 rounded-lg hover:bg-white/10 text-slate-500">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -104,7 +108,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {results.slice(0, 10).map((auction) => (
                 <button
                   key={auction.id}
-                  onClick={() => { navigate(`/ilan/${auction.id}`); onClose(); }}
+                  onClick={() => { navigate(`/ilan/${auction.id}`); handleClose(); }}
                   className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors text-left"
                 >
                   <img loading="lazy" src={auction.images[0]} alt="" className="w-16 h-12 object-cover rounded-lg flex-shrink-0" />
@@ -135,7 +139,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     className="w-full border-slate-200 text-slate-200 hover:bg-white/5"
                     onClick={() => {
                       navigate(`/arama?q=${encodeURIComponent(query)}`);
-                      onClose();
+                      handleClose();
                     }}
                   >
                     Tüm sonuçları sayfada göster

@@ -54,7 +54,7 @@ export default function Login() {
           <CardContent className="p-6 space-y-5">
             <div className="text-center mb-6">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                {kurumsalProfil === "emlakçı" ? (
+                {kurumsalProfil === "emlakci" ? (
                   <Building2 className="w-6 h-6 text-white" />
                 ) : kurumsalProfil === "muteahhit" ? (
                   <Factory className="w-6 h-6 text-white" />
@@ -63,14 +63,14 @@ export default function Login() {
                 )}
               </div>
               <h1 className="text-2xl font-bold text-white">
-                {kurumsalProfil === "emlakçı"
+                {kurumsalProfil === "emlakci"
                   ? "Emlakçı / kurumsal giriş"
                   : kurumsalProfil === "muteahhit"
                     ? "Müteahhit / proje girişi"
                     : "Giriş Yap"}
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {kurumsalProfil === "emlakçı"
+                {kurumsalProfil === "emlakci"
                   ? "Aynı hesap alıcı ve satıcı akışlarıyla da kullanılabilir. Giriş sonrası satıcı merkezine yönlendirilirsiniz."
                   : kurumsalProfil === "muteahhit"
                     ? "Ruhsat / stok ve lansman kilidi kuralları üretimde ayrı modüllerde uygulanır. Giriş sonrası ihale açma akışına yönlendirilirsiniz."
@@ -79,7 +79,7 @@ export default function Login() {
                       : "Supabase .env yok — giriş için yapılandırın."}
               </p>
             </div>
-            {kurumsalProfil === "emlakçı" ? (
+            {kurumsalProfil === "emlakci" ? (
               <div className="rounded-xl border border-teal-500/25 bg-teal-500/5 px-3 py-2.5 text-xs text-teal-100/95 space-y-2 text-left">
                 <p className="font-medium text-teal-200">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
                 <ul className="list-disc pl-4 space-y-1 text-slate-400">
@@ -190,7 +190,7 @@ export default function Login() {
                 type="button"
                 onClick={() =>
                   navigate(
-                    kurumsalProfil === "emlakçı"
+                    kurumsalProfil === "emlakci"
                       ? "/kayit?profil=emlakçı"
                       : kurumsalProfil === "muteahhit"
                         ? "/kayit?profil=muteahhit"
@@ -219,7 +219,7 @@ export default function Login() {
                 <Link to="/giris" className="text-blue-400 hover:underline block">
                   Standart (bireysel) giriş
                 </Link>
-                {kurumsalProfil === "emlakçı" ? (
+                {kurumsalProfil === "emlakci" ? (
                   <Link to="/giris?profil=muteahhit" className="text-amber-300 hover:underline block">
                     Müteahhit girişi
                   </Link>

@@ -78,7 +78,7 @@ export default function Register() {
           <CardContent className="p-6 space-y-5">
             <div className="text-center mb-6">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                {kurumsalProfil === "emlakçı" ? (
+                {kurumsalProfil === "emlakci" ? (
                   <Building2 className="w-6 h-6 text-white" />
                 ) : kurumsalProfil === "muteahhit" ? (
                   <Factory className="w-6 h-6 text-white" />
@@ -87,14 +87,14 @@ export default function Register() {
                 )}
               </div>
               <h1 className="text-2xl font-bold text-white">
-                {kurumsalProfil === "emlakçı"
+                {kurumsalProfil === "emlakci"
                   ? "Kurumsal / emlakçı kaydı"
                   : kurumsalProfil === "muteahhit"
                     ? "Müteahhit / proje kaydı"
                     : "Kayıt Ol"}
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {kurumsalProfil === "emlakçı"
+                {kurumsalProfil === "emlakci"
                   ? "Ofis veya yetkili temsilci hesabı; doğrulama ve B2B sözleşme üretimde tamamlanır."
                   : kurumsalProfil === "muteahhit"
                     ? "Ruhsat ve ön tahsis evrak çizgisi üretimde tamamlanır; kayıt sonrası ihale açma ekranına yönlendirilirsiniz."
@@ -209,7 +209,7 @@ export default function Register() {
                 type="button"
                 onClick={() =>
                   navigate(
-                    kurumsalProfil === "emlakçı"
+                    kurumsalProfil === "emlakci"
                       ? "/giris?profil=emlakçı"
                       : kurumsalProfil === "muteahhit"
                         ? "/giris?profil=muteahhit"

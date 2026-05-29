@@ -105,7 +105,7 @@ export function safeCalculateGesFeasibility(input: GesFeasibilityInput): GesFeas
   } catch (e) {
     const reason = e instanceof GesValidationError ? e.message : "GES hesaplamasi basarisiz.";
     return sanitizeGesLegacyResult({
-      studyLabel: "on fizibilite",
+      studyLabel: "ön fizibilite",
       dataSource: "ghi_annual_fallback",
       annualProductionKwh: 0,
       npvTry: 0,

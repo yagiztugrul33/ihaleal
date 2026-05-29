@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import type { AccountSegment } from "@/lib/auth";
 import { persistLocalSessionUser } from "@/lib/localSession";
 
+type AuthMode = "login" | "register";
+
 const userTypes: { id: AccountSegment; label: string; icon: ReactNode; desc: string; badge: string }[] = [
   { id: "individual", label: "Bireysel Kullanıcı", icon: <User className="w-5 h-5" />, desc: "Mülk arayan, kiralayan veya satın alan kullanıcı", badge: "Alıcı / Kiracı" },
   { id: "realtor", label: "Emlakçı / Danışman", icon: <Building2 className="w-5 h-5" />, desc: "Gayrimenkul danışmanı ve aracı kurum yetkilisi", badge: "Aracı" },
