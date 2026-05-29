@@ -160,7 +160,7 @@ export default function MuteahhitPanelPage() {
       <div className="min-h-screen pt-24 px-4 text-center text-slate-300">
         <p className="mb-4">Bu paneli görüntülemek için giriş yapın.</p>
         <Button asChild>
-          <Link to="/login?next=/muteahhit/panel">Giriş yap</Link>
+          <Link to="/giris?next=/muteahhit/panel">Giriş yap</Link>
         </Button>
       </div>
     );
@@ -178,7 +178,7 @@ export default function MuteahhitPanelPage() {
         </p>
         <div className="flex flex-wrap gap-2 justify-center">
           <Button asChild>
-            <Link to="/register?kurumsal=muteahhit">Müteahhit hesabı aç</Link>
+            <Link to="/kayit?profil=muteahhit">Müteahhit hesabı aç</Link>
           </Button>
           <Button asChild variant="outline">
             <Link to="/">Ana sayfa</Link>
