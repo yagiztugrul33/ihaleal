@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { AlertTriangle, ShieldAlert } from "lucide-react";
 import { Radar, RadarChart, PolarAngleAxis, PolarGrid, ResponsiveContainer, Tooltip } from "recharts";
 import { ModuleDataTable, ModulePanel, ModulePdfCta, ModuleShell, ModuleStatGrid, ModuleTag } from "./ModuleShell";
+// PAKET 6 — AfetDisasterHub wire (Faz A-1'den tree-shake'ten lazy chunk'a)
+import { AfetDisasterHub } from "@/components/property/AfetDisasterHub";
+import { getAllProperties } from "@/lib/demo-data";
 
 type RiskRow = {
   id: string;
@@ -50,6 +53,9 @@ export default function AfetRiskHaritasiPage() {
     { label: "Sigorta Prim Etkisi", value: "+%18", hint: "DASK + konut" },
     { label: "Guvenli Bolge", value: "2,1 km", hint: "Toplanma alani" },
   ];
+
+  // PAKET 6 — Showcase: ilk mülk üzerinde Disaster Hub render (mock demo property)
+  const showcaseProperty = useMemo(() => getAllProperties()[0], []);
 
   return (
     <ModuleShell
@@ -122,6 +128,15 @@ export default function AfetRiskHaritasiPage() {
           <div className="mod-empty">Konum bilgisini girin; fay yakınlığı, zemin bandı ve operasyonel risk katmanlarını tek harita çıktısında görün.</div>
         )}
       </div>
+
+      {/* PAKET 6 — Disaster Hub showcase (mock demo property üzerinde) */}
+      {showcaseProperty ? (
+        <div className="mt-8">
+          <ModulePanel title="Disaster Hub — Örnek Mülk Analizi">
+            <AfetDisasterHub property={showcaseProperty} />
+          </ModulePanel>
+        </div>
+      ) : null}
     </ModuleShell>
   );
 }
