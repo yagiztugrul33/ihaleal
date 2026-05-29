@@ -89,7 +89,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: string) {
-          if (isCiBuild) return undefined
           if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
             return "vendor-react"
           }
@@ -98,6 +97,9 @@ export default defineConfig({
           }
           if (id.includes("node_modules/recharts")) {
             return "vendor-charts"
+          }
+          if (id.includes("node_modules/leaflet")) {
+            return "vendor-leaflet"
           }
           if (id.includes("node_modules/lucide-react")) {
             return "vendor-ui"
