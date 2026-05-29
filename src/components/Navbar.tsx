@@ -385,15 +385,16 @@ export function Navbar() {
               <Search className="h-4 w-4" /> {n.search}
             </button>
             {/* R12.1 — Borsa CTA mobile (prominent) */}
-            <Link
-              to="/borsa"
-              onClick={() => setMobileOpen(false)}
-              className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg px-3 py-3 text-sm font-semibold text-white no-underline"
+            <Button
+              asChild
+              className="mb-3 flex h-auto w-full items-center justify-center gap-2 rounded-lg px-3 py-3 text-sm font-semibold text-white no-underline"
               style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               data-testid="nav-mobile-borsa-cta"
             >
-              Borsaya Gir
-            </Link>
+              <Link to="/borsa" onClick={() => setMobileOpen(false)}>
+                Borsaya Gir
+              </Link>
+            </Button>
             <NavLink
               to={ROUTES.ILANLAR}
               onClick={() => setMobileOpen(false)}
@@ -520,13 +521,13 @@ export function Navbar() {
               >
                 {n.logIn}
               </Link>
-              <Link
-                to="/kayit"
-                className="flex-1 rounded-lg py-2.5 text-center text-sm font-semibold text-white no-underline"
+              <Button
+                asChild
+                className="h-auto flex-1 rounded-lg py-2.5 text-center text-sm font-semibold text-white no-underline"
                 style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               >
-                {n.signUp}
-              </Link>
+                <Link to="/kayit">{n.signUp}</Link>
+              </Button>
             </div>
           </div>
         ) : null}
