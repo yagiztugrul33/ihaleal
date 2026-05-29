@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
+import { getActiveOrgId } from "@/lib/activeOrgId";
 
 export interface DeveloperProject {
   id: string;
@@ -86,11 +87,14 @@ export function useDeveloperProjects() {
       return;
     }
     setLoading(true);
-    const { data, error: err } = await supabase
-      .from("developer_projects")
-      .select("*")
-      .eq("owner_user_id", user.id)
-      .order("created_at", { ascending: false });
+    const activeOrgId = await getActiveOrgId();
+    let query = supabase.from("developer_projects").select("*").order("created_at", { ascending: false });
+    if (activeOrgId) {
+      query = query.or(`org_id.eq.${activeOrgId},owner_user_id.eq.${user.id}`);
+    } else {
+      query = query.eq("owner_user_id", user.id);
+    }
+    const { data, error: err } = await query;
     if (err) {
       setError(err.message);
       setProjects([]);
@@ -108,11 +112,13 @@ export function useDeveloperProjects() {
   const createProject = useCallback(
     async (input: NewProjectInput): Promise<{ data: DeveloperProject | null; error: string | null }> => {
       if (!user) return { data: null, error: "Giriş yapın" };
+      const activeOrgId = await getActiveOrgId();
       const { data, error: err } = await supabase
         .from("developer_projects")
         .insert({
           ...input,
           owner_user_id: user.id,
+          org_id: activeOrgId ?? null,
           stage: input.stage ?? "planning",
         })
         .select()
@@ -201,6 +207,8 @@ export async function publishUnitAsListing(
   const { data: user } = await supabase.auth.getUser();
   if (!user.user) return { listingId: null, error: "Giriş yapın" };
 
+  const activeOrgId = await getActiveOrgId();
+
   // listings INSERT (R14 extension fields)
   const { data: listing, error: listErr } = await supabase
     .from("listings")
@@ -212,6 +220,7 @@ export async function publishUnitAsListing(
         marketing_mode: options.marketing_mode ?? "hemen_al_lansman",
         description: options.description ?? "",
       },
+      organization_id: activeOrgId ?? null,
       project_id: projectId,
       unit_id: unitId,
       is_lansman: true,
