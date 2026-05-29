@@ -1,6 +1,45 @@
-# Kalan İşler — R12 FINAL kapanış (2026-05-30)
+# Kalan İşler — 10-Komut Zinciri Final (2026-05-30 akşam)
 
-## 🚨 KRİTİK — TS Tip Sağlığı Bozuk (2026-05-29 tespit)
+## ✅ R12 TEMİZ BASELINE (operasyonel — sweep doğrulandı)
+
+| Alan | Durum | Kanıt |
+|---|---|---|
+| **118+ route HTTP shell** | ✅ | [`ENDPOINT_SWEEP.md`](./ENDPOINT_SWEEP.md) — 73 kritik path 200/200 |
+| **R6 bundle split prod** | ✅ | `index-BH3oeyCz.js` 300 KB + `vendor-charts` 445 KB |
+| **Console cleanup** | ✅ | `d564a04` main |
+| **Sprint 3 RLS** | ✅ | listings/auctions 200, profiles 401 |
+| **R12.14 Faz A (A-1→A-4)** | ✅ | 32 modül route 200 |
+| **Edge kısmi** | 🟡 | `ai_qa` + `earthquakes_latest` → 401 (deployed) |
+
+## 🚨 KRİTİK — TS + v0.12.8 (devam ediyor)
+
+Fresh `tsc -p tsconfig.app.json --noEmit` → **27 hata** (2026-05-30 akşam). **v0.12.8 tag ATILMADI** (remote: yalnızca v0.12.6).
+
+**TS Sprint 2 ilerleme:** 131 → 33 → **27** (paket 1–7 main'de; hedef 0)
+
+## 📋 R13 SIRADA (plan onaylı — [`R13_PANTSIR_PLAN.md`](./R13_PANTSIR_PLAN.md))
+
+| Paket | Durum |
+|---|---|
+| **R13.4 Pantsir UI** | 🔴 **SIRADA** (plan only — kod yok) |
+| **R13.2 Yakın POI** | 🔴 **SIRADA** (`nearby-poi` Edge 404) |
+| **R13.1 Geofence web** | 🔴 **SIRADA** |
+| **R13.3 Sosyo ETL (TÜİK/MEB)** | 🔴 **SIRADA** |
+| **R13.5 Mobile geofence** | 🔴 **SIRADA** (`ihaleal-mobile`) |
+
+## 📱 K-M6 Mobile → SIRADA
+
+4 auth-bound ekran mock → Supabase ([`K_M6_KAPSAM.md`](./K_M6_KAPSAM.md)) — ~11–16 saat
+
+## 🏛 Master resmi işler (ürün kararı)
+
+- **Banka + escrow PSP** entegrasyonu
+- **Avukat** süreç / sözleşme
+- **Şirket** resmi yapılandırma
+
+---
+
+## 🚨 KRİTİK — TS Tip Sağlığı (detay — 2026-05-29 tespit, güncel 27 hata)
 
 Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) exit code 2 verdi. Önceki audit'lerdeki "0 hata" iddiası incremental cache ile doğrulanmıştı; fresh build ile gerçek durum farklı çıktı.
 
@@ -51,7 +90,7 @@ Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) exit code 2 
 - R12 sprint **TAMAMLANMIŞ DEĞİL** — bu hataları gidermek zorunlu
 - "TS sağlık temizliği" sprint'i gerekli (~3–5 saat)
 - Sıra: (a) Valuation lib, (b) Faz A tip senkron, (c) npm ci, (d) prop fix
-- PR merge (R6 + Console) **BEKLET** — temiz baseline'a merge daha güvenli
+- PR merge (R6 + Console) ✅ **TAMAMLANDI** — cherry-pick `99f8f39`, `d564a04`
 - **v0.12.7 tag ATMA** — TS yeşil olmadan release etiketi yanlış sinyal
 
 ### Etki
@@ -72,7 +111,7 @@ Bugün master sabah 500 hata gördü, **5 hotfix** deploy edildi:
 | `a385675` | Navbar mobil + premium-btn `Button asChild` pattern |
 | `2fa878a` | Logo SVG vektör final (mavi-teal gradient + ev silhouette) |
 
-**Bundle son hash (prod):** `index-CxLieDEe.js`  
+**Bundle son hash (prod):** `index-BH3oeyCz.js` + `vendor-charts-DUXOCkR2.js`  
 **Site sağlam:** HTTP 200, runtime crash yok (ErrorBoundary tetiklenmiyor).
 
 **Claude Code paralel TS sağlık sprint** (6 paket, ~3–5 saat):
@@ -158,8 +197,10 @@ v0.12.7 yerine `v0.12.7-pre-stable` veya bekle `v0.12.8` ile temiz baseline'a ta
 |---|---|---|
 | Faz A-5 finalize | `advancedValuation.ts` + ValuationWorkbench compile | Claude Code main'de |
 | N4 Ders route | `b11f8b6` merge edildi | ✅ fix canlı main'de |
-| R6 CI bundle | `feat/r6-ci-bundle-budget-fix` @ `8ef0c10` | PR açık — merge bekliyor |
-| Console cleanup | `feat/cleanup-console-logs` @ `5f68e88` | PR açık — merge bekliyor |
+| R6 CI bundle | `99f8f39` cherry-pick main | ✅ **Prod doğrulandı** |
+| Console cleanup | `d564a04` cherry-pick main | ✅ |
+| TS Sprint 2 | paket 1–7 | 🔄 **27 hata kaldı** |
+| v0.12.8 tag | TS 0 sonrası | ⏳ |
 
 ---
 
@@ -174,8 +215,10 @@ v0.12.7 yerine `v0.12.7-pre-stable` veya bekle `v0.12.8` ile temiz baseline'a ta
 | **N5** | %5 kapora UI prominent gösterim (backend guard var) | Ürün kararı | ⏳ **AÇIK** |
 | **N6** | ChatWidget → hibrit rewire (`buildAssistantReply` + Edge `ai_qa`) | [`AI_CHATWIDGET_REWIRE.md`](./AI_CHATWIDGET_REWIRE.md) | ⏳ **AÇIK** (TS sprint sonrası UX karar) |
 | **K-M6** | Mobile auth-bound: mesajlar/bildirimler/favoriler/belgeler mock → Supabase | [`K_M6_KAPSAM.md`](./K_M6_KAPSAM.md) | ⏳ **AÇIK** (4 tablo + 4 ekran, ~11–16 saat) |
-| **Faz A-5 gap** | `src/lib/valuation/advancedValuation.ts` eksik → Değerleme runtime risk | Faz A-5 envanter | 🔴 |
-| **Prod bundle** | Canlı 930 KB monolit — R6 PR merge + redeploy | `_audit/BUNDLE_FINAL.md` | 🔴 |
+| **Faz A-5 gap** | `advancedValuation.ts` eklendi `0683451` — TS hâlâ kırık parçalar | 🟡 |
+| **Prod bundle** | R6 split canlı | ✅ **ÇÖZÜLDÜ** |
+| **R13.4 Pantsir** | Tek panel UI | 🔴 **SIRADA** |
+| **R13.2 POI** | nearby-poi Edge | 🔴 **SIRADA** |
 
 ---
 
@@ -219,23 +262,21 @@ Master sabah: DNS apex, Vercel plan, isimtescil hosting paket kontrolü (önceki
 
 ---
 
-## 🎯 Önerilen sıra (Master akşam)
+## 🎯 Önerilen sıra (Master — 10-komut sonrası)
 
-1. 🔴 **TS sağlık sprint raporu** — Claude Code paralel çıktı; fresh `tsc` yeşil mi?
-2. 🔴 **v0.12.8 tag** — TS yeşil sonrası (Claude Code veya master teyit)
-3. 🔴 **R6 + Console PR merge** — TS baseline temizlenince (`gh auth login` + ~5 dk)
-4. 🔴 **KYC** — 1 user manuel verify ([`KYC_VERIFY_TASLAK.md`](./KYC_VERIFY_TASLAK.md))
-5. 🟡 **Edge function selektif deploy** — `ai_qa` + `earthquakes_latest` + `pvgis_solar` ([`EDGE_FUNCTIONS_DEPLOY_STATUS.md`](./EDGE_FUNCTIONS_DEPLOY_STATUS.md))
-6. 🟡 **N6 ChatWidget** hibrit UX kararı + rewire (~1 saat)
-7. 🟡 **K-M6.1** favorites (en basit auth-bound ekran)
-8. 🟢 **N3** PremiumCinematic lazy (düşük öncelik)
+1. 🔴 **TS Sprint 2 bitir** — 27 → 0 hata → **v0.12.8 tag**
+2. 🔴 **KYC** — 1 user manuel verify ([`KYC_VERIFY_TASLAK.md`](./KYC_VERIFY_TASLAK.md))
+3. 🟡 **Edge kalan** — `pvgis_solar`, `post_chat_message` deploy
+4. 🟡 **R13.4 Pantsir UI mock** — 1 gün görünür kazanım ([`R13_PANTSIR_PLAN.md`](./R13_PANTSIR_PLAN.md))
+5. 🟡 **R13.2 POI API** — `nearby-poi` Edge + UI
+6. 🟡 **R13.1 + R13.3 + R13.5** — geofence + ETL + mobile
+7. 🟡 **K-M6 Mobile** — 4 auth-bound ekran
+8. 🟠 **Master resmi** — banka + avukat + şirket
+9. 🟢 **N6 ChatWidget** hibrit UX
+10. 🟢 **R12.4 Multilang** — ayrı sprint
 
-**Production crisis recovery ✅ (5 hotfix). TS tip katmanı hâlâ acil.** v0.12.8 tag TS yeşil olmadan atılmamalı.
+**R12 operasyonel baseline ✅. R13 + TS + KYC sırada.**
 
 ---
 
-**Son güncelleme:** 2026-05-29 ~15:30 — Cursor FINAL audit temizlik (5 hotfix kaydı + N1 logo ✅ + TS sprint paralel)
-
-**Güncelleme:** 2026-05-30 — Cursor R12 FINAL BATCH MOD A (8 audit iş)
-
-**Güncelleme:** 2026-05-29 sabah — v0.12.7 tag durumu netleşti (hiçbir yerde yok, ✅ çözüldü)
+**Son güncelleme:** 2026-05-30 akşam — 10-komut zinciri final sweep + R12 baseline ✅ + R13 sıra + TS 27 hata

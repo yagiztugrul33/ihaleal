@@ -1,6 +1,6 @@
 # Edge Functions — Deploy Status
 
-**Tarih:** 2026-05-29 sabah (Cursor prod curl + bundle taraması)  
+**Tarih:** 2026-05-30 akşam (10-komut zinciri re-test)  
 **Production Supabase:** `https://wsjifesrdaeorrdzbvmk.supabase.co`  
 **Yöntem:** Anon POST test + bundle string grep (salt-okuma)
 
@@ -10,11 +10,10 @@
 
 | Function | UI / kod konumu | Etki |
 |---|---|---|
-| **`ai_qa`** | `ChatWidget` QA modu → `invokeSystemQa()` | Kullanıcı mesaj gönderince **404**; try/catch sarılı, UI çökmez; fallback guide motoru |
-| **`post_chat_message`** | `Messages.tsx`, `postChatMessageClient.ts` | Mesaj gönderiminde Edge fail; `/mesajlar` akışı kısıtlı |
-| **`tcmb_yiufe`** | `tcmbYiUfeClient.ts`, Vergi simülatörü metni | TCMB Yİ-ÜFE canlı seri yok → demo/fallback |
 | **`pvgis_solar`** | `pvgisClient.ts`, `/modul/ges-analizi` | GES analizi tam canlı PVGIS verisi almayabilir |
-| **`earthquakes_latest`** | `LiveEarthquakeTicker.tsx`, `/modul/canli-deprem-takip` | Canlı deprem feed boş / fallback |
+| **`nearby-poi`** | R13.2 plan — henüz kod yok | POI API yok |
+| **`post_chat_message`** | `Messages.tsx`, `postChatMessageClient.ts` | Mesaj gönderiminde Edge fail; `/mesajlar` akışı kısıtlı |
+| **`tcmb_yiufe`** | `tcmbYiUfeClient.ts`, Vergi simülatörü metti | TCMB Yİ-ÜFE canlı seri yok → demo/fallback |
 | **`payments-iyzico`**, **`payments-paytr`** | Ödeme akışları (henüz prod PSP yok) | Beklenen — ürün kararı öncesi deploy yok |
 | **`place_bid`** (underscore) | Eski isim | **404** — deploy adı `place-bid` (tire) |
 
@@ -24,13 +23,25 @@
 
 | Function | Auth / KYC | Not |
 |---|---|---|
+| **`ai_qa`** | Evet | ✅ **2026-05-30 re-test: 401** (404 değil) |
+| **`earthquakes_latest`** | Anon read hedef | ✅ **401** POST (deployed; auth/CORS — OPTIONS 200) |
 | **`ai-price-estimate`** | Evet; KYC verified hedeflenir | Bid/AI fiyat akışı |
 | **`place-bid`** | Evet (auth) | Teklif RPC zinciri |
 | **`kyc-submit`** | Evet (auth) | KYC başvuru |
 | **`bulk-listing-ingest`** | Evet (admin) | Toplu ilan |
 | **`matching-fanout`** | Evet (cron/internal) | Eşleştirme fan-out |
 
-**401 anon test = gerçek hata değil** — oturum/KYC/admin token gerekir.
+**401 anon test = deployed** — oturum/KYC/admin token gerekir.
+
+---
+
+## Önceki durum (2026-05-29 sabah) — güncellendi
+
+| Function | Eski | Yeni (2026-05-30) |
+|---|---|---|
+| `ai_qa` | 404 | **401** ✅ deployed |
+| `earthquakes_latest` | 404 | **401** ✅ deployed |
+| `pvgis_solar` | 404 | **404** (değişmedi) |
 
 ---
 

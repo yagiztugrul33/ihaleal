@@ -1,9 +1,9 @@
 # MASTER TESLİMAT RAPORU — R12 FINAL Kapanış
 
-**Tarih:** 2026-05-29 ~15:30 (FINAL audit temizlik)  
-**HEAD:** `665dd2c` — *Master geri bildirim mega temizlik*  
-**Prod bundle:** `index-CxLieDEe.js`  
-**Mod:** Cursor audit-only — `_audit/` markdown (web `src/` dokunulmadı)
+**Tarih:** 2026-05-30 akşam (10-komut zinciri final sweep)  
+**HEAD:** `c2c020f` — audit + R13 plan + envanter  
+**Prod bundle:** `index-BH3oeyCz.js` (+ `vendor-charts` 445 KB)  
+**Mod:** Cursor audit-only — `_audit/` markdown + canlı curl sweep
 
 ---
 
@@ -69,6 +69,27 @@ Cursor + Claude Code çapraz tanı → kök neden net.
 
 Bu olay R12 sprint sürecini kıymetli kıldı: hızlı tanı, dürüst tespit, atomik fix, çapraz doğrulama.
 
+### A.4 — 29 Mayıs Akşam: 10-Komut Zinciri — Kümülatif Durum (2026-05-30 sweep)
+
+Master 10-komut zinciri kapanış sweep'i (Cursor salt-okuma + curl). **Doğrulanan canlı durum:**
+
+| Komut / iş | Master hedef | Sweep doğrulama |
+|---|---|---|
+| **R12 temiz baseline** | Faz A + modüller canlı | ✅ **73/73 path HTTP 200** (iPhone UA) |
+| **R6 CI bundle** | vendor split | ✅ Prod `index-BH3oeyCz.js` **300 KB** + `vendor-charts` **445 KB** (`99f8f39`) |
+| **Console cleanup** | 15→6 | ✅ main `d564a04` |
+| **TS Sprint 2 → v0.12.8** | tsc 0 + tag | ❌ Fresh **tsc = 27 hata**; tag **yok** (yalnızca v0.12.6) |
+| **KYC verify** | 1 user SQL | ⏳ Audit kanıtı yok — [`KYC_VERIFY_TASLAK.md`](./KYC_VERIFY_TASLAK.md) hazır |
+| **R13.4 Pantsir UI** | İlan yanı panel | ❌ **`PantsirPanel` repo + bundle yok** — plan: `3c094b1` |
+| **R13.2 Yakın POI** | Edge + UI | ❌ **`nearby-poi` 404**; `NearbyPOIList` yok |
+| **Edge deploy** | ai_qa + deprem + pvgis | 🟡 **Kısmi:** `ai_qa` **401**, `earthquakes_latest` **401**; `pvgis_solar` **404** |
+| **Supabase REST** | listings/auctions 200 | ✅ listings **200**, auctions **200**, profiles **401** |
+| **Audit paketi** | Envanter + plan | ✅ [`FEATURE_INVENTORY.md`](./FEATURE_INVENTORY.md), [`R13_PANTSIR_PLAN.md`](./R13_PANTSIR_PLAN.md) |
+
+**Dürüst özet:** R12 **operasyonel baseline temiz** (route + bundle + kısmi Edge). R13 **plan aşamasında** — Pantsir/POI henüz kodda değil. **v0.12.8** TS 0 olmadan atılmamalı.
+
+**Prod bundle geçmişi:** `CxLieDEe` → `BIoS6Azi` → **`BH3oeyCz`** (R6 split doğrulandı)
+
 ### Durum
 
 **ihaleal R12 sprint operasyonel olarak ilerledi; tip katmanı tamamlanmadı.** Production shell sağlam: **118/118 route HTTP 200**, Sprint 3 RLS sağlıklı (listings/auctions anon 200, profiles anon 401). Gece boyunca Faz A paketi (A-1→A-5), N2 PDF, R12.7 calculators, R12.10 AI engine, ders route fix ve AfetDisasterHub wire main'e girdi — ancak fresh `tsc` tip borcunu ortaya çıkardı.
@@ -88,13 +109,14 @@ Bu olay R12 sprint sürecini kıymetli kıldı: hızlı tanı, dürüst tespit, 
 
 | Kontrol | Sonuç |
 |---|---|
-| **Fresh tsc (cache temiz)** | ❌ **exit code 2 — KRİTİK** |
-| Vercel shell (118 path) | ✅ Yeşil |
+| **Fresh tsc (cache temiz)** | ❌ **27 hata** (hedef 0 → v0.12.8) |
+| Vercel shell (73 kritik path sweep) | ✅ **73/73** HTTP 200 |
 | Supabase anon listings | ✅ 200 |
 | Supabase anon auctions | ✅ 200 |
 | Supabase anon profiles | ✅ 401 (beklenen) |
-| Canlı bundle budget | ⚠️ **930 KB** monolit (R6 PR merge öncesi) |
-| Lokal bundle budget | ✅ vendor-charts 456 KB < 819 KB |
+| Canlı bundle budget | ✅ **vendor-charts 445 KB** < 819 KB |
+| Edge ai_qa / earthquakes | ✅ **401** (deployed) |
+| R13 Pantsir / POI | ❌ Repo + bundle yok |
 
 ### Kalan iş (Master karar / merge)
 
@@ -231,7 +253,8 @@ Bu olay R12 sprint sürecini kıymetli kıldı: hızlı tanı, dürüst tespit, 
 | DNS apex yanlış | 🔴 | Sabah kontrol |
 | Supabase Free pause | 🟡 | Plan upgrade / usage monitor |
 | KYC release blocker | 🔴 | Manuel verify 1 user |
-| Prod bundle 930 KB | 🟡 | R6 merge (TS sonrası) |
+| Prod bundle monolit | ✅ | R6 deploy doğrulandı (`BH3oeyCz`) |
+| R13 Pantsir/POI eksik | 🟡 | R13.4 + R13.2 sprint |
 | Değerleme modül runtime | 🔴 | `advancedValuation.ts` (tsc #1 bloklayıcı) |
 | ChatWidget eski motor | 🟡 | N6 rewire |
 | Logo marka tutarsızlığı | ✅ | `logo.svg` canlı (`2fa878a`) |
@@ -275,3 +298,5 @@ Bu olay R12 sprint sürecini kıymetli kıldı: hızlı tanı, dürüst tespit, 
 **Güncelleme:** 2026-05-29 ~15:30 — §A.3 morning crisis recovery + öncelik matris + akşam eylem listesi
 
 **Güncelleme:** 2026-05-29 sabah — v0.12.7 tag durumu netleşti (hiçbir yerde yok)
+
+**Güncelleme:** 2026-05-30 akşam — §A.4 10-komut zinciri sweep; [`ENDPOINT_SWEEP.md`](./ENDPOINT_SWEEP.md), [`BUNDLE_FINAL.md`](./BUNDLE_FINAL.md), [`FEATURE_INVENTORY.md`](./FEATURE_INVENTORY.md)

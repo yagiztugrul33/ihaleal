@@ -1,105 +1,97 @@
-# Bundle Final Audit — R12 Kapanış
+# Bundle Final Audit — 10-Komut Zinciri (R6 + R13 öncesi)
 
-**Tarih:** 2026-05-30  
-**HEAD lokal:** `6331110` | **Canlı prod:** `index-CWwyApsU.js`
+**Tarih:** 2026-05-30 akşam  
+**HEAD audit:** `c2c020f` · **Canlı prod:** `index-BH3oeyCz.js`
 
 ---
 
-## 1. Canlı vs lokal
+## 1. Canlı vs lokal (güncel)
 
 | Ortam | Largest chunk | Boyut | Budget (819 KB) |
 |---|---|---:|---|
-| **Production (Vercel)** | `index-CWwyApsU.js` | **929.7 KB** | ❌ FAIL |
-| **Lokal build (HEAD)** | `vendor-charts-*.js` | **455.9 KB** | ✅ PASS |
-| **Lokal + R6 fix branch** | `vendor-charts-*.js` | **455.9 KB** | ✅ PASS (`CI=true`) |
+| **Production (ihaleal.com)** | `vendor-charts-DUXOCkR2.js` | **445.2 KB** | ✅ PASS |
+| **Production index shell** | `index-BH3oeyCz.js` | **300.3 KB** | ✅ PASS |
+| **Önceki prod (R6 öncesi)** | `index-CWwyApsU.js` | ~930 KB | ❌ FAIL |
 
-**Kök neden (prod fail):** Canlı deploy R6 `manualChunks` fix **öncesi** — tek monolitik index (~930 KB). Feature branch `feat/r6-ci-bundle-budget-fix` (`8ef0c10`) merge bekliyor.
+**Kök neden çözüldü:** R6 `manualChunks` fix (`99f8c39` / `99f8f39`) main + Vercel redeploy → vendor split aktif.
 
 ---
 
-## 2. Lokal vendor chunk envanteri (HEAD build)
+## 2. Canlı HTML entry chunks (7 adet)
 
-| Chunk | Boyut | İçerik |
+| Chunk | ~KB | İçerik |
 |---|---:|---|
-| `vendor-charts` | 455.9 KB | recharts |
-| `jspdf.es.min` | 390.3 KB | PDF export (lazy route) |
-| `index` (main) | 300.3 KB | app shell |
-| `vendor-react` | 232.8 KB | react + router |
-| `vendor-supabase` | 204.4 KB | @supabase |
-| `html2canvas.esm` | 202.4 KB | PDF export (lazy) |
-| `index.es` | 159.8 KB | — |
-| `TileLayer` / leaflet | 153.4 KB | harita modülleri |
-| `vendor-motion` | 125.8 KB | framer-motion |
-| `vendor-ui` | 86.3 KB | lucide-react |
+| `index-BH3oeyCz.js` | 300.3 | App shell, router, marketing |
+| `vendor-charts-DUXOCkR2.js` | 445.2 | recharts |
+| `vendor-react-DbBl4joo.js` | 227.2 | react + router |
+| `vendor-supabase-dTDx1jjQ.js` | 203.3 | @supabase |
+| `vendor-motion-*` | ~126 | framer-motion (ref) |
+| `vendor-ui-*` | ~86 | lucide-react (ref) |
+| `vendor-zod-*` | ~53 | zod (ref) |
 
-**check-bundle-budget.mjs:** limit **819200 B** — lokal ✅
+**check-bundle-budget (819200 B):** largest **vendor-charts 455888 B** ✅
 
 ---
 
-## 3. En büyük 10 lazy chunk (lokal)
+## 3. R13 lazy chunk durumu (doğrulama)
 
-| Chunk | ~KB | Parent route / özellik |
+| Bileşen | Beklenen chunk | Prod taraması | Repo |
+|---|---|---|---|
+| **`PantsirPanel.tsx`** | `AuctionDetail-*` veya `PantsirPanel-*` | ❌ String yok | ❌ Dosya yok |
+| **`NearbyPOIList.tsx`** | lazy POI | ❌ String yok | ❌ Dosya yok |
+| **`vendor-leaflet`** | Harita modülleri | 🟡 Route lazy load (ilk HTML'de yok) | ✅ vite.config R6 |
+
+**Sonuç:** R13.4 + R13.2 **bundle'a henüz girmedi** — sprint plan aşamasında ([`R13_PANTSIR_PLAN.md`](./R13_PANTSIR_PLAN.md)).
+
+---
+
+## 4. Mevcut lazy chunk'lar (referans — önceki lokal build)
+
+| Chunk | ~KB | Route |
 |---|---:|---|
 | `AuctionDetail` | 70.5 | `/ilan/:id` |
-| `vendor-zod` | 53.0 | shared |
-| `Anayasa400` | 46.5 | `/anayasa-400` |
-| `Analytics` | 46.9 | `/analiz` |
 | `BorsaPage` | 38.0 | `/borsa` |
 | `CreateAuction` | 26.6 | `/ihale-ac` |
-| `CommissionCalculator` | 24.7 | `/komisyon-hesaplayici` |
-| `WarRoomPage` | 23.8 | intelligence |
 | `ParselZekasiPage` | 20.7 | modül |
-| `KkaParselStudioPage` | 20.8 | KKA |
-
-Modül sayfaları çoğunlukla 15–25 KB lazy bandında.
-
----
-
-## 4. AfetDisasterHub / PremiumCinematic
-
-| Bileşen | Durum (HEAD) | Bundle etkisi |
-|---|---|---|
-| `AfetDisasterHub` | ✅ `AfetRiskHaritasiPage`'e wire (`6331110`) | Lazy modül chunk — ana index'e girmez |
-| `PremiumCinematicHome` | Sync import `Home.tsx` | ~79 KB index şişmesi (N3) |
-| `buildAssistantReply` | Tree-shake (ChatWidget tüketmiyor) | 0 KB ana bundle |
-
-**Faz A-5 sonrası:** GES/Değerleme workbench'leri lazy; `advancedValuation.ts` eksikse değerleme chunk compile riski ayrı.
+| Modül sayfaları | 15–25 | `/modul/*` |
 
 ---
 
 ## 5. jspdf + html2canvas (N2 PDF)
 
-| Paket | Chunk | Lazy? |
-|---|---|---|
-| jspdf | 390 KB | ✅ dynamic import (`PropertyAnalysisReportViewer`) |
-| html2canvas | 202 KB | ✅ dynamic import |
+| Paket | ~KB | Lazy |
+|---|---:|---|
+| jspdf | 390 | ✅ dynamic import |
+| html2canvas | 202 | ✅ dynamic import |
 
-**N2 durumu:** PDF export **canlı kodda var** (lazy). İlk tıklamada ~590 KB indirilir — kabul edilebilir.
-
-**Optimizasyon seçenekleri:**
-
-| Seçenek | Tasarruf | Efor |
-|---|---|---|
-| PDF butonunu ayrı route'a taşı | İlk paint −0 | 0 |
-| jspdf custom build (subset font) | ~50–100 KB | 2–3 saat |
-| Sunucu tarafı PDF (Edge) | client −590 KB | 1 sprint |
+**N2:** ✅ Canlı — ilk PDF tıklamasında indirilir.
 
 ---
 
-## 6. Öneri tablosu
+## 6. Tamamlanan optimizasyonlar
 
-| # | Optimizasyon | KB etkisi | Süre | Öncelik |
-|---|---|---:|---|---|
-| O1 | **R6 PR merge + redeploy** | prod 930→~300 index | 30 dk | 🔴 |
-| O2 | PremiumCinematicHome lazy (N3) | index −60~80 KB | 1–2 saat | 🟡 |
-| O3 | Console PR merge | minimal | 15 dk | 🟢 |
-| O4 | jspdf subset | −50~100 KB lazy | 2–3 saat | 🟢 |
-| O5 | ChatWidget → engine rewire | engine chunk +15 KB lazy | 1 saat | 🟡 |
+| # | İş | Commit | Durum |
+|---|---|---|---|
+| O1 | R6 manualChunks + vendor-leaflet | `99f8f39` | ✅ **Prod'da doğrulandı** |
+| O2 | Console cleanup | `d564a04` | ✅ main |
+| O3 | PremiumCinematic split (N3) | — | ⏸️ Düşük öncelik |
 
 ---
 
-## 7. Aksiyon
+## 7. Sonraki bundle etkisi (R13 plan)
 
-1. Merge `feat/r6-ci-bundle-budget-fix` → main → Vercel redeploy
-2. Redeploy sonrası prod index < 350 KB + vendor-charts ayrı chunk doğrula
-3. `npm run verify` CI yeşil
+| Paket | Tahmini ek KB | Not |
+|---|---:|---|
+| R13.4 PantsirPanel | +15–25 lazy | AuctionDetail chunk büyür |
+| R13.2 NearbyPOIList | +10–20 lazy | Leaflet zaten ayrı |
+| R13.1 geofence UI | +20 lazy | Harita + form |
+
+**Risk:** vendor-charts 445 KB — yeni feature lazy tutulursa budget margin yeterli (~%45 boş).
+
+---
+
+## 8. Aksiyon
+
+1. ✅ R6 prod doğrulandı — monolit sorun kapandı
+2. ⏳ R13.4 merge sonrası `PantsirPanel` string scan tekrar
+3. ⏳ v0.12.8 tag → TS 0 hata sonrası
