@@ -122,7 +122,8 @@ export class ComplianceNlpService {
   async trainFalsePositive(messageId: string, adminId: string): Promise<void> {
     // Gerçek uygulamada: flagged kaydını "false_positive" olarak işaretle
     // Model ağırlıklarını azalt (gradual decay)
-    console.log(`[ComplianceNLP] False positive kaydedildi: msg=${messageId} admin=${adminId}`);
+    void messageId;
+    void adminId;
   }
 
   /**

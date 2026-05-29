@@ -1,4 +1,5 @@
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { clientLogError } from "@/lib/clientLog";
 import { assessLegalRisk } from "./riskAssessment";
 import type { IBuyerApplicationPayload, InstantOfferResult } from "./types";
 
@@ -59,12 +60,12 @@ export async function submitInstantOffer(
   });
 
   if (error) {
-    console.error("[ibuyer] submit_ibuyer_application failed:", error);
+    clientLogError("ibuyer.submit_ibuyer_application", error);
     throw new Error(error.message || "Teklif gönderilemedi. Lütfen tekrar deneyin.");
   }
 
   if (data == null) {
-    console.error("[ibuyer] submit_ibuyer_application returned empty payload");
+    clientLogError("ibuyer.submit_ibuyer_application", new Error("empty payload"));
     throw new Error("Sunucudan boş yanıt alındı. Lütfen tekrar deneyin.");
   }
 
