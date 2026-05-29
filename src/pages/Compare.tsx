@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, GitCompare, Star, CheckCircle2, XCircle, ArrowRight, TrendingUp, TrendingDown, Minus, Home, BarChart3, BadgePercent, Banknote, Clock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ export default function Compare() {
     setSelectedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : prev.length < 4 ? [...prev, id] : prev);
   };
 
-  const calculateScore = (auction: (typeof catalogNorm)[number]) => {
+  const calculateScore = useCallback((auction: (typeof catalogNorm)[number]) => {
     const priceScore = Math.max(0, 100 - (auction.pricePerSqm / 2000));
     const locationScore = auction.areaStats.demandIndex;
     const featureScore = auction.propertyDetails.elevator && auction.propertyDetails.parking && auction.propertyDetails.balcony ? 90 : 70;
@@ -41,9 +41,9 @@ export default function Compare() {
       market: Math.round(marketScore), investment: Math.round(investmentScore),
       overall: Math.round((priceScore + locationScore + featureScore + marketScore + investmentScore) / 5),
     };
-  };
+  }, []);
 
-  const scores = useMemo(() => compared.map((a) => ({ auction: a, score: calculateScore(a) })), [compared]);
+  const scores = useMemo(() => compared.map((a) => ({ auction: a, score: calculateScore(a) })), [compared, calculateScore]);
   const winner = scores.length > 0 ? scores.reduce((best, curr) => (curr.score.overall > best.score.overall ? curr : best)) : null;
 
   // Price difference analysis
