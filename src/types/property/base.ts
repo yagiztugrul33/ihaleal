@@ -194,7 +194,7 @@ export interface ModalityFields {
 
 export interface PropertyBase
   extends IdentityFields,
-    LocationFields,
+    Omit<LocationFields, "neighborhood">,
     PhysicalFields,
     StructureFields,
     DisasterFields,

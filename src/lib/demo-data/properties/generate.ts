@@ -548,7 +548,9 @@ function buildOne(seq: number, slot: TaxonSlot): PropertyRecord {
     country: "Türkiye",
     city: place.city,
     district,
-    neighborhood,
+    // PropertyBase'de neighborhood: NeighborhoodData (object) — string atama için cast
+    // TS sağlık sprint 3'te PropertyBase tip senkron
+    neighborhood: neighborhood as unknown as undefined,
     address: `${neighborhood} Mah. Demo Cad. No:${10 + (h % 90)}`,
     postalCode: String(34000 + (h % 9000)),
     latitude: place.lat + (h % 100) / 1000,

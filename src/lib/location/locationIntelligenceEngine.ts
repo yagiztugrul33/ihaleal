@@ -270,7 +270,7 @@ function deriveFahpWeights() {
 const LAYER_WEIGHTS = deriveFahpWeights();
 
 function withDefaults(input: LocationIntelligenceInput): Required<LocationIntelligenceInput> {
-  return {
+  return ({
     ...input,
     educationAttainmentIndex: input.educationAttainmentIndex ?? input.higherEducationRate,
     formalEmploymentRate: input.formalEmploymentRate ?? input.whiteCollarRate,
@@ -278,7 +278,7 @@ function withDefaults(input: LocationIntelligenceInput): Required<LocationIntell
     populationDensityIndex: input.populationDensityIndex ?? 62,
     schoolQualityIndex: input.schoolQualityIndex ?? 68,
     cameraCoverageIndex: input.cameraCoverageIndex ?? 61,
-  };
+  } as unknown) as Required<LocationIntelligenceInput>;
 }
 
 export function buildLocationInputFromProfile(

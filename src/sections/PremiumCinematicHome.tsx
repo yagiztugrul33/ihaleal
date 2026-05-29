@@ -230,7 +230,7 @@ export default function PremiumCinematicHome() {
       setLiveTrustMetrics((prev) =>
         prev.map((item) => ({
           ...item,
-          value: Number((item.value + Math.random() * 0.12).toFixed(2)),
+          value: Number((item.value + Math.random() * 0.12).toFixed(2)) as typeof item.value,
         })),
       );
     }, 3000);

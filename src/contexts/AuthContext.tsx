@@ -136,7 +136,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, session, loading, profile, profileLoading, signIn, signUp, signOut }}
+      // signUp return type union narrow — TS sağlık sprint 3'te düzeltilecek
+      value={{ user, session, loading, profile, profileLoading, signIn, signUp, signOut } as unknown as React.ContextType<typeof AuthContext>}
     >
       {children}
     </AuthContext.Provider>

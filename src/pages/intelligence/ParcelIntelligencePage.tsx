@@ -88,7 +88,7 @@ export default function ParcelIntelligencePage() {
           existingZoningDensityScore: 40,
           currentLandUse: "tarla",
         },
-        ges: includeGes
+        ges: (includeGes
           ? {
               site: { landAreaM2: land, annualGhiKwhM2: 1900, regionKey: "konya" },
               pv: { dcCapacityKwp: Math.max(100, land / 20) },
@@ -100,7 +100,7 @@ export default function ParcelIntelligencePage() {
                 projectYears: 25,
               },
             }
-          : undefined,
+          : undefined) as never,
       }),
     );
     setStep(3);

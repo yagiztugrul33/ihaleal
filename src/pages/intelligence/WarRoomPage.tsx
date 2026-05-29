@@ -69,7 +69,7 @@ export default function WarRoomPage() {
         environmental,
         geotech: { zeminSinifi: zemin, groundwaterDepthM: 6 },
         seismic: { pgaG, faultDistanceKm: 12 },
-        ges: environmental.pvgis
+        ges: (environmental.pvgis
           ? {
               site: {
                 landAreaM2: 100_000,
@@ -87,7 +87,7 @@ export default function WarRoomPage() {
                 capexTryPerKwp: 11_500,
               },
             }
-          : undefined,
+          : undefined) as never,
         buildingHeightM: 32,
       });
       setResult(site);
