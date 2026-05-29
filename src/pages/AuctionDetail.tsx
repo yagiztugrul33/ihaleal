@@ -22,7 +22,7 @@ import {
   integrityRulesSummaryForAuction,
   withListingDefaults,
 } from "@/lib/listingPolicy";
-import { DEED_DUTY_RATE, estimateBuyerClosingCosts, feeBadgeLabel, FEE_TEXTS } from "@/lib/fees";
+import { DEED_DUTY_RATE, estimateBuyerClosingCosts, feeBadgeLabel, FEE_TEXTS, BID_BOND_RATE, calcBidBond } from "@/lib/fees";
 import { isDemoData } from "@/lib/dataStrategy";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -252,7 +252,7 @@ export default function AuctionDetail() {
     setPreAuthBusy(true);
     try {
       const base = liveBid;
-      const depositAmt = Math.round(base * 0.015 * 100) / 100;
+      const depositAmt = calcBidBond(base);
       const pr = await preAuthorize({
         amountTRY: depositAmt,
         cardToken,
@@ -302,7 +302,7 @@ export default function AuctionDetail() {
     setPreAuthBusy(true);
     try {
       const base = effectiveBuyNowTry;
-      const depositAmt = Math.round(base * 0.015 * 100) / 100;
+      const depositAmt = calcBidBond(base);
       const pr = await preAuthorize({
         amountTRY: depositAmt,
         cardToken,
@@ -1219,8 +1219,8 @@ export default function AuctionDetail() {
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
             <p>
-              Blokaj tutarı: <strong className="text-white">₺{(Math.round(liveBid * 0.015 * 100) / 100).toLocaleString("tr-TR")}</strong> (taban ₺
-              {liveBid.toLocaleString("tr-TR")} üzerinden %1,5).
+              Blokaj tutarı: <strong className="text-white">₺{calcBidBond(liveBid).toLocaleString("tr-TR")}</strong> (taban ₺
+              {liveBid.toLocaleString("tr-TR")} üzerinden %{Math.round(BID_BOND_RATE * 100)}).
             </p>
             <p>Kazanırsanız kaparo / teminat akışına işlenmesi hedeflenir (Ürün koşulları taslak).</p>
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
@@ -1335,9 +1335,9 @@ export default function AuctionDetail() {
             <p>
               Blokaj tutarı:{" "}
               <strong className="text-white">
-                ₺{(Math.round((effectiveBuyNowTry ?? 0) * 0.015 * 100) / 100).toLocaleString("tr-TR")}
+                ₺{calcBidBond(effectiveBuyNowTry ?? 0).toLocaleString("tr-TR")}
               </strong>{" "}
-              (Hemen Al bedeli üzerinden %1,5; PSP provizyonu).
+              (Hemen Al bedeli üzerinden %{Math.round(BID_BOND_RATE * 100)} bloke/teminat; PSP provizyonu).
             </p>
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
               Gercek odeme baglaninca 3D Secure zorunlu olur; simdi demo token ile on yetki simule edilir.
