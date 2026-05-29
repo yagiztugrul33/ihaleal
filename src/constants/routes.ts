@@ -23,6 +23,8 @@ export const ROUTES = {
   ILANLAR: "/ilanlar",
   NASIL_CALISIR: "/nasil-calisir",
   KURUMSAL: "/kurumsal",
+  BORSA: "/borsa",
+  BORSA_PORTFOY: "/borsa/portfoy",
 } as const;
 
 export type AppRoute = (typeof ROUTES)[keyof typeof ROUTES];

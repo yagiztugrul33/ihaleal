@@ -237,6 +237,12 @@ export function Navbar() {
                 </div>
               ) : null}
             </div>
+            {/* R12.1 — Borsa CTA (backup/blok1-borsa pattern) */}
+            <Button asChild className="h-10 px-4 text-sm font-semibold">
+              <Link to="/borsa" className="no-underline">
+                Borsaya Gir
+              </Link>
+            </Button>
             <Button asChild variant="outline" size="default" className="h-10 px-4">
               <Link to="/giris">{n.logIn}</Link>
             </Button>
