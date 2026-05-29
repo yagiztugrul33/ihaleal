@@ -10,7 +10,17 @@
 
 ### 🚨 1. TS Tip Sağlığı KIRIK — sabah ilk iş düzeltme
 
-Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) **exit code 2**. Önceki "0 hata" iddiası cache ile yanıltıcıydı. Bloklayıcılar: (1) Faz A-5 valuation lib eksik (~19 hata), (2) Faz A tip uyumsuzlukları, (3) eksik npm modüller (~30), (4) prop/auth uyumsuzlukları. Canlı site açılıyor; tip güvenliği kırık — yeni geliştirme ve v0.12.7 tag **bekletilmeli**. Detay: [`KALAN_ISLER.md`](./KALAN_ISLER.md) üst bölüm. Tahmini fix: ~3–5 saat TS sağlık sprint'i.
+Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) **exit code 2**. Önceki "0 hata" iddiası cache ile yanıltıcıydı. Bloklayıcılar: (1) Faz A-5 valuation lib eksik (~19 hata), (2) Faz A tip uyumsuzlukları, (3) eksik npm modüller (~30), (4) prop/auth uyumsuzlukları. Canlı site açılıyor; tip güvenliği kırık. Detay: [`KALAN_ISLER.md`](./KALAN_ISLER.md) üst bölüm. Tahmini fix: ~3–5 saat TS sağlık sprint'i.
+
+### A.2 — v0.12.7 Tag İptal Edilmeli (acil, 30 sn)
+
+Tag **yanlış atıldı** (kural ihlali — Cursor uyarısına rağmen Claude Code push'ladı). Sabah **ilk iş** tag silinmeli.
+
+```bash
+git push --delete origin v0.12.7 && git tag -d v0.12.7
+```
+
+Yeniden tag → TS sağlık + R6/Console merge + Değerleme lib fix sonrası (`v0.12.8` veya `v0.12.7-pre-stable`).
 
 ### Durum
 
@@ -41,14 +51,15 @@ Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) **exit code 
 
 ### Kalan iş (Master karar / merge)
 
-1. **TS sağlık temizliği** — valuation lib + Faz A tip + npm ci + prop fix (~3–5 saat); **v0.12.7 tag beklet**
-2. **R6 + Console PR merge BEKLET** — TS baseline temizlenince
-3. **DNS + Plan** — apex / hosting
-4. **KYC** — 4 user `none`; 1 user manuel verify SQL hazır
-5. **Logo (N1)** — yanlış PNG wired (`ihaleal-logo.png` vs `ihaleal_com_logo.png`)
-6. **ChatWidget (N6)** — R12.10 engine rewire kararı
-7. **K-M6 mobile** — auth-bound 4 ekran mock → Supabase (~11–16 saat)
-8. **Faz A-5 gap** — `advancedValuation.ts` eksik (Değerleme modül — tsc bloklayıcı #1)
+1. **TS sağlık temizliği** — valuation lib + Faz A tip + npm ci + prop fix (~3–5 saat)
+2. **v0.12.7 tag iptal** — `git push --delete origin v0.12.7 && git tag -d v0.12.7` (30 sn)
+3. **R6 + Console PR merge BEKLET** — TS baseline temizlenince
+4. **DNS + Plan** — apex / hosting
+5. **KYC** — 4 user `none`; 1 user manuel verify SQL hazır
+6. **Logo (N1)** — yanlış PNG wired (`ihaleal-logo.png` vs `ihaleal_com_logo.png`)
+7. **ChatWidget (N6)** — R12.10 engine rewire kararı
+8. **K-M6 mobile** — auth-bound 4 ekran mock → Supabase (~11–16 saat)
+9. **Faz A-5 gap** — `advancedValuation.ts` eksik (Değerleme modül — tsc bloklayıcı #1)
 
 ---
 

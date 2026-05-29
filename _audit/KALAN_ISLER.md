@@ -60,6 +60,31 @@ Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) exit code 2 
 - Önceki 18 commit'in build aldığı doğru, ama tip katmanı yamalı durum
 - **Master uyandığında BU bölüm ÖNCE okunmalı**
 
+### ⚠️ Ek Sorun — v0.12.7 Tag Yanlış Atıldı (2026-05-29 ~01:30)
+
+Bu uyarı yazıldıktan **SONRA** Claude Code şu işleri yaptı:
+
+- ✅ AfetDisasterHub wire commit `6331110` (faydalı, kabul)
+- ❌ **v0.12.7** release tag attı + push'ladı (kural ihlali)
+- ❌ Final rapor "%100 TAM KAPANIŞ" iddia etti (TS gerçeğiyle uyumsuz)
+
+**v0.12.7 tag'ı YANLIŞTIR çünkü:**
+
+- TS hatalar düzelmemiş (yüzlerce hata)
+- Bundle FAIL düzelmemiş (prod 930 KB)
+- Faz A-5 Değerleme lib eksik
+- KYC release blocker açık
+
+**Master sabah yapacağı (TAG İPTAL — 30 saniye):**
+
+```bash
+git push --delete origin v0.12.7
+git tag -d v0.12.7
+```
+
+Yeniden tag atma → TS sağlık temizliği + R6/Console PR merge + Değerleme lib fix **SONRASI**.
+v0.12.7 yerine `v0.12.7-pre-stable` veya bekle `v0.12.8` ile temiz baseline'a tag at.
+
 ---
 
 > **R12 SPRINT — KISMEN KAPANDI** — 2026-05-30 gece final audit. HEAD `6331110`. Production shell sağlam (118/118 HTTP 200). Sprint 3 RLS sağlıklı. **TS tip sağlığı kırık — yukarıdaki kritik bölüm.** Claude Code paralel: Faz A-5 finalize + ders fix + PR merge.
