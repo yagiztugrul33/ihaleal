@@ -122,6 +122,14 @@ const BorsaDataAnalysisPage  = lazy(() => import("@/pages/BorsaDataAnalysisPage"
 const BorsaLayout = lazy(() =>
   import("@/components/borsa/BorsaLayout").then((m) => ({ default: m.BorsaLayout })),
 );
+// R12.2 — Hizmetler dropdown 7 sayfa (backup/blok1-borsa cherry-pick)
+const EmlakciLanding         = lazy(() => import("@/pages/EmlakciLanding"));
+const EmlakciPanelPage       = lazy(() => import("@/pages/portals/EmlakciPanelPage"));
+const MuteahhitLanding       = lazy(() => import("@/pages/MuteahhitLanding"));
+const MuteahhitPanelPage     = lazy(() => import("@/pages/portals/MuteahhitPanelPage"));
+const LoyaltyProgramPage     = lazy(() => import("@/pages/LoyaltyProgramPage"));
+const CampaignsPage          = lazy(() => import("@/pages/CampaignsPage"));
+const InternationalInvestorPage = lazy(() => import("@/pages/InternationalInvestorPage"));
 
 function App() {
   return (
@@ -371,6 +379,14 @@ function App() {
                 }
               />
             </Route>
+            {/* R12.2 — Hizmetler dropdown 7 sayfa (backup/blok1-borsa cherry-pick) */}
+            <Route path="/emlakci" element={<EmlakciLanding />} />
+            <Route path="/emlakci/panel" element={<EmlakciPanelPage />} />
+            <Route path="/muteahhit" element={<MuteahhitLanding />} />
+            <Route path="/muteahhit/panel" element={<MuteahhitPanelPage />} />
+            <Route path="/oduller" element={<LoyaltyProgramPage />} />
+            <Route path="/kampanyalar" element={<CampaignsPage />} />
+            <Route path="/uluslararasi" element={<InternationalInvestorPage />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route

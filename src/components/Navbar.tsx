@@ -76,6 +76,81 @@ function NavDropdown({
   );
 }
 
+// R12.2 — NavMegaMenu (3-sütun mega dropdown, backup/blok1-borsa cherry-pick)
+function NavMegaMenu({
+  label,
+  columns,
+  testId,
+  triggerTestId,
+  onNavigate,
+}: {
+  label: string;
+  columns: { title: string; items: { to: string; label: string; testId?: string }[] }[];
+  testId?: string;
+  triggerTestId?: string;
+  onNavigate?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative" data-testid={testId}>
+      <button
+        type="button"
+        data-testid={triggerTestId}
+        onClick={() => setOpen((o) => !o)}
+        className={cn(
+          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-200 transition-colors hover:text-white",
+          open && "text-white",
+        )}
+        aria-expanded={open}
+        aria-haspopup="true"
+      >
+        {label}
+        <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+      </button>
+      {open ? (
+        <div
+          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-slate-600/30 p-4 shadow-xl"
+          style={{ background: "rgba(15, 23, 41, 0.98)", backdropFilter: "blur(20px)" }}
+        >
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {columns.map((col) => (
+              <div key={col.title}>
+                <p className="mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  {col.title}
+                </p>
+                {col.items.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    data-testid={item.testId}
+                    onClick={() => {
+                      setOpen(false);
+                      onNavigate?.();
+                    }}
+                    className="block rounded-lg px-2 py-2 text-sm text-slate-200 no-underline hover:bg-slate-800/60 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export function Navbar() {
   const { locale, setLocale, t } = useLocale();
   const n = t.nav;
@@ -89,6 +164,40 @@ export function Navbar() {
     { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
     { to: "/degerleme", label: n.valuation },
     { to: ROUTES.ARASTIRMA, label: n.researchHub },
+  ];
+
+  // R12.2 — Hizmetler mega dropdown 3 sütun (Yatırımcı / Emlakçı / Müteahhit)
+  const megaColumns = [
+    {
+      title: "Yatırımcı",
+      items: [
+        { to: ROUTES.AUCTIONS, label: "Canlı ihaleler" },
+        { to: "/degerleme", label: "AI değerleme" },
+        { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
+        { to: "/dashboard/yatirimci", label: "Yatırımcı paneli" },
+        { to: "/oduller", label: "Ödüller" },
+        { to: "/kampanyalar", label: "Kampanyalar" },
+        { to: "/uluslararasi", label: "Uluslararası yatırımcı" },
+      ],
+    },
+    {
+      title: "Emlakçı",
+      items: [
+        { to: "/emlakci", label: "Emlakçı vitrini" },
+        { to: "/emlakci/panel", label: "Ofis paneli" },
+        { to: "/emlakci-giris", label: "Emlakçı girişi" },
+        { to: "/emlakci-ortaklik", label: "B2B ortaklık" },
+      ],
+    },
+    {
+      title: "Müteahhit",
+      items: [
+        { to: "/muteahhit", label: "Müteahhit lansman" },
+        { to: "/muteahhit/panel", label: "Proje paneli" },
+        { to: "/ihale-ac", label: "İhale aç" },
+        { to: ROUTES.KKA_HUB, label: "Kat karşılığı" },
+      ],
+    },
   ];
 
   const companyItems = [
@@ -163,12 +272,11 @@ export function Navbar() {
             >
               {n.howItWorks}
             </NavLink>
-            <NavDropdown
+            <NavMegaMenu
               label={n.services}
-              items={serviceItems}
+              columns={megaColumns}
               testId="nav-services"
               triggerTestId="nav-services-trigger"
-              gesTestId="nav-services-ges"
             />
             <NavLink
               to={ROUTES.ARASTIRMA}
