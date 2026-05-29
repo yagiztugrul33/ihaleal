@@ -12,15 +12,16 @@
 
 Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) **exit code 2**. Önceki "0 hata" iddiası cache ile yanıltıcıydı. Bloklayıcılar: (1) Faz A-5 valuation lib eksik (~19 hata), (2) Faz A tip uyumsuzlukları, (3) eksik npm modüller (~30), (4) prop/auth uyumsuzlukları. Canlı site açılıyor; tip güvenliği kırık. Detay: [`KALAN_ISLER.md`](./KALAN_ISLER.md) üst bölüm. Tahmini fix: ~3–5 saat TS sağlık sprint'i.
 
-### A.2 — v0.12.7 Tag İptal Edilmeli (acil, 30 sn)
+### A.2 — v0.12.7 Tag İptal ✅ ÇÖZÜLDÜ (ZATEN ÇÖZÜLDÜ — atlanabilir)
 
-Tag **yanlış atıldı** (kural ihlali — Cursor uyarısına rağmen Claude Code push'ladı). Sabah **ilk iş** tag silinmeli.
+Tag yanlış atılma riski audit'e işlendi; **2026-05-29 sabah teyit:** v0.12.7 **hiçbir yerde yok** (remote yalnızca v0.12.6, local de yok). Silme komutu çalıştırıldı — tag zaten yoktu (audit önlemi). **Sabah ilk iş atlanabilir.**
 
 ```bash
+# Gerekirse (şu an gerek yok):
 git push --delete origin v0.12.7 && git tag -d v0.12.7
 ```
 
-Yeniden tag → TS sağlık + R6/Console merge + Değerleme lib fix sonrası (`v0.12.8` veya `v0.12.7-pre-stable`).
+Yeniden tag → TS sağlık + R6/Console merge + Değerleme lib fix sonrası **`v0.12.8`**.
 
 ### Durum
 
@@ -52,7 +53,7 @@ Yeniden tag → TS sağlık + R6/Console merge + Değerleme lib fix sonrası (`v
 ### Kalan iş (Master karar / merge)
 
 1. **TS sağlık temizliği** — valuation lib + Faz A tip + npm ci + prop fix (~3–5 saat)
-2. **v0.12.7 tag iptal** — `git push --delete origin v0.12.7 && git tag -d v0.12.7` (30 sn)
+2. ~~**v0.12.7 tag iptal**~~ ✅ **Zaten yok** (2026-05-29 sabah teyit — atlanabilir)
 3. **R6 + Console PR merge BEKLET** — TS baseline temizlenince
 4. **DNS + Plan** — apex / hosting
 5. **KYC** — 4 user `none`; 1 user manuel verify SQL hazır
@@ -188,4 +189,4 @@ Yeniden tag → TS sağlık + R6/Console merge + Değerleme lib fix sonrası (`v
 
 **Sonraki adım:** Master sabah **TS kritik bölümünü** okur → TS sağlık sprint → onay → `_audit/` git commit (isteğe bağlı).
 
-**Güncelleme:** 2026-05-29 ~01:00 — Cursor fresh tsc denetimi entegrasyonu
+**Güncelleme:** 2026-05-29 sabah — v0.12.7 tag durumu netleşti (hiçbir yerde yok)

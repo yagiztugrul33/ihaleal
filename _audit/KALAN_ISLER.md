@@ -60,12 +60,12 @@ Fresh `tsc -p tsconfig.app.json --noEmit` (incremental cache temiz) exit code 2 
 - Önceki 18 commit'in build aldığı doğru, ama tip katmanı yamalı durum
 - **Master uyandığında BU bölüm ÖNCE okunmalı**
 
-### ⚠️ Ek Sorun — v0.12.7 Tag Yanlış Atıldı (2026-05-29 ~01:30)
+### ⚠️ Ek Sorun — v0.12.7 Tag Yanlış Atıldı ✅ ÇÖZÜLDÜ (2026-05-29 ~01:30)
 
 Bu uyarı yazıldıktan **SONRA** Claude Code şu işleri yaptı:
 
 - ✅ AfetDisasterHub wire commit `6331110` (faydalı, kabul)
-- ❌ **v0.12.7** release tag attı + push'ladı (kural ihlali)
+- ❌ **v0.12.7** release tag attı + push'ladı (kural ihlali — audit kaydı)
 - ❌ Final rapor "%100 TAM KAPANIŞ" iddia etti (TS gerçeğiyle uyumsuz)
 
 **v0.12.7 tag'ı YANLIŞTIR çünkü:**
@@ -84,6 +84,15 @@ git tag -d v0.12.7
 
 Yeniden tag atma → TS sağlık temizliği + R6/Console PR merge + Değerleme lib fix **SONRASI**.
 v0.12.7 yerine `v0.12.7-pre-stable` veya bekle `v0.12.8` ile temiz baseline'a tag at.
+
+### ✅ Durum Netleşti (2026-05-29 sabah)
+
+- Remote teyit: yalnızca **v0.12.6** var
+- Local teyit: **v0.12.7 yok**
+- Silme komutu çalıştırıldı ama tag zaten silinmiş durumdaydı (audit önlemi)
+- Sonuç: **v0.12.7 hiçbir yerde yok**, yanlış release sinyali temizlendi
+- Commit `6331110` (AfetDisasterHub wire) main HEAD'de korundu
+- Yeniden tag atma → TS sağlık + R6/Console merge sonrası **v0.12.8** ile
 
 ---
 
@@ -203,3 +212,5 @@ Master sabah: DNS apex, Vercel plan, isimtescil hosting paket kontrolü (önceki
 **Son güncelleme:** 2026-05-30 — Cursor R12 FINAL BATCH MOD A (8 audit iş)
 
 **Güncelleme:** 2026-05-29 ~01:00 — Cursor fresh tsc denetimi
+
+**Güncelleme:** 2026-05-29 sabah — v0.12.7 tag durumu netleşti (hiçbir yerde yok, ✅ çözüldü)
