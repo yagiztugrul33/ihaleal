@@ -53,7 +53,14 @@ export function ShareButton({ title, url }: ShareButtonProps) {
 
       {open && (
         <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setOpen(false)}
+            onKeyDown={(e) => { if (e.key === "Escape") setOpen(false); }}
+            role="button"
+            tabIndex={-1}
+            aria-label="Paylaş menüsünü kapat"
+          />
           <div className="absolute right-0 top-full mt-2 w-72 p-4 rounded-2xl bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-semibold text-white">Paylaş</h4>

@@ -4,6 +4,7 @@ import { Eye, Clock, MapPin, TrendingUp, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AUCTIONS } from "@/data/auctions";
+import type { Auction } from "@/types/auction";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 
@@ -23,7 +24,7 @@ export function RecentlyViewed() {
   const recentAuctions = useMemo(() => {
     return recentIds
       .map((id: string) => AUCTIONS.find((a) => a.id === id))
-      .filter(Boolean)
+      .filter((a): a is Auction => Boolean(a))
       .slice(0, 4);
   }, [recentIds]);
 
@@ -43,7 +44,7 @@ export function RecentlyViewed() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {recentAuctions.map((auction: any, idx: number) => (
+          {recentAuctions.map((auction: Auction, idx: number) => (
             <Card
               key={auction.id}
               className="group card-warm overflow-hidden hover:border-[var(--color-accent)] transition-all duration-500 hover:-translate-y-1 cursor-pointer"

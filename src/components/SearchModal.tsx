@@ -37,8 +37,21 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center pt-24 px-4" onClick={onClose}>
-      <div className="w-full max-w-2xl bg-[#0f1629] border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-scale-in" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center pt-24 px-4"
+      onClick={onClose}
+      onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
+      role="button"
+      tabIndex={-1}
+      aria-label="Arama modalını kapat"
+    >
+      <div
+        className="w-full max-w-2xl bg-[#0f1629] border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-scale-in"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Arama"
+      >
         <div className="p-4 border-b border-slate-200/80">
           <div className="flex items-center gap-3">
             <Search className="w-5 h-5 text-slate-500 flex-shrink-0" />

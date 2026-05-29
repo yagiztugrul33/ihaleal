@@ -30,7 +30,7 @@ export default function Compare() {
     setSelectedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : prev.length < 4 ? [...prev, id] : prev);
   };
 
-  const calculateScore = (auction: any) => {
+  const calculateScore = (auction: (typeof catalogNorm)[number]) => {
     const priceScore = Math.max(0, 100 - (auction.pricePerSqm / 2000));
     const locationScore = auction.areaStats.demandIndex;
     const featureScore = auction.propertyDetails.elevator && auction.propertyDetails.parking && auction.propertyDetails.balcony ? 90 : 70;
