@@ -127,6 +127,11 @@ const EmlakciLanding         = lazy(() => import("@/pages/EmlakciLanding"));
 const EmlakciPanelPage       = lazy(() => import("@/pages/portals/EmlakciPanelPage"));
 const MuteahhitLanding       = lazy(() => import("@/pages/MuteahhitLanding"));
 const MuteahhitPanelPage     = lazy(() => import("@/pages/portals/MuteahhitPanelPage"));
+// R14 — Müteahhit Lansman Sprint
+const MuteahhitOnayBekleniyor = lazy(() => import("@/pages/MuteahhitOnayBekleniyor"));
+const MuteahhitYeniProjePage  = lazy(() => import("@/pages/MuteahhitYeniProjePage"));
+const MuteahhitProjeDetayPage = lazy(() => import("@/pages/MuteahhitProjeDetayPage"));
+const MuteahhitProjeKamuPage  = lazy(() => import("@/pages/MuteahhitProjeKamuPage"));
 const LoyaltyProgramPage     = lazy(() => import("@/pages/LoyaltyProgramPage"));
 const CampaignsPage          = lazy(() => import("@/pages/CampaignsPage"));
 const InternationalInvestorPage = lazy(() => import("@/pages/InternationalInvestorPage"));
@@ -429,6 +434,11 @@ function App() {
             <Route path="/emlakci/panel" element={<EmlakciPanelPage />} />
             <Route path="/muteahhit" element={<MuteahhitLanding />} />
             <Route path="/muteahhit/panel" element={<MuteahhitPanelPage />} />
+            {/* R14 — Müteahhit Lansman Sprint */}
+            <Route path="/muteahhit/onay-bekleniyor" element={<MuteahhitOnayBekleniyor />} />
+            <Route path="/muteahhit/yeni-proje" element={<MuteahhitYeniProjePage />} />
+            <Route path="/muteahhit/proje/:projectId" element={<MuteahhitProjeDetayPage />} />
+            <Route path="/proje/:projectId" element={<MuteahhitProjeKamuPage />} />
             <Route path="/oduller" element={<LoyaltyProgramPage />} />
             <Route path="/kampanyalar" element={<CampaignsPage />} />
             <Route path="/uluslararasi" element={<InternationalInvestorPage />} />

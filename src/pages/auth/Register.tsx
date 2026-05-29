@@ -1,10 +1,10 @@
 ﻿import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, Factory } from "lucide-react";
+import { UserPlus, Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, Factory, FileText, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
 import { parseKurumsalProfil, postLoginPathForProfil } from "@/lib/authProfile";
@@ -13,6 +13,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const kurumsalProfil = parseKurumsalProfil(searchParams);
+  const isMuteahhit = kurumsalProfil === "muteahhit";
   const { signUp } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,6 +25,10 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
+  // R14 — Müteahhit ek alanları
+  const [companyName, setCompanyName] = useState("");
+  const [taxNumber, setTaxNumber] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +54,21 @@ export default function Register() {
       setError("Devam etmek için KVKK ve gizlilik metnini onaylayın.");
       return;
     }
+    // R14 — Müteahhit validation
+    if (isMuteahhit) {
+      if (!companyName.trim()) {
+        setError("Şirket adı zorunludur.");
+        return;
+      }
+      if (!/^\d{10}$/.test(taxNumber.trim())) {
+        setError("Vergi numarası 10 haneli olmalıdır.");
+        return;
+      }
+      if (!companyAddress.trim()) {
+        setError("Şirket adresi zorunludur.");
+        return;
+      }
+    }
     setLoading(true);
     const { error: supaErr, session } = await signUp(email.trim(), password, name.trim(), {
       phone: phone.trim() || undefined,
@@ -59,6 +79,48 @@ export default function Register() {
       setError(translateAuthError(supaErr.message ?? ""));
       return;
     }
+
+    // R14 — Müteahhit organizations + profiles persist
+    if (isMuteahhit && session?.user) {
+      try {
+        // 1. organizations INSERT (contractor)
+        const { error: orgErr } = await supabase.from("organizations").insert({
+          name: companyName.trim(),
+          org_type: "contractor",
+          tax_number: taxNumber.trim(),
+          owner_user_id: session.user.id,
+          settings: {
+            ruhsat_pending: true,
+            company_address: companyAddress.trim(),
+            created_via: "self_register",
+          },
+        });
+        if (orgErr) {
+          console.error("organizations insert error:", orgErr);
+          // Devam et, organizations yoksa bile profiles role'u atayalım
+        }
+
+        // 2. profiles UPDATE role + kyc_status
+        const { error: profErr } = await supabase
+          .from("profiles")
+          .update({
+            role: "muteahhit",
+            kyc_status: "pending",
+            full_name: name.trim(),
+          })
+          .eq("id", session.user.id);
+        if (profErr) console.error("profiles update error:", profErr);
+
+        // 3. Onay bekleme sayfasına yönlendir
+        navigate("/muteahhit/onay-bekleniyor");
+        return;
+      } catch (err) {
+        console.error("R14 müteahhit persist error:", err);
+        setError("Hesap oluşturuldu ama profil tamamlanamadı. Destek ile iletişime geçin.");
+        return;
+      }
+    }
+
     if (session?.user) {
       const next = searchParams.get("next");
       const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
@@ -151,6 +213,54 @@ export default function Register() {
                   />
                 </div>
               </div>
+              {/* R14 — Müteahhit ek alanları */}
+              {isMuteahhit && (
+                <>
+                  <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-3 text-xs text-amber-100/90">
+                    <Building2 className="w-4 h-4 inline-block mr-1.5 text-amber-300" />
+                    Müteahhit kaydı için şirket bilgileri zorunludur. Ruhsat doğrulaması 24-48 saat içinde admin tarafından yapılır.
+                  </div>
+                  <div>
+                    <label className="text-sm text-slate-400 mb-1.5 block">Şirket Adı *</label>
+                    <div className="relative">
+                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Input
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                        placeholder="Örnek İnşaat A.Ş."
+                        autoComplete="organization"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-slate-400 mb-1.5 block">Vergi Numarası (10 hane) *</label>
+                    <div className="relative">
+                      <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Input
+                        value={taxNumber}
+                        onChange={(e) => setTaxNumber(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                        className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                        placeholder="1234567890"
+                        maxLength={10}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-slate-400 mb-1.5 block">Şirket Adresi *</label>
+                    <div className="relative">
+                      <FileText className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
+                      <textarea
+                        value={companyAddress}
+                        onChange={(e) => setCompanyAddress(e.target.value)}
+                        className="w-full min-h-[72px] pl-10 pr-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-white placeholder:text-slate-600 text-sm"
+                        placeholder="Mahalle, cadde, no, ilçe, il"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Şifre</label>
                 <div className="relative">

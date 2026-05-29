@@ -10,6 +10,7 @@ export function parseKurumsalProfil(searchParams: URLSearchParams): KurumsalProf
 
 export function postLoginPathForProfil(profil: KurumsalProfil): string {
   if (profil === "emlakci") return "/sat-basla";
-  if (profil === "muteahhit") return "/ihale-ac";
+  // R14 — Müteahhit girişi panel'e yönlenir (kayıt sonrası ayrıca onay-bekleniyor sayfası vardır)
+  if (profil === "muteahhit") return "/muteahhit/panel";
   return "/dashboard";
 }
