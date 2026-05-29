@@ -12,8 +12,8 @@ function parsePvgisResponse(data: unknown): {
   const root = data as Record<string, unknown>;
   const outputs = root.outputs as Record<string, unknown> | undefined;
   if (!outputs) return null;
-  const monthly = outputs.monthly as { fixed?: { E_m: number; H(i)_m: number; month: number }[] } | undefined;
-  const totals = outputs.totals as { fixed?: { E_y: number; H(i)_y: number } } | undefined;
+  const monthly = outputs.monthly as { fixed?: { E_m: number; "H(i)_m": number; month: number }[] } | undefined;
+  const totals = outputs.totals as { fixed?: { E_y: number; "H(i)_y": number } } | undefined;
   const fixedMonthly = monthly?.fixed;
   const fixedTotals = totals?.fixed;
   if (!fixedMonthly?.length || !fixedTotals) return null;
