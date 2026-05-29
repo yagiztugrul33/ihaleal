@@ -45,6 +45,9 @@ export type HomeMessages = {
     title: string;
     certs: Array<{ title: string; sub: string }>;
   };
+  investor: {
+    heading: string;
+  };
 };
 
 export type NavMessages = {
@@ -192,6 +195,9 @@ export const messages: Record<Locale, Messages> = {
           { title: "GDPR", sub: "Compliant" },
         ],
       },
+      investor: {
+        heading: "Investor Panel",
+      },
     },
   },
   tr: {
@@ -312,6 +318,9 @@ export const messages: Record<Locale, Messages> = {
           { title: "SOC 2", sub: "Type II Uyumlu" },
           { title: "KVKK", sub: "Uyumlu" },
         ],
+      },
+      investor: {
+        heading: "Yatırımcı Paneli",
       },
     },
   },

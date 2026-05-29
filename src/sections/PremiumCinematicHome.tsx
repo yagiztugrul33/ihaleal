@@ -493,7 +493,7 @@ export default function PremiumCinematicHome() {
               </p>
             </article>
           </div>
-          <h3 className="mt-6 text-xl font-black text-foreground lg:text-2xl">{home.investor?.heading ?? "Yatırımcı Paneli"}</h3>
+          <h3 className="mt-6 text-xl font-black text-foreground lg:text-2xl">{home.investor.heading}</h3>
           <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{WHY_IHALAL_CARDS.map((card) => (<Link key={card.title} to={card.href} className={card.highlight ? "premium-why-card premium-why-card--highlight" : "premium-why-card"}><span className="premium-why-card__icon"><card.Icon className="h-5 w-5" /></span><h3>{card.title}</h3><p>{card.text}</p><ChevronRight className="premium-why-card__chev" /></Link>))}</div>
           <div className="mt-5 premium-trust-strip">{home.trust.map((item, i) => { const Icon = TRUST_ICONS[i] ?? Shield; return (<Link key={item.title} to={TRUST_LINKS[i] ?? ROUTES.ILANLAR} className="premium-trust-strip__item"><Icon className="h-4 w-4 text-primary" /><strong>{item.title}</strong><span>{item.sub}</span></Link>); })}</div>
           <section className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
