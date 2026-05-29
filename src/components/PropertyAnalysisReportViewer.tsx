@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+﻿import { useMemo, useRef, useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -9,6 +9,7 @@ import {
   Line,
   CartesianGrid,
 } from "recharts";
+import { Download, Loader2 } from "lucide-react";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
@@ -68,6 +69,38 @@ export function PropertyAnalysisReportViewer({
   approveDisabled,
 }: PropertyAnalysisReportViewerProps) {
   const [tab, setTab] = useState<TabKey>("legal");
+  const [exporting, setExporting] = useState(false);
+  const reportRef = useRef<HTMLDivElement>(null);
+
+  // N2 — PDF export: jspdf + html2canvas lazy dynamic import.
+  // Ana bundle'a yüklenmez; sadece kullanıcı butona basınca on-demand chunk.
+  const handlePdfExport = async () => {
+    if (!reportRef.current || exporting) return;
+    setExporting(true);
+    try {
+      const [{ jsPDF }, html2canvas] = await Promise.all([
+        import("jspdf"),
+        import("html2canvas").then((m) => m.default),
+      ]);
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2,
+        backgroundColor: "#0a0e1a",
+        useCORS: true,
+        logging: false,
+      });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`ihaleal-rapor-${Date.now()}.pdf`);
+    } catch (err) {
+      // Sessiz fail — kullanıcıya bir sonraki tıklamada tekrar deneme şansı.
+      console.error("PDF export hatası:", err);
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const rentTrend = useMemo(
     () => [
@@ -98,7 +131,10 @@ export function PropertyAnalysisReportViewer({
   const disclaimer = report.overall_disclaimer || AI_REPORT_DISCLAIMER_TR;
 
   return (
-    <div className="rounded-2xl border border-cyan-400/20 bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden">
+    <div
+      ref={reportRef}
+      className="rounded-2xl border border-cyan-400/20 bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden"
+    >
       {mockBanner ? (
         <div className="px-4 py-2 bg-amber-500/15 border-b border-amber-400/25 text-amber-100 text-xs font-medium text-center">
           MOCK VERİ — gerçek API bağlantısı yok; bilgilendirme amaçlıdır.
@@ -108,16 +144,38 @@ export function PropertyAnalysisReportViewer({
       <div className="p-4 md:p-6 flex flex-col md:flex-row gap-6 border-b border-slate-200">
         <BigRing label="Genel risk skoru (düşük daha iyi)" score={report.overall_risk_score} invertRisk />
         <div className="flex-1 flex flex-col justify-center gap-3">
-          <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex flex-wrap gap-2 items-center justify-between">
             <span
               className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold border ${scoreTone(report.economic_fair_price_score, false)}`}
             >
               Adil fiyat skoru: {report.economic_fair_price_score ?? "—"}/10
             </span>
-            <span className="text-xs text-slate-500">
-              Tapu / şerh bilgisi için profesyonel kontrol zorunludur (taslak uyarı).
-            </span>
+            {/* N2 — PDF İndir buton (lazy jspdf+html2canvas dynamic import) */}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={exporting}
+              onClick={handlePdfExport}
+              data-testid="report-pdf-download"
+              className="gap-2"
+            >
+              {exporting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                  Oluşturuluyor...
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4" aria-hidden />
+                  PDF İndir
+                </>
+              )}
+            </Button>
           </div>
+          <span className="text-xs text-slate-500">
+            Tapu / şerh bilgisi için profesyonel kontrol zorunludur (taslak uyarı).
+          </span>
           <AIRaporSorumluluk compact />
           {showApproveButton ? (
             <Button
