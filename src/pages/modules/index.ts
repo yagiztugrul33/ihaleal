@@ -57,3 +57,7 @@ export { default as UzmanRandevuPage } from "./UzmanRandevuPage";
 export { default as YapayZekaHasarTahminiPage } from "./YapayZekaHasarTahminiPage";
 export { default as YatirimOnerisiPage } from "./YatirimOnerisiPage";
 export { default as YikilanBinalarArsiviPage } from "./YikilanBinalarArsiviPage";
+
+// R12.14 Faz A-5 — Değerleme + GES (deferred from A-4)
+export { default as DegerlemeModulPage } from "./DegerlemeModulPage";
+export { default as GesAnaliziModulPage } from "./GesAnaliziModulPage";

@@ -169,6 +169,9 @@ const UzmanRandevuPage          = lazy(() => import("@/pages/modules/UzmanRandev
 const YapayZekaHasarTahminiPage = lazy(() => import("@/pages/modules/YapayZekaHasarTahminiPage"));
 const YatirimOnerisiPage        = lazy(() => import("@/pages/modules/YatirimOnerisiPage"));
 const YikilanBinalarArsiviPage  = lazy(() => import("@/pages/modules/YikilanBinalarArsiviPage"));
+// R12.14 Faz A-5 — Değerleme + GES (deferred from A-4)
+const DegerlemeModulPage    = lazy(() => import("@/pages/modules/DegerlemeModulPage"));
+const GesAnaliziModulPage   = lazy(() => import("@/pages/modules/GesAnaliziModulPage"));
 
 function App() {
   return (
@@ -465,6 +468,9 @@ function App() {
             <Route path="/modul/yapay-zeka-hasar-tahmini" element={<YapayZekaHasarTahminiPage />} />
             <Route path="/modul/yatirim-onerisi"         element={<YatirimOnerisiPage />} />
             <Route path="/modul/yikilan-binalar-arsivi"  element={<YikilanBinalarArsiviPage />} />
+            {/* R12.14 Faz A-5 — Değerleme + GES analizi (deferred from A-4) */}
+            <Route path="/modul/degerleme"    element={<DegerlemeModulPage />} />
+            <Route path="/modul/ges-analizi"  element={<GesAnaliziModulPage />} />
             <Route path="*" element={<NotFound />} />
             </Route>
             <Route
