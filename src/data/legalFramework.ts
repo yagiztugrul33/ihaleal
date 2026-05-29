@@ -1,6 +1,6 @@
 /**
  * Bilgilendirme çerçevesi — hukuki danışmanlık değildir.
- * Otobid / kurumsal ihale şartnameleri ile kıyas için çalışma taslağıdır; yayın öncesi mutlaka avukat onayı.
+ * Kurumsal ihale şartnameleri ile kıyas için çalışma taslağıdır; yayın öncesi mutlaka avukat onayı.
  */
 
 import { feeBadgeLabel } from "@/lib/fees";
@@ -62,7 +62,7 @@ export const LEGAL_SECTIONS: {
   },
   {
     id: "ihale",
-    title: "İhale işletimi (Otobid benzeri başlıklar)",
+    title: "İhale işletimi (kurumsal ihale başlıkları)",
     laws: [
       { code: "Şartname + TBK", topic: "Teklif bağlayıcılığı, iptal", note: "Son teklif, uzatma, rezerv fiyat kuralları yazılı olmalı." },
     ],

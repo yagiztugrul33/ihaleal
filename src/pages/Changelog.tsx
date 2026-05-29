@@ -70,7 +70,7 @@ export default function Changelog() {
         "Teklif sistemi: 10K / 50K / 100K / 250K / 500K artışlar",
         "Sanal tur entegrasyonu hazırlığı (Matterport desteği)",
         "Google Maps embed konum gösterimi",
-        "Rakip analizi: klasik ilan ve analiz portalları, otobid.com.tr incelendi",
+        "Rakip analizi: klasik ilan ve analiz portalları incelendi",
         "Tema switcher (koyu/açık mod)",
         "Arama modal'i, dil seçimi altyapısı",
       ],
