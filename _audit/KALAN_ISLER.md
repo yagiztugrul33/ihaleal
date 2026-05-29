@@ -279,4 +279,26 @@ Master sabah: DNS apex, Vercel plan, isimtescil hosting paket kontrolü (önceki
 
 ---
 
-**Son güncelleme:** 2026-05-30 akşam — 10-komut zinciri final sweep + R12 baseline ✅ + R13 sıra + TS 27 hata
+## 🆕 R14 — MÜTAEHHİT LANSMAN SPRINT (2026-05-30 gece — MVP TAMAM)
+
+✅ **PAKET 1/5** — DB şeması (developer_projects + project_units + listings ext + RLS) — `896cd0b`  
+✅ **PAKET 2/5** — Kayıt akışı + onay-bekleniyor + 4 route — `c293682`  
+✅ **PAKET 3/5** — useDeveloperProjects hooks + MuteahhitPanelPage TAM REVİZE (demo → real) — `09a0f5e`  
+✅ **PAKET 4/5** — Yeni proje wizard (4 adım) + proje detay (envanter + Yayınla) — `b0c3399`  
+✅ **PAKET 5/5** — Public /proje/:id + AuctionDetail lansman badge + proje linki — `7907ecc`  
+
+**Quality gates:** tsc 0 hata, lint 0 hata 0 uyarı (`--max-warnings 0`), build 31s, en büyük chunk 455.89 kB (vendor-charts).
+
+### R14 follow-up (sıradaki sprint adayları)
+
+| Konu | Durum | Not |
+|---|---|---|
+| Ruhsat dosya upload (Storage) | 🔴 Şu an mock | Bucket + admin onay UI eklenmeli |
+| Admin onay paneli (verified_by/at update) | 🔴 Yok | RLS gate canlı |
+| Birim Excel/CSV bulk import | 🟡 `bulkInsertUnits` hazır | UI eklenmeli |
+| Lansman ilanı için ek ödeme akışı | 🟡 Standard buy-now | KKA/hakediş entegrasyonu PAKET 6 |
+| Public proje sayfası SEO (Open Graph) | 🟡 Bekliyor | meta + og:image |
+
+---
+
+**Son güncelleme:** 2026-05-30 gece — R14 PAKET 2-5 MVP ✅ canlı; R12 baseline ✅; R13 + TS + KYC + R14 follow-up sırada

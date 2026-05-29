@@ -309,4 +309,43 @@ Detay: [`FEATURE_INVENTORY.md`](./FEATURE_INVENTORY.md) — **~78 canlı**, **~1
 
 ---
 
-*Son commit (bu dosya): docs(audit) — 10-komut zinciri komut 10*
+## L) R14 — MÜTEAHHİT LANSMAN SPRINT (2026-05-29 → 30, gece)
+
+| PAKET | İş | Durum | Commit |
+|---:|---|---|---|
+| 1/5 | DB şeması (developer_projects + project_units + listings ext + RLS) | ✅ Master apply | `896cd0b` |
+| 2/5 | Kayıt akışı (Register müteahhit branç + organizations INSERT + onay-bekleniyor + routes + login redirect) | ✅ | `c293682` |
+| 3/5 | Panel CRUD (useDeveloperProjects hooks + MuteahhitPanelPage TAM REVİZE: demo → real Supabase) | ✅ | `09a0f5e` |
+| 4/5 | Yeni proje wizard (4 adım: bilgi → ruhsat → birim → önizleme) + proje detay (envanter tablosu + publish) | ✅ | `b0c3399` |
+| 5/5 | Lansman satış akışı (public /proje/:id + AuctionDetail is_lansman badge + proje linki) | ✅ | `7907ecc` |
+| ek | Lint gate (Compare.tsx useCallback) | ✅ | `47cb231` |
+
+**Quality gates (R14 PAKET 2-5 sonu):**
+- `npx tsc --noEmit` → 0 hata
+- `npm run lint` (`--max-warnings 0`) → 0 hata / 0 uyarı
+- `npm run build` → ✅ 31s; en büyük chunk **vendor-charts 455.89 kB** (< 800 KB budget)
+- R14 sayfa chunk'ları: panel 11.48 kB · yeni-proje 10.23 kB · detay 6.60 kB · kamu 4.48 kB · onay 3.68 kB · hooks 2.34 kB
+
+**Canlı route ekleri:**
+- `/muteahhit/onay-bekleniyor` (post-register)
+- `/muteahhit/yeni-proje` (4-adım wizard)
+- `/muteahhit/proje/:projectId` (owner detay + Yayınla)
+- `/proje/:projectId` (public, verified only)
+- `/ilan/:id` üzerine lansman badge + proje bağlantı kartı (is_lansman=true ise)
+
+**RLS sınama planı (master için):**
+- Anon SELECT `developer_projects` (yalnız verified) — ✅ migration policy
+- Authenticated INSERT/UPDATE owner kendi projesi — ✅
+- Anon INSERT engellenmeli — ✅
+- `listings.is_lansman=true` kayıtları için kamu okuma + ilan görünümü — ✅
+- `publishUnitAsListing` sadece verified projelerin owner'ı için çalışmalı — ⏳ master canlı testte doğrulayacak
+
+**Kalan (R14 follow-up):**
+- Ruhsat dosya upload (şu an mock; storage bucket + admin onay UI bekliyor)
+- Admin onay paneli (developer_projects.verified_by + verified_at güncellemesi için)
+- Birim Excel/CSV bulk import (`bulkInsertUnits` hazır, UI eklenebilir)
+- KKA/hakediş bağlantısı (PAKET 6 olarak ayrı sprint)
+
+---
+
+*Son commit (bu dosya): docs(audit) — R14 PAKET 2-5 MVP kapanış (2026-05-30 gece)*

@@ -379,4 +379,23 @@
 
 ---
 
-*Envanter: Cursor salt-okuma · Onay: Master · Sonraki güncelleme: v0.12.8 veya R13 kickoff*
+## EK — R14 Müteahhit Lansman Sprint (2026-05-30 gece)
+
+| Özellik | Rota / kod | Durum |
+|---|---|---|
+| Müteahhit kayıt (organizations contractor + ruhsat_pending) | `/kayit?profil=muteahhit` | ✅ Canlı |
+| Onay-bekleniyor sayfası | `/muteahhit/onay-bekleniyor` | ✅ Canlı |
+| Müteahhit paneli (gerçek Supabase) | `/muteahhit/panel` | ✅ Canlı |
+| Yeni proje wizard (4 adım) | `/muteahhit/yeni-proje` | ✅ Canlı |
+| Proje detay + birim envanteri + publish | `/muteahhit/proje/:projectId` | ✅ Canlı (owner) |
+| Public proje görünüm (verified) | `/proje/:projectId` | ✅ Canlı (anon) |
+| Lansman ilanı badge + proje linki | `/ilan/:id` üzerine | ✅ Canlı |
+| useDeveloperProjects + useDeveloperProject hooks | `src/hooks/` | ✅ |
+| `bulkInsertUnits` + `publishUnitAsListing` helpers | `src/hooks/useDeveloperProjects.ts` | ✅ |
+| developer_projects + project_units + listings ext + RLS | `supabase/migrations/20260530140000_*` | ✅ Migrated |
+
+**Sayılar güncel:** ~78 canlı + **~85 canlı (R14 sonrası, 7 yeni rota/özellik eklemesi)**.
+
+---
+
+*Envanter: Cursor salt-okuma · R14 eklemesi: Claude · Onay: Master · Sonraki güncelleme: v0.12.8 veya R14 follow-up*

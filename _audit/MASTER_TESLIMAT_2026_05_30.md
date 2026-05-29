@@ -299,4 +299,60 @@ Master 10-komut zinciri kapanış sweep'i (Cursor salt-okuma + curl). **Doğrula
 
 **Güncelleme:** 2026-05-29 sabah — v0.12.7 tag durumu netleşti (hiçbir yerde yok)
 
+---
+
+## I) 2026-05-30 GECE — R14 MÜTAEHHİT LANSMAN SPRINT (PAKET 2-5 MVP)
+
+**Hedef:** Müteahhit (developer) self-onboarding + proje + birim envanteri + lansman ilanı satış akışı. PAKET 1 (DB şeması) sabah master tarafından `supabase db push` ile canlıya alındı. Gece PAKET 2-5 atomik chain.
+
+### Teslim edilen 5 commit (gece chain)
+
+| Hash | PAKET | İçerik |
+|---|---|---|
+| `c293682` | 2/5 | Register müteahhit branç + organizations(contractor) INSERT + onay-bekleniyor sayfa + 4 yeni lazy route + Login redirect |
+| `09a0f5e` | 3/5 | `useDeveloperProjects` hooks + MuteahhitPanelPage TAM REVİZE (demo→real Supabase + 4 metrik + role gate + ruhsat banner) |
+| `b0c3399` | 4/5 | MuteahhitYeniProjePage 4-adım wizard + MuteahhitProjeDetayPage envanter tablosu + publish() akışı |
+| `7907ecc` | 5/5 | MuteahhitProjeKamuPage (`/proje/:id` public verified) + AuctionDetail is_lansman badge + proje bağlantı kartı |
+| `47cb231` | ek | Compare.tsx useCallback — lint `--max-warnings 0` baseline temiz |
+
+### Quality gate kanıt
+
+| Kontrol | Sonuç |
+|---|---|
+| `npx tsc --noEmit` | **0 hata** (v0.12.8 baseline korundu) |
+| `npm run lint` (`--max-warnings 0`) | **0 hata / 0 uyarı** |
+| `npm run build` | ✅ 31.13 s |
+| En büyük chunk | **vendor-charts 455.89 kB** (< 800 KB budget) |
+| R14 sayfa chunk toplam | 38.81 kB (panel + wizard + detay + kamu + onay + hooks) |
+| Pushed to `origin/main` | ✅ `47cb231` |
+
+### Canlı yüzey eklemesi (kullanıcı kazanımı)
+
+- **Self-service müteahhit onboarding** — `/kayit?profil=muteahhit` → şirket/vergi/adres → `/muteahhit/onay-bekleniyor`
+- **Müteahhit paneli** gerçek Supabase verisiyle (demo placeholder kaldırıldı)
+- **Yeni proje wizard** — 4 adım: bilgi → ruhsat (mock upload) → birim → önizleme; `bulkInsertUnits` ile toplu birim yaratım
+- **Proje detay** — birim envanter tablosu, "Yayınla" → listings + project_units rezerve, status renkleri
+- **Public proje sayfası** — `/proje/:id` (yalnızca verified) hero, stats grid, available+reserved birimler
+- **AuctionDetail** üzerine lansman badge (`🏗️ LANSMAN`) + proje bağlantı kartı (link to `/proje/:id`)
+
+### RLS canlı sınama önerisi (master)
+
+```sql
+-- Anon SELECT yalnızca verified
+SELECT count(*) FROM developer_projects WHERE ruhsat_status = 'verified';
+-- Yetkili owner insert
+INSERT INTO developer_projects (owner_user_id, project_name) VALUES (auth.uid(), 'Test') RETURNING id;
+-- Anon insert engellenmeli
+INSERT INTO developer_projects (project_name) VALUES ('X'); -- ❌ RLS reject
+```
+
+### R14 follow-up (sıradaki sprint)
+
+- 🔴 Ruhsat dosya storage bucket + admin onay UI (`developer_projects.ruhsat_document_url` + `verified_by/at`)
+- 🔴 Birim CSV/Excel bulk import UI (`bulkInsertUnits` hazır)
+- 🟡 Public proje sayfası SEO (Open Graph + og:image)
+- 🟡 Lansman ilanı için ödeme akışı (KKA/hakediş) — PAKET 6 ayrı sprint
+
+**Güncelleme:** 2026-05-30 gece — R14 PAKET 2-5 MVP teslim, push edildi, canlı.
+
 **Güncelleme:** 2026-05-30 akşam — §A.4 10-komut zinciri sweep; [`ENDPOINT_SWEEP.md`](./ENDPOINT_SWEEP.md), [`BUNDLE_FINAL.md`](./BUNDLE_FINAL.md), [`FEATURE_INVENTORY.md`](./FEATURE_INVENTORY.md)
