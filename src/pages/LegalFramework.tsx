@@ -25,7 +25,7 @@ export default function LegalFramework() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white">Yasal çerçeve çalışma taslağı</h1>
-            <p className="text-sm text-slate-500">Otobid benzeri ihale şartnamesi başlıkları + TBK / İİK / KVKK hatırlatıcıları</p>
+            <p className="text-sm text-slate-500">Kurumsal ihale şartnamesi başlıkları + TBK / İİK / KVKK hatırlatıcıları</p>
           </div>
         </div>
 

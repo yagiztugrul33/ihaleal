@@ -195,6 +195,8 @@ function App() {
             <Route path={ROUTES.AUCTIONS} element={<AuctionListPage />} />
             <Route path={ROUTES.ILANLAR} element={<Navigate to={ROUTES.AUCTIONS} replace />} />
             <Route path="/ilanlar" element={<Navigate to={ROUTES.AUCTIONS} replace />} />
+            {/* PremiumCinematicHome kategoriler /ilanlar/<kategori> formatında link veriyor — catch-all redirect 404 önler */}
+            <Route path="/ilanlar/:category" element={<Navigate to={ROUTES.AUCTIONS} replace />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:auctionId/hemen-al" element={<BuyNow />} />
@@ -252,7 +254,8 @@ function App() {
             <Route path="/ekspertiz" element={<Expertise />} />
             <Route path="/evraklar" element={<DocumentsRequired />} />
             <Route path="/guvenlik" element={<SecurityCenter />} />
-            <Route path="/degisiklikler" element={<Changelog />} />
+            {/* Changelog: master kararı — public footer'da yer almayacak, route kaldırıldı (sayfa kodu duruyor, ileride admin/internal panelinde kullanılabilir) */}
+            <Route path="/degisiklikler" element={<Navigate to="/" replace />} />
             <Route path="/karsilastir-rakipler" element={<CompetitorComparison />} />
             <Route path="/yedekleme" element={<DisasterRecovery />} />
             <Route path="/reklam" element={<AdCampaign />} />

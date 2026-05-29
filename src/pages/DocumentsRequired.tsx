@@ -110,7 +110,7 @@ export default function DocumentsRequired() {
             <p className="text-sm text-slate-300 font-medium mb-1">Önemli Hatırlatma</p>
             <p className="text-sm text-slate-400 mb-2">Tüm belgelerin güncel ve okunaklı olması zorunludur. Eksik veya sahte evrak tespitinde ihale katılım hakkı iptal edilir ve kara listeye alınırsınız. Belgelerinizi platform üzerinden güvenli bir şekilde yükleyebilirsiniz.</p>
             <p className="text-xs text-slate-500 leading-relaxed">
-              <strong className="text-slate-300">Hukuki bağlayıcılık:</strong> Bu sayfa hukuki danışmanlık yerine geçmez. İhale şartnamesi, alıcı/satıcı sözleşmeleri, Otobid benzeri düzenlemeler ve e-Devlet / vekalet süreçleri için <strong className="text-slate-300">avukat onaylı</strong> doküman seti oluşturulmalıdır.
+              <strong className="text-slate-300">Hukuki bağlayıcılık:</strong> Bu sayfa hukuki danışmanlık yerine geçmez. İhale şartnamesi, alıcı/satıcı sözleşmeleri, kurumsal ihale düzenlemeleri ve e-Devlet / vekalet süreçleri için <strong className="text-slate-300">avukat onaylı</strong> doküman seti oluşturulmalıdır.
             </p>
           </div>
         </div>

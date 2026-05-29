@@ -134,7 +134,7 @@ export default function SellerHub() {
             <div className="flex items-center gap-3">
               <Scale className="w-8 h-8 text-violet-400 shrink-0" />
               <div>
-                <h3 className="text-white font-semibold">Hukuki şartname & Otobid benzeri metin</h3>
+                <h3 className="text-white font-semibold">Hukuki şartname &amp; kurumsal ihale metni</h3>
                 <p className="text-xs text-slate-500 mt-1">/ihale-kosullari ve /evraklar sayfaları — yayın öncesi baro revizyonu zorunlu.</p>
               </div>
             </div>

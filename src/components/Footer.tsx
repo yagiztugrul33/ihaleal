@@ -148,7 +148,6 @@ export function Footer() {
               ) : null}
               <li><button onClick={() => navigate("/yedekleme")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Felaket Kurtarma</button></li>
               <li><button onClick={() => navigate("/ekspertiz")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><BarChart3 className="w-3.5 h-3.5" /> Uzman Gorusu & Ekspertiz</button></li>
-              <li><button onClick={() => navigate("/degisiklikler")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Degisiklik Kayitlari</button></li>
               <li><button onClick={() => navigate("/reklam")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Target className="w-3.5 h-3.5" /> Reklam Kampanyasi</button></li>
               <li><button onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Platform ve KİK çerçevesi</button></li>
               {!isProdBuild ? (

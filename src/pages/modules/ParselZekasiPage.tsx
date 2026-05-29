@@ -20,7 +20,7 @@ export default function ParselZekasiPage() {
               sadece EMSAL değil, çevresel sinyaller de zorunlu olarak birlikte okunmalıdır.
             </p>
             <p>
-              Bu modül, Palantir/Endeksa yaklaşımına benzer katmanlı ön analiz üretir: SES, POI erişimi, eğitim ve güvenlik skorları
+              Bu modül, katmanlı veri zekası yaklaşımıyla ön analiz üretir: SES, POI erişimi, eğitim ve güvenlik skorları
               ağırlıklı birleşik bir konum puanına dönüşür.
             </p>
           </div>
