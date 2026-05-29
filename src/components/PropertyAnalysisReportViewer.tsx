@@ -12,6 +12,7 @@ import {
 import { Download, Loader2 } from "lucide-react";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
+import { clientLogError } from "@/lib/clientLog";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
 import { Button } from "@/components/ui/button";
 
@@ -96,7 +97,7 @@ export function PropertyAnalysisReportViewer({
       pdf.save(`ihaleal-rapor-${Date.now()}.pdf`);
     } catch (err) {
       // Sessiz fail — kullanıcıya bir sonraki tıklamada tekrar deneme şansı.
-      console.error("PDF export hatası:", err);
+      clientLogError("pdf-export", err);
     } finally {
       setExporting(false);
     }
