@@ -1,5 +1,4 @@
-// R14 PAKET 3 — Müteahhit Panel (TAM REVİZE: demo static kaldırıldı, gerçek Supabase)
-// useDeveloperProjects + useAuth ile owner_user_id bazlı projeler ve birim metrikleri.
+// R14 PAKET 3 — Müteahhit Panel (org_members + active_org_id + developer_projects)
 
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DashboardShell, MetricCard } from "@/components/enterprise";
 import { useAuth } from "@/contexts/AuthContext";
+import { useActiveOrg } from "@/hooks/useActiveOrg";
 import { useDeveloperProjects } from "@/hooks/useDeveloperProjects";
 import { supabase } from "@/lib/supabase";
 
@@ -39,13 +39,16 @@ interface UnitAggregate {
   pendingProjects: number;
 }
 
+type OrgMemberRole = "owner" | "admin" | "manager" | "agent" | "viewer";
+
 export default function MuteahhitPanelPage() {
   const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
+  const { user, profile, profileLoading, loading: authLoading } = useAuth();
+  const { org, loading: orgLoading } = useActiveOrg();
   const { projects, loading: projectsLoading, error, refresh } = useDeveloperProjects();
 
-  const [role, setRole] = useState<string | null>(null);
-  const [roleLoading, setRoleLoading] = useState(true);
+  const [orgMemberRole, setOrgMemberRole] = useState<OrgMemberRole | null>(null);
+  const [membershipLoading, setMembershipLoading] = useState(true);
   const [ruhsatPending, setRuhsatPending] = useState(false);
   const [aggregate, setAggregate] = useState<UnitAggregate>({
     totalUnits: 0,
@@ -54,38 +57,49 @@ export default function MuteahhitPanelPage() {
     pendingProjects: 0,
   });
 
-  // Role + organizations.ruhsat_pending fetch
+  // Aktif org: settings.ruhsat_pending + organization_members rolü
   useEffect(() => {
     let cancelled = false;
-    const loadRoleAndOrg = async () => {
+    const loadOrgContext = async () => {
       if (!user) {
-        setRole(null);
-        setRoleLoading(false);
+        setOrgMemberRole(null);
+        setRuhsatPending(false);
+        setMembershipLoading(false);
         return;
       }
-      const [{ data: prof }, { data: org }] = await Promise.all([
-        supabase.from("profiles").select("role").eq("id", user.id).maybeSingle(),
+      setMembershipLoading(true);
+
+      if (!org?.id) {
+        setOrgMemberRole(null);
+        setRuhsatPending(false);
+        setMembershipLoading(false);
+        return;
+      }
+
+      const [{ data: orgRow }, { data: membership }] = await Promise.all([
+        supabase.from("organizations").select("settings").eq("id", org.id).maybeSingle(),
         supabase
-          .from("organizations")
-          .select("settings")
-          .eq("owner_user_id", user.id)
-          .eq("org_type", "contractor")
+          .from("organization_members")
+          .select("role")
+          .eq("organization_id", org.id)
+          .eq("user_id", user.id)
+          .eq("status", "active")
           .maybeSingle(),
       ]);
+
       if (cancelled) return;
-      const profRole = (prof as { role?: string } | null)?.role ?? null;
-      setRole(profRole);
-      const settings = (org as { settings?: { ruhsat_pending?: boolean } } | null)?.settings ?? {};
+
+      const settings = (orgRow as { settings?: { ruhsat_pending?: boolean } } | null)?.settings ?? {};
       setRuhsatPending(Boolean(settings.ruhsat_pending));
-      setRoleLoading(false);
+      setOrgMemberRole((membership as { role?: OrgMemberRole } | null)?.role ?? null);
+      setMembershipLoading(false);
     };
-    void loadRoleAndOrg();
+    void loadOrgContext();
     return () => {
       cancelled = true;
     };
-  }, [user]);
+  }, [user, org?.id]);
 
-  // Project unit aggregates (toplam birim, satılan, rezerve, bekleyen proje onayı)
   useEffect(() => {
     let cancelled = false;
     const loadAggregates = async () => {
@@ -118,11 +132,10 @@ export default function MuteahhitPanelPage() {
     };
   }, [user, projects]);
 
-  const loading = authLoading || roleLoading || projectsLoading;
+  const loading = authLoading || profileLoading || orgLoading || membershipLoading || projectsLoading;
 
   const sortedProjects = useMemo(() => {
     return [...projects].sort((a, b) => {
-      // pending önce, sonra verified, sonra rejected
       const orderA = a.ruhsat_status === "pending" ? 0 : a.ruhsat_status === "verified" ? 1 : 2;
       const orderB = b.ruhsat_status === "pending" ? 0 : b.ruhsat_status === "verified" ? 1 : 2;
       if (orderA !== orderB) return orderA - orderB;
@@ -130,7 +143,10 @@ export default function MuteahhitPanelPage() {
     });
   }, [projects]);
 
-  // Loading
+  const isPlatformAdmin = profile?.isAdmin === true || profile?.role === "admin";
+  const isOrgOwnerOrAdmin = orgMemberRole === "owner" || orgMemberRole === "admin";
+  const canAccessPanel = isPlatformAdmin || isOrgOwnerOrAdmin;
+
   if (loading) {
     return (
       <div className="min-h-screen pt-24 px-4 flex items-center justify-center text-slate-400">
@@ -139,7 +155,6 @@ export default function MuteahhitPanelPage() {
     );
   }
 
-  // Auth gate
   if (!user) {
     return (
       <div className="min-h-screen pt-24 px-4 text-center text-slate-300">
@@ -151,14 +166,15 @@ export default function MuteahhitPanelPage() {
     );
   }
 
-  // Role gate — sadece müteahhit/admin
-  if (role && role !== "muteahhit" && role !== "admin") {
+  if (!canAccessPanel) {
     return (
       <div className="min-h-screen pt-24 px-4 text-center text-slate-300 max-w-xl mx-auto">
         <AlertTriangle className="w-10 h-10 text-amber-400 mx-auto mb-3" />
         <h2 className="text-xl font-bold text-white mb-2">Müteahhit paneline erişiminiz yok</h2>
         <p className="text-sm text-slate-400 mb-4">
-          Bu panel sadece müteahhit rolündeki hesaplara açıktır. Eğer firma kaydı oluşturmak istiyorsanız aşağıdaki düğmeyi kullanın.
+          Bu panel yalnızca müteahhit firmasında <strong className="text-slate-300">owner</strong> veya{" "}
+          <strong className="text-slate-300">admin</strong> rolündeki hesaplara açıktır. Firma kaydı oluşturmak için
+          aşağıdaki düğmeyi kullanın.
         </p>
         <div className="flex flex-wrap gap-2 justify-center">
           <Button asChild>
@@ -175,7 +191,7 @@ export default function MuteahhitPanelPage() {
   return (
     <DashboardShell
       badge="Müteahhit paneli"
-      title="Projeler ve lansman birimleri"
+      title={org ? org.display_name : "Projeler ve lansman birimleri"}
       subtitle="Ruhsatlı projeleriniz, birim envanteri ve lansman ilanlarını buradan yönetin."
       actions={
         <Button asChild size="sm" className="gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950">
@@ -185,14 +201,13 @@ export default function MuteahhitPanelPage() {
         </Button>
       }
     >
-      {/* Ruhsat pending banner */}
       {ruhsatPending && (
         <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 flex items-start gap-3 mb-4">
           <AlertTriangle className="w-5 h-5 text-amber-300 mt-0.5 shrink-0" />
           <div className="text-sm text-amber-100">
             <p className="font-semibold mb-0.5">Firma ruhsatınız admin onayını bekliyor</p>
             <p className="text-amber-100/80 text-xs">
-              Onay tamamlanana kadar projelerinizi oluşturup birim envanteri girebilirsiniz; ancak lansman ilanları ({" "}
+              Onay tamamlanana kadar projelerinizi oluşturup birim envanteri girebilirsiniz; ancak lansman ilanları (
               <span className="font-mono">is_lansman</span>) yalnızca proje onayından sonra aktif edilir.
             </p>
           </div>
@@ -208,7 +223,6 @@ export default function MuteahhitPanelPage() {
         </div>
       )}
 
-      {/* Metrik kartları (gerçek data) */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <MetricCard label="Toplam proje" value={String(projects.length)} icon={Building2} hint={`${aggregate.pendingProjects} onay bekliyor`} />
         <MetricCard label="Toplam birim" value={String(aggregate.totalUnits)} icon={ListChecks} />
@@ -216,7 +230,6 @@ export default function MuteahhitPanelPage() {
         <MetricCard label="Rezerve birim" value={String(aggregate.reservedUnits)} icon={Megaphone} />
       </div>
 
-      {/* Projeler listesi */}
       <section className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-white">Projeleriniz ({projects.length})</h2>
@@ -319,7 +332,6 @@ export default function MuteahhitPanelPage() {
         )}
       </section>
 
-      {/* Eğitim/SSS bloğu (mevcut SEO içeriği korundu, demo verilere bağımlı değil) */}
       <section className="mt-6 grid gap-4 lg:grid-cols-3">
         <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
           <h3 className="text-sm font-semibold text-cyan-100">Neden bu panel?</h3>
@@ -336,8 +348,7 @@ export default function MuteahhitPanelPage() {
         <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
           <h3 className="text-sm font-semibold text-violet-100">Yayın kuralı</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
-            Sadece <span className="font-semibold text-violet-100">verified</span> projelerin birimleri ilan olarak yayınlanabilir; aksi
-            durumda RLS engellenir.
+            Sadece <span className="font-semibold text-violet-100">verified</span> projelerin birimleri ilan olarak yayınlanabilir.
           </p>
         </article>
       </section>
@@ -352,7 +363,7 @@ export default function MuteahhitPanelPage() {
           <article>
             <p className="font-semibold text-slate-100">Birimi yayınlayınca ne olur?</p>
             <p className="text-slate-400 mt-1">
-              Birim "rezerve" duruma geçer ve <span className="font-mono">/ilan/:id</span> üzerinden satışa açılır.
+              Birim rezerve duruma geçer ve <span className="font-mono">/ilan/:id</span> üzerinden satışa açılır.
             </p>
           </article>
           <article>
