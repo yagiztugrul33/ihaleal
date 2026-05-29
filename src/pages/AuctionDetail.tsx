@@ -43,6 +43,7 @@ import {
   type PropertyAnalysisReportRecord,
 } from "@/lib/aiAnalysis";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
+import { PantsirPanel } from "@/components/property/PantsirPanel";
 import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIInsight } from "@/components/cinematic";
@@ -800,6 +801,8 @@ export default function AuctionDetail() {
               )}
               {activeTab === "ai" && resolvedReport && (
                 <div className="space-y-8 animate-fade-in">
+                  {/* R13.4 Pantsir — İstihbarat Paneli (mock veri, R13.2'de OSM API'ye geçiş) */}
+                  {id ? <PantsirPanel listingId={id} /> : null}
                   <PropertyAnalysisReportViewer report={resolvedReport} mockBanner={!dbReportLoaded} />
                   <CaymaPolitikasi accepted={legalWithdrawAccepted} onAcceptedChange={setLegalWithdrawAccepted} />
                   <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
