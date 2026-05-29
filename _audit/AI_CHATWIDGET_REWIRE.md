@@ -1,146 +1,173 @@
-# AI ChatWidget Rewire Envanteri — R12.10 Sonrası
+# AI ChatWidget Rewire Envanteri — R12.10 + Edge 404 (FINAL)
 
-**Tarih:** 2026-05-30 (R12 FINAL refresh)  
-**Referans HEAD:** `6331110`  
-**Kapsam:** `ChatWidget.tsx` (~610 satır) + `assistantEngine.ts` (~257) + `knowledgeBase.ts` (~140) + `systemQaClient` (salt-okuma)
+**Tarih:** 2026-05-29 ~15:30  
+**Referans HEAD:** `665dd2c`  
+**Kapsam:** `ChatWidget.tsx` (~610 satır) + `assistantEngine.ts` + `knowledgeBase.ts` + `systemQaClient` + prod Edge durumu
 
 ---
 
 ## 1. Mevcut mimari
 
-### `ChatWidget.tsx` (~610 satır)
+### `ChatWidget.tsx` — iki mod
 
-İki mod (`ChatMode`: `"qa" | "guide"`):
-
-| Mod | UI etiketi | Yanıt kaynağı |
+| Mod | UI | Yanıt kaynağı |
 |---|---|---|
-| `qa` | Soru–cevap | `invokeSystemQa()` → Supabase Edge **`ai_qa`** (OpenAI) |
-| `guide` | Hızlı yönlendirme | `getAIResponse()` → yerel **`AI_RULES`** anahtar kelime dizisi (~200 satır) |
+| `guide` | Hızlı yönlendirme | `getAIResponse()` → inline **`AI_RULES`** (~200 satır) |
+| `qa` | Soru–cevap | `invokeSystemQa()` → Edge **`ai_qa`** |
 
-**QA hata fallback:** `buildQaFailureReply()` → yine `getAIResponse()` (guide ile aynı motor).
+**Mount davranışı:** ChatWidget load'da **network ping atmaz**. Kullanıcı QA modunda mesaj gönderince `ai_qa` POST edilir.
 
-### R12.10 paketi (tree-shake, ChatWidget tüketmiyor)
+**QA hata fallback:** `buildQaFailureReply()` → yine `getAIResponse()` (guide ile aynı eski motor).
+
+### R12.10 (tree-shake — ChatWidget tüketmiyor)
 
 | Dosya | Export | ChatWidget import? |
 |---|---|---|
-| `src/lib/ai/assistantEngine.ts` | `buildAssistantReply()`, `CHAT_GUIDE_CHIPS` | ❌ **Hayır** |
-| `src/lib/ai/knowledgeBase.ts` | `KNOWLEDGE_TOPICS`, uyarı metinleri | ❌ (engine üzerinden) |
-| `src/lib/systemQaClient.ts` | `invokeSystemQa()` | ✅ QA modunda |
-
-**Sonuç:** R12.10 engine **canlı repoda var ama ChatWidget hâlâ eski inline `AI_RULES` kullanıyor** — bilinçli rewire bekleniyor.
+| `assistantEngine.ts` | `buildAssistantReply()` | ❌ |
+| `knowledgeBase.ts` | `KNOWLEDGE_TOPICS` | ❌ (engine üzerinden) |
+| `systemQaClient.ts` | `invokeSystemQa()` | ✅ QA modunda |
 
 ---
 
-## 2. `assistantEngine` API yüzeyi
+## 2. Production Edge durumu (2026-05-29)
 
-```ts
-buildAssistantReply(input: string): AssistantReply
-// AssistantReply = { text: string; actions: AssistantAction[] }
-// AssistantAction = { label: string; to: string }
-```
+| Function | Prod POST | ChatWidget etkisi |
+|---|---|---|
+| **`ai_qa`** | **404** NOT_FOUND | QA mesaj → 404 → fallback (UI çökmez) |
+| **`post_chat_message`** | **404** | `/mesajlar` Edge yolu kırık |
 
-Özellikler:
+Detay tablo: [`EDGE_FUNCTIONS_DEPLOY_STATUS.md`](./EDGE_FUNCTIONS_DEPLOY_STATUS.md)
 
-- TR normalize + intent routing (teklif, komisyon, Kadıköy, satış, güvenlik…)
-- `KNOWLEDGE_TOPICS` eşlemesi (borsa, order book, imar/emsal, site haritası)
-- `fees.ts` (`COMMISSION_RATE`, `BID_BOND_RATE`) + borsa demo varlıkları
-- Her yanıtta: `DEMO_WARNING`, opsiyonel `EXPERT_WARNING`, `LIVE_AI_NOTE`
-- Aksiyon chip'leri: `/borsa`, `/komisyon-hesaplayici`, `/ilanlar` vb.
-
-Test kapsamı: `assistantEngine.test.ts` (9 senaryo).
+**Master "400–500 çok" algısı:** QA modunda mesaj gönderince Network'te kırmızı **404** — beklenen gürültü, site genel 500 değil.
 
 ---
 
-## 3. Hibrit yaklaşım taslağı
+## 3. Hibrit yaklaşım (önerilen — C)
 
 ```
 Kullanıcı mesajı
     │
-    ├─ guide mod ──────────────────► buildAssistantReply()  [client-engine]
+    ├─ guide mod ──────────────────────────────► buildAssistantReply()     [client, 0 network]
     │
     └─ qa mod
-           ├─ invokeSystemQa OK ───► Edge ai_qa (OpenAI)     [server-chat]
-           └─ invokeSystemQa FAIL ─► buildAssistantReply()   [client fallback]
-                                    (getAIResponse yerine)
+           ├─ basit intent (komisyon/kapora/rota) ► buildAssistantReply()   [client önce]
+           ├─ invokeSystemQa OK ───────────────► Edge ai_qa (OpenAI)       [server]
+           └─ invokeSystemQa FAIL (404/500) ───► buildAssistantReply()   [client fallback]
 ```
 
-**Ne zaman server (`ai_qa`):**
+### Ne zaman client (`buildAssistantReply` + `knowledgeBase`)
 
-- Paragraflı, bağlamlı, serbest form sorular
-- Thread geçmişi gerektiren diyalog
-- Üretimde `OPENAI_API_KEY` + Edge deploy varsa
+- "komisyon kaç", "kapora ne", "teklif kuralları", "site haritası", rota soruları
+- Edge **404** / env eksik / rate limit
+- **Guide modu** bilinçli deterministik UX
+- **Avantaj:** 0 network, fees.ts uyumlu, offline-demo
 
-**Ne zaman client (`buildAssistantReply`):**
+### Ne zaman server (`ai_qa`)
 
-- Komisyon / teklif / rota gibi **bilgi bankası** soruları
-- Edge down / env eksik / rate limit
-- Guide modu (bilinçli olarak LLM'siz, deterministik UX)
-
-**Karma örnek:**
-
-| Soru | Önerilen yol |
-|---|---|
-| "ihaleal komisyon kaç" | client → `buildAssistantReply` (fees + KNOWLEDGE_TOPICS) |
-| "Şu ilanı analiz et" / listing ID | server → `ai_qa` (+ ileride listing context inject) |
-| "teklif verme kuralları" | client (deterministik, hukuki disclaimer sabit) |
-| Edge fail + "KYC nedir" | client fallback |
+- Serbest form, paragraflı, bağlamlı sorular
+- "Şu ilanı analiz et", listing ID + lokasyon yorumu
+- **Ön koşul:** `supabase functions deploy ai_qa` + `OPENAI_API_KEY`
 
 ---
 
-## 4. Minimum rewire değişim listesi (tahmini)
+## 4. Kod örneği — minimum rewire (~40–70 satır)
 
-| Dosya | Değişiklik | Satır (~) |
-|---|---|---:|
-| `ChatWidget.tsx` | `import { buildAssistantReply } from "@/lib/ai/assistantEngine"` | +1 |
-| `ChatWidget.tsx` | Guide mod: `getAIResponse` → `buildAssistantReply().text` + action chips render | ~25–40 |
-| `ChatWidget.tsx` | `buildQaFailureReply`: fallback body → `buildAssistantReply` | ~10–15 |
-| `ChatWidget.tsx` | (Opsiyonel) QA başarılı yanıtta da action chips | ~15 |
-| `ChatWidget.tsx` | `AI_RULES` / `getAIResponse` silinebilir veya thin-wrapper | −150~200 |
-| `assistantEngine.ts` | Değişiklik gerekmez (additive) | 0 |
+### Import
 
-**Net:** ~**40–70 satır** anlamlı diff; büyük silme ile **−100 satır** net mümkün.
+```ts
+import { buildAssistantReply } from "@/lib/ai/assistantEngine";
+import { invokeSystemQa, type SystemQaTurn } from "@/lib/systemQaClient";
+```
 
-**UI ek iş:** `AssistantReply.actions` için mevcut quick-link chip pattern'i reuse (~20 satır).
+### Guide mod — eski `getAIResponse` yerine
+
+```ts
+function replyFromEngine(userMsg: string) {
+  const { text, actions } = buildAssistantReply(userMsg);
+  setMessages((prev) => [...prev, { role: "ai", text }]);
+  // actions → mevcut chip UI'ya map (label, to)
+}
+```
+
+### QA mod — hibrit sıra
+
+```ts
+async function handleQaSend(userMsg: string, thread: SystemQaTurn[]) {
+  setTyping(true);
+
+  // 1) Basit sorular — client first (404'ten kaçın)
+  const quick = buildAssistantReply(userMsg);
+  if (quick.actions.length > 0 && !needsLlm(userMsg)) {
+    setTyping(false);
+    setMessages((prev) => [...prev, { role: "ai", text: quick.text }]);
+    return;
+  }
+
+  // 2) Edge dene
+  const res = await invokeSystemQa(thread);
+  setTyping(false);
+
+  if (res.ok) {
+    setMessages((prev) => [...prev, { role: "ai", text: res.text }]);
+    return;
+  }
+
+  // 3) Fallback — engine (404/500 gürültüsü kullanıcıya yansımaz)
+  const fallback = buildAssistantReply(userMsg);
+  setMessages((prev) => [...prev, { role: "ai", text: fallback.text }]);
+}
+```
+
+`needsLlm()` — kısa heuristic: listing UUID, "analiz et", "yorumla", 120+ karakter → server; aksi client.
 
 ---
 
-## 5. Test senaryoları
+## 5. Master karar matrisi
+
+| Seçenek | Artı | Eksi | Efor | Risk |
+|---|---|---|---|---|
+| **A — ai_qa deploy** | Tam LLM QA | OPENAI maliyet; 404 gider ama secret yoksa 500 | ~30 dk ops | Orta |
+| **B — Sadece client rewire** | 404 yok; deterministik | Serbest LLM yok | ~1 saat kod | Düşük |
+| **C — Hibrit (önerilen)** | Basit soru 0 network; karmaşık LLM; 404 sessiz fallback | İki yol test | ~1–1.5 saat | Düşük |
+
+**Öneri:** **C** — önce ChatWidget rewire (B kısmı), paralel veya sonra **A** selektif deploy.
+
+---
+
+## 6. Test senaryoları
 
 | # | Girdi | Beklenen |
 |---|---|---|
-| T1 | Guide: "komisyon ne kadar" | `buildAssistantReply` → komisyon metni + `/komisyon-hesaplayici` action |
-| T2 | Guide: "nasıl teklif veririm" | Adım adım teklif + `/ihaleler` action |
-| T3 | QA + Edge OK: serbest soru | `invokeSystemQa` yanıtı (mock Edge test) |
-| T4 | QA + Edge FAIL: "komisyon ne kadar" | Fallback → engine (T1 ile aynı içerik standardı) |
-| T5 | QA: supabase_not_configured | Türkçe durum mesajı + engine fallback |
-| T6 | Bilinmeyen soru | Engine "eşleştiremedim" + default actions |
-| T7 | "KADIKÖY-D varlığına teklif" | Dynamic bid target → `/borsa/varlik/...` |
-| T8 | Regression: integrity bypass keywords | Dolandırıcılık yönlendirme (mevcut `AI_RULES` parity — engine'de `guvenli mi` intent) |
+| T1 | Guide: "komisyon ne kadar" | Engine + `/komisyon-hesaplayici` action |
+| T2 | QA + Edge 404: "komisyon ne kadar" | Client engine (404 kullanıcıya görünmez) |
+| T3 | QA + Edge OK: serbest analiz sorusu | `ai_qa` yanıtı |
+| T4 | QA: Edge 404 + "KADIKÖY-D teklif" | Engine dynamic bid route |
+| T5 | Mount sayfa load | **0** `ai_qa` request (Network sessiz) |
 
 ---
 
-## 6. Master UX karar matrisi
+## 7. Değişim listesi (tek PR)
 
-| Seçenek | Artı | Eksi | Öneri |
-|---|---|---|---|
-| **Sadece client-engine** | Deterministik, Edge maliyeti yok, offline-demo | Serbest LLM yok | Staging / demo |
-| **Sadece server-chat** | Zengin NLU | Edge bağımlılığı, maliyet, fallback zayıf | Erken prod riskli |
-| **Hibrit (önerilen)** | QA mod LLM + guide/fallback deterministik | İki kod yolu test gerekir | **Ürün kararı için default** |
-
-**Bağımlılıklar (server path):**
-
-- `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
-- `supabase functions deploy ai_qa`
-- Dashboard: `OPENAI_API_KEY`
-
----
-
-## 7. Risk
-
-| Risk | Not |
+| Dosya | Değişiklik |
 |---|---|
-| `AI_RULES` vs engine parity | Bazı guide-only kurallar (localhost/Wi-Fi, bidding rules) engine'de yok — migrate listesi çıkar |
-| Action chips UI | Engine actions render edilmezse R12.10 değeri yarım kalır |
-| Duplicate maintenance | Rewire sonrası `AI_RULES` silinmeli (dead code) |
+| `ChatWidget.tsx` | Engine import; guide/QA/fallback rewire; `AI_RULES` thin veya sil |
+| `assistantEngine.ts` | Değişiklik gerekmez |
+| `systemQaClient.ts` | Değişiklik gerekmez |
 
-**Sıradaki adım:** Master hibrit onayı → tek PR: ChatWidget rewire + `AI_RULES` temizlik + smoke.
+**Net:** ~40–70 satır anlamlı diff; `AI_RULES` silinirse −150 satır.
+
+---
+
+## 8. Risk
+
+| Risk | Azaltma |
+|---|---|
+| `AI_RULES` vs engine parity | Rewire öncesi keyword diff listesi |
+| Edge deploy sonrası maliyet | Hibrit: basit sorular client-first |
+| Action chips render edilmezse | R12.10 değeri yarım — UI task dahil |
+
+**Sıradaki adım:** Master **C** onayı → TS sprint sonrası tek PR; opsiyonel `ai_qa` deploy aynı hafta.
+
+---
+
+**Son güncelleme:** 2026-05-29 — Cursor FINAL audit (Edge 404 entegre + hibrit kod örneği)
