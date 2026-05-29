@@ -192,7 +192,7 @@
     "id": 28,
     "sev": "B",
     "title": "Hizmet bedeli kalemleri",
-    "desc": "Örnek sabit ücretler: fotoğraf 2500, dron 1500, hukuk 1000, ekspertiz 3000, ihaleye giriş 250, sanal tur 1500, video 2000, tapu hazırlık 750 TL (SERVICE_FEES).",
+    "desc": "Hizmet bedelleri (master 2026-05-30 güncelleme): fotoğraf 9000, dron 25000, hukuk 45000, ekspertiz 40000, sanal tur 15000, video 25000, tapu hazırlık 15000 TL; ihaleye giriş DİNAMİK %5 (Gayrimenkul değerinin %5'i bloke/teminat havale, BID_BOND_RATE) — SERVICE_FEES + SERVICE_FEE_DYNAMIC tek kaynaklı.",
     "ref": "fees.ts"
   },
   {

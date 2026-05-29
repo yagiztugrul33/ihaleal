@@ -9,7 +9,9 @@ import {
   MEMBERSHIP_FEES,
   SERVICE_FEES,
   SERVICE_FEE_LABELS,
+  SERVICE_FEE_DYNAMIC,
   calcCommissionBreakdown,
+  calcBidBond,
   VAT_RATE,
   REALTOR_B2B_RATE,
   SELLER_COMMISSION_RATE,
@@ -63,10 +65,16 @@ export default function CommissionCalculator() {
   const serviceSum = useMemo(() => {
     let s = 0;
     (Object.keys(svc) as ServiceKey[]).forEach((k) => {
-      if (svc[k]) s += SERVICE_FEES[k];
+      if (!svc[k]) return;
+      // Dinamik fee (bid_entry): satış bedeli üzerinden BID_BOND_RATE (%5 bloke/teminat)
+      if (k === "bid_entry") {
+        s += calcBidBond(saleAmount);
+      } else {
+        s += SERVICE_FEES[k];
+      }
     });
     return s;
-  }, [svc]);
+  }, [svc, saleAmount]);
 
   const mahsupMembership = sellerMembershipPaid ? MEMBERSHIP_FEES.seller_yearly : 0;
   const b = useMemo(
@@ -268,7 +276,11 @@ export default function CommissionCalculator() {
                       <Checkbox checked={svc[k]} onCheckedChange={() => toggleService(k)} />
                       <span className="text-sm text-slate-400">
                         <span className="text-slate-200">{SERVICE_FEE_LABELS[k]}</span>
-                        <span className="block text-xs text-slate-500">{SERVICE_FEES[k].toLocaleString("tr-TR")} ₺</span>
+                        <span className="block text-xs text-slate-500">
+                          {SERVICE_FEE_DYNAMIC[k]
+                            ? `${SERVICE_FEE_DYNAMIC[k]} (matrah ₺${calcBidBond(saleAmount).toLocaleString("tr-TR")})`
+                            : `${SERVICE_FEES[k].toLocaleString("tr-TR")} ₺`}
+                        </span>
                       </span>
                     </label>
                   ))}
