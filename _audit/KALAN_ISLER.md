@@ -122,7 +122,7 @@ v0.12.7 yerine `v0.12.7-pre-stable` veya bekle `v0.12.8` ile temiz baseline'a ta
 
 ---
 
-> **R12 SPRINT — KISMEN KAPANDI** — 2026-05-30 gece final audit. HEAD `6331110`. Production shell sağlam (118/118 HTTP 200). Sprint 3 RLS sağlıklı. **TS tip sağlığı kırık — yukarıdaki kritik bölüm.** Claude Code paralel: Faz A-5 finalize + ders fix + PR merge.
+> **R12 SPRINT — KISMEN KAPANDI** — 2026-05-29 ~15:30 FINAL audit temizlik. Production crisis recovery ✅ (5 hotfix). HEAD `665dd2c+`. **TS tip sağlığı — Claude Code paralel sprint.** Audit paketi: `KALAN_ISLER`, `MASTER_TESLIMAT`, `KYC_VERIFY_TASLAK`, `AI_CHATWIDGET_REWIRE`, `EDGE_FUNCTIONS_DEPLOY_STATUS` (+ gece 8 dosya).
 
 ---
 
