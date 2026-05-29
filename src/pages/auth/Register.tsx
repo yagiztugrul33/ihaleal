@@ -9,6 +9,7 @@ import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
 import { parseKurumsalProfil, postLoginPathForProfil } from "@/lib/authProfile";
+import { buildContractorOrgSlug } from "@/lib/contractorOrgSlug";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -71,37 +72,59 @@ export default function Register() {
       }
     }
     setLoading(true);
-    const { error: supaErr, session } = await signUp(email.trim(), password, name.trim(), {
-      phone: phone.trim() || undefined,
-    });
-    setLoading(false);
+    try {
+      const { error: supaErr, session } = await signUp(email.trim(), password, name.trim(), {
+        phone: phone.trim() || undefined,
+      });
 
-    if (supaErr) {
-      setError(translateAuthError(supaErr.message ?? ""));
-      return;
-    }
+      if (supaErr) {
+        setError(translateAuthError(supaErr.message ?? ""));
+        return;
+      }
 
-    // R14 — Müteahhit organizations + profiles persist
-    if (isMuteahhit && session?.user) {
-      try {
-        // 1. organizations INSERT (contractor)
-        const { error: orgErr } = await supabase.from("organizations").insert({
-          name: companyName.trim(),
-          org_type: "contractor",
-          tax_number: taxNumber.trim(),
-          owner_user_id: session.user.id,
-          settings: {
-            ruhsat_pending: true,
-            company_address: companyAddress.trim(),
-            created_via: "self_register",
-          },
-        });
-        if (orgErr) {
-          console.error("organizations insert error:", orgErr);
-          // Devam et, organizations yoksa bile profiles role'u atayalım
+      // R14 — Müteahhit: organizations → organization_members → set_active_org → profiles
+      if (isMuteahhit && session?.user) {
+        const firmaAdi = companyName.trim();
+        const { data: orgRow, error: orgErr } = await supabase
+          .from("organizations")
+          .insert({
+            slug: buildContractorOrgSlug(firmaAdi),
+            legal_name: firmaAdi,
+            display_name: firmaAdi,
+            org_type: "contractor",
+            tax_number: taxNumber.trim(),
+            settings: {
+              ruhsat_pending: true,
+              company_address: companyAddress.trim(),
+              created_via: "self_register",
+            },
+          })
+          .select("id")
+          .single();
+
+        if (orgErr || !orgRow?.id) {
+          setError("Şirket kaydı oluşturulamadı. Destek ile iletişime geçin.");
+          return;
         }
 
-        // 2. profiles UPDATE role + kyc_status
+        const { error: memErr } = await supabase.from("organization_members").insert({
+          organization_id: orgRow.id,
+          user_id: session.user.id,
+          role: "owner",
+          status: "active",
+        });
+        if (memErr) {
+          setError("Firma üyeliği oluşturulamadı. Destek ile iletişime geçin.");
+          return;
+        }
+
+        const { error: rpcErr } = await supabase.rpc("set_active_org", { p_org_id: orgRow.id });
+        if (rpcErr) {
+          setError("Aktif firma oturumu ayarlanamadı. Destek ile iletişime geçin.");
+          return;
+        }
+        await supabase.auth.refreshSession();
+
         const { error: profErr } = await supabase
           .from("profiles")
           .update({
@@ -110,25 +133,25 @@ export default function Register() {
             full_name: name.trim(),
           })
           .eq("id", session.user.id);
-        if (profErr) console.error("profiles update error:", profErr);
+        if (profErr) {
+          setError("Profil güncellenemedi. Destek ile iletişime geçin.");
+          return;
+        }
 
-        // 3. Onay bekleme sayfasına yönlendir
         navigate("/muteahhit/onay-bekleniyor");
         return;
-      } catch (err) {
-        console.error("R14 müteahhit persist error:", err);
-        setError("Hesap oluşturuldu ama profil tamamlanamadı. Destek ile iletişime geçin.");
+      }
+
+      if (session?.user) {
+        const next = searchParams.get("next");
+        const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+        navigate(safeNext ?? postLoginPathForProfil(kurumsalProfil));
         return;
       }
+      setInfo("Kayıt tamam! E-postanıza gelen onay bağlantısını tıklayın.");
+    } finally {
+      setLoading(false);
     }
-
-    if (session?.user) {
-      const next = searchParams.get("next");
-      const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
-      navigate(safeNext ?? postLoginPathForProfil(kurumsalProfil));
-      return;
-    }
-    setInfo("Kayıt tamam! E-postanıza gelen onay bağlantısını tıklayın.");
   };
 
   return (
