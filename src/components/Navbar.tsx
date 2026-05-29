@@ -156,6 +156,7 @@ export function Navbar() {
   const n = t.nav;
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServiceOpen, setMobileServiceOpen] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -213,6 +214,7 @@ export function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false);
+    setMobileServiceOpen(null);
     setLangOpen(false);
   }, [location.pathname, location.search]);
 
@@ -294,7 +296,7 @@ export function Navbar() {
             <NavDropdown label={n.company} items={companyItems} testId="nav-company" />
           </div>
 
-          <div className="nav-desktop-actions hidden items-center gap-2 md:flex">
+          <div className="nav-desktop-actions hidden items-center gap-2 lg:flex">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
@@ -361,16 +363,17 @@ export function Navbar() {
 
           <button
             type="button"
-            className="nav-mobile-toggle hidden rounded-lg border border-slate-600/30 p-2 text-slate-200 lg:hidden"
+            className="nav-mobile-toggle inline-flex items-center justify-center rounded-lg border border-slate-600/30 p-2 text-slate-200 lg:hidden"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label={mobileOpen ? n.closeMenu : n.openMenu}
+            data-testid="nav-mobile-toggle"
           >
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {mobileOpen ? (
-          <div className="border-t border-slate-700/40 px-4 py-4 lg:hidden">
+          <div className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-slate-700/40 px-4 py-4 lg:hidden">
             <button
               type="button"
               onClick={() => {
@@ -381,6 +384,16 @@ export function Navbar() {
             >
               <Search className="h-4 w-4" /> {n.search}
             </button>
+            {/* R12.1 — Borsa CTA mobile (prominent) */}
+            <Link
+              to="/borsa"
+              onClick={() => setMobileOpen(false)}
+              className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg px-3 py-3 text-sm font-semibold text-white no-underline"
+              style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
+              data-testid="nav-mobile-borsa-cta"
+            >
+              Borsaya Gir
+            </Link>
             <NavLink
               to={ROUTES.ILANLAR}
               onClick={() => setMobileOpen(false)}
@@ -395,26 +408,71 @@ export function Navbar() {
             >
               {n.howItWorks}
             </NavLink>
+            {/* R12.2 — Hizmetler mega menu mobile accordion */}
             <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               {n.services}
             </p>
-            {serviceItems.map((sub) => (
-              <NavLink
-                key={sub.to}
-                to={sub.to}
-                data-testid={sub.to === ROUTES.ARASTIRMA_GES ? "nav-services-ges-mobile" : undefined}
-                onClick={() => setMobileOpen(false)}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
-              >
-                {sub.label}
-              </NavLink>
-            ))}
+            {megaColumns.map((col) => {
+              const expanded = mobileServiceOpen === col.title;
+              return (
+                <div key={col.title} className="rounded-lg">
+                  <button
+                    type="button"
+                    onClick={() => setMobileServiceOpen(expanded ? null : col.title)}
+                    aria-expanded={expanded}
+                    className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-slate-200 hover:bg-slate-800/50"
+                    data-testid={`nav-mobile-services-${col.title.toLowerCase()}`}
+                  >
+                    <span>{col.title}</span>
+                    <ChevronDown
+                      className={cn("h-4 w-4 transition-transform", expanded && "rotate-180")}
+                    />
+                  </button>
+                  {expanded && (
+                    <div className="ml-2 border-l border-slate-700/40 pl-2">
+                      {col.items.map((item) => (
+                        <NavLink
+                          key={item.to}
+                          to={item.to}
+                          data-testid={item.testId}
+                          onClick={() => {
+                            setMobileServiceOpen(null);
+                            setMobileOpen(false);
+                          }}
+                          className="block rounded-lg px-3 py-2 text-sm text-slate-300 no-underline hover:bg-slate-800/50"
+                        >
+                          {item.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <NavLink
               to={ROUTES.ARASTIRMA}
               onClick={() => setMobileOpen(false)}
               className="mt-1 block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
             >
               {n.resources}
+            </NavLink>
+            {/* R12.3 — Deprem modülleri mobile */}
+            <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              Afet & Deprem
+            </p>
+            <NavLink
+              to="/modul/deprem-risk-haritasi"
+              onClick={() => setMobileOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+            >
+              Deprem risk haritası
+            </NavLink>
+            <NavLink
+              to="/modul/bina-risk-sorgu"
+              onClick={() => setMobileOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+            >
+              Bina risk sorgu
             </NavLink>
             <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               {n.company}
@@ -474,13 +532,6 @@ export function Navbar() {
         ) : null}
       </nav>
       <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />
-      <style>{`
-        @media (max-width: 1024px) {
-          .nav-desktop-links { display: none !important; }
-          .nav-desktop-actions { display: none !important; }
-          .nav-mobile-toggle { display: flex !important; }
-        }
-      `}</style>
     </>
   );
 }
