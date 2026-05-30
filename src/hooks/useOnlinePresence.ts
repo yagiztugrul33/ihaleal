@@ -31,24 +31,40 @@ export function useOnlinePresence() {
     const channel = supabase.channel(CHANNEL_NAME, {
       config: { presence: { key: presenceKey } },
     });
+    let mounted = true;
 
-    channel.on("presence", { event: "sync" }, () => syncCount(channel));
-    channel.on("presence", { event: "join" }, () => syncCount(channel));
-    channel.on("presence", { event: "leave" }, () => syncCount(channel));
+    // try/catch: React Strict Mode iki kez mount edip aynı CHANNEL_NAME'i
+    // re-instantiate ederse Supabase eski (zaten subscribed) channel'i dondurur ve
+    // `.on()` "cannot add presence callbacks after subscribe()" firlatir.
+    // Bu durumda anasayfa ErrorBoundary'e dusuyordu. Sessiz gec, presence sayisi
+    // bir sonraki effect mount'unda dogru dogal akisla yakalanir.
+    try {
+      channel.on("presence", { event: "sync" }, () => mounted && syncCount(channel));
+      channel.on("presence", { event: "join" }, () => mounted && syncCount(channel));
+      channel.on("presence", { event: "leave" }, () => mounted && syncCount(channel));
 
-    void channel.subscribe(async (status) => {
-      if (status === "SUBSCRIBED") {
-        setConnected(true);
-        await channel.track({ online_at: new Date().toISOString() });
-        syncCount(channel);
-      } else if (status === "CLOSED" || status === "CHANNEL_ERROR") {
-        setConnected(false);
-      }
-    });
+      void channel.subscribe(async (status) => {
+        if (!mounted) return;
+        if (status === "SUBSCRIBED") {
+          setConnected(true);
+          await channel.track({ online_at: new Date().toISOString() }).catch(() => {});
+          syncCount(channel);
+        } else if (status === "CLOSED" || status === "CHANNEL_ERROR") {
+          setConnected(false);
+        }
+      });
+    } catch (err) {
+      console.warn("[useOnlinePresence] duplicate channel subscribe, skipping", err);
+    }
 
     return () => {
-      void channel.untrack();
-      void supabase.removeChannel(channel);
+      mounted = false;
+      try {
+        void channel.untrack().catch(() => {});
+        void supabase.removeChannel(channel);
+      } catch {
+        /* cleanup sessiz */
+      }
       setConnected(false);
     };
   }, [user?.id, syncCount]);
