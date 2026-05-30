@@ -15,7 +15,6 @@ import {
 import "@/borsa/borsa.css";
 import { Line, LineChart, ResponsiveContainer } from "recharts";
 import { createMarketSnapshot } from "@/lib/borsa/marketData";
-import { createRealtimeMockInterval, REALTIME_INTEGRATION_NOTE } from "@/lib/borsa/realtime";
 import { buildOrderBook, maskBidder } from "@/lib/borsa/orderBook";
 import { isOutbid } from "@/lib/borsa/auctionEngine";
 
@@ -87,7 +86,7 @@ function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: st
 export default function BorsaPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { data } = useLiveMarket();
+  const { data, loading, isLive, error: marketError } = useLiveMarket();
   const [tableTab, setTableTab] = useState<MarketTableTab>("en_aktif");
   const [sortKey, setSortKey] = useState<SortKey>("volume");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
@@ -128,7 +127,7 @@ export default function BorsaPage() {
       return [];
     }
   });
-  const [selectedAssetId, setSelectedAssetId] = useState(() => INITIAL_MARKET_ASSETS[0]?.id ?? "");
+  const [selectedAssetId, setSelectedAssetId] = useState("");
   const [alertTarget, setAlertTarget] = useState("");
   const [alertDirection, setAlertDirection] = useState<AlertDirection>("above");
   const [ruleMaxBid, setRuleMaxBid] = useState("");
@@ -161,6 +160,12 @@ export default function BorsaPage() {
       return basis.includes(q);
     });
   }, [data, q]);
+
+  useEffect(() => {
+    if (!selectedAssetId && data[0]?.id) {
+      setSelectedAssetId(data[0].id);
+    }
+  }, [data, selectedAssetId]);
 
   useEffect(() => {
     localStorage.setItem("borsa_watchlist_ids", JSON.stringify(watchlistIds));
@@ -202,7 +207,7 @@ export default function BorsaPage() {
       const before = prevMap.get(item.id);
       if (!before || before.price === item.price) return;
       nextFlash[item.id] = item.dir;
-      const sold = Math.random() < 0.14;
+      const sold = item.dir === "down" && item.changePct <= -0.5;
       nextEvents.push({
         id: `${item.id}-${Date.now()}`,
         code: item.code,
@@ -224,7 +229,7 @@ export default function BorsaPage() {
         });
       }, 600);
       window.setTimeout(() => setSummaryFlash(null), 600);
-      setWatchers((p) => Math.max(1, p + (Math.random() > 0.5 ? 1 : -1)));
+      setWatchers((p) => Math.max(1, p + (item.dir === "up" ? 1 : 0)));
     }
     if (nextEvents.length > 0) {
       setFeedEvents((prevEvents) => [...nextEvents, ...prevEvents].slice(0, 8));
@@ -362,18 +367,6 @@ export default function BorsaPage() {
       setSelectedBookAssetId(tableRows[0].id);
     }
   }, [selectedBookAssetId, tableRows]);
-
-  useEffect(() => {
-    const stop = createRealtimeMockInterval(() => {
-      setFeedEvents((prevEvents) =>
-        prevEvents.map((event, idx) => ({
-          ...event,
-          relative: idx === 0 ? "şimdi" : idx <= 2 ? "az önce" : "birkaç sn önce",
-        })),
-      );
-    }, 3000);
-    return stop;
-  }, []);
 
   const selectedBookAsset = useMemo(
     () => filteredData.find((row) => row.id === selectedBookAssetId) ?? tableRows[0] ?? null,
@@ -1075,7 +1068,15 @@ export default function BorsaPage() {
                 <p className="mt-1">Volatilite: {marketSnapshot.volatility.marketStdDev}</p>
               </div>
             </div>
-            <p className="mt-3 text-[11px] text-slate-300">{REALTIME_INTEGRATION_NOTE}</p>
+            <p className="mt-3 text-[11px] text-slate-300">
+              {loading
+                ? "Piyasa verisi yükleniyor…"
+                : isLive
+                  ? "Kaynak: platform ilanları + transaction_stats / price_index (canlı)."
+                  : marketError
+                    ? `Demo modu: ${marketError}`
+                    : "Demo modu: borsa tabloları henüz dolu değil veya migration uygulanmadı."}
+            </p>
           </article>
           <article className="borsa-card rounded-xl p-3">
             <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Otomatik Teklif (Demo)</h3>
