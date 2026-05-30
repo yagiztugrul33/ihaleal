@@ -435,7 +435,9 @@ export function Navbar() {
                         <NavLink
                           key={item.to}
                           to={item.to}
-                          data-testid={item.testId}
+                          data-testid={
+                            item.testId === "nav-services-ges" ? "nav-services-ges-mobile" : item.testId
+                          }
                           onClick={() => {
                             setMobileServiceOpen(null);
                             setMobileOpen(false);

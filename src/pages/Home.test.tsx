@@ -13,10 +13,10 @@ describe("Home", () => {
         </LocaleProvider>
       </MemoryRouter>,
     );
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Real Estate Auctions/i);
-    expect(screen.getByRole("heading", { name: /How It Works\?/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /Live Auctions/i })).toBeInTheDocument();
-    expect(screen.getByText(/Dubai, UAE/i)).toBeInTheDocument();
-    expect(screen.getByText(/Why Investors Trust iHaleal/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Türkiye.*Gayrimenkul Borsası/i);
+    expect(screen.getByRole("heading", { name: /Canlı Kategori Pazarı/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Borsa nasıl çalışır/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Canlı Güven Göstergeleri/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Investor Panel/i })).toBeInTheDocument();
   });
 });

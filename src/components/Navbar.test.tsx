@@ -27,6 +27,7 @@ describe("Navbar", () => {
   it("GES link in mobile Services section", () => {
     renderNavbar();
     fireEvent.click(screen.getByRole("button", { name: /Open menu|Menüyü aç/i }));
+    fireEvent.click(screen.getByTestId("nav-mobile-services-yatırımcı"));
     const gesLink = screen.getByTestId("nav-services-ges-mobile");
     expect(gesLink).toHaveAttribute("href", ROUTES.ARASTIRMA_GES);
   });
