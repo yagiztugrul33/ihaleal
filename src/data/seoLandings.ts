@@ -61,3 +61,7 @@ export const SEO_LANDING_PAGES: SeoLandingConfig[] = [
 export function landingConfigByPath(pathname: string): SeoLandingConfig | undefined {
   return SEO_LANDING_PAGES.find((p) => p.path === pathname);
 }
+
+export function landingPathForCity(cityTr: string): string | undefined {
+  return SEO_LANDING_PAGES.find((p) => p.cityTr === cityTr)?.path;
+}

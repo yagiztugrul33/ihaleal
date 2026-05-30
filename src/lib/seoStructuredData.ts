@@ -62,6 +62,8 @@ export function buildAuctionListingJsonLd(input: {
       url,
     },
     category: input.category,
+    datePosted: new Date().toISOString().slice(0, 10),
+    ...(input.image ? { primaryImageOfPage: input.image } : {}),
   };
 }
 

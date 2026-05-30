@@ -62,6 +62,8 @@ import { lazy, Suspense } from "react";
 import { resolveListingCoords } from "@/lib/geo/cityCenters";
 import { incrementListingView } from "@/lib/listingViewCount";
 import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
+import { landingPathForCity } from "@/data/seoLandings";
 import { AvmEstimateSection } from "@/components/listing/AvmEstimateSection";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
@@ -703,7 +705,22 @@ export default function AuctionDetail() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <PageBreadcrumbs
+          className="mb-4"
+          jsonLdId={`listing-bc-${id ?? "detail"}`}
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "İlanlar", href: "/ilanlar" },
+            ...(auction && landingPathForCity(auction.city)
+              ? [{ label: auction.city, href: landingPathForCity(auction.city) }]
+              : []),
+            { label: auction?.title?.slice(0, 48) ?? "İlan" },
+          ]}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2">
         <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <CinematicPropertyGallery
             images={auction.images}
@@ -730,7 +747,15 @@ export default function AuctionDetail() {
                 )}
               </div>
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">{auction.title}</h1>
-              <div className="flex items-center gap-2 text-slate-400 mb-4"><MapPin className="w-4 h-4" /> {auction.location}</div>
+              <div className="flex flex-wrap items-center gap-2 text-slate-400 mb-4">
+                <MapPin className="w-4 h-4 shrink-0" />
+                <span>{auction.location}</span>
+                {landingPathForCity(auction.city) ? (
+                  <Link to={landingPathForCity(auction.city)!} className="text-sm text-teal-400 hover:underline">
+                    {auction.city} bölge ilanları →
+                  </Link>
+                ) : null}
+              </div>
               {/* R14 PAKET 5 — Lansman proje bağlantı kartı */}
               {isLansman && lansmanProjectId && (
                 <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/30 mb-4 flex items-center justify-between gap-3 flex-wrap">

@@ -11,6 +11,7 @@ import { LoadingState, LoadingSkeletonGrid, ErrorState, EmptyState } from "@/com
 import { useLocale } from "@/contexts/LocaleContext";
 import { useSavedSearches } from "@/hooks/useSavedSearches";
 import { SavedSearchesPanel } from "@/components/search/SavedSearchesPanel";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
@@ -121,6 +122,14 @@ export default function SearchResults() {
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
+
+        <PageBreadcrumbs
+          className="mb-4"
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "İlan arama" },
+          ]}
+        />
 
         <h1 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3 mb-2">
           <Search className="w-8 h-8 text-blue-400" />

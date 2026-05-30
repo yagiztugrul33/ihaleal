@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useDeveloperProject } from "@/hooks/useDeveloperProjects";
 import { injectJsonLd, removeJsonLd, buildProjectJsonLd } from "@/lib/seoStructuredData";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 
 const STAGE_LABELS: Record<string, string> = {
   planning: "Planlama",
@@ -58,9 +59,15 @@ export default function MuteahhitProjeKamuPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-5xl mx-auto">
-        <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-slate-200 mb-4 text-sm">
-          <ArrowLeft className="w-4 h-4" /> Ana sayfa
-        </Link>
+        <PageBreadcrumbs
+          className="mb-4"
+          jsonLdId={`project-bc-${projectId}`}
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "Müteahhit", href: "/muteahhit" },
+            { label: project.project_name },
+          ]}
+        />
 
         <div className="rounded-3xl border border-cyan-400/30 bg-gradient-to-br from-slate-900/80 to-slate-950/80 p-6 mb-6">
           <Badge className="bg-cyan-500 mb-3">🏗️ LANSMAN PROJESİ</Badge>

@@ -212,6 +212,26 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "Yasal özet brif — ihaleal.com",
     description: "Master hukuk özeti ve bağlantılı politikalar (taslak).",
   },
+  "/kampanyalar": {
+    title: "Kampanyalar — ihaleal.com",
+    description: "Gayrimenkul yatırım ve ihale kampanyaları.",
+  },
+  "/proje": {
+    title: "Lansman projesi — ihaleal.com",
+    description: "Müteahhit lansman projesi, birim listesi ve konum bilgisi.",
+  },
+  "/kyc": {
+    title: "Kimlik doğrulama — ihaleal.com",
+    description: "KYC ve hesap doğrulama adımları.",
+  },
+  "/hizmet-bedelleri": {
+    title: "Hizmet bedelleri — ihaleal.com",
+    description: "Platform üyelik ve hizmet bedeli özeti.",
+  },
+  "/uluslararasi": {
+    title: "Uluslararası yatırımcı — ihaleal.com",
+    description: "Yabancı yatırımcılar için Türkiye gayrimenkul rehberi.",
+  },
 };
 
 export function getSeoForPath(pathname: string) {
@@ -221,6 +241,9 @@ export function getSeoForPath(pathname: string) {
   }
   if (pathname.startsWith("/ilan/")) {
     return ROUTE_SEO["/ilan"] ?? DEFAULT_SEO;
+  }
+  if (pathname.startsWith("/proje/")) {
+    return ROUTE_SEO["/proje"] ?? DEFAULT_SEO;
   }
   if (pathname.startsWith("/sehir/")) {
     return {

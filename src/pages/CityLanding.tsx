@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { landingConfigByPath } from "@/data/seoLandings";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
 import { getShareUrlForPath } from "@/data/siteOrigin";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 
 export default function CityLandingPage() {
   const { pathname } = useLocation();
@@ -43,13 +44,15 @@ export default function CityLandingPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 bg-slate-50 px-4">
       <div className="max-w-6xl mx-auto">
-        <nav className="text-xs text-slate-500 mb-6">
-          <Link to="/" className="hover:text-teal-400">
-            Ana sayfa
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-slate-400">{cfg.cityTr} landing</span>
-        </nav>
+        <PageBreadcrumbs
+          className="mb-6"
+          jsonLdId={`city-bc-${cfg.path}`}
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "Şehirler", href: "/sehirler" },
+            { label: cfg.cityTr },
+          ]}
+        />
 
         <div className="mb-10 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-8 md:p-10">
           <div className="flex flex-wrap gap-2 mb-4">
