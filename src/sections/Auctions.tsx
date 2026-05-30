@@ -19,6 +19,7 @@ import type { Auction } from "@/types/auction";
 import { AuctionsMapPanel } from "@/components/maps/ListingMapViews";
 import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
 import { BenimIcinBulPanel } from "@/components/listing/BenimIcinBulPanel";
+import { ListingQuickActions } from "@/components/listing/ListingQuickActions";
 import { useListingRatings } from "@/hooks/useListingRatings";
 import { RatingSummaryBadge } from "@/components/trust/RatingSummaryBadge";
 
@@ -218,10 +219,6 @@ export function Auctions({
     setBidAmount("");
   };
 
-  const handleFavoriteClick = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation();
-    toggleFavorite(id);
-  };
 
   const toggleCompare = (id: string) => {
     setCompareList((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
@@ -355,8 +352,14 @@ export function Auctions({
                   <Badge variant="outline" className={`gap-1 text-xs ${auction.investmentScore >= 85 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : auction.investmentScore >= 70 ? "bg-blue-500/20 text-blue-400 border-blue-500/30" : "bg-slate-500/20 text-slate-400 border-slate-500/30"}`}><Star className="w-3 h-3" /> {auction.investmentScore}</Badge>
                 </div>
                 <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={(e) => { e.stopPropagation(); toggleCompare(auction.id); }} className={`p-2 rounded-lg backdrop-blur-md transition-colors ${compareList.includes(auction.id) ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70"}`}><GitCompare className="w-4 h-4" /></button>
-                  <button onClick={(e) => handleFavoriteClick(e, auction.id)} className={`p-2 rounded-lg backdrop-blur-md transition-colors ${isFavorite(auction.id) ? "bg-pink-500 text-white" : "bg-black/50 text-white hover:bg-black/70"}`}><Heart className={`w-4 h-4 ${isFavorite(auction.id) ? "fill-current" : ""}`} /></button>
+                  <ListingQuickActions
+                    listingId={auction.id}
+                    title={auction.title}
+                    isFavorite={isFavorite(auction.id)}
+                    onToggleFavorite={toggleFavorite}
+                    compareActive={compareList.includes(auction.id)}
+                    onToggleCompare={toggleCompare}
+                  />
                 </div>
               </div>
               <CardContent className="p-5">

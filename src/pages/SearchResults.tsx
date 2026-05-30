@@ -11,6 +11,7 @@ import { LoadingState, LoadingSkeletonGrid, ErrorState, EmptyState } from "@/com
 import { useLocale } from "@/contexts/LocaleContext";
 import { useSavedSearches } from "@/hooks/useSavedSearches";
 import { SavedSearchesPanel } from "@/components/search/SavedSearchesPanel";
+import { SearchFilterChips } from "@/components/search/SearchFilterChips";
 import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 
 function normalize(s: string) {
@@ -163,6 +164,30 @@ export default function SearchResults() {
             setQuery(q);
             patchParams({ q: q || undefined, page: undefined });
           }}
+        />
+
+        <SearchFilterChips
+          className="mb-4"
+          chips={[
+            ...(query.trim().length >= 2
+              ? [{ key: "q", label: `Arama: ${query.trim()}`, onRemove: () => { setQuery(""); patchParams({ q: undefined, page: undefined }); } }]
+              : []),
+            ...(sortKey !== "relevance"
+              ? [{
+                  key: "sort",
+                  label: sortKey === "price_asc" ? "Fiyat ↑" : sortKey === "price_desc" ? "Fiyat ↓" : "Tarih",
+                  onRemove: () => patchParams({ sort: undefined, page: "1" }),
+                }]
+              : []),
+          ]}
+          onClearAll={
+            query.trim() || sortKey !== "relevance"
+              ? () => {
+                  setQuery("");
+                  patchParams({ q: undefined, sort: undefined, page: undefined });
+                }
+              : undefined
+          }
         />
 
         {query.length >= 2 && !catalogLoading ? (
