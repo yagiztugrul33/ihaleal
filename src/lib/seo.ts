@@ -1,4 +1,5 @@
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
+import { resolveProgrammaticRoute, buildSeoTitle, buildSeoDescription } from "@/lib/seo/programmaticSeo";
 import { HOME_SEO, OG_IMAGE } from "@/data/homeSeo";
 import {
   SITE_ORIGIN,
@@ -238,6 +239,13 @@ export function getSeoForPath(pathname: string) {
   const landing = SEO_LANDING_PAGES.find((p) => p.path === pathname);
   if (landing) {
     return { title: landing.title, description: landing.description };
+  }
+  const progMatch = pathname.match(/^\/(satilik|kiralik)\/([^/]+)(?:\/([^/]+))?$/);
+  if (progMatch) {
+    const route = resolveProgrammaticRoute(progMatch[1], progMatch[2], progMatch[3]);
+    if (route) {
+      return { title: buildSeoTitle(route), description: buildSeoDescription(route) };
+    }
   }
   if (pathname.startsWith("/ilan/")) {
     return ROUTE_SEO["/ilan"] ?? DEFAULT_SEO;

@@ -71,6 +71,7 @@ const PreLaunch            = lazy(() => import("@/pages/PreLaunch"));
 const IBuyerPage           = lazy(() => import("@/pages/ibuyer/IBuyerPage"));
 const NotFound             = lazy(() => import("@/pages/NotFound"));
 const CityLanding          = lazy(() => import("@/pages/CityLanding"));
+const ProgrammaticSeoLanding = lazy(() => import("@/pages/ProgrammaticSeoLanding"));
 const Iletisim             = lazy(() => import("@/pages/Iletisim"));
 const About                = lazy(() => import("@/pages/About"));
 const Reports              = lazy(() => import("@/pages/Reports"));
@@ -278,6 +279,10 @@ function App() {
             {SEO_LANDING_PAGES.map((cfg) => (
               <Route key={cfg.path} path={cfg.path} element={<CityLanding />} />
             ))}
+            <Route path="/satilik/:il" element={<ProgrammaticSeoLanding />} />
+            <Route path="/satilik/:il/:segment" element={<ProgrammaticSeoLanding />} />
+            <Route path="/kiralik/:il" element={<ProgrammaticSeoLanding />} />
+            <Route path="/kiralik/:il/:segment" element={<ProgrammaticSeoLanding />} />
             <Route path="/iletisim" element={<Iletisim />} />
             <Route path="/hakkimizda" element={<About />} />
             <Route path="/raporlar" element={<Reports />} />
