@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { z } from "zod";
 
 const schema = z.object({
@@ -19,7 +20,7 @@ export function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
     setStatus("idle");
@@ -31,7 +32,24 @@ export function Contact() {
       return;
     }
     setStatus("sending");
-    setTimeout(() => { setStatus("success"); setForm({ name: "", email: "", phone: "", message: "" }); }, 1500);
+    if (!isSupabaseConfigured()) {
+      setStatus("success");
+      setForm({ name: "", email: "", phone: "", message: "" });
+      return;
+    }
+    const { error } = await supabase.from("corporate_leads").insert({
+      name: form.name,
+      company: "Bireysel",
+      email: form.email,
+      phone: form.phone,
+      message: form.message,
+    });
+    if (error) {
+      setStatus("error");
+      return;
+    }
+    setStatus("success");
+    setForm({ name: "", email: "", phone: "", message: "" });
   };
 
   return (
