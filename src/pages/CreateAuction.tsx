@@ -14,6 +14,9 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { generateMockReport, saveReportToDb, type PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { clientLogError } from "@/lib/clientLog";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
+import { uploadListingPhotos, UploadUnavailableError } from "@/lib/uploadFile";
+
+type ListingImageEntry = { file: File; preview: string };
 
 const CITIES = ["İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Adana", "Konya", "Gaziantep"];
 const DISTRICTS: Record<string, string[]> = {
@@ -38,7 +41,7 @@ export default function CreateAuction() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const marketReportInputRef = useRef<HTMLInputElement>(null);
   const expertiseInputRef = useRef<HTMLInputElement>(null);
-  const [images, setImages] = useState<string[]>([]);
+  const [imageEntries, setImageEntries] = useState<ListingImageEntry[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [city, setCity] = useState("İstanbul");
@@ -90,9 +93,19 @@ export default function CreateAuction() {
     const files = e.target.files;
     if (!files) return;
     Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => setImages((prev) => [...prev, reader.result as string]);
-      reader.readAsDataURL(file);
+      const preview = URL.createObjectURL(file);
+      setImageEntries((prev) => [...prev, { file, preview }]);
+    });
+    e.target.value = "";
+  };
+
+  const removeImage = (index: number) => {
+    setImageEntries((prev) => {
+      const target = prev[index];
+      if (target?.preview.startsWith("blob:")) {
+        URL.revokeObjectURL(target.preview);
+      }
+      return prev.filter((_, idx) => idx !== index);
     });
   };
 
@@ -115,7 +128,7 @@ export default function CreateAuction() {
       setError("Açıklama en fazla 2000 karakter olabilir.");
       return;
     }
-    if (images.length === 0) {
+    if (imageEntries.length === 0) {
       setError("En az bir görsel yükleyin.");
       return;
     }
@@ -179,7 +192,7 @@ export default function CreateAuction() {
       deal_type: dealType,
       marketing_mode: marketingMode,
       negotiation_mode: negotiationMode,
-      images_count: images.length,
+      images_count: imageEntries.length,
       market_report_pdf: marketReportPdfName.trim() || undefined,
       expertise_pdf: expertisePdfName.trim() || undefined,
       expertise_required: expertiseRequired,
@@ -238,6 +251,44 @@ export default function CreateAuction() {
       clientLogError("CreateAuction.listings.insert", listingError);
       window.alert("İlan oluşturulamadı: " + msg);
       setError("İlan oluşturulamadı: " + msg);
+      setSubmitLoading(false);
+      return;
+    }
+
+    let imageUrls: string[] = [];
+    try {
+      imageUrls = await uploadListingPhotos(
+        imageEntries.map((entry) => entry.file),
+        user.id,
+        listing.id,
+      );
+    } catch (uploadErr) {
+      const uploadMsg =
+        uploadErr instanceof UploadUnavailableError
+          ? uploadErr.message
+          : uploadErr instanceof Error
+            ? uploadErr.message
+            : "Görsel yüklenemedi";
+      clientLogError("CreateAuction.listingPhotos.upload", uploadErr);
+      setError(`İlan oluşturuldu ancak görseller yüklenemedi: ${uploadMsg}`);
+      setSubmitLoading(false);
+      return;
+    }
+
+    const bodyWithImages = {
+      ...baseBody,
+      images: imageUrls,
+      images_count: imageUrls.length,
+    };
+
+    const { error: imagesUpdateError } = await supabase
+      .from("listings")
+      .update({ body: bodyWithImages as unknown as Record<string, unknown> })
+      .eq("id", listing.id);
+
+    if (imagesUpdateError) {
+      clientLogError("CreateAuction.listings.updateImages", imagesUpdateError);
+      setError("Görseller yüklendi ancak ilan kaydına yazılamadı.");
       setSubmitLoading(false);
       return;
     }
@@ -416,12 +467,12 @@ export default function CreateAuction() {
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-bold text-white">Görseller</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {images.map((img, i) => (
+                {imageEntries.map((img, i) => (
                   <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
-                    <img src={img} alt="" loading="lazy" className="w-full h-full object-cover" />
+                    <img src={img.preview} alt="" loading="lazy" className="w-full h-full object-cover" />
                     <button
                       type="button"
-                      onClick={() => setImages(images.filter((_, idx) => idx !== i))}
+                      onClick={() => removeImage(i)}
                       className="absolute top-2 right-2 p-1 rounded-full bg-black/50 text-white hover:bg-black/70"
                     >
                       <X className="w-4 h-4" />
