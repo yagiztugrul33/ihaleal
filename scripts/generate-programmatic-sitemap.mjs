@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
- * Programatik SEO URL'lerini public/sitemap-programmatic.xml'e yazar.
- * Ana sitemap.xml'e Sitemap index satırı eklenmeli (deploy öncesi).
+ * Programatik SEO + borsa il + rehber URL'lerini public/sitemap-programmatic.xml'e yazar.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -17,13 +16,25 @@ const PROPERTY_TYPES = ["konut", "daire", "arsa", "villa", "isyeri", "dukkan"];
 const ORIGIN = "https://ihaleal.com";
 const today = new Date().toISOString().slice(0, 10);
 
+const guidesPath = path.join(root, "src/data/realEstateGuides.ts");
+const guideSlugs = [...guidesPath.matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]);
+
 const urls = [];
 for (const deal of ["satilik", "kiralik"]) {
   for (const p of provinces) {
     urls.push(`/${deal}/${p.slug}`);
     for (const t of PROPERTY_TYPES) urls.push(`/${deal}/${p.slug}/${t}`);
-    for (const d of p.districts) urls.push(`/${deal}/${p.slug}/${d.slug}`);
+    for (const d of p.districts) {
+      urls.push(`/${deal}/${p.slug}/${d.slug}`);
+      for (const t of PROPERTY_TYPES) urls.push(`/${deal}/${p.slug}/${d.slug}/${t}`);
+    }
   }
+}
+for (const p of provinces) {
+  urls.push(`/borsa/sehir/${p.slug}`);
+}
+for (const slug of guideSlugs) {
+  urls.push(`/rehber/${slug}`);
 }
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>

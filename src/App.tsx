@@ -72,6 +72,8 @@ const IBuyerPage           = lazy(() => import("@/pages/ibuyer/IBuyerPage"));
 const NotFound             = lazy(() => import("@/pages/NotFound"));
 const CityLanding          = lazy(() => import("@/pages/CityLanding"));
 const ProgrammaticSeoLanding = lazy(() => import("@/pages/ProgrammaticSeoLanding"));
+const BorsaCityLanding = lazy(() => import("@/pages/BorsaCityLanding"));
+const RehberArticlePage = lazy(() => import("@/pages/RehberArticlePage"));
 const Iletisim             = lazy(() => import("@/pages/Iletisim"));
 const About                = lazy(() => import("@/pages/About"));
 const Reports              = lazy(() => import("@/pages/Reports"));
@@ -222,6 +224,7 @@ function App() {
             <Route path="/konut-kredisi-hesaplayici" element={<KonutKredisiHesaplayici />} />
             <Route path="/bildirimler" element={<NotificationsPage />} />
             <Route path="/rehber" element={<Guide />} />
+            <Route path="/rehber/:slug" element={<RehberArticlePage />} />
             <Route
               path={ROUTES.HOW_IT_WORKS}
               element={
@@ -281,8 +284,11 @@ function App() {
             ))}
             <Route path="/satilik/:il" element={<ProgrammaticSeoLanding />} />
             <Route path="/satilik/:il/:segment" element={<ProgrammaticSeoLanding />} />
+            <Route path="/satilik/:il/:segment/:tip" element={<ProgrammaticSeoLanding />} />
             <Route path="/kiralik/:il" element={<ProgrammaticSeoLanding />} />
             <Route path="/kiralik/:il/:segment" element={<ProgrammaticSeoLanding />} />
+            <Route path="/kiralik/:il/:segment/:tip" element={<ProgrammaticSeoLanding />} />
+            <Route path="/borsa/sehir/:il" element={<BorsaCityLanding />} />
             <Route path="/iletisim" element={<Iletisim />} />
             <Route path="/hakkimizda" element={<About />} />
             <Route path="/raporlar" element={<Reports />} />

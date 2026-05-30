@@ -35,7 +35,11 @@ function matchesRoute(auction: Auction, route: ProgrammaticSeoRoute): boolean {
     if (slugifyTr(auction.district) !== route.districtSlug) return false;
   }
 
-  if (route.segmentKind === "type" && route.propertyType) {
+  if (route.segmentKind === "district-type" && route.districtSlug) {
+    if (slugifyTr(auction.district) !== route.districtSlug) return false;
+  }
+
+  if ((route.segmentKind === "type" || route.segmentKind === "district-type") && route.propertyType) {
     const cat = slugifyTr(auction.category);
     const type = route.propertyType;
     if (type === "arsa" && !cat.includes("arsa")) return false;
@@ -50,12 +54,12 @@ function matchesRoute(auction: Auction, route: ProgrammaticSeoRoute): boolean {
 }
 
 export default function ProgrammaticSeoLanding() {
-  const { il, segment } = useParams<{ il: string; segment?: string }>();
+  const { il, segment, tip } = useParams<{ il: string; segment?: string; tip?: string }>();
   const { pathname } = useLocation();
   const deal = pathname.startsWith("/kiralik") ? "kiralik" : pathname.startsWith("/satilik") ? "satilik" : "";
   const route = useMemo(
-    () => (deal && il ? resolveProgrammaticRoute(deal, il, segment) : null),
-    [deal, il, segment],
+    () => (deal && il ? resolveProgrammaticRoute(deal, il, segment, tip) : null),
+    [deal, il, segment, tip],
   );
   const [catalog, setCatalog] = useState<Auction[]>([]);
   const [loading, setLoading] = useState(true);

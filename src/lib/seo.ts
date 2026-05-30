@@ -1,5 +1,6 @@
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
-import { resolveProgrammaticRoute, buildSeoTitle, buildSeoDescription } from "@/lib/seo/programmaticSeo";
+import { resolveProgrammaticRoute, buildSeoTitle, buildSeoDescription, findProvince } from "@/lib/seo/programmaticSeo";
+import { findGuideBySlug } from "@/data/realEstateGuides";
 import { HOME_SEO, OG_IMAGE } from "@/data/homeSeo";
 import {
   SITE_ORIGIN,
@@ -240,11 +241,28 @@ export function getSeoForPath(pathname: string) {
   if (landing) {
     return { title: landing.title, description: landing.description };
   }
-  const progMatch = pathname.match(/^\/(satilik|kiralik)\/([^/]+)(?:\/([^/]+))?$/);
+  const progMatch = pathname.match(/^\/(satilik|kiralik)\/([^/]+)(?:\/([^/]+))?(?:\/([^/]+))?$/);
   if (progMatch) {
-    const route = resolveProgrammaticRoute(progMatch[1], progMatch[2], progMatch[3]);
+    const route = resolveProgrammaticRoute(progMatch[1], progMatch[2], progMatch[3], progMatch[4]);
     if (route) {
       return { title: buildSeoTitle(route), description: buildSeoDescription(route) };
+    }
+  }
+  const borsaCity = pathname.match(/^\/borsa\/sehir\/([^/]+)$/);
+  if (borsaCity) {
+    const p = findProvince(borsaCity[1]);
+    if (p) {
+      return {
+        title: `${p.name} gayrimenkul fiyat endeksi — ihaleal.com`,
+        description: `${p.name} bölgesi price_index ve güncel ilanlar.`,
+      };
+    }
+  }
+  const rehberMatch = pathname.match(/^\/rehber\/([^/]+)$/);
+  if (rehberMatch) {
+    const g = findGuideBySlug(rehberMatch[1]);
+    if (g) {
+      return { title: `${g.title} — ihaleal.com`, description: g.seoDescription };
     }
   }
   if (pathname.startsWith("/ilan/")) {

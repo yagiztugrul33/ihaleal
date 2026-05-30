@@ -34,7 +34,7 @@ export type ProgrammaticSeoRoute = {
   districtSlug?: string;
   districtName?: string;
   propertyType?: PropertyTypeSlug;
-  segmentKind: "city" | "district" | "type";
+  segmentKind: "city" | "district" | "type" | "district-type";
 };
 
 export function slugifyTr(input: string): string {
@@ -100,6 +100,19 @@ export function buildProgrammaticSeoRoutes(): ProgrammaticSeoRoute[] {
           districtName: district.name,
           segmentKind: "district",
         });
+
+        for (const type of PROPERTY_TYPE_SLUGS) {
+          routes.push({
+            path: `/${deal}/${province.slug}/${district.slug}/${type}`,
+            deal,
+            provinceSlug: province.slug,
+            provinceName: province.name,
+            districtSlug: district.slug,
+            districtName: district.name,
+            propertyType: type,
+            segmentKind: "district-type",
+          });
+        }
       }
     }
   }
@@ -111,6 +124,7 @@ export function resolveProgrammaticRoute(
   deal: string,
   provinceSlug: string,
   segment?: string,
+  typeSegment?: string,
 ): ProgrammaticSeoRoute | null {
   if (deal !== "satilik" && deal !== "kiralik") return null;
   const province = findProvince(provinceSlug);
@@ -123,6 +137,21 @@ export function resolveProgrammaticRoute(
       provinceSlug: province.slug,
       provinceName: province.name,
       segmentKind: "city",
+    };
+  }
+
+  if (typeSegment && isPropertyTypeSlug(typeSegment)) {
+    const district = findDistrict(province, segment);
+    if (!district) return null;
+    return {
+      path: `/${deal}/${province.slug}/${district.slug}/${typeSegment}`,
+      deal,
+      provinceSlug: province.slug,
+      provinceName: province.name,
+      districtSlug: district.slug,
+      districtName: district.name,
+      propertyType: typeSegment,
+      segmentKind: "district-type",
     };
   }
 
@@ -157,6 +186,9 @@ export function dealLabel(deal: DealSlug): string {
 
 export function buildSeoTitle(route: ProgrammaticSeoRoute): string {
   const deal = dealLabel(route.deal);
+  if (route.segmentKind === "district-type" && route.propertyType && route.districtName) {
+    return `${deal} ${PROPERTY_TYPE_LABELS[route.propertyType]} — ${route.districtName}, ${route.provinceName} | ihaleal.com`;
+  }
   if (route.segmentKind === "type" && route.propertyType) {
     return `${deal} ${PROPERTY_TYPE_LABELS[route.propertyType]} — ${route.provinceName} | ihaleal.com`;
   }
@@ -169,7 +201,9 @@ export function buildSeoTitle(route: ProgrammaticSeoRoute): string {
 export function buildSeoDescription(route: ProgrammaticSeoRoute): string {
   const deal = dealLabel(route.deal).toLowerCase();
   const place =
-    route.segmentKind === "district" && route.districtName
+    route.segmentKind === "district-type" && route.districtName && route.propertyType
+      ? `${route.districtName} ${PROPERTY_TYPE_LABELS[route.propertyType].toLowerCase()}, ${route.provinceName}`
+      : route.segmentKind === "district" && route.districtName
       ? `${route.districtName}, ${route.provinceName}`
       : route.segmentKind === "type" && route.propertyType
         ? `${route.provinceName} ${PROPERTY_TYPE_LABELS[route.propertyType].toLowerCase()}`
@@ -180,11 +214,13 @@ export function buildSeoDescription(route: ProgrammaticSeoRoute): string {
 export function buildRegionDescription(route: ProgrammaticSeoRoute): string {
   const deal = dealLabel(route.deal).toLowerCase();
   const focus =
-    route.segmentKind === "district" && route.districtName
+    route.segmentKind === "district-type" && route.districtName
       ? `${route.districtName} (${route.provinceName})`
-      : route.provinceName;
+      : route.segmentKind === "district" && route.districtName
+        ? `${route.districtName} (${route.provinceName})`
+        : route.provinceName;
   const typePart =
-    route.segmentKind === "type" && route.propertyType
+    (route.segmentKind === "type" || route.segmentKind === "district-type") && route.propertyType
       ? ` ${PROPERTY_TYPE_LABELS[route.propertyType].toLowerCase()} segmentinde`
       : "";
   return `${focus}${typePart} ${deal} portföyü; platform ilanları, İhaleal Endeksi bölge sinyalleri ve filtrelenmiş arama ile güncel fırsatları keşfedin.`;
