@@ -55,6 +55,8 @@ import { ListingNearbyPoiSection } from "@/components/listing/ListingNearbyPoiSe
 import { LoadingState, EmptyState } from "@/components/async";
 import { SellerTrustCard } from "@/components/trust/SellerTrustCard";
 import { ListingReviewDialog } from "@/components/trust/ListingReviewDialog";
+import { lazy, Suspense } from "react";
+import { resolveListingCoords } from "@/lib/geo/cityCenters";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
 import {
@@ -73,6 +75,11 @@ import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from "recharts";
+
+const ListingDetailMapLazy = lazy(async () => {
+  const mod = await import("@/components/maps/ListingMapViews");
+  return { default: mod.ListingDetailMap };
+});
 
 export default function AuctionDetail() {
   const { id } = useParams<{ id: string }>();
@@ -112,6 +119,10 @@ export default function AuctionDetail() {
   const isSealedOffer = marketingMode === "sealed_offers";
   const isAuctionMode = marketingMode === "auction";
   const listingWithDefaults = useMemo(() => (auction ? withListingDefaults(auction) : null), [auction]);
+  const mapCoords = useMemo(() => {
+    if (!auction) return null;
+    return resolveListingCoords(auction.mapLat, auction.mapLng, auction.city);
+  }, [auction]);
   const integritySummaryLines = useMemo(
     () => (listingWithDefaults ? integrityRulesSummaryForAuction(listingWithDefaults) : []),
     [listingWithDefaults],
@@ -912,18 +923,28 @@ export default function AuctionDetail() {
                       })}
                     </div>
                   </div>
-                  <div className="rounded-2xl overflow-hidden border border-slate-200/80 h-64 bg-slate-900">
-                    <iframe
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      loading="lazy"
-                      allowFullScreen
-                      referrerPolicy="no-referrer-when-downgrade"
-                      src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${auction.mapLng}!3d${auction.mapLat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA1JzEwLjEiTiAyOcKwMDEnMzYuNiJF!5e0!3m2!1str!2str!4v1`}
-                    />
+                  <div>
+                    {mapCoords ? (
+                      <>
+                        <Suspense fallback={<LoadingState compact label="Harita yükleniyor…" />}>
+                          <ListingDetailMapLazy
+                            lat={mapCoords.lat}
+                            lng={mapCoords.lng}
+                            title={auction.title}
+                            subtitle={auction.location}
+                          />
+                        </Suspense>
+                        {mapCoords.fromFallback ? (
+                          <p className="mt-2 text-[11px] text-slate-500">
+                            Kesin konum yok; harita {auction.city} merkezine göre gösteriliyor.
+                          </p>
+                        ) : null}
+                      </>
+                    ) : null}
                   </div>
-                  <ListingNearbyPoiSection lat={auction.mapLat} lng={auction.mapLng} />
+                  {mapCoords ? (
+                    <ListingNearbyPoiSection lat={mapCoords.lat} lng={mapCoords.lng} />
+                  ) : null}
                 </div>
               )}
               {activeTab === "priceHistory" && (

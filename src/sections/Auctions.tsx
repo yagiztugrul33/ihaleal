@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart } from "lucide-react";
+import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart, LayoutGrid, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,6 +16,7 @@ import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { getListingNumber } from "@/lib/listingNumber";
 import { LoadingSkeletonGrid } from "@/components/async";
 import type { Auction } from "@/types/auction";
+import { AuctionsMapPanel } from "@/components/maps/ListingMapViews";
 
 type DealFilter = "all" | "sale" | "rent";
 type StatusFilter = "all" | "live" | "upcoming" | "ended";
@@ -101,6 +102,7 @@ export function Auctions({
   const [selectedCategory, setSelectedCategory] = useState(initialFilters?.selectedCategory ?? "all");
   const [selectedRoom, setSelectedRoom] = useState<RoomFilter>(initialFilters?.selectedRoom ?? "all");
   const [searchQuery, setSearchQuery] = useState(initialFilters?.searchQuery ?? "");
+  const [viewMode, setViewMode] = useState<"list" | "map">("list");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [catalogError, setCatalogError] = useState<string | null>(null);
@@ -251,6 +253,16 @@ export function Auctions({
               <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)} className={`gap-2 ${isHome ? "btn-ghost" : "border-white/10 text-slate-400 hover:text-white hover:bg-white/5"}`}>
                 <Filter className="w-4 h-4" /> {showFilters ? <X className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setViewMode((v) => (v === "list" ? "map" : "list"))}
+                className={`gap-2 ${isHome ? "btn-ghost" : "border-white/10 text-slate-400 hover:text-white hover:bg-white/5"}`}
+                aria-pressed={viewMode === "map"}
+              >
+                {viewMode === "list" ? <Map className="w-4 h-4" /> : <LayoutGrid className="w-4 h-4" />}
+                {viewMode === "list" ? "Harita" : "Liste"}
+              </Button>
             </div>
           </div>
 
@@ -306,6 +318,11 @@ export function Auctions({
           )}
         </div>
 
+        {viewMode === "map" ? (
+          <AuctionsMapPanel auctions={filtered} className="mb-8" />
+        ) : null}
+
+        {viewMode === "list" ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((auction, idx) => (
             <Card key={auction.id} className={`property-card group overflow-hidden card-luxury !p-0 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
@@ -363,6 +380,7 @@ export function Auctions({
             </Card>
           ))}
         </div>
+        ) : null}
 
         {filtered.length === 0 && !catalogLoading && (
           <div className="text-center py-20 animate-fade-in rounded-2xl border border-white/10 bg-slate-950/30 px-4">
