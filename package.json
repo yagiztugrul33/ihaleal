@@ -25,6 +25,7 @@
     "test:coverage": "vitest run --coverage",
     "test:smoke": "playwright test",
     "test:smoke:install": "playwright install --with-deps chromium",
+    "smoke": "node scripts/smoke.mjs",
     "backup": "node scripts/backup.mjs",
     "precheck:encoding": "node scripts/check-source-encoding.mjs",
     "lint": "npx eslint . --max-warnings 0",
