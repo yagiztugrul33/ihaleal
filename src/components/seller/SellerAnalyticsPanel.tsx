@@ -5,9 +5,12 @@ import { useSellerAnalytics } from "@/hooks/useSellerAnalytics";
 import { LoadingState } from "@/components/async/LoadingState";
 
 export function SellerAnalyticsPanel() {
-  const { data, loading } = useSellerAnalytics();
+  const { data, loading, error } = useSellerAnalytics();
 
   if (loading) return <LoadingState compact label="Analitik yükleniyor…" />;
+  if (error) {
+    return <p className="text-sm text-red-400">{error}</p>;
+  }
   if (!data) return null;
 
   return (

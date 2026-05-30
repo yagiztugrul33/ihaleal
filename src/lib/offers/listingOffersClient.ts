@@ -1,12 +1,6 @@
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import type { ListingOfferRow, OfferStatus } from "@/lib/offers/listingOffers";
 
-function isMissing(err: { code?: string; message?: string } | null): boolean {
-  if (!err) return false;
-  const msg = (err.message ?? "").toLowerCase();
-  return err.code === "PGRST205" || err.code === "42P01" || msg.includes("does not exist");
-}
-
 export async function submitListingOffer(input: {
   listingId: string;
   amountTry: number;
@@ -28,7 +22,6 @@ export async function submitListingOffer(input: {
   });
 
   if (error) {
-    if (isMissing(error)) return { ok: false, error: "Teklif tablosu henüz hazır değil" };
     return { ok: false, error: "Teklif gönderilemedi" };
   }
   return { ok: true };
@@ -46,7 +39,6 @@ export async function updateOfferStatus(input: {
 
   const { error } = await supabase.from("listing_offers").update(patch).eq("id", input.offerId);
   if (error) {
-    if (isMissing(error)) return { ok: false, error: "Teklif tablosu henüz hazır değil" };
     return { ok: false, error: "Güncellenemedi" };
   }
   return { ok: true };
@@ -61,7 +53,6 @@ export async function fetchBuyerOffers(buyerId: string): Promise<ListingOfferRow
     .order("created_at", { ascending: false })
     .limit(50);
 
-  if (error && isMissing(error)) return [];
   if (error || !data) return [];
 
   return data.map((row) => {
@@ -91,7 +82,6 @@ export async function fetchSellerOffers(sellerId: string): Promise<ListingOfferR
     .eq("seller_id", sellerId)
     .limit(100);
 
-  if (listErr && isMissing(listErr)) return [];
   if (listErr || !listings?.length) return [];
 
   const ids = listings.map((l) => l.id);
@@ -104,7 +94,6 @@ export async function fetchSellerOffers(sellerId: string): Promise<ListingOfferR
     .order("created_at", { ascending: false })
     .limit(100);
 
-  if (error && isMissing(error)) return [];
   if (error || !data) return [];
 
   return data.map((row) => ({
@@ -129,7 +118,6 @@ export async function fetchOffersForListing(listingId: string): Promise<ListingO
     .eq("listing_id", listingId)
     .order("created_at", { ascending: false });
 
-  if (error && isMissing(error)) return [];
   if (error || !data) return [];
 
   return data.map((row) => ({

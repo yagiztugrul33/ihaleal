@@ -11,19 +11,6 @@ export type AppNotification = {
   read: boolean;
 };
 
-function isMissingSchemaError(err: { code?: string; message?: string } | null): boolean {
-  if (!err) return false;
-  const code = err.code ?? "";
-  const msg = (err.message ?? "").toLowerCase();
-  return (
-    code === "PGRST205" ||
-    code === "42P01" ||
-    msg.includes("does not exist") ||
-    msg.includes("could not find") ||
-    msg.includes("schema cache")
-  );
-}
-
 function mapRow(row: {
   id: number;
   type: string;
@@ -65,13 +52,8 @@ export function useNotifications() {
       .limit(50);
 
     if (qErr) {
-      if (isMissingSchemaError(qErr)) {
-        setItems([]);
-        setError(null);
-      } else {
-        setError("Bildirimler yüklenemedi.");
-        setItems([]);
-      }
+      setError("Bildirimler yüklenemedi.");
+      setItems([]);
       setLoading(false);
       return;
     }

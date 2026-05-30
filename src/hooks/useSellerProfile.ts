@@ -9,23 +9,19 @@ export type SellerProfileSummary = {
   reviewCount: number;
 };
 
-function isMissingSchemaError(err: { code?: string; message?: string } | null): boolean {
-  if (!err) return false;
-  const code = err.code ?? "";
-  const msg = (err.message ?? "").toLowerCase();
-  return code === "PGRST205" || code === "42P01" || msg.includes("does not exist") || msg.includes("could not find");
-}
-
 export function useSellerProfile(sellerId: string | null) {
   const [profile, setProfile] = useState<SellerProfileSummary | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const reload = useCallback(async () => {
     if (!sellerId || !isSupabaseConfigured()) {
       setProfile(null);
+      setError(null);
       return;
     }
     setLoading(true);
+    setError(null);
     try {
       const { data: row, error: profileErr } = await supabase
         .from("profiles")
@@ -33,8 +29,9 @@ export function useSellerProfile(sellerId: string | null) {
         .eq("id", sellerId)
         .maybeSingle();
 
-      if (profileErr && !isMissingSchemaError(profileErr)) {
+      if (profileErr) {
         setProfile(null);
+        setError("Profil yüklenemedi.");
         return;
       }
 
@@ -43,14 +40,18 @@ export function useSellerProfile(sellerId: string | null) {
         .select("rating")
         .eq("reviewed_id", sellerId);
 
+      if (reviewErr) {
+        setProfile(null);
+        setError("Değerlendirmeler yüklenemedi.");
+        return;
+      }
       let avgRating = 0;
       let reviewCount = 0;
-      if (!reviewErr && reviews?.length) {
+      if (reviews?.length) {
         reviewCount = reviews.length;
         const sum = reviews.reduce((acc, r) => acc + Number(r.rating ?? 0), 0);
         avgRating = Math.round((sum / reviewCount) * 10) / 10;
       }
-
       if (row) {
         setProfile({
           id: String(row.id),
@@ -71,5 +72,5 @@ export function useSellerProfile(sellerId: string | null) {
     void reload();
   }, [reload]);
 
-  return { profile, loading, reload };
+  return { profile, loading, error, reload };
 }

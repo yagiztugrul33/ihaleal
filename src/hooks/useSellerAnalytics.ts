@@ -17,23 +17,20 @@ export type SellerAnalyticsSummary = {
   listings: SellerListingMetric[];
 };
 
-function isMissing(err: { code?: string; message?: string } | null): boolean {
-  if (!err) return false;
-  const msg = (err.message ?? "").toLowerCase();
-  return err.code === "PGRST205" || err.code === "42P01" || msg.includes("does not exist");
-}
-
 export function useSellerAnalytics() {
   const { user } = useAuth();
   const [data, setData] = useState<SellerAnalyticsSummary | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const reload = useCallback(async () => {
     if (!user?.id || !isSupabaseConfigured()) {
       setData(null);
+      setError(null);
       return;
     }
     setLoading(true);
+    setError(null);
     try {
       const { data: listings, error: listErr } = await supabase
         .from("listings")
@@ -42,8 +39,9 @@ export function useSellerAnalytics() {
         .order("created_at", { ascending: false })
         .limit(50);
 
-      if (listErr && isMissing(listErr)) {
+      if (listErr) {
         setData(null);
+        setError("Analitik verisi yüklenemedi.");
         return;
       }
 
@@ -99,5 +97,5 @@ export function useSellerAnalytics() {
     void reload();
   }, [reload]);
 
-  return { data, loading, reload };
+  return { data, loading, error, reload };
 }

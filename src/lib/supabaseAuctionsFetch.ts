@@ -4,7 +4,6 @@ import type { Auction } from "@/types/auction";
 
 /**
  * Uzak açık/kapanmış ilanlara bağlı ihale satırlarını okur (RLS: anon + oturum).
- * Şema yoksa veya hata olursa [] döner.
  */
 export async function fetchRemoteAuctionsCatalog(): Promise<Auction[]> {
   if (!isSupabaseConfigured()) return [];

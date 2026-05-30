@@ -1,12 +1,6 @@
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import type { SavedSearchCriteria, SavedSearchRecord } from "@/lib/savedSearches/savedSearches";
 
-function isMissing(err: { code?: string; message?: string } | null): boolean {
-  if (!err) return false;
-  const msg = (err.message ?? "").toLowerCase();
-  return err.code === "PGRST205" || err.code === "42P01" || msg.includes("does not exist");
-}
-
 function mapRow(row: {
   id: string;
   name: string;
@@ -43,7 +37,6 @@ export async function fetchSavedSearches(userId: string): Promise<SavedSearchRec
     .order("created_at", { ascending: false })
     .limit(30);
 
-  if (error && isMissing(error)) return [];
   if (error || !data) return [];
   return data.map(mapRow);
 }
@@ -82,7 +75,6 @@ export async function createSavedSearch(input: {
     .single();
 
   if (error) {
-    if (isMissing(error)) return { ok: false, error: "Kayıtlı arama tablosu henüz hazır değil" };
     return { ok: false, error: "Arama kaydedilemedi" };
   }
   return { ok: true, id: data?.id ? String(data.id) : undefined };
@@ -92,7 +84,6 @@ export async function deleteSavedSearch(id: string): Promise<{ ok: boolean; erro
   if (!isSupabaseConfigured()) return { ok: false, error: "Bağlantı yok" };
   const { error } = await supabase.from("saved_searches").delete().eq("id", id);
   if (error) {
-    if (isMissing(error)) return { ok: false, error: "Tablo henüz hazır değil" };
     return { ok: false, error: "Silinemedi" };
   }
   return { ok: true };
@@ -107,7 +98,7 @@ export async function updateSavedSearchCriteria(
     .from("saved_searches")
     .update({ criteria, last_notified_at: new Date().toISOString() })
     .eq("id", id);
-  if (error && !isMissing(error)) return { ok: false };
+  if (error) return { ok: false };
   return { ok: true };
 }
 
@@ -133,7 +124,7 @@ export async function insertSearchMatchNotification(input: {
     state: "pending",
   });
 
-  if (error && !isMissing(error) && import.meta.env.DEV) {
+  if (error && import.meta.env.DEV) {
     console.warn("[saved_searches] notification insert failed", error.message);
   }
 }
