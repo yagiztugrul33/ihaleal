@@ -15,10 +15,10 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
 import { SellerAnalyticsPanel } from "@/components/seller/SellerAnalyticsPanel";
 import { OffersPanel } from "@/components/offers/OffersPanel";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { UserPanelOverview } from "@/components/panel/UserPanelOverview";
+import NotificationsPage from "@/pages/NotificationsPage";
 
 const sidebar = [
   { to: "/panel", label: "Özet", icon: LayoutDashboard, end: true },
@@ -37,7 +37,6 @@ const sidebar = [
 export default function UserPanel() {
   const navigate = useNavigate();
   const { tabId } = useParams<{ tabId?: string }>();
-  const liveCount = DEMO_AUCTION_CATALOG.filter((a) => a.status === "live").length;
 
   const sectionTitle =
     tabId === "profil"
@@ -49,12 +48,12 @@ export default function UserPanel() {
           : tabId === "gelen-teklifler"
             ? "Gelen teklifler"
             : tabId === "bildirimler"
-            ? "Bildirimler"
-            : tabId === "komisyon"
-              ? "Komisyon raporum"
-              : tabId === "ayarlar"
-                ? "Ayarlar"
-                : "Özet";
+              ? "Bildirimler"
+              : tabId === "komisyon"
+                ? "Komisyon raporum"
+                : tabId === "ayarlar"
+                  ? "Ayarlar"
+                  : "Özet";
 
   return (
     <div className="min-h-screen pt-24 pb-16 bg-slate-50">
@@ -80,9 +79,6 @@ export default function UserPanel() {
               </NavLink>
             ))}
           </nav>
-          <p className="text-xs text-slate-600 px-1 leading-relaxed">
-            Üyelikler: yıllık satıcı 5.000 TL, yıllık alıcı 1.000 TL (demo metin). Komisyon mahsuplu %4 + KDV hedefi — liste paketi satışı yoktur.
-          </p>
         </aside>
 
         <div className="flex-1 space-y-6">
@@ -92,9 +88,7 @@ export default function UserPanel() {
               {sectionTitle}
             </h1>
             <p className="text-slate-400 mt-1 text-sm">
-              {tabId
-                ? "Bu bölüm demo — gerçek hesap verisi bağlandığında dolar."
-                : "İhaleleriniz, teklifleriniz ve bildirim özetiniz (demo veri)."}
+              Canlı tablolardan favori, teklif, bildirim ve satıcı analitiği.
             </p>
           </div>
 
@@ -110,59 +104,52 @@ export default function UserPanel() {
                 <OffersPanel mode="seller" />
               </CardContent>
             </Card>
-          ) : tabId ? (
-            <Card className="bg-slate-900/50 border-slate-200/80 border-dashed">
-              <CardContent className="p-8 text-center text-slate-400 text-sm">
-                <p className="mb-4">
-                  {sectionTitle} içeriği yakında tamamlanacak. Bildirim ve mesaj demo akışları üst menüden kullanılabilir.
+          ) : tabId === "bildirimler" ? (
+            <NotificationsPage />
+          ) : tabId === "profil" ? (
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-5">
+                <p className="text-sm text-slate-400 mb-4">Profil bilgilerinizi düzenleyin.</p>
+                <Button type="button" onClick={() => navigate("/profil")}>
+                  Profil sayfasına git
+                </Button>
+              </CardContent>
+            </Card>
+          ) : tabId === "ihalelerim" ? (
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-5">
+                <p className="text-sm text-slate-400 mb-4">Katıldığınız ve açtığınız ihaleler.</p>
+                <Button type="button" variant="outline" className="border-white/15 mr-2" onClick={() => navigate("/ihaleler")}>
+                  Aktif ihaleler
+                </Button>
+                <Button type="button" onClick={() => navigate("/ihale-ac")}>
+                  İlan / ihale aç
+                </Button>
+              </CardContent>
+            </Card>
+          ) : tabId === "komisyon" ? (
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-5">
+                <h2 className="text-lg font-semibold text-white mb-3">Komisyon özeti</h2>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  İşlem komisyonu hedefi %4 + KDV (mahsup). Detay için{" "}
+                  <button type="button" onClick={() => navigate("/komisyon-hesaplayici")} className="text-teal-400 hover:underline">
+                    komisyon hesaplayıcı
+                  </button>
+                  .
                 </p>
-                <Button type="button" variant="outline" className="border-white/15" onClick={() => navigate("/panel")}>
-                  Panele dön
+              </CardContent>
+            </Card>
+          ) : tabId === "ayarlar" ? (
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-5">
+                <Button type="button" onClick={() => navigate("/ayarlar")}>
+                  Hesap ayarları
                 </Button>
               </CardContent>
             </Card>
           ) : (
-            <>
-              {isSupabaseConfigured() ? (
-                <SellerAnalyticsPanel />
-              ) : null}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Card className="bg-slate-900/50 border-slate-200/80">
-                  <CardContent className="p-5">
-                    <div className="text-xs text-slate-500 uppercase tracking-wide">Aktif ihale (demo)</div>
-                    <div className="text-3xl font-bold text-emerald-400 mt-1">{liveCount}</div>
-                    <p className="text-xs text-slate-600 mt-2">Katalog genelinde canlı kayıt sayısı.</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-900/50 border-slate-200/80">
-                  <CardContent className="p-5">
-                    <div className="text-xs text-slate-500 uppercase tracking-wide">Bekleyen teklifler</div>
-                    <div className="text-3xl font-bold text-amber-400 mt-1">—</div>
-                    <p className="text-xs text-slate-600 mt-2">Gerçek teklif akışı bağlandığında dolar.</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-900/50 border-slate-200/80">
-                  <CardContent className="p-5">
-                    <div className="text-xs text-slate-500 uppercase tracking-wide">Üyelik süresi</div>
-                    <div className="text-xl font-bold text-sky-400 mt-1">Yıllık</div>
-                    <p className="text-xs text-slate-600 mt-2">Örnek — hesabınıza özel tarih backend ile güncellenir.</p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <Card className="bg-slate-900/50 border-slate-200/80">
-                <CardContent className="p-5">
-                  <h2 className="text-lg font-semibold text-white mb-3">Komisyon özeti (taslak)</h2>
-                  <p className="text-sm text-slate-400 leading-relaxed">
-                    İşlem komisyonu hedefi %4 + KDV (mahsup); emlakçı ortaklığında B2B fatura ile %2 pay (bilgilendirme). Güvenli ödeme havuzu ve mahsup formülü için{" "}
-                    <button type="button" onClick={() => navigate("/komisyon-hesaplayici")} className="text-teal-400 hover:underline">
-                      komisyon hesaplayıcı
-                    </button>
-                    .
-                  </p>
-                </CardContent>
-              </Card>
-            </>
+            <UserPanelOverview />
           )}
         </div>
       </div>
