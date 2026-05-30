@@ -15,9 +15,83 @@ async function loadJsPdf() {
   return jsPDF;
 }
 
+// Türkçe karakter sorunu (İ, ı, ğ, ş, ö, ç, ü):
+// jsPDF'in built-in helvetica/times Type1 fontları sadece WinAnsi/Latin-1
+// destekler. Türk karakterleri "&0&h&a&l" gibi bozuk çıkar. Roboto TTF'i
+// /public/fonts altından lazy fetch edip VFS'e ekleyerek Türkçe metni
+// PDF'e doğru basıyoruz. İlk PDF üretimi sırasında 1 kez yüklenir, sonra
+// cache'lenir; PDF butonuna basana kadar bundle'a hiç inmez.
+const FONT_FAMILY = "Roboto";
+const FONT_FILES = {
+  normal: { vfs: "Roboto-Regular.ttf", url: "/fonts/Roboto-Regular.ttf" },
+  bold: { vfs: "Roboto-Bold.ttf", url: "/fonts/Roboto-Bold.ttf" },
+};
+
+let fontLoadPromise: Promise<{ normal: string; bold: string }> | null = null;
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  // PDF VFS base64 ister. Büyük buffer'da stack patlamasın diye chunk'lı.
+  const bytes = new Uint8Array(buffer);
+  const chunk = 0x8000;
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode.apply(
+      null,
+      Array.from(bytes.subarray(i, i + chunk)),
+    );
+  }
+  return btoa(binary);
+}
+
+async function fetchFontBase64(url: string): Promise<string> {
+  const res = await fetch(url, { cache: "force-cache" });
+  if (!res.ok) {
+    throw new Error(`Font fetch failed: ${url} (${res.status})`);
+  }
+  const buf = await res.arrayBuffer();
+  return arrayBufferToBase64(buf);
+}
+
+async function loadFontBase64Pair(): Promise<{ normal: string; bold: string }> {
+  if (!fontLoadPromise) {
+    fontLoadPromise = (async () => {
+      const [normal, bold] = await Promise.all([
+        fetchFontBase64(FONT_FILES.normal.url),
+        fetchFontBase64(FONT_FILES.bold.url),
+      ]);
+      return { normal, bold };
+    })();
+  }
+  return fontLoadPromise;
+}
+
+// jsPDF instance'larına Roboto'yu kaydeder. Font fetch başarısız olursa
+// (offline / 404) helvetica'ya düşeriz — PDF kırılmasın diye sessiz fallback,
+// Türkçe karakterler bozulur ama dosya üretilir.
+async function registerTurkishFont(pdf: unknown): Promise<boolean> {
+  try {
+    const { normal, bold } = await loadFontBase64Pair();
+    const doc = pdf as {
+      addFileToVFS: (name: string, base64: string) => void;
+      addFont: (file: string, family: string, style: string) => void;
+    };
+    doc.addFileToVFS(FONT_FILES.normal.vfs, normal);
+    doc.addFont(FONT_FILES.normal.vfs, FONT_FAMILY, "normal");
+    doc.addFileToVFS(FONT_FILES.bold.vfs, bold);
+    doc.addFont(FONT_FILES.bold.vfs, FONT_FAMILY, "bold");
+    return true;
+  } catch {
+    // Cache'lenmiş başarısız promise'ı temizle ki sonraki PDF tekrar denesin
+    fontLoadPromise = null;
+    return false;
+  }
+}
+
 export async function downloadStructuredPdf(input: StructuredPdfInput): Promise<void> {
   const jsPDF = await loadJsPdf();
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+  const turkishFontReady = await registerTurkishFont(pdf);
+  const fontFamily = turkishFontReady ? FONT_FAMILY : "helvetica";
   const margin = 18;
   const pageW = pdf.internal.pageSize.getWidth();
   const pageH = pdf.internal.pageSize.getHeight();
@@ -25,7 +99,7 @@ export async function downloadStructuredPdf(input: StructuredPdfInput): Promise<
   let y = margin;
 
   const addHeader = () => {
-    pdf.setFont("helvetica", "bold");
+    pdf.setFont(fontFamily, "bold");
     pdf.setFontSize(14);
     pdf.setTextColor(15, 118, 110);
     pdf.text("İhaleal", margin, y);
@@ -48,7 +122,7 @@ export async function downloadStructuredPdf(input: StructuredPdfInput): Promise<
 
   addHeader();
 
-  pdf.setFont("helvetica", "bold");
+  pdf.setFont(fontFamily, "bold");
   pdf.setFontSize(16);
   pdf.setTextColor(15, 23, 42);
   const titleLines = pdf.splitTextToSize(input.title, maxW);
@@ -57,7 +131,7 @@ export async function downloadStructuredPdf(input: StructuredPdfInput): Promise<
   y += titleLines.length * 7 + 2;
 
   if (input.subtitle) {
-    pdf.setFont("helvetica", "normal");
+    pdf.setFont(fontFamily, "normal");
     pdf.setFontSize(10);
     pdf.setTextColor(71, 85, 105);
     const subLines = pdf.splitTextToSize(input.subtitle, maxW);
@@ -68,12 +142,12 @@ export async function downloadStructuredPdf(input: StructuredPdfInput): Promise<
 
   for (const section of input.sections) {
     ensureSpace(12);
-    pdf.setFont("helvetica", "bold");
+    pdf.setFont(fontFamily, "bold");
     pdf.setFontSize(11);
     pdf.setTextColor(30, 41, 59);
     pdf.text(section.heading, margin, y);
     y += 6;
-    pdf.setFont("helvetica", "normal");
+    pdf.setFont(fontFamily, "normal");
     pdf.setFontSize(10);
     pdf.setTextColor(51, 65, 85);
     for (const line of section.lines) {
