@@ -56,8 +56,21 @@ const GUIDE_INTRO = [
   "Platform dışı ödeme veya aradan anlaşma taleplerinde yalnızca yasal metinlere yönlendirme yapılır; /yasal/dolandiricilik-savunmasi ve /ihale-kosullari özet çerçevedir.",
 ].join("\n");
 
-const AI_DEFAULT =
-  "Sorunuzu birkaç kelimeyle yeniden ifade edebilir veya /analiz, ilan detayı ve /mortgage sayfalarına yönelebilirsiniz.";
+const CHAT_SCENARIOS = [
+  { label: "Bu ilan hakkında", prompt: "Bu ilan hakkında bilgi verir misiniz?" },
+  { label: "İhaleye giriş", prompt: "İhaleye nasıl teklif veririm?" },
+  { label: "Kredi", prompt: "Konut kredisi ve ödeme seçenekleri neler?" },
+  { label: "Randevu", prompt: "Uzman randevusu nasıl alınır?" },
+] as const;
+
+function sanitizeChatInput(raw: string): string {
+  return raw.replace(/<[^>]*>/g, "").replace(/javascript:/gi, "").trim().slice(0, 2000);
+}
+
+function wantsAgentHandoff(text: string): boolean {
+  const t = text.toLocaleLowerCase("tr-TR");
+  return /temsilci|canli destek|insan|operatör|operator|baglan|bağlan|mesajlar/.test(t);
+}
 
 /** Yerel özet — tam AI (`ai_qa`) yokken veya yönlendirme modunda */
 const BIDDING_RULES_REPLY = [
@@ -359,8 +372,23 @@ export function ChatWidget() {
   };
 
   const sendUserMessage = async (raw: string) => {
-    const userMsg = raw.trim();
+    const userMsg = sanitizeChatInput(raw);
     if (!userMsg) return;
+
+    if (wantsAgentHandoff(userMsg)) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", text: userMsg },
+        {
+          role: "ai",
+          text: "Canlı temsilciye yönlendiriyorum. Mesajlar sayfasından devam edebilirsiniz; giriş yapmanız gerekebilir.",
+        },
+      ]);
+      setInput("");
+      navigate("/mesajlar");
+      return;
+    }
+
     const next = [...messages, { role: "user" as const, text: userMsg }];
     setMessages(next);
     setInput("");
@@ -542,7 +570,27 @@ export function ChatWidget() {
 
           {messages.length < 6 && (
             <div className="px-3 pb-2 space-y-2">
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1">
+              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1">Senaryolar</p>
+              <div className="flex flex-wrap gap-1.5">
+                {CHAT_SCENARIOS.map((s) => (
+                  <button
+                    key={s.label}
+                    type="button"
+                    onClick={() => void sendUserMessage(s.prompt)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-violet-500/10 text-[11px] text-violet-100 border border-violet-400/25"
+                  >
+                    {s.label}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => void sendUserMessage("Temsilciye bağlan")}
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500/10 text-[11px] text-amber-100 border border-amber-400/25"
+                >
+                  <Handshake className="w-3 h-3" /> Temsilci
+                </button>
+              </div>
+              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1 pt-1">
                 {chatMode === "qa" ? "Örnek sorular" : "Hızlı ifade"}
               </p>
               <div className="flex flex-wrap gap-1.5">
