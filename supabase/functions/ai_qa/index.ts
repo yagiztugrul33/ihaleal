@@ -7,12 +7,46 @@
  * `config.toml` verify_jwt=false — uretimde rate limit / WAF veya zorunlu oturum ekleyin.
  */
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { IHALEAL_KNOWLEDGE_FOR_LLM } from "../_shared/ihalealKnowledge.ts";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+// IP-bazli token bucket (mevcut public.rl_consume kullanir, service_role).
+// PUBLIC widget oldugu icin JWT zorunlu DEGIL — UX kirilir. Spam koruma:
+//   capacity=20 istek, refill_rate=20/3600 (saatte 20). Patlamasi 502/503 degil 429.
+const RL_CAPACITY = 20;
+const RL_REFILL_PER_SEC = 20 / 3600;
+
+function extractClientIp(req: Request): string {
+  const xff = req.headers.get("x-forwarded-for") ?? "";
+  const first = xff.split(",")[0]?.trim();
+  if (first) return first;
+  return req.headers.get("x-real-ip") ?? "unknown";
+}
+
+async function checkRateLimit(ip: string): Promise<{ ok: boolean; reason?: string }> {
+  const url = Deno.env.get("SUPABASE_URL");
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  // Rate limit infra yoksa GUVENLI default: izin ver (mevcut davranisi degistirme).
+  if (!url || !serviceKey) return { ok: true, reason: "rl_not_configured" };
+  try {
+    const admin = createClient(url, serviceKey);
+    const { data, error } = await admin.rpc("rl_consume", {
+      p_key: `ai_qa:ip:${ip}`,
+      p_capacity: RL_CAPACITY,
+      p_refill_rate: RL_REFILL_PER_SEC,
+      p_cost: 1,
+    });
+    if (error) return { ok: true, reason: "rl_rpc_failed" }; // sertligi UX'i kirma — log ile yetin
+    return { ok: data === true };
+  } catch {
+    return { ok: true, reason: "rl_exception" };
+  }
+}
 
 const MAX_MSG = 24;
 const MAX_USER_CHARS = 4000;
@@ -49,6 +83,16 @@ Deno.serve(async (req) => {
       status: 503,
       headers: { ...cors, "Content-Type": "application/json" },
     });
+  }
+
+  // IP rate limit — public widget icin spam guard (JWT zorunlu degil).
+  const ip = extractClientIp(req);
+  const rl = await checkRateLimit(ip);
+  if (!rl.ok) {
+    return new Response(
+      JSON.stringify({ error: "rate_limited", retry_after_seconds: 180 }),
+      { status: 429, headers: { ...cors, "Content-Type": "application/json", "Retry-After": "180" } },
+    );
   }
 
   let body: { messages?: ChatMsg[] };
