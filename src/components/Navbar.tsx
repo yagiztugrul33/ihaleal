@@ -8,6 +8,7 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/messages";
+import { OnlinePresenceBadge } from "@/components/presence/OnlinePresenceBadge";
 
 function NavDropdown({
   label,
@@ -297,6 +298,7 @@ export function Navbar() {
           </div>
 
           <div className="nav-desktop-actions hidden items-center gap-2 lg:flex">
+            <OnlinePresenceBadge compact className="hidden xl:inline-flex" />
             <button
               type="button"
               onClick={() => setSearchOpen(true)}

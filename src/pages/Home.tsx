@@ -7,11 +7,15 @@
 import PremiumCinematicHome from "@/sections/PremiumCinematicHome";
 import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
 import { OnboardingTip } from "@/components/onboarding/OnboardingTip";
+import { OnlinePresenceBadge } from "@/components/presence/OnlinePresenceBadge";
 
 export function Home() {
   return (
     <div className="page-background-premium home-ref-page">
       <OnboardingTip />
+      <div className="mx-auto max-w-[1240px] px-4 pt-20 flex justify-end">
+        <OnlinePresenceBadge />
+      </div>
       <PremiumCinematicHome />
       <DepremTransparencyBand />
     </div>
