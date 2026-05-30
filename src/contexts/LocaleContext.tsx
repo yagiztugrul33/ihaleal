@@ -10,7 +10,6 @@ import {
 import {
   LOCALE_STORAGE_KEY,
   messages,
-  resolveLocale,
   type Locale,
   type Messages,
 } from "@/i18n/messages";
@@ -23,12 +22,26 @@ type LocaleContextValue = {
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
-function readStoredLocale(): Locale {
-  if (typeof window === "undefined") return "en";
+function detectBrowserLocale(): Locale {
+  // navigator.language örn. "tr-TR", "tr", "en-US" — "tr" ile başlıyorsa TR
   try {
-    return resolveLocale(localStorage.getItem(LOCALE_STORAGE_KEY));
+    const nav = (typeof navigator !== "undefined" ? navigator.language : "") || "";
+    if (nav.toLowerCase().startsWith("tr")) return "tr";
   } catch {
-    return "en";
+    /* sessiz */
+  }
+  return "en";
+}
+
+function readStoredLocale(): Locale {
+  if (typeof window === "undefined") return "tr"; // SSR/Türk pazar default TR
+  try {
+    const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
+    if (stored === "tr" || stored === "en") return stored;
+    // Saklı tercih yoksa: navigator.language'ten türet (TR ise TR, aksi EN)
+    return detectBrowserLocale();
+  } catch {
+    return detectBrowserLocale();
   }
 }
 
