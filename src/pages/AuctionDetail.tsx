@@ -64,6 +64,8 @@ import { incrementListingView } from "@/lib/listingViewCount";
 import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
 import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 import { landingPathForCity } from "@/data/seoLandings";
+import { useListingRatings } from "@/hooks/useListingRatings";
+import { RatingSummaryBadge } from "@/components/trust/RatingSummaryBadge";
 import { AvmEstimateSection } from "@/components/listing/AvmEstimateSection";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
@@ -212,6 +214,8 @@ export default function AuctionDetail() {
   const [offerDialogOpen, setOfferDialogOpen] = useState(false);
 
   const offerListingId = dbListingId ?? (isAuctionUuid(id ?? "") ? id ?? "" : "");
+  const detailListingIds = useMemo(() => (auction?.id ? [auction.id] : []), [auction]);
+  const { ratings: detailListingRatings } = useListingRatings(detailListingIds);
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -739,6 +743,13 @@ export default function AuctionDetail() {
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <ListingNumberBadge auction={auction} />
                 <ListingFeaturedBadge isFeatured={auction.isFeatured} badge={auction.featuredBadge} />
+                {(auction.viewCount ?? 0) > 0 ? (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-xs text-slate-400">
+                    <Eye className="w-3.5 h-3.5" aria-hidden />
+                    {auction.viewCount!.toLocaleString("tr-TR")} görüntülenme
+                  </span>
+                ) : null}
+                <RatingSummaryBadge summary={detailListingRatings.get(auction.id)} />
                 {/* R14 PAKET 5 — lansman badge */}
                 {isLansman && (
                   <Badge className="bg-cyan-500 text-slate-950 font-bold border-0 gap-1">
