@@ -9,6 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDeveloperProjects, bulkInsertUnits, type NewProjectInput, type NewUnitInput } from "@/hooks/useDeveloperProjects";
+import { getActiveOrgId } from "@/lib/activeOrgId";
+import { supabase } from "@/lib/supabase";
+import { uploadProjectDoc, UploadUnavailableError } from "@/lib/uploadFile";
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -41,8 +44,10 @@ export default function MuteahhitYeniProjePage() {
   const [description, setDescription] = useState("");
   const [stage, setStage] = useState<NewProjectInput["stage"]>("planning");
 
-  // ADIM 2 — Mock ruhsat upload
+  // ADIM 2 — Ruhsat belgesi (Storage)
   const [skipRuhsat, setSkipRuhsat] = useState(true);
+  const [ruhsatFile, setRuhsatFile] = useState<File | null>(null);
+  const [ruhsatFileName, setRuhsatFileName] = useState("");
 
   // ADIM 3 — Birim envanteri
   const [units, setUnits] = useState<NewUnitInput[]>([
@@ -90,6 +95,9 @@ export default function MuteahhitYeniProjePage() {
       if (err) return setError(err);
       setStep(2);
     } else if (step === 2) {
+      if (!skipRuhsat && !ruhsatFile) {
+        return setError("Ruhsat belgesi seçin veya «Daha sonra ekleyeceğim» kutusunu işaretleyin.");
+      }
       setStep(3);
     } else if (step === 3) {
       const err = validate3();
@@ -119,6 +127,35 @@ export default function MuteahhitYeniProjePage() {
       setBusy(false);
       return;
     }
+
+    if (!skipRuhsat && ruhsatFile) {
+      try {
+        const orgId = (await getActiveOrgId()) ?? user!.id;
+        const uploaded = await uploadProjectDoc(ruhsatFile, orgId, project.id, "ruhsat");
+        const { error: ruhsatErr } = await supabase
+          .from("developer_projects")
+          .update({ ruhsat_document_url: uploaded.path, ruhsat_status: "pending" })
+          .eq("id", project.id);
+        if (ruhsatErr) {
+          setError(`Proje kaydedildi ancak ruhsat URL yazılamadı: ${ruhsatErr.message}`);
+          setBusy(false);
+          navigate(`/muteahhit/proje/${project.id}`);
+          return;
+        }
+      } catch (uploadErr) {
+        const msg =
+          uploadErr instanceof UploadUnavailableError
+            ? uploadErr.message
+            : uploadErr instanceof Error
+              ? uploadErr.message
+              : "Ruhsat yüklenemedi";
+        setError(`Proje kaydedildi ancak ruhsat yüklenemedi: ${msg}`);
+        setBusy(false);
+        navigate(`/muteahhit/proje/${project.id}`);
+        return;
+      }
+    }
+
     const { error: unitsErr } = await bulkInsertUnits(project.id, units);
     setBusy(false);
     if (unitsErr) {
@@ -227,12 +264,27 @@ export default function MuteahhitYeniProjePage() {
 
             {step === 2 && (
               <>
-                <h2 className="text-lg font-bold text-white">Adım 2 — Ruhsat Belgesi (mock)</h2>
+                <h2 className="text-lg font-bold text-white">Adım 2 — Ruhsat Belgesi</h2>
                 <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-4 space-y-3">
                   <FileText className="w-8 h-8 text-amber-300" />
                   <p className="text-sm text-amber-100/90">
-                    Ruhsat belgesi PDF/resim upload Phase 2'de gerçek Supabase Storage ile aktif olacak. Şu an mock.
+                    Ruhsat belgesi PDF veya JPEG olarak project-docs bucket&apos;a yüklenir. Admin onayı sonrası lansman ilanları açılır.
                   </p>
+                  <label className="flex flex-col gap-2 cursor-pointer">
+                    <span className="text-xs text-slate-400">Ruhsat dosyası (PDF / JPEG, max 10 MB)</span>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpeg,.jpg,image/jpeg,application/pdf"
+                      className="text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-200"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0] ?? null;
+                        setRuhsatFile(f);
+                        setRuhsatFileName(f?.name ?? "");
+                        if (f) setSkipRuhsat(false);
+                      }}
+                    />
+                    {ruhsatFileName ? <span className="text-xs text-emerald-300">Seçildi: {ruhsatFileName}</span> : null}
+                  </label>
                   <label className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
                     <input type="checkbox" checked={skipRuhsat} onChange={(e) => setSkipRuhsat(e.target.checked)} className="accent-amber-500" />
                     Daha sonra ekleyeceğim (admin onayından sonra ilan yayınlayamam, kalemleri hazırlarım)
