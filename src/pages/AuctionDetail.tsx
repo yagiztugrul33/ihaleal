@@ -50,6 +50,8 @@ import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIInsight } from "@/components/cinematic";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
+import { ListingSimilarSection } from "@/components/listing/ListingSimilarSection";
+import { ListingNearbyPoiSection } from "@/components/listing/ListingNearbyPoiSection";
 import { LoadingState, EmptyState } from "@/components/async";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
@@ -916,6 +918,7 @@ export default function AuctionDetail() {
                       src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${auction.mapLng}!3d${auction.mapLat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA1JzEwLjEiTiAyOcKwMDEnMzYuNiJF!5e0!3m2!1str!2str!4v1`}
                     />
                   </div>
+                  <ListingNearbyPoiSection lat={auction.mapLat} lng={auction.mapLng} />
                 </div>
               )}
               {activeTab === "priceHistory" && (
@@ -1197,6 +1200,12 @@ export default function AuctionDetail() {
             </Card>
           </div>
         </div>
+        <ListingSimilarSection
+          currentId={auction.id}
+          catalog={catalog}
+          city={auction.city}
+          category={auction.category}
+        />
       </div>
 
       <Dialog
