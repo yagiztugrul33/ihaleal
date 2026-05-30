@@ -53,6 +53,8 @@ import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { ListingSimilarSection } from "@/components/listing/ListingSimilarSection";
 import { ListingNearbyPoiSection } from "@/components/listing/ListingNearbyPoiSection";
 import { LoadingState, EmptyState } from "@/components/async";
+import { SellerTrustCard } from "@/components/trust/SellerTrustCard";
+import { ListingReviewDialog } from "@/components/trust/ListingReviewDialog";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
 import {
@@ -154,6 +156,8 @@ export default function AuctionDetail() {
 
   const { user } = useAuth();
   const [dbListingId, setDbListingId] = useState<string | null>(null);
+  const [sellerId, setSellerId] = useState<string | null>(null);
+  const [reviewOpen, setReviewOpen] = useState(false);
   const [dbAuctionPk, setDbAuctionPk] = useState<string | null>(null);
   const [dbReportLoaded, setDbReportLoaded] = useState<PropertyAnalysisReportRecord | null>(null);
   const [buyNowPriceDb, setBuyNowPriceDb] = useState<number | null>(null);
@@ -223,10 +227,11 @@ export default function AuctionDetail() {
       if (rep) setDbReportLoaded(rep);
       const { data: listingRow } = await supabase
         .from("listings")
-        .select("buy_now_price_try, is_lansman, project_id, unit_id, title, body, start_price_try")
+        .select("buy_now_price_try, is_lansman, project_id, unit_id, title, body, start_price_try, seller_id")
         .eq("id", listingId)
         .maybeSingle();
       if (!alive) return;
+      if (listingRow?.seller_id) setSellerId(String(listingRow.seller_id));
       if (listingRow?.buy_now_price_try != null) setBuyNowPriceDb(Number(listingRow.buy_now_price_try));
       const lansmanRow = listingRow as
         | {
@@ -1132,16 +1137,19 @@ export default function AuctionDetail() {
                   <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => navigate(`/mesajlar?listing=${encodeURIComponent(auction.id)}&title=${encodeURIComponent(auction.title)}`)} title="Mesajlaş"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
                 <div className="pt-4 border-t border-slate-200/80 space-y-3">
-                  <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/15">
-                    <div className="text-sm font-semibold text-white">{PLATFORM_LISTING_CONTACT.displayName}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{PLATFORM_LISTING_CONTACT.roleLine}</div>
-                    <p className="text-[11px] text-slate-500 mt-2 leading-relaxed">{PLATFORM_LISTING_CONTACT.detailLine}</p>
-                  </div>
+                  <SellerTrustCard sellerId={sellerId} listingId={auction.id} listingTitle={auction.title} />
+                  {auction.status === "ended" && sellerId && user?.id && user.id !== sellerId ? (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full border-amber-500/30 text-amber-200 hover:bg-amber-500/10"
+                      onClick={() => setReviewOpen(true)}
+                    >
+                      Satıcıyı değerlendir
+                    </Button>
+                  ) : null}
                   <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => window.open("mailto:destek@ihaleal.com?subject=İlan%20talebi%20" + encodeURIComponent(auction.id), "_blank")}>
-                    <Mail className="w-4 h-4" /> Talep oluştur (e-posta)
-                  </Button>
-                  <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
-                    <Phone className="w-4 h-4" /> İletişim formu
+                    <Mail className="w-4 h-4" /> Destek talebi (e-posta)
                   </Button>
                 </div>
                 <div className="pt-4 border-t border-slate-200/80">
@@ -1310,6 +1318,15 @@ export default function AuctionDetail() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {sellerId && id ? (
+        <ListingReviewDialog
+          open={reviewOpen}
+          onOpenChange={setReviewOpen}
+          listingId={dbListingId ?? id}
+          reviewedId={sellerId}
+        />
+      ) : null}
 
       <Dialog open={showMarketReportDialog} onOpenChange={setShowMarketReportDialog}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg">

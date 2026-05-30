@@ -7,6 +7,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { stripForSession, dispatchAuthChanged, type StoredUser, type SessionUser } from "@/lib/auth";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { formatSupabaseAuthError, sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
+import { useKycStatus } from "@/hooks/useKycStatus";
+import { useSellerProfile } from "@/hooks/useSellerProfile";
+import { KycVerifiedBadge } from "@/components/trust/KycVerifiedBadge";
 
 function readSession(): SessionUser | null {
   try {
@@ -25,6 +28,12 @@ export default function Profile() {
   const [phone, setPhone] = useState(user?.phone || "");
   const [success, setSuccess] = useState("");
   const [saveError, setSaveError] = useState("");
+
+  const { displayStatus: kycStatus } = useKycStatus(user?.id ?? null);
+  const { profile: sellerStats } = useSellerProfile(user?.id ?? null);
+  const kycVerified = kycStatus === "verified";
+  const publicRating = sellerStats?.avgRating ?? user?.rating ?? 0;
+  const reviewCount = sellerStats?.reviewCount ?? 0;
 
   useEffect(() => {
     if (!user || user.authBackend !== "supabase" || !isSupabaseConfigured()) return;
@@ -123,7 +132,27 @@ export default function Profile() {
                 </div>
                 <h2 className="text-xl font-bold text-white">{user.name}</h2>
                 <p className="text-sm text-slate-400">{user.email}</p>
-                <div className="flex items-center justify-center gap-1 mt-2"><Star className="w-4 h-4 text-amber-400 fill-amber-400" /><span className="text-sm text-slate-400">{user.rating || 0} Puan</span></div>
+                <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+                  <KycVerifiedBadge verified={kycVerified} compact />
+                  {!kycVerified ? (
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="h-7 border-slate-600 text-xs"
+                      onClick={() => navigate("/kyc")}
+                    >
+                      KYC başlat
+                    </Button>
+                  ) : null}
+                </div>
+                <div className="flex items-center justify-center gap-1 mt-2">
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  <span className="text-sm text-slate-400">
+                    {publicRating > 0 ? `${publicRating.toFixed(1)} puan` : "Henüz puan yok"}
+                    {reviewCount > 0 ? ` · ${reviewCount} yorum` : ""}
+                  </span>
+                </div>
                 <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-2">
                   <div className="flex justify-between text-sm"><span className="text-slate-500">Üyelik</span><span className="text-white">{user.memberSince}</span></div>
                   <div className="flex justify-between text-sm"><span className="text-slate-500">Açılan İhale</span><span className="text-white">{user.auctionsCreated}</span></div>
@@ -145,7 +174,7 @@ export default function Profile() {
                 <div className="space-y-4">
                   <div><label className="text-sm text-slate-400 mb-1.5 block">Ad Soyad</label>{editMode ? <Input value={name} onChange={(e) => setName(e.target.value)} className="bg-slate-950 border-slate-200 text-white" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm">{user.name}</div>}</div>
                   <div><label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>{editMode ? <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-slate-950 border-slate-200 text-white" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm flex items-center gap-2"><Mail className="w-4 h-4 text-blue-400" />{user.email}{user.verified && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}</div>}</div>
-                  <div><label className="text-sm text-slate-400 mb-1.5 block">Telefon</label>{editMode ? <Input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-slate-950 border-slate-200 text-white" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm flex items-center gap-2"><Phone className="w-4 h-4 text-blue-400" />{user.phone || "Belirtilmemiş"}</div>}</div>
+                  <div><label className="text-sm text-slate-400 mb-1.5 block">Telefon</label>{editMode ? <Input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-slate-950 border-slate-200 text-white" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm"><div className="flex items-center gap-2"><Phone className="w-4 h-4 text-blue-400" />{user.phone || "Belirtilmemiş"}</div><p className="text-[11px] text-slate-500 mt-2">Telefon numaranız ilanlarda gösterilmez; iletişim platform mesajları üzerinden yürür.</p></div>}</div>
                   {editMode && <Button onClick={handleSave} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold">Değişiklikleri Kaydet</Button>}
                 </div>
               </CardContent>
