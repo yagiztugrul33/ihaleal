@@ -59,6 +59,7 @@ import { lazy, Suspense } from "react";
 import { resolveListingCoords } from "@/lib/geo/cityCenters";
 import { incrementListingView } from "@/lib/listingViewCount";
 import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
+import { AvmEstimateSection } from "@/components/listing/AvmEstimateSection";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
 import {
@@ -825,6 +826,12 @@ export default function AuctionDetail() {
                       ))}
                     </ul>
                   </div>
+                  <AvmEstimateSection
+                    city={auction.city}
+                    district={auction.district}
+                    areaM2={auction.propertyDetails?.netSqm ?? auction.propertyDetails?.grossSqm ?? 100}
+                    listingPrice={auction.currentBid}
+                  />
                   {(auction.commitmentFloorTRY != null && auction.commitmentCeilingTRY != null) || auction.bindingCommitmentAccepted ? (
                     <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-500/25">
                       <div className="flex items-center gap-2 text-amber-100 mb-2">

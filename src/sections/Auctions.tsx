@@ -18,6 +18,7 @@ import { LoadingSkeletonGrid } from "@/components/async";
 import type { Auction } from "@/types/auction";
 import { AuctionsMapPanel } from "@/components/maps/ListingMapViews";
 import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
+import { BenimIcinBulPanel } from "@/components/listing/BenimIcinBulPanel";
 
 type DealFilter = "all" | "sale" | "rent";
 type StatusFilter = "all" | "live" | "upcoming" | "ended";
@@ -324,6 +325,12 @@ export function Auctions({
             </div>
           )}
         </div>
+
+        {layout === "page" && !catalogLoading ? (
+          <div className="mb-8">
+            <BenimIcinBulPanel catalog={catalog} />
+          </div>
+        ) : null}
 
         {viewMode === "map" ? (
           <AuctionsMapPanel auctions={filtered} className="mb-8" />
