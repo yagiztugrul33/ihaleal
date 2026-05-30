@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { formatBidBondPercent, FEES } from "@/lib/fees";
+import { REAL_ESTATE_GUIDES } from "@/data/realEstateGuides";
 
 const FAQS = [
   {
@@ -68,6 +69,23 @@ export default function Guide() {
             Yardim Merkezi ve Rehber
           </h1>
           <p className="text-slate-400 mt-2">Sikca sorulan sorular ve platform kullanim rehberi.</p>
+        </div>
+
+        {/* Gayrimenkul rehberleri */}
+        <div className={`mb-10 transition-all duration-700 delay-75 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <h2 className="text-lg font-bold text-white mb-4">Gayrimenkul rehberleri</h2>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {REAL_ESTATE_GUIDES.map((g) => (
+              <Card
+                key={g.slug}
+                className="bg-slate-900/50 border-slate-200/80 p-4 hover:border-blue-500/30 cursor-pointer transition-all"
+                onClick={() => navigate(`/rehber/${g.slug}`)}
+              >
+                <div className="text-sm font-semibold text-white">{g.title}</div>
+                <div className="text-xs text-slate-500 mt-1 line-clamp-2">{g.summary}</div>
+              </Card>
+            ))}
+          </div>
         </div>
 
         {/* Quick Links */}
