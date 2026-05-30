@@ -50,6 +50,16 @@ export type HomeMessages = {
   };
 };
 
+export type CommonMessages = {
+  loading: string;
+  loadingListings: string;
+  errorLoad: string;
+  retry: string;
+  emptySearch: string;
+  emptyResults: string;
+  notFoundListing: string;
+};
+
 export type NavMessages = {
   auctions: string;
   howItWorks: string;
@@ -73,6 +83,7 @@ export type NavMessages = {
 export type Messages = {
   nav: NavMessages;
   home: HomeMessages;
+  common: CommonMessages;
 };
 
 export const messages: Record<Locale, Messages> = {
@@ -199,6 +210,15 @@ export const messages: Record<Locale, Messages> = {
         heading: "Investor Panel",
       },
     },
+    common: {
+      loading: "Loading…",
+      loadingListings: "Loading listings…",
+      errorLoad: "Could not load remote data; showing local demo records.",
+      retry: "Try again",
+      emptySearch: "Enter a search",
+      emptyResults: "No results found",
+      notFoundListing: "Listing not found",
+    },
   },
   tr: {
     nav: {
@@ -322,6 +342,15 @@ export const messages: Record<Locale, Messages> = {
       investor: {
         heading: "Yatırımcı Paneli",
       },
+    },
+    common: {
+      loading: "Yükleniyor…",
+      loadingListings: "İlanlar yükleniyor…",
+      errorLoad: "Uzak liste alınamadı; yerel demo kayıtları gösteriliyor.",
+      retry: "Tekrar dene",
+      emptySearch: "Arama yapın",
+      emptyResults: "Sonuç bulunamadı",
+      notFoundListing: "İlan bulunamadı",
     },
   },
 };
