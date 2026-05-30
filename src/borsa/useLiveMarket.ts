@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
 export type MarketDirection = "up" | "down";
 
@@ -28,34 +29,186 @@ export const INITIAL_MARKET_ASSETS: MarketAsset[] = [
   { id: "10", code: "MURATPAŞA-D", property: "Antalya daire", region: "akdeniz", category: "rising", price: 11_900_000, changePct: -0.3, volume: 690, remainingMin: 95, dir: "down" },
 ];
 
+type RegionCode = MarketAsset["region"];
+
+type TransactionStatRow = {
+  region_code: string;
+  stat_date: string;
+  volume_try: number | null;
+  trade_count: number | null;
+  avg_price_try: number | null;
+};
+
+type PriceIndexRow = {
+  region_code: string;
+  change_pct: number | null;
+  index_value: number | null;
+};
+
+type ListingRow = {
+  id: string;
+  title: string;
+  city: string | null;
+  district: string | null;
+  start_price_try: number | null;
+  auctions: { ends_at: string | null; status: string | null }[] | null;
+};
+
+function isMissingSchemaError(err: { code?: string; message?: string } | null): boolean {
+  if (!err) return false;
+  const code = err.code ?? "";
+  const msg = (err.message ?? "").toLowerCase();
+  return (
+    code === "PGRST205" ||
+    code === "42P01" ||
+    msg.includes("does not exist") ||
+    msg.includes("could not find") ||
+    msg.includes("schema cache")
+  );
+}
+
+function inferRegion(city: string | null, district: string | null): RegionCode {
+  const basis = `${city ?? ""} ${district ?? ""}`.toLocaleLowerCase("tr-TR");
+  if (/istanbul|şişli|kadıköy|beşiktaş|levent|sarıyer/.test(basis)) return "istanbul";
+  if (/ankara|çankaya|keçiören/.test(basis)) return "ankara";
+  if (/bodrum|muğla|çeşme|alaçatı/.test(basis)) return "bodrum";
+  if (/antalya|muratpaşa|akdeniz/.test(basis)) return "akdeniz";
+  if (/izmir|ege|bornova|karşıyaka/.test(basis)) return "ege";
+  return "istanbul";
+}
+
+function buildTickerCode(district: string | null, title: string): string {
+  const raw = (district?.trim() || title.trim().split(/\s+/)[0] || "VAR").slice(0, 8);
+  return `${raw.toLocaleUpperCase("tr-TR").replace(/\s+/g, "")}-D`;
+}
+
+function inferCategory(remainingMin: number, volume: number): MarketAsset["category"] {
+  if (remainingMin <= 30) return "ending";
+  if (volume >= 900) return "volume";
+  if (volume >= 550) return "rising";
+  return "active";
+}
+
+function mapListingToAsset(
+  row: ListingRow,
+  stats?: TransactionStatRow,
+  indexRow?: PriceIndexRow,
+): MarketAsset {
+  const region = inferRegion(row.city, row.district);
+  const auction = row.auctions?.[0];
+  const endsAt = auction?.ends_at ? new Date(auction.ends_at).getTime() : Date.now() + 86_400_000;
+  const remainingMin = Math.max(1, Math.round((endsAt - Date.now()) / 60_000));
+  const price = Number(row.start_price_try ?? indexRow?.index_value ?? 0);
+  const volume = Number(stats?.volume_try ?? stats?.trade_count ?? 0);
+  const changePct = Number(indexRow?.change_pct ?? 0);
+
+  return {
+    id: row.id,
+    code: buildTickerCode(row.district, row.title),
+    property: row.title,
+    region,
+    category: inferCategory(remainingMin, volume),
+    price: Math.max(1, Math.round(price)),
+    changePct: Number(changePct.toFixed(2)),
+    volume: Math.max(0, Math.round(volume)),
+    remainingMin,
+    dir: changePct >= 0 ? "up" : "down",
+  };
+}
+
+async function fetchLiveMarket(): Promise<{ assets: MarketAsset[]; isLive: boolean }> {
+  if (!isSupabaseConfigured()) {
+    return { assets: INITIAL_MARKET_ASSETS, isLive: false };
+  }
+
+  const since = new Date(Date.now() - 7 * 86_400_000).toISOString().slice(0, 10);
+
+  const [statsRes, indexRes, listingsRes] = await Promise.all([
+    supabase
+      .from("transaction_stats")
+      .select("region_code, stat_date, volume_try, trade_count, avg_price_try")
+      .gte("stat_date", since)
+      .order("stat_date", { ascending: false })
+      .limit(50),
+    supabase
+      .from("price_index")
+      .select("region_code, change_pct, index_value, index_date")
+      .eq("source", "platform")
+      .order("index_date", { ascending: false })
+      .limit(50),
+    supabase
+      .from("listings")
+      .select("id, title, city, district, start_price_try, auctions(ends_at, status)")
+      .in("status", ["active", "closed"])
+      .limit(50),
+  ]);
+
+  const schemaMissing =
+    isMissingSchemaError(statsRes.error) ||
+    isMissingSchemaError(indexRes.error) ||
+    isMissingSchemaError(listingsRes.error);
+
+  if (schemaMissing) {
+    return { assets: INITIAL_MARKET_ASSETS, isLive: false };
+  }
+
+  const statsByRegion = new Map<string, TransactionStatRow>();
+  for (const row of statsRes.data ?? []) {
+    const r = row as TransactionStatRow;
+    if (!statsByRegion.has(r.region_code)) statsByRegion.set(r.region_code, r);
+  }
+
+  const indexByRegion = new Map<string, PriceIndexRow>();
+  for (const row of indexRes.data ?? []) {
+    const r = row as PriceIndexRow;
+    if (!indexByRegion.has(r.region_code)) indexByRegion.set(r.region_code, r);
+  }
+
+  const listingRows = (listingsRes.data ?? []) as ListingRow[];
+  if (!listingRows.length) {
+    return { assets: INITIAL_MARKET_ASSETS, isLive: false };
+  }
+
+  const assets = listingRows.map((row) => {
+    const region = inferRegion(row.city, row.district);
+    return mapListingToAsset(row, statsByRegion.get(region), indexByRegion.get(region));
+  });
+
+  return { assets, isLive: true };
+}
+
 export function useLiveMarket() {
-  const [data, setData] = useState<MarketAsset[]>(INITIAL_MARKET_ASSETS);
+  const [data, setData] = useState<MarketAsset[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isLive, setIsLive] = useState(false);
 
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setData((prev) =>
-        prev.map((asset) => {
-          const magnitudePct = 0.003 + Math.random() * 0.007;
-          const direction = Math.random() > 0.32 ? 1 : -1;
-          const delta = direction * asset.price * magnitudePct;
-          const nextPrice = Math.max(1, asset.price + delta);
-          const nextPct = asset.changePct + (delta / Math.max(asset.price, 1)) * 100;
-          const nextVolume = Math.max(10, asset.volume + Math.round((Math.random() - 0.45) * 34));
-          const nextRemaining = Math.max(1, asset.remainingMin - Math.floor(Math.random() * 2));
-          return {
-            ...asset,
-            price: nextPrice,
-            changePct: nextPct,
-            volume: nextVolume,
-            remainingMin: nextRemaining,
-            dir: delta >= 0 ? "up" : "down",
-          };
-        }),
-      );
-    }, 2500);
-
-    return () => window.clearInterval(id);
+  const refresh = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { assets, isLive: live } = await fetchLiveMarket();
+      setData(assets);
+      setIsLive(live);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Borsa verisi alınamadı";
+      setError(msg);
+      setData(INITIAL_MARKET_ASSETS);
+      setIsLive(false);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return { data };
+  useEffect(() => {
+    void refresh();
+    const id = window.setInterval(() => {
+      void refresh();
+    }, 30_000);
+    return () => window.clearInterval(id);
+  }, [refresh]);
+
+  const displayData = data.length > 0 ? data : INITIAL_MARKET_ASSETS;
+
+  return { data: displayData, loading, error, isLive, refresh };
 }
