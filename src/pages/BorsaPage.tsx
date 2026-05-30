@@ -86,7 +86,7 @@ function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: st
 export default function BorsaPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { data, loading, isLive, error: marketError } = useLiveMarket();
+  const { data, loading, isLive, error: marketError, regionHeat } = useLiveMarket();
   const [tableTab, setTableTab] = useState<MarketTableTab>("en_aktif");
   const [sortKey, setSortKey] = useState<SortKey>("volume");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
@@ -274,14 +274,21 @@ export default function BorsaPage() {
 
   const regionIndexes = useMemo(() => {
     const grouped = REGION_HEAT.map((meta) => {
+      const dbStat = isLive ? regionHeat.find((r) => r.key === meta.key) : undefined;
       const rows = filteredData.filter((d) => d.region === meta.key);
-      const index = rows.reduce((acc, r) => acc + r.price, 0) / Math.max(1, rows.length);
-      const change = rows.reduce((acc, r) => acc + r.changePct, 0) / Math.max(1, rows.length);
+      const index =
+        dbStat && dbStat.index > 0
+          ? dbStat.index
+          : rows.reduce((acc, r) => acc + r.price, 0) / Math.max(1, rows.length);
+      const change =
+        dbStat && (dbStat.change !== 0 || rows.length === 0)
+          ? dbStat.change
+          : rows.reduce((acc, r) => acc + r.changePct, 0) / Math.max(1, rows.length);
       const trend = rows.flatMap((r) => historyMap[r.id] ?? []).slice(-10);
       return { ...meta, index, change, trend: trend.length ? trend : [index] };
     });
     return grouped;
-  }, [filteredData, historyMap]);
+  }, [filteredData, historyMap, isLive, regionHeat]);
 
   const heatCells = useMemo(
     () =>

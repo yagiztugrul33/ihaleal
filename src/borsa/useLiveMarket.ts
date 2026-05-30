@@ -31,6 +31,43 @@ export const INITIAL_MARKET_ASSETS: MarketAsset[] = [
 
 type RegionCode = MarketAsset["region"];
 
+export type RegionHeatStat = {
+  key: RegionCode;
+  index: number;
+  change: number;
+  volume: number;
+};
+
+const ALL_REGIONS: RegionCode[] = ["istanbul", "ege", "akdeniz", "ankara", "bodrum"];
+
+function buildRegionHeatFromAssets(assets: MarketAsset[]): RegionHeatStat[] {
+  return ALL_REGIONS.map((key) => {
+    const rows = assets.filter((a) => a.region === key);
+    return {
+      key,
+      index: rows.reduce((acc, r) => acc + r.price, 0) / Math.max(1, rows.length),
+      change: rows.reduce((acc, r) => acc + r.changePct, 0) / Math.max(1, rows.length),
+      volume: rows.reduce((acc, r) => acc + r.volume, 0),
+    };
+  });
+}
+
+function buildRegionHeatFromDb(
+  statsByRegion: Map<string, TransactionStatRow>,
+  indexByRegion: Map<string, PriceIndexRow>,
+): RegionHeatStat[] {
+  return ALL_REGIONS.map((key) => {
+    const stats = statsByRegion.get(key);
+    const idx = indexByRegion.get(key);
+    return {
+      key,
+      index: Number(idx?.index_value ?? stats?.avg_price_try ?? 0),
+      change: Number(idx?.change_pct ?? 0),
+      volume: Number(stats?.volume_try ?? 0),
+    };
+  });
+}
+
 type TransactionStatRow = {
   region_code: string;
   stat_date: string;
@@ -116,9 +153,13 @@ function mapListingToAsset(
   };
 }
 
-async function fetchLiveMarket(): Promise<{ assets: MarketAsset[]; isLive: boolean }> {
+async function fetchLiveMarket(): Promise<{ assets: MarketAsset[]; isLive: boolean; regionHeat: RegionHeatStat[] }> {
   if (!isSupabaseConfigured()) {
-    return { assets: INITIAL_MARKET_ASSETS, isLive: false };
+    return {
+      assets: INITIAL_MARKET_ASSETS,
+      isLive: false,
+      regionHeat: buildRegionHeatFromAssets(INITIAL_MARKET_ASSETS),
+    };
   }
 
   const since = new Date(Date.now() - 7 * 86_400_000).toISOString().slice(0, 10);
@@ -149,7 +190,11 @@ async function fetchLiveMarket(): Promise<{ assets: MarketAsset[]; isLive: boole
     isMissingSchemaError(listingsRes.error);
 
   if (schemaMissing) {
-    return { assets: INITIAL_MARKET_ASSETS, isLive: false };
+    return {
+      assets: INITIAL_MARKET_ASSETS,
+      isLive: false,
+      regionHeat: buildRegionHeatFromAssets(INITIAL_MARKET_ASSETS),
+    };
   }
 
   const statsByRegion = new Map<string, TransactionStatRow>();
@@ -166,7 +211,11 @@ async function fetchLiveMarket(): Promise<{ assets: MarketAsset[]; isLive: boole
 
   const listingRows = (listingsRes.data ?? []) as ListingRow[];
   if (!listingRows.length) {
-    return { assets: INITIAL_MARKET_ASSETS, isLive: false };
+    return {
+      assets: INITIAL_MARKET_ASSETS,
+      isLive: false,
+      regionHeat: buildRegionHeatFromDb(statsByRegion, indexByRegion),
+    };
   }
 
   const assets = listingRows.map((row) => {
@@ -174,7 +223,11 @@ async function fetchLiveMarket(): Promise<{ assets: MarketAsset[]; isLive: boole
     return mapListingToAsset(row, statsByRegion.get(region), indexByRegion.get(region));
   });
 
-  return { assets, isLive: true };
+  return {
+    assets,
+    isLive: true,
+    regionHeat: buildRegionHeatFromDb(statsByRegion, indexByRegion),
+  };
 }
 
 export function useLiveMarket() {
@@ -182,19 +235,24 @@ export function useLiveMarket() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isLive, setIsLive] = useState(false);
+  const [regionHeat, setRegionHeat] = useState<RegionHeatStat[]>(() =>
+    buildRegionHeatFromAssets(INITIAL_MARKET_ASSETS),
+  );
 
   const refresh = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const { assets, isLive: live } = await fetchLiveMarket();
-      setData(assets);
-      setIsLive(live);
+      const result = await fetchLiveMarket();
+      setData(result.assets);
+      setIsLive(result.isLive);
+      setRegionHeat(result.regionHeat);
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Borsa verisi alınamadı";
       setError(msg);
       setData(INITIAL_MARKET_ASSETS);
       setIsLive(false);
+      setRegionHeat(buildRegionHeatFromAssets(INITIAL_MARKET_ASSETS));
     } finally {
       setLoading(false);
     }
@@ -210,5 +268,5 @@ export function useLiveMarket() {
 
   const displayData = data.length > 0 ? data : INITIAL_MARKET_ASSETS;
 
-  return { data: displayData, loading, error, isLive, refresh };
+  return { data: displayData, loading, error, isLive, regionHeat, refresh };
 }
