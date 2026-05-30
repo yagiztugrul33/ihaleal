@@ -1,5 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,9 @@ import { getListingNumber } from "@/lib/listingNumber";
 import type { Auction } from "@/types/auction";
 
 type DealFilter = "all" | "sale" | "rent";
+type StatusFilter = "all" | "live" | "upcoming" | "ended";
+const ROOM_OPTIONS = ["all", "1+0", "2+1", "3+1", "4+1", "5+"] as const;
+type RoomFilter = (typeof ROOM_OPTIONS)[number];
 
 function resolveDealType(a: Pick<Auction, "dealType" | "category">): "sale" | "rent" {
   return a.dealType ?? (a.category === "Kiralık" ? "rent" : "sale");
@@ -25,6 +28,53 @@ function resolveDealType(a: Pick<Auction, "dealType" | "category">): "sale" | "r
 function parseDealFilter(value: string | null): DealFilter {
   if (value === "sale" || value === "rent") return value;
   return "all";
+}
+
+function parseStatusFilter(value: string | null): StatusFilter {
+  if (value === "live" || value === "upcoming" || value === "ended") return value;
+  return "all";
+}
+
+function parseRoomFilter(value: string | null): RoomFilter {
+  if (value && ROOM_OPTIONS.includes(value as RoomFilter)) return value as RoomFilter;
+  return "all";
+}
+
+function matchesRoomFilter(roomCount: string, roomFilter: RoomFilter): boolean {
+  if (roomFilter === "all") return true;
+  const rc = roomCount.trim();
+  if (roomFilter === "5+") return /^[5-9]\+/.test(rc);
+  return rc.startsWith(roomFilter) || rc.includes(roomFilter);
+}
+
+function readFiltersFromParams(params: URLSearchParams) {
+  const min = Number(params.get("min") ?? "0");
+  const max = Number(params.get("max") ?? "200000000");
+  return {
+    filter: parseStatusFilter(params.get("status")),
+    priceRange: [
+      Number.isFinite(min) ? min : 0,
+      Number.isFinite(max) ? max : 200000000,
+    ] as [number, number],
+    selectedCity: params.get("city") || "all",
+    dealTypeFilter: parseDealFilter(params.get("deal")),
+    selectedCategory: params.get("cat") || "all",
+    selectedRoom: parseRoomFilter(params.get("room")),
+    searchQuery: params.get("q") || "",
+  };
+}
+
+function buildParamsFromFilters(input: ReturnType<typeof readFiltersFromParams>): URLSearchParams {
+  const next = new URLSearchParams();
+  if (input.filter !== "all") next.set("status", input.filter);
+  if (input.dealTypeFilter !== "all") next.set("deal", input.dealTypeFilter);
+  if (input.selectedCity !== "all") next.set("city", input.selectedCity);
+  if (input.selectedCategory !== "all") next.set("cat", input.selectedCategory);
+  if (input.selectedRoom !== "all") next.set("room", input.selectedRoom);
+  if (input.searchQuery.trim()) next.set("q", input.searchQuery.trim());
+  if (input.priceRange[0] > 0) next.set("min", String(input.priceRange[0]));
+  if (input.priceRange[1] < 200000000) next.set("max", String(input.priceRange[1]));
+  return next;
 }
 
 export function Auctions({
@@ -36,19 +86,24 @@ export function Auctions({
   layout?: "home" | "page";
 }) {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialFilters = layout === "page" ? readFiltersFromParams(searchParams) : null;
   const { ref, isVisible } = useScrollAnimation(0.1);
-  const [filter, setFilter] = useState<"all" | "live" | "upcoming" | "ended">("all");
+  const [filter, setFilter] = useState<StatusFilter>(initialFilters?.filter ?? "all");
   const [selectedAuction, setSelectedAuction] = useState<any>(null);
   const [bidAmount, setBidAmount] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [compareList, setCompareList] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000000]);
-  const [selectedCity, setSelectedCity] = useState("all");
-  const [dealTypeFilter, setDealTypeFilter] = useState<DealFilter>("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [priceRange, setPriceRange] = useState<[number, number]>(initialFilters?.priceRange ?? [0, 200000000]);
+  const [selectedCity, setSelectedCity] = useState(initialFilters?.selectedCity ?? "all");
+  const [dealTypeFilter, setDealTypeFilter] = useState<DealFilter>(initialFilters?.dealTypeFilter ?? "all");
+  const [selectedCategory, setSelectedCategory] = useState(initialFilters?.selectedCategory ?? "all");
+  const [selectedRoom, setSelectedRoom] = useState<RoomFilter>(initialFilters?.selectedRoom ?? "all");
+  const [searchQuery, setSearchQuery] = useState(initialFilters?.searchQuery ?? "");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [catalogError, setCatalogError] = useState<string | null>(null);
+  const skipParamReadRef = useRef(false);
 
   useEffect(() => {
     let ok = true;
@@ -72,13 +127,63 @@ export function Auctions({
     };
   }, []);
 
+  useEffect(() => {
+    if (layout !== "page") return;
+    if (skipParamReadRef.current) {
+      skipParamReadRef.current = false;
+      return;
+    }
+    const parsed = readFiltersFromParams(searchParams);
+    setFilter(parsed.filter);
+    setPriceRange(parsed.priceRange);
+    setSelectedCity(parsed.selectedCity);
+    setDealTypeFilter(parsed.dealTypeFilter);
+    setSelectedCategory(parsed.selectedCategory);
+    setSelectedRoom(parsed.selectedRoom);
+    setSearchQuery(parsed.searchQuery);
+  }, [searchParams, layout]);
+
+  const syncUrlFromFilters = useCallback(() => {
+    if (layout !== "page") return;
+    const next = buildParamsFromFilters({
+      filter,
+      priceRange,
+      selectedCity,
+      dealTypeFilter,
+      selectedCategory,
+      selectedRoom,
+      searchQuery,
+    });
+    if (next.toString() === searchParams.toString()) return;
+    skipParamReadRef.current = true;
+    setSearchParams(next, { replace: true });
+  }, [
+    layout,
+    filter,
+    priceRange,
+    selectedCity,
+    dealTypeFilter,
+    selectedCategory,
+    selectedRoom,
+    searchQuery,
+    searchParams,
+    setSearchParams,
+  ]);
+
+  useEffect(() => {
+    syncUrlFromFilters();
+  }, [syncUrlFromFilters]);
+
   const cities = useMemo(() => [...new Set(catalog.map((a) => a.city))], [catalog]);
+  const categories = useMemo(() => [...new Set(catalog.map((a) => a.category))].sort(), [catalog]);
   const filtered = useMemo(() => {
     return catalog.filter((a) => {
       if (filter !== "all" && a.status !== filter) return false;
       if (a.currentBid < priceRange[0] || a.currentBid > priceRange[1]) return false;
       if (selectedCity !== "all" && a.city !== selectedCity) return false;
       if (dealTypeFilter !== "all" && resolveDealType(a) !== dealTypeFilter) return false;
+      if (selectedCategory !== "all" && a.category !== selectedCategory) return false;
+      if (!matchesRoomFilter(a.propertyDetails?.roomCount ?? "", selectedRoom)) return false;
       if (searchQuery) {
         const sq = searchQuery.toLowerCase();
         const inTitle = a.title.toLowerCase().includes(sq);
@@ -87,7 +192,7 @@ export function Auctions({
       }
       return true;
     });
-  }, [catalog, filter, priceRange, selectedCity, dealTypeFilter, searchQuery]);
+  }, [catalog, filter, priceRange, selectedCity, dealTypeFilter, selectedCategory, selectedRoom, searchQuery]);
 
   const { toggleFavorite, isFavorite } = useFavorites();
 
@@ -172,8 +277,22 @@ export function Auctions({
                   {cities.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
-              <div className="flex items-end justify-end">
-                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setDealTypeFilter("all"); setSearchQuery(""); }} className="text-xs text-slate-500 hover:text-blue-400 transition-colors">Filtreleri Temizle</button>
+              <div>
+                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Mülk Tipi</label>
+                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                  <option value="all">Tüm Tipler</option>
+                  {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Oda</label>
+                <select value={selectedRoom} onChange={(e) => setSelectedRoom(parseRoomFilter(e.target.value))} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                  <option value="all">Tümü</option>
+                  {ROOM_OPTIONS.filter((r) => r !== "all").map((r) => <option key={r} value={r}>{r}</option>)}
+                </select>
+              </div>
+              <div className="flex items-end justify-end md:col-span-2 lg:col-span-4">
+                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setDealTypeFilter("all"); setSelectedCategory("all"); setSelectedRoom("all"); setSearchQuery(""); setFilter("all"); }} className="text-xs text-slate-500 hover:text-blue-400 transition-colors">Filtreleri Temizle</button>
               </div>
             </div>
           )}
@@ -260,6 +379,8 @@ export function Auctions({
                 setPriceRange([0, 200000000]);
                 setSelectedCity("all");
                 setDealTypeFilter("all");
+                setSelectedCategory("all");
+                setSelectedRoom("all");
                 setSearchQuery("");
               }}
             >
