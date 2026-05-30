@@ -1,5 +1,8 @@
 ﻿import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { PdfExportButton } from "@/components/pdf/PdfExportButton";
+import { downloadContractDraftPdf } from "@/lib/pdf/pdfBuilder";
+import { SignaturePad } from "@/components/signature/SignaturePad";
 
 const CONTRACT_URL = `${import.meta.env.BASE}legal/agency_contract.md`;
 
@@ -78,9 +81,33 @@ export default function AgencyContractView() {
         Kaynak: <code className="text-teal-400">public/legal/agency_contract.md</code> (taslak, demo)
       </p>
       {err ? <p className="text-red-400 text-sm mb-4">{err}</p> : null}
+      <div className="flex flex-wrap gap-2 mb-4">
+        <PdfExportButton
+          label="Sözleşme taslağı PDF"
+          disabled={!body}
+          onExport={() =>
+            downloadContractDraftPdf({
+              parties: "İhaleal platformu — acente / kullanıcı (taslak)",
+              subject: "Acente sözleşmesi taslağı",
+              clauses: body.split("\n").filter((l) => l.trim()).slice(0, 40),
+            })
+          }
+        />
+      </div>
       <article className="rounded-2xl border border-slate-200 bg-slate-950/40 p-6 space-y-1 text-sm">
         {body ? renderMarkdownLines(body) : <p className="text-slate-500">Yukleniyor...</p>}
       </article>
+      {body ? (
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-white mb-3">Ön onay imzası (MVP)</h2>
+          <SignaturePad
+            documentId="agency-contract"
+            documentType="contract"
+            documentTitle="Acente sözleşmesi taslağı"
+            documentLines={body.split("\n").filter((l) => l.trim()).slice(0, 15)}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
