@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
+import { AUCTIONS } from "@/data/auctions";
 import {
   PLATFORM_LISTING_CONTACT,
   resolveMarketingMode,
@@ -83,7 +84,17 @@ export default function AuctionDetail() {
       ok = false;
     };
   }, []);
-  const auction = useMemo(() => catalog.find((a) => a.id === id) ?? null, [catalog, id]);
+  // R14 — lansman listing'leri catalog'da olmayabilir (auctions tablosunda satir yok).
+  // Listings'ten compose edilmis fallback auction'i state olarak tut.
+  const [fallbackAuction, setFallbackAuction] = useState<typeof catalog[number] | null>(null);
+  const auction = useMemo(
+    () => catalog.find((a) => a.id === id) ?? fallbackAuction,
+    [catalog, id, fallbackAuction],
+  );
+  const catalogRef = useRef(catalog);
+  useEffect(() => {
+    catalogRef.current = catalog;
+  }, [catalog]);
   const marketingMode = auction ? resolveMarketingMode(auction) : "auction";
   const isListingOnly = marketingMode === "listing_only";
   const isSealedOffer = marketingMode === "sealed_offers";
@@ -202,14 +213,41 @@ export default function AuctionDetail() {
       if (rep) setDbReportLoaded(rep);
       const { data: listingRow } = await supabase
         .from("listings")
-        .select("buy_now_price_try, is_lansman, project_id, unit_id")
+        .select("buy_now_price_try, is_lansman, project_id, unit_id, title, body, start_price_try")
         .eq("id", listingId)
         .maybeSingle();
       if (!alive) return;
       if (listingRow?.buy_now_price_try != null) setBuyNowPriceDb(Number(listingRow.buy_now_price_try));
       const lansmanRow = listingRow as
-        | { is_lansman?: boolean; project_id?: string | null; unit_id?: string | null }
+        | {
+            is_lansman?: boolean;
+            project_id?: string | null;
+            unit_id?: string | null;
+            title?: string | null;
+            body?: unknown;
+            start_price_try?: number | string | null;
+          }
         | null;
+
+      // R14 fallback: id catalog'da yok ama listings'te bulundu -> minimal auction compose
+      const inCatalog = catalogRef.current.some((a) => a.id === id);
+      if (!inCatalog && lansmanRow && listingRow) {
+        const template = AUCTIONS[0];
+        const price = Number(lansmanRow.buy_now_price_try ?? lansmanRow.start_price_try ?? 0) || 0;
+        setFallbackAuction({
+          ...template,
+          id: id!,
+          title: lansmanRow.title ?? template.title,
+          description:
+            (typeof lansmanRow.body === "object" && lansmanRow.body && "description" in lansmanRow.body
+              ? String((lansmanRow.body as { description?: string }).description ?? "")
+              : "") || template.description,
+          currentBid: price,
+          startingBid: price,
+          buyNowPriceTry: price,
+          status: "live",
+        });
+      }
       if (lansmanRow?.is_lansman) {
         setIsLansman(true);
         if (lansmanRow.project_id) {
