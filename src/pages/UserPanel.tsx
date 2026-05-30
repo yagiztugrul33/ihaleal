@@ -11,11 +11,13 @@ import {
   PieChart,
   Settings,
   ArrowLeft,
+  Inbox,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
 import { SellerAnalyticsPanel } from "@/components/seller/SellerAnalyticsPanel";
+import { OffersPanel } from "@/components/offers/OffersPanel";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
 const sidebar = [
@@ -23,6 +25,7 @@ const sidebar = [
   { to: "/panel/profil", label: "Profil", icon: User },
   { to: "/panel/ihalelerim", label: "İhalelerim", icon: Gavel },
   { to: "/panel/tekliflerim", label: "Tekliflerim", icon: HandCoins },
+  { to: "/panel/gelen-teklifler", label: "Gelen teklifler", icon: Inbox },
   { to: "/favoriler", label: "Favoriler", icon: Heart },
   { to: "/mesajlar", label: "Mesajlar", icon: MessageSquare },
   { to: "/panel/bildirimler", label: "Bildirimler", icon: Bell },
@@ -43,7 +46,9 @@ export default function UserPanel() {
         ? "İhalelerim"
         : tabId === "tekliflerim"
           ? "Tekliflerim"
-          : tabId === "bildirimler"
+          : tabId === "gelen-teklifler"
+            ? "Gelen teklifler"
+            : tabId === "bildirimler"
             ? "Bildirimler"
             : tabId === "komisyon"
               ? "Komisyon raporum"
@@ -93,7 +98,19 @@ export default function UserPanel() {
             </p>
           </div>
 
-          {tabId ? (
+          {tabId === "tekliflerim" ? (
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-5">
+                <OffersPanel mode="buyer" />
+              </CardContent>
+            </Card>
+          ) : tabId === "gelen-teklifler" ? (
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-5">
+                <OffersPanel mode="seller" />
+              </CardContent>
+            </Card>
+          ) : tabId ? (
             <Card className="bg-slate-900/50 border-slate-200/80 border-dashed">
               <CardContent className="p-8 text-center text-slate-400 text-sm">
                 <p className="mb-4">

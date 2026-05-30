@@ -6,7 +6,7 @@ import {
   XCircle, AlertTriangle, BarChart3, TrendingUp, TrendingDown, Minus,
   MessageSquare, GitCompare, Navigation, CarFront, Video,
   ExternalLink, Eye, Calculator, Receipt, ShieldCheck, Percent,
-  FileText, Scale, Landmark, ShoppingCart,
+  FileText, Scale, Landmark, ShoppingCart, HandCoins,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -53,6 +53,8 @@ import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { ListingSimilarSection } from "@/components/listing/ListingSimilarSection";
 import { ListingNearbyPoiSection } from "@/components/listing/ListingNearbyPoiSection";
 import { ListingMortgageWidget } from "@/components/listing/ListingMortgageWidget";
+import { ListingOfferDialog } from "@/components/offers/ListingOfferDialog";
+import { ListingOffersSection } from "@/components/offers/ListingOffersSection";
 import { LoadingState, EmptyState } from "@/components/async";
 import { SellerTrustCard } from "@/components/trust/SellerTrustCard";
 import { ListingReviewDialog } from "@/components/trust/ListingReviewDialog";
@@ -205,6 +207,9 @@ export default function AuctionDetail() {
   const [buyNowAcceptModule3, setBuyNowAcceptModule3] = useState(false);
   const [buyNowFinalAck, setBuyNowFinalAck] = useState(false);
   const [bidGateAck, setBidGateAck] = useState(initialBidGateAck);
+  const [offerDialogOpen, setOfferDialogOpen] = useState(false);
+
+  const offerListingId = dbListingId ?? (isAuctionUuid(id ?? "") ? id ?? "" : "");
 
   const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
@@ -1120,9 +1125,26 @@ export default function AuctionDetail() {
                       <TrendingUp className="w-4 h-4 mr-1.5" /> {isSealedOffer ? "Kapalı teklif ver" : "Teklif ver"}
                     </Button>
                   ) : (
-                    <Button className="flex-1 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white font-bold h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
-                      Gösterim / bilgi talebi
-                    </Button>
+                    <>
+                      <Button
+                        className="flex-1 min-w-[8rem] bg-gradient-to-r from-amber-500 to-orange-400 hover:from-amber-400 hover:to-orange-300 text-slate-950 font-bold h-11"
+                        type="button"
+                        disabled={!user || (sellerId != null && user?.id === sellerId)}
+                        title={!user ? "Giriş gerekli" : sellerId && user?.id === sellerId ? "Kendi ilanınıza teklif veremezsiniz" : undefined}
+                        onClick={() => {
+                          if (!user) {
+                            toastBid("Giriş yapın.", "warning");
+                            return;
+                          }
+                          setOfferDialogOpen(true);
+                        }}
+                      >
+                        <HandCoins className="w-4 h-4 mr-1.5" /> Teklif / pazarlık
+                      </Button>
+                      <Button className="flex-1 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white font-bold h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
+                        Bilgi talebi
+                      </Button>
+                    </>
                   )}
                   {!isListingOnly && auction.dealType !== "rent" && effectiveBuyNowTry != null ? (
                     <Button
@@ -1195,6 +1217,9 @@ export default function AuctionDetail() {
                   </Button>
                   {!isRent ? (
                     <ListingMortgageWidget priceTry={liveBid} className="mt-1" />
+                  ) : null}
+                  {sellerId && user?.id === sellerId && offerListingId ? (
+                    <ListingOffersSection listingId={offerListingId} className="pt-3 border-t border-slate-200/80" />
                   ) : null}
                 </div>
                 <div className="pt-4 border-t border-slate-200/80">
@@ -1372,6 +1397,17 @@ export default function AuctionDetail() {
           onOpenChange={setReviewOpen}
           listingId={dbListingId ?? id}
           reviewedId={sellerId}
+        />
+      ) : null}
+
+      {offerListingId && auction ? (
+        <ListingOfferDialog
+          open={offerDialogOpen}
+          onOpenChange={setOfferDialogOpen}
+          listingId={offerListingId}
+          listingTitle={auction.title}
+          referencePrice={liveBid}
+          onSubmitted={() => toastBid("Teklifiniz kaydedildi. Tekliflerim panelinden takip edebilirsiniz.", "success")}
         />
       ) : null}
 
