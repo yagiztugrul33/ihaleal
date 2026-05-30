@@ -14,6 +14,7 @@ import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { getListingNumber } from "@/lib/listingNumber";
+import { LoadingSkeletonGrid } from "@/components/async";
 import type { Auction } from "@/types/auction";
 
 type DealFilter = "all" | "sale" | "rent";
@@ -232,9 +233,7 @@ export function Auctions({
           </p>
         ) : null}
         {catalogLoading ? (
-          <p className="mb-6 text-sm text-slate-500" aria-live="polite">
-            İlanlar yükleniyor…
-          </p>
+          <LoadingSkeletonGrid count={6} className="mb-6" />
         ) : null}
 
         <div className={`mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100" : "opacity-0"}`}>

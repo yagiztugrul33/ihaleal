@@ -9,6 +9,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { withListingDefaults } from "@/lib/listingPolicy";
+import { LoadingState, LoadingSkeletonGrid } from "@/components/async";
 import type { Auction } from "@/types/auction";
 
 export default function Favorites() {
@@ -90,12 +91,11 @@ export default function Favorites() {
           </p>
         ) : null}
         {isLoading ? (
-          <p className="text-sm text-slate-500 mb-6" aria-live="polite">
-            Favoriler yükleniyor…
-          </p>
-        ) : null}
-
-        {!isLoading && favoriteAuctions.length === 0 ? (
+          <>
+            <LoadingState label="Favoriler yükleniyor…" compact className="mb-4" />
+            <LoadingSkeletonGrid count={3} />
+          </>
+        ) : !isLoading && favoriteAuctions.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-6">
               <Heart className="w-10 h-10 text-slate-600" />

@@ -2,12 +2,12 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, MapPin, Home, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { getListingNumber } from "@/lib/listingNumber";
+import { LoadingState, LoadingSkeletonGrid, ErrorState, EmptyState } from "@/components/async";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
@@ -19,6 +19,8 @@ export default function SearchResults() {
   const initialQ = params.get("q") || "";
   const [query, setQuery] = useState(initialQ);
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
 
   useEffect(() => {
     setQuery(params.get("q") || "");
@@ -26,9 +28,21 @@ export default function SearchResults() {
 
   useEffect(() => {
     let ok = true;
-    void loadAllAuctionsForSearch().then((rows) => {
-      if (ok) setCatalog(rows);
-    });
+    setCatalogLoading(true);
+    setCatalogError(null);
+    void loadAllAuctionsForSearch()
+      .then((rows) => {
+        if (ok) setCatalog(rows);
+      })
+      .catch(() => {
+        if (ok) {
+          setCatalogError("Uzak liste alınamadı; yerel demo kayıtları gösteriliyor.");
+          setCatalog(getLocalAndStaticAuctions());
+        }
+      })
+      .finally(() => {
+        if (ok) setCatalogLoading(false);
+      });
     return () => {
       ok = false;
     };
@@ -90,12 +104,18 @@ export default function SearchResults() {
           </Button>
         </form>
 
-        {query.length < 2 ? (
-          <p className="text-slate-500 text-sm">Aramak için en az 2 karakter girin.</p>
+        {catalogError ? (
+          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+            {catalogError}
+          </p>
+        ) : null}
+
+        {catalogLoading ? (
+          <LoadingSkeletonGrid count={4} />
+        ) : query.length < 2 ? (
+          <EmptyState title="Arama yapın" description="Aramak için en az 2 karakter girin." />
         ) : results.length === 0 ? (
-          <Card className="bg-slate-900/50 border-slate-200/80">
-            <CardContent className="p-8 text-center text-slate-500">Sonuç bulunamadı.</CardContent>
-          </Card>
+          <EmptyState title="Sonuç bulunamadı" description="Farklı bir kelime veya ilan numarası deneyin." />
         ) : (
           <ul className="space-y-3">
             {results.map((auction) => (

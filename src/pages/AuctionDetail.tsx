@@ -50,6 +50,7 @@ import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIInsight } from "@/components/cinematic";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
+import { LoadingState, EmptyState } from "@/components/async";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
 import {
@@ -75,11 +76,18 @@ export default function AuctionDetail() {
   const realtime = useAuctionRealtime(id);
   const { ref, isVisible } = useScrollAnimation(0.05);
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [detailResolving, setDetailResolving] = useState(true);
   useEffect(() => {
     let ok = true;
-    void loadAllAuctionsForSearch().then((rows) => {
-      if (ok) setCatalog(rows);
-    });
+    setCatalogLoading(true);
+    void loadAllAuctionsForSearch()
+      .then((rows) => {
+        if (ok) setCatalog(rows);
+      })
+      .finally(() => {
+        if (ok) setCatalogLoading(false);
+      });
     return () => {
       ok = false;
     };
@@ -264,11 +272,27 @@ export default function AuctionDetail() {
         }
         if (lansmanRow.unit_id) setLansmanUnitId(lansmanRow.unit_id);
       }
-    })();
+    })().finally(() => {
+      if (alive) setDetailResolving(false);
+    });
     return () => {
       alive = false;
     };
   }, [id]);
+
+  useEffect(() => {
+    if (!id) {
+      setDetailResolving(false);
+      return;
+    }
+    if (!catalogLoading && catalog.some((a) => a.id === id)) {
+      setDetailResolving(false);
+      return;
+    }
+    if (!isAuctionUuid(id) || !isSupabaseConfigured()) {
+      setDetailResolving(false);
+    }
+  }, [id, catalog, catalogLoading]);
 
   useEffect(() => {
     if (!user?.id || !resolvedReport?.id || !isSupabaseConfigured()) return;
@@ -282,13 +306,24 @@ export default function AuctionDetail() {
   }, [user?.id, resolvedReport?.id]);
 
   if (!auction) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="text-center">
-          <AlertTriangle className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-400">İlan bulunamadı veya katalog yükleniyor.</p>
-          <Button onClick={() => navigate("/")} className="mt-4">Ana Sayfaya Dön</Button>
+    if (catalogLoading || detailResolving) {
+      return (
+        <div className="min-h-screen flex items-center justify-center px-4 pt-24">
+          <LoadingState label="İlan yükleniyor…" />
         </div>
+      );
+    }
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4 pt-24">
+        <EmptyState
+          title="İlan bulunamadı"
+          description="Bu ilan kaldırılmış veya bağlantı hatalı olabilir."
+          action={
+            <Button onClick={() => navigate("/ihaleler")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">
+              İhalelere dön
+            </Button>
+          }
+        />
       </div>
     );
   }
