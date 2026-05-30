@@ -29,7 +29,7 @@ export function Logo({
   return (
     <img
       src={BRAND_LOGO_SRC}
-      alt="ihaleal.com"
+      alt="ihaleal.com — Türkiye'nin Gayrimenkul Borsası logosu"
       className={cn(
         "shrink-0 select-none object-contain object-center",
         "drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]",

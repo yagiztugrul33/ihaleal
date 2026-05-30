@@ -37,7 +37,7 @@ export function Layout() {
   }, [addToast]);
 
   return (
-    <div className="page-shell page-shell-gradient">
+    <div className="page-shell page-shell-gradient overflow-x-hidden">
       <div className="relative z-10 flex flex-col flex-1 min-h-screen">
         <ScrollToTop />
         {!isMarketingHome ? <DemoUyarisi /> : null}
