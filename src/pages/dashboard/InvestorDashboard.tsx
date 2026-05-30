@@ -1,12 +1,15 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, LayoutDashboard, TrendingUp, Target, MapPin, Wallet, Percent } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { AUCTIONS } from "@/data/auctions";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useFavorites } from "@/hooks/useFavorites";
+import { loadAllAuctionsForSearch, getLocalAndStaticAuctions } from "@/lib/auctionsSource";
+import { withListingDefaults } from "@/lib/listingPolicy";
+import { LoadingState } from "@/components/async";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import type { Auction } from "@/types/auction";
 import {
   Area,
   AreaChart,
@@ -36,9 +39,34 @@ import {
 export default function InvestorDashboard() {
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.05);
-  const { favorites } = useFavorites();
+  const { favorites, loading: favLoading, syncError } = useFavorites();
+  const [catalog, setCatalog] = useState<Auction[]>(() => getLocalAndStaticAuctions());
+  const [catalogLoading, setCatalogLoading] = useState(true);
 
-  const favoriteAuctions = useMemo(() => AUCTIONS.filter((a) => favorites.includes(a.id)), [favorites]);
+  useEffect(() => {
+    let ok = true;
+    setCatalogLoading(true);
+    void loadAllAuctionsForSearch()
+      .then((rows) => {
+        if (ok) setCatalog(rows);
+      })
+      .catch(() => {
+        if (ok) setCatalog(getLocalAndStaticAuctions());
+      })
+      .finally(() => {
+        if (ok) setCatalogLoading(false);
+      });
+    return () => {
+      ok = false;
+    };
+  }, []);
+
+  const favoriteAuctions = useMemo(
+    () => catalog.filter((a) => favorites.includes(a.id)).map((a) => withListingDefaults(a)),
+    [catalog, favorites],
+  );
+
+  const isLoading = favLoading || catalogLoading;
 
   const portfolioValue = favoriteAuctions.reduce((sum, a) => sum + a.currentBid, 0);
   const predictedValue = favoriteAuctions.reduce((sum, a) => sum + a.aiPredictedPrice, 0);
@@ -77,7 +105,7 @@ export default function InvestorDashboard() {
       <DashboardShell
         badge="Yatırımcı"
         title="Yatırımcı paneli"
-        subtitle="Portföy performansı, AI tahminleri ve dağılım analitiği (demo veri)."
+        subtitle="Portföy performansı, AI tahminleri ve dağılım analitiği."
         back={
           <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="gap-2 text-slate-400">
             <ArrowLeft className="w-4 h-4" /> Panele dön
@@ -89,7 +117,12 @@ export default function InvestorDashboard() {
           </Button>
         }
       >
-        {favoriteAuctions.length === 0 ? (
+        {syncError ? (
+          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">{syncError}</p>
+        ) : null}
+        {isLoading ? (
+          <LoadingState label="Portföy yükleniyor…" />
+        ) : favoriteAuctions.length === 0 ? (
           <EmptyState
             icon={Wallet}
             title="Portföyünüz boş"
@@ -195,7 +228,7 @@ export default function InvestorDashboard() {
                         <img
                           loading="lazy"
                           src={auction.images[0]}
-                          alt=""
+                          alt={auction.title}
                           className="h-24 w-full shrink-0 rounded-xl object-cover sm:w-32"
                         />
                         <div className="min-w-0 flex-1">

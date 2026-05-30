@@ -9,6 +9,8 @@ import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { getListingNumber } from "@/lib/listingNumber";
 import { LoadingState, LoadingSkeletonGrid, ErrorState, EmptyState } from "@/components/async";
 import { useLocale } from "@/contexts/LocaleContext";
+import { useSavedSearches } from "@/hooks/useSavedSearches";
+import { SavedSearchesPanel } from "@/components/search/SavedSearchesPanel";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
@@ -94,6 +96,8 @@ export default function SearchResults() {
   const safePage = Math.min(page, totalPages);
   const pagedResults = sortedResults.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
+  const savedSearchesApi = useSavedSearches(catalog);
+
   const patchParams = (patch: Record<string, string | undefined>) => {
     setParams((prev) => {
       const next = new URLSearchParams(prev);
@@ -142,6 +146,15 @@ export default function SearchResults() {
             Ara
           </Button>
         </form>
+
+        <SavedSearchesPanel
+          api={savedSearchesApi}
+          currentQuery={query}
+          onApplySearch={(q) => {
+            setQuery(q);
+            patchParams({ q: q || undefined, page: undefined });
+          }}
+        />
 
         {query.length >= 2 && !catalogLoading ? (
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
