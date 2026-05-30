@@ -1,5 +1,5 @@
 ﻿import { useMemo, useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
   MessageSquare,
@@ -14,24 +14,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import type { ChatMessage, ChatThread } from "@/data/messagesDemo";
-import { DEMO_CHAT_THREADS, getParticipant } from "@/data/messagesDemo";
+import type { ChatMessage } from "@/data/messagesDemo";
+import { getParticipant } from "@/data/messagesDemo";
 import { complianceNlpService } from "@/lib/compliance/ComplianceNlpService";
-import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabase";
 import { isUuid } from "@/lib/chat/isUuid";
 import { postChatMessageViaEdge } from "@/lib/chat/postChatMessageClient";
-
-const STORAGE_KEY = "ihaleal_chat_threads_demo";
-
-function loadThreads(): ChatThread[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return DEMO_CHAT_THREADS.map((t) => JSON.parse(JSON.stringify(t)));
-    return JSON.parse(raw) as ChatThread[];
-  } catch {
-    return DEMO_CHAT_THREADS.map((t) => JSON.parse(JSON.stringify(t)));
-  }
-}
+import { useAuth } from "@/contexts/AuthContext";
+import { useChatThreads } from "@/hooks/useChatThreads";
+import { LoadingState } from "@/components/async";
 
 function roleBadge(role: string) {
   switch (role) {
@@ -48,28 +39,29 @@ function roleBadge(role: string) {
 
 export default function MessagesPage() {
   const navigate = useNavigate();
-  const [threads, setThreads] = useState<ChatThread[]>(() => loadThreads());
-  const [activeId, setActiveId] = useState<string>(() => threads[0]?.id ?? "");
+  const [searchParams] = useSearchParams();
+  const listingId = searchParams.get("listing");
+  const listingTitle = searchParams.get("title");
+  const threadParam = searchParams.get("thread");
+  const { user } = useAuth();
+  const {
+    threads,
+    setThreads,
+    activeId,
+    setActiveId,
+    loading: threadsLoading,
+    remoteReady,
+    loadMessagesForThread,
+  } = useChatThreads({
+    userId: user?.id ?? null,
+    listingId,
+    listingTitle,
+    preferredThreadId: threadParam,
+  });
   const [draft, setDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
   const sendingRef = useRef(false);
-  const [hasAuthSession, setHasAuthSession] = useState(false);
-
-  useEffect(() => {
-    if (!isSupabaseConfigured()) {
-      setHasAuthSession(false);
-      return;
-    }
-    void supabase.auth.getSession().then(({ data }) => setHasAuthSession(Boolean(data.session)));
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setHasAuthSession(Boolean(session));
-    });
-    return () => sub.subscription.unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(threads));
-  }, [threads]);
+  const hasAuthSession = Boolean(user);
 
   const active = useMemo(() => threads.find((t) => t.id === activeId), [threads, activeId]);
 
@@ -131,7 +123,12 @@ export default function MessagesPage() {
           clientMsgId,
         });
         if (edge.ok) {
-          pushLocal(edge.messageId, edge.compliance, "edge");
+          if (remoteReady) {
+            await loadMessagesForThread(active.id);
+            setDraft("");
+          } else {
+            pushLocal(edge.messageId, edge.compliance, "edge");
+          }
           return;
         }
         window.dispatchEvent(
@@ -203,6 +200,9 @@ export default function MessagesPage() {
               Konuşmalar
             </div>
             <div className="p-2 space-y-1">
+              {threadsLoading ? (
+                <LoadingState compact label="Konuşmalar yükleniyor…" className="py-6" />
+              ) : null}
               {threads.map((t) => {
                 const last = t.messages[t.messages.length - 1];
                 const unread = 0;
@@ -238,7 +238,7 @@ export default function MessagesPage() {
                   {isSupabaseConfigured() && hasAuthSession && isUuid(active.id) ? (
                     <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-200/95">
                       <Server className="h-3 w-3" aria-hidden />
-                      Edge gönderim
+                      {remoteReady ? "Canlı sohbet" : "Edge gönderim"}
                     </span>
                   ) : isSupabaseConfigured() && hasAuthSession ? (
                     <span className="inline-flex items-center gap-1 rounded-full border border-slate-600/60 bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-slate-400">

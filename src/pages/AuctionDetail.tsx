@@ -1129,7 +1129,7 @@ export default function AuctionDetail() {
                       <Calculator className="w-4 h-4" />
                     </Button>
                   ) : null}
-                  <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }} title="İletişim"><MessageSquare className="w-4 h-4" /></Button>
+                  <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => navigate(`/mesajlar?listing=${encodeURIComponent(auction.id)}&title=${encodeURIComponent(auction.title)}`)} title="Mesajlaş"><MessageSquare className="w-4 h-4" /></Button>
                 </div>
                 <div className="pt-4 border-t border-slate-200/80 space-y-3">
                   <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/15">
