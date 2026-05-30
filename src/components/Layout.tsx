@@ -8,8 +8,7 @@ import { GeofenceWatcher } from "@/components/geofence/GeofenceWatcher";
 import { AntiCopyProtection } from "./AntiCopyProtection";
 import { CookieConsent } from "./CookieConsent";
 import { SeoSync } from "./SeoSync";
-import { ProductionSafetyBanner } from "./ProductionSafetyBanner";
-import { DemoUyarisi } from "./DemoUyarisi";
+import { LaunchStatusBanner } from "./LaunchStatusBanner";
 import { ScrollToTop } from "./ScrollToTop";
 import { PageTransition } from "@/components/motion";
 import { useToast, type Toast } from "@/hooks/useToast";
@@ -41,11 +40,10 @@ export function Layout() {
     <div className="page-shell page-shell-gradient overflow-x-hidden">
       <div className="relative z-10 flex flex-col flex-1 min-h-screen">
         <ScrollToTop />
-        {!isMarketingHome ? <DemoUyarisi /> : null}
+        {!isMarketingHome ? <LaunchStatusBanner /> : null}
         <SeoSync />
         <AntiCopyProtection />
         <Navbar />
-        {!isMarketingHome ? <ProductionSafetyBanner /> : null}
         <main className="flex-1 min-w-0 overflow-x-hidden">
           <PageTransition>
             <Outlet />
