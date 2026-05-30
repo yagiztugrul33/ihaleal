@@ -79,5 +79,17 @@ export function useNotifications() {
     [user],
   );
 
-  return { items, loading, error, reload, markRead, unreadCount: items.filter((n) => !n.read).length };
+  const markAllRead = useCallback(async () => {
+    setItems((prev) => prev.map((n) => ({ ...n, read: true })));
+    if (!user || !isSupabaseConfigured()) return;
+    const unreadIds = items.filter((n) => !n.read).map((n) => Number(n.id));
+    if (unreadIds.length === 0) return;
+    await supabase
+      .from("notifications")
+      .update({ read_at: new Date().toISOString() })
+      .in("id", unreadIds)
+      .eq("user_id", user.id);
+  }, [user, items]);
+
+  return { items, loading, error, reload, markRead, markAllRead, unreadCount: items.filter((n) => !n.read).length };
 }
