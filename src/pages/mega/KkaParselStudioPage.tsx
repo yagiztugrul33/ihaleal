@@ -31,6 +31,8 @@ import {
 } from "@/lib/finance/kkaRollingHakedisEngine";
 import { fillKkaContractPlaceholders, KKA_STUDIO_CONTRACT_SECTIONS } from "@/lib/legal/kkaStudioContractBundle";
 import { KKA_HUB_PATH } from "@/lib/kkaHub";
+import { PdfExportButton } from "@/components/pdf/PdfExportButton";
+import { downloadKkaResultPdf } from "@/lib/pdf/pdfBuilder";
 
 function parseNum(s: string): number {
   const n = Number(String(s).replace(/\s/g, "").replace(",", "."));
@@ -364,6 +366,24 @@ export default function KkaParselStudioPage() {
                   <Button variant="secondary" className="w-full border-slate-200" onClick={() => setContractsOpen(true)}>
                     <Gavel className="w-4 h-4" /> Tum sozlesme metinlerini goster
                   </Button>
+                  {summary && (
+                    <PdfExportButton
+                      className="w-full"
+                      label="KKA sonucunu PDF indir"
+                      onExport={() =>
+                        downloadKkaResultPdf({
+                          address: `${mahalle}, ${ilce}, ${il}`,
+                          landM2: parseNum(landM2Str),
+                          ownerSharePct,
+                          summaryLines: [
+                            `Brut insaat hakki: ${Math.round(summary.grossConstructionRightM2).toLocaleString("tr-TR")} m²`,
+                            `Arsa sahibi satilabilir: ${Math.round(summary.ownerApproxSellableM2).toLocaleString("tr-TR")} m²`,
+                            `Birim esdegeri: ${summary.ownerEquivalentUnits} adet`,
+                          ],
+                        })
+                      }
+                    />
+                  )}
                 </div>
               )}
             </CardContent>

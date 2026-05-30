@@ -8,6 +8,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDeveloperProject, publishUnitAsListing, type ProjectUnit } from "@/hooks/useDeveloperProjects";
+import { PdfExportButton } from "@/components/pdf/PdfExportButton";
+import { downloadProjectReportPdf } from "@/lib/pdf/pdfBuilder";
 
 const STAGE_LABELS: Record<string, string> = {
   planning: "Planlama",
@@ -110,6 +112,21 @@ export default function MuteahhitProjeDetayPage() {
               </Button>
             </Link>
           ) : null}
+          <PdfExportButton
+            label="Proje PDF"
+            onExport={() =>
+              downloadProjectReportPdf({
+                projectName: project.project_name,
+                location: `${project.province} / ${project.district}`,
+                metrics: [
+                  `Ruhsat: ${project.ruhsat_no ?? "—"}`,
+                  `Ada/Parsel: ${project.ada_parsel ?? "—"}`,
+                  `Aşama: ${STAGE_LABELS[project.stage] ?? project.stage}`,
+                  `Birim sayısı: ${units.length}`,
+                ],
+              })
+            }
+          />
         </div>
 
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">

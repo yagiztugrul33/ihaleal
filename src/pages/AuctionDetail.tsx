@@ -30,6 +30,8 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { ShareButton } from "@/components/ShareButton";
+import { PdfExportButton } from "@/components/pdf/PdfExportButton";
+import { downloadListingPdf } from "@/lib/pdf/pdfBuilder";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
 import { useAuth } from "@/contexts/AuthContext";
@@ -704,6 +706,25 @@ export default function AuctionDetail() {
           <div className="flex items-center gap-2 flex-wrap justify-end">
             <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`} aria-label="Favori"><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
             {id && <ShareButton title={auction?.title || ""} url={`/ilan/${id}`} />}
+            {auction && (
+              <PdfExportButton
+                label="PDF"
+                onExport={() =>
+                  downloadListingPdf({
+                    title: auction.title,
+                    city: auction.city,
+                    district: auction.district,
+                    price: auction.currentBid ?? auction.startingBid ?? 0,
+                    category: auction.category,
+                    mapUrl:
+                      Number.isFinite(auction.mapLat) && Number.isFinite(auction.mapLng)
+                        ? `https://www.google.com/maps?q=${auction.mapLat},${auction.mapLng}`
+                        : undefined,
+                    regionNote: `${auction.city} / ${auction.district} bölge özeti — platform analizi.`,
+                  })
+                }
+              />
+            )}
             <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} className="text-slate-400 hover:text-blue-400" aria-label="Karşılaştır"><GitCompare className="w-4 h-4" /></Button>
             <Button variant="ghost" size="sm" onClick={() => window.print()} className="text-slate-400 hover:text-white gap-1" aria-label="Yazdır"><Printer className="w-4 h-4" /></Button>
             <Button variant="ghost" size="sm" onClick={() => setActiveTab("location")} className="text-slate-400 hover:text-white gap-1" aria-label="Haritayı aç"><MapPin className="w-4 h-4" /></Button>
