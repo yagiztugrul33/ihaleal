@@ -1,6 +1,7 @@
 :root {
-  --premium-bg: #050508;
-  --premium-bg-2: #0a0612;
+  /* N44 — tema açma: #050508 -> #0d0d16 (cinematic kalsın, biraz ferah). */
+  --premium-bg: #0d0d16;
+  --premium-bg-2: #120e20;
   --premium-panel: rgba(12, 8, 24, 0.88);
   --premium-border: rgba(167, 139, 250, 0.18);
   --premium-text: #f5f3ff;
@@ -21,7 +22,7 @@
     radial-gradient(ellipse 80% 50% at 50% -10%, rgba(124, 58, 237, 0.22), transparent 55%),
     radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.08), transparent 45%),
     radial-gradient(circle at 10% 60%, rgba(167, 139, 250, 0.1), transparent 40%),
-    linear-gradient(180deg, #050508 0%, #0a0612 45%, #050508 100%);
+    linear-gradient(180deg, #0d0d16 0%, #120e20 45%, #0d0d16 100%);
   font-family: Inter, system-ui, -apple-system, sans-serif;
 }
 
@@ -2149,7 +2150,7 @@
   padding: 0.65rem 0.85rem;
   border-radius: 999px;
   border: 1px solid rgba(167, 139, 250, 0.35);
-  background: rgba(5, 5, 8, 0.65);
+  background: rgba(13, 13, 22, 0.65);
   box-shadow: 0 0 24px rgba(124, 58, 237, 0.15);
 }
 
@@ -2287,7 +2288,7 @@
   padding: 0.85rem 1.1rem;
   border-radius: 1rem;
   border: 1px solid rgba(167, 139, 250, 0.22);
-  background: rgba(5, 5, 8, 0.55);
+  background: rgba(13, 13, 22, 0.55);
   backdrop-filter: blur(12px);
 }
 
@@ -2346,7 +2347,7 @@
   position: relative;
   z-index: 2;
   border-color: rgba(167, 139, 250, 0.2) !important;
-  background: rgba(8, 6, 16, 0.72) !important;
+  background: rgba(18, 14, 32, 0.72) !important;
   backdrop-filter: blur(16px);
   box-shadow: 0 0 60px rgba(124, 58, 237, 0.12);
 }
