@@ -6,7 +6,7 @@ import {
   XCircle, AlertTriangle, BarChart3, TrendingUp, TrendingDown, Minus,
   MessageSquare, GitCompare, Navigation, CarFront, Video,
   ExternalLink, Eye, Calculator, Receipt, ShieldCheck, Percent,
-  FileText, Scale, Landmark, ShoppingCart, HandCoins,
+  FileText, Scale, Landmark, ShoppingCart, HandCoins, Printer, Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -701,10 +701,21 @@ export default function AuctionDetail() {
       <div className="glass-panel sticky top-16 z-40 rounded-none border-x-0 border-t-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`}><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
+          <div className="flex items-center gap-2 flex-wrap justify-end">
+            <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`} aria-label="Favori"><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
             {id && <ShareButton title={auction?.title || ""} url={`/ilan/${id}`} />}
-            <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} className="text-slate-400 hover:text-blue-400"><GitCompare className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} className="text-slate-400 hover:text-blue-400" aria-label="Karşılaştır"><GitCompare className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="sm" onClick={() => window.print()} className="text-slate-400 hover:text-white gap-1" aria-label="Yazdır"><Printer className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="sm" onClick={() => setActiveTab("location")} className="text-slate-400 hover:text-white gap-1" aria-label="Haritayı aç"><MapPin className="w-4 h-4" /></Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate(`/arama?q=${encodeURIComponent(auction.city)}`)}
+              className="text-slate-400 hover:text-teal-300 gap-1"
+              aria-label="Benzer ara"
+            >
+              <Search className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>
@@ -1039,7 +1050,7 @@ export default function AuctionDetail() {
               {activeTab === "ai" && resolvedReport && (
                 <div className="space-y-8 animate-fade-in">
                   {/* R13.4 Pantsir — İstihbarat Paneli (mock veri, R13.2'de OSM API'ye geçiş) */}
-                  {id ? <PantsirPanel listingId={id} /> : null}
+                  {id ? <PantsirPanel listingId={id} lat={mapCoords?.lat} lng={mapCoords?.lng} /> : null}
                   <PropertyAnalysisReportViewer report={resolvedReport} mockBanner={!dbReportLoaded} />
                   <CaymaPolitikasi accepted={legalWithdrawAccepted} onAcceptedChange={setLegalWithdrawAccepted} />
                   <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
