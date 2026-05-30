@@ -35,6 +35,8 @@ const Profile          = lazy(() => import("@/pages/Profile"));
 const CreateAuction    = lazy(() => import("@/pages/CreateAuction"));
 const Favorites        = lazy(() => import("@/pages/Favorites"));
 const Mortgage         = lazy(() => import("@/pages/Mortgage"));
+const KonutKredisiHesaplayici = lazy(() => import("@/pages/KonutKredisiHesaplayici"));
+const NotificationsPage = lazy(() => import("@/pages/NotificationsPage"));
 const Guide            = lazy(() => import("@/pages/Guide"));
 const MapPage          = lazy(() => import("@/pages/MapPage"));
 const Dashboard          = lazy(() => import("@/pages/dashboard"));
@@ -216,6 +218,8 @@ function App() {
             <Route path="/ihale-ac" element={<CreateAuction />} />
             <Route path="/favoriler" element={<Favorites />} />
             <Route path="/mortgage" element={<Mortgage />} />
+            <Route path="/konut-kredisi-hesaplayici" element={<KonutKredisiHesaplayici />} />
+            <Route path="/bildirimler" element={<NotificationsPage />} />
             <Route path="/rehber" element={<Guide />} />
             <Route
               path={ROUTES.HOW_IT_WORKS}
