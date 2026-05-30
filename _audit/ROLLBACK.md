@@ -1,16 +1,56 @@
-# ROLLBACK — Gece Sprinti Acil Geri Dönüş Rehberi
+# ROLLBACK — Acil Geri Dönüş Rehberi
 
-**Tarih:** 2026-05-30 gece · **Yazılan:** Claude (gözetimsiz sprint öncesi emniyet kemeri)
+**Son güncelleme:** 2026-05-30 gece (v0.13.0 sonrası) · **Yazılan:** Claude
 
-## Çıpa Noktası
+## Güncel Çıpa Noktaları (sırayla en yeni → en eski)
 
-| Alan | Değer |
-|---|---|
-| Safe tag | **`safe-2026-05-30-night`** (annotated, pushed) |
-| HEAD hash | **`a7bb560`** |
-| Canlı bundle | **`index-vjeK2r9U.js`** |
-| Doğrulanmış iyi durum | ✅ Mobil 500 fix (Footer Gavel) · ✅ RLS migration push · ✅ ai_qa try/catch · ✅ post_chat_message deploy |
-| Bilinen bloklayıcı | ❌ R14 funnel signup organizations INSERT 403 (RLS policy canlıda aktif değil — `supabase migration list` 20260530160000 görünüyor ama policy uygulanmamış; master Dashboard SQL düzeltmesi bekleniyor) |
+| Tag | Hash | Durum | Açıklama |
+|---|---|---|---|
+| **`v0.13.0`** (release) | `3f1858f` | ✅ E2E 6/6 PASS | R14 Müteahhit Lansman MVP — funnel canlı |
+| `safe-2026-05-30-night` | `a7bb560` | ✅ Pre-sprint baseline | Footer 500 fix + RLS migration + ai_qa hardened |
+
+**Güncel canlı bundle:** otomatik döner; `curl -s https://www.ihaleal.com/ \| grep -oE 'index-[A-Za-z0-9_-]+\.js' \| head -1` ile öğren.
+
+## v0.13.0 Doğrulanmış Kazanımlar
+
+- ✅ **Funnel E2E 6/6 PASS** (signup → onay → admin verify → login → panel → proje → birim → publish → lansman badge → public proje)
+- ✅ **Chicken-egg RLS** çözüldü (`register_contractor_org` RPC SECURITY DEFINER)
+- ✅ **Mobil 500 (Footer Gavel)** çözüldü, smoke 24/24 PASS kalkan
+- ✅ **org/org_members + client_errors + watchlist** RLS uygulandı (canlı DB)
+- ✅ **ProtectedRoute** 4 müteahhit rotasında aktif
+- ✅ **SEO** — rota-bazlı canonical, sitemap 45 URL, Vercel preview noindex, JSON-LD
+- ✅ **ai_qa rate limit** (IP-bazlı `rl_consume`)
+- ✅ **post_chat_message** deploy
+- ✅ **`/uluslararasi` CurrencyProvider crash** çözüldü
+- ✅ **R14 funnel smoke** kalıcı (`npm run smoke:r14`)
+
+## Sabah quick-check (30 saniye)
+
+```bash
+# 1) Canlı bundle hâlâ stabil mi
+curl -s "https://www.ihaleal.com/" | grep -oE 'index-[A-Za-z0-9_-]+\.js' | head -1
+
+# 2) Genel smoke (24 kontrol)
+npm run smoke
+
+# 3) R14 funnel smoke (4 kritik adım — chicken-egg, ProtectedRoute, signup)
+npm run smoke:r14
+
+# 4) HEAD git log
+git log --oneline v0.13.0..HEAD
+```
+
+Smoke FAIL ise → aşağıdaki kurtarma adımları.
+
+## Bilinen Açık İşler (v0.13.0 sonrası — bloklayıcı DEĞİL)
+
+- Auth-unification sprint (Profile.tsx localStorage vs Supabase çakışması)
+- Dinamik OG sosyal-bot prerender (SPA kısıtı; ~8 saat)
+- Ruhsat dosya storage + admin onay UI (Cursor başlatmış: `6a516db` ruhsat upload)
+- Foto upload Storage (Cursor başlatmış: `44642b7` CreateAuction listing-photos)
+- KYC verify UI
+- Resend e-posta (RESEND_API_KEY secret)
+- OpenAI billing (ai_qa upstream 429 — function-level OK)
 
 ## a) Kod geri al
 
