@@ -22,8 +22,33 @@ export function useActiveOrg() {
     }
 
     const { data: { session } } = await supabase.auth.getSession();
-    const activeOrgId = (session?.user?.app_metadata as Record<string, unknown> | undefined)
+    const userId = session?.user?.id;
+    let activeOrgId = (session?.user?.app_metadata as Record<string, unknown> | undefined)
       ?.active_org_id as string | undefined;
+
+    // FALLBACK: JWT'de active_org_id YOK ama user'in tek/ilk active membership'i varsa
+    // onu sec ve set_active_org ile JWT'yi kalıcı güncelle (login sonrası bos JWT durumu).
+    if (!activeOrgId && userId) {
+      const { data: mem } = await supabase
+        .from("organization_members")
+        .select("organization_id")
+        .eq("user_id", userId)
+        .eq("status", "active")
+        .order("joined_at", { ascending: true })
+        .limit(1)
+        .maybeSingle();
+      const firstOrgId = (mem as { organization_id?: string } | null)?.organization_id;
+      if (firstOrgId) {
+        activeOrgId = firstOrgId;
+        // Bonus: JWT app_metadata'yi de set et ki sonraki acilislarda fallback gerekmesin
+        try {
+          await supabase.rpc("set_active_org", { p_org_id: firstOrgId });
+          await supabase.auth.refreshSession();
+        } catch {
+          /* sessiz — sadece bu render icin org'u yakaladik, yeterli */
+        }
+      }
+    }
 
     if (!activeOrgId) {
       setOrg(null);
