@@ -19,6 +19,8 @@ import type { Auction } from "@/types/auction";
 import { AuctionsMapPanel } from "@/components/maps/ListingMapViews";
 import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
 import { BenimIcinBulPanel } from "@/components/listing/BenimIcinBulPanel";
+import { useListingRatings } from "@/hooks/useListingRatings";
+import { RatingSummaryBadge } from "@/components/trust/RatingSummaryBadge";
 
 type DealFilter = "all" | "sale" | "rent";
 type StatusFilter = "all" | "live" | "upcoming" | "ended";
@@ -205,6 +207,9 @@ export function Auctions({
     });
   }, [catalog, filter, priceRange, selectedCity, dealTypeFilter, selectedCategory, selectedRoom, searchQuery]);
 
+  const filteredListingIds = useMemo(() => filtered.map((a) => a.id), [filtered]);
+  const { ratings: listingRatings } = useListingRatings(filteredListingIds);
+
   const { toggleFavorite, isFavorite } = useFavorites();
 
   const handleBid = () => {
@@ -360,6 +365,9 @@ export function Auctions({
                 </div>
                 <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className={`text-base font-bold line-clamp-2 transition-colors cursor-pointer ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-blue-400"}`} style={isHome ? { color: "var(--color-text)" } : undefined}>{auction.title}</h3>
                 <div className="flex items-center gap-2 text-sm mt-1" style={{ color: "var(--color-text-muted)" }}><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
+                <div className="mt-1">
+                  <RatingSummaryBadge summary={listingRatings.get(auction.id)} compact />
+                </div>
                 <div className={`flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-lg border ${isHome ? "bg-[var(--color-bg-soft)] border-[var(--color-border)]" : "bg-white/[0.03] border-white/5"}`}>
                   <BarChart3 className="w-4 h-4 text-blue-500" />
                   <div className="flex-1">
