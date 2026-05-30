@@ -1,11 +1,13 @@
 // R14 PAKET 5 — Müteahhit proje public görünüm (/proje/:id)
 
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Building2, MapPin, Eye, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useDeveloperProject } from "@/hooks/useDeveloperProjects";
+import { injectJsonLd, removeJsonLd, buildProjectJsonLd } from "@/lib/seoStructuredData";
 
 const STAGE_LABELS: Record<string, string> = {
   planning: "Planlama",
@@ -19,6 +21,25 @@ const STAGE_LABELS: Record<string, string> = {
 export default function MuteahhitProjeKamuPage() {
   const { projectId } = useParams<{ projectId: string }>();
   const { project, units, loading } = useDeveloperProject(projectId);
+
+  // FAZ 2c — JSON-LD Residence (Googlebot rich result)
+  useEffect(() => {
+    if (!project || !projectId || project.ruhsat_status !== "verified") return;
+    const available = units.filter((u) => u.status === "available").length;
+    injectJsonLd(
+      `project-${projectId}`,
+      buildProjectJsonLd({
+        id: projectId,
+        projectName: project.project_name,
+        description: project.description ?? `${project.project_name} lansman projesi`,
+        city: project.province ?? "TR",
+        district: project.district ?? "",
+        unitCount: units.length,
+        available,
+      }),
+    );
+    return () => removeJsonLd(`project-${projectId}`);
+  }, [projectId, project, units]);
 
   if (loading) {
     return <div className="min-h-screen pt-24 px-4 text-center text-slate-400">Yükleniyor...</div>;

@@ -44,6 +44,7 @@ import {
 } from "@/lib/aiAnalysis";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { PantsirPanel } from "@/components/property/PantsirPanel";
+import { injectJsonLd, removeJsonLd, buildAuctionListingJsonLd } from "@/lib/seoStructuredData";
 import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIInsight } from "@/components/cinematic";
@@ -106,6 +107,25 @@ export default function AuctionDetail() {
       addRecent(id);
     }
   }, [id, addRecent]);
+
+  // FAZ 2c — JSON-LD RealEstateListing (Googlebot rich result)
+  useEffect(() => {
+    if (!auction || !id) return;
+    injectJsonLd(
+      `listing-${id}`,
+      buildAuctionListingJsonLd({
+        id,
+        title: auction.title,
+        description: auction.description?.slice(0, 500) ?? auction.title,
+        city: auction.city,
+        district: auction.district,
+        priceTRY: auction.currentBid || auction.startingBid || 0,
+        image: auction.images?.[0],
+        category: auction.category,
+      }),
+    );
+    return () => removeJsonLd(`listing-${id}`);
+  }, [id, auction]);
   const [activeTab, setActiveTab] = useState<"overview" | "details" | "features" | "location" | "priceHistory" | "ai">("overview");
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [showMarketReportDialog, setShowMarketReportDialog] = useState(false);
