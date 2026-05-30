@@ -8,13 +8,24 @@ import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { getListingNumber } from "@/lib/listingNumber";
 import { LoadingState, LoadingSkeletonGrid, ErrorState, EmptyState } from "@/components/async";
+import { useLocale } from "@/contexts/LocaleContext";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
 }
 
+const PAGE_SIZE = 8;
+type SortKey = "relevance" | "price_asc" | "price_desc" | "date_desc";
+
+function parseSort(v: string | null): SortKey {
+  if (v === "price_asc" || v === "price_desc" || v === "date_desc") return v;
+  return "relevance";
+}
+
 export default function SearchResults() {
   const navigate = useNavigate();
+  const { t } = useLocale();
+  const c = t.common;
   const [params, setParams] = useSearchParams();
   const initialQ = params.get("q") || "";
   const [query, setQuery] = useState(initialQ);
@@ -36,7 +47,7 @@ export default function SearchResults() {
       })
       .catch(() => {
         if (ok) {
-          setCatalogError("Uzak liste alınamadı; yerel demo kayıtları gösteriliyor.");
+          setCatalogError(c.errorLoad);
           setCatalog(getLocalAndStaticAuctions());
         }
       })
@@ -66,10 +77,38 @@ export default function SearchResults() {
     });
   }, [query, catalog]);
 
+  const sortKey = parseSort(params.get("sort"));
+  const page = Math.max(1, Number(params.get("page") || "1") || 1);
+
+  const sortedResults = useMemo(() => {
+    const copy = [...results];
+    if (sortKey === "price_asc") copy.sort((a, b) => a.currentBid - b.currentBid);
+    else if (sortKey === "price_desc") copy.sort((a, b) => b.currentBid - a.currentBid);
+    else if (sortKey === "date_desc") {
+      copy.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+    }
+    return copy;
+  }, [results, sortKey]);
+
+  const totalPages = Math.max(1, Math.ceil(sortedResults.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const pagedResults = sortedResults.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
+
+  const patchParams = (patch: Record<string, string | undefined>) => {
+    setParams((prev) => {
+      const next = new URLSearchParams(prev);
+      for (const [k, v] of Object.entries(patch)) {
+        if (!v) next.delete(k);
+        else next.set(k, v);
+      }
+      return next;
+    }, { replace: true });
+  };
+
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const next = query.trim();
-    setParams(next ? { q: next } : {});
+    patchParams({ q: next || undefined, page: undefined });
   };
 
   return (
@@ -104,6 +143,23 @@ export default function SearchResults() {
           </Button>
         </form>
 
+        {query.length >= 2 && !catalogLoading ? (
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-slate-400">{sortedResults.length} sonuç</p>
+            <select
+              value={sortKey}
+              onChange={(e) => patchParams({ sort: e.target.value === "relevance" ? undefined : e.target.value, page: "1" })}
+              className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white"
+              aria-label="Sıralama"
+            >
+              <option value="relevance">İlgililik</option>
+              <option value="price_asc">Fiyat (artan)</option>
+              <option value="price_desc">Fiyat (azalan)</option>
+              <option value="date_desc">Tarih (yeni)</option>
+            </select>
+          </div>
+        ) : null}
+
         {catalogError ? (
           <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
             {catalogError}
@@ -113,19 +169,20 @@ export default function SearchResults() {
         {catalogLoading ? (
           <LoadingSkeletonGrid count={4} />
         ) : query.length < 2 ? (
-          <EmptyState title="Arama yapın" description="Aramak için en az 2 karakter girin." />
+          <EmptyState title={c.emptySearch} description="Aramak için en az 2 karakter girin." />
         ) : results.length === 0 ? (
-          <EmptyState title="Sonuç bulunamadı" description="Farklı bir kelime veya ilan numarası deneyin." />
+          <EmptyState title={c.emptyResults} description="Farklı bir kelime veya ilan numarası deneyin." />
         ) : (
+          <>
           <ul className="space-y-3">
-            {results.map((auction) => (
+            {pagedResults.map((auction) => (
               <li key={`${auction.id}-${auction.title}`}>
                 <button
                   type="button"
                   onClick={() => navigate(`/ilan/${auction.id}`)}
                   className="w-full text-left rounded-xl border border-slate-200/80 bg-slate-900/40 hover:border-blue-500/30 hover:bg-slate-900/70 transition-colors p-4 flex gap-4"
                 >
-                  <img loading="lazy" src={auction.images[0]} alt="" className="w-24 h-16 object-cover rounded-lg flex-shrink-0" />
+                  <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-24 h-16 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <ListingNumberBadge auction={auction} compact />
@@ -148,6 +205,32 @@ export default function SearchResults() {
               </li>
             ))}
           </ul>
+          {totalPages > 1 ? (
+            <div className="mt-6 flex items-center justify-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={safePage <= 1}
+                onClick={() => patchParams({ page: String(safePage - 1) })}
+              >
+                Önceki
+              </Button>
+              <span className="text-sm text-slate-400">
+                Sayfa {safePage} / {totalPages}
+              </span>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={safePage >= totalPages}
+                onClick={() => patchParams({ page: String(safePage + 1) })}
+              >
+                Sonraki
+              </Button>
+            </div>
+          ) : null}
+          </>
         )}
       </div>
     </div>
