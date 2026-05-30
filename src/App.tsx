@@ -76,6 +76,8 @@ const BorsaCityLanding = lazy(() => import("@/pages/BorsaCityLanding"));
 const RehberArticlePage = lazy(() => import("@/pages/RehberArticlePage"));
 const Iletisim             = lazy(() => import("@/pages/Iletisim"));
 const About                = lazy(() => import("@/pages/About"));
+const Kunye                = lazy(() => import("@/pages/Kunye"));
+const Destek               = lazy(() => import("@/pages/Destek"));
 const Reports              = lazy(() => import("@/pages/Reports"));
 const ReportDetail         = lazy(() => import("@/pages/ReportDetail"));
 const UserPanel            = lazy(() => import("@/pages/UserPanel"));
@@ -291,6 +293,8 @@ function App() {
             <Route path="/borsa/sehir/:il" element={<BorsaCityLanding />} />
             <Route path="/iletisim" element={<Iletisim />} />
             <Route path="/hakkimizda" element={<About />} />
+            <Route path="/kunye" element={<Kunye />} />
+            <Route path="/destek" element={<Destek />} />
             <Route path="/raporlar" element={<Reports />} />
             <Route path="/rapor/:id" element={<ReportDetail />} />
             <Route path="/panel" element={<UserPanel />} />
