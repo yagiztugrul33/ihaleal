@@ -946,7 +946,7 @@ export default function Analytics() {
         )}
 
         <div className="mt-10 space-y-6">
-          <ListingLinkDemo />
+          {import.meta.env.DEV ? <ListingLinkDemo /> : null}
         </div>
 
         <p className="text-xs text-slate-600 mt-8 text-center leading-relaxed">
