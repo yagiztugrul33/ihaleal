@@ -142,7 +142,7 @@ export function useFavorites() {
       );
 
       if (error && !isMissingSchemaError(error)) {
-        console.warn("[watchlist] add failed", error.message);
+        if (import.meta.env.DEV) console.warn("[watchlist] add failed", error.message);
       }
     },
     [user],
@@ -161,7 +161,7 @@ export function useFavorites() {
         .eq("listing_id", listingId);
 
       if (error && !isMissingSchemaError(error)) {
-        console.warn("[watchlist] remove failed", error.message);
+        if (import.meta.env.DEV) console.warn("[watchlist] remove failed", error.message);
       }
     },
     [user],
@@ -218,7 +218,7 @@ export function useFavorites() {
         .eq("user_id", user.id)
         .then(({ error }) => {
           if (error && !isMissingSchemaError(error)) {
-            console.warn("[watchlist] clear failed", error.message);
+            if (import.meta.env.DEV) console.warn("[watchlist] clear failed", error.message);
           }
         });
     }
