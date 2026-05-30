@@ -57,6 +57,8 @@ import { SellerTrustCard } from "@/components/trust/SellerTrustCard";
 import { ListingReviewDialog } from "@/components/trust/ListingReviewDialog";
 import { lazy, Suspense } from "react";
 import { resolveListingCoords } from "@/lib/geo/cityCenters";
+import { incrementListingView } from "@/lib/listingViewCount";
+import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
 import {
@@ -170,6 +172,11 @@ export default function AuctionDetail() {
   const [sellerId, setSellerId] = useState<string | null>(null);
   const [reviewOpen, setReviewOpen] = useState(false);
   const [dbAuctionPk, setDbAuctionPk] = useState<string | null>(null);
+
+  useEffect(() => {
+    const listingId = dbListingId ?? (isAuctionUuid(id ?? "") ? id : null);
+    if (listingId) void incrementListingView(listingId);
+  }, [id, dbListingId]);
   const [dbReportLoaded, setDbReportLoaded] = useState<PropertyAnalysisReportRecord | null>(null);
   const [buyNowPriceDb, setBuyNowPriceDb] = useState<number | null>(null);
   // R14 PAKET 5 — lansman alanları (listings.is_lansman, project_id, unit_id)
@@ -707,6 +714,7 @@ export default function AuctionDetail() {
             <div className={`transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <ListingNumberBadge auction={auction} />
+                <ListingFeaturedBadge isFeatured={auction.isFeatured} badge={auction.featuredBadge} />
                 {/* R14 PAKET 5 — lansman badge */}
                 {isLansman && (
                   <Badge className="bg-cyan-500 text-slate-950 font-bold border-0 gap-1">

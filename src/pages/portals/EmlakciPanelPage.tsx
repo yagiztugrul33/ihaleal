@@ -5,6 +5,7 @@ import { DashboardShell, MetricCard } from "@/components/enterprise";
 import { OrganizationDashboard } from "@/features/organizations/OrganizationDashboard";
 import { EMLAKCI_DEMO_STATS, EMLAKCI_DEMO_LISTINGS } from "@/data/portalDemo";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { SellerAnalyticsPanel } from "@/components/seller/SellerAnalyticsPanel";
 
 function formatTry(n: number) {
   return new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
@@ -62,7 +63,7 @@ export default function EmlakciPanelPage() {
         </Button>
       }
     >
-      {!useLive ? <DemoEmlakciPanel /> : null}
+      {!useLive ? <DemoEmlakciPanel /> : <SellerAnalyticsPanel />}
       <div className={useLive ? "" : "mt-8 rounded-xl border border-dashed border-white/15 overflow-hidden"}>
         <OrganizationDashboard />
       </div>

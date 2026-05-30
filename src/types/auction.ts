@@ -56,6 +56,10 @@ export interface Auction {
   officialDocumentsForBuyer?: boolean;
   status: "live" | "upcoming" | "ended";
   tags: string[];
+  /** Doping — öne çıkan ilan */
+  isFeatured?: boolean;
+  featuredBadge?: "urgent" | "opportunity" | "price_drop" | null;
+  viewCount?: number;
   propertyDetails: PropertyDetails;
   features: string[];
   nearbyFacilities: NearbyFacility[];

@@ -22,7 +22,10 @@ export async function fetchRemoteAuctionsCatalog(): Promise<Auction[]> {
         title,
         body,
         status,
-        buy_now_price_try
+        buy_now_price_try,
+        is_featured,
+        featured_badge,
+        view_count
       )
     `
     )

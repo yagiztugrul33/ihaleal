@@ -15,6 +15,8 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DEMO_AUCTION_CATALOG } from "@/data/demoAuctionCatalog";
+import { SellerAnalyticsPanel } from "@/components/seller/SellerAnalyticsPanel";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 const sidebar = [
   { to: "/panel", label: "Özet", icon: LayoutDashboard, end: true },
@@ -104,6 +106,9 @@ export default function UserPanel() {
             </Card>
           ) : (
             <>
+              {isSupabaseConfigured() ? (
+                <SellerAnalyticsPanel />
+              ) : null}
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <Card className="bg-slate-900/50 border-slate-200/80">
                   <CardContent className="p-5">

@@ -8,6 +8,9 @@ type ListingRow = {
   body: unknown;
   status: string;
   buy_now_price_try?: number | string | null;
+  is_featured?: boolean | null;
+  featured_badge?: string | null;
+  view_count?: number | null;
 };
 
 type DbAuctionRow = {
@@ -99,6 +102,12 @@ export function auctionFromRemoteRow(row: DbAuctionRow): Auction {
     pricePerSqm: overlay.pricePerSqm ?? TEMPLATE.pricePerSqm,
     bidderCount: overlay.bidderCount ?? TEMPLATE.bidderCount,
     buyNowPriceTry: overlay.buyNowPriceTry ?? listingBn,
+    isFeatured: overlay.isFeatured ?? Boolean(listing.is_featured),
+    featuredBadge:
+      (overlay.featuredBadge as Auction["featuredBadge"]) ??
+      (listing.featured_badge as Auction["featuredBadge"]) ??
+      null,
+    viewCount: overlay.viewCount ?? Number(listing.view_count ?? 0),
   });
 }
 

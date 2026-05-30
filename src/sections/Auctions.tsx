@@ -17,6 +17,7 @@ import { getListingNumber } from "@/lib/listingNumber";
 import { LoadingSkeletonGrid } from "@/components/async";
 import type { Auction } from "@/types/auction";
 import { AuctionsMapPanel } from "@/components/maps/ListingMapViews";
+import { ListingFeaturedBadge } from "@/components/listing/ListingFeaturedBadge";
 
 type DealFilter = "all" | "sale" | "rent";
 type StatusFilter = "all" | "live" | "upcoming" | "ended";
@@ -180,7 +181,7 @@ export function Auctions({
   const cities = useMemo(() => [...new Set(catalog.map((a) => a.city))], [catalog]);
   const categories = useMemo(() => [...new Set(catalog.map((a) => a.category))].sort(), [catalog]);
   const filtered = useMemo(() => {
-    return catalog.filter((a) => {
+    const rows = catalog.filter((a) => {
       if (filter !== "all" && a.status !== filter) return false;
       if (a.currentBid < priceRange[0] || a.currentBid > priceRange[1]) return false;
       if (selectedCity !== "all" && a.city !== selectedCity) return false;
@@ -194,6 +195,12 @@ export function Auctions({
         if (!inTitle && !inNo) return false;
       }
       return true;
+    });
+    return rows.sort((a, b) => {
+      const af = a.isFeatured ? 1 : 0;
+      const bf = b.isFeatured ? 1 : 0;
+      if (af !== bf) return bf - af;
+      return (b.viewCount ?? 0) - (a.viewCount ?? 0);
     });
   }, [catalog, filter, priceRange, selectedCity, dealTypeFilter, selectedCategory, selectedRoom, searchQuery]);
 
@@ -329,7 +336,8 @@ export function Auctions({
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />
-                <div className="absolute top-3 left-3 flex gap-2">
+                <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+                  <ListingFeaturedBadge isFeatured={auction.isFeatured} badge={auction.featuredBadge} />
                   {auction.status === "live" && <Badge className="bg-red-500/90 text-white gap-1 animate-pulse"><Flame className="w-3 h-3" /> Canlı</Badge>}
                   {auction.status === "upcoming" && <Badge variant="outline" className="border-sky-500/30 text-sky-400 gap-1"><Calendar className="w-3 h-3" /> Yaklaşan</Badge>}
                   <Badge variant="outline" className={`gap-1 text-xs ${auction.investmentScore >= 85 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : auction.investmentScore >= 70 ? "bg-blue-500/20 text-blue-400 border-blue-500/30" : "bg-slate-500/20 text-slate-400 border-slate-500/30"}`}><Star className="w-3 h-3" /> {auction.investmentScore}</Badge>
