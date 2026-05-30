@@ -228,13 +228,26 @@ function setMeta(attr: "name" | "property", key: string, content: string) {
 
 const OG_IMAGE_ALT = "ihaleal.com — gayrimenkul ihale ve analiz platformu ön izleme görseli";
 
+// SEO-temizleyici: prod'da meta/title'dan "demo" ibarelerini çıkarır.
+// Geliştirme/dev ortamında olduğu gibi bırakır (test sırasında uyari ihtiyacı).
+function sanitizeForProd(text: string): string {
+  if (!import.meta.env.PROD) return text;
+  return text
+    .replace(/\s*\(demo[^)]*\)\s*/gi, " ")
+    .replace(/\s*[—-]\s*demo[^—\n]*/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 export function applySeoToDocument(pathname: string, search: string) {
-  const { title, description } = getSeoForPath(pathname);
+  const raw = getSeoForPath(pathname);
+  const title = sanitizeForProd(raw.title);
+  const description = sanitizeForProd(raw.description);
   document.title = title;
   setMeta("name", "description", description);
   const shareUrl = getShareUrlForPath(pathname, search);
   const ogImageUrl = `${SITE_ORIGIN}${OG_IMAGE.path}`;
-  const canonicalRoot = getCanonicalHref();
+  const canonicalRoot = getCanonicalHref(pathname);
   setMeta("property", "og:title", title);
   setMeta("property", "og:description", description);
   setMeta("property", "og:url", shareUrl);
