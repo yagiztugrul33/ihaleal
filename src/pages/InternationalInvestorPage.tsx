@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Globe2, Languages, Landmark, PlaneTakeoff } from "lucide-react";
-import { useCurrency } from "@/contexts/CurrencyContext";
+import { CurrencyProvider, useCurrency } from "@/contexts/CurrencyContext";
 
 type LocalMode = "tr" | "en" | "ar" | "ru";
 
@@ -28,7 +28,7 @@ const snippets: Record<LocalMode, { title: string; subtitle: string; guideTitle:
   },
 };
 
-export default function InternationalInvestorPage() {
+function InternationalInvestorPageBody() {
   const [languageMode, setLanguageMode] = useState<LocalMode>("tr");
   const {
     currency,
@@ -199,5 +199,15 @@ export default function InternationalInvestorPage() {
         </section>
       </div>
     </div>
+  );
+}
+
+// CurrencyProvider App.tsx global tree'sinde YOK; bu rota icin lokal provider
+// (kapsami sayfa-icine sinirla — yan etki yok).
+export default function InternationalInvestorPage() {
+  return (
+    <CurrencyProvider>
+      <InternationalInvestorPageBody />
+    </CurrencyProvider>
   );
 }
