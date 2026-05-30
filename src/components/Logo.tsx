@@ -6,9 +6,9 @@ export const BRAND_LOGO_SRC = "/ihaleal_com_logo.png";
 export const BRAND_SLOGAN = "Türkiye'nin Gayrimenkul Borsası";
 
 const logoSizes = {
-  sm: "h-10 w-10 min-h-10 min-w-10",
-  md: "h-11 w-11 min-h-11 min-w-11",
-  lg: "h-14 w-14 min-h-14 min-w-14 sm:h-16 sm:w-16 sm:min-h-16 sm:min-w-16",
+  sm: "h-12 w-12 min-h-12 min-w-12",
+  md: "h-14 w-14 min-h-14 min-w-14",
+  lg: "h-16 w-16 min-h-16 min-w-16 sm:h-[4.5rem] sm:w-[4.5rem] sm:min-h-[4.5rem] sm:min-w-[4.5rem]",
 } as const;
 
 export function Logo({
@@ -40,8 +40,8 @@ export function Logo({
       loading="eager"
       decoding="async"
       draggable={false}
-      width={size === "lg" ? 64 : size === "md" ? 44 : 40}
-      height={size === "lg" ? 64 : size === "md" ? 44 : 40}
+      width={size === "lg" ? 72 : size === "md" ? 56 : 48}
+      height={size === "lg" ? 72 : size === "md" ? 56 : 48}
     />
   );
 }
