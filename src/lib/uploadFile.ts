@@ -26,6 +26,18 @@ const LIMITS: Record<StorageBucket, { maxBytes: number; mime: ReadonlySet<string
   },
 };
 
+/** Strip path traversal and unsafe chars from storage path segments. */
+export function sanitizeStorageSegment(raw: string): string {
+  if (/[/\\]|\.\./.test(raw)) {
+    throw new Error("Geçersiz depolama yolu segmenti");
+  }
+  const cleaned = raw.trim().replace(/[^a-zA-Z0-9_-]/g, "");
+  if (!cleaned || cleaned.length > 128) {
+    throw new Error("Geçersiz depolama yolu segmenti");
+  }
+  return cleaned;
+}
+
 function extFromMime(mime: string): string {
   if (mime === "image/jpeg") return "jpg";
   if (mime === "image/png") return "png";
@@ -47,13 +59,15 @@ function resolveMime(file: File): string {
 }
 
 export function buildStoragePath(ctx: UploadContext, uuid: string, ext: string): string {
+  const safeUuid = sanitizeStorageSegment(uuid);
+  const safeExt = sanitizeStorageSegment(ext);
   switch (ctx.bucket) {
     case "listing-photos":
-      return `${ctx.ownerId}/${ctx.entityId}/${uuid}.${ext}`;
+      return `${sanitizeStorageSegment(ctx.ownerId)}/${sanitizeStorageSegment(ctx.entityId)}/${safeUuid}.${safeExt}`;
     case "project-docs":
-      return `${ctx.orgId}/${ctx.entityId}/${ctx.docKind}/${uuid}.${ext}`;
+      return `${sanitizeStorageSegment(ctx.orgId)}/${sanitizeStorageSegment(ctx.entityId)}/${sanitizeStorageSegment(ctx.docKind)}/${safeUuid}.${safeExt}`;
     case "expertise-reports":
-      return `${ctx.entityId}/${uuid}.${ext}`;
+      return `${sanitizeStorageSegment(ctx.entityId)}/${safeUuid}.${safeExt}`;
   }
 }
 

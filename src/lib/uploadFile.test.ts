@@ -47,6 +47,16 @@ describe("buildStoragePath", () => {
     );
     expect(path).toBe("user-1/listing-1/abc.jpg");
   });
+
+  it("strips path traversal from segments", () => {
+    expect(() =>
+      buildStoragePath(
+        { bucket: "listing-photos", ownerId: "../evil", entityId: "listing-1" },
+        "abc",
+        "jpg",
+      ),
+    ).toThrow(/Geçersiz depolama/);
+  });
 });
 
 describe("uploadFile", () => {
