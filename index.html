@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="tr" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
@@ -17,6 +17,21 @@
     <!-- Kill-switch: eski Service Worker'i sok, cache'i temizle, gerekirse bir kez yenile.
          Mumkun olan en erken anda calismali; React baslamadan once. -->
     <script src="/sw-unregister.js"></script>
+    <!-- Preview/yedek deploy'lari (vercel.app, branch alias) noindex: Google sıralamasını
+         prod ile bolmesin. Prod (ihaleal.com/www.ihaleal.com) etkilenmez. -->
+    <script>
+      (function () {
+        try {
+          var h = location.hostname;
+          if (h && h !== "ihaleal.com" && h !== "www.ihaleal.com") {
+            var m = document.createElement("meta");
+            m.name = "robots";
+            m.content = "noindex, nofollow";
+            document.head.appendChild(m);
+          }
+        } catch (e) { /* sessiz */ }
+      })();
+    </script>
     <!-- Ana sayfa meta: Vite home-page-meta-from-seo-data + docs/SEO_HASH_CANONICAL.md -->
 
     <!-- Canonical -->
