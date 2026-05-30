@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, User, Mail, Phone, Shield, CheckCircle2, Edit3, LogOut, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,21 @@ export default function Profile() {
   const [phone, setPhone] = useState(user?.phone || "");
   const [success, setSuccess] = useState("");
   const [saveError, setSaveError] = useState("");
+
+  useEffect(() => {
+    if (!user || user.authBackend !== "supabase" || !isSupabaseConfigured()) return;
+    void supabase
+      .from("profiles")
+      .select("full_name, phone, email")
+      .eq("id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (!data) return;
+        if (data.full_name) setName(String(data.full_name));
+        if (data.phone) setPhone(String(data.phone));
+        if (data.email) setEmail(String(data.email));
+      });
+  }, [user?.id, user?.authBackend]);
 
   if (!user) {
     return (
@@ -57,6 +72,15 @@ export default function Profile() {
         localStorage.setItem("ihaleal_user", JSON.stringify(session));
         dispatchAuthChanged();
       }
+      await supabase
+        .from("profiles")
+        .update({
+          full_name: name.trim(),
+          phone: phone.trim() || null,
+          email: email.trim(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", user.id);
       setEditMode(false);
       setSuccess("Profil güncellendi!");
       setTimeout(() => setSuccess(""), 3000);

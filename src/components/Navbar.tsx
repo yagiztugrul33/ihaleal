@@ -363,7 +363,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="nav-mobile-toggle inline-flex items-center justify-center rounded-lg border border-slate-600/30 p-2 text-slate-200 lg:hidden"
+            className="nav-mobile-toggle inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-600/30 p-2.5 text-slate-200 lg:hidden"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label={mobileOpen ? n.closeMenu : n.openMenu}
             data-testid="nav-mobile-toggle"
@@ -380,7 +380,7 @@ export function Navbar() {
                 setSearchOpen(true);
                 setMobileOpen(false);
               }}
-              className="mb-3 flex w-full items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 py-2.5 text-sm text-slate-400"
+              className="mb-3 flex min-h-11 w-full items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 py-3 text-sm text-slate-400"
             >
               <Search className="h-4 w-4" /> {n.search}
             </button>
@@ -398,14 +398,14 @@ export function Navbar() {
             <NavLink
               to={ROUTES.ILANLAR}
               onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-lg px-3 py-3 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
             >
               {n.auctions}
             </NavLink>
             <NavLink
               to={ROUTES.NASIL_CALISIR}
               onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-lg px-3 py-3 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
             >
               {n.howItWorks}
             </NavLink>
