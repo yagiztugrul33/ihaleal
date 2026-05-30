@@ -1,24 +1,55 @@
-﻿import { useNavigate } from "react-router-dom";
+﻿import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Heart, Trash2, ArrowLeft, MapPin, TrendingUp, Star, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useFavorites } from "@/hooks/useFavorites";
-import { AUCTIONS } from "@/data/auctions";
+import { loadAllAuctionsForSearch, getLocalAndStaticAuctions } from "@/lib/auctionsSource";
 import { ShareButton } from "@/components/ShareButton";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { withListingDefaults } from "@/lib/listingPolicy";
+import type { Auction } from "@/types/auction";
 
 export default function Favorites() {
   const navigate = useNavigate();
-  const { favorites, removeFavorite, clearFavorites, count } = useFavorites();
+  const { favorites, removeFavorite, clearFavorites, count, loading, syncError } = useFavorites();
+  const [catalog, setCatalog] = useState<Auction[]>(() => getLocalAndStaticAuctions());
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
 
-  const favoriteAuctions = AUCTIONS.filter((a) => favorites.includes(a.id)).map((a) => withListingDefaults(a));
+  useEffect(() => {
+    let ok = true;
+    setCatalogLoading(true);
+    setCatalogError(null);
+    void loadAllAuctionsForSearch()
+      .then((rows) => {
+        if (ok) setCatalog(rows);
+      })
+      .catch(() => {
+        if (ok) {
+          setCatalogError("Uzak liste alınamadı; yerel demo kayıtları gösteriliyor.");
+          setCatalog(getLocalAndStaticAuctions());
+        }
+      })
+      .finally(() => {
+        if (ok) setCatalogLoading(false);
+      });
+    return () => {
+      ok = false;
+    };
+  }, []);
+
+  const favoriteAuctions = useMemo(
+    () => catalog.filter((a) => favorites.includes(a.id)).map((a) => withListingDefaults(a)),
+    [catalog, favorites],
+  );
+
+  const isLoading = loading || catalogLoading;
 
   return (
     <div className="min-h-screen bg-slate-50 pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
             <button
@@ -48,8 +79,23 @@ export default function Favorites() {
           )}
         </div>
 
-        {/* Favorites Grid */}
-        {favoriteAuctions.length === 0 ? (
+        {syncError ? (
+          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+            {syncError}
+          </p>
+        ) : null}
+        {catalogError ? (
+          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+            {catalogError}
+          </p>
+        ) : null}
+        {isLoading ? (
+          <p className="text-sm text-slate-500 mb-6" aria-live="polite">
+            Favoriler yükleniyor…
+          </p>
+        ) : null}
+
+        {!isLoading && favoriteAuctions.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-6">
               <Heart className="w-10 h-10 text-slate-600" />
