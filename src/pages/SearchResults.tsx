@@ -2,7 +2,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, MapPin, Home, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
@@ -12,17 +11,20 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { useSavedSearches } from "@/hooks/useSavedSearches";
 import { SavedSearchesPanel } from "@/components/search/SavedSearchesPanel";
 import { SearchFilterChips } from "@/components/search/SearchFilterChips";
+import { SearchAutocomplete } from "@/components/search/SearchAutocomplete";
+import { MapPolygonSearch } from "@/components/search/MapPolygonSearch";
 import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
+import { encodePolygonParam, parsePolygonParam, pointInPolygon } from "@/lib/geo/pointInPolygon";
 
 function normalize(s: string) {
   return s.trim().toLowerCase();
 }
 
 const PAGE_SIZE = 8;
-type SortKey = "relevance" | "price_asc" | "price_desc" | "date_desc";
+type SortKey = "relevance" | "price_asc" | "price_desc" | "date_desc" | "popularity";
 
 function parseSort(v: string | null): SortKey {
-  if (v === "price_asc" || v === "price_desc" || v === "date_desc") return v;
+  if (v === "price_asc" || v === "price_desc" || v === "date_desc" || v === "popularity") return v;
   return "relevance";
 }
 
@@ -63,26 +65,34 @@ export default function SearchResults() {
     };
   }, [c.errorLoad]);
 
-  const results = useMemo(() => {
-    const q = normalize(query);
-    if (q.length < 2) return [];
-    const all = catalog;
-    return all.filter((a) => {
-      const ln = normalize(getListingNumber(a));
-      return (
-        normalize(a.title).includes(q) ||
-        normalize(a.location).includes(q) ||
-        normalize(a.city).includes(q) ||
-        normalize(a.district).includes(q) ||
-        normalize(a.category).includes(q) ||
-        ln.includes(q) ||
-        (a.tags && a.tags.some((t) => normalize(t).includes(q)))
-      );
-    });
-  }, [query, catalog]);
-
   const sortKey = parseSort(params.get("sort"));
   const page = Math.max(1, Number(params.get("page") || "1") || 1);
+  const polygon = parsePolygonParam(params.get("poly"));
+
+  const results = useMemo(() => {
+    const q = normalize(query);
+    if (q.length < 2 && !polygon) return [];
+    const all = catalog;
+    let filtered = all;
+    if (q.length >= 2) {
+      filtered = filtered.filter((a) => {
+        const ln = normalize(getListingNumber(a));
+        return (
+          normalize(a.title).includes(q) ||
+          normalize(a.location).includes(q) ||
+          normalize(a.city).includes(q) ||
+          normalize(a.district).includes(q) ||
+          normalize(a.category).includes(q) ||
+          ln.includes(q) ||
+          (a.tags && a.tags.some((t) => normalize(t).includes(q)))
+        );
+      });
+    }
+    if (polygon) {
+      filtered = filtered.filter((a) => pointInPolygon(a.mapLat, a.mapLng, polygon));
+    }
+    return filtered;
+  }, [query, catalog, polygon]);
 
   const sortedResults = useMemo(() => {
     const copy = [...results];
@@ -90,6 +100,8 @@ export default function SearchResults() {
     else if (sortKey === "price_desc") copy.sort((a, b) => b.currentBid - a.currentBid);
     else if (sortKey === "date_desc") {
       copy.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+    } else if (sortKey === "popularity") {
+      copy.sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0));
     }
     return copy;
   }, [results, sortKey]);
@@ -144,18 +156,26 @@ export default function SearchResults() {
           <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/favoriler")}>favorilerim</button>
         </p>
 
-        <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 mb-8">
-          <Input
+        <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 mb-4">
+          <SearchAutocomplete
+            className="flex-1"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Şehir, semt, başlık veya ilan no (ILN-...)"
-            className="bg-slate-950 border-slate-200 text-white h-11"
-            aria-label="Arama kutusu"
+            onChange={setQuery}
+            onSelect={(v) => {
+              setQuery(v);
+              patchParams({ q: v || undefined, page: undefined });
+            }}
+            placeholder="Şehir, ilçe, başlık veya ilan no (ILN-...)"
           />
           <Button type="submit" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-semibold h-11 px-6">
             Ara
           </Button>
         </form>
+
+        <MapPolygonSearch
+          onPolygonComplete={(coords) => patchParams({ poly: encodePolygonParam(coords), page: undefined })}
+          onClear={() => patchParams({ poly: undefined, page: undefined })}
+        />
 
         <SavedSearchesPanel
           api={savedSearchesApi}
@@ -175,22 +195,25 @@ export default function SearchResults() {
             ...(sortKey !== "relevance"
               ? [{
                   key: "sort",
-                  label: sortKey === "price_asc" ? "Fiyat ↑" : sortKey === "price_desc" ? "Fiyat ↓" : "Tarih",
+                  label: sortKey === "price_asc" ? "Fiyat ↑" : sortKey === "price_desc" ? "Fiyat ↓" : sortKey === "popularity" ? "Popülerlik" : "Tarih",
                   onRemove: () => patchParams({ sort: undefined, page: "1" }),
                 }]
               : []),
+            ...(polygon
+              ? [{ key: "poly", label: "Harita alanı", onRemove: () => patchParams({ poly: undefined, page: "1" }) }]
+              : []),
           ]}
           onClearAll={
-            query.trim() || sortKey !== "relevance"
+            query.trim() || sortKey !== "relevance" || polygon
               ? () => {
                   setQuery("");
-                  patchParams({ q: undefined, sort: undefined, page: undefined });
+                  patchParams({ q: undefined, sort: undefined, poly: undefined, page: undefined });
                 }
               : undefined
           }
         />
 
-        {query.length >= 2 && !catalogLoading ? (
+        {(query.length >= 2 || polygon) && !catalogLoading ? (
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-slate-400">{sortedResults.length} sonuç</p>
             <select
@@ -203,6 +226,7 @@ export default function SearchResults() {
               <option value="price_asc">Fiyat (artan)</option>
               <option value="price_desc">Fiyat (azalan)</option>
               <option value="date_desc">Tarih (yeni)</option>
+              <option value="popularity">Popülerlik (görüntülenme)</option>
             </select>
           </div>
         ) : null}
@@ -215,8 +239,8 @@ export default function SearchResults() {
 
         {catalogLoading ? (
           <LoadingSkeletonGrid count={4} />
-        ) : query.length < 2 ? (
-          <EmptyState title={c.emptySearch} description="Aramak için en az 2 karakter girin." />
+        ) : query.length < 2 && !polygon ? (
+          <EmptyState title={c.emptySearch} description="Aramak için en az 2 karakter girin veya haritada alan çizin." />
         ) : results.length === 0 ? (
           <EmptyState title={c.emptyResults} description="Farklı bir kelime veya ilan numarası deneyin." />
         ) : (
