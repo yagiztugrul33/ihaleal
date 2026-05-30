@@ -168,6 +168,42 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "Komisyon hesaplayıcı — ihaleal.com",
     description: "Üyelik, hizmet bedeli ve satış komisyonu tahmini (demo).",
   },
+  "/konut-kredisi-hesaplayici": {
+    title: "Konut kredisi hesaplayıcı — ihaleal.com",
+    description: "Kredi tutarı, vade ve faiz oranına göre aylık taksit ve toplam geri ödeme tahmini.",
+  },
+  "/borsa": {
+    title: "İhaleal Borsa — canlı piyasa endeksi — ihaleal.com",
+    description: "Bölgesel fiyat endeksi, işlem hacmi ve canlı ilan sinyalleri.",
+  },
+  "/bildirimler": {
+    title: "Bildirimler — ihaleal.com",
+    description: "Hesap ve ilan bildirimleriniz.",
+  },
+  "/modul/parsel-zekasi": {
+    title: "Parsel zekası modülü — ihaleal.com",
+    description: "Parsel ve imar zekası analiz modülü.",
+  },
+  "/modul/ges-analizi": {
+    title: "GES analizi modülü — ihaleal.com",
+    description: "Güneş enerjisi arazi ve proje analizi modülü.",
+  },
+  "/modul/degerleme": {
+    title: "Değerleme modülü — ihaleal.com",
+    description: "Gayrimenkul değerleme ve rapor modülü.",
+  },
+  "/modul/kentsel-donusum": {
+    title: "Kentsel dönüşüm modülü — ihaleal.com",
+    description: "Kentsel dönüşüm bölgeleri ve proje haritası.",
+  },
+  "/modul/afet-risk-haritasi": {
+    title: "Afet risk haritası — ihaleal.com",
+    description: "Bölgesel afet risk katmanları ve harita görünümü.",
+  },
+  "/modul/afet-toplanma-alanlari": {
+    title: "Afet toplanma alanları — ihaleal.com",
+    description: "Yakın toplanma alanları haritası ve listesi.",
+  },
   "/sifremi-unuttum": {
     title: "Şifre sıfırlama — ihaleal.com",
     description: "Hesap kurtarma akışı (taslak / demo).",
@@ -212,6 +248,14 @@ export function getSeoForPath(pathname: string) {
   }
   if (pathname.startsWith("/panel/")) {
     return ROUTE_SEO["/panel"] ?? DEFAULT_SEO;
+  }
+  if (pathname.startsWith("/modul/")) {
+    return (
+      ROUTE_SEO[pathname] ?? {
+        title: "Analiz modülü — ihaleal.com",
+        description: "Gayrimenkul analiz ve bilgi modülü.",
+      }
+    );
   }
   return ROUTE_SEO[pathname] ?? DEFAULT_SEO;
 }
