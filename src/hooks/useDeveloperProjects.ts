@@ -224,6 +224,9 @@ export async function publishUnitAsListing(
       project_id: projectId,
       unit_id: unitId,
       is_lansman: true,
+      // R14 — listings.start_price_try NOT NULL; lansman hemen-al tek fiyatli
+      // -> start_price_try = buy_now_price_try
+      start_price_try: options.price_try,
       buy_now_price_try: options.price_try,
       status: "active",
     })
