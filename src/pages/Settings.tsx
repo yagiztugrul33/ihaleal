@@ -1,10 +1,11 @@
 ﻿import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Bell, CreditCard, Shield, Smartphone, Mail } from "lucide-react";
+import { ArrowLeft, Bell, CreditCard, Shield, Smartphone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { GeofenceSettingsPanel } from "@/components/geofence/GeofenceSettingsPanel";
 
 const PREFS_KEY = "ihaleal_notification_prefs";
 
@@ -91,6 +92,16 @@ export default function SettingsPage() {
                 </div>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-slate-200 bg-slate-900/45 mb-6">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-4 text-white font-semibold">
+              <MapPin className="w-5 h-5 text-sky-400" />
+              Konum bildirimi (geofence)
+            </div>
+            <GeofenceSettingsPanel />
           </CardContent>
         </Card>
 

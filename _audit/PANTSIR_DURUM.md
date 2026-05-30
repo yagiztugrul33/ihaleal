@@ -9,7 +9,7 @@
 
 | Kod | Konu | Durum | Dosya |
 |-----|------|-------|-------|
-| R13.1 | Geofence konum bildirim | ❌ | — (kod yok) |
+| R13.1 | Geofence konum bildirim | 🟡 | `src/lib/geofence/*`, `useGeofenceWatch.ts`, `Settings.tsx:97-105` — CC-apply migration bekliyor |
 | R13.2 | nearby-poi edge + frontend | ✅ | `useNearbyPOI.ts`, `ListingNearbyPoiSection.tsx` |
 | R13.3 | TÜİK/MEB sosyo-ekonomik ETL | ❌ | — (kod yok) |
 | R13.4 | Pantsir UI (AI Analiz tab) | 🟡→✅ | `PantsirPanel.tsx` (canlı POI ile hibrit) |
@@ -19,12 +19,15 @@
 
 ## R13.1 — Geofence konum bildirimi
 
-**Durum:** ❌ YOK
+**Durum:** 🟡 MVP kodlandı (N20, 2026-05-30) — CC-apply bekliyor
 
-- `grep geofence src/` → 0 eşleşme
-- Plan: `_audit/R13_PANTSIR_PLAN.md` — `user_geofences` tablosu + matching-fanout genişletme
-- **Yapılabilir mi:** Evet (web MVP ~14 saat)
-- **CC-apply:** `supabase/migrations/*_user_geofences.sql` (henüz yazılmadı)
+- `src/lib/geo/haversine.ts` — Haversine mesafe (m)
+- `src/lib/geofence/geofenceEngine.ts` — `findNearbyListings` yarıçap + deal filtresi
+- `src/hooks/useGeofenceWatch.ts:90-94` — `watchPosition`, eşleşme cihazda
+- `src/components/geofence/GeofenceSettingsPanel.tsx:59-63` — KVKK açık rıza
+- `src/pages/Settings.tsx:97-105` — ayar paneli
+- Test: `geofenceEngine.test.ts` — 3/3 PASS
+- **CC-apply:** `supabase/migrations/20260603100000_user_geofence_preferences.sql`
 
 ---
 

@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ToastContainer } from "./Toast";
 import { ChatWidget } from "./ChatWidget";
+import { GeofenceWatcher } from "@/components/geofence/GeofenceWatcher";
 import { AntiCopyProtection } from "./AntiCopyProtection";
 import { CookieConsent } from "./CookieConsent";
 import { SeoSync } from "./SeoSync";
@@ -53,6 +54,7 @@ export function Layout() {
         <Footer />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />
+        <GeofenceWatcher />
         <CookieConsent />
       </div>
     </div>
