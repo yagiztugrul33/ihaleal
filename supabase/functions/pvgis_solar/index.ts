@@ -32,19 +32,40 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return handleOptions(req);
   const cors = corsHeaders(req);
 
-  if (req.method !== "GET") {
+  let lat: number;
+  let lon: number;
+  let tilt: number;
+  let aspect: number;
+  let year: number;
+
+  if (req.method === "GET") {
+    const url = new URL(req.url);
+    lat = Number(url.searchParams.get("lat"));
+    lon = Number(url.searchParams.get("lon"));
+    tilt = Number(url.searchParams.get("tilt") ?? "25");
+    aspect = Number(url.searchParams.get("aspect") ?? "0");
+    year = Number(url.searchParams.get("year") ?? String(new Date().getFullYear() - 1));
+  } else if (req.method === "POST") {
+    let body: { lat?: number; lon?: number; tilt?: number; aspect?: number; year?: number };
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ ok: false, error: "invalid_json" }), {
+        status: 400,
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
+    lat = Number(body.lat);
+    lon = Number(body.lon);
+    tilt = Number(body.tilt ?? 25);
+    aspect = Number(body.aspect ?? 0);
+    year = Number(body.year ?? new Date().getFullYear() - 1);
+  } else {
     return new Response(JSON.stringify({ ok: false, error: "method_not_allowed" }), {
       status: 405,
       headers: { ...cors, "Content-Type": "application/json" },
     });
   }
-
-  const url = new URL(req.url);
-  const lat = Number(url.searchParams.get("lat"));
-  const lon = Number(url.searchParams.get("lon"));
-  const tilt = Number(url.searchParams.get("tilt") ?? "25");
-  const aspect = Number(url.searchParams.get("aspect") ?? "0");
-  const year = Number(url.searchParams.get("year") ?? String(new Date().getFullYear() - 1));
 
   if (!Number.isFinite(lat) || !Number.isFinite(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) {
     return new Response(JSON.stringify({ ok: false, error: "invalid_coordinates" }), {

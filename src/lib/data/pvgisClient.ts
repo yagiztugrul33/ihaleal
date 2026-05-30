@@ -1,3 +1,21 @@
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+
+/** pvgis_solar edge POST body (`functions.invoke`). */
+export function buildPvgisInvokeBody(params: {
+  lat: number;
+  lon: number;
+  tiltDeg?: number;
+  aspectDeg?: number;
+  year?: number;
+}) {
+  return {
+    lat: params.lat,
+    lon: params.lon,
+    tilt: params.tiltDeg ?? 25,
+    aspect: params.aspectDeg ?? 0,
+    year: params.year ?? new Date().getFullYear() - 1,
+  };
+}
 
 export type PvgisSolarData = {
   ok: true;
@@ -24,15 +42,24 @@ export async function fetchPvgisSolar(params: {
   const aspect = params.aspectDeg ?? 0;
   const year = params.year ?? new Date().getFullYear() - 1;
 
-  const q = new URLSearchParams({
-    lat: String(params.lat),
-    lon: String(params.lon),
-    tilt: String(tilt),
-    aspect: String(aspect),
-    year: String(year),
-  });
-  const base = import.meta.env.VITE_SUPABASE_URL;
-  if (base) {
+  if (isSupabaseConfigured()) {
+    try {
+      const { data, error } = await supabase.functions.invoke<PvgisSolarData & { ok: boolean }>("pvgis_solar", {
+        body: buildPvgisInvokeBody(params),
+      });
+      if (!error && data?.ok) return data;
+    } catch {
+      /* fallback below */
+    }
+
+    const q = new URLSearchParams({
+      lat: String(params.lat),
+      lon: String(params.lon),
+      tilt: String(tilt),
+      aspect: String(aspect),
+      year: String(year),
+    });
+    const base = import.meta.env.VITE_SUPABASE_URL;
     try {
       const res = await fetch(`${base}/functions/v1/pvgis_solar?${q}`, {
         headers: {

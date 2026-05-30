@@ -28,11 +28,16 @@ function extractClientIp(req: Request): string {
   return req.headers.get("x-real-ip") ?? "unknown";
 }
 
-async function checkRateLimit(ip: string): Promise<{ ok: boolean; reason?: string }> {
+type RateLimitResult =
+  | { allowed: true }
+  | { allowed: false; limited: true }
+  | { allowed: false; limited: false; reason: string };
+
+async function checkRateLimit(ip: string): Promise<RateLimitResult> {
   const url = Deno.env.get("SUPABASE_URL");
   const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-  // Rate limit infra yoksa GUVENLI default: izin ver (mevcut davranisi degistirme).
-  if (!url || !serviceKey) return { ok: true, reason: "rl_not_configured" };
+  // Fail-closed: rate limit altyapisi yoksa veya erisilemezse istegi reddet.
+  if (!url || !serviceKey) return { allowed: false, limited: false, reason: "rl_not_configured" };
   try {
     const admin = createClient(url, serviceKey);
     const { data, error } = await admin.rpc("rl_consume", {
@@ -41,10 +46,11 @@ async function checkRateLimit(ip: string): Promise<{ ok: boolean; reason?: strin
       p_refill_rate: RL_REFILL_PER_SEC,
       p_cost: 1,
     });
-    if (error) return { ok: true, reason: "rl_rpc_failed" }; // sertligi UX'i kirma — log ile yetin
-    return { ok: data === true };
+    if (error) return { allowed: false, limited: false, reason: "rl_rpc_failed" };
+    if (data === true) return { allowed: true };
+    return { allowed: false, limited: true };
   } catch {
-    return { ok: true, reason: "rl_exception" };
+    return { allowed: false, limited: false, reason: "rl_exception" };
   }
 }
 
@@ -88,10 +94,16 @@ Deno.serve(async (req) => {
   // IP rate limit — public widget icin spam guard (JWT zorunlu degil).
   const ip = extractClientIp(req);
   const rl = await checkRateLimit(ip);
-  if (!rl.ok) {
+  if (!rl.allowed) {
+    if (rl.limited) {
+      return new Response(
+        JSON.stringify({ error: "rate_limited", retry_after_seconds: 180 }),
+        { status: 429, headers: { ...cors, "Content-Type": "application/json", "Retry-After": "180" } },
+      );
+    }
     return new Response(
-      JSON.stringify({ error: "rate_limited", retry_after_seconds: 180 }),
-      { status: 429, headers: { ...cors, "Content-Type": "application/json", "Retry-After": "180" } },
+      JSON.stringify({ error: "rate_limit_unavailable", detail: rl.reason }),
+      { status: 503, headers: { ...cors, "Content-Type": "application/json" } },
     );
   }
 
