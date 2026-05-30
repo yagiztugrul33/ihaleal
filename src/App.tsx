@@ -1,4 +1,4 @@
-﻿import { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LocaleProvider } from "@/contexts/LocaleContext";
@@ -10,6 +10,7 @@ import { Home } from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
 import { LocalAuthGate } from "@/components/LocalAuthGate";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
@@ -434,11 +435,12 @@ function App() {
             <Route path="/emlakci" element={<EmlakciLanding />} />
             <Route path="/emlakci/panel" element={<EmlakciPanelPage />} />
             <Route path="/muteahhit" element={<MuteahhitLanding />} />
-            <Route path="/muteahhit/panel" element={<MuteahhitPanelPage />} />
+            <Route path="/muteahhit/panel" element={<ProtectedRoute><MuteahhitPanelPage /></ProtectedRoute>} />
             {/* R14 — Müteahhit Lansman Sprint */}
-            <Route path="/muteahhit/onay-bekleniyor" element={<MuteahhitOnayBekleniyor />} />
-            <Route path="/muteahhit/yeni-proje" element={<MuteahhitYeniProjePage />} />
-            <Route path="/muteahhit/proje/:projectId" element={<MuteahhitProjeDetayPage />} />
+            <Route path="/muteahhit/onay-bekleniyor" element={<ProtectedRoute><MuteahhitOnayBekleniyor /></ProtectedRoute>} />
+            <Route path="/muteahhit/yeni-proje" element={<ProtectedRoute><MuteahhitYeniProjePage /></ProtectedRoute>} />
+            <Route path="/muteahhit/proje/:projectId" element={<ProtectedRoute><MuteahhitProjeDetayPage /></ProtectedRoute>} />
+            {/* /proje/:projectId KAMU sayfasi — verified projeler anon erisime acik */}
             <Route path="/proje/:projectId" element={<MuteahhitProjeKamuPage />} />
             <Route path="/oduller" element={<LoyaltyProgramPage />} />
             <Route path="/kampanyalar" element={<CampaignsPage />} />
