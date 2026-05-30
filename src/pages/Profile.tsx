@@ -39,7 +39,7 @@ export default function Profile() {
         if (data.phone) setPhone(String(data.phone));
         if (data.email) setEmail(String(data.email));
       });
-  }, [user?.id, user?.authBackend]);
+  }, [user]);
 
   if (!user) {
     return (

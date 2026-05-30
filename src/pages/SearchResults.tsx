@@ -57,7 +57,7 @@ export default function SearchResults() {
     return () => {
       ok = false;
     };
-  }, []);
+  }, [c.errorLoad]);
 
   const results = useMemo(() => {
     const q = normalize(query);
