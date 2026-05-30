@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle2, User, Phone, Building2, FileText, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,6 @@ import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { translateAuthError } from "@/lib/authErrors";
 import { useAuth } from "@/contexts/AuthContext";
 import { parseKurumsalProfil, postLoginPathForProfil } from "@/lib/authProfile";
-import { buildContractorOrgSlug } from "@/lib/contractorOrgSlug";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -82,44 +81,27 @@ export default function Register() {
         return;
       }
 
-      // R14 — Müteahhit: organizations → organization_members → set_active_org → profiles
+      // R14 — Müteahhit: register_contractor_org RPC (SECURITY DEFINER, atomic)
+      // RLS chicken-egg cozumu: .insert().select() yerine tek RPC -> org + member
+      // ayni transaction'da olusur, RETURNING uzerinde SELECT policy tetiklenmez.
       if (isMuteahhit && session?.user) {
         const firmaAdi = companyName.trim();
-        const { data: orgRow, error: orgErr } = await supabase
-          .from("organizations")
-          .insert({
-            slug: buildContractorOrgSlug(firmaAdi),
-            legal_name: firmaAdi,
-            display_name: firmaAdi,
-            org_type: "contractor",
-            tax_number: taxNumber.trim(),
-            settings: {
-              ruhsat_pending: true,
-              company_address: companyAddress.trim(),
-              created_via: "self_register",
-            },
-          })
-          .select("id")
-          .single();
-
-        if (orgErr || !orgRow?.id) {
+        const { data: orgIdData, error: rpcOrgErr } = await supabase.rpc(
+          "register_contractor_org",
+          {
+            p_legal_name: firmaAdi,
+            p_tax_number: taxNumber.trim(),
+            p_address: companyAddress.trim(),
+          },
+        );
+        if (rpcOrgErr || !orgIdData) {
           setError("Şirket kaydı oluşturulamadı. Destek ile iletişime geçin.");
           return;
         }
+        const orgId = String(orgIdData);
 
-        const { error: memErr } = await supabase.from("organization_members").insert({
-          organization_id: orgRow.id,
-          user_id: session.user.id,
-          role: "owner",
-          status: "active",
-        });
-        if (memErr) {
-          setError("Firma üyeliği oluşturulamadı. Destek ile iletişime geçin.");
-          return;
-        }
-
-        const { error: rpcErr } = await supabase.rpc("set_active_org", { p_org_id: orgRow.id });
-        if (rpcErr) {
+        const { error: actErr } = await supabase.rpc("set_active_org", { p_org_id: orgId });
+        if (actErr) {
           setError("Aktif firma oturumu ayarlanamadı. Destek ile iletişime geçin.");
           return;
         }
