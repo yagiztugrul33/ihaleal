@@ -17,15 +17,21 @@ const ROUTES = [
   "/",
   "/borsa",
   "/komisyon-hesaplayici",
+  "/konut-kredisi-hesaplayici",
   "/hizmet-bedelleri",
   "/modul/deprem-egitimi",
   "/modul/degerleme",
   "/modul/canli-deprem-takip",
+  "/modul/ges-analizi",
   `/ilan/${SAMPLE_LISTING_ID}`,
   "/giris",
   "/kayit?profil=muteahhit",
   "/muteahhit/panel",
   `/proje/${SAMPLE_PROJECT_ID}`,
+  "/uluslararasi",
+  "/kampanyalar",
+  "/mesajlar",
+  "/kyc",
 ];
 
 const VIEWPORTS = [
