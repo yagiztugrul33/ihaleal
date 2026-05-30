@@ -6,10 +6,12 @@
 // LiveEarthquakeTicker /modul/canli-deprem-takip sayfasına taşındı.
 import PremiumCinematicHome from "@/sections/PremiumCinematicHome";
 import { DepremTransparencyBand } from "@/components/home/DepremTransparencyBand";
+import { OnboardingTip } from "@/components/onboarding/OnboardingTip";
 
 export function Home() {
   return (
     <div className="page-background-premium home-ref-page">
+      <OnboardingTip />
       <PremiumCinematicHome />
       <DepremTransparencyBand />
     </div>
