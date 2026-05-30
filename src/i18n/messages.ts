@@ -48,6 +48,21 @@ export type HomeMessages = {
   investor: {
     heading: string;
   };
+  terminal: {
+    eyebrow: string;
+    prompt: string;
+    askPlaceholder: string;
+    askSubmit: string;
+    options: {
+      rent: string;
+      sale: string;
+      auction: string;
+      launch: string;
+    };
+    borsaCta: string;
+    aiUnavailable: string;
+    hints: string[];
+  };
 };
 
 export type CommonMessages = {
@@ -209,6 +224,26 @@ export const messages: Record<Locale, Messages> = {
       investor: {
         heading: "Investor Panel",
       },
+      terminal: {
+        eyebrow: "iHaleal Terminal",
+        prompt: "What are you looking for?",
+        askPlaceholder: "Ask anything…",
+        askSubmit: "Ask",
+        options: {
+          rent: "FOR RENT",
+          sale: "FOR SALE",
+          auction: "AUCTION",
+          launch: "LAUNCH",
+        },
+        borsaCta: "Go to exchange terminal →",
+        aiUnavailable:
+          "AI assistant is temporarily unavailable (quota or configuration pending). Try the quick links below.",
+        hints: [
+          "How to bid on auctions? → /how-it-works",
+          "Live auctions → /auctions",
+          "Exchange terminal → /borsa",
+        ],
+      },
     },
     common: {
       loading: "Loading…",
@@ -341,6 +376,26 @@ export const messages: Record<Locale, Messages> = {
       },
       investor: {
         heading: "Yatırımcı Paneli",
+      },
+      terminal: {
+        eyebrow: "İhaleal Terminal",
+        prompt: "Ne arıyorsunuz?",
+        askPlaceholder: "Her şeyi sorun…",
+        askSubmit: "Sor",
+        options: {
+          rent: "KİRALIK",
+          sale: "SATILIK",
+          auction: "İHALE",
+          launch: "LANSMAN",
+        },
+        borsaCta: "Borsa terminaline geç →",
+        aiUnavailable:
+          "AI asistanı şu an kullanılamıyor (kotası veya yapılandırma bekleniyor). Aşağıdaki hızlı yönlendirmeleri deneyin.",
+        hints: [
+          "İhaleye nasıl teklif verilir? → /nasil-calisir",
+          "Canlı müzayede → /ihaleler",
+          "Borsa terminali → /borsa",
+        ],
       },
     },
     common: {
