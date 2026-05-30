@@ -9,11 +9,11 @@
 
 | İş | Durum | Commit |
 |----|-------|--------|
-| N7 Canlı kullanıcı sayacı | ✅ | _(commit)_ |
-| N8 Pantsir denetim + POI hibrit | ✅ | _(commit)_ |
-| N9 Programatik SEO (1908 sayfa) | ✅ | _(commit)_ |
-| N10 Buton zenginleştirme | ✅ | _(commit)_ |
-| N11 Rapor | ✅ | _(commit)_ |
+| N7 Canlı kullanıcı sayacı | ✅ | `6ec0de4` |
+| N8 Pantsir denetim + POI hibrit | ✅ | `1606617` |
+| N9 Programatik SEO (1908 sayfa) | ✅ | `7d941ea` |
+| N10 Buton zenginleştirme | ✅ | `211610c` |
+| N11 Rapor | ✅ | `2cf43a0` |
 
 ---
 
