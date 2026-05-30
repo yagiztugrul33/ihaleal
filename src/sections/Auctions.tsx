@@ -14,6 +14,18 @@ import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { getListingNumber } from "@/lib/listingNumber";
+import type { Auction } from "@/types/auction";
+
+type DealFilter = "all" | "sale" | "rent";
+
+function resolveDealType(a: Pick<Auction, "dealType" | "category">): "sale" | "rent" {
+  return a.dealType ?? (a.category === "Kiralık" ? "rent" : "sale");
+}
+
+function parseDealFilter(value: string | null): DealFilter {
+  if (value === "sale" || value === "rent") return value;
+  return "all";
+}
 
 export function Auctions({
   hideIntro = false,
@@ -32,6 +44,7 @@ export function Auctions({
   const [compareList, setCompareList] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000000]);
   const [selectedCity, setSelectedCity] = useState("all");
+  const [dealTypeFilter, setDealTypeFilter] = useState<DealFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
   const [catalogLoading, setCatalogLoading] = useState(true);
@@ -65,6 +78,7 @@ export function Auctions({
       if (filter !== "all" && a.status !== filter) return false;
       if (a.currentBid < priceRange[0] || a.currentBid > priceRange[1]) return false;
       if (selectedCity !== "all" && a.city !== selectedCity) return false;
+      if (dealTypeFilter !== "all" && resolveDealType(a) !== dealTypeFilter) return false;
       if (searchQuery) {
         const sq = searchQuery.toLowerCase();
         const inTitle = a.title.toLowerCase().includes(sq);
@@ -73,7 +87,7 @@ export function Auctions({
       }
       return true;
     });
-  }, [catalog, filter, priceRange, selectedCity, searchQuery]);
+  }, [catalog, filter, priceRange, selectedCity, dealTypeFilter, searchQuery]);
 
   const { toggleFavorite, isFavorite } = useFavorites();
 
@@ -137,7 +151,15 @@ export function Auctions({
           </div>
 
           {showFilters && (
-            <div className={`mt-4 p-5 rounded-2xl grid md:grid-cols-3 gap-5 animate-scale-in ${isHome ? "card-warm" : "bg-slate-900/50 border border-white/5"}`}>
+            <div className={`mt-4 p-5 rounded-2xl grid md:grid-cols-2 lg:grid-cols-4 gap-5 animate-scale-in ${isHome ? "card-warm" : "bg-slate-900/50 border border-white/5"}`}>
+              <div>
+                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">İşlem Tipi</label>
+                <select value={dealTypeFilter} onChange={(e) => setDealTypeFilter(parseDealFilter(e.target.value))} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                  <option value="all">Satılık + Kiralık</option>
+                  <option value="sale">Satılık</option>
+                  <option value="rent">Kiralık</option>
+                </select>
+              </div>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Fiyat Aralığı</label>
                 <Slider value={priceRange} onValueChange={(v) => setPriceRange(v as [number, number])} max={200000000} step={1000000} className="w-full" />
@@ -151,7 +173,7 @@ export function Auctions({
                 </select>
               </div>
               <div className="flex items-end justify-end">
-                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setSearchQuery(""); }} className="text-xs text-slate-500 hover:text-blue-400 transition-colors">Filtreleri Temizle</button>
+                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setDealTypeFilter("all"); setSearchQuery(""); }} className="text-xs text-slate-500 hover:text-blue-400 transition-colors">Filtreleri Temizle</button>
               </div>
             </div>
           )}
@@ -237,6 +259,7 @@ export function Auctions({
                 setFilter("all");
                 setPriceRange([0, 200000000]);
                 setSelectedCity("all");
+                setDealTypeFilter("all");
                 setSearchQuery("");
               }}
             >
