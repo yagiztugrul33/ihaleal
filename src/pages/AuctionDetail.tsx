@@ -52,6 +52,7 @@ import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIIn
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { ListingSimilarSection } from "@/components/listing/ListingSimilarSection";
 import { ListingNearbyPoiSection } from "@/components/listing/ListingNearbyPoiSection";
+import { ListingMortgageWidget } from "@/components/listing/ListingMortgageWidget";
 import { LoadingState, EmptyState } from "@/components/async";
 import { SellerTrustCard } from "@/components/trust/SellerTrustCard";
 import { ListingReviewDialog } from "@/components/trust/ListingReviewDialog";
@@ -958,7 +959,12 @@ export default function AuctionDetail() {
                     ) : null}
                   </div>
                   {mapCoords ? (
-                    <ListingNearbyPoiSection lat={mapCoords.lat} lng={mapCoords.lng} />
+                    <ListingNearbyPoiSection
+                      lat={mapCoords.lat}
+                      lng={mapCoords.lng}
+                      district={auction.district}
+                      city={auction.city}
+                    />
                   ) : null}
                 </div>
               )}
@@ -1187,6 +1193,9 @@ export default function AuctionDetail() {
                   <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => window.open("mailto:destek@ihaleal.com?subject=İlan%20talebi%20" + encodeURIComponent(auction.id), "_blank")}>
                     <Mail className="w-4 h-4" /> Destek talebi (e-posta)
                   </Button>
+                  {!isRent ? (
+                    <ListingMortgageWidget priceTry={liveBid} className="mt-1" />
+                  ) : null}
                 </div>
                 <div className="pt-4 border-t border-slate-200/80">
                   <button onClick={() => navigate("/ekspertiz")} className="w-full text-left p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
@@ -1248,7 +1257,9 @@ export default function AuctionDetail() {
           currentId={auction.id}
           catalog={catalog}
           city={auction.city}
+          district={auction.district}
           category={auction.category}
+          priceTry={auction.currentBid || auction.startingBid}
         />
       </div>
 

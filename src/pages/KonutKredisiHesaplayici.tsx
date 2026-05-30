@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Calculator, Percent, Calendar, Banknote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,7 +11,11 @@ const TERM_PRESETS = [60, 120, 180, 240] as const;
 
 export default function KonutKredisiHesaplayici() {
   const navigate = useNavigate();
-  const [amountStr, setAmountStr] = useState("3000000");
+  const [searchParams] = useSearchParams();
+  const initialAmount = searchParams.get("amount");
+  const [amountStr, setAmountStr] = useState(() =>
+    initialAmount && Number(initialAmount) > 0 ? String(Math.round(Number(initialAmount))) : "3000000",
+  );
   const [rateStr, setRateStr] = useState("2.89");
   const [termMonths, setTermMonths] = useState(120);
 
