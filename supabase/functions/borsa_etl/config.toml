@@ -1,0 +1,2 @@
+# Cron / service_role ile tetiklenir; anon JWT gerekmez.
+verify_jwt = false

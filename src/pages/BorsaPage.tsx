@@ -17,6 +17,7 @@ import { Line, LineChart, ResponsiveContainer } from "recharts";
 import { createMarketSnapshot } from "@/lib/borsa/marketData";
 import { buildOrderBook, maskBidder } from "@/lib/borsa/orderBook";
 import { isOutbid } from "@/lib/borsa/auctionEngine";
+import { BorsaAnalyticsDashboard } from "@/components/borsa/BorsaAnalyticsDashboard";
 
 type TerminalTab = "piyasa" | "varliklar" | "izleme" | "veri";
 type MarketTableTab = "en_aktif" | "yukselen" | "dusen" | "cok_islem" | "bitiyor";
@@ -1055,6 +1056,9 @@ export default function BorsaPage() {
         </section>
 
         <section className={cn("grid gap-4 lg:grid-cols-2", activeTab !== "veri" && "hidden")}>
+          <article className="borsa-card rounded-xl p-3 lg:col-span-2">
+            <BorsaAnalyticsDashboard />
+          </article>
           <article className="borsa-card rounded-xl p-3 lg:col-span-2">
             <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Piyasa Verisi Özeti</h3>
             <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">

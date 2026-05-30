@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Bell, Clock3, PlusCircle, ShieldCheck, Siren, TrendingUp } from "lucide-react";
 import { useLiveMarket } from "@/borsa/useLiveMarket";
 import { isOutbid } from "@/lib/borsa/auctionEngine";
-import { cn } from "@/lib/utils";
+import { useBorsaRegionWatchlist } from "@/hooks/useBorsaRegionWatchlist";
+import { BORSA_REGIONS } from "@/lib/borsa/regions";
 
 type PriceAlert = {
   id: string;
@@ -34,6 +35,7 @@ function formatRemaining(totalMin: number): string {
 export default function BorsaWatchlistPage() {
   const navigate = useNavigate();
   const { data } = useLiveMarket();
+  const { watched, toggle } = useBorsaRegionWatchlist();
   const [watchlistIds, setWatchlistIds] = useState<string[]>(() => {
     try {
       const raw = localStorage.getItem("borsa_watchlist_ids");
@@ -296,6 +298,28 @@ export default function BorsaWatchlistPage() {
                 </div>
               ))
             )}
+          </div>
+        </article>
+
+        <article className="rounded-xl border border-border bg-card p-3">
+          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Bölge Endeks İzleme</h3>
+          <p className="mb-3 text-[11px] text-slate-400">Endeks değişiminde uygulama içi bildirim (≥0,5 puan).</p>
+          <div className="flex flex-wrap gap-2">
+            {BORSA_REGIONS.map((r) => (
+              <button
+                key={r.code}
+                type="button"
+                onClick={() => toggle(r.code)}
+                className={cn(
+                  "rounded-md border px-2.5 py-1 text-xs font-semibold",
+                  watched.includes(r.code)
+                    ? "border-cyan-400/50 bg-cyan-500/15 text-cyan-100"
+                    : "border-slate-600 bg-slate-800 text-slate-400",
+                )}
+              >
+                {r.label}
+              </button>
+            ))}
           </div>
         </article>
 
