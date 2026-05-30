@@ -421,7 +421,7 @@ export function Navbar() {
                     type="button"
                     onClick={() => setMobileServiceOpen(expanded ? null : col.title)}
                     aria-expanded={expanded}
-                    className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-slate-200 hover:bg-slate-800/50"
+                    className="flex w-full min-h-11 items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-slate-200 hover:bg-slate-800/50"
                     data-testid={`nav-mobile-services-${col.title.toLowerCase()}`}
                   >
                     <span>{col.title}</span>
@@ -442,7 +442,7 @@ export function Navbar() {
                             setMobileServiceOpen(null);
                             setMobileOpen(false);
                           }}
-                          className="block rounded-lg px-3 py-2 text-sm text-slate-300 no-underline hover:bg-slate-800/50"
+                          className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
                         >
                           {item.label}
                         </NavLink>
@@ -455,7 +455,7 @@ export function Navbar() {
             <NavLink
               to={ROUTES.ARASTIRMA}
               onClick={() => setMobileOpen(false)}
-              className="mt-1 block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              className="mt-1 block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
             >
               {n.resources}
             </NavLink>
@@ -466,14 +466,14 @@ export function Navbar() {
             <NavLink
               to="/modul/deprem-risk-haritasi"
               onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
             >
               Deprem risk haritası
             </NavLink>
             <NavLink
               to="/modul/bina-risk-sorgu"
               onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
             >
               Bina risk sorgu
             </NavLink>
@@ -485,7 +485,7 @@ export function Navbar() {
                 key={sub.to}
                 to={sub.to}
                 onClick={() => setMobileOpen(false)}
-                className="block rounded-lg px-3 py-2.5 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+                className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
               >
                 {sub.label}
               </NavLink>
@@ -495,7 +495,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => pickLocale("en")}
                 className={cn(
-                  "flex-1 rounded-lg border py-2 text-center text-sm",
+                  "flex-1 min-h-11 rounded-lg border py-3 text-center text-sm",
                   locale === "en"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
@@ -507,7 +507,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => pickLocale("tr")}
                 className={cn(
-                  "flex-1 rounded-lg border py-2 text-center text-sm",
+                  "flex-1 min-h-11 rounded-lg border py-3 text-center text-sm",
                   locale === "tr"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
@@ -519,13 +519,13 @@ export function Navbar() {
             <div className="mt-2 flex gap-2">
               <Link
                 to="/giris"
-                className="flex-1 rounded-lg border border-slate-600/30 py-2.5 text-center text-sm text-slate-200 no-underline"
+                className="flex min-h-11 flex-1 items-center justify-center rounded-lg border border-slate-600/30 py-3 text-center text-sm text-slate-200 no-underline"
               >
                 {n.logIn}
               </Link>
               <Button
                 asChild
-                className="h-auto flex-1 rounded-lg py-2.5 text-center text-sm font-semibold text-white no-underline"
+                className="h-auto min-h-11 flex-1 rounded-lg py-3 text-center text-sm font-semibold text-white no-underline"
                 style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
               >
                 <Link to="/kayit">{n.signUp}</Link>
