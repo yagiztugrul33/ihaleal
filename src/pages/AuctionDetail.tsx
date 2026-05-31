@@ -32,6 +32,7 @@ import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { ShareButton } from "@/components/ShareButton";
 import { PdfExportButton } from "@/components/pdf/PdfExportButton";
 import { downloadListingPdf, downloadStructuredPdf } from "@/lib/pdf/pdfBuilder";
+import { downloadEndeksRaporu } from "@/lib/reports/endeksRaporu";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
 import { useAuth } from "@/contexts/AuthContext";
@@ -785,6 +786,12 @@ export default function AuctionDetail() {
                     regionNote: `${auction.city} / ${auction.district} bölge özeti — platform analizi.`,
                   })
                 }
+              />
+            )}
+            {auction && (
+              <PdfExportButton
+                label="Endeks Raporu"
+                onExport={() => downloadEndeksRaporu(auction)}
               />
             )}
             <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} className="text-slate-400 hover:text-blue-400" aria-label="Karşılaştır"><GitCompare className="w-4 h-4" /></Button>
