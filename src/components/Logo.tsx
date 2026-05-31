@@ -23,17 +23,21 @@ const logoSizes = {
 } as const;
 
 // Wordmark tipografisi — emblem boyutuyla optik denge.
+// Master onayli: ~2-2.5x buyutuldu (eski sm 1.6rem -> 2.6rem) — Master'in
+// gonderdigi referans gorseldeki orantiya yaklasildi. Wordmark artik
+// emblem'in gozlerinde "esit agirlik" tasiyor.
 const wordmarkSizes = {
-  sm: "text-[1.6rem] leading-[1] sm:text-[1.8rem]",
-  md: "text-[1.9rem] leading-[1] sm:text-[2.15rem]",
-  lg: "text-[2.4rem] leading-[1] sm:text-[2.8rem]",
+  sm: "text-[2.6rem] leading-[0.95] sm:text-[2.8rem]",
+  md: "text-[3.2rem] leading-[0.95] sm:text-[3.5rem]",
+  lg: "text-[4rem] leading-[0.95] sm:text-[4.5rem]",
 } as const;
 
 // Slogan tipografisi (wordmark altında küçük caps).
+// Wordmark buyudugu icin slogan da hafif buyutuldu — orantili dengelendi.
 const sloganSizes = {
-  sm: "text-[9px] tracking-[0.14em] sm:text-[10px] sm:tracking-[0.16em]",
-  md: "text-[10px] tracking-[0.14em] sm:text-[11px] sm:tracking-[0.16em]",
-  lg: "text-[11px] tracking-[0.16em] sm:text-[12px] sm:tracking-[0.18em]",
+  sm: "text-[10px] tracking-[0.14em] sm:text-[11px] sm:tracking-[0.16em]",
+  md: "text-[11px] tracking-[0.14em] sm:text-[12px] sm:tracking-[0.16em]",
+  lg: "text-[12px] tracking-[0.16em] sm:text-[13px] sm:tracking-[0.18em]",
 } as const;
 
 export function Logo({
@@ -90,9 +94,12 @@ function Wordmark({
       aria-hidden="true"
       className={cn(
         "inline-block select-none font-extrabold italic tracking-tight",
-        "bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600",
+        // Gold gradient — daha parlak baslangic (amber-100), daha derin son.
+        // Master referansindaki "kuyumcu altini" parlakligini taklit eder.
+        "bg-gradient-to-br from-amber-100 via-amber-300 to-amber-600",
         "bg-clip-text text-transparent",
-        "drop-shadow-[0_2px_8px_rgba(217,119,6,0.18)]",
+        // Koyu zeminde gold glow — drop-shadow guclendirildi.
+        "drop-shadow-[0_2px_12px_rgba(251,191,36,0.35)]",
         // Inter italic — emblem ile estetik uyum için modern sans.
         "font-[Inter,system-ui,sans-serif]",
         // Italic glyph sağa yatık; bounding box dışına taşmasın diye 0.18em
