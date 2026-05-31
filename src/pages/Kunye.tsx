@@ -44,10 +44,11 @@ export default function Kunye() {
               <MapPin className="w-5 h-5 text-cyan-300" />
               <h2 className="text-lg font-semibold text-white">Adres</h2>
             </div>
-            <p className="text-slate-200 text-sm leading-relaxed">
-              Esentepe Mah. Büyükdere Cad. Astoria No: 127/6<br />
+            <address className="not-italic text-slate-200 text-sm leading-relaxed">
+              Esentepe Mahallesi, Büyükdere Caddesi, Astoria<br />
+              Kapı No: 127 · Daire No: 6<br />
               Şişli / İstanbul / Türkiye
-            </p>
+            </address>
           </div>
 
           <div className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5">
@@ -73,6 +74,8 @@ export default function Kunye() {
               <h2 className="text-lg font-semibold text-white">Sorumlu Emlak Danışmanı</h2>
             </div>
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+              <dt className="text-slate-400">Ad Soyad</dt>
+              <dd className="text-slate-100 font-medium">Halil İbrahim Biçer</dd>
               <dt className="text-slate-400">Seviye</dt>
               <dd className="text-slate-100">Seviye 5</dd>
               <dt className="text-slate-400">Yeterlilik Belge No</dt>
@@ -87,10 +90,22 @@ export default function Kunye() {
             </div>
             <div className="space-y-2 text-sm">
               <p className="text-slate-200 flex items-center gap-2">
-                <Mail className="w-4 h-4 text-slate-500" /> info@ihaleal.com
+                <Mail className="w-4 h-4 text-slate-500 flex-shrink-0" />
+                <a
+                  href="mailto:info@ihaleal.com"
+                  className="text-cyan-300 hover:text-cyan-200 underline-offset-2 hover:underline"
+                >
+                  info@ihaleal.com
+                </a>
               </p>
               <p className="text-slate-200 flex items-center gap-2">
-                <Phone className="w-4 h-4 text-slate-500" /> (yakında)
+                <Phone className="w-4 h-4 text-slate-500 flex-shrink-0" />
+                <a
+                  href="tel:+905445327406"
+                  className="text-cyan-300 hover:text-cyan-200 underline-offset-2 hover:underline"
+                >
+                  0544 532 74 06
+                </a>
               </p>
             </div>
             <div className="mt-4 flex flex-wrap gap-2 text-xs">
