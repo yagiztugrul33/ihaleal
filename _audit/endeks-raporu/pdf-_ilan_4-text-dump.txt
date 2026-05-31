@@ -1,0 +1,121 @@
+İhaleal 01.06.2026
+İhaleal Endeks Raporu — Mülk Künyesi
+Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans · Yalıkavak, Muğla
+1) Mülk Kimliği
+Başlık: Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans
+Konum: Yalıkavak, Muğla
+Kategori: Konut | Etiketler: Deniz Manzaralı, Havuzlu, Site İçi, Yazlık
+Brüt / Net m²: 180 / 165
+Oda planı: 3+1 | Banyo: 2
+Kat: 2. Kat / 5
+Bina yaşı: 0-5 yıl bandı
+Isıtma: Klima | Cephe: Güney / Batı
+Balkon/Teras: Var | Asansör: Var | Otopark: Var
+Eşyalı: Hayır | Kullanım: Boş
+Tapu durumu: Kat Mülkiyetli | Kredi uygunluğu: Krediye Uygun
+Açıklama: Yalıkavak Marina'ya 2km, havuzlu lüks site içinde, 3+1, 180m², full deniz manzaralı rezidans. Yaz-kış
+yaşamaya uygun.
+Öne çıkan özellikler: Site Havuzu • Kapalı Havuz • Fitness Center • SPA • 24 Saat Concierge • Güvenlik • Otopark
+2) Mülk Sicili (Geçmiş İşlemler)
+Veri kaynağı: Demo (catalog tabanlı deterministic üretim — gerçek tapu kaydı için TKGM esastır)
+Toplam el değiştirme: 1
+İlk işlem fiyatı: ₺12.916.795
+Son işlem fiyatı: ₺18.500.000
+Toplam değer değişimi: %+43.2
+Yıllık bileşik getiri (CAGR): %+12.7
+Amortisman (bina yaşı × %2/yıl): — — kalan değer: ₺21.000.000
+İşlem zaman çizelgesi:
+1. 2 Haziran 2023 — LISTING — ₺12.916.795 | İlk platform listemesi (demo).
+2. 1 Haziran 2025 — SALE — ₺14.016.726 (sahip değişti) | Önceki satış işlemi (demo).
+3. 1 Haziran 2026 — LISTING — ₺18.500.000 | Şu anki listeleme (demo — kapanış gerçekleştiğinde sale).
+3) İhale / Fiyat Yapısı
+Pazarlama modu: Canlı ihale
+Başlangıç teklifi: ₺16.000.000
+Sayfa 1 / 4
+
+-- 1 of 4 --
+
+İhaleal 01.06.2026
+Mevcut teklif: ₺18.500.000
+Liste / ekspertiz değeri: ₺21.000.000
+Birim m² fiyatı: ₺102.778 / m²
+Teklif sayısı: 22
+İhale bitiş: 4 Haziran 2026
+4) Değerleme Analizi (AI + Borsa)
+Bölge ortalama satış m²: ₺78.000 / m²
+Bölge ortalama kira m²: ₺500 / m² / ay
+AI tahmin fiyatı: ₺19.500.000 (yatırım skoru 82/100)
+Mülkün m² fiyatı bölge ortalamasının 132%'i kadar
+Bölge yıllık değişim: %+18 (genel endeks — ortalama)
+Benzer satış emsalleri (bölge taban veri):
+• Bodrum: ₺156.000/m² satılık · ₺940/m²/ay kiralık
+• Fethiye: ₺92.000/m² satılık · ₺620/m²/ay kiralık
+• Marmaris: ₺104.000/m² satılık · ₺700/m²/ay kiralık
+5) Kredi Uygunluğu
+Konut kredisi uygunluğu: Krediye Uygun
+Tahmini kredi tutarı (LTV %75): ₺13.875.000
+Aylık taksit senaryosu:
+• 10 yıl (120 ay) · yıllık %45 faiz: ₺526.665 / ay
+• 15 yıl (180 ay) · yıllık %45 faiz: ₺521.003 / ay
+AI değerlendirmesi:
+AI değerleme kotası kapalı veya isteğiniz şu an alınamadı. Konut kredisi uygunluğu ekspertiz değerinin %75-80'i
+ile sınırlıdır; bankalar tarafından LTV oranı, kredi notu ve gelir doğrulamasıyla belirlenir.
+6) Deprem / Afet Riski
+Bölge fay/zemin notu: Mugla bölgesi için aktif fay analizi ve zemin sınıfı (ZA-ZE) AFAD verisinden çekilmelidir.
+Bina yaşı bandı: 0-5
+Yapı yönetmeliği: TBDY-2018 sonrası muhtemel
+AI değerlendirmesi:
+AI deprem değerlendirmesi şu an üretilemedi. Bina yaşı, zemin türü ve fay hattına mesafe kritik faktörlerdir.
+Resmi değerlendirme için AFAD risk haritası ve Bina Risk Sorgu sonucu esastır.
+Sayfa 2 / 4
+
+-- 2 of 4 --
+
+İhaleal 01.06.2026
+Resmi doğrulama: AFAD risk haritası + /modul/bina-risk-sorgu + lisanslı jeoloji mühendisi raporu.
+7) Eğitim Profili
+Bölge: Mugla, Yalıkavak
+Yakın eğitim olanakları: (mahalle profili — kademe dağılımı, üniversite mesafesi)
+AI değerlendirmesi:
+AI eğitim profili şu an üretilemedi. İl/ilçe ortalama okul yoğunluğu Milli Eğitim açık verisinden, üniversite
+mesafesi YÖK verisinden doğrulanmalı.
+Resmi doğrulama: MEB e-Okul, YÖK üniversite kayıt verileri.
+8) Güvenlik / Suç Profili
+Bölge güvenlik genel profili: Mugla
+AI değerlendirmesi:
+AI güvenlik değerlendirmesi şu an üretilemedi. Bölge suç oranı resmi olarak yalnız İçişleri Bakanlığı / EGM
+verisiyle teyit edilir.
+Resmi doğrulama: İçişleri Bakanlığı / EGM açık veri portalları.
+9) Kira Getirisi ve Yatırım Analizi
+Bölge ortalama kira: ₺500 / m² / ay
+Tahmini aylık kira (mülk için): ₺90.000
+Tahmini yıllık kira: ₺1.080.000
+Brüt yıllık getiri: %+5.8
+Geri ödeme süresi (basit): 17.2 yıl
+AI değerlendirmesi:
+AI kira getirisi yorumu üretilemedi. Bölge ortalama kira/m² fiyatları Borsa endeksi üzerinden gösterilir; gerçek
+getiri konut durumu, hizmet giderleri ve kira artış sözleşmesine bağlıdır.
+10) Çevre / Yaşam + Mahalle Profili
+Konum: Yalıkavak, Muğla (37.1015, 27.2962)
+Yakın olanaklar (bilinen sosyal altyapı):
+Sayfa 3 / 4
+
+-- 3 of 4 --
+
+İhaleal 01.06.2026
+• Yalıkavak Marina (other) — 2000 m
+• Beach (other) — 800 m
+• Minibüs Durağı (transport) — 300 m
+• Yalıkavak Çarşı (shopping) — 1200 m
+Bölge derinliği (AI):
+AI bölge profili şu an üretilemedi. Ulaşım, hastane, AVM ve park yakınlığı için harita modülü ile doğrudan ölçüm önerilir.
+Genel Özet ve Tavsiye
+AI özet yorumu şu an üretilemedi. Raporun veri bölümleri (sicili, fiyat, amortisman, bölge endeks) doğrudan
+platform kayıtlarından gelmektedir.
+İhaleal Endeks Raporu yapay zeka destekli analiz + platform verisine dayanır. Resmi ekspertiz, tapu kaydı veya AFAD/TÜİK/EGM resmi
+verisi değildir. Kesin tapu geçmişi için TKGM (Tapu ve Kadastro Genel Müdürlüğü), deprem risk için AFAD/Bina Risk Sorgu, kredi uygunluğu
+için ilgili banka resmi başvuru kanalı esastır. Yatırım tavsiyesi niteliği taşımaz.
+Sayfa 4 / 4
+
+-- 4 of 4 --
+

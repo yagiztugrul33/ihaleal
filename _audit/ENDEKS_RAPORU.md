@@ -1,7 +1,7 @@
 # İhaleal Endeks Raporu — Mülk Künye PDF Tamamlama Raporu
 
-**Tarih:** 2026-05-31
-**Tag:** `safe-before-endeks-raporu` (baseline, pushed)
+**Tarih:** 2026-05-31 → pekiştirme 2026-06-01
+**Tag:** `safe-before-endeks-raporu` (baseline) → `safe-after-endeks-pekistirme` (pekiştirme sonrası, pushed)
 **Tetikleyici:** Master vizyonu — mevcut /ilan PDF'i ÇOK SIĞ (konum+fiyat+kategori). ₺142M villa için kabul edilemez. 10 bölümlük kapsamlı mülk künye raporuna dönüştür.
 
 ---
@@ -136,10 +136,49 @@
 
 ---
 
-## 7) Sıradaki Anayasa Döngüsü
+## 7) Pekiştirme (2026-06-01) — SQL Seed + PDF İçerik Kanıt + cityKey Bug Fix
+
+Master brief'i tekrar gönderince eksik kalan iki kanıt + bir bug fix tamamlandı:
+
+### A) SQL seed dosyası — `supabase/seeds/listing_transaction_history_seed.sql`
+12 catalog ilanı için gerçekçi geçmiş işlem seed'i (1-3 tx / ilan):
+- Pattern: ilk listeleme (2-3 yıl önce, %60-80) → opsiyonel satış (sahip değişti) → bugünkü liste
+- Toplam ~30 satır insert + commit + verification query
+- Idempotent: aynı `(listing_id, source='demo')` tekrar çalıştırılırsa önce silinir
+- Master `npm run supabase:push` sonrası `psql -f supabase/seeds/listing_transaction_history_seed.sql` ile çalıştırır
+
+### B) PDF içerik kanıt scripti — `_audit/endeks-raporu/_pdf-content-verify.mjs`
+`pdf-parse` library ile gerçek text extraction:
+
+| PDF | Sayfa | Char | Bölüm | Keyword | Disclaimer |
+|---|---|---|---|---|---|
+| `pdf-_ilan_2.pdf` (Bebek villa) | **4 sayfa** | 5407 char | **11/11** ✅ | 8/8 ✅ | ✅ Tam (yapay zeka + Resmi ekspertiz + TKGM) |
+| `pdf-_ilan_4.pdf` (Bodrum rezidans) | 4 sayfa | 5211 char | **11/11** ✅ | 6/6 ✅ | ✅ Tam |
+
+**Bölüm doğrulaması (Bebek)**: 1) Mülk Kimliği · 2) Mülk Sicili · 3) İhale / Fiyat · 4) Değerleme Analizi · 5) Kredi Uygunluğu · 6) Deprem / Afet · 7) Eğitim Profili · 8) Güvenlik · 9) Kira Getirisi · 10) Çevre / Yaşam · Genel Özet — **tüm 11 başlık** PDF içinde bulundu.
+
+**Text dump'ları**: `_audit/endeks-raporu/pdf-_ilan_{2,4}-text-dump.txt` (tam içerik kanıt).
+
+### C) cityKey bug fix
+**Tespit**: PDF içeriği incelendiğinde "Bölge ortalama satış m²: —" görüldü (eşleşmiyor).
+**Root cause**: `"İstanbul".toLowerCase()` JavaScript'te `"i̇stanbul"` (i + combining dot above U+0307) üretir; `regionalPriceData` key `"istanbul"` ile **eşleşmiyor**.
+**Fix**: `endeksRaporu.ts`'e yeni `toCityKey()` helper — önce `İ→I` eşleme, sonra `toLowerCase`, sonra diacritic kaldırma.
+**Doğrulama**: yeniden üretilen PDF'lerde:
+- `Bölge ortalama satış m²: ₺52.000/m²` ✅
+- `Bölge ortalama kira m²: ₺295/m²/ay` ✅
+- `Brüt yıllık getiri: %+4.5` ✅ (sıfır değil — region data uygulandı)
+
+### Tag + kanıt
+- `safe-after-endeks-pekistirme` pushed
+- Tam tarama: **104/104 PASS** (regresyon yok)
+- Build: yeşil, 279 entry precache aynı
+
+---
+
+## 8) Sıradaki Anayasa Döngüsü
 
 Brief sırası:
-1. ✅ İhaleal Endeks Raporu (bu)
+1. ✅ İhaleal Endeks Raporu (10 bölüm + pekiştirme)
 2. ▶ `/abone/onay` + `/abone/iptal` sayfaları (report_subscribers confirmation handler)
 3. EN i18n mikro-dalgalar
 4. Kalan polish

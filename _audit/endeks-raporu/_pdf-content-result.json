@@ -1,0 +1,24 @@
+{
+  "villa": {
+    "file": "pdf-_ilan_2.pdf",
+    "pages": 4,
+    "chars": 5407,
+    "sectionsMatched": 11,
+    "sectionsExpected": 11,
+    "keywordsMatched": 8,
+    "keywordsExpected": 8,
+    "hasDisclaimer": true,
+    "text": "İhaleal 01.06.2026\nİhaleal Endeks Raporu — Mülk Künyesi\nBebek'te Boğaz Manzaralı Tarihi Villa · Bebek, İstanbul\n1) Mülk Kimliği\nBaşlık: Bebek'te Boğaz Manzaralı Tarihi Villa\nKonum: Bebek, İstanbul\nKategori: Konut | Etiketler: Boğaz Manzaralı, Tarihi, Villa, Ultra Lüks\nBrüt / Net m²: 1200 / 980\nOda planı: 6+2 | Banyo: 5\nKat: Bahçe Katı + 3 / 3\nBina yaşı: 20+ yıl bandı\nIsıtma: Doğalgaz (Kombi) | Cep"
+  },
+  "residence": {
+    "file": "pdf-_ilan_4.pdf",
+    "pages": 4,
+    "chars": 5211,
+    "sectionsMatched": 11,
+    "sectionsExpected": 11,
+    "keywordsMatched": 6,
+    "keywordsExpected": 6,
+    "hasDisclaimer": true,
+    "text": "İhaleal 01.06.2026\nİhaleal Endeks Raporu — Mülk Künyesi\nBodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans · Yalıkavak, Muğla\n1) Mülk Kimliği\nBaşlık: Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans\nKonum: Yalıkavak, Muğla\nKategori: Konut | Etiketler: Deniz Manzaralı, Havuzlu, Site İçi, Yazlık\nBrüt / Net m²: 180 / 165\nOda planı: 3+1 | Banyo: 2\nKat: 2. Kat / 5\nBina yaşı: 0-5 yıl bandı\nIsıtma: Klima"
+  }
+}

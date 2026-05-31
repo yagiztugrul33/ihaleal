@@ -153,9 +153,7 @@ function buildSections(opts: {
   const p: Record<string, unknown> = a.propertyDetails ?? {};
   const grossM2 = (p.grossSqm as number) || 0;
   const netM2 = (p.netSqm as number) || 0;
-  const cityKey = (a.city || "").toLowerCase().replace(/[ığüşöç]/g, (c) =>
-    ({ ı: "i", ğ: "g", ü: "u", ş: "s", ö: "o", ç: "c" })[c] || c,
-  ) as CityKey;
+  const cityKey = toCityKey(a.city);
   const region = REGIONAL_PRICE_DATA.find((r) => r.key === cityKey);
   const regionLabel = region?.label || a.city || "—";
 
@@ -337,13 +335,26 @@ function buildSections(opts: {
   ];
 }
 
+function toCityKey(city: string | undefined | null): CityKey {
+  // KRİTİK: JS toLowerCase Türkçe lokal aware değil — "İ" → "i̇" (combining dot)
+  // üretir. Önce Türkçe büyük harf eşlemesi, sonra lowercase, sonra diacritic.
+  const normalized = (city || "")
+    .replace(/İ/g, "I")
+    .replace(/I/g, "I")
+    .toLowerCase()
+    .replace(/ı/g, "i")
+    .replace(/ğ/g, "g")
+    .replace(/ü/g, "u")
+    .replace(/ş/g, "s")
+    .replace(/ö/g, "o")
+    .replace(/ç/g, "c")
+    .trim();
+  return normalized as CityKey;
+}
+
 export async function downloadEndeksRaporu(auction: Auction): Promise<void> {
   const { history, fromDb } = await loadListingHistory(auction);
-  const cityKey = (auction.city || "")
-    .toLowerCase()
-    .replace(/[ığüşöç]/g, (c) =>
-      ({ ı: "i", ğ: "g", ü: "u", ş: "s", ö: "o", ç: "c" })[c] || c,
-    ) as CityKey;
+  const cityKey = toCityKey(auction.city);
   const region = REGIONAL_PRICE_DATA.find((r) => r.key === cityKey);
   const regionLabel = region?.label || auction.city || "—";
 
