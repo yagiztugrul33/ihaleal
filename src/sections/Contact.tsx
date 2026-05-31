@@ -60,19 +60,63 @@ export function Contact() {
           <p className="section-subtitle mx-auto">Sorularınız mı var? Ekibimiz size yardımcı olmaktan mutluluk duyar.</p>
         </div>
         <div className="grid lg:grid-cols-5 gap-10 lg:gap-12">
-          <div className="lg:col-span-2 space-y-6">
+          {/* Master onayli gercek iletisim bilgileri — tel:/mailto: aksiyon, tam adres, hafta-ici mesai. */}
+          <address className="lg:col-span-2 space-y-6 not-italic">
             {[
-              { icon: <Phone className="w-5 h-5 text-blue-400" />, label: "Telefon", value: "+90 212 123 45 67" },
-              { icon: <Mail className="w-5 h-5 text-blue-400" />, label: "E-posta", value: "info@ihaleal.com" },
-              { icon: <MapPin className="w-5 h-5 text-blue-400" />, label: "Adres", value: "İstanbul, Türkiye" },
-              { icon: <Clock className="w-5 h-5 text-blue-400" />, label: "Çalışma Saatleri", value: "Pzt - Cmt: 09:00 - 18:00" },
-            ].map((item, idx) => (
-              <div key={idx} className={`card-warm flex items-start gap-4 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`} style={{ transitionDelay: `${idx * 100}ms` }}>
-                <div className="p-2.5 rounded-lg shrink-0" style={{ background: "var(--color-bg-soft)" }}>{item.icon}</div>
-                <div><div className="text-xs uppercase tracking-wider mb-1" style={{ color: "var(--color-text-muted)" }}>{item.label}</div><div className="text-sm font-medium" style={{ color: "var(--color-text)" }}>{item.value}</div></div>
-              </div>
-            ))}
-          </div>
+              {
+                icon: <Phone className="w-5 h-5 text-blue-400" />,
+                label: "Telefon",
+                value: "0544 532 74 06",
+                href: "tel:+905445327406",
+              },
+              {
+                icon: <Mail className="w-5 h-5 text-blue-400" />,
+                label: "E-posta",
+                value: "info@ihaleal.com",
+                href: "mailto:info@ihaleal.com",
+              },
+              {
+                icon: <MapPin className="w-5 h-5 text-blue-400" />,
+                label: "Adres",
+                value: "Esentepe Mah. Büyükdere Cad. Astoria, Kapı No: 127 Daire No: 6, Şişli / İstanbul",
+                href: undefined as string | undefined,
+              },
+              {
+                icon: <Clock className="w-5 h-5 text-blue-400" />,
+                label: "Çalışma Saatleri",
+                value: "Hafta içi 09:00 - 18:00",
+                href: undefined as string | undefined,
+              },
+            ].map((item, idx) => {
+              const Wrapper = item.href ? "a" : "div";
+              return (
+                <Wrapper
+                  key={idx}
+                  {...(item.href ? { href: item.href } : {})}
+                  className={`card-warm flex items-start gap-4 ${item.href ? "hover:border-blue-400/40 transition-colors" : ""} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
+                  style={{ transitionDelay: `${idx * 100}ms` }}
+                >
+                  <div className="p-2.5 rounded-lg shrink-0" style={{ background: "var(--color-bg-soft)" }}>
+                    {item.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <div
+                      className="text-xs uppercase tracking-wider mb-1"
+                      style={{ color: "var(--color-text-muted)" }}
+                    >
+                      {item.label}
+                    </div>
+                    <div
+                      className="text-sm font-medium leading-relaxed"
+                      style={{ color: "var(--color-text)" }}
+                    >
+                      {item.value}
+                    </div>
+                  </div>
+                </Wrapper>
+              );
+            })}
+          </address>
           <form onSubmit={handleSubmit} className={`lg:col-span-3 card-warm p-6 lg:p-8 space-y-5 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: "200ms" }}>
             {status === "success" && <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 animate-fade-in"><CheckCircle2 className="w-5 h-5 shrink-0" /><span className="text-sm font-medium">Mesajınız başarıyla gönderildi!</span></div>}
             {status === "error" && <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 animate-fade-in"><AlertCircle className="w-5 h-5 shrink-0" /><span className="text-sm font-medium">Bir hata oluştu.</span></div>}
