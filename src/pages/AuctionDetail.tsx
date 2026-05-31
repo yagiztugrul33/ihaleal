@@ -84,6 +84,8 @@ import { MASTER_LEGAL_DISCLAIMER, MODULE3_HEMEN_AL_ACCEPTANCE } from "@/legal/ma
 import { BID_GATE_CHECKBOXES, initialBidGateAck, isBidGateComplete } from "@/legal/bidGateAgreement";
 import { placeBidRpc, minNextBidTry, parsePositiveTryFromInput } from "@/lib/placeBid";
 import { executeBuyNow } from "@/lib/buyNow";
+import { invokeSystemQa } from "@/lib/systemQaClient";
+import { Sparkles, Loader2 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
@@ -153,6 +155,9 @@ export default function AuctionDetail() {
   const proxyKey = id ? `ihaleal_proxy_max_${id}` : "";
   const [proxyEnabled, setProxyEnabled] = useState<boolean>(false);
   const [proxyMaxAmount, setProxyMaxAmount] = useState<string>("");
+  // Dalga 2-3: AI öneri "Bu ihaleye ne vermeli?"
+  const [aiBidBusy, setAiBidBusy] = useState(false);
+  const [aiBidReply, setAiBidReply] = useState<string | null>(null);
   useEffect(() => {
     if (!proxyKey) return;
     try {
@@ -1195,6 +1200,62 @@ export default function AuctionDetail() {
                     size="md"
                     layout="wide"
                   />
+                ) : null}
+
+                {/* Dalga 2-3: AI öneri — "Bu ihaleye ne vermeli?" */}
+                {!isListingOnly ? (
+                  <div className="rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-500/10 to-cyan-500/5 p-3" data-testid="ai-bid-suggestion">
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-violet-200 flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5" /> AI Teklif Önerisi
+                      </h4>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        disabled={aiBidBusy}
+                        onClick={async () => {
+                          if (aiBidBusy) return;
+                          setAiBidBusy(true);
+                          setAiBidReply(null);
+                          const prompt =
+                            `Bir kullanıcı şu ihaleyi takip ediyor: "${auction.title.slice(0, 80)}" ` +
+                            `(${auction.district}, ${auction.city}, ${auction.category}, ` +
+                            `${auction.propertyDetails?.grossSqm ?? "?"} m²). ` +
+                            `Güncel teklif ₺${liveBid.toLocaleString("tr-TR")}, ` +
+                            `AI tahmini fiyat ₺${auction.aiPredictedPrice.toLocaleString("tr-TR")}, ` +
+                            `birim fiyat ₺${auction.pricePerSqm.toLocaleString("tr-TR")}/m², ` +
+                            `bölge ortalama ₺${(auction.areaStats?.avgPricePerSqm ?? 0).toLocaleString("tr-TR")}/m², ` +
+                            `kira getirisi %${auction.areaStats?.rentalYield ?? 0}, ` +
+                            `talep endeksi ${auction.areaStats?.demandIndex ?? 0}/100. ` +
+                            `3 cümlede: (1) önerilen makul teklif aralığı (₺X-Y), ` +
+                            `(2) bu öneri neye dayanır (bölge/m²/emsal), ` +
+                            `(3) bu ihalede dikkat edilmesi gereken risk noktası. ` +
+                            `Yatırım tavsiyesi değil; bilgilendirme amaçlı.`;
+                          const res = await invokeSystemQa([{ role: "user", content: prompt }]);
+                          if (res.ok) {
+                            setAiBidReply(res.text.slice(0, 700));
+                          } else {
+                            setAiBidReply("AI önerisi şu an alınamadı. Lütfen birkaç dakika sonra tekrar deneyin.");
+                          }
+                          setAiBidBusy(false);
+                        }}
+                        className="h-7 px-2 text-[11px] gap-1 border-violet-400/40 text-violet-100 hover:bg-violet-500/10"
+                      >
+                        {aiBidBusy ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                        {aiBidBusy ? "Düşünüyor…" : aiBidReply ? "Tekrar sor" : "Öneri al"}
+                      </Button>
+                    </div>
+                    {aiBidReply ? (
+                      <div className="rounded-md border border-violet-400/25 bg-violet-500/5 px-2.5 py-2 text-[11px] text-violet-100 leading-relaxed whitespace-pre-line" data-testid="ai-bid-reply">
+                        {aiBidReply}
+                      </div>
+                    ) : (
+                      <p className="text-[11px] text-violet-200/70 leading-snug">
+                        Tek tıkla bu mülk için önerilen teklif aralığı, dayanağı ve risk noktası AI tarafından üretilir.
+                      </p>
+                    )}
+                  </div>
                 ) : null}
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
