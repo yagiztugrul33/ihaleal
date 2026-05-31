@@ -20,10 +20,11 @@ export const BRAND_WORDMARK = "ihaleal";
 export const BRAND_SLOGAN = "Türkiye'nin Gayrimenkul Borsası";
 
 // Lockup PNG doğal oranı ~2.6:1 (378×146). Yükseklik sabit, genişlik
-// w-auto + object-contain ile orantılı kayar. Master "navbar'da net+büyük"
-// hedefi: sm 48px height -> ~125px width navbar fit.
+// w-auto + object-contain ile orantılı kayar.
+// sm: mobilde h-14 (56px ~146px wide) — Master "büyük+net" geri bildirimi
+//     karşılansın; sm: breakpoint sonrasi h-12 (48px) navbar kompakt kalır.
 const lockupSizes = {
-  sm: "h-12 w-auto",
+  sm: "h-14 w-auto sm:h-12",
   md: "h-14 w-auto sm:h-16",
   lg: "h-20 w-auto sm:h-24",
 } as const;
