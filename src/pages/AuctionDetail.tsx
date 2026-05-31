@@ -31,7 +31,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { ShareButton } from "@/components/ShareButton";
 import { PdfExportButton } from "@/components/pdf/PdfExportButton";
-import { downloadListingPdf } from "@/lib/pdf/pdfBuilder";
+import { downloadListingPdf, downloadStructuredPdf } from "@/lib/pdf/pdfBuilder";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
 import { useAuth } from "@/contexts/AuthContext";
@@ -158,6 +158,8 @@ export default function AuctionDetail() {
   // Dalga 2-3: AI öneri "Bu ihaleye ne vermeli?"
   const [aiBidBusy, setAiBidBusy] = useState(false);
   const [aiBidReply, setAiBidReply] = useState<string | null>(null);
+  // Dalga 2-4: Ekspertiz PDF
+  const [expertisePdfBusy, setExpertisePdfBusy] = useState(false);
   useEffect(() => {
     if (!proxyKey) return;
     try {
@@ -1257,6 +1259,104 @@ export default function AuctionDetail() {
                     )}
                   </div>
                 ) : null}
+
+                {/* Dalga 2-4: Ekspertiz Raporu PDF */}
+                <div className="rounded-xl border border-cyan-500/25 bg-cyan-500/5 p-3" data-testid="expertise-pdf">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-200 flex items-center gap-1.5">
+                      <FileText className="w-3.5 h-3.5" /> Ekspertiz Raporu
+                    </h4>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      disabled={expertisePdfBusy}
+                      onClick={async () => {
+                        if (expertisePdfBusy) return;
+                        setExpertisePdfBusy(true);
+                        try {
+                          const p = auction.propertyDetails;
+                          const a = auction.areaStats;
+                          await downloadStructuredPdf({
+                            title: "İhaleal Ekspertiz Özet Raporu",
+                            subtitle: `${auction.title} · ${auction.district}, ${auction.city}`,
+                            filename: `ihaleal-ekspertiz-${getListingNumber(auction).replace(/[^a-z0-9]/gi, "-")}.pdf`,
+                            disclaimer:
+                              "Bu rapor algoritmik özet üretir; SPK lisanslı resmi ekspertiz raporu değildir. " +
+                              "Banka kredisi veya yasal işlemler için lisanslı eksper raporu gereklidir. " +
+                              "Yatırım tavsiyesi değildir.",
+                            sections: [
+                              {
+                                heading: "Mülk Tanımı",
+                                lines: [
+                                  `Başlık: ${auction.title}`,
+                                  `Konum: ${auction.district}, ${auction.city}`,
+                                  `Kategori: ${auction.category}`,
+                                  `Brüt / Net m²: ${p?.grossSqm ?? "—"} / ${p?.netSqm ?? "—"} m²`,
+                                  `Oda dağılımı: ${p?.roomCount ?? "—"}`,
+                                  `Kat / Toplam: ${p?.floor ?? "—"} / ${p?.totalFloors ?? "—"}`,
+                                  `Bina yaşı: ${p?.buildingAge ?? "—"}`,
+                                  `Isıtma: ${p?.heating ?? "—"}`,
+                                  `Tapu durumu: ${p?.deedStatus ?? "—"}`,
+                                  `Krediye uygunluk: ${p?.eligibility ?? "—"}`,
+                                ],
+                              },
+                              {
+                                heading: "Fiyat ve Değerleme",
+                                lines: [
+                                  `Güncel teklif / liste: ₺${liveBid.toLocaleString("tr-TR")}`,
+                                  `AI tahmini değer: ₺${auction.aiPredictedPrice.toLocaleString("tr-TR")}`,
+                                  `Birim fiyat: ₺${auction.pricePerSqm.toLocaleString("tr-TR")} / m²`,
+                                  `Tahmini değer (referans): ₺${auction.estimatedValue.toLocaleString("tr-TR")}`,
+                                  `Yatırım skoru: ${auction.investmentScore}/100`,
+                                ],
+                              },
+                              {
+                                heading: "Bölge Analizi",
+                                lines: a
+                                  ? [
+                                      `Bölge ortalama m² fiyatı: ₺${a.avgPricePerSqm.toLocaleString("tr-TR")}`,
+                                      `Aylık değişim: %${a.priceChangeMonthly.toFixed(1)}`,
+                                      `Yıllık değişim: %${a.priceChangeYearly.toFixed(1)}`,
+                                      `Kira getirisi: %${a.rentalYield.toFixed(1)}`,
+                                      `Talep endeksi: ${a.demandIndex}/100`,
+                                      `Ortalama satış süresi: ${a.avgDaysOnMarket} gün`,
+                                    ]
+                                  : ["Bölge verisi mevcut değil."],
+                              },
+                              {
+                                heading: "Özellikler",
+                                lines:
+                                  auction.features?.length > 0
+                                    ? auction.features.map((f) => `• ${f}`)
+                                    : ["Özellik listesi mevcut değil."],
+                              },
+                              ...(auction.nearbyFacilities && auction.nearbyFacilities.length > 0
+                                ? [
+                                    {
+                                      heading: "Çevre Olanakları",
+                                      lines: auction.nearbyFacilities.map(
+                                        (f) => `• ${f.name} (${f.type}) — ${f.distance} m`,
+                                      ),
+                                    },
+                                  ]
+                                : []),
+                            ],
+                          });
+                        } finally {
+                          setExpertisePdfBusy(false);
+                        }
+                      }}
+                      className="h-7 px-2 text-[11px] gap-1 border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/10"
+                    >
+                      {expertisePdfBusy ? <Loader2 className="w-3 h-3 animate-spin" /> : <FileText className="w-3 h-3" />}
+                      {expertisePdfBusy ? "Hazırlanıyor…" : "PDF İndir"}
+                    </Button>
+                  </div>
+                  <p className="text-[11px] text-cyan-200/70 leading-snug">
+                    Mülk tanımı, fiyat değerleme, bölge analizi, özellikler ve çevre olanakları — Roboto Türkçe font ile profesyonel PDF özet.
+                  </p>
+                </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
                   <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
