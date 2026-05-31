@@ -25,6 +25,9 @@ import {
 import { downloadStructuredPdf, type PdfSection } from "@/lib/pdf/pdfBuilder";
 import { invokeSystemQa } from "@/lib/systemQaClient";
 import { buildSafeQaMessages } from "@/lib/security/aiSanitize";
+import { fetchTcmbAll, type TcmbSeriesResult } from "@/lib/reports/tcmbClient";
+import { findEmsaller, type EmsalSummary } from "@/lib/reports/emsalMotoru";
+import { getLocalAndStaticAuctions } from "@/lib/auctionsSource";
 
 interface AiEnrich {
   credit: string;
@@ -207,10 +210,60 @@ async function enrichWithAi(
 }
 
 const DISCLAIMER =
-  "İhaleal Endeks Raporu yapay zeka destekli analiz + platform verisine dayanır. " +
-  "Resmi ekspertiz, tapu kaydı veya AFAD/TÜİK/EGM resmi verisi değildir. " +
-  "Kesin tapu geçmişi için TKGM (Tapu ve Kadastro Genel Müdürlüğü), deprem risk için AFAD/Bina Risk Sorgu, " +
-  "kredi uygunluğu için ilgili banka resmi başvuru kanalı esastır. Yatırım tavsiyesi niteliği taşımaz.";
+  "İhaleal Endeks Raporu — Veri kaynakları: TCMB EVDS (Konut Fiyat Endeksleri), platform işlem kayıtları " +
+  "(listing_transaction_history), bölgesel piyasa endeksi (regionalPriceData), platform kapanış endeksi " +
+  "(sealed mülklerden hesap), AI değerlendirme (ai_qa Edge function). Bu rapor yapay zeka destekli analiz " +
+  "+ resmi açık veri kombinasyonudur. Tapu kaydı için TKGM, deprem risk için AFAD, kredi uygunluğu için " +
+  "ilgili banka, eğitim/güvenlik için MEB/EGM resmi kaynakları esastır. Yatırım tavsiyesi niteliği taşımaz.";
+
+function tcmbSummary(t: TcmbSeriesResult[]): PdfSection {
+  const lines: string[] = [
+    "Veri kaynağı: TCMB Elektronik Veri Dağıtım Sistemi (EVDS) — Konut Fiyat Endeksleri.",
+    "",
+  ];
+  for (const s of t) {
+    const lv = s.lastValue != null ? s.lastValue.toFixed(1) : "—";
+    const yoy = s.yoyPct != null ? `${s.yoyPct > 0 ? "+" : ""}${s.yoyPct.toFixed(1)}%` : "—";
+    lines.push(`  • ${s.label} — Son değer: ${lv} · Yıllık değişim: ${yoy}`);
+    if (s.points.length >= 12) {
+      const recent = s.points.slice(-6);
+      lines.push(
+        `    Son 6 ay: ${recent.map((p) => `${p.date}=${p.value?.toFixed(1) ?? "—"}`).join(" · ")}`,
+      );
+    }
+    if (s.source === "fallback_synthetic") {
+      lines.push(`    (TCMB key yok — sentetik fallback; Master TCMB_EVDS_KEY secret eklersse gerçek veri)`);
+    }
+  }
+  return { heading: "11) Resmi Endeks Trendleri (TCMB EVDS)", lines };
+}
+
+function emsalSection(emsal: EmsalSummary): PdfSection {
+  const lines: string[] = [
+    `Toplam emsal sayısı: ${emsal.count} (bölge + kategori + m² yakınlığı min 30/100 puan)`,
+    `Bölge m² fiyat istatistikleri:`,
+    `  • Minimum: ${fmtTRY(emsal.minPricePerM2)} / m²`,
+    `  • Medyan:  ${fmtTRY(emsal.medianPricePerM2)} / m²`,
+    `  • Ortalama: ${fmtTRY(emsal.meanPricePerM2)} / m²`,
+    `  • Maksimum: ${fmtTRY(emsal.maxPricePerM2)} / m²`,
+    "",
+    `Bu mülk pazar sıralaması: ${emsal.targetRank.position}/${emsal.targetRank.total} (Top %${100 - emsal.targetRank.percentile})`,
+    `→ Çünkü m² fiyatı emsallerin %${emsal.targetRank.percentile}'sinden DAHA YÜKSEK.`,
+    "",
+    "Platform Kapanış Endeksi (sealed mülklerden — Endeksa'da YOK, bizim kozumuz):",
+    emsal.closingSampleSize > 0
+      ? `  → Bu bölgede tamamlanmış ${emsal.closingSampleSize} ihale ortalama açılışın %${emsal.closingPremiumPct > 0 ? "+" : ""}${emsal.closingPremiumPct.toFixed(1)} ${emsal.closingPremiumPct > 0 ? "üstünde" : "altında"} kapanıyor.`
+      : "  → Bölgede kapanmış emsal henüz yok (canlı ihale veri tabanında biriktiriliyor).",
+    "",
+    "Top 8 en benzer emsal:",
+    ...emsal.rows.slice(0, 8).map((r) => {
+      const stat =
+        r.status === "live" ? "AKTİF" : r.status === "ended" ? "KAPANDI" : "YAKINDA";
+      return `  ${r.id} | ${r.title.slice(0, 50)} | ${r.district} | ${r.grossM2}m² · ${fmtTRY(r.pricePerM2)}/m² · ${fmtTRY(r.totalPrice)} | ${stat} | Benz. %${r.similarity}`;
+    }),
+  ];
+  return { heading: "12) Emsal Karşılaştırma ve Pazar Sıralaması", lines };
+}
 
 function fmtTRY(n: number | undefined | null): string {
   if (!n || !Number.isFinite(n)) return "—";
@@ -240,6 +293,8 @@ function buildSections(opts: {
   history: ListingTransaction[];
   fromDb: boolean;
   ai: AiEnrich;
+  tcmb?: TcmbSeriesResult[];
+  emsal?: EmsalSummary;
 }): PdfSection[] {
   const a = opts.auction;
   const p: Record<string, unknown> = a.propertyDetails ?? {};
@@ -418,6 +473,9 @@ function buildSections(opts: {
         opts.ai.neighborhood,
       ],
     },
+    // CEPHE 1 v4 — TCMB EVDS + emsal motoru + sıralama (Endeksa seviyesi)
+    ...(opts.tcmb && opts.tcmb.length > 0 ? [tcmbSummary(opts.tcmb)] : []),
+    ...(opts.emsal && opts.emsal.count > 0 ? [emsalSection(opts.emsal)] : []),
     {
       heading: "Genel Özet ve Tavsiye",
       lines: [
@@ -464,15 +522,21 @@ export async function downloadEndeksRaporu(auction: Auction): Promise<void> {
     : 0;
   const paybackPre = yieldPctPre > 0 ? Math.round((100 / yieldPctPre) * 10) / 10 : 0;
 
-  const aiTexts = await enrichWithAi(
-    auction,
-    regionLabel,
-    buildingAgePre,
-    monthlyRentPre,
-    yieldPctPre,
-    paybackPre,
-  );
-  const sections = buildSections({ auction, history, fromDb, ai: aiTexts });
+  // CEPHE 1 v4 — TCMB + emsal motoru paralel
+  const [aiTexts, tcmb, catalog] = await Promise.all([
+    enrichWithAi(
+      auction,
+      regionLabel,
+      buildingAgePre,
+      monthlyRentPre,
+      yieldPctPre,
+      paybackPre,
+    ),
+    fetchTcmbAll().catch(() => [] as TcmbSeriesResult[]),
+    Promise.resolve(getLocalAndStaticAuctions()),
+  ]);
+  const emsal = findEmsaller(auction, catalog, 20);
+  const sections = buildSections({ auction, history, fromDb, ai: aiTexts, tcmb, emsal });
 
   const safeSlug = auction.id.replace(/[^a-z0-9-]/gi, "-").slice(0, 40);
   const fname = `ihaleal-endeks-raporu-${safeSlug}-${new Date()

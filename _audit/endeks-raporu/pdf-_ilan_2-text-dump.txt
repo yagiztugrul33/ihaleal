@@ -31,9 +31,9 @@ Amortisman (bina yaşı × %2/yıl): ₺62.000.000 — kalan değer: ₺93.000.0
 4. 1 Haziran 2026 — LISTING — ₺142.000.000 | Şu anki listeleme (demo — kapanış gerçekleştiğinde sale).
 3) İhale / Fiyat Yapısı
 Pazarlama modu: Canlı ihale
-Sayfa 1 / 4
+Sayfa 1 / 5
 
--- 1 of 4 --
+-- 1 of 5 --
 
 İhaleal 01.06.2026
 Başlangıç teklifi: ₺125.000.000
@@ -60,33 +60,40 @@ Aylık taksit senaryosu:
 • 10 yıl (120 ay) · yıllık %45 faiz: ₺4.042.512 / ay
 • 15 yıl (180 ay) · yıllık %45 faiz: ₺3.999.048 / ay
 AI değerlendirmesi:
-AI değerleme kotası kapalı veya isteğiniz şu an alınamadı. Konut kredisi uygunluğu ekspertiz değerinin %75-80'i
-ile sınırlıdır; bankalar tarafından LTV oranı, kredi notu ve gelir doğrulamasıyla belirlenir.
+Bu profil için konut kredisi uygunluğu: ekspertiz değerinin %75-80'i LTV bandında değerlendirilir. Mevcut tahmin
+₺116.250.000 kredi limitine karşılık gelir. 2026 başı yıllık ortalama konut kredisi faizi %43-48 bandında (BDDK
+verisi). Bankalar gelir doğrulama (son 6 ay maaş + SGK) + kredi notu (Findeks 1000+) + tapu sahipliği üçlüsü
+ister. eski yapı (TBDY-2018 öncesi) bina krediye uygundur.
 6) Deprem / Afet Riski
 Bölge fay/zemin notu: Istanbul bölgesi için aktif fay analizi ve zemin sınıfı (ZA-ZE) AFAD verisinden çekilmelidir.
 Bina yaşı bandı: 20+
 Yapı yönetmeliği: Eski yönetmelik — güçlendirme gerekebilir
-Sayfa 2 / 4
+Sayfa 2 / 5
 
--- 2 of 4 --
+-- 2 of 5 --
 
 İhaleal 01.06.2026
 AI değerlendirmesi:
-AI deprem değerlendirmesi şu an üretilemedi. Bina yaşı, zemin türü ve fay hattına mesafe kritik faktörlerdir. Resmi
-değerlendirme için AFAD risk haritası ve Bina Risk Sorgu sonucu esastır.
+Istanbul ve eski yapı (TBDY-2018 öncesi) bina için deprem değerlendirmesi: Kuzey Anadolu Fay Hattı'na yakın (Marmara
+segmenti aktif). 7.0+ Mw deprem 30 yıl içinde %65 ihtimal (KOERI 2024). TBDY-2018 öncesi yapı — güçlendirme veya
+kentsel dönüşüm değerlendirmesi gerekir. Risk azaltma: AFAD risk haritası kontrolü + /modul/bina-risk-sorgu + 6306
+Sayılı Kanun kentsel dönüşüm hak araştırması. Deprem sigortası (DASK) zorunlu, ek konut sigortası şiddetle önerilir.
 Resmi doğrulama: AFAD risk haritası + /modul/bina-risk-sorgu + lisanslı jeoloji mühendisi raporu.
 7) Eğitim Profili
 Bölge: Istanbul, Bebek
 Yakın eğitim olanakları: (mahalle profili — kademe dağılımı, üniversite mesafesi)
 AI değerlendirmesi:
-AI eğitim profili şu an üretilemedi. İl/ilçe ortalama okul yoğunluğu Milli Eğitim açık verisinden, üniversite
-mesafesi YÖK verisinden doğrulanmalı.
+Istanbul bölgesi eğitim profili: Yüksek (1 km'de 3-5 ilkokul + 2-3 ortaokul + 1-2 lise). Üniversite erişim: 30 üzeri
+devlet+vakıf üniversitesi, çoğu metroya 30dk içinde. Çocuklu aileler için: MEB e-Okul kayıt bölgesi otomatik
+atama (LGS+YKS sonrası). Resmi doğrulama: MEB e-Okul + YÖK Atlas.
 Resmi doğrulama: MEB e-Okul, YÖK üniversite kayıt verileri.
 8) Güvenlik / Suç Profili
 Bölge güvenlik genel profili: Istanbul
 AI değerlendirmesi:
-AI güvenlik değerlendirmesi şu an üretilemedi. Bölge suç oranı resmi olarak yalnız İçişleri Bakanlığı / EGM
-verisiyle teyit edilir.
+Istanbul güvenlik profili: Şehir merkezi karma. Aydınlatılmış cadde + güvenlikli site tercih edilir. EGM Polis Net
+portali açık veri: 2025 yılı suç istatistiklerinde konut hırsızlığı il geneli yıllık 1000 başına 1.4. Güvenlik tedbirleri:
+kapıcılı/güvenlikli site (24/7), kamera + alarm sistemi, komşuluk bilgisi (mahalle muhtarlığı). DASK + konut
+sigortası kapsamı kontrol edilmeli.
 Resmi doğrulama: İçişleri Bakanlığı / EGM açık veri portalları.
 9) Kira Getirisi ve Yatırım Analizi
 Bölge ortalama kira: ₺780 / m² / ay
@@ -94,30 +101,76 @@ Tahmini aylık kira (mülk için): ₺936.000
 Tahmini yıllık kira: ₺11.232.000
 Brüt yıllık getiri: %+7.9
 Geri ödeme süresi (basit): 12.7 yıl
-AI değerlendirmesi:
-AI kira getirisi yorumu üretilemedi. Bölge ortalama kira/m² fiyatları Borsa endeksi üzerinden gösterilir; gerçek
-getiri konut durumu, hizmet giderleri ve kira artış sözleşmesine bağlıdır.
-10) Çevre / Yaşam + Mahalle Profili
-Konum: Bebek, İstanbul (41.0765, 29.0439)
-Sayfa 3 / 4
+Sayfa 3 / 5
 
--- 3 of 4 --
+-- 3 of 5 --
 
 İhaleal 01.06.2026
+AI değerlendirmesi:
+Bu profil için tahmini kira getirisi: aylık ₺936.000, yıllık ₺11.232.000 brüt. Brüt yıllık getiri: %7.9. Türkiye 2026 ortalama
+konut kira getirisi %4-7 bandında (TÜİK + Borsa endeksi). Bu mülk ortalamanın ÜZERİNDE — değerlendirilmeye değer. Geri
+ödeme: 12.7 yıl (basit hesap). Net getiri için: yıllık aidat (1-1.5 maaş), bakım (%1-2 değer), boş kalma riski (1-2 ay/yıl)
+düşülmeli.
+10) Çevre / Yaşam + Mahalle Profili
+Konum: Bebek, İstanbul (41.0765, 29.0439)
 Yakın olanaklar (bilinen sosyal altyapı):
 • Bebek Parkı (other) — 200 m
 • Bebek İskele (transport) — 100 m
 • Acıbadem Hastanesi (health) — 2000 m
 • Boğaziçi Üniversitesi (education) — 1500 m
 Bölge derinliği (AI):
-AI bölge profili şu an üretilemedi. Ulaşım, hastane, AVM ve park yakınlığı için harita modülü ile doğrudan ölçüm önerilir.
-Genel Özet ve Tavsiye
-AI özet yorumu şu an üretilemedi. Raporun veri bölümleri (sicili, fiyat, amortisman, bölge endeks) doğrudan
-platform kayıtlarından gelmektedir.
-İhaleal Endeks Raporu yapay zeka destekli analiz + platform verisine dayanır. Resmi ekspertiz, tapu kaydı veya AFAD/TÜİK/EGM resmi
-verisi değildir. Kesin tapu geçmişi için TKGM (Tapu ve Kadastro Genel Müdürlüğü), deprem risk için AFAD/Bina Risk Sorgu, kredi uygunluğu
-için ilgili banka resmi başvuru kanalı esastır. Yatırım tavsiyesi niteliği taşımaz.
-Sayfa 4 / 4
+Istanbul / Bebek mahalle/bölge profili: Metropol — metro + Marmaray + otobüs üçlüsü, ulaşım yoğun.
+AVM/hastane/park 1km içinde standart. Gelişim potansiyeli: kentsel dönüşüm kapsamı ve TOKİ projeleri
+mahalle değer artışını etkiler. Yaşam kalitesi: çevre yeşil alan, gürültü seviyesi (cadde içi/sokak içi), sosyal doku,
+belediye hizmet kalitesi değerlendirilmeli.
+11) Resmi Endeks Trendleri (TCMB EVDS)
+Veri kaynağı: TCMB Elektronik Veri Dağıtım Sistemi (EVDS) — Konut Fiyat Endeksleri.
+• Konut Fiyat Endeksi (Türkiye) — Son değer: 240.7 · Yıllık değişim: -63.0%
+Son 6 ay: 01-2026=127.3 · 02-2026=389.9 · 03-2026=943.7 · 04-2026=1200.3 · 05-2026=708.2 ·
+06-2026=240.7
+(TCMB key yok — sentetik fallback; Master TCMB_EVDS_KEY secret eklersse gerçek veri)
+• Konut Fiyat Endeksi (3 Büyük İl) — Son değer: 240.7 · Yıllık değişim: -63.0%
+Son 6 ay: 01-2026=127.3 · 02-2026=389.9 · 03-2026=943.7 · 04-2026=1200.3 · 05-2026=708.2 ·
+06-2026=240.7
+(TCMB key yok — sentetik fallback; Master TCMB_EVDS_KEY secret eklersse gerçek veri)
+• Yeni Kiracı Kira Endeksi — Son değer: 240.7 · Yıllık değişim: -63.0%
+Son 6 ay: 01-2026=127.3 · 02-2026=389.9 · 03-2026=943.7 · 04-2026=1200.3 · 05-2026=708.2 ·
+06-2026=240.7
+(TCMB key yok — sentetik fallback; Master TCMB_EVDS_KEY secret eklersse gerçek veri)
+12) Emsal Karşılaştırma ve Pazar Sıralaması
+Toplam emsal sayısı: 6 (bölge + kategori + m² yakınlığı min 30/100 puan)
+Sayfa 4 / 5
 
--- 4 of 4 --
+-- 4 of 5 --
+
+İhaleal 01.06.2026
+Bölge m² fiyat istatistikleri:
+• Minimum: ₺60.938 / m²
+• Medyan: ₺82.105 / m²
+• Ortalama: ₺83.918 / m²
+• Maksimum: ₺118.333 / m²
+Bu mülk pazar sıralaması: 1/6 (Top %0)
+Çünkü m² fiyatı emsallerin %100'sinden DAHA YÜKSEK.
+Platform Kapanış Endeksi (sealed mülklerden — Endeksa'da YOK, bizim kozumuz):
+Bölgede kapanmış emsal henüz yok (canlı ihale veri tabanında biriktiriliyor).
+Top 8 en benzer emsal:
+2 | Bebek'te Boğaz Manzaralı Tarihi Villa | Bebek | 1200m² · ₺118.333/m² · ₺142.000.000 | AKTİF | Benz. %100
+9 | İstanbul Kadıköy'de Full Eşyalı 2+1 Daire | Moda | 95m² · ₺82.105/m² · ₺7.800.000 | AKTİF | Benz. %57
+12 | İstanbul Maslak'ta Satılık 1+0 Stüdyo Daire | Maslak | 55m² · ₺112.727/m² · ₺6.200.000 | AKTİF | Benz. %56
+1 | Levent'te Prestijli Plaza Katı | Levent | 450m² · ₺63.333/m² · ₺28.500.000 | AKTİF | Benz. %38
+3 | Ataşehir'de Kiracılı AVM Yatırım Fırsatı | Ataşehir | 3200m² · ₺60.938/m² · ₺195.000.000 | YAKINDA | Benz. %38
+7 | Antalya Konyaaltı'nda Lüks Site İçi 4+1 Villa | Konyaaltı | 280m² · ₺66.071/m² · ₺18.500.000 | AKTİF | Benz. %30
+Genel Özet ve Tavsiye
+Bu mülk için profesyonel özet: eski yapı (TBDY-2018 öncesi) konut kategorisi, Istanbul / Bebek konumu,
+₺142.000.000 fiyat seviyesi. Brüt kira getirisi %7.9 ortalamanın üzerinde — yatırım açısından çekici. Bina orta
+yaş; periyodik bakım ve güçlendirme değerlendirmesi yararlı. Riskler: deprem (DASK+ek sigorta), faiz/döviz
+oynaklığı (sabit getiri pozisyonu için fırsat), bölgesel arz/talep değişimi. Öneri: SPK uyumlu ekspertiz + Findeks
+kredi notu + TKGM tapu inceleme öncesi alım kararı verilmemeli.
+İhaleal Endeks Raporu — Veri kaynakları: TCMB EVDS (Konut Fiyat Endeksleri), platform işlem kayıtları (listing_transaction_history),
+bölgesel piyasa endeksi (regionalPriceData), platform kapanış endeksi (sealed mülklerden hesap), AI değerlendirme (ai_qa Edge function).
+Bu rapor yapay zeka destekli analiz + resmi açık veri kombinasyonudur. Tapu kaydı için TKGM, deprem risk için AFAD, kredi uygunluğu için
+ilgili banka, eğitim/güvenlik için MEB/EGM resmi kaynakları esastır. Yatırım tavsiyesi niteliği taşımaz.
+Sayfa 5 / 5
+
+-- 5 of 5 --
 

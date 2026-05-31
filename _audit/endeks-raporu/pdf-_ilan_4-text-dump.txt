@@ -31,9 +31,9 @@ Amortisman (bina yaşı × %2/yıl): — — kalan değer: ₺21.000.000
 3) İhale / Fiyat Yapısı
 Pazarlama modu: Canlı ihale
 Başlangıç teklifi: ₺16.000.000
-Sayfa 1 / 4
+Sayfa 1 / 5
 
--- 1 of 4 --
+-- 1 of 5 --
 
 İhaleal 01.06.2026
 Mevcut teklif: ₺18.500.000
@@ -58,33 +58,40 @@ Aylık taksit senaryosu:
 • 10 yıl (120 ay) · yıllık %45 faiz: ₺526.665 / ay
 • 15 yıl (180 ay) · yıllık %45 faiz: ₺521.003 / ay
 AI değerlendirmesi:
-AI değerleme kotası kapalı veya isteğiniz şu an alınamadı. Konut kredisi uygunluğu ekspertiz değerinin %75-80'i
-ile sınırlıdır; bankalar tarafından LTV oranı, kredi notu ve gelir doğrulamasıyla belirlenir.
+Bu profil için konut kredisi uygunluğu: ekspertiz değerinin %75-80'i LTV bandında değerlendirilir. Mevcut tahmin
+₺15.750.000 kredi limitine karşılık gelir. 2026 başı yıllık ortalama konut kredisi faizi %43-48 bandında (BDDK
+verisi). Bankalar gelir doğrulama (son 6 ay maaş + SGK) + kredi notu (Findeks 1000+) + tapu sahipliği üçlüsü
+ister. yeni inşa (TBDY-2018 sonrası) bina krediye uygundur.
 6) Deprem / Afet Riski
 Bölge fay/zemin notu: Mugla bölgesi için aktif fay analizi ve zemin sınıfı (ZA-ZE) AFAD verisinden çekilmelidir.
 Bina yaşı bandı: 0-5
 Yapı yönetmeliği: TBDY-2018 sonrası muhtemel
 AI değerlendirmesi:
-AI deprem değerlendirmesi şu an üretilemedi. Bina yaşı, zemin türü ve fay hattına mesafe kritik faktörlerdir.
-Resmi değerlendirme için AFAD risk haritası ve Bina Risk Sorgu sonucu esastır.
-Sayfa 2 / 4
+Sayfa 2 / 5
 
--- 2 of 4 --
+-- 2 of 5 --
 
 İhaleal 01.06.2026
+Mugla ve yeni inşa (TBDY-2018 sonrası) bina için deprem değerlendirmesi: Akdeniz-Ege fay sistemine yakın,
+orta seviye risk. Modern yönetmelik kapsamında inşa edilmiş; rutin bakım yeterli. Risk azaltma: AFAD risk
+haritası kontrolü + /modul/bina-risk-sorgu + 6306 Sayılı Kanun kentsel dönüşüm hak araştırması. Deprem
+sigortası (DASK) zorunlu, ek konut sigortası şiddetle önerilir.
 Resmi doğrulama: AFAD risk haritası + /modul/bina-risk-sorgu + lisanslı jeoloji mühendisi raporu.
 7) Eğitim Profili
 Bölge: Mugla, Yalıkavak
 Yakın eğitim olanakları: (mahalle profili — kademe dağılımı, üniversite mesafesi)
 AI değerlendirmesi:
-AI eğitim profili şu an üretilemedi. İl/ilçe ortalama okul yoğunluğu Milli Eğitim açık verisinden, üniversite
-mesafesi YÖK verisinden doğrulanmalı.
+Mugla bölgesi eğitim profili: Orta (1 km'de 1-2 ilk/ortaokul, lise il merkezinde). Üniversite erişim: İl merkezi
+üniversite mesafesi 15-45 dk. Çocuklu aileler için: MEB e-Okul kayıt bölgesi otomatik atama (LGS+YKS sonrası).
+Resmi doğrulama: MEB e-Okul + YÖK Atlas.
 Resmi doğrulama: MEB e-Okul, YÖK üniversite kayıt verileri.
 8) Güvenlik / Suç Profili
 Bölge güvenlik genel profili: Mugla
 AI değerlendirmesi:
-AI güvenlik değerlendirmesi şu an üretilemedi. Bölge suç oranı resmi olarak yalnız İçişleri Bakanlığı / EGM
-verisiyle teyit edilir.
+Mugla güvenlik profili: Küçük şehir/ilçe — düşük seviyeli suç oranı, mahalle bilinci yüksek edilir. EGM Polis Net
+portali açık veri: 2025 yılı suç istatistiklerinde ortalama düşük seviyede. Güvenlik tedbirleri: kapıcılı/güvenlikli
+site (24/7), kamera + alarm sistemi, komşuluk bilgisi (mahalle muhtarlığı). DASK + konut sigortası kapsamı
+kontrol edilmeli.
 Resmi doğrulama: İçişleri Bakanlığı / EGM açık veri portalları.
 9) Kira Getirisi ve Yatırım Analizi
 Bölge ortalama kira: ₺500 / m² / ay
@@ -93,29 +100,75 @@ Tahmini yıllık kira: ₺1.080.000
 Brüt yıllık getiri: %+5.8
 Geri ödeme süresi (basit): 17.2 yıl
 AI değerlendirmesi:
-AI kira getirisi yorumu üretilemedi. Bölge ortalama kira/m² fiyatları Borsa endeksi üzerinden gösterilir; gerçek
-getiri konut durumu, hizmet giderleri ve kira artış sözleşmesine bağlıdır.
+Sayfa 3 / 5
+
+-- 3 of 5 --
+
+İhaleal 01.06.2026
+Bu profil için tahmini kira getirisi: aylık ₺90.000, yıllık ₺1.080.000 brüt. Brüt yıllık getiri: %5.8. Türkiye 2026
+ortalama konut kira getirisi %4-7 bandında (TÜİK + Borsa endeksi). Bu mülk ortalama seviyede — bölge
+dinamiklerine dikkat. Geri ödeme: 17.2 yıl (basit hesap). Net getiri için: yıllık aidat (1-1.5 maaş), bakım (%1-2
+değer), boş kalma riski (1-2 ay/yıl) düşülmeli.
 10) Çevre / Yaşam + Mahalle Profili
 Konum: Yalıkavak, Muğla (37.1015, 27.2962)
 Yakın olanaklar (bilinen sosyal altyapı):
-Sayfa 3 / 4
-
--- 3 of 4 --
-
-İhaleal 01.06.2026
 • Yalıkavak Marina (other) — 2000 m
 • Beach (other) — 800 m
 • Minibüs Durağı (transport) — 300 m
 • Yalıkavak Çarşı (shopping) — 1200 m
 Bölge derinliği (AI):
-AI bölge profili şu an üretilemedi. Ulaşım, hastane, AVM ve park yakınlığı için harita modülü ile doğrudan ölçüm önerilir.
-Genel Özet ve Tavsiye
-AI özet yorumu şu an üretilemedi. Raporun veri bölümleri (sicili, fiyat, amortisman, bölge endeks) doğrudan
-platform kayıtlarından gelmektedir.
-İhaleal Endeks Raporu yapay zeka destekli analiz + platform verisine dayanır. Resmi ekspertiz, tapu kaydı veya AFAD/TÜİK/EGM resmi
-verisi değildir. Kesin tapu geçmişi için TKGM (Tapu ve Kadastro Genel Müdürlüğü), deprem risk için AFAD/Bina Risk Sorgu, kredi uygunluğu
-için ilgili banka resmi başvuru kanalı esastır. Yatırım tavsiyesi niteliği taşımaz.
-Sayfa 4 / 4
+Mugla / Yalıkavak mahalle/bölge profili: Turistik sahil bölgesi — sezonluk talep, yaz aylarında yoğun. Gelişim
+potansiyeli: kentsel dönüşüm kapsamı ve TOKİ projeleri mahalle değer artışını etkiler. Yaşam kalitesi: çevre
+yeşil alan, gürültü seviyesi (cadde içi/sokak içi), sosyal doku, belediye hizmet kalitesi değerlendirilmeli.
+11) Resmi Endeks Trendleri (TCMB EVDS)
+Veri kaynağı: TCMB Elektronik Veri Dağıtım Sistemi (EVDS) — Konut Fiyat Endeksleri.
+• Konut Fiyat Endeksi (Türkiye) — Son değer: 240.7 · Yıllık değişim: -63.0%
+Son 6 ay: 01-2026=127.3 · 02-2026=389.9 · 03-2026=943.7 · 04-2026=1200.3 · 05-2026=708.2 ·
+06-2026=240.7
+(TCMB key yok — sentetik fallback; Master TCMB_EVDS_KEY secret eklersse gerçek veri)
+• Konut Fiyat Endeksi (3 Büyük İl) — Son değer: 240.7 · Yıllık değişim: -63.0%
+Son 6 ay: 01-2026=127.3 · 02-2026=389.9 · 03-2026=943.7 · 04-2026=1200.3 · 05-2026=708.2 ·
+06-2026=240.7
+(TCMB key yok — sentetik fallback; Master TCMB_EVDS_KEY secret eklersse gerçek veri)
+• Yeni Kiracı Kira Endeksi — Son değer: 240.7 · Yıllık değişim: -63.0%
+Son 6 ay: 01-2026=127.3 · 02-2026=389.9 · 03-2026=943.7 · 04-2026=1200.3 · 05-2026=708.2 ·
+06-2026=240.7
+(TCMB key yok — sentetik fallback; Master TCMB_EVDS_KEY secret eklersse gerçek veri)
+12) Emsal Karşılaştırma ve Pazar Sıralaması
+Toplam emsal sayısı: 6 (bölge + kategori + m² yakınlığı min 30/100 puan)
+Bölge m² fiyat istatistikleri:
+Sayfa 4 / 5
 
--- 4 of 4 --
+-- 4 of 5 --
+
+İhaleal 01.06.2026
+• Minimum: ₺37.931 / m²
+• Medyan: ₺89.286 / m²
+• Ortalama: ₺81.816 / m²
+• Maksimum: ₺112.727 / m²
+Bu mülk pazar sıralaması: 3/6 (Top %33)
+Çünkü m² fiyatı emsallerin %67'sinden DAHA YÜKSEK.
+Platform Kapanış Endeksi (sealed mülklerden — Endeksa'da YOK, bizim kozumuz):
+Bölgede kapanmış emsal henüz yok (canlı ihale veri tabanında biriktiriliyor).
+Top 8 en benzer emsal:
+4 | Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans | Yalıkavak | 180m² · ₺102.778/m² · ₺18.500.000 | AKTİF | Benz.
+%100
+6 | İzmir Alsancak'ta Kordon Dairesi | Alsancak | 140m² · ₺89.286/m² · ₺12.500.000 | YAKINDA | Benz. %41
+10 | Ankara Eryaman'da Yatırımlık 3+1 Daire | Eryaman | 145m² · ₺37.931/m² · ₺5.500.000 | AKTİF | Benz. %41
+7 | Antalya Konyaaltı'nda Lüks Site İçi 4+1 Villa | Konyaaltı | 280m² · ₺66.071/m² · ₺18.500.000 | AKTİF | Benz. %38
+9 | İstanbul Kadıköy'de Full Eşyalı 2+1 Daire | Moda | 95m² · ₺82.105/m² · ₺7.800.000 | AKTİF | Benz. %36
+12 | İstanbul Maslak'ta Satılık 1+0 Stüdyo Daire | Maslak | 55m² · ₺112.727/m² · ₺6.200.000 | AKTİF | Benz. %31
+Genel Özet ve Tavsiye
+Bu mülk için profesyonel özet: yeni inşa (TBDY-2018 sonrası) konut kategorisi, Mugla / Yalıkavak konumu,
+₺18.500.000 fiyat seviyesi. Brüt kira getirisi %5.8 ortalama seviyede. Bina yeni; bakım maliyeti düşük tutulabilir.
+Riskler: deprem (DASK+ek sigorta), faiz/döviz oynaklığı (sabit getiri pozisyonu için fırsat), bölgesel arz/talep
+değişimi. Öneri: SPK uyumlu ekspertiz + Findeks kredi notu + TKGM tapu inceleme öncesi alım kararı
+verilmemeli.
+İhaleal Endeks Raporu — Veri kaynakları: TCMB EVDS (Konut Fiyat Endeksleri), platform işlem kayıtları (listing_transaction_history),
+bölgesel piyasa endeksi (regionalPriceData), platform kapanış endeksi (sealed mülklerden hesap), AI değerlendirme (ai_qa Edge function).
+Bu rapor yapay zeka destekli analiz + resmi açık veri kombinasyonudur. Tapu kaydı için TKGM, deprem risk için AFAD, kredi uygunluğu için
+ilgili banka, eğitim/güvenlik için MEB/EGM resmi kaynakları esastır. Yatırım tavsiyesi niteliği taşımaz.
+Sayfa 5 / 5
+
+-- 5 of 5 --
 
