@@ -5,6 +5,9 @@ import { useLiveMarket } from "@/borsa/useLiveMarket";
 import { isOutbid } from "@/lib/borsa/auctionEngine";
 import { useBorsaRegionWatchlist } from "@/hooks/useBorsaRegionWatchlist";
 import { BORSA_REGIONS } from "@/lib/borsa/regions";
+// `cn` 4 yerde JSX className içinde kullanılıyor (l.215, l.295, l.313, l.335);
+// import eksikti → ReferenceError → ErrorBoundary → "500 Bir sorun oluştu".
+import { cn } from "@/lib/utils";
 
 type PriceAlert = {
   id: string;
