@@ -1,6 +1,7 @@
 import path from "path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import { VitePWA } from "vite-plugin-pwa"
 import { HOME_SEO, OG_IMAGE } from "./src/data/homeSeo"
 import {
   CANONICAL_ROOT_HREF,
@@ -71,7 +72,154 @@ export default defineConfig({
   preview: {
     headers: securityHeaders(),
   },
-  plugins: [homePageMetaHtmlPlugin(), react()],
+  plugins: [
+    homePageMetaHtmlPlugin(),
+    react(),
+    VitePWA({
+      // Yeni SW gelince sessizce devral; eski cache'leri otomatik temizle.
+      registerType: "autoUpdate",
+      // Eski kill-switch (public/sw.js + public/sw-unregister.js) artık burada
+      // yönetiliyor — Workbox cleanupOutdatedCaches + clientsClaim ile devralır.
+      injectRegister: "auto",
+      includeAssets: [
+        "favicon.svg",
+        "favicon.png",
+        "icon-192.png",
+        "icon-512.png",
+        "icon-maskable-192.png",
+        "icon-maskable-512.png",
+        "og-image.png",
+        "ihaleal-logo.png",
+        "ihaleal-logo-lockup.png",
+      ],
+      manifest: {
+        name: "ihaleal — Türkiye'nin Gayrimenkul Borsası",
+        short_name: "ihaleal",
+        description:
+          "Türkiye'nin gayrimenkul borsası: ihale, AI değerleme, anlık endeks ve aylık raporlar.",
+        lang: "tr",
+        dir: "ltr",
+        start_url: "/",
+        scope: "/",
+        display: "standalone",
+        orientation: "portrait-primary",
+        background_color: "#0B1120",
+        theme_color: "#0B1120",
+        categories: ["business", "finance", "productivity"],
+        icons: [
+          {
+            src: "/icon-192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/icon-512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/icon-maskable-192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/icon-maskable-512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+        shortcuts: [
+          {
+            name: "Aktif İhaleler",
+            short_name: "İhaleler",
+            description: "Şu an açık olan ihaleleri gör",
+            url: "/ihaleler",
+            icons: [{ src: "/icon-192.png", sizes: "192x192" }],
+          },
+          {
+            name: "Harita",
+            short_name: "Harita",
+            description: "Türkiye geneli ilan haritası",
+            url: "/harita",
+            icons: [{ src: "/icon-192.png", sizes: "192x192" }],
+          },
+          {
+            name: "Endeks Raporları",
+            short_name: "Raporlar",
+            description: "Aylık şehir endeks raporları + PDF",
+            url: "/raporlar",
+            icons: [{ src: "/icon-192.png", sizes: "192x192" }],
+          },
+        ],
+      },
+      workbox: {
+        // Eski cache versiyonlarını otomatik sil → kill-switch artığı.
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
+        // SPA için fallback (offline navigation → index.html).
+        navigateFallback: "/index.html",
+        // KRİTİK: Supabase + dış API'leri ASLA cache'leme — sealed maskeleme
+        // ve gerçek zaman bütünlüğü korunsun.
+        navigateFallbackDenylist: [
+          /^\/api\//,
+          /^\/auth\//,
+          /^\/rest\//,
+          /^\/storage\//,
+          /^\/functions\//,
+        ],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2,ttf}"],
+        // Büyük bundles için limit yükselt.
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
+        runtimeCaching: [
+          // Supabase REST/Auth/Storage/Functions → DAİMA NETWORK (NetworkOnly).
+          {
+            urlPattern: /^https:\/\/[a-z0-9-]+\.supabase\.(co|in)\/.*/i,
+            handler: "NetworkOnly",
+            method: "GET",
+            options: { cacheName: "supabase-no-cache" },
+          },
+          // Google Fonts CSS → stale-while-revalidate.
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "google-fonts-stylesheets",
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          // Google Fonts dosyaları → cache-first (1 yıl).
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-webfonts",
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          // OpenStreetMap tile'ları (harita) → cache-first kısa süreli.
+          {
+            urlPattern: /^https:\/\/[abc]\.tile\.openstreetmap\.org\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "osm-tiles",
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 7 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
+      },
+      devOptions: {
+        // DEV ortamında SW'yi kapat — sürpriz cache olmasın.
+        enabled: false,
+      },
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

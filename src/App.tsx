@@ -6,6 +6,7 @@ import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
 import { WebAnalytics } from "@/components/WebAnalytics";
+import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { Home } from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
@@ -524,6 +525,7 @@ function App() {
         </Suspense>
       </ErrorBoundary>
       <WebAnalytics />
+      <InstallPrompt />
     </BrowserRouter>
     </AuthProvider>
     </LocaleProvider>

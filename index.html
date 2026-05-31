@@ -14,9 +14,15 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <!-- Kill-switch: eski Service Worker'i sok, cache'i temizle, gerekirse bir kez yenile.
-         Mumkun olan en erken anda calismali; React baslamadan once. -->
-    <script src="/sw-unregister.js"></script>
+    <!-- PWA — Progressive Web App (Dalga 5) -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="application-name" content="ihaleal" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="ihaleal" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
     <!-- Preview/yedek deploy'lari (vercel.app, branch alias) noindex: Google sıralamasını
          prod ile bolmesin. Prod (ihaleal.com/www.ihaleal.com) etkilenmez. -->
     <script>
@@ -152,7 +158,8 @@
     </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
 
     <style>
       /* Critical CSS — luxury institutional (must match src/styles/tokens.css) */
