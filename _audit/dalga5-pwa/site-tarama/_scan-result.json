@@ -1,0 +1,1047 @@
+{
+  "desktop": [
+    {
+      "route": "/",
+      "status": 200,
+      "h1": "> Siz",
+      "bodyLen": 9878,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/arama",
+      "status": 200,
+      "h1": "İlan arama",
+      "bodyLen": 2232,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ihaleler",
+      "status": 200,
+      "h1": "Gerçek piyasa,gerçek fiyat.",
+      "bodyLen": 5407,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa",
+      "status": 200,
+      "h1": "Canlı terminale hoş geldiniz",
+      "bodyLen": 6689,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/sehir/istanbul",
+      "status": 200,
+      "h1": "Istanbul Gayrimenkul Endeksi",
+      "bodyLen": 3125,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/sehir/izmir",
+      "status": 200,
+      "h1": "Izmir Gayrimenkul Endeksi",
+      "bodyLen": 2812,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/sehir/ankara",
+      "status": 200,
+      "h1": "Ankara Gayrimenkul Endeksi",
+      "bodyLen": 2813,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/varliklar",
+      "status": 200,
+      "h1": "Canlı terminale hoş geldiniz",
+      "bodyLen": 6689,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/izleme",
+      "status": 200,
+      "h1": "İzleme Listesi + Alarm Merkezi",
+      "bodyLen": 3249,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/veri",
+      "status": 200,
+      "h1": "Piyasa Genel Görünüm + Endeks Laboratuvarı",
+      "bodyLen": 3342,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/portfoy",
+      "status": 200,
+      "h1": "Portföy Terminali",
+      "bodyLen": 4807,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/raporlar",
+      "status": 200,
+      "h1": "İhaleal Endeks Raporları",
+      "bodyLen": 6373,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/harita",
+      "status": 200,
+      "h1": "Harita Üzerinden Arama",
+      "bodyLen": 2162,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/degerleme",
+      "status": 200,
+      "h1": "Ne Kadar Eder?",
+      "bodyLen": 2480,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ihale-ac",
+      "status": 200,
+      "h1": "5 Adımda İhale Yayınla",
+      "bodyLen": 2838,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/panel",
+      "status": 200,
+      "h1": "Özet",
+      "bodyLen": 2215,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/profil",
+      "status": 200,
+      "h1": "Hesap Profili",
+      "bodyLen": 1800,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/aramalarim",
+      "status": 200,
+      "h1": "Kayıtlı Aramalarım",
+      "bodyLen": 2145,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/iletisim",
+      "status": 200,
+      "h1": "Bize Ulaşın",
+      "bodyLen": 2444,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/giris",
+      "status": 200,
+      "h1": "Giriş Yap",
+      "bodyLen": 1943,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/kayit",
+      "status": 200,
+      "h1": "Kayıt Ol",
+      "bodyLen": 2030,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/favoriler",
+      "status": 200,
+      "h1": "Favorilerim",
+      "bodyLen": 1900,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/bildirimler",
+      "status": 200,
+      "h1": "Bildirimler",
+      "bodyLen": 1890,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/nasil-calisir",
+      "status": 200,
+      "h1": "Gayrimenkul ihale yolculuğu: uçtan uca çerçeve",
+      "bodyLen": 8235,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/hakkimizda",
+      "status": 200,
+      "h1": "Hakkımızda",
+      "bodyLen": 3576,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/kunye",
+      "status": 200,
+      "h1": "Künye",
+      "bodyLen": 2758,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/destek",
+      "status": 200,
+      "h1": "Destek",
+      "bodyLen": 2395,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/sss",
+      "status": 200,
+      "h1": "Sıkça sorulan sorular",
+      "bodyLen": 3364,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/1",
+      "status": 200,
+      "h1": "Levent'te Prestijli Plaza Katı",
+      "bodyLen": 8707,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/2",
+      "status": 200,
+      "h1": "Bebek'te Boğaz Manzaralı Tarihi Villa",
+      "bodyLen": 8520,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/3",
+      "status": 200,
+      "h1": "Ataşehir'de Kiracılı AVM Yatırım Fırsatı",
+      "bodyLen": 8477,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/4",
+      "status": 200,
+      "h1": "Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans",
+      "bodyLen": 8287,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/5",
+      "status": 200,
+      "h1": "Ankara Çankaya'da Kurumsal Ofis",
+      "bodyLen": 8301,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/6",
+      "status": 200,
+      "h1": "İzmir Alsancak'ta Kordon Dairesi",
+      "bodyLen": 8332,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/7",
+      "status": 200,
+      "h1": "Antalya Konyaaltı'nda Lüks Site İçi 4+1 Villa",
+      "bodyLen": 8355,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/8",
+      "status": 200,
+      "h1": "Bursa Nilüfer'de Satılık Tarla (5000m²)",
+      "bodyLen": 8214,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/9",
+      "status": 200,
+      "h1": "İstanbul Kadıköy'de Full Eşyalı 2+1 Daire",
+      "bodyLen": 8297,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/10",
+      "status": 200,
+      "h1": "Ankara Eryaman'da Yatırımlık 3+1 Daire",
+      "bodyLen": 8300,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/11",
+      "status": 200,
+      "h1": "İzmir Karşıyaka'da Komple Bina (8 Daire)",
+      "bodyLen": 8237,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/12",
+      "status": 200,
+      "h1": "İstanbul Maslak'ta Satılık 1+0 Stüdyo Daire",
+      "bodyLen": 8306,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-001",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1929,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-005",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1929,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-010",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1929,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-030",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1929,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-060",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1929,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-999",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1929,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/00000000-0000-0000-0000-000000000000",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1957,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/saçma-id",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1929,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/satilik/istanbul",
+      "status": 200,
+      "h1": "Istanbul gayrimenkul ilanları",
+      "bodyLen": 2481,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/kiralik/istanbul",
+      "status": 200,
+      "h1": "Istanbul gayrimenkul ilanları",
+      "bodyLen": 2111,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/modul/bina-risk-sorgu",
+      "status": 200,
+      "h1": "Bina Risk Sorgu",
+      "bodyLen": 4170,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/modul/deprem-risk-haritasi",
+      "status": 200,
+      "h1": "Deprem Risk Haritası",
+      "bodyLen": 5016,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    }
+  ],
+  "mobile": [
+    {
+      "route": "/",
+      "status": 200,
+      "h1": "> Size n",
+      "bodyLen": 9718,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/arama",
+      "status": 200,
+      "h1": "İlan arama",
+      "bodyLen": 1827,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ihaleler",
+      "status": 200,
+      "h1": "Gerçek piyasa,gerçek fiyat.",
+      "bodyLen": 5241,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa",
+      "status": 200,
+      "h1": "Canlı terminale hoş geldiniz",
+      "bodyLen": 6396,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/sehir/istanbul",
+      "status": 200,
+      "h1": "Istanbul Gayrimenkul Endeksi",
+      "bodyLen": 2959,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/sehir/izmir",
+      "status": 200,
+      "h1": "Izmir Gayrimenkul Endeksi",
+      "bodyLen": 2646,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/sehir/ankara",
+      "status": 200,
+      "h1": "Ankara Gayrimenkul Endeksi",
+      "bodyLen": 2647,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/varliklar",
+      "status": 200,
+      "h1": "Canlı terminale hoş geldiniz",
+      "bodyLen": 6396,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/izleme",
+      "status": 200,
+      "h1": "İzleme Listesi + Alarm Merkezi",
+      "bodyLen": 2994,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/veri",
+      "status": 200,
+      "h1": "Piyasa Genel Görünüm + Endeks Laboratuvarı",
+      "bodyLen": 3087,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/borsa/portfoy",
+      "status": 200,
+      "h1": "Portföy Terminali",
+      "bodyLen": 4552,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/raporlar",
+      "status": 200,
+      "h1": "İhaleal Endeks Raporları",
+      "bodyLen": 6207,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/harita",
+      "status": 200,
+      "h1": "Harita Üzerinden Arama",
+      "bodyLen": 1744,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/degerleme",
+      "status": 200,
+      "h1": "Ne Kadar Eder?",
+      "bodyLen": 2314,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ihale-ac",
+      "status": 200,
+      "h1": "5 Adımda İhale Yayınla",
+      "bodyLen": 2672,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/panel",
+      "status": 200,
+      "h1": "Özet",
+      "bodyLen": 2049,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/profil",
+      "status": 200,
+      "h1": "Hesap Profili",
+      "bodyLen": 1634,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/aramalarim",
+      "status": 200,
+      "h1": "Kayıtlı Aramalarım",
+      "bodyLen": 1979,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/iletisim",
+      "status": 200,
+      "h1": "Bize Ulaşın",
+      "bodyLen": 2278,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/giris",
+      "status": 200,
+      "h1": "Giriş Yap",
+      "bodyLen": 1777,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/kayit",
+      "status": 200,
+      "h1": "Kayıt Ol",
+      "bodyLen": 1864,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/favoriler",
+      "status": 200,
+      "h1": "Favorilerim",
+      "bodyLen": 1734,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/bildirimler",
+      "status": 200,
+      "h1": "Bildirimler",
+      "bodyLen": 1724,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/nasil-calisir",
+      "status": 200,
+      "h1": "Gayrimenkul ihale yolculuğu: uçtan uca çerçeve",
+      "bodyLen": 8069,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/hakkimizda",
+      "status": 200,
+      "h1": "Hakkımızda",
+      "bodyLen": 3410,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/kunye",
+      "status": 200,
+      "h1": "Künye",
+      "bodyLen": 2592,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/destek",
+      "status": 200,
+      "h1": "Destek",
+      "bodyLen": 2229,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/sss",
+      "status": 200,
+      "h1": "Sıkça sorulan sorular",
+      "bodyLen": 3198,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/1",
+      "status": 200,
+      "h1": "Levent'te Prestijli Plaza Katı",
+      "bodyLen": 8541,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/2",
+      "status": 200,
+      "h1": "Bebek'te Boğaz Manzaralı Tarihi Villa",
+      "bodyLen": 8354,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/3",
+      "status": 200,
+      "h1": "Ataşehir'de Kiracılı AVM Yatırım Fırsatı",
+      "bodyLen": 8311,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/4",
+      "status": 200,
+      "h1": "Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans",
+      "bodyLen": 8121,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/5",
+      "status": 200,
+      "h1": "Ankara Çankaya'da Kurumsal Ofis",
+      "bodyLen": 8135,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/6",
+      "status": 200,
+      "h1": "İzmir Alsancak'ta Kordon Dairesi",
+      "bodyLen": 8166,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/7",
+      "status": 200,
+      "h1": "Antalya Konyaaltı'nda Lüks Site İçi 4+1 Villa",
+      "bodyLen": 8189,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/8",
+      "status": 200,
+      "h1": "Bursa Nilüfer'de Satılık Tarla (5000m²)",
+      "bodyLen": 8048,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/9",
+      "status": 200,
+      "h1": "İstanbul Kadıköy'de Full Eşyalı 2+1 Daire",
+      "bodyLen": 8131,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/10",
+      "status": 200,
+      "h1": "Ankara Eryaman'da Yatırımlık 3+1 Daire",
+      "bodyLen": 8134,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/11",
+      "status": 200,
+      "h1": "İzmir Karşıyaka'da Komple Bina (8 Daire)",
+      "bodyLen": 8071,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/12",
+      "status": 200,
+      "h1": "İstanbul Maslak'ta Satılık 1+0 Stüdyo Daire",
+      "bodyLen": 8140,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-001",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1763,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-005",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1763,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-010",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1763,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-030",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1763,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-060",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1763,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/prop-999",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1763,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/00000000-0000-0000-0000-000000000000",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1791,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/ilan/saçma-id",
+      "status": 200,
+      "h1": "İlan bulunamadı",
+      "bodyLen": 1763,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/satilik/istanbul",
+      "status": 200,
+      "h1": "Istanbul gayrimenkul ilanları",
+      "bodyLen": 2315,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/kiralik/istanbul",
+      "status": 200,
+      "h1": "Istanbul gayrimenkul ilanları",
+      "bodyLen": 1945,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/modul/bina-risk-sorgu",
+      "status": 200,
+      "h1": "Bina Risk Sorgu",
+      "bodyLen": 4004,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    },
+    {
+      "route": "/modul/deprem-risk-haritasi",
+      "status": 200,
+      "h1": "Deprem Risk Haritası",
+      "bodyLen": 4850,
+      "eb": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "navErrors": []
+    }
+  ],
+  "fails": []
+}

@@ -394,17 +394,38 @@ export default function AuctionDetail() {
         </div>
       );
     }
+    // ANAYASA: olmayan/silinen ilan → CRASH DEĞİL, görünür h1 + iki CTA.
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 pt-24">
-        <EmptyState
-          title="İlan bulunamadı"
-          description="Bu ilan kaldırılmış veya bağlantı hatalı olabilir."
-          action={
-            <Button onClick={() => navigate("/ihaleler")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">
-              İhalelere dön
-            </Button>
-          }
-        />
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-12 text-center">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-700/50 bg-slate-900/50">
+          <Search className="h-8 w-8 text-slate-400" aria-hidden />
+        </div>
+        <h1 className="text-3xl font-bold text-white sm:text-4xl">
+          İlan bulunamadı
+        </h1>
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-400">
+          Aradığınız ilan kaldırılmış, bağlantı bozuk olabilir veya hiç var olmamış olabilir.
+          Açık ihaleleri inceleyebilir ya da arama sayfasından yeni bir ilan bulabilirsiniz.
+        </p>
+        <p className="mt-2 font-mono text-xs text-slate-600">
+          ID: {id ?? "—"}
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Button
+            onClick={() => navigate("/ihaleler")}
+            className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"
+          >
+            İhalelere dön
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => navigate("/arama")}
+            className="border-white/15 text-slate-200 hover:bg-white/5"
+          >
+            <Search className="mr-2 h-4 w-4" />
+            Arama sayfası
+          </Button>
+        </div>
       </div>
     );
   }
