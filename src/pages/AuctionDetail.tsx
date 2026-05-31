@@ -145,6 +145,39 @@ export default function AuctionDetail() {
     marketingMode === "listing_only" ? "İlan fiyatı" : marketingMode === "sealed_offers" ? "Başlangıç / talep" : "Güncel teklif";
   const [bidAmount, setBidAmount] = useState("");
   const [showBidDialog, setShowBidDialog] = useState(false);
+  // Dalga 2-2: Proxy bid (otomatik teklif) — frontend tercih. Gerçek
+  // arka plan otomasyonu için yeni tablo + migration (auction_proxy_bids,
+  // RLS, sealed maskeleme uyumu) gerekir → Master'a sorulacak.
+  // Şimdilik max tutar localStorage'a yazılır (kullanıcı niyet beyanı),
+  // gönderim klasik placeBid akışıyla devam eder.
+  const proxyKey = id ? `ihaleal_proxy_max_${id}` : "";
+  const [proxyEnabled, setProxyEnabled] = useState<boolean>(false);
+  const [proxyMaxAmount, setProxyMaxAmount] = useState<string>("");
+  useEffect(() => {
+    if (!proxyKey) return;
+    try {
+      const raw = localStorage.getItem(proxyKey);
+      if (raw) {
+        const parsed = JSON.parse(raw) as { enabled?: boolean; max?: string };
+        setProxyEnabled(Boolean(parsed.enabled));
+        setProxyMaxAmount(parsed.max ?? "");
+      }
+    } catch {
+      /* sessiz */
+    }
+  }, [proxyKey]);
+  useEffect(() => {
+    if (!proxyKey) return;
+    try {
+      if (proxyEnabled || proxyMaxAmount) {
+        localStorage.setItem(proxyKey, JSON.stringify({ enabled: proxyEnabled, max: proxyMaxAmount }));
+      } else {
+        localStorage.removeItem(proxyKey);
+      }
+    } catch {
+      /* sessiz */
+    }
+  }, [proxyKey, proxyEnabled, proxyMaxAmount]);
   const { toggleFavorite, isFavorite } = useFavorites();
   const { addRecent } = useRecentlyViewed();
   const saved = id ? isFavorite(id) : false;
@@ -1420,6 +1453,51 @@ export default function AuctionDetail() {
                 placeholder="örn: 3000000 veya 3.000.000"
               />
             </div>
+
+            {/* Dalga 2-2: Proxy bid (otomatik artırma) — frontend UI.
+                Backend (otomatik tetikleme + sealed maskeleme uyumu) ayrı tur. */}
+            {!isListingOnly && isAuctionMode ? (
+              <div className="rounded-xl border border-violet-500/25 bg-violet-500/5 p-3" data-testid="proxy-bid-panel">
+                <label className="flex items-center justify-between gap-3 cursor-pointer">
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-violet-100 flex items-center gap-2">
+                      <span className="text-base">⚡</span> Otomatik teklif (proxy bid)
+                    </p>
+                    <p className="text-[10px] text-violet-200/70 mt-0.5">
+                      Sizin adınıza, başkalarının teklifleri geldikçe maksimum tutara kadar otomatik artırır.
+                    </p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={proxyEnabled}
+                    onChange={(e) => setProxyEnabled(e.target.checked)}
+                    className="h-5 w-5 accent-violet-500 flex-shrink-0"
+                    aria-label="Otomatik teklifi etkinleştir"
+                  />
+                </label>
+                {proxyEnabled ? (
+                  <div className="mt-3 space-y-2">
+                    <label className="text-xs text-violet-200/90" htmlFor="proxy-max-input">
+                      Maksimum teklif tutarı (₺)
+                    </label>
+                    <Input
+                      id="proxy-max-input"
+                      inputMode="numeric"
+                      value={proxyMaxAmount}
+                      onChange={(e) => setProxyMaxAmount(e.target.value)}
+                      placeholder={`örn: ${(liveBid * 1.5 / 1_000_000).toFixed(1)}M`}
+                      className="bg-slate-950 border-violet-500/30 text-white focus:ring-violet-500"
+                    />
+                    <p className="text-[10px] text-amber-200/85 leading-snug rounded-md border border-amber-500/25 bg-amber-500/5 px-2 py-1.5">
+                      <strong>Demo:</strong> max tutar yerel olarak kaydedilir (kullanıcı tercihi).
+                      Otomatik artırma backend tarafı (auction_proxy_bids tablosu + RLS + sealed maskeleme uyumu)
+                      tamamlandığında devreye girer. Şu an gönderim normal tek-tıkla teklif olarak işlenir.
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+
             {!isListingOnly ? (
               <div className="space-y-3 rounded-xl border border-slate-200 bg-black/20 p-3">
                 <p className="text-xs font-semibold text-white">Zorunlu onaylar</p>
