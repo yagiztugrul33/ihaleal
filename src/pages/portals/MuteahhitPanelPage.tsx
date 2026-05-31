@@ -194,7 +194,7 @@ export default function MuteahhitPanelPage() {
       title={org ? org.display_name : "Projeler ve lansman birimleri"}
       subtitle="Ruhsatlı projeleriniz, birim envanteri ve lansman ilanlarını buradan yönetin."
       actions={
-        <Button asChild size="sm" className="gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950">
+        <Button asChild size="sm" variant="accent">
           <Link to="/muteahhit/yeni-proje">
             <Plus className="h-4 w-4" /> Yeni proje
           </Link>
@@ -247,7 +247,7 @@ export default function MuteahhitPanelPage() {
             <p className="text-slate-500 text-xs mb-4">
               Lansman birimlerinizi yayınlamak için önce bir proje oluşturmanız ve admin onayı almanız gerekir.
             </p>
-            <Button asChild size="sm" className="gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950">
+            <Button asChild size="sm" variant="accent">
               <Link to="/muteahhit/yeni-proje">
                 <Plus className="w-4 h-4" /> İlk projeyi oluştur
               </Link>
@@ -372,7 +372,7 @@ export default function MuteahhitPanelPage() {
           </article>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Button size="sm" onClick={() => navigate("/muteahhit/yeni-proje")} className="gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950">
+          <Button size="sm" onClick={() => navigate("/muteahhit/yeni-proje")} variant="accent">
             <Plus className="w-4 h-4" /> Yeni proje aç
           </Button>
           <Button asChild size="sm" variant="outline">

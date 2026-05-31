@@ -360,7 +360,7 @@ export default function BorsaCityLanding() {
 
         {/* AKSIYON ŞERIDI */}
         <div className="mb-6 flex flex-wrap gap-2">
-          <Button asChild className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 gap-2">
+          <Button asChild variant="accent">
             <Link to={`/arama?city=${province.name}`}>
               <Home className="w-4 h-4" /> {province.name}'de Tüm İlanlar
             </Link>

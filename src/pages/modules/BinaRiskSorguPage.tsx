@@ -52,11 +52,12 @@ export default function BinaRiskSorguPage() {
 
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3">
           <p className="text-sm text-rose-100">Risk skorunu harita katmanında doğrulayarak mahalle ölçeğinde karşılaştırın.</p>
-          <Button asChild className="bg-rose-300 text-slate-900 hover:bg-rose-200">
-            <Link to="/modul/deprem-risk-haritasi">
-              Haritayı aç <ArrowRight className="ml-1.5 h-4 w-4" />
-            </Link>
-          </Button>
+          <Link
+            to="/modul/deprem-risk-haritasi"
+            className="inline-flex items-center gap-1.5 rounded-lg !bg-rose-300 px-4 py-2 text-sm font-bold !text-slate-950 shadow transition-colors hover:!bg-rose-200"
+          >
+            Haritayı aç <ArrowRight className="ml-1.5 h-4 w-4" />
+          </Link>
         </div>
       </div>
     </ModuleShell>

@@ -129,7 +129,7 @@ export function EarthquakeRiskWorkbench({ compact = false, title = "Deprem risk 
       </div>
 
       <div className="flex items-center gap-2">
-        <Button type="button" onClick={run} className="bg-rose-400 text-slate-900 hover:bg-rose-300">Risk skorunu hesapla</Button>
+        <button type="button" onClick={run} className="inline-flex items-center gap-2 rounded-lg !bg-rose-400 px-4 py-2 text-sm font-bold !text-slate-950 shadow transition-colors hover:!bg-rose-300">Risk skorunu hesapla</button>
         {error ? <span className="text-xs text-rose-300">{error}</span> : null}
       </div>
 

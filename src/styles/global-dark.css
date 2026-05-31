@@ -78,7 +78,7 @@ table, th, td {
 }
 
 .card,
-[class*="rounded"][class*="shadow"]:not([class*="bg-gradient"]) {
+[class*="rounded"][class*="shadow"]:not([class*="bg-gradient"]):not([data-slot="button"]):not(button):not(a):not([role="button"]):not([class*="bg-cyan"]):not([class*="bg-blue"]):not([class*="bg-emerald"]):not([class*="bg-amber"]):not([class*="bg-rose"]):not([class*="bg-violet"]):not([class*="bg-fuchsia"]) {
   background: var(--bg-card) !important;
   border: 1px solid rgba(148, 163, 184, 0.1);
 }

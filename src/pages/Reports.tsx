@@ -237,7 +237,8 @@ export default function Reports() {
               size="sm"
               onClick={() => downloadReportPdf(r)}
               disabled={pdfBusy === r.id}
-              className="flex-1 gap-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold h-8 text-xs"
+              variant="accent"
+              className="flex-1 h-8 text-xs"
             >
               {pdfBusy === r.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Download className="w-3 h-3" />}
               {pdfBusy === r.id ? "Hazır…" : "PDF İndir"}

@@ -271,7 +271,7 @@ export function ValuationWorkbench({
         </label>
 
         <div className="xl:col-span-4 flex flex-wrap items-center gap-2 pt-1">
-          <Button type="submit" className="bg-cyan-500 font-semibold text-slate-950 hover:bg-cyan-400">
+          <Button type="submit" variant="accent">
             <Calculator className="mr-1.5 h-4 w-4" /> Değerleme başlat
           </Button>
           <Button

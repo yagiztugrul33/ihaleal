@@ -1,0 +1,429 @@
+{
+  "desktop": {
+    "/": [
+      {
+        "tag": "a",
+        "text": "İlanları gör",
+        "ratio": 1.41,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(37, 99, 235)",
+        "rect": {
+          "x": 1149,
+          "y": 106,
+          "width": 85,
+          "height": 30,
+          "top": 106,
+          "right": 1234,
+          "bottom": 136,
+          "left": 1149
+        },
+        "className": "rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-500"
+      },
+      {
+        "tag": "button",
+        "text": "Sor",
+        "ratio": 1.05,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(10, 6, 18)",
+        "bg": "rgb(12, 15, 26)",
+        "rect": {
+          "x": 645.21875,
+          "y": 462.96875,
+          "width": 48.1875,
+          "height": 29.1875,
+          "top": 462.96875,
+          "right": 693.40625,
+          "bottom": 492.15625,
+          "left": 645.21875
+        },
+        "className": "terminal-hero__submit"
+      },
+      {
+        "tag": "a",
+        "text": "B1İlanını KoyKeşif ücretsiz. Mülkünü borsaya ekle, AI değerl",
+        "ratio": 4.45,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(11, 33, 53)",
+        "rect": {
+          "x": 157,
+          "y": 2120.40625,
+          "width": 269.5,
+          "height": 158,
+          "top": 2120.40625,
+          "right": 426.5,
+          "bottom": 2278.40625,
+          "left": 157
+        },
+        "className": "group rounded-2xl border p-4 transition hover:-translate-y-0.5 border-sky-400/35 bg-sky-500/10 text-sky-200"
+      },
+      {
+        "tag": "a",
+        "text": "B2Canlı TeklifAlıcılar kredi kartı blokeli ciddi teklif veri",
+        "ratio": 4.42,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(12, 35, 43)",
+        "rect": {
+          "x": 442.5,
+          "y": 2120.40625,
+          "width": 269.5,
+          "height": 158,
+          "top": 2120.40625,
+          "right": 712,
+          "bottom": 2278.40625,
+          "left": 442.5
+        },
+        "className": "group rounded-2xl border p-4 transition hover:-translate-y-0.5 border-emerald-400/35 bg-emerald-500/10 text-emerald-200"
+      },
+      {
+        "tag": "a",
+        "text": "B3Güvenli KazanEn yüksek teklif kazanır. Escrow, KYC, koruma",
+        "ratio": 4.41,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(34, 32, 31)",
+        "rect": {
+          "x": 728,
+          "y": 2120.40625,
+          "width": 269.5,
+          "height": 158,
+          "top": 2120.40625,
+          "right": 997.5,
+          "bottom": 2278.40625,
+          "left": 728
+        },
+        "className": "group rounded-2xl border p-4 transition hover:-translate-y-0.5 border-amber-400/35 bg-amber-500/10 text-amber-200"
+      }
+    ],
+    "/arama": [],
+    "/ihaleler": [],
+    "/borsa": [],
+    "/borsa/sehir/istanbul": [],
+    "/raporlar": [
+      {
+        "tag": "button",
+        "text": "Abone Ol",
+        "ratio": 4.23,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(139, 92, 246)",
+        "rect": {
+          "x": 1154,
+          "y": 3537.5,
+          "width": 117,
+          "height": 44,
+          "top": 3537.5,
+          "right": 1271,
+          "bottom": 3581.5,
+          "left": 1154
+        },
+        "className": "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-all duration-250 ease-out-expo disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-even"
+      }
+    ],
+    "/harita": [
+      {
+        "tag": "a",
+        "text": "Leaflet",
+        "ratio": 3.46,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(248, 248, 248)",
+        "rect": {
+          "x": 1252,
+          "y": 992.203125,
+          "width": 52,
+          "height": 15,
+          "top": 992.203125,
+          "right": 1304,
+          "bottom": 1007.203125,
+          "left": 1252
+        },
+        "className": ""
+      },
+      {
+        "tag": "a",
+        "text": "OpenStreetMap",
+        "ratio": 3.46,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(248, 248, 248)",
+        "rect": {
+          "x": 1325,
+          "y": 992.203125,
+          "width": 85,
+          "height": 15,
+          "top": 992.203125,
+          "right": 1410,
+          "bottom": 1007.203125,
+          "left": 1325
+        },
+        "className": ""
+      }
+    ],
+    "/degerleme": [],
+    "/ihale-ac": [],
+    "/panel": [],
+    "/profil": [],
+    "/aramalarim": [],
+    "/iletisim": [
+      {
+        "tag": "a",
+        "text": "Yol tarifi al",
+        "ratio": 4.32,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(12, 36, 54)",
+        "rect": {
+          "x": 1090,
+          "y": 508,
+          "width": 93,
+          "height": 26,
+          "top": 508,
+          "right": 1183,
+          "bottom": 534,
+          "left": 1090
+        },
+        "className": "inline-flex items-center gap-1 text-xs text-cyan-300 hover:text-cyan-200 hover:underline px-2 py-1 rounded-md bg-cyan-500/10 border border-cyan-400/30"
+      }
+    ],
+    "/giris": [],
+    "/kayit": [],
+    "/favoriler": [],
+    "/bildirimler": [],
+    "/nasil-calisir": [],
+    "/hakkimizda": [],
+    "/kunye": [],
+    "/destek": [],
+    "/sss": [
+      {
+        "tag": "button",
+        "text": "Tümü",
+        "ratio": 3.33,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(37, 99, 235)",
+        "bg": "rgb(21, 27, 41)",
+        "rect": {
+          "x": 455,
+          "y": 761.78125,
+          "width": 58,
+          "height": 64,
+          "top": 761.78125,
+          "right": 513,
+          "bottom": 825.78125,
+          "left": 455
+        },
+        "className": "px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ring-offset-[var(--color-bg)] ring-2 ring-[var(--color-primary)] ring-offset-1"
+      }
+    ],
+    "/ilan/1": [],
+    "/ilan/prop-010": [],
+    "/satilik/istanbul": [],
+    "/modul/bina-risk-sorgu": [
+      {
+        "tag": "a",
+        "text": "Haritayı aç",
+        "ratio": 1.95,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(253, 164, 175)",
+        "rect": {
+          "x": 1127,
+          "y": 1331.34375,
+          "width": 132,
+          "height": 36,
+          "top": 1331.34375,
+          "right": 1259,
+          "bottom": 1367.34375,
+          "left": 1127
+        },
+        "className": "inline-flex items-center gap-1.5 rounded-lg !bg-rose-300 px-4 py-2 text-sm font-bold !text-slate-950 shadow transition-colors hover:!bg-rose-200"
+      }
+    ]
+  },
+  "mobile": {
+    "/": [
+      {
+        "tag": "a",
+        "text": "İlanları gör",
+        "ratio": 1.41,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(37, 99, 235)",
+        "rect": {
+          "x": 33,
+          "y": 168,
+          "width": 85,
+          "height": 30,
+          "top": 168,
+          "right": 118,
+          "bottom": 198,
+          "left": 33
+        },
+        "className": "rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-500"
+      },
+      {
+        "tag": "button",
+        "text": "Sor",
+        "ratio": 1.05,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(10, 6, 18)",
+        "bg": "rgb(12, 15, 26)",
+        "rect": {
+          "x": 294.21875,
+          "y": 494.953125,
+          "width": 48.1875,
+          "height": 29.1875,
+          "top": 494.953125,
+          "right": 342.40625,
+          "bottom": 524.140625,
+          "left": 294.21875
+        },
+        "className": "terminal-hero__submit"
+      }
+    ],
+    "/arama": [],
+    "/ihaleler": [],
+    "/borsa": [],
+    "/borsa/sehir/istanbul": [],
+    "/raporlar": [],
+    "/harita": [
+      {
+        "tag": "a",
+        "text": "Leaflet",
+        "ratio": 3.46,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(248, 248, 248)",
+        "rect": {
+          "x": 214,
+          "y": 980.203125,
+          "width": 52,
+          "height": 15,
+          "top": 980.203125,
+          "right": 266,
+          "bottom": 995.203125,
+          "left": 214
+        },
+        "className": ""
+      },
+      {
+        "tag": "a",
+        "text": "OpenStreetMap",
+        "ratio": 3.46,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(248, 248, 248)",
+        "rect": {
+          "x": 287,
+          "y": 980.203125,
+          "width": 85,
+          "height": 15,
+          "top": 980.203125,
+          "right": 372,
+          "bottom": 995.203125,
+          "left": 287
+        },
+        "className": ""
+      }
+    ],
+    "/degerleme": [],
+    "/ihale-ac": [],
+    "/panel": [],
+    "/profil": [],
+    "/aramalarim": [],
+    "/iletisim": [
+      {
+        "tag": "a",
+        "text": "Yol tarifi al",
+        "ratio": 4.32,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(12, 36, 54)",
+        "rect": {
+          "x": 33,
+          "y": 784,
+          "width": 93,
+          "height": 26,
+          "top": 784,
+          "right": 126,
+          "bottom": 810,
+          "left": 33
+        },
+        "className": "inline-flex items-center gap-1 text-xs text-cyan-300 hover:text-cyan-200 hover:underline px-2 py-1 rounded-md bg-cyan-500/10 border border-cyan-400/30"
+      }
+    ],
+    "/giris": [],
+    "/kayit": [],
+    "/favoriler": [],
+    "/bildirimler": [],
+    "/nasil-calisir": [],
+    "/hakkimizda": [],
+    "/kunye": [],
+    "/destek": [],
+    "/sss": [
+      {
+        "tag": "button",
+        "text": "Tümü",
+        "ratio": 3.33,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(37, 99, 235)",
+        "bg": "rgb(21, 27, 41)",
+        "rect": {
+          "x": 16,
+          "y": 1078.53125,
+          "width": 58,
+          "height": 30,
+          "top": 1078.53125,
+          "right": 74,
+          "bottom": 1108.53125,
+          "left": 16
+        },
+        "className": "px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ring-offset-[var(--color-bg)] ring-2 ring-[var(--color-primary)] ring-offset-1"
+      }
+    ],
+    "/ilan/1": [],
+    "/ilan/prop-010": [],
+    "/satilik/istanbul": [],
+    "/modul/bina-risk-sorgu": [
+      {
+        "tag": "a",
+        "text": "Haritayı aç",
+        "ratio": 1.95,
+        "target": 4.5,
+        "large": false,
+        "color": "rgb(59, 130, 246)",
+        "bg": "rgb(253, 164, 175)",
+        "rect": {
+          "x": 29,
+          "y": 2683.5625,
+          "width": 132,
+          "height": 36,
+          "top": 2683.5625,
+          "right": 161,
+          "bottom": 2719.5625,
+          "left": 29
+        },
+        "className": "inline-flex items-center gap-1.5 rounded-lg !bg-rose-300 px-4 py-2 text-sm font-bold !text-slate-950 shadow transition-colors hover:!bg-rose-200"
+      }
+    ]
+  }
+}

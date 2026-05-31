@@ -22,6 +22,11 @@ const buttonVariants = cva(
         link: "text-lux-blue-400 underline-offset-4 hover:underline hover:text-lux-blue-500",
         tertiary:
           "text-lux-blue-400 font-semibold underline-offset-4 hover:text-white hover:underline px-0 h-auto min-h-0",
+        // Accent (cyan CTA) — kontrast 1.12 bug fix: `bg-cyan-500 text-slate-950` className
+        // override Button default gradient ile çakışıp arka planı şeffaf bırakıyordu.
+        // !important + bg-image:none + bg-cyan-500 üçlüsü garanti opak cyan zemin.
+        accent:
+          "!bg-cyan-500 !text-slate-950 !bg-none shadow-sm border border-cyan-400/30 hover:!bg-cyan-400 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(34,211,238,0.45)] active:translate-y-0",
       },
       size: {
         default: "h-11 px-6 py-2.5 has-[>svg]:px-5 text-[0.9375rem]",

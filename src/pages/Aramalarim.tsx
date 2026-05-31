@@ -145,7 +145,7 @@ export default function Aramalarim() {
                 : "Henüz kayıtlı aramanız yok."}
             </p>
           </div>
-          <Button onClick={() => navigate("/arama")} className="gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold">
+          <Button onClick={() => navigate("/arama")} variant="accent">
             <Plus className="w-4 h-4" /> Yeni Arama
           </Button>
         </div>
@@ -225,7 +225,8 @@ export default function Aramalarim() {
                     <Button
                       size="sm"
                       onClick={() => runSearch(s)}
-                      className="flex-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-1.5 h-8"
+                      variant="accent"
+                      className="flex-1 h-8"
                     >
                       <Play className="w-3.5 h-3.5" /> Çalıştır
                     </Button>

@@ -459,9 +459,13 @@ export default function CreateAuction() {
               yoksa <strong className="text-white">2 dakikada</strong> hesap oluşturabilirsiniz.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Button onClick={() => navigate("/giris?next=/ihale-ac")} className="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-semibold gap-2">
+              <button
+                type="button"
+                onClick={() => navigate("/giris?next=/ihale-ac")}
+                className="inline-flex items-center justify-center gap-2 rounded-lg !bg-amber-500 px-6 py-2.5 text-sm font-bold text-slate-950 shadow-md transition-all hover:!bg-amber-400"
+              >
                 <Gavel className="w-4 h-4" /> Giriş Yap
-              </Button>
+              </button>
               <Button onClick={() => navigate("/kayit?next=/ihale-ac")} variant="outline" className="border-amber-400/40 text-amber-100 hover:bg-amber-500/10 gap-2">
                 <PlusCircle className="w-4 h-4" /> Hesap Oluştur
               </Button>

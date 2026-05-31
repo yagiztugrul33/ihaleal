@@ -192,7 +192,7 @@ export function LocationIntelligenceWorkbench({
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <Button type="button" className="bg-cyan-500 font-semibold text-slate-950 hover:bg-cyan-400" onClick={runAnalysis}>
+        <Button type="button" variant="accent" onClick={runAnalysis}>
           <MapPinned className="mr-1.5 h-4 w-4" /> Konum analizi başlat
         </Button>
         {error ? <span className="text-xs text-rose-300">{error}</span> : null}

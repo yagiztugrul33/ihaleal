@@ -356,7 +356,7 @@ export default function ValuationTool() {
           </label>
 
           <div className="md:col-span-2 flex flex-wrap items-center gap-3">
-            <Button type="submit" className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold gap-2">
+            <Button type="submit" variant="accent">
               <Calculator className="h-4 w-4" /> Ne Kadar Eder?
             </Button>
             <Button
@@ -506,7 +506,7 @@ export default function ValuationTool() {
                     onClick={downloadPdf}
                     disabled={pdfBusy}
                     size="sm"
-                    className="gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950"
+                    variant="accent"
                   >
                     {pdfBusy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileDown className="h-3.5 w-3.5" />}
                     PDF Rapor İndir
