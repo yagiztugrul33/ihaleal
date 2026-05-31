@@ -16,10 +16,12 @@ export const AUCTIONS = [
     pricePerSqm: 63333,
     bidderCount: 34,
     endDate: new Date(Date.now() + 86400000 * 2).toISOString(),
+    // Dalga 2-5: 2/4 Unsplash URL 404 dönüyordu (silinmiş fotolar) →
+    // canlı ofis/plaza fotoğraflarıyla değiştirildi (CURL ile teyit).
     images: [
-      "https://images.unsplash.com/photo-1486406146926-c627a92e1b4b?w=800&fit=crop",
+      "https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=800&fit=crop",
       "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&fit=crop",
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e44?w=800&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&fit=crop",
       "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&fit=crop",
     ],
     virtualTour: "https://momento360.com/e/uc/8b7c3d2e1a9f4e6d5b8a0c1f2e3d4a5b",
