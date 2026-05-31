@@ -226,7 +226,7 @@ export const messages: Record<Locale, Messages> = {
       },
       terminal: {
         eyebrow: "iHaleal Terminal",
-        prompt: "What are you looking for?",
+        prompt: "How can we help you?",
         askPlaceholder: "Ask anything…",
         askSubmit: "Ask",
         options: {
@@ -379,7 +379,7 @@ export const messages: Record<Locale, Messages> = {
       },
       terminal: {
         eyebrow: "İhaleal Terminal",
-        prompt: "Ne arıyorsunuz?",
+        prompt: "Size nasıl yardımcı olabiliriz?",
         askPlaceholder: "Her şeyi sorun…",
         askSubmit: "Sor",
         options: {
