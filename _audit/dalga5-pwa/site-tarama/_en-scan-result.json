@@ -1,0 +1,162 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 3000,
+    "h1": "> How c",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/auctions",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 3000,
+    "h1": "",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/ihaleler",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 3000,
+    "h1": "Gerçek piyasa,gerçek fiyat.",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/borsa",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 3000,
+    "h1": "Canlı terminale hoş geldiniz",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/raporlar",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 3000,
+    "h1": "İhaleal Endeks Raporları",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/harita",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 2167,
+    "h1": "Harita Üzerinden Arama",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/degerleme",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 2485,
+    "h1": "Ne Kadar Eder?",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/how-it-works",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 3000,
+    "h1": "Gayrimenkul ihale yolculuğu: uçtan uca çerçeve",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/about",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 1941,
+    "h1": "404",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/destek",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 2400,
+    "h1": "Destek",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/giris",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 1948,
+    "h1": "Giriş Yap",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/kayit",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 2035,
+    "h1": "Kayıt Ol",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/profil",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 1805,
+    "h1": "Hesap Profili",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/aramalarim",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 2150,
+    "h1": "Kayıtlı Aramalarım",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/iletisim",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 2449,
+    "h1": "Bize Ulaşın",
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/sss",
+    "status": 200,
+    "htmlLang": "en",
+    "trHits": 3,
+    "bodyLen": 3000,
+    "h1": "Sıkça sorulan sorular",
+    "errors": [],
+    "pageErrors": []
+  }
+]

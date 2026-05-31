@@ -2,15 +2,20 @@ import { useNavigate } from "react-router-dom";
 import { BrandLockup } from "@/components/Logo";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
-import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen } from "lucide-react";
+import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen, Globe } from "lucide-react";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
 import { isDemoData } from "@/lib/dataStrategy";
 import { isProdBuild, localAuthEnabled } from "@/lib/runtimeFlags";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
+import { useLocale } from "@/contexts/LocaleContext";
+import type { Locale } from "@/i18n/messages";
 
 export function Footer() {
   const navigate = useNavigate();
   const year = new Date().getFullYear();
+  const { locale, setLocale } = useLocale();
+  const isEn = locale === "en";
+  const pickLocale = (next: Locale) => setLocale(next);
 
   return (
     <footer className="border-t border-white/15 bg-transparent relative overflow-x-hidden">
@@ -201,10 +206,46 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-400">© {year} ihaleal.com. Tüm hakları saklıdır.</p>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-slate-400">Yapay zeka destekli gayrimenkul platformu</span>
+        <div className="mt-12 pt-8 border-t border-white/15 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-slate-400">
+            © {year} ihaleal.com. {isEn ? "All rights reserved." : "Tüm hakları saklıdır."}
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            {/* Dil seçici — Navbar'dakine ek olarak mobile + desktop her zaman görünür. */}
+            <div
+              className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-slate-900/50 px-1 py-0.5"
+              role="group"
+              aria-label={isEn ? "Language" : "Dil"}
+            >
+              <Globe className="ml-1.5 h-3 w-3 text-slate-500" aria-hidden />
+              <button
+                type="button"
+                onClick={() => pickLocale("tr")}
+                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                  locale === "tr"
+                    ? "bg-blue-500/20 text-blue-300"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+                aria-pressed={locale === "tr"}
+              >
+                TR
+              </button>
+              <button
+                type="button"
+                onClick={() => pickLocale("en")}
+                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                  locale === "en"
+                    ? "bg-blue-500/20 text-blue-300"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+                aria-pressed={locale === "en"}
+              >
+                EN
+              </button>
+            </div>
+            <span className="text-xs text-slate-400">
+              {isEn ? "AI-powered real estate platform" : "Yapay zeka destekli gayrimenkul platformu"}
+            </span>
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
         </div>
