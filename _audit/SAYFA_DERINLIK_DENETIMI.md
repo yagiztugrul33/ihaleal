@@ -119,15 +119,55 @@ Bu küçük script TS/lint öncesi guard olarak eklenirse "cn import unutuldu" t
 
 ### Mevcut rapor güncellemesi
 
-Yukarıdaki ana derinlik tablosunda `/borsa/izleme` ayrı satır olarak listelenmedi (rapor anonimken Master fix istedi); FAZ 2 başlamadan önce ana tarama scripti tüm `/borsa/*` sub-rotalarını içerecek şekilde genişletilecek. Şu an için:
+Yukarıdaki ana derinlik tablosunda `/borsa/izleme` ayrı satır olarak listelenmedi (rapor anonimken Master fix istedi). FAZ 2 başlamadan önce ana tarama scripti tüm `/borsa/*` sub-rotalarını içerecek şekilde genişletildi (aşağıda).
 
-| Borsa sub-rota | HTTP | EB | console | Durum |
+---
+
+## 1.6) DELTA TARAMA — Borsa sub-rotaları + /mesajlar + saved-searches
+
+Master'ın FAZ 1 brifinde belirtilen ama ilk taramada eksik kalan **7 rota** ek olarak tarandı.
+
+| Kat. | Rota | HTTP | EB | console | h1 | body | main | Derinlik | Bulgu |
+|---|---|:-:|:-:|:-:|:-:|--:|--:|:-:|---|
+| borsa | /borsa/varliklar | 200 | 0 | 0 | 1 | 6542 | 4839 | **7** | Varlık (mülk) listesi terminali zengin; filtre + tablo + favori |
+| borsa | /borsa/izleme | 200 | 0 | 0 | 1 | 3087 | 1384 | **6** | İzleme + alarm merkezi (cn fix sonrası); anonim hali kısıtlı |
+| borsa | /borsa/portfoy | 200 | 0 | 0 | 1 | 4807 | 3104 | **6** | Portföy terminal: pozisyon, P&L, alarm |
+| borsa | /borsa/veri | 200 | 0 | 0 | 1 | 3342 | 1635 | **5** | Veri/analiz terminali, endeks bileşenleri yetersiz |
+| user | /mesajlar | 200 | 0 | 0 | 1 | 3025 | 1321 | **6** | Mesajlaşma fonksiyonel: gönder kutusu, ekli dosya, ComplianceNlpService taranır |
+| 🔴 | **/saved-searches** | 200 | 0 | 0 | 1 | 1936 | 233 | **N/A** | **NotFound 404 sayfası gösteriliyor** — App.tsx'te route tanımsız |
+| 🔴 | **/aramalarim** | 200 | 0 | 0 | 1 | 1936 | 233 | **N/A** | **NotFound** — aynı şekilde rota tanımsız |
+
+### 🔴 saved-searches sayfası eksiği — KRİTİK BULGU
+
+| Mevcut | Eksik |
+|---|---|
+| `src/lib/savedSearches/savedSearchesClient.ts` altyapı var (Supabase tablo işlemleri, notify insert) | `/saved-searches` veya `/aramalarim` özel sayfa **yok** |
+| `/arama` içinde "Kaydet" buton var (önceki taramada görüldü) | Kayıtlı aramaları **gezme/yönetme/silme** sayfası yok |
+| `useSavedSearches` hook'u var | Liste sayfası komponenti yok |
+
+→ Kullanıcı `/arama`'da arama kaydedebilir ama kaydedilenleri sonradan görüp yönetemez. Bu büyük UX/feature açığı. Sektör rakiplerinde standart (sahibinden "Aramayı Kaydet" + yönet sayfası, hepsiemlak/emlakjet aynı).
+
+**Yapılması gereken (Dalga 4'e ekleme):**
+- `src/pages/SavedSearches.tsx` (veya `Aramalarim.tsx`) yeni sayfa
+- App.tsx Route `/aramalarim` + alias `/saved-searches` redirect
+- `useSavedSearches` hook'tan liste çek + grid (filtre özetleri, son eşleşme tarihi, sil, çalıştır)
+- `/arama` kaydet butonunun başarı toast'ında "Aramalarım'da görün" linki
+- Footer + /panel sidebar'a link
+
+### Güncellenmiş 500/EB sayfaları durumu (post-fix)
+
+| Sayfa | HTTP | EB | console | Notlar |
 |---|:-:|:-:|:-:|---|
 | /borsa | 200 | 0 | 0 | PASS |
 | /borsa/varliklar | 200 | 0 | 0 | PASS |
 | /borsa/izleme | 200 | 0 | 0 | **FIX EDİLDİ** (01b0c67) |
 | /borsa/portfoy | 200 | 0 | 0 | PASS |
 | /borsa/veri | 200 | 0 | 0 | PASS |
+| /mesajlar | 200 | 0 | 0 | PASS — anonim, fonksiyonel |
+| /saved-searches | 200 | 0 | 0 | 🔴 **NotFound** — route eksik (yeni sayfa gerek) |
+| /aramalarim | 200 | 0 | 0 | 🔴 **NotFound** — route eksik (alias eklenmeli) |
+
+**Toplam tarama: 48 rota** (ilk 41 + delta 7). Site EB=0 + 0 console error.
 
 
 ---
@@ -390,6 +430,7 @@ Yukarıdaki ana derinlik tablosunda `/borsa/izleme` ayrı satır olarak listelen
 13. **/panel** sekme içeriklerini zenginleştir (Özet card'ları, İhalelerim canlı, Tekliflerim)
 14. **/iletisim** h1 + harita embed + sosyal medya + randevu
 15. **/favoriler /bildirimler** anonim "giriş yap" yönlendirme + login sonrası içerik
+15.5. **/aramalarim + /saved-searches alias yeni sayfa** — `useSavedSearches` hook'tan liste, sil/çalıştır, /arama'dan kaydet sonra buraya link (delta tarama §1.6'da tespit edilen 404 boşluk)
 
 ### Dalga 5 — "Marketing + içerik"
 **Hedef:** SEO, marketing, niş kullanıcılar.
