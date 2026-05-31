@@ -67,13 +67,68 @@
 **Derinlik skalası:** 1=neredeyse boş · 3=temel iskelet · 5=fonksiyonel ama yüzeysel · 7=zengin tek-amaç · 9=mükemmel · 10=referans
 
 ### Kritik özet
-- ✅ **EB=0, 200/200, 0 console error** — site stabil
+- ✅ **EB=0, 200/200, 0 console error** — temel rotalarda site stabil
+
+> **DÜZELTME (post-rapor):** Bu raporun 41 rotalık ana tablosu **borsa sub-rotalarını içermiyordu** (master bağımsız olarak `/borsa/izleme` 500 hatası bildirdi). Borsa alt rotaları ayrıca incelendi; bkz. aşağıdaki "1.5) Tespit edilen ve düzeltilen 500/EB sayfaları" bölümü.
 - 🔴 **3 sayfa derinlik 1-3** (kritik kullanıcı yolu, yetersiz): `/arama`, `/degerleme`, `/ihale-ac`
 - 🔴 **2 yapısal hata**: `/iletisim` ve `/profil` ve `/ihale-ac` h1 eksik
 - ⚠ **1 kod kalıntısı**: `/modul/ges-analizi` "todo" placeholder
 - ⚠ **1 görsel sorun**: `/ilan/1` galeri yok (demo id "1" UUID değil, real seed eksik)
 - 🟡 **Anonim ziyaretçi**: `/panel`, `/profil`, `/favoriler`, `/bildirimler` login OLMADAN boş — DOĞRU davranış ama "önce giriş yap" UX iyileştirilebilir
 - 🟢 **Zengin sayfalar (8-9)**: `/`, `/nasil-calisir`, `/ilan/:id` (galeri hariç), `/borsa`, `/komisyon-hesaplayici`
+
+---
+
+## 1.5) TESPİT EDİLEN ve DÜZELTİLEN 500 / EB SAYFALARI
+
+Master, raporun ana taramasından bağımsız olarak `/borsa/izleme` sayfasında "500" ekran gördüğünü bildirdi. Derinlemesine teşhis + fix uygulandı.
+
+### `/borsa/izleme` — kök neden + fix
+
+| Alan | Veri |
+|---|---|
+| Belirti | Sayfa açılıyor ama "500 — Bir sorun oluştu" ErrorBoundary ekranı |
+| HTTP | 200 (preview chunk yükleniyor — sunucu 500 değil) |
+| Console error | `ReferenceError: cn is not defined` (Array.map içinde) |
+| Sebep | `src/pages/BorsaWatchlistPage.tsx` 4 yerde JSX `className={cn(...)}` (l.215, l.295, l.313, l.335) kullanıyor ama `import { cn } from "@/lib/utils"` satırı eksikti |
+| Etki | React render exception → ErrorBoundary catch → "500 Bir sorun oluştu" UI |
+| Düzeltme | `BorsaWatchlistPage.tsx` baş satırlarına `import { cn } from "@/lib/utils";` (3 satır net diff) |
+| Commit | `01b0c67` `fix(borsa): /borsa/izleme ReferenceError cn → import { cn }` |
+| Tag | `safe-before-borsa-izleme-fix` baseline push edildi |
+| Doğrulama | Playwright: `/borsa`, `/borsa/varliklar`, `/borsa/izleme`, `/borsa/portfoy`, `/borsa/veri` — 5/5 PASS, HTTP=200, EB=0, console errors=0 |
+| Görsel | `/borsa/izleme` tam render: H1 "İzleme Listesi + Alarm Merkezi", Takip Listesi (boş state), Bildirim Tercihleri (5 checkbox), Fiyat Hedefi/Outbid/Bitiyor kartları |
+| Regresyon taraması | `src/pages/*.tsx` ve `src/components/**/*.tsx` içinde `cn()` kullanıp `@/lib/utils` import etmeyen başka dosya yok — tekil bug |
+| Canlı | Push sonrası Vercel deploy bekleniyor (push +1-2 dk) |
+
+### Neden ana tablo bunu yakalayamadı?
+
+İlk Playwright tarama scripti (`_depth-audit.mjs`) route listesinde `/borsa` ve `/borsa/sehir/:il` vardı ama `/borsa/izleme` sub-rotası YOK'tu. Borsa kategorisinde tek tarama 6 dakikalık scripti tamamladı; tab-spesifik alt sayfalar (`izleme`, `varliklar`, `portfoy`, `veri`) ayrıca eklenmemişti.
+
+### Ders çıkarımı — gelecek tekrarı önleme
+
+Tüm sayfalardaki `cn()` kullanım/import audit'i master rota tablosuna eklenmeli. Önerilen CI gate (tek-satır guard):
+
+```bash
+# scripts/check-cn-imports.sh
+for f in $(grep -lE "\\bcn\\(" src/pages/*.tsx src/components/**/*.tsx); do
+  grep -q "from \"@/lib/utils\"" "$f" || echo "MISSING cn import: $f"
+done
+```
+
+Bu küçük script TS/lint öncesi guard olarak eklenirse "cn import unutuldu" tekrarı önlenir.
+
+### Mevcut rapor güncellemesi
+
+Yukarıdaki ana derinlik tablosunda `/borsa/izleme` ayrı satır olarak listelenmedi (rapor anonimken Master fix istedi); FAZ 2 başlamadan önce ana tarama scripti tüm `/borsa/*` sub-rotalarını içerecek şekilde genişletilecek. Şu an için:
+
+| Borsa sub-rota | HTTP | EB | console | Durum |
+|---|:-:|:-:|:-:|---|
+| /borsa | 200 | 0 | 0 | PASS |
+| /borsa/varliklar | 200 | 0 | 0 | PASS |
+| /borsa/izleme | 200 | 0 | 0 | **FIX EDİLDİ** (01b0c67) |
+| /borsa/portfoy | 200 | 0 | 0 | PASS |
+| /borsa/veri | 200 | 0 | 0 | PASS |
+
 
 ---
 
