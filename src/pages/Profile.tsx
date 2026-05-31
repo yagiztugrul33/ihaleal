@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, User, Mail, Phone, Shield, CheckCircle2, Edit3, LogOut, Star } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, User, Mail, Phone, Shield, CheckCircle2, Edit3, LogOut, Star, Heart, Bookmark, HandCoins, Bell, BellRing, ExternalLink, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +9,9 @@ import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { formatSupabaseAuthError, sessionUserFromSupabaseUser } from "@/lib/supabaseAuthBridge";
 import { useKycStatus } from "@/hooks/useKycStatus";
 import { useSellerProfile } from "@/hooks/useSellerProfile";
+import { useFavorites } from "@/hooks/useFavorites";
+import { useSavedSearches } from "@/hooks/useSavedSearches";
+import { useBuyerOffers } from "@/hooks/useListingOffers";
 import { KycVerifiedBadge } from "@/components/trust/KycVerifiedBadge";
 
 function readSession(): SessionUser | null {
@@ -34,6 +37,37 @@ export default function Profile() {
   const kycVerified = kycStatus === "verified";
   const publicRating = sellerStats?.avgRating ?? user?.rating ?? 0;
   const reviewCount = sellerStats?.reviewCount ?? 0;
+  // Dalga 4-3: hesabım özeti + bildirim tercihleri
+  const { favorites } = useFavorites();
+  const savedApi = useSavedSearches([]);
+  const buyerOffers = useBuyerOffers();
+  const pendingOffers = buyerOffers.offers.filter((o) => o.status === "pending" || o.status === "countered").length;
+  type NotifyPrefs = { email: boolean; push: boolean; newMatches: boolean; bidUpdates: boolean };
+  const NOTIFY_KEY = "ihaleal_notify_prefs";
+  const [notifyPrefs, setNotifyPrefs] = useState<NotifyPrefs>({
+    email: true,
+    push: false,
+    newMatches: true,
+    bidUpdates: true,
+  });
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(NOTIFY_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as Partial<NotifyPrefs>;
+        setNotifyPrefs((prev) => ({ ...prev, ...parsed }));
+      }
+    } catch {
+      /* sessiz */
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      localStorage.setItem(NOTIFY_KEY, JSON.stringify(notifyPrefs));
+    } catch {
+      /* sessiz */
+    }
+  }, [notifyPrefs]);
 
   useEffect(() => {
     if (!user || user.authBackend !== "supabase" || !isSupabaseConfigured()) return;
@@ -188,6 +222,99 @@ export default function Profile() {
                   <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">E-posta Doğrulama</span><span className={`text-xs px-2 py-1 rounded-full ${user.verified ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"}`}>{user.verified ? "Doğrulandı" : "Bekliyor"}</span></div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">Telefon Doğrulama</span><span className="text-xs px-2 py-1 rounded-full bg-slate-500/20 text-slate-400">Yakında</span></div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">İki Faktörlü Doğrulama</span><span className="text-xs px-2 py-1 rounded-full bg-slate-500/20 text-slate-400">Yakında</span></div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">KYC (Kimlik) Doğrulama</span><span className={`text-xs px-2 py-1 rounded-full ${kycVerified ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"}`}>{kycVerified ? "Doğrulandı" : "Bekliyor"}</span></div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Dalga 4-3: Hesabım Özeti */}
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
+                  <Star className="w-5 h-5 text-blue-400" /> Hesabım Özeti
+                </h3>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Link to="/favoriler" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-rose-500/10 border border-transparent hover:border-rose-400/30 transition-colors group">
+                    <div className="flex items-center gap-2.5">
+                      <Heart className="w-4 h-4 text-rose-400" />
+                      <div>
+                        <p className="text-xs text-slate-400">Favoriler</p>
+                        <p className="text-lg font-bold text-white">{favorites.length}</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-rose-300 transition-colors" />
+                  </Link>
+                  <Link to="/aramalarim" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-cyan-500/10 border border-transparent hover:border-cyan-400/30 transition-colors group">
+                    <div className="flex items-center gap-2.5">
+                      <Bookmark className="w-4 h-4 text-cyan-400" />
+                      <div>
+                        <p className="text-xs text-slate-400">Kayıtlı arama</p>
+                        <p className="text-lg font-bold text-white">{savedApi.loading ? "…" : savedApi.searches.length}</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-300 transition-colors" />
+                  </Link>
+                  <Link to="/panel/tekliflerim" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-amber-500/10 border border-transparent hover:border-amber-400/30 transition-colors group">
+                    <div className="flex items-center gap-2.5">
+                      <HandCoins className="w-4 h-4 text-amber-400" />
+                      <div>
+                        <p className="text-xs text-slate-400">Aktif tekliflerim</p>
+                        <p className="text-lg font-bold text-white">{buyerOffers.loading ? "…" : pendingOffers}</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 transition-colors" />
+                  </Link>
+                  <Link to="/panel" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-blue-500/10 border border-transparent hover:border-blue-400/30 transition-colors group">
+                    <div className="flex items-center gap-2.5">
+                      <ExternalLink className="w-4 h-4 text-blue-400" />
+                      <div>
+                        <p className="text-xs text-slate-400">Tüm panele git</p>
+                        <p className="text-sm font-semibold text-white">/panel</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-blue-300 transition-colors" />
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Dalga 4-3: Bildirim Tercihleri */}
+            <Card className="bg-slate-900/50 border-slate-200/80">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
+                  <BellRing className="w-5 h-5 text-violet-400" /> Bildirim Tercihleri
+                </h3>
+                <p className="text-xs text-slate-500 mb-4">
+                  Tercihleriniz tarayıcıda saklanır. Sunucu tarafı bildirim entegrasyonu canlı sürümde
+                  push token ile çalışır.
+                </p>
+                <div className="space-y-2">
+                  {[
+                    { key: "email" as const, label: "E-posta bildirimi", desc: "Yeni eşleşme, teklif, kabul/ret" },
+                    { key: "push" as const, label: "Tarayıcı push", desc: "Anlık bildirimler" },
+                    { key: "newMatches" as const, label: "Kayıtlı arama eşleşmesi", desc: "Yeni ilan kriterlerinize uyduğunda" },
+                    { key: "bidUpdates" as const, label: "Teklif durum güncellemesi", desc: "Outbid / kazandın / karşı teklif" },
+                  ].map((item) => (
+                    <label
+                      key={item.key}
+                      className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.05] cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Bell className="w-4 h-4 text-violet-400 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm text-white">{item.label}</p>
+                          <p className="text-[11px] text-slate-500">{item.desc}</p>
+                        </div>
+                      </div>
+                      <input
+                        type="checkbox"
+                        checked={notifyPrefs[item.key]}
+                        onChange={(e) => setNotifyPrefs((prev) => ({ ...prev, [item.key]: e.target.checked }))}
+                        className="h-4 w-4 accent-violet-500 flex-shrink-0"
+                        aria-label={item.label}
+                      />
+                    </label>
+                  ))}
                 </div>
               </CardContent>
             </Card>
