@@ -24,20 +24,32 @@ Root'taki `capacitor.config.ts` Capacitor CLI tarafından okunur (appId, splash,
 
 ---
 
-## Capacitor kurulum (Master onayı sonrası)
+## Capacitor kurulum
 
-### 1. Bağımlılıklar
-```bash
-npm install @capacitor/core @capacitor/cli @capacitor/ios @capacitor/android \
-            @capacitor/splash-screen @capacitor/status-bar @capacitor/keyboard \
-            @capacitor/app @capacitor/push-notifications --save
+### 1. Bağımlılıklar ✅ KURULU (Capacitor 8.3.4)
+Aşağıdaki paketler `package.json`'a eklendi (bu repo'da hazır):
+- `@capacitor/core` 8.3.4
+- `@capacitor/cli` 8.3.4 (devDep)
+- `@capacitor/assets` (devDep — ikon/splash otomatik üretim)
+- `@capacitor/ios` 8.3.4
+- `@capacitor/android` 8.3.4
+- `@capacitor/splash-screen`
+- `@capacitor/status-bar`
+- `@capacitor/keyboard`
+- `@capacitor/app`
+- `@capacitor/push-notifications`
+
+`npx cap doctor` doğrulaması:
+```
+Latest Dependencies: 8.3.4
+Installed Dependencies: 8.3.4
 ```
 
-### 2. Native projeleri oluştur
+### 2. Native projeleri oluştur (Mac veya Linux önerilir)
 ```bash
 npx cap init                       # capacitor.config.ts zaten var, sadece doğrular
-npx cap add ios
-npx cap add android
+npx cap add ios                    # macOS gerek (Xcode + CocoaPods)
+npx cap add android                # Android Studio + JDK 17 gerek
 ```
 
 ### 3. Web build sarmala
