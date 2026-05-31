@@ -54,7 +54,10 @@ export function useOnlinePresence() {
         }
       });
     } catch (err) {
-      console.warn("[useOnlinePresence] duplicate channel subscribe, skipping", err);
+      // Duplicate subscribe recoverable; production konsolunu kirletme.
+      if (import.meta.env.DEV) {
+        console.warn("[useOnlinePresence] duplicate channel subscribe, skipping", err);
+      }
     }
 
     return () => {

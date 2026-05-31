@@ -173,6 +173,9 @@ export default function About() {
             <Button asChild variant="outline" className="border-white/15">
               <Link to="/iletisim">İletişim</Link>
             </Button>
+            <Button asChild variant="outline" className="border-white/15">
+              <Link to="/kunye">Yasal künye</Link>
+            </Button>
           </div>
         </div>
       </div>

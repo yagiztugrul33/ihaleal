@@ -321,6 +321,43 @@ function setMeta(attr: "name" | "property", key: string, content: string) {
 
 const OG_IMAGE_ALT = "ihaleal.com — gayrimenkul ihale ve analiz platformu ön izleme görseli";
 
+/**
+ * Per-route OG image override. Default /og-image.png; rotaya özel
+ * varlığı public/'te varsa burada eşlenir. Sosyal paylaşımda her sayfanın
+ * kendi bağlamı görünür (LinkedIn/Twitter/WhatsApp önizleme kalitesi).
+ *
+ * Gelecek: /ilan/:id ve /proje/:id için Edge function ile dinamik
+ * OG generator (mülk fotoğrafı + fiyat + lokasyon overlay).
+ */
+type OgImageConfig = { path: string; width: number; height: number; alt?: string };
+
+const ROUTE_OG_IMAGE: Record<string, OgImageConfig> = {
+  "/borsa": {
+    path: "/social/share-card-1200.png",
+    width: 1200,
+    height: 630,
+    alt: "İhaleal Borsa — canlı gayrimenkul piyasa terminali",
+  },
+};
+
+function getOgImageFor(pathname: string): { url: string; width: number; height: number; alt: string } {
+  const override = ROUTE_OG_IMAGE[pathname];
+  if (override) {
+    return {
+      url: `${SITE_ORIGIN}${override.path}`,
+      width: override.width,
+      height: override.height,
+      alt: override.alt ?? OG_IMAGE_ALT,
+    };
+  }
+  return {
+    url: `${SITE_ORIGIN}${OG_IMAGE.path}`,
+    width: OG_IMAGE.width,
+    height: OG_IMAGE.height,
+    alt: OG_IMAGE_ALT,
+  };
+}
+
 // SEO-temizleyici: prod'da meta/title'dan "demo" ibarelerini çıkarır.
 // Geliştirme/dev ortamında olduğu gibi bırakır (test sırasında uyari ihtiyacı).
 function sanitizeForProd(text: string): string {
@@ -349,22 +386,22 @@ export function applySeoToDocument(pathname: string, search: string) {
   document.title = title;
   setMeta("name", "description", description);
   const shareUrl = getShareUrlForPath(pathname, search);
-  const ogImageUrl = `${SITE_ORIGIN}${OG_IMAGE.path}`;
+  const og = getOgImageFor(pathname);
   const canonicalRoot = getCanonicalHref(pathname);
   setMeta("property", "og:title", title);
   setMeta("property", "og:description", description);
   setMeta("property", "og:url", shareUrl);
   setMeta("property", "og:type", "website");
-  setMeta("property", "og:image", ogImageUrl);
-  setMeta("property", "og:image:width", String(OG_IMAGE.width));
-  setMeta("property", "og:image:height", String(OG_IMAGE.height));
-  setMeta("property", "og:image:alt", OG_IMAGE_ALT);
+  setMeta("property", "og:image", og.url);
+  setMeta("property", "og:image:width", String(og.width));
+  setMeta("property", "og:image:height", String(og.height));
+  setMeta("property", "og:image:alt", og.alt);
   setMeta("name", "twitter:card", "summary_large_image");
   setMeta("name", "twitter:url", shareUrl);
   setMeta("name", "twitter:title", title);
   setMeta("name", "twitter:description", description);
-  setMeta("name", "twitter:image", ogImageUrl);
-  setMeta("name", "twitter:image:alt", OG_IMAGE_ALT);
+  setMeta("name", "twitter:image", og.url);
+  setMeta("name", "twitter:image:alt", og.alt);
   // robots meta — iç doküman rotalarinda noindex/nofollow
   if (NOINDEX_PATHS.has(pathname)) {
     setMeta("name", "robots", "noindex, nofollow");

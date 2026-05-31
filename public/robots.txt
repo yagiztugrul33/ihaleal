@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
 
+# Ic dokuman sayfalari — meta noindex zaten var, Disallow ek koruma.
+Disallow: /nihai-anayasa
+Disallow: /platform-cerceve
+Disallow: /anayasa
+Disallow: /anayasa-400
+
+# Auth-bound rotalar — crawler giremez, gereksiz tarama önlensin.
+Disallow: /panel
+Disallow: /panel/
+Disallow: /muteahhit/panel
+Disallow: /favoriler
+Disallow: /ayarlar
+Disallow: /profil
+Disallow: /mesajlar
+Disallow: /bildirimler
+Disallow: /kyc
+
 Sitemap: https://ihaleal.com/sitemap.xml
+Sitemap: https://ihaleal.com/sitemap-index.xml
+Sitemap: https://ihaleal.com/sitemap-programmatic.xml

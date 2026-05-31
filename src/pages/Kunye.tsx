@@ -109,6 +109,9 @@ export default function Kunye() {
               </p>
             </div>
             <div className="mt-4 flex flex-wrap gap-2 text-xs">
+              <Link to="/hakkimizda" className="text-cyan-300 underline hover:text-cyan-200">
+                Hakkımızda
+              </Link>
               <Link to="/iletisim" className="text-cyan-300 underline hover:text-cyan-200">
                 İletişim formu
               </Link>
