@@ -82,6 +82,8 @@ const Destek               = lazy(() => import("@/pages/Destek"));
 const Aramalarim           = lazy(() => import("@/pages/Aramalarim"));
 const Reports              = lazy(() => import("@/pages/Reports"));
 const ReportDetail         = lazy(() => import("@/pages/ReportDetail"));
+const AboneOnay            = lazy(() => import("@/pages/AboneOnay"));
+const AboneIptal           = lazy(() => import("@/pages/AboneIptal"));
 const UserPanel            = lazy(() => import("@/pages/UserPanel"));
 const Messages             = lazy(() => import("@/pages/Messages"));
 const Documents            = lazy(() => import("@/pages/Documents"));
@@ -302,6 +304,8 @@ function App() {
             <Route path="/saved-searches" element={<Navigate to="/aramalarim" replace />} />
             <Route path="/raporlar" element={<Reports />} />
             <Route path="/rapor/:id" element={<ReportDetail />} />
+            <Route path="/abone/onay" element={<AboneOnay />} />
+            <Route path="/abone/iptal" element={<AboneIptal />} />
             <Route path="/panel" element={<UserPanel />} />
             <Route path="/panel/:tabId" element={<UserPanel />} />
             <Route path="/mesajlar" element={<Messages />} />

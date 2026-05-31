@@ -136,6 +136,7 @@
     "happy-dom": "^20.9.0",
     "jsdom": "^29.1.0",
     "pdf-parse": "^2.4.5",
+    "pdf-to-png-converter": "^4.0.0",
     "postcss": "^8.5.3",
     "sharp": "^0.34.1",
     "supabase": "^2.95.5",
