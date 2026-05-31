@@ -332,6 +332,16 @@ function sanitizeForProd(text: string): string {
     .trim();
 }
 
+// Iç doküman sayfaları — kullanıcı linklerinden çıkarıldı + SEO noindex.
+// Route hala çalışır (URL bilen iç ekip erişebilir) ama Google ve preview
+// crawler'larına "indekslenmesin" sinyali gider.
+const NOINDEX_PATHS = new Set<string>([
+  "/nihai-anayasa",
+  "/platform-cerceve",
+  "/anayasa",
+  "/anayasa-400",
+]);
+
 export function applySeoToDocument(pathname: string, search: string) {
   const raw = getSeoForPath(pathname);
   const title = sanitizeForProd(raw.title);
@@ -355,6 +365,12 @@ export function applySeoToDocument(pathname: string, search: string) {
   setMeta("name", "twitter:description", description);
   setMeta("name", "twitter:image", ogImageUrl);
   setMeta("name", "twitter:image:alt", OG_IMAGE_ALT);
+  // robots meta — iç doküman rotalarinda noindex/nofollow
+  if (NOINDEX_PATHS.has(pathname)) {
+    setMeta("name", "robots", "noindex, nofollow");
+  } else {
+    setMeta("name", "robots", "index, follow");
+  }
   let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (!link) {
     link = document.createElement("link");

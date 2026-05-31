@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { RoadmapBanner } from "@/components/RoadmapBanner";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
+import { isProdBuild } from "@/lib/runtimeFlags";
 
 export default function SecurityCenter() {
   const navigate = useNavigate();
@@ -78,26 +79,31 @@ export default function SecurityCenter() {
           </div>
           <RoadmapBanner />
           <div className="flex flex-wrap gap-2 mt-6">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="border-white/15 text-slate-200 hover:bg-white/5"
-              onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              Platform ve KİK özeti
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="border-white/15 text-slate-200 hover:bg-white/5"
-              onClick={() => navigate("/nihai-anayasa")}
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              Nihai anayasa
-            </Button>
+            {/* Platform ve Nihai anayasa iç doküman — prod kullanıcı görmez. */}
+            {!isProdBuild ? (
+              <>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="border-white/15 text-slate-200 hover:bg-white/5"
+                  onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  Platform ve KİK özeti
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="border-white/15 text-slate-200 hover:bg-white/5"
+                  onClick={() => navigate("/nihai-anayasa")}
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  Nihai anayasa
+                </Button>
+              </>
+            ) : null}
             <Button
               type="button"
               variant="outline"

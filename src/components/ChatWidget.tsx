@@ -29,6 +29,7 @@ import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 import { KKA_SERVICE_POOL_RATE_EX_VAT, KKA_SERVICE_POOL_VAT_RATE } from "@/lib/masterFinancialEngine";
 import { invokeSystemQa, type SystemQaTurn } from "@/lib/systemQaClient";
+import { isProdBuild } from "@/lib/runtimeFlags";
 
 const ASSISTANT_NAME = "İhaleAI Asistan";
 
@@ -655,15 +656,18 @@ export function ChatWidget() {
                   Mortgage
                   <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
                 </button>
-                <Link
-                  to={PLATFORM_FRAMEWORK_PATH}
-                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
-                  onClick={() => setOpen(false)}
-                >
-                  <Shield className="w-3 h-3" aria-hidden />
-                  Platform çerçevesi
-                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
-                </Link>
+                {/* Platform çerçevesi link iç doküman — prod'da gizli. */}
+                {!isProdBuild ? (
+                  <Link
+                    to={PLATFORM_FRAMEWORK_PATH}
+                    className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                    onClick={() => setOpen(false)}
+                  >
+                    <Shield className="w-3 h-3" aria-hidden />
+                    Platform çerçevesi
+                    <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                  </Link>
+                ) : null}
               </div>
             </div>
           )}

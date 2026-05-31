@@ -103,11 +103,7 @@ export default function Login() {
               <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 px-3 py-2.5 text-xs text-amber-100/95 space-y-2 text-left">
                 <p className="font-medium text-amber-200">Müteahhit / üretici şirket oturumu</p>
                 <ul className="list-disc pl-4 space-y-1 text-slate-400">
-                  <li>
-                    <Link to="/nihai-anayasa" className="text-amber-300 hover:underline">
-                      Nihai sistem anayasası
-                    </Link>
-                  </li>
+                  {/* Nihai sistem anayasası iç doküman — Login akışından kaldırıldı (Master onayı). */}
                   <li>
                     <Link to="/yasal/agency-contract" className="text-amber-300 hover:underline">
                       Ortaklık sözleşmesi (agency_contract taslak)
