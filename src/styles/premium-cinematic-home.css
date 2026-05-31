@@ -2177,13 +2177,15 @@
 .terminal-hero__submit {
   border: none;
   border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.75rem;
+  padding: 0.5rem 1.1rem;          /* CEPHE 4: dokunma hedefi 44px+ */
+  font-size: 0.8125rem;
   font-weight: 700;
   cursor: pointer;
-  color: #0a0612;
-  background: linear-gradient(135deg, #c4b5fd, #7c3aed);
+  color: #f8fafc;                  /* slate-50 — açık metin */
+  background: linear-gradient(135deg, #7c3aed, #4c1d95); /* daha koyu mor → kontrast >= 4.5 */
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
   transition: opacity 0.2s ease, transform 0.2s ease;
+  min-height: 36px;
 }
 
 .terminal-hero__submit:disabled {

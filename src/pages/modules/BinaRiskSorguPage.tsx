@@ -54,7 +54,9 @@ export default function BinaRiskSorguPage() {
           <p className="text-sm text-rose-100">Risk skorunu harita katmanında doğrulayarak mahalle ölçeğinde karşılaştırın.</p>
           <Link
             to="/modul/deprem-risk-haritasi"
-            className="inline-flex items-center gap-1.5 rounded-lg !bg-rose-300 px-4 py-2 text-sm font-bold !text-slate-950 shadow transition-colors hover:!bg-rose-200"
+            data-slot="button"
+            style={{ color: "#0f172a", backgroundColor: "#fecdd3" }}
+            className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-bold shadow transition-colors hover:opacity-90"
           >
             Haritayı aç <ArrowRight className="ml-1.5 h-4 w-4" />
           </Link>
