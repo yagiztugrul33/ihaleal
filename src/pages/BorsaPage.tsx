@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BarChart3, Bell, Clock3, Search, Star, TrendingDown, TrendingUp } from "lucide-react";
+import { BarChart3, Bell, Clock3, MapPin, Search, Star, TrendingDown, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { INITIAL_MARKET_ASSETS, useLiveMarket } from "@/borsa/useLiveMarket";
@@ -571,6 +571,37 @@ export default function BorsaPage() {
                 }),
               )}
             </div>
+          </div>
+        </section>
+
+        {/* Dalga 3-2: Şehir endeksi hızlı geçiş şeridi — /borsa/sehir/:il drilldown */}
+        <section className="rounded-xl border border-cyan-500/25 bg-slate-900/45 px-3 py-2.5" data-testid="borsa-city-ribbon">
+          <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
+            <h2 className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Şehir Endeksleri</h2>
+            <span className="text-[10px] text-slate-500">Şehir tıkla → endeks + ilçe + ilanlar</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {[
+              { slug: "istanbul", label: "İstanbul" },
+              { slug: "ankara", label: "Ankara" },
+              { slug: "izmir", label: "İzmir" },
+              { slug: "bursa", label: "Bursa" },
+              { slug: "antalya", label: "Antalya" },
+              { slug: "adana", label: "Adana" },
+              { slug: "konya", label: "Konya" },
+              { slug: "gaziantep", label: "Gaziantep" },
+              { slug: "kocaeli", label: "Kocaeli" },
+              { slug: "mugla", label: "Muğla" },
+            ].map((c) => (
+              <button
+                key={c.slug}
+                type="button"
+                onClick={() => navigate(`/borsa/sehir/${c.slug}`)}
+                className="inline-flex items-center gap-1 rounded-full border border-slate-700/60 bg-slate-950/50 px-2.5 py-1 text-[11px] text-slate-200 hover:border-cyan-400/40 hover:text-cyan-200 transition-colors"
+              >
+                <MapPin className="w-3 h-3" /> {c.label}
+              </button>
+            ))}
           </div>
         </section>
 
