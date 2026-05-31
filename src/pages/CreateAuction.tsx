@@ -1,6 +1,6 @@
 ﻿import { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, PlusCircle, Upload, MapPin, X, FileText, Scale, Landmark } from "lucide-react";
+import { ArrowLeft, PlusCircle, Upload, MapPin, X, FileText, Scale, Landmark, Gavel, ImageIcon, Settings2, ClipboardCheck, Rocket, ShieldCheck, TrendingUp, Eye, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -399,26 +399,115 @@ export default function CreateAuction() {
     );
   }
 
-  if (!isSupabaseConfigured()) {
-    return (
-      <div className="min-h-screen pt-24 pb-16 flex items-center justify-center px-4">
-        <div className="text-center max-w-md">
-          <PlusCircle className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-400">İlan kaydı için Supabase ortam değişkenleri (.env.local) gerekli.</p>
-        </div>
-      </div>
-    );
-  }
-
+  // Anonim ziyaretçi VE/VEYA Supabase configure değil (lokal/dev) durumu —
+  // tek zengin landing göster. "env eksik" yanıltıcı mesaj kaldırıldı;
+  // canlıda Supabase configured, anonimliğin asıl çözümü "giriş yap"tır.
   if (!user) {
+    const wizardSteps = [
+      { num: 1, icon: Home, title: "Mülk Bilgileri", desc: "Tip, konum, m², oda sayısı, özellikler" },
+      { num: 2, icon: ImageIcon, title: "Görseller", desc: "Foto + (opsiyonel) 360° tur" },
+      { num: 3, icon: Settings2, title: "İhale Ayarları", desc: "Tip (açık/kapalı), başlangıç fiyatı, süre" },
+      { num: 4, icon: ClipboardCheck, title: "Belgeler", desc: "Tapu, ekspertiz raporu (opsiyonel)" },
+      { num: 5, icon: Rocket, title: "Önizleme + Yayınla", desc: "AI analiz + moderasyon kuyruğu" },
+    ];
     return (
-      <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
-        <div className="text-center">
-          <PlusCircle className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-400">İhale açmak için giriş yapmanız gerekiyor.</p>
-          <Button onClick={() => navigate("/giris")} className="mt-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white">
-            Giriş Yap
+      <div className="min-h-screen pt-24 pb-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-400 hover:text-white gap-2 mb-6">
+            <ArrowLeft className="w-4 h-4" /> Ana sayfa
           </Button>
+
+          {/* h1 + intro */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-200 mb-4">
+              <Gavel className="h-3.5 w-3.5" /> İhale Aç
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">5 Adımda İhale Yayınla</h1>
+            <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Gayrimenkulünüz için açık artırma, kapalı teklif veya sadece ilan modunda yayın açın.
+              AI değerleme + emsal analiz + escrow güvenli ödeme — hepsi tek platformda.
+            </p>
+          </div>
+
+          {/* 5 Adım kartı */}
+          <div className="mb-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {wizardSteps.map((step, i) => (
+              <div
+                key={step.num}
+                className="relative rounded-2xl border border-white/10 bg-slate-900/50 p-4 hover:border-amber-400/30 transition-colors"
+              >
+                <div className="absolute -top-3 -left-3 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-bold text-xs flex items-center justify-center shadow-lg">
+                  {step.num}
+                </div>
+                <step.icon className="w-6 h-6 text-amber-300 mb-2 mt-1" />
+                <h3 className="font-semibold text-white text-sm mb-1">{step.title}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
+                {i < wizardSteps.length - 1 ? (
+                  <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-amber-400/30" />
+                ) : null}
+              </div>
+            ))}
+          </div>
+
+          {/* CTA panel */}
+          <div className="rounded-3xl border border-amber-400/25 bg-gradient-to-br from-amber-500/10 via-slate-900/40 to-cyan-500/5 p-8 text-center">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
+              İhale açmak için hesap gerekir
+            </h2>
+            <p className="text-slate-300 mb-6 max-w-xl mx-auto text-sm leading-relaxed">
+              Hesap; KYC + tapu sahipliği doğrulamasını içerir (anti-dolandırıcılık). Hesabınız varsa giriş yapın;
+              yoksa <strong className="text-white">2 dakikada</strong> hesap oluşturabilirsiniz.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button onClick={() => navigate("/giris?next=/ihale-ac")} className="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-semibold gap-2">
+                <Gavel className="w-4 h-4" /> Giriş Yap
+              </Button>
+              <Button onClick={() => navigate("/kayit?next=/ihale-ac")} variant="outline" className="border-amber-400/40 text-amber-100 hover:bg-amber-500/10 gap-2">
+                <PlusCircle className="w-4 h-4" /> Hesap Oluştur
+              </Button>
+            </div>
+            {!isSupabaseConfigured() ? (
+              <p className="mt-6 text-xs text-slate-500">
+                <em>Lokal geliştirme: Supabase yapılandırması yokluğunda gerçek kayıt yapılamaz; canlı ortamda tam akış aktiftir.</em>
+              </p>
+            ) : null}
+          </div>
+
+          {/* Neden ihale + avantaj */}
+          <div className="mt-10 grid gap-4 md:grid-cols-3 text-sm">
+            <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+              <TrendingUp className="w-6 h-6 text-emerald-300 mb-2" />
+              <h3 className="font-semibold text-white mb-1">Şeffaf Fiyat Keşfi</h3>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Açık artırma ile gerçek piyasa değeri anlık ortaya çıkar; pazarlık çekişmesi yok.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+              <ShieldCheck className="w-6 h-6 text-cyan-300 mb-2" />
+              <h3 className="font-semibold text-white mb-1">Escrow Güvencesi</h3>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Kapora ve ödeme platformda saklanır; satış kapanmadan transfer olmaz.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+              <Eye className="w-6 h-6 text-violet-300 mb-2" />
+              <h3 className="font-semibold text-white mb-1">AI Değerleme + Emsal</h3>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Yayına almadan önce AVM ile değer aralığı + bölgeden emsal otomatik raporlanır.
+              </p>
+            </div>
+          </div>
+
+          {/* Yardımcı linkler */}
+          <div className="mt-8 text-center text-xs text-slate-500 flex flex-wrap gap-3 justify-center">
+            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/komisyon-modeli")}>Komisyon modeli</button>
+            <span>·</span>
+            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/ihale-kosullari")}>İhale koşulları</button>
+            <span>·</span>
+            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/sat-basla")}>Satıcı rehberi</button>
+            <span>·</span>
+            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/destek")}>Destek</button>
+          </div>
         </div>
       </div>
     );
@@ -431,11 +520,34 @@ export default function CreateAuction() {
           <ArrowLeft className="w-4 h-4" /> Geri
         </Button>
         <h1 className="text-3xl font-bold text-white mb-2">Gayrimenkul ilanı oluştur</h1>
-        <p className="text-slate-400 mb-3">
+        <p className="text-slate-400 mb-4">
           Üç yoldan birini seçin: <strong className="text-slate-300">sadece ilan</strong> (kartta ihaleal.com — RE/MAX danışman kartı gibi), <strong className="text-slate-300">teklif al</strong> veya{" "}
           <strong className="text-slate-300">ihale</strong>.
           Kayıt Supabase&apos;e yazılır; yönetici onayından sonra yayına alınır. Referans fiyat <code className="text-teal-400/90 text-xs">fees.ts</code> ile uyarılır.
         </p>
+
+        {/* 5-adım yayın akışı (görsel timeline — form tek sayfa kalır, bu sadece bağlam). */}
+        <div className="mb-6 rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-amber-200 mb-3">Yayın akışı — 5 adım</p>
+          <ol className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+            {[
+              { icon: Home, label: "Mülk" },
+              { icon: ImageIcon, label: "Görseller" },
+              { icon: Settings2, label: "İhale Ayarları" },
+              { icon: ClipboardCheck, label: "Belgeler" },
+              { icon: Rocket, label: "Yayınla" },
+            ].map((s, i) => (
+              <li key={s.label} className="inline-flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/60 px-2.5 py-1 text-slate-200">
+                  <span className="inline-flex w-4 h-4 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold">{i + 1}</span>
+                  <s.icon className="w-3 h-3" />
+                  {s.label}
+                </span>
+                {i < 4 ? <span className="text-slate-600 hidden sm:inline">→</span> : null}
+              </li>
+            ))}
+          </ol>
+        </div>
         <p className="text-sm text-slate-500 mb-8">
           Taslak:{" "}
           <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/komisyon-modeli")}>
