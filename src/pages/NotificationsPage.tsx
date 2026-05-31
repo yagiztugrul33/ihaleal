@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Bell, CheckCheck } from "lucide-react";
+import { ArrowLeft, Bell, BellRing, CheckCheck, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useNotifications } from "@/hooks/useNotifications";
 import { useNotificationPreferences } from "@/hooks/useNotificationPreferences";
+import { useDevicePushSubscription } from "@/hooks/useDevicePushSubscription";
 import { LoadingState, ErrorState, EmptyState } from "@/components/async";
 
 export default function NotificationsPage() {
   const navigate = useNavigate();
   const { items, loading, error, reload, markRead, markAllRead, unreadCount } = useNotifications();
   const { prefs, loading: prefsLoading, save, busy } = useNotificationPreferences();
+  const push = useDevicePushSubscription();
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -72,7 +74,52 @@ export default function NotificationsPage() {
           </ul>
         ) : null}
 
-        <section className="mt-10 rounded-xl border border-white/10 bg-slate-900/40 p-5">
+        {/* Web Push (cihaza bildirim) — Capacitor öncesi köprü */}
+        <section className="mt-8 rounded-xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-5">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-500/15">
+              <BellRing className="h-5 w-5 text-cyan-300" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h2 className="text-sm font-semibold text-white">Cihaza bildirim (Push)</h2>
+              <p className="mt-1 text-xs text-slate-400">
+                Uygulama açık olmasa bile teklif, eşleşme ve ihale kapanış uyarısı al.
+                {push.status === "unsupported" && " Bu tarayıcı desteklemiyor."}
+                {push.status === "no-vapid" && " Sunucu anahtarı henüz yapılandırılmadı."}
+                {push.status === "denied" && " İzin reddedildi — tarayıcı ayarlarından açabilirsin."}
+                {push.error && ` Hata: ${push.error}`}
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                {push.status === "subscribed" ? (
+                  <>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-300">
+                      <Smartphone className="h-3 w-3" /> Aktif
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="border-white/15 text-xs"
+                      onClick={() => void push.disable()}
+                    >
+                      Kapat
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    size="sm"
+                    onClick={() => void push.enable()}
+                    disabled={!push.canEnable}
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 text-xs text-white"
+                  >
+                    {push.status === "subscribing" ? "Etkinleştiriliyor…" : "Bildirimleri aç"}
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-6 rounded-xl border border-white/10 bg-slate-900/40 p-5">
           <h2 className="text-sm font-semibold text-white">Bildirim tercihleri</h2>
           <p className="mt-1 text-xs text-slate-500">Hangi bildirimleri almak istediğinizi seçin.</p>
           {prefsLoading || !prefs ? (

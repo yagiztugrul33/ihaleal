@@ -157,6 +157,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Web Push handler eklentisi — Capacitor sonrası push notification altyapı.
+        importScripts: ["push-handler.js"],
         // Eski cache versiyonlarını otomatik sil → kill-switch artığı.
         cleanupOutdatedCaches: true,
         clientsClaim: true,
