@@ -14,6 +14,7 @@ import {
   type GesFeasibilityResult,
 } from "@/lib/engineering";
 import { fmtNum, fmtPct, fmtScore } from "@/lib/engineering/formatDisplay";
+import { downloadGesEndeksPdf } from "@/lib/reports/gesEndeksPdf";
 import { PreFeasibilityBanner } from "@/components/compliance/PreFeasibilityBanner";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 
@@ -87,7 +88,8 @@ export default function GesAnalysisPage() {
     }
   };
 
-  const downloadReport = () => {
+  // Markdown ön fizibilite — alternatif metin formatı (mevcut, korundu).
+  const downloadMdReport = () => {
     if (!result) return;
     const md = buildGesPrefeasibilityReport(
       {
@@ -108,6 +110,57 @@ export default function GesAnalysisPage() {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  // ANA: İhaleal GES Endeks Raporu — kapsamlı PDF (Roboto TR, AI, sensitivity, nakit akış).
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const downloadPdfReport = async () => {
+    if (!result || pdfBusy) return;
+    setPdfBusy(true);
+    try {
+      await downloadGesEndeksPdf(
+        {
+          enlem: lat,
+          boylam: lon,
+          araziM2: landM2,
+          dcKwp,
+          ghi,
+          electricityPrice: price,
+          capexPerKwp,
+          discountRate: discount,
+        },
+        result,
+      );
+    } finally {
+      setPdfBusy(false);
+    }
+  };
+
+  // Türetilmiş hızlı metrikler (UI özet kartları için)
+  const derived = useMemo(() => {
+    if (!result) return null;
+    const dcKwpN = Number(dcKwp.replace(",", ".")) || 0;
+    const priceN = Number(price.replace(",", ".")) || 0;
+    const capexPerN = Number(capexPerKwp.replace(",", ".")) || 0;
+    const totalCapex = dcKwpN * capexPerN;
+    const annualKwh = result.annualProductionKwh || 0;
+    const annualRev = annualKwh * priceN;
+    const annualOpex = dcKwpN * 120;
+    const annualNet = annualRev - annualOpex;
+    const payback = annualNet > 0 && totalCapex > 0 ? totalCapex / annualNet : null;
+    // sensitivity ±%10 fiyat → NPV
+    const r = (Number(discount.replace(",", ".")) || 10) / 100;
+    const af = (1 - Math.pow(1 + r, -25)) / r;
+    const dNpv = annualKwh * priceN * 0.1 * af;
+    return {
+      totalCapex,
+      annualRev,
+      annualNet,
+      payback,
+      npvUp: result.npvTry + dNpv,
+      npvDown: result.npvTry - dNpv,
+      irrVsDiscount: result.irrPct > (Number(discount.replace(",", ".")) || 10),
+    };
+  }, [result, dcKwp, price, capexPerKwp, discount]);
 
   const scores = useMemo(
     () =>
@@ -223,9 +276,105 @@ export default function GesAnalysisPage() {
                   <p className="text-[10px] text-slate-500">Veri: {result.dataSource} | Guven: {result.confidence}</p>
                 </CardContent>
               </Card>
-              <Button variant="outline" className="w-full" onClick={downloadReport}>
-                Ön fizibilite raporu indir
-              </Button>
+              {/* CEPHE 2: derinleştirme — geri ödeme + sensitivity + IRR yorumu */}
+              {derived ? (
+                <>
+                  <Card className="card-luxury">
+                    <CardContent className="p-5 text-sm text-slate-300 space-y-2">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-cyan-300">
+                        Türetilmiş Metrikler
+                      </p>
+                      <p>
+                        Toplam CAPEX: <strong>{fmtNum(derived.totalCapex)} TRY</strong>
+                      </p>
+                      <p>
+                        Yıllık net nakit (gelir − OPEX):{" "}
+                        <strong>{fmtNum(derived.annualNet)} TRY</strong>
+                      </p>
+                      <p>
+                        Geri ödeme süresi (basit):{" "}
+                        <strong>
+                          {derived.payback != null
+                            ? `${derived.payback.toFixed(1)} yıl`
+                            : "—"}
+                        </strong>
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-1.5">
+                        <strong>Çünkü</strong>: CAPEX / yıllık net nakit. 25 yıl ömür içinde
+                        geri ödenebilir mi → {derived.payback != null && derived.payback < 25
+                          ? "EVET — kalan yıllar net kâr."
+                          : "değerlendirme yetersiz."}
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="card-luxury">
+                    <CardContent className="p-5 text-sm text-slate-300 space-y-2">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-violet-300">
+                        Hassasiyet (Elektrik Fiyatı ±%10)
+                      </p>
+                      <p>
+                        Fiyat <span className="text-emerald-300">+%10</span>: NPV ={" "}
+                        <strong>{fmtNum(derived.npvUp)} TRY</strong>
+                      </p>
+                      <p>
+                        Baz fiyat: NPV ={" "}
+                        <strong>{fmtNum(result.npvTry)} TRY</strong>
+                      </p>
+                      <p>
+                        Fiyat <span className="text-rose-300">−%10</span>: NPV ={" "}
+                        <strong>{fmtNum(derived.npvDown)} TRY</strong>
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-1.5">
+                        <strong>Çünkü</strong>: NPV'nin elektrik fiyatına duyarlılığını ölçer.
+                        EPDK regülasyonu ve YEKDEM kapsamı bu farkı kritik kılar.
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="card-luxury border-emerald-400/20">
+                    <CardContent className="p-5 text-sm text-slate-300 space-y-2">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                        Karar Çerçevesi
+                      </p>
+                      <p>
+                        IRR ({fmtPct(result.irrPct)}){" "}
+                        {derived.irrVsDiscount ? (
+                          <span className="text-emerald-300 font-bold"> &gt; </span>
+                        ) : (
+                          <span className="text-rose-300 font-bold"> &lt; </span>
+                        )}{" "}
+                        İndirgeme oranı (%{discount})
+                      </p>
+                      <p className="text-[11px] text-slate-400">
+                        <strong>Çünkü</strong>: IRR &gt; indirgeme oranı ise yatırım
+                        sermayenin alternatif getirisinden DAHA ÇOK kazandırır.{" "}
+                        {derived.irrVsDiscount
+                          ? "→ Bu projede AKLİ ŞART karşılandı."
+                          : "→ Alternatif yatırım (mevduat/tahvil) düşünülmeli."}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </>
+              ) : null}
+
+              <div className="grid sm:grid-cols-2 gap-2">
+                <Button
+                  variant="accent"
+                  className="w-full"
+                  disabled={pdfBusy}
+                  onClick={downloadPdfReport}
+                >
+                  {pdfBusy ? "PDF hazırlanıyor…" : "İhaleal GES Endeks Raporu (PDF)"}
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={downloadMdReport}
+                >
+                  Markdown özet (.md)
+                </Button>
+              </div>
               <p className="text-[10px] text-slate-500">{result.limitations[result.limitations.length - 1]}</p>
             </motion.div>
           ) : null}
