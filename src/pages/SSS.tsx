@@ -277,8 +277,9 @@ export default function SSS() {
             }`}
             style={{
               borderColor: "var(--color-border)",
-              color: kat === "hepsi" ? "var(--color-primary)" : "var(--color-text-muted)",
-              background: kat === "hepsi" ? "var(--color-bg-soft)" : "transparent",
+              // CEPHE 4: kontrast 3.33 -> ≥4.5 (WCAG AA)
+              color: kat === "hepsi" ? "#7dd3fc" : "#cbd5e1",  // sky-300 / slate-300 opak
+              background: kat === "hepsi" ? "rgba(14, 165, 233, 0.18)" : "transparent",
             }}
           >
             Tümü

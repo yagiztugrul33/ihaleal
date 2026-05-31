@@ -80,7 +80,7 @@ export default function Iletisim() {
               href={`https://www.google.com/maps?q=${mapsQuery}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs text-cyan-300 hover:text-cyan-200 hover:underline px-2 py-1 rounded-md bg-cyan-500/10 border border-cyan-400/30"
+              className="inline-flex items-center gap-1 text-xs !text-cyan-200 hover:!text-cyan-100 hover:underline px-2 py-1 rounded-md bg-cyan-500/15 border border-cyan-400/40"
             >
               <Clock className="w-3 h-3" /> Yol tarifi al
             </a>
