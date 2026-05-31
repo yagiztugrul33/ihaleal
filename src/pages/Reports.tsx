@@ -20,6 +20,7 @@ import {
 import { REGIONAL_PRICE_DATA } from "@/lib/valuation/regionalPriceData";
 import { downloadStructuredPdf } from "@/lib/pdf/pdfBuilder";
 import { cn } from "@/lib/utils";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
 const DEMO_CATEGORY_LABEL: Record<string, string> = {
   piyasa: "Piyasa",
@@ -40,9 +41,10 @@ export default function Reports() {
   const [filterCategory, setFilterCategory] = useState<ReportCategory | "">("");
   const [filterYear, setFilterYear] = useState<string>("");
 
-  // Abone opt-in state (lokal — backend için Master onayı bekleniyor)
+  // Abone opt-in state — backend RPC ile entegre (Master onaylı, migration aktif).
   const [subscribeEmail, setSubscribeEmail] = useState("");
-  const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "saved">("idle");
+  const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "submitting" | "saved" | "error">("idle");
+  const [subscribeMessage, setSubscribeMessage] = useState<string>("");
 
   // PDF download busy state (per report)
   const [pdfBusy, setPdfBusy] = useState<string | null>(null);
@@ -131,14 +133,43 @@ export default function Reports() {
     }
   };
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!subscribeEmail.trim() || !/^.+@.+\..+$/.test(subscribeEmail)) return;
-    setSubscribeStatus("saved");
-    // NOT: Sunucu tarafı kayıt henüz aktif değil — report_subscribers
-    // tablosu Master onayı bekliyor. Şimdilik UI feedback.
-    setSubscribeEmail("");
-    setTimeout(() => setSubscribeStatus("idle"), 5000);
+    setSubscribeStatus("submitting");
+    setSubscribeMessage("");
+    try {
+      if (!isSupabaseConfigured()) {
+        // Lokal/dev fallback — RPC çağrılamıyor.
+        setSubscribeStatus("saved");
+        setSubscribeMessage("Tercih lokal olarak kaydedildi (Supabase yapılandırılmamış).");
+      } else {
+        const cities = filterCity ? [filterCity] : [];
+        const categories = filterCategory ? [filterCategory] : [];
+        const { data, error } = await supabase.rpc("subscribe_to_reports", {
+          p_email: subscribeEmail.trim(),
+          p_cities: cities,
+          p_categories: categories,
+        });
+        if (error) {
+          setSubscribeStatus("error");
+          setSubscribeMessage(error.message || "Abonelik sırasında bir sorun oluştu.");
+          return;
+        }
+        const result = (data ?? {}) as { status?: string; message?: string };
+        if (result.status !== "ok") {
+          setSubscribeStatus("error");
+          setSubscribeMessage(result.message || "Abonelik reddedildi.");
+          return;
+        }
+        setSubscribeStatus("saved");
+        setSubscribeMessage(result.message || "Abonelik talebi alındı. E-postanıza onay bağlantısı gönderilecek.");
+      }
+      setSubscribeEmail("");
+    } catch (err) {
+      setSubscribeStatus("error");
+      setSubscribeMessage(String(err).slice(0, 200));
+    }
   };
 
   const clearFilters = () => {
@@ -396,9 +427,9 @@ export default function Reports() {
                 </p>
                 {subscribeStatus === "saved" ? (
                   <div className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
-                    Aboneliğiniz tercihiniz olarak kaydedildi.
+                    {subscribeMessage || "Aboneliğiniz kaydedildi."}
                     <span className="block text-[10px] text-emerald-200/70 mt-0.5">
-                      Sunucu tarafı aktivasyonu yayına alındığında e-posta gönderimi başlar.
+                      Onay maili geldiğinde linke tıklayarak aboneliği aktifleştirin (double opt-in).
                     </span>
                   </div>
                 ) : (
@@ -415,14 +446,23 @@ export default function Reports() {
                         aria-label="Abone e-posta"
                       />
                     </div>
-                    <Button type="submit" className="bg-violet-500 hover:bg-violet-400 text-white">
-                      Abone Ol
+                    <Button
+                      type="submit"
+                      className="!bg-violet-500 hover:!bg-violet-400 !text-white"
+                      disabled={subscribeStatus === "submitting"}
+                    >
+                      {subscribeStatus === "submitting" ? "Gönderiliyor…" : "Abone Ol"}
                     </Button>
                   </form>
                 )}
+                {subscribeStatus === "error" && subscribeMessage ? (
+                  <p className="mt-2 rounded-lg border border-rose-400/40 bg-rose-500/10 px-3 py-2 text-xs text-rose-100" role="alert">
+                    {subscribeMessage}
+                  </p>
+                ) : null}
                 <p className="mt-2 text-[10px] text-slate-500 italic">
-                  Sunucu tarafı (report_subscribers tablosu + Edge function e-posta gönderimi) Master onayı
-                  sonrası canlıya alınır. Şimdilik tercihiniz yerel olarak işlenir.
+                  Double opt-in: önce onay maili, sonra abonelik aktif olur. Tek tıkla istediğin
+                  zaman bırakabilirsin.
                 </p>
               </div>
             </div>
