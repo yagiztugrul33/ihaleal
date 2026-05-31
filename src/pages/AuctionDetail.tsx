@@ -31,7 +31,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { ShareButton } from "@/components/ShareButton";
 import { PdfExportButton } from "@/components/pdf/PdfExportButton";
-import { downloadListingPdf, downloadStructuredPdf } from "@/lib/pdf/pdfBuilder";
+import { downloadStructuredPdf } from "@/lib/pdf/pdfBuilder";
 import { downloadEndeksRaporu } from "@/lib/reports/endeksRaporu";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
@@ -770,27 +770,13 @@ export default function AuctionDetail() {
             <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`} aria-label="Favori"><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
             {id && <ShareButton title={auction?.title || ""} url={`/ilan/${id}`} />}
             {auction && (
+              /* CEPHE 1: eski "İlan Özet" 1 sayfa PDF butonu KALDIRILDI.
+                 Tek PDF aksiyonu = İhaleal Endeks Raporu (10 bölüm, 4 sayfa,
+                 Roboto TR, AI değerlendirme). Eski downloadListingPdf çağrısı
+                 başka kullanım yerlerinde duruyor; AuctionDetail'de artık
+                 yalnızca derin Endeks Raporu üretilir. */
               <PdfExportButton
-                label="PDF"
-                onExport={() =>
-                  downloadListingPdf({
-                    title: auction.title,
-                    city: auction.city,
-                    district: auction.district,
-                    price: auction.currentBid ?? auction.startingBid ?? 0,
-                    category: auction.category,
-                    mapUrl:
-                      Number.isFinite(auction.mapLat) && Number.isFinite(auction.mapLng)
-                        ? `https://www.google.com/maps?q=${auction.mapLat},${auction.mapLng}`
-                        : undefined,
-                    regionNote: `${auction.city} / ${auction.district} bölge özeti — platform analizi.`,
-                  })
-                }
-              />
-            )}
-            {auction && (
-              <PdfExportButton
-                label="Endeks Raporu"
+                label="İhaleal Endeks Raporu"
                 onExport={() => downloadEndeksRaporu(auction)}
               />
             )}
