@@ -245,7 +245,7 @@ export function Navbar() {
       >
         <div className="relative mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="shrink-0 no-underline" aria-label="ihaleal.com — Türkiye'nin Gayrimenkul Borsası">
-            <BrandLockup logoSize="sm" layout="inline" showSlogan />
+            <BrandLockup logoSize="sm" layout="inline" showSlogan hideSloganOnMobile />
           </Link>
 
           <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-7 lg:flex">

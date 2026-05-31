@@ -59,7 +59,7 @@ export function BorsaLayout() {
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-xl">
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 lg:px-8 2xl:px-12">
           <div className="flex min-w-0 items-center gap-3">
-            <BrandLockup logoSize="sm" layout="inline" showSlogan />
+            <BrandLockup logoSize="sm" layout="inline" showSlogan hideSloganOnMobile />
             <p className="hidden min-w-0 text-[11px] text-muted-foreground sm:block">Profesyonel işlem terminali</p>
           </div>
 
