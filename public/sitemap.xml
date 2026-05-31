@@ -37,6 +37,8 @@
   <url><loc>https://ihaleal.com/evraklar</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://ihaleal.com/hakkimizda</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <url><loc>https://ihaleal.com/iletisim</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/kunye</loc><lastmod>2026-05-31</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/destek</loc><lastmod>2026-05-31</lastmod><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <!-- Yasal -->
   <url><loc>https://ihaleal.com/ihale-kosullari</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://ihaleal.com/kvkk</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
