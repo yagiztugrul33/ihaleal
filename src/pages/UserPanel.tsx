@@ -12,6 +12,7 @@ import {
   Settings,
   ArrowLeft,
   Inbox,
+  Bookmark,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ const sidebar = [
   { to: "/panel/tekliflerim", label: "Tekliflerim", icon: HandCoins },
   { to: "/panel/gelen-teklifler", label: "Gelen teklifler", icon: Inbox },
   { to: "/favoriler", label: "Favoriler", icon: Heart },
+  { to: "/aramalarim", label: "Aramalarım", icon: Bookmark },
   { to: "/mesajlar", label: "Mesajlar", icon: MessageSquare },
   { to: "/panel/bildirimler", label: "Bildirimler", icon: Bell },
   { to: "/belgeler", label: "Belgelerim", icon: FolderOpen },
