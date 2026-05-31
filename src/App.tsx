@@ -78,6 +78,7 @@ const Iletisim             = lazy(() => import("@/pages/Iletisim"));
 const About                = lazy(() => import("@/pages/About"));
 const Kunye                = lazy(() => import("@/pages/Kunye"));
 const Destek               = lazy(() => import("@/pages/Destek"));
+const Aramalarim           = lazy(() => import("@/pages/Aramalarim"));
 const Reports              = lazy(() => import("@/pages/Reports"));
 const ReportDetail         = lazy(() => import("@/pages/ReportDetail"));
 const UserPanel            = lazy(() => import("@/pages/UserPanel"));
@@ -295,6 +296,9 @@ function App() {
             <Route path="/hakkimizda" element={<About />} />
             <Route path="/kunye" element={<Kunye />} />
             <Route path="/destek" element={<Destek />} />
+            {/* Dalga 4-1: kayıtlı aramalar yönetim sayfası + /saved-searches alias */}
+            <Route path="/aramalarim" element={<Aramalarim />} />
+            <Route path="/saved-searches" element={<Navigate to="/aramalarim" replace />} />
             <Route path="/raporlar" element={<Reports />} />
             <Route path="/rapor/:id" element={<ReportDetail />} />
             <Route path="/panel" element={<UserPanel />} />
