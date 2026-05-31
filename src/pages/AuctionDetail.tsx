@@ -68,6 +68,7 @@ import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 import { landingPathForCity } from "@/data/seoLandings";
 import { useListingRatings } from "@/hooks/useListingRatings";
 import { RatingSummaryBadge } from "@/components/trust/RatingSummaryBadge";
+import { CountdownTimer } from "@/components/auction/CountdownTimer";
 import { AvmEstimateSection } from "@/components/listing/AvmEstimateSection";
 import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
@@ -1153,6 +1154,15 @@ export default function AuctionDetail() {
                   <div className="text-3xl font-bold text-blue-400">₺{liveBid.toLocaleString("tr-TR")}</div>
                   <div className="text-xs text-slate-500 mt-1">₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²</div>
                 </div>
+                {/* Dalga 2-1: ihale geri sayım — sadece auction/sealed modlarında, listing_only'de göstermeye gerek yok. */}
+                {!isListingOnly && auction.endDate ? (
+                  <CountdownTimer
+                    endDate={auction.endDate}
+                    status={auction.status}
+                    size="md"
+                    layout="wide"
+                  />
+                ) : null}
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
                   <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
