@@ -1,0 +1,373 @@
+{
+  "ilan": [
+    {
+      "vp": "desktop",
+      "route": "/ilan/1",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Levent'te Prestijli Plaza Katı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/2",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Bebek'te Boğaz Manzaralı Tarihi Villa",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/3",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Ataşehir'de Kiracılı AVM Yatırım Fırsatı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/4",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/5",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Ankara Çankaya'da Kurumsal Ofis",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/6",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İzmir Alsancak'ta Kordon Dairesi",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/7",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Antalya Konyaaltı'nda Lüks Site İçi 4+1 Villa",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/8",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Bursa Nilüfer'de Satılık Tarla (5000m²)",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/9",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İstanbul Kadıköy'de Full Eşyalı 2+1 Daire",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/10",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Ankara Eryaman'da Yatırımlık 3+1 Daire",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/11",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İzmir Karşıyaka'da Komple Bina (8 Daire)",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/12",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İstanbul Maslak'ta Satılık 1+0 Stüdyo Daire",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/prop-001",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/prop-005",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/prop-010",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/prop-030",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/prop-060",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/prop-999",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/00000000-0000-0000-0000-000000000000",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "desktop",
+      "route": "/ilan/sacma-id",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/1",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Levent'te Prestijli Plaza Katı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/2",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Bebek'te Boğaz Manzaralı Tarihi Villa",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/3",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Ataşehir'de Kiracılı AVM Yatırım Fırsatı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/4",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Bodrum Yalıkavak'ta Full Deniz Manzaralı Rezidans",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/5",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Ankara Çankaya'da Kurumsal Ofis",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/6",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İzmir Alsancak'ta Kordon Dairesi",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/7",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Antalya Konyaaltı'nda Lüks Site İçi 4+1 Villa",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/8",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Bursa Nilüfer'de Satılık Tarla (5000m²)",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/9",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İstanbul Kadıköy'de Full Eşyalı 2+1 Daire",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/10",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "Ankara Eryaman'da Yatırımlık 3+1 Daire",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/11",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İzmir Karşıyaka'da Komple Bina (8 Daire)",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/12",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İstanbul Maslak'ta Satılık 1+0 Stüdyo Daire",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/prop-001",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/prop-005",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/prop-010",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/prop-030",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/prop-060",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/prop-999",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/00000000-0000-0000-0000-000000000000",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    },
+    {
+      "vp": "mobile",
+      "route": "/ilan/sacma-id",
+      "status": 200,
+      "eb": 0,
+      "pe": 0,
+      "h1": "İlan bulunamadı",
+      "ok": true
+    }
+  ],
+  "degerleme": {
+    "color": "rgb(2, 6, 23)",
+    "bg": "rgb(6, 182, 212)",
+    "bgImage": "none",
+    "opacity": "1",
+    "ratio": "8.31",
+    "wcagAA": true,
+    "wcagAAA": true
+  }
+}
