@@ -89,13 +89,15 @@ function Wordmark({
     <span
       aria-hidden="true"
       className={cn(
-        "select-none font-extrabold italic tracking-tight",
+        "inline-block select-none font-extrabold italic tracking-tight",
         "bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600",
         "bg-clip-text text-transparent",
         "drop-shadow-[0_2px_8px_rgba(217,119,6,0.18)]",
-        // Inter italic yerine sistem sans-serif italic — emblem ile estetik
-        // uyum için modern sans (Inter italic).
+        // Inter italic — emblem ile estetik uyum için modern sans.
         "font-[Inter,system-ui,sans-serif]",
+        // Italic glyph sağa yatık; bounding box dışına taşmasın diye 0.18em
+        // sağ iç boşluk + 0.04em sol negatif marj ile optik denge.
+        "pr-[0.18em]",
         wordmarkSizes[size],
         className,
       )}
