@@ -53,10 +53,11 @@ export default function Profile() {
   if (!user) {
     return (
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
-        <div className="text-center">
+        <div className="text-center max-w-md px-4">
           <User className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-400">Giriş yapmanız gerekiyor.</p>
-          <Button onClick={() => navigate("/giris")} className="mt-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white">Giriş Yap</Button>
+          <h1 className="text-2xl font-bold text-white mb-2">Hesap Profili</h1>
+          <p className="text-slate-400 mb-2">Profil bilgileri, KYC durumu ve satıcı puanını görmek için giriş yapın.</p>
+          <Button onClick={() => navigate("/giris?next=/profil")} className="mt-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white">Giriş Yap</Button>
         </div>
       </div>
     );
@@ -122,6 +123,7 @@ export default function Profile() {
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="sr-only">Profil — {user.name}</h1>
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="w-4 h-4" /> Geri</Button>
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
