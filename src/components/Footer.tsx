@@ -25,24 +25,41 @@ export function Footer() {
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
               AI destekli değerleme, şeffaf ihale süreci ve güvenli işlem altyapısı.
             </p>
-            <div className="space-y-2.5">
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-blue-400" />
-                <span className="text-sm text-slate-300">+90 212 123 45 67</span>
+            {/* Yasal şirket iletişim bloğu — 6563 Sayılı Kanun gereği işletme künyesi. */}
+            {/* Vergi no/dairesi sadece /kunye sayfasında; footer'da müşteri etkileşim odaklı bilgi. */}
+            <address className="not-italic space-y-2.5">
+              <p className="text-xs font-semibold text-slate-200 leading-snug uppercase tracking-wide">
+                İHALEAL GAYRİMENKUL VE İNŞAAT
+                <br className="hidden sm:inline" />
+                SAN. TİC. LTD. ŞTİ.
+              </p>
+              <a
+                href="tel:+905445327406"
+                className="flex items-center gap-2.5 text-sm text-slate-300 hover:text-blue-400 transition-colors"
+              >
+                <Phone className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <span>0544 532 74 06</span>
+              </a>
+              <a
+                href="mailto:info@ihaleal.com"
+                className="flex items-center gap-2.5 text-sm text-slate-300 hover:text-blue-400 transition-colors"
+              >
+                <Mail className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <span>info@ihaleal.com</span>
+              </a>
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-slate-300 leading-relaxed">
+                  Esentepe Mah. Büyükdere Cad. Astoria,
+                  <br />
+                  Kapı No: 127 Daire No: 6, Şişli / İstanbul
+                </span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-blue-400" />
-                <span className="text-sm text-slate-300">info@ihaleal.com</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <MapPin className="w-4 h-4 text-blue-400" />
-                <span className="text-sm text-slate-300">İstanbul, Türkiye</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-blue-400" />
+                <Clock className="w-4 h-4 text-blue-400 flex-shrink-0" />
                 <span className="text-sm text-slate-300">09:00 - 18:00 (Hafta içi)</span>
               </div>
-            </div>
+            </address>
           </div>
 
           {/* Quick Links */}
