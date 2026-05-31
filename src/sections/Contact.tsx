@@ -84,7 +84,7 @@ export function Contact() {
               {
                 icon: <Clock className="w-5 h-5 text-blue-400" />,
                 label: "Çalışma Saatleri",
-                value: "Hafta içi 09:00 - 18:00",
+                value: "Hafta içi 09:00 - 18:00 (UTC+3)",
                 href: undefined as string | undefined,
               },
             ].map((item, idx) => {
