@@ -222,13 +222,40 @@ export default function ValuationTool() {
           </p>
         </div>
 
-        <div className="mb-6 rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-amber-100">
-          <p className="font-medium">Önemli uyarı</p>
-          <p className="text-sm mt-1">
-            Bu araç algoritmik tahmin üretir; resmi ekspertiz raporu değildir. Banka ekspertiz değeri farklı çıkabilir.
-            Yatırım tavsiyesi değildir.
-          </p>
-        </div>
+        {/* KATMAN 1 — Eğitici giriş (form ÖNCESI) - GES şablonu */}
+        <section className="mb-6 space-y-3">
+          <div className="rounded-xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-4">
+            <p className="text-sm font-semibold text-cyan-200 mb-2">Değerleme nasıl hesaplanır?</p>
+            <div className="grid sm:grid-cols-3 gap-3 text-xs">
+              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-semibold text-cyan-300 mb-1">1. Bölge Baz Fiyatı</p>
+                <p className="text-slate-300">
+                  İl/ilçe ortalama m² satış fiyatı — TCMB Konut Fiyat Endeksi + platform verisi.
+                </p>
+              </div>
+              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-semibold text-cyan-300 mb-1">2. Hedonik Katman</p>
+                <p className="text-slate-300">
+                  Bina yaşı, kat, ısıtma, asansör, otopark, manzara → yıpranma/prim çarpanı.
+                </p>
+              </div>
+              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-semibold text-cyan-300 mb-1">3. Emsal Karşılaştırma</p>
+                <p className="text-slate-300">
+                  Aynı bölge benzer mülk satışları → P10/P50/P90 (min/medyan/max) bandı.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-amber-100">
+            <p className="font-medium">Önemli uyarı</p>
+            <p className="text-sm mt-1">
+              Bu araç algoritmik tahmin üretir; resmi ekspertiz raporu değildir. Banka ekspertiz değeri farklı çıkabilir.
+              Yatırım tavsiyesi değildir.
+            </p>
+          </div>
+        </section>
 
         <form
           onSubmit={onSubmit}
@@ -556,6 +583,58 @@ export default function ValuationTool() {
             ) : null}
           </>
         ) : null}
+
+        {/* KATMAN 4 — Güven, metodoloji ve disclaimer (DAİMA görünür, sayfa altı) */}
+        <section className="mt-12 space-y-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Sparkles className="h-5 w-5 text-cyan-300" />
+            <h2 className="text-xl font-bold text-white">Güven ve Metodoloji</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="rounded-xl border border-cyan-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-semibold text-cyan-200 mb-2">Veri Kaynakları</p>
+              <ul className="text-xs text-slate-300 space-y-1.5">
+                <li>• <strong>TCMB EVDS</strong>: Konut Fiyat Endeksi (TP.HKFE01/02/03)</li>
+                <li>• <strong>regionalPriceData</strong>: 10 büyük şehir + ilçe baz fiyatlar</li>
+                <li>• <strong>Platform işlem geçmişi</strong>: listing_transaction_history</li>
+                <li>• <strong>Catalog Auction</strong>: 12 demo + canlı ilanlar</li>
+                <li>• <strong>AI (ai_qa)</strong>: bölgesel yorum + fallback</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-violet-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-semibold text-violet-200 mb-2">Hesap Katmanları</p>
+              <ul className="text-xs text-slate-300 space-y-1.5">
+                <li>• <strong>1. Bölge baz</strong>: il/ilçe ortalama × m² (TCMB endeks ayarlı)</li>
+                <li>• <strong>2. Hedonik</strong>: bina yaşı %0.5-2/yıl + asansör/otopark/manzara primi</li>
+                <li>• <strong>3. Emsal</strong>: aynı bölge benzer mülk son işlemleri (P10/P50/P90)</li>
+                <li>• <strong>Ağırlık</strong>: bölge %40 + hedonik %30 + emsal %30</li>
+                <li>• <strong>Güven seviyesi</strong>: veri yoğunluğu × tarihsel doğrulama</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-emerald-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-semibold text-emerald-200 mb-2">Doğrulama Çerçevesi</p>
+              <ul className="text-xs text-slate-300 space-y-1.5">
+                <li>• <strong>SPK ekspertizi</strong>: lisanslı değerleme uzmanı (zorunlu kararlar için)</li>
+                <li>• <strong>TKGM tapu inceleme</strong>: gerçek tapu+irtifak+ipotek kayıt</li>
+                <li>• <strong>Banka ekspertizi</strong>: kredi başvurusu için banka kendi yapar</li>
+                <li>• <strong>2 farklı tahmin karşılaştır</strong>: bu sayfa + Endeksa/sahibinden</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-amber-500/30 bg-amber-950/30 p-4">
+              <p className="text-sm font-semibold text-amber-200 mb-2">Disclaimer</p>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Bu sayfa <strong>algoritmik tahmin</strong> üretir; SPK uyumlu resmi ekspertiz
+                raporu yerine geçmez. Banka kredi ekspertiz değeri ±%15-25 farklı çıkabilir.
+                Tahmin doğruluğu veri yoğunluğuna bağlıdır; az emsal olan bölgelerde güven
+                seviyesi düşer. Yatırım, satım veya alım kararı için lisanslı uzman görüşü şart.
+              </p>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );
