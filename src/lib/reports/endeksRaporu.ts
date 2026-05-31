@@ -24,6 +24,7 @@ import {
 } from "@/lib/reports/transactionHistory";
 import { downloadStructuredPdf, type PdfSection } from "@/lib/pdf/pdfBuilder";
 import { invokeSystemQa } from "@/lib/systemQaClient";
+import { buildSafeQaMessages } from "@/lib/security/aiSanitize";
 
 interface AiEnrich {
   credit: string;
@@ -54,8 +55,11 @@ const FALLBACK_AI: AiEnrich = {
 
 async function askAi(prompt: string): Promise<string> {
   try {
-    const r = await invokeSystemQa({ question: prompt });
-    const text = typeof r === "string" ? r : (r as { answer?: string })?.answer || "";
+    // CEPHE 3: sanitize + doğru SystemQaTurn[] imzası.
+    const { messages } = buildSafeQaMessages(prompt, { maxLength: 1200 });
+    const r = await invokeSystemQa(messages);
+    if (!r.ok) return "";
+    const text = r.text || "";
     if (!text || text.length < 20) return "";
     // PDF'i tıkamayalım: 600 karakter cap
     return text.slice(0, 600).trim();

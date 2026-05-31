@@ -12,6 +12,7 @@
 import type { GesFeasibilityResult } from "@/lib/engineering";
 import { downloadStructuredPdf } from "@/lib/pdf/pdfBuilder";
 import { invokeSystemQa } from "@/lib/systemQaClient";
+import { buildSafeQaMessages } from "@/lib/security/aiSanitize";
 
 interface GesPdfInput {
   // Form girdileri (kullanıcı tarafından)
@@ -91,8 +92,11 @@ async function aiOverall(input: GesPdfInput, result: GesFeasibilityResult): Prom
       `DC: ${input.dcKwp} kWp, GHI: ${input.ghi} kWh/m²/yıl, arazi: ${input.araziM2} m², ` +
       `NPV: ${fmtTRY(result.npvTry)}, IRR: ${fmtPct(result.irrPct)}, LCOE: ₺${result.lcoeTryPerKwh.toFixed(2)}/kWh. ` +
       `Yatırım çekiciliği, ana riskler ve sonraki adımları 4-5 cümle ile açıkla.`;
-    const r = await invokeSystemQa({ question: prompt });
-    const text = typeof r === "string" ? r : (r as { answer?: string })?.answer || "";
+    // CEPHE 3: sanitize + doğru imza.
+    const { messages } = buildSafeQaMessages(prompt, { maxLength: 1500 });
+    const r = await invokeSystemQa(messages);
+    if (!r.ok) return fallback;
+    const text = r.text || "";
     if (text && text.length > 30) return text.slice(0, 700).trim();
     return fallback;
   } catch {
