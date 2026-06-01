@@ -1,6 +1,9 @@
 ﻿import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Building2, Calculator, FileText, Landmark, MapPinned, Shield } from "lucide-react";
+import {
+  ArrowLeft, Building2, Calculator, FileText, Landmark, MapPinned, Shield,
+  BookOpen, ScrollText, Scale, AlertTriangle, CheckCircle2, Info, TrendingUp,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -80,8 +83,8 @@ export default function LandEquityPage() {
               Kat karşılığı arsa
             </h1>
             <p className="mt-2 text-sm text-slate-400 max-w-2xl">
-              Rayiç üzerinden hizmet havuzu (v2.3) ve basit konut hak ediş projeksiyonu. Gerçek sözleşmeler, imar ve mutabakat
-              avukat + eksper ile belirlenir; bu ekran ürün ve eğitim amaçlıdır.
+              "Arsamı kat karşılığı versem ne alırım?" — arsa sahibi/müteahhit pay dağılımı,
+              hak ediş projeksiyonu, imar hakkı hesabı. Eğitim + ön analiz amaçlıdır.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -110,6 +113,70 @@ export default function LandEquityPage() {
             <code className="text-amber-200">docs/hukuk/FINANCE_TAX_BILLING_CORE_RULES_TASLAK.md</code> ve{" "}
             <code className="text-amber-200">InvoiceComposer</code> çerçevesinde; YMM + avukat onayı olmadan üretim faturası
             kesilmez. Örnek satır adı: {INVOICE_LINE_DESCRIPTION_CANDIDATES.saasLicense.slice(0, 64)}…
+          </CardContent>
+        </Card>
+
+        {/* KATMAN 1 — Eğitici giriş (kat karşılığı nedir?) */}
+        <Card className="border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40">
+          <CardContent className="p-5">
+            <div className="flex items-start gap-3 mb-3">
+              <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
+              <h2 className="text-base font-semibold text-white">Kat karşılığı nedir?</h2>
+            </div>
+            <p className="text-sm text-slate-300 mb-3 leading-relaxed">
+              Arsa sahibi arsasını müteahhide verir; müteahhit kendi parasıyla bina yapar,
+              <strong className="text-cyan-200"> bağımsız bölümlerin (daire) bir kısmı arsa sahibinin olur</strong>,
+              kalanı müteahhidin. Sözleşme genelde "%40-50 arsa sahibi / %50-60 müteahhit" oranında kurulur.
+            </p>
+            <div className="grid sm:grid-cols-3 gap-3 text-xs">
+              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-semibold text-cyan-300 mb-1">📋 Oran Belirleme</p>
+                <p className="text-slate-300">
+                  Arsa değeri + imar hakkı + bölge talebi × müteahhit kâr marjı. İstanbul merkez %50/50,
+                  taşra %35/65 tipik.
+                </p>
+              </div>
+              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-semibold text-cyan-300 mb-1">📜 Sözleşme Türü</p>
+                <p className="text-slate-300">
+                  Düz arsa payı / hisse karşılığı / inşaat hak ediş ödeme. Noter onaylı + tapu şerhi şart.
+                </p>
+              </div>
+              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-semibold text-cyan-300 mb-1">⚠️ Ana Riskler</p>
+                <p className="text-slate-300">
+                  Müteahhit iflas, gecikme cezası, teminat senet, kalite düşüşü, imar değişimi.
+                  Avukat + eksper şart.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* KATMAN 2 ipucu — form alanları açıklama */}
+        <Card className="border-amber-400/20 bg-slate-900/40">
+          <CardContent className="p-4">
+            <p className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-1.5">
+              <Info className="h-3.5 w-3.5" /> Form alanları ne demek?
+            </p>
+            <div className="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
+              <p>
+                <strong className="text-amber-200">Arsa değeri</strong>: SPK ekspertizi veya bölge
+                emsal değeri (m² × rayiç). Belirsizse bölge ortalaması.
+              </p>
+              <p>
+                <strong className="text-amber-200">İmar (KAKS/Emsal)</strong>: arsa m² × emsal =
+                inşaat hakkı m². Örn. 1000 m² arsa × 2 emsal = 2000 m² inşaat.
+              </p>
+              <p>
+                <strong className="text-amber-200">Birim daire fiyatı</strong>: tamamlandığında
+                bölge ortalama satış değeri (Endeksa/TCMB).
+              </p>
+              <p>
+                <strong className="text-amber-200">Senaryo (gerçekçi/iyimser/kötümser)</strong>:
+                bölge talep + inşaat süresi + faiz dalgalanması varsayımı.
+              </p>
+            </div>
           </CardContent>
         </Card>
 
@@ -276,6 +343,160 @@ export default function LandEquityPage() {
         <p className="text-[11px] text-slate-500">
           Sözleşme taslağı: repoda <code className="text-slate-400">docs/hukuk/KKA_SOZLESME_VE_KAZANC_PLANI_TASLAK.md</code>.
         </p>
+
+        {/* KATMAN 4 — Güven, metodoloji, hukuki süreç, disclaimer */}
+        <div className="mt-12 space-y-4">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
+            <Shield className="h-5 w-5 text-emerald-400" />
+            <h2 className="text-lg font-semibold text-white">Güven, Metodoloji ve Hukuki Süreç</h2>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {/* Veri Kaynakları */}
+            <Card className="border-emerald-500/20 bg-slate-900/40">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-2 mb-3">
+                  <ScrollText className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+                  <h3 className="text-base font-semibold text-white">Veri Kaynakları</h3>
+                </div>
+                <ul className="space-y-2 text-xs text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span><strong className="text-emerald-200">İmar Müdürlüğü:</strong> ada/parsel KAKS, emsal, yükseklik, çekme.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span><strong className="text-emerald-200">SPK Lisanslı Ekspertiz:</strong> arsa rayiç değeri (m² bazında).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span><strong className="text-emerald-200">TCMB Konut Fiyat Endeksi:</strong> bölge ortalama satış rakamı.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span><strong className="text-emerald-200">Platform Kapanış Endeksi:</strong> bölge KKA sözleşmelerinden çıkan gerçekleşen oran ortalaması.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span><strong className="text-emerald-200">Resmî Yayın:</strong> 3194 İmar Kanunu, 6306 Kentsel Dönüşüm, BK Sözleşme hükümleri.</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Hesap Yöntemi */}
+            <Card className="border-cyan-500/20 bg-slate-900/40">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-2 mb-3">
+                  <Calculator className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
+                  <h3 className="text-base font-semibold text-white">Hesap Yöntemi</h3>
+                </div>
+                <ol className="space-y-2 text-xs text-slate-300 list-decimal list-inside">
+                  <li><strong className="text-cyan-200">İnşaat Hakkı:</strong> Arsa m² × Emsal (KAKS) = toplam inşaat m².</li>
+                  <li><strong className="text-cyan-200">Brüt Satış:</strong> İnşaat m² × bölge m² satış fiyatı (TCMB endeksli).</li>
+                  <li><strong className="text-cyan-200">Müteahhit Maliyeti:</strong> inşaat m² × birim maliyet (kaba + ince + ruhsat + finansman).</li>
+                  <li><strong className="text-cyan-200">Pay Oranı:</strong> (Arsa değeri + imar primi) / (Brüt satış − müteahhit kâr marjı %18-25).</li>
+                  <li><strong className="text-cyan-200">Senaryo Düzeltmesi:</strong> +/- %10 (iyimser/kötümser) — bölge talep ve faiz dalgalanması.</li>
+                </ol>
+                <p className="text-[11px] text-slate-500 mt-3 pt-2 border-t border-slate-700">
+                  Sonuç <strong className="text-cyan-200">ön analiz</strong> niteliğindedir; nihai oran müteahhit teklifi + avukat müzakeresine bağlıdır.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Resmi Süreç */}
+            <Card className="border-violet-500/20 bg-slate-900/40 md:col-span-2">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-2 mb-3">
+                  <Scale className="h-5 w-5 text-violet-300 flex-shrink-0 mt-0.5" />
+                  <h3 className="text-base font-semibold text-white">Resmî Süreç (8 Adım)</h3>
+                </div>
+                <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">1. İmar Sorgu</div>
+                    <p className="text-slate-300">Belediye imar müdürlüğü: ada/parsel imar planı, KAKS, çekme mesafesi.</p>
+                  </li>
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">2. Proje Hazırlık</div>
+                    <p className="text-slate-300">Mimar avan proje + statik + mekanik + elektrik. SPK ekspertiz raporu.</p>
+                  </li>
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">3. Yapı Ruhsatı</div>
+                    <p className="text-slate-300">Belediye yapı ruhsatı + onaylı proje (3194 sayılı İmar Kanunu m. 21-22).</p>
+                  </li>
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">4. KKA Sözleşmesi</div>
+                    <p className="text-slate-300">Noter onaylı kat karşılığı sözleşme + tapuya şerh (BK m. 207, TMK m. 1011).</p>
+                  </li>
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">5. Teminat</div>
+                    <p className="text-slate-300">Müteahhit teminat senedi / banka teminat mektubu + kefil — temerrüt koruması.</p>
+                  </li>
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">6. İnşaat</div>
+                    <p className="text-slate-300">Kaba + ince yapı + ruhsat denetim. Yapı denetim firması düzenli rapor.</p>
+                  </li>
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">7. Hak Ediş</div>
+                    <p className="text-slate-300">Dilim dilim teslim — yuvarlanan blokaj (her dilim, sonrakini açar).</p>
+                  </li>
+                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-semibold text-violet-300 mb-1">8. Tapu Devri</div>
+                    <p className="text-slate-300">Kat irtifakı → kat mülkiyeti → arsa sahibi payı tapuya devir (TMK m. 705).</p>
+                  </li>
+                </ol>
+              </CardContent>
+            </Card>
+
+            {/* Disclaimer */}
+            <Card className="border-amber-500/30 bg-amber-500/5 md:col-span-2">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-2 mb-3">
+                  <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+                  <h3 className="text-base font-semibold text-white">Yasal Uyarı (Disclaimer)</h3>
+                </div>
+                <div className="space-y-2 text-xs text-slate-300 leading-relaxed">
+                  <p>
+                    Bu sayfadaki tüm hesaplamalar <strong className="text-amber-200">eğitim ve ön analiz amaçlı</strong> olup
+                    yasal bağlayıcılığı yoktur. KKA bir taşınmaz hukuku işlemidir;
+                    <strong className="text-amber-200"> mutlaka SPK lisanslı eksper, avukat ve mali müşavir desteği alın</strong>.
+                  </p>
+                  <p>
+                    <strong className="text-amber-200">İlgili Mevzuat:</strong> 3194 sayılı İmar Kanunu (yapılaşma + emsal),
+                    6306 sayılı Kentsel Dönüşüm Kanunu (riskli yapı + dönüşüm), 6098 sayılı Türk Borçlar Kanunu (sözleşme + temerrüt),
+                    4721 sayılı Türk Medeni Kanunu (tapu + ayni hak), 3402 sayılı Kadastro Kanunu.
+                  </p>
+                  <p className="text-slate-400 pt-2 border-t border-amber-500/20">
+                    <strong className="text-amber-200">İhaleal:</strong> bilgi platformudur; KKA tarafı değildir.
+                    Sözleşme imzası, teminat onayı, tapu işlemi tamamen taraflar ve avukat sorumluluğundadır.
+                    Veri yanlışlığı + senaryo sapması durumunda platform sorumluluk almaz.
+                    Tüm KKA işlemlerinde <strong className="text-amber-200">noter onayı + tapu şerhi zorunludur</strong>.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Kanıt + güven rozeti şeridi */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-3 text-[11px] text-slate-500">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-slate-900/40 px-3 py-1">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+              SPK Ekspertiz uyumlu
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-slate-900/40 px-3 py-1">
+              <TrendingUp className="h-3.5 w-3.5 text-cyan-400" />
+              TCMB Endeksli
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-slate-900/40 px-3 py-1">
+              <Scale className="h-3.5 w-3.5 text-violet-400" />
+              3194 + 6306 + BK uyumlu
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-slate-900/40 px-3 py-1">
+              <Shield className="h-3.5 w-3.5 text-amber-400" />
+              Noter + Tapu şart
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
