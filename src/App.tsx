@@ -72,6 +72,7 @@ const MyMembershipPage     = lazy(() => import("@/pages/membership/MyMembershipP
 const PaymentStartPage     = lazy(() => import("@/pages/payment/PaymentStartPage"));
 const PaymentSuccessPage   = lazy(() => import("@/pages/payment/PaymentSuccessPage"));
 const CommissionPage       = lazy(() => import("@/pages/payment/CommissionPage"));
+const LocationRiskQueryPage = lazy(() => import("@/pages/LocationRiskQueryPage"));
 const AddonShopPage        = lazy(() => import("@/pages/addon/AddonShopPage"));
 const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
 const PreLaunch            = lazy(() => import("@/pages/PreLaunch"));
@@ -388,6 +389,8 @@ function App() {
             <Route path="/odeme/baslat" element={<PaymentStartPage />} />
             <Route path="/odeme/basarili" element={<PaymentSuccessPage />} />
             <Route path="/komisyon" element={<CommissionPage />} />
+            <Route path="/konum-risk-sorgu" element={<LocationRiskQueryPage />} />
+            <Route path="/zemin-risk" element={<LocationRiskQueryPage />} />
             <Route path="/magaza" element={<AddonShopPage />} />
             <Route path="/ek-hizmetler" element={<Navigate to="/magaza" replace />} />
             <Route path="/hizmet-bedelleri" element={<HizmetBedelleri />} />
