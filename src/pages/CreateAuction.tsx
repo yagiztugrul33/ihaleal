@@ -15,15 +15,9 @@ import { generateMockReport, saveReportToDb, type PropertyAnalysisReportRecord }
 import { clientLogError } from "@/lib/clientLog";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { uploadListingPhotos, UploadUnavailableError } from "@/lib/uploadFile";
+import { LocationPicker, type LocationValue } from "@/components/location/LocationPicker";
 
 type ListingImageEntry = { file: File; preview: string };
-
-const CITIES = ["İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Adana", "Konya", "Gaziantep"];
-const DISTRICTS: Record<string, string[]> = {
-  İstanbul: ["Şişli", "Beşiktaş", "Kadıköy", "Ataşehir", "Üsküdar", "Beyoğlu", "Fatih"],
-  Ankara: ["Çankaya", "Keçiören", "Yenimahalle", "Mamak"],
-  İzmir: ["Konak", "Karşıyaka", "Bornova", "Buca"],
-};
 
 /** Gayrimenkul türü UI → DB category slug */
 const CATEGORY_TO_DB: Record<string, string> = {
@@ -47,6 +41,13 @@ export default function CreateAuction() {
   const [city, setCity] = useState("İstanbul");
   const [district, setDistrict] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
+  // Harita pin koordinatları (LocationPicker'dan gelir, opsiyonel)
+  const [pinLat, setPinLat] = useState<number | undefined>(undefined);
+  const [pinLng, setPinLng] = useState<number | undefined>(undefined);
+  // EİDS yetki/malik akışı (1 Kasım 2024'ten beri yasal zorunlu)
+  const [noTitleDeed, setNoTitleDeed] = useState(false); // Tapum yok (kat irtifakı yok/TOKİ/gecekondu)
+  const [foreignOwner, setForeignOwner] = useState(false); // Yabancı uyruklu malik
+  const [adaParcel, setAdaParcel] = useState(""); // Ada/parsel (opsiyonel)
   const [startingBid, setStartingBid] = useState("");
   const [referenceValueTRY, setReferenceValueTRY] = useState("");
   const [duration, setDuration] = useState("7");
@@ -645,15 +646,68 @@ export default function CreateAuction() {
                 />
                 <p className="text-[11px] text-slate-600 mt-1">{description.length}/2000</p>
               </div>
-              <div>
-                <label className="text-sm text-slate-400 mb-1.5 block">Tapu numarası / referans *</label>
-                <Input
-                  value={titleDeed}
-                  onChange={(e) => setTitleDeed(e.target.value)}
-                  className="bg-slate-950 border-slate-200 text-white"
-                  placeholder="Yetki kaydı ve doğrulama için"
-                  required
-                />
+              {/* EİDS — Taşınmaz numarası + yetki/malik akışı (yasal zorunlu) */}
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
+                <div className="flex items-start gap-2">
+                  <ShieldCheck className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <h4 className="text-sm font-semibold text-amber-100">Taşınmaz No / Tapu Bilgisi (EİDS)</h4>
+                    <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                      1 Kasım 2024'ten beri ilanlarda <strong className="text-amber-200">Elektronik İlan Doğrulama Sistemi (EİDS)</strong>
+                      yetki/malik doğrulaması yasal zorunluluktur. Taşınmaz numaranızı e-Devlet
+                      <span className="font-mono text-cyan-300"> Tapu Bilgileri Sorgulama</span> hizmetinden veya yeni tapu senedinizden bulabilirsiniz.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm text-slate-400 block">Taşınmaz numarası</label>
+                  <Input
+                    value={titleDeed}
+                    onChange={(e) => setTitleDeed(e.target.value)}
+                    className="bg-slate-950 border-slate-200 text-white"
+                    placeholder="Örn: 1234567 (e-Devlet Tapu Bilgileri Sorgulama)"
+                    disabled={noTitleDeed}
+                    required={!noTitleDeed && !foreignOwner}
+                  />
+                  <p className="text-[10px] text-slate-500">Bu numara EİDS doğrulaması içindir. Resmî entegrasyon Ticaret Bakanlığı başvurusu sonrası aktiftir.</p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-2">
+                  <label className="flex items-start gap-2 text-xs text-slate-300 p-2 rounded border border-slate-700 hover:border-slate-600 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-0.5"
+                      checked={noTitleDeed}
+                      onChange={(e) => setNoTitleDeed(e.target.checked)}
+                    />
+                    <span><strong className="text-slate-200">Tapum yok</strong> — Kat irtifakı yok / TOKİ / gecekondu / hisseli (özel durum: avukat onayı şart)</span>
+                  </label>
+                  <label className="flex items-start gap-2 text-xs text-slate-300 p-2 rounded border border-slate-700 hover:border-slate-600 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-0.5"
+                      checked={foreignOwner}
+                      onChange={(e) => setForeignOwner(e.target.checked)}
+                    />
+                    <span><strong className="text-slate-200">Yabancı uyruklu malik</strong> — T.C. vatandaşı değil (ek belge gerekli)</span>
+                  </label>
+                </div>
+
+                <div>
+                  <label className="text-sm text-slate-400 block mb-1.5">Ada / Parsel (opsiyonel)</label>
+                  <Input
+                    value={adaParcel}
+                    onChange={(e) => setAdaParcel(e.target.value)}
+                    className="bg-slate-950 border-slate-200 text-white"
+                    placeholder="Örn: 1234 ada 56 parsel"
+                  />
+                </div>
+
+                <p className="text-[10px] text-slate-500 italic border-t border-amber-500/20 pt-2">
+                  <strong>Dürüst not:</strong> EİDS otomatik doğrulama için Ticaret Bakanlığı yetkili kuruluş başvurusu (Master aksiyonu) gerekir.
+                  Şu an beyan modelidir — yanlış beyan halinde hesap kısıtı + cezai şart sözleşmede.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -686,45 +740,35 @@ export default function CreateAuction() {
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-blue-400" /> Konum
               </h3>
-              <div className="grid sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="text-sm text-slate-400 mb-1.5 block">İl</label>
-                  <select
-                    value={city}
-                    onChange={(e) => {
-                      setCity(e.target.value);
-                      setDistrict("");
-                    }}
-                    className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm"
-                  >
-                    {CITIES.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm text-slate-400 mb-1.5 block">İlçe *</label>
-                  <select value={district} onChange={(e) => setDistrict(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
-                    <option value="">Seçin</option>
-                    {(DISTRICTS[city] || []).map((d) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm text-slate-400 mb-1.5 block">Mahalle</label>
-                  <Input value={neighborhood} onChange={(e) => setNeighborhood(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="Mahalle adı" />
-                </div>
-              </div>
-              <div className="rounded-xl overflow-hidden border border-slate-200/80 h-48 bg-slate-900 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                  <p className="text-sm text-slate-400">Harita entegrasyonu yakında</p>
-                </div>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                81 il dropdown'undan seçin; haritada pin'i tam konumun üzerine sürükleyin. Mahalle/sokak için harita yeterlidir
+                (kesin koordinat). Ücretsiz OpenStreetMap kullanılır.
+              </p>
+              <LocationPicker
+                value={{
+                  province: city,
+                  district,
+                  lat: pinLat,
+                  lng: pinLng,
+                  formattedAddress: neighborhood || (district ? `${district}, ${city}` : city),
+                }}
+                onChange={(loc: LocationValue) => {
+                  if (loc.province !== undefined) setCity(loc.province ?? "");
+                  if (loc.district !== city) setDistrict(loc.district ?? "");
+                  setPinLat(loc.lat);
+                  setPinLng(loc.lng);
+                }}
+                showMap
+                showSearch
+              />
+              <div>
+                <label className="text-sm text-slate-400 mb-1.5 block">Mahalle / cadde / sokak (opsiyonel)</label>
+                <Input
+                  value={neighborhood}
+                  onChange={(e) => setNeighborhood(e.target.value)}
+                  className="bg-slate-950 border-slate-200 text-white"
+                  placeholder="Mahalle adı veya cadde — harita pin'i ile birlikte"
+                />
               </div>
             </CardContent>
           </Card>
