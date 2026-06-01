@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/yasal",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/mesafeli-satis-sozlesmesi",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/aydinlatma-metni",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/iade-iptal",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/arastirma/hukuki-cozucu",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/yasal/risk-uyarilari",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/yasal/sablonlar",
+    "status": 200,
+    "contentPass": true
+  }
+]

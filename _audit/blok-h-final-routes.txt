@@ -8,6 +8,7 @@
 /araclar/vergi-simulator
 /arama
 /aramalarim
+/arastirma/hukuki-cozucu
 /ayarlar
 /aydinlatma-metni
 /belgeler
@@ -59,6 +60,7 @@
 /kvkk
 /kyc
 /lansman
+/legal
 /magaza
 /mesafeli-satis-sozlesmesi
 /mesajlar
@@ -116,6 +118,8 @@
 /raporlar
 /rehber
 /reklam
+/risk-uyarilari
+/sablonlar
 /sat-basla
 /saved-searches
 /sehirler
@@ -127,9 +131,13 @@
 /uyelik/yillik
 /valuation
 /veri-ve-endeks
+/yasal
 /yasal-cerceve
 /yasal-master-brief
 /yasal/agency-contract
+/yasal/cozucu
 /yasal/dolandiricilik-savunmasi
+/yasal/risk-uyarilari
+/yasal/sablonlar
 /yasal/supabase-uyum
 /yedekleme
