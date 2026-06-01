@@ -1,6 +1,9 @@
 ﻿import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, ArrowLeft, Download, Layers, Loader2, MapPin, Radar, RefreshCw } from "lucide-react";
+import {
+  AlertTriangle, ArrowLeft, Download, Layers, Loader2, MapPin, Radar, RefreshCw,
+  BookOpen, Info, Scale, ScrollText, CheckCircle2, ChevronDown, Building,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -157,11 +160,70 @@ export default function WarRoomPage() {
             <Radar className="w-10 h-10 text-blue-400 shrink-0" />
             <div>
               <h1 className="text-3xl font-bold text-white">Stratejik War Room</h1>
-              <p className="text-sm text-slate-400 mt-1">GIS + mühendislik istihbaratı</p>
+              <p className="text-sm text-slate-400 mt-1">Yatırım risk analizi — deprem, zemin, çevresel risk profili</p>
             </div>
           </div>
           {env ? <DataQualityBadge quality={env.dataQuality} limitations={env.limitations} /> : null}
         </div>
+
+        {/* KATMAN 1 — Eğitici giriş (form ÖNCESI, jargon yok, açık dil) */}
+        <section className="mb-6 space-y-3">
+          <Card className="card-luxury border-blue-500/20">
+            <CardContent className="p-5">
+              <div className="flex items-start gap-3 mb-3">
+                <BookOpen className="h-5 w-5 text-blue-300 flex-shrink-0 mt-0.5" />
+                <h2 className="text-base font-semibold text-white">War Room nedir, kime, neden?</h2>
+              </div>
+              <p className="text-sm text-slate-300 mb-3 leading-relaxed">
+                <strong className="text-white">Bir arsanın deprem, zemin ve çevresel risk profilini çıkarır.</strong>
+                Yatırım kararından önce: "Burası güvenli mi? Yapı maliyeti normal mi? Kira getirisi
+                bu risk için yeterli mi?" sorularına ışık tutar.
+              </p>
+              <div className="grid sm:grid-cols-3 gap-3 text-xs">
+                <div className="rounded-lg border border-blue-400/15 bg-slate-900/30 p-3">
+                  <p className="font-semibold text-blue-300 mb-1">👤 Yatırımcı için</p>
+                  <p className="text-slate-300">
+                    300-500M arsa kararı vermeden — bölge riski, fay mesafesi, zemin durumu net görsün.
+                  </p>
+                </div>
+                <div className="rounded-lg border border-blue-400/15 bg-slate-900/30 p-3">
+                  <p className="font-semibold text-blue-300 mb-1">🏗️ Müteahhit için</p>
+                  <p className="text-slate-300">
+                    Yapı maliyetini tahmin etsin — zemin iyileştirme, TBDY-2018 dayanıklılık şartları.
+                  </p>
+                </div>
+                <div className="rounded-lg border border-blue-400/15 bg-slate-900/30 p-3">
+                  <p className="font-semibold text-blue-300 mb-1">🏢 Kurumsal için</p>
+                  <p className="text-slate-300">
+                    Fabrika/depo/şube açma kararında — afet süreç hazırlığı, sigorta primi öngörüsü.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="card-luxury border-amber-500/20">
+            <CardContent className="p-4">
+              <p className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-1.5">
+                <Info className="h-3.5 w-3.5" /> Form alanları ne demek?
+              </p>
+              <div className="grid sm:grid-cols-3 gap-3 text-xs text-slate-300">
+                <p>
+                  <strong className="text-amber-200">Zemin (ZA-ZE)</strong>: ZA = sağlam kaya (en güvenli),
+                  ZE = zayıf zemin/dolgu. Yapı güvenliği + temel maliyeti doğrudan etkiler.
+                </p>
+                <p>
+                  <strong className="text-amber-200">PGA (g)</strong>: Deprem yer ivmesi katsayısı.
+                  0.10 = düşük, 0.20 = orta, 0.35+ = yüksek risk. AFAD risk haritasından okunur.
+                </p>
+                <p>
+                  <strong className="text-amber-200">Risk katmanı</strong>: Haritada fay hatları,
+                  heyelan/sel risk bölgeleri renkli gösterilir. Açık/Kapalı seçilebilir.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
         {error ? (
           <div className="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200 flex gap-2">
             <AlertTriangle className="w-4 h-4 shrink-0" />{error}
@@ -204,6 +266,63 @@ export default function WarRoomPage() {
           </div>
         </div>
         {result ? <Card className="mt-4 card-luxury"><CardContent className="p-4 text-xs text-slate-500"><ul className="list-disc list-inside">{result.aiReasoning.map((r) => <li key={r}>{r}</li>)}</ul><p className="mt-2">{result.disclaimer.legal}</p></CardContent></Card> : null}
+
+        {/* KATMAN 4 — Güven: metodoloji + kaynak + hukuki süreç + disclaimer */}
+        <section className="mt-12 space-y-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Scale className="h-5 w-5 text-violet-300" />
+            <h2 className="text-xl font-bold text-white">Güven, Metodoloji ve Hukuki Süreç</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="rounded-xl border border-blue-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-semibold text-blue-200 mb-2">Veri Kaynakları</p>
+              <ul className="text-xs text-slate-300 space-y-1.5">
+                <li>• <strong>AFAD Türkiye Deprem Tehlike Haritası</strong> — PGA + ivme spektrumu</li>
+                <li>• <strong>MTA Aktif Fay Veritabanı</strong> — fay hattı koordinatları</li>
+                <li>• <strong>TBDY-2018</strong> Türkiye Bina Deprem Yönetmeliği</li>
+                <li>• <strong>e-Devlet Bina Risk Sorgu</strong> — bina/yapı kayıt</li>
+                <li>• Platform mühendislik istihbarat motoru (siteIntelligence)</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-violet-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-semibold text-violet-200 mb-2">Hesap Yöntemi</p>
+              <ul className="text-xs text-slate-300 space-y-1.5">
+                <li>• <strong>Deprem skoru</strong>: PGA × zemin amplifikasyon × bina yaşı/yönetmelik</li>
+                <li>• <strong>Afet skoru</strong>: fay mesafesi + heyelan + sel + yangın yoğunluğu</li>
+                <li>• <strong>Zemin skoru</strong>: ZA-ZE sınıfı × eğim × drenaj kapasitesi</li>
+                <li>• <strong>Stratejik skor</strong>: 4 alt skor + ekonomik + sosyal endeks ağırlıklı</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-emerald-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-semibold text-emerald-200 mb-2 flex items-center gap-1.5">
+                <ScrollText className="h-4 w-4" /> Resmi Süreç (Yatırım Öncesi)
+              </p>
+              <ol className="text-xs text-slate-300 space-y-1.5">
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> Tapu+Kadastro (TKGM) — mülkiyet+irtifak doğrulama</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> İmar Durum Yazısı (Belediye) — kullanım+emsal</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> Zemin etüdü (Jeoloji Mühendisi) — TBDY-2018 zorunlu</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> AFAD Bina Risk Sorgu — 6306 sayılı kanun kapsamı</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> SPK uyumlu ekspertiz raporu (bankable yatırım için)</li>
+              </ol>
+            </div>
+
+            <div className="rounded-xl border border-amber-500/30 bg-amber-950/30 p-4">
+              <p className="text-sm font-semibold text-amber-200 mb-2 flex items-center gap-1.5">
+                <AlertTriangle className="h-4 w-4" /> Disclaimer (Kritik)
+              </p>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Bu sayfa <strong className="text-amber-200">ön risk analizidir</strong> — bankable yatırım
+                kararı oluşturmaz. Gerçek kararı vermeden: <strong>lisanslı jeoloji mühendisi
+                zemin etüdü + inşaat mühendisi performans değerlendirmesi + SPK uyumlu ekspertiz</strong>
+                şart. AFAD verisi 2-3 yılda güncellenir; en güncel risk için doğrudan AFAD haritasına bakın.
+                Yatırım tavsiyesi değildir.
+              </p>
+            </div>
+          </div>
+        </section>
         </div>
       </div>
     );
