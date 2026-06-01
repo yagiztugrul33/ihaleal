@@ -117,6 +117,7 @@ const MesafeliSatisSozlesmesi = lazy(() => import("@/pages/legal/MesafeliSatisSo
 const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
 const AydinlatmaMetni      = lazy(() => import("@/pages/legal/AydinlatmaMetni"));
 const LegalHubPage         = lazy(() => import("@/pages/legal/LegalHubPage"));
+const LegalScenarioPage    = lazy(() => import("@/pages/legal/LegalScenarioPage"));
 const SSSPage              = lazy(() => import("@/pages/SSS"));
 const AgencyContractView   = lazy(() => import("@/pages/legal/AgencyContractView"));
 const FraudDefenseArchitecturePage = lazy(() => import("@/pages/legal/FraudDefenseArchitecturePage"));
@@ -263,6 +264,8 @@ function App() {
             <Route path="/aydinlatma-metni" element={<AydinlatmaMetni />} />
             <Route path="/yasal" element={<LegalHubPage />} />
             <Route path="/legal" element={<Navigate to="/yasal" replace />} />
+            <Route path="/arastirma/hukuki-cozucu" element={<LegalScenarioPage />} />
+            <Route path="/yasal/cozucu" element={<Navigate to="/arastirma/hukuki-cozucu" replace />} />
             <Route path="/sss" element={<SSSPage />} />
             <Route path="/yasal/agency-contract" element={<AgencyContractView />} />
             <Route path="/yasal/dolandiricilik-savunmasi" element={<FraudDefenseArchitecturePage />} />
