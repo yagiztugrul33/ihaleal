@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- ihaleal Android — TLS-only (cleartext HTTP YASAK) -->
+    <!-- Production tüm trafik HTTPS; debug yapıda 10.0.2.2 (localhost) açılabilir -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Debug build: emulator localhost HTTP'ye izin (development only) -->
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>

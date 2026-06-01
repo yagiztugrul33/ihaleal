@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ — yedeklemeden hassas veri dışarı çıkmaz -->
+<!-- ihaleal: oturum tokenı (Supabase) ve hesap verisi yedeklenmez -->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Cloud backup TAMAMEN devre dışı (hassas finansal veri var) -->
+    </cloud-backup>
+    <device-transfer>
+        <!-- Cihazdan cihaza transfer de yasak (yeniden giriş gerek) -->
+    </device-transfer>
+</data-extraction-rules>
