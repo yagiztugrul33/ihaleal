@@ -17,13 +17,14 @@
  */
 
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   TrendingUp, TrendingDown, Activity, Radio, Zap, BarChart3, MapPin,
-  ArrowUp, ArrowDown, Flame,
+  ArrowUp, ArrowDown, Flame, Crown, Sparkles,
 } from "lucide-react";
 import type { Auction } from "@/types/auction";
 import { CountdownTimer } from "@/components/auction/CountdownTimer";
+import { useMembershipTier } from "@/hooks/useMembershipTier";
 
 function formatTRY(v: number): string {
   if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M ₺`;
@@ -49,6 +50,8 @@ interface Props {
 
 export function BorsaTerminali({ catalog, liveCount }: Props) {
   const now = Date.now();
+  const navigate = useNavigate();
+  const { isPremium, tier } = useMembershipTier();
 
   // Her ilan için %değişim (deterministic — id seed ile)
   const enriched = useMemo(() => {
@@ -144,6 +147,34 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
   return (
     <section className="bg-slate-950/60 border-y border-cyan-500/20 py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        {/* Premium status banner */}
+        {!isPremium ? (
+          <div className="rounded-xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-slate-900/40 p-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
+            <Crown className="h-5 w-5 text-amber-300 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-amber-100">
+                Borsa terminal özet görünüyor — TAM erişim için Premium
+              </p>
+              <p className="text-[11px] text-slate-300">
+                Yatırımcı paketi ile sınırsız rapor + gerçek kapanış + AI fırsat bildirim — ₺399/ay
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate("/fiyatlandirma?onerilen=yatirimci")}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold whitespace-nowrap"
+            >
+              <Sparkles className="h-3.5 w-3.5" /> Paketleri Gör
+            </button>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-2.5 flex items-center gap-2 text-xs">
+            <Crown className="h-4 w-4 text-emerald-300" />
+            <span className="text-emerald-200 font-semibold">{tier.name}</span>
+            <span className="text-slate-400">— Borsa terminal TAM erişim aktif</span>
+          </div>
+        )}
+
         {/* 1. TICKER (kayan) */}
         <div className="overflow-hidden rounded-lg border border-cyan-500/30 bg-slate-900/80 py-2">
           <div className="flex gap-8 animate-marquee whitespace-nowrap text-sm">
