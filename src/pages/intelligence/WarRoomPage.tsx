@@ -199,6 +199,31 @@ export default function WarRoomPage() {
                   </p>
                 </div>
               </div>
+
+              {/* Somut örnek senaryo (Endeksa stili gerçek mülk + sayı) */}
+              <div className="mt-4 rounded-lg border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 to-slate-900/40 p-4">
+                <p className="text-xs font-semibold text-emerald-300 mb-2 flex items-center gap-1.5">
+                  📌 Somut Örnek Senaryo (Pendik, 1.000 m² arsa)
+                </p>
+                <div className="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                  <p>
+                    <strong className="text-emerald-200">Konum:</strong> Pendik / Kurtköy, 1.000 m² arsa, KAKS 2.0,
+                    Marmara fay zonu 18 km uzakta. <strong className="text-emerald-200">PGA: 0.32g</strong>.
+                  </p>
+                  <p>
+                    <strong className="text-emerald-200">Zemin:</strong> ZC orta-sağlam alüvyon — temel kazığı önerilir
+                    (+ %8 inşaat maliyeti). Sıvılaşma riski: düşük.
+                  </p>
+                  <p>
+                    <strong className="text-emerald-200">War Room skoru:</strong> 72/100 (orta-yüksek yatırım uygun).
+                    Sigorta primi: yıllık ~₺28K (DASK + ek).
+                  </p>
+                  <p>
+                    <strong className="text-emerald-200">Karar:</strong> 8 daire müteahhit projesi → 4 daire arsa sahibi
+                    (KKA %50). Tahmini ROI: 5 yıl içinde %32-40.
+                  </p>
+                </div>
+              </div>
             </CardContent>
           </Card>
 

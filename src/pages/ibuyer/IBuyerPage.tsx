@@ -134,6 +134,58 @@ export default function IBuyerPage() {
           <p className="text-[11px] text-slate-500 mt-3 pt-2 border-t border-slate-700">
             * Örnek değerlerdir — gerçek teklif eksper raporu, ipotek/hac durumu ve piyasa endeksine göre değişir.
           </p>
+
+          {/* Mülk tipine göre teklif aralığı tablosu */}
+          <div className="mt-4 pt-4 border-t border-emerald-500/20">
+            <p className="text-xs font-semibold text-emerald-300 mb-3">📋 Mülk Tipine Göre Tipik Teklif Süre + Aralığı</p>
+            <div className="overflow-x-auto -mx-1">
+              <table className="w-full text-xs min-w-[480px]">
+                <thead>
+                  <tr className="text-slate-500 border-b border-slate-700">
+                    <th className="text-left py-2 pr-2 font-medium">Mülk Tipi</th>
+                    <th className="text-right py-2 px-2 font-medium">Teklif Süresi</th>
+                    <th className="text-right py-2 px-2 font-medium">Tahmini İndirim</th>
+                    <th className="text-right py-2 pl-2 font-medium">Ödeme</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-300">
+                  <tr className="border-b border-slate-800/50">
+                    <td className="py-2 pr-2">🏠 Konut (3+1, 100 m²)</td>
+                    <td className="py-2 px-2 text-right">72 saat</td>
+                    <td className="py-2 px-2 text-right text-amber-200">%5-10 altı</td>
+                    <td className="py-2 pl-2 text-right text-emerald-200">5 gün nakit</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/50">
+                    <td className="py-2 pr-2">🏡 Villa (200+ m²)</td>
+                    <td className="py-2 px-2 text-right">5-7 gün</td>
+                    <td className="py-2 px-2 text-right text-amber-200">%8-15 altı</td>
+                    <td className="py-2 pl-2 text-right text-emerald-200">7-10 gün nakit</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/50">
+                    <td className="py-2 pr-2">🏢 Ofis/Plaza katı</td>
+                    <td className="py-2 px-2 text-right">7-14 gün</td>
+                    <td className="py-2 px-2 text-right text-amber-200">%10-18 altı</td>
+                    <td className="py-2 pl-2 text-right text-emerald-200">10-14 gün</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/50">
+                    <td className="py-2 pr-2">🏪 Mağaza/Dükkan</td>
+                    <td className="py-2 px-2 text-right">5-10 gün</td>
+                    <td className="py-2 px-2 text-right text-amber-200">%8-12 altı</td>
+                    <td className="py-2 pl-2 text-right text-emerald-200">7-10 gün</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-2">🏭 Depo/Arsa</td>
+                    <td className="py-2 px-2 text-right">10-21 gün</td>
+                    <td className="py-2 px-2 text-right text-amber-200">%15-25 altı</td>
+                    <td className="py-2 pl-2 text-right text-emerald-200">14-21 gün</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-[10px] text-slate-500 mt-2 italic">
+              Tablo İhaleal iBuyer ağı 2025-2026 ortalamalarıdır; bireysel teklif tapu/imar/ipotek durumuna göre revize edilir.
+            </p>
+          </div>
         </div>
 
         {/* KATMAN 4 — GÜVEN, METODOLOJİ, HUKUKİ SÜREÇ */}

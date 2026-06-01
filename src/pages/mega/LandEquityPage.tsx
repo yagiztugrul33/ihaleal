@@ -150,6 +150,50 @@ export default function LandEquityPage() {
                 </p>
               </div>
             </div>
+
+            {/* Somut örnek pay dağılımı (Endeksa-style real numbers) */}
+            <div className="mt-4 rounded-lg border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 to-slate-900/40 p-4">
+              <p className="text-xs font-semibold text-emerald-300 mb-3 flex items-center gap-1.5">
+                📊 Somut Örnek (Kadıköy / Caddebostan, 800 m² arsa)
+              </p>
+              <div className="grid sm:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <p className="text-slate-500 mb-0.5">Arsa rayiç</p>
+                  <p className="text-white font-bold text-base">₺48M</p>
+                  <p className="text-slate-500 text-[10px]">(800 × ₺60K/m²)</p>
+                </div>
+                <div>
+                  <p className="text-slate-500 mb-0.5">Emsal × m²</p>
+                  <p className="text-white font-bold text-base">2.0 × 800</p>
+                  <p className="text-slate-500 text-[10px]">= 1.600 m² inşaat</p>
+                </div>
+                <div>
+                  <p className="text-slate-500 mb-0.5">Daire sayısı</p>
+                  <p className="text-white font-bold text-base">16 daire</p>
+                  <p className="text-slate-500 text-[10px]">(100 m² ortalama)</p>
+                </div>
+                <div>
+                  <p className="text-slate-500 mb-0.5">Tahmini değer</p>
+                  <p className="text-white font-bold text-base">₺128M</p>
+                  <p className="text-slate-500 text-[10px]">(daire ortalama ₺8M)</p>
+                </div>
+              </div>
+              <div className="mt-3 pt-3 border-t border-emerald-400/20 grid sm:grid-cols-2 gap-3 text-xs">
+                <div className="rounded border border-emerald-400/30 bg-emerald-500/10 p-2.5">
+                  <p className="text-emerald-300 font-semibold mb-1">🏘️ Arsa Sahibi (%50)</p>
+                  <p className="text-white text-sm">8 daire = ₺64M</p>
+                  <p className="text-slate-400 text-[11px]">Hak ediş 36 ay dilimli — son dilim tapu devirde.</p>
+                </div>
+                <div className="rounded border border-cyan-400/30 bg-cyan-500/10 p-2.5">
+                  <p className="text-cyan-300 font-semibold mb-1">🏗️ Müteahhit (%50)</p>
+                  <p className="text-white text-sm">8 daire = ₺64M (brüt)</p>
+                  <p className="text-slate-400 text-[11px]">İnşaat maliyeti ~₺36M, brüt kâr ~₺28M (%44).</p>
+                </div>
+              </div>
+              <p className="text-[10px] text-slate-500 mt-2 italic">
+                * Örnek senaryo — gerçek oran ekspertiz + müzakere + bölge talebine göre değişir.
+              </p>
+            </div>
           </CardContent>
         </Card>
 
