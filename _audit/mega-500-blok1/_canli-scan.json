@@ -1,0 +1,738 @@
+{
+  "httpFails": 0,
+  "has500": 0,
+  "has404": 0,
+  "log": [],
+  "errorsByRoute": {
+    "/": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/abone/iptal": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/abone/onay": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/analiz": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/anayasa": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/anayasa-400": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/araclar/finans-uyumluluk": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/araclar/vergi-simulator": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/arama": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/aramalarim": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/arastirma/hukuki-cozucu": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ayarlar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/aydinlatma-metni": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/belgeler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/bildirimler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/blog": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/canliya-hazirlik": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/cerez-politikasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/dashboard": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/dashboard/yatirimci": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/degerleme": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/degisiklikler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/destek": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ek-hizmetler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ekspertiz": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/emlakci": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/emlakci-giris": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/emlakci-ortaklik": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/emlakci/panel": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/emlakciler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/evraklar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/favoriler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/fiyatlandirma": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/giris": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/gizlilik": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/guvenlik": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/hakkimizda": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/harita": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/hizmet-bedelleri": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/iade-iptal": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ibuyer": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ihale-ac": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ihale-kosullari": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ihaleler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/ilanlar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/iletisim": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kampanyalar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/karsilastir": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/karsilastir-rakipler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kayit": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/komisyon": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/komisyon-hesaplayici": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/komisyon-modeli": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/konut-kredisi-hesaplayici": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kullanim-kosullari": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kunye": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kurumsal": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kurumsal/dashboard": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kurumsal/iletisim": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kvkk": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/kyc": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/lansman": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/legal": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/magaza": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/mesafeli-satis-sozlesmesi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/mesajlar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/afet-risk-haritasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/afet-toplanma-alanlari": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED"
+    ],
+    "/modul/aile-acil-plan": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/airbnb-potansiyel": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/bina-risk-sorgu": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/canli-deprem-takip": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/degerleme": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-cantasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-1": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-10": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-2": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-3": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-4": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-5": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-6": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-7": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-8": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-egitimi/ders-9": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/deprem-risk-haritasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED"
+    ],
+    "/modul/deprem-sigortasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/ges-analizi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/guclendirme-rehberi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/imar-sorgu": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/kentsel-donusum": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED",
+      "console: Failed to load resource: net::ERR_FAILED"
+    ],
+    "/modul/komsuluk-risk-analizi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/kredi-pazaryeri": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/parsel-zekasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/portfoy-yonetimi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/renovasyon-roi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/sigorta-pazaryeri": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/tatbikat-rehberi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/uzman-randevu": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/yapay-zeka-hasar-tahmini": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/yatirim-onerisi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/modul/yikilan-binalar-arsivi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/mortgage": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/muteahhit": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/muteahhit/onay-bekleniyor": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/muteahhit/panel": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/muteahhit/yeni-proje": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/nasil-calisir": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/nihai-anayasa": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/odeme/basarili": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/odeme/baslat": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/oduller": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/paketler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/panel": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/pre-launch": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/pricing": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/profil": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/raporlar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/rehber": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/reklam": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/risk-uyarilari": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/sablonlar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/sat-basla": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/saved-searches": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/sehirler": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/sifremi-unuttum": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/sss": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/uluslararasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/uyeligim": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/uyelik": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/uyelik/yillik": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/valuation": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/veri-ve-endeks": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal-cerceve": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal-master-brief": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal/agency-contract": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal/cozucu": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal/dolandiricilik-savunmasi": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal/risk-uyarilari": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal/sablonlar": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yasal/supabase-uyum": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ],
+    "/yedekleme": [
+      "console: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://va.vercel-scripts.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-/j5MCyIeZaDnjHFdxpXT0nfvGHCYrFFWYkF3b2nIje0='), or a nonce ('nonce",
+      "console: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note"
+    ]
+  }
+}

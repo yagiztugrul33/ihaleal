@@ -25,19 +25,8 @@
     <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
     <!-- Preview/yedek deploy'lari (vercel.app, branch alias) noindex: Google sıralamasını
          prod ile bolmesin. Prod (ihaleal.com/www.ihaleal.com) etkilenmez. -->
-    <script>
-      (function () {
-        try {
-          var h = location.hostname;
-          if (h && h !== "ihaleal.com" && h !== "www.ihaleal.com") {
-            var m = document.createElement("meta");
-            m.name = "robots";
-            m.content = "noindex, nofollow";
-            document.head.appendChild(m);
-          }
-        } catch (e) { /* sessiz */ }
-      })();
-    </script>
+    <!-- Preview noindex: harici .js (CSP script-src 'self' uyumlu). 2026-06-01 -->
+    <script src="/preview-noindex.js"></script>
     <!-- Ana sayfa meta: Vite home-page-meta-from-seo-data + docs/SEO_HASH_CANONICAL.md -->
 
     <!-- Canonical -->

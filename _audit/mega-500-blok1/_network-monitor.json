@@ -1,0 +1,27 @@
+{
+  "/": [
+    {
+      "url": "https://wsjifesrdaeorrdzbvmk.supabase.co/rest/v1/auctions?select=id%2Cstatus%2Cstarts_at%2Cends_at%2Ccurrent_high_bid_try%2Clistings%28id%2Ctitle%2Cbo",
+      "status": 200,
+      "body": ""
+    }
+  ],
+  "/ihaleler": [
+    {
+      "url": "https://wsjifesrdaeorrdzbvmk.supabase.co/rest/v1/auctions?select=id%2Cstatus%2Cstarts_at%2Cends_at%2Ccurrent_high_bid_try%2Clistings%28id%2Ctitle%2Cbo",
+      "status": 200,
+      "body": ""
+    },
+    {
+      "url": "https://wsjifesrdaeorrdzbvmk.supabase.co/rest/v1/auctions?select=id%2Cstatus%2Cstarts_at%2Cends_at%2Ccurrent_high_bid_try%2Clistings%28id%2Ctitle%2Cbo",
+      "status": 200,
+      "body": ""
+    }
+  ],
+  "/arastirma/ges": [],
+  "/arastirma/war-room": [],
+  "/arastirma/hukuki-cozucu": [],
+  "/degerleme": [],
+  "/kat-karsiligi": [],
+  "/raporlar": []
+}
