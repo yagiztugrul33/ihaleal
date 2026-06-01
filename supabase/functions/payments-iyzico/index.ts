@@ -27,13 +27,16 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
-// Tier fiyatları — frontend pricingTiers.ts ile SENKRON, sunucuda doğrulanır
+// Tier fiyatları — frontend pricingTiers.ts ile SENKRON, sunucuda doğrulanır.
+// 2026-06-01 güncellendi: Master politika belgesi (Yatırımcı 499 / Başlangıç 1900 /
+// Pro 4500 / Kurumsal 9900). Yıllık -%20 indirim korundu. Erken üye fiyatları SUNUCUDA
+// hesaplanmaz — kayıt anındaki LİSTE fiyatından yazılır (taahhüt 12 ay sabit).
 const TIER_MONTHLY_PRICES: Record<string, number> = {
   free: 0,
-  yatirimci: 399,
-  emlak_baslangic: 1500,
-  emlak_pro: 3500,
-  kurumsal: 7500,
+  yatirimci: 499,
+  emlak_baslangic: 1900,
+  emlak_pro: 4500,
+  kurumsal: 9900,
 };
 const YEARLY_DISCOUNT = 0.20;
 
@@ -376,7 +379,29 @@ Deno.serve(async (req) => {
       .single();
 
     if (subErr || !sub) {
-      return json({ ok: false, error: "subscription_create_failed", detail: subErr?.message }, 500, cors);
+      // Detaylı hata logu — Master logs'da görür
+      console.error("[create_subscription] INSERT failed:", {
+        user_id: user.id,
+        tier_id: tierId,
+        cycle,
+        monthly_price_try: monthlyPrice,
+        error: subErr,
+      });
+      return json(
+        {
+          ok: false,
+          error: "subscription_create_failed",
+          detail: subErr?.message ?? "unknown",
+          hint: subErr?.code === "23502" ? "NOT NULL constraint — monthly_price_try eksik"
+            : subErr?.code === "23514" ? "CHECK constraint — tier_id veya cycle yanlış"
+            : subErr?.code === "23505" ? "UNIQUE — kullanıcının aktif aboneliği zaten var"
+            : subErr?.code === "42P01" ? "Tablo yok — subscriptions migration apply edilmemiş"
+            : subErr?.code === "42501" ? "Permission denied — service_role key eksik"
+            : "Sebep belirsiz — supabase functions logs payments-iyzico ile detaya bakın",
+        },
+        500,
+        cors,
+      );
     }
 
     await audit(supabaseAdmin, "subscription_started", user.id, null, sub.id, { tier_id: tierId, cycle, price: serverPrice }, ip, ua);

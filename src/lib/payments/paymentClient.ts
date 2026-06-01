@@ -103,10 +103,39 @@ export async function createSubscription(args: {
         cycle: args.cycle,
       },
     });
-    if (error) return { ok: false, error: "invoke_error", detail: error.message };
+    if (error) {
+      // Non-2xx response — gerçek server hata mesajını body'den çıkar
+      const parsed = await extractFunctionsError(error);
+      return parsed ?? { ok: false, error: "invoke_error", detail: error.message };
+    }
     return data ?? { ok: false, error: "empty_response" };
   } catch (e) {
     return { ok: false, error: "network_error", detail: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+/**
+ * Supabase Edge function non-2xx hatasından server response body'yi çıkar.
+ * `supabase.functions.invoke` "Edge Function returned a non-2xx status code" genel
+ * mesajını atar — bu helper gerçek error/detail/hint alanlarını yakalar.
+ */
+async function extractFunctionsError(error: unknown): Promise<CreateSubscriptionResult | null> {
+  try {
+    const ctx = (error as { context?: { response?: Response } }).context;
+    if (!ctx?.response) return null;
+    const body = await ctx.response.clone().json().catch(() => null);
+    if (body && typeof body === "object") {
+      const r = body as Partial<CreateSubscriptionResult> & { hint?: string };
+      const detail = (r.detail ?? "") + (r.hint ? ` · ${r.hint}` : "");
+      return {
+        ok: false,
+        error: r.error ?? "edge_function_error",
+        detail: detail.trim() || (error instanceof Error ? error.message : String(error)),
+      };
+    }
+    return null;
+  } catch {
+    return null;
   }
 }
 
