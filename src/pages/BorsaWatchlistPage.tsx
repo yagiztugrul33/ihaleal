@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell, Clock3, PlusCircle, ShieldCheck, Siren, TrendingUp } from "lucide-react";
+import { FxRef } from "@/components/FxRef";
 import { useLiveMarket } from "@/borsa/useLiveMarket";
 import { isOutbid } from "@/lib/borsa/auctionEngine";
 import { useBorsaRegionWatchlist } from "@/hooks/useBorsaRegionWatchlist";
@@ -214,7 +215,7 @@ export default function BorsaWatchlistPage() {
                     <tr key={row.id} className="border-t border-slate-800/80">
                       <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
                       <td className="py-2.5 pr-3 text-slate-200">{row.property}</td>
-                      <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.price)}</td>
+                      <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
                       <td className={cn("py-2.5 pr-3 font-bold", row.changePct >= 0 ? "text-emerald-300" : "text-rose-300")}>
                         {row.changePct >= 0 ? "+" : ""}
                         {row.changePct.toFixed(2)}%

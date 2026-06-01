@@ -19,6 +19,7 @@ import { Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip } from "re
 import { estimatePortfolioTax } from "@/borsa/tax-estimate";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { MASTER_INFO_DISCLAIMER, PHYSICAL_ASSET_ONLY_DISCLAIMER } from "@/legal/platformDisclaimers";
+import { FxRef } from "@/components/FxRef";
 
 type PortfolioAsset = {
   id: string;
@@ -167,10 +168,12 @@ export default function BorsaPortfolioPage() {
             <article className="app-kpi hover-premium">
               <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Toplam Alış</p>
               <p className="mt-1 text-2xl font-black text-foreground">{formatTry(totalPurchase)}</p>
+              <FxRef amountTry={totalPurchase} variant="block" />
             </article>
             <article className="app-kpi hover-premium">
               <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Güncel Değer</p>
               <p className="mt-1 text-2xl font-black text-foreground">{formatTry(totalCurrent)}</p>
+              <FxRef amountTry={totalCurrent} variant="block" />
             </article>
             <article className="app-kpi hover-premium">
               <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">K/Z (%)</p>
@@ -178,6 +181,7 @@ export default function BorsaPortfolioPage() {
                 {pnl >= 0 ? "+" : ""}
                 {formatTry(pnl)} ({pnlPct.toFixed(1)}%)
               </p>
+              <FxRef amountTry={pnl} variant="block" />
             </article>
           </div>
           <article className="app-section">

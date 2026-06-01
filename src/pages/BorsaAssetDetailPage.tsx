@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { FxRef } from "@/components/FxRef";
 import {
   Area,
   Bar,
@@ -271,8 +272,9 @@ export default function BorsaAssetDetailPage() {
               Lokasyon: {asset.region.toLocaleUpperCase("tr-TR")} · Tip: Açık artırma gayrimenkul varlığı
             </p>
           </div>
-          <div className="text-right">
+          <div className="text-end">
             <p className="text-3xl font-black text-white">{formatTry(asset.price)}</p>
+            <FxRef amountTry={asset.price} variant="block" />
             <p className={`text-sm font-bold ${asset.changePct >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
               {asset.changePct >= 0 ? "+" : ""}
               {asset.changePct.toFixed(2)}%
@@ -280,9 +282,9 @@ export default function BorsaAssetDetailPage() {
           </div>
         </div>
         <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">24s Yüksek: <strong className="text-white">{formatTry(high24)}</strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">24s Düşük: <strong className="text-white">{formatTry(low24)}</strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">Açılış/Kapanış: <strong className="text-white">{formatTry(open24)} / {formatTry(close24)}</strong></div>
+          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">24s Yüksek: <strong className="text-white">{formatTry(high24)}<FxRef amountTry={high24} variant="compact" /></strong></div>
+          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">24s Düşük: <strong className="text-white">{formatTry(low24)}<FxRef amountTry={low24} variant="compact" /></strong></div>
+          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">Açılış/Kapanış: <strong className="text-white">{formatTry(open24)}<FxRef amountTry={open24} variant="compact" /> / {formatTry(close24)}<FxRef amountTry={close24} variant="compact" /></strong></div>
           <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">Hacim: <strong className="text-white">{asset.volume.toLocaleString("tr-TR")}</strong></div>
           <div className="rounded-lg border border-amber-500/35 bg-amber-500/10 p-2 text-xs text-amber-100">
             Sayaç: <strong>{countdown}</strong> · Anti-sniping soft-close aktif (son {Math.round(ANTI_SNIPING_THRESHOLD_SECONDS / 60)} dk teklifte +{Math.round(ANTI_SNIPING_EXTEND_SECONDS / 60)} dk)

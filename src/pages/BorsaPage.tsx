@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BarChart3, Bell, Clock3, MapPin, Search, Star, TrendingDown, TrendingUp } from "lucide-react";
+import { FxRef } from "@/components/FxRef";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { INITIAL_MARKET_ASSETS, useLiveMarket } from "@/borsa/useLiveMarket";
@@ -653,8 +654,8 @@ export default function BorsaPage() {
           </article>
           <article className="borsa-card rounded-xl p-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-amber-200">Fiyat Hareketi</p>
-            <p className="mt-2 text-xs text-slate-300">Gün yüksek/düşük: <strong className="text-white">{formatTry(marketSnapshot.range.dayHigh)} / {formatTry(marketSnapshot.range.dayLow)}</strong></p>
-            <p className="mt-1 text-xs text-slate-300">Açılış/Kapanış: <strong className="text-white">{formatTry(marketSnapshot.range.open)} / {formatTry(marketSnapshot.range.close)}</strong></p>
+            <p className="mt-2 text-xs text-slate-300">Gün yüksek/düşük: <strong className="text-white">{formatTry(marketSnapshot.range.dayHigh)}<FxRef amountTry={marketSnapshot.range.dayHigh} variant="compact" /> / {formatTry(marketSnapshot.range.dayLow)}<FxRef amountTry={marketSnapshot.range.dayLow} variant="compact" /></strong></p>
+            <p className="mt-1 text-xs text-slate-300">Açılış/Kapanış: <strong className="text-white">{formatTry(marketSnapshot.range.open)}<FxRef amountTry={marketSnapshot.range.open} variant="compact" /> / {formatTry(marketSnapshot.range.close)}<FxRef amountTry={marketSnapshot.range.close} variant="compact" /></strong></p>
             <p className="mt-1 text-xs text-slate-300">Volatilite: <strong className="text-white">{marketSnapshot.volatility.marketStdDev.toLocaleString("tr-TR")}</strong></p>
           </article>
           <article className="borsa-card rounded-xl p-3">
@@ -794,7 +795,7 @@ export default function BorsaPage() {
                           </td>
                           <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
                           <td className="py-2.5 pr-3 text-slate-200">{row.property}</td>
-                          <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.price)}</td>
+                          <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
                           <td className={cn("py-2.5 pr-3 font-bold", up ? "text-emerald-300" : "text-rose-300")}>
                             {up ? "+" : ""}
                             {row.changePct.toFixed(2)}%
@@ -929,7 +930,7 @@ export default function BorsaPage() {
               <div className="mb-3 rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2 text-xs">
                 <p className="text-cyan-100">
                   Kendi teklifin:
-                  {myOrderBid ? ` ${formatTry(myOrderBid)} · ${myOrderRank ?? "-"}. sıradasın` : " henüz yok"}
+                  {myOrderBid ? <> {formatTry(myOrderBid)}<FxRef amountTry={myOrderBid} variant="compact" /> · {myOrderRank ?? "-"}. sıradasın</> : " henüz yok"}
                 </p>
                 <p className={cn("mt-1", myOrderStatus === "kazanıyorsun" ? "text-emerald-200" : "text-amber-200")}>
                   {myOrderStatus
@@ -968,9 +969,9 @@ export default function BorsaPage() {
                     {orderBookLevels.map((level) => (
                       <tr key={level.level} className="border-t border-slate-800/80 text-slate-200">
                         <td className="py-1.5 pr-2">{level.level}</td>
-                        <td className="py-1.5 pr-2 text-emerald-300">{formatTry(level.bidPrice)}</td>
+                        <td className="py-1.5 pr-2 text-emerald-300">{formatTry(level.bidPrice)}<FxRef amountTry={level.bidPrice} variant="compact" /></td>
                         <td className="py-1.5 pr-2">{level.bidVolume.toLocaleString("tr-TR")}</td>
-                        <td className="py-1.5 pr-2 text-rose-300">{formatTry(level.askPrice)}</td>
+                        <td className="py-1.5 pr-2 text-rose-300">{formatTry(level.askPrice)}<FxRef amountTry={level.askPrice} variant="compact" /></td>
                         <td className="py-1.5 pr-2">{level.askVolume.toLocaleString("tr-TR")}</td>
                         <td className="py-1.5 text-slate-300">{level.bidderMask}</td>
                       </tr>
