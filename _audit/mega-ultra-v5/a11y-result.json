@@ -1,0 +1,745 @@
+{
+  "/": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      },
+      {
+        "text": "İhale, lokasyon ara…⌘K",
+        "w": 240,
+        "h": 40
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h3",
+        "text": "Bölge Endeksleri"
+      },
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/arama": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h3",
+        "text": "Mülk Tipi"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/ihaleler": {
+    "iconOnlyButtons": 1,
+    "iconOnlySamples": [
+      "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"sm\" class=\"inline-flex items-center jus"
+    ],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": [
+      {
+        "text": "WA",
+        "count": 12
+      }
+    ]
+  },
+  "/borsa": {
+    "iconOnlyButtons": 1,
+    "iconOnlySamples": [
+      "<button class=\"p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-500 hover:text-slate-900 tra"
+    ],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/raporlar": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": [
+      {
+        "text": "Belgeyi aç",
+        "count": 3
+      }
+    ]
+  },
+  "/harita": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [],
+    "noAltImgs": 0,
+    "emptyAltImgs": 20,
+    "duplicateLinks": []
+  },
+  "/degerleme": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/ihale-ac": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h3",
+        "text": "Mülk Bilgileri"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/panel": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/profil": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/aramalarim": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h3",
+        "text": "Yeni Eşleşme Bildirimi"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/iletisim": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/giris": {
+    "iconOnlyButtons": 1,
+    "iconOnlySamples": [
+      "<button type=\"button\" class=\"absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-whi"
+    ],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/kayit": {
+    "iconOnlyButtons": 1,
+    "iconOnlySamples": [
+      "<button type=\"button\" class=\"absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-whi"
+    ],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/favoriler": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h3",
+        "text": "Henüz Favori Yok"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/bildirimler": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h3",
+        "text": "Henüz bildirim yok"
+      },
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/nasil-calisir": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/hakkimizda": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/kunye": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/destek": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/sss": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  },
+  "/ilan/2": {
+    "iconOnlyButtons": 5,
+    "iconOnlySamples": [
+      "<button class=\"p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-500 hover:text-slate-900 tra",
+      "<button type=\"button\" class=\"relative w-20 h-14 sm:w-24 sm:h-16 rounded-lg overflow-hidden shrink-0 ",
+      "<button type=\"button\" class=\"relative w-20 h-14 sm:w-24 sm:h-16 rounded-lg overflow-hidden shrink-0 "
+    ],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h1",
+        "to": "h3",
+        "text": "Kurumsal zeka ozeti"
+      },
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 4,
+    "duplicateLinks": []
+  },
+  "/arastirma/ges": {
+    "iconOnlyButtons": 0,
+    "iconOnlySamples": [],
+    "tooSmall": 10,
+    "tooSmallSamples": [
+      {
+        "text": "",
+        "w": 22,
+        "h": 22
+      },
+      {
+        "text": "Hizmetler",
+        "w": 84,
+        "h": 24
+      },
+      {
+        "text": "Kurumsal",
+        "w": 83,
+        "h": 24
+      }
+    ],
+    "headingJumps": [
+      {
+        "from": "h2",
+        "to": "h4",
+        "text": "Platform"
+      }
+    ],
+    "noAltImgs": 0,
+    "emptyAltImgs": 0,
+    "duplicateLinks": []
+  }
+}
