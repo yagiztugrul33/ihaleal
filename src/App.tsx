@@ -69,6 +69,9 @@ const AdminDashboard       = lazy(() => import("@/pages/admin/AdminDashboard"));
 const YillikUyelik         = lazy(() => import("@/pages/membership/YillikUyelik"));
 const PricingPage          = lazy(() => import("@/pages/PricingPage"));
 const MyMembershipPage     = lazy(() => import("@/pages/membership/MyMembershipPage"));
+const PaymentStartPage     = lazy(() => import("@/pages/payment/PaymentStartPage"));
+const PaymentSuccessPage   = lazy(() => import("@/pages/payment/PaymentSuccessPage"));
+const CommissionPage       = lazy(() => import("@/pages/payment/CommissionPage"));
 const HizmetBedelleri      = lazy(() => import("@/pages/services/HizmetBedelleri"));
 const PreLaunch            = lazy(() => import("@/pages/PreLaunch"));
 const IBuyerPage           = lazy(() => import("@/pages/ibuyer/IBuyerPage"));
@@ -369,6 +372,9 @@ function App() {
             <Route path="/paketler" element={<Navigate to="/fiyatlandirma" replace />} />
             <Route path="/uyelik" element={<MyMembershipPage />} />
             <Route path="/uyeligim" element={<Navigate to="/uyelik" replace />} />
+            <Route path="/odeme/baslat" element={<PaymentStartPage />} />
+            <Route path="/odeme/basarili" element={<PaymentSuccessPage />} />
+            <Route path="/komisyon" element={<CommissionPage />} />
             <Route path="/hizmet-bedelleri" element={<HizmetBedelleri />} />
             <Route path="/pre-launch" element={<PreLaunch />} />
             <Route path="/lansman" element={<PreLaunch />} />
