@@ -19,7 +19,7 @@ export default function KVKK() {
             KVKK Aydınlatma Metni
           </h1>
           <p className="text-slate-400 mt-2">Kişisel Verilerin Korunması Kanunu kapsamında bilgilendirme</p>
-          <p className="text-xs text-slate-600 mt-1">Son güncelleme: 01.01.2025</p>
+          <p className="text-xs text-slate-600 mt-1">Son güncelleme: 01.06.2026</p>
         </div>
 
         <div className="space-y-6">
@@ -99,6 +99,51 @@ export default function KVKK() {
             <h3 className="text-lg font-bold text-white mb-3">6. Veri Saklama Süresi</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz, hesabınız aktif olduğu sürece ve yasal yükümlülüklerimizin gerektirdiği süre boyunca saklanır. Hesabınızı sildiğinizde, verileriniz 30 gün içinde sistemden kaldırılır. Ancak yasal mercilerin talep ettiği kayıtlar yasal süreler boyunca saklanabilir.
+            </p>
+            <ul className="mt-3 space-y-1.5 text-xs text-slate-400 list-disc list-inside">
+              <li>Hesap verisi: hesap silindikten 30 gün sonra anonimleştirilir.</li>
+              <li>Mali kayıtlar: 10 yıl (VUK 213 m. 253).</li>
+              <li>İhale teklif kayıtları: 5 yıl (BK ispat süresi).</li>
+              <li>Audit log / güvenlik kayıtları: 1 yıl (5651 internet log + KVKK uyum).</li>
+              <li>Sunucu erişim logları: 6 ay (5651 sayılı kanun gereği).</li>
+            </ul>
+          </Card>
+
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
+            <h3 className="text-lg font-bold text-white mb-3">7. Çerezler (Cookies) ve Yerel Depolama</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Platformumuz hizmet kalitesini sağlamak için zorunlu çerezler kullanır. Reklam veya 3. parti
+              izleme çerezi <strong className="text-white">kullanmıyoruz</strong>:
+            </p>
+            <ul className="mt-2 space-y-1.5 text-sm text-slate-400 list-disc list-inside">
+              <li><strong className="text-slate-300">Zorunlu (auth):</strong> Supabase oturum tokenı (localStorage) — 7 gün.</li>
+              <li><strong className="text-slate-300">Tercih:</strong> dil seçimi (TR/EN), tema (i18n_language) — 1 yıl.</li>
+              <li><strong className="text-slate-300">Analitik (anonim):</strong> Vercel Analytics — IP maskelenir, kişisel veri toplanmaz.</li>
+              <li><strong className="text-slate-300">Reklam çerezi: YOK</strong> — 3. parti pazarlama izleyici kullanılmaz.</li>
+            </ul>
+            <p className="text-xs text-slate-500 mt-3">
+              Tarayıcı ayarlarınızdan çerezleri silebilir veya engelleyebilirsiniz; ancak oturum çerezi
+              engellenirse giriş yapılamaz.
+            </p>
+          </Card>
+
+          <Card className="bg-slate-900/50 border-slate-200/80 p-5">
+            <h3 className="text-lg font-bold text-white mb-3">8. Veri İmha ve Uluslararası Transfer</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              KVKK 7. madde ve "Kişisel Verilerin Silinmesi, Yok Edilmesi veya Anonim Hale Getirilmesi Hakkında
+              Yönetmelik" uyarınca veri imha politikamız:
+            </p>
+            <ul className="mt-2 space-y-1.5 text-sm text-slate-400 list-disc list-inside">
+              <li><strong className="text-slate-300">Silme:</strong> hesap silme talebiniz 30 gün içinde işlenir.</li>
+              <li><strong className="text-slate-300">Anonimleştirme:</strong> istatistik amaçlı veriler IP/kimlik bağsız tutulur.</li>
+              <li><strong className="text-slate-300">Yok Etme:</strong> fiziksel ortamlardaki kopyalar (yedek/diskette) kalıcı silinir.</li>
+              <li><strong className="text-slate-300">Yurt dışı transfer:</strong> Supabase EU (Frankfurt) bölgesi — GDPR uyumlu;
+                KVKK Kurulu açık rıza şartı ile başka bölgeye aktarım yapılmaz.</li>
+            </ul>
+            <p className="text-xs text-slate-500 mt-3 pt-2 border-t border-slate-200/50">
+              <strong className="text-slate-400">Veri Sızıntısı Bildirimi:</strong> KVKK 12. madde ihlali halinde
+              72 saat içinde KVKK Kurulu'na ve etkilenen kullanıcılara bildirim yapılır.
+              Olay yönetimi: <a href="mailto:guvenlik@ihaleal.com" className="text-blue-400">guvenlik@ihaleal.com</a>.
             </p>
           </Card>
 
