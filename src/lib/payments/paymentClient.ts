@@ -72,21 +72,64 @@ export async function createPayment(args: {
   purpose: "addon_purchase" | "commission" | "bid_deposit" | "other";
   description: string;
 }): Promise<CreatePaymentResult> {
+  const idempotency_key = generateIdempotencyKey("pay");
+  return invokePayments<CreatePaymentResult>({
+    action: "create_payment",
+    amount_try: args.amountTry,
+    purpose: args.purpose,
+    description: args.description,
+    idempotency_key,
+  });
+}
+
+/**
+ * Edge function'a DİREKT fetch (Supabase JS SDK invoke yerine).
+ *
+ * Neden: `supabase.functions.invoke` non-2xx response'larda body'yi parse etmez —
+ * sadece "Edge Function returned a non-2xx status code" generic mesajı döner.
+ * Direkt fetch ile 2xx ve 4xx/5xx ikisinde de gerçek body parse edilir →
+ * server'ın `error/detail/hint` alanları kullanıcıya gösterilir.
+ */
+async function invokePayments<T extends { ok: boolean; error?: string; detail?: string }>(
+  body: Record<string, unknown>,
+): Promise<T> {
   try {
-    const idempotency_key = generateIdempotencyKey("pay");
-    const { data, error } = await supabase.functions.invoke<CreatePaymentResult>("payments-iyzico", {
-      body: {
-        action: "create_payment",
-        amount_try: args.amountTry,
-        purpose: args.purpose,
-        description: args.description,
-        idempotency_key,
+    const session = await supabase.auth.getSession();
+    const token = session.data.session?.access_token;
+    if (!token) {
+      return { ok: false, error: "unauthorized", detail: "Oturum yok — giriş yapın" } as T;
+    }
+    const url = import.meta.env.VITE_SUPABASE_URL;
+    if (!url) {
+      return { ok: false, error: "config_error", detail: "VITE_SUPABASE_URL eksik" } as T;
+    }
+    const r = await fetch(`${url}/functions/v1/payments-iyzico`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+        "apikey": import.meta.env.VITE_SUPABASE_ANON_KEY ?? "",
       },
+      body: JSON.stringify(body),
     });
-    if (error) return { ok: false, error: "invoke_error", detail: error.message };
-    return data ?? { ok: false, error: "empty_response" };
+    const parsed = (await r.json().catch(() => null)) as Partial<T> & { hint?: string } | null;
+    if (!r.ok) {
+      const error = parsed?.error ?? `http_${r.status}`;
+      const detail = (parsed?.detail ?? "") + (parsed?.hint ? ` · ${parsed.hint}` : "");
+      return {
+        ok: false,
+        error,
+        detail: detail.trim() || `HTTP ${r.status} — Edge function hatası`,
+      } as T;
+    }
+    if (parsed && typeof parsed === "object") return parsed as T;
+    return { ok: false, error: "empty_response" } as T;
   } catch (e) {
-    return { ok: false, error: "network_error", detail: e instanceof Error ? e.message : String(e) };
+    return {
+      ok: false,
+      error: "network_error",
+      detail: e instanceof Error ? e.message : String(e),
+    } as T;
   }
 }
 
@@ -95,48 +138,11 @@ export async function createSubscription(args: {
   tierId: TierId;
   cycle: BillingCycle;
 }): Promise<CreateSubscriptionResult> {
-  try {
-    const { data, error } = await supabase.functions.invoke<CreateSubscriptionResult>("payments-iyzico", {
-      body: {
-        action: "create_subscription",
-        tier_id: args.tierId,
-        cycle: args.cycle,
-      },
-    });
-    if (error) {
-      // Non-2xx response — gerçek server hata mesajını body'den çıkar
-      const parsed = await extractFunctionsError(error);
-      return parsed ?? { ok: false, error: "invoke_error", detail: error.message };
-    }
-    return data ?? { ok: false, error: "empty_response" };
-  } catch (e) {
-    return { ok: false, error: "network_error", detail: e instanceof Error ? e.message : String(e) };
-  }
-}
-
-/**
- * Supabase Edge function non-2xx hatasından server response body'yi çıkar.
- * `supabase.functions.invoke` "Edge Function returned a non-2xx status code" genel
- * mesajını atar — bu helper gerçek error/detail/hint alanlarını yakalar.
- */
-async function extractFunctionsError(error: unknown): Promise<CreateSubscriptionResult | null> {
-  try {
-    const ctx = (error as { context?: { response?: Response } }).context;
-    if (!ctx?.response) return null;
-    const body = await ctx.response.clone().json().catch(() => null);
-    if (body && typeof body === "object") {
-      const r = body as Partial<CreateSubscriptionResult> & { hint?: string };
-      const detail = (r.detail ?? "") + (r.hint ? ` · ${r.hint}` : "");
-      return {
-        ok: false,
-        error: r.error ?? "edge_function_error",
-        detail: detail.trim() || (error instanceof Error ? error.message : String(error)),
-      };
-    }
-    return null;
-  } catch {
-    return null;
-  }
+  return invokePayments<CreateSubscriptionResult>({
+    action: "create_subscription",
+    tier_id: args.tierId,
+    cycle: args.cycle,
+  });
 }
 
 /** Kullanıcı abonelik iptal */
