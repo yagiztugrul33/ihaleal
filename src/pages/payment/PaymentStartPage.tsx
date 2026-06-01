@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, CreditCard, Lock, Shield, CheckCircle2, AlertTriangle, Sparkles,
@@ -11,6 +11,7 @@ import {
   PRICING_TIERS, type TierId, type BillingCycle, priceFor, formatTry,
 } from "@/lib/pricingTiers";
 import { useMembershipTier } from "@/hooks/useMembershipTier";
+import { createSubscription, getProviderStatus } from "@/lib/payments/paymentClient";
 
 export default function PaymentStartPage() {
   const navigate = useNavigate();
@@ -29,18 +30,50 @@ export default function PaymentStartPage() {
   const [cvc, setCvc] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [providerStage, setProviderStage] = useState<"sandbox" | "production" | "unknown">("unknown");
+
+  // Edge function durumunu öğren (sandbox vs production banner için)
+  useEffect(() => {
+    void getProviderStatus().then((s) => setProviderStage(s.stage));
+  }, []);
 
   const canSubmit = cardName.trim().length >= 3 && cardNumber.replace(/\s/g, "").length >= 12 && expiry.length >= 4 && cvc.length >= 3 && acceptedTerms;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!canSubmit) return;
     setLoading(true);
-    // MOCK ödeme — gerçek iyzico/PayTR entegrasyonu MASTER hesap açınca eklenecek
-    setTimeout(() => {
+    setError(null);
+
+    // GERÇEK Edge function — createSubscription iyzico'ya başvurur (sandbox veya prod)
+    const result = await createSubscription({ tierId: tier.id, cycle });
+
+    if (!result.ok) {
+      setError(
+        result.error === "already_subscribed"
+          ? "Bu hesapta zaten aktif bir abonelik var. Lütfen önce iptal edin."
+          : result.error === "unauthorized"
+            ? "Giriş yapmanız gerekir."
+            : `Ödeme başlatılamadı: ${result.detail ?? result.error ?? "bilinmeyen hata"}`,
+      );
+      setLoading(false);
+      return;
+    }
+
+    // Sandbox modunda subscription anında "active" oldu — UI tier'ı güncelle
+    if (result.status === "active") {
       setLocalTier(tier.id);
-      navigate(`/odeme/basarili?paket=${tier.id}&periyot=${cycle}`);
-    }, 1500);
+    }
+
+    // Production'da iyzico 3D Secure URL'ine yönlendir
+    if (result.status === "pending" && (result as { payment_page_url?: string }).payment_page_url) {
+      window.location.href = (result as { payment_page_url: string }).payment_page_url;
+      return;
+    }
+
+    setLoading(false);
+    navigate(`/odeme/basarili?paket=${tier.id}&periyot=${cycle}${result.sandbox ? "&sandbox=1" : ""}`);
   };
 
   // Kart numarası formatla (4 digit boşluk)
@@ -71,17 +104,39 @@ export default function PaymentStartPage() {
           </p>
         </div>
 
-        {/* MOCK uyarı */}
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3">
-          <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-semibold text-amber-100">Demo Ödeme Akışı</p>
-            <p className="text-xs text-slate-200 mt-1">
-              Bu sayfa <strong>gerçek ödeme yapmaz</strong>. Form gönderilince tier'iniz tarayıcı localStorage'ına yazılır
-              (test için). Gerçek ödeme entegrasyonu (iyzico / PayTR) MASTER hesap + API key sağlayınca eklenecek.
-            </p>
+        {/* Sandbox/Production durum bandı */}
+        {providerStage === "sandbox" || providerStage === "unknown" ? (
+          <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
+            <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-amber-100">Sandbox / Test Modu</p>
+              <p className="text-xs text-slate-200 mt-1">
+                Ödeme şu anda <strong>iyzico sandbox</strong> üzerinde çalışıyor. Form gönderildiğinde Supabase
+                Edge function <code className="text-amber-200">payments-iyzico</code> çağrılır + abonelik kaydı oluşturulur
+                — gerçek para çekilmez. Production için <code className="text-amber-200">IYZICO_API_KEY</code> + <code className="text-amber-200">IYZICO_SECRET_KEY</code> Supabase secret'a girilmeli.
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
+            <CheckCircle2 className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-emerald-100">Production — Gerçek Ödeme Aktif</p>
+              <p className="text-xs text-slate-200 mt-1">
+                iyzico Merchant entegrasyonu aktif. Form gönderince 3D Secure sayfasına yönlendirileceksiniz.
+                Kart bilgileri ihaleal sunucularına ASLA gelmez (PCI-DSS uyumlu).
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Hata mesajı */}
+        {error ? (
+          <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 flex items-start gap-3" data-testid="payment-error">
+            <AlertTriangle className="h-5 w-5 text-rose-300 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-rose-100">{error}</p>
+          </div>
+        ) : null}
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Sol: Form */}

@@ -51,47 +51,65 @@ export function useMembershipTier(): MembershipState {
     let alive = true;
     if (!user) {
       // User yoksa localStorage'taki tier'i koru (dev/demo amaçlı)
-      // Production: anonim ziyaretçi free olur — localStorage temizse zaten "free".
       return () => {
         alive = false;
       };
     }
     setLoading(true);
-    // Önce mevcut memberships tablosundan oku (uyelik tipi → tier map)
+
+    // ÖNCELİK 1: YENİ subscriptions tablosu (gerçek ödeme sonrası)
     void supabase
-      .from("memberships")
-      .select("type, status")
-      .eq("user_id", user.id)
-      .eq("status", "active")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle()
-      .then(({ data }) => {
+      .rpc("get_my_subscription")
+      .then(({ data, error }) => {
         if (!alive) return;
-        if (data?.type) {
-          // Map eski membership.type → yeni tier
-          const map: Record<string, TierId> = {
-            seller_yearly: "emlak_baslangic",
-            buyer_yearly: "yatirimci",
-            agent_referral: "emlak_baslangic",
-            agent_portfolio: "emlak_baslangic",
-            agent_full: "emlak_pro",
-          };
-          const mapped = map[data.type as string];
-          if (mapped) {
-            setTierId(mapped);
-            try {
-              localStorage.setItem(LS_KEY, mapped);
-            } catch {
-              /* sessiz */
+        if (!error && data) {
+          const row = Array.isArray(data) ? data[0] : data;
+          if (row?.tier_id && row.status === "active") {
+            const tierIds: TierId[] = ["free", "yatirimci", "emlak_baslangic", "emlak_pro", "kurumsal"];
+            if (tierIds.includes(row.tier_id as TierId)) {
+              setTierId(row.tier_id as TierId);
+              try { localStorage.setItem(LS_KEY, row.tier_id); } catch { /* sessiz */ }
+              setLoading(false);
+              return;
             }
           }
         }
-        setLoading(false);
+
+        // ÖNCELİK 2: Eski memberships tablosundan oku (geriye uyumlu)
+        void supabase
+          .from("memberships")
+          .select("type, status")
+          .eq("user_id", user.id)
+          .eq("status", "active")
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle()
+          .then(({ data: memberData }) => {
+            if (!alive) return;
+            if (memberData?.type) {
+              const map: Record<string, TierId> = {
+                seller_yearly: "emlak_baslangic",
+                buyer_yearly: "yatirimci",
+                agent_referral: "emlak_baslangic",
+                agent_portfolio: "emlak_baslangic",
+                agent_full: "emlak_pro",
+              };
+              const mapped = map[memberData.type as string];
+              if (mapped) {
+                setTierId(mapped);
+                try { localStorage.setItem(LS_KEY, mapped); } catch { /* sessiz */ }
+              }
+            }
+            setLoading(false);
+          })
+          .catch(() => {
+            if (alive) setLoading(false);
+          });
       })
       .catch(() => {
         if (alive) setLoading(false);
       });
+
     return () => {
       alive = false;
     };
