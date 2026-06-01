@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Crown, ArrowRight, AlertTriangle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PRICING_TIERS, type TierId, type BillingCycle, priceFor, formatTry } from "@/lib/pricingTiers";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function PaymentSuccessPage() {
   const navigate = useNavigate();
@@ -12,6 +13,9 @@ export default function PaymentSuccessPage() {
   const tier = PRICING_TIERS.find((t) => t.id === paketParam) ?? PRICING_TIERS[1];
   const cycle: BillingCycle = periyot === "yearly" ? "yearly" : "monthly";
   const { try: price, period } = priceFor(tier, cycle);
+  // Çoklu kur referans — TAHSILAT iyzico ₺
+  const { currency, formatFromTry } = useCurrency();
+  const showFx = currency !== "TRY" && price > 0;
 
   // Confetti effect (CSS animation; no layout shift)
   useEffect(() => {
@@ -41,9 +45,14 @@ export default function PaymentSuccessPage() {
               <h2 className="text-2xl font-bold text-white mt-1">{tier.name}</h2>
               <p className="text-sm text-slate-400 mt-1">{tier.tagline}</p>
             </div>
-            <div className="text-right">
+            <div className="text-end">
               <p className="text-xl font-bold text-emerald-300">{formatTry(price)}</p>
               <p className="text-xs text-slate-400">{period}</p>
+              {showFx && (
+                <p className="text-[10px] text-amber-300/80 mt-1">
+                  ≈ {formatFromTry(price)} <span className="text-slate-500">(tahsilat ₺)</span>
+                </p>
+              )}
             </div>
           </div>
 

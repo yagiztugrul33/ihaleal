@@ -12,6 +12,7 @@ import {
 } from "@/lib/pricingTiers";
 import { useMembershipTier } from "@/hooks/useMembershipTier";
 import { createSubscription, getProviderStatus } from "@/lib/payments/paymentClient";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function PaymentStartPage() {
   const navigate = useNavigate();
@@ -23,6 +24,10 @@ export default function PaymentStartPage() {
   const tier = useMemo(() => PRICING_TIERS.find((t) => t.id === paketParam) ?? PRICING_TIERS[1], [paketParam]);
   const cycle: BillingCycle = periyotParam === "yearly" ? "yearly" : "monthly";
   const { try: price, period } = priceFor(tier, cycle);
+  // Çoklu kur referans gösterim — TAHSILAT iyzico üzerinden ₺
+  const { currency, formatFromTry } = useCurrency();
+  const showFx = currency !== "TRY" && price > 0;
+  const fxRef = showFx ? formatFromTry(price) : null;
 
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
@@ -266,12 +271,22 @@ export default function PaymentStartPage() {
                 </div>
               </div>
 
-              <div className="border-t border-slate-700 mt-3 pt-3 flex items-baseline justify-between">
-                <span className="text-slate-400 text-sm">Toplam</span>
-                <div className="text-right">
-                  <span className="text-2xl font-bold text-cyan-300">{formatTry(price)}</span>
-                  <span className="text-xs text-slate-400 ml-1">{period}</span>
+              <div className="border-t border-slate-700 mt-3 pt-3 space-y-1">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-slate-400 text-sm">Toplam</span>
+                  <div className="text-end">
+                    <span className="text-2xl font-bold text-cyan-300">{formatTry(price)}</span>
+                    <span className="text-xs text-slate-400 ms-1">{period}</span>
+                  </div>
                 </div>
+                {fxRef && (
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-[10px] text-slate-500">Referans ({currency})</span>
+                    <p className="text-[11px] text-amber-300/80">
+                      ≈ {fxRef} <span className="text-slate-500">(tahsilat ₺)</span>
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 

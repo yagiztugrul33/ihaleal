@@ -19,6 +19,7 @@ import { invokeSystemQa } from "@/lib/systemQaClient";
 import { getLocalAndStaticAuctions } from "@/lib/auctionsSource";
 import type { Auction } from "@/types/auction";
 import { cn } from "@/lib/utils";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 type FormState = {
   city: CityKey;
@@ -72,6 +73,9 @@ export default function ValuationTool() {
   const [aiReply, setAiReply] = useState<string | null>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
   const [catalog] = useState<Auction[]>(() => getLocalAndStaticAuctions());
+  // Çoklu kur referans — HESAP MANTIĞI (estimatePropertyValue) ₺ üzerinden YAPMAYA devam eder
+  const { currency, formatFromTry } = useCurrency();
+  const showFx = currency !== "TRY";
 
   const districtOptions = useMemo(() => {
     return Object.keys(getCityByKey(form.city)?.districts ?? {});
@@ -495,11 +499,17 @@ export default function ValuationTool() {
                     {cityLabel}{form.district ? " · " + form.district : ""} · {form.grossM2} m² · {form.transactionType === "rent" ? "Kiralık" : "Satılık"}
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="text-end">
                   <div className="text-3xl md:text-4xl font-bold text-emerald-200">
                     {formatTry(result.estimatedValue)}
                     {form.transactionType === "rent" ? <span className="text-sm font-normal text-slate-400"> /ay</span> : null}
                   </div>
+                  {showFx && (
+                    <div className="text-[11px] text-amber-300/80 mt-0.5">
+                      ≈ {formatFromTry(result.estimatedValue)}
+                      <span className="text-slate-500"> ({currency} referans · değerleme ₺)</span>
+                    </div>
+                  )}
                   <div className="text-xs text-slate-400 mt-1">
                     Güven: {result.confidence === "high" ? "Yüksek" : "Orta"} · %{Math.round(result.confidenceScore * 100)}
                   </div>
@@ -512,6 +522,11 @@ export default function ValuationTool() {
                 <span className="text-emerald-200 font-medium">±%{result.confidenceBandPct}</span>
                 <span>{formatTry(result.maxValue)}</span>
               </div>
+              {showFx && (
+                <p className="mt-1 text-[10px] text-amber-300/70 text-end italic">
+                  Aralık ≈ {formatFromTry(result.minValue)} – {formatFromTry(result.maxValue)} (yaklaşık)
+                </p>
+              )}
               <div className="relative h-3 rounded-full bg-slate-800 overflow-hidden">
                 <div
                   className="absolute top-0 h-full bg-gradient-to-r from-cyan-500/60 to-emerald-500/60"
