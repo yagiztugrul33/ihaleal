@@ -73,6 +73,14 @@ const config: CapacitorConfig = {
       // veya https://ihaleal.com/ilan/<id> ile açılabilir.
     },
   },
+  // ---- COMPLIANCE NOTLARI ----
+  // iOS Info.plist + PrivacyInfo.xcprivacy: docs/mobile/IOS_INFO_PLIST.md +
+  //                                          docs/mobile/IOS_PRIVACY_MANIFEST.md
+  // Android target API 34 + Data Safety: docs/mobile/ANDROID_COMPLIANCE.md
+  // Demo hesap: review@ihaleal.com / Demo!2026
+  // Bundle ID: com.ihaleal.app (Apple + Google aynı)
+  // Apple Developer $99/yıl + D-U-N-S no (4-6 hafta)
+  // Google Play $25 tek seferlik (D-U-N-S no opsiyonel)
 };
 
 export default config;
