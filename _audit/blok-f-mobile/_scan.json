@@ -1,0 +1,82 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "h1": "> Size nasıl yardımcı olabiliriz?",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 0,
+    "chunkErrors": 0
+  },
+  {
+    "route": "/ihaleler",
+    "status": 200,
+    "h1": "Gerçek piyasa, gerçek fiyat.",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 29,
+    "chunkErrors": 0
+  },
+  {
+    "route": "/aninda-teklif",
+    "status": 200,
+    "h1": "Anında Nakit Teklif",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 0,
+    "chunkErrors": 0
+  },
+  {
+    "route": "/kat-karsiligi",
+    "status": 200,
+    "h1": "Kat karşılığı arsa",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 0,
+    "chunkErrors": 0
+  },
+  {
+    "route": "/arastirma/war-room",
+    "status": 200,
+    "h1": "Stratejik War Room",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 0,
+    "chunkErrors": 0
+  },
+  {
+    "route": "/arastirma/ges",
+    "status": 200,
+    "h1": "GES mühendislik analizi",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 0,
+    "chunkErrors": 0
+  },
+  {
+    "route": "/degerleme",
+    "status": 200,
+    "h1": "Ne Kadar Eder?",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 0,
+    "chunkErrors": 0
+  },
+  {
+    "route": "/ilanlar",
+    "status": 200,
+    "h1": "",
+    "scrollW": 320,
+    "clientW": 320,
+    "horizontalOverflow": 0,
+    "tinyTargets": 29,
+    "chunkErrors": 0
+  }
+]
