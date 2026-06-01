@@ -109,3 +109,83 @@ button.bg-gray-100,
   background: var(--accent) !important;
   color: var(--bg-base) !important;
 }
+
+/* ─────────────────────────────────────────────────────────
+ * EK FAZ TUR 2 — Görsel cila: GPU-only transitions + hover
+ * (transform + opacity; CLS=0 garantili; no layout shift)
+ * ───────────────────────────────────────────────────────── */
+
+/* Buton + link + role=button — yumuşak geçiş (sadece transform + opacity + bg) */
+button:not([data-skip-transition]),
+a:not([data-skip-transition]),
+[role="button"]:not([data-skip-transition]) {
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out, background-color 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.2s ease-out;
+}
+
+/* Buton hover — hafif yukarı kalkma (GPU transform; CLS bozmaz) */
+button:not([data-skip-transition]):not(:disabled):hover,
+a[role="button"]:not([data-skip-transition]):hover,
+[role="button"]:not([data-skip-transition]):not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+/* Buton active — anlık geri çekiliş (haptik hissi) */
+button:not([data-skip-transition]):not(:disabled):active,
+a[role="button"]:not([data-skip-transition]):active,
+[role="button"]:not([data-skip-transition]):not(:disabled):active {
+  transform: translateY(0);
+  transition-duration: 0.05s;
+}
+
+/* Disabled state — net görsel */
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Card hover — sadece grup içinde sınırlı (group/card pattern); CLS=0 */
+.card-luxury,
+[class*="rounded-2xl"][class*="border"]:not(button):not(a):not([role="button"]) {
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+/* Empty state — boş durumlar için tutarlı utility */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  background: rgba(15, 23, 41, 0.4);
+}
+
+.empty-state svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 0.75rem;
+  opacity: 0.5;
+}
+
+/* prefers-reduced-motion uyumu — kullanıcı animasyonu istemiyorsa kapat */
+@media (prefers-reduced-motion: reduce) {
+  button:not([data-skip-transition]),
+  a:not([data-skip-transition]),
+  [role="button"]:not([data-skip-transition]),
+  .card-luxury,
+  [class*="rounded-2xl"][class*="border"]:not(button):not(a):not([role="button"]) {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Image hover - smooth scale (transform-only, GPU, no CLS) */
+img.hover-zoom,
+.group:hover img.group-hover\:scale-105 {
+  transition: transform 0.3s ease-out;
+}
