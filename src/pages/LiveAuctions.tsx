@@ -1,11 +1,15 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Auctions } from "@/sections/Auctions";
-import { Flame, Hourglass, MapPin } from "lucide-react";
+import {
+  Flame, Hourglass, MapPin, TrendingUp, TrendingDown, Activity, Zap, Radio,
+  ArrowUp, ArrowDown, Eye, BarChart3,
+} from "lucide-react";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import type { Auction } from "@/types/auction";
 import { CountdownTimer } from "@/components/auction/CountdownTimer";
 import { cn } from "@/lib/utils";
+import { BorsaTerminali } from "@/components/borsa/BorsaTerminali";
 
 function formatTRY(v: number): string {
   if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M ₺`;
@@ -165,6 +169,9 @@ export default function LiveAuctions() {
           </p>
         </div>
       </section>
+
+      {/* CEPHE 2 v4 — BLOOMBERG BORSA TERMİNALİ */}
+      <BorsaTerminali catalog={catalog} liveCount={liveCount} />
 
       {/* Dalga 2-6: hero altı yatay kart vitrinleri */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
