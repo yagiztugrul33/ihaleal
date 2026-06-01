@@ -1,0 +1,677 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/abone/iptal",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/abone/onay",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/analiz",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/anayasa",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/anayasa-400",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/araclar/finans-uyumluluk",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/araclar/vergi-simulator",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/arama",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/aramalarim",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ayarlar",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/aydinlatma-metni",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/belgeler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/bildirimler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/blog",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/canliya-hazirlik",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/cerez-politikasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/dashboard",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/dashboard/yatirimci",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/degerleme",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/degisiklikler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/destek",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ek-hizmetler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ekspertiz",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/emlakci",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/emlakci-giris",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/emlakci-ortaklik",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/emlakci/panel",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/emlakciler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/evraklar",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/favoriler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/fiyatlandirma",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/giris",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/gizlilik",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/guvenlik",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/hakkimizda",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/harita",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/hizmet-bedelleri",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/iade-iptal",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ibuyer",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ihale-ac",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ihale-kosullari",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ihaleler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/ilanlar",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/iletisim",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kampanyalar",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/karsilastir",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/karsilastir-rakipler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kayit",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/komisyon",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/komisyon-hesaplayici",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/komisyon-modeli",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/konut-kredisi-hesaplayici",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kullanim-kosullari",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kunye",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kurumsal",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kurumsal/dashboard",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kurumsal/iletisim",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kvkk",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/kyc",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/lansman",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/magaza",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/mesafeli-satis-sozlesmesi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/mesajlar",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/afet-risk-haritasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/afet-toplanma-alanlari",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/aile-acil-plan",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/airbnb-potansiyel",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/bina-risk-sorgu",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/canli-deprem-takip",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/degerleme",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-cantasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-1",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-10",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-2",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-3",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-4",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-5",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-6",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-7",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-8",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-egitimi/ders-9",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-risk-haritasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/deprem-sigortasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/ges-analizi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/guclendirme-rehberi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/imar-sorgu",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/kentsel-donusum",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/komsuluk-risk-analizi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/kredi-pazaryeri",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/parsel-zekasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/portfoy-yonetimi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/renovasyon-roi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/sigorta-pazaryeri",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/tatbikat-rehberi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/uzman-randevu",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/yapay-zeka-hasar-tahmini",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/yatirim-onerisi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/modul/yikilan-binalar-arsivi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/mortgage",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/muteahhit",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/muteahhit/onay-bekleniyor",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/muteahhit/panel",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/muteahhit/yeni-proje",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/nasil-calisir",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/nihai-anayasa",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/odeme/basarili",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/odeme/baslat",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/oduller",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/paketler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/panel",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/pre-launch",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/pricing",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/profil",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/raporlar",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/rehber",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/reklam",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/sat-basla",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/saved-searches",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/sehirler",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/sifremi-unuttum",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/sss",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/uluslararasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/uyeligim",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/uyelik",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/uyelik/yillik",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/valuation",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/veri-ve-endeks",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/yasal-cerceve",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/yasal-master-brief",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/yasal/agency-contract",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/yasal/dolandiricilik-savunmasi",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/yasal/supabase-uyum",
+    "status": 200,
+    "overflowPx": 0
+  },
+  {
+    "route": "/yedekleme",
+    "status": 200,
+    "overflowPx": 0
+  }
+]

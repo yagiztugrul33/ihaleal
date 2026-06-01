@@ -20,6 +20,7 @@
 /degerleme
 /degisiklikler
 /destek
+/ek-hizmetler
 /ekspertiz
 /emlakci
 /emlakci-giris
@@ -28,6 +29,7 @@
 /emlakciler
 /evraklar
 /favoriler
+/fiyatlandirma
 /giris
 /gizlilik
 /guvenlik
@@ -45,6 +47,7 @@
 /karsilastir
 /karsilastir-rakipler
 /kayit
+/komisyon
 /komisyon-hesaplayici
 /komisyon-modeli
 /konut-kredisi-hesaplayici
@@ -56,6 +59,7 @@
 /kvkk
 /kyc
 /lansman
+/magaza
 /mesafeli-satis-sozlesmesi
 /mesajlar
 /modul/afet-risk-haritasi
@@ -101,9 +105,13 @@
 /muteahhit/yeni-proje
 /nasil-calisir
 /nihai-anayasa
+/odeme/basarili
+/odeme/baslat
 /oduller
+/paketler
 /panel
 /pre-launch
+/pricing
 /profil
 /raporlar
 /rehber
@@ -114,6 +122,8 @@
 /sifremi-unuttum
 /sss
 /uluslararasi
+/uyeligim
+/uyelik
 /uyelik/yillik
 /valuation
 /veri-ve-endeks

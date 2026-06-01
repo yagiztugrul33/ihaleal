@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/fiyatlandirma",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/uyelik",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/odeme/baslat?paket=yatirimci&periyot=monthly",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/komisyon",
+    "status": 200,
+    "contentPass": true
+  },
+  {
+    "path": "/magaza",
+    "status": 200,
+    "contentPass": true
+  }
+]
