@@ -1,0 +1,34 @@
+-- ihaleal — Eski boş payments tablosunu CASCADE DROP
+-- 2026-06-06 19:90:00 (timestamp, 20260606200000'den ÖNCE çalışır)
+--
+-- DURUM (Master onayı sonrası, terminalden teyitli):
+--   - Eski public.payments tablosu CANLIDA VAR
+--   - SELECT COUNT(*) FROM public.payments = 0 (BOŞ)
+--   - Eski şema (v1, 20260428120000_initial_schema.sql:65-77):
+--       id, auction_id, payer_id, amount_try, provider, provider_ref,
+--       status (pending/held/released/refunded/failed), held_until,
+--       released_at, created_at
+--   - Eski tablonun amacı: bid bond / teminat blokajı (escrow)
+--   - GERÇEKTE: bid bond işi public.bid_bonds tablosunda yapılıyor
+--     (KOPYALA_BLOK_01.sql:42 + place_bid RPC). Eski payments kullanılmıyor.
+--   - src/ kod tabanında .from('payments') çağrısı YOK
+--   - REFERENCES public.payments yapan başka tablo YOK
+--   - Eski RLS policy: "payments_select_self" (payer_id'ye bağlı) — CASCADE ile kalkar
+--
+-- SONRAKİ MIGRATION (20260606200000_payments_subscriptions.sql):
+--   Yeni payments tablosunu (user_id, purpose, idempotency_key, vs.) +
+--   subscriptions + payment_audit_log + active_subscriptions view + RPC'ler kurar.
+--   Bu migration eski tabloya bakmadan CREATE TABLE IF NOT EXISTS kullandığı için
+--   eski tablo varsa atlanıyordu — 20260606199000 onu önceden temizler.
+--
+-- VERİ KAYBI RİSKİ: YOK (0 satır + bağımlı obje yok)
+-- ÇEKİRDEK ETKİSİ: YOK (place_bid/sealed/RLS payments'a referans yapmıyor;
+--                       bid_bonds ayrı tablo, etkilenmez)
+--
+-- Master onayı: 2026-06-01 (terminal kanıtı: COUNT=0, kolon listesi öğrenildi)
+
+DROP TABLE IF EXISTS public.payments CASCADE;
+
+-- Yorum amaçlı not (DROP sonrası):
+-- Bu noktada public.payments artık YOK. Sonraki migration (20260606200000)
+-- CREATE TABLE IF NOT EXISTS public.payments (yeni şema) ile temiz kurulum yapar.
