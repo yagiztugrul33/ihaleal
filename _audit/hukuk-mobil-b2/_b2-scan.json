@@ -1,0 +1,254 @@
+[
+  {
+    "vp": "320-iphone-se",
+    "route": "/fiyatlandirma",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/uyelik",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/arastirma/ges",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/arastirma/war-room",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/arastirma/hukuki-cozucu",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/ihaleler",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/raporlar",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/yasal",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/yasal/sablonlar",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/yasal/risk-uyarilari",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/gizlilik",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "320-iphone-se",
+    "route": "/mesafeli-satis-sozlesmesi",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/fiyatlandirma",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/uyelik",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/arastirma/ges",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/arastirma/war-room",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/arastirma/hukuki-cozucu",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/ihaleler",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/raporlar",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/yasal",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/yasal/sablonlar",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/yasal/risk-uyarilari",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/gizlilik",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "375-iphone-8",
+    "route": "/mesafeli-satis-sozlesmesi",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/fiyatlandirma",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/uyelik",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/arastirma/ges",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/arastirma/war-room",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/arastirma/hukuki-cozucu",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/ihaleler",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/raporlar",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/yasal",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/yasal/sablonlar",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/yasal/risk-uyarilari",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/gizlilik",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  },
+  {
+    "vp": "430-iphone-pro-max",
+    "route": "/mesafeli-satis-sozlesmesi",
+    "status": 200,
+    "overflowPx": 0,
+    "chunkErrors": 0
+  }
+]
