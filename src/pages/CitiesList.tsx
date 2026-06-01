@@ -146,7 +146,17 @@ export default function CitiesList() {
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
               <div className="relative h-48 overflow-hidden">
-                <img loading="lazy" src={city.image} alt={city.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img
+                  loading="lazy"
+                  src={city.image}
+                  alt={city.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  onError={(e) => {
+                    // Unsplash 404 fallback: gradient'i göster, img'i gizle
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+                <div className={`absolute inset-0 bg-gradient-to-br ${city.color} pointer-events-none`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                 <div className="absolute top-3 left-3 px-3 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
                   {city.tag}

@@ -53,6 +53,9 @@ export default function PreLaunch() {
         <div className="flex justify-center mb-6">
           <BrandLockup logoSize="lg" layout="stack" showSlogan />
         </div>
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center">
+          Lansmana Hazırlık
+        </h1>
         <p className="text-xl text-slate-300 mb-6 text-center">Türkiye&apos;nin gayrimenkul ihale deneyimi yakında.</p>
         <p className="mb-6 text-slate-400 text-sm leading-relaxed">
           Lansman listesi için kayıt olun; ilk haberdar olanlar arasında olun.
