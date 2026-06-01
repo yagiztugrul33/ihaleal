@@ -1,0 +1,58 @@
+[
+  {
+    "route": "/",
+    "ttfb": "2.0",
+    "fcp": "2076",
+    "lcp": "2980",
+    "totalLoadMs": 4373,
+    "transferredKB": 1758
+  },
+  {
+    "route": "/ihaleler",
+    "ttfb": "3.8",
+    "fcp": "860",
+    "lcp": "1588",
+    "totalLoadMs": 2994,
+    "transferredKB": 540
+  },
+  {
+    "route": "/aninda-teklif",
+    "ttfb": "2.1",
+    "fcp": "692",
+    "lcp": "772",
+    "totalLoadMs": 1793,
+    "transferredKB": 0
+  },
+  {
+    "route": "/kat-karsiligi",
+    "ttfb": "1.1",
+    "fcp": "348",
+    "lcp": "920",
+    "totalLoadMs": 1832,
+    "transferredKB": 0
+  },
+  {
+    "route": "/arastirma/war-room",
+    "ttfb": "0.9",
+    "fcp": "544",
+    "lcp": "772",
+    "totalLoadMs": 2349,
+    "transferredKB": 0
+  },
+  {
+    "route": "/arastirma/ges",
+    "ttfb": "0.8",
+    "fcp": "556",
+    "lcp": "624",
+    "totalLoadMs": 1658,
+    "transferredKB": 0
+  },
+  {
+    "route": "/degerleme",
+    "ttfb": "1.2",
+    "fcp": "340",
+    "lcp": "772",
+    "totalLoadMs": 1728,
+    "transferredKB": 0
+  }
+]
