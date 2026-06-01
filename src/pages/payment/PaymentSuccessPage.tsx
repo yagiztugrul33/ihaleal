@@ -65,11 +65,13 @@ export default function PaymentSuccessPage() {
 
         <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-left">
           <p className="text-xs font-semibold text-amber-100 flex items-center gap-1.5">
-            <AlertTriangle className="h-3.5 w-3.5" /> Demo Ödeme Onayı
+            <AlertTriangle className="h-3.5 w-3.5" /> Sandbox Ödeme Onayı
           </p>
           <p className="text-[11px] text-slate-300 mt-1">
-            Bu ödeme MOCK'tur — gerçek para çekilmedi. Tier'iniz tarayıcı localStorage'ında saklandı.
-            Gerçek ödeme entegrasyonu (iyzico / PayTR) eklenince premium aboneliğiniz Supabase'de saklanacak.
+            Bu ödeme <strong className="text-amber-200">iyzico sandbox</strong> üzerinden tamamlandı —
+            gerçek para çekilmedi (test ortamı). Aboneliğiniz Supabase <code className="text-cyan-300">subscriptions</code>
+            tablosuna kaydedildi ve premium özellikler aktif edildi. Production tahsilat için iyzico
+            merchant API anahtarları Master tarafından secret olarak girilmelidir.
           </p>
         </div>
 

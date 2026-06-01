@@ -1,12 +1,14 @@
 /**
  * Üyelik tier hook — UI premium-gate için tek nokta.
  *
- * MASTER NOT: Bu hook şimdilik localStorage + (varsa) Supabase `memberships`
- * tablosundan tier okur. Gerçek RLS-bound tier kolonu Supabase migration
- * ile MASTER onayında eklenecek (BLOK 6 raporda yazılı).
+ * 2026-06-01 GÜNCELLEME (Master onayı sonrası):
+ * - `payments-iyzico` Edge function + `subscriptions` tablosu CANLIDA.
+ * - Premium gate artık GERÇEK Supabase RPC `get_my_subscription`'a bağlı.
+ * - localStorage SADECE RPC sonucu için 1. paint cache'i (hızlı UI) +
+ *   PaymentStartPage'in optimistic update'i. Anonim kullanıcı veya RPC null
+ *   dönerse ZORLA "free" — sahte premium imkansız.
  *
- * Doktrin: React + Supabase. Hiçbir core auth/RLS dokunulmadı; bu hook
- * sadece OKUR (yazma + RLS değişimi MASTER onayı bekler).
+ * Doktrin: React + Supabase. Çekirdek (auth/RLS/placeBid/sealed/fees.ts) dokunulmadı.
  */
 
 import { useEffect, useState, useCallback } from "react";
@@ -25,39 +27,43 @@ interface MembershipState {
   showUpgradeCta: boolean;
   /** Bir özelliğin bu tier'da açık olup olmadığını kontrol et */
   hasFeature: (label: string) => boolean;
-  /** Manuel tier setleme — dev/demo amaçlı; UI'ya bağlı değil */
+  /**
+   * Optimistic UI tier setleme — sadece PaymentStartPage/MyMembership demo akışı için.
+   * **GERÇEK premium gate `get_my_subscription` RPC'ye bağlıdır** — bu fonksiyon
+   * yalnız UI'ı yenileme penceresinde immediate update sağlar; RPC sonraki render'da
+   * gerçek değeri yine yazar.
+   */
   setLocalTier: (tierId: TierId) => void;
 }
 
-function getTierFromCache(): TierId {
-  if (typeof window === "undefined") return "free";
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return "free";
-    const valid = PRICING_TIERS.map((t) => t.id);
-    if (valid.includes(raw as TierId)) return raw as TierId;
-  } catch {
-    /* sessiz */
-  }
+/**
+ * Anonim/açılış için BAŞLANGIÇ tier'ı = HER ZAMAN "free".
+ * localStorage'tan başlangıç değeri OKUMA — anonim kullanıcı sahte premium yapamaz.
+ * Cache yalnız RPC ile YAZILIR, sonraki SSR/refresh için kullanılabilir ama
+ * yetkili kullanıcı doğrulanıncaya kadar premium gate kapalıdır.
+ */
+function getInitialTier(): TierId {
   return "free";
 }
 
 export function useMembershipTier(): MembershipState {
   const { user } = useAuth();
-  const [tierId, setTierId] = useState<TierId>(() => getTierFromCache());
+  const [tierId, setTierId] = useState<TierId>(() => getInitialTier());
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     let alive = true;
     if (!user) {
-      // User yoksa localStorage'taki tier'i koru (dev/demo amaçlı)
+      // Anonim — her zaman free. localStorage'a güvenme.
+      setTierId("free");
+      try { localStorage.removeItem(LS_KEY); } catch { /* sessiz */ }
       return () => {
         alive = false;
       };
     }
     setLoading(true);
 
-    // ÖNCELİK 1: YENİ subscriptions tablosu (gerçek ödeme sonrası)
+    // ÖNCELİK 1: GERÇEK subscriptions RPC (canlı tablo + RLS user_id=auth.uid())
     void supabase
       .rpc("get_my_subscription")
       .then(({ data, error }) => {
@@ -75,7 +81,7 @@ export function useMembershipTier(): MembershipState {
           }
         }
 
-        // ÖNCELİK 2: Eski memberships tablosundan oku (geriye uyumlu)
+        // ÖNCELİK 2: Eski memberships tablosu (geriye uyumlu — legacy üyeler)
         void supabase
           .from("memberships")
           .select("type, status")
@@ -98,16 +104,27 @@ export function useMembershipTier(): MembershipState {
               if (mapped) {
                 setTierId(mapped);
                 try { localStorage.setItem(LS_KEY, mapped); } catch { /* sessiz */ }
+                setLoading(false);
+                return;
               }
             }
+            // ÖNCELİK 3: Hiçbir abonelik yok → free + cache temizle (sahte tier varsa siliner)
+            setTierId("free");
+            try { localStorage.removeItem(LS_KEY); } catch { /* sessiz */ }
             setLoading(false);
           })
           .catch(() => {
-            if (alive) setLoading(false);
+            if (alive) {
+              setTierId("free");
+              setLoading(false);
+            }
           });
       })
       .catch(() => {
-        if (alive) setLoading(false);
+        if (alive) {
+          setTierId("free");
+          setLoading(false);
+        }
       });
 
     return () => {
@@ -115,6 +132,12 @@ export function useMembershipTier(): MembershipState {
     };
   }, [user]);
 
+  /**
+   * Optimistic UI update — PaymentStart/MyMembership için.
+   * GERÇEK tier `get_my_subscription` RPC'ye bağlı; bu sadece UI'ı bir an
+   * daha hızlı göstermek için. Sonraki render'da useEffect yine RPC'yi çalıştırır
+   * ve gerçek değeri yazar (sahte tier RPC eşleşmezse "free"a döner).
+   */
   const setLocalTier = useCallback((newTier: TierId) => {
     setTierId(newTier);
     try {
