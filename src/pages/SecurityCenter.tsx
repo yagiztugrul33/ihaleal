@@ -233,20 +233,86 @@ export default function SecurityCenter() {
           </Card>
         </div>
 
-        {/* AI Analysis */}
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        {/* ŞU AN AKTİF — Üretimde çalışan korumalar (gerçek, dürüst) */}
+        <Card className="bg-emerald-500/[0.04] border-emerald-500/30">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Cpu className="w-5 h-5 text-violet-400" /> AI Tehdit Analizi & Anomali Tespiti <span className="text-xs font-normal text-slate-500">(taslak / vizyon)</span></h3>
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-emerald-400" /> Şu An Aktif — Üretimde Çalışan Korumalar
+              </h3>
+              <Badge className="bg-emerald-500/15 text-emerald-300 border-emerald-500/30 text-[10px]">
+                <CheckCircle2 className="w-3 h-3 mr-1" /> AKTİF
+              </Badge>
+            </div>
+            <p className="text-xs text-slate-400 mb-4">
+              Aşağıdaki korumalar üretim ortamında <strong className="text-emerald-200">canlı çalışıyor</strong> — kod tabanı +
+              migration + canlı header doğrulamalı. Yol haritasındaki AI/ML özellikleri ayrı bölümde.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              {[
+                { title: "Anti-sniping", desc: "Bitmesine 120sn kalan ihalede teklif → süre +120sn uzar. Son saniye baskın engeli.", icon: <Clock className="w-4 h-4 text-emerald-400" /> },
+                { title: "Race koruması (FOR UPDATE)", desc: "PostgreSQL row-lock + atomik RPC. İki eşzamanlı teklif sıraya alınır, çakışma yok.", icon: <Lock className="w-4 h-4 text-emerald-400" /> },
+                { title: "Idempotency anahtarı", desc: "Aynı teklif iki kez gönderilemez — UNIQUE constraint. Ağ tekrarı güvenli.", icon: <CheckCircle2 className="w-4 h-4 text-emerald-400" /> },
+                { title: "Teminat blokajı %5", desc: "Teklif öncesi kredi kartı PROVİZYON (banka blokaj). Sahte teklif maliyeti yüksek.", icon: <Shield className="w-4 h-4 text-emerald-400" /> },
+                { title: "Sealed teklif gizliliği", desc: "listing_offers_safe view ile teklif sahibi maskelenmiştir; sealed mode korunur.", icon: <EyeOff className="w-4 h-4 text-emerald-400" /> },
+                { title: "7 güvenlik header", desc: "CSP + HSTS + X-Frame-DENY + COOP + Referrer + Permissions + nosniff (canlıda).", icon: <Server className="w-4 h-4 text-emerald-400" /> },
+                { title: "JWT zorunlu oturum", desc: "Cookie session yok → CSRF saldırı yüzeyi kapalı. Bearer token + RLS.", icon: <Lock className="w-4 h-4 text-emerald-400" /> },
+                { title: "Owner-only RLS", desc: "Her yazma tablosunda user_id = auth.uid() politikası. IDOR engeli.", icon: <ShieldCheck className="w-4 h-4 text-emerald-400" /> },
+                { title: "PII sanitize (AI cevap)", desc: "T.C./IBAN/telefon/e-posta otomatik redact. 11/11 test PASS (sanitize katmanı).", icon: <Bug className="w-4 h-4 text-emerald-400" /> },
+              ].map((item) => (
+                <div key={item.title} className="p-3 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/15">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    {item.icon}
+                    <div className="text-sm font-semibold text-white">{item.title}</div>
+                  </div>
+                  <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* AI Analysis — YOL HARİTASI (geliştiriliyor; var olmayan özelliği "aktif" gösterme yasak) */}
+        <Card className="bg-slate-900/50 border-amber-500/25">
+          <CardContent className="p-5">
+            <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <Cpu className="w-5 h-5 text-amber-300" /> AI Tehdit Analizi & Anomali Tespiti
+              </h3>
+              <Badge className="bg-amber-500/15 text-amber-200 border-amber-500/30 text-[10px]">
+                <Clock className="w-3 h-3 mr-1" /> YOL HARİTASI · GELİŞTİRİLİYOR
+              </Badge>
+            </div>
+            <p className="text-xs text-slate-400 mb-4">
+              Aşağıdaki AI/ML katmanları <strong className="text-amber-200">henüz canlıda DEĞİL</strong> — geliştirme yol
+              haritasında. Şu an aynı amaca hizmet eden <strong className="text-emerald-200">kural-tabanlı</strong>{" "}
+              korumalar üstteki "Aktif" kartında. Var olmayan koruma "aktif" gösterilmez (6502 m.61 dürüstlük).
+            </p>
             <div className="grid sm:grid-cols-3 gap-3">
               {[
-                { title: "Davranışsal Analiz", desc: "Kullanıcı hareketleri ML modeli ile analiz edilir. Anormal teklif davranışları tespit edilir.", icon: <Eye className="w-5 h-5 text-violet-400" /> },
-                { title: "Otomatik Yanıt", desc: "Tespit edilen tehditlere karşı otomatik IP ban, CAPTCHA veya session sonlandırma.", icon: <Zap className="w-5 h-5 text-amber-400" /> },
-                { title: "Fiyat Manipülasyon Koruması", desc: "Suni fiyat şişirme (shill bidding) tespiti. Aynı IP'den çoklu hesap engellenir.", icon: <TrendingUp className="w-5 h-5 text-emerald-400" /> },
+                {
+                  title: "Davranışsal Analiz (ML)",
+                  desc: "Hedef: kullanıcı hareketlerini ML modeli ile analiz eden anormal teklif tespit altyapısı. Şu an aktif: kural-tabanlı race koruması + idempotency.",
+                  icon: <Eye className="w-5 h-5 text-amber-300" />,
+                },
+                {
+                  title: "Otomatik Yanıt",
+                  desc: "Hedef: tespit edilen tehditlere otomatik CAPTCHA + süreli IP kısıtlama + session sonlandırma. Şu an aktif: Supabase default rate limit (60 req/dk) + JWT iptal.",
+                  icon: <Zap className="w-5 h-5 text-amber-300" />,
+                },
+                {
+                  title: "Fiyat Manipülasyon (Shill)",
+                  desc: "Hedef: shill bidding + IP/cihaz/MERNIS korelasyonu + graf analizi. Şu an aktif: anti-sniping + %5 teminat blokajı manipülasyon maliyetini yükseltiyor.",
+                  icon: <TrendingUp className="w-5 h-5 text-amber-300" />,
+                },
               ].map((item) => (
-                <div key={item.title} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
+                <div key={item.title} className="p-3 rounded-xl bg-amber-500/[0.04] border border-amber-500/20 relative">
+                  <Badge className="absolute top-2 right-2 bg-amber-500/15 text-amber-200 border-amber-500/30 text-[9px]">
+                    Yol Haritası
+                  </Badge>
                   <div className="mb-2">{item.icon}</div>
-                  <div className="text-sm font-semibold text-white mb-1">{item.title}</div>
-                  <p className="text-xs text-slate-400">{item.desc}</p>
+                  <div className="text-sm font-semibold text-white mb-1 pr-16">{item.title}</div>
+                  <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
