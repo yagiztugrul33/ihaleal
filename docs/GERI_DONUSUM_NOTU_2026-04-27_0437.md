@@ -17,7 +17,7 @@
 | `src/lib/listingPolicy.ts` | Bütünlük özeti metinleri |
 | `src/data/auctions.ts` | Demo ilanlar (id 1–3 belge alanları) |
 
-## PDF (RE/MAX örnek tarama)
+## PDF (üçüncü taraf örnek tarama)
 
 - Otomatik okuma: taranan PDF’de **metin katmanı çıkmadı** (görüntü tarama). Bu nedenle sözleşme **transkribe edilmedi** (telif + halüsinasyon riski).
 - Yerel kopya: `C:\Users\yagiz\Downloads\CamScanner 4-23-26 10.24.pdf` — avukat incelemesi için `docs/hukuk/kaynak/` altına isteğe bağlı kopya.

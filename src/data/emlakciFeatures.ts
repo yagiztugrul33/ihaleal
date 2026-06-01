@@ -180,7 +180,7 @@ export const EMLAKCI_PLANS = [
   {
     name: "Enterprise",
     price: "Özel",
-    suited: "RE/MAX, büyük gruplar (50+)",
+    suited: "Büyük emlak grupları (50+)",
     features: ["Sınırsız her şey", "Sınırsız ekip", "Özel SLA", "White-label opsiyonu", "Kurumsal sözleşme"],
     highlighted: false,
   },

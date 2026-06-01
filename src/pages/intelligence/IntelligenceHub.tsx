@@ -23,8 +23,8 @@ import { IBUYER_PATH } from "@/lib/ibuyerHub";
 import { ROUTES } from "@/constants/routes";
 
 const TICKER_EVENTS = [
-  "Remax Boss → Peşinat takaslı işlem doğrulandı",
-  "Remax Borsa Global → Çapraz ofis referans %25 komisyon",
+  "Kurumsal ofis → Peşinat takaslı işlem doğrulandı",
+  "Çapraz ofis referans → %25 komisyon kaydedildi",
   "GES ön fizibilite → Konya Karapınar 12,4 MWp onay bekliyor",
   "Parsel Desk → EMSAL 1,8 / TAKS 0,35 kat karşılığı hesaplandı",
   "iBuyer → Anlık nakit teklif 4.100.000 TRY (48s)",
@@ -37,7 +37,7 @@ const MODULES = [
     desc: "400 puanlık anayasa kontrolü, risk primi ve kurumsal nakit teklif motoru.",
     icon: Banknote,
     href: IBUYER_PATH,
-    badge: "Remax",
+    badge: "Kurumsal",
     accent: "from-red-500/20 to-rose-900/10 border-red-500/30",
   },
   {
@@ -114,7 +114,7 @@ export default function IntelligenceHub() {
       <motion.div className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-gradient-to-b from-red-950/25 via-blue-950/20 to-transparent" aria-hidden />
       <motion.div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="mb-10 max-w-3xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-red-400/90 mb-3">Remax Borsa Global</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-red-400/90 mb-3">Kurumsal Borsa Terminali</p>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Araştırma ve İstihbarat Terminali</h1>
           <p className="text-slate-400 mt-4 text-lg leading-relaxed">
             iBuyer, takas, GES ve parsel masaları tek çatı altında. Sonuçlar ön fizibilite niteliğindedir; resmi rapor ve lisanslı onay gerektirir.

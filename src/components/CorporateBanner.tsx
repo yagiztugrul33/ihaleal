@@ -36,7 +36,6 @@ export function CorporateBanner() {
           <div className="hidden md:flex md:flex-col md:items-end md:gap-2">
             <p className="text-xs text-slate-400">Güvenen kurumsal hesaplar</p>
             <div className="flex items-center gap-6 opacity-70">
-              <span className="text-lg font-semibold text-slate-300">RE/MAX</span>
               <span className="text-lg font-semibold text-slate-300">Akfen GYO</span>
               <span className="text-lg font-semibold text-slate-300">Tahincioğlu</span>
             </div>

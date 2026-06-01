@@ -3,7 +3,7 @@ import { normalizeAuctionImages } from "@/lib/listingImage";
 import { FRAUD_DEFENSE_PRODUCT_RULES } from "@/legal/fraudDefenseFramework";
 import { computeListingNumber } from "@/lib/listingNumber";
 
-/** Listede gösterilen aracılık — RE/MAX’ta ofis kartında danışman adı göründüğü gibi burada yetkili adı ihaleal.com’dur. */
+/** Listede gösterilen aracılık — büyük emlak ağında ofis kartında danışman adı göründüğü gibi burada yetkili adı ihaleal.com’dur. */
 export const PLATFORM_LISTING_CONTACT = {
   displayName: "ihaleal.com",
   roleLine: "Yetkili aracılık — iletişim platform üzerinden",
@@ -18,7 +18,7 @@ export const MARKETING_MODE_LABELS: Record<
   listing_only: {
     badge: "Sadece ilan",
     headline: "Yalnız ilan yayını",
-    hint: "Fiyat ilanda görünür; doğrudan alıcı–satıcı hattı yok. Talepler ihaleal.com üzerinden (RE/MAX ofis kartındaki danışman adı gibi kartta platform adı).",
+    hint: "Fiyat ilanda görünür; doğrudan alıcı–satıcı hattı yok. Talepler ihaleal.com üzerinden (büyük emlak ağında ofis kartındaki danışman adı gibi kartta platform adı).",
   },
   sealed_offers: {
     badge: "Teklif al",

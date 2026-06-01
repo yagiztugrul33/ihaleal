@@ -16,7 +16,7 @@
 
 ## 0) Telif ve PDF (CamScanner — Downloads)
 
-- Örnek sözleşme PDF’si **üçüncü taraf telifidir**. Kimi veya Cursor **PDF içeriğini kelimesi kelimesine aktaramaz**, OCR ile transkribe etmez, “RE/MAX sözleşmesi şu madde diyor ki…” diye **alıntı yapmaz**.
+- Örnek sözleşme PDF’si **üçüncü taraf telifidir**. Kimi veya Cursor **PDF içeriğini kelimesi kelimesine aktaramaz**, OCR ile transkribe etmez, "üçüncü taraf sözleşmesi şu madde diyor ki…" diye **alıntı yapmaz**.
 - Yapılacak iş: `docs/hukuk/YETKI_VE_ARACILIK_TASLAK_CERCEVE.md` ile **avukat sürecinde** madde eşlemesi; ürün metni **ihaleal orijinal** dille.
 - Otomatik araçlarla PDF okunduğunda metin çıkmıyorsa: **“metin çıkmadı”** deyin; uydurma yasak.
 
@@ -35,7 +35,7 @@
 
 1. Marka: **Yapay zeka destekli gayrimenkul platformu**.  
 2. Satılık + kiralık; üç mod: **sadece ilan**, **teklif al**, **ihale**.  
-3. İlanda **taraf telefonu yok**; muhatap **ihaleal.com** (RE/MAX kartındaki danışman adı benzeri).  
+3. İlanda **taraf telefonu yok**; muhatap **ihaleal.com** (büyük emlak ağı kartındaki danışman adı benzeri).  
 4. Teklifler **platformdan** malike/kiraya verene; anonimlik ilanda.  
 5. **Piyasa raporu** (üçüncü taraf PDF, izinli kanallar) + **İhaleal Endeksi / AI analiz** butonu; hukuki ekspertiz değil.  
 6. **SPK ekspertiz** zorunluluk çizgisi; **şerh / ipotek / haciz** raporda; evrakta **AI ön tarama + insan onayı**.  

@@ -140,7 +140,7 @@
 | `/nasil-calisir` | → /how-it-works | Redirect |
 | `/services` | Corporate | Kurumsal ana |
 | `/kurumsal` | → /services | Redirect |
-| `/arastirma` | IntelligenceHub | Remax ticker, hub kartları |
+| `/arastirma` | IntelligenceHub | Kurumsal ticker, hub kartları |
 | `/arastirma/ges` | GesAnalysisPage | GES motor + fraud |
 | `/arastirma/parsel` | ParcelIntelligencePage | Parsel motor |
 | `/arastirma/war-room` | WarRoomPage | Harita + site intelligence |
@@ -243,13 +243,13 @@
 
 ### Seed
 
-- `supabase/seed/demo_seed.sql` — Re/Max tarzı org + ~7 demo listing (`is_demo=true`); profiles boşsa listing atlanır.
+- `supabase/seed/demo_seed.sql` — Kurumsal emlak ofisi tarzı org + ~7 demo listing (`is_demo=true`); profiles boşsa listing atlanır.
 
 ### Prisma (dokümantasyon / codegen — runtime DB değil)
 
 | Model | Amaç |
 |-------|------|
-| RemaxOffice, RemaxAgent | Remax ofis/ajan |
+| CorporateOffice, CorporateAgent | Kurumsal ofis/ajan (eski Prisma model adı) |
 | PropertySubmission | Başvuru |
 | LegalRiskAssessment | Hukuki risk |
 | GesTechnicalAnalysis, ParcelAnalysis | Mühendislik çıktıları |
@@ -294,7 +294,7 @@ Runtime veritabanı: **Supabase PostgreSQL**.
 
 | Sayfa | Durum |
 |-------|--------|
-| IntelligenceHub | Hub + Remax ticker, kartlar |
+| IntelligenceHub | Hub + Kurumsal ticker, kartlar |
 | GesAnalysisPage | Form + motor + PreFeasibilityBanner |
 | ParcelIntelligencePage | Parsel analizi |
 | WarRoomPage | Harita (lazy), site intelligence, geçmiş run — **işlevsel**; Palantir seviye görsel tasarım değil |
@@ -467,7 +467,7 @@ docs/ui-snapshots-old/Navbar.tsx.bak
 - [x] Fraud engine (emsal / arazi limitleri)
 - [x] War Room: harita, site intelligence, markdown rapor, analysis run persistence
 - [x] iBuyer / trade-in migration + sayfa
-- [x] Prisma modelleri (Remax, submission, GES, parcel)
+- [x] Prisma modelleri (kurumsal ofis, submission, GES, parcel)
 
 ### D. Hukuk / içerik
 

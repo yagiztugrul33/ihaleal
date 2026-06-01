@@ -525,7 +525,7 @@ export default function CreateAuction() {
         </Button>
         <h1 className="text-3xl font-bold text-white mb-2">Gayrimenkul ilanı oluştur</h1>
         <p className="text-slate-400 mb-4">
-          Üç yoldan birini seçin: <strong className="text-slate-300">sadece ilan</strong> (kartta ihaleal.com — RE/MAX danışman kartı gibi), <strong className="text-slate-300">teklif al</strong> veya{" "}
+          Üç yoldan birini seçin: <strong className="text-slate-300">sadece ilan</strong> (kartta ihaleal.com görünür — yetkili platform; doğrudan iletişim yok), <strong className="text-slate-300">teklif al</strong> veya{" "}
           <strong className="text-slate-300">ihale</strong>.
           Kayıt Supabase&apos;e yazılır; yönetici onayından sonra yayına alınır. Referans fiyat <code className="text-teal-400/90 text-xs">fees.ts</code> ile uyarılır.
         </p>

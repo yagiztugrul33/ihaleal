@@ -128,7 +128,7 @@ viewport: VAR | responsive class: 416 satir
 5. Router: intelligence sadece local.
 6. Supabase tablolar: dogrulanamadi.
 7. Mobil: orta-iyi.
-8. Murat Bey: auction demo evet; War Room hayir.
+8. Pilot demo durumu: auction demo evet; War Room hayir.
 
 ---
 

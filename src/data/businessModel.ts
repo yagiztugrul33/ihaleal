@@ -17,7 +17,7 @@ export const COMMISSION_ONLY_PRINCIPLES = [
 
 /** Üç kanal + platform aracılığı (satış ve kiralama için aynı çerçeve). */
 export const THREE_MODES_AND_BROKERAGE_RULES = [
-  "Mod 1 — Sadece ilan: Müşteri ilanı girer; satış veya kiralama kartında doğrudan kendi telefonu yok, vitrinde ihaleal.com (RE/MAX’ta ofis kartındaki danışman adı gibi) görünür; muhatap platformdur.",
+  "Mod 1 — Sadece ilan: Müşteri ilanı girer; satış veya kiralama kartında doğrudan kendi telefonu yok, vitrinde ihaleal.com (büyük bir emlak ağında ofis kartındaki danışman adı gibi) görünür; muhatap platformdur.",
   "Mod 2 — Teklif al: Kapalı teklif veya süreç içi teklif toplama; teklif verenlerin bilgileri ilanda yer almaz. Teklifler platform tarafından malike / kiraya verene iletilir; kabul sonrası sözleşme ve evrak ihaleal.com hattında (hedef).",
   "Mod 3 — İhale: Hem satış hem kiralık için açık artırma; yine kartta ve iletişimde yetkili ihaleal.com. Teklifler kayıt altında, taraflara kurallı şekilde iletilir (hedef).",
   "Bütün modlarda: sahte veya oyun amaçlı teklif, gerçeğe aykırı fiyat, keyfi ihaleye girme yasaktır; tespitte hesap kısıtı, teminat iradı ve sözleşmedeki cezai şartlar (avukat onaylı metin).",

@@ -1,6 +1,6 @@
 # Yetki ve aracılık — ihaleal.com için madde iskeleti (taslak)
 
-**Durum:** Bu metin, piyasada yaygın **münhasır gayrimenkul aracılığı / yetki sözleşmesi** yapısının ürün ve hukuk ekibi için özeti olup **RE/MAX veya başka markanın sözleşme metninin çoğaltması değildir.** Gönderdiğiniz RE/MAX PDF’sindeki numaralar ve cümleler avukatça buraya **aktarılmalı**; telif ve rekabet hukuku açısından doğrudan kopya kullanılmaz.
+**Durum:** Bu metin, piyasada yaygın **münhasır gayrimenkul aracılığı / yetki sözleşmesi** yapısının ürün ve hukuk ekibi için özeti olup **üçüncü taraf bir markanın sözleşme metninin çoğaltması değildir.** Gönderdiğiniz örnek PDF'deki numaralar ve cümleler avukatça buraya **aktarılmalı**; telif ve rekabet hukuku açısından doğrudan kopya kullanılmaz.
 
 **Şirket:** ihaleal.com (platform / aracı)  
 **Müvekkil:** Malik veya kiraya veren (veya ayrı eklerde alıcı / kiracı taahhütleri)

@@ -68,7 +68,7 @@ const plans = [
   {
     name: "Enterprise",
     price: "Özel",
-    suited: "RE/MAX, büyük gruplar (50+)",
+    suited: "Büyük emlak grupları (50+)",
     features: ["Sınırsız her şey", "Sınırsız ekip", "Özel SLA", "White-label opsiyonu", "Kurumsal sözleşme"],
     highlighted: false,
   },
@@ -97,7 +97,7 @@ export default function Corporate() {
             style={{ color: "var(--color-text-muted)" }}
           >
             Portföy yönetimi, AI destekli fiyatlama, çok kullanıcılı erişim ve şeffaf ihale modülü.
-            RE/MAX, GYO ve büyük emlak grupları için tasarlandı; bireysel emlakçılar için ücretsiz.
+            GYO ve büyük emlak grupları için tasarlandı; bireysel emlakçılar için ücretsiz.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
@@ -117,7 +117,6 @@ export default function Corporate() {
               Güvenen kurumsal hesaplar
             </p>
             <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-70">
-              <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>RE/MAX</span>
               <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>Akfen GYO</span>
               <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>Tahincioğlu</span>
               <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>Nef</span>
@@ -247,7 +246,7 @@ export default function Corporate() {
             className="mb-10 text-lg max-w-2xl mx-auto"
             style={{ color: "rgba(250,248,241,0.85)" }}
           >
-            RE/MAX, GYO veya büyük emlak grubu yöneticisiyseniz, ekibimiz size özel
+            GYO veya büyük emlak grubu yöneticisiyseniz, ekibimiz size özel
             bir demo hazırlasın. 30 dakikalık görüşme, ihtiyaçlarınıza özel çözüm.
           </p>
           <Link

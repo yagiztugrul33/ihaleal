@@ -44,7 +44,7 @@ npm run test:smoke   # Playwright (yerel veya AUDIT_BASE)
 ## Mimari ve hukuk
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- [docs/hukuk/](docs/hukuk/) — sözleşme çerçevesi; RE/MAX örnek PDF yerel `docs/hukuk/kaynak/`
+- [docs/hukuk/](docs/hukuk/) — sözleşme çerçevesi; örnek referans PDF yerel `docs/hukuk/kaynak/`
 
 ## Canlı sayfa testi
 
@@ -57,7 +57,7 @@ node scripts/final-live-audit.mjs
 
 ## Sonraki adımlar
 
-Öncelik listesi ve Murat Bey pilot notları → **[NEREDEYDIK.md](NEREDEYDIK.md)**
+Öncelik listesi ve pilot notları → **[NEREDEYDIK.md](NEREDEYDIK.md)**
 
 ---
 

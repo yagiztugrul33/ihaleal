@@ -1,4 +1,4 @@
-# Re/Max Demo Hazirlik Raporu
+# Kurumsal Demo Hazırlık Raporu
 
 Tarih: 2026-05-16
 Branch: feat/v2-foundation-20260516
@@ -36,6 +36,6 @@ Route'lar `src/App.tsx` icinde tanimli.
 5. Storage: bulk-uploads, kyc-documents bucket'lari
 6. Demo seed calistir (profiles tablosunda en az 1 kullanici olmali)
 
-## Re/Max Sahibine Soylenecek
+## Kurumsal Müşteriye Söylenecek
 
 Bu canli surum bir demonstration. Production trafik icin KYC entegrasyonu, CRM/RETS API ve white-label opsiyonu 3-4 haftada custom paket olarak teslim edilebilir.

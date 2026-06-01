@@ -256,7 +256,7 @@ b3abf73 - fix(ui): /harita ve /kurumsal/iletisim dark theme + Turkce duzeltme (9
 
 ### Sonraki adim (sen sec)
 
-- **A)** Demo + pilot (Murat Bey vb.) — site yeterli
+- **A)** Demo + pilot görüşmesi — site yeterli
 - **B)** Freelancer ile pixel-perfect UI (1 hafta)
 - **C)** 2-3 gun gozlem, eksikleri listele, tek komutla duzelt
 

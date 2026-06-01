@@ -5,7 +5,7 @@
 **Uzun maraton (Kimi + Cursor tek yapıştırma):** [`KIMI_CURSOR_UZUN_MARATON_KOMUT.md`](./KIMI_CURSOR_UZUN_MARATON_KOMUT.md)  
 **Geri dönüşüm notu (~04:37):** [`GERI_DONUSUM_NOTU_2026-04-27_0437.md`](./GERI_DONUSUM_NOTU_2026-04-27_0437.md)
 
-**Yedek:** Bu dosyayı ve `docs/hukuk/` altını düzenli **git commit** ile saklayın. RE/MAX PDF taraması telif nedeniyle repoya zorunlu değildir; `docs/hukuk/README.md` talimatına göre `kaynak/` altında tutulabilir.
+**Yedek:** Bu dosyayı ve `docs/hukuk/` altını düzenli **git commit** ile saklayın. Üçüncü taraf örnek PDF taraması telif nedeniyle repoya zorunlu değildir; `docs/hukuk/README.md` talimatına göre `kaynak/` altında tutulabilir.
 
 ---
 
@@ -14,7 +14,7 @@
 | Kaynak | Açıklama |
 |--------|----------|
 | `docs/hukuk/YETKI_VE_ARACILIK_TASLAK_CERCEVE.md` | ihaleal.com için **orijinal** madde iskeleti (rakip sözleşme kopyası değil). |
-| `docs/hukuk/kaynak/*.pdf` | Sizin RE/MAX örnek taramanız — **avukatça** maddeler `YETKI_VE...` ile eşlenir. |
+| `docs/hukuk/kaynak/*.pdf` | Sizin üçüncü taraf örnek taramanız — **avukatça** maddeler `YETKI_VE...` ile eşlenir. |
 | Aşağıdaki §A | Ürün ve gelir kuralları; sözleşme maddeleri buraya **hizalanmalı**. |
 
 **Örnek sözleşme / ürün eşlemesi (PDF satır numarası avukat doldurur; Cursor ürün karşılığı önerisi):**
@@ -36,7 +36,7 @@
 
 1. **Marka dili:** Ürün **“Yapay zeka destekli gayrimenkul platformu”** olarak anlatılır; “yapay destekli gayrimenkul analizi” ifadesi kullanılmaz.
 2. **Amaç:** Gerçek **alıcı–satıcı** ve kiralıkta **kiracı–kiraya veren** güvenilir eşleşmesi. **Satılık veya kiralık** aynı üç modla yönetilir.
-3. **Üç mod (satış ve kiralama):** **(1) Sadece ilan** — müşteri ilanı girer; kartta RE/MAX’taki danışman adı gibi **ihaleal.com** görünür, taraf telefonu yok; muhatap platform. **(2) Teklif al** — kapalı teklif; teklif verenler anonim, teklifler **platform tarafından malike/kiraya verene iletilir**; yalandan veya oyun amaçlı teklif yasak, cezai şartlar sözleşmede. **(3) İhale** — açık artırma; yine kart ve iletişimde yetkili platform; teklifler kayıt altında iletilir; keyfi fiyat / sahte katılım yasak (moderasyon + sözleşme).
+3. **Üç mod (satış ve kiralama):** **(1) Sadece ilan** — müşteri ilanı girer; kartta büyük emlak ağındaki danışman adı gibi **ihaleal.com** görünür, taraf telefonu yok; muhatap platform. **(2) Teklif al** — kapalı teklif; teklif verenler anonim, teklifler **platform tarafından malike/kiraya verene iletilir**; yalandan veya oyun amaçlı teklif yasak, cezai şartlar sözleşmede. **(3) İhale** — açık artırma; yine kart ve iletişimde yetkili platform; teklifler kayıt altında iletilir; keyfi fiyat / sahte katılım yasak (moderasyon + sözleşme).
 4. **Kabul sonrası:** Sözleşme, evrak ve ödeme **ihaleal.com** hattında (üretim hedefi).
 5. **Aracılık:** **Yetki sözleşmesi** ile taraflar platformu aradan çıkarmadan sürdürür (hedef; avukat metni).
 6. **Fiyat ve değer:** Referans / bölge bandı, değerleme–ekspertiz çizgisi, aşırı açılış uyarıları ürünün kalbidir.
@@ -47,7 +47,7 @@
 11. **Ekspertiz zorunluluğu (hedef):** SPK uzmanı ekspertiz raporu ilan paketinin parçası; **şerh, ipotek, haciz** ve benzeri hukuki durumlar bu raporda. Evrakların sahte olmadığına dair süreç: AI destekli ön tarama + kritik adımlarda **insan onayı**; hukuki son söz uzman / avukat.
 12. **Taahhüt limitleri + ceza çerçevesi (hedef):** Satıcı ve kiraya veren **alt** ve **üst** limit belirler; piyasa veya süreç **üst limite ulaştığında** işlemi platform çizgisinde tamamlama yükümlülüğü; tamamlanmazsa sözleşmedeki **cezai şart**. **Alıcı** ve **kiracı** için eşdeğer bağlayıcı kurallar (teklif / kabul aşaması) aynı hukuk paketinde tanımlanır — taslak avukat onayı şart.
 13. **Resmi şeffaflık butonu:** Belediye yazıları, **imar planı** ve diğer **resmi karar** özeti alıcı veya kiracıya ilanda **ayrı butonla** gösterilir; tapu tesliminde sürpriz kalmaması ürün hedefidir.
-14. **İlanda taraf bilgisi yok:** Alıcı / satıcı / kiracı / kiraya veren doğrudan iletişim bilgisi ilanda yer almaz; süreç **RE/MAX benzeri** tek muhatap (ihaleal.com) üzerinden yürür.
+14. **İlanda taraf bilgisi yok:** Alıcı / satıcı / kiracı / kiraya veren doğrudan iletişim bilgisi ilanda yer almaz; süreç **büyük emlak ağı benzeri** tek muhatap (ihaleal.com) üzerinden yürür.
 15. **Kırılganlık yok:** Küçük patch, `typecheck` + `build` + `test:run` yeşil.
 
 ---

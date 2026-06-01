@@ -35,7 +35,7 @@ Intelligence modulu production branch'e commit edildi. Emlak + Arastirma platfor
 
 - Arastirma linki: INTELLIGENCE_HUB_PATH (/arastirma)
 
-## Murat Bey Demo
+## Pilot Demo
 
 **Hazir:** Ana site, kurumsal, ilanlar, /arastirma hub ve alt sayfalar (build gecer).
 

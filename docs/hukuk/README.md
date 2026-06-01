@@ -1,6 +1,6 @@
 # Hukuk taslakları ve kaynak sözleşmeler
 
-## RE/MAX örnek PDF (sizin tarafınızdan)
+## Üçüncü taraf örnek PDF (sizin tarafınızdan)
 
 Örnek tarama dosyası örnek yollar (yerel):  
 `C:\Users\yagiz\Downloads\CamScanner 4-23-26 10.24.pdf`  
@@ -16,7 +16,7 @@ Eski workspace yolu da kullanılabilir; repoya koyarken `kaynak/` altında yenid
 
 | Dosya | Amaç |
 |--------|------|
-| `YETKI_VE_ARACILIK_TASLAK_CERCEVE.md` | ihaleal.com için **orijinal** madde iskeleti (RE/MAX metninin kopyası değil). |
+| `YETKI_VE_ARACILIK_TASLAK_CERCEVE.md` | ihaleal.com için **orijinal** madde iskeleti (üçüncü taraf marka metninin kopyası değil). |
 | `FINANCE_TAX_BILLING_CORE_RULES_TASLAK.md` | Finans / e-Fatura / Teknokent — ürün taslağı (avukat + YMM). |
 | `KIRALIK_DEVREN_ANAYASASI_TASLAK.md` | Kiralık & devren kuralları özeti (`rentalCommissionEngine` ile uyum). |
 | `KKA_SOZLESME_VE_KAZANC_PLANI_TASLAK.md` | Kat karşılığı sözleşme iskeleti ve gelir çerçevesi. |
