@@ -6,9 +6,12 @@
  * otomatik adapte olur.
  *
  * Master not (2026-06-01):
- * - Gerçek ödeme entegrasyonu (iyzico/PayTR) eklenecek; şimdilik UI + mock.
- * - DB tier tablosu Supabase'de `user_membership_tiers` view/tablosu —
- *   migration ileride Master onayı ile eklenecek (BLOK 2'de iskelet).
+ * - KOMİSYON `fees.ts` (tek kaynak, %2 alıcı + %2 satıcı + KDV).
+ *   Bu dosya sadece ÜYELİK fiyatları + ek hizmet (one-off) kalemleri.
+ * - 2026-06-01 fiyat güncellemesi (Master politika belgesi):
+ *   Yatırımcı 399→499, Başlangıç 1500→1900 (20 ilan), Pro 3500→4500 (60 ilan),
+ *   Kurumsal 7500→9900. Yıllık indirim %20 korundu.
+ * - Erken üye (kuruluş indirimi): EARLY_MEMBER_* flag/fiyatları ile kapatılabilir.
  */
 
 export type TierId = "free" | "yatirimci" | "emlak_baslangic" | "emlak_pro" | "kurumsal";
@@ -18,6 +21,35 @@ export type BillingCycle = "monthly" | "yearly";
 /** Yıllık ödemede indirim oranı (1 = no discount). 0.20 = %20 indirim. */
 export const YEARLY_DISCOUNT_RATE = 0.20;
 
+// ============================================================================
+// ERKEN ÜYE / KURULUŞ ÜYESİ İNDİRİMİ
+// ============================================================================
+//
+// Master politikası: ilk 6 ay (veya ilk 100 üye) erken fiyatla katılır.
+// Kuruluş üyesi taahhüdü dolduğunda EARLY_MEMBER_ACTIVE=false yap; sayfa
+// otomatik liste fiyatına döner. Mevcut aboneler 12 ay fiyat sabit (politika
+// belgesi).
+//
+// Aktif iken: kartta liste fiyatı ÜSTÜ ÇİZİLİ + erken fiyat VURGULU gösterilir.
+
+/** Erken üye indirimi aktif mi (true = kuruluş fiyatı UI'da görünür). */
+export const EARLY_MEMBER_ACTIVE = true;
+
+/** Erken üye etiketi — kartta görünür rozet. */
+export const EARLY_MEMBER_LABEL = "Kuruluş üyesi · ilk 6 ay";
+
+/** Erken üye açıklaması — ek satır. */
+export const EARLY_MEMBER_NOTE =
+  "İlk 6 ay (veya ilk 100 üye) erken katılım fiyatı. Mevcut aboneler 12 ay fiyat sabit.";
+
+/** Aylık TL — erken üye fiyatları (yıllıkta yine %20 indirim uygulanır). */
+export const EARLY_MEMBER_PRICES: Record<Exclude<TierId, "free">, number> = {
+  yatirimci: 349,
+  emlak_baslangic: 1400,
+  emlak_pro: 3400,
+  kurumsal: 7500,
+};
+
 export interface PricingFeature {
   /** Kısa etiket, tabloda görünür */
   label: string;
@@ -25,7 +57,7 @@ export interface PricingFeature {
   detail?: string;
   /** Bu tier'da bu özelliğin durumu */
   status: "included" | "limited" | "excluded";
-  /** Limit bilgisi ("15 ilan", "Sınırsız", "1/yıl" gibi) */
+  /** Limit bilgisi ("20 ilan", "Sınırsız", "1/yıl" gibi) */
   limit?: string;
 }
 
@@ -56,12 +88,37 @@ export function yearlyTry(monthlyTry: number): number {
   return Math.round(monthlyTry * (1 - YEARLY_DISCOUNT_RATE) * 12);
 }
 
-/** Bir tier için ödeme döngüsüne göre gösterilecek tutar */
+/** Bir tier için ödeme döngüsüne göre gösterilecek tutar (LİSTE fiyatı). */
 export function priceFor(tier: PricingTier, cycle: BillingCycle): { try: number; period: string } {
   if (tier.monthlyTry === 0) return { try: 0, period: "Ücretsiz" };
   return cycle === "monthly"
     ? { try: tier.monthlyTry, period: "/ay" }
     : { try: yearlyTry(tier.monthlyTry), period: "/yıl" };
+}
+
+/** Bir tier için erken üye fiyatı (aktifse). */
+export function earlyPriceFor(
+  tier: PricingTier,
+  cycle: BillingCycle,
+): { try: number; period: string } | null {
+  if (!EARLY_MEMBER_ACTIVE) return null;
+  if (tier.monthlyTry === 0) return null;
+  const earlyMonthly = EARLY_MEMBER_PRICES[tier.id as Exclude<TierId, "free">];
+  if (earlyMonthly === undefined || earlyMonthly >= tier.monthlyTry) return null;
+  return cycle === "monthly"
+    ? { try: earlyMonthly, period: "/ay" }
+    : { try: yearlyTry(earlyMonthly), period: "/yıl" };
+}
+
+/** Günlük birim — "günde ~X₺" psikolojik vurgu (sadece aylık 30, yıllık 365 baz). */
+export function dailyEquivalent(tier: PricingTier, cycle: BillingCycle): number | null {
+  if (tier.monthlyTry === 0) return null;
+  const earlyMonthly = EARLY_MEMBER_ACTIVE
+    ? EARLY_MEMBER_PRICES[tier.id as Exclude<TierId, "free">]
+    : undefined;
+  const monthly = earlyMonthly ?? tier.monthlyTry;
+  if (cycle === "monthly") return Math.round(monthly / 30);
+  return Math.round((monthly * (1 - YEARLY_DISCOUNT_RATE) * 12) / 365);
 }
 
 /** TL formatlama yardımcısı */
@@ -83,7 +140,7 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     features: [
       {
         label: "1 ilan/yıl",
-        detail: "Yılda 1 ücretsiz ilan açma hakkı. Ek ilanlar tek satın alımla (₺249) eklenebilir.",
+        detail: "Yılda 1 ücretsiz ilan açma hakkı. Ek ilanlar tek satın alımla (₺299) eklenebilir.",
         status: "limited",
         limit: "1/yıl",
       },
@@ -101,9 +158,8 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     id: "yatirimci",
     name: "Yatırımcı",
     tagline: "Borsa terminali tam + sınırsız rapor",
-    monthlyTry: 399,
+    monthlyTry: 499,
     segment: "yatirimci",
-    highlight: "En Popüler",
     accent: "blue",
     listingLimit: 3,
     teamSeats: 1,
@@ -139,14 +195,15 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     id: "emlak_baslangic",
     name: "Emlak Başlangıç",
     tagline: "Yeni başlayan emlakçı / küçük ofis",
-    monthlyTry: 1500,
+    monthlyTry: 1900,
     segment: "emlakci",
     accent: "emerald",
-    listingLimit: 15,
+    listingLimit: 20,
     teamSeats: 1,
     features: [
-      { label: "15 ilan", limit: "15", status: "included" },
+      { label: "20 ilan", limit: "20", status: "included" },
       { label: "5 doping/ay", detail: "İlanı listede üst sıraya çıkar (5x ay içinde).", limit: "5", status: "included" },
+      { label: "Temel analiz", detail: "Bölgesel ortalama, m² rayiç, satış hızı — sınırlı detay.", status: "included" },
       { label: "Profil rozeti", detail: "Doğrulanmış emlakçı rozeti — alıcı güvenini artırır.", status: "included" },
       { label: "Borsa terminel TAM", status: "included" },
       { label: "Sınırsız rapor", status: "included" },
@@ -160,14 +217,14 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     id: "emlak_pro",
     name: "Emlak Pro",
     tagline: "Profesyonel emlak ofisi — büyüme",
-    monthlyTry: 3500,
+    monthlyTry: 4500,
     segment: "emlakci",
-    highlight: "Önerilen",
+    highlight: "En Popüler",
     accent: "amber",
-    listingLimit: 50,
+    listingLimit: 60,
     teamSeats: 3,
     features: [
-      { label: "50 ilan", limit: "50", status: "included" },
+      { label: "60 ilan", limit: "60", status: "included" },
       { label: "20 doping/ay", limit: "20", status: "included" },
       { label: "Gerçek kapanış verisi", status: "included" },
       { label: "Borsa terminel TAM", status: "included" },
@@ -182,8 +239,9 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     id: "kurumsal",
     name: "Kurumsal",
     tagline: "Zincir ofisleri + portföy fonları + müteahhitler",
-    monthlyTry: 7500,
+    monthlyTry: 9900,
     segment: "kurumsal",
+    highlight: "Premium",
     accent: "violet",
     listingLimit: "unlimited",
     teamSeats: 10,
@@ -200,26 +258,39 @@ export const PRICING_TIERS: readonly PricingTier[] = [
   },
 ] as const;
 
-/** Tek ekmek satın alımı (rapor + add-on) — UI fiyat referansı */
+/**
+ * Tek seferlik satın alım — UI fiyat referansı.
+ * 2026-06-01 güncelleme:
+ *   valuation_report 249→299 (Endeks Raporu olarak adlandırılır), ges_report
+ *   499→599, legal_report 349→399, vitrin_single 199→250, featured_auction
+ *   499→599. YENİ: rapor_paketi (3 rapor + AI fırsat 30 gün bundle),
+ *   vitrin_premium (1 hafta öne çıkan + üst banner).
+ *
+ * NOT: SKU adları geriye uyumluluk için sabit; yalnız etiket + fiyat güncellendi.
+ */
 export const ONE_OFF_PRICES = {
-  extra_listing: 249,
-  valuation_report: 249,
-  ges_report: 499,
-  legal_report: 349,
+  extra_listing: 299,
+  valuation_report: 299, // Endeks Raporu — eski "Değerleme" 249
+  ges_report: 599, // eski 499
+  legal_report: 399, // eski 349
+  rapor_paketi: 1199, // YENİ: Endeks + GES + Hukuki bundle (avantajlı)
   doping_single: 99,
-  vitrin_single: 199,
-  featured_auction: 499,
+  vitrin_single: 250, // 1 hafta — eski 199
+  vitrin_premium: 600, // YENİ: 1 hafta öne çıkan + üst banner
+  featured_auction: 599, // 1 ihale öne çıkan — eski 499
 } as const;
 
 export type OneOffSku = keyof typeof ONE_OFF_PRICES;
 
 export const ONE_OFF_LABELS: Record<OneOffSku, string> = {
   extra_listing: "Ek ilan açma",
-  valuation_report: "Değerleme PDF raporu",
-  ges_report: "GES analiz PDF raporu",
-  legal_report: "Hukuki risk PDF raporu",
-  doping_single: "Tek seferlik doping",
+  valuation_report: "Endeks Raporu (PDF)",
+  ges_report: "GES Analiz Raporu (PDF)",
+  legal_report: "Hukuki Risk Raporu (PDF)",
+  rapor_paketi: "Rapor Paketi (3 rapor + AI fırsat 30 gün)",
+  doping_single: "Tek seferlik doping (24 saat)",
   vitrin_single: "Vitrin (1 hafta)",
+  vitrin_premium: "Vitrin Premium (1 hafta öne çıkan)",
   featured_auction: "Öne çıkan ihale (vitrin)",
 };
 

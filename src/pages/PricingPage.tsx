@@ -7,7 +7,9 @@ import {
 } from "lucide-react";
 import {
   PRICING_TIERS, type BillingCycle, type TierId, type PricingTier,
-  priceFor, formatTry, YEARLY_DISCOUNT_RATE,
+  priceFor, earlyPriceFor, dailyEquivalent,
+  formatTry, YEARLY_DISCOUNT_RATE,
+  EARLY_MEMBER_ACTIVE, EARLY_MEMBER_LABEL, EARLY_MEMBER_NOTE,
 } from "@/lib/pricingTiers";
 
 /** Tier rengi → tailwind sınıfları */
@@ -75,10 +77,13 @@ interface TierCardProps {
 function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
   const navigate = useNavigate();
   const cls = accentClasses(tier.accent);
-  const { try: price, period } = priceFor(tier, cycle);
+  const { try: listPrice, period } = priceFor(tier, cycle);
+  const early = earlyPriceFor(tier, cycle);
+  const effectivePrice = early?.try ?? listPrice;
   const monthlyEqv = cycle === "yearly" && tier.monthlyTry > 0
-    ? Math.round(price / 12)
+    ? Math.round(effectivePrice / 12)
     : null;
+  const daily = dailyEquivalent(tier, cycle);
 
   return (
     <div
@@ -98,16 +103,39 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
       <p className="text-xs text-slate-400 mb-4 leading-relaxed min-h-[2rem]">{tier.tagline}</p>
 
       <div className="mb-4">
-        {price === 0 ? (
+        {listPrice === 0 ? (
           <div className="text-3xl font-bold text-white">Ücretsiz</div>
+        ) : early ? (
+          <>
+            {/* ERKEN ÜYE — Liste fiyatı üst çizili + kuruluş fiyatı vurgulu */}
+            <div className="flex items-baseline gap-2">
+              <span className="text-sm text-slate-500 line-through">{formatTry(listPrice)}</span>
+              <span className={`text-[10px] font-semibold ${cls.text} bg-white/5 px-1.5 py-0.5 rounded`}>
+                Kuruluş
+              </span>
+            </div>
+            <div className="flex items-baseline gap-1 mt-1">
+              <span className="text-3xl font-bold text-white">{formatTry(early.try)}</span>
+              <span className="text-sm text-slate-400">{early.period}</span>
+            </div>
+            {monthlyEqv !== null && (
+              <p className="text-[11px] text-slate-500 mt-0.5">≈ {formatTry(monthlyEqv)}/ay (yıllık -%20)</p>
+            )}
+            {daily !== null && (
+              <p className="text-[11px] text-emerald-300 mt-0.5">≈ günde {formatTry(daily)}</p>
+            )}
+          </>
         ) : (
           <>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold text-white">{formatTry(price)}</span>
+              <span className="text-3xl font-bold text-white">{formatTry(listPrice)}</span>
               <span className="text-sm text-slate-400">{period}</span>
             </div>
             {monthlyEqv !== null && (
               <p className="text-[11px] text-slate-500 mt-0.5">≈ {formatTry(monthlyEqv)}/ay (yıllık -%20)</p>
+            )}
+            {daily !== null && (
+              <p className="text-[11px] text-emerald-300 mt-0.5">≈ günde {formatTry(daily)}</p>
             )}
           </>
         )}
@@ -215,11 +243,40 @@ export default function PricingPage() {
           <h1 className="text-3xl md:text-4xl font-bold mb-3">
             İhtiyacına göre paket seç
           </h1>
-          <p className="text-slate-400 leading-relaxed">
+          <p className="text-slate-400 leading-relaxed mb-4">
             Bireyselden kurumsala 5 paket — istediğin zaman yükselt, düşür veya iptal et.
             <strong className="text-white"> Yıllık ödemede %{YEARLY_DISCOUNT_RATE * 100} indirim</strong>.
           </p>
+          {/* ŞEFFAFLIK ŞERİDİ — header altına yakın, güven inşası */}
+          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-300">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Taahhüt yok
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1">
+              <RefreshCw className="h-3.5 w-3.5 text-cyan-400" /> İstediğin zaman iptal
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1">
+              <Shield className="h-3.5 w-3.5 text-violet-400" /> Gizli ücret yok
+            </span>
+          </div>
         </div>
+
+        {EARLY_MEMBER_ACTIVE && (
+          <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-4">
+            <div className="flex items-start gap-3">
+              <Sparkles className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <h2 className="text-sm font-semibold text-amber-100">{EARLY_MEMBER_LABEL}</h2>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 text-amber-100 text-[10px] font-semibold px-2 py-0.5 border border-amber-500/30">
+                    Sınırlı
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed">{EARLY_MEMBER_NOTE}</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* KATMAN 1 — Eğitici: Hangi paket sana uygun? */}
         <div className="rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-5">
@@ -370,7 +427,7 @@ export default function PricingPage() {
                 </div>
                 <div>
                   <p className="font-semibold text-cyan-200 mb-1">Komisyon nasıl çalışıyor?</p>
-                  <p>Satış değerine kademeli: 0-3M %3, 3-10M %2.5, 10M+ %2. Üyelik fiyatlarına ek.</p>
+                  <p>%2 alıcı + %2 satıcı = toplam %4 (KDV hariç matrah). KDV %20 komisyon üzerine. Yasal tavan: Taşınmaz Ticareti Yönetmeliği md.20. Detay: <button type="button" onClick={() => navigate("/komisyon")} className="text-cyan-300 underline">/komisyon</button>.</p>
                 </div>
                 <div>
                   <p className="font-semibold text-cyan-200 mb-1">Fiyat değişir mi?</p>
