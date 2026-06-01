@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import {
   ArrowLeft, Calculator, Sun, BookOpen, FileText, Zap, MapPin, Building,
   AlertTriangle, CheckCircle2, ScrollText, Scale, TrendingUp, BarChart3,
+  ChevronDown,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, LineChart, Line, BarChart, Bar,
@@ -28,6 +29,63 @@ import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
 function num(s: string, fallback: number): number {
   const n = Number(String(s).replace(/\s/g, "").replace(",", "."));
   return Number.isFinite(n) ? n : fallback;
+}
+
+/** v5 CEPHE 0: Drill-down accordion component.
+ *  Tüm bilgi kartları katmanlı — üst özet → tıkla → detay açılır.
+ */
+function DrillCard({
+  title,
+  summary,
+  detail,
+  tone = "amber",
+  defaultOpen = false,
+}: {
+  title: string;
+  summary: React.ReactNode;
+  detail: React.ReactNode;
+  tone?: "amber" | "cyan" | "emerald" | "violet";
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  const tones = {
+    amber: { border: "border-amber-400/30", bg: "bg-amber-500/5", text: "text-amber-300", hover: "hover:bg-amber-500/10" },
+    cyan: { border: "border-cyan-400/30", bg: "bg-cyan-500/5", text: "text-cyan-300", hover: "hover:bg-cyan-500/10" },
+    emerald: { border: "border-emerald-400/30", bg: "bg-emerald-500/5", text: "text-emerald-300", hover: "hover:bg-emerald-500/10" },
+    violet: { border: "border-violet-400/30", bg: "bg-violet-500/5", text: "text-violet-300", hover: "hover:bg-violet-500/10" },
+  };
+  const t = tones[tone];
+  const id = `drill-${title.replace(/\s+/g, "-").toLowerCase()}`;
+  return (
+    <div className={`rounded-lg border ${t.border} ${t.bg}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={id}
+        className={`w-full p-3 text-left ${t.hover} transition-colors min-h-[44px] flex items-start gap-2 cursor-pointer rounded-lg`}
+      >
+        <div className="flex-1 min-w-0">
+          <p className={`text-xs font-semibold ${t.text} mb-1 flex items-center gap-1.5`}>
+            {title}
+            <ChevronDown
+              className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+              aria-hidden
+            />
+          </p>
+          <div className="text-sm text-slate-300">{summary}</div>
+        </div>
+      </button>
+      {open ? (
+        <div
+          id={id}
+          className="px-3 pb-3 pt-1 text-xs text-slate-300 leading-relaxed border-t border-white/5"
+        >
+          {detail}
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 export default function GesAnalysisPage() {
@@ -266,63 +324,128 @@ export default function GesAnalysisPage() {
                 <BookOpen className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
                 <h2 className="text-base font-semibold text-white">GES nedir, neden Türkiye?</h2>
               </div>
+              {/* CEPHE 0 v5: tıklanabilir DrillCard accordion */}
               <div className="grid sm:grid-cols-3 gap-3 text-sm">
-                <div className="rounded-lg border border-amber-400/20 bg-amber-500/5 p-3">
-                  <p className="text-xs font-semibold text-amber-300 mb-1">Güneşlenme</p>
-                  <p className="text-slate-300">
-                    Türkiye yıllık <strong className="text-amber-200">2700+ saat</strong> güneşlenme,
-                    ortalama <strong>1.450 kWh/m²</strong> radyasyon — AB ortalamasının %35 üstü.
-                  </p>
-                </div>
-                <div className="rounded-lg border border-amber-400/20 bg-amber-500/5 p-3">
-                  <p className="text-xs font-semibold text-amber-300 mb-1">Üretim Kapasitesi</p>
-                  <p className="text-slate-300">
-                    1 kWp kurulu güç yıllık <strong className="text-amber-200">1.200-1.700 kWh</strong> üretir
-                    (bölge, eğim, gölgelenme bağlı).
-                  </p>
-                </div>
-                <div className="rounded-lg border border-amber-400/20 bg-amber-500/5 p-3">
-                  <p className="text-xs font-semibold text-amber-300 mb-1">Geri Dönüş</p>
-                  <p className="text-slate-300">
-                    Tipik geri ödeme <strong className="text-amber-200">4-6 yıl</strong>; panel teknik
-                    ömrü <strong>25-30 yıl</strong> garantili.
-                  </p>
-                </div>
+                <DrillCard
+                  title="Güneşlenme"
+                  tone="amber"
+                  summary={
+                    <p>
+                      Türkiye yıllık <strong className="text-amber-200">2700+ saat</strong> güneşlenme,
+                      ortalama <strong>1.450 kWh/m²</strong> radyasyon — AB ortalamasının %35 üstü.
+                    </p>
+                  }
+                  detail={
+                    <div className="space-y-1.5">
+                      <p>• <strong>En verimli bölgeler</strong>: Konya Karaman (1.900+ kWh/m²), Antalya, Şanlıurfa, Niğde, Aksaray.</p>
+                      <p>• <strong>Marmara/Karadeniz</strong>: 1.200-1.400 kWh/m² — orta verim, ekonomik fizibilite kontrol şart.</p>
+                      <p>• <strong>Eğim ve azimut</strong>: Türkiye için optimal eğim 25-32°, güney (180°). Sabit panel %92, tek eksen tracker %110-115 verim.</p>
+                      <p>• <strong>Kaynak</strong>: PVGIS (Avrupa Komisyonu açık veri) + MGM güneşlenme atlası.</p>
+                    </div>
+                  }
+                />
+                <DrillCard
+                  title="Üretim Kapasitesi"
+                  tone="amber"
+                  summary={
+                    <p>
+                      1 kWp kurulu güç yıllık <strong className="text-amber-200">1.200-1.700 kWh</strong> üretir
+                      (bölge, eğim, gölgelenme bağlı).
+                    </p>
+                  }
+                  detail={
+                    <div className="space-y-1.5">
+                      <p>• <strong>Yıllık kayıplar</strong>: gölgelenme %3-5, sıcaklık %5-8, kablo+inverter %3-5, kirlilik %2-3, mismatch %1-2. Toplam %15-23.</p>
+                      <p>• <strong>Performance Ratio (PR)</strong>: iyi sistemde 0.80-0.85; düşük sistemde 0.70 altı.</p>
+                      <p>• <strong>Degradasyon</strong>: yıllık %0.5-0.7 verim kaybı (Tier-1 panel garantisi 25 yıl %85+ üretim).</p>
+                      <p>• <strong>Hesaplama</strong>: kWp × GHI × PR = yıllık kWh (örn. 5000 kWp × 1780 × 0.78 = 6.94 GWh/yıl).</p>
+                    </div>
+                  }
+                />
+                <DrillCard
+                  title="Geri Dönüş"
+                  tone="amber"
+                  summary={
+                    <p>
+                      Tipik geri ödeme <strong className="text-amber-200">4-6 yıl</strong>; panel teknik
+                      ömrü <strong>25-30 yıl</strong> garantili.
+                    </p>
+                  }
+                  detail={
+                    <div className="space-y-1.5">
+                      <p>• <strong>Çatı GES (öz tüketim)</strong>: 3-5 yıl — sanayi/AVM tüketimine paralel üretim, hızlı mahsup.</p>
+                      <p>• <strong>Arazi GES (satış)</strong>: 5-8 yıl — şebekeye satış, YEKDEM tarife.</p>
+                      <p>• <strong>25 yıl sonrası kalan üretim</strong>: %85 (Tier-1 panel garantisi).</p>
+                      <p>• <strong>Risk faktörleri</strong>: elektrik fiyatı sapması, faiz/döviz, EPDK regülasyon değişimi.</p>
+                    </div>
+                  }
+                />
               </div>
             </CardContent>
           </Card>
 
+          {/* CEPHE 0 v5: Yatırım tipi kartları tıklanabilir DrillCard */}
           <div className="grid md:grid-cols-3 gap-3">
-            <Card className="card-luxury border-cyan-400/20">
-              <CardContent className="p-4">
-                <Building className="h-5 w-5 text-cyan-300 mb-2" />
-                <p className="text-sm font-semibold text-white">Çatı GES</p>
-                <p className="mt-1 text-xs text-slate-400">
+            <DrillCard
+              title="Çatı GES"
+              tone="cyan"
+              summary={
+                <p className="text-xs">
                   Konut/ticari çatılarda öz tüketim — şebeke desteği. 10 kWp altı bireysel,
                   500 kWp altı KOBİ. <strong className="text-cyan-300">Hızlı dönüş</strong> (3-5 yıl).
                 </p>
-              </CardContent>
-            </Card>
-            <Card className="card-luxury border-emerald-400/20">
-              <CardContent className="p-4">
-                <MapPin className="h-5 w-5 text-emerald-300 mb-2" />
-                <p className="text-sm font-semibold text-white">Arazi GES</p>
-                <p className="mt-1 text-xs text-slate-400">
+              }
+              detail={
+                <div className="space-y-1.5">
+                  <p>• <strong>CAPEX</strong>: ~400 USD/kWp (sandviç çatı, statik proje mevcut yapıyla).</p>
+                  <p>• <strong>Kurulum süresi</strong>: 50 kW 1 hafta, 1 MW 4-8 hafta.</p>
+                  <p>• <strong>Geri dönüş</strong>: 3-5 yıl (öz tüketim hızlı mahsup).</p>
+                  <p>• <strong>Alan ihtiyacı</strong>: 6.000-7.000 m²/MW (sandviç) → mevcut çatı kullanımı.</p>
+                  <p>• <strong>Hedef profil</strong>: yüksek tüketimli işletme (lojistik, soğuk hava, AVM, üretim).</p>
+                  <p>• <strong>Mahsuplaşma</strong>: 1 Mayıs 2026 saatlik mahsuplaşma (öz tüketim 4× çarpan kaldırıldı).</p>
+                </div>
+              }
+            />
+            <DrillCard
+              title="Arazi GES"
+              tone="emerald"
+              summary={
+                <p className="text-xs">
                   Marjinal tarım arazisi (İl Tarım onayı), boş arazi — büyük ölçek MW seviyesi.
                   <strong className="text-emerald-300"> 5 MW altı lisanssız</strong>.
                 </p>
-              </CardContent>
-            </Card>
-            <Card className="card-luxury border-violet-400/20">
-              <CardContent className="p-4">
-                <Zap className="h-5 w-5 text-violet-300 mb-2" />
-                <p className="text-sm font-semibold text-white">Otopark / Sera GES</p>
-                <p className="mt-1 text-xs text-slate-400">
+              }
+              detail={
+                <div className="space-y-1.5">
+                  <p>• <strong>Arazi tipi</strong>: Marjinal tarım arazisi raporu (İl Tarım Müdürlüğü) — mutlak tarım YASAK.</p>
+                  <p>• <strong>Alan ihtiyacı</strong>: 1 MW = 10.000 m² (12-15 dönüm), 1 dönüm = 60-80 kW.</p>
+                  <p>• <strong>CAPEX</strong>: 400-600 USD/kWp (YEKA-GES 126 USD/MWh referans tarife 2024).</p>
+                  <p>• <strong>Geri dönüş</strong>: 4-6 yıl (satış senaryosu).</p>
+                  <p>• <strong>UYARI</strong>: ENH (Enerji Nakil Hattı) trafo mesafesi kritik — uzak mesafe = ek CAPEX.</p>
+                  <p>• <strong>Lisans</strong>: 5 MW altı lisanssız (sadece EDAŞ bağlantı + çağrı mektubu), üstü EPDK lisansı + ÇED.</p>
+                </div>
+              }
+            />
+            <DrillCard
+              title="Otopark / Sera GES"
+              tone="violet"
+              summary={
+                <p className="text-xs">
                   AVM/sanayi otoparkı + sera çatısı çift kullanım. CAPEX yüksek ama imar ek hak.
                   <strong className="text-violet-300"> Hibrit gelir</strong>.
                 </p>
-              </CardContent>
-            </Card>
+              }
+              detail={
+                <div className="space-y-1.5">
+                  <p>• <strong>Otopark GES</strong>: AVM/sanayi/spor tesisi otoparkı — araç gölgelik + enerji üretimi çift kullanım.</p>
+                  <p>• <strong>Sera GES</strong>: sera çatısı yarı şeffaf panel — bitki üretimi + enerji simbiyoz.</p>
+                  <p>• <strong>CAPEX</strong>: 600-900 USD/kWp (sera özel cam panel + konstrüksiyon, otopark yüksek profil).</p>
+                  <p>• <strong>İmar avantajı</strong>: bazı belediyelerde ek inşaat hakkı (yenilenebilir teşvik).</p>
+                  <p>• <strong>Hibrit gelir</strong>: AVM otoparkında reklam gelirleri + elektrik üretimi + araç gölgelik premium.</p>
+                  <p>• <strong>Geri dönüş</strong>: 6-9 yıl (CAPEX yüksek ama paralel gelir hızlandırır).</p>
+                </div>
+              }
+            />
           </div>
 
           <Card className="card-luxury border-rose-500/30 bg-rose-950/30">
