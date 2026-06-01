@@ -224,6 +224,66 @@ export default function WarRoomPage() {
                   </p>
                 </div>
               </div>
+
+              {/* 3 deprem bölgesi karşılaştırma — Endeksa stili tablo */}
+              <div className="mt-4 rounded-lg border border-cyan-400/20 bg-slate-900/40 p-4">
+                <p className="text-xs font-semibold text-cyan-300 mb-3 flex items-center gap-1.5">
+                  🌍 3 Bölge Karşılaştırma — Aynı 1.000 m² yatırımı, farklı şehir
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs min-w-[480px]">
+                    <thead>
+                      <tr className="text-slate-500 border-b border-slate-700">
+                        <th className="text-left py-1.5 pr-2 font-medium">Bölge</th>
+                        <th className="text-right py-1.5 px-2 font-medium">Fay Uzak.</th>
+                        <th className="text-right py-1.5 px-2 font-medium">PGA</th>
+                        <th className="text-right py-1.5 px-2 font-medium">Zemin</th>
+                        <th className="text-right py-1.5 px-2 font-medium">Skor</th>
+                        <th className="text-right py-1.5 pl-2 font-medium">Sigorta/yıl</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-slate-300">
+                      <tr className="border-b border-slate-800/50">
+                        <td className="py-2 pr-2">
+                          <p className="text-white font-medium">İstanbul / Kadıköy</p>
+                          <p className="text-[10px] text-slate-500">Marmara fay yakın</p>
+                        </td>
+                        <td className="py-2 px-2 text-right text-amber-300">8 km</td>
+                        <td className="py-2 px-2 text-right text-rose-300">0.41g</td>
+                        <td className="py-2 px-2 text-right text-amber-200">ZD</td>
+                        <td className="py-2 px-2 text-right font-bold text-amber-300">61/100</td>
+                        <td className="py-2 pl-2 text-right text-rose-200">₺52K</td>
+                      </tr>
+                      <tr className="border-b border-slate-800/50">
+                        <td className="py-2 pr-2">
+                          <p className="text-white font-medium">İzmir / Karşıyaka</p>
+                          <p className="text-[10px] text-slate-500">Gediz çöküntüsü</p>
+                        </td>
+                        <td className="py-2 px-2 text-right text-amber-300">12 km</td>
+                        <td className="py-2 px-2 text-right text-amber-300">0.37g</td>
+                        <td className="py-2 px-2 text-right text-rose-200">ZE</td>
+                        <td className="py-2 px-2 text-right font-bold text-amber-300">58/100</td>
+                        <td className="py-2 pl-2 text-right text-rose-200">₺48K</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2 pr-2">
+                          <p className="text-white font-medium">Konya / Selçuklu</p>
+                          <p className="text-[10px] text-slate-500">Anadolu kratonu</p>
+                        </td>
+                        <td className="py-2 px-2 text-right text-emerald-300">85 km</td>
+                        <td className="py-2 px-2 text-right text-emerald-300">0.18g</td>
+                        <td className="py-2 px-2 text-right text-emerald-200">ZA</td>
+                        <td className="py-2 px-2 text-right font-bold text-emerald-300">87/100</td>
+                        <td className="py-2 pl-2 text-right text-emerald-200">₺18K</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-2 italic">
+                  Kaynak: AFAD risk haritası + TBDY-2018 + DASK tarife. Aynı m², farklı bölge — risk profili,
+                  inşaat maliyeti, sigorta primi tamamen değişir.
+                </p>
+              </div>
             </CardContent>
           </Card>
 

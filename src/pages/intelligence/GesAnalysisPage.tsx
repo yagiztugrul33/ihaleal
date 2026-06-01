@@ -448,6 +448,79 @@ export default function GesAnalysisPage() {
             />
           </div>
 
+          {/* 4 bölge GES ROI senaryosu — gerçek güneşlenme + tarife */}
+          <Card className="card-luxury border-amber-500/30">
+            <CardContent className="p-4">
+              <p className="text-sm font-semibold text-amber-300 mb-3 flex items-center gap-2">
+                ☀️ 4 Bölge ROI Senaryosu — 500 kW çatı GES, aynı yatırım farklı şehir
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs min-w-[560px]">
+                  <thead>
+                    <tr className="text-slate-500 border-b border-slate-700">
+                      <th className="text-left py-1.5 pr-2 font-medium">Şehir</th>
+                      <th className="text-right py-1.5 px-2 font-medium">Güneşlenme</th>
+                      <th className="text-right py-1.5 px-2 font-medium">Yıllık Üretim</th>
+                      <th className="text-right py-1.5 px-2 font-medium">Gelir/yıl</th>
+                      <th className="text-right py-1.5 px-2 font-medium">CAPEX</th>
+                      <th className="text-right py-1.5 pl-2 font-medium">Geri Dönüş</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-slate-300">
+                    <tr className="border-b border-slate-800/50">
+                      <td className="py-2 pr-2">
+                        <p className="text-white font-medium">Konya</p>
+                        <p className="text-[10px] text-slate-500">Anadolu yüksek</p>
+                      </td>
+                      <td className="py-2 px-2 text-right text-emerald-300">1.700 kWh/m²</td>
+                      <td className="py-2 px-2 text-right text-emerald-300">850 MWh</td>
+                      <td className="py-2 px-2 text-right font-bold text-emerald-300">₺2.5M</td>
+                      <td className="py-2 px-2 text-right">₺8M</td>
+                      <td className="py-2 pl-2 text-right text-emerald-200 font-semibold">3.2 yıl</td>
+                    </tr>
+                    <tr className="border-b border-slate-800/50">
+                      <td className="py-2 pr-2">
+                        <p className="text-white font-medium">Antalya</p>
+                        <p className="text-[10px] text-slate-500">Akdeniz</p>
+                      </td>
+                      <td className="py-2 px-2 text-right text-emerald-300">1.650 kWh/m²</td>
+                      <td className="py-2 px-2 text-right text-emerald-300">825 MWh</td>
+                      <td className="py-2 px-2 text-right font-bold text-emerald-300">₺2.4M</td>
+                      <td className="py-2 px-2 text-right">₺8.2M</td>
+                      <td className="py-2 pl-2 text-right text-emerald-200 font-semibold">3.4 yıl</td>
+                    </tr>
+                    <tr className="border-b border-slate-800/50">
+                      <td className="py-2 pr-2">
+                        <p className="text-white font-medium">İzmir</p>
+                        <p className="text-[10px] text-slate-500">Ege</p>
+                      </td>
+                      <td className="py-2 px-2 text-right text-amber-300">1.500 kWh/m²</td>
+                      <td className="py-2 px-2 text-right text-amber-300">750 MWh</td>
+                      <td className="py-2 px-2 text-right font-bold text-amber-300">₺2.2M</td>
+                      <td className="py-2 px-2 text-right">₺8M</td>
+                      <td className="py-2 pl-2 text-right text-amber-200 font-semibold">3.6 yıl</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 pr-2">
+                        <p className="text-white font-medium">İstanbul</p>
+                        <p className="text-[10px] text-slate-500">Marmara</p>
+                      </td>
+                      <td className="py-2 px-2 text-right text-cyan-300">1.380 kWh/m²</td>
+                      <td className="py-2 px-2 text-right text-cyan-300">690 MWh</td>
+                      <td className="py-2 px-2 text-right font-bold text-cyan-300">₺2.0M</td>
+                      <td className="py-2 px-2 text-right">₺8.4M</td>
+                      <td className="py-2 pl-2 text-right text-cyan-200 font-semibold">4.2 yıl</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-[10px] text-slate-500 mt-2 italic">
+                * CAPEX bölgesel kurulum maliyeti (USD/kWp × kur + lojistik). Gelir 2026 saatlik mahsuplaşma + öz tüketim
+                karması varsayımı. Güneşlenme: PVGIS / MGM ortalama (2015-2024 normali).
+              </p>
+            </CardContent>
+          </Card>
+
           <Card className="card-luxury border-rose-500/30 bg-rose-950/30">
             <CardContent className="p-4 flex items-start gap-3">
               <AlertTriangle className="h-5 w-5 text-rose-300 flex-shrink-0 mt-0.5" />
