@@ -232,6 +232,32 @@ export default function PaymentStartPage() {
               </ul>
             </div>
 
+            {/* Apple App Store Review 5.1.1 + Google Play uyumlu — auto-renewal disclosure */}
+            <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-2 text-xs" data-testid="auto-renewal-disclosure">
+              <p className="font-semibold text-amber-200 flex items-center gap-1.5">
+                <CreditCard className="h-3.5 w-3.5" /> Otomatik Yenileme ve İptal
+              </p>
+              <ul className="space-y-1.5 text-slate-300 leading-relaxed">
+                <li>
+                  <strong className="text-amber-100">Yenileme:</strong> Abonelik <strong className="text-white">{cycle === "yearly" ? "yıllık" : "aylık"}</strong> dönemin sonunda <strong className="text-white">otomatik yenilenir</strong>.
+                  Yenileme tarihinden 7 gün önce e-posta bildirimi gönderilir.
+                </li>
+                <li>
+                  <strong className="text-amber-100">İptal:</strong> İstediğiniz zaman iptal edebilirsiniz.
+                  <strong className="text-white"> Web</strong>: Üyeliğim → "Aboneliği iptal et".
+                  <strong className="text-white"> iOS</strong>: Ayarlar → Apple ID → Abonelikler.
+                  <strong className="text-white"> Android</strong>: Google Play → Profil → Abonelikler.
+                </li>
+                <li>
+                  <strong className="text-amber-100">İade:</strong> İlk 14 gün içinde tam iade (TKHK m. 48 cayma).
+                  Aktif dönem bitimine kadar paket özellikleri açık kalır.
+                </li>
+              </ul>
+              <p className="text-[10px] text-slate-500 italic pt-2 border-t border-amber-500/20">
+                Mevzuat: 6502 TKHK m. 48 + KVKK 6698 + 6493 Ödeme + Apple/Google mağaza şartları (mobil).
+              </p>
+            </div>
+
             <button
               type="button"
               onClick={() => navigate("/iletisim")}
