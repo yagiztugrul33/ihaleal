@@ -125,25 +125,27 @@ export default function LiveAuctions() {
 
   return (
     <div className="min-h-screen pt-16" style={{ background: "var(--color-bg)" }}>
-      <section className="hero-warm py-16 md:py-22">
+      {/* BLOK E — BLOOMBERG BORSA TERMİNALİ ÜSTE (above hero) — ilk göz önce bunu görür */}
+      <BorsaTerminali catalog={catalog} liveCount={liveCount} />
+
+      {/* Eski hero — kompakt, terminale göre destekleyici banner şeklinde */}
+      <section className="border-t border-slate-800/50 py-8 md:py-12" style={{ background: "var(--color-bg)" }}>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <div className="mb-6 flex justify-center">
+          <div className="mb-3 flex justify-center">
             <span className="badge-corp">
               {liveCount > 0 ? `${liveCount.toLocaleString("tr-TR")} canlı ihale` : "Canlı İhaleler"}
             </span>
           </div>
 
           <h1
-            className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+            className="text-2xl font-bold leading-tight tracking-tight sm:text-3xl md:text-4xl"
             style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}
           >
-            Gerçek piyasa,
-            <br />
-            <span style={{ color: "var(--color-primary)" }}>gerçek fiyat.</span>
+            Gerçek piyasa, <span style={{ color: "var(--color-primary)" }}>gerçek fiyat.</span>
           </h1>
 
           <p
-            className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed sm:text-lg md:text-xl"
+            className="mx-auto mt-3 max-w-2xl text-pretty text-sm leading-relaxed sm:text-base"
             style={{ color: "var(--color-text-muted)" }}
           >
             İhaleal Endeks&apos;i ile teklif yoğunluğunu, bölge fiyat aralığını ve AI destekli
@@ -151,7 +153,7 @@ export default function LiveAuctions() {
             koruması.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <a href="#auctions" className="btn-primary">
               Canlı İhaleleri Gör
             </a>
@@ -161,7 +163,7 @@ export default function LiveAuctions() {
           </div>
 
           <p
-            className="mx-auto mt-12 max-w-xl text-xs leading-relaxed sm:text-sm"
+            className="mx-auto mt-5 max-w-xl text-[11px] leading-relaxed"
             style={{ color: "var(--color-text-light)" }}
           >
             * Gösterilen veriler bilgilendirme amaçlıdır. Yatırım kararları için profesyonel
@@ -169,9 +171,6 @@ export default function LiveAuctions() {
           </p>
         </div>
       </section>
-
-      {/* CEPHE 2 v4 — BLOOMBERG BORSA TERMİNALİ */}
-      <BorsaTerminali catalog={catalog} liveCount={liveCount} />
 
       {/* Dalga 2-6: hero altı yatay kart vitrinleri */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
