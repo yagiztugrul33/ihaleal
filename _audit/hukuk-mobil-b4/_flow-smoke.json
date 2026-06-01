@@ -1,0 +1,50 @@
+[
+  {
+    "path": "/ihaleler",
+    "name": "ihaleler-bloomberg",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "path": "/yasal",
+    "name": "yasal-hub",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "path": "/arastirma/hukuki-cozucu",
+    "name": "hukuki-cozucu",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "path": "/yasal/sablonlar",
+    "name": "sablonlar",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "path": "/yasal/risk-uyarilari",
+    "name": "risk",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "path": "/gizlilik",
+    "name": "gizlilik",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "path": "/mesafeli-satis-sozlesmesi",
+    "name": "mesafeli",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "path": "/odeme/baslat?paket=yatirimci&periyot=monthly",
+    "name": "odeme-auto-renewal",
+    "status": 200,
+    "pass": true
+  }
+]
