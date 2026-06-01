@@ -1,0 +1,170 @@
+[
+  {
+    "vp": "320",
+    "route": "/fiyatlandirma",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "320",
+    "route": "/uyelik",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "320",
+    "route": "/odeme/baslat?paket=yatirimci&periyot=monthly",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "320",
+    "route": "/arastirma/hukuki-cozucu",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "320",
+    "route": "/ihaleler",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "320",
+    "route": "/yasal",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "320",
+    "route": "/gizlilik",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "320",
+    "route": "/raporlar",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/fiyatlandirma",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/uyelik",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/odeme/baslat?paket=yatirimci&periyot=monthly",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/arastirma/hukuki-cozucu",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/ihaleler",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/yasal",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/gizlilik",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "375",
+    "route": "/raporlar",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/fiyatlandirma",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/uyelik",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/odeme/baslat?paket=yatirimci&periyot=monthly",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/arastirma/hukuki-cozucu",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/ihaleler",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/yasal",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/gizlilik",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  },
+  {
+    "vp": "430",
+    "route": "/raporlar",
+    "status": 200,
+    "overflowPx": 0,
+    "errCount": 0
+  }
+]
