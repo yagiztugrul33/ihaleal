@@ -234,8 +234,11 @@ export default defineConfig({
     esbuild: isCiBuild ? {} : { drop: ["console", "debugger"] },
     cssMinify: true,
     cssCodeSplit: true,
-    assetsInlineLimit: 4096,
+    // CEPHE 1 v5: 8KB altı asset'leri base64 inline (HTTP round-trip azalt — LCP/FCP)
+    assetsInlineLimit: 8192,
     sourcemap: false,
+    // Modulepreload otomatik — chunk graph preload (FCP iyileştirir)
+    modulePreload: { polyfill: false },
     rollupOptions: {
       output: {
         manualChunks(id: string) {

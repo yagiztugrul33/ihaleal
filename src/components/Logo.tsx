@@ -78,6 +78,8 @@ export function Logo({
       data-testid="logo-image"
       loading="eager"
       decoding="async"
+      // CEPHE 1 v5: LCP optimizasyon — kritik kaynak fetchpriority high
+      fetchPriority="high"
       draggable={false}
       width={dim}
       height={dim}
