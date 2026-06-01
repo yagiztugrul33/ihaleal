@@ -1,4 +1,24 @@
 /* IHALEAL global dark theme — all pages */
+
+/* GECE-BATCH BLOK A2: Touch target accessibility — WCAG AA 44x44px minimum.
+ * Tüm interaktif elementler için min-h-[44px] garanti. Kullanıcı tabletinde
+ * mobilinde rahat dokunabilir. Chip+küçük butonlar için padding artışı. */
+button:not([class*="size-icon"]):not([class*="h-6"]):not([class*="h-7"]):not([class*="h-8"]):not([class*="h-9"]):not([class*="h-10"]):not([class*="h-11"]):not([class*="h-12"]):not([class*="size-9"]):not([class*="size-10"]):not([class*="size-11"]):not([class*="size-12"]):not([data-skip-min]),
+a[role="button"]:not([data-skip-min]),
+[role="button"]:not([data-skip-min]) {
+  min-height: 44px;
+}
+
+/* Klavye odak: tüm interaktif element için belirgin halka */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 :root {
   --bg-base: #0a0e1a;
   --bg-elevated: #0f1729;

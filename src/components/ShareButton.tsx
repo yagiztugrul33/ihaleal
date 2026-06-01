@@ -47,7 +47,11 @@ export function ShareButton({ title, url }: ShareButtonProps) {
   return (
     <div className="relative">
       <button
+        type="button"
         onClick={() => setOpen(!open)}
+        aria-label="İlanı paylaş"
+        aria-haspopup="menu"
+        aria-expanded={open}
         className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-500 hover:text-slate-900 transition-all"
       >
         <Share2 className="w-4 h-4" />
@@ -66,7 +70,12 @@ export function ShareButton({ title, url }: ShareButtonProps) {
           <div className="absolute right-0 top-full mt-2 w-72 p-4 rounded-2xl bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-semibold text-white">Paylaş</h4>
-              <button onClick={() => setOpen(false)} className="text-slate-500 hover:text-white">
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Paylaş menüsünü kapat"
+                className="text-slate-500 hover:text-white"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
