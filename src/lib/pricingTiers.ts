@@ -223,51 +223,9 @@ export const ONE_OFF_LABELS: Record<OneOffSku, string> = {
   featured_auction: "Öne çıkan ihale (vitrin)",
 };
 
-/** Komisyon kademeli — satış değerine göre */
-export interface CommissionBracket {
-  /** Üst sınır (TL). undefined ise sonsuz. */
-  maxTry?: number;
-  /** Yüzde (0.03 = %3) */
-  rate: number;
-  label: string;
-}
-
-export const COMMISSION_BRACKETS: readonly CommissionBracket[] = [
-  { maxTry: 3_000_000, rate: 0.03, label: "₺0 – ₺3M arası" },
-  { maxTry: 10_000_000, rate: 0.025, label: "₺3M – ₺10M arası" },
-  { rate: 0.02, label: "₺10M+ üzeri" },
-] as const;
-
-/** Kademeli komisyon hesapla (her dilim için kendi oranı) */
-export function calcCommission(saleTry: number): {
-  total: number;
-  breakdown: Array<{ label: string; from: number; to: number; rate: number; amount: number }>;
-} {
-  let remaining = Math.max(0, saleTry);
-  let cursor = 0;
-  let total = 0;
-  const breakdown: Array<{ label: string; from: number; to: number; rate: number; amount: number }> = [];
-  for (const bracket of COMMISSION_BRACKETS) {
-    if (remaining <= 0) break;
-    const segmentTop = bracket.maxTry ?? Infinity;
-    const segmentSize = segmentTop - cursor;
-    const portion = Math.min(remaining, segmentSize);
-    const amount = Math.round(portion * bracket.rate);
-    if (portion > 0) {
-      breakdown.push({
-        label: bracket.label,
-        from: cursor,
-        to: cursor + portion,
-        rate: bracket.rate,
-        amount,
-      });
-      total += amount;
-    }
-    cursor += portion;
-    remaining -= portion;
-  }
-  return { total, breakdown };
-}
+// Komisyon merkezi: fees.ts (tek kaynak). %2 alıcı + %2 satıcı + KDV (Taşınmaz Ticareti
+// Yönetmeliği toplam %4 yasal üst sınır). Kademeli komisyon modeli kaldırıldı (2026-06-01).
+// UI komisyon hesabı için: import { calcCommissionBreakdown } from "@/lib/fees";
 
 /** Tier'a göre özellik kilidini sorgula (premium-gate yardımcısı) */
 export function isFeatureUnlocked(

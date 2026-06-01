@@ -1,13 +1,18 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, Calculator, BookOpen, ScrollText, Shield, Info, CheckCircle2,
+  ArrowLeft, Calculator, BookOpen, ScrollText, Info, CheckCircle2,
   TrendingUp, Wallet, Scale, Percent,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { calcCommission, COMMISSION_BRACKETS, formatTry } from "@/lib/pricingTiers";
+import {
+  calcCommissionBreakdown,
+  COMMISSION_RATE,
+  VAT_RATE,
+} from "@/lib/fees";
+import { formatTry } from "@/lib/pricingTiers";
 
 export default function CommissionPage() {
   const navigate = useNavigate();
@@ -15,8 +20,12 @@ export default function CommissionPage() {
   const [bondPct, setBondPct] = useState(5);
 
   const saleTry = useMemo(() => Math.max(0, Number(saleStr.replace(/\D/g, "")) || 0), [saleStr]);
-  const result = useMemo(() => calcCommission(saleTry), [saleTry]);
+  const result = useMemo(() => calcCommissionBreakdown(saleTry), [saleTry]);
   const bondAmount = Math.round((saleTry * bondPct) / 100);
+  const commissionPct = (COMMISSION_RATE * 100).toFixed(0); // %2
+  const totalPct = (COMMISSION_RATE * 2 * 100).toFixed(0);  // %4
+  const vatPct = (VAT_RATE * 100).toFixed(0);               // %20
+  const grandTotal = result.totalCommission + result.totalVAT;
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 text-white">
@@ -36,7 +45,8 @@ export default function CommissionPage() {
             Komisyon Hesabı + Teminat Blokajı
           </h1>
           <p className="mt-1 text-sm text-slate-400 max-w-2xl">
-            Satış tutarına göre kademeli komisyon — şeffaf, sabit, KDV dahil değil. Ek olarak ihale teminat blokajı (provizyon).
+            %{commissionPct} alıcı + %{commissionPct} satıcı = toplam %{totalPct} (KDV hariç matrah). KDV %{vatPct} komisyon
+            üzerine ayrıca faturalanır. Ek olarak ihale teminat blokajı (provizyon).
           </p>
         </div>
 
@@ -47,19 +57,31 @@ export default function CommissionPage() {
             <h2 className="text-base font-semibold text-white">Komisyon nasıl çalışıyor?</h2>
           </div>
           <p className="text-sm text-slate-300 leading-relaxed mb-3">
-            İhaleal komisyonu <strong className="text-cyan-200">kademeli</strong> hesaplanır — toplam tutar üzerinden tek
-            yüksek oran değil, her dilim için kendi oranı. Bu sayede yüksek değerli işlemler daha düşük marjinal
-            oranla biter (Endeksa / Sahibinden modelinin aksine).
+            İhaleal komisyonu <strong className="text-cyan-200">tek oran, sabit ve şeffaf</strong>:
+            alıcı ve satıcı her biri satış bedelinin %{commissionPct}'sini öder (toplam %{totalPct}).
+            Yasal üst sınır <strong className="text-cyan-200">Taşınmaz Ticareti Yönetmeliği md.20'ye göre toplam %{totalPct}
+            (KDV hariç)</strong> — model tam tavanda. KDV %{vatPct} komisyon üzerine ayrıca
+            tahakkuk eder ve faturada ayrı kalem olarak gösterilir.
           </p>
           <div className="grid sm:grid-cols-3 gap-3 text-xs">
-            {COMMISSION_BRACKETS.map((b, i) => (
-              <div key={i} className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1">
-                  <Percent className="h-3 w-3" /> {(b.rate * 100).toFixed(1)}%
-                </p>
-                <p className="text-slate-300">{b.label}</p>
-              </div>
-            ))}
+            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1">
+                <Percent className="h-3 w-3" /> %{commissionPct}
+              </p>
+              <p className="text-slate-300">Alıcı komisyonu (satış bedelinden)</p>
+            </div>
+            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1">
+                <Percent className="h-3 w-3" /> %{commissionPct}
+              </p>
+              <p className="text-slate-300">Satıcı komisyonu (satış bedelinden)</p>
+            </div>
+            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1">
+                <Percent className="h-3 w-3" /> %{vatPct}
+              </p>
+              <p className="text-slate-300">KDV (komisyon üzerine, faturada ayrı)</p>
+            </div>
           </div>
         </div>
 
@@ -116,30 +138,44 @@ export default function CommissionPage() {
                 <span className="text-white font-semibold">{formatTry(saleTry)}</span>
               </div>
 
-              {result.breakdown.length > 0 && (
-                <div className="border-t border-slate-700 pt-3 space-y-2">
-                  <p className="text-xs text-emerald-300 font-semibold mb-1">Kademeli Komisyon Dökümü</p>
-                  {result.breakdown.map((b, i) => (
-                    <div key={i} className="text-xs flex justify-between border-b border-slate-800 pb-1.5 last:border-0">
-                      <div>
-                        <p className="text-slate-300">{b.label}</p>
-                        <p className="text-[10px] text-slate-500">
-                          {formatTry(b.from)} → {formatTry(b.to)} × {(b.rate * 100).toFixed(1)}%
-                        </p>
-                      </div>
-                      <p className="text-white font-mono">{formatTry(b.amount)}</p>
-                    </div>
-                  ))}
+              <div className="border-t border-slate-700 pt-3 space-y-2">
+                <p className="text-xs text-emerald-300 font-semibold mb-1">Komisyon Dökümü</p>
+                <div className="text-xs flex justify-between border-b border-slate-800 pb-1.5">
+                  <div>
+                    <p className="text-slate-300">Satıcı komisyonu</p>
+                    <p className="text-[10px] text-slate-500">{formatTry(saleTry)} × %{commissionPct}</p>
+                  </div>
+                  <p className="text-white font-mono">{formatTry(result.sellerCommission)}</p>
                 </div>
-              )}
+                <div className="text-xs flex justify-between border-b border-slate-800 pb-1.5">
+                  <div>
+                    <p className="text-slate-300">Alıcı komisyonu</p>
+                    <p className="text-[10px] text-slate-500">{formatTry(saleTry)} × %{commissionPct}</p>
+                  </div>
+                  <p className="text-white font-mono">{formatTry(result.buyerCommission)}</p>
+                </div>
+                <div className="text-xs flex justify-between pb-1.5">
+                  <div>
+                    <p className="text-slate-300">KDV (%{vatPct})</p>
+                    <p className="text-[10px] text-slate-500">Komisyon üzerine ayrı fatura</p>
+                  </div>
+                  <p className="text-white font-mono">{formatTry(result.totalVAT)}</p>
+                </div>
+              </div>
 
               <div className="border-t border-emerald-500/30 pt-3 flex justify-between items-baseline">
-                <span className="text-emerald-300 font-semibold">Toplam Komisyon</span>
-                <span className="text-2xl font-bold text-emerald-300">{formatTry(result.total)}</span>
+                <span className="text-emerald-300 font-semibold">Toplam Komisyon (KDV hariç)</span>
+                <span className="text-2xl font-bold text-emerald-300">{formatTry(result.totalCommission)}</span>
+              </div>
+
+              <div className="flex justify-between items-baseline">
+                <span className="text-emerald-200 font-semibold">Toplam (KDV dahil)</span>
+                <span className="text-xl font-bold text-emerald-200">{formatTry(grandTotal)}</span>
               </div>
 
               <p className="text-[11px] text-slate-500 text-right">
-                Efektif oran: %{saleTry > 0 ? ((result.total / saleTry) * 100).toFixed(2) : "0.00"}
+                Efektif oran: %{saleTry > 0 ? ((result.totalCommission / saleTry) * 100).toFixed(2) : "0.00"} (matrah) +
+                KDV %{saleTry > 0 ? ((result.totalVAT / saleTry) * 100).toFixed(2) : "0.00"}
               </p>
 
               <div className="border-t border-slate-700 pt-3 flex justify-between items-baseline">
@@ -170,14 +206,14 @@ export default function CommissionPage() {
               <tbody className="text-slate-300">
                 <tr className="border-b border-slate-800/50">
                   <td className="py-2 pr-2 font-semibold text-emerald-300">İhaleal (bizim)</td>
-                  <td className="py-2 px-2 text-right text-emerald-200">Kademeli %3 / %2.5 / %2</td>
-                  <td className="py-2 px-2 text-right text-emerald-200">Komisyon yok</td>
-                  <td className="py-2 pl-2 text-right text-emerald-200">✅ Açık tablo</td>
+                  <td className="py-2 px-2 text-right text-emerald-200">%{commissionPct} sabit</td>
+                  <td className="py-2 px-2 text-right text-emerald-200">%{commissionPct} sabit</td>
+                  <td className="py-2 pl-2 text-right text-emerald-200">✅ Tek oran, KDV ayrı</td>
                 </tr>
                 <tr className="border-b border-slate-800/50">
                   <td className="py-2 pr-2">Geleneksel Emlakçı</td>
-                  <td className="py-2 px-2 text-right">%2-3 (sabit)</td>
-                  <td className="py-2 px-2 text-right">%2-3 (sabit)</td>
+                  <td className="py-2 px-2 text-right">%2-3 (pazarlık)</td>
+                  <td className="py-2 px-2 text-right">%2-3 (pazarlık)</td>
                   <td className="py-2 pl-2 text-right">⚠️ Pazarlık</td>
                 </tr>
                 <tr className="border-b border-slate-800/50">
@@ -214,11 +250,15 @@ export default function CommissionPage() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span><strong className="text-emerald-200">KDV ek</strong> — komisyon üzerine %20 KDV (faturada ayrıca gösterilir).</span>
+                <span><strong className="text-emerald-200">KDV ayrı</strong> — komisyon matrah, KDV %{vatPct} üzerine; faturada ayrı kalem.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span><strong className="text-emerald-200">Pazarlık yok</strong> — tüm kullanıcılara aynı kademeli oran.</span>
+                <span><strong className="text-emerald-200">Pazarlık yok</strong> — tüm kullanıcılara aynı sabit %{commissionPct}+%{commissionPct} oran.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                <span><strong className="text-emerald-200">Yasal tavanda</strong> — toplam %{totalPct} matrah, Taşınmaz Ticareti Yönetmeliği üst sınırı.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
@@ -233,6 +273,9 @@ export default function CommissionPage() {
               <h3 className="text-base font-semibold text-white">Yasal Çerçeve</h3>
             </div>
             <ul className="space-y-2 text-xs text-slate-300">
+              <li>
+                <strong className="text-violet-200">Taşınmaz Ticareti Yönetmeliği md.20:</strong> Emlak komisyonu toplam %{totalPct} (KDV hariç) yasal üst sınır — alıcı-satıcı eşit paylaşım.
+              </li>
               <li>
                 <strong className="text-violet-200">6502 TKHK m. 35:</strong> Tüketici komisyon bilgisi açık ve önceden.
               </li>
