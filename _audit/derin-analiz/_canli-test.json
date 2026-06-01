@@ -1,0 +1,60 @@
+{
+  "ts": "2026-06-01T16:56:54.610Z",
+  "tests": [
+    {
+      "url": "https://www.ihaleal.com/ilanlar",
+      "finalUrl": "https://www.ihaleal.com/auctions",
+      "http": 200,
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "auctionCards": 0,
+      "bodyTextStart": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giriş Kayıt Ol Canlı İha",
+      "has404": false,
+      "consoleErrors": [],
+      "networkErrors": [],
+      "supabaseCalls": [
+        {
+          "url": "https://wsjifesrdaeorrdzbvmk.supabase.co/rest/v1/auctions?select=id%2Cstatus%2Cstarts_at%2Cends_at%2Ccurrent_high_bid_try%2Clistings%28id%2Ctitle%2Cbo",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "url": "https://www.ihaleal.com/ihaleler",
+      "finalUrl": "https://www.ihaleal.com/ihaleler",
+      "http": 200,
+      "title": "İhaleler — ihaleal.com",
+      "auctionCards": 19,
+      "bodyTextStart": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giriş Kayıt Ol Borsa ter",
+      "has404": false,
+      "consoleErrors": [],
+      "networkErrors": [],
+      "supabaseCalls": [
+        {
+          "url": "https://wsjifesrdaeorrdzbvmk.supabase.co/rest/v1/auctions?select=id%2Cstatus%2Cstarts_at%2Cends_at%2Ccurrent_high_bid_try%2Clistings%28id%2Ctitle%2Cbo",
+          "status": 200
+        },
+        {
+          "url": "https://wsjifesrdaeorrdzbvmk.supabase.co/rest/v1/auctions?select=id%2Cstatus%2Cstarts_at%2Cends_at%2Ccurrent_high_bid_try%2Clistings%28id%2Ctitle%2Cbo",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "url": "https://www.ihaleal.com/auctions",
+      "finalUrl": "https://www.ihaleal.com/auctions",
+      "http": 200,
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "auctionCards": 0,
+      "bodyTextStart": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giriş Kayıt Ol Canlı İha",
+      "has404": false,
+      "consoleErrors": [],
+      "networkErrors": [],
+      "supabaseCalls": [
+        {
+          "url": "https://wsjifesrdaeorrdzbvmk.supabase.co/rest/v1/auctions?select=id%2Cstatus%2Cstarts_at%2Cends_at%2Ccurrent_high_bid_try%2Clistings%28id%2Ctitle%2Cbo",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

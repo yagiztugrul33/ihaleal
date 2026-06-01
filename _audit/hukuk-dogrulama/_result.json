@@ -1,0 +1,192 @@
+{
+  "ts": "2026-06-01T17:11:43.269Z",
+  "tests": {
+    "hub": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/yasal",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": true,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "kvkk": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/kvkk",
+      "title": "KVKK aydınlatma — ihaleal.com",
+      "charLen": 1500,
+      "hasAvukat": false,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "gizlilik": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/gizlilik",
+      "title": "Gizlilik politikası — ihaleal.com",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "cerez": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/cerez-politikasi",
+      "title": "Çerez politikası — ihaleal.com",
+      "charLen": 1500,
+      "hasAvukat": false,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "kullanim": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/kullanim-kosullari",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "mesafeli": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/mesafeli-satis-sozlesmesi",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": true,
+      "has5070": true,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "aydinlatma": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/aydinlatma-metni",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": true,
+      "has5070": true,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "ihaleKosul": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/ihale-kosullari",
+      "title": "İhale koşulları ve komisyon — ihaleal.com",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "iadeIptal": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/iade-iptal",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": true,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "hukukiCozucu": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/arastirma/hukuki-cozucu",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "riskUyari": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/yasal/risk-uyarilari",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    },
+    "sablonlar": {
+      "http": 200,
+      "finalUrl": "https://www.ihaleal.com/yasal/sablonlar",
+      "title": "ihaleal.com — Yapay zeka destekli gayrimenkul platformu",
+      "charLen": 1500,
+      "hasAvukat": true,
+      "hasIade": false,
+      "has5070": false,
+      "has404": false,
+      "preview": "Demo modu: gerçek tahsilat yok, ihaleler test amaçlı · ödeme demo · yalnızca Supabase oturumu. TÜRKİYE'NİN GAYRİMENKUL BORSASI ihaleal.com — Türkiye'nin Gayrimenkul Borsası İhaleler Nasıl Çalışır Hizmetler Kaynaklar Kurumsal 1 çevrimiçi İhale, lokasyon ara… ⌘K TR Borsaya Gir Giri",
+      "errs": []
+    }
+  },
+  "cozucu": {
+    "allButtons": 68,
+    "headings": [
+      "Hukuki Senaryo Çözücü",
+      "Senaryo Çözücü ne işe yarar?",
+      "10 Senaryo — Bir tanesini seç",
+      "Parayı Ebeveyn Veriyor, Tapu Çocuk Adına",
+      "Miras Yoluyla Geçen Gayrimenkulün Paylaşımı",
+      "Hisseli Tapu — İzale-i Şuyu (Ortaklığın Giderilmesi)",
+      "Eşler Arası Devir / Boşanmada Mülk Paylaşımı",
+      "Vekaletname ile Gayrimenkul Satışı",
+      "Yabancı Uyruklu Kişiye Mülk Satışı",
+      "İpotekli veya Hacizli Mülk Satışı",
+      "Ölünceye Kadar Bakma Sözleşmesi",
+      "Kat Karşılığı İnşaat Sözleşmesi",
+      "Mülkün Şirket Üzerinden Alım/Satımı"
+    ],
+    "textLen": 4095,
+    "has_para_baba": true,
+    "has_miras": true,
+    "has_ipotek": true,
+    "has_disclaimer": false
+  },
+  "sablonlar": {
+    "downloadBtns": 0,
+    "onizleBtns": 7,
+    "headings": [
+      "Şablon kütüphanesi nedir?",
+      "İhale Katılım Sözleşmesi",
+      "Gayrimenkul Satış Vaadi Sözleşmesi",
+      "Kaparo / Ön Protokol",
+      "Mirasçı Muvafakatname (örnek)",
+      "Vekaletname Kontrol Listesi",
+      "Bağışlama Sözleşmesi (Bilgi Notu)",
+      "Fiil Ehliyeti / Sağlık Kurulu Raporu (Yaşlı Satışı)",
+      "Avukat onayı + özel hazırlık",
+      "Yasal Uyarı (Disclaimer)",
+      "Platform",
+      "Araclar",
+      "Kurumsal & Hukuki",
+      "Bulten"
+    ]
+  }
+}
