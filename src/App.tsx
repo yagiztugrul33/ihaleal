@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { LocaleProvider } from "@/contexts/LocaleContext";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { Layout } from "@/components/Layout";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
@@ -205,6 +206,7 @@ const GesAnaliziModulPage   = lazy(() => import("@/pages/modules/GesAnaliziModul
 function App() {
   return (
     <LocaleProvider>
+    <CurrencyProvider>
     <AuthProvider>
     <BrowserRouter>
       <ErrorBoundary>
@@ -563,6 +565,7 @@ function App() {
       <InstallPrompt />
     </BrowserRouter>
     </AuthProvider>
+    </CurrencyProvider>
     </LocaleProvider>
   );
 }

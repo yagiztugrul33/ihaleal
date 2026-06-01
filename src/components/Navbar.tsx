@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/messages";
 import { OnlinePresenceBadge } from "@/components/presence/OnlinePresenceBadge";
+import { CurrencySelector } from "@/components/CurrencySelector";
 
 function NavDropdown({
   label,
@@ -308,6 +309,8 @@ export function Navbar() {
               <span className="flex-1 truncate">{n.search}</span>
               <kbd className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
             </button>
+            {/* Para birimi seçici — TRY/USD/EUR/GBP (tahsilat ₺) */}
+            <CurrencySelector />
             <div className="relative">
               <button
                 type="button"

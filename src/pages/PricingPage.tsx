@@ -11,6 +11,7 @@ import {
   formatTry, YEARLY_DISCOUNT_RATE,
   EARLY_MEMBER_ACTIVE, EARLY_MEMBER_LABEL, EARLY_MEMBER_NOTE,
 } from "@/lib/pricingTiers";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 /** Tier rengi → tailwind sınıfları */
 function accentClasses(accent: PricingTier["accent"]) {
@@ -84,6 +85,10 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
     ? Math.round(effectivePrice / 12)
     : null;
   const daily = dailyEquivalent(tier, cycle);
+  // Çoklu kur referans gösterim — TAHSILAT ₺, gösterim seçili kurda "≈"
+  const { currency, formatFromTry } = useCurrency();
+  const showFx = currency !== "TRY" && effectivePrice > 0;
+  const fxRef = showFx ? formatFromTry(effectivePrice) : null;
 
   return (
     <div
@@ -118,6 +123,9 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
               <span className="text-3xl font-bold text-white">{formatTry(early.try)}</span>
               <span className="text-sm text-slate-400">{early.period}</span>
             </div>
+            {fxRef && (
+              <p className="text-[11px] text-amber-300/80 mt-0.5">≈ {fxRef} <span className="text-slate-500">(tahsilat ₺)</span></p>
+            )}
             {monthlyEqv !== null && (
               <p className="text-[11px] text-slate-500 mt-0.5">≈ {formatTry(monthlyEqv)}/ay (yıllık -%20)</p>
             )}
@@ -131,6 +139,9 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
               <span className="text-3xl font-bold text-white">{formatTry(listPrice)}</span>
               <span className="text-sm text-slate-400">{period}</span>
             </div>
+            {fxRef && (
+              <p className="text-[11px] text-amber-300/80 mt-0.5">≈ {fxRef} <span className="text-slate-500">(tahsilat ₺)</span></p>
+            )}
             {monthlyEqv !== null && (
               <p className="text-[11px] text-slate-500 mt-0.5">≈ {formatTry(monthlyEqv)}/ay (yıllık -%20)</p>
             )}

@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ONE_OFF_PRICES, ONE_OFF_LABELS, formatTry, type OneOffSku } from "@/lib/pricingTiers";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface AddonItem {
   sku: OneOffSku;
@@ -98,6 +99,9 @@ export default function AddonShopPage() {
   const [cart, setCart] = useState<CartLine[]>([]);
   const [activeCategory, setActiveCategory] = useState<AddonItem["category"] | "all">("all");
   const [expandedSku, setExpandedSku] = useState<OneOffSku | null>(null);
+  // Çoklu kur — tahsilat ₺, gösterim seçili kurda referans
+  const { currency, formatFromTry } = useCurrency();
+  const showFx = currency !== "TRY";
 
   const filteredItems = useMemo(
     () => activeCategory === "all" ? ITEMS : ITEMS.filter((i) => i.category === activeCategory),
@@ -270,6 +274,9 @@ export default function AddonShopPage() {
                   <div className="mt-auto flex items-center justify-between pt-2">
                     <div>
                       <p className="text-2xl font-bold text-emerald-300">{formatTry(ONE_OFF_PRICES[item.sku])}</p>
+                      {showFx && (
+                        <p className="text-[10px] text-amber-300/80">≈ {formatFromTry(ONE_OFF_PRICES[item.sku])} <span className="text-slate-500">(tahsilat ₺)</span></p>
+                      )}
                       <p className="text-[10px] text-slate-500">Tek satın</p>
                     </div>
                     {inCart > 0 ? (
@@ -334,9 +341,16 @@ export default function AddonShopPage() {
                     ))}
                   </ul>
 
-                  <div className="border-t border-emerald-500/30 pt-3 flex items-baseline justify-between">
-                    <span className="text-emerald-300 font-semibold">Toplam</span>
-                    <span className="text-2xl font-bold text-emerald-300">{formatTry(cartTotal)}</span>
+                  <div className="border-t border-emerald-500/30 pt-3 space-y-1">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-emerald-300 font-semibold">Toplam</span>
+                      <span className="text-2xl font-bold text-emerald-300">{formatTry(cartTotal)}</span>
+                    </div>
+                    {showFx && (
+                      <p className="text-[10px] text-amber-300/80 text-end">
+                        ≈ {formatFromTry(cartTotal)} <span className="text-slate-500">(tahsilat ₺)</span>
+                      </p>
+                    )}
                   </div>
 
                   <Button

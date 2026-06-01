@@ -13,6 +13,7 @@ import {
   VAT_RATE,
 } from "@/lib/fees";
 import { formatTry } from "@/lib/pricingTiers";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function CommissionPage() {
   const navigate = useNavigate();
@@ -20,12 +21,16 @@ export default function CommissionPage() {
   const [bondPct, setBondPct] = useState(5);
 
   const saleTry = useMemo(() => Math.max(0, Number(saleStr.replace(/\D/g, "")) || 0), [saleStr]);
+  // KOMİSYON HESABI ₺ ÜZERİNDEN (fees.ts mantığı — yasal/muhasebe). Sadece GÖSTERİM çoklu kur.
   const result = useMemo(() => calcCommissionBreakdown(saleTry), [saleTry]);
   const bondAmount = Math.round((saleTry * bondPct) / 100);
   const commissionPct = (COMMISSION_RATE * 100).toFixed(0); // %2
   const totalPct = (COMMISSION_RATE * 2 * 100).toFixed(0);  // %4
   const vatPct = (VAT_RATE * 100).toFixed(0);               // %20
   const grandTotal = result.totalCommission + result.totalVAT;
+  // Çoklu kur referans gösterim
+  const { currency, formatFromTry } = useCurrency();
+  const showFx = currency !== "TRY" && saleTry > 0;
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 text-white">
@@ -172,6 +177,20 @@ export default function CommissionPage() {
                 <span className="text-emerald-200 font-semibold">Toplam (KDV dahil)</span>
                 <span className="text-xl font-bold text-emerald-200">{formatTry(grandTotal)}</span>
               </div>
+
+              {showFx && (
+                <div className="rounded-md border border-amber-500/20 bg-amber-500/5 px-3 py-2 space-y-0.5">
+                  <p className="text-[11px] text-amber-200 font-semibold">Referans gösterim ({currency})</p>
+                  <p className="text-[11px] text-slate-300">
+                    Satış ≈ <span className="font-semibold text-amber-300">{formatFromTry(saleTry)}</span> ·
+                    Komisyon ≈ <span className="font-semibold text-amber-300">{formatFromTry(result.totalCommission)}</span>
+                  </p>
+                  <p className="text-[10px] text-slate-500 italic">
+                    <strong className="text-amber-200">Komisyon ₺ üzerinden hesaplanır</strong> (yasal matrah);
+                    diğer kurlar bilgi amaçlıdır.
+                  </p>
+                </div>
+              )}
 
               <p className="text-[11px] text-slate-500 text-right">
                 Efektif oran: %{saleTry > 0 ? ((result.totalCommission / saleTry) * 100).toFixed(2) : "0.00"} (matrah) +
