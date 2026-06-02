@@ -223,6 +223,38 @@ export type GesFormMessages = {
   statusGathering: string;
 };
 
+export type InvestorDashboardMessages = {
+  badge: string;
+  title: string;
+  subtitle: string;
+  back: string;
+  marketAnalysis: string;
+  loading: string;
+  emptyTitle: string;
+  emptyDesc: string;
+  emptyCta: string;
+  kpiPortfolioValue: string;
+  kpiListingsHint: string;        // "{n} ilan" → suffix " ilan"
+  kpiPredictedValue: string;
+  kpiAvgYield: string;
+  kpiAvgYieldHint: string;        // "Yıllık kira"
+  kpiPotential: string;
+  kpiPotentialHint: string;       // "Tahmini fark"
+  chartGrowthTitle: string;
+  chartGrowthSubtitle: string;    // "Son 6 ay (tahmini)"
+  chartCategoryTitle: string;
+  chartCategorySubtitle: string;  // "Milyon ₺"
+  chartYieldTitle: string;
+  chartYieldSubtitle: string;     // "İlçe bazlı"
+  barRentPct: string;             // "Kira %"
+  barAiScore: string;             // "AI skor"
+  portfolioListings: string;
+  cardCurrent: string;
+  cardPredicted: string;
+  cardYield: string;
+  months: string[];               // 6 ay kısaltması
+};
+
 export type DashboardMessages = {
   back: string;
   title: string;
@@ -666,6 +698,7 @@ export type Messages = {
   dataAnalysis: DataAnalysisMessages;
   gesForm: GesFormMessages;
   dashboard: DashboardMessages;
+  investorDashboard: InvestorDashboardMessages;
 };
 
 /**
@@ -1347,6 +1380,37 @@ export const messages: Record<"en" | "tr", Messages> = {
       investorPortfolioNote: "Investor portfolio charts (favorites)",
       investorPortfolioCta: "Go to portfolio view",
     },
+    investorDashboard: {
+      badge: "Investor",
+      title: "Investor panel",
+      subtitle: "Portfolio performance, AI forecasts and distribution analytics.",
+      back: "Back to panel",
+      marketAnalysis: "Market analysis",
+      loading: "Loading portfolio…",
+      emptyTitle: "Your portfolio is empty",
+      emptyDesc: "Browse listings and add them to favorites to build your enterprise portfolio view.",
+      emptyCta: "Explore listings",
+      kpiPortfolioValue: "Portfolio value",
+      kpiListingsHint: "listings",
+      kpiPredictedValue: "Predicted value",
+      kpiAvgYield: "Avg. yield",
+      kpiAvgYieldHint: "Annual rent",
+      kpiPotential: "Potential",
+      kpiPotentialHint: "Predicted difference",
+      chartGrowthTitle: "Portfolio value growth",
+      chartGrowthSubtitle: "Last 6 months (estimated)",
+      chartCategoryTitle: "Category distribution",
+      chartCategorySubtitle: "Million ₺",
+      chartYieldTitle: "Yield and AI score",
+      chartYieldSubtitle: "By district",
+      barRentPct: "Rent %",
+      barAiScore: "AI score",
+      portfolioListings: "Portfolio listings",
+      cardCurrent: "Current",
+      cardPredicted: "Predicted",
+      cardYield: "Yield",
+      months: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
+    },
   },
   tr: {
     nav: {
@@ -2021,6 +2085,37 @@ export const messages: Record<"en" | "tr", Messages> = {
       investorPortfolioNote: "Yatırımcı portföy grafikleri (favoriler)",
       investorPortfolioCta: "Portföy görünümüne git",
     },
+    investorDashboard: {
+      badge: "Yatırımcı",
+      title: "Yatırımcı paneli",
+      subtitle: "Portföy performansı, AI tahminleri ve dağılım analitiği.",
+      back: "Panele dön",
+      marketAnalysis: "Piyasa analizi",
+      loading: "Portföy yükleniyor…",
+      emptyTitle: "Portföyünüz boş",
+      emptyDesc: "İlanları inceleyip favorilere ekleyerek kurumsal portföy görünümünüzü oluşturun.",
+      emptyCta: "İlanları keşfet",
+      kpiPortfolioValue: "Portföy değeri",
+      kpiListingsHint: "ilan",
+      kpiPredictedValue: "Tahmini değer",
+      kpiAvgYield: "Ort. getiri",
+      kpiAvgYieldHint: "Yıllık kira",
+      kpiPotential: "Potansiyel",
+      kpiPotentialHint: "Tahmini fark",
+      chartGrowthTitle: "Portföy değer artışı",
+      chartGrowthSubtitle: "Son 6 ay (tahmini)",
+      chartCategoryTitle: "Kategori dağılımı",
+      chartCategorySubtitle: "Milyon ₺",
+      chartYieldTitle: "Getiri ve AI skoru",
+      chartYieldSubtitle: "İlçe bazlı",
+      barRentPct: "Kira %",
+      barAiScore: "AI skor",
+      portfolioListings: "Portföy ilanları",
+      cardCurrent: "Mevcut",
+      cardPredicted: "Tahmini",
+      cardYield: "Getiri",
+      months: ["Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas"],
+    },
   },
 };
 
@@ -2601,6 +2696,37 @@ const _ruOverrides: PartialDeep<Messages> = {
     investorPortfolioNote: "Графики портфеля инвестора (избранное)",
     investorPortfolioCta: "Перейти к портфелю",
   },
+  investorDashboard: {
+    badge: "Инвестор",
+    title: "Панель инвестора",
+    subtitle: "Эффективность портфеля, ИИ-прогнозы и аналитика распределения.",
+    back: "Назад к панели",
+    marketAnalysis: "Анализ рынка",
+    loading: "Загрузка портфеля…",
+    emptyTitle: "Ваш портфель пуст",
+    emptyDesc: "Просматривайте объявления и добавляйте их в избранное, чтобы создать корпоративный обзор портфеля.",
+    emptyCta: "Смотреть объявления",
+    kpiPortfolioValue: "Стоимость портфеля",
+    kpiListingsHint: "объявлений",
+    kpiPredictedValue: "Прогнозная стоимость",
+    kpiAvgYield: "Сред. доходность",
+    kpiAvgYieldHint: "Годовая аренда",
+    kpiPotential: "Потенциал",
+    kpiPotentialHint: "Прогнозная разница",
+    chartGrowthTitle: "Рост стоимости портфеля",
+    chartGrowthSubtitle: "Последние 6 месяцев (прогноз)",
+    chartCategoryTitle: "Распределение по категориям",
+    chartCategorySubtitle: "Млн ₺",
+    chartYieldTitle: "Доходность и ИИ-оценка",
+    chartYieldSubtitle: "По районам",
+    barRentPct: "Аренда %",
+    barAiScore: "ИИ-оценка",
+    portfolioListings: "Объявления портфеля",
+    cardCurrent: "Текущая",
+    cardPredicted: "Прогноз",
+    cardYield: "Доходность",
+    months: ["Июн", "Июл", "Авг", "Сен", "Окт", "Ноя"],
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -3165,6 +3291,37 @@ const _arOverrides: PartialDeep<Messages> = {
     cardProfileCta: "معلومات الحساب",
     investorPortfolioNote: "رسوم محفظة المستثمر (المفضلة)",
     investorPortfolioCta: "الانتقال إلى عرض المحفظة",
+  },
+  investorDashboard: {
+    badge: "مستثمر",
+    title: "لوحة المستثمر",
+    subtitle: "أداء المحفظة، توقعات الذكاء الاصطناعي وتحليلات التوزيع.",
+    back: "العودة إلى اللوحة",
+    marketAnalysis: "تحليل السوق",
+    loading: "جارٍ تحميل المحفظة…",
+    emptyTitle: "محفظتك فارغة",
+    emptyDesc: "تصفّح الإعلانات وأضفها إلى المفضلة لإنشاء عرض محفظتك المؤسسي.",
+    emptyCta: "استكشاف الإعلانات",
+    kpiPortfolioValue: "قيمة المحفظة",
+    kpiListingsHint: "إعلان",
+    kpiPredictedValue: "القيمة المتوقعة",
+    kpiAvgYield: "متوسط العائد",
+    kpiAvgYieldHint: "إيجار سنوي",
+    kpiPotential: "الإمكانية",
+    kpiPotentialHint: "الفرق المتوقع",
+    chartGrowthTitle: "نمو قيمة المحفظة",
+    chartGrowthSubtitle: "آخر 6 أشهر (تقديري)",
+    chartCategoryTitle: "التوزيع حسب الفئة",
+    chartCategorySubtitle: "مليون ₺",
+    chartYieldTitle: "العائد ودرجة الذكاء الاصطناعي",
+    chartYieldSubtitle: "حسب المنطقة",
+    barRentPct: "إيجار %",
+    barAiScore: "درجة AI",
+    portfolioListings: "إعلانات المحفظة",
+    cardCurrent: "الحالي",
+    cardPredicted: "متوقع",
+    cardYield: "العائد",
+    months: ["يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر"],
   },
 };
 

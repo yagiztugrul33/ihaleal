@@ -9,6 +9,7 @@ import { loadAllAuctionsForSearch, getLocalAndStaticAuctions } from "@/lib/aucti
 import { withListingDefaults } from "@/lib/listingPolicy";
 import { LoadingState } from "@/components/async";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useLocale } from "@/contexts/LocaleContext";
 import type { Auction } from "@/types/auction";
 import {
   Area,
@@ -38,6 +39,8 @@ import {
 
 export default function InvestorDashboard() {
   const navigate = useNavigate();
+  const { t } = useLocale();
+  const iv = t.investorDashboard;
   const { ref, isVisible } = useScrollAnimation(0.05);
   const { favorites, loading: favLoading, syncError } = useFavorites();
   const [catalog, setCatalog] = useState<Auction[]>(() => getLocalAndStaticAuctions());
@@ -92,28 +95,28 @@ export default function InvestorDashboard() {
 
   const priceHistory = useMemo(() => {
     if (favoriteAuctions.length === 0) return [];
-    const months = ["Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas"];
+    const months = iv.months;
     return months.map((m, i) => {
       const base = portfolioValue;
       const growth = base * (0.015 * (i + 1));
       return { month: m, value: Math.round((base + growth) / 1000000) };
     });
-  }, [portfolioValue, favoriteAuctions.length]);
+  }, [portfolioValue, favoriteAuctions.length, iv.months]);
 
   return (
     <div ref={ref}>
       <DashboardShell
-        badge="Yatırımcı"
-        title="Yatırımcı paneli"
-        subtitle="Portföy performansı, AI tahminleri ve dağılım analitiği."
+        badge={iv.badge}
+        title={iv.title}
+        subtitle={iv.subtitle}
         back={
           <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="gap-2 text-slate-400">
-            <ArrowLeft className="w-4 h-4" /> Panele dön
+            <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {iv.back}
           </Button>
         }
         actions={
           <Button variant="outline" size="sm" onClick={() => navigate("/analiz")} className="gap-2">
-            <LayoutDashboard className="w-4 h-4" /> Piyasa analizi
+            <LayoutDashboard className="w-4 h-4" /> {iv.marketAnalysis}
           </Button>
         }
       >
@@ -121,15 +124,15 @@ export default function InvestorDashboard() {
           <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">{syncError}</p>
         ) : null}
         {isLoading ? (
-          <LoadingState label="Portföy yükleniyor…" />
+          <LoadingState label={iv.loading} />
         ) : favoriteAuctions.length === 0 ? (
           <EmptyState
             icon={Wallet}
-            title="Portföyünüz boş"
-            description="İlanları inceleyip favorilere ekleyerek kurumsal portföy görünümünüzü oluşturun."
+            title={iv.emptyTitle}
+            description={iv.emptyDesc}
             action={
               <Button onClick={() => navigate("/ilanlar")} className="btn-primary">
-                İlanları keşfet
+                {iv.emptyCta}
               </Button>
             }
           />
@@ -139,33 +142,33 @@ export default function InvestorDashboard() {
           >
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               <MetricCard
-                label="Portföy değeri"
+                label={iv.kpiPortfolioValue}
                 value={`₺${(portfolioValue / 1_000_000).toFixed(1)}M`}
-                hint={`${favoriteAuctions.length} ilan`}
+                hint={`${favoriteAuctions.length} ${iv.kpiListingsHint}`}
                 icon={Wallet}
               />
               <MetricCard
-                label="Tahmini değer"
+                label={iv.kpiPredictedValue}
                 value={`₺${(predictedValue / 1_000_000).toFixed(1)}M`}
                 trend={{ value: `+${potentialGainPercent}% AI`, positive: true }}
                 icon={Target}
               />
               <MetricCard
-                label="Ort. getiri"
+                label={iv.kpiAvgYield}
                 value={`%${avgYield.toFixed(1)}`}
-                hint="Yıllık kira"
+                hint={iv.kpiAvgYieldHint}
                 icon={Percent}
               />
               <MetricCard
-                label="Potansiyel"
+                label={iv.kpiPotential}
                 value={`₺${(potentialGain / 1_000_000).toFixed(1)}M`}
-                hint="Tahmini fark"
+                hint={iv.kpiPotentialHint}
                 icon={TrendingUp}
               />
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">
-              <ChartPanel title="Portföy değer artışı" subtitle="Son 6 ay (tahmini)" className="lg:col-span-2">
+              <ChartPanel title={iv.chartGrowthTitle} subtitle={iv.chartGrowthSubtitle} className="lg:col-span-2">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={priceHistory}>
                     <defs>
@@ -182,7 +185,7 @@ export default function InvestorDashboard() {
                   </AreaChart>
                 </ResponsiveContainer>
               </ChartPanel>
-              <ChartPanel title="Kategori dağılımı" subtitle="Milyon TRY">
+              <ChartPanel title={iv.chartCategoryTitle} subtitle={iv.chartCategorySubtitle}>
                 <ResponsiveContainer width="100%" height="100%">
                   <RePieChart>
                     <Pie data={pieData} cx="50%" cy="50%" innerRadius={52} outerRadius={78} paddingAngle={3} dataKey="value">
@@ -196,21 +199,21 @@ export default function InvestorDashboard() {
               </ChartPanel>
             </div>
 
-            <ChartPanel title="Getiri ve AI skoru" subtitle="İlçe bazlı" tall>
+            <ChartPanel title={iv.chartYieldTitle} subtitle={iv.chartYieldSubtitle} tall>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={yieldData}>
                   <CartesianGrid strokeDasharray="3 3" stroke={chartGridStroke} />
                   <XAxis dataKey="name" stroke={chartAxisStroke} fontSize={10} />
                   <YAxis stroke={chartAxisStroke} fontSize={chartAxisFontSize} />
                   <Tooltip contentStyle={chartTooltipStyle} />
-                  <Bar dataKey="yield" name="Kira %" fill="#22C55E" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="score" name="AI skor" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="yield" name={iv.barRentPct} fill="#22C55E" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="score" name={iv.barAiScore} fill="#3B82F6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </ChartPanel>
 
             <section>
-              <h2 className="mb-4 text-lg font-bold text-white">Portföy ilanları</h2>
+              <h2 className="mb-4 text-lg font-bold text-white">{iv.portfolioListings}</h2>
               <div className="space-y-3">
                 {favoriteAuctions.map((auction) => {
                   const upside = auction.aiPredictedPrice - auction.currentBid;
@@ -247,16 +250,16 @@ export default function InvestorDashboard() {
                           </div>
                           <div className="mt-3 grid grid-cols-3 gap-2">
                             <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
-                              <div className="text-[10px] uppercase text-slate-500">Mevcut</div>
-                              <div className="text-sm font-bold text-white">₺{(auction.currentBid / 1_000_000).toFixed(1)}M</div>
+                              <div className="text-[10px] uppercase text-slate-500">{iv.cardCurrent}</div>
+                              <div className="text-sm font-bold text-white" dir="ltr">₺{(auction.currentBid / 1_000_000).toFixed(1)}M</div>
                             </div>
                             <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
-                              <div className="text-[10px] uppercase text-slate-500">Tahmini</div>
-                              <div className="text-sm font-bold text-emerald-400">₺{(auction.aiPredictedPrice / 1_000_000).toFixed(1)}M</div>
+                              <div className="text-[10px] uppercase text-slate-500">{iv.cardPredicted}</div>
+                              <div className="text-sm font-bold text-emerald-400" dir="ltr">₺{(auction.aiPredictedPrice / 1_000_000).toFixed(1)}M</div>
                             </div>
                             <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
-                              <div className="text-[10px] uppercase text-slate-500">Getiri</div>
-                              <div className="text-sm font-bold text-blue-400">%{auction.areaStats.rentalYield}</div>
+                              <div className="text-[10px] uppercase text-slate-500">{iv.cardYield}</div>
+                              <div className="text-sm font-bold text-blue-400" dir="ltr">%{auction.areaStats.rentalYield}</div>
                             </div>
                           </div>
                           <ListingDocumentFooter auction={auction} compact showTopRule={false} />
