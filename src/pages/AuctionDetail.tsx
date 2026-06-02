@@ -20,7 +20,6 @@ import { AUCTIONS } from "@/data/auctions";
 import {
   PLATFORM_LISTING_CONTACT,
   resolveMarketingMode,
-  MARKETING_MODE_LABELS,
   integrityRulesSummaryForAuction,
   withListingDefaults,
 } from "@/lib/listingPolicy";
@@ -73,7 +72,6 @@ import { useListingRatings } from "@/hooks/useListingRatings";
 import { RatingSummaryBadge } from "@/components/trust/RatingSummaryBadge";
 import { CountdownTimer } from "@/components/auction/CountdownTimer";
 import { AvmEstimateSection } from "@/components/listing/AvmEstimateSection";
-import { WEEKLY_AUCTION_POLICY_TR, WEEKLY_AUCTION_SLOT_TR } from "@/lib/listingNumber";
 import { preAuthorize } from "@/lib/payment";
 import {
   HEMEN_AL_CARD_BLOCK,
@@ -725,7 +723,7 @@ export default function AuctionDetail() {
   const galleryBadges = [
     { label: auction.status === "live" ? ld.badgeLive : ld.badgeUpcoming, className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
     { label: isRent ? ld.badgeRent : ld.badgeSale, className: "bg-emerald-600/90 text-white border-0" },
-    { label: MARKETING_MODE_LABELS[marketingMode].badge, className: "bg-slate-700 text-white border border-white/15" },
+    { label: ld.marketingBadge[marketingMode], className: "bg-slate-700 text-white border border-white/15" },
     // R14 PAKET 5 — lansman branding badge
     ...(isLansman
       ? [{ label: ld.badgeLansman, className: "bg-cyan-500 text-slate-950 font-bold border-0" }]
@@ -874,7 +872,7 @@ export default function AuctionDetail() {
               <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
                 <p className="font-semibold text-slate-200 text-sm">{ld.weeklyScheduleTitle}</p>
                 <p>
-                  <span className="text-cyan-200/90">{WEEKLY_AUCTION_SLOT_TR}</span> {WEEKLY_AUCTION_POLICY_TR}
+                  <span className="text-cyan-200/90">{ld.weeklySlot}</span> {ld.weeklyPolicy}
                 </p>
                 <p>
                   {ld.participationDocsLabel}{" "}
@@ -1210,7 +1208,7 @@ export default function AuctionDetail() {
                 <div>
                   <div className="text-xs text-slate-500 mb-1">{pricePrimaryLabel}</div>
                   <div className="text-3xl font-bold text-blue-400" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
-                  <FxRef amountTry={liveBid} variant="block" note="işlem ₺" />
+                  <FxRef amountTry={liveBid} variant="block" note={ld.fxNoteTransaction} />
                   <div className="text-xs text-slate-500 mt-1" dir="ltr">
                     ₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²
                     <FxRef amountTry={auction.pricePerSqm} variant="compact" />

@@ -904,6 +904,11 @@ export type ListingDetailMessages = {
   tooltipCalcMortgage: string;
   tooltipMessage: string;
   mobileBarAria: string;
+  // ── 11-P: lib sabitleri (render katmanında çevrilir; lib DOKUNULMADI) ──
+  marketingBadge: { listing_only: string; sealed_offers: string; auction: string };
+  weeklySlot: string;
+  weeklyPolicy: string;
+  fxNoteTransaction: string;
 };
 
 export type PaymentMessages = {
@@ -1566,6 +1571,12 @@ export const messages: Record<"en" | "tr", Messages> = {
       tooltipCalcMortgage: "Calculate mortgage",
       tooltipMessage: "Message",
       mobileBarAria: "Listing action bar",
+      // ── 11-P ──
+      marketingBadge: { listing_only: "Listing only", sealed_offers: "Receive offers", auction: "Auction" },
+      weeklySlot: "Every Wednesday 18:00 TRT (target slot; finalized in the admin calendar).",
+      weeklyPolicy:
+        "Auction and sealed-bid closings are gathered in one main session per week; interim bids follow per-listing rules. The cut-off date for new listings to make the weekly session is shown in the listing form (target). Anti-sniping and deposit: the fees.ts reference applies to all sessions.",
+      fxNoteTransaction: "settled in ₺",
     },
     borsa: {
       marketTicker: "Market Ticker",
@@ -2538,6 +2549,12 @@ export const messages: Record<"en" | "tr", Messages> = {
       tooltipCalcMortgage: "Kredi Hesapla",
       tooltipMessage: "Mesajlaş",
       mobileBarAria: "İlan aksiyon barı",
+      // ── 11-P ──
+      marketingBadge: { listing_only: "Sadece ilan", sealed_offers: "Teklif al", auction: "İhale" },
+      weeklySlot: "Her Çarşamba 18:00 TRT (hedef slot; yönetici takviminde netleştirilir).",
+      weeklyPolicy:
+        "Açık artırma ve kapalı teklif kapanışları haftada bir ana oturumda toplanır; ara teklifler ilan bazında kurallarda. Yeni ilanlar haftalık oturuma yetişme cut-off tarihi ilan formunda gösterilir (hedef). Anti-sniping ve teminat: fees.ts referansı tüm oturumlarda geçerli.",
+      fxNoteTransaction: "işlem ₺",
     },
     borsa: {
       marketTicker: "Piyasa Ticker",
@@ -3416,6 +3433,12 @@ const _ruOverrides: PartialDeep<Messages> = {
     tooltipCalcMortgage: "Рассчитать кредит",
     tooltipMessage: "Написать",
     mobileBarAria: "Панель действий объявления",
+    // ── 11-P ──
+    marketingBadge: { listing_only: "Только объявление", sealed_offers: "Приём предложений", auction: "Аукцион" },
+    weeklySlot: "Каждую среду 18:00 TRT (целевой слот; уточняется в админ-календаре).",
+    weeklyPolicy:
+      "Закрытия аукционов и закрытых ставок собираются в одной основной сессии в неделю; промежуточные ставки — по правилам объявления. Крайний срок попадания новых объявлений в недельную сессию показывается в форме объявления (цель). Анти-снайпинг и залог: ссылка fees.ts действует во всех сессиях.",
+    fxNoteTransaction: "расчёт в ₺",
   },
   borsa: {
     marketTicker: "Лента рынка",
@@ -4279,6 +4302,12 @@ const _arOverrides: PartialDeep<Messages> = {
     tooltipCalcMortgage: "احسب القرض",
     tooltipMessage: "مراسلة",
     mobileBarAria: "شريط إجراءات الإعلان",
+    // ── 11-P ──
+    marketingBadge: { listing_only: "إعلان فقط", sealed_offers: "استقبال العروض", auction: "مزاد" },
+    weeklySlot: "كل أربعاء 18:00 بتوقيت تركيا (الفترة المستهدفة؛ تُحدَّد في تقويم الإدارة).",
+    weeklyPolicy:
+      "تُجمَّع إغلاقات المزادات والعروض المغلقة في جلسة رئيسية واحدة أسبوعياً؛ العروض المرحلية وفق قواعد كل إعلان. يُعرض الموعد النهائي لإدراج الإعلانات الجديدة في الجلسة الأسبوعية ضمن نموذج الإعلان (مستهدف). مكافحة القنص والتأمين: مرجع fees.ts ساري في جميع الجلسات.",
+    fxNoteTransaction: "تتم بالليرة ₺",
   },
   borsa: {
     marketTicker: "شريط السوق",
