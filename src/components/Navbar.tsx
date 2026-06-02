@@ -55,7 +55,7 @@ function NavDropdown({
       </button>
       {open ? (
         <div
-          className="absolute left-0 top-full z-[110] mt-2 min-w-[200px] rounded-xl border border-slate-600/30 py-1 shadow-xl"
+          className="absolute start-0 top-full z-[110] mt-2 min-w-[200px] rounded-xl border border-slate-600/30 py-1 shadow-xl"
           style={{ background: "rgba(15, 23, 41, 0.98)", backdropFilter: "blur(20px)" }}
         >
           {items.map((item) => (
@@ -304,7 +304,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 min-w-[200px] items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 text-left text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
+              className="flex h-10 min-w-[200px] items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 text-start text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
             >
               <Search className="h-4 w-4 shrink-0" aria-hidden />
               <span className="flex-1 truncate">{n.search}</span>
@@ -327,7 +327,7 @@ export function Navbar() {
               </button>
               {langOpen ? (
                 <div
-                  className="absolute right-0 top-full z-[110] mt-2 min-w-[140px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
+                  className="absolute end-0 top-full z-[110] mt-2 min-w-[140px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
                   style={{ background: "rgba(15, 23, 41, 0.98)" }}
                 >
                   <button
@@ -457,7 +457,7 @@ export function Navbar() {
                     />
                   </button>
                   {expanded && (
-                    <div className="ml-2 border-l border-slate-700/40 pl-2">
+                    <div className="ms-2 border-s border-slate-700/40 ps-2">
                       {col.items.map((item) => (
                         <NavLink
                           key={item.to}
