@@ -86,8 +86,7 @@ export default function FlowSelector() {
 
   return (
     <main
-      className="min-h-screen pt-24 pb-16 px-4 text-white"
-      style={{ backgroundColor: "#0A1F44" }}
+      className="min-h-screen pt-24 pb-16 px-4 text-white bg-slate-950"
     >
       <div className="mx-auto max-w-4xl">
         {/* Geri (sol — RTL'de otomatik sağa geçer) */}
