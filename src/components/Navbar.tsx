@@ -169,36 +169,37 @@ export function Navbar() {
     { to: ROUTES.ARASTIRMA, label: n.researchHub },
   ];
 
-  // R12.2 — Hizmetler mega dropdown 3 sütun (Yatırımcı / Emlakçı / Müteahhit)
+  // R12.2 — Hizmetler mega dropdown 3 sütun (Yatırımcı / Emlakçı / Müteahhit) — i18n
+  const mm = t.megaMenu;
   const megaColumns = [
     {
-      title: "Yatırımcı",
+      title: mm.segmentInvestor,
       items: [
-        { to: ROUTES.AUCTIONS, label: "Canlı ihaleler" },
-        { to: "/degerleme", label: "AI değerleme" },
+        { to: ROUTES.AUCTIONS, label: mm.liveAuctions },
+        { to: "/degerleme", label: mm.aiValuation },
         { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
-        { to: "/dashboard/yatirimci", label: "Yatırımcı paneli" },
-        { to: "/oduller", label: "Ödüller" },
-        { to: "/kampanyalar", label: "Kampanyalar" },
-        { to: "/uluslararasi", label: "Uluslararası yatırımcı" },
+        { to: "/dashboard/yatirimci", label: mm.investorPanel },
+        { to: "/oduller", label: mm.rewards },
+        { to: "/kampanyalar", label: mm.campaigns },
+        { to: "/uluslararasi", label: mm.intlInvestor },
       ],
     },
     {
-      title: "Emlakçı",
+      title: mm.segmentRealtor,
       items: [
-        { to: "/emlakci", label: "Emlakçı vitrini" },
-        { to: "/emlakci/panel", label: "Ofis paneli" },
-        { to: "/emlakci-giris", label: "Emlakçı girişi" },
-        { to: "/emlakci-ortaklik", label: "B2B ortaklık" },
+        { to: "/emlakci", label: mm.realtorShowcase },
+        { to: "/emlakci/panel", label: mm.officePanel },
+        { to: "/emlakci-giris", label: mm.realtorLogin },
+        { to: "/emlakci-ortaklik", label: mm.b2bPartnership },
       ],
     },
     {
-      title: "Müteahhit",
+      title: mm.segmentContractor,
       items: [
-        { to: "/muteahhit", label: "Müteahhit lansman" },
-        { to: "/muteahhit/panel", label: "Proje paneli" },
-        { to: "/ihale-ac", label: "İhale aç" },
-        { to: ROUTES.KKA_HUB, label: "Kat karşılığı" },
+        { to: "/muteahhit", label: mm.contractorLaunch },
+        { to: "/muteahhit/panel", label: mm.projectPanel },
+        { to: "/ihale-ac", label: mm.openAuction },
+        { to: ROUTES.KKA_HUB, label: mm.floorBarter },
       ],
     },
   ];

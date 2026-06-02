@@ -177,6 +177,87 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type MegaMenuMessages = {
+  // Segment başlıkları
+  segmentInvestor: string;
+  segmentRealtor: string;
+  segmentContractor: string;
+  // Yatırımcı items
+  liveAuctions: string;
+  aiValuation: string;
+  investorPanel: string;
+  rewards: string;
+  campaigns: string;
+  intlInvestor: string;
+  // Emlakçı items
+  realtorShowcase: string;
+  officePanel: string;
+  realtorLogin: string;
+  b2bPartnership: string;
+  // Müteahhit items
+  contractorLaunch: string;
+  projectPanel: string;
+  openAuction: string;
+  floorBarter: string;
+};
+
+export type FooterMessages = {
+  tagline: string;
+  taglineShort: string;
+  workingHours: string;
+  // Column headers
+  colPlatform: string;
+  colTools: string;
+  colCorporateLegal: string;
+  colNewsletter: string;
+  // Newsletter
+  newsletterDesc: string;
+  newsletterPlaceholder: string;
+  newsletterSubmit: string;
+  // Copyright
+  allRightsReserved: string;
+  langLabel: string;
+  // Platform links
+  auctionsLink: string;
+  aiAnalysis: string;
+  compare: string;
+  revenueModel: string;
+  mortgage: string;
+  favorites: string;
+  realtorLoginFooter: string;
+  realtorPartnership: string;
+  researchTerminal: string;
+  // Tools links
+  priceEstimate: string;
+  loanCalculator: string;
+  listingCompare: string;
+  cityGuide: string;
+  howItWorksFooter: string;
+  platformGuide: string;
+  commissionCalc: string;
+  taxSimulator: string;
+  financeCompliance: string;
+  // Legal links (most visible)
+  legalHub: string;
+  auctionTermsCommission: string;
+  participationDocs: string;
+  kvkkInfo: string;
+  termsOfUse: string;
+  privacyPolicy: string;
+  cookiePolicy: string;
+  distanceSaleAgreement: string;
+  refundCancellation: string;
+  disclosure: string;
+  contactFooter: string;
+  aboutUs: string;
+  sitemap: string;
+  faqFooter: string;
+  securityCenter: string;
+  sellerMode: string;
+  commissionModel: string;
+  ihalealIndex: string;
+};
+
 export type BorsaMessages = {
   // BorsaPage (ticker + piyasa özeti + emir defteri)
   marketTicker: string;
@@ -348,6 +429,8 @@ export type Messages = {
   payment: PaymentMessages;
   listingDetail: ListingDetailMessages;
   borsa: BorsaMessages;
+  megaMenu: MegaMenuMessages;
+  footer: FooterMessages;
 };
 
 /**
@@ -747,6 +830,75 @@ export const messages: Record<"en" | "tr", Messages> = {
       priceColumn: "Price",
       maLabel: "MA(5)",
     },
+    megaMenu: {
+      segmentInvestor: "Investor",
+      segmentRealtor: "Realtor",
+      segmentContractor: "Contractor",
+      liveAuctions: "Live auctions",
+      aiValuation: "AI valuation",
+      investorPanel: "Investor panel",
+      rewards: "Rewards",
+      campaigns: "Campaigns",
+      intlInvestor: "International investor",
+      realtorShowcase: "Realtor showcase",
+      officePanel: "Office panel",
+      realtorLogin: "Realtor login",
+      b2bPartnership: "B2B partnership",
+      contractorLaunch: "Contractor launch",
+      projectPanel: "Project panel",
+      openAuction: "Open auction",
+      floorBarter: "Floor barter",
+    },
+    footer: {
+      tagline: "AI-powered valuation, transparent auction process and secure transaction infrastructure.",
+      taglineShort: "AI-powered real estate platform",
+      workingHours: "Weekdays 09:00 - 18:00 (UTC+3)",
+      colPlatform: "Platform",
+      colTools: "Tools",
+      colCorporateLegal: "Corporate & Legal",
+      colNewsletter: "Newsletter",
+      newsletterDesc: "Be the first to know about new auctions.",
+      newsletterPlaceholder: "Email",
+      newsletterSubmit: "Subscribe",
+      allRightsReserved: "All rights reserved.",
+      langLabel: "Language",
+      auctionsLink: "Auctions",
+      aiAnalysis: "AI Analysis",
+      compare: "Compare",
+      revenueModel: "Revenue model",
+      mortgage: "Mortgage",
+      favorites: "Favorites",
+      realtorLoginFooter: "Realtor login",
+      realtorPartnership: "Realtor partnership",
+      researchTerminal: "Research terminal",
+      priceEstimate: "Price Estimate",
+      loanCalculator: "Loan Calculator",
+      listingCompare: "Listing Comparison",
+      cityGuide: "City Guide",
+      howItWorksFooter: "How it works",
+      platformGuide: "Platform guide",
+      commissionCalc: "Commission calculator",
+      taxSimulator: "Tax simulator",
+      financeCompliance: "Finance / compliance",
+      legalHub: "Legal Hub (all)",
+      auctionTermsCommission: "Auction Terms & Commission",
+      participationDocs: "Participation Documents",
+      kvkkInfo: "KVKK Privacy Notice",
+      termsOfUse: "Terms of Use",
+      privacyPolicy: "Privacy Policy",
+      cookiePolicy: "Cookie Policy",
+      distanceSaleAgreement: "Distance Sale Agreement",
+      refundCancellation: "Refund and Cancellation",
+      disclosure: "Disclosure Notice",
+      contactFooter: "Contact",
+      aboutUs: "About Us",
+      sitemap: "Sitemap",
+      faqFooter: "FAQ",
+      securityCenter: "Security Center",
+      sellerMode: "Seller mode",
+      commissionModel: "Commission model",
+      ihalealIndex: "iHaleal Index",
+    },
   },
   tr: {
     nav: {
@@ -1139,6 +1291,75 @@ export const messages: Record<"en" | "tr", Messages> = {
       priceColumn: "Fiyat",
       maLabel: "MA(5)",
     },
+    megaMenu: {
+      segmentInvestor: "Yatırımcı",
+      segmentRealtor: "Emlakçı",
+      segmentContractor: "Müteahhit",
+      liveAuctions: "Canlı ihaleler",
+      aiValuation: "AI değerleme",
+      investorPanel: "Yatırımcı paneli",
+      rewards: "Ödüller",
+      campaigns: "Kampanyalar",
+      intlInvestor: "Uluslararası yatırımcı",
+      realtorShowcase: "Emlakçı vitrini",
+      officePanel: "Ofis paneli",
+      realtorLogin: "Emlakçı girişi",
+      b2bPartnership: "B2B ortaklık",
+      contractorLaunch: "Müteahhit lansman",
+      projectPanel: "Proje paneli",
+      openAuction: "İhale aç",
+      floorBarter: "Kat karşılığı",
+    },
+    footer: {
+      tagline: "AI destekli değerleme, şeffaf ihale süreci ve güvenli işlem altyapısı.",
+      taglineShort: "Yapay zeka destekli gayrimenkul platformu",
+      workingHours: "Hafta içi 09:00 - 18:00 (UTC+3)",
+      colPlatform: "Platform",
+      colTools: "Araçlar",
+      colCorporateLegal: "Kurumsal & Hukuki",
+      colNewsletter: "Bülten",
+      newsletterDesc: "Yeni ihalelerden ilk siz haberdar olun.",
+      newsletterPlaceholder: "E-posta",
+      newsletterSubmit: "Abone",
+      allRightsReserved: "Tüm hakları saklıdır.",
+      langLabel: "Dil",
+      auctionsLink: "İhaleler",
+      aiAnalysis: "AI Analiz",
+      compare: "Karşılaştır",
+      revenueModel: "Gelir modeli",
+      mortgage: "Mortgage",
+      favorites: "Favoriler",
+      realtorLoginFooter: "Emlakçı girişi",
+      realtorPartnership: "Emlakçı ortaklığı",
+      researchTerminal: "Araştırma terminali",
+      priceEstimate: "Fiyat Tahmini",
+      loanCalculator: "Kredi Hesaplayıcı",
+      listingCompare: "İlan Karşılaştırma",
+      cityGuide: "Şehir Rehberi",
+      howItWorksFooter: "Nasıl çalışır",
+      platformGuide: "Platform rehberi",
+      commissionCalc: "Komisyon hesaplayıcı",
+      taxSimulator: "Vergi simülatörü",
+      financeCompliance: "Finans / uyumluluk",
+      legalHub: "Yasal Hub (tümü)",
+      auctionTermsCommission: "İhale Koşulları & Komisyon",
+      participationDocs: "Katılım Evrakları",
+      kvkkInfo: "KVKK Aydınlatma Metni",
+      termsOfUse: "Kullanım Koşulları",
+      privacyPolicy: "Gizlilik Politikası",
+      cookiePolicy: "Çerez Politikası",
+      distanceSaleAgreement: "Mesafeli Satış Sözleşmesi",
+      refundCancellation: "İade ve İptal",
+      disclosure: "Aydınlatma Metni",
+      contactFooter: "İletişim",
+      aboutUs: "Hakkımızda",
+      sitemap: "Site Haritası",
+      faqFooter: "SSS",
+      securityCenter: "Güvenlik Merkezi",
+      sellerMode: "Satıcı modu",
+      commissionModel: "Komisyon modeli",
+      ihalealIndex: "İhaleal Endeksi",
+    },
   },
 };
 
@@ -1437,6 +1658,75 @@ const _ruOverrides: PartialDeep<Messages> = {
     priceColumn: "Цена",
     maLabel: "MA(5)",
   },
+  megaMenu: {
+    segmentInvestor: "Инвестор",
+    segmentRealtor: "Риелтор",
+    segmentContractor: "Подрядчик",
+    liveAuctions: "Прямые аукционы",
+    aiValuation: "ИИ-оценка",
+    investorPanel: "Панель инвестора",
+    rewards: "Награды",
+    campaigns: "Акции",
+    intlInvestor: "Международный инвестор",
+    realtorShowcase: "Витрина риелтора",
+    officePanel: "Панель офиса",
+    realtorLogin: "Вход для риелтора",
+    b2bPartnership: "B2B-партнёрство",
+    contractorLaunch: "Запуск подрядчика",
+    projectPanel: "Панель проектов",
+    openAuction: "Открыть аукцион",
+    floorBarter: "Бартер этажей",
+  },
+  footer: {
+    tagline: "ИИ-оценка, прозрачный процесс аукциона и безопасная инфраструктура сделок.",
+    taglineShort: "ИИ-платформа недвижимости",
+    workingHours: "Будние дни 09:00 — 18:00 (UTC+3)",
+    colPlatform: "Платформа",
+    colTools: "Инструменты",
+    colCorporateLegal: "Корпоративное и юридическое",
+    colNewsletter: "Рассылка",
+    newsletterDesc: "Будьте первыми, кто узнаёт о новых аукционах.",
+    newsletterPlaceholder: "Электронная почта",
+    newsletterSubmit: "Подписаться",
+    allRightsReserved: "Все права защищены.",
+    langLabel: "Язык",
+    auctionsLink: "Аукционы",
+    aiAnalysis: "ИИ-анализ",
+    compare: "Сравнить",
+    revenueModel: "Модель дохода",
+    mortgage: "Ипотека",
+    favorites: "Избранное",
+    realtorLoginFooter: "Вход для риелтора",
+    realtorPartnership: "Партнёрство риелторов",
+    researchTerminal: "Исследовательский терминал",
+    priceEstimate: "Оценка цены",
+    loanCalculator: "Кредитный калькулятор",
+    listingCompare: "Сравнение объявлений",
+    cityGuide: "Гид по городам",
+    howItWorksFooter: "Как это работает",
+    platformGuide: "Руководство по платформе",
+    commissionCalc: "Калькулятор комиссии",
+    taxSimulator: "Налоговый симулятор",
+    financeCompliance: "Финансы / комплаенс",
+    legalHub: "Юридический хаб (всё)",
+    auctionTermsCommission: "Условия аукциона и комиссия",
+    participationDocs: "Документы для участия",
+    kvkkInfo: "Уведомление KVKK",
+    termsOfUse: "Условия использования",
+    privacyPolicy: "Политика конфиденциальности",
+    cookiePolicy: "Политика использования cookie",
+    distanceSaleAgreement: "Договор дистанционной продажи",
+    refundCancellation: "Возврат и отмена",
+    disclosure: "Уведомление об обработке данных",
+    contactFooter: "Контакты",
+    aboutUs: "О нас",
+    sitemap: "Карта сайта",
+    faqFooter: "Частые вопросы",
+    securityCenter: "Центр безопасности",
+    sellerMode: "Режим продавца",
+    commissionModel: "Модель комиссии",
+    ihalealIndex: "Индекс iHaleal",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -1719,6 +2009,75 @@ const _arOverrides: PartialDeep<Messages> = {
     askColumn: "بيع",
     priceColumn: "السعر",
     maLabel: "MA(5)",
+  },
+  megaMenu: {
+    segmentInvestor: "مستثمر",
+    segmentRealtor: "وسيط عقاري",
+    segmentContractor: "مقاول",
+    liveAuctions: "مزادات مباشرة",
+    aiValuation: "تقييم بالذكاء الاصطناعي",
+    investorPanel: "لوحة المستثمر",
+    rewards: "المكافآت",
+    campaigns: "العروض",
+    intlInvestor: "مستثمر دولي",
+    realtorShowcase: "واجهة الوسيط",
+    officePanel: "لوحة المكتب",
+    realtorLogin: "تسجيل دخول الوسيط",
+    b2bPartnership: "شراكة B2B",
+    contractorLaunch: "إطلاق المقاول",
+    projectPanel: "لوحة المشاريع",
+    openAuction: "فتح مزاد",
+    floorBarter: "مقابل الأدوار",
+  },
+  footer: {
+    tagline: "تقييم بالذكاء الاصطناعي، عملية مزاد شفّافة وبنية تحتية آمنة للمعاملات.",
+    taglineShort: "منصة عقارية مدعومة بالذكاء الاصطناعي",
+    workingHours: "أيام الأسبوع 09:00 — 18:00 (UTC+3)",
+    colPlatform: "المنصة",
+    colTools: "الأدوات",
+    colCorporateLegal: "الشركة والقانوني",
+    colNewsletter: "النشرة",
+    newsletterDesc: "كن أوّل من يعلم بالمزادات الجديدة.",
+    newsletterPlaceholder: "البريد الإلكتروني",
+    newsletterSubmit: "اشترك",
+    allRightsReserved: "جميع الحقوق محفوظة.",
+    langLabel: "اللغة",
+    auctionsLink: "المزادات",
+    aiAnalysis: "تحليل بالذكاء الاصطناعي",
+    compare: "مقارنة",
+    revenueModel: "نموذج الإيرادات",
+    mortgage: "تمويل عقاري",
+    favorites: "المفضلة",
+    realtorLoginFooter: "تسجيل دخول الوسيط",
+    realtorPartnership: "شراكة الوسطاء",
+    researchTerminal: "محطة البحث",
+    priceEstimate: "تقدير السعر",
+    loanCalculator: "حاسبة القرض",
+    listingCompare: "مقارنة الإعلانات",
+    cityGuide: "دليل المدن",
+    howItWorksFooter: "كيف يعمل",
+    platformGuide: "دليل المنصة",
+    commissionCalc: "حاسبة العمولة",
+    taxSimulator: "محاكي الضرائب",
+    financeCompliance: "المالية / الامتثال",
+    legalHub: "المركز القانوني (الكل)",
+    auctionTermsCommission: "شروط المزاد والعمولة",
+    participationDocs: "وثائق المشاركة",
+    kvkkInfo: "إشعار KVKK",
+    termsOfUse: "شروط الاستخدام",
+    privacyPolicy: "سياسة الخصوصية",
+    cookiePolicy: "سياسة ملفات الارتباط",
+    distanceSaleAgreement: "عقد البيع عن بُعد",
+    refundCancellation: "الاسترداد والإلغاء",
+    disclosure: "إشعار الإفصاح",
+    contactFooter: "اتصل بنا",
+    aboutUs: "من نحن",
+    sitemap: "خريطة الموقع",
+    faqFooter: "الأسئلة الشائعة",
+    securityCenter: "مركز الأمان",
+    sellerMode: "وضع البائع",
+    commissionModel: "نموذج العمولة",
+    ihalealIndex: "مؤشر iHaleal",
   },
 };
 

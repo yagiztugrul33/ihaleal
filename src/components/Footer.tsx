@@ -13,8 +13,8 @@ import type { Locale } from "@/i18n/messages";
 export function Footer() {
   const navigate = useNavigate();
   const year = new Date().getFullYear();
-  const { locale, setLocale } = useLocale();
-  const isEn = locale === "en";
+  const { locale, setLocale, t } = useLocale();
+  const f = t.footer;
   const pickLocale = (next: Locale) => setLocale(next);
 
   return (
@@ -28,7 +28,7 @@ export function Footer() {
               <BrandLockup logoSize="md" layout="inline" showSlogan />
             </div>
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
-              AI destekli değerleme, şeffaf ihale süreci ve güvenli işlem altyapısı.
+              {f.tagline}
             </p>
             {/* Yasal şirket iletişim bloğu — 6563 Sayılı Kanun gereği işletme künyesi. */}
             {/* Vergi no/dairesi sadece /kunye sayfasında; footer'da müşteri etkileşim odaklı bilgi. */}
@@ -62,66 +62,66 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-blue-400 flex-shrink-0" />
-                <span className="text-sm text-slate-300">Hafta içi 09:00 - 18:00 (UTC+3)</span>
+                <span className="text-sm text-slate-300">{f.workingHours}</span>
               </div>
             </address>
           </div>
 
           {/* Quick Links */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">Platform</h4>
+            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colPlatform}</h4>
             <ul className="space-y-2.5">
-              <li><button onClick={() => navigate("/ihaleler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> Ihaleler</button></li>
-              <li><button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> AI Analiz</button></li>
-              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> Karsilastir</button></li>
+              <li><button onClick={() => navigate("/ihaleler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> {f.auctionsLink}</button></li>
+              <li><button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.aiAnalysis}</button></li>
+              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> {f.compare}</button></li>
               <li>
                 <button
                   onClick={() => navigate("/komisyon-modeli")}
-                  className="text-sm text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2 w-full text-left"
+                  className="text-sm text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2 w-full text-start"
                 >
-                  <BadgePercent className="w-3.5 h-3.5" /> Gelir modeli
+                  <BadgePercent className="w-3.5 h-3.5" /> {f.revenueModel}
                 </button>
               </li>
-              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Mortgage</button></li>
-              <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> Favoriler</button></li>
-              <li><button onClick={() => navigate("/giris?profil=emlakçı")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> Emlakçı girişi</button></li>
-              <li><button onClick={() => navigate("/emlakçı-ortaklik")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> Emlakçı ortaklığı</button></li>
-              <li><button onClick={() => navigate(INTELLIGENCE_HUB_PATH)} className="text-sm text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> Araştırma terminali</button></li>
+              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.mortgage}</button></li>
+              <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> {f.favorites}</button></li>
+              <li><button onClick={() => navigate("/giris?profil=emlakçı")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> {f.realtorLoginFooter}</button></li>
+              <li><button onClick={() => navigate("/emlakçı-ortaklik")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> {f.realtorPartnership}</button></li>
+              <li><button onClick={() => navigate(INTELLIGENCE_HUB_PATH)} className="text-sm text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.researchTerminal}</button></li>
             </ul>
           </div>
 
           {/* Tools */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">Araclar</h4>
+            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colTools}</h4>
             <ul className="space-y-2.5">
               <li className="relative" data-demo={isDemoData("footerNavEstimate") ? "true" : undefined}>
                 {isDemoData("footerNavEstimate") ? <DemoDataCornerBadge /> : null}
-                <button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><TrendingUp className="w-3.5 h-3.5" /> Fiyat Tahmini</button>
+                <button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><TrendingUp className="w-3.5 h-3.5" /> {f.priceEstimate}</button>
               </li>
-              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Kredi Hesaplayici</button></li>
-              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> Ilan Karsilastirma</button></li>
-              <li><button onClick={() => navigate("/sehirler")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Navigation className="w-3.5 h-3.5" /> Sehir Rehberi</button></li>
+              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.loanCalculator}</button></li>
+              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> {f.listingCompare}</button></li>
+              <li><button onClick={() => navigate("/sehirler")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Navigation className="w-3.5 h-3.5" /> {f.cityGuide}</button></li>
               <li>
                 <button
                   type="button"
                   onClick={() => navigate("/nasil-calisir")}
-                  className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-left"
+                  className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-start"
                 >
-                  <BookOpen className="w-3.5 h-3.5" /> Nasıl çalışır
+                  <BookOpen className="w-3.5 h-3.5" /> {f.howItWorksFooter}
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => navigate("/rehber")}
-                  className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-left"
+                  className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-start"
                 >
-                  <HelpCircle className="w-3.5 h-3.5" /> Platform rehberi
+                  <HelpCircle className="w-3.5 h-3.5" /> {f.platformGuide}
                 </button>
               </li>
               <li>
                 <button onClick={() => navigate("/komisyon-hesaplayici")} className="text-sm text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
-                  <BadgePercent className="w-3.5 h-3.5" /> Komisyon hesaplayıcı
+                  <BadgePercent className="w-3.5 h-3.5" /> {f.commissionCalc}
                 </button>
               </li>
               <li>
@@ -134,33 +134,33 @@ export function Footer() {
                   <DraftingCompass className="w-3.5 h-3.5" /> {kkaStudioNavLabel}
                 </button>
               </li>
-              <li><button onClick={() => navigate("/araclar/vergi-simulator")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> Vergi simülatörü</button></li>
-              <li><button onClick={() => navigate("/araclar/finans-uyumluluk")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Shield className="w-3.5 h-3.5" /> Finans / uyumluluk</button></li>
+              <li><button onClick={() => navigate("/araclar/vergi-simulator")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.taxSimulator}</button></li>
+              <li><button onClick={() => navigate("/araclar/finans-uyumluluk")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Shield className="w-3.5 h-3.5" /> {f.financeCompliance}</button></li>
             </ul>
           </div>
 
           {/* Legal */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">Kurumsal & Hukuki</h4>
+            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colCorporateLegal}</h4>
             <ul className="space-y-2.5">
               {!isProdBuild ? (
                 <li><button onClick={() => navigate("/karsilastir-rakipler")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Trophy className="w-3.5 h-3.5" /> Rakip Analizi</button></li>
               ) : null}
-              <li><button onClick={() => navigate("/yasal")} className="text-sm text-violet-300 hover:text-violet-200 transition-colors cursor-pointer flex items-center gap-2 w-full text-left font-semibold"><Scale className="w-3.5 h-3.5" /> Yasal Hub (tümü)</button></li>
-              <li><button onClick={() => navigate("/ihale-kosullari")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Gavel className="w-3.5 h-3.5" /> Ihale Kosullari & Komisyon</button></li>
-              <li><button onClick={() => navigate("/evraklar")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Katilim Evraklari</button></li>
-              <li><button onClick={() => navigate("/kvkk")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> KVKK Aydinlatma Metni</button></li>
-              <li><button onClick={() => navigate("/kullanim-kosullari")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Kullanım Koşulları</button></li>
-              <li><button onClick={() => navigate("/gizlilik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Gizlilik Politikasi</button></li>
-              <li><button onClick={() => navigate("/cerez-politikasi")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Cerez Politikasi</button></li>
-              <li><button onClick={() => navigate("/mesafeli-satis-sozlesmesi")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Mesafeli Satış Sözleşmesi</button></li>
-              <li><button onClick={() => navigate("/iade-iptal")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> İade ve İptal</button></li>
-              <li><button onClick={() => navigate("/aydinlatma-metni")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><FileText className="w-3.5 h-3.5" /> Aydınlatma Metni</button></li>
-              <li><button onClick={() => navigate("/iletisim")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Mail className="w-3.5 h-3.5" /> İletişim</button></li>
-              <li><button onClick={() => navigate("/hakkimizda")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Hakkımızda</button></li>
-              <li><button onClick={() => window.open("/sitemap.xml", "_blank", "noopener,noreferrer")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Navigation className="w-3.5 h-3.5" /> Site Haritası</button></li>
-              <li><button onClick={() => navigate("/sss")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><HelpCircle className="w-3.5 h-3.5" /> SSS</button></li>
-              <li><button onClick={() => navigate("/güvenlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Guvenlik Merkezi</button></li>
+              <li><button onClick={() => navigate("/yasal")} className="text-sm text-violet-300 hover:text-violet-200 transition-colors cursor-pointer flex items-center gap-2 w-full text-start font-semibold"><Scale className="w-3.5 h-3.5" /> {f.legalHub}</button></li>
+              <li><button onClick={() => navigate("/ihale-kosullari")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Gavel className="w-3.5 h-3.5" /> {f.auctionTermsCommission}</button></li>
+              <li><button onClick={() => navigate("/evraklar")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.participationDocs}</button></li>
+              <li><button onClick={() => navigate("/kvkk")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.kvkkInfo}</button></li>
+              <li><button onClick={() => navigate("/kullanim-kosullari")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.termsOfUse}</button></li>
+              <li><button onClick={() => navigate("/gizlilik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.privacyPolicy}</button></li>
+              <li><button onClick={() => navigate("/cerez-politikasi")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.cookiePolicy}</button></li>
+              <li><button onClick={() => navigate("/mesafeli-satis-sozlesmesi")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.distanceSaleAgreement}</button></li>
+              <li><button onClick={() => navigate("/iade-iptal")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.refundCancellation}</button></li>
+              <li><button onClick={() => navigate("/aydinlatma-metni")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.disclosure}</button></li>
+              <li><button onClick={() => navigate("/iletisim")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Mail className="w-3.5 h-3.5" /> {f.contactFooter}</button></li>
+              <li><button onClick={() => navigate("/hakkimizda")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> {f.aboutUs}</button></li>
+              <li><button onClick={() => window.open("/sitemap.xml", "_blank", "noopener,noreferrer")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Navigation className="w-3.5 h-3.5" /> {f.sitemap}</button></li>
+              <li><button onClick={() => navigate("/sss")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><HelpCircle className="w-3.5 h-3.5" /> {f.faqFooter}</button></li>
+              <li><button onClick={() => navigate("/güvenlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.securityCenter}</button></li>
               {!isProdBuild ? (
                 <>
                   <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-rose-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Shield className="w-3.5 h-3.5" /> Dolandırıcılık savunması</button></li>
@@ -187,38 +187,38 @@ export function Footer() {
                   <li><button onClick={() => navigate("/canliya-hazirlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Database className="w-3.5 h-3.5" /> Canlıya hazırlık</button></li>
                 </>
               ) : null}
-              <li><button onClick={() => navigate("/sat-basla")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Users className="w-3.5 h-3.5" /> Satıcı modu</button></li>
-              <li><button onClick={() => navigate("/komisyon-modeli")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><Target className="w-3.5 h-3.5" /> Komisyon modeli</button></li>
+              <li><button onClick={() => navigate("/sat-basla")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> {f.sellerMode}</button></li>
+              <li><button onClick={() => navigate("/komisyon-modeli")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Target className="w-3.5 h-3.5" /> {f.commissionModel}</button></li>
               <li className="relative" data-demo={isDemoData("footerNavEndeks") ? "true" : undefined}>
                 {isDemoData("footerNavEndeks") ? <DemoDataCornerBadge /> : null}
-                <button onClick={() => navigate("/veri-ve-endeks")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-left"><BarChart3 className="w-3.5 h-3.5" /> İhaleal Endeksi</button>
+                <button onClick={() => navigate("/veri-ve-endeks")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><BarChart3 className="w-3.5 h-3.5" /> {f.ihalealIndex}</button>
               </li>
             </ul>
           </div>
 
           {/* Newsletter */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">Bulten</h4>
-            <p className="text-sm text-slate-300 mb-3">Yeni ihalelerden ilk siz haberdar olun.</p>
+            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colNewsletter}</h4>
+            <p className="text-sm text-slate-300 mb-3">{f.newsletterDesc}</p>
             <div className="flex gap-2">
-              <input type="email" placeholder="E-posta" className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
-              <button className="px-3 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white text-sm font-semibold transition-colors">Abone</button>
+              <input type="email" placeholder={f.newsletterPlaceholder} className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
+              <button className="px-3 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white text-sm font-semibold transition-colors">{f.newsletterSubmit}</button>
             </div>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/15 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-slate-400">
-            © {year} ihaleal.com. {isEn ? "All rights reserved." : "Tüm hakları saklıdır."}
+          <p className="text-xs text-slate-400" dir="ltr">
+            © {year} ihaleal.com. <span dir="auto">{f.allRightsReserved}</span>
           </p>
           <div className="flex flex-wrap items-center gap-4">
             {/* Dil seçici — Navbar'dakine ek olarak mobile + desktop her zaman görünür. */}
             <div
               className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-slate-900/50 px-1 py-0.5"
               role="group"
-              aria-label={isEn ? "Language" : "Dil"}
+              aria-label={f.langLabel}
             >
-              <Globe className="ml-1.5 h-3 w-3 text-slate-500" aria-hidden />
+              <Globe className="ms-1.5 h-3 w-3 text-slate-500" aria-hidden />
               <button
                 type="button"
                 onClick={() => pickLocale("tr")}
@@ -269,7 +269,7 @@ export function Footer() {
               </button>
             </div>
             <span className="text-xs text-slate-400">
-              {isEn ? "AI-powered real estate platform" : "Yapay zeka destekli gayrimenkul platformu"}
+              {f.taglineShort}
             </span>
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
