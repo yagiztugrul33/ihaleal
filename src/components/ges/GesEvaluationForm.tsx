@@ -11,6 +11,7 @@ import {
   type GesSubmitResult,
 } from "@/lib/ges-land";
 import { runGesLandEvaluation } from "@/lib/ges-land/feasibilityEngine";
+import { FxRef } from "@/components/FxRef";
 
 type Step = 1 | 2 | 3;
 
@@ -279,7 +280,8 @@ export function GesEvaluationForm() {
                 Yillik: <strong>{formatMw(result.estimatedAnnualMwh)} MWh</strong>
               </p>
               <p>
-                CAPEX: <strong>{formatTry(result.estimatedCapexTry)}</strong>
+                CAPEX: <strong dir="ltr">{formatTry(result.estimatedCapexTry)}</strong>
+                <FxRef amountTry={result.estimatedCapexTry} variant="compact" className="ms-1.5 text-[11px] text-amber-300/80" />
               </p>
               {result.paybackYears != null && (
                 <p className="sm:col-span-2">

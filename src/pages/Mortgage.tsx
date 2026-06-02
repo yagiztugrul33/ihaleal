@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { FxRef } from "@/components/FxRef";
 
 const INTEREST_RATES = {
   "12": 3.49, "24": 3.79, "36": 3.99, "60": 4.29, "120": 4.79, "180": 5.29, "240": 5.79
@@ -166,10 +167,10 @@ export default function Mortgage() {
             <Card className="bg-slate-900/50 border-slate-200/80 p-5">
               <h3 className="font-bold text-white mb-4">Kredi Ozeti</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <ResultCard icon={<Banknote className="w-5 h-5 text-blue-400" />} label="Aylik Taksit" value={`TRY ${Math.round(monthlyPayment).toLocaleString()}`} sub="Duzgun odeme" color="text-blue-400" />
-                <ResultCard icon={<Percent className="w-5 h-5 text-amber-400" />} label="Toplam Faiz" value={`TRY ${Math.round(totalInterest).toLocaleString()}`} sub={`%${((totalInterest / loanAmount) * 100).toFixed(1)} maliyet`} color="text-amber-400" />
-                <ResultCard icon={<Clock className="w-5 h-5 text-emerald-400" />} label="Toplam Odeme" value={`TRY ${Math.round(totalPayment).toLocaleString()}`} sub={`${termMonths / 12} yil`} color="text-emerald-400" />
-                <ResultCard icon={<Banknote className="w-5 h-5 text-violet-400" />} label="Kredi Tutari" value={`TRY ${loanAmount.toLocaleString()}`} sub={`%${downPaymentPercent} pesinat`} color="text-violet-400" />
+                <ResultCard icon={<Banknote className="w-5 h-5 text-blue-400" />} label="Aylik Taksit" value={`TRY ${Math.round(monthlyPayment).toLocaleString()}`} sub="Duzgun odeme" color="text-blue-400" amountTry={Math.round(monthlyPayment)} />
+                <ResultCard icon={<Percent className="w-5 h-5 text-amber-400" />} label="Toplam Faiz" value={`TRY ${Math.round(totalInterest).toLocaleString()}`} sub={`%${((totalInterest / loanAmount) * 100).toFixed(1)} maliyet`} color="text-amber-400" amountTry={Math.round(totalInterest)} />
+                <ResultCard icon={<Clock className="w-5 h-5 text-emerald-400" />} label="Toplam Odeme" value={`TRY ${Math.round(totalPayment).toLocaleString()}`} sub={`${termMonths / 12} yil`} color="text-emerald-400" amountTry={Math.round(totalPayment)} />
+                <ResultCard icon={<Banknote className="w-5 h-5 text-violet-400" />} label="Kredi Tutari" value={`TRY ${loanAmount.toLocaleString()}`} sub={`%${downPaymentPercent} pesinat`} color="text-violet-400" amountTry={loanAmount} />
               </div>
             </Card>
 
@@ -264,11 +265,14 @@ export default function Mortgage() {
   );
 }
 
-function ResultCard({ icon, label, value, sub, color }: { icon: React.ReactNode; label: string; value: string; sub: string; color: string }) {
+function ResultCard({ icon, label, value, sub, color, amountTry }: { icon: React.ReactNode; label: string; value: string; sub: string; color: string; amountTry?: number }) {
   return (
     <div className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
       <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-slate-400">{label}</span></div>
-      <div className={`text-lg font-bold ${color}`}>{value}</div>
+      <div className={`text-lg font-bold ${color}`} dir="ltr">{value}</div>
+      {typeof amountTry === "number" && (
+        <FxRef amountTry={amountTry} variant="block" className="text-[11px] text-amber-300/80" />
+      )}
       <div className="text-xs text-slate-500 mt-0.5">{sub}</div>
     </div>
   );

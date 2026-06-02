@@ -6,6 +6,7 @@ import { OrganizationDashboard } from "@/features/organizations/OrganizationDash
 import { EMLAKCI_DEMO_STATS, EMLAKCI_DEMO_LISTINGS } from "@/data/portalDemo";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { SellerAnalyticsPanel } from "@/components/seller/SellerAnalyticsPanel";
+import { FxRef } from "@/components/FxRef";
 
 function formatTry(n: number) {
   return new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
@@ -34,8 +35,11 @@ function DemoEmlakciPanel() {
           {EMLAKCI_DEMO_LISTINGS.map((l) => (
             <li key={l.id} className="flex items-center justify-between py-3 text-sm">
               <span className="text-slate-200">{l.title}</span>
-              <span className="text-slate-400">
-                {formatTry(l.price)} · {l.status}
+              <span className="text-slate-400 inline-flex items-center gap-1.5" dir="ltr">
+                {formatTry(l.price)}
+                <FxRef amountTry={l.price} variant="compact" className="text-[11px] text-amber-300/80" />
+                <span className="text-slate-500">·</span>
+                <span>{l.status}</span>
               </span>
             </li>
           ))}

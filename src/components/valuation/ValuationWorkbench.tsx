@@ -11,6 +11,7 @@ import {
   type LocationTier,
   type PropertyCondition,
 } from "@/lib/valuation/valuationEngine";
+import { FxRef } from "@/components/FxRef";
 
 type WorkbenchState = {
   city: CityKey;
@@ -293,14 +294,16 @@ export function ValuationWorkbench({
         <div className="space-y-4">
           <article className="grid gap-3 rounded-xl border border-emerald-500/35 bg-emerald-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
             <div>
-              <p className="text-xs text-emerald-100">Tahmini değer</p>
-              <p className="text-xl font-black text-white">{formatTry(result.estimatedValue)}</p>
+              <p className="text-xs text-emerald-100">Tahmini değer (yaklaşık)</p>
+              <p className="text-xl font-black text-white" dir="ltr">{formatTry(result.estimatedValue)}</p>
+              <FxRef amountTry={result.estimatedValue} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
             <div>
               <p className="text-xs text-emerald-100">Güven aralığı</p>
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-white" dir="ltr">
                 {formatTry(result.minValue)} - {formatTry(result.maxValue)}
               </p>
+              <FxRef amountTry={result.maxValue} variant="block" className="text-[11px] text-amber-300/80" note="üst sınır" />
             </div>
             <div>
               <p className="text-xs text-emerald-100">Belirsizlik bandı</p>
@@ -356,15 +359,18 @@ export function ValuationWorkbench({
           <article className="grid gap-4 xl:grid-cols-3">
             <div className="rounded-lg border border-violet-500/30 bg-violet-500/10 p-3">
               <p className="text-[11px] uppercase tracking-[0.12em] text-violet-200">SPK - Emsal yaklaşımı</p>
-              <p className="mt-1 text-lg font-black text-white">{formatTry(result.approaches.salesComparisonTry)}</p>
+              <p className="mt-1 text-lg font-black text-white" dir="ltr">{formatTry(result.approaches.salesComparisonTry)}</p>
+              <FxRef amountTry={result.approaches.salesComparisonTry} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
             <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
               <p className="text-[11px] uppercase tracking-[0.12em] text-amber-200">SPK - Maliyet yaklaşımı</p>
-              <p className="mt-1 text-lg font-black text-white">{formatTry(result.approaches.costApproachTry)}</p>
+              <p className="mt-1 text-lg font-black text-white" dir="ltr">{formatTry(result.approaches.costApproachTry)}</p>
+              <FxRef amountTry={result.approaches.costApproachTry} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
             <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3">
               <p className="text-[11px] uppercase tracking-[0.12em] text-emerald-200">SPK - Gelir yaklaşımı</p>
-              <p className="mt-1 text-lg font-black text-white">{formatTry(result.approaches.incomeApproachTry)}</p>
+              <p className="mt-1 text-lg font-black text-white" dir="ltr">{formatTry(result.approaches.incomeApproachTry)}</p>
+              <FxRef amountTry={result.approaches.incomeApproachTry} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
           </article>
 

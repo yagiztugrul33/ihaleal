@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { calcMortgagePayment, formatTry } from "@/lib/mortgageCalc";
+import { FxRef } from "@/components/FxRef";
 import { useMemo } from "react";
 
 type Props = {
@@ -31,7 +32,8 @@ export function ListingMortgageWidget({ priceTry, className = "" }: Props) {
           {estimate ? (
             <p className="mt-1 text-xs text-slate-400">
               %80 finansman, 120 ay, %2,89 aylık faiz tahmini:{" "}
-              <span className="text-teal-300 font-medium">{formatTry(estimate.monthlyPayment)}/ay</span>
+              <span className="text-teal-300 font-medium" dir="ltr">{formatTry(estimate.monthlyPayment)}/ay</span>
+              <FxRef amountTry={estimate.monthlyPayment} variant="compact" className="ms-1 text-[11px] text-amber-300/80" />
             </p>
           ) : null}
           <p className="mt-2 text-[10px] text-slate-500">Bilgilendirme amaçlı; banka onayı gerekir.</p>

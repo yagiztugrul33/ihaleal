@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { calcMortgagePayment, formatTry } from "@/lib/mortgageCalc";
+import { FxRef } from "@/components/FxRef";
 
 const TERM_PRESETS = [60, 120, 180, 240] as const;
 
@@ -99,19 +100,22 @@ export default function KonutKredisiHesaplayici() {
           <Card className="border-blue-500/20 bg-blue-500/10">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wider text-slate-400">Aylık taksit</p>
-              <p className="mt-1 text-2xl font-bold text-blue-300">{formatTry(result.monthlyPayment)}</p>
+              <p className="mt-1 text-2xl font-bold text-blue-300" dir="ltr">{formatTry(result.monthlyPayment)}</p>
+              <FxRef amountTry={result.monthlyPayment} variant="block" className="text-[11px] text-amber-300/80" />
             </CardContent>
           </Card>
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wider text-slate-400">Toplam geri ödeme</p>
-              <p className="mt-1 text-xl font-bold text-white">{formatTry(result.totalPayment)}</p>
+              <p className="mt-1 text-xl font-bold text-white" dir="ltr">{formatTry(result.totalPayment)}</p>
+              <FxRef amountTry={result.totalPayment} variant="block" className="text-[11px] text-amber-300/80" />
             </CardContent>
           </Card>
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wider text-slate-400">Toplam faiz</p>
-              <p className="mt-1 text-xl font-bold text-amber-300">{formatTry(result.totalInterest)}</p>
+              <p className="mt-1 text-xl font-bold text-amber-300" dir="ltr">{formatTry(result.totalInterest)}</p>
+              <FxRef amountTry={result.totalInterest} variant="block" className="text-[11px] text-amber-300/80" />
             </CardContent>
           </Card>
         </div>
