@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import {
   MEMBERSHIP_FEES,
   SERVICE_FEES,
-  SERVICE_FEE_LABELS,
   SERVICE_FEE_DYNAMIC,
   calcCommissionBreakdown,
   calcBidBond,
@@ -29,11 +28,14 @@ import {
   type RentalSplitScenario,
 } from "@/lib/rentalCommissionEngine";
 import { KKA_HUB_PATH } from "@/lib/kkaHub";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type ServiceKey = keyof typeof SERVICE_FEES;
 
 export default function CommissionCalculator() {
   const navigate = useNavigate();
+  const { t } = useLocale();
+  const cc = t.commissionCalc;
   const [saleStr, setSaleStr] = useState("5000000");
   const [rentStr, setRentStr] = useState("35000");
   const [loanPrincipalStr, setLoanPrincipalStr] = useState("3000000");
@@ -170,25 +172,24 @@ export default function CommissionCalculator() {
               <Calculator className="h-8 w-8" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Araçlar / Hesaplayıcılar</h1>
+              <h1 className="text-3xl font-bold text-white">{cc.pageTitle}</h1>
               <p className="mt-2 text-sm text-slate-400">
-                Satış komisyonu, kiralık/devren dağılımı ve yatırımcı hesapları tek ekranda. Kredi taksiti, kira getirisi, tapu
-                harcı, değer artışı vergisi ve aidat/gider etkisi için hızlı simülasyon (mock) içerir.
+                {cc.pageIntro}
               </p>
             </div>
           </div>
           <section className="mb-6 grid gap-3 sm:grid-cols-3">
             <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">1) Matrah</p>
-              <p className="mt-1 text-xs text-slate-300">Satış/kira tutarıyla temel komisyon matrahı kurulur.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">{cc.step1Title}</p>
+              <p className="mt-1 text-xs text-slate-300">{cc.step1Desc}</p>
             </article>
             <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">2) Dağılım</p>
-              <p className="mt-1 text-xs text-slate-300">Mahsup, B2B payı, KDV ve net platform kalemi birlikte hesaplanır.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">{cc.step2Title}</p>
+              <p className="mt-1 text-xs text-slate-300">{cc.step2Desc}</p>
             </article>
             <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">3) Karar</p>
-              <p className="mt-1 text-xs text-slate-300">Sonuçlar teklif stratejisi ve hukuki/vergisel kontrolle yorumlanır.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">{cc.step3Title}</p>
+              <p className="mt-1 text-xs text-slate-300">{cc.step3Desc}</p>
             </article>
           </section>
 
@@ -196,10 +197,9 @@ export default function CommissionCalculator() {
             <CardContent className="flex gap-3 p-4">
               <Shield className="mt-0.5 h-5 w-5 shrink-0 text-sky-400" aria-hidden />
               <div>
-                <h2 className="text-sm font-semibold text-white">Güvenli ödeme havuzu (escrow)</h2>
+                <h2 className="text-sm font-semibold text-white">{cc.escrowTitle}</h2>
                 <p className="mt-1 text-xs leading-relaxed text-slate-400">
-                  Hedef mimaride teklif tutarları, işlem koşulları sağlanana kadar üçüncü taraf havuzda tutulur; mahsup ve komisyon kesintileri sözleşmeye uygun şekilde otomatik dağıtılır.
-                  Bu ekran yalnızca komisyon matematığını gösterir; havuz hesabı ve ödeme sağlayıcı entegrasyonu üretimde tanımlanır.
+                  {cc.escrowBody}
                 </p>
               </div>
             </CardContent>
@@ -207,36 +207,41 @@ export default function CommissionCalculator() {
 
           <Card className="mb-6 border-emerald-500/25 bg-emerald-950/20">
             <CardContent className="p-5 space-y-3">
-              <h2 className="text-lg font-semibold text-white">Temel komisyon/teminat hesabı (gerçek formül)</h2>
+              <h2 className="text-lg font-semibold text-white">{cc.basicTitle}</h2>
               <p className="text-xs text-slate-300">
-                Satıcı %{(SELLER_COMMISSION_RATE * 100).toFixed(0)} + alıcı %{(COMMISSION_RATE * 100).toFixed(0)} + KDV %{(VAT_RATE * 100).toFixed(0)}.
-                Teminat blokajı %{(BID_BOND_RATE * 100).toFixed(0)}. Cayma cezası örnek oranı %{(WITHDRAWAL_PENALTY_RATE * 100).toFixed(0)}.
+                {cc.basicRateDesc
+                  .replace("{seller}", (SELLER_COMMISSION_RATE * 100).toFixed(0))
+                  .replace("{buyer}", (COMMISSION_RATE * 100).toFixed(0))
+                  .replace("{vat}", (VAT_RATE * 100).toFixed(0))
+                  .replace("{bond}", (BID_BOND_RATE * 100).toFixed(0))
+                  .replace("{penalty}", (WITHDRAWAL_PENALTY_RATE * 100).toFixed(0))}
               </p>
               <dl className="grid gap-2 text-sm md:grid-cols-2">
-                <div className="flex justify-between text-slate-300"><dt>Satıcı komisyonu</dt><dd>₺{Math.round(sellerCommission).toLocaleString("tr-TR")}</dd></div>
-                <div className="flex justify-between text-slate-300"><dt>Satıcı komisyon KDV</dt><dd>₺{Math.round(sellerCommissionVat).toLocaleString("tr-TR")}</dd></div>
-                <div className="flex justify-between text-slate-300"><dt>Alıcı komisyonu</dt><dd>₺{Math.round(buyerCommission).toLocaleString("tr-TR")}</dd></div>
-                <div className="flex justify-between text-slate-300"><dt>Alıcı komisyon KDV</dt><dd>₺{Math.round(buyerCommissionVat).toLocaleString("tr-TR")}</dd></div>
-                <div className="flex justify-between text-amber-300"><dt>%5 teminat blokajı</dt><dd data-testid="commission-bid-bond">₺{Math.round(bidBond).toLocaleString("tr-TR")}</dd></div>
-                <div className="flex justify-between text-rose-300"><dt>Cayma cezası (örnek)</dt><dd data-testid="commission-withdrawal-penalty">₺{Math.round(withdrawalPenalty).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>{cc.rowSellerCommission}</dt><dd dir="ltr">₺{Math.round(sellerCommission).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>{cc.rowSellerCommissionVat}</dt><dd dir="ltr">₺{Math.round(sellerCommissionVat).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>{cc.rowBuyerCommission}</dt><dd dir="ltr">₺{Math.round(buyerCommission).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-slate-300"><dt>{cc.rowBuyerCommissionVat}</dt><dd dir="ltr">₺{Math.round(buyerCommissionVat).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-amber-300"><dt>{cc.rowBidBond.replace("{bond}", (BID_BOND_RATE * 100).toFixed(0))}</dt><dd data-testid="commission-bid-bond" dir="ltr">₺{Math.round(bidBond).toLocaleString("tr-TR")}</dd></div>
+                <div className="flex justify-between text-rose-300"><dt>{cc.rowWithdrawalPenalty}</dt><dd data-testid="commission-withdrawal-penalty" dir="ltr">₺{Math.round(withdrawalPenalty).toLocaleString("tr-TR")}</dd></div>
               </dl>
               <p className="text-[11px] text-slate-500">
-                Dürüst sınır: tapu harcı, resmi vergiler ve özel durumlar bu blok dışında ayrıca hesaplanır; nihai hesap için mali müşavir desteği gerekir.
+                {cc.basicHonestyNote}
               </p>
             </CardContent>
           </Card>
 
           <Card className="mb-6 border-cyan-500/20 bg-cyan-950/20">
             <CardContent className="p-5 space-y-2">
-              <h2 className="text-lg font-semibold text-cyan-100">Örnek hesap (anlık güncellenir)</h2>
-              <p className="text-sm text-slate-300">
-                İşlem tutarı <strong>₺{saleAmount.toLocaleString("tr-TR")}</strong> için toplam komisyon+KDV yükü yaklaşık{" "}
-                <strong data-testid="commission-total-with-vat">₺{Math.round(commissionTotalWithVat).toLocaleString("tr-TR")}</strong>,
-                teminat blokajı <strong>₺{Math.round(bidBond).toLocaleString("tr-TR")}</strong>, cayma cezası örneği{" "}
-                <strong>₺{Math.round(withdrawalPenalty).toLocaleString("tr-TR")}</strong> olur.
+              <h2 className="text-lg font-semibold text-cyan-100">{cc.exampleTitle}</h2>
+              <p className="text-sm text-slate-300" data-testid="commission-total-with-vat">
+                {cc.exampleBody
+                  .replace("{amount}", saleAmount.toLocaleString("tr-TR"))
+                  .replace("{total}", Math.round(commissionTotalWithVat).toLocaleString("tr-TR"))
+                  .replace("{bond}", Math.round(bidBond).toLocaleString("tr-TR"))
+                  .replace("{penalty}", Math.round(withdrawalPenalty).toLocaleString("tr-TR"))}
               </p>
               <p className="text-[11px] text-slate-500">
-                Not: Tapu harcı, gelir vergisi, damga vergisi ve sözleşmeye özel kalemler ayrıca değerlendirilmelidir.
+                {cc.exampleNote}
               </p>
             </CardContent>
           </Card>
@@ -244,12 +249,13 @@ export default function CommissionCalculator() {
           <Card className="border-slate-200 bg-slate-900/50">
             <CardContent className="space-y-6 p-6">
               <div>
-                <Label className="text-slate-300">Satış / işlem tutarı (₺)</Label>
+                <Label className="text-slate-300">{cc.inputSaleLabel}</Label>
                 <Input
                   className="mt-2 bg-slate-950 border-slate-200 text-white"
                   value={saleStr}
                   onChange={(e) => setSaleStr(e.target.value)}
                   inputMode="numeric"
+                  dir="ltr"
                 />
               </div>
               <div className="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
@@ -257,28 +263,28 @@ export default function CommissionCalculator() {
                   checked={sellerMembershipPaid}
                   onCheckedChange={(v) => setSellerMembershipPaid(v === true)}
                   id="sm-y"
-                  aria-label="Satıcı yıllık ücreti mahsuba dahil"
+                  aria-label={cc.inputMembershipAria}
                 />
                 <div>
                   <label htmlFor="sm-y" className="cursor-pointer text-sm font-medium text-white">
-                    Yıllık satıcı ücreti ödenmiş say ({MEMBERSHIP_FEES.seller_yearly.toLocaleString("tr-TR")} ₺ / yıl)
+                    {cc.inputMembershipLabel.replace("{amount}", MEMBERSHIP_FEES.seller_yearly.toLocaleString("tr-TR"))}
                   </label>
                   <p className="mt-1 text-xs text-slate-500">
-                    Alıcı yıllık ücreti ({MEMBERSHIP_FEES.buyer_yearly.toLocaleString("tr-TR")} ₺) ayrı kalemdir; bu işlem mahsubuna dahil edilmez.
+                    {cc.inputMembershipSubNote.replace("{amount}", MEMBERSHIP_FEES.buyer_yearly.toLocaleString("tr-TR"))}
                   </p>
                 </div>
               </div>
               <div>
-                <p className="mb-3 text-sm font-medium text-slate-300">Hizmet bedeli mahsuba dahil et</p>
+                <p className="mb-3 text-sm font-medium text-slate-300">{cc.inputServiceFeesLabel}</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {(Object.keys(SERVICE_FEES) as ServiceKey[]).map((k) => (
                     <label key={k} className="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-200/80 p-3 hover:bg-white/5">
                       <Checkbox checked={svc[k]} onCheckedChange={() => toggleService(k)} />
                       <span className="text-sm text-slate-400">
-                        <span className="text-slate-200">{SERVICE_FEE_LABELS[k]}</span>
+                        <span className="text-slate-200">{t.serviceFees.labels[k]}</span>
                         <span className="block text-xs text-slate-500">
                           {SERVICE_FEE_DYNAMIC[k]
-                            ? `${SERVICE_FEE_DYNAMIC[k]} (matrah ₺${calcBidBond(saleAmount).toLocaleString("tr-TR")})`
+                            ? `${t.serviceFees.dynamicBidEntry} ${cc.inputServiceMatrah.replace("{amount}", calcBidBond(saleAmount).toLocaleString("tr-TR"))}`
                             : `${SERVICE_FEES[k].toLocaleString("tr-TR")} ₺`}
                         </span>
                       </span>
@@ -291,22 +297,22 @@ export default function CommissionCalculator() {
 
           <Card className="mt-6 border-slate-200 bg-slate-950/60">
             <CardContent className="p-6">
-              <h2 className="mb-4 text-sm font-semibold text-white">Mahsup akışı (görsel özet)</h2>
+              <h2 className="mb-4 text-sm font-semibold text-white">{cc.mahsupTitle}</h2>
               <div className="rounded-xl border border-dashed border-teal-500/25 bg-[#060912] p-4 font-mono text-[11px] leading-relaxed text-slate-300 sm:text-xs">
                 <div className="flex flex-col gap-2">
                   <div className="rounded-lg bg-white/5 px-3 py-2 text-center">
-                    Satıcı komisyon matrahı (%{(SELLER_COMMISSION_RATE * 100).toFixed(0)}) + KDV ({(VAT_RATE * 100).toFixed(0)}%)
+                    {cc.mahsupBox1.replace("{seller}", (SELLER_COMMISSION_RATE * 100).toFixed(0)).replace("{vat}", (VAT_RATE * 100).toFixed(0))}
                   </div>
                   <div className="text-center text-teal-400">−</div>
                   <div className="rounded-lg bg-teal-500/10 px-3 py-2 text-center text-teal-100">
-                    Mahsup: yıllık satıcı üyeliği + seçilen hizmet bedelleri
+                    {cc.mahsupBox2}
                   </div>
                   <div className="text-center text-teal-400">−</div>
                   <div className="rounded-lg bg-violet-500/10 px-3 py-2 text-center text-violet-100">
-                    Ortak emlakçı B2B (işlem üzerinden %{(REALTOR_B2B_RATE * 100).toFixed(0)})
+                    {cc.mahsupBox3.replace("{b2b}", (REALTOR_B2B_RATE * 100).toFixed(0))}
                   </div>
                   <div className="mt-2 border-t border-slate-200 pt-3 text-center text-slate-500">
-                    ≈ Tahmini platform net (sağdaki tablo ile uyumlu)
+                    {cc.mahsupBox4}
                   </div>
                 </div>
               </div>
@@ -317,38 +323,38 @@ export default function CommissionCalculator() {
         <div className="space-y-4">
           <Card className="border-teal-500/20 bg-teal-950/20">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-white">Tahmini dağılım</h2>
+              <h2 className="text-lg font-semibold text-white">{cc.distTitle}</h2>
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between text-slate-400">
-                  <dt>Satıcı işlem komisyonu (matrah)</dt>
-                  <dd className="font-medium text-white">₺{Math.round(b.sellerCommission).toLocaleString("tr-TR")}</dd>
+                  <dt>{cc.distSellerCommMatrah}</dt>
+                  <dd className="font-medium text-white" dir="ltr">₺{Math.round(b.sellerCommission).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between text-slate-400">
-                  <dt>KDV ({(VAT_RATE * 100).toFixed(0)}%, komisyon üzerinden)</dt>
-                  <dd className="font-medium text-white">₺{Math.round(b.totalVAT).toLocaleString("tr-TR")}</dd>
+                  <dt>{cc.distKdv.replace("{vat}", (VAT_RATE * 100).toFixed(0))}</dt>
+                  <dd className="font-medium text-white" dir="ltr">₺{Math.round(b.totalVAT).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between text-slate-400">
-                  <dt>Ortak emlakçı B2B (matrah %{(REALTOR_B2B_RATE * 100).toFixed(0)})</dt>
-                  <dd className="font-medium text-white">₺{Math.round(b.agentShare).toLocaleString("tr-TR")}</dd>
+                  <dt>{cc.distB2b.replace("{b2b}", (REALTOR_B2B_RATE * 100).toFixed(0))}</dt>
+                  <dd className="font-medium text-white" dir="ltr">₺{Math.round(b.agentShare).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between border-t border-slate-200 pt-2 text-slate-400">
-                  <dt>Mahsup (üyelik + hizmet)</dt>
-                  <dd className="text-teal-300">−₺{Math.round(b.offsetTotal).toLocaleString("tr-TR")}</dd>
+                  <dt>{cc.distMahsup}</dt>
+                  <dd className="text-teal-300" dir="ltr">−₺{Math.round(b.offsetTotal).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <dt className="font-medium">Tahmini platform net matrah (mahsup + B2B sonrası)</dt>
-                  <dd className={`font-bold ${b.platformNet < 0 ? "text-amber-400" : "text-emerald-400"}`}>
+                  <dt className="font-medium">{cc.distPlatformNet}</dt>
+                  <dd className={`font-bold ${b.platformNet < 0 ? "text-amber-400" : "text-emerald-400"}`} dir="ltr">
                     ₺{Math.round(b.platformNet).toLocaleString("tr-TR")}
                   </dd>
                 </div>
               </dl>
               {b.platformNet < 0 ? (
                 <p className="rounded-lg bg-amber-500/10 p-3 text-xs text-amber-200/90">
-                  Negatif çıkan durumlarda üretim faturalama politikası sıfır altına düşmemeyi veya taşımayı netleştirir.
+                  {cc.distNegativeNote}
                 </p>
               ) : null}
               <p className="text-[11px] leading-relaxed text-slate-500">
-                Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme, resmi kurum hesapları ve uzman görüşü ile netleşir.
+                {cc.distHonestyNote}
               </p>
             </CardContent>
           </Card>

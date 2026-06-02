@@ -994,6 +994,53 @@ export type ServiceFeesMessages = {
   descriptions: Record<ServiceFeeKey, string>;
 };
 
+export type CommissionCalcMessages = {
+  // header + steps
+  pageTitle: string;
+  pageIntro: string;
+  step1Title: string; step1Desc: string;
+  step2Title: string; step2Desc: string;
+  step3Title: string; step3Desc: string;
+  // escrow
+  escrowTitle: string; escrowBody: string;
+  // basic commission card
+  basicTitle: string;
+  basicRateDesc: string; // {seller}{buyer}{vat}{bond}{penalty}
+  rowSellerCommission: string;
+  rowSellerCommissionVat: string;
+  rowBuyerCommission: string;
+  rowBuyerCommissionVat: string;
+  rowBidBond: string; // {bond}
+  rowWithdrawalPenalty: string;
+  basicHonestyNote: string;
+  // example card
+  exampleTitle: string;
+  exampleBody: string; // {amount}{total}{bond}{penalty}
+  exampleNote: string;
+  // input card
+  inputSaleLabel: string;
+  inputMembershipAria: string;
+  inputMembershipLabel: string; // {amount}
+  inputMembershipSubNote: string; // {amount}
+  inputServiceFeesLabel: string;
+  inputServiceMatrah: string; // {amount}
+  // mahsup flow
+  mahsupTitle: string;
+  mahsupBox1: string; // {seller}{vat}
+  mahsupBox2: string;
+  mahsupBox3: string; // {b2b}
+  mahsupBox4: string;
+  // distribution card
+  distTitle: string;
+  distSellerCommMatrah: string;
+  distKdv: string; // {vat}
+  distB2b: string; // {b2b}
+  distMahsup: string;
+  distPlatformNet: string;
+  distNegativeNote: string;
+  distHonestyNote: string;
+};
+
 export type Messages = {
   nav: NavMessages;
   home: HomeMessages;
@@ -1015,6 +1062,7 @@ export type Messages = {
   investorDashboard: InvestorDashboardMessages;
   profile: ProfileMessages;
   serviceFees: ServiceFeesMessages;
+  commissionCalc: CommissionCalcMessages;
 };
 
 /**
@@ -2033,6 +2081,46 @@ export const messages: Record<"en" | "tr", Messages> = {
         tapu_prep: "Title deed appointment and file preparation item. Helps gather the document set in the right order and keep closing day moving without delay.",
       },
     },
+    commissionCalc: {
+      pageTitle: "Tools / Calculators",
+      pageIntro: "Sales commission, rental/transfer split and investor calculations on one screen. Includes quick simulation (mock) for loan installment, rental yield, title-deed duty, capital-gains tax and dues/expense impact.",
+      step1Title: "1) Base", step1Desc: "The base commission matrah is set from the sale/rent amount.",
+      step2Title: "2) Distribution", step2Desc: "Offset, B2B share, VAT and the net platform item are calculated together.",
+      step3Title: "3) Decision", step3Desc: "Results are interpreted with bid strategy and legal/tax checks.",
+      escrowTitle: "Secure payment pool (escrow)",
+      escrowBody: "In the target architecture, bid amounts are held in a third-party pool until the transaction conditions are met; offsets and commission deductions are distributed automatically per the contract. This screen only shows the commission math; the pool account and payment-provider integration are defined in production.",
+      basicTitle: "Basic commission/deposit calculation (real formula)",
+      basicRateDesc: "Seller {seller}% + buyer {buyer}% + VAT {vat}%. Deposit hold {bond}%. Example withdrawal penalty rate {penalty}%.",
+      rowSellerCommission: "Seller commission",
+      rowSellerCommissionVat: "Seller commission VAT",
+      rowBuyerCommission: "Buyer commission",
+      rowBuyerCommissionVat: "Buyer commission VAT",
+      rowBidBond: "{bond}% deposit hold",
+      rowWithdrawalPenalty: "Withdrawal penalty (example)",
+      basicHonestyNote: "Honest limit: title-deed duty, official taxes and special cases are calculated separately outside this block; final accounting requires a certified accountant.",
+      exampleTitle: "Example calculation (updates live)",
+      exampleBody: "For a transaction amount of ₺{amount}, the total commission+VAT load is approximately ₺{total}, the deposit hold ₺{bond}, and the example withdrawal penalty ₺{penalty}.",
+      exampleNote: "Note: Title-deed duty, income tax, stamp duty and contract-specific items must be evaluated separately.",
+      inputSaleLabel: "Sale / transaction amount (₺)",
+      inputMembershipAria: "Include seller annual fee in offset",
+      inputMembershipLabel: "Count seller annual fee as paid ({amount} ₺ / year)",
+      inputMembershipSubNote: "The buyer annual fee ({amount} ₺) is a separate item; it is not included in this transaction's offset.",
+      inputServiceFeesLabel: "Include service fee in offset",
+      inputServiceMatrah: "(base ₺{amount})",
+      mahsupTitle: "Offset flow (visual summary)",
+      mahsupBox1: "Seller commission base ({seller}%) + VAT ({vat}%)",
+      mahsupBox2: "Offset: annual seller membership + selected service fees",
+      mahsupBox3: "Co-broking B2B (on the transaction {b2b}%)",
+      mahsupBox4: "≈ Estimated platform net (consistent with the table on the right)",
+      distTitle: "Estimated distribution",
+      distSellerCommMatrah: "Seller transaction commission (base)",
+      distKdv: "VAT ({vat}%, on commission)",
+      distB2b: "Co-broking B2B (base {b2b}%)",
+      distMahsup: "Offset (membership + service)",
+      distPlatformNet: "Estimated platform net base (after offset + B2B)",
+      distNegativeNote: "In negative cases, the production billing policy clarifies not dropping below zero or carrying over.",
+      distHonestyNote: "This screen is for information; exact amounts are finalized by contract, official institution accounts and expert opinion.",
+    },
   },
   tr: {
     nav: {
@@ -3044,6 +3132,46 @@ export const messages: Record<"en" | "tr", Messages> = {
         tapu_prep: "Tapu randevu ve dosya hazırlık kalemi. Evrak setinin doğru sıra ile toplanmasına ve kapanış gününün gecikmeden ilerlemesine destek olur.",
       },
     },
+    commissionCalc: {
+      pageTitle: "Araçlar / Hesaplayıcılar",
+      pageIntro: "Satış komisyonu, kiralık/devren dağılımı ve yatırımcı hesapları tek ekranda. Kredi taksiti, kira getirisi, tapu harcı, değer artışı vergisi ve aidat/gider etkisi için hızlı simülasyon (mock) içerir.",
+      step1Title: "1) Matrah", step1Desc: "Satış/kira tutarıyla temel komisyon matrahı kurulur.",
+      step2Title: "2) Dağılım", step2Desc: "Mahsup, B2B payı, KDV ve net platform kalemi birlikte hesaplanır.",
+      step3Title: "3) Karar", step3Desc: "Sonuçlar teklif stratejisi ve hukuki/vergisel kontrolle yorumlanır.",
+      escrowTitle: "Güvenli ödeme havuzu (escrow)",
+      escrowBody: "Hedef mimaride teklif tutarları, işlem koşulları sağlanana kadar üçüncü taraf havuzda tutulur; mahsup ve komisyon kesintileri sözleşmeye uygun şekilde otomatik dağıtılır. Bu ekran yalnızca komisyon matematığını gösterir; havuz hesabı ve ödeme sağlayıcı entegrasyonu üretimde tanımlanır.",
+      basicTitle: "Temel komisyon/teminat hesabı (gerçek formül)",
+      basicRateDesc: "Satıcı %{seller} + alıcı %{buyer} + KDV %{vat}. Teminat blokajı %{bond}. Cayma cezası örnek oranı %{penalty}.",
+      rowSellerCommission: "Satıcı komisyonu",
+      rowSellerCommissionVat: "Satıcı komisyon KDV",
+      rowBuyerCommission: "Alıcı komisyonu",
+      rowBuyerCommissionVat: "Alıcı komisyon KDV",
+      rowBidBond: "%{bond} teminat blokajı",
+      rowWithdrawalPenalty: "Cayma cezası (örnek)",
+      basicHonestyNote: "Dürüst sınır: tapu harcı, resmi vergiler ve özel durumlar bu blok dışında ayrıca hesaplanır; nihai hesap için mali müşavir desteği gerekir.",
+      exampleTitle: "Örnek hesap (anlık güncellenir)",
+      exampleBody: "İşlem tutarı ₺{amount} için toplam komisyon+KDV yükü yaklaşık ₺{total}, teminat blokajı ₺{bond}, cayma cezası örneği ₺{penalty} olur.",
+      exampleNote: "Not: Tapu harcı, gelir vergisi, damga vergisi ve sözleşmeye özel kalemler ayrıca değerlendirilmelidir.",
+      inputSaleLabel: "Satış / işlem tutarı (₺)",
+      inputMembershipAria: "Satıcı yıllık ücreti mahsuba dahil",
+      inputMembershipLabel: "Yıllık satıcı ücreti ödenmiş say ({amount} ₺ / yıl)",
+      inputMembershipSubNote: "Alıcı yıllık ücreti ({amount} ₺) ayrı kalemdir; bu işlem mahsubuna dahil edilmez.",
+      inputServiceFeesLabel: "Hizmet bedeli mahsuba dahil et",
+      inputServiceMatrah: "(matrah ₺{amount})",
+      mahsupTitle: "Mahsup akışı (görsel özet)",
+      mahsupBox1: "Satıcı komisyon matrahı (%{seller}) + KDV ({vat}%)",
+      mahsupBox2: "Mahsup: yıllık satıcı üyeliği + seçilen hizmet bedelleri",
+      mahsupBox3: "Ortak emlakçı B2B (işlem üzerinden %{b2b})",
+      mahsupBox4: "≈ Tahmini platform net (sağdaki tablo ile uyumlu)",
+      distTitle: "Tahmini dağılım",
+      distSellerCommMatrah: "Satıcı işlem komisyonu (matrah)",
+      distKdv: "KDV ({vat}%, komisyon üzerinden)",
+      distB2b: "Ortak emlakçı B2B (matrah %{b2b})",
+      distMahsup: "Mahsup (üyelik + hizmet)",
+      distPlatformNet: "Tahmini platform net matrah (mahsup + B2B sonrası)",
+      distNegativeNote: "Negatif çıkan durumlarda üretim faturalama politikası sıfır altına düşmemeyi veya taşımayı netleştirir.",
+      distHonestyNote: "Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme, resmi kurum hesapları ve uzman görüşü ile netleşir.",
+    },
   },
 };
 
@@ -3961,6 +4089,46 @@ const _ruOverrides: PartialDeep<Messages> = {
       tapu_prep: "Подготовка записи на оформление тапу и пакета документов. Помогает собрать комплект в правильном порядке и пройти день закрытия без задержек.",
     },
   },
+  commissionCalc: {
+    pageTitle: "Инструменты / Калькуляторы",
+    pageIntro: "Комиссия с продажи, распределение аренды/переуступки и инвесторские расчёты на одном экране. Включает быструю симуляцию (демо) для платежа по кредиту, доходности аренды, пошлины за тапу, налога на прирост стоимости и влияния взносов/расходов.",
+    step1Title: "1) База", step1Desc: "Базовая комиссионная база (матрах) формируется из суммы продажи/аренды.",
+    step2Title: "2) Распределение", step2Desc: "Зачёт, доля B2B, НДС и чистая платформенная статья рассчитываются вместе.",
+    step3Title: "3) Решение", step3Desc: "Результаты интерпретируются со стратегией ставки и юридическо-налоговой проверкой.",
+    escrowTitle: "Безопасный платёжный пул (escrow)",
+    escrowBody: "В целевой архитектуре суммы ставок удерживаются в стороннем пуле до выполнения условий сделки; зачёты и комиссионные удержания распределяются автоматически согласно договору. Этот экран показывает только математику комиссии; счёт пула и интеграция платёжного провайдера определяются в продакшене.",
+    basicTitle: "Базовый расчёт комиссии/залога (реальная формула)",
+    basicRateDesc: "Продавец {seller}% + покупатель {buyer}% + НДС {vat}%. Блокировка залога {bond}%. Пример ставки штрафа за отказ {penalty}%.",
+    rowSellerCommission: "Комиссия продавца",
+    rowSellerCommissionVat: "НДС комиссии продавца",
+    rowBuyerCommission: "Комиссия покупателя",
+    rowBuyerCommissionVat: "НДС комиссии покупателя",
+    rowBidBond: "Блокировка залога {bond}%",
+    rowWithdrawalPenalty: "Штраф за отказ (пример)",
+    basicHonestyNote: "Честная граница: пошлина за тапу, официальные налоги и особые случаи рассчитываются отдельно вне этого блока; для итогового расчёта нужен дипломированный бухгалтер.",
+    exampleTitle: "Пример расчёта (обновляется в реальном времени)",
+    exampleBody: "Для суммы сделки ₺{amount} общая нагрузка комиссия+НДС составляет примерно ₺{total}, блокировка залога ₺{bond}, а пример штрафа за отказ ₺{penalty}.",
+    exampleNote: "Примечание: пошлину за тапу, подоходный налог, гербовый сбор и статьи, специфичные для договора, следует оценивать отдельно.",
+    inputSaleLabel: "Сумма продажи / сделки (₺)",
+    inputMembershipAria: "Включить годовой взнос продавца в зачёт",
+    inputMembershipLabel: "Считать годовой взнос продавца оплаченным ({amount} ₺ / год)",
+    inputMembershipSubNote: "Годовой взнос покупателя ({amount} ₺) — отдельная статья; в зачёт этой сделки не входит.",
+    inputServiceFeesLabel: "Включить стоимость услуги в зачёт",
+    inputServiceMatrah: "(база ₺{amount})",
+    mahsupTitle: "Поток зачёта (визуальная сводка)",
+    mahsupBox1: "База комиссии продавца ({seller}%) + НДС ({vat}%)",
+    mahsupBox2: "Зачёт: годовое членство продавца + выбранные услуги",
+    mahsupBox3: "Ко-брокеридж B2B (от сделки {b2b}%)",
+    mahsupBox4: "≈ Ориентировочный чистый доход платформы (согласован с соседней таблицей)",
+    distTitle: "Ориентировочное распределение",
+    distSellerCommMatrah: "Комиссия продавца по сделке (база)",
+    distKdv: "НДС ({vat}%, на комиссию)",
+    distB2b: "Ко-брокеридж B2B (база {b2b}%)",
+    distMahsup: "Зачёт (членство + услуги)",
+    distPlatformNet: "Ориентировочная чистая база платформы (после зачёта + B2B)",
+    distNegativeNote: "В отрицательных случаях продакшен-политика выставления счетов уточняет недопущение значения ниже нуля или перенос.",
+    distHonestyNote: "Этот экран информационный; точные суммы уточняются договором, счетами официальных учреждений и мнением эксперта.",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -4862,6 +5030,46 @@ const _arOverrides: PartialDeep<Messages> = {
       video: "حزمة فيديو ترويجي قصير. توفّر صيغة سرد سريعة مُحسَّنة للتوزيع على وسائل التواصل والحملات.",
       tapu_prep: "بند موعد سند الملكية وتحضير الملف. يساعد على جمع مجموعة المستندات بالترتيب الصحيح والمضي في يوم الإغلاق دون تأخير.",
     },
+  },
+  commissionCalc: {
+    pageTitle: "الأدوات / الحاسبات",
+    pageIntro: "عمولة البيع، توزيع الإيجار/التنازل وحسابات المستثمر على شاشة واحدة. تتضمّن محاكاة سريعة (تجريبية) لقسط القرض، عائد الإيجار، رسم سند الملكية، ضريبة الزيادة في القيمة وتأثير الرسوم/المصاريف.",
+    step1Title: "1) الوعاء", step1Desc: "يُحدَّد وعاء العمولة الأساسي من مبلغ البيع/الإيجار.",
+    step2Title: "2) التوزيع", step2Desc: "تُحسب المقاصّة وحصة B2B وضريبة القيمة المضافة وبند المنصة الصافي معاً.",
+    step3Title: "3) القرار", step3Desc: "تُفسَّر النتائج مع استراتيجية العرض والفحص القانوني/الضريبي.",
+    escrowTitle: "مجمّع دفع آمن (escrow)",
+    escrowBody: "في البنية المستهدفة، تُحتجز مبالغ العروض في مجمّع طرف ثالث حتى استيفاء شروط المعاملة؛ وتُوزَّع المقاصّات وخصومات العمولة تلقائياً وفق العقد. تعرض هذه الشاشة حسابات العمولة فقط؛ ويُحدَّد حساب المجمّع وتكامل مزوّد الدفع في الإصدار النهائي.",
+    basicTitle: "حساب العمولة/التأمين الأساسي (صيغة فعلية)",
+    basicRateDesc: "البائع {seller}% + المشتري {buyer}% + ضريبة القيمة المضافة {vat}%. حجز التأمين {bond}%. نسبة غرامة الانسحاب كمثال {penalty}%.",
+    rowSellerCommission: "عمولة البائع",
+    rowSellerCommissionVat: "ضريبة عمولة البائع",
+    rowBuyerCommission: "عمولة المشتري",
+    rowBuyerCommissionVat: "ضريبة عمولة المشتري",
+    rowBidBond: "حجز تأمين {bond}%",
+    rowWithdrawalPenalty: "غرامة الانسحاب (مثال)",
+    basicHonestyNote: "حدّ الصدق: رسم سند الملكية والضرائب الرسمية والحالات الخاصة تُحسب بشكل منفصل خارج هذا القسم؛ ويتطلب الحساب النهائي دعم محاسب قانوني.",
+    exampleTitle: "حساب توضيحي (يُحدَّث فورياً)",
+    exampleBody: "لمبلغ معاملة قدره ₺{amount}، يبلغ إجمالي عبء العمولة+الضريبة نحو ₺{total}، وحجز التأمين ₺{bond}، ومثال غرامة الانسحاب ₺{penalty}.",
+    exampleNote: "ملاحظة: يجب تقييم رسم سند الملكية وضريبة الدخل ورسم الطابع والبنود الخاصة بالعقد بشكل منفصل.",
+    inputSaleLabel: "مبلغ البيع / المعاملة (₺)",
+    inputMembershipAria: "تضمين الرسم السنوي للبائع في المقاصّة",
+    inputMembershipLabel: "اعتبار الرسم السنوي للبائع مدفوعاً ({amount} ₺ / سنة)",
+    inputMembershipSubNote: "الرسم السنوي للمشتري ({amount} ₺) بند منفصل؛ لا يُدرَج في مقاصّة هذه المعاملة.",
+    inputServiceFeesLabel: "تضمين رسوم الخدمة في المقاصّة",
+    inputServiceMatrah: "(الوعاء ₺{amount})",
+    mahsupTitle: "تدفّق المقاصّة (ملخّص مرئي)",
+    mahsupBox1: "وعاء عمولة البائع ({seller}%) + ضريبة القيمة المضافة ({vat}%)",
+    mahsupBox2: "المقاصّة: العضوية السنوية للبائع + رسوم الخدمات المختارة",
+    mahsupBox3: "وساطة مشتركة B2B (على المعاملة {b2b}%)",
+    mahsupBox4: "≈ صافي المنصة التقديري (متوافق مع الجدول المجاور)",
+    distTitle: "التوزيع التقديري",
+    distSellerCommMatrah: "عمولة البائع للمعاملة (الوعاء)",
+    distKdv: "ضريبة القيمة المضافة ({vat}%، على العمولة)",
+    distB2b: "وساطة مشتركة B2B (الوعاء {b2b}%)",
+    distMahsup: "المقاصّة (العضوية + الخدمة)",
+    distPlatformNet: "وعاء المنصة الصافي التقديري (بعد المقاصّة + B2B)",
+    distNegativeNote: "في الحالات السالبة، توضّح سياسة الفوترة في الإصدار النهائي عدم النزول تحت الصفر أو الترحيل.",
+    distHonestyNote: "هذه الشاشة للمعلومات؛ وتتحدد المبالغ الدقيقة بالعقد وحسابات الجهات الرسمية ورأي الخبير.",
   },
 };
 
