@@ -975,6 +975,25 @@ export type PaymentMessages = {
   };
 };
 
+export type ServiceFeeKey =
+  | "photo" | "drone" | "legal" | "expertise" | "bid_entry" | "virtual_tour" | "video" | "tapu_prep";
+
+export type ServiceFeesMessages = {
+  pageTitle: string;
+  intro1: string;
+  intro2: string;
+  intro3: string;
+  loginFirst: string;
+  purchase: string;
+  saving: string;
+  recordCreated: string; // {label}
+  modelSummaryTitle: string;
+  modelSummaryBody: string;
+  dynamicBidEntry: string; // SERVICE_FEE_DYNAMIC.bid_entry (görünür etiket; %5 oranı korunur)
+  labels: Record<ServiceFeeKey, string>;
+  descriptions: Record<ServiceFeeKey, string>;
+};
+
 export type Messages = {
   nav: NavMessages;
   home: HomeMessages;
@@ -995,6 +1014,7 @@ export type Messages = {
   dashboard: DashboardMessages;
   investorDashboard: InvestorDashboardMessages;
   profile: ProfileMessages;
+  serviceFees: ServiceFeesMessages;
 };
 
 /**
@@ -1980,6 +2000,39 @@ export const messages: Record<"en" | "tr", Messages> = {
       notifyBids: "Bid status update",
       notifyBidsDesc: "Outbid / won / counter-offer",
     },
+    serviceFees: {
+      pageTitle: "Service fees",
+      intro1: "Eight optional items; in the demo flow they are written directly to the service_fees table.",
+      intro2: "This page clarifies which operation package applies at which step of the transaction lifecycle. Each item can be purchased on its own; organizations can build different combinations to fit their needs.",
+      intro3: "Fees are indicative; the final scope and amount are confirmed by contract. The goal is to plan costs upfront, from offer to closing, without later surprises.",
+      loginFirst: "Please log in first.",
+      purchase: "Buy",
+      saving: "Saving...",
+      recordCreated: "{label} record created.",
+      modelSummaryTitle: "Service model summary",
+      modelSummaryBody: "Low-volume users can start with single packages; multi-office teams can build a more controlled operation with a legal + due diligence + premium support combination. The purchase flow creates a record in demo mode; real collection runs after production activation.",
+      dynamicBidEntry: "5% of the property value (hold/deposit transfer)",
+      labels: {
+        photo: "Professional Photography",
+        drone: "Drone Footage",
+        legal: "Legal Consulting",
+        expertise: "Appraisal Report",
+        bid_entry: "Auction Entry (Dynamic 5% hold)",
+        virtual_tour: "360° Virtual Tour",
+        video: "Video Promo",
+        tapu_prep: "Title Deed Appointment / File",
+      },
+      descriptions: {
+        photo: "A professional shoot package raises the listing's first-impression quality; angles, light and composition are prepared in a format that supports sales speed.",
+        drone: "Drone footage showing the parcel, surroundings and transport links from above. It shortens the decision time especially for land and large-scale portfolios.",
+        legal: "Legal pre-check package. Contract language, document integrity and transaction order are clarified; the final legal opinion is completed with the relevant expert.",
+        expertise: "Appraisal report preparation. Value band, technical condition and comparative-analysis headings are gathered in a single report.",
+        bid_entry: "For auction entry, 5% of the property value is transferred as a hold/deposit. If you don't win, it is refunded within 24 hours; there is no fixed fee — it is calculated on the dynamic rate.",
+        virtual_tour: "360° virtual tour production. It increases remote review and raises pre-screening quality before a physical visit.",
+        video: "Short video promo package. Provides a fast-narrative format optimized for social and campaign distribution.",
+        tapu_prep: "Title deed appointment and file preparation item. Helps gather the document set in the right order and keep closing day moving without delay.",
+      },
+    },
   },
   tr: {
     nav: {
@@ -2958,6 +3011,39 @@ export const messages: Record<"en" | "tr", Messages> = {
       notifyBids: "Teklif durum güncellemesi",
       notifyBidsDesc: "Outbid / kazandın / karşı teklif",
     },
+    serviceFees: {
+      pageTitle: "Hizmet bedelleri",
+      intro1: "Sekiz isteğe bağlı kalem; demo akışta doğrudan service_fees tablosuna yazılır.",
+      intro2: "Bu sayfa, işlem yaşam döngüsünde hangi adım için hangi operasyon paketinin devreye girdiğini şeffaflaştırır. Her kalem tek başına satın alınabilir; kurumlar ihtiyaçlarına göre farklı kombinasyonlar oluşturabilir.",
+      intro3: "Ücretler referans niteliğindedir, nihai kapsam ve bedel sözleşme ile kesinleşir. Amaç, tekliften kapanışa kadar maliyetin sonradan sürpriz olmadan önden planlanabilmesidir.",
+      loginFirst: "Önce giriş yapın.",
+      purchase: "Satın al",
+      saving: "Kaydediliyor...",
+      recordCreated: "{label} kaydı oluşturuldu.",
+      modelSummaryTitle: "Hizmet modeli özeti",
+      modelSummaryBody: "Düşük hacimli kullanıcılar tekil paketlerle başlayabilir; çok ofisli ekipler ise hukuk + due diligence + premium support kombinasyonuyla daha kontrollü bir operasyon kurabilir. Satın alma akışı demo modunda kayıt oluşturur, gerçek tahsilat üretim aktivasyonu sonrası yürütülür.",
+      dynamicBidEntry: "Gayrimenkul değerinin %5'i (bloke/teminat havale)",
+      labels: {
+        photo: "Profesyonel Fotoğraf Çekim",
+        drone: "Dron Çekim",
+        legal: "Hukuki Danışmanlık",
+        expertise: "Ekspertiz Raporu",
+        bid_entry: "İhaleye Giriş (Dinamik %5 bloke)",
+        virtual_tour: "Sanal Tur 360°",
+        video: "Video Tanıtım",
+        tapu_prep: "Tapu Randevu / Dosya",
+      },
+      descriptions: {
+        photo: "Profesyonel çekim paketi ile ilanın ilk temas kalitesi artar; açılar, ışık ve kompozisyon satış hızını destekleyecek formatta hazırlanır.",
+        drone: "Parsel, çevre ve ulaşım bağlantılarını yukarıdan gösteren dron çekimleri. Özellikle arsa ve büyük ölçekli portföylerde karar süresini kısaltır.",
+        legal: "Hukuki ön kontrol paketi. Sözleşme dili, evrak bütünlüğü ve işlem sırası netleşir; nihai hukuki görüş ilgili uzmanla tamamlanır.",
+        expertise: "Ekspertiz raporu üretim hazırlığı. Değer bandı, teknik durum ve karşılaştırmalı analiz başlıkları tek raporda toplanır.",
+        bid_entry: "İhaleye giriş için gayrimenkul değerinin %5'i bloke/teminat olarak havale edilir. Kazanmazsanız 24 saat içinde iade edilir; sabit ücret yoktur, dinamik orana göre hesaplanır.",
+        virtual_tour: "360 sanal tur üretimi. Uzaktan inceleme oranını artırır, fiziksel ziyaret öncesi ön eleme kalitesini yükseltir.",
+        video: "Kısa video tanıtım paketi. Sosyal ve kampanya dağıtımı için optimize edilmiş hızlı anlatım formatı sağlar.",
+        tapu_prep: "Tapu randevu ve dosya hazırlık kalemi. Evrak setinin doğru sıra ile toplanmasına ve kapanış gününün gecikmeden ilerlemesine destek olur.",
+      },
+    },
   },
 };
 
@@ -3842,6 +3928,39 @@ const _ruOverrides: PartialDeep<Messages> = {
     notifyBids: "Обновление статуса ставки",
     notifyBidsDesc: "Перебита / выиграна / встречное предложение",
   },
+  serviceFees: {
+    pageTitle: "Стоимость услуг",
+    intro1: "Восемь опциональных позиций; в демо-режиме записываются напрямую в таблицу service_fees.",
+    intro2: "Эта страница проясняет, какой операционный пакет включается на каком шаге жизненного цикла сделки. Каждую позицию можно купить отдельно; организации могут собирать разные комбинации под свои нужды.",
+    intro3: "Тарифы носят справочный характер, окончательный объём и сумма закрепляются договором. Цель — спланировать расходы заранее, от предложения до закрытия, без последующих сюрпризов.",
+    loginFirst: "Сначала войдите в аккаунт.",
+    purchase: "Купить",
+    saving: "Сохранение...",
+    recordCreated: "Запись «{label}» создана.",
+    modelSummaryTitle: "Сводка модели услуг",
+    modelSummaryBody: "Пользователи с малым объёмом могут начать с отдельных пакетов; многоофисные команды могут выстроить более контролируемую работу с комбинацией «юристы + due diligence + премиум-поддержка». Поток покупки создаёт запись в демо-режиме; реальное списание выполняется после производственной активации.",
+    dynamicBidEntry: "5% от стоимости объекта (блокировка/залог переводом)",
+    labels: {
+      photo: "Профессиональная съёмка",
+      drone: "Съёмка с дрона",
+      legal: "Юридическая консультация",
+      expertise: "Отчёт об оценке",
+      bid_entry: "Вход в аукцион (динамическая блокировка 5%)",
+      virtual_tour: "Виртуальный тур 360°",
+      video: "Видеопрезентация",
+      tapu_prep: "Запись на тапу / файл",
+    },
+    descriptions: {
+      photo: "Профессиональный съёмочный пакет повышает качество первого впечатления от объявления; ракурсы, свет и композиция готовятся в формате, поддерживающем скорость продажи.",
+      drone: "Съёмка с дрона, показывающая участок, окружение и транспортные связи сверху. Особенно сокращает время принятия решения для земли и крупных портфелей.",
+      legal: "Пакет юридической предпроверки. Уточняются формулировки договора, целостность документов и порядок сделки; окончательное юридическое заключение даёт профильный специалист.",
+      expertise: "Подготовка отчёта об оценке. Диапазон стоимости, техническое состояние и сравнительный анализ собираются в одном отчёте.",
+      bid_entry: "Для входа в аукцион 5% стоимости объекта переводится как блокировка/залог. Если вы не выиграете, средства возвращаются в течение 24 часов; фиксированной платы нет — расчёт по динамической ставке.",
+      virtual_tour: "Производство виртуального тура 360°. Повышает долю удалённого просмотра и качество предварительного отбора до физического визита.",
+      video: "Пакет короткого видеопромо. Обеспечивает формат быстрого повествования, оптимизированный для соцсетей и кампаний.",
+      tapu_prep: "Подготовка записи на оформление тапу и пакета документов. Помогает собрать комплект в правильном порядке и пройти день закрытия без задержек.",
+    },
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -4710,6 +4829,39 @@ const _arOverrides: PartialDeep<Messages> = {
     notifyMatchesDesc: "عندما يطابق إعلان جديد معاييرك",
     notifyBids: "تحديث حالة العرض",
     notifyBidsDesc: "تم تجاوزه / فزت / عرض مقابل",
+  },
+  serviceFees: {
+    pageTitle: "رسوم الخدمات",
+    intro1: "ثماني بنود اختيارية؛ في التدفق التجريبي تُكتب مباشرة في جدول service_fees.",
+    intro2: "توضّح هذه الصفحة أي حزمة تشغيلية تُفعَّل في أي خطوة من دورة حياة المعاملة. يمكن شراء كل بند بمفرده؛ ويمكن للمؤسسات بناء تركيبات مختلفة حسب احتياجاتها.",
+    intro3: "الرسوم استرشادية، ويتحدد النطاق والمبلغ النهائي بالعقد. الهدف هو تخطيط التكلفة مسبقاً من العرض حتى الإغلاق دون مفاجآت لاحقة.",
+    loginFirst: "يُرجى تسجيل الدخول أولاً.",
+    purchase: "اشترِ",
+    saving: "جارٍ الحفظ...",
+    recordCreated: "تم إنشاء سجل «{label}».",
+    modelSummaryTitle: "ملخّص نموذج الخدمة",
+    modelSummaryBody: "يمكن للمستخدمين قليلي الحجم البدء بحزم مفردة؛ بينما يمكن للفرق متعددة المكاتب بناء تشغيل أكثر انضباطاً بتركيبة «قانوني + العناية الواجبة + دعم مميّز». ينشئ تدفق الشراء سجلاً في الوضع التجريبي، ويُجرى التحصيل الحقيقي بعد التفعيل الإنتاجي.",
+    dynamicBidEntry: "5% من قيمة العقار (تحويل حجز/تأمين)",
+    labels: {
+      photo: "تصوير احترافي",
+      drone: "تصوير بطائرة مسيّرة",
+      legal: "استشارة قانونية",
+      expertise: "تقرير التقييم",
+      bid_entry: "الدخول إلى المزاد (حجز ديناميكي 5%)",
+      virtual_tour: "جولة افتراضية 360°",
+      video: "فيديو ترويجي",
+      tapu_prep: "موعد سند الملكية / الملف",
+    },
+    descriptions: {
+      photo: "ترفع حزمة التصوير الاحترافي جودة الانطباع الأول للإعلان؛ تُجهَّز الزوايا والإضاءة والتكوين بصيغة تدعم سرعة البيع.",
+      drone: "لقطات بطائرة مسيّرة تُظهر القطعة والمحيط وروابط النقل من الأعلى. تختصر وقت اتخاذ القرار خاصة للأراضي والمحافظ الكبيرة.",
+      legal: "حزمة فحص قانوني أوّلي. تتضح صياغة العقد وسلامة المستندات وترتيب المعاملة؛ ويُستكمل الرأي القانوني النهائي مع المختص المعني.",
+      expertise: "تحضير تقرير التقييم. تُجمَّع نطاق القيمة والحالة الفنية وعناوين التحليل المقارن في تقرير واحد.",
+      bid_entry: "للدخول إلى المزاد يُحوَّل 5% من قيمة العقار كحجز/تأمين. إذا لم تفز، يُعاد خلال 24 ساعة؛ لا توجد رسوم ثابتة — ويُحسب وفق النسبة الديناميكية.",
+      virtual_tour: "إنتاج جولة افتراضية 360°. يرفع نسبة المعاينة عن بُعد وجودة الفرز المسبق قبل الزيارة الميدانية.",
+      video: "حزمة فيديو ترويجي قصير. توفّر صيغة سرد سريعة مُحسَّنة للتوزيع على وسائل التواصل والحملات.",
+      tapu_prep: "بند موعد سند الملكية وتحضير الملف. يساعد على جمع مجموعة المستندات بالترتيب الصحيح والمضي في يوم الإغلاق دون تأخير.",
+    },
   },
 };
 
