@@ -395,7 +395,7 @@ export default function AuctionDetail() {
     if (catalogLoading || detailResolving) {
       return (
         <div className="min-h-screen flex items-center justify-center px-4 pt-24">
-          <LoadingState label="İlan yükleniyor…" />
+          <LoadingState label={ld.loading} />
         </div>
       );
     }
@@ -406,11 +406,10 @@ export default function AuctionDetail() {
           <Search className="h-8 w-8 text-slate-400" aria-hidden />
         </div>
         <h1 className="text-3xl font-bold text-white sm:text-4xl">
-          İlan bulunamadı
+          {ld.notFoundTitle}
         </h1>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-400">
-          Aradığınız ilan kaldırılmış, bağlantı bozuk olabilir veya hiç var olmamış olabilir.
-          Açık ihaleleri inceleyebilir ya da arama sayfasından yeni bir ilan bulabilirsiniz.
+          {ld.notFoundDesc}
         </p>
         <p className="mt-2 font-mono text-xs text-slate-600">
           ID: {id ?? "—"}
@@ -420,15 +419,15 @@ export default function AuctionDetail() {
             onClick={() => navigate("/ihaleler")}
             className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"
           >
-            İhalelere dön
+            {ld.notFoundBackAuctions}
           </Button>
           <Button
             variant="outline"
             onClick={() => navigate("/arama")}
             className="border-white/15 text-slate-200 hover:bg-white/5"
           >
-            <Search className="mr-2 h-4 w-4" />
-            Arama sayfası
+            <Search className="me-2 h-4 w-4" />
+            {ld.notFoundSearch}
           </Button>
         </div>
       </div>
@@ -727,12 +726,12 @@ export default function AuctionDetail() {
   const closing = estimateBuyerClosingCosts(liveBid);
 
   const galleryBadges = [
-    { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
+    { label: auction.status === "live" ? ld.badgeLive : ld.badgeUpcoming, className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
     { label: isRent ? ld.badgeRent : ld.badgeSale, className: "bg-emerald-600/90 text-white border-0" },
     { label: MARKETING_MODE_LABELS[marketingMode].badge, className: "bg-slate-700 text-white border border-white/15" },
     // R14 PAKET 5 — lansman branding badge
     ...(isLansman
-      ? [{ label: "🏗️ LANSMAN", className: "bg-cyan-500 text-slate-950 font-bold border-0" }]
+      ? [{ label: ld.badgeLansman, className: "bg-cyan-500 text-slate-950 font-bold border-0" }]
       : []),
   ];
 
@@ -805,12 +804,12 @@ export default function AuctionDetail() {
           className="mb-4"
           jsonLdId={`listing-bc-${id ?? "detail"}`}
           items={[
-            { label: "Ana sayfa", href: "/" },
-            { label: "İlanlar", href: "/ilanlar" },
+            { label: ld.bcHome, href: "/" },
+            { label: ld.bcListings, href: "/ilanlar" },
             ...(auction && landingPathForCity(auction.city)
               ? [{ label: auction.city, href: landingPathForCity(auction.city) }]
               : []),
-            { label: auction?.title?.slice(0, 48) ?? "İlan" },
+            { label: auction?.title?.slice(0, 48) ?? ld.bcListingFallback },
           ]}
         />
       </div>
@@ -837,14 +836,14 @@ export default function AuctionDetail() {
                 {(auction.viewCount ?? 0) > 0 ? (
                   <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-xs text-slate-400">
                     <Eye className="w-3.5 h-3.5" aria-hidden />
-                    {auction.viewCount!.toLocaleString("tr-TR")} görüntülenme
+                    <span dir="ltr">{auction.viewCount!.toLocaleString("tr-TR")}</span> {ld.viewCountSuffix}
                   </span>
                 ) : null}
                 <RatingSummaryBadge summary={detailListingRatings.get(auction.id)} />
                 {/* R14 PAKET 5 — lansman badge */}
                 {isLansman && (
                   <Badge className="bg-cyan-500 text-slate-950 font-bold border-0 gap-1">
-                    🏗️ Lansman birimi
+                    {ld.lansmanUnitBadge}
                   </Badge>
                 )}
               </div>
@@ -854,7 +853,7 @@ export default function AuctionDetail() {
                 <span>{auction.location}</span>
                 {landingPathForCity(auction.city) ? (
                   <Link to={landingPathForCity(auction.city)!} className="text-sm text-teal-400 hover:underline">
-                    {auction.city} bölge ilanları →
+                    {auction.city} {ld.cityAreaListingsSuffix} <span className="inline-block rtl:rotate-180">→</span>
                   </Link>
                 ) : null}
               </div>
@@ -862,30 +861,30 @@ export default function AuctionDetail() {
               {isLansman && lansmanProjectId && (
                 <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/30 mb-4 flex items-center justify-between gap-3 flex-wrap">
                   <div className="text-xs text-cyan-100">
-                    <p className="font-semibold text-cyan-50 text-sm mb-0.5">Bu ilan bir lansman projesinin birimidir</p>
+                    <p className="font-semibold text-cyan-50 text-sm mb-0.5">{ld.lansmanCardTitle}</p>
                     <p>
-                      Müteahhit projesi: <span className="font-semibold">{lansmanProjectName ?? "Lansman projesi"}</span>
-                      {lansmanUnitId ? ` · Birim #${lansmanUnitId.slice(0, 8)}` : ""}
+                      {ld.lansmanDeveloperLabel} <span className="font-semibold">{lansmanProjectName ?? ld.lansmanProjectFallback}</span>
+                      {lansmanUnitId ? ` · ${ld.lansmanUnitPrefix} #${lansmanUnitId.slice(0, 8)}` : ""}
                     </p>
                   </div>
                   <Link to={`/proje/${lansmanProjectId}`} className="shrink-0">
                     <Button size="sm" variant="outline" className="gap-1.5 border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/15">
-                      <Eye className="w-3.5 h-3.5" /> Proje sayfası
+                      <Eye className="w-3.5 h-3.5" /> {ld.lansmanProjectPage}
                     </Button>
                   </Link>
                 </div>
               )}
               <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
-                <p className="font-semibold text-slate-200 text-sm">Haftalık ihale takvimi (hedef)</p>
+                <p className="font-semibold text-slate-200 text-sm">{ld.weeklyScheduleTitle}</p>
                 <p>
                   <span className="text-cyan-200/90">{WEEKLY_AUCTION_SLOT_TR}</span> {WEEKLY_AUCTION_POLICY_TR}
                 </p>
                 <p>
-                  Katılım evrakları ve kategoriler:{" "}
+                  {ld.participationDocsLabel}{" "}
                   <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/evraklar")}>
                     /evraklar
                   </button>{" "}
-                  (kimlik, Findeks, ekspertiz, tapu özeti, teminat vb.; hukuki son söz sözleşme ve avukat).
+                  {ld.participationDocsNote}
                 </p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
@@ -897,13 +896,13 @@ export default function AuctionDetail() {
                   showDemoBadge={isDemoData("aiValuation")}
                 />
                 <PriceCard
-                  label="AI Tahmini"
+                  label={ld.priceCardAiPredicted}
                   value={`₺${(auction.aiPredictedPrice / 1000000).toFixed(1)}M`}
                   color="sky"
                   showDemoBadge={isDemoData("aiValuation")}
                 />
                 <PriceCard
-                  label="Yatırım Skoru"
+                  label={ld.priceCardInvestmentScore}
                   value={`${auction.investmentScore}/100`}
                   color="violet"
                   showDemoBadge={isDemoData("auctionSeed")}
@@ -912,10 +911,10 @@ export default function AuctionDetail() {
               <ListingDocumentFooter auction={auction} />
               <div className="flex flex-wrap gap-2 mb-6">
                 <Button type="button" variant="outline" size="sm" className="border-teal-500/35 text-teal-100 gap-2 bg-teal-500/5" onClick={() => setShowMarketReportDialog(true)}>
-                  <FileText className="w-4 h-4 shrink-0" /> İhaleal Endeksi — piyasa raporu analizi
+                  <FileText className="w-4 h-4 shrink-0" /> {ld.marketReportBtn}
                 </Button>
                 <Button type="button" variant="outline" size="sm" className="border-sky-500/35 text-sky-100 gap-2 bg-sky-500/5" onClick={() => setShowOfficialDocsDialog(true)}>
-                  <Landmark className="w-4 h-4 shrink-0" /> Resmi belgeler (imar, belediye…)
+                  <Landmark className="w-4 h-4 shrink-0" /> {ld.officialDocsBtn}
                 </Button>
               </div>
               <div className={`p-4 rounded-xl border mb-6 ${recommendation === "strongBuy" ? "bg-emerald-500/10 border-emerald-500/20" : recommendation === "buy" ? "bg-emerald-500/5 border-emerald-500/10" : recommendation === "hold" ? "bg-amber-500/5 border-amber-500/10" : "bg-red-500/5 border-red-500/10"}`}>
@@ -924,8 +923,8 @@ export default function AuctionDetail() {
                     {recommendation === "strongBuy" || recommendation === "buy" ? <TrendingUp className="w-5 h-5" /> : recommendation === "hold" ? <Minus className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-white">AI Alım Tavsiyesi</div>
-                    <div className="text-xs text-slate-400">{recommendation === "strongBuy" ? "Güçlü alım fırsatı. Fiyat AI tahmininin altında." : recommendation === "buy" ? "Makul alım fırsatı." : recommendation === "hold" ? "Beklemek daha mantıklı." : "Dikkatli olun, fiyat yüksek."}</div>
+                    <div className="text-sm font-semibold text-white">{ld.aiRecoTitle}</div>
+                    <div className="text-xs text-slate-400">{recommendation === "strongBuy" ? ld.aiRecoStrongBuy : recommendation === "buy" ? ld.aiRecoBuy : recommendation === "hold" ? ld.aiRecoHold : ld.aiRecoAvoid}</div>
                   </div>
                 </div>
               </div>
@@ -936,14 +935,14 @@ export default function AuctionDetail() {
             <div className={`sticky top-[7.5rem] z-30 bg-slate-950/95 backdrop-blur-xl border-b border-slate-200/80 -mx-4 px-4 transition-all duration-700 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
               <div className="flex gap-1 overflow-x-auto py-2">
                 {[
-                  { key: "overview" as const, label: "Genel Bakış", icon: <Home className="w-4 h-4" /> },
-                  { key: "details" as const, label: "Detaylar", icon: <Building className="w-4 h-4" /> },
+                  { key: "overview" as const, label: ld.tabOverview, icon: <Home className="w-4 h-4" /> },
+                  { key: "details" as const, label: ld.tabDetails, icon: <Building className="w-4 h-4" /> },
                   { key: "features" as const, label: ld.tabFeatures, icon: <CheckCircle2 className="w-4 h-4" /> },
                   { key: "location" as const, label: ld.tabLocation, icon: <MapPin className="w-4 h-4" /> },
-                  { key: "priceHistory" as const, label: "Fiyat Geçmişi", icon: <TrendingUp className="w-4 h-4" /> },
-                  { key: "ai" as const, label: "AI Analiz", icon: <BarChart3 className="w-4 h-4" />, mandatory: true },
+                  { key: "priceHistory" as const, label: ld.tabPriceHistory, icon: <TrendingUp className="w-4 h-4" /> },
+                  { key: "ai" as const, label: ld.tabAi, icon: <BarChart3 className="w-4 h-4" />, mandatory: true },
                 ].map((tab) => (
-                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-900 hover:bg-white/5"}`}>{tab.icon} {tab.label}{tab.mandatory ? <Badge className="bg-emerald-600/90 text-white border-0 text-[10px] px-1.5 py-0">ZORUNLU</Badge> : null}</button>
+                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-900 hover:bg-white/5"}`}>{tab.icon} {tab.label}{tab.mandatory ? <Badge className="bg-emerald-600/90 text-white border-0 text-[10px] px-1.5 py-0">{ld.tabMandatory}</Badge> : null}</button>
                 ))}
               </div>
             </div>
@@ -1209,25 +1208,25 @@ export default function AuctionDetail() {
               <CardContent className="p-5 space-y-4">
                 <div>
                   <div className="text-xs text-slate-500 mb-1">{pricePrimaryLabel}</div>
-                  <div className="text-3xl font-bold text-blue-400">₺{liveBid.toLocaleString("tr-TR")}</div>
+                  <div className="text-3xl font-bold text-blue-400" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
                   <FxRef amountTry={liveBid} variant="block" note="işlem ₺" />
-                  <div className="text-xs text-slate-500 mt-1">
+                  <div className="text-xs text-slate-500 mt-1" dir="ltr">
                     ₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²
                     <FxRef amountTry={auction.pricePerSqm} variant="compact" />
                   </div>
                   {/* AI değerleme referansı — Auction.estimatedValue VAR (veri kanıtlı) */}
                   {auction.estimatedValue > 0 && (
                     <div className="mt-2 pt-2 border-t border-slate-200/40 dark:border-slate-700">
-                      <div className="text-[11px] text-slate-500">Tahmini değer (AI · yaklaşık)</div>
-                      <div className="text-sm font-semibold text-emerald-400">
+                      <div className="text-[11px] text-slate-500">{ld.estimatedValueTitle}</div>
+                      <div className="text-sm font-semibold text-emerald-400" dir="ltr">
                         ₺{auction.estimatedValue.toLocaleString("tr-TR")}
                         <FxRef amountTry={auction.estimatedValue} variant="compact" />
                       </div>
                       {liveBid > 0 && (
                         <div className={`text-[11px] mt-0.5 ${liveBid < auction.estimatedValue ? "text-emerald-500" : "text-amber-500"}`}>
                           {liveBid < auction.estimatedValue
-                            ? `Tahmini değerin %${Math.round((1 - liveBid / auction.estimatedValue) * 100)} altında`
-                            : `Tahmini değerin %${Math.round((liveBid / auction.estimatedValue - 1) * 100)} üzerinde`}
+                            ? ld.estValueBelowText.replace("{pct}", String(Math.round((1 - liveBid / auction.estimatedValue) * 100)))
+                            : ld.estValueAboveText.replace("{pct}", String(Math.round((liveBid / auction.estimatedValue - 1) * 100)))}
                         </div>
                       )}
                     </div>
@@ -1236,7 +1235,7 @@ export default function AuctionDetail() {
                   {auction.verified === true && (
                     <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
                       <CheckCircle2 className="w-3 h-3" />
-                      Doğrulanmış ilan
+                      {ld.verifiedListing}
                     </div>
                   )}
                 </div>
@@ -1508,7 +1507,7 @@ export default function AuctionDetail() {
                   ) : null}
                   {!isListingOnly && user && reportApproved && !depositId ? (
                     <Button type="button" variant="secondary" className="h-11 px-3 bg-white/10 text-white shrink-0" onClick={() => setPreAuthOpen(true)}>
-                      Blokaj (demo)
+                      {ld.depositDemo}
                     </Button>
                   ) : null}
                   {!isListingOnly && auction.dealType !== "rent" ? (
@@ -1527,11 +1526,11 @@ export default function AuctionDetail() {
                       className="w-full border-amber-500/30 text-amber-200 hover:bg-amber-500/10"
                       onClick={() => setReviewOpen(true)}
                     >
-                      Satıcıyı değerlendir
+                      {ld.evaluateSeller}
                     </Button>
                   ) : null}
                   <Button variant="outline" className="w-full border-slate-200 text-slate-300 hover:text-white gap-2 h-10" type="button" onClick={() => window.open("mailto:destek@ihaleal.com?subject=İlan%20talebi%20" + encodeURIComponent(auction.id), "_blank")}>
-                    <Mail className="w-4 h-4" /> Destek talebi (e-posta)
+                    <Mail className="w-4 h-4" /> {ld.supportEmail}
                   </Button>
                   {!isRent ? (
                     <ListingMortgageWidget priceTry={liveBid} className="mt-1" />
@@ -1542,8 +1541,8 @@ export default function AuctionDetail() {
                 </div>
                 <div className="pt-4 border-t border-slate-200/80">
                   <button onClick={() => navigate("/ekspertiz")} className="w-full text-left p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
-                    <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">Uzman Gorusu Al</span></div>
-                    <p className="text-xs text-slate-500">Profesyonel ekspertiz raporu talep edin</p>
+                    <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">{ld.expertOpinion}</span></div>
+                    <p className="text-xs text-slate-500">{ld.expertOpinionDesc}</p>
                   </button>
                 </div>
               </CardContent>
@@ -1553,26 +1552,26 @@ export default function AuctionDetail() {
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2 mb-1">
                   <Receipt className="w-4 h-4 text-teal-400" />
-                  <h4 className="text-sm font-semibold text-white">Komisyon Hesaplayici</h4>
-                  <Badge variant="outline" className="border-teal-500/20 text-teal-400 text-[10px] ml-auto">{feeBadgeLabel()}</Badge>
+                  <h4 className="text-sm font-semibold text-white">{ld.commissionTitle}</h4>
+                  <Badge variant="outline" className="border-teal-500/20 text-teal-400 text-[10px] ms-auto">{feeBadgeLabel()}</Badge>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 space-y-3">
                   <div>
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="text-slate-500">{isListingOnly ? "İlan tutarı (referans)" : "İhale / teklif tutarı (tahmini)"}</span>
+                      <span className="text-slate-500">{isListingOnly ? ld.commissionRefListing : ld.commissionRefAuction}</span>
                     </div>
-                    <div className="text-lg font-bold text-white">₺{liveBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-lg font-bold text-white" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
                   </div>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between"><span className="text-slate-400">Platform (alıcı)</span><span className="text-slate-300 font-medium">₺{closing.commission.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">KDV (platform)</span><span className="text-slate-300 font-medium">₺{closing.vatOnCommission.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Tapu Harci (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-medium">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Döner Sermaye</span><span className="text-slate-300 font-medium">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
-                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-semibold"><span className="text-teal-400">Toplam Maliyet</span><span className="text-teal-400">₺{closing.total.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionPlatformBuyer}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.commission.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionVat}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.vatOnCommission.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionDeedDuty} (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionRevolvingCapital}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
+                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-semibold"><span className="text-teal-400">{ld.commissionTotal}</span><span className="text-teal-400" dir="ltr">₺{closing.total.toLocaleString("tr-TR")}</span></div>
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-600 leading-relaxed px-0.5">{FEE_TEXTS.commissionMatrahLine()}</p>
-                <button onClick={() => navigate("/ihale-kosullari")} className="text-xs text-slate-500 hover:text-teal-400 transition-colors flex items-center gap-1"><Percent className="w-3 h-3" /> Komisyon yapısını detaylı incele</button>
+                <button onClick={() => navigate("/ihale-kosullari")} className="text-xs text-slate-500 hover:text-teal-400 transition-colors flex items-center gap-1"><Percent className="w-3 h-3" /> {ld.commissionDetailLink}</button>
               </CardContent>
             </Card>
 
@@ -1582,16 +1581,16 @@ export default function AuctionDetail() {
               <CardContent className="p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <ShieldCheck className="w-4 h-4 text-violet-400" />
-                  <h4 className="text-sm font-semibold text-white">Guvenlik Dogrulamasi</h4>
+                  <h4 className="text-sm font-semibold text-white">{ld.securityTitle}</h4>
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Kimlik dogrulamasi zorunlu</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Findeks kredi notu kontrolu</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> SMS ile iki asamali dogrulama</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Banka API ile odeme garantisi</div>
-                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> AML/KYC uyumu</div>
+                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {ld.secIdentity}</div>
+                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {ld.secFindeks}</div>
+                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {ld.sec2fa}</div>
+                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {ld.secBankApi}</div>
+                  <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {ld.secAmlKyc}</div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-3">ihaleal.com, 7263 sayili Kanun kapsaminda faaliyet gosterir.</p>
+                <p className="text-[10px] text-slate-500 mt-3">{ld.secLawNote}</p>
               </CardContent>
             </Card>
           </div>

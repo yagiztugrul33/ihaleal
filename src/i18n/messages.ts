@@ -669,6 +669,86 @@ export type ListingDetailMessages = {
   featuresListMissing: string;
   bidLoginRequired: string;
   bidAcceptRequired: string;
+  // ── 11-G: states (loading / not found) ──
+  loading: string;
+  notFoundTitle: string;
+  notFoundDesc: string;
+  notFoundBackAuctions: string;
+  notFoundSearch: string;
+  // ── 11-G: breadcrumbs ──
+  bcHome: string;
+  bcListings: string;
+  bcListingFallback: string;
+  cityAreaListingsSuffix: string;
+  // ── 11-G: gallery badges ──
+  badgeLive: string;
+  badgeUpcoming: string;
+  badgeLansman: string;
+  // ── 11-G: hero meta ──
+  viewCountSuffix: string;
+  lansmanUnitBadge: string;
+  lansmanCardTitle: string;
+  lansmanDeveloperLabel: string;
+  lansmanProjectFallback: string;
+  lansmanUnitPrefix: string;
+  lansmanProjectPage: string;
+  weeklyScheduleTitle: string;
+  participationDocsLabel: string;
+  participationDocsNote: string;
+  // ── 11-G: price cards ──
+  priceCardAiPredicted: string;
+  priceCardInvestmentScore: string;
+  // ── 11-G: doc buttons ──
+  marketReportBtn: string;
+  officialDocsBtn: string;
+  // ── 11-G: AI buy recommendation ──
+  aiRecoTitle: string;
+  aiRecoStrongBuy: string;
+  aiRecoBuy: string;
+  aiRecoHold: string;
+  aiRecoAvoid: string;
+  // ── 11-G: tabs (extra) ──
+  tabOverview: string;
+  tabDetails: string;
+  tabPriceHistory: string;
+  tabAi: string;
+  tabMandatory: string;
+  // ── 11-G: countdown (CountdownTimer) ──
+  countdownEnded: string;
+  countdownUpcomingLabel: string;
+  countdownLastHour: string;
+  countdownRemaining: string;
+  countdownDays: string;
+  countdownHours: string;
+  countdownMinutes: string;
+  countdownSeconds: string;
+  // ── 11-G: sidebar price/value ──
+  estValueBelowText: string;
+  estValueAboveText: string;
+  // ── 11-G: sidebar CTA buttons ──
+  depositDemo: string;
+  evaluateSeller: string;
+  supportEmail: string;
+  expertOpinion: string;
+  expertOpinionDesc: string;
+  // ── 11-G: commission calculator ──
+  commissionTitle: string;
+  commissionRefListing: string;
+  commissionRefAuction: string;
+  commissionPlatformBuyer: string;
+  commissionVat: string;
+  commissionDeedDuty: string;
+  commissionRevolvingCapital: string;
+  commissionTotal: string;
+  commissionDetailLink: string;
+  // ── 11-G: security verification card ──
+  securityTitle: string;
+  secIdentity: string;
+  secFindeks: string;
+  sec2fa: string;
+  secBankApi: string;
+  secAmlKyc: string;
+  secLawNote: string;
 };
 
 export type PaymentMessages = {
@@ -1111,6 +1191,76 @@ export const messages: Record<"en" | "tr", Messages> = {
       featuresListMissing: "No feature list available.",
       bidLoginRequired: "Log in to place a bid.",
       bidAcceptRequired: "Check all contract and declaration boxes to submit your bid.",
+      // ── 11-G ──
+      loading: "Loading listing…",
+      notFoundTitle: "Listing not found",
+      notFoundDesc:
+        "The listing you're looking for may have been removed, the link may be broken, or it may never have existed. You can browse open auctions or find a new listing from the search page.",
+      notFoundBackAuctions: "Back to auctions",
+      notFoundSearch: "Search page",
+      bcHome: "Home",
+      bcListings: "Listings",
+      bcListingFallback: "Listing",
+      cityAreaListingsSuffix: "area listings",
+      badgeLive: "Live",
+      badgeUpcoming: "Upcoming",
+      badgeLansman: "🏗️ LAUNCH",
+      viewCountSuffix: "views",
+      lansmanUnitBadge: "🏗️ Launch unit",
+      lansmanCardTitle: "This listing is a unit of a launch project",
+      lansmanDeveloperLabel: "Developer project:",
+      lansmanProjectFallback: "Launch project",
+      lansmanUnitPrefix: "Unit",
+      lansmanProjectPage: "Project page",
+      weeklyScheduleTitle: "Weekly auction calendar (target)",
+      participationDocsLabel: "Participation documents and categories:",
+      participationDocsNote:
+        "(ID, Findeks, appraisal, title-deed summary, deposit, etc.; the contract and a lawyer have the final legal say).",
+      priceCardAiPredicted: "AI Estimate",
+      priceCardInvestmentScore: "Investment Score",
+      marketReportBtn: "iHaleal Index — market report analysis",
+      officialDocsBtn: "Official documents (zoning, municipality…)",
+      aiRecoTitle: "AI Buy Recommendation",
+      aiRecoStrongBuy: "Strong buying opportunity. Price is below the AI estimate.",
+      aiRecoBuy: "Reasonable buying opportunity.",
+      aiRecoHold: "Waiting makes more sense.",
+      aiRecoAvoid: "Be careful, the price is high.",
+      tabOverview: "Overview",
+      tabDetails: "Details",
+      tabPriceHistory: "Price History",
+      tabAi: "AI Analysis",
+      tabMandatory: "REQUIRED",
+      countdownEnded: "Auction ended",
+      countdownUpcomingLabel: "Time to start",
+      countdownLastHour: "FINAL HOUR",
+      countdownRemaining: "Time left",
+      countdownDays: "Days",
+      countdownHours: "Hours",
+      countdownMinutes: "Minutes",
+      countdownSeconds: "Seconds",
+      estValueBelowText: "{pct}% below estimated value",
+      estValueAboveText: "{pct}% above estimated value",
+      depositDemo: "Pre-auth (demo)",
+      evaluateSeller: "Rate the seller",
+      supportEmail: "Support request (email)",
+      expertOpinion: "Get an expert opinion",
+      expertOpinionDesc: "Request a professional appraisal report",
+      commissionTitle: "Commission Calculator",
+      commissionRefListing: "Listing amount (reference)",
+      commissionRefAuction: "Auction / bid amount (estimated)",
+      commissionPlatformBuyer: "Platform (buyer)",
+      commissionVat: "VAT (platform)",
+      commissionDeedDuty: "Title deed duty",
+      commissionRevolvingCapital: "Revolving fund",
+      commissionTotal: "Total Cost",
+      commissionDetailLink: "Review the commission structure in detail",
+      securityTitle: "Security Verification",
+      secIdentity: "Identity verification required",
+      secFindeks: "Findeks credit score check",
+      sec2fa: "Two-step verification via SMS",
+      secBankApi: "Payment guarantee via bank API",
+      secAmlKyc: "AML/KYC compliance",
+      secLawNote: "ihaleal.com operates under Law No. 7263.",
     },
     borsa: {
       marketTicker: "Market Ticker",
@@ -1863,6 +2013,76 @@ export const messages: Record<"en" | "tr", Messages> = {
       featuresListMissing: "Özellik listesi mevcut değil.",
       bidLoginRequired: "Teklif için giriş yapın.",
       bidAcceptRequired: "Teklifi göndermek için tüm sözleşme ve beyan kutularını işaretleyin.",
+      // ── 11-G ──
+      loading: "İlan yükleniyor…",
+      notFoundTitle: "İlan bulunamadı",
+      notFoundDesc:
+        "Aradığınız ilan kaldırılmış, bağlantı bozuk olabilir veya hiç var olmamış olabilir. Açık ihaleleri inceleyebilir ya da arama sayfasından yeni bir ilan bulabilirsiniz.",
+      notFoundBackAuctions: "İhalelere dön",
+      notFoundSearch: "Arama sayfası",
+      bcHome: "Ana sayfa",
+      bcListings: "İlanlar",
+      bcListingFallback: "İlan",
+      cityAreaListingsSuffix: "bölge ilanları",
+      badgeLive: "Canlı",
+      badgeUpcoming: "Yaklaşan",
+      badgeLansman: "🏗️ LANSMAN",
+      viewCountSuffix: "görüntülenme",
+      lansmanUnitBadge: "🏗️ Lansman birimi",
+      lansmanCardTitle: "Bu ilan bir lansman projesinin birimidir",
+      lansmanDeveloperLabel: "Müteahhit projesi:",
+      lansmanProjectFallback: "Lansman projesi",
+      lansmanUnitPrefix: "Birim",
+      lansmanProjectPage: "Proje sayfası",
+      weeklyScheduleTitle: "Haftalık ihale takvimi (hedef)",
+      participationDocsLabel: "Katılım evrakları ve kategoriler:",
+      participationDocsNote:
+        "(kimlik, Findeks, ekspertiz, tapu özeti, teminat vb.; hukuki son söz sözleşme ve avukat).",
+      priceCardAiPredicted: "AI Tahmini",
+      priceCardInvestmentScore: "Yatırım Skoru",
+      marketReportBtn: "İhaleal Endeksi — piyasa raporu analizi",
+      officialDocsBtn: "Resmi belgeler (imar, belediye…)",
+      aiRecoTitle: "AI Alım Tavsiyesi",
+      aiRecoStrongBuy: "Güçlü alım fırsatı. Fiyat AI tahmininin altında.",
+      aiRecoBuy: "Makul alım fırsatı.",
+      aiRecoHold: "Beklemek daha mantıklı.",
+      aiRecoAvoid: "Dikkatli olun, fiyat yüksek.",
+      tabOverview: "Genel Bakış",
+      tabDetails: "Detaylar",
+      tabPriceHistory: "Fiyat Geçmişi",
+      tabAi: "AI Analiz",
+      tabMandatory: "ZORUNLU",
+      countdownEnded: "İhale sona erdi",
+      countdownUpcomingLabel: "Başlamaya kalan",
+      countdownLastHour: "SON SAAT",
+      countdownRemaining: "Bitişe kalan",
+      countdownDays: "Gün",
+      countdownHours: "Saat",
+      countdownMinutes: "Dakika",
+      countdownSeconds: "Saniye",
+      estValueBelowText: "Tahmini değerin %{pct} altında",
+      estValueAboveText: "Tahmini değerin %{pct} üzerinde",
+      depositDemo: "Blokaj (demo)",
+      evaluateSeller: "Satıcıyı değerlendir",
+      supportEmail: "Destek talebi (e-posta)",
+      expertOpinion: "Uzman Görüşü Al",
+      expertOpinionDesc: "Profesyonel ekspertiz raporu talep edin",
+      commissionTitle: "Komisyon Hesaplayıcı",
+      commissionRefListing: "İlan tutarı (referans)",
+      commissionRefAuction: "İhale / teklif tutarı (tahmini)",
+      commissionPlatformBuyer: "Platform (alıcı)",
+      commissionVat: "KDV (platform)",
+      commissionDeedDuty: "Tapu Harcı",
+      commissionRevolvingCapital: "Döner Sermaye",
+      commissionTotal: "Toplam Maliyet",
+      commissionDetailLink: "Komisyon yapısını detaylı incele",
+      securityTitle: "Güvenlik Doğrulaması",
+      secIdentity: "Kimlik doğrulaması zorunlu",
+      secFindeks: "Findeks kredi notu kontrolü",
+      sec2fa: "SMS ile iki aşamalı doğrulama",
+      secBankApi: "Banka API ile ödeme garantisi",
+      secAmlKyc: "AML/KYC uyumu",
+      secLawNote: "ihaleal.com, 7263 sayılı Kanun kapsamında faaliyet gösterir.",
     },
     borsa: {
       marketTicker: "Piyasa Ticker",
@@ -2521,6 +2741,76 @@ const _ruOverrides: PartialDeep<Messages> = {
     featuresListMissing: "Список характеристик отсутствует.",
     bidLoginRequired: "Войдите, чтобы сделать ставку.",
     bidAcceptRequired: "Отметьте все договорные и заявленные пункты, чтобы отправить ставку.",
+    // ── 11-G ──
+    loading: "Загрузка объявления…",
+    notFoundTitle: "Объявление не найдено",
+    notFoundDesc:
+      "Объявление, которое вы ищете, могло быть удалено, ссылка может быть недействительной или объявление никогда не существовало. Вы можете посмотреть открытые аукционы или найти новое объявление на странице поиска.",
+    notFoundBackAuctions: "К аукционам",
+    notFoundSearch: "Страница поиска",
+    bcHome: "Главная",
+    bcListings: "Объявления",
+    bcListingFallback: "Объявление",
+    cityAreaListingsSuffix: "— объявления по региону",
+    badgeLive: "Идёт",
+    badgeUpcoming: "Скоро",
+    badgeLansman: "🏗️ СТАРТ ПРОДАЖ",
+    viewCountSuffix: "просмотров",
+    lansmanUnitBadge: "🏗️ Юнит проекта",
+    lansmanCardTitle: "Это объявление — юнит проекта на старте продаж",
+    lansmanDeveloperLabel: "Проект застройщика:",
+    lansmanProjectFallback: "Проект на старте продаж",
+    lansmanUnitPrefix: "Юнит",
+    lansmanProjectPage: "Страница проекта",
+    weeklyScheduleTitle: "Еженедельный календарь аукционов (цель)",
+    participationDocsLabel: "Документы и категории для участия:",
+    participationDocsNote:
+      "(удостоверение личности, Findeks, оценка, выписка из тапу, залог и т. д.; окончательное юридическое слово — за договором и юристом).",
+    priceCardAiPredicted: "Прогноз ИИ",
+    priceCardInvestmentScore: "Инвест-балл",
+    marketReportBtn: "Индекс iHaleal — анализ рыночного отчёта",
+    officialDocsBtn: "Официальные документы (зонирование, муниципалитет…)",
+    aiRecoTitle: "Рекомендация ИИ по покупке",
+    aiRecoStrongBuy: "Сильная возможность для покупки. Цена ниже прогноза ИИ.",
+    aiRecoBuy: "Разумная возможность для покупки.",
+    aiRecoHold: "Разумнее подождать.",
+    aiRecoAvoid: "Будьте осторожны, цена высокая.",
+    tabOverview: "Обзор",
+    tabDetails: "Детали",
+    tabPriceHistory: "История цен",
+    tabAi: "ИИ-анализ",
+    tabMandatory: "ОБЯЗАТЕЛЬНО",
+    countdownEnded: "Аукцион завершён",
+    countdownUpcomingLabel: "До старта",
+    countdownLastHour: "ПОСЛЕДНИЙ ЧАС",
+    countdownRemaining: "До конца",
+    countdownDays: "Дней",
+    countdownHours: "Часов",
+    countdownMinutes: "Минут",
+    countdownSeconds: "Секунд",
+    estValueBelowText: "На {pct}% ниже оценочной стоимости",
+    estValueAboveText: "На {pct}% выше оценочной стоимости",
+    depositDemo: "Блокировка (демо)",
+    evaluateSeller: "Оценить продавца",
+    supportEmail: "Запрос в поддержку (эл. почта)",
+    expertOpinion: "Получить мнение эксперта",
+    expertOpinionDesc: "Запросите профессиональный отчёт об оценке",
+    commissionTitle: "Калькулятор комиссии",
+    commissionRefListing: "Сумма объявления (справочно)",
+    commissionRefAuction: "Сумма аукциона / ставки (оценочно)",
+    commissionPlatformBuyer: "Платформа (покупатель)",
+    commissionVat: "НДС (платформа)",
+    commissionDeedDuty: "Пошлина за тапу",
+    commissionRevolvingCapital: "Оборотный сбор",
+    commissionTotal: "Итоговая стоимость",
+    commissionDetailLink: "Подробно о структуре комиссии",
+    securityTitle: "Проверка безопасности",
+    secIdentity: "Обязательная проверка личности",
+    secFindeks: "Проверка кредитного рейтинга Findeks",
+    sec2fa: "Двухэтапная проверка по SMS",
+    secBankApi: "Гарантия оплаты через банковский API",
+    secAmlKyc: "Соответствие AML/KYC",
+    secLawNote: "ihaleal.com работает в рамках Закона № 7263.",
   },
   borsa: {
     marketTicker: "Лента рынка",
@@ -3164,6 +3454,76 @@ const _arOverrides: PartialDeep<Messages> = {
     featuresListMissing: "لا توجد قائمة مواصفات.",
     bidLoginRequired: "سجّل الدخول لتقديم عرض.",
     bidAcceptRequired: "حدّد جميع مربّعات العقد والإقرار لإرسال عرضك.",
+    // ── 11-G ──
+    loading: "جارٍ تحميل الإعلان…",
+    notFoundTitle: "الإعلان غير موجود",
+    notFoundDesc:
+      "قد يكون الإعلان الذي تبحث عنه قد أُزيل، أو الرابط معطوباً، أو أنه لم يكن موجوداً أصلاً. يمكنك تصفّح المزادات المفتوحة أو العثور على إعلان جديد من صفحة البحث.",
+    notFoundBackAuctions: "العودة إلى المزادات",
+    notFoundSearch: "صفحة البحث",
+    bcHome: "الرئيسية",
+    bcListings: "الإعلانات",
+    bcListingFallback: "إعلان",
+    cityAreaListingsSuffix: "— إعلانات المنطقة",
+    badgeLive: "جارٍ الآن",
+    badgeUpcoming: "قريباً",
+    badgeLansman: "🏗️ إطلاق",
+    viewCountSuffix: "مشاهدة",
+    lansmanUnitBadge: "🏗️ وحدة إطلاق",
+    lansmanCardTitle: "هذا الإعلان وحدة ضمن مشروع قيد الإطلاق",
+    lansmanDeveloperLabel: "مشروع المطوّر:",
+    lansmanProjectFallback: "مشروع إطلاق",
+    lansmanUnitPrefix: "وحدة",
+    lansmanProjectPage: "صفحة المشروع",
+    weeklyScheduleTitle: "تقويم المزادات الأسبوعي (مستهدف)",
+    participationDocsLabel: "مستندات المشاركة والفئات:",
+    participationDocsNote:
+      "(الهوية، Findeks، التقييم، ملخص سند الملكية، التأمين، إلخ؛ الكلمة القانونية الأخيرة للعقد والمحامي).",
+    priceCardAiPredicted: "تقدير الذكاء الاصطناعي",
+    priceCardInvestmentScore: "درجة الاستثمار",
+    marketReportBtn: "مؤشر iHaleal — تحليل تقرير السوق",
+    officialDocsBtn: "المستندات الرسمية (التنظيم العمراني، البلدية…)",
+    aiRecoTitle: "توصية الذكاء الاصطناعي بالشراء",
+    aiRecoStrongBuy: "فرصة شراء قوية. السعر أقل من تقدير الذكاء الاصطناعي.",
+    aiRecoBuy: "فرصة شراء معقولة.",
+    aiRecoHold: "الانتظار أكثر منطقية.",
+    aiRecoAvoid: "كن حذراً، السعر مرتفع.",
+    tabOverview: "نظرة عامة",
+    tabDetails: "التفاصيل",
+    tabPriceHistory: "سجل الأسعار",
+    tabAi: "تحليل الذكاء الاصطناعي",
+    tabMandatory: "إلزامي",
+    countdownEnded: "انتهى المزاد",
+    countdownUpcomingLabel: "حتى البدء",
+    countdownLastHour: "الساعة الأخيرة",
+    countdownRemaining: "حتى الانتهاء",
+    countdownDays: "أيام",
+    countdownHours: "ساعات",
+    countdownMinutes: "دقائق",
+    countdownSeconds: "ثوانٍ",
+    estValueBelowText: "أقل بنسبة {pct}% من القيمة التقديرية",
+    estValueAboveText: "أعلى بنسبة {pct}% من القيمة التقديرية",
+    depositDemo: "حجز مبدئي (تجريبي)",
+    evaluateSeller: "قيّم البائع",
+    supportEmail: "طلب دعم (بريد إلكتروني)",
+    expertOpinion: "احصل على رأي خبير",
+    expertOpinionDesc: "اطلب تقرير تقييم احترافي",
+    commissionTitle: "حاسبة العمولة",
+    commissionRefListing: "مبلغ الإعلان (مرجعي)",
+    commissionRefAuction: "مبلغ المزاد / العرض (تقديري)",
+    commissionPlatformBuyer: "المنصة (المشتري)",
+    commissionVat: "ضريبة القيمة المضافة (المنصة)",
+    commissionDeedDuty: "رسم سند الملكية",
+    commissionRevolvingCapital: "رأس المال المتداول",
+    commissionTotal: "التكلفة الإجمالية",
+    commissionDetailLink: "اطّلع على هيكل العمولة بالتفصيل",
+    securityTitle: "التحقق الأمني",
+    secIdentity: "التحقق من الهوية إلزامي",
+    secFindeks: "فحص درجة ائتمان Findeks",
+    sec2fa: "تحقق بخطوتين عبر الرسائل القصيرة",
+    secBankApi: "ضمان الدفع عبر واجهة البنك",
+    secAmlKyc: "الامتثال لـ AML/KYC",
+    secLawNote: "تعمل ihaleal.com بموجب القانون رقم 7263.",
   },
   borsa: {
     marketTicker: "شريط السوق",

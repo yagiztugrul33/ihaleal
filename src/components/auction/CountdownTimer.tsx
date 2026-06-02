@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Clock, Flame, Hourglass } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/contexts/LocaleContext";
 
 /**
  * İhale geri sayım — gün:saat:dakika:saniye.
@@ -46,6 +47,8 @@ export function CountdownTimer({
   size = "md",
   layout = "wide",
 }: Props) {
+  const { t } = useLocale();
+  const ld = t.listingDetail;
   // Hedef tarih — upcoming ise startDate, aksi halde endDate
   const targetIso = status === "upcoming" && startDate ? startDate : endDate;
   const targetMs =
@@ -74,7 +77,7 @@ export function CountdownTimer({
         data-testid="countdown-ended"
       >
         <Hourglass className="w-4 h-4" aria-hidden />
-        <span>İhale sona erdi</span>
+        <span>{ld.countdownEnded}</span>
       </div>
     );
   }
@@ -94,12 +97,12 @@ export function CountdownTimer({
 
   const label =
     computedStatus === "upcoming"
-      ? "Başlamaya kalan"
+      ? ld.countdownUpcomingLabel
       : totalHours < 1
-        ? "SON SAAT"
+        ? ld.countdownLastHour
         : totalHours < 24
-          ? "Bitişe kalan"
-          : "Bitişe kalan";
+          ? ld.countdownRemaining
+          : ld.countdownRemaining;
 
   const Icon = totalHours < 1 ? Flame : Clock;
 
@@ -136,10 +139,10 @@ export function CountdownTimer({
       </div>
       <div className="grid grid-cols-4 gap-2 font-mono tabular-nums">
         {[
-          { v: days, l: "Gün" },
-          { v: hours, l: "Saat" },
-          { v: minutes, l: "Dakika" },
-          { v: seconds, l: "Saniye" },
+          { v: days, l: ld.countdownDays },
+          { v: hours, l: ld.countdownHours },
+          { v: minutes, l: ld.countdownMinutes },
+          { v: seconds, l: ld.countdownSeconds },
         ].map((unit) => (
           <div key={unit.l} className="rounded-lg bg-slate-950/30 px-2 py-2 text-center">
             <div className={cn("font-bold leading-none", size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl")}>
