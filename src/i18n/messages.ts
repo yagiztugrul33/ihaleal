@@ -177,6 +177,78 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type GesFormMessages = {
+  stepLabel: string;             // "Adım"
+  step1Title: string;            // "Konum ve arazi"
+  city: string;
+  district: string;
+  neighborhood: string;
+  adaParcel: string;
+  adaPlaceholder: string;
+  parcelPlaceholder: string;
+  totalAreaM2: string;           // "Toplam alan (m²)"
+  solarIrradiance: string;       // "Güneşlenme (kWh/m²)"
+  continueBtn: string;
+  step2Title: string;            // "Şebeke ve mevzuat"
+  preScore: string;              // "Ön skor"
+  trafoDistance: string;
+  trafoCapacity: string;
+  slopeDegree: string;
+  slopeAspect: string;
+  agriculturalClass: string;
+  chkMarginal: string;
+  chkCadastralRoad: string;
+  chkSitConflict: string;
+  chkMilitaryZone: string;
+  chkArchaeological: string;
+  backBtn: string;
+  computingBtn: string;
+  completeBtn: string;
+  retryBtn: string;
+  errSubmit: string;
+  // Step 3 sonuç
+  scoreLabel: string;
+  capacityLabel: string;
+  annualLabel: string;
+  capexLabel: string;
+  paybackLabel: string;
+  paybackYearSuffix: string;
+  paybackDefaultPriceNote: string;
+  newEvaluation: string;
+  // Status
+  statusHigh: string;
+  statusReject: string;
+  statusSubmitted: string;
+  statusEngineering: string;
+  statusGathering: string;
+};
+
+export type DashboardMessages = {
+  back: string;
+  title: string;
+  subtitle: string;
+  changeFlows: string;
+  cardListingsTitle: string;
+  cardListingsBody: string;
+  cardListingsCta: string;
+  cardAuctionTitle: string;
+  cardAuctionBody: string;
+  cardAuctionCta: string;
+  cardBidsTitle: string;
+  cardBidsBody: string;
+  cardBidsCta: string;
+  cardFavoritesTitle: string;
+  cardFavoritesCta: string;
+  cardSavedSearchTitle: string;
+  cardSavedSearchCta: string;
+  cardAuthorityTitle: string;
+  cardAuthorityCta: string;
+  cardProfileTitle: string;
+  cardProfileCta: string;
+  investorPortfolioNote: string;
+  investorPortfolioCta: string;
+};
+
 export type DataAnalysisMessages = {
   eyebrow: string;
   title: string;
@@ -592,6 +664,8 @@ export type Messages = {
   mortgage: MortgageMessages;
   valuationForm: ValuationFormMessages;
   dataAnalysis: DataAnalysisMessages;
+  gesForm: GesFormMessages;
+  dashboard: DashboardMessages;
 };
 
 /**
@@ -1205,6 +1279,74 @@ export const messages: Record<"en" | "tr", Messages> = {
       segmentCommercial: "Commercial",
       segmentTourism: "Tourism",
     },
+    gesForm: {
+      stepLabel: "Step",
+      step1Title: "Location and land",
+      city: "City",
+      district: "District",
+      neighborhood: "Neighborhood",
+      adaParcel: "Block / Parcel",
+      adaPlaceholder: "Block",
+      parcelPlaceholder: "Parcel",
+      totalAreaM2: "Total area (m²)",
+      solarIrradiance: "Solar irradiance (kWh/m²)",
+      continueBtn: "Continue",
+      step2Title: "Grid and regulations",
+      preScore: "Pre-score",
+      trafoDistance: "Substation distance (km)",
+      trafoCapacity: "Substation capacity (MW)",
+      slopeDegree: "Slope (degrees)",
+      slopeAspect: "Aspect",
+      agriculturalClass: "Agricultural class",
+      chkMarginal: "Marginal agriculture / GEPA approval available",
+      chkCadastralRoad: "Cadastral road exists",
+      chkSitConflict: "Protected area (SIT) conflict",
+      chkMilitaryZone: "Military restricted zone",
+      chkArchaeological: "Archaeological site",
+      backBtn: "Back",
+      computingBtn: "Calculating...",
+      completeBtn: "Complete evaluation",
+      retryBtn: "Try again",
+      errSubmit: "Evaluation could not be submitted.",
+      scoreLabel: "Score",
+      capacityLabel: "Capacity",
+      annualLabel: "Annual",
+      capexLabel: "CAPEX",
+      paybackLabel: "Payback",
+      paybackYearSuffix: "yr",
+      paybackDefaultPriceNote: "(default price)",
+      newEvaluation: "New evaluation",
+      statusHigh: "High feasibility",
+      statusReject: "Technical rejection",
+      statusSubmitted: "Submitted to investors",
+      statusEngineering: "Engineering calculation",
+      statusGathering: "Data gathering",
+    },
+    dashboard: {
+      back: "Home",
+      title: "Account panel",
+      subtitle: "Shortcuts based on your selected flows (demo; no backend).",
+      changeFlows: "Change flows",
+      cardListingsTitle: "My listings",
+      cardListingsBody: "Plan prices are placeholders in `fees.ts` (§D-K8).",
+      cardListingsCta: "Seller center",
+      cardAuctionTitle: "Open auction",
+      cardAuctionBody: "Flow B — authority and documents demo.",
+      cardAuctionCta: "Create auction",
+      cardBidsTitle: "My bids / deposit",
+      cardBidsBody: "Findeks, AML, bid bond — production in K3.",
+      cardBidsCta: "Document list",
+      cardFavoritesTitle: "Favorites",
+      cardFavoritesCta: "Favorite listings",
+      cardSavedSearchTitle: "Saved searches",
+      cardSavedSearchCta: "Search page",
+      cardAuthorityTitle: "Authority documents",
+      cardAuthorityCta: "e-Government (DEMO)",
+      cardProfileTitle: "Profile",
+      cardProfileCta: "Account info",
+      investorPortfolioNote: "Investor portfolio charts (favorites)",
+      investorPortfolioCta: "Go to portfolio view",
+    },
   },
   tr: {
     nav: {
@@ -1811,6 +1953,74 @@ export const messages: Record<"en" | "tr", Messages> = {
       segmentCommercial: "Ticari",
       segmentTourism: "Turizm",
     },
+    gesForm: {
+      stepLabel: "Adım",
+      step1Title: "Konum ve arazi",
+      city: "İl",
+      district: "İlçe",
+      neighborhood: "Mahalle",
+      adaParcel: "Ada / Parsel",
+      adaPlaceholder: "Ada",
+      parcelPlaceholder: "Parsel",
+      totalAreaM2: "Toplam alan (m²)",
+      solarIrradiance: "Güneşlenme (kWh/m²)",
+      continueBtn: "Devam",
+      step2Title: "Şebeke ve mevzuat",
+      preScore: "Ön skor",
+      trafoDistance: "Trafo mesafesi (km)",
+      trafoCapacity: "Trafo kapasitesi (MW)",
+      slopeDegree: "Eğim (derece)",
+      slopeAspect: "Bakı",
+      agriculturalClass: "Tarım sınıfı",
+      chkMarginal: "Marjinal tarım / GEPA onayı mevcut",
+      chkCadastralRoad: "Kadastro yolu var",
+      chkSitConflict: "SİT alanı çakışması",
+      chkMilitaryZone: "Askeri yasak bölge",
+      chkArchaeological: "Arkeolojik sit",
+      backBtn: "Geri",
+      computingBtn: "Hesaplanıyor...",
+      completeBtn: "Değerlendirmeyi tamamla",
+      retryBtn: "Tekrar dene",
+      errSubmit: "Değerlendirme gönderilemedi.",
+      scoreLabel: "Skor",
+      capacityLabel: "Kapasite",
+      annualLabel: "Yıllık",
+      capexLabel: "CAPEX",
+      paybackLabel: "Geri ödeme",
+      paybackYearSuffix: "yıl",
+      paybackDefaultPriceNote: "(varsayılan fiyat)",
+      newEvaluation: "Yeni değerlendirme",
+      statusHigh: "Yüksek fizibilite",
+      statusReject: "Teknik red",
+      statusSubmitted: "Yatırımcıya iletildi",
+      statusEngineering: "Mühendislik hesabı",
+      statusGathering: "Veri toplama",
+    },
+    dashboard: {
+      back: "Ana sayfa",
+      title: "Hesap paneli",
+      subtitle: "Seçtiğiniz akışlara göre kısayollar (demo; backend yok).",
+      changeFlows: "Akışları değiştir",
+      cardListingsTitle: "İlanlarım",
+      cardListingsBody: "Paket fiyatları `fees.ts` placeholder (§D-K8).",
+      cardListingsCta: "Satıcı merkezi",
+      cardAuctionTitle: "İhale aç",
+      cardAuctionBody: "Akış B — yetki ve evrak demo.",
+      cardAuctionCta: "İhale oluştur",
+      cardBidsTitle: "Tekliflerim / teminat",
+      cardBidsBody: "Findeks, AML, bid bond — üretimde K3.",
+      cardBidsCta: "Evrak listesi",
+      cardFavoritesTitle: "Favoriler",
+      cardFavoritesCta: "Favori ilanlar",
+      cardSavedSearchTitle: "Kayıtlı aramalar",
+      cardSavedSearchCta: "Arama sayfası",
+      cardAuthorityTitle: "Yetki belgeleri",
+      cardAuthorityCta: "e-Devlet (DEMO)",
+      cardProfileTitle: "Profil",
+      cardProfileCta: "Hesap bilgileri",
+      investorPortfolioNote: "Yatırımcı portföy grafikleri (favoriler)",
+      investorPortfolioCta: "Portföy görünümüne git",
+    },
   },
 };
 
@@ -2323,6 +2533,74 @@ const _ruOverrides: PartialDeep<Messages> = {
     segmentCommercial: "Коммерческая",
     segmentTourism: "Туристическая",
   },
+  gesForm: {
+    stepLabel: "Шаг",
+    step1Title: "Местоположение и участок",
+    city: "Город",
+    district: "Район",
+    neighborhood: "Квартал",
+    adaParcel: "Квартал / Участок",
+    adaPlaceholder: "Квартал",
+    parcelPlaceholder: "Участок",
+    totalAreaM2: "Общая площадь (м²)",
+    solarIrradiance: "Солнечное излучение (кВт·ч/м²)",
+    continueBtn: "Продолжить",
+    step2Title: "Сеть и регулирование",
+    preScore: "Предв. балл",
+    trafoDistance: "Расстояние до подстанции (км)",
+    trafoCapacity: "Мощность подстанции (МВт)",
+    slopeDegree: "Уклон (градусы)",
+    slopeAspect: "Экспозиция",
+    agriculturalClass: "Сельскохозяйственный класс",
+    chkMarginal: "Маргинальное с/х / одобрение GEPA",
+    chkCadastralRoad: "Кадастровая дорога есть",
+    chkSitConflict: "Конфликт с охраняемой зоной (SIT)",
+    chkMilitaryZone: "Военная запретная зона",
+    chkArchaeological: "Археологический памятник",
+    backBtn: "Назад",
+    computingBtn: "Расчёт...",
+    completeBtn: "Завершить оценку",
+    retryBtn: "Повторить",
+    errSubmit: "Не удалось отправить оценку.",
+    scoreLabel: "Балл",
+    capacityLabel: "Мощность",
+    annualLabel: "Годовая",
+    capexLabel: "CAPEX",
+    paybackLabel: "Окупаемость",
+    paybackYearSuffix: "г.",
+    paybackDefaultPriceNote: "(базовая цена)",
+    newEvaluation: "Новая оценка",
+    statusHigh: "Высокая осуществимость",
+    statusReject: "Технический отказ",
+    statusSubmitted: "Передано инвесторам",
+    statusEngineering: "Инженерный расчёт",
+    statusGathering: "Сбор данных",
+  },
+  dashboard: {
+    back: "На главную",
+    title: "Панель аккаунта",
+    subtitle: "Ярлыки на основе выбранных вами потоков (демо; без бэкенда).",
+    changeFlows: "Изменить потоки",
+    cardListingsTitle: "Мои объявления",
+    cardListingsBody: "Цены пакетов — заглушки в `fees.ts` (§D-K8).",
+    cardListingsCta: "Центр продавца",
+    cardAuctionTitle: "Открыть аукцион",
+    cardAuctionBody: "Поток B — права и документы (демо).",
+    cardAuctionCta: "Создать аукцион",
+    cardBidsTitle: "Мои ставки / залог",
+    cardBidsBody: "Findeks, AML, гарантия ставки — production в K3.",
+    cardBidsCta: "Список документов",
+    cardFavoritesTitle: "Избранное",
+    cardFavoritesCta: "Избранные объявления",
+    cardSavedSearchTitle: "Сохранённые запросы",
+    cardSavedSearchCta: "Страница поиска",
+    cardAuthorityTitle: "Документы полномочий",
+    cardAuthorityCta: "e-Government (ДЕМО)",
+    cardProfileTitle: "Профиль",
+    cardProfileCta: "Информация об аккаунте",
+    investorPortfolioNote: "Графики портфеля инвестора (избранное)",
+    investorPortfolioCta: "Перейти к портфелю",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -2819,6 +3097,74 @@ const _arOverrides: PartialDeep<Messages> = {
     segmentLand: "أرض",
     segmentCommercial: "تجاري",
     segmentTourism: "سياحي",
+  },
+  gesForm: {
+    stepLabel: "خطوة",
+    step1Title: "الموقع والأرض",
+    city: "المدينة",
+    district: "المنطقة",
+    neighborhood: "الحي",
+    adaParcel: "البلوك / القطعة",
+    adaPlaceholder: "البلوك",
+    parcelPlaceholder: "القطعة",
+    totalAreaM2: "المساحة الإجمالية (م²)",
+    solarIrradiance: "الإشعاع الشمسي (كيلوواط·س/م²)",
+    continueBtn: "متابعة",
+    step2Title: "الشبكة واللوائح",
+    preScore: "النتيجة الأولية",
+    trafoDistance: "بُعد المحطة الفرعية (كم)",
+    trafoCapacity: "سعة المحطة الفرعية (ميغاواط)",
+    slopeDegree: "الانحدار (درجة)",
+    slopeAspect: "الاتجاه",
+    agriculturalClass: "التصنيف الزراعي",
+    chkMarginal: "زراعة هامشية / موافقة GEPA متوفرة",
+    chkCadastralRoad: "يوجد طريق مساحي",
+    chkSitConflict: "تعارض مع منطقة محمية (SIT)",
+    chkMilitaryZone: "منطقة عسكرية محظورة",
+    chkArchaeological: "موقع أثري",
+    backBtn: "رجوع",
+    computingBtn: "جارٍ الحساب...",
+    completeBtn: "إكمال التقييم",
+    retryBtn: "إعادة المحاولة",
+    errSubmit: "تعذّر إرسال التقييم.",
+    scoreLabel: "النتيجة",
+    capacityLabel: "القدرة",
+    annualLabel: "السنوي",
+    capexLabel: "CAPEX",
+    paybackLabel: "فترة الاسترداد",
+    paybackYearSuffix: "سنة",
+    paybackDefaultPriceNote: "(السعر الافتراضي)",
+    newEvaluation: "تقييم جديد",
+    statusHigh: "جدوى عالية",
+    statusReject: "رفض فني",
+    statusSubmitted: "أُرسل إلى المستثمرين",
+    statusEngineering: "حساب هندسي",
+    statusGathering: "جمع البيانات",
+  },
+  dashboard: {
+    back: "الرئيسية",
+    title: "لوحة الحساب",
+    subtitle: "اختصارات استناداً إلى مساراتك المختارة (تجريبي؛ بلا واجهة خلفية).",
+    changeFlows: "تغيير المسارات",
+    cardListingsTitle: "إعلاناتي",
+    cardListingsBody: "أسعار الباقات نائبة في `fees.ts` (§D-K8).",
+    cardListingsCta: "مركز البائع",
+    cardAuctionTitle: "فتح مزاد",
+    cardAuctionBody: "المسار B — الصلاحيات والوثائق (تجريبي).",
+    cardAuctionCta: "إنشاء مزاد",
+    cardBidsTitle: "عروضي / الضمان",
+    cardBidsBody: "Findeks، AML، ضمان العرض — الإنتاج في K3.",
+    cardBidsCta: "قائمة الوثائق",
+    cardFavoritesTitle: "المفضلة",
+    cardFavoritesCta: "الإعلانات المفضّلة",
+    cardSavedSearchTitle: "عمليات البحث المحفوظة",
+    cardSavedSearchCta: "صفحة البحث",
+    cardAuthorityTitle: "وثائق التفويض",
+    cardAuthorityCta: "البوابة الحكومية (تجريبي)",
+    cardProfileTitle: "الملف الشخصي",
+    cardProfileCta: "معلومات الحساب",
+    investorPortfolioNote: "رسوم محفظة المستثمر (المفضلة)",
+    investorPortfolioCta: "الانتقال إلى عرض المحفظة",
   },
 };
 

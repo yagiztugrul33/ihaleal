@@ -12,6 +12,7 @@ import {
 } from "@/lib/ges-land";
 import { runGesLandEvaluation } from "@/lib/ges-land/feasibilityEngine";
 import { FxRef } from "@/components/FxRef";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type Step = 1 | 2 | 3;
 
@@ -26,22 +27,24 @@ function formatTry(n: number): string {
   return new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
 }
 
-function statusLabel(status: GesSubmitResult["status"]): string {
+function statusLabel(status: GesSubmitResult["status"], g: { statusHigh: string; statusReject: string; statusSubmitted: string; statusEngineering: string; statusGathering: string }): string {
   switch (status) {
     case "HIGH_VIABILITY":
-      return "Yuksek fizibilite";
+      return g.statusHigh;
     case "TECHNICAL_REJECTION":
-      return "Teknik red";
+      return g.statusReject;
     case "SUBMITTED_TO_INVESTORS":
-      return "Yatirimciya iletildi";
+      return g.statusSubmitted;
     case "ENGINEERING_CALCULATION":
-      return "Muhendislik hesabi";
+      return g.statusEngineering;
     default:
-      return "Veri toplama";
+      return g.statusGathering;
   }
 }
 
 export function GesEvaluationForm() {
+  const { t } = useLocale();
+  const g = t.gesForm;
   const [step, setStep] = useState<Step>(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -80,7 +83,7 @@ export function GesEvaluationForm() {
       setResult(res);
       setStep(3);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Degerlendirme gonderilemedi.");
+      setError(e instanceof Error ? e.message : g.errSubmit);
     } finally {
       setLoading(false);
     }
@@ -96,7 +99,7 @@ export function GesEvaluationForm() {
               step === n ? "border-amber-400/50 bg-amber-500/15 text-amber-100" : "border-white/10"
             }`}
           >
-            Adim {n}
+            {g.stepLabel} {n}
           </span>
         ))}
       </div>
@@ -104,49 +107,51 @@ export function GesEvaluationForm() {
       {step === 1 && (
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-            <Sun className="h-5 w-5 text-amber-300" /> Konum ve arazi
+            <Sun className="h-5 w-5 text-amber-300" /> {g.step1Title}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
-              Il
+              {g.city}
               <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Ilce
+              {g.district}
               <Input value={form.district} onChange={(e) => setForm({ ...form, district: e.target.value })} />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Mahalle
+              {g.neighborhood}
               <Input value={form.neighborhood ?? ""} onChange={(e) => setForm({ ...form, neighborhood: e.target.value })} />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Ada / Parsel
+              {g.adaParcel}
               <div className="grid grid-cols-2 gap-2">
-                <Input placeholder="Ada" value={form.ada ?? ""} onChange={(e) => setForm({ ...form, ada: e.target.value })} />
-                <Input placeholder="Parsel" value={form.parcel ?? ""} onChange={(e) => setForm({ ...form, parcel: e.target.value })} />
+                <Input placeholder={g.adaPlaceholder} value={form.ada ?? ""} onChange={(e) => setForm({ ...form, ada: e.target.value })} />
+                <Input placeholder={g.parcelPlaceholder} value={form.parcel ?? ""} onChange={(e) => setForm({ ...form, parcel: e.target.value })} />
               </div>
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Toplam alan (m2)
+              {g.totalAreaM2}
               <Input
                 type="number"
                 min={1000}
                 value={form.totalAreaM2}
                 onChange={(e) => setForm({ ...form, totalAreaM2: Number(e.target.value) })}
+                dir="ltr"
               />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Guneslenme (kWh/m2)
+              {g.solarIrradiance}
               <Input
                 type="number"
                 min={1200}
                 value={form.solarIrradianceKwh}
                 onChange={(e) => setForm({ ...form, solarIrradianceKwh: Number(e.target.value) })}
+                dir="ltr"
               />
             </label>
           </div>
           <Button type="button" onClick={() => setStep(2)} className="mt-2">
-            Devam <ArrowRight className="h-4 w-4" />
+            {g.continueBtn} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
           </Button>
         </div>
       )}
@@ -154,42 +159,45 @@ export function GesEvaluationForm() {
       {step === 2 && (
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-            <Zap className="h-5 w-5 text-cyan-300" /> Sebeke ve mevzuat
+            <Zap className="h-5 w-5 text-cyan-300" /> {g.step2Title}
           </h2>
           <p className="text-sm text-slate-400">
-            On skor: <span className="text-amber-200 font-medium">{preview.gesFeasibilityScore}</span> / 100
+            {g.preScore}: <span className="text-amber-200 font-medium" dir="ltr">{preview.gesFeasibilityScore}</span> / 100
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
-              Trafo mesafesi (km)
+              {g.trafoDistance}
               <Input
                 type="number"
                 min={0}
                 step={0.1}
                 value={form.distanceToTrafoKm}
                 onChange={(e) => setForm({ ...form, distanceToTrafoKm: Number(e.target.value) })}
+                dir="ltr"
               />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Trafo kapasitesi (MW)
+              {g.trafoCapacity}
               <Input
                 type="number"
                 min={0.1}
                 value={form.trafoCapacityMw ?? 0}
                 onChange={(e) => setForm({ ...form, trafoCapacityMw: Number(e.target.value) })}
+                dir="ltr"
               />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Egim (derece)
+              {g.slopeDegree}
               <Input
                 type="number"
                 min={0}
                 value={form.slopeDegree}
                 onChange={(e) => setForm({ ...form, slopeDegree: Number(e.target.value) })}
+                dir="ltr"
               />
             </label>
             <label className="space-y-1 text-sm text-slate-300">
-              Bakı
+              {g.slopeAspect}
               <select
                 className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white"
                 value={form.slopeAspect}
@@ -203,7 +211,7 @@ export function GesEvaluationForm() {
               </select>
             </label>
             <label className="space-y-1 text-sm text-slate-300 sm:col-span-2">
-              Tarim sinifi
+              {g.agriculturalClass}
               <select
                 className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white"
                 value={form.agriculturalClass}
@@ -220,11 +228,11 @@ export function GesEvaluationForm() {
           <ul className="space-y-2 text-sm">
             {(
               [
-                ["isMarginalTarimApproved", "Marjinal tarim / GEPA onayi mevcut"],
-                ["hasCadastralRoad", "Kadastro yolu var"],
-                ["hasSitAreaConflict", "SIT alani cakismasi"],
-                ["hasMilitaryZoneConflict", "Askeri yasak bolge"],
-                ["hasArchaeologicalSite", "Arkeolojik sit"],
+                ["isMarginalTarimApproved", g.chkMarginal],
+                ["hasCadastralRoad", g.chkCadastralRoad],
+                ["hasSitAreaConflict", g.chkSitConflict],
+                ["hasMilitaryZoneConflict", g.chkMilitaryZone],
+                ["hasArchaeologicalSite", g.chkArchaeological],
               ] as const
             ).map(([key, label]) => (
               <li key={key} className="flex items-center gap-3 rounded-lg border border-white/10 p-3">
@@ -241,10 +249,10 @@ export function GesEvaluationForm() {
           </ul>
           <div className="flex gap-2">
             <Button type="button" variant="outline" onClick={() => setStep(1)}>
-              <ArrowLeft className="h-4 w-4" /> Geri
+              <ArrowLeft className="h-4 w-4 rtl:rotate-180" /> {g.backBtn}
             </Button>
             <Button type="button" disabled={loading} onClick={onSubmit}>
-              {loading ? "Hesaplaniyor..." : "Degerlendirmeyi tamamla"}
+              {loading ? g.computingBtn : g.completeBtn}
             </Button>
           </div>
           {error && (
@@ -254,7 +262,7 @@ export function GesEvaluationForm() {
             >
               <p>{error}</p>
               <Button type="button" size="sm" variant="outline" onClick={onSubmit} disabled={loading}>
-                Tekrar dene
+                {g.retryBtn}
               </Button>
             </div>
           )}
@@ -263,7 +271,7 @@ export function GesEvaluationForm() {
 
       {step === 3 && result && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-white">{statusLabel(result.status)}</h2>
+          <h2 className="text-lg font-semibold text-white">{statusLabel(result.status, g)}</h2>
           {result.hardKill ? (
             <p className="text-sm text-red-200 border border-red-400/30 bg-red-500/10 rounded-lg p-3">
               {result.rejectionReason}
@@ -271,21 +279,21 @@ export function GesEvaluationForm() {
           ) : (
             <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-4 grid sm:grid-cols-2 gap-3 text-sm">
               <p>
-                Skor: <strong className="text-emerald-100">{result.gesFeasibilityScore}</strong>
+                {g.scoreLabel}: <strong className="text-emerald-100" dir="ltr">{result.gesFeasibilityScore}</strong>
               </p>
               <p>
-                Kapasite: <strong>{formatMw(result.estimatedCapacityMw)} MW</strong>
+                {g.capacityLabel}: <strong dir="ltr">{formatMw(result.estimatedCapacityMw)} MW</strong>
               </p>
               <p>
-                Yillik: <strong>{formatMw(result.estimatedAnnualMwh)} MWh</strong>
+                {g.annualLabel}: <strong dir="ltr">{formatMw(result.estimatedAnnualMwh)} MWh</strong>
               </p>
               <p>
-                CAPEX: <strong dir="ltr">{formatTry(result.estimatedCapexTry)}</strong>
+                {g.capexLabel}: <strong dir="ltr">{formatTry(result.estimatedCapexTry)}</strong>
                 <FxRef amountTry={result.estimatedCapexTry} variant="compact" className="ms-1.5 text-[11px] text-amber-300/80" />
               </p>
               {result.paybackYears != null && (
                 <p className="sm:col-span-2">
-                  Geri odeme: <strong>{result.paybackYears} yil</strong> (varsayilan fiyat)
+                  {g.paybackLabel}: <strong dir="ltr">{result.paybackYears} {g.paybackYearSuffix}</strong> {g.paybackDefaultPriceNote}
                 </p>
               )}
             </div>
@@ -296,7 +304,7 @@ export function GesEvaluationForm() {
             ))}
           </ul>
           <Button type="button" variant="outline" onClick={() => { setStep(1); setResult(null); }}>
-            <CheckCircle2 className="h-4 w-4" /> Yeni degerlendirme
+            <CheckCircle2 className="h-4 w-4" /> {g.newEvaluation}
           </Button>
         </div>
       )}
