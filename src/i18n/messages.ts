@@ -223,6 +223,61 @@ export type GesFormMessages = {
   statusGathering: string;
 };
 
+export type ProfileMessages = {
+  // No-user
+  guestTitle: string;
+  guestDesc: string;
+  guestLogin: string;
+  // Genel
+  back: string;
+  logout: string;
+  profileUpdated: string;
+  // Sticky kart
+  ratingSuffix: string;       // "puan"
+  noRating: string;           // "Henüz puan yok"
+  reviewSuffix: string;       // "yorum"
+  memberSince: string;        // "Üyelik"
+  auctionsCreated: string;    // "Açılan İhale"
+  auctionsWon: string;        // "Kazanılan"
+  kycStart: string;           // "KYC başlat"
+  // Profil bilgileri kart
+  profileInfoTitle: string;
+  edit: string;
+  cancel: string;
+  fullName: string;
+  emailLabel: string;
+  phoneLabel: string;
+  phoneNotSet: string;
+  phoneNote: string;
+  saveChanges: string;
+  // Güvenlik kart
+  securityTitle: string;
+  emailVerification: string;
+  phoneVerification: string;
+  twoFactor: string;
+  kycVerification: string;
+  statusVerified: string;
+  statusPending: string;
+  statusSoon: string;
+  // Hesabım özeti
+  accountSummaryTitle: string;
+  summaryFavorites: string;
+  summarySavedSearch: string;
+  summaryActiveOffers: string;
+  summaryGoToPanel: string;
+  // Bildirim tercihleri
+  notifyTitle: string;
+  notifyDesc: string;
+  notifyEmail: string;
+  notifyEmailDesc: string;
+  notifyPush: string;
+  notifyPushDesc: string;
+  notifyMatches: string;
+  notifyMatchesDesc: string;
+  notifyBids: string;
+  notifyBidsDesc: string;
+};
+
 export type InvestorDashboardMessages = {
   badge: string;
   title: string;
@@ -699,6 +754,7 @@ export type Messages = {
   gesForm: GesFormMessages;
   dashboard: DashboardMessages;
   investorDashboard: InvestorDashboardMessages;
+  profile: ProfileMessages;
 };
 
 /**
@@ -1411,6 +1467,53 @@ export const messages: Record<"en" | "tr", Messages> = {
       cardYield: "Yield",
       months: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
     },
+    profile: {
+      guestTitle: "Account Profile",
+      guestDesc: "Log in to view your profile info, KYC status and seller rating.",
+      guestLogin: "Log In",
+      back: "Back",
+      logout: "Log Out",
+      profileUpdated: "Profile updated!",
+      ratingSuffix: "rating",
+      noRating: "No rating yet",
+      reviewSuffix: "reviews",
+      memberSince: "Member since",
+      auctionsCreated: "Auctions opened",
+      auctionsWon: "Won",
+      kycStart: "Start KYC",
+      profileInfoTitle: "Profile Information",
+      edit: "Edit",
+      cancel: "Cancel",
+      fullName: "Full name",
+      emailLabel: "Email",
+      phoneLabel: "Phone",
+      phoneNotSet: "Not provided",
+      phoneNote: "Your phone number is not shown in listings; contact is handled via platform messages.",
+      saveChanges: "Save Changes",
+      securityTitle: "Security",
+      emailVerification: "Email Verification",
+      phoneVerification: "Phone Verification",
+      twoFactor: "Two-Factor Authentication",
+      kycVerification: "KYC (Identity) Verification",
+      statusVerified: "Verified",
+      statusPending: "Pending",
+      statusSoon: "Coming soon",
+      accountSummaryTitle: "Account Summary",
+      summaryFavorites: "Favorites",
+      summarySavedSearch: "Saved searches",
+      summaryActiveOffers: "Active offers",
+      summaryGoToPanel: "Go to full panel",
+      notifyTitle: "Notification Preferences",
+      notifyDesc: "Your preferences are stored in the browser. Server-side notification integration works with push tokens in the live version.",
+      notifyEmail: "Email notification",
+      notifyEmailDesc: "New match, offer, accept/reject",
+      notifyPush: "Browser push",
+      notifyPushDesc: "Instant notifications",
+      notifyMatches: "Saved search match",
+      notifyMatchesDesc: "When a new listing meets your criteria",
+      notifyBids: "Bid status update",
+      notifyBidsDesc: "Outbid / won / counter-offer",
+    },
   },
   tr: {
     nav: {
@@ -2116,6 +2219,53 @@ export const messages: Record<"en" | "tr", Messages> = {
       cardYield: "Getiri",
       months: ["Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas"],
     },
+    profile: {
+      guestTitle: "Hesap Profili",
+      guestDesc: "Profil bilgileri, KYC durumu ve satıcı puanını görmek için giriş yapın.",
+      guestLogin: "Giriş Yap",
+      back: "Geri",
+      logout: "Çıkış Yap",
+      profileUpdated: "Profil güncellendi!",
+      ratingSuffix: "puan",
+      noRating: "Henüz puan yok",
+      reviewSuffix: "yorum",
+      memberSince: "Üyelik",
+      auctionsCreated: "Açılan İhale",
+      auctionsWon: "Kazanılan",
+      kycStart: "KYC başlat",
+      profileInfoTitle: "Profil Bilgileri",
+      edit: "Düzenle",
+      cancel: "İptal",
+      fullName: "Ad Soyad",
+      emailLabel: "E-posta",
+      phoneLabel: "Telefon",
+      phoneNotSet: "Belirtilmemiş",
+      phoneNote: "Telefon numaranız ilanlarda gösterilmez; iletişim platform mesajları üzerinden yürür.",
+      saveChanges: "Değişiklikleri Kaydet",
+      securityTitle: "Güvenlik",
+      emailVerification: "E-posta Doğrulama",
+      phoneVerification: "Telefon Doğrulama",
+      twoFactor: "İki Faktörlü Doğrulama",
+      kycVerification: "KYC (Kimlik) Doğrulama",
+      statusVerified: "Doğrulandı",
+      statusPending: "Bekliyor",
+      statusSoon: "Yakında",
+      accountSummaryTitle: "Hesabım Özeti",
+      summaryFavorites: "Favoriler",
+      summarySavedSearch: "Kayıtlı arama",
+      summaryActiveOffers: "Aktif tekliflerim",
+      summaryGoToPanel: "Tüm panele git",
+      notifyTitle: "Bildirim Tercihleri",
+      notifyDesc: "Tercihleriniz tarayıcıda saklanır. Sunucu tarafı bildirim entegrasyonu canlı sürümde push token ile çalışır.",
+      notifyEmail: "E-posta bildirimi",
+      notifyEmailDesc: "Yeni eşleşme, teklif, kabul/ret",
+      notifyPush: "Tarayıcı push",
+      notifyPushDesc: "Anlık bildirimler",
+      notifyMatches: "Kayıtlı arama eşleşmesi",
+      notifyMatchesDesc: "Yeni ilan kriterlerinize uyduğunda",
+      notifyBids: "Teklif durum güncellemesi",
+      notifyBidsDesc: "Outbid / kazandın / karşı teklif",
+    },
   },
 };
 
@@ -2727,6 +2877,53 @@ const _ruOverrides: PartialDeep<Messages> = {
     cardYield: "Доходность",
     months: ["Июн", "Июл", "Авг", "Сен", "Окт", "Ноя"],
   },
+  profile: {
+    guestTitle: "Профиль аккаунта",
+    guestDesc: "Войдите, чтобы просмотреть информацию профиля, статус KYC и рейтинг продавца.",
+    guestLogin: "Войти",
+    back: "Назад",
+    logout: "Выйти",
+    profileUpdated: "Профиль обновлён!",
+    ratingSuffix: "рейтинг",
+    noRating: "Пока нет рейтинга",
+    reviewSuffix: "отзывов",
+    memberSince: "Участник с",
+    auctionsCreated: "Открыто аукционов",
+    auctionsWon: "Выиграно",
+    kycStart: "Начать KYC",
+    profileInfoTitle: "Информация профиля",
+    edit: "Редактировать",
+    cancel: "Отмена",
+    fullName: "Имя и фамилия",
+    emailLabel: "Эл. почта",
+    phoneLabel: "Телефон",
+    phoneNotSet: "Не указан",
+    phoneNote: "Ваш номер телефона не отображается в объявлениях; связь осуществляется через сообщения платформы.",
+    saveChanges: "Сохранить изменения",
+    securityTitle: "Безопасность",
+    emailVerification: "Подтверждение эл. почты",
+    phoneVerification: "Подтверждение телефона",
+    twoFactor: "Двухфакторная аутентификация",
+    kycVerification: "Проверка личности (KYC)",
+    statusVerified: "Проверено",
+    statusPending: "В ожидании",
+    statusSoon: "Скоро",
+    accountSummaryTitle: "Сводка аккаунта",
+    summaryFavorites: "Избранное",
+    summarySavedSearch: "Сохранённые запросы",
+    summaryActiveOffers: "Активные ставки",
+    summaryGoToPanel: "Перейти к полной панели",
+    notifyTitle: "Настройки уведомлений",
+    notifyDesc: "Ваши настройки хранятся в браузере. Серверная интеграция уведомлений работает с push-токенами в рабочей версии.",
+    notifyEmail: "Уведомление по эл. почте",
+    notifyEmailDesc: "Новое совпадение, ставка, принятие/отказ",
+    notifyPush: "Push в браузере",
+    notifyPushDesc: "Мгновенные уведомления",
+    notifyMatches: "Совпадение сохранённого запроса",
+    notifyMatchesDesc: "Когда новое объявление соответствует вашим критериям",
+    notifyBids: "Обновление статуса ставки",
+    notifyBidsDesc: "Перебита / выиграна / встречное предложение",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -3322,6 +3519,53 @@ const _arOverrides: PartialDeep<Messages> = {
     cardPredicted: "متوقع",
     cardYield: "العائد",
     months: ["يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر"],
+  },
+  profile: {
+    guestTitle: "ملف الحساب",
+    guestDesc: "سجّل الدخول لعرض معلومات ملفك، حالة KYC وتقييم البائع.",
+    guestLogin: "تسجيل الدخول",
+    back: "رجوع",
+    logout: "تسجيل الخروج",
+    profileUpdated: "تم تحديث الملف!",
+    ratingSuffix: "تقييم",
+    noRating: "لا يوجد تقييم بعد",
+    reviewSuffix: "مراجعة",
+    memberSince: "عضو منذ",
+    auctionsCreated: "المزادات المفتوحة",
+    auctionsWon: "الفائزة",
+    kycStart: "بدء KYC",
+    profileInfoTitle: "معلومات الملف الشخصي",
+    edit: "تعديل",
+    cancel: "إلغاء",
+    fullName: "الاسم الكامل",
+    emailLabel: "البريد الإلكتروني",
+    phoneLabel: "الهاتف",
+    phoneNotSet: "غير محدد",
+    phoneNote: "رقم هاتفك لا يظهر في الإعلانات؛ يتم التواصل عبر رسائل المنصة.",
+    saveChanges: "حفظ التغييرات",
+    securityTitle: "الأمان",
+    emailVerification: "التحقق من البريد الإلكتروني",
+    phoneVerification: "التحقق من الهاتف",
+    twoFactor: "المصادقة الثنائية",
+    kycVerification: "التحقق من الهوية (KYC)",
+    statusVerified: "موثّق",
+    statusPending: "قيد الانتظار",
+    statusSoon: "قريباً",
+    accountSummaryTitle: "ملخص الحساب",
+    summaryFavorites: "المفضلة",
+    summarySavedSearch: "عمليات البحث المحفوظة",
+    summaryActiveOffers: "العروض النشطة",
+    summaryGoToPanel: "الانتقال إلى اللوحة الكاملة",
+    notifyTitle: "تفضيلات الإشعارات",
+    notifyDesc: "تُحفظ تفضيلاتك في المتصفح. يعمل تكامل الإشعارات من جهة الخادم برموز الدفع في النسخة المباشرة.",
+    notifyEmail: "إشعار بالبريد الإلكتروني",
+    notifyEmailDesc: "تطابق جديد، عرض، قبول/رفض",
+    notifyPush: "إشعار المتصفح",
+    notifyPushDesc: "إشعارات فورية",
+    notifyMatches: "تطابق البحث المحفوظ",
+    notifyMatchesDesc: "عندما يطابق إعلان جديد معاييرك",
+    notifyBids: "تحديث حالة العرض",
+    notifyBidsDesc: "تم تجاوزه / فزت / عرض مقابل",
   },
 };
 
