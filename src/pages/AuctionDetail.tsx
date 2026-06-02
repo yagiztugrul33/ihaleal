@@ -1039,7 +1039,7 @@ export default function AuctionDetail() {
               {activeTab === "features" && (
                 <div className="animate-fade-in">
                   <div className="flex flex-wrap gap-2">
-                    {auction.features.map((f) => <Badge key={f} variant="outline" className="border-slate-200 text-slate-300 px-3 py-1.5 text-sm"><CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> {f}</Badge>)}
+                    {auction.features.map((f) => <Badge key={f} variant="outline" className="border-slate-200 text-slate-300 px-3 py-1.5 text-sm"><CheckCircle2 className="w-3.5 h-3.5 me-1.5 text-emerald-400" /> {f}</Badge>)}
                   </div>
                 </div>
               )}
@@ -1115,7 +1115,7 @@ export default function AuctionDetail() {
                           <div className={`w-2 h-2 rounded-full ${p.event === "Fiyat Düşüşü" ? "bg-red-400" : "bg-blue-400"}`} />
                           <span className="text-sm text-slate-400">{p.event}</span>
                         </div>
-                        <div className="text-right"><div className="text-sm font-medium text-white">₺{p.price.toLocaleString("tr-TR")}</div><div className="text-xs text-slate-500">{new Date(p.date).toLocaleDateString("tr-TR")}</div></div>
+                        <div className="text-end"><div className="text-sm font-medium text-white">₺{p.price.toLocaleString("tr-TR")}</div><div className="text-xs text-slate-500">{new Date(p.date).toLocaleDateString("tr-TR")}</div></div>
                       </div>
                     ))}
                   </div>
@@ -1539,7 +1539,7 @@ export default function AuctionDetail() {
                   ) : null}
                 </div>
                 <div className="pt-4 border-t border-slate-200/80">
-                  <button onClick={() => navigate("/ekspertiz")} className="w-full text-left p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
+                  <button onClick={() => navigate("/ekspertiz")} className="w-full text-start p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
                     <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">{ld.expertOpinion}</span></div>
                     <p className="text-xs text-slate-500">{ld.expertOpinionDesc}</p>
                   </button>
@@ -1708,7 +1708,7 @@ export default function AuctionDetail() {
                 <p className="text-xs font-semibold text-white">{ld.bidGateTitle}</p>
                 <div className="space-y-3">
                   {BID_GATE_CHECKBOXES.map((row) => (
-                    <label key={row.id} className="flex gap-3 text-left text-[11px] text-slate-300 leading-snug cursor-pointer">
+                    <label key={row.id} className="flex gap-3 text-start text-[11px] text-slate-300 leading-snug cursor-pointer">
                       <Checkbox
                         checked={bidGateAck[row.id]}
                         onCheckedChange={(v) =>

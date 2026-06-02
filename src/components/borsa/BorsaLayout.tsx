@@ -89,16 +89,16 @@ export function BorsaLayout() {
               {now.toLocaleTimeString("tr-TR")}
             </span>
             <Button type="button" size="sm" className="h-8 text-xs" onClick={() => navigate("/giris")}>
-              <LogIn className="mr-1.5 h-3.5 w-3.5" />
+              <LogIn className="me-1.5 h-3.5 w-3.5" />
               Borsaya Gir/Giriş
             </Button>
             <Button type="button" size="sm" variant="outline" className="h-8 text-xs" onClick={() => navigate("/borsa/portfoy")}>
-              <Wallet className="mr-1.5 h-3.5 w-3.5" />
+              <Wallet className="me-1.5 h-3.5 w-3.5" />
               Portföy
             </Button>
             <Button asChild type="button" size="sm" variant="outline" className="h-8 text-xs">
               <Link to="/">
-                <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
+                <ArrowLeft className="me-1.5 h-3.5 w-3.5" />
                 Ana Site
               </Link>
             </Button>
@@ -117,10 +117,10 @@ export function BorsaLayout() {
             </button>
             <details className="relative">
               <summary className="inline-flex h-8 cursor-pointer list-none items-center rounded-md border border-border bg-secondary px-2 text-xs text-muted-foreground hover:text-foreground">
-                <UserCircle2 className="mr-1.5 h-3.5 w-3.5" />
+                <UserCircle2 className="me-1.5 h-3.5 w-3.5" />
                 Kullanıcı
               </summary>
-              <div className="absolute right-0 top-9 z-20 w-44 rounded-lg border border-border bg-card p-2 shadow-xl">
+              <div className="absolute end-0 top-9 z-20 w-44 rounded-lg border border-border bg-card p-2 shadow-xl">
                 <Link to="/profil" className="block rounded px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground">
                   Profil
                 </Link>
@@ -162,7 +162,7 @@ export function BorsaLayout() {
         <Outlet />
       </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 px-4 py-2 backdrop-blur-lg lg:px-8 2xl:px-12">
+      <footer className="fixed bottom-0 start-0 end-0 z-40 border-t border-border bg-card/95 px-4 py-2 backdrop-blur-lg lg:px-8 2xl:px-12">
         <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]">
           <div className="inline-flex items-center gap-2 text-emerald-300">
             <Activity className="h-3.5 w-3.5 animate-pulse" />

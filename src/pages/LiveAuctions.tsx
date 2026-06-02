@@ -88,7 +88,7 @@ export default function LiveAuctions() {
               type="button"
               onClick={() => navigate(`/ilan/${a.id}`)}
               className={cn(
-                "group text-left rounded-2xl border bg-slate-900/40 overflow-hidden transition-all",
+                "group text-start rounded-2xl border bg-slate-900/40 overflow-hidden transition-all",
                 tone === "amber" ? "border-amber-500/25 hover:border-amber-400/50" : "border-cyan-500/25 hover:border-cyan-400/50",
               )}
             >
@@ -99,7 +99,7 @@ export default function LiveAuctions() {
                   alt={a.title}
                   className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
                 />
-                <div className="absolute top-2 left-2">
+                <div className="absolute top-2 start-2">
                   <CountdownTimer
                     endDate={a.endDate}
                     status={a.status}

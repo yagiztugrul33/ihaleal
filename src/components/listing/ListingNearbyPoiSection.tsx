@@ -51,7 +51,7 @@ export function ListingNearbyPoiSection({ lat, lng, district, city }: Props) {
                     <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-blue-400" />
                     <span>
                       {p.name}
-                      <span className="ml-1 text-xs text-slate-500">({Math.round(p.distanceM)} m)</span>
+                      <span className="ms-1 text-xs text-slate-500">({Math.round(p.distanceM)} m)</span>
                     </span>
                   </li>
                 ))}

@@ -112,7 +112,7 @@ export function CinematicPropertyGallery({
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue-950/30 to-transparent pointer-events-none" />
 
           <motion.div
-            className="absolute top-4 left-4 right-4 flex flex-wrap gap-2 z-10"
+            className="absolute top-4 start-4 end-4 flex flex-wrap gap-2 z-10"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
@@ -126,7 +126,7 @@ export function CinematicPropertyGallery({
 
           {(discountPct || investmentScore != null) && (
             <motion.div
-              className="absolute top-4 right-4 z-10 glass-panel px-3 py-2 max-w-[200px]"
+              className="absolute top-4 end-4 z-10 glass-panel px-3 py-2 max-w-[200px]"
               initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.25 }}
@@ -148,14 +148,14 @@ export function CinematicPropertyGallery({
             </motion.div>
           )}
 
-          <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 sm:px-4 z-10 pointer-events-none">
+          <div className="absolute inset-y-0 start-0 end-0 flex items-center justify-between px-2 sm:px-4 z-10 pointer-events-none">
             <button
               type="button"
               onClick={() => go(-1)}
               className="pointer-events-auto p-2.5 rounded-full bg-black/45 text-white hover:bg-black/65 backdrop-blur-md border border-white/10 transition-colors"
               aria-label="Onceki gorsel"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
             </button>
             <button
               type="button"
@@ -163,12 +163,12 @@ export function CinematicPropertyGallery({
               className="pointer-events-auto p-2.5 rounded-full bg-black/45 text-white hover:bg-black/65 backdrop-blur-md border border-white/10 transition-colors"
               aria-label="Sonraki görsel"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 rtl:rotate-180" />
             </button>
           </div>
 
           <motion.div
-            className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3 z-10"
+            className="absolute bottom-4 start-4 end-4 flex items-end justify-between gap-3 z-10"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -252,7 +252,7 @@ export function CinematicPropertyGallery({
           >
             <button
               type="button"
-              className="absolute top-4 right-4 p-2 rounded-full bg-white/10 text-white hover:bg-white/20"
+              className="absolute top-4 end-4 p-2 rounded-full bg-white/10 text-white hover:bg-white/20"
               onClick={() => setZoomOpen(false)}
               aria-label="Kapat"
             >

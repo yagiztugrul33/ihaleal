@@ -80,7 +80,7 @@ export function ListingSimilarSection({
             key={a.id}
             type="button"
             onClick={() => navigate(`/ilan/${a.id}`)}
-            className="flex gap-3 rounded-xl border border-slate-200/80 bg-slate-900/30 p-3 text-left hover:border-blue-500/30"
+            className="flex gap-3 rounded-xl border border-slate-200/80 bg-slate-900/30 p-3 text-start hover:border-blue-500/30"
           >
             <ListingCoverImage
               src={a.image ?? ""}

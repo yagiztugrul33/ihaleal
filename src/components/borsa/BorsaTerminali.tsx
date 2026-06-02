@@ -241,12 +241,12 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
             <table className="w-full text-xs">
               <thead className="text-slate-500 uppercase">
                 <tr className="border-b border-slate-800">
-                  <th className="text-left py-2">İlan</th>
-                  <th className="text-left py-2">Bölge</th>
-                  <th className="text-right py-2">Mevcut</th>
-                  <th className="text-right py-2">Δ%</th>
-                  <th className="text-right py-2">Teklif</th>
-                  <th className="text-right py-2">Geri Sayım</th>
+                  <th className="text-start py-2">İlan</th>
+                  <th className="text-start py-2">Bölge</th>
+                  <th className="text-end py-2">Mevcut</th>
+                  <th className="text-end py-2">Δ%</th>
+                  <th className="text-end py-2">Teklif</th>
+                  <th className="text-end py-2">Geri Sayım</th>
                 </tr>
               </thead>
               <tbody>
@@ -266,20 +266,20 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                     <td className="py-2 text-slate-400 truncate max-w-[100px]">
                       {a.district || a.city}
                     </td>
-                    <td className="py-2 text-right text-white font-semibold">
+                    <td className="py-2 text-end text-white font-semibold">
                       {formatTRY(a.currentBid)}
                     </td>
                     <td
                       className={cn(
-                        "py-2 text-right font-bold",
+                        "py-2 text-end font-bold",
                         a.deltaPct >= 0 ? "text-emerald-400" : "text-rose-400",
                       )}
                     >
                       {a.deltaPct >= 0 ? "+" : ""}
                       {a.deltaPct}
                     </td>
-                    <td className="py-2 text-right text-slate-300">{a.bidderCount || 0}</td>
-                    <td className="py-2 text-right">
+                    <td className="py-2 text-end text-slate-300">{a.bidderCount || 0}</td>
+                    <td className="py-2 text-end">
                       <CountdownTimer endDate={a.endDate} compact />
                     </td>
                   </tr>
@@ -388,7 +388,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
           <div className="rounded-xl border border-cyan-500/20 bg-slate-900/40 p-4">
             <h2 className="text-sm font-bold text-cyan-200 mb-3 flex items-center gap-2">
               <Radio className="h-4 w-4 animate-pulse" /> CANLI TEKLİF AKIŞI
-              <span className="ml-auto text-[10px] text-slate-500">sealed · anonim</span>
+              <span className="ms-auto text-[10px] text-slate-500">sealed · anonim</span>
             </h2>
             <ul className="space-y-2 text-xs">
               {feedItems.map((f) => (
@@ -440,7 +440,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                         {a.district} · {formatTRY(a.currentBid)}
                       </p>
                     </Link>
-                    <div className="text-right">
+                    <div className="text-end">
                       <p className="text-emerald-400 font-bold">
                         {a.investmentScore}/100
                       </p>
