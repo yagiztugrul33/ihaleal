@@ -177,6 +177,57 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type ListingDetailMessages = {
+  // Top bar
+  back: string;
+  favoriteAdd: string;
+  favoriteRemove: string;
+  compareLabel: string;
+  printLabel: string;
+  openMap: string;
+  pdfReport: string;
+  // Mode badges
+  badgeRent: string;
+  badgeSale: string;
+  badgeAuction: string;
+  badgeSealed: string;
+  // Price labels
+  priceCurrentBid: string;
+  priceListing: string;
+  priceStartingBid: string;
+  // Sticky özet kart (ADIM 5)
+  estimatedValueTitle: string;
+  estimatedAbove: string;
+  estimatedBelow: string;
+  verifiedListing: string;
+  feeNote: string;
+  // CTA
+  ctaBid: string;
+  ctaSealedBid: string;
+  ctaSealedBidShort: string;
+  ctaNegotiate: string;
+  ctaInfoRequest: string;
+  ctaBuyNow: string;
+  ctaBidSubmitting: string;
+  ctaBidSubmit: string;
+  ctaSealedSubmit: string;
+  mobileBidShort: string;
+  // Tabs
+  tabFeatures: string;
+  tabLocation: string;
+  // Status / Disabled
+  auctionEnded: string;
+  loginRequired: string;
+  reportApproval: string;
+  depositRequired: string;
+  cantBidOwn: string;
+  // Misc
+  activeListing: string;
+  featuresListMissing: string;
+  bidLoginRequired: string;
+  bidAcceptRequired: string;
+};
+
 export type PaymentMessages = {
   start: {
     back: string;
@@ -248,6 +299,7 @@ export type Messages = {
   onboarding: OnboardingMessages;
   pricing: PricingMessages;
   payment: PaymentMessages;
+  listingDetail: ListingDetailMessages;
 };
 
 /**
@@ -563,6 +615,48 @@ export const messages: Record<"en" | "tr", Messages> = {
         questions: "Questions",
       },
     },
+    listingDetail: {
+      back: "Back",
+      favoriteAdd: "Add to favorites",
+      favoriteRemove: "Remove from favorites",
+      compareLabel: "Compare",
+      printLabel: "Print",
+      openMap: "Open map",
+      pdfReport: "iHaleal Index Report",
+      badgeRent: "For Rent",
+      badgeSale: "For Sale",
+      badgeAuction: "Auction",
+      badgeSealed: "Sealed bid",
+      priceCurrentBid: "Current bid",
+      priceListing: "Listing price",
+      priceStartingBid: "Starting / asking",
+      estimatedValueTitle: "Estimated value (AI · approximate)",
+      estimatedAbove: "% above estimated value",
+      estimatedBelow: "% below estimated value",
+      verifiedListing: "Verified listing",
+      feeNote: "(charged in ₺)",
+      ctaBid: "Place bid",
+      ctaSealedBid: "Place sealed bid",
+      ctaSealedBidShort: "Sealed bid",
+      ctaNegotiate: "Offer / negotiate",
+      ctaInfoRequest: "Request info",
+      ctaBuyNow: "Buy now",
+      ctaBidSubmitting: "Submitting...",
+      ctaBidSubmit: "Submit Bid",
+      ctaSealedSubmit: "Submit sealed bid",
+      mobileBidShort: "Bid",
+      tabFeatures: "Features",
+      tabLocation: "Location",
+      auctionEnded: "Auction ended",
+      loginRequired: "Login required",
+      reportApproval: "Approve the AI report first",
+      depositRequired: "Pre-authorization required",
+      cantBidOwn: "You can't bid on your own listing",
+      activeListing: "Active listing",
+      featuresListMissing: "No feature list available.",
+      bidLoginRequired: "Log in to place a bid.",
+      bidAcceptRequired: "Check all contract and declaration boxes to submit your bid.",
+    },
   },
   tr: {
     nav: {
@@ -871,6 +965,48 @@ export const messages: Record<"en" | "tr", Messages> = {
         questions: "Sorular",
       },
     },
+    listingDetail: {
+      back: "Geri",
+      favoriteAdd: "Favoriye ekle",
+      favoriteRemove: "Favoriden çıkar",
+      compareLabel: "Karşılaştır",
+      printLabel: "Yazdır",
+      openMap: "Haritayı aç",
+      pdfReport: "İhaleal Endeks Raporu",
+      badgeRent: "Kiralık",
+      badgeSale: "Satılık",
+      badgeAuction: "İhale",
+      badgeSealed: "Kapalı teklif",
+      priceCurrentBid: "Güncel teklif",
+      priceListing: "İlan fiyatı",
+      priceStartingBid: "Başlangıç / talep",
+      estimatedValueTitle: "Tahmini değer (AI · yaklaşık)",
+      estimatedAbove: "% üstünde",
+      estimatedBelow: "% altında",
+      verifiedListing: "Doğrulanmış ilan",
+      feeNote: "(tahsilat ₺)",
+      ctaBid: "Teklif ver",
+      ctaSealedBid: "Kapalı teklif ver",
+      ctaSealedBidShort: "Kapalı teklif",
+      ctaNegotiate: "Teklif / pazarlık",
+      ctaInfoRequest: "Bilgi talebi",
+      ctaBuyNow: "Hemen Al",
+      ctaBidSubmitting: "Gönderiliyor...",
+      ctaBidSubmit: "Teklif Ver",
+      ctaSealedSubmit: "Kapalı teklifi gönder",
+      mobileBidShort: "Teklif",
+      tabFeatures: "Özellikler",
+      tabLocation: "Konum",
+      auctionEnded: "Açık artırma sona erdi",
+      loginRequired: "Giriş gerekli",
+      reportApproval: "Önce AI raporunu onaylayın",
+      depositRequired: "Blokaj ön yetkisi gerekli",
+      cantBidOwn: "Kendi ilanınıza teklif veremezsiniz",
+      activeListing: "Aktif İlan",
+      featuresListMissing: "Özellik listesi mevcut değil.",
+      bidLoginRequired: "Teklif için giriş yapın.",
+      bidAcceptRequired: "Teklifi göndermek için tüm sözleşme ve beyan kutularını işaretleyin.",
+    },
   },
 };
 
@@ -1085,6 +1221,48 @@ const _ruOverrides: PartialDeep<Messages> = {
       questions: "Вопросы",
     },
   },
+  listingDetail: {
+    back: "Назад",
+    favoriteAdd: "Добавить в избранное",
+    favoriteRemove: "Удалить из избранного",
+    compareLabel: "Сравнить",
+    printLabel: "Печать",
+    openMap: "Открыть карту",
+    pdfReport: "Отчёт индекса iHaleal",
+    badgeRent: "Аренда",
+    badgeSale: "Продажа",
+    badgeAuction: "Аукцион",
+    badgeSealed: "Закрытая ставка",
+    priceCurrentBid: "Текущая ставка",
+    priceListing: "Цена объявления",
+    priceStartingBid: "Стартовая / запрашиваемая",
+    estimatedValueTitle: "Оценочная стоимость (ИИ · примерно)",
+    estimatedAbove: "% выше оценочной",
+    estimatedBelow: "% ниже оценочной",
+    verifiedListing: "Проверенное объявление",
+    feeNote: "(списание в ₺)",
+    ctaBid: "Сделать ставку",
+    ctaSealedBid: "Закрытая ставка",
+    ctaSealedBidShort: "Закрытая",
+    ctaNegotiate: "Предложение / переговоры",
+    ctaInfoRequest: "Запрос информации",
+    ctaBuyNow: "Купить сейчас",
+    ctaBidSubmitting: "Отправка...",
+    ctaBidSubmit: "Отправить ставку",
+    ctaSealedSubmit: "Отправить закрытую ставку",
+    mobileBidShort: "Ставка",
+    tabFeatures: "Характеристики",
+    tabLocation: "Местоположение",
+    auctionEnded: "Аукцион завершён",
+    loginRequired: "Необходимо войти",
+    reportApproval: "Сначала одобрите отчёт ИИ",
+    depositRequired: "Требуется предавторизация",
+    cantBidOwn: "Нельзя делать ставку на своё объявление",
+    activeListing: "Активное объявление",
+    featuresListMissing: "Список характеристик отсутствует.",
+    bidLoginRequired: "Войдите, чтобы сделать ставку.",
+    bidAcceptRequired: "Отметьте все договорные и заявленные пункты, чтобы отправить ставку.",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -1283,6 +1461,48 @@ const _arOverrides: PartialDeep<Messages> = {
       invoiceSent: "تم إرسال فاتورتك إلى support@ihaleal.com (تجريبي).",
       questions: "أسئلة",
     },
+  },
+  listingDetail: {
+    back: "رجوع",
+    favoriteAdd: "إضافة إلى المفضلة",
+    favoriteRemove: "إزالة من المفضلة",
+    compareLabel: "مقارنة",
+    printLabel: "طباعة",
+    openMap: "فتح الخريطة",
+    pdfReport: "تقرير مؤشر iHaleal",
+    badgeRent: "للإيجار",
+    badgeSale: "للبيع",
+    badgeAuction: "مزاد",
+    badgeSealed: "عرض مغلق",
+    priceCurrentBid: "العرض الحالي",
+    priceListing: "سعر الإعلان",
+    priceStartingBid: "البداية / المطلوب",
+    estimatedValueTitle: "القيمة التقديرية (ذكاء اصطناعي · تقريبية)",
+    estimatedAbove: "% أعلى من التقديرية",
+    estimatedBelow: "% أقل من التقديرية",
+    verifiedListing: "إعلان موثّق",
+    feeNote: "(يُحصَّل بالليرة التركية)",
+    ctaBid: "تقديم عرض",
+    ctaSealedBid: "تقديم عرض مغلق",
+    ctaSealedBidShort: "عرض مغلق",
+    ctaNegotiate: "عرض / تفاوض",
+    ctaInfoRequest: "طلب معلومات",
+    ctaBuyNow: "اشتر الآن",
+    ctaBidSubmitting: "جارٍ الإرسال...",
+    ctaBidSubmit: "إرسال العرض",
+    ctaSealedSubmit: "إرسال العرض المغلق",
+    mobileBidShort: "عرض",
+    tabFeatures: "المواصفات",
+    tabLocation: "الموقع",
+    auctionEnded: "انتهى المزاد",
+    loginRequired: "يجب تسجيل الدخول",
+    reportApproval: "وافق على تقرير الذكاء الاصطناعي أولاً",
+    depositRequired: "يلزم التفويض المسبق",
+    cantBidOwn: "لا يمكنك تقديم عرض على إعلانك الخاص",
+    activeListing: "إعلان نشط",
+    featuresListMissing: "لا توجد قائمة مواصفات.",
+    bidLoginRequired: "سجّل الدخول لتقديم عرض.",
+    bidAcceptRequired: "حدّد جميع مربّعات العقد والإقرار لإرسال عرضك.",
   },
 };
 

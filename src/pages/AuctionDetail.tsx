@@ -37,6 +37,7 @@ import { downloadEndeksRaporu } from "@/lib/reports/endeksRaporu";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useAuctionRealtime } from "@/hooks/useAuctionRealtime";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLocale } from "@/contexts/LocaleContext";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { registerBidDeposit } from "@/lib/depositRegister";
 import { isAuctionUuid } from "@/lib/auctionIds";
@@ -145,8 +146,10 @@ export default function AuctionDetail() {
     [listingWithDefaults],
   );
   const isRent = listingWithDefaults?.dealType === "rent";
+  const { t: tt } = useLocale();
+  const ld = tt.listingDetail;
   const pricePrimaryLabel =
-    marketingMode === "listing_only" ? "İlan fiyatı" : marketingMode === "sealed_offers" ? "Başlangıç / talep" : "Güncel teklif";
+    marketingMode === "listing_only" ? ld.priceListing : marketingMode === "sealed_offers" ? ld.priceStartingBid : ld.priceCurrentBid;
   const [bidAmount, setBidAmount] = useState("");
   const [showBidDialog, setShowBidDialog] = useState(false);
   // Dalga 2-2: Proxy bid (otomatik teklif) — frontend tercih. Gerçek
@@ -725,7 +728,7 @@ export default function AuctionDetail() {
 
   const galleryBadges = [
     { label: auction.status === "live" ? "Canlı" : "Yaklaşan", className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
-    { label: isRent ? "Kiralık" : "Satılık", className: "bg-emerald-600/90 text-white border-0" },
+    { label: isRent ? ld.badgeRent : ld.badgeSale, className: "bg-emerald-600/90 text-white border-0" },
     { label: MARKETING_MODE_LABELS[marketingMode].badge, className: "bg-slate-700 text-white border border-white/15" },
     // R14 PAKET 5 — lansman branding badge
     ...(isLansman
@@ -766,9 +769,9 @@ export default function AuctionDetail() {
     <div ref={ref} className="min-h-screen pt-20 pb-28 lg:pb-16">
       <div className="glass-panel sticky top-16 z-40 rounded-none border-x-0 border-t-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2"><ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {ld.back}</Button>
           <div className="flex items-center gap-2 flex-wrap justify-end">
-            <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`} aria-label="Favori"><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
+            <Button variant="ghost" size="sm" onClick={() => id && toggleFavorite(id)} className={`${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`} aria-label={saved ? ld.favoriteRemove : ld.favoriteAdd}><Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /></Button>
             {id && <ShareButton title={auction?.title || ""} url={`/ilan/${id}`} />}
             {auction && (
               /* CEPHE 1: eski "İlan Özet" 1 sayfa PDF butonu KALDIRILDI.
@@ -777,13 +780,13 @@ export default function AuctionDetail() {
                  başka kullanım yerlerinde duruyor; AuctionDetail'de artık
                  yalnızca derin Endeks Raporu üretilir. */
               <PdfExportButton
-                label="İhaleal Endeks Raporu"
+                label={ld.pdfReport}
                 onExport={() => downloadEndeksRaporu(auction)}
               />
             )}
-            <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} className="text-slate-400 hover:text-blue-400" aria-label="Karşılaştır"><GitCompare className="w-4 h-4" /></Button>
-            <Button variant="ghost" size="sm" onClick={() => window.print()} className="text-slate-400 hover:text-white gap-1" aria-label="Yazdır"><Printer className="w-4 h-4" /></Button>
-            <Button variant="ghost" size="sm" onClick={() => setActiveTab("location")} className="text-slate-400 hover:text-white gap-1" aria-label="Haritayı aç"><MapPin className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate(`/karsilastir?ids=${auction.id}`)} className="text-slate-400 hover:text-blue-400" aria-label={ld.compareLabel}><GitCompare className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="sm" onClick={() => window.print()} className="text-slate-400 hover:text-white gap-1" aria-label={ld.printLabel}><Printer className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="sm" onClick={() => setActiveTab("location")} className="text-slate-400 hover:text-white gap-1" aria-label={ld.openMap}><MapPin className="w-4 h-4" /></Button>
             <Button
               variant="ghost"
               size="sm"
@@ -888,7 +891,7 @@ export default function AuctionDetail() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                 <PriceCard label={pricePrimaryLabel} value={`₺${(liveBid / 1000000).toFixed(1)}M`} color="blue" />
                 <PriceCard
-                  label="Tahmini Değer"
+                  label={ld.estimatedValueTitle}
                   value={`₺${(auction.estimatedValue / 1000000).toFixed(1)}M`}
                   color="emerald"
                   showDemoBadge={isDemoData("aiValuation")}
@@ -935,8 +938,8 @@ export default function AuctionDetail() {
                 {[
                   { key: "overview" as const, label: "Genel Bakış", icon: <Home className="w-4 h-4" /> },
                   { key: "details" as const, label: "Detaylar", icon: <Building className="w-4 h-4" /> },
-                  { key: "features" as const, label: "Özellikler", icon: <CheckCircle2 className="w-4 h-4" /> },
-                  { key: "location" as const, label: "Konum", icon: <MapPin className="w-4 h-4" /> },
+                  { key: "features" as const, label: ld.tabFeatures, icon: <CheckCircle2 className="w-4 h-4" /> },
+                  { key: "location" as const, label: ld.tabLocation, icon: <MapPin className="w-4 h-4" /> },
                   { key: "priceHistory" as const, label: "Fiyat Geçmişi", icon: <TrendingUp className="w-4 h-4" /> },
                   { key: "ai" as const, label: "AI Analiz", icon: <BarChart3 className="w-4 h-4" />, mandatory: true },
                 ].map((tab) => (
@@ -1192,7 +1195,7 @@ export default function AuctionDetail() {
                       <StatBadge label="Aylık Değişim" value={`%${auction.areaStats.priceChangeMonthly}`} positive={auction.areaStats.priceChangeMonthly > 0} />
                       <StatBadge label="Yıllık Değişim" value={`%${auction.areaStats.priceChangeYearly}`} positive={auction.areaStats.priceChangeYearly > 0} />
                       <StatBadge label="Ort. Satış Süresi" value={`${auction.areaStats.avgDaysOnMarket} gün`} />
-                      <StatBadge label="Aktif İlan" value={`${auction.areaStats.supplyCount}`} />
+                      <StatBadge label={ld.activeListing} value={`${auction.areaStats.supplyCount}`} />
                       <StatBadge label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} />
                     </div>
                   </div>
@@ -1368,11 +1371,11 @@ export default function AuctionDetail() {
                                   : ["Bölge verisi mevcut değil."],
                               },
                               {
-                                heading: "Özellikler",
+                                heading: ld.tabFeatures,
                                 lines:
                                   auction.features?.length > 0
                                     ? auction.features.map((f) => `• ${f}`)
-                                    : ["Özellik listesi mevcut değil."],
+                                    : [ld.featuresListMissing],
                               },
                               ...(auction.nearbyFacilities && auction.nearbyFacilities.length > 0
                                 ? [
@@ -1437,7 +1440,7 @@ export default function AuctionDetail() {
                         setShowBidDialog(true);
                       }}
                     >
-                      <TrendingUp className="w-4 h-4 mr-1.5" /> {isSealedOffer ? "Kapalı teklif ver" : "Teklif ver"}
+                      <TrendingUp className="w-4 h-4 me-1.5" /> {isSealedOffer ? ld.ctaSealedBid : ld.ctaBid}
                     </Button>
                   ) : (
                     <>
@@ -1454,10 +1457,10 @@ export default function AuctionDetail() {
                           setOfferDialogOpen(true);
                         }}
                       >
-                        <HandCoins className="w-4 h-4 mr-1.5" /> Teklif / pazarlık
+                        <HandCoins className="w-4 h-4 me-1.5" /> {ld.ctaNegotiate}
                       </Button>
                       <Button className="flex-1 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white font-bold h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
-                        Bilgi talebi
+                        {ld.ctaInfoRequest}
                       </Button>
                     </>
                   )}
@@ -1500,7 +1503,7 @@ export default function AuctionDetail() {
                         setHemenAlGateOpen(true);
                       }}
                     >
-                      Hemen Al ₺{(effectiveBuyNowTry / 1e6).toFixed(2)}M
+                      <span dir="ltr">{ld.ctaBuyNow} ₺{(effectiveBuyNowTry / 1e6).toFixed(2)}M</span>
                     </Button>
                   ) : null}
                   {!isListingOnly && user && reportApproved && !depositId ? (
@@ -1612,7 +1615,7 @@ export default function AuctionDetail() {
       >
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-lg max-h-[min(90vh,640px)] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">{isSealedOffer ? "Kapalı teklif ver" : isAuctionMode ? "Teklif ver" : "Teklif"}</DialogTitle>
+            <DialogTitle className="text-xl font-bold">{isSealedOffer ? ld.ctaSealedBid : isAuctionMode ? ld.ctaBid : ld.ctaNegotiate}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
             <p className="text-[10px] text-amber-200/90 leading-relaxed rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2">
@@ -1745,7 +1748,7 @@ export default function AuctionDetail() {
               onClick={() => void handleBid()}
               className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold disabled:opacity-40"
             >
-              {bidBusy ? "Gönderiliyor..." : isSealedOffer ? "Kapalı teklifi gönder" : "Teklif Ver"}
+              {bidBusy ? ld.ctaBidSubmitting : isSealedOffer ? ld.ctaSealedSubmit : ld.ctaBidSubmit}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -2078,7 +2081,7 @@ export default function AuctionDetail() {
               size="sm"
               onClick={() => id && toggleFavorite(id)}
               className={`h-11 w-11 p-0 ${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`}
-              aria-label={saved ? "Favoriden çıkar" : "Favoriye ekle"}
+              aria-label={saved ? ld.favoriteRemove : ld.favoriteAdd}
             >
               <Heart className={`w-5 h-5 ${saved ? "fill-current" : ""}`} />
             </Button>
@@ -2102,7 +2105,7 @@ export default function AuctionDetail() {
                   setOfferDialogOpen(true);
                 }}
               >
-                <HandCoins className="w-4 h-4 me-1.5" /> Teklif
+                <HandCoins className="w-4 h-4 me-1.5" /> {ld.mobileBidShort}
               </Button>
             ) : (
               <Button
@@ -2117,7 +2120,7 @@ export default function AuctionDetail() {
                       ? "Önce AI raporunu onaylayın"
                       : !depositId
                       ? "Blokaj ön yetkisi gerekli"
-                      : "Açık artırma sona erdi"
+                      : ld.auctionEnded
                     : undefined
                 }
                 onClick={() => {
@@ -2126,7 +2129,7 @@ export default function AuctionDetail() {
                 }}
               >
                 <TrendingUp className="w-4 h-4 me-1.5" />{" "}
-                {isSealedOffer ? "Kapalı teklif" : "Teklif ver"}
+                {isSealedOffer ? ld.ctaSealedBidShort : ld.ctaBid}
               </Button>
             )}
           </div>
