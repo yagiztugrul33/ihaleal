@@ -13,6 +13,7 @@ import {
 import { useMembershipTier } from "@/hooks/useMembershipTier";
 import { createSubscription, getProviderStatus } from "@/lib/payments/paymentClient";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export default function PaymentStartPage() {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ export default function PaymentStartPage() {
   const { currency, formatFromTry } = useCurrency();
   const showFx = currency !== "TRY" && price > 0;
   const fxRef = showFx ? formatFromTry(price) : null;
+  const { t } = useLocale();
+  const s = t.payment.start;
 
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
@@ -57,10 +60,10 @@ export default function PaymentStartPage() {
     if (!result.ok) {
       setError(
         result.error === "already_subscribed"
-          ? "Bu hesapta zaten aktif bir abonelik var. Lütfen önce iptal edin."
+          ? s.errors.alreadySubscribed
           : result.error === "unauthorized"
-            ? "Giriş yapmanız gerekir."
-            : `Ödeme başlatılamadı: ${result.detail ?? result.error ?? "bilinmeyen hata"}`,
+            ? s.errors.unauthorized
+            : `${s.errors.generic}: ${result.detail ?? result.error ?? "—"}`,
       );
       setLoading(false);
       return;
@@ -96,16 +99,16 @@ export default function PaymentStartPage() {
           onClick={() => navigate("/fiyatlandirma")}
           className="text-slate-500 hover:text-white gap-2"
         >
-          <ArrowLeft className="w-4 h-4" /> Paketlere dön
+          <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {s.back}
         </Button>
 
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2">
             <CreditCard className="h-7 w-7 text-cyan-400" />
-            Ödeme
+            {s.title}
           </h1>
           <p className="mt-1 text-sm text-slate-400">
-            <strong className="text-amber-300">Demo / Mock</strong> — gerçek ödeme entegrasyonu eklenecek (iyzico / PayTR).
+            {s.demoSubtitle}
           </p>
         </div>
 
@@ -114,11 +117,9 @@ export default function PaymentStartPage() {
           <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
             <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-amber-100">Sandbox / Test Modu</p>
+              <p className="text-sm font-semibold text-amber-100">{s.sandboxBannerTitle}</p>
               <p className="text-xs text-slate-200 mt-1">
-                Ödeme şu anda <strong>iyzico sandbox</strong> üzerinde çalışıyor. Form gönderildiğinde Supabase
-                Edge function <code className="text-amber-200">payments-iyzico</code> çağrılır + abonelik kaydı oluşturulur
-                — gerçek para çekilmez. Production için <code className="text-amber-200">IYZICO_API_KEY</code> + <code className="text-amber-200">IYZICO_SECRET_KEY</code> Supabase secret'a girilmeli.
+                {s.sandboxBannerBody}
               </p>
             </div>
           </div>
@@ -126,10 +127,9 @@ export default function PaymentStartPage() {
           <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
             <CheckCircle2 className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-emerald-100">Production — Gerçek Ödeme Aktif</p>
+              <p className="text-sm font-semibold text-emerald-100">{s.prodBannerTitle}</p>
               <p className="text-xs text-slate-200 mt-1">
-                iyzico Merchant entegrasyonu aktif. Form gönderince 3D Secure sayfasına yönlendirileceksiniz.
-                Kart bilgileri ihaleal sunucularına ASLA gelmez (PCI-DSS uyumlu).
+                {s.prodBannerBody}
               </p>
             </div>
           </div>
@@ -149,16 +149,16 @@ export default function PaymentStartPage() {
             <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-4">
               <h2 className="text-base font-semibold text-white flex items-center gap-2">
                 <CreditCard className="h-4 w-4 text-cyan-400" />
-                Kart Bilgileri
+                {s.cardSectionTitle}
               </h2>
 
               <div className="space-y-2">
-                <Label htmlFor="cardName" className="text-slate-400">Kart üzerindeki isim</Label>
+                <Label htmlFor="cardName" className="text-slate-400">{s.cardName}</Label>
                 <Input
                   id="cardName"
                   value={cardName}
                   onChange={(e) => setCardName(e.target.value)}
-                  placeholder="AHMET YILMAZ"
+                  placeholder={s.cardNamePlaceholder}
                   autoComplete="cc-name"
                   maxLength={50}
                   required
@@ -166,22 +166,23 @@ export default function PaymentStartPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="cardNumber" className="text-slate-400">Kart numarası</Label>
+                <Label htmlFor="cardNumber" className="text-slate-400">{s.cardNumber}</Label>
                 <Input
                   id="cardNumber"
                   value={cardNumber}
                   onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-                  placeholder="0000 0000 0000 0000"
+                  placeholder={s.cardNumberPlaceholder}
                   autoComplete="cc-number"
                   inputMode="numeric"
                   maxLength={19}
                   required
+                  dir="ltr"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
-                  <Label htmlFor="expiry" className="text-slate-400">Son kullanım (AA/YY)</Label>
+                  <Label htmlFor="expiry" className="text-slate-400">{s.cardExpiry}</Label>
                   <Input
                     id="expiry"
                     value={expiry}
@@ -189,24 +190,26 @@ export default function PaymentStartPage() {
                       const v = e.target.value.replace(/\D/g, "").slice(0, 4);
                       setExpiry(v.length >= 3 ? `${v.slice(0, 2)}/${v.slice(2)}` : v);
                     }}
-                    placeholder="12/28"
+                    placeholder={s.cardExpiryPlaceholder}
                     autoComplete="cc-exp"
                     inputMode="numeric"
                     maxLength={5}
                     required
+                    dir="ltr"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="cvc" className="text-slate-400">CVC</Label>
+                  <Label htmlFor="cvc" className="text-slate-400">{s.cardCvc}</Label>
                   <Input
                     id="cvc"
                     value={cvc}
                     onChange={(e) => setCvc(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                    placeholder="123"
+                    placeholder={s.cardCvcPlaceholder}
                     autoComplete="cc-csc"
                     inputMode="numeric"
                     maxLength={4}
                     required
+                    dir="ltr"
                   />
                 </div>
               </div>
@@ -220,8 +223,7 @@ export default function PaymentStartPage() {
                   required
                 />
                 <span className="text-xs text-slate-300 leading-relaxed">
-                  <button type="button" onClick={() => navigate("/kvkk")} className="text-cyan-300 underline">KVKK Aydınlatma Metni</button>'ni okudum ve onaylıyorum.
-                  Ödeme + abonelik koşullarını (TKHK 14 gün cayma + iptal hakkı) kabul ediyorum.
+                  <button type="button" onClick={() => navigate("/kvkk")} className="text-cyan-300 underline">KVKK</button> — {s.acceptKvkk}
                 </span>
               </label>
 
@@ -231,18 +233,18 @@ export default function PaymentStartPage() {
                 className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-3"
               >
                 {loading ? (
-                  <>İşleniyor...</>
+                  <>{s.paying}</>
                 ) : (
                   <>
-                    <Lock className="h-4 w-4 mr-1.5" />
-                    {formatTry(price)} {period} öde (demo)
+                    <Lock className="h-4 w-4 me-1.5" />
+                    <span dir="ltr">{formatTry(price)} {period}</span>&nbsp;{s.payBtn}
                   </>
                 )}
               </Button>
 
               <p className="text-[10px] text-slate-500 text-center flex items-center justify-center gap-1.5">
                 <Shield className="h-3 w-3" />
-                3D Secure + KVKK + 6493 uyumlu — kart bilgileri saklanmaz, doğrudan banka tokenize.
+                {s.pciNote}
               </p>
             </div>
           </form>
@@ -251,39 +253,39 @@ export default function PaymentStartPage() {
           <div className="space-y-4">
             <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-slate-900/50 p-5">
               <p className="text-xs text-slate-400 mb-2 flex items-center gap-1.5">
-                <Sparkles className="h-3 w-3" /> Seçilen paket
+                <Sparkles className="h-3 w-3" /> {s.summarySelected}
               </p>
               <h3 className="text-xl font-bold text-white mb-1">{tier.name}</h3>
               <p className="text-xs text-slate-400 mb-4">{tier.tagline}</p>
 
               <div className="border-t border-slate-700 pt-3 space-y-2 text-sm">
                 <div className="flex justify-between text-slate-300">
-                  <span>Periyot</span>
-                  <span className="text-white">{cycle === "yearly" ? "Yıllık" : "Aylık"}</span>
+                  <span>{s.summaryPeriod}</span>
+                  <span className="text-white">{cycle === "yearly" ? s.cycleYearly : s.cycleMonthly}</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <span>İlan limiti</span>
+                  <span>{s.summaryListingLimit}</span>
                   <span className="text-white">{tier.listingLimit === "unlimited" ? "∞" : `${tier.listingLimit}/yıl`}</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <span>Ekip</span>
+                  <span>{s.summaryTeam}</span>
                   <span className="text-white">{tier.teamSeats === "unlimited" ? "∞" : tier.teamSeats}</span>
                 </div>
               </div>
 
               <div className="border-t border-slate-700 mt-3 pt-3 space-y-1">
                 <div className="flex items-baseline justify-between">
-                  <span className="text-slate-400 text-sm">Toplam</span>
-                  <div className="text-end">
+                  <span className="text-slate-400 text-sm">{s.summaryTotal}</span>
+                  <div className="text-end" dir="ltr">
                     <span className="text-2xl font-bold text-cyan-300">{formatTry(price)}</span>
                     <span className="text-xs text-slate-400 ms-1">{period}</span>
                   </div>
                 </div>
                 {fxRef && (
                   <div className="flex items-baseline justify-between">
-                    <span className="text-[10px] text-slate-500">Referans ({currency})</span>
-                    <p className="text-[11px] text-amber-300/80">
-                      ≈ {fxRef} <span className="text-slate-500">(tahsilat ₺)</span>
+                    <span className="text-[10px] text-slate-500">{s.summaryFxRef} ({currency})</span>
+                    <p className="text-[11px] text-amber-300/80" dir="ltr">
+                      ≈ {fxRef} <span className="text-slate-500">{s.feeNote}</span>
                     </p>
                   </div>
                 )}
@@ -292,61 +294,48 @@ export default function PaymentStartPage() {
 
             <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4 space-y-2 text-xs">
               <p className="font-semibold text-emerald-300 flex items-center gap-1.5">
-                <CheckCircle2 className="h-3.5 w-3.5" /> Güvenceler
+                <CheckCircle2 className="h-3.5 w-3.5" /> {s.guaranteesTitle}
               </p>
               <ul className="space-y-1 text-slate-300">
-                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> 14 gün ücretsiz iade (TKHK)</li>
-                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> İstediğin zaman iptal</li>
-                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> KVKK + 6493 uyumlu</li>
-                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> SSL + 3D Secure</li>
+                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> {s.guarantees.d14}</li>
+                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> {s.guarantees.cancel}</li>
+                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> {s.guarantees.kvkk}</li>
+                <li className="flex items-start gap-1.5"><CheckCircle2 className="h-3 w-3 text-emerald-400 mt-0.5" /> {s.guarantees.ssl}</li>
               </ul>
             </div>
 
             {/* Apple App Store Review 5.1.1 + Google Play uyumlu — auto-renewal disclosure */}
             <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-2 text-xs" data-testid="auto-renewal-disclosure">
               <p className="font-semibold text-amber-200 flex items-center gap-1.5">
-                <CreditCard className="h-3.5 w-3.5" /> Otomatik Yenileme ve İptal
+                <CreditCard className="h-3.5 w-3.5" /> {s.autoRenewalTitle}
               </p>
               <ul className="space-y-1.5 text-slate-300 leading-relaxed">
-                <li>
-                  <strong className="text-amber-100">Yenileme:</strong> Abonelik <strong className="text-white">{cycle === "yearly" ? "yıllık" : "aylık"}</strong> dönemin sonunda <strong className="text-white">otomatik yenilenir</strong>.
-                  Yenileme tarihinden 7 gün önce e-posta bildirimi gönderilir.
-                </li>
-                <li>
-                  <strong className="text-amber-100">İptal:</strong> İstediğiniz zaman iptal edebilirsiniz.
-                  <strong className="text-white"> Web</strong>: Üyeliğim → "Aboneliği iptal et".
-                  <strong className="text-white"> iOS</strong>: Ayarlar → Apple ID → Abonelikler.
-                  <strong className="text-white"> Android</strong>: Google Play → Profil → Abonelikler.
-                </li>
-                <li>
-                  <strong className="text-amber-100">İade:</strong> İlk 14 gün içinde tam iade (TKHK m. 48 cayma).
-                  Aktif dönem bitimine kadar paket özellikleri açık kalır.
-                </li>
+                <li>{s.autoRenewal.renewal}</li>
+                <li>{s.autoRenewal.cancel}</li>
+                <li>{s.autoRenewal.refund}</li>
               </ul>
               <p className="text-[10px] text-slate-500 italic pt-2 border-t border-amber-500/20">
-                Mevzuat: 6502 TKHK m. 48 + KVKK 6698 + 6493 Ödeme + Apple/Google mağaza şartları (mobil).
+                {s.autoRenewalLaw}
               </p>
             </div>
 
             <button
               type="button"
               onClick={() => navigate("/iletisim")}
-              className="w-full rounded-xl border border-violet-500/30 bg-violet-500/5 p-3 text-left hover:bg-violet-500/10 transition-colors"
+              className="w-full rounded-xl border border-violet-500/30 bg-violet-500/5 p-3 text-start hover:bg-violet-500/10 transition-colors"
             >
               <p className="text-xs text-violet-300 font-semibold flex items-center gap-1.5">
-                <Building2 className="h-3.5 w-3.5" /> Kurumsal teklif?
+                <Building2 className="h-3.5 w-3.5" /> {s.corporateTitle}
               </p>
               <p className="text-[11px] text-slate-400 mt-1">
-                10+ ekip, API entegrasyon, mini-site için özel paket — iletişime geç.
+                {s.corporateDesc}
               </p>
             </button>
           </div>
         </div>
 
         <p className="text-[10px] text-slate-500 text-center pt-2 leading-relaxed">
-          Bu sayfa <strong className="text-amber-300">DEMO</strong>'dur. Gerçek ödeme entegrasyonu (iyzico / PayTR) Master hesap+API key sağlayınca eklenecek.
-          <br />
-          Tüm sözleşme + cayma koşulları: <button type="button" onClick={() => navigate("/kvkk")} className="text-cyan-300 underline">KVKK</button> · 6098 BK · 6502 TKHK · 6493 Ödeme · 5549 MASAK.
+          {s.footerDemo}
         </p>
       </div>
     </main>

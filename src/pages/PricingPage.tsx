@@ -12,6 +12,7 @@ import {
   EARLY_MEMBER_ACTIVE, EARLY_MEMBER_LABEL, EARLY_MEMBER_NOTE,
 } from "@/lib/pricingTiers";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { useLocale } from "@/contexts/LocaleContext";
 
 /** Tier rengi → tailwind sınıfları */
 function accentClasses(accent: PricingTier["accent"]) {
@@ -89,6 +90,8 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
   const { currency, formatFromTry } = useCurrency();
   const showFx = currency !== "TRY" && effectivePrice > 0;
   const fxRef = showFx ? formatFromTry(effectivePrice) : null;
+  const { t } = useLocale();
+  const p = t.pricing;
 
   return (
     <div
@@ -109,44 +112,44 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
 
       <div className="mb-4">
         {listPrice === 0 ? (
-          <div className="text-3xl font-bold text-white">Ücretsiz</div>
+          <div className="text-3xl font-bold text-white">{p.tierCard.free}</div>
         ) : early ? (
           <>
             {/* ERKEN ÜYE — Liste fiyatı üst çizili + kuruluş fiyatı vurgulu */}
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-baseline gap-2" dir="ltr">
               <span className="text-sm text-slate-500 line-through">{formatTry(listPrice)}</span>
               <span className={`text-[10px] font-semibold ${cls.text} bg-white/5 px-1.5 py-0.5 rounded`}>
-                Kuruluş
+                {p.tierCard.early}
               </span>
             </div>
-            <div className="flex items-baseline gap-1 mt-1">
+            <div className="flex items-baseline gap-1 mt-1" dir="ltr">
               <span className="text-3xl font-bold text-white">{formatTry(early.try)}</span>
               <span className="text-sm text-slate-400">{early.period}</span>
             </div>
             {fxRef && (
-              <p className="text-[11px] text-amber-300/80 mt-0.5">≈ {fxRef} <span className="text-slate-500">(tahsilat ₺)</span></p>
+              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className="text-slate-500">{p.tierCard.feeNote}</span></p>
             )}
             {monthlyEqv !== null && (
-              <p className="text-[11px] text-slate-500 mt-0.5">≈ {formatTry(monthlyEqv)}/ay (yıllık -%20)</p>
+              <p className="text-[11px] text-slate-500 mt-0.5" dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
             )}
             {daily !== null && (
-              <p className="text-[11px] text-emerald-300 mt-0.5">≈ günde {formatTry(daily)}</p>
+              <p className="text-[11px] text-emerald-300 mt-0.5" dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
             )}
           </>
         ) : (
           <>
-            <div className="flex items-baseline gap-1">
+            <div className="flex items-baseline gap-1" dir="ltr">
               <span className="text-3xl font-bold text-white">{formatTry(listPrice)}</span>
               <span className="text-sm text-slate-400">{period}</span>
             </div>
             {fxRef && (
-              <p className="text-[11px] text-amber-300/80 mt-0.5">≈ {fxRef} <span className="text-slate-500">(tahsilat ₺)</span></p>
+              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className="text-slate-500">{p.tierCard.feeNote}</span></p>
             )}
             {monthlyEqv !== null && (
-              <p className="text-[11px] text-slate-500 mt-0.5">≈ {formatTry(monthlyEqv)}/ay (yıllık -%20)</p>
+              <p className="text-[11px] text-slate-500 mt-0.5" dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
             )}
             {daily !== null && (
-              <p className="text-[11px] text-emerald-300 mt-0.5">≈ günde {formatTry(daily)}</p>
+              <p className="text-[11px] text-emerald-300 mt-0.5" dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
             )}
           </>
         )}
@@ -179,10 +182,10 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
         onClick={onToggle}
         className={`text-xs ${cls.text} flex items-center gap-1 mb-3 hover:underline`}
         aria-expanded={expanded}
-        aria-label={expanded ? "Detayları gizle" : "Detayları göster"}
+        aria-label={expanded ? p.tierCard.hideDetails : p.tierCard.showAll}
       >
         {expanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-        {expanded ? "Detayları gizle" : `Tüm özellikleri gör (${tier.features.length})`}
+        {expanded ? p.tierCard.hideDetails : `${p.tierCard.showAll} (${tier.features.length})`}
       </button>
 
       {expanded && (
@@ -218,10 +221,10 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
           onClick={() => navigate(tier.id === "free" ? "/kayit" : `/odeme/baslat?paket=${tier.id}&periyot=${cycle}`)}
           className={`w-full py-2.5 px-4 rounded-lg font-semibold text-sm ${cls.btn}`}
         >
-          {tier.id === "free" ? "Ücretsiz Başla" : "Paketi Seç"}
+          {tier.id === "free" ? p.tierCard.ctaFree : p.tierCard.ctaSelect}
         </button>
         <p className="text-[10px] text-slate-500 text-center">
-          {tier.id === "kurumsal" ? "Demo + özel teklif için iletişime geç" : "İstediğin zaman iptal — sözleşme yok"}
+          {tier.id === "kurumsal" ? p.tierCard.corporateNote : p.tierCard.cancelNote}
         </p>
       </div>
     </div>
@@ -232,6 +235,8 @@ export default function PricingPage() {
   const navigate = useNavigate();
   const [cycle, setCycle] = useState<BillingCycle>("monthly");
   const [expandedTier, setExpandedTier] = useState<TierId | null>(null);
+  const { t } = useLocale();
+  const p = t.pricing;
 
   const yearlySavings = useMemo(
     () => PRICING_TIERS.filter((t) => t.monthlyTry > 0).map((t) => ({
@@ -249,25 +254,25 @@ export default function PricingPage() {
         {/* HEADER */}
         <div className="text-center max-w-3xl mx-auto">
           <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-4">
-            <Sparkles className="h-3.5 w-3.5" /> Fiyatlandırma
+            <Sparkles className="h-3.5 w-3.5" /> {p.badge}
           </p>
           <h1 className="text-3xl md:text-4xl font-bold mb-3">
-            İhtiyacına göre paket seç
+            {p.title}
           </h1>
           <p className="text-slate-400 leading-relaxed mb-4">
-            Bireyselden kurumsala 5 paket — istediğin zaman yükselt, düşür veya iptal et.
-            <strong className="text-white"> Yıllık ödemede %{YEARLY_DISCOUNT_RATE * 100} indirim</strong>.
+            {p.subtitle}
+            <strong className="text-white"> {p.yearlyDiscountNote} −{YEARLY_DISCOUNT_RATE * 100}%</strong>.
           </p>
           {/* ŞEFFAFLIK ŞERİDİ — header altına yakın, güven inşası */}
           <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-300">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Taahhüt yok
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> {p.chips.noCommit}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1">
-              <RefreshCw className="h-3.5 w-3.5 text-cyan-400" /> İstediğin zaman iptal
+              <RefreshCw className="h-3.5 w-3.5 text-cyan-400" /> {p.chips.cancelAnytime}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1">
-              <Shield className="h-3.5 w-3.5 text-violet-400" /> Gizli ücret yok
+              <Shield className="h-3.5 w-3.5 text-violet-400" /> {p.chips.noHidden}
             </span>
           </div>
         </div>
@@ -293,42 +298,39 @@ export default function PricingPage() {
         <div className="rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-4">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-            <h2 className="text-base font-semibold text-white">Hangi paket sana uygun?</h2>
+            <h2 className="text-base font-semibold text-white">{p.segmentTitle}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
             <div className="rounded-lg border border-slate-500/15 bg-slate-900/30 p-3">
               <p className="font-semibold text-slate-300 mb-1 flex items-center gap-1.5">
-                <User className="h-4 w-4" /> Bireysel alıcı/satıcı
+                <User className="h-4 w-4" /> {p.segments.individual.title}
               </p>
               <p className="text-slate-400 leading-relaxed">
-                Evini satıp ihaleye çıkarmak veya ihalede ev/arsa almak isteyenler.
-                Bireysel paket yeterli.
+                {p.segments.individual.desc}
               </p>
             </div>
             <div className="rounded-lg border border-blue-500/15 bg-slate-900/30 p-3">
               <p className="font-semibold text-blue-300 mb-1 flex items-center gap-1.5">
-                <Briefcase className="h-4 w-4" /> Yatırımcı
+                <Briefcase className="h-4 w-4" /> {p.segments.investor.title}
               </p>
               <p className="text-slate-400 leading-relaxed">
-                Düzenli yatırım kararı veren — borsa terminel + sınırsız rapor + gerçek kapanış verisi
-                + AI fırsat bildirimi gerekli.
+                {p.segments.investor.desc}
               </p>
             </div>
             <div className="rounded-lg border border-emerald-500/15 bg-slate-900/30 p-3">
               <p className="font-semibold text-emerald-300 mb-1 flex items-center gap-1.5">
-                <Users className="h-4 w-4" /> Emlakçı / Ofis
+                <Users className="h-4 w-4" /> {p.segments.realtor.title}
               </p>
               <p className="text-slate-400 leading-relaxed">
-                Yeni başlayan ofis → <strong>Başlangıç</strong>, büyüyen profesyonel ofis → <strong>Pro</strong>.
-                Doping + öncelik + ekip yönetimi.
+                {p.segments.realtor.desc}
               </p>
             </div>
             <div className="rounded-lg border border-violet-500/15 bg-slate-900/30 p-3">
               <p className="font-semibold text-violet-300 mb-1 flex items-center gap-1.5">
-                <Building2 className="h-4 w-4" /> Kurumsal
+                <Building2 className="h-4 w-4" /> {p.segments.corporate.title}
               </p>
               <p className="text-slate-400 leading-relaxed">
-                Zincir ofisi, portföy fonu, müteahhit firma → API + mini-site + beyaz etiket PDF + 10 ekip + öncelikli destek.
+                {p.segments.corporate.desc}
               </p>
             </div>
           </div>
@@ -343,7 +345,7 @@ export default function PricingPage() {
               className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${cycle === "monthly" ? "bg-cyan-600 text-white" : "text-slate-400 hover:text-white"}`}
               aria-pressed={cycle === "monthly"}
             >
-              Aylık
+              {p.toggle.monthly}
             </button>
             <button
               type="button"
@@ -351,8 +353,8 @@ export default function PricingPage() {
               className={`px-5 py-2 rounded-full text-sm font-medium transition-colors relative ${cycle === "yearly" ? "bg-cyan-600 text-white" : "text-slate-400 hover:text-white"}`}
               aria-pressed={cycle === "yearly"}
             >
-              Yıllık
-              <span className="ml-2 text-[10px] bg-emerald-500/30 text-emerald-200 px-1.5 py-0.5 rounded">-%{YEARLY_DISCOUNT_RATE * 100}</span>
+              {p.toggle.yearly}
+              <span className="ms-2 text-[10px] bg-emerald-500/30 text-emerald-200 px-1.5 py-0.5 rounded">−{YEARLY_DISCOUNT_RATE * 100}%</span>
             </button>
           </div>
         </div>
@@ -373,8 +375,8 @@ export default function PricingPage() {
         {cycle === "yearly" && (
           <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 text-center">
             <p className="text-sm text-emerald-200">
-              <Sparkles className="inline h-4 w-4 mr-1" />
-              Yıllık ödemede tüm paketlerde <strong className="text-white">toplam {formatTry(totalYearlySaving)}</strong> indirim — peşin ödeme.
+              <Sparkles className="inline h-4 w-4 me-1" />
+              {p.yearlySavings}: <strong className="text-white" dir="ltr">{formatTry(totalYearlySaving)}</strong>
             </p>
           </div>
         )}
@@ -383,7 +385,7 @@ export default function PricingPage() {
         <div className="mt-12 space-y-4">
           <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
             <Shield className="h-5 w-5 text-emerald-400" />
-            <h2 className="text-xl font-bold text-white">Güven, İade ve Sıkça Sorulanlar</h2>
+            <h2 className="text-xl font-bold text-white">{p.trustHeader}</h2>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -391,36 +393,24 @@ export default function PricingPage() {
             <div className="rounded-2xl border border-emerald-500/20 bg-slate-900/40 p-5">
               <div className="flex items-start gap-2 mb-3">
                 <RefreshCw className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
-                <h3 className="text-base font-semibold text-white">İade Politikası</h3>
+                <h3 className="text-base font-semibold text-white">{p.refundTitle}</h3>
               </div>
               <ul className="space-y-2 text-xs text-slate-300">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-emerald-200">14 gün ücretsiz iade:</strong> Yeni aboneliklerde
-                    ilk 14 gün içinde iade hakkı (TKHK 16. madde — mesafeli satış).
-                  </span>
+                  <span>{p.refund.d14}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-emerald-200">İstediğin zaman iptal:</strong> Sözleşme yok, kullanım
-                    dönemini bitir, otomatik yenilenmesin.
-                  </span>
+                  <span>{p.refund.cancel}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-emerald-200">Yükselt/Düşür:</strong> Tier değişimi anında geçerli;
-                    aradaki fark prorate edilir.
-                  </span>
+                  <span>{p.refund.upgrade}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-emerald-200">Hesap silme:</strong> Verilerin KVKK kapsamında 30 gün
-                    içinde anonimleştirilir (faturalar yasal 10 yıl saklanır).
-                  </span>
+                  <span>{p.refund.delete}</span>
                 </li>
               </ul>
             </div>
@@ -429,25 +419,24 @@ export default function PricingPage() {
             <div className="rounded-2xl border border-cyan-500/20 bg-slate-900/40 p-5">
               <div className="flex items-start gap-2 mb-3">
                 <Info className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-                <h3 className="text-base font-semibold text-white">Sıkça Sorulanlar</h3>
+                <h3 className="text-base font-semibold text-white">{p.faqTitle}</h3>
               </div>
               <div className="space-y-3 text-xs text-slate-300">
                 <div>
-                  <p className="font-semibold text-cyan-200 mb-1">Ödeme nasıl alınacak?</p>
-                  <p>iyzico / PayTR (gelecek). Kredi kartı + havale opsiyonu. 3D Secure zorunlu.</p>
+                  <p className="font-semibold text-cyan-200 mb-1">{p.faq.paymentQ}</p>
+                  <p>{p.faq.paymentA}</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-cyan-200 mb-1">Komisyon nasıl çalışıyor?</p>
-                  <p>%2 alıcı + %2 satıcı = toplam %4 (KDV hariç matrah). KDV %20 komisyon üzerine. Yasal tavan: Taşınmaz Ticareti Yönetmeliği md.20. Detay: <button type="button" onClick={() => navigate("/komisyon")} className="text-cyan-300 underline">/komisyon</button>.</p>
+                  <p className="font-semibold text-cyan-200 mb-1">{p.faq.commissionQ}</p>
+                  <p>{p.faq.commissionA} <button type="button" onClick={() => navigate("/komisyon")} className="text-cyan-300 underline">/komisyon</button>.</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-cyan-200 mb-1">Fiyat değişir mi?</p>
-                  <p>Pazar testi süresinde — şimdilik bu fiyatlar. Mevcut abonelerin fiyatı 12 ay sabit.</p>
+                  <p className="font-semibold text-cyan-200 mb-1">{p.faq.priceQ}</p>
+                  <p>{p.faq.priceA}</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-cyan-200 mb-1">KVKK?</p>
-                  <p>Tam uyumlu — Supabase EU Frankfurt, sızıntı bildirimi 72 saat, veri imha 30 gün.
-                    Detay: <button type="button" onClick={() => navigate("/kvkk")} className="text-cyan-300 underline">KVKK metni</button>.</p>
+                  <p className="font-semibold text-cyan-200 mb-1">{p.faq.kvkkQ}</p>
+                  <p>{p.faq.kvkkA} <button type="button" onClick={() => navigate("/kvkk")} className="text-cyan-300 underline">KVKK</button>.</p>
                 </div>
               </div>
             </div>
@@ -456,26 +445,20 @@ export default function PricingPage() {
             <div className="rounded-2xl border border-violet-500/20 bg-slate-900/40 p-5 md:col-span-2">
               <div className="flex items-start gap-2 mb-3">
                 <Scale className="h-5 w-5 text-violet-300 flex-shrink-0 mt-0.5" />
-                <h3 className="text-base font-semibold text-white">Yasal Çerçeve</h3>
+                <h3 className="text-base font-semibold text-white">{p.legalTitle}</h3>
               </div>
               <div className="grid sm:grid-cols-3 gap-3 text-xs">
                 <div className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-violet-300 mb-1">Mesafeli Satış</p>
-                  <p className="text-slate-300">
-                    6502 sayılı TKHK m. 48 — 14 gün cayma hakkı yazılı tüketici bildirimi ile.
-                  </p>
+                  <p className="font-semibold text-violet-300 mb-1">{p.legal.distanceSale.title}</p>
+                  <p className="text-slate-300">{p.legal.distanceSale.desc}</p>
                 </div>
                 <div className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-violet-300 mb-1">KVKK Uyum</p>
-                  <p className="text-slate-300">
-                    6698 sayılı KVKK — kişisel veri saklama, anonimleştirme, ihlal bildirimi 72 saat.
-                  </p>
+                  <p className="font-semibold text-violet-300 mb-1">{p.legal.kvkk.title}</p>
+                  <p className="text-slate-300">{p.legal.kvkk.desc}</p>
                 </div>
                 <div className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-violet-300 mb-1">Ödeme Hizmeti</p>
-                  <p className="text-slate-300">
-                    6493 sayılı Ödeme + Menkul Kıymet Mutabakat Sistemleri Kanunu — emanet/escrow uyumlu.
-                  </p>
+                  <p className="font-semibold text-violet-300 mb-1">{p.legal.payment.title}</p>
+                  <p className="text-slate-300">{p.legal.payment.desc}</p>
                 </div>
               </div>
             </div>
@@ -485,35 +468,35 @@ export default function PricingPage() {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-3 text-[11px] text-slate-500">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-slate-900/40 px-3 py-1">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-              14 gün ücretsiz iade
+              {p.trustBadges.refund}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-slate-900/40 px-3 py-1">
               <RefreshCw className="h-3.5 w-3.5 text-cyan-400" />
-              İstediğin zaman iptal
+              {p.trustBadges.cancel}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-slate-900/40 px-3 py-1">
               <Shield className="h-3.5 w-3.5 text-violet-400" />
-              KVKK + 6493 uyumlu
+              {p.trustBadges.compliant}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-slate-900/40 px-3 py-1">
               <ScrollText className="h-3.5 w-3.5 text-amber-400" />
-              Sözleşme yok
+              {p.trustBadges.noContract}
             </span>
           </div>
 
           {/* İletişim CTA */}
           <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 text-center">
             <AlertTriangle className="h-6 w-6 text-amber-300 mx-auto mb-2" />
-            <h3 className="text-base font-semibold text-white mb-1">Kurumsal teklif veya özel pazarlık?</h3>
+            <h3 className="text-base font-semibold text-white mb-1">{p.corporateTitle}</h3>
             <p className="text-xs text-slate-300 mb-4">
-              50+ kullanıcı / API entegrasyonu / mini-site / beyaz etiket PDF için özel paket — bizimle iletişime geç.
+              {p.corporateDesc}
             </p>
             <button
               type="button"
               onClick={() => navigate("/iletisim")}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold"
             >
-              <Mail className="h-4 w-4" /> İletişime geç
+              <Mail className="h-4 w-4" /> {p.corporateCta}
             </button>
           </div>
         </div>
