@@ -27,6 +27,7 @@ import { buildOrderBook, maskBidder } from "@/lib/borsa/orderBook";
 import { calculateProxyBid, shouldExtend, submitBidViaCore, validateBid } from "@/lib/borsa/auctionEngine";
 import { PLATFORM_LEGAL_DEFINITION, PSP_FLOW_DISCLAIMER } from "@/legal/platformDisclaimers";
 import "@/borsa/borsa.css";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type DetailTab = "detay" | "islem" | "degerleme" | "belgeler" | "benzer";
 type RangeKey = "1g" | "7g" | "30g";
@@ -46,6 +47,8 @@ function isUuid(value: string): boolean {
 export default function BorsaAssetDetailPage() {
   const { id = "" } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t } = useLocale();
+  const b = t.borsa;
   const { data } = useLiveMarket();
   const [range, setRange] = useState<RangeKey>("7g");
   const [activeTab, setActiveTab] = useState<DetailTab>("detay");
@@ -258,7 +261,7 @@ export default function BorsaAssetDetailPage() {
     const next = myWatchlist.includes(asset.id) ? myWatchlist.filter((x) => x !== asset.id) : [...myWatchlist, asset.id];
     setMyWatchlist(next);
     localStorage.setItem("borsa_watchlist_ids", JSON.stringify(next));
-    dispatchToast(myWatchlist.includes(asset.id) ? "İzleme listesinden kaldırıldı." : "İzleme listesine eklendi.", "info");
+    dispatchToast(myWatchlist.includes(asset.id) ? b.watchRemovedToast : b.watchAddedToast, "info");
   };
 
   return (
@@ -282,10 +285,10 @@ export default function BorsaAssetDetailPage() {
           </div>
         </div>
         <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">24s Yüksek: <strong className="text-white">{formatTry(high24)}<FxRef amountTry={high24} variant="compact" /></strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">24s Düşük: <strong className="text-white">{formatTry(low24)}<FxRef amountTry={low24} variant="compact" /></strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">Açılış/Kapanış: <strong className="text-white">{formatTry(open24)}<FxRef amountTry={open24} variant="compact" /> / {formatTry(close24)}<FxRef amountTry={close24} variant="compact" /></strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">Hacim: <strong className="text-white">{asset.volume.toLocaleString("tr-TR")}</strong></div>
+          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.high24}: <strong className="text-white" dir="ltr">{formatTry(high24)}<FxRef amountTry={high24} variant="compact" /></strong></div>
+          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.low24}: <strong className="text-white" dir="ltr">{formatTry(low24)}<FxRef amountTry={low24} variant="compact" /></strong></div>
+          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.openClose}: <strong className="text-white" dir="ltr">{formatTry(open24)}<FxRef amountTry={open24} variant="compact" /> / {formatTry(close24)}<FxRef amountTry={close24} variant="compact" /></strong></div>
+          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.volumeLabel}: <strong className="text-white" dir="ltr">{asset.volume.toLocaleString("tr-TR")}</strong></div>
           <div className="rounded-lg border border-amber-500/35 bg-amber-500/10 p-2 text-xs text-amber-100">
             Sayaç: <strong>{countdown}</strong> · Anti-sniping soft-close aktif (son {Math.round(ANTI_SNIPING_THRESHOLD_SECONDS / 60)} dk teklifte +{Math.round(ANTI_SNIPING_EXTEND_SECONDS / 60)} dk)
           </div>
@@ -294,15 +297,15 @@ export default function BorsaAssetDetailPage() {
 
       <section className="grid gap-4 xl:grid-cols-[minmax(310px,1fr)_minmax(0,1.35fr)_minmax(320px,1fr)]">
         <article className="borsa-card rounded-xl p-3">
-          <h2 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Emir Defteri (Order Book)</h2>
+          <h2 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">{b.orderBook}</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead className="text-left uppercase tracking-[0.1em] text-slate-400">
                 <tr>
-                  <th className="pb-2">Alış</th>
+                  <th className="pb-2">{b.bidColumn}</th>
                   <th className="pb-2">Lot</th>
                   <th className="pb-2">Küm.</th>
-                  <th className="pb-2">Satış</th>
+                  <th className="pb-2">{b.askColumn}</th>
                   <th className="pb-2">Lot</th>
                   <th className="pb-2">Küm.</th>
                   <th className="pb-2">Teklifçi</th>
@@ -438,7 +441,7 @@ export default function BorsaAssetDetailPage() {
               onClick={handleWatch}
               className="w-full rounded-md border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm font-semibold text-slate-200"
             >
-              {myWatchlist.includes(asset.id) ? "İzlemeden Çıkar" : "İzle"}
+              {myWatchlist.includes(asset.id) ? b.watchRemove : b.watchAdd}
             </button>
             {!isUuid(id) ? (
               <p className="rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-1.5 text-[11px] text-amber-100">

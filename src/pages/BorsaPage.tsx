@@ -19,6 +19,7 @@ import { createMarketSnapshot } from "@/lib/borsa/marketData";
 import { buildOrderBook, maskBidder } from "@/lib/borsa/orderBook";
 import { isOutbid } from "@/lib/borsa/auctionEngine";
 import { BorsaAnalyticsDashboard } from "@/components/borsa/BorsaAnalyticsDashboard";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type TerminalTab = "piyasa" | "varliklar" | "izleme" | "veri";
 type MarketTableTab = "en_aktif" | "yukselen" | "dusen" | "cok_islem" | "bitiyor";
@@ -88,6 +89,8 @@ function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: st
 export default function BorsaPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLocale();
+  const b = t.borsa;
   const { data, loading, isLive, error: marketError, regionHeat } = useLiveMarket();
   const [tableTab, setTableTab] = useState<MarketTableTab>("en_aktif");
   const [sortKey, setSortKey] = useState<SortKey>("volume");
@@ -501,7 +504,7 @@ export default function BorsaPage() {
                   <p className="mt-1 text-xs text-slate-300">Kod varlığın kısa kimliği; hacim o varlıkta işlem derinliğini gösterir.</p>
                 </div>
                 <div className="rounded-lg border border-amber-400/30 bg-amber-500/10 p-2.5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">Teklif Akışı</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">{b.bidStream}</p>
                   <p className="mt-1 text-xs text-slate-300">Satırı aç, order book ve süreyi incele, sonra detaydan teklif ver.</p>
                 </div>
               </div>
@@ -546,7 +549,7 @@ export default function BorsaPage() {
         </section>
         <section className="borsa-card rounded-xl p-3">
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Piyasa Ticker</h2>
+            <h2 className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">{b.marketTicker}</h2>
             <span className="text-[11px] text-slate-400">CANLI</span>
           </div>
           <div className="borsa-ticker" data-testid="borsa-ticker">
@@ -640,11 +643,11 @@ export default function BorsaPage() {
           )}
         >
           <article className="borsa-card rounded-xl p-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-200">Piyasa Özeti</p>
-            <p className="mt-2 text-xs text-slate-300">Toplam hacim: <strong className="text-white">₺{marketSnapshot.totalVolumeTry.toLocaleString("tr-TR")}</strong></p>
-            <p className="mt-1 text-xs text-slate-300">İşlem adedi: <strong className="text-white">{marketSnapshot.tradeCount.toLocaleString("tr-TR")}</strong></p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-200">{b.marketSummary}</p>
+            <p className="mt-2 text-xs text-slate-300">{b.totalVolume}: <strong className="text-white" dir="ltr">₺{marketSnapshot.totalVolumeTry.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">{b.tradeCount}: <strong className="text-white" dir="ltr">{marketSnapshot.tradeCount.toLocaleString("tr-TR")}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Ort. işlem: <strong className="text-white">₺{marketSnapshot.averageTradeSizeTry.toLocaleString("tr-TR")}</strong></p>
-            <p className="mt-1 text-xs text-slate-300">Aktif emir: <strong className="text-white">{marketSnapshot.activeOrders.toLocaleString("tr-TR")}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">{b.activeOrders}: <strong className="text-white" dir="ltr">{marketSnapshot.activeOrders.toLocaleString("tr-TR")}</strong></p>
           </article>
           <article className="borsa-card rounded-xl p-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-200">Likidite & Derinlik</p>
@@ -655,11 +658,11 @@ export default function BorsaPage() {
           <article className="borsa-card rounded-xl p-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-amber-200">Fiyat Hareketi</p>
             <p className="mt-2 text-xs text-slate-300">Gün yüksek/düşük: <strong className="text-white">{formatTry(marketSnapshot.range.dayHigh)}<FxRef amountTry={marketSnapshot.range.dayHigh} variant="compact" /> / {formatTry(marketSnapshot.range.dayLow)}<FxRef amountTry={marketSnapshot.range.dayLow} variant="compact" /></strong></p>
-            <p className="mt-1 text-xs text-slate-300">Açılış/Kapanış: <strong className="text-white">{formatTry(marketSnapshot.range.open)}<FxRef amountTry={marketSnapshot.range.open} variant="compact" /> / {formatTry(marketSnapshot.range.close)}<FxRef amountTry={marketSnapshot.range.close} variant="compact" /></strong></p>
+            <p className="mt-1 text-xs text-slate-300">{b.openClose}: <strong className="text-white" dir="ltr">{formatTry(marketSnapshot.range.open)}<FxRef amountTry={marketSnapshot.range.open} variant="compact" /> / {formatTry(marketSnapshot.range.close)}<FxRef amountTry={marketSnapshot.range.close} variant="compact" /></strong></p>
             <p className="mt-1 text-xs text-slate-300">Volatilite: <strong className="text-white">{marketSnapshot.volatility.marketStdDev.toLocaleString("tr-TR")}</strong></p>
           </article>
           <article className="borsa-card rounded-xl p-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-violet-200">Piyasa Genişliği</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-violet-200">{b.marketBreadth}</p>
             <p className="mt-2 text-xs text-slate-300">Yükselen: <strong className="text-emerald-300">{marketSnapshot.breadth.rising}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Düşen: <strong className="text-rose-300">{marketSnapshot.breadth.falling}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Sabit: <strong className="text-white">{marketSnapshot.breadth.flat}</strong></p>
@@ -924,7 +927,7 @@ export default function BorsaPage() {
 
             <article className="borsa-card rounded-xl p-3">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Emir Defteri Önizleme (Maskeli)</h3>
+                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">{b.orderBookPreviewMasked}</h3>
                 <span className="text-[11px] text-slate-300">{selectedBookAsset?.code ?? "—"}</span>
               </div>
               <div className="mb-3 rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2 text-xs">
@@ -962,7 +965,7 @@ export default function BorsaPage() {
                       <th className="pb-2 pr-2">Lot</th>
                       <th className="pb-2 pr-2">Satış ₺</th>
                       <th className="pb-2 pr-2">Lot</th>
-                      <th className="pb-2">Teklifçi</th>
+                      <th className="pb-2">{b.bidder}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1102,7 +1105,7 @@ export default function BorsaPage() {
             <BorsaAnalyticsDashboard />
           </article>
           <article className="borsa-card rounded-xl p-3 lg:col-span-2">
-            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Piyasa Verisi Özeti</h3>
+            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">{b.marketDataSummary}</h3>
             <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
               <div className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 p-2.5 text-xs text-cyan-100">
                 <p>Spread: ₺{marketSnapshot.liquidity.spread.toLocaleString("tr-TR")}</p>

@@ -177,6 +177,53 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type BorsaMessages = {
+  // BorsaPage (ticker + piyasa özeti + emir defteri)
+  marketTicker: string;
+  marketSummary: string;
+  totalVolume: string;
+  tradeCount: string;
+  activeOrders: string;
+  openClose: string;
+  marketBreadth: string;
+  bidStream: string;
+  orderBookPreviewMasked: string;
+  marketDataSummary: string;
+  bidder: string;
+  // Portfolio
+  portfolioEyebrow: string;
+  portfolioTitle: string;
+  portfolioDesc: string;
+  totalPurchase: string;
+  currentValue: string;
+  pnlLabel: string;
+  portfolioTrend: string;
+  distributionSegment: string;
+  distributionRegion: string;
+  tooltipValue: string;
+  periodPrefix: string;
+  auditableLog: string;
+  encrypted: string;
+  howSecure: string;
+  verified: string;
+  // Watchlist
+  watchlistEyebrow: string;
+  watchlistTitle: string;
+  watchAdd: string;
+  watchRemove: string;
+  watchAddedToast: string;
+  watchRemovedToast: string;
+  // AssetDetail
+  high24: string;
+  low24: string;
+  volumeLabel: string;
+  orderBook: string;
+  bidColumn: string;
+  askColumn: string;
+  priceColumn: string;
+  maLabel: string;
+};
+
 export type ListingDetailMessages = {
   // Top bar
   back: string;
@@ -300,6 +347,7 @@ export type Messages = {
   pricing: PricingMessages;
   payment: PaymentMessages;
   listingDetail: ListingDetailMessages;
+  borsa: BorsaMessages;
 };
 
 /**
@@ -657,6 +705,48 @@ export const messages: Record<"en" | "tr", Messages> = {
       bidLoginRequired: "Log in to place a bid.",
       bidAcceptRequired: "Check all contract and declaration boxes to submit your bid.",
     },
+    borsa: {
+      marketTicker: "Market Ticker",
+      marketSummary: "Market Summary",
+      totalVolume: "Total volume",
+      tradeCount: "Trade count",
+      activeOrders: "Active orders",
+      openClose: "Open/Close",
+      marketBreadth: "Market Breadth",
+      bidStream: "Bid Stream",
+      orderBookPreviewMasked: "Order Book Preview (Masked)",
+      marketDataSummary: "Market Data Summary",
+      bidder: "Bidder",
+      portfolioEyebrow: "Exchange Portfolio",
+      portfolioTitle: "Portfolio Terminal",
+      portfolioDesc: "Manage portfolio assets under the trust band: auction, fixed sale, lease, swap and assignment flows in one panel.",
+      totalPurchase: "Total Purchase",
+      currentValue: "Current Value",
+      pnlLabel: "P/L (%)",
+      portfolioTrend: "Portfolio Trend",
+      distributionSegment: "Distribution · Segment",
+      distributionRegion: "Distribution · Region",
+      tooltipValue: "Value",
+      periodPrefix: "Period",
+      auditableLog: "Auditable transaction log",
+      encrypted: "Encrypted",
+      howSecure: "How is it secured?",
+      verified: "Verified",
+      watchlistEyebrow: "Watch Terminal",
+      watchlistTitle: "Watchlist + Alert Center",
+      watchAdd: "Watch",
+      watchRemove: "Unwatch",
+      watchAddedToast: "Added to watchlist.",
+      watchRemovedToast: "Removed from watchlist.",
+      high24: "24h High",
+      low24: "24h Low",
+      volumeLabel: "Volume",
+      orderBook: "Order Book",
+      bidColumn: "Bid",
+      askColumn: "Ask",
+      priceColumn: "Price",
+      maLabel: "MA(5)",
+    },
   },
   tr: {
     nav: {
@@ -1007,6 +1097,48 @@ export const messages: Record<"en" | "tr", Messages> = {
       bidLoginRequired: "Teklif için giriş yapın.",
       bidAcceptRequired: "Teklifi göndermek için tüm sözleşme ve beyan kutularını işaretleyin.",
     },
+    borsa: {
+      marketTicker: "Piyasa Ticker",
+      marketSummary: "Piyasa Özeti",
+      totalVolume: "Toplam hacim",
+      tradeCount: "İşlem adedi",
+      activeOrders: "Aktif emir",
+      openClose: "Açılış/Kapanış",
+      marketBreadth: "Piyasa Genişliği",
+      bidStream: "Teklif Akışı",
+      orderBookPreviewMasked: "Emir Defteri Önizleme (Maskeli)",
+      marketDataSummary: "Piyasa Verisi Özeti",
+      bidder: "Teklifçi",
+      portfolioEyebrow: "Borsa Portföy",
+      portfolioTitle: "Portföy Terminali",
+      portfolioDesc: "Portföydeki varlıkları güven şeridi altında yönetin: açık artırma, sabit satış, kiralama, takas ve devren akışları tek panelde.",
+      totalPurchase: "Toplam Alış",
+      currentValue: "Güncel Değer",
+      pnlLabel: "K/Z (%)",
+      portfolioTrend: "Portföy Trendi",
+      distributionSegment: "Dağılım · Segment",
+      distributionRegion: "Dağılım · Bölge",
+      tooltipValue: "Değer",
+      periodPrefix: "Periyot",
+      auditableLog: "Denetlenebilir işlem kaydı",
+      encrypted: "Şifreli",
+      howSecure: "Nasıl güvende?",
+      verified: "Doğrulandı",
+      watchlistEyebrow: "İzleme Terminali",
+      watchlistTitle: "İzleme Listesi + Alarm Merkezi",
+      watchAdd: "İzle",
+      watchRemove: "İzlemeden Çıkar",
+      watchAddedToast: "İzleme listesine eklendi.",
+      watchRemovedToast: "İzleme listesinden kaldırıldı.",
+      high24: "24s Yüksek",
+      low24: "24s Düşük",
+      volumeLabel: "Hacim",
+      orderBook: "Emir Defteri (Order Book)",
+      bidColumn: "Alış",
+      askColumn: "Satış",
+      priceColumn: "Fiyat",
+      maLabel: "MA(5)",
+    },
   },
 };
 
@@ -1263,6 +1395,48 @@ const _ruOverrides: PartialDeep<Messages> = {
     bidLoginRequired: "Войдите, чтобы сделать ставку.",
     bidAcceptRequired: "Отметьте все договорные и заявленные пункты, чтобы отправить ставку.",
   },
+  borsa: {
+    marketTicker: "Лента рынка",
+    marketSummary: "Сводка рынка",
+    totalVolume: "Общий объём",
+    tradeCount: "Количество сделок",
+    activeOrders: "Активные заявки",
+    openClose: "Открытие/Закрытие",
+    marketBreadth: "Широта рынка",
+    bidStream: "Поток ставок",
+    orderBookPreviewMasked: "Книга заявок (предпросмотр, маскированная)",
+    marketDataSummary: "Сводка рыночных данных",
+    bidder: "Участник",
+    portfolioEyebrow: "Биржа · портфель",
+    portfolioTitle: "Терминал портфеля",
+    portfolioDesc: "Управляйте активами портфеля под защитой: аукцион, фиксированная продажа, аренда, обмен и переуступка — в одной панели.",
+    totalPurchase: "Сумма покупки",
+    currentValue: "Текущая стоимость",
+    pnlLabel: "Прибыль/Убыток (%)",
+    portfolioTrend: "Тренд портфеля",
+    distributionSegment: "Распределение · Сегмент",
+    distributionRegion: "Распределение · Регион",
+    tooltipValue: "Стоимость",
+    periodPrefix: "Период",
+    auditableLog: "Проверяемый журнал транзакций",
+    encrypted: "Зашифровано",
+    howSecure: "Как обеспечена безопасность?",
+    verified: "Проверено",
+    watchlistEyebrow: "Терминал отслеживания",
+    watchlistTitle: "Список отслеживания + Центр уведомлений",
+    watchAdd: "Отслеживать",
+    watchRemove: "Прекратить отслеживание",
+    watchAddedToast: "Добавлено в список отслеживания.",
+    watchRemovedToast: "Удалено из списка отслеживания.",
+    high24: "Макс. за 24ч",
+    low24: "Мин. за 24ч",
+    volumeLabel: "Объём",
+    orderBook: "Книга заявок (Order Book)",
+    bidColumn: "Покупка",
+    askColumn: "Продажа",
+    priceColumn: "Цена",
+    maLabel: "MA(5)",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -1503,6 +1677,48 @@ const _arOverrides: PartialDeep<Messages> = {
     featuresListMissing: "لا توجد قائمة مواصفات.",
     bidLoginRequired: "سجّل الدخول لتقديم عرض.",
     bidAcceptRequired: "حدّد جميع مربّعات العقد والإقرار لإرسال عرضك.",
+  },
+  borsa: {
+    marketTicker: "شريط السوق",
+    marketSummary: "ملخّص السوق",
+    totalVolume: "إجمالي الحجم",
+    tradeCount: "عدد الصفقات",
+    activeOrders: "الأوامر النشطة",
+    openClose: "الافتتاح/الإغلاق",
+    marketBreadth: "اتّساع السوق",
+    bidStream: "تدفّق العروض",
+    orderBookPreviewMasked: "دفتر الأوامر (معاينة، مُخفّاة)",
+    marketDataSummary: "ملخّص بيانات السوق",
+    bidder: "مقدّم العرض",
+    portfolioEyebrow: "البورصة · المحفظة",
+    portfolioTitle: "محطة المحفظة",
+    portfolioDesc: "أدر أصول المحفظة تحت شريط الثقة: المزاد، البيع الثابت، التأجير، المقايضة والتنازل — في لوحة واحدة.",
+    totalPurchase: "إجمالي الشراء",
+    currentValue: "القيمة الحالية",
+    pnlLabel: "الربح/الخسارة (%)",
+    portfolioTrend: "اتجاه المحفظة",
+    distributionSegment: "التوزيع · القطاع",
+    distributionRegion: "التوزيع · المنطقة",
+    tooltipValue: "القيمة",
+    periodPrefix: "الفترة",
+    auditableLog: "سجل معاملات قابل للتدقيق",
+    encrypted: "مشفّر",
+    howSecure: "كيف تتم الحماية؟",
+    verified: "موثّق",
+    watchlistEyebrow: "محطة المتابعة",
+    watchlistTitle: "قائمة المتابعة + مركز التنبيهات",
+    watchAdd: "متابعة",
+    watchRemove: "إلغاء المتابعة",
+    watchAddedToast: "تمت الإضافة إلى قائمة المتابعة.",
+    watchRemovedToast: "تمت الإزالة من قائمة المتابعة.",
+    high24: "الأعلى خلال 24س",
+    low24: "الأدنى خلال 24س",
+    volumeLabel: "الحجم",
+    orderBook: "دفتر الأوامر (Order Book)",
+    bidColumn: "شراء",
+    askColumn: "بيع",
+    priceColumn: "السعر",
+    maLabel: "MA(5)",
   },
 };
 

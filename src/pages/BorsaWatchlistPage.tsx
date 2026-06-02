@@ -9,6 +9,7 @@ import { BORSA_REGIONS } from "@/lib/borsa/regions";
 // `cn` 4 yerde JSX className içinde kullanılıyor (l.215, l.295, l.313, l.335);
 // import eksikti → ReferenceError → ErrorBoundary → "500 Bir sorun oluştu".
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type PriceAlert = {
   id: string;
@@ -38,6 +39,8 @@ function formatRemaining(totalMin: number): string {
 
 export default function BorsaWatchlistPage() {
   const navigate = useNavigate();
+  const { t } = useLocale();
+  const b = t.borsa;
   const { data } = useLiveMarket();
   const { watched, toggle } = useBorsaRegionWatchlist();
   const [watchlistIds, setWatchlistIds] = useState<string[]>(() => {
@@ -171,8 +174,8 @@ export default function BorsaWatchlistPage() {
   return (
     <main className="w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
       <section className="rounded-xl border border-cyan-500/35 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
-        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">İzleme Terminali</p>
-        <h1 className="mt-1 text-2xl font-black text-white">İzleme Listesi + Alarm Merkezi</h1>
+        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">{b.watchlistEyebrow}</p>
+        <h1 className="mt-1 text-2xl font-black text-white">{b.watchlistTitle}</h1>
         <p className="mt-2 text-sm text-slate-300">
           Takip ettiğiniz varlıkları canlı fiyatla izleyin, teklif geçilmesi ve kapanış alarmlarını kart bazlı yönetin.
         </p>

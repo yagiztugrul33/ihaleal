@@ -20,6 +20,7 @@ import { estimatePortfolioTax } from "@/borsa/tax-estimate";
 import { formatTry } from "@/lib/valuation/valuationEngine";
 import { MASTER_INFO_DISCLAIMER, PHYSICAL_ASSET_ONLY_DISCLAIMER } from "@/legal/platformDisclaimers";
 import { FxRef } from "@/components/FxRef";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type PortfolioAsset = {
   id: string;
@@ -100,6 +101,8 @@ const ACTIONS = [
 ] as const;
 
 export default function BorsaPortfolioPage() {
+  const { t } = useLocale();
+  const b = t.borsa;
   const [confirmAction, setConfirmAction] = useState<{
     asset: PortfolioAsset;
     action: (typeof ACTIONS)[number];
@@ -139,23 +142,23 @@ export default function BorsaPortfolioPage() {
             <BadgeCheck className="h-3.5 w-3.5" /> KYC doğrulanmış
           </div>
           <div className="inline-flex items-center gap-1.5 rounded-md border border-emerald-400/40 bg-emerald-500/10 px-2 py-1">
-            <ScrollText className="h-3.5 w-3.5" /> Denetlenebilir işlem kaydı
+            <ScrollText className="h-3.5 w-3.5" /> {b.auditableLog}
           </div>
           <div className="inline-flex items-center justify-between gap-2 rounded-md border border-emerald-400/40 bg-emerald-500/10 px-2 py-1">
             <span className="inline-flex items-center gap-1.5">
-              <Lock className="h-3.5 w-3.5" /> Şifreli
+              <Lock className="h-3.5 w-3.5" /> {b.encrypted}
             </span>
             <Link to="/guvenlik" className="text-emerald-50 underline underline-offset-2">
-              Nasıl güvende?
+              {b.howSecure}
             </Link>
           </div>
         </section>
 
         <header className="app-section app-premium-gradient">
-          <p className="text-xs uppercase tracking-[0.16em] text-cyan-200">Borsa Portföy</p>
-          <h1 className="mt-1 text-2xl font-black text-foreground">Portföy Terminali</h1>
+          <p className="text-xs uppercase tracking-[0.16em] text-cyan-200">{b.portfolioEyebrow}</p>
+          <h1 className="mt-1 text-2xl font-black text-foreground">{b.portfolioTitle}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Portföydeki varlıkları güven şeridi altında yönetin: açık artırma, sabit satış, kiralama, takas ve devren akışları tek panelde.
+            {b.portfolioDesc}
           </p>
           <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
             <p>{MASTER_INFO_DISCLAIMER}</p>
@@ -166,17 +169,17 @@ export default function BorsaPortfolioPage() {
         <section className="grid gap-3 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <div className="grid gap-3 sm:grid-cols-3">
             <article className="app-kpi hover-premium">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Toplam Alış</p>
-              <p className="mt-1 text-2xl font-black text-foreground">{formatTry(totalPurchase)}</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{b.totalPurchase}</p>
+              <p className="mt-1 text-2xl font-black text-foreground" dir="ltr">{formatTry(totalPurchase)}</p>
               <FxRef amountTry={totalPurchase} variant="block" />
             </article>
             <article className="app-kpi hover-premium">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Güncel Değer</p>
-              <p className="mt-1 text-2xl font-black text-foreground">{formatTry(totalCurrent)}</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{b.currentValue}</p>
+              <p className="mt-1 text-2xl font-black text-foreground" dir="ltr">{formatTry(totalCurrent)}</p>
               <FxRef amountTry={totalCurrent} variant="block" />
             </article>
             <article className="app-kpi hover-premium">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">K/Z (%)</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">{b.pnlLabel}</p>
               <p className={`mt-1 text-2xl font-black ${pnl >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
                 {pnl >= 0 ? "+" : ""}
                 {formatTry(pnl)} ({pnlPct.toFixed(1)}%)
@@ -185,11 +188,11 @@ export default function BorsaPortfolioPage() {
             </article>
           </div>
           <article className="app-section">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">Portföy Trendi</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">{b.portfolioTrend}</p>
             <div className="mt-2 h-28 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={trendData}>
-                  <Tooltip formatter={(value: number) => [formatTry(value), "Değer"]} labelFormatter={(label) => `Periyot ${label}`} />
+                  <Tooltip formatter={(value: number) => [formatTry(value), b.tooltipValue]} labelFormatter={(label) => `${b.periodPrefix} ${label}`} />
                   <Line dataKey="value" stroke="#22d3ee" strokeWidth={2.3} dot={false} isAnimationActive={false} />
                 </LineChart>
               </ResponsiveContainer>
@@ -199,7 +202,7 @@ export default function BorsaPortfolioPage() {
 
         <section className="grid gap-3 lg:grid-cols-2">
           <article className="app-section">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">Dağılım · Segment</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">{b.distributionSegment}</p>
             <div className="mt-2 h-52 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -217,7 +220,7 @@ export default function BorsaPortfolioPage() {
             </div>
           </article>
           <article className="app-section">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">Dağılım · Bölge</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">{b.distributionRegion}</p>
             <div className="mt-2 h-52 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -261,7 +264,7 @@ export default function BorsaPortfolioPage() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-200">
-                          <BadgeCheck className="h-3 w-3" /> Doğrulandı
+                          <BadgeCheck className="h-3 w-3" /> {b.verified}
                         </span>
                         <Link
                           to={`/ilan/${asset.id}`}
