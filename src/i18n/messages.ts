@@ -842,6 +842,68 @@ export type ListingDetailMessages = {
   toastDemoBid: string;
   toastOfferSubmitted: string;
   toastLogin: string;
+  // ── 11-G-4: shared dialog actions ──
+  close: string;
+  understood: string;
+  processing: string;
+  // ── 11-G-4: market report dialog ──
+  mrTitle: string;
+  mrBody: string;
+  mrFileLabel: string;
+  mrNoFile: string;
+  mrGotoAnalysis: string;
+  // ── 11-G-4: official docs dialog ──
+  odTitle: string;
+  odBody: string;
+  odDeclYes: string;
+  odDeclNo: string;
+  odItem1: string;
+  odItem2: string;
+  odItem3: string;
+  // ── 11-G-4: pre-auth (bid) dialog ──
+  paTitle: string;
+  paAmountNote: string;
+  paWinNote: string;
+  paDemoNote: string;
+  cardTokenLabel: string;
+  cardTokenPlaceholder: string;
+  paConfirm: string;
+  // ── 11-G-4: hemen al gate (non-legal) ──
+  hgCardSection: string;
+  hgContinue: string;
+  // ── 11-G-4: pre-auth buy-now dialog ──
+  pabTitle: string;
+  pabAmountNote: string;
+  pabHoldNote: string;
+  pabDemoNote: string;
+  pabStart: string;
+  // ── 11-G-4: buy-now confirm dialog ──
+  bncTitle: string;
+  bncAmount: string;
+  bncCommNote: string;
+  bncSaving: string;
+  bncClose: string;
+  bncAtomicRpc: string;
+  // ── 11-G-4: virtual tour dialog ──
+  vtIntegrationTitle: string;
+  vtIntegrationDesc: string;
+  vtUrlNotAdded: string;
+  // ── 11-G-4: buy-now toasts ──
+  toastPreAuthRejected: string;
+  toastRiskHigh: string;
+  toastBuyNowHoldSaved: string;
+  toastBuyNowHoldLocal: string;
+  toastApproveReportBuyNow: string;
+  toastCompleteHold: string;
+  toastCheckBuyNowAck: string;
+  toastWon: string;
+  toastWonDemo: string;
+  // ── 11-G-4: buy-now / mortgage / message tooltips ──
+  tooltipBuyNowGate: string;
+  tooltipBuyNowMock: string;
+  tooltipCalcMortgage: string;
+  tooltipMessage: string;
+  mobileBarAria: string;
 };
 
 export type PaymentMessages = {
@@ -1449,6 +1511,61 @@ export const messages: Record<"en" | "tr", Messages> = {
         "Demo listing: the bid is not written to the database. On live auctions (Supabase UUID) the bid is stored on the server.",
       toastOfferSubmitted: "Your offer has been recorded. You can track it from the My Offers panel.",
       toastLogin: "Please log in.",
+      // ── 11-G-4 ──
+      close: "Close",
+      understood: "Got it",
+      processing: "Processing...",
+      mrTitle: "Market report analysis",
+      mrBody:
+        "Region/price report PDFs you upload or reference are subject to AI-assisted summary and consistency checks within the iHaleal Index framework; they do not replace a legal valuation. Compliance with third-party report copyright is the user's responsibility.",
+      mrFileLabel: "File selected for this listing (demo):",
+      mrNoFile: "The owner hasn't added a report file name yet; the full flow is in production.",
+      mrGotoAnalysis: "Go to analysis page",
+      odTitle: "Official documents summary",
+      odBody:
+        "Zoning plan changes, municipal approvals, occupancy permits and similar official decisions are shown to the buyer or tenant through this channel before the title deed; the aim is no surprises after the deed.",
+      odDeclYes: "The listing record has an 'official package will be shown to the buyer' declaration (demo).",
+      odDeclNo: "This listing has no official-package declaration or it isn't complete yet; moderation completes it in production.",
+      odItem1: "Zoning status / plan notes",
+      odItem2: "Municipal letters and permit records",
+      odItem3: "Relevant court or administrative decision summary (if any)",
+      paTitle: "Pre-authorization hold (mock)",
+      paAmountNote: "Hold amount: ₺{amount} ({pct}% on base ₺{base}).",
+      paWinNote: "If you win, it is intended to be processed into the deposit/guarantee flow (product terms draft).",
+      paDemoNote: "No real card payment; currently a demo pre-authorization simulation. It goes live once a PSP (iyzico etc.) is connected.",
+      cardTokenLabel: "Card token (demo)",
+      cardTokenPlaceholder: "test-ok or test-fail",
+      paConfirm: "Pre-authorize",
+      hgCardSection: "Card and 3DS",
+      hgContinue: "Continue to card hold (Buy Now) step",
+      pabTitle: "Buy Now — card pre-authorization (mock)",
+      pabAmountNote: "Buy Now amount: ₺{amount}",
+      pabHoldNote: "Hold amount: ₺{amount} ({pct}% hold/guarantee on the Buy Now price; PSP authorization).",
+      pabDemoNote: "Once real payment is connected, 3D Secure becomes mandatory; for now pre-authorization is simulated with a demo token.",
+      pabStart: "Start the hold",
+      bncTitle: "Buy Now — complete the transaction",
+      bncAmount: "Amount: ₺{amount}",
+      bncCommNote: "Estimated commission + duty (reference): ₺{amount} — fees.ts",
+      bncSaving: "Saving...",
+      bncClose: "Close the auction with Buy Now",
+      bncAtomicRpc: "Go to atomic RPC page",
+      vtIntegrationTitle: "Virtual Tour Integration",
+      vtIntegrationDesc: "A 360° tour can be added with Momento360 or Matterport.",
+      vtUrlNotAdded: "Not added yet",
+      toastPreAuthRejected: "Pre-authorization rejected",
+      toastRiskHigh: "Risk score high — the transaction will be reviewed manually (demo simulation).",
+      toastBuyNowHoldSaved: "Hold recorded for the purchase.",
+      toastBuyNowHoldLocal: "Demo: the buy-now hold was stored locally.",
+      toastApproveReportBuyNow: "First approve the AI analysis report.",
+      toastCompleteHold: "First complete the hold (pre-authorization) step for the purchase.",
+      toastCheckBuyNowAck: "Check the Buy Now legal approval box.",
+      toastWon: "Congratulations! You won the auction with ₺{amount}; the auction is closed.",
+      toastWonDemo: "Congratulations! You won the auction with ₺{amount} (demo). The auction is closed.",
+      tooltipBuyNowGate: "First the contract / MASAK gate and card hold",
+      tooltipBuyNowMock: "MOCK display — estimated price if buy_now_price_try is absent in the DB",
+      tooltipCalcMortgage: "Calculate mortgage",
+      tooltipMessage: "Message",
+      mobileBarAria: "Listing action bar",
     },
     borsa: {
       marketTicker: "Market Ticker",
@@ -2366,6 +2483,61 @@ export const messages: Record<"en" | "tr", Messages> = {
         "Demo ilan: teklif veritabanına yazılmaz. Canlı ihalelerde (Supabase UUID) teklif sunucuda saklanır.",
       toastOfferSubmitted: "Teklifiniz kaydedildi. Tekliflerim panelinden takip edebilirsiniz.",
       toastLogin: "Giriş yapın.",
+      // ── 11-G-4 ──
+      close: "Kapat",
+      understood: "Anladım",
+      processing: "İşleniyor...",
+      mrTitle: "Piyasa raporu analizi",
+      mrBody:
+        "Yüklediğiniz veya referans gösterdiğiniz bölge / fiyat raporu PDF'leri, İhaleal Endeksi çerçevesinde yapay zeka destekli özet ve tutarlılık kontrolüne tabidir; hukuki değerleme yerine geçmez. Üçüncü taraf rapor telifine uyum kullanıcı sorumluluğundadır.",
+      mrFileLabel: "Bu ilan için seçilen dosya (demo):",
+      mrNoFile: "İlan sahibi henüz rapor dosya adı eklemedi; tam akış üretimde.",
+      mrGotoAnalysis: "Analiz sayfasına git",
+      odTitle: "Resmi belgeler özeti",
+      odBody:
+        "İmar planı değişiklikleri, belediye onayları, yapı kullanma izni ve benzeri resmi kararlar tapu öncesi alıcı veya kiracıya bu kanaldan gösterilir; tapu sonrası sürpriz kalmaması hedeflenir.",
+      odDeclYes: "İlan kaydında “resmi paket alıcıya gösterilecek” beyanı mevcut (demo).",
+      odDeclNo: "Bu ilanda resmi paket beyanı yok veya henüz tamamlanmadı; üretimde moderasyon tamamlar.",
+      odItem1: "İmar durumu / plan notları",
+      odItem2: "Belediye yazıları ve ruhsat izleri",
+      odItem3: "İlgili mahkeme veya idari karar özeti (varsa)",
+      paTitle: "Blokaj ön yetkisi (mock)",
+      paAmountNote: "Blokaj tutarı: ₺{amount} (taban ₺{base} üzerinden %{pct}).",
+      paWinNote: "Kazanırsanız kaparo / teminat akışına işlenmesi hedeflenir (Ürün koşulları taslak).",
+      paDemoNote: "Gerçek kart ödemesi yok; şu an demo ön yetki simülasyonu. PSP (iyzico vb.) bağlanınca canlı moda geçilir.",
+      cardTokenLabel: "Kart token (demo)",
+      cardTokenPlaceholder: "test-ok veya test-fail",
+      paConfirm: "Ön yetkilendir",
+      hgCardSection: "Kart ve 3DS",
+      hgContinue: "Kart blokesi (Hemen Al) adımına devam",
+      pabTitle: "Hemen Al — kart ön yetkisi (mock)",
+      pabAmountNote: "Hemen Al tutarı: ₺{amount}",
+      pabHoldNote: "Blokaj tutarı: ₺{amount} (Hemen Al bedeli üzerinden %{pct} bloke/teminat; PSP provizyonu).",
+      pabDemoNote: "Gerçek ödeme bağlanınca 3D Secure zorunlu olur; şimdi demo token ile ön yetki simüle edilir.",
+      pabStart: "Blokajı başlat",
+      bncTitle: "Hemen Al — işlemi tamamla",
+      bncAmount: "Tutar: ₺{amount}",
+      bncCommNote: "Tahmini komisyon + harç (referans): ₺{amount} — fees.ts",
+      bncSaving: "Kaydediliyor...",
+      bncClose: "İhaleyi Hemen Al ile kapat",
+      bncAtomicRpc: "Atomik RPC sayfasına git",
+      vtIntegrationTitle: "Sanal Tur Entegrasyonu",
+      vtIntegrationDesc: "Momento360 veya Matterport ile 360° tur eklenebilir.",
+      vtUrlNotAdded: "Henüz eklenmemiş",
+      toastPreAuthRejected: "Ön yetki reddedildi",
+      toastRiskHigh: "Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).",
+      toastBuyNowHoldSaved: "Satın alım için blokaj kaydedildi.",
+      toastBuyNowHoldLocal: "Demo: satın al blokajı yerelde saklandı.",
+      toastApproveReportBuyNow: "Önce AI analiz raporunu onaylayın.",
+      toastCompleteHold: "Satın alım için önce blokaj (ön yetki) adımını tamamlayın.",
+      toastCheckBuyNowAck: "Hemen Al yasal onay kutusunu işaretleyin.",
+      toastWon: "Tebrikler! ₺{amount} ile ihaleyi kazandınız; ihale kapandı.",
+      toastWonDemo: "Tebrikler! ₺{amount} ile ihaleyi kazandınız (demo). İhale kapandı.",
+      tooltipBuyNowGate: "Önce sözleşme / MASAK kapısı ve kart blokesi",
+      tooltipBuyNowMock: "MOCK gösterim — DB'de buy_now_price_try yoksa tahmini fiyat",
+      tooltipCalcMortgage: "Kredi Hesapla",
+      tooltipMessage: "Mesajlaş",
+      mobileBarAria: "İlan aksiyon barı",
     },
     borsa: {
       marketTicker: "Piyasa Ticker",
@@ -3189,6 +3361,61 @@ const _ruOverrides: PartialDeep<Messages> = {
       "Демо-объявление: ставка не записывается в базу данных. На реальных аукционах (Supabase UUID) ставка хранится на сервере.",
     toastOfferSubmitted: "Ваше предложение зарегистрировано. Вы можете отслеживать его в панели «Мои предложения».",
     toastLogin: "Войдите в аккаунт.",
+    // ── 11-G-4 ──
+    close: "Закрыть",
+    understood: "Понятно",
+    processing: "Обработка...",
+    mrTitle: "Анализ рыночного отчёта",
+    mrBody:
+      "Загруженные или указанные вами PDF-отчёты по региону/ценам проходят ИИ-сводку и проверку согласованности в рамках Индекса iHaleal; они не заменяют юридическую оценку. Соблюдение авторских прав на сторонние отчёты — ответственность пользователя.",
+    mrFileLabel: "Файл, выбранный для этого объявления (демо):",
+    mrNoFile: "Владелец ещё не добавил имя файла отчёта; полный процесс — в продакшене.",
+    mrGotoAnalysis: "Перейти на страницу анализа",
+    odTitle: "Сводка официальных документов",
+    odBody:
+      "Изменения зонального плана, муниципальные согласования, разрешение на эксплуатацию и подобные официальные решения показываются покупателю или арендатору по этому каналу до оформления тапу; цель — отсутствие сюрпризов после оформления.",
+    odDeclYes: "В записи объявления есть заявление «официальный пакет будет показан покупателю» (демо).",
+    odDeclNo: "В этом объявлении нет заявления об официальном пакете или оно ещё не завершено; модерация завершит его в продакшене.",
+    odItem1: "Статус зонирования / примечания к плану",
+    odItem2: "Муниципальные письма и записи разрешений",
+    odItem3: "Сводка соответствующего судебного или административного решения (при наличии)",
+    paTitle: "Предавторизационная блокировка (mock)",
+    paAmountNote: "Сумма блокировки: ₺{amount} ({pct}% от базы ₺{base}).",
+    paWinNote: "В случае выигрыша предполагается перевод в поток задатка/гарантии (условия продукта — черновик).",
+    paDemoNote: "Реального платежа картой нет; сейчас демо-симуляция предавторизации. Переход в боевой режим — после подключения PSP (iyzico и т. п.).",
+    cardTokenLabel: "Токен карты (демо)",
+    cardTokenPlaceholder: "test-ok или test-fail",
+    paConfirm: "Предавторизовать",
+    hgCardSection: "Карта и 3DS",
+    hgContinue: "Перейти к шагу блокировки карты (Купить сейчас)",
+    pabTitle: "Купить сейчас — предавторизация карты (mock)",
+    pabAmountNote: "Сумма «Купить сейчас»: ₺{amount}",
+    pabHoldNote: "Сумма блокировки: ₺{amount} ({pct}% блокировка/гарантия от цены «Купить сейчас»; авторизация PSP).",
+    pabDemoNote: "После подключения реального платежа 3D Secure станет обязательным; сейчас предавторизация имитируется демо-токеном.",
+    pabStart: "Начать блокировку",
+    bncTitle: "Купить сейчас — завершить операцию",
+    bncAmount: "Сумма: ₺{amount}",
+    bncCommNote: "Ориентировочная комиссия + пошлина (справочно): ₺{amount} — fees.ts",
+    bncSaving: "Сохранение...",
+    bncClose: "Закрыть аукцион через «Купить сейчас»",
+    bncAtomicRpc: "Перейти на страницу атомарного RPC",
+    vtIntegrationTitle: "Интеграция виртуального тура",
+    vtIntegrationDesc: "360°-тур можно добавить через Momento360 или Matterport.",
+    vtUrlNotAdded: "Ещё не добавлен",
+    toastPreAuthRejected: "Предавторизация отклонена",
+    toastRiskHigh: "Высокий риск-балл — операция будет проверена вручную (демо-симуляция).",
+    toastBuyNowHoldSaved: "Блокировка для покупки зарегистрирована.",
+    toastBuyNowHoldLocal: "Демо: блокировка «Купить сейчас» сохранена локально.",
+    toastApproveReportBuyNow: "Сначала одобрите отчёт ИИ-анализа.",
+    toastCompleteHold: "Сначала завершите шаг блокировки (предавторизации) для покупки.",
+    toastCheckBuyNowAck: "Отметьте поле юридического согласия «Купить сейчас».",
+    toastWon: "Поздравляем! Вы выиграли аукцион за ₺{amount}; аукцион закрыт.",
+    toastWonDemo: "Поздравляем! Вы выиграли аукцион за ₺{amount} (демо). Аукцион закрыт.",
+    tooltipBuyNowGate: "Сначала договор / шлюз MASAK и блокировка карты",
+    tooltipBuyNowMock: "MOCK-отображение — ориентировочная цена, если buy_now_price_try отсутствует в БД",
+    tooltipCalcMortgage: "Рассчитать кредит",
+    tooltipMessage: "Написать",
+    mobileBarAria: "Панель действий объявления",
   },
   borsa: {
     marketTicker: "Лента рынка",
@@ -3997,6 +4224,61 @@ const _arOverrides: PartialDeep<Messages> = {
       "إعلان تجريبي: لا يُسجَّل العرض في قاعدة البيانات. في المزادات الحيّة (Supabase UUID) يُخزَّن العرض على الخادم.",
     toastOfferSubmitted: "تم تسجيل عرضك. يمكنك متابعته من لوحة «عروضي».",
     toastLogin: "يُرجى تسجيل الدخول.",
+    // ── 11-G-4 ──
+    close: "إغلاق",
+    understood: "فهمت",
+    processing: "جارٍ المعالجة...",
+    mrTitle: "تحليل تقرير السوق",
+    mrBody:
+      "تخضع ملفات PDF لتقارير المنطقة/الأسعار التي ترفعها أو تشير إليها لملخّص وفحص اتساق بمساعدة الذكاء الاصطناعي ضمن إطار مؤشر iHaleal؛ وهي لا تحل محل التقييم القانوني. الامتثال لحقوق نشر تقارير الأطراف الثالثة مسؤولية المستخدم.",
+    mrFileLabel: "الملف المختار لهذا الإعلان (تجريبي):",
+    mrNoFile: "لم يُضِف المالك اسم ملف التقرير بعد؛ التدفّق الكامل في الإصدار النهائي.",
+    mrGotoAnalysis: "الانتقال إلى صفحة التحليل",
+    odTitle: "ملخّص المستندات الرسمية",
+    odBody:
+      "تُعرض تغييرات المخطط التنظيمي وموافقات البلدية ورخصة الإشغال والقرارات الرسمية المماثلة على المشتري أو المستأجر عبر هذه القناة قبل سند الملكية؛ والهدف ألا تكون هناك مفاجآت بعد السند.",
+    odDeclYes: "يتضمّن سجل الإعلان إقراراً بأن «الحزمة الرسمية ستُعرض على المشتري» (تجريبي).",
+    odDeclNo: "لا يتضمّن هذا الإعلان إقرار الحزمة الرسمية أو لم يكتمل بعد؛ تُكمله المراجعة في الإصدار النهائي.",
+    odItem1: "حالة التنظيم / ملاحظات المخطط",
+    odItem2: "خطابات البلدية وسجلات التراخيص",
+    odItem3: "ملخّص القرار القضائي أو الإداري ذي الصلة (إن وُجد)",
+    paTitle: "تفويض الحجز المسبق (mock)",
+    paAmountNote: "مبلغ الحجز: ₺{amount} ({pct}% على الأساس ₺{base}).",
+    paWinNote: "في حال الفوز، يُستهدف تحويله إلى مسار العربون/الضمان (شروط المنتج مسودّة).",
+    paDemoNote: "لا يوجد دفع حقيقي بالبطاقة؛ حالياً محاكاة تفويض مسبق تجريبية. يتم التحوّل إلى الوضع المباشر عند ربط مزوّد دفع (iyzico إلخ).",
+    cardTokenLabel: "رمز البطاقة (تجريبي)",
+    cardTokenPlaceholder: "test-ok أو test-fail",
+    paConfirm: "تفويض مسبق",
+    hgCardSection: "البطاقة و3DS",
+    hgContinue: "المتابعة إلى خطوة حجز البطاقة (اشتر الآن)",
+    pabTitle: "اشتر الآن — تفويض مسبق للبطاقة (mock)",
+    pabAmountNote: "مبلغ الشراء الآن: ₺{amount}",
+    pabHoldNote: "مبلغ الحجز: ₺{amount} ({pct}% حجز/ضمان على سعر الشراء الآن؛ تفويض مزوّد الدفع).",
+    pabDemoNote: "عند ربط الدفع الحقيقي يصبح 3D Secure إلزامياً؛ حالياً يُحاكى التفويض المسبق برمز تجريبي.",
+    pabStart: "ابدأ الحجز",
+    bncTitle: "اشتر الآن — أكمل العملية",
+    bncAmount: "المبلغ: ₺{amount}",
+    bncCommNote: "العمولة + الرسوم التقديرية (مرجعي): ₺{amount} — fees.ts",
+    bncSaving: "جارٍ الحفظ...",
+    bncClose: "إغلاق المزاد عبر الشراء الآن",
+    bncAtomicRpc: "الانتقال إلى صفحة RPC الذرّية",
+    vtIntegrationTitle: "تكامل الجولة الافتراضية",
+    vtIntegrationDesc: "يمكن إضافة جولة 360° عبر Momento360 أو Matterport.",
+    vtUrlNotAdded: "لم تُضَف بعد",
+    toastPreAuthRejected: "تم رفض التفويض المسبق",
+    toastRiskHigh: "درجة الخطر مرتفعة — ستُراجَع العملية يدوياً (محاكاة تجريبية).",
+    toastBuyNowHoldSaved: "تم تسجيل الحجز للشراء.",
+    toastBuyNowHoldLocal: "تجريبي: حُفظ حجز الشراء الآن محلياً.",
+    toastApproveReportBuyNow: "وافق أولاً على تقرير تحليل الذكاء الاصطناعي.",
+    toastCompleteHold: "أكمل أولاً خطوة الحجز (التفويض المسبق) للشراء.",
+    toastCheckBuyNowAck: "حدّد مربّع الموافقة القانونية للشراء الآن.",
+    toastWon: "تهانينا! لقد فزت بالمزاد بمبلغ ₺{amount}؛ أُغلق المزاد.",
+    toastWonDemo: "تهانينا! لقد فزت بالمزاد بمبلغ ₺{amount} (تجريبي). أُغلق المزاد.",
+    tooltipBuyNowGate: "أولاً العقد / بوابة MASAK وحجز البطاقة",
+    tooltipBuyNowMock: "عرض MOCK — سعر تقديري إذا كان buy_now_price_try غير موجود في قاعدة البيانات",
+    tooltipCalcMortgage: "احسب القرض",
+    tooltipMessage: "مراسلة",
+    mobileBarAria: "شريط إجراءات الإعلان",
   },
   borsa: {
     marketTicker: "شريط السوق",

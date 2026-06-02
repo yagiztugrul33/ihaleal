@@ -486,11 +486,11 @@ export default function AuctionDetail() {
         context: "bid",
       });
       if (!pr.success) {
-        window.alert(pr.error ?? "Ön yetki reddedildi");
+        window.alert(pr.error ?? ld.toastPreAuthRejected);
         return;
       }
       if (pr.riskScore != null && pr.riskScore > 70) {
-        window.alert("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).");
+        window.alert(ld.toastRiskHigh);
       }
       if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
         const result = await registerBidDeposit({
@@ -536,11 +536,11 @@ export default function AuctionDetail() {
         context: "buy_now",
       });
       if (!pr.success) {
-        toastBid(pr.error ?? "Ön yetki reddedildi", "error");
+        toastBid(pr.error ?? ld.toastPreAuthRejected, "error");
         return;
       }
       if (pr.riskScore != null && pr.riskScore > 70) {
-        toastBid("Risk skoru yüksek — işlem manuel incelenecek (demo simülasyonu).", "warning");
+        toastBid(ld.toastRiskHigh, "warning");
       }
       if (isAuctionUuid(id) && dbListingId && dbAuctionPk) {
         const result = await registerBidDeposit({
@@ -554,7 +554,7 @@ export default function AuctionDetail() {
         if (result.ok) {
           setDepositIdBuyNow(result.depositId);
           sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, result.depositId);
-          toastBid("Satın alım için blokaj kaydedildi.", "success");
+          toastBid(ld.toastBuyNowHoldSaved, "success");
         } else {
           toastBid(result.message, result.status === "kyc_required" ? "warning" : "error");
           if (result.status === "kyc_required") {
@@ -566,7 +566,7 @@ export default function AuctionDetail() {
         const mockDep = `mock-buynow-${Date.now()}`;
         setDepositIdBuyNow(mockDep);
         sessionStorage.setItem(`ihaleal_deposit_buynow_${id}`, mockDep);
-        toastBid("Demo: satın al blokajı yerelde saklandı.", "info");
+        toastBid(ld.toastBuyNowHoldLocal, "info");
       }
       setPreAuthBuyNowOpen(false);
     } finally {
@@ -576,19 +576,19 @@ export default function AuctionDetail() {
 
   const executeBuyNowConfirm = () => {
     if (!user || effectiveBuyNowTry == null) {
-      toastBid("Giriş yapın.", "warning");
+      toastBid(ld.toastLogin, "warning");
       return;
     }
     if (!reportApproved) {
-      toastBid("Önce AI analiz raporunu onaylayın.", "warning");
+      toastBid(ld.toastApproveReportBuyNow, "warning");
       return;
     }
     if (!depositIdBuyNow) {
-      toastBid("Satın alım için önce blokaj (ön yetki) adımını tamamlayın.", "warning");
+      toastBid(ld.toastCompleteHold, "warning");
       return;
     }
     if (!buyNowFinalAck) {
-      toastBid("Hemen Al yasal onay kutusunu isaretleyin.", "warning");
+      toastBid(ld.toastCheckBuyNowAck, "warning");
       return;
     }
     setShowBuyNowConfirm(false);
@@ -611,7 +611,7 @@ export default function AuctionDetail() {
               setDemoBuyNowWon(true);
               sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
               toastBid(
-                `Tebrikler! ₺${result.amountTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız; ihale kapandı.`,
+                ld.toastWon.replace("{amount}", result.amountTry.toLocaleString("tr-TR")),
                 "success",
               );
               return;
@@ -639,7 +639,7 @@ export default function AuctionDetail() {
     sessionStorage.setItem(`ihaleal_buynow_won_${id}`, "1");
     setDemoBuyNowWon(true);
     toastBid(
-      `Tebrikler! ₺${effectiveBuyNowTry.toLocaleString("tr-TR")} ile ihaleyi kazandınız (demo). İhale kapandı.`,
+      ld.toastWonDemo.replace("{amount}", effectiveBuyNowTry.toLocaleString("tr-TR")),
       "success",
     );
   };
@@ -1472,23 +1472,23 @@ export default function AuctionDetail() {
                       title={
                         buyNowDisabled
                           ? !user
-                            ? "Giriş gerekli"
+                            ? ld.loginRequired
                             : !reportApproved
-                              ? "Önce AI raporunu onaylayın"
+                              ? ld.reportApproval
                               : !depositIdBuyNow
-                                ? "Önce sözleşme / MASAK kapısı ve kart blokesi"
+                                ? ld.tooltipBuyNowGate
                                 : ""
                           : !buyNowPriceDb
-                            ? "MOCK gösterim — DB’de buy_now_price_try yoksa tahmini fiyat"
+                            ? ld.tooltipBuyNowMock
                             : ""
                       }
                       onClick={() => {
                         if (!user) {
-                          toastBid("Giriş yapın.", "warning");
+                          toastBid(ld.toastLogin, "warning");
                           return;
                         }
                         if (!reportApproved) {
-                          toastBid("Önce AI analiz raporunu onaylayın.", "warning");
+                          toastBid(ld.toastApproveReportBuyNow, "warning");
                           return;
                         }
                         if (depositIdBuyNow) {
@@ -1512,11 +1512,11 @@ export default function AuctionDetail() {
                     </Button>
                   ) : null}
                   {!isListingOnly && auction.dealType !== "rent" ? (
-                    <Button variant="outline" className="border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 h-11 px-3 shrink-0" onClick={() => navigate("/mortgage")} title="Kredi Hesapla">
+                    <Button variant="outline" className="border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 h-11 px-3 shrink-0" onClick={() => navigate("/mortgage")} title={ld.tooltipCalcMortgage}>
                       <Calculator className="w-4 h-4" />
                     </Button>
                   ) : null}
-                  <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => navigate(`/mesajlar?listing=${encodeURIComponent(auction.id)}&title=${encodeURIComponent(auction.title)}`)} title="Mesajlaş"><MessageSquare className="w-4 h-4" /></Button>
+                  <Button variant="outline" className="border-slate-200 text-slate-300 hover:text-white h-11 px-3" type="button" onClick={() => navigate(`/mesajlar?listing=${encodeURIComponent(auction.id)}&title=${encodeURIComponent(auction.title)}`)} title={ld.tooltipMessage}><MessageSquare className="w-4 h-4" /></Button>
                 </div>
                 <div className="pt-4 border-t border-slate-200/80 space-y-3">
                   <SellerTrustCard sellerId={sellerId} listingId={auction.id} listingTitle={auction.title} />
@@ -1778,26 +1778,26 @@ export default function AuctionDetail() {
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <FileText className="w-5 h-5 text-teal-400" /> Piyasa raporu analizi
+              <FileText className="w-5 h-5 text-teal-400" /> {ld.mrTitle}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-400">
             <p>
-              Yüklediğiniz veya referans gösterdiğiniz bölge / fiyat raporu PDF’leri, İhaleal Endeksi çerçevesinde yapay zeka destekli özet ve tutarlılık kontrolüne tabidir; hukuki değerleme yerine geçmez. Üçüncü taraf rapor telifine uyum kullanıcı sorumluluğundadır.
+              {ld.mrBody}
             </p>
             {auction.marketReportPdfName ? (
               <p className="text-xs">
-                Bu ilan için seçilen dosya (demo): <code className="text-teal-300/90">{auction.marketReportPdfName}</code>
+                {ld.mrFileLabel} <code className="text-teal-300/90" dir="ltr">{auction.marketReportPdfName}</code>
               </p>
             ) : (
-              <p className="text-xs text-slate-500">İlan sahibi henüz rapor dosya adı eklemedi; tam akış üretimde.</p>
+              <p className="text-xs text-slate-500">{ld.mrNoFile}</p>
             )}
           </div>
           <DialogFooter className="gap-2 sm:gap-0">
             <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/veri-ve-endeks")}>
-              Analiz sayfasına git
+              {ld.mrGotoAnalysis}
             </Button>
-            <Button className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setShowMarketReportDialog(false)}>Kapat</Button>
+            <Button className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setShowMarketReportDialog(false)}>{ld.close}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -1806,26 +1806,26 @@ export default function AuctionDetail() {
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <Landmark className="w-5 h-5 text-sky-400" /> Resmi belgeler özeti
+              <Landmark className="w-5 h-5 text-sky-400" /> {ld.odTitle}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-400">
             <p>
-              İmar planı değişiklikleri, belediye onayları, yapı kullanma izni ve benzeri resmi kararlar tapu öncesi alıcı veya kiracıya bu kanaldan gösterilir; tapu sonrası sürpriz kalmaması hedeflenir.
+              {ld.odBody}
             </p>
             {auction.officialDocumentsForBuyer ? (
-              <p className="text-xs text-emerald-300/90">İlan kaydında “resmi paket alıcıya gösterilecek” beyanı mevcut (demo).</p>
+              <p className="text-xs text-emerald-300/90">{ld.odDeclYes}</p>
             ) : (
-              <p className="text-xs text-amber-200/80">Bu ilanda resmi paket beyanı yok veya henüz tamamlanmadı; üretimde moderasyon tamamlar.</p>
+              <p className="text-xs text-amber-200/80">{ld.odDeclNo}</p>
             )}
             <ul className="text-xs list-disc list-inside text-slate-500 space-y-1">
-              <li>İmar durumu / plan notları</li>
-              <li>Belediye yazıları ve ruhsat izleri</li>
-              <li>İlgili mahkeme veya idari karar özeti (varsa)</li>
+              <li>{ld.odItem1}</li>
+              <li>{ld.odItem2}</li>
+              <li>{ld.odItem3}</li>
             </ul>
           </div>
           <DialogFooter>
-            <Button className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setShowOfficialDocsDialog(false)}>Anladım</Button>
+            <Button className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setShowOfficialDocsDialog(false)}>{ld.understood}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -1833,29 +1833,32 @@ export default function AuctionDetail() {
       <Dialog open={preAuthOpen} onOpenChange={setPreAuthOpen}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">Blokaj ön yetkisi (mock)</DialogTitle>
+            <DialogTitle className="text-xl font-bold">{ld.paTitle}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
-            <p>
-              Blokaj tutarı: <strong className="text-white">₺{calcBidBond(liveBid).toLocaleString("tr-TR")}</strong> (taban ₺
-              {liveBid.toLocaleString("tr-TR")} üzerinden %{Math.round(BID_BOND_RATE * 100)}).
+            <p dir="ltr" className="text-start">
+              {ld.paAmountNote
+                .replace("{amount}", calcBidBond(liveBid).toLocaleString("tr-TR"))
+                .replace("{base}", liveBid.toLocaleString("tr-TR"))
+                .replace("{pct}", String(Math.round(BID_BOND_RATE * 100)))}
             </p>
-            <p>Kazanırsanız kaparo / teminat akışına işlenmesi hedeflenir (Ürün koşulları taslak).</p>
+            <p>{ld.paWinNote}</p>
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
-              Gerçek kart ödemesi yok; şu an demo ön yetki simülasyonu. PSP (iyzico vb.) bağlanınca canlı moda geçilir.
+              {ld.paDemoNote}
             </p>
+            {/* FAZ 3 — cayma/iade şartı (bağlayıcı legal): avukat onayı normumuz, çevrilmedi */}
             <p>Cayarsanız yaklaşık %10 kesinti ve kalanın iadesi hedeflenir — detay için cayma politikası.</p>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
-              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="test-ok veya test-fail" />
+              <label className="text-xs text-slate-500 block mb-1">{ld.cardTokenLabel}</label>
+              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder={ld.cardTokenPlaceholder} dir="ltr" />
             </div>
           </div>
           <DialogFooter className="gap-2">
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setPreAuthOpen(false)}>
-              Vazgeç
+              {ld.cancel}
             </Button>
             <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" disabled={preAuthBusy} onClick={() => void runPreAuth()}>
-              {preAuthBusy ? "İşleniyor..." : "Ön yetkilendir"}
+              {preAuthBusy ? ld.processing : ld.paConfirm}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1877,7 +1880,7 @@ export default function AuctionDetail() {
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
-              <p className="text-xs font-semibold text-cyan-200">Kart ve 3DS</p>
+              <p className="text-xs font-semibold text-cyan-200">{ld.hgCardSection}</p>
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_DOCS_BLOCK}</p>
@@ -1922,7 +1925,7 @@ export default function AuctionDetail() {
           </div>
           <DialogFooter className="gap-2 flex-col sm:flex-row">
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setHemenAlGateOpen(false)}>
-              Vazgec
+              {ld.cancel}
             </Button>
             <Button
               type="button"
@@ -1933,7 +1936,7 @@ export default function AuctionDetail() {
                 setPreAuthBuyNowOpen(true);
               }}
             >
-              Kart blokesi (Hemen Al) adımina devam
+              {ld.hgContinue}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1942,35 +1945,33 @@ export default function AuctionDetail() {
       <Dialog open={preAuthBuyNowOpen} onOpenChange={setPreAuthBuyNowOpen}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">Hemen Al — kart on yetkisi (mock)</DialogTitle>
+            <DialogTitle className="text-xl font-bold">{ld.pabTitle}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
             {effectiveBuyNowTry != null ? (
-              <p>
-                Hemen Al tutari: <strong className="text-white">₺{effectiveBuyNowTry.toLocaleString("tr-TR")}</strong>
+              <p dir="ltr" className="text-start">
+                {ld.pabAmountNote.replace("{amount}", effectiveBuyNowTry.toLocaleString("tr-TR"))}
               </p>
             ) : null}
-            <p>
-              Blokaj tutarı:{" "}
-              <strong className="text-white">
-                ₺{calcBidBond(effectiveBuyNowTry ?? 0).toLocaleString("tr-TR")}
-              </strong>{" "}
-              (Hemen Al bedeli üzerinden %{Math.round(BID_BOND_RATE * 100)} bloke/teminat; PSP provizyonu).
+            <p dir="ltr" className="text-start">
+              {ld.pabHoldNote
+                .replace("{amount}", calcBidBond(effectiveBuyNowTry ?? 0).toLocaleString("tr-TR"))
+                .replace("{pct}", String(Math.round(BID_BOND_RATE * 100)))}
             </p>
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
-              Gercek odeme baglaninca 3D Secure zorunlu olur; simdi demo token ile on yetki simule edilir.
+              {ld.pabDemoNote}
             </p>
             <div>
-              <label className="text-xs text-slate-500 block mb-1">Kart token (demo)</label>
-              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder="test-ok veya test-fail" />
+              <label className="text-xs text-slate-500 block mb-1">{ld.cardTokenLabel}</label>
+              <Input value={cardToken} onChange={(e) => setCardToken(e.target.value)} className="bg-slate-950 border-slate-200 text-white" placeholder={ld.cardTokenPlaceholder} dir="ltr" />
             </div>
           </div>
           <DialogFooter className="gap-2">
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setPreAuthBuyNowOpen(false)}>
-              Vazgec
+              {ld.cancel}
             </Button>
             <Button type="button" className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white" disabled={preAuthBusy} onClick={() => void runPreAuthBuyNow()}>
-              {preAuthBusy ? "İşleniyor..." : "Blokaji baslat"}
+              {preAuthBusy ? ld.processing : ld.pabStart}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -1979,19 +1980,16 @@ export default function AuctionDetail() {
       <Dialog open={showBuyNowConfirm} onOpenChange={setShowBuyNowConfirm}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">Hemen Al — islemi tamamla</DialogTitle>
+            <DialogTitle className="text-xl font-bold">{ld.bncTitle}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
-            <p>
-              Tutar:{" "}
-              <strong className="text-emerald-300">
-                ₺{(effectiveBuyNowTry ?? 0).toLocaleString("tr-TR")}
-              </strong>
+            <p dir="ltr" className="text-start">
+              {ld.bncAmount.replace("{amount}", (effectiveBuyNowTry ?? 0).toLocaleString("tr-TR"))}
             </p>
-            <p className="text-xs text-slate-400">
-              Tahmini komisyon + harç (referans): ₺
-              {estimateBuyerClosingCosts(effectiveBuyNowTry ?? liveBid).total.toLocaleString("tr-TR")} — fees.ts
+            <p className="text-xs text-slate-400" dir="ltr">
+              {ld.bncCommNote.replace("{amount}", estimateBuyerClosingCosts(effectiveBuyNowTry ?? liveBid).total.toLocaleString("tr-TR"))}
             </p>
+            {/* FAZ 3 — bağlayıcı yasal onay (MESAFELİ/MASAK/MODULE3): avukat onayı normumuz, çevrilmedi */}
             <label className="flex items-start gap-2 cursor-pointer text-xs">
               <Checkbox checked={buyNowFinalAck} onCheckedChange={(c) => setBuyNowFinalAck(c === true)} className="mt-0.5" />
               <span>MESAFELI SATIS, ihale kosullari, MASAK/KYC ve MODULE3 Hemen Al yukumluluklerini tekrar onayliyorum.</span>
@@ -1999,7 +1997,7 @@ export default function AuctionDetail() {
           </div>
           <DialogFooter className="gap-2 flex-col sm:flex-row">
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setShowBuyNowConfirm(false)}>
-              Vazgec
+              {ld.cancel}
             </Button>
             <Button
               type="button"
@@ -2007,7 +2005,7 @@ export default function AuctionDetail() {
               disabled={!buyNowFinalAck || buyNowBusy}
               onClick={() => executeBuyNowConfirm()}
             >
-              {buyNowBusy ? "Kaydediliyor..." : "Ihaleyi Hemen Al ile kapat"}
+              {buyNowBusy ? ld.bncSaving : ld.bncClose}
             </Button>
             {isSupabaseConfigured() && isAuctionUuid(id ?? "") && dbListingId && depositIdBuyNow && !depositIdBuyNow.startsWith("mock-buynow") ? (
               <Button
@@ -2031,13 +2029,13 @@ export default function AuctionDetail() {
 
       <Dialog open={showVirtualTour} onOpenChange={setShowVirtualTour}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-4xl">
-          <DialogHeader><DialogTitle className="text-xl font-bold">360° Sanal Tur</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle className="text-xl font-bold">{ld.ovVirtualTourTitle}</DialogTitle></DialogHeader>
           <div className="aspect-video rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center">
             <div className="text-center">
               <Video className="w-12 h-12 text-blue-400 mx-auto mb-3" />
-              <p className="text-white font-semibold mb-1">Sanal Tur Entegrasyonu</p>
-              <p className="text-sm text-slate-400">Momento360 veya Matterport ile 360° tur eklenebilir.</p>
-              <p className="text-xs text-slate-500 mt-2">URL: {auction.virtualTour || "Henüz eklenmemiş"}</p>
+              <p className="text-white font-semibold mb-1">{ld.vtIntegrationTitle}</p>
+              <p className="text-sm text-slate-400">{ld.vtIntegrationDesc}</p>
+              <p className="text-xs text-slate-500 mt-2">URL: <span dir="ltr">{auction.virtualTour || ld.vtUrlNotAdded}</span></p>
             </div>
           </div>
         </DialogContent>
@@ -2055,7 +2053,7 @@ export default function AuctionDetail() {
       <div
         className="fixed bottom-0 inset-x-0 z-40 lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.4)]"
         role="region"
-        aria-label="İlan aksiyon barı"
+        aria-label={ld.mobileBarAria}
       >
         <div className="flex items-center gap-3 px-3 py-2.5 max-w-7xl mx-auto">
           <div className="flex-1 min-w-0" dir="ltr">
