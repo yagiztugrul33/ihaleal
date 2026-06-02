@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { calcMortgagePayment, formatTry } from "@/lib/mortgageCalc";
 import { FxRef } from "@/components/FxRef";
 import { useMemo } from "react";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type Props = {
   priceTry: number;
@@ -11,6 +12,8 @@ type Props = {
 };
 
 export function ListingMortgageWidget({ priceTry, className = "" }: Props) {
+  const { t } = useLocale();
+  const lv = t.loanValuation;
   const estimate = useMemo(() => {
     if (priceTry <= 0) return null;
     const principal = Math.round(priceTry * 0.8);
@@ -27,19 +30,19 @@ export function ListingMortgageWidget({ priceTry, className = "" }: Props) {
         <div>
           <p className="text-sm font-semibold text-teal-100 flex items-center gap-2">
             <Calculator className="h-4 w-4" />
-            Bu ilan için kredi hesapla
+            {lv.widgetTitle}
           </p>
           {estimate ? (
             <p className="mt-1 text-xs text-slate-400">
-              %80 finansman, 120 ay, %2,89 aylık faiz tahmini:{" "}
-              <span className="text-teal-300 font-medium" dir="ltr">{formatTry(estimate.monthlyPayment)}/ay</span>
+              <span dir="ltr">80% · 120 · 2.89%</span> {lv.widgetEstimate}{" "}
+              <span className="text-teal-300 font-medium" dir="ltr">{formatTry(estimate.monthlyPayment)}/{lv.monthlyInstallment.toLowerCase().split(" ")[0]}</span>
               <FxRef amountTry={estimate.monthlyPayment} variant="compact" className="ms-1 text-[11px] text-amber-300/80" />
             </p>
           ) : null}
-          <p className="mt-2 text-[10px] text-slate-500">Bilgilendirme amaçlı; banka onayı gerekir.</p>
+          <p className="mt-2 text-[10px] text-slate-500">{lv.widgetBankNote}</p>
         </div>
         <Button asChild size="sm" variant="outline" className="shrink-0 border-teal-500/30 text-teal-200">
-          <Link to={href}>Hesapla</Link>
+          <Link to={href}>{lv.widgetCalculate}</Link>
         </Button>
       </div>
     </div>

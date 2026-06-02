@@ -12,6 +12,7 @@ import {
   type PropertyCondition,
 } from "@/lib/valuation/valuationEngine";
 import { FxRef } from "@/components/FxRef";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type WorkbenchState = {
   city: CityKey;
@@ -46,12 +47,17 @@ const INITIAL_STATE: WorkbenchState = {
 };
 
 export function ValuationWorkbench({
-  title = "Değerleme başlat",
+  title,
   compact = false,
 }: {
   title?: string;
   compact?: boolean;
 }) {
+  const { t } = useLocale();
+  const lv = t.loanValuation;
+  const effectiveTitle = title ?? lv.startValuation;
+  const _refTitle = effectiveTitle; // (gelecek kullanım için referans tutuldu)
+  void _refTitle;
   const [form, setForm] = useState<WorkbenchState>(INITIAL_STATE);
   const [error, setError] = useState("");
   const [result, setResult] = useState<ReturnType<typeof estimatePropertyValue> | null>(null);
@@ -273,7 +279,7 @@ export function ValuationWorkbench({
 
         <div className="xl:col-span-4 flex flex-wrap items-center gap-2 pt-1">
           <Button type="submit" variant="accent">
-            <Calculator className="mr-1.5 h-4 w-4" /> Değerleme başlat
+            <Calculator className="me-1.5 h-4 w-4" /> {lv.startValuation}
           </Button>
           <Button
             type="button"
@@ -284,7 +290,7 @@ export function ValuationWorkbench({
               setError("");
             }}
           >
-            Formu sıfırla
+            {lv.resetForm}
           </Button>
           {error ? <span className="text-xs text-rose-300">{error}</span> : null}
         </div>
@@ -294,39 +300,39 @@ export function ValuationWorkbench({
         <div className="space-y-4">
           <article className="grid gap-3 rounded-xl border border-emerald-500/35 bg-emerald-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
             <div>
-              <p className="text-xs text-emerald-100">Tahmini değer (yaklaşık)</p>
+              <p className="text-xs text-emerald-100">{lv.estimatedValueApprox}</p>
               <p className="text-xl font-black text-white" dir="ltr">{formatTry(result.estimatedValue)}</p>
               <FxRef amountTry={result.estimatedValue} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
             <div>
-              <p className="text-xs text-emerald-100">Güven aralığı</p>
+              <p className="text-xs text-emerald-100">{lv.confidenceRange}</p>
               <p className="text-sm font-semibold text-white" dir="ltr">
                 {formatTry(result.minValue)} - {formatTry(result.maxValue)}
               </p>
-              <FxRef amountTry={result.maxValue} variant="block" className="text-[11px] text-amber-300/80" note="üst sınır" />
+              <FxRef amountTry={result.maxValue} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
             <div>
-              <p className="text-xs text-emerald-100">Belirsizlik bandı</p>
-              <p className="text-sm font-semibold text-white">± %{result.confidenceBandPct}</p>
+              <p className="text-xs text-emerald-100">{lv.uncertaintyBand}</p>
+              <p className="text-sm font-semibold text-white" dir="ltr">± {result.confidenceBandPct}%</p>
             </div>
             <div>
-              <p className="text-xs text-emerald-100">Model skoru</p>
+              <p className="text-xs text-emerald-100">{lv.modelScore}</p>
               <p className="text-sm font-semibold text-white">
-                {result.confidenceScore}/100 ({result.confidence === "high" ? "Yüksek" : "Orta"})
+                <span dir="ltr">{result.confidenceScore}/100</span> ({result.confidence === "high" ? lv.modelScoreHigh : lv.modelScoreMedium})
               </p>
             </div>
           </article>
 
           <article className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
             <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">SHAP katkı dökümü</h3>
+              <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">{lv.shapTitle}</h3>
               <div className="h-[260px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={contributionChart} layout="vertical" margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                     <XAxis type="number" tick={{ fill: "#94a3b8", fontSize: 11 }} />
                     <YAxis dataKey="name" type="category" width={120} tick={{ fill: "#cbd5e1", fontSize: 11 }} />
-                    <Tooltip formatter={(value: number) => [`${value >= 0 ? "+" : ""}${value.toFixed(2)}%`, "Etkisi"]} />
+                    <Tooltip formatter={(value: number) => [`${value >= 0 ? "+" : ""}${value.toFixed(2)}%`, lv.shapImpact]} />
                     <Bar dataKey="pct" fill="#22d3ee" radius={[4, 4, 4, 4]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -334,7 +340,7 @@ export function ValuationWorkbench({
             </div>
 
             <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">Katman özeti</h3>
+              <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">{lv.layerSummary}</h3>
               <ul className="space-y-2 text-sm text-slate-200">
                 <li>
                   Baz birim fiyat: <strong>{formatTry(result.layerSummary.baseUnitPrice)}</strong>

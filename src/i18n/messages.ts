@@ -177,6 +177,48 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type LoanValuationMessages = {
+  // Geri butonu (paylaşılan)
+  back: string;
+  // Konut Kredisi Hesaplayıcı + Mortgage sayfası
+  loanTitle: string;
+  loanSubtitle: string;
+  loanAmount: string;
+  monthlyRate: string;
+  termLabel: string;          // "Vade: {n} ay ({y} yıl)" — format ile birleştirilecek
+  yearLabel: string;          // "yıl" preset chip
+  monthlyInstallment: string;
+  totalRepayment: string;
+  totalInterest: string;
+  loanAmountField: string;    // "Kredi Tutarı" (Mortgage sayfası)
+  downPayment: string;
+  propertyValue: string;
+  loanDisclaimerEqual: string;
+  loanDisclaimerInfo: string;
+  // ListingMortgageWidget
+  widgetTitle: string;
+  widgetEstimate: string;     // "{financingPct}% finansman, {months} ay, {rate}% aylık faiz tahmini:"
+  widgetCalculate: string;
+  widgetBankNote: string;
+  // ValuationWorkbench
+  valuationTitle: string;
+  estimatedValueApprox: string;
+  confidenceRange: string;
+  uncertaintyBand: string;
+  modelScore: string;
+  modelScoreHigh: string;
+  modelScoreMedium: string;
+  shapTitle: string;
+  shapImpact: string;
+  layerSummary: string;
+  startValuation: string;
+  resetForm: string;
+  // Genel dürüstlük
+  disclaimerInfo: string;       // "Bilgilendirme amaçlıdır"
+  disclaimerNotOffer: string;   // "Kesin teklif değildir"
+  disclaimerApprox: string;     // "Yaklaşık değer"
+};
+
 export type TierDataMessages = {
   byId: {
     free: { name: string; tagline: string };
@@ -442,6 +484,7 @@ export type Messages = {
   megaMenu: MegaMenuMessages;
   footer: FooterMessages;
   tierData: TierDataMessages;
+  loanValuation: LoanValuationMessages;
 };
 
 /**
@@ -919,6 +962,42 @@ export const messages: Record<"en" | "tr", Messages> = {
         kurumsal: { name: "Enterprise", tagline: "Chain offices + portfolio funds + contractors" },
       },
     },
+    loanValuation: {
+      back: "Back",
+      loanTitle: "Mortgage Calculator",
+      loanSubtitle: "Estimated installment and total repayment based on loan amount, term and monthly interest rate (informational).",
+      loanAmount: "Loan amount (₺)",
+      monthlyRate: "Monthly interest rate (%)",
+      termLabel: "Term",
+      yearLabel: "yr",
+      monthlyInstallment: "Monthly installment",
+      totalRepayment: "Total repayment",
+      totalInterest: "Total interest",
+      loanAmountField: "Loan Amount",
+      downPayment: "Down payment",
+      propertyValue: "Property value",
+      loanDisclaimerEqual: "This calculation uses the equal-installment formula; file fees, insurance and bank campaigns are not included. Contact your bank for a binding offer.",
+      loanDisclaimerInfo: "For informational purposes only.",
+      widgetTitle: "Calculate a loan for this listing",
+      widgetEstimate: "estimate:",
+      widgetCalculate: "Calculate",
+      widgetBankNote: "For information only; bank approval required.",
+      valuationTitle: "Property Valuation",
+      estimatedValueApprox: "Estimated value (approximate)",
+      confidenceRange: "Confidence range",
+      uncertaintyBand: "Uncertainty band",
+      modelScore: "Model score",
+      modelScoreHigh: "High",
+      modelScoreMedium: "Medium",
+      shapTitle: "SHAP contribution breakdown",
+      shapImpact: "Impact",
+      layerSummary: "Layer summary",
+      startValuation: "Start valuation",
+      resetForm: "Reset form",
+      disclaimerInfo: "For informational purposes",
+      disclaimerNotOffer: "Not a binding offer",
+      disclaimerApprox: "Approximate",
+    },
   },
   tr: {
     nav: {
@@ -1389,6 +1468,42 @@ export const messages: Record<"en" | "tr", Messages> = {
         kurumsal: { name: "Kurumsal", tagline: "Zincir ofisleri + portföy fonları + müteahhitler" },
       },
     },
+    loanValuation: {
+      back: "Geri",
+      loanTitle: "Konut Kredisi Hesaplayıcı",
+      loanSubtitle: "Kredi tutarı, vade ve aylık faiz oranına göre taksit ve toplam geri ödeme tahmini (bilgilendirme amaçlı).",
+      loanAmount: "Kredi tutarı (₺)",
+      monthlyRate: "Aylık faiz oranı (%)",
+      termLabel: "Vade",
+      yearLabel: "yıl",
+      monthlyInstallment: "Aylık taksit",
+      totalRepayment: "Toplam geri ödeme",
+      totalInterest: "Toplam faiz",
+      loanAmountField: "Kredi Tutarı",
+      downPayment: "Peşinat",
+      propertyValue: "Konut bedeli",
+      loanDisclaimerEqual: "Bu hesaplama eşit taksit formülüne dayanır; dosya masrafı, sigorta ve banka kampanyaları dahil değildir. Kesin teklif için bankanıza başvurun.",
+      loanDisclaimerInfo: "Sadece bilgilendirme amaçlıdır.",
+      widgetTitle: "Bu ilan için kredi hesapla",
+      widgetEstimate: "tahmini:",
+      widgetCalculate: "Hesapla",
+      widgetBankNote: "Bilgilendirme amaçlı; banka onayı gerekir.",
+      valuationTitle: "Gayrimenkul Değerleme",
+      estimatedValueApprox: "Tahmini değer (yaklaşık)",
+      confidenceRange: "Güven aralığı",
+      uncertaintyBand: "Belirsizlik bandı",
+      modelScore: "Model skoru",
+      modelScoreHigh: "Yüksek",
+      modelScoreMedium: "Orta",
+      shapTitle: "SHAP katkı dökümü",
+      shapImpact: "Etkisi",
+      layerSummary: "Katman özeti",
+      startValuation: "Değerleme başlat",
+      resetForm: "Formu sıfırla",
+      disclaimerInfo: "Bilgilendirme amaçlıdır",
+      disclaimerNotOffer: "Kesin teklif değildir",
+      disclaimerApprox: "Yaklaşık",
+    },
   },
 };
 
@@ -1765,6 +1880,42 @@ const _ruOverrides: PartialDeep<Messages> = {
       kurumsal: { name: "Корпоративный", tagline: "Сети агентств + портфельные фонды + подрядчики" },
     },
   },
+  loanValuation: {
+    back: "Назад",
+    loanTitle: "Ипотечный калькулятор",
+    loanSubtitle: "Оценка ежемесячного платежа и общей суммы выплат на основе суммы кредита, срока и месячной процентной ставки (в информационных целях).",
+    loanAmount: "Сумма кредита (₺)",
+    monthlyRate: "Месячная процентная ставка (%)",
+    termLabel: "Срок",
+    yearLabel: "г.",
+    monthlyInstallment: "Ежемесячный платёж",
+    totalRepayment: "Общая сумма выплат",
+    totalInterest: "Общие проценты",
+    loanAmountField: "Сумма кредита",
+    downPayment: "Первоначальный взнос",
+    propertyValue: "Стоимость недвижимости",
+    loanDisclaimerEqual: "Расчёт основан на формуле равных платежей; сборы за оформление, страхование и банковские акции не учтены. Для окончательного предложения обратитесь в свой банк.",
+    loanDisclaimerInfo: "Только в информационных целях.",
+    widgetTitle: "Рассчитать кредит для этого объявления",
+    widgetEstimate: "оценка:",
+    widgetCalculate: "Рассчитать",
+    widgetBankNote: "В информационных целях; требуется одобрение банка.",
+    valuationTitle: "Оценка недвижимости",
+    estimatedValueApprox: "Оценочная стоимость (примерно)",
+    confidenceRange: "Доверительный диапазон",
+    uncertaintyBand: "Полоса неопределённости",
+    modelScore: "Оценка модели",
+    modelScoreHigh: "Высокая",
+    modelScoreMedium: "Средняя",
+    shapTitle: "Разбор вклада SHAP",
+    shapImpact: "Влияние",
+    layerSummary: "Сводка слоёв",
+    startValuation: "Начать оценку",
+    resetForm: "Сбросить форму",
+    disclaimerInfo: "В информационных целях",
+    disclaimerNotOffer: "Не является окончательным предложением",
+    disclaimerApprox: "Примерно",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -2125,6 +2276,42 @@ const _arOverrides: PartialDeep<Messages> = {
       emlak_pro: { name: "وسيط احترافي", tagline: "وكالة عقارية احترافية — نمو" },
       kurumsal: { name: "للشركات", tagline: "سلاسل المكاتب + صناديق المحافظ + المقاولون" },
     },
+  },
+  loanValuation: {
+    back: "رجوع",
+    loanTitle: "حاسبة القرض العقاري",
+    loanSubtitle: "تقدير القسط الشهري وإجمالي السداد بناءً على مبلغ القرض والمدة ومعدل الفائدة الشهري (لأغراض إعلامية).",
+    loanAmount: "مبلغ القرض (₺)",
+    monthlyRate: "معدل الفائدة الشهري (%)",
+    termLabel: "المدة",
+    yearLabel: "سنة",
+    monthlyInstallment: "القسط الشهري",
+    totalRepayment: "إجمالي السداد",
+    totalInterest: "إجمالي الفوائد",
+    loanAmountField: "مبلغ القرض",
+    downPayment: "الدفعة الأولى",
+    propertyValue: "قيمة العقار",
+    loanDisclaimerEqual: "يستند هذا الحساب إلى صيغة الأقساط المتساوية؛ لا تشمل رسوم الملف والتأمين وعروض البنوك. للحصول على عرض نهائي يُرجى مراجعة البنك.",
+    loanDisclaimerInfo: "لأغراض إعلامية فقط.",
+    widgetTitle: "احسب قرضاً لهذا الإعلان",
+    widgetEstimate: "تقدير:",
+    widgetCalculate: "احسب",
+    widgetBankNote: "لأغراض إعلامية؛ يلزم موافقة البنك.",
+    valuationTitle: "تقييم العقار",
+    estimatedValueApprox: "القيمة التقديرية (تقريبية)",
+    confidenceRange: "نطاق الثقة",
+    uncertaintyBand: "نطاق عدم اليقين",
+    modelScore: "درجة النموذج",
+    modelScoreHigh: "عالية",
+    modelScoreMedium: "متوسطة",
+    shapTitle: "تفصيل مساهمة SHAP",
+    shapImpact: "التأثير",
+    layerSummary: "ملخص الطبقات",
+    startValuation: "بدء التقييم",
+    resetForm: "إعادة تعيين النموذج",
+    disclaimerInfo: "لأغراض إعلامية",
+    disclaimerNotOffer: "ليس عرضاً نهائياً",
+    disclaimerApprox: "تقريباً",
   },
 };
 
