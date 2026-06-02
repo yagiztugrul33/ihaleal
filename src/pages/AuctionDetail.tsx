@@ -763,7 +763,7 @@ export default function AuctionDetail() {
   ];
 
   return (
-    <div ref={ref} className="min-h-screen pt-20 pb-16">
+    <div ref={ref} className="min-h-screen pt-20 pb-28 lg:pb-16">
       <div className="glass-panel sticky top-16 z-40 rounded-none border-x-0 border-t-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
@@ -2039,6 +2039,99 @@ export default function AuctionDetail() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/*
+        ───────── MOBİL ALT STICKY AKSİYON BARI ─────────
+        Sadece lg breakpoint altında görünür (lg:hidden).
+        Masaüstü sağ sticky özet kart (line 1205, lg:col-span-1) DOKUNULMADI.
+        Buton mevcut handler'ları çağırır (setShowBidDialog / setOfferDialogOpen);
+        yeni teklif/akış mantığı YOK — placeBid/validateBid/preAuthorize hep aynı dialog'tan.
+        Görsel: dark zemin (site dark-first), birincil buton mavi (görsel disiplin: amber=ikincil),
+        logical CSS (me-/ms-), dir="ltr" sayı (BiDi/Arapça hazır), sahte aciliyet YOK.
+      */}
+      <div
+        className="fixed bottom-0 inset-x-0 z-40 lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.4)]"
+        role="region"
+        aria-label="İlan aksiyon barı"
+      >
+        <div className="flex items-center gap-3 px-3 py-2.5 max-w-7xl mx-auto">
+          <div className="flex-1 min-w-0" dir="ltr">
+            <div className="text-[10px] uppercase tracking-wide text-slate-400 truncate">
+              {pricePrimaryLabel}
+            </div>
+            <div className="flex items-baseline gap-2">
+              <div className="text-base font-bold text-white truncate">
+                ₺{liveBid.toLocaleString("tr-TR")}
+              </div>
+              <FxRef
+                amountTry={liveBid}
+                variant="compact"
+                className="text-[11px] text-amber-300/80 truncate"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => id && toggleFavorite(id)}
+              className={`h-11 w-11 p-0 ${saved ? "text-pink-400" : "text-slate-400"} hover:text-white`}
+              aria-label={saved ? "Favoriden çıkar" : "Favoriye ekle"}
+            >
+              <Heart className={`w-5 h-5 ${saved ? "fill-current" : ""}`} />
+            </Button>
+            {isListingOnly ? (
+              <Button
+                type="button"
+                className="h-11 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold"
+                disabled={!user || (sellerId != null && user?.id === sellerId)}
+                title={
+                  !user
+                    ? "Giriş gerekli"
+                    : sellerId && user?.id === sellerId
+                    ? "Kendi ilanınıza teklif veremezsiniz"
+                    : undefined
+                }
+                onClick={() => {
+                  if (!user) {
+                    toastBid("Giriş yapın.", "warning");
+                    return;
+                  }
+                  setOfferDialogOpen(true);
+                }}
+              >
+                <HandCoins className="w-4 h-4 me-1.5" /> Teklif
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                className="h-11 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold disabled:opacity-50"
+                disabled={bidDisabled}
+                title={
+                  bidDisabled
+                    ? !user
+                      ? "Giriş gerekli"
+                      : !reportApproved
+                      ? "Önce AI raporunu onaylayın"
+                      : !depositId
+                      ? "Blokaj ön yetkisi gerekli"
+                      : "Açık artırma sona erdi"
+                    : undefined
+                }
+                onClick={() => {
+                  setBidAmount((liveBid + 50000).toString());
+                  setShowBidDialog(true);
+                }}
+              >
+                <TrendingUp className="w-4 h-4 me-1.5" />{" "}
+                {isSealedOffer ? "Kapalı teklif" : "Teklif ver"}
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
