@@ -73,23 +73,24 @@ export function ValuationWorkbench({
     [result],
   );
 
+  const vf = t.valuationForm;
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
     if (form.grossM2 < 20) {
-      setError("Brüt m² en az 20 olmalı.");
+      setError(`${vf.grossM2Label} ≥ 20`);
       return;
     }
     if (form.roomCount < 1) {
-      setError("Oda sayısı en az 1 olmalı.");
+      setError(`${vf.roomCountLabel} ≥ 1`);
       return;
     }
     if (form.totalFloors < 1) {
-      setError("Toplam kat en az 1 olmalı.");
+      setError(vf.errorTotalFloorsMin);
       return;
     }
     if (form.floor < 0) {
-      setError("Kat bilgisi negatif olamaz.");
+      setError(vf.errorFloorNegative);
       return;
     }
     const next = estimatePropertyValue({
@@ -115,16 +116,16 @@ export function ValuationWorkbench({
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-black text-white md:text-2xl">{title}</h2>
-          <p className="mt-1 text-sm text-slate-300">Demo veri / ön analiz: hedonik + emsal + mekansal düzeltme birlikte çalışır.</p>
+          <p className="mt-1 text-sm text-slate-300">{vf.headerSubtitle}</p>
         </div>
         <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3 py-1 text-xs font-semibold text-cyan-100">
-          <ShieldCheck className="h-3.5 w-3.5" /> Açıklanabilir model
+          <ShieldCheck className="h-3.5 w-3.5" /> {vf.explainableModel}
         </span>
       </header>
 
       <form onSubmit={onSubmit} className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         <label className="space-y-1 text-xs text-slate-300">
-          İl
+          {vf.cityLabel}
           <select
             value={form.city}
             onChange={(event) =>
@@ -145,117 +146,122 @@ export function ValuationWorkbench({
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          İlçe
+          {vf.districtLabel}
           <select
             value={form.district}
             onChange={(event) => setForm((prev) => ({ ...prev, district: event.target.value }))}
             className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
-            {districtOptions.length ? districtOptions.map((district) => <option key={district}>{district}</option>) : <option value="">İlçe verisi yok</option>}
+            {districtOptions.length ? districtOptions.map((district) => <option key={district}>{district}</option>) : <option value="">{vf.districtNoData}</option>}
           </select>
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Brüt m²
+          {vf.grossM2Label}
           <Input
             type="number"
             min={20}
             value={form.grossM2}
             onChange={(event) => setForm((prev) => ({ ...prev, grossM2: Number(event.target.value || 0) }))}
+            dir="ltr"
           />
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Oda sayısı
+          {vf.roomCountLabel}
           <Input
             type="number"
             min={1}
             value={form.roomCount}
             onChange={(event) => setForm((prev) => ({ ...prev, roomCount: Number(event.target.value || 1) }))}
+            dir="ltr"
           />
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Kat
+          {vf.floorLabel}
           <Input
             type="number"
             min={0}
             value={form.floor}
             onChange={(event) => setForm((prev) => ({ ...prev, floor: Number(event.target.value || 0) }))}
+            dir="ltr"
           />
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Toplam kat
+          {vf.totalFloorsLabel}
           <Input
             type="number"
             min={1}
             value={form.totalFloors}
             onChange={(event) => setForm((prev) => ({ ...prev, totalFloors: Number(event.target.value || 1) }))}
+            dir="ltr"
           />
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Bina yaşı
+          {vf.buildingAgeLabel}
           <Input
             type="number"
             min={0}
             value={form.buildingAge}
             onChange={(event) => setForm((prev) => ({ ...prev, buildingAge: Number(event.target.value || 0) }))}
+            dir="ltr"
           />
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Isıtma
+          {vf.heatingLabel}
           <select
             value={form.heatingType}
             onChange={(event) => setForm((prev) => ({ ...prev, heatingType: event.target.value as HeatingType }))}
             className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
-            <option value="district">Merkezi sistem</option>
-            <option value="central">Merkezi daire</option>
-            <option value="combi">Kombi</option>
-            <option value="underfloor">Yerden ısıtma</option>
-            <option value="stove">Soba</option>
+            <option value="district">{vf.heatingDistrict}</option>
+            <option value="central">{vf.heatingCentral}</option>
+            <option value="combi">{vf.heatingCombi}</option>
+            <option value="underfloor">{vf.heatingUnderfloor}</option>
+            <option value="stove">{vf.heatingStove}</option>
           </select>
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Konum kalitesi
+          {vf.locationTierLabel}
           <select
             value={form.locationTier}
             onChange={(event) => setForm((prev) => ({ ...prev, locationTier: event.target.value as LocationTier }))}
             className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
-            <option value="prime">Prime</option>
-            <option value="strong">Güçlü</option>
-            <option value="balanced">Dengeli</option>
-            <option value="emerging">Gelişen</option>
+            <option value="prime">{vf.tierPrime}</option>
+            <option value="strong">{vf.tierStrong}</option>
+            <option value="balanced">{vf.tierBalanced}</option>
+            <option value="emerging">{vf.tierEmerging}</option>
           </select>
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          Fiziksel durum
+          {vf.conditionLabel}
           <select
             value={form.condition}
             onChange={(event) => setForm((prev) => ({ ...prev, condition: event.target.value as PropertyCondition }))}
             className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
-            <option value="new">Yeni</option>
-            <option value="good">İyi</option>
-            <option value="needs_renovation">Tadilat gerekli</option>
+            <option value="new">{vf.conditionNew}</option>
+            <option value="good">{vf.conditionGood}</option>
+            <option value="needs_renovation">{vf.conditionNeedsRenovation}</option>
           </select>
         </label>
 
         <label className="space-y-1 text-xs text-slate-300">
-          İşlem tipi
+          {vf.transactionTypeLabel}
           <select
             value={form.transactionType}
             onChange={(event) => setForm((prev) => ({ ...prev, transactionType: event.target.value as TransactionType }))}
             className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
-            <option value="sale">Satış değeri</option>
-            <option value="rent">Kira değeri</option>
+            <option value="sale">{vf.txSale}</option>
+            <option value="rent">{vf.txRent}</option>
           </select>
         </label>
 
@@ -265,7 +271,7 @@ export function ValuationWorkbench({
             checked={form.hasElevator}
             onChange={(event) => setForm((prev) => ({ ...prev, hasElevator: event.target.checked }))}
           />
-          Asansör
+          {vf.hasElevator}
         </label>
 
         <label className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-300">
@@ -274,7 +280,7 @@ export function ValuationWorkbench({
             checked={form.hasParking}
             onChange={(event) => setForm((prev) => ({ ...prev, hasParking: event.target.checked }))}
           />
-          Otopark
+          {vf.hasParking}
         </label>
 
         <div className="xl:col-span-4 flex flex-wrap items-center gap-2 pt-1">
@@ -415,10 +421,10 @@ export function ValuationWorkbench({
           {!compact ? (
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
               <p className="text-sm text-cyan-100">
-                Ön değerleme tamamlandı. Resmi değer için SPK lisanslı değerleme uzmanı (TDUB) teyidi gerekir.
+                {vf.finalReviewBanner}
               </p>
               <Button type="button" className="bg-cyan-400 text-slate-950 hover:bg-cyan-300">
-                Değerleme başlat <ArrowRight className="ml-1.5 h-4 w-4" />
+                {vf.startValuationCta} <ArrowRight className="ms-1.5 h-4 w-4 rtl:rotate-180" />
               </Button>
             </div>
           ) : null}

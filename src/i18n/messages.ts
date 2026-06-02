@@ -177,6 +177,43 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type ValuationFormMessages = {
+  headerSubtitle: string;
+  explainableModel: string;
+  cityLabel: string;
+  districtLabel: string;
+  districtNoData: string;
+  grossM2Label: string;
+  roomCountLabel: string;
+  floorLabel: string;
+  totalFloorsLabel: string;
+  buildingAgeLabel: string;
+  heatingLabel: string;
+  heatingDistrict: string;
+  heatingCentral: string;
+  heatingCombi: string;
+  heatingUnderfloor: string;
+  heatingStove: string;
+  locationTierLabel: string;
+  tierPrime: string;
+  tierStrong: string;
+  tierBalanced: string;
+  tierEmerging: string;
+  conditionLabel: string;
+  conditionNew: string;
+  conditionGood: string;
+  conditionNeedsRenovation: string;
+  transactionTypeLabel: string;
+  txSale: string;
+  txRent: string;
+  hasElevator: string;
+  hasParking: string;
+  errorTotalFloorsMin: string;
+  errorFloorNegative: string;
+  finalReviewBanner: string;
+  startValuationCta: string;
+};
+
 export type MortgageMessages = {
   title: string;
   subtitle: string;
@@ -524,6 +561,7 @@ export type Messages = {
   tierData: TierDataMessages;
   loanValuation: LoanValuationMessages;
   mortgage: MortgageMessages;
+  valuationForm: ValuationFormMessages;
 };
 
 /**
@@ -1074,6 +1112,42 @@ export const messages: Record<"en" | "tr", Messages> = {
       tipDownPaymentDesc: "Raising the down payment to 30% reduces the monthly installment by approximately 15% and decreases total interest cost by 25%.",
       disclaimer: "* This calculation is for informational purposes. Actual loan conditions may vary based on the bank and your credit score.",
     },
+    valuationForm: {
+      headerSubtitle: "Demo data / pre-analysis: hedonic + comparable + spatial adjustment work together.",
+      explainableModel: "Explainable model",
+      cityLabel: "City",
+      districtLabel: "District",
+      districtNoData: "No district data",
+      grossM2Label: "Gross m²",
+      roomCountLabel: "Room count",
+      floorLabel: "Floor",
+      totalFloorsLabel: "Total floors",
+      buildingAgeLabel: "Building age",
+      heatingLabel: "Heating",
+      heatingDistrict: "District system",
+      heatingCentral: "Central per apartment",
+      heatingCombi: "Combi boiler",
+      heatingUnderfloor: "Underfloor heating",
+      heatingStove: "Stove",
+      locationTierLabel: "Location quality",
+      tierPrime: "Prime",
+      tierStrong: "Strong",
+      tierBalanced: "Balanced",
+      tierEmerging: "Emerging",
+      conditionLabel: "Physical condition",
+      conditionNew: "New",
+      conditionGood: "Good",
+      conditionNeedsRenovation: "Needs renovation",
+      transactionTypeLabel: "Transaction type",
+      txSale: "Sale value",
+      txRent: "Rental value",
+      hasElevator: "Elevator",
+      hasParking: "Parking",
+      errorTotalFloorsMin: "Total floors must be at least 1.",
+      errorFloorNegative: "Floor cannot be negative.",
+      finalReviewBanner: "Pre-valuation complete. For an official valuation, SPK-licensed appraiser (TDUB) confirmation is required.",
+      startValuationCta: "Start valuation",
+    },
   },
   tr: {
     nav: {
@@ -1617,6 +1691,42 @@ export const messages: Record<"en" | "tr", Messages> = {
       tipDownPaymentDesc: "Peşinatı %30'a çıkarmak aylık taksiti yaklaşık %15 düşürür ve toplam faiz maliyetini %25 azaltır.",
       disclaimer: "* Bu hesaplama bilgilendirme amaçlıdır. Gerçek kredi koşulları bankaya ve kredi notunuza göre değişiklik gösterebilir.",
     },
+    valuationForm: {
+      headerSubtitle: "Demo veri / ön analiz: hedonik + emsal + mekansal düzeltme birlikte çalışır.",
+      explainableModel: "Açıklanabilir model",
+      cityLabel: "İl",
+      districtLabel: "İlçe",
+      districtNoData: "İlçe verisi yok",
+      grossM2Label: "Brüt m²",
+      roomCountLabel: "Oda sayısı",
+      floorLabel: "Kat",
+      totalFloorsLabel: "Toplam kat",
+      buildingAgeLabel: "Bina yaşı",
+      heatingLabel: "Isıtma",
+      heatingDistrict: "Merkezi sistem",
+      heatingCentral: "Merkezi daire",
+      heatingCombi: "Kombi",
+      heatingUnderfloor: "Yerden ısıtma",
+      heatingStove: "Soba",
+      locationTierLabel: "Konum kalitesi",
+      tierPrime: "Prime",
+      tierStrong: "Güçlü",
+      tierBalanced: "Dengeli",
+      tierEmerging: "Gelişen",
+      conditionLabel: "Fiziksel durum",
+      conditionNew: "Yeni",
+      conditionGood: "İyi",
+      conditionNeedsRenovation: "Tadilat gerekli",
+      transactionTypeLabel: "İşlem tipi",
+      txSale: "Satış değeri",
+      txRent: "Kira değeri",
+      hasElevator: "Asansör",
+      hasParking: "Otopark",
+      errorTotalFloorsMin: "Toplam kat en az 1 olmalı.",
+      errorFloorNegative: "Kat bilgisi negatif olamaz.",
+      finalReviewBanner: "Ön değerleme tamamlandı. Resmi değer için SPK lisanslı değerleme uzmanı (TDUB) teyidi gerekir.",
+      startValuationCta: "Değerleme başlat",
+    },
   },
 };
 
@@ -2066,6 +2176,42 @@ const _ruOverrides: PartialDeep<Messages> = {
     tipDownPaymentDesc: "Увеличение первоначального взноса до 30% снижает ежемесячный платёж примерно на 15% и уменьшает общую стоимость процентов на 25%.",
     disclaimer: "* Этот расчёт носит информационный характер. Фактические условия кредита могут отличаться в зависимости от банка и вашей кредитной истории.",
   },
+  valuationForm: {
+    headerSubtitle: "Демо-данные / предварительный анализ: гедонический + сравнительный + пространственная коррекция работают вместе.",
+    explainableModel: "Объяснимая модель",
+    cityLabel: "Город",
+    districtLabel: "Район",
+    districtNoData: "Нет данных по району",
+    grossM2Label: "Площадь брутто (м²)",
+    roomCountLabel: "Количество комнат",
+    floorLabel: "Этаж",
+    totalFloorsLabel: "Всего этажей",
+    buildingAgeLabel: "Возраст здания",
+    heatingLabel: "Отопление",
+    heatingDistrict: "Центральная система",
+    heatingCentral: "Центральное на квартиру",
+    heatingCombi: "Двухконтурный котёл",
+    heatingUnderfloor: "Тёплый пол",
+    heatingStove: "Печное",
+    locationTierLabel: "Качество местоположения",
+    tierPrime: "Премиум",
+    tierStrong: "Сильное",
+    tierBalanced: "Сбалансированное",
+    tierEmerging: "Развивающееся",
+    conditionLabel: "Физическое состояние",
+    conditionNew: "Новое",
+    conditionGood: "Хорошее",
+    conditionNeedsRenovation: "Требует ремонта",
+    transactionTypeLabel: "Тип сделки",
+    txSale: "Стоимость продажи",
+    txRent: "Стоимость аренды",
+    hasElevator: "Лифт",
+    hasParking: "Парковка",
+    errorTotalFloorsMin: "Всего этажей должно быть не менее 1.",
+    errorFloorNegative: "Этаж не может быть отрицательным.",
+    finalReviewBanner: "Предварительная оценка завершена. Для официальной оценки требуется подтверждение лицензированного оценщика SPK (TDUB).",
+    startValuationCta: "Начать оценку",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -2499,6 +2645,42 @@ const _arOverrides: PartialDeep<Messages> = {
     tipDownPaymentTitle: "زيادة الدفعة الأولى",
     tipDownPaymentDesc: "رفع الدفعة الأولى إلى 30% يخفض القسط الشهري بنحو 15% ويقلل إجمالي تكلفة الفوائد بنسبة 25%.",
     disclaimer: "* هذا الحساب لأغراض إعلامية. شروط القرض الفعلية قد تختلف حسب البنك ودرجة ائتمانك.",
+  },
+  valuationForm: {
+    headerSubtitle: "بيانات تجريبية / تحليل أولي: المنهج الهيدوني + المقارن + التصحيح المكاني تعمل معاً.",
+    explainableModel: "نموذج قابل للتفسير",
+    cityLabel: "المدينة",
+    districtLabel: "المنطقة",
+    districtNoData: "لا توجد بيانات للمنطقة",
+    grossM2Label: "المساحة الإجمالية (م²)",
+    roomCountLabel: "عدد الغرف",
+    floorLabel: "الطابق",
+    totalFloorsLabel: "إجمالي الطوابق",
+    buildingAgeLabel: "عمر المبنى",
+    heatingLabel: "التدفئة",
+    heatingDistrict: "نظام مركزي",
+    heatingCentral: "مركزي لكل شقة",
+    heatingCombi: "غلاية ثنائية",
+    heatingUnderfloor: "تدفئة أرضية",
+    heatingStove: "موقد",
+    locationTierLabel: "جودة الموقع",
+    tierPrime: "ممتاز",
+    tierStrong: "قوي",
+    tierBalanced: "متوازن",
+    tierEmerging: "صاعد",
+    conditionLabel: "الحالة الفيزيائية",
+    conditionNew: "جديد",
+    conditionGood: "جيد",
+    conditionNeedsRenovation: "يحتاج إلى تجديد",
+    transactionTypeLabel: "نوع المعاملة",
+    txSale: "قيمة البيع",
+    txRent: "قيمة الإيجار",
+    hasElevator: "مصعد",
+    hasParking: "موقف سيارات",
+    errorTotalFloorsMin: "يجب أن يكون إجمالي الطوابق 1 على الأقل.",
+    errorFloorNegative: "لا يمكن أن يكون الطابق سالباً.",
+    finalReviewBanner: "اكتمل التقييم الأولي. للحصول على تقييم رسمي يلزم تأكيد مقيِّم مرخّص من SPK (TDUB).",
+    startValuationCta: "بدء التقييم",
   },
 };
 
