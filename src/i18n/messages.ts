@@ -177,6 +177,44 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type MortgageMessages = {
+  title: string;
+  subtitle: string;
+  loanParameters: string;
+  propertyValueLabel: string;
+  downPaymentPercent: string;
+  downPaymentValue: string;
+  loanValue: string;
+  termSelect: string;          // "Vade" - veya lv.termLabel ile aynı
+  yearShort: string;           // "Yıl" (12 Yıl select option içinde — ama option'a hardcoded yıl/ay korunabilir)
+  monthShort: string;          // "Ay"
+  annualRate: string;          // "Faiz Oranı (Yıllık)"
+  bankRequirements: string;
+  minMonthlyIncome: string;
+  minLabel: string;            // "Min %20" — "Min"
+  maxLabel: string;            // "Max %80" — "Max"
+  loanToValueRatio: string;
+  loanSummary: string;
+  subEvenPay: string;          // "Düzgün ödeme"
+  subOfCost: string;           // "maliyet"
+  paymentPlanGraphTitle: string;
+  monthSuffix: string;         // "ay" (tickFormatter)
+  remainingDebt: string;
+  totalInterestLegend: string;
+  yearlyPaymentSummary: string;
+  everyYearEnd: string;
+  yearColumn: string;
+  principalColumn: string;
+  interestColumn: string;
+  remainingColumn: string;
+  yearRowPrefix: string;       // "{n}. Yıl" — sadece " Yıl" suffix
+  tipLowInterestTitle: string;
+  tipLowInterestDesc: string;
+  tipDownPaymentTitle: string;
+  tipDownPaymentDesc: string;
+  disclaimer: string;
+};
+
 export type LoanValuationMessages = {
   // Geri butonu (paylaşılan)
   back: string;
@@ -485,6 +523,7 @@ export type Messages = {
   footer: FooterMessages;
   tierData: TierDataMessages;
   loanValuation: LoanValuationMessages;
+  mortgage: MortgageMessages;
 };
 
 /**
@@ -998,6 +1037,43 @@ export const messages: Record<"en" | "tr", Messages> = {
       disclaimerNotOffer: "Not a binding offer",
       disclaimerApprox: "Approximate",
     },
+    mortgage: {
+      title: "Mortgage / Loan Calculator",
+      subtitle: "Calculate the monthly installment and total cost when buying property.",
+      loanParameters: "Loan Parameters",
+      propertyValueLabel: "Property Value",
+      downPaymentPercent: "Down Payment Rate",
+      downPaymentValue: "Down payment",
+      loanValue: "Loan",
+      termSelect: "Term",
+      yearShort: "Year",
+      monthShort: "Month",
+      annualRate: "Annual Interest Rate",
+      bankRequirements: "Bank Requirements",
+      minMonthlyIncome: "Min. Monthly Income",
+      minLabel: "Min",
+      maxLabel: "Max",
+      loanToValueRatio: "Loan-to-Value Ratio",
+      loanSummary: "Loan Summary",
+      subEvenPay: "Even payment",
+      subOfCost: "of cost",
+      paymentPlanGraphTitle: "Payment Plan — Remaining Debt Chart",
+      monthSuffix: "mo",
+      remainingDebt: "Remaining Debt",
+      totalInterestLegend: "Total Interest",
+      yearlyPaymentSummary: "Yearly Payment Summary",
+      everyYearEnd: "End of each year",
+      yearColumn: "Year",
+      principalColumn: "Principal",
+      interestColumn: "Interest",
+      remainingColumn: "Remaining Debt",
+      yearRowPrefix: " yr",
+      tipLowInterestTitle: "Low Interest Tips",
+      tipLowInterestDesc: "If you choose a shorter term, the total interest cost decreases. Compared to a 10-year term, a 5-year term saves approximately 40% in interest.",
+      tipDownPaymentTitle: "Increase Down Payment",
+      tipDownPaymentDesc: "Raising the down payment to 30% reduces the monthly installment by approximately 15% and decreases total interest cost by 25%.",
+      disclaimer: "* This calculation is for informational purposes. Actual loan conditions may vary based on the bank and your credit score.",
+    },
   },
   tr: {
     nav: {
@@ -1504,6 +1580,43 @@ export const messages: Record<"en" | "tr", Messages> = {
       disclaimerNotOffer: "Kesin teklif değildir",
       disclaimerApprox: "Yaklaşık",
     },
+    mortgage: {
+      title: "Mortgage / Kredi Hesaplayıcı",
+      subtitle: "Gayrimenkul alımında aylık taksit ve toplam maliyeti hesaplayın.",
+      loanParameters: "Kredi Parametreleri",
+      propertyValueLabel: "Gayrimenkul Değeri",
+      downPaymentPercent: "Peşinat Oranı",
+      downPaymentValue: "Peşinat",
+      loanValue: "Kredi",
+      termSelect: "Vade",
+      yearShort: "Yıl",
+      monthShort: "Ay",
+      annualRate: "Faiz Oranı (Yıllık)",
+      bankRequirements: "Banka Gereksinimleri",
+      minMonthlyIncome: "Min. Aylık Gelir",
+      minLabel: "Min",
+      maxLabel: "Max",
+      loanToValueRatio: "Kredi/Tapu Oranı",
+      loanSummary: "Kredi Özeti",
+      subEvenPay: "Düzgün ödeme",
+      subOfCost: "maliyet",
+      paymentPlanGraphTitle: "Ödeme Planı — Kalan Borç Grafiği",
+      monthSuffix: "ay",
+      remainingDebt: "Kalan Borç",
+      totalInterestLegend: "Toplam Faiz",
+      yearlyPaymentSummary: "Yıllık Ödeme Özeti",
+      everyYearEnd: "Her yıl sonu",
+      yearColumn: "Yıl",
+      principalColumn: "Anapara",
+      interestColumn: "Faiz",
+      remainingColumn: "Kalan Borç",
+      yearRowPrefix: ". Yıl",
+      tipLowInterestTitle: "Düşük Faiz İpuçları",
+      tipLowInterestDesc: "Daha kısa vade seçerseniz toplam faiz maliyeti düşer. 10 yıl yerine 5 yıl vade ile yaklaşık %40 daha az faiz ödersiniz.",
+      tipDownPaymentTitle: "Peşinat Artırma",
+      tipDownPaymentDesc: "Peşinatı %30'a çıkarmak aylık taksiti yaklaşık %15 düşürür ve toplam faiz maliyetini %25 azaltır.",
+      disclaimer: "* Bu hesaplama bilgilendirme amaçlıdır. Gerçek kredi koşulları bankaya ve kredi notunuza göre değişiklik gösterebilir.",
+    },
   },
 };
 
@@ -1916,6 +2029,43 @@ const _ruOverrides: PartialDeep<Messages> = {
     disclaimerNotOffer: "Не является окончательным предложением",
     disclaimerApprox: "Примерно",
   },
+  mortgage: {
+    title: "Ипотека / Кредитный калькулятор",
+    subtitle: "Рассчитайте ежемесячный платёж и общую стоимость при покупке недвижимости.",
+    loanParameters: "Параметры кредита",
+    propertyValueLabel: "Стоимость недвижимости",
+    downPaymentPercent: "Размер первоначального взноса",
+    downPaymentValue: "Первоначальный взнос",
+    loanValue: "Кредит",
+    termSelect: "Срок",
+    yearShort: "год",
+    monthShort: "мес",
+    annualRate: "Годовая процентная ставка",
+    bankRequirements: "Требования банка",
+    minMonthlyIncome: "Мин. ежемесячный доход",
+    minLabel: "Мин",
+    maxLabel: "Макс",
+    loanToValueRatio: "Соотношение кредита к стоимости",
+    loanSummary: "Сводка по кредиту",
+    subEvenPay: "Равный платёж",
+    subOfCost: "от стоимости",
+    paymentPlanGraphTitle: "График платежей — Остаток долга",
+    monthSuffix: "мес",
+    remainingDebt: "Остаток долга",
+    totalInterestLegend: "Общие проценты",
+    yearlyPaymentSummary: "Сводка платежей по годам",
+    everyYearEnd: "Конец каждого года",
+    yearColumn: "Год",
+    principalColumn: "Основной долг",
+    interestColumn: "Проценты",
+    remainingColumn: "Остаток долга",
+    yearRowPrefix: " год",
+    tipLowInterestTitle: "Советы по снижению процентов",
+    tipLowInterestDesc: "Выбор более короткого срока снижает общую стоимость процентов. Срок 5 лет вместо 10 лет экономит около 40% процентов.",
+    tipDownPaymentTitle: "Увеличение первоначального взноса",
+    tipDownPaymentDesc: "Увеличение первоначального взноса до 30% снижает ежемесячный платёж примерно на 15% и уменьшает общую стоимость процентов на 25%.",
+    disclaimer: "* Этот расчёт носит информационный характер. Фактические условия кредита могут отличаться в зависимости от банка и вашей кредитной истории.",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -2312,6 +2462,43 @@ const _arOverrides: PartialDeep<Messages> = {
     disclaimerInfo: "لأغراض إعلامية",
     disclaimerNotOffer: "ليس عرضاً نهائياً",
     disclaimerApprox: "تقريباً",
+  },
+  mortgage: {
+    title: "قرض عقاري / حاسبة القرض",
+    subtitle: "احسب القسط الشهري والتكلفة الإجمالية عند شراء عقار.",
+    loanParameters: "معاملات القرض",
+    propertyValueLabel: "قيمة العقار",
+    downPaymentPercent: "نسبة الدفعة الأولى",
+    downPaymentValue: "الدفعة الأولى",
+    loanValue: "القرض",
+    termSelect: "المدة",
+    yearShort: "سنة",
+    monthShort: "شهر",
+    annualRate: "معدل الفائدة السنوي",
+    bankRequirements: "متطلبات البنك",
+    minMonthlyIncome: "الحد الأدنى للدخل الشهري",
+    minLabel: "الحد الأدنى",
+    maxLabel: "الحد الأقصى",
+    loanToValueRatio: "نسبة القرض إلى القيمة",
+    loanSummary: "ملخص القرض",
+    subEvenPay: "قسط متساوٍ",
+    subOfCost: "من التكلفة",
+    paymentPlanGraphTitle: "جدول السداد — الدين المتبقي",
+    monthSuffix: "شهر",
+    remainingDebt: "الدين المتبقي",
+    totalInterestLegend: "إجمالي الفوائد",
+    yearlyPaymentSummary: "ملخص السداد السنوي",
+    everyYearEnd: "نهاية كل سنة",
+    yearColumn: "السنة",
+    principalColumn: "أصل الدين",
+    interestColumn: "الفوائد",
+    remainingColumn: "الدين المتبقي",
+    yearRowPrefix: " سنة",
+    tipLowInterestTitle: "نصائح لخفض الفوائد",
+    tipLowInterestDesc: "اختيار مدة أقصر يخفض إجمالي تكلفة الفوائد. مع مدة 5 سنوات بدلاً من 10 سنوات تدفع فوائد أقل بحوالي 40%.",
+    tipDownPaymentTitle: "زيادة الدفعة الأولى",
+    tipDownPaymentDesc: "رفع الدفعة الأولى إلى 30% يخفض القسط الشهري بنحو 15% ويقلل إجمالي تكلفة الفوائد بنسبة 25%.",
+    disclaimer: "* هذا الحساب لأغراض إعلامية. شروط القرض الفعلية قد تختلف حسب البنك ودرجة ائتمانك.",
   },
 };
 
