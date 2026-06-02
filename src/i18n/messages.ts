@@ -749,6 +749,75 @@ export type ListingDetailMessages = {
   secBankApi: string;
   secAmlKyc: string;
   secLawNote: string;
+  // ── 11-G-2: overview tab ──
+  ovProfRules: string;
+  ovCommitmentTitle: string;
+  ovCommitmentFloor: string;
+  ovCommitmentCeiling: string;
+  ovCommitmentNote: string;
+  ovCommitmentPending: string;
+  ovExpertiseTitle: string;
+  ovExpertiseRequiredNote: string;
+  ovExpertiseFileLabel: string;
+  ovExpertiseFileNote: string;
+  ovDescriptionTitle: string;
+  ovDetailRoom: string;
+  ovDetailNetSqm: string;
+  ovDetailFloor: string;
+  ovDetailBuildingAge: string;
+  ovVirtualTourTitle: string;
+  ovVirtualTourDesc: string;
+  ovVirtualTourStart: string;
+  // ── 11-G-2: details tab ──
+  detRoomLiving: string;
+  detGrossSqm: string;
+  detNetSqm: string;
+  detCurrentFloor: string;
+  detTotalFloors: string;
+  detBuildingAge: string;
+  detBuildingAgeUnit: string;
+  detHeating: string;
+  detFacade: string;
+  detBathroom: string;
+  detBalcony: string;
+  detElevator: string;
+  detParking: string;
+  detFurnished: string;
+  detUsage: string;
+  detDeedStatus: string;
+  detEligibility: string;
+  // ── 11-G-2: location tab ──
+  locNearby: string;
+  locDistanceSuffix: string;
+  locMapLoading: string;
+  locMapFallbackNote: string;
+  // ── 11-G-2: AI tab ──
+  aiGateNote: string;
+  aiRadarScore: string;
+  aiCommentTitle: string;
+  aiCommentUnder: string;
+  aiCommentFair: string;
+  aiBadgeRentalYield: string;
+  aiBadgeDemandIndex: string;
+  aiBadgeYearlyGrowth: string;
+  aiRegionStatsTitle: string;
+  statAvgSqmPrice: string;
+  statMonthlyChange: string;
+  statYearlyChange: string;
+  statAvgDaysOnMarket: string;
+  statDaysUnit: string;
+  // ── 11-G-2: AI suggestion panel (sidebar) ──
+  aiSuggestTitle: string;
+  aiSuggestThinking: string;
+  aiSuggestRetry: string;
+  aiSuggestGet: string;
+  aiSuggestError: string;
+  aiSuggestPlaceholder: string;
+  // ── 11-G-2: expertise panel (sidebar) ──
+  expPanelTitle: string;
+  expPanelPreparing: string;
+  expPanelDownload: string;
+  expPanelDesc: string;
 };
 
 export type PaymentMessages = {
@@ -1261,6 +1330,76 @@ export const messages: Record<"en" | "tr", Messages> = {
       secBankApi: "Payment guarantee via bank API",
       secAmlKyc: "AML/KYC compliance",
       secLawNote: "ihaleal.com operates under Law No. 7263.",
+      // ── 11-G-2 ──
+      ovProfRules: "Professional rules (summary)",
+      ovCommitmentTitle: "Commitment limit band (seller / lessor)",
+      ovCommitmentFloor: "Floor:",
+      ovCommitmentCeiling: "Ceiling:",
+      ovCommitmentNote:
+        "— once the upper limit is reached, the transaction obligation and commission base are set in the contract (target). Symmetric rules apply to buyer and tenant in the same package.",
+      ovCommitmentPending: "Commitment approval recorded; limit values are finalized in production.",
+      ovExpertiseTitle: "Appraisal report (annotation / mortgage / lien)",
+      ovExpertiseRequiredNote: "This listing has an appraisal-requirement declaration. ",
+      ovExpertiseFileLabel: "File (demo):",
+      ovExpertiseFileNote:
+        "The PDF is verified in production; AI pre-screening + human approval are targeted against forgery risk.",
+      ovDescriptionTitle: "Description",
+      ovDetailRoom: "Rooms",
+      ovDetailNetSqm: "Net m²",
+      ovDetailFloor: "Floor",
+      ovDetailBuildingAge: "Building Age",
+      ovVirtualTourTitle: "360° Virtual Tour",
+      ovVirtualTourDesc: "You can tour this property virtually.",
+      ovVirtualTourStart: "Start Virtual Tour",
+      detRoomLiving: "Rooms + Living",
+      detGrossSqm: "Gross m²",
+      detNetSqm: "Net m²",
+      detCurrentFloor: "Floor",
+      detTotalFloors: "Total Floors",
+      detBuildingAge: "Building Age",
+      detBuildingAgeUnit: "yrs",
+      detHeating: "Heating",
+      detFacade: "Facade",
+      detBathroom: "Bathroom",
+      detBalcony: "Balcony",
+      detElevator: "Elevator",
+      detParking: "Parking",
+      detFurnished: "Furnished",
+      detUsage: "Occupancy Status",
+      detDeedStatus: "Title Deed Status",
+      detEligibility: "Eligibility",
+      locNearby: "Nearby",
+      locDistanceSuffix: "away",
+      locMapLoading: "Loading map…",
+      locMapFallbackNote: "No exact location; the map is shown centered on {city}.",
+      aiGateNote: "To place a bid, first approve the report and then complete the pre-authorization hold.",
+      aiRadarScore: "Score",
+      aiCommentTitle: "AI Commentary",
+      aiCommentUnder:
+        "According to our AI valuation model, this property is priced {pct}% below its value. The average price per m² in the {location} area is ₺{avgSqm}, while this listing is at ₺{sqm} / m².",
+      aiCommentFair:
+        "According to our AI valuation model, this property is priced close to the market average. Demand index {demand}/100.",
+      aiBadgeRentalYield: "Rental Yield",
+      aiBadgeDemandIndex: "Demand Index",
+      aiBadgeYearlyGrowth: "Yearly Growth",
+      aiRegionStatsTitle: "Area Statistics",
+      statAvgSqmPrice: "Avg. m² Price",
+      statMonthlyChange: "Monthly Change",
+      statYearlyChange: "Yearly Change",
+      statAvgDaysOnMarket: "Avg. Time to Sell",
+      statDaysUnit: "days",
+      aiSuggestTitle: "AI Bid Suggestion",
+      aiSuggestThinking: "Thinking…",
+      aiSuggestRetry: "Ask again",
+      aiSuggestGet: "Get suggestion",
+      aiSuggestError: "AI suggestion is unavailable right now. Please try again in a few minutes.",
+      aiSuggestPlaceholder:
+        "With one click, the suggested bid range, its rationale and risk points are generated by AI for this property.",
+      expPanelTitle: "Appraisal Report",
+      expPanelPreparing: "Preparing…",
+      expPanelDownload: "Download PDF",
+      expPanelDesc:
+        "Property description, price valuation, area analysis, features and nearby amenities — a professional PDF summary.",
     },
     borsa: {
       marketTicker: "Market Ticker",
@@ -2083,6 +2222,76 @@ export const messages: Record<"en" | "tr", Messages> = {
       secBankApi: "Banka API ile ödeme garantisi",
       secAmlKyc: "AML/KYC uyumu",
       secLawNote: "ihaleal.com, 7263 sayılı Kanun kapsamında faaliyet gösterir.",
+      // ── 11-G-2 ──
+      ovProfRules: "Profesyonel kurallar (özet)",
+      ovCommitmentTitle: "Taahhüt limit bandı (satıcı / kiraya veren)",
+      ovCommitmentFloor: "Alt:",
+      ovCommitmentCeiling: "Üst:",
+      ovCommitmentNote:
+        "— üst limite ulaşıldığında işlem yükümlülüğü ve komisyon matrahı sözleşmede (hedef). Alıcı ve kiracı için simetrik kurallar aynı pakette.",
+      ovCommitmentPending: "Taahhüt onayı kayıtlı; limit değerleri üretimde tamamlanır.",
+      ovExpertiseTitle: "Ekspertiz raporu (şerh / ipotek / haciz)",
+      ovExpertiseRequiredNote: "Bu ilanda ekspertiz zorunluluğu beyanı var. ",
+      ovExpertiseFileLabel: "Dosya (demo):",
+      ovExpertiseFileNote:
+        "PDF üretimde doğrulanır; sahtecilik riskine karşı AI ön tarama + insan onayı hedeflenir.",
+      ovDescriptionTitle: "Açıklama",
+      ovDetailRoom: "Oda",
+      ovDetailNetSqm: "Net m²",
+      ovDetailFloor: "Kat",
+      ovDetailBuildingAge: "Bina Yaşı",
+      ovVirtualTourTitle: "360° Sanal Tur",
+      ovVirtualTourDesc: "Bu mülkü sanal olarak gezebilirsiniz.",
+      ovVirtualTourStart: "Sanal Turu Başlat",
+      detRoomLiving: "Oda + Salon",
+      detGrossSqm: "Brüt m²",
+      detNetSqm: "Net m²",
+      detCurrentFloor: "Bulunduğu Kat",
+      detTotalFloors: "Toplam Kat",
+      detBuildingAge: "Bina Yaşı",
+      detBuildingAgeUnit: "Yıl",
+      detHeating: "Isıtma",
+      detFacade: "Cephe",
+      detBathroom: "Banyo",
+      detBalcony: "Balkon",
+      detElevator: "Asansör",
+      detParking: "Otopark",
+      detFurnished: "Eşyalı",
+      detUsage: "Kullanım Durumu",
+      detDeedStatus: "Tapu Durumu",
+      detEligibility: "Uygunluk",
+      locNearby: "Yakın Çevre",
+      locDistanceSuffix: "mesafe",
+      locMapLoading: "Harita yükleniyor…",
+      locMapFallbackNote: "Kesin konum yok; harita {city} merkezine göre gösteriliyor.",
+      aiGateNote: "Teklif verebilmek için önce raporu onaylayın ve ardından blokaj ön yetkisini tamamlayın.",
+      aiRadarScore: "Skor",
+      aiCommentTitle: "AI Yorumu",
+      aiCommentUnder:
+        "Bu gayrimenkul AI değerleme modelimize göre %{pct} oranında değerinin altında fiyatlandırılmış. {location} bölgesinde ortalama m² fiyatı ₺{avgSqm} iken, bu ilan ₺{sqm} / m² fiyatla listeleniyor.",
+      aiCommentFair:
+        "Bu gayrimenkul AI değerleme modelimize göre piyasa ortalamasına yakın fiyatlandırılmış. Talep endeksi {demand}/100.",
+      aiBadgeRentalYield: "Kira Getirisi",
+      aiBadgeDemandIndex: "Talep Endeksi",
+      aiBadgeYearlyGrowth: "Yıllık Artış",
+      aiRegionStatsTitle: "Bölge İstatistikleri",
+      statAvgSqmPrice: "Ort. m² Fiyat",
+      statMonthlyChange: "Aylık Değişim",
+      statYearlyChange: "Yıllık Değişim",
+      statAvgDaysOnMarket: "Ort. Satış Süresi",
+      statDaysUnit: "gün",
+      aiSuggestTitle: "AI Teklif Önerisi",
+      aiSuggestThinking: "Düşünüyor…",
+      aiSuggestRetry: "Tekrar sor",
+      aiSuggestGet: "Öneri al",
+      aiSuggestError: "AI önerisi şu an alınamadı. Lütfen birkaç dakika sonra tekrar deneyin.",
+      aiSuggestPlaceholder:
+        "Tek tıkla bu mülk için önerilen teklif aralığı, dayanağı ve risk noktası AI tarafından üretilir.",
+      expPanelTitle: "Ekspertiz Raporu",
+      expPanelPreparing: "Hazırlanıyor…",
+      expPanelDownload: "PDF İndir",
+      expPanelDesc:
+        "Mülk tanımı, fiyat değerleme, bölge analizi, özellikler ve çevre olanakları — Roboto Türkçe font ile profesyonel PDF özet.",
     },
     borsa: {
       marketTicker: "Piyasa Ticker",
@@ -2811,6 +3020,76 @@ const _ruOverrides: PartialDeep<Messages> = {
     secBankApi: "Гарантия оплаты через банковский API",
     secAmlKyc: "Соответствие AML/KYC",
     secLawNote: "ihaleal.com работает в рамках Закона № 7263.",
+    // ── 11-G-2 ──
+    ovProfRules: "Профессиональные правила (кратко)",
+    ovCommitmentTitle: "Диапазон лимита обязательства (продавец / арендодатель)",
+    ovCommitmentFloor: "Нижний:",
+    ovCommitmentCeiling: "Верхний:",
+    ovCommitmentNote:
+      "— при достижении верхнего предела обязательство по сделке и база комиссии закрепляются в договоре (цель). Симметричные правила действуют для покупателя и арендатора в одном пакете.",
+    ovCommitmentPending: "Подтверждение обязательства записано; значения лимитов финализируются в продакшене.",
+    ovExpertiseTitle: "Отчёт об оценке (отметка / ипотека / арест)",
+    ovExpertiseRequiredNote: "В этом объявлении есть заявление об обязательной оценке. ",
+    ovExpertiseFileLabel: "Файл (демо):",
+    ovExpertiseFileNote:
+      "PDF проверяется в продакшене; против риска подделки предусмотрены предварительная ИИ-проверка + одобрение человеком.",
+    ovDescriptionTitle: "Описание",
+    ovDetailRoom: "Комнаты",
+    ovDetailNetSqm: "Чистая м²",
+    ovDetailFloor: "Этаж",
+    ovDetailBuildingAge: "Возраст здания",
+    ovVirtualTourTitle: "360° Виртуальный тур",
+    ovVirtualTourDesc: "Вы можете осмотреть эту недвижимость виртуально.",
+    ovVirtualTourStart: "Начать виртуальный тур",
+    detRoomLiving: "Комнаты + гостиная",
+    detGrossSqm: "Общая м²",
+    detNetSqm: "Чистая м²",
+    detCurrentFloor: "Этаж",
+    detTotalFloors: "Всего этажей",
+    detBuildingAge: "Возраст здания",
+    detBuildingAgeUnit: "лет",
+    detHeating: "Отопление",
+    detFacade: "Фасад",
+    detBathroom: "Санузел",
+    detBalcony: "Балкон",
+    detElevator: "Лифт",
+    detParking: "Парковка",
+    detFurnished: "С мебелью",
+    detUsage: "Статус занятости",
+    detDeedStatus: "Статус тапу",
+    detEligibility: "Пригодность",
+    locNearby: "Поблизости",
+    locDistanceSuffix: "до объекта",
+    locMapLoading: "Загрузка карты…",
+    locMapFallbackNote: "Точное местоположение отсутствует; карта показана по центру {city}.",
+    aiGateNote: "Чтобы сделать ставку, сначала одобрите отчёт, затем завершите предавторизационную блокировку.",
+    aiRadarScore: "Балл",
+    aiCommentTitle: "Комментарий ИИ",
+    aiCommentUnder:
+      "По нашей ИИ-модели оценки этот объект оценён на {pct}% ниже его стоимости. Средняя цена за м² в районе {location} составляет ₺{avgSqm}, тогда как это объявление выставлено по ₺{sqm} / м².",
+    aiCommentFair:
+      "По нашей ИИ-модели оценки этот объект оценён близко к среднерыночному уровню. Индекс спроса {demand}/100.",
+    aiBadgeRentalYield: "Доходность аренды",
+    aiBadgeDemandIndex: "Индекс спроса",
+    aiBadgeYearlyGrowth: "Годовой рост",
+    aiRegionStatsTitle: "Статистика района",
+    statAvgSqmPrice: "Ср. цена за м²",
+    statMonthlyChange: "Изменение за месяц",
+    statYearlyChange: "Изменение за год",
+    statAvgDaysOnMarket: "Ср. срок продажи",
+    statDaysUnit: "дн.",
+    aiSuggestTitle: "ИИ-совет по ставке",
+    aiSuggestThinking: "Думает…",
+    aiSuggestRetry: "Спросить ещё",
+    aiSuggestGet: "Получить совет",
+    aiSuggestError: "Совет ИИ сейчас недоступен. Попробуйте через несколько минут.",
+    aiSuggestPlaceholder:
+      "Одним кликом ИИ генерирует рекомендуемый диапазон ставки, его обоснование и точки риска для этого объекта.",
+    expPanelTitle: "Отчёт об оценке",
+    expPanelPreparing: "Подготовка…",
+    expPanelDownload: "Скачать PDF",
+    expPanelDesc:
+      "Описание объекта, оценка цены, анализ района, характеристики и окружающая инфраструктура — профессиональная PDF-сводка.",
   },
   borsa: {
     marketTicker: "Лента рынка",
@@ -3524,6 +3803,76 @@ const _arOverrides: PartialDeep<Messages> = {
     secBankApi: "ضمان الدفع عبر واجهة البنك",
     secAmlKyc: "الامتثال لـ AML/KYC",
     secLawNote: "تعمل ihaleal.com بموجب القانون رقم 7263.",
+    // ── 11-G-2 ──
+    ovProfRules: "القواعد المهنية (ملخّص)",
+    ovCommitmentTitle: "نطاق حدّ التعهّد (البائع / المؤجِّر)",
+    ovCommitmentFloor: "الحد الأدنى:",
+    ovCommitmentCeiling: "الحد الأعلى:",
+    ovCommitmentNote:
+      "— عند بلوغ الحد الأعلى، يُحدَّد التزام المعاملة وأساس العمولة في العقد (مستهدف). تنطبق قواعد متماثلة على المشتري والمستأجر ضمن الحزمة نفسها.",
+    ovCommitmentPending: "تم تسجيل موافقة التعهّد؛ تُستكمل قيم الحدود في الإصدار النهائي.",
+    ovExpertiseTitle: "تقرير التقييم (إشارة / رهن / حجز)",
+    ovExpertiseRequiredNote: "يتضمّن هذا الإعلان إقراراً بإلزامية التقييم. ",
+    ovExpertiseFileLabel: "الملف (تجريبي):",
+    ovExpertiseFileNote:
+      "يُتحقَّق من ملف PDF في الإصدار النهائي؛ ولمواجهة خطر التزوير يُستهدف فحص أوّلي بالذكاء الاصطناعي + موافقة بشرية.",
+    ovDescriptionTitle: "الوصف",
+    ovDetailRoom: "الغرف",
+    ovDetailNetSqm: "م² صافٍ",
+    ovDetailFloor: "الطابق",
+    ovDetailBuildingAge: "عمر المبنى",
+    ovVirtualTourTitle: "جولة افتراضية 360°",
+    ovVirtualTourDesc: "يمكنك تفقّد هذا العقار افتراضياً.",
+    ovVirtualTourStart: "ابدأ الجولة الافتراضية",
+    detRoomLiving: "غرف + صالة",
+    detGrossSqm: "م² إجمالي",
+    detNetSqm: "م² صافٍ",
+    detCurrentFloor: "الطابق",
+    detTotalFloors: "إجمالي الطوابق",
+    detBuildingAge: "عمر المبنى",
+    detBuildingAgeUnit: "سنة",
+    detHeating: "التدفئة",
+    detFacade: "الواجهة",
+    detBathroom: "الحمّام",
+    detBalcony: "الشرفة",
+    detElevator: "المصعد",
+    detParking: "موقف السيارات",
+    detFurnished: "مفروش",
+    detUsage: "حالة الإشغال",
+    detDeedStatus: "حالة سند الملكية",
+    detEligibility: "الأهلية",
+    locNearby: "الجوار",
+    locDistanceSuffix: "المسافة",
+    locMapLoading: "جارٍ تحميل الخريطة…",
+    locMapFallbackNote: "لا يوجد موقع دقيق؛ تُعرض الخريطة على مركز {city}.",
+    aiGateNote: "لتقديم عرض، وافق على التقرير أولاً ثم أكمل خطوة الحجز المسبق.",
+    aiRadarScore: "الدرجة",
+    aiCommentTitle: "تعليق الذكاء الاصطناعي",
+    aiCommentUnder:
+      "وفقاً لنموذج التقييم بالذكاء الاصطناعي، سعر هذا العقار أقل من قيمته بنسبة {pct}%. متوسط سعر المتر في منطقة {location} هو ₺{avgSqm}، بينما يُعرض هذا الإعلان بسعر ₺{sqm} / م².",
+    aiCommentFair:
+      "وفقاً لنموذج التقييم بالذكاء الاصطناعي، سعر هذا العقار قريب من متوسط السوق. مؤشر الطلب {demand}/100.",
+    aiBadgeRentalYield: "عائد الإيجار",
+    aiBadgeDemandIndex: "مؤشر الطلب",
+    aiBadgeYearlyGrowth: "النمو السنوي",
+    aiRegionStatsTitle: "إحصاءات المنطقة",
+    statAvgSqmPrice: "متوسط سعر م²",
+    statMonthlyChange: "التغيّر الشهري",
+    statYearlyChange: "التغيّر السنوي",
+    statAvgDaysOnMarket: "متوسط مدة البيع",
+    statDaysUnit: "يوم",
+    aiSuggestTitle: "اقتراح العرض بالذكاء الاصطناعي",
+    aiSuggestThinking: "يفكّر…",
+    aiSuggestRetry: "اسأل مجدداً",
+    aiSuggestGet: "احصل على اقتراح",
+    aiSuggestError: "اقتراح الذكاء الاصطناعي غير متاح حالياً. يُرجى المحاولة بعد دقائق.",
+    aiSuggestPlaceholder:
+      "بنقرة واحدة يولّد الذكاء الاصطناعي نطاق العرض المقترح ومبرّره ونقاط الخطر لهذا العقار.",
+    expPanelTitle: "تقرير التقييم",
+    expPanelPreparing: "جارٍ التحضير…",
+    expPanelDownload: "تنزيل PDF",
+    expPanelDesc:
+      "وصف العقار، تقييم السعر، تحليل المنطقة، المواصفات والمرافق المجاورة — ملخّص PDF احترافي.",
   },
   borsa: {
     marketTicker: "شريط السوق",

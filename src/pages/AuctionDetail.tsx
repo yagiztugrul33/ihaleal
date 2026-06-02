@@ -951,7 +951,7 @@ export default function AuctionDetail() {
               {activeTab === "overview" && (
                 <div className="space-y-6 animate-fade-in">
                   <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/15">
-                    <h3 className="text-sm font-semibold text-amber-200 mb-2">Profesyonel kurallar (özet)</h3>
+                    <h3 className="text-sm font-semibold text-amber-200 mb-2">{ld.ovProfRules}</h3>
                     <ul className="text-xs text-slate-400 space-y-1.5 list-disc list-inside">
                       {integritySummaryLines.map((line) => (
                         <li key={line}>{line}</li>
@@ -968,50 +968,50 @@ export default function AuctionDetail() {
                     <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-500/25">
                       <div className="flex items-center gap-2 text-amber-100 mb-2">
                         <Scale className="w-5 h-5" />
-                        <span className="text-sm font-semibold">Taahhüt limit bandı (satıcı / kiraya veren)</span>
+                        <span className="text-sm font-semibold">{ld.ovCommitmentTitle}</span>
                       </div>
                       {auction.commitmentFloorTRY != null && auction.commitmentCeilingTRY != null ? (
                         <p className="text-xs text-slate-300">
-                          Alt: <strong className="text-white">₺{auction.commitmentFloorTRY.toLocaleString("tr-TR")}</strong>
+                          {ld.ovCommitmentFloor} <strong className="text-white" dir="ltr">₺{auction.commitmentFloorTRY.toLocaleString("tr-TR")}</strong>
                           {" · "}
-                          Üst: <strong className="text-white">₺{auction.commitmentCeilingTRY.toLocaleString("tr-TR")}</strong>
+                          {ld.ovCommitmentCeiling} <strong className="text-white" dir="ltr">₺{auction.commitmentCeilingTRY.toLocaleString("tr-TR")}</strong>
                           {" "}
-                          — üst limite ulaşıldığında işlem yükümlülüğü ve komisyon matrahı sözleşmede (hedef). Alıcı ve kiracı için simetrik kurallar aynı pakette.
+                          {ld.ovCommitmentNote}
                         </p>
                       ) : (
-                        <p className="text-xs text-slate-400">Taahhüt onayı kayıtlı; limit değerleri üretimde tamamlanır.</p>
+                        <p className="text-xs text-slate-400">{ld.ovCommitmentPending}</p>
                       )}
                     </div>
                   ) : null}
                   {auction.expertiseRequired || auction.expertisePdfName ? (
                     <div className="p-4 rounded-xl border border-emerald-500/25 bg-emerald-500/5">
-                      <div className="text-sm font-semibold text-emerald-100 mb-1">Ekspertiz raporu (şerh / ipotek / haciz)</div>
+                      <div className="text-sm font-semibold text-emerald-100 mb-1">{ld.ovExpertiseTitle}</div>
                       <p className="text-xs text-slate-400">
-                        {auction.expertiseRequired ? "Bu ilanda ekspertiz zorunluluğu beyanı var. " : ""}
+                        {auction.expertiseRequired ? ld.ovExpertiseRequiredNote : ""}
                         {auction.expertisePdfName ? (
-                          <span>Dosya (demo): <code className="text-emerald-300/90">{auction.expertisePdfName}</code></span>
+                          <span>{ld.ovExpertiseFileLabel} <code className="text-emerald-300/90" dir="ltr">{auction.expertisePdfName}</code></span>
                         ) : (
-                          <span>PDF üretimde doğrulanır; sahtecilik riskine karşı AI ön tarama + insan onayı hedeflenir.</span>
+                          <span>{ld.ovExpertiseFileNote}</span>
                         )}
                       </p>
                     </div>
                   ) : null}
-                  <div><h3 className="text-lg font-bold text-white mb-3">Açıklama</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{auction.description}</p></div>
+                  <div><h3 className="text-lg font-bold text-white mb-3">{ld.ovDescriptionTitle}</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{auction.description}</p></div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <DetailItem icon={<Building className="w-5 h-5" />} label="Oda" value={auction.propertyDetails.roomCount} />
-                    <DetailItem icon={<Layers className="w-5 h-5" />} label="Net m²" value={`${auction.propertyDetails.netSqm} m²`} />
-                    <DetailItem icon={<Layers className="w-5 h-5" />} label="Kat" value={auction.propertyDetails.floor} />
-                    <DetailItem icon={<Building className="w-5 h-5" />} label="Bina Yaşı" value={auction.propertyDetails.buildingAge} />
+                    <DetailItem icon={<Building className="w-5 h-5" />} label={ld.ovDetailRoom} value={auction.propertyDetails.roomCount} />
+                    <DetailItem icon={<Layers className="w-5 h-5" />} label={ld.ovDetailNetSqm} value={`${auction.propertyDetails.netSqm} m²`} />
+                    <DetailItem icon={<Layers className="w-5 h-5" />} label={ld.ovDetailFloor} value={auction.propertyDetails.floor} />
+                    <DetailItem icon={<Building className="w-5 h-5" />} label={ld.ovDetailBuildingAge} value={auction.propertyDetails.buildingAge} />
                   </div>
                   {auction.virtualTour && (
                     <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
                       <div className="flex items-center gap-3">
                         <Video className="w-5 h-5 text-blue-400" />
                         <div>
-                          <div className="text-sm font-semibold text-white">360° Sanal Tur</div>
-                          <div className="text-xs text-slate-400">Bu mülkü sanal olarak gezebilirsiniz.</div>
+                          <div className="text-sm font-semibold text-white">{ld.ovVirtualTourTitle}</div>
+                          <div className="text-xs text-slate-400">{ld.ovVirtualTourDesc}</div>
                         </div>
-                        <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ml-auto bg-gradient-to-r from-blue-500 to-teal-400 text-white">Sanal Turu Başlat</Button>
+                        <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ms-auto bg-gradient-to-r from-blue-500 to-teal-400 text-white">{ld.ovVirtualTourStart}</Button>
                       </div>
                     </div>
                   )}
@@ -1020,22 +1020,22 @@ export default function AuctionDetail() {
               {activeTab === "details" && (
                 <div className="grid sm:grid-cols-2 gap-3 animate-fade-in">
                   {[
-                    { label: "Oda + Salon", value: auction.propertyDetails.roomCount },
-                    { label: "Brüt m²", value: `${auction.propertyDetails.grossSqm} m²` },
-                    { label: "Net m²", value: `${auction.propertyDetails.netSqm} m²` },
-                    { label: "Bulunduğu Kat", value: auction.propertyDetails.floor },
-                    { label: "Toplam Kat", value: `${auction.propertyDetails.totalFloors}` },
-                    { label: "Bina Yaşı", value: `${auction.propertyDetails.buildingAge} Yıl` },
-                    { label: "Isıtma", value: auction.propertyDetails.heating },
-                    { label: "Cephe", value: auction.propertyDetails.facade },
-                    { label: "Banyo", value: `${auction.propertyDetails.bathroom}` },
-                    { label: "Balkon", value: auction.propertyDetails.balcony ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Asansör", value: auction.propertyDetails.elevator ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Otopark", value: auction.propertyDetails.parking ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Eşyalı", value: auction.propertyDetails.furnished ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
-                    { label: "Kullanım Durumu", value: auction.propertyDetails.usingStatus },
-                    { label: "Tapu Durumu", value: auction.propertyDetails.deedStatus },
-                    { label: "Uygunluk", value: auction.propertyDetails.eligibility },
+                    { label: ld.detRoomLiving, value: auction.propertyDetails.roomCount },
+                    { label: ld.detGrossSqm, value: `${auction.propertyDetails.grossSqm} m²` },
+                    { label: ld.detNetSqm, value: `${auction.propertyDetails.netSqm} m²` },
+                    { label: ld.detCurrentFloor, value: auction.propertyDetails.floor },
+                    { label: ld.detTotalFloors, value: `${auction.propertyDetails.totalFloors}` },
+                    { label: ld.detBuildingAge, value: `${auction.propertyDetails.buildingAge} ${ld.detBuildingAgeUnit}` },
+                    { label: ld.detHeating, value: auction.propertyDetails.heating },
+                    { label: ld.detFacade, value: auction.propertyDetails.facade },
+                    { label: ld.detBathroom, value: `${auction.propertyDetails.bathroom}` },
+                    { label: ld.detBalcony, value: auction.propertyDetails.balcony ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: ld.detElevator, value: auction.propertyDetails.elevator ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: ld.detParking, value: auction.propertyDetails.parking ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: ld.detFurnished, value: auction.propertyDetails.furnished ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" /> },
+                    { label: ld.detUsage, value: auction.propertyDetails.usingStatus },
+                    { label: ld.detDeedStatus, value: auction.propertyDetails.deedStatus },
+                    { label: ld.detEligibility, value: auction.propertyDetails.eligibility },
                   ].map((item) => (
                     <div key={item.label as string} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><span className="text-sm text-slate-500">{item.label}</span><span className="text-sm font-medium text-white">{item.value}</span></div>
                   ))}
@@ -1051,7 +1051,7 @@ export default function AuctionDetail() {
               {activeTab === "location" && (
                 <div className="space-y-6 animate-fade-in">
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-3">Yakın Çevre</h3>
+                    <h3 className="text-lg font-bold text-white mb-3">{ld.locNearby}</h3>
                     <div className="grid sm:grid-cols-2 gap-3">
                       {auction.nearbyFacilities.map((f) => {
                         const icons: Record<string, any> = {
@@ -1064,7 +1064,7 @@ export default function AuctionDetail() {
                         return (
                           <div key={f.name} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                             <div className="p-2 rounded-lg bg-white/5">{icons[f.type]}</div>
-                            <div><div className="text-sm font-medium text-white">{f.name}</div><div className="text-xs text-slate-500">{f.distance}m mesafe</div></div>
+                            <div><div className="text-sm font-medium text-white">{f.name}</div><div className="text-xs text-slate-500"><span dir="ltr">{f.distance}m</span> {ld.locDistanceSuffix}</div></div>
                           </div>
                         );
                       })}
@@ -1073,7 +1073,7 @@ export default function AuctionDetail() {
                   <div>
                     {mapCoords ? (
                       <>
-                        <Suspense fallback={<LoadingState compact label="Harita yükleniyor…" />}>
+                        <Suspense fallback={<LoadingState compact label={ld.locMapLoading} />}>
                           <ListingDetailMapLazy
                             lat={mapCoords.lat}
                             lng={mapCoords.lng}
@@ -1083,7 +1083,7 @@ export default function AuctionDetail() {
                         </Suspense>
                         {mapCoords.fromFallback ? (
                           <p className="mt-2 text-[11px] text-slate-500">
-                            Kesin konum yok; harita {auction.city} merkezine göre gösteriliyor.
+                            {ld.locMapFallbackNote.replace("{city}", auction.city)}
                           </p>
                         ) : null}
                       </>
@@ -1156,7 +1156,7 @@ export default function AuctionDetail() {
                   </div>
                   {bidGateBlocked ? (
                     <p className="text-xs text-amber-200/90 border border-amber-400/25 rounded-lg px-3 py-2 bg-amber-500/10">
-                      Teklif verebilmek için önce raporu onaylayın ve ardından blokaj ön yetkisini tamamlayın.
+                      {ld.aiGateNote}
                     </p>
                   ) : null}
                   <div className="grid md:grid-cols-2 gap-6">
@@ -1166,36 +1166,40 @@ export default function AuctionDetail() {
                           <PolarGrid stroke="rgba(255,255,255,0.1)" />
                           <PolarAngleAxis dataKey="subject" stroke="#a1a1aa" fontSize={12} />
                           <PolarRadiusAxis stroke="#52525b" fontSize={10} />
-                          <Radar name="Skor" dataKey="A" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.3} strokeWidth={2} />
+                          <Radar name={ld.aiRadarScore} dataKey="A" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.3} strokeWidth={2} />
                         </RadarChart>
                       </ResponsiveContainer>
                     </div>
                     <div className="space-y-4">
-                      <h3 className="text-lg font-bold text-white">AI Yorumu</h3>
+                      <h3 className="text-lg font-bold text-white">{ld.aiCommentTitle}</h3>
                       <div className={`p-4 rounded-xl border ${isUnderpriced ? "bg-emerald-500/10 border-emerald-500/20" : "bg-amber-500/10 border-amber-500/20"}`}>
                         <p className="text-sm text-slate-300 leading-relaxed">
                           {isUnderpriced
-                            ? `Bu gayrimenkul AI değerleme modelimize göre %${Math.abs(Number(priceDiffPercent))} oranında değerinin altında fiyatlandırılmış. ${auction.location} bölgesinde ortalama m² fiyatı ₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")} iken, bu ilan ₺${auction.pricePerSqm.toLocaleString("tr-TR")} / m² fiyatla listeleniyor.`
-                            : `Bu gayrimenkul AI değerleme modelimize göre piyasa ortalamasına yakın fiyatlandırılmış. Talep endeksi ${auction.areaStats.demandIndex}/100.`}
+                            ? ld.aiCommentUnder
+                                .replace("{pct}", String(Math.abs(Number(priceDiffPercent))))
+                                .replace("{location}", auction.location)
+                                .replace("{avgSqm}", auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR"))
+                                .replace("{sqm}", auction.pricePerSqm.toLocaleString("tr-TR"))
+                            : ld.aiCommentFair.replace("{demand}", String(auction.areaStats.demandIndex))}
                         </p>
                       </div>
                       <div className="grid grid-cols-2 gap-3">
-                        <AIBadge label="Yatırım Skoru" value={`${auction.investmentScore}/100`} color={auction.investmentScore >= 80 ? "emerald" : auction.investmentScore >= 60 ? "blue" : "slate"} />
-                        <AIBadge label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} color="sky" />
-                        <AIBadge label="Talep Endeksi" value={`${auction.areaStats.demandIndex}/100`} color="violet" />
-                        <AIBadge label="Yıllık Artış" value={`%${auction.areaStats.priceChangeYearly}`} color="amber" />
+                        <AIBadge label={ld.priceCardInvestmentScore} value={`${auction.investmentScore}/100`} color={auction.investmentScore >= 80 ? "emerald" : auction.investmentScore >= 60 ? "blue" : "slate"} />
+                        <AIBadge label={ld.aiBadgeRentalYield} value={`%${auction.areaStats.rentalYield}`} color="sky" />
+                        <AIBadge label={ld.aiBadgeDemandIndex} value={`${auction.areaStats.demandIndex}/100`} color="violet" />
+                        <AIBadge label={ld.aiBadgeYearlyGrowth} value={`%${auction.areaStats.priceChangeYearly}`} color="amber" />
                       </div>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-4">Bölge İstatistikleri — {auction.district}</h3>
+                    <h3 className="text-lg font-bold text-white mb-4">{ld.aiRegionStatsTitle} — {auction.district}</h3>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                      <StatBadge label="Ort. m² Fiyat" value={`₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")}`} />
-                      <StatBadge label="Aylık Değişim" value={`%${auction.areaStats.priceChangeMonthly}`} positive={auction.areaStats.priceChangeMonthly > 0} />
-                      <StatBadge label="Yıllık Değişim" value={`%${auction.areaStats.priceChangeYearly}`} positive={auction.areaStats.priceChangeYearly > 0} />
-                      <StatBadge label="Ort. Satış Süresi" value={`${auction.areaStats.avgDaysOnMarket} gün`} />
+                      <StatBadge label={ld.statAvgSqmPrice} value={`₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")}`} />
+                      <StatBadge label={ld.statMonthlyChange} value={`%${auction.areaStats.priceChangeMonthly}`} positive={auction.areaStats.priceChangeMonthly > 0} />
+                      <StatBadge label={ld.statYearlyChange} value={`%${auction.areaStats.priceChangeYearly}`} positive={auction.areaStats.priceChangeYearly > 0} />
+                      <StatBadge label={ld.statAvgDaysOnMarket} value={`${auction.areaStats.avgDaysOnMarket} ${ld.statDaysUnit}`} />
                       <StatBadge label={ld.activeListing} value={`${auction.areaStats.supplyCount}`} />
-                      <StatBadge label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} />
+                      <StatBadge label={ld.aiBadgeRentalYield} value={`%${auction.areaStats.rentalYield}`} />
                     </div>
                   </div>
                 </div>
@@ -1254,7 +1258,7 @@ export default function AuctionDetail() {
                   <div className="rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-500/10 to-cyan-500/5 p-3" data-testid="ai-bid-suggestion">
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <h4 className="text-xs font-semibold uppercase tracking-wider text-violet-200 flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5" /> AI Teklif Önerisi
+                        <Sparkles className="w-3.5 h-3.5" /> {ld.aiSuggestTitle}
                       </h4>
                       <Button
                         type="button"
@@ -1283,14 +1287,14 @@ export default function AuctionDetail() {
                           if (res.ok) {
                             setAiBidReply(res.text.slice(0, 700));
                           } else {
-                            setAiBidReply("AI önerisi şu an alınamadı. Lütfen birkaç dakika sonra tekrar deneyin.");
+                            setAiBidReply(ld.aiSuggestError);
                           }
                           setAiBidBusy(false);
                         }}
                         className="h-7 px-2 text-[11px] gap-1 border-violet-400/40 text-violet-100 hover:bg-violet-500/10"
                       >
                         {aiBidBusy ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-                        {aiBidBusy ? "Düşünüyor…" : aiBidReply ? "Tekrar sor" : "Öneri al"}
+                        {aiBidBusy ? ld.aiSuggestThinking : aiBidReply ? ld.aiSuggestRetry : ld.aiSuggestGet}
                       </Button>
                     </div>
                     {aiBidReply ? (
@@ -1299,7 +1303,7 @@ export default function AuctionDetail() {
                       </div>
                     ) : (
                       <p className="text-[11px] text-violet-200/70 leading-snug">
-                        Tek tıkla bu mülk için önerilen teklif aralığı, dayanağı ve risk noktası AI tarafından üretilir.
+                        {ld.aiSuggestPlaceholder}
                       </p>
                     )}
                   </div>
@@ -1309,7 +1313,7 @@ export default function AuctionDetail() {
                 <div className="rounded-xl border border-cyan-500/25 bg-cyan-500/5 p-3" data-testid="expertise-pdf">
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-200 flex items-center gap-1.5">
-                      <FileText className="w-3.5 h-3.5" /> Ekspertiz Raporu
+                      <FileText className="w-3.5 h-3.5" /> {ld.expPanelTitle}
                     </h4>
                     <Button
                       type="button"
@@ -1395,15 +1399,15 @@ export default function AuctionDetail() {
                       className="h-7 px-2 text-[11px] gap-1 border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/10"
                     >
                       {expertisePdfBusy ? <Loader2 className="w-3 h-3 animate-spin" /> : <FileText className="w-3 h-3" />}
-                      {expertisePdfBusy ? "Hazırlanıyor…" : "PDF İndir"}
+                      {expertisePdfBusy ? ld.expPanelPreparing : ld.expPanelDownload}
                     </Button>
                   </div>
                   <p className="text-[11px] text-cyan-200/70 leading-snug">
-                    Mülk tanımı, fiyat değerleme, bölge analizi, özellikler ve çevre olanakları — Roboto Türkçe font ile profesyonel PDF özet.
+                    {ld.expPanelDesc}
                   </p>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Tahmini</span><span className="text-blue-400 font-semibold">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
+                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">{ld.priceCardAiPredicted}</span><span className="text-blue-400 font-semibold" dir="ltr">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
                   <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-lg p-2.5 bg-white/[0.02]">
