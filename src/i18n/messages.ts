@@ -177,6 +177,35 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type DataAnalysisMessages = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  bannerWarning: string;
+  avgPriceHistory: string;          // "Ortalama Fiyat Geçmişi (₺)"
+  regionAvg: string;                // line name: "Bölge ort. fiyat (₺)"
+  segmentAvg: string;
+  platformAvg: string;
+  captionSelected: string;          // "Seçili bölge: X · seçili segment: Y"
+  assetVsPlatform: string;          // H2 "Varlık vs Platform Ortalaması (₺)"
+  assetPriceSuffix: string;         // "{code} fiyat (₺)" → suffix: "fiyat (₺)"
+  comparisonSelection: string;      // "Karşılaştırma seçimi"
+  segmentTrendAnalysis: string;
+  volumeLabel: string;              // "Hacim:"
+  volumeUnit: string;               // "lot"
+  depthScore: string;
+  marketShare: string;
+  regionHeatmap: string;
+  downloadReport: string;
+  avgPriceShort: string;            // heatmap card: "Ort. fiyat"
+  demoReportFootnote: string;
+  // Segment kategori isimleri (opsiyonel — dropdown option label)
+  segmentResidential: string;       // Konut
+  segmentLand: string;              // Arsa
+  segmentCommercial: string;        // Ticari
+  segmentTourism: string;           // Turizm
+};
+
 export type ValuationFormMessages = {
   headerSubtitle: string;
   explainableModel: string;
@@ -562,6 +591,7 @@ export type Messages = {
   loanValuation: LoanValuationMessages;
   mortgage: MortgageMessages;
   valuationForm: ValuationFormMessages;
+  dataAnalysis: DataAnalysisMessages;
 };
 
 /**
@@ -1148,6 +1178,33 @@ export const messages: Record<"en" | "tr", Messages> = {
       finalReviewBanner: "Pre-valuation complete. For an official valuation, SPK-licensed appraiser (TDUB) confirmation is required.",
       startValuationCta: "Start valuation",
     },
+    dataAnalysis: {
+      eyebrow: "Data / Analysis Terminal",
+      title: "Market Overview + Average Price Panel",
+      subtitle: "Track region/segment average price history, asset-vs-average comparison, and heatmap depth in one screen.",
+      bannerWarning: "Values shown here are region/segment ₺ average prices (not official statistics; an indicator produced from platform demo data). For the actual iHaleal Index score, see the live index on the Exchange homepage.",
+      avgPriceHistory: "Average Price History (₺)",
+      regionAvg: "Region avg. price (₺)",
+      segmentAvg: "Segment avg. price (₺)",
+      platformAvg: "Platform avg. price (₺)",
+      captionSelected: "Selected region",
+      assetVsPlatform: "Asset vs Platform Average (₺)",
+      assetPriceSuffix: "price (₺)",
+      comparisonSelection: "Comparison selection",
+      segmentTrendAnalysis: "Segment Trend Analysis",
+      volumeLabel: "Volume",
+      volumeUnit: "lot",
+      depthScore: "Depth score",
+      marketShare: "Market share",
+      regionHeatmap: "Region Heatmap",
+      downloadReport: "Download Report (Demo)",
+      avgPriceShort: "Avg. price",
+      demoReportFootnote: "The downloadable report is a demo; independent financial/legal advisor opinion is required for professional investment decisions.",
+      segmentResidential: "Residential",
+      segmentLand: "Land",
+      segmentCommercial: "Commercial",
+      segmentTourism: "Tourism",
+    },
   },
   tr: {
     nav: {
@@ -1727,6 +1784,33 @@ export const messages: Record<"en" | "tr", Messages> = {
       finalReviewBanner: "Ön değerleme tamamlandı. Resmi değer için SPK lisanslı değerleme uzmanı (TDUB) teyidi gerekir.",
       startValuationCta: "Değerleme başlat",
     },
+    dataAnalysis: {
+      eyebrow: "Veri / Analiz Terminali",
+      title: "Piyasa Genel Görünüm + Ortalama Fiyat Paneli",
+      subtitle: "Bölge/segment ortalama fiyat geçmişini, varlık-ortalama karşılaştırmasını ve ısı haritası derinliğini tek ekranda izleyin.",
+      bannerWarning: "Burada gösterilen değerler bölge/segment ₺ ortalama fiyatlarıdır (resmi istatistik değildir, platform demo verisinden üretilen göstergedir). Gerçek İhaleal Endeksi puanı için Borsa ana sayfasındaki canlı endeksi izleyin.",
+      avgPriceHistory: "Ortalama Fiyat Geçmişi (₺)",
+      regionAvg: "Bölge ort. fiyat (₺)",
+      segmentAvg: "Segment ort. fiyat (₺)",
+      platformAvg: "Platform ort. fiyat (₺)",
+      captionSelected: "Seçili bölge",
+      assetVsPlatform: "Varlık vs Platform Ortalaması (₺)",
+      assetPriceSuffix: "fiyat (₺)",
+      comparisonSelection: "Karşılaştırma seçimi",
+      segmentTrendAnalysis: "Segment Trend Analizi",
+      volumeLabel: "Hacim",
+      volumeUnit: "lot",
+      depthScore: "Derinlik puanı",
+      marketShare: "Pazar payı",
+      regionHeatmap: "Bölge Isı Haritası",
+      downloadReport: "Raporu İndir (Demo)",
+      avgPriceShort: "Ort. fiyat",
+      demoReportFootnote: "İndirilebilir rapor demodur; profesyonel yatırım kararları için bağımsız finansal/hukuki danışman görüşü gereklidir.",
+      segmentResidential: "Konut",
+      segmentLand: "Arsa",
+      segmentCommercial: "Ticari",
+      segmentTourism: "Turizm",
+    },
   },
 };
 
@@ -2212,6 +2296,33 @@ const _ruOverrides: PartialDeep<Messages> = {
     finalReviewBanner: "Предварительная оценка завершена. Для официальной оценки требуется подтверждение лицензированного оценщика SPK (TDUB).",
     startValuationCta: "Начать оценку",
   },
+  dataAnalysis: {
+    eyebrow: "Терминал данных / анализа",
+    title: "Обзор рынка + панель средних цен",
+    subtitle: "Отслеживайте историю средних цен по региону/сегменту, сравнение «актив против среднего» и тепловую карту глубины — на одном экране.",
+    bannerWarning: "Показанные значения — это средние цены в ₺ по региону/сегменту (не официальная статистика; индикатор, рассчитанный из демо-данных платформы). Реальный балл индекса iHaleal смотрите на главной странице биржи.",
+    avgPriceHistory: "История средних цен (₺)",
+    regionAvg: "Средняя цена по региону (₺)",
+    segmentAvg: "Средняя цена по сегменту (₺)",
+    platformAvg: "Среднее по платформе (₺)",
+    captionSelected: "Выбранный регион",
+    assetVsPlatform: "Актив против среднего по платформе (₺)",
+    assetPriceSuffix: "цена (₺)",
+    comparisonSelection: "Выбор для сравнения",
+    segmentTrendAnalysis: "Анализ трендов сегмента",
+    volumeLabel: "Объём",
+    volumeUnit: "лот",
+    depthScore: "Балл глубины",
+    marketShare: "Доля рынка",
+    regionHeatmap: "Тепловая карта регионов",
+    downloadReport: "Скачать отчёт (демо)",
+    avgPriceShort: "Ср. цена",
+    demoReportFootnote: "Скачиваемый отчёт является демонстрационным; для профессиональных инвестиционных решений требуется мнение независимого финансового/юридического консультанта.",
+    segmentResidential: "Жилая",
+    segmentLand: "Земля",
+    segmentCommercial: "Коммерческая",
+    segmentTourism: "Туристическая",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -2681,6 +2792,33 @@ const _arOverrides: PartialDeep<Messages> = {
     errorFloorNegative: "لا يمكن أن يكون الطابق سالباً.",
     finalReviewBanner: "اكتمل التقييم الأولي. للحصول على تقييم رسمي يلزم تأكيد مقيِّم مرخّص من SPK (TDUB).",
     startValuationCta: "بدء التقييم",
+  },
+  dataAnalysis: {
+    eyebrow: "محطة البيانات / التحليل",
+    title: "نظرة عامة على السوق + لوحة متوسط الأسعار",
+    subtitle: "تابع سجل متوسط الأسعار حسب المنطقة/القطاع، ومقارنة «الأصل مقابل المتوسط»، وعمق الخريطة الحرارية في شاشة واحدة.",
+    bannerWarning: "القيم المعروضة هنا هي متوسطات الأسعار بالليرة التركية حسب المنطقة/القطاع (ليست إحصائيات رسمية؛ مؤشّر مُستخرَج من بيانات تجريبية للمنصة). للحصول على درجة مؤشر iHaleal الحقيقية، راجع المؤشّر المباشر على الصفحة الرئيسية للبورصة.",
+    avgPriceHistory: "سجل متوسط الأسعار (₺)",
+    regionAvg: "متوسط سعر المنطقة (₺)",
+    segmentAvg: "متوسط سعر القطاع (₺)",
+    platformAvg: "متوسط المنصة (₺)",
+    captionSelected: "المنطقة المختارة",
+    assetVsPlatform: "الأصل مقابل متوسط المنصة (₺)",
+    assetPriceSuffix: "السعر (₺)",
+    comparisonSelection: "اختيار المقارنة",
+    segmentTrendAnalysis: "تحليل اتجاهات القطاع",
+    volumeLabel: "الحجم",
+    volumeUnit: "لوت",
+    depthScore: "درجة العمق",
+    marketShare: "حصة السوق",
+    regionHeatmap: "الخريطة الحرارية للمناطق",
+    downloadReport: "تنزيل التقرير (تجريبي)",
+    avgPriceShort: "متوسط السعر",
+    demoReportFootnote: "التقرير القابل للتنزيل تجريبي؛ للقرارات الاستثمارية المهنية يلزم رأي مستشار مالي/قانوني مستقل.",
+    segmentResidential: "سكني",
+    segmentLand: "أرض",
+    segmentCommercial: "تجاري",
+    segmentTourism: "سياحي",
   },
 };
 

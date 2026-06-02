@@ -5,6 +5,7 @@ import { useLiveMarket } from "@/borsa/useLiveMarket";
 import { createMarketSnapshot } from "@/lib/borsa/marketData";
 import { cn } from "@/lib/utils";
 import { FxRef } from "@/components/FxRef";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type RegionKey = "istanbul" | "ege" | "akdeniz" | "ankara" | "bodrum";
 type SegmentKey = "konut" | "arsa" | "ticari" | "turizm";
@@ -30,6 +31,8 @@ function inferSegment(property: string): SegmentKey {
 }
 
 export default function BorsaDataAnalysisPage() {
+  const { t } = useLocale();
+  const da = t.dataAnalysis;
   const { data } = useLiveMarket();
   const [selectedAssetId, setSelectedAssetId] = useState<string>(data[0]?.id ?? "");
   const [selectedRegion, setSelectedRegion] = useState<RegionKey>("istanbul");
@@ -128,15 +131,15 @@ export default function BorsaDataAnalysisPage() {
   return (
     <main className="w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
       <section className="rounded-xl border border-cyan-500/35 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
-        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Veri / Analiz Terminali</p>
-        <h1 className="mt-1 text-2xl font-black text-white">Piyasa Genel Görünüm + Ortalama Fiyat Paneli</h1>
+        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">{da.eyebrow}</p>
+        <h1 className="mt-1 text-2xl font-black text-white">{da.title}</h1>
         <p className="mt-2 text-sm text-slate-300">
-          Bölge/segment <strong className="text-white">ortalama fiyat</strong> geçmişini, varlık-ortalama karşılaştırmasını ve ısı haritası derinliğini tek ekranda izleyin.
+          {da.subtitle}
         </p>
       </section>
 
       <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-3 py-2 text-[11px] text-amber-100">
-        Burada gösterilen değerler <strong>bölge/segment ₺ ortalama fiyatlarıdır</strong> (resmi istatistik değildir, platform demo verisinden üretilen göstergedir). Gerçek <em>İhaleal Endeksi</em> puanı için Borsa ana sayfasındaki canlı endeksi izleyin.
+        {da.bannerWarning}
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.45fr_1fr]">
@@ -144,7 +147,7 @@ export default function BorsaDataAnalysisPage() {
           <div className="mb-3 flex items-center justify-between">
             <h2 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
               <LineChartIcon className="h-4 w-4 text-cyan-300" />
-              Ortalama Fiyat Geçmişi (₺)
+              {da.avgPriceHistory}
             </h2>
             <div className="flex gap-2 text-xs">
               <select
@@ -177,14 +180,14 @@ export default function BorsaDataAnalysisPage() {
                 <XAxis dataKey="period" stroke="#94a3b8" />
                 <YAxis stroke="#94a3b8" tickFormatter={(v) => `₺${Math.round(v / 1_000_000)}M`} />
                 <Tooltip formatter={(v: number) => formatTry(v)} />
-                <Line dataKey="bolgeEndeksi" name="Bölge ort. fiyat (₺)" stroke="#22d3ee" strokeWidth={2.3} dot={false} />
-                <Line dataKey="segmentEndeksi" name="Segment ort. fiyat (₺)" stroke="#a78bfa" strokeWidth={2} dot={false} />
-                <Line dataKey="platformEndeksi" name="Platform ort. fiyat (₺)" stroke="#22c55e" strokeWidth={2} dot={false} />
+                <Line dataKey="bolgeEndeksi" name={da.regionAvg} stroke="#22d3ee" strokeWidth={2.3} dot={false} />
+                <Line dataKey="segmentEndeksi" name={da.segmentAvg} stroke="#a78bfa" strokeWidth={2} dot={false} />
+                <Line dataKey="platformEndeksi" name={da.platformAvg} stroke="#22c55e" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>
           <p className="mt-2 text-xs text-slate-300">
-            Seçili bölge: <strong className="text-white">{regionLabel(selectedRegion)}</strong> · seçili segment:{" "}
+            {da.captionSelected}: <strong className="text-white">{regionLabel(selectedRegion)}</strong> ·{" "}
             <strong className="text-white">{selectedSegment.toLocaleUpperCase("tr-TR")}</strong>
           </p>
         </article>
@@ -193,7 +196,7 @@ export default function BorsaDataAnalysisPage() {
           <div className="mb-3 flex items-center justify-between">
             <h2 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
               <Scale className="h-4 w-4 text-cyan-300" />
-              Varlık vs Platform Ortalaması (₺)
+              {da.assetVsPlatform}
             </h2>
             <select
               value={selectedAssetId}
@@ -214,20 +217,20 @@ export default function BorsaDataAnalysisPage() {
                 <XAxis dataKey="period" stroke="#94a3b8" />
                 <YAxis stroke="#94a3b8" tickFormatter={(v) => `₺${Math.round(v / 1_000_000)}M`} />
                 <Tooltip formatter={(v: number) => formatTry(v)} />
-                <Area dataKey="endeks" name="Platform ort. fiyat (₺)" stroke="#06b6d4" fill="#0891b233" strokeWidth={2} />
-                <Area dataKey="varlik" name={`${selectedAsset?.code ?? "Varlık"} fiyat (₺)`} stroke="#34d399" fill="#10b98133" strokeWidth={2} />
+                <Area dataKey="endeks" name={da.platformAvg} stroke="#06b6d4" fill="#0891b233" strokeWidth={2} />
+                <Area dataKey="varlik" name={`${selectedAsset?.code ?? "—"} ${da.assetPriceSuffix}`} stroke="#34d399" fill="#10b98133" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
           <p className="mt-2 text-xs text-slate-300">
-            Karşılaştırma seçimi: <strong className="text-white">{selectedAsset?.code ?? "—"}</strong>
+            {da.comparisonSelection}: <strong className="text-white">{selectedAsset?.code ?? "—"}</strong>
           </p>
         </article>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.15fr_1.85fr]">
         <article className="rounded-xl border border-border bg-card p-3">
-          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Segment Trend Analizi</h3>
+          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">{da.segmentTrendAnalysis}</h3>
           <div className="space-y-2">
             {segmentTrends.map((item) => (
               <div key={item.segment} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
@@ -238,9 +241,9 @@ export default function BorsaDataAnalysisPage() {
                     {item.avgChange.toFixed(2)}%
                   </span>
                 </div>
-                <p className="mt-1 text-slate-300">Hacim: {item.totalVolume.toLocaleString("tr-TR")} lot</p>
-                <p className="mt-1 text-slate-300">Derinlik puanı: {item.depth.toLocaleString("tr-TR")}</p>
-                <p className="mt-1 text-slate-300">Pazar payı: %{item.weightPct.toLocaleString("tr-TR")}</p>
+                <p className="mt-1 text-slate-300">{da.volumeLabel}: <span dir="ltr">{item.totalVolume.toLocaleString("tr-TR")}</span> {da.volumeUnit}</p>
+                <p className="mt-1 text-slate-300">{da.depthScore}: <span dir="ltr">{item.depth.toLocaleString("tr-TR")}</span></p>
+                <p className="mt-1 text-slate-300">{da.marketShare}: <span dir="ltr">{item.weightPct.toLocaleString("tr-TR")}%</span></p>
               </div>
             ))}
           </div>
@@ -250,33 +253,33 @@ export default function BorsaDataAnalysisPage() {
           <div className="mb-3 flex items-center justify-between">
             <h3 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
               <Grid3X3 className="h-4 w-4 text-cyan-300" />
-              Bölge Isı Haritası
+              {da.regionHeatmap}
             </h3>
             <button
               type="button"
               onClick={downloadReport}
               className="inline-flex items-center gap-1 rounded-md border border-cyan-400/55 bg-cyan-500/15 px-2.5 py-1.5 text-xs font-semibold text-cyan-100"
             >
-              <Download className="h-3.5 w-3.5" /> Raporu İndir (Demo)
+              <Download className="h-3.5 w-3.5" /> {da.downloadReport}
             </button>
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {regionHeatmap.map((cell) => (
               <div key={cell.region} className={cn("rounded-xl border px-3 py-2.5", cell.tone)}>
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-100">{regionLabel(cell.region)}</p>
-                <p className="text-[10px] uppercase tracking-wide text-slate-300">Ort. fiyat</p>
+                <p className="text-[10px] uppercase tracking-wide text-slate-300">{da.avgPriceShort}</p>
                 <p className="mt-0.5 text-lg font-black text-white" dir="ltr">{formatTry(cell.idx)}</p>
                 <FxRef amountTry={cell.idx} variant="block" className="text-[11px] text-amber-300/80" />
                 <p className={cn("text-xs font-bold", cell.avgChange >= 0 ? "text-emerald-200" : "text-rose-200")}>
                   {cell.avgChange >= 0 ? "+" : ""}
                   {cell.avgChange.toFixed(2)}%
                 </p>
-                <p className="mt-1 text-[11px] text-slate-200">Hacim: {cell.volume.toLocaleString("tr-TR")} lot</p>
+                <p className="mt-1 text-[11px] text-slate-200">{da.volumeLabel}: <span dir="ltr">{cell.volume.toLocaleString("tr-TR")}</span> {da.volumeUnit}</p>
               </div>
             ))}
           </div>
           <p className="mt-3 rounded-lg border border-amber-500/35 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
-            İndirilebilir rapor demodur; profesyonel yatırım kararları için bağımsız finansal/hukuki danışman görüşü gereklidir.
+            {da.demoReportFootnote}
           </p>
         </article>
       </section>
