@@ -9,6 +9,13 @@
     max-width: 100%;
   }
 
+  /* i18n FAZ 0 — Arapça için Noto Sans Arabic (Latin fallback Inter).
+     Sadece <html lang="ar"> aktifken devreye girer; TR/EN/RU etkilenmez. */
+  html[lang="ar"] body,
+  html[lang="ar"] {
+    font-family: "Noto Sans Arabic", var(--font-body), "Inter", system-ui, sans-serif;
+  }
+
   :root,
   [data-theme="light"] {
     /* Luxury institutional — aligned with src/styles/tokens.css */

@@ -333,7 +333,7 @@ export function Navbar() {
                     type="button"
                     onClick={() => pickLocale("en")}
                     className={cn(
-                      "block w-full px-4 py-2 text-left text-sm",
+                      "block w-full px-4 py-2 text-start text-sm",
                       locale === "en" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
@@ -343,11 +343,32 @@ export function Navbar() {
                     type="button"
                     onClick={() => pickLocale("tr")}
                     className={cn(
-                      "block w-full px-4 py-2 text-left text-sm",
+                      "block w-full px-4 py-2 text-start text-sm",
                       locale === "tr" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langTr}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => pickLocale("ru")}
+                    className={cn(
+                      "block w-full px-4 py-2 text-start text-sm",
+                      locale === "ru" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                    )}
+                  >
+                    {n.langRu}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => pickLocale("ar")}
+                    dir="rtl"
+                    className={cn(
+                      "block w-full px-4 py-2 text-start text-sm",
+                      locale === "ar" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                    )}
+                  >
+                    {n.langAr}
                   </button>
                 </div>
               ) : null}
@@ -495,12 +516,12 @@ export function Navbar() {
                 {sub.label}
               </NavLink>
             ))}
-            <div className="mt-3 flex gap-2 border-t border-slate-700/40 pt-3">
+            <div className="mt-3 grid grid-cols-2 gap-2 border-t border-slate-700/40 pt-3 sm:grid-cols-4">
               <button
                 type="button"
                 onClick={() => pickLocale("en")}
                 className={cn(
-                  "flex-1 min-h-11 rounded-lg border py-3 text-center text-sm",
+                  "min-h-11 rounded-lg border py-3 text-center text-sm",
                   locale === "en"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
@@ -512,13 +533,37 @@ export function Navbar() {
                 type="button"
                 onClick={() => pickLocale("tr")}
                 className={cn(
-                  "flex-1 min-h-11 rounded-lg border py-3 text-center text-sm",
+                  "min-h-11 rounded-lg border py-3 text-center text-sm",
                   locale === "tr"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
                 )}
               >
                 TR
+              </button>
+              <button
+                type="button"
+                onClick={() => pickLocale("ru")}
+                className={cn(
+                  "min-h-11 rounded-lg border py-3 text-center text-sm",
+                  locale === "ru"
+                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    : "border-slate-600/30 text-slate-400",
+                )}
+              >
+                RU
+              </button>
+              <button
+                type="button"
+                onClick={() => pickLocale("ar")}
+                className={cn(
+                  "min-h-11 rounded-lg border py-3 text-center text-sm",
+                  locale === "ar"
+                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    : "border-slate-600/30 text-slate-400",
+                )}
+              >
+                AR
               </button>
             </div>
             <div className="mt-2 flex gap-2">

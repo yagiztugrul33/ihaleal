@@ -8,8 +8,9 @@ import {
   type ReactNode,
 } from "react";
 import {
+  LOCALE_DIRECTION,
   LOCALE_STORAGE_KEY,
-  messages,
+  getMessagesFor,
   type Locale,
   type Messages,
 } from "@/i18n/messages";
@@ -23,10 +24,13 @@ type LocaleContextValue = {
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 function detectBrowserLocale(): Locale {
-  // navigator.language örn. "tr-TR", "tr", "en-US" — "tr" ile başlıyorsa TR
+  // navigator.language örn. "tr-TR", "tr", "ar-SA" — prefix'e göre 4 dil eşle.
   try {
     const nav = (typeof navigator !== "undefined" ? navigator.language : "") || "";
-    if (nav.toLowerCase().startsWith("tr")) return "tr";
+    const lower = nav.toLowerCase();
+    if (lower.startsWith("tr")) return "tr";
+    if (lower.startsWith("ru")) return "ru";
+    if (lower.startsWith("ar")) return "ar";
   } catch {
     /* sessiz */
   }
@@ -37,8 +41,8 @@ function readStoredLocale(): Locale {
   if (typeof window === "undefined") return "tr"; // SSR/Türk pazar default TR
   try {
     const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-    if (stored === "tr" || stored === "en") return stored;
-    // Saklı tercih yoksa: navigator.language'ten türet (TR ise TR, aksi EN)
+    if (stored === "tr" || stored === "en" || stored === "ru" || stored === "ar") return stored;
+    // Saklı tercih yoksa: navigator.language'ten türet (TR/RU/AR ise o, aksi EN)
     return detectBrowserLocale();
   } catch {
     return detectBrowserLocale();
@@ -58,14 +62,16 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = locale === "tr" ? "tr" : "en";
+    // <html lang="..."> + dir (AR = rtl, diğerleri = ltr)
+    document.documentElement.lang = locale;
+    document.documentElement.dir = LOCALE_DIRECTION[locale];
   }, [locale]);
 
   const value = useMemo<LocaleContextValue>(
     () => ({
       locale,
       setLocale,
-      t: messages[locale],
+      t: getMessagesFor(locale),
     }),
     [locale, setLocale],
   );

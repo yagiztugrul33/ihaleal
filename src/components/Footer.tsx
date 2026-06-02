@@ -243,6 +243,30 @@ export function Footer() {
               >
                 EN
               </button>
+              <button
+                type="button"
+                onClick={() => pickLocale("ru")}
+                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                  locale === "ru"
+                    ? "bg-blue-500/20 text-blue-300"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+                aria-pressed={locale === "ru"}
+              >
+                RU
+              </button>
+              <button
+                type="button"
+                onClick={() => pickLocale("ar")}
+                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                  locale === "ar"
+                    ? "bg-blue-500/20 text-blue-300"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+                aria-pressed={locale === "ar"}
+              >
+                AR
+              </button>
             </div>
             <span className="text-xs text-slate-400">
               {isEn ? "AI-powered real estate platform" : "Yapay zeka destekli gayrimenkul platformu"}

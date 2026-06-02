@@ -1,6 +1,24 @@
-export type Locale = "en" | "tr";
+export type Locale = "en" | "tr" | "ru" | "ar";
 
 export const LOCALE_STORAGE_KEY = "ihaleal_locale";
+
+/**
+ * Dil yönü — `dir` HTML attribute için.
+ * Arapça RTL (sağdan sola), kalan üçü LTR (soldan sağa).
+ */
+export const LOCALE_DIRECTION: Record<Locale, "ltr" | "rtl"> = {
+  en: "ltr",
+  tr: "ltr",
+  ru: "ltr",
+  ar: "rtl",
+};
+
+/**
+ * RU/AR FAZ 0: SADECE altyapı. Çoğu metin TR fallback.
+ * Eklenen kanıt string'leri sadece nav.* öğelerinde (4 dil seçici görünür).
+ * Tam çeviri sonraki fazlarda (sayfa sayfa).
+ */
+
 
 export type HomeMessages = {
   hero: {
@@ -93,6 +111,8 @@ export type NavMessages = {
   closeMenu: string;
   langEn: string;
   langTr: string;
+  langRu: string;
+  langAr: string;
 };
 
 export type Messages = {
@@ -101,7 +121,12 @@ export type Messages = {
   common: CommonMessages;
 };
 
-export const messages: Record<Locale, Messages> = {
+/**
+ * Tam çeviri tabanı: en + tr (mevcut). RU/AR FAZ 0'da `getMessagesFor()` ile
+ * runtime TR fallback üzerine override edilir. Type cast'i `"en" | "tr"`
+ * yaptık çünkü ru/ar henüz tam Messages değil — lazy merge'le üretilir.
+ */
+export const messages: Record<"en" | "tr", Messages> = {
   en: {
     nav: {
       auctions: "Auctions",
@@ -121,6 +146,8 @@ export const messages: Record<Locale, Messages> = {
       closeMenu: "Close menu",
       langEn: "English",
       langTr: "Türkçe",
+      langRu: "Russian",
+      langAr: "Arabic",
     },
     home: {
       hero: {
@@ -274,6 +301,8 @@ export const messages: Record<Locale, Messages> = {
       closeMenu: "Menüyü kapat",
       langEn: "English",
       langTr: "Türkçe",
+      langRu: "Rusça",
+      langAr: "Arapça",
     },
     home: {
       hero: {
@@ -410,6 +439,108 @@ export const messages: Record<Locale, Messages> = {
   },
 };
 
+/**
+ * 4 dil kabul eder. Bilinmeyen → "tr" (TR ana pazar).
+ */
 export function resolveLocale(raw: string | null): Locale {
-  return raw === "tr" ? "tr" : "en";
+  if (raw === "tr" || raw === "en" || raw === "ru" || raw === "ar") return raw;
+  return "tr";
+}
+
+// ───────── RU/AR FAZ 0 — kanıt çevirileri (sadece nav.*) ─────────
+// Geri kalan tüm metinler `getMessagesFor()` ile TR'den fallback alır.
+// Tam çeviri sonraki fazlarda (sayfa sayfa).
+
+type PartialDeep<T> = T extends object ? { [K in keyof T]?: PartialDeep<T[K]> } : T;
+
+const _ruOverrides: PartialDeep<Messages> = {
+  nav: {
+    auctions: "Аукционы",
+    howItWorks: "Как это работает",
+    services: "Услуги",
+    resources: "Ресурсы",
+    company: "Компания",
+    valuation: "Оценка",
+    faq: "ЧаВо",
+    search: "Поиск аукционов, объектов…",
+    logIn: "Войти",
+    signUp: "Регистрация",
+    openMenu: "Открыть меню",
+    closeMenu: "Закрыть меню",
+    langEn: "Английский",
+    langTr: "Турецкий",
+    langRu: "Русский",
+    langAr: "Арабский",
+  },
+};
+
+const _arOverrides: PartialDeep<Messages> = {
+  nav: {
+    auctions: "المزادات",
+    howItWorks: "كيف يعمل",
+    services: "الخدمات",
+    resources: "الموارد",
+    company: "الشركة",
+    valuation: "التقييم",
+    faq: "الأسئلة الشائعة",
+    search: "ابحث عن المزادات، العقارات…",
+    logIn: "تسجيل الدخول",
+    signUp: "إنشاء حساب",
+    openMenu: "فتح القائمة",
+    closeMenu: "إغلاق القائمة",
+    langEn: "الإنجليزية",
+    langTr: "التركية",
+    langRu: "الروسية",
+    langAr: "العربية",
+  },
+};
+
+/**
+ * Saf JSON deep merge — base üzerine override uygular, override'da yoksa
+ * base değeri kalır. Diziler override edilir (parça parça birleştirmez —
+ * çevirilerde dizi yapısı korunmalı, biz sadece nav.* için string override
+ * ediyoruz, dizi override etmiyoruz, sorun yok).
+ */
+function _mergeMessages<T extends object>(base: T, override: PartialDeep<T>): T {
+  if (override == null || typeof override !== "object") return base;
+  const result: Record<string, unknown> = {};
+  for (const key of Object.keys(base) as Array<keyof T>) {
+    const baseVal = base[key];
+    const overrideVal = (override as Record<string, unknown>)[key as string];
+    if (
+      baseVal !== null &&
+      typeof baseVal === "object" &&
+      !Array.isArray(baseVal) &&
+      overrideVal !== null &&
+      typeof overrideVal === "object" &&
+      !Array.isArray(overrideVal)
+    ) {
+      result[key as string] = _mergeMessages(baseVal as object, overrideVal as PartialDeep<object>);
+    } else if (overrideVal !== undefined) {
+      result[key as string] = overrideVal;
+    } else {
+      result[key as string] = baseVal;
+    }
+  }
+  return result as T;
+}
+
+// Lazy cache — modül seviyesinde tek hesap, sonraki çağrılar O(1).
+let _cachedRu: Messages | null = null;
+let _cachedAr: Messages | null = null;
+
+/**
+ * Locale → Messages map'i. EN/TR direkt; RU/AR TR üzerine partial override.
+ * RU/AR'da çevirisi olmayan metinler TR fallback olarak görünür (kırık değil).
+ */
+export function getMessagesFor(locale: Locale): Messages {
+  if (locale === "en") return messages.en;
+  if (locale === "tr") return messages.tr;
+  if (locale === "ru") {
+    if (!_cachedRu) _cachedRu = _mergeMessages(messages.tr, _ruOverrides);
+    return _cachedRu;
+  }
+  // ar
+  if (!_cachedAr) _cachedAr = _mergeMessages(messages.tr, _arOverrides);
+  return _cachedAr;
 }

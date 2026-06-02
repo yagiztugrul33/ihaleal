@@ -44,6 +44,14 @@
     <!-- LCP candidate preload — anasayfa kritik logo (icon-192 yüksek öncelik) -->
     <link rel="preload" as="image" href="/icon-192.png" fetchpriority="high" />
 
+    <!-- i18n FAZ 0: Arapça font (AR seçilince [lang="ar"] body altında uygulanır).
+         display=swap → Inter LCP'i bekletmez; AR aktif değilse network yükü minimal. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
+      media="all"
+    />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="__HOME_SHARE_URL__" />
