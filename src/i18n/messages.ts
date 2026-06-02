@@ -818,6 +818,30 @@ export type ListingDetailMessages = {
   expPanelPreparing: string;
   expPanelDownload: string;
   expPanelDesc: string;
+  // ── 11-G-3: bid dialog (teklif modal) ──
+  cancel: string;
+  bidCostTitle: string;
+  bidCostNote: string;
+  bidAmountLabel: string;
+  bidAmountPlaceholder: string;
+  proxyTitle: string;
+  proxyDesc: string;
+  proxyEnableAria: string;
+  proxyMaxLabel: string;
+  proxyMaxPlaceholderPrefix: string;
+  proxyDemoNote: string;
+  bidGateTitle: string;
+  bidGateTooltip: string;
+  // ── 11-G-3: bid flow toasts ──
+  toastAuctionEnded: string;
+  toastInvalidBid: string;
+  toastMinBid: string;
+  toastBidGate: string;
+  toastDuplicate: string;
+  toastBidSaved: string;
+  toastDemoBid: string;
+  toastOfferSubmitted: string;
+  toastLogin: string;
 };
 
 export type PaymentMessages = {
@@ -1400,6 +1424,31 @@ export const messages: Record<"en" | "tr", Messages> = {
       expPanelDownload: "Download PDF",
       expPanelDesc:
         "Property description, price valuation, area analysis, features and nearby amenities — a professional PDF summary.",
+      // ── 11-G-3 ──
+      cancel: "Cancel",
+      bidCostTitle: "Estimated Total Cost (Commission + Duties Included)",
+      bidCostNote: "Buyer platform: fees.ts · title deed %{pct} + fixed cost (demo)",
+      bidAmountLabel: "Bid amount (₺)",
+      bidAmountPlaceholder: "e.g. 3000000 or 3.000.000",
+      proxyTitle: "Automatic bid (proxy bid)",
+      proxyDesc: "On your behalf, it automatically raises up to your maximum amount as others bid.",
+      proxyEnableAria: "Enable automatic bid",
+      proxyMaxLabel: "Maximum bid amount (₺)",
+      proxyMaxPlaceholderPrefix: "e.g.",
+      proxyDemoNote:
+        "Demo: the max amount is stored locally (user preference). Automatic raising activates once the backend side (auction_proxy_bids table + RLS + sealed-masking compliance) is complete. For now, submission is processed as a normal one-click bid.",
+      bidGateTitle: "Required approvals",
+      bidGateTooltip: "Check all approval boxes",
+      toastAuctionEnded: "This auction has ended.",
+      toastInvalidBid: "Enter a valid bid amount (positive integer, within a reasonable upper limit).",
+      toastMinBid: "Bid must be at least ₺{amount}.",
+      toastBidGate: "First approve the AI report, then complete the deposit (pre-authorization) step.",
+      toastDuplicate: "This bid is already recorded.",
+      toastBidSaved: "Bid recorded: ₺{amount}",
+      toastDemoBid:
+        "Demo listing: the bid is not written to the database. On live auctions (Supabase UUID) the bid is stored on the server.",
+      toastOfferSubmitted: "Your offer has been recorded. You can track it from the My Offers panel.",
+      toastLogin: "Please log in.",
     },
     borsa: {
       marketTicker: "Market Ticker",
@@ -2292,6 +2341,31 @@ export const messages: Record<"en" | "tr", Messages> = {
       expPanelDownload: "PDF İndir",
       expPanelDesc:
         "Mülk tanımı, fiyat değerleme, bölge analizi, özellikler ve çevre olanakları — Roboto Türkçe font ile profesyonel PDF özet.",
+      // ── 11-G-3 ──
+      cancel: "Vazgeç",
+      bidCostTitle: "Tahmini Toplam Maliyet (Komisyon + Harçlar Dahil)",
+      bidCostNote: "Alıcı platform: fees.ts · tapu %{pct} + sabit masraf (demo)",
+      bidAmountLabel: "Teklif tutarı (₺)",
+      bidAmountPlaceholder: "örn: 3000000 veya 3.000.000",
+      proxyTitle: "Otomatik teklif (proxy bid)",
+      proxyDesc: "Sizin adınıza, başkalarının teklifleri geldikçe maksimum tutara kadar otomatik artırır.",
+      proxyEnableAria: "Otomatik teklifi etkinleştir",
+      proxyMaxLabel: "Maksimum teklif tutarı (₺)",
+      proxyMaxPlaceholderPrefix: "örn:",
+      proxyDemoNote:
+        "Demo: max tutar yerel olarak kaydedilir (kullanıcı tercihi). Otomatik artırma backend tarafı (auction_proxy_bids tablosu + RLS + sealed maskeleme uyumu) tamamlandığında devreye girer. Şu an gönderim normal tek-tıkla teklif olarak işlenir.",
+      bidGateTitle: "Zorunlu onaylar",
+      bidGateTooltip: "Tüm onay kutularını işaretleyin",
+      toastAuctionEnded: "Bu ihale sona ermiş.",
+      toastInvalidBid: "Geçerli bir teklif tutarı girin (pozitif tam sayı, makul üst sınır içinde).",
+      toastMinBid: "Teklif en az ₺{amount} olmalı.",
+      toastBidGate: "Önce AI raporunu onaylayın ve teminat (ön yetki) adımını tamamlayın.",
+      toastDuplicate: "Bu teklif zaten kayıtlı.",
+      toastBidSaved: "Teklif kaydedildi: ₺{amount}",
+      toastDemoBid:
+        "Demo ilan: teklif veritabanına yazılmaz. Canlı ihalelerde (Supabase UUID) teklif sunucuda saklanır.",
+      toastOfferSubmitted: "Teklifiniz kaydedildi. Tekliflerim panelinden takip edebilirsiniz.",
+      toastLogin: "Giriş yapın.",
     },
     borsa: {
       marketTicker: "Piyasa Ticker",
@@ -3090,6 +3164,31 @@ const _ruOverrides: PartialDeep<Messages> = {
     expPanelDownload: "Скачать PDF",
     expPanelDesc:
       "Описание объекта, оценка цены, анализ района, характеристики и окружающая инфраструктура — профессиональная PDF-сводка.",
+    // ── 11-G-3 ──
+    cancel: "Отмена",
+    bidCostTitle: "Ориентировочная итоговая стоимость (включая комиссию и пошлины)",
+    bidCostNote: "Платформа покупателя: fees.ts · пошлина за тапу %{pct} + фиксированный сбор (демо)",
+    bidAmountLabel: "Сумма ставки (₺)",
+    bidAmountPlaceholder: "напр.: 3000000 или 3.000.000",
+    proxyTitle: "Автоматическая ставка (прокси-ставка)",
+    proxyDesc: "От вашего имени автоматически повышает ставку до вашего максимума по мере поступления ставок других.",
+    proxyEnableAria: "Включить автоматическую ставку",
+    proxyMaxLabel: "Максимальная сумма ставки (₺)",
+    proxyMaxPlaceholderPrefix: "напр.:",
+    proxyDemoNote:
+      "Демо: максимальная сумма сохраняется локально (предпочтение пользователя). Автоповышение включится после завершения серверной части (таблица auction_proxy_bids + RLS + совместимость с закрытым маскированием). Сейчас отправка обрабатывается как обычная ставка в один клик.",
+    bidGateTitle: "Обязательные согласия",
+    bidGateTooltip: "Отметьте все поля согласия",
+    toastAuctionEnded: "Этот аукцион завершён.",
+    toastInvalidBid: "Введите корректную сумму ставки (целое положительное число, в разумных пределах).",
+    toastMinBid: "Ставка должна быть не менее ₺{amount}.",
+    toastBidGate: "Сначала одобрите отчёт ИИ, затем завершите шаг залога (предавторизации).",
+    toastDuplicate: "Эта ставка уже зарегистрирована.",
+    toastBidSaved: "Ставка зарегистрирована: ₺{amount}",
+    toastDemoBid:
+      "Демо-объявление: ставка не записывается в базу данных. На реальных аукционах (Supabase UUID) ставка хранится на сервере.",
+    toastOfferSubmitted: "Ваше предложение зарегистрировано. Вы можете отслеживать его в панели «Мои предложения».",
+    toastLogin: "Войдите в аккаунт.",
   },
   borsa: {
     marketTicker: "Лента рынка",
@@ -3873,6 +3972,31 @@ const _arOverrides: PartialDeep<Messages> = {
     expPanelDownload: "تنزيل PDF",
     expPanelDesc:
       "وصف العقار، تقييم السعر، تحليل المنطقة، المواصفات والمرافق المجاورة — ملخّص PDF احترافي.",
+    // ── 11-G-3 ──
+    cancel: "إلغاء",
+    bidCostTitle: "التكلفة الإجمالية التقديرية (شاملة العمولة والرسوم)",
+    bidCostNote: "منصة المشتري: fees.ts · رسم سند الملكية %{pct} + تكلفة ثابتة (تجريبي)",
+    bidAmountLabel: "مبلغ العرض (₺)",
+    bidAmountPlaceholder: "مثال: 3000000 أو 3.000.000",
+    proxyTitle: "عرض تلقائي (عرض وكيل)",
+    proxyDesc: "ينوب عنك ويرفع العرض تلقائياً حتى حدّك الأقصى كلما قدّم آخرون عروضاً.",
+    proxyEnableAria: "تفعيل العرض التلقائي",
+    proxyMaxLabel: "الحد الأقصى لمبلغ العرض (₺)",
+    proxyMaxPlaceholderPrefix: "مثال:",
+    proxyDemoNote:
+      "تجريبي: يُحفظ الحد الأقصى محلياً (تفضيل المستخدم). يبدأ الرفع التلقائي عند اكتمال الجانب الخلفي (جدول auction_proxy_bids + RLS + توافق الإخفاء المغلق). حالياً تُعالَج العملية كعرض عادي بنقرة واحدة.",
+    bidGateTitle: "الموافقات الإلزامية",
+    bidGateTooltip: "حدّد جميع مربّعات الموافقة",
+    toastAuctionEnded: "انتهى هذا المزاد.",
+    toastInvalidBid: "أدخل مبلغ عرض صالحاً (عدد صحيح موجب، ضمن حد أعلى معقول).",
+    toastMinBid: "يجب ألا يقل العرض عن ₺{amount}.",
+    toastBidGate: "وافق أولاً على تقرير الذكاء الاصطناعي، ثم أكمل خطوة التأمين (التفويض المسبق).",
+    toastDuplicate: "هذا العرض مسجّل بالفعل.",
+    toastBidSaved: "تم تسجيل العرض: ₺{amount}",
+    toastDemoBid:
+      "إعلان تجريبي: لا يُسجَّل العرض في قاعدة البيانات. في المزادات الحيّة (Supabase UUID) يُخزَّن العرض على الخادم.",
+    toastOfferSubmitted: "تم تسجيل عرضك. يمكنك متابعته من لوحة «عروضي».",
+    toastLogin: "يُرجى تسجيل الدخول.",
   },
   borsa: {
     marketTicker: "شريط السوق",

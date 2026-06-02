@@ -659,29 +659,29 @@ export default function AuctionDetail() {
 
   const handleBid = async () => {
     if (auctionEndedVisual) {
-      toastBid("Bu ihale sona ermiş.", "info");
+      toastBid(ld.toastAuctionEnded, "info");
       return;
     }
     const amount = parsePositiveTryFromInput(bidAmount);
     if (amount == null) {
-      toastBid("Geçerli bir teklif tutarı girin (pozitif tam sayı, makul üst sınır içinde).", "error");
+      toastBid(ld.toastInvalidBid, "error");
       return;
     }
     const minRequired = isListingOnly ? liveBid + 1 : minNextBidTry(liveBid);
     if (amount < minRequired) {
-      toastBid(`Teklif en az ₺${minRequired.toLocaleString("tr-TR")} olmalı.`, "warning");
+      toastBid(ld.toastMinBid.replace("{amount}", minRequired.toLocaleString("tr-TR")), "warning");
       return;
     }
     if (!user) {
-      toastBid("Teklif için giriş yapın.", "warning");
+      toastBid(ld.bidLoginRequired, "warning");
       return;
     }
     if (!isListingOnly && bidDisabled) {
-      toastBid("Önce AI raporunu onaylayın ve teminat (ön yetki) adımını tamamlayın.", "warning");
+      toastBid(ld.toastBidGate, "warning");
       return;
     }
     if (!isListingOnly && !isBidGateComplete(bidGateAck)) {
-      toastBid("Teklifi göndermek için tüm sözleşme ve beyan kutularını işaretleyin.", "warning");
+      toastBid(ld.bidAcceptRequired, "warning");
       return;
     }
 
@@ -698,13 +698,13 @@ export default function AuctionDetail() {
           return;
         }
         if (res.status === "duplicate") {
-          toastBid(res.message ?? "Bu teklif zaten kayıtlı.", "info");
+          toastBid(res.message ?? ld.toastDuplicate, "info");
           setShowBidDialog(false);
           setBidAmount("");
           setBidGateAck(initialBidGateAck());
           return;
         }
-        toastBid(`Teklif kaydedildi: ₺${amount.toLocaleString("tr-TR")}`, "success");
+        toastBid(ld.toastBidSaved.replace("{amount}", amount.toLocaleString("tr-TR")), "success");
         setShowBidDialog(false);
         setBidAmount("");
         setBidGateAck(initialBidGateAck());
@@ -714,10 +714,7 @@ export default function AuctionDetail() {
       return;
     }
 
-    toastBid(
-      "Demo ilan: teklif veritabanına yazılmaz. Canlı ihalelerde (Supabase UUID) teklif sunucuda saklanır.",
-      "info",
-    );
+    toastBid(ld.toastDemoBid, "info");
     setShowBidDialog(false);
     setBidAmount("");
   };
@@ -1430,11 +1427,11 @@ export default function AuctionDetail() {
                       title={
                         bidDisabled
                           ? !user
-                            ? "Giriş gerekli"
+                            ? ld.loginRequired
                             : !reportApproved
-                              ? "Önce AI raporunu onaylayın"
+                              ? ld.reportApproval
                               : !depositId
-                                ? "Blokaj ön yetkisi gerekli"
+                                ? ld.depositRequired
                                 : ""
                           : ""
                       }
@@ -1451,10 +1448,10 @@ export default function AuctionDetail() {
                         className="flex-1 min-w-[8rem] bg-gradient-to-r from-amber-500 to-orange-400 hover:from-amber-400 hover:to-orange-300 text-slate-950 font-bold h-11"
                         type="button"
                         disabled={!user || (sellerId != null && user?.id === sellerId)}
-                        title={!user ? "Giriş gerekli" : sellerId && user?.id === sellerId ? "Kendi ilanınıza teklif veremezsiniz" : undefined}
+                        title={!user ? ld.loginRequired : sellerId && user?.id === sellerId ? ld.cantBidOwn : undefined}
                         onClick={() => {
                           if (!user) {
-                            toastBid("Giriş yapın.", "warning");
+                            toastBid(ld.toastLogin, "warning");
                             return;
                           }
                           setOfferDialogOpen(true);
@@ -1632,10 +1629,10 @@ export default function AuctionDetail() {
               <p className="text-lg font-bold text-blue-400 mt-1">₺{liveBid.toLocaleString("tr-TR")}</p>
             </div>
             <div className="p-3 rounded-xl bg-teal-500/5 border border-teal-500/10">
-              <p className="text-xs text-slate-400 mb-1">Tahmini Toplam Maliyet (Komisyon + Harçlar Dahil)</p>
-              <p className="text-sm font-bold text-teal-400">₺{estimateBuyerClosingCosts(liveBid).total.toLocaleString("tr-TR")}</p>
+              <p className="text-xs text-slate-400 mb-1">{ld.bidCostTitle}</p>
+              <p className="text-sm font-bold text-teal-400" dir="ltr">₺{estimateBuyerClosingCosts(liveBid).total.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-500 mt-1">
-                Alıcı platform: fees.ts · tapu %{(DEED_DUTY_RATE * 100).toFixed(0)} + sabit masraf (demo)
+                {ld.bidCostNote.replace("{pct}", (DEED_DUTY_RATE * 100).toFixed(0))}
               </p>
             </div>
             <div className="grid grid-cols-5 gap-2">
@@ -1652,15 +1649,16 @@ export default function AuctionDetail() {
             </div>
             <div>
               <label className="text-sm text-slate-400 mb-1.5 block" htmlFor="bid-amount-input">
-                Teklif tutarı (₺)
+                {ld.bidAmountLabel}
               </label>
               <Input
                 id="bid-amount-input"
                 inputMode="numeric"
+                dir="ltr"
                 value={bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
                 className="bg-slate-950 border-slate-200 text-white focus:ring-blue-500"
-                placeholder="örn: 3000000 veya 3.000.000"
+                placeholder={ld.bidAmountPlaceholder}
               />
             </div>
 
@@ -1671,10 +1669,10 @@ export default function AuctionDetail() {
                 <label className="flex items-center justify-between gap-3 cursor-pointer">
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-violet-100 flex items-center gap-2">
-                      <span className="text-base">⚡</span> Otomatik teklif (proxy bid)
+                      <span className="text-base">⚡</span> {ld.proxyTitle}
                     </p>
                     <p className="text-[10px] text-violet-200/70 mt-0.5">
-                      Sizin adınıza, başkalarının teklifleri geldikçe maksimum tutara kadar otomatik artırır.
+                      {ld.proxyDesc}
                     </p>
                   </div>
                   <input
@@ -1682,26 +1680,25 @@ export default function AuctionDetail() {
                     checked={proxyEnabled}
                     onChange={(e) => setProxyEnabled(e.target.checked)}
                     className="h-5 w-5 accent-violet-500 flex-shrink-0"
-                    aria-label="Otomatik teklifi etkinleştir"
+                    aria-label={ld.proxyEnableAria}
                   />
                 </label>
                 {proxyEnabled ? (
                   <div className="mt-3 space-y-2">
                     <label className="text-xs text-violet-200/90" htmlFor="proxy-max-input">
-                      Maksimum teklif tutarı (₺)
+                      {ld.proxyMaxLabel}
                     </label>
                     <Input
                       id="proxy-max-input"
                       inputMode="numeric"
+                      dir="ltr"
                       value={proxyMaxAmount}
                       onChange={(e) => setProxyMaxAmount(e.target.value)}
-                      placeholder={`örn: ${(liveBid * 1.5 / 1_000_000).toFixed(1)}M`}
+                      placeholder={`${ld.proxyMaxPlaceholderPrefix} ${(liveBid * 1.5 / 1_000_000).toFixed(1)}M`}
                       className="bg-slate-950 border-violet-500/30 text-white focus:ring-violet-500"
                     />
                     <p className="text-[10px] text-amber-200/85 leading-snug rounded-md border border-amber-500/25 bg-amber-500/5 px-2 py-1.5">
-                      <strong>Demo:</strong> max tutar yerel olarak kaydedilir (kullanıcı tercihi).
-                      Otomatik artırma backend tarafı (auction_proxy_bids tablosu + RLS + sealed maskeleme uyumu)
-                      tamamlandığında devreye girer. Şu an gönderim normal tek-tıkla teklif olarak işlenir.
+                      {ld.proxyDemoNote}
                     </p>
                   </div>
                 ) : null}
@@ -1710,7 +1707,7 @@ export default function AuctionDetail() {
 
             {!isListingOnly ? (
               <div className="space-y-3 rounded-xl border border-slate-200 bg-black/20 p-3">
-                <p className="text-xs font-semibold text-white">Zorunlu onaylar</p>
+                <p className="text-xs font-semibold text-white">{ld.bidGateTitle}</p>
                 <div className="space-y-3">
                   {BID_GATE_CHECKBOXES.map((row) => (
                     <label key={row.id} className="flex gap-3 text-left text-[11px] text-slate-300 leading-snug cursor-pointer">
@@ -1742,12 +1739,12 @@ export default function AuctionDetail() {
           </div>
           <DialogFooter className="flex-col sm:flex-row gap-2 sm:justify-end">
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setShowBidDialog(false)}>
-              Vazgeç
+              {ld.cancel}
             </Button>
             <Button
               type="button"
               disabled={bidBusy || (!isListingOnly && !isBidGateComplete(bidGateAck))}
-              title={!isListingOnly && !isBidGateComplete(bidGateAck) ? "Tüm onay kutularını işaretleyin" : undefined}
+              title={!isListingOnly && !isBidGateComplete(bidGateAck) ? ld.bidGateTooltip : undefined}
               onClick={() => void handleBid()}
               className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold disabled:opacity-40"
             >
@@ -1773,7 +1770,7 @@ export default function AuctionDetail() {
           listingId={offerListingId}
           listingTitle={auction.title}
           referencePrice={liveBid}
-          onSubmitted={() => toastBid("Teklifiniz kaydedildi. Tekliflerim panelinden takip edebilirsiniz.", "success")}
+          onSubmitted={() => toastBid(ld.toastOfferSubmitted, "success")}
         />
       ) : null}
 
@@ -2095,14 +2092,14 @@ export default function AuctionDetail() {
                 disabled={!user || (sellerId != null && user?.id === sellerId)}
                 title={
                   !user
-                    ? "Giriş gerekli"
+                    ? ld.loginRequired
                     : sellerId && user?.id === sellerId
-                    ? "Kendi ilanınıza teklif veremezsiniz"
+                    ? ld.cantBidOwn
                     : undefined
                 }
                 onClick={() => {
                   if (!user) {
-                    toastBid("Giriş yapın.", "warning");
+                    toastBid(ld.toastLogin, "warning");
                     return;
                   }
                   setOfferDialogOpen(true);
@@ -2118,11 +2115,11 @@ export default function AuctionDetail() {
                 title={
                   bidDisabled
                     ? !user
-                      ? "Giriş gerekli"
+                      ? ld.loginRequired
                       : !reportApproved
-                      ? "Önce AI raporunu onaylayın"
+                      ? ld.reportApproval
                       : !depositId
-                      ? "Blokaj ön yetkisi gerekli"
+                      ? ld.depositRequired
                       : ld.auctionEnded
                     : undefined
                 }
