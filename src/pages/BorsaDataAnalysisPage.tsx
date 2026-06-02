@@ -4,6 +4,7 @@ import { Area, AreaChart, CartesianGrid, Line, LineChart, ResponsiveContainer, T
 import { useLiveMarket } from "@/borsa/useLiveMarket";
 import { createMarketSnapshot } from "@/lib/borsa/marketData";
 import { cn } from "@/lib/utils";
+import { FxRef } from "@/components/FxRef";
 
 type RegionKey = "istanbul" | "ege" | "akdeniz" | "ankara" | "bodrum";
 type SegmentKey = "konut" | "arsa" | "ticari" | "turizm";
@@ -128,14 +129,14 @@ export default function BorsaDataAnalysisPage() {
     <main className="w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
       <section className="rounded-xl border border-cyan-500/35 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
         <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Veri / Analiz Terminali</p>
-        <h1 className="mt-1 text-2xl font-black text-white">Piyasa Genel Görünüm + Endeks Laboratuvarı</h1>
+        <h1 className="mt-1 text-2xl font-black text-white">Piyasa Genel Görünüm + Ortalama Fiyat Paneli</h1>
         <p className="mt-2 text-sm text-slate-300">
-          Bölge/segment endeks geçmişini, varlık-endeks karşılaştırmasını ve ısı haritası derinliğini tek ekranda izleyin.
+          Bölge/segment <strong className="text-white">ortalama fiyat</strong> geçmişini, varlık-ortalama karşılaştırmasını ve ısı haritası derinliğini tek ekranda izleyin.
         </p>
       </section>
 
       <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-3 py-2 text-[11px] text-amber-100">
-        İhaleal Endeksi resmi istatistik değildir, platform göstergesidir.
+        Burada gösterilen değerler <strong>bölge/segment ₺ ortalama fiyatlarıdır</strong> (resmi istatistik değildir, platform demo verisinden üretilen göstergedir). Gerçek <em>İhaleal Endeksi</em> puanı için Borsa ana sayfasındaki canlı endeksi izleyin.
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.45fr_1fr]">
@@ -143,7 +144,7 @@ export default function BorsaDataAnalysisPage() {
           <div className="mb-3 flex items-center justify-between">
             <h2 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
               <LineChartIcon className="h-4 w-4 text-cyan-300" />
-              Endeks Geçmişi
+              Ortalama Fiyat Geçmişi (₺)
             </h2>
             <div className="flex gap-2 text-xs">
               <select
@@ -176,9 +177,9 @@ export default function BorsaDataAnalysisPage() {
                 <XAxis dataKey="period" stroke="#94a3b8" />
                 <YAxis stroke="#94a3b8" tickFormatter={(v) => `₺${Math.round(v / 1_000_000)}M`} />
                 <Tooltip formatter={(v: number) => formatTry(v)} />
-                <Line dataKey="bolgeEndeksi" name="Bölge Endeksi" stroke="#22d3ee" strokeWidth={2.3} dot={false} />
-                <Line dataKey="segmentEndeksi" name="Segment Endeksi" stroke="#a78bfa" strokeWidth={2} dot={false} />
-                <Line dataKey="platformEndeksi" name="İhaleal Endeksi" stroke="#22c55e" strokeWidth={2} dot={false} />
+                <Line dataKey="bolgeEndeksi" name="Bölge ort. fiyat (₺)" stroke="#22d3ee" strokeWidth={2.3} dot={false} />
+                <Line dataKey="segmentEndeksi" name="Segment ort. fiyat (₺)" stroke="#a78bfa" strokeWidth={2} dot={false} />
+                <Line dataKey="platformEndeksi" name="Platform ort. fiyat (₺)" stroke="#22c55e" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -192,7 +193,7 @@ export default function BorsaDataAnalysisPage() {
           <div className="mb-3 flex items-center justify-between">
             <h2 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
               <Scale className="h-4 w-4 text-cyan-300" />
-              Varlık vs Endeks
+              Varlık vs Platform Ortalaması (₺)
             </h2>
             <select
               value={selectedAssetId}
@@ -213,8 +214,8 @@ export default function BorsaDataAnalysisPage() {
                 <XAxis dataKey="period" stroke="#94a3b8" />
                 <YAxis stroke="#94a3b8" tickFormatter={(v) => `₺${Math.round(v / 1_000_000)}M`} />
                 <Tooltip formatter={(v: number) => formatTry(v)} />
-                <Area dataKey="endeks" name="Endeks" stroke="#06b6d4" fill="#0891b233" strokeWidth={2} />
-                <Area dataKey="varlik" name={selectedAsset?.code ?? "Varlık"} stroke="#34d399" fill="#10b98133" strokeWidth={2} />
+                <Area dataKey="endeks" name="Platform ort. fiyat (₺)" stroke="#06b6d4" fill="#0891b233" strokeWidth={2} />
+                <Area dataKey="varlik" name={`${selectedAsset?.code ?? "Varlık"} fiyat (₺)`} stroke="#34d399" fill="#10b98133" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -263,7 +264,9 @@ export default function BorsaDataAnalysisPage() {
             {regionHeatmap.map((cell) => (
               <div key={cell.region} className={cn("rounded-xl border px-3 py-2.5", cell.tone)}>
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-100">{regionLabel(cell.region)}</p>
-                <p className="mt-1 text-lg font-black text-white">{formatTry(cell.idx)}</p>
+                <p className="text-[10px] uppercase tracking-wide text-slate-300">Ort. fiyat</p>
+                <p className="mt-0.5 text-lg font-black text-white" dir="ltr">{formatTry(cell.idx)}</p>
+                <FxRef amountTry={cell.idx} variant="block" className="text-[11px] text-amber-300/80" />
                 <p className={cn("text-xs font-bold", cell.avgChange >= 0 ? "text-emerald-200" : "text-rose-200")}>
                   {cell.avgChange >= 0 ? "+" : ""}
                   {cell.avgChange.toFixed(2)}%
