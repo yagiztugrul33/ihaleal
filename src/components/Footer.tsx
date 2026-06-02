@@ -30,9 +30,11 @@ export function Footer() {
             <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
               {f.tagline}
             </p>
-            {/* Yasal şirket iletişim bloğu — 6563 Sayılı Kanun gereği işletme künyesi. */}
+            {/* Yasal şirket iletişim bloğu — 6563 Sayılı Kanun gereği işletme künyesi.
+                AR (rtl) sayfasında bile LTR (Latin metin + sayı + URL) korunur — yasal
+                künye TR resmi metin olduğu için BiDi karışıklığı yaşanmasın. */}
             {/* Vergi no/dairesi sadece /kunye sayfasında; footer'da müşteri etkileşim odaklı bilgi. */}
-            <address className="not-italic space-y-2.5">
+            <address className="not-italic space-y-2.5" dir="ltr">
               <p className="text-xs font-semibold text-slate-200 leading-snug uppercase tracking-wide">
                 İHALEAL GAYRİMENKUL VE İNŞAAT
                 <br className="hidden sm:inline" />

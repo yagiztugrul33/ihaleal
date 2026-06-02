@@ -20,9 +20,11 @@ export default function PaymentSuccessPage() {
   const { t } = useLocale();
   const s = t.payment.success;
 
+  const tierName = t.tierData.byId[tier.id]?.name ?? tier.name;
+  const tierTagline = t.tierData.byId[tier.id]?.tagline ?? tier.tagline;
   useEffect(() => {
-    document.title = `${s.title} — ${tier.name} | ihaleal`;
-  }, [tier.name, s.title]);
+    document.title = `${s.title} — ${tierName} | ihaleal`;
+  }, [tierName, s.title]);
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 text-white">
@@ -34,7 +36,7 @@ export default function PaymentSuccessPage() {
         <div>
           <h1 className="text-3xl md:text-4xl font-bold mb-2">{s.title}</h1>
           <p className="text-slate-400">
-            <strong className="text-white">{tier.name}</strong> {s.activated}
+            <strong className="text-white">{tierName}</strong> {s.activated}
           </p>
         </div>
 
@@ -44,8 +46,8 @@ export default function PaymentSuccessPage() {
               <p className="text-xs text-emerald-300 font-semibold flex items-center gap-1.5">
                 <Crown className="h-3.5 w-3.5" /> {s.activeBadge}
               </p>
-              <h2 className="text-2xl font-bold text-white mt-1">{tier.name}</h2>
-              <p className="text-sm text-slate-400 mt-1">{tier.tagline}</p>
+              <h2 className="text-2xl font-bold text-white mt-1">{tierName}</h2>
+              <p className="text-sm text-slate-400 mt-1">{tierTagline}</p>
             </div>
             <div className="text-end">
               <p className="text-xl font-bold text-emerald-300" dir="ltr">{formatTry(price)}</p>

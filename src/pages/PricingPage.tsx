@@ -106,9 +106,9 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
 
       <div className={`flex items-center gap-2 ${cls.text} mb-1`}>
         <TierIcon tier={tier} />
-        <h3 className="text-lg font-bold">{tier.name}</h3>
+        <h3 className="text-lg font-bold">{t.tierData.byId[tier.id]?.name ?? tier.name}</h3>
       </div>
-      <p className="text-xs text-slate-400 mb-4 leading-relaxed min-h-[2rem]">{tier.tagline}</p>
+      <p className="text-xs text-slate-400 mb-4 leading-relaxed min-h-[2rem]">{t.tierData.byId[tier.id]?.tagline ?? tier.tagline}</p>
 
       <div className="mb-4">
         {listPrice === 0 ? (

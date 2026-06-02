@@ -177,6 +177,16 @@ export type PricingMessages = {
   corporateCta: string;
 };
 
+export type TierDataMessages = {
+  byId: {
+    free: { name: string; tagline: string };
+    yatirimci: { name: string; tagline: string };
+    emlak_baslangic: { name: string; tagline: string };
+    emlak_pro: { name: string; tagline: string };
+    kurumsal: { name: string; tagline: string };
+  };
+};
+
 export type MegaMenuMessages = {
   // Segment başlıkları
   segmentInvestor: string;
@@ -431,6 +441,7 @@ export type Messages = {
   borsa: BorsaMessages;
   megaMenu: MegaMenuMessages;
   footer: FooterMessages;
+  tierData: TierDataMessages;
 };
 
 /**
@@ -899,6 +910,15 @@ export const messages: Record<"en" | "tr", Messages> = {
       commissionModel: "Commission model",
       ihalealIndex: "iHaleal Index",
     },
+    tierData: {
+      byId: {
+        free: { name: "Individual", tagline: "Auction tracking + 1 free listing" },
+        yatirimci: { name: "Investor", tagline: "Full exchange terminal + unlimited reports" },
+        emlak_baslangic: { name: "Realtor Starter", tagline: "New realtor / small office" },
+        emlak_pro: { name: "Realtor Pro", tagline: "Professional realty office — growth" },
+        kurumsal: { name: "Enterprise", tagline: "Chain offices + portfolio funds + contractors" },
+      },
+    },
   },
   tr: {
     nav: {
@@ -1360,6 +1380,15 @@ export const messages: Record<"en" | "tr", Messages> = {
       commissionModel: "Komisyon modeli",
       ihalealIndex: "İhaleal Endeksi",
     },
+    tierData: {
+      byId: {
+        free: { name: "Bireysel", tagline: "İhale takibi + 1 ücretsiz ilan" },
+        yatirimci: { name: "Yatırımcı", tagline: "Borsa terminali tam + sınırsız rapor" },
+        emlak_baslangic: { name: "Emlak Başlangıç", tagline: "Yeni başlayan emlakçı / küçük ofis" },
+        emlak_pro: { name: "Emlak Pro", tagline: "Profesyonel emlak ofisi — büyüme" },
+        kurumsal: { name: "Kurumsal", tagline: "Zincir ofisleri + portföy fonları + müteahhitler" },
+      },
+    },
   },
 };
 
@@ -1727,6 +1756,15 @@ const _ruOverrides: PartialDeep<Messages> = {
     commissionModel: "Модель комиссии",
     ihalealIndex: "Индекс iHaleal",
   },
+  tierData: {
+    byId: {
+      free: { name: "Частный", tagline: "Отслеживание аукционов + 1 бесплатное объявление" },
+      yatirimci: { name: "Инвестор", tagline: "Полный терминал биржи + безлимитные отчёты" },
+      emlak_baslangic: { name: "Старт риелтора", tagline: "Начинающий риелтор / небольшой офис" },
+      emlak_pro: { name: "Профи риелтор", tagline: "Профессиональное агентство — рост" },
+      kurumsal: { name: "Корпоративный", tagline: "Сети агентств + портфельные фонды + подрядчики" },
+    },
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -2078,6 +2116,15 @@ const _arOverrides: PartialDeep<Messages> = {
     sellerMode: "وضع البائع",
     commissionModel: "نموذج العمولة",
     ihalealIndex: "مؤشر iHaleal",
+  },
+  tierData: {
+    byId: {
+      free: { name: "فردي", tagline: "متابعة المزادات + إعلان مجاني واحد" },
+      yatirimci: { name: "مستثمر", tagline: "محطة بورصة كاملة + تقارير غير محدودة" },
+      emlak_baslangic: { name: "وسيط مبتدئ", tagline: "وسيط جديد / مكتب صغير" },
+      emlak_pro: { name: "وسيط احترافي", tagline: "وكالة عقارية احترافية — نمو" },
+      kurumsal: { name: "للشركات", tagline: "سلاسل المكاتب + صناديق المحافظ + المقاولون" },
+    },
   },
 };
 

@@ -255,8 +255,8 @@ export default function PaymentStartPage() {
               <p className="text-xs text-slate-400 mb-2 flex items-center gap-1.5">
                 <Sparkles className="h-3 w-3" /> {s.summarySelected}
               </p>
-              <h3 className="text-xl font-bold text-white mb-1">{tier.name}</h3>
-              <p className="text-xs text-slate-400 mb-4">{tier.tagline}</p>
+              <h3 className="text-xl font-bold text-white mb-1">{t.tierData.byId[tier.id]?.name ?? tier.name}</h3>
+              <p className="text-xs text-slate-400 mb-4">{t.tierData.byId[tier.id]?.tagline ?? tier.tagline}</p>
 
               <div className="border-t border-slate-700 pt-3 space-y-2 text-sm">
                 <div className="flex justify-between text-slate-300">
