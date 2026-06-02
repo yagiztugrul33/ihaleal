@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { FxRef } from "@/components/FxRef";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -1206,7 +1207,35 @@ export default function AuctionDetail() {
                 <div>
                   <div className="text-xs text-slate-500 mb-1">{pricePrimaryLabel}</div>
                   <div className="text-3xl font-bold text-blue-400">₺{liveBid.toLocaleString("tr-TR")}</div>
-                  <div className="text-xs text-slate-500 mt-1">₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²</div>
+                  <FxRef amountTry={liveBid} variant="block" note="işlem ₺" />
+                  <div className="text-xs text-slate-500 mt-1">
+                    ₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²
+                    <FxRef amountTry={auction.pricePerSqm} variant="compact" />
+                  </div>
+                  {/* AI değerleme referansı — Auction.estimatedValue VAR (veri kanıtlı) */}
+                  {auction.estimatedValue > 0 && (
+                    <div className="mt-2 pt-2 border-t border-slate-200/40 dark:border-slate-700">
+                      <div className="text-[11px] text-slate-500">Tahmini değer (AI · yaklaşık)</div>
+                      <div className="text-sm font-semibold text-emerald-400">
+                        ₺{auction.estimatedValue.toLocaleString("tr-TR")}
+                        <FxRef amountTry={auction.estimatedValue} variant="compact" />
+                      </div>
+                      {liveBid > 0 && (
+                        <div className={`text-[11px] mt-0.5 ${liveBid < auction.estimatedValue ? "text-emerald-500" : "text-amber-500"}`}>
+                          {liveBid < auction.estimatedValue
+                            ? `Tahmini değerin %${Math.round((1 - liveBid / auction.estimatedValue) * 100)} altında`
+                            : `Tahmini değerin %${Math.round((liveBid / auction.estimatedValue - 1) * 100)} üzerinde`}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {/* Doğrulama rozeti — SADECE auction.verified=true ise (sahte gösterim YASAK) */}
+                  {auction.verified === true && (
+                    <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                      <CheckCircle2 className="w-3 h-3" />
+                      Doğrulanmış ilan
+                    </div>
+                  )}
                 </div>
                 {/* Dalga 2-1: ihale geri sayım — sadece auction/sealed modlarında, listing_only'de göstermeye gerek yok. */}
                 {!isListingOnly && auction.endDate ? (
