@@ -113,12 +113,25 @@ export type NavMessages = {
   langTr: string;
   langRu: string;
   langAr: string;
+  borsaCta: string;
+};
+
+export type OnboardingMessages = {
+  title: string;
+  subtitle: string;
+  back: string;
+  skip: string;
+  skipNote: string;
+  discover: { title: string; subtitle: string; cta: string };
+  sell: { title: string; subtitle: string; cta: string };
+  buy: { title: string; subtitle: string; cta: string };
 };
 
 export type Messages = {
   nav: NavMessages;
   home: HomeMessages;
   common: CommonMessages;
+  onboarding: OnboardingMessages;
 };
 
 /**
@@ -148,6 +161,7 @@ export const messages: Record<"en" | "tr", Messages> = {
       langTr: "Türkçe",
       langRu: "Russian",
       langAr: "Arabic",
+      borsaCta: "Go to Exchange",
     },
     home: {
       hero: {
@@ -281,6 +295,28 @@ export const messages: Record<"en" | "tr", Messages> = {
       emptyResults: "No results found",
       notFoundListing: "Listing not found",
     },
+    onboarding: {
+      title: "Welcome!",
+      subtitle: "Where would you like to start?",
+      back: "Back",
+      skip: "Skip for now →",
+      skipNote: "You can change this anytime.",
+      discover: {
+        title: "Explore",
+        subtitle: "Browse auctions, listings, and market data.",
+        cta: "View auctions",
+      },
+      sell: {
+        title: "Sell / List",
+        subtitle: "List your property for auction or sale.",
+        cta: "Create listing",
+      },
+      buy: {
+        title: "Buy / Bid",
+        subtitle: "Join live auctions, catch the opportunities.",
+        cta: "Active auctions",
+      },
+    },
   },
   tr: {
     nav: {
@@ -303,6 +339,7 @@ export const messages: Record<"en" | "tr", Messages> = {
       langTr: "Türkçe",
       langRu: "Rusça",
       langAr: "Arapça",
+      borsaCta: "Borsaya Gir",
     },
     home: {
       hero: {
@@ -436,6 +473,28 @@ export const messages: Record<"en" | "tr", Messages> = {
       emptyResults: "Sonuç bulunamadı",
       notFoundListing: "İlan bulunamadı",
     },
+    onboarding: {
+      title: "Hoş geldin!",
+      subtitle: "Nereden başlamak istersin?",
+      back: "Geri",
+      skip: "Şimdilik geç →",
+      skipNote: "Bunu istediğin zaman değiştirebilirsin.",
+      discover: {
+        title: "Keşfet",
+        subtitle: "İhaleleri, ilanları ve piyasa verisini incele.",
+        cta: "İhaleleri gör",
+      },
+      sell: {
+        title: "Sat / İlan ver",
+        subtitle: "Mülkünü ihaleye ya da satışa çıkar.",
+        cta: "İlan oluştur",
+      },
+      buy: {
+        title: "Al / Teklif ver",
+        subtitle: "Açık artırmalara katıl, fırsatları yakala.",
+        cta: "Aktif ihaleler",
+      },
+    },
   },
 };
 
@@ -460,9 +519,12 @@ const _ruOverrides: PartialDeep<Messages> = {
     services: "Услуги",
     resources: "Ресурсы",
     company: "Компания",
+    gesLand: "Земля для СЭС",
     valuation: "Оценка",
-    faq: "ЧаВо",
-    search: "Поиск аукционов, объектов…",
+    researchHub: "Центр исследований",
+    corporate: "Корпоративный",
+    faq: "Частые вопросы",
+    search: "Поиск аукционов и объектов недвижимости…",
     logIn: "Войти",
     signUp: "Регистрация",
     openMenu: "Открыть меню",
@@ -471,6 +533,51 @@ const _ruOverrides: PartialDeep<Messages> = {
     langTr: "Турецкий",
     langRu: "Русский",
     langAr: "Арабский",
+    borsaCta: "Перейти на биржу",
+  },
+  home: {
+    terminal: {
+      eyebrow: "Терминал iHaleal",
+      prompt: "Чем мы можем помочь?",
+      askPlaceholder: "Спросите что угодно…",
+      askSubmit: "Спросить",
+      options: {
+        rent: "АРЕНДА",
+        sale: "ПРОДАЖА",
+        auction: "АУКЦИОН",
+        launch: "ЗАПУСК",
+      },
+      borsaCta: "Перейти на терминал биржи →",
+      aiUnavailable:
+        "ИИ-ассистент временно недоступен (ожидается квота или настройка). Воспользуйтесь быстрыми ссылками ниже.",
+      hints: [
+        "Как сделать ставку на аукционе? → /nasil-calisir",
+        "Прямые торги → /ihaleler",
+        "Терминал биржи → /borsa",
+      ],
+    },
+  },
+  onboarding: {
+    title: "Добро пожаловать!",
+    subtitle: "С чего хотите начать?",
+    back: "Назад",
+    skip: "Пропустить →",
+    skipNote: "Это можно изменить в любое время.",
+    discover: {
+      title: "Исследовать",
+      subtitle: "Просматривайте аукционы, объявления и рыночные данные.",
+      cta: "Смотреть аукционы",
+    },
+    sell: {
+      title: "Продать / разместить",
+      subtitle: "Выставьте недвижимость на аукцион или продажу.",
+      cta: "Создать объявление",
+    },
+    buy: {
+      title: "Купить / сделать ставку",
+      subtitle: "Участвуйте в открытых торгах, ловите возможности.",
+      cta: "Активные аукционы",
+    },
   },
 };
 
@@ -481,9 +588,12 @@ const _arOverrides: PartialDeep<Messages> = {
     services: "الخدمات",
     resources: "الموارد",
     company: "الشركة",
+    gesLand: "أراضي الطاقة الشمسية",
     valuation: "التقييم",
+    researchHub: "مركز الأبحاث",
+    corporate: "قسم الشركات",
     faq: "الأسئلة الشائعة",
-    search: "ابحث عن المزادات، العقارات…",
+    search: "ابحث عن المزادات والعقارات…",
     logIn: "تسجيل الدخول",
     signUp: "إنشاء حساب",
     openMenu: "فتح القائمة",
@@ -492,6 +602,51 @@ const _arOverrides: PartialDeep<Messages> = {
     langTr: "التركية",
     langRu: "الروسية",
     langAr: "العربية",
+    borsaCta: "الذهاب إلى البورصة",
+  },
+  home: {
+    terminal: {
+      eyebrow: "محطة iHaleal",
+      prompt: "كيف يمكننا مساعدتك؟",
+      askPlaceholder: "اسأل أي شيء…",
+      askSubmit: "اسأل",
+      options: {
+        rent: "للإيجار",
+        sale: "للبيع",
+        auction: "مزاد",
+        launch: "إطلاق",
+      },
+      borsaCta: "الانتقال إلى محطة البورصة →",
+      aiUnavailable:
+        "المساعد الذكي غير متاح حالياً (في انتظار الحصة أو الإعدادات). يمكنك تجربة الروابط السريعة أدناه.",
+      hints: [
+        "كيف تقدّم عرضاً في المزاد؟ → /nasil-calisir",
+        "المزادات المباشرة → /ihaleler",
+        "محطة البورصة → /borsa",
+      ],
+    },
+  },
+  onboarding: {
+    title: "مرحباً بك!",
+    subtitle: "من أين تريد أن تبدأ؟",
+    back: "رجوع",
+    skip: "تخطّي الآن →",
+    skipNote: "يمكنك تغيير هذا في أي وقت.",
+    discover: {
+      title: "استكشاف",
+      subtitle: "تصفّح المزادات والإعلانات وبيانات السوق.",
+      cta: "عرض المزادات",
+    },
+    sell: {
+      title: "بيع / نشر إعلان",
+      subtitle: "اعرض عقارك في المزاد أو للبيع.",
+      cta: "إنشاء إعلان",
+    },
+    buy: {
+      title: "شراء / تقديم عرض",
+      subtitle: "شارك في المزادات المباشرة واغتنم الفرص.",
+      cta: "المزادات النشطة",
+    },
   },
 };
 

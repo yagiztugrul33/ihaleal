@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Search, FilePlus2, Gavel, ArrowLeft } from "lucide-react";
+import { useLocale } from "@/contexts/LocaleContext";
 
 /**
  * Onboarding — "Nereden başlamak istersin?"
@@ -9,8 +10,8 @@ import { ArrowRight, Search, FilePlus2, Gavel, ArrowLeft } from "lucide-react";
  *
  * 3 kart → gerçek rotalara yönlendirir; KYC/evrak/teminat sormaz.
  * Görsel disiplin: 60/30/10 (nötr zemin + lacivert gövde + amber vurgu).
- * RTL-hazır: Tailwind logical CSS (ms-/me-/ps-/pe-/text-start) — gelecekte
- * Arapça/RTL eklenirse bu sayfa otomatik hazır.
+ * i18n: TR/EN/RU/AR (FAZ 1-A). RTL-hazır: Tailwind logical CSS
+ * (ms-/me-/ps-/pe-/text-start). AR'da yön oku rtl:rotate-180 ile aynalanır.
  */
 
 const STORAGE_KEY = "ihaleal_onboarding_seen";
@@ -26,45 +27,50 @@ interface StartChoice {
   Icon: typeof Search;
 }
 
-const CHOICES: readonly StartChoice[] = [
-  {
-    emoji: "🔍",
-    iconBg: "bg-blue-500/10",
-    iconColor: "text-blue-300",
-    title: "Keşfet",
-    subtitle: "İhaleleri, ilanları ve piyasa verisini incele.",
-    cta: "İhaleleri gör",
-    path: "/ihaleler",
-    Icon: Search,
-  },
-  {
-    emoji: "📋",
-    iconBg: "bg-amber-500/15",
-    iconColor: "text-amber-300",
-    title: "Sat / İlan ver",
-    subtitle: "Mülkünü ihaleye ya da satışa çıkar.",
-    cta: "İlan oluştur",
-    path: "/ihale-ac",
-    Icon: FilePlus2,
-  },
-  {
-    emoji: "🏷️",
-    iconBg: "bg-emerald-500/10",
-    iconColor: "text-emerald-300",
-    title: "Al / Teklif ver",
-    subtitle: "Açık artırmalara katıl, fırsatları yakala.",
-    cta: "Aktif ihaleler",
-    path: "/auctions",
-    Icon: Gavel,
-  },
-] as const;
-
 export default function FlowSelector() {
   const navigate = useNavigate();
+  const { t } = useLocale();
+  const ob = t.onboarding;
+
+  const choices: readonly StartChoice[] = useMemo(
+    () => [
+      {
+        emoji: "🔍",
+        iconBg: "bg-blue-500/10",
+        iconColor: "text-blue-300",
+        title: ob.discover.title,
+        subtitle: ob.discover.subtitle,
+        cta: ob.discover.cta,
+        path: "/ihaleler",
+        Icon: Search,
+      },
+      {
+        emoji: "📋",
+        iconBg: "bg-amber-500/15",
+        iconColor: "text-amber-300",
+        title: ob.sell.title,
+        subtitle: ob.sell.subtitle,
+        cta: ob.sell.cta,
+        path: "/ihale-ac",
+        Icon: FilePlus2,
+      },
+      {
+        emoji: "🏷️",
+        iconBg: "bg-emerald-500/10",
+        iconColor: "text-emerald-300",
+        title: ob.buy.title,
+        subtitle: ob.buy.subtitle,
+        cta: ob.buy.cta,
+        path: "/auctions",
+        Icon: Gavel,
+      },
+    ],
+    [ob],
+  );
 
   useEffect(() => {
-    document.title = "Hoş geldin — ihaleal.com";
-  }, []);
+    document.title = `${ob.title} — ihaleal.com`;
+  }, [ob.title]);
 
   const choose = (path: string) => {
     try {
@@ -85,34 +91,32 @@ export default function FlowSelector() {
   };
 
   return (
-    <main
-      className="min-h-screen pt-24 pb-16 px-4 text-white bg-slate-950"
-    >
+    <main className="min-h-screen pt-24 pb-16 px-4 text-white bg-slate-950">
       <div className="mx-auto max-w-4xl">
-        {/* Geri (sol — RTL'de otomatik sağa geçer) */}
+        {/* Geri — logical (RTL'de sağa geçer) */}
         <button
           type="button"
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm text-slate-300 hover:text-white"
-          aria-label="Geri"
+          aria-label={ob.back}
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
-          <span>Geri</span>
+          <span>{ob.back}</span>
         </button>
 
         {/* Başlık — sade, jargonsuz */}
         <header className="mt-6 mb-10 text-center">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Hoş geldin!
+            {ob.title}
           </h1>
           <p className="mt-3 text-base md:text-lg text-slate-300">
-            Nereden başlamak istersin?
+            {ob.subtitle}
           </p>
         </header>
 
         {/* 3 kart — eşit, dokunmatik dostu */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {CHOICES.map((c) => (
+          {choices.map((c) => (
             <button
               key={c.title}
               type="button"
@@ -149,10 +153,10 @@ export default function FlowSelector() {
             onClick={skip}
             className="text-sm text-slate-400 underline-offset-4 hover:text-white hover:underline"
           >
-            Şimdilik geç →
+            {ob.skip}
           </button>
           <p className="text-xs text-slate-500">
-            Bunu istediğin zaman değiştirebilirsin.
+            {ob.skipNote}
           </p>
         </div>
       </div>

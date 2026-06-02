@@ -376,7 +376,7 @@ export function Navbar() {
             {/* R12.1 — Borsa CTA (backup/blok1-borsa pattern) */}
             <Button asChild className="h-10 px-4 text-sm font-semibold">
               <Link to="/borsa" className="no-underline">
-                Borsaya Gir
+                {n.borsaCta}
               </Link>
             </Button>
             <Button asChild variant="outline" size="default" className="h-10 px-4">
@@ -418,7 +418,7 @@ export function Navbar() {
               data-testid="nav-mobile-borsa-cta"
             >
               <Link to="/borsa" onClick={() => setMobileOpen(false)}>
-                Borsaya Gir
+                {n.borsaCta}
               </Link>
             </Button>
             <NavLink
