@@ -54,7 +54,7 @@ export default function GesAnaliziModulPage() {
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
             <p className="text-sm text-amber-100">Katman skorunu yatırım komitesi raporuna taşıyın.</p>
             <Button type="button" className="bg-amber-300 text-slate-900 hover:bg-amber-200">
-              Analizi başlat <ArrowRight className="ml-1.5 h-4 w-4" />
+              Analizi başlat <ArrowRight className="ms-1.5 h-4 w-4" />
             </Button>
           </div>
         </ModulePanel>

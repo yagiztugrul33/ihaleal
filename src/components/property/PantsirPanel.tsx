@@ -191,7 +191,7 @@ export function PantsirPanel({ listingId, lat, lng }: Props) {
                 <span className="text-sm text-slate-200">{poi.name}</span>
               </div>
               <div className="text-xs text-slate-500">
-                {anyLive ? null : <span className="rounded bg-slate-800/60 px-2 py-0.5 mr-2 text-slate-300">{poi.direction}</span>}
+                {anyLive ? null : <span className="rounded bg-slate-800/60 px-2 py-0.5 me-2 text-slate-300">{poi.direction}</span>}
                 {poi.distanceM < 1000 ? `${poi.distanceM} m` : `${(poi.distanceM / 1000).toFixed(1)} km`}
               </div>
             </li>

@@ -63,7 +63,7 @@ function DrillCard({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={id}
-        className={`w-full p-3 text-left ${t.hover} transition-colors min-h-[44px] flex items-start gap-2 cursor-pointer rounded-lg`}
+        className={`w-full p-3 text-start ${t.hover} transition-colors min-h-[44px] flex items-start gap-2 cursor-pointer rounded-lg`}
       >
         <div className="flex-1 min-w-0">
           <p className={`text-xs font-semibold ${t.text} mb-1 flex items-center gap-1.5`}>
@@ -302,7 +302,7 @@ export default function GesAnalysisPage() {
       <motion.div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-400">
           <Link to={INTELLIGENCE_HUB_PATH}>
-            <ArrowLeft className="w-4 h-4 mr-1" /> Arastirma
+            <ArrowLeft className="w-4 h-4 me-1" /> Arastirma
           </Link>
         </Button>
         <motion.div className="flex items-center gap-3 mb-4">
@@ -458,58 +458,58 @@ export default function GesAnalysisPage() {
                 <table className="w-full text-xs min-w-[560px]">
                   <thead>
                     <tr className="text-slate-500 border-b border-slate-700">
-                      <th className="text-left py-1.5 pr-2 font-medium">Şehir</th>
-                      <th className="text-right py-1.5 px-2 font-medium">Güneşlenme</th>
-                      <th className="text-right py-1.5 px-2 font-medium">Yıllık Üretim</th>
-                      <th className="text-right py-1.5 px-2 font-medium">Gelir/yıl</th>
-                      <th className="text-right py-1.5 px-2 font-medium">CAPEX</th>
-                      <th className="text-right py-1.5 pl-2 font-medium">Geri Dönüş</th>
+                      <th className="text-start py-1.5 pe-2 font-medium">Şehir</th>
+                      <th className="text-end py-1.5 px-2 font-medium">Güneşlenme</th>
+                      <th className="text-end py-1.5 px-2 font-medium">Yıllık Üretim</th>
+                      <th className="text-end py-1.5 px-2 font-medium">Gelir/yıl</th>
+                      <th className="text-end py-1.5 px-2 font-medium">CAPEX</th>
+                      <th className="text-end py-1.5 ps-2 font-medium">Geri Dönüş</th>
                     </tr>
                   </thead>
                   <tbody className="text-slate-300">
                     <tr className="border-b border-slate-800/50">
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">Konya</p>
                         <p className="text-[10px] text-slate-500">Anadolu yüksek</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-emerald-300">1.700 kWh/m²</td>
-                      <td className="py-2 px-2 text-right text-emerald-300">850 MWh</td>
-                      <td className="py-2 px-2 text-right font-bold text-emerald-300">₺2.5M</td>
-                      <td className="py-2 px-2 text-right">₺8M</td>
-                      <td className="py-2 pl-2 text-right text-emerald-200 font-semibold">3.2 yıl</td>
+                      <td className="py-2 px-2 text-end text-emerald-300">1.700 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-emerald-300">850 MWh</td>
+                      <td className="py-2 px-2 text-end font-bold text-emerald-300">₺2.5M</td>
+                      <td className="py-2 px-2 text-end">₺8M</td>
+                      <td className="py-2 ps-2 text-end text-emerald-200 font-semibold">3.2 yıl</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">Antalya</p>
                         <p className="text-[10px] text-slate-500">Akdeniz</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-emerald-300">1.650 kWh/m²</td>
-                      <td className="py-2 px-2 text-right text-emerald-300">825 MWh</td>
-                      <td className="py-2 px-2 text-right font-bold text-emerald-300">₺2.4M</td>
-                      <td className="py-2 px-2 text-right">₺8.2M</td>
-                      <td className="py-2 pl-2 text-right text-emerald-200 font-semibold">3.4 yıl</td>
+                      <td className="py-2 px-2 text-end text-emerald-300">1.650 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-emerald-300">825 MWh</td>
+                      <td className="py-2 px-2 text-end font-bold text-emerald-300">₺2.4M</td>
+                      <td className="py-2 px-2 text-end">₺8.2M</td>
+                      <td className="py-2 ps-2 text-end text-emerald-200 font-semibold">3.4 yıl</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">İzmir</p>
                         <p className="text-[10px] text-slate-500">Ege</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-amber-300">1.500 kWh/m²</td>
-                      <td className="py-2 px-2 text-right text-amber-300">750 MWh</td>
-                      <td className="py-2 px-2 text-right font-bold text-amber-300">₺2.2M</td>
-                      <td className="py-2 px-2 text-right">₺8M</td>
-                      <td className="py-2 pl-2 text-right text-amber-200 font-semibold">3.6 yıl</td>
+                      <td className="py-2 px-2 text-end text-amber-300">1.500 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-amber-300">750 MWh</td>
+                      <td className="py-2 px-2 text-end font-bold text-amber-300">₺2.2M</td>
+                      <td className="py-2 px-2 text-end">₺8M</td>
+                      <td className="py-2 ps-2 text-end text-amber-200 font-semibold">3.6 yıl</td>
                     </tr>
                     <tr>
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">İstanbul</p>
                         <p className="text-[10px] text-slate-500">Marmara</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-cyan-300">1.380 kWh/m²</td>
-                      <td className="py-2 px-2 text-right text-cyan-300">690 MWh</td>
-                      <td className="py-2 px-2 text-right font-bold text-cyan-300">₺2.0M</td>
-                      <td className="py-2 px-2 text-right">₺8.4M</td>
-                      <td className="py-2 pl-2 text-right text-cyan-200 font-semibold">4.2 yıl</td>
+                      <td className="py-2 px-2 text-end text-cyan-300">1.380 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-cyan-300">690 MWh</td>
+                      <td className="py-2 px-2 text-end font-bold text-cyan-300">₺2.0M</td>
+                      <td className="py-2 px-2 text-end">₺8.4M</td>
+                      <td className="py-2 ps-2 text-end text-cyan-200 font-semibold">4.2 yıl</td>
                     </tr>
                   </tbody>
                 </table>
@@ -817,9 +817,9 @@ export default function GesAnalysisPage() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="text-xs text-slate-500 uppercase border-b border-slate-800">
-                        <th className="text-left py-2">Senaryo</th>
-                        <th className="text-right py-2">NPV (TRY)</th>
-                        <th className="text-right py-2">IRR</th>
+                        <th className="text-start py-2">Senaryo</th>
+                        <th className="text-end py-2">NPV (TRY)</th>
+                        <th className="text-end py-2">IRR</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -831,8 +831,8 @@ export default function GesAnalysisPage() {
                           }`}
                         >
                           <td className="py-2 text-slate-200 font-medium">{s.ad}</td>
-                          <td className="text-right text-slate-300">{fmtNum(s.npv)}</td>
-                          <td className={`text-right font-semibold ${s.irr > 10 ? "text-emerald-300" : "text-rose-300"}`}>
+                          <td className="text-end text-slate-300">{fmtNum(s.npv)}</td>
+                          <td className={`text-end font-semibold ${s.irr > 10 ? "text-emerald-300" : "text-rose-300"}`}>
                             {fmtPct(s.irr)}
                           </td>
                         </tr>
@@ -856,17 +856,17 @@ export default function GesAnalysisPage() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="text-xs text-slate-500 uppercase border-b border-slate-800">
-                        <th className="text-left py-2">Kalem</th>
-                        <th className="text-right py-2">Oran</th>
-                        <th className="text-right py-2">Tutar (TRY)</th>
+                        <th className="text-start py-2">Kalem</th>
+                        <th className="text-end py-2">Oran</th>
+                        <th className="text-end py-2">Tutar (TRY)</th>
                       </tr>
                     </thead>
                     <tbody>
                       {derived.capexBreakdown.map((c) => (
                         <tr key={c.kalem} className="border-b border-slate-800/50">
                           <td className="py-2 text-slate-200">{c.kalem}</td>
-                          <td className="text-right text-slate-400">%{c.oran}</td>
-                          <td className="text-right text-slate-300">{fmtNum(c.tutar)}</td>
+                          <td className="text-end text-slate-400">%{c.oran}</td>
+                          <td className="text-end text-slate-300">{fmtNum(c.tutar)}</td>
                         </tr>
                       ))}
                     </tbody>
