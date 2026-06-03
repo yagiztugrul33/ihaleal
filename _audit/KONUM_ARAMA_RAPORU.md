@@ -60,5 +60,28 @@ Mevcut güvenlik başlığı `Permissions-Policy: geolocation=()` API'yi **tamam
 ## 9. SONUÇ
 `/ihaleler` sayfasında **"Yakınımdaki ilanlar"**: kullanıcı izin verince GERÇEK Haversine mesafesiyle (5/10/25 km) en yakın ilanları sıralı gösterir; izin reddinde nazik fallback. **Konum saklanmaz** (KVKK), **tek seferlik** (sürekli takip yok), **4 dil + RTL**, sahte sonuç yok. **Çekirdeğe sıfır dokunuş.** Permissions-Policy 3 kaynakta `geolocation=(self)`'e daraltılarak açıldı.
 
-**SONRAKİ:** anasayfa boşluk doldurma → [3 KAPI: avukat/ödeme/MoU] → mağaza kodu.
-**BACKLOG:** native mobil + arka-plan geofencing-push (FAZ 2, web tutunca) · Supabase staging E2E · AI çok-dilli yanıt · `_vite_utf8.ts` temizliği.
+**SONRAKİ:** PWA temeli (sırada) → anasayfa boşluk doldurma → [3 KAPI: avukat/ödeme/MoU] → mağaza kodu.
+**BACKLOG:** native mobil + arka-plan geofencing-push (FAZ 2, web tutunca) · Supabase staging E2E · AI çok-dilli yanıt · `_vite_utf8.ts` temizliği · pre-existing 8 lint hatası (aiSanitize control-regex + GesAnalysis/WarRoom unused-import — ayrı temizlik turu, BU TURDA DOKUNULMADI).
+
+---
+
+## 10. BU TURDA TEKRAR DOĞRULAMA (kurtarma + kapanış turu)
+
+**Durum:** Çekirdek konum-arama kodu paralel oturumda commit `2e780f4`'te `origin/main`'e zaten **PUSH** edilmişti (`konum-arama: Yakinimdaki ilanlar (tek-seferlik geolocation + Haversine mesafe)`). Bu turda yalnız audit kanıtı (`_audit/dil-konum/` + bu rapor) bekliyordu — tamamlandı.
+
+**Tag durumu (zaten doğru yerde, dokunulmadı):**
+- `safe-before-konum-arama` → `ee4c90d` (önceki commit: pwa-temeli) — konum öncesi temiz nokta ✓
+- `safe-after-konum-arama` → `2e780f4` (konum-arama commit'i) — konum sonrası temiz nokta ✓
+
+**Tekrar test (canlı kanıt, fresh preview):**
+- Eski preview process (PID 26464) **stale** idi; `Permissions-Policy: geolocation=()` (eski) yolluyordu → test izin-verme akışında düşüyordu. **Çözüm:** `Stop-Process -Force` → `npm run preview` (taze) → header `geolocation=(self)`'e döndü → test geçti. **Kod sorunu DEĞİL, salt env. tekrarı (zaten Bölüm 8'de not edilmişti).**
+- Build **YEŞİL** (PWA SW yeniden üretildi · 299 precache entry).
+- Lint **0** (yalnız konum-arama dosyalarında: NearbyListings + messages + LiveAuctions).
+- Test PASS: 4 dil (TR/EN/RU/AR) **buton + kmRozet + mesafeler [4.1, 4.7, 6.8, 7.9] km + sıralı + 0 pageerror**; izin reddi nazik fallback ✓; KVKK konum sızıntısı = **false**; regresyon (shelf/borsa/auctions) sağlam.
+
+**Pre-existing 8 lint hatasına DOKUNULMADI** (ayrı temizlik turunda ele alınacak):
+- `src/lib/security/aiSanitize.ts:36` — `no-control-regex` + 2× `no-irregular-whitespace`
+- `src/pages/intelligence/GesAnalysisPage.tsx:5` — 3 kullanılmayan import (Zap/MapPin/Building)
+- `src/pages/intelligence/WarRoomPage.tsx:5` — 2 kullanılmayan import (ChevronDown/Building)
+
+**`origin/main..HEAD`:** BOŞ — `2e780f4` zaten `origin/main`'de. Bu turun audit-commit'i ayrıca push edildi.
