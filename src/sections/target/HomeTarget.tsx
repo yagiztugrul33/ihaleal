@@ -168,7 +168,7 @@ export function HomeTarget() {
                   "linear-gradient(90deg, rgba(10,14,26,.5) 0%, rgba(10,14,26,.12) 50%, rgba(10,14,26,.4) 100%)",
               }}
             />
-            <div className="absolute bottom-4 right-4 z-[2] w-[min(100%,320px)]">
+            <div className="absolute bottom-4 end-4 z-[2] w-[min(100%,320px)]">
               <LiveChartCard live={h.live} />
             </div>
           </div>
@@ -477,13 +477,13 @@ function AuctionCard({
         className="relative h-[168px] bg-cover bg-center"
         style={{ backgroundImage: `url('${PROP_IMGS[idx]}')` }}
       >
-        <span className="absolute left-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-red-500/95 px-2 py-0.5 text-[.65rem] font-bold uppercase tracking-wide text-white">
+        <span className="absolute start-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-red-500/95 px-2 py-0.5 text-[.65rem] font-bold uppercase tracking-wide text-white">
           <span className="h-1 w-1 animate-pulse rounded-full bg-white" />
           {auctions.live}
         </span>
         <button
           type="button"
-          className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-slate-900/75 text-slate-200 backdrop-blur-sm"
+          className="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-slate-900/75 text-slate-200 backdrop-blur-sm"
           aria-label="Favorites"
         >
           <Heart className="h-4 w-4" strokeWidth={2} />

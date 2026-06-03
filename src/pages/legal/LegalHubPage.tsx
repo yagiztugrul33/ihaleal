@@ -205,13 +205,13 @@ export default function LegalHubPage() {
         {/* SEARCH + FILTER */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+            <Search className="absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ara — KVKK, cayma, teminat..."
-              className="w-full pl-10 pr-3 py-2 rounded-lg border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500"
+              className="w-full ps-10 pe-3 py-2 rounded-lg border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500"
               aria-label="Yasal metin ara"
             />
           </div>
@@ -246,7 +246,7 @@ export default function LegalHubPage() {
                   key={doc.path}
                   type="button"
                   onClick={() => navigate(doc.path)}
-                  className={`text-left rounded-2xl border ${cls.border} bg-gradient-to-br ${cls.bg} to-slate-900/60 p-5 hover:bg-slate-900/80 transition-colors flex flex-col h-full`}
+                  className={`text-start rounded-2xl border ${cls.border} bg-gradient-to-br ${cls.bg} to-slate-900/60 p-5 hover:bg-slate-900/80 transition-colors flex flex-col h-full`}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className={`rounded-lg bg-slate-800/60 p-2 ${cls.icon}`}>

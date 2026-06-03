@@ -89,7 +89,7 @@ export default function SecurityCenter() {
                   className="border-white/15 text-slate-200 hover:bg-white/5"
                   onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
                 >
-                  <FileText className="w-4 h-4 mr-2" />
+                  <FileText className="w-4 h-4 me-2" />
                   Platform ve KİK özeti
                 </Button>
                 <Button
@@ -99,7 +99,7 @@ export default function SecurityCenter() {
                   className="border-white/15 text-slate-200 hover:bg-white/5"
                   onClick={() => navigate("/nihai-anayasa")}
                 >
-                  <FileText className="w-4 h-4 mr-2" />
+                  <FileText className="w-4 h-4 me-2" />
                   Nihai anayasa
                 </Button>
               </>
@@ -111,7 +111,7 @@ export default function SecurityCenter() {
               className="border-rose-500/30 text-rose-100 hover:bg-rose-500/10"
               onClick={() => navigate("/yasal/dolandiricilik-savunmasi")}
             >
-              <Shield className="w-4 h-4 mr-2" />
+              <Shield className="w-4 h-4 me-2" />
               Dolandiricilik / dava savunmasi
             </Button>
             <Button
@@ -121,7 +121,7 @@ export default function SecurityCenter() {
               className="border-cyan-500/30 text-cyan-100 hover:bg-cyan-500/10"
               onClick={() => navigate("/yasal/supabase-uyum")}
             >
-              <Server className="w-4 h-4 mr-2" />
+              <Server className="w-4 h-4 me-2" />
               Supabase RLS / audit / RPC kontrol listesi
             </Button>
           </div>
@@ -241,7 +241,7 @@ export default function SecurityCenter() {
                 <ShieldCheck className="w-5 h-5 text-emerald-400" /> Şu An Aktif — Üretimde Çalışan Korumalar
               </h3>
               <Badge className="bg-emerald-500/15 text-emerald-300 border-emerald-500/30 text-[10px]">
-                <CheckCircle2 className="w-3 h-3 mr-1" /> AKTİF
+                <CheckCircle2 className="w-3 h-3 me-1" /> AKTİF
               </Badge>
             </div>
             <p className="text-xs text-slate-400 mb-4">
@@ -280,7 +280,7 @@ export default function SecurityCenter() {
                 <Cpu className="w-5 h-5 text-amber-300" /> AI Tehdit Analizi & Anomali Tespiti
               </h3>
               <Badge className="bg-amber-500/15 text-amber-200 border-amber-500/30 text-[10px]">
-                <Clock className="w-3 h-3 mr-1" /> YOL HARİTASI · GELİŞTİRİLİYOR
+                <Clock className="w-3 h-3 me-1" /> YOL HARİTASI · GELİŞTİRİLİYOR
               </Badge>
             </div>
             <p className="text-xs text-slate-400 mb-4">
@@ -307,11 +307,11 @@ export default function SecurityCenter() {
                 },
               ].map((item) => (
                 <div key={item.title} className="p-3 rounded-xl bg-amber-500/[0.04] border border-amber-500/20 relative">
-                  <Badge className="absolute top-2 right-2 bg-amber-500/15 text-amber-200 border-amber-500/30 text-[9px]">
+                  <Badge className="absolute top-2 end-2 bg-amber-500/15 text-amber-200 border-amber-500/30 text-[9px]">
                     Yol Haritası
                   </Badge>
                   <div className="mb-2">{item.icon}</div>
-                  <div className="text-sm font-semibold text-white mb-1 pr-16">{item.title}</div>
+                  <div className="text-sm font-semibold text-white mb-1 pe-16">{item.title}</div>
                   <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
                 </div>
               ))}

@@ -99,7 +99,7 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
     >
       {tier.highlight && (
         <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] font-semibold border ${cls.badge}`}>
-          <Sparkles className="h-3 w-3 inline mr-1" />
+          <Sparkles className="h-3 w-3 inline me-1" />
           {tier.highlight}
         </div>
       )}
@@ -169,7 +169,7 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
             <span className={f.status === "excluded" ? "text-slate-600 line-through" : "text-slate-200"}>
               {f.label}
               {f.limit && f.status !== "excluded" && (
-                <span className={`ml-1 text-[10px] ${cls.text}`}>({f.limit})</span>
+                <span className={`ms-1 text-[10px] ${cls.text}`}>({f.limit})</span>
               )}
             </span>
           </li>
@@ -203,12 +203,12 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
                 <span className={`font-medium ${f.status === "excluded" ? "text-slate-600 line-through" : "text-slate-200"}`}>
                   {f.label}
                   {f.limit && f.status !== "excluded" && (
-                    <span className={`ml-1 text-[10px] ${cls.text}`}>({f.limit})</span>
+                    <span className={`ms-1 text-[10px] ${cls.text}`}>({f.limit})</span>
                   )}
                 </span>
               </div>
               {f.detail && f.status !== "excluded" && (
-                <p className="text-[11px] text-slate-500 ml-5 leading-relaxed">{f.detail}</p>
+                <p className="text-[11px] text-slate-500 ms-5 leading-relaxed">{f.detail}</p>
               )}
             </li>
           ))}

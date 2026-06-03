@@ -203,7 +203,7 @@ export default function AfetToplanmaAlanlariPage() {
 
           <div className="mod-sticky-cta">
             <p className="text-sm text-slate-300">
-              <Navigation className="mr-1 inline h-4 w-4 text-sky-400" aria-hidden />
+              <Navigation className="me-1 inline h-4 w-4 text-sky-400" aria-hidden />
               Aile acil planınızı toplanma noktası ile eşleştirin.
             </p>
             <Link to="/modul/aile-acil-plan" className="mod-btn-primary">
@@ -223,7 +223,7 @@ export default function AfetToplanmaAlanlariPage() {
               <button
                 key={p.id}
                 type="button"
-                className={`mod-assembly-card text-left ${selectedId === p.id ? "mod-assembly-card--selected" : ""}`}
+                className={`mod-assembly-card text-start ${selectedId === p.id ? "mod-assembly-card--selected" : ""}`}
                 onClick={() => setSelectedId(p.id)}
               >
                 <p className="font-semibold text-slate-100">{p.name}</p>
@@ -232,18 +232,18 @@ export default function AfetToplanmaAlanlariPage() {
                 </p>
                 <div className="mt-2 flex flex-wrap gap-1">
                   <ModuleTag tone={p.capacity >= 900 ? "ok" : "warn"}>
-                    <Users className="mr-0.5 inline h-3 w-3" aria-hidden />
+                    <Users className="me-0.5 inline h-3 w-3" aria-hidden />
                     {p.capacity}
                   </ModuleTag>
                   {p.water ? (
                     <ModuleTag tone="ok">
-                      <Droplets className="mr-0.5 inline h-3 w-3" aria-hidden />
+                      <Droplets className="me-0.5 inline h-3 w-3" aria-hidden />
                       Su
                     </ModuleTag>
                   ) : null}
                   {p.toilet ? (
                     <ModuleTag tone="ok">
-                      <Toilet className="mr-0.5 inline h-3 w-3" aria-hidden />
+                      <Toilet className="me-0.5 inline h-3 w-3" aria-hidden />
                       WC
                     </ModuleTag>
                   ) : null}

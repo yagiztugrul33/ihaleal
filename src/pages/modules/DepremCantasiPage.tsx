@@ -310,7 +310,7 @@ export default function DepremCantasiPage() {
           </ul>
           {state.hasPets ? (
             <p className="mt-3 text-sm text-emerald-300/90">
-              <Dog className="mr-1 inline h-4 w-4" aria-hidden />
+              <Dog className="me-1 inline h-4 w-4" aria-hidden />
               Profilinizde evcil hayvan işaretlendi; özel ihtiyaç listesine ek kalemler dahil edildi.
             </p>
           ) : (

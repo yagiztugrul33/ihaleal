@@ -127,10 +127,10 @@ export function SignaturePad({
       />
       <div className="flex flex-wrap gap-2">
         <Button type="button" variant="outline" size="sm" onClick={clear}>
-          <Eraser className="h-4 w-4 mr-1" /> Temizle
+          <Eraser className="h-4 w-4 me-1" /> Temizle
         </Button>
         <Button type="button" size="sm" disabled={busy || done} onClick={() => void sign()}>
-          <PenLine className="h-4 w-4 mr-1" /> {done ? "İmzalandı" : "İmzala ve PDF indir"}
+          <PenLine className="h-4 w-4 me-1" /> {done ? "İmzalandı" : "İmzala ve PDF indir"}
         </Button>
       </div>
     </div>

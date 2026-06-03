@@ -30,7 +30,7 @@ export function TaxDisclaimerBanner({ compact = false }: { compact?: boolean }) 
             Aşağıdaki hesaplama, mevcut mevzuat ve endeks verileri kullanılarak üretilmiş{" "}
             <strong>tahmini</strong> bir simülasyondur. Resmi vergi hesabı değildir.
           </p>
-          <ul className="list-disc space-y-1 pl-4 text-amber-700 dark:text-amber-300">
+          <ul className="list-disc space-y-1 ps-4 text-amber-700 dark:text-amber-300">
             <li>Kesin vergi yükümlülüğü için YMM (Yeminli Mali Müşavir) onayı gereklidir.</li>
             <li>Tapu harcı oranları belediye ve tapu sicil müdürlüğüne göre değişebilir.</li>
             <li>Yİ-ÜFE endeks verileri TÜİK kaynaklıdır; güncel olmayabilir.</li>

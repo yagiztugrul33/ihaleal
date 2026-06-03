@@ -83,7 +83,7 @@ export default function YikilanBinalarArsiviPage() {
         title="Filtreler"
         action={
           <span className="text-xs text-slate-500">
-            <Filter className="mr-1 inline h-3.5 w-3.5" />
+            <Filter className="me-1 inline h-3.5 w-3.5" />
             {rows.length} sonuç
           </span>
         }
@@ -135,10 +135,10 @@ export default function YikilanBinalarArsiviPage() {
           <div className="lg:col-span-3">
             <label htmlFor="yb-ara">Serbest arama</label>
             <div className="relative">
-              <Search className="pointer-events-none absolute left-2.5 top-2.5 h-4 w-4 text-slate-500" />
+              <Search className="pointer-events-none absolute start-2.5 top-2.5 h-4 w-4 text-slate-500" />
               <input
                 id="yb-ara"
-                className="pl-9"
+                className="ps-9"
                 placeholder="Bina adı, mahalle, firma..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}

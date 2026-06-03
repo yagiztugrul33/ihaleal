@@ -42,7 +42,7 @@ export function EndingSoon() {
             <p className="mt-1" style={{ color: "var(--color-text-muted)" }}>Son teklif süresi yaklaşan fırsatları kaçırmayın</p>
           </div>
           <Button variant="outline" onClick={() => navigate("/ihaleler")} className="hidden md:flex btn-ghost">
-            Tüm ihaleler <ArrowRight className="w-4 h-4 ml-1" />
+            Tüm ihaleler <ArrowRight className="w-4 h-4 ms-1" />
           </Button>
         </div>
 
@@ -59,14 +59,14 @@ export function EndingSoon() {
                 <div className="relative h-44 overflow-hidden">
                   <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                  <div className="absolute top-3 start-3 flex items-center gap-2">
                     <span className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1 ${time.isUrgent ? "bg-red-500 text-white animate-pulse" : "bg-orange-500/90 text-white"}`}>
                       <Clock className="w-3 h-3" />
                       {time.days}g {time.hours}s {time.minutes}d
                     </span>
                   </div>
                   {auction.bidderCount > 15 && (
-                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
+                    <div className="absolute top-3 end-3 px-2.5 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
                       {auction.bidderCount} Teklif
                     </div>
                   )}
@@ -81,7 +81,7 @@ export function EndingSoon() {
                       <div className="text-xs text-slate-500">Güncel teklif</div>
                       <div className="text-base font-bold text-orange-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
                     </div>
-                    <div className="text-right">
+                    <div className="text-end">
                       <div className="text-xs text-slate-500">m² fiyat</div>
                       <div className="text-sm" style={{ color: "var(--color-text)" }}>₺{auction.pricePerSqm.toLocaleString("tr-TR")}</div>
                     </div>

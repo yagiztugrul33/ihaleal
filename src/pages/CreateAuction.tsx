@@ -437,14 +437,14 @@ export default function CreateAuction() {
                 key={step.num}
                 className="relative rounded-2xl border border-white/10 bg-slate-900/50 p-4 hover:border-amber-400/30 transition-colors"
               >
-                <div className="absolute -top-3 -left-3 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-bold text-xs flex items-center justify-center shadow-lg">
+                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-bold text-xs flex items-center justify-center shadow-lg">
                   {step.num}
                 </div>
                 <step.icon className="w-6 h-6 text-amber-300 mb-2 mt-1" />
                 <h3 className="font-semibold text-white text-sm mb-1">{step.title}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
                 {i < wizardSteps.length - 1 ? (
-                  <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-amber-400/30" />
+                  <div className="hidden lg:block absolute top-1/2 -end-2 w-4 h-0.5 bg-amber-400/30" />
                 ) : null}
               </div>
             ))}
@@ -590,7 +590,7 @@ export default function CreateAuction() {
                     <button
                       type="button"
                       onClick={() => removeImage(i)}
-                      className="absolute top-2 right-2 p-1 rounded-full bg-black/50 text-white hover:bg-black/70"
+                      className="absolute top-2 end-2 p-1 rounded-full bg-black/50 text-white hover:bg-black/70"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -919,7 +919,7 @@ export default function CreateAuction() {
               <label className="flex items-start gap-2 text-sm text-slate-400 cursor-pointer">
                 <input type="checkbox" checked={officialDocumentsForBuyer} onChange={(e) => setOfficialDocumentsForBuyer(e.target.checked)} className="mt-1 rounded border-white/20" />
                 <span>
-                  <Landmark className="w-4 h-4 text-sky-400 inline mr-1 align-text-bottom" />
+                  <Landmark className="w-4 h-4 text-sky-400 inline me-1 align-text-bottom" />
                   Belediye / imar planı özeti alıcıya gösterilecek.
                 </span>
               </label>
@@ -950,7 +950,7 @@ export default function CreateAuction() {
           </Card>
 
           <Button type="submit" disabled={submitLoading} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-12 text-base disabled:opacity-60">
-            <PlusCircle className="w-5 h-5 mr-2" />
+            <PlusCircle className="w-5 h-5 me-2" />
             {submitLoading ? (aiPhaseLabel || "Kaydediliyor...") : "İlanı kaydet ve yayınla"}
           </Button>
         </form>

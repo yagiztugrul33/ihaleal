@@ -62,19 +62,19 @@ export function NotificationBell() {
       >
         <Bell className="w-5 h-5" />
         {unread > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-violet-500 text-[10px] font-bold text-white flex items-center justify-center border border-slate-200">
+          <span className="absolute -top-0.5 -end-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-violet-500 text-[10px] font-bold text-white flex items-center justify-center border border-slate-200">
             {unread > 9 ? "9+" : unread}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-[min(100vw-2rem,22rem)] rounded-xl border border-slate-200 bg-slate-950 shadow-2xl z-[80] overflow-hidden">
+        <div className="absolute end-0 mt-2 w-[min(100vw-2rem,22rem)] rounded-xl border border-slate-200 bg-slate-950 shadow-2xl z-[80] overflow-hidden">
           <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200/80">
             <span className="text-sm font-semibold text-white">Bildirimler</span>
             {useLive && items.length > 0 ? (
               <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs text-slate-400" onClick={markAllRead}>
-                <CheckCheck className="w-3.5 h-3.5 mr-1" /> Okundu
+                <CheckCheck className="w-3.5 h-3.5 me-1" /> Okundu
               </Button>
             ) : null}
           </div>
@@ -96,7 +96,7 @@ export function NotificationBell() {
                   key={n.id}
                   type="button"
                   onClick={() => markOne(n.id)}
-                  className={`w-full text-left px-3 py-2.5 border-b border-slate-200/80 hover:bg-white/[0.04] transition-colors ${n.read ? "opacity-70" : "bg-blue-500/5"}`}
+                  className={`w-full text-start px-3 py-2.5 border-b border-slate-200/80 hover:bg-white/[0.04] transition-colors ${n.read ? "opacity-70" : "bg-blue-500/5"}`}
                 >
                   <div className="text-xs font-semibold text-white">{n.title}</div>
                   <div className="text-[11px] text-slate-400 mt-0.5 leading-snug">{n.body}</div>

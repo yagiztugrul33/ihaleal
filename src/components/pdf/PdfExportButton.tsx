@@ -36,7 +36,7 @@ export function PdfExportButton({
           .finally(() => setBusy(false));
       }}
     >
-      {busy ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Download className="h-4 w-4 mr-1" />}
+      {busy ? <Loader2 className="h-4 w-4 animate-spin me-1" /> : <Download className="h-4 w-4 me-1" />}
       {label}
     </Button>
   );

@@ -251,8 +251,8 @@ export function Auctions({
         <div className={`mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100" : "opacity-0"}`}>
           <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Konum, kelime veya ilan no (ILN-...)" className={isHome ? "pl-10 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "pl-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600"} />
+              <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Konum, kelime veya ilan no (ILN-...)" className={isHome ? "ps-10 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "ps-10 bg-slate-900/50 border-white/10 text-white placeholder:text-slate-600"} />
             </div>
             <div className="flex gap-2 flex-wrap">
               {(["all", "live", "upcoming", "ended"] as const).map((f) => (
@@ -323,7 +323,7 @@ export function Auctions({
               <GitCompare className="w-4 h-4 text-blue-400" />
               <span className="text-sm text-blue-400">{compareList.length} ilan seçildi</span>
               <Button size="sm" onClick={() => navigate(`/karsilastir?ids=${compareList.join(",")}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white text-xs h-7">Karşılaştır</Button>
-              <button onClick={() => setCompareList([])} className="text-xs text-slate-500 hover:text-white ml-auto">Temizle</button>
+              <button onClick={() => setCompareList([])} className="text-xs text-slate-500 hover:text-white ms-auto">Temizle</button>
             </div>
           )}
         </div>
@@ -345,13 +345,13 @@ export function Auctions({
               <div className="relative h-52 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />
-                <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+                <div className="absolute top-3 start-3 flex flex-wrap gap-2">
                   <ListingFeaturedBadge isFeatured={auction.isFeatured} badge={auction.featuredBadge} />
                   {auction.status === "live" && <Badge className="bg-red-500/90 text-white gap-1 animate-pulse"><Flame className="w-3 h-3" /> Canlı</Badge>}
                   {auction.status === "upcoming" && <Badge variant="outline" className="border-sky-500/30 text-sky-400 gap-1"><Calendar className="w-3 h-3" /> Yaklaşan</Badge>}
                   <Badge variant="outline" className={`gap-1 text-xs ${auction.investmentScore >= 85 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : auction.investmentScore >= 70 ? "bg-blue-500/20 text-blue-400 border-blue-500/30" : "bg-slate-500/20 text-slate-400 border-slate-500/30"}`}><Star className="w-3 h-3" /> {auction.investmentScore}</Badge>
                 </div>
-                <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-3 end-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                   <ListingQuickActions
                     listingId={auction.id}
                     title={auction.title}
@@ -384,7 +384,7 @@ export function Auctions({
                     <div className="text-lg font-bold text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
                     <div className="text-xs text-slate-600">₺{auction.pricePerSqm.toLocaleString("tr-TR")}/m²</div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-end">
                     <div className="flex items-center gap-3 text-xs text-slate-500 mb-2"><span className="flex items-center gap-1"><Users className="w-3 h-3" />{auction.bidderCount}</span>{auction.status === "live" && <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{Math.max(0, Math.floor((new Date(auction.endDate).getTime() - Date.now()) / 3600000))}s</span>}</div>
                     <div className="flex gap-1.5">
                       {isHome ? (
@@ -395,7 +395,7 @@ export function Auctions({
                       ) : (
                         <>
                           <Button size="sm" variant="outline" onClick={() => navigate(`/ilan/${auction.id}`)} className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 text-xs h-8 px-3">Detaylar</Button>
-                          <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 mr-1" />Teklif Ver</Button>
+                          <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 me-1" />Teklif Ver</Button>
                         </>
                       )}
                     </div>

@@ -28,7 +28,7 @@ export function HowItWorks() {
             return (
               <div
                 key={step.title}
-                className={`ref-step-card glass-card group text-left transition-all duration-500 ${
+                className={`ref-step-card glass-card group text-start transition-all duration-500 ${
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
                 }`}
                 style={{ transitionDelay: `${idx * 100}ms` }}

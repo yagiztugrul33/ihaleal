@@ -93,7 +93,7 @@ export default function DataStrategy() {
               Aşağıdaki tablo ürün ekibinin backend’de uygulayacağı <strong className="text-slate-300">hedef sözleşme</strong> alanlarını listeler.
             </p>
             <div className="overflow-x-auto rounded-lg border border-slate-200">
-              <table className="w-full text-xs text-left">
+              <table className="w-full text-xs text-start">
                 <thead className="bg-white/[0.04] text-slate-300">
                   <tr>
                     <th className="p-2 font-medium">Alan</th>

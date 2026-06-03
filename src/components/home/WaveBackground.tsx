@@ -21,7 +21,7 @@ export function WaveBackground({ className = "" }: { className?: string }) {
 
       {/* Wave layer 1 — back */}
       <svg
-        className="home-wave home-wave--back absolute bottom-0 left-0 h-[42%] min-h-[200px] w-[200%] opacity-[0.12]"
+        className="home-wave home-wave--back absolute bottom-0 start-0 h-[42%] min-h-[200px] w-[200%] opacity-[0.12]"
         viewBox="0 0 1440 320"
         preserveAspectRatio="none"
       >
@@ -40,7 +40,7 @@ export function WaveBackground({ className = "" }: { className?: string }) {
 
       {/* Wave layer 2 — mid */}
       <svg
-        className="home-wave home-wave--mid absolute bottom-0 left-0 h-[36%] min-h-[160px] w-[200%] opacity-[0.18]"
+        className="home-wave home-wave--mid absolute bottom-0 start-0 h-[36%] min-h-[160px] w-[200%] opacity-[0.18]"
         viewBox="0 0 1440 280"
         preserveAspectRatio="none"
       >
@@ -58,7 +58,7 @@ export function WaveBackground({ className = "" }: { className?: string }) {
 
       {/* Wave layer 3 — front */}
       <svg
-        className="home-wave home-wave--front absolute bottom-0 left-0 h-[28%] min-h-[120px] w-[200%] opacity-[0.22]"
+        className="home-wave home-wave--front absolute bottom-0 start-0 h-[28%] min-h-[120px] w-[200%] opacity-[0.22]"
         viewBox="0 0 1440 240"
         preserveAspectRatio="none"
       >

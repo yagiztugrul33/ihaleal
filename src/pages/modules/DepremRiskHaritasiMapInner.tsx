@@ -400,7 +400,7 @@ export default function DepremRiskHaritasiMapInner() {
                   key={key}
                   type="button"
                   onClick={() => toggle(key)}
-                  className={`flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition ${
+                  className={`flex items-center gap-2 rounded-xl border px-2.5 py-2 text-start transition ${
                     on ? "border-sky-500/45 bg-sky-500/10 text-sky-100" : "border-white/10 bg-black/30 text-slate-400"
                   }`}
                 >

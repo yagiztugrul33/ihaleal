@@ -127,11 +127,11 @@ export default function PrivacyPolicy() {
               <table className="w-full text-xs min-w-[600px]">
                 <thead>
                   <tr className="text-slate-500 border-b border-slate-700">
-                    <th className="text-left py-2 pr-2 font-medium">Toplanır?</th>
-                    <th className="text-left py-2 px-2 font-medium">Kategori</th>
-                    <th className="text-left py-2 px-2 font-medium">Veri</th>
-                    <th className="text-left py-2 px-2 font-medium">Amaç</th>
-                    <th className="text-left py-2 pl-2 font-medium">Paylaşım</th>
+                    <th className="text-start py-2 pe-2 font-medium">Toplanır?</th>
+                    <th className="text-start py-2 px-2 font-medium">Kategori</th>
+                    <th className="text-start py-2 px-2 font-medium">Veri</th>
+                    <th className="text-start py-2 px-2 font-medium">Amaç</th>
+                    <th className="text-start py-2 ps-2 font-medium">Paylaşım</th>
                   </tr>
                 </thead>
                 <tbody className="text-slate-300">
@@ -139,21 +139,21 @@ export default function PrivacyPolicy() {
                     const p = paylasimLabel(d.paylasim);
                     return (
                       <tr key={`y-${i}`} className="border-b border-slate-800/50">
-                        <td className="py-2 pr-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 inline" /></td>
+                        <td className="py-2 pe-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 inline" /></td>
                         <td className="py-2 px-2 font-semibold text-blue-200">{d.kategori}</td>
                         <td className="py-2 px-2">{d.veri}</td>
                         <td className="py-2 px-2 text-slate-400">{d.amac}</td>
-                        <td className={`py-2 pl-2 ${p.cls}`}>{p.txt}</td>
+                        <td className={`py-2 ps-2 ${p.cls}`}>{p.txt}</td>
                       </tr>
                     );
                   })}
                   {toplanmayan.map((d, i) => (
                     <tr key={`n-${i}`} className="border-b border-slate-800/50 opacity-60">
-                      <td className="py-2 pr-2"><XCircle className="h-3.5 w-3.5 text-rose-400 inline" /></td>
+                      <td className="py-2 pe-2"><XCircle className="h-3.5 w-3.5 text-rose-400 inline" /></td>
                       <td className="py-2 px-2 font-semibold text-slate-400">{d.kategori}</td>
                       <td className="py-2 px-2 line-through">{d.veri}</td>
                       <td className="py-2 px-2 text-rose-300">{d.amac}</td>
-                      <td className="py-2 pl-2 text-slate-500">—</td>
+                      <td className="py-2 ps-2 text-slate-500">—</td>
                     </tr>
                   ))}
                 </tbody>
@@ -222,7 +222,7 @@ export default function PrivacyPolicy() {
               <Eye className="h-5 w-5 text-violet-400" />
               5. Veri Silme + Hesap Kapatma (KVKK m. 7)
             </h2>
-            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
               <li>Hesap silme talebiniz <strong className="text-white">30 gün içinde</strong> işlenir ve anonimleştirilir.</li>
               <li>Mali kayıtlar yasal süreler boyunca saklanır (VUK 213 m. 253 — <strong className="text-white">10 yıl</strong>).</li>
               <li>İhale teklif kayıtları 5 yıl (BK ispat süresi).</li>
@@ -250,7 +250,7 @@ export default function PrivacyPolicy() {
               <Smartphone className="h-5 w-5 text-cyan-400" />
               7. Mobil Uygulama (iOS + Android)
             </h2>
-            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
               <li><strong className="text-cyan-200">Konum izni:</strong> sadece harita/bölge görüntüleme için, isteğe bağlı.</li>
               <li><strong className="text-cyan-200">Bildirim izni:</strong> teklif + ihale uyarısı, isteğe bağlı.</li>
               <li><strong className="text-cyan-200">Kamera/galeri:</strong> ilan fotoğrafı yükleme için, isteğe bağlı.</li>
@@ -266,7 +266,7 @@ export default function PrivacyPolicy() {
               <Globe className="h-5 w-5 text-blue-400" />
               8. Veri Aktarımı (Yurt İçi + Yurt Dışı)
             </h2>
-            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
               <li><strong className="text-white">Supabase EU (Frankfurt):</strong> GDPR + KVKK yeterli koruma.</li>
               <li><strong className="text-white">Vercel (CDN):</strong> statik dosya — kişisel veri yok.</li>
               <li><strong className="text-white">iyzico / PayTR (TR):</strong> ödeme bilgisi — yurt içi.</li>

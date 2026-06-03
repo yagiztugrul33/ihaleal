@@ -107,19 +107,19 @@ export default function SellerHub() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm min-w-[520px]">
                 <thead>
-                  <tr className="border-b border-slate-200 text-left text-slate-500 text-xs">
-                    <th className="py-2 pr-3">Kalem</th>
-                    <th className="py-2 pr-3 text-emerald-400">ihaleal (hedef)</th>
-                    <th className="py-2 pr-3">Kıyas notu</th>
+                  <tr className="border-b border-slate-200 text-start text-slate-500 text-xs">
+                    <th className="py-2 pe-3">Kalem</th>
+                    <th className="py-2 pe-3 text-emerald-400">ihaleal (hedef)</th>
+                    <th className="py-2 pe-3">Kıyas notu</th>
                     <th className="py-2">İş notu</th>
                   </tr>
                 </thead>
                 <tbody>
                   {PRICING_COMPARISON.rows.map((r) => (
                     <tr key={r.label} className="border-b border-slate-200/80 text-slate-300">
-                      <td className="py-3 pr-3 text-white font-medium">{r.label}</td>
-                      <td className="py-3 pr-3 text-emerald-300">{r.ihaleal}</td>
-                      <td className="py-3 pr-3 text-slate-500 text-xs">{r.sahibinden}</td>
+                      <td className="py-3 pe-3 text-white font-medium">{r.label}</td>
+                      <td className="py-3 pe-3 text-emerald-300">{r.ihaleal}</td>
+                      <td className="py-3 pe-3 text-slate-500 text-xs">{r.sahibinden}</td>
                       <td className="py-3 text-xs text-slate-500">{r.note}</td>
                     </tr>
                   ))}

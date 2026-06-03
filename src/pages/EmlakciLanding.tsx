@@ -117,7 +117,7 @@ export default function EmlakciLanding() {
                   key={f.slug}
                   type="button"
                   onClick={() => setSelected(f)}
-                  className="card-warm text-left transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(96,165,250,0.45)]"
+                  className="card-warm text-start transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(96,165,250,0.45)]"
                 >
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: "var(--color-bg-soft)", color: "var(--color-primary)" }}>
                     <Icon className="h-6 w-6" aria-hidden />

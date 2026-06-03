@@ -137,7 +137,7 @@ export default function NasilCalisir() {
               Arayüz ve yardım metinleri aşağıdaki merkezi sabitlerle uyumludur; üretim öncesi hukuk ve muhasebe onayı
               gerekir.
             </p>
-            <ul className="text-sm text-slate-300 space-y-2 list-disc pl-5">
+            <ul className="text-sm text-slate-300 space-y-2 list-disc ps-5">
               <li>
                 Kazanan taraf için teminat referansı: <strong className="text-white">{formatBidBondPercent()}</strong>{" "}
                 (bid bond yüzdesi; detay <code className="text-cyan-300 text-xs">fees.ts</code>)
@@ -222,7 +222,7 @@ export default function NasilCalisir() {
                     <Card key={block.title} className="border-slate-200 bg-white/[0.03]">
                       <CardContent className="pt-5 pb-5">
                         <h3 className="text-white font-semibold mb-3">{block.title}</h3>
-                        <ul className="space-y-2 text-sm text-slate-400 list-disc pl-5">
+                        <ul className="space-y-2 text-sm text-slate-400 list-disc ps-5">
                           {block.bullets.map((b) => (
                             <li key={b} className="leading-relaxed">
                               {b}
@@ -251,7 +251,7 @@ export default function NasilCalisir() {
                   <Card className="border-slate-200">
                     <CardContent className="pt-5 pb-5">
                       <h3 className="text-white font-semibold mb-2 text-sm">Veri ve güven</h3>
-                      <ul className="text-sm text-slate-400 space-y-2 list-disc pl-5">
+                      <ul className="text-sm text-slate-400 space-y-2 list-disc ps-5">
                         {step.dataAndTrust.map((t) => (
                           <li key={t}>{t}</li>
                         ))}
@@ -261,7 +261,7 @@ export default function NasilCalisir() {
                   <Card className="border-amber-500/15 bg-amber-500/[0.03]">
                     <CardContent className="pt-5 pb-5">
                       <h3 className="text-amber-100 font-semibold mb-2 text-sm">Risk ve sınırlar</h3>
-                      <ul className="text-sm text-slate-400 space-y-2 list-disc pl-5">
+                      <ul className="text-sm text-slate-400 space-y-2 list-disc ps-5">
                         {step.risksAndLimits.map((t) => (
                           <li key={t}>{t}</li>
                         ))}

@@ -47,7 +47,7 @@ export default function MuteahhitOnayBekleniyor() {
             <div className="grid sm:grid-cols-2 gap-3">
               <button
                 type="button"
-                className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-4 text-left hover:bg-white/5 transition-colors group"
+                className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-4 text-start hover:bg-white/5 transition-colors group"
                 onClick={() => alert("Ruhsat upload Phase 2'de gerçek Supabase Storage entegrasyonuyla aktif olacak. Şu an mock.")}
               >
                 <FileText className="w-5 h-5 text-blue-400 mb-2" />
@@ -57,7 +57,7 @@ export default function MuteahhitOnayBekleniyor() {
 
               <a
                 href="mailto:destek@ihaleal.com?subject=Müteahhit hesap onayı"
-                className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-4 text-left hover:bg-white/5 transition-colors group block"
+                className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-4 text-start hover:bg-white/5 transition-colors group block"
               >
                 <Mail className="w-5 h-5 text-emerald-400 mb-2" />
                 <div className="text-sm font-medium text-white group-hover:text-emerald-300">Destek ile İletişim</div>

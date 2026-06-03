@@ -141,7 +141,7 @@ export default function TatbikatRehberiPage() {
             <div className="flex items-center gap-2 text-amber-200">
               <ActiveIcon className="h-5 w-5" aria-hidden />
               <h3 className="font-semibold text-white">{active.label}</h3>
-              <span className="ml-auto text-xs text-slate-400">Süre: {active.duration}</span>
+              <span className="ms-auto text-xs text-slate-400">Süre: {active.duration}</span>
             </div>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               {active.checklist.map((item) => (

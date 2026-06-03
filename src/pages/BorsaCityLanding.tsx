@@ -170,7 +170,7 @@ export default function BorsaCityLanding() {
             </div>
 
             {/* Canlı endeks değeri */}
-            <div className="text-right" data-testid="city-index">
+            <div className="text-end" data-testid="city-index">
               {indexLoading ? (
                 <LoadingState compact label="Endeks…" />
               ) : index ? (
@@ -338,7 +338,7 @@ export default function BorsaCityLanding() {
                         </p>
                       </div>
                       {d.avgPricePerSqm > 0 ? (
-                        <div className="text-right">
+                        <div className="text-end">
                           <p className="text-xs text-cyan-300 font-semibold">₺{d.avgPricePerSqm.toLocaleString("tr-TR")}</p>
                           <p className="text-[10px] text-slate-500">ort. ₺/m²</p>
                         </div>
@@ -422,7 +422,7 @@ export default function BorsaCityLanding() {
                         alt={a.title}
                         className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
                       />
-                      <span className={cn("absolute top-2 right-2 inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold", statusColor)}>
+                      <span className={cn("absolute top-2 end-2 inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold", statusColor)}>
                         {statusLabel}
                       </span>
                     </div>
@@ -448,7 +448,7 @@ export default function BorsaCityLanding() {
             <div className="mt-4 text-center">
               <Button asChild variant="outline" className="border-cyan-400/40 text-cyan-200 hover:bg-cyan-500/10">
                 <Link to={`/arama?city=${province.name}`}>
-                  Tümünü gör ({cityListings.length}) <ChevronRight className="w-4 h-4 ml-1" />
+                  Tümünü gör ({cityListings.length}) <ChevronRight className="w-4 h-4 ms-1" />
                 </Link>
               </Button>
             </div>

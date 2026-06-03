@@ -112,7 +112,7 @@ export function ListingOffersSection({ listingId, className }: Props) {
       <div className="flex items-center gap-2 mb-3">
         <HandCoins className="h-4 w-4 text-amber-400" />
         <h4 className="text-sm font-semibold text-white">Gelen teklifler</h4>
-        <span className="text-xs text-slate-500 ml-auto">{offers.length} kayıt</span>
+        <span className="text-xs text-slate-500 ms-auto">{offers.length} kayıt</span>
       </div>
       {hiddenSealed > 0 ? (
         <p className="mb-2 text-xs text-amber-200/90 rounded-lg border border-amber-500/25 bg-amber-500/10 px-2 py-1.5">

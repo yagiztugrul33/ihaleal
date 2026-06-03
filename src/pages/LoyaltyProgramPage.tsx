@@ -278,7 +278,7 @@ export default function LoyaltyProgramPage() {
                   key={action.key}
                   type="button"
                   onClick={() => addPoints(action.label, action.basePoints, action.description)}
-                  className="rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-left transition hover:border-cyan-400/40"
+                  className="rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-start transition hover:border-cyan-400/40"
                 >
                   <p className="text-sm font-semibold text-white">{action.label}</p>
                   <p className="mt-1 text-xs text-slate-400">{action.description}</p>

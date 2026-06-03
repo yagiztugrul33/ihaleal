@@ -35,7 +35,7 @@ export default function LegalMasterBrief() {
               className="border-white/15 text-slate-300 hover:bg-white/5"
               onClick={() => navigate("/yasal-cerceve")}
             >
-              <Scale className="mr-2 h-4 w-4" />
+              <Scale className="me-2 h-4 w-4" />
               Yasal çerçeve
             </Button>
             <Button
@@ -44,7 +44,7 @@ export default function LegalMasterBrief() {
               className="border-teal-500/30 text-teal-100 hover:bg-teal-500/10"
               onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
             >
-              <FileText className="mr-2 h-4 w-4" />
+              <FileText className="me-2 h-4 w-4" />
               Platform çerçeve özeti
             </Button>
             <Button
@@ -53,7 +53,7 @@ export default function LegalMasterBrief() {
               className="border-rose-500/30 text-rose-100 hover:bg-rose-500/10"
               onClick={() => navigate("/yasal/dolandiricilik-savunmasi")}
             >
-              <AlertTriangle className="mr-2 h-4 w-4" />
+              <AlertTriangle className="me-2 h-4 w-4" />
               Dolandiricilik savunmasi
             </Button>
           </div>
@@ -131,7 +131,7 @@ export default function LegalMasterBrief() {
           </CardContent>
         </Card>
 
-        <p className="mt-8 flex items-center gap-2 text-center text-xs text-slate-600 sm:text-left">
+        <p className="mt-8 flex items-center gap-2 text-center text-xs text-slate-600 sm:text-start">
           <ExternalLink className="h-3.5 w-3.5 shrink-0" />
           Üretim adresi: ihaleal.com — hukuki metinler yayına alınmadan önce mutlaka yerel avukat onayından geçmelidir.
         </p>

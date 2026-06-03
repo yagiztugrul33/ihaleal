@@ -192,7 +192,7 @@ export default function CommissionPage() {
                 </div>
               )}
 
-              <p className="text-[11px] text-slate-500 text-right">
+              <p className="text-[11px] text-slate-500 text-end">
                 Efektif oran: %{saleTry > 0 ? ((result.totalCommission / saleTry) * 100).toFixed(2) : "0.00"} (matrah) +
                 KDV %{saleTry > 0 ? ((result.totalVAT / saleTry) * 100).toFixed(2) : "0.00"}
               </p>
@@ -216,36 +216,36 @@ export default function CommissionPage() {
             <table className="w-full text-xs min-w-[480px]">
               <thead>
                 <tr className="text-slate-500 border-b border-slate-700">
-                  <th className="text-left py-2 pr-2 font-medium">Platform</th>
-                  <th className="text-right py-2 px-2 font-medium">Satıcı Komisyon</th>
-                  <th className="text-right py-2 px-2 font-medium">Alıcı Komisyon</th>
-                  <th className="text-right py-2 pl-2 font-medium">Şeffaflık</th>
+                  <th className="text-start py-2 pe-2 font-medium">Platform</th>
+                  <th className="text-end py-2 px-2 font-medium">Satıcı Komisyon</th>
+                  <th className="text-end py-2 px-2 font-medium">Alıcı Komisyon</th>
+                  <th className="text-end py-2 ps-2 font-medium">Şeffaflık</th>
                 </tr>
               </thead>
               <tbody className="text-slate-300">
                 <tr className="border-b border-slate-800/50">
-                  <td className="py-2 pr-2 font-semibold text-emerald-300">İhaleal (bizim)</td>
-                  <td className="py-2 px-2 text-right text-emerald-200">%{commissionPct} sabit</td>
-                  <td className="py-2 px-2 text-right text-emerald-200">%{commissionPct} sabit</td>
-                  <td className="py-2 pl-2 text-right text-emerald-200">✅ Tek oran, KDV ayrı</td>
+                  <td className="py-2 pe-2 font-semibold text-emerald-300">İhaleal (bizim)</td>
+                  <td className="py-2 px-2 text-end text-emerald-200">%{commissionPct} sabit</td>
+                  <td className="py-2 px-2 text-end text-emerald-200">%{commissionPct} sabit</td>
+                  <td className="py-2 ps-2 text-end text-emerald-200">✅ Tek oran, KDV ayrı</td>
                 </tr>
                 <tr className="border-b border-slate-800/50">
-                  <td className="py-2 pr-2">Geleneksel Emlakçı</td>
-                  <td className="py-2 px-2 text-right">%2-3 (pazarlık)</td>
-                  <td className="py-2 px-2 text-right">%2-3 (pazarlık)</td>
-                  <td className="py-2 pl-2 text-right">⚠️ Pazarlık</td>
+                  <td className="py-2 pe-2">Geleneksel Emlakçı</td>
+                  <td className="py-2 px-2 text-end">%2-3 (pazarlık)</td>
+                  <td className="py-2 px-2 text-end">%2-3 (pazarlık)</td>
+                  <td className="py-2 ps-2 text-end">⚠️ Pazarlık</td>
                 </tr>
                 <tr className="border-b border-slate-800/50">
-                  <td className="py-2 pr-2">Endeksa / Hepsiemlak</td>
-                  <td className="py-2 px-2 text-right">Liste ücreti</td>
-                  <td className="py-2 px-2 text-right">—</td>
-                  <td className="py-2 pl-2 text-right">⚠️ Doping ek</td>
+                  <td className="py-2 pe-2">Endeksa / Hepsiemlak</td>
+                  <td className="py-2 px-2 text-end">Liste ücreti</td>
+                  <td className="py-2 px-2 text-end">—</td>
+                  <td className="py-2 ps-2 text-end">⚠️ Doping ek</td>
                 </tr>
                 <tr>
-                  <td className="py-2 pr-2">Açık Artırma / İhale</td>
-                  <td className="py-2 px-2 text-right">%3-5 (sabit)</td>
-                  <td className="py-2 px-2 text-right">%1-2</td>
-                  <td className="py-2 pl-2 text-right">⚠️ Karma</td>
+                  <td className="py-2 pe-2">Açık Artırma / İhale</td>
+                  <td className="py-2 px-2 text-end">%3-5 (sabit)</td>
+                  <td className="py-2 px-2 text-end">%1-2</td>
+                  <td className="py-2 ps-2 text-end">⚠️ Karma</td>
                 </tr>
               </tbody>
             </table>

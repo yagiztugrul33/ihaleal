@@ -120,7 +120,7 @@ export default function DocumentsRequired() {
           <Card key={section.category} className="bg-slate-900/50 border-slate-200/80 overflow-hidden">
             <button
               onClick={() => toggle(section.category)}
-              className="w-full p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
+              className="w-full p-5 flex items-center justify-between text-start hover:bg-white/[0.02] transition-colors"
             >
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-lg bg-${section.color}-500/10 text-${section.color}-400`}>{section.icon}</div>
@@ -139,7 +139,7 @@ export default function DocumentsRequired() {
                       {item.required ? <Badge className="bg-red-500/10 text-red-400 text-[10px] border-0">Zorunlu</Badge> : <Badge variant="outline" className="border-slate-600 text-slate-400 text-[10px]">Opsiyonel</Badge>}
                       <span className="text-sm font-medium text-white">{item.name}</span>
                     </div>
-                    <p className="text-xs text-slate-400 pl-0">{item.desc}</p>
+                    <p className="text-xs text-slate-400 ps-0">{item.desc}</p>
                   </div>
                 ))}
               </CardContent>

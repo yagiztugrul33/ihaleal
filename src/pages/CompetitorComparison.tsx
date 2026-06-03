@@ -213,7 +213,7 @@ export default function CompetitorComparison() {
                       </div>
                       <div>
                         <span className="text-sm font-semibold text-white">{c.name}</span>
-                        <span className="text-xs text-slate-500 ml-2">{c.type}</span>
+                        <span className="text-xs text-slate-500 ms-2">{c.type}</span>
                       </div>
                     </div>
                     <Badge variant="outline" className="border-slate-600 text-slate-400 text-xs">Pazar: {c.marketShare}</Badge>
@@ -252,7 +252,7 @@ export default function CompetitorComparison() {
                   <div className="flex items-center gap-2 mb-1.5">
                     <div className={`p-1.5 rounded-lg ${a.unique ? 'bg-blue-500/10 text-blue-400' : 'bg-slate-500/10 text-slate-400'}`}>{a.icon}</div>
                     <span className="text-sm font-medium text-white">{a.title}</span>
-                    {a.unique && <Badge className="bg-amber-500/10 text-amber-400 text-[10px] border-0 ml-auto">Emsalsiz</Badge>}
+                    {a.unique && <Badge className="bg-amber-500/10 text-amber-400 text-[10px] border-0 ms-auto">Emsalsiz</Badge>}
                   </div>
                   <p className="text-xs text-slate-400">{a.desc}</p>
                 </div>
@@ -268,7 +268,7 @@ export default function CompetitorComparison() {
             <table className="w-full text-sm min-w-[600px]">
               <thead>
                 <tr className="border-b border-slate-200/80">
-                  <th className="text-left py-2 px-3 text-slate-400 font-medium">Özellik</th>
+                  <th className="text-start py-2 px-3 text-slate-400 font-medium">Özellik</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">ihaleal.com</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">sahibinden</th>
                   <th className="text-center py-2 px-3 text-slate-400 font-medium">Tipik analiz siteleri</th>

@@ -173,11 +173,11 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Ad Soyad</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <Input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="ps-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="Ali Veli"
                     autoComplete="name"
                   />
@@ -186,12 +186,12 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <Input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="ps-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="ornek@mail.com"
                     autoComplete="email"
                   />
@@ -200,11 +200,11 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Telefon (isteğe bağlı)</label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <Input
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="ps-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="5XX XXX XX XX"
                     autoComplete="tel"
                   />
@@ -214,17 +214,17 @@ export default function Register() {
               {isMuteahhit && (
                 <>
                   <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-3 text-xs text-amber-100/90">
-                    <Building2 className="w-4 h-4 inline-block mr-1.5 text-amber-300" />
+                    <Building2 className="w-4 h-4 inline-block me-1.5 text-amber-300" />
                     Müteahhit kaydı için şirket bilgileri zorunludur. Ruhsat doğrulaması 24-48 saat içinde admin tarafından yapılır.
                   </div>
                   <div>
                     <label className="text-sm text-slate-400 mb-1.5 block">Şirket Adı *</label>
                     <div className="relative">
-                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Building2 className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <Input
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
-                        className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                        className="ps-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                         placeholder="Örnek İnşaat A.Ş."
                         autoComplete="organization"
                       />
@@ -233,11 +233,11 @@ export default function Register() {
                   <div>
                     <label className="text-sm text-slate-400 mb-1.5 block">Vergi Numarası (10 hane) *</label>
                     <div className="relative">
-                      <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Hash className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <Input
                         value={taxNumber}
                         onChange={(e) => setTaxNumber(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                        className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                        className="ps-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                         placeholder="1234567890"
                         maxLength={10}
                       />
@@ -246,11 +246,11 @@ export default function Register() {
                   <div>
                     <label className="text-sm text-slate-400 mb-1.5 block">Şirket Adresi *</label>
                     <div className="relative">
-                      <FileText className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
+                      <FileText className="absolute start-3 top-3 w-4 h-4 text-slate-500" />
                       <textarea
                         value={companyAddress}
                         onChange={(e) => setCompanyAddress(e.target.value)}
-                        className="w-full min-h-[72px] pl-10 pr-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-white placeholder:text-slate-600 text-sm"
+                        className="w-full min-h-[72px] ps-10 pe-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-white placeholder:text-slate-600 text-sm"
                         placeholder="Mahalle, cadde, no, ilçe, il"
                       />
                     </div>
@@ -261,19 +261,19 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Şifre</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <Input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="ps-10 pe-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="En az 6 karakter"
                     autoComplete="new-password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                    className="absolute end-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -282,12 +282,12 @@ export default function Register() {
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Şifre tekrar</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <Input
                     type={showPassword ? "text" : "password"}
                     value={passwordConfirm}
                     onChange={(e) => setPasswordConfirm(e.target.value)}
-                    className="pl-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
+                    className="ps-10 bg-slate-950 border-slate-200 text-white placeholder:text-slate-600"
                     placeholder="Şifreyi tekrarla"
                     autoComplete="new-password"
                   />

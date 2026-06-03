@@ -151,7 +151,7 @@ export default function Changelog() {
           <Card key={v.version} className={`bg-slate-900/50 border-slate-200/80 overflow-hidden ${v.status === 'Yayında' ? 'ring-1 ring-emerald-500/20' : ''}`}>
             <button
               onClick={() => setExpanded(expanded === v.version ? null : v.version)}
-              className="w-full p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
+              className="w-full p-5 flex items-center justify-between text-start hover:bg-white/[0.02] transition-colors"
             >
               <div className="flex items-center gap-4">
                 <div className="flex flex-col items-center gap-1">

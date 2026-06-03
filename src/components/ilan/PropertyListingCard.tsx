@@ -163,11 +163,11 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
             onClick={() => toggle(property.id)}
             disabled={!has(property.id) && isFull}
           >
-            <GitCompare className="mr-1 h-3.5 w-3.5" aria-hidden />
+            <GitCompare className="me-1 h-3.5 w-3.5" aria-hidden />
             {has(property.id) ? "Seçildi" : "Karşılaştır"}
           </button>
           <Link to={`/emlakci/${seller.slug}`} className="ilan-card__watch" aria-label="Satıcı profilini aç">
-            <ShieldCheck className="mr-1 h-3.5 w-3.5" aria-hidden />
+            <ShieldCheck className="me-1 h-3.5 w-3.5" aria-hidden />
             Satıcı Profili
           </Link>
         </div>

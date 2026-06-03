@@ -100,7 +100,7 @@ export default function Compare() {
                 <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/4)</h3>
                 <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">Karşılaştırmaya başla</Button>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pr-1">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pe-1">
                 {catalogNorm.map((a) => (
                   <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-slate-200/80 bg-white/[0.02] hover:border-slate-200"}`}>
                     <Checkbox checked={selectedIds.includes(a.id)} onCheckedChange={() => toggleSelection(a.id)} />
@@ -146,7 +146,7 @@ export default function Compare() {
                       <span className="text-sm text-emerald-400">AI tahmini: ₺{winner.auction.aiPredictedPrice.toLocaleString("tr-TR")}</span>
                     </div>
                   </div>
-                  <Button onClick={() => navigate(`/ilan/${winner.auction.id}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white whitespace-nowrap">Detaylar <ArrowRight className="w-4 h-4 ml-1" /></Button>
+                  <Button onClick={() => navigate(`/ilan/${winner.auction.id}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white whitespace-nowrap">Detaylar <ArrowRight className="w-4 h-4 ms-1" /></Button>
                 </div>
                 <ListingDocumentFooter auction={winner.auction} showTopRule={false} />
               </div>
@@ -235,7 +235,7 @@ export default function Compare() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-slate-200">
-                      <th className="text-left p-4 text-sm font-medium text-slate-500">Özellik</th>
+                      <th className="text-start p-4 text-sm font-medium text-slate-500">Özellik</th>
                       {scores.map((s) => <th key={s.auction.id} className="text-center p-4 min-w-[200px]">
                         <div className="flex flex-col items-center gap-2">
                           <ListingNumberBadge auction={s.auction} compact />
@@ -305,7 +305,7 @@ export default function Compare() {
             </Card>
 
             <div className="mt-6 flex justify-center">
-              <Button variant="outline" onClick={() => setShowSelector(true)} className="border-slate-200 text-slate-500 hover:text-slate-900"><GitCompare className="w-4 h-4 mr-2" />Farklı ilanlar karşılaştır</Button>
+              <Button variant="outline" onClick={() => setShowSelector(true)} className="border-slate-200 text-slate-500 hover:text-slate-900"><GitCompare className="w-4 h-4 me-2" />Farklı ilanlar karşılaştır</Button>
             </div>
           </>
         )}

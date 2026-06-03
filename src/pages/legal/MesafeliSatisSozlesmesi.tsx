@@ -66,7 +66,7 @@ export default function MesafeliSatisSozlesmesi() {
             <p className="text-sm text-slate-300 leading-relaxed">
               İşbu sözleşme, ALICI'nın ihaleal.com platformu üzerinden seçtiği:
             </p>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ms-2">
               <li><strong className="text-white">Premium üyelik paketleri</strong> (Yatırımcı / Emlak Başlangıç / Emlak Pro / Kurumsal)</li>
               <li><strong className="text-white">Tek seferlik dijital içerik</strong> (Değerleme PDF, GES Analizi PDF, Hukuki Risk PDF, vb.)</li>
               <li><strong className="text-white">İlan görünürlük hizmetleri</strong> (Doping, Vitrin, Öne Çıkan İhale)</li>
@@ -80,7 +80,7 @@ export default function MesafeliSatisSozlesmesi() {
           {/* MADDE 3 — Fiyat ve Ödeme */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">3. Fiyat, KDV ve Ödeme</h2>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ms-2">
               <li>Güncel fiyat listesi <button type="button" onClick={() => navigate("/fiyatlandirma")} className="text-emerald-300 underline">/fiyatlandirma</button> sayfasında yayınlanır.</li>
               <li>Listelenen tutarlar <strong className="text-white">KDV dahil</strong>'dir (VUK 213 m. 230).</li>
               <li>Aylık aboneliklerde ödeme her ay otomatik tahsil edilir; yıllıkta peşin ve %20 indirim uygulanır.</li>
@@ -100,13 +100,13 @@ export default function MesafeliSatisSozlesmesi() {
               ALICI, sözleşmenin imzalandığı tarihten itibaren <strong className="text-amber-200">14 gün içinde</strong> hiçbir gerekçe göstermeden ve cezai şart ödemeden cayma hakkına sahiptir
               (TKHK 6502 m. 48/4).
             </p>
-            <ul className="text-sm text-slate-300 list-disc list-inside ml-2 space-y-1">
+            <ul className="text-sm text-slate-300 list-disc list-inside ms-2 space-y-1">
               <li>Cayma için <a href="mailto:destek@ihaleal.com" className="text-amber-300 underline">destek@ihaleal.com</a> adresine yazılı bildirim yeterlidir.</li>
               <li>ALICI'nın ödediği tutar, cayma bildiriminin ulaşmasından itibaren <strong className="text-white">14 gün içinde</strong> aynı ödeme yoluyla iade edilir.</li>
               <li>Yıllık abonelikte ALICI hizmeti kullanmadıysa tam iade; kısmen kullandıysa kullanılan günlere orantılı kesinti uygulanır.</li>
             </ul>
             <p className="text-xs text-amber-100 mt-2 pt-2 border-t border-amber-500/20 italic">
-              <AlertTriangle className="inline h-3 w-3 mr-1" />
+              <AlertTriangle className="inline h-3 w-3 me-1" />
               <strong>İSTİSNA:</strong> Bir kez indirildikten/görüntülendikten sonra niteliği gereği iade edilemez sayılan
               tek seferlik dijital içerikler (PDF raporlar) — TKHK 6502 m. 15. ALICI satın almadan önce bu istisnayı açık şekilde onaylar.
             </p>
@@ -115,7 +115,7 @@ export default function MesafeliSatisSozlesmesi() {
           {/* MADDE 5 — Hizmet sunumu */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">5. Hizmet Sunumu</h2>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ms-2">
               <li>Premium üyelik ödeme onayı sonrası <strong className="text-white">anında aktive</strong> edilir; hesabınızda görüntülenir.</li>
               <li>Aylık abonelik 30 gün, yıllık 365 gün geçerlidir. Yenileme tarihinden 7 gün önce hatırlatma e-postası gönderilir.</li>
               <li>Tek seferlik dijital içerikler (PDF) satın alımdan sonra hesabınıza eklenir; istediğiniz zaman indirebilirsiniz.</li>
@@ -127,7 +127,7 @@ export default function MesafeliSatisSozlesmesi() {
           {/* MADDE 6 — Fesih ve İptal */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">6. Fesih, İptal ve Yenileme</h2>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ms-2">
               <li><strong className="text-white">ALICI tek taraflı fesih:</strong> İstediği zaman üyeliği iptal edebilir. İptal anında abonelik süresi sonuna kadar haklar korunur; otomatik yenileme durur.</li>
               <li><strong className="text-white">SATICI tek taraflı fesih:</strong> Yalnızca ALICI'nın sözleşme + Kullanım Koşulları ihlali durumunda (sahte teklif, bot kullanımı, MASAK ihlali, vb.) — yazılı bildirim + 7 gün makul süre tanınır.</li>
               <li><strong className="text-white">Otomatik yenileme:</strong> ALICI iptal etmedikçe abonelik otomatik yenilenir. 7 gün öncesinde uyarı e-postası gönderilir.</li>
@@ -167,7 +167,7 @@ export default function MesafeliSatisSozlesmesi() {
               Premium üyeliğe ek olarak — gerçekleşen ihale satışlarında kademeli komisyon alınır
               (sadece kapanışta; iptal olursa komisyon doğmaz):
             </p>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ms-2">
               <li>₺0 – ₺3M arası: <strong className="text-emerald-200">%3</strong></li>
               <li>₺3M – ₺10M arası: <strong className="text-cyan-200">%2.5</strong></li>
               <li>₺10M üzeri: <strong className="text-blue-200">%2</strong></li>
@@ -188,7 +188,7 @@ export default function MesafeliSatisSozlesmesi() {
               <strong className="text-rose-200">ihaleal.com</strong> bir <strong className="text-white">aracı/bilgi platformudur</strong>; ilanlardaki bilgilerin doğruluğundan, ihale konusu mülklerin
               hukuki/teknik durumundan, taraflar arasındaki sözleşmenin ifasından <strong className="text-white">DOĞRUDAN SORUMLU DEĞİLDİR</strong>.
             </p>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ms-2">
               <li>ALICI/SATICI'lar arasındaki anlaşmazlıklar arabuluculuk + Tüketici Hakem Heyeti + mahkemede çözülür.</li>
               <li>SATICI'nın sorumluluğu yıllık üyelik bedeli + son ay komisyon toplamı ile sınırlıdır (ağır kusur halinde TBK 115 uygulanır).</li>
               <li>Mücbir sebep + üçüncü kişi fiilleri (Supabase/Vercel kesintisi, vb.) için sorumluluk doğmaz.</li>
@@ -202,7 +202,7 @@ export default function MesafeliSatisSozlesmesi() {
               ALICI'nın kişisel verileri 6698 sayılı KVKK çerçevesinde işlenir.
               Detaylı bilgi için <button type="button" onClick={() => navigate("/kvkk")} className="text-emerald-300 underline">KVKK Aydınlatma Metni</button> + <button type="button" onClick={() => navigate("/gizlilik")} className="text-emerald-300 underline">Gizlilik Politikası</button>'ndan yararlanın.
             </p>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ms-2">
               <li>Veriler Supabase EU (Frankfurt) bölgesinde saklanır — GDPR uyumlu.</li>
               <li>Veri sızıntısı halinde 72 saat içinde KVKK Kurulu + etkilenen kullanıcılara bildirim yapılır (KVKK 12. m.).</li>
               <li>Saklama: hesap aktifken + 30 gün; mali kayıtlar 10 yıl (VUK 213 m. 253).</li>
@@ -216,7 +216,7 @@ export default function MesafeliSatisSozlesmesi() {
               Sözleşmeden kaynaklanan uyuşmazlıklarda taraflar önce arabuluculuğa başvurabilir (6325 sayılı kanun).
               Çözüm sağlanamazsa:
             </p>
-            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ml-2">
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1 ms-2">
               <li>Tüketici işlemlerinde — yıllık parasal sınırlar dahilinde <strong className="text-white">Tüketici Hakem Heyetleri</strong>.</li>
               <li>Üzeri için <strong className="text-white">Tüketici Mahkemeleri</strong> (TKHK 6502 m. 73).</li>
               <li>Ticari uyuşmazlıklarda <strong className="text-white">Ankara Mahkemeleri ve İcra Daireleri</strong> yetkilidir.</li>

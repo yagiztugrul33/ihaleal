@@ -62,7 +62,7 @@ export function UserPanelOverview() {
               Giriş yaptıktan sonra: kayıtlı aramalarınız, favori ilanlarınız, aktif teklifleriniz,
               bildirimler ve satıcı analitiği tek ekrandan yönetilir.
             </p>
-            <div className="grid gap-2 sm:grid-cols-2 text-left text-xs text-slate-400 mb-6">
+            <div className="grid gap-2 sm:grid-cols-2 text-start text-xs text-slate-400 mb-6">
               <div className="flex items-center gap-2 rounded-lg bg-slate-800/40 p-2">
                 <Heart className="w-4 h-4 text-rose-400" /> Favori takibi + fiyat değişimi
               </div>
@@ -174,7 +174,7 @@ export function UserPanelOverview() {
                   key={a.id}
                   type="button"
                   onClick={() => navigate(`/ilan/${a.id}`)}
-                  className="text-left rounded-xl border border-white/10 bg-slate-950/40 overflow-hidden hover:border-cyan-400/40 transition-colors"
+                  className="text-start rounded-xl border border-white/10 bg-slate-950/40 overflow-hidden hover:border-cyan-400/40 transition-colors"
                 >
                   <div className="aspect-[16/10] bg-slate-800 overflow-hidden">
                     <img src={a.images[0]} alt={a.title} loading="lazy" className="w-full h-full object-cover" />

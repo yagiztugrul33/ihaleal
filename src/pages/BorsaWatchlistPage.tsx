@@ -203,27 +203,27 @@ export default function BorsaWatchlistPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-[820px] w-full text-sm">
-                <thead className="text-left text-[11px] uppercase tracking-[0.11em] text-slate-400">
+                <thead className="text-start text-[11px] uppercase tracking-[0.11em] text-slate-400">
                   <tr>
-                    <th className="pb-2 pr-3">Kod</th>
-                    <th className="pb-2 pr-3">Mülk</th>
-                    <th className="pb-2 pr-3">Canlı ₺</th>
-                    <th className="pb-2 pr-3">Değişim</th>
-                    <th className="pb-2 pr-3">Süre</th>
+                    <th className="pb-2 pe-3">Kod</th>
+                    <th className="pb-2 pe-3">Mülk</th>
+                    <th className="pb-2 pe-3">Canlı ₺</th>
+                    <th className="pb-2 pe-3">Değişim</th>
+                    <th className="pb-2 pe-3">Süre</th>
                     <th className="pb-2">Aksiyon</th>
                   </tr>
                 </thead>
                 <tbody>
                   {watchlistRows.map((row) => (
                     <tr key={row.id} className="border-t border-slate-800/80">
-                      <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
-                      <td className="py-2.5 pr-3 text-slate-200">{row.property}</td>
-                      <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
-                      <td className={cn("py-2.5 pr-3 font-bold", row.changePct >= 0 ? "text-emerald-300" : "text-rose-300")}>
+                      <td className="py-2.5 pe-3 font-semibold text-cyan-200">{row.code}</td>
+                      <td className="py-2.5 pe-3 text-slate-200">{row.property}</td>
+                      <td className="py-2.5 pe-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
+                      <td className={cn("py-2.5 pe-3 font-bold", row.changePct >= 0 ? "text-emerald-300" : "text-rose-300")}>
                         {row.changePct >= 0 ? "+" : ""}
                         {row.changePct.toFixed(2)}%
                       </td>
-                      <td className="py-2.5 pr-3 text-slate-300">{formatRemaining(row.remainingMin)}</td>
+                      <td className="py-2.5 pe-3 text-slate-300">{formatRemaining(row.remainingMin)}</td>
                       <td className="py-2.5">
                         <div className="flex gap-1.5">
                           <button

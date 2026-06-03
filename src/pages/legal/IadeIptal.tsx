@@ -47,7 +47,7 @@ export default function IadeIptal() {
               <CheckCircle2 className="h-5 w-5 text-emerald-400" />
               1. Premium Üyelik İptali
             </h2>
-            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
               <li><strong className="text-white">14 gün cayma hakkı (TKHK m. 48/4):</strong> Satın aldığınız aboneliği ilk 14 gün içinde
                 hiçbir gerekçe göstermeden iade edebilirsiniz.</li>
               <li><strong className="text-white">İptal yöntemi:</strong> <button type="button" onClick={() => navigate("/uyelik")} className="text-emerald-300 underline">/uyelik</button> sayfası → "Aboneliği iptal et"
@@ -67,7 +67,7 @@ export default function IadeIptal() {
             <p className="text-sm text-slate-300 leading-relaxed">
               Değerleme PDF, GES Analizi PDF, Hukuki Risk PDF gibi <strong className="text-amber-200">tek seferlik dijital içerikler</strong>:
             </p>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>İndirildikten/görüntülendikten sonra <strong className="text-amber-200">iade kapsamı dışı</strong> (TKHK 6502 m. 15/ğ).</li>
               <li>Satın alma öncesi bu istisnayı onaylayan kutu işaretlenir.</li>
               <li>İçeriğin <strong className="text-white">eksik/yanlış</strong> olduğu durumda — değiştirme/düzeltme veya tam iade hakkı saklıdır.</li>
@@ -77,7 +77,7 @@ export default function IadeIptal() {
           {/* 3. Doping / Vitrin */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">3. Doping / Vitrin / Görünürlük Hizmetleri</h2>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Aktif edilmemişse 14 gün cayma + tam iade.</li>
               <li>Aktif edildiyse <strong className="text-white">kullanılan günlere orantılı</strong> kesinti, kalan günler iade.</li>
               <li>Teknik nedenle hizmet sunulamazsa (sunucu kesintisi, vb.) tam iade veya uzatma.</li>
@@ -87,7 +87,7 @@ export default function IadeIptal() {
           {/* 4. İhale ve Komisyon */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">4. İhale Sonucu Komisyon</h2>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Komisyon yalnızca <strong className="text-emerald-200">kapanan ihalelerde</strong> doğar; iptal/cayma halinde komisyon iade edilir.</li>
               <li>Mülkün hukuki engelle satışın gerçekleşmemesi (ipotek/haciz, eksper raporu uyumsuz) durumunda komisyon iade.</li>
               <li>Detay: <button type="button" onClick={() => navigate("/komisyon")} className="text-emerald-300 underline">/komisyon</button>.</li>
@@ -101,7 +101,7 @@ export default function IadeIptal() {
               Hesabınızı kalıcı silmek isterseniz — <a href="mailto:destek@ihaleal.com" className="text-emerald-300 underline">destek@ihaleal.com</a>'a yazılı talep
               gönderebilirsiniz. KVKK çerçevesinde:
             </p>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Verileriniz <strong className="text-white">30 gün içinde anonimleştirilir</strong>.</li>
               <li>Mali kayıtlar (faturalar) VUK 213 m. 253 gereği <strong className="text-white">10 yıl</strong> saklanır.</li>
               <li>İhale teklif geçmişi 5 yıl saklanır (BK ispat süresi).</li>
@@ -112,7 +112,7 @@ export default function IadeIptal() {
           {/* 6. Başvuru */}
           <section className="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">6. İade Başvurusu Nasıl Yapılır?</h2>
-            <ol className="text-sm text-slate-300 space-y-1.5 list-decimal list-inside ml-2">
+            <ol className="text-sm text-slate-300 space-y-1.5 list-decimal list-inside ms-2">
               <li>"İade Talep Formu"nu doldurun (e-posta gövdesinde de olur).</li>
               <li>Bilgilendirme: ad-soyad, fatura no, sipariş tarihi, iade gerekçesi, IBAN.</li>
               <li><a href="mailto:destek@ihaleal.com" className="text-cyan-300 underline">destek@ihaleal.com</a>'a gönderin.</li>
@@ -124,7 +124,7 @@ export default function IadeIptal() {
           {/* 7. Şikayet */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">7. Şikayet ve Uyuşmazlık Çözümü</h2>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>İlk başvuru: <a href="mailto:destek@ihaleal.com" className="text-cyan-300 underline">destek@ihaleal.com</a> (yanıt 24 saat).</li>
               <li>Çözülmezse: arabuluculuk (6325 sayılı kanun) ihtiyari.</li>
               <li>Tüketici Hakem Heyeti — TKHK 6502 m. 68 (yıllık parasal sınırlar dahilinde).</li>

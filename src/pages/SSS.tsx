@@ -323,10 +323,10 @@ export default function SSS() {
                 <button
                   type="button"
                   onClick={() => setAcik(open ? null : globalIdx)}
-                  className="w-full px-5 py-4 flex items-center justify-between gap-4 text-left transition-colors hover:brightness-110"
+                  className="w-full px-5 py-4 flex items-center justify-between gap-4 text-start transition-colors hover:brightness-110"
                   style={{ color: "var(--color-text)" }}
                 >
-                  <span className="font-medium pr-2">{item.soru}</span>
+                  <span className="font-medium pe-2">{item.soru}</span>
                   <ChevronDown
                     className={`h-5 w-5 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
                     style={{ color: "var(--color-text-muted)" }}

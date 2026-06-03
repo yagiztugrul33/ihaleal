@@ -76,7 +76,7 @@ export function LiveAuctionsShowcase() {
                     <span className="ref-live-pill">{auctions.live}</span>
                     <button
                       type="button"
-                      className="absolute right-3 top-3 rounded-full border border-white/20 bg-black/40 p-2 text-white/90 backdrop-blur-sm transition hover:bg-black/60"
+                      className="absolute end-3 top-3 rounded-full border border-white/20 bg-black/40 p-2 text-white/90 backdrop-blur-sm transition hover:bg-black/60"
                       aria-label="Favorite"
                     >
                       <Heart className="h-4 w-4" aria-hidden />

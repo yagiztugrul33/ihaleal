@@ -114,7 +114,7 @@ export default function UzmanRandevuPage() {
           title="Filtreler"
           action={
             <span className="text-xs text-slate-500">
-              <Filter className="mr-1 inline h-3.5 w-3.5" />
+              <Filter className="me-1 inline h-3.5 w-3.5" />
               {experts.length} uzman
             </span>
           }
@@ -146,10 +146,10 @@ export default function UzmanRandevuPage() {
             <div>
               <label htmlFor="ur-ara">Arama</label>
               <div className="relative">
-                <Search className="pointer-events-none absolute left-2.5 top-2.5 h-4 w-4 text-slate-500" />
+                <Search className="pointer-events-none absolute start-2.5 top-2.5 h-4 w-4 text-slate-500" />
                 <input
                   id="ur-ara"
-                  className="pl-9"
+                  className="ps-9"
                   style={{ fontSize: "16px" }}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
@@ -161,12 +161,12 @@ export default function UzmanRandevuPage() {
         </ModulePanel>
 
         <ModulePanel title="Uzman listesi">
-          <div className="max-h-[28rem] space-y-2 overflow-y-auto pr-1">
+          <div className="max-h-[28rem] space-y-2 overflow-y-auto pe-1">
             {experts.map((e) => (
               <button
                 key={e.id}
                 type="button"
-                className={`w-full rounded-lg border px-3 py-2 text-left transition ${
+                className={`w-full rounded-lg border px-3 py-2 text-start transition ${
                   selected?.id === e.id ? "border-cyan-500/50 bg-cyan-500/10" : "border-white/10 hover:bg-white/[0.04]"
                 }`}
                 onClick={() => {
@@ -257,7 +257,7 @@ export default function UzmanRandevuPage() {
           {step === 3 ? (
             <div className="mt-3 rounded-lg border border-white/10 p-4 text-sm text-slate-300">
               <p>
-                <CheckCircle2 className="mr-1 inline h-4 w-4 text-emerald-400" />
+                <CheckCircle2 className="me-1 inline h-4 w-4 text-emerald-400" />
                 {date} {slot} — {selected.name}
               </p>
               <p className="mt-2">{note || "Ek not yok."}</p>

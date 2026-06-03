@@ -49,7 +49,7 @@ export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
         <p>
           <strong className="text-amber-200">Karar verirken zorunlu:</strong>
         </p>
-        <ul className="ml-4 list-disc text-xs space-y-1">
+        <ul className="ms-4 list-disc text-xs space-y-1">
           <li><strong className="text-white">Baroya kayıtlı avukat</strong> — sözleşme + dava + risk analizi</li>
           <li><strong className="text-white">YMM/SMMM</strong> (Yeminli/Serbest Mali Müşavir) — vergi + denkleştirme + intikal</li>
           <li><strong className="text-white">Noter</strong> — resmi şekil zorunluluğu (tapu/vekalet/satış vaadi)</li>

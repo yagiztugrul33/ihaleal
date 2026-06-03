@@ -198,7 +198,7 @@ export default function Corporate() {
                 <div className="text-4xl font-bold mb-1">
                   {p.price}
                   <span
-                    className="text-base font-normal ml-1"
+                    className="text-base font-normal ms-1"
                     style={{ color: p.highlighted ? "rgba(250,248,241,0.7)" : "var(--color-text-muted)" }}
                   >
                     /ay

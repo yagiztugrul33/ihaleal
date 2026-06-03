@@ -83,7 +83,7 @@ export default function AydinlatmaMetni() {
           {/* 3. Amaçlar */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">3. Veri İşleme Amaçları</h2>
-            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
               <li>Üyelik + hesap yönetimi + güvenlik kontrolleri</li>
               <li>İhale + teklif + ödeme süreçlerinin yürütülmesi</li>
               <li>Yasal yükümlülüklerin yerine getirilmesi (5651, MASAK, VUK, KVKK)</li>
@@ -96,7 +96,7 @@ export default function AydinlatmaMetni() {
           {/* 4. Hukuki Sebepler */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">4. Hukuki Sebepler (KVKK m. 5)</h2>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li><strong className="text-white">Sözleşme:</strong> üyelik + ihale + ödeme sözleşmesinin kurulması/ifası (m. 5/2-c).</li>
               <li><strong className="text-white">Yasal yükümlülük:</strong> VUK + MASAK + 5651 + KVKK (m. 5/2-ç).</li>
               <li><strong className="text-white">Meşru menfaat:</strong> platform güvenliği + dolandırıcılık önleme (m. 5/2-f).</li>
@@ -110,7 +110,7 @@ export default function AydinlatmaMetni() {
             <p className="text-sm text-slate-300 leading-relaxed">
               Kişisel veriler yalnızca aşağıdaki amaçlarla ve yasal sınırlarda aktarılır:
             </p>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Yasal merciler (mahkeme, savcılık, KVKK Kurulu — talep üzerine)</li>
               <li>Ödeme hizmet sağlayıcıları (iyzico / PayTR — sadece ödeme bilgisi)</li>
               <li>Findeks + bankalar (kredi/finansal uygunluk — kullanıcı talebi)</li>
@@ -129,7 +129,7 @@ export default function AydinlatmaMetni() {
               6. KVKK 11. Madde Haklarınız
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed">Aşağıdaki haklarınızı kullanabilirsiniz:</p>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Verilerin işlenip işlenmediğini öğrenme</li>
               <li>İşlenmişse bilgi talep etme</li>
               <li>İşleme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
@@ -148,7 +148,7 @@ export default function AydinlatmaMetni() {
           {/* 7. Saklama */}
           <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white">7. Saklama Süresi</h2>
-            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ml-2">
+            <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Hesap aktif olduğu sürece + 30 gün anonimleştirme</li>
               <li>Mali kayıtlar: 10 yıl (VUK 213 m. 253)</li>
               <li>İhale teklif kayıtları: 5 yıl (BK ispat süresi)</li>

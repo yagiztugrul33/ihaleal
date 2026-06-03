@@ -79,7 +79,7 @@ export function PremiumGate({
   return (
     <div className="relative rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-slate-900/50 p-6 overflow-hidden">
       {/* Lock badge */}
-      <div className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-500/20 px-2 py-1 text-[10px] font-semibold text-amber-200">
+      <div className="absolute top-3 end-3 inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-500/20 px-2 py-1 text-[10px] font-semibold text-amber-200">
         <Lock className="h-3 w-3" /> Premium
       </div>
 
@@ -87,7 +87,7 @@ export function PremiumGate({
         <div className="rounded-full bg-amber-500/20 p-2">
           <Sparkles className="h-5 w-5 text-amber-300" />
         </div>
-        <div className="flex-1 pr-16">
+        <div className="flex-1 pe-16">
           <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
           <p className="text-sm text-slate-300 leading-relaxed">{description}</p>
         </div>
@@ -101,7 +101,7 @@ export function PremiumGate({
               <p className="text-base font-bold text-white">{rec.name}</p>
               <p className="text-xs text-amber-300">{rec.tagline}</p>
             </div>
-            <div className="text-right">
+            <div className="text-end">
               <p className="text-xl font-bold text-amber-300">₺{rec.monthlyTry.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-400">/ay</p>
             </div>

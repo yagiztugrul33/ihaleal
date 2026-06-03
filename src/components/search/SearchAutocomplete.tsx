@@ -60,7 +60,7 @@ export function SearchAutocomplete({ value, onChange, onSelect, placeholder, cla
             <li key={`${s.kind}-${s.label}`}>
               <button
                 type="button"
-                className="w-full px-3 py-2 text-left text-sm text-slate-200 hover:bg-white/5"
+                className="w-full px-3 py-2 text-start text-sm text-slate-200 hover:bg-white/5"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => {
                   onSelect(s.value);
@@ -68,7 +68,7 @@ export function SearchAutocomplete({ value, onChange, onSelect, placeholder, cla
                 }}
               >
                 {s.label}
-                <span className="ml-2 text-[10px] uppercase text-slate-500">{s.kind === "province" ? "İl" : "İlçe"}</span>
+                <span className="ms-2 text-[10px] uppercase text-slate-500">{s.kind === "province" ? "İl" : "İlçe"}</span>
               </button>
             </li>
           ))}

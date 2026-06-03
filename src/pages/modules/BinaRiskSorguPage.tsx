@@ -58,7 +58,7 @@ export default function BinaRiskSorguPage() {
             style={{ color: "#0f172a", backgroundColor: "#fecdd3" }}
             className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-bold shadow transition-colors hover:opacity-90"
           >
-            Haritayı aç <ArrowRight className="ml-1.5 h-4 w-4" />
+            Haritayı aç <ArrowRight className="ms-1.5 h-4 w-4" />
           </Link>
         </div>
       </div>

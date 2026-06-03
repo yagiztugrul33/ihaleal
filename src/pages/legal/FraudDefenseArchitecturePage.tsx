@@ -30,13 +30,13 @@ export default function FraudDefenseArchitecturePage() {
           </div>
           <div className="flex flex-wrap gap-2 shrink-0">
             <Button variant="outline" size="sm" className="border-white/15 text-slate-200" onClick={() => navigate("/yasal-master-brief")}>
-              <FileText className="w-4 h-4 mr-1" /> Master brief
+              <FileText className="w-4 h-4 me-1" /> Master brief
             </Button>
             <Button variant="outline" size="sm" className="border-white/15 text-slate-200" onClick={() => navigate("/yasal-cerceve")}>
-              <Scale className="w-4 h-4 mr-1" /> Yasal cerceve
+              <Scale className="w-4 h-4 me-1" /> Yasal cerceve
             </Button>
             <Button variant="outline" size="sm" className="border-teal-500/30 text-teal-100" onClick={() => navigate("/güvenlik")}>
-              <ShieldAlert className="w-4 h-4 mr-1" /> Guvenlik merkezi
+              <ShieldAlert className="w-4 h-4 me-1" /> Guvenlik merkezi
             </Button>
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-rose-200/90 mb-1">Tehdit</p>
-                  <ul className="list-disc pl-5 text-sm text-slate-400 space-y-1">
+                  <ul className="list-disc ps-5 text-sm text-slate-400 space-y-1">
                     {p.threats.map((t) => (
                       <li key={t}>{t}</li>
                     ))}
@@ -95,7 +95,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-slate-500 mb-1">Hukuki referans (ozet)</p>
-                  <ul className="list-disc pl-5 text-xs text-slate-500 space-y-1">
+                  <ul className="list-disc ps-5 text-xs text-slate-500 space-y-1">
                     {p.legalAnchors.map((a) => (
                       <li key={a}>{a}</li>
                     ))}
@@ -103,7 +103,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-emerald-200/90 mb-1">Onlem (urun / operasyon)</p>
-                  <ul className="list-disc pl-5 text-sm text-slate-300 space-y-1">
+                  <ul className="list-disc ps-5 text-sm text-slate-300 space-y-1">
                     {p.controls.map((c) => (
                       <li key={c}>{c}</li>
                     ))}
@@ -140,7 +140,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-rose-200/90 mb-1">Tehdit</p>
-                  <ul className="list-disc pl-5 text-sm text-slate-400 space-y-1">
+                  <ul className="list-disc ps-5 text-sm text-slate-400 space-y-1">
                     {p.threats.map((t) => (
                       <li key={t}>{t}</li>
                     ))}
@@ -148,7 +148,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-slate-500 mb-1">Hukuki referans (ozet)</p>
-                  <ul className="list-disc pl-5 text-xs text-slate-500 space-y-1">
+                  <ul className="list-disc ps-5 text-xs text-slate-500 space-y-1">
                     {p.legalAnchors.map((a) => (
                       <li key={a}>{a}</li>
                     ))}
@@ -156,7 +156,7 @@ export default function FraudDefenseArchitecturePage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-emerald-200/90 mb-1">Onlem (urun / operasyon)</p>
-                  <ul className="list-disc pl-5 text-sm text-slate-300 space-y-1">
+                  <ul className="list-disc ps-5 text-sm text-slate-300 space-y-1">
                     {p.controls.map((c) => (
                       <li key={c}>{c}</li>
                     ))}

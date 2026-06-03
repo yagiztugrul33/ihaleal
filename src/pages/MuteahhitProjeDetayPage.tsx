@@ -153,13 +153,13 @@ export default function MuteahhitProjeDetayPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-200/80 text-xs text-slate-500 uppercase">
-                    <th className="text-left p-3">Unit</th>
-                    <th className="text-left p-3">Blok/Kat</th>
-                    <th className="text-left p-3">Tip</th>
-                    <th className="text-right p-3">m² (B/N)</th>
-                    <th className="text-right p-3">Fiyat</th>
-                    <th className="text-left p-3">Durum</th>
-                    <th className="text-right p-3">Aksiyon</th>
+                    <th className="text-start p-3">Unit</th>
+                    <th className="text-start p-3">Blok/Kat</th>
+                    <th className="text-start p-3">Tip</th>
+                    <th className="text-end p-3">m² (B/N)</th>
+                    <th className="text-end p-3">Fiyat</th>
+                    <th className="text-start p-3">Durum</th>
+                    <th className="text-end p-3">Aksiyon</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -171,14 +171,14 @@ export default function MuteahhitProjeDetayPage() {
                       <td className="p-3 font-semibold text-white">{u.unit_no}</td>
                       <td className="p-3 text-slate-400">{u.block ?? "—"} / {u.floor ?? "—"}</td>
                       <td className="p-3 text-slate-300">{u.unit_type ?? "—"}</td>
-                      <td className="p-3 text-right text-slate-300">{u.m2_brut ?? "—"} / {u.m2_net ?? "—"}</td>
-                      <td className="p-3 text-right font-semibold text-cyan-300">{u.price_try ? `₺${u.price_try.toLocaleString("tr-TR")}` : "—"}</td>
+                      <td className="p-3 text-end text-slate-300">{u.m2_brut ?? "—"} / {u.m2_net ?? "—"}</td>
+                      <td className="p-3 text-end font-semibold text-cyan-300">{u.price_try ? `₺${u.price_try.toLocaleString("tr-TR")}` : "—"}</td>
                       <td className="p-3">
                         <span className={`inline-flex px-2 py-1 rounded-md text-[10px] font-semibold border ${STATUS_COLORS[u.status]}`}>
                           {STATUS_LABELS[u.status]}
                         </span>
                       </td>
-                      <td className="p-3 text-right">
+                      <td className="p-3 text-end">
                         {u.status === "available" && isOwner && isVerified && (
                           <Button size="sm" variant="outline" onClick={() => void publish(u)} disabled={publishing === u.id} className="gap-1.5">
                             <Megaphone className="w-3.5 h-3.5" /> {publishing === u.id ? "..." : "Yayınla"}

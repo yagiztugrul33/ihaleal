@@ -89,7 +89,7 @@ export default function CampaignsPage() {
           </div>
           <h3 className="mt-2 text-xl font-bold text-white">{highlighted.title}</h3>
           <p className="mt-1 text-sm text-slate-300">{highlighted.subtitle}</p>
-          <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-slate-200">
+          <ul className="mt-3 list-disc space-y-1 ps-5 text-xs text-slate-200">
             <li>Koşulları başvuru öncesi kart detayından okuyun.</li>
             <li>Kampanya kombinasyonu ilan ve kullanıcı tipine göre değişebilir.</li>
           </ul>

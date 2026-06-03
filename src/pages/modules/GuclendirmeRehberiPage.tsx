@@ -263,7 +263,7 @@ export default function GuclendirmeRehberiPage() {
                   </ModuleTag>
                 </span>
               </div>
-              <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-300">
+              <ul className="list-disc space-y-2 ps-5 text-sm leading-relaxed text-slate-300">
                 {m.body.map((p, idx) => (
                   <li key={`${m.id}-${idx}`}>{p}</li>
                 ))}

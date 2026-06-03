@@ -57,7 +57,7 @@ export default function NotificationsPage() {
                 <button
                   type="button"
                   onClick={() => void markRead(n.id)}
-                  className={`w-full rounded-xl border px-4 py-3 text-left transition-colors ${
+                  className={`w-full rounded-xl border px-4 py-3 text-start transition-colors ${
                     n.read
                       ? "border-slate-800 bg-slate-900/30 opacity-80"
                       : "border-violet-500/30 bg-violet-500/5"

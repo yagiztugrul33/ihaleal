@@ -172,7 +172,7 @@ export default function BusinessModel() {
             {sellerMembership.toLocaleString("tr-TR")}.
           </p>
           <div className="overflow-x-auto rounded-xl border border-slate-200">
-            <table className="w-full text-left text-xs sm:text-sm">
+            <table className="w-full text-start text-xs sm:text-sm">
               <thead>
                 <tr className="border-b border-slate-200 bg-white/[0.03] text-slate-400">
                   <th className="p-3 font-medium">İşlem (₺)</th>

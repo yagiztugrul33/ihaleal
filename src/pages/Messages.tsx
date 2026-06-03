@@ -194,7 +194,7 @@ export default function MessagesPage() {
 
         <div className="flex flex-col lg:flex-row gap-4 min-h-[calc(100vh-12rem)] rounded-2xl border border-slate-200 bg-slate-900/40 overflow-hidden shadow-xl">
           {/* Sol — konuşmalar */}
-          <aside className="lg:w-80 shrink-0 border-b lg:border-b-0 lg:border-r border-slate-200 max-h-52 lg:max-h-none overflow-y-auto lg:overflow-visible">
+          <aside className="lg:w-80 shrink-0 border-b lg:border-b-0 lg:border-e border-slate-200 max-h-52 lg:max-h-none overflow-y-auto lg:overflow-visible">
             <div className="p-4 border-b border-slate-200/80 flex items-center gap-2 text-white font-semibold">
               <MessageSquare className="w-5 h-5 text-blue-400" />
               Konuşmalar
@@ -211,7 +211,7 @@ export default function MessagesPage() {
                     key={t.id}
                     type="button"
                     onClick={() => setActiveId(t.id)}
-                    className={`w-full text-left rounded-xl px-3 py-2.5 transition-colors ${
+                    className={`w-full text-start rounded-xl px-3 py-2.5 transition-colors ${
                       t.id === activeId ? "bg-blue-500/15 border border-blue-500/30" : "hover:bg-white/5 border border-transparent"
                     }`}
                   >

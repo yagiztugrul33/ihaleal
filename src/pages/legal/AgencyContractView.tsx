@@ -33,7 +33,7 @@ function renderMarkdownLines(md: string): ReactNode[] {
     }
     if (t.startsWith("- ")) {
       return (
-        <li key={idx} className="ml-5 list-disc text-slate-300 leading-relaxed">
+        <li key={idx} className="ms-5 list-disc text-slate-300 leading-relaxed">
           {t.slice(2)}
         </li>
       );

@@ -63,7 +63,7 @@ function renderBodyBlock(lines: string[], baseKey: string): ReactNode {
         i += 1;
       }
       nodes.push(
-        <ul key={`${baseKey}-ul-${i}`} className="my-2 list-disc space-y-1 pl-5 text-slate-300">
+        <ul key={`${baseKey}-ul-${i}`} className="my-2 list-disc space-y-1 ps-5 text-slate-300">
           {items.map((t, j) => (
             <li key={j} className="leading-relaxed">
               {formatInline(t, `${baseKey}-li-${i}-${j}`)}

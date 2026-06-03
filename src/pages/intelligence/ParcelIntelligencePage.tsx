@@ -129,7 +129,7 @@ export default function ParcelIntelligencePage() {
       <motion.div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-400">
           <Link to={INTELLIGENCE_HUB_PATH}>
-            <ArrowLeft className="w-4 h-4 mr-1" /> Arastirma
+            <ArrowLeft className="w-4 h-4 me-1" /> Arastirma
           </Link>
         </Button>
         <motion.div className="flex items-center gap-3 mb-4">

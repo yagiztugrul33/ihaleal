@@ -150,7 +150,7 @@ export default function MuteahhitPanelPage() {
   if (loading) {
     return (
       <div className="min-h-screen pt-24 px-4 flex items-center justify-center text-slate-400">
-        <Loader2 className="w-6 h-6 animate-spin mr-2" /> Panel yükleniyor…
+        <Loader2 className="w-6 h-6 animate-spin me-2" /> Panel yükleniyor…
       </div>
     );
   }
@@ -217,7 +217,7 @@ export default function MuteahhitPanelPage() {
       {error && (
         <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-3 text-rose-200 text-sm mb-4">
           Projeler okunamadı: {error}
-          <Button size="sm" variant="ghost" className="ml-2 text-rose-200" onClick={() => void refresh()}>
+          <Button size="sm" variant="ghost" className="ms-2 text-rose-200" onClick={() => void refresh()}>
             Tekrar dene
           </Button>
         </div>

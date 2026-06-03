@@ -171,7 +171,7 @@ export default function TaxSimulatorPage() {
                 <span className="text-muted-foreground">GV (tahmini):</span>{" "}
                 <strong>{result.capitalGainsTax.taxAmount.toLocaleString("tr-TR")} TL</strong>
                 {result.capitalGainsTax.isFiveYearExempt && (
-                  <span className="ml-2 text-xs text-emerald-600">(5 yil istisna uygulandi)</span>
+                  <span className="ms-2 text-xs text-emerald-600">(5 yil istisna uygulandi)</span>
                 )}
               </p>
               <p>
@@ -184,7 +184,7 @@ export default function TaxSimulatorPage() {
               </p>
             </div>
             {result.warnings.length > 0 && (
-              <ul className="list-disc pl-5 text-amber-800 dark:text-amber-200 space-y-1">
+              <ul className="list-disc ps-5 text-amber-800 dark:text-amber-200 space-y-1">
                 {result.warnings.map((w) => (
                   <li key={w}>{w}</li>
                 ))}

@@ -419,7 +419,7 @@ export function ChatWidget() {
     <>
       {!open && (
         <div
-          className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
+          className="fixed bottom-6 end-6 z-50 flex flex-col items-end gap-3"
           data-demo="true"
           onMouseEnter={schedulePeek}
           onMouseLeave={hidePeek}
@@ -445,7 +445,7 @@ export function ChatWidget() {
                   className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white font-semibold shadow-lg shadow-violet-900/40 hover:shadow-fuchsia-500/25"
                   onClick={() => openPanel("qa")}
                 >
-                  <HelpCircle className="w-4 h-4 mr-2 shrink-0" aria-hidden />
+                  <HelpCircle className="w-4 h-4 me-2 shrink-0" aria-hidden />
                   Soru–cevap modu
                 </Button>
               <Button
@@ -466,13 +466,13 @@ export function ChatWidget() {
               onClick={() => openPanel("qa")}
               className="rounded-full border-violet-400/40 bg-violet-950/80 text-violet-100 hover:bg-violet-900/90 shadow-lg shadow-black/40 px-4 py-2 h-auto font-semibold text-xs sm:text-sm"
             >
-              <HelpCircle className="w-4 h-4 sm:mr-2 shrink-0" aria-hidden />
+              <HelpCircle className="w-4 h-4 sm:me-2 shrink-0" aria-hidden />
               <span className="hidden sm:inline">Soru–cevap</span>
             </Button>
           <button
             type="button"
               onClick={() => openPanel("guide")}
-              className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 pl-2 pr-4 sm:pr-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
+              className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 ps-2 pe-4 sm:pe-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
             aria-label={`${ASSISTANT_NAME} sohbet`}
           >
             <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
@@ -486,7 +486,7 @@ export function ChatWidget() {
       )}
 
       {open && (
-        <div className="ai-dock-panel fixed bottom-6 right-6 z-50 flex max-h-[min(520px,85vh)] w-[min(400px,calc(100vw-1.5rem))] flex-col overflow-hidden chat-widget-pop">
+        <div className="ai-dock-panel fixed bottom-6 end-6 z-50 flex max-h-[min(520px,85vh)] w-[min(400px,calc(100vw-1.5rem))] flex-col overflow-hidden chat-widget-pop">
           <div className="space-y-3 border-b border-white/10 bg-gradient-to-r from-blue-950/80 via-slate-900/90 to-slate-950/95 p-4">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-3 min-w-0">

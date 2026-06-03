@@ -54,14 +54,14 @@ export function RecentlyViewed() {
               <div className="relative h-40 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                <div className="absolute top-3 left-3">
+                <div className="absolute top-3 start-3">
                   {auction.status === "live" && (
                     <span className="px-2.5 py-1 rounded-lg bg-red-500/90 text-white text-xs font-medium flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Canli
                     </span>
                   )}
                 </div>
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur text-white text-xs font-bold">
+                <div className="absolute top-3 end-3 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur text-white text-xs font-bold">
                   AI {auction.investmentScore}
                 </div>
               </div>
@@ -75,7 +75,7 @@ export function RecentlyViewed() {
                     <div className="text-xs text-slate-500">Teklif</div>
                     <div className="text-sm font-bold text-sky-400">TRY {auction.currentBid.toLocaleString("tr-TR")}</div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-end">
                     <div className="text-xs text-slate-500">Getiri</div>
                     <div className="text-sm text-emerald-400 flex items-center gap-1">
                       <TrendingUp className="w-3 h-3" /> %{auction.areaStats.rentalYield}

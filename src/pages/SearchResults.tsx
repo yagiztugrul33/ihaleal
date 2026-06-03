@@ -403,7 +403,7 @@ export default function SearchResults() {
         key={`${auction.id}-${auction.title}`}
         type="button"
         onClick={() => navigate(`/ilan/${auction.id}`)}
-        className="group text-left rounded-2xl border border-white/10 bg-slate-900/40 hover:border-blue-500/40 hover:bg-slate-900/70 transition-all overflow-hidden flex flex-col"
+        className="group text-start rounded-2xl border border-white/10 bg-slate-900/40 hover:border-blue-500/40 hover:bg-slate-900/70 transition-all overflow-hidden flex flex-col"
       >
         <div className="relative aspect-[16/10] bg-slate-800 overflow-hidden">
           <img
@@ -413,12 +413,12 @@ export default function SearchResults() {
             className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
           />
           {modeDef ? (
-            <span className="absolute top-2 left-2 inline-flex items-center gap-1 rounded-md bg-slate-950/85 backdrop-blur px-2 py-1 text-[10px] font-semibold text-amber-200 border border-amber-400/30">
+            <span className="absolute top-2 start-2 inline-flex items-center gap-1 rounded-md bg-slate-950/85 backdrop-blur px-2 py-1 text-[10px] font-semibold text-amber-200 border border-amber-400/30">
               <modeDef.icon className="w-3 h-3" /> {modeDef.label}
             </span>
           ) : null}
           <span className={cn(
-            "absolute top-2 right-2 inline-flex items-center rounded-md px-2 py-1 text-[10px] font-semibold backdrop-blur",
+            "absolute top-2 end-2 inline-flex items-center rounded-md px-2 py-1 text-[10px] font-semibold backdrop-blur",
             auction.status === "live" ? "bg-emerald-500/20 text-emerald-200 border border-emerald-400/40" :
             auction.status === "upcoming" ? "bg-cyan-500/20 text-cyan-200 border border-cyan-400/40" :
             "bg-slate-700/60 text-slate-300 border border-slate-500/40",

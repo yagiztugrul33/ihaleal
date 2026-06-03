@@ -63,8 +63,8 @@ export default function Expertise() {
             <p className="text-xs text-slate-400">Standart raporlar 2-3 is günü, hizli raporlar 24 saat icinde hazirlanir.</p>
           </div>
           <div className="flex gap-3 justify-center">
-            <Button onClick={() => navigate("/")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"><Home className="w-4 h-4 mr-1.5" /> Ana Sayfa</Button>
-            <Button variant="outline" onClick={() => setSubmitted(false)} className="border-slate-200 text-slate-300 hover:text-white"><FileText className="w-4 h-4 mr-1.5" /> Yeni Talep</Button>
+            <Button onClick={() => navigate("/")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"><Home className="w-4 h-4 me-1.5" /> Ana Sayfa</Button>
+            <Button variant="outline" onClick={() => setSubmitted(false)} className="border-slate-200 text-slate-300 hover:text-white"><FileText className="w-4 h-4 me-1.5" /> Yeni Talep</Button>
           </div>
         </div>
       </div>
@@ -186,7 +186,7 @@ export default function Expertise() {
                 </div>
               </label>
 
-              <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-12 text-base"><Send className="w-5 h-5 mr-2" /> Ekspertiz Talebi Gonder</Button>
+              <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-12 text-base"><Send className="w-5 h-5 me-2" /> Ekspertiz Talebi Gonder</Button>
             </form>
           </div>
 

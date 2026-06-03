@@ -176,7 +176,7 @@ export function LocationPicker({
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
           <label className="block text-xs font-medium text-slate-300 mb-1.5">
-            <MapPin className="inline h-3.5 w-3.5 mr-1" />İl
+            <MapPin className="inline h-3.5 w-3.5 me-1" />İl
           </label>
           <select
             value={value?.province ?? ""}
@@ -228,7 +228,7 @@ export function LocationPicker({
               className="w-full rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
             />
             {searching && (
-              <Loader2 className="absolute right-3 top-2.5 h-4 w-4 animate-spin text-cyan-400" />
+              <Loader2 className="absolute end-3 top-2.5 h-4 w-4 animate-spin text-cyan-400" />
             )}
           </div>
         </div>
@@ -263,10 +263,10 @@ export function LocationPicker({
       {/* SEÇİLEN KONUM ÖZETİ */}
       {value?.formattedAddress && (
         <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-200">
-          <MapPin className="inline h-3.5 w-3.5 mr-1" />
+          <MapPin className="inline h-3.5 w-3.5 me-1" />
           <strong>Seçili konum:</strong> {value.formattedAddress}
           {value?.lat !== undefined && value?.lng !== undefined && (
-            <span className="text-slate-400 ml-2">({value.lat.toFixed(5)}, {value.lng.toFixed(5)})</span>
+            <span className="text-slate-400 ms-2">({value.lat.toFixed(5)}, {value.lng.toFixed(5)})</span>
           )}
         </div>
       )}

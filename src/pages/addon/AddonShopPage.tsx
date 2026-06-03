@@ -305,7 +305,7 @@ export default function AddonShopPage() {
                         onClick={() => addToCart(item.sku)}
                         className="bg-emerald-600 hover:bg-emerald-500 text-white"
                       >
-                        <ShoppingCart className="h-3.5 w-3.5 mr-1" />
+                        <ShoppingCart className="h-3.5 w-3.5 me-1" />
                         Sepete ekle
                       </Button>
                     )}

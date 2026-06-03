@@ -158,13 +158,13 @@ export default function CitiesList() {
                 />
                 <div className={`absolute inset-0 bg-gradient-to-br ${city.color} pointer-events-none`} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                <div className="absolute top-3 left-3 px-3 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
+                <div className="absolute top-3 start-3 px-3 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
                   {city.tag}
                 </div>
-                <div className="absolute top-3 right-3 px-3 py-1 rounded-lg bg-white/10 backdrop-blur text-white text-xs font-bold flex items-center gap-1">
+                <div className="absolute top-3 end-3 px-3 py-1 rounded-lg bg-white/10 backdrop-blur text-white text-xs font-bold flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" /> +{city.annualGrowth}%
                 </div>
-                <div className="absolute bottom-3 left-3">
+                <div className="absolute bottom-3 start-3">
                   <h3 className="text-2xl font-bold text-white">{city.name}</h3>
                   <div className="flex items-center gap-3 text-xs text-slate-300 mt-1">
                     <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {city.population}</span>
@@ -188,7 +188,7 @@ export default function CitiesList() {
                   </div>
                 </div>
                 <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold">
-                  Detaylı İncele <ArrowRight className="w-4 h-4 ml-1" />
+                  Detaylı İncele <ArrowRight className="w-4 h-4 ms-1" />
                 </Button>
               </CardContent>
             </Card>
@@ -203,12 +203,12 @@ export default function CitiesList() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-200/80">
-                    <th className="text-left p-4 text-slate-400 font-medium">Şehir</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">m² Fiyat</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">Yıllık Artış</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">Kira Getirisi</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">Talep Endeksi</th>
-                    <th className="text-right p-4 text-slate-400 font-medium">İlan</th>
+                    <th className="text-start p-4 text-slate-400 font-medium">Şehir</th>
+                    <th className="text-end p-4 text-slate-400 font-medium">m² Fiyat</th>
+                    <th className="text-end p-4 text-slate-400 font-medium">Yıllık Artış</th>
+                    <th className="text-end p-4 text-slate-400 font-medium">Kira Getirisi</th>
+                    <th className="text-end p-4 text-slate-400 font-medium">Talep Endeksi</th>
+                    <th className="text-end p-4 text-slate-400 font-medium">İlan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -221,11 +221,11 @@ export default function CitiesList() {
                       <td className="p-4 font-semibold flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-blue-400" /> {city.name}
                       </td>
-                      <td className="p-4 text-right font-semibold text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</td>
-                      <td className="p-4 text-right text-emerald-400">+{city.annualGrowth}%</td>
-                      <td className="p-4 text-right text-violet-400">%{city.rentalYield}</td>
-                      <td className="p-4 text-right text-amber-400">{city.demandIndex}</td>
-                      <td className="p-4 text-right">{city.listingCount}</td>
+                      <td className="p-4 text-end font-semibold text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</td>
+                      <td className="p-4 text-end text-emerald-400">+{city.annualGrowth}%</td>
+                      <td className="p-4 text-end text-violet-400">%{city.rentalYield}</td>
+                      <td className="p-4 text-end text-amber-400">{city.demandIndex}</td>
+                      <td className="p-4 text-end">{city.listingCount}</td>
                     </tr>
                   ))}
                 </tbody>

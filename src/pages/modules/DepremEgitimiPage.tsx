@@ -43,7 +43,7 @@ export default function DepremEgitimiPage() {
                   </div>
                   {completed ? (
                     <ModuleTag tone="ok">
-                      <CheckCircle2 className="mr-1 inline h-3 w-3" />
+                      <CheckCircle2 className="me-1 inline h-3 w-3" />
                       Tamam
                     </ModuleTag>
                   ) : (

@@ -18,7 +18,7 @@ export function DataTable<T>({ columns, rows, emptyMessage = "Kayit yok.", getRo
           <thead>
             <tr>
               {columns.map((c) => (
-                <th key={c.key} className={cn("px-4 py-3 text-left", c.className)}>{c.header}</th>
+                <th key={c.key} className={cn("px-4 py-3 text-start", c.className)}>{c.header}</th>
               ))}
             </tr>
           </thead>

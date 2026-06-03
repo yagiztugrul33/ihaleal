@@ -291,7 +291,7 @@ export function Anayasa400() {
                 {categories.flatMap((c) => c.rules).length} madde
               </span>
             </div>
-            <div className="mx-auto mt-6 max-w-3xl rounded-xl border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-left text-sm leading-relaxed text-cyan-50">
+            <div className="mx-auto mt-6 max-w-3xl rounded-xl border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-start text-sm leading-relaxed text-cyan-50">
               <p className="font-semibold text-cyan-100">Bu sayfa “ihaleal” kullanım sözleşmesi değildir</p>
               <p className="mt-2 text-slate-300">
                 <strong className="text-slate-200">İlk kategori</strong>, depodaki{" "}
@@ -318,12 +318,12 @@ export function Anayasa400() {
 
         {/* Search */}
         <div className="relative mb-6 max-w-md mx-auto">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <Input
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Madde ara (başlık, açıklama, referans)..."
-            className="bg-slate-900/50 border-slate-200 text-white pl-10"
+            className="bg-slate-900/50 border-slate-200 text-white ps-10"
           />
         </div>
 
@@ -413,7 +413,7 @@ export function Anayasa400() {
             Üst kısım İhaleAL platform kurallarının özeti; madde numaraları 201–400 olan blok 4734 sayılı Kanun hatırlatıcılarıdır. Bağlayıcı metinler için kullanım koşulları ve güncel mevzuat esas alınmalıdır.
           </p>
           <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-slate-200 text-slate-300 hover:text-white">
-            <ArrowLeft className="w-4 h-4 mr-2" /> Ana Sayfaya Dön
+            <ArrowLeft className="w-4 h-4 me-2" /> Ana Sayfaya Dön
           </Button>
         </div>
       </div>

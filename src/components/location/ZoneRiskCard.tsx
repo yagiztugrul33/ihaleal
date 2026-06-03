@@ -26,7 +26,7 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
   if (!province) {
     return (
       <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-4 text-sm text-slate-400">
-        <Info className="inline h-4 w-4 mr-1.5 text-cyan-400" />
+        <Info className="inline h-4 w-4 me-1.5 text-cyan-400" />
         Risk bilgisi için önce <strong>il seçimi</strong> yapın.
       </div>
     );
@@ -120,7 +120,7 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
       {/* Risk grubu açıklama */}
       {data.riskGroup !== undefined && (
         <p className="text-[11px] text-slate-400">
-          <ShieldCheck className="inline h-3 w-3 mr-1" />
+          <ShieldCheck className="inline h-3 w-3 me-1" />
           <strong>Risk grubu açıklaması:</strong> {riskGroupLabel(data.riskGroup)}
         </p>
       )}
@@ -129,7 +129,7 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
       {data.note && (
         <div className="rounded-md border border-cyan-500/30 bg-cyan-500/5 p-2.5">
           <p className="text-xs text-cyan-100 leading-relaxed">
-            <Info className="inline h-3.5 w-3.5 mr-1" />
+            <Info className="inline h-3.5 w-3.5 me-1" />
             {data.note}
           </p>
         </div>

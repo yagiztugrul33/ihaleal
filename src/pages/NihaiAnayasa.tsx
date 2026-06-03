@@ -134,7 +134,7 @@ export function NihaiAnayasa() {
                   toggle(sec.id);
                   document.getElementById(`section-${sec.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="glass rounded-xl p-4 text-left hover:bg-white/[0.06] transition-all border border-slate-200/80 hover:border-white/15"
+                className="glass rounded-xl p-4 text-start hover:bg-white/[0.06] transition-all border border-slate-200/80 hover:border-white/15"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-${sec.color}-500/10`}>
@@ -158,7 +158,7 @@ export function NihaiAnayasa() {
               <div key={sec.id} id={`section-${sec.id}`} className="glass rounded-xl border border-slate-200/80 overflow-hidden">
                 <button
                   onClick={() => toggle(sec.id)}
-                  className="w-full p-5 flex items-center justify-between text-left hover:bg-white/[0.03] transition-all"
+                  className="w-full p-5 flex items-center justify-between text-start hover:bg-white/[0.03] transition-all"
                 >
                   <div className="flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-${sec.color}-500/10`}>
@@ -264,10 +264,10 @@ export function NihaiAnayasa() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button variant="outline" size="sm" onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="border-slate-200 text-slate-300 hover:text-white">
-              <FileText className="w-4 h-4 mr-2" /> Platform ve KİK çerçevesine git
+              <FileText className="w-4 h-4 me-2" /> Platform ve KİK çerçevesine git
             </Button>
             <Button variant="outline" size="sm" onClick={() => navigate("/yasal/agency-contract")} className="border-slate-200 text-slate-300 hover:text-white">
-              <Building2 className="w-4 h-4 mr-2" /> Ortaklık sözleşmesi
+              <Building2 className="w-4 h-4 me-2" /> Ortaklık sözleşmesi
             </Button>
           </div>
         </div>

@@ -121,7 +121,7 @@ export default function UserPanel() {
             <Card className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-5">
                 <p className="text-sm text-slate-400 mb-4">Katıldığınız ve açtığınız ihaleler.</p>
-                <Button type="button" variant="outline" className="border-white/15 mr-2" onClick={() => navigate("/ihaleler")}>
+                <Button type="button" variant="outline" className="border-white/15 me-2" onClick={() => navigate("/ihaleler")}>
                   Aktif ihaleler
                 </Button>
                 <Button type="button" onClick={() => navigate("/ihale-ac")}>

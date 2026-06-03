@@ -142,42 +142,42 @@ export default function IBuyerPage() {
               <table className="w-full text-xs min-w-[480px]">
                 <thead>
                   <tr className="text-slate-500 border-b border-slate-700">
-                    <th className="text-left py-2 pr-2 font-medium">Mülk Tipi</th>
-                    <th className="text-right py-2 px-2 font-medium">Teklif Süresi</th>
-                    <th className="text-right py-2 px-2 font-medium">Tahmini İndirim</th>
-                    <th className="text-right py-2 pl-2 font-medium">Ödeme</th>
+                    <th className="text-start py-2 pe-2 font-medium">Mülk Tipi</th>
+                    <th className="text-end py-2 px-2 font-medium">Teklif Süresi</th>
+                    <th className="text-end py-2 px-2 font-medium">Tahmini İndirim</th>
+                    <th className="text-end py-2 ps-2 font-medium">Ödeme</th>
                   </tr>
                 </thead>
                 <tbody className="text-slate-300">
                   <tr className="border-b border-slate-800/50">
-                    <td className="py-2 pr-2">🏠 Konut (3+1, 100 m²)</td>
-                    <td className="py-2 px-2 text-right">72 saat</td>
-                    <td className="py-2 px-2 text-right text-amber-200">%5-10 altı</td>
-                    <td className="py-2 pl-2 text-right text-emerald-200">5 gün nakit</td>
+                    <td className="py-2 pe-2">🏠 Konut (3+1, 100 m²)</td>
+                    <td className="py-2 px-2 text-end">72 saat</td>
+                    <td className="py-2 px-2 text-end text-amber-200">%5-10 altı</td>
+                    <td className="py-2 ps-2 text-end text-emerald-200">5 gün nakit</td>
                   </tr>
                   <tr className="border-b border-slate-800/50">
-                    <td className="py-2 pr-2">🏡 Villa (200+ m²)</td>
-                    <td className="py-2 px-2 text-right">5-7 gün</td>
-                    <td className="py-2 px-2 text-right text-amber-200">%8-15 altı</td>
-                    <td className="py-2 pl-2 text-right text-emerald-200">7-10 gün nakit</td>
+                    <td className="py-2 pe-2">🏡 Villa (200+ m²)</td>
+                    <td className="py-2 px-2 text-end">5-7 gün</td>
+                    <td className="py-2 px-2 text-end text-amber-200">%8-15 altı</td>
+                    <td className="py-2 ps-2 text-end text-emerald-200">7-10 gün nakit</td>
                   </tr>
                   <tr className="border-b border-slate-800/50">
-                    <td className="py-2 pr-2">🏢 Ofis/Plaza katı</td>
-                    <td className="py-2 px-2 text-right">7-14 gün</td>
-                    <td className="py-2 px-2 text-right text-amber-200">%10-18 altı</td>
-                    <td className="py-2 pl-2 text-right text-emerald-200">10-14 gün</td>
+                    <td className="py-2 pe-2">🏢 Ofis/Plaza katı</td>
+                    <td className="py-2 px-2 text-end">7-14 gün</td>
+                    <td className="py-2 px-2 text-end text-amber-200">%10-18 altı</td>
+                    <td className="py-2 ps-2 text-end text-emerald-200">10-14 gün</td>
                   </tr>
                   <tr className="border-b border-slate-800/50">
-                    <td className="py-2 pr-2">🏪 Mağaza/Dükkan</td>
-                    <td className="py-2 px-2 text-right">5-10 gün</td>
-                    <td className="py-2 px-2 text-right text-amber-200">%8-12 altı</td>
-                    <td className="py-2 pl-2 text-right text-emerald-200">7-10 gün</td>
+                    <td className="py-2 pe-2">🏪 Mağaza/Dükkan</td>
+                    <td className="py-2 px-2 text-end">5-10 gün</td>
+                    <td className="py-2 px-2 text-end text-amber-200">%8-12 altı</td>
+                    <td className="py-2 ps-2 text-end text-emerald-200">7-10 gün</td>
                   </tr>
                   <tr>
-                    <td className="py-2 pr-2">🏭 Depo/Arsa</td>
-                    <td className="py-2 px-2 text-right">10-21 gün</td>
-                    <td className="py-2 px-2 text-right text-amber-200">%15-25 altı</td>
-                    <td className="py-2 pl-2 text-right text-emerald-200">14-21 gün</td>
+                    <td className="py-2 pe-2">🏭 Depo/Arsa</td>
+                    <td className="py-2 px-2 text-end">10-21 gün</td>
+                    <td className="py-2 px-2 text-end text-amber-200">%15-25 altı</td>
+                    <td className="py-2 ps-2 text-end text-emerald-200">14-21 gün</td>
                   </tr>
                 </tbody>
               </table>

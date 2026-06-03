@@ -518,7 +518,7 @@ export default function BorsaPage() {
                   key={`riser-${row.id}`}
                   type="button"
                   onClick={() => navigate(`/borsa/varlik/${row.id}`)}
-                  className="flex w-full items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-left transition hover:bg-emerald-500/20"
+                  className="flex w-full items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-start transition hover:bg-emerald-500/20"
                 >
                   <span className="text-xs font-semibold text-emerald-100">{row.code}</span>
                   <span className="text-xs font-bold text-emerald-200">+{row.changePct.toFixed(2)}%</span>
@@ -531,7 +531,7 @@ export default function BorsaPage() {
                   key={`ending-${row.id}`}
                   type="button"
                   onClick={() => navigate(`/borsa/varlik/${row.id}`)}
-                  className="flex w-full items-center justify-between rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-left transition hover:bg-amber-500/20"
+                  className="flex w-full items-center justify-between rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-start transition hover:bg-amber-500/20"
                 >
                   <span className="text-xs font-semibold text-amber-100">{row.code}</span>
                   <span className="text-xs font-bold text-amber-200">{Math.floor(row.remainingMin / 60)}s {row.remainingMin % 60}dk</span>
@@ -726,35 +726,35 @@ export default function BorsaPage() {
               </div>
               <div className="overflow-x-auto">
                 <table className="pro-table min-w-[860px] w-full text-sm">
-                  <thead className="text-left text-[11px] uppercase tracking-[0.12em] text-slate-400">
+                  <thead className="text-start text-[11px] uppercase tracking-[0.12em] text-slate-400">
                     <tr>
-                      <th className="pb-2 pr-3" title="Favori">★</th>
-                      <th className="pb-2 pr-3" title="Borsadaki kısa varlık kodu">
+                      <th className="pb-2 pe-3" title="Favori">★</th>
+                      <th className="pb-2 pe-3" title="Borsadaki kısa varlık kodu">
                         <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("code")}>
                           Kod {sortKey === "code" ? (sortDir === "asc" ? "▲" : "▼") : ""}
                         </button>
                       </th>
-                      <th className="pb-2 pr-3" title="İlan başlığı ve mülk tipi">
+                      <th className="pb-2 pe-3" title="İlan başlığı ve mülk tipi">
                         <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("property")}>
                           Mülk {sortKey === "property" ? (sortDir === "asc" ? "▲" : "▼") : ""}
                         </button>
                       </th>
-                      <th className="pb-2 pr-3" title="Son gerçekleşen teklif/fiyat">
+                      <th className="pb-2 pe-3" title="Son gerçekleşen teklif/fiyat">
                         <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("price")}>
                           Güncel ₺ {sortKey === "price" ? (sortDir === "asc" ? "▲" : "▼") : ""}
                         </button>
                       </th>
-                      <th className="pb-2 pr-3" title="Başlangıça göre yüzde değişim">
+                      <th className="pb-2 pe-3" title="Başlangıça göre yüzde değişim">
                         <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("changePct")}>
                           24s Değişim% {sortKey === "changePct" ? (sortDir === "asc" ? "▲" : "▼") : ""}
                         </button>
                       </th>
-                      <th className="pb-2 pr-3" title="Son penceredeki işlem yoğunluğu (lot)">
+                      <th className="pb-2 pe-3" title="Son penceredeki işlem yoğunluğu (lot)">
                         <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("volume")}>
                           Hacim {sortKey === "volume" ? (sortDir === "asc" ? "▲" : "▼") : ""}
                         </button>
                       </th>
-                      <th className="pb-2 pr-3" title="İhalenin kapanmasına kalan süre">
+                      <th className="pb-2 pe-3" title="İhalenin kapanmasına kalan süre">
                         <button type="button" className="inline-flex items-center gap-1" onClick={() => toggleSort("remainingMin")}>
                           Süre {sortKey === "remainingMin" ? (sortDir === "asc" ? "▲" : "▼") : ""}
                         </button>
@@ -778,7 +778,7 @@ export default function BorsaPage() {
                             navigate(`/borsa/varlik/${row.id}`);
                           }}
                         >
-                          <td className="py-2.5 pr-3">
+                          <td className="py-2.5 pe-3">
                             <button
                               type="button"
                               onClick={(e) => {
@@ -796,15 +796,15 @@ export default function BorsaPage() {
                               <Star className="h-3.5 w-3.5" fill={watchlistIds.includes(row.id) ? "currentColor" : "none"} />
                             </button>
                           </td>
-                          <td className="py-2.5 pr-3 font-semibold text-cyan-200">{row.code}</td>
-                          <td className="py-2.5 pr-3 text-slate-200">{row.property}</td>
-                          <td className="py-2.5 pr-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
-                          <td className={cn("py-2.5 pr-3 font-bold", up ? "text-emerald-300" : "text-rose-300")}>
+                          <td className="py-2.5 pe-3 font-semibold text-cyan-200">{row.code}</td>
+                          <td className="py-2.5 pe-3 text-slate-200">{row.property}</td>
+                          <td className="py-2.5 pe-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
+                          <td className={cn("py-2.5 pe-3 font-bold", up ? "text-emerald-300" : "text-rose-300")}>
                             {up ? "+" : ""}
                             {row.changePct.toFixed(2)}%
                           </td>
-                          <td className="py-2.5 pr-3 text-slate-300">{row.volume.toLocaleString("tr-TR")}</td>
-                          <td className="py-2.5 pr-3 text-slate-300">{Math.floor(row.remainingMin / 60)}s {row.remainingMin % 60}dk</td>
+                          <td className="py-2.5 pe-3 text-slate-300">{row.volume.toLocaleString("tr-TR")}</td>
+                          <td className="py-2.5 pe-3 text-slate-300">{Math.floor(row.remainingMin / 60)}s {row.remainingMin % 60}dk</td>
                           <td className="py-2.5">
                             <div className="flex gap-1.5">
                               <button
@@ -958,24 +958,24 @@ export default function BorsaPage() {
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
-                  <thead className="text-left uppercase tracking-[0.1em] text-slate-300">
+                  <thead className="text-start uppercase tracking-[0.1em] text-slate-300">
                     <tr>
-                      <th className="pb-2 pr-2">Seviye</th>
-                      <th className="pb-2 pr-2">Alış ₺</th>
-                      <th className="pb-2 pr-2">Lot</th>
-                      <th className="pb-2 pr-2">Satış ₺</th>
-                      <th className="pb-2 pr-2">Lot</th>
+                      <th className="pb-2 pe-2">Seviye</th>
+                      <th className="pb-2 pe-2">Alış ₺</th>
+                      <th className="pb-2 pe-2">Lot</th>
+                      <th className="pb-2 pe-2">Satış ₺</th>
+                      <th className="pb-2 pe-2">Lot</th>
                       <th className="pb-2">{b.bidder}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {orderBookLevels.map((level) => (
                       <tr key={level.level} className="border-t border-slate-800/80 text-slate-200">
-                        <td className="py-1.5 pr-2">{level.level}</td>
-                        <td className="py-1.5 pr-2 text-emerald-300">{formatTry(level.bidPrice)}<FxRef amountTry={level.bidPrice} variant="compact" /></td>
-                        <td className="py-1.5 pr-2">{level.bidVolume.toLocaleString("tr-TR")}</td>
-                        <td className="py-1.5 pr-2 text-rose-300">{formatTry(level.askPrice)}<FxRef amountTry={level.askPrice} variant="compact" /></td>
-                        <td className="py-1.5 pr-2">{level.askVolume.toLocaleString("tr-TR")}</td>
+                        <td className="py-1.5 pe-2">{level.level}</td>
+                        <td className="py-1.5 pe-2 text-emerald-300">{formatTry(level.bidPrice)}<FxRef amountTry={level.bidPrice} variant="compact" /></td>
+                        <td className="py-1.5 pe-2">{level.bidVolume.toLocaleString("tr-TR")}</td>
+                        <td className="py-1.5 pe-2 text-rose-300">{formatTry(level.askPrice)}<FxRef amountTry={level.askPrice} variant="compact" /></td>
+                        <td className="py-1.5 pe-2">{level.askVolume.toLocaleString("tr-TR")}</td>
                         <td className="py-1.5 text-slate-300">{level.bidderMask}</td>
                       </tr>
                     ))}
@@ -1026,7 +1026,7 @@ export default function BorsaPage() {
                     type="button"
                     onClick={() => toggleWatchlist(row.id)}
                     className={cn(
-                      "flex w-full items-center justify-between rounded-lg border px-3 py-2 text-left text-sm transition",
+                      "flex w-full items-center justify-between rounded-lg border px-3 py-2 text-start text-sm transition",
                       selected
                         ? "border-cyan-400/60 bg-cyan-500/10 text-cyan-100"
                         : "border-slate-700/80 bg-slate-900/70 text-slate-200 hover:border-slate-500",

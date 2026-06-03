@@ -116,7 +116,7 @@ export function EmlakciGiris() {
   return (
     <div className="min-h-screen pt-20 pb-12 px-4">
       <div className="max-w-xl mx-auto">
-        <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-4 -ml-2">
+        <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-4 -ms-2">
           <ArrowLeft className="w-4 h-4" /> Ana Sayfa
         </Button>
 
@@ -228,25 +228,25 @@ export function EmlakciGiris() {
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1.5">E-posta Adresi</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                    <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <Input
                       type="email" value={loginEmail} onChange={e => setLoginEmail(e.target.value)}
                       placeholder="ornek@email.com"
-                      className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600"
+                      className="bg-white/[0.05] border-slate-200 text-white ps-10 placeholder:text-slate-600"
                     />
                   </div>
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre</label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                    <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <Input
                       type={showLoginPass ? "text" : "password"} value={loginPassword}
                       onChange={e => setLoginPassword(e.target.value)}
                       placeholder="••••••"
-                      className="bg-white/[0.05] border-slate-200 text-white pl-10 pr-10 placeholder:text-slate-600"
+                      className="bg-white/[0.05] border-slate-200 text-white ps-10 pe-10 placeholder:text-slate-600"
                     />
-                    <button type="button" onClick={() => setShowLoginPass(!showLoginPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
+                    <button type="button" onClick={() => setShowLoginPass(!showLoginPass)} className="absolute end-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
                       {showLoginPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
@@ -280,23 +280,23 @@ export function EmlakciGiris() {
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Ad Soyad</label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input value={regName} onChange={e => setRegName(e.target.value)} placeholder="Ahmet Yılmaz" className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600" />
+                      <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Input value={regName} onChange={e => setRegName(e.target.value)} placeholder="Ahmet Yılmaz" className="bg-white/[0.05] border-slate-200 text-white ps-10 placeholder:text-slate-600" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Telefon</label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input value={regPhone} onChange={e => setRegPhone(e.target.value)} placeholder="05XX XXX XX XX" className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600" />
+                      <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Input value={regPhone} onChange={e => setRegPhone(e.target.value)} placeholder="05XX XXX XX XX" className="bg-white/[0.05] border-slate-200 text-white ps-10 placeholder:text-slate-600" />
                     </div>
                   </div>
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1.5">E-posta</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                    <Input type="email" value={regEmail} onChange={e => setRegEmail(e.target.value)} placeholder="ornek@email.com" className="bg-white/[0.05] border-slate-200 text-white pl-10 placeholder:text-slate-600" />
+                    <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                    <Input type="email" value={regEmail} onChange={e => setRegEmail(e.target.value)} placeholder="ornek@email.com" className="bg-white/[0.05] border-slate-200 text-white ps-10 placeholder:text-slate-600" />
                   </div>
                 </div>
 
@@ -318,8 +318,8 @@ export function EmlakciGiris() {
                           <div>
                             <label className="block text-xs text-slate-400 mb-1">Çalışma Şehri</label>
                             <div className="relative">
-                              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                              <Input value={regCity} onChange={e => setRegCity(e.target.value)} placeholder="İstanbul" className="bg-white/[0.05] border-slate-200 text-white pl-9 placeholder:text-slate-600" />
+                              <MapPin className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                              <Input value={regCity} onChange={e => setRegCity(e.target.value)} placeholder="İstanbul" className="bg-white/[0.05] border-slate-200 text-white ps-9 placeholder:text-slate-600" />
                             </div>
                           </div>
                         </div>
@@ -347,8 +347,8 @@ export function EmlakciGiris() {
                         <div>
                           <label className="block text-xs text-slate-400 mb-1">Aktif Projeler (opsiyonel)</label>
                           <div className="relative">
-                            <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                            <Input value={regProjects} onChange={e => setRegProjects(e.target.value)} placeholder="Proje isimleri, ada/parsel bilgisi" className="bg-white/[0.05] border-slate-200 text-white pl-9 placeholder:text-slate-600" />
+                            <FileText className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                            <Input value={regProjects} onChange={e => setRegProjects(e.target.value)} placeholder="Proje isimleri, ada/parsel bilgisi" className="bg-white/[0.05] border-slate-200 text-white ps-9 placeholder:text-slate-600" />
                           </div>
                         </div>
                       </div>
@@ -360,9 +360,9 @@ export function EmlakciGiris() {
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre</label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input type={showRegPass ? "text" : "password"} value={regPassword} onChange={e => setRegPassword(e.target.value)} placeholder="En az 6 karakter" className="bg-white/[0.05] border-slate-200 text-white pl-10 pr-10 placeholder:text-slate-600" />
-                      <button type="button" onClick={() => setShowRegPass(!showRegPass)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
+                      <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Input type={showRegPass ? "text" : "password"} value={regPassword} onChange={e => setRegPassword(e.target.value)} placeholder="En az 6 karakter" className="bg-white/[0.05] border-slate-200 text-white ps-10 pe-10 placeholder:text-slate-600" />
+                      <button type="button" onClick={() => setShowRegPass(!showRegPass)} className="absolute end-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
                         {showRegPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
@@ -370,9 +370,9 @@ export function EmlakciGiris() {
                   <div>
                     <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre Tekrar</label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <Input type={showRegConfirm ? "text" : "password"} value={regConfirm} onChange={e => setRegConfirm(e.target.value)} placeholder="••••••" className="bg-white/[0.05] border-slate-200 text-white pl-10 pr-10 placeholder:text-slate-600" />
-                      <button type="button" onClick={() => setShowRegConfirm(!showRegConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
+                      <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Input type={showRegConfirm ? "text" : "password"} value={regConfirm} onChange={e => setRegConfirm(e.target.value)} placeholder="••••••" className="bg-white/[0.05] border-slate-200 text-white ps-10 pe-10 placeholder:text-slate-600" />
+                      <button type="button" onClick={() => setShowRegConfirm(!showRegConfirm)} className="absolute end-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
                         {showRegConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
@@ -398,7 +398,7 @@ export function EmlakciGiris() {
           {/* Footer note */}
           <div className="mt-6 pt-4 border-t border-slate-200 text-center">
             <p className="text-xs text-slate-500">
-              <Home className="w-3 h-3 inline mr-1" />
+              <Home className="w-3 h-3 inline me-1" />
               İhaleAL.com — Bireysel, emlakçı ve müteahhit kullanıcılarına özel güvenli platform.
             </p>
           </div>

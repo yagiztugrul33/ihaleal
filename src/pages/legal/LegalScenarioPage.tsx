@@ -115,13 +115,13 @@ export default function LegalScenarioPage() {
               10 Senaryo — Bir tanesini seç
             </h2>
             <div className="relative w-full sm:w-72">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-500" />
+              <Search className="absolute start-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-500" />
               <input
                 type="search"
                 value={filterQuery}
                 onChange={(e) => setFilterQuery(e.target.value)}
                 placeholder="Ara — muvazaa, miras, vekalet..."
-                className="w-full pl-9 pr-3 py-1.5 rounded-md border border-slate-700 bg-slate-900/60 text-xs placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                className="w-full ps-9 pe-3 py-1.5 rounded-md border border-slate-700 bg-slate-900/60 text-xs placeholder-slate-500 focus:outline-none focus:border-cyan-500"
                 aria-label="Senaryo ara"
               />
             </div>
@@ -135,7 +135,7 @@ export default function LegalScenarioPage() {
                   key={s.id}
                   type="button"
                   onClick={() => setSelected(s.id)}
-                  className={`text-left rounded-xl border p-4 transition-colors ${isActive ? "border-cyan-500 bg-cyan-500/10 ring-1 ring-cyan-400/30" : "border-slate-700 bg-slate-900/40 hover:bg-slate-900/60"}`}
+                  className={`text-start rounded-xl border p-4 transition-colors ${isActive ? "border-cyan-500 bg-cyan-500/10 ring-1 ring-cyan-400/30" : "border-slate-700 bg-slate-900/40 hover:bg-slate-900/60"}`}
                   aria-pressed={isActive}
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
@@ -200,7 +200,7 @@ export default function LegalScenarioPage() {
                   <h3 className="text-lg font-bold text-white">{analysis.title}</h3>
                   <p className="text-xs text-slate-300 mt-1">{analysis.oneLineSummary}</p>
                 </div>
-                <div className="text-right">
+                <div className="text-end">
                   <p className="text-[10px] text-slate-400 uppercase">Risk Skoru</p>
                   <p className="text-3xl font-bold">{analysis.riskScore}<span className="text-sm text-slate-400">/100</span></p>
                   <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold mt-1 ${toneCls}`}>
@@ -251,19 +251,19 @@ export default function LegalScenarioPage() {
                 <table className="w-full text-xs min-w-[480px]">
                   <thead>
                     <tr className="text-slate-500 border-b border-slate-700">
-                      <th className="text-left py-1.5 pr-2 font-medium">Vergi</th>
-                      <th className="text-left py-1.5 px-2 font-medium">Oran</th>
-                      <th className="text-left py-1.5 px-2 font-medium">Yükümlü</th>
-                      <th className="text-left py-1.5 pl-2 font-medium">Mevzuat</th>
+                      <th className="text-start py-1.5 pe-2 font-medium">Vergi</th>
+                      <th className="text-start py-1.5 px-2 font-medium">Oran</th>
+                      <th className="text-start py-1.5 px-2 font-medium">Yükümlü</th>
+                      <th className="text-start py-1.5 ps-2 font-medium">Mevzuat</th>
                     </tr>
                   </thead>
                   <tbody className="text-slate-300">
                     {analysis.vergiler.map((v, i) => (
                       <tr key={i} className="border-b border-slate-800/50 last:border-0">
-                        <td className="py-2 pr-2 font-medium">{v.isim}</td>
+                        <td className="py-2 pe-2 font-medium">{v.isim}</td>
                         <td className="py-2 px-2 text-amber-200">{v.oran}</td>
                         <td className="py-2 px-2 text-slate-400">{v.yukumlu}</td>
-                        <td className="py-2 pl-2 text-violet-200 text-[10px]">{v.mevzuat}</td>
+                        <td className="py-2 ps-2 text-violet-200 text-[10px]">{v.mevzuat}</td>
                       </tr>
                     ))}
                   </tbody>

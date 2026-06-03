@@ -305,8 +305,8 @@ export default function Analytics() {
             {/* Filters */}
             <div className={`flex flex-col lg:flex-row gap-3 mb-6 transition-all duration-700 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Il veya anahtar kelime ara..." className="pl-10 bg-slate-900/50 border-slate-200 text-white" />
+                <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Il veya anahtar kelime ara..." className="ps-10 bg-slate-900/50 border-slate-200 text-white" />
               </div>
               <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-200 text-white text-sm">
                 <option value="all">Tum Sehirler</option>
@@ -407,9 +407,9 @@ export default function Analytics() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-200/80">
-                        <th className="text-left px-4 py-3 text-slate-400 font-medium">Sehir</th>
+                        <th className="text-start px-4 py-3 text-slate-400 font-medium">Sehir</th>
                         {columns.map((col) => (
-                          <th key={col.key} className="text-right px-4 py-3 text-slate-400 font-medium">{col.label}</th>
+                          <th key={col.key} className="text-end px-4 py-3 text-slate-400 font-medium">{col.label}</th>
                         ))}
                       </tr>
                     </thead>
@@ -420,7 +420,7 @@ export default function Analytics() {
                           <tr key={city} className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors">
                             <td className="px-4 py-3"><span className="font-semibold text-white">{city}</span></td>
                             {columns.map((col) => (
-                              <td key={col.key} className={`text-right px-4 py-3 font-semibold ${col.color}`}>
+                              <td key={col.key} className={`text-end px-4 py-3 font-semibold ${col.color}`}>
                                 {formatValue(col.key, (d as any)[col.key])}
                               </td>
                             ))}
@@ -482,11 +482,11 @@ export default function Analytics() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-200/80">
-                        <th className="text-left py-2 text-slate-400 font-medium">Sehir</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Ort.</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Al-Sat</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Al-Kirala</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Al-Yasa</th>
+                        <th className="text-start py-2 text-slate-400 font-medium">Sehir</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Ort.</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Al-Sat</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Al-Kirala</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Al-Yasa</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -499,10 +499,10 @@ export default function Analytics() {
                               {isBest && <Star className="w-3.5 h-3.5 text-emerald-400 fill-current" />}
                               {city}
                             </td>
-                            <td className="text-right py-2.5 font-bold text-white">{s.avg}</td>
-                            <td className="text-right py-2.5 text-blue-400">{s.buySell}</td>
-                            <td className="text-right py-2.5 text-violet-400">{s.buyRent}</td>
-                            <td className="text-right py-2.5 text-sky-400">{s.buyLive}</td>
+                            <td className="text-end py-2.5 font-bold text-white">{s.avg}</td>
+                            <td className="text-end py-2.5 text-blue-400">{s.buySell}</td>
+                            <td className="text-end py-2.5 text-violet-400">{s.buyRent}</td>
+                            <td className="text-end py-2.5 text-sky-400">{s.buyLive}</td>
                           </tr>
                         );
                       })}
@@ -520,11 +520,11 @@ export default function Analytics() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-200/80">
-                        <th className="text-left py-2 text-slate-400 font-medium">Sehir</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Ort. Alan</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Satis Suresi</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Bina Yasi</th>
-                        <th className="text-right py-2 text-slate-400 font-medium">Stok Degisim</th>
+                        <th className="text-start py-2 text-slate-400 font-medium">Sehir</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Ort. Alan</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Satis Suresi</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Bina Yasi</th>
+                        <th className="text-end py-2 text-slate-400 font-medium">Stok Degisim</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -533,10 +533,10 @@ export default function Analytics() {
                         return (
                           <tr key={city} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
                             <td className="py-2.5 font-medium text-white">{city}</td>
-                            <td className="text-right py-2.5 text-sky-400">{d.avgArea}m2</td>
-                            <td className="text-right py-2.5 text-amber-400">{d.marketingDays} gun</td>
-                            <td className="text-right py-2.5 text-slate-400">{d.avgAge} yil</td>
-                            <td className="text-right py-2.5 text-red-400">{d.stockChange}%</td>
+                            <td className="text-end py-2.5 text-sky-400">{d.avgArea}m2</td>
+                            <td className="text-end py-2.5 text-amber-400">{d.marketingDays} gun</td>
+                            <td className="text-end py-2.5 text-slate-400">{d.avgAge} yil</td>
+                            <td className="text-end py-2.5 text-red-400">{d.stockChange}%</td>
                           </tr>
                         );
                       })}
@@ -819,10 +819,10 @@ export default function Analytics() {
                       <div className="relative h-44">
                         <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-amber-500 text-white text-xs font-bold">
+                        <div className="absolute top-3 start-3 px-2.5 py-1 rounded-lg bg-amber-500 text-white text-xs font-bold">
                           #{idx + 1} Firsat
                         </div>
-                        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-emerald-500/90 text-white text-xs font-bold">
+                        <div className="absolute top-3 end-3 px-2.5 py-1 rounded-lg bg-emerald-500/90 text-white text-xs font-bold">
                           AI {auction.investmentScore}
                         </div>
                       </div>
@@ -933,7 +933,7 @@ export default function Analytics() {
                         </div>
                         <p className="text-sm text-slate-400">{item.desc}</p>
                       </div>
-                      <div className="text-right flex-shrink-0">
+                      <div className="text-end flex-shrink-0">
                         <div className="text-xs text-slate-500">AI Skor</div>
                         <div className="text-xl font-bold text-white">{item.score}</div>
                       </div>

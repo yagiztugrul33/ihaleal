@@ -131,19 +131,19 @@ export function InstallPrompt() {
     <div
       role="dialog"
       aria-label="Uygulamayı yükle"
-      className="fixed bottom-4 left-4 right-4 z-[9000] mx-auto max-w-md rounded-2xl border border-white/10 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl sm:bottom-6 sm:left-auto sm:right-6"
+      className="fixed bottom-4 start-4 end-4 z-[9000] mx-auto max-w-md rounded-2xl border border-white/10 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl sm:bottom-6 sm:left-auto sm:end-6"
       style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
     >
       <button
         type="button"
         onClick={onDismiss}
         aria-label="Kapat"
-        className="absolute right-3 top-3 rounded-full p-1 text-slate-400 transition hover:bg-white/10 hover:text-white"
+        className="absolute end-3 top-3 rounded-full p-1 text-slate-400 transition hover:bg-white/10 hover:text-white"
       >
         <X className="h-4 w-4" />
       </button>
 
-      <div className="flex items-start gap-3 pr-6">
+      <div className="flex items-start gap-3 pe-6">
         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg">
           <Download className="h-5 w-5 text-white" />
         </div>

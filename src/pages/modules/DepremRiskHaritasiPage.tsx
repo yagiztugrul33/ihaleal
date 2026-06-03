@@ -67,7 +67,7 @@ export default function DepremRiskHaritasiPage() {
           <p className="text-sm text-rose-100">Bina risk sorgusuna geçip katman skorunu adım adım raporlayın.</p>
           <Button asChild className="bg-rose-300 text-slate-900 hover:bg-rose-200">
             <Link to="/modul/bina-risk-sorgu">
-              Risk sorgusu başlat <ArrowRight className="ml-1.5 h-4 w-4" />
+              Risk sorgusu başlat <ArrowRight className="ms-1.5 h-4 w-4" />
             </Link>
           </Button>
         </div>

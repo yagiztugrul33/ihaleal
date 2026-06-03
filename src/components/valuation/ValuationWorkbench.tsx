@@ -390,27 +390,27 @@ export function ValuationWorkbench({
             <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">Benzer emsaller (demo)</h3>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[740px] text-xs">
-                <thead className="text-left uppercase tracking-[0.1em] text-slate-400">
+                <thead className="text-start uppercase tracking-[0.1em] text-slate-400">
                   <tr>
-                    <th className="pb-2 pr-2">ID</th>
-                    <th className="pb-2 pr-2">İlçe</th>
-                    <th className="pb-2 pr-2">m²</th>
-                    <th className="pb-2 pr-2">Oda</th>
-                    <th className="pb-2 pr-2">Yaş</th>
-                    <th className="pb-2 pr-2">Mesafe</th>
-                    <th className="pb-2 pr-2">Satış</th>
+                    <th className="pb-2 pe-2">ID</th>
+                    <th className="pb-2 pe-2">İlçe</th>
+                    <th className="pb-2 pe-2">m²</th>
+                    <th className="pb-2 pe-2">Oda</th>
+                    <th className="pb-2 pe-2">Yaş</th>
+                    <th className="pb-2 pe-2">Mesafe</th>
+                    <th className="pb-2 pe-2">Satış</th>
                   </tr>
                 </thead>
                 <tbody>
                   {result.comparables.slice(0, compact ? 6 : 10).map((row) => (
                     <tr key={row.id} className="border-t border-slate-800 text-slate-200">
-                      <td className="py-1.5 pr-2">{row.id}</td>
-                      <td className="py-1.5 pr-2">{row.district}</td>
-                      <td className="py-1.5 pr-2">{row.grossM2}</td>
-                      <td className="py-1.5 pr-2">{row.roomCount}+1</td>
-                      <td className="py-1.5 pr-2">{row.buildingAge}</td>
-                      <td className="py-1.5 pr-2">{row.distanceKm.toLocaleString("tr-TR")} km</td>
-                      <td className="py-1.5 pr-2">{formatTry(row.salePriceTry)}</td>
+                      <td className="py-1.5 pe-2">{row.id}</td>
+                      <td className="py-1.5 pe-2">{row.district}</td>
+                      <td className="py-1.5 pe-2">{row.grossM2}</td>
+                      <td className="py-1.5 pe-2">{row.roomCount}+1</td>
+                      <td className="py-1.5 pe-2">{row.buildingAge}</td>
+                      <td className="py-1.5 pe-2">{row.distanceKm.toLocaleString("tr-TR")} km</td>
+                      <td className="py-1.5 pe-2">{formatTry(row.salePriceTry)}</td>
                     </tr>
                   ))}
                 </tbody>

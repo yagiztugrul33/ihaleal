@@ -210,7 +210,7 @@ export default function Reports() {
               </h3>
             </div>
             <Badge variant="outline" className="text-[10px] flex-shrink-0">
-              <Calendar className="w-2.5 h-2.5 mr-1" />
+              <Calendar className="w-2.5 h-2.5 me-1" />
               {new Date(r.publishedAt).toLocaleDateString("tr-TR", { day: "2-digit", month: "short" })}
             </Badge>
           </div>
@@ -282,7 +282,7 @@ export default function Reports() {
               className="border-cyan-400/30 text-cyan-200 hover:bg-cyan-500/10 h-8 text-xs"
             >
               <Link to={`/borsa/sehir/${r.city}`}>
-                <BarChart3 className="w-3 h-3 mr-1" /> {r.cityLabel}
+                <BarChart3 className="w-3 h-3 me-1" /> {r.cityLabel}
               </Link>
             </Button>
           </div>
@@ -435,14 +435,14 @@ export default function Reports() {
                 ) : (
                   <form onSubmit={handleSubscribe} className="flex flex-wrap gap-2">
                     <div className="relative flex-1 min-w-[200px]">
-                      <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <Mail className="absolute start-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <Input
                         type="email"
                         value={subscribeEmail}
                         onChange={(e) => setSubscribeEmail(e.target.value)}
                         placeholder="E-posta adresiniz"
                         required
-                        className="pl-8 bg-slate-950 border-violet-400/30 text-white"
+                        className="ps-8 bg-slate-950 border-violet-400/30 text-white"
                         aria-label="Abone e-posta"
                       />
                     </div>
@@ -503,7 +503,7 @@ export default function Reports() {
                     to={`/rapor/${r.id}`}
                     className="mt-3 inline-flex items-center text-xs font-medium text-blue-400 hover:text-blue-300"
                   >
-                    Belgeyi aç <ChevronRight className="w-3 h-3 ml-0.5" />
+                    Belgeyi aç <ChevronRight className="w-3 h-3 ms-0.5" />
                   </Link>
                 </CardContent>
               </Card>

@@ -23,8 +23,8 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
   );
 
   const kkaCard = corporate
-    ? "group flex flex-1 items-center gap-3 rounded-xl border border-sky-500/20 bg-gradient-to-br from-sky-950/35 via-zinc-950/80 to-zinc-950/90 text-left text-white shadow-inner shadow-black/20 transition-all duration-300 hover:border-sky-400/35 hover:from-sky-950/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500/60"
-    : "group flex flex-1 items-center gap-3 rounded-xl border border-red-700/30 bg-gradient-to-br from-red-950/45 to-zinc-900/85 text-left text-white shadow-inner shadow-black/25 transition-all duration-300 hover:from-red-900/55 hover:to-zinc-900/90 hover:border-red-600/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600/70";
+    ? "group flex flex-1 items-center gap-3 rounded-xl border border-sky-500/20 bg-gradient-to-br from-sky-950/35 via-zinc-950/80 to-zinc-950/90 text-start text-white shadow-inner shadow-black/20 transition-all duration-300 hover:border-sky-400/35 hover:from-sky-950/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500/60"
+    : "group flex flex-1 items-center gap-3 rounded-xl border border-red-700/30 bg-gradient-to-br from-red-950/45 to-zinc-900/85 text-start text-white shadow-inner shadow-black/25 transition-all duration-300 hover:from-red-900/55 hover:to-zinc-900/90 hover:border-red-600/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600/70";
 
   const kkaIconWrap = corporate
     ? "flex shrink-0 items-center justify-center rounded-xl bg-sky-500/15 ring-1 ring-sky-400/25 transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"

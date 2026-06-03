@@ -118,7 +118,7 @@ export default function Guide() {
                     <div key={key} className="rounded-xl border border-slate-200/80 overflow-hidden">
                       <button
                         onClick={() => setOpenFaq(isOpen ? null : key)}
-                        className={`w-full flex items-center justify-between p-4 text-left transition-colors ${isOpen ? "bg-white/[0.03]" : "hover:bg-white/[0.02]"}`}
+                        className={`w-full flex items-center justify-between p-4 text-start transition-colors ${isOpen ? "bg-white/[0.03]" : "hover:bg-white/[0.02]"}`}
                       >
                         <span className="text-sm font-medium text-white">{faq.q}</span>
                         {isOpen ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}

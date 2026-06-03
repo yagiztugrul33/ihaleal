@@ -92,7 +92,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
               <div className="mt-5 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Populer Sehirler</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {["Istanbul", "Ankara", "Izmir", "Antalya", "Bursa", "Mugla"].map((city) => (
-                  <button key={city} onClick={() => setQuery(city)} className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.02] hover:bg-white/5 text-sm text-slate-500 hover:text-slate-900 transition-all text-left">
+                  <button key={city} onClick={() => setQuery(city)} className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.02] hover:bg-white/5 text-sm text-slate-500 hover:text-slate-900 transition-all text-start">
                     <MapPin className="w-3.5 h-3.5" /> {city}
                   </button>
                 ))}
@@ -109,7 +109,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
                 <button
                   key={auction.id}
                   onClick={() => { navigate(`/ilan/${auction.id}`); handleClose(); }}
-                  className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors text-left"
+                  className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors text-start"
                 >
                   <img loading="lazy" src={auction.images[0]} alt="" className="w-16 h-12 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1 min-w-0">
@@ -119,7 +119,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
                       <span className="flex items-center gap-1"><Home className="w-3 h-3" /> {auction.category}</span>
                     </div>
                   </div>
-                  <div className="text-right flex-shrink-0">
+                  <div className="text-end flex-shrink-0">
                     <div className="text-sm font-bold text-blue-400">TRY {(auction.currentBid / 1000000).toFixed(1)}M</div>
                     <div className="text-xs text-slate-500">AI {auction.investmentScore}</div>
                   </div>

@@ -57,7 +57,7 @@ export function GeofenceSettingsPanel() {
   return (
     <div className="space-y-4">
       <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-slate-300 leading-relaxed">
-        <Shield className="inline h-3.5 w-3.5 mr-1 text-amber-400" />
+        <Shield className="inline h-3.5 w-3.5 me-1 text-amber-400" />
         Konumunuz yalnızca cihazınızda işlenir; sunucuya ham GPS koordinatı gönderilmez. Yakın ilan eşleşmesi
         tarayıcıda hesaplanır. KVKK kapsamında açık rıza gereklidir.
       </div>

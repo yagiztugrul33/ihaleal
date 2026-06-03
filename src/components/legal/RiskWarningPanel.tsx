@@ -70,7 +70,7 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
           <h3 className="text-base font-semibold text-white">
             Hukuki Risk Uyarıları ({warnings.length})
           </h3>
-          <span className="ml-auto text-[10px] text-slate-500">İşlemi engellemez · bilgilendirir</span>
+          <span className="ms-auto text-[10px] text-slate-500">İşlemi engellemez · bilgilendirir</span>
         </div>
       ) : null}
 
@@ -96,7 +96,7 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
               </div>
             </div>
 
-            <div className="ml-8 mt-2 space-y-2">
+            <div className="ms-8 mt-2 space-y-2">
               <p className="text-[10px] text-slate-500 uppercase tracking-wider flex items-center gap-1">
                 <CheckSquare className="h-3 w-3" />
                 Yapılacaklar Listesi

@@ -44,7 +44,7 @@ export default function LegalFramework() {
             className="border-white/15 bg-white/[0.06] text-white hover:bg-white/10"
             onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
           >
-            <BookOpen className="w-4 h-4 mr-2" />
+            <BookOpen className="w-4 h-4 me-2" />
             Platform + KİK hatırlatıcıları (birleşik liste)
           </Button>
           <Button

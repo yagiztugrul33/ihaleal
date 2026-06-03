@@ -354,7 +354,7 @@ export default function KkaParselStudioPage() {
                   </dl>
                   <div className="space-y-1">
                     <div className="text-xs font-semibold text-amber-200/90">Uyari ve notlar</div>
-                    <ul className="list-disc pl-4 text-xs text-slate-500 space-y-1">
+                    <ul className="list-disc ps-4 text-xs text-slate-500 space-y-1">
                       {summary.profile.planNotes.map((n) => (
                         <li key={n}>{n}</li>
                       ))}
@@ -399,7 +399,7 @@ export default function KkaParselStudioPage() {
       <Sheet open={contractsOpen} onOpenChange={setContractsOpen}>
         <SheetContent
           side="right"
-          className="!w-full !max-w-[min(100vw,48rem)] overflow-y-auto border-l border-slate-200 bg-[#0b1020] text-slate-200 sm:!max-w-[48rem]"
+          className="!w-full !max-w-[min(100vw,48rem)] overflow-y-auto border-s border-slate-200 bg-[#0b1020] text-slate-200 sm:!max-w-[48rem]"
         >
           <SheetHeader>
             <SheetTitle className="text-white">KKA sozlesme paketi (taslak)</SheetTitle>

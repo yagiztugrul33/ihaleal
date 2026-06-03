@@ -300,7 +300,7 @@ export default function BorsaAssetDetailPage() {
           <h2 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">{b.orderBook}</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
-              <thead className="text-left uppercase tracking-[0.1em] text-slate-400">
+              <thead className="text-start uppercase tracking-[0.1em] text-slate-400">
                 <tr>
                   <th className="pb-2">{b.bidColumn}</th>
                   <th className="pb-2">Lot</th>
@@ -562,7 +562,7 @@ export default function BorsaAssetDetailPage() {
       <div className="flex items-center gap-2 text-xs text-slate-400">
         <Gavel className="h-3.5 w-3.5" />
         Borsa derin ekranı aktif · Auto-extend eşik: {Math.round(ANTI_SNIPING_THRESHOLD_SECONDS / 60)} dk · Ek süre: {Math.round(ANTI_SNIPING_EXTEND_SECONDS / 60)} dk
-        <Bell className="ml-2 h-3.5 w-3.5" />
+        <Bell className="ms-2 h-3.5 w-3.5" />
         İzleme ve uyarı akışı demo modda çalışır.
       </div>
     </main>

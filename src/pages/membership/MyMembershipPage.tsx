@@ -49,7 +49,7 @@ export default function MyMembershipPage() {
               </h2>
               <p className="text-sm text-slate-400 mt-1">{tier.tagline}</p>
             </div>
-            <div className="text-right">
+            <div className="text-end">
               {tier.monthlyTry === 0 ? (
                 <p className="text-3xl font-bold text-white">Ücretsiz</p>
               ) : (
@@ -125,7 +125,7 @@ export default function MyMembershipPage() {
                       key={t.id}
                       type="button"
                       onClick={() => navigate(`/odeme/baslat?paket=${t.id}&periyot=monthly`)}
-                      className="text-left rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
+                      className="text-start rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
                     >
                       <p className="text-sm font-semibold text-white">{t.name}</p>
                       <p className="text-xs text-slate-400 line-clamp-1">{t.tagline}</p>
@@ -147,7 +147,7 @@ export default function MyMembershipPage() {
                       key={t.id}
                       type="button"
                       onClick={() => navigate(`/odeme/baslat?paket=${t.id}&periyot=monthly`)}
-                      className="text-left rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
+                      className="text-start rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
                     >
                       <p className="text-sm font-semibold text-white">{t.name}</p>
                       <p className="text-xs text-slate-400 line-clamp-1">{t.tagline}</p>
@@ -177,7 +177,7 @@ export default function MyMembershipPage() {
                     <Calendar className="h-3 w-3" /> 01.05.2026 · Kart **** 4242
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="text-end">
                   <p className="text-emerald-300 font-semibold">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
                   <p className="text-xs text-slate-500">Ödendi</p>
                 </div>
@@ -189,7 +189,7 @@ export default function MyMembershipPage() {
                     <Calendar className="h-3 w-3" /> 01.04.2026 · Kart **** 4242
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="text-end">
                   <p className="text-emerald-300 font-semibold">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
                   <p className="text-xs text-slate-500">Ödendi</p>
                 </div>

@@ -53,7 +53,7 @@ export function SavedSearchesPanel({ api, currentQuery, onApplySearch }: Props) 
       <div className="flex items-center gap-2">
         <Bookmark className="h-4 w-4 text-amber-400" />
         <h2 className="text-sm font-semibold text-white">Kayıtlı aramalar</h2>
-        <Bell className="h-3.5 w-3.5 text-slate-500 ml-1" aria-hidden />
+        <Bell className="h-3.5 w-3.5 text-slate-500 ms-1" aria-hidden />
         <span className="text-[11px] text-slate-500">Yeni eşleşmede bildirim</span>
       </div>
 
@@ -85,11 +85,11 @@ export function SavedSearchesPanel({ api, currentQuery, onApplySearch }: Props) 
             <li key={s.id} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2.5 text-sm">
               <button
                 type="button"
-                className="text-left text-slate-200 hover:text-white underline-offset-2 hover:underline"
+                className="text-start text-slate-200 hover:text-white underline-offset-2 hover:underline"
                 onClick={() => onApplySearch(s.queryText)}
               >
                 {s.name}
-                {s.queryText ? <span className="ml-2 text-xs text-slate-500">“{s.queryText}”</span> : null}
+                {s.queryText ? <span className="ms-2 text-xs text-slate-500">“{s.queryText}”</span> : null}
               </button>
               <div className="flex items-center gap-2">
                 <Button

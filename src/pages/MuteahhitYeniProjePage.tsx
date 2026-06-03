@@ -275,7 +275,7 @@ export default function MuteahhitYeniProjePage() {
                     <input
                       type="file"
                       accept=".pdf,.jpeg,.jpg,image/jpeg,application/pdf"
-                      className="text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-200"
+                      className="text-xs text-slate-300 file:me-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-200"
                       onChange={(e) => {
                         const f = e.target.files?.[0] ?? null;
                         setRuhsatFile(f);
@@ -297,7 +297,7 @@ export default function MuteahhitYeniProjePage() {
               <>
                 <h2 className="text-lg font-bold text-white">Adım 3 — Birim Envanteri</h2>
                 <p className="text-xs text-slate-400">En az 1 birim ekleyin. Unit no benzersiz olmalı.</p>
-                <div className="space-y-3 max-h-[420px] overflow-y-auto pr-2">
+                <div className="space-y-3 max-h-[420px] overflow-y-auto pe-2">
                   {units.map((u, idx) => (
                     <div key={idx} className="rounded-xl border border-slate-200/80 bg-slate-950/40 p-3 space-y-2">
                       <div className="flex items-center justify-between">

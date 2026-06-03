@@ -255,7 +255,7 @@ export default function YapayZekaHasarTahminiPage() {
             </ModulePanel>
 
             <h3 className="mt-6 text-sm font-semibold text-white">Önerilen 6 aksiyon</h3>
-            <ol className="mt-2 list-decimal space-y-2 pl-5 text-sm text-slate-300">
+            <ol className="mt-2 list-decimal space-y-2 ps-5 text-sm text-slate-300">
               {ACTIONS.map((a) => (
                 <li key={a}>{a}</li>
               ))}

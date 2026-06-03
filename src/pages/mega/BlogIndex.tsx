@@ -34,12 +34,12 @@ export default function BlogIndex() {
 
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+            <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
             <Input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Başlık, özet veya etiket ara..."
-              className="border-slate-200 bg-slate-900/60 pl-10 text-white placeholder:text-slate-600"
+              className="border-slate-200 bg-slate-900/60 ps-10 text-white placeholder:text-slate-600"
             />
           </div>
           <div className="flex flex-wrap gap-2">

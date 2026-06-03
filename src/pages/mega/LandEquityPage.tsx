@@ -204,53 +204,53 @@ export default function LandEquityPage() {
                 <table className="w-full text-xs min-w-[480px]">
                   <thead>
                     <tr className="text-slate-500 border-b border-slate-700">
-                      <th className="text-left py-1.5 pr-2 font-medium">Bölge</th>
-                      <th className="text-right py-1.5 px-2 font-medium">Arsa m² Rayiç</th>
-                      <th className="text-right py-1.5 px-2 font-medium">Tipik Pay</th>
-                      <th className="text-right py-1.5 px-2 font-medium">Süre</th>
-                      <th className="text-right py-1.5 pl-2 font-medium">Talep</th>
+                      <th className="text-start py-1.5 pe-2 font-medium">Bölge</th>
+                      <th className="text-end py-1.5 px-2 font-medium">Arsa m² Rayiç</th>
+                      <th className="text-end py-1.5 px-2 font-medium">Tipik Pay</th>
+                      <th className="text-end py-1.5 px-2 font-medium">Süre</th>
+                      <th className="text-end py-1.5 ps-2 font-medium">Talep</th>
                     </tr>
                   </thead>
                   <tbody className="text-slate-300">
                     <tr className="border-b border-slate-800/50">
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">İstanbul / Kadıköy</p>
                         <p className="text-[10px] text-slate-500">A+ konum</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-emerald-300">₺55-75K</td>
-                      <td className="py-2 px-2 text-right font-bold text-emerald-300">%50 / %50</td>
-                      <td className="py-2 px-2 text-right">28-36 ay</td>
-                      <td className="py-2 pl-2 text-right text-emerald-200">Çok yüksek</td>
+                      <td className="py-2 px-2 text-end text-emerald-300">₺55-75K</td>
+                      <td className="py-2 px-2 text-end font-bold text-emerald-300">%50 / %50</td>
+                      <td className="py-2 px-2 text-end">28-36 ay</td>
+                      <td className="py-2 ps-2 text-end text-emerald-200">Çok yüksek</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">İzmir / Bornova</p>
                         <p className="text-[10px] text-slate-500">B+ konum</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-cyan-300">₺22-32K</td>
-                      <td className="py-2 px-2 text-right font-bold text-cyan-300">%42 / %58</td>
-                      <td className="py-2 px-2 text-right">24-30 ay</td>
-                      <td className="py-2 pl-2 text-right text-cyan-200">Yüksek</td>
+                      <td className="py-2 px-2 text-end text-cyan-300">₺22-32K</td>
+                      <td className="py-2 px-2 text-end font-bold text-cyan-300">%42 / %58</td>
+                      <td className="py-2 px-2 text-end">24-30 ay</td>
+                      <td className="py-2 ps-2 text-end text-cyan-200">Yüksek</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">Antalya / Konyaaltı</p>
                         <p className="text-[10px] text-slate-500">Turizm ağırlıklı</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-amber-300">₺28-40K</td>
-                      <td className="py-2 px-2 text-right font-bold text-amber-300">%45 / %55</td>
-                      <td className="py-2 px-2 text-right">22-28 ay</td>
-                      <td className="py-2 pl-2 text-right text-amber-200">Mevsimsel</td>
+                      <td className="py-2 px-2 text-end text-amber-300">₺28-40K</td>
+                      <td className="py-2 px-2 text-end font-bold text-amber-300">%45 / %55</td>
+                      <td className="py-2 px-2 text-end">22-28 ay</td>
+                      <td className="py-2 ps-2 text-end text-amber-200">Mevsimsel</td>
                     </tr>
                     <tr>
-                      <td className="py-2 pr-2">
+                      <td className="py-2 pe-2">
                         <p className="text-white font-medium">Konya / Selçuklu</p>
                         <p className="text-[10px] text-slate-500">Taşra büyüme</p>
                       </td>
-                      <td className="py-2 px-2 text-right text-slate-300">₺6-12K</td>
-                      <td className="py-2 px-2 text-right font-bold text-slate-300">%35 / %65</td>
-                      <td className="py-2 px-2 text-right">18-24 ay</td>
-                      <td className="py-2 pl-2 text-right text-slate-400">Orta</td>
+                      <td className="py-2 px-2 text-end text-slate-300">₺6-12K</td>
+                      <td className="py-2 px-2 text-end font-bold text-slate-300">%35 / %65</td>
+                      <td className="py-2 px-2 text-end">18-24 ay</td>
+                      <td className="py-2 ps-2 text-end text-slate-400">Orta</td>
                     </tr>
                   </tbody>
                 </table>
