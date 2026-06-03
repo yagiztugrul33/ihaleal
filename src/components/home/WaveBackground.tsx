@@ -7,15 +7,15 @@ export function WaveBackground({ className = "" }: { className?: string }) {
     >
       {/* Ambient glow orbs */}
       <div
-        className="absolute -left-[20%] top-[10%] h-[420px] w-[420px] rounded-full opacity-30 blur-[100px]"
+        className="absolute -start-[20%] top-[10%] h-[420px] w-[420px] rounded-full opacity-30 blur-[100px]"
         style={{ background: "radial-gradient(circle, rgba(59,130,246,.45) 0%, transparent 70%)" }}
       />
       <div
-        className="absolute -right-[10%] top-[25%] h-[380px] w-[380px] rounded-full opacity-25 blur-[90px]"
+        className="absolute -end-[10%] top-[25%] h-[380px] w-[380px] rounded-full opacity-25 blur-[90px]"
         style={{ background: "radial-gradient(circle, rgba(139,92,246,.4) 0%, transparent 70%)" }}
       />
       <div
-        className="absolute bottom-[20%] left-[30%] h-[280px] w-[280px] rounded-full opacity-20 blur-[80px]"
+        className="absolute bottom-[20%] start-[30%] h-[280px] w-[280px] rounded-full opacity-20 blur-[80px]"
         style={{ background: "radial-gradient(circle, rgba(16,185,129,.35) 0%, transparent 70%)" }}
       />
 

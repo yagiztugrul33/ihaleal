@@ -1,0 +1,85 @@
+{
+  "negativeControl": {
+    "ltr": {
+      "center1": {
+        "centerXrel": 500,
+        "leftRel": 480,
+        "rightRel": 480
+      },
+      "center2": {
+        "centerXrel": 500,
+        "leftRel": 480,
+        "rightRel": 480
+      },
+      "orb1": {
+        "centerXrel": -55,
+        "leftRel": -80,
+        "rightRel": 430
+      },
+      "orb3": {
+        "centerXrel": 145,
+        "leftRel": 120,
+        "rightRel": 230
+      }
+    },
+    "rtl": {
+      "center1": {
+        "centerXrel": 500,
+        "leftRel": 480,
+        "rightRel": 480
+      },
+      "center2": {
+        "centerXrel": 500,
+        "leftRel": 480,
+        "rightRel": 480
+      },
+      "orb1": {
+        "centerXrel": 455,
+        "leftRel": 430,
+        "rightRel": -80
+      },
+      "orb3": {
+        "centerXrel": 255,
+        "leftRel": 230,
+        "rightRel": 120
+      }
+    }
+  },
+  "orb": {},
+  "overflow": {
+    "tr": {
+      "dir": "ltr",
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "bodyScrollW": 1280,
+      "horizontalOverflow": false
+    },
+    "tr_mobile": {
+      "horizontalOverflow": false,
+      "scrollWidth": 375,
+      "clientWidth": 375
+    },
+    "ar": {
+      "dir": "rtl",
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "bodyScrollW": 1280,
+      "horizontalOverflow": false
+    },
+    "ar_mobile": {
+      "horizontalOverflow": false,
+      "scrollWidth": 375,
+      "clientWidth": 375
+    }
+  },
+  "smoke": {
+    "tr": {
+      "pageerrors": 0,
+      "sample": []
+    },
+    "ar": {
+      "pageerrors": 0,
+      "sample": []
+    }
+  }
+}
