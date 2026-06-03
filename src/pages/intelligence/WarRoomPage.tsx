@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import {
   AlertTriangle, ArrowLeft, Download, Layers, Loader2, MapPin, Radar, RefreshCw,
-  BookOpen, Info, Scale, ScrollText, CheckCircle2, ChevronDown, Building,
+  BookOpen, Info, Scale, ScrollText, CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

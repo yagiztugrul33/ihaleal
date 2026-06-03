@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  ArrowLeft, Calculator, Sun, BookOpen, FileText, Zap, MapPin, Building,
+  ArrowLeft, Calculator, Sun, BookOpen, FileText,
   AlertTriangle, CheckCircle2, ScrollText, Scale, TrendingUp, BarChart3,
   ChevronDown,
 } from "lucide-react";

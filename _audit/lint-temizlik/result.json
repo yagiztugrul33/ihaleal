@@ -1,0 +1,105 @@
+{
+  "aiSanitize": {
+    "regexLiteralFound": true,
+    "charClassHexCodes": [
+      "00",
+      "2d",
+      "1f",
+      "7f",
+      "200b",
+      "2d",
+      "200f",
+      "feff"
+    ],
+    "charClassLength": 8,
+    "tests": [
+      {
+        "name": "NUL+text",
+        "input": "merhaba\u0000dünya",
+        "expected": "merhabadünya",
+        "actual": "merhabadünya",
+        "pass": true
+      },
+      {
+        "name": "BEL+text",
+        "input": "selam\u0007ihaleal",
+        "expected": "selamihaleal",
+        "actual": "selamihaleal",
+        "pass": true
+      },
+      {
+        "name": "ZWSP",
+        "input": "ihaleal​com",
+        "expected": "ihalealcom",
+        "actual": "ihalealcom",
+        "pass": true
+      },
+      {
+        "name": "BOM_at_start",
+        "input": "﻿içerik",
+        "expected": "içerik",
+        "actual": "içerik",
+        "pass": true
+      },
+      {
+        "name": "RLM",
+        "input": "kuş‏yem",
+        "expected": "kuşyem",
+        "actual": "kuşyem",
+        "pass": true
+      },
+      {
+        "name": "no_control_passthrough",
+        "input": "Selam Dünya 1.234,56 ₺ — ok",
+        "expected": "Selam Dünya 1.234,56 ₺ — ok",
+        "actual": "Selam Dünya 1.234,56 ₺ — ok",
+        "pass": true
+      }
+    ],
+    "allPass": true
+  },
+  "pages": {
+    "ges": {
+      "path": "/arastirma/ges",
+      "label": "GesAnalysisPage",
+      "loaded": true,
+      "hasMain": true,
+      "bodyLen": 5577,
+      "pageerror": 0,
+      "sampleErrs": []
+    },
+    "warroom": {
+      "path": "/arastirma/war-room",
+      "label": "WarRoomPage",
+      "loaded": true,
+      "hasMain": true,
+      "bodyLen": 4933,
+      "pageerror": 0,
+      "sampleErrs": []
+    },
+    "home": {
+      "path": "/",
+      "label": "Anasayfa (dürüstlük turu)",
+      "loaded": true,
+      "hasMain": true,
+      "bodyLen": 8535,
+      "pageerror": 0,
+      "sampleErrs": []
+    },
+    "ihaleler": {
+      "path": "/ihaleler",
+      "label": "İhaleler (konum + PWA)",
+      "loaded": true,
+      "hasMain": true,
+      "bodyLen": 9011,
+      "pageerror": 0,
+      "sampleErrs": []
+    }
+  },
+  "regression": {
+    "anasayfaLoaded": true,
+    "ihalelerLoaded": true,
+    "gesLoaded": true,
+    "warroomLoaded": true
+  }
+}
