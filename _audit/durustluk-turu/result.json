@@ -1,0 +1,52 @@
+{
+  "byLocale": {
+    "tr": {
+      "dir": "ltr",
+      "forbiddenFound": [],
+      "statBarItems": 3,
+      "tickerExists": true,
+      "pageerror": 0,
+      "activeAuctionNumbers": []
+    },
+    "en": {
+      "dir": "ltr",
+      "forbiddenFound": [],
+      "statBarItems": 3,
+      "tickerExists": true,
+      "pageerror": 0,
+      "activeAuctionNumbers": []
+    },
+    "ru": {
+      "dir": "ltr",
+      "forbiddenFound": [],
+      "statBarItems": 3,
+      "tickerExists": true,
+      "pageerror": 0,
+      "activeAuctionNumbers": []
+    },
+    "ar": {
+      "dir": "rtl",
+      "forbiddenFound": [],
+      "statBarItems": 3,
+      "tickerExists": true,
+      "pageerror": 0,
+      "activeAuctionNumbers": []
+    }
+  },
+  "honesty": {
+    "totalForbiddenAcrossAllLangs": 0,
+    "cleanInAllLangs": true
+  },
+  "conflict": {
+    "trActiveAuctionNumbers": [],
+    "isSingleValue": false,
+    "value": null,
+    "noConflict": true
+  },
+  "regression": {
+    "ihalelerLoaded": true,
+    "hasNearbyShelf": true,
+    "swRegCount": 1,
+    "pageerror": 0
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   BarChart3,
@@ -120,22 +120,12 @@ const PHOTO_SHOWCASE_CARDS = [
 
 type BoardFilter = (typeof BOARD_FILTER_TABS)[number]["key"];
 type BoardRow = { id: string; code: string; title: string; bid: number; changePct: number; remainingMin: number; sparkline: number[] };
-type MetricKey = "volume" | "active" | "avgRise" | "watchers";
-type TradeFeedItem = { id: string; code: string; label: string; amount: number; tone: "up" | "down" | "sold"; at: string };
-
-const REGION_INDEXES = [
-  { name: "İstanbul Konut", value: 124.3, changePct: 1.7 },
-  { name: "Ege Arsa", value: 111.6, changePct: -0.5 },
-  { name: "Akdeniz Villa", value: 138.2, changePct: 2.1 },
-  { name: "Ankara Ofis", value: 104.8, changePct: 0.8 },
-] as const;
-
-const TRUST_METRICS = [
-  { key: "volume", label: "İşlem Hacmi", value: 12.8, suffix: "B", prefix: "₺", tone: "text-cyan-200" },
-  { key: "users", label: "Doğrulanmış Kullanıcı", value: 68.9, suffix: "K+", prefix: "", tone: "text-emerald-200" },
-  { key: "auctions", label: "Tamamlanan İhale", value: 12.84, suffix: "K", prefix: "", tone: "text-amber-200" },
-  { key: "satisfaction", label: "Memnuniyet", value: 94, suffix: "%", prefix: "", tone: "text-violet-200" },
-] as const;
+// 2026-06-03 dürüstlük turu: heroMetrics (hardcoded 126M ₺/284/1932) + TRUST_METRICS (12.8B ₺/68.9K kullanıcı vb.)
+// + REGION_INDEXES (statik "endeks" yüzdeleri) + 2.6s Math.random ticker mutasyonu + sahte tradeFeed
+// ("Yeni teklif"/"SATILDI bildirimi") tamamen kaldırıldı. Pre-launch'ta gerçek olmayan rakam = yalan.
+// Geriye yalnız gerçek veri: buildHeroRows() (gerçek auction kataloğundan), useActiveAuctionCount (stat-bar),
+// programmaticSeoPageCount (gerçek rota sayımı), categoryCards (gerçek katalog sayımları), unifiedFeaturedItems
+// (gerçek auction'lar). Auction tablosundaki "flash" parlamaları kaldırıldı (Math.random tabanlıydı).
 
 const ROLE_GATEWAYS = [
   { role: "Yatırımcı", text: "Canlı ihale, maliyet ve risk paneliyle fırsat yakala.", href: "/borsa" },
@@ -143,20 +133,6 @@ const ROLE_GATEWAYS = [
   { role: "Müteahhit", text: "Lansman, ön satış ve proje bazlı satış süreçlerini dijitalleştir.", href: "/muteahhit" },
   { role: "Satıcı", text: "Mülkünü borsaya koy, rekabetle en doğru fiyata ulaş.", href: "/sat-basla" },
 ] as const;
-
-function sparklinePath(values: number[]): string {
-  if (!values.length) return "";
-  const max = Math.max(...values);
-  const min = Math.min(...values);
-  const range = Math.max(1, max - min);
-  return values
-    .map((v, i) => {
-      const x = (i / Math.max(1, values.length - 1)) * 100;
-      const y = 100 - ((v - min) / range) * 100;
-      return `${x},${y}`;
-    })
-    .join(" ");
-}
 
 function buildHeroRows(): BoardRow[] {
   const featured = getFeaturedAuctions(4);
@@ -180,76 +156,10 @@ export default function PremiumCinematicHome() {
   const { t } = useLocale();
   const home = t.home;
   const navigate = useNavigate();
-  const [heroRows, setHeroRows] = useState<BoardRow[]>(() => buildHeroRows());
+  // Dürüstlük turu: heroRows STATİK kaldı (buildHeroRows gerçek auction kataloğundan üretir);
+  // Math.random tabanlı 2.6s mutasyonu, tradeFeed seed'i, flash state'leri TAMAMEN kaldırıldı.
+  const [heroRows] = useState<BoardRow[]>(() => buildHeroRows());
   const [heroFilter, setHeroFilter] = useState<BoardFilter>("active");
-  const [flashRowId, setFlashRowId] = useState<string | null>(null);
-  const [flashDirection, setFlashDirection] = useState<"up" | "down">("up");
-  const [tradeFeed, setTradeFeed] = useState<TradeFeedItem[]>([]);
-  const [heroMetrics, setHeroMetrics] = useState({ volume: 126_400_000, active: 284, avgRise: 2.6, watchers: 1932 });
-  const [flashMetricKey, setFlashMetricKey] = useState<MetricKey | null>(null);
-  const [liveTrustMetrics, setLiveTrustMetrics] = useState(() =>
-    TRUST_METRICS.map((metric) => ({ key: metric.key, value: metric.value })),
-  );
-
-  useEffect(() => {
-    const seeded = buildHeroRows().slice(0, 4).map((row, idx) => ({
-      id: `${row.id}-seed-${idx}`,
-      code: row.code,
-      label: row.title,
-      amount: row.bid,
-      tone: row.changePct >= 0 ? "up" : "down",
-      at: new Date(Date.now() - idx * 90_000).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
-    })) as TradeFeedItem[];
-    setTradeFeed(seeded);
-  }, []);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      const metricKeys: MetricKey[] = ["volume", "active", "avgRise", "watchers"];
-      setFlashMetricKey(metricKeys[Math.floor(Math.random() * metricKeys.length)]);
-      setHeroRows((prev) => {
-        if (!prev.length) return prev;
-        const index = Math.floor(Math.random() * prev.length);
-        const updated = [...prev];
-        const current = updated[index];
-        const sign = Math.random() > 0.3 ? 1 : -1;
-        const nextBid = Math.max(80_000, Math.round(current.bid + current.bid * (Math.random() * 0.003 + 0.0008) * sign));
-        updated[index] = { ...current, bid: nextBid, changePct: Number((current.changePct + (sign > 0 ? 0.2 : -0.15)).toFixed(1)), remainingMin: Math.max(3, current.remainingMin - Math.floor(Math.random() * 3)), sparkline: [...current.sparkline.slice(-5), nextBid] };
-        setFlashDirection(sign > 0 ? "up" : "down");
-        setFlashRowId(current.id);
-        setTradeFeed((prevFeed) => {
-          const sold = Math.random() < 0.13;
-          const tone: TradeFeedItem["tone"] = sold ? "sold" : sign > 0 ? "up" : "down";
-          return [{ id: `${current.id}-${Date.now()}`, code: current.code, label: sold ? "SATILDI bildirimi" : "Yeni teklif", amount: nextBid, tone, at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }) }, ...prevFeed].slice(0, 8);
-        });
-        return updated;
-      });
-      setHeroMetrics((prev) => ({ volume: prev.volume + Math.round(Math.random() * 2_100_000 - 650_000), active: Math.max(210, prev.active + Math.round(Math.random() * 7 - 3)), avgRise: Number((prev.avgRise + (Math.random() > 0.5 ? 0.1 : -0.08)).toFixed(1)), watchers: Math.max(1200, prev.watchers + Math.round(Math.random() * 22 - 8)) }));
-    }, 2600);
-    return () => window.clearInterval(id);
-  }, []);
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setLiveTrustMetrics((prev) =>
-        prev.map((item) => ({
-          ...item,
-          value: Number((item.value + Math.random() * 0.12).toFixed(2)) as typeof item.value,
-        })),
-      );
-    }, 3000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    if (!flashRowId) return;
-    const id = window.setTimeout(() => setFlashRowId(null), 900);
-    return () => window.clearTimeout(id);
-  }, [flashRowId]);
-  useEffect(() => {
-    if (!flashMetricKey) return;
-    const id = window.setTimeout(() => setFlashMetricKey(null), 700);
-    return () => window.clearTimeout(id);
-  }, [flashMetricKey]);
 
   const tickerRows = useMemo(() => heroRows.map((row) => ({ code: row.code, bid: row.bid, changePct: row.changePct })), [heroRows]);
   const filteredRows = useMemo(() => {
@@ -258,12 +168,6 @@ export default function PremiumCinematicHome() {
     if (heroFilter === "ending") return rows.sort((a, b) => a.remainingMin - b.remainingMin);
     return rows.sort((a, b) => b.bid - a.bid);
   }, [heroRows, heroFilter]);
-  const metricCards = useMemo(() => [
-    { key: "volume", label: "İşlem Hacmi", value: `₺${Math.max(0, heroMetrics.volume).toLocaleString("tr-TR")}`, sparkline: [82, 86, 84, 90, 95, 98] },
-    { key: "active", label: "Aktif İhale", value: heroMetrics.active.toLocaleString("tr-TR"), sparkline: [278, 281, 283, 284, 284, 284] },
-    { key: "avgRise", label: "Ort. Artış", value: `%${heroMetrics.avgRise.toFixed(1)}`, sparkline: [1.4, 1.8, 2.1, 2.4, 2.6, heroMetrics.avgRise] },
-    { key: "watchers", label: "İzleyen", value: heroMetrics.watchers.toLocaleString("tr-TR"), sparkline: [1610, 1680, 1750, 1820, 1890, heroMetrics.watchers] },
-  ], [heroMetrics]);
   const categoryCards = useMemo(() => {
     const all = getAllProperties();
     return H8_CATEGORIES.map((meta) => ({ ...meta, count: all.filter((p) => p.taxonomy.category === meta.key).length }));
@@ -324,26 +228,18 @@ export default function PremiumCinematicHome() {
 
       <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-2 lg:px-6" aria-labelledby="premium-hero-title">
         <div className="premium-hero-shell rounded-[32px] border border-border bg-card p-4 shadow-xl lg:p-6">
-          <div className="mb-5 grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(340px,1fr)]">
-            <div className="space-y-2">
-              <TerminalHero />
-              <CinematicStatsBar />
-            </div>
-            <aside className="hidden xl:block min-w-0 space-y-4">
-              <Card className="border border-border bg-card/80"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Bölge Endeksleri</h3>{REGION_INDEXES.map((item) => { const up = item.changePct >= 0; return (<div key={item.name} className="flex items-center justify-between rounded-lg border border-border bg-secondary px-3 py-2"><span className="text-sm text-muted-foreground">{item.name}</span><span className={`text-xs font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>{up ? "+" : ""}{item.changePct.toFixed(1)}%</span></div>); })}</CardContent></Card>
-            </aside>
+          <div className="mb-5 space-y-2">
+            <TerminalHero />
+            <CinematicStatsBar />
           </div>
           <div className="mb-4 space-y-2 rounded-2xl border border-border bg-secondary/60 px-3 py-3">
             <div className="market-board-ticker__viewport"><div className="market-board-ticker__lane">{[0, 1].map((dup) => (<div key={dup} className="market-board-ticker__seq">{tickerRows.map((row) => { const up = row.changePct >= 0; return (<div key={`${dup}-${row.code}`} className={`market-board-ticker__chip ${up ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200" : "border-rose-500/30 bg-rose-500/10 text-rose-200"}`}><span className="font-semibold tracking-wide text-foreground">{row.code}</span><span className="font-bold">{formatTry(row.bid)}</span><span className="inline-flex items-center gap-1 font-bold">{up ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}{up ? "+" : ""}{row.changePct.toFixed(1)}%</span></div>); })}</div>))}</div></div>
-            <div className="market-board-ticker__viewport"><div className="market-board-ticker__lane">{[0, 1].map((dup) => (<div key={dup} className="market-board-ticker__seq">{tradeFeed.map((item) => (<button key={`${dup}-${item.id}`} type="button" onClick={() => navigate("/ihaleler")} className={`market-board-ticker__chip ${item.tone === "sold" ? "border-amber-500/35 bg-amber-500/10 text-amber-200" : item.tone === "up" ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200" : "border-rose-500/30 bg-rose-500/10 text-rose-200"}`}><span className="font-semibold tracking-wide text-foreground">{item.code}</span><span className="font-bold">{item.tone === "sold" ? "SATILDI" : formatTry(item.amount)}</span><span className="text-[10px] text-muted-foreground">{item.label} · {item.at}</span></button>))}</div>))}</div></div>
           </div>
           <div className="grid gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(340px,1fr)]">
             <div className="min-w-0 space-y-5">
-              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{metricCards.map((metric) => (<Card key={metric.key} className={`border border-border bg-card ${flashMetricKey === metric.key ? "premium-metric-card--flash" : ""}`}><CardContent className="p-4"><p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{metric.label}</p><strong className="mt-1 block text-2xl font-black text-foreground">{metric.value}</strong><svg viewBox="0 0 100 100" className="mt-2 h-8 w-full" preserveAspectRatio="none"><polyline fill="none" stroke={metric.key === "avgRise" ? "#facc15" : "#38bdf8"} strokeWidth="4" points={sparklinePath(metric.sparkline)} /></svg></CardContent></Card>))}</div>
-              <Card className="border border-border bg-card"><CardContent className="p-4"><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-bold text-foreground">En Aktif İhaleler</h2><div className="flex flex-wrap gap-2">{BOARD_FILTER_TABS.map((tab) => (<Button key={tab.key} size="sm" variant={heroFilter === tab.key ? "default" : "outline"} className={heroFilter === tab.key ? "bg-blue-600 text-white hover:bg-blue-500" : "border-border bg-secondary text-muted-foreground hover:bg-secondary/80"} onClick={() => setHeroFilter(tab.key)}>{tab.label}</Button>))}</div></div><div className="overflow-x-auto"><table className="min-w-[720px] w-full text-sm text-muted-foreground"><thead className="text-start text-[11px] uppercase tracking-[0.14em] text-muted-foreground"><tr><th className="pb-2 pe-3">Kod</th><th className="pb-2 pe-3">Mülk</th><th className="pb-2 pe-3">Teklif</th><th className="pb-2 pe-3">Değişim%</th><th className="pb-2">Süre</th></tr></thead><tbody>{filteredRows.map((row) => { const up = row.changePct >= 0; return (<tr key={row.id} className={`cursor-pointer border-t border-border transition ${flashRowId === row.id ? (flashDirection === "up" ? "bg-emerald-500/15" : "bg-rose-500/15") : "hover:bg-secondary/80"}`} onClick={() => navigate(`/ilanlar/${row.id}`)}><td className="py-2.5 pe-3 font-semibold text-primary">{row.code}</td><td className="py-2.5 pe-3 text-foreground">{row.title}</td><td className="py-2.5 pe-3 font-bold text-foreground">{formatTry(row.bid)}</td><td className={`py-2.5 pe-3 font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>{up ? "+" : ""}{row.changePct.toFixed(1)}%</td><td className="py-2.5 text-muted-foreground"><span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" />{`${Math.floor(row.remainingMin / 60)}s ${row.remainingMin % 60}dk`}</span></td></tr>); })}</tbody></table></div></CardContent></Card>
+              <Card className="border border-border bg-card"><CardContent className="p-4"><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-bold text-foreground">En Aktif İhaleler</h2><div className="flex flex-wrap gap-2">{BOARD_FILTER_TABS.map((tab) => (<Button key={tab.key} size="sm" variant={heroFilter === tab.key ? "default" : "outline"} className={heroFilter === tab.key ? "bg-blue-600 text-white hover:bg-blue-500" : "border-border bg-secondary text-muted-foreground hover:bg-secondary/80"} onClick={() => setHeroFilter(tab.key)}>{tab.label}</Button>))}</div></div><div className="overflow-x-auto"><table className="min-w-[720px] w-full text-sm text-muted-foreground"><thead className="text-start text-[11px] uppercase tracking-[0.14em] text-muted-foreground"><tr><th className="pb-2 pe-3">Kod</th><th className="pb-2 pe-3">Mülk</th><th className="pb-2 pe-3">Teklif</th><th className="pb-2 pe-3">Değişim%</th><th className="pb-2">Süre</th></tr></thead><tbody>{filteredRows.map((row) => { const up = row.changePct >= 0; return (<tr key={row.id} className="cursor-pointer border-t border-border transition hover:bg-secondary/80" onClick={() => navigate(`/ilanlar/${row.id}`)}><td className="py-2.5 pe-3 font-semibold text-primary">{row.code}</td><td className="py-2.5 pe-3 text-foreground">{row.title}</td><td className="py-2.5 pe-3 font-bold text-foreground">{formatTry(row.bid)}</td><td className={`py-2.5 pe-3 font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>{up ? "+" : ""}{row.changePct.toFixed(1)}%</td><td className="py-2.5 text-muted-foreground"><span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" />{`${Math.floor(row.remainingMin / 60)}s ${row.remainingMin % 60}dk`}</span></td></tr>); })}</tbody></table></div></CardContent></Card>
             </div>
             <aside className="min-w-0 space-y-4 xl:hidden">
-              <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Bölge Endeksleri</h3>{REGION_INDEXES.map((item) => { const up = item.changePct >= 0; return (<div key={item.name} className="flex items-center justify-between rounded-lg border border-border bg-secondary px-3 py-2"><span className="text-sm text-muted-foreground">{item.name}</span><span className={`text-xs font-bold ${up ? "text-emerald-300" : "text-rose-300"}`}>{up ? "+" : ""}{item.changePct.toFixed(1)}%</span></div>); })}</CardContent></Card>
               <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-bold uppercase tracking-[0.14em] text-foreground">Güven Göstergeleri</h3><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Shield className="h-4 w-4 text-cyan-300" /> KYC doğrulama</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Landmark className="h-4 w-4 text-cyan-300" /> Escrow destekli ödeme</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Zap className="h-4 w-4 text-cyan-300" /> Anti-sniping</p><div className="rounded-lg border border-border bg-secondary p-3 text-xs text-muted-foreground"><p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p><p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p></div></CardContent></Card>
             </aside>
             <aside className="min-w-0 hidden xl:block space-y-4">
@@ -424,16 +320,7 @@ export default function PremiumCinematicHome() {
                 <Link to="/borsa">Borsaya Gir</Link>
               </Button>
             </div>
-            <div className="mt-4 grid gap-3 md:grid-cols-2">
-              <article className="rounded-xl border border-border bg-card p-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Canlı Piyasa</p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Aktif ihale: <strong className="text-foreground">{heroMetrics.active}</strong> · Hacim:{" "}
-                  <strong className="text-foreground">
-                    ₺{Math.max(0, heroMetrics.volume).toLocaleString("tr-TR")}
-                  </strong>
-                </p>
-              </article>
+            <div className="mt-4">
               <article className="rounded-xl border border-border bg-card p-3">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Şeffaf Komisyon</p>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -460,26 +347,10 @@ export default function PremiumCinematicHome() {
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
         <div className="rounded-3xl border border-border bg-card p-6 shadow-xl lg:p-8">
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">Güven & Kurumsal</p>
-          <h2 className="mt-2 text-2xl font-black text-foreground lg:text-3xl">Canlı Güven Göstergeleri</h2>
+          <h2 className="mt-2 text-2xl font-black text-foreground lg:text-3xl">Güven Göstergeleri</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             Escrow, KYC, komisyon şeffaflığı ve kart blokaj kuralı teklif akışında ilk görünen güven katmanıdır.
           </p>
-          <div className="mt-5 grid gap-3 rounded-2xl border border-border bg-secondary p-4 md:grid-cols-4">
-            {TRUST_METRICS.map((metric, idx) => {
-              const current = liveTrustMetrics[idx]?.value ?? metric.value;
-              const valueLabel =
-                metric.key === "satisfaction"
-                  ? `${Math.min(99.9, current).toFixed(1)}${metric.suffix}`
-                  : `${metric.prefix}${current.toFixed(2)}${metric.suffix}`;
-              return (
-                <article key={metric.label} className="rounded-xl border border-border bg-card px-3 py-3">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{metric.label}</p>
-                  <p className={`mt-2 text-2xl font-black ${metric.tone}`}>{valueLabel}</p>
-                  <p className="mt-1 text-[10px] text-muted-foreground">Canlı demo metrik</p>
-                </article>
-              );
-            })}
-          </div>
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             <article className="rounded-xl border border-border bg-secondary p-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Escrow</p>
@@ -560,43 +431,10 @@ export default function PremiumCinematicHome() {
       </section>
       </ScrollReveal>
 
-      <ScrollReveal delayMs={280}>
-      <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
-        <div className="rounded-3xl border border-border bg-card p-6 shadow-xl lg:p-8">
-          <h2 className="text-2xl font-black text-foreground lg:text-3xl">Kurumsal Güven Panosu</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Logo vitrinleri yerine ölçülebilir ve dürüst güven metrikleri gösterilir (demo verisi).
-          </p>
-          <section className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-            <article className="rounded-xl border border-border bg-secondary p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">İşlem Hacmi</p>
-              <strong className="mt-2 block text-2xl font-black text-foreground">₺12.8B+</strong>
-              <p className="mt-1 text-xs text-muted-foreground">Son 12 ay demo toplamı</p>
-            </article>
-            <article className="rounded-xl border border-border bg-secondary p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Doğrulanmış Kullanıcı</p>
-              <strong className="mt-2 block text-2xl font-black text-foreground">68.9K+</strong>
-              <p className="mt-1 text-xs text-muted-foreground">KYC adımı tamamlayan hesaplar</p>
-            </article>
-            <article className="rounded-xl border border-border bg-secondary p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Escrow Uyum</p>
-              <strong className="mt-2 block text-2xl font-black text-foreground">%96.4</strong>
-              <p className="mt-1 text-xs text-muted-foreground">Escrow kurallarıyla kapanan işlemler</p>
-            </article>
-            <article className="rounded-xl border border-border bg-secondary p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">KYC Uyum</p>
-              <strong className="mt-2 block text-2xl font-black text-foreground">%97.2</strong>
-              <p className="mt-1 text-xs text-muted-foreground">Kimlik doğrulama tamamlama oranı</p>
-            </article>
-            <article className="rounded-xl border border-border bg-secondary p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">Sertifika Durumu</p>
-              <strong className="mt-2 block text-xl font-black text-foreground">ISO 27001 (Demo)</strong>
-              <p className="mt-1 text-xs text-muted-foreground">Canlıya geçişte resmi audit gerekir</p>
-            </article>
-          </section>
-        </div>
-      </section>
-      </ScrollReveal>
+      {/* 2026-06-03 dürüstlük turu: "Kurumsal Güven Panosu" bölümü kaldırıldı.
+          ₺12.8B+ işlem hacmi, 68.9K+ doğrulanmış kullanıcı, %96.4 escrow uyum,
+          %97.2 KYC uyum, ISO 27001 (Demo) - hepsi pre-launch'ta sahte rakamdı,
+          "(demo verisi)" disclaimer'ı yeterli değil. Gerçek rakamlar oluşunca dönecek. */}
 
       <ScrollReveal delayMs={320}>
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 pb-10 lg:px-6">
