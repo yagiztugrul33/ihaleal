@@ -10,6 +10,7 @@ import type { Auction } from "@/types/auction";
 import { CountdownTimer } from "@/components/auction/CountdownTimer";
 import { cn } from "@/lib/utils";
 import { BorsaTerminali } from "@/components/borsa/BorsaTerminali";
+import { NearbyListings } from "@/components/nearby/NearbyListings";
 
 function formatTRY(v: number): string {
   if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M ₺`;
@@ -174,6 +175,7 @@ export default function LiveAuctions() {
 
       {/* Dalga 2-6: hero altı yatay kart vitrinleri */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <NearbyListings catalog={catalog} />
         <Shelf
           title="Bitmeye Yaklaşan İhaleler (24 saat)"
           icon={Flame}

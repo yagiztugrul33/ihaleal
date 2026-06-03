@@ -50,7 +50,9 @@ function securityHeaders(): Record<string, string> {
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY",
     "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    // geolocation=(self): "Yakınımdaki ilanlar" same-origin konum araması için açık;
+    // 3. taraf iframe'lere yine kapalı. camera/microphone kapalı kalır.
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(self)",
     "Cross-Origin-Opener-Policy": "same-origin",
   }
 }

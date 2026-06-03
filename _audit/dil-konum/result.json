@@ -1,0 +1,71 @@
+{
+  "grant": {
+    "tr": {
+      "dir": "ltr",
+      "btnVisible": true,
+      "hasKmText": true,
+      "kmValues": [
+        4.1,
+        4.7,
+        6.8,
+        7.9
+      ],
+      "sorted": true,
+      "pageerror": 0
+    },
+    "en": {
+      "dir": "ltr",
+      "btnVisible": true,
+      "hasKmText": true,
+      "kmValues": [
+        4.1,
+        4.7,
+        6.8,
+        7.9
+      ],
+      "sorted": true,
+      "pageerror": 0
+    },
+    "ru": {
+      "dir": "ltr",
+      "btnVisible": true,
+      "hasKmText": true,
+      "kmValues": [
+        4.1,
+        4.7,
+        6.8,
+        7.9
+      ],
+      "sorted": true,
+      "pageerror": 0
+    },
+    "ar": {
+      "dir": "rtl",
+      "btnVisible": true,
+      "hasKmText": true,
+      "kmValues": [
+        4.1,
+        4.7,
+        6.8,
+        7.9
+      ],
+      "sorted": true,
+      "pageerror": 0
+    }
+  },
+  "deny": {
+    "gentleFallback": true,
+    "pageerror": 0
+  },
+  "kvkk": {
+    "keysBefore": 3,
+    "newKeysAfterLocation": [],
+    "locationLeak": false
+  },
+  "regression": {
+    "shelves": true,
+    "borsa": true,
+    "bodyLen": 9011,
+    "pageerror": 0
+  }
+}

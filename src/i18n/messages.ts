@@ -1041,6 +1041,22 @@ export type CommissionCalcMessages = {
   distHonestyNote: string;
 };
 
+export type NearbyMessages = {
+  button: string;
+  intro: string;
+  privacyNote: string;
+  locating: string;
+  radiusLabel: string;
+  kmSuffix: string;
+  resultsTitle: string;
+  countWithin: string; // {n} {r}
+  empty: string; // {r}
+  denied: string;
+  unavailable: string;
+  retry: string;
+  collapse: string;
+};
+
 export type Messages = {
   nav: NavMessages;
   home: HomeMessages;
@@ -1063,6 +1079,7 @@ export type Messages = {
   profile: ProfileMessages;
   serviceFees: ServiceFeesMessages;
   commissionCalc: CommissionCalcMessages;
+  nearby: NearbyMessages;
 };
 
 /**
@@ -2121,6 +2138,21 @@ export const messages: Record<"en" | "tr", Messages> = {
       distNegativeNote: "In negative cases, the production billing policy clarifies not dropping below zero or carrying over.",
       distHonestyNote: "This screen is for information; exact amounts are finalized by contract, official institution accounts and expert opinion.",
     },
+    nearby: {
+      button: "Listings near me",
+      intro: "Share your location and we'll sort the closest listings by distance.",
+      privacyNote: "Your location stays on your device and is never saved — used only for this search.",
+      locating: "Getting your location…",
+      radiusLabel: "Radius",
+      kmSuffix: "km",
+      resultsTitle: "Listings closest to you",
+      countWithin: "{n} listings within {r} km",
+      empty: "No listings within {r} km — try widening the radius.",
+      denied: "Location permission denied. You can also search by selecting a city below.",
+      unavailable: "Your browser doesn't support location access.",
+      retry: "Try again",
+      collapse: "Close",
+    },
   },
   tr: {
     nav: {
@@ -3172,6 +3204,21 @@ export const messages: Record<"en" | "tr", Messages> = {
       distNegativeNote: "Negatif çıkan durumlarda üretim faturalama politikası sıfır altına düşmemeyi veya taşımayı netleştirir.",
       distHonestyNote: "Bu ekran bilgilendirme içindir; kesin tutarlar sözleşme, resmi kurum hesapları ve uzman görüşü ile netleşir.",
     },
+    nearby: {
+      button: "Yakınımdaki ilanlar",
+      intro: "Konumunu paylaş, sana en yakın ilanları mesafesiyle sıralayalım.",
+      privacyNote: "Konumun cihazında kalır, kaydedilmez — yalnızca bu arama için kullanılır.",
+      locating: "Konum alınıyor…",
+      radiusLabel: "Yarıçap",
+      kmSuffix: "km",
+      resultsTitle: "Sana en yakın ilanlar",
+      countWithin: "{r} km içinde {n} ilan",
+      empty: "{r} km içinde ilan bulunamadı — yarıçapı genişletmeyi dene.",
+      denied: "Konum izni verilmedi. Aşağıdan şehir seçerek de arayabilirsin.",
+      unavailable: "Tarayıcın konum erişimini desteklemiyor.",
+      retry: "Tekrar dene",
+      collapse: "Kapat",
+    },
   },
 };
 
@@ -4129,6 +4176,21 @@ const _ruOverrides: PartialDeep<Messages> = {
     distNegativeNote: "В отрицательных случаях продакшен-политика выставления счетов уточняет недопущение значения ниже нуля или перенос.",
     distHonestyNote: "Этот экран информационный; точные суммы уточняются договором, счетами официальных учреждений и мнением эксперта.",
   },
+  nearby: {
+    button: "Объявления рядом",
+    intro: "Поделитесь местоположением — покажем ближайшие объявления по расстоянию.",
+    privacyNote: "Местоположение остаётся на вашем устройстве и не сохраняется — только для этого поиска.",
+    locating: "Определяем местоположение…",
+    radiusLabel: "Радиус",
+    kmSuffix: "км",
+    resultsTitle: "Ближайшие к вам объявления",
+    countWithin: "{n} объявлений в радиусе {r} км",
+    empty: "В радиусе {r} км нет объявлений — попробуйте увеличить радиус.",
+    denied: "Доступ к местоположению отклонён. Вы также можете выбрать город ниже.",
+    unavailable: "Ваш браузер не поддерживает доступ к местоположению.",
+    retry: "Повторить",
+    collapse: "Закрыть",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -5070,6 +5132,21 @@ const _arOverrides: PartialDeep<Messages> = {
     distPlatformNet: "وعاء المنصة الصافي التقديري (بعد المقاصّة + B2B)",
     distNegativeNote: "في الحالات السالبة، توضّح سياسة الفوترة في الإصدار النهائي عدم النزول تحت الصفر أو الترحيل.",
     distHonestyNote: "هذه الشاشة للمعلومات؛ وتتحدد المبالغ الدقيقة بالعقد وحسابات الجهات الرسمية ورأي الخبير.",
+  },
+  nearby: {
+    button: "إعلانات قريبة مني",
+    intro: "شارك موقعك وسنرتّب أقرب الإعلانات حسب المسافة.",
+    privacyNote: "يبقى موقعك على جهازك ولا يُحفظ — يُستخدم لهذا البحث فقط.",
+    locating: "جارٍ تحديد موقعك…",
+    radiusLabel: "نطاق البحث",
+    kmSuffix: "كم",
+    resultsTitle: "أقرب الإعلانات إليك",
+    countWithin: "{n} إعلانات ضمن {r} كم",
+    empty: "لا توجد إعلانات ضمن {r} كم — جرّب توسيع النطاق.",
+    denied: "تم رفض إذن الموقع. يمكنك أيضًا البحث باختيار مدينة أدناه.",
+    unavailable: "متصفحك لا يدعم الوصول إلى الموقع.",
+    retry: "أعد المحاولة",
+    collapse: "إغلاق",
   },
 };
 
