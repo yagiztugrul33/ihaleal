@@ -8,6 +8,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { RouteSeo } from "@/components/RouteSeo";
 import { WebAnalytics } from "@/components/WebAnalytics";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
+import { PwaUpdatePrompt } from "@/components/pwa/PwaUpdatePrompt";
 import { Home } from "@/pages/Home";
 import "./App.css";
 import { AdminGuard } from "@/components/admin/AdminGuard";
@@ -563,6 +564,7 @@ function App() {
       </ErrorBoundary>
       <WebAnalytics />
       <InstallPrompt />
+      <PwaUpdatePrompt />
     </BrowserRouter>
     </AuthProvider>
     </CurrencyProvider>

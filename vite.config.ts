@@ -76,8 +76,9 @@ export default defineConfig({
     homePageMetaHtmlPlugin(),
     react(),
     VitePWA({
-      // Yeni SW gelince sessizce devral; eski cache'leri otomatik temizle.
-      registerType: "autoUpdate",
+      // Yeni SW sessizce DEVRALMAZ — kullanıcı "Güncelle"ye basınca uygulanır
+      // (PwaUpdatePrompt). Sessiz bayatlama/orta-işlem reload riski yok.
+      registerType: "prompt",
       // Eski kill-switch (public/sw.js + public/sw-unregister.js) artık burada
       // yönetiliyor — Workbox cleanupOutdatedCaches + clientsClaim ile devralır.
       injectRegister: "auto",
@@ -162,7 +163,9 @@ export default defineConfig({
         // Eski cache versiyonlarını otomatik sil → kill-switch artığı.
         cleanupOutdatedCaches: true,
         clientsClaim: true,
-        skipWaiting: true,
+        // prompt akışı: yeni SW BEKLER; kullanıcı "Güncelle"ye basınca
+        // (updateServiceWorker(true)) skip-waiting mesajı ile aktive olur.
+        skipWaiting: false,
         // SPA için fallback (offline navigation → index.html).
         navigateFallback: "/index.html",
         // KRİTİK: Supabase + dış API'leri ASLA cache'leme — sealed maskeleme

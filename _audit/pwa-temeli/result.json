@@ -1,0 +1,75 @@
+{
+  "sw": {
+    "regCount": 1,
+    "scriptURLs": [
+      "http://localhost:4173/sw.js"
+    ],
+    "controller": true,
+    "pageerrors": 0,
+    "cacheNames": [
+      "workbox-precache-v2-http://localhost:4173/"
+    ]
+  },
+  "manifest": {
+    "name": "ihaleal — Türkiye'nin Gayrimenkul Borsası",
+    "short_name": "ihaleal",
+    "display": "standalone",
+    "start_url": "/",
+    "theme_color": "#0B1120",
+    "background_color": "#0B1120",
+    "hasDescription": true,
+    "icons192": true,
+    "icons512": true,
+    "maskable": true,
+    "valid": true
+  },
+  "cacheSafety": {
+    "totalCachedUrls": 290,
+    "forbiddenApiCached": 0,
+    "forbiddenSamples": [],
+    "dataJsonCached": 0,
+    "dataJsonSamples": [],
+    "onlyAppShell": true
+  },
+  "regression": {
+    "tr": {
+      "dir": "ltr",
+      "routedOk": 4,
+      "totalPages": 4,
+      "pageerrors": 0,
+      "sample": []
+    },
+    "en": {
+      "dir": "ltr",
+      "routedOk": 3,
+      "totalPages": 4,
+      "pageerrors": 0,
+      "sample": []
+    },
+    "ru": {
+      "dir": "ltr",
+      "routedOk": 4,
+      "totalPages": 4,
+      "pageerrors": 0,
+      "sample": []
+    },
+    "ar": {
+      "dir": "rtl",
+      "routedOk": 3,
+      "totalPages": 4,
+      "pageerrors": 0,
+      "sample": []
+    }
+  },
+  "installable": {
+    "hasManifest": true,
+    "hasSW": true,
+    "hasIcons": true,
+    "secureContext": true,
+    "installableLikely": true
+  },
+  "updatePrompt": {
+    "shownOnFreshInstall": false,
+    "note": "taze kurulumda görünmemeli (needRefresh=false)"
+  }
+}
