@@ -1,0 +1,274 @@
+{
+  "smoke": {
+    "tr:/": {
+      "dir": "ltr",
+      "pageerrors": 0,
+      "anyErr": 0,
+      "sample": []
+    },
+    "tr:/kat-karsiligi/studio": {
+      "dir": "ltr",
+      "pageerrors": 0,
+      "anyErr": 0,
+      "sample": []
+    },
+    "tr:/ihaleler": {
+      "dir": "ltr",
+      "pageerrors": 0,
+      "anyErr": 0,
+      "sample": []
+    },
+    "ar:/": {
+      "dir": "rtl",
+      "pageerrors": 0,
+      "anyErr": 0,
+      "sample": []
+    },
+    "ar:/kat-karsiligi/studio": {
+      "dir": "rtl",
+      "pageerrors": 0,
+      "anyErr": 0,
+      "sample": []
+    },
+    "ar:/ihaleler": {
+      "dir": "rtl",
+      "pageerrors": 0,
+      "anyErr": 0,
+      "sample": []
+    }
+  },
+  "synthetic": {
+    "ltr": {
+      "sheetRight": {
+        "insetInlineEnd": "0px",
+        "insetInlineStart": "320px",
+        "left": "320px",
+        "right": "0px",
+        "borderLeftWidth": "1px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "sheetClose": {
+        "insetInlineEnd": "16px",
+        "insetInlineStart": "1264px",
+        "left": "1264px",
+        "right": "16px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "toast": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "slide-in-right"
+      },
+      "menuIndicator": {
+        "insetInlineEnd": "1272px",
+        "insetInlineStart": "8px",
+        "left": "8px",
+        "right": "1272px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "selectCheck": {
+        "insetInlineEnd": "8px",
+        "insetInlineStart": "1272px",
+        "left": "1272px",
+        "right": "8px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "shortcut": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "insetItem": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "32px",
+        "paddingRight": "8px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "tableHead": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      }
+    },
+    "rtl": {
+      "sheetRight": {
+        "insetInlineEnd": "0px",
+        "insetInlineStart": "320px",
+        "left": "0px",
+        "right": "320px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "1px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "sheetClose": {
+        "insetInlineEnd": "16px",
+        "insetInlineStart": "1264px",
+        "left": "16px",
+        "right": "1264px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "toast": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "slide-in-left"
+      },
+      "menuIndicator": {
+        "insetInlineEnd": "1272px",
+        "insetInlineStart": "8px",
+        "left": "1272px",
+        "right": "8px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "selectCheck": {
+        "insetInlineEnd": "8px",
+        "insetInlineStart": "1272px",
+        "left": "8px",
+        "right": "1272px",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "shortcut": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "insetItem": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "8px",
+        "paddingRight": "32px",
+        "textAlign": "start",
+        "animationName": "none"
+      },
+      "tableHead": {
+        "insetInlineEnd": "auto",
+        "insetInlineStart": "auto",
+        "left": "auto",
+        "right": "auto",
+        "borderLeftWidth": "0px",
+        "borderRightWidth": "0px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "textAlign": "start",
+        "animationName": "none"
+      }
+    }
+  },
+  "frozen": {
+    "navbarShot": "navbar-ltr-after.png"
+  },
+  "errors": []
+}

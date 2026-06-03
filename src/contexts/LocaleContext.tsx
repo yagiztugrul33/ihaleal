@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { DirectionProvider } from "@radix-ui/react-direction";
 import {
   LOCALE_DIRECTION,
   LOCALE_STORAGE_KEY,
@@ -76,7 +77,15 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     [locale, setLocale],
   );
 
-  return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
+  // Radix floating primitive'leri (Dropdown/Popover/Select/Tooltip/ContextMenu/
+  // Menubar/NavigationMenu/HoverCard) yön bilgisini DirectionProvider'dan okur.
+  // dir="ltr" radix'in varsayılanıdır → LTR davranışı birebir aynı kalır;
+  // dir="rtl" (AR) ise side/align hesabını otomatik aynalar. Yalnızca sunum.
+  return (
+    <LocaleContext.Provider value={value}>
+      <DirectionProvider dir={LOCALE_DIRECTION[locale]}>{children}</DirectionProvider>
+    </LocaleContext.Provider>
+  );
 }
 
 export function useLocale(): LocaleContextValue {
