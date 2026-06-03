@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCountUp } from "@/hooks/useCountUp";
-import { useOnlinePresence } from "@/hooks/useOnlinePresence";
+import { useLocale } from "@/contexts/LocaleContext";
 import { programmaticSeoPageCount } from "@/lib/seo/programmaticSeo";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 
@@ -31,38 +31,40 @@ function useActiveAuctionCount(): number {
   return count;
 }
 
+/**
+ * "Anasayfa boşluk doldurma" turu (2026-06-03): "—" çevrimiçi kutusu kaldırıldı
+ * (pre-launch'ta dürüst sayı yok → sahte göstermek yerine 3'lü dengeli grid).
+ * useOnlinePresence altyapısı korunuyor; OnlinePresenceBadge başka yerlerde
+ * connected===true && count>=1 olduğunda hâlâ canlı sayıyı gösterebiliyor.
+ * Etiketler 4 dile (TR/EN/RU/AR) bağlandı; sayılar AR'da `dir="ltr"`.
+ */
 export function CinematicStatsBar() {
+  const { t } = useLocale();
+  const s = t.cinematicStats;
   const seoPages = programmaticSeoPageCount();
-  const { onlineCount, connected } = useOnlinePresence();
   const liveAuctions = useActiveAuctionCount();
   const pagesAnimated = useCountUp(seoPages, 1600);
-  const onlineAnimated = useCountUp(connected ? onlineCount : 0, 1200, connected);
   const liveAnimated = useCountUp(liveAuctions, 1400);
 
   return (
     <div className="cinematic-stats-bar" data-testid="cinematic-stats">
       <div className="cinematic-stats-bar__item" data-testid="stats-active-auctions">
-        <span className="cinematic-stats-bar__value" style={{ color: "#fbbf24" }}>
+        <span className="cinematic-stats-bar__value" style={{ color: "#fbbf24" }} dir="ltr">
           {liveAnimated.toLocaleString("tr-TR")}
         </span>
-        <span className="cinematic-stats-bar__label">aktif ihale</span>
+        <span className="cinematic-stats-bar__label">{s.activeAuctions}</span>
       </div>
       <div className="cinematic-stats-bar__divider" aria-hidden />
-      <div className="cinematic-stats-bar__item">
-        <span className="cinematic-stats-bar__value">{pagesAnimated.toLocaleString("tr-TR")}</span>
-        <span className="cinematic-stats-bar__label">SEO sayfa</span>
-      </div>
-      <div className="cinematic-stats-bar__divider" aria-hidden />
-      <div className="cinematic-stats-bar__item">
-        <span className="cinematic-stats-bar__value">
-          {connected ? onlineAnimated.toLocaleString("tr-TR") : "—"}
+      <div className="cinematic-stats-bar__item" data-testid="stats-seo-pages">
+        <span className="cinematic-stats-bar__value" dir="ltr">
+          {pagesAnimated.toLocaleString("tr-TR")}
         </span>
-        <span className="cinematic-stats-bar__label">çevrimiçi</span>
+        <span className="cinematic-stats-bar__label">{s.seoPages}</span>
       </div>
       <div className="cinematic-stats-bar__divider" aria-hidden />
-      <div className="cinematic-stats-bar__item">
-        <span className="cinematic-stats-bar__value cinematic-stats-bar__pulse">CANLI</span>
-        <span className="cinematic-stats-bar__label">borsa terminali</span>
+      <div className="cinematic-stats-bar__item" data-testid="stats-live-exchange">
+        <span className="cinematic-stats-bar__value cinematic-stats-bar__pulse">{s.liveLabel}</span>
+        <span className="cinematic-stats-bar__label">{s.exchangeTerminal}</span>
       </div>
     </div>
   );

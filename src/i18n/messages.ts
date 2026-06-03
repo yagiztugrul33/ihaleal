@@ -1057,6 +1057,13 @@ export type NearbyMessages = {
   collapse: string;
 };
 
+export type CinematicStatsMessages = {
+  activeAuctions: string;
+  seoPages: string;
+  liveLabel: string;
+  exchangeTerminal: string;
+};
+
 export type Messages = {
   nav: NavMessages;
   home: HomeMessages;
@@ -1080,6 +1087,7 @@ export type Messages = {
   serviceFees: ServiceFeesMessages;
   commissionCalc: CommissionCalcMessages;
   nearby: NearbyMessages;
+  cinematicStats: CinematicStatsMessages;
 };
 
 /**
@@ -2153,6 +2161,12 @@ export const messages: Record<"en" | "tr", Messages> = {
       retry: "Try again",
       collapse: "Close",
     },
+    cinematicStats: {
+      activeAuctions: "active auctions",
+      seoPages: "SEO pages",
+      liveLabel: "LIVE",
+      exchangeTerminal: "exchange terminal",
+    },
   },
   tr: {
     nav: {
@@ -3219,6 +3233,12 @@ export const messages: Record<"en" | "tr", Messages> = {
       retry: "Tekrar dene",
       collapse: "Kapat",
     },
+    cinematicStats: {
+      activeAuctions: "aktif ihale",
+      seoPages: "SEO sayfa",
+      liveLabel: "CANLI",
+      exchangeTerminal: "borsa terminali",
+    },
   },
 };
 
@@ -4191,6 +4211,12 @@ const _ruOverrides: PartialDeep<Messages> = {
     retry: "Повторить",
     collapse: "Закрыть",
   },
+  cinematicStats: {
+    activeAuctions: "активных торгов",
+    seoPages: "SEO страниц",
+    liveLabel: "В ЭФИРЕ",
+    exchangeTerminal: "терминал биржи",
+  },
 };
 
 const _arOverrides: PartialDeep<Messages> = {
@@ -5147,6 +5173,12 @@ const _arOverrides: PartialDeep<Messages> = {
     unavailable: "متصفحك لا يدعم الوصول إلى الموقع.",
     retry: "أعد المحاولة",
     collapse: "إغلاق",
+  },
+  cinematicStats: {
+    activeAuctions: "مزاد نشط",
+    seoPages: "صفحات SEO",
+    liveLabel: "مباشر",
+    exchangeTerminal: "محطة البورصة",
   },
 };
 

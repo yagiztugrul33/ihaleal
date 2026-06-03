@@ -1,0 +1,94 @@
+{
+  "byLocale": {
+    "tr": {
+      "dir": "ltr",
+      "statBarExists": true,
+      "itemCount": 3,
+      "dividerCount": 2,
+      "labels": [
+        "aktif ihale",
+        "SEO sayfa",
+        "borsa terminali"
+      ],
+      "values": [
+        "9",
+        "6.552",
+        "CANLI"
+      ],
+      "hasEmDashInBar": false,
+      "allLabelsFound": true,
+      "forbiddenInBar": false,
+      "hasDigits": true,
+      "pageerror": 0
+    },
+    "en": {
+      "dir": "ltr",
+      "statBarExists": true,
+      "itemCount": 3,
+      "dividerCount": 2,
+      "labels": [
+        "active auctions",
+        "SEO pages",
+        "exchange terminal"
+      ],
+      "values": [
+        "1",
+        "770",
+        "LIVE"
+      ],
+      "hasEmDashInBar": false,
+      "allLabelsFound": true,
+      "forbiddenInBar": false,
+      "hasDigits": true,
+      "pageerror": 0
+    },
+    "ru": {
+      "dir": "ltr",
+      "statBarExists": true,
+      "itemCount": 3,
+      "dividerCount": 2,
+      "labels": [
+        "активных торгов",
+        "SEO страниц",
+        "терминал биржи"
+      ],
+      "values": [
+        "9",
+        "6.552",
+        "В ЭФИРЕ"
+      ],
+      "hasEmDashInBar": false,
+      "allLabelsFound": true,
+      "forbiddenInBar": false,
+      "hasDigits": true,
+      "pageerror": 0
+    },
+    "ar": {
+      "dir": "rtl",
+      "statBarExists": true,
+      "itemCount": 3,
+      "dividerCount": 2,
+      "labels": [
+        "مزاد نشط",
+        "صفحات SEO",
+        "محطة البورصة"
+      ],
+      "values": [
+        "3",
+        "1.837",
+        "مباشر"
+      ],
+      "hasEmDashInBar": false,
+      "allLabelsFound": true,
+      "forbiddenInBar": false,
+      "hasDigits": true,
+      "pageerror": 0
+    }
+  },
+  "regression": {
+    "ihalelerLoaded": true,
+    "hasNearbyShelf": true,
+    "swRegCount": 1,
+    "pageerror": 0
+  }
+}
