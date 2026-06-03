@@ -615,7 +615,7 @@ export function ChatWidget() {
                 >
                   <LayoutGrid className="w-3 h-3" aria-hidden />
                   Endeks
-                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                  <ChevronRight className="rtl:rotate-180 w-3 h-3 opacity-70" aria-hidden />
                 </Link>
                 <Link
                   to="/komisyon-modeli"
@@ -624,7 +624,7 @@ export function ChatWidget() {
                 >
                   <BadgePercent className="w-3 h-3" aria-hidden />
                   Gelir modeli
-                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                  <ChevronRight className="rtl:rotate-180 w-3 h-3 opacity-70" aria-hidden />
                 </Link>
                 <Link
                   to="/harita"
@@ -633,7 +633,7 @@ export function ChatWidget() {
                 >
                   <MapPin className="w-3 h-3" aria-hidden />
                   Harita
-                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                  <ChevronRight className="rtl:rotate-180 w-3 h-3 opacity-70" aria-hidden />
                 </Link>
                 <Link
                   to={KKA_HUB_PATH}
@@ -642,7 +642,7 @@ export function ChatWidget() {
                 >
                   <Landmark className="w-3 h-3" aria-hidden />
                   KKA
-                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                  <ChevronRight className="rtl:rotate-180 w-3 h-3 opacity-70" aria-hidden />
                 </Link>
                 <button
                   type="button"
@@ -654,7 +654,7 @@ export function ChatWidget() {
                 >
                   <Banknote className="w-3 h-3" aria-hidden />
                   Mortgage
-                  <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                  <ChevronRight className="rtl:rotate-180 w-3 h-3 opacity-70" aria-hidden />
                 </button>
                 {/* Platform çerçevesi link iç doküman — prod'da gizli. */}
                 {!isProdBuild ? (
@@ -665,7 +665,7 @@ export function ChatWidget() {
                   >
                     <Shield className="w-3 h-3" aria-hidden />
                     Platform çerçevesi
-                    <ChevronRight className="w-3 h-3 opacity-70" aria-hidden />
+                    <ChevronRight className="rtl:rotate-180 w-3 h-3 opacity-70" aria-hidden />
                   </Link>
                 ) : null}
               </div>
@@ -688,7 +688,7 @@ export function ChatWidget() {
               onClick={sendMessage}
               className="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white px-3 h-10 shadow-lg shadow-cyan-900/40 hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300 motion-reduce:hover:scale-100"
             >
-              <Send className="w-4 h-4" />
+              <Send className="rtl:-scale-x-100 w-4 h-4" />
             </Button>
           </div>
         </div>

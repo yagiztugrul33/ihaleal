@@ -24,7 +24,7 @@ export default function BlogPostPage() {
       <div className="mx-auto max-w-2xl">
         <Button variant="ghost" size="sm" className="mb-8 gap-2 text-slate-400" asChild>
           <Link to="/blog">
-            <ArrowLeft className="h-4 w-4" /> Blog
+            <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Blog
           </Link>
         </Button>
         <header className="mb-10">

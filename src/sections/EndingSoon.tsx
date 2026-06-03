@@ -42,7 +42,7 @@ export function EndingSoon() {
             <p className="mt-1" style={{ color: "var(--color-text-muted)" }}>Son teklif süresi yaklaşan fırsatları kaçırmayın</p>
           </div>
           <Button variant="outline" onClick={() => navigate("/ihaleler")} className="hidden md:flex btn-ghost">
-            Tüm ihaleler <ArrowRight className="w-4 h-4 ms-1" />
+            Tüm ihaleler <ArrowRight className="rtl:rotate-180 w-4 h-4 ms-1" />
           </Button>
         </div>
 

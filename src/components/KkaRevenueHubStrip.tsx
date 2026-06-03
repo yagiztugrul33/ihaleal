@@ -64,7 +64,7 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
               {kkaHubSubtitle}
             </span>
           </span>
-          <ChevronRight className="h-5 w-5 shrink-0 opacity-80 transition-transform group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0" aria-hidden />
+          <ChevronRight className="rtl:rotate-180 h-5 w-5 shrink-0 opacity-80 transition-transform group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0" aria-hidden />
         </Link>
 
         <div

@@ -147,7 +147,7 @@ export default function IntelligenceHub() {
               <p className="text-sm text-slate-400 mt-2 flex-1 leading-relaxed">{m.desc}</p>
               <Button asChild className="mt-6 w-full sm:w-auto gap-2 bg-white/10 hover:bg-white/15 border border-white/10">
                 <Link to={m.href}>
-                  Modülü aç <ArrowRight className="w-4 h-4" />
+                  Modülü aç <ArrowRight className="rtl:rotate-180 w-4 h-4" />
                 </Link>
               </Button>
             </motion.div>

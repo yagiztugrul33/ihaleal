@@ -51,7 +51,7 @@ export function LiveAuctionsShowcase() {
               <h2 className="ref-section-title">{auctions.title}</h2>
               <Link to={ROUTES.AUCTIONS} className="ref-link-arrow">
                 {auctions.viewAll}
-                <ArrowRight className="h-4 w-4" aria-hidden />
+                <ArrowRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
               </Link>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">

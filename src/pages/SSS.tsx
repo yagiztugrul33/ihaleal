@@ -361,7 +361,7 @@ export default function SSS() {
         </p>
         <Link to="/iletisim" className="btn-primary inline-flex gap-2 items-center">
           İletişim formu
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="rtl:rotate-180 w-4 h-4" />
         </Link>
       </section>
     </PageShell>

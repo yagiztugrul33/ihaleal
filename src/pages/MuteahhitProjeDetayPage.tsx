@@ -84,7 +84,7 @@ export default function MuteahhitProjeDetayPage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-5xl mx-auto">
         <Button variant="ghost" size="sm" onClick={() => navigate("/muteahhit/panel")} className="mb-4 gap-2 text-slate-400">
-          <ArrowLeft className="w-4 h-4" /> Panele dön
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Panele dön
         </Button>
 
         <div className="flex items-start justify-between gap-4 mb-6">

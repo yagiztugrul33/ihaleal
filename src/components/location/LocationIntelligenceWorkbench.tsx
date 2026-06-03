@@ -285,7 +285,7 @@ export function LocationIntelligenceWorkbench({
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
               <p className="text-sm text-cyan-100">Konum zekası tamamlandı. Sonraki adım: yatırım varsayımlarını fizibilite motoru ile birleştirme.</p>
               <Button type="button" className="bg-cyan-400 text-slate-950 hover:bg-cyan-300">
-                Değerleme başlat <ArrowRight className="ms-1.5 h-4 w-4" />
+                Değerleme başlat <ArrowRight className="rtl:rotate-180 ms-1.5 h-4 w-4" />
               </Button>
             </div>
           ) : null}

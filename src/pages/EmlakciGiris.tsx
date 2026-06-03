@@ -117,7 +117,7 @@ export function EmlakciGiris() {
     <div className="min-h-screen pt-20 pb-12 px-4">
       <div className="max-w-xl mx-auto">
         <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-4 -ms-2">
-          <ArrowLeft className="w-4 h-4" /> Ana Sayfa
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana Sayfa
         </Button>
 
         <motion.div

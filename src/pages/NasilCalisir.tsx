@@ -70,7 +70,7 @@ export default function NasilCalisir() {
           onClick={() => navigate("/")}
           className="text-slate-500 hover:text-slate-900 gap-2 mb-6"
         >
-          <ArrowLeft className="w-4 h-4" /> Ana sayfa
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
         </Button>
 
         <div
@@ -105,7 +105,7 @@ export default function NasilCalisir() {
                     onClick={() => navigate("/ihaleler")}
                   >
                     İhale listesine git
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="rtl:rotate-180 w-4 h-4" />
                   </Button>
                 </div>
               </CardContent>
@@ -115,7 +115,7 @@ export default function NasilCalisir() {
           <div className="flex flex-wrap gap-3 mt-6">
             <Button variant="secondary" className="gap-2 bg-white/10 hover:bg-white/15 border border-slate-200" asChild>
               <Link to="/ihaleler">
-                Canlı ihaleler <ChevronRight className="w-4 h-4" />
+                Canlı ihaleler <ChevronRight className="rtl:rotate-180 w-4 h-4" />
               </Link>
             </Button>
             <Button variant="ghost" className="text-slate-300" asChild>
@@ -311,7 +311,7 @@ export default function NasilCalisir() {
             <div className="flex flex-wrap justify-center gap-3">
               <Button className="gap-2 bg-gradient-to-r from-blue-600 to-cyan-400" asChild>
                 <Link to="/ihaleler">
-                  İhalelere göz at <ArrowRight className="w-4 h-4" />
+                  İhalelere göz at <ArrowRight className="rtl:rotate-180 w-4 h-4" />
                 </Link>
               </Button>
               <Button variant="outline" className="border-white/20 text-white hover:bg-white/10" asChild>

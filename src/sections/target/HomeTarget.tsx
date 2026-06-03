@@ -136,7 +136,7 @@ export function HomeTarget() {
               <Button asChild size="lg" className="min-h-12 min-w-[11rem]">
                 <Link to={ROUTES.ILANLAR}>
                   {h.hero.ctaExplore}
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="rtl:rotate-180 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="min-h-12 min-w-[11rem]">
@@ -247,7 +247,7 @@ function LiveChartCard({ live }: { live: HomeMessages["live"] }) {
       <Button asChild variant="link" className="h-auto p-0 text-sm font-semibold">
         <Link to={ROUTES.ILANLAR}>
           {live.view}
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="rtl:rotate-180 h-4 w-4" />
         </Link>
       </Button>
     </div>
@@ -394,7 +394,7 @@ function LiveAuctionsContent({ auctions }: { auctions: HomeMessages["auctions"] 
           className="inline-flex items-center gap-1 text-sm font-semibold text-blue-400 no-underline"
         >
           {auctions.viewAll}
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="rtl:rotate-180 h-4 w-4" />
         </Link>
       </div>
       <LiveAuctionsGrid auctions={auctions} />
@@ -435,7 +435,7 @@ function InvestorTrustSidebar({ how }: { how: HomeMessages["how"] }) {
                 <div className="text-[.8rem] font-semibold text-slate-100">{x.title}</div>
                 <div className="text-[.7rem] text-slate-500">{x.sub}</div>
               </div>
-              <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-slate-600" />
+              <ChevronRight className="rtl:rotate-180 mt-1 h-4 w-4 shrink-0 text-slate-600" />
             </div>
           );
         })}
@@ -509,7 +509,7 @@ function AuctionCard({
           </span>
           <span className="inline-flex items-center gap-0.5 font-medium text-blue-400">
             {item.bids}
-            <ChevronRight className="h-3.5 w-3.5" />
+            <ChevronRight className="rtl:rotate-180 h-3.5 w-3.5" />
           </span>
         </div>
       </div>

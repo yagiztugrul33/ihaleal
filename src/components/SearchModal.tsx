@@ -123,7 +123,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
                     <div className="text-sm font-bold text-blue-400">TRY {(auction.currentBid / 1000000).toFixed(1)}M</div>
                     <div className="text-xs text-slate-500">AI {auction.investmentScore}</div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-slate-600" />
+                  <ArrowRight className="rtl:rotate-180 w-4 h-4 text-slate-600" />
                 </button>
               ))}
               {results.length > 10 && (

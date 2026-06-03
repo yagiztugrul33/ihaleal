@@ -17,7 +17,7 @@ export default function NotificationsPage() {
     <div className="min-h-screen pt-24 pb-16">
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mb-4 gap-2 text-slate-500">
-          <ArrowLeft className="h-4 w-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
         </Button>
 
         <div className="flex flex-wrap items-center justify-between gap-3">

@@ -27,7 +27,7 @@ export default function OperationalReadiness() {
     <div className="min-h-screen pt-20 pb-16">
       <div className="max-w-4xl mx-auto px-4">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
-          <ArrowLeft className="w-4 h-4" /> Ana sayfa
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
         </Button>
 
         <h1 className="text-2xl font-bold text-white mb-2">Canlıya hazırlık — yapılacaklar listesi</h1>

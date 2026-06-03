@@ -165,7 +165,7 @@ export default function KkaParselStudioPage() {
     <div className="min-h-screen pt-24 pb-20 px-4 bg-slate-50">
       <div className="mx-auto max-w-5xl space-y-8">
         <Button variant="ghost" size="sm" onClick={() => navigate(KKA_HUB_PATH)} className="text-slate-500 hover:text-slate-900 gap-2">
-          <ArrowLeft className="w-4 h-4" /> Kat karsiligi modulune don
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Kat karsiligi modulune don
         </Button>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">

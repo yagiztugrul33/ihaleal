@@ -137,7 +137,7 @@ export default function AboneOnay() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Button asChild variant="accent">
             <Link to="/raporlar">
-              Endeks raporları <ArrowRight className="ms-1.5 h-4 w-4" />
+              Endeks raporları <ArrowRight className="rtl:rotate-180 ms-1.5 h-4 w-4" />
             </Link>
           </Button>
           <Button variant="outline" onClick={() => navigate("/")} className="border-white/15 text-slate-200">

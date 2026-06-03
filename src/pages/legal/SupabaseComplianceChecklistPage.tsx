@@ -26,7 +26,7 @@ export default function SupabaseComplianceChecklistPage() {
           onClick={() => navigate(-1)}
           className="text-slate-500 hover:text-slate-900 gap-2"
         >
-          <ArrowLeft className="h-4 w-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
         </Button>
 
         <div className="relative overflow-hidden rounded-3xl border border-teal-500/20 bg-gradient-to-br from-white/90 via-slate-950/95 to-slate-900/90 p-6 sm:p-8 shadow-2xl shadow-teal-950/30">

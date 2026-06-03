@@ -245,7 +245,7 @@ export default function Profile() {
                         <p className="text-lg font-bold text-white" dir="ltr">{favorites.length}</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-rose-300 transition-colors" />
+                    <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-rose-300 transition-colors" />
                   </Link>
                   <Link to="/aramalarim" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-cyan-500/10 border border-transparent hover:border-cyan-400/30 transition-colors group">
                     <div className="flex items-center gap-2.5">
@@ -255,7 +255,7 @@ export default function Profile() {
                         <p className="text-lg font-bold text-white" dir="ltr">{savedApi.loading ? "…" : savedApi.searches.length}</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-300 transition-colors" />
+                    <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-cyan-300 transition-colors" />
                   </Link>
                   <Link to="/panel/tekliflerim" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-amber-500/10 border border-transparent hover:border-amber-400/30 transition-colors group">
                     <div className="flex items-center gap-2.5">
@@ -265,7 +265,7 @@ export default function Profile() {
                         <p className="text-lg font-bold text-white" dir="ltr">{buyerOffers.loading ? "…" : pendingOffers}</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 transition-colors" />
+                    <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-amber-300 transition-colors" />
                   </Link>
                   <Link to="/panel" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-blue-500/10 border border-transparent hover:border-blue-400/30 transition-colors group">
                     <div className="flex items-center gap-2.5">
@@ -275,7 +275,7 @@ export default function Profile() {
                         <p className="text-sm font-semibold text-white" dir="ltr">/panel</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-blue-300 transition-colors" />
+                    <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-blue-300 transition-colors" />
                   </Link>
                 </div>
               </CardContent>

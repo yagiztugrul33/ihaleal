@@ -28,7 +28,7 @@ export function ModuleRelatedStrip({ title = "İlgili modüller", modules }: { t
                 <p className="mod-related__card-desc">{m.description}</p>
                 <span className="mod-related__cta">
                   Modüle git
-                  <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                  <ArrowRight className="rtl:rotate-180 h-3.5 w-3.5" aria-hidden />
                 </span>
               </div>
             </Link>

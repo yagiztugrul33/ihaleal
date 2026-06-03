@@ -26,7 +26,7 @@ export function HomeCorporateCta() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link to={ROUTES.SERVICES} className="ref-btn-primary">
               Kurumsal Çözümler
-              <ArrowRight className="h-4 w-4" aria-hidden />
+              <ArrowRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
             </Link>
             <Link to="/kurumsal/iletisim" className="ref-btn-secondary">
               Demo Talep Et

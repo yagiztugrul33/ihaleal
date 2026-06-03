@@ -88,7 +88,7 @@ export default function Compare() {
     <div ref={ref} className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2"><ArrowLeft className="w-4 h-4" /> Geri</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3"><GitCompare className="w-8 h-8 text-cyan-400" /> Gayrimenkul Karşılaştırma</h1>
           <p className="text-slate-400 mt-2">İlanları yan yana karşılaştırın; AI skorları ve belge özeti ile seçim yapın.</p>
         </div>
@@ -146,7 +146,7 @@ export default function Compare() {
                       <span className="text-sm text-emerald-400">AI tahmini: ₺{winner.auction.aiPredictedPrice.toLocaleString("tr-TR")}</span>
                     </div>
                   </div>
-                  <Button onClick={() => navigate(`/ilan/${winner.auction.id}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white whitespace-nowrap">Detaylar <ArrowRight className="w-4 h-4 ms-1" /></Button>
+                  <Button onClick={() => navigate(`/ilan/${winner.auction.id}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white whitespace-nowrap">Detaylar <ArrowRight className="rtl:rotate-180 w-4 h-4 ms-1" /></Button>
                 </div>
                 <ListingDocumentFooter auction={winner.auction} showTopRule={false} />
               </div>

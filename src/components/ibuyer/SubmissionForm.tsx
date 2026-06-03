@@ -222,7 +222,7 @@ export function SubmissionForm() {
             </label>
           </div>
           <Button type="button" onClick={() => setStep(2)} className="mt-2">
-            Devam <ArrowRight className="h-4 w-4" />
+            Devam <ArrowRight className="rtl:rotate-180 h-4 w-4" />
           </Button>
         </div>
       )}
@@ -283,7 +283,7 @@ export function SubmissionForm() {
 
           <div className="flex gap-2">
             <Button type="button" variant="outline" onClick={() => setStep(1)}>
-              <ArrowLeft className="h-4 w-4" /> Geri
+              <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
             </Button>
             <Button type="button" disabled={loading} onClick={onSubmit}>
               {loading ? (

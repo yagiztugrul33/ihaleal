@@ -233,7 +233,7 @@ export default function Analytics() {
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
-            <ArrowLeft className="w-4 h-4" /> Geri
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex flex-wrap items-center gap-3">
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/35 bg-cyan-500/10" aria-hidden>

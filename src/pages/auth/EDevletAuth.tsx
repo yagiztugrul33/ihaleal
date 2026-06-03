@@ -20,7 +20,7 @@ export default function EDevletAuth() {
     <div className="min-h-screen pt-24 pb-16 px-4" data-demo="true">
       <div className="max-w-md mx-auto space-y-6">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
         <div className="rounded-2xl border border-slate-200 bg-slate-900/60 p-6 text-center space-y-4">
           <ShieldCheck className="w-12 h-12 text-teal-400 mx-auto" />

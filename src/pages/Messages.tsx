@@ -185,7 +185,7 @@ export default function MessagesPage() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 w-fit">
-            <ArrowLeft className="w-4 h-4" /> Geri
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
           <p className="text-xs text-slate-500 max-w-xl">
             Üçlü sohbet: ortak emlakçı, alıcı ve satıcı kanalı (demo). Gerçek hukuki bağlayıcılık için kayıtlı süreç ve sözleşme çizgisine bakınız.
@@ -339,7 +339,7 @@ export default function MessagesPage() {
                       <Paperclip className="w-4 h-4" />
                     </Button>
                     <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2 px-6" onClick={send}>
-                      <Send className="w-4 h-4" /> Gönder
+                      <Send className="rtl:-scale-x-100 w-4 h-4" /> Gönder
                     </Button>
                   </div>
                 </div>

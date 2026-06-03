@@ -62,7 +62,7 @@ export default function UserPanel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
         <aside className="lg:w-64 shrink-0 space-y-4">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2">
-            <ArrowLeft className="w-4 h-4" /> Ana sayfa
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
           </Button>
           <nav className="rounded-2xl border border-slate-200 bg-slate-900/40 p-2 space-y-1">
             {sidebar.map((item) => (

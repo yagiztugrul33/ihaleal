@@ -220,7 +220,7 @@ export default function YikilanBinalarArsiviPage() {
           </div>
           <div className="mod-form-actions">
             <button type="submit" className="mod-btn-primary">
-              <Send className="h-4 w-4" aria-hidden />
+              <Send className="rtl:-scale-x-100 h-4 w-4" aria-hidden />
               Başvuruyu gönder
             </button>
           </div>

@@ -65,7 +65,7 @@ export default function DocumentsPage() {
     <div className="min-h-screen pt-24 pb-16 bg-slate-50 px-4">
       <div className="max-w-4xl mx-auto">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">

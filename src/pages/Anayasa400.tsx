@@ -271,7 +271,7 @@ export function Anayasa400() {
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <Button variant="ghost" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
-            <ArrowLeft className="w-4 h-4" /> Ana Sayfa
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana Sayfa
           </Button>
           <div className="text-center mb-10">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
@@ -413,7 +413,7 @@ export function Anayasa400() {
             Üst kısım İhaleAL platform kurallarının özeti; madde numaraları 201–400 olan blok 4734 sayılı Kanun hatırlatıcılarıdır. Bağlayıcı metinler için kullanım koşulları ve güncel mevzuat esas alınmalıdır.
           </p>
           <Button variant="outline" size="sm" onClick={() => navigate("/")} className="border-slate-200 text-slate-300 hover:text-white">
-            <ArrowLeft className="w-4 h-4 me-2" /> Ana Sayfaya Dön
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4 me-2" /> Ana Sayfaya Dön
           </Button>
         </div>
       </div>

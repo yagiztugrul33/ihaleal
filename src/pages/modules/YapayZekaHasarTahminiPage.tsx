@@ -264,7 +264,7 @@ export default function YapayZekaHasarTahminiPage() {
             <div className="mod-pdf-cta mt-6">
               <p>Lisanslı statik mühendis ve eksper görüşü için randevu planlayın.</p>
               <Link to="/modul/uzman-randevu" className="mod-btn-primary">
-                <ArrowRight className="h-4 w-4" aria-hidden />
+                <ArrowRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
                 Uzman randevusu
               </Link>
             </div>

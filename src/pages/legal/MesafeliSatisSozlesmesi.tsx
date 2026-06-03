@@ -19,7 +19,7 @@ export default function MesafeliSatisSozlesmesi() {
           onClick={() => navigate(-1)}
           className="text-slate-500 hover:text-white gap-2"
         >
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
         <div>

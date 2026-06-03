@@ -50,7 +50,7 @@ export function TerminalHero() {
       <nav className="terminal-hero__nav" aria-label="Hızlı yönlendirme">
         {options.map((opt) => (
           <Link key={opt.label} to={opt.href} className="terminal-hero__link">
-            <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-70" aria-hidden />
+            <ChevronRight className="rtl:rotate-180 h-3.5 w-3.5 shrink-0 opacity-70" aria-hidden />
             {opt.label}
           </Link>
         ))}

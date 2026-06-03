@@ -62,7 +62,7 @@ export default function LegalTemplatesPage() {
             onClick={() => setPreviewId(null)}
             className="text-slate-500 hover:text-white gap-2"
           >
-            <ChevronLeft className="w-4 h-4" /> Şablon listesine dön
+            <ChevronLeft className="rtl:rotate-180 w-4 h-4" /> Şablon listesine dön
           </Button>
 
           <div>
@@ -152,7 +152,7 @@ export default function LegalTemplatesPage() {
           onClick={() => navigate(-1)}
           className="text-slate-500 hover:text-white gap-2"
         >
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
         <div>

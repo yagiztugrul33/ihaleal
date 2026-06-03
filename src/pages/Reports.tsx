@@ -503,7 +503,7 @@ export default function Reports() {
                     to={`/rapor/${r.id}`}
                     className="mt-3 inline-flex items-center text-xs font-medium text-blue-400 hover:text-blue-300"
                   >
-                    Belgeyi aç <ChevronRight className="w-3 h-3 ms-0.5" />
+                    Belgeyi aç <ChevronRight className="rtl:rotate-180 w-3 h-3 ms-0.5" />
                   </Link>
                 </CardContent>
               </Card>

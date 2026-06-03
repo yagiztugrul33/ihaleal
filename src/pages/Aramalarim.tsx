@@ -80,7 +80,7 @@ export default function Aramalarim() {
       <div className="min-h-screen pt-24 pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 mb-6 mx-auto">
-            <ArrowLeft className="w-4 h-4" /> Geri
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-4">
             <Bookmark className="h-3.5 w-3.5" /> Aramalarım
@@ -131,7 +131,7 @@ export default function Aramalarim() {
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-4">
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">

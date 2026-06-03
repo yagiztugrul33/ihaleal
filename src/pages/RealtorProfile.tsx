@@ -53,7 +53,7 @@ export default function RealtorProfilePage() {
       <div className="mx-auto max-w-4xl space-y-8">
         <Button variant="ghost" size="sm" className="gap-2 text-slate-400" asChild>
           <Link to="/emlakçıler">
-            <ArrowLeft className="h-4 w-4" /> Ortak emlakçılar
+            <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Ortak emlakçılar
           </Link>
         </Button>
 

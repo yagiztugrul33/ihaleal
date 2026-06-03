@@ -66,7 +66,7 @@ export function Newsletter() {
                     className="flex-1 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] h-12"
                   />
                   <Button type="submit" disabled={!consent} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold h-12 px-6 disabled:opacity-40">
-                    <Send className="w-4 h-4 me-2" /> Abone Ol
+                    <Send className="rtl:-scale-x-100 w-4 h-4 me-2" /> Abone Ol
                   </Button>
                 </div>
                 <label className="flex items-start gap-2 text-xs text-slate-500 text-start cursor-pointer">

@@ -134,7 +134,7 @@ export default function AdminDashboard() {
       back={
         <Link to="/">
           <Button variant="ghost" size="sm" className="gap-2 text-slate-400">
-            <ArrowLeft className="w-4 h-4" /> Siteye dön
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Siteye dön
           </Button>
         </Link>
       }

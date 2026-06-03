@@ -17,7 +17,7 @@ export default function RehberArticlePage() {
     <div className="min-h-screen pt-24 pb-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <Button variant="ghost" size="sm" onClick={() => window.history.back()} className="mb-4 gap-2 text-slate-500">
-          <ArrowLeft className="h-4 w-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
         </Button>
 
         <PageBreadcrumbs

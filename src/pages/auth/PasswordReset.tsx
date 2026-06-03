@@ -30,7 +30,7 @@ export default function PasswordReset() {
     <div className="min-h-screen flex items-center justify-center px-4 pt-24 pb-16" data-demo="true">
       <div className="w-full max-w-md">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-6 gap-2 text-slate-500 hover:text-slate-900">
-          <ArrowLeft className="h-4 w-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
         </Button>
         <Card className="border-slate-200/80 bg-slate-900/50 shadow-xl">
           <CardContent className="p-8">

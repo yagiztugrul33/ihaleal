@@ -52,7 +52,7 @@ export default function SettingsPage() {
     <div className="min-h-screen pt-24 pb-16 bg-slate-50 px-4">
       <div className="max-w-2xl mx-auto">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
         <h1 className="text-3xl font-bold text-white mb-2">Ayarlar</h1>

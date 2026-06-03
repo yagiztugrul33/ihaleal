@@ -62,7 +62,7 @@ export default function Guide() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
-            <ArrowLeft className="w-4 h-4" /> Geri
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
             <HelpCircle className="w-8 h-8 text-blue-400" />

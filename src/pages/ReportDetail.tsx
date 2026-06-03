@@ -26,7 +26,7 @@ export default function ReportDetail() {
       <article className="mx-auto max-w-3xl">
         <Button asChild variant="ghost" size="sm" className="mb-8 text-slate-500 hover:text-slate-900">
           <Link to="/raporlar" className="gap-2">
-            <ArrowLeft className="h-4 w-4" /> Tüm belgeler
+            <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Tüm belgeler
           </Link>
         </Button>
 

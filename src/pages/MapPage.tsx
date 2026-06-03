@@ -246,7 +246,7 @@ export default function MapPage() {
         <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2">
-              <ArrowLeft className="w-4 h-4" /> Geri
+              <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
             </Button>
             <h1 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
               <MapPin className="w-6 h-6 text-blue-400" /> Harita Üzerinden Arama

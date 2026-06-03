@@ -49,7 +49,7 @@ export default function Login() {
     <div className="min-h-screen pt-24 pb-16 flex items-center justify-center" data-demo="true">
       <div className="w-full max-w-md px-4">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 space-y-5">

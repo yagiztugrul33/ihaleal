@@ -104,7 +104,7 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
               <ul className="space-y-1 text-xs">
                 {w.checklist.map((c, i) => (
                   <li key={i} className="flex items-start gap-2 text-slate-300">
-                    <ChevronRight className="h-3 w-3 text-slate-500 flex-shrink-0 mt-0.5" />
+                    <ChevronRight className="rtl:rotate-180 h-3 w-3 text-slate-500 flex-shrink-0 mt-0.5" />
                     <span>{c}</span>
                   </li>
                 ))}

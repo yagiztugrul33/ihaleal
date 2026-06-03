@@ -249,7 +249,7 @@ export default function RealtorPartnershipPage() {
                   </label>
                 </div>
                 <Button type="submit" className="w-full gap-2 bg-gradient-to-r from-blue-500 to-teal-400 font-semibold text-white">
-                  <Send className="h-4 w-4" /> Gönder (demo)
+                  <Send className="rtl:-scale-x-100 h-4 w-4" /> Gönder (demo)
                 </Button>
               </CardContent>
             </Card>

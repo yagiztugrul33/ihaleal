@@ -32,13 +32,13 @@ export function ModuleShell({
               <Link to="/">Ana Sayfa</Link>
             </li>
             <li aria-hidden className="text-slate-600">
-              <ChevronRight className="inline h-3.5 w-3.5" />
+              <ChevronRight className="rtl:rotate-180 inline h-3.5 w-3.5" />
             </li>
             <li>
               <Link to={INTELLIGENCE_HUB_PATH}>Araştırma</Link>
             </li>
             <li aria-hidden className="text-slate-600">
-              <ChevronRight className="inline h-3.5 w-3.5" />
+              <ChevronRight className="rtl:rotate-180 inline h-3.5 w-3.5" />
             </li>
             <li className="text-slate-200">{title}</li>
           </ol>

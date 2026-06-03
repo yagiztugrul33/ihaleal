@@ -68,7 +68,7 @@ export default function BusinessModel() {
     <div className="min-h-screen pt-20 pb-16">
       <div className="max-w-4xl mx-auto px-4">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
-          <ArrowLeft className="w-4 h-4" /> Ana sayfa
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
         </Button>
 
         <div className="rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-[#0a1525] to-slate-900/80 p-6 sm:p-8 mb-8 shadow-xl shadow-black/30">
@@ -95,7 +95,7 @@ export default function BusinessModel() {
               className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-semibold gap-2 shadow-lg shadow-emerald-900/40"
             >
               <Calculator className="w-5 h-5" /> Komisyon hesaplayıcı
-              <ArrowRight className="w-4 h-4 opacity-80" />
+              <ArrowRight className="rtl:rotate-180 w-4 h-4 opacity-80" />
             </Button>
             <Button
               size="lg"

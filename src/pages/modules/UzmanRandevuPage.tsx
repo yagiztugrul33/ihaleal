@@ -217,7 +217,7 @@ export default function UzmanRandevuPage() {
               <p>Musait saatler: {selected.availableSlotsThisWeek.join(", ")}</p>
               <button type="button" className="mod-btn-primary mt-2" onClick={() => setStep(2)}>
                 Devam
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="rtl:rotate-180 h-4 w-4" />
               </button>
             </div>
           ) : null}
@@ -246,7 +246,7 @@ export default function UzmanRandevuPage() {
               </div>
               <div className="mod-form-actions">
                 <button type="button" className="mod-btn-secondary" onClick={() => setStep(1)}>
-                  <ChevronLeft className="h-4 w-4" /> Geri
+                  <ChevronLeft className="rtl:rotate-180 h-4 w-4" /> Geri
                 </button>
                 <button type="button" className="mod-btn-primary" onClick={() => setStep(3)} disabled={!date || !slot}>
                   Ozet

@@ -270,7 +270,7 @@ export default function KentselDonusumPage() {
         <Link to="/kat-karsiligi-arsa" className="mod-btn-primary">
           <Landmark className="h-4 w-4" aria-hidden />
           Kat karşılığı arsa modülü
-          <ChevronRight className="h-4 w-4" aria-hidden />
+          <ChevronRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
         </Link>
         <Link to="/modul/uzman-randevu" className="mod-btn-secondary">
           <Users className="h-4 w-4" aria-hidden />

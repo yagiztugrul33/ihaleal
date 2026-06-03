@@ -12,7 +12,7 @@ export default function LegalMasterBrief() {
     <div className="min-h-screen pt-20 pb-16">
       <div className="mx-auto max-w-4xl px-4">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-6 gap-2 text-slate-500 hover:text-slate-900">
-          <ArrowLeft className="h-4 w-4" /> Ana sayfa
+          <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Ana sayfa
         </Button>
 
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

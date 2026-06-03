@@ -15,7 +15,7 @@ export default function FraudDefenseArchitecturePage() {
     <div className="min-h-screen pt-20 pb-16 px-4">
       <div className="mx-auto max-w-4xl space-y-8">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
-          <ArrowLeft className="h-4 w-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
         </Button>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

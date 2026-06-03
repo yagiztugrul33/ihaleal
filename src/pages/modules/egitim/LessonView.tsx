@@ -119,16 +119,16 @@ export function LessonView({ lesson }: { lesson: LessonDefinition }) {
       <nav className="mod-no-print mt-6 flex flex-wrap items-center justify-between gap-3">
         {prevId ? (
           <Link to={`/modul/deprem-egitimi/ders-${prevId}`} className="mod-btn-secondary">
-            <ChevronLeft className="h-4 w-4" /> Önceki ders
+            <ChevronLeft className="rtl:rotate-180 h-4 w-4" /> Önceki ders
           </Link>
         ) : (
           <Link to="/modul/deprem-egitimi" className="mod-btn-secondary">
-            <ChevronLeft className="h-4 w-4" /> Programa dön
+            <ChevronLeft className="rtl:rotate-180 h-4 w-4" /> Programa dön
           </Link>
         )}
         {nextId ? (
           <Link to={`/modul/deprem-egitimi/ders-${nextId}`} className="mod-btn-primary">
-            Sonraki ders <ChevronRight className="h-4 w-4" />
+            Sonraki ders <ChevronRight className="rtl:rotate-180 h-4 w-4" />
           </Link>
         ) : (
           <Link to="/modul/deprem-egitimi" className="mod-btn-primary">

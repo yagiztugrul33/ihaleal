@@ -64,7 +64,7 @@ export function Hero() {
             <motion.div className="mt-10 flex flex-wrap items-center gap-4">
               <Link to={ROUTES.AUCTIONS} className="ref-btn-primary premium-primary-button">
                 {h.hero.ctaExplore}
-                <ArrowRight className="h-4 w-4" aria-hidden />
+                <ArrowRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
               </Link>
               <Link to={ROUTES.NASIL_CALISIR} className="ref-btn-secondary premium-secondary-button">
                 <Play className="h-4 w-4 fill-current opacity-90" aria-hidden />

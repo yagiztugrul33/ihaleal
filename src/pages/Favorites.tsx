@@ -57,7 +57,7 @@ export default function Favorites() {
               onClick={() => navigate(-1)}
               className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 transition-colors mb-3"
             >
-              <ArrowLeft className="w-4 h-4" /> Geri
+              <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
             </button>
             <h1 className="text-3xl sm:text-4xl font-bold text-white flex items-center gap-3">
               <Heart className="w-8 h-8 text-pink-500 fill-current" />

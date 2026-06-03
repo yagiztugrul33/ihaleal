@@ -265,13 +265,13 @@ export default function DepremCantasiPage() {
           <div className="mod-form-actions mod-no-print mt-4">
             {step > 0 ? (
               <button type="button" className="mod-btn-secondary" onClick={prev}>
-                <ChevronLeft className="h-4 w-4" aria-hidden />
+                <ChevronLeft className="rtl:rotate-180 h-4 w-4" aria-hidden />
                 Geri
               </button>
             ) : null}
             <button type="button" className="mod-btn-primary" onClick={next}>
               {step < 4 ? "İleri" : "Listeyi kilitle"}
-              <ChevronRight className="h-4 w-4" aria-hidden />
+              <ChevronRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
             </button>
           </div>
         </ModulePanel>

@@ -61,7 +61,7 @@ export default function LegalScenarioPage() {
           onClick={() => navigate(-1)}
           className="text-slate-500 hover:text-white gap-2"
         >
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
         <div>
@@ -314,7 +314,7 @@ export default function LegalScenarioPage() {
               <ul className="space-y-2">
                 {analysis.aiYorum.map((y, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                    <ChevronRight className="h-3.5 w-3.5 text-cyan-300 flex-shrink-0 mt-0.5" />
+                    <ChevronRight className="rtl:rotate-180 h-3.5 w-3.5 text-cyan-300 flex-shrink-0 mt-0.5" />
                     <span>{y}</span>
                   </li>
                 ))}

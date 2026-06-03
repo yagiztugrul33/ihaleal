@@ -73,7 +73,7 @@ export default function ParselZekasiPage() {
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-cyan-500/30 bg-cyan-500/10 p-3">
             <p className="text-sm text-cyan-100">Katman skorlarını imar ve fizibilite raporuna taşıyarak tek panel karar akışı kurun.</p>
             <Button type="button" className="bg-cyan-400 text-slate-950 hover:bg-cyan-300">
-              Değerleme başlat <ArrowRight className="ms-1.5 h-4 w-4" />
+              Değerleme başlat <ArrowRight className="rtl:rotate-180 ms-1.5 h-4 w-4" />
             </Button>
           </div>
         </ModulePanel>

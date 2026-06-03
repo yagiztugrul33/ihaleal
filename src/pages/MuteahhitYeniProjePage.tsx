@@ -178,7 +178,7 @@ export default function MuteahhitYeniProjePage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-3xl mx-auto">
         <Button variant="ghost" size="sm" onClick={() => navigate("/muteahhit/panel")} className="mb-4 gap-2 text-slate-400">
-          <ArrowLeft className="w-4 h-4" /> Panele dön
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Panele dön
         </Button>
 
         <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
@@ -350,12 +350,12 @@ export default function MuteahhitYeniProjePage() {
             <div className="flex items-center justify-between pt-4 border-t border-slate-200/80">
               {step > 1 ? (
                 <Button type="button" variant="outline" size="sm" onClick={back} className="gap-2">
-                  <ArrowLeft className="w-4 h-4" /> Geri
+                  <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
                 </Button>
               ) : <div />}
               {step < 4 ? (
                 <Button type="button" size="sm" onClick={next} className="gap-2 bg-blue-600 hover:bg-blue-500">
-                  Devam <ArrowRight className="w-4 h-4" />
+                  Devam <ArrowRight className="rtl:rotate-180 w-4 h-4" />
                 </Button>
               ) : (
                 <Button type="button" size="sm" onClick={save} disabled={busy} className="gap-2 bg-emerald-600 hover:bg-emerald-500">

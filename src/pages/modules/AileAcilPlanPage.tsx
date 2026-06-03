@@ -149,7 +149,7 @@ export default function AileAcilPlanPage() {
               to="/modul/bina-risk-sorgu"
               className="inline-flex items-center gap-2 text-sm text-sky-300 hover:underline"
             >
-              Bina risk özetine geç <ChevronRight className="h-4 w-4" aria-hidden />
+              Bina risk özetine geç <ChevronRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
             </Link>
           </div>
 
@@ -287,12 +287,12 @@ export default function AileAcilPlanPage() {
 
             <div className="flex flex-wrap justify-between gap-3">
               <button type="button" className="mod-btn-secondary" onClick={prev} disabled={step === 0}>
-                <ChevronLeft className="h-4 w-4" aria-hidden />
+                <ChevronLeft className="rtl:rotate-180 h-4 w-4" aria-hidden />
                 Geri
               </button>
               {step < 5 ? (
                 <button type="button" className="mod-btn-primary" onClick={next}>
-                  İleri <ChevronRight className="h-4 w-4" aria-hidden />
+                  İleri <ChevronRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
                 </button>
               ) : (
                 <button type="button" className="mod-btn-primary" onClick={() => setFinalized(true)} disabled={finalized}>

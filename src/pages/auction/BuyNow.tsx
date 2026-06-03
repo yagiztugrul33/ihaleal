@@ -86,7 +86,7 @@ export default function BuyNow() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-lg mx-auto space-y-6">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
         <div className="rounded-2xl border border-cyan-400/20 bg-white/90 backdrop-blur-xl p-6 shadow-xl space-y-4">
           <h1 className="text-xl font-bold text-white flex items-center gap-2">

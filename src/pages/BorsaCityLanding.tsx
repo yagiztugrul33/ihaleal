@@ -141,7 +141,7 @@ export default function BorsaCityLanding() {
     <div className="min-h-screen pt-24 pb-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 mb-4">
-          <ArrowLeft className="w-4 h-4" /> Geri
+          <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
         <PageBreadcrumbs
@@ -448,7 +448,7 @@ export default function BorsaCityLanding() {
             <div className="mt-4 text-center">
               <Button asChild variant="outline" className="border-cyan-400/40 text-cyan-200 hover:bg-cyan-500/10">
                 <Link to={`/arama?city=${province.name}`}>
-                  Tümünü gör ({cityListings.length}) <ChevronRight className="w-4 h-4 ms-1" />
+                  Tümünü gör ({cityListings.length}) <ChevronRight className="rtl:rotate-180 w-4 h-4 ms-1" />
                 </Link>
               </Button>
             </div>

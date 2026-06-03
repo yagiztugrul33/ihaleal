@@ -98,7 +98,7 @@ export function BorsaLayout() {
             </Button>
             <Button asChild type="button" size="sm" variant="outline" className="h-8 text-xs">
               <Link to="/">
-                <ArrowLeft className="me-1.5 h-3.5 w-3.5" />
+                <ArrowLeft className="rtl:rotate-180 me-1.5 h-3.5 w-3.5" />
                 Ana Site
               </Link>
             </Button>

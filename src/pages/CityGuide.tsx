@@ -231,7 +231,7 @@ export default function CityGuide() {
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-2">
-            <ArrowLeft className="w-4 h-4" /> Geri
+            <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
