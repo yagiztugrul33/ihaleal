@@ -355,3 +355,184 @@ Build son satırları: `✓ built in 30.07s` · `PWA v1.3.0 / mode generateSW` �
 ## KAPI 3
 
 Bu bölüm + `public/denetim.json` `scripts/denetim-uret.mjs` ile yeniden üretildi.
+
+---
+
+# Perf turu — Ö2 performans 70 → 76 (2026-08-05, ref `73b9946` → `e9a95b4`)
+
+## Ölçüm yöntemi ve gürültü (önce dürüstlük notu)
+
+**PSI (PageSpeed Insights) KULLANILAMADI.** Neden, kanıtla:
+
+- Staging'in Vercel preview URL'leri SSO duvarının arkasında:
+  `https://ihaleal-2cnqhi7uh-yagizo.vercel.app` → `HTTP 302` → `vercel.com/sso-api?...`.
+  PSI bu sayfayı çekemez.
+- `www.ihaleal.com` **herkese açık (HTTP 200)** ama **staging kodunu servis etmiyor**:
+  son Production deployment `3ed3869` / 2026-06-03; canlı HTML'de `assets/index-EzvbZe4l.js`
+  ve `vendor-charts` var, `vendor-utils` / `vendor-leaflet` yok — yani bu turun ve önceki turun
+  chunk ayrımından önceki build. Bu URL'e PSI koşmak staging değişikliklerini ölçmezdi.
+
+Bu yüzden **yerel Lighthouse** kullanıldı. Kurulum ve karşılaşılan üç engel:
+
+| Engel | Belirti | Çözüm |
+|---|---|---|
+| Chrome kurulu değil | `No Chrome installations found` | `CHROME_PATH` → Edge (Chromium) `msedge.exe` |
+| `vite preview` başlıklarındaki `Cross-Origin-Opener-Policy: same-origin` | Her turda `NO_NAVSTART`, hiçbir metrik üretilemiyor | Ölçüm, COOP göndermeyen minimal statik sunucuyla yapıldı (üretimdeki gibi **gzip**'li) |
+| chrome-launcher geçici profili silemiyor (Windows `EPERM`) | Zombi `msedge` süreçleri sonraki turları bozuyor | Her turdan önce `taskkill`; rapor JSON'u yazıldıysa tur geçerli sayılır |
+
+Ölçüm sunucusu üretimi taklit eder: metin varlıkları gzip'li, `assets/` uzun cache'li.
+
+**Gürültü:** temel ölçüm çok kararlıydı (5/5 tur 70-71). Font aktivasyonu `load` sonrasına
+alındıktan sonra dağılım **çift tepeli** hâle geldi (turların bir kısmı FCP ~3.0-3.5 sn /
+TBT ~150 ms, bir kısmı FCP ~4.05 sn / TBT 0) — bu yüzden final ölçüm **5 değil 9 tur** koşuldu.
+5 turluk bir final ölçüm medyanı 79 verdi, 9 turluk 76; **raporlanan sayı 9 turluk olan 76'dır**
+(daha güvenilir). Tek turluk sonuçlara karar bağlanmadı.
+
+## Önce / sonra (yerel Lighthouse, mobil, simüle kısıtlama)
+
+| Metrik | Önce (`73b9946`, 5 tur) | Sonra (`e9a95b4`, soğuk klon, 9 tur) | Fark |
+|---|---|---|---|
+| **Performans** | **70** (aralık 70-71) | **76** (aralık 75-77) | **+6** |
+| FCP | 4657 ms (4531-4684) | 3635 ms (3122-4081) | −1022 ms |
+| LCP | 4893 ms (4879-4909) | 4115 ms (3831-4460) | −778 ms |
+| Speed Index | 4657 ms | 3635 ms | −1022 ms |
+| TBT | 0 ms | 145 ms (0-336) | +145 ms |
+| CLS | 0.0032 | 0.0028 (0-0.0034) | −0.0004 |
+
+TBT artışı bilinçli takas: font `media` geçişi ve tembel Supabase chunk'ı ilk boyamadan
+sonra biraz ana iş parçacığı işi ekliyor. TBT'nin ağırlığı %30 olduğu hâlde 145 ms hâlâ
+"iyi" bandında (<200 ms) ve FCP/LCP/SI kazancı net pozitif.
+
+Diğer kategoriler **bozulmadı** (tam kategori koşusu, `e9a95b4`):
+**Erişilebilirlik 100 · En iyi uygulamalar 100 · SEO 100.**
+`npm run typecheck` **0 hata**, `npm run build` **exit 0**.
+
+## Kabul edilen düzeltmeler ve her birinin ÖLÇÜLEN etkisi
+
+Her adım ayrı ölçüldü; sıra önemli (6. madde bunu kanıtlıyor).
+
+| # | Commit | Değişiklik | Ölçülen etki (medyan) |
+|---|---|---|---|
+| 1 | `ddcdb60` | Yanlış LCP preload (`/icon-192.png`) kaldırıldı, `fetchPriority="high"` görsele taşındı | Perf 70→70 (nötr), CLS medyanı 0.0032→0 |
+| 2 | `aa0633d` | **`vendor-supabase` kritik yoldan çıkarıldı** (SDK dinamik import) | **Perf 70→74**, FCP −411 ms, LCP −436 ms (5/5 tur aynı skor) |
+| 3 | `0518d78` | `preview-noindex.js` + `hash-redirect.js` `defer`; Arapça font talep üzerine | Perf 74→74 (nötr), FCP −32 ms |
+| 4 | `d98f8b5` | **Google Fonts render'ı bloklamıyor** (`media="print"` + `/font-loader.js`, `load` sonrası aktivasyon) | **Perf 74→75**, FCP −399 ms |
+| 5 | `d99ef7d` | `vendor-zod` kritik yoldan çıkarıldı (oran sabitleri `commission/rates.ts`) | Perf 75→75 (nötr), FCP −133 ms; kazanç yapısal |
+| 6 | `e9a95b4` | **LCP görseli preload** (bu kez kazandı — aşağı bakın) | **Perf 75→77**, LCP −274 ms |
+
+### En büyük darboğaz neydi: fontlar
+
+Fontları `index.html`'den tamamen çıkaran **kontrol ölçümü**: Perf 74 → **80**,
+FCP 4214 → 3070 ms, LCP 4448 → 3718 ms. Yani ilk boyama 183 KB'lik woff2 kuyruğunu bekliyordu.
+Bunun tamamı alınamaz (fontlar korunmalı); `media="print"` deseniyle bir kısmı alındı.
+
+### Ölçümün kararı değiştirdiği örnek (sıra bağımlılığı)
+
+LCP görselinin preload'u **aynı turda iki kez** denendi:
+
+1. Fontlar hâlâ render-blocking iken: **fayda yok** (LCP 4893 → 4959 ms) — 20 KB'lik görsel,
+   kritik JS ve woff2 kuyruğuyla bant genişliği için yarışıyordu. **Geri alındı.**
+2. Fontlar kritik yoldan çıktıktan **sonra** aynı değişiklik: **kazandı**
+   (Perf 75 → 77, LCP 4427 → 4153 ms). **Kabul edildi** (`e9a95b4`).
+
+Ders: bu kod tabanında kritik yol **bant genişliğine** bağlı; tek tek "iyi bilinen"
+optimizasyonlar sıraya göre işaret değiştirebiliyor. Ölçmeden kabul edilmemeli.
+
+## GERİ ALINAN denemeler (ölçüm kararı yönetti)
+
+| Deneme | Ölçüm | Karar |
+|---|---|---|
+| `Layout.tsx`'te ChatWidget + GeofenceWatcher + CookieConsent `React.lazy` | Perf **75 → 72**. FCP iyileşti (3815→3223) ama **LCP kötüleşti** (4433→4758), TBT 84→211. Üç tembel chunk kritik pencerede istendiği için LCP ile yarıştı | **Geri alındı** |
+| Yanlış LCP görselini doğrusuyla değiştirme (fontlar çıkmadan önce) | LCP 4893 → 4959 ms | **Geri alındı** — yerine preload tamamen kaldırıldı, font işinden sonra tekrar denendi ve o zaman kabul edildi |
+| `Navbar.tsx`'te SearchModal `React.lazy` (yalnız açıkken render) | Giriş chunk'ı 147 173 → 144 805 bayt gzip (**yalnız 2.4 KB**); Perf medyanı 75 (7 tur, aralık 70-84 — sonuçsuz) | **Geri alındı** — ölçülebilir kazanç yok, karmaşıklık var |
+
+## 90'a ulaşıldı mı? **HAYIR — 76.** Kalan yol (ölçülmüş kanıtla)
+
+Hedef 90'dı, 76'da kalındı. Sebep tahmin değil ölçüm:
+
+Kritik yolda kalan gzip transferi (`e9a95b4`): giriş chunk'ı **145 KB** + `vendor-react` 74.5 KB
++ `vendor-motion` 41.3 KB + `vendor-ui` 20 KB + `vendor-utils` 9 KB + uygulama CSS'i 47 KB,
+artı fontlar 183 KB.
+
+Bu turun kalibrasyonu: **kritik yoldan ~13 KB gzip ≈ 1 Lighthouse puanı**
+(`vendor-supabase` 53 KB → +4 puan datasından). 90'a çıkmak için kritik yoldan kabaca
+**~180 KB gzip daha** çıkmalı — yani kalan JS'in üçte ikisi. `vendor-react` çıkarılamaz;
+dolayısıyla bu, küçük ayarlarla değil **yapısal** işle mümkün. Öncelikli adaylar
+(ölçülmüş boyutlarla) `SABAH_ONAY_KUYRUGU.md` kuyruğuna yazıldı.
+
+Bu turda kritik yolun eager modül grafiği çıkarıldı (93 dosya, 719 KB kaynak). En büyük
+üç kalem: `src/i18n/messages.ts` **268 KB** (4 dilin tamamı eager),
+`src/styles/premium-cinematic-home.css` 45 KB, `src/App.tsx` 35 KB.
+
+## KAPI 1 — soğuk klon (süre damgalı)
+
+Yol: `C:\Users\yagiz\Projeler\_dogrulama\ihaleal-perf` · dal `staging` · HEAD `e9a95b4`
+
+| Adım | Başlangıç | Süre | Sonuç |
+|---|---|---|---|
+| `git clone ... -b staging` | 19:26:51 | **129.5 s** | HEAD `e9a95b478af8a1b9e85966f5598bfee98b98c86c`, dal `staging` |
+| `npm ci --legacy-peer-deps` | 19:29:08 | **108.6 s** | exit 0 |
+| `npm run typecheck` | 19:31:29 | **32.5 s** | exit 0, **`error TS` sayısı: 0** |
+| `npm run build` | 19:32:02 | **38.1 s** | exit 0, `dist/sw.js` + `workbox-9c35ba06.js` üretildi |
+
+Soğuk klon build çıktısı doğrulaması (19:32:53):
+`dist/index.html` modulepreload listesi = `vendor-react`, `vendor-utils`, `vendor-ui`,
+`vendor-motion`. **`vendor-supabase` listede YOK** (grep kontrolü: "HAYIR - doğru").
+Supabase ayrı dinamik chunk olarak duruyor: `assets/supabase-ZSt08kkQ.js` +
+`assets/vendor-supabase-BYqEYsAz.js`.
+
+## KAPI 2 — soğuk klonda preview + içerik ve auth kanıtı
+
+`npm run preview` → `http://127.0.0.1:4174/` (19:33:19).
+
+| # | Kanıt | Sonuç |
+|---|---|---|
+| 1 | `GET /` başlık | `<title>ihaleal.com — Yapay zeka destekli gayrimenkul platformu</title>` |
+| 2 | LCP preload HTML'de | `<link rel="preload" as="image" href="/ihaleal-logo-lockup.png" fetchpriority="high" />` |
+| 3 | Font render'ı bloklamıyor | `<link rel="stylesheet" media="print" data-font-swap href="https://fonts.googleapis.com/css2?family=Inter...">` + `<script src="/font-loader.js" defer>` |
+| 4 | Küçük betikler defer | `<script src="/preview-noindex.js" defer></script>` ve `<script src="/hash-redirect.js" defer></script>` |
+| 5 | Kritik yolda `vendor-supabase` yok | HTML'de `vendor-supabase` geçiş sayısı **0** |
+| 6 | Arapça font HTML'de yok | `Noto+Sans+Arabic` geçiş sayısı **0** |
+| 7 | SPA rotaları | `/` `/giris` `/ihaleler` `/harita` → hepsi **200** |
+| 8 | LCP görseli servis ediliyor | `HTTP 200`, `image/png`, 20 040 bayt |
+
+### Auth akışı bozulmadı — tarayıcı kanıtı
+
+Supabase env'i dolu bir build ile gerçek tarayıcıda `/giris` yüklendi. Ağ dökümü **tam olarak
+amaçlanan davranışı** gösteriyor:
+
+1. **Kritik dalga:** `ihaleal-logo-lockup.png` (preload sayesinde 3. istek), `index-*.js`,
+   `vendor-react`, `vendor-utils`, `vendor-ui`, `vendor-motion`, `index-*.css`,
+   `font-loader.js`, `preview-noindex.js`, `hash-redirect.js` — **`vendor-supabase` YOK.**
+2. **İkinci dalga (uygulama açıldıktan sonra):** `Login-*.js`, `AuthBrandHeader-*.js`,
+   **`supabase-*.js` + `vendor-supabase-*.js`**, `authProfile-*.js` — SDK **talep üzerine** indi.
+3. Giriş sayfası doğru render oldu: başlık `Giriş — ihaleal.com`, alanlar
+   "E-posta / Şifre / Giriş Yap" ve **"Supabase Auth ile güvenli oturum."** ibaresi — bu ibare
+   `isSupabaseConfigured()` true döndüğünü, yani yapılandırma yolunun çalıştığını gösterir.
+   **Konsolda hata yok.**
+4. `AuthProvider`'ın `loading` durumu çözüldü (form çizildi) — SDK dinamik yüklendiği hâlde
+   oturum akışı takılmadı.
+
+Auth akışında korunan sözleşmeler (kodda yorumla sabitlendi):
+
+- `getSupabase()` **önbelleklidir** → tek `createClient` örneği → oturum sürekliliği ve
+  `detectSessionInUrl` (PKCE) korunur.
+- `AuthProvider`'da **sıra korundu**: önce `onAuthStateChange` aboneliği, sonra `getSession()` —
+  istemci oluşturulurken işlenen PKCE geri dönüşü kaçırılmaz.
+- SDK inemezse `setLoading(false)` ile uygulama "yükleniyor"da asılı kalmaz.
+- `useOnlinePresence`'ta kanal hazır olunca teardown atanır; erken unmount'ta kanal yine kapatılır.
+
+## KAPI 3
+
+Bu bölüm eklendi ve `public/denetim.json` `scripts/denetim-uret.mjs` ile yeniden üretildi.
+
+## Bu turun commit'leri
+
+| SHA | Konu |
+|---|---|
+| `ddcdb60` | perf(lcp): yanlış LCP preload kaldırıldı, öncelik ipucu görsele taşındı |
+| `aa0633d` | perf(bundle): vendor-supabase kritik giriş yolundan çıkarıldı |
+| `0518d78` | perf(render-blocking): küçük betikler defer, Arapça font talep üzerine |
+| `d98f8b5` | perf(font): Google Fonts stylesheet'i render'ı bloklamıyor |
+| `d99ef7d` | perf(bundle): vendor-zod kritik giriş yolundan çıkarıldı |
+| `e9a95b4` | perf(lcp): LCP görseli yeniden preload edildi (fontlar çekildikten sonra kazanç) |
