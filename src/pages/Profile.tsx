@@ -94,7 +94,7 @@ export default function Profile() {
           <User className="w-12 h-12 text-slate-600 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">{pf.guestTitle}</h1>
           <p className="text-slate-400 mb-2">{pf.guestDesc}</p>
-          <Button onClick={() => navigate("/giris?next=/profil")} className="mt-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white">{pf.guestLogin}</Button>
+          <Button onClick={() => navigate("/giris?next=/profil")} className="mt-4 [background:var(--gradient-cta)] text-white">{pf.guestLogin}</Button>
         </div>
       </div>
     );
@@ -166,7 +166,7 @@ export default function Profile() {
           <div className="lg:col-span-1">
             <Card className="bg-slate-900/50 border-slate-200/80 sticky top-24">
               <CardContent className="p-6 text-center">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center mx-auto mb-4">
+                <div className="w-24 h-24 rounded-full [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-4">
                   <User className="w-12 h-12 text-white" />
                 </div>
                 <h2 className="text-xl font-bold text-white">{user.name}</h2>
@@ -214,7 +214,7 @@ export default function Profile() {
                   <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.fullName}</label>{editMode ? <Input value={name} onChange={(e) => setName(e.target.value)} className="bg-slate-950 border-slate-200 text-white" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm">{user.name}</div>}</div>
                   <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.emailLabel}</label>{editMode ? <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-slate-950 border-slate-200 text-white" dir="ltr" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm flex items-center gap-2"><Mail className="w-4 h-4 text-blue-400" /><span dir="ltr">{user.email}</span>{user.verified && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}</div>}</div>
                   <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.phoneLabel}</label>{editMode ? <Input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-slate-950 border-slate-200 text-white" dir="ltr" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm"><div className="flex items-center gap-2"><Phone className="w-4 h-4 text-blue-400" /><span dir="ltr">{user.phone || pf.phoneNotSet}</span></div><p className="text-[11px] text-slate-500 mt-2">{pf.phoneNote}</p></div>}</div>
-                  {editMode && <Button onClick={handleSave} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold">{pf.saveChanges}</Button>}
+                  {editMode && <Button onClick={handleSave} className="[background:var(--gradient-cta)] text-white font-bold">{pf.saveChanges}</Button>}
                 </div>
               </CardContent>
             </Card>
