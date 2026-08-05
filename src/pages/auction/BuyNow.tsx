@@ -139,7 +139,7 @@ export default function BuyNow() {
               <Button
                 type="button"
                 size="sm"
-                className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold"
+                className="[background:var(--gradient-cta)] text-white font-bold"
                 onClick={() => navigate("/kyc")}
               >
                 KYC Doğrulamayı Tamamla
