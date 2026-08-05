@@ -105,4 +105,5 @@
   --gradient-cta: linear-gradient(135deg, var(--lux-blue-600) 0%, var(--lux-blue-500) 52%, var(--lux-blue-400) 100%);
   --gradient-text: linear-gradient(90deg, #ffffff 0%, #e2e8f0 45%, var(--lux-blue-400) 100%);
   --gradient-card-shine: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.06) 50%, transparent 60%);
+  --gradient-scrim: linear-gradient(0deg, var(--lux-bg-deep) 0%, transparent 50%, transparent 100%);
 }
