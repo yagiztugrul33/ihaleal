@@ -109,7 +109,7 @@ export default function Favorites() {
                 navigate("/");
                 setTimeout(() => document.getElementById("auctions")?.scrollIntoView({ behavior: "smooth" }), 150);
               }}
-              className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold px-6"
+              className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-semibold px-6"
             >
               İhaleleri Keşfet
             </Button>
@@ -127,7 +127,7 @@ export default function Favorites() {
                     alt={auction.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                  <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                   <div className="absolute top-3 start-3 flex gap-2">
                     {auction.status === "live" && (
                       <span className="px-2.5 py-1 rounded-lg bg-red-500/90 text-white text-xs font-medium flex items-center gap-1">
@@ -183,7 +183,7 @@ export default function Favorites() {
                       </div>
                       <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400"
+                          className="h-full rounded-full [background:var(--gradient-cta)]"
                           style={{
                             width: `${Math.min(
                               (auction.currentBid / auction.aiPredictedPrice) * 100,
@@ -208,7 +208,7 @@ export default function Favorites() {
                     <Button
                       size="sm"
                       onClick={() => navigate(`/ilan/${auction.id}`)}
-                      className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold text-xs h-9 px-4"
+                      className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-semibold text-xs h-9 px-4"
                     >
                       <TrendingUp className="w-3.5 h-3.5 me-1" />
                       Teklif Ver
