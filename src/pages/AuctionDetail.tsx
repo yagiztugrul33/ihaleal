@@ -1251,7 +1251,7 @@ export default function AuctionDetail() {
 
                 {/* Dalga 2-3: AI öneri — "Bu ihaleye ne vermeli?" */}
                 {!isListingOnly ? (
-                  <div className="rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-500/10 to-cyan-500/5 p-3" data-testid="ai-bid-suggestion">
+                  <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-3" data-testid="ai-bid-suggestion">
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <h4 className="text-xs font-semibold uppercase tracking-wider text-violet-200 flex items-center gap-1.5">
                         <Sparkles className="w-3.5 h-3.5" /> {ld.aiSuggestTitle}
@@ -1458,7 +1458,7 @@ export default function AuctionDetail() {
                       >
                         <HandCoins className="w-4 h-4 me-1.5" /> {ld.ctaNegotiate}
                       </Button>
-                      <Button className="flex-1 bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400 text-white font-bold h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
+                      <Button className="flex-1 bg-slate-600 hover:bg-slate-500 text-white font-bold h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
                         {ld.ctaInfoRequest}
                       </Button>
                     </>
