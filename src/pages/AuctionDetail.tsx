@@ -40,6 +40,7 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { registerBidDeposit } from "@/lib/depositRegister";
 import { isAuctionUuid } from "@/lib/auctionIds";
+import { getListingNumber } from "@/lib/listingNumber";
 import {
   approveReport,
   fetchReportForListing,

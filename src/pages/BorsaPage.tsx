@@ -234,7 +234,9 @@ export default function BorsaPage() {
         });
       }, 600);
       window.setTimeout(() => setSummaryFlash(null), 600);
-      setWatchers((p) => Math.max(1, p + (item.dir === "up" ? 1 : 0)));
+      // `item` bu blokta kapsam disi (forEach parametresi) — calisma zamaninda
+      // ReferenceError uretiyordu. Ayni bilgiyi tasiyan upCount kullanildi.
+      setWatchers((p) => Math.max(1, p + (upCount > 0 ? 1 : 0)));
     }
     if (nextEvents.length > 0) {
       setFeedEvents((prevEvents) => [...nextEvents, ...prevEvents].slice(0, 8));

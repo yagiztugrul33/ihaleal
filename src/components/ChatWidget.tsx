@@ -117,6 +117,12 @@ const INTEGRITY_BYPASS_REPLY = [
     "Özet mimari ve delil çizgisi: /yasal/dolandiricilik-savunmasi — ihale ve AML çerçeve: /ihale-kosullari — zorunlu evraklar: /evraklar.",
   ].join("\n");
 
+// Kural eslesmeyince donen yanit. Bir refactor sirasinda silinmis, getAIResponse
+// icindeki referans kalmisti (calisma zamaninda ReferenceError). Metin 4909bb7'deki
+// ozgun haliyle geri alindi.
+const AI_DEFAULT =
+  "Endeks (/analiz), ilan detayı veya mortgage sayfasından devam edebilirsiniz. Anahtar kelimeyle tekrar sorabilirsiniz.";
+
 const AI_RULES: { keys: string[]; reply: string }[] = [
   {
     keys: [
