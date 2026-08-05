@@ -1,8 +1,8 @@
 /* Afet merkezi: deprem sekmesi için yerel stiller */
 
 .afet-hub {
-  --afet-accent: rgb(234 179 8);
-  --afet-muted: rgb(148 163 184);
+  --afet-accent: var(--vurgu);
+  --afet-muted: var(--metin-ikincil);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -19,8 +19,8 @@
   min-width: 44px;
   padding: 0.55rem 0.95rem;
   border-radius: 999px;
-  border: 1px solid rgb(51 65 85 / 0.65);
-  background: rgb(15 23 42 / 0.4);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   color: inherit;
   font: inherit;
   cursor: pointer;
@@ -28,7 +28,7 @@
 
 .afet-hub__tab[data-state="active"] {
   border-color: var(--afet-accent);
-  background: rgb(234 179 8 / 0.12);
+  background: var(--durum-uyari-zemin);
 }
 
 .afet-hub__panel {
@@ -74,8 +74,8 @@
   gap: 0.35rem;
   padding: 0.75rem;
   border-radius: 12px;
-  border: 1px solid rgb(51 65 85 / 0.45);
-  background: rgb(2 6 23 / 0.35);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   text-align: left;
   cursor: pointer;
   min-height: 44px;
@@ -97,7 +97,7 @@
 .afet-hub__bar {
   height: 8px;
   border-radius: 999px;
-  background: rgb(30 41 59);
+  background: var(--zemin-yumusak);
   overflow: hidden;
 }
 
@@ -105,14 +105,14 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, rgb(234 179 8), rgb(251 191 36));
+  background: var(--zemin);
 }
 
 .afet-hub__map {
   height: 320px;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgb(51 65 85 / 0.5);
+  border: 1px solid var(--cizgi);
 }
 
 .afet-hub__muted {
@@ -144,7 +144,7 @@
 .afet-hub__assemble-list li {
   padding: 0.65rem;
   border-radius: 10px;
-  border: 1px solid rgb(51 65 85 / 0.4);
+  border: 1px solid var(--cizgi);
 }
 
 /* Liste karti — deprem rozeti */
@@ -170,9 +170,9 @@
     width: min(280px, 70vw);
     padding: 0.75rem;
     border-radius: 12px;
-    background: rgb(15 23 42 / 0.98);
-    border: 1px solid rgb(51 65 85 / 0.7);
-    box-shadow: 0 12px 40px rgb(0 0 0 / 0.35);
+    background: var(--zemin-yumusak);
+    border: 1px solid var(--cizgi);
+    box-shadow: var(--golge-buyuk);
   }
 }
 
@@ -189,7 +189,7 @@
 }
 
 .eq-badge:focus-visible {
-  outline: 2px solid rgb(251 191 36);
+  outline: 2px solid var(--cizgi);
   outline-offset: 2px;
 }
 
@@ -206,31 +206,31 @@
 }
 
 .eq-badge__track {
-  stroke: rgb(51 65 85);
+  stroke: var(--metin);
 }
 
 .eq-badge__prog {
-  stroke: rgb(251 191 36);
+  stroke: var(--durum-uyari);
 }
 
 .eq-badge--critical .eq-badge__prog {
-  stroke: rgb(248 113 113);
+  stroke: var(--durum-hata);
 }
 
 .eq-badge--low .eq-badge__prog {
-  stroke: rgb(251 146 60);
+  stroke: var(--durum-uyari);
 }
 
 .eq-badge--moderate .eq-badge__prog {
-  stroke: rgb(250 204 21);
+  stroke: var(--durum-uyari);
 }
 
 .eq-badge--good .eq-badge__prog {
-  stroke: rgb(74 222 128);
+  stroke: var(--vurgu);
 }
 
 .eq-badge--excellent .eq-badge__prog {
-  stroke: rgb(52 211 153);
+  stroke: var(--vurgu);
 }
 
 .eq-badge__title {
@@ -241,7 +241,7 @@
 
 .eq-badge__band {
   margin: 0 0 0.5rem;
-  color: rgb(226 232 240);
+  color: var(--metin-ikincil);
 }
 
 .eq-badge__subs {
@@ -264,7 +264,7 @@
 .afet-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgb(0 0 0 / 0.55);
+  background: var(--zemin-yumusak);
   z-index: 50;
 }
 
@@ -279,8 +279,8 @@
   transform: translate(-50%, -50%);
   padding: 1.25rem;
   border-radius: 16px;
-  background: rgb(15 23 42);
-  border: 1px solid rgb(51 65 85 / 0.8);
+  background: var(--zemin-yumusak);
+  border: 1px solid var(--cizgi);
 }
 
 .afet-modal-header {
@@ -303,7 +303,7 @@
   place-items: center;
   border: none;
   border-radius: 10px;
-  background: rgb(30 41 59);
+  background: var(--zemin-yumusak);
   color: inherit;
   cursor: pointer;
 }
@@ -365,7 +365,7 @@
 .eqfil-root {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgb(51 65 85 / 0.35);
+  border-top: 1px solid var(--cizgi);
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
@@ -387,8 +387,8 @@
   min-height: 44px;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
-  border: 1px solid rgb(51 65 85 / 0.65);
-  background: rgb(254 249 195 / 0.15);
+  border: 1px solid var(--cizgi);
+  background: var(--durum-uyari-zemin);
   color: inherit;
   font: inherit;
   cursor: pointer;
@@ -410,7 +410,7 @@
   min-height: 44px;
   padding: 0.45rem 0.55rem;
   border-radius: 10px;
-  border: 1px solid rgb(148 163 184 / 0.5);
+  border: 1px solid var(--vurgu);
   background: inherit;
   color: inherit;
   font: inherit;

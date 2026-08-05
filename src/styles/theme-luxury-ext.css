@@ -57,9 +57,9 @@ a.btn-tertiary {
 }
 .nav-link-active {
   color: var(--lux-text-primary) !important;
-  background: rgba(37, 99, 235, 0.14) !important;
-  border-color: rgba(96, 165, 250, 0.35) !important;
-  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.12);
+  background: var(--vurgu-yumusak) !important;
+  border-color: var(--vurgu) !important;
+  box-shadow: var(--golge-kucuk);
 }
 .nav-search {
   display: flex;
@@ -74,12 +74,12 @@ a.btn-tertiary {
   transition: border-color var(--duration-base), background var(--duration-base);
 }
 .nav-search:hover {
-  border-color: rgba(96, 165, 250, 0.35);
+  border-color: var(--vurgu);
   background: var(--lux-surface-2);
   color: var(--lux-text-muted);
 }
 .nav-mobile-drawer {
-  background: rgba(8, 17, 32, 0.96);
+  background: var(--zemin-yumusak);
   border-color: var(--lux-border);
   backdrop-filter: blur(24px);
 }
@@ -93,24 +93,20 @@ a.btn-tertiary {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 70% 55% at 75% 35%, rgba(37, 99, 235, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(37, 99, 235, 0.18) 0%, transparent 65%);
+  background: var(--zemin);
   pointer-events: none;
 }
 .hero-cinematic::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(8, 17, 32, 0.4) 55%, var(--lux-bg-base) 100%);
+  background: var(--zemin);
   pointer-events: none;
 }
 .hero-architecture-bg {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(105deg, rgba(8, 17, 32, 0.92) 0%, rgba(8, 17, 32, 0.55) 42%, rgba(8, 17, 32, 0.75) 100%),
-    url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80") center/cover no-repeat;
+  background: var(--zemin);
   opacity: 0.45;
   pointer-events: none;
 }
@@ -126,7 +122,7 @@ a.btn-tertiary {
   border-radius: var(--radius-xl);
   padding: 1rem 1.25rem;
   backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--golge-kucuk);
 }
 .hero-side-stack {
   display: flex;
@@ -139,9 +135,9 @@ a.btn-tertiary {
   gap: 0.35rem;
   padding: 0.25rem 0.65rem;
   border-radius: var(--radius-full);
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  color: #fca5a5;
+  background: var(--durum-hata-zemin);
+  border: 1px solid var(--cizgi);
+  color: var(--durum-hata);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -152,7 +148,7 @@ a.btn-tertiary {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ef4444;
+  background: var(--durum-hata-zemin);
   animation: pulse-live 2s ease-in-out infinite;
 }
 @keyframes pulse-live {
@@ -166,13 +162,13 @@ a.btn-tertiary {
   border: 1px solid var(--lux-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--golge-kucuk);
   transition: transform var(--duration-slow) var(--ease-out-expo), box-shadow var(--duration-slow), border-color var(--duration-base);
 }
 .property-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(96, 165, 250, 0.3);
-  box-shadow: var(--shadow-lg), var(--shadow-glow-blue);
+  border-color: var(--vurgu);
+  box-shadow: var(--golge-kucuk);
 }
 .property-card-image {
   position: relative;
@@ -191,7 +187,7 @@ a.btn-tertiary {
 .property-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(8, 17, 32, 0.85) 100%);
+  background: var(--zemin);
 }
 .property-price {
   font-family: var(--font-display);
@@ -206,9 +202,9 @@ a.btn-tertiary {
   gap: 0.25rem;
   padding: 0.2rem 0.55rem;
   border-radius: var(--radius-full);
-  background: rgba(34, 197, 94, 0.12);
-  border: 1px solid rgba(34, 197, 94, 0.28);
-  color: #86efac;
+  background: var(--vurgu-yumusak);
+  border: 1px solid var(--vurgu);
+  color: var(--vurgu);
   font-size: 0.6875rem;
   font-weight: 600;
 }
@@ -224,7 +220,7 @@ a.btn-tertiary {
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.35), transparent);
+  background: var(--zemin);
 }
 .step-card-premium {
   position: relative;
@@ -237,8 +233,8 @@ a.btn-tertiary {
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-full);
-  background: rgba(37, 99, 235, 0.2);
-  border: 1px solid rgba(96, 165, 250, 0.35);
+  background: var(--vurgu-yumusak);
+  border: 1px solid var(--vurgu);
   color: var(--lux-blue-400);
   font-size: 0.75rem;
   font-weight: 800;
@@ -264,7 +260,7 @@ a.btn-tertiary {
   transition: border-color var(--duration-base), background var(--duration-base);
 }
 .trust-badge-card:hover {
-  border-color: rgba(96, 165, 250, 0.25);
+  border-color: var(--vurgu);
   background: var(--lux-surface-2);
 }
 
@@ -276,8 +272,8 @@ a.btn-tertiary {
   width: 3rem;
   height: 3rem;
   border-radius: var(--radius-lg);
-  background: rgba(37, 99, 235, 0.12);
-  border: 1px solid rgba(96, 165, 250, 0.22);
+  background: var(--vurgu-yumusak);
+  border: 1px solid var(--vurgu);
   color: var(--lux-blue-400);
 }
 
@@ -291,7 +287,7 @@ a.btn-tertiary {
 }
 .stat-card-institutional:hover {
   transform: translateY(-4px);
-  border-color: rgba(96, 165, 250, 0.28);
+  border-color: var(--vurgu);
 }
 .stat-value {
   font-family: var(--font-display);
@@ -305,7 +301,7 @@ a.btn-tertiary {
 .corp-input {
   width: 100%;
   padding: 0.75rem 0.875rem;
-  background: rgba(10, 14, 26, 0.8);
+  background: var(--zemin-yumusak);
   border: 1px solid var(--lux-border);
   border-radius: var(--radius-md);
   color: var(--lux-text-secondary);
@@ -318,8 +314,8 @@ a.btn-tertiary {
 }
 .corp-input:focus {
   outline: none;
-  border-color: rgba(96, 165, 250, 0.45);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  border-color: var(--vurgu);
+  box-shadow: var(--golge-kucuk);
 }
 .corp-input option {
   background: var(--lux-bg-elevated);
@@ -328,18 +324,16 @@ a.btn-tertiary {
 
 /* —— Reference landing (photo match) —— */
 .ref-glass-panel {
-  background: rgba(15, 23, 42, 0.4);
+  background: var(--zemin-yumusak);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.6);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--cizgi);
+  box-shadow: var(--golge-buyuk);
 }
 .ref-hero-glow {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(37, 99, 235, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 85% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
+  background: var(--zemin);
   pointer-events: none;
   z-index: 0;
 }
@@ -348,20 +342,20 @@ a.btn-tertiary {
   align-items: center;
   padding: 0.4rem 0.9rem;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(96, 165, 250, 0.35);
-  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid var(--vurgu);
+  background: var(--vurgu-yumusak);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #93c5fd;
+  color: var(--vurgu);
 }
 .ref-hero-villa-wrap {
   position: relative;
   border-radius: var(--radius-2xl);
   overflow: hidden;
   aspect-ratio: 4/3;
-  border: 1px solid rgba(51, 65, 85, 0.5);
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--cizgi);
+  box-shadow: var(--golge-buyuk);
 }
 .ref-hero-villa-img {
   width: 100%;
@@ -371,7 +365,7 @@ a.btn-tertiary {
 .ref-hero-villa-shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(3, 7, 18, 0.15) 0%, rgba(3, 7, 18, 0.55) 100%);
+  background: var(--zemin);
   pointer-events: none;
 }
 .ref-live-chart-float {
@@ -382,11 +376,11 @@ a.btn-tertiary {
   z-index: 10;
 }
 .ref-mini-chart {
-  border-top: 1px solid rgba(51, 65, 85, 0.4);
+  border-top: 1px solid var(--cizgi);
   padding-top: 0.5rem;
 }
 .ref-step-icon-glow {
-  box-shadow: 0 0 24px rgba(37, 99, 235, 0.25);
+  box-shadow: var(--golge-kucuk);
 }
 .ref-side-stats {
   max-width: 220px;
@@ -403,12 +397,10 @@ a.btn-tertiary {
 }
 .home-ref-page {
   --lux-bg-base: #050b16;
-  background-color: #050b16;
+  background-color: var(--zemin-yumusak);
 }
 .home-grid-mesh {
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+  background-image: none;
   background-size: 56px 56px;
 }
 .home-orb {
@@ -422,14 +414,14 @@ a.btn-tertiary {
   right: -8%;
   width: 480px;
   height: 480px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, transparent 70%);
+  background: var(--zemin);
 }
 .home-orb-violet {
   top: 42%;
   left: -12%;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+  background: var(--zemin);
 }
 .ref-hero-eyebrow {
   display: inline-flex;
@@ -437,18 +429,18 @@ a.btn-tertiary {
   gap: 0.5rem;
   padding: 0.45rem 1rem;
   border-radius: 999px;
-  border: 1px solid rgba(59, 130, 246, 0.25);
-  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid var(--vurgu);
+  background: var(--vurgu-yumusak);
   font-size: 0.8rem;
   font-weight: 500;
-  color: #93c5fd;
+  color: var(--vurgu);
 }
 .ref-hero-eyebrow-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 12px #10b981;
+  background: var(--durum-basari-zemin);
+  box-shadow: var(--golge-kucuk);
 }
 .ref-live-dot-pill {
   display: inline-flex;
@@ -456,11 +448,11 @@ a.btn-tertiary {
   gap: 0.35rem;
   padding: 0.25rem 0.65rem;
   border-radius: 999px;
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid var(--vurgu);
+  background: var(--vurgu-yumusak);
   font-size: 0.65rem;
   font-weight: 700;
-  color: #34d399;
+  color: var(--durum-basari);
   letter-spacing: 0.06em;
 }
 .ref-live-dot-pill::before {
@@ -468,19 +460,19 @@ a.btn-tertiary {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #10b981;
+  background: var(--durum-basari-zemin);
   animation: pulse 2s ease-in-out infinite;
 }
 .ref-metric-card {
   padding: 1.35rem 1.25rem;
   border-radius: var(--radius-xl);
   border: 1px solid var(--lux-border);
-  background: rgba(15, 23, 41, 0.65);
+  background: var(--zemin-yumusak);
   backdrop-filter: blur(16px);
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 .ref-metric-card:hover {
-  border-color: rgba(96, 165, 250, 0.28);
+  border-color: var(--vurgu);
   transform: translateY(-2px);
 }
 .ref-metric-icon {
@@ -495,8 +487,8 @@ a.btn-tertiary {
 .ref-cta-panel {
   padding: 3rem 2rem;
   border-radius: 1.5rem;
-  border: 1px solid rgba(59, 130, 246, 0.22);
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.08) 100%);
+  border: 1px solid var(--vurgu);
+  background: var(--zemin);
   backdrop-filter: blur(20px);
 }
 .ref-hero {
@@ -506,16 +498,13 @@ a.btn-tertiary {
 .ref-hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(105deg, rgba(5, 11, 22, 0.98) 0%, rgba(5, 11, 22, 0.88) 42%, rgba(5, 11, 22, 0.65) 62%, rgba(5, 11, 22, 0.92) 100%);
+  background: var(--zemin);
   z-index: 0;
 }
 .ref-hero-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 55% 45% at 78% 42%, rgba(37, 99, 235, 0.22) 0%, transparent 70%),
-    linear-gradient(180deg, transparent 0%, rgba(6, 12, 24, 0.35) 70%, var(--lux-bg-base) 100%);
+  background: var(--zemin);
   z-index: 1;
   pointer-events: none;
 }
@@ -529,16 +518,14 @@ a.btn-tertiary {
 }
 .ref-hero-title-gradient,
 .blue-gradient-text {
-  background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 45%, #f8fafc 100%);
+  background: var(--zemin);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .page-background-premium {
-  background-color: #050b16;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(37, 99, 235, 0.14) 0%, transparent 55%),
-    linear-gradient(180deg, #050b16 0%, #081120 40%, #0b1120 100%);
+  background-color: var(--zemin-yumusak);
+  background-image: none;
 }
 .intelligence-grid-overlay {
   pointer-events: none;
@@ -546,24 +533,22 @@ a.btn-tertiary {
   inset: 0;
   z-index: 2;
   opacity: 0.45;
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-image: none;
   background-size: 48px 48px;
   mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
 }
 .glass-panel {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--zemin-yumusak);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--cizgi);
+  box-shadow: var(--golge-buyuk);
 }
 .glass-card {
-  background: rgba(15, 23, 41, 0.65);
+  background: var(--zemin-yumusak);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--cizgi);
 }
 .stat-card {
   display: flex;
@@ -581,8 +566,8 @@ a.btn-tertiary {
   min-width: 5.5rem;
   padding: 0.65rem 0.75rem;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(15, 23, 41, 0.55);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   font-size: 0.625rem;
   font-weight: 700;
   color: var(--lux-text-primary);
@@ -599,7 +584,7 @@ a.btn-tertiary {
 .ref-hero-subtitle {
   font-size: clamp(1rem, 2vw, 1.125rem);
   line-height: 1.65;
-  color: #cbd5e1;
+  color: var(--metin-ikincil);
 }
 .ref-btn-primary,
 a.ref-btn-primary {
@@ -608,19 +593,19 @@ a.ref-btn-primary {
   gap: 0.5rem;
   padding: 0.9rem 1.65rem;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #0ea5e9 100%);
-  color: #fff !important;
+  border: 1px solid var(--cizgi);
+  background: var(--zemin);
+  color: var(--metin) !important;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.9375rem;
   text-decoration: none;
-  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.4);
+  box-shadow: var(--golge-buyuk);
   transition: transform var(--duration-base) var(--ease-out-expo), box-shadow var(--duration-base);
 }
 .ref-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 48px rgba(37, 99, 235, 0.5);
+  box-shadow: var(--golge-buyuk);
 }
 .ref-btn-secondary,
 a.ref-btn-secondary {
@@ -629,8 +614,8 @@ a.ref-btn-secondary {
   gap: 0.5rem;
   padding: 0.9rem 1.5rem;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   backdrop-filter: blur(12px);
   color: var(--lux-text-primary) !important;
   font-weight: 600;
@@ -639,8 +624,8 @@ a.ref-btn-secondary {
   transition: background var(--duration-base), border-color var(--duration-base);
 }
 .ref-btn-secondary:hover {
-  background: rgba(30, 41, 59, 0.75);
-  border-color: rgba(96, 165, 250, 0.35);
+  background: var(--zemin-yumusak);
+  border-color: var(--vurgu);
 }
 .ref-trust-row {
   display: flex;
@@ -664,12 +649,12 @@ a.ref-btn-secondary {
   font-weight: 600;
 }
 .ref-live-chart-card {
-  background: rgba(8, 17, 32, 0.92);
-  border: 1px solid rgba(96, 165, 250, 0.22);
+  background: var(--zemin-yumusak);
+  border: 1px solid var(--vurgu);
   border-radius: var(--radius-xl);
   padding: 1.25rem 1.5rem;
   backdrop-filter: blur(20px);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(37, 99, 235, 0.12);
+  box-shadow: var(--golge-buyuk);
 }
 .ref-side-stat-card {
   display: flex;
@@ -677,11 +662,11 @@ a.ref-btn-secondary {
   gap: 0.75rem;
   min-width: 220px;
   padding: 0.85rem 1rem;
-  background: rgba(5, 11, 22, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--zemin-yumusak);
+  border: 1px solid var(--cizgi);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(16px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--golge-buyuk);
 }
 .ref-section {
   position: relative;
@@ -700,7 +685,7 @@ a.ref-btn-secondary {
   left: 8%;
   right: 8%;
   height: 2px;
-  background: repeating-linear-gradient(90deg, rgba(96, 165, 250, 0.35) 0, rgba(96, 165, 250, 0.35) 6px, transparent 6px, transparent 14px);
+  background: var(--zemin);
   pointer-events: none;
   display: none;
 }
@@ -714,13 +699,13 @@ a.ref-btn-secondary {
   z-index: 1;
   padding: 1.5rem;
   border-radius: var(--radius-xl);
-  background: rgba(15, 23, 42, 0.55);
+  background: var(--zemin-yumusak);
   border: 1px solid var(--lux-border);
   backdrop-filter: blur(12px);
   transition: border-color var(--duration-base), transform var(--duration-slow) var(--ease-out-expo);
 }
 .ref-step-card:hover {
-  border-color: rgba(96, 165, 250, 0.35);
+  border-color: var(--vurgu);
   transform: translateY(-4px);
 }
 .ref-step-num {
@@ -728,7 +713,7 @@ a.ref-btn-secondary {
   font-size: 2.5rem;
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(180deg, rgba(96, 165, 250, 0.5) 0%, rgba(96, 165, 250, 0.08) 100%);
+  background: var(--zemin);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -740,8 +725,8 @@ a.ref-btn-secondary {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: var(--radius-lg);
-  background: rgba(37, 99, 235, 0.14);
-  border: 1px solid rgba(96, 165, 250, 0.25);
+  background: var(--vurgu-yumusak);
+  border: 1px solid var(--vurgu);
 }
 .ref-property-card {
   background: var(--lux-surface-2);
@@ -752,8 +737,8 @@ a.ref-btn-secondary {
 }
 .ref-property-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(96, 165, 250, 0.3);
-  box-shadow: var(--shadow-lg);
+  border-color: var(--vurgu);
+  box-shadow: var(--golge-kucuk);
 }
 .ref-property-image-wrap {
   position: relative;
@@ -763,7 +748,7 @@ a.ref-btn-secondary {
 .ref-property-image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(6, 12, 24, 0.75) 100%);
+  background: var(--zemin);
   pointer-events: none;
 }
 .ref-live-pill {
@@ -775,8 +760,8 @@ a.ref-btn-secondary {
   gap: 0.35rem;
   padding: 0.25rem 0.6rem;
   border-radius: var(--radius-full);
-  background: rgba(239, 68, 68, 0.9);
-  color: #fff;
+  background: var(--durum-hata-zemin);
+  color: var(--metin);
   font-size: 0.625rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -786,7 +771,7 @@ a.ref-btn-secondary {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--zemin-yumusak);
   animation: pulse-live 2s ease-in-out infinite;
 }
 .ref-pct-badge {
@@ -794,8 +779,8 @@ a.ref-btn-secondary {
   margin-top: 0.15rem;
   padding: 0.15rem 0.45rem;
   border-radius: var(--radius-sm);
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
+  background: var(--vurgu-yumusak);
+  color: var(--durum-basari);
   font-size: 0.75rem;
   font-weight: 700;
 }
@@ -815,7 +800,7 @@ a.ref-btn-secondary {
 .ref-trust-sidebar {
   padding: 1.5rem;
   border-radius: var(--radius-xl);
-  background: rgba(15, 23, 42, 0.65);
+  background: var(--zemin-yumusak);
   border: 1px solid var(--lux-border);
   backdrop-filter: blur(16px);
   height: fit-content;
@@ -864,7 +849,7 @@ a.ref-btn-secondary {
   left: 10%;
   right: 10%;
   height: 2px;
-  background: repeating-linear-gradient(90deg, rgba(59, 130, 246, 0.45) 0, rgba(59, 130, 246, 0.45) 8px, transparent 8px, transparent 16px);
+  background: var(--zemin);
   pointer-events: none;
   display: none;
 }
@@ -874,8 +859,8 @@ a.ref-btn-secondary {
   }
 }
 .nav-home-marketing {
-  background: rgba(3, 7, 18, 0.85) !important;
-  border-color: rgba(15, 23, 42, 0.9) !important;
+  background: var(--zemin-yumusak) !important;
+  border-color: var(--cizgi) !important;
   backdrop-filter: blur(12px);
 }
 .nav-home-marketing .nav-home-links {
@@ -898,24 +883,24 @@ a.ref-btn-secondary {
   font-family: var(--font-display);
 }
 .nav-home-cta {
-  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
-  color: #fff !important;
+  background: var(--zemin);
+  color: var(--metin) !important;
   border: none !important;
   font-weight: 700;
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+  box-shadow: var(--golge-buyuk);
 }
 
 .ref-modules-eyebrow {
   display: inline-block;
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid rgba(139, 92, 246, 0.35);
-  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid var(--vurgu);
+  background: var(--vurgu-yumusak);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #c4b5fd;
+  color: var(--metin-ikincil);
 }
 
 .ref-module-card {

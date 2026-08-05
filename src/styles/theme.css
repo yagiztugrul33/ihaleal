@@ -4,37 +4,53 @@
    kaymasina (CLS) yol aciyordu. */
 @import "./tokens.css";
 @import "./theme-luxury-ext.css";
-html,body,#root{overflow-x:clip;max-width:100%;background:var(--gradient-page)!important;background-color:var(--lux-bg-base)!important;background-attachment:fixed;background-size:cover;min-height:100%;color:var(--color-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;color:var(--lux-text-primary)}
-.page-shell,.page-shell-gradient{background:var(--gradient-page)!important;background-color:var(--lux-bg-base)!important;background-attachment:fixed;background-size:cover}
-main>section,.section-warm,.section-warm-alt{background:transparent!important}
-.btn-primary,button.btn-primary,a.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.875rem 1.75rem;border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.12);background:var(--gradient-cta)!important;color:#fff!important;font-family:var(--font-display);font-weight:700;font-size:.9375rem;text-decoration:none;box-shadow:var(--shadow-glow-blue);transition:transform var(--duration-base) var(--ease-out-expo),box-shadow var(--duration-base) var(--ease-out-expo)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(37,99,235,.45)}
-.btn-secondary,a.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.875rem 1.75rem;border-radius:var(--radius-lg);border:1px solid var(--lux-border-strong);background:var(--lux-surface-2);backdrop-filter:blur(16px);color:var(--lux-text-primary)!important;font-weight:600;text-decoration:none;transition:all var(--duration-base) var(--ease-out-expo)}
-.btn-secondary:hover{background:var(--lux-surface-3);border-color:rgba(96,165,250,.35);transform:translateY(-1px)}
-.btn-ghost,a.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1.25rem;border-radius:var(--radius-md);color:var(--lux-text-muted)!important;font-weight:600;text-decoration:none}
-.btn-ghost:hover{color:var(--lux-text-primary)!important;background:var(--lux-surface-1);border:1px solid var(--lux-border)}
-.nav-glass{background:rgba(5,11,22,.82);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.nav-glass-scrolled{background:rgba(8,17,32,.92);box-shadow:var(--shadow-lg)}
-.nav-link{padding:.5rem .75rem;border-radius:var(--radius-md);font-size:.875rem;font-weight:500;color:var(--lux-text-muted);transition:all 150ms ease}
-.nav-link:hover{color:var(--lux-text-primary);background:var(--lux-surface-1)}
-.card-luxury,.card-warm{background:var(--lux-surface-2);border:1px solid var(--lux-border);border-radius:var(--radius-xl);padding:1.5rem;box-shadow:0 8px 24px rgba(0,0,0,.28);transition:transform var(--duration-slow) var(--ease-out-expo),box-shadow var(--duration-slow) var(--ease-out-expo),border-color var(--duration-base) ease}
-.card-luxury:hover,.card-warm:hover{transform:translateY(-4px);border-color:rgba(96,165,250,.28)}
-.hero-cinematic{position:relative;overflow:hidden;background:transparent}
-.hero-cinematic::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(37,99,235,.15) 0%,transparent 70%);pointer-events:none}
-.hero-slogan{font-family:var(--font-display);font-size:clamp(.8rem,2vw,.95rem);font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lux-blue-400)}
-.hero-headline{font-family:var(--font-display);font-size:clamp(2.25rem,5.5vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--lux-text-primary)}
-.trust-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .85rem;border-radius:9999px;border:1px solid var(--lux-border);background:var(--lux-surface-1);font-size:.8125rem;font-weight:500;color:var(--lux-text-muted)}
-.metric-float{background:var(--lux-surface-2);border:1px solid var(--lux-border);border-radius:var(--radius-lg);padding:.75rem 1rem;backdrop-filter:blur(12px)}
-.section-heading{font-family:var(--font-display);font-size:clamp(1.875rem,4vw,3rem);font-weight:800;letter-spacing:-.02em;color:var(--lux-text-primary)}
-.section-subtitle{color:var(--lux-text-muted);font-size:1.0625rem;line-height:1.65}
-.step-icon-ring{display:flex;align-items:center;justify-content:center;width:4rem;height:4rem;border-radius:var(--radius-xl);background:linear-gradient(135deg,rgba(37,99,235,.2),rgba(96,165,250,.08));border:1px solid rgba(96,165,250,.25)}
-.hero-warm{position:relative;overflow:hidden;background:var(--gradient-hero)}
-.hero-warm::before{content:"";position:absolute;top:-40%;right:-8%;width:640px;height:640px;background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 68%);pointer-events:none}
-.badge-corp{display:inline-flex;align-items:center;gap:.5rem;background:var(--lux-surface-1);color:var(--lux-blue-400);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .9rem;border-radius:999px;border:1px solid var(--lux-border)}
-.badge-corp::before{content:"";width:6px;height:6px;background:var(--lux-trust-sky);border-radius:50%}
-.kurumsal-page{background:var(--gradient-page)!important;background-color:var(--lux-bg-base)!important;color:var(--lux-text-secondary);min-height:100vh}
-.kurumsal-page h1,.kurumsal-page h2,.kurumsal-page h3{color:var(--lux-text-primary)}
-.kurumsal-page p,.kurumsal-page li{color:var(--lux-text-muted)}
-.intelligence-page{background:var(--gradient-page);min-height:100vh;color:var(--lux-text-secondary)}
-@media (max-width:768px){html,body,#root,.page-shell{background-attachment:scroll!important}}
+
+/* ACIK & MINIMAL TASARIM SISTEMI — bilesen katmani.
+   Renk/olcu degerleri dogrudan yazilmaz; hepsi tema.css tokenlarindan gelir. */
+
+html,body,#root{overflow-x:clip;max-width:100%;background:var(--zemin);background-color:var(--zemin);min-height:100%;color:var(--metin);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;color:var(--metin)}
+.page-shell,.page-shell-gradient{background:var(--zemin);background-color:var(--zemin)}
+main>section,.section-warm,.section-warm-alt{background:transparent}
+
+/* ── Butonlar ─────────────────────────────────────────────────────────────
+   Vurgu YALNIZ birincil eylemde. Ikincil/hayalet notr kalir. */
+.btn-primary,button.btn-primary,a.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--kose-kucuk);border:1px solid var(--vurgu);background:var(--vurgu);color:#fff;font-family:var(--font-display);font-weight:600;font-size:.9375rem;text-decoration:none;box-shadow:none;transition:background-color var(--gecis) var(--gecis-egri),transform var(--gecis) var(--gecis-egri)}
+.btn-primary:hover{background:var(--vurgu-koyu);border-color:var(--vurgu-koyu);transform:translateY(-1px)}
+.btn-secondary,a.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--kose-kucuk);border:1px solid var(--cizgi);background:var(--zemin);color:var(--metin);font-weight:600;text-decoration:none;transition:background-color var(--gecis) var(--gecis-egri),transform var(--gecis) var(--gecis-egri)}
+.btn-secondary:hover{background:var(--zemin-yumusak);transform:translateY(-1px)}
+.btn-ghost,a.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:.625rem 1rem;border-radius:var(--kose-kucuk);color:var(--uzerine-ikincil);font-weight:600;text-decoration:none;background:transparent}
+.btn-ghost:hover{color:var(--uzerine);background:rgba(30,42,36,.04)}
+
+/* ── Gezinme ─────────────────────────────────────────────────────────────── */
+.nav-glass{background:var(--zemin);border-bottom:1px solid var(--cizgi);backdrop-filter:none;-webkit-backdrop-filter:none}
+.nav-glass-scrolled{background:var(--zemin);box-shadow:var(--golge-kucuk)}
+.nav-link{padding:.5rem .75rem;border-radius:var(--kose-kucuk);font-size:.875rem;font-weight:500;color:var(--metin-ikincil);transition:color var(--gecis-hizli) ease,background-color var(--gecis-hizli) ease}
+.nav-link:hover{color:var(--metin);background:var(--zemin-yumusak)}
+.nav-link-active{color:var(--vurgu);background:var(--vurgu-yumusak)}
+
+/* ── Kart: agir cerceve/golge yok, 1px cizgi ────────────────────────────── */
+.card-luxury,.card-warm{background:var(--zemin);border:1px solid var(--cizgi);border-radius:var(--kose);padding:1.5rem;box-shadow:var(--golge-kucuk);transition:transform var(--gecis) var(--gecis-egri),box-shadow var(--gecis) var(--gecis-egri)}
+.card-luxury:hover,.card-warm:hover{transform:translateY(-2px);box-shadow:var(--golge-buyuk)}
+
+/* ── Hero: gradyan duvari yok ───────────────────────────────────────────── */
+.hero-cinematic,.hero-warm{position:relative;overflow:hidden;background:var(--zemin)}
+.hero-cinematic::before,.hero-warm::before{content:none}
+.hero-slogan{font-family:var(--font-display);font-size:clamp(.8rem,2vw,.95rem);font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--metin-ikincil)}
+.hero-headline{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.25rem);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:var(--metin)}
+
+/* ── Kucuk yuzeyler ─────────────────────────────────────────────────────── */
+.trust-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .85rem;border-radius:9999px;border:1px solid var(--cizgi);background:var(--zemin-yumusak);font-size:.8125rem;font-weight:500;color:var(--metin-ikincil)}
+.metric-float{background:var(--zemin);border:1px solid var(--cizgi);border-radius:var(--kose-kucuk);padding:.75rem 1rem;backdrop-filter:none;box-shadow:var(--golge-kucuk)}
+.section-heading{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:700;letter-spacing:-.02em;color:var(--metin)}
+.section-subtitle{color:var(--metin-ikincil);font-size:1.0625rem;line-height:1.65}
+/* Ikonlar NOTR — vurgu yalniz CTA/bildirim/aktif durumda */
+.step-icon-ring{display:flex;align-items:center;justify-content:center;width:3.5rem;height:3.5rem;border-radius:var(--kose);background:var(--zemin-gri);border:1px solid var(--cizgi);color:var(--metin)}
+.badge-corp{display:inline-flex;align-items:center;gap:.5rem;background:var(--zemin-yumusak);color:var(--metin-ikincil);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .9rem;border-radius:999px;border:1px solid var(--cizgi)}
+.badge-corp::before{content:"";width:6px;height:6px;background:var(--vurgu);border-radius:50%}
+
+/* ── Sayfa kabuklari ────────────────────────────────────────────────────── */
+.kurumsal-page,.intelligence-page{background:var(--zemin);color:var(--metin);min-height:100vh}
+/* Yuzey sozlesmesi: dolu (vurgu) kart icinde beyaza doner, acikta koyu kalir */
+.kurumsal-page h1,.kurumsal-page h2,.kurumsal-page h3{color:var(--uzerine)}
+.kurumsal-page p,.kurumsal-page li{color:var(--uzerine-ikincil)}

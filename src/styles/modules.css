@@ -4,7 +4,7 @@
   min-height: 100vh;
   padding-top: 6rem;
   padding-bottom: 4rem;
-  color: var(--color-text, #f1f5f9);
+  color: var(--color-text, var(--metin));
 }
 
 .mod-page__bg {
@@ -13,7 +13,7 @@
   inset-inline: 0;
   top: 0;
   height: 22rem;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, transparent 100%);
+  background: var(--zemin);
 }
 
 .mod-page__inner {
@@ -34,13 +34,13 @@
 }
 
 .mod-breadcrumb a {
-  color: var(--color-text-muted, #94a3b8);
+  color: var(--color-text-muted, var(--metin-ikincil));
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .mod-breadcrumb a:hover {
-  color: var(--color-primary, #38bdf8);
+  color: var(--color-primary, var(--vurgu));
 }
 
 .mod-hero {
@@ -57,9 +57,9 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  background: rgba(56, 189, 248, 0.1);
-  color: #7dd3fc;
+  border: 1px solid var(--vurgu);
+  background: var(--vurgu-yumusak);
+  color: var(--vurgu);
   margin-bottom: 0.85rem;
 }
 
@@ -77,8 +77,8 @@
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
 }
 
 .mod-hero__title {
@@ -94,7 +94,7 @@
   max-width: 42rem;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: var(--color-text-muted, #94a3b8);
+  color: var(--color-text-muted, var(--metin-ikincil));
 }
 
 .mod-hero__narrative {
@@ -108,7 +108,7 @@
   margin: 0;
   font-size: 0.84rem;
   line-height: 1.6;
-  color: #cbd5e1;
+  color: var(--metin-ikincil);
 }
 
 .mod-layout {
@@ -125,8 +125,8 @@
 
 .mod-panel {
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   backdrop-filter: blur(8px);
 }
 
@@ -136,7 +136,7 @@
   justify-content: space-between;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--cizgi);
 }
 
 .mod-panel__title {
@@ -158,7 +158,7 @@
   display: block;
   font-size: 0.78rem;
   font-weight: 600;
-  color: #cbd5e1;
+  color: var(--metin-ikincil);
   margin-bottom: 0.35rem;
 }
 
@@ -167,8 +167,8 @@
 .mod-form-grid textarea {
   width: 100%;
   border-radius: 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(2, 6, 23, 0.45);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   color: inherit;
   padding: 0.55rem 0.7rem;
   font-size: 0.875rem;
@@ -196,8 +196,8 @@
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
-  color: #fff;
+  background: var(--zemin);
+  color: var(--metin);
 }
 
 .mod-btn-primary:hover {
@@ -210,16 +210,16 @@
   gap: 0.4rem;
   padding: 0.55rem 1rem;
   border-radius: 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--cizgi);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--zemin-yumusak);
   color: inherit;
 }
 
 .mod-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--zemin-yumusak);
 }
 
 .mod-stats {
@@ -232,15 +232,15 @@
 .mod-stat {
   padding: 0.85rem 1rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
 }
 
 .mod-stat__label {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #94a3b8;
+  color: var(--metin-ikincil);
 }
 
 .mod-stat__value {
@@ -252,13 +252,13 @@
 .mod-stat__hint {
   margin-top: 0.15rem;
   font-size: 0.72rem;
-  color: #64748b;
+  color: var(--metin-ikincil);
 }
 
 .mod-table-wrap {
   overflow-x: auto;
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--cizgi);
 }
 
 .mod-table {
@@ -271,15 +271,15 @@
 .mod-table td {
   padding: 0.65rem 0.85rem;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--cizgi);
 }
 
 .mod-table th {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.02);
+  color: var(--metin-ikincil);
+  background: var(--zemin-yumusak);
 }
 
 .mod-table tr:last-child td {
@@ -291,8 +291,8 @@
   margin-top: 1rem;
   padding: 0.75rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(2, 6, 23, 0.35);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
 }
 
 .mod-pdf-cta {
@@ -304,14 +304,14 @@
   margin-top: 1.25rem;
   padding: 1rem 1.15rem;
   border-radius: 0.75rem;
-  border: 1px dashed rgba(56, 189, 248, 0.35);
-  background: rgba(56, 189, 248, 0.06);
+  border: 1px dashed var(--vurgu);
+  background: var(--vurgu-yumusak);
 }
 
 .mod-pdf-cta p {
   margin: 0;
   font-size: 0.85rem;
-  color: #bae6fd;
+  color: var(--vurgu);
 }
 
 .mod-tag {
@@ -324,35 +324,35 @@
 }
 
 .mod-tag--ok {
-  background: rgba(34, 197, 94, 0.15);
-  color: #86efac;
+  background: var(--vurgu-yumusak);
+  color: var(--vurgu);
 }
 
 .mod-tag--warn {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fcd34d;
+  background: var(--durum-uyari-zemin);
+  color: var(--durum-uyari);
 }
 
 .mod-tag--risk {
-  background: rgba(239, 68, 68, 0.15);
-  color: #fca5a5;
+  background: var(--durum-hata-zemin);
+  color: var(--durum-hata);
 }
 
 .mod-disclaimer {
   margin-top: 1.5rem;
   padding: 0.85rem 1rem;
   border-radius: 0.65rem;
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid var(--cizgi);
+  background: var(--durum-uyari-zemin);
   font-size: 0.78rem;
   line-height: 1.5;
-  color: #fde68a;
+  color: var(--durum-uyari);
 }
 
 .mod-empty {
   padding: 2rem 1rem;
   text-align: center;
-  color: #64748b;
+  color: var(--metin-ikincil);
   font-size: 0.875rem;
 }
 
@@ -367,26 +367,26 @@
 
   .mod-print-root {
     break-inside: avoid;
-    color: #0f172a !important;
-    background: #fff !important;
+    color: var(--metin) !important;
+    background: var(--zemin-yumusak) !important;
   }
 
   .mod-print-root * {
     color: inherit !important;
-    border-color: #cbd5e1 !important;
+    border-color: var(--cizgi) !important;
     background: transparent !important;
-    box-shadow: none !important;
+    box-shadow: var(--golge-kucuk);
   }
 
   .mod-print-root .mod-tag {
-    border: 1px solid #94a3b8 !important;
+    border: 1px solid var(--cizgi) !important;
   }
 }
 
 .mod-related {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--cizgi);
 }
 
 .mod-related__title {
@@ -411,16 +411,16 @@
   gap: 0.75rem;
   padding: 1rem;
   border-radius: 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   text-decoration: none;
   color: inherit;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .mod-related__card:hover {
-  border-color: rgba(56, 189, 248, 0.35);
-  background: rgba(56, 189, 248, 0.06);
+  border-color: var(--vurgu);
+  background: var(--vurgu-yumusak);
 }
 
 .mod-related__icon {
@@ -431,8 +431,8 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.65rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
 }
 
 .mod-related__card-title {
@@ -445,7 +445,7 @@
   margin: 0.35rem 0 0;
   font-size: 0.78rem;
   line-height: 1.45;
-  color: #94a3b8;
+  color: var(--metin-ikincil);
 }
 
 .mod-related__cta {
@@ -455,7 +455,7 @@
   margin-top: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #7dd3fc;
+  color: var(--vurgu);
 }
 
 .mod-faq-list {
@@ -465,8 +465,8 @@
 
 .mod-faq-item {
   border-radius: 0.65rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
 }
 
 .mod-faq-item summary {
@@ -486,14 +486,14 @@
   padding: 0 1rem 0.85rem;
   font-size: 0.82rem;
   line-height: 1.55;
-  color: #94a3b8;
+  color: var(--metin-ikincil);
 }
 
 .mod-map-frame {
   min-height: 22rem;
   border-radius: 0.85rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--cizgi);
 }
 
 .mod-map-frame--fullscreen {
@@ -525,8 +525,8 @@
   margin-top: 1rem;
   padding: 0.85rem 1rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid var(--vurgu);
+  background: var(--zemin-yumusak);
   backdrop-filter: blur(10px);
 }
 
@@ -545,8 +545,8 @@
 .mod-insurer-card {
   padding: 0.85rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
   text-align: center;
   font-size: 0.82rem;
   font-weight: 600;
@@ -564,16 +564,16 @@
   min-width: 5.5rem;
   padding: 0.45rem 0.6rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--cizgi);
   font-size: 0.72rem;
   text-align: center;
-  color: #94a3b8;
+  color: var(--metin-ikincil);
 }
 
 .mod-wizard-step--active {
-  border-color: rgba(56, 189, 248, 0.45);
-  background: rgba(56, 189, 248, 0.1);
-  color: #e2e8f0;
+  border-color: var(--vurgu);
+  background: var(--vurgu-yumusak);
+  color: var(--metin);
   font-weight: 600;
 }
 
@@ -585,15 +585,15 @@
 }
 
 .mod-alert--warn {
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  background: rgba(245, 158, 11, 0.1);
-  color: #fde68a;
+  border: 1px solid var(--cizgi);
+  background: var(--durum-uyari-zemin);
+  color: var(--durum-uyari);
 }
 
 .mod-alert--risk {
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  background: rgba(239, 68, 68, 0.1);
-  color: #fecaca;
+  border: 1px solid var(--cizgi);
+  background: var(--durum-hata-zemin);
+  color: var(--durum-uyari);
 }
 
 .mod-case-grid {
@@ -610,8 +610,8 @@
 .mod-case-card {
   padding: 1rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
 }
 
 .mod-case-card h3 {
@@ -623,7 +623,7 @@
   margin: 0;
   font-size: 0.8rem;
   line-height: 1.5;
-  color: #94a3b8;
+  color: var(--metin-ikincil);
 }
 
 .mod-rights-list {
@@ -642,7 +642,7 @@
   gap: 0.5rem;
   padding: 0.65rem 0.75rem;
   border-radius: 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--cizgi);
   font-size: 0.82rem;
   line-height: 1.45;
 }
@@ -666,8 +666,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: rgba(56, 189, 248, 0.15);
-  color: #7dd3fc;
+  background: var(--vurgu-yumusak);
+  color: var(--vurgu);
   font-size: 0.75rem;
   font-weight: 700;
 }
@@ -675,13 +675,13 @@
 .mod-assembly-card {
   padding: 0.85rem;
   border-radius: 0.65rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--cizgi);
+  background: var(--zemin-yumusak);
 }
 
 .mod-assembly-card--selected {
-  border-color: rgba(56, 189, 248, 0.4);
-  background: rgba(56, 189, 248, 0.08);
+  border-color: var(--vurgu);
+  background: var(--vurgu-yumusak);
 }
 
 .mod-category-output {
@@ -699,7 +699,7 @@
   padding-left: 1.1rem;
   font-size: 0.82rem;
   line-height: 1.55;
-  color: #cbd5e1;
+  color: var(--metin-ikincil);
 }
 
 .mod-games-grid {
@@ -716,7 +716,7 @@
 .mod-game-card {
   padding: 0.85rem;
   border-radius: 0.65rem;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border: 1px dashed var(--cizgi);
   font-size: 0.82rem;
 }
 
