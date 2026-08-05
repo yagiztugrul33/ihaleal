@@ -59,7 +59,7 @@ import { ListingNearbyPoiSection } from "@/components/listing/ListingNearbyPoiSe
 import { ListingMortgageWidget } from "@/components/listing/ListingMortgageWidget";
 import { ListingOfferDialog } from "@/components/offers/ListingOfferDialog";
 import { ListingOffersSection } from "@/components/offers/ListingOffersSection";
-import { LoadingState, EmptyState } from "@/components/async";
+import { LoadingState, LoadingSkeletonDetail, EmptyState } from "@/components/async";
 import { SellerTrustCard } from "@/components/trust/SellerTrustCard";
 import { ListingReviewDialog } from "@/components/trust/ListingReviewDialog";
 import { lazy, Suspense } from "react";
@@ -391,9 +391,10 @@ export default function AuctionDetail() {
 
   if (!auction) {
     if (catalogLoading || detailResolving) {
+      // Ö2: spinner yerine skeleton — içerik yerleşimini önden gösterir (CLS azaltır)
       return (
-        <div className="min-h-screen flex items-center justify-center px-4 pt-24">
-          <LoadingState label={ld.loading} />
+        <div className="min-h-screen px-4 pt-24">
+          <LoadingSkeletonDetail />
         </div>
       );
     }

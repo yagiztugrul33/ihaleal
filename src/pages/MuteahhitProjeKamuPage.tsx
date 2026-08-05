@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useDeveloperProject } from "@/hooks/useDeveloperProjects";
 import { injectJsonLd, removeJsonLd, buildProjectJsonLd } from "@/lib/seoStructuredData";
 import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
+import { LoadingSkeletonDetail } from "@/components/async";
 
 const STAGE_LABELS: Record<string, string> = {
   planning: "Planlama",
@@ -43,7 +44,7 @@ export default function MuteahhitProjeKamuPage() {
   }, [projectId, project, units]);
 
   if (loading) {
-    return <div className="min-h-screen pt-24 px-4 text-center text-slate-400">Yükleniyor...</div>;
+    return <div className="min-h-screen pt-24"><LoadingSkeletonDetail /></div>;
   }
 
   if (!project || project.ruhsat_status !== "verified") {

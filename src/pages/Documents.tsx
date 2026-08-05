@@ -1,6 +1,7 @@
 ﻿import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, FolderOpen, Upload, FileCheck, AlertCircle, Clock } from "lucide-react";
+import { ArrowLeft, FolderOpen, Upload, FileCheck, AlertCircle, Clock, FileText } from "lucide-react";
+import { EmptyState } from "@/components/async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -91,6 +92,18 @@ export default function DocumentsPage() {
         </div>
 
         <div className="space-y-4">
+          {docs.length === 0 ? (
+            <EmptyState
+              icon={FileText}
+              title="Henüz belge yok"
+              description="İhale sürecinde gereken belgeleriniz burada listelenecek. Zorunlu evrak listesini inceleyerek başlayabilirsiniz."
+              action={
+                <Button asChild variant="outline">
+                  <Link to="/evraklar">Gerekli evrakları gör</Link>
+                </Button>
+              }
+            />
+          ) : null}
           {docs.map((d) => {
             const st = STATUS_STYLE[d.status];
             return (

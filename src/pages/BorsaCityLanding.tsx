@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
-import { LoadingState } from "@/components/async/LoadingState";
+import { LoadingState, LoadingSkeletonGrid } from "@/components/async/LoadingState";
 import { findProvince, slugifyTr } from "@/lib/seo/programmaticSeo";
 import { useRegionPriceIndex } from "@/hooks/useRegionPriceIndex";
 import { loadAllAuctionsForSearch } from "@/lib/auctionsSource";
@@ -389,7 +389,7 @@ export default function BorsaCityLanding() {
             ) : null}
           </div>
           {catalogLoading ? (
-            <LoadingState label="İlanlar yükleniyor…" />
+            <LoadingSkeletonGrid count={6} />
           ) : cityListings.length === 0 ? (
             <Card className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-6 text-center">

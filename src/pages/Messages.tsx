@@ -22,7 +22,7 @@ import { isUuid } from "@/lib/chat/isUuid";
 import { postChatMessageViaEdge } from "@/lib/chat/postChatMessageClient";
 import { useAuth } from "@/contexts/AuthContext";
 import { useChatThreads } from "@/hooks/useChatThreads";
-import { LoadingState } from "@/components/async";
+import { LoadingSkeletonList } from "@/components/async";
 
 function roleBadge(role: string) {
   switch (role) {
@@ -201,7 +201,7 @@ export default function MessagesPage() {
             </div>
             <div className="p-2 space-y-1">
               {threadsLoading ? (
-                <LoadingState compact label="Konuşmalar yükleniyor…" className="py-6" />
+                <LoadingSkeletonList count={4} className="p-1" />
               ) : null}
               {threads.map((t) => {
                 const last = t.messages[t.messages.length - 1];

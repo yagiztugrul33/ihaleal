@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useActiveOrg } from "@/hooks/useActiveOrg";
 import { useOrgPermissions } from "@/hooks/useOrgPermissions";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { LoadingSkeletonList } from "@/components/async";
 
 type OrgStats = {
   total_listings: number;
@@ -61,7 +62,7 @@ export function OrganizationDashboard() {
     return Math.min(100, Math.round((stats.ai_used / stats.ai_quota) * 100));
   }, [stats]);
 
-  if (orgLoading) return <div className="p-6">Yükleniyor…</div>;
+  if (orgLoading) return <div className="p-6"><LoadingSkeletonList count={4} /></div>;
 
   if (!org) {
     return (
@@ -106,7 +107,7 @@ export function OrganizationDashboard() {
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
         <h2 className="font-medium text-slate-900">Son ilanlar</h2>
         {statsLoading ? (
-          <p className="mt-4 text-sm text-slate-500">Yükleniyor…</p>
+          <LoadingSkeletonList count={3} className="mt-4" />
         ) : !topListings.length ? (
           <p className="mt-4 text-sm text-slate-500">Henüz kurumsal ilan yok.</p>
         ) : (

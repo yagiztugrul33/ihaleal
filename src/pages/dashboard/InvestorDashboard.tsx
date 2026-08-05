@@ -7,7 +7,7 @@ import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
 import { useFavorites } from "@/hooks/useFavorites";
 import { loadAllAuctionsForSearch, getLocalAndStaticAuctions } from "@/lib/auctionsSource";
 import { withListingDefaults } from "@/lib/listingPolicy";
-import { LoadingState } from "@/components/async";
+import { LoadingSkeletonGrid } from "@/components/async";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useLocale } from "@/contexts/LocaleContext";
 import type { Auction } from "@/types/auction";
@@ -124,7 +124,7 @@ export default function InvestorDashboard() {
           <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">{syncError}</p>
         ) : null}
         {isLoading ? (
-          <LoadingState label={iv.loading} />
+          <LoadingSkeletonGrid count={3} />
         ) : favoriteAuctions.length === 0 ? (
           <EmptyState
             icon={Wallet}

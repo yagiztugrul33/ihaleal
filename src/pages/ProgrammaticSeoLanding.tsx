@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
-import { LoadingState } from "@/components/async/LoadingState";
+import { LoadingState, LoadingSkeletonGrid } from "@/components/async/LoadingState";
 import { loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { useRegionPriceIndex } from "@/hooks/useRegionPriceIndex";
 import {
@@ -195,7 +195,7 @@ export default function ProgrammaticSeoLanding() {
         </div>
 
         {loading ? (
-          <LoadingState label="İlanlar yükleniyor…" />
+          <LoadingSkeletonGrid count={6} />
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {listings.length === 0 ? (

@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { useNotifications } from "@/hooks/useNotifications";
 import { useNotificationPreferences } from "@/hooks/useNotificationPreferences";
 import { useDevicePushSubscription } from "@/hooks/useDevicePushSubscription";
-import { LoadingState, ErrorState, EmptyState } from "@/components/async";
+import { LoadingState, LoadingSkeletonList, ErrorState, EmptyState } from "@/components/async";
 
 export default function NotificationsPage() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function NotificationsPage() {
           ) : null}
         </div>
 
-        {loading ? <LoadingState label="Bildirimler yükleniyor…" /> : null}
+        {loading ? <LoadingSkeletonList count={5} className="mt-4" /> : null}
         {!loading && error ? (
           <ErrorState message={error} onRetry={() => void reload()} className="mt-6" />
         ) : null}

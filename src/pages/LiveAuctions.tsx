@@ -80,7 +80,17 @@ export default function LiveAuctions() {
         <span className="text-xs text-slate-500">{items.length} ilan</span>
       </div>
       {items.length === 0 ? (
-        <p className="rounded-xl border border-slate-700 bg-slate-900/40 px-4 py-3 text-sm text-slate-400">{emptyText}</p>
+        <EmptyState
+          icon={Icon}
+          title={emptyText}
+          description="Yeni ihaleler eklendiğinde burada listelenecek."
+          action={
+            <Button asChild variant="outline" size="sm">
+              <Link to="/arama">Tüm ilanlarda ara</Link>
+            </Button>
+          }
+          className="rounded-xl border border-slate-700 bg-slate-900/40 py-10"
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((a) => (

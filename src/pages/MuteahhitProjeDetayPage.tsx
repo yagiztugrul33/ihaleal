@@ -10,6 +10,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useDeveloperProject, publishUnitAsListing, type ProjectUnit } from "@/hooks/useDeveloperProjects";
 import { PdfExportButton } from "@/components/pdf/PdfExportButton";
 import { downloadProjectReportPdf } from "@/lib/pdf/pdfBuilder";
+import { LoadingSkeletonDetail } from "@/components/async";
 
 const STAGE_LABELS: Record<string, string> = {
   planning: "Planlama",
@@ -42,7 +43,7 @@ export default function MuteahhitProjeDetayPage() {
   const [publishing, setPublishing] = useState<string | null>(null);
 
   if (loading) {
-    return <div className="min-h-screen pt-24 px-4 text-center text-slate-400">Yükleniyor...</div>;
+    return <div className="min-h-screen pt-24"><LoadingSkeletonDetail /></div>;
   }
 
   if (!project) {
