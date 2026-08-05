@@ -47,11 +47,11 @@ export const CommissionResultSchema = z.object({
 
 export type CommissionResult = z.infer<typeof CommissionResultSchema>;
 
-/** KDV, komisyon / KKA hizmet havuzu matrahı üzerinden (çıktı satırı). */
-export const COMMISSION_POOL_VAT_RATE = 0.2 as const;
-
-/** land_share: rayiç üzerinden toplam hizmet bedeli matrahı (KDV hariç, MASTER_RULES taslak). */
-export const LAND_SHARE_TOTAL_EX_VAT_RATE = 0.04 as const;
+// Oran sabitleri `./rates` icinde (zod bagimsiz) — yalnizca sabiti okuyan
+// cagri noktalari vendor-zod'u kritik yola cekmesin. Geriye uyum icin buradan
+// yeniden disa aktarilir; mevcut `@/lib/commission/engine` importlari calisir.
+export { COMMISSION_POOL_VAT_RATE, LAND_SHARE_TOTAL_EX_VAT_RATE } from "./rates";
+import { COMMISSION_POOL_VAT_RATE, LAND_SHARE_TOTAL_EX_VAT_RATE } from "./rates";
 
 const VAT = COMMISSION_POOL_VAT_RATE;
 

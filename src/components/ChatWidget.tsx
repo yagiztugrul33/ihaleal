@@ -27,7 +27,9 @@ import { AiAssistantAvatar } from "@/components/AiAssistantAvatar";
 import { formatBidBondPercent } from "@/lib/fees";
 import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
-import { KKA_SERVICE_POOL_RATE_EX_VAT, KKA_SERVICE_POOL_VAT_RATE } from "@/lib/masterFinancialEngine";
+// Sadece ORAN SABITI gerekiyor — masterFinancialEngine uzerinden gelince
+// commission/engine -> zod (vendor-zod) kritik giris yoluna giriyordu.
+import { KKA_SERVICE_POOL_RATE_EX_VAT, KKA_SERVICE_POOL_VAT_RATE } from "@/lib/commission/rates";
 import { invokeSystemQa, type SystemQaTurn } from "@/lib/systemQaClient";
 import { isProdBuild } from "@/lib/runtimeFlags";
 
