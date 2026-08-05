@@ -25,8 +25,12 @@
     <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
     <!-- Preview/yedek deploy'lari (vercel.app, branch alias) noindex: Google sıralamasını
          prod ile bolmesin. Prod (ihaleal.com/www.ihaleal.com) etkilenmez. -->
-    <!-- Preview noindex: harici .js (CSP script-src 'self' uyumlu). 2026-06-01 -->
-    <script src="/preview-noindex.js"></script>
+    <!-- Preview noindex: harici .js (CSP script-src 'self' uyumlu). 2026-06-01
+         `defer`: Lighthouse render-blocking-insight bu betigi 302 ms engelleyici
+         olarak olctu. defer ile HTML ayristirmasi durmaz; calisma sirasi korunur
+         (defer klasik betikler ve module betikler belge sirasinda calisir), yani
+         preview-noindex -> hash-redirect -> main.tsx sirasi aynen surer. -->
+    <script src="/preview-noindex.js" defer></script>
     <!-- Ana sayfa meta: Vite home-page-meta-from-seo-data + docs/SEO_HASH_CANONICAL.md -->
 
     <!-- Canonical -->
@@ -52,19 +56,26 @@
 
     <!-- Gövde/başlık fontları: HTML head'de yüklenir ki tarayıcı ilk taramada keşfetsin.
          Daha önce src/styles/theme.css içinde @import ile geliyordu; font ancak paket CSS'i
-         indikten sonra istenip geç swap ile düzen kaymasına (CLS) sebep oluyordu. -->
+         indikten sonra istenip geç swap ile düzen kaymasına (CLS) sebep oluyordu.
+
+         media="print" + data-font-swap: stylesheet ILK BOYAMAYI BLOKLAMAZ; indikten
+         sonra /font-loader.js media'yi "all" yapar. Olcum (yerel Lighthouse mobil,
+         medyan): font stylesheet'i kritik yoldan cikinca Perf 74 -> 80,
+         FCP 4214 -> 3070 ms. Ilk ekran, kritik CSS'teki metrik uyumlu
+         "Inter Fallback" ile cizilir; swap kayma uretmez. -->
     <link
       rel="stylesheet"
+      media="print"
+      data-font-swap
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
     />
+    <script src="/font-loader.js" defer></script>
 
     <!-- i18n FAZ 0: Arapça font (AR seçilince [lang="ar"] body altında uygulanır).
-         display=swap → Inter LCP'i bekletmez; AR aktif değilse network yükü minimal. -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
-      media="all"
-    />
+         ARTIK HEAD'DE DEGIL — bu stylesheet render-blocking'ti (Lighthouse
+         render-blocking-insight: 171 ms) ve ziyaretcilerin buyuk cogunlugu
+         (TR/EN/RU) icin hic kullanilmiyordu. Yalnizca dil AR secildiginde
+         src/contexts/LocaleContext.tsx tarafindan calisma aninda eklenir. -->
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -196,8 +207,11 @@
         <p style="margin:0;font-size:0.9rem;opacity:0.9">İhaleal platformunun bu tarayıcıda çalışması için JavaScript açık olmalıdır. Lütfen tarayıcı ayarlarınızdan JavaScript'i etkinleştirin.</p>
       </div>
     </noscript>
-    <!-- Legacy hash → pathname redirect (CSP-safe external script) -->
-    <script src="/hash-redirect.js"></script>
+    <!-- Legacy hash → pathname redirect (CSP-safe external script)
+         `defer`: render-blocking-insight 151 ms olctu. defer klasik betik,
+         main.tsx module betiginden ONCE calisir (belge sirasi korunur), yani
+         React Router konumu okumadan once replaceState yapilmis olur. -->
+    <script src="/hash-redirect.js" defer></script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

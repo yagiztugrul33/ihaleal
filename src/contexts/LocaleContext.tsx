@@ -68,6 +68,24 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     document.documentElement.dir = LOCALE_DIRECTION[locale];
   }, [locale]);
 
+  useEffect(() => {
+    // Arapça web fontu TALEP UZERINE yuklenir. Onceden index.html <head>'inde
+    // sabit <link rel="stylesheet"> idi ve her ziyaretcide render'i blokluyordu
+    // (Lighthouse render-blocking-insight: 171 ms), oysa TR/EN/RU'da hic
+    // kullanilmiyor. src/index.css'teki [lang="ar"] kurali "Noto Sans Arabic"
+    // ister; bu link yalnizca o durumda eklenir. Bir kez eklenir, kaldirilmaz —
+    // dil ileri geri degistirilirse font yeniden indirilmesin.
+    if (locale !== "ar") return;
+    const ID = "noto-sans-arabic-font";
+    if (document.getElementById(ID)) return;
+    const link = document.createElement("link");
+    link.id = ID;
+    link.rel = "stylesheet";
+    link.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap";
+    document.head.appendChild(link);
+  }, [locale]);
+
   const value = useMemo<LocaleContextValue>(
     () => ({
       locale,
