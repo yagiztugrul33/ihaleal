@@ -2,10 +2,11 @@
 
 ## Ö2 sadeleştirme sonrası eklenenler (2026-08-05 sabah)
 
-1. **Kök `typecheck` scripti no-op** — `tsconfig.json` solution-style ("files": []) olduğundan
-   `tsc --noEmit` hiçbir dosyayı denetlemiyor. Gerçek denetim (`tsc -p tsconfig.app.json`) 30 mevcut
-   hata veriyor (BorsaTerminali, ChatWidget, lib/reports/*, hooks/*). Script `"typecheck": "tsc --noEmit -p tsconfig.app.json"`
-   yapılırsa CI kırılır → önce 30 hata kapatılmalı. Operatör kararı bekliyor.
+1. ~~**Kök `typecheck` scripti no-op**~~ — **KAPANDI (2026-08-05, TS kapanışı turu).**
+   30 hatanın tamamı kapatıldı (`37715c5`, `a69b734`, `337f58c`, `f68fb87`, `ca31db2`),
+   ardından script `tsc --noEmit -p tsconfig.app.json`'a bağlandı (`263cc8d`). Kök
+   `tsconfig.json` değiştirilmedi. Soğuk klonda `npm run typecheck` **exit 0**,
+   `npm run build` **exit 0**. Ayrıntı: `DENETIM-KAYDI.md` → "Ö2 — TS KAPANIŞI".
 2. **staging push edildi** (`git push -u origin staging` başarılı, 29 commit). Vercel build
    `state: success` (commit 563e812).
 3. **Vercel Deployment Protection AÇIK — preview dışarıdan doğrulanamıyor.**
@@ -14,6 +15,29 @@
    Protection → kapat** (veya bypass token üret). Kapatıldıktan sonra aynı URL curl ile doğrulanmalı.
    Not: production `https://ihaleal.vercel.app/` korumasız (HTTP 200, `id="root"` var) ama main dalını
    yansıtıyor, Ö2 değişikliklerini içermez.
+
+## TS kapanışı turundan çıkanlar (2026-08-05, operatör kararı bekliyor)
+
+1. **`BorsaTerminali`'de `compact` prop'unun asıl niyeti** — `CountdownTimer`'a iki yerde
+   (satır ~283 ve ~469) `compact` geçiliyordu; bu prop `Props`'ta **yok** ve bileşen rest
+   spread yapmadığı için çalışma zamanında **zaten yok sayılıyordu**. Görünümü değiştirmemek
+   adına prop kaldırıldı. Bileşende `layout?: "compact" | "wide"` (varsayılan `"wide"`) var —
+   yazarın niyeti büyük olasılıkla `layout="compact"`. **Bu bir görsel değişikliktir**,
+   onay olmadan yapılmadı. Karar: olduğu gibi mi kalsın, `layout="compact"` mi olsun?
+2. **`BorsaPage` izleyici sayacı semantiği** — `setWatchers((p) => Math.max(1, p + (item.dir === "up" ? 1 : 0)))`
+   satırındaki `item`, `forEach` geri çağrısının parametresiydi ve blok dışında kapsam dışı
+   kalıyordu → **çalışma zamanında `ReferenceError`** (fiyat her değiştiğinde). Aynı blokta
+   hesaplanan `upCount` ile değiştirildi (`upCount > 0 ? 1 : 0`). Alternatif yorum: `p + upCount`
+   (her yükselen ilan için 1 artış). Hangisinin ürün açısından doğru olduğu **teyit edilmeli**.
+3. **`Auction.verified` alanını hiçbir veri kaynağı doldurmuyor** — `AuctionDetail.tsx:1238`
+   `auction.verified === true` kontrolü yapıyor ve tipe opsiyonel `verified?: boolean` eklendi,
+   ama `src/` altında hiçbir yer bu alanı bir ilan kaydına yazmıyor. Yani doğrulama rozeti
+   **hiç görünmüyor** (ölü kod). Rozet gerçekten isteniyorsa alanın veri kaynağından gelmesi gerekir.
+4. **`build:full` scripti hâlâ sahte yeşil** — `"build:full": "tsc --noEmit && vite build"`
+   aynı no-op kök projeyi kullanıyor. Görev kapsamı yalnızca `typecheck` satırıydı, dokunulmadı.
+   Aynı düzeltme (`-p tsconfig.app.json`) burada da uygulanmalı mı?
+5. **`tsconfig.node.json` hiç denetlenmiyor** — `scripts/*.mjs` ve vite config tarafı yeni
+   `typecheck` scriptinin dışında. İstenirse ikinci bir `typecheck:node` scripti eklenebilir.
 
 ## Operator onayi bekleyenler
 

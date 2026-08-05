@@ -264,3 +264,94 @@ Hepsi `origin/staging`'e push'landı.
    yüklenmesi incelenebilir (AuthContext'e bağlı, dikkat gerektirir).
 4. **FCP/LCP hâlâ ~4.6 / 4.9 sn** — performansı 90'a çıkarmak için kritik JS'in daha da
    küçülmesi gerekiyor; ayrı bir tur konusu.
+
+---
+
+# Ö2 — TS KAPANIŞI (2026-08-05, üçüncü tur)
+
+**Hata sayısı: 30 → 0.** Yukarıdaki "eşzamanlı oturum" notlarında geçen
+`37715c5 … 263cc8d` serisi bu turun işidir; aşağısı o turun tam kaydıdır.
+
+## Sahte yeşil: sorunun kökü
+
+Kök `tsconfig.json` solution-style (`"files": []` + yalnızca `references`). Bu yüzden
+`npm run typecheck` → `tsc --noEmit` **hiçbir dosyayı denetlemiyor** ve her koşulda
+exit 0 dönüyordu. Gerçek denetim `tsconfig.app.json` projesiyle yapılınca **30 hata**
+ortaya çıktı.
+
+| | Öncesi | Sonrası |
+|---|---|---|
+| `typecheck` scripti | `tsc --noEmit` | `tsc --noEmit -p tsconfig.app.json` |
+| Denetlenen dosya | 0 | `src/**` tamamı |
+| Çıktı | daima exit 0 (sahte yeşil) | gerçek denetim, şu an 0 hata |
+
+Kök `tsconfig.json` **değiştirilmedi** — yalnızca `package.json`'daki script satırı.
+
+## Gruplar (30 hata, 5 kök neden)
+
+| # | Grup | Hata | Kök neden ve kapatma yöntemi |
+|---|---|---|---|
+| A | `PropertyDetails` index imzası | 7 | `interface` → `type` alias. TS yalnızca type alias'lara **örtük index imzası** verir; interface olduğu için `Record<string, unknown>` okuması TS2352/TS2322 veriyordu. Alan listesi ve katılık aynen korundu. `emsalMotoru.ts` (4) + `endeksRaporu.ts` (3). |
+| B | GES `irrPct: number \| null` | 10 | Motor `null` dönebiliyor, tüketiciler `number` varsayıyordu. `fmtPct` imzası `number \| null \| undefined` yapıldı (`Number.isFinite(null)` zaten `false` → çıktı eskiden de `"—"`). Karşılaştırma/aritmetikte `?? 0`; JS `null`'u zaten `ToNumber → 0` yaptığı için **üretilen değerler birebir aynı**. `gesEndeksPdf.ts` (6) + `GesAnalysisPage.tsx` (4). |
+| C | Tanımsız referans (TS2304) | 3 | Üçü de **gerçek çalışma zamanı `ReferenceError`**'ıydı, tip gürültüsü değil. `ChatWidget` → silinmiş `AI_DEFAULT` sabiti `4909bb7`'deki özgün metniyle geri alındı. `AuctionDetail` → eksik `getListingNumber` import'u. `BorsaPage` → `forEach` dışında kalan `item` yerine aynı blokta hesaplanan `upCount`. |
+| D | Eksik alan / prop bildirimi | 7 | `Aramalarim` hook `removeSearch` dönüyor (destructure yeniden adlandırıldı) · `ValuationTool` `CityPrice.name` yok, `label` var · `AuctionDetail` satır tipine `buy_now_price_try` · `Auction` tipine opsiyonel `verified` · `PaymentStartPage` zorunlu alanlı cast → opsiyonel cast + daraltma · `BorsaTerminali` ×2 tanımsız `compact` prop'u kaldırıldı. |
+| E | Hook tip uyumsuzlukları | 3 | `useDevicePushSubscription`: TS 5.7+ ile çıplak `Uint8Array` = `Uint8Array<ArrayBufferLike>` olup `SharedArrayBuffer`'ı da kapsadığından `BufferSource` ile uyuşmuyordu → dönüş tipi `Uint8Array<ArrayBuffer>`. `useMembershipTier` ×2: supabase sorgu kurucusu `PromiseLike` (`then` var, `catch` yok) → iki zincir `Promise.resolve(...)` ile gerçek Promise'e sarıldı. |
+
+**Bu turda eklenen `@ts-expect-error` / `@ts-ignore` / `any`: 0.** Otuz hatanın tamamı
+gerçek tip düzeltmesiyle kapatıldı; geçici susturmaya gerek kalmadı. Repodaki tek
+`@ts-expect-error` bu turdan öncedir ve dokunulmadı: `src/components/pwa/InstallPrompt.tsx:31`
+(iOS Safari'ye özgü property). `src/` altında `@ts-ignore` / `@ts-nocheck` yok.
+
+## Davranış değişikliği notu (dürüstlük kaydı)
+
+Grup A, B, D, E'de çalışma zamanı çıktısı **birebir aynı**. Grup C'deki üç düzeltme
+tanım gereği davranışı değiştirir, çünkü mevcut kod o satırlarda `ReferenceError`
+atıyordu; "değişmeyen davranış" seçeneği yoktu. `BorsaPage`'te `item.dir` yerine
+`upCount` seçimi bir **yorum kararıdır** → kuyruğa yazıldı.
+
+## Commit'ler
+
+| SHA | Grup | Konu |
+|---|---|---|
+| `37715c5` | A | fix(types): PropertyDetails type alias'a alindi, ortuk index imzasi acildi |
+| `a69b734` | B | fix(ges): IRR null olabilirligi tip duzeyinde ele alindi |
+| `337f58c` | C | fix(runtime): tanimsiz 3 referans giderildi (TS2304) |
+| `f68fb87` | D | fix(types): eksik alan/prop bildirimleri hizalandi (7 hata) |
+| `ca31db2` | E | fix(hooks): push anahtar buffer turu ve supabase thenable zinciri |
+| `263cc8d` | — | chore(ci): typecheck scripti gercek denetime baglandi |
+
+Hepsi `origin/staging`'e push'landı.
+
+Hata sayısı grup grup ölçüldü: **30 → 23 → 13 → 10 → 3 → 0**.
+
+## KAPI 1 — soğuk klon (süre damgalı)
+
+Yol: `C:\Users\yagiz\Projeler\_dogrulama\ihaleal-ts`, ref `263cc8d` (`-b staging`).
+Süreler `Measure-Command` ile ölçüldü.
+
+| Adım | Süre | Exit |
+|---|---|---|
+| `git clone … -b staging` | 177,0 sn | 0 |
+| `npm ci` | 102,0 sn | 0 |
+| `npm run typecheck` (artık **gerçek**) | 46,6 sn | **0** |
+| `npm run build` | 43,3 sn | **0** |
+
+Build son satırları: `✓ built in 30.07s` · `PWA v1.3.0 / mode generateSW` ·
+`precache 305 entries (6621.17 KiB)` · `dist/sw.js`, `dist/workbox-9c35ba06.js`.
+
+## KAPI 2 — soğuk klonda preview + somut içerik kanıtı
+
+`npm run preview` → `http://localhost:4173/`. Altı kanıt curl ile toplandı:
+
+| # | Kanıt | Sonuç |
+|---|---|---|
+| 1 | `GET /` | `HTTP=200`, 11236 bayt, `<title>ihaleal.com — Yapay zeka destekli gayrimenkul platformu</title>` |
+| 2 | Uygulama kökü + modül script | `<div id="root"></div>` ve `src="/assets/index-BNIQW5Xp.js"` |
+| 3 | **Geri alınan `AI_DEFAULT` metni bundle'da** | `assets/index-BNIQW5Xp.js` (456 232 bayt) içinde `"Anahtar kelimeyle tekrar sorabilirsiniz"` bulundu — C grubu düzeltmesi derlenmiş çıktıda |
+| 4 | `GET /assets/AuctionDetail-B5GqI5DH.js` | `HTTP=200`, 132 396 bayt, içinde `ihaleal-ekspertiz-` → `getListingNumber` import'u derlendi |
+| 5 | `GET /assets/BorsaPage-xjuaId1w.js` | `HTTP=200`, 45 717 bayt |
+| 6 | SPA fallback `GET /ilan/deneme` | `HTTP=200`, 11236 bayt, aynı `<title>` |
+
+## KAPI 3
+
+Bu bölüm + `public/denetim.json` `scripts/denetim-uret.mjs` ile yeniden üretildi.
