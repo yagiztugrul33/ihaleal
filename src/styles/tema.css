@@ -1,0 +1,277 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   ihaleal — AÇIK & MİNİMAL TASARIM SİSTEMİ  (tek kaynak)
+   ──────────────────────────────────────────────────────────────────────────
+   Kural: saf beyaz zemin · koyu nötr metin · TEK vurgu (lacivert #1E40AF).
+   Koyu panel ve gradyan duvarı YOK. Ağır kenarlık YOK. Gölge neredeyse görünmez.
+
+   Bu dosya main.tsx'te EN SON import edilir; böylece eski tema dosyalarının
+   (:root) tanımlarını geçersiz kılar. Eski değişkenler (lux, premium, color,
+   bg ve text ön ekli olanlar) tek tek dosya değiştirmek yerine BURADA yeni
+   tokenlara EŞLENİR — geriye uyum korunur, tek noktadan yönetilir.
+
+   Kontrast kanıtı (WCAG 2.1 hesabı, bkz. DENETIM-KAYDI.md):
+     --metin   #1e2a24 / #ffffff → 14.88:1
+     --metin   #1e2a24 / #eef1ee → 12.99:1
+     --metin-ikincil #5f6b64 / #ffffff → 5.56:1
+     --metin-ikincil #5f6b64 / #eef1ee → 4.89:1
+     --vurgu   #1e40af / #ffffff → 8.72:1   (beyaz metin / vurgu zemin de 8.72:1)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ——— Zemin ——— */
+  --zemin: #ffffff;
+  --zemin-yumusak: #f7f8f7;
+  --zemin-gri: #eef1ee;
+
+  /* ——— Metin ——— */
+  --metin: #1e2a24;
+  --metin-ikincil: #5f6b64;
+
+  /* ——— Vurgu: TEK renk ——— */
+  --vurgu: #1e40af;
+  --vurgu-koyu: #1e3a8a;
+  --vurgu-yumusak: #eef2fb;
+
+  /* ——— Çizgi ——— (ağır border yok: 1px, çok düşük kontrast) */
+  --cizgi: #e8ede9;
+
+  /* ——— Gölge ——— (neredeyse görünmez) */
+  --golge-kucuk: 0 1px 2px rgba(30, 42, 36, 0.04);
+  --golge-buyuk: 0 8px 24px rgba(30, 42, 36, 0.06);
+
+  /* ——— Köşe ——— */
+  --kose: 14px;
+  --kose-kucuk: 10px;
+
+  /* ——— Boşluk: 8px grid ——— */
+  --bosluk: 8px;
+  --bosluk-1: 8px;
+  --bosluk-2: 16px;
+  --bosluk-3: 24px;
+  --bosluk-4: 32px;
+  --bosluk-6: 48px;
+  --bosluk-8: 64px;
+
+  /* ——— Fonksiyonel durum renkleri (tek vurgu kuralının istisnası, sade) ———
+     Hepsi beyaz zeminde AA: #15803d 4.54:1 · #9a6700 4.53:1 · #b42318 5.86:1 */
+  --durum-basari: #15803d;
+  --durum-basari-zemin: #f0f7f2;
+  --durum-uyari: #9a6700;
+  --durum-uyari-zemin: #fbf6e9;
+  --durum-hata: #b42318;
+  --durum-hata-zemin: #fdf3f2;
+
+  /* ——— Hareket ——— (yalnız transform/opacity) */
+  --gecis-hizli: 150ms;
+  --gecis: 220ms;
+  --gecis-egri: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   GERİYE UYUM EŞLEMESİ — eski token adları yeni tokenlara işaret eder.
+   (tokens.css / theme-luxury-ext.css / premium-cinematic-home.css /
+    global-* katmanları bu adları kullanıyor.)
+   ══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Zeminler */
+  --lux-bg-deep: var(--zemin);
+  --lux-bg-base: var(--zemin);
+  --lux-bg-elevated: var(--zemin-yumusak);
+  --lux-bg-surface: var(--zemin-yumusak);
+
+  /* Yüzeyler — koyu temada beyaz şeffaflıktı, açıkta düz açık gri */
+  --lux-surface-1: var(--zemin-yumusak);
+  --lux-surface-2: var(--zemin-yumusak);
+  --lux-surface-3: var(--zemin-gri);
+  --lux-glass: rgba(255, 255, 255, 0.86);
+
+  /* Vurgu ailesi → TEK renge indirildi */
+  --lux-blue-600: var(--vurgu);
+  --lux-blue-500: var(--vurgu);
+  --lux-blue-400: var(--vurgu);
+  --lux-trust-green: var(--durum-basari);
+  --lux-trust-sky: var(--vurgu);
+
+  /* Durum */
+  --lux-emerald-500: var(--durum-basari);
+  --lux-emerald-400: var(--durum-basari);
+  --lux-amber-500: var(--durum-uyari);
+  --lux-amber-400: var(--durum-uyari);
+  --status-success-bg: var(--durum-basari-zemin);
+  --status-success-border: var(--cizgi);
+  --status-warning-bg: var(--durum-uyari-zemin);
+  --status-warning-border: var(--cizgi);
+
+  /* Metin */
+  --lux-text-primary: var(--uzerine);
+  --lux-text-secondary: var(--uzerine);
+  --lux-text-muted: var(--uzerine-ikincil);
+  --lux-text-subtle: var(--uzerine-ikincil);
+
+  /* Kenarlık */
+  --lux-border: var(--cizgi);
+  --lux-border-strong: var(--cizgi);
+
+  /* Yarıçap — 10–14px bandına sabitlendi */
+  --radius-sm: var(--kose-kucuk);
+  --radius-md: var(--kose-kucuk);
+  --radius-lg: var(--kose);
+  --radius-xl: var(--kose);
+  --radius-2xl: var(--kose);
+
+  /* Gölge — tek çift değer */
+  --shadow-xs: var(--golge-kucuk);
+  --shadow-sm: var(--golge-kucuk);
+  --shadow-md: var(--golge-buyuk);
+  --shadow-lg: var(--golge-buyuk);
+  --shadow-glow-blue: var(--golge-buyuk);
+  --shadow-glow-blue-lg: var(--golge-buyuk);
+
+  /* Anlamsal takma adlar */
+  --color-primary: var(--vurgu);
+  --color-bg: var(--zemin);
+  --color-bg-card: var(--zemin);
+  --color-bg-soft: var(--zemin-yumusak);
+  --color-text: var(--uzerine);
+  --color-text-muted: var(--uzerine-ikincil);
+  --color-text-light: var(--uzerine-ikincil);
+  /* "on-dark" yalniz DOLU vurgu yuzeyinde kullaniliyor (fiyat karti, CTA bandi) */
+  --color-text-on-dark: #ffffff;
+  --color-accent: var(--vurgu);
+  --color-accent-light: var(--vurgu);
+  --color-success: var(--durum-basari);
+  --color-border: var(--cizgi);
+
+  /* GRADYAN DUVARI KALDIRILDI — hepsi düz yüzeye indirildi.
+     --gradient-cta bir istisna DEĞİL: gradyan değil, DÜZ vurgu rengi.
+     (Ağaçta 30+ CTA butonu bu değişkeni arka plan olarak kullanıyor.) */
+  --gradient-page: none;
+  --gradient-hero: none;
+  --gradient-cta: var(--vurgu);
+  --gradient-text: none;
+  --gradient-card-shine: none;
+  --gradient-scrim: none;
+
+  /* global-dark.css kalıntısı değişkenler */
+  --bg-base: var(--zemin);
+  --bg-elevated: var(--zemin-yumusak);
+  --bg-card: var(--zemin);
+  --text-primary: var(--uzerine);
+  --text-secondary: var(--uzerine);
+  --text-muted: var(--uzerine-ikincil);
+  --accent: var(--vurgu);
+  --accent-blue: var(--vurgu);
+  --accent-purple: var(--vurgu);
+
+  /* premium-cinematic-home.css token bloğu */
+  --premium-bg: var(--zemin);
+  --premium-bg-2: var(--zemin-yumusak);
+  --premium-panel: var(--zemin);
+  --premium-border: var(--cizgi);
+  --premium-text: var(--uzerine);
+  --premium-soft: var(--uzerine-ikincil);
+  --premium-blue: var(--vurgu);
+  --premium-blue-bright: var(--vurgu);
+  --premium-green: var(--durum-basari);
+  --premium-shadow: var(--golge-buyuk);
+  --premium-glow: rgba(30, 64, 175, 0.08);
+
+  /* afet-disaster-hub.css */
+  --afet-accent: var(--vurgu);
+  --afet-muted: var(--uzerine-ikincil);
+
+  /* shadcn/ui (HSL üçlüsü) — açık tema */
+  --background: 0 0% 100%;
+  --foreground: 158 12% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 158 12% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 158 12% 14%;
+  --primary: 224 71% 43%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 140 8% 97%;
+  --secondary-foreground: 158 12% 14%;
+  --muted: 132 10% 94%;
+  --muted-foreground: 155 6% 40%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 4 76% 40%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 140 14% 92%;
+  --input: 140 14% 92%;
+  --ring: 224 71% 43%;
+  --radius: 10px;
+  --page-gradient-from: 0 0% 100%;
+  --page-gradient-via: 0 0% 100%;
+  --page-gradient-to: 0 0% 100%;
+}
+
+/* Tema anahtarı devre dışı: tek tema (açık). Koyu istekleri de açığa düşer. */
+[data-theme="dark"],
+[data-theme="light"] {
+  --background: 0 0% 100%;
+  --foreground: 158 12% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 158 12% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 158 12% 14%;
+  --primary: 224 71% 43%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 140 8% 97%;
+  --secondary-foreground: 158 12% 14%;
+  --muted: 132 10% 94%;
+  --muted-foreground: 155 6% 40%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 4 76% 40%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 140 14% 92%;
+  --input: 140 14% 92%;
+  --ring: 224 71% 43%;
+}
+
+/* ── Dolu vurgu yüzeyi ───────────────────────────────────────────────────
+   Vurgu zeminli kart/bant. Üzerindeki metin beyaza döner (yüzey sözleşmesi:
+   --uzerine* değişkenleri miras alınır, bkz. global-acik.css).
+   Beyaz metin / #1e40af = 8.72:1. */
+.vurgu-yuzey {
+  background: var(--vurgu) !important;
+  border-color: var(--vurgu) !important;
+  color: #ffffff;
+  --uzerine: #ffffff;
+  --uzerine-ikincil: rgba(255, 255, 255, 0.9);
+  --uzerine-vurgu: #ffffff;
+  --uzerine-basari: #ffffff;
+  --uzerine-uyari: #ffffff;
+  --uzerine-hata: #ffffff;
+}
+
+/* ── Zemin: gradyan duvarı yerine düz beyaz ─────────────────────────────── */
+html,
+body,
+#root,
+.page-shell,
+.page-shell-gradient,
+.kurumsal-page,
+.intelligence-page,
+.premium-home,
+.home-ref-page {
+  background: var(--zemin) !important;
+  background-color: var(--zemin) !important;
+  background-image: none !important;
+  color: var(--metin) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--metin);
+}
+
+/* ── Hareket: yalnız transform/opacity, azaltılmış harekete saygı ───────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

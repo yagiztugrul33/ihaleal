@@ -1,4 +1,6 @@
-/* ihaleal — Luxury Institutional Futurism tokens v3 */
+/* ihaleal — tipografi / olcek / hareket tokenlari.
+   RENK, CIZGI, GOLGE, KOSE tokenlari BURADA DEGIL: tek kaynak src/styles/tema.css.
+   (Eski "Luxury Institutional Futurism" koyu paleti kaldirildi.) */
 
 /* Yedek font metrik eslemesi (CLS icin).
    Web fontu inene kadar gosterilen yedek font, web fontla AYNI yeri kaplasin diye
@@ -24,49 +26,7 @@
 }
 
 :root {
-  /* Backgrounds */
-  --lux-bg-deep: #081120;
-  --lux-bg-base: #0B1120;
-  --lux-bg-elevated: #0F172A;
-  --lux-bg-surface: #111827;
-
-  /* Surfaces */
-  --lux-surface-1: rgba(255, 255, 255, 0.04);
-  --lux-surface-2: rgba(255, 255, 255, 0.06);
-  --lux-surface-3: rgba(255, 255, 255, 0.08);
-  --lux-glass: rgba(8, 17, 32, 0.72);
-
-  /* Accent — single institutional blue family */
-  --lux-blue-600: #2563EB;
-  --lux-blue-500: #3B82F6;
-  --lux-blue-400: #60A5FA;
-
-  /* Trust */
-  --lux-trust-green: #22C55E;
-  --lux-trust-sky: #38BDF8;
-
-  /* Status — lux uyumlu emerald/amber (Ö2): durum yüzeyleri DÜZ token kullanır, gradyan değil.
-     Tailwind eşleniği: emerald-500 = --lux-emerald-500, amber-500 = --lux-amber-500. */
-  --lux-emerald-500: #10B981;
-  --lux-emerald-400: #34D399;
-  --lux-amber-500: #F59E0B;
-  --lux-amber-400: #FBBF24;
-  --status-success-bg: rgba(16, 185, 129, 0.10);
-  --status-success-border: rgba(16, 185, 129, 0.30);
-  --status-warning-bg: rgba(245, 158, 11, 0.10);
-  --status-warning-border: rgba(245, 158, 11, 0.30);
-
-  /* Text */
-  --lux-text-primary: #FFFFFF;
-  --lux-text-secondary: #E2E8F0;
-  --lux-text-muted: #CBD5E1;
-  --lux-text-subtle: #94A3B8;
-
-  /* Borders */
-  --lux-border: rgba(255, 255, 255, 0.10);
-  --lux-border-strong: rgba(255, 255, 255, 0.16);
-
-  /* Typography */
+  /* Tipografi */
   --font-display: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", "Inter", system-ui, sans-serif;
   --font-body: "Inter", "Inter Fallback", system-ui, sans-serif;
   --text-xs: 0.75rem;
@@ -77,13 +37,14 @@
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2.25rem;
-  --text-5xl: clamp(2.25rem, 5.5vw, 3.75rem);
-  --leading-tight: 1.1;
+  /* Baslik olculu: eski 3.75rem tepe degeri 3rem'e cekildi */
+  --text-5xl: clamp(2rem, 4.5vw, 3rem);
+  --leading-tight: 1.15;
   --leading-relaxed: 1.65;
   --tracking-tight: -0.02em;
   --tracking-wide: 0.08em;
 
-  /* Spacing scale */
+  /* Bosluk olcegi — 8px grid (4px yarim adimlar dahil, mevcut duzen korunur) */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -94,51 +55,11 @@
   --space-16: 4rem;
   --space-24: 6rem;
 
-  /* Radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
-  --radius-full: 9999px;
-
-  /* Shadows — elevation system */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.24);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.28);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.32);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
-  --shadow-glow-blue: 0 12px 40px rgba(37, 99, 235, 0.35);
-  --shadow-glow-blue-lg: 0 20px 56px rgba(37, 99, 235, 0.42);
-
-  /* Motion */
+  /* Hareket */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
   --duration-fast: 150ms;
-  --duration-base: 250ms;
-  --duration-slow: 400ms;
-  --duration-cinematic: 600ms;
-
-  /* Semantic aliases */
-  --color-primary: var(--lux-blue-600);
-  --color-bg: var(--lux-bg-base);
-  --color-bg-card: var(--lux-surface-2);
-  --color-bg-soft: var(--lux-surface-1);
-  --color-text: var(--lux-text-secondary);
-  --color-text-muted: var(--lux-text-muted);
-  --color-text-light: var(--lux-text-subtle);
-  --color-text-on-dark: var(--lux-text-primary);
-  --color-accent: var(--lux-trust-sky);
-  --color-accent-light: var(--lux-blue-400);
-  --color-success: var(--lux-trust-green);
-  --color-border: var(--lux-border);
-
-  /* Gradients — restrained */
-  --gradient-page: radial-gradient(120% 80% at 50% -20%, rgba(37, 99, 235, 0.14) 0%, transparent 55%),
-    linear-gradient(180deg, var(--lux-bg-deep) 0%, var(--lux-bg-base) 38%, var(--lux-bg-elevated) 72%, var(--lux-bg-surface) 100%);
-  --gradient-hero: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(37, 99, 235, 0.2) 0%, transparent 65%),
-    linear-gradient(180deg, var(--lux-bg-deep) 0%, var(--lux-bg-base) 100%);
-  --gradient-cta: linear-gradient(135deg, var(--lux-blue-600) 0%, var(--lux-blue-500) 52%, var(--lux-blue-400) 100%);
-  --gradient-text: linear-gradient(90deg, #ffffff 0%, #e2e8f0 45%, var(--lux-blue-400) 100%);
-  --gradient-card-shine: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.06) 50%, transparent 60%);
-  --gradient-scrim: linear-gradient(0deg, var(--lux-bg-deep) 0%, transparent 50%, transparent 100%);
+  --duration-base: 220ms;
+  --duration-slow: 320ms;
+  --duration-cinematic: 400ms;
 }
