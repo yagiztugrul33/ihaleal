@@ -1,7 +1,7 @@
 {
-  "commitSHA": "45f71f9924239a275de499f290818483e9a13583",
+  "commitSHA": "263cc8d2766037a38d5d1abb13b6a7ae427d2a69",
   "temelSHA": "2da8c8d6c7bf7043f2cd0e523b04ded1104f8608",
-  "buildZamani": "2026-08-05T07:46:41.497Z",
+  "buildZamani": "2026-08-05T13:36:50.283Z",
   "aciklama": "Ö2 sadeleştirme denetimi — değerler git show + regex sayımından üretildi (scripts/denetim-uret.mjs).",
   "sayfaMetrikleri": {
     "src/pages/Home.tsx": {

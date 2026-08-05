@@ -114,3 +114,153 @@ importu `45f71f9` ile kapatıldı). Script düzeltmesi CI'ı kıracağı için o
   → Kuyruk: Vercel → ihaleal → Settings → Deployment Protection → kapat.
 - `https://ihaleal.vercel.app/` (production, main dalı) HTTP 200 + `id="root"` var — Ö2 içermez.
 - GitHub deployments API'de staging kaydı yok (Vercel bu repoda yalnız commit status yayımlıyor).
+
+---
+
+# Ö2 — GÖRÜNÜM CİLASI (2026-08-05, ikinci tur)
+
+Temel: `aa2d700`. Ölçüm aracı: Lighthouse CLI (mobil varsayılan kısıtlama),
+**Chrome for Testing 151.0.7922.76** (Edge headless `NO_NAVSTART` verdiği için kullanılamadı).
+Her ölçüm **3 tur**, tabloda **medyan** var. Sunucu: `vite preview --host 127.0.0.1`.
+
+## Lighthouse önce / sonra (3 tur medyan)
+
+| Ölçüt | ÖNCE (aa2d700) | SONRA (37715c5, soğuk klon) | Değişim |
+|---|---|---|---|
+| Performans | **57** (58/57/53) | **71** (70/71/71) | **+14** |
+| Erişilebilirlik | **90** (90/90/90) | **100** (100/100/100) | **+10** |
+| SEO | **100** | **100** | — |
+| FCP | 5129 ms | 4643 ms | −486 ms |
+| LCP | 5675 ms | 4899 ms | −776 ms |
+| TBT | 54 ms | 45 ms | −9 ms |
+| CLS | **0.186** | **0.0032** | **−98%** |
+| Speed Index | 5129 ms | 4643 ms | −486 ms |
+| Başarısız denetim (binary) | 3 | **0** | — |
+
+## Düzeltilen 2 büyük sorun (Lighthouse'un kendi fırsat/tanı listesinden)
+
+**1) `unused-javascript` — 1050 ms / 216 KB (en yüksek etkili fırsat)**
+
+Kök neden ölçümle bulundu: giriş chunk'ı `vendor-charts` içinden tek bir sembol (`clsx`)
+import ediyordu. Rollup, `manualChunks` recharts'ı zorladığı için paylaşılan `clsx` modülünü de
+aynı chunk'a koymuş; ana sayfa hiç grafik göstermediği hâlde **456 KB'lik recharts kritik
+yola giriyordu**. `vendor-utils` chunk'ı eklendi (clsx + tailwind-merge + cva).
+
+- Kritik yoldaki 117 KB'lik `vendor-charts` yerini **27 KB'lik `vendor-utils`** aldı.
+- Kullanılmayan JS 216 KB -> 124 KB; performans 57 -> 62; TBT 54 -> 0 ms.
+- Kanıt: `dist/index.html` modulepreload listesinde `vendor-charts` **yok** (KAPI 2, satır 7).
+
+**2) CLS 0.186 — sayfa yükünün tamamındaki tek kayma**
+
+Lighthouse "Web font loaded" diyordu; **bu yanıltıcıydı.** PerformanceObserver ile gerçek
+`layout-shift` kaydı alındı: `premium-home` **y:73 -> 241** (168 px aşağı). Kaynak font değil,
+`OnboardingTip` bileşeniydi — `useState(false)` + `useEffect` ile localStorage'ı ilk boyamadan
+SONRA okuyup görünür oluyor, içeriği aşağı itiyordu. Karar `useState` lazy init'e alındı.
+
+- CLS **0.186 -> 0.0032**; performans 62 -> 70.
+- Yanında kalan artık kaymayı da kapatan iki ek: font `@import` yerine `index.html <head>`'e
+  alındı; yedek font metrik eşlemesi (`size-adjust` / `ascent-override` / `descent-override`)
+  eklendi. **Değerler tahmin değil**: headless Chrome'da `canvas.measureText` ile Inter,
+  Plus Jakarta Sans ve Arial'in gerçek genişlik/ascent/descent değerleri ölçülüp oranlandı.
+
+## Erişilebilirlik 90 -> 100 (üç başarısız denetim kapatıldı)
+
+| Denetim | Kök neden | Düzeltme |
+|---|---|---|
+| `button-name` | ChatWidget "Soru–cevap" butonunun metni `sm` altında gizli, ikonu `aria-hidden` -> mobilde erişilebilir ad yok | `aria-label` eklendi |
+| `color-contrast` | `global-dark.css` bağlantı kuralı, buton gibi biçimlenmiş bağlantıların yazısını da maviye zorluyordu -> "İlanları gör" CTA'sı mavi üstüne mavi, **1.4 kontrast** | Kural `text-white` sınıflıları dışarıda bırakacak şekilde daraltıldı (site geneli düzeltme) |
+| `heading-order` | Footer sütun başlıkları `h4`, başlık sırası atlıyordu | `h2` yapıldı (görünüm değişmedi — biçim sınıflardan geliyor) |
+
+## Cila envanteri
+
+| Alan | Bulgu | Aksiyon |
+|---|---|---|
+| Boşluk ölçeği | CSS'te 4/8px dışına çıkan hover kayması **yok** | Değişiklik gerekmedi |
+| Tipografi | `--font-display` / `--font-body` token'ları tutarlı | Yedek font zinciri metrik eşlemeli hâle getirildi |
+| Hover geçişleri | `:hover` kurallarında `padding/margin/border-width/font-size/width/height` değişimi **0 tane** (grep ile denetlendi) -> layout kaydırmıyor; transform/opacity/box-shadow kullanılıyor | Değişiklik gerekmedi |
+| Focus | `focus-visible` yalnızca `button/a/[role=button]/[tabindex=0]` için tanımlıydı — **form alanları kapsam dışıydı** | `input/select/textarea/summary/[role=tab]` eklendi |
+| Skeleton / boş durum | Önceki turda eklenmiş (`LoadingState`, `EmptyState`) | Değişiklik gerekmedi |
+| Renk paleti | lux token'ları dışına çıkılmadı | — |
+
+## 375px mobil taşma ölçümü (Playwright + Chrome, 375x812, isMobile)
+
+**12 sayfanın 12'sinde `scrollWidth - clientWidth = 0px`** (soğuk klonda doğrulandı):
+
+`/` · `/ilanlar` · `/arama` · `/nasil-calisir` · `/kurumsal` · `/services` ·
+`/arastirma` · `/borsa` · `/kat-karsiligi` · `/aninda-teklif` · `/auctions` · `/how-it-works`
+
+Ayrıca "kırpılıyor mu" denetimi yapıldı (taşan her eleman için en yakın kaydırılabilir ata arandı):
+
+- **1 gerçek kusur bulundu ve düzeltildi:** `/kat-karsiligi` içindeki uzun dosya yolu `<code>`
+  375px'te kırpılıyordu (`right=390/375`) -> `break-all`. Düzeltme sonrası kırpılan eleman **yok**.
+- Viewport'u aşan diğer her şey **kasıtlı**: `overflow-x-auto` içindeki tablolar (kaydırılabilir),
+  `aria-hidden` dekoratif ışık küreleri, ve `/borsa` şerit animasyonu
+  (`.borsa-ticker{overflow:hidden}` + marquee; hover'da duruyor, `prefers-reduced-motion` destekli).
+
+## KAPI 1 — temiz klon (süre damgalı)
+
+Klon: `C:\Users\yagiz\Projeler\_dogrulama\ihaleal-cila`, `-b staging`, HEAD `37715c5`.
+
+| Adım | Süre | Sonuç |
+|---|---|---|
+| `git clone … -b staging` | **165.4 sn** | OK |
+| `npm ci` | **115.8 sn** | EXIT=0 |
+| `npm run build` | **54.9 sn** | EXIT=0 — `dist/sw.js` + workbox üretildi |
+| `npx tsc --noEmit -p tsconfig.app.json` | **50.6 sn** | EXIT=2 — **23 hata, hepsi bu turdan ÖNCE var** |
+
+**Tip hatalarının bu tura ait olmadığı kanıtlandı:** çalışma ağacında `git stash` ile
+değişiklikler geri çekilip tsc koşuldu -> **30 hata**; değişiklikler geri alınıp tekrar
+koşuldu -> **30 hata**; `diff` **fark yok**. (Soğuk klondaki 23, eşzamanlı çalışan başka bir
+oturumun tip düzeltmeleri sonrasındaki sayı.) Hatalı dosyalar: `gesEndeksPdf.ts`,
+`GesAnalysisPage.tsx`, `useMembershipTier.ts`, `BorsaTerminali.tsx`, `AuctionDetail.tsx`,
+`BorsaPage.tsx`, `ValuationTool.tsx`, `PaymentStartPage.tsx` —
+**hiçbiri bu turda dokunulan dosya değil.**
+
+## KAPI 2 — soğuk klonda preview + somut içerik kanıtı
+
+`vite preview --host 127.0.0.1 --port 4210` (klon dizininden):
+
+```
+[1] HTTP durum:            200
+[2] title:                 <title>ihaleal.com — Yapay zeka destekli gayrimenkul platformu</title>
+[3] description:           "İhale, kapalı teklif veya ilan modu; gerçek alıcı–satıcı ve kiralıkta güvenli süreç…"
+[4] font linki head'de:    1   (index.html <head> içinde — @import değil)
+[5] "Inter Fallback":      2   (yedek font metrik eşlemesi kritik CSS'te)
+[6] kritik chunk'lar:      vendor-react, vendor-supabase, vendor-utils, vendor-ui, vendor-zod, vendor-motion
+[7] vendor-charts:         0   <- recharts kritik yolda DEĞİL (asıl düzeltmenin kanıtı)
+[8] /ilanlar:              200
+[9] /arastirma:            200
+```
+
+375px taşma ölçümü de soğuk klon üzerinde koşuldu (yukarıdaki tablo).
+
+## Commit'ler
+
+| SHA | Konu |
+|---|---|
+| `f8eaced` | perf: clsx/tailwind-merge ayrı chunk'a alındı, recharts kritik yoldan çıktı |
+| `5b78cb8` | perf: ana sayfadaki düzen kayması (CLS) 0.186 -> 0.003 |
+| `b8f8860` | fix(a11y): mobil ikon butonuna erişilebilir ad, uzun dosya yolu kırpılması |
+
+Hepsi `origin/staging`'e push'landı.
+
+> **Not — eşzamanlı oturum:** Bu tur sürerken aynı çalışma ağacında başka bir oturum da
+> commit atıyordu (`df3dfee`, `c80ed7e`, `37715c5` ve `typecheck` script düzeltmesi onun işi).
+> `b8f8860`, bu turun hazırladığı 4 dosyayı o oturumun kendi commit mesajıyla kayda geçirmesidir;
+> içerik aynen korunmuştur (`git show --stat b8f8860` ile doğrulandı).
+
+## Kuyruk (bu turda kapatılmadı)
+
+1. ~~**`AI_DEFAULT` tanımsız**~~ — `src/components/ChatWidget.tsx:240` `return AI_DEFAULT;`
+   yazıyordu ama değişken hiçbir yerde tanımlı değildi (tip hatası değil, **çalışma zamanı
+   çökmesi**: hiçbir anahtar kelime eşleşmediğinde varsayılan yanıt `ReferenceError` atıyordu).
+   **KAPANDI** — eşzamanlı oturum `337f58c` ile sabiti tanımladı (`ChatWidget.tsx:123`).
+2. ~~**Kalan 23 tip hatası**~~ — **KAPANDI**: eşzamanlı oturumun `337f58c`, `f68fb87`,
+   `ca31db2`, `263cc8d` commit'lerinden sonra `npx tsc --noEmit -p tsconfig.app.json`
+   **0 hata** veriyor (bu turun sonunda doğrulandı). `npm run typecheck` de artık gerçek
+   denetime bağlı (`263cc8d`), yani KAPI 1'in "no-op" uyarısı geçersiz.
+3. **`unused-javascript` hâlâ 590 ms / 124 KB** — kalan en büyük fırsat; `vendor-supabase`
+   (44 KB kullanılmıyor) ve `vendor-react` giriş yolunda. Supabase istemcisinin tembel
+   yüklenmesi incelenebilir (AuthContext'e bağlı, dikkat gerektirir).
+4. **FCP/LCP hâlâ ~4.6 / 4.9 sn** — performansı 90'a çıkarmak için kritik JS'in daha da
+   küçülmesi gerekiyor; ayrı bir tur konusu.
