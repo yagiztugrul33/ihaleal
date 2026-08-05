@@ -265,7 +265,7 @@ export default function MessagesPage() {
                   </div>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#070b14]/80">
+                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-lux-deep/80">
                   {active.messages.map((m) => {
                     const author = getParticipant(threads, m.authorId);
                     const self = m.authorId === "p2";
@@ -275,7 +275,7 @@ export default function MessagesPage() {
                         <div
                           className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm border ${
                             self
-                              ? "bg-gradient-to-br from-blue-600/90 to-teal-600/80 border-slate-200 text-white rounded-br-md"
+                              ? "[background:var(--gradient-cta)] border-slate-200 text-white rounded-br-md"
                               : "bg-slate-800/90 border-slate-200 text-slate-100 rounded-bl-md"
                           }`}
                         >
@@ -338,7 +338,7 @@ export default function MessagesPage() {
                     <Button type="button" variant="outline" size="icon" className="border-white/15" onClick={attachDemo} title="Dosya ekle (demo)">
                       <Paperclip className="w-4 h-4" />
                     </Button>
-                    <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2 px-6" onClick={send}>
+                    <Button type="button" className="[background:var(--gradient-cta)] text-white gap-2 px-6" onClick={send}>
                       <Send className="rtl:-scale-x-100 w-4 h-4" /> Gönder
                     </Button>
                   </div>
