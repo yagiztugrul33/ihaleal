@@ -110,7 +110,8 @@ export default function LandEquityPage() {
         <Card className="border-amber-500/25 bg-amber-500/5">
           <CardContent className="p-4 text-xs text-amber-100/90">
             Fatura ve Teknokent yönlendirmeleri yalnızca{" "}
-            <code className="text-amber-200">docs/hukuk/FINANCE_TAX_BILLING_CORE_RULES_TASLAK.md</code> ve{" "}
+            {/* break-all: uzun dosya yolu 375px'te satira sigmayip kirpiliyordu */}
+            <code className="break-all text-amber-200">docs/hukuk/FINANCE_TAX_BILLING_CORE_RULES_TASLAK.md</code> ve{" "}
             <code className="text-amber-200">InvoiceComposer</code> çerçevesinde; YMM + avukat onayı olmadan üretim faturası
             kesilmez. Örnek satır adı: {INVOICE_LINE_DESCRIPTION_CANDIDATES.saasLicense.slice(0, 64)}…
           </CardContent>

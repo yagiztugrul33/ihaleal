@@ -9,10 +9,17 @@ a[role="button"]:not([data-skip-min]),
   min-height: 44px;
 }
 
-/* Klavye odak: tüm interaktif element için belirgin halka */
+/* Klavye odak: tüm interaktif element için belirgin halka.
+   Form alanları (input/select/textarea) ve summary de dahil edildi; daha önce yalnızca
+   buton/bağlantılar kapsanıyordu ve arama/ilan formlarında klavye odağı görünmüyordu. */
 button:focus-visible,
 a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
 [role="button"]:focus-visible,
+[role="tab"]:focus-visible,
 [tabindex="0"]:focus-visible {
   outline: 2px solid #38bdf8;
   outline-offset: 2px;
@@ -82,7 +89,11 @@ footer {
   border-bottom: 1px solid rgba(245, 158, 11, 0.2) !important;
 }
 
-a:not([class*="btn"]):not([class*="button"]):not([data-slot="button"]):not(nav a):not(header a):not(footer a) {
+/* Duz metin ici baglantilari mavi yapar. text-white siniflilar disarida birakildi:
+   buton gibi bicimlenmis (dolgu rengi olan) baglantilarin yazisi da maviye zorlaniyor,
+   ornegin ana sayfadaki "Ilanlari gor" CTA'si mavi zemin uzerine mavi yazi olup
+   1.4 kontrast veriyordu (Lighthouse color-contrast hatasi). */
+a:not([class*="btn"]):not([class*="button"]):not([data-slot="button"]):not([class*="text-white"]):not(nav a):not(header a):not(footer a) {
   color: var(--accent-blue) !important;
 }
 

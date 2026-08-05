@@ -71,7 +71,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colPlatform}</h4>
+            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colPlatform}</h2>
             <ul className="space-y-2.5">
               <li><button onClick={() => navigate("/ihaleler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> {f.auctionsLink}</button></li>
               <li><button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.aiAnalysis}</button></li>
@@ -94,7 +94,7 @@ export function Footer() {
 
           {/* Tools */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colTools}</h4>
+            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colTools}</h2>
             <ul className="space-y-2.5">
               <li className="relative" data-demo={isDemoData("footerNavEstimate") ? "true" : undefined}>
                 {isDemoData("footerNavEstimate") ? <DemoDataCornerBadge /> : null}
@@ -143,7 +143,7 @@ export function Footer() {
 
           {/* Legal */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colCorporateLegal}</h4>
+            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colCorporateLegal}</h2>
             <ul className="space-y-2.5">
               {!isProdBuild ? (
                 <li><button onClick={() => navigate("/karsilastir-rakipler")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Trophy className="w-3.5 h-3.5" /> Rakip Analizi</button></li>
@@ -200,7 +200,7 @@ export function Footer() {
 
           {/* Newsletter */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h4 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colNewsletter}</h4>
+            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colNewsletter}</h2>
             <p className="text-sm text-slate-300 mb-3">{f.newsletterDesc}</p>
             <div className="flex gap-2">
               <input type="email" placeholder={f.newsletterPlaceholder} className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />

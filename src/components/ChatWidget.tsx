@@ -464,6 +464,9 @@ export function ChatWidget() {
               variant="outline"
               size="sm"
               onClick={() => openPanel("qa")}
+              /* Metin sm altinda gizli; mobilde buton yalniz ikondan olusuyor ve
+                 erisilebilir adi kalmiyordu (Lighthouse button-name hatasi). */
+              aria-label="Soru–cevap"
               className="rounded-full border-violet-400/40 bg-violet-950/80 text-violet-100 hover:bg-violet-900/90 shadow-lg shadow-black/40 px-4 py-2 h-auto font-semibold text-xs sm:text-sm"
             >
               <HelpCircle className="w-4 h-4 sm:me-2 shrink-0" aria-hidden />
