@@ -68,7 +68,13 @@ export interface Auction {
   agent: AgentInfo;
 }
 
-export interface PropertyDetails {
+/**
+ * NOT: `interface` degil `type` — TypeScript yalnizca type alias'lara ortuk
+ * index imzasi verir. Rapor motorlari (emsalMotoru, endeksRaporu) bu kaydi
+ * `Record<string, unknown>` olarak okudugu icin interface'te TS2352/TS2322
+ * aliyorduk. Alan listesi ve katiligi aynen korunuyor.
+ */
+export type PropertyDetails = {
   roomCount: string;
   livingRoom: number;
   bathroom: number;
