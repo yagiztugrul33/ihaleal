@@ -75,7 +75,7 @@ export default function NotificationsPage() {
         ) : null}
 
         {/* Web Push (cihaza bildirim) — Capacitor öncesi köprü */}
-        <section className="mt-8 rounded-xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-5">
+        <section className="mt-8 rounded-xl border border-cyan-500/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-500/15">
               <BellRing className="h-5 w-5 text-cyan-300" />
@@ -109,7 +109,7 @@ export default function NotificationsPage() {
                     size="sm"
                     onClick={() => void push.enable()}
                     disabled={!push.canEnable}
-                    className="bg-gradient-to-r from-cyan-500 to-blue-600 text-xs text-white"
+                    className="[background:var(--gradient-cta)] text-xs text-white"
                   >
                     {push.status === "subscribing" ? "Etkinleştiriliyor…" : "Bildirimleri aç"}
                   </Button>
