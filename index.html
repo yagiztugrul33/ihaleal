@@ -41,8 +41,14 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
 
-    <!-- LCP candidate preload — anasayfa kritik logo (icon-192 yüksek öncelik) -->
-    <link rel="preload" as="image" href="/icon-192.png" fetchpriority="high" />
+    <!-- LCP notu (olculdu, Lighthouse 5 tur medyan):
+         LCP elemani navbar lockup gorseli (/ihaleal-logo-lockup.png, lcp-discovery-insight).
+         Onceden burada /icon-192.png preload ediliyordu — LCP elemani O DEGIL, bos yere
+         2.6 KB kritik yola giriyordu. Dogru gorseli preload etmek de OLCUMDE fayda
+         vermedi (LCP 4893 -> 4959 ms): LCP zamani gorselin inisiyle degil React'in
+         ilk render'iyla sinirli; 20 KB'lik preload kritik JS ile bant genisligi
+         yarisiyor. Bu yuzden preload TAMAMEN kaldirildi; oncelik ipucu <img
+         fetchPriority="high"> ile veriliyor (src/components/Logo.tsx). -->
 
     <!-- Gövde/başlık fontları: HTML head'de yüklenir ki tarayıcı ilk taramada keşfetsin.
          Daha önce src/styles/theme.css içinde @import ile geliyordu; font ancak paket CSS'i

@@ -137,6 +137,9 @@ export function BrandLockup({
       data-brand-lockup-img
       loading="eager"
       decoding="async"
+      // LCP elemani bu gorsel (Lighthouse lcp-discovery-insight) — index.html'deki
+      // preload ile birlikte yuksek oncelik verilir; aksi halde priorityHinted=false.
+      fetchPriority="high"
       draggable={false}
     />
   );
