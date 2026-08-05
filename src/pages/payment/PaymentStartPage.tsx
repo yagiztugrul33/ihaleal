@@ -75,8 +75,11 @@ export default function PaymentStartPage() {
     }
 
     // Production'da iyzico 3D Secure URL'ine yönlendir
-    if (result.status === "pending" && (result as { payment_page_url?: string }).payment_page_url) {
-      window.location.href = (result as { payment_page_url: string }).payment_page_url;
+    // Alan CreateSubscriptionResult'ta tanimli degil; zorunlu alanli cast TS2352
+    // veriyordu. Opsiyonel cast bir kez yapilip daraltiliyor — davranis ayni.
+    const paymentPageUrl = (result as { payment_page_url?: string }).payment_page_url;
+    if (result.status === "pending" && paymentPageUrl) {
+      window.location.href = paymentPageUrl;
       return;
     }
 

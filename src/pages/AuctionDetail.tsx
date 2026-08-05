@@ -319,6 +319,8 @@ export default function AuctionDetail() {
             title?: string | null;
             body?: unknown;
             start_price_try?: number | string | null;
+            // Asagida okunuyordu ama satir tipinde tanimli degildi.
+            buy_now_price_try?: number | string | null;
           }
         | null;
 

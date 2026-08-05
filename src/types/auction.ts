@@ -55,6 +55,8 @@ export interface Auction {
   /** İmar / belediye / resmi karar paketi alıcıya gösterilecek beyanı. */
   officialDocumentsForBuyer?: boolean;
   status: "live" | "upcoming" | "ended";
+  /** Dogrulama rozeti — yalnizca acikca true ise gosterilir (sahte gosterim yasak). */
+  verified?: boolean;
   tags: string[];
   /** Doping — öne çıkan ilan */
   isFeatured?: boolean;

@@ -55,7 +55,8 @@ export default function Aramalarim() {
     };
   }, []);
 
-  const { searches, loading, error, remove } = useSavedSearches(catalog);
+  // Hook alani `removeSearch` adiyla donuyor; yerel ad korunarak yeniden adlandirildi.
+  const { searches, loading, error, removeSearch: remove } = useSavedSearches(catalog);
 
   const runSearch = (s: SavedSearchRecord) => {
     const params = new URLSearchParams();

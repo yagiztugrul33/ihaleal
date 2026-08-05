@@ -48,7 +48,9 @@ const INITIAL_STATE: FormState = {
 };
 
 function pickSimilar(catalog: Auction[], form: FormState, target: number, limit = 4): Auction[] {
-  const cityName = getCityByKey(form.city)?.name?.toLowerCase() ?? form.city.toLowerCase();
+  // CityPrice'ta alan adi `label` (`name` yok). Tum kayitlarda label.toLowerCase()
+  // === key oldugundan uretilen deger degismiyor.
+  const cityName = getCityByKey(form.city)?.label?.toLowerCase() ?? form.city.toLowerCase();
   const inCity = catalog.filter(
     (a) =>
       (a.city.toLowerCase().includes(cityName) || cityName.includes(a.city.toLowerCase())) &&
