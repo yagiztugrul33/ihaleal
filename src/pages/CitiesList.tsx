@@ -1,4 +1,4 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MapPin, TrendingUp, DollarSign, Users, Percent, ArrowRight, Building2, Navigation } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ const CITIES = [
     demandIndex: 92,
     listingCount: 0,
     tag: "Finans Merkezi",
-    color: "from-blue-500/20 to-purple-500/20",
+    color: "bg-blue-500/10",
   },
   {
     name: "Ankara",
@@ -38,7 +38,7 @@ const CITIES = [
     demandIndex: 75,
     listingCount: 0,
     tag: "Başkent",
-    color: "from-emerald-500/20 to-teal-500/20",
+    color: "bg-emerald-500/10",
   },
   {
     name: "İzmir",
@@ -50,7 +50,7 @@ const CITIES = [
     demandIndex: 82,
     listingCount: 0,
     tag: "Ege'nin İncisi",
-    color: "from-orange-500/20 to-amber-500/20",
+    color: "bg-amber-500/10",
   },
   {
     name: "Antalya",
@@ -62,7 +62,7 @@ const CITIES = [
     demandIndex: 88,
     listingCount: 0,
     tag: "Turizm Başkenti",
-    color: "from-cyan-500/20 to-blue-500/20",
+    color: "bg-cyan-500/10",
   },
   {
     name: "Bursa",
@@ -74,7 +74,7 @@ const CITIES = [
     demandIndex: 68,
     listingCount: 0,
     tag: "Yeşil Bursa",
-    color: "from-green-500/20 to-emerald-500/20",
+    color: "bg-emerald-500/10",
   },
   {
     name: "Muğla",
@@ -86,7 +86,7 @@ const CITIES = [
     demandIndex: 90,
     listingCount: 0,
     tag: "Premium Bölge",
-    color: "from-violet-500/20 to-pink-500/20",
+    color: "bg-violet-500/10",
   },
 ];
 
@@ -156,7 +156,7 @@ export default function CitiesList() {
                     e.currentTarget.style.display = "none";
                   }}
                 />
-                <div className={`absolute inset-0 bg-gradient-to-br ${city.color} pointer-events-none`} />
+                <div className={`absolute inset-0 ${city.color} pointer-events-none`} />
                 <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                 <div className="absolute top-3 start-3 px-3 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
                   {city.tag}

@@ -702,7 +702,7 @@ export default function Analytics() {
                           <span className="text-blue-400 font-bold">+{d.nextYearPrediction}%</span>
                         </div>
                         <div className="h-2 rounded-full bg-white/5 mt-2">
-                          <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-500" style={{ width: `${Math.min(d.nextYearPrediction * 3, 100)}%` }} />
+                          <div className="h-full rounded-full bg-emerald-500" style={{ width: `${Math.min(d.nextYearPrediction * 3, 100)}%` }} />
                         </div>
                       </div>
                     </Card>
@@ -862,7 +862,7 @@ export default function Analytics() {
                             <div className="text-xs text-slate-500">Guncel Teklif</div>
                             <div className="text-lg font-bold text-white">TRY {auction.currentBid.toLocaleString()}</div>
                           </div>
-                          <Button size="sm" onClick={() => navigate(`/ilan/${auction.id}`)} className="bg-gradient-to-r from-amber-500 to-orange-400 hover:from-amber-400 hover:to-orange-300 text-white font-bold">
+                          <Button size="sm" onClick={() => navigate(`/ilan/${auction.id}`)} className="bg-amber-500 hover:bg-amber-400 text-white font-bold">
                             Incele
                           </Button>
                         </div>

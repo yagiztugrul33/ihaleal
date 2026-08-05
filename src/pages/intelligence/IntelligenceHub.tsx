@@ -38,7 +38,7 @@ const MODULES = [
     icon: Banknote,
     href: IBUYER_PATH,
     badge: "Kurumsal",
-    accent: "from-red-500/20 to-rose-900/10 border-red-500/30",
+    accent: "bg-red-500/10 border-red-500/30",
   },
   {
     title: "Takas (Trade-In)",
@@ -46,7 +46,7 @@ const MODULES = [
     icon: RefreshCw,
     href: `${IBUYER_PATH}?flow=trade-in`,
     badge: "Takas",
-    accent: "from-violet-500/20 to-purple-900/10 border-violet-500/30",
+    accent: "bg-violet-500/10 border-violet-500/30",
   },
   {
     title: "GES Master Analiz",
@@ -54,7 +54,7 @@ const MODULES = [
     icon: Sun,
     href: GES_ANALYSIS_PATH,
     badge: "Mühendislik",
-    accent: "from-amber-500/20 to-orange-900/10 border-amber-500/30",
+    accent: "bg-amber-500/10 border-amber-500/30",
   },
   {
     title: "Ada Parsel İstihbarat",
@@ -62,7 +62,7 @@ const MODULES = [
     icon: Map,
     href: PARCEL_INTELLIGENCE_PATH,
     badge: "GIS",
-    accent: "from-cyan-500/20 to-blue-900/10 border-cyan-500/30",
+    accent: "bg-cyan-500/10 border-cyan-500/30",
   },
   {
     title: "Stratejik War Room",
@@ -70,7 +70,7 @@ const MODULES = [
     icon: Radar,
     href: WAR_ROOM_PATH,
     badge: "Palantir",
-    accent: "from-blue-500/20 to-indigo-900/10 border-blue-500/30",
+    accent: "bg-blue-500/10 border-blue-500/30",
   },
   {
     title: "Kat Karsiligi Studio",
@@ -78,7 +78,7 @@ const MODULES = [
     icon: Building2,
     href: KKA_STUDIO_PATH,
     badge: "Mevcut",
-    accent: "from-emerald-500/20 to-teal-900/10 border-emerald-500/30",
+    accent: "bg-emerald-500/10 border-emerald-500/30",
   },
 ];
 
@@ -135,7 +135,7 @@ export default function IntelligenceHub() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.06 }}
-              className={`group flex flex-col rounded-2xl border bg-gradient-to-br p-6 backdrop-blur-xl ${m.accent}`}
+              className={`group flex flex-col rounded-2xl border p-6 backdrop-blur-xl ${m.accent}`}
             >
               <motion.div className="flex items-start justify-between gap-4">
                 <motion.div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-black/30">

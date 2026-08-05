@@ -22,7 +22,7 @@ export default function MuteahhitOnayBekleniyor() {
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-8 space-y-6">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-400 flex items-center justify-center mx-auto mb-5">
+              <div className="w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center mx-auto mb-5">
                 <Clock className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-3xl font-bold text-white mb-2">Hesabınız Oluşturuldu</h1>

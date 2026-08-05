@@ -150,13 +150,13 @@ const CATEGORY_LABELS: Record<Category, string> = {
 
 function toneClasses(tone: LegalDoc["tone"] | "slate") {
   const map: Record<string, { border: string; bg: string; icon: string; pill: string }> = {
-    blue: { border: "border-blue-500/30", bg: "from-blue-500/5", icon: "text-blue-300", pill: "bg-blue-500/20 text-blue-200 border-blue-500/40" },
-    emerald: { border: "border-emerald-500/30", bg: "from-emerald-500/5", icon: "text-emerald-300", pill: "bg-emerald-500/20 text-emerald-200 border-emerald-500/40" },
-    violet: { border: "border-violet-500/30", bg: "from-violet-500/5", icon: "text-violet-300", pill: "bg-violet-500/20 text-violet-200 border-violet-500/40" },
-    amber: { border: "border-amber-500/30", bg: "from-amber-500/5", icon: "text-amber-300", pill: "bg-amber-500/20 text-amber-200 border-amber-500/40" },
-    rose: { border: "border-rose-500/30", bg: "from-rose-500/5", icon: "text-rose-300", pill: "bg-rose-500/20 text-rose-200 border-rose-500/40" },
-    cyan: { border: "border-cyan-500/30", bg: "from-cyan-500/5", icon: "text-cyan-300", pill: "bg-cyan-500/20 text-cyan-200 border-cyan-500/40" },
-    slate: { border: "border-slate-700", bg: "from-slate-800/5", icon: "text-slate-300", pill: "bg-slate-700/40 text-slate-200 border-slate-700" },
+    blue: { border: "border-blue-500/30", bg: "bg-blue-500/5", icon: "text-blue-300", pill: "bg-blue-500/20 text-blue-200 border-blue-500/40" },
+    emerald: { border: "border-emerald-500/30", bg: "bg-emerald-500/5", icon: "text-emerald-300", pill: "bg-emerald-500/20 text-emerald-200 border-emerald-500/40" },
+    violet: { border: "border-violet-500/30", bg: "bg-violet-500/5", icon: "text-violet-300", pill: "bg-violet-500/20 text-violet-200 border-violet-500/40" },
+    amber: { border: "border-amber-500/30", bg: "bg-amber-500/5", icon: "text-amber-300", pill: "bg-amber-500/20 text-amber-200 border-amber-500/40" },
+    rose: { border: "border-rose-500/30", bg: "bg-rose-500/5", icon: "text-rose-300", pill: "bg-rose-500/20 text-rose-200 border-rose-500/40" },
+    cyan: { border: "border-cyan-500/30", bg: "bg-cyan-500/5", icon: "text-cyan-300", pill: "bg-cyan-500/20 text-cyan-200 border-cyan-500/40" },
+    slate: { border: "border-slate-700", bg: "bg-slate-800/5", icon: "text-slate-300", pill: "bg-slate-700/40 text-slate-200 border-slate-700" },
   };
   return map[tone] ?? map.slate;
 }
@@ -246,7 +246,7 @@ export default function LegalHubPage() {
                   key={doc.path}
                   type="button"
                   onClick={() => navigate(doc.path)}
-                  className={`text-start rounded-2xl border ${cls.border} bg-gradient-to-br ${cls.bg} to-slate-900/60 p-5 hover:bg-slate-900/80 transition-colors flex flex-col h-full`}
+                  className={`text-start rounded-2xl border ${cls.border} ${cls.bg} p-5 hover:bg-slate-900/80 transition-colors flex flex-col h-full`}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className={`rounded-lg bg-slate-800/60 p-2 ${cls.icon}`}>

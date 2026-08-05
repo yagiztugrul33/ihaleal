@@ -42,7 +42,7 @@ export default function About() {
               </p>
             </CardContent>
           </Card>
-          <Card className="border-emerald-500/25 bg-gradient-to-br from-emerald-950/40 to-slate-900/60">
+          <Card className="border-emerald-500/25 bg-emerald-950/40">
             <CardContent className="p-6">
               <Target className="mb-4 h-9 w-9 text-emerald-400" />
               <h3 className="text-xl font-bold text-white">Misyonumuz</h3>
@@ -161,7 +161,7 @@ export default function About() {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 rounded-3xl border border-blue-500/25 bg-gradient-to-r from-blue-950/40 to-emerald-950/40 p-6 md:p-10 text-center">
+        <div className="mt-16 rounded-3xl border border-blue-500/25 bg-blue-950/40 p-6 md:p-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white">Platformu keşfedin</h2>
           <p className="mt-3 mx-auto max-w-xl text-slate-400">
             Canlı ihaleler, AI değerleme, risk analiz modülleri — hepsi tek panelde.

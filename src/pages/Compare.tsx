@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, GitCompare, Star, CheckCircle2, XCircle, ArrowRight, TrendingUp, TrendingDown, Minus, Home, BarChart3, BadgePercent, Banknote, Clock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -132,7 +132,7 @@ export default function Compare() {
           <>
             {/* Kazanan Kart */}
             {winner && (
-              <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-500/10 to-emerald-500/10 border border-blue-500/20 mb-8 animate-fade-in space-y-3">
+              <div className="p-5 rounded-2xl bg-blue-500/10 border border-blue-500/20 mb-8 animate-fade-in space-y-3">
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
                   <div className="p-3 rounded-xl bg-blue-500/20"><Star className="w-6 h-6 text-blue-400" /></div>
                   <div className="flex-1">

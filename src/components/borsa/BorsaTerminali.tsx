@@ -149,7 +149,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Premium status banner */}
         {!isPremium ? (
-          <div className="rounded-xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-slate-900/40 p-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
+          <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
             <Crown className="h-5 w-5 text-amber-300 flex-shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-amber-100">

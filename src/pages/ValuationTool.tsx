@@ -489,7 +489,7 @@ export default function ValuationTool() {
         {result ? (
           <>
             {/* Üst — Ana çıktı + Tahmin bandı görsel */}
-            <section className="mt-6 rounded-2xl border border-emerald-400/30 bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 p-6">
+            <section className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-6">
               <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
                 <div>
                   <h2 className="text-xl font-semibold mb-1 flex items-center gap-2">
@@ -529,7 +529,7 @@ export default function ValuationTool() {
               )}
               <div className="relative h-3 rounded-full bg-slate-800 overflow-hidden">
                 <div
-                  className="absolute top-0 h-full bg-gradient-to-r from-cyan-500/60 to-emerald-500/60"
+                  className="absolute top-0 h-full bg-emerald-500/60"
                   style={{ left: "10%", right: "10%" }}
                 />
                 <div

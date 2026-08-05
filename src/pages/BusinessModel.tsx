@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -71,7 +71,7 @@ export default function BusinessModel() {
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
         </Button>
 
-        <div className="rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-[#0a1525] to-slate-900/80 p-6 sm:p-8 mb-8 shadow-xl shadow-black/30">
+        <div className="rounded-2xl border border-emerald-500/25 bg-emerald-500/10 p-6 sm:p-8 mb-8 shadow-xl shadow-black/30">
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-200">
               <Building2 className="w-3.5 h-3.5" /> Emlakçı ağı & kurumsal ortaklar
@@ -92,7 +92,7 @@ export default function BusinessModel() {
             <Button
               size="lg"
               onClick={() => navigate("/komisyon-hesaplayici")}
-              className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-semibold gap-2 shadow-lg shadow-emerald-900/40"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold gap-2 shadow-lg shadow-emerald-900/40"
             >
               <Calculator className="w-5 h-5" /> Komisyon hesaplayıcı
               <ArrowRight className="rtl:rotate-180 w-4 h-4 opacity-80" />

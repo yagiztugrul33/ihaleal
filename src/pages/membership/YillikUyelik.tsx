@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -104,7 +104,7 @@ export default function YillikUyelik() {
                   type="button"
                   disabled={!supabaseReady || loading !== null}
                   onClick={() => void buy(p.id, p.title)}
-                  className="mt-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-semibold"
+                  className="mt-auto bg-amber-500 hover:bg-amber-400 text-white font-semibold"
                 >
                   {loading === p.title ? "Kaydediliyor..." : "Bu paketi seç"}
                 </Button>

@@ -1,4 +1,4 @@
-﻿import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -37,11 +37,11 @@ function BigRing({
 }) {
   const pct = score == null ? 0 : Math.min(100, Math.max(0, (invertRisk ? 11 - score : score) * 10));
   const tone =
-    pct >= 80 ? "from-emerald-400 to-teal-400" : pct >= 50 ? "from-amber-400 to-orange-400" : "from-red-400 to-rose-500";
+    pct >= 80 ? "bg-emerald-500" : pct >= 50 ? "bg-amber-500" : "bg-red-500";
   return (
     <div className="flex flex-col items-center gap-2">
       <div
-        className={`relative w-28 h-28 rounded-full flex items-center justify-center bg-gradient-to-br ${tone} p-[3px] shadow-lg`}
+        className={`relative w-28 h-28 rounded-full flex items-center justify-center ${tone} p-[3px] shadow-lg`}
         aria-hidden
       >
         <div className="w-full h-full rounded-full bg-white/95 flex flex-col items-center justify-center border border-slate-200">

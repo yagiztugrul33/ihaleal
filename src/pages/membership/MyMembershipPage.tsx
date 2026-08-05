@@ -39,7 +39,7 @@ export default function MyMembershipPage() {
         </div>
 
         {/* Mevcut paket kartı */}
-        <div className={`rounded-2xl border ${isPremium ? "border-amber-500/40 bg-gradient-to-br from-amber-500/10 to-slate-900/50" : "border-slate-700 bg-slate-900/40"} p-6`}>
+        <div className={`rounded-2xl border ${isPremium ? "border-amber-500/40 bg-amber-500/10" : "border-slate-700 bg-slate-900/40"} p-6`}>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
             <div>
               <p className="text-xs text-slate-500 mb-1">Mevcut paketim</p>

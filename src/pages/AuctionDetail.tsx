@@ -1444,7 +1444,7 @@ export default function AuctionDetail() {
                   ) : (
                     <>
                       <Button
-                        className="flex-1 min-w-[8rem] bg-gradient-to-r from-amber-500 to-orange-400 hover:from-amber-400 hover:to-orange-300 text-slate-950 font-bold h-11"
+                        className="flex-1 min-w-[8rem] bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold h-11"
                         type="button"
                         disabled={!user || (sellerId != null && user?.id === sellerId)}
                         title={!user ? ld.loginRequired : sellerId && user?.id === sellerId ? ld.cantBidOwn : undefined}
@@ -1928,7 +1928,7 @@ export default function AuctionDetail() {
             </Button>
             <Button
               type="button"
-              className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white"
               disabled={!(buyNowAcceptContracts && buyNowAcceptMasak && buyNowAcceptCard && buyNowAcceptModule3)}
               onClick={() => {
                 setHemenAlGateOpen(false);
@@ -1969,7 +1969,7 @@ export default function AuctionDetail() {
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setPreAuthBuyNowOpen(false)}>
               {ld.cancel}
             </Button>
-            <Button type="button" className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white" disabled={preAuthBusy} onClick={() => void runPreAuthBuyNow()}>
+            <Button type="button" className="bg-emerald-600 hover:bg-emerald-500 text-white" disabled={preAuthBusy} onClick={() => void runPreAuthBuyNow()}>
               {preAuthBusy ? ld.processing : ld.pabStart}
             </Button>
           </DialogFooter>
@@ -2000,7 +2000,7 @@ export default function AuctionDetail() {
             </Button>
             <Button
               type="button"
-              className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white"
               disabled={!buyNowFinalAck || buyNowBusy}
               onClick={() => executeBuyNowConfirm()}
             >

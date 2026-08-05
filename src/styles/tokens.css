@@ -21,6 +21,17 @@
   --lux-trust-green: #22C55E;
   --lux-trust-sky: #38BDF8;
 
+  /* Status — lux uyumlu emerald/amber (Ö2): durum yüzeyleri DÜZ token kullanır, gradyan değil.
+     Tailwind eşleniği: emerald-500 = --lux-emerald-500, amber-500 = --lux-amber-500. */
+  --lux-emerald-500: #10B981;
+  --lux-emerald-400: #34D399;
+  --lux-amber-500: #F59E0B;
+  --lux-amber-400: #FBBF24;
+  --status-success-bg: rgba(16, 185, 129, 0.10);
+  --status-success-border: rgba(16, 185, 129, 0.30);
+  --status-warning-bg: rgba(245, 158, 11, 0.10);
+  --status-warning-border: rgba(245, 158, 11, 0.30);
+
   /* Text */
   --lux-text-primary: #FFFFFF;
   --lux-text-secondary: #E2E8F0;

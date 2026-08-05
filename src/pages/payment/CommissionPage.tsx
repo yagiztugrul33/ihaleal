@@ -131,7 +131,7 @@ export default function CommissionPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-slate-900/50 p-5 space-y-4">
+          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-5 space-y-4">
             <h3 className="text-base font-semibold text-white flex items-center gap-2">
               <Wallet className="h-4 w-4 text-emerald-400" />
               Hesap Sonucu

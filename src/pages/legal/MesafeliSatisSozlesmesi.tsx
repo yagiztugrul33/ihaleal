@@ -91,7 +91,7 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 4 — Cayma Hakkı (KRITİK) */}
-          <section className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-slate-900/40 p-5 space-y-2">
+          <section className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 space-y-2">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
               <RefreshCw className="h-5 w-5 text-amber-300" />
               4. Cayma Hakkı (14 Gün)

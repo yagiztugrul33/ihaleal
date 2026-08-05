@@ -77,7 +77,7 @@ export function PremiumGate({
   }
 
   return (
-    <div className="relative rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-slate-900/50 p-6 overflow-hidden">
+    <div className="relative rounded-2xl border border-amber-500/30 bg-amber-500/10 p-6 overflow-hidden">
       {/* Lock badge */}
       <div className="absolute top-3 end-3 inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-500/20 px-2 py-1 text-[10px] font-semibold text-amber-200">
         <Lock className="h-3 w-3" /> Premium

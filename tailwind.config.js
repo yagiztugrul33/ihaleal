@@ -17,6 +17,9 @@ module.exports = {
           surface: "#111827",
           blue: { 600: "#2563EB", 500: "#3B82F6", 400: "#60A5FA" },
           trust: { green: "#22C55E", sky: "#38BDF8" },
+          // Ö2 durum tokenleri — tokens.css --lux-emerald-500 / --lux-amber-500 ile eş
+          emerald: { 500: "#10B981", 400: "#34D399" },
+          amber: { 500: "#F59E0B", 400: "#FBBF24" },
         },
         page: {
           DEFAULT: "#0B1120",

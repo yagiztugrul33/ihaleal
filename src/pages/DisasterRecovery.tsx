@@ -1,4 +1,4 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Database, Cloud, Server, Shield, Clock,
   Globe, AlertTriangle, FileText, HardDrive,
@@ -92,11 +92,11 @@ export default function DisasterRecovery() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-emerald-500/5 to-transparent border-b border-slate-200/80">
+      <div className="bg-emerald-500/5 border-b border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-xl bg-emerald-500 flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
             <div>
               <h1 className="text-3xl font-bold text-white">Felaket Kurtarma Planı</h1>
               <p className="text-slate-400">Süreklilik planı, yedekleme stratejisi ve olası senaryo analizleri</p>

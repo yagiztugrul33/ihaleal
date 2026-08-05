@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, PlusCircle, Upload, MapPin, X, FileText, Scale, Landmark, Gavel, ImageIcon, Settings2, ClipboardCheck, Rocket, ShieldCheck, TrendingUp, Eye, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -437,7 +437,7 @@ export default function CreateAuction() {
                 key={step.num}
                 className="relative rounded-2xl border border-white/10 bg-slate-900/50 p-4 hover:border-amber-400/30 transition-colors"
               >
-                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 font-bold text-xs flex items-center justify-center shadow-lg">
+                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center shadow-lg">
                   {step.num}
                 </div>
                 <step.icon className="w-6 h-6 text-amber-300 mb-2 mt-1" />
@@ -451,7 +451,7 @@ export default function CreateAuction() {
           </div>
 
           {/* CTA panel */}
-          <div className="rounded-3xl border border-amber-400/25 bg-gradient-to-br from-amber-500/10 via-slate-900/40 to-cyan-500/5 p-8 text-center">
+          <div className="rounded-3xl border border-amber-400/25 bg-amber-500/10 p-8 text-center">
             <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
               İhale açmak için hesap gerekir
             </h2>

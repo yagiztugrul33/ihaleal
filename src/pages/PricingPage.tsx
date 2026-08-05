@@ -19,7 +19,7 @@ function accentClasses(accent: PricingTier["accent"]) {
   return {
     slate: {
       border: "border-slate-500/30",
-      bg: "from-slate-500/5",
+      bg: "bg-slate-500/5",
       text: "text-slate-300",
       ring: "ring-slate-400/30",
       btn: "bg-slate-700 hover:bg-slate-600 text-white",
@@ -27,7 +27,7 @@ function accentClasses(accent: PricingTier["accent"]) {
     },
     emerald: {
       border: "border-emerald-500/30",
-      bg: "from-emerald-500/5",
+      bg: "bg-emerald-500/5",
       text: "text-emerald-300",
       ring: "ring-emerald-400/30",
       btn: "bg-emerald-600 hover:bg-emerald-500 text-white",
@@ -35,7 +35,7 @@ function accentClasses(accent: PricingTier["accent"]) {
     },
     blue: {
       border: "border-blue-500/30",
-      bg: "from-blue-500/5",
+      bg: "bg-blue-500/5",
       text: "text-blue-300",
       ring: "ring-blue-400/30",
       btn: "bg-blue-600 hover:bg-blue-500 text-white",
@@ -43,7 +43,7 @@ function accentClasses(accent: PricingTier["accent"]) {
     },
     amber: {
       border: "border-amber-500/30",
-      bg: "from-amber-500/5",
+      bg: "bg-amber-500/5",
       text: "text-amber-300",
       ring: "ring-amber-400/30",
       btn: "bg-amber-600 hover:bg-amber-500 text-white",
@@ -51,7 +51,7 @@ function accentClasses(accent: PricingTier["accent"]) {
     },
     violet: {
       border: "border-violet-500/30",
-      bg: "from-violet-500/5",
+      bg: "bg-violet-500/5",
       text: "text-violet-300",
       ring: "ring-violet-400/30",
       btn: "bg-violet-600 hover:bg-violet-500 text-white",
@@ -95,7 +95,7 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
 
   return (
     <div
-      className={`relative rounded-2xl border ${cls.border} bg-gradient-to-br ${cls.bg} to-slate-900/60 p-5 flex flex-col ${tier.highlight ? `ring-2 ${cls.ring} shadow-xl` : ""}`}
+      className={`relative rounded-2xl border ${cls.border} ${cls.bg} p-5 flex flex-col ${tier.highlight ? `ring-2 ${cls.ring} shadow-xl` : ""}`}
     >
       {tier.highlight && (
         <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] font-semibold border ${cls.badge}`}>
@@ -278,7 +278,7 @@ export default function PricingPage() {
         </div>
 
         {EARLY_MEMBER_ACTIVE && (
-          <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-4">
+          <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4">
             <div className="flex items-start gap-3">
               <Sparkles className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
               <div className="flex-1">

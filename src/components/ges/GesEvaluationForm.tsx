@@ -90,7 +90,7 @@ export function GesEvaluationForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-amber-500/20 bg-gradient-to-b from-amber-500/10 to-transparent p-6 backdrop-blur-md">
+    <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 p-6 backdrop-blur-md">
       <div className="mb-6 flex flex-wrap gap-2 text-xs text-slate-400">
         {[1, 2, 3].map((n) => (
           <span

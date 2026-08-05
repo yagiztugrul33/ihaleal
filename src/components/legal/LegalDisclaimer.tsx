@@ -29,7 +29,7 @@ export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
   }
 
   return (
-    <div className="my-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-slate-900/40 p-5">
+    <div className="my-8 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5">
       <div className="flex items-start gap-3 mb-3">
         <div className="rounded-full bg-amber-500/20 p-2">
           <AlertTriangle className="h-5 w-5 text-amber-300" />

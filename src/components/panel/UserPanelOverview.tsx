@@ -263,7 +263,7 @@ export function UserPanelOverview() {
       {/* Hızlı erişim — Master DOKUNDU: "İlan ver" CTA eklendi */}
       <Card className="bg-slate-900/50 border-slate-200/80">
         <CardContent className="p-5 flex flex-wrap gap-3">
-          <Button asChild className="bg-gradient-to-r from-amber-500 to-orange-400 text-slate-950 font-semibold gap-2">
+          <Button asChild className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold gap-2">
             <Link to="/ihale-ac">
               <Plus className="w-4 h-4" /> İlan / İhale Aç
             </Link>

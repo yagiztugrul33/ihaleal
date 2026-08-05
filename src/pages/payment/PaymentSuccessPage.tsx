@@ -40,7 +40,7 @@ export default function PaymentSuccessPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-slate-900/50 p-6 text-start">
+        <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-start">
           <div className="flex items-start justify-between mb-4">
             <div>
               <p className="text-xs text-emerald-300 font-semibold flex items-center gap-1.5">

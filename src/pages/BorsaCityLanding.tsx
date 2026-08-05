@@ -288,7 +288,7 @@ export default function BorsaCityLanding() {
                           <div
                             className={cn(
                               "w-full rounded-t transition-all",
-                              isLatest ? "bg-gradient-to-t from-cyan-500 to-emerald-300" : "bg-slate-700",
+                              isLatest ? "bg-emerald-400" : "bg-slate-700",
                             )}
                             style={{ height: `${pct * 100}%` }}
                             title={`${v.toLocaleString("tr-TR")} endeks`}

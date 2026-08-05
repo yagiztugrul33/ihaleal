@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, MapPin, Building2, TrendingUp, Home, DollarSign,
@@ -381,7 +381,7 @@ export default function CityGuide() {
                     <span className="text-emerald-400 font-semibold">+{d.growth}%</span>
                   </div>
                   <div className="h-2 rounded-full bg-white/5 mt-2">
-                    <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-500" style={{ width: `${Math.min(d.growth * 2, 100)}%` }} />
+                    <div className="h-full rounded-full bg-emerald-500" style={{ width: `${Math.min(d.growth * 2, 100)}%` }} />
                   </div>
                 </div>
               </Card>
