@@ -114,7 +114,7 @@ export default function Aramalarim() {
             </div>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
-            <Button onClick={() => navigate("/giris?next=/aramalarim")} className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold gap-2">
+            <Button onClick={() => navigate("/giris?next=/aramalarim")} className="[background:var(--gradient-cta)] text-white font-semibold gap-2">
               <Bookmark className="w-4 h-4" /> Giriş Yap
             </Button>
             <Button onClick={() => navigate("/arama")} variant="outline" className="border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/10 gap-2">
@@ -170,7 +170,7 @@ export default function Aramalarim() {
               /arama sayfasında kriter girin (mülk tipi, konum, fiyat) ve "Aramayı kaydet" deyin.
               Yeni eşleşmeler burada görünür ve bildirim alırsınız.
             </p>
-            <Button onClick={() => navigate("/arama")} className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white gap-2">
+            <Button onClick={() => navigate("/arama")} className="[background:var(--gradient-cta)] text-white gap-2">
               <Search className="w-4 h-4" /> Aramaya Başla
             </Button>
           </div>
