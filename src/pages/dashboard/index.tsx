@@ -132,7 +132,7 @@ export default function FlowDashboard() {
                   {d.cardAuctionTitle}
                 </div>
                 <p className="text-xs text-slate-500">{d.cardAuctionBody}</p>
-                <Button type="button" className="w-full mt-1 bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => navigate("/ihale-ac")}>
+                <Button type="button" className="w-full mt-1 [background:var(--gradient-cta)] text-white" onClick={() => navigate("/ihale-ac")}>
                   {d.cardAuctionCta}
                 </Button>
               </CardContent>
