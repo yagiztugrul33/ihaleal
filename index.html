@@ -38,8 +38,10 @@
     <link rel="alternate" hreflang="tr" href="__CANONICAL_ROOT__" />
 
     <!-- Preconnect (CEPHE 1 v5: LCP/FCP optimizasyon — DNS + TLS önceden açılır) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- fonts.googleapis.com / fonts.gstatic.com KALDIRILDI: fontlar artık
+         self-host (public/fonts/*.woff2). İki yabancı origin'e DNS+TLS açmaya
+         ve CSS -> woff2 gidiş-dönüşüne gerek kalmadı; dosyalar sitenin kendi
+         bağlantısından (HTTP/2 multiplex) geliyor. -->
     <link rel="preconnect" href="https://www.google.com" />
     <link rel="preconnect" href="https://wsjifesrdaeorrdzbvmk.supabase.co" crossorigin />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
@@ -67,11 +69,18 @@
          medyan): font stylesheet'i kritik yoldan cikinca Perf 74 -> 80,
          FCP 4214 -> 3070 ms. Ilk ekran, kritik CSS'teki metrik uyumlu
          "Inter Fallback" ile cizilir; swap kayma uretmez. -->
+    <!-- SELF-HOST (2026-08-06): kaynak artık /fontlar.css — Google Fonts değil.
+         Desen aynen korundu; yalnızca origin değişti. Kazanç: fonts.googleapis.com
+         ve fonts.gstatic.com'a ayrı DNS+TLS + CSS'i bekleyip sonra woff2 isteme
+         zinciri ortadan kalktı. Alt küme latin + latin-ext ile sınırlı (Türkçe
+         ğ/ş/ı/İ latin-ext'te); cyrillic/greek/vietnamese indirilmiyor.
+         `load` sonrası aktivasyon kuralı DEĞİŞMEDİ — fontlar LCP penceresinin
+         dışında kalmaya devam ediyor (gerekçe: public/font-loader.js). -->
     <link
       rel="stylesheet"
       media="print"
       data-font-swap
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      href="/fontlar.css"
     />
     <script src="/font-loader.js" defer></script>
 
