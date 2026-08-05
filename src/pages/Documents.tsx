@@ -131,7 +131,7 @@ export default function DocumentsPage() {
                           accept=".pdf,.jpg,.jpeg,.png,.zip"
                           onChange={() => simulateUpload(d.id)}
                         />
-                        <span className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-teal-400 px-4 py-2 text-sm font-medium text-white">
+                        <span className="inline-flex items-center gap-2 rounded-xl [background:var(--gradient-cta)] px-4 py-2 text-sm font-medium text-white">
                           <Upload className="w-4 h-4" /> Yükle (demo)
                         </span>
                       </label>
@@ -155,7 +155,7 @@ export default function DocumentsPage() {
           <Button variant="outline" asChild className="border-white/15">
             <Link to="/ekspertiz">Ekspertiz bilgisi</Link>
           </Button>
-          <Button asChild className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">
+          <Button asChild className="[background:var(--gradient-cta)] text-white">
             <Link to="/panel">Panele dön</Link>
           </Button>
         </div>
