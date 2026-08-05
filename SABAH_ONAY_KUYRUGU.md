@@ -1,5 +1,14 @@
 # SABAH ONAY KUYRUGU — gece renk donusumu (2026-08-05)
 
+## Ö2 sadeleştirme sonrası eklenenler (2026-08-05 sabah)
+
+1. **Kök `typecheck` scripti no-op** — `tsconfig.json` solution-style ("files": []) olduğundan
+   `tsc --noEmit` hiçbir dosyayı denetlemiyor. Gerçek denetim (`tsc -p tsconfig.app.json`) 30 mevcut
+   hata veriyor (BorsaTerminali, ChatWidget, lib/reports/*, hooks/*). Script `"typecheck": "tsc --noEmit -p tsconfig.app.json"`
+   yapılırsa CI kırılır → önce 30 hata kapatılmalı. Operatör kararı bekliyor.
+2. **staging push edildi** (`git push -u origin staging` başarılı, 26 commit). Vercel preview durumu
+   DENETIM-KAYDI.md'de.
+
 ## Operator onayi bekleyenler
 
 1. **staging push operatör onayı bekliyor** (bundle: `yedekler/ihaleal-staging-gece.bundle`)
