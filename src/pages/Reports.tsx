@@ -193,7 +193,7 @@ export default function Reports() {
         key={r.id}
         className={cn(
           "border-slate-200/80 bg-slate-900/40 hover:border-cyan-400/40 transition-colors",
-          variant === "featured" && "border-cyan-400/30 bg-gradient-to-br from-cyan-500/10 to-slate-900/60",
+          variant === "featured" && "border-cyan-400/30 bg-slate-900/60",
         )}
       >
         <CardContent className={cn(variant === "featured" ? "p-5" : "p-4")}>
@@ -414,7 +414,7 @@ export default function Reports() {
         ) : null}
 
         {/* Abone opt-in */}
-        <Card className="mb-8 bg-gradient-to-br from-violet-500/10 to-slate-900/40 border-violet-400/30" data-testid="subscribe-form">
+        <Card className="mb-8 bg-slate-900/40 border-violet-400/30" data-testid="subscribe-form">
           <CardContent className="p-6">
             <div className="flex items-start gap-4 flex-wrap">
               <div className="rounded-xl bg-violet-500/15 p-3 flex-shrink-0">
