@@ -56,7 +56,8 @@
     --secondary: 220 20% 12%;
     --secondary-foreground: 0 0% 98%;
     --muted: 220 20% 15%;
-    --muted-foreground: 220 10% 60%;
+    /* Ö2 AA: 60% → 68% — koyu kart zemininde 4.5:1 payını garantiler */
+    --muted-foreground: 215 16% 68%;
     --accent: 199 80% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 70% 50%;
@@ -162,6 +163,17 @@
 }
 
 @layer utilities {
+  /* Ö2 AA telafisi: slate-500/600 koyu tema için açıldı (tailwind.config).
+     Beyaz/açık zeminli adacıklarda orijinal koyu değerlere dönülür — iki yönde de 4.5:1 korunur. */
+  :is(.bg-white, .bg-slate-50, .bg-slate-100) .text-slate-500,
+  .bg-white.text-slate-500 {
+    color: #64748b;
+  }
+  :is(.bg-white, .bg-slate-50, .bg-slate-100) .text-slate-600,
+  .bg-white.text-slate-600 {
+    color: #475569;
+  }
+
   .text-gradient {
     background: linear-gradient(135deg, hsl(187 72% 42%) 0%, hsl(199 89% 48%) 100%);
     -webkit-background-clip: text;

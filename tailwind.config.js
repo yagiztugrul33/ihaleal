@@ -30,6 +30,13 @@ module.exports = {
           cyan: "#60A5FA",
           soft: "#93C5FD",
         },
+        // Ö2 AA kontrast (token düzeyi): varsayılan slate-500 (#64748B) koyu zeminde 3.9:1 kalıyordu.
+        // Koyu tema baskın olduğundan 500/600 kaldırıldı; açık (bg-white) adacıklar index.css'te telafi edilir.
+        // #7D8CA3 → #0B1120 üzerinde 5.4:1, #111827 üzerinde 5.1:1; #74849E → 4.9:1 / 4.6:1.
+        slate: {
+          500: "#7D8CA3",
+          600: "#74849E",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
