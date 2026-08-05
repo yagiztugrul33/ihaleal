@@ -1,4 +1,28 @@
 /* ihaleal — Luxury Institutional Futurism tokens v3 */
+
+/* Yedek font metrik eslemesi (CLS icin).
+   Web fontu inene kadar gosterilen yedek font, web fontla AYNI yeri kaplasin diye
+   size-adjust/ascent/descent override'lari veriliyor; boylece swap aninda satir
+   yuksekligi degismiyor ve sayfa asagi kaymiyor.
+   Degerler tahmin degil: headless Chrome'da canvas measureText ile Inter, Plus Jakarta
+   Sans ve Arial'in gercek genislik/ascent/descent'i olculup oranlandi (2026-08-05). */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 104.68%;
+  ascent-override: 92.66%;
+  descent-override: 22.93%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans Fallback";
+  src: local("Arial");
+  size-adjust: 104.28%;
+  ascent-override: 99.73%;
+  descent-override: 21.10%;
+  line-gap-override: 0%;
+}
+
 :root {
   /* Backgrounds */
   --lux-bg-deep: #081120;
@@ -43,8 +67,8 @@
   --lux-border-strong: rgba(255, 255, 255, 0.16);
 
   /* Typography */
-  --font-display: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", "Inter Fallback", system-ui, sans-serif;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;

@@ -44,6 +44,14 @@
     <!-- LCP candidate preload — anasayfa kritik logo (icon-192 yüksek öncelik) -->
     <link rel="preload" as="image" href="/icon-192.png" fetchpriority="high" />
 
+    <!-- Gövde/başlık fontları: HTML head'de yüklenir ki tarayıcı ilk taramada keşfetsin.
+         Daha önce src/styles/theme.css içinde @import ile geliyordu; font ancak paket CSS'i
+         indikten sonra istenip geç swap ile düzen kaymasına (CLS) sebep oluyordu. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    />
+
     <!-- i18n FAZ 0: Arapça font (AR seçilince [lang="ar"] body altında uygulanır).
          display=swap → Inter LCP'i bekletmez; AR aktif değilse network yükü minimal. -->
     <link
@@ -167,7 +175,12 @@
     <style>
       /* Critical CSS — luxury institutional (must match src/styles/tokens.css) */
       html,body,#root{background:radial-gradient(120% 80% at 50% -20%,rgba(37,99,235,0.18) 0%,transparent 55%),linear-gradient(180deg,#081120 0%,#0B1120 38%,#0F172A 72%,#111827 100%) !important;background-color:#0B1120 !important;color:#E2E8F0}
-      body{margin:0;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+      body{margin:0;font-family:'Inter','Inter Fallback',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+      /* Yedek font metrik eslemesi — src/styles/tokens.css ile AYNI degerler.
+         Ilk boyamada paket CSS'i henuz inmedigi icin burada da tanimli olmali,
+         aksi halde ilk ekran metrik uyumsuz yedekle cizilip swap'ta kayiyor. */
+      @font-face{font-family:"Inter Fallback";src:local("Arial");size-adjust:104.68%;ascent-override:92.66%;descent-override:22.93%;line-gap-override:0%}
+      @font-face{font-family:"Plus Jakarta Sans Fallback";src:local("Arial");size-adjust:104.28%;ascent-override:99.73%;descent-override:21.10%;line-gap-override:0%}
     </style>
   </head>
   <body>

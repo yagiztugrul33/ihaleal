@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { X, Compass } from "lucide-react";
 
 const STORAGE_KEY = "ihaleal_onboarding_dismissed";
 
 export function OnboardingTip() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
+  // Karar ILK render'da veriliyor. Daha once useState(false) + useEffect ile aciliyordu;
+  // ipucu ilk boyamadan SONRA eklenince ana sayfa 168px asagi kayiyor ve CLS'in tamamini
+  // (0.186) bu tek kayma uretiyordu. Uygulama saf istemci tarafi (Vite SPA) oldugu icin
+  // localStorage render aninda okunabilir.
+  const [visible, setVisible] = useState(() => {
     try {
-      if (localStorage.getItem(STORAGE_KEY) === "1") return;
-      setVisible(true);
+      return localStorage.getItem(STORAGE_KEY) !== "1";
     } catch {
-      setVisible(false);
+      return false;
     }
-  }, []);
+  });
 
   if (!visible) return null;
 

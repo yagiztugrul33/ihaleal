@@ -1,5 +1,7 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
+/* Inter + Plus Jakarta Sans artik index.html <head> icinde yukleniyor. Buradaki @import
+   yazi tipini paket CSS'i inene kadar geciktiriyor, gec gelen swap ana sayfada duzen
+   kaymasina (CLS) yol aciyordu. */
 @import "./tokens.css";
 @import "./theme-luxury-ext.css";
 html,body,#root{overflow-x:clip;max-width:100%;background:var(--gradient-page)!important;background-color:var(--lux-bg-base)!important;background-attachment:fixed;background-size:cover;min-height:100%;color:var(--color-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
