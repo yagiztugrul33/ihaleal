@@ -11,6 +11,8 @@ import { CountdownTimer } from "@/components/auction/CountdownTimer";
 import { cn } from "@/lib/utils";
 import { BorsaTerminali } from "@/components/borsa/BorsaTerminali";
 import { NearbyListings } from "@/components/nearby/NearbyListings";
+import { EmptyState } from "@/components/async";
+import { Button } from "@/components/ui/button";
 
 function formatTRY(v: number): string {
   if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M ₺`;
