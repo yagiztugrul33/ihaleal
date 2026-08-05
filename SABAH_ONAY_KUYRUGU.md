@@ -6,8 +6,14 @@
    `tsc --noEmit` hiçbir dosyayı denetlemiyor. Gerçek denetim (`tsc -p tsconfig.app.json`) 30 mevcut
    hata veriyor (BorsaTerminali, ChatWidget, lib/reports/*, hooks/*). Script `"typecheck": "tsc --noEmit -p tsconfig.app.json"`
    yapılırsa CI kırılır → önce 30 hata kapatılmalı. Operatör kararı bekliyor.
-2. **staging push edildi** (`git push -u origin staging` başarılı, 26 commit). Vercel preview durumu
-   DENETIM-KAYDI.md'de.
+2. **staging push edildi** (`git push -u origin staging` başarılı, 29 commit). Vercel build
+   `state: success` (commit 563e812).
+3. **Vercel Deployment Protection AÇIK — preview dışarıdan doğrulanamıyor.**
+   `https://ihaleal-git-staging-yagizo.vercel.app/` → HTTP 200 ama gövde `<title>Login – Vercel</title>`
+   (uygulama HTML'i değil, `id="root"` yok). Yapılacak: **Vercel → ihaleal → Settings → Deployment
+   Protection → kapat** (veya bypass token üret). Kapatıldıktan sonra aynı URL curl ile doğrulanmalı.
+   Not: production `https://ihaleal.vercel.app/` korumasız (HTTP 200, `id="root"` var) ama main dalını
+   yansıtıyor, Ö2 değişikliklerini içermez.
 
 ## Operator onayi bekleyenler
 

@@ -103,3 +103,14 @@ importu `45f71f9` ile kapatıldı). Script düzeltmesi CI'ı kıracağı için o
   - modül kartı başlığı bundle'da: `title:"Gayrimenkul Borsası",href:"/borsa"` (Harita, İhale Arama vb. ile birlikte)
   - Ctrl+K kodu bundle'da: "Komut paleti" + `Ctrl K` kbd etiketi + PAGE_COMMANDS rotaları
 - `GET /assets/LoadingState-EfjbynJf.js` → **HTTP 200**, `animate-pulse` skeleton sınıfı mevcut.
+
+## Vercel preview
+
+- Push: `git push -u origin staging` **başarılı** (yeni dal, ardından 563e812 ile ikinci push).
+- Commit status (563e812): `Vercel / state: success`,
+  dashboard: https://vercel.com/yagizo/ihaleal/8Lc4MVbyoGvEer8jzTcDT59fiDYa
+- Preview URL `https://ihaleal-git-staging-yagizo.vercel.app/` → HTTP 200 **ama uygulama değil**:
+  gövde `<title>Login – Vercel</title>`, `id="root"` yok → **Deployment Protection açık.**
+  → Kuyruk: Vercel → ihaleal → Settings → Deployment Protection → kapat.
+- `https://ihaleal.vercel.app/` (production, main dalı) HTTP 200 + `id="root"` var — Ö2 içermez.
+- GitHub deployments API'de staging kaydı yok (Vercel bu repoda yalnız commit status yayımlıyor).
