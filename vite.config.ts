@@ -247,6 +247,17 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: string) {
+          // Kucuk paylasilan siniflandirma yardimcilari (clsx / tailwind-merge / cva) kendi
+          // chunk'ina alinir. Aksi halde rollup bunlari recharts ile ayni chunk'a koyuyor ve
+          // giris chunk'i clsx icin 456 KB'lik vendor-charts'i statik bagimlilik olarak
+          // ceker; ana sayfa hic grafik kullanmadigi halde recharts kritik yola giriyordu.
+          if (
+            id.includes("node_modules/clsx") ||
+            id.includes("node_modules/tailwind-merge") ||
+            id.includes("node_modules/class-variance-authority")
+          ) {
+            return "vendor-utils"
+          }
           if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
             return "vendor-react"
           }
