@@ -11,7 +11,7 @@
     "dev:mobile-url": "node scripts/dev-mobile-url.mjs",
     "build": "node scripts/vite-build-safe.mjs",
     "preview": "vite preview --port 4173",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "gen:assets": "node scripts/gen-assets.mjs",
     "theme:luxury": "node scripts/run-gen-luxury.mjs",
     "env:sync": "node scripts/sync-vite-supabase-env.mjs",
