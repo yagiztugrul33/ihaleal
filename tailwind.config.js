@@ -10,32 +10,32 @@ module.exports = {
         body: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
+        // AÇIK & MİNİMAL tasarım sistemi — tek kaynak src/styles/tema.css.
+        // Marka sınıfları artık CSS değişkenlerine bağlı; koyu palet kaldırıldı.
         lux: {
-          deep: "#081120",
-          base: "#0B1120",
-          elevated: "#0F172A",
-          surface: "#111827",
-          blue: { 600: "#2563EB", 500: "#3B82F6", 400: "#60A5FA" },
-          trust: { green: "#22C55E", sky: "#38BDF8" },
-          // Ö2 durum tokenleri — tokens.css --lux-emerald-500 / --lux-amber-500 ile eş
-          emerald: { 500: "#10B981", 400: "#34D399" },
-          amber: { 500: "#F59E0B", 400: "#FBBF24" },
+          deep: "var(--zemin)",
+          base: "var(--zemin)",
+          elevated: "var(--zemin-yumusak)",
+          surface: "var(--zemin-yumusak)",
+          blue: { 600: "var(--vurgu)", 500: "var(--vurgu)", 400: "var(--vurgu)" },
+          trust: { green: "var(--durum-basari)", sky: "var(--vurgu)" },
+          emerald: { 500: "var(--durum-basari)", 400: "var(--durum-basari)" },
+          amber: { 500: "var(--durum-uyari)", 400: "var(--durum-uyari)" },
         },
         page: {
-          DEFAULT: "#0B1120",
-          muted: "#0F172A",
+          DEFAULT: "var(--zemin)",
+          muted: "var(--zemin-yumusak)",
         },
         brand: {
-          teal: "#38BDF8",
-          cyan: "#60A5FA",
-          soft: "#93C5FD",
+          teal: "var(--vurgu)",
+          cyan: "var(--vurgu)",
+          soft: "var(--vurgu)",
         },
-        // Ö2 AA kontrast (token düzeyi): varsayılan slate-500 (#64748B) koyu zeminde 3.9:1 kalıyordu.
-        // Koyu tema baskın olduğundan 500/600 kaldırıldı; açık (bg-white) adacıklar index.css'te telafi edilir.
-        // #7D8CA3 → #0B1120 üzerinde 5.4:1, #111827 üzerinde 5.1:1; #74849E → 4.9:1 / 4.6:1.
+        // Açık zeminde AA: slate-500/600 Tailwind varsayılanına döndü
+        // (#64748B / #ffffff = 4.76:1, #475569 / #ffffff = 7.44:1).
         slate: {
-          500: "#7D8CA3",
-          600: "#74849E",
+          500: "#64748B",
+          600: "#475569",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -82,16 +82,17 @@ module.exports = {
         },
       },
       borderRadius: {
-        xl: "calc(var(--radius) + 4px)",
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-        xs: "calc(var(--radius) - 6px)",
+        // 10–14px bandı: köşe yumuşak ama abartısız
+        xl: "var(--kose)",
+        lg: "var(--kose)",
+        md: "var(--kose-kucuk)",
+        sm: "var(--kose-kucuk)",
+        xs: "8px",
       },
       boxShadow: {
-        xs: "0 1px 2px 0 rgb(0 0 0 / 0.24)",
-        lux: "0 12px 40px rgba(37, 99, 235, 0.35)",
-        "lux-lg": "0 24px 64px rgba(0, 0, 0, 0.4)",
+        xs: "var(--golge-kucuk)",
+        lux: "var(--golge-buyuk)",
+        "lux-lg": "var(--golge-buyuk)",
       },
       transitionTimingFunction: {
         "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",

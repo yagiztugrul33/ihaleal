@@ -16,58 +16,35 @@
     font-family: "Noto Sans Arabic", var(--font-body), "Inter", system-ui, sans-serif;
   }
 
+  /* shadcn/ui degiskenleri — TEK kaynak src/styles/tema.css.
+     Burada yalnizca ilk boyama icin ayni degerler tekrarlanir; tema.css en son
+     yuklenip bu blogu gecersiz kilar (katmansiz kural, @layer base'i yener). */
   :root,
-  [data-theme="light"] {
-    /* Luxury institutional — aligned with src/styles/tokens.css */
-    --background: 222 47% 7%;
-    --foreground: 210 40% 98%;
-    --card: 222 35% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 35% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 53%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 222 25% 14%;
-    --secondary-foreground: 214 32% 91%;
-    --muted: 222 20% 16%;
-    --muted-foreground: 215 20% 72%;
-    --accent: 199 89% 58%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 222 20% 22%;
-    --input: 222 20% 22%;
-    --ring: 217 91% 53%;
-    --radius: 0.75rem;
-    --page-gradient-from: 222 47% 5%;
-    --page-gradient-via: 222 40% 8%;
-    --page-gradient-to: 222 35% 12%;
-  }
-
+  [data-theme="light"],
   [data-theme="dark"] {
-    --background: 220 35% 5%;
-    --foreground: 0 0% 98%;
-    --card: 220 30% 8%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 30% 8%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 187 65% 45%;
+    --background: 0 0% 100%;
+    --foreground: 158 12% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 158 12% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 158 12% 14%;
+    --primary: 224 71% 43%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 20% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 220 20% 15%;
-    /* Ö2 AA: 60% → 68% — koyu kart zemininde 4.5:1 payını garantiler */
-    --muted-foreground: 215 16% 68%;
-    --accent: 199 80% 50%;
+    --secondary: 140 8% 97%;
+    --secondary-foreground: 158 12% 14%;
+    --muted: 132 10% 94%;
+    --muted-foreground: 155 6% 40%;
+    --accent: 224 71% 43%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 20% 15%;
-    --input: 220 20% 15%;
-    --ring: 187 65% 45%;
-    --page-gradient-from: 222 47% 8%;
-    --page-gradient-via: 222 40% 6%;
-    --page-gradient-to: 222 47% 5%;
+    --destructive: 4 76% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 140 14% 92%;
+    --input: 140 14% 92%;
+    --ring: 224 71% 43%;
+    --radius: 10px;
+    --page-gradient-from: 0 0% 100%;
+    --page-gradient-via: 0 0% 100%;
+    --page-gradient-to: 0 0% 100%;
   }
 
   html {
@@ -76,12 +53,9 @@
 
   body {
     font-family: var(--font-body), "Inter", sans-serif;
-    background: var(--gradient-page, linear-gradient(180deg, #081120 0%, #0b1120 45%, #111827 100%));
-    background-color: var(--color-bg, #0b1120);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: var(--color-text, hsl(var(--foreground)));
+    background: var(--zemin, #ffffff);
+    background-color: var(--zemin, #ffffff);
+    color: var(--metin, #1e2a24);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -105,51 +79,64 @@
   }
 
   .page-shell-gradient {
-    background: var(--gradient-page, linear-gradient(180deg, #081120 0%, #0b1120 45%, #111827 100%)) !important;
-    background-color: var(--color-bg, #0b1120) !important;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: var(--zemin, #ffffff) !important;
+    background-color: var(--zemin, #ffffff) !important;
+    background-image: none !important;
   }
 
   .surface-card {
-    @apply rounded-2xl border border-border bg-card text-card-foreground shadow-sm;
+    background: var(--zemin);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--kose);
+    color: var(--metin);
+    box-shadow: var(--golge-kucuk);
   }
 
   .section-heading {
-    @apply font-bold text-white;
+    @apply font-bold;
+    color: var(--metin);
     font-family: var(--font-display), "Plus Jakarta Sans", sans-serif;
   }
 
   .section-subtitle {
-    @apply text-slate-300 max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
+    @apply max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
+    color: var(--metin-ikincil);
   }
 
   .glass-panel {
-    @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-xl shadow-lg;
+    background: var(--zemin);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--kose);
+    box-shadow: var(--golge-kucuk);
+    backdrop-filter: none;
   }
 
+  /* Skeleton — acik zeminde nefes alan gri; yalniz opacity animasyonu */
   .skeleton-shimmer {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.04) 0%,
-      rgba(255, 255, 255, 0.09) 50%,
-      rgba(255, 255, 255, 0.04) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.6s ease-in-out infinite;
+    background: var(--zemin-gri);
+    animation: skeleton-nefes 1.6s ease-in-out infinite;
   }
 
   .enterprise-table thead {
-    @apply bg-white/[0.04] text-xs font-semibold uppercase tracking-wider text-slate-400;
+    @apply text-xs font-semibold uppercase tracking-wider;
+    background: var(--zemin-yumusak);
+    color: var(--metin-ikincil);
   }
 
   .ai-dock-panel {
-    @apply rounded-2xl border border-white/10 bg-[rgba(8,17,32,0.96)] shadow-2xl shadow-black/50 backdrop-blur-2xl;
+    background: var(--zemin);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--kose);
+    box-shadow: var(--golge-buyuk);
+    backdrop-filter: none;
   }
 
   .ai-insight-card {
-    @apply rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-xs text-slate-300;
+    @apply p-3 text-xs;
+    background: var(--vurgu-yumusak);
+    border: 1px solid var(--cizgi);
+    border-radius: var(--kose-kucuk);
+    color: var(--metin-ikincil);
   }
 }
 
@@ -162,42 +149,27 @@
   }
 }
 
+/* Skeleton nefesi — yalniz opacity (GPU, CLS=0, reduced-motion saygili) */
+@keyframes skeleton-nefes {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
 @layer utilities {
-  /* Ö2 AA telafisi: slate-500/600 koyu tema için açıldı (tailwind.config).
-     Beyaz/açık zeminli adacıklarda orijinal koyu değerlere dönülür — iki yönde de 4.5:1 korunur. */
-  :is(.bg-white, .bg-slate-50, .bg-slate-100) .text-slate-500,
-  .bg-white.text-slate-500 {
-    color: #64748b;
-  }
-  :is(.bg-white, .bg-slate-50, .bg-slate-100) .text-slate-600,
-  .bg-white.text-slate-600 {
-    color: #475569;
-  }
-
+  /* Gradyanli metin kaldirildi — tek vurgu rengi, okunur (8.72:1). */
   .text-gradient {
-    background: linear-gradient(135deg, hsl(187 72% 42%) 0%, hsl(199 89% 48%) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--vurgu);
   }
 
-  .glass {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(14px);
-    border: 1px solid hsl(var(--border));
-    box-shadow: 0 4px 24px -8px rgba(15, 23, 42, 0.08);
-  }
-
-  [data-theme="dark"] .glass {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.35);
-  }
-
+  .glass,
+  [data-theme="dark"] .glass,
   [data-theme="light"] .glass {
-    background: rgba(255, 255, 255, 0.78);
-    border: 1px solid hsl(var(--border));
-    box-shadow: 0 8px 32px -12px rgba(15, 23, 42, 0.1);
+    background: var(--zemin);
+    backdrop-filter: none;
+    border: 1px solid var(--cizgi);
+    box-shadow: var(--golge-kucuk);
   }
 }
 
