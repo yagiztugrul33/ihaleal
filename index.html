@@ -45,14 +45,18 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
 
-    <!-- LCP notu (olculdu, Lighthouse 5 tur medyan):
-         LCP elemani navbar lockup gorseli (/ihaleal-logo-lockup.png, lcp-discovery-insight).
-         Onceden burada /icon-192.png preload ediliyordu — LCP elemani O DEGIL, bos yere
-         2.6 KB kritik yola giriyordu. Dogru gorseli preload etmek de OLCUMDE fayda
-         vermedi (LCP 4893 -> 4959 ms): LCP zamani gorselin inisiyle degil React'in
-         ilk render'iyla sinirli; 20 KB'lik preload kritik JS ile bant genisligi
-         yarisiyor. Bu yuzden preload TAMAMEN kaldirildi; oncelik ipucu <img
-         fetchPriority="high"> ile veriliyor (src/components/Logo.tsx). -->
+    <!-- LCP preload — /ihaleal-logo-lockup.png (navbar lockup gorseli).
+         LCP elemani Lighthouse `lcp-discovery-insight` ile dogrulandi; gorsel React
+         render'i sonrasi kesfediliyordu (requestDiscoverable=false).
+
+         Olcum gunlugu (yerel Lighthouse mobil, 5 tur medyan) — SIRA ONEMLI:
+         1) Fontlar hala render-blocking iken bu preload FAYDA VERMEDI
+            (LCP 4893 -> 4959 ms): 20 KB'lik gorsel, bant genisligi icin kritik JS
+            ve 183 KB'lik woff2 kuyruguyla yarisiyordu.
+         2) Fontlar kritik yoldan cikarildiktan SONRA ayni preload kazanca dondu
+            (Perf 75 -> 77, LCP 4427 -> 4144 ms).
+         Onceden burada /icon-192.png preload ediliyordu — LCP elemani O DEGIL. -->
+    <link rel="preload" as="image" href="/ihaleal-logo-lockup.png" fetchpriority="high" />
 
     <!-- Gövde/başlık fontları: HTML head'de yüklenir ki tarayıcı ilk taramada keşfetsin.
          Daha önce src/styles/theme.css içinde @import ile geliyordu; font ancak paket CSS'i
