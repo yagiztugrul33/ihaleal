@@ -1,8 +1,40 @@
-﻿import { useState, useEffect } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, X, MapPin, Home, Clock, ArrowRight, TrendingUp, Star } from "lucide-react";
+import { Search, X, MapPin, Home, Clock, ArrowRight, TrendingUp, Star, CornerDownLeft } from "lucide-react";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { Button } from "@/components/ui/button";
+
+/** Ö2 komut paleti: Ctrl+K rota + modül araması (yeni bağımlılık yok, statik liste). */
+type PageCommand = { title: string; href: string; keywords: string; group: string };
+
+const PAGE_COMMANDS: PageCommand[] = [
+  { title: "Ana Sayfa", href: "/", keywords: "anasayfa home giris", group: "Sayfa" },
+  { title: "İhale Arama", href: "/auctions", keywords: "ihale arama muzayede auction ilan", group: "Modül" },
+  { title: "Canlı İhaleler", href: "/ihaleler", keywords: "canli ihale muzayede live", group: "Modül" },
+  { title: "Gayrimenkul Borsası", href: "/borsa", keywords: "borsa teklif emir defteri fiyat", group: "Modül" },
+  { title: "Harita", href: "/harita", keywords: "harita map konum parsel", group: "Modül" },
+  { title: "Analiz & Raporlar", href: "/analiz", keywords: "analiz analytics endeks rapor grafik", group: "Modül" },
+  { title: "Portföyüm (Panel)", href: "/panel", keywords: "panel portfoy dashboard hesap", group: "Modül" },
+  { title: "Risk Merkezi — Deprem Haritası", href: "/modul/deprem-risk-haritasi", keywords: "deprem risk afet zemin", group: "Modül" },
+  { title: "Bina Risk Sorgu", href: "/modul/bina-risk-sorgu", keywords: "bina risk sorgu yapi", group: "Modül" },
+  { title: "Parsel Zekâsı", href: "/modul/parsel-zekasi", keywords: "parsel ada imar tapu", group: "Modül" },
+  { title: "Favorilerim", href: "/favoriler", keywords: "favori begeni kayitli", group: "Sayfa" },
+  { title: "Kayıtlı Aramalarım", href: "/aramalarim", keywords: "kayitli arama alarm", group: "Sayfa" },
+  { title: "Mesajlar", href: "/mesajlar", keywords: "mesaj sohbet chat konusma", group: "Sayfa" },
+  { title: "Bildirimler", href: "/bildirimler", keywords: "bildirim uyari notification", group: "Sayfa" },
+  { title: "Belgelerim", href: "/belgeler", keywords: "belge evrak dokuman", group: "Sayfa" },
+  { title: "Raporlar", href: "/raporlar", keywords: "rapor aylik pdf", group: "Sayfa" },
+  { title: "Mortgage Hesaplayıcı", href: "/mortgage", keywords: "mortgage kredi konut hesap faiz", group: "Araç" },
+  { title: "Komisyon Hesaplayıcı", href: "/komisyon-hesaplayici", keywords: "komisyon hesap ucret", group: "Araç" },
+  { title: "Değerleme", href: "/degerleme", keywords: "degerleme ekspertiz fiyat tahmin", group: "Araç" },
+  { title: "Karşılaştır", href: "/karsilastir", keywords: "karsilastir compare kiyasla", group: "Araç" },
+  { title: "Nasıl Çalışır", href: "/nasil-calisir", keywords: "nasil calisir rehber yardim sss", group: "Sayfa" },
+  { title: "Fiyatlandırma", href: "/fiyatlandirma", keywords: "fiyat paket uyelik premium abonelik", group: "Sayfa" },
+  { title: "Ayarlar", href: "/ayarlar", keywords: "ayar tercih hesap profil", group: "Sayfa" },
+  { title: "İletişim", href: "/iletisim", keywords: "iletisim destek yardim", group: "Sayfa" },
+];
+
+const trLower = (s: string) => s.toLocaleLowerCase("tr");
 
 interface SearchModalProps {
   isOpen?: boolean;
@@ -17,6 +49,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (!effectiveOpen) return;
@@ -37,6 +70,44 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
     a.category.toLowerCase().includes(query.toLowerCase()) ||
     (a.tags && a.tags.some((t) => t.toLowerCase().includes(query.toLowerCase())))
   ) : [];
+
+  // Ö2: rota + modül eşleşmesi — başlık, anahtar kelime ve href üstünden TR-duyarlı arama
+  const pageResults = useMemo(() => {
+    if (query.length < 2) return [];
+    const q = trLower(query.trim());
+    return PAGE_COMMANDS.filter(
+      (p) => trLower(p.title).includes(q) || p.keywords.includes(q) || p.href.includes(q)
+    ).slice(0, 6);
+  }, [query]);
+
+  // Klavye navigasyonu: sayfalar + ilanlar tek listede gezilir
+  const navigableHrefs = useMemo(
+    () => [
+      ...pageResults.map((p) => p.href),
+      ...results.slice(0, 10).map((a) => `/ilan/${a.id}`),
+    ],
+    [pageResults, results]
+  );
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [query]);
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!navigableHrefs.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((i) => (i + 1) % navigableHrefs.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((i) => (i - 1 + navigableHrefs.length) % navigableHrefs.length);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const href = navigableHrefs[activeIndex] ?? navigableHrefs[0];
+      navigate(href);
+      handleClose();
+    }
+  };
 
   if (!effectiveOpen) return null;
 
@@ -64,7 +135,9 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ilan ara: sehir, semt, ilan adi..."
+              onKeyDown={handleInputKeyDown}
+              placeholder="Sayfa, modül veya ilan ara..."
+              aria-label="Komut paleti: sayfa, modül veya ilan ara"
               className="flex-1 bg-transparent text-white text-lg placeholder:text-slate-600 outline-none"
             />
             {query && (
@@ -72,6 +145,9 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
                 <X className="w-4 h-4" />
               </button>
             )}
+            <kbd className="hidden sm:inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-semibold text-slate-500">
+              Ctrl K
+            </kbd>
             <button onClick={handleClose} className="p-1.5 rounded-lg hover:bg-white/10 text-slate-500">
               <X className="w-5 h-5" />
             </button>
@@ -98,18 +174,43 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
                 ))}
               </div>
             </div>
-          ) : results.length === 0 ? (
+          ) : results.length === 0 && pageResults.length === 0 ? (
             <div className="p-8 text-center">
               <Search className="w-10 h-10 text-slate-700 mx-auto mb-3" />
               <p className="text-slate-500">Sonuc bulunamadi.</p>
             </div>
           ) : (
             <div className="divide-y divide-white/5">
-              {results.slice(0, 10).map((auction) => (
+              {pageResults.length > 0 && (
+                <div className="p-2" data-testid="palette-page-results">
+                  <div className="px-2 pb-1 pt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Sayfalar &amp; Modüller
+                  </div>
+                  {pageResults.map((p, idx) => (
+                    <button
+                      key={p.href}
+                      onClick={() => { navigate(p.href); handleClose(); }}
+                      onMouseEnter={() => setActiveIndex(idx)}
+                      className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-start transition-colors ${
+                        idx === activeIndex ? "bg-white/10 text-white" : "text-slate-300 hover:bg-white/5"
+                      }`}
+                    >
+                      <ArrowRight className="rtl:rotate-180 h-4 w-4 shrink-0 text-blue-400" />
+                      <span className="min-w-0 flex-1 truncate text-sm font-medium">{p.title}</span>
+                      <span className="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-500">{p.group}</span>
+                      {idx === activeIndex ? <CornerDownLeft className="h-3.5 w-3.5 text-slate-500" /> : null}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {results.slice(0, 10).map((auction, li) => (
                 <button
                   key={auction.id}
                   onClick={() => { navigate(`/ilan/${auction.id}`); handleClose(); }}
-                  className="w-full flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors text-start"
+                  onMouseEnter={() => setActiveIndex(pageResults.length + li)}
+                  className={`w-full flex items-center gap-4 p-4 transition-colors text-start ${
+                    pageResults.length + li === activeIndex ? "bg-white/[0.06]" : "hover:bg-white/[0.03]"
+                  }`}
                 >
                   <img loading="lazy" src={auction.images[0]} alt="" className="w-16 h-12 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1 min-w-0">
