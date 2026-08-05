@@ -126,7 +126,7 @@ export function EmlakciGiris() {
           className="glass rounded-2xl p-6 sm:p-8 border border-slate-200"
         >
           <div className="text-center mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/20">
+            <div className="w-14 h-14 rounded-2xl [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/20">
               <ShieldCheck className="w-7 h-7 text-white" />
             </div>
             <h1 className="text-2xl font-bold text-white">İhaleAL Giriş / Kayıt</h1>
@@ -261,7 +261,7 @@ export function EmlakciGiris() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-5 rounded-xl"
+                  className="w-full [background:var(--gradient-cta)] hover:brightness-90 text-white font-semibold py-5 rounded-xl"
                 >
                   {loading ? "Giriş yapılıyor..." : `${currentType.label} olarak Giriş Yap`}
                 </Button>
@@ -387,7 +387,7 @@ export function EmlakciGiris() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-5 rounded-xl"
+                  className="w-full [background:var(--gradient-cta)] hover:brightness-90 text-white font-semibold py-5 rounded-xl"
                 >
                   {loading ? "Kayıt oluşturuluyor..." : `${currentType.label} olarak Kaydol`}
                 </Button>

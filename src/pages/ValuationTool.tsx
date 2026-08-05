@@ -228,7 +228,7 @@ export default function ValuationTool() {
 
         {/* KATMAN 1 — Eğitici giriş (form ÖNCESI) - GES şablonu */}
         <section className="mb-6 space-y-3">
-          <div className="rounded-xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-4">
+          <div className="rounded-xl border border-cyan-400/20 bg-slate-900/40 p-4">
             <p className="text-sm font-semibold text-cyan-200 mb-2">Değerleme nasıl hesaplanır?</p>
             <div className="grid sm:grid-cols-3 gap-3 text-xs">
               <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">

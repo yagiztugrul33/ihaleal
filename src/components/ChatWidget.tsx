@@ -450,7 +450,7 @@ export function ChatWidget() {
                 </Button>
               <Button
                 size="sm"
-                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/30"
+                  className="w-full [background:var(--gradient-cta)] text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/30"
                   onClick={() => openPanel("guide")}
                 >
                   Hızlı yönlendirme
@@ -686,7 +686,7 @@ export function ChatWidget() {
             <Button
               size="sm"
               onClick={sendMessage}
-              className="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-white px-3 h-10 shadow-lg shadow-cyan-900/40 hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300 motion-reduce:hover:scale-100"
+              className="rounded-xl [background:var(--gradient-cta)] hover:brightness-110 text-white px-3 h-10 shadow-lg shadow-cyan-900/40 hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300 motion-reduce:hover:scale-100"
             >
               <Send className="rtl:-scale-x-100 w-4 h-4" />
             </Button>

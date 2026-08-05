@@ -28,7 +28,7 @@ export default function ErrorPage({ error, resetError }: ErrorPageProps) {
         <button
           type="button"
           onClick={onRetry}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 text-white font-medium hover:opacity-95 transition-opacity"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg [background:var(--gradient-cta)] text-white font-medium hover:opacity-95 transition-opacity"
         >
           <RefreshCw className="h-5 w-5" />
           Tekrar Dene

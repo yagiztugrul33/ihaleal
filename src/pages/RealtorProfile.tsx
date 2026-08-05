@@ -84,7 +84,7 @@ export default function RealtorProfilePage() {
             <p className="text-xs text-slate-500">{r.reviewCount} değerlendirme (demo)</p>
             <Button
               type="button"
-              className="mt-3 w-full gap-2 bg-gradient-to-r from-blue-500 to-teal-400 text-white text-sm"
+              className="mt-3 w-full gap-2 [background:var(--gradient-cta)] text-white text-sm"
               onClick={() => setMsgOpen(true)}
             >
               <MessageSquare className="h-4 w-4" /> Mesaj gönder
@@ -186,7 +186,7 @@ export default function RealtorProfilePage() {
               </Button>
               <Button
                 type="button"
-                className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"
+                className="[background:var(--gradient-cta)] text-white"
                 onClick={() => {
                   setMsgOpen(false);
                   setMsgSubject("");

@@ -163,7 +163,7 @@ export default function ProgrammaticSeoLanding() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <Button asChild className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2">
+            <Button asChild className="[background:var(--gradient-cta)] text-white gap-2">
               <Link to={`/arama?q=${encodeURIComponent(route.provinceName)}`}>
                 Aramada aç <ArrowRight className="rtl:rotate-180 w-4 h-4" />
               </Link>

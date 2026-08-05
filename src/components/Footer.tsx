@@ -204,7 +204,7 @@ export function Footer() {
             <p className="text-sm text-slate-300 mb-3">{f.newsletterDesc}</p>
             <div className="flex gap-2">
               <input type="email" placeholder={f.newsletterPlaceholder} className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
-              <button className="px-3 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white text-sm font-semibold transition-colors">{f.newsletterSubmit}</button>
+              <button className="px-3 py-2 rounded-lg [background:var(--gradient-cta)] hover:brightness-110 text-white text-sm font-semibold transition-colors">{f.newsletterSubmit}</button>
             </div>
           </div>
         </div>

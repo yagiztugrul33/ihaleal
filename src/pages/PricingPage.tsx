@@ -295,7 +295,7 @@ export default function PricingPage() {
         )}
 
         {/* KATMAN 1 — Eğitici: Hangi paket sana uygun? */}
-        <div className="rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-5">
+        <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-4">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
             <h2 className="text-base font-semibold text-white">{p.segmentTitle}</h2>

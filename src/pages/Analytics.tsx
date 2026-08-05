@@ -262,7 +262,7 @@ export default function Analytics() {
               <ExternalLink className="w-3.5 h-3.5" />
               Uzman görüşü
             </Button>
-            <Button type="button" size="sm" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white gap-1.5" onClick={() => navigate("/karsilastir")}>
+            <Button type="button" size="sm" className="[background:var(--gradient-cta)] text-white gap-1.5" onClick={() => navigate("/karsilastir")}>
               <Crosshair className="w-3.5 h-3.5" />
               İlan kıyasla
             </Button>
@@ -282,7 +282,7 @@ export default function Analytics() {
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all border ${
                 activeTab === tab.key
-                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20 border-cyan-400/30"
+                  ? "[background:var(--gradient-cta)] text-white shadow-lg shadow-cyan-500/20 border-cyan-400/30"
                   : "bg-white/[0.06] backdrop-blur-md border-slate-200 text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
@@ -818,7 +818,7 @@ export default function Analytics() {
                     <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-1">
                       <div className="relative h-44">
                         <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                        <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                         <div className="absolute top-3 start-3 px-2.5 py-1 rounded-lg bg-amber-500 text-white text-xs font-bold">
                           #{idx + 1} Firsat
                         </div>

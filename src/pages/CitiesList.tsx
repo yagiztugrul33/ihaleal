@@ -157,7 +157,7 @@ export default function CitiesList() {
                   }}
                 />
                 <div className={`absolute inset-0 bg-gradient-to-br ${city.color} pointer-events-none`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                 <div className="absolute top-3 start-3 px-3 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
                   {city.tag}
                 </div>
@@ -187,7 +187,7 @@ export default function CitiesList() {
                     <div className="text-sm font-bold text-amber-400">{city.demandIndex}/100</div>
                   </div>
                 </div>
-                <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold">
+                <Button className="w-full mt-4 [background:var(--gradient-cta)] hover:brightness-110 text-white font-semibold">
                   Detaylı İncele <ArrowRight className="rtl:rotate-180 w-4 h-4 ms-1" />
                 </Button>
               </CardContent>

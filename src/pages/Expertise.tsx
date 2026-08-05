@@ -63,7 +63,7 @@ export default function Expertise() {
             <p className="text-xs text-slate-400">Standart raporlar 2-3 is günü, hizli raporlar 24 saat icinde hazirlanir.</p>
           </div>
           <div className="flex gap-3 justify-center">
-            <Button onClick={() => navigate("/")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"><Home className="w-4 h-4 me-1.5" /> Ana Sayfa</Button>
+            <Button onClick={() => navigate("/")} className="[background:var(--gradient-cta)] text-white"><Home className="w-4 h-4 me-1.5" /> Ana Sayfa</Button>
             <Button variant="outline" onClick={() => setSubmitted(false)} className="border-slate-200 text-slate-300 hover:text-white"><FileText className="w-4 h-4 me-1.5" /> Yeni Talep</Button>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function Expertise() {
         <div className="max-w-4xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center"><ShieldCheck className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-xl [background:var(--gradient-cta)] flex items-center justify-center"><ShieldCheck className="w-6 h-6 text-white" /></div>
             <div>
               <h1 className="text-3xl font-bold text-white">Uzman Gorusu & Ekspertiz</h1>
               <p className="text-slate-400">Profesyonel gayrimenkul degerleme raporu talep edin</p>
@@ -186,7 +186,7 @@ export default function Expertise() {
                 </div>
               </label>
 
-              <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-12 text-base"><Send className="rtl:-scale-x-100 w-5 h-5 me-2" /> Ekspertiz Talebi Gonder</Button>
+              <Button type="submit" className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-12 text-base"><Send className="rtl:-scale-x-100 w-5 h-5 me-2" /> Ekspertiz Talebi Gonder</Button>
             </form>
           </div>
 

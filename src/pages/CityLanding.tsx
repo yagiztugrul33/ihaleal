@@ -65,7 +65,7 @@ export default function CityLandingPage() {
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{cfg.cityTr} gayrimenkul ihaleleri ve ilanlar</h1>
           <p className="text-slate-400 max-w-3xl leading-relaxed mb-6">{cfg.description}</p>
           <div className="flex flex-wrap gap-3">
-            <Button asChild className="bg-gradient-to-r from-blue-500 to-teal-400 text-white gap-2">
+            <Button asChild className="[background:var(--gradient-cta)] text-white gap-2">
               <Link to="/ihaleler">
                 Tüm ihalelere git <ArrowRight className="rtl:rotate-180 w-4 h-4" />
               </Link>

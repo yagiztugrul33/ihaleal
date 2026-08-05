@@ -414,7 +414,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
           </div>
 
           {/* AI SİNYALLER + bitmeye yakın */}
-          <div className="rounded-xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-slate-900/40 p-4">
+          <div className="rounded-xl border border-emerald-500/20 bg-slate-900/40 p-4">
             <h2 className="text-sm font-bold text-emerald-200 mb-3 flex items-center gap-2">
               <Zap className="h-4 w-4" /> AI YATIRIM SİNYALLERİ
             </h2>

@@ -77,7 +77,7 @@ export function UserPanelOverview() {
               </div>
             </div>
             <div className="flex flex-wrap justify-center gap-2">
-              <Button type="button" onClick={() => navigate("/giris?next=/panel")} className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white">
+              <Button type="button" onClick={() => navigate("/giris?next=/panel")} className="[background:var(--gradient-cta)] text-white">
                 Giriş
               </Button>
               <Button type="button" variant="outline" onClick={() => navigate("/kayit?next=/panel")} className="border-cyan-400/40">

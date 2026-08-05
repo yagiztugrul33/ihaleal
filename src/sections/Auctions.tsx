@@ -322,7 +322,7 @@ export function Auctions({
             <div className="mt-3 flex items-center gap-3 p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 animate-fade-in">
               <GitCompare className="w-4 h-4 text-blue-400" />
               <span className="text-sm text-blue-400">{compareList.length} ilan seçildi</span>
-              <Button size="sm" onClick={() => navigate(`/karsilastir?ids=${compareList.join(",")}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white text-xs h-7">Karşılaştır</Button>
+              <Button size="sm" onClick={() => navigate(`/karsilastir?ids=${compareList.join(",")}`)} className="[background:var(--gradient-cta)] text-white text-xs h-7">Karşılaştır</Button>
               <button onClick={() => setCompareList([])} className="text-xs text-slate-500 hover:text-white ms-auto">Temizle</button>
             </div>
           )}
@@ -375,7 +375,7 @@ export function Auctions({
                   <BarChart3 className="w-4 h-4 text-blue-500" />
                   <div className="flex-1">
                     <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Değerleme</span><span className="text-blue-400 font-semibold">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</span></div>
-                    <div className={`h-1.5 rounded-full overflow-hidden ${isHome ? "bg-[var(--color-border)]" : "bg-white/10"}`}><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
+                    <div className={`h-1.5 rounded-full overflow-hidden ${isHome ? "bg-[var(--color-border)]" : "bg-white/10"}`}><div className="h-full rounded-full [background:var(--gradient-cta)]" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                   </div>
                 </div>
                 <div className={`flex flex-wrap items-end justify-between gap-3 pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
@@ -395,7 +395,7 @@ export function Auctions({
                       ) : (
                         <>
                           <Button size="sm" variant="outline" onClick={() => navigate(`/ilan/${auction.id}`)} className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 text-xs h-8 px-3">Detaylar</Button>
-                          <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-semibold text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 me-1" />Teklif Ver</Button>
+                          <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-semibold text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 me-1" />Teklif Ver</Button>
                         </>
                       )}
                     </div>
@@ -448,7 +448,7 @@ export function Auctions({
             </div>
             <div><label className="text-sm text-slate-400 mb-1.5 block">Teklif Tutarı (₺)</label><Input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} className="bg-slate-950 border-white/10 text-white focus:ring-blue-500" placeholder="örn: 3000000" /></div>
           </div>
-          <DialogFooter><Button onClick={handleBid} className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold">Teklif Ver</Button></DialogFooter>
+          <DialogFooter><Button onClick={handleBid} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-bold">Teklif Ver</Button></DialogFooter>
         </DialogContent>
       </Dialog>
     </section>

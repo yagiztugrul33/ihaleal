@@ -54,7 +54,7 @@ export default function RehberArticlePage() {
               <p className="text-sm font-medium text-white">İlgili araç</p>
               <p className="text-xs text-slate-400">{guide.relatedTool.label}</p>
             </div>
-            <Button asChild className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">
+            <Button asChild className="[background:var(--gradient-cta)] text-white">
               <Link to={guide.relatedTool.path}>{guide.relatedTool.label}</Link>
             </Button>
           </CardContent>

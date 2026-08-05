@@ -117,7 +117,7 @@ export default function LandEquityPage() {
         </Card>
 
         {/* KATMAN 1 — Eğitici giriş (kat karşılığı nedir?) */}
-        <Card className="border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40">
+        <Card className="border-cyan-400/20 bg-slate-900/40">
           <CardContent className="p-5">
             <div className="flex items-start gap-3 mb-3">
               <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
@@ -152,7 +152,7 @@ export default function LandEquityPage() {
             </div>
 
             {/* Somut örnek pay dağılımı (Endeksa-style real numbers) */}
-            <div className="mt-4 rounded-lg border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 to-slate-900/40 p-4">
+            <div className="mt-4 rounded-lg border border-emerald-400/20 bg-slate-900/40 p-4">
               <p className="text-xs font-semibold text-emerald-300 mb-3 flex items-center gap-1.5">
                 📊 Somut Örnek (Kadıköy / Caddebostan, 800 m² arsa)
               </p>

@@ -215,7 +215,7 @@ export default function CityGuide() {
           <MapPin className="w-16 h-16 text-slate-600 mx-auto mb-4" />
           <h2 className="text-2xl font-bold mb-2">Şehir Bulunamadı</h2>
           <p className="text-slate-500 mb-6">Aradığınız şehir rehberi mevcut değil.</p>
-          <Button onClick={() => navigate("/sehirler")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">
+          <Button onClick={() => navigate("/sehirler")} className="[background:var(--gradient-cta)] text-white">
             Tüm Şehirleri Gör
           </Button>
         </div>

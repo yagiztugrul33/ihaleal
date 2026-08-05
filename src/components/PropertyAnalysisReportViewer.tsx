@@ -183,7 +183,7 @@ export function PropertyAnalysisReportViewer({
               type="button"
               disabled={approveDisabled}
               onClick={onApprove}
-              className="w-fit bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-900/30"
+              className="w-fit [background:var(--gradient-cta)] text-white font-semibold shadow-lg shadow-cyan-900/30"
             >
               Onayla ve Devam
             </Button>

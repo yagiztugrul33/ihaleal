@@ -43,7 +43,7 @@ export function SellerTrustCard({ sellerId, listingId, listingTitle }: Props) {
       </p>
       <Button
         type="button"
-        className="w-full gap-2 bg-gradient-to-r from-blue-500 to-teal-400 text-white h-10"
+        className="w-full gap-2 [background:var(--gradient-cta)] text-white h-10"
         onClick={() =>
           navigate(`/mesajlar?listing=${encodeURIComponent(listingId)}&title=${encodeURIComponent(listingTitle)}`)
         }

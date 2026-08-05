@@ -133,7 +133,7 @@ export default function SecurityCenter() {
         {scanning && (
           <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10">
             <div className="flex items-center gap-3 mb-2"><RefreshCw className="w-4 h-4 text-blue-400 animate-spin" /><span className="text-sm text-blue-400 font-medium">Güvenlik taraması devam ediyor...</span></div>
-            <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400 transition-all" style={{ width: `${scanProgress}%` }} /></div>
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full [background:var(--gradient-cta)] transition-all" style={{ width: `${scanProgress}%` }} /></div>
             <p className="text-xs text-slate-500 mt-1">Honeypot, rate limit ve TLS/sertifika kontrolleri (demo taslak; WAF/2FA yol haritasında)</p>
           </div>
         )}

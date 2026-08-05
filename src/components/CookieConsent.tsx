@@ -57,7 +57,7 @@ export function CookieConsent() {
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <Button size="sm" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-semibold" onClick={accept}>
+          <Button size="sm" className="[background:var(--gradient-cta)] text-white font-semibold" onClick={accept}>
             Anladım, devam
           </Button>
           <button type="button" className="p-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/5" aria-label="Kapat" onClick={accept}>

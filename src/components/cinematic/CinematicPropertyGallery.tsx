@@ -202,7 +202,7 @@ export function CinematicPropertyGallery({
                 <Button
                   size="sm"
                   onClick={onVirtualTour}
-                  className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white gap-1.5 shadow-lg shadow-blue-900/30"
+                  className="[background:var(--gradient-cta)] text-white gap-1.5 shadow-lg shadow-blue-900/30"
                 >
                   <Video className="w-4 h-4" />
                   Sanal tur

@@ -53,7 +53,7 @@ export function RecentlyViewed() {
             >
               <div className="relative h-40 overflow-hidden">
                 <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                 <div className="absolute top-3 start-3">
                   {auction.status === "live" && (
                     <span className="px-2.5 py-1 rounded-lg bg-red-500/90 text-white text-xs font-medium flex items-center gap-1">

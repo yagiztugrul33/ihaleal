@@ -101,7 +101,7 @@ export default function NasilCalisir() {
                     düğme ile canlı ilanlara gidebilirsiniz.
                   </p>
                   <Button
-                    className="mt-4 gap-2 bg-gradient-to-r from-blue-600 to-cyan-400"
+                    className="mt-4 gap-2 [background:var(--gradient-cta)]"
                     onClick={() => navigate("/ihaleler")}
                   >
                     İhale listesine git
@@ -309,7 +309,7 @@ export default function NasilCalisir() {
               göz atın.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Button className="gap-2 bg-gradient-to-r from-blue-600 to-cyan-400" asChild>
+              <Button className="gap-2 [background:var(--gradient-cta)]" asChild>
                 <Link to="/ihaleler">
                   İhalelere göz at <ArrowRight className="rtl:rotate-180 w-4 h-4" />
                 </Link>

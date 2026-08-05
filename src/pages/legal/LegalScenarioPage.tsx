@@ -81,7 +81,7 @@ export default function LegalScenarioPage() {
         <LegalDraftBanner />
 
         {/* KATMAN 1 — Eğitici */}
-        <section className="rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-5">
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-3">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
             <h2 className="text-base font-semibold text-white">Senaryo Çözücü ne işe yarar?</h2>
@@ -306,7 +306,7 @@ export default function LegalScenarioPage() {
             </div>
 
             {/* AI YORUM */}
-            <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/5 to-slate-900/40 p-5">
+            <div className="rounded-2xl border border-cyan-500/30 bg-slate-900/40 p-5">
               <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-cyan-300" />
                 Dikkat Çekilen Noktalar

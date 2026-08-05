@@ -157,7 +157,7 @@ export default function SellerHub() {
               <Button size="sm" variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/veri-ve-endeks")}>
                 İhaleal Endeksi
               </Button>
-              <Button size="sm" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => navigate("/ihale-ac")}>
+              <Button size="sm" className="[background:var(--gradient-cta)] text-white" onClick={() => navigate("/ihale-ac")}>
                 İhale aç
               </Button>
             </div>

@@ -98,7 +98,7 @@ export default function Compare() {
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/4)</h3>
-                <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">Karşılaştırmaya başla</Button>
+                <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="[background:var(--gradient-cta)] text-white">Karşılaştırmaya başla</Button>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pe-1">
                 {catalogNorm.map((a) => (
@@ -124,7 +124,7 @@ export default function Compare() {
           <div className="text-center py-20">
             <GitCompare className="w-12 h-12 text-slate-600 mx-auto mb-4" />
             <p className="text-slate-400">Karşılaştırma için en az iki ilan seçmelisiniz.</p>
-            <Button onClick={() => setShowSelector(true)} className="mt-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white">İlan seç</Button>
+            <Button onClick={() => setShowSelector(true)} className="mt-4 [background:var(--gradient-cta)] text-white">İlan seç</Button>
           </div>
         )}
 
@@ -146,7 +146,7 @@ export default function Compare() {
                       <span className="text-sm text-emerald-400">AI tahmini: ₺{winner.auction.aiPredictedPrice.toLocaleString("tr-TR")}</span>
                     </div>
                   </div>
-                  <Button onClick={() => navigate(`/ilan/${winner.auction.id}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white whitespace-nowrap">Detaylar <ArrowRight className="rtl:rotate-180 w-4 h-4 ms-1" /></Button>
+                  <Button onClick={() => navigate(`/ilan/${winner.auction.id}`)} className="[background:var(--gradient-cta)] text-white whitespace-nowrap">Detaylar <ArrowRight className="rtl:rotate-180 w-4 h-4 ms-1" /></Button>
                 </div>
                 <ListingDocumentFooter auction={winner.auction} showTopRule={false} />
               </div>
@@ -297,7 +297,7 @@ export default function Compare() {
                     <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Teklif sayısı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">{s.auction.bidderCount}</td>)}</tr>
                     <tr>
                       <td className="p-4" />
-                      {scores.map((s) => <td key={s.auction.id} className="p-4 text-center"><Button size="sm" onClick={() => navigate(`/ilan/${s.auction.id}`)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white text-xs">Detaylar</Button></td>)}
+                      {scores.map((s) => <td key={s.auction.id} className="p-4 text-center"><Button size="sm" onClick={() => navigate(`/ilan/${s.auction.id}`)} className="[background:var(--gradient-cta)] text-white text-xs">Detaylar</Button></td>)}
                     </tr>
                   </tbody>
                 </table>

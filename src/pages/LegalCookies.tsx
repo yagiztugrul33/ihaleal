@@ -55,7 +55,7 @@ export default function CookiePolicy() {
           </Card>
 
           <div className="flex justify-center pt-6">
-            <Button onClick={() => navigate(-1)} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white px-8">
+            <Button onClick={() => navigate(-1)} className="[background:var(--gradient-cta)] text-white px-8">
               Anladım, Geri Dön
             </Button>
           </div>

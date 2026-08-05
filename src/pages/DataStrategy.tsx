@@ -117,7 +117,7 @@ export default function DataStrategy() {
           </CardContent>
         </Card>
 
-        <Button onClick={() => navigate("/analiz")} className="bg-gradient-to-r from-blue-500 to-teal-400 text-white">
+        <Button onClick={() => navigate("/analiz")} className="[background:var(--gradient-cta)] text-white">
           Mevcut demo analiz sayfasına git
         </Button>
       </div>

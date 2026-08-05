@@ -415,7 +415,7 @@ export default function AuctionDetail() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Button
             onClick={() => navigate("/ihaleler")}
-            className="bg-gradient-to-r from-blue-500 to-teal-400 text-white"
+            className="[background:var(--gradient-cta)] text-white"
           >
             {ld.notFoundBackAuctions}
           </Button>
@@ -1006,7 +1006,7 @@ export default function AuctionDetail() {
                           <div className="text-sm font-semibold text-white">{ld.ovVirtualTourTitle}</div>
                           <div className="text-xs text-slate-400">{ld.ovVirtualTourDesc}</div>
                         </div>
-                        <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ms-auto bg-gradient-to-r from-blue-500 to-teal-400 text-white">{ld.ovVirtualTourStart}</Button>
+                        <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ms-auto [background:var(--gradient-cta)] text-white">{ld.ovVirtualTourStart}</Button>
                       </div>
                     </div>
                   )}
@@ -1403,7 +1403,7 @@ export default function AuctionDetail() {
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
                   <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">{ld.priceCardAiPredicted}</span><span className="text-blue-400 font-semibold" dir="ltr">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
-                  <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-teal-400" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
+                  <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full [background:var(--gradient-cta)]" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-lg p-2.5 bg-white/[0.02]">
                   {isListingOnly ? (
@@ -1420,7 +1420,7 @@ export default function AuctionDetail() {
                 <div className="flex gap-2 flex-wrap">
                   {!isListingOnly ? (
                     <Button
-                      className="flex-1 min-w-[8rem] bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-40 disabled:grayscale"
+                      className="flex-1 min-w-[8rem] [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-11 disabled:opacity-40 disabled:grayscale"
                       disabled={bidDisabled}
                       title={
                         bidDisabled
@@ -1744,7 +1744,7 @@ export default function AuctionDetail() {
               disabled={bidBusy || (!isListingOnly && !isBidGateComplete(bidGateAck))}
               title={!isListingOnly && !isBidGateComplete(bidGateAck) ? ld.bidGateTooltip : undefined}
               onClick={() => void handleBid()}
-              className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold disabled:opacity-40"
+              className="[background:var(--gradient-cta)] text-white font-bold disabled:opacity-40"
             >
               {bidBusy ? ld.ctaBidSubmitting : isSealedOffer ? ld.ctaSealedSubmit : ld.ctaBidSubmit}
             </Button>
@@ -1795,7 +1795,7 @@ export default function AuctionDetail() {
             <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/veri-ve-endeks")}>
               {ld.mrGotoAnalysis}
             </Button>
-            <Button className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setShowMarketReportDialog(false)}>{ld.close}</Button>
+            <Button className="[background:var(--gradient-cta)] text-white" onClick={() => setShowMarketReportDialog(false)}>{ld.close}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -1823,7 +1823,7 @@ export default function AuctionDetail() {
             </ul>
           </div>
           <DialogFooter>
-            <Button className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setShowOfficialDocsDialog(false)}>{ld.understood}</Button>
+            <Button className="[background:var(--gradient-cta)] text-white" onClick={() => setShowOfficialDocsDialog(false)}>{ld.understood}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -1855,7 +1855,7 @@ export default function AuctionDetail() {
             <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setPreAuthOpen(false)}>
               {ld.cancel}
             </Button>
-            <Button type="button" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white" disabled={preAuthBusy} onClick={() => void runPreAuth()}>
+            <Button type="button" className="[background:var(--gradient-cta)] text-white" disabled={preAuthBusy} onClick={() => void runPreAuth()}>
               {preAuthBusy ? ld.processing : ld.paConfirm}
             </Button>
           </DialogFooter>

@@ -201,7 +201,7 @@ export default function WarRoomPage() {
               </div>
 
               {/* Somut örnek senaryo (Endeksa stili gerçek mülk + sayı) */}
-              <div className="mt-4 rounded-lg border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 to-slate-900/40 p-4">
+              <div className="mt-4 rounded-lg border border-emerald-400/20 bg-slate-900/40 p-4">
                 <p className="text-xs font-semibold text-emerald-300 mb-2 flex items-center gap-1.5">
                   📌 Somut Örnek Senaryo (Pendik, 1.000 m² arsa)
                 </p>

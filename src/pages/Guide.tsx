@@ -147,7 +147,7 @@ export default function Guide() {
               <a href="mailto:destek@ihaleal.com" className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-sm text-slate-500 hover:text-slate-900 transition-all flex items-center gap-2">
                 <Mail className="w-4 h-4" /> E-posta
               </a>
-              <a href="tel:+902121234567" className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-sm text-white font-semibold transition-all flex items-center gap-2">
+              <a href="tel:+902121234567" className="px-4 py-2.5 rounded-xl [background:var(--gradient-cta)] hover:brightness-110 text-sm text-white font-semibold transition-all flex items-center gap-2">
                 <MessageSquare className="w-4 h-4" /> Bize Ulasin
               </a>
             </div>

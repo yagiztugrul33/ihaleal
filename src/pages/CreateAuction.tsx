@@ -949,7 +949,7 @@ export default function CreateAuction() {
             </CardContent>
           </Card>
 
-          <Button type="submit" disabled={submitLoading} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-12 text-base disabled:opacity-60">
+          <Button type="submit" disabled={submitLoading} className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-12 text-base disabled:opacity-60">
             <PlusCircle className="w-5 h-5 me-2" />
             {submitLoading ? (aiPhaseLabel || "Kaydediliyor...") : "İlanı kaydet ve yayınla"}
           </Button>
@@ -999,7 +999,7 @@ export default function CreateAuction() {
               <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setBuyNowWarnOpen(false)}>
                 Geri
               </Button>
-              <Button type="button" className="bg-gradient-to-r from-blue-600 to-cyan-400 text-white" onClick={() => void finalizeSellerApprove()}>
+              <Button type="button" className="[background:var(--gradient-cta)] text-white" onClick={() => void finalizeSellerApprove()}>
                 Anladım — onayla
               </Button>
             </DialogFooter>

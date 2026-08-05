@@ -274,7 +274,7 @@ export function Anayasa400() {
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana Sayfa
           </Button>
           <div className="text-center mb-10">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
+            <div className="w-16 h-16 rounded-2xl [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
               <Shield className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">ihaleal.com — Platform ve KİK çerçevesi</h1>
