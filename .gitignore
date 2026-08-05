@@ -64,7 +64,9 @@ ihaleal-backups/
 .vercel
 
 # AI/IDE lokal state (Claude Code session/plan dosyaları)
-.claude/
+# NOT: .claude/skills/ versiyonlanır (paylaşılan skill'ler), gerisi lokal kalır.
+.claude/*
+!.claude/skills/
 
 # Web UI QA screenshot artefaktları (Playwright/manuel test çıktıları)
 screenshots/
