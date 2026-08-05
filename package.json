@@ -45,7 +45,8 @@
     "site:finish:all": "cmd /c SITE_BITIR_TEK_CALISTIR.bat",
     "site:finish:ci": "cmd /c BITIR_VERIFY_CI.bat",
     "postinstall": "node scripts/postinstall-rollup.mjs",
-    "build:full": "tsc --noEmit && vite build"
+    "build:full": "tsc --noEmit && vite build",
+    "tema:uyum": "node scripts/gen-tema-uyum.mjs src/styles/global-acik.css src"
   },
   "dependencies": {
     "@capacitor/android": "^8.3.4",
