@@ -481,7 +481,7 @@ export default function SearchResults() {
             }}
             placeholder="Şehir, ilçe, başlık veya ilan no (ILN-...)"
           />
-          <Button type="submit" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-semibold h-11 px-6">
+          <Button type="submit" className="[background:var(--gradient-cta)] text-white font-semibold h-11 px-6">
             Ara
           </Button>
         </form>
