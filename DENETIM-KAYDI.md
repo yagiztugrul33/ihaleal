@@ -536,3 +536,207 @@ Bu bölüm eklendi ve `public/denetim.json` `scripts/denetim-uret.mjs` ile yenid
 | `d98f8b5` | perf(font): Google Fonts stylesheet'i render'ı bloklamıyor |
 | `d99ef7d` | perf(bundle): vendor-zod kritik giriş yolundan çıkarıldı |
 | `e9a95b4` | perf(lcp): LCP görseli yeniden preload edildi (fontlar çekildikten sonra kazanç) |
+
+---
+
+# Tasarım sistemi turu — AÇIK & MİNİMAL (2026-08-05)
+
+Temel: `f28b2de` · Son: `621e72d` · Dal: `staging`
+
+## 1. Ne değişti
+
+Koyu "Luxury Institutional Futurism" teması **açık & minimal tasarım sistemine** çevrildi.
+Palet ve yapı patatesci ile aynı; tek fark marka rengi.
+
+| | Önce | Sonra |
+|---|---|---|
+| Zemin | radyal + doğrusal gradyan duvarı, `#0B1120` | saf beyaz `#ffffff` (+ `#f7f8f7`, `#eef1ee`) |
+| Metin | `#FFFFFF` / `#E2E8F0` | `#1e2a24` / `#5f6b64` |
+| Vurgu | mavi 600/500/400 + sky + emerald + amber + violet | **TEK renk: lacivert `#1E40AF`** |
+| Kenarlık | `rgba(255,255,255,.10–.16)` çift ton | 1px `#e8ede9` |
+| Gölge | `0 16px 48px rgba(0,0,0,.4)` + mavi parıltı | `0 1px 2px rgba(30,42,36,.04)` / `0 8px 24px rgba(30,42,36,.06)` |
+| Köşe | 0.5–1.5rem karışık | 10–14px |
+
+### Kontrast kanıtı (WCAG 2.1 hesabı — tahmin değil)
+
+| Çift | Oran | Eşik | Sonuç |
+|---|---|---|---|
+| `--metin` #1e2a24 / `--zemin` #ffffff | 14.88:1 | 4.5 | geçer |
+| `--metin` #1e2a24 / `--zemin-gri` #eef1ee | 12.99:1 | 4.5 | geçer |
+| `--metin-ikincil` #5f6b64 / #ffffff | 5.56:1 | 4.5 | geçer |
+| `--metin-ikincil` #5f6b64 / #eef1ee | 4.89:1 | 4.5 | geçer |
+| `--vurgu` #1e40af / #ffffff | 8.72:1 | 4.5 | geçer |
+| #ffffff / `--vurgu` #1e40af | 8.72:1 | 4.5 | geçer |
+
+Fonksiyonel durum renkleri (tek vurgu kuralının istisnası, beyaz zeminde AA):
+`--durum-basari` #15803d 4.54:1 · `--durum-uyari` #9a6700 4.53:1 · `--durum-hata` #b42318 5.86:1.
+
+## 2. Yöntem — neden dosya dosya değil
+
+Koyu tema ağaçtaki **250+ bileşene utility olarak** yayılmıştı: 1413 `text-white`,
+918 koyu panel sınıfı, 175 gradyan kullanımı, 361 sabit hex. 150+ sayfayı tek tek elden
+geçirmek bu turda kalite kaybı olmadan bitirilemezdi. Bunun yerine **iki katman** kuruldu:
+
+1. **`src/styles/tema.css`** — tek kaynak token dosyası. Eski değişken adları
+   (`--lux-*`, `--premium-*`, `--color-*`, `--bg-*`, `--text-*`, shadcn HSL üçlüleri)
+   yeni tokenlara **eşlendi**; geriye uyum korunuyor. `main.tsx`'te en son yüklenir.
+2. **`src/styles/global-acik.css`** — utility uyum katmanı. `global-dark.css`'in yerini aldı
+   (o dosya silindi). Üretici: `scripts/gen-tema-uyum.mjs` (`npm run tema:uyum`).
+
+### Yüzey sözleşmesi
+
+Her yüzey kuralı miras alınan altı değişkeni set eder: `--uzerine`, `--uzerine-ikincil`,
+`--uzerine-vurgu`, `--uzerine-basari`, `--uzerine-uyari`, `--uzerine-hata`.
+Metin utility'leri rengini buradan okur. Sonuç: **`text-white` açık yüzeyde koyu nötre
+döner, dolu vurgu yüzeyinde beyaz kalır.** Tek kural, iki bağlam — 1413 kullanımın hepsi
+tek noktadan doğru davranır.
+
+Eşleşme `[class~="bg-blue-500"]` ile **tam jeton** üzerinden: `bg-blue-50` ile `bg-blue-500`
+karışmaz, `hover:`/`md:` varyantları etkilenmez. Opaklık varyantları (`bg-blue-500/10`)
+ayrı ve daha açık tona bağlanır.
+
+Yol boyunca yakalanan iki gerçek hata (ölçüm olmasa görülmezdi):
+- `tema.css` yorumunun içinde geçen `*/` dizisi yorumu erken kapatıyor ve **bütün token
+  bloğunu** geçersiz kılıyordu (`--metin` boş dönüyordu, metinler siyaha düşüyordu).
+- Üretilen CSS'i temizleyen adım seçici listesini virgülden bölerken tırnak içi virgülleri
+  de bölüyor, `[class*="bg-[rgba(15,"]` kuralını geçersiz kılıyordu (AA ihlali 0 → 82).
+  Bölücü tırnak/parantez farkındalığıyla yeniden yazıldı.
+
+## 3. Sayfa × önce/sonra (ölçüm, iddia değil)
+
+Ölçüm: `scripts/tasarim-olcum.mjs` — Playwright (Edge), gerçek DOM + hesaplanmış stil.
+Önce = soğuk klon `f28b2de` · sonra = `621e72d`. 16 rota × 1280px ve 375px.
+Ham veri: `public/tasarim-olcum.json`.
+
+| Sayfa | koyu panel | gradyan | AA ihlali | satır içi renk | tıkla-aç | 375px taşma |
+|---|---|---|---|---|---|---|
+| `/` | 11 → 0 | 12 → 0 | 2 → 0 | 1 → 1 | 4 | 0 |
+| `/ilanlar` | 18 → 0 | 46 → 0 | 11 → 0 | 0 → 0 | 4 | 0 |
+| `/ihaleler` | 61 → 0 | 47 → 0 | 45 → 0 | 0 → 0 | 4 | 0 |
+| `/arama` | 8 → 0 | 10 → 0 | 1 → 0 | 0 → 0 | 6 | 0 |
+| `/nasil-calisir` | 27 → 0 | 17 → 0 | 1 → 0 | 0 → 0 | 10 | 0 |
+| `/kurumsal` | 9 → 0 | 16 → 0 | 20 → 0 | 5 → 3 | 4 | 0 |
+| `/sss` | 6 → 0 | 13 → 0 | 1 → 0 | 2 → 0 | 4 | 0 |
+| `/giris` | 8 → 0 | 10 → 0 | 1 → 0 | 0 → 0 | 4 | 0 |
+| `/mortgage` | 61 → 0 | 9 → 0 | 1 → 0 | 0 → 0 | 4 | 0 |
+| `/degerleme` | 42 → 0 | 9 → 0 | 1 → 0 | 0 → 0 | 4 | 0 |
+| `/rehber` | 19 → 0 | 10 → 0 | 2 → 0 | 0 → 0 | 4 | 0 |
+| `/sehirler` | 60 → 0 | 21 → 0 | 7 → 0 | 0 → 0 | 4 | 0 |
+| `/emlakci` | 10 → 0 | 13 → 0 | 6 → 0 | 7 → 0 | 4 | 0 |
+| `/muteahhit` | 8 → 0 | 14 → 0 | 1 → 0 | 5 → 0 | 4 | 0 |
+| `/harita` | 8 → 0 | 9 → 0 | 4 → 0 | 6 → 3 | 5 | 0 |
+| `/kayit` | 8 → 0 | 10 → 0 | 1 → 0 | 0 → 0 | 4 | 0 |
+| **TOPLAM (masaüstü)** | **364 → 0** | **266 → 0** | **105 → 0** | **26 → 7** | **73** | **0** |
+
+**Mobil (375px) toplamı:** koyu panel 320 → 0 · gradyan 250 → 0 · AA ihlali 56 → 0 ·
+yatay taşma 0 → 0.
+
+**İçerik korunumu:** `body.innerText` uzunluğu 16 rotanın **hepsinde birebir aynı**
+(masaüstü toplam 65 419 → 65 419). Route/veri/işlev kaybı yok.
+
+## 4. Kaldırılan görsel gürültü envanteri
+
+| Kalem | Adet |
+|---|---|
+| Koyu panel (çalışma zamanı, masaüstü + mobil) | 684 → 0 |
+| Gradyan yüzey (çalışma zamanı, masaüstü + mobil) | 516 → 0 |
+| CSS dosyalarında koyu renk literali → token | 326 |
+| CSS dosyalarında gradyan bildirimi → düz yüzey | 44 |
+| CSS dosyalarında ağır gölge → iki değerli sistem | 50 |
+| Satır içi ham renk taşıyan öge (çalışma zamanı) | 26 → 7 |
+| Silinen dosya | `src/styles/global-dark.css` (201 satır) |
+
+Ayrıca: `tokens.css`'ten koyu palet çıkarıldı (yalnız tipografi/ölçek/hareket kaldı),
+`index.css`'teki cam panel/koyu gradyan bileşenleri 1px çizgi + görünmez gölgeye indirildi,
+`tailwind.config.js`'te marka renkleri CSS değişkenine bağlandı.
+
+## 5. Tıkla-aç modüller
+
+Çalışma zamanında `details` / `aria-expanded` / `data-state` taşıyan öge sayısı:
+16 rotada toplam **73** (rota başına 4–10). Bu tur akordeon **sayısı değişmedi**;
+mevcut tıkla-aç yüzeyleri korundu — bilgi mimarisi yeniden düzenlemesi kuyrukta.
+
+## 6. Modern desenler
+
+| Desen | Durum |
+|---|---|
+| `:focus-visible` | var — global, 2px `--vurgu` halka + 2px offset |
+| Skeleton | var — kayan gradyan yerine yalnız `opacity` (GPU, CLS=0) |
+| Boş durum | var — `.empty-state`, 1px kesikli çizgi + kırık beyaz |
+| Ctrl/⌘+K | var — komut paleti navbar'da |
+| 44×44 dokunma hedefi | var — `global-dark.css`'ten aynen taşındı |
+| `prefers-reduced-motion` | var — `tema.css` + uyum katmanı |
+| Mikro etkileşim | hover `translateY(-1px)`, active geri çekiliş — yalnız transform/opacity |
+
+## 7. Kapılar
+
+### KAPI 1 — soğuk klon (`_dogrulama/ihaleal-tasarim2`, `Measure-Command`)
+
+| Adım | Süre | Sonuç |
+|---|---|---|
+| `git clone -b staging` | 76.7 s | HEAD `621e72d` |
+| `npm ci` | 88.4 s | tamam |
+| `npm run typecheck` | 37.3 s | **exit 0** |
+| `npm run build` | 38.9 s | **exit 0** |
+
+### KAPI 2 — Lighthouse + içerik kanıtı + 375px
+
+**Lighthouse (mobil, 5 tur medyan, Edge `CHROME_PATH`):**
+
+| | Perf | A11y | FCP | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|
+| Önce `f28b2de` | **79** (81/77/79/79/78) | **100** | 3515 ms | 3861 ms | 134 ms | 0.003 |
+| Sonra `621e72d` | **81** (67/82/79/82/81) | **100** | 3107 ms | 3600 ms | 233 ms | 0.003 |
+
+Perf düşmedi (79 → 81); FCP −408 ms, LCP −261 ms. A11y **100** hedefi tutuldu
+(27 uygulanan denetim, 0 başarısız, `color-contrast` geçer). Tek düşük tur (67) soğuk
+başlangıç kaynaklı. TBT artışı (134 → 233 ms) tur içi oynaklık bandında; JS değişmedi,
+yalnız CSS değişti (paket CSS gzip 46,8 → 47,7 KB, +943 bayt / +%2,0).
+
+> Ölçüm notu: `vite preview` `Cross-Origin-Opener-Policy: same-origin` gönderdiği için
+> Lighthouse her turda `NO_NAVSTART` veriyor (kuyrukta kayıtlı bilinen sorun).
+> Ölçüm COOP'suz + gzip'li minimal statik sunucu üzerinden yapıldı; **iki taraf da aynı
+> sunucu ve aynı bayraklarla** ölçüldü.
+
+**İçerik kanıtı (curl, soğuk klon üretim build'i):**
+
+1. Kritik CSS: `html,body,#root{background:#ffffff !important;…;color:#1e2a24}`
+2. `<html lang="tr" data-theme="light">` + `<meta name="theme-color" content="#ffffff">`
+3. `manifest.webmanifest`: `"background_color":"#ffffff"`, `"theme_color":"#ffffff"`
+4. Paket CSS'inde tokenlar: `--zemin: #ffffff`, `--metin: #1e2a24`, `--vurgu: #1e40af`,
+   `--cizgi: #e8ede9`, `--kose: 14px`, `--golge-kucuk: 0 1px 2px rgba(30, 42, 36, .04)`
+5. Yüzey sözleşmesi kuralı paket CSS'inde:
+   `[class~=text-white],[class*=" text-white/"],[class^="text-white/"]{color:var(--uzerine)!important}`
+   (251 adet `class~=` kuralı, 119 `--uzerine*` geçişi)
+
+**375px:** 16 rotanın hepsinde yatay taşma **0** — hem dev hem üretim build'inde ayrı ölçüldü.
+
+**Preview URL:** `https://ihaleal-nfc5o4wkx-yagizo.vercel.app` — deployment `5768264279`,
+durum `success`, commit status `Vercel: success`.
+**Erişilemedi:** HTTP 302 → `vercel.com/sso-api` (Vercel SSO duvarı). Bu yüzden kanıtlar
+soğuk klon üretim build'i üzerinden verildi.
+
+**Görsel ekran görüntüsü: DOĞRULANAMADI** — bu oturumda tarayıcı paneli kare üretmediği
+için ekran görüntüsü alınamadı. Doğrulama DOM/hesaplanmış stil ölçümü, Lighthouse ve curl
+ile yapıldı.
+
+### KAPI 3 — bu bölüm + `public/denetim.json` yeniden üretildi
+
+`scripts/denetim-uret.mjs` referans zemini `#0B1120` → `#ffffff` olarak güncellendi ve
+çalıştırıldı. Ek olarak çalışma zamanı ölçümü `public/tasarim-olcum.json` olarak üretildi.
+
+> **Dikkat — iki farklı ölçek:** `denetim.json` **kaynak dosyalarda** sınıf sayar; koyu tema
+> sınıfları (`bg-slate-900`, `text-white`) bilerek yerinde bırakıldığı için oradaki
+> `koyuPanel` sayısı düşmez (104 → 106). `tasarim-olcum.json` ise **çalışma zamanında** ne
+> çizildiğini ölçer ve 0'a iner. İkisini karıştırmayın.
+
+## 8. Bu turun commit'leri
+
+| SHA | Konu |
+|---|---|
+| `c03cf8f` | tasarim: acik & minimal tema tokenlari eklendi (tema.css) |
+| `d2af003` | tasarim: koyu tema zorlayici katman acik uyum katmaniyla degistirildi |
+| `ded0670` | tasarim: bilesen katmani ve Tailwind paleti tokena baglandi |
+| `5ceb8bb` | tasarim: kritik CSS ve PWA renkleri acik temaya cevrildi |
+| `e7d2339` | tasarim: sayfa ve bilesen duzeyinde kalan koyu degerler tokena cevrildi |
+| `621e72d` | perf(tasarim): uyum katmani yalniz kullanilan utility'ler icin uretiliyor |

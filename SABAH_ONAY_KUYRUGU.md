@@ -167,3 +167,71 @@ etkiler — mutlaka olculmeli.
 - Chrome kurulu degil; `CHROME_PATH` ile Edge kullanildi. chrome-launcher Windows'ta gecici
   profili silemeyip `EPERM` atiyor ve zombi `msedge` surecleri sonraki turlari bozuyor —
   her turdan once `taskkill` gerekli.
+
+---
+
+## Tasarım sistemi turu — açık kalanlar (2026-08-05, `621e72d`)
+
+### 1. Inter self-host + TR subset — KARAR GEREKİYOR (izin)
+
+Brief bunu istedi ama **yapılmadı**: woff2 dosyalarını `fonts.gstatic.com`'dan indirmek
+gerekiyor; dosya indirme bu oturumda onay gerektiriyor ve onay alınamadı.
+
+Durum bugün: fontlar hâlâ Google Fonts'tan, ama `media="print"` + `font-loader.js`
+numarasıyla **kritik yolun dışında** (önceki turda ölçüldü: Perf 74 → 80).
+Yani acil bir darboğaz değil.
+
+Yapılacak (onay verilirse): Inter 400/500/600/700 latin+latin-ext woff2 indir →
+`public/fonts/` → `@font-face` + `font-display: swap` → `index.html`'den Google Fonts
+link'i ve iki `preconnect` kaldır → ilk ekran fontunu `preload` et → 5 tur Lighthouse
+ile önce/sonra ölç. Mevcut "Inter Fallback" metrik eşlemesi (CLS koruması) **korunmalı**.
+
+### 2. Ana sayfa "4–6 sade kart" + modülleri tıkla-aç yapma — ÜRÜN KARARI GEREKİYOR
+
+Brief "ana sayfa 4–6 sade kart" ve "modüller tıkla-aç" istedi. Bu tur **yapılmadı**;
+sebep: ikisi de bilgi mimarisi/içerik kararı, görsel sistem kararı değil. Kısıt
+"route/veri/işlev kaybı YOK" olduğu için kart sayısını düşürmek = içerik kaldırmak
+demek ve bu tek başıma alacağım bir karar değil.
+
+Bugünkü durum ölçüldü: 16 rotada 73 tıkla-aç yüzeyi var (rota başına 4–10).
+Ana sayfada 2 `section`, 4 tıkla-aç yüzeyi.
+
+Karar gereken: ana sayfada hangi 4–6 kart kalacak, gerisi hangi sayfaya/akordeona
+taşınacak? Liste verilirse uygulanır.
+
+### 3. Kaynak dosyalardaki koyu tema sınıfları — İSTEĞE BAĞLI TEMİZLİK
+
+`bg-slate-900`, `text-white`, `bg-gradient-to-br` gibi sınıflar **kaynakta duruyor**;
+`src/styles/global-acik.css` uyum katmanı bunları çalışma zamanında tasarım sistemi
+tokenlarına bağlıyor (ölçüm: koyu panel 364 → 0, gradyan 266 → 0).
+
+Bu bilinçli bir karar: 250+ dosyayı elle değiştirmek bu turda kalite kaybı riskiydi.
+Maliyeti: uyum katmanı 33,2 KB ham / 5,7 KB gzip ve `!important` kullanımı.
+
+İleride sayfa sayfa gerçek temizlik yapılırsa uyum katmanı küçülür, sonunda silinebilir.
+Sıra önerisi (en çok koyu sınıf taşıyanlar): `AuctionDetail.tsx` (60), `Analytics.tsx` (54),
+`CreateAuction.tsx` (43), `legal/MesafeliSatisSozlesmesi.tsx` (34), `Expertise.tsx` (33).
+
+### 4. Kalan 7 satır içi ham renk
+
+Çalışma zamanı ölçümünde 26 → 7'ye indi. Kalanlar: `/kurumsal` 3, `/harita` 3, `/` 1.
+Hiçbiri AA ihlali üretmiyor (ölçüldü: 0), o yüzden acil değil — ama tek kaynak kuralını
+delen son noktalar.
+
+### 5. `denetim.json` kaynak sayımları artık yanıltıcı
+
+`scripts/denetim-uret.mjs` kaynak dosyalarda `bg-slate-900` sayıyor; uyum katmanı
+stratejisi yüzünden bu sayı düşmüyor (104 → 106) ama ekranda koyu panel yok.
+Öneri: bu üreticiye çalışma zamanı ölçümünü (`public/tasarim-olcum.json`) referans olarak
+bağlamak ya da kaynak metriğini "eski tema kalıntısı sınıf sayısı" diye yeniden adlandırmak.
+
+### 6. Ölçüm altyapısı — bu turda çözülenler (sonraki tur zaman kazansın)
+
+- Lighthouse `NO_NAVSTART` sorunu **çözüldü**: `vite preview` yerine COOP başlığı
+  göndermeyen basit statik sunucu kullanılınca 5 turun 5'i de sonuç verdi.
+  Betik bu turda geçici tutuldu; kalıcı isteniyorsa `scripts/` altına alınmalı.
+- Ekran görüntüsü alınamadı (tarayıcı paneli kare üretmiyor). Görsel doğrulama
+  **DOĞRULANAMADI** olarak raporlandı; yerine DOM/hesaplanmış stil ölçümü kullanıldı.
+- Vercel preview hâlâ SSO arkasında (302 → `sso-api`). Bu, ölçümü her turda
+  soğuk klona mahkûm ediyor. **Karar gereken:** SSO korumasını kaldırmak mı, staging'i
+  public bir domaine deploy etmek mi?

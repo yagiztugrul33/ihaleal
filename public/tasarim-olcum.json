@@ -1,0 +1,984 @@
+{
+  "aciklama": "Tasarim sistemi turu — CALISMA ZAMANI olcumu. scripts/tasarim-olcum.mjs ile Playwright (Edge) uzerinden gercek DOM + hesaplanmis stilden okundu. Sabit/uydurma deger yok.",
+  "not": "Kaynak dosyalardaki koyu tema SINIFLARI bilerek yerinde birakildi (bg-slate-900, text-white vb.). Bunlar src/styles/global-acik.css uyum katmaninda tasarim sistemi tokenlarina yeniden baglanir; bu yuzden public/denetim.json icindeki KAYNAK sayimlari degismezken CALISMA ZAMANI sayimlari sifira iner. Karsilastirmada bu iki olcegi karistirmayin.",
+  "olcumZamani": "2026-08-05T19:59:58.430Z",
+  "temelSHA": "f28b2de",
+  "sonSHA": "621e72d",
+  "ortamlar": {
+    "oncesi": "soguk klon f28b2de — vite dev :5176",
+    "sonrasi": "calisma agaci 621e72d — vite dev :5175",
+    "sonrasiUretimBuild": "soguk klon 621e72d — npm run build + vite preview :4180"
+  },
+  "gorunumler": {
+    "desktop": "1280x900",
+    "mobil": "375x812"
+  },
+  "rotaSayisi": 16,
+  "icerikKorunumu": "metinUzunlugu oncesi(dev) = sonrasi(dev) = 65419 (masaustu toplam); 16 rotanin HEPSINDE birebir esit. Uretim build farki (-1631) dev-only bilesenlerden gelir ve rota basina sabittir.",
+  "toplam": {
+    "oncesi": {
+      "desktop": {
+        "darkPanels": 364,
+        "vurguYuzey": 93,
+        "gradients": 266,
+        "hardcoded": 26,
+        "aaFails": 105,
+        "overflow": 0,
+        "tiklaAc": 73,
+        "textLen": 65419
+      },
+      "mobil": {
+        "darkPanels": 320,
+        "vurguYuzey": 55,
+        "gradients": 250,
+        "hardcoded": 26,
+        "aaFails": 56,
+        "overflow": 0,
+        "tiklaAc": 73,
+        "textLen": 62276
+      }
+    },
+    "sonrasi": {
+      "desktop": {
+        "darkPanels": 0,
+        "vurguYuzey": 45,
+        "gradients": 0,
+        "hardcoded": 7,
+        "aaFails": 0,
+        "overflow": 0,
+        "tiklaAc": 73,
+        "textLen": 65419
+      },
+      "mobil": {
+        "darkPanels": 0,
+        "vurguYuzey": 46,
+        "gradients": 0,
+        "hardcoded": 7,
+        "aaFails": 0,
+        "overflow": 0,
+        "tiklaAc": 73,
+        "textLen": 62276
+      }
+    },
+    "sonrasiUretimBuild": {
+      "desktop": {
+        "darkPanels": 0,
+        "vurguYuzey": 45,
+        "gradients": 0,
+        "hardcoded": 7,
+        "aaFails": 0,
+        "overflow": 0,
+        "tiklaAc": 73,
+        "textLen": 63788
+      },
+      "mobil": {
+        "darkPanels": 0,
+        "vurguYuzey": 46,
+        "gradients": 0,
+        "hardcoded": 7,
+        "aaFails": 0,
+        "overflow": 0,
+        "tiklaAc": 73,
+        "textLen": 60645
+      }
+    }
+  },
+  "sayfaBazli": {
+    "/": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 11,
+          "gradyan": 12,
+          "aaIhlali": 2,
+          "satirIciRenk": 1,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2623
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 1,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2623
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2453
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 11,
+          "gradyan": 11,
+          "aaIhlali": 1,
+          "satirIciRenk": 1,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2453
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 1,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2453
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2283
+        }
+      }
+    },
+    "/ilanlar": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 18,
+          "gradyan": 46,
+          "aaIhlali": 11,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4958
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4958
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 4861
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 6,
+          "gradyan": 45,
+          "aaIhlali": 10,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4788
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4788
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 4691
+        }
+      }
+    },
+    "/ihaleler": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 61,
+          "gradyan": 47,
+          "aaIhlali": 45,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 9174
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 9174
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 9077
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 60,
+          "gradyan": 46,
+          "aaIhlali": 12,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 9004
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 9004
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 8907
+        }
+      }
+    },
+    "/arama": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 10,
+          "aaIhlali": 1,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 6,
+          "metinUzunlugu": 2284
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 6,
+          "metinUzunlugu": 2284
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2187
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 9,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 6,
+          "metinUzunlugu": 1953
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 6,
+          "metinUzunlugu": 1953
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 1856
+        }
+      }
+    },
+    "/nasil-calisir": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 27,
+          "gradyan": 17,
+          "aaIhlali": 1,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 10,
+          "metinUzunlugu": 8365
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 10,
+          "metinUzunlugu": 8365
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 8268
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 27,
+          "gradyan": 16,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 10,
+          "metinUzunlugu": 8195
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 10,
+          "metinUzunlugu": 8195
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 8098
+        }
+      }
+    },
+    "/kurumsal": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 9,
+          "gradyan": 16,
+          "aaIhlali": 20,
+          "satirIciRenk": 5,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3980
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 3,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3980
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3883
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 9,
+          "gradyan": 15,
+          "aaIhlali": 19,
+          "satirIciRenk": 5,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3810
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 3,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3810
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3713
+        }
+      }
+    },
+    "/sss": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 6,
+          "gradyan": 13,
+          "aaIhlali": 1,
+          "satirIciRenk": 2,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3494
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3494
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3397
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 6,
+          "gradyan": 12,
+          "aaIhlali": 0,
+          "satirIciRenk": 2,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3324
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3324
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3227
+        }
+      }
+    },
+    "/giris": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 10,
+          "aaIhlali": 1,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2073
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2073
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 1976
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 9,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 1903
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 1903
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 1806
+        }
+      }
+    },
+    "/mortgage": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 61,
+          "gradyan": 9,
+          "aaIhlali": 1,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3614
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3614
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3517
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 61,
+          "gradyan": 8,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3434
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3434
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3337
+        }
+      }
+    },
+    "/degerleme": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 42,
+          "gradyan": 9,
+          "aaIhlali": 1,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4661
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4661
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 4564
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 18,
+          "gradyan": 8,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4491
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4491
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 4394
+        }
+      }
+    },
+    "/rehber": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 19,
+          "gradyan": 10,
+          "aaIhlali": 2,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3255
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3255
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3158
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 19,
+          "gradyan": 9,
+          "aaIhlali": 1,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3085
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3085
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2988
+        }
+      }
+    },
+    "/sehirler": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 60,
+          "gradyan": 21,
+          "aaIhlali": 7,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2913
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2913
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2816
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 54,
+          "gradyan": 20,
+          "aaIhlali": 6,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2743
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2743
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2646
+        }
+      }
+    },
+    "/emlakci": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 10,
+          "gradyan": 13,
+          "aaIhlali": 6,
+          "satirIciRenk": 7,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 5482
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 5482
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 5385
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 10,
+          "gradyan": 12,
+          "aaIhlali": 5,
+          "satirIciRenk": 7,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 5312
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 5312
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 5215
+        }
+      }
+    },
+    "/muteahhit": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 14,
+          "aaIhlali": 1,
+          "satirIciRenk": 5,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4085
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 4085
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3988
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 13,
+          "aaIhlali": 0,
+          "satirIciRenk": 5,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3915
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 3915
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 3818
+        }
+      }
+    },
+    "/harita": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 9,
+          "aaIhlali": 4,
+          "satirIciRenk": 6,
+          "yatayTasma": 0,
+          "tiklaAc": 5,
+          "metinUzunlugu": 2298
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 3,
+          "yatayTasma": 0,
+          "tiklaAc": 5,
+          "metinUzunlugu": 2298
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2195
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 7,
+          "gradyan": 8,
+          "aaIhlali": 2,
+          "satirIciRenk": 6,
+          "yatayTasma": 0,
+          "tiklaAc": 5,
+          "metinUzunlugu": 1876
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 3,
+          "yatayTasma": 0,
+          "tiklaAc": 5,
+          "metinUzunlugu": 1876
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 1773
+        }
+      }
+    },
+    "/kayit": {
+      "desktop": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 10,
+          "aaIhlali": 1,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2160
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 2160
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 2063
+        }
+      },
+      "mobil": {
+        "oncesi": {
+          "koyuPanel": 8,
+          "gradyan": 9,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 1990
+        },
+        "sonrasi": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "satirIciRenk": 0,
+          "yatayTasma": 0,
+          "tiklaAc": 4,
+          "metinUzunlugu": 1990
+        },
+        "sonrasiUretimBuild": {
+          "koyuPanel": 0,
+          "gradyan": 0,
+          "aaIhlali": 0,
+          "yatayTasma": 0,
+          "metinUzunlugu": 1893
+        }
+      }
+    }
+  }
+}

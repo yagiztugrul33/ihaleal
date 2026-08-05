@@ -35,7 +35,8 @@ const lum = (hex) => {
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
 };
 const contrast = (fg, bg) => { const [a, b] = [lum(fg) + 0.05, lum(bg) + 0.05]; return a > b ? a / b : b / a; };
-const BG_DARK = "#0B1120"; // --lux-bg-base
+// Referans zemin: acik & minimal tasarim sistemi (--zemin). Onceki deger #0B1120 idi.
+const BG_ZEMIN = "#ffffff"; // --zemin
 
 // tailwind.config.js'ten slate override'larını gerçek dosyadan çek (yoksa Tailwind varsayılanı)
 function slatePalette(configText) {
@@ -51,7 +52,7 @@ function metrics(text, twConfigText) {
   const slate = slatePalette(twConfigText);
   let dusukKontrastMetin = 0;
   for (const tone of ["500", "600"]) {
-    if (contrast(slate[tone], BG_DARK) < 4.5) {
+    if (contrast(slate[tone], BG_ZEMIN) < 4.5) {
       dusukKontrastMetin += count(new RegExp(`text-slate-${tone}(?![0-9])`, "g"));
     }
   }
