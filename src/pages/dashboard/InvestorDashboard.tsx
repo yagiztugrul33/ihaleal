@@ -173,15 +173,15 @@ export default function InvestorDashboard() {
                   <AreaChart data={priceHistory}>
                     <defs>
                       <linearGradient id="invArea" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.35} />
-                        <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                        <stop offset="5%" stopColor="var(--lux-blue-500)" stopOpacity={0.35} />
+                        <stop offset="95%" stopColor="var(--lux-blue-500)" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke={chartGridStroke} />
                     <XAxis dataKey="month" stroke={chartAxisStroke} fontSize={chartAxisFontSize} />
                     <YAxis stroke={chartAxisStroke} fontSize={chartAxisFontSize} />
                     <Tooltip contentStyle={chartTooltipStyle} />
-                    <Area type="monotone" dataKey="value" stroke="#3B82F6" fill="url(#invArea)" strokeWidth={2} />
+                    <Area type="monotone" dataKey="value" stroke="var(--lux-blue-500)" fill="url(#invArea)" strokeWidth={2} />
                   </AreaChart>
                 </ResponsiveContainer>
               </ChartPanel>
@@ -206,8 +206,8 @@ export default function InvestorDashboard() {
                   <XAxis dataKey="name" stroke={chartAxisStroke} fontSize={10} />
                   <YAxis stroke={chartAxisStroke} fontSize={chartAxisFontSize} />
                   <Tooltip contentStyle={chartTooltipStyle} />
-                  <Bar dataKey="yield" name={iv.barRentPct} fill="#22C55E" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="score" name={iv.barAiScore} fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="yield" name={iv.barRentPct} fill="var(--lux-trust-green)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="score" name={iv.barAiScore} fill="var(--lux-blue-500)" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </ChartPanel>
