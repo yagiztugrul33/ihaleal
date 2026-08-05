@@ -16,8 +16,9 @@ const config: CapacitorConfig = {
   appName: "ihaleal",
   // Vite build çıktısı — `npm run build` sonrası dist/ klasörünü sarmalar.
   webDir: "dist",
-  // Marka koyu lacivert teması — PWA manifest theme_color ile aynı.
-  backgroundColor: "#0B1120",
+  // Açık zemin — tasarım sistemi --zemin (#ffffff). Marka lacivert (#1E40AF)
+  // artık zemin değil, yalnızca vurgu rengidir: CTA · bildirim · aktif durum.
+  backgroundColor: "#ffffff",
   // Hem PWA hem native: HTTPS şemaları + canlı domain'e cors izin verir.
   server: {
     androidScheme: "https",
@@ -27,35 +28,39 @@ const config: CapacitorConfig = {
     cleartext: false,
   },
   ios: {
-    // status bar koyu zemin üstünde açık ikon
+    // açık zemin üstünde koyu status bar ikonları
     contentInset: "automatic",
-    backgroundColor: "#0B1120",
+    backgroundColor: "#ffffff",
     // Safe area otomatik
     scrollEnabled: true,
     limitsNavigationsToAppBoundDomains: false,
   },
   android: {
-    backgroundColor: "#0B1120",
+    backgroundColor: "#ffffff",
     allowMixedContent: false,
     captureInput: true,
     webContentsDebuggingEnabled: false,
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 2000,
+      // Açılış ekranı bir bekleme duvarı değil; kısa tutulur.
+      launchShowDuration: 900,
       launchAutoHide: true,
-      backgroundColor: "#0B1120",
+      backgroundColor: "#ffffff",
       androidSplashResourceName: "splash",
-      androidScaleType: "CENTER_CROP",
+      // CENTER_INSIDE: marka işareti kırpılmaz (CENTER_CROP kenardan kesiyordu)
+      androidScaleType: "CENTER_INSIDE",
       showSpinner: false,
-      splashFullScreen: true,
-      splashImmersive: true,
+      // Açık zeminde tam ekran/immersive gereksiz agresif — sistem çubukları kalsın
+      splashFullScreen: false,
+      splashImmersive: false,
       iosSpinnerStyle: "small",
-      spinnerColor: "#22D3EE",
+      spinnerColor: "#1E40AF",
     },
     StatusBar: {
-      style: "DARK",
-      backgroundColor: "#0B1120",
+      // Capacitor'da Style.Light = "açık zemin için koyu metin". Açık temada doğrusu bu.
+      style: "LIGHT",
+      backgroundColor: "#ffffff",
       overlaysWebView: false,
     },
     // Push notifications altyapısı — backend onayı sonrası aktif edilir.
@@ -65,7 +70,8 @@ const config: CapacitorConfig = {
     },
     Keyboard: {
       resize: "body",
-      style: "DARK",
+      // klavye de açık temada
+      style: "LIGHT",
       resizeOnFullScreen: true,
     },
     App: {

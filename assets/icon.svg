@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 512 512" role="img" aria-label="ihaleal">
+  <!-- Marka sembolu korundu (cati + kapi), gradyan kaldirildi.
+       Tasarim sistemi: tek vurgu #1E40AF, gradyan yok. -->
+  <rect width="512" height="512" fill="#1E40AF"/>
+  <path d="M176 296 L256 216 L336 296" fill="none" stroke="#ffffff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="232" y="296" width="48" height="72" rx="8" fill="#ffffff"/>
+</svg>

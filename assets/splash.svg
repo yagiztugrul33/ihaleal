@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2732" height="2732" viewBox="0 0 2732 2732">
+  <!-- Acik zemin — tasarim sistemi --zemin: #ffffff -->
+  <rect width="2732" height="2732" fill="#ffffff"/>
+  <!-- Marka isareti merkezde, kenarlardan guvenli mesafede -->
+  <g transform="translate(1094 1094) scale(1.06)">
+    <rect width="512" height="512" rx="96" fill="#1E40AF"/>
+    <path d="M176 296 L256 216 L336 296" fill="none" stroke="#ffffff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="232" y="296" width="48" height="72" rx="8" fill="#ffffff"/>
+  </g>
+</svg>
