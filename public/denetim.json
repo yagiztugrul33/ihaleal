@@ -1,0 +1,232 @@
+{
+  "commitSHA": "ee8b71a4656653b81f454d4d1276f3bcf45bce09",
+  "temelSHA": "2da8c8d6c7bf7043f2cd0e523b04ded1104f8608",
+  "buildZamani": "2026-08-05T07:38:34.296Z",
+  "aciklama": "Ö2 sadeleştirme denetimi — değerler git show + regex sayımından üretildi (scripts/denetim-uret.mjs).",
+  "sayfaMetrikleri": {
+    "src/pages/Home.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 0,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 0,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 6
+      }
+    },
+    "src/components/SearchModal.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 1,
+        "gradyan": 0,
+        "koyuPanel": 1,
+        "dusukKontrastMetin": 12,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 1,
+        "gradyan": 0,
+        "koyuPanel": 1,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 1
+      }
+    },
+    "src/pages/SearchResults.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 12,
+        "dusukKontrastMetin": 2,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 13,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 1
+      }
+    },
+    "src/pages/Analytics.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 37,
+        "gradyan": 2,
+        "koyuPanel": 24,
+        "dusukKontrastMetin": 16,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 37,
+        "gradyan": 0,
+        "koyuPanel": 24,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 1
+      }
+    },
+    "src/pages/Reports.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 12,
+        "dusukKontrastMetin": 10,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 13,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 1
+      }
+    },
+    "src/pages/Documents.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 1,
+        "dusukKontrastMetin": 4,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 1,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/LiveAuctions.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 2,
+        "dusukKontrastMetin": 1,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 2,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/Messages.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 4,
+        "dusukKontrastMetin": 11,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 4,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/NotificationsPage.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 3,
+        "dusukKontrastMetin": 3,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 3,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/AuctionDetail.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 10,
+        "gradyan": 6,
+        "koyuPanel": 18,
+        "dusukKontrastMetin": 29,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 10,
+        "gradyan": 0,
+        "koyuPanel": 18,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/PricingPage.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 2,
+        "koyuPanel": 16,
+        "dusukKontrastMetin": 12,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 16,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/CitiesList.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 1,
+        "koyuPanel": 0,
+        "dusukKontrastMetin": 5,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 0,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/intelligence/IntelligenceHub.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 1,
+        "gradyan": 2,
+        "koyuPanel": 1,
+        "dusukKontrastMetin": 1,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 1,
+        "gradyan": 1,
+        "koyuPanel": 1,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    },
+    "src/pages/legal/LegalHubPage.tsx": {
+      "oncesi": {
+        "hardcodedRenk": 0,
+        "gradyan": 1,
+        "koyuPanel": 10,
+        "dusukKontrastMetin": 2,
+        "tiklaAcModul": 0
+      },
+      "sonrasi": {
+        "hardcodedRenk": 0,
+        "gradyan": 0,
+        "koyuPanel": 10,
+        "dusukKontrastMetin": 0,
+        "tiklaAcModul": 0
+      }
+    }
+  }
+}
