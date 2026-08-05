@@ -187,15 +187,15 @@ export default function Mortgage() {
                   <AreaChart data={amortizationData}>
                     <defs>
                       <linearGradient id="colorRemaining" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="var(--lux-blue-500)" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="var(--lux-blue-500)" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                    <XAxis dataKey="month" stroke="#71717a" fontSize={11} tickFormatter={(v) => `${v}${m.monthSuffix}`} />
-                    <YAxis stroke="#71717a" fontSize={11} tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", color: "#fff" }}
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--lux-surface-1)" />
+                    <XAxis dataKey="month" stroke="var(--lux-text-subtle)" fontSize={11} tickFormatter={(v) => `${v}${m.monthSuffix}`} />
+                    <YAxis stroke="var(--lux-text-subtle)" fontSize={11} tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "var(--lux-bg-elevated)", border: "1px solid var(--lux-border)", borderRadius: "12px", color: "var(--lux-text-primary)" }}
                       formatter={(value: number, name: string) => {
                         if (name === m.remainingDebt) return [`TRY ${value.toLocaleString()}`, name];
                         if (name === m.totalInterestLegend) return [`TRY ${value.toLocaleString()}`, name];
@@ -203,8 +203,8 @@ export default function Mortgage() {
                       }}
                     />
                     <Legend wrapperStyle={{ fontSize: "11px" }} />
-                    <Area type="monotone" dataKey="remaining" name={m.remainingDebt} stroke="#3b82f6" fill="url(#colorRemaining)" strokeWidth={2} />
-                    <Area type="monotone" dataKey="totalInterest" name={m.totalInterestLegend} stroke="#f59e0b" fill="transparent" strokeWidth={2} strokeDasharray="5 5" />
+                    <Area type="monotone" dataKey="remaining" name={m.remainingDebt} stroke="var(--lux-blue-500)" fill="url(#colorRemaining)" strokeWidth={2} />
+                    <Area type="monotone" dataKey="totalInterest" name={m.totalInterestLegend} stroke="var(--accent)" fill="transparent" strokeWidth={2} strokeDasharray="5 5" />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
