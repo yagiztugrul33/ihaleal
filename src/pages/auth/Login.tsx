@@ -167,7 +167,7 @@ export default function Login() {
               <Button
                 type="submit"
                 disabled={!isSupabaseConfigured() || loading}
-                className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-50"
+                className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-11 disabled:opacity-50"
               >
                 {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
               </Button>

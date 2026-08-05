@@ -30,7 +30,7 @@ export default function EDevletAuth() {
               <p className="text-sm text-slate-400">
                 Gerçek yönlendirme yok. Bu sayfa yalnızca <strong className="text-white">Akış B</strong> (ihaleden satan) için ürün taslağıdır.
               </p>
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-teal-400 text-white" onClick={() => setPhase("redirect")}>
+              <Button className="w-full [background:var(--gradient-cta)] text-white" onClick={() => setPhase("redirect")}>
                 e-Devlet&apos;e yönlendir (simülasyon)
               </Button>
             </>

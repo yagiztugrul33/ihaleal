@@ -306,7 +306,7 @@ export default function Register() {
                   metnini okudum; kişisel verilerimin bu kapsamda işlenmesini kabul ediyorum.
                 </span>
               </label>
-              <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-400 hover:to-teal-300 text-white font-bold h-11 disabled:opacity-70">
+              <Button type="submit" disabled={loading} className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-11 disabled:opacity-70">
                 {loading ? "Kaydediliyor..." : "Kayıt Ol"}
               </Button>
             </form>
