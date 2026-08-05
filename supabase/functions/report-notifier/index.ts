@@ -83,9 +83,9 @@ function buildEmailHtml(opts: {
           + ilçe bazlı karşılaştırmalar + PDF indirme — hepsi yeni raporda hazır.
         </p>
         <p style="margin:24px 0">
-          <a href="${reportsUrl}" style="display:inline-block;background:#06B6D4;color:#0B1120;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none">Raporları Gör</a>
+          <a href="${reportsUrl}" style="display:inline-block;background:#38BDF8;color:#0B1120;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none">Raporları Gör</a>
         </p>
-        <p style="color:#64748B;font-size:12px;margin-top:32px;border-top:1px solid #1E293B;padding-top:16px">
+        <p style="color:#94A3B8;font-size:12px;margin-top:32px;border-top:1px solid rgba(255,255,255,.10);padding-top:16px">
           Bu maili almak istemiyorsanız <a href="${unsubUrl}" style="color:#60A5FA">abonelikten çıkın</a>.
         </p>
       </td></tr>
