@@ -1,7 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 import type { SessionUser } from "@/lib/auth";
 import { dispatchAuthChanged } from "@/lib/auth";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabaseEnv";
 
 export function isSupabaseAuthAvailable(): boolean {
   return isSupabaseConfigured();

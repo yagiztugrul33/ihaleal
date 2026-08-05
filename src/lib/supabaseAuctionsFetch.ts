@@ -1,4 +1,5 @@
-import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabaseEnv";
+import { getSupabase } from "@/lib/supabaseLazy";
 import { auctionFromRemoteRow, type DbAuctionRow } from "@/lib/remoteAuctionsMapper";
 import type { Auction } from "@/types/auction";
 
@@ -7,6 +8,7 @@ import type { Auction } from "@/types/auction";
  */
 export async function fetchRemoteAuctionsCatalog(): Promise<Auction[]> {
   if (!isSupabaseConfigured()) return [];
+  const supabase = await getSupabase();
   const { data, error } = await supabase
     .from("auctions")
     .select(

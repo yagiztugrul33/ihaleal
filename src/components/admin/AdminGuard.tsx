@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth, authIsAdmin } from "@/contexts/AuthContext";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabaseEnv";
 import { PageLoader } from "@/components/ui/PageLoader";
 
 export function AdminGuard({ children }: { children: ReactNode }) {

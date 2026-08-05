@@ -1,32 +1,35 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { createFetchWithTimeout } from "@/lib/security/fetchWithTimeout";
+import {
+  PLACEHOLDER_ANON_KEY,
+  PLACEHOLDER_URL,
+  SUPABASE_ANON_KEY,
+  SUPABASE_URL,
+  isSupabaseConfigured,
+} from "@/lib/supabaseEnv";
 
-const url = import.meta.env.VITE_SUPABASE_URL ?? "";
-const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? "";
+/**
+ * DIKKAT — bu modul `@supabase/supabase-js` (vendor-supabase, ~204 KB ham /
+ * ~53 KB gzip) paketini STATIK ice aktarir. Buradan import eden her modul o
+ * chunk'i kendi yukleme yoluna ceker.
+ *
+ * - Yalnizca "yapilandirma var mi?" bilgisi gerekiyorsa `@/lib/supabaseEnv` kullanin.
+ * - Kritik giris yolundaki (eager) bir modulden istemciye erisiyorsaniz
+ *   `@/lib/supabaseLazy` -> `getSupabase()` kullanin; SDK ilk auth/veri
+ *   ihtiyacinda dinamik yuklenir.
+ * - Tembel (lazy route) chunk'larindan dogrudan `supabase` import etmek serbesttir.
+ */
 
-const configured = Boolean(url && anonKey);
+const configured = isSupabaseConfigured();
 
-if (!configured) {
-  console.warn(
-    "[supabase] VITE_SUPABASE_URL veya VITE_SUPABASE_ANON_KEY eksik — demo için yer tutucu istemci; .env.local ekleyince gerçek projeye bağlanır."
-  );
-}
-
-/** Env boşken `createClient` modül yüklenirken patlamasın (konsol: supabaseUrl is required → beyaz ekran). */
-const PLACEHOLDER_URL = "https://placeholder.supabase.co";
-const PLACEHOLDER_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1wbGFjZWhvbGRlciJ9.placeholder";
-
-/** Ortam değişkenleri doluysa true — API çağrılarından önce kontrol edin. */
-export function isSupabaseConfigured(): boolean {
-  return configured;
-}
+/** Geriye uyum: mevcut cagri noktalari `isSupabaseConfigured`'i buradan da alabilir. */
+export { isSupabaseConfigured };
 
 const SUPABASE_FETCH_TIMEOUT_MS = 28_000;
 
 export const supabase: SupabaseClient = createClient(
-  configured ? url : PLACEHOLDER_URL,
-  configured ? anonKey : PLACEHOLDER_ANON_KEY,
+  configured ? SUPABASE_URL : PLACEHOLDER_URL,
+  configured ? SUPABASE_ANON_KEY : PLACEHOLDER_ANON_KEY,
   {
     global: {
       fetch: createFetchWithTimeout(SUPABASE_FETCH_TIMEOUT_MS),

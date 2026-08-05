@@ -11,7 +11,7 @@
  */
 import { useEffect, useState } from "react";
 import { AlertCircle, X } from "lucide-react";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabaseEnv";
 import { isMockPaymentMode, isProdBuild, localAuthEnabled } from "@/lib/runtimeFlags";
 
 const DISMISS_KEY = "launch-status-banner-kapali";

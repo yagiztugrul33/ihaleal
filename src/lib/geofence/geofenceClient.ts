@@ -1,4 +1,5 @@
-import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabaseEnv";
+import { getSupabase } from "@/lib/supabaseLazy";
 
 export type GeofencePrefsRow = {
   enabled: boolean;
@@ -18,6 +19,7 @@ const DEFAULT: GeofencePrefsRow = {
 
 export async function fetchGeofencePrefs(userId: string): Promise<GeofencePrefsRow> {
   if (!isSupabaseConfigured()) return DEFAULT;
+  const supabase = await getSupabase();
   const { data } = await supabase
     .from("user_geofence_preferences")
     .select("enabled, consent_at, radius_meters, deal_filter, browser_push_enabled")
@@ -40,6 +42,7 @@ export async function upsertGeofencePrefs(
   if (!isSupabaseConfigured()) return { ok: false };
   const current = await fetchGeofencePrefs(userId);
   const next = { ...current, ...patch };
+  const supabase = await getSupabase();
   const { error } = await supabase.from("user_geofence_preferences").upsert({
     user_id: userId,
     enabled: next.enabled,
@@ -61,6 +64,7 @@ export async function insertGeofenceNotification(input: {
 }): Promise<boolean> {
   if (!isSupabaseConfigured()) return false;
 
+  const supabase = await getSupabase();
   const { error: logErr } = await supabase.from("geofence_alert_log").insert({
     user_id: input.userId,
     listing_id: input.listingId,

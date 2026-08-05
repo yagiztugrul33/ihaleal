@@ -1,4 +1,5 @@
-import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabaseEnv";
+import { getSupabase } from "@/lib/supabaseLazy";
 
 export type SystemQaTurn = { role: "user" | "assistant"; content: string };
 
@@ -18,6 +19,7 @@ export async function invokeSystemQa(messages: SystemQaTurn[]): Promise<SystemQa
     return { ok: false, code: "invalid_thread" };
   }
 
+  const supabase = await getSupabase();
   const { data, error } = await supabase.functions.invoke<{ reply?: string; error?: string; detail?: string }>("ai_qa", {
     body: { messages },
   });

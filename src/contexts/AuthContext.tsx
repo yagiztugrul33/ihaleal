@@ -4,7 +4,8 @@ import type { AuthError, Session, User } from "@supabase/supabase-js";
 function configAuthError(message: string): AuthError {
   return { name: "AuthError", message, status: 400 } as AuthError;
 }
-import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabaseEnv";
+import { getSupabase } from "@/lib/supabaseLazy";
 import { dispatchAuthChanged } from "@/lib/auth";
 import { persistSupabaseUser } from "@/lib/supabaseAuthBridge";
 
@@ -51,26 +52,56 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    void supabase.auth.getSession().then(({ data: { session: s } }) => {
+    // SDK tembel yuklenir (getSupabase). Sira KORUNUR: once onAuthStateChange
+    // aboneligi kurulur, sonra getSession okunur — boylece istemci olusturulurken
+    // islenen PKCE geri donusu (detectSessionInUrl) kacirilmaz.
+    let cancelled = false;
+    let unsubscribe: (() => void) | null = null;
+
+    void (async () => {
+      const supabase = await getSupabase();
+      if (cancelled) return;
+
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((event, s) => {
+        setSession(s);
+        setUser(s?.user ?? null);
+        if (s?.user) persistSupabaseUser(s.user);
+        else if (event === "SIGNED_OUT") {
+          localStorage.removeItem("ihaleal_user");
+          dispatchAuthChanged();
+        }
+      });
+      unsubscribe = () => subscription.unsubscribe();
+      if (cancelled) {
+        unsubscribe();
+        unsubscribe = null;
+        return;
+      }
+
+      const {
+        data: { session: s },
+      } = await supabase.auth.getSession();
+      if (cancelled) return;
       setSession(s);
       setUser(s?.user ?? null);
       if (s?.user) persistSupabaseUser(s.user);
       setLoading(false);
+    })().catch((err) => {
+      // SDK chunk'i inemezse (offline / cache hatasi) uygulama "yukleniyor"da
+      // asili kalmasin — oturumsuz devam et.
+      if (cancelled) return;
+      console.warn("[auth] Supabase istemcisi yüklenemedi", err);
+      setSession(null);
+      setUser(null);
+      setLoading(false);
     });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, s) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) persistSupabaseUser(s.user);
-      else if (event === "SIGNED_OUT") {
-        localStorage.removeItem("ihaleal_user");
-        dispatchAuthChanged();
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
   }, []);
 
   useEffect(() => {
@@ -80,28 +111,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     setProfileLoading(true);
-    void supabase
-      .from("profiles")
-      .select("role,is_admin")
-      .eq("id", user.id)
-      .maybeSingle()
-      .then(({ data, error }) => {
-        if (error) {
-          setProfile({ role: null, isAdmin: false });
-        } else {
-          setProfile({
-            role: data?.role ?? null,
-            isAdmin: Boolean(data?.is_admin),
-          });
-        }
-        setProfileLoading(false);
-      });
+    let cancelled = false;
+    void (async () => {
+      const supabase = await getSupabase();
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("role,is_admin")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (cancelled) return;
+      if (error) {
+        setProfile({ role: null, isAdmin: false });
+      } else {
+        setProfile({
+          role: data?.role ?? null,
+          isAdmin: Boolean(data?.is_admin),
+        });
+      }
+      setProfileLoading(false);
+    })().catch(() => {
+      if (cancelled) return;
+      setProfile({ role: null, isAdmin: false });
+      setProfileLoading(false);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [user]);
 
   const signIn = useCallback(async (email: string, password: string) => {
     if (!isSupabaseConfigured()) {
       return { error: configAuthError("Supabase yapılandırması eksik (.env.local).") };
     }
+    const supabase = await getSupabase();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error };
   }, []);
@@ -112,6 +154,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     const meta: Record<string, unknown> = { full_name: fullName.trim() };
     if (extra?.phone?.trim()) meta.phone = extra.phone.trim();
+    const supabase = await getSupabase();
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -126,6 +169,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (isSupabaseConfigured()) {
+      const supabase = await getSupabase();
       await supabase.auth.signOut();
     }
     localStorage.removeItem("ihaleal_user");
