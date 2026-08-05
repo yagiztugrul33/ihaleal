@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { MarkaIsareti } from "@/components/MarkaIsareti";
 
 /**
  * Marka kimliği — tek kaynak (single source of truth).
@@ -27,6 +28,13 @@ const lockupSizes = {
   sm: "h-14 w-auto sm:h-12",
   md: "h-14 w-auto sm:h-16",
   lg: "h-20 w-auto sm:h-24",
+} as const;
+
+// Wordmark tipografisi — işaret yüksekliğiyle optik denge kurar.
+const wordmarkSizes = {
+  sm: "text-[1.5rem] sm:text-[1.3rem]",
+  md: "text-[1.5rem] sm:text-[1.75rem]",
+  lg: "text-[2.1rem] sm:text-[2.5rem]",
 } as const;
 
 // Emblem-only fallback (favicon / icon-only legacy yerler için).
@@ -124,26 +132,30 @@ export function BrandLockup({
     </span>
   ) : null;
 
-  // Lockup PNG — birleşik emblem + wordmark (navy bg). drop-shadow ile
-  // çerçeve çevreleyen koyu temaya yumuşak entegrasyon.
+  // Açık-uyumlu lockup: sade işaret + lacivert wordmark. Koyu dikdörtgen zemin YOK.
+  //
+  // Eskiden burada `/ihaleal-logo-lockup.png` vardı (navy zeminli PNG + altın
+  // drop-shadow). Ekran görüntüsüyle görüldü ki açık sayfada tek koyu ada olarak
+  // duruyordu. Artık işaret bir SVG (MarkaIsareti) ve wordmark gerçek metin:
+  //  - renk `currentColor`/token üzerinden gelir, ayrı light/dark dosyası gerekmez
+  //  - ~0,6 KB satır içi SVG, 19,6 KB'lik PNG isteği ve LCP beklemesi ortadan kalkar
+  //  - wordmark metin olduğu için ekran okuyucu ve arama motoru doğrudan okur
   const lockupImg = (
-    <img
-      src={BRAND_LOGO_LOCKUP_SRC}
-      alt="ihaleal.com — Türkiye'nin Gayrimenkul Borsası"
-      className={cn(
-        "shrink-0 select-none object-contain",
-        "drop-shadow-[0_4px_18px_rgba(251,191,36,0.18)]",
-        lockupSizes[logoSize],
-      )}
+    <span
+      className={cn("flex shrink-0 select-none items-center gap-2 sm:gap-2.5", lockupSizes[logoSize])}
       data-testid="logo-image"
       data-brand-lockup-img
-      loading="eager"
-      decoding="async"
-      // LCP elemani bu gorsel (Lighthouse lcp-discovery-insight) — index.html'deki
-      // preload ile birlikte yuksek oncelik verilir; aksi halde priorityHinted=false.
-      fetchPriority="high"
-      draggable={false}
-    />
+    >
+      <MarkaIsareti className={cn("h-full w-auto shrink-0", "[color:var(--vurgu)]")} />
+      <span
+        className={cn(
+          "font-semibold leading-none tracking-tight [color:var(--vurgu)]",
+          wordmarkSizes[logoSize],
+        )}
+      >
+        ihaleal
+      </span>
+    </span>
   );
 
   // Inline: lockup yanında slogan (küçük caps). Stack: lockup üst, slogan alt.

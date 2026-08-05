@@ -2062,14 +2062,19 @@
 .terminal-hero {
   position: relative;
   z-index: 4;
-  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  /* Monospace KALDIRILDI: retro terminal estetiği açık-minimal dille
+     çelişiyordu. Gövde tipografisi (Inter) miras alınır; "terminal"
+     anlamı metnin kendisinde ve ">" işaretinde korunur, yazı tipinde değil. */
   padding: 1.25rem 0 0.5rem;
 }
 
 .terminal-hero__eyebrow {
   margin: 0 0 0.75rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  /* 0.2em harf aralığı monospace'e göre ayarlanmıştı; Inter'de aynı değer
+     kelimeyi dağıtıyor. 0.08em başlık üstü etiket için yeterli. */
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--vurgu);
 }
@@ -2079,8 +2084,10 @@
   font-size: clamp(1.35rem, 3.5vw, 2.25rem);
   font-weight: 600;
   line-height: 1.25;
+  letter-spacing: -0.02em;
   color: var(--metin);
-  text-shadow: 0 0 32px var(--premium-glow);
+  /* Glow KALDIRILDI: açık zeminde parlama okunurluğu düşürüyor ve
+     "neredeyse görünmez yükselti" kuralına aykırı. */
 }
 
 .terminal-hero__prefix {

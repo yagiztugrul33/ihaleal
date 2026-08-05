@@ -58,7 +58,11 @@
          2) Fontlar kritik yoldan cikarildiktan SONRA ayni preload kazanca dondu
             (Perf 75 -> 77, LCP 4427 -> 4144 ms).
          Onceden burada /icon-192.png preload ediliyordu — LCP elemani O DEGIL. -->
-    <link rel="preload" as="image" href="/ihaleal-logo-lockup.png" fetchpriority="high" />
+    <!-- KALDIRILDI (2026-08-06): logo artık PNG değil, satır içi SVG + metin
+         wordmark. Preload edilecek bir görsel kalmadı; bırakılsaydı hiç
+         kullanılmayan 19,6 KB'lik bir isteği yüksek öncelikle indirirdi.
+         LCP elemanı değiştiği için yeni ölçüm gerekiyor — Lighthouse bu
+         makinede çalışmıyor, kuyrukta (bkz. patatesci/CLAUDE.md). -->
 
     <!-- Gövde/başlık fontları: HTML head'de yüklenir ki tarayıcı ilk taramada keşfetsin.
          Daha önce src/styles/theme.css içinde @import ile geliyordu; font ancak paket CSS'i

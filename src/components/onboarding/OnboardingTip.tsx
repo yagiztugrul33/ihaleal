@@ -3,15 +3,24 @@ import { Link } from "react-router-dom";
 import { X, Compass } from "lucide-react";
 
 const STORAGE_KEY = "ihaleal_onboarding_dismissed";
+// CookieConsent ile AYNI anahtar — iki bildirimin sırasını bu belirliyor.
+const COOKIE_KEY = "ihaleal_cookie_consent_v1";
 
 export function OnboardingTip() {
   // Karar ILK render'da veriliyor. Daha once useState(false) + useEffect ile aciliyordu;
   // ipucu ilk boyamadan SONRA eklenince ana sayfa 168px asagi kayiyor ve CLS'in tamamini
   // (0.186) bu tek kayma uretiyordu. Uygulama saf istemci tarafi (Vite SPA) oldugu icin
   // localStorage render aninda okunabilir.
+  //
+  // SIRALI GOSTERIM: cerez karari verilmemisse bu ipucu HIC render edilmez.
+  // Ekran goruntusuyle dogrulandi — ikisi ayni anda cikinca 375px'te ilk ekranin
+  // neredeyse tamami iki bildirimle doluyor ve gercek icerik gorunmuyordu.
+  // Once cerez karari, sonraki ziyarette ipucu. Geciktirme DEGIL, ilk render'da
+  // karar: sonradan DOM'a eklemek yukaridaki CLS sorununu geri getirirdi.
   const [visible, setVisible] = useState(() => {
     try {
-      return localStorage.getItem(STORAGE_KEY) !== "1";
+      if (localStorage.getItem(STORAGE_KEY) === "1") return false;
+      return Boolean(localStorage.getItem(COOKIE_KEY));
     } catch {
       return false;
     }
