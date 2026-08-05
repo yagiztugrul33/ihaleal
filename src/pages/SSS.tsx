@@ -276,10 +276,10 @@ export default function SSS() {
               kat === "hepsi" ? "ring-2 ring-[var(--color-primary)] ring-offset-1" : ""
             }`}
             style={{
-              borderColor: "var(--color-border)",
-              // CEPHE 4: kontrast 3.33 -> ≥4.5 (WCAG AA)
-              color: kat === "hepsi" ? "#7dd3fc" : "#cbd5e1",  // sky-300 / slate-300 opak
-              background: kat === "hepsi" ? "rgba(14, 165, 233, 0.18)" : "transparent",
+              borderColor: "var(--cizgi)",
+              // Acik tema: aktif = vurgu (8.72:1), pasif = ikincil metin (5.56:1)
+              color: kat === "hepsi" ? "var(--vurgu)" : "var(--metin-ikincil)",
+              background: kat === "hepsi" ? "var(--vurgu-yumusak)" : "transparent",
             }}
           >
             Tümü
@@ -349,8 +349,8 @@ export default function SSS() {
       <section
         className="py-12 text-center rounded-2xl border mb-8"
         style={{
-          borderColor: "var(--color-border)",
-          background: "linear-gradient(135deg, rgba(37,99,235,0.12), transparent)",
+          borderColor: "var(--cizgi)",
+          background: "var(--zemin-yumusak)",
         }}
       >
         <h2 className="text-xl font-bold mb-2" style={{ color: "var(--color-text)" }}>

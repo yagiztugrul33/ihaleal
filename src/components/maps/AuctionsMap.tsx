@@ -47,7 +47,7 @@ export default function AuctionsMap({ auctions, className = "" }: Props) {
             center={[a.mapLat, a.mapLng]}
             radius={10}
             pathOptions={{
-              color: a.status === "live" ? "#ef4444" : a.status === "upcoming" ? "#38bdf8" : "#64748b",
+              color: a.status === "live" ? "#B42318" : a.status === "upcoming" ? "#1E40AF" : "#5F6B64",
               fillColor: "#3b82f6",
               fillOpacity: 0.55,
               weight: 2,

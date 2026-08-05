@@ -106,7 +106,7 @@ export function HomeTarget() {
           <div className="flex min-w-0 flex-col gap-6 xl:max-w-[560px]">
             <div
               className="inline-flex items-center gap-2.5 rounded-full border border-slate-600/30 px-4 py-2 text-sm backdrop-blur-md"
-              style={{ background: "rgba(15, 23, 41, 0.65)" }}
+              style={{ background: "var(--zemin-yumusak)" }}
             >
               <Shield className="h-4 w-4 text-blue-400" strokeWidth={2} />
               <span className="text-slate-200">{h.hero.badge}</span>
@@ -213,7 +213,7 @@ function LiveChartCard({ live }: { live: HomeMessages["live"] }) {
   return (
     <div
       className="w-full max-w-[400px] rounded-[16px] border border-slate-600/30 p-5 shadow-[0_16px_40px_rgba(0,0,0,.35)] backdrop-blur-[20px]"
-      style={{ background: "rgba(15, 23, 41, 0.88)" }}
+      style={{ background: "var(--zemin-yumusak)" }}
     >
       <div className="mb-3 flex items-center justify-between">
         <span className="text-[.9rem] font-semibold text-[#f8fafc]">{live.title}</span>
@@ -294,7 +294,7 @@ function StatCardsColumn({
           <div
             key={x.label}
             className="rounded-xl border border-slate-600/20 p-3.5 backdrop-blur-xl"
-            style={{ background: "rgba(15, 23, 41, 0.72)" }}
+            style={{ background: "var(--zemin-yumusak)" }}
           >
             <div className="flex items-start gap-2.5">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/12">
@@ -323,7 +323,7 @@ function HowItWorksSection({ how }: { how: HomeMessages["how"] }) {
     <section className="px-4 py-14 sm:px-6">
       <div
         className="home-target-how-grid mx-auto max-w-[1400px] rounded-[20px] border border-slate-600/20 p-6 lg:p-10"
-        style={{ background: "rgba(15, 23, 41, 0.45)" }}
+        style={{ background: "var(--zemin-yumusak)" }}
       >
         <div>
           <div className="mb-8 text-center">
@@ -416,7 +416,7 @@ function InvestorTrustSidebar({ how }: { how: HomeMessages["how"] }) {
   return (
     <aside
       className="rounded-2xl border border-slate-600/20 p-5 lg:sticky lg:top-24 lg:self-start"
-      style={{ background: "rgba(10, 14, 26, 0.55)" }}
+      style={{ background: "var(--zemin-yumusak)" }}
     >
       <h3 className="mb-4 text-[.95rem] font-semibold text-slate-50">{how.sidebarTitle}</h3>
       <div className="flex flex-col gap-3">
@@ -445,7 +445,7 @@ function InvestorTrustSidebar({ how }: { how: HomeMessages["how"] }) {
           <div
             key={b.title}
             className="min-w-[88px] flex-1 rounded-lg border border-slate-600/20 px-2.5 py-2 text-center"
-            style={{ background: "rgba(15, 23, 41, 0.5)" }}
+            style={{ background: "var(--zemin-yumusak)" }}
           >
             <div className="text-[10px] font-bold text-slate-100">
               {b.flag ? `${b.flag} ` : ""}
@@ -471,7 +471,7 @@ function AuctionCard({
   return (
     <article
       className="overflow-hidden rounded-[14px] border border-slate-600/20 transition hover:border-slate-500/35"
-      style={{ background: "rgba(15, 23, 41, 0.55)" }}
+      style={{ background: "var(--zemin-yumusak)" }}
     >
       <div
         className="relative h-[168px] bg-cover bg-center"
@@ -535,7 +535,7 @@ function TrustedBySection({ trusted }: { trusted: HomeMessages["trusted"] }) {
             <div
               key={b.title}
               className="rounded-lg border border-slate-600/20 px-4 py-2.5"
-              style={{ background: "rgba(15, 23, 41, 0.45)" }}
+              style={{ background: "var(--zemin-yumusak)" }}
             >
               <div className="text-xs font-bold text-slate-100">{b.title}</div>
               <div className="text-[.65rem] text-slate-500">{b.sub}</div>

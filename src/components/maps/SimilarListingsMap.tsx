@@ -54,7 +54,7 @@ export default function SimilarListingsMap({ analyticsCitySlug, maxPins = 18 }: 
             key={a.id}
             center={[a.mapLat + jitter(a.id, 0), a.mapLng + jitter(a.id, 1)]}
             radius={9}
-            pathOptions={{ color: "#1e293b", fillColor: "#38bdf8", fillOpacity: 0.65, weight: 2 }}
+            pathOptions={{ color: "#5F6B64", fillColor: "#1E40AF", fillOpacity: 0.65, weight: 2 }}
           >
             <Popup>
               <div className="text-slate-900 text-xs max-w-[220px]">

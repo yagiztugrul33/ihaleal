@@ -19,7 +19,7 @@ function priceColor(avg: number, minP: number, maxP: number): string {
   const t = (avg - minP) / (maxP - minP);
   if (t < 0.33) return "#22c55e";
   if (t < 0.66) return "#eab308";
-  return "#ef4444";
+  return "#B42318";
 }
 
 function positionsForCity(center: [number, number], districts: DistrictRow[]): [number, number][] {

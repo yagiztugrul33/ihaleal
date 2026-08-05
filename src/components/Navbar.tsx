@@ -56,7 +56,7 @@ function NavDropdown({
       {open ? (
         <div
           className="absolute start-0 top-full z-[110] mt-2 min-w-[200px] rounded-xl border border-slate-600/30 py-1 shadow-xl"
-          style={{ background: "rgba(15, 23, 41, 0.98)", backdropFilter: "blur(20px)" }}
+          style={{ background: "var(--zemin-yumusak)", backdropFilter: "blur(20px)" }}
         >
           {items.map((item) => (
             <Link
@@ -122,7 +122,7 @@ function NavMegaMenu({
       {open ? (
         <div
           className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-slate-600/30 p-4 shadow-xl"
-          style={{ background: "rgba(15, 23, 41, 0.98)", backdropFilter: "blur(20px)" }}
+          style={{ background: "var(--zemin-yumusak)", backdropFilter: "blur(20px)" }}
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {columns.map((col) => (
@@ -328,7 +328,7 @@ export function Navbar() {
               {langOpen ? (
                 <div
                   className="absolute end-0 top-full z-[110] mt-2 min-w-[140px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
-                  style={{ background: "rgba(15, 23, 41, 0.98)" }}
+                  style={{ background: "var(--zemin-yumusak)" }}
                 >
                   <button
                     type="button"

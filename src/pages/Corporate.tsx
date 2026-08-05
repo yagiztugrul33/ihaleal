@@ -125,7 +125,7 @@ export default function Corporate() {
         </div>
       </section>
 
-      <section className="py-20 md:py-24" style={{ background: "rgba(15, 23, 42, 0.55)" }}>
+      <section className="py-20 md:py-24" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
             <span className="badge-corp">Özellikler</span>
@@ -174,24 +174,19 @@ export default function Corporate() {
             {plans.map((p) => (
               <div
                 key={p.name}
-                className="card-warm relative"
-                style={{
-                  background: p.highlighted ? "var(--color-primary)" : "var(--color-bg-card)",
-                  color: p.highlighted ? "var(--color-text-on-dark)" : "inherit",
-                  borderColor: p.highlighted ? "var(--color-primary)" : "var(--color-border)",
-                }}
+                className={`card-warm relative${p.highlighted ? " vurgu-yuzey" : ""}`}
               >
                 {p.highlighted && (
                   <div
                     className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-semibold rounded-full"
-                    style={{ background: "var(--color-accent)", color: "white" }}
+                    style={{ background: "#ffffff", color: "var(--vurgu)" }}
                   >
                     EN POPÜLER
                   </div>
                 )}
                 <div
                   className="text-xs uppercase tracking-widest mb-2"
-                  style={{ color: p.highlighted ? "rgba(250,248,241,0.7)" : "var(--color-text-muted)" }}
+                  style={{ color: "var(--uzerine-ikincil)" }}
                 >
                   {p.name}
                 </div>
@@ -199,21 +194,21 @@ export default function Corporate() {
                   {p.price}
                   <span
                     className="text-base font-normal ms-1"
-                    style={{ color: p.highlighted ? "rgba(250,248,241,0.7)" : "var(--color-text-muted)" }}
+                    style={{ color: "var(--uzerine-ikincil)" }}
                   >
                     /ay
                   </span>
                 </div>
                 <div
                   className="text-sm mb-6"
-                  style={{ color: p.highlighted ? "rgba(250,248,241,0.7)" : "var(--color-text-muted)" }}
+                  style={{ color: "var(--uzerine-ikincil)" }}
                 >
                   {p.suited}
                 </div>
                 <ul className="space-y-3 mb-6">
                   {p.features.map((ft) => (
                     <li key={ft} className="flex items-start gap-2 text-sm">
-                      <span style={{ color: p.highlighted ? "var(--color-accent-light)" : "var(--color-success)" }}>
+                      <span style={{ color: "var(--uzerine-basari)" }}>
                         ✓
                       </span>
                       {ft}
@@ -223,11 +218,7 @@ export default function Corporate() {
                 <Link
                   to="/kurumsal/iletisim"
                   className={p.highlighted ? "btn-accent block text-center" : "btn-primary block text-center"}
-                  style={
-                    p.highlighted
-                      ? { background: "var(--color-accent)", color: "white" }
-                      : {}
-                  }
+                  style={p.highlighted ? { background: "#ffffff", color: "var(--vurgu)" } : {}}
                 >
                   {p.name === "Enterprise" ? "İletişime Geç" : "Başla"}
                 </Link>
@@ -237,14 +228,14 @@ export default function Corporate() {
         </div>
       </section>
 
-      <section className="py-20 md:py-24" style={{ background: "var(--gradient-cta)" }}>
+      <section className="py-20 md:py-24 vurgu-yuzey">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ color: "var(--color-text-on-dark)" }}>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ color: "var(--uzerine)" }}>
             Demo görüşmesi planlayalım.
           </h2>
           <p
             className="mb-10 text-lg max-w-2xl mx-auto"
-            style={{ color: "rgba(250,248,241,0.85)" }}
+            style={{ color: "var(--uzerine-ikincil)" }}
           >
             GYO veya büyük emlak grubu yöneticisiyseniz, ekibimiz size özel
             bir demo hazırlasın. 30 dakikalık görüşme, ihtiyaçlarınıza özel çözüm.
@@ -252,7 +243,7 @@ export default function Corporate() {
           <Link
             to="/kurumsal/iletisim"
             className="inline-block px-8 py-4 font-semibold rounded-lg text-base transition-all hover:scale-105"
-            style={{ background: "var(--color-accent)", color: "white" }}
+            style={{ background: "#ffffff", color: "var(--vurgu)" }}
           >
             Görüşme Talep Et →
           </Link>

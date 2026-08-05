@@ -111,9 +111,11 @@ export function BrandLockup({
   const slogan = showSlogan ? (
     <span
       className={cn(
-        "font-semibold uppercase leading-snug text-amber-200/85",
+        // Acik tema: slogan notr ikincil metin (tek vurgu kurali — marka
+        // seridi vurgu rengi tasimaz). #5f6b64 / #ffffff = 5.56:1.
+        "font-semibold uppercase leading-snug [color:var(--metin-ikincil)]",
         sloganSizes[logoSize],
-        tone === "auth" && "text-amber-100/90",
+        tone === "auth" && "tracking-wide",
         hideSloganOnMobile && "hidden sm:inline",
         sloganClassName,
       )}

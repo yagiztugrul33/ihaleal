@@ -63,7 +63,7 @@ export default function EmlakciLanding() {
         </div>
       </section>
 
-      <section className="py-14" style={{ background: "rgba(15, 23, 42, 0.55)" }}>
+      <section className="py-14" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
             Neden biz?
@@ -101,7 +101,7 @@ export default function EmlakciLanding() {
         </div>
       </section>
 
-      <section className="py-14" style={{ background: "rgba(15, 23, 42, 0.45)" }}>
+      <section className="py-14" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
             Araç seti
@@ -135,7 +135,7 @@ export default function EmlakciLanding() {
         </div>
       </section>
 
-      <section className="py-10 border-y border-[var(--color-border)]" style={{ background: "rgba(15, 23, 42, 0.4)" }}>
+      <section className="py-10 border-y border-[var(--color-border)]" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-2xl font-bold md:text-3xl" style={{ color: "var(--color-text)" }}>
             Bağlı araçlar (tek akış)
@@ -188,18 +188,13 @@ export default function EmlakciLanding() {
             {EMLAKCI_PLANS.map((p) => (
               <div
                 key={p.name}
-                className="card-warm relative"
-                style={{
-                  background: p.highlighted ? "var(--color-primary)" : "var(--color-bg-card)",
-                  color: p.highlighted ? "var(--color-text-on-dark)" : "inherit",
-                  borderColor: p.highlighted ? "var(--color-primary)" : "var(--color-border)",
-                }}
+                className={`card-warm relative${p.highlighted ? " vurgu-yuzey" : ""}`}
               >
-                <div className="text-xs uppercase tracking-widest mb-2" style={{ color: p.highlighted ? "rgba(250,248,241,0.7)" : "var(--color-text-muted)" }}>
+                <div className="text-xs uppercase tracking-widest mb-2" style={{ color: "var(--uzerine-ikincil)" }}>
                   {p.name}
                 </div>
                 <div className="mb-1 text-3xl font-bold">{p.price}</div>
-                <div className="mb-4 text-sm" style={{ color: p.highlighted ? "rgba(250,248,241,0.75)" : "var(--color-text-muted)" }}>
+                <div className="mb-4 text-sm" style={{ color: "var(--uzerine-ikincil)" }}>
                   {p.suited}
                 </div>
                 <ul className="space-y-2">
@@ -215,7 +210,7 @@ export default function EmlakciLanding() {
         </div>
       </section>
 
-      <section className="py-14" style={{ background: "rgba(15, 23, 42, 0.55)" }}>
+      <section className="py-14" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
             SSS
@@ -235,12 +230,12 @@ export default function EmlakciLanding() {
         </div>
       </section>
 
-      <section className="py-20 md:py-24" style={{ background: "var(--gradient-cta)" }}>
+      <section className="py-20 md:py-24 vurgu-yuzey">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="mb-6 text-3xl font-bold md:text-5xl" style={{ color: "var(--color-text-on-dark)" }}>
+          <h2 className="mb-6 text-3xl font-bold md:text-5xl" style={{ color: "var(--uzerine)" }}>
             Emlakçı Faz A paketini canlı görün
           </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-lg" style={{ color: "rgba(250,248,241,0.85)" }}>
+          <p className="mx-auto mb-10 max-w-2xl text-lg" style={{ color: "var(--uzerine-ikincil)" }}>
             Panel + ortaklık + kurumsal araçlar tek akışta hazır. Demo veriler ön analizdir, canlı süreçte resmi kontroller uygulanır.
           </p>
           <div className="flex flex-wrap justify-center gap-3">

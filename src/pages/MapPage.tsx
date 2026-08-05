@@ -27,9 +27,9 @@ const AUCTION_MODES = [
 type AuctionMode = (typeof AUCTION_MODES)[number]["key"];
 
 const AUCTION_STATUS = [
-  { key: "live", label: "Devam eden", color: "#ef4444" },
-  { key: "upcoming", label: "Yaklaşan", color: "#38bdf8" },
-  { key: "ended", label: "Biten", color: "#64748b" },
+  { key: "live", label: "Devam eden", color: "#B42318" },
+  { key: "upcoming", label: "Yaklaşan", color: "#1E40AF" },
+  { key: "ended", label: "Biten", color: "#5F6B64" },
 ] as const;
 type AuctionStatus = (typeof AUCTION_STATUS)[number]["key"];
 
@@ -109,12 +109,12 @@ function ClusterLayer({ auctions }: { auctions: Auction[] }) {
       });
       for (const a of auctions) {
         const color =
-          a.status === "live" ? "#ef4444" :
-          a.status === "upcoming" ? "#38bdf8" : "#64748b";
+          a.status === "live" ? "#B42318" :
+          a.status === "upcoming" ? "#1E40AF" : "#5F6B64";
         const m = L.circleMarker([a.mapLat, a.mapLng], {
           radius: 10,
           color,
-          fillColor: "#3b82f6",
+          fillColor: "#1E40AF",
           fillOpacity: 0.6,
           weight: 2,
         });
@@ -127,16 +127,16 @@ function ClusterLayer({ auctions }: { auctions: Auction[] }) {
         const safeDist = `${a.district || ""}, ${a.city || ""}`.replace(/</g, "&lt;").replace(/>/g, "&gt;");
         const safeImg = (a.images?.[0] || "").replace(/"/g, "&quot;");
         m.bindPopup(`
-          <div style="min-width:220px;color:#0f172a;font-family:system-ui,-apple-system,sans-serif">
+          <div style="min-width:220px;color:#1e2a24;font-family:system-ui,-apple-system,sans-serif">
             ${safeImg ? `<img src="${safeImg}" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:8px" alt="">` : ""}
             <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
               <span style="font-size:10px;background:${color}33;color:${color};padding:2px 6px;border-radius:4px;font-weight:600">${statusLabel}</span>
-              <span style="font-size:10px;background:#fbbf2433;color:#92400e;padding:2px 6px;border-radius:4px;font-weight:600">${modeLabel}</span>
+              <span style="font-size:10px;background:#fbf6e9;color:#9A6700;padding:2px 6px;border-radius:4px;font-weight:600">${modeLabel}</span>
             </div>
             <div style="font-weight:600;font-size:13px;line-height:1.3;margin-bottom:4px">${safeTitle}</div>
-            <div style="font-size:11px;color:#64748b;margin-bottom:6px">${safeDist}</div>
-            <div style="font-size:15px;font-weight:700;color:#1d4ed8">₺${a.currentBid.toLocaleString("tr-TR")}</div>
-            <a href="/ilan/${a.id}" style="display:inline-block;margin-top:10px;font-size:12px;color:#0d9488;font-weight:600;text-decoration:underline">İlan detayına git →</a>
+            <div style="font-size:11px;color:#5F6B64;margin-bottom:6px">${safeDist}</div>
+            <div style="font-size:15px;font-weight:700;color:#1E40AF">₺${a.currentBid.toLocaleString("tr-TR")}</div>
+            <a href="/ilan/${a.id}" style="display:inline-block;margin-top:10px;font-size:12px;color:#1E40AF;font-weight:600;text-decoration:underline">İlan detayına git →</a>
           </div>
         `);
         (cluster as unknown as { addLayer(l: unknown): void }).addLayer(m);
@@ -384,9 +384,9 @@ export default function MapPage() {
             </section>
 
             <div className="text-[10px] text-slate-500 pt-3 border-t border-slate-700/50 leading-relaxed">
-              Marker rengi: <span style={{ color: "#ef4444" }}>kırmızı = canlı</span> ·{" "}
-              <span style={{ color: "#38bdf8" }}>cyan = yaklaşan</span> ·{" "}
-              <span style={{ color: "#64748b" }}>gri = biten</span>
+              Marker rengi: <span style={{ color: "var(--durum-hata)" }}>kırmızı = canlı</span> ·{" "}
+              <span style={{ color: "var(--vurgu)" }}>mavi = yaklaşan</span> ·{" "}
+              <span style={{ color: "var(--metin-ikincil)" }}>gri = biten</span>
             </div>
           </aside>
 

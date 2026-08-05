@@ -38,7 +38,7 @@ export default function MuteahhitLanding() {
         </div>
       </section>
 
-      <section className="py-14 md:py-16" style={{ background: "rgba(15,23,42,0.45)" }}>
+      <section className="py-14 md:py-16" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
             Neden müteahhitler bu modeli kullanıyor?
@@ -60,7 +60,7 @@ export default function MuteahhitLanding() {
         </div>
       </section>
 
-      <section className="py-12 border-y border-[var(--color-border)]" style={{ background: "rgba(15,23,42,0.4)" }}>
+      <section className="py-12 border-y border-[var(--color-border)]" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-5xl px-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="text-xl md:text-2xl font-bold" style={{ color: "var(--color-text)" }}>
@@ -76,7 +76,7 @@ export default function MuteahhitLanding() {
         </div>
       </section>
 
-      <section className="py-10 border-b border-[var(--color-border)]" style={{ background: "rgba(15,23,42,0.42)" }}>
+      <section className="py-10 border-b border-[var(--color-border)]" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-2xl font-bold md:text-3xl" style={{ color: "var(--color-text)" }}>
             Bağlı araçlar
@@ -173,7 +173,7 @@ export default function MuteahhitLanding() {
         </div>
       </section>
 
-      <section className="py-14 md:py-18" style={{ background: "rgba(15,23,42,0.45)" }}>
+      <section className="py-14 md:py-18" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
             Örnek senaryo ve SSS
@@ -232,12 +232,12 @@ export default function MuteahhitLanding() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20" style={{ background: "var(--gradient-cta)" }}>
+      <section className="py-16 md:py-20 vurgu-yuzey">
         <div className="mx-auto max-w-3xl px-4 text-center">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4" style={{ color: "var(--color-text-on-dark)" }}>
+          <h2 className="text-2xl md:text-4xl font-bold mb-4" style={{ color: "var(--uzerine)" }}>
             Projeniz için özel demo
           </h2>
-          <p className="mb-8" style={{ color: "rgba(250,248,241,0.85)" }}>
+          <p className="mb-8" style={{ color: "var(--uzerine-ikincil)" }}>
             Teknik ekibimiz proje tipinize göre ihale akışını birlikte kurgulasın.
           </p>
           <Link to="/iletisim" className="btn-accent inline-block">
