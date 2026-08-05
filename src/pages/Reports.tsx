@@ -40,6 +40,8 @@ export default function Reports() {
   const [filterCity, setFilterCity] = useState<ReportCity | "">("");
   const [filterCategory, setFilterCategory] = useState<ReportCategory | "">("");
   const [filterYear, setFilterYear] = useState<string>("");
+  // Ö2: gelişmiş filtre paneli varsayılan gizli
+  const [advancedOpen, setAdvancedOpen] = useState(false);
 
   // Abone opt-in state — backend RPC ile entegre (Master onaylı, migration aktif).
   const [subscribeEmail, setSubscribeEmail] = useState("");
@@ -322,7 +324,21 @@ export default function Reports() {
           </div>
         </div>
 
-        {/* Filtre paneli */}
+        {/* Filtre paneli — Ö2: gelişmiş filtre varsayılan gizli, toggle ile açılır */}
+        <div className="mb-3">
+          <button
+            type="button"
+            onClick={() => setAdvancedOpen((v) => !v)}
+            aria-expanded={advancedOpen}
+            data-testid="reports-advanced-toggle"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-900/60 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white"
+          >
+            <Filter className="w-3.5 h-3.5" /> Gelişmiş filtreler
+            {activeFilterCount > 0 ? <span className="text-cyan-300">({activeFilterCount})</span> : null}
+            <span aria-hidden>{advancedOpen ? "−" : "+"}</span>
+          </button>
+        </div>
+        {advancedOpen ? (
         <Card className="mb-6 bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
@@ -377,6 +393,7 @@ export default function Reports() {
             </div>
           </CardContent>
         </Card>
+        ) : null}
 
         {/* Featured 3 raporu */}
         {featured.length > 0 ? (

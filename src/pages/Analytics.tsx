@@ -129,6 +129,8 @@ export default function Analytics() {
   const [analysisType, setAnalysisType] = useState("unitPrice");
   const [sortBy, setSortBy] = useState("score");
   const [activeTab, setActiveTab] = useState("overview");
+  // Ö2: gelişmiş grafik bloğu (piyasa döngüsü + portföy dağılımı) varsayılan gizli
+  const [advancedOpen, setAdvancedOpen] = useState(false);
   
   // Yield simulator state
   const [propertyValue, setPropertyValue] = useState(5000000);
@@ -319,7 +321,20 @@ export default function Analytics() {
               </select>
             </div>
 
-            {/* Piyasa Dongusu + Dagilim */}
+            {/* Piyasa Dongusu + Dagilim — Ö2: "Gelişmiş görünüm" arkasında */}
+            <div className="mb-6">
+              <button
+                type="button"
+                onClick={() => setAdvancedOpen((v) => !v)}
+                aria-expanded={advancedOpen}
+                data-testid="analytics-advanced-toggle"
+                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white/[0.06] px-4 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/10 hover:text-white"
+              >
+                <Gauge className="w-4 h-4" /> Gelişmiş görünüm — piyasa döngüsü & portföy dağılımı
+                <span aria-hidden>{advancedOpen ? "−" : "+"}</span>
+              </button>
+            </div>
+            {advancedOpen ? (
             <div className={`grid lg:grid-cols-3 gap-6 mb-10 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="lg:col-span-2 bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
@@ -386,6 +401,7 @@ export default function Analytics() {
                 </div>
               </Card>
             </div>
+            ) : null}
 
             {/* İhaleal Endeksi — bölge bandı */}
             <div className={`mb-10 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>

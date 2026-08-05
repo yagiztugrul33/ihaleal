@@ -91,6 +91,10 @@ export default function SearchResults() {
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [catalogError, setCatalogError] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  // Ö2: ileri filtreler (m², ihale tipi/durumu) varsayılan gizli — URL'de aktifse açık başlar
+  const [advancedOpen, setAdvancedOpen] = useState<boolean>(() =>
+    Boolean(params.get("smin") || params.get("smax") || params.get("mode") || params.get("status")),
+  );
 
   useEffect(() => {
     setQuery(params.get("q") || "");
@@ -261,6 +265,8 @@ export default function SearchResults() {
     (city ? 1 : 0) + (district ? 1 : 0);
 
   // —— Filtre panel UI (yeniden kullanılabilir) ——
+  const advancedFilterCount =
+    (sqmMin !== undefined ? 1 : 0) + (sqmMax !== undefined ? 1 : 0) + modes.length + statuses.length;
   const FilterPanel = (
     <aside className="space-y-4 text-sm" aria-label="Arama filtreleri">
       <section>
@@ -325,6 +331,21 @@ export default function SearchResults() {
         </div>
       </section>
 
+      <button
+        type="button"
+        onClick={() => setAdvancedOpen((v) => !v)}
+        aria-expanded={advancedOpen}
+        className="flex w-full items-center justify-between rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white"
+        data-testid="advanced-filters-toggle"
+      >
+        <span className="flex items-center gap-1.5">
+          <SlidersHorizontal className="w-3.5 h-3.5" /> Gelişmiş filtreler
+          {advancedFilterCount > 0 ? <span className="text-blue-300">({advancedFilterCount})</span> : null}
+        </span>
+        <span aria-hidden>{advancedOpen ? "−" : "+"}</span>
+      </button>
+
+      {advancedOpen ? (<>
       <section>
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Alan (m²)</h3>
         <div className="grid grid-cols-2 gap-2">
@@ -383,6 +404,7 @@ export default function SearchResults() {
           ))}
         </div>
       </section>
+      </>) : null}
 
       {activeFilterCount > 0 ? (
         <Button type="button" variant="outline" size="sm" onClick={clearAllFilters} className="w-full gap-2">
