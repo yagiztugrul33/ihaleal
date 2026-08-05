@@ -30,8 +30,10 @@ function fmtTRY(n: number): string {
   if (!Number.isFinite(n)) return "—";
   return `₺${Math.round(n).toLocaleString("tr-TR")}`;
 }
-function fmtPct(n: number, plus = true): string {
-  if (!Number.isFinite(n)) return "—";
+// IRR hesaplanamadiginda gesEngine null dondurur; Number.isFinite(null) zaten
+// false oldugu icin cikti "—" idi — imza gerceklige hizalandi, davranis ayni.
+function fmtPct(n: number | null | undefined, plus = true): string {
+  if (n == null || !Number.isFinite(n)) return "—";
   const sign = n > 0 && plus ? "+" : "";
   return `%${sign}${n.toFixed(1)}`;
 }
@@ -184,8 +186,9 @@ export async function downloadGesEndeksPdf(
           "",
           `Çünkü: NPV ${result.npvTry > 0 ? "POZİTİF" : "NEGATİF"} → indirgeme oranında (%${discountPct.toFixed(0)}) ` +
             `proje ${result.npvTry > 0 ? "değer yaratır" : "değer yıkar"}.`,
-          `IRR (${fmtPct(result.irrPct)}) ${result.irrPct > discountPct ? ">" : "<"} indirgeme oranı (%${discountPct.toFixed(0)}) → ` +
-            `${result.irrPct > discountPct ? "yatırım çekici" : "alternatif yatırım daha iyi"}.`,
+          // `null > x` JS'te ToNumber(null)=0 ile karsilastirir; `?? 0` birebir ayni sonuc.
+          `IRR (${fmtPct(result.irrPct)}) ${(result.irrPct ?? 0) > discountPct ? ">" : "<"} indirgeme oranı (%${discountPct.toFixed(0)}) → ` +
+            `${(result.irrPct ?? 0) > discountPct ? "yatırım çekici" : "alternatif yatırım daha iyi"}.`,
         ],
       },
       {

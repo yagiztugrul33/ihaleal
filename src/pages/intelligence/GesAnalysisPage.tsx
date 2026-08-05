@@ -245,9 +245,10 @@ export default function GesAnalysisPage() {
 
     // 3 senaryo (kötü/baz/iyi)
     const senaryolar = [
-      { ad: "Kötümser", npv: result.npvTry - dNpvUpe, irr: result.irrPct - 3 },
+      // IRR null olabilir; aritmetikte JS zaten 0'a cevirdigi icin `?? 0` birebir ayni.
+      { ad: "Kötümser", npv: result.npvTry - dNpvUpe, irr: (result.irrPct ?? 0) - 3 },
       { ad: "Baz", npv: result.npvTry, irr: result.irrPct },
-      { ad: "İyimser", npv: result.npvTry + dNpvUpe, irr: result.irrPct + 3 },
+      { ad: "İyimser", npv: result.npvTry + dNpvUpe, irr: (result.irrPct ?? 0) + 3 },
     ];
 
     // CAPEX dağılımı (sektör tipik)
@@ -273,7 +274,7 @@ export default function GesAnalysisPage() {
       npvDown: result.npvTry - dNpv,
       npvCapDelta: dNpvCap,
       npvProdDelta: dNpvProd,
-      irrVsDiscount: result.irrPct > discountN,
+      irrVsDiscount: (result.irrPct ?? 0) > discountN,
       cashflow,
       cumulative,
       monthlyProd,
@@ -832,7 +833,7 @@ export default function GesAnalysisPage() {
                         >
                           <td className="py-2 text-slate-200 font-medium">{s.ad}</td>
                           <td className="text-end text-slate-300">{fmtNum(s.npv)}</td>
-                          <td className={`text-end font-semibold ${s.irr > 10 ? "text-emerald-300" : "text-rose-300"}`}>
+                          <td className={`text-end font-semibold ${(s.irr ?? 0) > 10 ? "text-emerald-300" : "text-rose-300"}`}>
                             {fmtPct(s.irr)}
                           </td>
                         </tr>
