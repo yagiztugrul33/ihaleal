@@ -32,7 +32,11 @@ interface State {
   error: string | null;
 }
 
-function urlBase64ToUint8Array(b64: string): Uint8Array {
+// TS 5.7+ Uint8Array'i buffer turu uzerinden generic yapti; cikplak `Uint8Array`
+// = Uint8Array<ArrayBufferLike> olup SharedArrayBuffer'i da kapsadigi icin
+// PushSubscriptionOptions.applicationServerKey (BufferSource) ile uyusmuyordu.
+// `new Uint8Array(number)` zaten ArrayBuffer uretir; imza gerceklige hizalandi.
+function urlBase64ToUint8Array(b64: string): Uint8Array<ArrayBuffer> {
   const padding = "=".repeat((4 - (b64.length % 4)) % 4);
   const base64 = (b64 + padding).replace(/-/g, "+").replace(/_/g, "/");
   const raw = atob(base64);

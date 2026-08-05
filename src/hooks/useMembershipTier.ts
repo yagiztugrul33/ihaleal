@@ -64,8 +64,10 @@ export function useMembershipTier(): MembershipState {
     setLoading(true);
 
     // ÖNCELİK 1: GERÇEK subscriptions RPC (canlı tablo + RLS user_id=auth.uid())
-    void supabase
-      .rpc("get_my_subscription")
+    // supabase sorgu kurucusu PromiseLike (then var, catch yok). Promise.resolve
+    // ile gercek Promise'e sariliyor; istek yine .then cagrisinda tetiklendigi
+    // ve handler icindeki hatalar da yakalandigi icin davranis ayni.
+    void Promise.resolve(supabase.rpc("get_my_subscription"))
       .then(({ data, error }) => {
         if (!alive) return;
         if (!error && data) {
@@ -82,14 +84,16 @@ export function useMembershipTier(): MembershipState {
         }
 
         // ÖNCELİK 2: Eski memberships tablosu (geriye uyumlu — legacy üyeler)
-        void supabase
-          .from("memberships")
-          .select("type, status")
-          .eq("user_id", user.id)
-          .eq("status", "active")
-          .order("created_at", { ascending: false })
-          .limit(1)
-          .maybeSingle()
+        void Promise.resolve(
+          supabase
+            .from("memberships")
+            .select("type, status")
+            .eq("user_id", user.id)
+            .eq("status", "active")
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle(),
+        )
           .then(({ data: memberData }) => {
             if (!alive) return;
             if (memberData?.type) {
