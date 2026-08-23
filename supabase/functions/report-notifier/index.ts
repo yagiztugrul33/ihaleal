@@ -144,6 +144,7 @@ serve(async (req) => {
 
   let sent = 0;
   let failed = 0;
+  let skipped = 0;
   const errors: { email: string; reason: string }[] = [];
 
   for (const row of subs) {
@@ -160,10 +161,9 @@ serve(async (req) => {
       continue;
     }
     if (!RESEND_API_KEY) {
-      // TODO: Resend, Postmark veya SES SDK entegrasyonu — Master canlı deploy
-      // öncesi anahtar setlenir.
+      // TODO(anahtar): RESEND_API_KEY setlenmeden gerçek gönderim yapılamaz.
       console.log(`[report-notifier] SKIP no RESEND_API_KEY → ${row.email}`);
-      sent++;
+      skipped++;
       continue;
     }
 
@@ -196,6 +196,7 @@ serve(async (req) => {
   return json({
     sent,
     failed,
+    skipped,
     total: subs.length,
     dry_run: dryRun,
     errors: errors.slice(0, 10),
