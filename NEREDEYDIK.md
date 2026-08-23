@@ -7,7 +7,7 @@ Yarın, gelecek hafta veya 1 ay sonra döndüğünde **buradan başla**.
 
 - **Canlı site:** https://ihaleal.vercel.app
 - **Repo:** https://github.com/yagiztugrul33/ihaleal
-- **Deploy:** `git push` → GitHub; üretim için güvenilir yol: `npm run build` + Vercel prebuilt (`docs/DEPLOYMENT_FINAL.md`)
+- **Deploy:** `git push` → GitHub; üretim için güvenilir yol: `npm run build` + Vercel prebuilt (`docs/arsiv/DEPLOYMENT_FINAL.md`)
 - **Son canlı audit:** `_audit/final/01_canli.md` (Playwright, 29 route)
 
 ## Çalışan Modüller

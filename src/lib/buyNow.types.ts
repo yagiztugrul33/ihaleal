@@ -4,7 +4,7 @@
  * Pure type file — runtime kod yok, supabase import yok.
  * Mobile facade'lar bu modülden tipleri re-export edebilir.
  *
- * Mimari karar (2026-05-28, _audit/AKSAM_PLANI.md).
+ * Mimari karar (2026-05-28, docs/arsiv/_audit/AKSAM_PLANI.md).
  * Runtime: src/lib/buyNow.ts (executeBuyNow fonksiyonu).
  */
 

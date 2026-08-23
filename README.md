@@ -7,7 +7,7 @@
 | **Canlı** | https://ihaleal.vercel.app |
 | **Repo** | https://github.com/yagiztugrul33/ihaleal |
 | **Neredeydik?** | [NEREDEYDIK.md](NEREDEYDIK.md) — yarın döndüğünde buradan başla |
-| **Canlı audit** | [_audit/final/01_canli.md](_audit/final/01_canli.md) |
+| **Canlı audit (arşiv)** | [docs/arsiv/_audit/final/01_canli.md](docs/arsiv/_audit/final/01_canli.md) |
 
 ## Hızlı başlangıç
 
@@ -36,7 +36,7 @@ npm run test:smoke   # Playwright (yerel veya AUDIT_BASE)
 ## Deploy (Vercel)
 
 1. `npm run build` → `dist/`
-2. Prebuilt deploy (lockfile sorunlarında güvenilir): bkz. [docs/DEPLOYMENT_FINAL.md](docs/DEPLOYMENT_FINAL.md)
+2. Prebuilt deploy (lockfile sorunlarında güvenilir): bkz. [docs/arsiv/DEPLOYMENT_FINAL.md](docs/arsiv/DEPLOYMENT_FINAL.md)
 3. SPA: `vercel.json` `rewrites` — BrowserRouter, hash (`/#/`) gerekmez
 
 **Environment:** Supabase URL + anon key (Production).

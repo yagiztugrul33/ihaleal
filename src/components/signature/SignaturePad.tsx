@@ -85,7 +85,7 @@ export function SignaturePad({
         subtitle: "Ön onay imzası (MVP)",
         filename: `ihaleal-imzali-${documentId.slice(0, 8)}.pdf`,
         disclaimer:
-          "Bu görsel imza yasal nitelikli e-imza değildir; ön onay / iç onay amaçlıdır. Bkz. _audit/EIMZA_NOTU.md",
+          "Bu görsel imza yasal nitelikli e-imza değildir; ön onay / iç onay amaçlıdır. Bkz. docs/arsiv/_audit/EIMZA_NOTU.md",
         sections: [
           { heading: "Belge", lines: documentLines },
           { heading: "İmza", lines: ["Canvas imza eklendi.", `Hash: ${contentHash.slice(0, 16)}…`] },

@@ -5,7 +5,7 @@
  * Mobile facade'lar bu modülden tipleri re-export edebilir; web supabase client'ı
  * transitive olarak resolve etmek zorunda kalmaz.
  *
- * Mimari karar (2026-05-28, _audit/AKSAM_PLANI.md): mobile facade'lar `@/lib/supabase`
+ * Mimari karar (2026-05-28, docs/arsiv/_audit/AKSAM_PLANI.md): mobile facade'lar `@/lib/supabase`
  * transitive bile import etmemeli — bu dosya bunun pre-req'i.
  *
  * Runtime: src/lib/depositRegister.ts (registerBidDeposit fonksiyonu).
