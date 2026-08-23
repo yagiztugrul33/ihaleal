@@ -12,21 +12,22 @@
  *   Header: Authorization: Bearer SERVICE_ROLE_KEY (sadece backend)
  *
  * Çıktı:
- *   { sent: number, failed: number, errors: [{ user_id, reason }] }
+ *   { sent: number, failed: number, removed: number, errors: [{ user_id, reason }] }
  *
  * Bağımlılıklar:
- *   - VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY / VAPID_SUBJECT (Supabase secrets)
+ *   - VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY / VAPID_SUBJECT (Supabase secrets — TODO(anahtar))
  *   - device_push_tokens tablosu (RLS owner-only, service_role full access)
- *   - web-push uyumlu native API (Deno crypto + manuel JWT — esid library yok)
- *
- * NOT (iskelet): Üretim için web-push library Deno port'u (deno.land/x/webpush)
- * veya manuel VAPID JWT + AES-128-GCM payload encryption gerekir.
- * Bu dosya altyapı şablonudur — Master canlı deploy öncesi VAPID anahtarlarını
- * Supabase secrets'a koyar ve tam encryption mantığını ekler.
+ *   - `npm:web-push` — RFC 8291 (aes128gcm payload encryption) + RFC 8292 (VAPID JWT)
+ *     doğru şekilde uygulayan, yaygın kullanılan kütüphane. Deno/Supabase Edge Runtime
+ *     `npm:` specifier'ını destekliyor (Deno >=1.28 / güncel Supabase edge-runtime).
+ *     Bu kod bu ortamdan gerçek bir push servisine (FCM/Mozilla push vb.) karşı uçtan
+ *     uca test EDİLEMEDİ (ağ erişimi bu oturumda proxy politikasıyla kısıtlı) — canlıya
+ *     almadan önce gerçek bir tarayıcı aboneliğiyle bir kez manuel doğrulanmalı.
  */
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import webpush from "npm:web-push@3.6.7";
 
 interface Body {
   user_ids: string[];
@@ -114,36 +115,46 @@ serve(async (req) => {
     icon: body.icon ?? "/icon-192.png",
   });
 
-  // İSKELET — gerçek web-push gönderimi VAPID JWT + AES-128-GCM encryption gerektirir.
-  // Production için: import { webPushHandler } from "https://deno.land/x/webpush/mod.ts";
-  // veya manuel ECDH + HKDF + AES-GCM. Bu fonksiyon şu anda gönderim simülasyonu yapar.
+  webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
+
   let sent = 0;
   let failed = 0;
+  let removed = 0;
   const errors: { user_id: string; reason: string }[] = [];
+  const staleTokens: string[] = [];
 
   for (const row of tokens) {
     try {
       const sub = JSON.parse(row.token);
-      if (!sub.endpoint) throw new Error("invalid_subscription");
-      // TODO: Gerçek web-push call buraya:
-      //   await pushService.send(sub, payload, { vapidDetails: { ... } });
-      // İskelet log:
-      console.log(`[push-notifier] ${row.platform} → ${sub.endpoint.slice(0, 50)}... | ${payload.slice(0, 80)}`);
+      if (!sub.endpoint || !sub.keys?.p256dh || !sub.keys?.auth) {
+        throw new Error("invalid_subscription");
+      }
+      await webpush.sendNotification(sub, payload, { TTL: 3600 });
       sent++;
     } catch (e) {
-      failed++;
+      const statusCode = (e as { statusCode?: number })?.statusCode;
+      // 404/410: tarayıcı aboneliği artık geçersiz — kaydı temizle (stale token birikimini önler).
+      if (statusCode === 404 || statusCode === 410) {
+        staleTokens.push(row.token);
+        removed++;
+      } else {
+        failed++;
+      }
       errors.push({
         user_id: row.user_id,
-        reason: String(e).slice(0, 200),
+        reason: String((e as { message?: string })?.message ?? e).slice(0, 200),
       });
     }
+  }
+
+  if (staleTokens.length > 0) {
+    await sb.from("device_push_tokens").delete().in("token", staleTokens);
   }
 
   return json({
     sent,
     failed,
+    removed,
     errors: errors.slice(0, 10),
-    skeleton: true,
-    note: "Gerçek web-push gönderimi için VAPID JWT + AES-128-GCM encryption gerek. Bu sürüm log + DB tarama yapar.",
   });
 });
