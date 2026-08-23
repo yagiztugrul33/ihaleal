@@ -249,6 +249,9 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     if (tab !== "fay" || faultFetchStarted.current) return;
     faultFetchStarted.current = true;
     let cancelled = false;
+    // MOCK VERİ: MTA'nın gerçek/açık bir fay hattı API'si yok (statik harita/shapefile
+    // olarak yayımlıyorlar). TODO: MTA açık veri portalından shapefile alınıp GeoJSON'a
+    // çevrilerek düzenli güncellenmeli, ya da resmi bir API yayımlanırsa ona geçilmeli.
     fetch("/geo/mta-faults-mock.geojson")
       .then((r) => r.json())
       .then((j) => {
@@ -266,6 +269,10 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
     if (tab !== "acil" || assemblyFetchStarted.current) return;
     assemblyFetchStarted.current = true;
     let cancelled = false;
+    // MOCK VERİ: AFAD'ın toplanma alanları için ülke genelinde tek bir açık API'si yok
+    // (bazı büyükşehir belediyeleri kendi açık veri portallarında yayımlıyor).
+    // TODO: İlgili büyükşehir belediyesi açık veri portalı (ör. İBB Açık Veri) şehir
+    // bazında entegre edilmeli; ülke geneli tek kaynak yoksa şehir şehir genişletilmeli.
     fetch("/data/afad-assembly-mock.json")
       .then((r) => r.json())
       .then((raw: AssemblyRow[]) => {
@@ -367,7 +374,8 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <p className="afet-hub__muted">
-            MTA demo cizgisi: `/geo/mta-faults-mock.geojson`. Fay mesafe ~
+            ⚠️ Bu harita <strong>temsili/mock veridir</strong>, resmi MTA fay hattı kaynağı
+            değildir (henüz açık bir MTA API'si yok). Fay mesafe ~
             {d?.fault.distanceToFaultKm ?? "—"} km ({d?.fault.nearestFaultNameTr ?? "—"}).
           </p>
           <SuspenseMap>
@@ -435,8 +443,9 @@ export function AfetDisasterHub({ property }: AfetDisasterHubProps) {
       panel = (
         <>
           <p className="afet-hub__muted">
-            AFAD demo toplanma noktalari ve tahliye erisim skorlari; sehir ya da ≤35 km mesafe ile
-            süzülür.
+            ⚠️ Toplanma noktaları <strong>temsili/mock veridir</strong>, resmi AFAD kaynağı
+            değildir; şehir ya da ≤35 km mesafe ile süzülür. Kesin toplanma alanı bilgisi için
+            yerel AFAD/belediye kaynaklarını kontrol edin.
           </p>
           {renderBars(acilSubs)}
           <ul className="afet-hub__assemble-list">
