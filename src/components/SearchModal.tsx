@@ -62,14 +62,18 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
     };
   }, [effectiveOpen]);
 
-  const results = query.length >= 2 ? catalog.filter((a) =>
-    a.title.toLowerCase().includes(query.toLowerCase()) ||
-    a.location.toLowerCase().includes(query.toLowerCase()) ||
-    a.city.toLowerCase().includes(query.toLowerCase()) ||
-    a.district.toLowerCase().includes(query.toLowerCase()) ||
-    a.category.toLowerCase().includes(query.toLowerCase()) ||
-    (a.tags && a.tags.some((t) => t.toLowerCase().includes(query.toLowerCase())))
-  ) : [];
+  const results = useMemo(() => {
+    if (query.length < 2) return [];
+    const q = query.toLowerCase();
+    return catalog.filter((a) =>
+      a.title.toLowerCase().includes(q) ||
+      a.location.toLowerCase().includes(q) ||
+      a.city.toLowerCase().includes(q) ||
+      a.district.toLowerCase().includes(q) ||
+      a.category.toLowerCase().includes(q) ||
+      (a.tags && a.tags.some((t) => t.toLowerCase().includes(q)))
+    );
+  }, [query, catalog]);
 
   // Ö2: rota + modül eşleşmesi — başlık, anahtar kelime ve href üstünden TR-duyarlı arama
   const pageResults = useMemo(() => {

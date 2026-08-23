@@ -5,8 +5,7 @@ function generate() {
   try {
     const input = fs.readFileSync(0, 'utf8');
     if (!input || input.trim() === '') {
-      process.stderr.write('No input received on stdin
-');
+      process.stderr.write('No input received on stdin\n');
       process.exit(1);
     }
 
@@ -21,9 +20,7 @@ function generate() {
       lines.push('');
     });
     
-    process.stdout.write(lines.join('
-') + '
-');
+    process.stdout.write(lines.join('\n') + '\n');
   } catch (err) {
     process.stderr.write(`Error generating changelog: ${err.message}
 `);

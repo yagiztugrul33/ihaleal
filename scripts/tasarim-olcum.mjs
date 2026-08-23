@@ -79,7 +79,7 @@ for (const vp of [{ w: 1280, h: 900, n: 'desktop' }, { w: 375, h: 812, n: 'mobil
   for (const r of ROUTES) {
     try {
       await page.goto(BASE + r, { waitUntil: 'networkidle', timeout: 45000 });
-    } catch { try { await page.goto(BASE + r, { waitUntil: 'domcontentloaded', timeout: 30000 }); } catch {} }
+    } catch { try { await page.goto(BASE + r, { waitUntil: 'domcontentloaded', timeout: 30000 }); } catch { /* ikinci deneme de basarisizsa sayfa olcumsuz kalir */ } }
     await page.waitForTimeout(1200);
     let m;
     try { m = await page.evaluate(AUDIT); } catch (e) { m = { error: String(e).slice(0, 120) }; }
