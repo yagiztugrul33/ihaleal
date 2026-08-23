@@ -1,181 +1,285 @@
-# ihaleal.com — Durum Tespiti ve "Nerede Kaldık" Raporu
+# ihaleal.com — Durum Tespiti Raporu (Kanıt Zorunlu Sürüm)
 
 **Rapor tarihi:** 2026-08-23
-**Hazırlayan:** Claude Code (otomatik, komutlar gerçekten çalıştırılarak hazırlandı)
-**Not:** Bu, aynı tarihli önceki raporun yerini alan, daha derin ve doğrulanmış bir sürümdür (edge function kaynak kodu incelendi, bağımlılık zincirleri izlendi, npm audit JSON'u ayrıştırıldı).
+**Kural:** Bu raporda hiçbir iddia tahmine dayanmıyor — her satırın yanında komut çıktısı veya `dosya:satır` kanıtı var. Kanıtlanamayan/erişilemeyen maddeler açıkça "kontrol edilmeli / canlı doğrulanamadı" olarak işaretlendi.
 
 ---
 
 ## Yönetici Özeti
 
-- **İskelet sağlam:** Typecheck 0 hata, build başarılı, unit testler 207/207 geçiyor, lint'te sadece 3 küçük sorun kaldı.
-- **npm audit'teki 23 zafiyetin tamamı devDependency zincirinde** (Capacitor CLI, jsdom, happy-dom, Vite dev sunucusu) — bağımlılık ağacı izlenerek doğrulandı, **hiçbiri production/tarayıcı bundle'ına girmiyor**.
-- **Eski dokümantasyon güncel değil:** Kod incelendiğinde PVGIS ve AFAD entegrasyonlarının gerçek dış API'lere bağlı olduğu görüldü (önceki raporlar bunları "mock/heuristic" olarak işaretlemişti) — ama **canlı ortamda gerçekten çalıştıkları bu oturumdan doğrulanamadı** (ağ erişimi engelli, aşağıda açıklanıyor).
-- **PayTR ödeme entegrasyonu kod içinde açıkça "skeleton"/`not_implemented` (HTTP 501)** olarak işaretli — bu tek madde, dokümantasyon iddiası değil, doğrudan kaynak koddan doğrulanmış bir eksik.
-- **Git geçmişi ile repo içeriği arasında ciddi bir tutarsızlık var** — 51 commit'in tamamı yalnızca 18 saatlik bir pencerede (5-6 Ağustos 2026), ama repodaki tarihli raporlar Nisan-Ağustos 2026 arasına yayılan aylar süren bir çalışmaya işaret ediyor.
-- **Bu oturumda dışa açık ağ erişimi (Vercel, Supabase) proxy tarafından engellendi** — Edge Function'lar ve canlı site bu ortamdan test edilemedi; bulgular kaynak kod incelemesine dayanıyor, canlı doğrulama ayrı bir ortamda yapılmalı.
+1. **İskelet sağlam ve kanıtlı:** typecheck 0 hata (38.1s), build başarılı (66.8s), unit testler 207/207 geçti (14.0s) — hepsi bu oturumda çalıştırılıp gerçek terminal çıktısıyla doğrulandı.
+2. **Önceki turun "npm audit'in tamamı devDependency" iddiası bu turda YANLIŞ çıktı ve düzeltildi:** `npm audit --json` + `npm ls --all` ile paket paket izlendiğinde, 23 zafiyetten **2 tanesinin gerçekten production bundle'a giren paketlerden (react-router-dom, jspdf→dompurify) geldiği** kanıtlandı. Kalan 21'i devDependency.
+3. **İki Edge Function, kendi kaynak kodunda açıkça "iskelet/simülasyon" olarak işaretli** (varsayım değil, dosya içi yorum): `payments-paytr` (HTTP 501 `not_implemented`) ve `push-notifier` (gerçek gönderim yok, sadece `console.log`).
+4. **Canlı doğrulama bu oturumdan yapılamadı** — `curl` ile hem `ihaleal.vercel.app` hem `*.supabase.co` denendi, proxy seviyesinde 403 ile reddedildi (log kanıtı aşağıda). Edge Function'ların gerçek HTTP yanıtları (404/200) bu ortamdan ölçülemedi.
+5. **Git geçmişi (18 saat, 52 commit) ile repodaki tarihli raporların işaret ettiği süre (Nisan-Ağustos 2026) arasında kanıtlanmış bir tutarsızlık var** — kesin tarih alıntılarıyla aşağıda gösteriliyor.
 
 ---
 
-## Proje Künyesi
+## 1. Proje Künyesi
 
-**Ne yapıyor:** Gayrimenkul ilanı/ihale (açık artırma), kurumsal emlak ofisi paneli, yatırım "intelligence" (deprem risk, GES/güneş enerjisi, parsel istihbaratı) ve kat karşılığı modüllerini bir arada sunan bir Vite + React + TypeScript + Supabase platformu.
-
-| Metrik | Değer |
-|---|---|
-| Kaynak dosyası (`src/`) | 735 |
-| Supabase Edge Function | 18 (+ `_shared` ortak kod klasörü) |
-| Supabase migration | 57 (+ 4 arşiv migration, `migrations_archive_pre_tur9`) |
-| `dependencies` (production) | 66 |
-| `devDependencies` | 30 |
-| Kök dizin rapor/komut dosyası (`.md/.txt/.bat`) | 61 |
-| `_audit/` dosya sayısı / boyutu | 641 dosya / **127 MB** |
-| `docs/` dosya sayısı / boyutu | 143 dosya / 1.2 MB |
-
-**Teknoloji yığını:**
-
-| Katman | Teknoloji |
-|---|---|
-| Frontend | Vite 6, React 19, TypeScript 5.8, Tailwind 3.4, Radix UI, Framer Motion |
-| Backend/veri | Supabase (Postgres + Auth + 18 Edge Function, 57 migration) |
-| Mobil | Capacitor 8 (Android + iOS native proje klasörleri) |
-| Test | Vitest (unit), Playwright (smoke/e2e) |
-| Diğer servisler | Sentry, Vercel Analytics, jsPDF/html2canvas, TCMB EVDS, PVGIS (JRC), AFAD API, iyzico/PayTR |
-| Deploy | Vercel |
-
-**Script'ler (`package.json`, öne çıkanlar):** `dev`, `build` (özel `vite-build-safe.mjs` sarmalayıcı), `typecheck`, `lint` / `lint:ci` (kısıtlı yol seti), `test` / `test:run` / `test:coverage`, `test:smoke` (Playwright), `test:rls` / `test:rls:live` (RLS politika testleri), `security:audit` (`npm audit --audit-level=high`), `verify` ve `verify:ci` (hepsini zincirleyen tam doğrulama komutları).
-
-**Supabase yapılandırması:** `supabase/config.toml` içinde `project_id = "ihaleal.com"`, yerel API portu 54321, DB portu 54322. Gerçek proje referansı `package.json`'daki `supabase:link` script'inden görülüyor: `wsjifesrdaeorrdzbvmk`. Edge Function'lar: `ai-price-estimate`, `ai_qa`, `borsa_etl`, `bulk-listing-ingest`, `earthquakes_latest`, `kyc-submit`, `matching-fanout`, `nearby-poi`, `payments-iyzico`, `payments-paytr`, `place-bid`, `place_bid` (iki farklı isimlendirme — **kontrol edilmeli**, muhtemelen biri eski/duplicate), `post_chat_message`, `push-notifier`, `pvgis_solar`, `report-notifier`, `tcmb_evds`, `tcmb_yiufe` (bu ikisi de TCMB için — **kontrol edilmeli**, duplicate olabilir).
-
----
-
-## Sağlık Kontrolü Sonuçları
-
-Tüm kontroller bu oturumda `npm install` (1184 paket, hatasız) sonrası gerçekten çalıştırıldı.
-
-| Kontrol | Komut | Sonuç | Detay |
-|---|---|---|---|
-| Typecheck | `npm run typecheck` | ✅ **0 hata** | 39.7 saniye |
-| Unit testler | `npm run test:run` | ✅ **207 geçti, 2 atlandı** (52 dosyadan 51'i) | 13.5 saniye. Testler sırasında bazı dış API çağrıları (open-meteo, PVGIS/JRC, open-elevation) jsdom ortamında CORS/403 ile engellendi — bunlar test ortamı kısıtı, gerçek hata değil (fetch'ler mock'lanmış senaryolarda zaten bekleniyor) |
-| Build | `npm run build` | ✅ Başarılı | 1 dakika 22 saniye. `dist/` üretildi, PWA precache 314 dosya (~6.85 MB). En büyük chunk `vendor-charts` (455 KB) ve ana `index` bundle (454 KB) — izlenmeli |
-| Lint | `npm run lint` (`eslint . --max-warnings 0`) | ⚠️ **2 hata + 1 uyarı** | (1) `.claude/skills/version-bump/scripts/generate_changelog.js:8` parse hatası (proje kodu değil, Claude Code skill scripti); (2) `scripts/tasarim-olcum.mjs:82` boş blok; (3) `src/components/SearchModal.tsx:65` `react-hooks/exhaustive-deps` uyarısı |
-| `npm audit --audit-level=high` | JSON çıktısı ayrıştırıldı | ⚠️ **23 zafiyet** (1 kritik, 16 yüksek, 4 orta, 2 düşük) | **Tamamı devDependency zincirinde — production'a girmiyor** (aşağıda detaylı) |
-
-### npm audit — dev vs production ayrımı (bağımlılık zinciri izlenerek doğrulandı)
-
-`npm ls <paket> --all` ile her kök zafiyetli paketin nereden geldiği izlendi:
-
-| Kök paket | Zafiyet nereden geliyor | Dev mi Prod mu |
+| Metrik | Değer | Kanıt |
 |---|---|---|
-| `tar` | `@capacitor/assets → @capacitor/cli` (5.7.8) ve doğrudan `@capacitor/cli` (8.5.0) | **DEV** (build/mobil tooling) |
-| `undici` | `jsdom` (test ortamı) | **DEV** (yalnızca test) |
-| `vite` | doğrudan `devDependencies` | **DEV** |
-| `ws` | `happy-dom` (test ortamı) | **DEV** (yalnızca test) |
-| `uuid` | `@capacitor/cli → xcode` | **DEV** (mobil tooling) |
+| Kaynak dosyası (`src/`) | 735 | `find src -type f \| wc -l` |
+| Edge Function | 18 (+`_shared`) | `find supabase/functions -maxdepth 1 -type d` |
+| Migration | 57 (+4 arşiv) | `find supabase/migrations -name "*.sql" \| wc -l` → 57; `migrations_archive_pre_tur9` → 4 |
+| `dependencies` (production) | 66 | `node -e "console.log(Object.keys(require('./package.json').dependencies).length)"` |
+| `devDependencies` | 30 | aynı yöntem |
+| Kök dizin rapor/komut dosyası | 61 | `find . -maxdepth 1 \( -name "*.md" -o -name "*.txt" -o -name "*.bat" \) \| wc -l` |
+| `_audit/` dosya/boyut | 641 dosya / 127 MB | `find _audit -type f \| wc -l`; `du -sh _audit` |
 
-**Sonuç: 23 zafiyetin 23'ü de devDependency kaynaklı — tarayıcıya giden production bundle'ında hiçbiri yok.** `dependencies` (66 paket, production) içinde doğrudan hiçbir zafiyet bulunamadı. Yine de CI/geliştirme makinesi ve mobil build zinciri (`@capacitor/cli`, `supabase` CLI) için risk taşıyor; `npm audit fix` denenmeli (major sürüm sıçratabilir, dikkatli test edilmeli — bu oturumda çalıştırılmadı).
+**Teknoloji:** Vite 6, React 19, TypeScript 5.8, Tailwind 3.4, Radix UI, Supabase (Postgres+Auth+Edge Functions), Capacitor 8 (Android/iOS), Vitest + Playwright, Sentry, Vercel Analytics, jsPDF/html2canvas, TCMB EVDS, PVGIS, AFAD, iyzico/PayTR.
 
----
+**Supabase config:** `supabase/config.toml:5` → `project_id = "ihaleal.com"`; gerçek proje referansı `package.json` içindeki `"supabase:link": "supabase link --project-ref wsjifesrdaeorrdzbvmk"` script'inden okundu. Edge Function isim çiftleri **kontrol edilmeli**: `place-bid` ile `place_bid`, `tcmb_evds` ile `tcmb_yiufe` — ikisi de dizinde mevcut, hangisinin canlıda kullanıldığı bu oturumdan tespit edilemedi (deploy durumu görülemiyor).
 
-## Git Durumu ve Tutarsızlık Notu
+### Kurulu ama kullanılmayan paket — kanıtlanmış
 
-- **Aktif branch:** `claude/ihaleal-status-report-t5dtai`; ayrıca `main` ve uzak eşleri mevcut.
-- **Çalışma ağacı:** temiz (bu rapor dosyası hariç, commit edilmeye hazır).
-- **Toplam commit:** 51 (bu rapor commit'i dahil; öncesi 50).
-- **Tarih aralığı:** İlk commit **2026-08-05 04:31:14 +0300**, son "gerçek" iş commit'i **2026-08-06 01:42:13 +0300** — yani tüm proje geçmişi **~18 saatlik bir pencerede** işlenmiş.
+`i18next` ve `react-i18next`, `package.json`'da `dependencies` altında listeli, ancak:
 
-### ⚠️ Tutarsızlık — açıkça belirtiliyor
+```
+$ grep -rn "useTranslation" -r src --include="*.tsx" | wc -l
+0
+```
 
-Repodaki çok sayıda tarihli rapor/denetim dosyası bambaşka bir zaman çizelgesine işaret ediyor:
-- `NEREDEYDIK.md` → "Son güncelleme: 2026-05-17"
-- `_audit/final/01_canli.md` → "Tarih: 17.05.2026"
-- `docs/SECURITY_STATUS.md` → "Updated: 2026-05-16"
-- `_audit/FEATURE_INVENTORY.md` → "(2026-05-30)"
-- `_audit/` altında Nisan-Mayıs 2026 arasına tarihlenen onlarca denetim klasörü (`dil-faz0` … `dil-faz1n`, `hukuk-blok1` … `hukuk-mobil-b4`, `fiyat-blok1` … `fiyat-blok6` vb.)
+`src/` içinde hiçbir yerde bu kütüphanelerden `import` veya `useTranslation()` çağrısı **bulunamadı**. Gerçek çeviri sistemi `src/i18n/messages.ts` içinde elle yazılmış özel bir sözlük (`Locale`, `getMessagesFor()`). Kodun kendi yorumu (satır 17, 1094, 3253):
 
-Yani **repo içeriği (735 kaynak dosyası, 641 audit dosyası, 143 doc dosyası, olgunlaşmış özellik seti) aylar süren bir geliştirme sürecinin ürünü gibi görünüyor, ama git log bunun sadece 18 saatte yazıldığını söylüyor.** Bu iki şeyden biri anlamına gelir:
+```
+src/i18n/messages.ts:17:  * RU/AR FAZ 0: SADECE altyapı. Çoğu metin TR fallback.
+src/i18n/messages.ts:1094: * Tam çeviri tabanı: en + tr (mevcut). RU/AR FAZ 0'da `getMessagesFor()` ile
+src/i18n/messages.ts:3253:// ───────── RU/AR FAZ 0 — kanıt çevirileri (sadece nav.*) ─────────
+```
 
-1. **Geçmiş sıfırlanmış/squash edilmiş:** Proje muhtemelen aylarca farklı bir git geçmişiyle (belki yerel, belki başka bir uzak repo, belki Cursor/Kimi gibi araçlarla çalışılan farklı bir ortamda) geliştirildi, sonra tek bir temiz geçmişle (`main`'den itibaren 51 commit) bu repoya "yeniden yazıldı" ya da bu klon o noktadan başlatıldı.
-2. **Bu session'ın gördüğü klon, GitHub'daki gerçek `main` dalının tam tarihçesini yansıtmıyor olabilir** — sığ (shallow) bir görünüm ya da farklı bir dal/fork üzerinden geliyor olabilir.
-
-**Kontrol edilmeli:** GitHub'da `yagiztugrul33/ihaleal` reposunun web arayüzünden (veya `git log --all` ile derin bir klon üzerinden) gerçek commit sayısı ve tarih aralığı doğrulanmalı. Bu raporun yazarı (Claude Code) bu ortamdan yalnızca tek bir klonu görebiliyor.
-
-### Son iş teması (git log'dan)
-Açık/minimal tema geçişi (koyu panel sayısı 364→0), Tailwind paletinin tokenlara bağlanması, performans turu (LCP, vendor bundle ayrıştırma), Google Fonts'un self-host edilmesi, Navbar test bataryasının 207/207'ye çıkarılması, Capacitor'ün açık temaya taşınması ve iOS platformunun eklenmesi.
+**Sonuç (kanıtlı):** RU/AR dilleri sadece navigasyon öğelerinde çevrilmiş, geri kalan tüm metin TR'ye düşüyor. `i18next`/`react-i18next` paketleri şu an ölü kod (bundle'da yer kaplıyor ama kullanılmıyor).
 
 ---
 
-## Çalışan Özellikler
+## 2. Git Durumu ve Tutarsızlık Notu
 
-Build ve test sonuçları, route yapısının derlenebilir ve testlerin yeşil olduğunu doğruluyor. Kod incelemesiyle doğrulanan somut örnekler:
+**Kanıt — `git log`/`git status` çıktısı:**
 
-- **İlan/ihale akışı:** teklif verme, teminat, anti-sniping, komisyon hesaplama — `src/lib/fees.ts` ve ilgili sayfalar derleniyor, testler geçiyor.
-- **Deprem risk modülleri:** `earthquakes_latest` Edge Function **gerçekten** `https://deprem.afad.gov.tr/apiv2/event/filter` adresine istek atıyor, veriyi normalize ediyor (kod seviyesinde doğrulandı — bkz. aşağıdaki "Eksik İşler" bölümünde nüans).
-- **GES/güneş enerjisi analizi:** `pvgis_solar` Edge Function **gerçekten** Avrupa Komisyonu'nun resmi PVGIS API'sine (`https://re.jrc.ec.europa.eu/api/v5_2/seriescalc`) istek atıyor, yanıtı parse ediyor, hata durumunda anlamlı `502`/`pvgis_fetch_failed` dönüyor. Bu, API anahtarı gerektirmeyen açık bir kamu API'si.
-- **KYC gönderim akışı:** `kyc-submit` Edge Function, auth kontrolü + zod validasyonu + `kyc_verifications` tablosuna `in_review` statüsüyle kayıt atıyor — gerçek bir gönderim/kuyruklama akışı (aşağıda nüans var).
-- **Uyum (compliance) chat taraması:** `post_chat_message` Edge Function, platformu bypass etme girişimlerini (komisyonsuz anlaşma, whatsapp'a yönlendirme, tapuda düşük gösterme vb.) 23 anahtar kelime kuralıyla ağırlıklandırarak puanlayan gerçek bir NLP-benzeri motor içeriyor (187 satır, iskelet değil).
-- **iyzico ödeme entegrasyonu:** 489 satırlık gerçek bir implementasyon — secret yoksa sandbox simülasyonuna düşüyor, secret varsa gerçek iyzico REST API'sini çağırıyor; sunucu taraflı tutar doğrulaması ve idempotency key mantığı var.
+```
+$ git status --short
+(bu rapor commit'lenmeden önce: temiz)
+
+$ git branch -a
+* claude/ihaleal-status-report-t5dtai
+  main
+  remotes/origin/claude/ihaleal-status-report-t5dtai
+  remotes/origin/main
+
+$ git log --oneline | wc -l
+52
+
+$ git log --reverse --format='%H %ci' | head -1
+08b680aba92516e3d3392f7e76d7e0b98f74d385 2026-08-05 04:31:14 +0300
+
+$ git log -1 --format='%H %ci'
+23454ec60372b20d0e10b5a692cb7a1e20c2d038 2026-08-23 10:15:53 +0000
+```
+
+Son "gerçek iş" commit'i (bu rapordan önceki): `c08a387` — 2026-08-06 01:42:13 +0300. Yani **51 iş commit'i, 2026-08-05 04:31 ile 2026-08-06 01:42 arasındaki ~21 saatlik pencerede** atılmış.
+
+### Zorunlu karşılaştırma — kanıtlı tutarsızlık
+
+Repodaki tarihli dosyalardan **doğrudan alıntı**:
+
+```
+NEREDEYDIK.md:89:              *Son güncelleme: 2026-05-17 ...*
+docs/SECURITY_STATUS.md:3:     **Updated:** 2026-05-16 | ...
+_audit/FEATURE_INVENTORY.md:1: # ihaleal — Tam Özellik Envanteri (2026-05-30)
+_audit/FEATURE_INVENTORY.md:267: **Durum (2026-05-30):** **27 hata** (önceki sprint: 33 → 13 hedefi; regresyon / yeni dosyalar)
+_audit/FEATURE_INVENTORY.md:297: ### Hotfix geçmişi (2026-05-29 sabah krizi)
+_audit/FEATURE_INVENTORY.md:382: ## EK — R14 Müteahhit Lansman Sprint (2026-05-30 gece)
+```
+
+**Kanıtlanmış çelişki:** Repo, Mayıs 2026'ya tarihlenen "sprint", "hotfix geçmişi", "gece lansmanı" gibi çok aşamalı bir çalışma sürecine ait belgeler içeriyor; ama git log bunun tamamının 21 saatte yazıldığını söylüyor. Bu matematiksel olarak (aynı git geçmişinde) mümkün değil.
+
+**Olası nedenler (öncelik sırasıyla, kanıtlanamadı — sadece olasılık):**
+1. **History reset/squash:** Proje aylarca ayrı bir git geçmişiyle geliştirildi, sonra bu repo tek bir temiz dal (`main`, 52 commit) ile "yeniden başlatıldı" — belge dosyaları (markdown, json, png) bu sıfırlamadan etkilenmeden (working tree içeriği olarak) taşındı.
+2. **Farklı ortam:** Belgeler Cursor/Kimi gibi başka bir araçla/depoda üretilip bu repoya kopyalanmış olabilir (`docs/kimi/`, `docs/kimi-import/` gibi klasör adları bu ihtimali destekliyor — kanıt: `find docs -maxdepth 1 -type d` çıktısında `kimi`, `kimi-import`, `kimi-mega-pack` klasörleri var).
+3. **Bu session'ın gördüğü klon eksik/farklı:** GitHub'daki gerçek `main` dalının tam tarihçesi bu klonda görünmüyor olabilir.
+
+**Kontrol edilmeli:** GitHub web arayüzünden `yagiztugrul33/ihaleal` reposunun gerçek commit sayısı/tarih aralığı doğrulanmalı — bu oturumdan yapılamaz (yalnızca yerel klonu görebiliyorum).
 
 ---
 
-## Eksik / Yarım Kalan İşler
+## 3. Sağlık Kontrolü (gerçekten çalıştırıldı)
 
-### Yüksek öncelik
+| Kontrol | Komut | Sonuç | Süre | Kanıt |
+|---|---|---|---|---|
+| Typecheck | `npm run typecheck` | ✅ 0 hata | **38.1s** (`real 0m38.149s`) | terminal çıktısı, hata satırı yok |
+| Unit test | `npm run test:run` | ✅ 207 geçti, 2 atlandı (52 dosyadan 51'i) | **14.0s** (`real 0m14.015s`) | `Test Files 51 passed \| 1 skipped (52)` / `Tests 207 passed \| 2 skipped (209)` |
+| Build | `npm run build` | ✅ başarılı | **66.8s** (`real 1m6.823s`) | `✓ built in 22.05s` + PWA precache 314 dosya/6847.88 KiB |
+| Lint | `npm run lint` (`eslint . --max-warnings 0`) | ⚠️ 2 hata + 1 uyarı | ~birkaç sn | aşağıda tam liste |
+| `npm audit --audit-level=high` | JSON ayrıştırıldı | ⚠️ 23 zafiyet (1 kritik, 16 yüksek, 4 orta, 2 düşük) | — | `metadata.vulnerabilities: {"info":0,"low":2,"moderate":4,"high":16,"critical":1,"total":23}` |
 
-1. **PayTR ödeme entegrasyonu — kanıtlanmış eksik.** `supabase/functions/payments-paytr/index.ts` içinde dosya başlığında açıkça "PayTR payment **skeleton**" yazıyor; secret'lar mevcut olsa bile POST isteğine `{ ok: false, error: "not_implemented", message: "PayTR flow not wired yet; secrets are present." }` ile HTTP **501** dönüyor. Bu, varsayım değil — doğrudan kaynak koddan okunmuş bir gerçek.
-2. **Edge Function isim/duplikasyon belirsizliği:** `place-bid` / `place_bid` ve `tcmb_evds` / `tcmb_yiufe` çifti — hangisinin güncel/canlıda kullanılan olduğu **kontrol edilmeli** (kod içinde ikisi de duruyor, ölü kod riski).
-3. **Canlı doğrulama yapılamadı — ağ erişimi engelli.** Bu oturumun ağ politikası `ihaleal.vercel.app` ve `*.supabase.co` gibi hostlara giden bağlantıları proxy seviyesinde 403 ile reddediyor (`$HTTPS_PROXY/__agentproxy/status` çıktısındaki `recentRelayFailures` ile doğrulandı: `connect_rejected — gateway answered 403 to CONNECT`). Bu yüzden:
-   - Hiçbir Edge Function gerçekten çağrılıp HTTP kodu ölçülemedi.
-   - Canlı sitenin ayakta olup olmadığı doğrulanamadı.
-   - **Önceki denetim dosyalarındaki "post_chat_message 404 dönüyor", "earthquakes_latest 404 dönüyor" iddiaları bu oturumda ne doğrulanabildi ne de çürütülebildi.** Kod incelemesi bu iki fonksiyonun da düzgün yazılmış olduğunu gösteriyor; 404 iddiası muhtemelen "deploy edilmemiş" durumuna işaret ediyor olabilir (kod var ama Supabase projesine push edilmemiş) — **bu, ayrı ve ağ erişimi olan bir ortamda (yerel makine veya CI) `supabase functions deploy` durumu ve `curl` ile kontrol edilmeli.**
+### Lint — tam liste (3 sorun, değişmedi iki farklı çalıştırmada)
 
-### Orta öncelik
+```
+/home/user/ihaleal/.claude/skills/version-bump/scripts/generate_changelog.js
+  8:28  error  Parsing error: Unterminated string constant
 
-4. **i18n altyapısı yarım/çelişkili:** `package.json`'da `i18next` ve `react-i18next` bağımlılık olarak var, ama `src/` içinde hiçbir yerde `useTranslation` veya bu kütüphanelerden import **bulunamadı**. Gerçek çeviri sistemi, `src/i18n/messages.ts` içinde elle yazılmış özel bir `Locale`/mesaj sözlüğü yapısı. Dosyanın kendi yorumu şunu itiraf ediyor: *"RU/AR FAZ 0: SADECE altyapı. Çoğu metin TR fallback. Tam çeviri sonraki fazlarda (sayfa sayfa)."* → **RU/AR dilleri için tam çeviri tamamlanmamış**, sadece nav öğeleri çevrilmiş, geri kalanı Türkçe'ye düşüyor.
-5. **AFAD toplanma alanı verisi mock:** `src/components/property/AfetDisasterHub.tsx` doğrudan `/data/afad-assembly-mock.json` dosyasından okuyor — bu özellik için gerçek AFAD API bağlantısı yok (deprem olay verisi için `earthquakes_latest` gerçek API kullanıyor ama toplanma alanları için mock kullanılıyor — ayrım önemli).
-6. **KYC gerçek kimlik doğrulama yok:** `kyc-submit` fonksiyonu belgeleri kabul edip veritabanına "in_review" olarak yazıyor, ama bu bir insan/manuel inceleme kuyruğu — otomatik kimlik doğrulama sağlayıcısı (e-Devlet, üçüncü parti eIDV vb.) entegrasyonu **bulunamadı**.
-7. **War Room görsel redesign** (önceki `NEREDEYDIK.md`'de belirtilen hedef) yapılmamış — işlevsel ama görsel sadelik hâlâ geçerli, bu oturumda kodda değişiklik gözlenmedi.
-8. **PDF rapor motoru yok** — `jspdf`/`html2canvas` client-side kullanılıyor, sunucu taraflı profesyonel rapor üretimi yok.
+/home/user/ihaleal/scripts/tasarim-olcum.mjs
+  82:107  error  Empty block statement  no-empty
 
-### Düşük öncelik
+/home/user/ihaleal/src/components/SearchModal.tsx
+  65:9  warning  react-hooks/exhaustive-deps
+```
 
-9. Kod içinde gerçek bir TODO/FIXME/HACK/XXX yorumu **bulunamadı** — 25 eşleşmenin tamamı telefon numarası placeholder'ı (`+90 212 XXX XX XX` vb.) veya bölüm başlığı yorumu (`{/* KATMAN 4 */}`), teknik borç notu değil. Bu iyi bir disiplin göstergesi.
-10. Bundle boyutu — `vendor-charts` (455 KB) ve ana `index` (454 KB) chunk'ları büyük; kod bölme (code-splitting) için gözden geçirilebilir.
+### npm audit — paket paket izlenmiş zincir kanıtı
+
+`npm audit --json` çıktısında 23 paketin tamamı listelendi ve her biri `npm ls <paket> --all` ile fiziksel olarak izlendi:
+
+| Paket | Şiddet | `isDirect` | Zincir (npm ls kanıtı) | Prod mu Dev mi |
+|---|---|---|---|---|
+| `react-router` | high | false | `react-router-dom@7.18.2 → react-router@7.18.2` | **PRODUCTION** — `react-router-dom` `package.json` `dependencies` altında; `grep -rl "react-router-dom" src` → **180 dosya**, `src/App.tsx:2` `import { BrowserRouter, ... } from "react-router-dom"` |
+| `react-router-dom` | low | true | doğrudan `dependencies` | **PRODUCTION** (yukarıdaki gibi) |
+| `dompurify` | moderate | false | `jspdf@4.2.1 → dompurify@3.4.14` | **PRODUCTION** — `jspdf` `dependencies` altında; `grep -rl "jspdf" src` → `src/lib/pdf/pdfBuilder.ts`, `src/components/PropertyAnalysisReportViewer.tsx` (build çıktısında `jspdf.es.min-*.js` 390.40 kB chunk olarak doğrulandı) |
+| `tar` | critical | false | `@capacitor/assets@3.0.5 → @capacitor/cli@5.7.8 → tar@6.2.1` ve `@capacitor/cli@8.5.0 → tar@7.5.22` | DEV (`@capacitor/assets`, `@capacitor/cli` → `devDependencies`) |
+| `@capacitor/assets` | high | true | doğrudan `devDependencies` | DEV |
+| `@capacitor/cli` | high | false | `@capacitor/assets → @capacitor/cli` | DEV |
+| `@trapezedev/project` | high | false | Capacitor iOS/Android tooling zinciri (`xcode`, `replace`) | DEV |
+| `xcode` / `uuid` | moderate | false | `@capacitor/cli → xcode → uuid@7.0.3` | DEV |
+| `replace` / `minimatch` / `brace-expansion` | high | false | `@capacitor/cli → rimraf → glob → minimatch/brace-expansion`; ayrıca `eslint@10.9.0 → minimatch`; `vite-plugin-pwa → workbox-build → ...` | DEV |
+| `undici` | high | false | `jsdom@29.1.1 → undici@7.29.0` | DEV (yalnızca test ortamı) |
+| `ws` | high | false | `happy-dom@20.11.6 → ws@8.21.3` | DEV (yalnızca test ortamı) |
+| `vite` | high | true | doğrudan `devDependencies` | DEV |
+| `postcss` | high | true | doğrudan `devDependencies` | DEV |
+| `nanoid` | high | false | `postcss@8.5.26 → nanoid@3.3.18` | DEV |
+| `@babel/core` | low | false | `@vitejs/plugin-react`, `eslint-plugin-react-hooks`, `vite-plugin-pwa → workbox-build` | DEV |
+| `fast-uri` | high | false | `vite-plugin-pwa → workbox-build → ajv → fast-uri` | DEV |
+| `sharp` | high | true | doğrudan `devDependencies` | DEV |
+| `pdf-to-png-converter` | high | true | doğrudan `devDependencies` | DEV |
+| `pdfjs-dist` | high | false | `pdf-parse`, `pdf-to-png-converter` (ikisi de `devDependencies`) | DEV |
+| `supabase` | moderate | true | doğrudan `devDependencies` (CLI) | DEV |
+
+**Sonuç (düzeltilmiş, önceki turdaki hatalı iddiayı düzeltiyor):** 23 zafiyetten **21'i devDependency kaynaklı** (build/test/mobil tooling), **2'si (`react-router` ailesi ve `dompurify`) gerçekten production bundle'a giriyor** çünkü taşıyıcıları (`react-router-dom`, `jspdf`) doğrudan `dependencies` listesinde ve kodda aktif kullanılıyor.
+
+**Önemli nüans — kontrol edilmeli:** `npm audit` `react-router` için özet aralığı `"6.0.0 - 7.18.1"` olarak veriyor, ama kurulu sürüm **tam olarak `7.18.2`** (`node_modules/react-router/package.json` → `"version": "7.18.2"`). JSON'daki 6 alt-advisory'nin etkilenen aralıklarının tamamı (`>=7.12.0 <7.18.2`, `>=6.0.0 <7.18.0` vb.) kurulu `7.18.2` sürümünü **kapsamıyor** (hepsi `<7.18.2` veya `<7.18.0` ile sınırlı, kurulu sürüm bu sınırların dışında/eşit). Yani npm audit paketi "high" olarak işaretliyor ama sürüm-aralığı matematiği kurulu sürümün aslında patch'lenmiş olabileceğini gösteriyor. Bu **çelişkili bir sinyal** — GitHub Advisory veritabanı doğrudan kontrol edilerek netleştirilmeli, bu rapor bunu netleştiremiyor.
 
 ---
 
-## Güvenlik & Risk Bulguları
+## 4. Eksik / Yarım İşler (kaynak kod okunarak doğrulandı)
 
-- **Sızıntı taraması:** `.env.example`/`.env.production.example` yalnızca placeholder değer içeriyor; genişletilmiş regex taramasında (gerçek görünümlü Stripe/AWS anahtarları, PEM private key blokları, gerçek JWT formatı) repo genelinde **hiçbir eşleşme bulunamadı**. Git geçmişinde de gerçek bir `.env` dosyasının hiç eklenmediği doğrulandı (`git log --diff-filter=A` ile). `.gitignore` env dosyalarını doğru şekilde dışlıyor.
-- **npm audit riski** yukarıda detaylandırıldığı gibi tamamen devDependency/tooling katmanında — ama `@capacitor/cli` ve `supabase` CLI üzerinden geldiği için mobil build ve CI makinelerinde önemsenmeli.
-- **PayTR "secrets present ama not_implemented" davranışı** aslında güvenli bir tasarım: yanlışlıkla yarım bir ödeme akışının canlıya çıkması engellenmiş durumda (bilinçli guard).
-- **Ağ erişimi kısıtı** (bu oturuma özel) canlı güvenlik testini (CORS, rate-limit, RLS canlı davranışı) engelliyor — bu maddeler yalnızca kod incelemesiyle değerlendirilebildi, canlı doğrulama **ayrı bir ortamda yapılmalı**.
+### TODO/FIXME/HACK/XXX — tam liste
+
+`src/` içinde (25 eşleşme, telefon placeholder'ları hariç gerçek not yok):
+```
+src/pages/ibuyer/IBuyerPage.tsx:191:  {/* KATMAN 4 — GÜVEN, METODOLOJİ, HUKUKİ SÜREÇ */}
+```
+(kalan 24'ü `+90 XXX XXX XX XX` tipi telefon placeholder'ı — teknik borç değil.)
+
+`supabase/functions/` içinde ise **gerçek, itiraf edilmiş TODO'lar bulundu** (önceki rapor bu dizini taramamıştı):
+```
+supabase/functions/push-notifier/index.ts:117-119:  // İSKELET — gerçek web-push gönderimi VAPID JWT + AES-128-GCM encryption gerektirir. ... Bu fonksiyon şu anda gönderim simülasyonu yapar.
+supabase/functions/push-notifier/index.ts:128:       // TODO: Gerçek web-push call buraya:
+supabase/functions/report-notifier/index.ts:25:      * NOT (iskelet): Gerçek mail gönderimi için Master canlı deploy öncesi Resend SDK'sı eklenir ve buradaki TODO gerçek fetch'e dönüşür.
+supabase/functions/report-notifier/index.ts:163:     // TODO: Resend, Postmark veya SES SDK entegrasyonu — Master canlı deploy öncesi anahtar setlenir.
+supabase/functions/payments-iyzico/index.ts:443:     // GERÇEK MOD: iyzico subscription API (anahtar varsa) — TODO: iyzico subscription endpoint
+```
+
+**Ek bulgu (davranış hatası riski):** `report-notifier/index.ts:162-166` — `RESEND_API_KEY` yoksa fonksiyon e-postayı göndermeden `sent++` sayacını artırıyor ve `continue` ediyor (satır 163-166). Yani "gönderilmedi" durumu "gönderildi" gibi raporlanıyor — izleme/monitoring için yanıltıcı olabilir.
+
+### Ödeme altyapısı
+
+| Fonksiyon | Durum | Kanıt |
+|---|---|---|
+| `payments-iyzico` | **Gerçek implementasyon** (489 satır); secret yoksa sandbox'a düşüyor, secret varsa gerçek iyzico API | `index.ts:206-213` → `if (!e.ok \|\| e.sandbox) { ... mockPaymentPageUrl ... }`; abonelik akışı kısmen TODO (`:443`) |
+| `payments-paytr` | **Kanıtlanmış iskelet** | `index.ts:2` dosya başlığı: `"Edge Function: PayTR payment skeleton."`; `index.ts:28` GET yanıtı `"stage": "skeleton"`; `index.ts:54-61` POST → `{ "error": "not_implemented", "message": "PayTR flow not wired yet; secrets are present." }`, HTTP **501** |
+
+### Dış veri entegrasyonları — her biri ayrı ayrı kanıtlandı
+
+| Özellik | Gerçek API mi, Mock mu? | Kanıt (satır) |
+|---|---|---|
+| Deprem olay verisi (`earthquakes_latest`) | **GERÇEK** — AFAD resmi API'sine bağlı | `supabase/functions/earthquakes_latest/index.ts:69`: `fetch(\`https://deprem.afad.gov.tr/apiv2/event/filter?...\`)` |
+| GES/güneş enerjisi verisi (`pvgis_solar`) | **GERÇEK** — AB Ortak Araştırma Merkezi PVGIS API'sine bağlı, API anahtarı gerektirmiyor | `supabase/functions/pvgis_solar/index.ts:77`: `new URL("https://re.jrc.ec.europa.eu/api/v5_2/seriescalc")` |
+| AFAD deprem toplanma alanları (`AfetDisasterHub`) | **MOCK** | `src/components/property/AfetDisasterHub.tsx:269`: `fetch("/data/afad-assembly-mock.json")` |
+| MTA fay hattı verisi (aynı bileşen) | **MOCK** | `src/components/property/AfetDisasterHub.tsx:252`: `fetch("/geo/mta-faults-mock.geojson")`; `:370`: `"MTA demo cizgisi: ..."` |
+
+**Not:** Aynı özellik grubu içinde bile gerçek ve mock veri kaynakları karışık — bu, önceki denetim dosyalarının ("PVGIS/AFAD mock") kabaca doğru ama kaba bir genelleme olduğunu gösteriyor; gerçekte ayrım daha ince (olay verisi gerçek, coğrafi/statik referans verisi mock).
+
+### KYC akışı
+
+**Gerçek bir gönderim/kayıt akışı, ama otomatik doğrulama yok — manuel inceleme kuyruğu:**
+```
+supabase/functions/kyc-submit/index.ts:44:  status: "in_review",
+supabase/functions/kyc-submit/index.ts:52:  return json({ ok: true, kyc_id: kyc.id, status: "in_review" });
+```
+Fonksiyon auth kontrolü yapıyor, zod ile body doğruluyor, `kyc_verifications` tablosuna gerçekten yazıyor — simülasyon değil. Ama üçüncü parti bir kimlik doğrulama sağlayıcısına (e-Devlet, eIDV vb.) bağlantı **bulunamadı** — durum her zaman `in_review`'de kalıyor, otomatik onay/red mekanizması yok.
+
+### Canlı test denemesi — SONUÇ: engellenmiş, kod incelemesiyle sınırlı
+
+```
+$ curl -s -o /dev/null -w "HTTP:%{http_code}" --max-time 10 https://ihaleal.vercel.app/
+HTTP:000  (exit code 56 — bağlantı kurulamadı)
+
+$ curl -s --max-time 10 https://wsjifesrdaeorrdzbvmk.supabase.co/functions/v1/earthquakes_latest
+HTTP:000
+
+$ curl -sS "$HTTPS_PROXY/__agentproxy/status" → recentRelayFailures:
+{
+  "ts": "2026-08-23T10:24:23.214Z", "kind": "connect_rejected",
+  "detail": "gateway answered 403 to CONNECT (policy denial or upstream failure)",
+  "host": "ihaleal.vercel.app:443"
+},
+{
+  "ts": "2026-08-23T10:24:23.454Z", "kind": "connect_rejected",
+  "detail": "gateway answered 403 to CONNECT (policy denial or upstream failure)",
+  "host": "wsjifesrdaeorrdzbvmk.supabase.co:443"
+}
+```
+
+**Sonuç: canlı doğrulama bu oturumdan yapılamadı.** Bu ortamın ağ proxy'si `vercel.app` ve `supabase.co`'ya giden CONNECT isteklerini politika gereği reddediyor (kanıt: proxy'nin kendi `recentRelayFailures` günlüğü, zaman damgalı). Önceki denetim dosyalarındaki "post_chat_message 404", "earthquakes_latest 404" iddiaları bu oturumda **ne doğrulanabildi ne çürütülebildi** — bu, ayrı ve ağ erişimi olan bir ortamda (yerel makine/CI) test edilmeli.
 
 ---
 
-## Repo Hijyeni Önerileri
+## 5. Güvenlik & Repo Hijyeni
 
-- **Kök dizin:** 61 adet `.md/.txt/.bat` rapor/komut dosyası birikmiş (`SONUC*.md`, `FIX*_SONUC.md`, `*.bat` çalıştırma script'leri vb.). Öneri: bir `archive/` klasörüne taşı ya da bir "aktif" seti (README, NEREDEYDIK, en güncel durum raporu) dışındakileri sil.
-- **`_audit/`:** 641 dosya, **127 MB** — repoyu ciddi şekilde şişiriyor (git clone/checkout süresini uzatıyor). Çoğu tek seferlik ekran görüntüsü/denetim script'i. Öneri: bu klasörü tamamen git'ten çıkarıp harici bir depoya (ör. ayrı bir "audit-history" reposu veya obje depolama) taşı, ya da en azından Git LFS'e geçir.
-- **`docs/`:** 143 dosya, 1.2 MB — boyut sorun değil ama içerik dağınık (Kimi/Cursor'a özel komut dosyaları, aynı konuda birden fazla taslak). Öneri: aktif mimari/güvenlik dokümanlarını (`ARCHITECTURE.md`, `SECURITY_STATUS.md` vb.) ayrı bir "canonical" klasörde topla, geçmiş taslakları arşivle.
-- **Potansiyel ölü bağımlılıklar:** `i18next` ve `react-i18next` — `src/` içinde hiçbir kullanım bulunamadı (gerçek i18n özel kod ile yapılıyor). **Kontrol edilmeli** ve kullanılmıyorsa kaldırılmalı (bundle boyutuna küçük bir katkısı olabilir).
-- **Duplicate Edge Function isimleri:** `place-bid`/`place_bid`, `tcmb_evds`/`tcmb_yiufe` — hangisi aktif kullanılıyor tespit edilip diğeri silinmeli.
+### Sızıntı taraması
+
+```
+$ grep -rnE "(sk_live_|pk_live_|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC )?PRIVATE KEY-----)" \
+  --include="*.ts" --include="*.tsx" --include="*.js" --include="*.mjs" --include="*.json" --include="*.toml" --include="*.env*" \
+  -l . | grep -v node_modules | grep -v /dist/
+(çıktı yok, exit code 1 — eşleşme yok)
+```
+`.env.example`/`.env.production.example` yalnızca placeholder içeriyor; `.gitignore` gerçek `.env*` dosyalarını doğru dışlıyor. Git geçmişinde de gerçek bir env dosyası eklenmemiş (önceki turda `git log --diff-filter=A` ile doğrulandı).
+
+### Repo hijyeni — sayısal kanıt
+
+- Kök dizin: **61** adet `.md/.txt/.bat` dosyası (`find . -maxdepth 1 ...`).
+- `_audit/`: **641 dosya, 127 MB** (`du -sh _audit`) — repoyu ciddi şekilde şişiriyor.
+- Öneri: `_audit/` git geçmişinden çıkarılıp harici depolamaya (obje deposu / ayrı "audit-history" reposu) taşınmalı; kök dizindeki eski `SONUC*.md`/`FIX*_SONUC.md`/`*.bat` dosyaları bir `archive/` klasörüne toplanmalı.
+
+### Ölü kod / kullanılmayan bağımlılık
+
+- `i18next`, `react-i18next` — yukarıda kanıtlandığı gibi `src/` içinde hiç kullanılmıyor.
+- Duplicate Edge Function isimleri (`place-bid`/`place_bid`, `tcmb_evds`/`tcmb_yiufe`) — hangisinin aktif olduğu tespit edilip diğeri silinmeli (**kontrol edilmeli**, deploy durumu görülemiyor).
+
+---
+
+## 6. Kısıtlar (bu oturumda yapılamayanlar)
+
+| Kısıt | Neden | Etkilenen bölüm |
+|---|---|---|
+| Canlı site / Edge Function HTTP testi | Proxy `connect_rejected` / 403 (kanıt yukarıda, zaman damgalı) | Bölüm 4 — "Canlı test denemesi" |
+| GitHub'daki gerçek commit geçmişinin doğrulanması | Bu oturum yalnızca yerel klonu görebiliyor, GitHub API/web'e ağ erişimi yok | Bölüm 2 — tutarsızlık notu |
+| `npm audit fix`'in gerçek etkisi | Bu oturumda denenmedi (major sürüm riski nedeniyle ayrı bir dalda test edilmeli önerisiyle bırakıldı) | Bölüm 3 |
+| Edge Function'ların Supabase projesine gerçekten deploy edilip edilmediği | `supabase functions list` gibi bir komut çalıştırmak canlı proje kimlik bilgisi + ağ erişimi gerektiriyor, ikisi de yok | Bölüm 1, 4 |
 
 ---
 
 ## Önerilen Sonraki Adımlar (öncelik sırasıyla)
 
-1. **Ağ erişimi olan bir ortamda (yerel makine/CI) Edge Function'ların gerçek deploy ve HTTP durumunu doğrula** — özellikle `post_chat_message`, `earthquakes_latest`, `place-bid` vs `place_bid`. Bu raporun tek gerçek boşluğu bu.
-2. **PayTR entegrasyonunu tamamla veya bilinçli olarak "iyzico yeterli" kararı al** — şu an `not_implemented` durumda net biçimde işaretli, kararsızlık yok, sadece iş kalmış.
-3. **GitHub'da gerçek commit geçmişini doğrula** — Bölüm "Git Durumu ve Tutarsızlık Notu"ndaki soruyu netleştir (squash mu, farklı görünüm mü).
-4. **`npm audit fix` dene** (izole bir branch'te, sonra typecheck+test+build ile doğrula) — devDependency riskini kapat.
-5. **i18next/react-i18next'i kaldır ya da gerçekten kullan** — şu an ikisi de yarım: bağımlılık var ama kod yok; RU/AR çevirisi de yarım. İkisinden birine karar ver.
-6. **RU/AR tam çevirisini tamamla** (sayfa sayfa, `src/i18n/messages.ts` yorumunda planlandığı gibi).
-7. **KYC'ye gerçek kimlik doğrulama sağlayıcısı bağla** (e-Devlet veya üçüncü parti eIDV).
-8. **Repo hijyenini temizle** — `_audit/` klasörünü git'ten çıkar/arşivle (127 MB), kök dizindeki eski rapor dosyalarını topla.
-9. **AFAD toplanma alanı verisini** mock'tan gerçek kaynağa taşı (deprem olay verisi zaten gerçek API'ye bağlı, bu son mock nokta).
-10. **War Room görsel redesign ve sunucu taraflı PDF rapor motoru** — orta/uzun vadeli ürün hedefleri, aciliyeti düşük.
+1. **`react-router`/`react-router-dom` ve `dompurify` zafiyetlerini kapat** — bunlar kanıtlanmış tek production-etkili zafiyet ailesi. Önce GitHub Advisory'de kurulu `7.18.2` sürümünün gerçekten etkilenip etkilenmediği netleştirilmeli (yukarıdaki aralık çelişkisi), sonra `npm audit fix` denenmeli.
+2. **Ağ erişimi olan bir ortamda Edge Function deploy durumunu doğrula** — özellikle `post_chat_message`, `earthquakes_latest`, ve `place-bid`/`place_bid` duplikasyonu.
+3. **PayTR entegrasyonunu bitir ya da resmen kapat** — kod zaten "not_implemented" diyor, karar netleştirilmeli.
+4. **`push-notifier` ve `report-notifier`'ı gerçek servislere bağla** — ikisi de kendi TODO'sunda ne yapılması gerektiğini yazmış; `report-notifier`'daki "gönderilmeden sent++ artıyor" davranışı ayrıca düzeltilmeli (yanlış pozitif monitoring riski).
+5. **`i18next`/`react-i18next`'i kaldır** (kullanılmıyor) **veya** gerçekten devreye al; RU/AR çevirisini FAZ 0'dan çıkar.
+6. **AFAD toplanma alanları ve MTA fay hattı verisini** mock'tan gerçek kaynağa taşı (deprem olay verisi zaten gerçek).
+7. **KYC'ye otomatik kimlik doğrulama sağlayıcısı ekle** (şu an sadece manuel `in_review` kuyruğu).
+8. **`_audit/` klasörünü (127 MB) git geçmişinden arındır**, kök dizindeki 61 eski rapor dosyasını arşivle.
+9. **GitHub'da gerçek commit geçmişini doğrula** (Bölüm 2'deki tutarsızlığı netleştirmek için, ağ erişimi olan biri tarafından).
 
 ---
 
-*Bu rapor; `npm install/typecheck/lint/build/test:run`'ın gerçekten çalıştırılması, `npm audit --json` çıktısının ayrıştırılıp `npm ls --all` ile bağımlılık zincirlerinin izlenmesi, ilgili Edge Function kaynak dosyalarının (`payments-iyzico`, `payments-paytr`, `kyc-submit`, `pvgis_solar`, `earthquakes_latest`, `post_chat_message`) satır satır okunması, `src/i18n/messages.ts` ve `AfetDisasterHub.tsx` gibi dosyaların incelenmesi ve genişletilmiş bir secret-regex taramasıyla hazırlanmıştır. Ağ erişimi bu oturumda `ihaleal.vercel.app` ve `*.supabase.co` için proxy tarafından engellendiği için (`connect_rejected`, HTTP 403) canlı/production doğrulaması yapılamamıştır — bu, "kontrol edilmeli" olarak işaretlenen tüm maddelerin ortak nedenidir.*
+*Bu rapor; `npm install/typecheck/lint/build/test:run`'ın gerçekten çalıştırılması ve süresinin ölçülmesi, `npm audit --json` çıktısının 23 paketin tamamı için `npm ls --all` ile fiziksel olarak izlenmesi, ilgili Edge Function ve frontend dosyalarının satır satır okunması, canlı `curl` denemesi ve proxy'nin kendi hata günlüğünün okunması, genişletilmiş bir secret-regex taraması ve `git log`/`git status` çıktılarının doğrudan alıntılanmasıyla hazırlanmıştır. Kanıtlanamayan hiçbir madde kesin dille yazılmamıştır.*
