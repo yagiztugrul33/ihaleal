@@ -267,6 +267,17 @@ body,
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--metin);
+  font-weight: 700;
+}
+
+/* Shares: gövde/UI 500 ağırlık, başlık 700 — varsayılan gövde ağırlığı */
+body {
+  font-weight: 500;
+}
+
+/* Shares: uppercase eyebrow/etiket satırlarına 0.075em tracking */
+.uppercase {
+  letter-spacing: 0.075em;
 }
 
 /* ── Hareket: yalnız transform/opacity, azaltılmış harekete saygı ───────── */
