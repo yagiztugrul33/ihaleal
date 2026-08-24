@@ -1,45 +1,50 @@
 /* ══════════════════════════════════════════════════════════════════════════
-   ihaleal — AÇIK & MİNİMAL TASARIM SİSTEMİ  (tek kaynak)
+   ihaleal — "SHARES" TASARIM SİSTEMİ  (tek kaynak)
    ──────────────────────────────────────────────────────────────────────────
-   Kural: saf beyaz zemin · koyu nötr metin · TEK vurgu (lacivert #1E40AF).
-   Koyu panel ve gradyan duvarı YOK. Ağır kenarlık YOK. Gölge neredeyse görünmez.
+   Kural: saf beyaz zemin (Porcelain) · koyu nötr metin (Inkstone) · TEK vurgu
+   (Signal Violet #594ff4). Koyu panel ve gradyan duvarı YOK. Ağır kenarlık
+   YOK. Gölge neredeyse görünmez. Kaynak: kullanıcının Refero'dan seçtiği
+   "Shares — Style Reference" DESIGN.md (2026-08-24).
 
    Bu dosya main.tsx'te EN SON import edilir; böylece eski tema dosyalarının
    (:root) tanımlarını geçersiz kılar. Eski değişkenler (lux, premium, color,
    bg ve text ön ekli olanlar) tek tek dosya değiştirmek yerine BURADA yeni
    tokenlara EŞLENİR — geriye uyum korunur, tek noktadan yönetilir.
 
-   Kontrast kanıtı (WCAG 2.1 hesabı, bkz. DENETIM-KAYDI.md):
-     --metin   #1e2a24 / #ffffff → 14.88:1
-     --metin   #1e2a24 / #eef1ee → 12.99:1
-     --metin-ikincil #5f6b64 / #ffffff → 5.56:1
-     --metin-ikincil #5f6b64 / #eef1ee → 4.89:1
-     --vurgu   #1e40af / #ffffff → 8.72:1   (beyaz metin / vurgu zemin de 8.72:1)
+   Kontrast kanıtı (WCAG 2.1 hesabı, node ile relative-luminance formülüyle
+   hesaplandı — bkz. docs/superpowers/plans/2026-08-24-shares-design-system.md):
+     --metin         #1f1f1f / #ffffff → 16.48:1
+     --metin-ikincil #5d5d5d / #ffffff → 6.58:1
+     --vurgu (beyaz metin üzerinde) #ffffff / #594ff4 → 5.46:1
+     --metin (Cloud zeminde) #1f1f1f / #f6f6f6 → 15.25:1
    ══════════════════════════════════════════════════════════════════════════ */
 
 :root {
   /* ——— Zemin ——— */
   --zemin: #ffffff;
-  --zemin-yumusak: #f7f8f7;
-  --zemin-gri: #eef1ee;
+  --zemin-yumusak: #f6f6f6;
+  --zemin-gri: #e7e7e7;
 
   /* ——— Metin ——— */
-  --metin: #1e2a24;
-  --metin-ikincil: #5f6b64;
+  --metin: #1f1f1f;
+  --metin-ikincil: #5d5d5d;
 
-  /* ——— Vurgu: TEK renk ——— */
-  --vurgu: #1e40af;
-  --vurgu-koyu: #1e3a8a;
-  --vurgu-yumusak: #eef2fb;
+  /* ——— Vurgu: TEK renk — Signal Violet ——— */
+  --vurgu: #594ff4;
+  --vurgu-koyu: #2314f0;
+  --vurgu-yumusak: #edecfe;
 
   /* ——— Çizgi ——— (ağır border yok: 1px, çok düşük kontrast) */
-  --cizgi: #e8ede9;
+  --cizgi: #e7e7e7;
 
-  /* ——— Gölge ——— (neredeyse görünmez) */
-  --golge-kucuk: 0 1px 2px rgba(30, 42, 36, 0.04);
-  --golge-buyuk: 0 8px 24px rgba(30, 42, 36, 0.06);
+  /* ——— Gölge ——— (neredeyse görünmez; Shares'te tek "xl" gölgesi float ürün
+     mockup'ları için tanımlı, biz mevcut çift-katmanlı yumuşak gölgeyi
+     koruyoruz — aynı felsefe) */
+  --golge-kucuk: 0 1px 2px rgba(31, 31, 31, 0.04);
+  --golge-buyuk: 0 8px 24px rgba(31, 31, 31, 0.06);
 
-  /* ——— Köşe ——— */
+  /* ——— Köşe ——— (genel amaçlı bant; buton/kart/input radius'u merkezi
+     UI bileşenlerinde AYRICA override edilir — bkz. Task 2-4) */
   --kose: 14px;
   --kose-kucuk: 10px;
 
@@ -52,7 +57,7 @@
   --bosluk-6: 48px;
   --bosluk-8: 64px;
 
-  /* ——— Fonksiyonel durum renkleri (tek vurgu kuralının istisnası, sade) ———
+  /* ——— Fonksiyonel durum renkleri (Shares tanımlamıyor — DEĞİŞMEDİ) ———
      Hepsi beyaz zeminde AA: #15803d 4.54:1 · #9a6700 4.53:1 · #b42318 5.86:1 */
   --durum-basari: #15803d;
   --durum-basari-zemin: #f0f7f2;
@@ -187,7 +192,7 @@
   --card-foreground: 158 12% 14%;
   --popover: 0 0% 100%;
   --popover-foreground: 158 12% 14%;
-  --primary: 224 71% 43%;
+  --primary: 244 88% 63%;
   --primary-foreground: 0 0% 100%;
   --secondary: 140 8% 97%;
   --secondary-foreground: 158 12% 14%;
@@ -198,7 +203,7 @@
   --destructive-foreground: 0 0% 100%;
   --border: 140 14% 92%;
   --input: 140 14% 92%;
-  --ring: 224 71% 43%;
+  --ring: 244 88% 63%;
   --radius: 10px;
   --page-gradient-from: 0 0% 100%;
   --page-gradient-via: 0 0% 100%;
@@ -214,7 +219,7 @@
   --card-foreground: 158 12% 14%;
   --popover: 0 0% 100%;
   --popover-foreground: 158 12% 14%;
-  --primary: 224 71% 43%;
+  --primary: 244 88% 63%;
   --primary-foreground: 0 0% 100%;
   --secondary: 140 8% 97%;
   --secondary-foreground: 158 12% 14%;
@@ -225,7 +230,7 @@
   --destructive-foreground: 0 0% 100%;
   --border: 140 14% 92%;
   --input: 140 14% 92%;
-  --ring: 224 71% 43%;
+  --ring: 244 88% 63%;
 }
 
 /* ── Dolu vurgu yüzeyi ───────────────────────────────────────────────────
