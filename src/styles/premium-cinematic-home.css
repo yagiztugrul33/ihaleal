@@ -2081,10 +2081,10 @@
 
 .terminal-hero__prompt {
   margin: 0 0 1.25rem;
-  font-size: clamp(1.35rem, 3.5vw, 2.25rem);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.075em;
   color: var(--metin);
   /* Glow KALDIRILDI: açık zeminde parlama okunurluğu düşürüyor ve
      "neredeyse görünmez yükselti" kuralına aykırı. */

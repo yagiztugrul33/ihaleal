@@ -44,7 +44,7 @@ export function Home() {
         </section>
 
         <section className="relative mx-auto mt-6 w-full max-w-[1240px] px-4 pb-12 lg:px-6" aria-labelledby="home-modules-title">
-          <h2 id="home-modules-title" className="text-xl font-black text-foreground lg:text-2xl">
+          <h2 id="home-modules-title" className="text-[20px] font-bold text-foreground lg:text-[26px] tracking-[0.02em]">
             Modüller
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">Ne arıyorsan tek tık uzağında — detaylar kendi sayfasında.</p>
