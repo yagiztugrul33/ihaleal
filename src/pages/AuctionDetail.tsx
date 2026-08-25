@@ -407,7 +407,7 @@ export default function AuctionDetail() {
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-700/50 bg-slate-900/50">
           <Search className="h-8 w-8 text-slate-400" aria-hidden />
         </div>
-        <h1 className="text-3xl font-bold text-white sm:text-4xl">
+        <h1 className="text-[26px] font-bold sm:text-[36px]">
           {ld.notFoundTitle}
         </h1>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-400">
@@ -846,7 +846,7 @@ export default function AuctionDetail() {
                   </Badge>
                 )}
               </div>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">{auction.title}</h1>
+              <h1 className="text-[26px] md:text-[36px] lg:text-[36px] font-bold mb-2">{auction.title}</h1>
               <div className="flex flex-wrap items-center gap-2 text-slate-400 mb-4">
                 <MapPin className="w-4 h-4 shrink-0" />
                 <span>{auction.location}</span>
