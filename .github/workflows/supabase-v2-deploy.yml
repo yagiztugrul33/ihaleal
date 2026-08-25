@@ -36,3 +36,4 @@ jobs:
           npx supabase functions deploy kyc-submit
           npx supabase functions deploy report-notifier
           npx supabase functions deploy payments-iyzico
+          npx supabase functions deploy payments-paytr
