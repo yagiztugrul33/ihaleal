@@ -50,6 +50,15 @@ function envOk(): { ok: boolean; missing: string[] } {
   return { ok: missing.length === 0, missing };
 }
 
+/**
+ * Ödeme sistemi genel kapatma anahtarı — merchant secret'larından BAĞIMSIZ.
+ * Varsayılan KAPALI (yalnızca tam olarak "true" ise açık): secret'lar yanlışlıkla
+ * girilse bile gerçek tahsilat bu anahtar açılmadan asla tetiklenmez.
+ */
+function paymentsEnabled(): boolean {
+  return Deno.env.get("PAYMENTS_ENABLED") === "true";
+}
+
 /** HMAC-SHA256(message, key) → base64 (PayTR'ın beklediği imza formatı). */
 async function hmacSha256Base64(message: string, key: string): Promise<string> {
   const enc = new TextEncoder();
@@ -167,6 +176,7 @@ Deno.serve(async (req) => {
         stage: e.ok ? "production" : "sandbox",
         secrets_configured: e.ok,
         missing_secrets: e.missing,
+        payments_enabled: paymentsEnabled(),
         supported_actions: ["create_payment"],
       },
       200,
@@ -214,6 +224,22 @@ Deno.serve(async (req) => {
   const action = String(body.action ?? "");
   if (action !== "create_payment") {
     return json({ ok: false, error: "unknown_action", action }, 400, cors);
+  }
+
+  // Ödeme sistemi genel kapatma anahtarı — hiçbir kayıt oluşturulmadan, hiçbir
+  // merchant çağrısı yapılmadan en baştan döner. Bkz. paymentsEnabled() yorumu.
+  if (!paymentsEnabled()) {
+    return json(
+      {
+        ok: true,
+        demo_mode: true,
+        payment_id: null,
+        status: "demo_disabled",
+        message: "Ödeme sistemi şu an demo modunda; gerçek tahsilat yapılmamaktadır. Çok yakında aktif olacak.",
+      },
+      200,
+      cors,
+    );
   }
 
   const amount = Number(body.amount_try ?? 0);

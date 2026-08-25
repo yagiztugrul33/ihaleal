@@ -59,6 +59,15 @@ function envOk(): { ok: boolean; missing: string[]; sandbox: boolean } {
   return { ok: missing.length === 0, missing, sandbox: isSandbox || missing.length > 0 };
 }
 
+/**
+ * Ödeme sistemi genel kapatma anahtarı — merchant secret'larından BAĞIMSIZ.
+ * Varsayılan KAPALI (yalnızca tam olarak "true" ise açık): secret'lar yanlışlıkla
+ * girilse bile gerçek tahsilat bu anahtar açılmadan asla tetiklenmez.
+ */
+function paymentsEnabled(): boolean {
+  return Deno.env.get("PAYMENTS_ENABLED") === "true";
+}
+
 // JSON yanıt yardımcısı
 function json(body: unknown, status: number, cors: Record<string, string>): Response {
   return new Response(JSON.stringify(body), {
@@ -108,6 +117,7 @@ Deno.serve(async (req) => {
         secrets_configured: e.ok,
         missing_secrets: e.missing,
         sandbox_mode: e.sandbox,
+        payments_enabled: paymentsEnabled(),
         supported_actions: ["create_payment", "create_subscription", "cancel_subscription", "get_status"],
       },
       200,
@@ -157,6 +167,22 @@ Deno.serve(async (req) => {
   // ACTION: create_payment — tek seferlik ödeme (addon vs.)
   // ========================================================================
   if (action === "create_payment") {
+    // Ödeme sistemi genel kapatma anahtarı — hiçbir kayıt oluşturulmadan, hiçbir
+    // merchant çağrısı yapılmadan en baştan döner. Bkz. paymentsEnabled() yorumu.
+    if (!paymentsEnabled()) {
+      return json(
+        {
+          ok: true,
+          demo_mode: true,
+          payment_id: null,
+          status: "demo_disabled",
+          message: "Ödeme sistemi şu an demo modunda; gerçek tahsilat yapılmamaktadır. Çok yakında aktif olacak.",
+        },
+        200,
+        cors,
+      );
+    }
+
     const amount = Number(body.amount_try ?? 0);
     const purpose = String(body.purpose ?? "addon_purchase");
     const idempotencyKey = String(body.idempotency_key ?? "");
@@ -338,6 +364,22 @@ Deno.serve(async (req) => {
   // ACTION: create_subscription — recurring premium üyelik
   // ========================================================================
   if (action === "create_subscription") {
+    // Ödeme sistemi genel kapatma anahtarı — hiçbir kayıt oluşturulmadan, hiçbir
+    // merchant çağrısı yapılmadan en baştan döner. Bkz. paymentsEnabled() yorumu.
+    if (!paymentsEnabled()) {
+      return json(
+        {
+          ok: true,
+          demo_mode: true,
+          subscription_id: null,
+          status: "demo_disabled",
+          message: "Ödeme sistemi şu an demo modunda; gerçek tahsilat yapılmamaktadır. Çok yakında aktif olacak.",
+        },
+        200,
+        cors,
+      );
+    }
+
     const tierId = String(body.tier_id ?? "");
     const cycle = body.cycle === "yearly" ? "yearly" : "monthly";
 
