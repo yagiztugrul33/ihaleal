@@ -34,3 +34,5 @@ jobs:
           npx supabase functions deploy matching-fanout --no-verify-jwt
           npx supabase functions deploy bulk-listing-ingest
           npx supabase functions deploy kyc-submit
+          npx supabase functions deploy report-notifier
+          npx supabase functions deploy payments-iyzico
