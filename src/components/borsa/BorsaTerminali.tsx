@@ -386,7 +386,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         </div>
 
         {/* 6. CANLI TEKLİF AKIŞI + 7. AI SİNYALLER yan yana */}
-        <div className="grid lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* TEKLİF AKIŞI */}
           <div className="rounded-xl border border-cyan-500/20 bg-slate-900/40 p-4">
             <h2 className="text-sm font-bold text-cyan-200 mb-3 flex items-center gap-2">
