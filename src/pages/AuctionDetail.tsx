@@ -826,7 +826,7 @@ export default function AuctionDetail() {
             onVirtualTour={() => setShowVirtualTour(true)}
           />
         </div>
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <div className={`transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex flex-wrap items-center gap-2 mb-2">
