@@ -182,68 +182,66 @@
   --afet-accent: var(--vurgu);
   --afet-muted: var(--uzerine-ikincil);
 
-  /* shadcn/ui (HSL üçlüsü) — açık tema */
-  --background: 0 0% 100%;
-  --foreground: 158 12% 14%;
-  --card: 0 0% 100%;
-  --card-foreground: 158 12% 14%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 158 12% 14%;
-  --primary: 244 88% 63%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 140 8% 97%;
-  --secondary-foreground: 158 12% 14%;
-  --muted: 132 10% 94%;
-  --muted-foreground: 155 6% 40%;
-  --accent-foreground: 0 0% 100%;
+  /* shadcn/ui (HSL üçlüsü) — Factory (koyu) tema */
+  --background: 0 0% 6%;
+  --foreground: 0 0% 93%;
+  --card: 0 0% 93%;
+  --card-foreground: 0 0% 6%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 93%;
+  --primary: 36 8% 11%;
+  --primary-foreground: 0 0% 93%;
+  --secondary: 40 3% 24%;
+  --secondary-foreground: 0 0% 93%;
+  --muted: 36 8% 11%;
+  --muted-foreground: 0 0% 66%;
+  --accent-foreground: 0 0% 93%;
   --destructive: 4 76% 40%;
   --destructive-foreground: 0 0% 100%;
-  --border: 140 14% 92%;
-  --input: 140 14% 92%;
-  --ring: 244 88% 63%;
+  --border: 40 3% 24%;
+  --input: 40 3% 24%;
+  --ring: 0 0% 66%;
   --radius: 10px;
-  --page-gradient-from: 0 0% 100%;
-  --page-gradient-via: 0 0% 100%;
-  --page-gradient-to: 0 0% 100%;
+  --page-gradient-from: 0 0% 6%;
+  --page-gradient-via: 0 0% 6%;
+  --page-gradient-to: 0 0% 6%;
 }
 
 /* Tema anahtarı devre dışı: tek tema (açık). Koyu istekleri de açığa düşer. */
 [data-theme="dark"],
 [data-theme="light"] {
-  --background: 0 0% 100%;
-  --foreground: 158 12% 14%;
-  --card: 0 0% 100%;
-  --card-foreground: 158 12% 14%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 158 12% 14%;
-  --primary: 244 88% 63%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 140 8% 97%;
-  --secondary-foreground: 158 12% 14%;
-  --muted: 132 10% 94%;
-  --muted-foreground: 155 6% 40%;
-  --accent-foreground: 0 0% 100%;
+  --background: 0 0% 6%;
+  --foreground: 0 0% 93%;
+  --card: 0 0% 93%;
+  --card-foreground: 0 0% 6%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 93%;
+  --primary: 36 8% 11%;
+  --primary-foreground: 0 0% 93%;
+  --secondary: 40 3% 24%;
+  --secondary-foreground: 0 0% 93%;
+  --muted: 36 8% 11%;
+  --muted-foreground: 0 0% 66%;
+  --accent-foreground: 0 0% 93%;
   --destructive: 4 76% 40%;
   --destructive-foreground: 0 0% 100%;
-  --border: 140 14% 92%;
-  --input: 140 14% 92%;
-  --ring: 244 88% 63%;
+  --border: 40 3% 24%;
+  --input: 40 3% 24%;
+  --ring: 0 0% 66%;
 }
 
-/* ── Dolu vurgu yüzeyi ───────────────────────────────────────────────────
-   Vurgu zeminli kart/bant. Üzerindeki metin beyaza döner (yüzey sözleşmesi:
-   --uzerine* değişkenleri miras alınır, bkz. global-acik.css).
-   Beyaz metin / #594ff4 = 5.46:1 (WCAG AA, normal metin). */
+/* ── Dolu vurgu yüzeyi (Factory: Chalk-filled yüksek-vurgu yüzeyi) ──────────
+   Nötr açık dolgu — mor artık chrome değil. Üzerindeki metin koyuya döner. */
 .vurgu-yuzey {
-  background: var(--vurgu) !important;
-  border-color: var(--vurgu) !important;
-  color: #ffffff;
-  --uzerine: #ffffff;
-  --uzerine-ikincil: rgba(255, 255, 255, 0.9);
-  --uzerine-vurgu: #ffffff;
-  --uzerine-basari: #ffffff;
-  --uzerine-uyari: #ffffff;
-  --uzerine-hata: #ffffff;
+  background: #fafafa !important;
+  border-color: #fafafa !important;
+  color: #101010;
+  --uzerine: #101010;
+  --uzerine-ikincil: rgba(16, 16, 16, 0.7);
+  --uzerine-vurgu: #101010;
+  --uzerine-basari: #101010;
+  --uzerine-uyari: #101010;
+  --uzerine-hata: #101010;
 }
 
 /* ── Zemin: gradyan duvarı yerine düz beyaz ─────────────────────────────── */
