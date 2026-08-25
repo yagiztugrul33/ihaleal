@@ -236,7 +236,7 @@
 /* ── Dolu vurgu yüzeyi ───────────────────────────────────────────────────
    Vurgu zeminli kart/bant. Üzerindeki metin beyaza döner (yüzey sözleşmesi:
    --uzerine* değişkenleri miras alınır, bkz. global-acik.css).
-   Beyaz metin / #1e40af = 8.72:1. */
+   Beyaz metin / #594ff4 = 5.46:1 (WCAG AA, normal metin). */
 .vurgu-yuzey {
   background: var(--vurgu) !important;
   border-color: var(--vurgu) !important;
@@ -275,8 +275,8 @@ body {
   font-weight: 500;
 }
 
-/* Shares: uppercase eyebrow/etiket satırlarına 0.075em tracking */
-.uppercase {
+/* Shares: uppercase eyebrow/etiket satırlarına 0.075em tracking (yalnız tracking-* class'ı yoksa) */
+.uppercase:not([class*="tracking-"]) {
   letter-spacing: 0.075em;
 }
 

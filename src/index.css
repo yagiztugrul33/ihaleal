@@ -66,7 +66,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display), "Plus Jakarta Sans", "Inter", sans-serif;
+    font-family: var(--font-display), "Inter", sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
@@ -95,7 +95,7 @@
   .section-heading {
     @apply font-bold;
     color: var(--metin);
-    font-family: var(--font-display), "Plus Jakarta Sans", sans-serif;
+    font-family: var(--font-display), "Inter", sans-serif;
   }
 
   .section-subtitle {
