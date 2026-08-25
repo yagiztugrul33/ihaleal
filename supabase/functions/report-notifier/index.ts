@@ -71,22 +71,22 @@ function buildEmailHtml(opts: {
   const reportsUrl = `${opts.appUrl}/raporlar`;
   return `<!doctype html>
 <html lang="tr"><head><meta charset="utf-8"></head>
-<body style="margin:0;background:#0B1120;color:#E2E8F0;font-family:system-ui,sans-serif">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#0B1120">
+<body style="margin:0;background:#f6f6f6;color:#1f1f1f;font-family:system-ui,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f6f6f6">
   <tr><td align="center" style="padding:32px 16px">
-    <table width="600" cellpadding="0" cellspacing="0" style="background:#0F172A;border-radius:16px;padding:32px">
+    <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;padding:32px;border:1px solid #e7e7e7">
       <tr><td>
-        <h1 style="color:#fff;margin:0 0 12px;font-size:24px">ihaleal Endeks Raporları — ${opts.monthLabel}</h1>
-        <p style="color:#94A3B8;margin:0 0 24px;font-size:14px">${filterLine}</p>
-        <p style="color:#E2E8F0;line-height:1.6">
+        <h1 style="color:#1f1f1f;margin:0 0 12px;font-size:24px">ihaleal Endeks Raporları — ${opts.monthLabel}</h1>
+        <p style="color:#5d5d5d;margin:0 0 24px;font-size:14px">${filterLine}</p>
+        <p style="color:#1f1f1f;line-height:1.6">
           Bu ay yeni şehir endeksi raporları yayımlandı. Konut, ticari ve arsa fiyat trendleri
           + ilçe bazlı karşılaştırmalar + PDF indirme — hepsi yeni raporda hazır.
         </p>
         <p style="margin:24px 0">
-          <a href="${reportsUrl}" style="display:inline-block;background:#38BDF8;color:#0B1120;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none">Raporları Gör</a>
+          <a href="${reportsUrl}" style="display:inline-block;background:#594ff4;color:#ffffff;font-weight:700;padding:12px 24px;border-radius:999px;text-decoration:none">Raporları Gör</a>
         </p>
-        <p style="color:#94A3B8;font-size:12px;margin-top:32px;border-top:1px solid rgba(255,255,255,.10);padding-top:16px">
-          Bu maili almak istemiyorsanız <a href="${unsubUrl}" style="color:#60A5FA">abonelikten çıkın</a>.
+        <p style="color:#5d5d5d;font-size:12px;margin-top:32px;border-top:1px solid #e7e7e7;padding-top:16px">
+          Bu maili almak istemiyorsanız <a href="${unsubUrl}" style="color:#594ff4">abonelikten çıkın</a>.
         </p>
       </td></tr>
     </table>
