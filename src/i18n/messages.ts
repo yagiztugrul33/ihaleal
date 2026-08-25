@@ -925,6 +925,7 @@ export type PaymentMessages = {
       unauthorized: string;
       generic: string;
     };
+    demoDisabledMessage: string;
     cardSectionTitle: string;
     cardName: string;
     cardNumber: string;
@@ -1345,6 +1346,7 @@ export const messages: Record<"en" | "tr", Messages> = {
           unauthorized: "You must be logged in.",
           generic: "Could not start payment",
         },
+        demoDisabledMessage: "Payments are in demo mode right now — no real charge was made. Live payments are coming soon.",
         cardSectionTitle: "Card Details",
         cardName: "Cardholder name",
         cardNumber: "Card number",
@@ -2417,6 +2419,7 @@ export const messages: Record<"en" | "tr", Messages> = {
           unauthorized: "Giriş yapmanız gerekir.",
           generic: "Ödeme başlatılamadı",
         },
+        demoDisabledMessage: "Ödeme sistemi şu an demo modunda — gerçek tahsilat yapılmadı. Canlı ödeme çok yakında aktif olacak.",
         cardSectionTitle: "Kart Bilgileri",
         cardName: "Kart üzerindeki isim",
         cardNumber: "Kart numarası",
@@ -3395,6 +3398,7 @@ const _ruOverrides: PartialDeep<Messages> = {
         unauthorized: "Необходимо войти в аккаунт.",
         generic: "Не удалось начать оплату",
       },
+      demoDisabledMessage: "Оплата сейчас в демо-режиме — реального списания не произошло. Настоящая оплата скоро будет доступна.",
       cardSectionTitle: "Данные карты",
       cardName: "Имя на карте",
       cardNumber: "Номер карты",
@@ -4358,6 +4362,7 @@ const _arOverrides: PartialDeep<Messages> = {
         unauthorized: "يجب تسجيل الدخول.",
         generic: "تعذّر بدء عملية الدفع",
       },
+      demoDisabledMessage: "نظام الدفع في الوضع التجريبي حالياً — لم يتم أي تحصيل حقيقي. الدفع الفعلي سيتوفر قريباً جداً.",
       cardSectionTitle: "بيانات البطاقة",
       cardName: "الاسم على البطاقة",
       cardNumber: "رقم البطاقة",

@@ -39,11 +39,16 @@ export default function PaymentStartPage() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [providerStage, setProviderStage] = useState<"sandbox" | "production" | "unknown">("unknown");
+  const [paymentsEnabled, setPaymentsEnabled] = useState(true);
 
-  // Edge function durumunu öğren (sandbox vs production banner için)
+  // Edge function durumunu öğren (sandbox vs production banner + genel ödeme anahtarı için)
   useEffect(() => {
-    void getProviderStatus().then((s) => setProviderStage(s.stage));
+    void getProviderStatus().then((s) => {
+      setProviderStage(s.stage);
+      setPaymentsEnabled(s.payments_enabled);
+    });
   }, []);
 
   const canSubmit = cardName.trim().length >= 3 && cardNumber.replace(/\s/g, "").length >= 12 && expiry.length >= 4 && cvc.length >= 3 && acceptedTerms;
@@ -53,6 +58,7 @@ export default function PaymentStartPage() {
     if (!canSubmit) return;
     setLoading(true);
     setError(null);
+    setInfoMessage(null);
 
     // GERÇEK Edge function — createSubscription iyzico'ya başvurur (sandbox veya prod)
     const result = await createSubscription({ tierId: tier.id, cycle });
@@ -65,6 +71,14 @@ export default function PaymentStartPage() {
             ? s.errors.unauthorized
             : `${s.errors.generic}: ${result.detail ?? result.error ?? "—"}`,
       );
+      setLoading(false);
+      return;
+    }
+
+    // Ödeme sistemi demo modunda (PAYMENTS_ENABLED=false) — gerçek tahsilat hiç
+    // denenmedi, sahte bir "başarılı" sayfasına yönlendirmeden burada net bilgilendir.
+    if (result.demo_mode) {
+      setInfoMessage(s.demoDisabledMessage);
       setLoading(false);
       return;
     }
@@ -143,6 +157,14 @@ export default function PaymentStartPage() {
           <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 flex items-start gap-3" data-testid="payment-error">
             <AlertTriangle className="h-5 w-5 text-rose-300 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-rose-100">{error}</p>
+          </div>
+        ) : null}
+
+        {/* Demo modu bilgi mesajı — hata değil, bilgilendirme */}
+        {infoMessage ? (
+          <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4 flex items-start gap-3" data-testid="payment-demo-info">
+            <Sparkles className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-cyan-100">{infoMessage}</p>
           </div>
         ) : null}
 
@@ -234,6 +256,7 @@ export default function PaymentStartPage() {
                 type="submit"
                 disabled={!canSubmit || loading}
                 className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-3"
+                data-testid="payment-submit-btn"
               >
                 {loading ? (
                   <>{s.paying}</>
@@ -244,6 +267,11 @@ export default function PaymentStartPage() {
                   </>
                 )}
               </Button>
+              {!paymentsEnabled ? (
+                <p className="text-[11px] text-cyan-300 text-center flex items-center justify-center gap-1" data-testid="payment-disabled-note">
+                  <Sparkles className="h-3 w-3" /> {s.demoDisabledMessage}
+                </p>
+              ) : null}
 
               <p className="text-[10px] text-slate-500 text-center flex items-center justify-center gap-1.5">
                 <Shield className="h-3 w-3" />

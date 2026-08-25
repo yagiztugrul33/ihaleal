@@ -17,8 +17,9 @@ import type { TierId, BillingCycle } from "@/lib/pricingTiers";
 export interface CreatePaymentResult {
   ok: boolean;
   sandbox?: boolean;
-  payment_id?: string;
-  status?: "pending" | "requires_3ds" | "success" | "failed";
+  demo_mode?: boolean;
+  payment_id?: string | null;
+  status?: "pending" | "requires_3ds" | "success" | "failed" | "demo_disabled";
   payment_page_url?: string;
   token?: string;
   message?: string;
@@ -29,8 +30,9 @@ export interface CreatePaymentResult {
 export interface CreateSubscriptionResult {
   ok: boolean;
   sandbox?: boolean;
-  subscription_id?: string;
-  status?: "pending" | "active" | "past_due" | "canceled" | "expired";
+  demo_mode?: boolean;
+  subscription_id?: string | null;
+  status?: "pending" | "active" | "past_due" | "canceled" | "expired" | "demo_disabled";
   tier_id?: TierId;
   cycle?: BillingCycle;
   price_try?: number;
@@ -196,26 +198,28 @@ export async function getPaymentStatus(paymentId: string): Promise<{ ok: boolean
   }
 }
 
-/** Diagnostic — edge function durum (sandbox/production) */
+/** Diagnostic — edge function durum (sandbox/production + genel ödeme anahtarı) */
 export async function getProviderStatus(): Promise<{
   ok: boolean;
   stage: "sandbox" | "production" | "unknown";
   sandbox_mode: boolean;
   secrets_configured: boolean;
+  payments_enabled: boolean;
 }> {
   try {
     const { data, error } = await supabase.functions.invoke("payments-iyzico", {
       method: "GET",
     } as Parameters<typeof supabase.functions.invoke>[1]);
-    if (error) return { ok: false, stage: "unknown", sandbox_mode: true, secrets_configured: false };
-    const d = data as { stage: string; sandbox_mode: boolean; secrets_configured: boolean };
+    if (error) return { ok: false, stage: "unknown", sandbox_mode: true, secrets_configured: false, payments_enabled: false };
+    const d = data as { stage: string; sandbox_mode: boolean; secrets_configured: boolean; payments_enabled?: boolean };
     return {
       ok: true,
       stage: (d.stage === "production" ? "production" : "sandbox"),
       sandbox_mode: !!d.sandbox_mode,
       secrets_configured: !!d.secrets_configured,
+      payments_enabled: !!d.payments_enabled,
     };
   } catch {
-    return { ok: false, stage: "unknown", sandbox_mode: true, secrets_configured: false };
+    return { ok: false, stage: "unknown", sandbox_mode: true, secrets_configured: false, payments_enabled: false };
   }
 }
