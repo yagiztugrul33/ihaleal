@@ -571,3 +571,75 @@ kill %1 2>/dev/null || true
 git add docs/superpowers/plans/2026-08-24-shares-design-system.md
 git commit -m "docs: Shares tasarım geçişi görsel doğrulama sonuçları eklendi"
 ```
+
+## Doğrulama Sonucu (Task 9 — 2026-08-25)
+
+Ortam notu: `scripts/tasarim-olcum.mjs` `chromium.launch({ channel: 'msedge' })` kullanıyor; bu
+sandbox'ta Microsoft Edge önceden kurulu değildi, `npx playwright install msedge` ile kuruldu
+(script'e dokunulmadı). Aynı gerekçeyle tek seferlik Playwright ekran görüntüsü script'i de,
+bu ortamda `playwright install chromium` proxy tarafından engellendiği (`cdn.playwright.dev`
+403) için, brief'teki `chromium.launch()` yerine `chromium.launch({ channel: "msedge" })`
+kullanılarak çalıştırıldı — davranış aynı, sadece tarayıcı kanalı ortama uyarlandı.
+
+### Ölçüm harness'i özeti (`scripts/tasarim-olcum.mjs`, BASE=http://localhost:4173)
+
+| Rota | Görünüm | darkPanels | gradients | hardcoded | aaFails | overflow |
+|---|---|---|---|---|---|---|
+| `/` | desktop | 0 | 0 | 1 | 0 | 0 |
+| `/` | mobil | 0 | 0 | 1 | 0 | 0 |
+| `/ihaleler` | desktop | 0 | 0 | 0 | 0 | 0 |
+| `/ihaleler` | mobil | 0 | 0 | 0 | 0 | 0 |
+| `/ilan/demo-1` | desktop | 0 | 0 | 0 | 0 | 0 |
+| `/ilan/demo-1` | mobil | 0 | 0 | 0 | 0 | 0 |
+
+Tüm rotalarda `darkPanels: 0`, `gradients: 0`, `aaFails: 0`, `overflow: 0` (beklenen sonuç,
+"no gradient" kuralı ve WCAG AA karşılanıyor). `hardcoded: 1` yalnızca `/` (anasayfa) rotasında,
+hem masaüstü hem mobilde görüldü — kaynağı `cinematic-stats-bar__value` span'ı
+(`style="color: rgb(251, 191, 36)"`, "9 AKTİF İHALE" sayacı). Bu, brief'in talimatı gereği
+**düzeltilmedi**; ayrı bir temizlik maddesi olarak not düşülüyor (scope creep önlenir).
+
+### Ekran görüntüsü bulguları (masaüstü 1280px + mobil 375px, 3 rota)
+
+Genel kontrol listesi (taşan içerik / kırılan layout / okunaklı metin / eski lacivert
+#1e40af kalıntısı) tüm 6 ekran görüntüsünde tarandı:
+
+- Yatay taşma: harness'in `overflow: 0` ölçümüyle uyumlu, sayfa seviyesinde görülmedi.
+- Eski lacivert (#1e40af): hiçbir ekran görüntüsünde görülmedi; vurgu tutarlı şekilde
+  Signal Violet (#594ff4) ve türevleri.
+- Kırılan/üst üste binen layout: genel olarak yok — **tek istisna aşağıda ayrıca not edildi**.
+
+**Bulunan gerçek görsel kusur (düzeltilmedi, sadece raporlanıyor):** `/ihaleler` mobil
+(375px) görünümünde, "AI YATIRIM SİNYALLERİ" panelindeki skor rozetleri (`94/100`, `+12.2%`
+gibi) sağ kenardan kırpılıyor ve kısmen okunamıyor (ör. sadece "94" ve "+1" görünüyor).
+Kök neden doğrulandı: `src/components/borsa/BorsaTerminali.tsx` içindeki
+`<div className="grid lg:grid-cols-2 gap-4">` (satır ~389) `lg:` altında taban
+`grid-cols-1` tanımlamıyor; `lg` kırılımının altında grid sütunu içeriğin intrinsic
+genişliğine göre büyüyüp (ölçülen: 411px) 375px'lik viewport'u ~36px aşıyor, bu taşma
+`<main class="... overflow-x-hidden">` tarafından kırpılıyor — bu yüzden harness'in
+sayfa-seviyesi `overflow` ölçümü bunu yakalamıyor (0 raporluyor) ama içerik görsel olarak
+kırpılmış/okunaksız kalıyor. Bu; renk/radius/font token migrasyonunun kapsamı dışında,
+önceden var olan bir responsive-grid hatası olabilir — bu task görsel doğrulama amaçlı
+olduğundan **düzeltilmedi**, ayrı bir düzeltme maddesi olarak işaretleniyor.
+
+### İki özel taşınan risk — kapanış kontrolü
+
+1. **Anasayfa hero başlığı** (`.terminal-hero__prompt`, font-size 56px / line-height 1.1 /
+   letter-spacing +0.075em): Gerçek Türkçe dinamik (yazı makinesi) metin
+   ("Size nasıl yardımcı olabiliriz?") hem masaüstü (1280px, tek satırda, kart kenarından
+   rahat mesafeli) hem mobilde (375px, "Size nasıl yardımcı" / "olabiliriz?" olarak iki
+   satıra temiz kırılıyor, taşma/kenara yapışma yok) sorunsuz render edildi. **GEÇTİ.**
+2. **AuctionDetail iki `<h1>`** (text-white cascade'e bırakılmış): `/ilan/demo-1` bu
+   preview build'inde gerçek ilan verisi bulamadığı için "ilan bulunamadı" (not-found)
+   durumuna düşüyor — o başlık (`Listing not found` / "İlan bulunamadı" karşılığı) koyu,
+   okunaklı metin olarak doğrulandı (beyaz-üstüne-beyaz değil). Gerçek ilan hero başlığını
+   (`{auction.title}`, satır ~849) doğrulamak için ayrıca gerçek bir ilan ID'si
+   (`/ilan/1`, "Levent'te Prestijli Plaza Katı") ziyaret edildi; bu başlık da hem
+   masaüstü hem mobilde koyu/siyah, tam okunaklı render edildi. **Her iki başlık da GEÇTİ.**
+
+### Sonuç
+
+- DONE_WITH_CONCERNS: Ölçüm harness'i temiz (darkPanels/gradients/aaFails/overflow hepsi 0
+  her rotada), iki özel risk de görsel olarak doğrulandı ve sorunsuz. Ancak `/ihaleler`
+  mobil görünümde bağımsız bir görsel kusur (AI Yatırım Sinyalleri panelinde skor
+  rozetlerinin kırpılması) tespit edildi ve brief'in "düzeltme yok, sadece raporla"
+  talimatı gereği düzeltilmeden bırakıldı.
