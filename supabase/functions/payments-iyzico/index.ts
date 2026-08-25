@@ -440,8 +440,21 @@ Deno.serve(async (req) => {
       );
     }
 
-    // GERÇEK MOD: iyzico subscription API (anahtar varsa) — TODO: iyzico subscription endpoint
-    // Şimdilik tek seferlik ödeme akışıyla başlat, sonra recurring tetiklenir
+    // TODO(anahtar): iyzico recurring/subscription API entegrasyonu bilinçli olarak ERTELENDİ.
+    // Neden: iyzico'nun subscription/recurring ürünü, tek seferlik ödeme API'sinden AYRI bir
+    // ürün hattı — merchant hesabında ayrıca aktifleştirilmesi + gerçek sandbox subscription
+    // plan/product ID'leri gerektiriyor. Bu anahtar/ID'ler olmadan yazılacak kod canlıda hiç
+    // test edilemeyen bir tekrarlayan-tahsilat akışı olur (çift tahsilat/kaçırılan tahsilat
+    // riski) — bu yüzden gerçek anahtarlar sağlanmadan burada spekülatif kod YAZILMADI.
+    // Gerekli olduğunda:
+    //   1. iyzico merchant panelinden Subscription (recurring) ürünü aktifleştirilmeli.
+    //   2. IYZICO_SUBSCRIPTION_PRODUCT_ID / IYZICO_SUBSCRIPTION_PLAN_ID_<tier> secret'ları eklenmeli.
+    //   3. iyzico'nun "Create Subscription Checkout Form" / "Create Subscription Customer+Card"
+    //      endpoint'leri bu action'a bağlanmalı (iyzico resmi subscription API dokümantasyonu).
+    //   4. Yenileme/başarısız tahsilat bildirimleri için ayrı bir webhook edge function
+    //      (örn. payments-iyzico-subscription-webhook) eklenmeli.
+    // Şimdilik: tek seferlik ödeme akışı (create_payment) ile manuel başlatılıyor, recurring
+    // tetiklenmiyor — kullanıcıya "pending" statüsü + açık bir not döndürülüyor.
     return json(
       {
         ok: true,
