@@ -1,12 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="ihaleal.com">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6"/>
-      <stop offset="100%" style="stop-color:#2dd4bf"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="96" fill="#0a0f1e"/>
-  <rect x="64" y="120" width="384" height="272" rx="32" fill="url(#g)" opacity="0.95"/>
-  <path d="M176 296 L256 216 L336 296" fill="none" stroke="#0a0f1e" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="232" y="296" width="48" height="72" rx="8" fill="#0a0f1e"/>
+  <rect width="512" height="512" rx="96" fill="#594ff4"/>
+  <g transform="translate(0,2) scale(8)" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 5.5 L54 13 V30.5 C54 43 44.5 53 32 58 C19.5 53 10 43 10 30.5 V13 Z" />
+    <path d="M22 29.5 L32 20.5 L42 29.5" />
+    <path d="M26.5 38.5 L34.5 34" stroke-width="5.2" />
+    <path d="M34 39.5 L41 46" />
+    <path d="M24 49.5 H36" />
+  </g>
 </svg>
