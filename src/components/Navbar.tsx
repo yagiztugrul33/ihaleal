@@ -414,8 +414,7 @@ export function Navbar() {
             {/* R12.1 — Borsa CTA mobile (prominent) */}
             <Button
               asChild
-              className="mb-3 flex h-auto w-full items-center justify-center gap-2 rounded-lg px-3 py-3 text-sm font-semibold text-white no-underline"
-              style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
+              className="mb-3 flex h-auto w-full items-center justify-center gap-2 px-3 py-3 text-sm font-semibold text-white no-underline"
               data-testid="nav-mobile-borsa-cta"
             >
               <Link to="/borsa" onClick={() => setMobileOpen(false)}>
@@ -576,8 +575,7 @@ export function Navbar() {
               </Link>
               <Button
                 asChild
-                className="h-auto min-h-11 flex-1 rounded-lg py-3 text-center text-sm font-semibold text-white no-underline"
-                style={{ background: "linear-gradient(135deg, #3b82f6, #1e40af)" }}
+                className="h-auto min-h-11 flex-1 py-3 text-center text-sm font-semibold text-white no-underline"
               >
                 <Link to="/kayit">{n.signUp}</Link>
               </Button>
