@@ -43,7 +43,7 @@ summary:focus-visible,
 [role="button"]:focus-visible,
 [role="tab"]:focus-visible,
 [tabindex="0"]:focus-visible {
-  outline: 2px solid var(--vurgu);
+  outline: 2px solid var(--uzerine);
   outline-offset: 2px;
   border-radius: 6px;
 }/* ── 3. Gradyan duvarı kaldırıldı ──────────────────────────────────────── */
