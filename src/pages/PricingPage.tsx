@@ -17,15 +17,21 @@ import { useLocale } from "@/contexts/LocaleContext";
 /** Tier rengi → tailwind sınıfları */
 function accentClasses(accent: PricingTier["accent"]) {
   return {
+    // Individual (free) — Bone Card yüzeyi (Factory: açık kart, koyu canvas üstünde).
+    // Diğer 4 tier koyu/şeffaf zeminde kaldığı için özel bir vurgu rengine
+    // ihtiyaç yok; text/border/bg mevcut kart tokenlarına (bg-card/border-border/
+    // text-card-foreground) bağlanır — yeni renk değeri YOK.
     slate: {
-      border: "border-slate-500/30",
-      bg: "bg-slate-500/5",
-      text: "text-slate-300",
+      light: true,
+      border: "border-border",
+      bg: "bg-card",
+      text: "text-card-foreground",
       ring: "ring-slate-400/30",
       btn: "bg-slate-700 hover:bg-slate-600 text-white",
       badge: "bg-slate-500/20 text-slate-300 border-slate-500/40",
     },
     emerald: {
+      light: false,
       border: "border-emerald-500/30",
       bg: "bg-emerald-500/5",
       text: "text-emerald-300",
@@ -34,6 +40,7 @@ function accentClasses(accent: PricingTier["accent"]) {
       badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
     },
     blue: {
+      light: false,
       border: "border-blue-500/30",
       bg: "bg-blue-500/5",
       text: "text-blue-300",
@@ -42,6 +49,7 @@ function accentClasses(accent: PricingTier["accent"]) {
       badge: "bg-blue-500/20 text-blue-300 border-blue-500/40",
     },
     amber: {
+      light: false,
       border: "border-amber-500/30",
       bg: "bg-amber-500/5",
       text: "text-amber-300",
@@ -50,6 +58,7 @@ function accentClasses(accent: PricingTier["accent"]) {
       badge: "bg-amber-500/20 text-amber-300 border-amber-500/40",
     },
     violet: {
+      light: false,
       border: "border-violet-500/30",
       bg: "bg-violet-500/5",
       text: "text-violet-300",
@@ -79,6 +88,14 @@ interface TierCardProps {
 function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
   const navigate = useNavigate();
   const cls = accentClasses(tier.accent);
+  // Bone Card (Individual) metin renkleri: koyu-kart varsayımıyla yazılmış
+  // sabit sınıfların (text-white/slate-400/slate-500/slate-200/slate-600)
+  // açık-kart karşılıkları. Diğer 4 tier (!cls.light) BİREBİR eskisi gibi kalır.
+  const priceText = cls.light ? "text-card-foreground" : "text-white";
+  const mutedText = cls.light ? "text-muted-foreground" : "text-slate-400";
+  const subtleText = cls.light ? "text-muted-foreground" : "text-slate-500";
+  const featureText = cls.light ? "text-card-foreground" : "text-slate-200";
+  const excludedText = cls.light ? "text-muted-foreground" : "text-slate-600";
   const { try: listPrice, period } = priceFor(tier, cycle);
   const early = earlyPriceFor(tier, cycle);
   const effectivePrice = early?.try ?? listPrice;
@@ -108,29 +125,29 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
         <TierIcon tier={tier} />
         <h3 className="text-lg font-bold">{t.tierData.byId[tier.id]?.name ?? tier.name}</h3>
       </div>
-      <p className="text-xs text-slate-400 mb-4 leading-relaxed min-h-[2rem]">{t.tierData.byId[tier.id]?.tagline ?? tier.tagline}</p>
+      <p className={`text-xs ${mutedText} mb-4 leading-relaxed min-h-[2rem]`}>{t.tierData.byId[tier.id]?.tagline ?? tier.tagline}</p>
 
       <div className="mb-4">
         {listPrice === 0 ? (
-          <div className="text-3xl font-bold text-white">{p.tierCard.free}</div>
+          <div className={`text-3xl font-bold ${priceText}`}>{p.tierCard.free}</div>
         ) : early ? (
           <>
             {/* ERKEN ÜYE — Liste fiyatı üst çizili + kuruluş fiyatı vurgulu */}
             <div className="flex items-baseline gap-2" dir="ltr">
-              <span className="text-sm text-slate-500 line-through">{formatTry(listPrice)}</span>
+              <span className={`text-sm ${subtleText} line-through`}>{formatTry(listPrice)}</span>
               <span className={`text-[10px] font-semibold ${cls.text} bg-white/5 px-1.5 py-0.5 rounded`}>
                 {p.tierCard.early}
               </span>
             </div>
             <div className="flex items-baseline gap-1 mt-1" dir="ltr">
-              <span className="text-3xl font-bold text-white">{formatTry(early.try)}</span>
-              <span className="text-sm text-slate-400">{early.period}</span>
+              <span className={`text-3xl font-bold ${priceText}`}>{formatTry(early.try)}</span>
+              <span className={`text-sm ${mutedText}`}>{early.period}</span>
             </div>
             {fxRef && (
-              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className="text-slate-500">{p.tierCard.feeNote}</span></p>
+              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className={subtleText}>{p.tierCard.feeNote}</span></p>
             )}
             {monthlyEqv !== null && (
-              <p className="text-[11px] text-slate-500 mt-0.5" dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
+              <p className={`text-[11px] ${subtleText} mt-0.5`} dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
             )}
             {daily !== null && (
               <p className="text-[11px] text-emerald-300 mt-0.5" dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
@@ -139,14 +156,14 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
         ) : (
           <>
             <div className="flex items-baseline gap-1" dir="ltr">
-              <span className="text-3xl font-bold text-white">{formatTry(listPrice)}</span>
-              <span className="text-sm text-slate-400">{period}</span>
+              <span className={`text-3xl font-bold ${priceText}`}>{formatTry(listPrice)}</span>
+              <span className={`text-sm ${mutedText}`}>{period}</span>
             </div>
             {fxRef && (
-              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className="text-slate-500">{p.tierCard.feeNote}</span></p>
+              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className={subtleText}>{p.tierCard.feeNote}</span></p>
             )}
             {monthlyEqv !== null && (
-              <p className="text-[11px] text-slate-500 mt-0.5" dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
+              <p className={`text-[11px] ${subtleText} mt-0.5`} dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
             )}
             {daily !== null && (
               <p className="text-[11px] text-emerald-300 mt-0.5" dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
@@ -164,9 +181,9 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
             ) : f.status === "limited" ? (
               <CheckCircle2 className="h-3.5 w-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
             ) : (
-              <X className="h-3.5 w-3.5 text-slate-600 flex-shrink-0 mt-0.5" />
+              <X className={`h-3.5 w-3.5 ${excludedText} flex-shrink-0 mt-0.5`} />
             )}
-            <span className={f.status === "excluded" ? "text-slate-600 line-through" : "text-slate-200"}>
+            <span className={f.status === "excluded" ? `${excludedText} line-through` : featureText}>
               {f.label}
               {f.limit && f.status !== "excluded" && (
                 <span className={`ms-1 text-[10px] ${cls.text}`}>({f.limit})</span>
@@ -198,9 +215,9 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
                 ) : f.status === "limited" ? (
                   <CheckCircle2 className="h-3.5 w-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
                 ) : (
-                  <X className="h-3.5 w-3.5 text-slate-600 flex-shrink-0 mt-0.5" />
+                  <X className={`h-3.5 w-3.5 ${excludedText} flex-shrink-0 mt-0.5`} />
                 )}
-                <span className={`font-medium ${f.status === "excluded" ? "text-slate-600 line-through" : "text-slate-200"}`}>
+                <span className={`font-medium ${f.status === "excluded" ? `${excludedText} line-through` : featureText}`}>
                   {f.label}
                   {f.limit && f.status !== "excluded" && (
                     <span className={`ms-1 text-[10px] ${cls.text}`}>({f.limit})</span>
@@ -208,7 +225,7 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
                 </span>
               </div>
               {f.detail && f.status !== "excluded" && (
-                <p className="text-[11px] text-slate-500 ms-5 leading-relaxed">{f.detail}</p>
+                <p className={`text-[11px] ${subtleText} ms-5 leading-relaxed`}>{f.detail}</p>
               )}
             </li>
           ))}
@@ -223,7 +240,7 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
         >
           {tier.id === "free" ? p.tierCard.ctaFree : p.tierCard.ctaSelect}
         </button>
-        <p className="text-[10px] text-slate-500 text-center">
+        <p className={`text-[10px] ${subtleText} text-center`}>
           {tier.id === "kurumsal" ? p.tierCard.corporateNote : p.tierCard.cancelNote}
         </p>
       </div>
@@ -294,42 +311,45 @@ export default function PricingPage() {
           </div>
         )}
 
-        {/* KATMAN 1 — Eğitici: Hangi paket sana uygun? */}
-        <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
+        {/* KATMAN 1 — Eğitici: Hangi paket sana uygun? (Bone Card — monokrom, tek vurgu) */}
+        <div className="rounded-2xl border border-border bg-card p-5">
           <div className="flex items-start gap-3 mb-4">
-            <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-            <h2 className="text-base font-semibold text-white">{p.segmentTitle}</h2>
+            <BookOpen className="h-5 w-5 text-card-foreground flex-shrink-0 mt-0.5" />
+            <h2 className="text-base font-semibold text-card-foreground">{p.segmentTitle}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-            <div className="rounded-lg border border-slate-500/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-slate-300 mb-1 flex items-center gap-1.5">
+            {/* Not: bg-black/[…] / bg-white/[…] KULLANMA — global-acik.css bunları
+                !important ile koyu zemine (var(--zemin-yumusak)) çeviriyor. Bone
+                Card üstünde nötr ayrım için sadece hairline border kullanılır. */}
+            <div className="rounded-lg border border-border p-3">
+              <p className="font-semibold text-card-foreground mb-1 flex items-center gap-1.5">
                 <User className="h-4 w-4" /> {p.segments.individual.title}
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {p.segments.individual.desc}
               </p>
             </div>
-            <div className="rounded-lg border border-blue-500/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-blue-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-lg border border-border p-3">
+              <p className="font-semibold text-card-foreground mb-1 flex items-center gap-1.5">
                 <Briefcase className="h-4 w-4" /> {p.segments.investor.title}
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {p.segments.investor.desc}
               </p>
             </div>
-            <div className="rounded-lg border border-emerald-500/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-emerald-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-lg border border-border p-3">
+              <p className="font-semibold text-card-foreground mb-1 flex items-center gap-1.5">
                 <Users className="h-4 w-4" /> {p.segments.realtor.title}
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {p.segments.realtor.desc}
               </p>
             </div>
-            <div className="rounded-lg border border-violet-500/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-violet-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-lg border border-border p-3">
+              <p className="font-semibold text-card-foreground mb-1 flex items-center gap-1.5">
                 <Building2 className="h-4 w-4" /> {p.segments.corporate.title}
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {p.segments.corporate.desc}
               </p>
             </div>
