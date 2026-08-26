@@ -55,8 +55,8 @@ summary:focus-visible,
 }/* Gradyanlı metin → düz vurgu rengi (okunur: 8.72:1) */
 [class*="bg-clip-text"] {
   background-image: none !important;
-  -webkit-text-fill-color: var(--vurgu) !important;
-  color: var(--vurgu) !important;
+  -webkit-text-fill-color: var(--uzerine) !important;
+  color: var(--uzerine) !important;
 }/* ── 4. Koyu paneller → açık yüzey (koyu panel YOK) ────────────────────── */
 [class~="bg-slate-700"],
 [class~="bg-slate-800"],
@@ -333,7 +333,7 @@ summary:focus-visible,
 [class*=" bg-green-500/"],
 [class^="bg-green-500/"] {
   background-color: var(--durum-basari-zemin) !important;
-  color: var(--metin);
+  color: var(--zemin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
   --uzerine-vurgu: var(--uzerine);
@@ -371,7 +371,7 @@ summary:focus-visible,
 [class*=" bg-orange-950/"],
 [class^="bg-orange-950/"] {
   background-color: var(--durum-uyari-zemin) !important;
-  color: var(--metin);
+  color: var(--zemin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
   --uzerine-vurgu: var(--uzerine);
@@ -398,7 +398,7 @@ summary:focus-visible,
 [class*=" bg-rose-950/"],
 [class^="bg-rose-950/"] {
   background-color: var(--durum-hata-zemin) !important;
-  color: var(--metin);
+  color: var(--zemin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
   --uzerine-vurgu: var(--uzerine);
@@ -919,7 +919,8 @@ td {
   box-shadow: var(--golge-buyuk);
 }/* Düz metin içi bağlantı — vurgu rengi. Butonlaşmış bağlantılar hariç. */
 a:not([class*="btn"]):not([class*="button"]):not([data-slot="button"]):not([class*="text-white"]):not(nav a):not(header a):not(footer a) {
-  color: var(--vurgu);
+  color: var(--uzerine);
+  text-decoration: underline;
 }/* Kart: ağır çerçeve + koyu dolgu yerine 1px çizgi ve neredeyse görünmez gölge */
 .card,
 [class*="rounded"][class*="shadow"]:not([data-slot="button"]):not(button):not(a):not([role="button"]) {
@@ -959,7 +960,7 @@ button.bg-gray-100,
   border: 1px solid var(--cizgi);
   border-radius: var(--kose-kucuk);
   padding: 0.75rem 1.5rem;
-  font-weight: 600;
+  font-weight: 400;
 }/* ── 10. Gölge: iki değere indirildi ───────────────────────────────────── */
 [class~="shadow-sm"],
 [class~="shadow-xs"],
