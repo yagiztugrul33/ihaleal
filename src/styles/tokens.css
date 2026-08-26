@@ -26,9 +26,10 @@
 }
 
 :root {
-  /* Tipografi */
-  --font-display: "Inter", "Inter Fallback", system-ui, sans-serif;
-  --font-body: "Inter", "Inter Fallback", system-ui, sans-serif;
+  /* Tipografi — Factory: Geist (gövde/başlık) + Geist Mono (etiket/eyebrow) */
+  --font-display: "Geist", "Inter Fallback", system-ui, sans-serif;
+  --font-body: "Geist", "Inter Fallback", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;

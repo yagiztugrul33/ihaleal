@@ -6,8 +6,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["Inter", "system-ui", "sans-serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        display: ["Geist", "system-ui", "sans-serif"],
+        body: ["Geist", "system-ui", "sans-serif"],
+        mono: ["Geist Mono", "ui-monospace", "monospace"],
       },
       colors: {
         // AÇIK & MİNİMAL tasarım sistemi — tek kaynak src/styles/tema.css.
