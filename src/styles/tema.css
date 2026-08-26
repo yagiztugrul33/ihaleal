@@ -263,6 +263,11 @@ body,
 h1, h2, h3, h4, h5, h6 {
   color: var(--metin);
   font-weight: 400;
+  letter-spacing: var(--tracking-heading);
+}
+
+h1 {
+  letter-spacing: var(--tracking-display);
 }
 
 /* Factory: 400 neredeyse evrensel — 500 sadece nadir vurgu (bkz. Task 4) */

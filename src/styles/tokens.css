@@ -43,6 +43,8 @@
   --leading-tight: 1.15;
   --leading-relaxed: 1.65;
   --tracking-tight: -0.02em;
+  --tracking-heading: -0.025em;
+  --tracking-display: -0.04em;
   --tracking-wide: 0.08em;
 
   /* Bosluk olcegi — 8px grid (4px yarim adimlar dahil, mevcut duzen korunur) */
