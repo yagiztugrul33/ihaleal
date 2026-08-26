@@ -2205,6 +2205,21 @@
   margin-top: 0.25rem;
 }
 
+/* Öncelik 0/Katman 1 — ipuçları artık tıklanabilir Ghost Text Link (bkz. DESIGN.md).
+   !important: global-acik.css'teki geniş "a:not(.btn)... { text-decoration:underline }"
+   kuralı (0,5,1 özgüllük) tek-sınıflı seçicimizi (0,1,0) her zaman eziyor. */
+.terminal-hero__hint-link {
+  color: var(--metin-ikincil) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+.terminal-hero__hint-link:hover,
+.terminal-hero__hint-link:focus-visible {
+  color: var(--metin) !important;
+  text-decoration: underline !important;
+}
+
 .terminal-hero__borsa-cta {
   margin-top: 1rem;
   border: 1px solid var(--vurgu);

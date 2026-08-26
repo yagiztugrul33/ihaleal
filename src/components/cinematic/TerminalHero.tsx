@@ -85,7 +85,11 @@ export function TerminalHero() {
       ) : (
         <ul className="terminal-hero__hints">
           {terminal.hints.map((h) => (
-            <li key={h}>{h}</li>
+            <li key={h.href}>
+              <Link to={h.href} className="terminal-hero__hint-link">
+                {h.label}
+              </Link>
+            </li>
           ))}
         </ul>
       )}

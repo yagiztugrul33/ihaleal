@@ -79,7 +79,7 @@ export type HomeMessages = {
     };
     borsaCta: string;
     aiUnavailable: string;
-    hints: string[];
+    hints: Array<{ label: string; href: string }>;
   };
 };
 
@@ -1237,9 +1237,9 @@ export const messages: Record<"en" | "tr", Messages> = {
         aiUnavailable:
           "AI assistant is temporarily unavailable (quota or configuration pending). Try the quick links below.",
         hints: [
-          "How to bid on auctions? → /how-it-works",
-          "Live auctions → /auctions",
-          "Exchange terminal → /borsa",
+          { label: "How to bid on auctions?", href: "/how-it-works" },
+          { label: "Live auctions", href: "/auctions" },
+          { label: "Exchange terminal", href: "/borsa" },
         ],
       },
     },
@@ -2310,9 +2310,9 @@ export const messages: Record<"en" | "tr", Messages> = {
         aiUnavailable:
           "AI asistanı şu an kullanılamıyor (kotası veya yapılandırma bekleniyor). Aşağıdaki hızlı yönlendirmeleri deneyin.",
         hints: [
-          "İhaleye nasıl teklif verilir? → /nasil-calisir",
-          "Canlı müzayede → /ihaleler",
-          "Borsa terminali → /borsa",
+          { label: "İhaleye nasıl teklif verilir?", href: "/nasil-calisir" },
+          { label: "Canlı müzayede", href: "/ihaleler" },
+          { label: "Borsa terminali", href: "/borsa" },
         ],
       },
     },
@@ -3298,9 +3298,9 @@ const _ruOverrides: PartialDeep<Messages> = {
       aiUnavailable:
         "ИИ-ассистент временно недоступен (ожидается квота или настройка). Воспользуйтесь быстрыми ссылками ниже.",
       hints: [
-        "Как сделать ставку на аукционе? → /nasil-calisir",
-        "Прямые торги → /ihaleler",
-        "Терминал биржи → /borsa",
+        { label: "Как сделать ставку на аукционе?", href: "/nasil-calisir" },
+        { label: "Прямые торги", href: "/ihaleler" },
+        { label: "Терминал биржи", href: "/borsa" },
       ],
     },
   },
@@ -4262,9 +4262,9 @@ const _arOverrides: PartialDeep<Messages> = {
       aiUnavailable:
         "المساعد الذكي غير متاح حالياً (في انتظار الحصة أو الإعدادات). يمكنك تجربة الروابط السريعة أدناه.",
       hints: [
-        "كيف تقدّم عرضاً في المزاد؟ → /nasil-calisir",
-        "المزادات المباشرة → /ihaleler",
-        "محطة البورصة → /borsa",
+        { label: "كيف تقدّم عرضاً في المزاد؟", href: "/nasil-calisir" },
+        { label: "المزادات المباشرة", href: "/ihaleler" },
+        { label: "محطة البورصة", href: "/borsa" },
       ],
     },
   },
