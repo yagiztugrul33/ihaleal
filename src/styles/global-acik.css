@@ -229,11 +229,7 @@ summary:focus-visible,
 [class~="bg-slate-50"],
 [class~="bg-slate-100"],
 [class~="bg-white"],
-[class~="bg-card"],
-[class*=" bg-slate-500/"],
-[class^="bg-slate-500/"],
-[class*=" bg-slate-600/"],
-[class^="bg-slate-600/"] {
+[class~="bg-card"] {
   color: var(--zemin);
   --uzerine: var(--zemin);
   --uzerine-ikincil: var(--metin-ikincil);
