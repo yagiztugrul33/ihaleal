@@ -146,10 +146,10 @@ export function BrandLockup({
       data-testid="logo-image"
       data-brand-lockup-img
     >
-      <MarkaIsareti className={cn("h-full w-auto shrink-0", "[color:var(--vurgu)]")} />
+      <MarkaIsareti className={cn("h-full w-auto shrink-0", "[color:#594ff4]")} />
       <span
         className={cn(
-          "font-semibold leading-none tracking-tight [color:var(--vurgu)]",
+          "font-semibold leading-none tracking-tight [color:#594ff4]",
           wordmarkSizes[logoSize],
         )}
       >

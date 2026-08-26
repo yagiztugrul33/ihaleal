@@ -22,7 +22,7 @@ export default function MuteahhitLanding() {
           >
             Proje ihalelerinizi
             <br />
-            <span style={{ color: "var(--color-primary)" }}>şeffaf ve hızlı yönetin</span>
+            <span style={{ color: "var(--color-text)" }}>şeffaf ve hızlı yönetin</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
             Yüklenici seçimi, kapalı teklif, kat karşılığı senaryoları ve proje panosu.
@@ -137,7 +137,7 @@ export default function MuteahhitLanding() {
                   <div className="flex items-start gap-4">
                     <div
                       className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ background: "var(--color-bg-soft)", color: "var(--color-primary)" }}
+                      style={{ background: "var(--color-bg-soft)", color: "var(--color-text)" }}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
@@ -150,7 +150,7 @@ export default function MuteahhitLanding() {
                       </p>
                       <span
                         className="inline-block mt-3 text-xs font-medium px-2 py-1 rounded-full"
-                        style={{ background: "var(--color-bg-soft)", color: "var(--color-primary)" }}
+                        style={{ background: "var(--color-bg-soft)", color: "var(--color-text)" }}
                       >
                         {p.status}
                       </span>

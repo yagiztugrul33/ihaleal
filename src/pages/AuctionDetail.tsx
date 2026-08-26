@@ -407,7 +407,7 @@ export default function AuctionDetail() {
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-700/50 bg-slate-900/50">
           <Search className="h-8 w-8 text-slate-400" aria-hidden />
         </div>
-        <h1 className="text-[26px] font-bold tracking-[0.075em] sm:text-[36px]">
+        <h1 className="text-[26px] font-normal sm:text-[36px]">
           {ld.notFoundTitle}
         </h1>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-400">
@@ -730,7 +730,7 @@ export default function AuctionDetail() {
     { label: ld.marketingBadge[marketingMode], className: "bg-slate-700 text-white border border-white/15" },
     // R14 PAKET 5 — lansman branding badge
     ...(isLansman
-      ? [{ label: ld.badgeLansman, className: "bg-cyan-500 text-slate-950 font-bold border-0" }]
+      ? [{ label: ld.badgeLansman, className: "bg-cyan-500 text-slate-950 border-0" }]
       : []),
   ];
 
@@ -841,12 +841,12 @@ export default function AuctionDetail() {
                 <RatingSummaryBadge summary={detailListingRatings.get(auction.id)} />
                 {/* R14 PAKET 5 — lansman badge */}
                 {isLansman && (
-                  <Badge className="bg-cyan-500 text-slate-950 font-bold border-0 gap-1">
+                  <Badge className="bg-cyan-500 text-slate-950 border-0 gap-1">
                     {ld.lansmanUnitBadge}
                   </Badge>
                 )}
               </div>
-              <h1 className="text-[26px] md:text-[36px] lg:text-[36px] font-bold tracking-[0.075em] mb-2">{auction.title}</h1>
+              <h1 className="text-[26px] md:text-[36px] lg:text-[36px] font-normal mb-2">{auction.title}</h1>
               <div className="flex flex-wrap items-center gap-2 text-slate-400 mb-4">
                 <MapPin className="w-4 h-4 shrink-0" />
                 <span>{auction.location}</span>
@@ -860,9 +860,9 @@ export default function AuctionDetail() {
               {isLansman && lansmanProjectId && (
                 <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/30 mb-4 flex items-center justify-between gap-3 flex-wrap">
                   <div className="text-xs text-cyan-100">
-                    <p className="font-semibold text-cyan-50 text-sm mb-0.5">{ld.lansmanCardTitle}</p>
+                    <p className="font-medium text-cyan-50 text-sm mb-0.5">{ld.lansmanCardTitle}</p>
                     <p>
-                      {ld.lansmanDeveloperLabel} <span className="font-semibold">{lansmanProjectName ?? ld.lansmanProjectFallback}</span>
+                      {ld.lansmanDeveloperLabel} <span className="font-medium">{lansmanProjectName ?? ld.lansmanProjectFallback}</span>
                       {lansmanUnitId ? ` · ${ld.lansmanUnitPrefix} #${lansmanUnitId.slice(0, 8)}` : ""}
                     </p>
                   </div>
@@ -874,7 +874,7 @@ export default function AuctionDetail() {
                 </div>
               )}
               <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
-                <p className="font-semibold text-slate-200 text-sm">{ld.weeklyScheduleTitle}</p>
+                <p className="font-medium text-slate-200 text-sm">{ld.weeklyScheduleTitle}</p>
                 <p>
                   <span className="text-cyan-200/90">{ld.weeklySlot}</span> {ld.weeklyPolicy}
                 </p>
@@ -922,7 +922,7 @@ export default function AuctionDetail() {
                     {recommendation === "strongBuy" || recommendation === "buy" ? <TrendingUp className="w-5 h-5" /> : recommendation === "hold" ? <Minus className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-white">{ld.aiRecoTitle}</div>
+                    <div className="text-sm font-medium text-white">{ld.aiRecoTitle}</div>
                     <div className="text-xs text-slate-400">{recommendation === "strongBuy" ? ld.aiRecoStrongBuy : recommendation === "buy" ? ld.aiRecoBuy : recommendation === "hold" ? ld.aiRecoHold : ld.aiRecoAvoid}</div>
                   </div>
                 </div>
@@ -950,7 +950,7 @@ export default function AuctionDetail() {
               {activeTab === "overview" && (
                 <div className="space-y-6 animate-fade-in">
                   <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/15">
-                    <h3 className="text-sm font-semibold text-amber-200 mb-2">{ld.ovProfRules}</h3>
+                    <h3 className="text-sm font-medium text-amber-200 mb-2">{ld.ovProfRules}</h3>
                     <ul className="text-xs text-slate-400 space-y-1.5 list-disc list-inside">
                       {integritySummaryLines.map((line) => (
                         <li key={line}>{line}</li>
@@ -967,7 +967,7 @@ export default function AuctionDetail() {
                     <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-500/25">
                       <div className="flex items-center gap-2 text-amber-100 mb-2">
                         <Scale className="w-5 h-5" />
-                        <span className="text-sm font-semibold">{ld.ovCommitmentTitle}</span>
+                        <span className="text-sm font-medium">{ld.ovCommitmentTitle}</span>
                       </div>
                       {auction.commitmentFloorTRY != null && auction.commitmentCeilingTRY != null ? (
                         <p className="text-xs text-slate-300">
@@ -984,7 +984,7 @@ export default function AuctionDetail() {
                   ) : null}
                   {auction.expertiseRequired || auction.expertisePdfName ? (
                     <div className="p-4 rounded-xl border border-emerald-500/25 bg-emerald-500/5">
-                      <div className="text-sm font-semibold text-emerald-100 mb-1">{ld.ovExpertiseTitle}</div>
+                      <div className="text-sm font-medium text-emerald-100 mb-1">{ld.ovExpertiseTitle}</div>
                       <p className="text-xs text-slate-400">
                         {auction.expertiseRequired ? ld.ovExpertiseRequiredNote : ""}
                         {auction.expertisePdfName ? (
@@ -995,7 +995,7 @@ export default function AuctionDetail() {
                       </p>
                     </div>
                   ) : null}
-                  <div><h3 className="text-lg font-bold text-white mb-3">{ld.ovDescriptionTitle}</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{auction.description}</p></div>
+                  <div><h3 className="text-lg font-normal text-white mb-3">{ld.ovDescriptionTitle}</h3><p className="text-slate-400 leading-relaxed whitespace-pre-line">{auction.description}</p></div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <DetailItem icon={<Building className="w-5 h-5" />} label={ld.ovDetailRoom} value={auction.propertyDetails.roomCount} />
                     <DetailItem icon={<Layers className="w-5 h-5" />} label={ld.ovDetailNetSqm} value={`${auction.propertyDetails.netSqm} m²`} />
@@ -1007,7 +1007,7 @@ export default function AuctionDetail() {
                       <div className="flex items-center gap-3">
                         <Video className="w-5 h-5 text-blue-400" />
                         <div>
-                          <div className="text-sm font-semibold text-white">{ld.ovVirtualTourTitle}</div>
+                          <div className="text-sm font-medium text-white">{ld.ovVirtualTourTitle}</div>
                           <div className="text-xs text-slate-400">{ld.ovVirtualTourDesc}</div>
                         </div>
                         <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ms-auto [background:var(--gradient-cta)] text-white">{ld.ovVirtualTourStart}</Button>
@@ -1050,7 +1050,7 @@ export default function AuctionDetail() {
               {activeTab === "location" && (
                 <div className="space-y-6 animate-fade-in">
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-3">{ld.locNearby}</h3>
+                    <h3 className="text-lg font-normal text-white mb-3">{ld.locNearby}</h3>
                     <div className="grid sm:grid-cols-2 gap-3">
                       {auction.nearbyFacilities.map((f) => {
                         const icons: Record<string, any> = {
@@ -1170,7 +1170,7 @@ export default function AuctionDetail() {
                       </ResponsiveContainer>
                     </div>
                     <div className="space-y-4">
-                      <h3 className="text-lg font-bold text-white">{ld.aiCommentTitle}</h3>
+                      <h3 className="text-lg font-normal text-white">{ld.aiCommentTitle}</h3>
                       <div className={`p-4 rounded-xl border ${isUnderpriced ? "bg-emerald-500/10 border-emerald-500/20" : "bg-amber-500/10 border-amber-500/20"}`}>
                         <p className="text-sm text-slate-300 leading-relaxed">
                           {isUnderpriced
@@ -1191,7 +1191,7 @@ export default function AuctionDetail() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white mb-4">{ld.aiRegionStatsTitle} — {auction.district}</h3>
+                    <h3 className="text-lg font-normal text-white mb-4">{ld.aiRegionStatsTitle} — {auction.district}</h3>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                       <StatBadge label={ld.statAvgSqmPrice} value={`₺${auction.areaStats.avgPricePerSqm.toLocaleString("tr-TR")}`} />
                       <StatBadge label={ld.statMonthlyChange} value={`%${auction.areaStats.priceChangeMonthly}`} positive={auction.areaStats.priceChangeMonthly > 0} />
@@ -1211,7 +1211,7 @@ export default function AuctionDetail() {
               <CardContent className="p-5 space-y-4">
                 <div>
                   <div className="text-xs text-slate-500 mb-1">{pricePrimaryLabel}</div>
-                  <div className="text-3xl font-bold text-blue-400" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
+                  <div className="text-3xl font-normal text-blue-400" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
                   <FxRef amountTry={liveBid} variant="block" note={ld.fxNoteTransaction} />
                   <div className="text-xs text-slate-500 mt-1" dir="ltr">
                     ₺{auction.pricePerSqm.toLocaleString("tr-TR")} / m²
@@ -1221,7 +1221,7 @@ export default function AuctionDetail() {
                   {auction.estimatedValue > 0 && (
                     <div className="mt-2 pt-2 border-t border-slate-200/40 dark:border-slate-700">
                       <div className="text-[11px] text-slate-500">{ld.estimatedValueTitle}</div>
-                      <div className="text-sm font-semibold text-emerald-400" dir="ltr">
+                      <div className="text-sm font-medium text-emerald-400" dir="ltr">
                         ₺{auction.estimatedValue.toLocaleString("tr-TR")}
                         <FxRef amountTry={auction.estimatedValue} variant="compact" />
                       </div>
@@ -1236,7 +1236,7 @@ export default function AuctionDetail() {
                   )}
                   {/* Doğrulama rozeti — SADECE auction.verified=true ise (sahte gösterim YASAK) */}
                   {auction.verified === true && (
-                    <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                    <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
                       <CheckCircle2 className="w-3 h-3" />
                       {ld.verifiedListing}
                     </div>
@@ -1256,7 +1256,7 @@ export default function AuctionDetail() {
                 {!isListingOnly ? (
                   <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-3" data-testid="ai-bid-suggestion">
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-violet-200 flex items-center gap-1.5">
+                      <h4 className="text-xs font-medium uppercase tracking-wider text-violet-200 flex items-center gap-1.5">
                         <Sparkles className="w-3.5 h-3.5" /> {ld.aiSuggestTitle}
                       </h4>
                       <Button
@@ -1311,7 +1311,7 @@ export default function AuctionDetail() {
                 {/* Dalga 2-4: Ekspertiz Raporu PDF */}
                 <div className="rounded-xl border border-cyan-500/25 bg-cyan-500/5 p-3" data-testid="expertise-pdf">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-cyan-200 flex items-center gap-1.5">
+                    <h4 className="text-xs font-medium uppercase tracking-wider text-cyan-200 flex items-center gap-1.5">
                       <FileText className="w-3.5 h-3.5" /> {ld.expPanelTitle}
                     </h4>
                     <Button
@@ -1406,7 +1406,7 @@ export default function AuctionDetail() {
                   </p>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">{ld.priceCardAiPredicted}</span><span className="text-blue-400 font-semibold" dir="ltr">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
+                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">{ld.priceCardAiPredicted}</span><span className="text-blue-400 font-medium" dir="ltr">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
                   <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full [background:var(--gradient-cta)]" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-lg p-2.5 bg-white/[0.02]">
@@ -1424,7 +1424,7 @@ export default function AuctionDetail() {
                 <div className="flex gap-2 flex-wrap">
                   {!isListingOnly ? (
                     <Button
-                      className="flex-1 min-w-[8rem] [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-11 disabled:opacity-40 disabled:grayscale"
+                      className="flex-1 min-w-[8rem] [background:var(--gradient-cta)] hover:brightness-110 text-white h-11 disabled:opacity-40 disabled:grayscale"
                       disabled={bidDisabled}
                       title={
                         bidDisabled
@@ -1447,7 +1447,7 @@ export default function AuctionDetail() {
                   ) : (
                     <>
                       <Button
-                        className="flex-1 min-w-[8rem] bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold h-11"
+                        className="flex-1 min-w-[8rem] bg-amber-500 hover:bg-amber-400 text-slate-950 h-11"
                         type="button"
                         disabled={!user || (sellerId != null && user?.id === sellerId)}
                         title={!user ? ld.loginRequired : sellerId && user?.id === sellerId ? ld.cantBidOwn : undefined}
@@ -1461,7 +1461,7 @@ export default function AuctionDetail() {
                       >
                         <HandCoins className="w-4 h-4 me-1.5" /> {ld.ctaNegotiate}
                       </Button>
-                      <Button className="flex-1 bg-slate-600 hover:bg-slate-500 text-white font-bold h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
+                      <Button className="flex-1 bg-slate-600 hover:bg-slate-500 text-white h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
                         {ld.ctaInfoRequest}
                       </Button>
                     </>
@@ -1544,7 +1544,7 @@ export default function AuctionDetail() {
                 </div>
                 <div className="pt-4 border-t border-slate-200/80">
                   <button onClick={() => navigate("/ekspertiz")} className="w-full text-start p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
-                    <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">{ld.expertOpinion}</span></div>
+                    <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-medium text-white group-hover:text-blue-400 transition-colors">{ld.expertOpinion}</span></div>
                     <p className="text-xs text-slate-500">{ld.expertOpinionDesc}</p>
                   </button>
                 </div>
@@ -1555,7 +1555,7 @@ export default function AuctionDetail() {
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2 mb-1">
                   <Receipt className="w-4 h-4 text-teal-400" />
-                  <h4 className="text-sm font-semibold text-white">{ld.commissionTitle}</h4>
+                  <h4 className="text-sm font-medium text-white">{ld.commissionTitle}</h4>
                   <Badge variant="outline" className="border-teal-500/20 text-teal-400 text-[10px] ms-auto">{feeBadgeLabel()}</Badge>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 space-y-3">
@@ -1563,14 +1563,14 @@ export default function AuctionDetail() {
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-slate-500">{isListingOnly ? ld.commissionRefListing : ld.commissionRefAuction}</span>
                     </div>
-                    <div className="text-lg font-bold text-white" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-lg font-normal text-white" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between"><span className="text-slate-400">{ld.commissionPlatformBuyer}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.commission.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">{ld.commissionVat}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.vatOnCommission.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">{ld.commissionDeedDuty} (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">{ld.commissionRevolvingCapital}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
-                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-semibold"><span className="text-teal-400">{ld.commissionTotal}</span><span className="text-teal-400" dir="ltr">₺{closing.total.toLocaleString("tr-TR")}</span></div>
+                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-medium"><span className="text-teal-400">{ld.commissionTotal}</span><span className="text-teal-400" dir="ltr">₺{closing.total.toLocaleString("tr-TR")}</span></div>
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-600 leading-relaxed px-0.5">{FEE_TEXTS.commissionMatrahLine()}</p>
@@ -1584,7 +1584,7 @@ export default function AuctionDetail() {
               <CardContent className="p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <ShieldCheck className="w-4 h-4 text-violet-400" />
-                  <h4 className="text-sm font-semibold text-white">{ld.securityTitle}</h4>
+                  <h4 className="text-sm font-medium text-white">{ld.securityTitle}</h4>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {ld.secIdentity}</div>
@@ -1617,7 +1617,7 @@ export default function AuctionDetail() {
       >
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-lg max-h-[min(90vh,640px)] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">{isSealedOffer ? ld.ctaSealedBid : isAuctionMode ? ld.ctaBid : ld.ctaNegotiate}</DialogTitle>
+            <DialogTitle className="text-xl font-normal">{isSealedOffer ? ld.ctaSealedBid : isAuctionMode ? ld.ctaBid : ld.ctaNegotiate}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
             <p className="text-[10px] text-amber-200/90 leading-relaxed rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2">
@@ -1628,11 +1628,11 @@ export default function AuctionDetail() {
             </p>
             <div className="p-3 rounded-xl bg-white/5">
               <p className="text-sm text-slate-400">{auction.title}</p>
-              <p className="text-lg font-bold text-blue-400 mt-1">₺{liveBid.toLocaleString("tr-TR")}</p>
+              <p className="text-lg font-normal text-blue-400 mt-1">₺{liveBid.toLocaleString("tr-TR")}</p>
             </div>
             <div className="p-3 rounded-xl bg-teal-500/5 border border-teal-500/10">
               <p className="text-xs text-slate-400 mb-1">{ld.bidCostTitle}</p>
-              <p className="text-sm font-bold text-teal-400" dir="ltr">₺{estimateBuyerClosingCosts(liveBid).total.toLocaleString("tr-TR")}</p>
+              <p className="text-sm font-normal text-teal-400" dir="ltr">₺{estimateBuyerClosingCosts(liveBid).total.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-500 mt-1">
                 {ld.bidCostNote.replace("{pct}", (DEED_DUTY_RATE * 100).toFixed(0))}
               </p>
@@ -1643,7 +1643,7 @@ export default function AuctionDetail() {
                   key={inc}
                   type="button"
                   onClick={() => setBidAmount(String(liveBid + inc))}
-                  className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-semibold text-white transition-colors"
+                  className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-medium text-white transition-colors"
                 >
                   +₺{(inc / 1000).toFixed(0)}K
                 </button>
@@ -1670,7 +1670,7 @@ export default function AuctionDetail() {
               <div className="rounded-xl border border-violet-500/25 bg-violet-500/5 p-3" data-testid="proxy-bid-panel">
                 <label className="flex items-center justify-between gap-3 cursor-pointer">
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-violet-100 flex items-center gap-2">
+                    <p className="text-sm font-medium text-violet-100 flex items-center gap-2">
                       <span className="text-base">⚡</span> {ld.proxyTitle}
                     </p>
                     <p className="text-[10px] text-violet-200/70 mt-0.5">
@@ -1709,7 +1709,7 @@ export default function AuctionDetail() {
 
             {!isListingOnly ? (
               <div className="space-y-3 rounded-xl border border-slate-200 bg-black/20 p-3">
-                <p className="text-xs font-semibold text-white">{ld.bidGateTitle}</p>
+                <p className="text-xs font-medium text-white">{ld.bidGateTitle}</p>
                 <div className="space-y-3">
                   {BID_GATE_CHECKBOXES.map((row) => (
                     <label key={row.id} className="flex gap-3 text-start text-[11px] text-slate-300 leading-snug cursor-pointer">
@@ -1748,7 +1748,7 @@ export default function AuctionDetail() {
               disabled={bidBusy || (!isListingOnly && !isBidGateComplete(bidGateAck))}
               title={!isListingOnly && !isBidGateComplete(bidGateAck) ? ld.bidGateTooltip : undefined}
               onClick={() => void handleBid()}
-              className="[background:var(--gradient-cta)] text-white font-bold disabled:opacity-40"
+              className="[background:var(--gradient-cta)] text-white disabled:opacity-40"
             >
               {bidBusy ? ld.ctaBidSubmitting : isSealedOffer ? ld.ctaSealedSubmit : ld.ctaBidSubmit}
             </Button>
@@ -1779,7 +1779,7 @@ export default function AuctionDetail() {
       <Dialog open={showMarketReportDialog} onOpenChange={setShowMarketReportDialog}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+            <DialogTitle className="text-xl font-normal flex items-center gap-2">
               <FileText className="w-5 h-5 text-teal-400" /> {ld.mrTitle}
             </DialogTitle>
           </DialogHeader>
@@ -1807,7 +1807,7 @@ export default function AuctionDetail() {
       <Dialog open={showOfficialDocsDialog} onOpenChange={setShowOfficialDocsDialog}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+            <DialogTitle className="text-xl font-normal flex items-center gap-2">
               <Landmark className="w-5 h-5 text-sky-400" /> {ld.odTitle}
             </DialogTitle>
           </DialogHeader>
@@ -1835,7 +1835,7 @@ export default function AuctionDetail() {
       <Dialog open={preAuthOpen} onOpenChange={setPreAuthOpen}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">{ld.paTitle}</DialogTitle>
+            <DialogTitle className="text-xl font-normal">{ld.paTitle}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
             <p dir="ltr" className="text-start">
@@ -1869,7 +1869,7 @@ export default function AuctionDetail() {
       <Dialog open={hemenAlGateOpen} onOpenChange={setHemenAlGateOpen}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+            <DialogTitle className="text-xl font-normal flex items-center gap-2">
               <ShoppingCart className="w-5 h-5 text-emerald-400" />
               {HEMEN_AL_GATE_TITLE}
             </DialogTitle>
@@ -1878,11 +1878,11 @@ export default function AuctionDetail() {
             <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
             <p className="leading-relaxed">{HEMEN_AL_GATE_INTRO}</p>
             <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
-              <p className="text-xs font-semibold text-emerald-200">MASAK / AML</p>
+              <p className="text-xs font-medium text-emerald-200">MASAK / AML</p>
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
-              <p className="text-xs font-semibold text-cyan-200">{ld.hgCardSection}</p>
+              <p className="text-xs font-medium text-cyan-200">{ld.hgCardSection}</p>
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_DOCS_BLOCK}</p>
@@ -1947,7 +1947,7 @@ export default function AuctionDetail() {
       <Dialog open={preAuthBuyNowOpen} onOpenChange={setPreAuthBuyNowOpen}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">{ld.pabTitle}</DialogTitle>
+            <DialogTitle className="text-xl font-normal">{ld.pabTitle}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
             {effectiveBuyNowTry != null ? (
@@ -1982,7 +1982,7 @@ export default function AuctionDetail() {
       <Dialog open={showBuyNowConfirm} onOpenChange={setShowBuyNowConfirm}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">{ld.bncTitle}</DialogTitle>
+            <DialogTitle className="text-xl font-normal">{ld.bncTitle}</DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
             <p dir="ltr" className="text-start">
@@ -2031,11 +2031,11 @@ export default function AuctionDetail() {
 
       <Dialog open={showVirtualTour} onOpenChange={setShowVirtualTour}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-4xl">
-          <DialogHeader><DialogTitle className="text-xl font-bold">{ld.ovVirtualTourTitle}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle className="text-xl font-normal">{ld.ovVirtualTourTitle}</DialogTitle></DialogHeader>
           <div className="aspect-video rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center">
             <div className="text-center">
               <Video className="w-12 h-12 text-blue-400 mx-auto mb-3" />
-              <p className="text-white font-semibold mb-1">{ld.vtIntegrationTitle}</p>
+              <p className="text-white font-medium mb-1">{ld.vtIntegrationTitle}</p>
               <p className="text-sm text-slate-400">{ld.vtIntegrationDesc}</p>
               <p className="text-xs text-slate-500 mt-2">URL: <span dir="ltr">{auction.virtualTour || ld.vtUrlNotAdded}</span></p>
             </div>
@@ -2063,7 +2063,7 @@ export default function AuctionDetail() {
               {pricePrimaryLabel}
             </div>
             <div className="flex items-baseline gap-2">
-              <div className="text-base font-bold text-white truncate">
+              <div className="text-base font-normal text-white truncate">
                 ₺{liveBid.toLocaleString("tr-TR")}
               </div>
               <FxRef
@@ -2088,7 +2088,7 @@ export default function AuctionDetail() {
             {isListingOnly ? (
               <Button
                 type="button"
-                className="h-11 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold"
+                className="h-11 px-4 bg-blue-600 hover:bg-blue-500 text-white"
                 disabled={!user || (sellerId != null && user?.id === sellerId)}
                 title={
                   !user
@@ -2110,7 +2110,7 @@ export default function AuctionDetail() {
             ) : (
               <Button
                 type="button"
-                className="h-11 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold disabled:opacity-50"
+                className="h-11 px-4 bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-50"
                 disabled={bidDisabled}
                 title={
                   bidDisabled
@@ -2158,7 +2158,7 @@ function PriceCard({
     >
       {showDemoBadge ? <DemoDataCornerBadge /> : null}
       <div className="text-xs text-slate-500 mb-1">{label}</div>
-      <div className={`text-sm md:text-base font-bold ${colors[color] || "text-white"}`}>{value}</div>
+      <div className={`text-sm md:text-base font-normal ${colors[color] || "text-white"}`}>{value}</div>
     </div>
   );
 }
@@ -2169,9 +2169,9 @@ function DetailItem({ icon, label, value }: { icon: React.ReactNode; label: stri
 
 function AIBadge({ label, value, color }: { label: string; value: string; color: string }) {
   const colors: Record<string, string> = { emerald: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400", blue: "bg-blue-500/10 border-blue-500/20 text-blue-400", sky: "bg-sky-500/10 border-sky-500/20 text-sky-400", violet: "bg-violet-500/10 border-violet-500/20 text-violet-400", amber: "bg-amber-500/10 border-amber-500/20 text-amber-400", slate: "bg-slate-500/10 border-slate-500/20 text-slate-400" };
-  return <div className={`p-3 rounded-xl border ${colors[color] || colors.slate}`}><div className="text-xs opacity-80">{label}</div><div className="text-lg font-bold">{value}</div></div>;
+  return <div className={`p-3 rounded-xl border ${colors[color] || colors.slate}`}><div className="text-xs opacity-80">{label}</div><div className="text-lg font-normal">{value}</div></div>;
 }
 
 function StatBadge({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
-  return <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><div className="text-xs text-slate-500">{label}</div><div className={`text-sm font-semibold ${positive === true ? "text-emerald-400" : positive === false ? "text-red-400" : "text-white"}`}>{value}</div></div>;
+  return <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><div className="text-xs text-slate-500">{label}</div><div className={`text-sm font-medium ${positive === true ? "text-emerald-400" : positive === false ? "text-red-400" : "text-white"}`}>{value}</div></div>;
 }
