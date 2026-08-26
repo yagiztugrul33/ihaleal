@@ -60,7 +60,7 @@ export function Home() {
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
                 <span className="min-w-0">
-                  <strong className="block text-base font-normal text-foreground">{title}</strong>
+                  <strong className="block text-base font-normal text-card-foreground">{title}</strong>
                   <span className="mt-0.5 block text-sm text-muted-foreground">{text}</span>
                 </span>
               </Link>
