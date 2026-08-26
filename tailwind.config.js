@@ -6,9 +6,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["Geist", "system-ui", "sans-serif"],
-        body: ["Geist", "system-ui", "sans-serif"],
-        mono: ["Geist Mono", "ui-monospace", "monospace"],
+        // "Inter" zincirde KALMALI: Geist/Geist Mono'da ₺ (U+20BA) glifi yok,
+        // Inter'in latin-ext alt kumesinde var. Bkz. src/styles/tokens.css.
+        display: ["Geist", "Inter", "system-ui", "sans-serif"],
+        body: ["Geist", "Inter", "system-ui", "sans-serif"],
+        mono: ["Geist Mono", "Inter", "ui-monospace", "monospace"],
       },
       colors: {
         // AÇIK & MİNİMAL tasarım sistemi — tek kaynak src/styles/tema.css.

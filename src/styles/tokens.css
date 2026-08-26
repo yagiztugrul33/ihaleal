@@ -27,9 +27,14 @@
 
 :root {
   /* Tipografi — Factory: Geist (gövde/başlık) + Geist Mono (etiket/eyebrow) */
-  --font-display: "Geist", "Inter Fallback", system-ui, sans-serif;
-  --font-body: "Geist", "Inter Fallback", system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* "Inter" yedek zincirde KALMALI: Geist'te ₺ (Turk Lirasi) glifi yok; Inter'de var.
+     Aksi halde tum fiyatlar "Inter Fallback" (= local Arial) uzerinden esleshmeyen
+     bir glife duser. Sira: Geist -> Inter -> metrik-eslenmis yedek -> sistem. */
+  --font-display: "Geist", "Inter", "Inter Fallback", system-ui, sans-serif;
+  --font-body: "Geist", "Inter", "Inter Fallback", system-ui, sans-serif;
+  /* Geist Mono'da da ₺ yok; "Inter" ikinci sirada yedek glif kaynagi olarak durur
+     (rakamlar Geist Mono'dan geldigi icin tablo hizalamasi bozulmaz). */
+  --font-mono: "Geist Mono", "Inter", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
