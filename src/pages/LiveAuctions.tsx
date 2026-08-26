@@ -75,7 +75,7 @@ export default function LiveAuctions() {
   }) => (
     <section className="mb-8">
       <div className="flex items-center justify-between mb-3 px-1">
-        <h2 className={cn("text-lg font-semibold flex items-center gap-2", tone === "amber" ? "text-amber-200" : "text-cyan-200")}>
+        <h2 className={cn("text-lg font-medium flex items-center gap-2", tone === "amber" ? "text-amber-200" : "text-cyan-200")}>
           <Icon className="w-5 h-5" />
           {title}
         </h2>
@@ -122,12 +122,12 @@ export default function LiveAuctions() {
                 </div>
               </div>
               <div className="p-3 space-y-1.5">
-                <h3 className="font-semibold text-white text-sm leading-snug line-clamp-2">{a.title}</h3>
+                <h3 className="font-medium text-white text-sm leading-snug line-clamp-2">{a.title}</h3>
                 <div className="flex items-center gap-1 text-xs text-slate-400">
                   <MapPin className="w-3 h-3 flex-shrink-0" />
                   <span className="truncate">{a.district}, {a.city}</span>
                 </div>
-                <div className="text-base font-bold text-blue-400">{formatTRY(a.currentBid)}</div>
+                <div className="text-base font-normal text-blue-400">{formatTRY(a.currentBid)}</div>
               </div>
             </button>
           ))}
@@ -151,7 +151,7 @@ export default function LiveAuctions() {
           </div>
 
           <h1
-            className="text-[26px] font-bold leading-[1.15] tracking-[0.075em] sm:text-[36px] md:text-[36px]"
+            className="text-[26px] font-normal leading-[1.15] tracking-[0.075em] sm:text-[36px] md:text-[36px]"
             style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}
           >
             Gerçek piyasa, <span style={{ color: "var(--color-primary)" }}>gerçek fiyat.</span>

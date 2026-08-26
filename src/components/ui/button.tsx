@@ -21,7 +21,7 @@ const buttonVariants = cva(
           "text-slate-300 hover:text-white hover:bg-white/[0.06]",
         link: "text-primary underline-offset-4 hover:underline hover:text-primary/80",
         tertiary:
-          "text-primary font-semibold underline-offset-4 hover:text-white hover:underline px-0 h-auto min-h-0",
+          "text-primary underline-offset-4 hover:text-white hover:underline px-0 h-auto min-h-0",
         // Accent (cyan CTA) — kontrast 1.12 bug fix: `bg-cyan-500 text-slate-950` className
         // override Button default gradient ile çakışıp arka planı şeffaf bırakıyordu.
         // !important + bg-image:none + bg-cyan-500 üçlüsü garanti opak cyan zemin.
@@ -31,8 +31,8 @@ const buttonVariants = cva(
       size: {
         default: "h-11 px-6 py-2.5 has-[>svg]:px-5 text-[0.9375rem]",
         sm: "h-9 rounded-[3px] gap-1.5 px-3.5 text-xs has-[>svg]:px-2.5",
-        lg: "h-12 min-h-[52px] rounded-[3px] px-9 text-base font-bold has-[>svg]:px-7",
-        xl: "h-14 min-h-[56px] rounded-[3px] px-10 text-lg font-bold has-[>svg]:px-8",
+        lg: "h-12 min-h-[52px] rounded-[3px] px-9 text-base has-[>svg]:px-7",
+        xl: "h-14 min-h-[56px] rounded-[3px] px-10 text-lg has-[>svg]:px-8",
         icon: "size-10 rounded-[3px]",
         "icon-sm": "size-9 rounded-[3px]",
         "icon-lg": "size-11 rounded-[3px]",

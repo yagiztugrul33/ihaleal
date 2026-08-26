@@ -44,7 +44,7 @@ export function Home() {
         </section>
 
         <section className="relative mx-auto mt-6 w-full max-w-[1240px] px-4 pb-12 lg:px-6" aria-labelledby="home-modules-title">
-          <h2 id="home-modules-title" className="text-[20px] font-bold text-foreground lg:text-[26px] tracking-[0.02em]">
+          <h2 id="home-modules-title" className="text-[20px] font-normal text-foreground lg:text-[26px] tracking-[0.02em]">
             Modüller
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">Ne arıyorsan tek tık uzağında — detaylar kendi sayfasında.</p>
@@ -60,7 +60,7 @@ export function Home() {
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
                 <span className="min-w-0">
-                  <strong className="block text-base font-bold text-foreground">{title}</strong>
+                  <strong className="block text-base font-normal text-foreground">{title}</strong>
                   <span className="mt-0.5 block text-sm text-muted-foreground">{text}</span>
                 </span>
               </Link>
