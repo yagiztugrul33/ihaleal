@@ -2341,6 +2341,7 @@
   z-index: 2;
   border-color: var(--vurgu) !important;
   background: var(--zemin-yumusak) !important;
+  color: var(--metin) !important;
   backdrop-filter: blur(16px);
   box-shadow: var(--golge-kucuk);
 }
