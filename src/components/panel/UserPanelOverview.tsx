@@ -53,34 +53,37 @@ export function UserPanelOverview() {
   // Anonim — zengin landing
   if (!user) {
     return (
-      <Card className="border-dashed border-slate-200/80 bg-slate-900/50">
+      <Card className="border-dashed border-black/15">
         <CardContent className="p-8">
           <div className="text-center max-w-lg mx-auto">
-            <Sparkles className="w-10 h-10 text-cyan-400 mx-auto mb-3" />
-            <h2 className="text-xl font-semibold text-white mb-2">Kişisel paneliniz burada</h2>
-            <p className="text-sm text-slate-400 mb-5 leading-relaxed">
+            <Sparkles className="w-10 h-10 text-card-foreground mx-auto mb-3" />
+            <h2 className="text-xl font-semibold text-card-foreground mb-2">Kişisel paneliniz burada</h2>
+            <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
               Giriş yaptıktan sonra: kayıtlı aramalarınız, favori ilanlarınız, aktif teklifleriniz,
               bildirimler ve satıcı analitiği tek ekrandan yönetilir.
             </p>
-            <div className="grid gap-2 sm:grid-cols-2 text-start text-xs text-slate-400 mb-6">
-              <div className="flex items-center gap-2 rounded-lg bg-slate-800/40 p-2">
-                <Heart className="w-4 h-4 text-rose-400" /> Favori takibi + fiyat değişimi
+            {/* Not: bg-black/[…] / bg-white/[…] KULLANMA — global-acik.css bunları
+                !important ile koyu zemine (var(--zemin-yumusak)) çeviriyor. Bone
+                Card üstünde nötr ayrım için sadece hairline border kullanılır. */}
+            <div className="grid gap-2 sm:grid-cols-2 text-start text-xs text-muted-foreground mb-6">
+              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+                <Heart className="w-4 h-4 text-muted-foreground" /> Favori takibi + fiyat değişimi
               </div>
-              <div className="flex items-center gap-2 rounded-lg bg-slate-800/40 p-2">
-                <Bookmark className="w-4 h-4 text-cyan-400" /> Aramalarınız + yeni eşleşmeler
+              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+                <Bookmark className="w-4 h-4 text-muted-foreground" /> Aramalarınız + yeni eşleşmeler
               </div>
-              <div className="flex items-center gap-2 rounded-lg bg-slate-800/40 p-2">
-                <HandCoins className="w-4 h-4 text-amber-400" /> Tekliflerinizin durumu
+              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+                <HandCoins className="w-4 h-4 text-muted-foreground" /> Tekliflerinizin durumu
               </div>
-              <div className="flex items-center gap-2 rounded-lg bg-slate-800/40 p-2">
-                <Eye className="w-4 h-4 text-blue-400" /> İlanlarınızın görüntülenmesi
+              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+                <Eye className="w-4 h-4 text-muted-foreground" /> İlanlarınızın görüntülenmesi
               </div>
             </div>
             <div className="flex flex-wrap justify-center gap-2">
               <Button type="button" onClick={() => navigate("/giris?next=/panel")} className="[background:var(--gradient-cta)] text-white">
                 Giriş
               </Button>
-              <Button type="button" variant="outline" onClick={() => navigate("/kayit?next=/panel")} className="border-cyan-400/40">
+              <Button type="button" variant="outline" onClick={() => navigate("/kayit?next=/panel")} className="border-border">
                 Hesap Oluştur
               </Button>
             </div>
