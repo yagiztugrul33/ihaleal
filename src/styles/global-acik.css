@@ -24,7 +24,7 @@
 :root {
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
@@ -137,7 +137,7 @@ summary:focus-visible,
   color: var(--metin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
@@ -148,7 +148,7 @@ summary:focus-visible,
   background-color: var(--zemin-yumusak) !important;
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
@@ -235,10 +235,10 @@ summary:focus-visible,
 [class^="bg-slate-500/"],
 [class*=" bg-slate-600/"],
 [class^="bg-slate-600/"] {
-  color: var(--metin);
-  --uzerine: var(--metin);
+  color: var(--zemin);
+  --uzerine: var(--zemin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
@@ -316,7 +316,7 @@ summary:focus-visible,
   color: var(--metin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
@@ -336,7 +336,7 @@ summary:focus-visible,
   color: var(--metin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
@@ -374,7 +374,7 @@ summary:focus-visible,
   color: var(--metin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
@@ -401,7 +401,7 @@ summary:focus-visible,
   color: var(--metin);
   --uzerine: var(--metin);
   --uzerine-ikincil: var(--metin-ikincil);
-  --uzerine-vurgu: var(--vurgu);
+  --uzerine-vurgu: var(--uzerine);
   --uzerine-basari: var(--durum-basari);
   --uzerine-uyari: var(--durum-uyari);
   --uzerine-hata: var(--durum-hata);
