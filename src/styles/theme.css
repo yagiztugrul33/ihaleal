@@ -27,7 +27,11 @@ main>section,.section-warm,.section-warm-alt{background:transparent}
 .nav-glass-scrolled{background:var(--zemin);box-shadow:var(--golge-kucuk)}
 .nav-link{padding:.5rem .75rem;border-radius:var(--kose-kucuk);font-size:.875rem;font-weight:500;color:var(--metin-ikincil);transition:color var(--gecis-hizli) ease,background-color var(--gecis-hizli) ease}
 .nav-link:hover{color:var(--metin);background:var(--zemin-yumusak)}
-.nav-link-active{color:var(--vurgu);background:var(--vurgu-yumusak)}
+/* Aktif durum notr metin + dolgu ile isaretlenir (Factory'de "parlak vurgu metin" yok).
+   Onceki hali color:var(--vurgu) idi; --vurgu artik notr DOLGU rengi oldugu icin
+   kendi zemininde 1.54:1 (okunmaz) veriyordu. Simdi --metin/--vurgu-yumusak = 9.72:1,
+   pasif .nav-link ise --metin-ikincil kaldigi icin aktif/pasif ayrimi korunuyor. */
+.nav-link-active{color:var(--metin);background:var(--vurgu-yumusak)}
 
 /* ── Kart: agir cerceve/golge yok, 1px cizgi ────────────────────────────── */
 .card-luxury,.card-warm{background:var(--zemin);border:1px solid var(--cizgi);border-radius:var(--kose);padding:1.5rem;box-shadow:var(--golge-kucuk);transition:transform var(--gecis) var(--gecis-egri),box-shadow var(--gecis) var(--gecis-egri)}

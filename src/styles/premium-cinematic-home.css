@@ -20,7 +20,7 @@
   overflow-x: hidden;
   color: var(--premium-text);
   background: var(--zemin);
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
 }
 
 .premium-home *, .premium-home *::before, .premium-home *::after {
@@ -67,7 +67,7 @@
 }
 
 .premium-nav__wordmark span {
-  color: var(--premium-blue-bright);
+  color: var(--metin);
 }
 
 .premium-nav__links {
@@ -328,7 +328,7 @@
   height: 44px;
   border-radius: 12px;
   background: var(--vurgu-yumusak);
-  color: var(--premium-blue-bright);
+  color: var(--metin);
 }
 
 .premium-category-card strong {
@@ -524,7 +524,7 @@
   border-radius: 30px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--premium-blue-bright);
+  color: var(--metin);
   margin-bottom: 24px;
 }
 
@@ -636,7 +636,7 @@
 
 .premium-trust-row__item span {
   font-size: 20px;
-  color: var(--premium-blue-bright);
+  color: var(--metin);
 }
 
 .premium-trust-row__item strong {
@@ -731,7 +731,7 @@
   display: block;
   text-align: right;
   font-size: 13px;
-  color: var(--premium-blue-bright);
+  color: var(--metin);
   font-weight: 600;
 }
 
@@ -833,7 +833,7 @@
   background: var(--zemin-yumusak);
   padding: 10px;
   border-radius: 10px;
-  color: var(--premium-blue-bright);
+  color: var(--metin);
 }
 
 .premium-stat-card strong {
@@ -894,12 +894,12 @@
 
 .premium-step__icon {
   font-size: 24px;
-  color: var(--premium-blue-bright);
+  color: var(--metin);
 }
 
 .premium-step span {
   font-size: 12px;
-  color: var(--premium-blue-bright);
+  color: var(--metin);
   font-weight: 700;
 }
 
@@ -944,7 +944,7 @@
 }
 
 .premium-section-head a {
-  color: var(--premium-blue-bright);
+  color: var(--metin);
   font-size: 14px;
 }
 
@@ -1037,7 +1037,7 @@
 .premium-star {
   width: 14px;
   height: 14px;
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .premium-star--on {
@@ -1050,7 +1050,7 @@
 }
 
 .premium-testimonials__cta a {
-  color: var(--premium-blue-bright);
+  color: var(--metin);
   font-weight: 600;
 }
 
@@ -1136,7 +1136,7 @@
 }
 
 .premium-investor-panel__list span {
-  color: var(--premium-blue-bright);
+  color: var(--metin);
   font-size: 18px;
 }
 
@@ -1267,7 +1267,7 @@
   height: 36px;
   border-radius: 10px;
   background: var(--vurgu-yumusak);
-  color: var(--premium-blue-bright);
+  color: var(--metin);
   margin-bottom: 12px;
 }
 
@@ -1363,7 +1363,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .premium-war-room__panel-text {
@@ -1601,7 +1601,7 @@
   height: 20px;
   width: 20px;
   flex-shrink: 0;
-  color: var(--vurgu);
+  color: var(--metin);
   margin-top: 2px;
 }
 
@@ -1640,7 +1640,7 @@
 .deprem-band__search-icon {
   height: 20px;
   width: 20px;
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .deprem-band__search input {
@@ -1682,7 +1682,7 @@
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--vurgu);
+  color: var(--metin);
   border: 1px solid var(--vurgu);
   background: var(--vurgu-yumusak);
   text-decoration: none;
@@ -1739,7 +1739,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .home-eq-ticker__cta {
@@ -2076,7 +2076,7 @@
      kelimeyi dağıtıyor. 0.08em başlık üstü etiket için yeterli. */
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .terminal-hero__prompt {
@@ -2091,7 +2091,7 @@
 }
 
 .terminal-hero__prefix {
-  color: var(--vurgu);
+  color: var(--metin);
   margin-right: 0.35rem;
 }
 
@@ -2123,7 +2123,7 @@
   align-items: center;
   gap: 0.35rem;
   font-size: 0.95rem;
-  color: var(--vurgu);
+  color: var(--metin);
   transition: color 0.2s ease, transform 0.2s ease, text-shadow 0.2s ease;
 }
 
@@ -2146,7 +2146,7 @@
 }
 
 .terminal-hero__ask-prefix {
-  color: var(--vurgu);
+  color: var(--metin);
   font-weight: 700;
 }
 
@@ -2162,7 +2162,7 @@
 }
 
 .terminal-hero__input::placeholder {
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .terminal-hero__submit {
@@ -2193,7 +2193,7 @@
   margin: 0.85rem 0 0;
   font-size: 0.78rem;
   line-height: 1.55;
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .terminal-hero__hints {
@@ -2212,7 +2212,7 @@
   padding: 0.45rem 1rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--vurgu);
+  color: var(--metin);
   background: transparent;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
@@ -2303,7 +2303,7 @@
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--vurgu);
+  color: var(--metin);
 }
 
 .cinematic-stats-bar__divider {

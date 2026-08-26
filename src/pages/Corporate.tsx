@@ -89,7 +89,7 @@ export default function Corporate() {
           >
             Emlak ofisleri için
             <br />
-            <span style={{ color: "var(--color-primary)" }}>modern operasyon altyapısı.</span>
+            <span style={{ color: "var(--color-text)" }}>modern operasyon altyapısı.</span>
           </h1>
 
           <p

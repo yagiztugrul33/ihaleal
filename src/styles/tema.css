@@ -194,13 +194,14 @@
   --secondary: 40 3% 24%;
   --secondary-foreground: 0 0% 93%;
   --muted: 36 8% 11%;
-  --muted-foreground: 0 0% 66%;
+  /* DESIGN.md "Warm Granite" #8a8380 (= --metin-ikincil) — uydurma 0 0% 66% degil */
+  --muted-foreground: 18 4.1% 52.2%;
   --accent-foreground: 0 0% 93%;
   --destructive: 4 76% 40%;
   --destructive-foreground: 0 0% 100%;
   --border: 40 3% 24%;
   --input: 40 3% 24%;
-  --ring: 0 0% 66%;
+  --ring: 18 4.1% 52.2%;
   --radius: 10px;
   --page-gradient-from: 0 0% 6%;
   --page-gradient-via: 0 0% 6%;
@@ -221,13 +222,14 @@
   --secondary: 40 3% 24%;
   --secondary-foreground: 0 0% 93%;
   --muted: 36 8% 11%;
-  --muted-foreground: 0 0% 66%;
+  /* DESIGN.md "Warm Granite" #8a8380 (= --metin-ikincil) — uydurma 0 0% 66% degil */
+  --muted-foreground: 18 4.1% 52.2%;
   --accent-foreground: 0 0% 93%;
   --destructive: 4 76% 40%;
   --destructive-foreground: 0 0% 100%;
   --border: 40 3% 24%;
   --input: 40 3% 24%;
-  --ring: 0 0% 66%;
+  --ring: 18 4.1% 52.2%;
 }
 
 /* ── Dolu vurgu yüzeyi (Factory: Chalk-filled yüksek-vurgu yüzeyi) ──────────

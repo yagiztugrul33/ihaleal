@@ -154,7 +154,7 @@ export default function LiveAuctions() {
             className="text-[26px] font-normal leading-[1.15] tracking-[0.075em] sm:text-[36px] md:text-[36px]"
             style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}
           >
-            Gerçek piyasa, <span style={{ color: "var(--color-primary)" }}>gerçek fiyat.</span>
+            Gerçek piyasa, <span style={{ color: "var(--color-text)" }}>gerçek fiyat.</span>
           </h1>
 
           <p

@@ -43,7 +43,7 @@ export default function EmlakciLanding() {
           <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-6xl" style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}>
             Emlak ofisleri için
             <br />
-            <span style={{ color: "var(--color-primary)" }}>uçtan uca işlem motoru</span>
+            <span style={{ color: "var(--color-text)" }}>uçtan uca işlem motoru</span>
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed md:text-xl" style={{ color: "var(--color-text-muted)" }}>
             Hero’dan kapanışa kadar tek amaç: daha hızlı satış, daha şeffaf süreç, daha yüksek güven. Bu sayfa demo/ön analiz
@@ -119,7 +119,7 @@ export default function EmlakciLanding() {
                   onClick={() => setSelected(f)}
                   className="card-warm text-start transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(96,165,250,0.45)]"
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: "var(--color-bg-soft)", color: "var(--color-primary)" }}>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: "var(--color-bg-soft)", color: "var(--color-text)" }}>
                     <Icon className="h-6 w-6" aria-hidden />
                   </div>
                   <h3 className="mb-2 text-lg font-bold" style={{ color: "var(--color-text)" }}>

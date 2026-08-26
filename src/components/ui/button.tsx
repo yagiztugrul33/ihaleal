@@ -19,9 +19,11 @@ const buttonVariants = cva(
           "bg-white/[0.08] text-slate-100 border border-white/12 hover:bg-white/[0.12] hover:border-white/20",
         ghost:
           "text-slate-300 hover:text-white hover:bg-white/[0.06]",
-        link: "text-primary underline-offset-4 hover:underline hover:text-primary/80",
+        // Factory'de "parlak vurgu metin" kavrami yok: --primary artik buton/chip
+        // DOLGUSU (nötr koyu). Metin olarak kullanilinca koyu zeminde 1.1:1 oluyordu.
+        link: "text-foreground underline-offset-4 hover:underline hover:text-foreground/80",
         tertiary:
-          "text-primary underline-offset-4 hover:text-white hover:underline px-0 h-auto min-h-0",
+          "text-foreground underline-offset-4 hover:text-white hover:underline px-0 h-auto min-h-0",
         // Accent (cyan CTA) — kontrast 1.12 bug fix: `bg-cyan-500 text-slate-950` className
         // override Button default gradient ile çakışıp arka planı şeffaf bırakıyordu.
         // !important + bg-image:none + bg-cyan-500 üçlüsü garanti opak cyan zemin.

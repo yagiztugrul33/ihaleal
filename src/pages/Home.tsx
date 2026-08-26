@@ -56,12 +56,12 @@ export function Home() {
                 data-testid="home-module-card"
                 className="group flex items-start gap-3 rounded-2xl border border-border bg-card p-4 transition duration-200 hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-lg"
               >
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition group-hover:border-primary/40">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-foreground transition group-hover:border-primary/40">
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
                 <span className="min-w-0">
                   <strong className="block text-base font-normal text-card-foreground">{title}</strong>
-                  <span className="mt-0.5 block text-sm text-muted-foreground">{text}</span>
+                  <span className="mt-0.5 block text-sm text-card-foreground/70">{text}</span>
                 </span>
               </Link>
             ))}
