@@ -245,12 +245,12 @@ export function Navbar() {
           scrolled && "nav-glass-scrolled shadow-lg",
         )}
       >
-        <div className="relative mx-auto flex h-[72px] max-w-[1500px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-6">
           <Link to="/" className="shrink-0 no-underline" aria-label="ihaleal.com — Türkiye'nin Gayrimenkul Borsası">
-            <BrandLockup logoSize="sm" layout="inline" showSlogan hideSloganOnMobile />
+            <BrandLockup logoSize="sm" layout="inline" showSlogan sloganClassName="hidden 2xl:inline" />
           </Link>
 
-          <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-7 lg:flex">
+          <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-5 2xl:flex 2xl:gap-6">
             <NavLink
               to={ROUTES.ILANLAR}
               className={({ isActive }) =>
@@ -297,21 +297,44 @@ export function Navbar() {
               {n.resources}
             </NavLink>
             <NavDropdown label={n.company} items={companyItems} testId="nav-company" />
+            {/* Priority-0 nav overflow fix: Borsa aksiyon butonundan buraya taşındı (Ghost Text Link) */}
+            <NavLink
+              to="/borsa"
+              className={({ isActive }) =>
+                cn(
+                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  isActive
+                    ? "border-blue-500 text-blue-400"
+                    : "border-transparent text-slate-200 hover:text-white",
+                )
+              }
+            >
+              {n.borsaCta}
+            </NavLink>
           </div>
 
-          <div className="nav-desktop-actions hidden items-center gap-2 lg:flex">
-            <OnlinePresenceBadge compact className="hidden xl:inline-flex" />
+          <div className="nav-desktop-actions hidden items-center gap-2 2xl:flex">
+            <OnlinePresenceBadge compact className="hidden 2xl:inline-flex" />
+            {/* Priority-0 nav overflow fix: ikon-tetikli arama, tam kutu yalnız çok geniş ekranda */}
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 min-w-[200px] items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 text-start text-sm text-slate-400 transition hover:border-slate-500/50 lg:min-w-[240px]"
+              aria-label={n.search}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-600/30 bg-slate-900/60 text-slate-400 transition hover:border-slate-500/50 min-[1700px]:hidden"
+            >
+              <Search className="h-4 w-4" aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="hidden h-10 min-w-[200px] items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 text-start text-sm text-slate-400 transition hover:border-slate-500/50 min-[1700px]:flex"
             >
               <Search className="h-4 w-4 shrink-0" aria-hidden />
               <span className="flex-1 truncate">{n.search}</span>
               <kbd className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
             </button>
-            {/* Para birimi seçici — TRY/USD/EUR/GBP (tahsilat ₺) */}
-            <CurrencySelector />
+            {/* Para birimi seçici — TRY/USD/EUR/GBP (tahsilat ₺); compact = yalnız sembol, dar aralıkta yer kazandırır */}
+            <CurrencySelector compact />
             <div className="relative">
               <button
                 type="button"
@@ -321,7 +344,7 @@ export function Navbar() {
                 aria-expanded={langOpen}
                 data-testid="nav-lang-trigger"
               >
-                <Globe className="h-4 w-4 text-slate-400" />
+                <Globe className="hidden h-4 w-4 text-slate-400 min-[1700px]:block" />
                 {locale.toUpperCase()}
                 <ChevronDown className={cn("h-3.5 w-3.5", langOpen && "rotate-180")} />
               </button>
@@ -374,23 +397,18 @@ export function Navbar() {
                 </div>
               ) : null}
             </div>
-            {/* R12.1 — Borsa CTA (backup/blok1-borsa pattern) */}
-            <Button asChild className="h-10 px-4 text-sm font-semibold">
-              <Link to="/borsa" className="no-underline">
-                {n.borsaCta}
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="default" className="h-10 px-4">
+            {/* R12.1 — Borsa CTA artık nav-desktop-links'te Ghost Text Link olarak yer alıyor (bkz. yukarı) */}
+            <Button asChild variant="outline" size="default" className="h-10 px-3 xl:px-4">
               <Link to="/giris">{n.logIn}</Link>
             </Button>
-            <Button asChild size="default" className="h-10 px-4">
+            <Button asChild size="default" className="h-10 px-3 xl:px-4">
               <Link to="/kayit">{n.signUp}</Link>
             </Button>
           </div>
 
           <button
             type="button"
-            className="nav-mobile-toggle inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-600/30 p-2.5 text-slate-200 lg:hidden"
+            className="nav-mobile-toggle inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-600/30 p-2.5 text-slate-200 2xl:hidden"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label={mobileOpen ? n.closeMenu : n.openMenu}
             data-testid="nav-mobile-toggle"
@@ -400,7 +418,7 @@ export function Navbar() {
         </div>
 
         {mobileOpen ? (
-          <div className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-slate-700/40 px-4 py-4 lg:hidden">
+          <div className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-slate-700/40 px-4 py-4 2xl:hidden">
             <button
               type="button"
               onClick={() => {
