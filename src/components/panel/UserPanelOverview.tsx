@@ -53,7 +53,7 @@ export function UserPanelOverview() {
   // Anonim — zengin landing
   if (!user) {
     return (
-      <Card className="border-dashed border-black/15">
+      <Card className="border-dashed border-border">
         <CardContent className="p-8">
           <div className="text-center max-w-lg mx-auto">
             <Sparkles className="w-10 h-10 text-card-foreground mx-auto mb-3" />

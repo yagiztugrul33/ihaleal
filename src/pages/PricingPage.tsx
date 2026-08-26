@@ -96,6 +96,13 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
   const subtleText = cls.light ? "text-muted-foreground" : "text-slate-500";
   const featureText = cls.light ? "text-card-foreground" : "text-slate-200";
   const excludedText = cls.light ? "text-muted-foreground" : "text-slate-600";
+  // Dahil/sınırlı özellik tikleri ve genişletilmiş liste ayırıcısı da aynı
+  // şekilde koyu-kart varsayımıyla yazılmıştı; bugüne kadar yalnızca
+  // global-acik.css'in örtük bg-card bağlamı sayesinde doğru görünüyorlardı.
+  // Durum renklerini doğrudan token'dan (aynı anlam: dahil/sınırlı) çekiyoruz.
+  const includedIconColor = cls.light ? "text-[var(--durum-basari)]" : "text-emerald-400";
+  const limitedIconColor = cls.light ? "text-[var(--durum-uyari)]" : "text-amber-400";
+  const dividerBorder = cls.light ? "border-border" : "border-slate-700";
   const { try: listPrice, period } = priceFor(tier, cycle);
   const early = earlyPriceFor(tier, cycle);
   const effectivePrice = early?.try ?? listPrice;
@@ -177,9 +184,9 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
         {tier.features.slice(0, 5).map((f) => (
           <li key={f.label} className="flex items-start gap-2">
             {f.status === "included" ? (
-              <Check className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+              <Check className={`h-3.5 w-3.5 ${includedIconColor} flex-shrink-0 mt-0.5`} />
             ) : f.status === "limited" ? (
-              <CheckCircle2 className="h-3.5 w-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className={`h-3.5 w-3.5 ${limitedIconColor} flex-shrink-0 mt-0.5`} />
             ) : (
               <X className={`h-3.5 w-3.5 ${excludedText} flex-shrink-0 mt-0.5`} />
             )}
@@ -206,14 +213,14 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
       </button>
 
       {expanded && (
-        <ul className="space-y-2 mb-4 text-xs border-t border-slate-700 pt-3">
+        <ul className={`space-y-2 mb-4 text-xs border-t ${dividerBorder} pt-3`}>
           {tier.features.map((f) => (
             <li key={f.label} className="space-y-0.5">
               <div className="flex items-start gap-2">
                 {f.status === "included" ? (
-                  <Check className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <Check className={`h-3.5 w-3.5 ${includedIconColor} flex-shrink-0 mt-0.5`} />
                 ) : f.status === "limited" ? (
-                  <CheckCircle2 className="h-3.5 w-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className={`h-3.5 w-3.5 ${limitedIconColor} flex-shrink-0 mt-0.5`} />
                 ) : (
                   <X className={`h-3.5 w-3.5 ${excludedText} flex-shrink-0 mt-0.5`} />
                 )}
