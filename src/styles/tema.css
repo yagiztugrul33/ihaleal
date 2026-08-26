@@ -63,6 +63,13 @@
   --durum-hata: #b42318;
   --durum-hata-zemin: #fdf3f2;
 
+  /* ——— Canlı-veri sinyalleri (Factory'nin iki fonksiyonel aksanı — DESIGN.md).
+     --durum-* ile KARIŞTIRILMAZ: bunlar form/toast gibi genel UI durumları
+     için AA-uyumlu değerler, bu ikisi ise SADECE canlı veri/status metni,
+     nokta ve sparkline için — asla buton/kart/arka plan dolgusu. ——— */
+  --sinyal-turuncu: #ee6018;
+  --metrik-yesil: #a0ca92;
+
   /* ——— Hareket: Factory Motion Philosophy — 0.15-0.2s, mekanik ——— */
   --gecis-hizli: 150ms;
   --gecis: 200ms;

@@ -85,15 +85,11 @@ export function CountdownTimer({
   const { days, hours, minutes, seconds, diff } = diffParts(targetMs, now);
   const totalHours = diff / 3600000;
 
-  // Renk tema — kalan süreye göre
-  const tone =
-    computedStatus === "upcoming"
-      ? "border-cyan-400/40 bg-cyan-500/10 text-cyan-100"
-      : totalHours < 1
-        ? "border-red-500/50 bg-red-500/15 text-red-100 animate-pulse"
-        : totalHours < 24
-          ? "border-amber-400/40 bg-amber-500/10 text-amber-100"
-          : "border-emerald-400/40 bg-emerald-500/10 text-emerald-100";
+  // Factory: yüzey her zaman nötr (Carbon Lift) — renk SADECE canlı-veri
+  // sinyali olarak metin/ikon üzerinde taşınır (Signal Orange <1s /
+  // Metric Green >24s). Ara bant (1-24s) ve "upcoming" nötr kalır.
+  const signalColor =
+    totalHours < 1 ? "var(--sinyal-turuncu)" : totalHours >= 24 ? "var(--metrik-yesil)" : undefined;
 
   const label =
     computedStatus === "upcoming"
@@ -106,21 +102,23 @@ export function CountdownTimer({
 
   const Icon = totalHours < 1 ? Flame : Clock;
 
+  const surface = "border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin)]";
+
   // Kompakt ve geniş layout
   if (layout === "compact") {
     return (
       <div
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg border",
-          tone,
+          "inline-flex items-center gap-2 rounded-lg",
+          surface,
           size === "sm" ? "px-3 py-1.5 text-xs" : size === "lg" ? "px-5 py-3 text-base" : "px-4 py-2 text-sm",
           className,
         )}
         data-testid="countdown-compact"
         aria-live="polite"
       >
-        <Icon className="w-4 h-4 flex-shrink-0" aria-hidden />
-        <span className="font-mono tabular-nums font-semibold">
+        <Icon className="w-4 h-4 flex-shrink-0" style={{ color: signalColor }} aria-hidden />
+        <span className="font-mono tabular-nums" style={{ color: signalColor }}>
           {days > 0 ? `${days}g ` : ""}
           {pad2(hours)}:{pad2(minutes)}:{pad2(seconds)}
         </span>
@@ -129,13 +127,9 @@ export function CountdownTimer({
   }
 
   return (
-    <div
-      className={cn("rounded-xl border", tone, "px-4 py-3", className)}
-      data-testid="countdown-wide"
-      aria-live="polite"
-    >
-      <div className="flex items-center gap-2 mb-1 text-[11px] uppercase tracking-wider font-semibold opacity-80">
-        <Icon className="w-3.5 h-3.5" aria-hidden /> {label}
+    <div className={cn("rounded-xl", surface, "px-4 py-3", className)} data-testid="countdown-wide" aria-live="polite">
+      <div className="flex items-center gap-2 mb-1 text-[11px] uppercase tracking-wider font-normal opacity-80">
+        <Icon className="w-3.5 h-3.5" style={{ color: signalColor }} aria-hidden /> {label}
       </div>
       <div className="grid grid-cols-4 gap-2 font-mono tabular-nums">
         {[
@@ -144,8 +138,11 @@ export function CountdownTimer({
           { v: minutes, l: ld.countdownMinutes },
           { v: seconds, l: ld.countdownSeconds },
         ].map((unit) => (
-          <div key={unit.l} className="rounded-lg bg-slate-950/30 px-2 py-2 text-center">
-            <div className={cn("font-bold leading-none", size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl")}>
+          <div key={unit.l} className="rounded-lg bg-[var(--zemin)] px-2 py-2 text-center">
+            <div
+              className={cn("font-normal leading-none", size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl")}
+              style={{ color: signalColor }}
+            >
               {pad2(unit.v)}
             </div>
             <div className="text-[10px] uppercase tracking-wider opacity-70 mt-1">{unit.l}</div>

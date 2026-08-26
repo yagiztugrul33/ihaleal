@@ -280,10 +280,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                     </td>
                     <td className="py-2 text-end text-slate-300">{a.bidderCount || 0}</td>
                     <td className="py-2 text-end">
-                      {/* `compact` CountdownTimer Props'unda yok; bilesen rest spread yapmadigi
-    icin calisma zamaninda zaten yok sayiliyordu. Gorunumu degistirmemek
-    adina prop kaldirildi (layout="compact" niyeti icin kuyruga yazildi). */}
-<CountdownTimer endDate={a.endDate} />
+                      <CountdownTimer endDate={a.endDate} layout="compact" size="sm" />
                     </td>
                   </tr>
                 ))}
@@ -469,10 +466,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                       >
                         {a.title.slice(0, 30)}
                       </Link>
-                      {/* `compact` CountdownTimer Props'unda yok; bilesen rest spread yapmadigi
-    icin calisma zamaninda zaten yok sayiliyordu. Gorunumu degistirmemek
-    adina prop kaldirildi (layout="compact" niyeti icin kuyruga yazildi). */}
-<CountdownTimer endDate={a.endDate} />
+                      <CountdownTimer endDate={a.endDate} layout="compact" size="sm" />
                     </li>
                   ))}
                 </ul>
