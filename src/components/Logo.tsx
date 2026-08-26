@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { MarkaIsareti } from "@/components/MarkaIsareti";
 
 /**
  * Marka kimliği — tek kaynak (single source of truth).
@@ -28,13 +27,6 @@ const lockupSizes = {
   sm: "h-14 w-auto sm:h-12",
   md: "h-14 w-auto sm:h-16",
   lg: "h-20 w-auto sm:h-24",
-} as const;
-
-// Wordmark tipografisi — işaret yüksekliğiyle optik denge kurar.
-const wordmarkSizes = {
-  sm: "text-[1.5rem] sm:text-[1.3rem]",
-  md: "text-[1.5rem] sm:text-[1.75rem]",
-  lg: "text-[2.1rem] sm:text-[2.5rem]",
 } as const;
 
 // Emblem-only fallback (favicon / icon-only legacy yerler için).
@@ -132,30 +124,22 @@ export function BrandLockup({
     </span>
   ) : null;
 
-  // Açık-uyumlu lockup: sade işaret + lacivert wordmark. Koyu dikdörtgen zemin YOK.
-  //
-  // Eskiden burada `/ihaleal-logo-lockup.png` vardı (navy zeminli PNG + altın
-  // drop-shadow). Ekran görüntüsüyle görüldü ki açık sayfada tek koyu ada olarak
-  // duruyordu. Artık işaret bir SVG (MarkaIsareti) ve wordmark gerçek metin:
-  //  - renk `currentColor`/token üzerinden gelir, ayrı light/dark dosyası gerekmez
-  //  - ~0,6 KB satır içi SVG, 19,6 KB'lik PNG isteği ve LCP beklemesi ortadan kalkar
-  //  - wordmark metin olduğu için ekran okuyucu ve arama motoru doğrudan okur
+  // Master onaylı marka lockup: altın kalkan+ev+tokmak amblemi + altın italik
+  // "ihaleal" wordmark, lacivert zemin (bkz. BRAND_LOGO_LOCKUP_SRC yorumu).
+  // Tek <img>, tüm yerleştirme noktalarında (Navbar/Footer/BorsaLayout/
+  // AuthBrandHeader/PreLaunch/NotFound/ErrorPage) aynı görseli render eder.
   const lockupImg = (
-    <span
-      className={cn("flex shrink-0 select-none items-center gap-2 sm:gap-2.5", lockupSizes[logoSize])}
+    <img
+      src={BRAND_LOGO_LOCKUP_SRC}
+      alt="ihaleal.com"
+      className={cn("w-auto shrink-0 select-none object-contain object-center", lockupSizes[logoSize])}
       data-testid="logo-image"
       data-brand-lockup-img
-    >
-      <MarkaIsareti className={cn("h-full w-auto shrink-0", "[color:#594ff4]")} />
-      <span
-        className={cn(
-          "font-semibold leading-none tracking-tight [color:#594ff4]",
-          wordmarkSizes[logoSize],
-        )}
-      >
-        ihaleal
-      </span>
-    </span>
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      draggable={false}
+    />
   );
 
   // Inline: lockup yanında slogan (küçük caps). Stack: lockup üst, slogan alt.
