@@ -49,11 +49,15 @@
 /* Geist + Geist Mono — self-host, aynı sebep: fonts.googleapis.com/gstatic.com round-trip'i yok.
    Kaynak: npm "geist" paketi v1.7.2 (Vercel resmi), registry.npmjs.org üzerinden `npm pack` ile indirildi.
    Paket latin/latin-ext olarak bölünmüyor (Google Fonts'un aksine tek dosya, tüm Unicode kapsamı) —
-   bu yüzden unicode-range yok. Variable font: tek dosya 100-900 arası tüm ağırlıkları taşır. */
+   bu yüzden unicode-range yok. Variable font: tek dosya bildirilen agirlik araligini tasir
+   (dosyanin kendisi 100-900 kapsar, ama Inter/Plus Jakarta Sans emsaliyle tutarli olsun diye
+   asagida yalnizca gercekten kullanilan araligi bildiriyoruz).
+   400-700: kapsıyor Tailwind font-normal/medium/semibold/bold; DESIGN.md 400/500 kullanımının
+   ötesinde ama henüz süpürülmemiş font-bold çağrıları için faux-bold'u önlüyor */
 @font-face {
   font-family: 'Geist';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400 700;
   font-display: swap;
   src: url(/fonts/geist.woff2) format('woff2');
 }
@@ -61,7 +65,7 @@
 @font-face {
   font-family: 'Geist Mono';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
   src: url(/fonts/geist-mono.woff2) format('woff2');
 }
