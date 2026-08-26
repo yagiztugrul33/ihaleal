@@ -1,45 +1,58 @@
 import { Link } from "react-router-dom";
+import {
+  Building2,
+  Lock,
+  UploadCloud,
+  Sparkles,
+  BarChart3,
+  Plug,
+  HandCoins,
+  ShieldCheck,
+  Check,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const features = [
   {
     title: "Multi-Tenant Portföy",
     desc: "Tüm ofislerinizi tek panelden yönetin. Her ofis kendi ilanlarını, ekibini ve performansını görür.",
-    icon: "🏢",
+    icon: Building2,
   },
   {
     title: "Rol Bazlı Yetki",
     desc: "Owner, Admin, Manager, Agent, Viewer rolleri. Her kullanıcı sadece görmesi gerekeni görür.",
-    icon: "🔐",
+    icon: Lock,
   },
   {
     title: "Toplu İlan Yükleme",
     desc: "CSV veya Excel ile yüzlerce ilanı saniyede yükleyin. AI sanity check ve duplicate kontrolü dahil.",
-    icon: "📤",
+    icon: UploadCloud,
   },
   {
     title: "AI Destekli Fiyat",
     desc: "Türkiye gayrimenkul verisi üzerinde eğitilmiş model. Piyasa karşılaştırması, güven aralığı.",
-    icon: "🧠",
+    icon: Sparkles,
   },
   {
     title: "Detaylı Analytics",
     desc: "İlan başına görüntülenme, lead, dönüşüm. Ofis bazlı performans, ajan bazlı leaderboard.",
-    icon: "📊",
+    icon: BarChart3,
   },
   {
     title: "Webhook & REST API",
     desc: "Mevcut CRM'inize entegre edin. Yeni ilan, yeni teklif, KYC durumu — anlık webhook bildirimi.",
-    icon: "🔌",
+    icon: Plug,
   },
   {
     title: "Komisyon Paylaşımı",
     desc: "Çok ofisli yapılarda otomatik komisyon split. Şeffaf, denetlenebilir, denkleştirilebilir.",
-    icon: "💰",
+    icon: HandCoins,
   },
   {
     title: "KYC ve Doğrulama",
     desc: "Mernis, Findeks, tapu doğrulama. Doğrulanmış ilanlar daha hızlı satılır.",
-    icon: "✓",
+    icon: ShieldCheck,
   },
 ];
 
@@ -109,19 +122,6 @@ export default function Corporate() {
             </a>
           </div>
 
-          <div className="mt-16 pt-12" style={{ borderTop: "1px solid var(--color-border)" }}>
-            <p
-              className="text-xs uppercase tracking-widest mb-6"
-              style={{ color: "var(--color-text-light)" }}
-            >
-              Güvenen kurumsal hesaplar
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-70">
-              <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>Akfen GYO</span>
-              <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>Tahincioğlu</span>
-              <span className="text-lg md:text-xl font-semibold" style={{ color: "var(--color-text-muted)" }}>Nef</span>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -141,10 +141,10 @@ export default function Corporate() {
             {features.map((f) => (
               <div key={f.title} className="card-warm">
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                  className="w-10 h-10 rounded-[3px] flex items-center justify-center mb-4"
                   style={{ background: "var(--color-bg-soft)" }}
                 >
-                  {f.icon}
+                  <f.icon className="h-5 w-5" style={{ color: "var(--metin-ikincil)" }} aria-hidden />
                 </div>
                 <h3 className="text-lg font-bold mb-2" style={{ color: "var(--color-text)" }}>
                   {f.title}
@@ -178,10 +178,10 @@ export default function Corporate() {
               >
                 {p.highlighted && (
                   <div
-                    className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-semibold rounded-full"
-                    style={{ background: "#ffffff", color: "var(--vurgu)" }}
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-[3px] px-3 py-1 text-[11px] font-normal uppercase tracking-wide"
+                    style={{ background: "#1d1a18", color: "#eeeeee" }}
                   >
-                    EN POPÜLER
+                    En Popüler
                   </div>
                 )}
                 <div
@@ -208,17 +208,15 @@ export default function Corporate() {
                 <ul className="space-y-3 mb-6">
                   {p.features.map((ft) => (
                     <li key={ft} className="flex items-start gap-2 text-sm">
-                      <span style={{ color: "var(--uzerine-basari)" }}>
-                        ✓
-                      </span>
+                      <Check className="h-4 w-4 shrink-0 mt-0.5" style={{ color: "var(--uzerine-ikincil)" }} aria-hidden />
                       {ft}
                     </li>
                   ))}
                 </ul>
                 <Link
                   to="/kurumsal/iletisim"
-                  className={p.highlighted ? "btn-accent block text-center" : "btn-primary block text-center"}
-                  style={p.highlighted ? { background: "#ffffff", color: "var(--vurgu)" } : {}}
+                  className="btn-primary block text-center"
+                  style={p.highlighted ? { background: "#101010", borderColor: "#101010", color: "#eeeeee" } : {}}
                 >
                   {p.name === "Enterprise" ? "İletişime Geç" : "Başla"}
                 </Link>
@@ -228,25 +226,32 @@ export default function Corporate() {
         </div>
       </section>
 
-      <section className="py-20 md:py-24 vurgu-yuzey">
+      <section className="py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ color: "var(--uzerine)" }}>
-            Demo görüşmesi planlayalım.
-          </h2>
-          <p
-            className="mb-10 text-lg max-w-2xl mx-auto"
-            style={{ color: "var(--uzerine-ikincil)" }}
-          >
-            GYO veya büyük emlak grubu yöneticisiyseniz, ekibimiz size özel
-            bir demo hazırlasın. 30 dakikalık görüşme, ihtiyaçlarınıza özel çözüm.
-          </p>
-          <Link
-            to="/kurumsal/iletisim"
-            className="inline-block px-8 py-4 font-semibold rounded-lg text-base transition-all hover:scale-105"
-            style={{ background: "#ffffff", color: "var(--vurgu)" }}
-          >
-            Görüşme Talep Et →
-          </Link>
+          <Card className="mx-auto max-w-[480px] text-center">
+            <CardContent className="p-6">
+              <p
+                className="mb-3 flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-muted-foreground"
+              >
+                <span
+                  className="inline-block h-1.5 w-1.5 rounded-full"
+                  style={{ background: "var(--sinyal-turuncu)" }}
+                  aria-hidden
+                />
+                Demo
+              </p>
+              <h2 className="text-3xl md:text-4xl font-normal mb-4 text-card-foreground">
+                Demo görüşmesi planlayalım.
+              </h2>
+              <p className="mb-8 text-base text-muted-foreground">
+                GYO veya büyük emlak grubu yöneticisiyseniz, ekibimiz size özel
+                bir demo hazırlasın. 30 dakikalık görüşme, ihtiyaçlarınıza özel çözüm.
+              </p>
+              <Button asChild>
+                <Link to="/kurumsal/iletisim">Görüşme Talep Et →</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </div>
