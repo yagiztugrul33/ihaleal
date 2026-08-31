@@ -58,13 +58,13 @@ export default function UserPanel() {
                   : "Özet";
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
+    <div className="min-h-screen pt-24 pb-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
         <aside className="lg:w-64 shrink-0 space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-muted-foreground hover:text-foreground gap-2">
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
           </Button>
-          <nav className="rounded-2xl border border-slate-200 bg-slate-900/40 p-2 space-y-1">
+          <nav className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2 space-y-1">
             {sidebar.map((item) => (
               <NavLink
                 key={item.to}
@@ -72,7 +72,7 @@ export default function UserPanel() {
                 end={"end" in item ? item.end : false}
                 className={({ isActive }) =>
                   `flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm transition-colors ${
-                    isActive ? "bg-blue-500/20 text-white border border-blue-500/30" : "text-slate-400 hover:bg-white/5 hover:text-white"
+                    isActive ? "bg-[var(--zemin)] text-[var(--metin)] border border-[var(--cizgi)]" : "text-slate-400 hover:bg-white/5 hover:text-white"
                   }`
                 }
               >
@@ -85,23 +85,23 @@ export default function UserPanel() {
 
         <div className="flex-1 space-y-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
-              <LayoutDashboard className="w-8 h-8 text-blue-400" />
+            <h1 className="text-2xl md:text-3xl font-normal text-foreground flex items-center gap-2">
+              <LayoutDashboard className="w-8 h-8 text-muted-foreground" />
               {sectionTitle}
             </h1>
-            <p className="text-slate-400 mt-1 text-sm">
+            <p className="text-muted-foreground mt-1 text-sm">
               Canlı tablolardan favori, teklif, bildirim ve satıcı analitiği.
             </p>
           </div>
 
           {tabId === "tekliflerim" ? (
-            <Card className="bg-slate-900/50 border-slate-200/80">
+            <Card>
               <CardContent className="p-5">
                 <OffersPanel mode="buyer" />
               </CardContent>
             </Card>
           ) : tabId === "gelen-teklifler" ? (
-            <Card className="bg-slate-900/50 border-slate-200/80">
+            <Card>
               <CardContent className="p-5">
                 <OffersPanel mode="seller" />
               </CardContent>
@@ -109,19 +109,19 @@ export default function UserPanel() {
           ) : tabId === "bildirimler" ? (
             <NotificationsPage />
           ) : tabId === "profil" ? (
-            <Card className="bg-slate-900/50 border-slate-200/80">
+            <Card>
               <CardContent className="p-5">
-                <p className="text-sm text-slate-400 mb-4">Profil bilgilerinizi düzenleyin.</p>
+                <p className="text-sm text-muted-foreground mb-4">Profil bilgilerinizi düzenleyin.</p>
                 <Button type="button" onClick={() => navigate("/profil")}>
                   Profil sayfasına git
                 </Button>
               </CardContent>
             </Card>
           ) : tabId === "ihalelerim" ? (
-            <Card className="bg-slate-900/50 border-slate-200/80">
+            <Card>
               <CardContent className="p-5">
-                <p className="text-sm text-slate-400 mb-4">Katıldığınız ve açtığınız ihaleler.</p>
-                <Button type="button" variant="outline" className="border-white/15 me-2" onClick={() => navigate("/ihaleler")}>
+                <p className="text-sm text-muted-foreground mb-4">Katıldığınız ve açtığınız ihaleler.</p>
+                <Button type="button" variant="outline" className="border-border me-2" onClick={() => navigate("/ihaleler")}>
                   Aktif ihaleler
                 </Button>
                 <Button type="button" onClick={() => navigate("/ihale-ac")}>
@@ -130,12 +130,12 @@ export default function UserPanel() {
               </CardContent>
             </Card>
           ) : tabId === "komisyon" ? (
-            <Card className="bg-slate-900/50 border-slate-200/80">
+            <Card>
               <CardContent className="p-5">
-                <h2 className="text-lg font-semibold text-white mb-3">Komisyon özeti</h2>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <h2 className="text-lg font-normal mb-3">Komisyon özeti</h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   İşlem komisyonu hedefi %4 + KDV (mahsup). Detay için{" "}
-                  <button type="button" onClick={() => navigate("/komisyon-hesaplayici")} className="text-teal-400 hover:underline">
+                  <button type="button" onClick={() => navigate("/komisyon-hesaplayici")} className="underline text-card-foreground hover:text-muted-foreground">
                     komisyon hesaplayıcı
                   </button>
                   .
@@ -143,7 +143,7 @@ export default function UserPanel() {
               </CardContent>
             </Card>
           ) : tabId === "ayarlar" ? (
-            <Card className="bg-slate-900/50 border-slate-200/80">
+            <Card>
               <CardContent className="p-5">
                 <Button type="button" onClick={() => navigate("/ayarlar")}>
                   Hesap ayarları

@@ -105,69 +105,69 @@ export function UserPanelOverview() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 to-slate-900/40 p-5">
-        <p className="text-xs text-cyan-300 uppercase tracking-wider mb-1">Hoş geldiniz</p>
-        <h2 className="text-xl md:text-2xl font-bold text-white">{userName}</h2>
-        <p className="text-sm text-slate-400 mt-1">Aşağıdaki kartlar canlı veriden geliyor.</p>
+      <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5">
+        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Hoş geldiniz</p>
+        <h2 className="text-xl md:text-2xl font-normal text-foreground">{userName}</h2>
+        <p className="text-sm text-muted-foreground mt-1">Aşağıdaki kartlar canlı veriden geliyor.</p>
       </div>
 
       {/* 4 özet kart */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        <Card>
           <CardContent className="p-5">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-slate-500">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
               <Heart className="h-4 w-4" /> Favoriler
             </div>
-            <div className="mt-1 text-3xl font-bold text-rose-400">{favorites.length}</div>
-            <Button type="button" variant="link" className="h-auto p-0 text-xs text-teal-400" onClick={() => navigate("/favoriler")}>
+            <div className="mt-1 text-3xl font-normal text-card-foreground">{favorites.length}</div>
+            <Button type="button" variant="link" className="h-auto p-0 text-xs text-card-foreground" onClick={() => navigate("/favoriler")}>
               Görüntüle
             </Button>
           </CardContent>
         </Card>
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        <Card>
           <CardContent className="p-5">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-slate-500">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
               <Bookmark className="h-4 w-4" /> Kayıtlı arama
             </div>
-            <div className="mt-1 text-3xl font-bold text-sky-400">
+            <div className="mt-1 text-3xl font-normal text-card-foreground">
               {savedApi.loading ? "…" : savedApi.searches.length}
             </div>
-            <Button type="button" variant="link" className="h-auto p-0 text-xs text-teal-400" onClick={() => navigate("/aramalarim")}>
+            <Button type="button" variant="link" className="h-auto p-0 text-xs text-card-foreground" onClick={() => navigate("/aramalarim")}>
               Aramalarım
             </Button>
           </CardContent>
         </Card>
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        <Card>
           <CardContent className="p-5">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-slate-500">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
               <HandCoins className="h-4 w-4" /> Tekliflerim
             </div>
-            <div className="mt-1 text-3xl font-bold text-amber-400">
+            <div className="mt-1 text-3xl font-normal text-card-foreground">
               {buyerOffers.loading ? "…" : pendingBuyer}
             </div>
-            <span className="text-xs text-slate-500">bekleyen</span>
+            <span className="text-xs text-muted-foreground">bekleyen</span>
           </CardContent>
         </Card>
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        <Card>
           <CardContent className="p-5">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-slate-500">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
               <Bell className="h-4 w-4" /> Bildirim
             </div>
-            <div className="mt-1 text-3xl font-bold text-violet-400">{unreadCount}</div>
-            <span className="text-xs text-slate-500">okunmamış</span>
+            <div className="mt-1 text-3xl font-normal text-card-foreground">{unreadCount}</div>
+            <span className="text-xs text-muted-foreground">okunmamış</span>
           </CardContent>
         </Card>
       </div>
 
       {/* Son aktivite — favoriler */}
       {favoriteAuctions.length > 0 ? (
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        <Card>
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                <Heart className="w-4 h-4 text-rose-400" /> Son Favori İlanlarınız
+              <h3 className="text-sm font-normal uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                <Heart className="w-4 h-4 text-muted-foreground" /> Son Favori İlanlarınız
               </h3>
-              <Button type="button" variant="link" className="h-auto p-0 text-xs text-teal-400" onClick={() => navigate("/favoriler")}>
+              <Button type="button" variant="link" className="h-auto p-0 text-xs text-card-foreground" onClick={() => navigate("/favoriler")}>
                 Tümünü gör
               </Button>
             </div>
@@ -177,17 +177,17 @@ export function UserPanelOverview() {
                   key={a.id}
                   type="button"
                   onClick={() => navigate(`/ilan/${a.id}`)}
-                  className="text-start rounded-xl border border-white/10 bg-slate-950/40 overflow-hidden hover:border-cyan-400/40 transition-colors"
+                  className="text-start rounded-xl border border-border overflow-hidden hover:border-card-foreground/40 transition-colors"
                 >
-                  <div className="aspect-[16/10] bg-slate-800 overflow-hidden">
+                  <div className="aspect-[16/10] bg-muted overflow-hidden">
                     <img src={a.images[0]} alt={a.title} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <div className="p-2.5 space-y-1">
-                    <div className="text-[11px] text-slate-400 flex items-center gap-1">
+                    <div className="text-[11px] text-muted-foreground flex items-center gap-1">
                       <MapPin className="w-3 h-3" /> {a.district}, {a.city}
                     </div>
-                    <div className="text-xs font-medium text-white line-clamp-2 leading-snug">{a.title}</div>
-                    <div className="text-sm font-bold text-cyan-300">{formatTRY(a.currentBid)}</div>
+                    <div className="text-xs font-medium text-card-foreground line-clamp-2 leading-snug">{a.title}</div>
+                    <div className="text-sm font-normal text-card-foreground">{formatTRY(a.currentBid)}</div>
                   </div>
                 </button>
               ))}
@@ -199,13 +199,13 @@ export function UserPanelOverview() {
       {/* Son aktivite — tekliflerim (sealed maskeleme korunuyor: useBuyerOffers
           satıcı tarafını filtreler; buyer kendi tekliflerini görür). */}
       {recentBuyerOffers.length > 0 ? (
-        <Card className="bg-slate-900/50 border-slate-200/80">
+        <Card>
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                <HandCoins className="w-4 h-4 text-amber-400" /> Son Tekliflerim
+              <h3 className="text-sm font-normal uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                <HandCoins className="w-4 h-4 text-muted-foreground" /> Son Tekliflerim
               </h3>
-              <Button type="button" variant="link" className="h-auto p-0 text-xs text-teal-400" onClick={() => navigate("/panel/tekliflerim")}>
+              <Button type="button" variant="link" className="h-auto p-0 text-xs text-card-foreground" onClick={() => navigate("/panel/tekliflerim")}>
                 Tümünü gör
               </Button>
             </div>
@@ -213,20 +213,15 @@ export function UserPanelOverview() {
               {recentBuyerOffers.map((o) => (
                 <div
                   key={o.id}
-                  className="rounded-lg border border-slate-700/60 bg-slate-950/40 p-2.5 flex items-center justify-between gap-3"
+                  className="rounded-lg border border-border p-2.5 flex items-center justify-between gap-3"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs text-slate-400 truncate">İlan #{o.listing_id?.slice(0, 8) ?? "?"}</p>
-                    <p className="text-sm text-white font-medium">{formatTRY(o.amount_try ?? 0)}</p>
+                    <p className="text-xs text-muted-foreground truncate">İlan #{o.listing_id?.slice(0, 8) ?? "?"}</p>
+                    <p className="text-sm text-card-foreground font-medium">{formatTRY(o.amount_try ?? 0)}</p>
                   </div>
                   <span
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-md ${
-                      o.status === "pending" ? "bg-amber-500/20 text-amber-200" :
-                      o.status === "accepted" ? "bg-emerald-500/20 text-emerald-200" :
-                      o.status === "rejected" ? "bg-red-500/20 text-red-200" :
-                      o.status === "countered" ? "bg-violet-500/20 text-violet-200" :
-                      "bg-slate-700/40 text-slate-300"
-                    }`}
+                    className="text-[10px] font-normal px-2 py-0.5 rounded-md bg-[var(--zemin)] border border-[var(--cizgi)] text-muted-foreground"
+                    style={o.status === "accepted" ? { color: "var(--metrik-yesil)" } : undefined}
                   >
                     {o.status === "pending" ? "Bekleyen" : o.status === "accepted" ? "Kabul" : o.status === "rejected" ? "Ret" : o.status === "countered" ? "Karşı teklif" : o.status}
                   </span>
@@ -242,19 +237,19 @@ export function UserPanelOverview() {
           {analytics.loading ? <LoadingState compact label="Satıcı analitiği…" /> : null}
           {!analytics.loading && analytics.data && analytics.data.totalViews > 0 ? (
             <div className="grid gap-4 sm:grid-cols-3">
-              <Card className="bg-slate-900/50 border-slate-200/80">
+              <Card>
                 <CardContent className="p-4 flex items-center gap-3">
-                  <Eye className="h-5 w-5 text-blue-400" />
+                  <Eye className="h-5 w-5 text-muted-foreground" />
                   <div>
-                    <p className="text-xs text-slate-500">Toplam görüntülenme</p>
-                    <p className="text-xl font-bold text-white">{analytics.data.totalViews.toLocaleString("tr-TR")}</p>
+                    <p className="text-xs text-muted-foreground">Toplam görüntülenme</p>
+                    <p className="text-xl font-normal text-card-foreground">{analytics.data.totalViews.toLocaleString("tr-TR")}</p>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="bg-slate-900/50 border-slate-200/80">
+              <Card>
                 <CardContent className="p-4">
-                  <p className="text-xs text-slate-500">Gelen teklif (bekleyen)</p>
-                  <p className="text-xl font-bold text-emerald-400">{pendingSeller}</p>
+                  <p className="text-xs text-muted-foreground">Gelen teklif (bekleyen)</p>
+                  <p className="text-xl font-normal text-card-foreground">{pendingSeller}</p>
                 </CardContent>
               </Card>
             </div>
@@ -264,31 +259,31 @@ export function UserPanelOverview() {
       ) : null}
 
       {/* Hızlı erişim — Master DOKUNDU: "İlan ver" CTA eklendi */}
-      <Card className="bg-slate-900/50 border-slate-200/80">
+      <Card>
         <CardContent className="p-5 flex flex-wrap gap-3">
-          <Button asChild className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold gap-2">
+          <Button asChild className="gap-2">
             <Link to="/ihale-ac">
               <Plus className="w-4 h-4" /> İlan / İhale Aç
             </Link>
           </Button>
-          <Button asChild variant="outline" className="border-cyan-400/40 gap-2">
+          <Button asChild variant="outline" className="border-border gap-2">
             <Link to="/arama">
               <Search className="w-4 h-4" /> Arama Yap
             </Link>
           </Button>
-          <Button asChild variant="outline" className="border-white/15">
+          <Button asChild variant="outline" className="border-border">
             <Link to="/profil">Profil</Link>
           </Button>
-          <Button asChild variant="outline" className="border-white/15">
+          <Button asChild variant="outline" className="border-border">
             <Link to="/panel/tekliflerim">Tekliflerim</Link>
           </Button>
-          <Button asChild variant="outline" className="border-white/15">
+          <Button asChild variant="outline" className="border-border">
             <Link to="/panel/gelen-teklifler">Gelen teklifler</Link>
           </Button>
-          <Button asChild variant="outline" className="border-white/15">
+          <Button asChild variant="outline" className="border-border">
             <Link to="/bildirimler">Bildirimler</Link>
           </Button>
-          <Button asChild variant="outline" className="border-white/15">
+          <Button asChild variant="outline" className="border-border">
             <Link to="/aramalarim">Aramalarım</Link>
           </Button>
         </CardContent>
