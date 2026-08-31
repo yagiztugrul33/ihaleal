@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Maximize2, Sparkles, Video, X } from "lucide-react";
 import { ListingCoverImage } from "@/components/ListingCoverImage";
@@ -8,7 +8,7 @@ import { gallerySlide, luxurySpring } from "@/lib/motion/presets";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export type GalleryBadge = {
-  label: string;
+  label: ReactNode;
   className?: string;
 };
 
@@ -117,8 +117,8 @@ export function CinematicPropertyGallery({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
           >
-            {badges.map((b) => (
-              <Badge key={b.label} className={b.className ?? "bg-slate-800/90 text-white border-white/15"}>
+            {badges.map((b, i) => (
+              <Badge key={i} className={b.className ?? "bg-slate-800/90 text-white border-white/15"}>
                 {b.label}
               </Badge>
             ))}

@@ -725,7 +725,19 @@ export default function AuctionDetail() {
   const closing = estimateBuyerClosingCosts(liveBid);
 
   const galleryBadges = [
-    { label: auction.status === "live" ? ld.badgeLive : ld.badgeUpcoming, className: `${auction.status === "live" ? "bg-red-500" : "bg-sky-500"} text-white border-0` },
+    {
+      label: (
+        <>
+          <span
+            className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+            style={{ background: auction.status === "live" ? "var(--sinyal-turuncu)" : "var(--metin-ikincil)" }}
+            aria-hidden
+          />
+          {auction.status === "live" ? ld.badgeLive : ld.badgeUpcoming}
+        </>
+      ),
+      className: "rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin)]",
+    },
     { label: isRent ? ld.badgeRent : ld.badgeSale, className: "bg-emerald-600/90 text-white border-0" },
     { label: ld.marketingBadge[marketingMode], className: "bg-slate-700 text-white border border-white/15" },
     // R14 PAKET 5 — lansman branding badge
