@@ -197,36 +197,13 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
           </div>
         </div>
 
-        {/* 2. CANLI SAYAÇLAR */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <MetricCard
-            icon={Radio}
-            label="Canlı İhale"
-            value={liveCount.toLocaleString("tr-TR")}
-            tone="cyan"
-            sub="anlık aktif"
-          />
-          <MetricCard
-            icon={BarChart3}
-            label="Toplam Hacim"
-            value={formatTRY(totalVolume)}
-            tone="violet"
-            sub="canlı pozisyon"
-          />
-          <MetricCard
-            icon={Flame}
-            label="Bugün Kapanan"
-            value={todayClosed.length.toString()}
-            tone="amber"
-            sub="son 24 saat"
-          />
-          <MetricCard
-            icon={Zap}
-            label="AI Sinyali"
-            value={aiSignals.length.toString()}
-            tone="emerald"
-            sub="skor 80+ pozitif"
-          />
+        {/* 2. CANLI SAYAÇLAR — Factory Metric Tile: zeminsiz, hairline ayraçlı tek satır
+            (eskiden 4 ayrı renkli kart yüzeyi — cyan/violet/amber/emerald — B2.2/D-8) */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y divide-[var(--cizgi)] rounded-[10px] border border-[var(--cizgi)] sm:divide-y-0">
+          <MetricCard icon={Radio} label="Canlı İhale" value={liveCount.toLocaleString("tr-TR")} sub="anlık aktif" />
+          <MetricCard icon={BarChart3} label="Toplam Hacim" value={formatTRY(totalVolume)} sub="canlı pozisyon" />
+          <MetricCard icon={Flame} label="Bugün Kapanan" value={todayClosed.length.toString()} sub="son 24 saat" />
+          <MetricCard icon={Zap} label="AI Sinyali" value={aiSignals.length.toString()} sub="skor 80+ pozitif" />
         </div>
 
         {/* 3. ORDER BOOK */}
@@ -484,24 +461,17 @@ interface MetricCardProps {
   label: string;
   value: string;
   sub: string;
-  tone: "cyan" | "violet" | "amber" | "emerald";
 }
 
-function MetricCard({ icon: Icon, label, value, sub, tone }: MetricCardProps) {
-  const tones = {
-    cyan: "border-cyan-400/30 bg-cyan-500/5 text-cyan-300",
-    violet: "border-violet-400/30 bg-violet-500/5 text-violet-300",
-    amber: "border-amber-400/30 bg-amber-500/5 text-amber-300",
-    emerald: "border-emerald-400/30 bg-emerald-500/5 text-emerald-300",
-  };
+function MetricCard({ icon: Icon, label, value, sub }: MetricCardProps) {
   return (
-    <div className={cn("rounded-xl border p-3", tones[tone])}>
-      <div className="flex items-center justify-between mb-1">
-        <Icon className="h-4 w-4" />
-        <span className="text-[10px] uppercase opacity-70">{label}</span>
+    <div className="p-3">
+      <div className="flex items-center gap-1.5 mb-1 text-[10px] uppercase tracking-wider text-slate-400">
+        <Icon className="h-3.5 w-3.5" />
+        {label}
       </div>
-      <p className="text-xl font-bold text-white">{value}</p>
-      <p className="text-[10px] opacity-70">{sub}</p>
+      <p className="text-xl font-normal text-white">{value}</p>
+      <p className="text-[10px] text-slate-500 mt-0.5">{sub}</p>
     </div>
   );
 }
