@@ -433,24 +433,24 @@ export function ChatWidget() {
           onMouseLeave={hidePeek}
         >
           {peek && (
-            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-cyan-500/25 bg-white/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-4 ring-1 ring-white/10">
+            <div className="chat-widget-pop w-[min(320px,calc(100vw-2rem))] rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
               <div className="flex items-center gap-3 mb-3">
                 <AiAssistantAvatar size="sm" />
                 <div>
-                  <div className="text-sm font-bold text-white">{ASSISTANT_NAME}</div>
-                  <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30" />
+                  <div className="text-sm font-normal text-[var(--metin)]">{ASSISTANT_NAME}</div>
+                  <div className="text-[11px] text-[var(--metin-ikincil)] flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--metrik-yesil)]" />
                     Hazır · yönlendirme ve soru–cevap
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
+              <p className="text-xs text-[var(--metin-ikincil)] leading-relaxed mb-4">
                 Yönlendirme: anahtar kelimeye göre kısa özet. Soru–cevap: üretimde bilgi bankası ve model; uç nokta kapalıyken yine aynı yerleşik özet gösterilir.
               </p>
               <div className="flex flex-col gap-2">
                 <Button
                   size="sm"
-                  className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white font-semibold shadow-lg shadow-violet-900/40 hover:shadow-fuchsia-500/25"
+                  className="w-full border border-[var(--cizgi)] bg-[var(--zemin)] text-[var(--metin)] font-normal hover:bg-[var(--zemin-yumusak)]"
                   onClick={() => openPanel("qa")}
                 >
                   <HelpCircle className="w-4 h-4 me-2 shrink-0" aria-hidden />
@@ -458,7 +458,7 @@ export function ChatWidget() {
                 </Button>
               <Button
                 size="sm"
-                  className="w-full [background:var(--gradient-cta)] text-white font-semibold shadow-lg shadow-cyan-900/50 hover:shadow-cyan-500/30"
+                  className="w-full [background:var(--gradient-cta)] text-white font-normal hover:brightness-110"
                   onClick={() => openPanel("guide")}
                 >
                   Hızlı yönlendirme
@@ -475,7 +475,7 @@ export function ChatWidget() {
               /* Metin sm altinda gizli; mobilde buton yalniz ikondan olusuyor ve
                  erisilebilir adi kalmiyordu (Lighthouse button-name hatasi). */
               aria-label="Soru–cevap"
-              className="rounded-full border-violet-400/40 bg-violet-950/80 text-violet-100 hover:bg-violet-900/90 shadow-lg shadow-black/40 px-4 py-2 h-auto font-semibold text-xs sm:text-sm"
+              className="rounded-[3px] border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin)] hover:bg-[var(--zemin)] px-4 py-2 h-auto font-normal text-xs sm:text-sm"
             >
               <HelpCircle className="w-4 h-4 sm:me-2 shrink-0" aria-hidden />
               <span className="hidden sm:inline">Soru–cevap</span>
@@ -483,11 +483,11 @@ export function ChatWidget() {
           <button
             type="button"
               onClick={() => openPanel("guide")}
-              className="flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600/95 via-blue-600/95 to-cyan-500/95 ps-2 pe-4 sm:pe-5 py-2 border border-white/20 shadow-xl shadow-black/40 hover:shadow-cyan-900/25 hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-white motion-reduce:hover:scale-100 ring-1 ring-white/15 hover:ring-cyan-400/25"
+              className="flex items-center gap-3 rounded-[3px] bg-[var(--zemin-yumusak)] ps-2 pe-4 sm:pe-5 py-2 border border-[var(--cizgi)] hover:bg-[var(--zemin)] hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 text-[var(--metin)] motion-reduce:hover:scale-100"
             aria-label={`${ASSISTANT_NAME} sohbet`}
           >
-            <AiAssistantAvatar size="md" className="ring-2 ring-black/20 shadow-inner" />
-            <span className="hidden sm:inline font-bold text-sm tracking-tight bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
+            <AiAssistantAvatar size="md" />
+            <span className="hidden sm:inline font-normal text-sm tracking-tight text-[var(--metin)]">
               {ASSISTANT_NAME}
             </span>
             <MessageCircle className="w-5 h-5 opacity-90 sm:hidden" aria-hidden />
@@ -498,14 +498,14 @@ export function ChatWidget() {
 
       {open && (
         <div className="ai-dock-panel fixed bottom-6 end-6 z-50 flex max-h-[min(520px,85vh)] w-[min(400px,calc(100vw-1.5rem))] flex-col overflow-hidden chat-widget-pop">
-          <div className="space-y-3 border-b border-white/10 bg-gradient-to-r from-blue-950/80 via-slate-900/90 to-slate-950/95 p-4">
+          <div className="space-y-3 border-b border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-3 min-w-0">
               <AiAssistantAvatar size="md" />
                 <div className="min-w-0">
-                  <div className="text-sm font-bold text-white truncate">{ASSISTANT_NAME}</div>
-                  <div className="text-[11px] text-cyan-200/90 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25 shrink-0" />
+                  <div className="text-sm font-normal text-[var(--metin)] truncate">{ASSISTANT_NAME}</div>
+                  <div className="text-[11px] text-[var(--metin-ikincil)] flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--metrik-yesil)] shrink-0" />
                     <span className="truncate">
                       {chatMode === "qa"
                         ? "Soru–cevap · model + bilgi bankası; yoksa yerleşik özet"
@@ -517,18 +517,18 @@ export function ChatWidget() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-                className="relative p-2 rounded-xl hover:bg-white/10 text-slate-500 hover:text-slate-900 transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0 shrink-0"
+                className="relative p-2 rounded-[3px] hover:bg-[var(--zemin)] text-[var(--metin-ikincil)] hover:text-[var(--metin)] transition-all duration-200 hover:rotate-90 motion-reduce:hover:rotate-0 shrink-0"
               aria-label="Kapat"
             >
               <X className="w-5 h-5" />
             </button>
             </div>
-            <div className="flex rounded-lg bg-black/30 p-0.5 border border-slate-200">
+            <div className="flex rounded-[3px] bg-[var(--zemin)] p-0.5 border border-[var(--cizgi)]">
               <button
                 type="button"
                 onClick={() => applyChatMode("guide")}
-                className={`flex-1 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors ${
-                  chatMode === "guide" ? "bg-cyan-500/25 text-white" : "text-slate-500 hover:text-slate-900"
+                className={`flex-1 rounded-[3px] px-2 py-1.5 text-[11px] font-normal transition-colors ${
+                  chatMode === "guide" ? "bg-[var(--zemin-yumusak)] text-[var(--metin)]" : "text-[var(--metin-ikincil)] hover:text-[var(--metin)]"
                 }`}
               >
                 Yönlendirme
@@ -536,8 +536,8 @@ export function ChatWidget() {
               <button
                 type="button"
                 onClick={() => applyChatMode("qa")}
-                className={`flex-1 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors ${
-                  chatMode === "qa" ? "bg-violet-500/30 text-white" : "text-slate-500 hover:text-slate-900"
+                className={`flex-1 rounded-[3px] px-2 py-1.5 text-[11px] font-normal transition-colors ${
+                  chatMode === "qa" ? "bg-[var(--zemin-yumusak)] text-[var(--metin)]" : "text-[var(--metin-ikincil)] hover:text-[var(--metin)]"
                 }`}
               >
                 Soru–cevap
@@ -545,19 +545,19 @@ export function ChatWidget() {
             </div>
           </div>
 
-          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-slate-950/40 p-4">
+          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-[var(--zemin)] p-4">
             {messages.map((msg, i) => (
               <div key={i} className={`flex gap-2.5 animate-fade-in ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
                 <div
-                  className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${msg.role === "ai" ? "bg-gradient-to-br from-blue-600/40 to-cyan-500/25 ring-1 ring-cyan-400/25" : "bg-white/10 ring-1 ring-white/10"}`}
+                  className="w-8 h-8 rounded-[3px] flex items-center justify-center flex-shrink-0 transition-transform duration-300 bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]"
                 >
-                  {msg.role === "ai" ? <Bot className="w-4 h-4 text-cyan-200" /> : <User className="w-4 h-4 text-slate-400" />}
+                  {msg.role === "ai" ? <Bot className="w-4 h-4 text-[var(--metin)]" /> : <User className="w-4 h-4 text-[var(--metin-ikincil)]" />}
                 </div>
                 <div
-                  className={`max-w-[260px] whitespace-pre-wrap break-words rounded-2xl border p-3 text-sm leading-relaxed transition-all duration-300 ${
+                  className={`max-w-[260px] whitespace-pre-wrap break-words rounded-[10px] border p-3 text-sm leading-relaxed transition-all duration-300 ${
                     msg.role === "ai"
-                      ? "border-white/10 bg-white/[0.06] text-slate-200 shadow-inner shadow-black/20"
-                      : "border-blue-400/25 bg-gradient-to-br from-blue-600/30 to-blue-500/10 text-white shadow-lg shadow-blue-900/30"
+                      ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
+                      : "border-[var(--cizgi)] bg-[var(--zemin)] text-[var(--metin)]"
                   }`}
                 >
                   {msg.text}
@@ -566,14 +566,14 @@ export function ChatWidget() {
             ))}
             {typing && (
               <div className="flex gap-2.5 animate-fade-in">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600/40 to-cyan-500/25 ring-1 ring-cyan-400/30 flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse motion-reduce:animate-none" />
+                <div className="w-8 h-8 rounded-[3px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-4 h-4 text-[var(--metin)] animate-pulse motion-reduce:animate-none" />
                 </div>
-                <div className="p-3 rounded-2xl bg-white/[0.06] border border-slate-200">
+                <div className="p-3 rounded-[10px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
                   <div className="flex gap-1.5 items-center h-4">
-                    <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/70 motion-safe:animate-pulse" />
-                    <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/50 motion-safe:animate-pulse [animation-delay:120ms]" />
-                    <span className="w-1.5 h-1.5 rounded-sm bg-cyan-400/35 motion-safe:animate-pulse [animation-delay:240ms]" />
+                    <span className="w-1.5 h-1.5 rounded-sm bg-[var(--metin-ikincil)] opacity-70 motion-safe:animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-sm bg-[var(--metin-ikincil)] opacity-50 motion-safe:animate-pulse [animation-delay:120ms]" />
+                    <span className="w-1.5 h-1.5 rounded-sm bg-[var(--metin-ikincil)] opacity-35 motion-safe:animate-pulse [animation-delay:240ms]" />
                   </div>
                 </div>
               </div>
@@ -582,14 +582,14 @@ export function ChatWidget() {
 
           {messages.length < 6 && (
             <div className="px-3 pb-2 space-y-2">
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1">Senaryolar</p>
+              <p className="text-[10px] uppercase tracking-wider text-[var(--metin-ikincil)] px-1">Senaryolar</p>
               <div className="flex flex-wrap gap-1.5">
                 {CHAT_SCENARIOS.map((s) => (
                   <button
                     key={s.label}
                     type="button"
                     onClick={() => void sendUserMessage(s.prompt)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-violet-500/10 text-[11px] text-violet-100 border border-violet-400/25"
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-[3px] bg-[var(--zemin-yumusak)] text-[11px] text-[var(--metin)] border border-[var(--cizgi)]"
                   >
                     {s.label}
                   </button>
@@ -597,12 +597,12 @@ export function ChatWidget() {
                 <button
                   type="button"
                   onClick={() => void sendUserMessage("Temsilciye bağlan")}
-                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-500/10 text-[11px] text-amber-100 border border-amber-400/25"
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-[3px] bg-[var(--zemin-yumusak)] text-[11px] text-[var(--metin)] border border-[var(--cizgi)]"
                 >
                   <Handshake className="w-3 h-3" /> Temsilci
                 </button>
               </div>
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 px-1 pt-1">
+              <p className="text-[10px] uppercase tracking-wider text-[var(--metin-ikincil)] px-1 pt-1">
                 {chatMode === "qa" ? "Örnek sorular" : "Hızlı ifade"}
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -611,17 +611,17 @@ export function ChatWidget() {
                     key={label}
                     type="button"
                     onClick={() => void sendUserMessage(fill)}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.05] text-[11px] text-slate-300 hover:bg-cyan-500/10 hover:text-white border border-white/8 hover:border-cyan-500/25 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[3px] bg-[var(--zemin-yumusak)] text-[11px] text-[var(--metin-ikincil)] hover:bg-[var(--zemin)] hover:text-[var(--metin)] border border-[var(--cizgi)] transition-colors"
                   >
-                    <Icon className="w-3.5 h-3.5 text-cyan-400/90 shrink-0" aria-hidden />
+                    <Icon className="w-3.5 h-3.5 text-[var(--metin-ikincil)] shrink-0" aria-hidden />
                     {label}
                   </button>
                 ))}
               </div>
-              <div className="flex flex-wrap gap-2 pt-1 border-t border-slate-200/80 mt-2">
+              <div className="flex flex-wrap gap-2 pt-1 border-t border-[var(--cizgi)] mt-2">
                 <Link
                   to="/analiz"
-                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                  className="inline-flex items-center gap-1 text-[11px] text-[var(--metin-ikincil)] hover:text-[var(--metin)] px-1 py-0.5"
                   onClick={() => setOpen(false)}
                 >
                   <LayoutGrid className="w-3 h-3" aria-hidden />
@@ -630,7 +630,7 @@ export function ChatWidget() {
                 </Link>
                 <Link
                   to="/komisyon-modeli"
-                  className="inline-flex items-center gap-1 text-[11px] text-emerald-300/90 hover:text-emerald-200 px-1 py-0.5"
+                  className="inline-flex items-center gap-1 text-[11px] text-[var(--metin-ikincil)] hover:text-[var(--metin)] px-1 py-0.5"
                   onClick={() => setOpen(false)}
                 >
                   <BadgePercent className="w-3 h-3" aria-hidden />
@@ -639,7 +639,7 @@ export function ChatWidget() {
                 </Link>
                 <Link
                   to="/harita"
-                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                  className="inline-flex items-center gap-1 text-[11px] text-[var(--metin-ikincil)] hover:text-[var(--metin)] px-1 py-0.5"
                   onClick={() => setOpen(false)}
                 >
                   <MapPin className="w-3 h-3" aria-hidden />
@@ -648,7 +648,7 @@ export function ChatWidget() {
                 </Link>
                 <Link
                   to={KKA_HUB_PATH}
-                  className="inline-flex items-center gap-1 text-[11px] text-emerald-300/90 hover:text-emerald-200 px-1 py-0.5"
+                  className="inline-flex items-center gap-1 text-[11px] text-[var(--metin-ikincil)] hover:text-[var(--metin)] px-1 py-0.5"
                   onClick={() => setOpen(false)}
                 >
                   <Landmark className="w-3 h-3" aria-hidden />
@@ -657,7 +657,7 @@ export function ChatWidget() {
                 </Link>
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                  className="inline-flex items-center gap-1 text-[11px] text-[var(--metin-ikincil)] hover:text-[var(--metin)] px-1 py-0.5"
                   onClick={() => {
                     setOpen(false);
                     navigate("/mortgage");
@@ -671,7 +671,7 @@ export function ChatWidget() {
                 {!isProdBuild ? (
                   <Link
                     to={PLATFORM_FRAMEWORK_PATH}
-                    className="inline-flex items-center gap-1 text-[11px] text-cyan-300/90 hover:text-cyan-200 px-1 py-0.5"
+                    className="inline-flex items-center gap-1 text-[11px] text-[var(--metin-ikincil)] hover:text-[var(--metin)] px-1 py-0.5"
                     onClick={() => setOpen(false)}
                   >
                     <Shield className="w-3 h-3" aria-hidden />
@@ -683,7 +683,7 @@ export function ChatWidget() {
             </div>
           )}
 
-          <div className="p-3 border-t border-slate-200 flex gap-2 bg-black/25">
+          <div className="p-3 border-t border-[var(--cizgi)] flex gap-2 bg-[var(--zemin)]">
             <input
               type="text"
               value={input}
@@ -692,12 +692,12 @@ export function ChatWidget() {
                 if (e.key === "Enter") void sendMessage();
               }}
               placeholder="Sorunuzu yazın…"
-              className="flex-1 px-3 py-2.5 rounded-xl bg-slate-950/80 border border-slate-200 text-sm text-white placeholder:text-slate-600 outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400/30 transition-shadow duration-200"
+              className="flex-1 px-3 py-2.5 rounded-[3px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-sm text-[var(--metin)] placeholder:text-[var(--metin-ikincil)] outline-none focus:border-[var(--metin-ikincil)] transition-colors duration-200"
             />
             <Button
               size="sm"
               onClick={sendMessage}
-              className="rounded-xl [background:var(--gradient-cta)] hover:brightness-110 text-white px-3 h-10 shadow-lg shadow-cyan-900/40 hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300 motion-reduce:hover:scale-100"
+              className="rounded-[3px] [background:var(--gradient-cta)] hover:brightness-110 text-white px-3 h-10 hover:scale-105 active:scale-95 transition-all duration-300 motion-reduce:hover:scale-100"
             >
               <Send className="rtl:-scale-x-100 w-4 h-4" />
             </Button>
