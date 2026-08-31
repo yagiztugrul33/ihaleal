@@ -23,6 +23,10 @@ export function Layout() {
   const location = useLocation();
   const authMinimal = isAuthMinimalBg(location.pathname);
   const isMarketingHome = location.pathname === "/";
+  // Borsa kendi sekme-navigasyonu + sabit alt durum çubuğunu taşıyor (bkz.
+  // BorsaLayout.tsx); paylaşılan Footer bu sabit çubukla çakışır ve bir
+  // işlem terminalinde site-haritası tipi footer zaten anlamlı değil (B4.7).
+  const isBorsaRoute = location.pathname.startsWith("/borsa");
   const { toasts, removeToast, addToast } = useToast();
 
   useEffect(() => {
@@ -49,7 +53,7 @@ export function Layout() {
             <Outlet />
           </PageTransition>
         </main>
-        <Footer />
+        {!isBorsaRoute ? <Footer /> : null}
         <ToastContainer toasts={toasts} onRemove={removeToast} />
         <ChatWidget />
         <GeofenceWatcher />

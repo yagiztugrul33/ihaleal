@@ -1,13 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Activity, ArrowLeft, Clock3, LogIn, Search, UserCircle2, Wallet } from "lucide-react";
-import { BrandLockup } from "@/components/Logo";
-import { Button } from "@/components/ui/button";
+import { Activity, Clock3, Search } from "lucide-react";
 import { ShareButton } from "@/components/ShareButton";
-import { ChatWidget } from "@/components/ChatWidget";
 import { INITIAL_MARKET_ASSETS } from "@/borsa/useLiveMarket";
 import { createMarketSnapshot } from "@/lib/borsa/marketData";
-import { cn } from "@/lib/utils";
 
 const BORSA_TABS = [
   { to: "/borsa", label: "Piyasa" },
@@ -22,7 +18,6 @@ export function BorsaLayout() {
   const location = useLocation();
   const [searchInput, setSearchInput] = useState("");
   const [now, setNow] = useState(() => new Date());
-  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const query = new URLSearchParams(location.search).get("q") ?? "";
@@ -55,16 +50,21 @@ export function BorsaLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-xl">
+    <div className="min-h-screen" style={{ background: "var(--zemin)", color: "var(--metin)" }}>
+      {/* Site geneli Navbar zaten Layout üzerinden render ediliyor — bu shell
+          artık kendi logo/arama-kutusu-dışı/Giriş/Tema/Kullanıcı setini
+          TEKRARLAMIYOR (B4.2: çift header). Yalnız Borsa'ya özgü olanlar
+          kaldı: varlık arama + canlı saat + paylaş + sekme navigasyonu. */}
+      <header
+        className="sticky top-0 z-40 border-b"
+        style={{ borderColor: "var(--cizgi)", background: "var(--zemin-yumusak)" }}
+      >
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 lg:px-8 2xl:px-12">
-          <div className="flex min-w-0 items-center gap-3">
-            <BrandLockup logoSize="sm" layout="inline" showSlogan hideSloganOnMobile />
-            <p className="hidden min-w-0 text-[11px] text-muted-foreground sm:block">Profesyonel işlem terminali</p>
-          </div>
-
-          <div className="flex min-w-[280px] flex-1 items-center gap-2 rounded-lg border border-border bg-secondary px-2 py-1.5 md:max-w-xl">
-            <Search className="h-4 w-4 text-muted-foreground" />
+          <div
+            className="flex min-w-[280px] flex-1 items-center gap-2 rounded-[3px] border px-2 py-1.5 md:max-w-xl"
+            style={{ borderColor: "var(--cizgi)", background: "var(--zemin)" }}
+          >
+            <Search className="h-4 w-4" style={{ color: "var(--metin-ikincil)" }} />
             <input
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
@@ -72,67 +72,36 @@ export function BorsaLayout() {
                 if (e.key === "Enter") submitSearch();
               }}
               placeholder="Kod / lokasyon ara (örn. KADIKÖY, ÇEŞME)"
-              className="h-8 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              className="h-8 w-full bg-transparent text-sm outline-none"
+              style={{ color: "var(--metin)" }}
             />
             <button
               type="button"
               onClick={submitSearch}
-              className="rounded-md border border-cyan-400/40 bg-cyan-500/15 px-2 py-1 text-[11px] font-semibold text-cyan-100"
+              className="rounded-[3px] border px-2 py-1 text-[11px] font-normal"
+              style={{ borderColor: "var(--cizgi)", color: "var(--metin)" }}
             >
               Ara
             </button>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-md border border-border bg-secondary px-2 py-1 text-[11px] text-muted-foreground">
-              <Clock3 className="h-3.5 w-3.5 text-cyan-300" />
+            <span
+              className="inline-flex items-center gap-1 rounded-[3px] border px-2 py-1 text-[11px]"
+              style={{ borderColor: "var(--cizgi)", color: "var(--metin-ikincil)" }}
+            >
+              <Clock3 className="h-3.5 w-3.5" />
               {now.toLocaleTimeString("tr-TR")}
             </span>
-            <Button type="button" size="sm" className="h-8 text-xs" onClick={() => navigate("/giris")}>
-              <LogIn className="me-1.5 h-3.5 w-3.5" />
-              Borsaya Gir/Giriş
-            </Button>
-            <Button type="button" size="sm" variant="outline" className="h-8 text-xs" onClick={() => navigate("/borsa/portfoy")}>
-              <Wallet className="me-1.5 h-3.5 w-3.5" />
-              Portföy
-            </Button>
-            <Button asChild type="button" size="sm" variant="outline" className="h-8 text-xs">
-              <Link to="/">
-                <ArrowLeft className="rtl:rotate-180 me-1.5 h-3.5 w-3.5" />
-                Ana Site
-              </Link>
-            </Button>
             <ShareButton
               title="Ihaleal Borsa"
               url={location.pathname + location.search}
               inviteText="Gayrimenkul Borsasi terminalini inceleyin."
-              className="inline-flex h-8 items-center rounded-md border border-border bg-secondary px-2 text-xs text-muted-foreground hover:text-foreground"
             />
-            <button
-              type="button"
-              className="inline-flex h-8 items-center rounded-md border border-border bg-secondary px-2 text-xs text-muted-foreground hover:text-foreground"
-              onClick={() => setIsDark((prev) => !prev)}
-            >
-              Tema: {isDark ? "Koyu" : "Aydinlik"}
-            </button>
-            <details className="relative">
-              <summary className="inline-flex h-8 cursor-pointer list-none items-center rounded-md border border-border bg-secondary px-2 text-xs text-muted-foreground hover:text-foreground">
-                <UserCircle2 className="me-1.5 h-3.5 w-3.5" />
-                Kullanıcı
-              </summary>
-              <div className="absolute end-0 top-9 z-20 w-44 rounded-lg border border-border bg-card p-2 shadow-xl">
-                <Link to="/profil" className="block rounded px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground">
-                  Profil
-                </Link>
-                <Link to="/panel" className="mt-1 block rounded px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground">
-                  Kullanıcı paneli
-                </Link>
-              </div>
-            </details>
           </div>
         </div>
 
-        <nav className="flex items-center gap-2 overflow-x-auto border-t border-border px-4 py-2 lg:px-8 2xl:px-12">
+        <nav className="flex items-center gap-2 overflow-x-auto border-t px-4 py-2 lg:px-8 2xl:px-12" style={{ borderColor: "var(--cizgi)" }}>
           {BORSA_TABS.map((tab) => {
             const active =
               tab.to === "/borsa/varliklar"
@@ -144,12 +113,12 @@ export function BorsaLayout() {
               <Link
                 key={tab.to}
                 to={tab.to}
-                className={cn(
-                  "shrink-0 rounded-md border px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] transition",
+                className="shrink-0 rounded-[3px] border px-3 py-1.5 text-xs font-normal uppercase tracking-[0.12em] transition"
+                style={
                   active
-                    ? "border-cyan-400/70 bg-cyan-500/15 text-cyan-100"
-                    : "border-slate-700 bg-slate-900/70 text-slate-400 hover:border-slate-500 hover:text-slate-200",
-                )}
+                    ? { borderColor: "var(--metin-ikincil)", background: "var(--zemin)", color: "var(--metin)" }
+                    : { borderColor: "var(--cizgi)", color: "var(--metin-ikincil)" }
+                }
               >
                 {tab.label}
               </Link>
@@ -162,19 +131,22 @@ export function BorsaLayout() {
         <Outlet />
       </div>
 
-      <footer className="fixed bottom-0 start-0 end-0 z-40 border-t border-border bg-card/95 px-4 py-2 backdrop-blur-lg lg:px-8 2xl:px-12">
-        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]">
-          <div className="inline-flex items-center gap-2 text-emerald-300">
+      <footer
+        className="fixed bottom-0 start-0 end-0 z-40 border-t px-4 py-2 lg:px-8 2xl:px-12"
+        style={{ borderColor: "var(--cizgi)", background: "var(--zemin-yumusak)" }}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]" style={{ color: "var(--metin-ikincil)" }}>
+          <div className="inline-flex items-center gap-2" style={{ color: "var(--metrik-yesil)" }}>
             <Activity className="h-3.5 w-3.5 animate-pulse" />
             Canlı bağlantı: aktif
           </div>
-          <span className="text-muted-foreground">Son güncelleme: {now.toLocaleTimeString("tr-TR")}</span>
-          <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-amber-200">Demo veri</span>
-          <span className="text-cyan-200">Toplam hacim: ₺{Math.round(marketStats.totalVolumeTry).toLocaleString("tr-TR")}</span>
+          <span>Son güncelleme: {now.toLocaleTimeString("tr-TR")}</span>
+          <span className="rounded-[3px] border px-2 py-0.5" style={{ borderColor: "var(--cizgi)", color: "var(--sinyal-turuncu)" }}>
+            Demo veri
+          </span>
+          <span style={{ color: "var(--metin)" }}>Toplam hacim: ₺{Math.round(marketStats.totalVolumeTry).toLocaleString("tr-TR")}</span>
         </div>
       </footer>
-
-      <ChatWidget />
     </div>
   );
 }
