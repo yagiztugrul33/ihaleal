@@ -137,7 +137,7 @@ export default function LiveAuctions() {
   );
 
   return (
-    <div className="min-h-screen pt-16" style={{ background: "var(--color-bg)" }}>
+    <div className="min-h-screen pt-8" style={{ background: "var(--color-bg)" }}>
       {/* BLOK E — BLOOMBERG BORSA TERMİNALİ ÜSTE (above hero) — ilk göz önce bunu görür */}
       <BorsaTerminali catalog={catalog} liveCount={liveCount} />
 

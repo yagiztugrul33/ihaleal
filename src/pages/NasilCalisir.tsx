@@ -60,7 +60,7 @@ export default function NasilCalisir() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] pt-20 pb-20 text-slate-200">
+    <div className="min-h-screen bg-[#0a0e1a] pt-8 pb-20 text-slate-200">
       <div className="absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent pointer-events-none" />
 
       <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

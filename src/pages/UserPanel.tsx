@@ -58,7 +58,7 @@ export default function UserPanel() {
                   : "Özet";
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-background">
+    <div className="min-h-screen pt-8 pb-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
         <aside className="lg:w-64 shrink-0 space-y-4">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-muted-foreground hover:text-foreground gap-2">
