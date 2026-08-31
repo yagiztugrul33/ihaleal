@@ -73,7 +73,7 @@ export function useMembershipTier(): MembershipState {
         if (!error && data) {
           const row = Array.isArray(data) ? data[0] : data;
           if (row?.tier_id && row.status === "active") {
-            const tierIds: TierId[] = ["free", "yatirimci", "emlak_baslangic", "emlak_pro", "kurumsal"];
+            const tierIds: TierId[] = ["free", "emlak_baslangic", "emlak_pro", "kurumsal"];
             if (tierIds.includes(row.tier_id as TierId)) {
               setTierId(row.tier_id as TierId);
               try { localStorage.setItem(LS_KEY, row.tier_id); } catch { /* sessiz */ }
@@ -99,7 +99,7 @@ export function useMembershipTier(): MembershipState {
             if (memberData?.type) {
               const map: Record<string, TierId> = {
                 seller_yearly: "emlak_baslangic",
-                buyer_yearly: "yatirimci",
+                buyer_yearly: "emlak_baslangic",
                 agent_referral: "emlak_baslangic",
                 agent_portfolio: "emlak_baslangic",
                 agent_full: "emlak_pro",

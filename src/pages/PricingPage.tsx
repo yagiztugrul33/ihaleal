@@ -30,41 +30,18 @@ function accentClasses(accent: PricingTier["accent"]) {
       btn: "bg-slate-700 hover:bg-slate-600 text-white",
       badge: "bg-slate-500/20 text-slate-300 border-slate-500/40",
     },
-    emerald: {
+    // Carbon Lift — emlak_baslangic/emlak_pro/kurumsal artık AYNI nötr koyu yüzeyi
+    // paylaşır (Factory: kromatik renk sadece canlı-veri sinyali için ayrılmış,
+    // "hangi tier" bilgisi renkle değil metin/yapıyla taşınır). Eskiden
+    // emerald/blue/amber/violet olan 4 ayrı renkli yüzey tek "carbon" oldu.
+    carbon: {
       light: false,
-      border: "border-emerald-500/30",
-      bg: "bg-emerald-500/5",
-      text: "text-emerald-300",
-      ring: "ring-emerald-400/30",
-      btn: "bg-emerald-600 hover:bg-emerald-500 text-white",
-      badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
-    },
-    blue: {
-      light: false,
-      border: "border-blue-500/30",
-      bg: "bg-blue-500/5",
-      text: "text-blue-300",
-      ring: "ring-blue-400/30",
-      btn: "bg-blue-600 hover:bg-blue-500 text-white",
-      badge: "bg-blue-500/20 text-blue-300 border-blue-500/40",
-    },
-    amber: {
-      light: false,
-      border: "border-amber-500/30",
-      bg: "bg-amber-500/5",
-      text: "text-amber-300",
-      ring: "ring-amber-400/30",
-      btn: "bg-amber-600 hover:bg-amber-500 text-white",
-      badge: "bg-amber-500/20 text-amber-300 border-amber-500/40",
-    },
-    violet: {
-      light: false,
-      border: "border-violet-500/30",
-      bg: "bg-violet-500/5",
-      text: "text-violet-300",
-      ring: "ring-violet-400/30",
-      btn: "bg-violet-600 hover:bg-violet-500 text-white",
-      badge: "bg-violet-500/20 text-violet-300 border-violet-500/40",
+      border: "border-[var(--cizgi)]",
+      bg: "bg-[var(--zemin-yumusak)]",
+      text: "text-white",
+      ring: "ring-border",
+      btn: "bg-primary hover:bg-primary/80 text-white",
+      badge: "bg-[var(--zemin)] text-white border-[var(--cizgi)]",
     },
   }[accent];
 }
@@ -72,7 +49,6 @@ function accentClasses(accent: PricingTier["accent"]) {
 /** Tier ikon */
 function TierIcon({ tier }: { tier: PricingTier }) {
   if (tier.segment === "bireysel") return <User className="h-5 w-5" />;
-  if (tier.segment === "yatirimci") return <Briefcase className="h-5 w-5" />;
   if (tier.segment === "emlakci" && tier.id === "emlak_pro") return <Crown className="h-5 w-5" />;
   if (tier.segment === "emlakci") return <Users className="h-5 w-5" />;
   return <Building2 className="h-5 w-5" />;
@@ -119,7 +95,7 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
 
   return (
     <div
-      className={`relative rounded-2xl border ${cls.border} ${cls.bg} p-5 flex flex-col ${tier.highlight ? `ring-2 ${cls.ring} shadow-xl` : ""}`}
+      className={`relative rounded-2xl border ${tier.highlight ? "border-2 border-foreground/30" : cls.border} ${cls.bg} p-5 flex flex-col`}
     >
       {tier.highlight && (
         <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] font-semibold border ${cls.badge}`}>
@@ -135,7 +111,9 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
       <p className={`text-xs ${mutedText} mb-4 leading-relaxed min-h-[2rem]`}>{t.tierData.byId[tier.id]?.tagline ?? tier.tagline}</p>
 
       <div className="mb-4">
-        {listPrice === 0 ? (
+        {tier.customPricing ? (
+          <div className={`text-3xl font-bold ${priceText}`}>{period}</div>
+        ) : listPrice === 0 ? (
           <div className={`text-3xl font-bold ${priceText}`}>{p.tierCard.free}</div>
         ) : early ? (
           <>
@@ -242,10 +220,18 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
       <div className="mt-auto pt-2 space-y-2">
         <button
           type="button"
-          onClick={() => navigate(tier.id === "free" ? "/kayit" : `/odeme/baslat?paket=${tier.id}&periyot=${cycle}`)}
+          onClick={() =>
+            navigate(
+              tier.id === "free"
+                ? "/kayit"
+                : tier.customPricing
+                  ? "/kurumsal/iletisim"
+                  : `/odeme/baslat?paket=${tier.id}&periyot=${cycle}`,
+            )
+          }
           className={`w-full py-2.5 px-4 rounded-lg font-semibold text-sm ${cls.btn}`}
         >
-          {tier.id === "free" ? p.tierCard.ctaFree : p.tierCard.ctaSelect}
+          {tier.id === "free" ? p.tierCard.ctaFree : tier.customPricing ? "İletişime Geç" : p.tierCard.ctaSelect}
         </button>
         <p className={`text-[10px] ${subtleText} text-center`}>
           {tier.id === "kurumsal" ? p.tierCard.corporateNote : p.tierCard.cancelNote}
@@ -263,7 +249,7 @@ export default function PricingPage() {
   const p = t.pricing;
 
   const yearlySavings = useMemo(
-    () => PRICING_TIERS.filter((t) => t.monthlyTry > 0).map((t) => ({
+    () => PRICING_TIERS.filter((t) => t.monthlyTry > 0 && !t.customPricing).map((t) => ({
       name: t.name,
       saving: Math.round(t.monthlyTry * 12 * YEARLY_DISCOUNT_RATE),
     })),

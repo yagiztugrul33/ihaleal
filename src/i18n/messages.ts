@@ -1277,7 +1277,7 @@ export const messages: Record<"en" | "tr", Messages> = {
     pricing: {
       badge: "Pricing",
       title: "Choose the plan that fits you",
-      subtitle: "5 tiers from individual to enterprise — upgrade, downgrade or cancel anytime.",
+      subtitle: "4 tiers from individual to enterprise — upgrade, downgrade or cancel anytime.",
       yearlyDiscountNote: "Save on annual billing",
       chips: { noCommit: "No commitment", cancelAnytime: "Cancel anytime", noHidden: "No hidden fees" },
       segmentTitle: "Which plan suits you?",
@@ -2350,7 +2350,7 @@ export const messages: Record<"en" | "tr", Messages> = {
     pricing: {
       badge: "Fiyatlandırma",
       title: "İhtiyacına göre paket seç",
-      subtitle: "Bireyselden kurumsala 5 paket — istediğin zaman yükselt, düşür veya iptal et.",
+      subtitle: "Bireyselden kurumsala 4 paket — istediğin zaman yükselt, düşür veya iptal et.",
       yearlyDiscountNote: "Yıllık ödemede indirim",
       chips: { noCommit: "Taahhüt yok", cancelAnytime: "İstediğin zaman iptal", noHidden: "Gizli ücret yok" },
       segmentTitle: "Hangi paket sana uygun?",

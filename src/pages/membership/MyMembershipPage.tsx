@@ -11,7 +11,7 @@ export default function MyMembershipPage() {
   const navigate = useNavigate();
   const { tierId, tier, isPremium, setLocalTier } = useMembershipTier();
 
-  const tierOrder: TierId[] = ["free", "yatirimci", "emlak_baslangic", "emlak_pro", "kurumsal"];
+  const tierOrder: TierId[] = ["free", "emlak_baslangic", "emlak_pro", "kurumsal"];
   const currentIdx = tierOrder.indexOf(tierId);
   const higherTiers = PRICING_TIERS.filter((t) => tierOrder.indexOf(t.id) > currentIdx);
   const lowerTiers = PRICING_TIERS.filter((t) => tierOrder.indexOf(t.id) < currentIdx);
@@ -50,7 +50,9 @@ export default function MyMembershipPage() {
               <p className="text-sm text-slate-400 mt-1">{tier.tagline}</p>
             </div>
             <div className="text-end">
-              {tier.monthlyTry === 0 ? (
+              {tier.customPricing ? (
+                <p className="text-3xl font-bold text-white">Özel</p>
+              ) : tier.monthlyTry === 0 ? (
                 <p className="text-3xl font-bold text-white">Ücretsiz</p>
               ) : (
                 <>
@@ -129,7 +131,9 @@ export default function MyMembershipPage() {
                     >
                       <p className="text-sm font-semibold text-white">{t.name}</p>
                       <p className="text-xs text-slate-400 line-clamp-1">{t.tagline}</p>
-                      <p className="text-xs text-emerald-300 mt-1">₺{t.monthlyTry.toLocaleString("tr-TR")}/ay</p>
+                      <p className="text-xs text-emerald-300 mt-1">
+                        {t.customPricing ? "Özel" : `₺${t.monthlyTry.toLocaleString("tr-TR")}/ay`}
+                      </p>
                     </button>
                   ))}
                 </div>

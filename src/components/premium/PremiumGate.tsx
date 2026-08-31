@@ -36,7 +36,7 @@ export function PremiumGate({
   title,
   description,
   children,
-  recommendTier = "yatirimci",
+  recommendTier = "emlak_baslangic",
   compact = false,
 }: PremiumGateProps) {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ export function PremiumGate({
   // Karar: kullanıcı bu içeriği görebilir mi?
   let unlocked = false;
   if (requiredTier) {
-    const tierOrder: TierId[] = ["free", "yatirimci", "emlak_baslangic", "emlak_pro", "kurumsal"];
+    const tierOrder: TierId[] = ["free", "emlak_baslangic", "emlak_pro", "kurumsal"];
     const userIdx = tierOrder.indexOf(tierId);
     const requiredIdx = tierOrder.indexOf(requiredTier);
     unlocked = userIdx >= requiredIdx;
@@ -129,14 +129,13 @@ export function PremiumGate({
  * PremiumChip — küçük inline rozet ("Pro" / "Yatırımcı" gibi) gösterir.
  * İçerikte değil; sadece "şu özellik premium" sinyali.
  */
-export function PremiumChip({ tier: tierProp = "yatirimci" }: { tier?: TierId }) {
+export function PremiumChip({ tier: tierProp = "emlak_baslangic" }: { tier?: TierId }) {
   const navigate = useNavigate();
   const t = PRICING_TIERS.find((x) => x.id === tierProp);
   if (!t) return null;
 
   const colorMap: Record<TierId, string> = {
     free: "bg-slate-500/20 text-slate-300 border-slate-500/40",
-    yatirimci: "bg-blue-500/20 text-blue-300 border-blue-500/40",
     emlak_baslangic: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
     emlak_pro: "bg-amber-500/20 text-amber-300 border-amber-500/40",
     kurumsal: "bg-violet-500/20 text-violet-300 border-violet-500/40",

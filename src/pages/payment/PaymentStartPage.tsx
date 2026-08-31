@@ -51,6 +51,15 @@ export default function PaymentStartPage() {
     });
   }, []);
 
+  // Kurumsal (customPricing) — self-checkout yok, gerçek fiyat yok. Eski/bookmark'lı
+  // /odeme/baslat?paket=kurumsal bağlantılarını iletişim formuna yönlendir; bu sayfa
+  // hiçbir zaman özel fiyatlı bir tier'a tahsilat denemesin.
+  useEffect(() => {
+    if (tier.customPricing) {
+      navigate("/kurumsal/iletisim", { replace: true });
+    }
+  }, [tier, navigate]);
+
   const canSubmit = cardName.trim().length >= 3 && cardNumber.replace(/\s/g, "").length >= 12 && expiry.length >= 4 && cvc.length >= 3 && acceptedTerms;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -106,6 +115,12 @@ export default function PaymentStartPage() {
     const digits = v.replace(/\D/g, "").slice(0, 16);
     return digits.match(/.{1,4}/g)?.join(" ") ?? digits;
   };
+
+  // customPricing tier'a doğrudan/bookmark ile gelinmişse yönlendirme effect'i
+  // tetiklenene kadar bu sayfayı render etme (yukarıdaki useEffect'e bakınız).
+  if (tier.customPricing) {
+    return null;
+  }
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 text-white">

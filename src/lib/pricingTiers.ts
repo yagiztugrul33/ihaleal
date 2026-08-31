@@ -14,7 +14,7 @@
  * - Erken üye (kuruluş indirimi): EARLY_MEMBER_* flag/fiyatları ile kapatılabilir.
  */
 
-export type TierId = "free" | "yatirimci" | "emlak_baslangic" | "emlak_pro" | "kurumsal";
+export type TierId = "free" | "emlak_baslangic" | "emlak_pro" | "kurumsal";
 
 export type BillingCycle = "monthly" | "yearly";
 
@@ -44,7 +44,6 @@ export const EARLY_MEMBER_NOTE =
 
 /** Aylık TL — erken üye fiyatları (yıllıkta yine %20 indirim uygulanır). */
 export const EARLY_MEMBER_PRICES: Record<Exclude<TierId, "free">, number> = {
-  yatirimci: 349,
   emlak_baslangic: 1400,
   emlak_pro: 3400,
   kurumsal: 7500,
@@ -69,12 +68,14 @@ export interface PricingTier {
   tagline: string;
   /** Aylık TL — 0 ise ücretsiz; yıllıkta %20 düşer */
   monthlyTry: number;
+  /** Özel/teklif fiyatlandırma — true ise self-checkout kapalı, "Özel" gösterilir (bkz. priceFor). */
+  customPricing?: boolean;
   /** Hedef kullanıcı segmenti */
-  segment: "bireysel" | "yatirimci" | "emlakci" | "kurumsal";
+  segment: "bireysel" | "emlakci" | "kurumsal";
   /** Vurgulu (En popüler vb.) UI rozet */
   highlight?: string;
   /** Renk teması (tailwind) */
-  accent: "slate" | "emerald" | "blue" | "amber" | "violet";
+  accent: "slate" | "carbon";
   /** İlan açma limiti */
   listingLimit: number | "unlimited";
   /** Ekip üye sayısı */
@@ -90,6 +91,7 @@ export function yearlyTry(monthlyTry: number): number {
 
 /** Bir tier için ödeme döngüsüne göre gösterilecek tutar (LİSTE fiyatı). */
 export function priceFor(tier: PricingTier, cycle: BillingCycle): { try: number; period: string } {
+  if (tier.customPricing) return { try: -1, period: "Özel" };
   if (tier.monthlyTry === 0) return { try: 0, period: "Ücretsiz" };
   return cycle === "monthly"
     ? { try: tier.monthlyTry, period: "/ay" }
@@ -101,6 +103,7 @@ export function earlyPriceFor(
   tier: PricingTier,
   cycle: BillingCycle,
 ): { try: number; period: string } | null {
+  if (tier.customPricing) return null;
   if (!EARLY_MEMBER_ACTIVE) return null;
   if (tier.monthlyTry === 0) return null;
   const earlyMonthly = EARLY_MEMBER_PRICES[tier.id as Exclude<TierId, "free">];
@@ -112,6 +115,7 @@ export function earlyPriceFor(
 
 /** Günlük birim — "günde ~X₺" psikolojik vurgu (sadece aylık 30, yıllık 365 baz). */
 export function dailyEquivalent(tier: PricingTier, cycle: BillingCycle): number | null {
+  if (tier.customPricing) return null;
   if (tier.monthlyTry === 0) return null;
   const earlyMonthly = EARLY_MEMBER_ACTIVE
     ? EARLY_MEMBER_PRICES[tier.id as Exclude<TierId, "free">]
@@ -155,49 +159,12 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     ],
   },
   {
-    id: "yatirimci",
-    name: "Yatırımcı",
-    tagline: "Borsa terminali tam + sınırsız rapor",
-    monthlyTry: 499,
-    segment: "yatirimci",
-    accent: "blue",
-    listingLimit: 3,
-    teamSeats: 1,
-    features: [
-      {
-        label: "Borsa terminali TAM",
-        detail: "Ticker + counter + heat map + order book + top movers + AI signals + sparkline tam erişim.",
-        status: "included",
-      },
-      {
-        label: "Sınırsız rapor görüntüleme",
-        detail: "İhaleal Endeks Raporu + GES + War Room + Değerleme — istediğin kadar.",
-        status: "included",
-      },
-      {
-        label: "Gerçek kapanış verisi",
-        detail: "Platformda kapanan ihalelerin gerçek satış fiyatı, m² rayiç, %ROI.",
-        status: "included",
-      },
-      {
-        label: "AI fırsat bildirimi",
-        detail: "Bölge + bütçe kriterine uyan yeni ilanlar / fırsat ihaleler push + e-posta.",
-        status: "included",
-      },
-      { label: "3 ilan/yıl", limit: "3", status: "limited" },
-      { label: "Favori liste", limit: "100", status: "included" },
-      { label: "İhale katılım", status: "included" },
-      { label: "Doping / vitrin", status: "excluded" },
-      { label: "Ekip üye", limit: "1", status: "limited" },
-    ],
-  },
-  {
     id: "emlak_baslangic",
     name: "Emlak Başlangıç",
     tagline: "Yeni başlayan emlakçı / küçük ofis",
-    monthlyTry: 1900,
+    monthlyTry: 2490,
     segment: "emlakci",
-    accent: "emerald",
+    accent: "carbon",
     listingLimit: 20,
     teamSeats: 1,
     features: [
@@ -207,7 +174,7 @@ export const PRICING_TIERS: readonly PricingTier[] = [
       { label: "Profil rozeti", detail: "Doğrulanmış emlakçı rozeti — alıcı güvenini artırır.", status: "included" },
       { label: "Borsa terminel TAM", status: "included" },
       { label: "Sınırsız rapor", status: "included" },
-      { label: "Gerçek kapanış", status: "excluded" },
+      { label: "Gerçek kapanış", status: "included" },
       { label: "Vitrin/öne çıkan", limit: "Tek satın", status: "limited" },
       { label: "AI fırsat bildirimi", status: "included" },
       { label: "Ekip üye", limit: "1", status: "limited" },
@@ -217,10 +184,10 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     id: "emlak_pro",
     name: "Emlak Pro",
     tagline: "Profesyonel emlak ofisi — büyüme",
-    monthlyTry: 4500,
+    monthlyTry: 7490,
     segment: "emlakci",
     highlight: "En Popüler",
-    accent: "amber",
+    accent: "carbon",
     listingLimit: 60,
     teamSeats: 3,
     features: [
@@ -240,9 +207,10 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     name: "Kurumsal",
     tagline: "Zincir ofisleri + portföy fonları + müteahhitler",
     monthlyTry: 9900,
+    customPricing: true,
     segment: "kurumsal",
     highlight: "Premium",
-    accent: "violet",
+    accent: "carbon",
     listingLimit: "unlimited",
     teamSeats: 10,
     features: [
