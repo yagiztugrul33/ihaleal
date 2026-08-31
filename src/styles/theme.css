@@ -9,17 +9,17 @@
    Renk/olcu degerleri dogrudan yazilmaz; hepsi tema.css tokenlarindan gelir. */
 
 html,body,#root{overflow-x:clip;max-width:100%;background:var(--zemin);background-color:var(--zemin);min-height:100%;color:var(--metin);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;color:var(--metin)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;color:var(--metin)}
 .page-shell,.page-shell-gradient{background:var(--zemin);background-color:var(--zemin)}
 main>section,.section-warm,.section-warm-alt{background:transparent}
 
 /* ── Butonlar ─────────────────────────────────────────────────────────────
    Vurgu YALNIZ birincil eylemde. Ikincil/hayalet notr kalir. */
-.btn-primary,button.btn-primary,a.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--kose-kucuk);border:1px solid var(--vurgu);background:var(--vurgu);color:#fff;font-family:var(--font-display);font-weight:600;font-size:.9375rem;text-decoration:none;box-shadow:none;transition:background-color var(--gecis) var(--gecis-egri),transform var(--gecis) var(--gecis-egri)}
+.btn-primary,button.btn-primary,a.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--kose-kucuk);border:1px solid var(--vurgu);background:var(--vurgu);color:#fff;font-family:var(--font-display);font-weight:400;font-size:.9375rem;text-decoration:none;box-shadow:none;transition:background-color var(--gecis) var(--gecis-egri),transform var(--gecis) var(--gecis-egri)}
 .btn-primary:hover{background:var(--vurgu-koyu);border-color:var(--vurgu-koyu);transform:translateY(-1px)}
-.btn-secondary,a.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--kose-kucuk);border:1px solid var(--cizgi);background:var(--zemin);color:var(--metin);font-weight:600;text-decoration:none;transition:background-color var(--gecis) var(--gecis-egri),transform var(--gecis) var(--gecis-egri)}
+.btn-secondary,a.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--kose-kucuk);border:1px solid var(--cizgi);background:var(--zemin);color:var(--metin);font-weight:400;text-decoration:none;transition:background-color var(--gecis) var(--gecis-egri),transform var(--gecis) var(--gecis-egri)}
 .btn-secondary:hover{background:var(--zemin-yumusak);transform:translateY(-1px)}
-.btn-ghost,a.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:.625rem 1rem;border-radius:var(--kose-kucuk);color:var(--uzerine-ikincil);font-weight:600;text-decoration:none;background:transparent}
+.btn-ghost,a.btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:.625rem 1rem;border-radius:var(--kose-kucuk);color:var(--uzerine-ikincil);font-weight:400;text-decoration:none;background:transparent}
 .btn-ghost:hover{color:var(--uzerine);background:rgba(30,42,36,.04)}
 
 /* ── Gezinme ─────────────────────────────────────────────────────────────── */
@@ -34,23 +34,22 @@ main>section,.section-warm,.section-warm-alt{background:transparent}
 .nav-link-active{color:var(--metin);background:var(--vurgu-yumusak)}
 
 /* ── Kart: agir cerceve/golge yok, 1px cizgi ────────────────────────────── */
-.card-luxury,.card-warm{background:var(--zemin);border:1px solid var(--cizgi);border-radius:var(--kose);padding:1.5rem;box-shadow:var(--golge-kucuk);transition:transform var(--gecis) var(--gecis-egri),box-shadow var(--gecis) var(--gecis-egri)}
-.card-luxury:hover,.card-warm:hover{transform:translateY(-2px);box-shadow:var(--golge-buyuk)}
+.card-luxury,.card-warm{background:var(--zemin);border:1px solid var(--cizgi);border-radius:var(--kose);padding:1.5rem}
 
 /* ── Hero: gradyan duvari yok ───────────────────────────────────────────── */
 .hero-cinematic,.hero-warm{position:relative;overflow:hidden;background:var(--zemin)}
 .hero-cinematic::before,.hero-warm::before{content:none}
-.hero-slogan{font-family:var(--font-display);font-size:clamp(.8rem,2vw,.95rem);font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--metin-ikincil)}
-.hero-headline{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.25rem);font-weight:700;line-height:1.1;letter-spacing:-.03em;color:var(--metin)}
+.hero-slogan{font-family:var(--font-display);font-size:clamp(.8rem,2vw,.95rem);font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--metin-ikincil)}
+.hero-headline{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.25rem);font-weight:400;line-height:1.1;letter-spacing:-.03em;color:var(--metin)}
 
 /* ── Kucuk yuzeyler ─────────────────────────────────────────────────────── */
 .trust-pill{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .85rem;border-radius:9999px;border:1px solid var(--cizgi);background:var(--zemin-yumusak);font-size:.8125rem;font-weight:500;color:var(--metin-ikincil)}
 .metric-float{background:var(--zemin);border:1px solid var(--cizgi);border-radius:var(--kose-kucuk);padding:.75rem 1rem;backdrop-filter:none;box-shadow:var(--golge-kucuk)}
-.section-heading{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:700;letter-spacing:-.02em;color:var(--metin)}
+.section-heading{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:400;letter-spacing:-.02em;color:var(--metin)}
 .section-subtitle{color:var(--metin-ikincil);font-size:1.0625rem;line-height:1.65}
 /* Ikonlar NOTR — vurgu yalniz CTA/bildirim/aktif durumda */
 .step-icon-ring{display:flex;align-items:center;justify-content:center;width:3.5rem;height:3.5rem;border-radius:var(--kose);background:var(--zemin-gri);border:1px solid var(--cizgi);color:var(--metin)}
-.badge-corp{display:inline-flex;align-items:center;gap:.5rem;background:var(--zemin-yumusak);color:var(--metin-ikincil);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .9rem;border-radius:999px;border:1px solid var(--cizgi)}
+.badge-corp{display:inline-flex;align-items:center;gap:.5rem;background:var(--zemin-yumusak);color:var(--metin-ikincil);font-size:.75rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .9rem;border-radius:999px;border:1px solid var(--cizgi)}
 .badge-corp::before{content:"";width:6px;height:6px;background:var(--sinyal-turuncu);border-radius:50%}
 
 /* ── Sayfa kabuklari ────────────────────────────────────────────────────── */
