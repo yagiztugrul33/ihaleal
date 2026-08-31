@@ -146,54 +146,54 @@ export function Footer() {
             <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colCorporateLegal}</h2>
             <ul className="space-y-2.5">
               {!isProdBuild ? (
-                <li><button onClick={() => navigate("/karsilastir-rakipler")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Trophy className="w-3.5 h-3.5" /> Rakip Analizi</button></li>
+                <li><button onClick={() => navigate("/karsilastir-rakipler")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Trophy className="w-3.5 h-3.5" /> Rakip Analizi</button></li>
               ) : null}
-              <li><button onClick={() => navigate("/yasal")} className="text-sm text-violet-300 hover:text-violet-200 transition-colors cursor-pointer flex items-center gap-2 w-full text-start font-semibold"><Scale className="w-3.5 h-3.5" /> {f.legalHub}</button></li>
-              <li><button onClick={() => navigate("/ihale-kosullari")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Gavel className="w-3.5 h-3.5" /> {f.auctionTermsCommission}</button></li>
-              <li><button onClick={() => navigate("/evraklar")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.participationDocs}</button></li>
-              <li><button onClick={() => navigate("/kvkk")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.kvkkInfo}</button></li>
-              <li><button onClick={() => navigate("/kullanim-kosullari")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.termsOfUse}</button></li>
-              <li><button onClick={() => navigate("/gizlilik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.privacyPolicy}</button></li>
-              <li><button onClick={() => navigate("/cerez-politikasi")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.cookiePolicy}</button></li>
-              <li><button onClick={() => navigate("/mesafeli-satis-sozlesmesi")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.distanceSaleAgreement}</button></li>
-              <li><button onClick={() => navigate("/iade-iptal")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.refundCancellation}</button></li>
-              <li><button onClick={() => navigate("/aydinlatma-metni")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.disclosure}</button></li>
-              <li><button onClick={() => navigate("/iletisim")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Mail className="w-3.5 h-3.5" /> {f.contactFooter}</button></li>
-              <li><button onClick={() => navigate("/hakkimizda")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> {f.aboutUs}</button></li>
-              <li><button onClick={() => window.open("/sitemap.xml", "_blank", "noopener,noreferrer")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Navigation className="w-3.5 h-3.5" /> {f.sitemap}</button></li>
-              <li><button onClick={() => navigate("/sss")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><HelpCircle className="w-3.5 h-3.5" /> {f.faqFooter}</button></li>
-              <li><button onClick={() => navigate("/güvenlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.securityCenter}</button></li>
+              <li><button onClick={() => navigate("/yasal")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Scale className="w-3.5 h-3.5" /> {f.legalHub}</button></li>
+              <li><button onClick={() => navigate("/ihale-kosullari")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Gavel className="w-3.5 h-3.5" /> {f.auctionTermsCommission}</button></li>
+              <li><button onClick={() => navigate("/evraklar")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.participationDocs}</button></li>
+              <li><button onClick={() => navigate("/kvkk")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.kvkkInfo}</button></li>
+              <li><button onClick={() => navigate("/kullanim-kosullari")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.termsOfUse}</button></li>
+              <li><button onClick={() => navigate("/gizlilik")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.privacyPolicy}</button></li>
+              <li><button onClick={() => navigate("/cerez-politikasi")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.cookiePolicy}</button></li>
+              <li><button onClick={() => navigate("/mesafeli-satis-sozlesmesi")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.distanceSaleAgreement}</button></li>
+              <li><button onClick={() => navigate("/iade-iptal")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.refundCancellation}</button></li>
+              <li><button onClick={() => navigate("/aydinlatma-metni")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> {f.disclosure}</button></li>
+              <li><button onClick={() => navigate("/iletisim")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Mail className="w-3.5 h-3.5" /> {f.contactFooter}</button></li>
+              <li><button onClick={() => navigate("/hakkimizda")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> {f.aboutUs}</button></li>
+              <li><button onClick={() => window.open("/sitemap.xml", "_blank", "noopener,noreferrer")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Navigation className="w-3.5 h-3.5" /> {f.sitemap}</button></li>
+              <li><button onClick={() => navigate("/sss")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><HelpCircle className="w-3.5 h-3.5" /> {f.faqFooter}</button></li>
+              <li><button onClick={() => navigate("/güvenlik")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.securityCenter}</button></li>
               {!isProdBuild ? (
                 <>
                   <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-rose-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> Dolandırıcılık savunması</button></li>
                   <li><button type="button" onClick={() => navigate("/yasal/supabase-uyum")} className="text-sm text-slate-300 hover:text-cyan-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Supabase uyum listesi</button></li>
                 </>
               ) : null}
-              <li><button onClick={() => navigate("/yedekleme")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Felaket Kurtarma</button></li>
-              <li><button onClick={() => navigate("/ekspertiz")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><BarChart3 className="w-3.5 h-3.5" /> Uzman Gorusu & Ekspertiz</button></li>
-              <li><button onClick={() => navigate("/reklam")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Target className="w-3.5 h-3.5" /> Reklam Kampanyasi</button></li>
+              <li><button onClick={() => navigate("/yedekleme")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Felaket Kurtarma</button></li>
+              <li><button onClick={() => navigate("/ekspertiz")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><BarChart3 className="w-3.5 h-3.5" /> Uzman Görüşü & Ekspertiz</button></li>
+              <li><button onClick={() => navigate("/reklam")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Target className="w-3.5 h-3.5" /> Reklam Kampanyası</button></li>
               {/* Platform ve KİK çerçevesi + Nihai sistem anayasası iç doküman —
                   prod kullanıcı/SEO görünmez; route hala iç ekip için açık. */}
               {!isProdBuild ? (
                 <>
-                  <li><button onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> Platform ve KİK çerçevesi</button></li>
-                  <li><button onClick={() => navigate("/nihai-anayasa")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> Nihai sistem anayasası</button></li>
+                  <li><button onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> Platform ve KİK çerçevesi</button></li>
+                  <li><button onClick={() => navigate("/nihai-anayasa")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> Nihai sistem anayasası</button></li>
                 </>
               ) : null}
               {localAuthEnabled ? (
-                <li><button onClick={() => navigate("/emlakçı-giris")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
+                <li><button onClick={() => navigate("/emlakçı-giris")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
               ) : null}
               {!isProdBuild ? (
                 <>
-                  <li><button onClick={() => navigate("/yasal-cerceve")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> Yasal çerçeve (taslak)</button></li>
-                  <li><button onClick={() => navigate("/canliya-hazirlik")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Canlıya hazırlık</button></li>
+                  <li><button onClick={() => navigate("/yasal-cerceve")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><FileText className="w-3.5 h-3.5" /> Yasal çerçeve (taslak)</button></li>
+                  <li><button onClick={() => navigate("/canliya-hazirlik")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Canlıya hazırlık</button></li>
                 </>
               ) : null}
-              <li><button onClick={() => navigate("/sat-basla")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> {f.sellerMode}</button></li>
-              <li><button onClick={() => navigate("/komisyon-modeli")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Target className="w-3.5 h-3.5" /> {f.commissionModel}</button></li>
+              <li><button onClick={() => navigate("/sat-basla")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> {f.sellerMode}</button></li>
+              <li><button onClick={() => navigate("/komisyon-modeli")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Target className="w-3.5 h-3.5" /> {f.commissionModel}</button></li>
               <li className="relative" data-demo={isDemoData("footerNavEndeks") ? "true" : undefined}>
                 {isDemoData("footerNavEndeks") ? <DemoDataCornerBadge /> : null}
-                <button onClick={() => navigate("/veri-ve-endeks")} className="text-sm text-slate-300 hover:text-violet-400 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><BarChart3 className="w-3.5 h-3.5" /> {f.ihalealIndex}</button>
+                <button onClick={() => navigate("/veri-ve-endeks")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><BarChart3 className="w-3.5 h-3.5" /> {f.ihalealIndex}</button>
               </li>
             </ul>
           </div>
