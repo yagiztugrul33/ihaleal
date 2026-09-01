@@ -984,7 +984,7 @@ export default function AuctionDetail() {
               {activeTab === "overview" && (
                 <div className="space-y-6 animate-fade-in">
                   <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
-                    <h3 className="text-sm font-normal text-[var(--metin-ikincil)] mb-2">{ld.ovProfRules}</h3>
+                    <h3 className="text-lg font-normal text-white mb-2">{ld.ovProfRules}</h3>
                     <ul className="text-xs text-slate-400 space-y-1.5 list-disc list-inside">
                       {integritySummaryLines.map((line) => (
                         <li key={line}>{line}</li>
@@ -1481,7 +1481,7 @@ export default function AuctionDetail() {
                   ) : (
                     <>
                       <Button
-                        className="flex-1 min-w-[8rem] bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-slate-950 h-11"
+                        className="flex-1 min-w-[8rem] [background:var(--gradient-cta)] hover:brightness-110 text-white h-11"
                         type="button"
                         disabled={!user || (sellerId != null && user?.id === sellerId)}
                         title={!user ? ld.loginRequired : sellerId && user?.id === sellerId ? ld.cantBidOwn : undefined}
@@ -1495,7 +1495,12 @@ export default function AuctionDetail() {
                       >
                         <HandCoins className="w-4 h-4 me-1.5" /> {ld.ctaNegotiate}
                       </Button>
-                      <Button className="flex-1 bg-slate-600 hover:bg-slate-500 text-white h-11" type="button" onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}>
+                      <Button
+                        variant="outline"
+                        className="flex-1 border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] h-11"
+                        type="button"
+                        onClick={() => { navigate("/"); window.setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 100); }}
+                      >
                         {ld.ctaInfoRequest}
                       </Button>
                     </>

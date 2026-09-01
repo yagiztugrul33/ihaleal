@@ -64,7 +64,7 @@ export function Home() {
                   style={{ background: "var(--sinyal-turuncu)" }}
                   aria-hidden
                 />
-                <h2 id="home-live-title" className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
+                <h2 id="home-live-title" className="text-sm font-normal text-foreground">
                   Şu an canlı
                 </h2>
               </div>
