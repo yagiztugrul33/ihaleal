@@ -75,7 +75,6 @@ export default function YikilanBinalarArsiviPage() {
       subtitle="1999, 2011, 2020 ve 2023 deprem olaylarına ait örnek yıkım kayıtları; müteahhit ve yapı denetim firması çapraz sorgusu."
       badge="Tarihsel Arşiv"
       icon={Archive}
-      iconAccent="text-orange-300"
     >
       <ModuleStatGrid stats={stats} />
 
@@ -189,7 +188,7 @@ export default function YikilanBinalarArsiviPage() {
           <ul className="mt-3 space-y-2 text-sm text-slate-300">
             {crossRows.map((r) => (
               <li key={r.id} className="flex items-start gap-2 rounded-[10px] border border-white/10 px-3 py-2">
-                <Building className="mt-0.5 h-4 w-4 shrink-0 text-orange-300" />
+                <Building className="mt-0.5 h-4 w-4 shrink-0 text-[var(--metin-ikincil)]" />
                 <span>
                   <strong className="text-white">{r.buildingName}</strong> — {r.city}, {r.eventYear}:{" "}
                   {crossMode === "contractor" ? r.contractor : r.inspectionFirm}

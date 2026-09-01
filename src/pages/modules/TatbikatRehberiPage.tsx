@@ -109,7 +109,6 @@ export default function TatbikatRehberiPage() {
       subtitle="İş yeri, okul, site ve kamu senaryoları için adım adım kontrol listeleri, yönetici şablonu ve yaş gruplarına özel içerik."
       badge="Kurumsal Hazırlık"
       icon={ClipboardList}
-      iconAccent="text-amber-300"
     >
       <ModulePanel title="Senaryo seçimi">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="Tatbikat senaryoları">
@@ -124,7 +123,7 @@ export default function TatbikatRehberiPage() {
                 aria-selected={activeTab}
                 className={
                   activeTab
-                    ? "inline-flex items-center gap-2 rounded-[10px] border border-amber-500/50 bg-amber-500/15 px-3 py-2 text-sm font-normal text-amber-100"
+                    ? "inline-flex items-center gap-2 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-sm font-normal text-[var(--metin-ikincil)]"
                     : "inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.02] px-3 py-2 text-sm font-normal text-slate-300 hover:bg-white/[0.06]"
                 }
                 onClick={() => setTab(s.id)}
@@ -138,7 +137,7 @@ export default function TatbikatRehberiPage() {
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="rounded-[20px] border border-white/10 bg-white/[0.03] p-4">
-            <div className="flex items-center gap-2 text-amber-200">
+            <div className="flex items-center gap-2 text-[var(--metin-ikincil)]">
               <ActiveIcon className="h-5 w-5" aria-hidden />
               <h3 className="font-normal text-white">{active.label}</h3>
               <span className="ms-auto text-xs text-slate-400">Süre: {active.duration}</span>
@@ -146,7 +145,7 @@ export default function TatbikatRehberiPage() {
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               {active.checklist.map((item) => (
                 <li key={item} className="flex gap-2">
-                  <span className="text-amber-400">•</span>
+                  <span className="text-[var(--metin-ikincil)]">•</span>
                   {item}
                 </li>
               ))}
@@ -154,9 +153,9 @@ export default function TatbikatRehberiPage() {
             <p className="mt-3 text-xs font-normal uppercase tracking-wide text-slate-500">Roller</p>
             <p className="text-sm text-slate-400">{active.roles.join(" · ")}</p>
           </div>
-          <div className="rounded-[20px] border border-dashed border-amber-500/35 bg-amber-500/5 p-4">
+          <div className="rounded-[20px] border border-dashed border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
             <h3 className="flex items-center gap-2 font-normal text-white">
-              <FileDown className="h-4 w-4 text-amber-300" aria-hidden />
+              <FileDown className="h-4 w-4 text-[var(--metin-ikincil)]" aria-hidden />
               Yönetici tatbikat şablonu (PDF)
             </h3>
             <p className="mt-2 text-sm text-slate-400">
@@ -180,7 +179,7 @@ export default function TatbikatRehberiPage() {
           <div className="grid gap-3 sm:grid-cols-2">
             {KIDS_GAMES.map((g) => (
               <div key={g.title} className="rounded-[10px] border border-white/10 p-3">
-                <div className="flex items-center gap-2 text-sky-300">
+                <div className="flex items-center gap-2 text-[var(--metin-ikincil)]">
                   <Gamepad2 className="h-4 w-4" aria-hidden />
                   <h4 className="text-sm font-normal text-white">{g.title}</h4>
                 </div>
@@ -194,7 +193,7 @@ export default function TatbikatRehberiPage() {
           <div className="space-y-3">
             {ELDERLY.map((e) => (
               <div key={e.title} className="flex gap-3 rounded-[10px] border border-white/10 p-3">
-                <HeartPulse className="mt-0.5 h-5 w-5 shrink-0 text-rose-300" aria-hidden />
+                <HeartPulse className="mt-0.5 h-5 w-5 shrink-0 text-[var(--metin-ikincil)]" aria-hidden />
                 <div>
                   <h4 className="text-sm font-normal text-white">{e.title}</h4>
                   <p className="mt-1 text-xs text-slate-400">{e.body}</p>

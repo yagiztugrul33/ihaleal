@@ -62,7 +62,6 @@ export default function AfetRiskHaritasiPage() {
       title="Afet Risk Haritasi"
       subtitle="Deprem, sel, heyelan ve yangin katmanlarini birlestirerek lokasyon bazli afet risk profili cikarir."
       icon={ShieldAlert}
-      iconAccent="text-red-300"
       badge="GIS Risk Katmani"
     >
       <div className="mod-layout mod-layout--split">

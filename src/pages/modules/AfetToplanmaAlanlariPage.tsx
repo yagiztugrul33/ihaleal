@@ -127,7 +127,6 @@ export default function AfetToplanmaAlanlariPage() {
       title="Afet Toplanma Alanları"
       subtitle="210 mock toplanma noktası üzerinde il, kapasite ve mesafe filtreleri; adrese göre en yakın beş alan ve yürüyüş rotası."
       icon={MapPin}
-      iconAccent="text-cyan-300"
       badge="AFAD Toplanma GIS"
     >
       <ModuleStatGrid stats={stats} />
@@ -203,7 +202,7 @@ export default function AfetToplanmaAlanlariPage() {
 
           <div className="mod-sticky-cta">
             <p className="text-sm text-slate-300">
-              <Navigation className="me-1 inline h-4 w-4 text-sky-400" aria-hidden />
+              <Navigation className="me-1 inline h-4 w-4 text-[var(--metin-ikincil)]" aria-hidden />
               Aile acil planınızı toplanma noktası ile eşleştirin.
             </p>
             <Link to="/modul/aile-acil-plan" className="mod-btn-primary">

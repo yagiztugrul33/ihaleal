@@ -14,7 +14,6 @@ export default function DepremRiskHaritasiPage() {
       subtitle="Tam ekran Leaflet bağlamında fay, deprem, zemin özeti ve ilan dayanıklılık seçkisini güvenliği bozmadan paralel olarak inceleyin."
       badge="Leaflet GIS"
       icon={MapIcon}
-      iconAccent="text-rose-300"
     >
       <div className="space-y-4">
         <ModulePanel title="Neden deprem risk katmanı">
@@ -50,22 +49,22 @@ export default function DepremRiskHaritasiPage() {
 
         <div className="grid gap-3 lg:grid-cols-3">
           <article className="rounded-[10px] border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
-            <h3 className="text-xs font-normal uppercase tracking-[0.12em] text-rose-200">Örnek</h3>
+            <h3 className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Örnek</h3>
             <p className="mt-2">Skor 72/100: orta-iyi band. Yine de zemin etüdü + taşıyıcı sistem doğrulaması olmadan karar verilmez.</p>
           </article>
           <article className="rounded-[10px] border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
-            <h3 className="text-xs font-normal uppercase tracking-[0.12em] text-rose-200">Kime göre</h3>
+            <h3 className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Kime göre</h3>
             <p className="mt-2">Alıcı: hasar riski. Satıcı: güven artırıcı rapor. Yatırımcı: güçlendirme maliyet etkisi.</p>
           </article>
-          <article className="rounded-[10px] border border-amber-500/35 bg-amber-500/10 p-3 text-sm text-amber-100">
+          <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-sm text-[var(--metin-ikincil)]">
             <h3 className="text-xs font-normal uppercase tracking-[0.12em]">Dürüst sınır</h3>
             <p className="mt-2">Bu çıktı ön analizdir. Lisanslı jeoloji/inşaat mühendisliği zemin etüdü ve performans raporu şarttır.</p>
           </article>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[10px] border border-rose-500/30 bg-rose-500/10 p-3">
-          <p className="text-sm text-rose-100">Bina risk sorgusuna geçip katman skorunu adım adım raporlayın.</p>
-          <Button asChild className="bg-rose-300 text-slate-900 hover:bg-rose-200">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+          <p className="text-sm text-[var(--metin-ikincil)]">Bina risk sorgusuna geçip katman skorunu adım adım raporlayın.</p>
+          <Button asChild className="bg-[var(--zemin-yumusak)] text-slate-900 hover:bg-[var(--zemin-yumusak)]">
             <Link to="/modul/bina-risk-sorgu">
               Risk sorgusu başlat <ArrowRight className="rtl:rotate-180 ms-1.5 h-4 w-4" />
             </Link>

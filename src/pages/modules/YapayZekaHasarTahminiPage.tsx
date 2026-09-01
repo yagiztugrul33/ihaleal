@@ -31,11 +31,11 @@ const DAMAGE_CLASSES: {
   visual: string;
   desc: string;
 }[] = [
-  { id: "A", label: "A — Hafif", tone: "ok", visual: "bg-emerald-500/20 border-emerald-500/40", desc: "Kozmetik çatlak, işlev kaybı yok" },
-  { id: "B", label: "B — Orta", tone: "warn", visual: "bg-amber-500/20 border-amber-500/40", desc: "Onarım gerekir, taşıyıcıda sınırlı etki" },
-  { id: "C", label: "C — Ağır", tone: "warn", visual: "bg-orange-500/20 border-orange-500/40", desc: "Kısmi kullanım dışı, güçlendirme gündemi" },
-  { id: "D", label: "D — Çok ağır", tone: "risk", visual: "bg-red-500/20 border-red-500/40", desc: "Acil tahliye, statik rapor zorunlu" },
-  { id: "E", label: "E — Yıkım", tone: "risk", visual: "bg-red-900/30 border-red-600/50", desc: "Kullanılamaz, yıkım veya kökten güçlendirme" },
+  { id: "A", label: "A — Hafif", tone: "ok", visual: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]", desc: "Kozmetik çatlak, işlev kaybı yok" },
+  { id: "B", label: "B — Orta", tone: "warn", visual: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]", desc: "Onarım gerekir, taşıyıcıda sınırlı etki" },
+  { id: "C", label: "C — Ağır", tone: "warn", visual: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]", desc: "Kısmi kullanım dışı, güçlendirme gündemi" },
+  { id: "D", label: "D — Çok ağır", tone: "risk", visual: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]", desc: "Acil tahliye, statik rapor zorunlu" },
+  { id: "E", label: "E — Yıkım", tone: "risk", visual: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]", desc: "Kullanılamaz, yıkım veya kökten güçlendirme" },
 ];
 
 const ACTIONS = [
@@ -113,7 +113,6 @@ export default function YapayZekaHasarTahminiPage() {
       subtitle="Bina yaşı, sistem tipi ve gözlemlenen hasara göre hasar sınıfı, tahliye süresi ve ekonomik kayıp özetini üretir; bölgesel ortalama ile karşılaştırır."
       badge="AI Hasar Modeli"
       icon={ShieldAlert}
-      iconAccent="text-violet-300"
     >
       <div className="mod-layout mod-layout--split">
         <ModulePanel title="Girdi formu">

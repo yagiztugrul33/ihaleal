@@ -26,11 +26,11 @@ const MOCK_PORTFOY: PortfoyRow[] = [
 ];
 
 const PIE = [
-  { name: "Konut", value: 38, color: "#38bdf8" },
-  { name: "Arsa", value: 22, color: "#34d399" },
-  { name: "Ticari", value: 18, color: "#a78bfa" },
-  { name: "GES", value: 14, color: "#fbbf24" },
-  { name: "Diger", value: 8, color: "#fb7185" },
+  { name: "Konut", value: 38, color: "#eeeeee" },
+  { name: "Arsa", value: 22, color: "#c7c2be" },
+  { name: "Ticari", value: 18, color: "#a49e99" },
+  { name: "GES", value: 14, color: "#8a8380" },
+  { name: "Diger", value: 8, color: "#6b6560" },
 ];
 
 export default function PortfoyYonetimiModulPage() {
@@ -50,7 +50,6 @@ export default function PortfoyYonetimiModulPage() {
       title="Portfoy Yonetimi"
       subtitle="Tum gayrimenkul varliklarinizi tek panelde izleyin; deger, getiri ve durum guncellemelerini anlik takip edin."
       icon={Briefcase}
-      iconAccent="text-indigo-300"
       badge="Kurumsal Panel"
     >
       <div className="mod-layout mod-layout--split">

@@ -48,7 +48,6 @@ export default function KrediPazaryeriPage() {
       title="Kredi Pazaryeri"
       subtitle="Banka konut kredisi tekliflerini faiz, taksit ve onay olasiligina gore yan yana karsilastirin."
       icon={CreditCard}
-      iconAccent="text-blue-300"
       badge="Finans Marketplace"
     >
       <div className="mod-layout mod-layout--split">

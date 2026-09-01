@@ -10,7 +10,6 @@ export interface ModuleShellProps {
   subtitle: string;
   badge?: string;
   icon: LucideIcon;
-  iconAccent?: string;
   children: ReactNode;
 }
 
@@ -19,7 +18,6 @@ export function ModuleShell({
   subtitle,
   badge = "AI Intelligence Hub",
   icon: Icon,
-  iconAccent = "text-sky-300",
   children,
 }: ModuleShellProps) {
   return (
@@ -48,7 +46,7 @@ export function ModuleShell({
           <span className="mod-hero__badge">{badge}</span>
           <div className="mod-hero__title-row">
             <div className="mod-hero__icon">
-              <Icon className={`h-5 w-5 ${iconAccent}`} aria-hidden />
+              <Icon className="h-5 w-5 text-[var(--metin-ikincil)]" aria-hidden />
             </div>
             <div>
               <h1 className="mod-hero__title">{title}</h1>

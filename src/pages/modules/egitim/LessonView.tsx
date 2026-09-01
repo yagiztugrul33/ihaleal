@@ -59,13 +59,12 @@ export function LessonView({ lesson }: { lesson: LessonDefinition }) {
       subtitle="Profesyonel deprem eğitimi modülü — okuma, video ve quiz."
       badge="Deprem Eğitimi LMS"
       icon={PlayCircle}
-      iconAccent="text-emerald-300"
     >
       <ModulePanel title="Ders videosu (demo)">
         <div className="relative aspect-video overflow-hidden rounded-[20px] border border-white/15 bg-slate-950">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_20%,rgba(56,189,248,0.36),transparent_42%),radial-gradient(circle_at_78%_72%,rgba(59,130,246,0.22),transparent_45%),linear-gradient(145deg,#020617_0%,#0b1b34_60%,#0f2f5f_100%)]" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-200">
-            <PlayCircle className="h-10 w-10 text-cyan-200" aria-hidden />
+            <PlayCircle className="h-10 w-10 text-[var(--metin-ikincil)]" aria-hidden />
             <p className="text-sm font-normal">Ders video özeti (demo)</p>
             <p className="text-xs text-slate-300/90">Tam içerik lansman öncesi eğitim stüdyosunda yayınlanacaktır.</p>
           </div>
@@ -101,7 +100,7 @@ export function LessonView({ lesson }: { lesson: LessonDefinition }) {
                 ))}
               </div>
               {checked ? (
-                <p className={`mt-2 text-xs ${answers[q.id] === q.correct ? "text-emerald-400" : "text-red-400"}`}>
+                <p className={`mt-2 text-xs ${answers[q.id] === q.correct ? "text-[var(--metin-ikincil)]" : "text-[var(--metin-ikincil)]"}`}>
                   {answers[q.id] === q.correct ? "Doğru" : `Yanlış — doğru: ${q.options[q.correct]}`}
                 </p>
               ) : null}

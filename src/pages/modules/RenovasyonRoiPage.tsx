@@ -28,7 +28,6 @@ export default function RenovasyonRoiPage() {
       title="Renovasyon ROI"
       subtitle="ROI=(değer artışı - maliyet) / maliyet formülüyle gerçek renovasyon getirisini hesaplar."
       icon={Hammer}
-      iconAccent="text-orange-300"
       badge="Renovasyon Getiri Motoru"
     >
       <section className="mod-hero-panel">

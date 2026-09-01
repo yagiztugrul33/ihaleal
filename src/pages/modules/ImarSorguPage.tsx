@@ -134,7 +134,6 @@ export default function ImarSorguPage() {
       title="Imar Sorgu"
       subtitle="Hero + yöntem + örnek + dürüst sınır: belediye plan notları ve parsel fizibilite motorunu tek ekranda birleştirir."
       icon={Landmark}
-      iconAccent="text-emerald-300"
       badge="Planlama Modulu"
     >
       <div className="mod-hero-panel">

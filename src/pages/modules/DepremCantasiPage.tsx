@@ -165,7 +165,6 @@ export default function DepremCantasiPage() {
       title="Deprem Çantası"
       subtitle="Beş adımlı sihirbaz ile hane profiline göre sekiz kategoride çanta listesi, yenileme takvimi ve yazdırılabilir özet."
       icon={Backpack}
-      iconAccent="text-lime-300"
       badge="Hazırlık Sihirbazı"
     >
       <div className="mod-print-root">
@@ -293,7 +292,7 @@ export default function DepremCantasiPage() {
             {KIDS_GAMES.map((g) => (
               <div key={g.title} className="mod-game-card">
                 <p className="flex items-center gap-2 font-normal text-slate-100">
-                  <Gamepad2 className="h-4 w-4 text-violet-300" aria-hidden />
+                  <Gamepad2 className="h-4 w-4 text-[var(--metin-ikincil)]" aria-hidden />
                   {g.title}
                 </p>
                 <p className="mt-2 text-slate-400">{g.body}</p>
@@ -309,7 +308,7 @@ export default function DepremCantasiPage() {
             ))}
           </ul>
           {state.hasPets ? (
-            <p className="mt-3 text-sm text-emerald-300/90">
+            <p className="mt-3 text-sm text-[var(--metin-ikincil)]">
               <Dog className="me-1 inline h-4 w-4" aria-hidden />
               Profilinizde evcil hayvan işaretlendi; özel ihtiyaç listesine ek kalemler dahil edildi.
             </p>

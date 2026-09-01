@@ -154,13 +154,12 @@ export default function CanliDepremTakipPage() {
       subtitle="/data/kandilli-feed-mock.json akışından yüklenen olayları 24 saat, 7 gün veya 30 gün seçili pencerede; büyüklük eşikli filtre ile listeler. Aşağıda 1939–2023 arası tarih özeti zaman çizgisidir."
       badge="Gerçek Zaman Bildirimi"
       icon={Layers}
-      iconAccent="text-amber-200"
     >
       <div className="mb-4">
         <LiveEarthquakeTicker />
       </div>
-      <div className="sticky top-14 z-[40] mx-[-0.25rem] mb-6 overflow-hidden rounded-[20px] border border-orange-400/35 bg-orange-950/45 px-3 py-3 shadow-lg backdrop-blur-md sm:mx-0">
-        <div className="flex items-center gap-3 px-4 text-xs font-normal uppercase tracking-[0.2em] text-orange-300">
+      <div className="sticky top-14 z-[40] mx-[-0.25rem] mb-6 overflow-hidden rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-3 backdrop-blur-md sm:mx-0">
+        <div className="flex items-center gap-3 px-4 text-xs font-normal uppercase tracking-[0.2em] text-[var(--metin-ikincil)]">
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} aria-hidden /> Canlı bant özeti
         </div>
         <div className={`deprem-ticker-track mt-2 ${prefersReducedMotion ? "deprem-ticker-track--static" : "deprem-ticker-track--marquee"}`} aria-live="polite">
@@ -184,7 +183,7 @@ export default function CanliDepremTakipPage() {
                   key={k}
                   type="button"
                   className={`rounded-full px-4 py-1.5 text-sm font-normal transition ${
-                    windowKey === k ? "bg-sky-600 text-white" : "border border-white/15 bg-white/5 text-slate-300"
+                    windowKey === k ? "bg-[var(--zemin-yumusak)] text-white" : "border border-white/15 bg-white/5 text-slate-300"
                   }`}
                   onClick={() => setWindowKey(k)}
                 >
@@ -206,7 +205,7 @@ export default function CanliDepremTakipPage() {
             </div>
             <div>
               <label className="mb-3 flex items-center gap-2 text-sm font-normal text-slate-200">
-                <Filter className="h-4 w-4 text-sky-300" aria-hidden />
+                <Filter className="h-4 w-4 text-[var(--metin-ikincil)]" aria-hidden />
                 Büyüklük alt eşik (M ≥
                 {(magMin[0] ?? 2.8).toFixed(1)})
               </label>
@@ -235,7 +234,7 @@ export default function CanliDepremTakipPage() {
                     key: "place",
                     header: "Yer",
                     render: (r) => (
-                      <span className="text-sky-300">
+                      <span className="text-[var(--metin-ikincil)]">
                         {r.place}
                         {r.affectedProvinces?.length ? ` · (${r.affectedProvinces.slice(0, 2).join(", ")})` : ""}
                       </span>

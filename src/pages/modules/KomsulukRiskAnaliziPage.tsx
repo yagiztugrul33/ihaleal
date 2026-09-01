@@ -89,21 +89,20 @@ export default function KomsulukRiskAnaliziPage() {
       title="Komşuluk Risk Analizi"
       subtitle="Adres veya ilan seçimi ile mahalle ölçeğinde deprem skoru dağılımı, grafikler ve üç paragraflık yapay zeka özeti."
       icon={Users}
-      iconAccent="text-violet-300"
       badge="Mahalle Intelligence"
     >
       <ModulePanel title="Konum veya ilan seçimi">
         <div className="mb-4 flex flex-wrap gap-2">
           <button
             type="button"
-            className={`mod-btn-secondary ${mode === "listing" ? "ring-1 ring-sky-500/50" : ""}`}
+            className={`mod-btn-secondary ${mode === "listing" ? "ring-1 ring-[var(--cizgi)]" : ""}`}
             onClick={() => setMode("listing")}
           >
             İlandan seç
           </button>
           <button
             type="button"
-            className={`mod-btn-secondary ${mode === "address" ? "ring-1 ring-sky-500/50" : ""}`}
+            className={`mod-btn-secondary ${mode === "address" ? "ring-1 ring-[var(--cizgi)]" : ""}`}
             onClick={() => setMode("address")}
           >
             Adres yaz

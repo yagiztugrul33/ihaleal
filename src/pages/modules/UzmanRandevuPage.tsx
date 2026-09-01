@@ -81,7 +81,6 @@ export default function UzmanRandevuPage() {
       subtitle="Statik, zemin, mimari proje, SPK ekspertiz, sigorta, hukuk, psikososyal destek ve afet koordinasyonu uzmanlarindan randevu alin."
       badge="Uzman Agi"
       icon={Calendar}
-      iconAccent="text-cyan-300"
     >
       <ModulePanel title="Uzmanlik alani">
         <div className="flex flex-wrap gap-2" role="tablist">
@@ -93,7 +92,7 @@ export default function UzmanRandevuPage() {
               aria-selected={category === c.id}
               className={
                 category === c.id
-                  ? "rounded-[10px] border border-cyan-500/50 bg-cyan-500/15 px-3 py-2 text-sm font-normal text-cyan-100"
+                  ? "rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-sm font-normal text-[var(--metin-ikincil)]"
                   : "rounded-[10px] border border-white/10 px-3 py-2 text-sm text-slate-300 hover:bg-white/[0.06]"
               }
               onClick={() => {
@@ -167,7 +166,7 @@ export default function UzmanRandevuPage() {
                 key={e.id}
                 type="button"
                 className={`w-full rounded-[10px] border px-3 py-2 text-start transition ${
-                  selected?.id === e.id ? "border-cyan-500/50 bg-cyan-500/10" : "border-white/10 hover:bg-white/[0.04]"
+                  selected?.id === e.id ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" : "border-white/10 hover:bg-white/[0.04]"
                 }`}
                 onClick={() => {
                   setSelected(e);
@@ -182,15 +181,15 @@ export default function UzmanRandevuPage() {
                       {e.title} · {e.city} · {e.experienceYears} yil · {e.completedJobs} is
                     </p>
                     <p className="text-xs text-slate-500">Oda sicil: {e.chamberNo}</p>
-                    <p className="mt-1 flex items-center gap-1 text-xs text-amber-200">
-                      <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+                    <p className="mt-1 flex items-center gap-1 text-xs text-[var(--metin-ikincil)]">
+                      <Star className="h-3 w-3 fill-amber-400 text-[var(--metin-ikincil)]" />
                       {e.rating} ({e.reviewCount} yorum)
                     </p>
-                    <p className="text-xs text-emerald-200">{hourlyRateLabel(e)}</p>
+                    <p className="text-xs text-[var(--metin-ikincil)]">{hourlyRateLabel(e)}</p>
                     <p className="text-xs text-slate-500">{e.specialties.join(" · ")}</p>
                     <div className="mt-1 flex flex-wrap gap-1">
                       {e.availableSlotsThisWeek.map((s) => (
-                        <span key={s} className="rounded-[3px] bg-cyan-500/15 px-1.5 py-0.5 text-[10px] text-cyan-100">
+                        <span key={s} className="rounded-[3px] bg-[var(--zemin-yumusak)] px-1.5 py-0.5 text-[10px] text-[var(--metin-ikincil)]">
                           Bu hafta: {s}
                         </span>
                       ))}
@@ -257,7 +256,7 @@ export default function UzmanRandevuPage() {
           {step === 3 ? (
             <div className="mt-3 rounded-[10px] border border-white/10 p-4 text-sm text-slate-300">
               <p>
-                <CheckCircle2 className="me-1 inline h-4 w-4 text-emerald-400" />
+                <CheckCircle2 className="me-1 inline h-4 w-4 text-[var(--metin-ikincil)]" />
                 {date} {slot} — {selected.name}
               </p>
               <p className="mt-2">{note || "Ek not yok."}</p>

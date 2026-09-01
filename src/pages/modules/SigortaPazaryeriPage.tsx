@@ -48,7 +48,6 @@ export default function SigortaPazaryeriPage() {
       title="Sigorta Pazaryeri"
       subtitle="Konut, DASK ve deprem teminatlari icin coklu sigorta sirketi tekliflerini karsilastirin."
       icon={Shield}
-      iconAccent="text-teal-300"
       badge="Finans Marketplace"
     >
       <div className="mod-layout mod-layout--split">

@@ -36,7 +36,6 @@ export default function YatirimOnerisiPage() {
       title="Yatırım Önerisi"
       subtitle="Kira getirisi, kira çarpanı, geri dönüş süresi ve ROI'yi gerçek formülle hesaplayan yatırım motoru."
       icon={Lightbulb}
-      iconAccent="text-yellow-300"
       badge="Yatırım Karar Motoru"
     >
       <section className="mod-hero-panel">

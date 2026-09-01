@@ -118,7 +118,6 @@ export default function AileAcilPlanPage() {
       subtitle="Altı adımda toplanma, iletişim, evrak ve tesisat sırasını netleştirir; çıktıyı yazdırabilir veya WhatsApp üzerinden paylaşabilirsiniz."
       badge="Hane Hazırlığı"
       icon={HeartHandshake}
-      iconAccent="text-pink-300"
     >
       <ModulePanel title="Rehberli plan sihirbazı">
         <div className="mod-layout mod-layout--split">
@@ -130,11 +129,11 @@ export default function AileAcilPlanPage() {
                 <div
                   key={s.title}
                   className={`rounded-[20px] border px-3 py-2 text-sm ${
-                    active ? "border-pink-500/40 bg-pink-500/10" : "border-white/10 bg-white/[0.02]"
+                    active ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" : "border-white/10 bg-white/[0.02]"
                   }`}
                 >
                   <div className="flex items-start gap-2">
-                    <Icon className="mt-0.5 h-4 w-4 text-pink-300" aria-hidden />
+                    <Icon className="mt-0.5 h-4 w-4 text-[var(--metin-ikincil)]" aria-hidden />
                     <div>
                       <p className="font-normal text-white">
                         {i + 1}. {s.title}
@@ -147,7 +146,7 @@ export default function AileAcilPlanPage() {
             })}
             <Link
               to="/modul/bina-risk-sorgu"
-              className="inline-flex items-center gap-2 text-sm text-sky-300 hover:underline"
+              className="inline-flex items-center gap-2 text-sm text-[var(--metin-ikincil)] hover:underline"
             >
               Bina risk özetine geç <ChevronRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
             </Link>

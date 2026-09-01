@@ -223,7 +223,6 @@ export default function GuclendirmeRehberiPage() {
       subtitle="Sekiz yöntem odaklı anlatı, karşılaştırma tablosu, örnek firma dizini ve devlet destekleri için yönlendirici tablo; maliyet hesaplayıcı örnek katsayılarla çalışır."
       badge="Deprem Dayanımı"
       icon={Shield}
-      iconAccent="text-emerald-300"
     >
       <ModuleStatGrid
         stats={[
@@ -245,7 +244,7 @@ export default function GuclendirmeRehberiPage() {
               action={
                 <button
                   type="button"
-                  className={`rounded-full px-3 py-1 text-xs font-normal ${active ? "bg-emerald-600 text-white" : "border border-white/15 text-slate-300"}`}
+                  className={`rounded-full px-3 py-1 text-xs font-normal ${active ? "bg-[var(--zemin-yumusak)] text-white" : "border border-white/15 text-slate-300"}`}
                   onClick={() => setMethod(m.id)}
                 >
                   Hesaplayıcıda seç
@@ -253,7 +252,7 @@ export default function GuclendirmeRehberiPage() {
               }
             >
               <div className="mb-3 flex flex-wrap items-center gap-3 text-sm text-slate-400">
-                <Icon className="h-5 w-5 text-emerald-300" aria-hidden />
+                <Icon className="h-5 w-5 text-[var(--metin-ikincil)]" aria-hidden />
                 <span>Süre: {m.duration}</span>
                 <span>•</span>
                 <span>

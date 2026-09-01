@@ -40,7 +40,6 @@ export default function AirbnbPotansiyelPage() {
       title="Airbnb Potansiyeli"
       subtitle="Kısa dönem kira gelirini gerçek formülle hesaplar ve uzun dönem kira ile kıyaslar."
       icon={BedDouble}
-      iconAccent="text-rose-300"
       badge="Kısa Dönem Gelir Motoru"
     >
       <section className="mod-hero-panel">

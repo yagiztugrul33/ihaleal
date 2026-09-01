@@ -137,7 +137,6 @@ export default function KentselDonusumPage() {
       title="Kentsel Dönüşüm"
       subtitle="Riskli alan ve yapı süreçlerini harita, haklar, uzlaşma yol haritası ve kurum destek tablosu ile tek ekranda izleyin."
       icon={Building2}
-      iconAccent="text-amber-300"
       badge="6306 / Rezerv Alan"
     >
       <ModuleStatGrid stats={stats} />
@@ -209,7 +208,7 @@ export default function KentselDonusumPage() {
           <div className="mod-rights-list">
             {RIGHTS.map((r) => (
               <div key={r} className="mod-rights-item">
-                <Scale className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" aria-hidden />
+                <Scale className="mt-0.5 h-4 w-4 shrink-0 text-[var(--metin-ikincil)]" aria-hidden />
                 {r}
               </div>
             ))}

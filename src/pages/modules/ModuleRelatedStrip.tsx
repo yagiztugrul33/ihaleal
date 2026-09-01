@@ -21,7 +21,7 @@ export function ModuleRelatedStrip({ title = "İlgili modüller", modules }: { t
           return (
             <Link key={m.href} to={m.href} className="mod-related__card">
               <span className="mod-related__icon" aria-hidden>
-                <Icon className="h-5 w-5 text-sky-300" />
+                <Icon className="h-5 w-5 text-[var(--metin-ikincil)]" />
               </span>
               <div className="mod-related__body">
                 <h3 className="mod-related__card-title">{m.title}</h3>

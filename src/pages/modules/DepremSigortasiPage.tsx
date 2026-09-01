@@ -121,7 +121,6 @@ export default function DepremSigortasiPage() {
       title="Deprem Sigortası (DASK)"
       subtitle="DASK prim hesaplayıcı, sekiz sigorta şirketi kartı, yirmi satırlık karşılaştırma tablosu ve mock poliçe sorgusu."
       icon={Shield}
-      iconAccent="text-teal-300"
       badge="DASK & Konut Ek"
     >
       <ModuleStatGrid stats={stats} />
@@ -159,7 +158,7 @@ export default function DepremSigortasiPage() {
             </div>
           </form>
           {primResult != null ? (
-            <p className="mt-3 text-sm text-sky-200">
+            <p className="mt-3 text-sm text-[var(--metin-ikincil)]">
               Tahmini yıllık DASK primi: <strong>{primResult.toLocaleString("tr-TR")} TRY</strong> (demo formül)
             </p>
           ) : null}

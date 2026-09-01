@@ -20,7 +20,6 @@ export default function DepremEgitimiPage() {
       subtitle="On derslik program: okuma, video ve quiz ile ilerleyin; tamamlayınca yazdırılabilir sertifika alın."
       badge="LMS — Afet Okuryazarlığı"
       icon={BookOpen}
-      iconAccent="text-emerald-300"
     >
       <ModulePanel title="Ders programı">
         <p className="mb-3 text-sm text-slate-400">
@@ -33,11 +32,11 @@ export default function DepremEgitimiPage() {
               <Link
                 key={l.id}
                 to={`/modul/deprem-egitimi/ders-${l.id}`}
-                className="rounded-[20px] border border-white/10 bg-white/[0.03] p-4 transition hover:border-emerald-500/40"
+                className="rounded-[20px] border border-white/10 bg-white/[0.03] p-4 transition hover:border-[var(--cizgi)]"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <p className="text-xs font-normal uppercase text-emerald-300">Ders {l.id}</p>
+                    <p className="text-xs font-normal uppercase text-[var(--metin-ikincil)]">Ders {l.id}</p>
                     <p className="font-normal text-white">{l.title}</p>
                     <p className="mt-1 text-xs text-slate-500">{l.duration}</p>
                   </div>
@@ -58,8 +57,8 @@ export default function DepremEgitimiPage() {
 
       {allDone ? (
         <ModulePanel title="Tamamlama sertifikası">
-          <div className="mod-print-root rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-6 text-center">
-            <Award className="mx-auto h-10 w-10 text-emerald-300" aria-hidden />
+          <div className="mod-print-root rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6 text-center">
+            <Award className="mx-auto h-10 w-10 text-[var(--metin-ikincil)]" aria-hidden />
             <h3 className="mt-2 text-lg font-normal text-white">Afet Okuryazarlığı Sertifikası</h3>
             <p className="mt-2 text-sm text-slate-300">
               On derslik deprem eğitimi programını başarıyla tamamladınız.
