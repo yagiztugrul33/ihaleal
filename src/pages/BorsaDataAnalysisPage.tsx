@@ -3,7 +3,6 @@ import { Download, Grid3X3, LineChart as LineChartIcon, Scale } from "lucide-rea
 import { Area, AreaChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useLiveMarket } from "@/borsa/useLiveMarket";
 import { createMarketSnapshot } from "@/lib/borsa/marketData";
-import { cn } from "@/lib/utils";
 import { FxRef } from "@/components/FxRef";
 import { useLocale } from "@/contexts/LocaleContext";
 
@@ -98,13 +97,7 @@ export default function BorsaDataAnalysisPage() {
     const volume = rows.reduce((acc, row) => acc + row.volume, 0);
     const avgChange = rows.reduce((acc, row) => acc + row.changePct, 0) / Math.max(1, rows.length);
     const idx = rows.reduce((acc, row) => acc + row.price, 0) / Math.max(1, rows.length);
-    const tone =
-      avgChange > 0.5
-        ? "border-emerald-400/45 bg-emerald-500/20"
-        : avgChange < -0.5
-          ? "border-rose-400/45 bg-rose-500/20"
-          : "border-slate-600 bg-slate-800/70";
-    return { region, volume, avgChange, idx, tone };
+    return { region, volume, avgChange, idx };
   });
 
   const downloadReport = () => {
@@ -130,30 +123,30 @@ export default function BorsaDataAnalysisPage() {
 
   return (
     <main className="w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
-      <section className="rounded-xl border border-cyan-500/35 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
-        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">{da.eyebrow}</p>
-        <h1 className="mt-1 text-2xl font-black text-white">{da.title}</h1>
+      <section className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+        <p className="text-[11px] font-normal uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">{da.eyebrow}</p>
+        <h1 className="mt-1 text-2xl font-normal text-white">{da.title}</h1>
         <p className="mt-2 text-sm text-slate-300">
           {da.subtitle}
         </p>
       </section>
 
-      <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-3 py-2 text-[11px] text-amber-100">
+      <section className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-[11px] text-[var(--metin-ikincil)]">
         {da.bannerWarning}
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.45fr_1fr]">
-        <article className="rounded-xl border border-border bg-card p-3">
+        <article className="rounded-[10px] border border-border bg-card p-3">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
-              <LineChartIcon className="h-4 w-4 text-cyan-300" />
+            <h2 className="inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">
+              <LineChartIcon className="h-4 w-4 text-[var(--metin-ikincil)]" />
               {da.avgPriceHistory}
             </h2>
             <div className="flex gap-2 text-xs">
               <select
                 value={selectedRegion}
                 onChange={(e) => setSelectedRegion(e.target.value as RegionKey)}
-                className="rounded-md border border-slate-600 bg-slate-900/70 px-2 py-1 text-slate-100"
+                className="rounded-[3px] border border-slate-600 bg-slate-900/70 px-2 py-1 text-slate-100"
               >
                 <option value="istanbul">İstanbul</option>
                 <option value="ege">Ege</option>
@@ -164,7 +157,7 @@ export default function BorsaDataAnalysisPage() {
               <select
                 value={selectedSegment}
                 onChange={(e) => setSelectedSegment(e.target.value as SegmentKey)}
-                className="rounded-md border border-slate-600 bg-slate-900/70 px-2 py-1 text-slate-100"
+                className="rounded-[3px] border border-slate-600 bg-slate-900/70 px-2 py-1 text-slate-100"
               >
                 <option value="konut">Konut</option>
                 <option value="arsa">Arsa</option>
@@ -180,9 +173,9 @@ export default function BorsaDataAnalysisPage() {
                 <XAxis dataKey="period" stroke="#94a3b8" />
                 <YAxis stroke="#94a3b8" tickFormatter={(v) => `₺${Math.round(v / 1_000_000)}M`} />
                 <Tooltip formatter={(v: number) => formatTry(v)} />
-                <Line dataKey="bolgeEndeksi" name={da.regionAvg} stroke="#22d3ee" strokeWidth={2.3} dot={false} />
-                <Line dataKey="segmentEndeksi" name={da.segmentAvg} stroke="#a78bfa" strokeWidth={2} dot={false} />
-                <Line dataKey="platformEndeksi" name={da.platformAvg} stroke="#22c55e" strokeWidth={2} dot={false} />
+                <Line dataKey="bolgeEndeksi" name={da.regionAvg} stroke="#eeeeee" strokeWidth={2.3} dot={false} />
+                <Line dataKey="segmentEndeksi" name={da.segmentAvg} stroke="#8a8380" strokeDasharray="5 5" strokeWidth={2} dot={false} />
+                <Line dataKey="platformEndeksi" name={da.platformAvg} stroke="#c7c2be" strokeDasharray="2 3" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -192,16 +185,16 @@ export default function BorsaDataAnalysisPage() {
           </p>
         </article>
 
-        <article className="rounded-xl border border-border bg-card p-3">
+        <article className="rounded-[10px] border border-border bg-card p-3">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
-              <Scale className="h-4 w-4 text-cyan-300" />
+            <h2 className="inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">
+              <Scale className="h-4 w-4 text-[var(--metin-ikincil)]" />
               {da.assetVsPlatform}
             </h2>
             <select
               value={selectedAssetId}
               onChange={(e) => setSelectedAssetId(e.target.value)}
-              className="rounded-md border border-slate-600 bg-slate-900/70 px-2 py-1 text-xs text-slate-100"
+              className="rounded-[3px] border border-slate-600 bg-slate-900/70 px-2 py-1 text-xs text-slate-100"
             >
               {data.map((row) => (
                 <option key={row.id} value={row.id}>
@@ -217,8 +210,8 @@ export default function BorsaDataAnalysisPage() {
                 <XAxis dataKey="period" stroke="#94a3b8" />
                 <YAxis stroke="#94a3b8" tickFormatter={(v) => `₺${Math.round(v / 1_000_000)}M`} />
                 <Tooltip formatter={(v: number) => formatTry(v)} />
-                <Area dataKey="endeks" name={da.platformAvg} stroke="#06b6d4" fill="#0891b233" strokeWidth={2} />
-                <Area dataKey="varlik" name={`${selectedAsset?.code ?? "—"} ${da.assetPriceSuffix}`} stroke="#34d399" fill="#10b98133" strokeWidth={2} />
+                <Area dataKey="endeks" name={da.platformAvg} stroke="#eeeeee" fill="#8a838033" strokeWidth={2} />
+                <Area dataKey="varlik" name={`${selectedAsset?.code ?? "—"} ${da.assetPriceSuffix}`} stroke="#8a8380" strokeDasharray="5 5" fill="#8a838018" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -229,14 +222,14 @@ export default function BorsaDataAnalysisPage() {
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.15fr_1.85fr]">
-        <article className="rounded-xl border border-border bg-card p-3">
-          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">{da.segmentTrendAnalysis}</h3>
+        <article className="rounded-[10px] border border-border bg-card p-3">
+          <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">{da.segmentTrendAnalysis}</h3>
           <div className="space-y-2">
             {segmentTrends.map((item) => (
-              <div key={item.segment} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
+              <div key={item.segment} className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-slate-100">{item.segment.toLocaleUpperCase("tr-TR")}</span>
-                  <span className={cn("font-bold", item.avgChange >= 0 ? "text-emerald-300" : "text-rose-300")}>
+                  <span className="font-normal text-slate-100">{item.segment.toLocaleUpperCase("tr-TR")}</span>
+                  <span className="font-normal" style={{ color: item.avgChange >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                     {item.avgChange >= 0 ? "+" : ""}
                     {item.avgChange.toFixed(2)}%
                   </span>
@@ -249,28 +242,28 @@ export default function BorsaDataAnalysisPage() {
           </div>
         </article>
 
-        <article className="rounded-xl border border-border bg-card p-3">
+        <article className="rounded-[10px] border border-border bg-card p-3">
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-slate-200">
-              <Grid3X3 className="h-4 w-4 text-cyan-300" />
+            <h3 className="inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">
+              <Grid3X3 className="h-4 w-4 text-[var(--metin-ikincil)]" />
               {da.regionHeatmap}
             </h3>
             <button
               type="button"
               onClick={downloadReport}
-              className="inline-flex items-center gap-1 rounded-md border border-cyan-400/55 bg-cyan-500/15 px-2.5 py-1.5 text-xs font-semibold text-cyan-100"
+              className="inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] px-2.5 py-1.5 text-xs font-normal text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
             >
               <Download className="h-3.5 w-3.5" /> {da.downloadReport}
             </button>
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {regionHeatmap.map((cell) => (
-              <div key={cell.region} className={cn("rounded-xl border px-3 py-2.5", cell.tone)}>
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-100">{regionLabel(cell.region)}</p>
+              <div key={cell.region} className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2.5">
+                <p className="text-xs font-normal uppercase tracking-[0.12em] text-slate-100">{regionLabel(cell.region)}</p>
                 <p className="text-[10px] uppercase tracking-wide text-slate-300">{da.avgPriceShort}</p>
-                <p className="mt-0.5 text-lg font-black text-white" dir="ltr">{formatTry(cell.idx)}</p>
-                <FxRef amountTry={cell.idx} variant="block" className="text-[11px] text-amber-300/80" />
-                <p className={cn("text-xs font-bold", cell.avgChange >= 0 ? "text-emerald-200" : "text-rose-200")}>
+                <p className="mt-0.5 text-lg font-normal text-white" dir="ltr">{formatTry(cell.idx)}</p>
+                <FxRef amountTry={cell.idx} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
+                <p className="text-xs font-normal" style={{ color: cell.avgChange >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                   {cell.avgChange >= 0 ? "+" : ""}
                   {cell.avgChange.toFixed(2)}%
                 </p>
@@ -278,7 +271,7 @@ export default function BorsaDataAnalysisPage() {
               </div>
             ))}
           </div>
-          <p className="mt-3 rounded-lg border border-amber-500/35 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
+          <p className="mt-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-2 text-[11px] text-[var(--metin-ikincil)]">
             {da.demoReportFootnote}
           </p>
         </article>
