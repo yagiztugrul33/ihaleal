@@ -213,7 +213,7 @@ export default function InvestorDashboard() {
             </ChartPanel>
 
             <section>
-              <h2 className="mb-4 text-lg font-normal text-white">{iv.portfolioListings}</h2>
+              <h2 className="mb-4 text-xl font-normal text-white">{iv.portfolioListings}</h2>
               <div className="space-y-3">
                 {favoriteAuctions.map((auction) => {
                   const upside = auction.aiPredictedPrice - auction.currentBid;

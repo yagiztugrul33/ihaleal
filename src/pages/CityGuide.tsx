@@ -330,7 +330,7 @@ export default function CityGuide() {
             {/* Info Grid */}
             <div className="grid md:grid-cols-3 gap-4">
               <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-3"><GraduationCap className="w-5 h-5 text-[var(--metin-ikincil)]" /><h4 className="font-normal">Eğitim</h4></div>
+                <div className="flex items-center gap-2 mb-3"><GraduationCap className="w-5 h-5 text-[var(--metin-ikincil)]" /><h4 className="font-normal text-base">Eğitim</h4></div>
                 <div className="space-y-2">
                   {city.education.map((e) => (
                     <div key={e.name} className="flex justify-between text-sm">
@@ -341,7 +341,7 @@ export default function CityGuide() {
                 </div>
               </Card>
               <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-3"><Heart className="w-5 h-5 text-[var(--metin-ikincil)]" /><h4 className="font-normal">Hastaneler</h4></div>
+                <div className="flex items-center gap-2 mb-3"><Heart className="w-5 h-5 text-[var(--metin-ikincil)]" /><h4 className="font-normal text-base">Hastaneler</h4></div>
                 <div className="space-y-2">
                   {city.hospitals.map((h) => (
                     <div key={h.name} className="flex justify-between text-sm">
@@ -352,7 +352,7 @@ export default function CityGuide() {
                 </div>
               </Card>
               <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-3"><Star className="w-5 h-5 text-[var(--metin-ikincil)]" /><h4 className="font-normal">Yaşam Tarzı</h4></div>
+                <div className="flex items-center gap-2 mb-3"><Star className="w-5 h-5 text-[var(--metin-ikincil)]" /><h4 className="font-normal text-base">Yaşam Tarzı</h4></div>
                 <div className="flex flex-wrap gap-2">
                   {city.lifestyle.map((l) => (
                     <span key={l} className="px-2.5 py-1 rounded-[10px] bg-white/5 text-xs">{l}</span>
@@ -368,7 +368,7 @@ export default function CityGuide() {
             {city.districts.map((d) => (
               <Card key={d.name} className="border-slate-200/80 p-4 hover:border-[var(--cizgi)] transition-all">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-normal text-lg">{d.name}</h4>
+                  <h4 className="font-normal text-base">{d.name}</h4>
                   <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">{d.type}</Badge>
                 </div>
                 <div className="space-y-2">
@@ -404,7 +404,7 @@ export default function CityGuide() {
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <h4 className="font-normal">{auction.title}</h4>
+                          <h4 className="font-normal text-base">{auction.title}</h4>
                           <div className="flex items-center gap-2 text-sm text-slate-500 mt-1">
                             <MapPin className="w-3.5 h-3.5" /> {auction.location}
                           </div>
@@ -438,7 +438,7 @@ export default function CityGuide() {
                   <Bus className="w-6 h-6 text-[var(--metin-ikincil)]" />
                 </div>
                 <div>
-                  <h4 className="font-normal">{t.type}</h4>
+                  <h4 className="font-normal text-base">{t.type}</h4>
                   <p className="text-sm text-slate-400">{t.desc}</p>
                 </div>
               </Card>

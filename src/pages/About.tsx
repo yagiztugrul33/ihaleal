@@ -134,7 +134,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-6">
               <Building2 className="mb-3 h-8 w-8 text-[var(--metin-ikincil)]" />
-              <h3 className="font-normal text-white">Odak</h3>
+              <h3 className="font-normal text-base text-white">Odak</h3>
               <p className="mt-2 text-sm text-slate-400">
                 İlan, ihale ve kapalı teklif modlarıyla tek çatı altında uçtan uca süreç çizgisi.
               </p>
@@ -143,7 +143,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-6">
               <TrendingUp className="mb-3 h-8 w-8 text-[var(--metin-ikincil)]" />
-              <h3 className="font-normal text-white">Uyumluluk hedefi</h3>
+              <h3 className="font-normal text-base text-white">Uyumluluk hedefi</h3>
               <p className="mt-2 text-sm text-slate-400">
                 KYC, evrak ve saklama politikaları üretimde hukuk ve regülasyonla tamamlanır.
               </p>
@@ -152,7 +152,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-6">
               <Users className="mb-3 h-8 w-8 text-[var(--metin-ikincil)]" />
-              <h3 className="font-normal text-white">Ortaklık</h3>
+              <h3 className="font-normal text-base text-white">Ortaklık</h3>
               <p className="mt-2 text-sm text-slate-400">
                 B2B emlakçı ortaklığı; ilan paketi satışı değil, performansa dayalı kazanç paylaşımı.
               </p>
