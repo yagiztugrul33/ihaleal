@@ -305,7 +305,7 @@ export default function CityGuide() {
                     <XAxis dataKey="district" stroke="#71717a" fontSize={11} />
                     <YAxis stroke="#71717a" fontSize={11} tickFormatter={(v) => `₺${(v/1000).toFixed(0)}K`} />
                     <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", color: "#fff" }} />
-                    <Bar dataKey="price" name="m² Fiyat (₺)" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="price" name="m² Fiyat (₺)" fill="#8a8380" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -321,7 +321,7 @@ export default function CityGuide() {
                     <XAxis dataKey="district" stroke="#71717a" fontSize={11} />
                     <YAxis stroke="#71717a" fontSize={11} unit="%" />
                     <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", color: "#fff" }} />
-                    <Line type="monotone" dataKey="growth" name="Artış %" stroke="#10b981" strokeWidth={3} dot={{ r: 5, fill: "#10b981" }} />
+                    <Line type="monotone" dataKey="growth" name="Artış %" stroke="#8a8380" strokeWidth={3} dot={{ r: 5, fill: "#8a8380" }} />
                   </ReLineChart>
                 </ResponsiveContainer>
               </div>
