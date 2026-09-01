@@ -76,7 +76,7 @@ export function CinematicPropertyGallery({
         onTouchEnd={onTouchEnd}
       >
         <motion.div
-          className="absolute inset-0 pointer-events-none z-[2] bg-gradient-to-tr from-blue-600/10 via-transparent to-cyan-400/5"
+          className="absolute inset-0 pointer-events-none z-[2] bg-gradient-to-tr from-[var(--zemin-yumusak)] via-transparent to-[var(--zemin-yumusak)]"
           aria-hidden
           animate={reduced ? undefined : { opacity: [0.4, 0.7, 0.4] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -109,7 +109,7 @@ export function CinematicPropertyGallery({
             className="absolute inset-0 bg-gradient-to-t from-[#081120] via-[#081120]/40 to-transparent pointer-events-none"
             initial={false}
           />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue-950/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--zemin-yumusak)] to-transparent pointer-events-none" />
 
           <motion.div
             className="absolute top-4 start-4 end-4 flex flex-wrap gap-2 z-10"
@@ -132,7 +132,7 @@ export function CinematicPropertyGallery({
               transition={{ delay: 0.25 }}
             >
               <motion.div
-                className="flex items-center gap-1.5 text-[10px] font-normal uppercase tracking-wider text-cyan-300/90"
+                className="flex items-center gap-1.5 text-[10px] font-normal uppercase tracking-wider text-[var(--metin-ikincil)]"
                 animate={reduced ? undefined : { opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 2.5, repeat: Infinity }}
               >
@@ -140,7 +140,7 @@ export function CinematicPropertyGallery({
                 AI değerleme
               </motion.div>
               {discountPct ? (
-                <p className="text-sm font-normal text-emerald-300 mt-0.5">%{discountPct} altında</p>
+                <p className="text-sm font-normal text-[var(--metin-ikincil)] mt-0.5">%{discountPct} altında</p>
               ) : null}
               {investmentScore != null ? (
                 <p className="text-xs text-slate-400 mt-0.5">Yatırım skoru {investmentScore}/100</p>
@@ -183,7 +183,7 @@ export function CinematicPropertyGallery({
                     setIndex(i);
                   }}
                   className={`h-1 rounded-full transition-all duration-300 ${
-                    i === index ? "w-8 bg-blue-400" : "w-2 bg-white/40 hover:bg-white/60"
+                    i === index ? "w-8 bg-[var(--zemin-yumusak)]" : "w-2 bg-white/40 hover:bg-white/60"
                   }`}
                   aria-label={`Gorsel ${i + 1}`}
                 />
@@ -227,7 +227,7 @@ export function CinematicPropertyGallery({
                 setIndex(i);
               }}
               className={`relative w-20 h-14 sm:w-24 sm:h-16 rounded-[10px] overflow-hidden shrink-0 border-2 transition-colors ${
-                i === index ? "border-blue-400 ring-2 ring-blue-500/30" : "border-transparent opacity-70 hover:opacity-100"
+                i === index ? "border-[var(--cizgi)] ring-2 ring-[var(--cizgi)]" : "border-transparent opacity-70 hover:opacity-100"
               }`}
               whileHover={reduced ? undefined : { scale: 1.04 }}
               whileTap={reduced ? undefined : { scale: 0.98 }}

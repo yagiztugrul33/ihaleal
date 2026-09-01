@@ -34,11 +34,11 @@ export default function LocationRiskQueryPage() {
         </Button>
 
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-rose-400/30 bg-rose-500/10 px-3 py-1 text-xs text-rose-200 mb-3">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
             <ShieldAlert className="h-3.5 w-3.5" /> Konum-Bazlı Zemin Risk Sorgu
           </p>
           <h1 className="text-3xl font-normal flex items-center gap-2">
-            <MapPin className="h-7 w-7 text-rose-300" />
+            <MapPin className="h-7 w-7 text-[var(--metin-ikincil)]" />
             Bölge Zemin/Deprem Risk Sorgu
           </h1>
           <p className="mt-2 text-sm text-slate-400 max-w-2xl">
@@ -48,9 +48,9 @@ export default function LocationRiskQueryPage() {
         </div>
 
         {/* Kapsam açıklaması */}
-        <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-4">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
           <div className="flex items-start gap-3">
-            <Info className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
+            <Info className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-normal text-white mb-1">Veri Kapsamı</p>
               <ul className="text-xs text-slate-300 space-y-1 list-disc list-inside">
@@ -90,7 +90,7 @@ export default function LocationRiskQueryPage() {
         {/* Eğitici */}
         <div className="grid sm:grid-cols-3 gap-3">
           <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
-            <h3 className="text-xs font-normal uppercase tracking-wider text-rose-200 mb-1.5">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-[var(--metin-ikincil)] mb-1.5">
               Sıvılaşma nedir?
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
@@ -100,7 +100,7 @@ export default function LocationRiskQueryPage() {
             </p>
           </div>
           <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
-            <h3 className="text-xs font-normal uppercase tracking-wider text-amber-200 mb-1.5">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-[var(--metin-ikincil)] mb-1.5">
               Heyelan nedir?
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
@@ -110,7 +110,7 @@ export default function LocationRiskQueryPage() {
             </p>
           </div>
           <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
-            <h3 className="text-xs font-normal uppercase tracking-wider text-orange-200 mb-1.5">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-[var(--metin-ikincil)] mb-1.5">
               Zemin Büyütme nedir?
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">

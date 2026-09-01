@@ -48,7 +48,7 @@ export function ListingNearbyPoiSection({ lat, lng, district, city }: Props) {
               <ul className="space-y-2">
                 {state.pois.slice(0, 4).map((p) => (
                   <li key={p.id} className="flex items-start gap-2 text-sm text-slate-300">
-                    <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-blue-400" />
+                    <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--metin-ikincil)]" />
                     <span>
                       {p.name}
                       <span className="ms-1 text-xs text-slate-500">({Math.round(p.distanceM)} m)</span>

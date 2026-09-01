@@ -52,7 +52,7 @@ export function ListingOfferDialog({
       <DialogContent className="bg-slate-950 border-slate-200/80 text-white sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <HandCoins className="h-5 w-5 text-amber-400" />
+            <HandCoins className="h-5 w-5 text-[var(--metin-ikincil)]" />
             Teklif / pazarlık
           </DialogTitle>
         </DialogHeader>
@@ -73,7 +73,7 @@ export function ListingOfferDialog({
               Kapalı teklif — tutar süre sonuna kadar satıcıya gizli kalır (yalnız teklif sayısı görünür).
             </span>
           </label>
-          {error ? <p className="text-sm text-red-400">{error}</p> : null}
+          {error ? <p className="text-sm text-[var(--metin-ikincil)]">{error}</p> : null}
           <p className="text-[11px] text-slate-500">
             Bu akış açık artırma teklifinden ayrıdır; mevcut ihale motorunu etkilemez.
           </p>
@@ -82,7 +82,7 @@ export function ListingOfferDialog({
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="border-slate-600">
             İptal
           </Button>
-          <Button type="button" disabled={busy} onClick={() => void handleSubmit()} className="bg-amber-500 text-slate-950">
+          <Button type="button" disabled={busy} onClick={() => void handleSubmit()} className="bg-[var(--zemin-yumusak)] text-slate-950">
             {busy ? "Gönderiliyor…" : "Teklif gönder"}
           </Button>
         </DialogFooter>

@@ -61,7 +61,7 @@ export default function PasswordReset() {
             </form>
 
             <p className="mt-6 text-center text-sm">
-              <Link to="/giris" className="text-blue-400 hover:text-blue-300">
+              <Link to="/giris" className="text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)]">
                 Girişe dön
               </Link>
             </p>

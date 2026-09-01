@@ -10,8 +10,8 @@ type TrustIndicatorProps = {
 
 const variants = {
   default: "border-white/10 bg-white/[0.04] text-slate-300",
-  success: "border-emerald-500/25 bg-emerald-500/10 text-emerald-300",
-  info: "border-blue-500/25 bg-blue-500/10 text-blue-300",
+  success: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+  info: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
 };
 
 export function TrustIndicator({ icon: Icon, label, value, variant = "default" }: TrustIndicatorProps) {

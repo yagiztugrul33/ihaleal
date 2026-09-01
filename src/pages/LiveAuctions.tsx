@@ -75,7 +75,7 @@ export default function LiveAuctions() {
   }) => (
     <section className="mb-8">
       <div className="flex items-center justify-between mb-3 px-1">
-        <h2 className={cn("text-lg font-normal flex items-center gap-2", tone === "amber" ? "text-amber-200" : "text-cyan-200")}>
+        <h2 className="text-lg font-normal flex items-center gap-2" style={{ color: tone === "amber" ? "var(--sinyal-turuncu)" : "var(--metin-ikincil)" }}>
           <Icon className="w-5 h-5" />
           {title}
         </h2>
@@ -100,10 +100,7 @@ export default function LiveAuctions() {
               key={a.id}
               type="button"
               onClick={() => navigate(`/ilan/${a.id}`)}
-              className={cn(
-                "group text-start rounded-[20px] border bg-slate-900/40 overflow-hidden transition-all",
-                tone === "amber" ? "border-amber-500/25 hover:border-amber-400/50" : "border-cyan-500/25 hover:border-cyan-400/50",
-              )}
+              className="group text-start rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 overflow-hidden transition-all hover:border-[var(--metin-ikincil)]"
             >
               <div className="relative aspect-[16/10] bg-slate-800 overflow-hidden">
                 <img
@@ -127,7 +124,7 @@ export default function LiveAuctions() {
                   <MapPin className="w-3 h-3 flex-shrink-0" />
                   <span className="truncate">{a.district}, {a.city}</span>
                 </div>
-                <div className="text-base font-normal text-blue-400">{formatTRY(a.currentBid)}</div>
+                <div className="text-base font-normal text-[var(--metin-ikincil)]">{formatTRY(a.currentBid)}</div>
               </div>
             </button>
           ))}

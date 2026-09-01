@@ -59,7 +59,7 @@ export default function RealtorProfilePage() {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex gap-4">
-            <div className="rounded-[20px] bg-violet-500/15 p-4 text-violet-400">
+            <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-4 text-[var(--metin-ikincil)]">
               <Building2 className="h-10 w-10" />
             </div>
             <div>
@@ -77,7 +77,7 @@ export default function RealtorProfilePage() {
             </div>
           </div>
           <div className="rounded-[20px] border border-slate-200 bg-slate-900/50 px-4 py-3 text-center">
-            <div className="flex items-center justify-center gap-1 text-amber-400">
+            <div className="flex items-center justify-center gap-1 text-[var(--metin-ikincil)]">
               <Star className="h-5 w-5 fill-current" />
               <span className="text-2xl font-normal text-white">{r.rating.toFixed(1)}</span>
             </div>
@@ -102,7 +102,7 @@ export default function RealtorProfilePage() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wide text-slate-500">12 ay hacim (demo)</p>
-              <p className="mt-1 text-2xl font-normal text-teal-300">₺{(r.volumeTry / 1e9).toFixed(2)}B</p>
+              <p className="mt-1 text-2xl font-normal text-[var(--metin-ikincil)]">₺{(r.volumeTry / 1e9).toFixed(2)}B</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-slate-900/40">
@@ -139,7 +139,7 @@ export default function RealtorProfilePage() {
                 <CardContent className="p-5">
                   <div className="flex justify-between text-sm">
                     <span className="font-normal text-white">{rv.author}</span>
-                    <span className="text-amber-400">{rv.score}/5</span>
+                    <span className="text-[var(--metin-ikincil)]">{rv.score}/5</span>
                   </div>
                   <p className="mt-2 text-sm text-slate-400">{rv.text}</p>
                   <p className="mt-2 text-xs text-slate-600">{rv.date}</p>

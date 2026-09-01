@@ -257,7 +257,7 @@ export function Navbar() {
                 cn(
                   "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
-                    ? "border-blue-500 text-blue-400"
+                    ? "border-[var(--cizgi)] text-[var(--metin-ikincil)]"
                     : "border-transparent text-slate-200 hover:text-white",
                 )
               }
@@ -270,7 +270,7 @@ export function Navbar() {
                 cn(
                   "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
-                    ? "border-blue-500 text-blue-400"
+                    ? "border-[var(--cizgi)] text-[var(--metin-ikincil)]"
                     : "border-transparent text-slate-200 hover:text-white",
                 )
               }
@@ -289,7 +289,7 @@ export function Navbar() {
                 cn(
                   "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
-                    ? "border-blue-500 text-blue-400"
+                    ? "border-[var(--cizgi)] text-[var(--metin-ikincil)]"
                     : "border-transparent text-slate-200 hover:text-white",
                 )
               }
@@ -304,7 +304,7 @@ export function Navbar() {
                 cn(
                   "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
-                    ? "border-blue-500 text-blue-400"
+                    ? "border-[var(--cizgi)] text-[var(--metin-ikincil)]"
                     : "border-transparent text-slate-200 hover:text-white",
                 )
               }
@@ -358,7 +358,7 @@ export function Navbar() {
                     onClick={() => pickLocale("en")}
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "en" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "en" ? "font-normal text-[var(--metin-ikincil)]" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langEn}
@@ -368,7 +368,7 @@ export function Navbar() {
                     onClick={() => pickLocale("tr")}
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "tr" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "tr" ? "font-normal text-[var(--metin-ikincil)]" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langTr}
@@ -378,7 +378,7 @@ export function Navbar() {
                     onClick={() => pickLocale("ru")}
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "ru" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "ru" ? "font-normal text-[var(--metin-ikincil)]" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langRu}
@@ -389,7 +389,7 @@ export function Navbar() {
                     dir="rtl"
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "ar" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "ar" ? "font-normal text-[var(--metin-ikincil)]" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langAr}
@@ -541,7 +541,7 @@ export function Navbar() {
                 className={cn(
                   "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "en"
-                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "border-slate-600/30 text-slate-400",
                 )}
               >
@@ -553,7 +553,7 @@ export function Navbar() {
                 className={cn(
                   "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "tr"
-                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "border-slate-600/30 text-slate-400",
                 )}
               >
@@ -565,7 +565,7 @@ export function Navbar() {
                 className={cn(
                   "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "ru"
-                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "border-slate-600/30 text-slate-400",
                 )}
               >
@@ -577,7 +577,7 @@ export function Navbar() {
                 className={cn(
                   "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "ar"
-                    ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
+                    ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "border-slate-600/30 text-slate-400",
                 )}
               >

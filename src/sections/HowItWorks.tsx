@@ -35,9 +35,9 @@ export function HowItWorks() {
               >
                 <span className="ref-step-num">{num}</span>
                 <div className="ref-step-icon-wrap ref-step-icon-glow">
-                  <Icon className="h-7 w-7 text-blue-400" aria-hidden />
+                  <Icon className="h-7 w-7 text-[var(--metin-ikincil)]" aria-hidden />
                 </div>
-                <h3 className="mt-4 text-lg font-normal text-white transition-colors group-hover:text-blue-300">
+                <h3 className="mt-4 text-lg font-normal text-white transition-colors group-hover:text-[var(--metin-ikincil)]">
                   {step.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.desc}</p>

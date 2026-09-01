@@ -19,7 +19,7 @@ export default function Iletisim() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Görünür h1 */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
             <Mail className="h-3.5 w-3.5" /> İletişim
           </div>
           <h1 className="text-3xl md:text-4xl font-normal text-white mb-2">
@@ -35,28 +35,28 @@ export default function Iletisim() {
         <div className="grid gap-3 sm:grid-cols-3 mb-8">
           <a
             href="mailto:info@ihaleal.com"
-            className="rounded-[20px] border border-cyan-400/25 bg-slate-900/40 p-4 hover:border-cyan-400/50 transition-colors flex items-start gap-3 group"
+            className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4 hover:border-[var(--cizgi)] transition-colors flex items-start gap-3 group"
           >
-            <Mail className="w-5 h-5 text-cyan-300 flex-shrink-0 mt-0.5" />
+            <Mail className="w-5 h-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
               <p className="text-xs text-slate-400 uppercase tracking-wider">E-posta</p>
-              <p className="text-sm font-normal text-white group-hover:text-cyan-300 transition-colors">info@ihaleal.com</p>
+              <p className="text-sm font-normal text-white group-hover:text-[var(--metin-ikincil)] transition-colors">info@ihaleal.com</p>
               <p className="text-[10px] text-slate-500 mt-1">İş günü 24h dönüş</p>
             </div>
           </a>
           <a
             href="tel:+905445327406"
-            className="rounded-[20px] border border-emerald-400/25 bg-slate-900/40 p-4 hover:border-emerald-400/50 transition-colors flex items-start gap-3 group"
+            className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4 hover:border-[var(--cizgi)] transition-colors flex items-start gap-3 group"
           >
-            <Phone className="w-5 h-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+            <Phone className="w-5 h-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
               <p className="text-xs text-slate-400 uppercase tracking-wider">Telefon</p>
-              <p className="text-sm font-normal text-white group-hover:text-emerald-300 transition-colors">0544 532 74 06</p>
+              <p className="text-sm font-normal text-white group-hover:text-[var(--metin-ikincil)] transition-colors">0544 532 74 06</p>
               <p className="text-[10px] text-slate-500 mt-1">Hafta içi 09:00–18:00 (UTC+3)</p>
             </div>
           </a>
-          <div className="rounded-[20px] border border-amber-400/25 bg-slate-900/40 p-4 flex items-start gap-3">
-            <MapPin className="w-5 h-5 text-amber-300 flex-shrink-0 mt-0.5" />
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4 flex items-start gap-3">
+            <MapPin className="w-5 h-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
             <div className="min-w-0">
               <p className="text-xs text-slate-400 uppercase tracking-wider">Adres</p>
               <p className="text-sm font-normal text-white">Şişli, İstanbul</p>
@@ -70,7 +70,7 @@ export default function Iletisim() {
           <div className="p-4 border-b border-white/10 flex items-center justify-between flex-wrap gap-2">
             <div>
               <h2 className="text-base font-normal text-white flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-amber-400" /> Ofis Konumu
+                <MapPin className="w-4 h-4 text-[var(--metin-ikincil)]" /> Ofis Konumu
               </h2>
               <p className="text-xs text-slate-400 mt-0.5">
                 Esentepe Mah. Büyükdere Cad. Astoria, Kapı No: 127 Daire No: 6 · Şişli / İstanbul
@@ -80,7 +80,7 @@ export default function Iletisim() {
               href={`https://www.google.com/maps?q=${mapsQuery}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs !text-cyan-200 hover:!text-cyan-100 hover:underline px-2 py-1 rounded-[3px] bg-cyan-500/15 border border-cyan-400/40"
+              className="inline-flex items-center gap-1 text-xs !text-[var(--metin-ikincil)] hover:!text-[var(--metin-ikincil)] hover:underline px-2 py-1 rounded-[3px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]"
             >
               <Clock className="w-3 h-3" /> Yol tarifi al
             </a>

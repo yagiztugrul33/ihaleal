@@ -42,20 +42,20 @@ export function Footer() {
               </p>
               <a
                 href="tel:+905445327406"
-                className="flex items-center gap-2.5 text-sm text-slate-300 hover:text-blue-400 transition-colors"
+                className="flex items-center gap-2.5 text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors"
               >
-                <Phone className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <Phone className="w-4 h-4 text-[var(--metin-ikincil)] flex-shrink-0" />
                 <span>0544 532 74 06</span>
               </a>
               <a
                 href="mailto:info@ihaleal.com"
-                className="flex items-center gap-2.5 text-sm text-slate-300 hover:text-blue-400 transition-colors"
+                className="flex items-center gap-2.5 text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors"
               >
-                <Mail className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-[var(--metin-ikincil)] flex-shrink-0" />
                 <span>info@ihaleal.com</span>
               </a>
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                 <span className="text-sm text-slate-300 leading-relaxed">
                   Esentepe Mah. Büyükdere Cad. Astoria,
                   <br />
@@ -63,7 +63,7 @@ export function Footer() {
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <Clock className="w-4 h-4 text-[var(--metin-ikincil)] flex-shrink-0" />
                 <span className="text-sm text-slate-300">{f.workingHours}</span>
               </div>
             </address>
@@ -73,22 +73,22 @@ export function Footer() {
           <div className="lg:col-span-2 min-w-0 break-words">
             <h2 className="text-sm font-normal text-slate-100 mb-4 uppercase tracking-wider">{f.colPlatform}</h2>
             <ul className="space-y-2.5">
-              <li><button onClick={() => navigate("/ihaleler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> {f.auctionsLink}</button></li>
-              <li><button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.aiAnalysis}</button></li>
-              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> {f.compare}</button></li>
+              <li><button onClick={() => navigate("/ihaleler")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> {f.auctionsLink}</button></li>
+              <li><button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.aiAnalysis}</button></li>
+              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> {f.compare}</button></li>
               <li>
                 <button
                   onClick={() => navigate("/komisyon-modeli")}
-                  className="text-sm text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2 w-full text-start"
+                  className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2 w-full text-start"
                 >
                   <BadgePercent className="w-3.5 h-3.5" /> {f.revenueModel}
                 </button>
               </li>
-              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.mortgage}</button></li>
-              <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> {f.favorites}</button></li>
-              <li><button onClick={() => navigate("/giris?profil=emlakçı")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> {f.realtorLoginFooter}</button></li>
-              <li><button onClick={() => navigate("/emlakçı-ortaklik")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> {f.realtorPartnership}</button></li>
-              <li><button onClick={() => navigate(INTELLIGENCE_HUB_PATH)} className="text-sm text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.researchTerminal}</button></li>
+              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.mortgage}</button></li>
+              <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> {f.favorites}</button></li>
+              <li><button onClick={() => navigate("/giris?profil=emlakçı")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> {f.realtorLoginFooter}</button></li>
+              <li><button onClick={() => navigate("/emlakçı-ortaklik")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> {f.realtorPartnership}</button></li>
+              <li><button onClick={() => navigate(INTELLIGENCE_HUB_PATH)} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.researchTerminal}</button></li>
             </ul>
           </div>
 
@@ -98,16 +98,16 @@ export function Footer() {
             <ul className="space-y-2.5">
               <li className="relative" data-demo={isDemoData("footerNavEstimate") ? "true" : undefined}>
                 {isDemoData("footerNavEstimate") ? <DemoDataCornerBadge /> : null}
-                <button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><TrendingUp className="w-3.5 h-3.5" /> {f.priceEstimate}</button>
+                <button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><TrendingUp className="w-3.5 h-3.5" /> {f.priceEstimate}</button>
               </li>
-              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.loanCalculator}</button></li>
-              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> {f.listingCompare}</button></li>
-              <li><button onClick={() => navigate("/sehirler")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Navigation className="w-3.5 h-3.5" /> {f.cityGuide}</button></li>
+              <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.loanCalculator}</button></li>
+              <li><button onClick={() => navigate("/karsilastir")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><GitCompare className="w-3.5 h-3.5" /> {f.listingCompare}</button></li>
+              <li><button onClick={() => navigate("/sehirler")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Navigation className="w-3.5 h-3.5" /> {f.cityGuide}</button></li>
               <li>
                 <button
                   type="button"
                   onClick={() => navigate("/nasil-calisir")}
-                  className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-start"
+                  className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2 w-full text-start"
                 >
                   <BookOpen className="w-3.5 h-3.5" /> {f.howItWorksFooter}
                 </button>
@@ -116,28 +116,28 @@ export function Footer() {
                 <button
                   type="button"
                   onClick={() => navigate("/rehber")}
-                  className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2 w-full text-start"
+                  className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2 w-full text-start"
                 >
                   <HelpCircle className="w-3.5 h-3.5" /> {f.platformGuide}
                 </button>
               </li>
               <li>
-                <button onClick={() => navigate("/komisyon-hesaplayici")} className="text-sm text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
+                <button onClick={() => navigate("/komisyon-hesaplayici")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2">
                   <BadgePercent className="w-3.5 h-3.5" /> {f.commissionCalc}
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => navigate(KKA_HUB_PATH)} className="text-sm text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2 w-full text-start">
+                <button type="button" onClick={() => navigate(KKA_HUB_PATH)} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2 w-full text-start">
                   <Landmark className="w-3.5 h-3.5" /> {kkaHubNavLabel} (KKA)
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => navigate(KKA_STUDIO_PATH)} className="text-sm text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-2 w-full text-start">
+                <button type="button" onClick={() => navigate(KKA_STUDIO_PATH)} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2 w-full text-start">
                   <DraftingCompass className="w-3.5 h-3.5" /> {kkaStudioNavLabel}
                 </button>
               </li>
-              <li><button onClick={() => navigate("/araclar/vergi-simulator")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.taxSimulator}</button></li>
-              <li><button onClick={() => navigate("/araclar/finans-uyumluluk")} className="text-sm text-slate-300 hover:text-teal-400 transition-colors flex items-center gap-2"><Shield className="w-3.5 h-3.5" /> {f.financeCompliance}</button></li>
+              <li><button onClick={() => navigate("/araclar/vergi-simulator")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.taxSimulator}</button></li>
+              <li><button onClick={() => navigate("/araclar/finans-uyumluluk")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Shield className="w-3.5 h-3.5" /> {f.financeCompliance}</button></li>
             </ul>
           </div>
 
@@ -165,8 +165,8 @@ export function Footer() {
               <li><button onClick={() => navigate("/güvenlik")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.securityCenter}</button></li>
               {!isProdBuild ? (
                 <>
-                  <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-rose-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> Dolandırıcılık savunması</button></li>
-                  <li><button type="button" onClick={() => navigate("/yasal/supabase-uyum")} className="text-sm text-slate-300 hover:text-cyan-300 transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Supabase uyum listesi</button></li>
+                  <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> Dolandırıcılık savunması</button></li>
+                  <li><button type="button" onClick={() => navigate("/yasal/supabase-uyum")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Supabase uyum listesi</button></li>
                 </>
               ) : null}
               <li><button onClick={() => navigate("/yedekleme")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Database className="w-3.5 h-3.5" /> Felaket Kurtarma</button></li>
@@ -203,7 +203,7 @@ export function Footer() {
             <h2 className="text-sm font-normal text-slate-100 mb-4 uppercase tracking-wider">{f.colNewsletter}</h2>
             <p className="text-sm text-slate-300 mb-3">{f.newsletterDesc}</p>
             <div className="flex gap-2">
-              <input type="email" placeholder={f.newsletterPlaceholder} className="flex-1 min-w-0 px-3 py-2 rounded-[10px] bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
+              <input type="email" placeholder={f.newsletterPlaceholder} className="flex-1 min-w-0 px-3 py-2 rounded-[10px] bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]" />
               <button className="px-3 py-2 rounded-[10px] [background:var(--gradient-cta)] hover:brightness-110 text-white text-sm font-normal transition-colors">{f.newsletterSubmit}</button>
             </div>
           </div>
@@ -226,7 +226,7 @@ export function Footer() {
                 onClick={() => pickLocale("tr")}
                 className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "tr"
-                    ? "bg-blue-500/20 text-blue-300"
+                    ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
                 aria-pressed={locale === "tr"}
@@ -238,7 +238,7 @@ export function Footer() {
                 onClick={() => pickLocale("en")}
                 className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "en"
-                    ? "bg-blue-500/20 text-blue-300"
+                    ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
                 aria-pressed={locale === "en"}
@@ -250,7 +250,7 @@ export function Footer() {
                 onClick={() => pickLocale("ru")}
                 className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "ru"
-                    ? "bg-blue-500/20 text-blue-300"
+                    ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
                 aria-pressed={locale === "ru"}
@@ -262,7 +262,7 @@ export function Footer() {
                 onClick={() => pickLocale("ar")}
                 className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "ar"
-                    ? "bg-blue-500/20 text-blue-300"
+                    ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
                 aria-pressed={locale === "ar"}
@@ -273,7 +273,7 @@ export function Footer() {
             <span className="text-xs text-slate-400">
               {f.taglineShort}
             </span>
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-[var(--zemin-yumusak)] animate-pulse" />
           </div>
         </div>
       </div>

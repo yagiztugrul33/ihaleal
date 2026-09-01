@@ -16,7 +16,7 @@ export default function NotFound() {
       <div className="flex flex-wrap gap-3 justify-center">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 text-slate-950 rounded-[10px] font-normal hover:bg-amber-400 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--zemin-yumusak)] text-slate-950 rounded-[10px] font-normal hover:bg-[var(--zemin-yumusak)] transition-colors"
         >
           <HomeIcon className="h-4 w-4" />
           Ana sayfaya dön

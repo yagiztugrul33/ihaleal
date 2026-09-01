@@ -46,7 +46,7 @@ export function InvestorTrustStrip({ className = "" }: { className?: string }) {
         {TRUST_ITEMS.map((item) => (
           <motion.div key={item.title} variants={mp.staggerItem}>
             <div className="flex gap-3 p-4 rounded-[20px] border border-white/10 bg-white/[0.03]">
-              <item.icon className="w-5 h-5 text-blue-400 shrink-0" aria-hidden />
+              <item.icon className="w-5 h-5 text-[var(--metin-ikincil)] shrink-0" aria-hidden />
               <div>
                 <p className="text-sm font-normal text-white">{item.title}</p>
                 <p className="text-xs text-slate-400 mt-1 leading-relaxed">{item.detail}</p>

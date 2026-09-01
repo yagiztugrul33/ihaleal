@@ -57,7 +57,7 @@ export default function CityLandingPage() {
         <div className="mb-10 rounded-[20px] border border-slate-200 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-8 md:p-10">
           <div className="flex flex-wrap gap-2 mb-4">
             {cfg.heroKeywords.map((k) => (
-              <Badge key={k} variant="outline" className="border-teal-500/30 text-teal-300 bg-teal-500/10">
+              <Badge key={k} variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)]">
                 {k}
               </Badge>
             ))}
@@ -80,7 +80,7 @@ export default function CityLandingPage() {
         </div>
 
         <div className="flex items-center gap-2 mb-4 text-white font-normal">
-          <Building2 className="w-5 h-5 text-blue-400" />
+          <Building2 className="w-5 h-5 text-[var(--metin-ikincil)]" />
           {cfg.cityTr} — örnek aktif ilanlar (demo katalog)
         </div>
 
@@ -89,7 +89,7 @@ export default function CityLandingPage() {
             <p className="text-slate-500 text-sm col-span-full">Bu şehir için demo kayıt bulunamadı; katalog güncellenince düşer.</p>
           ) : (
             auctions.map((a) => (
-              <Card key={a.id} className="border-slate-200 bg-slate-900/45 overflow-hidden hover:border-teal-500/25 transition-colors">
+              <Card key={a.id} className="border-slate-200 bg-slate-900/45 overflow-hidden hover:border-[var(--cizgi)] transition-colors">
                 <div className="h-36 overflow-hidden">
                   <img src={a.images[0]} alt="" className="w-full h-full object-cover" />
                 </div>
@@ -98,12 +98,12 @@ export default function CityLandingPage() {
                     <MapPin className="w-3 h-3" /> {a.district}
                   </p>
                   <h2 className="text-sm font-normal text-white line-clamp-2 mb-2">{a.title}</h2>
-                  <p className="text-lg font-normal text-blue-400">₺{a.currentBid.toLocaleString("tr-TR")}</p>
+                  <p className="text-lg font-normal text-[var(--metin-ikincil)]">₺{a.currentBid.toLocaleString("tr-TR")}</p>
                   <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
                     <span className="flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3 text-emerald-400" /> Skor {a.investmentScore}
+                      <TrendingUp className="w-3 h-3 text-[var(--metin-ikincil)]" /> Skor {a.investmentScore}
                     </span>
-                    <Link to={`/ilan/${a.id}`} className="text-teal-400 hover:underline font-normal">
+                    <Link to={`/ilan/${a.id}`} className="text-[var(--metin-ikincil)] hover:underline font-normal">
                       İhaleye git →
                     </Link>
                   </div>
@@ -115,7 +115,7 @@ export default function CityLandingPage() {
 
         <p className="mt-10 text-xs text-slate-600 max-w-3xl leading-relaxed">
           ihaleal.com, <strong className="text-slate-400">İhaleal Endeksi</strong> ile ihale akışına bağlı çoklu sinyalli analiz vizyonunu benimser; yıllık üyelik ve komisyon mahsup modeli için{" "}
-          <Link to="/komisyon-modeli" className="text-teal-500 hover:underline">
+          <Link to="/komisyon-modeli" className="text-[var(--metin-ikincil)] hover:underline">
             iş modeli
           </Link>{" "}
           sayfasına bakınız.

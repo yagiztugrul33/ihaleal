@@ -55,9 +55,9 @@ const DATA_INVENTORY: DataItem[] = [
 ];
 
 function paylasimLabel(p: DataItem["paylasim"]) {
-  if (p === "yok") return { txt: "Paylaşılmaz", cls: "text-emerald-300" };
-  if (p === "anonim_3rd") return { txt: "Anonim (3rd party)", cls: "text-cyan-300" };
-  return { txt: "Hizmet sağlayıcı", cls: "text-amber-300" };
+  if (p === "yok") return { txt: "Paylaşılmaz", cls: "text-[var(--metin-ikincil)]" };
+  if (p === "anonim_3rd") return { txt: "Anonim (3rd party)", cls: "text-[var(--metin-ikincil)]" };
+  return { txt: "Hizmet sağlayıcı", cls: "text-[var(--metin-ikincil)]" };
 }
 
 export default function PrivacyPolicy() {
@@ -78,11 +78,11 @@ export default function PrivacyPolicy() {
         </Button>
 
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200 mb-3">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
             <ShieldCheck className="h-3.5 w-3.5" /> KVKK + GDPR + App Store/Play Uyumlu
           </p>
           <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
-            <ShieldCheck className="h-7 w-7 text-emerald-400" />
+            <ShieldCheck className="h-7 w-7 text-[var(--metin-ikincil)]" />
             Gizlilik Politikası
           </h1>
           <p className="mt-2 text-sm text-slate-400 max-w-2xl">
@@ -98,27 +98,27 @@ export default function PrivacyPolicy() {
 
         <article className="space-y-5">
           {/* 1. Taahhüt */}
-          <section className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-5">
+          <section className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-5">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-emerald-400" />
+              <ShieldCheck className="h-5 w-5 text-[var(--metin-ikincil)]" />
               1. Gizlilik Taahhüdümüz
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               ihaleal.com kullanıcılarının gizliliğini en üst düzeyde korumayı taahhüt eder. Tüm kişisel ve finansal veriler
               <strong className="text-white"> AES-256 + TLS 1.3</strong> ile şifrelenir. Verileriniz{" "}
-              <strong className="text-emerald-200">izniniz olmadan üçüncü taraflarla pazarlama amacıyla paylaşılmaz</strong>.
-              Reklam tanımlayıcı (IDFA/AAID) <strong className="text-emerald-200">TOPLANMAZ</strong>.
+              <strong className="text-[var(--metin-ikincil)]">izniniz olmadan üçüncü taraflarla pazarlama amacıyla paylaşılmaz</strong>.
+              Reklam tanımlayıcı (IDFA/AAID) <strong className="text-[var(--metin-ikincil)]">TOPLANMAZ</strong>.
             </p>
           </section>
 
           {/* 2. APP PRIVACY ENVANTERİ — KRİTİK */}
-          <section className="rounded-[20px] border border-blue-500/30 bg-blue-500/5 p-5">
+          <section className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Smartphone className="h-5 w-5 text-blue-400" />
+              <Smartphone className="h-5 w-5 text-[var(--metin-ikincil)]" />
               2. Veri Envanteri (App Privacy / Data Safety)
             </h2>
             <p className="text-sm text-slate-300 mb-4 leading-relaxed">
-              Aşağıda topladığımız ve <strong className="text-rose-200">TOPLAMADIĞIMIZ</strong> veriler{" "}
+              Aşağıda topladığımız ve <strong className="text-[var(--metin-ikincil)]">TOPLAMADIĞIMIZ</strong> veriler{" "}
               <strong className="text-white">Apple App Store Privacy Label</strong> ve{" "}
               <strong className="text-white">Google Play Data Safety</strong> formlarıyla birebir aynıdır.
             </p>
@@ -139,8 +139,8 @@ export default function PrivacyPolicy() {
                     const p = paylasimLabel(d.paylasim);
                     return (
                       <tr key={`y-${i}`} className="border-b border-slate-800/50">
-                        <td className="py-2 pe-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 inline" /></td>
-                        <td className="py-2 px-2 font-normal text-blue-200">{d.kategori}</td>
+                        <td className="py-2 pe-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] inline" /></td>
+                        <td className="py-2 px-2 font-normal text-[var(--metin-ikincil)]">{d.kategori}</td>
                         <td className="py-2 px-2">{d.veri}</td>
                         <td className="py-2 px-2 text-slate-400">{d.amac}</td>
                         <td className={`py-2 ps-2 ${p.cls}`}>{p.txt}</td>
@@ -149,10 +149,10 @@ export default function PrivacyPolicy() {
                   })}
                   {toplanmayan.map((d, i) => (
                     <tr key={`n-${i}`} className="border-b border-slate-800/50 opacity-60">
-                      <td className="py-2 pe-2"><XCircle className="h-3.5 w-3.5 text-rose-400 inline" /></td>
+                      <td className="py-2 pe-2"><XCircle className="h-3.5 w-3.5 text-[var(--metin-ikincil)] inline" /></td>
                       <td className="py-2 px-2 font-normal text-slate-400">{d.kategori}</td>
                       <td className="py-2 px-2 line-through">{d.veri}</td>
-                      <td className="py-2 px-2 text-rose-300">{d.amac}</td>
+                      <td className="py-2 px-2 text-[var(--metin-ikincil)]">{d.amac}</td>
                       <td className="py-2 ps-2 text-slate-500">—</td>
                     </tr>
                   ))}
@@ -167,7 +167,7 @@ export default function PrivacyPolicy() {
           {/* 3. Veri Güvenliği */}
           <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Lock className="h-5 w-5 text-emerald-400" />
+              <Lock className="h-5 w-5 text-[var(--metin-ikincil)]" />
               3. Teknik Güvenlik Önlemleri
             </h2>
             <ul className="grid sm:grid-cols-2 gap-2 text-sm text-slate-300">
@@ -182,7 +182,7 @@ export default function PrivacyPolicy() {
                 "Sealed teklif maskeleme (anonim)",
               ].map((g) => (
                 <li key={g} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0" /> {g}
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] flex-shrink-0" /> {g}
                 </li>
               ))}
             </ul>
@@ -191,35 +191,35 @@ export default function PrivacyPolicy() {
           {/* 4. Çerez */}
           <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Database className="h-5 w-5 text-amber-400" />
+              <Database className="h-5 w-5 text-[var(--metin-ikincil)]" />
               4. Çerez (Cookie) ve Yerel Depolama
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed mb-3">
               Detaylı çerez listesi:{" "}
-              <button type="button" onClick={() => navigate("/cerez-politikasi")} className="text-amber-300 underline">
+              <button type="button" onClick={() => navigate("/cerez-politikasi")} className="text-[var(--metin-ikincil)] underline">
                 Çerez Politikası
               </button>
             </p>
             <div className="grid sm:grid-cols-3 gap-3 text-xs">
-              <div className="rounded-[10px] border border-emerald-500/20 bg-emerald-500/5 p-3">
-                <p className="font-normal text-emerald-300 mb-1">Zorunlu</p>
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+                <p className="font-normal text-[var(--metin-ikincil)] mb-1">Zorunlu</p>
                 <p className="text-slate-300">Oturum + güvenlik. Reddedilemez.</p>
               </div>
-              <div className="rounded-[10px] border border-amber-500/20 bg-amber-500/5 p-3">
-                <p className="font-normal text-amber-300 mb-1">Analitik (Anonim)</p>
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+                <p className="font-normal text-[var(--metin-ikincil)] mb-1">Analitik (Anonim)</p>
                 <p className="text-slate-300">Vercel Analytics — IP maskelenir, cross-site izleme yok.</p>
               </div>
-              <div className="rounded-[10px] border border-rose-500/20 bg-rose-500/5 p-3">
-                <p className="font-normal text-rose-300 mb-1">Reklam çerezi YOK</p>
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+                <p className="font-normal text-[var(--metin-ikincil)] mb-1">Reklam çerezi YOK</p>
                 <p className="text-slate-300">Google Ads / Facebook Pixel / 3rd party reklam tracker yok.</p>
               </div>
             </div>
           </section>
 
           {/* 5. Veri Silme */}
-          <section className="rounded-[20px] border border-violet-500/30 bg-violet-500/5 p-5">
+          <section className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Eye className="h-5 w-5 text-violet-400" />
+              <Eye className="h-5 w-5 text-[var(--metin-ikincil)]" />
               5. Veri Silme + Hesap Kapatma (KVKK m. 7)
             </h2>
             <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
@@ -227,9 +227,9 @@ export default function PrivacyPolicy() {
               <li>Mali kayıtlar yasal süreler boyunca saklanır (VUK 213 m. 253 — <strong className="text-white">10 yıl</strong>).</li>
               <li>İhale teklif kayıtları 5 yıl (BK ispat süresi).</li>
               <li>5651 sayılı kanun gereği erişim logları 6 ay – 2 yıl.</li>
-              <li>Web: <button type="button" onClick={() => navigate("/uyelik")} className="text-violet-300 underline">/uyelik</button> → "Aboneliği iptal et" → e-posta talebi.</li>
+              <li>Web: <button type="button" onClick={() => navigate("/uyelik")} className="text-[var(--metin-ikincil)] underline">/uyelik</button> → "Aboneliği iptal et" → e-posta talebi.</li>
               <li>Mobil: Hesap silme isteği uygulama içinde <strong className="text-white">Ayarlar → Hesap → Sil</strong> (Apple/Google şartı).</li>
-              <li>İletişim: <a href="mailto:kvkk@ihaleal.com" className="text-violet-300 underline">kvkk@ihaleal.com</a></li>
+              <li>İletişim: <a href="mailto:kvkk@ihaleal.com" className="text-[var(--metin-ikincil)] underline">kvkk@ihaleal.com</a></li>
             </ul>
           </section>
 
@@ -239,31 +239,31 @@ export default function PrivacyPolicy() {
             <p className="text-sm text-slate-300 leading-relaxed">
               ihaleal.com <strong className="text-white">18 yaş altı kullanıcılara hizmet vermez</strong>. Üyelik sırasında
               fiil ehliyet kontrolü yapılır (TMK m. 10). Çocuğa ait veri yanlışlıkla toplanmışsa
-              <a href="mailto:kvkk@ihaleal.com" className="text-blue-300 underline"> kvkk@ihaleal.com</a>'a bildirin —
+              <a href="mailto:kvkk@ihaleal.com" className="text-[var(--metin-ikincil)] underline"> kvkk@ihaleal.com</a>'a bildirin —
               30 gün içinde silinir.
             </p>
           </section>
 
           {/* 7. Mobil / Uygulama */}
-          <section className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/5 p-5">
+          <section className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Smartphone className="h-5 w-5 text-cyan-400" />
+              <Smartphone className="h-5 w-5 text-[var(--metin-ikincil)]" />
               7. Mobil Uygulama (iOS + Android)
             </h2>
             <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
-              <li><strong className="text-cyan-200">Konum izni:</strong> sadece harita/bölge görüntüleme için, isteğe bağlı.</li>
-              <li><strong className="text-cyan-200">Bildirim izni:</strong> teklif + ihale uyarısı, isteğe bağlı.</li>
-              <li><strong className="text-cyan-200">Kamera/galeri:</strong> ilan fotoğrafı yükleme için, isteğe bağlı.</li>
-              <li><strong className="text-cyan-200">Apple App Tracking Transparency:</strong> izleme izni İSTENMEZ — toplanmıyor.</li>
-              <li><strong className="text-cyan-200">Google Advertising ID:</strong> kullanılmaz.</li>
-              <li><strong className="text-cyan-200">Çocuk koruma:</strong> 17+ yaş derecelendirme (finansal işlem).</li>
+              <li><strong className="text-[var(--metin-ikincil)]">Konum izni:</strong> sadece harita/bölge görüntüleme için, isteğe bağlı.</li>
+              <li><strong className="text-[var(--metin-ikincil)]">Bildirim izni:</strong> teklif + ihale uyarısı, isteğe bağlı.</li>
+              <li><strong className="text-[var(--metin-ikincil)]">Kamera/galeri:</strong> ilan fotoğrafı yükleme için, isteğe bağlı.</li>
+              <li><strong className="text-[var(--metin-ikincil)]">Apple App Tracking Transparency:</strong> izleme izni İSTENMEZ — toplanmıyor.</li>
+              <li><strong className="text-[var(--metin-ikincil)]">Google Advertising ID:</strong> kullanılmaz.</li>
+              <li><strong className="text-[var(--metin-ikincil)]">Çocuk koruma:</strong> 17+ yaş derecelendirme (finansal işlem).</li>
             </ul>
           </section>
 
           {/* 8. Yurt dışı */}
           <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Globe className="h-5 w-5 text-blue-400" />
+              <Globe className="h-5 w-5 text-[var(--metin-ikincil)]" />
               8. Veri Aktarımı (Yurt İçi + Yurt Dışı)
             </h2>
             <ul className="text-sm text-slate-300 space-y-1.5 list-disc list-inside ms-2">
@@ -303,12 +303,12 @@ export default function PrivacyPolicy() {
           />
 
           <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
-            <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+            <Mail className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
             <div className="text-sm">
               <p className="font-normal text-slate-200 mb-1">Gizlilik + Veri Başvuru</p>
               <p className="text-xs text-slate-400">
-                <a href="mailto:kvkk@ihaleal.com" className="text-cyan-300 underline">kvkk@ihaleal.com</a>
-                {" · "}Güvenlik olay: <a href="mailto:guvenlik@ihaleal.com" className="text-cyan-300 underline">guvenlik@ihaleal.com</a>
+                <a href="mailto:kvkk@ihaleal.com" className="text-[var(--metin-ikincil)] underline">kvkk@ihaleal.com</a>
+                {" · "}Güvenlik olay: <a href="mailto:guvenlik@ihaleal.com" className="text-[var(--metin-ikincil)] underline">guvenlik@ihaleal.com</a>
                 {" · "}Hesap silme: web ve mobil ayarlar.
               </p>
             </div>

@@ -10,7 +10,7 @@ export default function Kunye() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
-          <FileText className="w-7 h-7 text-cyan-400" />
+          <FileText className="w-7 h-7 text-[var(--metin-ikincil)]" />
           <h1 className="text-3xl md:text-4xl font-normal text-white">Künye</h1>
         </div>
         <p className="text-slate-400 mb-8 text-sm leading-relaxed">
@@ -20,9 +20,9 @@ export default function Kunye() {
         </p>
 
         <section className="space-y-4">
-          <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Building2 className="w-5 h-5 text-cyan-300" />
+              <Building2 className="w-5 h-5 text-[var(--metin-ikincil)]" />
               <h2 className="text-lg font-normal text-white">Şirket Bilgileri</h2>
             </div>
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
@@ -41,7 +41,7 @@ export default function Kunye() {
 
           <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <MapPin className="w-5 h-5 text-cyan-300" />
+              <MapPin className="w-5 h-5 text-[var(--metin-ikincil)]" />
               <h2 className="text-lg font-normal text-white">Adres</h2>
             </div>
             <address className="not-italic text-slate-200 text-sm leading-relaxed">
@@ -53,7 +53,7 @@ export default function Kunye() {
 
           <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Hash className="w-5 h-5 text-cyan-300" />
+              <Hash className="w-5 h-5 text-[var(--metin-ikincil)]" />
               <h2 className="text-lg font-normal text-white">Yasal Numaralar</h2>
             </div>
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
@@ -70,7 +70,7 @@ export default function Kunye() {
 
           <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <FileText className="w-5 h-5 text-cyan-300" />
+              <FileText className="w-5 h-5 text-[var(--metin-ikincil)]" />
               <h2 className="text-lg font-normal text-white">Sorumlu Emlak Danışmanı</h2>
             </div>
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
@@ -85,7 +85,7 @@ export default function Kunye() {
 
           <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Mail className="w-5 h-5 text-cyan-300" />
+              <Mail className="w-5 h-5 text-[var(--metin-ikincil)]" />
               <h2 className="text-lg font-normal text-white">İletişim</h2>
             </div>
             <div className="space-y-2 text-sm">
@@ -93,7 +93,7 @@ export default function Kunye() {
                 <Mail className="w-4 h-4 text-slate-500 flex-shrink-0" />
                 <a
                   href="mailto:info@ihaleal.com"
-                  className="text-cyan-300 hover:text-cyan-200 underline-offset-2 hover:underline"
+                  className="text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)] underline-offset-2 hover:underline"
                 >
                   info@ihaleal.com
                 </a>
@@ -102,26 +102,26 @@ export default function Kunye() {
                 <Phone className="w-4 h-4 text-slate-500 flex-shrink-0" />
                 <a
                   href="tel:+905445327406"
-                  className="text-cyan-300 hover:text-cyan-200 underline-offset-2 hover:underline"
+                  className="text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)] underline-offset-2 hover:underline"
                 >
                   0544 532 74 06
                 </a>
               </p>
             </div>
             <div className="mt-4 flex flex-wrap gap-2 text-xs">
-              <Link to="/hakkimizda" className="text-cyan-300 underline hover:text-cyan-200">
+              <Link to="/hakkimizda" className="text-[var(--metin-ikincil)] underline hover:text-[var(--metin-ikincil)]">
                 Hakkımızda
               </Link>
-              <Link to="/iletisim" className="text-cyan-300 underline hover:text-cyan-200">
+              <Link to="/iletisim" className="text-[var(--metin-ikincil)] underline hover:text-[var(--metin-ikincil)]">
                 İletişim formu
               </Link>
-              <Link to="/kvkk" className="text-cyan-300 underline hover:text-cyan-200">
+              <Link to="/kvkk" className="text-[var(--metin-ikincil)] underline hover:text-[var(--metin-ikincil)]">
                 KVKK
               </Link>
-              <Link to="/gizlilik" className="text-cyan-300 underline hover:text-cyan-200">
+              <Link to="/gizlilik" className="text-[var(--metin-ikincil)] underline hover:text-[var(--metin-ikincil)]">
                 Gizlilik
               </Link>
-              <Link to="/destek" className="text-cyan-300 underline hover:text-cyan-200">
+              <Link to="/destek" className="text-[var(--metin-ikincil)] underline hover:text-[var(--metin-ikincil)]">
                 Destek
               </Link>
             </div>

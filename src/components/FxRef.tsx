@@ -42,7 +42,7 @@ export function FxRef({ amountTry, variant = "default", className, note }: FxRef
   if (variant === "compact") {
     return (
       <span
-        className={cn("text-[10px] text-amber-300/70 ms-1 whitespace-nowrap", className)}
+        className={cn("text-[10px] text-[var(--metin-ikincil)] ms-1 whitespace-nowrap", className)}
         title={note ? `≈ ${sign}${fmt} ${currency} · ${note}` : `≈ ${sign}${fmt} ${currency}`}
         dir="ltr"
       >
@@ -54,7 +54,7 @@ export function FxRef({ amountTry, variant = "default", className, note }: FxRef
   if (variant === "block") {
     return (
       <p
-        className={cn("text-[10px] text-amber-300/80 mt-0.5", className)}
+        className={cn("text-[10px] text-[var(--metin-ikincil)] mt-0.5", className)}
         dir="ltr"
       >
         ≈ {sign}{fmt}
@@ -65,7 +65,7 @@ export function FxRef({ amountTry, variant = "default", className, note }: FxRef
 
   return (
     <span
-      className={cn("text-[10px] text-amber-300/80 ms-1.5 whitespace-nowrap", className)}
+      className={cn("text-[10px] text-[var(--metin-ikincil)] ms-1.5 whitespace-nowrap", className)}
       dir="ltr"
     >
       (≈ {sign}{fmt})

@@ -47,10 +47,10 @@ function OfferRow({
       </div>
       {(offer.status === "pending" || offer.status === "countered") && visible ? (
         <div className="mt-2 flex flex-wrap gap-2">
-          <Button type="button" size="sm" disabled={busy} className="h-8 bg-emerald-600" onClick={() => void act({ offerId: offer.id, status: "accepted" })}>
+          <Button type="button" size="sm" disabled={busy} className="h-8 bg-[var(--zemin-yumusak)]" onClick={() => void act({ offerId: offer.id, status: "accepted" })}>
             Kabul
           </Button>
-          <Button type="button" size="sm" variant="outline" disabled={busy} className="h-8 border-red-500/40 text-red-300" onClick={() => void act({ offerId: offer.id, status: "rejected" })}>
+          <Button type="button" size="sm" variant="outline" disabled={busy} className="h-8 border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => void act({ offerId: offer.id, status: "rejected" })}>
             Red
           </Button>
           <Button type="button" size="sm" variant="outline" disabled={busy} className="h-8" onClick={() => setCounterOpen((v) => !v)}>
@@ -110,12 +110,12 @@ export function ListingOffersSection({ listingId, className }: Props) {
   return (
     <div className={className}>
       <div className="flex items-center gap-2 mb-3">
-        <HandCoins className="h-4 w-4 text-amber-400" />
+        <HandCoins className="h-4 w-4 text-[var(--metin-ikincil)]" />
         <h4 className="text-sm font-normal text-white">Gelen teklifler</h4>
         <span className="text-xs text-slate-500 ms-auto">{offers.length} kayıt</span>
       </div>
       {hiddenSealed > 0 ? (
-        <p className="mb-2 text-xs text-amber-200/90 rounded-[10px] border border-amber-500/25 bg-amber-500/10 px-2 py-1.5">
+        <p className="mb-2 text-xs text-[var(--metin-ikincil)] rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-1.5">
           {hiddenSealed} kapalı teklif tutarı süre sonuna kadar gizli.
         </p>
       ) : null}

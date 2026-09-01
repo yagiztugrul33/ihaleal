@@ -33,14 +33,14 @@ export default function OperationalReadiness() {
         <h1 className="text-2xl font-normal text-white mb-2">Canlıya hazırlık — yapılacaklar listesi</h1>
         <p className="text-sm text-slate-400 mb-8">
           Harici yardımcı araçlar veya tek bir önyüz projesi bunları <strong className="text-slate-200">otomatik tamamlamaz</strong>.
-          Aşağıdaki satırlar ekip ve bütçe ile yürütülecek gerçek iş kalemleridir. Bu sayfa “yarım kalan” değil, <strong className="text-teal-300">bilinçli sınır</strong> listesidir.
+          Aşağıdaki satırlar ekip ve bütçe ile yürütülecek gerçek iş kalemleridir. Bu sayfa “yarım kalan” değil, <strong className="text-[var(--metin-ikincil)]">bilinçli sınır</strong> listesidir.
         </p>
 
         <div className="space-y-3 mb-10">
           {CHECKS.map((c) => (
             <Card key={c.title} className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-4 flex gap-4">
-                <div className="p-2 rounded-[10px] bg-blue-500/10 text-blue-400 shrink-0">{c.icon}</div>
+                <div className="p-2 rounded-[10px] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] shrink-0">{c.icon}</div>
                 <div>
                   <h2 className="text-white font-normal">{c.title}</h2>
                   <p className="text-sm text-slate-400 mt-1">{c.desc}</p>
@@ -51,9 +51,9 @@ export default function OperationalReadiness() {
           ))}
         </div>
 
-        <Card className="bg-emerald-500/5 border-emerald-500/20">
+        <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)]">
           <CardContent className="p-5 text-sm text-slate-400">
-            <strong className="text-emerald-300">Özet:</strong> “Yapay zeka ajanları her şeyi sürekli kontrol etsin, üçüncü taraf raporu satır satır taklit edelim, banka AI arasın” gibi maddeler
+            <strong className="text-[var(--metin-ikincil)]">Özet:</strong> “Yapay zeka ajanları her şeyi sürekli kontrol etsin, üçüncü taraf raporu satır satır taklit edelim, banka AI arasın” gibi maddeler
             <strong className="text-white"> ürün kararı + altyapı + hukuk</strong> gerektirir. İstekleri reddetmiyoruz; teknik olarak burada yapılabilecek kısım bu kontrol listesi ve yasal taslak sayfalarıdır.
           </CardContent>
         </Card>

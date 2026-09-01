@@ -39,14 +39,14 @@ export function AvmEstimateSection({ city, district, areaM2, listingPrice }: Pro
   }, [city, district, areaM2]);
 
   return (
-    <Card className="border-violet-500/25 bg-violet-500/5">
+    <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
       <CardContent className="p-5 space-y-3">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-violet-300" />
+          <Sparkles className="h-4 w-4 text-[var(--metin-ikincil)]" />
           <h3 className="text-sm font-normal text-white">Otomatik değer tahmini (AVM)</h3>
         </div>
         <p className="text-[11px] leading-relaxed text-slate-400 flex items-start gap-2">
-          <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-amber-400 mt-0.5" />
+          <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-[var(--metin-ikincil)] mt-0.5" />
           Bu değer yalnızca tahminidir; bağlayıcı veya resmi SPK ekspertiz raporu değildir. Yatırım kararı için uzman görüşü alın.
         </p>
         {loading ? <LoadingState compact label="AVM hesaplanıyor…" /> : null}
@@ -61,7 +61,7 @@ export function AvmEstimateSection({ city, district, areaM2, listingPrice }: Pro
             </div>
             <div className="rounded-[10px] border border-white/10 bg-white/[0.03] p-3">
               <p className="text-xs text-slate-500">Merkez tahmin</p>
-              <p className="font-normal text-violet-200">₺{result.point.toLocaleString("tr-TR")}</p>
+              <p className="font-normal text-[var(--metin-ikincil)]">₺{result.point.toLocaleString("tr-TR")}</p>
             </div>
             <div className="rounded-[10px] border border-white/10 bg-white/[0.03] p-3">
               <p className="text-xs text-slate-500">Güven / örnek</p>

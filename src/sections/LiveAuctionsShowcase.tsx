@@ -25,11 +25,11 @@ const CARD_IMAGES = [
 
 const SIDEBAR_ICONS = [Shield, Sparkles, Eye, Globe2, Headphones] as const;
 const SIDEBAR_COLORS = [
-  { color: "text-blue-400", bg: "bg-blue-500/15" },
-  { color: "text-sky-400", bg: "bg-sky-500/15" },
-  { color: "text-emerald-400", bg: "bg-emerald-500/15" },
-  { color: "text-cyan-400", bg: "bg-cyan-500/15" },
-  { color: "text-violet-400", bg: "bg-violet-500/15" },
+  { color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
+  { color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
+  { color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
+  { color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
+  { color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
 ] as const;
 
 export function LiveAuctionsShowcase() {
@@ -130,7 +130,7 @@ export function LiveAuctionsShowcase() {
                         <p className="mt-0.5 text-sm leading-relaxed text-slate-400">{row.sub}</p>
                       </div>
                       <ChevronRight
-                        className="h-4 w-4 shrink-0 text-slate-500 transition group-hover:text-blue-400"
+                        className="h-4 w-4 shrink-0 text-slate-500 transition group-hover:text-[var(--metin-ikincil)]"
                         aria-hidden
                       />
                     </Link>
@@ -142,7 +142,7 @@ export function LiveAuctionsShowcase() {
               {how.certs.map((cert) => (
                 <div key={cert.title} className="trust-badge">
                   {cert.flag ? (
-                    <span className="mb-1 text-[10px] font-normal text-blue-400">{cert.flag}</span>
+                    <span className="mb-1 text-[10px] font-normal text-[var(--metin-ikincil)]">{cert.flag}</span>
                   ) : null}
                   <span className="text-xs font-normal text-white">{cert.title}</span>
                   <span className="mt-0.5 text-[10px] text-slate-400">{cert.sub}</span>

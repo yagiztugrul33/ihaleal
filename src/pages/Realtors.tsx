@@ -26,7 +26,7 @@ export default function RealtorsPage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="mb-2 inline-flex items-center gap-2 rounded-[20px] bg-violet-500/15 p-3 text-violet-400">
+            <div className="mb-2 inline-flex items-center gap-2 rounded-[20px] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)]">
               <Building2 className="h-7 w-7" />
             </div>
             <h1 className="text-3xl font-normal text-white">Ortak emlakçılar</h1>
@@ -59,11 +59,11 @@ export default function RealtorsPage() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {rows.map((r) => (
-            <Card key={r.slug} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-teal-500/25">
+            <Card key={r.slug} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-[var(--cizgi)]">
               <CardContent className="space-y-3 p-6">
                 <div className="flex items-start justify-between gap-2">
                   <h2 className="text-lg font-normal leading-snug text-white">{r.companyName}</h2>
-                  <span className="flex shrink-0 items-center gap-1 text-amber-400">
+                  <span className="flex shrink-0 items-center gap-1 text-[var(--metin-ikincil)]">
                     <Star className="h-4 w-4 fill-current" /> {r.rating.toFixed(1)}
                   </span>
                 </div>
@@ -84,7 +84,7 @@ export default function RealtorsPage() {
                 </div>
                 <Link
                   to={`/emlakçı/${r.slug}`}
-                  className="inline-flex w-full justify-center rounded-[10px] bg-white/5 py-2 text-sm font-normal text-teal-300 hover:bg-teal-500/10"
+                  className="inline-flex w-full justify-center rounded-[10px] bg-white/5 py-2 text-sm font-normal text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
                 >
                   Profili gör
                 </Link>

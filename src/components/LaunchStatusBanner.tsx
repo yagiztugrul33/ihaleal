@@ -53,13 +53,13 @@ export function LaunchStatusBanner() {
   return (
     <div
       role="status"
-      className="relative z-40 border-b border-amber-400/30 bg-amber-500/10 text-amber-100"
+      className="relative z-40 border-b border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
     >
       <div className="container mx-auto px-4 py-1.5 flex items-center justify-between gap-3 text-[11px] sm:text-xs leading-relaxed">
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <AlertCircle className="h-3.5 w-3.5 flex-shrink-0 text-amber-300" aria-hidden="true" />
+          <AlertCircle className="h-3.5 w-3.5 flex-shrink-0 text-[var(--metin-ikincil)]" aria-hidden="true" />
           <span className="truncate sm:whitespace-normal">
-            <strong className="text-amber-50">Demo modu:</strong> gerçek tahsilat yok, ihaleler
+            <strong className="text-[var(--metin-ikincil)]">Demo modu:</strong> gerçek tahsilat yok, ihaleler
             test amaçlı{extraText}.
           </span>
         </div>
@@ -67,7 +67,7 @@ export function LaunchStatusBanner() {
           type="button"
           onClick={dismiss}
           aria-label="Bildirim çubuğunu kapat"
-          className="flex-shrink-0 p-1 rounded-[3px] hover:bg-amber-500/20 transition-colors"
+          className="flex-shrink-0 p-1 rounded-[3px] hover:bg-[var(--zemin-yumusak)] transition-colors"
         >
           <X className="h-3.5 w-3.5" />
         </button>

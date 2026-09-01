@@ -34,8 +34,8 @@ export function EndingSoon() {
         <div className={`flex items-center justify-between mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div>
             <h2 className="text-2xl md:text-3xl font-normal flex items-center gap-3" style={{ color: "var(--color-text)" }}>
-              <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-amber-500/20 ring-1 ring-orange-400/25">
-                <Flame className="w-5 h-5 text-orange-300" aria-hidden />
+              <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-[var(--zemin-yumusak)] ring-1 ring-[var(--cizgi)]">
+                <Flame className="w-5 h-5 text-[var(--metin-ikincil)]" aria-hidden />
               </span>
               Yakında Biten İhaleler
             </h2>
@@ -52,7 +52,7 @@ export function EndingSoon() {
             return (
               <Card
                 key={auction.id}
-                className={`group card-warm overflow-hidden hover:border-rose-400/40 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-rose-500/25" : ""}`}
+                className={`group card-warm overflow-hidden hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-1 cursor-pointer ${time.isUrgent ? "ring-1 ring-[var(--cizgi)]" : ""}`}
                 onClick={() => navigate(`/ilan/${auction.id}`)}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
@@ -60,13 +60,17 @@ export function EndingSoon() {
                   <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                   <div className="absolute top-3 start-3 flex items-center gap-2">
-                    <span className={`px-2.5 py-1 rounded-[10px] text-xs font-normal flex items-center gap-1 ${time.isUrgent ? "bg-red-500 text-white animate-pulse" : "bg-orange-500/90 text-white"}`}>
+                    <span
+                      className="px-2.5 py-1 rounded-[10px] text-xs font-normal flex items-center gap-1 bg-[var(--zemin-yumusak)]"
+                      style={{ color: time.isUrgent ? "var(--sinyal-turuncu)" : "white" }}
+                    >
+                      {time.isUrgent ? <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: "var(--sinyal-turuncu)" }} /> : null}
                       <Clock className="w-3 h-3" />
                       {time.days}g {time.hours}s {time.minutes}d
                     </span>
                   </div>
                   {auction.bidderCount > 15 && (
-                    <div className="absolute top-3 end-3 px-2.5 py-1 rounded-[10px] bg-blue-500/90 text-white text-xs font-normal">
+                    <div className="absolute top-3 end-3 px-2.5 py-1 rounded-[10px] bg-[var(--zemin-yumusak)] text-white text-xs font-normal">
                       {auction.bidderCount} Teklif
                     </div>
                   )}
@@ -79,7 +83,7 @@ export function EndingSoon() {
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-200/80">
                     <div>
                       <div className="text-xs text-slate-500">Güncel teklif</div>
-                      <div className="text-base font-normal text-orange-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
+                      <div className="text-base font-normal text-[var(--metin-ikincil)]">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
                     </div>
                     <div className="text-end">
                       <div className="text-xs text-slate-500">m² fiyat</div>

@@ -71,19 +71,19 @@ export default function BusinessModel() {
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
         </Button>
 
-        <div className="rounded-[20px] border border-emerald-500/25 bg-emerald-500/10 p-6 sm:p-8 mb-8 shadow-xl shadow-black/30">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6 sm:p-8 mb-8 shadow-xl shadow-black/30">
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-xs font-normal uppercase tracking-wide text-emerald-200">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
               <Building2 className="w-3.5 h-3.5" /> Emlakçı ağı & kurumsal ortaklar
             </span>
-            <span className="inline-flex items-center rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-1 text-[11px] font-normal text-amber-100">fees.ts ile uyumlu taslak</span>
+            <span className="inline-flex items-center rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-1 text-[11px] font-normal text-[var(--metin-ikincil)]">fees.ts ile uyumlu taslak</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-normal text-white mb-3 leading-tight">Gelir modeli — yalnızca başarılı işlem komisyonu</h1>
           <p className="text-sm text-slate-300 leading-relaxed max-w-3xl">
             Platform <strong className="text-white">gerçek alıcı ile gerçek satıcıyı</strong> (kiralıkta kiracı–kiraya veren) buluşturmayı hedefler.
-            Gelir hedefi: <strong className="text-emerald-300">ilan vitrini, doping veya kullanıcıya satılan reklam ücreti yok</strong> — yalnızca kapanan işlemden komisyon.
-            Kirada hedef: <strong className="text-emerald-300">kiraya verenden bir aylık kira + KDV</strong>. Aşağıdaki oranlar ve tablolar{" "}
-            <strong className="text-amber-200">taslak</strong>; avukat ve muhasebe ile kesinleşir.
+            Gelir hedefi: <strong className="text-[var(--metin-ikincil)]">ilan vitrini, doping veya kullanıcıya satılan reklam ücreti yok</strong> — yalnızca kapanan işlemden komisyon.
+            Kirada hedef: <strong className="text-[var(--metin-ikincil)]">kiraya verenden bir aylık kira + KDV</strong>. Aşağıdaki oranlar ve tablolar{" "}
+            <strong className="text-[var(--metin-ikincil)]">taslak</strong>; avukat ve muhasebe ile kesinleşir.
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function BusinessModel() {
             <Button
               size="lg"
               onClick={() => navigate("/komisyon-hesaplayici")}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-normal gap-2 shadow-lg shadow-emerald-900/40"
+              className="bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white font-normal gap-2 shadow-lg shadow-emerald-900/40"
             >
               <Calculator className="w-5 h-5" /> Komisyon hesaplayıcı
               <ArrowRight className="rtl:rotate-180 w-4 h-4 opacity-80" />
@@ -101,7 +101,7 @@ export default function BusinessModel() {
               size="lg"
               variant="outline"
               onClick={() => navigate("/emlakçı-ortaklik")}
-              className="border-violet-500/40 text-violet-100 hover:bg-violet-500/15 gap-2"
+              className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] gap-2"
             >
               <Handshake className="w-5 h-5" /> Emlakçı ortaklığı başvurusu
             </Button>
@@ -123,7 +123,7 @@ export default function BusinessModel() {
               key={j.id}
               type="button"
               onClick={() => scrollToId(j.id)}
-              className="text-xs sm:text-sm px-3 py-1.5 rounded-[10px] border border-slate-200 bg-white/5 text-slate-300 hover:text-white hover:bg-emerald-500/15 hover:border-emerald-500/30 transition-colors"
+              className="text-xs sm:text-sm px-3 py-1.5 rounded-[10px] border border-slate-200 bg-white/5 text-slate-300 hover:text-white hover:bg-[var(--zemin-yumusak)] hover:border-[var(--cizgi)] transition-colors"
             >
               {j.label}
             </button>
@@ -132,28 +132,28 @@ export default function BusinessModel() {
 
         <section id="ozet" className="scroll-mt-28 mb-10">
           <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-emerald-400" /> Gelir kanalları (özet)
+            <TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)]" /> Gelir kanalları (özet)
           </h2>
           <div className="grid sm:grid-cols-3 gap-4">
-            <Card className="bg-slate-900/60 border-emerald-500/20">
+            <Card className="bg-slate-900/60 border-[var(--cizgi)]">
               <CardContent className="p-4">
-                <div className="text-xs font-normal text-emerald-300/90 uppercase tracking-wide">Satılık</div>
+                <div className="text-xs font-normal text-[var(--metin-ikincil)] uppercase tracking-wide">Satılık</div>
                 <p className="mt-2 text-sm text-slate-300 leading-snug">
                   İki taraflı modelde toplam <strong className="text-white">%4 komisyon matrahı</strong> (alıcı + satıcı payları) + KDV; işlem tutarı üzerinden hesaplanır.
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-slate-900/60 border-teal-500/20">
+            <Card className="bg-slate-900/60 border-[var(--cizgi)]">
               <CardContent className="p-4">
-                <div className="text-xs font-normal text-teal-300/90 uppercase tracking-wide">Kiralık</div>
+                <div className="text-xs font-normal text-[var(--metin-ikincil)] uppercase tracking-wide">Kiralık</div>
                 <p className="mt-2 text-sm text-slate-300 leading-snug">
                   Hedef: <strong className="text-white">yalnızca kiraya verenden</strong> 1 tam aylık kira + KDV (kiracıdan ilan ücreti yok — hedef).
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-slate-900/60 border-violet-500/20">
+            <Card className="bg-slate-900/60 border-[var(--cizgi)]">
               <CardContent className="p-4">
-                <div className="text-xs font-normal text-violet-300/90 uppercase tracking-wide">Üyelik / hizmet</div>
+                <div className="text-xs font-normal text-[var(--metin-ikincil)] uppercase tracking-wide">Üyelik / hizmet</div>
                 <p className="mt-2 text-sm text-slate-300 leading-snug">
                   Yıllık üyelik ve seçilen hizmet kalemleri <strong className="text-white">komisyondan mahsup</strong> edilir (politika üretimde netleşir).
                 </p>
@@ -164,7 +164,7 @@ export default function BusinessModel() {
 
         <section id="senaryolar" className="scroll-mt-28 mb-10">
           <h2 className="text-lg font-normal text-white mb-2 flex items-center gap-2">
-            <Wallet className="w-5 h-5 text-amber-400" /> Senaryo analizi (satış — demo dağılım)
+            <Wallet className="w-5 h-5 text-[var(--metin-ikincil)]" /> Senaryo analizi (satış — demo dağılım)
           </h2>
           <p className="text-xs text-slate-500 mb-4">
             Tablo <code className="text-slate-400">calcCommissionBreakdown</code> ile üretilir. Emlakçı payı varsayılan olarak tam işbirliği oranı{" "}
@@ -180,7 +180,7 @@ export default function BusinessModel() {
                   <th className="p-3 font-normal">KDV ({(VAT_RATE * 100).toFixed(0)}%)</th>
                   <th className="p-3 font-normal">Emlakçı payı (ör.)</th>
                   <th className="p-3 font-normal">Mahsup (üyelik)</th>
-                  <th className="p-3 font-normal text-emerald-200">Platform net (matrah)</th>
+                  <th className="p-3 font-normal text-[var(--metin-ikincil)]">Platform net (matrah)</th>
                 </tr>
               </thead>
               <tbody className="text-slate-300">
@@ -193,7 +193,7 @@ export default function BusinessModel() {
                       <td className="p-3">₺{b.totalVAT.toLocaleString("tr-TR", { maximumFractionDigits: 0 })}</td>
                       <td className="p-3">₺{b.agentShare.toLocaleString("tr-TR", { maximumFractionDigits: 0 })}</td>
                       <td className="p-3">₺{b.offsetMembership.toLocaleString("tr-TR")}</td>
-                      <td className="p-3 text-emerald-200 font-normal">₺{Math.round(b.platformNet).toLocaleString("tr-TR")}</td>
+                      <td className="p-3 text-[var(--metin-ikincil)] font-normal">₺{Math.round(b.platformNet).toLocaleString("tr-TR")}</td>
                     </tr>
                   );
                 })}
@@ -207,7 +207,7 @@ export default function BusinessModel() {
 
         <section id="emlakçı" className="scroll-mt-28 mb-10">
           <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-            <Handshake className="w-5 h-5 text-violet-400" /> Emlakçı ağı — pay kademeleri (işlem tutarı üzerinden)
+            <Handshake className="w-5 h-5 text-[var(--metin-ikincil)]" /> Emlakçı ağı — pay kademeleri (işlem tutarı üzerinden)
           </h2>
           <p className="text-sm text-slate-400 mb-4">
             Ortak emlakçı modeli B2B faturalama ile uyumlu olacak şekilde tasarlanır. Aşağıdaki oranlar <code className="text-slate-500">AGENT_SHARE_RATES</code> ile
@@ -221,21 +221,21 @@ export default function BusinessModel() {
                 { key: "full" as const, title: "Tam işbirliği", hint: "Varsayılan ortaklık çizgisi" },
               ] as const
             ).map(({ key, title, hint }) => (
-              <Card key={key} className={`bg-slate-900/50 border-slate-200 ${key === "full" ? "ring-1 ring-violet-500/30" : ""}`}>
+              <Card key={key} className={`bg-slate-900/50 border-slate-200 ${key === "full" ? "ring-1 ring-[var(--cizgi)]" : ""}`}>
                 <CardContent className="p-4">
                   <div className="text-xs text-slate-500">{hint}</div>
                   <div className="mt-1 text-white font-normal">{title}</div>
-                  <div className="mt-3 text-2xl font-normal text-violet-200">%{ (AGENT_SHARE_RATES[key] * 100).toFixed(2)}</div>
+                  <div className="mt-3 text-2xl font-normal text-[var(--metin-ikincil)]">%{ (AGENT_SHARE_RATES[key] * 100).toFixed(2)}</div>
                   <div className="text-[11px] text-slate-500 mt-1">işlem tutarı üzerinden (matrah)</div>
                 </CardContent>
               </Card>
             ))}
           </div>
-          <Card className="bg-violet-500/5 border-violet-500/20">
+          <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)]">
             <CardContent className="p-4 text-sm text-slate-400">
               <strong className="text-slate-200">Operasyon notu:</strong> Hak edişlerin işlem onayından sonra süreli havuzda tutulması (ör. Net-30 güvence), sürekli teminat ve
               fatura yükümlülüğü üretim politikasında tanımlanır — paneldeki komisyon özeti ve{" "}
-              <button type="button" onClick={() => navigate("/nihai-anayasa")} className="text-violet-300 hover:underline">
+              <button type="button" onClick={() => navigate("/nihai-anayasa")} className="text-[var(--metin-ikincil)] hover:underline">
                 Nihai sistem anayasası
               </button>{" "}
               metinleri ile tutarlılık hedeflenir.
@@ -245,7 +245,7 @@ export default function BusinessModel() {
 
         <section id="mahsup" className="scroll-mt-28 mb-10">
           <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-            <BadgePercent className="w-5 h-5 text-teal-400" /> Mahsup ve tahsilat akışı
+            <BadgePercent className="w-5 h-5 text-[var(--metin-ikincil)]" /> Mahsup ve tahsilat akışı
           </h2>
           <ol className="list-decimal list-inside space-y-2 text-sm text-slate-400">
             <li>İşlem bedeli ve komisyon matrahı tapu / sözleşme hattında kesinleşir.</li>
@@ -257,9 +257,9 @@ export default function BusinessModel() {
         </section>
 
         <section id="ilkeler" className="scroll-mt-28">
-          <Card className="bg-emerald-500/5 border-emerald-500/20 mb-8">
+          <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)] mb-8">
             <CardContent className="p-5">
-              <h2 className="text-white font-normal flex items-center gap-2 mb-3"><Percent className="w-5 h-5 text-emerald-400" /> İlkeler</h2>
+              <h2 className="text-white font-normal flex items-center gap-2 mb-3"><Percent className="w-5 h-5 text-[var(--metin-ikincil)]" /> İlkeler</h2>
               <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
                 {COMMISSION_ONLY_PRINCIPLES.map((p) => (
                   <li key={p}>{p}</li>
@@ -269,9 +269,9 @@ export default function BusinessModel() {
           </Card>
         </section>
 
-        <Card className="bg-violet-500/5 border-violet-500/20 mb-8">
+        <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)] mb-8">
           <CardContent className="p-5">
-            <h2 className="text-white font-normal flex items-center gap-2 mb-3"><Ban className="w-5 h-5 text-violet-400" /> Üç mod: ilan, teklif al, ihale</h2>
+            <h2 className="text-white font-normal flex items-center gap-2 mb-3"><Ban className="w-5 h-5 text-[var(--metin-ikincil)]" /> Üç mod: ilan, teklif al, ihale</h2>
             <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
               {THREE_MODES_AND_BROKERAGE_RULES.map((p) => (
                 <li key={p}>{p}</li>
@@ -283,12 +283,12 @@ export default function BusinessModel() {
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
-              <h3 className="text-white font-normal mb-3 flex items-center gap-2"><Ban className="w-4 h-4 text-orange-400" /> Satıcı / kiraya veren</h3>
+              <h3 className="text-white font-normal mb-3 flex items-center gap-2"><Ban className="w-4 h-4 text-[var(--metin-ikincil)]" /> Satıcı / kiraya veren</h3>
               <ul className="space-y-3 text-xs text-slate-400">
                 {SELLER_SIDE_RATES.map((r) => (
                   <li key={r.type} className="border-b border-slate-200/80 pb-2">
                     <div className="text-slate-200 font-normal">{r.type}</div>
-                    <div className="text-emerald-300 mt-0.5">{r.target}</div>
+                    <div className="text-[var(--metin-ikincil)] mt-0.5">{r.target}</div>
                     <div className="text-slate-600 mt-1">{r.note}</div>
                   </li>
                 ))}
@@ -297,12 +297,12 @@ export default function BusinessModel() {
           </Card>
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
-              <h3 className="text-white font-normal mb-3 flex items-center gap-2"><Percent className="w-4 h-4 text-blue-400" /> Alıcı / kiracı</h3>
+              <h3 className="text-white font-normal mb-3 flex items-center gap-2"><Percent className="w-4 h-4 text-[var(--metin-ikincil)]" /> Alıcı / kiracı</h3>
               <ul className="space-y-3 text-xs text-slate-400">
                 {BUYER_SIDE_RATES.map((r) => (
                   <li key={r.type} className="border-b border-slate-200/80 pb-2">
                     <div className="text-slate-200 font-normal">{r.type}</div>
-                    <div className="text-blue-300 mt-0.5">{r.target}</div>
+                    <div className="text-[var(--metin-ikincil)] mt-0.5">{r.target}</div>
                     <div className="text-slate-600 mt-1">{r.note}</div>
                   </li>
                 ))}
@@ -313,7 +313,7 @@ export default function BusinessModel() {
 
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5">
-            <h3 className="text-white font-normal flex items-center gap-2 mb-3"><Bot className="w-5 h-5 text-violet-400" /> Yapay zeka emlakçı (yol haritası)</h3>
+            <h3 className="text-white font-normal flex items-center gap-2 mb-3"><Bot className="w-5 h-5 text-[var(--metin-ikincil)]" /> Yapay zeka emlakçı (yol haritası)</h3>
             <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
               {AI_ASSISTANT_SCOPE.map((a) => (
                 <li key={a}>{a}</li>
@@ -325,7 +325,7 @@ export default function BusinessModel() {
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
-              <h3 className="text-white font-normal flex items-center gap-2 mb-3"><MessageSquare className="w-5 h-5 text-amber-400" /> SMS akışları</h3>
+              <h3 className="text-white font-normal flex items-center gap-2 mb-3"><MessageSquare className="w-5 h-5 text-[var(--metin-ikincil)]" /> SMS akışları</h3>
               <ul className="space-y-2 text-xs text-slate-400 list-disc list-inside">
                 {SMS_FLOWS.map((s) => (
                   <li key={s}>{s}</li>
@@ -335,7 +335,7 @@ export default function BusinessModel() {
           </Card>
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
-              <h3 className="text-white font-normal flex items-center gap-2 mb-3"><Landmark className="w-5 h-5 text-teal-400" /> Ödeme (Sahibinden benzeri hazırlık)</h3>
+              <h3 className="text-white font-normal flex items-center gap-2 mb-3"><Landmark className="w-5 h-5 text-[var(--metin-ikincil)]" /> Ödeme (Sahibinden benzeri hazırlık)</h3>
               <ul className="space-y-2 text-xs text-slate-400 list-disc list-inside">
                 {PAYMENT_INTEGRATION.map((p) => (
                   <li key={p}>{p}</li>
@@ -350,7 +350,7 @@ export default function BusinessModel() {
           <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/yasal-cerceve")}>Yasal çerçeve</Button>
           <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/canliya-hazirlik")}>Canlıya hazırlık</Button>
           <Button variant="outline" className="border-white/15 text-slate-200" onClick={() => navigate("/veri-ve-endeks")}>İhaleal Endeksi</Button>
-          <Button variant="outline" className="border-emerald-500/30 text-emerald-200" onClick={() => navigate("/komisyon-hesaplayici")}>
+          <Button variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => navigate("/komisyon-hesaplayici")}>
             <Calculator className="w-4 h-4" /> Hesaplayıcıya dön
           </Button>
         </div>

@@ -30,14 +30,14 @@ export function OnboardingTip() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
-      <div className="mb-4 flex flex-col gap-3 rounded-[20px] border border-blue-500/25 bg-blue-500/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-4 flex flex-col gap-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
-          <Compass className="h-5 w-5 shrink-0 text-blue-300 mt-0.5" />
+          <Compass className="h-5 w-5 shrink-0 text-[var(--metin-ikincil)] mt-0.5" />
           <div>
             <p className="text-sm font-normal text-white">İlk adımlar</p>
             <p className="text-xs text-slate-300 mt-0.5">
               İlanları keşfedin, favorilere ekleyin veya{" "}
-              <Link to="/arama" className="text-teal-300 underline">
+              <Link to="/arama" className="text-[var(--metin-ikincil)] underline">
                 arama kaydedin
               </Link>{" "}
               — yeni eşleşmelerde bildirim alırsınız.
@@ -45,7 +45,7 @@ export function OnboardingTip() {
           </div>
         </div>
         <div className="flex flex-wrap gap-2 shrink-0">
-          <Link to="/ilanlar" className="rounded-[10px] bg-blue-600 px-3 py-1.5 text-xs font-normal text-white hover:bg-blue-500">
+          <Link to="/ilanlar" className="rounded-[10px] bg-[var(--zemin-yumusak)] px-3 py-1.5 text-xs font-normal text-white hover:bg-[var(--zemin-yumusak)]">
             İlanları gör
           </Link>
           <button

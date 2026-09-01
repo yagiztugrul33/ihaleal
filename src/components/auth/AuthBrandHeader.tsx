@@ -20,7 +20,7 @@ export function AuthBrandHeader({ title, subtitle, className, badge }: AuthBrand
         to="/"
         className={cn(
           "mb-5 inline-flex rounded-[20px] no-underline",
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
+          "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cizgi)] focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
         )}
         aria-label={`ihaleal.com — ${BRAND_SLOGAN}`}
       >

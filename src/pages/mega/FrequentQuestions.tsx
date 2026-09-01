@@ -25,7 +25,7 @@ export default function FrequentQuestions() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-3xl">
         <div className="mb-10 flex items-start gap-3">
-          <div className="rounded-[20px] bg-blue-500/15 p-3 text-blue-400">
+          <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)]">
             <HelpCircle className="h-8 w-8" />
           </div>
           <div className="min-w-0 flex-1">

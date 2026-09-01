@@ -37,7 +37,7 @@ function DemoEmlakciPanel() {
               <span className="text-slate-200">{l.title}</span>
               <span className="text-slate-400 inline-flex items-center gap-1.5" dir="ltr">
                 {formatTry(l.price)}
-                <FxRef amountTry={l.price} variant="compact" className="text-[11px] text-amber-300/80" />
+                <FxRef amountTry={l.price} variant="compact" className="text-[11px] text-[var(--metin-ikincil)]" />
                 <span className="text-slate-500">·</span>
                 <span>{l.status}</span>
               </span>
@@ -72,20 +72,20 @@ export default function EmlakciPanelPage() {
         <OrganizationDashboard />
       </div>
       <section className="mt-8 grid gap-4 lg:grid-cols-3">
-        <article className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4">
-          <h3 className="text-sm font-normal text-cyan-100">Neden bu panel?</h3>
+        <article className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+          <h3 className="text-sm font-normal text-[var(--metin-ikincil)]">Neden bu panel?</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
             Portföy, teklif ve müşteri akışını tek ekranda toplar; satış ekibi ile operasyonun aynı gerçekliğe bakmasını sağlar.
           </p>
         </article>
-        <article className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/10 p-4">
-          <h3 className="text-sm font-normal text-emerald-100">Örnek senaryo</h3>
+        <article className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+          <h3 className="text-sm font-normal text-[var(--metin-ikincil)]">Örnek senaryo</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
             Sabah ilan güncellemesi, öğlen canlı teklif takibi, akşam kapanış evrak kontrolü aynı panelden yapılır.
           </p>
         </article>
-        <article className="rounded-[20px] border border-violet-500/30 bg-violet-500/10 p-4">
-          <h3 className="text-sm font-normal text-violet-100">Kazanç modeli</h3>
+        <article className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+          <h3 className="text-sm font-normal text-[var(--metin-ikincil)]">Kazanç modeli</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
             Gelir işlem bazlı ilerler; by-pass etmeyen ortaklık için <Link to="/emlakci-ortaklik" className="underline">kurumsal model</Link> esas alınır.
           </p>
@@ -125,8 +125,8 @@ export default function EmlakciPanelPage() {
           </article>
         </div>
       </section>
-      <section className="mt-6 rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-5">
-        <h3 className="text-lg font-normal text-cyan-100">CTA</h3>
+      <section className="mt-6 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5">
+        <h3 className="text-lg font-normal text-[var(--metin-ikincil)]">CTA</h3>
         <p className="mt-2 text-sm text-slate-200">
           Ekibiniz için by-pass etmeyen ortaklık kurgusunu aktif etmek için önce panel yetkilerini, sonra ortaklık sözleşmesini tamamlayın.
         </p>

@@ -88,7 +88,7 @@ export default function CityDistrictHeatmap({ cityKey, districts, title = "İlç
                   <div className="font-normal">{d.name}</div>
                   <div className="text-xs text-slate-600">{d.type}</div>
                   <div className="mt-1 font-normal">₺{d.avgPrice.toLocaleString("tr-TR")} / m²</div>
-                  <div className="text-xs text-emerald-700">Yıllık artış %{d.growth}</div>
+                  <div className="text-xs text-[var(--metin-ikincil)]">Yıllık artış %{d.growth}</div>
                 </div>
               </Popup>
             </CircleMarker>

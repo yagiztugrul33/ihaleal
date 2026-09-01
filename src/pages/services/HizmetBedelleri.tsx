@@ -44,14 +44,14 @@ export default function HizmetBedelleri() {
         <p className="text-slate-400 mb-3">{sf.intro1}</p>
         <p className="text-slate-400 mb-2">{sf.intro2}</p>
         <p className="text-slate-400 mb-8">{sf.intro3}</p>
-        {msg ? <div className="mb-6 text-sm text-teal-300/90">{msg}</div> : null}
+        {msg ? <div className="mb-6 text-sm text-[var(--metin-ikincil)]">{msg}</div> : null}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {entries.map((key) => (
             <Card key={key} className="bg-slate-900/50 border-slate-200">
               <CardContent className="p-4 flex flex-col gap-3">
                 <p className="text-sm font-normal text-white leading-snug">{sf.labels[key]}</p>
                 <p className="text-xs leading-relaxed text-slate-400">{sf.descriptions[key]}</p>
-                <p className="text-lg font-normal text-amber-400">
+                <p className="text-lg font-normal text-[var(--metin-ikincil)]">
                   {SERVICE_FEE_DYNAMIC[key] ? (
                     sf.dynamicBidEntry
                   ) : (
@@ -63,7 +63,7 @@ export default function HizmetBedelleri() {
                   size="sm"
                   disabled={busy !== null}
                   onClick={() => void buy(key)}
-                  className="bg-blue-600 hover:bg-blue-500 text-white"
+                  className="bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white"
                 >
                   {busy === key ? sf.saving : sf.purchase}
                 </Button>

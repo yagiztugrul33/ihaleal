@@ -188,20 +188,20 @@ export default function Reports() {
       r.overallChangePct < 0 ? <TrendingDown className="w-3 h-3" /> :
       <Minus className="w-3 h-3" />;
     const arrowClass =
-      r.overallChangePct > 0 ? "text-emerald-300" :
-      r.overallChangePct < 0 ? "text-red-300" : "text-slate-400";
+      r.overallChangePct > 0 ? "text-[var(--metin-ikincil)]" :
+      r.overallChangePct < 0 ? "text-[var(--metin-ikincil)]" : "text-slate-400";
     return (
       <Card
         key={r.id}
         className={cn(
-          "border-slate-200/80 bg-slate-900/40 hover:border-cyan-400/40 transition-colors",
-          variant === "featured" && "border-cyan-400/30 bg-slate-900/60",
+          "border-slate-200/80 bg-slate-900/40 hover:border-[var(--cizgi)] transition-colors",
+          variant === "featured" && "border-[var(--cizgi)] bg-slate-900/60",
         )}
       >
         <CardContent className={cn(variant === "featured" ? "p-5" : "p-4")}>
           <div className="flex items-start justify-between gap-2 mb-3">
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-cyan-300 mb-1">
+              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-[var(--metin-ikincil)] mb-1">
                 <MapPin className="w-3 h-3" /> {r.cityLabel}
               </div>
               <h3 className={cn(
@@ -243,14 +243,14 @@ export default function Reports() {
                     key={row.category}
                     className={cn(
                       "rounded-[3px] border px-2 py-1.5 text-center",
-                      isActiveCat ? "border-amber-400/50 bg-amber-500/10" : "border-slate-700/40 bg-slate-950/30",
+                      isActiveCat ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" : "border-slate-700/40 bg-slate-950/30",
                     )}
                   >
                     <p className="text-[9px] uppercase tracking-wider text-slate-500">{CATEGORY_LABEL_TR[row.category]}</p>
                     <p className="text-xs font-normal text-white">{formatTRY(row.avgSalePerM2)}/m²</p>
                     <p className={cn(
                       "text-[10px]",
-                      row.changePct > 0 ? "text-emerald-300" : row.changePct < 0 ? "text-red-300" : "text-slate-400",
+                      row.changePct > 0 ? "text-[var(--metin-ikincil)]" : row.changePct < 0 ? "text-[var(--metin-ikincil)]" : "text-slate-400",
                     )}>
                       {row.changePct > 0 ? "+" : ""}{row.changePct.toFixed(1)}%
                     </p>
@@ -281,7 +281,7 @@ export default function Reports() {
               type="button"
               size="sm"
               variant="outline"
-              className="border-cyan-400/30 text-cyan-200 hover:bg-cyan-500/10 h-8 text-xs"
+              className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] h-8 text-xs"
             >
               <Link to={`/borsa/sehir/${r.city}`}>
                 <BarChart3 className="w-3 h-3 me-1" /> {r.cityLabel}
@@ -307,7 +307,7 @@ export default function Reports() {
 
         {/* Hero */}
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
             <Sparkles className="h-3.5 w-3.5" /> Aylık endeks raporları
           </div>
           <div className="flex flex-wrap items-end justify-between gap-3 mb-3">
@@ -318,7 +318,7 @@ export default function Reports() {
                 Tek tıkla Roboto Türkçe PDF indir.
               </p>
             </div>
-            <Badge variant="outline" className="border-amber-500/40 text-amber-200">
+            <Badge variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)]">
               {filtered.length} rapor
             </Badge>
           </div>
@@ -334,7 +334,7 @@ export default function Reports() {
             className="inline-flex items-center gap-1.5 rounded-[10px] border border-white/10 bg-slate-900/60 px-3 py-2 text-xs font-normal uppercase tracking-wider text-slate-300 hover:text-white"
           >
             <Filter className="w-3.5 h-3.5" /> Gelişmiş filtreler
-            {activeFilterCount > 0 ? <span className="text-cyan-300">({activeFilterCount})</span> : null}
+            {activeFilterCount > 0 ? <span className="text-[var(--metin-ikincil)]">({activeFilterCount})</span> : null}
             <span aria-hidden>{advancedOpen ? "−" : "+"}</span>
           </button>
         </div>
@@ -346,7 +346,7 @@ export default function Reports() {
                 <Filter className="w-3.5 h-3.5" /> Filtre
               </h2>
               {activeFilterCount > 0 ? (
-                <button type="button" onClick={clearFilters} className="text-[10px] text-cyan-300 hover:text-cyan-200 uppercase tracking-wider inline-flex items-center gap-1">
+                <button type="button" onClick={clearFilters} className="text-[10px] text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)] uppercase tracking-wider inline-flex items-center gap-1">
                   <X className="w-3 h-3" /> Temizle ({activeFilterCount})
                 </button>
               ) : null}
@@ -399,7 +399,7 @@ export default function Reports() {
         {featured.length > 0 ? (
           <section className="mb-8" data-testid="featured-reports">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-cyan-400" /> Öne Çıkan En Yeni Raporlar
+              <Sparkles className="w-5 h-5 text-[var(--metin-ikincil)]" /> Öne Çıkan En Yeni Raporlar
             </h2>
             <div className="grid gap-3 md:grid-cols-3">
               {featured.map((r) => renderReportCard(r, "featured"))}
@@ -420,7 +420,7 @@ export default function Reports() {
         ) : null}
 
         {filtered.length === 0 ? (
-          <Card className="bg-slate-900/40 border-amber-500/30">
+          <Card className="bg-slate-900/40 border-[var(--cizgi)]">
             <CardContent className="p-8 text-center">
               <p className="text-sm text-slate-300 mb-3">Bu filtrelere uyan rapor yok.</p>
               <Button type="button" variant="outline" onClick={clearFilters}>
@@ -431,11 +431,11 @@ export default function Reports() {
         ) : null}
 
         {/* Abone opt-in */}
-        <Card className="mb-8 bg-slate-900/40 border-violet-400/30" data-testid="subscribe-form">
+        <Card className="mb-8 bg-slate-900/40 border-[var(--cizgi)]" data-testid="subscribe-form">
           <CardContent className="p-6">
             <div className="flex items-start gap-4 flex-wrap">
-              <div className="rounded-[20px] bg-violet-500/15 p-3 flex-shrink-0">
-                <Bell className="w-6 h-6 text-violet-300" />
+              <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-3 flex-shrink-0">
+                <Bell className="w-6 h-6 text-[var(--metin-ikincil)]" />
               </div>
               <div className="flex-1 min-w-[260px]">
                 <h2 className="text-lg font-normal text-white mb-1">Aylık Endeks Raporları E-postanıza Gelsin</h2>
@@ -443,9 +443,9 @@ export default function Reports() {
                   Her ay yeni rapor yayınlandığında otomatik bildirim; istediğinizde aboneliği bırakırsınız.
                 </p>
                 {subscribeStatus === "saved" ? (
-                  <div className="rounded-[10px] border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
+                  <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-sm text-[var(--metin-ikincil)]" role="status">
                     {subscribeMessage || "Aboneliğiniz kaydedildi."}
-                    <span className="block text-[10px] text-emerald-200/70 mt-0.5">
+                    <span className="block text-[10px] text-[var(--metin-ikincil)] mt-0.5">
                       Onay maili geldiğinde linke tıklayarak aboneliği aktifleştirin (double opt-in).
                     </span>
                   </div>
@@ -459,13 +459,13 @@ export default function Reports() {
                         onChange={(e) => setSubscribeEmail(e.target.value)}
                         placeholder="E-posta adresiniz"
                         required
-                        className="ps-8 bg-slate-950 border-violet-400/30 text-white"
+                        className="ps-8 bg-slate-950 border-[var(--cizgi)] text-white"
                         aria-label="Abone e-posta"
                       />
                     </div>
                     <Button
                       type="submit"
-                      className="!bg-violet-500 hover:!bg-violet-400 !text-white"
+                      className="!bg-[var(--zemin-yumusak)] hover:!bg-[var(--zemin-yumusak)] !text-white"
                       disabled={subscribeStatus === "submitting"}
                     >
                       {subscribeStatus === "submitting" ? "Gönderiliyor…" : "Abone Ol"}
@@ -473,7 +473,7 @@ export default function Reports() {
                   </form>
                 )}
                 {subscribeStatus === "error" && subscribeMessage ? (
-                  <p className="mt-2 rounded-[10px] border border-rose-400/40 bg-rose-500/10 px-3 py-2 text-xs text-rose-100" role="alert">
+                  <p className="mt-2 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs text-[var(--metin-ikincil)]" role="alert">
                     {subscribeMessage}
                   </p>
                 ) : null}
@@ -496,12 +496,12 @@ export default function Reports() {
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {DEMO_REPORTS.map((r) => (
-              <Card key={r.id} className="border-slate-200/80 bg-slate-900/40 hover:border-blue-400/30 transition-colors">
+              <Card key={r.id} className="border-slate-200/80 bg-slate-900/40 hover:border-[var(--cizgi)] transition-colors">
                 <CardContent className="p-4">
                   <div className="flex items-start gap-2 mb-2">
-                    <FileText className="mt-0.5 h-4 w-4 shrink-0 text-blue-400" />
+                    <FileText className="mt-0.5 h-4 w-4 shrink-0 text-[var(--metin-ikincil)]" />
                     <h3 className="font-normal leading-snug text-white text-sm">
-                      <Link to={`/rapor/${r.id}`} className="hover:text-blue-300">
+                      <Link to={`/rapor/${r.id}`} className="hover:text-[var(--metin-ikincil)]">
                         {r.title}
                       </Link>
                     </h3>
@@ -518,7 +518,7 @@ export default function Reports() {
                   <p className="text-xs text-slate-400 line-clamp-2">{r.excerpt}</p>
                   <Link
                     to={`/rapor/${r.id}`}
-                    className="mt-3 inline-flex items-center text-xs font-normal text-blue-400 hover:text-blue-300"
+                    className="mt-3 inline-flex items-center text-xs font-normal text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)]"
                   >
                     Belgeyi aç <ChevronRight className="rtl:rotate-180 w-3 h-3 ms-0.5" />
                   </Link>

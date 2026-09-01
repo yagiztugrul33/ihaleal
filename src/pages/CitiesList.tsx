@@ -26,7 +26,7 @@ const CITIES = [
     demandIndex: 92,
     listingCount: 0,
     tag: "Finans Merkezi",
-    color: "bg-blue-500/10",
+    color: "bg-[var(--zemin-yumusak)]",
   },
   {
     name: "Ankara",
@@ -38,7 +38,7 @@ const CITIES = [
     demandIndex: 75,
     listingCount: 0,
     tag: "Başkent",
-    color: "bg-emerald-500/10",
+    color: "bg-[var(--zemin-yumusak)]",
   },
   {
     name: "İzmir",
@@ -50,7 +50,7 @@ const CITIES = [
     demandIndex: 82,
     listingCount: 0,
     tag: "Ege'nin İncisi",
-    color: "bg-amber-500/10",
+    color: "bg-[var(--zemin-yumusak)]",
   },
   {
     name: "Antalya",
@@ -62,7 +62,7 @@ const CITIES = [
     demandIndex: 88,
     listingCount: 0,
     tag: "Turizm Başkenti",
-    color: "bg-cyan-500/10",
+    color: "bg-[var(--zemin-yumusak)]",
   },
   {
     name: "Bursa",
@@ -74,7 +74,7 @@ const CITIES = [
     demandIndex: 68,
     listingCount: 0,
     tag: "Yeşil Bursa",
-    color: "bg-emerald-500/10",
+    color: "bg-[var(--zemin-yumusak)]",
   },
   {
     name: "Muğla",
@@ -86,7 +86,7 @@ const CITIES = [
     demandIndex: 90,
     listingCount: 0,
     tag: "Premium Bölge",
-    color: "bg-violet-500/10",
+    color: "bg-[var(--zemin-yumusak)]",
   },
 ];
 
@@ -106,7 +106,7 @@ export default function CitiesList() {
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
-            <Navigation className="w-8 h-8 text-blue-400" />
+            <Navigation className="w-8 h-8 text-[var(--metin-ikincil)]" />
             Şehir Rehberi
           </h1>
           <p className="mt-2 max-w-2xl">
@@ -117,21 +117,21 @@ export default function CitiesList() {
         {/* Stats */}
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><MapPin className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-400">Şehir</span></div>
+            <div className="flex items-center gap-2 mb-2"><MapPin className="w-5 h-5 text-[var(--metin-ikincil)]" /><span className="text-sm text-slate-400">Şehir</span></div>
             <div className="text-2xl font-normal">{CITIES.length}</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><Building2 className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-400">Toplam İlan</span></div>
-            <div className="text-2xl font-normal text-emerald-400">{AUCTIONS.length}</div>
+            <div className="flex items-center gap-2 mb-2"><Building2 className="w-5 h-5 text-[var(--metin-ikincil)]" /><span className="text-sm text-slate-400">Toplam İlan</span></div>
+            <div className="text-2xl font-normal text-[var(--metin-ikincil)]">{AUCTIONS.length}</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-400">En Yüksek Artış</span></div>
-            <div className="text-2xl font-normal text-amber-400">%+28.5</div>
+            <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)]" /><span className="text-sm text-slate-400">En Yüksek Artış</span></div>
+            <div className="text-2xl font-normal text-[var(--metin-ikincil)]">%+28.5</div>
             <div className="text-xs text-slate-500">Muğla</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
-            <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-400">En İyi Getiri</span></div>
-            <div className="text-2xl font-normal text-violet-400">%8.2</div>
+            <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-[var(--metin-ikincil)]" /><span className="text-sm text-slate-400">En İyi Getiri</span></div>
+            <div className="text-2xl font-normal text-[var(--metin-ikincil)]">%8.2</div>
             <div className="text-xs text-slate-500">Muğla</div>
           </Card>
         </div>
@@ -141,7 +141,7 @@ export default function CitiesList() {
           {citiesWithCounts.map((city, idx) => (
             <Card
               key={city.name}
-              className="group border-slate-200/80 overflow-hidden hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+              className="group border-slate-200/80 overflow-hidden hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-1 cursor-pointer"
               onClick={() => navigate(`/sehir/${CITY_GUIDE_SLUG[city.name] ?? city.name}`)}
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
@@ -158,7 +158,7 @@ export default function CitiesList() {
                 />
                 <div className={`absolute inset-0 ${city.color} pointer-events-none`} />
                 <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
-                <div className="absolute top-3 start-3 px-3 py-1 rounded-[10px] bg-blue-500/90 text-white text-xs font-normal">
+                <div className="absolute top-3 start-3 px-3 py-1 rounded-[10px] bg-[var(--zemin-yumusak)] text-white text-xs font-normal">
                   {city.tag}
                 </div>
                 <div className="absolute top-3 end-3 px-3 py-1 rounded-[10px] bg-white/10 backdrop-blur text-white text-xs font-normal flex items-center gap-1">
@@ -176,15 +176,15 @@ export default function CitiesList() {
                 <div className="grid grid-cols-3 gap-3">
                   <div className="text-center">
                     <div className="text-xs text-slate-500">m² Fiyat</div>
-                    <div className="text-sm font-normal text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
+                    <div className="text-sm font-normal text-[var(--metin-ikincil)]">₺{city.avgPricePerSqm.toLocaleString()}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-slate-500">Getiri</div>
-                    <div className="text-sm font-normal text-emerald-400">%{city.rentalYield}</div>
+                    <div className="text-sm font-normal text-[var(--metin-ikincil)]">%{city.rentalYield}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-slate-500">Talep</div>
-                    <div className="text-sm font-normal text-amber-400">{city.demandIndex}/100</div>
+                    <div className="text-sm font-normal text-[var(--metin-ikincil)]">{city.demandIndex}/100</div>
                   </div>
                 </div>
                 <Button className="w-full mt-4 [background:var(--gradient-cta)] hover:brightness-110 text-white font-normal">
@@ -219,12 +219,12 @@ export default function CitiesList() {
                       onClick={() => navigate(`/sehir/${CITY_GUIDE_SLUG[city.name] ?? city.name}`)}
                     >
                       <td className="p-4 font-normal flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-blue-400" /> {city.name}
+                        <MapPin className="w-4 h-4 text-[var(--metin-ikincil)]" /> {city.name}
                       </td>
-                      <td className="p-4 text-end font-normal text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</td>
-                      <td className="p-4 text-end text-emerald-400">+{city.annualGrowth}%</td>
-                      <td className="p-4 text-end text-violet-400">%{city.rentalYield}</td>
-                      <td className="p-4 text-end text-amber-400">{city.demandIndex}</td>
+                      <td className="p-4 text-end font-normal text-[var(--metin-ikincil)]">₺{city.avgPricePerSqm.toLocaleString()}</td>
+                      <td className="p-4 text-end text-[var(--metin-ikincil)]">+{city.annualGrowth}%</td>
+                      <td className="p-4 text-end text-[var(--metin-ikincil)]">%{city.rentalYield}</td>
+                      <td className="p-4 text-end text-[var(--metin-ikincil)]">{city.demandIndex}</td>
                       <td className="p-4 text-end">{city.listingCount}</td>
                     </tr>
                   ))}

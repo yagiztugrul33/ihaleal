@@ -32,7 +32,7 @@ export default function ReportDetail() {
 
         <header className="mb-10 border-b border-slate-200 pb-8">
           <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
-            <FileText className="h-5 w-5 text-blue-400" />
+            <FileText className="h-5 w-5 text-[var(--metin-ikincil)]" />
             <span>Güncelleme: {report.updatedAt}</span>
             <span>·</span>
             <span>{report.readingMinutes} dk okuma</span>
@@ -47,7 +47,7 @@ export default function ReportDetail() {
           ))}
         </div>
 
-        <p className="mt-12 rounded-[10px] border border-amber-500/25 bg-amber-500/5 p-4 text-sm text-amber-100/90">
+        <p className="mt-12 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 text-sm text-[var(--metin-ikincil)]">
           Bu içerik bilgilendirme amaçlıdır; yatırım veya hukuki tavsiye değildir.
         </p>
       </article>

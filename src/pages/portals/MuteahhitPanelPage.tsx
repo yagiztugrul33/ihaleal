@@ -21,9 +21,9 @@ const STAGE_LABELS: Record<string, string> = {
 };
 
 const STATUS_BADGE: Record<string, string> = {
-  pending: "bg-amber-500/20 text-amber-200 border-amber-400/30",
-  verified: "bg-emerald-500/20 text-emerald-200 border-emerald-400/30",
-  rejected: "bg-rose-500/20 text-rose-200 border-rose-400/30",
+  pending: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
+  verified: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
+  rejected: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -169,7 +169,7 @@ export default function MuteahhitPanelPage() {
   if (!canAccessPanel) {
     return (
       <div className="min-h-screen pt-24 px-4 text-center text-slate-300 max-w-xl mx-auto">
-        <AlertTriangle className="w-10 h-10 text-amber-400 mx-auto mb-3" />
+        <AlertTriangle className="w-10 h-10 text-[var(--metin-ikincil)] mx-auto mb-3" />
         <h2 className="text-xl font-normal text-white mb-2">Müteahhit paneline erişiminiz yok</h2>
         <p className="text-sm text-slate-400 mb-4">
           Bu panel yalnızca müteahhit firmasında <strong className="text-slate-300">owner</strong> veya{" "}
@@ -202,11 +202,11 @@ export default function MuteahhitPanelPage() {
       }
     >
       {ruhsatPending && (
-        <div className="rounded-[20px] border border-amber-400/30 bg-amber-500/10 p-4 flex items-start gap-3 mb-4">
-          <AlertTriangle className="w-5 h-5 text-amber-300 mt-0.5 shrink-0" />
-          <div className="text-sm text-amber-100">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 flex items-start gap-3 mb-4">
+          <AlertTriangle className="w-5 h-5 text-[var(--metin-ikincil)] mt-0.5 shrink-0" />
+          <div className="text-sm text-[var(--metin-ikincil)]">
             <p className="font-normal mb-0.5">Firma ruhsatınız admin onayını bekliyor</p>
-            <p className="text-amber-100/80 text-xs">
+            <p className="text-[var(--metin-ikincil)] text-xs">
               Onay tamamlanana kadar projelerinizi oluşturup birim envanteri girebilirsiniz; ancak lansman ilanları (
               <span className="font-mono">is_lansman</span>) yalnızca proje onayından sonra aktif edilir.
             </p>
@@ -215,9 +215,9 @@ export default function MuteahhitPanelPage() {
       )}
 
       {error && (
-        <div className="rounded-[20px] border border-rose-400/30 bg-rose-500/10 p-3 text-rose-200 text-sm mb-4">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)] text-sm mb-4">
           Projeler okunamadı: {error}
-          <Button size="sm" variant="ghost" className="ms-2 text-rose-200" onClick={() => void refresh()}>
+          <Button size="sm" variant="ghost" className="ms-2 text-[var(--metin-ikincil)]" onClick={() => void refresh()}>
             Tekrar dene
           </Button>
         </div>
@@ -262,7 +262,7 @@ export default function MuteahhitPanelPage() {
               return (
                 <li
                   key={p.id}
-                  className="rounded-[10px] border border-white/10 hover:border-cyan-400/30 transition-colors p-4 bg-slate-950/30"
+                  className="rounded-[10px] border border-white/10 hover:border-[var(--cizgi)] transition-colors p-4 bg-slate-950/30"
                 >
                   <div className="flex items-start justify-between gap-3 flex-wrap">
                     <div className="min-w-0">
@@ -291,7 +291,7 @@ export default function MuteahhitPanelPage() {
                         </Link>
                       </Button>
                       {verified && (
-                        <Button asChild size="sm" variant="ghost" className="gap-1.5 text-cyan-300">
+                        <Button asChild size="sm" variant="ghost" className="gap-1.5 text-[var(--metin-ikincil)]">
                           <Link to={`/proje/${p.id}`}>
                             <Megaphone className="w-3.5 h-3.5" /> Kamu görünüm
                           </Link>
@@ -307,21 +307,21 @@ export default function MuteahhitPanelPage() {
                     </div>
                     <div>
                       <p className="text-slate-500">Satılan</p>
-                      <p className="text-blue-300 font-normal">{p.units_sold}</p>
+                      <p className="text-[var(--metin-ikincil)] font-normal">{p.units_sold}</p>
                     </div>
                     <div>
                       <p className="text-slate-500">Rezerve</p>
-                      <p className="text-amber-300 font-normal">{p.units_reserved}</p>
+                      <p className="text-[var(--metin-ikincil)] font-normal">{p.units_reserved}</p>
                     </div>
                     <div>
                       <p className="text-slate-500">Doluluk</p>
-                      <p className="text-emerald-300 font-normal">%{completionPct}</p>
+                      <p className="text-[var(--metin-ikincil)] font-normal">%{completionPct}</p>
                     </div>
                   </div>
 
                   <div className="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
                     <span
-                      className="block h-full bg-emerald-500/80 rounded-full transition-all"
+                      className="block h-full bg-[var(--zemin-yumusak)] rounded-full transition-all"
                       style={{ width: `${Math.min(completionPct, 100)}%` }}
                     />
                   </div>
@@ -333,22 +333,22 @@ export default function MuteahhitPanelPage() {
       </section>
 
       <section className="mt-6 grid gap-4 lg:grid-cols-3">
-        <article className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4">
-          <h3 className="text-sm font-normal text-cyan-100">Neden bu panel?</h3>
+        <article className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+          <h3 className="text-sm font-normal text-[var(--metin-ikincil)]">Neden bu panel?</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
             Lansman projeleri, birim envanteri ve ilan yayını tek yerden yönetilir; ruhsat onayı tamamlanan projeler kamuya açılır.
           </p>
         </article>
-        <article className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/10 p-4">
-          <h3 className="text-sm font-normal text-emerald-100">Akış</h3>
+        <article className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+          <h3 className="text-sm font-normal text-[var(--metin-ikincil)]">Akış</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
             1) Proje oluştur (ruhsat + birim) → 2) Admin onayı → 3) Birim yayınla (lansman ilanı) → 4) Satış.
           </p>
         </article>
-        <article className="rounded-[20px] border border-violet-500/30 bg-violet-500/10 p-4">
-          <h3 className="text-sm font-normal text-violet-100">Yayın kuralı</h3>
+        <article className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+          <h3 className="text-sm font-normal text-[var(--metin-ikincil)]">Yayın kuralı</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
-            Sadece <span className="font-normal text-violet-100">verified</span> projelerin birimleri ilan olarak yayınlanabilir.
+            Sadece <span className="font-normal text-[var(--metin-ikincil)]">verified</span> projelerin birimleri ilan olarak yayınlanabilir.
           </p>
         </article>
       </section>

@@ -67,11 +67,11 @@ export default function SecurityCenter() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-emerald-500/5 border-b border-slate-200/80">
+      <div className="bg-[var(--zemin-yumusak)] border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-[20px] bg-emerald-500 flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-[20px] bg-[var(--zemin-yumusak)] flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
             <div>
               <h1 className="text-3xl font-normal text-white">AI Güvenlik & Analiz Merkezi</h1>
               <p className="text-slate-400">Gerçek zamanlı tehdit istihbaratı, sistem koruması ve performans analizi</p>
@@ -108,7 +108,7 @@ export default function SecurityCenter() {
               type="button"
               variant="outline"
               size="sm"
-              className="border-rose-500/30 text-rose-100 hover:bg-rose-500/10"
+              className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
               onClick={() => navigate("/yasal/dolandiricilik-savunmasi")}
             >
               <Shield className="w-4 h-4 me-2" />
@@ -118,7 +118,7 @@ export default function SecurityCenter() {
               type="button"
               variant="outline"
               size="sm"
-              className="border-cyan-500/30 text-cyan-100 hover:bg-cyan-500/10"
+              className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
               onClick={() => navigate("/yasal/supabase-uyum")}
             >
               <Server className="w-4 h-4 me-2" />
@@ -131,16 +131,16 @@ export default function SecurityCenter() {
       <div className="max-w-6xl mx-auto px-4 mt-8 space-y-6">
         {/* Scan Progress */}
         {scanning && (
-          <div className="p-4 rounded-[20px] bg-blue-500/5 border border-blue-500/10">
-            <div className="flex items-center gap-3 mb-2"><RefreshCw className="w-4 h-4 text-blue-400 animate-spin" /><span className="text-sm text-blue-400 font-normal">Güvenlik taraması devam ediyor...</span></div>
+          <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
+            <div className="flex items-center gap-3 mb-2"><RefreshCw className="w-4 h-4 text-[var(--metin-ikincil)] animate-spin" /><span className="text-sm text-[var(--metin-ikincil)] font-normal">Güvenlik taraması devam ediyor...</span></div>
             <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full [background:var(--gradient-cta)] transition-all" style={{ width: `${scanProgress}%` }} /></div>
             <p className="text-xs text-slate-500 mt-1">Honeypot, rate limit ve TLS/sertifika kontrolleri (demo taslak; WAF/2FA yol haritasında)</p>
           </div>
         )}
 
-        <div className="p-4 rounded-[20px] bg-slate-800/80 border border-amber-500/20">
+        <div className="p-4 rounded-[20px] bg-slate-800/80 border border-[var(--cizgi)]">
           <p className="text-xs text-slate-400 leading-relaxed">
-            <span className="text-amber-400 font-normal">Demo uyarısı:</span> Bu sayfadaki tehdit logları, saldırı istatistikleri ve bölge gecikmeleri <strong className="text-slate-200">örnek / simülasyon</strong> amaçlıdır.
+            <span className="text-[var(--metin-ikincil)] font-normal">Demo uyarısı:</span> Bu sayfadaki tehdit logları, saldırı istatistikleri ve bölge gecikmeleri <strong className="text-slate-200">örnek / simülasyon</strong> amaçlıdır.
             Gerçek sahibinden.com seviyesinde koruma için üretim ortamında WAF, DDoS koruması, SIEM, sızma testi ve 7/24 SOC hizmeti zorunludur.
           </p>
         </div>
@@ -151,8 +151,8 @@ export default function SecurityCenter() {
             <Card key={m.label} className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <div className={`p-1.5 rounded-[10px] bg-${m.color}-500/10 ${m.color === 'emerald' ? 'text-emerald-400' : m.color === 'blue' ? 'text-blue-400' : m.color === 'violet' ? 'text-violet-400' : 'text-amber-400'}`}>{m.icon}</div>
-                  <Badge variant="outline" className={`border-${m.color}-500/20 ${m.color === 'emerald' ? 'text-emerald-400' : m.color === 'blue' ? 'text-blue-400' : m.color === 'violet' ? 'text-violet-400' : 'text-amber-400'} text-[10px]`}>{m.change}</Badge>
+                  <div className={`p-1.5 rounded-[10px] bg-${m.color}-500/10 ${m.color === 'emerald' ? 'text-[var(--metin-ikincil)]' : m.color === 'blue' ? 'text-[var(--metin-ikincil)]' : m.color === 'violet' ? 'text-[var(--metin-ikincil)]' : 'text-[var(--metin-ikincil)]'}`}>{m.icon}</div>
+                  <Badge variant="outline" className={`border-${m.color}-500/20 ${m.color === 'emerald' ? 'text-[var(--metin-ikincil)]' : m.color === 'blue' ? 'text-[var(--metin-ikincil)]' : m.color === 'violet' ? 'text-[var(--metin-ikincil)]' : 'text-[var(--metin-ikincil)]'} text-[10px]`}>{m.change}</Badge>
                 </div>
                 <div className="text-xl font-normal text-white">{m.value}</div>
                 <div className="text-xs text-slate-500">{m.label}</div>
@@ -165,18 +165,18 @@ export default function SecurityCenter() {
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-normal text-white flex items-center gap-2"><ShieldCheck className="w-5 h-5 text-emerald-400" /> Planlanan güvenlik katmanları (taslak)</h3>
+              <h3 className="text-lg font-normal text-white flex items-center gap-2"><ShieldCheck className="w-5 h-5 text-[var(--metin-ikincil)]" /> Planlanan güvenlik katmanları (taslak)</h3>
               <Button size="sm" variant="outline" onClick={startScan} disabled={scanning} className="border-slate-200 text-slate-300 hover:text-white gap-2 text-xs"><RefreshCw className={`w-3.5 h-3.5 ${scanning ? 'animate-spin' : ''}`} /> Yenile</Button>
             </div>
             <div className="space-y-2">
               {layers.map((layer, i) => (
-                <div key={layer.name} className="flex items-center gap-3 p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 hover:border-emerald-500/20 transition-colors">
-                  <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center text-xs font-normal text-emerald-400 shrink-0">{i + 1}</div>
+                <div key={layer.name} className="flex items-center gap-3 p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 hover:border-[var(--cizgi)] transition-colors">
+                  <div className="w-6 h-6 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center text-xs font-normal text-[var(--metin-ikincil)] shrink-0">{i + 1}</div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2"><span className="text-sm font-normal text-white">{layer.name}</span><Badge className="bg-sky-500/10 text-sky-300 text-[10px] border-0">Hedef</Badge></div>
+                    <div className="flex items-center gap-2"><span className="text-sm font-normal text-white">{layer.name}</span><Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-[10px] border-0">Hedef</Badge></div>
                     <p className="text-xs text-slate-500 truncate">{layer.desc}</p>
                   </div>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[var(--metin-ikincil)] shrink-0" />
                 </div>
               ))}
             </div>
@@ -187,19 +187,19 @@ export default function SecurityCenter() {
           {/* Threat Log */}
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
-              <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><ShieldAlert className="w-5 h-5 text-red-400" /> Son Tehdit Aktiviteleri</h3>
+              <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><ShieldAlert className="w-5 h-5 text-[var(--metin-ikincil)]" /> Son Tehdit Aktiviteleri</h3>
               <div className="space-y-2">
                 {threats.map((t) => (
                   <div key={t.id} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-normal text-white">{t.type}</span>
-                        <Badge className={`text-[10px] border-0 ${t.level === 'high' ? 'bg-red-500/10 text-red-400' : t.level === 'medium' ? 'bg-amber-500/10 text-amber-400' : 'bg-emerald-500/10 text-emerald-400'}`}>{t.level === 'high' ? 'Yüksek' : t.level === 'medium' ? 'Orta' : 'Düşük'}</Badge>
+                        <Badge className={`text-[10px] border-0 ${t.level === 'high' ? 'bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]' : t.level === 'medium' ? 'bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]' : 'bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]'}`}>{t.level === 'high' ? 'Yüksek' : t.level === 'medium' ? 'Orta' : 'Düşük'}</Badge>
                       </div>
                       <span className="text-xs text-slate-600">{t.time}</span>
                     </div>
                     <p className="text-xs text-slate-400">{t.desc}</p>
-                    <div className="flex items-center gap-1 mt-1.5"><CheckCircle2 className="w-3 h-3 text-emerald-400" /><span className="text-[10px] text-emerald-400">{t.status === 'blocked' ? 'Engellendi' : 'Yatıştırıldı'}</span></div>
+                    <div className="flex items-center gap-1 mt-1.5"><CheckCircle2 className="w-3 h-3 text-[var(--metin-ikincil)]" /><span className="text-[10px] text-[var(--metin-ikincil)]">{t.status === 'blocked' ? 'Engellendi' : 'Yatıştırıldı'}</span></div>
                   </div>
                 ))}
               </div>
@@ -209,7 +209,7 @@ export default function SecurityCenter() {
           {/* Global Node Map */}
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-5">
-              <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Globe className="w-5 h-5 text-sky-400" /> Global CDN & Sunucu Durumu</h3>
+              <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Globe className="w-5 h-5 text-[var(--metin-ikincil)]" /> Global CDN & Sunucu Durumu</h3>
               <div className="space-y-2">
                 {regions.map((r) => (
                   <div key={r.city} className="flex items-center justify-between p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
@@ -218,15 +218,15 @@ export default function SecurityCenter() {
                       <span className="text-sm text-white">{r.city}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <Badge className="bg-emerald-500/10 text-emerald-400 text-[10px] border-0">Güvenli</Badge>
+                      <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-[10px] border-0">Güvenli</Badge>
                       <span className="text-xs text-slate-500">{r.latency}</span>
-                      <Activity className="w-4 h-4 text-emerald-400" />
+                      <Activity className="w-4 h-4 text-[var(--metin-ikincil)]" />
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="mt-3 p-3 rounded-[20px] bg-blue-500/5 border border-blue-500/10">
-                <div className="flex items-center gap-2 text-xs text-blue-400 mb-1"><Wifi className="w-3.5 h-3.5" /><span>Örnek panel: uptime hedefi (taslak)</span></div>
+              <div className="mt-3 p-3 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
+                <div className="flex items-center gap-2 text-xs text-[var(--metin-ikincil)] mb-1"><Wifi className="w-3.5 h-3.5" /><span>Örnek panel: uptime hedefi (taslak)</span></div>
                 <p className="text-xs text-slate-500">Gösterge ve metinler simülasyondur; üretim SLA&apos;sı ayrı sözleşme ile tanımlanır.</p>
               </div>
             </CardContent>
@@ -234,33 +234,33 @@ export default function SecurityCenter() {
         </div>
 
         {/* ŞU AN AKTİF — Üretimde çalışan korumalar (gerçek, dürüst) */}
-        <Card className="bg-emerald-500/[0.04] border-emerald-500/30">
+        <Card className="bg-[var(--zemin-yumusak)]/[0.04] border-[var(--cizgi)]">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
               <h3 className="text-lg font-normal text-white flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-emerald-400" /> Şu An Aktif — Üretimde Çalışan Korumalar
+                <ShieldCheck className="w-5 h-5 text-[var(--metin-ikincil)]" /> Şu An Aktif — Üretimde Çalışan Korumalar
               </h3>
-              <Badge className="bg-emerald-500/15 text-emerald-300 border-emerald-500/30 text-[10px]">
+              <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)] text-[10px]">
                 <CheckCircle2 className="w-3 h-3 me-1" /> AKTİF
               </Badge>
             </div>
             <p className="text-xs text-slate-400 mb-4">
-              Aşağıdaki korumalar üretim ortamında <strong className="text-emerald-200">canlı çalışıyor</strong> — kod tabanı +
+              Aşağıdaki korumalar üretim ortamında <strong className="text-[var(--metin-ikincil)]">canlı çalışıyor</strong> — kod tabanı +
               migration + canlı header doğrulamalı. Yol haritasındaki AI/ML özellikleri ayrı bölümde.
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
               {[
-                { title: "Anti-sniping", desc: "Bitmesine 120sn kalan ihalede teklif → süre +120sn uzar. Son saniye baskın engeli.", icon: <Clock className="w-4 h-4 text-emerald-400" /> },
-                { title: "Race koruması (FOR UPDATE)", desc: "PostgreSQL row-lock + atomik RPC. İki eşzamanlı teklif sıraya alınır, çakışma yok.", icon: <Lock className="w-4 h-4 text-emerald-400" /> },
-                { title: "Idempotency anahtarı", desc: "Aynı teklif iki kez gönderilemez — UNIQUE constraint. Ağ tekrarı güvenli.", icon: <CheckCircle2 className="w-4 h-4 text-emerald-400" /> },
-                { title: "Teminat blokajı %5", desc: "Teklif öncesi kredi kartı PROVİZYON (banka blokaj). Sahte teklif maliyeti yüksek.", icon: <Shield className="w-4 h-4 text-emerald-400" /> },
-                { title: "Sealed teklif gizliliği", desc: "listing_offers_safe view ile teklif sahibi maskelenmiştir; sealed mode korunur.", icon: <EyeOff className="w-4 h-4 text-emerald-400" /> },
-                { title: "7 güvenlik header", desc: "CSP + HSTS + X-Frame-DENY + COOP + Referrer + Permissions + nosniff (canlıda).", icon: <Server className="w-4 h-4 text-emerald-400" /> },
-                { title: "JWT zorunlu oturum", desc: "Cookie session yok → CSRF saldırı yüzeyi kapalı. Bearer token + RLS.", icon: <Lock className="w-4 h-4 text-emerald-400" /> },
-                { title: "Owner-only RLS", desc: "Her yazma tablosunda user_id = auth.uid() politikası. IDOR engeli.", icon: <ShieldCheck className="w-4 h-4 text-emerald-400" /> },
-                { title: "PII sanitize (AI cevap)", desc: "T.C./IBAN/telefon/e-posta otomatik redact. 11/11 test PASS (sanitize katmanı).", icon: <Bug className="w-4 h-4 text-emerald-400" /> },
+                { title: "Anti-sniping", desc: "Bitmesine 120sn kalan ihalede teklif → süre +120sn uzar. Son saniye baskın engeli.", icon: <Clock className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "Race koruması (FOR UPDATE)", desc: "PostgreSQL row-lock + atomik RPC. İki eşzamanlı teklif sıraya alınır, çakışma yok.", icon: <Lock className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "Idempotency anahtarı", desc: "Aynı teklif iki kez gönderilemez — UNIQUE constraint. Ağ tekrarı güvenli.", icon: <CheckCircle2 className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "Teminat blokajı %5", desc: "Teklif öncesi kredi kartı PROVİZYON (banka blokaj). Sahte teklif maliyeti yüksek.", icon: <Shield className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "Sealed teklif gizliliği", desc: "listing_offers_safe view ile teklif sahibi maskelenmiştir; sealed mode korunur.", icon: <EyeOff className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "7 güvenlik header", desc: "CSP + HSTS + X-Frame-DENY + COOP + Referrer + Permissions + nosniff (canlıda).", icon: <Server className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "JWT zorunlu oturum", desc: "Cookie session yok → CSRF saldırı yüzeyi kapalı. Bearer token + RLS.", icon: <Lock className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "Owner-only RLS", desc: "Her yazma tablosunda user_id = auth.uid() politikası. IDOR engeli.", icon: <ShieldCheck className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
+                { title: "PII sanitize (AI cevap)", desc: "T.C./IBAN/telefon/e-posta otomatik redact. 11/11 test PASS (sanitize katmanı).", icon: <Bug className="w-4 h-4 text-[var(--metin-ikincil)]" /> },
               ].map((item) => (
-                <div key={item.title} className="p-3 rounded-[20px] bg-emerald-500/[0.06] border border-emerald-500/15">
+                <div key={item.title} className="p-3 rounded-[20px] bg-[var(--zemin-yumusak)]/[0.06] border border-[var(--cizgi)]">
                   <div className="flex items-center gap-2 mb-1.5">
                     {item.icon}
                     <div className="text-sm font-normal text-white">{item.title}</div>
@@ -273,19 +273,19 @@ export default function SecurityCenter() {
         </Card>
 
         {/* AI Analysis — YOL HARİTASI (geliştiriliyor; var olmayan özelliği "aktif" gösterme yasak) */}
-        <Card className="bg-slate-900/50 border-amber-500/25">
+        <Card className="bg-slate-900/50 border-[var(--cizgi)]">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
               <h3 className="text-lg font-normal text-white flex items-center gap-2">
-                <Cpu className="w-5 h-5 text-amber-300" /> AI Tehdit Analizi & Anomali Tespiti
+                <Cpu className="w-5 h-5 text-[var(--metin-ikincil)]" /> AI Tehdit Analizi & Anomali Tespiti
               </h3>
-              <Badge className="bg-amber-500/15 text-amber-200 border-amber-500/30 text-[10px]">
+              <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)] text-[10px]">
                 <Clock className="w-3 h-3 me-1" /> YOL HARİTASI · GELİŞTİRİLİYOR
               </Badge>
             </div>
             <p className="text-xs text-slate-400 mb-4">
-              Aşağıdaki AI/ML katmanları <strong className="text-amber-200">henüz canlıda DEĞİL</strong> — geliştirme yol
-              haritasında. Şu an aynı amaca hizmet eden <strong className="text-emerald-200">kural-tabanlı</strong>{" "}
+              Aşağıdaki AI/ML katmanları <strong className="text-[var(--metin-ikincil)]">henüz canlıda DEĞİL</strong> — geliştirme yol
+              haritasında. Şu an aynı amaca hizmet eden <strong className="text-[var(--metin-ikincil)]">kural-tabanlı</strong>{" "}
               korumalar üstteki "Aktif" kartında. Var olmayan koruma "aktif" gösterilmez (6502 m.61 dürüstlük).
             </p>
             <div className="grid sm:grid-cols-3 gap-3">
@@ -293,21 +293,21 @@ export default function SecurityCenter() {
                 {
                   title: "Davranışsal Analiz (ML)",
                   desc: "Hedef: kullanıcı hareketlerini ML modeli ile analiz eden anormal teklif tespit altyapısı. Şu an aktif: kural-tabanlı race koruması + idempotency.",
-                  icon: <Eye className="w-5 h-5 text-amber-300" />,
+                  icon: <Eye className="w-5 h-5 text-[var(--metin-ikincil)]" />,
                 },
                 {
                   title: "Otomatik Yanıt",
                   desc: "Hedef: tespit edilen tehditlere otomatik CAPTCHA + süreli IP kısıtlama + session sonlandırma. Şu an aktif: Supabase default rate limit (60 req/dk) + JWT iptal.",
-                  icon: <Zap className="w-5 h-5 text-amber-300" />,
+                  icon: <Zap className="w-5 h-5 text-[var(--metin-ikincil)]" />,
                 },
                 {
                   title: "Fiyat Manipülasyon (Shill)",
                   desc: "Hedef: shill bidding + IP/cihaz/MERNIS korelasyonu + graf analizi. Şu an aktif: anti-sniping + %5 teminat blokajı manipülasyon maliyetini yükseltiyor.",
-                  icon: <TrendingUp className="w-5 h-5 text-amber-300" />,
+                  icon: <TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)]" />,
                 },
               ].map((item) => (
-                <div key={item.title} className="p-3 rounded-[20px] bg-amber-500/[0.04] border border-amber-500/20 relative">
-                  <Badge className="absolute top-2 end-2 bg-amber-500/15 text-amber-200 border-amber-500/30 text-[9px]">
+                <div key={item.title} className="p-3 rounded-[20px] bg-[var(--zemin-yumusak)]/[0.04] border border-[var(--cizgi)] relative">
+                  <Badge className="absolute top-2 end-2 bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)] text-[9px]">
                     Yol Haritası
                   </Badge>
                   <div className="mb-2">{item.icon}</div>
@@ -320,15 +320,15 @@ export default function SecurityCenter() {
         </Card>
 
         {/* Compliance */}
-        <div className="p-4 rounded-[20px] bg-violet-500/5 border border-violet-500/10">
+        <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
           <div className="flex items-start gap-3">
-            <Award className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" />
+            <Award className="w-5 h-5 text-[var(--metin-ikincil)] shrink-0 mt-0.5" />
             <div>
               <p className="text-sm text-white font-normal mb-1">Hedeflenen uyumluluklar (resmî süreç sonrası)</p>
               <p className="text-xs text-slate-500 mb-2">Aşağıdaki rozetler yol haritası etiketidir; denetim veya lisans teyidi bu demo sitede yer almaz.</p>
               <div className="flex flex-wrap gap-2">
                 {["ISO 27001 (hedef)", "PCI-DSS (hedef)", "SOC 2 (hedef)", "KVKK süreçleri (taslak)", "GDPR (hedef)", "BDDK bildirimi (hedef)", "SPK ekspertiz çizgisi (hedef)"].map((cert) => (
-                  <Badge key={cert} variant="outline" className="border-violet-500/20 text-violet-400 text-[10px]">{cert}</Badge>
+                  <Badge key={cert} variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] text-[10px]">{cert}</Badge>
                 ))}
               </div>
             </div>

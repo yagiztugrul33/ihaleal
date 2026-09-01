@@ -60,7 +60,7 @@ export default function Favorites() {
               <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
             </button>
             <h1 className="text-3xl sm:text-4xl font-normal text-white flex items-center gap-3">
-              <Heart className="w-8 h-8 text-pink-500 fill-current" />
+              <Heart className="w-8 h-8 text-[var(--metin-ikincil)] fill-current" />
               Favorilerim
               {count > 0 && (
                 <span className="text-lg font-normal text-slate-500">({count})</span>
@@ -73,7 +73,7 @@ export default function Favorites() {
               variant="outline"
               size="sm"
               onClick={clearFavorites}
-              className="border-slate-200 text-slate-400 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/10 gap-2"
+              className="border-slate-200 text-slate-400 hover:text-[var(--metin-ikincil)] hover:border-[var(--cizgi)] hover:bg-[var(--zemin-yumusak)] gap-2"
             >
               <Trash2 className="w-4 h-4" /> Tümünü Temizle
             </Button>
@@ -81,12 +81,12 @@ export default function Favorites() {
         </div>
 
         {syncError ? (
-          <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+          <p className="mb-4 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)]" role="status">
             {syncError}
           </p>
         ) : null}
         {catalogError ? (
-          <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+          <p className="mb-4 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)]" role="status">
             {catalogError}
           </p>
         ) : null}
@@ -119,7 +119,7 @@ export default function Favorites() {
             {favoriteAuctions.map((auction) => (
               <Card
                 key={auction.id}
-                className="group bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-pink-500/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-pink-500/5"
+                className="group bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-pink-500/5"
               >
                 <div className="relative h-52 overflow-hidden">
                   <img
@@ -130,16 +130,16 @@ export default function Favorites() {
                   <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                   <div className="absolute top-3 start-3 flex gap-2">
                     {auction.status === "live" && (
-                      <span className="px-2.5 py-1 rounded-[10px] bg-red-500/90 text-white text-xs font-normal flex items-center gap-1">
+                      <span className="px-2.5 py-1 rounded-[10px] bg-[var(--zemin-yumusak)] text-white text-xs font-normal flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Canlı
                       </span>
                     )}
                     <span
                       className={`px-2.5 py-1 rounded-[10px] text-xs font-normal flex items-center gap-1 ${
                         auction.investmentScore >= 85
-                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                          ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border border-[var(--cizgi)]"
                           : auction.investmentScore >= 70
-                          ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                          ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border border-[var(--cizgi)]"
                           : "bg-slate-500/20 text-slate-400 border border-slate-500/30"
                       }`}
                     >
@@ -150,7 +150,7 @@ export default function Favorites() {
                     <ShareButton title={auction.title} url={`/ilan/${auction.id}`} />
                     <button
                       onClick={() => removeFavorite(auction.id)}
-                      className="p-2.5 rounded-[20px] bg-pink-500 text-white hover:bg-pink-600 transition-colors"
+                      className="p-2.5 rounded-[20px] bg-[var(--zemin-yumusak)] text-white hover:bg-[var(--zemin-yumusak)] transition-colors"
                     >
                       <Heart className="w-4 h-4 fill-current" />
                     </button>
@@ -163,7 +163,7 @@ export default function Favorites() {
                   </div>
                   <h3
                     onClick={() => navigate(`/ilan/${auction.id}`)}
-                    className="text-base font-normal text-white line-clamp-2 group-hover:text-blue-400 transition-colors cursor-pointer"
+                    className="text-base font-normal text-white line-clamp-2 group-hover:text-[var(--metin-ikincil)] transition-colors cursor-pointer"
                   >
                     {auction.title}
                   </h3>
@@ -173,11 +173,11 @@ export default function Favorites() {
                   </div>
 
                   <div className="flex items-center gap-2 mb-3 mt-3 p-2.5 rounded-[10px] bg-white/[0.03] border border-slate-200/80">
-                    <BarChart3 className="w-4 h-4 text-blue-500" />
+                    <BarChart3 className="w-4 h-4 text-[var(--metin-ikincil)]" />
                     <div className="flex-1">
                       <div className="flex justify-between text-xs mb-1">
                         <span className="text-slate-500">AI Değerleme</span>
-                        <span className="text-blue-400 font-normal">
+                        <span className="text-[var(--metin-ikincil)] font-normal">
                           ₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M
                         </span>
                       </div>
@@ -198,7 +198,7 @@ export default function Favorites() {
                   <div className="flex items-center justify-between pt-4 border-t border-slate-200/80">
                     <div>
                       <div className="text-xs text-slate-500 mb-0.5">Güncel Teklif</div>
-                      <div className="text-lg font-normal text-blue-400">
+                      <div className="text-lg font-normal text-[var(--metin-ikincil)]">
                         ₺{auction.currentBid.toLocaleString("tr-TR")}
                       </div>
                       <div className="text-xs text-slate-600">

@@ -171,7 +171,7 @@ export default function KkaParselStudioPage() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <h1 className="text-3xl font-normal text-white flex items-center gap-2">
-              <MapPinned className="h-8 w-8 text-emerald-400" />
+              <MapPinned className="h-8 w-8 text-[var(--metin-ikincil)]" />
               Ada / parsel ve imar stüdyosu
             </h1>
             <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
@@ -182,7 +182,7 @@ export default function KkaParselStudioPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-2 shrink-0">
-            <Button variant="outline" className="border-emerald-500/40 text-emerald-100" onClick={() => setContractsOpen(true)} disabled={!summary}>
+            <Button variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => setContractsOpen(true)} disabled={!summary}>
               <FileStack className="w-4 h-4" />
               Sozlesme paketi (tek tik)
             </Button>
@@ -192,8 +192,8 @@ export default function KkaParselStudioPage() {
           </div>
         </div>
 
-        <Card className="border-amber-500/25 bg-amber-500/5">
-          <CardContent className="p-4 text-xs text-amber-100/95 leading-relaxed">
+        <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
+          <CardContent className="p-4 text-xs text-[var(--metin-ikincil)] leading-relaxed">
             <strong className="font-normal">Yasal uyari:</strong> 6306 sayili kanun, imar plani notlari, sit alanlari, kentsel
             donusum kararlari ve belediye mevzuati hesaplari kokten degistirebilir. Bu modul yalnizca ihaleal icinde egitim ve
             kabataslak hazirlik icindir; imza oncesi mutlaka imar muhendisi ve avukat ile dosya bazinda calisiniz.
@@ -204,7 +204,7 @@ export default function KkaParselStudioPage() {
           <Card className="border-slate-200 bg-slate-900/50">
             <CardContent className="space-y-4 p-6">
               <h2 className="text-lg font-normal text-white flex items-center gap-2">
-                <Layers className="h-5 w-5 text-cyan-400" />
+                <Layers className="h-5 w-5 text-[var(--metin-ikincil)]" />
                 Parsel adresi
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -280,17 +280,17 @@ export default function KkaParselStudioPage() {
                   <Input placeholder="bos = profil" value={maxKatOr} onChange={(e) => setMaxKatOr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
                 </div>
               </div>
-              <Button className="w-full bg-emerald-600 hover:bg-emerald-500" onClick={runCalculate}>
+              <Button className="w-full bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)]" onClick={runCalculate}>
                 Teknik ve imar ozetini hesapla
               </Button>
-              {error && <p className="text-sm text-red-400">{error}</p>}
+              {error && <p className="text-sm text-[var(--metin-ikincil)]">{error}</p>}
             </CardContent>
           </Card>
 
-          <Card className="border-emerald-500/20 bg-slate-900/40">
+          <Card className="border-[var(--cizgi)] bg-slate-900/40">
             <CardContent className="space-y-4 p-6">
               <h2 className="text-lg font-normal text-white flex items-center gap-2">
-                <Building2 className="h-5 w-5 text-emerald-400" />
+                <Building2 className="h-5 w-5 text-[var(--metin-ikincil)]" />
                 Sonuc panosu
               </h2>
               {!summary ? (
@@ -301,7 +301,7 @@ export default function KkaParselStudioPage() {
                     <div className="text-xs uppercase tracking-wide text-slate-500">Imar profili</div>
                     <div className="text-white font-normal mt-1">{summary.profile.zoningLabel}</div>
                     <div className="text-xs text-slate-500 mt-2">
-                      Kaynak: {summary.profile.resolutionSource} — anahtar: <code className="text-cyan-300">{summary.profile.matchedKey}</code>
+                      Kaynak: {summary.profile.resolutionSource} — anahtar: <code className="text-[var(--metin-ikincil)]">{summary.profile.matchedKey}</code>
                     </div>
                   </div>
                   <dl className="grid gap-2 text-slate-300">
@@ -319,11 +319,11 @@ export default function KkaParselStudioPage() {
                     </div>
                     <div className="flex justify-between gap-4 border-t border-slate-200 pt-2">
                       <dt>Taban oturumu ust siniri (m2)</dt>
-                      <dd className="text-emerald-200 font-normal">{Math.round(summary.maxFootprintM2).toLocaleString("tr-TR")}</dd>
+                      <dd className="text-[var(--metin-ikincil)] font-normal">{Math.round(summary.maxFootprintM2).toLocaleString("tr-TR")}</dd>
                     </div>
                     <div className="flex justify-between gap-4">
                       <dt>Brut insaat hakki kabullu (m2)</dt>
-                      <dd className="text-emerald-200 font-normal">{Math.round(summary.grossConstructionRightM2).toLocaleString("tr-TR")}</dd>
+                      <dd className="text-[var(--metin-ikincil)] font-normal">{Math.round(summary.grossConstructionRightM2).toLocaleString("tr-TR")}</dd>
                     </div>
                     <div className="flex justify-between gap-4">
                       <dt>Emsal/TAKS teorik kat</dt>
@@ -331,7 +331,7 @@ export default function KkaParselStudioPage() {
                     </div>
                     <div className="flex justify-between gap-4">
                       <dt>Uygulanan ust kat (min sinir)</dt>
-                      <dd className="text-teal-200 font-normal text-lg">{summary.cappedFloorsBuildable}</dd>
+                      <dd className="text-[var(--metin-ikincil)] font-normal text-lg">{summary.cappedFloorsBuildable}</dd>
                     </div>
                     {summary.storeysLimitedByHeight != null && (
                       <div className="flex justify-between gap-4 text-xs text-slate-500">
@@ -349,11 +349,11 @@ export default function KkaParselStudioPage() {
                     </div>
                     <div className="flex justify-between gap-4">
                       <dt>Birim esdegeri ({netUnitStr} m2)</dt>
-                      <dd className="text-teal-200 font-normal">{summary.ownerEquivalentUnits} adet</dd>
+                      <dd className="text-[var(--metin-ikincil)] font-normal">{summary.ownerEquivalentUnits} adet</dd>
                     </div>
                   </dl>
                   <div className="space-y-1">
-                    <div className="text-xs font-normal text-amber-200/90">Uyari ve notlar</div>
+                    <div className="text-xs font-normal text-[var(--metin-ikincil)]">Uyari ve notlar</div>
                     <ul className="list-disc ps-4 text-xs text-slate-500 space-y-1">
                       {summary.profile.planNotes.map((n) => (
                         <li key={n}>{n}</li>

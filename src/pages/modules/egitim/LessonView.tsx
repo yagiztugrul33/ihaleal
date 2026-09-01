@@ -100,7 +100,7 @@ export function LessonView({ lesson }: { lesson: LessonDefinition }) {
                 ))}
               </div>
               {checked ? (
-                <p className={`mt-2 text-xs ${answers[q.id] === q.correct ? "text-[var(--metin-ikincil)]" : "text-[var(--metin-ikincil)]"}`}>
+                <p className="mt-2 text-xs" style={{ color: answers[q.id] === q.correct ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                   {answers[q.id] === q.correct ? "Doğru" : `Yanlış — doğru: ${q.options[q.correct]}`}
                 </p>
               ) : null}

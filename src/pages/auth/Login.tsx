@@ -72,27 +72,27 @@ export default function Login() {
               }
             />
             {kurumsalProfil === "emlakci" ? (
-              <div className="rounded-[20px] border border-teal-500/25 bg-teal-500/5 px-3 py-2.5 text-xs text-teal-100/95 space-y-2 text-start">
-                <p className="font-normal text-teal-200">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
+              <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2.5 text-xs text-[var(--metin-ikincil)] space-y-2 text-start">
+                <p className="font-normal text-[var(--metin-ikincil)]">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
                 <ul className="list-disc ps-4 space-y-1 text-slate-400">
                   <li>
-                    <Link to="/emlakçı-ortaklik" className="text-teal-400 hover:underline">
+                    <Link to="/emlakçı-ortaklik" className="text-[var(--metin-ikincil)] hover:underline">
                       B2B ortaklık başvurusu
                     </Link>{" "}
                     (demo form)
                   </li>
                   <li>
-                    <Link to="/emlakçıler" className="text-teal-400 hover:underline">
+                    <Link to="/emlakçıler" className="text-[var(--metin-ikincil)] hover:underline">
                       Ortak emlakçı vitrini
                     </Link>
                   </li>
                   <li>
-                    <Link to="/yasal/agency-contract" className="text-teal-400 hover:underline">
+                    <Link to="/yasal/agency-contract" className="text-[var(--metin-ikincil)] hover:underline">
                       agency_contract.md (taslak)
                     </Link>
                   </li>
                   <li>
-                    <Link to="/evraklar" className="text-teal-400 hover:underline">
+                    <Link to="/evraklar" className="text-[var(--metin-ikincil)] hover:underline">
                       Katılım evrakları
                     </Link>
                   </li>
@@ -100,29 +100,29 @@ export default function Login() {
               </div>
             ) : null}
             {kurumsalProfil === "muteahhit" ? (
-              <div className="rounded-[20px] border border-amber-500/25 bg-amber-500/5 px-3 py-2.5 text-xs text-amber-100/95 space-y-2 text-start">
-                <p className="font-normal text-amber-200">Müteahhit / üretici şirket oturumu</p>
+              <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2.5 text-xs text-[var(--metin-ikincil)] space-y-2 text-start">
+                <p className="font-normal text-[var(--metin-ikincil)]">Müteahhit / üretici şirket oturumu</p>
                 <ul className="list-disc ps-4 space-y-1 text-slate-400">
                   {/* Nihai sistem anayasası iç doküman — Login akışından kaldırıldı (Master onayı). */}
                   <li>
-                    <Link to="/yasal/agency-contract" className="text-amber-300 hover:underline">
+                    <Link to="/yasal/agency-contract" className="text-[var(--metin-ikincil)] hover:underline">
                       Ortaklık sözleşmesi (agency_contract taslak)
                     </Link>
                   </li>
                   <li>
-                    <Link to="/evraklar" className="text-amber-300 hover:underline">
+                    <Link to="/evraklar" className="text-[var(--metin-ikincil)] hover:underline">
                       Ön tahsis ve PDF evrak çizgisi
                     </Link>
                   </li>
                   <li>
-                    <Link to="/yasal-cerceve" className="text-amber-300 hover:underline">
+                    <Link to="/yasal-cerceve" className="text-[var(--metin-ikincil)] hover:underline">
                       Yasal çerçeve (taslak sayfalar)
                     </Link>
                   </li>
                 </ul>
               </div>
             ) : null}
-            {error && <div className="p-3 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
+            {error && <div className="p-3 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-sm">{error}</div>}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>
@@ -159,7 +159,7 @@ export default function Login() {
                   </button>
                 </div>
                 <div className="mt-2 text-end">
-                  <Link to="/sifremi-unuttum" className="text-xs text-slate-500 hover:text-teal-400 transition-colors">
+                  <Link to="/sifremi-unuttum" className="text-xs text-slate-500 hover:text-[var(--metin-ikincil)] transition-colors">
                     Şifremi unuttum
                   </Link>
                 </div>
@@ -185,7 +185,7 @@ export default function Login() {
                         : "/kayit",
                   )
                 }
-                className="text-blue-400 hover:text-blue-300 font-normal"
+                className="text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)] font-normal"
               >
                 Kayıt Ol
               </button>
@@ -193,26 +193,26 @@ export default function Login() {
             {kurumsalProfil === null ? (
               <div className="text-center text-xs text-slate-500 space-y-1">
                 <div>
-                  <Link to="/giris?profil=emlakçı" className="text-teal-400 hover:underline">
+                  <Link to="/giris?profil=emlakçı" className="text-[var(--metin-ikincil)] hover:underline">
                     Emlakçı girişi
                   </Link>
                   {" · "}
-                  <Link to="/giris?profil=muteahhit" className="text-amber-300 hover:underline">
+                  <Link to="/giris?profil=muteahhit" className="text-[var(--metin-ikincil)] hover:underline">
                     Müteahhit girişi
                   </Link>
                 </div>
               </div>
             ) : (
               <div className="text-center text-xs text-slate-500 space-y-1">
-                <Link to="/giris" className="text-blue-400 hover:underline block">
+                <Link to="/giris" className="text-[var(--metin-ikincil)] hover:underline block">
                   Standart (bireysel) giriş
                 </Link>
                 {kurumsalProfil === "emlakci" ? (
-                  <Link to="/giris?profil=muteahhit" className="text-amber-300 hover:underline block">
+                  <Link to="/giris?profil=muteahhit" className="text-[var(--metin-ikincil)] hover:underline block">
                     Müteahhit girişi
                   </Link>
                 ) : (
-                  <Link to="/giris?profil=emlakçı" className="text-teal-400 hover:underline block">
+                  <Link to="/giris?profil=emlakçı" className="text-[var(--metin-ikincil)] hover:underline block">
                     Emlakçı girişi
                   </Link>
                 )}

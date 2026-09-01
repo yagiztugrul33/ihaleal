@@ -21,9 +21,9 @@ type TabKey = "legal" | "socio" | "location" | "economic" | "overall";
 function scoreTone(score: number | null | undefined, invertRisk?: boolean): string {
   if (score == null || Number.isNaN(score)) return "text-slate-400 border-slate-200 bg-white/5";
   const v = invertRisk ? 11 - score : score;
-  if (v >= 8) return "text-emerald-300 border-emerald-400/30 bg-emerald-500/10";
-  if (v >= 5) return "text-amber-200 border-amber-400/30 bg-amber-500/10";
-  return "text-red-300 border-red-400/35 bg-red-500/10";
+  if (v >= 8) return "text-[var(--metin-ikincil)] border-[var(--cizgi)] bg-[var(--zemin-yumusak)]";
+  if (v >= 5) return "text-[var(--metin-ikincil)] border-[var(--cizgi)] bg-[var(--zemin-yumusak)]";
+  return "text-[var(--metin-ikincil)] border-[var(--cizgi)] bg-[var(--zemin-yumusak)]";
 }
 
 function BigRing({
@@ -36,12 +36,12 @@ function BigRing({
   invertRisk?: boolean;
 }) {
   const pct = score == null ? 0 : Math.min(100, Math.max(0, (invertRisk ? 11 - score : score) * 10));
-  const tone =
-    pct >= 80 ? "bg-emerald-500" : pct >= 50 ? "bg-amber-500" : "bg-red-500";
+  const ringColor = pct >= 80 ? "var(--metrik-yesil)" : pct >= 50 ? "var(--metin-ikincil)" : "var(--sinyal-turuncu)";
   return (
     <div className="flex flex-col items-center gap-2">
       <div
-        className={`relative w-28 h-28 rounded-full flex items-center justify-center ${tone} p-[3px] shadow-lg`}
+        className="relative w-28 h-28 rounded-full flex items-center justify-center p-[3px]"
+        style={{ background: ringColor }}
         aria-hidden
       >
         <div className="w-full h-full rounded-full bg-white/95 flex flex-col items-center justify-center border border-slate-200">
@@ -134,10 +134,10 @@ export function PropertyAnalysisReportViewer({
   return (
     <div
       ref={reportRef}
-      className="rounded-[20px] border border-cyan-400/20 bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden"
+      className="rounded-[20px] border border-[var(--cizgi)] bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden"
     >
       {mockBanner ? (
-        <div className="px-4 py-2 bg-amber-500/15 border-b border-amber-400/25 text-amber-100 text-xs font-normal text-center">
+        <div className="px-4 py-2 bg-[var(--zemin-yumusak)] border-b border-[var(--cizgi)] text-[var(--metin-ikincil)] text-xs font-normal text-center">
           MOCK VERİ — gerçek API bağlantısı yok; bilgilendirme amaçlıdır.
         </div>
       ) : null}
@@ -199,7 +199,7 @@ export function PropertyAnalysisReportViewer({
             onClick={() => setTab(t.key)}
             className={`px-3 py-1.5 rounded-[10px] text-sm font-normal transition-colors ${
               tab === t.key
-                ? "bg-blue-500/20 text-white border border-blue-500/35"
+                ? "bg-[var(--zemin-yumusak)] text-white border border-[var(--cizgi)]"
                 : "text-slate-500 hover:text-slate-900 border border-transparent"
             }`}
           >
@@ -290,7 +290,7 @@ export function PropertyAnalysisReportViewer({
             <div className="grid sm:grid-cols-2 gap-3 text-sm">
               <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-xs text-slate-500">Piyasa değeri (mock)</div>
-                <div className="text-lg font-normal text-cyan-300">
+                <div className="text-lg font-normal text-[var(--metin-ikincil)]">
                   {report.economic_fair_market_value_try != null
                     ? `₺${report.economic_fair_market_value_try.toLocaleString("tr-TR")}`
                     : "—"}
@@ -313,7 +313,7 @@ export function PropertyAnalysisReportViewer({
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
                   <XAxis dataKey="y" stroke="#94a3b8" />
                   <Tooltip formatter={(v: number) => `%${v}`} contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
-                  <Line type="monotone" dataKey="pct" stroke="#22d3ee" strokeWidth={2} dot />
+                  <Line type="monotone" dataKey="pct" stroke="#8a8380" strokeWidth={2} dot />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -326,9 +326,9 @@ export function PropertyAnalysisReportViewer({
             <p className="text-sm text-slate-300 leading-relaxed">{report.overall_recommendation_buyer}</p>
             <p className="text-sm text-slate-300 leading-relaxed">{report.overall_recommendation_seller}</p>
             {(report.overall_red_flags?.length ?? 0) > 0 ? (
-              <div className="rounded-[20px] border border-red-400/25 bg-red-500/10 p-3">
-                <div className="text-xs font-normal text-red-200 mb-2">Kırmızı bayraklar (mock)</div>
-                <ul className="text-xs text-red-100/90 list-disc list-inside space-y-1">
+              <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+                <div className="text-xs font-normal text-[var(--metin-ikincil)] mb-2">Kırmızı bayraklar (mock)</div>
+                <ul className="text-xs text-[var(--metin-ikincil)] list-disc list-inside space-y-1">
                   {report.overall_red_flags!.map((x, i) => (
                     <li key={i}>{x}</li>
                   ))}
@@ -339,9 +339,9 @@ export function PropertyAnalysisReportViewer({
         )}
       </div>
 
-      <div className="px-4 py-3 border-t border-amber-400/20 bg-amber-500/5">
-        <p className="text-[11px] text-amber-100/90 leading-relaxed flex gap-2">
-          <span aria-hidden className="inline-flex items-center justify-center w-5 h-5 rounded-[3px] border border-amber-500/40 text-amber-400 text-xs font-normal">!</span>
+      <div className="px-4 py-3 border-t border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
+        <p className="text-[11px] text-[var(--metin-ikincil)] leading-relaxed flex gap-2">
+          <span aria-hidden className="inline-flex items-center justify-center w-5 h-5 rounded-[3px] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-xs font-normal">!</span>
           {disclaimer}
         </p>
       </div>
@@ -351,7 +351,7 @@ export function PropertyAnalysisReportViewer({
 
 function StatMini({ label, value, invert }: { label: string; value: string; invert?: boolean }) {
   return (
-    <div className={`rounded-[20px] border p-3 ${invert ? "border-orange-400/20 bg-orange-500/5" : "border-slate-200 bg-white/[0.03]"}`}>
+    <div className={`rounded-[20px] border p-3 ${invert ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" : "border-slate-200 bg-white/[0.03]"}`}>
       <div className="text-[11px] text-slate-500 mb-1">{label}</div>
       <div className="text-sm font-normal text-white">{value}</div>
     </div>

@@ -19,7 +19,7 @@ export function LoadingState({ label = "Yükleniyor…", className, compact = fa
       aria-live="polite"
       aria-busy="true"
     >
-      <Loader2 className={cn("animate-spin text-blue-400", compact ? "h-6 w-6" : "h-9 w-9")} aria-hidden />
+      <Loader2 className={cn("animate-spin text-[var(--metin-ikincil)]", compact ? "h-6 w-6" : "h-9 w-9")} aria-hidden />
       <p className={cn("text-slate-500", compact ? "text-xs" : "text-sm")}>{label}</p>
     </div>
   );

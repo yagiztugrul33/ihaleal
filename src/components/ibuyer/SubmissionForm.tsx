@@ -75,7 +75,7 @@ function Countdown({ expiresAt }: { expiresAt: string }) {
   }, [expiresAt]);
 
   return (
-    <p className="inline-flex items-center gap-2 text-cyan-200 text-sm">
+    <p className="inline-flex items-center gap-2 text-[var(--metin-ikincil)] text-sm">
       <Clock className="h-4 w-4" />
       Teklif geçerlilik: {remaining}
     </p>
@@ -178,7 +178,7 @@ export function SubmissionForm() {
           <span
             key={n}
             className={`rounded-full px-3 py-1 border ${
-              step === n ? "border-cyan-400/50 bg-cyan-500/15 text-cyan-100" : "border-white/10"
+              step === n ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "border-white/10"
             }`}
           >
             Adım {n}
@@ -231,7 +231,7 @@ export function SubmissionForm() {
         <div className="space-y-4">
           <h2 className="text-lg font-normal text-white">Hukuki kontrol listesi</h2>
           <p className="text-sm text-slate-400">
-            Risk skoru: <span className="text-cyan-200 font-normal">{preview.riskScore}</span> — ön durum:{" "}
+            Risk skoru: <span className="text-[var(--metin-ikincil)] font-normal">{preview.riskScore}</span> — ön durum:{" "}
             {statusLabel(preview.status)}
           </p>
           <ul className="space-y-3">
@@ -299,7 +299,7 @@ export function SubmissionForm() {
           {error && (
             <div
               role="alert"
-              className="rounded-[10px] border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
+              className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)] space-y-3"
             >
               <p>{error}</p>
               <Button type="button" size="sm" variant="outline" onClick={retrySubmit} disabled={loading}>
@@ -316,16 +316,16 @@ export function SubmissionForm() {
           {result.status === "OFFER_GENERATED" &&
             result.offerAmountTry != null &&
             Number.isFinite(result.offerAmountTry) && (
-            <div className="rounded-[20px] border border-emerald-400/30 bg-emerald-500/10 p-4">
-              <p className="text-emerald-100 text-2xl font-normal">{formatTry(result.offerAmountTry)}</p>
-              <p className="text-sm text-emerald-200/80 mt-1">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+              <p className="text-[var(--metin-ikincil)] text-2xl font-normal">{formatTry(result.offerAmountTry)}</p>
+              <p className="text-sm text-[var(--metin-ikincil)] mt-1">
                 Piyasa: {formatTry(result.marketValueTry)} · Risk skoru: {result.riskScore}
               </p>
               {result.expiresAt && <Countdown expiresAt={result.expiresAt} />}
             </div>
           )}
           {result.status === "LEGAL_REVIEW" && (
-            <p className="flex items-center gap-2 text-amber-200 text-sm font-normal">
+            <p className="flex items-center gap-2 text-[var(--metin-ikincil)] text-sm font-normal">
               <ShieldAlert className="h-4 w-4 shrink-0" />
               Mülkünüz Hukuk Heyetimiz Tarafından İnceleniyor. 1–2 iş günü içinde sizinle iletişime geçilecektir.
             </p>

@@ -182,7 +182,7 @@ export function LocationPicker({
             value={value?.province ?? ""}
             onChange={(e) => handleProvinceChange(e.target.value)}
             disabled={disabled}
-            className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
+            className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-[var(--cizgi)] focus:outline-none disabled:opacity-50"
             aria-label="İl seçimi"
           >
             <option value="">İl seçiniz</option>
@@ -195,13 +195,13 @@ export function LocationPicker({
         </div>
         <div>
           <label className="block text-xs font-normal text-slate-300 mb-1.5">
-            İlçe {districts.length === 0 && value?.province && <span className="text-[10px] text-amber-300">(veri yok — haritadan pin atın)</span>}
+            İlçe {districts.length === 0 && value?.province && <span className="text-[10px] text-[var(--metin-ikincil)]">(veri yok — haritadan pin atın)</span>}
           </label>
           <select
             value={value?.district ?? ""}
             onChange={(e) => handleDistrictChange(e.target.value)}
             disabled={disabled || !value?.province || districts.length === 0}
-            className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
+            className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-[var(--cizgi)] focus:outline-none disabled:opacity-50"
             aria-label="İlçe seçimi"
           >
             <option value="">İlçe seçiniz</option>
@@ -225,10 +225,10 @@ export function LocationPicker({
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Mahalle, cadde, sokak..."
               disabled={disabled}
-              className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
+              className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-[var(--cizgi)] focus:outline-none disabled:opacity-50"
             />
             {searching && (
-              <Loader2 className="absolute end-3 top-2.5 h-4 w-4 animate-spin text-cyan-400" />
+              <Loader2 className="absolute end-3 top-2.5 h-4 w-4 animate-spin text-[var(--metin-ikincil)]" />
             )}
           </div>
         </div>
@@ -254,7 +254,7 @@ export function LocationPicker({
           <p className="text-[10px] text-slate-500 px-2 py-1 bg-slate-900/40">
             Pin'i sürükleyerek veya haritaya tıklayarak tam konumu işaretleyin.
             {value?.lat !== undefined && value?.lng !== undefined && (
-              <> Koordinat: <code className="text-cyan-400">{value.lat.toFixed(5)}, {value.lng.toFixed(5)}</code></>
+              <> Koordinat: <code className="text-[var(--metin-ikincil)]">{value.lat.toFixed(5)}, {value.lng.toFixed(5)}</code></>
             )}
           </p>
         </div>
@@ -262,7 +262,7 @@ export function LocationPicker({
 
       {/* SEÇİLEN KONUM ÖZETİ */}
       {value?.formattedAddress && (
-        <div className="rounded-[10px] border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-200">
+        <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs text-[var(--metin-ikincil)]">
           <MapPin className="inline h-3.5 w-3.5 me-1" />
           <strong>Seçili konum:</strong> {value.formattedAddress}
           {value?.lat !== undefined && value?.lng !== undefined && (

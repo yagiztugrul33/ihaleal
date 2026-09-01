@@ -61,7 +61,7 @@ export default function NasilCalisir() {
 
   return (
     <div className="min-h-screen bg-[#0a0e1a] pt-8 pb-20 text-slate-200">
-      <div className="absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-[var(--zemin-yumusak)] via-transparent to-transparent pointer-events-none" />
 
       <div ref={heroRef} className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Button
@@ -77,11 +77,11 @@ export default function NasilCalisir() {
           className={`mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/20">
+            <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/20">
               <BookOpen className="w-7 h-7 text-white" />
             </div>
             <div>
-              <Badge className="mb-2 bg-white/10 text-cyan-200 border-cyan-400/30">Rehber</Badge>
+              <Badge className="mb-2 bg-white/10 text-[var(--metin-ikincil)] border-[var(--cizgi)]">Rehber</Badge>
               <h1 className="text-3xl md:text-4xl font-normal text-white tracking-tight">
                 {NASIL_CALISIR_INTRO.title}
               </h1>
@@ -91,11 +91,11 @@ export default function NasilCalisir() {
           </div>
 
           {fromCta && (
-            <Card className="mb-8 border-amber-500/25 bg-amber-500/5">
+            <Card className="mb-8 border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
               <CardContent className="pt-6 flex gap-3">
-                <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-[var(--metin-ikincil)] shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-normal text-amber-100">İhale listesine geçmeden önce</p>
+                  <p className="text-sm font-normal text-[var(--metin-ikincil)]">İhale listesine geçmeden önce</p>
                   <p className="text-sm text-slate-400 mt-1">
                     Bu sayfa platformun dört adımını, rolleri ve referans süreleri özetler. Hazır olduğunuzda aşağıdaki
                     düğme ile canlı ilanlara gidebilirsiniz.
@@ -130,7 +130,7 @@ export default function NasilCalisir() {
         <Card className="mb-12 border-slate-200 bg-white/[0.03] backdrop-blur-sm">
           <CardContent className="pt-6 pb-6">
             <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-cyan-400" />
+              <Layers className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Referans iş kuralları (yapılandırma)
             </h2>
             <p className="text-sm text-slate-400 mb-4 leading-relaxed">
@@ -140,7 +140,7 @@ export default function NasilCalisir() {
             <ul className="text-sm text-slate-300 space-y-2 list-disc ps-5">
               <li>
                 Kazanan taraf için teminat referansı: <strong className="text-white">{formatBidBondPercent()}</strong>{" "}
-                (bid bond yüzdesi; detay <code className="text-cyan-300 text-xs">fees.ts</code>)
+                (bid bond yüzdesi; detay <code className="text-[var(--metin-ikincil)] text-xs">fees.ts</code>)
               </li>
               <li>
                 Bakiye tamamlama penceresi (taslak referans):{" "}
@@ -158,7 +158,7 @@ export default function NasilCalisir() {
             {NASIL_CALISIR_ARCHITECTURE.layers.map((layer) => (
               <Card key={layer.name} className="border-slate-200 bg-white/[0.04]">
                 <CardContent className="pt-5 pb-5">
-                  <div className="text-xs font-normal text-cyan-400 uppercase tracking-wider mb-2">Katman</div>
+                  <div className="text-xs font-normal text-[var(--metin-ikincil)] uppercase tracking-wider mb-2">Katman</div>
                   <h3 className="text-white font-normal mb-2">{layer.name}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{layer.desc}</p>
                 </CardContent>
@@ -187,7 +187,7 @@ export default function NasilCalisir() {
                   onClick={() => setAdim(s.slug)}
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-sm font-normal transition-all ${
                     active
-                      ? "bg-cyan-500/20 text-cyan-100 ring-1 ring-cyan-400/40"
+                      ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] ring-1 ring-[var(--cizgi)]"
                       : "bg-white/5 text-slate-500 hover:text-slate-900 hover:bg-white/10"
                   }`}
                 >
@@ -206,10 +206,10 @@ export default function NasilCalisir() {
               <section key={step.slug} id={`step-${step.slug}`} className="scroll-mt-28">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-[20px] bg-gradient-to-br from-white/15 to-white/5 flex items-center justify-center ring-1 ring-white/10">
-                    <Icon className="w-6 h-6 text-cyan-300" />
+                    <Icon className="w-6 h-6 text-[var(--metin-ikincil)]" />
                   </div>
                   <div>
-                    <div className="text-xs font-normal text-cyan-400 uppercase tracking-wider">Adım {step.stepNum}</div>
+                    <div className="text-xs font-normal text-[var(--metin-ikincil)] uppercase tracking-wider">Adım {step.stepNum}</div>
                     <h2 className="text-2xl font-normal text-white">{step.title}</h2>
                     <p className="text-slate-400 text-sm">{step.tagline}</p>
                   </div>
@@ -235,9 +235,9 @@ export default function NasilCalisir() {
                 </div>
 
                 {step.platformSide.map((block) => (
-                  <Card key={block.title} className="border-cyan-500/20 bg-cyan-500/5 mb-6">
+                  <Card key={block.title} className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)] mb-6">
                     <CardContent className="pt-5 pb-5">
-                      <h3 className="text-cyan-100 font-normal mb-3">{block.title}</h3>
+                      <h3 className="text-[var(--metin-ikincil)] font-normal mb-3">{block.title}</h3>
                       {block.paragraphs.map((p) => (
                         <p key={p} className="text-sm text-slate-400 leading-relaxed mb-2 last:mb-0">
                           {p}
@@ -258,9 +258,9 @@ export default function NasilCalisir() {
                       </ul>
                     </CardContent>
                   </Card>
-                  <Card className="border-amber-500/15 bg-amber-500/[0.03]">
+                  <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]/[0.03]">
                     <CardContent className="pt-5 pb-5">
-                      <h3 className="text-amber-100 font-normal mb-2 text-sm">Risk ve sınırlar</h3>
+                      <h3 className="text-[var(--metin-ikincil)] font-normal mb-2 text-sm">Risk ve sınırlar</h3>
                       <ul className="text-sm text-slate-400 space-y-2 list-disc ps-5">
                         {step.risksAndLimits.map((t) => (
                           <li key={t}>{t}</li>
@@ -301,7 +301,7 @@ export default function NasilCalisir() {
           })}
         </div>
 
-        <Card className="mt-16 border-slate-200 bg-gradient-to-br from-blue-600/20 to-cyan-500/10">
+        <Card className="mt-16 border-slate-200 bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)]">
           <CardContent className="pt-8 pb-8 text-center">
             <h2 className="text-xl font-normal text-white mb-2">Hazırsanız ilanlara geçin</h2>
             <p className="text-slate-400 text-sm max-w-lg mx-auto mb-6">

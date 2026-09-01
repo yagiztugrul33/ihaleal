@@ -19,7 +19,7 @@ function renderMarkdownLines(md: string): ReactNode[] {
     }
     if (t.startsWith("## ")) {
       return (
-        <h2 key={idx} className="text-xl font-normal text-teal-200 mt-6 border-b border-slate-200 pb-2 scroll-mt-24">
+        <h2 key={idx} className="text-xl font-normal text-[var(--metin-ikincil)] mt-6 border-b border-slate-200 pb-2 scroll-mt-24">
           {t.slice(3)}
         </h2>
       );
@@ -78,9 +78,9 @@ export default function AgencyContractView() {
       </Link>
       <h1 className="text-2xl font-normal text-white mb-2">agency_contract.md</h1>
       <p className="text-sm text-slate-500 mb-6">
-        Kaynak: <code className="text-teal-400">public/legal/agency_contract.md</code> (taslak, demo)
+        Kaynak: <code className="text-[var(--metin-ikincil)]">public/legal/agency_contract.md</code> (taslak, demo)
       </p>
-      {err ? <p className="text-red-400 text-sm mb-4">{err}</p> : null}
+      {err ? <p className="text-[var(--metin-ikincil)] text-sm mb-4">{err}</p> : null}
       <div className="flex flex-wrap gap-2 mb-4">
         <PdfExportButton
           label="Sözleşme taslağı PDF"

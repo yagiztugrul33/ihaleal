@@ -71,7 +71,7 @@ export default function EmlakciLanding() {
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {WHY_US.map((item) => (
               <article key={item} className="card-warm">
-                <CheckCircle2 className="mb-2 h-5 w-5 text-emerald-300" />
+                <CheckCircle2 className="mb-2 h-5 w-5 text-[var(--metin-ikincil)]" />
                 <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
                   {item}
                 </p>
@@ -159,7 +159,7 @@ export default function EmlakciLanding() {
           </h2>
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
             <article className="card-warm lg:col-span-2">
-              <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-emerald-300">
+              <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-[var(--metin-ikincil)]">
                 <HandCoins className="h-4 w-4" /> Örnek senaryo
               </div>
               <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
@@ -173,13 +173,13 @@ export default function EmlakciLanding() {
               </ul>
             </article>
             <article className="card-warm">
-              <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-cyan-300">
+              <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-[var(--metin-ikincil)]">
                 <Handshake className="h-4 w-4" /> Ortaklık ilkesi
               </div>
               <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
                 By-pass etmeyen model: platform dışı kısa yol yerine kayıtlı işlem akışı teşvik edilir.
               </p>
-              <Link to="/emlakci-ortaklik" className="mt-4 inline-flex text-sm font-normal text-cyan-300 hover:text-cyan-200">
+              <Link to="/emlakci-ortaklik" className="mt-4 inline-flex text-sm font-normal text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)]">
                 Detaylı ortaklık sayfası →
               </Link>
             </article>
@@ -218,7 +218,7 @@ export default function EmlakciLanding() {
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             {FAQ.map((item) => (
               <article key={item.q} className="card-warm">
-                <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-violet-300">
+                <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-[var(--metin-ikincil)]">
                   <Sparkles className="h-4 w-4" /> {item.q}
                 </div>
                 <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>

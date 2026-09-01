@@ -105,7 +105,7 @@ export function SignaturePad({
 
   return (
     <div className="space-y-3 rounded-[10px] border border-slate-200/80 bg-white/[0.02] p-4">
-      <p className="text-xs text-amber-200/90">
+      <p className="text-xs text-[var(--metin-ikincil)]">
         Ön onay imzası (MVP) — yasal e-imza değildir. Parmak veya fare ile imza çizin.
       </p>
       <canvas

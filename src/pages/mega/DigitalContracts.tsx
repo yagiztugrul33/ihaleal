@@ -30,7 +30,7 @@ export default function DigitalContractsPage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl">
         <div className="mb-10 flex items-start gap-3">
-          <div className="rounded-[20px] bg-sky-500/15 p-3 text-sky-400">
+          <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)]">
             <FileSignature className="h-8 w-8" />
           </div>
           <div>

@@ -38,9 +38,9 @@ export function ShareButton({ title, url }: ShareButtonProps) {
   };
 
   const shareLinks = [
-    { name: "Facebook", icon: <Facebook className="w-4 h-4" />, color: "bg-blue-600 hover:bg-blue-500", href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullUrl)}` },
-    { name: "Twitter", icon: <Twitter className="w-4 h-4" />, color: "bg-sky-500 hover:bg-sky-400", href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(fullUrl)}` },
-    { name: "LinkedIn", icon: <Linkedin className="w-4 h-4" />, color: "bg-blue-700 hover:bg-blue-600", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(fullUrl)}` },
+    { name: "Facebook", icon: <Facebook className="w-4 h-4" />, color: "bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)]", href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullUrl)}` },
+    { name: "Twitter", icon: <Twitter className="w-4 h-4" />, color: "bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)]", href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(fullUrl)}` },
+    { name: "LinkedIn", icon: <Linkedin className="w-4 h-4" />, color: "bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)]", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(fullUrl)}` },
     { name: "E-posta", icon: <Mail className="w-4 h-4" />, color: "bg-slate-600 hover:bg-slate-500", href: `mailto:?subject=${encodeURIComponent(shareText)}&body=${encodeURIComponent(fullUrl)}` },
   ];
 
@@ -105,7 +105,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
               />
               <button
                 onClick={handleCopy}
-                className={`px-3 py-2 rounded-[10px] text-xs font-normal transition-all ${copied ? "bg-emerald-500 text-white" : "bg-white/10 text-white hover:bg-white/20"}`}
+                className={`px-3 py-2 rounded-[10px] text-xs font-normal transition-all ${copied ? "bg-[var(--zemin-yumusak)] text-white" : "bg-white/10 text-white hover:bg-white/20"}`}
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               </button>

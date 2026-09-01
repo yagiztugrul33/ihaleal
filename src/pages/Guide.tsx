@@ -46,10 +46,10 @@ const FAQS = [
 ];
 
 const QUICK_LINKS = [
-  { icon: <Gavel className="w-5 h-5" />, label: "Ihaleler", desc: "Tum aktif ihaleleri goruntuleyin", color: "text-blue-400", path: "/" },
-  { icon: <BarChart3 className="w-5 h-5" />, label: "AI Analiz", desc: "Piyasa istatistikleri ve ongoruler", color: "text-violet-400", path: "/analiz" },
-  { icon: <Calculator className="w-5 h-5" />, label: "Mortgage", desc: "Kredi hesaplayici ve planlama", color: "text-amber-400", path: "/mortgage" },
-  { icon: <TrendingUp className="w-5 h-5" />, label: "Firsatlar", desc: "AI secilmis yatırım firsatlari", color: "text-emerald-400", path: "/analiz" },
+  { icon: <Gavel className="w-5 h-5" />, label: "Ihaleler", desc: "Tum aktif ihaleleri goruntuleyin", color: "text-[var(--metin-ikincil)]", path: "/" },
+  { icon: <BarChart3 className="w-5 h-5" />, label: "AI Analiz", desc: "Piyasa istatistikleri ve ongoruler", color: "text-[var(--metin-ikincil)]", path: "/analiz" },
+  { icon: <Calculator className="w-5 h-5" />, label: "Mortgage", desc: "Kredi hesaplayici ve planlama", color: "text-[var(--metin-ikincil)]", path: "/mortgage" },
+  { icon: <TrendingUp className="w-5 h-5" />, label: "Firsatlar", desc: "AI secilmis yatırım firsatlari", color: "text-[var(--metin-ikincil)]", path: "/analiz" },
 ];
 
 export default function Guide() {
@@ -65,7 +65,7 @@ export default function Guide() {
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-normal text-white flex items-center gap-3">
-            <HelpCircle className="w-8 h-8 text-blue-400" />
+            <HelpCircle className="w-8 h-8 text-[var(--metin-ikincil)]" />
             Yardim Merkezi ve Rehber
           </h1>
           <p className="text-slate-400 mt-2">Sikca sorulan sorular ve platform kullanim rehberi.</p>
@@ -78,7 +78,7 @@ export default function Guide() {
             {REAL_ESTATE_GUIDES.map((g) => (
               <Card
                 key={g.slug}
-                className="bg-slate-900/50 border-slate-200/80 p-4 hover:border-blue-500/30 cursor-pointer transition-all"
+                className="bg-slate-900/50 border-slate-200/80 p-4 hover:border-[var(--cizgi)] cursor-pointer transition-all"
                 onClick={() => navigate(`/rehber/${g.slug}`)}
               >
                 <div className="text-sm font-normal text-white">{g.title}</div>
@@ -104,10 +104,10 @@ export default function Guide() {
           {FAQS.map((section) => (
             <div key={section.category}>
               <h2 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
-                {section.category === "Genel" && <Globe className="w-5 h-5 text-blue-400" />}
-                {section.category === "Teklif Verme" && <Gavel className="w-5 h-5 text-orange-400" />}
-                {section.category === "Odeme ve Sozlesme" && <CreditCard className="w-5 h-5 text-emerald-400" />}
-                {section.category === "Yapay Zeka ve Analiz" && <Star className="w-5 h-5 text-violet-400" />}
+                {section.category === "Genel" && <Globe className="w-5 h-5 text-[var(--metin-ikincil)]" />}
+                {section.category === "Teklif Verme" && <Gavel className="w-5 h-5 text-[var(--metin-ikincil)]" />}
+                {section.category === "Odeme ve Sozlesme" && <CreditCard className="w-5 h-5 text-[var(--metin-ikincil)]" />}
+                {section.category === "Yapay Zeka ve Analiz" && <Star className="w-5 h-5 text-[var(--metin-ikincil)]" />}
                 {section.category}
               </h2>
               <div className="space-y-2">

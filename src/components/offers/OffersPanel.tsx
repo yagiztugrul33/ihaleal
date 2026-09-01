@@ -26,7 +26,7 @@ function OfferAmount({
   viewerIsSeller: boolean;
 }) {
   const visible = isOfferAmountVisible(offer, viewerId, viewerIsSeller);
-  if (!visible) return <span className="text-amber-300">{maskOfferAmount()}</span>;
+  if (!visible) return <span className="text-[var(--metin-ikincil)]">{maskOfferAmount()}</span>;
   return <span className="text-white font-normal">₺{offer.amount_try.toLocaleString("tr-TR")}</span>;
 }
 
@@ -48,7 +48,7 @@ function SellerActions({
           type="button"
           size="sm"
           disabled={busy}
-          className="h-8 bg-emerald-600 text-white"
+          className="h-8 bg-[var(--zemin-yumusak)] text-white"
           onClick={() => void act({ offerId: offer.id, status: "accepted" })}
         >
           Kabul
@@ -58,7 +58,7 @@ function SellerActions({
           size="sm"
           variant="outline"
           disabled={busy}
-          className="h-8 border-red-500/40 text-red-300"
+          className="h-8 border-[var(--cizgi)] text-[var(--metin-ikincil)]"
           onClick={() => void act({ offerId: offer.id, status: "rejected" })}
         >
           Red
@@ -103,7 +103,7 @@ export function OffersPanel({ mode }: Props) {
   if (!user) {
     return (
       <p className="text-sm text-slate-400">
-        Teklifleri görmek için <Link to="/giris" className="text-blue-400 underline">giriş yapın</Link>.
+        Teklifleri görmek için <Link to="/giris" className="text-[var(--metin-ikincil)] underline">giriş yapın</Link>.
       </p>
     );
   }
@@ -124,7 +124,7 @@ export function OffersPanel({ mode }: Props) {
   return (
     <div className="space-y-4">
       {mode === "seller" && sealedHiddenCount > 0 ? (
-        <p className="rounded-[10px] border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+        <p className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs text-[var(--metin-ikincil)]">
           {sealedHiddenCount} kapalı teklif süresi dolana kadar tutarı gizli — yalnız adet görünür.
         </p>
       ) : null}
@@ -147,13 +147,13 @@ export function OffersPanel({ mode }: Props) {
                 <OfferAmount offer={offer} viewerId={user.id} viewerIsSeller={mode === "seller"} />
               </div>
               {offer.counter_amount_try ? (
-                <p className="mt-1 text-xs text-teal-300">
+                <p className="mt-1 text-xs text-[var(--metin-ikincil)]">
                   Karşı teklif: ₺{offer.counter_amount_try.toLocaleString("tr-TR")}
                 </p>
               ) : null}
               {mode === "seller" ? <SellerActions offer={offer} onDone={() => void seller.reload()} /> : null}
               {mode === "buyer" ? (
-                <Link to={`/ilan/${offer.listing_id}`} className="mt-2 inline-block text-xs text-blue-400 underline">
+                <Link to={`/ilan/${offer.listing_id}`} className="mt-2 inline-block text-xs text-[var(--metin-ikincil)] underline">
                   İlanı aç
                 </Link>
               ) : null}

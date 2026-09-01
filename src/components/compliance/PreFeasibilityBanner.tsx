@@ -5,7 +5,7 @@ type Props = { className?: string };
 export function PreFeasibilityBanner({ className = "" }: Props) {
   return (
     <div
-      className={`rounded-[10px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-50 ${className}`}
+      className={`rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)] ${className}`}
       role="note"
     >
       <strong>{PRE_FEASIBILITY_LABEL}:</strong> {PRE_FEASIBILITY_DISCLAIMER_TR}

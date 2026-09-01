@@ -36,7 +36,7 @@ export function RecentlyViewed() {
         <div className={`flex items-center justify-between mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div>
             <h2 className="section-heading flex items-center gap-3">
-              <Eye className="w-7 h-7 text-sky-400" />
+              <Eye className="w-7 h-7 text-[var(--metin-ikincil)]" />
               Son Inceledikleriniz
             </h2>
             <p className="section-subtitle mt-1">Son ziyaret ettiginiz gayrimenkul ihaleleri</p>
@@ -56,7 +56,7 @@ export function RecentlyViewed() {
                 <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                 <div className="absolute top-3 start-3">
                   {auction.status === "live" && (
-                    <span className="px-2.5 py-1 rounded-[10px] bg-red-500/90 text-white text-xs font-normal flex items-center gap-1">
+                    <span className="px-2.5 py-1 rounded-[10px] bg-[var(--zemin-yumusak)] text-white text-xs font-normal flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Canli
                     </span>
                   )}
@@ -73,11 +73,11 @@ export function RecentlyViewed() {
                 <div className="flex items-center justify-between mt-3">
                   <div>
                     <div className="text-xs text-slate-500">Teklif</div>
-                    <div className="text-sm font-normal text-sky-400">TRY {auction.currentBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-sm font-normal text-[var(--metin-ikincil)]">TRY {auction.currentBid.toLocaleString("tr-TR")}</div>
                   </div>
                   <div className="text-end">
                     <div className="text-xs text-slate-500">Getiri</div>
-                    <div className="text-sm text-emerald-400 flex items-center gap-1">
+                    <div className="text-sm text-[var(--metin-ikincil)] flex items-center gap-1">
                       <TrendingUp className="w-3 h-3" /> %{auction.areaStats.rentalYield}
                     </div>
                   </div>

@@ -57,10 +57,10 @@ export default function AuctionsMap({ auctions, className = "" }: Props) {
               <div className="min-w-[200px] text-slate-900">
                 <div className="font-normal text-sm mb-1 line-clamp-2">{a.title}</div>
                 <div className="text-xs text-slate-600 mb-2">{a.location}</div>
-                <div className="text-sm font-normal text-blue-700">
+                <div className="text-sm font-normal text-[var(--metin-ikincil)]">
                   ₺{a.currentBid.toLocaleString("tr-TR")}
                 </div>
-                <Link to={`/ilan/${a.id}`} className="text-xs text-teal-600 font-normal mt-2 inline-block underline">
+                <Link to={`/ilan/${a.id}`} className="text-xs text-[var(--metin-ikincil)] font-normal mt-2 inline-block underline">
                   İlan detayı
                 </Link>
               </div>

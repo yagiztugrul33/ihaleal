@@ -60,10 +60,10 @@ export default function PreLaunch() {
         <p className="mb-6 text-slate-400 text-sm leading-relaxed">
           Lansman listesi için kayıt olun; ilk haberdar olanlar arasında olun.
         </p>
-        {error ? <div className="mb-4 text-sm text-red-400">{error}</div> : null}
+        {error ? <div className="mb-4 text-sm text-[var(--metin-ikincil)]">{error}</div> : null}
         {!supabaseReady ? (
-          <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
-            Lansman kaydı için <code className="text-amber-100">.env.local</code> ile Supabase yapılandırın.
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 text-sm text-[var(--metin-ikincil)]">
+            Lansman kaydı için <code className="text-[var(--metin-ikincil)]">.env.local</code> ile Supabase yapılandırın.
           </div>
         ) : (
           <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
@@ -72,7 +72,7 @@ export default function PreLaunch() {
               placeholder="Ad Soyad"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]"
             />
             <input
               type="email"
@@ -80,19 +80,19 @@ export default function PreLaunch() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]"
             />
             <input
               type="tel"
               placeholder="Telefon (isteğe bağlı)"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]"
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full p-3 bg-amber-500 text-slate-950 rounded-[10px] font-normal hover:bg-amber-400 disabled:opacity-50"
+              className="w-full p-3 bg-[var(--zemin-yumusak)] text-slate-950 rounded-[10px] font-normal hover:bg-[var(--zemin-yumusak)] disabled:opacity-50"
             >
               {loading ? "Kaydediliyor..." : "Listeye katıl"}
             </button>

@@ -21,12 +21,12 @@ export function ErrorState({
   return (
     <div
       className={cn(
-        "flex flex-col items-center rounded-[20px] border border-red-500/20 bg-red-500/5 px-6 py-12 text-center",
+        "flex flex-col items-center rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-6 py-12 text-center",
         className,
       )}
       role="alert"
     >
-      <AlertCircle className="mb-3 h-9 w-9 text-red-400" aria-hidden />
+      <AlertCircle className="mb-3 h-9 w-9 text-[var(--metin-ikincil)]" aria-hidden />
       <h3 className="text-lg font-normal text-white">{title}</h3>
       <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-400">{message}</p>
       {onRetry ? (

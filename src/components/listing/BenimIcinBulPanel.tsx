@@ -46,10 +46,10 @@ export function BenimIcinBulPanel({ catalog }: Props) {
   }, [catalog, city, maxPriceM, minScore]);
 
   return (
-    <Card className="border-cyan-500/25 bg-cyan-500/5">
+    <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
       <CardContent className="p-5 space-y-4">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-cyan-300" />
+          <Sparkles className="h-4 w-4 text-[var(--metin-ikincil)]" />
           <h3 className="text-sm font-normal text-white">Benim İçin Bul</h3>
         </div>
         <p className="text-xs text-slate-400">Bütçe, şehir ve yatırım skoruna göre uygun ilan önerileri.</p>
@@ -65,7 +65,7 @@ export function BenimIcinBulPanel({ catalog }: Props) {
             picks.map(({ a, score }) => (
               <li key={a.id} className="flex items-center justify-between gap-2 rounded-[10px] border border-white/10 bg-white/[0.02] px-3 py-2">
                 <span className="text-slate-200 line-clamp-1">{a.title}</span>
-                <Button type="button" size="sm" variant="outline" className="shrink-0 h-8 border-cyan-500/30" onClick={() => navigate(`/ilan/${a.id}`)}>
+                <Button type="button" size="sm" variant="outline" className="shrink-0 h-8 border-[var(--cizgi)]" onClick={() => navigate(`/ilan/${a.id}`)}>
                   Skor {score}
                 </Button>
               </li>

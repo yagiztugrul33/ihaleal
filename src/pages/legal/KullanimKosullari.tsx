@@ -1,7 +1,7 @@
 export default function KullanimKosullari() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-[3px] text-xs text-amber-800 dark:text-amber-200">
+      <div className="mb-4 p-3 bg-[var(--zemin-yumusak)] dark:bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] dark:border-[var(--cizgi)] rounded-[3px] text-xs text-[var(--metin-ikincil)] dark:text-[var(--metin-ikincil)]">
         Bu metin taslak niteliğindedir. Yasal yayın öncesi avukat onayı şarttır.
       </div>
       <h1 className="text-3xl font-normal mb-6">Kullanım Koşulları</h1>

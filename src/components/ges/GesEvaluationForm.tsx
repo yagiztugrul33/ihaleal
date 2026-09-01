@@ -90,13 +90,13 @@ export function GesEvaluationForm() {
   };
 
   return (
-    <div className="rounded-[20px] border border-amber-500/20 bg-amber-500/10 p-6 backdrop-blur-md">
+    <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6 backdrop-blur-md">
       <div className="mb-6 flex flex-wrap gap-2 text-xs text-slate-400">
         {[1, 2, 3].map((n) => (
           <span
             key={n}
             className={`rounded-full px-3 py-1 border ${
-              step === n ? "border-amber-400/50 bg-amber-500/15 text-amber-100" : "border-white/10"
+              step === n ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "border-white/10"
             }`}
           >
             {g.stepLabel} {n}
@@ -107,7 +107,7 @@ export function GesEvaluationForm() {
       {step === 1 && (
         <div className="space-y-4">
           <h2 className="text-lg font-normal text-white flex items-center gap-2">
-            <Sun className="h-5 w-5 text-amber-300" /> {g.step1Title}
+            <Sun className="h-5 w-5 text-[var(--metin-ikincil)]" /> {g.step1Title}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
@@ -159,10 +159,10 @@ export function GesEvaluationForm() {
       {step === 2 && (
         <div className="space-y-4">
           <h2 className="text-lg font-normal text-white flex items-center gap-2">
-            <Zap className="h-5 w-5 text-cyan-300" /> {g.step2Title}
+            <Zap className="h-5 w-5 text-[var(--metin-ikincil)]" /> {g.step2Title}
           </h2>
           <p className="text-sm text-slate-400">
-            {g.preScore}: <span className="text-amber-200 font-normal" dir="ltr">{preview.gesFeasibilityScore}</span> / 100
+            {g.preScore}: <span className="text-[var(--metin-ikincil)] font-normal" dir="ltr">{preview.gesFeasibilityScore}</span> / 100
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
@@ -258,7 +258,7 @@ export function GesEvaluationForm() {
           {error && (
             <div
               role="alert"
-              className="rounded-[10px] border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
+              className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)] space-y-3"
             >
               <p>{error}</p>
               <Button type="button" size="sm" variant="outline" onClick={onSubmit} disabled={loading}>
@@ -273,13 +273,13 @@ export function GesEvaluationForm() {
         <div className="space-y-4">
           <h2 className="text-lg font-normal text-white">{statusLabel(result.status, g)}</h2>
           {result.hardKill ? (
-            <p className="text-sm text-red-200 border border-red-400/30 bg-red-500/10 rounded-[10px] p-3">
+            <p className="text-sm text-[var(--metin-ikincil)] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] rounded-[10px] p-3">
               {result.rejectionReason}
             </p>
           ) : (
-            <div className="rounded-[20px] border border-emerald-400/30 bg-emerald-500/10 p-4 grid sm:grid-cols-2 gap-3 text-sm">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 grid sm:grid-cols-2 gap-3 text-sm">
               <p>
-                {g.scoreLabel}: <strong className="text-emerald-100" dir="ltr">{result.gesFeasibilityScore}</strong>
+                {g.scoreLabel}: <strong className="text-[var(--metin-ikincil)]" dir="ltr">{result.gesFeasibilityScore}</strong>
               </p>
               <p>
                 {g.capacityLabel}: <strong dir="ltr">{formatMw(result.estimatedCapacityMw)} MW</strong>
@@ -289,7 +289,7 @@ export function GesEvaluationForm() {
               </p>
               <p>
                 {g.capexLabel}: <strong dir="ltr">{formatTry(result.estimatedCapexTry)}</strong>
-                <FxRef amountTry={result.estimatedCapexTry} variant="compact" className="ms-1.5 text-[11px] text-amber-300/80" />
+                <FxRef amountTry={result.estimatedCapexTry} variant="compact" className="ms-1.5 text-[11px] text-[var(--metin-ikincil)]" />
               </p>
               {result.paybackYears != null && (
                 <p className="sm:col-span-2">

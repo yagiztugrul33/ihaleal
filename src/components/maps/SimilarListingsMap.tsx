@@ -60,8 +60,8 @@ export default function SimilarListingsMap({ analyticsCitySlug, maxPins = 18 }: 
               <div className="text-slate-900 text-xs max-w-[220px]">
                 <div className="font-normal line-clamp-2">{a.title}</div>
                 <div className="text-slate-600 mt-1">{a.district}</div>
-                <div className="font-normal text-blue-700 mt-1">₺{a.currentBid.toLocaleString("tr-TR")}</div>
-                <Link className="text-teal-600 underline mt-1 inline-block" to={`/ilan/${a.id}`}>
+                <div className="font-normal text-[var(--metin-ikincil)] mt-1">₺{a.currentBid.toLocaleString("tr-TR")}</div>
+                <Link className="text-[var(--metin-ikincil)] underline mt-1 inline-block" to={`/ilan/${a.id}`}>
                   Detay
                 </Link>
               </div>

@@ -20,7 +20,7 @@ export default function LegalFramework() {
         </Button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-[20px] bg-violet-500/10 text-violet-400">
+          <div className="p-3 rounded-[20px] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">
             <Scale className="w-7 h-7" />
           </div>
           <div>
@@ -29,9 +29,9 @@ export default function LegalFramework() {
           </div>
         </div>
 
-        <Card className="bg-amber-500/10 border-amber-500/25 mb-8">
+        <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)] mb-8">
           <CardContent className="p-4 flex gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0" />
+            <AlertTriangle className="w-5 h-5 text-[var(--metin-ikincil)] shrink-0" />
             <p className="text-xs text-slate-300 leading-relaxed">{LEGAL_DISCLAIMER}</p>
           </CardContent>
         </Card>
@@ -64,7 +64,7 @@ export default function LegalFramework() {
               key={s.id}
               size="sm"
               variant={tab === s.id ? "default" : "outline"}
-              className={tab === s.id ? "bg-violet-600 text-white" : "border-slate-200 text-slate-300"}
+              className={tab === s.id ? "bg-[var(--zemin-yumusak)] text-white" : "border-slate-200 text-slate-300"}
               onClick={() => setTab(s.id)}
             >
               {s.title}
@@ -76,7 +76,7 @@ export default function LegalFramework() {
           <CardContent className="p-6 space-y-6">
             <div>
               <h2 className="text-lg font-normal text-white flex items-center gap-2 mb-3">
-                <BookOpen className="w-5 h-5 text-blue-400" />
+                <BookOpen className="w-5 h-5 text-[var(--metin-ikincil)]" />
                 İlgili mevzuat başlıkları
               </h2>
               <div className="space-y-2">

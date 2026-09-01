@@ -9,7 +9,7 @@ export function SellerAnalyticsPanel() {
 
   if (loading) return <LoadingState compact label="Analitik yükleniyor…" />;
   if (error) {
-    return <p className="text-sm text-red-400">{error}</p>;
+    return <p className="text-sm text-[var(--metin-ikincil)]">{error}</p>;
   }
   if (!data) return null;
 

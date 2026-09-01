@@ -118,22 +118,22 @@ export default function Changelog() {
   ];
 
   const tagColors: Record<string, string> = {
-    feature: "bg-blue-500/10 text-blue-400",
-    security: "bg-emerald-500/10 text-emerald-400",
-    legal: "bg-violet-500/10 text-violet-400",
-    performance: "bg-amber-500/10 text-amber-400",
-    ai: "bg-sky-500/10 text-sky-400",
-    ux: "bg-pink-500/10 text-pink-400",
-    fix: "bg-red-500/10 text-red-400",
-    integration: "bg-teal-500/10 text-teal-400",
+    feature: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+    security: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+    legal: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+    performance: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+    ai: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+    ux: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+    fix: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+    integration: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
     infrastructure: "bg-slate-500/10 text-slate-400",
-    ui: "bg-cyan-500/10 text-cyan-400",
+    ui: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
     init: "bg-slate-500/10 text-slate-400",
   };
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-slate-200/80">
+      <div className="bg-gradient-to-b from-[var(--zemin-yumusak)] to-transparent border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
@@ -148,21 +148,21 @@ export default function Changelog() {
 
       <div className="max-w-4xl mx-auto px-4 mt-8 space-y-4">
         {versions.map((v) => (
-          <Card key={v.version} className={`bg-slate-900/50 border-slate-200/80 overflow-hidden ${v.status === 'Yayında' ? 'ring-1 ring-emerald-500/20' : ''}`}>
+          <Card key={v.version} className={`bg-slate-900/50 border-slate-200/80 overflow-hidden ${v.status === 'Yayında' ? 'ring-1 ring-[var(--cizgi)]' : ''}`}>
             <button
               onClick={() => setExpanded(expanded === v.version ? null : v.version)}
               className="w-full p-5 flex items-center justify-between text-start hover:bg-white/[0.02] transition-colors"
             >
               <div className="flex items-center gap-4">
                 <div className="flex flex-col items-center gap-1">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-normal ${v.status === 'Yayında' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-500/10 text-slate-400'}`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-normal ${v.status === 'Yayında' ? 'bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]' : 'bg-slate-500/10 text-slate-400'}`}>
                     {v.version.split('.')[0]}
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-base font-normal text-white">{v.version}</span>
-                    {v.status === 'Yayında' && <Badge className="bg-emerald-500/10 text-emerald-400 text-[10px] border-0">Yayında</Badge>}
+                    {v.status === 'Yayında' && <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-[10px] border-0">Yayında</Badge>}
                     <div className="flex gap-1">
                       {v.tags.map((t) => (
                         <Badge key={t} className={`text-[10px] border-0 ${tagColors[t] || tagColors.init}`}>{t}</Badge>
@@ -182,7 +182,7 @@ export default function Changelog() {
                 <ul className="space-y-2">
                   {v.highlights.map((h, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                      <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-[var(--metin-ikincil)] shrink-0 mt-0.5" />
                       {h}
                     </li>
                   ))}
@@ -192,7 +192,7 @@ export default function Changelog() {
           </Card>
         ))}
 
-        <div className="p-4 rounded-[20px] bg-blue-500/5 border border-blue-500/10 text-center">
+        <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-center">
           <p className="text-sm text-slate-400">Tüm değişiklikler otomatik olarak kaydedilir ve versiyonlanır.</p>
           <p className="text-xs text-slate-500 mt-1">Son güncelleme: {new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
         </div>

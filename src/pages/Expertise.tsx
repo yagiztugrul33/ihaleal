@@ -51,15 +51,15 @@ export default function Expertise() {
     return (
       <div className="min-h-screen pt-24 pb-16">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+          <div className="w-20 h-20 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-10 h-10 text-[var(--metin-ikincil)]" />
           </div>
           <h1 className="text-3xl font-normal text-white mb-3">Talebiniz Alindi!</h1>
           <p className="text-slate-400 mb-2">
             Ekspertiz talebiniz basariyla kaydedildi. Uzman degerleme ekibimiz en kisa sürede size ulasacaktir.
           </p>
-          <div className="p-4 rounded-[20px] bg-blue-500/5 border border-blue-500/10 mt-6 mb-8">
-            <div className="flex items-center gap-2 justify-center text-sm text-blue-400 mb-2"><CalendarClock className="w-4 h-4" /><span>Tahmini Rapor Süresi</span></div>
+          <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] mt-6 mb-8">
+            <div className="flex items-center gap-2 justify-center text-sm text-[var(--metin-ikincil)] mb-2"><CalendarClock className="w-4 h-4" /><span>Tahmini Rapor Süresi</span></div>
             <p className="text-xs text-slate-400">Standart raporlar 2-3 is günü, hizli raporlar 24 saat icinde hazirlanir.</p>
           </div>
           <div className="flex gap-3 justify-center">
@@ -73,7 +73,7 @@ export default function Expertise() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-blue-500/5 to-transparent border-b border-slate-200/80">
+      <div className="bg-gradient-to-b from-[var(--zemin-yumusak)] to-transparent border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
@@ -92,7 +92,7 @@ export default function Expertise() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5 space-y-4">
-                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><User className="w-5 h-5 text-blue-400" /> Iletisim Bilgileri</h3>
+                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><User className="w-5 h-5 text-[var(--metin-ikincil)]" /> Iletisim Bilgileri</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div><label className="text-sm text-slate-400 mb-1 block">Ad Soyad *</label><Input required value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="Orn: Ahmet Yilmaz" /></div>
                     <div><label className="text-sm text-slate-400 mb-1 block">E-posta *</label><Input required type="email" value={form.email} onChange={(e) => setForm({...form, email: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="ahmet@email.com" /></div>
@@ -103,7 +103,7 @@ export default function Expertise() {
 
               <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5 space-y-4">
-                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><MapPin className="w-5 h-5 text-blue-400" /> Adres Bilgileri</h3>
+                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><MapPin className="w-5 h-5 text-[var(--metin-ikincil)]" /> Adres Bilgileri</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div><label className="text-sm text-slate-400 mb-1 block">Sehir *</label><Input required value={form.city} onChange={(e) => setForm({...form, city: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="Istanbul" /></div>
                     <div><label className="text-sm text-slate-400 mb-1 block">Ilce *</label><Input required value={form.district} onChange={(e) => setForm({...form, district: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="Kadikoy" /></div>
@@ -114,10 +114,10 @@ export default function Expertise() {
 
               <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5 space-y-4">
-                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><Building2 className="w-5 h-5 text-blue-400" /> Gayrimenkul Ozellikleri</h3>
+                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><Building2 className="w-5 h-5 text-[var(--metin-ikincil)]" /> Gayrimenkul Ozellikleri</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div><label className="text-sm text-slate-400 mb-1 block">Emlak Tipi</label>
-                      <select value={form.propertyType} onChange={(e) => setForm({...form, propertyType: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                      <select value={form.propertyType} onChange={(e) => setForm({...form, propertyType: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]">
                         <option value="daire">Daire</option><option value="villa">Villa</option><option value="mustakil">Mustakil Ev</option>
                         <option value="rezidans">Rezidans</option><option value="isyeri">Is Yeri</option><option value="arsa">Arsa</option>
                       </select>
@@ -129,19 +129,19 @@ export default function Expertise() {
                     <div><label className="text-sm text-slate-400 mb-1 block">Bulundugu Kat</label><Input value={form.floor} onChange={(e) => setForm({...form, floor: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="Orn: 3, Zemin, Bahce" /></div>
                     <div><label className="text-sm text-slate-400 mb-1 block">Toplam Kat</label><Input type="number" value={form.totalFloors} onChange={(e) => setForm({...form, totalFloors: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="5" /></div>
                     <div><label className="text-sm text-slate-400 mb-1 block">Isitma</label>
-                      <select value={form.heating} onChange={(e) => setForm({...form, heating: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                      <select value={form.heating} onChange={(e) => setForm({...form, heating: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]">
                         <option value="dogalgaz">Dogalgaz Kombi</option><option value="merkezi">Merkezi Sistem</option>
                         <option value="yerden">Yerden Isitma</option><option value="klima">Klima</option><option value="soba">Soba</option><option value="yok">Yok</option>
                       </select>
                     </div>
                     <div><label className="text-sm text-slate-400 mb-1 block">Cephe</label>
-                      <select value={form.facade} onChange={(e) => setForm({...form, facade: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                      <select value={form.facade} onChange={(e) => setForm({...form, facade: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]">
                         <option value="güney">Guney</option><option value="kuzey">Kuzey</option><option value="dogu">Dogu</option>
                         <option value="bati">Bati</option><option value="guneydogu">Guneydogu</option><option value="guneybati">Guneybati</option>
                       </select>
                     </div>
                     <div><label className="text-sm text-slate-400 mb-1 block">Kullanim Durumu</label>
-                      <select value={form.usingStatus} onChange={(e) => setForm({...form, usingStatus: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                      <select value={form.usingStatus} onChange={(e) => setForm({...form, usingStatus: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]">
                         <option value="bos">Bos</option><option value="kiraci">Kiracili</option><option value="malik">Malik Oturuyor</option>
                       </select>
                     </div>
@@ -154,7 +154,7 @@ export default function Expertise() {
                       { key: "furnished", label: "Esyali" },
                     ].map((item) => (
                       <label key={item.key} className="flex items-center gap-2 p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 cursor-pointer hover:bg-white/[0.05] transition-colors">
-                        <input type="checkbox" checked={form[item.key as keyof typeof form] as boolean} onChange={(e) => setForm({...form, [item.key]: e.target.checked})} className="w-4 h-4 rounded-[3px] border-white/20 bg-slate-950 text-blue-500 focus:ring-blue-500/50" />
+                        <input type="checkbox" checked={form[item.key as keyof typeof form] as boolean} onChange={(e) => setForm({...form, [item.key]: e.target.checked})} className="w-4 h-4 rounded-[3px] border-white/20 bg-slate-950 text-[var(--metin-ikincil)] focus:ring-[var(--cizgi)]" />
                         <span className="text-sm text-slate-300">{item.label}</span>
                       </label>
                     ))}
@@ -164,25 +164,25 @@ export default function Expertise() {
 
               <Card className="bg-slate-900/50 border-slate-200/80">
                 <CardContent className="p-5 space-y-4">
-                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><Banknote className="w-5 h-5 text-blue-400" /> Değerleme Bilgileri</h3>
+                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><Banknote className="w-5 h-5 text-[var(--metin-ikincil)]" /> Değerleme Bilgileri</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div><label className="text-sm text-slate-400 mb-1 block">Beklentiniz (Opsiyonel)</label><Input type="number" value={form.estimatedValue} onChange={(e) => setForm({...form, estimatedValue: e.target.value})} className="bg-slate-950 border-slate-200 text-white" placeholder="Orn: 5000000" /></div>
                     <div><label className="text-sm text-slate-400 mb-1 block">Talep Nedeni</label>
-                      <select value={form.requestReason} onChange={(e) => setForm({...form, requestReason: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                      <select value={form.requestReason} onChange={(e) => setForm({...form, requestReason: e.target.value})} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]">
                         <option value="alim">Satin Alma</option><option value="satis">Satis / Ihale</option>
                         <option value="kredi">Banka Kredisi</option><option value="vergi">Vergi Degeri</option><option value="diger">Diger</option>
                       </select>
                     </div>
-                    <div className="sm:col-span-2"><label className="text-sm text-slate-400 mb-1 block">Ek Notlar</label><textarea value={form.notes} onChange={(e) => setForm({...form, notes: e.target.value})} rows={3} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none" placeholder="Dairenin durumu, yaptirilmasi gereken tadilatlar vb." /></div>
+                    <div className="sm:col-span-2"><label className="text-sm text-slate-400 mb-1 block">Ek Notlar</label><textarea value={form.notes} onChange={(e) => setForm({...form, notes: e.target.value})} rows={3} className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)] resize-none" placeholder="Dairenin durumu, yaptirilmasi gereken tadilatlar vb." /></div>
                   </div>
                 </CardContent>
               </Card>
 
               <label className="flex items-start gap-3 p-4 rounded-[20px] bg-white/[0.03] border border-slate-200/80 cursor-pointer">
-                <input type="checkbox" required checked={form.agreed} onChange={(e) => setForm({...form, agreed: e.target.checked})} className="w-4 h-4 mt-0.5 rounded-[3px] border-white/20 bg-slate-950 text-blue-500 focus:ring-blue-500/50 shrink-0" />
+                <input type="checkbox" required checked={form.agreed} onChange={(e) => setForm({...form, agreed: e.target.checked})} className="w-4 h-4 mt-0.5 rounded-[3px] border-white/20 bg-slate-950 text-[var(--metin-ikincil)] focus:ring-[var(--cizgi)] shrink-0" />
                 <div>
                   <p className="text-sm text-slate-400"><span className="text-white font-normal">KVKK Aydinlatma Metni'ni</span> okudum, ekspertiz hizmeti kapsaminda kisisel verilerimin islenmesine rza veriyorum.</p>
-                  <button type="button" onClick={() => navigate("/kvkk")} className="text-xs text-blue-400 hover:text-blue-300 mt-1">KVKK Metnini Oku</button>
+                  <button type="button" onClick={() => navigate("/kvkk")} className="text-xs text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)] mt-1">KVKK Metnini Oku</button>
                 </div>
               </label>
 
@@ -193,7 +193,7 @@ export default function Expertise() {
           <div className="space-y-6">
             <Card className="bg-slate-900/50 border-slate-200/80 sticky top-24">
               <CardContent className="p-5 space-y-5">
-                <h4 className="text-sm font-normal text-white flex items-center gap-2"><BarChart3 className="w-4 h-4 text-blue-400" /> Rapor Icerigi</h4>
+                <h4 className="text-sm font-normal text-white flex items-center gap-2"><BarChart3 className="w-4 h-4 text-[var(--metin-ikincil)]" /> Rapor Icerigi</h4>
                 <div className="space-y-3">
                   {[
                     "Piyasa analizi ve bolge karsilastirmasi",
@@ -204,19 +204,19 @@ export default function Expertise() {
                     "Risk faktorleri ve tavsiyeler",
                     "Fotografli ve detayli rapor formati",
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" /><span className="text-sm text-slate-400">{item}</span></div>
+                    <div key={i} className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[var(--metin-ikincil)] shrink-0 mt-0.5" /><span className="text-sm text-slate-400">{item}</span></div>
                   ))}
                 </div>
                 <div className="border-t border-slate-200/80 pt-4">
                   <div className="flex justify-between text-sm mb-2"><span className="text-slate-400">Standart Rapor</span><span className="text-white font-normal">₺5.500</span></div>
                   <div className="flex justify-between text-sm mb-2"><span className="text-slate-400">Hizli Rapor (24s)</span><span className="text-white font-normal">₺8.250</span></div>
-                  <Badge variant="outline" className="border-amber-500/20 text-amber-400 text-xs mt-2 w-full justify-center">Ihale kazananlara %50 indirim</Badge>
+                  <Badge variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] text-xs mt-2 w-full justify-center">Ihale kazananlara %50 indirim</Badge>
                 </div>
               </CardContent>
             </Card>
 
-            <div className="p-4 rounded-[20px] bg-amber-500/5 border border-amber-500/10">
-              <div className="flex items-start gap-2"><Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" /><p className="text-xs text-slate-400">Değerleme raporu, SPK ve BDDK düzenlemelerine uygun hazirlanir. Raporlar 6 ay gecerlidir.</p></div>
+            <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
+              <div className="flex items-start gap-2"><Info className="w-4 h-4 text-[var(--metin-ikincil)] shrink-0 mt-0.5" /><p className="text-xs text-slate-400">Değerleme raporu, SPK ve BDDK düzenlemelerine uygun hazirlanir. Raporlar 6 ay gecerlidir.</p></div>
             </div>
           </div>
         </div>

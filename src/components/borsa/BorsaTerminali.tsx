@@ -145,14 +145,14 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
   );
 
   return (
-    <section className="bg-slate-950/60 border-y border-cyan-500/20 py-6">
+    <section className="bg-slate-950/60 border-y border-[var(--cizgi)] py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Premium status banner */}
         {!isPremium ? (
-          <div className="rounded-[20px] border border-amber-500/40 bg-amber-500/10 p-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
-            <Crown className="h-5 w-5 text-amber-300 flex-shrink-0" />
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
+            <Crown className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0" />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-normal text-amber-100">
+              <p className="text-sm font-normal text-[var(--metin-ikincil)]">
                 Borsa terminal özet görünüyor — TAM erişim için Premium
               </p>
               <p className="text-[11px] text-slate-300">
@@ -162,32 +162,30 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
             <button
               type="button"
               onClick={() => navigate("/fiyatlandirma?onerilen=yatirimci")}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] bg-amber-600 hover:bg-amber-500 text-white text-xs font-normal whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white text-xs font-normal whitespace-nowrap"
             >
               <Sparkles className="h-3.5 w-3.5" /> Paketleri Gör
             </button>
           </div>
         ) : (
-          <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-2.5 flex items-center gap-2 text-xs">
-            <Crown className="h-4 w-4 text-emerald-300" />
-            <span className="text-emerald-200 font-normal">{tier.name}</span>
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2.5 flex items-center gap-2 text-xs">
+            <Crown className="h-4 w-4 text-[var(--metin-ikincil)]" />
+            <span className="text-[var(--metin-ikincil)] font-normal">{tier.name}</span>
             <span className="text-slate-400">— Borsa terminal TAM erişim aktif</span>
           </div>
         )}
 
         {/* 1. TICKER (kayan) */}
-        <div className="overflow-hidden rounded-[10px] border border-cyan-500/30 bg-slate-900/80 py-2">
+        <div className="overflow-hidden rounded-[10px] border border-[var(--cizgi)] bg-slate-900/80 py-2">
           <div className="flex gap-8 animate-marquee whitespace-nowrap text-sm">
             {[...enriched.slice(0, 15), ...enriched.slice(0, 15)].map((a, i) => (
               <span key={`${a.id}-${i}`} className="inline-flex items-center gap-2 px-3">
-                <span className="font-mono text-cyan-300">{a.id.slice(0, 4).toUpperCase()}</span>
+                <span className="font-mono text-[var(--metin-ikincil)]">{a.id.slice(0, 4).toUpperCase()}</span>
                 <span className="text-slate-300">{a.title.slice(0, 25)}</span>
                 <span className="font-normal text-white">{formatTRY(a.currentBid)}</span>
                 <span
-                  className={cn(
-                    "font-normal",
-                    a.deltaPct >= 0 ? "text-emerald-400" : "text-rose-400",
-                  )}
+                  className="font-normal"
+                  style={{ color: a.deltaPct >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}
                 >
                   {a.deltaPct >= 0 ? "▲" : "▼"}%{Math.abs(a.deltaPct)}
                 </span>
@@ -207,9 +205,9 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         </div>
 
         {/* 3. ORDER BOOK */}
-        <div className="rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-4 overflow-hidden">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4 overflow-hidden">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-normal text-cyan-200 flex items-center gap-2">
+            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] flex items-center gap-2">
               <Activity className="h-4 w-4" /> ORDER BOOK
             </h2>
             <span className="text-xs text-slate-500">Bitmeye yakın · top 8</span>
@@ -235,7 +233,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                     <td className="py-2 max-w-[200px]">
                       <Link
                         to={`/ilan/${a.id}`}
-                        className="text-cyan-300 hover:underline truncate block"
+                        className="text-[var(--metin-ikincil)] hover:underline truncate block"
                       >
                         {a.title.slice(0, 30)}
                       </Link>
@@ -247,10 +245,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                       {formatTRY(a.currentBid)}
                     </td>
                     <td
-                      className={cn(
-                        "py-2 text-end font-normal",
-                        a.deltaPct >= 0 ? "text-emerald-400" : "text-rose-400",
-                      )}
+                      className="py-2 text-end font-normal"
+                      style={{ color: a.deltaPct >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}
                     >
                       {a.deltaPct >= 0 ? "+" : ""}
                       {a.deltaPct}
@@ -269,31 +265,38 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         {/* 4 + 5: HEAT MAP + TOP MOVERS yan yana */}
         <div className="grid lg:grid-cols-2 gap-4">
           {/* HEAT MAP */}
-          <div className="rounded-[20px] border border-violet-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-violet-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <MapPin className="h-4 w-4" /> BÖLGE HEAT MAP
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {regionHeat.slice(0, 9).map((r) => {
                 const bg =
                   r.avgDelta > 5
-                    ? "bg-emerald-500/30 border-emerald-400/50"
+                    ? "border-[var(--cizgi)]"
                     : r.avgDelta > 0
-                      ? "bg-emerald-500/15 border-emerald-400/30"
+                      ? "border-[var(--cizgi)]"
                       : r.avgDelta > -5
-                        ? "bg-rose-500/15 border-rose-400/30"
-                        : "bg-rose-500/30 border-rose-400/50";
+                        ? "border-[var(--cizgi)]"
+                        : "border-[var(--cizgi)]";
+                const heatBg =
+                  r.avgDelta > 5
+                    ? "color-mix(in srgb, var(--metrik-yesil) 22%, var(--zemin-yumusak))"
+                    : r.avgDelta > 0
+                      ? "color-mix(in srgb, var(--metrik-yesil) 10%, var(--zemin-yumusak))"
+                      : r.avgDelta > -5
+                        ? "color-mix(in srgb, var(--sinyal-turuncu) 10%, var(--zemin-yumusak))"
+                        : "color-mix(in srgb, var(--sinyal-turuncu) 22%, var(--zemin-yumusak))";
                 return (
                   <div
                     key={r.city}
                     className={cn("rounded-[10px] border p-2", bg)}
+                    style={{ background: heatBg }}
                   >
                     <p className="text-xs font-normal text-white truncate">{r.city}</p>
                     <p
-                      className={cn(
-                        "text-sm font-normal",
-                        r.avgDelta >= 0 ? "text-emerald-300" : "text-rose-300",
-                      )}
+                      className="text-sm font-normal"
+                      style={{ color: r.avgDelta >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}
                     >
                       {r.avgDelta >= 0 ? "+" : ""}
                       {r.avgDelta.toFixed(1)}%
@@ -306,14 +309,14 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
           </div>
 
           {/* TOP MOVERS */}
-          <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-emerald-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <TrendingUp className="h-4 w-4" /> TOP MOVERS
             </h2>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs font-normal text-emerald-300 mb-1 flex items-center gap-1">
-                  <ArrowUp className="h-3 w-3" /> Yükselenler
+                <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-1 flex items-center gap-1">
+                  <ArrowUp className="h-3 w-3" style={{ color: "var(--metrik-yesil)" }} /> Yükselenler
                 </p>
                 <ul className="space-y-1 text-xs">
                   {gainers.map((a) => (
@@ -325,7 +328,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                         <span className="text-slate-300 truncate">
                           {a.title.slice(0, 20)}
                         </span>
-                        <span className="text-emerald-400 font-normal whitespace-nowrap">
+                        <span className="font-normal whitespace-nowrap" style={{ color: "var(--metrik-yesil)" }}>
                           +{a.deltaPct}%
                         </span>
                       </Link>
@@ -334,8 +337,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                 </ul>
               </div>
               <div>
-                <p className="text-xs font-normal text-rose-300 mb-1 flex items-center gap-1">
-                  <ArrowDown className="h-3 w-3" /> Düşenler
+                <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-1 flex items-center gap-1">
+                  <ArrowDown className="h-3 w-3" style={{ color: "var(--sinyal-turuncu)" }} /> Düşenler
                 </p>
                 <ul className="space-y-1 text-xs">
                   {losers.map((a) => (
@@ -347,7 +350,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                         <span className="text-slate-300 truncate">
                           {a.title.slice(0, 20)}
                         </span>
-                        <span className="text-rose-400 font-normal whitespace-nowrap">
+                        <span className="font-normal whitespace-nowrap" style={{ color: "var(--sinyal-turuncu)" }}>
                           {a.deltaPct}%
                         </span>
                       </Link>
@@ -362,8 +365,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         {/* 6. CANLI TEKLİF AKIŞI + 7. AI SİNYALLER yan yana */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* TEKLİF AKIŞI */}
-          <div className="rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-cyan-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <Radio className="h-4 w-4 animate-pulse" /> CANLI TEKLİF AKIŞI
               <span className="ms-auto text-[10px] text-slate-500">sealed · anonim</span>
             </h2>
@@ -374,10 +377,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                   className="flex items-start gap-2 rounded-[10px] bg-slate-950/40 p-2 border border-slate-800/50"
                 >
                   <span
-                    className={cn(
-                      "w-2 h-2 rounded-full mt-1.5 flex-shrink-0 animate-pulse",
-                      f.delta >= 0 ? "bg-emerald-400" : "bg-rose-400",
-                    )}
+                    className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0 animate-pulse"
+                    style={{ background: f.delta >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-slate-300 truncate">{f.text}</p>
@@ -391,8 +392,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
           </div>
 
           {/* AI SİNYALLER + bitmeye yakın */}
-          <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-emerald-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <Zap className="h-4 w-4" /> AI YATIRIM SİNYALLERİ
             </h2>
             <ul className="space-y-2 text-xs">
@@ -404,7 +405,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                 aiSignals.map((a) => (
                   <li
                     key={a.id}
-                    className="flex items-center justify-between gap-2 rounded-[10px] bg-slate-950/40 p-2 border border-emerald-500/20"
+                    className="flex items-center justify-between gap-2 rounded-[10px] bg-slate-950/40 p-2 border border-[var(--cizgi)]"
                   >
                     <Link
                       to={`/ilan/${a.id}`}
@@ -418,10 +419,10 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                       </p>
                     </Link>
                     <div className="text-end">
-                      <p className="text-emerald-400 font-normal">
+                      <p className="font-normal" style={{ color: "var(--metrik-yesil)" }}>
                         {a.investmentScore}/100
                       </p>
-                      <p className="text-[10px] text-emerald-300">+{a.deltaPct}%</p>
+                      <p className="text-[10px]" style={{ color: "var(--metrik-yesil)" }}>+{a.deltaPct}%</p>
                     </div>
                   </li>
                 ))
@@ -431,7 +432,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
             {/* Bitmeye yakın HOT */}
             {endingHot.length > 0 ? (
               <div className="mt-3 pt-3 border-t border-slate-800">
-                <p className="text-xs font-normal text-amber-300 mb-2 flex items-center gap-1">
+                <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-2 flex items-center gap-1">
                   <Flame className="h-3 w-3" /> Bitmeye Yakın (anti-snipe aktif)
                 </p>
                 <ul className="space-y-1 text-xs">

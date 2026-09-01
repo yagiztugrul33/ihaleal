@@ -340,7 +340,7 @@ export default function SearchResults() {
       >
         <span className="flex items-center gap-1.5">
           <SlidersHorizontal className="w-3.5 h-3.5" /> Gelişmiş filtreler
-          {advancedFilterCount > 0 ? <span className="text-blue-300">({advancedFilterCount})</span> : null}
+          {advancedFilterCount > 0 ? <span className="text-[var(--metin-ikincil)]">({advancedFilterCount})</span> : null}
         </span>
         <span aria-hidden>{advancedOpen ? "−" : "+"}</span>
       </button>
@@ -370,7 +370,7 @@ export default function SearchResults() {
 
       <section>
         <h3 className="text-xs font-normal uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1">
-          <Gavel className="w-3.5 h-3.5 text-amber-400" /> İhale Tipi
+          <Gavel className="w-3.5 h-3.5 text-[var(--metin-ikincil)]" /> İhale Tipi
         </h3>
         <div className="space-y-1">
           {AUCTION_MODES.map((m) => (
@@ -425,7 +425,7 @@ export default function SearchResults() {
         key={`${auction.id}-${auction.title}`}
         type="button"
         onClick={() => navigate(`/ilan/${auction.id}`)}
-        className="group text-start rounded-[20px] border border-white/10 bg-slate-900/40 hover:border-blue-500/40 hover:bg-slate-900/70 transition-all overflow-hidden flex flex-col"
+        className="group text-start rounded-[20px] border border-white/10 bg-slate-900/40 hover:border-[var(--cizgi)] hover:bg-slate-900/70 transition-all overflow-hidden flex flex-col"
       >
         <div className="relative aspect-[16/10] bg-slate-800 overflow-hidden">
           <img
@@ -435,14 +435,14 @@ export default function SearchResults() {
             className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
           />
           {modeDef ? (
-            <span className="absolute top-2 start-2 inline-flex items-center gap-1 rounded-[3px] bg-slate-950/85 backdrop-blur px-2 py-1 text-[10px] font-normal text-amber-200 border border-amber-400/30">
+            <span className="absolute top-2 start-2 inline-flex items-center gap-1 rounded-[3px] bg-slate-950/85 backdrop-blur px-2 py-1 text-[10px] font-normal text-[var(--metin-ikincil)] border border-[var(--cizgi)]">
               <modeDef.icon className="w-3 h-3" /> {modeDef.label}
             </span>
           ) : null}
           <span className={cn(
             "absolute top-2 end-2 inline-flex items-center rounded-[3px] px-2 py-1 text-[10px] font-normal backdrop-blur",
-            auction.status === "live" ? "bg-emerald-500/20 text-emerald-200 border border-emerald-400/40" :
-            auction.status === "upcoming" ? "bg-cyan-500/20 text-cyan-200 border border-cyan-400/40" :
+            auction.status === "live" ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border border-[var(--cizgi)]" :
+            auction.status === "upcoming" ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border border-[var(--cizgi)]" :
             "bg-slate-700/60 text-slate-300 border border-slate-500/40",
           )}>
             {auction.status === "live" ? "Canlı" : auction.status === "upcoming" ? "Yaklaşan" : "Bitti"}
@@ -459,7 +459,7 @@ export default function SearchResults() {
             <span className="truncate">{auction.district}, {auction.city}</span>
           </div>
           <div className="flex items-center justify-between mt-auto pt-2">
-            <div className="text-base font-normal text-blue-400">{formatTRY(auction.currentBid)}</div>
+            <div className="text-base font-normal text-[var(--metin-ikincil)]">{formatTRY(auction.currentBid)}</div>
             {sqm ? <div className="text-xs text-slate-400">{sqm} m²</div> : null}
           </div>
         </div>
@@ -485,7 +485,7 @@ export default function SearchResults() {
         />
 
         <h1 className="text-2xl md:text-3xl font-normal text-white flex items-center gap-3 mb-2">
-          <Search className="w-8 h-8 text-blue-400" />
+          <Search className="w-8 h-8 text-[var(--metin-ikincil)]" />
           İlan arama
         </h1>
         <p className="text-slate-400 text-sm mb-6">
@@ -535,7 +535,7 @@ export default function SearchResults() {
                   onClick={() => patchParams({ view: v.key === "grid" ? undefined : v.key })}
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-[3px] px-2.5 py-1.5 text-xs font-normal transition-colors",
-                    viewMode === v.key ? "bg-blue-500/20 text-blue-200" : "text-slate-400 hover:text-white",
+                    viewMode === v.key ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "text-slate-400 hover:text-white",
                   )}
                   aria-pressed={viewMode === v.key}
                 >
@@ -613,7 +613,7 @@ export default function SearchResults() {
             />
 
             {catalogError ? (
-              <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+              <p className="mb-4 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)]" role="status">
                 {catalogError}
               </p>
             ) : null}
@@ -626,7 +626,7 @@ export default function SearchResults() {
                 description="Anahtar kelime girin, mülk tipi/konum seçin veya harita üzerinde alan çizin."
               />
             ) : sortedResults.length === 0 ? (
-              <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-8 text-center">
+              <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-8 text-center">
                 <h2 className="text-lg font-normal text-white mb-2">Bu kriterlerle eşleşen ilan bulunamadı</h2>
                 <p className="text-sm text-slate-400 mb-5 max-w-md mx-auto">
                   Filtreleri biraz gevşetmeyi deneyin: fiyat veya m² aralığını genişletin, daha az mülk tipi seçin

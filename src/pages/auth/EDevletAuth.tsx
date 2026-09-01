@@ -23,7 +23,7 @@ export default function EDevletAuth() {
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
         <div className="rounded-[20px] border border-slate-200 bg-slate-900/60 p-6 text-center space-y-4">
-          <ShieldCheck className="w-12 h-12 text-teal-400 mx-auto" />
+          <ShieldCheck className="w-12 h-12 text-[var(--metin-ikincil)] mx-auto" />
           <h1 className="text-xl font-normal text-white">e-Devlet yetkisi (DEMO)</h1>
           {phase === "intro" && (
             <>
@@ -37,14 +37,14 @@ export default function EDevletAuth() {
           )}
           {phase === "redirect" && (
             <div className="py-6 space-y-3">
-              <Loader2 className="w-10 h-10 text-teal-400 animate-spin mx-auto" />
+              <Loader2 className="w-10 h-10 text-[var(--metin-ikincil)] animate-spin mx-auto" />
               <p className="text-sm text-slate-300">e-Devlet&apos;e yönlendiriliyorsunuz…</p>
               <p className="text-xs text-slate-500">3 saniye sonra demo onay.</p>
             </div>
           )}
           {phase === "done" && (
             <div className="space-y-3">
-              <p className="text-emerald-400 font-normal">Yetki verildi (DEMO)</p>
+              <p className="text-[var(--metin-ikincil)] font-normal">Yetki verildi (DEMO)</p>
               <p className="text-xs text-slate-500">Üretimde imza / vekalet / KEP akışı avukat onaylı olmalıdır.</p>
               <Button variant="outline" className="w-full border-white/15" onClick={() => navigate("/onboarding/akis")}>
                 Akış seçimine dön

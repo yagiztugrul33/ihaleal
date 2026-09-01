@@ -22,9 +22,9 @@ const STAGE_LABELS: Record<string, string> = {
 };
 
 const STATUS_COLORS: Record<ProjectUnit["status"], string> = {
-  available: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-  reserved: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-  sold: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+  available: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
+  reserved: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
+  sold: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
   cancelled: "bg-slate-500/20 text-slate-300 border-slate-500/30",
 };
 
@@ -49,7 +49,7 @@ export default function MuteahhitProjeDetayPage() {
   if (!project) {
     return (
       <div className="min-h-screen pt-24 px-4 text-center text-slate-400">
-        Proje bulunamadı. <Link to="/muteahhit/panel" className="text-blue-400 underline">Panele dön</Link>
+        Proje bulunamadı. <Link to="/muteahhit/panel" className="text-[var(--metin-ikincil)] underline">Panele dön</Link>
       </div>
     );
   }
@@ -91,7 +91,7 @@ export default function MuteahhitProjeDetayPage() {
         <div className="flex items-start justify-between gap-4 mb-6">
           <div>
             <h1 className="text-3xl font-normal text-white flex items-center gap-3 mb-2">
-              <Building2 className="w-8 h-8 text-cyan-400" /> {project.project_name}
+              <Building2 className="w-8 h-8 text-[var(--metin-ikincil)]" /> {project.project_name}
             </h1>
             <p className="text-slate-400 text-sm">
               Ruhsat: {project.ruhsat_no ?? "—"} · Ada/Parsel: {project.ada_parsel ?? "—"}
@@ -100,7 +100,7 @@ export default function MuteahhitProjeDetayPage() {
               {project.province} / {project.district} {project.neighborhood ? `/ ${project.neighborhood}` : ""}
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <Badge className={isVerified ? "bg-emerald-500" : "bg-amber-500"}>
+              <Badge className="bg-[var(--zemin-yumusak)]" style={{ color: isVerified ? "var(--metrik-yesil)" : "var(--metin-ikincil)" }}>
                 {isVerified ? "✓ Onaylı" : "⏳ Admin onayı bekliyor"}
               </Badge>
               <Badge variant="outline">{STAGE_LABELS[project.stage] ?? project.stage}</Badge>
@@ -133,9 +133,9 @@ export default function MuteahhitProjeDetayPage() {
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5 grid sm:grid-cols-4 gap-3">
             <div><div className="text-xs text-slate-500">Toplam</div><div className="text-xl font-normal text-white">{units.length}</div></div>
-            <div><div className="text-xs text-slate-500">Mevcut</div><div className="text-xl font-normal text-emerald-300">{units.filter((u) => u.status === "available").length}</div></div>
-            <div><div className="text-xs text-slate-500">Rezerve</div><div className="text-xl font-normal text-amber-300">{units.filter((u) => u.status === "reserved").length}</div></div>
-            <div><div className="text-xs text-slate-500">Satıldı</div><div className="text-xl font-normal text-blue-300">{units.filter((u) => u.status === "sold").length}</div></div>
+            <div><div className="text-xs text-slate-500">Mevcut</div><div className="text-xl font-normal text-[var(--metin-ikincil)]">{units.filter((u) => u.status === "available").length}</div></div>
+            <div><div className="text-xs text-slate-500">Rezerve</div><div className="text-xl font-normal text-[var(--metin-ikincil)]">{units.filter((u) => u.status === "reserved").length}</div></div>
+            <div><div className="text-xs text-slate-500">Satıldı</div><div className="text-xl font-normal text-[var(--metin-ikincil)]">{units.filter((u) => u.status === "sold").length}</div></div>
           </CardContent>
         </Card>
 
@@ -173,7 +173,7 @@ export default function MuteahhitProjeDetayPage() {
                       <td className="p-3 text-slate-400">{u.block ?? "—"} / {u.floor ?? "—"}</td>
                       <td className="p-3 text-slate-300">{u.unit_type ?? "—"}</td>
                       <td className="p-3 text-end text-slate-300">{u.m2_brut ?? "—"} / {u.m2_net ?? "—"}</td>
-                      <td className="p-3 text-end font-normal text-cyan-300">{u.price_try ? `₺${u.price_try.toLocaleString("tr-TR")}` : "—"}</td>
+                      <td className="p-3 text-end font-normal text-[var(--metin-ikincil)]">{u.price_try ? `₺${u.price_try.toLocaleString("tr-TR")}` : "—"}</td>
                       <td className="p-3">
                         <span className={`inline-flex px-2 py-1 rounded-[3px] text-[10px] font-normal border ${STATUS_COLORS[u.status]}`}>
                           {STATUS_LABELS[u.status]}
@@ -187,7 +187,7 @@ export default function MuteahhitProjeDetayPage() {
                         )}
                         {u.listing_id && (
                           <Link to={`/ilan/${u.listing_id}`}>
-                            <Button size="sm" variant="ghost" className="gap-1.5 text-cyan-400">
+                            <Button size="sm" variant="ghost" className="gap-1.5 text-[var(--metin-ikincil)]">
                               <Eye className="w-3.5 h-3.5" /> İlan
                             </Button>
                           </Link>

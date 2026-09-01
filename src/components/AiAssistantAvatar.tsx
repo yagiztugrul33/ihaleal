@@ -15,7 +15,7 @@ export function AiAssistantAvatar({
   return (
     <div
       className={cn(
-        "relative flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-400",
+        "relative flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--zemin-yumusak)] via-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)]",
         "shadow-lg shadow-cyan-500/35 ring-2 ring-white/25",
         "before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-tr before:from-white/25 before:to-transparent before:opacity-40",
         "ai-avatar-glow motion-reduce:before:opacity-20",
@@ -25,8 +25,8 @@ export function AiAssistantAvatar({
       aria-hidden
     >
       <Bot className={cn("relative z-[1] text-white drop-shadow-md", botIcon[size])} />
-      <span className="absolute -end-0.5 -top-0.5 z-[2] flex h-[42%] min-h-[14px] w-[42%] min-w-[14px] items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-orange-500 shadow-md ring-2 ring-[#0a1428]">
-        <Sparkles className="h-[55%] w-[55%] text-amber-950" strokeWidth={2.5} />
+      <span className="absolute -end-0.5 -top-0.5 z-[2] flex h-[42%] min-h-[14px] w-[42%] min-w-[14px] items-center justify-center rounded-full bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-md ring-2 ring-[#0a1428]">
+        <Sparkles className="h-[55%] w-[55%] text-[var(--metin-ikincil)]" strokeWidth={2.5} />
       </span>
     </div>
   );

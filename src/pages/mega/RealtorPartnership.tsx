@@ -117,7 +117,7 @@ export default function RealtorPartnershipPage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl space-y-14">
         <div className="flex items-start gap-3">
-          <div className="rounded-[20px] bg-violet-500/15 p-3 text-violet-400">
+          <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)]">
             <Building2 className="h-8 w-8" />
           </div>
           <div>
@@ -136,16 +136,16 @@ export default function RealtorPartnershipPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
               <div key={s.title} className="relative flex flex-col rounded-[20px] border border-slate-200 bg-slate-900/40 p-4">
-                <span className="mb-3 inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-full bg-violet-500/20 text-xs font-normal text-violet-300">
+                <span className="mb-3 inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-full bg-[var(--zemin-yumusak)] text-xs font-normal text-[var(--metin-ikincil)]">
                   {i + 1}
                 </span>
                 <h3 className="font-normal text-white">{s.title}</h3>
-                <p className="mt-0.5 text-[11px] font-normal uppercase tracking-wide text-violet-300/90">{s.subtitle}</p>
+                <p className="mt-0.5 text-[11px] font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">{s.subtitle}</p>
                 <p className="mt-2 flex-1 text-xs leading-relaxed text-slate-400">{s.desc}</p>
                 <ul className="mt-3 space-y-1.5 border-t border-slate-200/80 pt-3 text-[11px] leading-snug text-slate-500">
                   {s.bullets.map((b) => (
                     <li key={b} className="flex gap-2">
-                      <span className="shrink-0 text-teal-500/80" aria-hidden>
+                      <span className="shrink-0 text-[var(--metin-ikincil)]" aria-hidden>
                         ·
                       </span>
                       <span>{b}</span>
@@ -163,7 +163,7 @@ export default function RealtorPartnershipPage() {
             {ADV.map((a) => (
               <Card key={a.title} className="border-slate-200 bg-slate-900/40">
                 <CardContent className="flex gap-3 p-5">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--metin-ikincil)]" />
                   <div>
                     <h3 className="font-normal text-white">{a.title}</h3>
                     <p className="mt-1 text-sm text-slate-400">{a.desc}</p>
@@ -179,27 +179,27 @@ export default function RealtorPartnershipPage() {
           <ul className="space-y-2 text-sm text-slate-400">
             {CONDITIONS.map((c) => (
               <li key={c} className="flex gap-2">
-                <span className="text-teal-500/80">•</span>
+                <span className="text-[var(--metin-ikincil)]">•</span>
                 <span>{c}</span>
               </li>
             ))}
           </ul>
         </section>
 
-        <Card className="border-teal-500/20 bg-teal-950/15">
+        <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
           <CardContent className="space-y-2 p-6">
             <h2 className="text-lg font-normal text-white">Komisyon yapısı — örnek</h2>
             <p className="text-sm text-slate-400">
               ₺{(exampleSale / 1_000_000).toFixed(0)}M tutarında işlem için ortak emlakçı B2B matrahı yaklaşık{" "}
-              <span className="text-teal-300">₺{Math.round(exampleB2B).toLocaleString("tr-TR")}</span>
+              <span className="text-[var(--metin-ikincil)]">₺{Math.round(exampleB2B).toLocaleString("tr-TR")}</span>
               {" "}(işlem üzerinden %{(REALTOR_B2B_RATE * 100).toFixed(0)}); KDV {(VAT_RATE * 100).toFixed(0)}% ile yaklaşık{" "}
-              <span className="text-teal-300">₺{Math.round(exampleVat).toLocaleString("tr-TR")}</span>. Kesin tutarlar sözleşme ve fatura ile ilişkilidir.
+              <span className="text-[var(--metin-ikincil)]">₺{Math.round(exampleVat).toLocaleString("tr-TR")}</span>. Kesin tutarlar sözleşme ve fatura ile ilişkilidir.
             </p>
           </CardContent>
         </Card>
 
         {sent ? (
-          <Card className="border-emerald-500/30 bg-emerald-950/20">
+          <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
             <CardContent className="p-8 text-center">
               <p className="text-lg font-normal text-white">Başvurunuz kaydedildi (demo).</p>
               <p className="mt-2 text-sm text-slate-400">Üretimde ekibe iletilecek iş akışı tanımlanır.</p>

@@ -129,7 +129,7 @@ export default function ProgrammaticSeoLanding() {
         />
 
         <div className="mb-8 rounded-[20px] border border-slate-200 bg-gradient-to-br from-slate-900/90 to-slate-950 p-8 md:p-10">
-          <Badge className="mb-3 border-teal-500/30 bg-teal-500/10 text-teal-300">{dealText}</Badge>
+          <Badge className="mb-3 border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">{dealText}</Badge>
           <h1 className="text-3xl md:text-4xl font-normal text-white mb-3">
             {route.segmentKind === "district" && route.districtName
               ? `${route.districtName}, ${route.provinceName}`
@@ -144,7 +144,7 @@ export default function ProgrammaticSeoLanding() {
             {indexLoading ? (
               <LoadingState compact label="Endeks yükleniyor…" />
             ) : priceIndex ? (
-              <div className="inline-flex items-center gap-2 rounded-[20px] border border-emerald-500/25 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">
+              <div className="inline-flex items-center gap-2 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-sm text-[var(--metin-ikincil)]">
                 {priceIndex.changePct >= 0 ? (
                   <TrendingUp className="h-4 w-4" />
                 ) : (
@@ -180,7 +180,7 @@ export default function ProgrammaticSeoLanding() {
               <Link
                 key={d.slug}
                 to={`/${route.deal}/${route.provinceSlug}/${d.slug}`}
-                className="rounded-full border border-slate-300 px-3 py-1 text-xs text-slate-600 hover:border-teal-500 hover:text-teal-700"
+                className="rounded-full border border-slate-300 px-3 py-1 text-xs text-slate-600 hover:border-[var(--cizgi)] hover:text-[var(--metin-ikincil)]"
               >
                 {d.name}
               </Link>
@@ -189,7 +189,7 @@ export default function ProgrammaticSeoLanding() {
         ) : null}
 
         <div className="flex items-center gap-2 mb-4 text-slate-800 font-normal">
-          <Building2 className="w-5 h-5 text-blue-500" />
+          <Building2 className="w-5 h-5 text-[var(--metin-ikincil)]" />
           {dealText} — {route.provinceName}
           {route.districtName ? ` / ${route.districtName}` : ""}
         </div>
@@ -201,14 +201,14 @@ export default function ProgrammaticSeoLanding() {
             {listings.length === 0 ? (
               <p className="text-slate-500 text-sm col-span-full">
                 Bu kriterde aktif ilan bulunamadı.{" "}
-                <Link to="/ihaleler" className="text-teal-600 hover:underline">
+                <Link to="/ihaleler" className="text-[var(--metin-ikincil)] hover:underline">
                   Tüm ilanlara göz atın
                 </Link>
                 .
               </p>
             ) : (
               listings.map((a) => (
-                <Card key={a.id} className="border-slate-200 bg-white overflow-hidden hover:border-teal-500/30 transition-colors">
+                <Card key={a.id} className="border-slate-200 bg-white overflow-hidden hover:border-[var(--cizgi)] transition-colors">
                   <div className="h-36 overflow-hidden">
                     <img src={a.images[0]} alt="" className="w-full h-full object-cover" />
                   </div>
@@ -217,8 +217,8 @@ export default function ProgrammaticSeoLanding() {
                       <MapPin className="w-3 h-3" /> {a.district}, {a.city}
                     </p>
                     <h2 className="text-sm font-normal text-slate-900 line-clamp-2 mb-2">{a.title}</h2>
-                    <p className="text-lg font-normal text-blue-600">₺{a.currentBid.toLocaleString("tr-TR")}</p>
-                    <Link to={`/ilan/${a.id}`} className="mt-2 inline-block text-xs text-teal-600 hover:underline font-normal">
+                    <p className="text-lg font-normal text-[var(--metin-ikincil)]">₺{a.currentBid.toLocaleString("tr-TR")}</p>
+                    <Link to={`/ilan/${a.id}`} className="mt-2 inline-block text-xs text-[var(--metin-ikincil)] hover:underline font-normal">
                       İlan detayı →
                     </Link>
                   </CardContent>

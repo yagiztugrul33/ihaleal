@@ -51,11 +51,11 @@ export default function AdCampaign() {
 
   return (
     <div className="min-h-screen pt-20 pb-16">
-      <div className="bg-gradient-to-b from-pink-500/5 to-transparent border-b border-slate-200/80">
+      <div className="bg-gradient-to-b from-[var(--zemin-yumusak)] to-transparent border-b border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-[20px] bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center"><Target className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-[20px] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] flex items-center justify-center"><Target className="w-6 h-6 text-white" /></div>
             <div>
               <h1 className="text-3xl font-normal text-white">Reklam Kampanya Planı</h1>
               <p className="text-slate-400">Sosyal medya, dijital reklam ve influencer stratejisi</p>
@@ -72,22 +72,22 @@ export default function AdCampaign() {
             <h3 className="text-lg font-normal text-white mb-4">Aylık Reklam Bütçesi Özeti</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 text-center">
-                <DollarSign className="w-5 h-5 text-emerald-400 mx-auto mb-1.5" />
+                <DollarSign className="w-5 h-5 text-[var(--metin-ikincil)] mx-auto mb-1.5" />
                 <div className="text-lg font-normal text-white">₺112.000</div>
                 <div className="text-xs text-slate-500">Toplam Aylık</div>
               </div>
               <div className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 text-center">
-                <Eye className="w-5 h-5 text-blue-400 mx-auto mb-1.5" />
+                <Eye className="w-5 h-5 text-[var(--metin-ikincil)] mx-auto mb-1.5" />
                 <div className="text-lg font-normal text-white">2.5M+</div>
                 <div className="text-xs text-slate-500">Tahmini Erişim</div>
               </div>
               <div className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 text-center">
-                <Users className="w-5 h-5 text-violet-400 mx-auto mb-1.5" />
+                <Users className="w-5 h-5 text-[var(--metin-ikincil)] mx-auto mb-1.5" />
                 <div className="text-lg font-normal text-white">15.000+</div>
                 <div className="text-xs text-slate-500">Tahmini Dönüşüm</div>
               </div>
               <div className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 text-center">
-                <TrendingUp className="w-5 h-5 text-amber-400 mx-auto mb-1.5" />
+                <TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)] mx-auto mb-1.5" />
                 <div className="text-lg font-normal text-white">%1.35</div>
                 <div className="text-xs text-slate-500">Tahmini CTR</div>
               </div>
@@ -104,11 +104,11 @@ export default function AdCampaign() {
                 <div key={s.platform} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-sm font-normal text-white">{s.platform}</span>
-                    <Badge variant="outline" className="border-blue-500/20 text-blue-400 text-[10px]">{s.budget}</Badge>
+                    <Badge variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] text-[10px]">{s.budget}</Badge>
                   </div>
                   <p className="text-xs text-slate-500 mb-1">Hedef Kitle: {s.audience}</p>
                   <div className="flex items-center gap-2">
-                    <Badge className="bg-emerald-500/10 text-emerald-400 text-[10px] border-0">{s.goal}</Badge>
+                    <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-[10px] border-0">{s.goal}</Badge>
                     <span className="text-[10px] text-slate-500">{s.format}</span>
                   </div>
                 </div>
@@ -120,13 +120,13 @@ export default function AdCampaign() {
         {/* 10 Video Reels */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Video className="w-5 h-5 text-pink-400" /> 12 Hazır Kreatif (10 özgün + 2 A/B varyant, Reels / Shorts)</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Video className="w-5 h-5 text-[var(--metin-ikincil)]" /> 12 Hazır Kreatif (10 özgün + 2 A/B varyant, Reels / Shorts)</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               {reels.map((r) => (
                 <div key={r.id} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-normal text-white">{r.id}. {r.title}</span>
-                    <Badge variant="outline" className="border-pink-500/20 text-pink-400 text-[10px]">{r.duration}</Badge>
+                    <Badge variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] text-[10px]">{r.duration}</Badge>
                   </div>
                   <div className="protected-media">
                     <video src={publicAsset(`videos/${r.file}`)} className="w-full rounded-[10px] mb-2" controls playsInline preload="metadata" />
@@ -142,7 +142,7 @@ export default function AdCampaign() {
         {/* YouTube 60 sn ana film (storyboard — tek dosyada birleştirme post-prod) */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-3"><Youtube className="w-5 h-5 text-red-500" /> YouTube / Meta — 60 saniyelik ana tanıtım (plan)</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-3"><Youtube className="w-5 h-5 text-[var(--metin-ikincil)]" /> YouTube / Meta — 60 saniyelik ana tanıtım (plan)</h3>
             <p className="text-xs text-slate-500 mb-4">
               Kaynak görüntü: <code className="text-slate-400">ihaleal-tanitim.mp4</code> (`public/videos/`). 60 sn kesim için ek kreatifler (K6) sonrası birleştirilebilir.
             </p>
@@ -156,15 +156,15 @@ export default function AdCampaign() {
         {/* 4 Haftalık Takvim */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Calendar className="w-5 h-5 text-amber-400" /> 4 Haftalık İçerik Takvimi</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Calendar className="w-5 h-5 text-[var(--metin-ikincil)]" /> 4 Haftalık İçerik Takvimi</h3>
             <div className="space-y-3">
               {calendar.map((c) => (
                 <div key={c.week} className="flex items-start gap-3 p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
-                  <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0 text-xs font-normal text-amber-400">{c.week.replace("Hafta ", "")}</div>
+                  <div className="w-8 h-8 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center shrink-0 text-xs font-normal text-[var(--metin-ikincil)]">{c.week.replace("Hafta ", "")}</div>
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-sm font-normal text-white">{c.week}</span>
-                      <Badge className="bg-blue-500/10 text-blue-400 text-[10px] border-0">{c.focus}</Badge>
+                      <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-[10px] border-0">{c.focus}</Badge>
                     </div>
                     <p className="text-xs text-slate-400">{c.action}</p>
                   </div>
@@ -177,7 +177,7 @@ export default function AdCampaign() {
         {/* Hashtag & SEO */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Hash className="w-5 h-5 text-sky-400" /> Hashtag ve Anahtar Kelime Stratejisi</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Hash className="w-5 h-5 text-[var(--metin-ikincil)]" /> Hashtag ve Anahtar Kelime Stratejisi</h3>
             <div className="flex flex-wrap gap-2">
               {["#ihaleal", "#gayrimenkul", "#emlak", "#yapayzeka", "#ai", "#yatırım", "#konut", "#villa", "#ofis", "#arsa", "#ihale", "#açıkartırma", "#fiyatAnalizi", "#sahibinden", "#hepsiemlak", "#emlakjet", "#mortgage", "#kredii", "#tapu", "#istanbul", "#ankara", "#izmir", "#bodrum", "#antalya", "#fırsat", "#lüks", "#prestij", "#emlakçı", "#ajans", "#portföy", "#kira", "#getiri", "#ekspertiz", "#değerleme", "#spk", "#findeks", "#güvenlik", "#teklif", "#kazan", "#ilk_ev"].map((tag) => (
                 <Badge key={tag} variant="outline" className="border-slate-600 text-slate-400 text-xs">{tag}</Badge>
@@ -187,7 +187,7 @@ export default function AdCampaign() {
         </Card>
 
         <div className="flex gap-3 justify-center pt-4">
-          <Button onClick={() => navigate("/")} className="bg-gradient-to-r from-pink-500 to-purple-500 text-white gap-2"><Globe className="w-4 h-4" /> Siteye Dön</Button>
+          <Button onClick={() => navigate("/")} className="bg-gradient-to-r from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] text-white gap-2"><Globe className="w-4 h-4" /> Siteye Dön</Button>
         </div>
       </div>
     </div>

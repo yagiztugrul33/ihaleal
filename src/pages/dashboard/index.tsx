@@ -91,7 +91,7 @@ export default function FlowDashboard() {
         </Button>
         <div>
           <h1 className="text-2xl md:text-3xl font-normal text-white flex items-center gap-2">
-            <LayoutDashboard className="w-8 h-8 text-violet-400" />
+            <LayoutDashboard className="w-8 h-8 text-[var(--metin-ikincil)]" />
             {d.title}
           </h1>
           <p className="text-sm text-slate-500 mt-1">{d.subtitle}</p>
@@ -99,7 +99,7 @@ export default function FlowDashboard() {
 
         <div className="flex flex-wrap gap-2">
           {flows.map((f) => (
-            <Badge key={f} variant="outline" className="border-teal-500/30 text-teal-200">
+            <Badge key={f} variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)]">
               {FLOW_LABELS[f].title}
             </Badge>
           ))}
@@ -113,11 +113,11 @@ export default function FlowDashboard() {
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-normal">
-                  <Store className="w-5 h-5 text-cyan-400" />
+                  <Store className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   {d.cardListingsTitle}
                 </div>
                 <p className="text-xs text-slate-500">{d.cardListingsBody}</p>
-                <Button type="button" className="w-full mt-1 bg-cyan-600/80 hover:bg-cyan-500 text-white" onClick={() => navigate("/sat-basla")}>
+                <Button type="button" className="w-full mt-1 bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white" onClick={() => navigate("/sat-basla")}>
                   {d.cardListingsCta}
                 </Button>
               </CardContent>
@@ -128,7 +128,7 @@ export default function FlowDashboard() {
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-normal">
-                  <Gavel className="w-5 h-5 text-blue-400" />
+                  <Gavel className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   {d.cardAuctionTitle}
                 </div>
                 <p className="text-xs text-slate-500">{d.cardAuctionBody}</p>
@@ -143,11 +143,11 @@ export default function FlowDashboard() {
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-normal">
-                  <ClipboardList className="w-5 h-5 text-amber-400" />
+                  <ClipboardList className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   {d.cardBidsTitle}
                 </div>
                 <p className="text-xs text-slate-500">{d.cardBidsBody}</p>
-                <Button type="button" variant="outline" className="w-full mt-1 border-amber-500/30 text-amber-100" onClick={() => navigate("/evraklar")}>
+                <Button type="button" variant="outline" className="w-full mt-1 border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => navigate("/evraklar")}>
                   {d.cardBidsCta}
                 </Button>
               </CardContent>
@@ -157,10 +157,10 @@ export default function FlowDashboard() {
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-4 flex flex-col gap-2">
               <div className="flex items-center gap-2 text-white font-normal">
-                <Heart className="w-5 h-5 text-pink-400" />
+                <Heart className="w-5 h-5 text-[var(--metin-ikincil)]" />
                 {d.cardFavoritesTitle}
               </div>
-              <Button type="button" variant="outline" className="w-full mt-1 border-pink-500/30 text-pink-100" onClick={() => navigate("/favoriler")}>
+              <Button type="button" variant="outline" className="w-full mt-1 border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => navigate("/favoriler")}>
                 {d.cardFavoritesCta}
               </Button>
             </CardContent>
@@ -182,10 +182,10 @@ export default function FlowDashboard() {
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-white font-normal">
-                  <Shield className="w-5 h-5 text-teal-400" />
+                  <Shield className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   {d.cardAuthorityTitle}
                 </div>
-                <Button type="button" variant="outline" className="w-full mt-1 border-teal-500/30 text-teal-100" onClick={() => navigate("/auth/edevis-mock")}>
+                <Button type="button" variant="outline" className="w-full mt-1 border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => navigate("/auth/edevis-mock")}>
                   {d.cardAuthorityCta}
                 </Button>
               </CardContent>

@@ -42,25 +42,25 @@ const MODULES = [
 
 const TONE: Record<string, { card: string; icon: string; badge: string; tag: string; cta: string }> = {
   emerald: {
-    card: "from-emerald-500/10 to-slate-900/60 border-emerald-500/25",
-    icon: "bg-gradient-to-br from-emerald-500 to-emerald-800 shadow-emerald-500/30",
-    badge: "text-emerald-400",
-    tag: "bg-emerald-500/10 border-emerald-500/25 text-emerald-200",
-    cta: "text-emerald-400",
+    card: "from-[var(--zemin-yumusak)] to-slate-900/60 border-[var(--cizgi)]",
+    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-emerald-500/30",
+    badge: "text-[var(--metin-ikincil)]",
+    tag: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-[var(--metin-ikincil)]",
+    cta: "text-[var(--metin-ikincil)]",
   },
   amber: {
-    card: "from-amber-500/10 to-slate-900/60 border-amber-500/25",
-    icon: "bg-gradient-to-br from-amber-500 to-amber-800 shadow-amber-500/30",
-    badge: "text-amber-400",
-    tag: "bg-amber-500/10 border-amber-500/25 text-amber-200",
-    cta: "text-amber-400",
+    card: "from-[var(--zemin-yumusak)] to-slate-900/60 border-[var(--cizgi)]",
+    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-amber-500/30",
+    badge: "text-[var(--metin-ikincil)]",
+    tag: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-[var(--metin-ikincil)]",
+    cta: "text-[var(--metin-ikincil)]",
   },
   violet: {
-    card: "from-violet-500/10 to-slate-900/60 border-violet-500/25",
-    icon: "bg-gradient-to-br from-violet-500 to-violet-800 shadow-violet-500/30",
-    badge: "text-violet-400",
-    tag: "bg-violet-500/10 border-violet-500/25 text-violet-200",
-    cta: "text-violet-400",
+    card: "from-[var(--zemin-yumusak)] to-slate-900/60 border-[var(--cizgi)]",
+    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-violet-500/30",
+    badge: "text-[var(--metin-ikincil)]",
+    tag: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-[var(--metin-ikincil)]",
+    cta: "text-[var(--metin-ikincil)]",
   },
 };
 
@@ -90,7 +90,7 @@ export function PlatformModulesShowcase({ embedded = false }: { embedded?: boole
             <p className="ref-modules-eyebrow">Platform Modülleri</p>
             <h2 className="mt-3 text-3xl font-normal tracking-tight text-white sm:text-4xl">
               Tek platform,{" "}
-              <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] bg-clip-text text-transparent">
                 3 intelligence modülü
               </span>
             </h2>

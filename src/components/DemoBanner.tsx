@@ -13,10 +13,10 @@ export function DemoBanner() {
     <div
       role="status"
       data-demo="true"
-      className="relative border-b border-amber-600/50 bg-amber-100 text-center text-[11px] leading-relaxed text-amber-950 px-3 py-2 sm:text-xs"
+      className="relative border-b border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-center text-[11px] leading-relaxed text-[var(--metin-ikincil)] px-3 py-2 sm:text-xs"
     >
       {isDemoData("demoBanner") ? <DemoDataCornerBadge /> : null}
-      <span className="font-normal text-amber-950">Demo</span>
+      <span className="font-normal text-[var(--metin-ikincil)]">Demo</span>
       {" — "}
       Bu site <strong>demo sürümdedir</strong>. İlanlar, teklifler ve fiyat tahminleri örnek amaçlıdır;{" "}
       <strong>gerçek satış işlemi yapılmaz</strong>. Canlı ödeme, banka, Findeks, e-Devlet ve harici endeks API’si yok.

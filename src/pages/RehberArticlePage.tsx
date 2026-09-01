@@ -30,7 +30,7 @@ export default function RehberArticlePage() {
         />
 
         <h1 className="flex items-center gap-3 text-2xl font-normal text-white md:text-3xl">
-          <BookOpen className="h-8 w-8 text-blue-400" />
+          <BookOpen className="h-8 w-8 text-[var(--metin-ikincil)]" />
           {guide.title}
         </h1>
         <p className="mt-2 text-sm text-slate-400">{guide.summary}</p>
@@ -48,7 +48,7 @@ export default function RehberArticlePage() {
           ))}
         </div>
 
-        <Card className="mt-10 border-blue-500/20 bg-blue-500/5">
+        <Card className="mt-10 border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
           <CardContent className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-normal text-white">İlgili araç</p>
@@ -67,7 +67,7 @@ export default function RehberArticlePage() {
               <li key={g.slug}>
                 <Link
                   to={`/rehber/${g.slug}`}
-                  className="rounded-[10px] border border-white/10 px-3 py-1.5 text-xs text-slate-300 hover:border-blue-500/40 hover:text-white"
+                  className="rounded-[10px] border border-white/10 px-3 py-1.5 text-xs text-slate-300 hover:border-[var(--cizgi)] hover:text-white"
                 >
                   {g.title}
                 </Link>

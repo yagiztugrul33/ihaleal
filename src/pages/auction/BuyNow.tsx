@@ -88,17 +88,17 @@ export default function BuyNow() {
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
-        <div className="rounded-[20px] border border-cyan-400/20 bg-white/90 backdrop-blur-xl p-6 shadow-xl space-y-4">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-white/90 backdrop-blur-xl p-6 shadow-xl space-y-4">
           <h1 className="text-xl font-normal text-white flex items-center gap-2">
-            <Shield className="w-6 h-6 text-cyan-400" />
+            <Shield className="w-6 h-6 text-[var(--metin-ikincil)]" />
             Hemen Al
           </h1>
-          <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-[10px] px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
+          <p className="text-[11px] text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] rounded-[10px] px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
           <p className="text-sm text-slate-400 leading-relaxed">{HEMEN_AL_GATE_INTRO}</p>
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3 space-y-2 text-xs text-slate-400">
-            <p className="font-normal text-emerald-200">MASAK / AML</p>
+            <p className="font-normal text-[var(--metin-ikincil)]">MASAK / AML</p>
             <p className="leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
-            <p className="font-normal text-cyan-200 pt-2">Kart güvenliği</p>
+            <p className="font-normal text-[var(--metin-ikincil)] pt-2">Kart güvenliği</p>
             <p className="leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
             <p className="leading-relaxed pt-1">{HEMEN_AL_DOCS_BLOCK}</p>
             <div className="flex flex-wrap gap-2 pt-2">
@@ -110,30 +110,30 @@ export default function BuyNow() {
             </div>
           </div>
           <p className="text-sm text-slate-400 leading-relaxed">
-            Atomik <code className="text-cyan-300/90 text-xs">execute_buy_now</code> RPC — blokaj ve rapor onayı ön koşulları sunucuda doğrulanır.
+            Atomik <code className="text-[var(--metin-ikincil)] text-xs">execute_buy_now</code> RPC — blokaj ve rapor onayı ön koşulları sunucuda doğrulanır.
           </p>
           {status === "running" ? (
             <div className="flex items-center gap-2 text-slate-300 text-sm">
-              <div className="w-5 h-5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-[var(--cizgi)] border-t-transparent rounded-full animate-spin" />
               İşlem yapılıyor...
             </div>
           ) : null}
           {status === "ok" ? (
-            <div className="flex gap-2 items-start text-emerald-300 text-sm">
+            <div className="flex gap-2 items-start text-[var(--metin-ikincil)] text-sm">
               <CheckCircle2 className="w-5 h-5 shrink-0" />
               {message}
             </div>
           ) : null}
           {(status === "err" || (status === "idle" && message)) ? (
-            <div className="flex gap-2 items-start text-amber-200 text-sm">
-              <AlertTriangle className="w-5 h-5 shrink-0 text-amber-400" />
+            <div className="flex gap-2 items-start text-[var(--metin-ikincil)] text-sm">
+              <AlertTriangle className="w-5 h-5 shrink-0 text-[var(--metin-ikincil)]" />
               {message}
             </div>
           ) : null}
           {status === "kyc" ? (
             <div className="space-y-2">
-              <div className="flex gap-2 items-start text-amber-200 text-sm">
-                <AlertTriangle className="w-5 h-5 shrink-0 text-amber-400" />
+              <div className="flex gap-2 items-start text-[var(--metin-ikincil)] text-sm">
+                <AlertTriangle className="w-5 h-5 shrink-0 text-[var(--metin-ikincil)]" />
                 {message}
               </div>
               <Button

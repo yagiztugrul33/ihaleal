@@ -121,7 +121,7 @@ export default function InvestorDashboard() {
         }
       >
         {syncError ? (
-          <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">{syncError}</p>
+          <p className="mb-4 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)]">{syncError}</p>
         ) : null}
         {isLoading ? (
           <LoadingSkeletonGrid count={3} />
@@ -221,7 +221,7 @@ export default function InvestorDashboard() {
                   return (
                     <div
                       key={auction.id}
-                      className="card-luxury cursor-pointer !p-0 transition-all hover:border-blue-400/30"
+                      className="card-luxury cursor-pointer !p-0 transition-all hover:border-[var(--cizgi)]"
                       onClick={() => navigate(`/ilan/${auction.id}`)}
                       role="button"
                       tabIndex={0}
@@ -239,11 +239,14 @@ export default function InvestorDashboard() {
                             <div>
                               <h4 className="font-normal text-white">{auction.title}</h4>
                               <div className="mt-1 flex items-center gap-2 text-sm text-slate-400">
-                                <MapPin className="h-3.5 w-3.5 text-blue-400" />
+                                <MapPin className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
                                 {auction.location}
                               </div>
                             </div>
-                            <Badge className={upside > 0 ? "border-emerald-500/30 bg-emerald-500/15 text-emerald-400" : "border-red-500/30 bg-red-500/15 text-red-400"}>
+                            <Badge
+                              className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]"
+                              style={{ color: upside > 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}
+                            >
                               {upside > 0 ? "+" : ""}
                               {upsidePercent}%
                             </Badge>
@@ -255,11 +258,11 @@ export default function InvestorDashboard() {
                             </div>
                             <div className="rounded-[10px] border border-white/8 bg-white/[0.03] p-2">
                               <div className="text-[10px] uppercase text-slate-500">{iv.cardPredicted}</div>
-                              <div className="text-sm font-normal text-emerald-400" dir="ltr">₺{(auction.aiPredictedPrice / 1_000_000).toFixed(1)}M</div>
+                              <div className="text-sm font-normal text-[var(--metin-ikincil)]" dir="ltr">₺{(auction.aiPredictedPrice / 1_000_000).toFixed(1)}M</div>
                             </div>
                             <div className="rounded-[10px] border border-white/8 bg-white/[0.03] p-2">
                               <div className="text-[10px] uppercase text-slate-500">{iv.cardYield}</div>
-                              <div className="text-sm font-normal text-blue-400" dir="ltr">%{auction.areaStats.rentalYield}</div>
+                              <div className="text-sm font-normal text-[var(--metin-ikincil)]" dir="ltr">%{auction.areaStats.rentalYield}</div>
                             </div>
                           </div>
                           <ListingDocumentFooter auction={auction} compact showTopRule={false} />

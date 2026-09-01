@@ -107,7 +107,7 @@ export function NihaiAnayasa() {
           </Button>
 
           <div className="text-center mb-10">
-            <div className="w-20 h-20 rounded-[20px] bg-amber-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
+            <div className="w-20 h-20 rounded-[20px] bg-[var(--zemin-yumusak)] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
               <Shield className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-normal text-white mb-2">İhaleAL.com Nihai Sistem Anayasası</h1>
@@ -115,9 +115,9 @@ export function NihaiAnayasa() {
               Master Architecture — Mülkiyet, miras, mali risk, sigorta, cezaî şartlar ve operasyonel kuralların üst dokümanı.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4 text-xs text-slate-500">
-              <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-rose-400" /> Kritik: {criticalRules} madde</span>
-              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-400" /> Toplam: {totalRules} alt madde</span>
-              <span className="flex items-center gap-1"><FileText className="w-3 h-3 text-amber-400" /> 6 Ana Bölüm</span>
+              <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-[var(--metin-ikincil)]" /> Kritik: {criticalRules} madde</span>
+              <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-[var(--metin-ikincil)]" /> Toplam: {totalRules} alt madde</span>
+              <span className="flex items-center gap-1"><FileText className="w-3 h-3 text-[var(--metin-ikincil)]" /> 6 Ana Bölüm</span>
             </div>
           </div>
         </motion.div>
@@ -196,20 +196,18 @@ export function NihaiAnayasa() {
                             onClick={() => setActiveRule(activeRule === rule.id ? null : rule.id)}
                           >
                             <div className="flex items-start gap-3">
-                              <div className={`w-7 h-7 rounded-[3px] flex items-center justify-center shrink-0 mt-0.5 ${
-                                rule.critical ? "bg-rose-500/10" : "bg-cyan-500/10"
-                              }`}>
+                              <div className="w-7 h-7 rounded-[3px] flex items-center justify-center shrink-0 mt-0.5 bg-[var(--zemin-yumusak)]">
                                 {rule.critical ? (
-                                  <AlertTriangle className="w-4 h-4 text-rose-400" />
+                                  <AlertTriangle className="w-4 h-4" style={{ color: "var(--durum-hata)" }} />
                                 ) : (
-                                  <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                                  <CheckCircle2 className="w-4 h-4" style={{ color: "var(--metrik-yesil)" }} />
                                 )}
                               </div>
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
                                   <span className="text-[10px] font-mono text-slate-500">{rule.id}</span>
                                   {rule.critical && (
-                                    <span className="text-[10px] font-normal px-1.5 py-0.5 rounded-[3px] bg-rose-500/20 text-rose-300">
+                                    <span className="text-[10px] font-normal px-1.5 py-0.5 rounded-[3px] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">
                                       KRİTİK
                                     </span>
                                   )}
@@ -234,11 +232,11 @@ export function NihaiAnayasa() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-10 glass rounded-[20px] border border-amber-500/20 bg-amber-500/[0.03] p-6"
+          className="mt-10 glass rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)]/[0.03] p-6"
         >
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-[10px] bg-amber-500/10 flex items-center justify-center shrink-0">
-              <Gavel className="w-5 h-5 text-amber-400" />
+            <div className="w-10 h-10 rounded-[10px] bg-[var(--zemin-yumusak)] flex items-center justify-center shrink-0">
+              <Gavel className="w-5 h-5 text-[var(--metin-ikincil)]" />
             </div>
             <div>
               <h3 className="text-base font-normal text-white mb-2">Yaptırım ve Hukuki Geçerlilik</h3>

@@ -50,7 +50,7 @@ export default function MuteahhitLanding() {
               "Dürüst ön analiz ile finansal ve teknik riskler daha erken görünür.",
             ].map((item) => (
               <article key={item} className="card-warm">
-                <CheckCircle2 className="mb-2 h-5 w-5 text-emerald-300" />
+                <CheckCircle2 className="mb-2 h-5 w-5 text-[var(--metin-ikincil)]" />
                 <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
                   {item}
                 </p>

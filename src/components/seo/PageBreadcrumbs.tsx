@@ -52,7 +52,7 @@ export function PageBreadcrumbs({ items, jsonLdId = "page-breadcrumb", className
                 <BreadcrumbPage className="text-slate-400">{item.label}</BreadcrumbPage>
               ) : (
                 <BreadcrumbLink asChild>
-                  <Link to={item.href} className="text-slate-500 hover:text-teal-400">
+                  <Link to={item.href} className="text-slate-500 hover:text-[var(--metin-ikincil)]">
                     {item.label}
                   </Link>
                 </BreadcrumbLink>

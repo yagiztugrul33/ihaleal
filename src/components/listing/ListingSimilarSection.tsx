@@ -80,7 +80,7 @@ export function ListingSimilarSection({
             key={a.id}
             type="button"
             onClick={() => navigate(`/ilan/${a.id}`)}
-            className="flex gap-3 rounded-[20px] border border-slate-200/80 bg-slate-900/30 p-3 text-start hover:border-blue-500/30"
+            className="flex gap-3 rounded-[20px] border border-slate-200/80 bg-slate-900/30 p-3 text-start hover:border-[var(--cizgi)]"
           >
             <ListingCoverImage
               src={a.image ?? ""}
@@ -93,7 +93,7 @@ export function ListingSimilarSection({
                 <MapPin className="h-3 w-3" aria-hidden />
                 {[a.district, a.city].filter(Boolean).join(", ")}
               </p>
-              <p className="mt-1 text-sm font-normal text-blue-400">₺{a.price.toLocaleString("tr-TR")}</p>
+              <p className="mt-1 text-sm font-normal text-[var(--metin-ikincil)]">₺{a.price.toLocaleString("tr-TR")}</p>
             </div>
           </button>
         ))}

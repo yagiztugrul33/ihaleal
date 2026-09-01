@@ -169,10 +169,10 @@ export default function Analytics() {
   const paybackYears = (propertyValue / netAnnualRent).toFixed(1);
 
   const getRec = (score: number) => {
-    if (score >= 85) return { text: "Guclu Al", color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20" };
-    if (score >= 70) return { text: "Al", color: "text-emerald-300 bg-emerald-500/5 border-emerald-500/10" };
-    if (score >= 50) return { text: "Bekle", color: "text-amber-400 bg-amber-500/10 border-amber-500/20" };
-    return { text: "Kacin", color: "text-red-400 bg-red-500/10 border-red-500/20" };
+    if (score >= 85) return { text: "Guclu Al", color: "text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border-[var(--cizgi)]" };
+    if (score >= 70) return { text: "Al", color: "text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border-[var(--cizgi)]" };
+    if (score >= 50) return { text: "Bekle", color: "text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border-[var(--cizgi)]" };
+    return { text: "Kacin", color: "text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border-[var(--cizgi)]" };
   };
 
   const analysisTabs = [
@@ -183,29 +183,29 @@ export default function Analytics() {
   ];
 
   const columns = analysisType === "unitPrice" ? [
-    { key: "pricePerSqm", label: "m2 Birim Fiyat", color: "text-blue-400" },
-    { key: "avgValue", label: "Ort. Deger", color: "text-sky-400" },
-    { key: "amortization", label: "Amortisman", color: "text-violet-400" },
-    { key: "yield", label: "Getiri", color: "text-emerald-400" },
-    { key: "annualChange", label: "Yillik Degisim", color: "text-emerald-400" },
+    { key: "pricePerSqm", label: "m2 Birim Fiyat", color: "text-[var(--metin-ikincil)]" },
+    { key: "avgValue", label: "Ort. Deger", color: "text-[var(--metin-ikincil)]" },
+    { key: "amortization", label: "Amortisman", color: "text-[var(--metin-ikincil)]" },
+    { key: "yield", label: "Getiri", color: "text-[var(--metin-ikincil)]" },
+    { key: "annualChange", label: "Yillik Degisim", color: "text-[var(--metin-ikincil)]" },
   ] : analysisType === "change" ? [
-    { key: "monthlyChange", label: "Aylik Degisim", color: "text-blue-400" },
-    { key: "annualChange", label: "Yillik Degisim", color: "text-emerald-400" },
-    { key: "totalChange", label: "Toplam Degisim", color: "text-sky-400" },
-    { key: "nextYearPrediction", label: "1 Yil Tahmini", color: "text-amber-400" },
-    { key: "twoYearPrediction", label: "2 Yil Tahmini", color: "text-pink-400" },
+    { key: "monthlyChange", label: "Aylik Degisim", color: "text-[var(--metin-ikincil)]" },
+    { key: "annualChange", label: "Yillik Degisim", color: "text-[var(--metin-ikincil)]" },
+    { key: "totalChange", label: "Toplam Degisim", color: "text-[var(--metin-ikincil)]" },
+    { key: "nextYearPrediction", label: "1 Yil Tahmini", color: "text-[var(--metin-ikincil)]" },
+    { key: "twoYearPrediction", label: "2 Yil Tahmini", color: "text-[var(--metin-ikincil)]" },
   ] : analysisType === "yield" ? [
-    { key: "yield", label: "Kira Getirisi", color: "text-emerald-400" },
-    { key: "amortization", label: "Amortisman", color: "text-violet-400" },
-    { key: "avgValue", label: "Ort. Deger", color: "text-sky-400" },
-    { key: "marketingDays", label: "Satis Suresi", color: "text-amber-400" },
-    { key: "annualChange", label: "Yillik Artis", color: "text-blue-400" },
+    { key: "yield", label: "Kira Getirisi", color: "text-[var(--metin-ikincil)]" },
+    { key: "amortization", label: "Amortisman", color: "text-[var(--metin-ikincil)]" },
+    { key: "avgValue", label: "Ort. Deger", color: "text-[var(--metin-ikincil)]" },
+    { key: "marketingDays", label: "Satis Suresi", color: "text-[var(--metin-ikincil)]" },
+    { key: "annualChange", label: "Yillik Artis", color: "text-[var(--metin-ikincil)]" },
   ] : [
-    { key: "amortization", label: "Amortisman", color: "text-violet-400" },
-    { key: "yield", label: "Getiri", color: "text-emerald-400" },
-    { key: "pricePerSqm", label: "m2 Fiyat", color: "text-blue-400" },
-    { key: "avgArea", label: "Ort. Alan", color: "text-sky-400" },
-    { key: "marketingDays", label: "Satis Suresi", color: "text-amber-400" },
+    { key: "amortization", label: "Amortisman", color: "text-[var(--metin-ikincil)]" },
+    { key: "yield", label: "Getiri", color: "text-[var(--metin-ikincil)]" },
+    { key: "pricePerSqm", label: "m2 Fiyat", color: "text-[var(--metin-ikincil)]" },
+    { key: "avgArea", label: "Ort. Alan", color: "text-[var(--metin-ikincil)]" },
+    { key: "marketingDays", label: "Satis Suresi", color: "text-[var(--metin-ikincil)]" },
   ];
 
   const formatValue = (key: string, val: number) => {
@@ -218,9 +218,9 @@ export default function Analytics() {
   };
 
   const getMarketCycleColor = (cycle: string) => {
-    if (cycle === "buyer") return "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
-    if (cycle === "seller") return "text-red-400 bg-red-500/10 border-red-500/20";
-    return "text-amber-400 bg-amber-500/10 border-amber-500/20";
+    if (cycle === "buyer") return "text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border-[var(--cizgi)]";
+    if (cycle === "seller") return "text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border-[var(--cizgi)]";
+    return "text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] border-[var(--cizgi)]";
   };
 
   const getMarketCycleLabel = (cycle: string) => {
@@ -238,10 +238,10 @@ export default function Analytics() {
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
           <h1 className="text-3xl md:text-4xl font-normal text-white flex flex-wrap items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-[20px] border border-cyan-500/35 bg-cyan-500/10" aria-hidden>
-              <Stethoscope className="h-5 w-5 text-cyan-300" />
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" aria-hidden>
+              <Stethoscope className="h-5 w-5 text-[var(--metin-ikincil)]" />
             </span>
-            <Activity className="w-8 h-8 text-cyan-400" />
+            <Activity className="w-8 h-8 text-[var(--metin-ikincil)]" />
             İhaleal Endeksi — piyasa görünümü
           </h1>
           <p className="text-slate-400 mt-2">
@@ -250,17 +250,17 @@ export default function Analytics() {
         </div>
 
         <div className="mb-8 card-luxury flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:p-5">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[20px] border border-cyan-500/30 bg-cyan-500/10">
-            <Cpu className="h-6 w-6 text-cyan-300" aria-hidden />
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
+            <Cpu className="h-6 w-6 text-[var(--metin-ikincil)]" aria-hidden />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[11px] font-normal uppercase tracking-[0.2em] text-cyan-400/90">Yapay zekâ · özet katmanı</p>
+            <p className="text-[11px] font-normal uppercase tracking-[0.2em] text-[var(--metin-ikincil)]">Yapay zekâ · özet katmanı</p>
             <p className="text-sm text-slate-300 mt-1 leading-relaxed">
               Grafikler ve skorlar demo veriyle üretilir; gerçek portföy için Uzman Görüşü ve tapu sicil doğrulaması şarttır. Sağ alttaki sohbetten hızlı yönlendirme alabilirsiniz.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 shrink-0">
-            <Button type="button" variant="outline" size="sm" className="border-cyan-500/30 text-cyan-100 hover:bg-cyan-500/10 gap-1.5" onClick={() => navigate("/ekspertiz")}>
+            <Button type="button" variant="outline" size="sm" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] gap-1.5" onClick={() => navigate("/ekspertiz")}>
               <ExternalLink className="w-3.5 h-3.5" />
               Uzman görüşü
             </Button>
@@ -284,7 +284,7 @@ export default function Analytics() {
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-[20px] text-sm font-normal whitespace-nowrap transition-all border ${
                 activeTab === tab.key
-                  ? "[background:var(--gradient-cta)] text-white shadow-lg shadow-cyan-500/20 border-cyan-400/30"
+                  ? "[background:var(--gradient-cta)] text-white shadow-lg shadow-cyan-500/20 border-[var(--cizgi)]"
                   : "bg-white/[0.06] backdrop-blur-md border-slate-200 text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
@@ -298,10 +298,10 @@ export default function Analytics() {
           <>
             {/* Platform Ozeti */}
             <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-700 delay-150 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <SummaryCard icon={<Building2 className="w-5 h-5 text-blue-400" />} label="Toplam İlan" value="12" sub="Aktif ihale" />
-              <SummaryCard icon={<Wallet className="w-5 h-5 text-emerald-400" />} label="Ort. m² fiyatı" value="TRY 65.8K" sub="Tüm şehirler" />
-              <SummaryCard icon={<Percent className="w-5 h-5 text-violet-400" />} label="Ort. getiri" value="%6.5" sub="Yıllık kira" />
-              <SummaryCard icon={<TrendingUp className="w-5 h-5 text-sky-400" />} label="Ort. yıllık artış" value="%+19.7" sub="Son 12 ay" />
+              <SummaryCard icon={<Building2 className="w-5 h-5 text-[var(--metin-ikincil)]" />} label="Toplam İlan" value="12" sub="Aktif ihale" />
+              <SummaryCard icon={<Wallet className="w-5 h-5 text-[var(--metin-ikincil)]" />} label="Ort. m² fiyatı" value="TRY 65.8K" sub="Tüm şehirler" />
+              <SummaryCard icon={<Percent className="w-5 h-5 text-[var(--metin-ikincil)]" />} label="Ort. getiri" value="%6.5" sub="Yıllık kira" />
+              <SummaryCard icon={<TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)]" />} label="Ort. yıllık artış" value="%+19.7" sub="Son 12 ay" />
             </div>
 
             {/* Filters */}
@@ -338,7 +338,7 @@ export default function Analytics() {
             <div className={`grid lg:grid-cols-3 gap-6 mb-10 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="lg:col-span-2 bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
-                  <Gauge className="w-5 h-5 text-blue-400" />
+                  <Gauge className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   Piyasa Dongusu Gostergesi
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -355,23 +355,23 @@ export default function Analytics() {
                         <div className="space-y-2">
                           <div className="flex justify-between text-xs">
                             <span className="text-slate-500">Stok Degisim</span>
-                            <span className="text-red-400">{d.stockChange}%</span>
+                            <span className="text-[var(--metin-ikincil)]">{d.stockChange}%</span>
                           </div>
                           <div className="flex justify-between text-xs">
                             <span className="text-slate-500">Satis Suresi</span>
-                            <span className="text-amber-400">{d.marketingDays} gun</span>
+                            <span className="text-[var(--metin-ikincil)]">{d.marketingDays} gun</span>
                           </div>
                           <div className="flex justify-between text-xs">
                             <span className="text-slate-500">m2 Fiyat</span>
-                            <span className="text-blue-400">TRY {d.pricePerSqm.toLocaleString()}</span>
+                            <span className="text-[var(--metin-ikincil)]">TRY {d.pricePerSqm.toLocaleString()}</span>
                           </div>
                         </div>
                         {/* Market cycle bar */}
                         <div className="mt-3 h-2 rounded-full bg-white/5 overflow-hidden">
                           <div 
                             className={`h-full rounded-full transition-all ${
-                              d.marketCycle === "buyer" ? "bg-emerald-500 w-[30%]" : 
-                              d.marketCycle === "seller" ? "bg-red-500 w-[80%]" : "bg-amber-500 w-[55%]"
+                              d.marketCycle === "buyer" ? "bg-[var(--zemin-yumusak)] w-[30%]" : 
+                              d.marketCycle === "seller" ? "bg-[var(--zemin-yumusak)] w-[80%]" : "bg-[var(--zemin-yumusak)] w-[55%]"
                             }`}
                           />
                         </div>
@@ -383,7 +383,7 @@ export default function Analytics() {
 
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
-                  <PieChart className="w-5 h-5 text-pink-400" />
+                  <PieChart className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   Portfoy Dagilimi
                 </h3>
                 <div className="h-56">
@@ -407,12 +407,12 @@ export default function Analytics() {
             <div className={`mb-10 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <h2 className="text-xl font-normal text-white flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5 text-blue-400" />
+                  <BarChart3 className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   İhaleal Endeksi — bölge bandı
                 </h2>
                 <div className="flex gap-2 flex-wrap">
                   {analysisTabs.map((t) => (
-                    <button key={t.key} onClick={() => setAnalysisType(t.key)} className={`px-3 py-1.5 rounded-[10px] text-xs font-normal transition-all ${analysisType === t.key ? "bg-blue-500 text-white" : "bg-white/5 text-slate-400 hover:bg-white/10"}`}>
+                    <button key={t.key} onClick={() => setAnalysisType(t.key)} className={`px-3 py-1.5 rounded-[10px] text-xs font-normal transition-all ${analysisType === t.key ? "bg-[var(--zemin-yumusak)] text-white" : "bg-white/5 text-slate-400 hover:bg-white/10"}`}>
                       {t.label}
                     </button>
                   ))}
@@ -491,7 +491,7 @@ export default function Analytics() {
             <div className={`grid lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
-                  <Lightbulb className="w-5 h-5 text-amber-400" />
+                  <Lightbulb className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   Yatirim Skoru Siralamasi
                 </h3>
                 <div className="overflow-x-auto">
@@ -510,15 +510,15 @@ export default function Analytics() {
                         const s = CITY_DATA[city].investmentScore;
                         const isBest = s.avg <= 25;
                         return (
-                          <tr key={city} className={`border-b border-white/[0.03] hover:bg-white/[0.02] ${isBest ? "bg-emerald-500/5" : ""}`}>
+                          <tr key={city} className={`border-b border-white/[0.03] hover:bg-white/[0.02] ${isBest ? "bg-[var(--zemin-yumusak)]" : ""}`}>
                             <td className="py-2.5 font-normal text-white flex items-center gap-2">
-                              {isBest && <Star className="w-3.5 h-3.5 text-emerald-400 fill-current" />}
+                              {isBest && <Star className="w-3.5 h-3.5 text-[var(--metin-ikincil)] fill-current" />}
                               {city}
                             </td>
                             <td className="text-end py-2.5 font-normal text-white">{s.avg}</td>
-                            <td className="text-end py-2.5 text-blue-400">{s.buySell}</td>
-                            <td className="text-end py-2.5 text-violet-400">{s.buyRent}</td>
-                            <td className="text-end py-2.5 text-sky-400">{s.buyLive}</td>
+                            <td className="text-end py-2.5 text-[var(--metin-ikincil)]">{s.buySell}</td>
+                            <td className="text-end py-2.5 text-[var(--metin-ikincil)]">{s.buyRent}</td>
+                            <td className="text-end py-2.5 text-[var(--metin-ikincil)]">{s.buyLive}</td>
                           </tr>
                         );
                       })}
@@ -529,7 +529,7 @@ export default function Analytics() {
 
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-sky-400" />
+                  <Layers className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   Piyasa Stok Analizi
                 </h3>
                 <div className="overflow-x-auto">
@@ -549,10 +549,10 @@ export default function Analytics() {
                         return (
                           <tr key={city} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
                             <td className="py-2.5 font-normal text-white">{city}</td>
-                            <td className="text-end py-2.5 text-sky-400">{d.avgArea}m2</td>
-                            <td className="text-end py-2.5 text-amber-400">{d.marketingDays} gun</td>
+                            <td className="text-end py-2.5 text-[var(--metin-ikincil)]">{d.avgArea}m2</td>
+                            <td className="text-end py-2.5 text-[var(--metin-ikincil)]">{d.marketingDays} gun</td>
                             <td className="text-end py-2.5 text-slate-400">{d.avgAge} yil</td>
-                            <td className="text-end py-2.5 text-red-400">{d.stockChange}%</td>
+                            <td className="text-end py-2.5 text-[var(--metin-ikincil)]">{d.stockChange}%</td>
                           </tr>
                         );
                       })}
@@ -565,7 +565,7 @@ export default function Analytics() {
             {/* Demografi */}
             <div className={`mb-10 transition-all duration-700 delay-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h2 className="text-xl font-normal text-white mb-4 flex items-center gap-2">
-                <Users className="w-5 h-5 text-teal-400" />
+                <Users className="w-5 h-5 text-[var(--metin-ikincil)]" />
                 Demografi Verileri
               </h2>
               <div className="grid md:grid-cols-3 gap-4">
@@ -575,10 +575,10 @@ export default function Analytics() {
                     <Card key={city} className="bg-slate-900/50 border-slate-200/80 p-4">
                       <h4 className="font-normal text-white mb-3">{city}</h4>
                       <div className="space-y-2.5">
-                        <DemoItem icon={<Users className="w-3.5 h-3.5 text-blue-400" />} label="Nufus" value={`${(d.population / 1000000).toFixed(1)}M`} />
-                        <DemoItem icon={<Activity className="w-3.5 h-3.5 text-emerald-400" />} label="Medyan Yas" value={`${d.medianAge}`} />
-                        <DemoItem icon={<Wallet className="w-3.5 h-3.5 text-amber-400" />} label="Kisi Basi Gelir" value={`TRY ${d.incomePerCapita.toLocaleString()}`} />
-                        <DemoItem icon={<Home className="w-3.5 h-3.5 text-violet-400" />} label="Ort. Hanehalki" value={`${(d.avgArea * 0.85).toFixed(0)}m2`} />
+                        <DemoItem icon={<Users className="w-3.5 h-3.5 text-[var(--metin-ikincil)]" />} label="Nufus" value={`${(d.population / 1000000).toFixed(1)}M`} />
+                        <DemoItem icon={<Activity className="w-3.5 h-3.5 text-[var(--metin-ikincil)]" />} label="Medyan Yas" value={`${d.medianAge}`} />
+                        <DemoItem icon={<Wallet className="w-3.5 h-3.5 text-[var(--metin-ikincil)]" />} label="Kisi Basi Gelir" value={`TRY ${d.incomePerCapita.toLocaleString()}`} />
+                        <DemoItem icon={<Home className="w-3.5 h-3.5 text-[var(--metin-ikincil)]" />} label="Ort. Hanehalki" value={`${(d.avgArea * 0.85).toFixed(0)}m2`} />
                       </div>
                     </Card>
                   );
@@ -592,23 +592,23 @@ export default function Analytics() {
               {filtered.map((auction) => {
                 const rec = getRec(auction.investmentScore);
                 return (
-                  <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-0.5 cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
+                  <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-0.5 cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
                     <CardContent className="p-5">
                       <div className="flex flex-col md:flex-row gap-5">
                         <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full md:w-48 h-32 object-cover rounded-[20px] shrink-0" />
                         <div className="flex-1">
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <h4 className="text-lg font-normal text-white hover:text-blue-400 transition-colors">{auction.title}</h4>
+                              <h4 className="text-lg font-normal text-white hover:text-[var(--metin-ikincil)] transition-colors">{auction.title}</h4>
                               <div className="flex items-center gap-2 text-sm text-slate-500 mt-1"><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
                             </div>
                             <div className={`px-3 py-1.5 rounded-[10px] border text-xs font-normal whitespace-nowrap ${rec.color}`}>{rec.text}</div>
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-                            <MiniStat icon={<Star className="w-4 h-4 text-blue-400" />} label="Yatirim Skoru" value={`${auction.investmentScore}/100`} />
-                            <MiniStat icon={<BarChart3 className="w-4 h-4 text-sky-400" />} label="m2 Fiyati" value={`TRY ${auction.pricePerSqm.toLocaleString()}`} />
-                            <MiniStat icon={<TrendingUp className="w-4 h-4 text-emerald-400" />} label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} />
-                            <MiniStat icon={<Home className="w-4 h-4 text-violet-400" />} label="Yillik Artis" value={`%${auction.areaStats.priceChangeYearly}`} />
+                            <MiniStat icon={<Star className="w-4 h-4 text-[var(--metin-ikincil)]" />} label="Yatirim Skoru" value={`${auction.investmentScore}/100`} />
+                            <MiniStat icon={<BarChart3 className="w-4 h-4 text-[var(--metin-ikincil)]" />} label="m2 Fiyati" value={`TRY ${auction.pricePerSqm.toLocaleString()}`} />
+                            <MiniStat icon={<TrendingUp className="w-4 h-4 text-[var(--metin-ikincil)]" />} label="Kira Getirisi" value={`%${auction.areaStats.rentalYield}`} />
+                            <MiniStat icon={<Home className="w-4 h-4 text-[var(--metin-ikincil)]" />} label="Yillik Artis" value={`%${auction.areaStats.priceChangeYearly}`} />
                           </div>
                         </div>
                       </div>
@@ -625,7 +625,7 @@ export default function Analytics() {
           <div className="space-y-8">
             <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h2 className="text-2xl font-normal text-white mb-2 flex items-center gap-2">
-                <LineChartIcon className="w-6 h-6 text-blue-400" />
+                <LineChartIcon className="w-6 h-6 text-[var(--metin-ikincil)]" />
                 AI Fiyat Tahmini — Istanbul
               </h2>
               <p className="text-slate-400 mb-6">Gelecek 12 ay icin m2 birim fiyat tahmini (TRY/m2)</p>
@@ -651,8 +651,8 @@ export default function Analytics() {
                     </ReAreaChart>
                   </ResponsiveContainer>
                 </div>
-                <div className="flex items-center gap-2 mt-4 p-3 rounded-[10px] bg-blue-500/5 border border-blue-500/10">
-                  <Info className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <div className="flex items-center gap-2 mt-4 p-3 rounded-[10px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
+                  <Info className="w-4 h-4 text-[var(--metin-ikincil)] flex-shrink-0" />
                   <p className="text-xs text-slate-400">
                     Tahminler %95 güven araligi ile hesaplanmistir. Ust ve alt sinirlar modelin maksimum ve minimum beklentilerini gostermektedir.
                   </p>
@@ -663,10 +663,10 @@ export default function Analytics() {
             {/* Tahmin Ozeti Kartlari */}
             <div className={`grid md:grid-cols-4 gap-4 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               {[
-                { label: "Mevcut m2 Fiyat", value: `TRY ${CITY_DATA["Istanbul"].pricePerSqm.toLocaleString()}`, icon: <CircleDollarSign className="w-5 h-5 text-blue-400" />, color: "text-blue-400" },
-                { label: "12 Ay Tahmini", value: `TRY ${predictionData[11].predicted.toLocaleString()}`, icon: <TrendingUp className="w-5 h-5 text-emerald-400" />, color: "text-emerald-400" },
-                { label: "Tahmini Artis", value: `+%${(((predictionData[11].predicted - CITY_DATA["Istanbul"].pricePerSqm) / CITY_DATA["Istanbul"].pricePerSqm) * 100).toFixed(1)}`, icon: <ArrowUpRight className="w-5 h-5 text-violet-400" />, color: "text-violet-400" },
-                { label: "Guven Araligi", value: `TRY ${predictionData[11].lower.toLocaleString()} - ${predictionData[11].upper.toLocaleString()}`, icon: <ShieldCheck className="w-5 h-5 text-amber-400" />, color: "text-amber-400" },
+                { label: "Mevcut m2 Fiyat", value: `TRY ${CITY_DATA["Istanbul"].pricePerSqm.toLocaleString()}`, icon: <CircleDollarSign className="w-5 h-5 text-[var(--metin-ikincil)]" />, color: "text-[var(--metin-ikincil)]" },
+                { label: "12 Ay Tahmini", value: `TRY ${predictionData[11].predicted.toLocaleString()}`, icon: <TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)]" />, color: "text-[var(--metin-ikincil)]" },
+                { label: "Tahmini Artis", value: `+%${(((predictionData[11].predicted - CITY_DATA["Istanbul"].pricePerSqm) / CITY_DATA["Istanbul"].pricePerSqm) * 100).toFixed(1)}`, icon: <ArrowUpRight className="w-5 h-5 text-[var(--metin-ikincil)]" />, color: "text-[var(--metin-ikincil)]" },
+                { label: "Guven Araligi", value: `TRY ${predictionData[11].lower.toLocaleString()} - ${predictionData[11].upper.toLocaleString()}`, icon: <ShieldCheck className="w-5 h-5 text-[var(--metin-ikincil)]" />, color: "text-[var(--metin-ikincil)]" },
               ].map((item) => (
                 <Card key={item.label} className="bg-slate-900/50 border-slate-200/80 p-4">
                   <div className="flex items-center gap-2 mb-2">{item.icon}<span className="text-sm text-slate-400">{item.label}</span></div>
@@ -695,14 +695,14 @@ export default function Analytics() {
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-slate-400">Tahmini</span>
-                          <span className="text-emerald-400 font-normal">TRY {futurePrice.toLocaleString()}</span>
+                          <span className="text-[var(--metin-ikincil)] font-normal">TRY {futurePrice.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-slate-400">Artis</span>
-                          <span className="text-blue-400 font-normal">+{d.nextYearPrediction}%</span>
+                          <span className="text-[var(--metin-ikincil)] font-normal">+{d.nextYearPrediction}%</span>
                         </div>
                         <div className="h-2 rounded-full bg-white/5 mt-2">
-                          <div className="h-full rounded-full bg-emerald-500" style={{ width: `${Math.min(d.nextYearPrediction * 3, 100)}%` }} />
+                          <div className="h-full rounded-full bg-[var(--zemin-yumusak)]" style={{ width: `${Math.min(d.nextYearPrediction * 3, 100)}%` }} />
                         </div>
                       </div>
                     </Card>
@@ -718,7 +718,7 @@ export default function Analytics() {
           <div className="space-y-8">
             <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h2 className="text-2xl font-normal text-white mb-2 flex items-center gap-2">
-                <Calculator className="w-6 h-6 text-emerald-400" />
+                <Calculator className="w-6 h-6 text-[var(--metin-ikincil)]" />
                 Kira Getirisi Simulatoreu
               </h2>
               <p className="text-slate-400 mb-6">Gayrimenkul yatırıminizin kira getirisini hesaplayin</p>
@@ -759,10 +759,10 @@ export default function Analytics() {
               <Card className="lg:col-span-2 bg-slate-900/50 border-slate-200/80 p-5">
                 <h3 className="font-normal text-white mb-5">Sonuclar</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                  <ResultCard label="Brut Getiri" value={`%${grossYield}`} icon={<TrendingUp className="w-5 h-5 text-blue-400" />} color="text-blue-400" />
-                  <ResultCard label="Net Getiri" value={`%${netYield}`} icon={<TrendingUp className="w-5 h-5 text-emerald-400" />} color="text-emerald-400" />
-                  <ResultCard label="Yillik Net Gelir" value={`TRY ${netAnnualRent.toLocaleString()}`} icon={<CircleDollarSign className="w-5 h-5 text-violet-400" />} color="text-violet-400" />
-                  <ResultCard label="Amortisman" value={`${paybackYears} yil`} icon={<Clock className="w-5 h-5 text-amber-400" />} color="text-amber-400" />
+                  <ResultCard label="Brut Getiri" value={`%${grossYield}`} icon={<TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)]" />} color="text-[var(--metin-ikincil)]" />
+                  <ResultCard label="Net Getiri" value={`%${netYield}`} icon={<TrendingUp className="w-5 h-5 text-[var(--metin-ikincil)]" />} color="text-[var(--metin-ikincil)]" />
+                  <ResultCard label="Yillik Net Gelir" value={`TRY ${netAnnualRent.toLocaleString()}`} icon={<CircleDollarSign className="w-5 h-5 text-[var(--metin-ikincil)]" />} color="text-[var(--metin-ikincil)]" />
+                  <ResultCard label="Amortisman" value={`${paybackYears} yil`} icon={<Clock className="w-5 h-5 text-[var(--metin-ikincil)]" />} color="text-[var(--metin-ikincil)]" />
                 </div>
 
                 {/* Comparison with cities */}
@@ -780,7 +780,7 @@ export default function Analytics() {
                           <span className="text-sm text-white font-normal">{city}</span>
                           <span className="text-xs text-slate-500">Ort: %{cityNetYield}</span>
                         </div>
-                        <div className={`flex items-center gap-1 text-sm font-normal ${isBetter ? "text-emerald-400" : "text-red-400"}`}>
+                        <div className="flex items-center gap-1 text-sm font-normal" style={{ color: isBetter ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                           {isBetter ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                           {diff}%
                         </div>
@@ -817,7 +817,7 @@ export default function Analytics() {
           <div className="space-y-8">
             <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h2 className="text-2xl font-normal text-white mb-2 flex items-center gap-2">
-                <Target className="w-6 h-6 text-amber-400" />
+                <Target className="w-6 h-6 text-[var(--metin-ikincil)]" />
                 AI Yatirim Firsatlari
               </h2>
               <p className="text-slate-400 mb-6">Yapay zeka tarafindan secilen en iyi yatırım firsatlari</p>
@@ -831,14 +831,14 @@ export default function Analytics() {
                 .map((auction, idx) => {
                   const rec = getRec(auction.investmentScore);
                   return (
-                    <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-1">
+                    <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-1">
                       <div className="relative h-44">
                         <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
-                        <div className="absolute top-3 start-3 px-2.5 py-1 rounded-[10px] bg-amber-500 text-white text-xs font-normal">
+                        <div className="absolute top-3 start-3 px-2.5 py-1 rounded-[10px] bg-[var(--zemin-yumusak)] text-white text-xs font-normal">
                           #{idx + 1} Firsat
                         </div>
-                        <div className="absolute top-3 end-3 px-2.5 py-1 rounded-[10px] bg-emerald-500/90 text-white text-xs font-normal">
+                        <div className="absolute top-3 end-3 px-2.5 py-1 rounded-[10px] bg-[var(--zemin-yumusak)] text-white text-xs font-normal">
                           AI {auction.investmentScore}
                         </div>
                       </div>
@@ -850,11 +850,11 @@ export default function Analytics() {
                         <div className="grid grid-cols-2 gap-2 mb-3">
                           <div className="p-2 rounded-[10px] bg-white/[0.03]">
                             <div className="text-xs text-slate-500">Tahmini Getiri</div>
-                            <div className="text-sm font-normal text-emerald-400">%{auction.areaStats.rentalYield}</div>
+                            <div className="text-sm font-normal text-[var(--metin-ikincil)]">%{auction.areaStats.rentalYield}</div>
                           </div>
                           <div className="p-2 rounded-[10px] bg-white/[0.03]">
                             <div className="text-xs text-slate-500">Yillik Artis</div>
-                            <div className="text-sm font-normal text-blue-400">%{auction.areaStats.priceChangeYearly}</div>
+                            <div className="text-sm font-normal text-[var(--metin-ikincil)]">%{auction.areaStats.priceChangeYearly}</div>
                           </div>
                         </div>
                         <div className="flex items-center justify-between">
@@ -862,7 +862,7 @@ export default function Analytics() {
                             <div className="text-xs text-slate-500">Guncel Teklif</div>
                             <div className="text-lg font-normal text-white">TRY {auction.currentBid.toLocaleString()}</div>
                           </div>
-                          <Button size="sm" onClick={() => navigate(`/ilan/${auction.id}`)} className="bg-amber-500 hover:bg-amber-400 text-white font-normal">
+                          <Button size="sm" onClick={() => navigate(`/ilan/${auction.id}`)} className="bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white font-normal">
                             Incele
                           </Button>
                         </div>
@@ -875,7 +875,7 @@ export default function Analytics() {
             {/* Firsat Matrisi */}
             <Card className={`bg-slate-900/50 border-slate-200/80 p-5 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
-                <MousePointerClick className="w-5 h-5 text-blue-400" />
+                <MousePointerClick className="w-5 h-5 text-[var(--metin-ikincil)]" />
                 Fiyat / Getiri Matrisi — Tum Ilanlar
               </h3>
               <div className="h-80">
@@ -895,7 +895,7 @@ export default function Analytics() {
                               <p className="text-sm font-normal text-white mb-1">{data.name}</p>
                               <p className="text-xs text-slate-400">Fiyat: TRY {data.x.toLocaleString()}</p>
                               <p className="text-xs text-slate-400">Getiri: %{data.y}</p>
-                              <p className="text-xs text-blue-400">AI Skor: {data.z}</p>
+                              <p className="text-xs text-[var(--metin-ikincil)]">AI Skor: {data.z}</p>
                             </div>
                           );
                         }
@@ -911,9 +911,9 @@ export default function Analytics() {
                 </ResponsiveContainer>
               </div>
               <div className="flex items-center gap-4 mt-4 justify-center">
-                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-emerald-500" /> Guclu Al (85+)</div>
-                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-blue-500" /> Al (70-84)</div>
-                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-amber-500" /> Bekle (&lt;70)</div>
+                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-[var(--zemin-yumusak)]" /> Guclu Al (85+)</div>
+                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-[var(--zemin-yumusak)]" /> Al (70-84)</div>
+                <div className="flex items-center gap-2 text-xs"><span className="w-3 h-3 rounded-full bg-[var(--zemin-yumusak)]" /> Bekle (&lt;70)</div>
               </div>
             </Card>
 
@@ -928,22 +928,24 @@ export default function Analytics() {
                   { type: "buy", title: "Izmir Alsancak Kordon'da Daireler", desc: "Turizm sezonu kira getirisi yuksek, deniz manzarali", score: 76 },
                   { type: "watch", title: "Ankara Eryaman'da Aile Daireleri", desc: "Dengeli piyasa, dusuk risk profili ile güvenli yatırım", score: 73 },
                 ].map((item, idx) => (
-                  <Card key={idx} className={`bg-slate-900/50 border-slate-200/80 p-4 hover:border-slate-200 transition-all ${item.type === "strong_buy" ? "border-l-4 border-l-emerald-500" : ""}`}>
+                  <Card
+                    key={idx}
+                    className="bg-slate-900/50 border-slate-200/80 p-4 hover:border-slate-200 transition-all"
+                    style={item.type === "strong_buy" ? { borderInlineStartWidth: 4, borderInlineStartColor: "var(--metrik-yesil)" } : undefined}
+                  >
                     <div className="flex items-start gap-4">
-                      <div className={`w-10 h-10 rounded-[20px] flex items-center justify-center flex-shrink-0 ${
-                        item.type === "strong_buy" ? "bg-emerald-500/10" : item.type === "buy" ? "bg-blue-500/10" : "bg-amber-500/10"
-                      }`}>
-                        {item.type === "strong_buy" ? <ArrowUpRight className="w-5 h-5 text-emerald-400" /> : 
-                         item.type === "buy" ? <TrendingUp className="w-5 h-5 text-blue-400" /> : 
-                         <Minus className="w-5 h-5 text-amber-400" />}
+                      <div className="w-10 h-10 rounded-[20px] flex items-center justify-center flex-shrink-0 bg-[var(--zemin-yumusak)]">
+                        {item.type === "strong_buy" ? <ArrowUpRight className="w-5 h-5" style={{ color: "var(--metrik-yesil)" }} /> :
+                         item.type === "buy" ? <TrendingUp className="w-5 h-5" style={{ color: "var(--metrik-yesil)" }} /> :
+                         <Minus className="w-5 h-5 text-[var(--metin-ikincil)]" />}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <h4 className="font-normal text-white">{item.title}</h4>
-                          <span className={`px-2 py-0.5 rounded-[3px] text-xs font-normal ${
-                            item.type === "strong_buy" ? "bg-emerald-500/10 text-emerald-400" : 
-                            item.type === "buy" ? "bg-blue-500/10 text-blue-400" : "bg-amber-500/10 text-amber-400"
-                          }`}>
+                          <span
+                            className="px-2 py-0.5 rounded-[3px] text-xs font-normal bg-[var(--zemin-yumusak)]"
+                            style={{ color: item.type === "watch" ? "var(--metin-ikincil)" : "var(--metrik-yesil)" }}
+                          >
                             {item.type === "strong_buy" ? "Guclu Al" : item.type === "buy" ? "Al" : "Izle"}
                           </span>
                         </div>

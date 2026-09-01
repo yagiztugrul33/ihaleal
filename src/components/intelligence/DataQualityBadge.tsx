@@ -4,9 +4,9 @@ type Props = {
 };
 
 const STYLES = {
-  high: "border-emerald-500/40 bg-emerald-500/10 text-emerald-300",
-  partial: "border-amber-500/40 bg-amber-500/10 text-amber-200",
-  low: "border-red-500/40 bg-red-500/10 text-red-200",
+  high: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+  partial: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
+  low: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
 };
 
 const LABELS = {

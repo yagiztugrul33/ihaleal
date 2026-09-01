@@ -21,7 +21,7 @@ function formatInline(text: string, keyPrefix: string): ReactNode[] {
       out.push(
         <code
           key={`${keyPrefix}-c-${i++}`}
-          className="rounded-[3px] bg-white/10 px-1.5 py-0.5 text-[0.85em] text-cyan-200"
+          className="rounded-[3px] bg-white/10 px-1.5 py-0.5 text-[0.85em] text-[var(--metin-ikincil)]"
         >
           {token.slice(1, -1)}
         </code>
@@ -48,7 +48,7 @@ function renderBodyBlock(lines: string[], baseKey: string): ReactNode {
       nodes.push(
         <h3
           key={`${baseKey}-h3-${i}`}
-          className="mt-4 text-sm font-normal uppercase tracking-wide text-teal-300/90"
+          className="mt-4 text-sm font-normal uppercase tracking-wide text-[var(--metin-ikincil)]"
         >
           {formatInline(line.slice(4).trim(), `${baseKey}-h3-${i}`)}
         </h3>

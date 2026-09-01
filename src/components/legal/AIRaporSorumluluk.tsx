@@ -8,7 +8,7 @@ export function AIRaporSorumluluk({ compact }: { compact?: boolean }) {
     );
   }
   return (
-    <div className="rounded-[20px] border border-cyan-400/20 bg-cyan-500/5 p-4 space-y-2 text-sm text-slate-300 leading-relaxed">
+    <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 space-y-2 text-sm text-slate-300 leading-relaxed">
       <p className="font-normal text-white text-base">AI raporu — sorumluluk reddi (taslak)</p>
       <p>
         Bu rapor bilgilendirme amaçlıdır ve <strong className="text-white">profesyonel ekspertiz veya hukuki tavsiye yerine geçmez</strong>. Gayrimenkul değerlemesi, tapu

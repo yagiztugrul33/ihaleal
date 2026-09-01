@@ -20,8 +20,8 @@ export function RatingSummaryBadge({ summary, compact, className }: Props) {
   }
 
   return (
-    <span className={`inline-flex items-center gap-1 text-xs text-amber-400 ${className ?? ""}`}>
-      <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" aria-hidden />
+    <span className={`inline-flex items-center gap-1 text-xs text-[var(--metin-ikincil)] ${className ?? ""}`}>
+      <Star className="h-3.5 w-3.5 fill-amber-400 text-[var(--metin-ikincil)]" aria-hidden />
       <span>{avg.toFixed(1)}</span>
       {!compact ? <span className="text-slate-500">({count} yorum)</span> : null}
     </span>

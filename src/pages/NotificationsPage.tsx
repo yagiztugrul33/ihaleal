@@ -22,10 +22,10 @@ export default function NotificationsPage() {
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="flex items-center gap-3 text-2xl font-normal text-white">
-            <Bell className="h-7 w-7 text-violet-400" />
+            <Bell className="h-7 w-7 text-[var(--metin-ikincil)]" />
             Bildirimler
             {unreadCount > 0 ? (
-              <span className="rounded-full bg-violet-500/20 px-2 py-0.5 text-sm font-normal text-violet-300">
+              <span className="rounded-full bg-[var(--zemin-yumusak)] px-2 py-0.5 text-sm font-normal text-[var(--metin-ikincil)]">
                 {unreadCount} okunmamış
               </span>
             ) : null}
@@ -60,7 +60,7 @@ export default function NotificationsPage() {
                   className={`w-full rounded-[20px] border px-4 py-3 text-start transition-colors ${
                     n.read
                       ? "border-slate-800 bg-slate-900/30 opacity-80"
-                      : "border-violet-500/30 bg-violet-500/5"
+                      : "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]"
                   }`}
                 >
                   <div className="text-sm font-normal text-white">{n.title}</div>
@@ -75,10 +75,10 @@ export default function NotificationsPage() {
         ) : null}
 
         {/* Web Push (cihaza bildirim) — Capacitor öncesi köprü */}
-        <section className="mt-8 rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-5">
+        <section className="mt-8 rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-5">
           <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-cyan-500/15">
-              <BellRing className="h-5 w-5 text-cyan-300" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[var(--zemin-yumusak)]">
+              <BellRing className="h-5 w-5 text-[var(--metin-ikincil)]" />
             </div>
             <div className="flex-1 min-w-0">
               <h2 className="text-sm font-normal text-white">Cihaza bildirim (Push)</h2>
@@ -92,7 +92,7 @@ export default function NotificationsPage() {
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {push.status === "subscribed" ? (
                   <>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-normal text-emerald-300">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--zemin-yumusak)] px-3 py-1 text-xs font-normal text-[var(--metin-ikincil)]">
                       <Smartphone className="h-3 w-3" /> Aktif
                     </span>
                     <Button

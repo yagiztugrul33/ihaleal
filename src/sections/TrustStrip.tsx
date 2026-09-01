@@ -31,7 +31,7 @@ export function TrustStrip() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <Icon className="h-5 w-5 shrink-0 text-blue-400" aria-hidden />
+                <Icon className="h-5 w-5 shrink-0 text-[var(--metin-ikincil)]" aria-hidden />
                 <div>
                   <p className="text-sm font-normal text-white">{cert.title}</p>
                   <p className="text-xs text-slate-400">{cert.sub}</p>

@@ -49,10 +49,10 @@ function DrillCard({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const tones = {
-    amber: { border: "border-amber-400/30", bg: "bg-amber-500/5", text: "text-amber-300", hover: "hover:bg-amber-500/10" },
-    cyan: { border: "border-cyan-400/30", bg: "bg-cyan-500/5", text: "text-cyan-300", hover: "hover:bg-cyan-500/10" },
-    emerald: { border: "border-emerald-400/30", bg: "bg-emerald-500/5", text: "text-emerald-300", hover: "hover:bg-emerald-500/10" },
-    violet: { border: "border-violet-400/30", bg: "bg-violet-500/5", text: "text-violet-300", hover: "hover:bg-violet-500/10" },
+    amber: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", text: "text-[var(--metin-ikincil)]", hover: "hover:bg-[var(--zemin-yumusak)]" },
+    cyan: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", text: "text-[var(--metin-ikincil)]", hover: "hover:bg-[var(--zemin-yumusak)]" },
+    emerald: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", text: "text-[var(--metin-ikincil)]", hover: "hover:bg-[var(--zemin-yumusak)]" },
+    violet: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", text: "text-[var(--metin-ikincil)]", hover: "hover:bg-[var(--zemin-yumusak)]" },
   };
   const t = tones[tone];
   const id = `drill-${title.replace(/\s+/g, "-").toLowerCase()}`;
@@ -299,7 +299,7 @@ export default function GesAnalysisPage() {
 
   return (
     <motion.div className="min-h-screen pt-24 pb-16">
-      <motion.div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-blue-950/50 to-transparent pointer-events-none" aria-hidden />
+      <motion.div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-[var(--zemin-yumusak)] to-transparent pointer-events-none" aria-hidden />
       <motion.div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-400">
           <Link to={INTELLIGENCE_HUB_PATH}>
@@ -307,22 +307,22 @@ export default function GesAnalysisPage() {
           </Link>
         </Button>
         <motion.div className="flex items-center gap-3 mb-4">
-          <motion.div className="flex h-11 w-11 items-center justify-center rounded-[20px] border border-amber-500/30 bg-amber-500/10">
-            <Sun className="w-5 h-5 text-amber-300" />
+          <motion.div className="flex h-11 w-11 items-center justify-center rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
+            <Sun className="w-5 h-5 text-[var(--metin-ikincil)]" />
           </motion.div>
           <motion.div>
             <h1 className="text-2xl font-normal text-white">GES mühendislik analizi</h1>
             <p className="text-sm text-slate-400">Ön fizibilite — NPV, IRR, LCOE (bankable değil)</p>
           </motion.div>
         </motion.div>
-        <PreFeasibilityBanner className="mb-6 text-amber-100" />
+        <PreFeasibilityBanner className="mb-6 text-[var(--metin-ikincil)]" />
 
         {/* KATMAN 1 — Eğitici giriş (form ÖNCESI): GES nedir/neden + yatırım tipleri + lisans uyarısı */}
         <section className="mb-8 space-y-4">
-          <Card className="card-luxury border-amber-500/20">
+          <Card className="card-luxury border-[var(--cizgi)]">
             <CardContent className="p-5">
               <div className="flex items-start gap-3 mb-3">
-                <BookOpen className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+                <BookOpen className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                 <h2 className="text-base font-normal text-white">GES nedir, neden Türkiye?</h2>
               </div>
               {/* CEPHE 0 v5: tıklanabilir DrillCard accordion */}
@@ -332,7 +332,7 @@ export default function GesAnalysisPage() {
                   tone="amber"
                   summary={
                     <p>
-                      Türkiye yıllık <strong className="text-amber-200">2700+ saat</strong> güneşlenme,
+                      Türkiye yıllık <strong className="text-[var(--metin-ikincil)]">2700+ saat</strong> güneşlenme,
                       ortalama <strong>1.450 kWh/m²</strong> radyasyon — AB ortalamasının %35 üstü.
                     </p>
                   }
@@ -350,7 +350,7 @@ export default function GesAnalysisPage() {
                   tone="amber"
                   summary={
                     <p>
-                      1 kWp kurulu güç yıllık <strong className="text-amber-200">1.200-1.700 kWh</strong> üretir
+                      1 kWp kurulu güç yıllık <strong className="text-[var(--metin-ikincil)]">1.200-1.700 kWh</strong> üretir
                       (bölge, eğim, gölgelenme bağlı).
                     </p>
                   }
@@ -368,7 +368,7 @@ export default function GesAnalysisPage() {
                   tone="amber"
                   summary={
                     <p>
-                      Tipik geri ödeme <strong className="text-amber-200">4-6 yıl</strong>; panel teknik
+                      Tipik geri ödeme <strong className="text-[var(--metin-ikincil)]">4-6 yıl</strong>; panel teknik
                       ömrü <strong>25-30 yıl</strong> garantili.
                     </p>
                   }
@@ -393,7 +393,7 @@ export default function GesAnalysisPage() {
               summary={
                 <p className="text-xs">
                   Konut/ticari çatılarda öz tüketim — şebeke desteği. 10 kWp altı bireysel,
-                  500 kWp altı KOBİ. <strong className="text-cyan-300">Hızlı dönüş</strong> (3-5 yıl).
+                  500 kWp altı KOBİ. <strong className="text-[var(--metin-ikincil)]">Hızlı dönüş</strong> (3-5 yıl).
                 </p>
               }
               detail={
@@ -413,7 +413,7 @@ export default function GesAnalysisPage() {
               summary={
                 <p className="text-xs">
                   Marjinal tarım arazisi (İl Tarım onayı), boş arazi — büyük ölçek MW seviyesi.
-                  <strong className="text-emerald-300"> 5 MW altı lisanssız</strong>.
+                  <strong className="text-[var(--metin-ikincil)]"> 5 MW altı lisanssız</strong>.
                 </p>
               }
               detail={
@@ -433,7 +433,7 @@ export default function GesAnalysisPage() {
               summary={
                 <p className="text-xs">
                   AVM/sanayi otoparkı + sera çatısı çift kullanım. CAPEX yüksek ama imar ek hak.
-                  <strong className="text-violet-300"> Hibrit gelir</strong>.
+                  <strong className="text-[var(--metin-ikincil)]"> Hibrit gelir</strong>.
                 </p>
               }
               detail={
@@ -450,9 +450,9 @@ export default function GesAnalysisPage() {
           </div>
 
           {/* 4 bölge GES ROI senaryosu — gerçek güneşlenme + tarife */}
-          <Card className="card-luxury border-amber-500/30">
+          <Card className="card-luxury border-[var(--cizgi)]">
             <CardContent className="p-4">
-              <p className="text-sm font-normal text-amber-300 mb-3 flex items-center gap-2">
+              <p className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
                 ☀️ 4 Bölge ROI Senaryosu — 500 kW çatı GES, aynı yatırım farklı şehir
               </p>
               <div className="overflow-x-auto">
@@ -473,44 +473,44 @@ export default function GesAnalysisPage() {
                         <p className="text-white font-normal">Konya</p>
                         <p className="text-[10px] text-slate-500">Anadolu yüksek</p>
                       </td>
-                      <td className="py-2 px-2 text-end text-emerald-300">1.700 kWh/m²</td>
-                      <td className="py-2 px-2 text-end text-emerald-300">850 MWh</td>
-                      <td className="py-2 px-2 text-end font-normal text-emerald-300">₺2.5M</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">1.700 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">850 MWh</td>
+                      <td className="py-2 px-2 text-end font-normal text-[var(--metin-ikincil)]">₺2.5M</td>
                       <td className="py-2 px-2 text-end">₺8M</td>
-                      <td className="py-2 ps-2 text-end text-emerald-200 font-normal">3.2 yıl</td>
+                      <td className="py-2 ps-2 text-end text-[var(--metin-ikincil)] font-normal">3.2 yıl</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
                         <p className="text-white font-normal">Antalya</p>
                         <p className="text-[10px] text-slate-500">Akdeniz</p>
                       </td>
-                      <td className="py-2 px-2 text-end text-emerald-300">1.650 kWh/m²</td>
-                      <td className="py-2 px-2 text-end text-emerald-300">825 MWh</td>
-                      <td className="py-2 px-2 text-end font-normal text-emerald-300">₺2.4M</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">1.650 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">825 MWh</td>
+                      <td className="py-2 px-2 text-end font-normal text-[var(--metin-ikincil)]">₺2.4M</td>
                       <td className="py-2 px-2 text-end">₺8.2M</td>
-                      <td className="py-2 ps-2 text-end text-emerald-200 font-normal">3.4 yıl</td>
+                      <td className="py-2 ps-2 text-end text-[var(--metin-ikincil)] font-normal">3.4 yıl</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
                         <p className="text-white font-normal">İzmir</p>
                         <p className="text-[10px] text-slate-500">Ege</p>
                       </td>
-                      <td className="py-2 px-2 text-end text-amber-300">1.500 kWh/m²</td>
-                      <td className="py-2 px-2 text-end text-amber-300">750 MWh</td>
-                      <td className="py-2 px-2 text-end font-normal text-amber-300">₺2.2M</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">1.500 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">750 MWh</td>
+                      <td className="py-2 px-2 text-end font-normal text-[var(--metin-ikincil)]">₺2.2M</td>
                       <td className="py-2 px-2 text-end">₺8M</td>
-                      <td className="py-2 ps-2 text-end text-amber-200 font-normal">3.6 yıl</td>
+                      <td className="py-2 ps-2 text-end text-[var(--metin-ikincil)] font-normal">3.6 yıl</td>
                     </tr>
                     <tr>
                       <td className="py-2 pe-2">
                         <p className="text-white font-normal">İstanbul</p>
                         <p className="text-[10px] text-slate-500">Marmara</p>
                       </td>
-                      <td className="py-2 px-2 text-end text-cyan-300">1.380 kWh/m²</td>
-                      <td className="py-2 px-2 text-end text-cyan-300">690 MWh</td>
-                      <td className="py-2 px-2 text-end font-normal text-cyan-300">₺2.0M</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">1.380 kWh/m²</td>
+                      <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">690 MWh</td>
+                      <td className="py-2 px-2 text-end font-normal text-[var(--metin-ikincil)]">₺2.0M</td>
                       <td className="py-2 px-2 text-end">₺8.4M</td>
-                      <td className="py-2 ps-2 text-end text-cyan-200 font-normal">4.2 yıl</td>
+                      <td className="py-2 ps-2 text-end text-[var(--metin-ikincil)] font-normal">4.2 yıl</td>
                     </tr>
                   </tbody>
                 </table>
@@ -522,18 +522,18 @@ export default function GesAnalysisPage() {
             </CardContent>
           </Card>
 
-          <Card className="card-luxury border-rose-500/30 bg-rose-950/30">
+          <Card className="card-luxury border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
             <CardContent className="p-4 flex items-start gap-3">
-              <AlertTriangle className="h-5 w-5 text-rose-300 flex-shrink-0 mt-0.5" />
+              <AlertTriangle className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
               <div className="text-sm text-slate-300">
-                <p className="font-normal text-rose-200 mb-1">2026 Lisans Eşiği</p>
+                <p className="font-normal text-[var(--metin-ikincil)] mb-1">2026 Lisans Eşiği</p>
                 <p>
                   <strong className="text-white">5 MW altı</strong> kurulu güç{" "}
-                  <span className="text-emerald-300 font-normal">LİSANSSIZ</span> (Çağrı Mektubu +
+                  <span className="text-[var(--metin-ikincil)] font-normal">LİSANSSIZ</span> (Çağrı Mektubu +
                   EDAŞ bağlantı yeterli). <strong className="text-white">5 MW üzeri</strong>{" "}
-                  <span className="text-rose-300 font-normal">EPDK lisansı</span> + ÇED + tarife
+                  <span className="text-[var(--metin-ikincil)] font-normal">EPDK lisansı</span> + ÇED + tarife
                   sözleşmesi şart. 1 Mayıs 2026 itibarıyla{" "}
-                  <strong className="text-amber-300">saatlik mahsuplaşma</strong> aktif — öz tüketim
+                  <strong className="text-[var(--metin-ikincil)]">saatlik mahsuplaşma</strong> aktif — öz tüketim
                   4× çarpan kaldırıldı.
                 </p>
               </div>
@@ -541,11 +541,11 @@ export default function GesAnalysisPage() {
           </Card>
         </section>
 
-        {calcError ? <p className="mb-4 text-sm text-red-300">{calcError}</p> : null}
+        {calcError ? <p className="mb-4 text-sm text-[var(--metin-ikincil)]">{calcError}</p> : null}
         {result?.dataSource === "ghi_annual_fallback" ? (
-          <p className="mb-4 text-xs text-amber-200/90">PVGIS aylik veri yok — GHI uzerinden mevsimsel profil kullanildi.</p>
+          <p className="mb-4 text-xs text-[var(--metin-ikincil)]">PVGIS aylik veri yok — GHI uzerinden mevsimsel profil kullanildi.</p>
         ) : null}
-        {pvgisNote && !result ? <p className="mb-4 text-xs text-amber-200/80">{pvgisNote}</p> : null}
+        {pvgisNote && !result ? <p className="mb-4 text-xs text-[var(--metin-ikincil)]">{pvgisNote}</p> : null}
         <motion.div className="grid lg:grid-cols-2 gap-8">
           <Card className="card-luxury border-white/10">
             <CardContent className="p-6 space-y-4">
@@ -603,7 +603,7 @@ export default function GesAnalysisPage() {
                 ).map(([l, v]) => (
                   <motion.div key={l} className="card-luxury p-4 text-center">
                     <p className="text-[10px] text-slate-500">{l}</p>
-                    <p className="text-2xl font-normal text-cyan-300">{fmtScore(v)}</p>
+                    <p className="text-2xl font-normal text-[var(--metin-ikincil)]">{fmtScore(v)}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -629,7 +629,7 @@ export default function GesAnalysisPage() {
                 <>
                   <Card className="card-luxury">
                     <CardContent className="p-5 text-sm text-slate-300 space-y-2">
-                      <p className="text-xs font-normal uppercase tracking-wide text-cyan-300">
+                      <p className="text-xs font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
                         Türetilmiş Metrikler
                       </p>
                       <p>
@@ -658,11 +658,11 @@ export default function GesAnalysisPage() {
 
                   <Card className="card-luxury">
                     <CardContent className="p-5 text-sm text-slate-300 space-y-2">
-                      <p className="text-xs font-normal uppercase tracking-wide text-violet-300">
+                      <p className="text-xs font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
                         Hassasiyet (Elektrik Fiyatı ±%10)
                       </p>
                       <p>
-                        Fiyat <span className="text-emerald-300">+%10</span>: NPV ={" "}
+                        Fiyat <span className="text-[var(--metin-ikincil)]">+%10</span>: NPV ={" "}
                         <strong>{fmtNum(derived.npvUp)} TRY</strong>
                       </p>
                       <p>
@@ -670,7 +670,7 @@ export default function GesAnalysisPage() {
                         <strong>{fmtNum(result.npvTry)} TRY</strong>
                       </p>
                       <p>
-                        Fiyat <span className="text-rose-300">−%10</span>: NPV ={" "}
+                        Fiyat <span className="text-[var(--metin-ikincil)]">−%10</span>: NPV ={" "}
                         <strong>{fmtNum(derived.npvDown)} TRY</strong>
                       </p>
                       <p className="text-[11px] text-slate-400 mt-1.5">
@@ -680,17 +680,17 @@ export default function GesAnalysisPage() {
                     </CardContent>
                   </Card>
 
-                  <Card className="card-luxury border-emerald-400/20">
+                  <Card className="card-luxury border-[var(--cizgi)]">
                     <CardContent className="p-5 text-sm text-slate-300 space-y-2">
-                      <p className="text-xs font-normal uppercase tracking-wide text-emerald-300">
+                      <p className="text-xs font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
                         Karar Çerçevesi
                       </p>
                       <p>
                         IRR ({fmtPct(result.irrPct)}){" "}
                         {derived.irrVsDiscount ? (
-                          <span className="text-emerald-300 font-normal"> &gt; </span>
+                          <span className="text-[var(--metin-ikincil)] font-normal"> &gt; </span>
                         ) : (
-                          <span className="text-rose-300 font-normal"> &lt; </span>
+                          <span className="text-[var(--metin-ikincil)] font-normal"> &lt; </span>
                         )}{" "}
                         İndirgeme oranı (%{discount})
                       </p>
@@ -732,7 +732,7 @@ export default function GesAnalysisPage() {
         {result && derived ? (
           <section className="mt-10 space-y-6">
             <div className="flex items-center gap-2 mb-2">
-              <BarChart3 className="h-5 w-5 text-cyan-300" />
+              <BarChart3 className="h-5 w-5 text-[var(--metin-ikincil)]" />
               <h2 className="text-xl font-normal text-white">Detaylı Analiz Panosu</h2>
             </div>
 
@@ -828,12 +828,12 @@ export default function GesAnalysisPage() {
                         <tr
                           key={s.ad}
                           className={`border-b border-slate-800/50 ${
-                            i === 1 ? "bg-cyan-500/5" : ""
+                            i === 1 ? "bg-[var(--zemin-yumusak)]" : ""
                           }`}
                         >
                           <td className="py-2 text-slate-200 font-normal">{s.ad}</td>
                           <td className="text-end text-slate-300">{fmtNum(s.npv)}</td>
-                          <td className={`text-end font-normal ${(s.irr ?? 0) > 10 ? "text-emerald-300" : "text-rose-300"}`}>
+                          <td className="text-end font-normal" style={{ color: (s.irr ?? 0) > 10 ? "var(--metrik-yesil)" : "var(--metin-ikincil)" }}>
                             {fmtPct(s.irr)}
                           </td>
                         </tr>
@@ -881,9 +881,9 @@ export default function GesAnalysisPage() {
             </Card>
 
             {/* Arazi uygunluk */}
-            <Card className="card-luxury border-emerald-400/20">
+            <Card className="card-luxury border-[var(--cizgi)]">
               <CardContent className="p-5">
-                <p className="text-sm font-normal text-emerald-300 mb-2">
+                <p className="text-sm font-normal text-[var(--metin-ikincil)] mb-2">
                   Arazi Uygunluk Değerlendirmesi
                 </p>
                 <p className="text-sm text-slate-300">
@@ -892,13 +892,13 @@ export default function GesAnalysisPage() {
                   destekleyebilir (1 MW ≈ 10.000 m² rule of thumb). Talep ettiğiniz{" "}
                   <strong>{dcKwp} kWp</strong> ({(Number(dcKwp) / 1000).toFixed(2)} MW) için arazi{" "}
                   {Number(dcKwp) / 1000 < derived.teorikMw ? (
-                    <span className="text-emerald-300 font-normal">YETERLİ</span>
+                    <span className="text-[var(--metin-ikincil)] font-normal">YETERLİ</span>
                   ) : (
-                    <span className="text-rose-300 font-normal">YETERSİZ</span>
+                    <span className="text-[var(--metin-ikincil)] font-normal">YETERSİZ</span>
                   )}.
                 </p>
                 {derived.lisansUyari ? (
-                  <p className="mt-2 text-sm text-rose-200 bg-rose-500/10 p-3 rounded-[10px] border border-rose-500/30">
+                  <p className="mt-2 text-sm text-[var(--metin-ikincil)] bg-[var(--zemin-yumusak)] p-3 rounded-[10px] border border-[var(--cizgi)]">
                     ⚠️ 5 MW eşiğini aştınız — <strong>EPDK lisansı şart</strong>. Lisanssız yol
                     kapalı. Ayrı bir hukuki süreç ve ÇED gerekir.
                   </p>
@@ -915,11 +915,11 @@ export default function GesAnalysisPage() {
         {/* KATMAN 4 — Hukuki süreç ve mevzuat (DAİMA görünür, sayfa altı) */}
         <section className="mt-12 space-y-4">
           <div className="flex items-center gap-2 mb-2">
-            <Scale className="h-5 w-5 text-violet-300" />
+            <Scale className="h-5 w-5 text-[var(--metin-ikincil)]" />
             <h2 className="text-xl font-normal text-white">Hukuki Süreç ve Mevzuat</h2>
           </div>
 
-          <Card className="card-luxury border-violet-400/20">
+          <Card className="card-luxury border-[var(--cizgi)]">
             <CardContent className="p-5">
               <p className="text-sm font-normal text-white mb-3">
                 Lisanssız GES — 8 Aşama Süreç (5 MW altı)
@@ -936,7 +936,7 @@ export default function GesAnalysisPage() {
                   ["8. Montaj + Kabul", "EDAŞ + sayaç + yeşil sözleşme. Geçici kabul → kesin kabul (~30 gün)."],
                 ].map(([title, desc]) => (
                   <li key={title} className="flex items-start gap-3 p-2.5 rounded-[10px] bg-slate-900/30 border border-white/5">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-300 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-normal text-white">{title}</p>
                       <p className="text-xs text-slate-400 mt-0.5">{desc}</p>
@@ -951,7 +951,7 @@ export default function GesAnalysisPage() {
             <Card className="card-luxury">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <ScrollText className="h-4 w-4 text-violet-300" />
+                  <ScrollText className="h-4 w-4 text-[var(--metin-ikincil)]" />
                   <p className="text-sm font-normal text-white">Mevzuat Çerçevesi</p>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-1.5">
@@ -981,7 +981,7 @@ export default function GesAnalysisPage() {
             <Card className="card-luxury">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <FileText className="h-4 w-4 text-cyan-300" />
+                  <FileText className="h-4 w-4 text-[var(--metin-ikincil)]" />
                   <p className="text-sm font-normal text-white">Kapasite Kategorileri</p>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-1.5">
@@ -1002,12 +1002,12 @@ export default function GesAnalysisPage() {
             <Card className="card-luxury">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="h-4 w-4 text-emerald-300" />
+                  <TrendingUp className="h-4 w-4 text-[var(--metin-ikincil)]" />
                   <p className="text-sm font-normal text-white">Finansman Seçenekleri</p>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-1.5">
                   <li>
-                    • <strong className="text-emerald-300">Yeşil kredi</strong>: %3.79-4.72 yıllık
+                    • <strong className="text-[var(--metin-ikincil)]">Yeşil kredi</strong>: %3.79-4.72 yıllık
                     (Halkbank, Ziraat, kalkınma bankası — yenilenebilir özel)
                   </li>
                   <li>
@@ -1023,16 +1023,16 @@ export default function GesAnalysisPage() {
               </CardContent>
             </Card>
 
-            <Card className="card-luxury border-amber-500/30">
+            <Card className="card-luxury border-[var(--cizgi)]">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <AlertTriangle className="h-4 w-4 text-amber-300" />
+                  <AlertTriangle className="h-4 w-4 text-[var(--metin-ikincil)]" />
                   <p className="text-sm font-normal text-white">Disclaimer (Kritik)</p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   Bu sayfa <strong>ön fizibilite</strong> aracıdır — bankable yatırım kararı
                   oluşturmaz. Gerçek kararı vermek için: lisanslı{" "}
-                  <strong className="text-amber-200">EPC firma + İl Tarım + EDAŞ + PVsyst yazılım simülasyonu
+                  <strong className="text-[var(--metin-ikincil)]">EPC firma + İl Tarım + EDAŞ + PVsyst yazılım simülasyonu
                   + bağımsız mali müşavir</strong> şart. NPV/IRR tahminleri{" "}
                   ±%25 hata payı taşır.
                 </p>

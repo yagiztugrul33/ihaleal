@@ -14,10 +14,10 @@ import {
 
 const STATUS_STYLE: Record<DocStatus, { label: string; className: string }> = {
   bekliyor: { label: "Bekliyor", className: "bg-slate-600/30 text-slate-300 border-slate-200" },
-  yuklendi: { label: "Yüklendi", className: "bg-sky-500/15 text-sky-300 border-sky-500/25" },
-  inceleniyor: { label: "İnceleniyor", className: "bg-amber-500/15 text-amber-200 border-amber-500/25" },
-  onaylandi: { label: "Onaylandı", className: "bg-emerald-500/15 text-emerald-300 border-emerald-500/25" },
-  reddedildi: { label: "Reddedildi", className: "bg-red-500/15 text-red-300 border-red-500/25" },
+  yuklendi: { label: "Yüklendi", className: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+  inceleniyor: { label: "İnceleniyor", className: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+  onaylandi: { label: "Onaylandı", className: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+  reddedildi: { label: "Reddedildi", className: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
 };
 
 export default function DocumentsPage() {
@@ -71,7 +71,7 @@ export default function DocumentsPage() {
 
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
           <div className="flex gap-4">
-            <div className="rounded-[20px] bg-amber-500/15 p-3 text-amber-400">
+            <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)]">
               <FolderOpen className="w-10 h-10" />
             </div>
             <div>
@@ -82,10 +82,10 @@ export default function DocumentsPage() {
             </div>
           </div>
           <div className="flex gap-3 text-sm">
-            <span className="rounded-[20px] border border-emerald-500/25 bg-emerald-500/10 px-3 py-2 text-emerald-300">
+            <span className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-[var(--metin-ikincil)]">
               Onaylı: {summary.ok}
             </span>
-            <span className="rounded-[20px] border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-amber-200">
+            <span className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-[var(--metin-ikincil)]">
               Bekleyen / süreçte: {summary.pending}
             </span>
           </div>

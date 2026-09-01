@@ -39,7 +39,7 @@ export default function KonutKredisiHesaplayici() {
         </Button>
 
         <h1 className="flex items-center gap-3 text-3xl font-normal text-white">
-          <Calculator className="h-8 w-8 text-blue-400" />
+          <Calculator className="h-8 w-8 text-[var(--metin-ikincil)]" />
           {lv.loanTitle}
         </h1>
         <p className="mt-2 text-slate-400">
@@ -89,7 +89,7 @@ export default function KonutKredisiHesaplayici() {
                     key={m}
                     type="button"
                     onClick={() => setTermMonths(m)}
-                    className={`rounded-[10px] px-3 py-1 text-xs ${termMonths === m ? "bg-blue-500 text-white" : "bg-white/5 text-slate-400"}`}
+                    className={`rounded-[10px] px-3 py-1 text-xs ${termMonths === m ? "bg-[var(--zemin-yumusak)] text-white" : "bg-white/5 text-slate-400"}`}
                   >
                     <span dir="ltr">{m / 12}</span> {lv.yearLabel}
                   </button>
@@ -100,25 +100,25 @@ export default function KonutKredisiHesaplayici() {
         </Card>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <Card className="border-blue-500/20 bg-blue-500/10">
+          <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wider text-slate-400">{lv.monthlyInstallment}</p>
-              <p className="mt-1 text-2xl font-normal text-blue-300" dir="ltr">{formatTry(result.monthlyPayment)}</p>
-              <FxRef amountTry={result.monthlyPayment} variant="block" className="text-[11px] text-amber-300/80" />
+              <p className="mt-1 text-2xl font-normal text-[var(--metin-ikincil)]" dir="ltr">{formatTry(result.monthlyPayment)}</p>
+              <FxRef amountTry={result.monthlyPayment} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </CardContent>
           </Card>
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wider text-slate-400">{lv.totalRepayment}</p>
               <p className="mt-1 text-xl font-normal text-white" dir="ltr">{formatTry(result.totalPayment)}</p>
-              <FxRef amountTry={result.totalPayment} variant="block" className="text-[11px] text-amber-300/80" />
+              <FxRef amountTry={result.totalPayment} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </CardContent>
           </Card>
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wider text-slate-400">{lv.totalInterest}</p>
-              <p className="mt-1 text-xl font-normal text-amber-300" dir="ltr">{formatTry(result.totalInterest)}</p>
-              <FxRef amountTry={result.totalInterest} variant="block" className="text-[11px] text-amber-300/80" />
+              <p className="mt-1 text-xl font-normal text-[var(--metin-ikincil)]" dir="ltr">{formatTry(result.totalInterest)}</p>
+              <FxRef amountTry={result.totalInterest} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </CardContent>
           </Card>
         </div>

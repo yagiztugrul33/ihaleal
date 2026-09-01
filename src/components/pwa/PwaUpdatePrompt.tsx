@@ -43,12 +43,12 @@ export function PwaUpdatePrompt() {
       aria-live="polite"
       className="fixed top-20 left-1/2 z-[9100] flex -translate-x-1/2 items-center gap-3 rounded-[20px] border border-white/10 bg-slate-900/95 px-4 py-3 shadow-2xl backdrop-blur-xl"
     >
-      <RefreshCw className="h-4 w-4 shrink-0 text-blue-400" aria-hidden />
+      <RefreshCw className="h-4 w-4 shrink-0 text-[var(--metin-ikincil)]" aria-hidden />
       <span className="text-sm text-white/90">{s.msg}</span>
       <button
         type="button"
         onClick={() => updateServiceWorker(true)}
-        className="rounded-[10px] bg-blue-600 px-3 py-1.5 text-sm font-normal text-white transition-colors hover:bg-blue-500"
+        className="rounded-[10px] bg-[var(--zemin-yumusak)] px-3 py-1.5 text-sm font-normal text-white transition-colors hover:bg-[var(--zemin-yumusak)]"
       >
         {s.update}
       </button>

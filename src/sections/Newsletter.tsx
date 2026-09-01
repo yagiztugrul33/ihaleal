@@ -37,8 +37,8 @@ export function Newsletter() {
         <div className={`relative overflow-hidden rounded-[20px] card-warm p-8 md:p-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           
           <div className="relative z-10 max-w-2xl mx-auto text-center">
-            <div className="w-14 h-14 rounded-[20px] bg-blue-500/20 flex items-center justify-center mx-auto mb-5">
-              <Mail className="w-7 h-7 text-blue-400" />
+            <div className="w-14 h-14 rounded-[20px] bg-[var(--zemin-yumusak)] flex items-center justify-center mx-auto mb-5">
+              <Mail className="w-7 h-7 text-[var(--metin-ikincil)]" />
             </div>
             <h2 className="section-heading mb-3">
               Yeni Ihalelerden Haberdar Olun
@@ -48,9 +48,9 @@ export function Newsletter() {
             </p>
 
             {submitted ? (
-              <div className="flex items-center justify-center gap-3 p-4 rounded-[20px] bg-emerald-500/10 border border-emerald-500/20">
-                <CheckCircle2 className="w-6 h-6 text-emerald-400" />
-                <span className="text-emerald-400 font-normal text-sm text-center">
+              <div className="flex items-center justify-center gap-3 p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
+                <CheckCircle2 className="w-6 h-6 text-[var(--metin-ikincil)]" />
+                <span className="text-[var(--metin-ikincil)] font-normal text-sm text-center">
                   Kaydınız bu cihazda saklandı (demo). Üretimde e-posta onayı ve gönderim altyapısı gerekir.
                 </span>
               </div>
@@ -72,7 +72,7 @@ export function Newsletter() {
                 <label className="flex items-start gap-2 text-xs text-slate-500 text-start cursor-pointer">
                   <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 accent-teal-500" />
                   <span>
-                    <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/gizlilik")}>Aydınlatma metni</button>
+                    <button type="button" className="text-[var(--metin-ikincil)] hover:underline" onClick={() => navigate("/gizlilik")}>Aydınlatma metni</button>
                     {" "}kapsamında iletişim için e-postamın işlenmesini istiyorum.
                   </span>
                 </label>

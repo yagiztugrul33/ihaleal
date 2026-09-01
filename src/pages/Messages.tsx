@@ -27,11 +27,11 @@ import { LoadingSkeletonList } from "@/components/async";
 function roleBadge(role: string) {
   switch (role) {
     case "emlakçı":
-      return { Icon: Building2, label: "Emlakçı", className: "bg-violet-500/20 text-violet-300 border-violet-500/30" };
+      return { Icon: Building2, label: "Emlakçı", className: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" };
     case "alici":
-      return { Icon: User, label: "Alıcı", className: "bg-sky-500/20 text-sky-300 border-sky-500/30" };
+      return { Icon: User, label: "Alıcı", className: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" };
     case "satici":
-      return { Icon: Home, label: "Satıcı", className: "bg-amber-500/20 text-amber-200 border-amber-500/30" };
+      return { Icon: Home, label: "Satıcı", className: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" };
     default:
       return { Icon: Shield, label: "Platform", className: "bg-slate-600/40 text-slate-300 border-slate-200" };
   }
@@ -196,7 +196,7 @@ export default function MessagesPage() {
           {/* Sol — konuşmalar */}
           <aside className="lg:w-80 shrink-0 border-b lg:border-b-0 lg:border-e border-slate-200 max-h-52 lg:max-h-none overflow-y-auto lg:overflow-visible">
             <div className="p-4 border-b border-slate-200/80 flex items-center gap-2 text-white font-normal">
-              <MessageSquare className="w-5 h-5 text-blue-400" />
+              <MessageSquare className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Konuşmalar
             </div>
             <div className="p-2 space-y-1">
@@ -212,7 +212,7 @@ export default function MessagesPage() {
                     type="button"
                     onClick={() => setActiveId(t.id)}
                     className={`w-full text-start rounded-[20px] px-3 py-2.5 transition-colors ${
-                      t.id === activeId ? "bg-blue-500/15 border border-blue-500/30" : "hover:bg-white/5 border border-transparent"
+                      t.id === activeId ? "bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]" : "hover:bg-white/5 border border-transparent"
                     }`}
                   >
                     <div className="text-sm font-normal text-white line-clamp-1">{t.title}</div>
@@ -220,7 +220,7 @@ export default function MessagesPage() {
                     <div className="text-[11px] text-slate-600 mt-0.5 flex justify-between gap-2">
                       <span className="truncate">{last?.body.slice(0, 36)}…</span>
                       {unread > 0 && (
-                        <span className="shrink-0 rounded-full bg-violet-500 text-[10px] px-1.5 text-white">{unread}</span>
+                        <span className="shrink-0 rounded-full bg-[var(--zemin-yumusak)] text-[10px] px-1.5 text-white">{unread}</span>
                       )}
                     </div>
                   </button>
@@ -236,7 +236,7 @@ export default function MessagesPage() {
                 <div className="px-4 py-3 border-b border-slate-200 flex flex-wrap gap-2 items-center">
                   <h1 className="text-lg font-normal text-white flex-1 min-w-[200px]">{active.title}</h1>
                   {isSupabaseConfigured() && hasAuthSession && isUuid(active.id) ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-normal uppercase tracking-wide text-emerald-200/95">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[10px] font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
                       <Server className="h-3 w-3" aria-hidden />
                       {remoteReady ? "Canlı sohbet" : "Edge gönderim"}
                     </span>
@@ -245,7 +245,7 @@ export default function MessagesPage() {
                       Demo konu (UUID değil) — yerel kayıt
                     </span>
                   ) : isSupabaseConfigured() ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[10px] font-normal text-amber-200/90">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[10px] font-normal text-[var(--metin-ikincil)]">
                       Oturum yok — yerel demo
                     </span>
                   ) : null}
@@ -283,7 +283,7 @@ export default function MessagesPage() {
                             <b.Icon className="w-3.5 h-3.5" />
                             <span>{author?.displayName ?? "Katılımcı"}</span>
                             {m.remoteSource === "edge" ? (
-                              <span className="rounded-[3px] bg-emerald-500/20 px-1 py-px text-[9px] font-normal uppercase tracking-wide text-emerald-200">
+                              <span className="rounded-[3px] bg-[var(--zemin-yumusak)] px-1 py-px text-[9px] font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
                                 Edge
                               </span>
                             ) : null}
@@ -303,9 +303,9 @@ export default function MessagesPage() {
                             <div
                               className={`mt-2 rounded-[10px] border px-2 py-1.5 text-[10px] leading-snug ${
                                 m.complianceScan.severity === "high"
-                                  ? "border-rose-500/40 bg-rose-950/40 text-rose-100"
+                                  ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                                   : m.complianceScan.severity === "medium"
-                                    ? "border-amber-500/35 bg-amber-950/30 text-amber-100"
+                                    ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                                     : "border-slate-200 bg-black/25 text-slate-300"
                               }`}
                             >
@@ -314,7 +314,7 @@ export default function MessagesPage() {
                               </span>{" "}
                               eşleşen ifadeler —{" "}
                               {m.complianceScan.flaggedKeywords.join(", ")}. Otomatik engel yok; üretimde kayıt altına alınır.{" "}
-                              <Link to="/yasal/dolandiricilik-savunmasi" className="underline underline-offset-2 text-teal-300">
+                              <Link to="/yasal/dolandiricilik-savunmasi" className="underline underline-offset-2 text-[var(--metin-ikincil)]">
                                 Savunma mimarisi
                               </Link>
                             </div>
@@ -353,7 +353,7 @@ export default function MessagesPage() {
         <Card className="mt-6 border-slate-200 bg-slate-900/30 p-4 space-y-2">
           <p className="text-xs text-slate-500">
             İletişim tek kayıt altında tutulma hedefiyle platform kanalından yürür; doğrudan telefon paylaşımı varsayılan olarak kapalıdır.{" "}
-            <Link to="/ihaleler" className="text-teal-400 hover:underline">
+            <Link to="/ihaleler" className="text-[var(--metin-ikincil)] hover:underline">
               İhalelere göz at
             </Link>
           </p>
@@ -362,7 +362,7 @@ export default function MessagesPage() {
             konu başlığı UUID ise aynı kurallar Edge üzerinden <code className="text-slate-500">post_chat_message</code> ile RPC ve isteğe bağlı{" "}
             <code className="text-slate-500">compliance_review_queue</code> kaydına yansır (migration uygulanmış olmalı). Otomatik hesap cezası
             yoktur. Laboratuvar:{" "}
-            <Link to="/araclar/finans-uyumluluk" className="text-teal-400 hover:underline">
+            <Link to="/araclar/finans-uyumluluk" className="text-[var(--metin-ikincil)] hover:underline">
               Fin / uyum playground
             </Link>
             .

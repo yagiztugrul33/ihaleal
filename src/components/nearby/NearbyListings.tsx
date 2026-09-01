@@ -74,17 +74,17 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
   );
 
   return (
-    <section className="mb-8 rounded-[20px] border border-blue-500/20 bg-slate-900/40 p-4 sm:p-5">
+    <section className="mb-8 rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Navigation className="h-5 w-5 text-blue-400" aria-hidden />
+          <Navigation className="h-5 w-5 text-[var(--metin-ikincil)]" aria-hidden />
           <h2 className="text-lg font-normal text-white">{n.resultsTitle}</h2>
         </div>
         {status === "idle" || status === "denied" || status === "unavailable" ? (
           <button
             type="button"
             onClick={requestLocation}
-            className="inline-flex items-center gap-2 rounded-[20px] bg-blue-600 px-4 py-2 text-sm font-normal text-white transition-colors hover:bg-blue-500"
+            className="inline-flex items-center gap-2 rounded-[20px] bg-[var(--zemin-yumusak)] px-4 py-2 text-sm font-normal text-white transition-colors hover:bg-[var(--zemin-yumusak)]"
           >
             <LocateFixed className="h-4 w-4" aria-hidden />
             {n.button}
@@ -107,10 +107,10 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
 
       {/* İzin reddi / desteklenmiyor → nazik fallback (hata ekranı yok) */}
       {status === "denied" ? (
-        <p className="mt-2 text-sm text-amber-200/90">{n.denied}</p>
+        <p className="mt-2 text-sm text-[var(--metin-ikincil)]">{n.denied}</p>
       ) : null}
       {status === "unavailable" ? (
-        <p className="mt-2 text-sm text-amber-200/90">{n.unavailable}</p>
+        <p className="mt-2 text-sm text-[var(--metin-ikincil)]">{n.unavailable}</p>
       ) : null}
 
       {/* Sonuçlar (ready) */}
@@ -127,7 +127,7 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
                 className={cn(
                   "rounded-[10px] border px-3 py-1 text-xs font-normal transition-colors",
                   radiusKm === r
-                    ? "border-blue-400 bg-blue-500/15 text-blue-200"
+                    ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                     : "border-slate-700 text-slate-400 hover:border-slate-500",
                 )}
                 aria-pressed={radiusKm === r}
@@ -151,7 +151,7 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
                   key={a.id}
                   type="button"
                   onClick={() => navigate(`/ilan/${a.id}`)}
-                  className="group rounded-[20px] border border-blue-500/25 bg-slate-900/40 text-start transition-all hover:border-blue-400/50 overflow-hidden"
+                  className="group rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 text-start transition-all hover:border-[var(--cizgi)] overflow-hidden"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-800">
                     <img
@@ -164,7 +164,7 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
                       <CountdownTimer endDate={a.endDate} status={a.status} size="sm" layout="compact" />
                     </div>
                     {/* Mesafe rozeti — sayı LTR */}
-                    <div className="absolute bottom-2 end-2 rounded-full bg-blue-600/90 px-2 py-0.5 text-xs font-normal text-white backdrop-blur-sm">
+                    <div className="absolute bottom-2 end-2 rounded-full bg-[var(--zemin-yumusak)] px-2 py-0.5 text-xs font-normal text-white backdrop-blur-sm">
                       <KmNumber value={km} digits={1} />
                     </div>
                   </div>
@@ -174,7 +174,7 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
                       <MapPin className="h-3 w-3 flex-shrink-0" aria-hidden />
                       <span className="truncate">{a.district}, {a.city}</span>
                     </div>
-                    <div className="text-base font-normal text-blue-400" dir="ltr">{formatTRY(a.currentBid)}</div>
+                    <div className="text-base font-normal text-[var(--metin-ikincil)]" dir="ltr">{formatTRY(a.currentBid)}</div>
                   </div>
                 </button>
               ))}

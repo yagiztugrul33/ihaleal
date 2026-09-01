@@ -17,11 +17,11 @@ export default function LegalMasterBrief() {
 
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-start gap-3">
-            <div className="rounded-[20px] bg-violet-500/15 p-3 text-violet-400">
+            <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)]">
               <BookMarked className="h-8 w-8" />
             </div>
             <div>
-              <p className="text-xs font-normal uppercase tracking-wide text-violet-400/90">Tapubid · ihaleal.com</p>
+              <p className="text-xs font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">Tapubid · ihaleal.com</p>
               <h1 className="text-2xl font-normal text-white">Hukuki ve operasyonel master plan özeti</h1>
               <p className="mt-1 text-sm text-slate-500">
                 Avukatlık hizmeti değildir — tam çalışma metni geliştirici deposunda.
@@ -41,7 +41,7 @@ export default function LegalMasterBrief() {
             <Button
               variant="outline"
               size="sm"
-              className="border-teal-500/30 text-teal-100 hover:bg-teal-500/10"
+              className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
               onClick={() => navigate(PLATFORM_FRAMEWORK_PATH)}
             >
               <FileText className="me-2 h-4 w-4" />
@@ -50,7 +50,7 @@ export default function LegalMasterBrief() {
             <Button
               variant="outline"
               size="sm"
-              className="border-rose-500/30 text-rose-100 hover:bg-rose-500/10"
+              className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
               onClick={() => navigate("/yasal/dolandiricilik-savunmasi")}
             >
               <AlertTriangle className="me-2 h-4 w-4" />
@@ -59,9 +59,9 @@ export default function LegalMasterBrief() {
           </div>
         </div>
 
-        <Card className="mb-8 border-amber-500/25 bg-amber-500/10">
+        <Card className="mb-8 border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
           <CardContent className="flex gap-3 p-4">
-            <AlertTriangle className="h-5 w-5 shrink-0 text-amber-400" />
+            <AlertTriangle className="h-5 w-5 shrink-0 text-[var(--metin-ikincil)]" />
             <p className="text-xs leading-relaxed text-slate-300">{LEGAL_MASTER_PAGE_DISCLAIMER}</p>
           </CardContent>
         </Card>
@@ -72,15 +72,15 @@ export default function LegalMasterBrief() {
             <ul className="list-inside list-disc space-y-1 text-slate-400">
               <li>
                 Ana plan:{" "}
-                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/TAPUBID_IHALLEGAL_MASTER_PLAN.md</code>
+                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-[var(--metin-ikincil)]">docs/hukuk/TAPUBID_IHALLEGAL_MASTER_PLAN.md</code>
               </li>
               <li>
                 Sözleşme iskeletleri:{" "}
-                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/EK_SOZLESME_TASLAK_PAKETI.md</code>
+                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-[var(--metin-ikincil)]">docs/hukuk/EK_SOZLESME_TASLAK_PAKETI.md</code>
               </li>
               <li>
                 Yetki/aracılık çerçevesi:{" "}
-                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/YETKI_VE_ARACILIK_TASLAK_CERCEVE.md</code>
+                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-[var(--metin-ikincil)]">docs/hukuk/YETKI_VE_ARACILIK_TASLAK_CERCEVE.md</code>
               </li>
             </ul>
             <p className="pt-2 text-xs text-slate-600">
@@ -111,10 +111,10 @@ export default function LegalMasterBrief() {
           ))}
         </div>
 
-        <Card className="mt-10 border-teal-500/20 bg-teal-500/5">
+        <Card className="mt-10 border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
           <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-sm text-slate-400">
-              <p className="font-normal text-teal-300/90">İlgili ürün sayfaları</p>
+              <p className="font-normal text-[var(--metin-ikincil)]">İlgili ürün sayfaları</p>
               <p className="mt-1 text-xs text-slate-600">Komisyon ve şartlar için kullanıcıya yönelik taslaklar.</p>
             </div>
             <div className="flex flex-wrap gap-2">

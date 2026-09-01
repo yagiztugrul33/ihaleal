@@ -15,7 +15,7 @@ export default function KVKK() {
 
         <div className="mb-8">
           <h1 className="text-3xl font-normal text-white flex items-center gap-3">
-            <Shield className="w-8 h-8 text-blue-400" />
+            <Shield className="w-8 h-8 text-[var(--metin-ikincil)]" />
             KVKK Aydınlatma Metni
           </h1>
           <p className="text-slate-400 mt-2">Kişisel Verilerin Korunması Kanunu kapsamında bilgilendirme</p>
@@ -29,9 +29,9 @@ export default function KVKK() {
               İhaleal.com olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verilerinizin işlenmesi, saklanması ve korunması konusunda veri sorumlusu sıfatıyla hareket etmekteyiz. Şirketimizin iletişim bilgileri:
             </p>
             <div className="mt-3 space-y-2 text-sm text-slate-400">
-              <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-blue-400" /> İstanbul, Türkiye</div>
-              <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-blue-400" /> kvkk@ihaleal.com</div>
-              <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-blue-400" /> +90 212 123 45 67</div>
+              <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-[var(--metin-ikincil)]" /> İstanbul, Türkiye</div>
+              <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-[var(--metin-ikincil)]" /> kvkk@ihaleal.com</div>
+              <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-[var(--metin-ikincil)]" /> +90 212 123 45 67</div>
             </div>
           </Card>
 
@@ -91,7 +91,7 @@ export default function KVKK() {
               <li>Veri kaybına uğraması halinde zararın giderilmesini talep etme</li>
             </ul>
             <p className="text-sm text-slate-400 mt-3">
-              Haklarınızı kullanmak için <a href="mailto:kvkk@ihaleal.com" className="text-blue-400">kvkk@ihaleal.com</a> adresine başvurabilirsiniz.
+              Haklarınızı kullanmak için <a href="mailto:kvkk@ihaleal.com" className="text-[var(--metin-ikincil)]">kvkk@ihaleal.com</a> adresine başvurabilirsiniz.
             </p>
           </Card>
 
@@ -143,7 +143,7 @@ export default function KVKK() {
             <p className="text-xs text-slate-500 mt-3 pt-2 border-t border-slate-200/50">
               <strong className="text-slate-400">Veri Sızıntısı Bildirimi:</strong> KVKK 12. madde ihlali halinde
               72 saat içinde KVKK Kurulu'na ve etkilenen kullanıcılara bildirim yapılır.
-              Olay yönetimi: <a href="mailto:guvenlik@ihaleal.com" className="text-blue-400">guvenlik@ihaleal.com</a>.
+              Olay yönetimi: <a href="mailto:guvenlik@ihaleal.com" className="text-[var(--metin-ikincil)]">guvenlik@ihaleal.com</a>.
             </p>
           </Card>
 

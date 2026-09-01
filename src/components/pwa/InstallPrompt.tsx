@@ -144,7 +144,7 @@ export function InstallPrompt() {
       </button>
 
       <div className="flex items-start gap-3 pe-6">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-lg">
           <Download className="h-5 w-5 text-white" />
         </div>
         <div className="flex-1 min-w-0">
@@ -160,15 +160,15 @@ export function InstallPrompt() {
           {iosMode ? (
             <ol className="mt-3 space-y-1.5 text-xs text-slate-300">
               <li className="flex items-center gap-2">
-                <Share2 className="h-3.5 w-3.5 text-cyan-400" />
+                <Share2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
                 Safari alt çubuğunda "Paylaş" simgesine dokun
               </li>
               <li className="flex items-center gap-2">
-                <Plus className="h-3.5 w-3.5 text-cyan-400" />
+                <Plus className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
                 "Ana Ekrana Ekle" seçeneğini seç
               </li>
               <li className="flex items-center gap-2">
-                <Download className="h-3.5 w-3.5 text-cyan-400" />
+                <Download className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
                 Sağ üstte "Ekle" butonuna dokun
               </li>
             </ol>
@@ -177,7 +177,7 @@ export function InstallPrompt() {
               <button
                 type="button"
                 onClick={onInstall}
-                className="rounded-[10px] bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-1.5 text-xs font-normal text-white shadow transition hover:from-cyan-400 hover:to-blue-500"
+                className="rounded-[10px] bg-gradient-to-r from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] px-3 py-1.5 text-xs font-normal text-white shadow transition hover:from-[var(--zemin-yumusak)] hover:to-[var(--zemin-yumusak)]"
               >
                 Uygulamayı yükle
               </button>

@@ -83,7 +83,7 @@ export default function Aramalarim() {
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2 mb-6 mx-auto">
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-4">
             <Bookmark className="h-3.5 w-3.5" /> Aramalarım
           </div>
           <h1 className="text-3xl md:text-4xl font-normal text-white mb-3">Kayıtlı Aramalarım</h1>
@@ -93,21 +93,21 @@ export default function Aramalarim() {
           </p>
           <div className="grid gap-4 sm:grid-cols-3 mb-8">
             <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
-              <Bell className="w-6 h-6 text-cyan-300 mb-2" />
+              <Bell className="w-6 h-6 text-[var(--metin-ikincil)] mb-2" />
               <h3 className="font-normal text-white text-sm mb-1">Yeni Eşleşme Bildirimi</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Kriterlerinize uyan yeni ilan eklenince bildirilirsiniz.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
-              <Play className="w-6 h-6 text-emerald-300 mb-2" />
+              <Play className="w-6 h-6 text-[var(--metin-ikincil)] mb-2" />
               <h3 className="font-normal text-white text-sm mb-1">Tek Tıkla Çalıştır</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Kayıtlı kriterleri /arama sayfasına aktarır, sonuçları görürsünüz.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
-              <Filter className="w-6 h-6 text-violet-300 mb-2" />
+              <Filter className="w-6 h-6 text-[var(--metin-ikincil)] mb-2" />
               <h3 className="font-normal text-white text-sm mb-1">İhale Filtreleri Dahil</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
                 İhale tipi, durum, fiyat, m² — tüm filtreler birlikte kaydolur.
@@ -118,7 +118,7 @@ export default function Aramalarim() {
             <Button onClick={() => navigate("/giris?next=/aramalarim")} className="[background:var(--gradient-cta)] text-white font-normal gap-2">
               <Bookmark className="w-4 h-4" /> Giriş Yap
             </Button>
-            <Button onClick={() => navigate("/arama")} variant="outline" className="border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/10 gap-2">
+            <Button onClick={() => navigate("/arama")} variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] gap-2">
               <Search className="w-4 h-4" /> İlk Aramayı Yap
             </Button>
           </div>
@@ -138,7 +138,7 @@ export default function Aramalarim() {
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div>
             <h1 className="text-2xl md:text-3xl font-normal text-white flex items-center gap-3">
-              <Bookmark className="w-7 h-7 text-cyan-400" /> Kayıtlı Aramalarım
+              <Bookmark className="w-7 h-7 text-[var(--metin-ikincil)]" /> Kayıtlı Aramalarım
             </h1>
             <p className="text-sm text-slate-400 mt-1">
               {searches.length > 0
@@ -152,7 +152,7 @@ export default function Aramalarim() {
         </div>
 
         {error ? (
-          <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+          <p className="mb-4 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)]">
             {error}
           </p>
         ) : null}
@@ -182,7 +182,7 @@ export default function Aramalarim() {
               return (
                 <article
                   key={s.id}
-                  className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-4 flex flex-col gap-3 hover:border-cyan-400/40 transition-colors"
+                  className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4 flex flex-col gap-3 hover:border-[var(--cizgi)] transition-colors"
                   data-testid="saved-search-card"
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -193,7 +193,7 @@ export default function Aramalarim() {
                       </p>
                     </div>
                     {newCount > 0 ? (
-                      <span className="rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-100 text-[10px] font-normal px-2 py-0.5 flex-shrink-0">
+                      <span className="rounded-full bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-[10px] font-normal px-2 py-0.5 flex-shrink-0">
                         {newCount} eşleşme
                       </span>
                     ) : null}
@@ -239,7 +239,7 @@ export default function Aramalarim() {
                           await remove(s.id);
                         }
                       }}
-                      className="border-red-400/40 text-red-200 hover:bg-red-500/10 gap-1.5 h-8"
+                      className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] gap-1.5 h-8"
                       aria-label={`${s.name} sil`}
                     >
                       <Trash2 className="w-3.5 h-3.5" /> Sil
@@ -252,13 +252,13 @@ export default function Aramalarim() {
         )}
 
         <div className="mt-8 pt-6 border-t border-slate-700/40 flex flex-wrap gap-2 text-xs text-slate-500">
-          <Link to="/panel" className="hover:text-cyan-300">Hesap paneli</Link>
+          <Link to="/panel" className="hover:text-[var(--metin-ikincil)]">Hesap paneli</Link>
           <span>·</span>
-          <Link to="/favoriler" className="hover:text-cyan-300">Favoriler</Link>
+          <Link to="/favoriler" className="hover:text-[var(--metin-ikincil)]">Favoriler</Link>
           <span>·</span>
-          <Link to="/bildirimler" className="hover:text-cyan-300">Bildirimler</Link>
+          <Link to="/bildirimler" className="hover:text-[var(--metin-ikincil)]">Bildirimler</Link>
           <span>·</span>
-          <Link to="/profil" className="hover:text-cyan-300">Profil</Link>
+          <Link to="/profil" className="hover:text-[var(--metin-ikincil)]">Profil</Link>
         </div>
       </div>
     </div>

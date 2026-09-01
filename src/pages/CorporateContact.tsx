@@ -29,7 +29,7 @@ export default function CorporateContact() {
     return (
       <div className="kurumsal-page flex min-h-screen items-center justify-center px-4 py-16">
         <div className="card-luxury max-w-md p-10 text-center">
-          <div className="text-5xl text-emerald-400" aria-hidden>✓</div>
+          <div className="text-5xl text-[var(--metin-ikincil)]" aria-hidden>✓</div>
           <h2 className="mt-4 text-2xl font-normal text-white">Başvurunuz alındı</h2>
           <p className="mt-3 leading-relaxed text-slate-400">
             Ekibimiz 1 iş günü içinde sizinle iletişime geçecek. Genellikle aynı gün dönüş yapıyoruz.
@@ -90,7 +90,7 @@ export default function CorporateContact() {
             {status === "sending" ? "Gönderiliyor…" : "Demo talebimi gönder"}
           </button>
           {status === "error" && (
-            <p className="text-sm text-red-400">Hata oluştu. Lütfen tekrar deneyin veya kurumsal@ihaleal.com adresine yazın.</p>
+            <p className="text-sm text-[var(--metin-ikincil)]">Hata oluştu. Lütfen tekrar deneyin veya kurumsal@ihaleal.com adresine yazın.</p>
           )}
           <p className="text-center text-xs leading-relaxed text-slate-500">
             Bilgileriniz KVKK kapsamında saklanır; yalnızca demo amacıyla kullanılır, üçüncü taraflarla paylaşılmaz.
@@ -113,7 +113,7 @@ export default function CorporateContact() {
           <div className="trust-badge-card">
             <div>
               <p className="text-xs uppercase tracking-wider text-slate-500">Yanıt süresi</p>
-              <p className="mt-1 text-sm font-normal text-emerald-400">Ortalama 4 saat</p>
+              <p className="mt-1 text-sm font-normal text-[var(--metin-ikincil)]">Ortalama 4 saat</p>
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@ function Field({
     <div>
       <label className="mb-1 block text-xs font-normal uppercase tracking-wider text-slate-400">
         {label}
-        {required && <span className="text-red-400"> *</span>}
+        {required && <span className="text-[var(--metin-ikincil)]"> *</span>}
       </label>
       <input
         type={type}

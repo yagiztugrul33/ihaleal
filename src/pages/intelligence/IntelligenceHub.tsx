@@ -38,7 +38,7 @@ const MODULES = [
     icon: Banknote,
     href: IBUYER_PATH,
     badge: "Kurumsal",
-    accent: "bg-red-500/10 border-red-500/30",
+    accent: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]",
   },
   {
     title: "Takas (Trade-In)",
@@ -46,7 +46,7 @@ const MODULES = [
     icon: RefreshCw,
     href: `${IBUYER_PATH}?flow=trade-in`,
     badge: "Takas",
-    accent: "bg-violet-500/10 border-violet-500/30",
+    accent: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]",
   },
   {
     title: "GES Master Analiz",
@@ -54,7 +54,7 @@ const MODULES = [
     icon: Sun,
     href: GES_ANALYSIS_PATH,
     badge: "Mühendislik",
-    accent: "bg-amber-500/10 border-amber-500/30",
+    accent: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]",
   },
   {
     title: "Ada Parsel İstihbarat",
@@ -62,7 +62,7 @@ const MODULES = [
     icon: Map,
     href: PARCEL_INTELLIGENCE_PATH,
     badge: "GIS",
-    accent: "bg-cyan-500/10 border-cyan-500/30",
+    accent: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]",
   },
   {
     title: "Stratejik War Room",
@@ -70,7 +70,7 @@ const MODULES = [
     icon: Radar,
     href: WAR_ROOM_PATH,
     badge: "Palantir",
-    accent: "bg-blue-500/10 border-blue-500/30",
+    accent: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]",
   },
   {
     title: "Kat Karsiligi Studio",
@@ -78,7 +78,7 @@ const MODULES = [
     icon: Building2,
     href: KKA_STUDIO_PATH,
     badge: "Mevcut",
-    accent: "bg-emerald-500/10 border-emerald-500/30",
+    accent: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)]",
   },
 ];
 
@@ -97,7 +97,7 @@ function LiveTicker() {
       animate={{ opacity: 1, y: 0 }}
     >
       <motion.div className="flex items-center gap-3 px-4 py-3 text-xs sm:text-sm">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/40 bg-red-500/10 px-2.5 py-0.5 font-normal uppercase tracking-wider text-red-200">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-0.5 font-normal uppercase tracking-wider text-[var(--metin-ikincil)]">
           <Zap className="h-3.5 w-3.5" /> Canlı
         </span>
         <motion.p key={index} className="text-slate-300 truncate font-mono" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -111,10 +111,10 @@ function LiveTicker() {
 export default function IntelligenceHub() {
   return (
     <motion.div className="min-h-screen bg-[#030712] text-white pt-24 pb-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <motion.div className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-gradient-to-b from-red-950/25 via-blue-950/20 to-transparent" aria-hidden />
+      <motion.div className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-gradient-to-b from-[var(--zemin-yumusak)] via-[var(--zemin-yumusak)] to-transparent" aria-hidden />
       <motion.div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="mb-10 max-w-3xl">
-          <p className="text-[10px] font-normal uppercase tracking-[0.28em] text-red-400/90 mb-3">Kurumsal Borsa Terminali</p>
+          <p className="text-[10px] font-normal uppercase tracking-[0.28em] text-[var(--metin-ikincil)] mb-3">Kurumsal Borsa Terminali</p>
           <h1 className="text-3xl sm:text-4xl font-normal tracking-tight">Araştırma ve İstihbarat Terminali</h1>
           <p className="text-slate-400 mt-4 text-lg leading-relaxed">
             iBuyer, takas, GES ve parsel masaları tek çatı altında. Sonuçlar ön fizibilite niteliğindedir; resmi rapor ve lisanslı onay gerektirir.
@@ -154,8 +154,8 @@ export default function IntelligenceHub() {
           ))}
         </motion.div>
 
-        <motion.div className="mt-12 rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-5 flex gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
-          <Shield className="w-5 h-5 text-amber-300 shrink-0" />
+        <motion.div className="mt-12 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5 flex gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
+          <Shield className="w-5 h-5 text-[var(--metin-ikincil)] shrink-0" />
           <p className="text-xs text-slate-400 leading-relaxed">
             Kesinlikle yatırım tavsiyesi değildir. Girdilere dayalı ön fizibilitedir. PVGIS doğrulanmış ışınım, resmi imar durumu ve TEİAŞ/EDAŞ başvurusu olmadan yatırım kararı alınmamalıdır.
           </p>

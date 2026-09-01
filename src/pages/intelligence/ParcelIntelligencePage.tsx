@@ -133,7 +133,7 @@ export default function ParcelIntelligencePage() {
           </Link>
         </Button>
         <motion.div className="flex items-center gap-3 mb-4">
-          <MapPinned className="w-8 h-8 text-cyan-400" />
+          <MapPinned className="w-8 h-8 text-[var(--metin-ikincil)]" />
           <motion.div>
             <h1 className="text-2xl font-normal">Ada Parsel İstihbarat (Ön Fizibilite)</h1>
             <p className="text-sm text-slate-400">EMSAL/TAKS, kat adedi, muteahhit paylasimi</p>
@@ -142,7 +142,7 @@ export default function ParcelIntelligencePage() {
 
         <div className="mb-6 flex gap-2 text-xs text-slate-500">
           {[1, 2, 3].map((s) => (
-            <span key={s} className={`rounded-full px-3 py-1 border ${step === s ? "border-cyan-400/50 text-cyan-100" : "border-white/10"}`}>
+            <span key={s} className={`rounded-full px-3 py-1 border ${step === s ? "border-[var(--cizgi)] text-[var(--metin-ikincil)]" : "border-white/10"}`}>
               Adim {s}
             </span>
           ))}
@@ -150,7 +150,7 @@ export default function ParcelIntelligencePage() {
 
         <PreFeasibilityBanner />
 
-        {error && <p className="mb-4 text-sm text-red-300">{error}</p>}
+        {error && <p className="mb-4 text-sm text-[var(--metin-ikincil)]">{error}</p>}
 
         <motion.div className="grid lg:grid-cols-2 gap-8">
           <Card className="border border-white/10 bg-white/[0.04] backdrop-blur-md">
@@ -196,8 +196,8 @@ export default function ParcelIntelligencePage() {
 
           {step === 3 && feasResult ? (
             <motion.div className="space-y-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <div className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-6">
-                <p className="text-4xl font-normal text-cyan-300">{fmtScore(feasResult.feasibilityScore)}/100</p>
+              <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6">
+                <p className="text-4xl font-normal text-[var(--metin-ikincil)]">{fmtScore(feasResult.feasibilityScore)}/100</p>
                 <p className="text-xs text-slate-400 mt-1">Uygunluk skoru (ön fizibilite)</p>
               </div>
               <Card className="border border-white/10 bg-white/[0.04]">
@@ -208,14 +208,14 @@ export default function ParcelIntelligencePage() {
                   <p>Muteahhit / Arsa sahibi: <strong>{fmtNum(feasResult.contractorShareM2)}</strong> / <strong>{fmtNum(feasResult.landownerShareM2)} m2</strong></p>
                   <p>Kar marji: <strong>{fmtNum(feasResult.profitMarginPercent, { digits: 1 })}%</strong></p>
                   {feasResult.warnings.map((w) => (
-                    <p key={w} className="text-[10px] text-amber-400/90">{w}</p>
+                    <p key={w} className="text-[10px] text-[var(--metin-ikincil)]">{w}</p>
                   ))}
                 </CardContent>
               </Card>
               {intelResult && (
                 <Card className="border border-white/10 bg-white/[0.04]">
                   <CardContent className="p-5 text-sm text-slate-300">
-                    <p className="text-lg font-normal text-cyan-300">Bolge indeksi: {intelResult.compositeScore}/100</p>
+                    <p className="text-lg font-normal text-[var(--metin-ikincil)]">Bolge indeksi: {intelResult.compositeScore}/100</p>
                   </CardContent>
                 </Card>
               )}

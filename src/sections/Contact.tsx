@@ -64,25 +64,25 @@ export function Contact() {
           <address className="lg:col-span-2 space-y-6 not-italic">
             {[
               {
-                icon: <Phone className="w-5 h-5 text-blue-400" />,
+                icon: <Phone className="w-5 h-5 text-[var(--metin-ikincil)]" />,
                 label: "Telefon",
                 value: "0544 532 74 06",
                 href: "tel:+905445327406",
               },
               {
-                icon: <Mail className="w-5 h-5 text-blue-400" />,
+                icon: <Mail className="w-5 h-5 text-[var(--metin-ikincil)]" />,
                 label: "E-posta",
                 value: "info@ihaleal.com",
                 href: "mailto:info@ihaleal.com",
               },
               {
-                icon: <MapPin className="w-5 h-5 text-blue-400" />,
+                icon: <MapPin className="w-5 h-5 text-[var(--metin-ikincil)]" />,
                 label: "Adres",
                 value: "Esentepe Mah. Büyükdere Cad. Astoria, Kapı No: 127 Daire No: 6, Şişli / İstanbul",
                 href: undefined as string | undefined,
               },
               {
-                icon: <Clock className="w-5 h-5 text-blue-400" />,
+                icon: <Clock className="w-5 h-5 text-[var(--metin-ikincil)]" />,
                 label: "Çalışma Saatleri",
                 value: "Hafta içi 09:00 - 18:00 (UTC+3)",
                 href: undefined as string | undefined,
@@ -93,7 +93,7 @@ export function Contact() {
                 <Wrapper
                   key={idx}
                   {...(item.href ? { href: item.href } : {})}
-                  className={`card-warm flex items-start gap-4 ${item.href ? "hover:border-blue-400/40 transition-colors" : ""} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
+                  className={`card-warm flex items-start gap-4 ${item.href ? "hover:border-[var(--cizgi)] transition-colors" : ""} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
                   style={{ transitionDelay: `${idx * 100}ms` }}
                 >
                   <div className="p-2.5 rounded-[10px] shrink-0" style={{ background: "var(--color-bg-soft)" }}>
@@ -118,14 +118,14 @@ export function Contact() {
             })}
           </address>
           <form onSubmit={handleSubmit} className={`lg:col-span-3 card-warm p-6 lg:p-8 space-y-5 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: "200ms" }}>
-            {status === "success" && <div className="flex items-center gap-3 p-4 rounded-[20px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 animate-fade-in"><CheckCircle2 className="w-5 h-5 shrink-0" /><span className="text-sm font-normal">Mesajınız başarıyla gönderildi!</span></div>}
-            {status === "error" && <div className="flex items-center gap-3 p-4 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-400 animate-fade-in"><AlertCircle className="w-5 h-5 shrink-0" /><span className="text-sm font-normal">Bir hata oluştu.</span></div>}
+            {status === "success" && <div className="flex items-center gap-3 p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] animate-fade-in"><CheckCircle2 className="w-5 h-5 shrink-0" /><span className="text-sm font-normal">Mesajınız başarıyla gönderildi!</span></div>}
+            {status === "error" && <div className="flex items-center gap-3 p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] animate-fade-in"><AlertCircle className="w-5 h-5 shrink-0" /><span className="text-sm font-normal">Bir hata oluştu.</span></div>}
             <div className="grid sm:grid-cols-2 gap-5">
-              <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Ad Soyad</label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.name ? "border-red-500/50" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30`} placeholder="Ali Veli" />{errors.name && <p className="text-xs text-red-400 mt-1">{errors.name}</p>}</div>
-              <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>E-posta</label><Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.email ? "border-red-500/50" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30`} placeholder="ali@ornek.com" />{errors.email && <p className="text-xs text-red-400 mt-1">{errors.email}</p>}</div>
+              <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Ad Soyad</label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.name ? "border-[var(--cizgi)]" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30`} placeholder="Ali Veli" />{errors.name && <p className="text-xs text-[var(--metin-ikincil)] mt-1">{errors.name}</p>}</div>
+              <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>E-posta</label><Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.email ? "border-[var(--cizgi)]" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30`} placeholder="ali@ornek.com" />{errors.email && <p className="text-xs text-[var(--metin-ikincil)] mt-1">{errors.email}</p>}</div>
             </div>
-            <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Telefon</label><Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.phone ? "border-red-500/50" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30`} placeholder="+90 555 123 45 67" />{errors.phone && <p className="text-xs text-red-400 mt-1">{errors.phone}</p>}</div>
-            <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Mesajınız</label><Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.message ? "border-red-500/50" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30 min-h-[120px]`} placeholder="Mesajınızı buraya yazın..." />{errors.message && <p className="text-xs text-red-400 mt-1">{errors.message}</p>}</div>
+            <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Telefon</label><Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.phone ? "border-[var(--cizgi)]" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30`} placeholder="+90 555 123 45 67" />{errors.phone && <p className="text-xs text-[var(--metin-ikincil)] mt-1">{errors.phone}</p>}</div>
+            <div><label className="text-sm mb-1.5 block" style={{ color: "var(--color-text-muted)" }}>Mesajınız</label><Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className={`bg-[var(--color-bg-card)] border ${errors.message ? "border-[var(--cizgi)]" : "border-slate-200"} text-[var(--color-text)] focus:ring-[var(--color-primary)]/30 min-h-[120px]`} placeholder="Mesajınızı buraya yazın..." />{errors.message && <p className="text-xs text-[var(--metin-ikincil)] mt-1">{errors.message}</p>}</div>
             <Button type="submit" disabled={status === "sending"} className="w-full btn-primary h-11 gap-2 disabled:opacity-60 !flex !justify-center"><Send className="rtl:-scale-x-100 w-4 h-4" />{status === "sending" ? "Gönderiliyor..." : "Gönder"}</Button>
           </form>
         </div>

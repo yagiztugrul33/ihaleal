@@ -7,9 +7,9 @@ interface Props {
 }
 
 function scoreColor(score: number): { ring: string; text: string; bg: string } {
-  if (score >= 75) return { ring: "border-emerald-400/45", text: "text-emerald-300", bg: "bg-emerald-500/10" };
-  if (score >= 50) return { ring: "border-amber-400/45", text: "text-amber-300", bg: "bg-amber-500/10" };
-  return { ring: "border-red-400/45", text: "text-red-300", bg: "bg-red-500/10" };
+  if (score >= 75) return { ring: "border-[var(--cizgi)]", text: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" };
+  if (score >= 50) return { ring: "border-[var(--cizgi)]", text: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" };
+  return { ring: "border-[var(--cizgi)]", text: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" };
 }
 
 export function NeighborhoodScoreCard({ label, score, detail }: Props) {

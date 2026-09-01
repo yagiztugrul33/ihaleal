@@ -56,8 +56,8 @@ export function GeofenceSettingsPanel() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-[10px] border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-slate-300 leading-relaxed">
-        <Shield className="inline h-3.5 w-3.5 me-1 text-amber-400" />
+      <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-xs text-slate-300 leading-relaxed">
+        <Shield className="inline h-3.5 w-3.5 me-1 text-[var(--metin-ikincil)]" />
         Konumunuz yalnızca cihazınızda işlenir; sunucuya ham GPS koordinatı gönderilmez. Yakın ilan eşleşmesi
         tarayıcıda hesaplanır. KVKK kapsamında açık rıza gereklidir.
       </div>
@@ -78,7 +78,7 @@ export function GeofenceSettingsPanel() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-sm font-normal text-white flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-sky-400" /> Geofence bildirimi
+            <MapPin className="h-4 w-4 text-[var(--metin-ikincil)]" /> Geofence bildirimi
           </p>
           <p className="text-xs text-slate-500">Mahalle yakınındaki kiralık/satılık ilanlar</p>
         </div>

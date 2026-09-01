@@ -17,7 +17,7 @@ export default function DataStrategy() {
         </Button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-[20px] bg-emerald-500/10 text-emerald-400">
+          <div className="p-3 rounded-[20px] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">
             <LineChart className="w-7 h-7" />
           </div>
           <div>
@@ -28,9 +28,9 @@ export default function DataStrategy() {
           </div>
         </div>
 
-        <Card className="bg-red-500/5 border-red-500/20 mb-6">
+        <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)] mb-6">
           <CardContent className="p-5 flex gap-3">
-            <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+            <AlertTriangle className="w-5 h-5 text-[var(--metin-ikincil)] shrink-0 mt-0.5" />
             <div className="text-sm text-slate-300 space-y-2">
               <p>
                 <strong className="text-white">Şu an bu sitede:</strong> Lisanslı piyasa verisiyle aynı kalitede, güncel “son 6 ayda satılanlar / şimdi satılıklar”
@@ -46,10 +46,10 @@ export default function DataStrategy() {
 
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5">
-            <h2 className="text-white font-normal flex items-center gap-2 mb-3"><Upload className="w-5 h-5 text-blue-400" /> Örnek fiyat raporu (yerel seçim)</h2>
+            <h2 className="text-white font-normal flex items-center gap-2 mb-3"><Upload className="w-5 h-5 text-[var(--metin-ikincil)]" /> Örnek fiyat raporu (yerel seçim)</h2>
             <p className="text-xs text-slate-500 mb-4">Üretimde: güvenli depolama + OCR + şablon eşleme. Şimdilik yalnızca dosya adı.</p>
             <label className="flex flex-col sm:flex-row sm:items-center gap-3 cursor-pointer">
-              <span className="inline-flex items-center justify-center px-4 py-2 rounded-[10px] bg-blue-500/15 text-blue-300 text-sm border border-blue-500/20">
+              <span className="inline-flex items-center justify-center px-4 py-2 rounded-[10px] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-sm border border-[var(--cizgi)]">
                 PDF seç
               </span>
               <input
@@ -64,7 +64,7 @@ export default function DataStrategy() {
               <span className="text-sm text-slate-400">{fileName || "Henüz dosya seçilmedi"}</span>
             </label>
             {fileName && (
-              <p className="text-xs text-emerald-400 mt-3 flex items-center gap-2">
+              <p className="text-xs text-[var(--metin-ikincil)] mt-3 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4" />
                 Dosya adı kaydedildi (tarayıcıda). Gerçek analiz için backend gerekir.
               </p>
@@ -85,7 +85,7 @@ export default function DataStrategy() {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/50 border-emerald-500/15 mb-6">
+        <Card className="bg-slate-900/50 border-[var(--cizgi)] mb-6">
           <CardContent className="p-5 space-y-3 text-sm text-slate-400">
             <h2 className="text-white font-normal text-base">Üçüncü taraf veri API — teknik çerçeve (taslak)</h2>
             <p className="text-xs text-slate-500">
@@ -102,17 +102,17 @@ export default function DataStrategy() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
-                  <tr><td className="p-2 text-emerald-300">auth</td><td className="p-2">OAuth2 / API key</td><td className="p-2">Sunucuda sakla; istemciye sızdırma.</td></tr>
-                  <tr><td className="p-2 text-emerald-300">parsel / adres</td><td className="p-2">Normalize mahalle + ada/parsel</td><td className="p-2">Tapu-Adres birlikte doğrulama (hukuk).</td></tr>
-                  <tr><td className="p-2 text-emerald-300">İhaleal Endeksi bandı</td><td className="p-2">m² birim fiyat + ihale likiditesi</td><td className="p-2">Tarih aralığı + örneklem; ihale verisi ile çapraz doğrulama.</td></tr>
-                  <tr><td className="p-2 text-emerald-300">rapor PDF</td><td className="p-2">İhale kartında özet + link</td><td className="p-2">Kullanıcı yüklemesi veya sağlayıcı webhook.</td></tr>
-                  <tr><td className="p-2 text-emerald-300">rate limit</td><td className="p-2">Önbellek (Redis)</td><td className="p-2">Analiz sayfası sorgu patlamasını önle.</td></tr>
+                  <tr><td className="p-2 text-[var(--metin-ikincil)]">auth</td><td className="p-2">OAuth2 / API key</td><td className="p-2">Sunucuda sakla; istemciye sızdırma.</td></tr>
+                  <tr><td className="p-2 text-[var(--metin-ikincil)]">parsel / adres</td><td className="p-2">Normalize mahalle + ada/parsel</td><td className="p-2">Tapu-Adres birlikte doğrulama (hukuk).</td></tr>
+                  <tr><td className="p-2 text-[var(--metin-ikincil)]">İhaleal Endeksi bandı</td><td className="p-2">m² birim fiyat + ihale likiditesi</td><td className="p-2">Tarih aralığı + örneklem; ihale verisi ile çapraz doğrulama.</td></tr>
+                  <tr><td className="p-2 text-[var(--metin-ikincil)]">rapor PDF</td><td className="p-2">İhale kartında özet + link</td><td className="p-2">Kullanıcı yüklemesi veya sağlayıcı webhook.</td></tr>
+                  <tr><td className="p-2 text-[var(--metin-ikincil)]">rate limit</td><td className="p-2">Önbellek (Redis)</td><td className="p-2">Analiz sayfası sorgu patlamasını önle.</td></tr>
                 </tbody>
               </table>
             </div>
             <p className="text-xs text-slate-500">
-              Örnek env değişkenleri (üretim, sağlayıcıya göre isimlendirin): <code className="text-teal-400/90">PRICE_INDEX_API_BASE</code>,{" "}
-              <code className="text-teal-400/90">PRICE_INDEX_CLIENT_ID</code>, <code className="text-teal-400/90">PRICE_INDEX_WEBHOOK_SECRET</code> — .env.example ile hizalayın.
+              Örnek env değişkenleri (üretim, sağlayıcıya göre isimlendirin): <code className="text-[var(--metin-ikincil)]">PRICE_INDEX_API_BASE</code>,{" "}
+              <code className="text-[var(--metin-ikincil)]">PRICE_INDEX_CLIENT_ID</code>, <code className="text-[var(--metin-ikincil)]">PRICE_INDEX_WEBHOOK_SECRET</code> — .env.example ile hizalayın.
             </p>
           </CardContent>
         </Card>

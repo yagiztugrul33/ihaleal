@@ -28,8 +28,8 @@ export function SellerTrustCard({ sellerId, listingId, listingTitle }: Props) {
           <div className="mt-1.5 flex flex-wrap items-center gap-2">
             <KycVerifiedBadge verified={profile?.kycVerified} compact />
             {reviewCount > 0 ? (
-              <span className="inline-flex items-center gap-1 text-xs text-amber-300">
-                <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+              <span className="inline-flex items-center gap-1 text-xs text-[var(--metin-ikincil)]">
+                <Star className="h-3.5 w-3.5 fill-amber-400 text-[var(--metin-ikincil)]" />
                 {rating.toFixed(1)} · {reviewCount} yorum
               </span>
             ) : (

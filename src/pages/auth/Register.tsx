@@ -163,12 +163,12 @@ export default function Register() {
               }
             />
             {info && (
-              <div className="flex items-center gap-2 p-3 rounded-[20px] bg-sky-500/10 border border-sky-500/20 text-sky-200 text-sm">
+              <div className="flex items-center gap-2 p-3 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-sm">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>{info}</span>
               </div>
             )}
-            {error && <div className="p-3 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
+            {error && <div className="p-3 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-sm">{error}</div>}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">Ad Soyad</label>
@@ -213,8 +213,8 @@ export default function Register() {
               {/* R14 — Müteahhit ek alanları */}
               {isMuteahhit && (
                 <>
-                  <div className="rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-3 text-xs text-amber-100/90">
-                    <Building2 className="w-4 h-4 inline-block me-1.5 text-amber-300" />
+                  <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-xs text-[var(--metin-ikincil)]">
+                    <Building2 className="w-4 h-4 inline-block me-1.5 text-[var(--metin-ikincil)]" />
                     Müteahhit kaydı için şirket bilgileri zorunludur. Ruhsat doğrulaması 24-48 saat içinde admin tarafından yapılır.
                   </div>
                   <div>
@@ -296,11 +296,11 @@ export default function Register() {
               <label className="flex items-start gap-2 text-xs text-slate-400 cursor-pointer">
                 <input type="checkbox" checked={kvkkAccepted} onChange={(e) => setKvkkAccepted(e.target.checked)} className="mt-0.5 accent-teal-500" />
                 <span>
-                  <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/kvkk")}>
+                  <button type="button" className="text-[var(--metin-ikincil)] hover:underline" onClick={() => navigate("/kvkk")}>
                     KVKK
                   </button>{" "}
                   ve{" "}
-                  <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/gizlilik")}>
+                  <button type="button" className="text-[var(--metin-ikincil)] hover:underline" onClick={() => navigate("/gizlilik")}>
                     gizlilik
                   </button>{" "}
                   metnini okudum; kişisel verilerimin bu kapsamda işlenmesini kabul ediyorum.
@@ -323,7 +323,7 @@ export default function Register() {
                         : "/giris",
                   )
                 }
-                className="text-blue-400 hover:text-blue-300 font-normal"
+                className="text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)] font-normal"
               >
                 Giriş Yap
               </button>

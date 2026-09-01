@@ -40,7 +40,7 @@ export function ListingQuickActions({
         }}
         className={cn(
           "rounded-[10px] p-2 backdrop-blur-md transition-colors",
-          isFavorite ? "bg-pink-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
+          isFavorite ? "bg-[var(--zemin-yumusak)] text-white" : "bg-black/50 text-white hover:bg-black/70",
         )}
       >
         <Heart className={cn("w-4 h-4", isFavorite && "fill-current")} />
@@ -55,7 +55,7 @@ export function ListingQuickActions({
           }}
           className={cn(
             "rounded-[10px] p-2 backdrop-blur-md transition-colors",
-            compareActive ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
+            compareActive ? "bg-[var(--zemin-yumusak)] text-white" : "bg-black/50 text-white hover:bg-black/70",
           )}
         >
           <GitCompare className="w-4 h-4" />

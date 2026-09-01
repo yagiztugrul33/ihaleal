@@ -30,7 +30,7 @@ function parseCoord(s: string): number | null {
 function MapFallback() {
   return (
     <div className="h-full min-h-[320px] flex items-center justify-center bg-slate-900/80 border border-white/10 rounded-[20px]">
-      <Loader2 className="w-8 h-8 animate-spin text-cyan-400" />
+      <Loader2 className="w-8 h-8 animate-spin text-[var(--metin-ikincil)]" />
     </div>
   );
 }
@@ -150,14 +150,14 @@ export default function WarRoomPage() {
 
   return (
     <div className="min-h-screen pt-20 pb-12 intelligence-page bg-[#030712]">
-      <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-blue-950/70 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-[var(--zemin-yumusak)] to-transparent pointer-events-none" />
       <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6">
         <Button variant="ghost" size="sm" asChild className="mb-4 text-slate-400">
           <Link to={INTELLIGENCE_HUB_PATH}><ArrowLeft className="rtl:rotate-180 w-4 h-4 me-1" /> Araştırma</Link>
         </Button>
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div className="flex gap-3">
-            <Radar className="w-10 h-10 text-blue-400 shrink-0" />
+            <Radar className="w-10 h-10 text-[var(--metin-ikincil)] shrink-0" />
             <div>
               <h1 className="text-3xl font-normal text-white">Stratejik War Room</h1>
               <p className="text-sm text-slate-400 mt-1">Yatırım risk analizi — deprem, zemin, çevresel risk profili</p>
@@ -168,10 +168,10 @@ export default function WarRoomPage() {
 
         {/* KATMAN 1 — Eğitici giriş (form ÖNCESI, jargon yok, açık dil) */}
         <section className="mb-6 space-y-3">
-          <Card className="card-luxury border-blue-500/20">
+          <Card className="card-luxury border-[var(--cizgi)]">
             <CardContent className="p-5">
               <div className="flex items-start gap-3 mb-3">
-                <BookOpen className="h-5 w-5 text-blue-300 flex-shrink-0 mt-0.5" />
+                <BookOpen className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                 <h2 className="text-base font-normal text-white">War Room nedir, kime, neden?</h2>
               </div>
               <p className="text-sm text-slate-300 mb-3 leading-relaxed">
@@ -180,20 +180,20 @@ export default function WarRoomPage() {
                 bu risk için yeterli mi?" sorularına ışık tutar.
               </p>
               <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                <div className="rounded-[10px] border border-blue-400/15 bg-slate-900/30 p-3">
-                  <p className="font-normal text-blue-300 mb-1">👤 Yatırımcı için</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30 p-3">
+                  <p className="font-normal text-[var(--metin-ikincil)] mb-1">👤 Yatırımcı için</p>
                   <p className="text-slate-300">
                     300-500M arsa kararı vermeden — bölge riski, fay mesafesi, zemin durumu net görsün.
                   </p>
                 </div>
-                <div className="rounded-[10px] border border-blue-400/15 bg-slate-900/30 p-3">
-                  <p className="font-normal text-blue-300 mb-1">🏗️ Müteahhit için</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30 p-3">
+                  <p className="font-normal text-[var(--metin-ikincil)] mb-1">🏗️ Müteahhit için</p>
                   <p className="text-slate-300">
                     Yapı maliyetini tahmin etsin — zemin iyileştirme, TBDY-2018 dayanıklılık şartları.
                   </p>
                 </div>
-                <div className="rounded-[10px] border border-blue-400/15 bg-slate-900/30 p-3">
-                  <p className="font-normal text-blue-300 mb-1">🏢 Kurumsal için</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30 p-3">
+                  <p className="font-normal text-[var(--metin-ikincil)] mb-1">🏢 Kurumsal için</p>
                   <p className="text-slate-300">
                     Fabrika/depo/şube açma kararında — afet süreç hazırlığı, sigorta primi öngörüsü.
                   </p>
@@ -201,33 +201,33 @@ export default function WarRoomPage() {
               </div>
 
               {/* Somut örnek senaryo (Endeksa stili gerçek mülk + sayı) */}
-              <div className="mt-4 rounded-[10px] border border-emerald-400/20 bg-slate-900/40 p-4">
-                <p className="text-xs font-normal text-emerald-300 mb-2 flex items-center gap-1.5">
+              <div className="mt-4 rounded-[10px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+                <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-2 flex items-center gap-1.5">
                   📌 Somut Örnek Senaryo (Pendik, 1.000 m² arsa)
                 </p>
                 <div className="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
                   <p>
-                    <strong className="text-emerald-200">Konum:</strong> Pendik / Kurtköy, 1.000 m² arsa, KAKS 2.0,
-                    Marmara fay zonu 18 km uzakta. <strong className="text-emerald-200">PGA: 0.32g</strong>.
+                    <strong className="text-[var(--metin-ikincil)]">Konum:</strong> Pendik / Kurtköy, 1.000 m² arsa, KAKS 2.0,
+                    Marmara fay zonu 18 km uzakta. <strong className="text-[var(--metin-ikincil)]">PGA: 0.32g</strong>.
                   </p>
                   <p>
-                    <strong className="text-emerald-200">Zemin:</strong> ZC orta-sağlam alüvyon — temel kazığı önerilir
+                    <strong className="text-[var(--metin-ikincil)]">Zemin:</strong> ZC orta-sağlam alüvyon — temel kazığı önerilir
                     (+ %8 inşaat maliyeti). Sıvılaşma riski: düşük.
                   </p>
                   <p>
-                    <strong className="text-emerald-200">War Room skoru:</strong> 72/100 (orta-yüksek yatırım uygun).
+                    <strong className="text-[var(--metin-ikincil)]">War Room skoru:</strong> 72/100 (orta-yüksek yatırım uygun).
                     Sigorta primi: yıllık ~₺28K (DASK + ek).
                   </p>
                   <p>
-                    <strong className="text-emerald-200">Karar:</strong> 8 daire müteahhit projesi → 4 daire arsa sahibi
+                    <strong className="text-[var(--metin-ikincil)]">Karar:</strong> 8 daire müteahhit projesi → 4 daire arsa sahibi
                     (KKA %50). Tahmini ROI: 5 yıl içinde %32-40.
                   </p>
                 </div>
               </div>
 
               {/* 3 deprem bölgesi karşılaştırma — Endeksa stili tablo */}
-              <div className="mt-4 rounded-[10px] border border-cyan-400/20 bg-slate-900/40 p-4">
-                <p className="text-xs font-normal text-cyan-300 mb-3 flex items-center gap-1.5">
+              <div className="mt-4 rounded-[10px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+                <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-1.5">
                   🌍 3 Bölge Karşılaştırma — Aynı 1.000 m² yatırımı, farklı şehir
                 </p>
                 <div className="overflow-x-auto">
@@ -248,33 +248,33 @@ export default function WarRoomPage() {
                           <p className="text-white font-normal">İstanbul / Kadıköy</p>
                           <p className="text-[10px] text-slate-500">Marmara fay yakın</p>
                         </td>
-                        <td className="py-2 px-2 text-end text-amber-300">8 km</td>
-                        <td className="py-2 px-2 text-end text-rose-300">0.41g</td>
-                        <td className="py-2 px-2 text-end text-amber-200">ZD</td>
-                        <td className="py-2 px-2 text-end font-normal text-amber-300">61/100</td>
-                        <td className="py-2 ps-2 text-end text-rose-200">₺52K</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">8 km</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">0.41g</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">ZD</td>
+                        <td className="py-2 px-2 text-end font-normal text-[var(--metin-ikincil)]">61/100</td>
+                        <td className="py-2 ps-2 text-end text-[var(--metin-ikincil)]">₺52K</td>
                       </tr>
                       <tr className="border-b border-slate-800/50">
                         <td className="py-2 pe-2">
                           <p className="text-white font-normal">İzmir / Karşıyaka</p>
                           <p className="text-[10px] text-slate-500">Gediz çöküntüsü</p>
                         </td>
-                        <td className="py-2 px-2 text-end text-amber-300">12 km</td>
-                        <td className="py-2 px-2 text-end text-amber-300">0.37g</td>
-                        <td className="py-2 px-2 text-end text-rose-200">ZE</td>
-                        <td className="py-2 px-2 text-end font-normal text-amber-300">58/100</td>
-                        <td className="py-2 ps-2 text-end text-rose-200">₺48K</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">12 km</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">0.37g</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">ZE</td>
+                        <td className="py-2 px-2 text-end font-normal text-[var(--metin-ikincil)]">58/100</td>
+                        <td className="py-2 ps-2 text-end text-[var(--metin-ikincil)]">₺48K</td>
                       </tr>
                       <tr>
                         <td className="py-2 pe-2">
                           <p className="text-white font-normal">Konya / Selçuklu</p>
                           <p className="text-[10px] text-slate-500">Anadolu kratonu</p>
                         </td>
-                        <td className="py-2 px-2 text-end text-emerald-300">85 km</td>
-                        <td className="py-2 px-2 text-end text-emerald-300">0.18g</td>
-                        <td className="py-2 px-2 text-end text-emerald-200">ZA</td>
-                        <td className="py-2 px-2 text-end font-normal text-emerald-300">87/100</td>
-                        <td className="py-2 ps-2 text-end text-emerald-200">₺18K</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">85 km</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">0.18g</td>
+                        <td className="py-2 px-2 text-end text-[var(--metin-ikincil)]">ZA</td>
+                        <td className="py-2 px-2 text-end font-normal text-[var(--metin-ikincil)]">87/100</td>
+                        <td className="py-2 ps-2 text-end text-[var(--metin-ikincil)]">₺18K</td>
                       </tr>
                     </tbody>
                   </table>
@@ -287,22 +287,22 @@ export default function WarRoomPage() {
             </CardContent>
           </Card>
 
-          <Card className="card-luxury border-amber-500/20">
+          <Card className="card-luxury border-[var(--cizgi)]">
             <CardContent className="p-4">
-              <p className="text-xs font-normal text-amber-300 mb-2 flex items-center gap-1.5">
+              <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-2 flex items-center gap-1.5">
                 <Info className="h-3.5 w-3.5" /> Form alanları ne demek?
               </p>
               <div className="grid sm:grid-cols-3 gap-3 text-xs text-slate-300">
                 <p>
-                  <strong className="text-amber-200">Zemin (ZA-ZE)</strong>: ZA = sağlam kaya (en güvenli),
+                  <strong className="text-[var(--metin-ikincil)]">Zemin (ZA-ZE)</strong>: ZA = sağlam kaya (en güvenli),
                   ZE = zayıf zemin/dolgu. Yapı güvenliği + temel maliyeti doğrudan etkiler.
                 </p>
                 <p>
-                  <strong className="text-amber-200">PGA (g)</strong>: Deprem yer ivmesi katsayısı.
+                  <strong className="text-[var(--metin-ikincil)]">PGA (g)</strong>: Deprem yer ivmesi katsayısı.
                   0.10 = düşük, 0.20 = orta, 0.35+ = yüksek risk. AFAD risk haritasından okunur.
                 </p>
                 <p>
-                  <strong className="text-amber-200">Risk katmanı</strong>: Haritada fay hatları,
+                  <strong className="text-[var(--metin-ikincil)]">Risk katmanı</strong>: Haritada fay hatları,
                   heyelan/sel risk bölgeleri renkli gösterilir. Açık/Kapalı seçilebilir.
                 </p>
               </div>
@@ -310,7 +310,7 @@ export default function WarRoomPage() {
           </Card>
         </section>
         {error ? (
-          <div className="mb-4 rounded-[20px] border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200 flex gap-2">
+          <div className="mb-4 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)] flex gap-2">
             <AlertTriangle className="w-4 h-4 shrink-0" />{error}
           </div>
         ) : null}
@@ -331,12 +331,12 @@ export default function WarRoomPage() {
             {result ? <Button variant="outline" className="w-full gap-2" onClick={downloadReport}><Download className="w-4 h-4" />Rapor</Button> : null}
           </CardContent></Card>
           <div className="xl:col-span-6 h-[min(70vh,600px)] relative">
-            {loading ? <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950/80 rounded-[20px]"><Loader2 className="w-10 h-10 animate-spin text-cyan-400" /></div> : null}
+            {loading ? <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950/80 rounded-[20px]"><Loader2 className="w-10 h-10 animate-spin text-[var(--metin-ikincil)]" /></div> : null}
             <Suspense fallback={<MapFallback />}><MapLazy center={center} zoom={10} layers={mapLayers} activeLayerId="site" className="h-full" /></Suspense>
           </div>
           <div className="xl:col-span-3 space-y-3">
             {result ? (<>
-              <Card className="card-luxury"><CardContent className="p-5"><p className="text-xs text-slate-500">Skor</p><p className="text-5xl font-normal text-cyan-300">{fmtScore(result.strategicScore)}</p></CardContent></Card>
+              <Card className="card-luxury"><CardContent className="p-5"><p className="text-xs text-slate-500">Skor</p><p className="text-5xl font-normal text-[var(--metin-ikincil)]">{fmtScore(result.strategicScore)}</p></CardContent></Card>
               <div className="grid grid-cols-2 gap-2">
                 <ScoreBadge label="Deprem" score={result.seismic.value.seismicRiskScore} />
                 <ScoreBadge label="Afet" score={result.disaster.value.compositeHazardScore} />
@@ -355,13 +355,13 @@ export default function WarRoomPage() {
         {/* KATMAN 4 — Güven: metodoloji + kaynak + hukuki süreç + disclaimer */}
         <section className="mt-12 space-y-4">
           <div className="flex items-center gap-2 mb-2">
-            <Scale className="h-5 w-5 text-violet-300" />
+            <Scale className="h-5 w-5 text-[var(--metin-ikincil)]" />
             <h2 className="text-xl font-normal text-white">Güven, Metodoloji ve Hukuki Süreç</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-[20px] border border-blue-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-normal text-blue-200 mb-2">Veri Kaynakları</p>
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-[var(--metin-ikincil)] mb-2">Veri Kaynakları</p>
               <ul className="text-xs text-slate-300 space-y-1.5">
                 <li>• <strong>AFAD Türkiye Deprem Tehlike Haritası</strong> — PGA + ivme spektrumu</li>
                 <li>• <strong>MTA Aktif Fay Veritabanı</strong> — fay hattı koordinatları</li>
@@ -371,8 +371,8 @@ export default function WarRoomPage() {
               </ul>
             </div>
 
-            <div className="rounded-[20px] border border-violet-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-normal text-violet-200 mb-2">Hesap Yöntemi</p>
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-[var(--metin-ikincil)] mb-2">Hesap Yöntemi</p>
               <ul className="text-xs text-slate-300 space-y-1.5">
                 <li>• <strong>Deprem skoru</strong>: PGA × zemin amplifikasyon × bina yaşı/yönetmelik</li>
                 <li>• <strong>Afet skoru</strong>: fay mesafesi + heyelan + sel + yangın yoğunluğu</li>
@@ -381,25 +381,25 @@ export default function WarRoomPage() {
               </ul>
             </div>
 
-            <div className="rounded-[20px] border border-emerald-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-normal text-emerald-200 mb-2 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-[var(--metin-ikincil)] mb-2 flex items-center gap-1.5">
                 <ScrollText className="h-4 w-4" /> Resmi Süreç (Yatırım Öncesi)
               </p>
               <ol className="text-xs text-slate-300 space-y-1.5">
-                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> Tapu+Kadastro (TKGM) — mülkiyet+irtifak doğrulama</li>
-                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> İmar Durum Yazısı (Belediye) — kullanım+emsal</li>
-                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> Zemin etüdü (Jeoloji Mühendisi) — TBDY-2018 zorunlu</li>
-                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> AFAD Bina Risk Sorgu — 6306 sayılı kanun kapsamı</li>
-                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300 mt-0.5 flex-shrink-0" /> SPK uyumlu ekspertiz raporu (bankable yatırım için)</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] mt-0.5 flex-shrink-0" /> Tapu+Kadastro (TKGM) — mülkiyet+irtifak doğrulama</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] mt-0.5 flex-shrink-0" /> İmar Durum Yazısı (Belediye) — kullanım+emsal</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] mt-0.5 flex-shrink-0" /> Zemin etüdü (Jeoloji Mühendisi) — TBDY-2018 zorunlu</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] mt-0.5 flex-shrink-0" /> AFAD Bina Risk Sorgu — 6306 sayılı kanun kapsamı</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] mt-0.5 flex-shrink-0" /> SPK uyumlu ekspertiz raporu (bankable yatırım için)</li>
               </ol>
             </div>
 
-            <div className="rounded-[20px] border border-amber-500/30 bg-amber-950/30 p-4">
-              <p className="text-sm font-normal text-amber-200 mb-2 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+              <p className="text-sm font-normal text-[var(--metin-ikincil)] mb-2 flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4" /> Disclaimer (Kritik)
               </p>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Bu sayfa <strong className="text-amber-200">ön risk analizidir</strong> — bankable yatırım
+                Bu sayfa <strong className="text-[var(--metin-ikincil)]">ön risk analizidir</strong> — bankable yatırım
                 kararı oluşturmaz. Gerçek kararı vermeden: <strong>lisanslı jeoloji mühendisi
                 zemin etüdü + inşaat mühendisi performans değerlendirmesi + SPK uyumlu ekspertiz</strong>
                 şart. AFAD verisi 2-3 yılda güncellenir; en güncel risk için doğrudan AFAD haritasına bakın.

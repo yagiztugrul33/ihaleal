@@ -17,10 +17,10 @@ interface LegalDisclaimerProps {
 export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
   if (compact) {
     return (
-      <div className="mt-6 rounded-[10px] border border-amber-500/20 bg-amber-500/5 p-3 text-[11px] text-amber-100/90 flex items-start gap-2">
-        <AlertTriangle className="h-3.5 w-3.5 text-amber-300 flex-shrink-0 mt-0.5" />
+      <div className="mt-6 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-[11px] text-[var(--metin-ikincil)] flex items-start gap-2">
+        <AlertTriangle className="h-3.5 w-3.5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
         <p className="leading-relaxed">
-          <strong className="text-amber-200">Eğitici bilgilendirme</strong> — hukuki tavsiye DEĞİLDİR.
+          <strong className="text-[var(--metin-ikincil)]">Eğitici bilgilendirme</strong> — hukuki tavsiye DEĞİLDİR.
           Somut karar öncesi <strong>avukat + mali müşavir + noter</strong> zorunlu (Avukatlık Kanunu 1136 m. 35).
           {context ? <> {context}</> : null}
         </p>
@@ -29,25 +29,25 @@ export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
   }
 
   return (
-    <div className="my-8 rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-5">
+    <div className="my-8 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5">
       <div className="flex items-start gap-3 mb-3">
-        <div className="rounded-full bg-amber-500/20 p-2">
-          <AlertTriangle className="h-5 w-5 text-amber-300" />
+        <div className="rounded-full bg-[var(--zemin-yumusak)] p-2">
+          <AlertTriangle className="h-5 w-5 text-[var(--metin-ikincil)]" />
         </div>
         <div>
           <h3 className="text-base font-normal text-white">Yasal Uyarı (Disclaimer)</h3>
-          <p className="text-xs text-amber-200 mt-0.5">Bu içerik eğitici amaçlıdır, hukuki tavsiye DEĞİLDİR.</p>
+          <p className="text-xs text-[var(--metin-ikincil)] mt-0.5">Bu içerik eğitici amaçlıdır, hukuki tavsiye DEĞİLDİR.</p>
         </div>
       </div>
       <div className="space-y-2 text-sm text-slate-300 leading-relaxed">
         <p>
-          <strong className="text-amber-200">ihaleal.com:</strong> bilgi ve aracılık platformudur;
+          <strong className="text-[var(--metin-ikincil)]">ihaleal.com:</strong> bilgi ve aracılık platformudur;
           <strong className="text-white"> hukuki/mali danışmanlık VERMEZ </strong>
           (1136 sayılı Avukatlık Kanunu m. 35). Bu sayfadaki metin, şablon ve analizler{" "}
           <strong className="text-white">örnek/eğitici nitelikte</strong>; somut olay+kişi+bölgeye göre değişir.
         </p>
         <p>
-          <strong className="text-amber-200">Karar verirken zorunlu:</strong>
+          <strong className="text-[var(--metin-ikincil)]">Karar verirken zorunlu:</strong>
         </p>
         <ul className="ms-4 list-disc text-xs space-y-1">
           <li><strong className="text-white">Baroya kayıtlı avukat</strong> — sözleşme + dava + risk analizi</li>
@@ -56,7 +56,7 @@ export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
           <li><strong className="text-white">SPK lisanslı eksper</strong> — değerleme + ekspertiz raporu</li>
         </ul>
         {context ? (
-          <p className="text-xs text-amber-100 pt-2 border-t border-amber-500/20 mt-3">
+          <p className="text-xs text-[var(--metin-ikincil)] pt-2 border-t border-[var(--cizgi)] mt-3">
             <strong>Bu sayfa bağlamı:</strong> {context}
           </p>
         ) : null}
@@ -68,10 +68,10 @@ export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
 /** Sayfa üstüne taslak/eğitici uyarı banner'ı */
 export function LegalDraftBanner() {
   return (
-    <div className="mb-6 rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-3 flex items-start gap-2">
-      <BookOpen className="h-4 w-4 text-amber-300 flex-shrink-0 mt-0.5" />
-      <p className="text-xs text-amber-100 leading-relaxed">
-        <strong className="text-amber-200">TASLAK / EĞİTİCİ:</strong> bu metin örnek nitelikte; yasal yayın
+    <div className="mb-6 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 flex items-start gap-2">
+      <BookOpen className="h-4 w-4 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
+      <p className="text-xs text-[var(--metin-ikincil)] leading-relaxed">
+        <strong className="text-[var(--metin-ikincil)]">TASLAK / EĞİTİCİ:</strong> bu metin örnek nitelikte; yasal yayın
         öncesi <strong>avukat onayı şarttır</strong>. Mevcut hali bilgilendirme amaçlıdır.
       </p>
     </div>
@@ -86,7 +86,7 @@ export function LegalCitationStrip({ items }: { items: Array<{ kanun: string; ma
         <Scale className="h-3 w-3" /> Referans Mevzuat
       </span>
       {items.map((it, i) => (
-        <span key={i} className="inline-flex items-center gap-1 rounded-full border border-violet-500/30 bg-slate-900/40 px-2 py-0.5 text-[10px] text-violet-200">
+        <span key={i} className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-slate-900/40 px-2 py-0.5 text-[10px] text-[var(--metin-ikincil)]">
           {it.kanun}{it.madde ? ` ${it.madde}` : ""}
         </span>
       ))}

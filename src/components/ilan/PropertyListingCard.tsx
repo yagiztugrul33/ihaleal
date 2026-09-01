@@ -100,7 +100,7 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
               toggleFavorite(property.id);
             }}
           >
-            <Heart className={`h-4 w-4 ${isFavorite(property.id) ? "fill-current text-rose-400" : ""}`} />
+            <Heart className={`h-4 w-4 ${isFavorite(property.id) ? "fill-current text-[var(--metin-ikincil)]" : ""}`} />
           </button>
         </div>
 
@@ -113,11 +113,11 @@ export function PropertyListingCard({ property }: PropertyListingCardProps) {
           {price != null ? formatFromTry(price) : "Fiyat sorunuz"}
           {property.dealType === "rent" ? <small>/ ay</small> : null}
         </p>
-        <p className="flex items-center gap-1 text-xs text-emerald-300">
+        <p className="flex items-center gap-1 text-xs text-[var(--metin-ikincil)]">
           <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
           Doğrulanmış satıcı · {seller.completedDeals} işlem
         </p>
-        <p className="flex items-center gap-1 text-xs text-cyan-200">
+        <p className="flex items-center gap-1 text-xs text-[var(--metin-ikincil)]">
           <ShieldCheck className="h-3.5 w-3.5" aria-hidden />
           Doğrulanmış mülk · {property.marketingMode === "auction" ? "Çift taraflı teminat" : "KYC + mülk doğrulama"}
         </p>

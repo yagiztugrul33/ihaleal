@@ -20,44 +20,44 @@ export default function AuctionTerms() {
 
         <div className="mb-8">
           <h1 className="text-3xl font-normal text-white flex items-center gap-3">
-            <Gavel className="w-8 h-8 text-orange-400" />
+            <Gavel className="w-8 h-8 text-[var(--metin-ikincil)]" />
             İhale Katılım Koşulları ve Komisyon Yapısı
           </h1>
           <p className="text-slate-400 mt-2">Yasal çerçeve, yükümlülükler ve komisyon bilgileri</p>
           <p className="text-xs text-slate-600 mt-1">Son güncelleme: 27.04.2026 — taslak; avukat onayı beklenmelidir.</p>
         </div>
 
-        <Card className="bg-amber-500/10 border-amber-500/25 p-5 mb-6">
+        <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)] p-5 mb-6">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="w-6 h-6 text-amber-400 shrink-0" />
+            <AlertTriangle className="w-6 h-6 text-[var(--metin-ikincil)] shrink-0" />
             <div className="text-sm text-slate-300 leading-relaxed space-y-2">
               <p>
                 Bu sayfadaki süreçler <strong className="text-white">hedef iş kuralı taslağıdır</strong>. e-Devlet kimlik doğrulama, Findeks sorgusu, banka tahsilatı, MASAK bildirimi ve “gereksiz kişileri otomatik eleme”
                 yalnızca <strong>üretim backend’i ve resmi entegrasyonlar</strong> ile uygulanabilir; şu anki demo sitede otomatik olarak çalışmaz.
               </p>
               <p className="text-xs text-slate-500">
-                Detaylı mevzuat hatırlatıcıları: <button type="button" onClick={() => navigate("/yasal-cerceve")} className="text-amber-300 underline hover:text-amber-200">Yasal çerçeve (taslak)</button>
+                Detaylı mevzuat hatırlatıcıları: <button type="button" onClick={() => navigate("/yasal-cerceve")} className="text-[var(--metin-ikincil)] underline hover:text-[var(--metin-ikincil)]">Yasal çerçeve (taslak)</button>
                 {" · "}
-                <button type="button" onClick={() => navigate("/canliya-hazirlik")} className="text-amber-300 underline hover:text-amber-200">Canlıya hazırlık listesi</button>
+                <button type="button" onClick={() => navigate("/canliya-hazirlik")} className="text-[var(--metin-ikincil)] underline hover:text-[var(--metin-ikincil)]">Canlıya hazırlık listesi</button>
               </p>
             </div>
           </div>
         </Card>
 
         <div className="grid gap-6">
-          <Card className="bg-slate-900/50 border-orange-500/20 p-5">
+          <Card className="bg-slate-900/50 border-[var(--cizgi)] p-5">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="w-6 h-6 text-orange-400 flex-shrink-0 mt-1" />
+              <AlertTriangle className="w-6 h-6 text-[var(--metin-ikincil)] flex-shrink-0 mt-1" />
               <div>
                 <h3 className="text-lg font-normal text-white">Komisyon Yapısı</h3>
                 <p className="text-sm text-slate-400 mt-2 leading-relaxed">
                   <strong className="text-slate-200">Hedef model (sözleşmede netleştirilecek):</strong> gayrimenkul satışında platform hizmet bedeli olarak
-                  <Badge className="bg-orange-500/20 text-orange-400 text-sm mx-1">{feeBadgeLabel()}</Badge>
+                  <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-sm mx-1">{feeBadgeLabel()}</Badge>
                   oranı kullanılabilir. Alıcıdan mı, satıcıdan mı veya paylaşımlı mı olacağı <strong className="text-white">avukat onaylı kullanıcı sözleşmesi</strong> ile belirlenir; bu paragraf bağlayıcı teklif değildir.
                 </p>
-                <div className="mt-3 p-3 rounded-[10px] bg-orange-500/5 border border-orange-500/10">
-                  <p className="text-sm text-orange-300">
-                    <strong>Örnek (tek kaynak <code className="text-orange-200">fees.ts</code>, satıcı brüt {LEGAL_EXAMPLE_TRY.toLocaleString("tr-TR")} ₺):</strong>{" "}
+                <div className="mt-3 p-3 rounded-[10px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
+                  <p className="text-sm text-[var(--metin-ikincil)]">
+                    <strong>Örnek (tek kaynak <code className="text-[var(--metin-ikincil)]">fees.ts</code>, satıcı brüt {LEGAL_EXAMPLE_TRY.toLocaleString("tr-TR")} ₺):</strong>{" "}
                     komisyon ₺{legalEx.commission.toLocaleString("tr-TR")} + KDV ₺{legalEx.vatOnCommission.toLocaleString("tr-TR")} = toplam kesinti ₺
                     {(legalEx.commission + legalEx.vatOnCommission).toLocaleString("tr-TR")} (satıcı neti ₺{legalEx.net.toLocaleString("tr-TR")})
                   </p>
@@ -68,7 +68,7 @@ export default function AuctionTerms() {
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <UserCheck className="w-5 h-5 text-blue-400" />
+              <UserCheck className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Kimler İhaleye Katılabilir?
             </h3>
             <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
@@ -79,8 +79,8 @@ export default function AuctionTerms() {
               <li>Telefon numarası SMS doğrulaması tamamlanmış kullanıcılar</li>
               <li>Kimlik doğrulaması (hedef: e-Devlet veya nüfus müdürlüğü süreci — üretim entegrasyonu gerekir)</li>
             </ul>
-            <div className="mt-3 p-3 rounded-[10px] bg-red-500/5 border border-red-500/10">
-              <p className="text-sm text-red-300 flex items-center gap-2">
+            <div className="mt-3 p-3 rounded-[10px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
+              <p className="text-sm text-[var(--metin-ikincil)] flex items-center gap-2">
                 <Ban className="w-4 h-4" />
                 <strong>Katılamayacaklar:</strong> Adli sicil kaydı olanlar, yasal engeli bulunanlar, daha önce ihale ihlali yapmış ve kara listede olanlar.
               </p>
@@ -89,40 +89,40 @@ export default function AuctionTerms() {
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-emerald-400" />
+              <CheckCircle className="w-5 h-5 text-[var(--metin-ikincil)]" />
               İhale Süreci
             </h3>
             <div className="space-y-4">
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">1</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center text-[var(--metin-ikincil)] font-normal text-sm">1</div>
                 <div>
                   <h4 className="font-normal text-white">Kayıt ve Doğrulama</h4>
                   <p className="text-sm text-slate-400">Üye olun, telefon ve e-posta doğrulaması yapın. Findeks raporu talep edin.</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">2</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center text-[var(--metin-ikincil)] font-normal text-sm">2</div>
                 <div>
                   <h4 className="font-normal text-white">Teminat Yatırma (Kapora)</h4>
                   <p className="text-sm text-slate-400">{FEE_TEXTS.bidBondLine()}</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">3</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center text-[var(--metin-ikincil)] font-normal text-sm">3</div>
                 <div>
                   <h4 className="font-normal text-white">Teklif Verme</h4>
                   <p className="text-sm text-slate-400">Minimum artış miktarına göre teklif verin. Son 5 dakikada teklif gelirse süre otomatik 5 dk uzar.</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">4</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center text-[var(--metin-ikincil)] font-normal text-sm">4</div>
                 <div>
                   <h4 className="font-normal text-white">Kazanan İlan Edilme</h4>
                   <p className="text-sm text-slate-400">En yüksek teklif sahibi kazanan ilan edilir. 24 saat içinde kalan tutarı ödemek zorundadır.</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">5</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--zemin-yumusak)] flex items-center justify-center text-[var(--metin-ikincil)] font-normal text-sm">5</div>
                 <div>
                   <h4 className="font-normal text-white">Tapu Devir ve Teslim</h4>
                   <p className="text-sm text-slate-400">Ödeme onayından sonra tapu devri için randevu alınır. Ekspertiz raporu platform tarafından sağlanır.</p>
@@ -131,9 +131,9 @@ export default function AuctionTerms() {
             </div>
           </Card>
 
-          <Card className="bg-slate-900/50 border-red-500/20 p-5">
+          <Card className="bg-slate-900/50 border-[var(--cizgi)] p-5">
             <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Ban className="w-5 h-5 text-red-400" />
+              <Ban className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Teklif verme — risk ve dolandırıcılık önlemleri (taslak)
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed mb-3">
@@ -163,7 +163,7 @@ export default function AuctionTerms() {
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-violet-400" />
+              <ShieldCheck className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Güvenlik ve AML/KYC Politikası
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed">
@@ -180,7 +180,7 @@ export default function AuctionTerms() {
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
             <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-amber-400" />
+              <Clock className="w-5 h-5 text-[var(--metin-ikincil)]" />
               İptal ve İade Koşulları
             </h3>
             <ul className="space-y-1.5 text-sm text-slate-400 list-disc list-inside">

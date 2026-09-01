@@ -283,32 +283,32 @@ export function Anayasa400() {
               <strong className="text-slate-300">201–400</strong> aralığı 4734 sayılı Kanun hatırlatıcı maddeleridir.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4 text-xs text-slate-500">
-              <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-rose-400" /> Kritik: {totalKritik} madde</span>
-              <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-amber-400" /> Uyarı: {totalUyari} madde</span>
-              <span className="flex items-center gap-1"><Info className="w-3 h-3 text-cyan-400" /> Bilgi: {totalBilgi} madde</span>
+              <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-[var(--metin-ikincil)]" /> Kritik: {totalKritik} madde</span>
+              <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-[var(--metin-ikincil)]" /> Uyarı: {totalUyari} madde</span>
+              <span className="flex items-center gap-1"><Info className="w-3 h-3 text-[var(--metin-ikincil)]" /> Bilgi: {totalBilgi} madde</span>
               <span className="flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Toplam:{" "}
+                <CheckCircle2 className="w-3 h-3 text-[var(--metin-ikincil)]" /> Toplam:{" "}
                 {categories.flatMap((c) => c.rules).length} madde
               </span>
             </div>
-            <div className="mx-auto mt-6 max-w-3xl rounded-[20px] border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-start text-sm leading-relaxed text-cyan-50">
-              <p className="font-normal text-cyan-100">Bu sayfa “ihaleal” kullanım sözleşmesi değildir</p>
+            <div className="mx-auto mt-6 max-w-3xl rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-start text-sm leading-relaxed text-[var(--metin-ikincil)]">
+              <p className="font-normal text-[var(--metin-ikincil)]">Bu sayfa “ihaleal” kullanım sözleşmesi değildir</p>
               <p className="mt-2 text-slate-300">
                 <strong className="text-slate-200">İlk kategori</strong>, depodaki{" "}
-                <code className="text-cyan-200/90">NihaiAnayasa</code>, <code className="text-cyan-200/90">fees.ts</code>,{" "}
-                <code className="text-cyan-200/90">masterFinancialEngine</code> ve komisyon motorundan türetilmiş platform kurallarının özetidir. Tam alt madde listesi için{" "}
-                <Link to="/nihai-anayasa" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                <code className="text-[var(--metin-ikincil)]">NihaiAnayasa</code>, <code className="text-[var(--metin-ikincil)]">fees.ts</code>,{" "}
+                <code className="text-[var(--metin-ikincil)]">masterFinancialEngine</code> ve komisyon motorundan türetilmiş platform kurallarının özetidir. Tam alt madde listesi için{" "}
+                <Link to="/nihai-anayasa" className="text-[var(--metin-ikincil)] underline underline-offset-2 hover:text-[var(--metin-ikincil)]">
                   Nihai sistem anayasası
                 </Link>{" "}
                 sayfasına gidin.
               </p>
               <p className="mt-2 text-slate-400">
                 Yasal şartlar:{" "}
-                <Link to="/kullanim-kosullari" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                <Link to="/kullanim-kosullari" className="text-[var(--metin-ikincil)] underline underline-offset-2 hover:text-[var(--metin-ikincil)]">
                   Kullanım Koşulları
                 </Link>
                 {" · "}
-                <Link to="/güvenlik" className="text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                <Link to="/güvenlik" className="text-[var(--metin-ikincil)] underline underline-offset-2 hover:text-[var(--metin-ikincil)]">
                   Güvenlik
                 </Link>
               </p>
@@ -338,7 +338,7 @@ export function Anayasa400() {
                   onClick={() => setActiveCat(cat.id)}
                   className={`px-4 py-2 rounded-[20px] text-sm font-normal transition-all flex items-center gap-2 ${
                     activeCat === cat.id
-                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                      ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border border-[var(--cizgi)]"
                       : "text-slate-500 hover:text-slate-900 hover:bg-white/5 border border-transparent"
                   }`}
                 >
@@ -356,7 +356,7 @@ export function Anayasa400() {
             <div className="flex items-center gap-3 mb-2">
               {(() => {
                 const Icon = current.icon || Shield;
-                return <Icon className="w-5 h-5 text-blue-400" />;
+                return <Icon className="w-5 h-5 text-[var(--metin-ikincil)]" />;
               })()}
               <h2 className="text-xl font-normal text-white">{current.title}</h2>
               <span className="text-sm text-slate-500">{current.rules.length} madde</span>
@@ -375,20 +375,17 @@ export function Anayasa400() {
               transition={{ delay: i * 0.02, duration: 0.3 }}
               className="glass rounded-[20px] p-4 flex items-start gap-4"
             >
-              <div className={`w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 ${
-                rule.sev === "K" ? "bg-rose-500/10" : rule.sev === "U" ? "bg-amber-500/10" : "bg-cyan-500/10"
-              }`}>
-                {rule.sev === "K" ? <AlertTriangle className="w-5 h-5 text-rose-400" /> :
-                 rule.sev === "U" ? <AlertTriangle className="w-5 h-5 text-amber-400" /> :
-                 <Info className="w-5 h-5 text-cyan-400" />}
+              <div className="w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 bg-[var(--zemin-yumusak)]">
+                {rule.sev === "K" ? <AlertTriangle className="w-5 h-5" style={{ color: "var(--durum-hata)" }} /> :
+                 rule.sev === "U" ? <AlertTriangle className="w-5 h-5" style={{ color: "var(--durum-uyari)" }} /> :
+                 <Info className="w-5 h-5 text-[var(--metin-ikincil)]" />}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className={`text-xs font-normal px-2 py-0.5 rounded-[3px] ${
-                    rule.sev === "K" ? "bg-rose-500/20 text-rose-300" :
-                    rule.sev === "U" ? "bg-amber-500/20 text-amber-300" :
-                    "bg-cyan-500/20 text-cyan-300"
-                  }`}>
+                  <span
+                    className="text-xs font-normal px-2 py-0.5 rounded-[3px] bg-[var(--zemin-yumusak)]"
+                    style={{ color: rule.sev === "K" ? "var(--durum-hata)" : rule.sev === "U" ? "var(--durum-uyari)" : "var(--metin-ikincil)" }}
+                  >
                     {rule.sev === "K" ? "KRİTİK" : rule.sev === "U" ? "UYARI" : "BİLGİ"}
                   </span>
                   <span className="text-xs text-slate-500 font-mono">Madde {rule.id}</span>

@@ -22,19 +22,19 @@ export default function MuteahhitOnayBekleniyor() {
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-8 space-y-6">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-[20px] bg-amber-500 flex items-center justify-center mx-auto mb-5">
+              <div className="w-16 h-16 rounded-[20px] bg-[var(--zemin-yumusak)] flex items-center justify-center mx-auto mb-5">
                 <Clock className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-3xl font-normal text-white mb-2">Hesabınız Oluşturuldu</h1>
               <p className="text-slate-400 text-sm">Admin ruhsat doğrulaması bekleniyor</p>
             </div>
 
-            <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-5">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5">
               <div className="flex items-start gap-3">
-                <Building2 className="w-5 h-5 text-amber-300 mt-0.5 shrink-0" />
-                <div className="space-y-2 text-sm text-amber-100/90">
-                  <p className="font-normal text-amber-200">Müteahhit hesabı doğrulama süreci</p>
-                  <ul className="list-disc list-inside space-y-1 text-amber-100/80">
+                <Building2 className="w-5 h-5 text-[var(--metin-ikincil)] mt-0.5 shrink-0" />
+                <div className="space-y-2 text-sm text-[var(--metin-ikincil)]">
+                  <p className="font-normal text-[var(--metin-ikincil)]">Müteahhit hesabı doğrulama süreci</p>
+                  <ul className="list-disc list-inside space-y-1 text-[var(--metin-ikincil)]">
                     <li>Şirket bilgileriniz kaydedildi (vergi numarası + adres)</li>
                     <li>Ruhsat belgenizi yükleyebilir veya sonra ekleyebilirsiniz</li>
                     <li>Admin ekibimiz <strong>24-48 saat</strong> içinde doğrulama yapacak</li>
@@ -50,8 +50,8 @@ export default function MuteahhitOnayBekleniyor() {
                 className="rounded-[20px] border border-slate-200/80 bg-slate-900/40 p-4 text-start hover:bg-white/5 transition-colors group"
                 onClick={() => alert("Ruhsat upload Phase 2'de gerçek Supabase Storage entegrasyonuyla aktif olacak. Şu an mock.")}
               >
-                <FileText className="w-5 h-5 text-blue-400 mb-2" />
-                <div className="text-sm font-normal text-white group-hover:text-blue-300">Ruhsat Belgesi Yükle</div>
+                <FileText className="w-5 h-5 text-[var(--metin-ikincil)] mb-2" />
+                <div className="text-sm font-normal text-white group-hover:text-[var(--metin-ikincil)]">Ruhsat Belgesi Yükle</div>
                 <div className="text-xs text-slate-500 mt-1">PDF veya resim (5 MB max) — mock</div>
               </button>
 
@@ -59,8 +59,8 @@ export default function MuteahhitOnayBekleniyor() {
                 href="mailto:destek@ihaleal.com?subject=Müteahhit hesap onayı"
                 className="rounded-[20px] border border-slate-200/80 bg-slate-900/40 p-4 text-start hover:bg-white/5 transition-colors group block"
               >
-                <Mail className="w-5 h-5 text-emerald-400 mb-2" />
-                <div className="text-sm font-normal text-white group-hover:text-emerald-300">Destek ile İletişim</div>
+                <Mail className="w-5 h-5 text-[var(--metin-ikincil)] mb-2" />
+                <div className="text-sm font-normal text-white group-hover:text-[var(--metin-ikincil)]">Destek ile İletişim</div>
                 <div className="text-xs text-slate-500 mt-1">destek@ihaleal.com — 09:00-18:00</div>
               </a>
             </div>

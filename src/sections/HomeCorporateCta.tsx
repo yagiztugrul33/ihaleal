@@ -16,7 +16,7 @@ export function HomeCorporateCta() {
         }`}
       >
         <div className="ref-cta-panel text-center">
-          <p className="text-xs font-normal uppercase tracking-[0.2em] text-blue-400">Kurumsal</p>
+          <p className="text-xs font-normal uppercase tracking-[0.2em] text-[var(--metin-ikincil)]">Kurumsal</p>
           <h2 className="mt-3 text-2xl font-normal tracking-tight text-white sm:text-3xl">
             Kurumsal hesabınızı oluşturun
           </h2>

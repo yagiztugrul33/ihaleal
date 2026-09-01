@@ -199,7 +199,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
                         idx === activeIndex ? "bg-white/10 text-white" : "text-slate-300 hover:bg-white/5"
                       }`}
                     >
-                      <ArrowRight className="rtl:rotate-180 h-4 w-4 shrink-0 text-blue-400" />
+                      <ArrowRight className="rtl:rotate-180 h-4 w-4 shrink-0 text-[var(--metin-ikincil)]" />
                       <span className="min-w-0 flex-1 truncate text-sm font-normal">{p.title}</span>
                       <span className="rounded-[3px] border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-500">{p.group}</span>
                       {idx === activeIndex ? <CornerDownLeft className="h-3.5 w-3.5 text-slate-500" /> : null}
@@ -225,7 +225,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
                     </div>
                   </div>
                   <div className="text-end flex-shrink-0">
-                    <div className="text-sm font-normal text-blue-400">TRY {(auction.currentBid / 1000000).toFixed(1)}M</div>
+                    <div className="text-sm font-normal text-[var(--metin-ikincil)]">TRY {(auction.currentBid / 1000000).toFixed(1)}M</div>
                     <div className="text-xs text-slate-500">AI {auction.investmentScore}</div>
                   </div>
                   <ArrowRight className="rtl:rotate-180 w-4 h-4 text-slate-600" />

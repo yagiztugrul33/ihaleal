@@ -49,7 +49,7 @@ export function ListingLinkDemo() {
       <CardContent className="p-5">
         <div className="relative flex items-center gap-2 mb-3">
           {isDemoData("listingLinkDemo") ? <DemoDataCornerBadge /> : null}
-          <div className="p-2 rounded-[10px] bg-violet-500/10 text-violet-400">
+          <div className="p-2 rounded-[10px] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">
             <Link2 className="w-5 h-5" />
           </div>
           <div>
@@ -65,13 +65,13 @@ export function ListingLinkDemo() {
             placeholder="https://www.sahibinden.com/ilan/..."
             className="bg-white/[0.03] border-slate-200 text-white placeholder:text-slate-600"
           />
-          <Button type="button" onClick={() => setActive(input)} className="shrink-0 bg-violet-600 hover:bg-violet-500 gap-2">
+          <Button type="button" onClick={() => setActive(input)} className="shrink-0 bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] gap-2">
             <Sparkles className="w-4 h-4" /> Örnek rapor
           </Button>
         </div>
 
-        <div className="p-3 rounded-[10px] bg-amber-500/5 border border-amber-500/15 flex gap-2 mb-3">
-          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+        <div className="p-3 rounded-[10px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] flex gap-2 mb-3">
+          <AlertTriangle className="w-4 h-4 text-[var(--metin-ikincil)] shrink-0 mt-0.5" />
           <p className="text-xs text-slate-400">
             Kurumsal <strong className="text-slate-200">yapay zeka destekli gayrimenkul platformu</strong> için doğru yol: kullanıcının kendi yüklediği ilan PDF’si / ekspertiz / fiyat beklentisi + platformun <strong className="text-slate-200">kendi veri modeli</strong> (lisanslı veya crowdsourced); rakibin arayüzünü veya veri tabanını “kopyalamak” hem hukuki hem teknik olarak önerilmez.
             Canlı bölge–fiyat analizi için resmi API, kullanıcı onayı veya yüklenen evrak gerekir. Rakip siteleri izinsiz taramak yasal ve teknik risk taşır.
@@ -82,9 +82,9 @@ export function ListingLinkDemo() {
         {insight && (
           <div className="space-y-2 text-sm">
             <div className="flex flex-wrap gap-2">
-              {insight.isSahibinden && <Badge className="bg-blue-500/15 text-blue-300 border-0">Sahibinden formatı (tahmin)</Badge>}
+              {insight.isSahibinden && <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-0">Sahibinden formatı (tahmin)</Badge>}
               {insight.isThirdPartyReportUrl && (
-                <Badge className="bg-emerald-500/15 text-emerald-300 border-0">Üçüncü taraf rapor URL’si (tahmin)</Badge>
+                <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-0">Üçüncü taraf rapor URL’si (tahmin)</Badge>
               )}
               <Badge variant="outline" className="border-slate-200 text-slate-300">Demo skor: {insight.score}</Badge>
             </div>

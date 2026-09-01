@@ -150,12 +150,12 @@ const CATEGORY_LABELS: Record<Category, string> = {
 
 function toneClasses(tone: LegalDoc["tone"] | "slate") {
   const map: Record<string, { border: string; bg: string; icon: string; pill: string }> = {
-    blue: { border: "border-blue-500/30", bg: "bg-blue-500/5", icon: "text-blue-300", pill: "bg-blue-500/20 text-blue-200 border-blue-500/40" },
-    emerald: { border: "border-emerald-500/30", bg: "bg-emerald-500/5", icon: "text-emerald-300", pill: "bg-emerald-500/20 text-emerald-200 border-emerald-500/40" },
-    violet: { border: "border-violet-500/30", bg: "bg-violet-500/5", icon: "text-violet-300", pill: "bg-violet-500/20 text-violet-200 border-violet-500/40" },
-    amber: { border: "border-amber-500/30", bg: "bg-amber-500/5", icon: "text-amber-300", pill: "bg-amber-500/20 text-amber-200 border-amber-500/40" },
-    rose: { border: "border-rose-500/30", bg: "bg-rose-500/5", icon: "text-rose-300", pill: "bg-rose-500/20 text-rose-200 border-rose-500/40" },
-    cyan: { border: "border-cyan-500/30", bg: "bg-cyan-500/5", icon: "text-cyan-300", pill: "bg-cyan-500/20 text-cyan-200 border-cyan-500/40" },
+    blue: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", icon: "text-[var(--metin-ikincil)]", pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+    emerald: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", icon: "text-[var(--metin-ikincil)]", pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+    violet: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", icon: "text-[var(--metin-ikincil)]", pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+    amber: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", icon: "text-[var(--metin-ikincil)]", pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+    rose: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", icon: "text-[var(--metin-ikincil)]", pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
+    cyan: { border: "border-[var(--cizgi)]", bg: "bg-[var(--zemin-yumusak)]", icon: "text-[var(--metin-ikincil)]", pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" },
     slate: { border: "border-slate-700", bg: "bg-slate-800/5", icon: "text-slate-300", pill: "bg-slate-700/40 text-slate-200 border-slate-700" },
   };
   return map[tone] ?? map.slate;
@@ -186,11 +186,11 @@ export default function LegalHubPage() {
       <section className="max-w-6xl mx-auto space-y-6">
         {/* HEADER */}
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-xs text-violet-200 mb-3">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
             <Scale className="h-3.5 w-3.5" /> Yasal & Hukuki Altyapı
           </p>
           <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
-            <Scale className="h-8 w-8 text-violet-400" />
+            <Scale className="h-8 w-8 text-[var(--metin-ikincil)]" />
             Yasal Metinler & Rehberler
           </h1>
           <p className="mt-2 text-sm text-slate-400 max-w-2xl">
@@ -211,7 +211,7 @@ export default function LegalHubPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ara — KVKK, cayma, teminat..."
-              className="w-full ps-10 pe-3 py-2 rounded-[10px] border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500"
+              className="w-full ps-10 pe-3 py-2 rounded-[10px] border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-[var(--cizgi)]"
               aria-label="Yasal metin ara"
             />
           </div>
@@ -221,7 +221,7 @@ export default function LegalHubPage() {
                 key={c}
                 type="button"
                 onClick={() => setFilter(c)}
-                className={`px-3 py-2 rounded-[10px] text-xs font-normal border ${filter === c ? "bg-violet-600 border-violet-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                className={`px-3 py-2 rounded-[10px] text-xs font-normal border ${filter === c ? "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
                 aria-pressed={filter === c}
               >
                 {CATEGORY_LABELS[c]}
@@ -259,7 +259,7 @@ export default function LegalHubPage() {
                         </span>
                       ) : null}
                       {doc.badge ? (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-2 py-0.5 text-[10px] font-normal text-amber-100">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[10px] font-normal text-[var(--metin-ikincil)]">
                           {doc.badge}
                         </span>
                       ) : null}
@@ -271,7 +271,7 @@ export default function LegalHubPage() {
 
                   {doc.kanun ? (
                     <div className="mt-auto pt-2 border-t border-slate-700/60">
-                      <span className="inline-flex items-center gap-1 text-[10px] text-violet-300">
+                      <span className="inline-flex items-center gap-1 text-[10px] text-[var(--metin-ikincil)]">
                         <Scale className="h-2.5 w-2.5" /> {doc.kanun}
                       </span>
                     </div>
@@ -291,11 +291,11 @@ export default function LegalHubPage() {
         {/* MEVZUAT ŞERIDI */}
         <div className="mt-8 rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
           <h2 className="text-sm font-normal text-slate-200 mb-3 flex items-center gap-2">
-            <Scale className="h-4 w-4 text-violet-400" /> Mevzuat Haritası — Referans Kanunlar
+            <Scale className="h-4 w-4 text-[var(--metin-ikincil)]" /> Mevzuat Haritası — Referans Kanunlar
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
             <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-normal text-blue-300 mb-1">Veri & Mahremiyet</p>
+              <p className="font-normal text-[var(--metin-ikincil)] mb-1">Veri & Mahremiyet</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6698 KVKK — Kişisel Verilerin Korunması</li>
                 <li>• 5651 — İnternet Ortamı (log)</li>
@@ -303,7 +303,7 @@ export default function LegalHubPage() {
               </ul>
             </div>
             <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-normal text-emerald-300 mb-1">Tüketici & Sözleşme</p>
+              <p className="font-normal text-[var(--metin-ikincil)] mb-1">Tüketici & Sözleşme</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6502 TKHK — Tüketicinin Korunması</li>
                 <li>• 6098 TBK — Türk Borçlar Kanunu</li>
@@ -311,7 +311,7 @@ export default function LegalHubPage() {
               </ul>
             </div>
             <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-normal text-violet-300 mb-1">Mülkiyet & Tapu</p>
+              <p className="font-normal text-[var(--metin-ikincil)] mb-1">Mülkiyet & Tapu</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 4721 TMK — Türk Medeni Kanunu</li>
                 <li>• 3402 — Kadastro Kanunu</li>
@@ -319,7 +319,7 @@ export default function LegalHubPage() {
               </ul>
             </div>
             <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-normal text-amber-300 mb-1">İmar & Yapı</p>
+              <p className="font-normal text-[var(--metin-ikincil)] mb-1">İmar & Yapı</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 3194 — İmar Kanunu</li>
                 <li>• 6306 — Kentsel Dönüşüm</li>
@@ -327,7 +327,7 @@ export default function LegalHubPage() {
               </ul>
             </div>
             <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-normal text-cyan-300 mb-1">Ödeme & Mali</p>
+              <p className="font-normal text-[var(--metin-ikincil)] mb-1">Ödeme & Mali</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6493 — Ödeme Hizmetleri</li>
                 <li>• 5549 — MASAK</li>
@@ -336,7 +336,7 @@ export default function LegalHubPage() {
               </ul>
             </div>
             <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-normal text-rose-300 mb-1">Yargı & İhale</p>
+              <p className="font-normal text-[var(--metin-ikincil)] mb-1">Yargı & İhale</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6100 HMK — Hukuk Muhakemeleri</li>
                 <li>• 1136 — Avukatlık Kanunu</li>
@@ -353,16 +353,16 @@ export default function LegalHubPage() {
 
         {/* İLETİŞİM */}
         <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
-          <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+          <Mail className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
           <div className="text-sm">
             <p className="font-normal text-slate-200 mb-1">Yasal İletişim</p>
             <p className="text-xs text-slate-400 leading-relaxed">
               KVKK başvuruları:{" "}
-              <a href="mailto:kvkk@ihaleal.com" className="text-cyan-300 underline">kvkk@ihaleal.com</a>
+              <a href="mailto:kvkk@ihaleal.com" className="text-[var(--metin-ikincil)] underline">kvkk@ihaleal.com</a>
               {" · "}Hukuki iletişim:{" "}
-              <a href="mailto:hukuk@ihaleal.com" className="text-cyan-300 underline">hukuk@ihaleal.com</a>
+              <a href="mailto:hukuk@ihaleal.com" className="text-[var(--metin-ikincil)] underline">hukuk@ihaleal.com</a>
               {" · "}Güvenlik olay:{" "}
-              <a href="mailto:guvenlik@ihaleal.com" className="text-cyan-300 underline">guvenlik@ihaleal.com</a>.
+              <a href="mailto:guvenlik@ihaleal.com" className="text-[var(--metin-ikincil)] underline">guvenlik@ihaleal.com</a>.
             </p>
           </div>
         </div>

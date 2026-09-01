@@ -69,7 +69,7 @@ export function ListingReviewDialog({ open, onOpenChange, listingId, reviewedId,
                   aria-label={`${n} yıldız`}
                 >
                   <Star
-                    className={`h-6 w-6 ${n <= rating ? "fill-amber-400 text-amber-400" : "text-slate-600"}`}
+                    className={`h-6 w-6 ${n <= rating ? "fill-amber-400 text-[var(--metin-ikincil)]" : "text-slate-600"}`}
                   />
                 </button>
               ))}
@@ -85,13 +85,13 @@ export function ListingReviewDialog({ open, onOpenChange, listingId, reviewedId,
               maxLength={500}
             />
           </div>
-          {error ? <p className="text-sm text-red-400">{error}</p> : null}
+          {error ? <p className="text-sm text-[var(--metin-ikincil)]">{error}</p> : null}
         </div>
         <DialogFooter>
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="border-slate-600">
             İptal
           </Button>
-          <Button type="button" disabled={busy} onClick={() => void submit()} className="bg-blue-500 text-white">
+          <Button type="button" disabled={busy} onClick={() => void submit()} className="bg-[var(--zemin-yumusak)] text-white">
             {busy ? "Kaydediliyor…" : "Gönder"}
           </Button>
         </DialogFooter>

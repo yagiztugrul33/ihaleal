@@ -40,9 +40,9 @@ function ListingDocumentFooterInner({
       aria-label={`${label}: ${ok ? "tamam" : warn ? "eksik veya bekleniyor" : "ilan detayında"}`}
       className={`inline-flex items-center gap-0.5 rounded-[3px] px-1.5 py-0.5 font-normal border ${text} ${
         ok
-          ? "bg-emerald-500/15 text-emerald-200/95 border-emerald-500/25"
+          ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]"
           : warn
-            ? "bg-amber-500/10 text-amber-100/90 border-amber-500/20"
+            ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]"
             : "bg-[var(--color-bg-soft)] text-[var(--color-text-muted)] border-[var(--color-border)]"
       }`}
     >
@@ -65,7 +65,7 @@ function ListingDocumentFooterInner({
         <span
           role="status"
           aria-label="Taahhüt limiti veya onay kayıtlı"
-          className={`inline-flex items-center rounded-[3px] px-1.5 py-0.5 font-normal border border-amber-500/25 bg-amber-500/10 text-amber-100/90 ${text}`}
+          className={`inline-flex items-center rounded-[3px] px-1.5 py-0.5 font-normal border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] ${text}`}
         >
           Taahhüt
         </span>

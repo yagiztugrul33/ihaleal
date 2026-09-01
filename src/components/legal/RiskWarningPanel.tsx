@@ -25,22 +25,22 @@ function severityIcon(s: WarningSeverity) {
 function severityCls(s: WarningSeverity) {
   return {
     info: {
-      border: "border-blue-500/30",
-      bg: "bg-blue-500/5",
-      text: "text-blue-200",
-      pill: "bg-blue-500/20 text-blue-200 border-blue-500/40",
+      border: "border-[var(--cizgi)]",
+      bg: "bg-[var(--zemin-yumusak)]",
+      text: "text-[var(--metin-ikincil)]",
+      pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
     },
     uyari: {
-      border: "border-amber-500/30",
-      bg: "bg-amber-500/5",
-      text: "text-amber-200",
-      pill: "bg-amber-500/20 text-amber-200 border-amber-500/40",
+      border: "border-[var(--cizgi)]",
+      bg: "bg-[var(--zemin-yumusak)]",
+      text: "text-[var(--metin-ikincil)]",
+      pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
     },
     kritik: {
-      border: "border-rose-500/40",
-      bg: "bg-rose-500/10",
-      text: "text-rose-200",
-      pill: "bg-rose-500/30 text-rose-100 border-rose-500/50",
+      border: "border-[var(--cizgi)]",
+      bg: "bg-[var(--zemin-yumusak)]",
+      text: "text-[var(--metin-ikincil)]",
+      pill: "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]",
     },
   }[s];
 }
@@ -52,9 +52,9 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
   if (warnings.length === 0) {
     if (hideIfEmpty) return null;
     return (
-      <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-3 flex items-start gap-2 text-sm">
-        <Info className="h-4 w-4 text-emerald-300 flex-shrink-0 mt-0.5" />
-        <p className="text-emerald-200">
+      <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 flex items-start gap-2 text-sm">
+        <Info className="h-4 w-4 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
+        <p className="text-[var(--metin-ikincil)]">
           Mevcut bilgilere göre <strong>özel hukuki risk uyarısı yok</strong>.
           Tüm satım işlemlerinde noter onayı + tapu kontrolü standart şarttır.
         </p>
@@ -66,7 +66,7 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
     <div className={`space-y-3 ${compact ? "" : "rounded-[20px] border border-slate-700 bg-slate-900/40 p-4"}`}>
       {!compact ? (
         <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
-          <AlertTriangle className="h-5 w-5 text-amber-400" />
+          <AlertTriangle className="h-5 w-5 text-[var(--metin-ikincil)]" />
           <h3 className="text-base font-normal text-white">
             Hukuki Risk Uyarıları ({warnings.length})
           </h3>
@@ -124,7 +124,7 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
                   <button
                     type="button"
                     onClick={() => navigate(`/arastirma/hukuki-cozucu?senaryo=${w.cozucuLink}`)}
-                    className="inline-flex items-center gap-1 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-2 py-0.5 text-[10px] text-cyan-200 hover:bg-cyan-500/20"
+                    className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[10px] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
                   >
                     <BookOpen className="h-2.5 w-2.5" />
                     Hukuki Çözücüde detay

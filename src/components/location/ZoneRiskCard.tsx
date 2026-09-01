@@ -14,10 +14,10 @@ interface ZoneRiskCardProps {
 /** Risk seviyesi → renk sınıfı */
 function levelClass(level: RiskLevel): string {
   switch (level) {
-    case "low": return "bg-emerald-500/15 text-emerald-200 border-emerald-500/30";
-    case "medium": return "bg-amber-500/15 text-amber-200 border-amber-500/30";
-    case "high": return "bg-orange-500/15 text-orange-200 border-orange-500/30";
-    case "very_high": return "bg-rose-500/20 text-rose-200 border-rose-500/40";
+    case "low": return "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]";
+    case "medium": return "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]";
+    case "high": return "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]";
+    case "very_high": return "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]";
     default: return "bg-slate-500/15 text-slate-300 border-slate-500/30";
   }
 }
@@ -26,7 +26,7 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
   if (!province) {
     return (
       <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-4 text-sm text-slate-400">
-        <Info className="inline h-4 w-4 me-1.5 text-cyan-400" />
+        <Info className="inline h-4 w-4 me-1.5 text-[var(--metin-ikincil)]" />
         Risk bilgisi için önce <strong>il seçimi</strong> yapın.
       </div>
     );
@@ -37,17 +37,17 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
   // VERİ YOK → dürüst mesaj
   if (!data.known) {
     return (
-      <div className="rounded-[10px] border border-amber-500/30 bg-amber-500/5 p-4">
+      <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
         <div className="flex items-start gap-3 mb-2">
-          <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+          <AlertTriangle className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
           <div>
-            <h3 className="text-sm font-normal text-amber-100 mb-1">
+            <h3 className="text-sm font-normal text-[var(--metin-ikincil)] mb-1">
               Bu bölge için detaylı veri yok
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">{data.note}</p>
           </div>
         </div>
-        <div className="text-[10px] text-slate-500 mt-2 border-t border-amber-500/20 pt-2">
+        <div className="text-[10px] text-slate-500 mt-2 border-t border-[var(--cizgi)] pt-2">
           <strong>Dürüst sınır:</strong> Uydurma değer gösterilmez. Kesin analiz için parsel zemin etüdü + jeoloji mühendisi şart.
         </div>
       </div>
@@ -60,7 +60,7 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h3 className="text-base font-normal text-white flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-cyan-400" />
+            <MapPin className="h-4 w-4 text-[var(--metin-ikincil)]" />
             {data.province}
             {data.district && <span className="text-slate-400">/ {data.district}</span>}
           </h3>
@@ -70,10 +70,10 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
         </div>
         {data.riskGroup !== undefined && (
           <span className={`text-[10px] font-normal px-2 py-1 rounded-[3px] border ${
-            data.riskGroup === 1 ? "bg-rose-500/15 text-rose-200 border-rose-500/40"
-              : data.riskGroup === 2 ? "bg-orange-500/15 text-orange-200 border-orange-500/40"
-              : data.riskGroup === 3 ? "bg-amber-500/15 text-amber-200 border-amber-500/40"
-              : "bg-emerald-500/15 text-emerald-200 border-emerald-500/40"
+            data.riskGroup === 1 ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]"
+              : data.riskGroup === 2 ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]"
+              : data.riskGroup === 3 ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]"
+              : "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]"
           }`}>
             AFAD Grup {data.riskGroup}
           </span>
@@ -127,8 +127,8 @@ export function ZoneRiskCard({ province, district }: ZoneRiskCardProps) {
 
       {/* Bölge notu */}
       {data.note && (
-        <div className="rounded-[3px] border border-cyan-500/30 bg-cyan-500/5 p-2.5">
-          <p className="text-xs text-cyan-100 leading-relaxed">
+        <div className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2.5">
+          <p className="text-xs text-[var(--metin-ikincil)] leading-relaxed">
             <Info className="inline h-3.5 w-3.5 me-1" />
             {data.note}
           </p>

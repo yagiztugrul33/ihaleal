@@ -169,7 +169,7 @@ export default function MuteahhitYeniProjePage() {
   if (!user) {
     return (
       <div className="min-h-screen pt-24 px-4 text-center text-slate-400">
-        Yeni proje oluşturmak için giriş yapın. <button onClick={() => navigate("/giris?profil=muteahhit")} className="text-blue-400 underline">Giriş</button>
+        Yeni proje oluşturmak için giriş yapın. <button onClick={() => navigate("/giris?profil=muteahhit")} className="text-[var(--metin-ikincil)] underline">Giriş</button>
       </div>
     );
   }
@@ -182,18 +182,18 @@ export default function MuteahhitYeniProjePage() {
         </Button>
 
         <h1 className="text-3xl font-normal text-white mb-2 flex items-center gap-3">
-          <Building2 className="w-8 h-8 text-cyan-400" /> Yeni Proje
+          <Building2 className="w-8 h-8 text-[var(--metin-ikincil)]" /> Yeni Proje
         </h1>
         <p className="text-slate-400 text-sm mb-6">Lansman ilanı oluşturmak için proje + birim envanteri tanımlayın.</p>
 
         <div className="flex items-center gap-2 mb-6">
           {[1, 2, 3, 4].map((n) => (
-            <div key={n} className={`flex-1 h-2 rounded-full ${n <= step ? "bg-cyan-500" : "bg-slate-700"}`} />
+            <div key={n} className={`flex-1 h-2 rounded-full ${n <= step ? "bg-[var(--zemin-yumusak)]" : "bg-slate-700"}`} />
           ))}
         </div>
 
         {error ? (
-          <div className="mb-4 p-3 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-300 text-sm">{error}</div>
+          <div className="mb-4 p-3 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-sm">{error}</div>
         ) : null}
 
         <Card className="bg-slate-900/50 border-slate-200/80">
@@ -265,9 +265,9 @@ export default function MuteahhitYeniProjePage() {
             {step === 2 && (
               <>
                 <h2 className="text-lg font-normal text-white">Adım 2 — Ruhsat Belgesi</h2>
-                <div className="rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-4 space-y-3">
-                  <FileText className="w-8 h-8 text-amber-300" />
-                  <p className="text-sm text-amber-100/90">
+                <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 space-y-3">
+                  <FileText className="w-8 h-8 text-[var(--metin-ikincil)]" />
+                  <p className="text-sm text-[var(--metin-ikincil)]">
                     Ruhsat belgesi PDF veya JPEG olarak project-docs bucket&apos;a yüklenir. Admin onayı sonrası lansman ilanları açılır.
                   </p>
                   <label className="flex flex-col gap-2 cursor-pointer">
@@ -283,7 +283,7 @@ export default function MuteahhitYeniProjePage() {
                         if (f) setSkipRuhsat(false);
                       }}
                     />
-                    {ruhsatFileName ? <span className="text-xs text-emerald-300">Seçildi: {ruhsatFileName}</span> : null}
+                    {ruhsatFileName ? <span className="text-xs text-[var(--metin-ikincil)]">Seçildi: {ruhsatFileName}</span> : null}
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
                     <input type="checkbox" checked={skipRuhsat} onChange={(e) => setSkipRuhsat(e.target.checked)} className="accent-amber-500" />
@@ -301,8 +301,8 @@ export default function MuteahhitYeniProjePage() {
                   {units.map((u, idx) => (
                     <div key={idx} className="rounded-[20px] border border-slate-200/80 bg-slate-950/40 p-3 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-normal text-cyan-300">Birim #{idx + 1}</span>
-                        <button type="button" onClick={() => removeUnit(idx)} className="text-red-400 hover:text-red-300">
+                        <span className="text-xs font-normal text-[var(--metin-ikincil)]">Birim #{idx + 1}</span>
+                        <button type="button" onClick={() => removeUnit(idx)} className="text-[var(--metin-ikincil)] hover:text-[var(--metin-ikincil)]">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -341,7 +341,7 @@ export default function MuteahhitYeniProjePage() {
                   <p className="text-slate-400">Ruhsat: {ruhsat_no} · Ada/Parsel: {ada_parsel}</p>
                   <p className="text-slate-400">{province} / {district} {neighborhood ? `/ ${neighborhood}` : ""}</p>
                   <p className="text-slate-500 text-xs">{address}</p>
-                  <p className="text-cyan-300 mt-2">{units.length} birim · {STAGES.find((s) => s.value === stage)?.label}</p>
+                  <p className="text-[var(--metin-ikincil)] mt-2">{units.length} birim · {STAGES.find((s) => s.value === stage)?.label}</p>
                 </div>
                 <div className="text-xs text-slate-400">Kayıt sonrası admin ruhsat doğrulaması beklenir. Onay sonrası lansman ilanları yayınlanabilir.</div>
               </>
@@ -354,11 +354,11 @@ export default function MuteahhitYeniProjePage() {
                 </Button>
               ) : <div />}
               {step < 4 ? (
-                <Button type="button" size="sm" onClick={next} className="gap-2 bg-blue-600 hover:bg-blue-500">
+                <Button type="button" size="sm" onClick={next} className="gap-2 bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)]">
                   Devam <ArrowRight className="rtl:rotate-180 w-4 h-4" />
                 </Button>
               ) : (
-                <Button type="button" size="sm" onClick={save} disabled={busy} className="gap-2 bg-emerald-600 hover:bg-emerald-500">
+                <Button type="button" size="sm" onClick={save} disabled={busy} className="gap-2 bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)]">
                   <CheckCircle2 className="w-4 h-4" /> {busy ? "Kaydediliyor..." : "Kaydet"}
                 </Button>
               )}

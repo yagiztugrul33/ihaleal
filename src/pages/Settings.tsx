@@ -61,7 +61,7 @@ export default function SettingsPage() {
         <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-4 text-white font-normal">
-              <Bell className="w-5 h-5 text-violet-400" />
+              <Bell className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Bildirim tercihleri
             </div>
             <div className="space-y-6">
@@ -98,7 +98,7 @@ export default function SettingsPage() {
         <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-4 text-white font-normal">
-              <MapPin className="w-5 h-5 text-sky-400" />
+              <MapPin className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Konum bildirimi (geofence)
             </div>
             <GeofenceSettingsPanel />
@@ -108,7 +108,7 @@ export default function SettingsPage() {
         <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-3 text-white font-normal">
-              <CreditCard className="w-5 h-5 text-teal-400" />
+              <CreditCard className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Üyelik (bilgilendirme)
             </div>
             <p className="text-sm text-slate-400 leading-relaxed mb-4">
@@ -124,7 +124,7 @@ export default function SettingsPage() {
         <Card className="border-slate-200 bg-slate-900/45">
           <CardContent className="p-6">
             <div className="flex items-center gap-2 mb-3 text-white font-normal">
-              <Shield className="w-5 h-5 text-blue-400" />
+              <Shield className="w-5 h-5 text-[var(--metin-ikincil)]" />
               Güvenlik
             </div>
             <p className="text-sm text-slate-400 mb-4">

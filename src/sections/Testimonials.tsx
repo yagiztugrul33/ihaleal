@@ -38,7 +38,7 @@ export function Testimonials() {
               className={`card-warm transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
               style={{ transitionDelay: `${i * 90}ms` }}
             >
-              <Quote className="h-8 w-8 text-teal-500/60 mb-4" />
+              <Quote className="h-8 w-8 text-[var(--metin-ikincil)] mb-4" />
               <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{t.text}</p>
               <p className="mt-4 text-xs font-normal" style={{ color: "var(--color-text)" }}>{t.name}</p>
               <p className="text-[11px] text-slate-500">{t.role}</p>

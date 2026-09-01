@@ -420,7 +420,7 @@ export default function CreateAuction() {
 
           {/* h1 + intro */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-200 mb-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-4">
               <Gavel className="h-3.5 w-3.5" /> İhale Aç
             </div>
             <h1 className="text-3xl md:text-4xl font-normal text-white mb-3">5 Adımda İhale Yayınla</h1>
@@ -435,23 +435,23 @@ export default function CreateAuction() {
             {wizardSteps.map((step, i) => (
               <div
                 key={step.num}
-                className="relative rounded-[20px] border border-white/10 bg-slate-900/50 p-4 hover:border-amber-400/30 transition-colors"
+                className="relative rounded-[20px] border border-white/10 bg-slate-900/50 p-4 hover:border-[var(--cizgi)] transition-colors"
               >
-                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-amber-500 text-slate-950 font-normal text-xs flex items-center justify-center shadow-lg">
+                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-[var(--zemin-yumusak)] text-slate-950 font-normal text-xs flex items-center justify-center shadow-lg">
                   {step.num}
                 </div>
-                <step.icon className="w-6 h-6 text-amber-300 mb-2 mt-1" />
+                <step.icon className="w-6 h-6 text-[var(--metin-ikincil)] mb-2 mt-1" />
                 <h3 className="font-normal text-white text-sm mb-1">{step.title}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
                 {i < wizardSteps.length - 1 ? (
-                  <div className="hidden lg:block absolute top-1/2 -end-2 w-4 h-0.5 bg-amber-400/30" />
+                  <div className="hidden lg:block absolute top-1/2 -end-2 w-4 h-0.5 bg-[var(--zemin-yumusak)]" />
                 ) : null}
               </div>
             ))}
           </div>
 
           {/* CTA panel */}
-          <div className="rounded-[20px] border border-amber-400/25 bg-amber-500/10 p-8 text-center">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-8 text-center">
             <h2 className="text-xl md:text-2xl font-normal text-white mb-3">
               İhale açmak için hesap gerekir
             </h2>
@@ -463,11 +463,11 @@ export default function CreateAuction() {
               <button
                 type="button"
                 onClick={() => navigate("/giris?next=/ihale-ac")}
-                className="inline-flex items-center justify-center gap-2 rounded-[10px] !bg-amber-500 px-6 py-2.5 text-sm font-normal text-slate-950 shadow-md transition-all hover:!bg-amber-400"
+                className="inline-flex items-center justify-center gap-2 rounded-[10px] !bg-[var(--zemin-yumusak)] px-6 py-2.5 text-sm font-normal text-slate-950 shadow-md transition-all hover:!bg-[var(--zemin-yumusak)]"
               >
                 <Gavel className="w-4 h-4" /> Giriş Yap
               </button>
-              <Button onClick={() => navigate("/kayit?next=/ihale-ac")} variant="outline" className="border-amber-400/40 text-amber-100 hover:bg-amber-500/10 gap-2">
+              <Button onClick={() => navigate("/kayit?next=/ihale-ac")} variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] gap-2">
                 <PlusCircle className="w-4 h-4" /> Hesap Oluştur
               </Button>
             </div>
@@ -481,21 +481,21 @@ export default function CreateAuction() {
           {/* Neden ihale + avantaj */}
           <div className="mt-10 grid gap-4 md:grid-cols-3 text-sm">
             <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
-              <TrendingUp className="w-6 h-6 text-emerald-300 mb-2" />
+              <TrendingUp className="w-6 h-6 text-[var(--metin-ikincil)] mb-2" />
               <h3 className="font-normal text-white mb-1">Şeffaf Fiyat Keşfi</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
                 Açık artırma ile gerçek piyasa değeri anlık ortaya çıkar; pazarlık çekişmesi yok.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
-              <ShieldCheck className="w-6 h-6 text-cyan-300 mb-2" />
+              <ShieldCheck className="w-6 h-6 text-[var(--metin-ikincil)] mb-2" />
               <h3 className="font-normal text-white mb-1">Escrow Güvencesi</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
                 Kapora ve ödeme platformda saklanır; satış kapanmadan transfer olmaz.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
-              <Eye className="w-6 h-6 text-violet-300 mb-2" />
+              <Eye className="w-6 h-6 text-[var(--metin-ikincil)] mb-2" />
               <h3 className="font-normal text-white mb-1">AI Değerleme + Emsal</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
                 Yayına almadan önce AVM ile değer aralığı + bölgeden emsal otomatik raporlanır.
@@ -505,13 +505,13 @@ export default function CreateAuction() {
 
           {/* Yardımcı linkler */}
           <div className="mt-8 text-center text-xs text-slate-500 flex flex-wrap gap-3 justify-center">
-            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/komisyon-modeli")}>Komisyon modeli</button>
+            <button type="button" className="hover:text-[var(--metin-ikincil)]" onClick={() => navigate("/komisyon-modeli")}>Komisyon modeli</button>
             <span>·</span>
-            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/ihale-kosullari")}>İhale koşulları</button>
+            <button type="button" className="hover:text-[var(--metin-ikincil)]" onClick={() => navigate("/ihale-kosullari")}>İhale koşulları</button>
             <span>·</span>
-            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/sat-basla")}>Satıcı rehberi</button>
+            <button type="button" className="hover:text-[var(--metin-ikincil)]" onClick={() => navigate("/sat-basla")}>Satıcı rehberi</button>
             <span>·</span>
-            <button type="button" className="hover:text-cyan-300" onClick={() => navigate("/destek")}>Destek</button>
+            <button type="button" className="hover:text-[var(--metin-ikincil)]" onClick={() => navigate("/destek")}>Destek</button>
           </div>
         </div>
       </div>
@@ -528,12 +528,12 @@ export default function CreateAuction() {
         <p className="text-slate-400 mb-4">
           Üç yoldan birini seçin: <strong className="text-slate-300">sadece ilan</strong> (kartta ihaleal.com görünür — yetkili platform; doğrudan iletişim yok), <strong className="text-slate-300">teklif al</strong> veya{" "}
           <strong className="text-slate-300">ihale</strong>.
-          Kayıt Supabase&apos;e yazılır; yönetici onayından sonra yayına alınır. Referans fiyat <code className="text-teal-400/90 text-xs">fees.ts</code> ile uyarılır.
+          Kayıt Supabase&apos;e yazılır; yönetici onayından sonra yayına alınır. Referans fiyat <code className="text-[var(--metin-ikincil)] text-xs">fees.ts</code> ile uyarılır.
         </p>
 
         {/* 5-adım yayın akışı (görsel timeline — form tek sayfa kalır, bu sadece bağlam). */}
         <div className="mb-6 rounded-[20px] border border-white/10 bg-slate-900/40 p-4">
-          <p className="text-[11px] font-normal uppercase tracking-wider text-amber-200 mb-3">Yayın akışı — 5 adım</p>
+          <p className="text-[11px] font-normal uppercase tracking-wider text-[var(--metin-ikincil)] mb-3">Yayın akışı — 5 adım</p>
           <ol className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
             {[
               { icon: Home, label: "Mülk" },
@@ -544,7 +544,7 @@ export default function CreateAuction() {
             ].map((s, i) => (
               <li key={s.label} className="inline-flex items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/60 px-2.5 py-1 text-slate-200">
-                  <span className="inline-flex w-4 h-4 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-normal">{i + 1}</span>
+                  <span className="inline-flex w-4 h-4 items-center justify-center rounded-full bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-[10px] font-normal">{i + 1}</span>
                   <s.icon className="w-3 h-3" />
                   {s.label}
                 </span>
@@ -555,30 +555,30 @@ export default function CreateAuction() {
         </div>
         <p className="text-sm text-slate-500 mb-8">
           Taslak:{" "}
-          <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/komisyon-modeli")}>
+          <button type="button" className="text-[var(--metin-ikincil)] hover:underline" onClick={() => navigate("/komisyon-modeli")}>
             komisyon modeli
           </button>
           {" · "}
-          <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/ihale-kosullari")}>
+          <button type="button" className="text-[var(--metin-ikincil)] hover:underline" onClick={() => navigate("/ihale-kosullari")}>
             ihale koşulları
           </button>
           {" · "}
-          <button type="button" className="text-teal-400 hover:underline" onClick={() => navigate("/sat-basla")}>
+          <button type="button" className="text-[var(--metin-ikincil)] hover:underline" onClick={() => navigate("/sat-basla")}>
             satıcı modu
           </button>
         </p>
         {success && (
-          <div className="p-4 rounded-[20px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-6">
+          <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] mb-6">
             İlan moderasyon kuyruğuna alındı. İhale sayfasına yönlendiriliyorsunuz...
           </div>
         )}
         {aiPhaseLabel ? (
-          <div className="p-4 rounded-[20px] bg-blue-500/10 border border-blue-500/25 text-blue-200 mb-6 flex items-center gap-3">
-            <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin shrink-0" />
+          <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] mb-6 flex items-center gap-3">
+            <div className="w-8 h-8 border-2 border-[var(--cizgi)] border-t-transparent rounded-full animate-spin shrink-0" />
             {aiPhaseLabel}
           </div>
         ) : null}
-        {error && <div className="p-4 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-400 mb-6">{error}</div>}
+        {error && <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] mb-6">{error}</div>}
         <form onSubmit={handleCreate} className="space-y-6">
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
@@ -599,7 +599,7 @@ export default function CreateAuction() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="aspect-square rounded-[20px] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 hover:border-blue-500/30 hover:bg-blue-500/5 transition-colors"
+                  className="aspect-square rounded-[20px] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 hover:border-[var(--cizgi)] hover:bg-[var(--zemin-yumusak)] transition-colors"
                 >
                   <Upload className="w-6 h-6 text-slate-500" />
                   <span className="text-xs text-slate-500">Görsel Ekle</span>
@@ -641,21 +641,21 @@ export default function CreateAuction() {
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
                   maxLength={2000}
-                  className="w-full px-3 py-2 rounded-[3px] bg-slate-950 border border-slate-200 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full px-3 py-2 rounded-[3px] bg-slate-950 border border-slate-200 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-[var(--cizgi)]"
                   placeholder="Gayrimenkulünüzün detaylı açıklaması..."
                 />
                 <p className="text-[11px] text-slate-600 mt-1">{description.length}/2000</p>
               </div>
               {/* EİDS — Taşınmaz numarası + yetki/malik akışı (yasal zorunlu) */}
-              <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
+              <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 space-y-3">
                 <div className="flex items-start gap-2">
-                  <ShieldCheck className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+                  <ShieldCheck className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <h4 className="text-sm font-normal text-amber-100">Taşınmaz No / Tapu Bilgisi (EİDS)</h4>
+                    <h4 className="text-sm font-normal text-[var(--metin-ikincil)]">Taşınmaz No / Tapu Bilgisi (EİDS)</h4>
                     <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
-                      1 Kasım 2024'ten beri ilanlarda <strong className="text-amber-200">Elektronik İlan Doğrulama Sistemi (EİDS)</strong>
+                      1 Kasım 2024'ten beri ilanlarda <strong className="text-[var(--metin-ikincil)]">Elektronik İlan Doğrulama Sistemi (EİDS)</strong>
                       yetki/malik doğrulaması yasal zorunluluktur. Taşınmaz numaranızı e-Devlet
-                      <span className="font-mono text-cyan-300"> Tapu Bilgileri Sorgulama</span> hizmetinden veya yeni tapu senedinizden bulabilirsiniz.
+                      <span className="font-mono text-[var(--metin-ikincil)]"> Tapu Bilgileri Sorgulama</span> hizmetinden veya yeni tapu senedinizden bulabilirsiniz.
                     </p>
                   </div>
                 </div>
@@ -704,7 +704,7 @@ export default function CreateAuction() {
                   />
                 </div>
 
-                <p className="text-[10px] text-slate-500 italic border-t border-amber-500/20 pt-2">
+                <p className="text-[10px] text-slate-500 italic border-t border-[var(--cizgi)] pt-2">
                   <strong>Dürüst not:</strong> EİDS otomatik doğrulama için Ticaret Bakanlığı yetkili kuruluş başvurusu (Master aksiyonu) gerekir.
                   Şu an beyan modelidir — yanlış beyan halinde hesap kısıtı + cezai şart sözleşmede.
                 </p>
@@ -712,7 +712,7 @@ export default function CreateAuction() {
             </CardContent>
           </Card>
 
-          <Card className="bg-violet-500/5 border-violet-500/20">
+          <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)]">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-normal text-white">Nasıl satacak / kiralayacaksınız?</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
@@ -723,7 +723,7 @@ export default function CreateAuction() {
                   <label
                     key={mode}
                     className={`flex flex-col gap-2 p-4 rounded-[20px] border cursor-pointer transition-colors ${
-                      marketingMode === mode ? "border-violet-500/50 bg-violet-500/10" : "border-slate-200 bg-white/[0.02]"
+                      marketingMode === mode ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" : "border-slate-200 bg-white/[0.02]"
                     }`}
                   >
                     <input type="radio" name="marketingMode" className="sr-only" checked={marketingMode === mode} onChange={() => setMarketingMode(mode)} />
@@ -738,7 +738,7 @@ export default function CreateAuction() {
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-normal text-white flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-blue-400" /> Konum
+                <MapPin className="w-5 h-5 text-[var(--metin-ikincil)]" /> Konum
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
                 81 il dropdown'undan seçin; haritada pin'i tam konumun üzerine sürükleyin. Mahalle/sokak için harita yeterlidir
@@ -811,7 +811,7 @@ export default function CreateAuction() {
                       type="button"
                       onClick={() => toggleFeature(f)}
                       className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
-                        featuresSelected.includes(f) ? "border-teal-500/50 bg-teal-500/15 text-teal-100" : "border-slate-200 text-slate-400 hover:border-white/20"
+                        featuresSelected.includes(f) ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "border-slate-200 text-slate-400 hover:border-white/20"
                       }`}
                     >
                       {f}
@@ -884,10 +884,10 @@ export default function CreateAuction() {
             </CardContent>
           </Card>
 
-          <Card className="bg-teal-500/5 border-teal-500/20">
+          <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)]">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-normal text-white flex items-center gap-2">
-                <FileText className="w-5 h-5 text-teal-400" />
+                <FileText className="w-5 h-5 text-[var(--metin-ikincil)]" />
                 Raporlar ve ekspertiz
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">Demo ortamda yalnızca dosya adı saklanır.</p>
@@ -919,17 +919,17 @@ export default function CreateAuction() {
               <label className="flex items-start gap-2 text-sm text-slate-400 cursor-pointer">
                 <input type="checkbox" checked={officialDocumentsForBuyer} onChange={(e) => setOfficialDocumentsForBuyer(e.target.checked)} className="mt-1 rounded-[3px] border-white/20" />
                 <span>
-                  <Landmark className="w-4 h-4 text-sky-400 inline me-1 align-text-bottom" />
+                  <Landmark className="w-4 h-4 text-[var(--metin-ikincil)] inline me-1 align-text-bottom" />
                   Belediye / imar planı özeti alıcıya gösterilecek.
                 </span>
               </label>
             </CardContent>
           </Card>
 
-          <Card className="bg-amber-500/5 border-amber-500/20">
+          <Card className="bg-[var(--zemin-yumusak)] border-[var(--cizgi)]">
             <CardContent className="p-6 space-y-4">
               <h3 className="text-lg font-normal text-white flex items-center gap-2">
-                <Scale className="w-5 h-5 text-amber-400" />
+                <Scale className="w-5 h-5 text-[var(--metin-ikincil)]" />
                 Taahhüt limitleri
               </h3>
               <div className="grid sm:grid-cols-2 gap-4">
@@ -956,7 +956,7 @@ export default function CreateAuction() {
         </form>
 
         <Dialog open={sellerReportModalOpen} onOpenChange={setSellerReportModalOpen}>
-          <DialogContent className="bg-white border-cyan-400/25 text-white max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="bg-white border-[var(--cizgi)] text-white max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="text-xl font-normal">Satıcı AI analiz özeti</DialogTitle>
               <p className="text-xs text-slate-500 leading-relaxed pt-1">
@@ -967,7 +967,7 @@ export default function CreateAuction() {
               <div className="space-y-3">
                 {(sellerReportRow.overall_risk_score != null && sellerReportRow.overall_risk_score > 7) ||
                 (Array.isArray(sellerReportRow.overall_red_flags) && sellerReportRow.overall_red_flags.length > 0) ? (
-                  <div className="p-3 rounded-[20px] bg-red-500/15 border border-red-400/35 text-red-100 text-sm">
+                  <div className="p-3 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-sm">
                     Bu fiyatla satılma şansı düşük olabilir — fiyatı düşürmenizi öneririz (mock bilgilendirme). Kırmızı bayraklar raporda listelenmiştir.
                   </div>
                 ) : null}
@@ -988,12 +988,12 @@ export default function CreateAuction() {
         </Dialog>
 
         <Dialog open={buyNowWarnOpen} onOpenChange={setBuyNowWarnOpen}>
-          <DialogContent className="bg-white border-amber-400/25 text-white max-w-md">
+          <DialogContent className="bg-white border-[var(--cizgi)] text-white max-w-md">
             <DialogHeader>
               <DialogTitle>Hemen Al fiyatı</DialogTitle>
             </DialogHeader>
             <p className="text-sm text-slate-300 leading-relaxed">
-              Bu fiyatla ilan <strong className="text-amber-200">erken kapanabilir</strong> (alıcı Hemen Al kullanırsa). Stratejinizi gözden geçirin.
+              Bu fiyatla ilan <strong className="text-[var(--metin-ikincil)]">erken kapanabilir</strong> (alıcı Hemen Al kullanırsa). Stratejinizi gözden geçirin.
             </p>
             <DialogFooter className="gap-2">
               <Button type="button" variant="outline" className="border-white/15 text-slate-200" onClick={() => setBuyNowWarnOpen(false)}>

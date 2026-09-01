@@ -332,7 +332,7 @@ export default function LoyaltyProgramPage() {
                       {new Date(item.createdAt).toLocaleString("tr-TR")} {item.note ? `· ${item.note}` : ""}
                     </p>
                   </div>
-                  <span className={`text-sm font-normal ${item.points >= 0 ? "text-[var(--metin-ikincil)]" : "text-[var(--metin-ikincil)]"}`}>
+                  <span className="text-sm font-normal" style={{ color: item.points >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                     {item.points >= 0 ? "+" : ""}
                     {item.points}
                   </span>

@@ -5,10 +5,10 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const TARGETS = { auctions: 12458, sales: 3127, investors: 10843, satisfaction: 98 } as const;
 
 const METRICS = [
-  { key: "auctions" as const, label: "Toplam İhale", icon: Gavel, color: "text-blue-400", bg: "bg-blue-500/15" },
-  { key: "sales" as const, label: "Başarılı Satış", icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/15" },
-  { key: "investors" as const, label: "Aktif Yatırımcı", icon: Users, color: "text-violet-400", bg: "bg-violet-500/15" },
-  { key: "satisfaction" as const, label: "Memnuniyet", icon: Star, color: "text-amber-400", bg: "bg-amber-500/15" },
+  { key: "auctions" as const, label: "Toplam İhale", icon: Gavel, color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
+  { key: "sales" as const, label: "Başarılı Satış", icon: TrendingUp, color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
+  { key: "investors" as const, label: "Aktif Yatırımcı", icon: Users, color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
+  { key: "satisfaction" as const, label: "Memnuniyet", icon: Star, color: "text-[var(--metin-ikincil)]", bg: "bg-[var(--zemin-yumusak)]" },
 ];
 
 export function HomeStats() {
@@ -47,7 +47,7 @@ export function HomeStats() {
                 </div>
                 <p className="text-xs font-normal uppercase tracking-wider text-slate-500">{m.label}</p>
                 <p className="mt-1 text-2xl font-normal tracking-tight text-white md:text-3xl">{display}</p>
-                <p className="mt-1 text-xs font-normal text-emerald-400">+{((idx + 1) * 2.1).toFixed(1)}%</p>
+                <p className="mt-1 text-xs font-normal text-[var(--metin-ikincil)]">+{((idx + 1) * 2.1).toFixed(1)}%</p>
               </div>
             );
           })}

@@ -240,7 +240,7 @@ export function Auctions({
         )}
 
         {catalogError ? (
-          <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+          <p className="mb-4 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-4 py-3 text-sm text-[var(--metin-ikincil)]" role="status">
             {catalogError}
           </p>
         ) : null}
@@ -313,15 +313,15 @@ export function Auctions({
                 </select>
               </div>
               <div className="flex items-end justify-end md:col-span-2 lg:col-span-4">
-                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setDealTypeFilter("all"); setSelectedCategory("all"); setSelectedRoom("all"); setSearchQuery(""); setFilter("all"); }} className="text-xs text-slate-500 hover:text-blue-400 transition-colors">Filtreleri Temizle</button>
+                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setDealTypeFilter("all"); setSelectedCategory("all"); setSelectedRoom("all"); setSearchQuery(""); setFilter("all"); }} className="text-xs text-slate-500 hover:text-[var(--metin-ikincil)] transition-colors">Filtreleri Temizle</button>
               </div>
             </div>
           )}
 
           {compareList.length > 0 && (
-            <div className="mt-3 flex items-center gap-3 p-3 rounded-[20px] bg-blue-500/10 border border-blue-500/20 animate-fade-in">
-              <GitCompare className="w-4 h-4 text-blue-400" />
-              <span className="text-sm text-blue-400">{compareList.length} ilan seçildi</span>
+            <div className="mt-3 flex items-center gap-3 p-3 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)] animate-fade-in">
+              <GitCompare className="w-4 h-4 text-[var(--metin-ikincil)]" />
+              <span className="text-sm text-[var(--metin-ikincil)]">{compareList.length} ilan seçildi</span>
               <Button size="sm" onClick={() => navigate(`/karsilastir?ids=${compareList.join(",")}`)} className="[background:var(--gradient-cta)] text-white text-xs h-7">Karşılaştır</Button>
               <button onClick={() => setCompareList([])} className="text-xs text-slate-500 hover:text-white ms-auto">Temizle</button>
             </div>
@@ -347,9 +347,9 @@ export function Auctions({
                 <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />
                 <div className="absolute top-3 start-3 flex flex-wrap gap-2">
                   <ListingFeaturedBadge isFeatured={auction.isFeatured} badge={auction.featuredBadge} />
-                  {auction.status === "live" && <Badge className="bg-red-500/90 text-white gap-1 animate-pulse"><Flame className="w-3 h-3" /> Canlı</Badge>}
-                  {auction.status === "upcoming" && <Badge variant="outline" className="border-sky-500/30 text-sky-400 gap-1"><Calendar className="w-3 h-3" /> Yaklaşan</Badge>}
-                  <Badge variant="outline" className={`gap-1 text-xs ${auction.investmentScore >= 85 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : auction.investmentScore >= 70 ? "bg-blue-500/20 text-blue-400 border-blue-500/30" : "bg-slate-500/20 text-slate-400 border-slate-500/30"}`}><Star className="w-3 h-3" /> {auction.investmentScore}</Badge>
+                  {auction.status === "live" && <Badge className="bg-[var(--zemin-yumusak)] text-white gap-1 animate-pulse"><Flame className="w-3 h-3" /> Canlı</Badge>}
+                  {auction.status === "upcoming" && <Badge variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] gap-1"><Calendar className="w-3 h-3" /> Yaklaşan</Badge>}
+                  <Badge variant="outline" className={`gap-1 text-xs ${auction.investmentScore >= 85 ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" : auction.investmentScore >= 70 ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" : "bg-slate-500/20 text-slate-400 border-slate-500/30"}`}><Star className="w-3 h-3" /> {auction.investmentScore}</Badge>
                 </div>
                 <div className="absolute top-3 end-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                   <ListingQuickActions
@@ -366,22 +366,22 @@ export function Auctions({
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <ListingNumberBadge auction={auction} compact />
                 </div>
-                <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className={`text-base font-normal line-clamp-2 transition-colors cursor-pointer ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-blue-400"}`} style={isHome ? { color: "var(--color-text)" } : undefined}>{auction.title}</h3>
+                <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className={`text-base font-normal line-clamp-2 transition-colors cursor-pointer ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-[var(--metin-ikincil)]"}`} style={isHome ? { color: "var(--color-text)" } : undefined}>{auction.title}</h3>
                 <div className="flex items-center gap-2 text-sm mt-1" style={{ color: "var(--color-text-muted)" }}><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
                 <div className="mt-1">
                   <RatingSummaryBadge summary={listingRatings.get(auction.id)} compact />
                 </div>
                 <div className={`flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-[10px] border ${isHome ? "bg-[var(--color-bg-soft)] border-[var(--color-border)]" : "bg-white/[0.03] border-white/5"}`}>
-                  <BarChart3 className="w-4 h-4 text-blue-500" />
+                  <BarChart3 className="w-4 h-4 text-[var(--metin-ikincil)]" />
                   <div className="flex-1">
-                    <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Değerleme</span><span className="text-blue-400 font-normal">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</span></div>
+                    <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Değerleme</span><span className="text-[var(--metin-ikincil)] font-normal">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</span></div>
                     <div className={`h-1.5 rounded-full overflow-hidden ${isHome ? "bg-[var(--color-border)]" : "bg-white/10"}`}><div className="h-full rounded-full [background:var(--gradient-cta)]" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                   </div>
                 </div>
                 <div className={`flex flex-wrap items-end justify-between gap-3 pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
                   <div>
                     <div className="text-xs text-slate-500 mb-0.5">Güncel Teklif</div>
-                    <div className="text-lg font-normal text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-lg font-normal text-[var(--metin-ikincil)]">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
                     <div className="text-xs text-slate-600">₺{auction.pricePerSqm.toLocaleString("tr-TR")}/m²</div>
                   </div>
                   <div className="text-end">
@@ -439,14 +439,14 @@ export function Auctions({
           <div className="space-y-4 py-2">
             <div className="p-3 rounded-[20px] bg-white/5">
               <p className="text-sm text-slate-400">{selectedAuction?.title}</p>
-              <p className="text-lg font-normal text-blue-400 mt-1">₺{selectedAuction?.currentBid?.toLocaleString("tr-TR")}</p>
+              <p className="text-lg font-normal text-[var(--metin-ikincil)] mt-1">₺{selectedAuction?.currentBid?.toLocaleString("tr-TR")}</p>
             </div>
             <div className="grid grid-cols-5 gap-2">
               {[10000, 50000, 100000, 250000, 500000].map((inc) => (
-                <button key={inc} onClick={() => setBidAmount((selectedAuction?.currentBid + inc).toString())} className="px-2 py-2 rounded-[10px] bg-white/5 hover:bg-blue-500/20 text-xs font-normal text-white transition-colors">+₺{(inc / 1000).toFixed(0)}K</button>
+                <button key={inc} onClick={() => setBidAmount((selectedAuction?.currentBid + inc).toString())} className="px-2 py-2 rounded-[10px] bg-white/5 hover:bg-[var(--zemin-yumusak)] text-xs font-normal text-white transition-colors">+₺{(inc / 1000).toFixed(0)}K</button>
               ))}
             </div>
-            <div><label className="text-sm text-slate-400 mb-1.5 block">Teklif Tutarı (₺)</label><Input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} className="bg-slate-950 border-white/10 text-white focus:ring-blue-500" placeholder="örn: 3000000" /></div>
+            <div><label className="text-sm text-slate-400 mb-1.5 block">Teklif Tutarı (₺)</label><Input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} className="bg-slate-950 border-white/10 text-white focus:ring-[var(--cizgi)]" placeholder="örn: 3000000" /></div>
           </div>
           <DialogFooter><Button onClick={handleBid} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-normal">Teklif Ver</Button></DialogFooter>
         </DialogContent>

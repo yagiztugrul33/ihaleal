@@ -343,7 +343,7 @@ export default function CommissionCalculator() {
                 </div>
                 <div className="flex justify-between text-slate-300">
                   <dt className="font-normal">{cc.distPlatformNet}</dt>
-                  <dd className={`font-normal ${b.platformNet < 0 ? "text-[var(--metin-ikincil)]" : "text-[var(--metin-ikincil)]"}`} dir="ltr">
+                  <dd className="font-normal" style={{ color: b.platformNet < 0 ? "var(--sinyal-turuncu)" : "var(--metrik-yesil)" }} dir="ltr">
                     ₺{Math.round(b.platformNet).toLocaleString("tr-TR")}
                   </dd>
                 </div>

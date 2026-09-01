@@ -66,11 +66,11 @@ export default function LegalTemplatesPage() {
           </Button>
 
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-3">
+            <p className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
               <FileText className="h-3.5 w-3.5" /> Şablon Önizleme
             </p>
             <h1 className="text-2xl font-normal flex items-center gap-2">
-              <FileText className="h-6 w-6 text-cyan-400" />
+              <FileText className="h-6 w-6 text-[var(--metin-ikincil)]" />
               {previewing.baslik}
             </h1>
             <p className="mt-1 text-sm text-slate-400">{previewing.ozet}</p>
@@ -88,20 +88,20 @@ export default function LegalTemplatesPage() {
             </div>
             <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3 sm:col-span-2">
               <p className="text-slate-500 mb-0.5">Mevzuat</p>
-              <p className="text-violet-200 font-mono text-xs">{previewing.mevzuat}</p>
+              <p className="text-[var(--metin-ikincil)] font-mono text-xs">{previewing.mevzuat}</p>
             </div>
           </div>
 
           {/* Gerekli ekler */}
           {previewing.ekler.length > 0 ? (
-            <div className="rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-4">
-              <p className="text-xs font-normal text-amber-200 mb-2 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+              <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-2 flex items-center gap-1.5">
                 <Info className="h-3 w-3" /> Gerekli Ek Belgeler
               </p>
               <ul className="space-y-1 text-xs text-slate-300">
                 {previewing.ekler.map((e, i) => (
                   <li key={i} className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3 w-3 text-amber-300 flex-shrink-0" /> {e}
+                    <CheckCircle2 className="h-3 w-3 text-[var(--metin-ikincil)] flex-shrink-0" /> {e}
                   </li>
                 ))}
               </ul>
@@ -121,7 +121,7 @@ export default function LegalTemplatesPage() {
           <div className="flex flex-col sm:flex-row gap-2">
             <Button
               onClick={() => downloadTemplate(previewing.id)}
-              className="bg-cyan-600 hover:bg-cyan-500 text-white"
+              className="bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white"
             >
               <Download className="h-4 w-4 me-1.5" />
               .txt olarak indir
@@ -129,7 +129,7 @@ export default function LegalTemplatesPage() {
             <Button
               variant="outline"
               onClick={() => navigate("/iletisim")}
-              className="border-amber-500/40 text-amber-200 hover:bg-amber-500/10"
+              className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
             >
               <Mail className="h-4 w-4 me-1.5" /> Avukat eşleştir (iletişim)
             </Button>
@@ -156,11 +156,11 @@ export default function LegalTemplatesPage() {
         </Button>
 
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-3">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
             <Layers className="h-3.5 w-3.5" /> Şablon Kütüphanesi
           </p>
           <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
-            <Layers className="h-7 w-7 text-cyan-400" />
+            <Layers className="h-7 w-7 text-[var(--metin-ikincil)]" />
             Sözleşme + Belge Şablonları
           </h1>
           <p className="mt-2 text-sm text-slate-400 max-w-2xl">
@@ -174,16 +174,16 @@ export default function LegalTemplatesPage() {
         <LegalDraftBanner />
 
         {/* KATMAN 1 — Eğitici */}
-        <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-3">
-            <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
+            <BookOpen className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
             <h2 className="text-base font-normal text-white">Şablon kütüphanesi nedir?</h2>
           </div>
           <p className="text-sm text-slate-300 leading-relaxed">
             Türkiye'de gayrimenkul işlemleri için en sık kullanılan sözleşme + belge
             örnek şablonları. Şablonlar <strong className="text-white">avukatla ortak hazırlanmış İSKELET</strong>;
             tarafların adı, mülk bilgisi ve özel koşullar somut olaya göre eklenmeli.
-            Yayın öncesi <strong className="text-amber-200">baroya kayıtlı avukat onayı şart</strong>.
+            Yayın öncesi <strong className="text-[var(--metin-ikincil)]">baroya kayıtlı avukat onayı şart</strong>.
           </p>
         </div>
 
@@ -196,7 +196,7 @@ export default function LegalTemplatesPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ara — vekalet, miras, ihale..."
-              className="w-full ps-10 pe-3 py-2 rounded-[10px] border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full ps-10 pe-3 py-2 rounded-[10px] border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-[var(--cizgi)]"
               aria-label="Şablon ara"
             />
           </div>
@@ -206,7 +206,7 @@ export default function LegalTemplatesPage() {
                 key={c}
                 type="button"
                 onClick={() => setFilter(c)}
-                className={`px-3 py-2 rounded-[10px] text-xs font-normal border ${filter === c ? "bg-cyan-600 border-cyan-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                className={`px-3 py-2 rounded-[10px] text-xs font-normal border ${filter === c ? "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
                 aria-pressed={filter === c}
               >
                 {CATEGORY_LABELS[c]}
@@ -230,11 +230,11 @@ export default function LegalTemplatesPage() {
                 data-testid={`template-${t.id}`}
               >
                 <div className="flex items-start justify-between mb-2">
-                  <span className="inline-flex items-center gap-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-normal text-cyan-200">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[10px] font-normal text-[var(--metin-ikincil)]">
                     {CATEGORY_LABELS[t.kategori]}
                   </span>
                   {t.badge ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-2 py-0.5 text-[10px] font-normal text-amber-100">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[10px] font-normal text-[var(--metin-ikincil)]">
                       {t.badge}
                     </span>
                   ) : null}
@@ -257,7 +257,7 @@ export default function LegalTemplatesPage() {
                   <Button
                     size="sm"
                     onClick={() => setPreviewId(t.id)}
-                    className="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white"
+                    className="flex-1 bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white"
                   >
                     <Eye className="h-3.5 w-3.5 me-1" /> Önizle
                   </Button>
@@ -276,8 +276,8 @@ export default function LegalTemplatesPage() {
         )}
 
         {/* Avukat eşleştirme CTA */}
-        <div className="mt-6 rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-5 text-center">
-          <Scale className="h-6 w-6 text-amber-300 mx-auto mb-2" />
+        <div className="mt-6 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5 text-center">
+          <Scale className="h-6 w-6 text-[var(--metin-ikincil)] mx-auto mb-2" />
           <h3 className="text-base font-normal text-white mb-1">Avukat onayı + özel hazırlık</h3>
           <p className="text-xs text-slate-300 mb-4 max-w-2xl mx-auto">
             Şablonlar başlangıç noktasıdır. Sözleşme imzasından önce baroya kayıtlı bir
@@ -286,7 +286,7 @@ export default function LegalTemplatesPage() {
           </p>
           <Button
             onClick={() => navigate("/iletisim")}
-            className="bg-amber-600 hover:bg-amber-500 text-white"
+            className="bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white"
           >
             <Mail className="h-4 w-4 me-1.5" /> İletişime Geç
           </Button>

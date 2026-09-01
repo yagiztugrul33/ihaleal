@@ -76,7 +76,7 @@ export default function Mortgage() {
             <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {lv.back}
           </Button>
           <h1 className="text-3xl md:text-4xl font-normal text-white flex items-center gap-3">
-            <Calculator className="w-8 h-8 text-blue-400" />
+            <Calculator className="w-8 h-8 text-[var(--metin-ikincil)]" />
             {m.title}
           </h1>
           <p className="text-slate-400 mt-2">{m.subtitle}</p>
@@ -146,13 +146,13 @@ export default function Mortgage() {
             {/* Bank Info */}
             <Card className="bg-slate-900/50 border-slate-200/80 p-5">
               <h4 className="text-sm font-normal text-white mb-3 flex items-center gap-2">
-                <Info className="w-4 h-4 text-blue-400" />
+                <Info className="w-4 h-4 text-[var(--metin-ikincil)]" />
                 {m.bankRequirements}
               </h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-400">{m.minMonthlyIncome}</span>
-                  <span className="text-amber-400 font-normal" dir="ltr">TRY {Math.round(minIncomeRequired).toLocaleString()}</span>
+                  <span className="text-[var(--metin-ikincil)] font-normal" dir="ltr">TRY {Math.round(minIncomeRequired).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">{m.downPaymentPercent}</span>
@@ -172,10 +172,10 @@ export default function Mortgage() {
             <Card className="bg-slate-900/50 border-slate-200/80 p-5">
               <h3 className="font-normal text-white mb-4">{m.loanSummary}</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <ResultCard icon={<Banknote className="w-5 h-5 text-blue-400" />} label={lv.monthlyInstallment} value={`TRY ${Math.round(monthlyPayment).toLocaleString()}`} sub={m.subEvenPay} color="text-blue-400" amountTry={Math.round(monthlyPayment)} />
-                <ResultCard icon={<Percent className="w-5 h-5 text-amber-400" />} label={lv.totalInterest} value={`TRY ${Math.round(totalInterest).toLocaleString()}`} sub={`${((totalInterest / loanAmount) * 100).toFixed(1)}% ${m.subOfCost}`} color="text-amber-400" amountTry={Math.round(totalInterest)} />
-                <ResultCard icon={<Clock className="w-5 h-5 text-emerald-400" />} label={lv.totalRepayment} value={`TRY ${Math.round(totalPayment).toLocaleString()}`} sub={`${termMonths / 12} ${m.yearShort}`} color="text-emerald-400" amountTry={Math.round(totalPayment)} />
-                <ResultCard icon={<Banknote className="w-5 h-5 text-violet-400" />} label={lv.loanAmountField} value={`TRY ${loanAmount.toLocaleString()}`} sub={`${downPaymentPercent}% ${m.downPaymentValue.toLowerCase()}`} color="text-violet-400" amountTry={loanAmount} />
+                <ResultCard icon={<Banknote className="w-5 h-5 text-[var(--metin-ikincil)]" />} label={lv.monthlyInstallment} value={`TRY ${Math.round(monthlyPayment).toLocaleString()}`} sub={m.subEvenPay} color="text-[var(--metin-ikincil)]" amountTry={Math.round(monthlyPayment)} />
+                <ResultCard icon={<Percent className="w-5 h-5 text-[var(--metin-ikincil)]" />} label={lv.totalInterest} value={`TRY ${Math.round(totalInterest).toLocaleString()}`} sub={`${((totalInterest / loanAmount) * 100).toFixed(1)}% ${m.subOfCost}`} color="text-[var(--metin-ikincil)]" amountTry={Math.round(totalInterest)} />
+                <ResultCard icon={<Clock className="w-5 h-5 text-[var(--metin-ikincil)]" />} label={lv.totalRepayment} value={`TRY ${Math.round(totalPayment).toLocaleString()}`} sub={`${termMonths / 12} ${m.yearShort}`} color="text-[var(--metin-ikincil)]" amountTry={Math.round(totalPayment)} />
+                <ResultCard icon={<Banknote className="w-5 h-5 text-[var(--metin-ikincil)]" />} label={lv.loanAmountField} value={`TRY ${loanAmount.toLocaleString()}`} sub={`${downPaymentPercent}% ${m.downPaymentValue.toLowerCase()}`} color="text-[var(--metin-ikincil)]" amountTry={loanAmount} />
               </div>
             </Card>
 
@@ -232,9 +232,9 @@ export default function Mortgage() {
                       <tr key={idx} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
                         <td className="p-3 text-white font-normal" dir="ltr">{row.year}{m.yearRowPrefix}</td>
                         <td className="p-3 text-end text-white" dir="ltr">TRY {row.payment.toLocaleString()}</td>
-                        <td className="p-3 text-end text-emerald-400" dir="ltr">TRY {row.principal.toLocaleString()}</td>
-                        <td className="p-3 text-end text-amber-400" dir="ltr">TRY {row.interest.toLocaleString()}</td>
-                        <td className="p-3 text-end text-blue-400" dir="ltr">TRY {row.remaining.toLocaleString()}</td>
+                        <td className="p-3 text-end text-[var(--metin-ikincil)]" dir="ltr">TRY {row.principal.toLocaleString()}</td>
+                        <td className="p-3 text-end text-[var(--metin-ikincil)]" dir="ltr">TRY {row.interest.toLocaleString()}</td>
+                        <td className="p-3 text-end text-[var(--metin-ikincil)]" dir="ltr">TRY {row.remaining.toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -244,17 +244,17 @@ export default function Mortgage() {
 
             {/* Tips */}
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-[20px] bg-emerald-500/5 border border-emerald-500/10">
+              <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingDown className="w-4 h-4 text-emerald-400" />
-                  <span className="text-sm font-normal text-emerald-400">{m.tipLowInterestTitle}</span>
+                  <TrendingDown className="w-4 h-4 text-[var(--metin-ikincil)]" />
+                  <span className="text-sm font-normal text-[var(--metin-ikincil)]">{m.tipLowInterestTitle}</span>
                 </div>
                 <p className="text-xs text-slate-400">{m.tipLowInterestDesc}</p>
               </div>
-              <div className="p-4 rounded-[20px] bg-blue-500/5 border border-blue-500/10">
+              <div className="p-4 rounded-[20px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-4 h-4 text-blue-400" />
-                  <span className="text-sm font-normal text-blue-400">{m.tipDownPaymentTitle}</span>
+                  <TrendingUp className="w-4 h-4 text-[var(--metin-ikincil)]" />
+                  <span className="text-sm font-normal text-[var(--metin-ikincil)]">{m.tipDownPaymentTitle}</span>
                 </div>
                 <p className="text-xs text-slate-400">{m.tipDownPaymentDesc}</p>
               </div>
@@ -276,7 +276,7 @@ function ResultCard({ icon, label, value, sub, color, amountTry }: { icon: React
       <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-slate-400">{label}</span></div>
       <div className={`text-lg font-normal ${color}`} dir="ltr">{value}</div>
       {typeof amountTry === "number" && (
-        <FxRef amountTry={amountTry} variant="block" className="text-[11px] text-amber-300/80" />
+        <FxRef amountTry={amountTry} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
       )}
       <div className="text-xs text-slate-500 mt-0.5">{sub}</div>
     </div>

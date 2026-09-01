@@ -90,7 +90,7 @@ export default function TaxSimulatorPage() {
         <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between space-y-0">
           <div>
             <CardTitle className="text-lg flex items-center gap-2">
-              <Database className="h-5 w-5 text-cyan-500 shrink-0" aria-hidden />
+              <Database className="h-5 w-5 text-[var(--metin-ikincil)] shrink-0" aria-hidden />
               YI-UFE (TCMB EVDS)
             </CardTitle>
             <p className="text-sm text-muted-foreground mt-1">
@@ -112,12 +112,12 @@ export default function TaxSimulatorPage() {
         </CardHeader>
         <CardContent className="space-y-2">
           {tcmbError && (
-            <p className="text-sm text-amber-700 dark:text-amber-300 rounded-[10px] border border-amber-500/30 bg-amber-500/10 px-3 py-2">
+            <p className="text-sm text-[var(--metin-ikincil)] dark:text-[var(--metin-ikincil)] rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2">
               {tcmbError}
             </p>
           )}
           {tcmbOverlay?.length ? (
-            <p className="text-xs text-emerald-700 dark:text-emerald-300">
+            <p className="text-xs text-[var(--metin-ikincil)] dark:text-[var(--metin-ikincil)]">
               Resmi seri demo ile birlestirildi; ortak aylarda TCMB degeri kullanilir.
             </p>
           ) : (
@@ -171,7 +171,7 @@ export default function TaxSimulatorPage() {
                 <span className="text-muted-foreground">GV (tahmini):</span>{" "}
                 <strong>{result.capitalGainsTax.taxAmount.toLocaleString("tr-TR")} TL</strong>
                 {result.capitalGainsTax.isFiveYearExempt && (
-                  <span className="ms-2 text-xs text-emerald-600">(5 yil istisna uygulandi)</span>
+                  <span className="ms-2 text-xs text-[var(--metin-ikincil)]">(5 yil istisna uygulandi)</span>
                 )}
               </p>
               <p>
@@ -184,7 +184,7 @@ export default function TaxSimulatorPage() {
               </p>
             </div>
             {result.warnings.length > 0 && (
-              <ul className="list-disc ps-5 text-amber-800 dark:text-amber-200 space-y-1">
+              <ul className="list-disc ps-5 text-[var(--metin-ikincil)] dark:text-[var(--metin-ikincil)] space-y-1">
                 {result.warnings.map((w) => (
                   <li key={w}>{w}</li>
                 ))}

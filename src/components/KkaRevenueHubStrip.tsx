@@ -16,27 +16,27 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
   const shell = cn(
     "mt-4 w-full rounded-[20px] shadow-[0_16px_40px_-20px_rgba(0,0,0,0.45)]",
     corporate
-      ? "max-w-3xl border border-white/[0.08] bg-zinc-950/40 p-2 ring-1 ring-sky-500/10 backdrop-blur-sm"
+      ? "max-w-3xl border border-white/[0.08] bg-zinc-950/40 p-2 ring-1 ring-[var(--cizgi)] backdrop-blur-sm"
       : "border border-white/[0.1] bg-zinc-900/55 ring-1 ring-white/[0.06]",
     !corporate && prominent ? "max-w-xl mx-auto lg:mx-0 p-1.5" : !corporate ? "max-w-xl mx-auto lg:mx-0 p-1" : "mx-auto lg:mx-0",
     className
   );
 
   const kkaCard = corporate
-    ? "group flex flex-1 items-center gap-3 rounded-[20px] border border-sky-500/20 bg-gradient-to-br from-sky-950/35 via-zinc-950/80 to-zinc-950/90 text-start text-white shadow-inner shadow-black/20 transition-all duration-300 hover:border-sky-400/35 hover:from-sky-950/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500/60"
-    : "group flex flex-1 items-center gap-3 rounded-[20px] border border-red-700/30 bg-gradient-to-br from-red-950/45 to-zinc-900/85 text-start text-white shadow-inner shadow-black/25 transition-all duration-300 hover:from-red-900/55 hover:to-zinc-900/90 hover:border-red-600/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600/70";
+    ? "group flex flex-1 items-center gap-3 rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-[var(--zemin-yumusak)] via-zinc-950/80 to-zinc-950/90 text-start text-white shadow-inner shadow-black/20 transition-all duration-300 hover:border-[var(--cizgi)] hover:from-[var(--zemin-yumusak)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500/60"
+    : "group flex flex-1 items-center gap-3 rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-[var(--zemin-yumusak)] to-zinc-900/85 text-start text-white shadow-inner shadow-black/25 transition-all duration-300 hover:from-[var(--zemin-yumusak)] hover:to-zinc-900/90 hover:border-[var(--cizgi)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600/70";
 
   const kkaIconWrap = corporate
-    ? "flex shrink-0 items-center justify-center rounded-[20px] bg-sky-500/15 ring-1 ring-sky-400/25 transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+    ? "flex shrink-0 items-center justify-center rounded-[20px] bg-[var(--zemin-yumusak)] ring-1 ring-[var(--cizgi)] transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
     : "flex shrink-0 items-center justify-center rounded-[20px] bg-white/15 ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-[1.04] motion-reduce:group-hover:scale-100";
 
-  const kkaIconClass = corporate ? "h-5 w-5 text-sky-200" : "h-5 w-5 text-red-200";
+  const kkaIconClass = "h-5 w-5 text-[var(--metin-ikincil)]";
 
   const innerPad = corporate ? "gap-2.5 p-2 sm:flex-row sm:items-stretch" : cn("flex flex-col sm:flex-row sm:items-stretch", prominent ? "gap-2 p-2" : "gap-1.5 p-1.5");
 
   const linkHover = corporate
-    ? "hover:border-sky-400/25 hover:bg-white/[0.06] focus-visible:outline-sky-500/50"
-    : "hover:border-red-500/35 hover:bg-white/[0.07] focus-visible:outline-zinc-400";
+    ? "hover:border-[var(--cizgi)] hover:bg-white/[0.06] focus-visible:outline-sky-500/50"
+    : "hover:border-[var(--cizgi)] hover:bg-white/[0.07] focus-visible:outline-zinc-400";
 
   return (
     <div className={shell} role="navigation" aria-label="Gelir modeli ve kat kar_1l11 k1sayollar1">

@@ -108,10 +108,10 @@ export function HomeTarget() {
               className="inline-flex items-center gap-2.5 rounded-full border border-slate-600/30 px-4 py-2 text-sm backdrop-blur-md"
               style={{ background: "var(--zemin-yumusak)" }}
             >
-              <Shield className="h-4 w-4 text-blue-400" strokeWidth={2} />
+              <Shield className="h-4 w-4 text-[var(--metin-ikincil)]" strokeWidth={2} />
               <span className="text-slate-200">{h.hero.badge}</span>
               <span
-                className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"
+                className="h-2 w-2 animate-pulse rounded-full bg-[var(--zemin-yumusak)] shadow-[0_0_10px_#10b981]"
                 aria-hidden
               />
             </div>
@@ -122,7 +122,7 @@ export function HomeTarget() {
             >
               {h.hero.titleLead}{" "}
               <span
-                className="bg-gradient-to-r from-blue-400 via-sky-300 to-white bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-[var(--zemin-yumusak)] via-[var(--zemin-yumusak)] to-white bg-clip-text text-transparent"
               >
                 {h.hero.titleAccent}
               </span>
@@ -217,15 +217,15 @@ function LiveChartCard({ live }: { live: HomeMessages["live"] }) {
     >
       <div className="mb-3 flex items-center justify-between">
         <span className="text-[.9rem] font-normal text-[#f8fafc]">{live.title}</span>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/12 px-2 py-0.5 text-[.68rem] font-normal uppercase tracking-wide text-emerald-400">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[.68rem] font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--zemin-yumusak)]" />
           {live.live}
         </span>
       </div>
       <div className="mb-0.5 text-[3.5rem] font-normal leading-none tracking-tight text-[#f8fafc]">
         284
       </div>
-      <div className="mb-3 text-[.88rem] font-normal text-emerald-400">{live.growth}</div>
+      <div className="mb-3 text-[.88rem] font-normal text-[var(--metin-ikincil)]">{live.growth}</div>
       <svg viewBox="0 0 400 80" className="mb-3 h-[64px] w-full" aria-hidden>
         <defs>
           <linearGradient id="liveGrad" x1="0" y1="0" x2="0" y2="1">
@@ -263,8 +263,8 @@ function TrustSignalsRow({ items }: { items: HomeMessages["trust"] }) {
         const Icon = TRUST_ICONS[i] ?? Shield;
         return (
           <div key={x.title} className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-blue-500/25 bg-blue-500/10">
-              <Icon className="h-4 w-4 text-blue-400" strokeWidth={2} />
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
+              <Icon className="h-4 w-4 text-[var(--metin-ikincil)]" strokeWidth={2} />
             </div>
             <div>
               <div className="text-xs font-normal text-slate-50">{x.title}</div>
@@ -297,8 +297,8 @@ function StatCardsColumn({
             style={{ background: "var(--zemin-yumusak)" }}
           >
             <div className="flex items-start gap-2.5">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-blue-500/12">
-                <Icon className="h-4 w-4 text-blue-400" strokeWidth={2} />
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--zemin-yumusak)]">
+                <Icon className="h-4 w-4 text-[var(--metin-ikincil)]" strokeWidth={2} />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="mb-0.5 text-[.65rem] uppercase tracking-wider text-slate-500">
@@ -306,7 +306,7 @@ function StatCardsColumn({
                 </div>
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
                   <span className="text-xl font-normal tracking-tight text-slate-50">{values[i]}</span>
-                  <span className="text-[.68rem] font-normal text-emerald-400">{changes[i]}</span>
+                  <span className="text-[.68rem] font-normal text-[var(--metin-ikincil)]">{changes[i]}</span>
                 </div>
                 <div className="mt-0.5 text-[.62rem] text-slate-600">{x.vs}</div>
               </div>
@@ -346,10 +346,10 @@ function HowItWorksSection({ how }: { how: HomeMessages["how"] }) {
               const num = String(i + 1).padStart(2, "0");
               return (
                 <div key={x.title} className="relative z-[1] text-center">
-                  <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-blue-500/35 bg-gradient-to-br from-blue-500/20 to-indigo-900/50 shadow-lg shadow-blue-500/15">
-                    <Icon className="h-6 w-6 text-blue-300" strokeWidth={1.75} />
+                  <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-[var(--cizgi)] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-lg shadow-blue-500/15">
+                    <Icon className="h-6 w-6 text-[var(--metin-ikincil)]" strokeWidth={1.75} />
                   </div>
-                  <div className="mb-1 text-[10px] font-normal tracking-widest text-blue-400">
+                  <div className="mb-1 text-[10px] font-normal tracking-widest text-[var(--metin-ikincil)]">
                     {num}
                   </div>
                   <h3 className="mb-1.5 text-sm font-normal text-slate-50">{x.title}</h3>
@@ -391,7 +391,7 @@ function LiveAuctionsContent({ auctions }: { auctions: HomeMessages["auctions"] 
         </h2>
         <Link
           to={ROUTES.ILANLAR}
-          className="inline-flex items-center gap-1 text-sm font-normal text-blue-400 no-underline"
+          className="inline-flex items-center gap-1 text-sm font-normal text-[var(--metin-ikincil)] no-underline"
         >
           {auctions.viewAll}
           <ChevronRight className="rtl:rotate-180 h-4 w-4" />
@@ -477,7 +477,7 @@ function AuctionCard({
         className="relative h-[168px] bg-cover bg-center"
         style={{ backgroundImage: `url('${PROP_IMGS[idx]}')` }}
       >
-        <span className="absolute start-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-red-500/95 px-2 py-0.5 text-[.65rem] font-normal uppercase tracking-wide text-white">
+        <span className="absolute start-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[.65rem] font-normal uppercase tracking-wide text-white">
           <span className="h-1 w-1 animate-pulse rounded-full bg-white" />
           {auctions.live}
         </span>
@@ -500,14 +500,14 @@ function AuctionCard({
         </p>
         <div className="mb-2.5 flex items-baseline justify-between gap-2">
           <span className="text-lg font-normal text-slate-50">{item.price}</span>
-          <span className="text-xs font-normal text-emerald-400">{item.change}</span>
+          <span className="text-xs font-normal text-[var(--metin-ikincil)]">{item.change}</span>
         </div>
         <div className="flex items-center justify-between border-t border-slate-700/50 pt-2.5 text-[.7rem] text-slate-500">
           <span className="inline-flex items-center gap-1">
             <Clock className="h-3 w-3" />
             {item.time}
           </span>
-          <span className="inline-flex items-center gap-0.5 font-normal text-blue-400">
+          <span className="inline-flex items-center gap-0.5 font-normal text-[var(--metin-ikincil)]">
             {item.bids}
             <ChevronRight className="rtl:rotate-180 h-3.5 w-3.5" />
           </span>

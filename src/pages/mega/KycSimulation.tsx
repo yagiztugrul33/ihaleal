@@ -76,7 +76,7 @@ export default function KycSimulationPage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-lg">
         <div className="mb-8 flex items-start gap-3">
-          <div className="rounded-[20px] bg-sky-500/15 p-3 text-sky-400">
+          <div className="rounded-[20px] bg-[var(--zemin-yumusak)] p-3 text-[var(--metin-ikincil)]">
             <ShieldCheck className="h-8 w-8" />
           </div>
           <div>
@@ -99,9 +99,9 @@ export default function KycSimulationPage() {
               </p>
             ) : null}
             {!user ? (
-              <p className="mt-2 text-xs text-amber-200/90">
+              <p className="mt-2 text-xs text-[var(--metin-ikincil)]">
                 Gerçek gönderim için{" "}
-                <Link to="/giris" className="text-teal-400 underline">
+                <Link to="/giris" className="text-[var(--metin-ikincil)] underline">
                   giriş yapın
                 </Link>
                 .
@@ -115,7 +115,7 @@ export default function KycSimulationPage() {
             <span
               key={s.id}
               className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-normal ${
-                phase > i ? "bg-emerald-500/20 text-emerald-300" : phase === i ? "bg-blue-500/25 text-blue-200" : "bg-white/5 text-slate-500"
+                phase > i ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : phase === i ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "bg-white/5 text-slate-500"
               }`}
             >
               {i + 1}. {s.title}
@@ -161,7 +161,7 @@ export default function KycSimulationPage() {
                 <Upload className="h-4 w-4" />
                 {idFile ? idFile.name : "Kimlik belgesi seç (PDF/JPG/PNG)"}
               </Button>
-              {submitError ? <p className="text-sm text-red-400">{submitError}</p> : null}
+              {submitError ? <p className="text-sm text-[var(--metin-ikincil)]">{submitError}</p> : null}
               <Button
                 type="button"
                 className="w-full gap-2"
@@ -194,7 +194,7 @@ export default function KycSimulationPage() {
         )}
 
         {phase === 4 && (
-          <Card className="border-emerald-500/25 bg-emerald-950/20">
+          <Card className="border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
             <CardContent className="p-8 text-center">
               <p className="text-lg font-normal text-white">
                 {displayStatus === "verified" ? "KYC doğrulandı" : "Başvuru kaydedildi"}

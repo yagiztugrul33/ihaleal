@@ -15,7 +15,7 @@ export function ListingFeaturedBadge({ isFeatured, badge }: Props) {
     );
   }
   if (isFeatured) {
-    return <Badge className="bg-violet-500/90 text-white text-xs">Öne Çıkan</Badge>;
+    return <Badge className="bg-[var(--zemin-yumusak)] text-white text-xs">Öne Çıkan</Badge>;
   }
   return null;
 }

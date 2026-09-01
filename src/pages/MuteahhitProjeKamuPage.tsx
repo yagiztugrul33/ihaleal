@@ -70,10 +70,10 @@ export default function MuteahhitProjeKamuPage() {
           ]}
         />
 
-        <div className="rounded-[20px] border border-cyan-400/30 bg-gradient-to-br from-slate-900/80 to-slate-950/80 p-6 mb-6">
-          <Badge className="bg-cyan-500 mb-3">🏗️ LANSMAN PROJESİ</Badge>
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-slate-900/80 to-slate-950/80 p-6 mb-6">
+          <Badge className="bg-[var(--zemin-yumusak)] mb-3">🏗️ LANSMAN PROJESİ</Badge>
           <h1 className="text-4xl font-normal text-white mb-3 flex items-center gap-3">
-            <Building2 className="w-9 h-9 text-cyan-400" /> {project.project_name}
+            <Building2 className="w-9 h-9 text-[var(--metin-ikincil)]" /> {project.project_name}
           </h1>
           <div className="flex items-center gap-2 text-slate-300 mb-4">
             <MapPin className="w-4 h-4" />
@@ -90,9 +90,9 @@ export default function MuteahhitProjeKamuPage() {
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5 grid grid-cols-4 gap-3">
             <div><div className="text-xs text-slate-500">Toplam</div><div className="text-xl font-normal text-white">{units.length}</div></div>
-            <div><div className="text-xs text-slate-500">Mevcut</div><div className="text-xl font-normal text-emerald-300">{units.filter((u) => u.status === "available").length}</div></div>
-            <div><div className="text-xs text-slate-500">Rezerve</div><div className="text-xl font-normal text-amber-300">{units.filter((u) => u.status === "reserved").length}</div></div>
-            <div><div className="text-xs text-slate-500">Satıldı</div><div className="text-xl font-normal text-blue-300">{units.filter((u) => u.status === "sold").length}</div></div>
+            <div><div className="text-xs text-slate-500">Mevcut</div><div className="text-xl font-normal text-[var(--metin-ikincil)]">{units.filter((u) => u.status === "available").length}</div></div>
+            <div><div className="text-xs text-slate-500">Rezerve</div><div className="text-xl font-normal text-[var(--metin-ikincil)]">{units.filter((u) => u.status === "reserved").length}</div></div>
+            <div><div className="text-xs text-slate-500">Satıldı</div><div className="text-xl font-normal text-[var(--metin-ikincil)]">{units.filter((u) => u.status === "sold").length}</div></div>
           </CardContent>
         </Card>
 
@@ -103,22 +103,22 @@ export default function MuteahhitProjeKamuPage() {
             <p className="col-span-full text-center text-slate-500 py-8">Henüz yayında birim yok.</p>
           )}
           {visibleUnits.map((u) => (
-            <Card key={u.id} className="bg-slate-900/50 border-slate-200/80 hover:border-cyan-400/30 transition-colors">
+            <Card key={u.id} className="bg-slate-900/50 border-slate-200/80 hover:border-[var(--cizgi)] transition-colors">
               <CardContent className="p-4 space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-normal text-white">{u.unit_no}</span>
-                  {u.status === "reserved" && <Badge className="bg-amber-500/20 text-amber-300 text-[10px]">Rezerve</Badge>}
+                  {u.status === "reserved" && <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] text-[10px]">Rezerve</Badge>}
                 </div>
                 <div className="text-xs text-slate-400">
                   {u.unit_type} · Blok {u.block ?? "—"} · Kat {u.floor ?? "—"}
                 </div>
                 <div className="text-xs text-slate-500">{u.m2_brut ?? "—"} m² brüt · {u.m2_net ?? "—"} m² net</div>
-                <div className="text-lg font-normal text-cyan-300">
+                <div className="text-lg font-normal text-[var(--metin-ikincil)]">
                   {u.price_try ? `₺${u.price_try.toLocaleString("tr-TR")}` : "Fiyat sorulur"}
                 </div>
                 {u.listing_id && (
                   <Link to={`/ilan/${u.listing_id}`}>
-                    <Button size="sm" className="w-full gap-2 bg-blue-600 hover:bg-blue-500 mt-2">
+                    <Button size="sm" className="w-full gap-2 bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] mt-2">
                       <Eye className="w-4 h-4" /> İlana Git
                     </Button>
                   </Link>

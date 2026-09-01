@@ -50,7 +50,7 @@ export function SearchAutocomplete({ value, onChange, onSelect, placeholder, cla
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder={placeholder}
-        className="w-full rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-blue-500/40 focus:outline-none"
+        className="w-full rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-[var(--cizgi)] focus:outline-none"
         aria-label="Konum arama"
         autoComplete="off"
       />

@@ -58,7 +58,7 @@ export default function BlogIndex() {
           {rows.map((p) => {
             const mins = estimateReadingMinutes(p);
             return (
-              <Card key={p.slug} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-teal-500/30">
+              <Card key={p.slug} className="border-slate-200 bg-slate-900/40 transition-colors hover:border-[var(--cizgi)]">
                 <CardContent className="p-6">
                   <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-slate-500">
                     <Calendar className="h-3.5 w-3.5" />
@@ -72,7 +72,7 @@ export default function BlogIndex() {
                       <span className="rounded-[3px] bg-slate-800 px-2 py-0.5 text-[10px] uppercase text-slate-400">demo içerik</span>
                     ) : null}
                   </div>
-                  <Link to={`/blog/${p.slug}`} className="text-xl font-normal text-white hover:text-teal-400">
+                  <Link to={`/blog/${p.slug}`} className="text-xl font-normal text-white hover:text-[var(--metin-ikincil)]">
                     {p.title}
                   </Link>
                   <p className="mt-2 text-sm text-slate-400">{p.excerpt}</p>

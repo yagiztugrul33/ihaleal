@@ -45,8 +45,8 @@ export function CurrencySelector({ compact = false }: Props) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-[3px] border border-slate-700/60 bg-slate-900/40 px-2 py-1 text-xs font-normal text-slate-200 transition-colors hover:border-amber-400/40 hover:text-white",
-          open && "border-amber-400/50 text-white",
+          "inline-flex items-center gap-1.5 rounded-[3px] border border-slate-700/60 bg-slate-900/40 px-2 py-1 text-xs font-normal text-slate-200 transition-colors hover:border-[var(--cizgi)] hover:text-white",
+          open && "border-[var(--cizgi)] text-white",
         )}
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -73,8 +73,8 @@ export function CurrencySelector({ compact = false }: Props) {
                 setOpen(false);
               }}
               className={cn(
-                "block w-full px-3 py-1.5 text-start text-xs transition-colors hover:bg-amber-500/10",
-                opt.code === currency ? "text-amber-300 font-normal" : "text-slate-200",
+                "block w-full px-3 py-1.5 text-start text-xs transition-colors hover:bg-[var(--zemin-yumusak)]",
+                opt.code === currency ? "text-[var(--metin-ikincil)] font-normal" : "text-slate-200",
               )}
             >
               {opt.label}
@@ -83,7 +83,7 @@ export function CurrencySelector({ compact = false }: Props) {
           <div className="mt-1 border-t border-slate-700 px-3 py-1.5 text-[10px] text-slate-500">
             Kur: {ratesSource === "tcmb_api" ? "TCMB" : "Yedek"} · {new Date(ratesUpdatedAtIso).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit" })}
             <br />
-            <span className="text-amber-400">Tahsilat ₺</span> — diğer kurlar referans.
+            <span className="text-[var(--metin-ikincil)]">Tahsilat ₺</span> — diğer kurlar referans.
           </div>
         </div>
       )}

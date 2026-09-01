@@ -62,7 +62,7 @@ export function NotificationBell() {
       >
         <Bell className="w-5 h-5" />
         {unread > 0 && (
-          <span className="absolute -top-0.5 -end-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-violet-500 text-[10px] font-normal text-white flex items-center justify-center border border-slate-200">
+          <span className="absolute -top-0.5 -end-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[var(--zemin-yumusak)] text-[10px] font-normal text-white flex items-center justify-center border border-slate-200">
             {unread > 9 ? "9+" : unread}
           </span>
         )}
@@ -81,7 +81,7 @@ export function NotificationBell() {
           <div className="max-h-80 overflow-y-auto">
             {!user ? (
               <div className="px-4 py-8 text-center text-sm text-slate-500">
-                <Link to="/giris" className="text-blue-400 underline">
+                <Link to="/giris" className="text-[var(--metin-ikincil)] underline">
                   Giriş yapın
                 </Link>{" "}
                 — bildirimler hesabınıza bağlanır.
@@ -96,7 +96,7 @@ export function NotificationBell() {
                   key={n.id}
                   type="button"
                   onClick={() => markOne(n.id)}
-                  className={`w-full text-start px-3 py-2.5 border-b border-slate-200/80 hover:bg-white/[0.04] transition-colors ${n.read ? "opacity-70" : "bg-blue-500/5"}`}
+                  className={`w-full text-start px-3 py-2.5 border-b border-slate-200/80 hover:bg-white/[0.04] transition-colors ${n.read ? "opacity-70" : "bg-[var(--zemin-yumusak)]"}`}
                 >
                   <div className="text-xs font-normal text-white">{n.title}</div>
                   <div className="text-[11px] text-slate-400 mt-0.5 leading-snug">{n.body}</div>
@@ -106,7 +106,7 @@ export function NotificationBell() {
             )}
           </div>
           {user ? (
-            <Link to="/panel/bildirimler" className="block text-center text-[11px] text-blue-400 py-2 border-t border-slate-200/80">
+            <Link to="/panel/bildirimler" className="block text-center text-[11px] text-[var(--metin-ikincil)] py-2 border-t border-slate-200/80">
               Tüm bildirimler
             </Link>
           ) : null}
