@@ -266,38 +266,38 @@ export default function BorsaAssetDetailPage() {
 
   return (
     <main className="w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
-      <section className="rounded-xl border border-border bg-card p-4">
+      <section className="rounded-[10px] border border-border bg-card p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-cyan-200">Varlık Detay · Demo Veri</p>
-            <h1 className="mt-1 text-2xl font-black text-white lg:text-3xl">{title}</h1>
+            <p className="text-[11px] font-normal uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">Varlık Detay · Demo Veri</p>
+            <h1 className="mt-1 text-2xl font-normal text-white lg:text-3xl">{title}</h1>
             <p className="mt-1 text-sm text-slate-300">
               Lokasyon: {asset.region.toLocaleUpperCase("tr-TR")} · Tip: Açık artırma gayrimenkul varlığı
             </p>
           </div>
           <div className="text-end">
-            <p className="text-3xl font-black text-white">{formatTry(asset.price)}</p>
+            <p className="text-3xl font-normal text-white">{formatTry(asset.price)}</p>
             <FxRef amountTry={asset.price} variant="block" />
-            <p className={`text-sm font-bold ${asset.changePct >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
+            <p className="text-sm font-normal" style={{ color: asset.changePct >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
               {asset.changePct >= 0 ? "+" : ""}
               {asset.changePct.toFixed(2)}%
             </p>
           </div>
         </div>
         <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.high24}: <strong className="text-white" dir="ltr">{formatTry(high24)}<FxRef amountTry={high24} variant="compact" /></strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.low24}: <strong className="text-white" dir="ltr">{formatTry(low24)}<FxRef amountTry={low24} variant="compact" /></strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.openClose}: <strong className="text-white" dir="ltr">{formatTry(open24)}<FxRef amountTry={open24} variant="compact" /> / {formatTry(close24)}<FxRef amountTry={close24} variant="compact" /></strong></div>
-          <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">{b.volumeLabel}: <strong className="text-white" dir="ltr">{asset.volume.toLocaleString("tr-TR")}</strong></div>
-          <div className="rounded-lg border border-amber-500/35 bg-amber-500/10 p-2 text-xs text-amber-100">
-            Sayaç: <strong>{countdown}</strong> · Anti-sniping soft-close aktif (son {Math.round(ANTI_SNIPING_THRESHOLD_SECONDS / 60)} dk teklifte +{Math.round(ANTI_SNIPING_EXTEND_SECONDS / 60)} dk)
+          <div className="rounded-[10px] border border-border bg-secondary p-2 text-xs text-slate-300">{b.high24}: <strong className="text-white" dir="ltr">{formatTry(high24)}<FxRef amountTry={high24} variant="compact" /></strong></div>
+          <div className="rounded-[10px] border border-border bg-secondary p-2 text-xs text-slate-300">{b.low24}: <strong className="text-white" dir="ltr">{formatTry(low24)}<FxRef amountTry={low24} variant="compact" /></strong></div>
+          <div className="rounded-[10px] border border-border bg-secondary p-2 text-xs text-slate-300">{b.openClose}: <strong className="text-white" dir="ltr">{formatTry(open24)}<FxRef amountTry={open24} variant="compact" /> / {formatTry(close24)}<FxRef amountTry={close24} variant="compact" /></strong></div>
+          <div className="rounded-[10px] border border-border bg-secondary p-2 text-xs text-slate-300">{b.volumeLabel}: <strong className="text-white" dir="ltr">{asset.volume.toLocaleString("tr-TR")}</strong></div>
+          <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2 text-xs text-[var(--metin-ikincil)]">
+            Sayaç: <strong className="text-white">{countdown}</strong> · Anti-sniping soft-close aktif (son {Math.round(ANTI_SNIPING_THRESHOLD_SECONDS / 60)} dk teklifte +{Math.round(ANTI_SNIPING_EXTEND_SECONDS / 60)} dk)
           </div>
         </div>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[minmax(310px,1fr)_minmax(0,1.35fr)_minmax(320px,1fr)]">
-        <article className="borsa-card rounded-xl p-3">
-          <h2 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">{b.orderBook}</h2>
+        <article className="borsa-card rounded-[10px] p-3">
+          <h2 className="mb-3 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">{b.orderBook}</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead className="text-start uppercase tracking-[0.1em] text-slate-400">
@@ -314,10 +314,10 @@ export default function BorsaAssetDetailPage() {
               <tbody>
                 {orderBookLevels.map((row) => (
                   <tr key={row.level} className="border-t border-slate-800/80">
-                    <td className="py-1.5 text-emerald-300">{row.bidPrice ? formatTry(row.bidPrice) : "-"}</td>
+                    <td className="py-1.5" style={{ color: "var(--metrik-yesil)" }}>{row.bidPrice ? formatTry(row.bidPrice) : "-"}</td>
                     <td className="py-1.5 text-slate-300">{row.bidQty.toLocaleString("tr-TR")}</td>
                     <td className="py-1.5 text-slate-400">{row.bidCum.toLocaleString("tr-TR")}</td>
-                    <td className="py-1.5 text-rose-300">{row.askPrice ? formatTry(row.askPrice) : "-"}</td>
+                    <td className="py-1.5" style={{ color: "var(--sinyal-turuncu)" }}>{row.askPrice ? formatTry(row.askPrice) : "-"}</td>
                     <td className="py-1.5 text-slate-300">{row.askQty.toLocaleString("tr-TR")}</td>
                     <td className="py-1.5 text-slate-400">{row.askCum.toLocaleString("tr-TR")}</td>
                     <td className="py-1.5 text-slate-400">{row.bidder}</td>
@@ -329,15 +329,15 @@ export default function BorsaAssetDetailPage() {
           <p className="mt-2 text-[11px] text-slate-400">KVKK gereği teklifçi kimlikleri maskelenir (`A***z`).</p>
         </article>
 
-        <article className="borsa-card rounded-xl p-3">
+        <article className="borsa-card rounded-[10px] p-3">
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-sm font-black uppercase tracking-[0.12em] text-slate-200">Fiyat Grafiği</h2>
+            <h2 className="text-sm font-normal uppercase tracking-[0.12em] text-slate-200">Fiyat Grafiği</h2>
             <div className="flex gap-1">
               {(["1g", "7g", "30g"] as const).map((key) => (
                 <button
                   key={key}
                   type="button"
-                  className={`rounded border px-2 py-1 text-[11px] font-semibold ${range === key ? "border-cyan-400/60 bg-cyan-500/15 text-cyan-100" : "border-slate-700 bg-slate-900/60 text-slate-400"}`}
+                  className={`rounded-[3px] border px-2 py-1 text-[11px] font-normal ${range === key ? "border-[var(--metin-ikincil)] bg-[var(--zemin)] text-[var(--metin)]" : "border-[var(--cizgi)] text-[var(--metin-ikincil)]"}`}
                   onClick={() => setRange(key)}
                 >
                   {key}
@@ -358,8 +358,8 @@ export default function BorsaAssetDetailPage() {
                   }
                   labelFormatter={(label) => `Periyot ${label}`}
                 />
-                <Area yAxisId="p" dataKey="price" type="monotone" stroke="#22d3ee" fill="#06b6d4" fillOpacity={0.15} />
-                <Line yAxisId="p" dataKey="ma" type="monotone" stroke="#facc15" dot={false} />
+                <Area yAxisId="p" dataKey="price" type="monotone" stroke="#eeeeee" fill="#8a8380" fillOpacity={0.15} />
+                <Line yAxisId="p" dataKey="ma" type="monotone" stroke="#8a8380" strokeDasharray="5 5" dot={false} />
                 <Bar yAxisId="v" dataKey="volume" fill="#334155" barSize={6} />
               </ComposedChart>
             </ResponsiveContainer>
@@ -367,11 +367,11 @@ export default function BorsaAssetDetailPage() {
           <p className="mt-2 text-[11px] text-slate-400">Grafik: geçmiş teklif/işlem akışından türetilmiş demo seri (MA + hacim).</p>
         </article>
 
-        <article className="borsa-card rounded-xl p-3">
-          <h2 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Teklif Paneli</h2>
+        <article className="borsa-card rounded-[10px] p-3">
+          <h2 className="mb-3 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">Teklif Paneli</h2>
           <div className="space-y-2 text-xs">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-amber-500/50 bg-amber-500/15 px-2 py-0.5 text-[11px] font-semibold text-amber-100">
+              <span className="rounded-[3px] border border-[var(--cizgi)] px-2 py-0.5 text-[11px] font-normal text-[var(--metin-ikincil)]">
                 Anti-sniping / Soft close
               </span>
               <span className="text-[11px] text-slate-300">
@@ -379,30 +379,30 @@ export default function BorsaAssetDetailPage() {
                 {softCloseEnabled ? " (bu oturumda tetiklenebilir)." : "."}
               </span>
             </div>
-            <div className="rounded-md border border-cyan-500/30 bg-cyan-500/10 p-2 text-cyan-100">
-              Bid Increment kuralı: minimum artış <strong>{formatTry(minimumIncrement)}</strong> · Geçerli taban teklif{" "}
-              <strong>{formatTry(bidFloor)}</strong>.
+            <div className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2 text-[var(--metin-ikincil)]">
+              Bid Increment kuralı: minimum artış <strong className="text-white">{formatTry(minimumIncrement)}</strong> · Geçerli taban teklif{" "}
+              <strong className="text-white">{formatTry(bidFloor)}</strong>.
             </div>
             <label className="block text-slate-300">Teklif Tutarı (min {formatTry(bidFloor)})</label>
             <input
               value={bidInput}
               onChange={(e) => setBidInput(e.target.value)}
               placeholder="örn. 15.500.000"
-              className="w-full rounded-md border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+              className="w-full rounded-[3px] border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
             />
             <label className="block text-slate-300">Maksimum Teklif (Proxy Bid)</label>
             <input
               value={maxBidInput}
               onChange={(e) => setMaxBidInput(e.target.value)}
               placeholder="örn. 16.000.000"
-              className="w-full rounded-md border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+              className="w-full rounded-[3px] border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
             />
-            <p className="rounded-md border border-slate-700/70 bg-slate-900/70 p-2 text-slate-300">
+            <p className="rounded-[3px] border border-slate-700/70 bg-slate-900/70 p-2 text-slate-300">
               Sistem sizin için minimum artışlarla teklif verir (maksimum teklifinize kadar).
               {proxyOpeningBid ? ` İlk otomatik adım: ${formatTry(proxyOpeningBid)}.` : ""}
             </p>
-            <div className="rounded-md border border-amber-500/35 bg-amber-500/10 p-2 text-amber-100">
-              Teklifiniz için kartınızda <strong>{formatTry(bidBond)}</strong> (%{Math.round(BID_BOND_RATE * 100)} teminat)
+            <div className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2 text-[var(--metin-ikincil)]">
+              Teklifiniz için kartınızda <strong className="text-white">{formatTry(bidBond)}</strong> (%{Math.round(BID_BOND_RATE * 100)} teminat)
               bloke edilecektir.
             </div>
             <ul className="space-y-1 text-slate-300">
@@ -418,46 +418,48 @@ export default function BorsaAssetDetailPage() {
               <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
               Teklif kurallarını okudum, işlemin bağlayıcı olduğunu kabul ediyorum.
             </label>
-            <p className="rounded-md border border-rose-500/35 bg-rose-500/10 px-2 py-1.5 text-[11px] text-rose-100">
+            <p className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-1.5 text-[11px] text-[var(--metin-ikincil)]">
               Onay kutusu işaretlenmeden teklif gönderilemez. Teklifiniz hukuki ve finansal yükümlülük doğurur.
             </p>
             <button
               type="button"
               disabled={busy || !agree}
               onClick={handlePlaceBid}
-              className="w-full rounded-md border border-emerald-400/50 bg-emerald-500/15 px-3 py-2 text-sm font-semibold text-emerald-100 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-[3px] border border-[var(--metin)] bg-[var(--metin)] px-3 py-2 text-sm font-normal text-[var(--zemin)] hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               {busy ? "Gönderiliyor..." : "Teklif Ver (çekirdek çağrı)"}
             </button>
             <button
               type="button"
               onClick={() => navigate(`/ihale/${asset.id}/hemen-al`)}
-              className="w-full rounded-md border border-cyan-400/45 bg-cyan-500/10 px-3 py-2 text-sm font-semibold text-cyan-100"
+              className="w-full rounded-[3px] border border-[var(--cizgi)] px-3 py-2 text-sm font-normal text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
             >
               Hemen Al
             </button>
             <button
               type="button"
               onClick={handleWatch}
-              className="w-full rounded-md border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm font-semibold text-slate-200"
+              className="w-full rounded-[3px] border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm font-normal text-slate-200"
             >
               {myWatchlist.includes(asset.id) ? b.watchRemove : b.watchAdd}
             </button>
             {!isUuid(id) ? (
-              <p className="rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-1.5 text-[11px] text-amber-100">
+              <p className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-1.5 text-[11px] text-[var(--metin-ikincil)]">
                 Bu demo varlık ID&apos;si UUID olmadığı için çekirdek RPC canlı kayıt döndürmeyebilir; yine de çekirdek çağrı akışı tetiklenir.
               </p>
             ) : null}
             {actionMessage ? (
               <p
                 data-testid="bid-action-message"
-                className={`rounded-md border px-2 py-1.5 text-[11px] ${
-                  actionMessage.tone === "success"
-                    ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-100"
-                    : actionMessage.tone === "error"
-                      ? "border-rose-500/35 bg-rose-500/10 text-rose-100"
-                      : "border-cyan-500/35 bg-cyan-500/10 text-cyan-100"
-                }`}
+                className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-1.5 text-[11px]"
+                style={{
+                  color:
+                    actionMessage.tone === "success"
+                      ? "var(--metrik-yesil)"
+                      : actionMessage.tone === "error"
+                        ? "var(--sinyal-turuncu)"
+                        : "var(--metin-ikincil)",
+                }}
               >
                 {actionMessage.text}
               </p>
@@ -466,7 +468,7 @@ export default function BorsaAssetDetailPage() {
         </article>
       </section>
 
-      <section className="borsa-card rounded-xl p-3">
+      <section className="borsa-card rounded-[10px] p-3">
         <div className="mb-3 flex flex-wrap gap-2">
           {[
             { id: "detay", label: "Mülk Detayı", icon: FileText },
@@ -479,7 +481,7 @@ export default function BorsaAssetDetailPage() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id as DetailTab)}
-              className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-1.5 text-xs font-semibold ${activeTab === tab.id ? "border-cyan-400/60 bg-cyan-500/15 text-cyan-100" : "border-slate-700 bg-slate-900/60 text-slate-300"}`}
+              className={`inline-flex items-center gap-1 rounded-[3px] border px-2.5 py-1.5 text-xs font-normal ${activeTab === tab.id ? "border-[var(--metin-ikincil)] bg-[var(--zemin)] text-[var(--metin)]" : "border-[var(--cizgi)] text-[var(--metin-ikincil)]"}`}
             >
               <tab.icon className="h-3.5 w-3.5" /> {tab.label}
             </button>
@@ -488,21 +490,21 @@ export default function BorsaAssetDetailPage() {
 
         {activeTab === "detay" ? (
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 text-sm text-slate-200">
-            <div className="rounded-lg border border-border bg-secondary p-2.5">Brüt/Net m²: <strong>165 / 148</strong></div>
-            <div className="rounded-lg border border-border bg-secondary p-2.5">Kat: <strong>8 / 15</strong></div>
-            <div className="rounded-lg border border-border bg-secondary p-2.5">Tapu: <strong>Kat mülkiyeti</strong></div>
-            <div className="rounded-lg border border-border bg-secondary p-2.5">İmar Notu: <strong>Ticaret + Konut</strong></div>
-            <div className="rounded-lg border border-border bg-secondary p-2.5">Deprem Skoru: <strong>78/100</strong></div>
-            <div className="rounded-lg border border-border bg-secondary p-2.5">Belge Durumu: <strong>Doğrulandı</strong></div>
+            <div className="rounded-[10px] border border-border bg-secondary p-2.5">Brüt/Net m²: <strong>165 / 148</strong></div>
+            <div className="rounded-[10px] border border-border bg-secondary p-2.5">Kat: <strong>8 / 15</strong></div>
+            <div className="rounded-[10px] border border-border bg-secondary p-2.5">Tapu: <strong>Kat mülkiyeti</strong></div>
+            <div className="rounded-[10px] border border-border bg-secondary p-2.5">İmar Notu: <strong>Ticaret + Konut</strong></div>
+            <div className="rounded-[10px] border border-border bg-secondary p-2.5">Deprem Skoru: <strong>78/100</strong></div>
+            <div className="rounded-[10px] border border-border bg-secondary p-2.5">Belge Durumu: <strong>Doğrulandı</strong></div>
           </div>
         ) : null}
 
         {activeTab === "islem" ? (
           <div className="space-y-2">
             {mockTrades.map((trade, idx) => (
-              <div key={`${trade.at}-${idx}`} className="grid grid-cols-[100px_1fr_auto_auto] gap-2 rounded-lg border border-border bg-secondary px-3 py-2 text-xs">
+              <div key={`${trade.at}-${idx}`} className="grid grid-cols-[100px_1fr_auto_auto] gap-2 rounded-[10px] border border-border bg-secondary px-3 py-2 text-xs">
                 <span className="text-slate-400">{trade.at}</span>
-                <span className={trade.side === "buy" ? "text-emerald-300" : "text-rose-300"}>{trade.side === "buy" ? "ALIŞ" : "SATIŞ"}</span>
+                <span style={{ color: trade.side === "buy" ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>{trade.side === "buy" ? "ALIŞ" : "SATIŞ"}</span>
                 <span className="text-white">{formatTry(trade.price)}</span>
                 <span className="text-slate-300">{trade.qty} lot</span>
               </div>
@@ -512,13 +514,13 @@ export default function BorsaAssetDetailPage() {
 
         {activeTab === "degerleme" ? (
           <div className="grid gap-2 md:grid-cols-2">
-            <div className="rounded-lg border border-border bg-secondary p-3 text-sm text-slate-300">
-              <p className="font-semibold text-white">AI Emsal Bandı (Demo)</p>
+            <div className="rounded-[10px] border border-border bg-secondary p-3 text-sm text-slate-300">
+              <p className="font-normal text-white">AI Emsal Bandı (Demo)</p>
               <p className="mt-1">Bölge emsal aralığı: {formatTry(asset.price * 0.93)} - {formatTry(asset.price * 1.08)}</p>
               <p className="mt-1">Likidite skoru: 72/100 · Talep: Yüksek</p>
             </div>
-            <div className="rounded-lg border border-border bg-secondary p-3 text-sm text-slate-300">
-              <p className="font-semibold text-white">Yatırım Notu</p>
+            <div className="rounded-[10px] border border-border bg-secondary p-3 text-sm text-slate-300">
+              <p className="font-normal text-white">Yatırım Notu</p>
               <p className="mt-1">Fiyat, 7g ortalama üst bandına yakın. Açık artırma rekabetinde son dakikada soft-close uzatması beklenebilir.</p>
             </div>
           </div>
@@ -527,8 +529,8 @@ export default function BorsaAssetDetailPage() {
         {activeTab === "belgeler" ? (
           <div className="grid gap-2 sm:grid-cols-2">
             {["Tapu Kaydı", "Ekspertiz PDF", "İmar Durumu", "Deprem Raporu"].map((doc) => (
-              <div key={doc} className="rounded-lg border border-border bg-secondary px-3 py-2 text-sm text-slate-200">
-                {doc} · <span className="text-emerald-300">Hazır (demo)</span>
+              <div key={doc} className="rounded-[10px] border border-border bg-secondary px-3 py-2 text-sm text-slate-200">
+                {doc} · <span style={{ color: "var(--metrik-yesil)" }}>Hazır (demo)</span>
               </div>
             ))}
           </div>
@@ -542,18 +544,18 @@ export default function BorsaAssetDetailPage() {
                 <Link
                   key={item.id}
                   to={`/borsa/varlik/${item.id}`}
-                  className="rounded-lg border border-border bg-secondary p-3 text-sm text-slate-200 hover:border-cyan-400/50"
+                  className="rounded-[10px] border border-border bg-secondary p-3 text-sm text-slate-200 hover:border-[var(--metin-ikincil)]"
                 >
-                  <p className="font-semibold">{item.code}</p>
+                  <p className="font-normal">{item.code}</p>
                   <p className="mt-1 text-xs text-slate-400">{item.property}</p>
-                  <p className="mt-2 font-bold text-white">{formatTry(item.price)}</p>
+                  <p className="mt-2 font-normal text-white">{formatTry(item.price)}</p>
                 </Link>
               ))}
           </div>
         ) : null}
       </section>
 
-      <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-3 py-2.5 text-[11px] leading-relaxed text-amber-100">
+      <section className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2.5 text-[11px] leading-relaxed text-[var(--metin-ikincil)]">
         <p>{PLATFORM_LEGAL_DEFINITION}</p>
         <p className="mt-1">{PSP_FLOW_DISCLAIMER}</p>
         <p className="mt-1">Demo veri ve simülasyon ekranıdır; gerçek işlemde çekirdek teklif/ödeme kuralları geçerlidir.</p>
