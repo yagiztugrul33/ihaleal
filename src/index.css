@@ -93,13 +93,13 @@
   }
 
   .section-heading {
-    @apply font-bold;
+    @apply font-normal;
     color: var(--metin);
     font-family: var(--font-display), "Inter", sans-serif;
   }
 
   .section-subtitle {
-    @apply max-w-2xl text-base sm:text-lg font-medium leading-relaxed;
+    @apply max-w-2xl text-base sm:text-lg font-normal leading-relaxed;
     color: var(--metin-ikincil);
   }
 
@@ -118,7 +118,7 @@
   }
 
   .enterprise-table thead {
-    @apply text-xs font-semibold uppercase tracking-wider;
+    @apply text-xs font-normal uppercase tracking-wider;
     background: var(--zemin-yumusak);
     color: var(--metin-ikincil);
   }
