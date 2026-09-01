@@ -78,21 +78,21 @@ export default function YillikUyelik() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-normal text-white mb-2">Yıllık üyelik</h1>
         {!supabaseReady ? (
-          <div className="mb-6 p-4 rounded-[20px] bg-amber-500/10 border border-amber-500/25 text-amber-200 text-sm">
-            Demo ödeme şu anda pasif. Paket kaydı için <code className="text-amber-100">.env.local</code> ile Supabase yapılandırın.
+          <div className="mb-6 p-4 rounded-[20px] text-sm" style={{ backgroundColor: "var(--durum-uyari-zemin)", border: "1px solid var(--durum-uyari)", color: "var(--durum-uyari)" }}>
+            Demo ödeme şu anda pasif. Paket kaydı için <code style={{ color: "var(--durum-uyari)" }}>.env.local</code> ile Supabase yapılandırın.
           </div>
         ) : null}
         <p className="text-slate-400 mb-8">
-          Demo ödeme: seçtiğiniz paket doğrudan Supabase <code className="text-teal-400/90">memberships</code> tablosuna yazılır (iyzico sonraki sprint).
+          Demo ödeme: seçtiğiniz paket doğrudan Supabase <code className="text-slate-300">memberships</code> tablosuna yazılır (iyzico sonraki sprint).
         </p>
         {error ? (
-          <div className="mb-6 p-4 rounded-[20px] bg-red-500/10 border border-red-500/25 text-red-300 text-sm">{error}</div>
+          <div className="mb-6 p-4 rounded-[20px] text-sm" style={{ backgroundColor: "var(--durum-hata-zemin)", border: "1px solid var(--durum-hata)", color: "var(--durum-hata)" }}>{error}</div>
         ) : null}
         <div className="grid md:grid-cols-3 gap-6">
           {packs.map((p) => (
             <Card
               key={p.id}
-              className={`border-slate-200 bg-slate-900/50 ${p.highlight ? "ring-2 ring-amber-500/40" : ""}`}
+              className="border-slate-200 bg-slate-900/50"
             >
               <CardContent className="p-6 flex flex-col gap-4 h-full">
                 <div>
@@ -104,12 +104,12 @@ export default function YillikUyelik() {
                   type="button"
                   disabled={!supabaseReady || loading !== null}
                   onClick={() => void buy(p.id, p.title)}
-                  className="mt-auto bg-amber-500 hover:bg-amber-400 text-white font-normal"
+                  className="mt-auto font-normal"
                 >
                   {loading === p.title ? "Kaydediliyor..." : "Bu paketi seç"}
                 </Button>
                 <p className="text-[11px] text-slate-600 flex items-start gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500/80 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[var(--metin-ikincil)] shrink-0 mt-0.5" />
                   Giriş zorunlu; kayıt satırı üzerinden üyelik süresi tutulur.
                 </p>
               </CardContent>
