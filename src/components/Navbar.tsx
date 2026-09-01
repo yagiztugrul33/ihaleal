@@ -175,7 +175,7 @@ export function Navbar() {
     {
       title: mm.segmentInvestor,
       items: [
-        { to: ROUTES.AUCTIONS, label: mm.liveAuctions },
+        { to: "/ihaleler", label: mm.liveAuctions },
         { to: "/degerleme", label: mm.aiValuation },
         { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
         { to: "/dashboard/yatirimci", label: mm.investorPanel },
@@ -252,7 +252,7 @@ export function Navbar() {
 
           <div className="nav-desktop-links hidden flex-1 items-center justify-center gap-5 2xl:flex 2xl:gap-6">
             <NavLink
-              to={ROUTES.ILANLAR}
+              to="/ihaleler"
               className={({ isActive }) =>
                 cn(
                   "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
@@ -440,7 +440,7 @@ export function Navbar() {
               </Link>
             </Button>
             <NavLink
-              to={ROUTES.ILANLAR}
+              to="/ihaleler"
               onClick={() => setMobileOpen(false)}
               className="block min-h-11 rounded-[10px] px-3 py-3 text-sm font-normal text-slate-200 no-underline hover:bg-slate-800/50"
             >

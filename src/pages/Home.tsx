@@ -25,7 +25,7 @@ function formatTRY(v: number): string {
 
 // Gerçek ana modüller — her kart tek satır açıklama + rota (tıkla-aç mimari)
 const HOME_MODULES: HomeModule[] = [
-  { title: "İhale Arama", text: "Canlı müzayedeler, kapsamlı arama ve filtreler.", href: ROUTES.AUCTIONS, Icon: Gavel },
+  { title: "İhale Arama", text: "Canlı müzayedeler, kapsamlı arama ve filtreler.", href: "/ihaleler", Icon: Gavel },
   { title: "Gayrimenkul Borsası", text: "Canlı teklif bandı, emir defteri ve fiyat keşfi.", href: ROUTES.BORSA, Icon: TrendingUp },
   { title: "Harita", text: "Tüm ilanları harita üzerinde keşfet.", href: "/harita", Icon: MapPin },
   { title: "Analiz & Raporlar", text: "İhaleal Endeksi, fiyat tahmini ve aylık raporlar.", href: "/analiz", Icon: BarChart3 },

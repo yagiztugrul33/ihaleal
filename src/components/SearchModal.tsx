@@ -9,7 +9,7 @@ type PageCommand = { title: string; href: string; keywords: string; group: strin
 
 const PAGE_COMMANDS: PageCommand[] = [
   { title: "Ana Sayfa", href: "/", keywords: "anasayfa home giris", group: "Sayfa" },
-  { title: "İhale Arama", href: "/auctions", keywords: "ihale arama muzayede auction ilan", group: "Modül" },
+  { title: "İhale Arama", href: "/ihaleler", keywords: "ihale arama muzayede auction ilan", group: "Modül" },
   { title: "Canlı İhaleler", href: "/ihaleler", keywords: "canli ihale muzayede live", group: "Modül" },
   { title: "Gayrimenkul Borsası", href: "/borsa", keywords: "borsa teklif emir defteri fiyat", group: "Modül" },
   { title: "Harita", href: "/harita", keywords: "harita map konum parsel", group: "Modül" },

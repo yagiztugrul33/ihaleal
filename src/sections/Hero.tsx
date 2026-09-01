@@ -62,7 +62,7 @@ export function Hero() {
             <p className="ref-hero-subtitle mt-6 max-w-xl">{h.hero.subtitle}</p>
 
             <motion.div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to={ROUTES.AUCTIONS} className="ref-btn-primary premium-primary-button">
+              <Link to="/ihaleler" className="ref-btn-primary premium-primary-button">
                 {h.hero.ctaExplore}
                 <ArrowRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
               </Link>

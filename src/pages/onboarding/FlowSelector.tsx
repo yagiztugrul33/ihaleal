@@ -61,7 +61,7 @@ export default function FlowSelector() {
         title: ob.buy.title,
         subtitle: ob.buy.subtitle,
         cta: ob.buy.cta,
-        path: "/auctions",
+        path: "/ihaleler",
         Icon: Gavel,
       },
     ],

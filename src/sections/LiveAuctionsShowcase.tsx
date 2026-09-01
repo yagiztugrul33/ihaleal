@@ -49,7 +49,7 @@ export function LiveAuctionsShowcase() {
           <div>
             <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
               <h2 className="ref-section-title">{auctions.title}</h2>
-              <Link to={ROUTES.AUCTIONS} className="ref-link-arrow">
+              <Link to="/ihaleler" className="ref-link-arrow">
                 {auctions.viewAll}
                 <ArrowRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
               </Link>

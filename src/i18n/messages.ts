@@ -1238,7 +1238,7 @@ export const messages: Record<"en" | "tr", Messages> = {
           "AI assistant is temporarily unavailable (quota or configuration pending). Try the quick links below.",
         hints: [
           { label: "How to bid on auctions?", href: "/how-it-works" },
-          { label: "Live auctions", href: "/auctions" },
+          { label: "Live auctions", href: "/ihaleler" },
           { label: "Exchange terminal", href: "/borsa" },
         ],
       },

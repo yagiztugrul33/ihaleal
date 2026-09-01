@@ -114,7 +114,6 @@ const WarRoomPage = lazy(() => import("@/pages/intelligence/WarRoomPage"));
 const RealtorPartnership = lazy(() => import("@/pages/mega/RealtorPartnership"));
 const PasswordReset        = lazy(() => import("@/pages/auth/PasswordReset"));
 const LegalMasterBrief     = lazy(() => import("@/pages/LegalMasterBrief"));
-const AuctionListPage      = lazy(() => import("@/pages/AuctionListPage"));
 const KullanimKosullari    = lazy(() => import("@/pages/legal/KullanimKosullari"));
 const MesafeliSatisSozlesmesi = lazy(() => import("@/pages/legal/MesafeliSatisSozlesmesi"));
 const IadeIptal            = lazy(() => import("@/pages/legal/IadeIptal"));
@@ -224,11 +223,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/arama" element={<SearchResults />} />
             <Route path="/ihaleler" element={<LiveAuctions />} />
-            <Route path={ROUTES.AUCTIONS} element={<AuctionListPage />} />
-            <Route path={ROUTES.ILANLAR} element={<Navigate to={ROUTES.AUCTIONS} replace />} />
-            <Route path="/ilanlar" element={<Navigate to={ROUTES.AUCTIONS} replace />} />
+            {/* /auctions ve /ilanlar, LiveAuctions'ın (aynı Auctions listesini zaten
+                içeren) tekrarıydı — kopya sayfa yerine tek kanonik /ihaleler'e yönlendirir (#14). */}
+            <Route path={ROUTES.AUCTIONS} element={<Navigate to="/ihaleler" replace />} />
+            <Route path={ROUTES.ILANLAR} element={<Navigate to="/ihaleler" replace />} />
+            <Route path="/ilanlar" element={<Navigate to="/ihaleler" replace />} />
             {/* PremiumCinematicHome kategoriler /ilanlar/<kategori> formatında link veriyor — catch-all redirect 404 önler */}
-            <Route path="/ilanlar/:category" element={<Navigate to={ROUTES.AUCTIONS} replace />} />
+            <Route path="/ilanlar/:category" element={<Navigate to="/ihaleler" replace />} />
             <Route path="/ilan/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:id" element={<AuctionDetail />} />
             <Route path="/ihale/:auctionId/hemen-al" element={<BuyNow />} />
