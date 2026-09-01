@@ -69,15 +69,15 @@ export function BorsaAnalyticsDashboard() {
           : "Tablolar boş — borsa_etl edge CC-deploy sonrası dolacak; şimdilik demo grafikler."}
       </p>
 
-      <article className="borsa-card rounded-xl p-3">
-        <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">
+      <article className="borsa-card rounded-[10px] p-3">
+        <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">
           Bölge Endeks Trendi (12 ay)
         </h3>
         <div className="mb-3 flex flex-wrap gap-2 text-xs">
           <select
             value={compareA}
             onChange={(e) => setCompareA(e.target.value as BorsaRegionCode)}
-            className="rounded border border-border bg-secondary px-2 py-1"
+            className="rounded-[3px] border border-border bg-secondary px-2 py-1"
           >
             {BORSA_REGIONS.map((r) => (
               <option key={r.code} value={r.code}>
@@ -89,7 +89,7 @@ export function BorsaAnalyticsDashboard() {
           <select
             value={compareB}
             onChange={(e) => setCompareB(e.target.value as BorsaRegionCode)}
-            className="rounded border border-border bg-secondary px-2 py-1"
+            className="rounded-[3px] border border-border bg-secondary px-2 py-1"
           >
             {BORSA_REGIONS.map((r) => (
               <option key={r.code} value={r.code}>
@@ -106,21 +106,21 @@ export function BorsaAnalyticsDashboard() {
               <YAxis tick={{ fill: "#94a3b8", fontSize: 10 }} />
               <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155" }} />
               <Legend />
-              <Line type="monotone" dataKey={compareA} name={regionLabel(compareA)} stroke="#38bdf8" dot={false} />
-              <Line type="monotone" dataKey={compareB} name={regionLabel(compareB)} stroke="#a78bfa" dot={false} />
+              <Line type="monotone" dataKey={compareA} name={regionLabel(compareA)} stroke="#eeeeee" dot={false} />
+              <Line type="monotone" dataKey={compareB} name={regionLabel(compareB)} stroke="#8a8380" strokeDasharray="5 5" dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>
       </article>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <article className="borsa-card rounded-xl p-3">
+        <article className="borsa-card rounded-[10px] p-3">
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">İşlem Hacmi</h3>
+            <h3 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">İşlem Hacmi</h3>
             <select
               value={volumeRegion}
               onChange={(e) => setVolumeRegion(e.target.value as BorsaRegionCode)}
-              className="rounded border border-border bg-secondary px-2 py-1 text-xs"
+              className="rounded-[3px] border border-border bg-secondary px-2 py-1 text-xs"
             >
               {BORSA_REGIONS.map((r) => (
                 <option key={r.code} value={r.code}>
@@ -136,22 +136,22 @@ export function BorsaAnalyticsDashboard() {
                 <XAxis dataKey="date" tick={{ fill: "#94a3b8", fontSize: 10 }} />
                 <YAxis tick={{ fill: "#94a3b8", fontSize: 10 }} />
                 <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155" }} />
-                <Bar dataKey="hacim" name="Hacim (M₺)" fill="#22d3ee" />
+                <Bar dataKey="hacim" name="Hacim (M₺)" fill="#8a8380" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </article>
 
-        <article className="borsa-card rounded-xl p-3">
-          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bölge Sıralaması</h3>
+        <article className="borsa-card rounded-[10px] p-3">
+          <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Bölge Sıralaması</h3>
           <div className="space-y-2">
             {rankings.map((r) => (
               <div
                 key={r.regionCode}
-                className="flex items-center justify-between rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs"
+                className="flex items-center justify-between rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs"
               >
-                <span className="font-semibold text-slate-100">{regionLabel(r.regionCode)}</span>
-                <span className={cn("font-mono", r.changePct >= 0 ? "text-emerald-300" : "text-rose-300")}>
+                <span className="font-normal text-slate-100">{regionLabel(r.regionCode)}</span>
+                <span className="font-mono" style={{ color: r.changePct >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                   {r.changePct >= 0 ? "+" : ""}
                   {r.changePct.toFixed(2)}%
                 </span>
@@ -163,9 +163,9 @@ export function BorsaAnalyticsDashboard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <article className="borsa-card rounded-xl p-3">
-          <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.13em] text-emerald-200">
-            <TrendingUp className="h-4 w-4" /> En çok değerlenen
+        <article className="borsa-card rounded-[10px] p-3">
+          <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">
+            <TrendingUp className="h-4 w-4" style={{ color: "var(--metrik-yesil)" }} /> En çok değerlenen
           </h3>
           <ul className="space-y-1 text-xs text-slate-300">
             {topRisers.map((r) => (
@@ -176,9 +176,9 @@ export function BorsaAnalyticsDashboard() {
             {!topRisers.length && <li className="text-slate-500">Veri bekleniyor</li>}
           </ul>
         </article>
-        <article className="borsa-card rounded-xl p-3">
-          <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.13em] text-amber-200">
-            <TrendingDown className="h-4 w-4" /> Fırsat bölgeleri
+        <article className="borsa-card rounded-[10px] p-3">
+          <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">
+            <TrendingDown className="h-4 w-4" style={{ color: "var(--sinyal-turuncu)" }} /> Fırsat bölgeleri
           </h3>
           <ul className="space-y-1 text-xs text-slate-300">
             {opportunities.map((r) => (
