@@ -154,13 +154,13 @@ export default function BorsaCityLanding() {
         />
 
         {/* HERO */}
-        <div className="mb-6 rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 via-slate-900/60 to-violet-500/5 p-6 md:p-8">
+        <div className="mb-6 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6 md:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-3">
+              <div className="inline-flex items-center gap-2 rounded-[3px] border border-[var(--cizgi)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-3">
                 <MapPin className="h-3.5 w-3.5" /> Borsa şehir endeksi
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-white">
+              <h1 className="text-3xl md:text-4xl font-normal text-white">
                 {province.name} Gayrimenkul Endeksi
               </h1>
               <p className="mt-2 text-sm text-slate-400 max-w-xl">
@@ -176,14 +176,12 @@ export default function BorsaCityLanding() {
               ) : index ? (
                 <>
                   <div className="text-xs text-slate-400 uppercase tracking-wider mb-1">Endeks</div>
-                  <div className="text-3xl md:text-4xl font-bold text-cyan-200">
+                  <div className="text-3xl md:text-4xl font-normal text-white">
                     {index.indexValue.toLocaleString("tr-TR")}
                   </div>
                   <div className={cn(
-                    "inline-flex items-center gap-1 mt-1 text-sm font-semibold",
-                    index.changePct > 0 ? "text-emerald-400" :
-                    index.changePct < 0 ? "text-red-400" : "text-slate-400",
-                  )}>
+                    "inline-flex items-center gap-1 mt-1 text-sm font-normal",
+                  )} style={{ color: index.changePct > 0 ? "var(--metrik-yesil)" : index.changePct < 0 ? "var(--sinyal-turuncu)" : "var(--metin-ikincil)" }}>
                     {index.changePct > 0 ? <TrendingUp className="w-4 h-4" /> :
                       index.changePct < 0 ? <TrendingDown className="w-4 h-4" /> :
                       <Minus className="w-4 h-4" />}
@@ -206,12 +204,12 @@ export default function BorsaCityLanding() {
         <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="rounded-lg bg-cyan-500/15 p-2.5">
-                <Activity className="w-5 h-5 text-cyan-300" />
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] p-2.5">
+                <Activity className="w-5 h-5 text-[var(--metin-ikincil)]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] uppercase tracking-wider text-slate-500">Ort. ₺/m² (ilanlardan)</p>
-                <p className="text-xl font-bold text-white">
+                <p className="text-xl font-normal text-white">
                   {stats.avgPricePerSqm > 0 ? `₺${stats.avgPricePerSqm.toLocaleString("tr-TR")}` : "—"}
                 </p>
                 {regional?.salePerM2 ? (
@@ -223,12 +221,12 @@ export default function BorsaCityLanding() {
 
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="rounded-lg bg-emerald-500/15 p-2.5">
-                <Home className="w-5 h-5 text-emerald-300" />
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] p-2.5">
+                <Home className="w-5 h-5 text-[var(--metin-ikincil)]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] uppercase tracking-wider text-slate-500">Aktif ilan</p>
-                <p className="text-xl font-bold text-white">{stats.count.toLocaleString("tr-TR")}</p>
+                <p className="text-xl font-normal text-white">{stats.count.toLocaleString("tr-TR")}</p>
                 <p className="text-[10px] text-slate-500">{province.name} bölgesinde</p>
               </div>
             </CardContent>
@@ -236,12 +234,12 @@ export default function BorsaCityLanding() {
 
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="rounded-lg bg-amber-500/15 p-2.5">
-                <Gavel className="w-5 h-5 text-amber-300" />
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] p-2.5">
+                <Gavel className="w-5 h-5 text-[var(--metin-ikincil)]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] uppercase tracking-wider text-slate-500">Canlı ihale</p>
-                <p className="text-xl font-bold text-white">{stats.liveAuctions.toLocaleString("tr-TR")}</p>
+                <p className="text-xl font-normal text-white">{stats.liveAuctions.toLocaleString("tr-TR")}</p>
                 <p className="text-[10px] text-slate-500">devam eden</p>
               </div>
             </CardContent>
@@ -249,12 +247,12 @@ export default function BorsaCityLanding() {
 
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="rounded-lg bg-violet-500/15 p-2.5">
-                <Building2 className="w-5 h-5 text-violet-300" />
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] p-2.5">
+                <Building2 className="w-5 h-5 text-[var(--metin-ikincil)]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] uppercase tracking-wider text-slate-500">Ort. ilan fiyatı</p>
-                <p className="text-xl font-bold text-white">
+                <p className="text-xl font-normal text-white">
                   {stats.avgPrice > 0 ? formatTRY(stats.avgPrice) : "—"}
                 </p>
                 <p className="text-[10px] text-slate-500">geçerli teklif/listing</p>
@@ -269,8 +267,8 @@ export default function BorsaCityLanding() {
           <Card className="bg-slate-900/50 border-slate-200/80" data-testid="trend-chart">
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-cyan-300" /> 6 Aylık Endeks Trendi
+                <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-[var(--metin-ikincil)]" /> 6 Aylık Endeks Trendi
                 </h3>
                 <span className="text-[10px] text-slate-500">Aylık değer</span>
               </div>
@@ -288,7 +286,7 @@ export default function BorsaCityLanding() {
                           <div
                             className={cn(
                               "w-full rounded-t transition-all",
-                              isLatest ? "bg-emerald-400" : "bg-slate-700",
+                              isLatest ? "bg-white" : "bg-slate-700",
                             )}
                             style={{ height: `${pct * 100}%` }}
                             title={`${v.toLocaleString("tr-TR")} endeks`}
@@ -299,7 +297,7 @@ export default function BorsaCityLanding() {
                   </div>
                   <div className="flex justify-between text-[10px] text-slate-500">
                     {[5, 4, 3, 2, 1, 0].map((m, i) => (
-                      <span key={m} className={i === 5 ? "text-emerald-400 font-semibold" : ""}>
+                      <span key={m} className={i === 5 ? "text-white font-normal" : ""}>
                         {m === 0 ? "Şu an" : `${m}ay önce`}
                       </span>
                     ))}
@@ -316,8 +314,8 @@ export default function BorsaCityLanding() {
           {/* İlçe tablo */}
           <Card className="bg-slate-900/50 border-slate-200/80" data-testid="district-table">
             <CardContent className="p-5">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2 mb-3">
-                <MapPin className="w-4 h-4 text-amber-300" /> İlçe Bazlı Veri
+              <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 flex items-center gap-2 mb-3">
+                <MapPin className="w-4 h-4 text-[var(--metin-ikincil)]" /> İlçe Bazlı Veri
               </h3>
               {districts.length === 0 ? (
                 <p className="text-xs text-slate-500 py-6 text-center">
@@ -328,10 +326,10 @@ export default function BorsaCityLanding() {
                   {districts.map((d) => (
                     <div
                       key={d.name}
-                      className="rounded-lg border border-slate-700/40 bg-slate-950/40 p-2.5 flex items-center justify-between gap-2 hover:border-cyan-400/30 transition-colors"
+                      className="rounded-[10px] border border-slate-700/40 bg-slate-950/40 p-2.5 flex items-center justify-between gap-2 hover:border-[var(--metin-ikincil)] transition-colors"
                     >
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-white truncate">{d.name}</p>
+                        <p className="text-sm font-normal text-white truncate">{d.name}</p>
                         <p className="text-[10px] text-slate-500">
                           {d.count > 0 ? `${d.count} ilan` : "İlan yok"}
                           {d.regionalSalePerM2 ? ` · Bölge baz ₺${d.regionalSalePerM2.toLocaleString("tr-TR")}/m²` : ""}
@@ -339,7 +337,7 @@ export default function BorsaCityLanding() {
                       </div>
                       {d.avgPricePerSqm > 0 ? (
                         <div className="text-end">
-                          <p className="text-xs text-cyan-300 font-semibold">₺{d.avgPricePerSqm.toLocaleString("tr-TR")}</p>
+                          <p className="text-xs text-white font-normal">₺{d.avgPricePerSqm.toLocaleString("tr-TR")}</p>
                           <p className="text-[10px] text-slate-500">ort. ₺/m²</p>
                         </div>
                       ) : null}
@@ -381,8 +379,8 @@ export default function BorsaCityLanding() {
         {/* İLAN GRİDİ */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-cyan-400" /> {province.name}'de Öne Çıkan İlanlar
+            <h2 className="text-lg font-normal text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-[var(--metin-ikincil)]" /> {province.name}'de Öne Çıkan İlanlar
             </h2>
             {cityListings.length > 0 ? (
               <span className="text-xs text-slate-500">{cityListings.length} ilan</span>
@@ -404,16 +402,12 @@ export default function BorsaCityLanding() {
           ) : (
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {cityListings.slice(0, 9).map((a) => {
-                const statusColor =
-                  a.status === "live" ? "bg-emerald-500/20 text-emerald-200 border-emerald-400/40" :
-                  a.status === "upcoming" ? "bg-cyan-500/20 text-cyan-200 border-cyan-400/40" :
-                  "bg-slate-700/60 text-slate-300 border-slate-500/40";
                 const statusLabel = a.status === "live" ? "Canlı" : a.status === "upcoming" ? "Yaklaşan" : "Bitti";
                 return (
                   <Link
                     key={a.id}
                     to={`/ilan/${a.id}`}
-                    className="group rounded-2xl border border-white/10 bg-slate-900/40 overflow-hidden hover:border-cyan-400/40 transition-colors"
+                    className="group rounded-[20px] border border-white/10 bg-slate-900/40 overflow-hidden hover:border-[var(--metin-ikincil)] transition-colors"
                   >
                     <div className="relative aspect-[16/10] bg-slate-800 overflow-hidden">
                       <img
@@ -422,7 +416,12 @@ export default function BorsaCityLanding() {
                         alt={a.title}
                         className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
                       />
-                      <span className={cn("absolute top-2 end-2 inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold", statusColor)}>
+                      <span className="absolute top-2 end-2 inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-[10px] font-normal text-[var(--metin)]">
+                        <span
+                          className="inline-block h-1.5 w-1.5 rounded-full"
+                          style={{ background: a.status === "live" ? "var(--sinyal-turuncu)" : "var(--metin-ikincil)" }}
+                          aria-hidden
+                        />
                         {statusLabel}
                       </span>
                     </div>
@@ -431,9 +430,9 @@ export default function BorsaCityLanding() {
                         <MapPin className="w-3 h-3" />
                         <span className="truncate">{a.district}, {a.city}</span>
                       </div>
-                      <h3 className="font-semibold text-white text-sm line-clamp-2 leading-snug">{a.title}</h3>
+                      <h3 className="font-normal text-white text-sm line-clamp-2 leading-snug">{a.title}</h3>
                       <div className="flex items-center justify-between pt-1">
-                        <span className="text-sm font-bold text-blue-400">{formatTRY(a.currentBid)}</span>
+                        <span className="text-sm font-normal text-white">{formatTRY(a.currentBid)}</span>
                         {a.propertyDetails?.grossSqm ? (
                           <span className="text-[10px] text-slate-500">{a.propertyDetails.grossSqm} m²</span>
                         ) : null}
@@ -446,7 +445,7 @@ export default function BorsaCityLanding() {
           )}
           {cityListings.length > 9 ? (
             <div className="mt-4 text-center">
-              <Button asChild variant="outline" className="border-cyan-400/40 text-cyan-200 hover:bg-cyan-500/10">
+              <Button asChild variant="outline">
                 <Link to={`/arama?city=${province.name}`}>
                   Tümünü gör ({cityListings.length}) <ChevronRight className="rtl:rotate-180 w-4 h-4 ms-1" />
                 </Link>
@@ -456,14 +455,14 @@ export default function BorsaCityLanding() {
         </section>
 
         {/* DİĞER ŞEHİRLERE GEÇİŞ */}
-        <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-3">Diğer Büyük Şehirler</h3>
+        <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
+          <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 mb-3">Diğer Büyük Şehirler</h3>
           <div className="flex flex-wrap gap-2">
             {CITY_OPTIONS.filter((c) => c.value !== cityKey).slice(0, 9).map((c) => (
               <Link
                 key={c.value}
                 to={`/borsa/sehir/${c.value}`}
-                className="inline-flex items-center gap-1 rounded-full border border-slate-700/60 bg-slate-950/40 px-3 py-1.5 text-xs text-slate-200 hover:border-cyan-400/40 hover:text-cyan-200 transition-colors"
+                className="inline-flex items-center gap-1 rounded-[3px] border border-slate-700/60 bg-slate-950/40 px-3 py-1.5 text-xs text-slate-200 hover:border-[var(--metin-ikincil)] hover:text-[var(--metin)] transition-colors"
               >
                 <MapPin className="w-3 h-3" /> {c.label}
               </Link>
