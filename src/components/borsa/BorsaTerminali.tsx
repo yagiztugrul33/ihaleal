@@ -207,9 +207,9 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         {/* 3. ORDER BOOK */}
         <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4 overflow-hidden">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] flex items-center gap-2">
+            <h3 className="text-sm font-normal text-[var(--metin-ikincil)] flex items-center gap-2">
               <Activity className="h-4 w-4" /> ORDER BOOK
-            </h2>
+            </h3>
             <span className="text-xs text-slate-500">Bitmeye yakın · top 8</span>
           </div>
           <div className="overflow-x-auto">
@@ -266,9 +266,9 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         <div className="grid lg:grid-cols-2 gap-4">
           {/* HEAT MAP */}
           <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <MapPin className="h-4 w-4" /> BÖLGE HEAT MAP
-            </h2>
+            </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {regionHeat.slice(0, 9).map((r) => {
                 const bg =
@@ -310,9 +310,9 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
 
           {/* TOP MOVERS */}
           <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <TrendingUp className="h-4 w-4" /> TOP MOVERS
-            </h2>
+            </h3>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <p className="text-xs font-normal text-[var(--metin-ikincil)] mb-1 flex items-center gap-1">
@@ -366,10 +366,10 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* TEKLİF AKIŞI */}
           <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <Radio className="h-4 w-4 animate-pulse" /> CANLI TEKLİF AKIŞI
               <span className="ms-auto text-[10px] text-slate-500">sealed · anonim</span>
-            </h2>
+            </h3>
             <ul className="space-y-2 text-xs">
               {feedItems.map((f) => (
                 <li
@@ -393,9 +393,9 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
 
           {/* AI SİNYALLER + bitmeye yakın */}
           <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-4">
-            <h2 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
+            <h3 className="text-sm font-normal text-[var(--metin-ikincil)] mb-3 flex items-center gap-2">
               <Zap className="h-4 w-4" /> AI YATIRIM SİNYALLERİ
-            </h2>
+            </h3>
             <ul className="space-y-2 text-xs">
               {aiSignals.length === 0 ? (
                 <li className="text-slate-500 italic">
