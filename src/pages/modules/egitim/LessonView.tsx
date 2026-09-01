@@ -62,11 +62,11 @@ export function LessonView({ lesson }: { lesson: LessonDefinition }) {
       iconAccent="text-emerald-300"
     >
       <ModulePanel title="Ders videosu (demo)">
-        <div className="relative aspect-video overflow-hidden rounded-xl border border-white/15 bg-slate-950">
+        <div className="relative aspect-video overflow-hidden rounded-[20px] border border-white/15 bg-slate-950">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_20%,rgba(56,189,248,0.36),transparent_42%),radial-gradient(circle_at_78%_72%,rgba(59,130,246,0.22),transparent_45%),linear-gradient(145deg,#020617_0%,#0b1b34_60%,#0f2f5f_100%)]" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-200">
             <PlayCircle className="h-10 w-10 text-cyan-200" aria-hidden />
-            <p className="text-sm font-semibold">Ders video özeti (demo)</p>
+            <p className="text-sm font-normal">Ders video özeti (demo)</p>
             <p className="text-xs text-slate-300/90">Tam içerik lansman öncesi eğitim stüdyosunda yayınlanacaktır.</p>
           </div>
         </div>
@@ -83,8 +83,8 @@ export function LessonView({ lesson }: { lesson: LessonDefinition }) {
       <ModulePanel title="Quiz — 5 soru">
         <div className="space-y-4">
           {lesson.quiz.map((q, qi) => (
-            <fieldset key={q.id} className="rounded-lg border border-white/10 p-3">
-              <legend className="px-1 text-sm font-semibold text-white">
+            <fieldset key={q.id} className="rounded-[10px] border border-white/10 p-3">
+              <legend className="px-1 text-sm font-normal text-white">
                 {qi + 1}. {q.question}
               </legend>
               <div className="mt-2 space-y-2">

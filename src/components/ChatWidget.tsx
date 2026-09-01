@@ -571,9 +571,9 @@ export function ChatWidget() {
                 </div>
                 <div className="p-3 rounded-[10px] bg-[var(--zemin-yumusak)] border border-[var(--cizgi)]">
                   <div className="flex gap-1.5 items-center h-4">
-                    <span className="w-1.5 h-1.5 rounded-sm bg-[var(--metin-ikincil)] opacity-70 motion-safe:animate-pulse" />
-                    <span className="w-1.5 h-1.5 rounded-sm bg-[var(--metin-ikincil)] opacity-50 motion-safe:animate-pulse [animation-delay:120ms]" />
-                    <span className="w-1.5 h-1.5 rounded-sm bg-[var(--metin-ikincil)] opacity-35 motion-safe:animate-pulse [animation-delay:240ms]" />
+                    <span className="w-1.5 h-1.5 rounded-[3px] bg-[var(--metin-ikincil)] opacity-70 motion-safe:animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-[3px] bg-[var(--metin-ikincil)] opacity-50 motion-safe:animate-pulse [animation-delay:120ms]" />
+                    <span className="w-1.5 h-1.5 rounded-[3px] bg-[var(--metin-ikincil)] opacity-35 motion-safe:animate-pulse [animation-delay:240ms]" />
                   </div>
                 </div>
               </div>

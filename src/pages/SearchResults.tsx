@@ -270,7 +270,7 @@ export default function SearchResults() {
   const FilterPanel = (
     <aside className="space-y-4 text-sm" aria-label="Arama filtreleri">
       <section>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Mülk Tipi</h3>
+        <h3 className="text-xs font-normal uppercase tracking-wider text-slate-400 mb-2">Mülk Tipi</h3>
         <div className="space-y-1">
           {PROPERTY_TYPES.map((t) => (
             <label key={t.key} className="flex items-center gap-2 text-slate-200 cursor-pointer hover:text-white">
@@ -287,11 +287,11 @@ export default function SearchResults() {
       </section>
 
       <section>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Konum</h3>
+        <h3 className="text-xs font-normal uppercase tracking-wider text-slate-400 mb-2">Konum</h3>
         <select
           value={city}
           onChange={(e) => patchParams({ city: e.target.value || undefined, district: undefined, page: undefined })}
-          className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-white mb-2"
+          className="w-full rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-white mb-2"
           aria-label="İl"
         >
           <option value="">Tüm iller</option>
@@ -301,7 +301,7 @@ export default function SearchResults() {
           value={district}
           onChange={(e) => patchParams({ district: e.target.value || undefined, page: undefined })}
           disabled={!city || districtOptions.length === 0}
-          className="w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-white disabled:opacity-50"
+          className="w-full rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-white disabled:opacity-50"
           aria-label="İlçe"
         >
           <option value="">{city ? "Tüm ilçeler" : "Önce il seçin"}</option>
@@ -310,14 +310,14 @@ export default function SearchResults() {
       </section>
 
       <section>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Fiyat (₺)</h3>
+        <h3 className="text-xs font-normal uppercase tracking-wider text-slate-400 mb-2">Fiyat (₺)</h3>
         <div className="grid grid-cols-2 gap-2">
           <input
             type="number" min={0} step={100000}
             value={priceMin ?? ""}
             onChange={(e) => patchParams({ pmin: e.target.value || undefined, page: undefined })}
             placeholder="Min"
-            className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-white"
+            className="rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-white"
             aria-label="Minimum fiyat"
           />
           <input
@@ -325,7 +325,7 @@ export default function SearchResults() {
             value={priceMax ?? ""}
             onChange={(e) => patchParams({ pmax: e.target.value || undefined, page: undefined })}
             placeholder="Max"
-            className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-white"
+            className="rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-white"
             aria-label="Maksimum fiyat"
           />
         </div>
@@ -335,7 +335,7 @@ export default function SearchResults() {
         type="button"
         onClick={() => setAdvancedOpen((v) => !v)}
         aria-expanded={advancedOpen}
-        className="flex w-full items-center justify-between rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white"
+        className="flex w-full items-center justify-between rounded-[10px] border border-white/10 bg-slate-950/60 px-3 py-2 text-xs font-normal uppercase tracking-wider text-slate-300 hover:text-white"
         data-testid="advanced-filters-toggle"
       >
         <span className="flex items-center gap-1.5">
@@ -347,14 +347,14 @@ export default function SearchResults() {
 
       {advancedOpen ? (<>
       <section>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Alan (m²)</h3>
+        <h3 className="text-xs font-normal uppercase tracking-wider text-slate-400 mb-2">Alan (m²)</h3>
         <div className="grid grid-cols-2 gap-2">
           <input
             type="number" min={0} step={10}
             value={sqmMin ?? ""}
             onChange={(e) => patchParams({ smin: e.target.value || undefined, page: undefined })}
             placeholder="Min"
-            className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-white"
+            className="rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-white"
             aria-label="Minimum m²"
           />
           <input
@@ -362,14 +362,14 @@ export default function SearchResults() {
             value={sqmMax ?? ""}
             onChange={(e) => patchParams({ smax: e.target.value || undefined, page: undefined })}
             placeholder="Max"
-            className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-white"
+            className="rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-white"
             aria-label="Maksimum m²"
           />
         </div>
       </section>
 
       <section>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1">
+        <h3 className="text-xs font-normal uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1">
           <Gavel className="w-3.5 h-3.5 text-amber-400" /> İhale Tipi
         </h3>
         <div className="space-y-1">
@@ -389,7 +389,7 @@ export default function SearchResults() {
       </section>
 
       <section>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">İhale Durumu</h3>
+        <h3 className="text-xs font-normal uppercase tracking-wider text-slate-400 mb-2">İhale Durumu</h3>
         <div className="space-y-1">
           {AUCTION_STATUS.map((s) => (
             <label key={s.key} className="flex items-center gap-2 text-slate-200 cursor-pointer hover:text-white">
@@ -425,7 +425,7 @@ export default function SearchResults() {
         key={`${auction.id}-${auction.title}`}
         type="button"
         onClick={() => navigate(`/ilan/${auction.id}`)}
-        className="group text-start rounded-2xl border border-white/10 bg-slate-900/40 hover:border-blue-500/40 hover:bg-slate-900/70 transition-all overflow-hidden flex flex-col"
+        className="group text-start rounded-[20px] border border-white/10 bg-slate-900/40 hover:border-blue-500/40 hover:bg-slate-900/70 transition-all overflow-hidden flex flex-col"
       >
         <div className="relative aspect-[16/10] bg-slate-800 overflow-hidden">
           <img
@@ -435,12 +435,12 @@ export default function SearchResults() {
             className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
           />
           {modeDef ? (
-            <span className="absolute top-2 start-2 inline-flex items-center gap-1 rounded-md bg-slate-950/85 backdrop-blur px-2 py-1 text-[10px] font-semibold text-amber-200 border border-amber-400/30">
+            <span className="absolute top-2 start-2 inline-flex items-center gap-1 rounded-[3px] bg-slate-950/85 backdrop-blur px-2 py-1 text-[10px] font-normal text-amber-200 border border-amber-400/30">
               <modeDef.icon className="w-3 h-3" /> {modeDef.label}
             </span>
           ) : null}
           <span className={cn(
-            "absolute top-2 end-2 inline-flex items-center rounded-md px-2 py-1 text-[10px] font-semibold backdrop-blur",
+            "absolute top-2 end-2 inline-flex items-center rounded-[3px] px-2 py-1 text-[10px] font-normal backdrop-blur",
             auction.status === "live" ? "bg-emerald-500/20 text-emerald-200 border border-emerald-400/40" :
             auction.status === "upcoming" ? "bg-cyan-500/20 text-cyan-200 border border-cyan-400/40" :
             "bg-slate-700/60 text-slate-300 border border-slate-500/40",
@@ -453,13 +453,13 @@ export default function SearchResults() {
             <ListingNumberBadge auction={auction} compact />
             <span className="text-[10px] uppercase tracking-wider text-slate-500">{PROPERTY_TYPES.find((t) => t.key === ptype)?.label}</span>
           </div>
-          <h3 className="font-semibold text-white text-sm leading-snug line-clamp-2">{auction.title}</h3>
+          <h3 className="font-normal text-white text-sm leading-snug line-clamp-2">{auction.title}</h3>
           <div className="flex items-center gap-1 text-xs text-slate-400">
             <MapPin className="w-3 h-3 flex-shrink-0" />
             <span className="truncate">{auction.district}, {auction.city}</span>
           </div>
           <div className="flex items-center justify-between mt-auto pt-2">
-            <div className="text-base font-bold text-blue-400">{formatTRY(auction.currentBid)}</div>
+            <div className="text-base font-normal text-blue-400">{formatTRY(auction.currentBid)}</div>
             {sqm ? <div className="text-xs text-slate-400">{sqm} m²</div> : null}
           </div>
         </div>
@@ -484,7 +484,7 @@ export default function SearchResults() {
           ]}
         />
 
-        <h1 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3 mb-2">
+        <h1 className="text-2xl md:text-3xl font-normal text-white flex items-center gap-3 mb-2">
           <Search className="w-8 h-8 text-blue-400" />
           İlan arama
         </h1>
@@ -503,7 +503,7 @@ export default function SearchResults() {
             }}
             placeholder="Şehir, ilçe, başlık veya ilan no (ILN-...)"
           />
-          <Button type="submit" className="[background:var(--gradient-cta)] text-white font-semibold h-11 px-6">
+          <Button type="submit" className="[background:var(--gradient-cta)] text-white font-normal h-11 px-6">
             Ara
           </Button>
         </form>
@@ -523,7 +523,7 @@ export default function SearchResults() {
               <SlidersHorizontal className="w-4 h-4" />
               Filtreler {activeFilterCount > 0 ? `(${activeFilterCount})` : null}
             </Button>
-            <div className="inline-flex rounded-lg border border-white/10 bg-slate-950 p-0.5">
+            <div className="inline-flex rounded-[10px] border border-white/10 bg-slate-950 p-0.5">
               {[
                 { key: "grid" as const, label: "Kart", icon: Grid3x3 },
                 { key: "list" as const, label: "Liste", icon: Home },
@@ -534,7 +534,7 @@ export default function SearchResults() {
                   type="button"
                   onClick={() => patchParams({ view: v.key === "grid" ? undefined : v.key })}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors",
+                    "inline-flex items-center gap-1.5 rounded-[3px] px-2.5 py-1.5 text-xs font-normal transition-colors",
                     viewMode === v.key ? "bg-blue-500/20 text-blue-200" : "text-slate-400 hover:text-white",
                   )}
                   aria-pressed={viewMode === v.key}
@@ -550,7 +550,7 @@ export default function SearchResults() {
               <select
                 value={sortKey}
                 onChange={(e) => patchParams({ sort: e.target.value === "relevance" ? undefined : e.target.value, page: "1" })}
-                className="rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white"
+                className="rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white"
                 aria-label="Sıralama"
               >
                 <option value="relevance">İlgililik</option>
@@ -588,7 +588,7 @@ export default function SearchResults() {
           <div
             id="search-filters"
             className={cn(
-              "rounded-2xl border border-white/10 bg-slate-900/40 p-4 sticky top-24 self-start",
+              "rounded-[20px] border border-white/10 bg-slate-900/40 p-4 sticky top-24 self-start",
               filtersOpen ? "block" : "hidden lg:block",
             )}
           >
@@ -613,7 +613,7 @@ export default function SearchResults() {
             />
 
             {catalogError ? (
-              <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+              <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
                 {catalogError}
               </p>
             ) : null}
@@ -626,8 +626,8 @@ export default function SearchResults() {
                 description="Anahtar kelime girin, mülk tipi/konum seçin veya harita üzerinde alan çizin."
               />
             ) : sortedResults.length === 0 ? (
-              <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-8 text-center">
-                <h2 className="text-lg font-semibold text-white mb-2">Bu kriterlerle eşleşen ilan bulunamadı</h2>
+              <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-8 text-center">
+                <h2 className="text-lg font-normal text-white mb-2">Bu kriterlerle eşleşen ilan bulunamadı</h2>
                 <p className="text-sm text-slate-400 mb-5 max-w-md mx-auto">
                   Filtreleri biraz gevşetmeyi deneyin: fiyat veya m² aralığını genişletin, daha az mülk tipi seçin
                   ya da konum filtresini kaldırın.

@@ -88,17 +88,17 @@ export default function BuyNow() {
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
-        <div className="rounded-2xl border border-cyan-400/20 bg-white/90 backdrop-blur-xl p-6 shadow-xl space-y-4">
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
+        <div className="rounded-[20px] border border-cyan-400/20 bg-white/90 backdrop-blur-xl p-6 shadow-xl space-y-4">
+          <h1 className="text-xl font-normal text-white flex items-center gap-2">
             <Shield className="w-6 h-6 text-cyan-400" />
             Hemen Al
           </h1>
-          <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
+          <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-[10px] px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
           <p className="text-sm text-slate-400 leading-relaxed">{HEMEN_AL_GATE_INTRO}</p>
-          <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3 space-y-2 text-xs text-slate-400">
-            <p className="font-semibold text-emerald-200">MASAK / AML</p>
+          <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3 space-y-2 text-xs text-slate-400">
+            <p className="font-normal text-emerald-200">MASAK / AML</p>
             <p className="leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
-            <p className="font-semibold text-cyan-200 pt-2">Kart güvenliği</p>
+            <p className="font-normal text-cyan-200 pt-2">Kart güvenliği</p>
             <p className="leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
             <p className="leading-relaxed pt-1">{HEMEN_AL_DOCS_BLOCK}</p>
             <div className="flex flex-wrap gap-2 pt-2">
@@ -139,7 +139,7 @@ export default function BuyNow() {
               <Button
                 type="button"
                 size="sm"
-                className="[background:var(--gradient-cta)] text-white font-bold"
+                className="[background:var(--gradient-cta)] text-white font-normal"
                 onClick={() => navigate("/kyc")}
               >
                 KYC Doğrulamayı Tamamla

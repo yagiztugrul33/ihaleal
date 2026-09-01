@@ -27,7 +27,7 @@ export default function BlogIndex() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl">
-        <h1 className="mb-2 text-3xl font-bold text-white">Blog</h1>
+        <h1 className="mb-2 text-3xl font-normal text-white">Blog</h1>
         <p className="mb-8 text-sm text-slate-400">
           {MEGA_BLOG_POSTS.length} yazı; kategori ve arama ile süzün. Okuma süreleri tahminidir.
         </p>
@@ -69,10 +69,10 @@ export default function BlogIndex() {
                       {mins} dk
                     </span>
                     {p.is_demo_content ? (
-                      <span className="rounded bg-slate-800 px-2 py-0.5 text-[10px] uppercase text-slate-400">demo içerik</span>
+                      <span className="rounded-[3px] bg-slate-800 px-2 py-0.5 text-[10px] uppercase text-slate-400">demo içerik</span>
                     ) : null}
                   </div>
-                  <Link to={`/blog/${p.slug}`} className="text-xl font-semibold text-white hover:text-teal-400">
+                  <Link to={`/blog/${p.slug}`} className="text-xl font-normal text-white hover:text-teal-400">
                     {p.title}
                   </Link>
                   <p className="mt-2 text-sm text-slate-400">{p.excerpt}</p>

@@ -23,7 +23,7 @@ export function SellerAnalyticsPanel() {
       {data.listings.length > 0 ? (
         <Card className="border-white/10 bg-white/[0.03]">
           <CardContent className="p-4">
-            <h3 className="mb-3 text-sm font-semibold text-white">İlan bazlı özet</h3>
+            <h3 className="mb-3 text-sm font-normal text-white">İlan bazlı özet</h3>
             <ul className="divide-y divide-white/5 text-sm">
               {data.listings.slice(0, 8).map((row) => (
                 <li key={row.id} className="flex flex-wrap items-center justify-between gap-2 py-2">

@@ -25,11 +25,11 @@ export default function FrequentQuestions() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-3xl">
         <div className="mb-10 flex items-start gap-3">
-          <div className="rounded-xl bg-blue-500/15 p-3 text-blue-400">
+          <div className="rounded-[20px] bg-blue-500/15 p-3 text-blue-400">
             <HelpCircle className="h-8 w-8" />
           </div>
           <div className="min-w-0 flex-1">
-            <h1 className="text-3xl font-bold text-white">Sıkça sorulan sorular</h1>
+            <h1 className="text-3xl font-normal text-white">Sıkça sorulan sorular</h1>
             <p className="mt-2 text-sm text-slate-400">
               40 soru, 5 kategori (Hesap/KYC, Üyelik, İhale, Komisyon, Emlakçı). İş modeli: yıllık satıcı/alıcı üyeliği, işlem komisyonu mahsupu ve hizmet bedelleri — liste/abonelik “paketi” satışı yoktur (bilgilendirme).
             </p>
@@ -61,8 +61,8 @@ export default function FrequentQuestions() {
           {visible.map((item) => (
             <Card key={item.id} className="border-slate-200 bg-slate-900/40">
               <CardContent className="p-5">
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-500">#{item.order}</p>
-                <h2 className="mt-1 text-lg font-semibold text-white">{item.question}</h2>
+                <p className="text-xs font-normal uppercase tracking-wide text-slate-500">#{item.order}</p>
+                <h2 className="mt-1 text-lg font-normal text-white">{item.question}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-slate-400">{item.answer}</p>
               </CardContent>
             </Card>

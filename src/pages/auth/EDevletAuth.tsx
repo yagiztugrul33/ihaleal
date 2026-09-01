@@ -22,9 +22,9 @@ export default function EDevletAuth() {
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
-        <div className="rounded-2xl border border-slate-200 bg-slate-900/60 p-6 text-center space-y-4">
+        <div className="rounded-[20px] border border-slate-200 bg-slate-900/60 p-6 text-center space-y-4">
           <ShieldCheck className="w-12 h-12 text-teal-400 mx-auto" />
-          <h1 className="text-xl font-bold text-white">e-Devlet yetkisi (DEMO)</h1>
+          <h1 className="text-xl font-normal text-white">e-Devlet yetkisi (DEMO)</h1>
           {phase === "intro" && (
             <>
               <p className="text-sm text-slate-400">
@@ -44,7 +44,7 @@ export default function EDevletAuth() {
           )}
           {phase === "done" && (
             <div className="space-y-3">
-              <p className="text-emerald-400 font-semibold">Yetki verildi (DEMO)</p>
+              <p className="text-emerald-400 font-normal">Yetki verildi (DEMO)</p>
               <p className="text-xs text-slate-500">Üretimde imza / vekalet / KEP akışı avukat onaylı olmalıdır.</p>
               <Button variant="outline" className="w-full border-white/15" onClick={() => navigate("/onboarding/akis")}>
                 Akış seçimine dön

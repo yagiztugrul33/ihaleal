@@ -189,7 +189,7 @@ export default function LegalHubPage() {
           <p className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-xs text-violet-200 mb-3">
             <Scale className="h-3.5 w-3.5" /> Yasal & Hukuki Altyapı
           </p>
-          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
             <Scale className="h-8 w-8 text-violet-400" />
             Yasal Metinler & Rehberler
           </h1>
@@ -211,7 +211,7 @@ export default function LegalHubPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ara — KVKK, cayma, teminat..."
-              className="w-full ps-10 pe-3 py-2 rounded-lg border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500"
+              className="w-full ps-10 pe-3 py-2 rounded-[10px] border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500"
               aria-label="Yasal metin ara"
             />
           </div>
@@ -221,7 +221,7 @@ export default function LegalHubPage() {
                 key={c}
                 type="button"
                 onClick={() => setFilter(c)}
-                className={`px-3 py-2 rounded-lg text-xs font-medium border ${filter === c ? "bg-violet-600 border-violet-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                className={`px-3 py-2 rounded-[10px] text-xs font-normal border ${filter === c ? "bg-violet-600 border-violet-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
                 aria-pressed={filter === c}
               >
                 {CATEGORY_LABELS[c]}
@@ -246,27 +246,27 @@ export default function LegalHubPage() {
                   key={doc.path}
                   type="button"
                   onClick={() => navigate(doc.path)}
-                  className={`text-start rounded-2xl border ${cls.border} ${cls.bg} p-5 hover:bg-slate-900/80 transition-colors flex flex-col h-full`}
+                  className={`text-start rounded-[20px] border ${cls.border} ${cls.bg} p-5 hover:bg-slate-900/80 transition-colors flex flex-col h-full`}
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <div className={`rounded-lg bg-slate-800/60 p-2 ${cls.icon}`}>
+                    <div className={`rounded-[10px] bg-slate-800/60 p-2 ${cls.icon}`}>
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="flex flex-col gap-1 items-end">
                       {doc.required ? (
-                        <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${cls.pill}`}>
+                        <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-normal ${cls.pill}`}>
                           Zorunlu
                         </span>
                       ) : null}
                       {doc.badge ? (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-2 py-0.5 text-[10px] font-semibold text-amber-100">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-2 py-0.5 text-[10px] font-normal text-amber-100">
                           {doc.badge}
                         </span>
                       ) : null}
                     </div>
                   </div>
 
-                  <h3 className="text-base font-semibold text-white mb-1.5">{doc.title}</h3>
+                  <h3 className="text-base font-normal text-white mb-1.5">{doc.title}</h3>
                   <p className="text-xs text-slate-400 leading-relaxed mb-3">{doc.short}</p>
 
                   {doc.kanun ? (
@@ -289,45 +289,45 @@ export default function LegalHubPage() {
         )}
 
         {/* MEVZUAT ŞERIDI */}
-        <div className="mt-8 rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-          <h2 className="text-sm font-semibold text-slate-200 mb-3 flex items-center gap-2">
+        <div className="mt-8 rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+          <h2 className="text-sm font-normal text-slate-200 mb-3 flex items-center gap-2">
             <Scale className="h-4 w-4 text-violet-400" /> Mevzuat Haritası — Referans Kanunlar
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-            <div className="rounded-lg border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-semibold text-blue-300 mb-1">Veri & Mahremiyet</p>
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
+              <p className="font-normal text-blue-300 mb-1">Veri & Mahremiyet</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6698 KVKK — Kişisel Verilerin Korunması</li>
                 <li>• 5651 — İnternet Ortamı (log)</li>
                 <li>• KVKK Kurulu yönetmelikleri</li>
               </ul>
             </div>
-            <div className="rounded-lg border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-semibold text-emerald-300 mb-1">Tüketici & Sözleşme</p>
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
+              <p className="font-normal text-emerald-300 mb-1">Tüketici & Sözleşme</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6502 TKHK — Tüketicinin Korunması</li>
                 <li>• 6098 TBK — Türk Borçlar Kanunu</li>
                 <li>• 4077 (mülga) yerine 6502</li>
               </ul>
             </div>
-            <div className="rounded-lg border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-semibold text-violet-300 mb-1">Mülkiyet & Tapu</p>
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
+              <p className="font-normal text-violet-300 mb-1">Mülkiyet & Tapu</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 4721 TMK — Türk Medeni Kanunu</li>
                 <li>• 3402 — Kadastro Kanunu</li>
                 <li>• 2644 — Tapu Kanunu</li>
               </ul>
             </div>
-            <div className="rounded-lg border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-semibold text-amber-300 mb-1">İmar & Yapı</p>
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
+              <p className="font-normal text-amber-300 mb-1">İmar & Yapı</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 3194 — İmar Kanunu</li>
                 <li>• 6306 — Kentsel Dönüşüm</li>
                 <li>• TBDY-2018 (deprem yönetmeliği)</li>
               </ul>
             </div>
-            <div className="rounded-lg border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1">Ödeme & Mali</p>
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1">Ödeme & Mali</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6493 — Ödeme Hizmetleri</li>
                 <li>• 5549 — MASAK</li>
@@ -335,8 +335,8 @@ export default function LegalHubPage() {
                 <li>• 7338 — Veraset ve İntikal Vergisi</li>
               </ul>
             </div>
-            <div className="rounded-lg border border-slate-700 bg-slate-900/30 p-3">
-              <p className="font-semibold text-rose-300 mb-1">Yargı & İhale</p>
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/30 p-3">
+              <p className="font-normal text-rose-300 mb-1">Yargı & İhale</p>
               <ul className="text-slate-300 space-y-0.5">
                 <li>• 6100 HMK — Hukuk Muhakemeleri</li>
                 <li>• 1136 — Avukatlık Kanunu</li>
@@ -352,10 +352,10 @@ export default function LegalHubPage() {
         />
 
         {/* İLETİŞİM */}
-        <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
+        <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
           <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
           <div className="text-sm">
-            <p className="font-semibold text-slate-200 mb-1">Yasal İletişim</p>
+            <p className="font-normal text-slate-200 mb-1">Yasal İletişim</p>
             <p className="text-xs text-slate-400 leading-relaxed">
               KVKK başvuruları:{" "}
               <a href="mailto:kvkk@ihaleal.com" className="text-cyan-300 underline">kvkk@ihaleal.com</a>

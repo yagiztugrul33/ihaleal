@@ -45,7 +45,7 @@ export default function CommissionPage() {
         </Button>
 
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
+          <h1 className="text-3xl font-normal flex items-center gap-2">
             <Calculator className="h-7 w-7 text-cyan-400" />
             Komisyon Hesabı + Teminat Blokajı
           </h1>
@@ -56,10 +56,10 @@ export default function CommissionPage() {
         </div>
 
         {/* KATMAN 1 — Eğitici */}
-        <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
+        <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-3">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-            <h2 className="text-base font-semibold text-white">Komisyon nasıl çalışıyor?</h2>
+            <h2 className="text-base font-normal text-white">Komisyon nasıl çalışıyor?</h2>
           </div>
           <p className="text-sm text-slate-300 leading-relaxed mb-3">
             İhaleal komisyonu <strong className="text-cyan-200">tek oran, sabit ve şeffaf</strong>:
@@ -69,20 +69,20 @@ export default function CommissionPage() {
             tahakkuk eder ve faturada ayrı kalem olarak gösterilir.
           </p>
           <div className="grid sm:grid-cols-3 gap-3 text-xs">
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1">
                 <Percent className="h-3 w-3" /> %{commissionPct}
               </p>
               <p className="text-slate-300">Alıcı komisyonu (satış bedelinden)</p>
             </div>
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1">
                 <Percent className="h-3 w-3" /> %{commissionPct}
               </p>
               <p className="text-slate-300">Satıcı komisyonu (satış bedelinden)</p>
             </div>
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1">
                 <Percent className="h-3 w-3" /> %{vatPct}
               </p>
               <p className="text-slate-300">KDV (komisyon üzerine, faturada ayrı)</p>
@@ -92,8 +92,8 @@ export default function CommissionPage() {
 
         {/* KATMAN 2 — Form + Sonuç */}
         <div className="grid md:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-4">
-            <h3 className="text-base font-semibold text-white flex items-center gap-2">
+          <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-4">
+            <h3 className="text-base font-normal text-white flex items-center gap-2">
               <Calculator className="h-4 w-4 text-cyan-400" />
               Hesap Girdileri
             </h3>
@@ -120,8 +120,8 @@ export default function CommissionPage() {
               <p className="text-[10px] text-slate-500">İhale teminatı (provizyon) — kredi kartı blokaj, faiz YOK</p>
             </div>
 
-            <div className="rounded-lg border border-amber-500/25 bg-amber-500/10 p-3">
-              <p className="text-xs font-semibold text-amber-100 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-amber-500/25 bg-amber-500/10 p-3">
+              <p className="text-xs font-normal text-amber-100 flex items-center gap-1.5">
                 <Info className="h-3 w-3" /> Teminat Blokaj Modeli
               </p>
               <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
@@ -131,8 +131,8 @@ export default function CommissionPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-5 space-y-4">
-            <h3 className="text-base font-semibold text-white flex items-center gap-2">
+          <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/10 p-5 space-y-4">
+            <h3 className="text-base font-normal text-white flex items-center gap-2">
               <Wallet className="h-4 w-4 text-emerald-400" />
               Hesap Sonucu
             </h3>
@@ -140,11 +140,11 @@ export default function CommissionPage() {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between items-baseline">
                 <span className="text-slate-400">Satış tutarı</span>
-                <span className="text-white font-semibold">{formatTry(saleTry)}</span>
+                <span className="text-white font-normal">{formatTry(saleTry)}</span>
               </div>
 
               <div className="border-t border-slate-700 pt-3 space-y-2">
-                <p className="text-xs text-emerald-300 font-semibold mb-1">Komisyon Dökümü</p>
+                <p className="text-xs text-emerald-300 font-normal mb-1">Komisyon Dökümü</p>
                 <div className="text-xs flex justify-between border-b border-slate-800 pb-1.5">
                   <div>
                     <p className="text-slate-300">Satıcı komisyonu</p>
@@ -169,21 +169,21 @@ export default function CommissionPage() {
               </div>
 
               <div className="border-t border-emerald-500/30 pt-3 flex justify-between items-baseline">
-                <span className="text-emerald-300 font-semibold">Toplam Komisyon (KDV hariç)</span>
-                <span className="text-2xl font-bold text-emerald-300">{formatTry(result.totalCommission)}</span>
+                <span className="text-emerald-300 font-normal">Toplam Komisyon (KDV hariç)</span>
+                <span className="text-2xl font-normal text-emerald-300">{formatTry(result.totalCommission)}</span>
               </div>
 
               <div className="flex justify-between items-baseline">
-                <span className="text-emerald-200 font-semibold">Toplam (KDV dahil)</span>
-                <span className="text-xl font-bold text-emerald-200">{formatTry(grandTotal)}</span>
+                <span className="text-emerald-200 font-normal">Toplam (KDV dahil)</span>
+                <span className="text-xl font-normal text-emerald-200">{formatTry(grandTotal)}</span>
               </div>
 
               {showFx && (
-                <div className="rounded-md border border-amber-500/20 bg-amber-500/5 px-3 py-2 space-y-0.5">
-                  <p className="text-[11px] text-amber-200 font-semibold">Referans gösterim ({currency})</p>
+                <div className="rounded-[3px] border border-amber-500/20 bg-amber-500/5 px-3 py-2 space-y-0.5">
+                  <p className="text-[11px] text-amber-200 font-normal">Referans gösterim ({currency})</p>
                   <p className="text-[11px] text-slate-300">
-                    Satış ≈ <span className="font-semibold text-amber-300">{formatFromTry(saleTry)}</span> ·
-                    Komisyon ≈ <span className="font-semibold text-amber-300">{formatFromTry(result.totalCommission)}</span>
+                    Satış ≈ <span className="font-normal text-amber-300">{formatFromTry(saleTry)}</span> ·
+                    Komisyon ≈ <span className="font-normal text-amber-300">{formatFromTry(result.totalCommission)}</span>
                   </p>
                   <p className="text-[10px] text-slate-500 italic">
                     <strong className="text-amber-200">Komisyon ₺ üzerinden hesaplanır</strong> (yasal matrah);
@@ -199,7 +199,7 @@ export default function CommissionPage() {
 
               <div className="border-t border-slate-700 pt-3 flex justify-between items-baseline">
                 <span className="text-amber-300">Teminat Blokaj ({bondPct}%)</span>
-                <span className="text-amber-300 font-bold">{formatTry(bondAmount)}</span>
+                <span className="text-amber-300 font-normal">{formatTry(bondAmount)}</span>
               </div>
               <p className="text-[10px] text-slate-500">Provizyon — banka blokajı; hesaba çekilmez.</p>
             </div>
@@ -207,8 +207,8 @@ export default function CommissionPage() {
         </div>
 
         {/* KATMAN 3 — Karşılaştırma */}
-        <div className="rounded-2xl border border-violet-500/20 bg-slate-900/40 p-5">
-          <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+        <div className="rounded-[20px] border border-violet-500/20 bg-slate-900/40 p-5">
+          <h3 className="text-base font-normal text-white mb-3 flex items-center gap-2">
             <TrendingUp className="h-4 w-4 text-violet-400" />
             Diğer platformlarla karşılaştırma
           </h3>
@@ -216,15 +216,15 @@ export default function CommissionPage() {
             <table className="w-full text-xs min-w-[480px]">
               <thead>
                 <tr className="text-slate-500 border-b border-slate-700">
-                  <th className="text-start py-2 pe-2 font-medium">Platform</th>
-                  <th className="text-end py-2 px-2 font-medium">Satıcı Komisyon</th>
-                  <th className="text-end py-2 px-2 font-medium">Alıcı Komisyon</th>
-                  <th className="text-end py-2 ps-2 font-medium">Şeffaflık</th>
+                  <th className="text-start py-2 pe-2 font-normal">Platform</th>
+                  <th className="text-end py-2 px-2 font-normal">Satıcı Komisyon</th>
+                  <th className="text-end py-2 px-2 font-normal">Alıcı Komisyon</th>
+                  <th className="text-end py-2 ps-2 font-normal">Şeffaflık</th>
                 </tr>
               </thead>
               <tbody className="text-slate-300">
                 <tr className="border-b border-slate-800/50">
-                  <td className="py-2 pe-2 font-semibold text-emerald-300">İhaleal (bizim)</td>
+                  <td className="py-2 pe-2 font-normal text-emerald-300">İhaleal (bizim)</td>
                   <td className="py-2 px-2 text-end text-emerald-200">%{commissionPct} sabit</td>
                   <td className="py-2 px-2 text-end text-emerald-200">%{commissionPct} sabit</td>
                   <td className="py-2 ps-2 text-end text-emerald-200">✅ Tek oran, KDV ayrı</td>
@@ -257,10 +257,10 @@ export default function CommissionPage() {
 
         {/* KATMAN 4 — Güven + Yasal */}
         <div className="grid md:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-emerald-500/20 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-5">
             <div className="flex items-start gap-2 mb-3">
               <ScrollText className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
-              <h3 className="text-base font-semibold text-white">Komisyon Net Kuralları</h3>
+              <h3 className="text-base font-normal text-white">Komisyon Net Kuralları</h3>
             </div>
             <ul className="space-y-2 text-xs text-slate-300">
               <li className="flex items-start gap-2">
@@ -286,10 +286,10 @@ export default function CommissionPage() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-violet-500/20 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-violet-500/20 bg-slate-900/40 p-5">
             <div className="flex items-start gap-2 mb-3">
               <Scale className="h-5 w-5 text-violet-300 flex-shrink-0 mt-0.5" />
-              <h3 className="text-base font-semibold text-white">Yasal Çerçeve</h3>
+              <h3 className="text-base font-normal text-white">Yasal Çerçeve</h3>
             </div>
             <ul className="space-y-2 text-xs text-slate-300">
               <li>

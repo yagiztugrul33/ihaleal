@@ -75,7 +75,7 @@ export default function Mortgage() {
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
             <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {lv.back}
           </Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-normal text-white flex items-center gap-3">
             <Calculator className="w-8 h-8 text-blue-400" />
             {m.title}
           </h1>
@@ -86,13 +86,13 @@ export default function Mortgage() {
           {/* Inputs */}
           <div className="lg:col-span-2 space-y-6">
             <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h3 className="font-bold text-white mb-5">{m.loanParameters}</h3>
+              <h3 className="font-normal text-white mb-5">{m.loanParameters}</h3>
 
               <div className="space-y-6">
                 <div>
                   <label className="text-sm text-slate-400 mb-2 block flex justify-between">
                     <span>{m.propertyValueLabel}</span>
-                    <span className="text-white font-semibold" dir="ltr">TRY {propertyValue.toLocaleString()}</span>
+                    <span className="text-white font-normal" dir="ltr">TRY {propertyValue.toLocaleString()}</span>
                   </label>
                   <Slider value={[propertyValue]} onValueChange={(v) => setPropertyValue(v[0])} min={500000} max={50000000} step={100000} className="my-3" />
                   <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
@@ -101,7 +101,7 @@ export default function Mortgage() {
                 <div>
                   <label className="text-sm text-slate-400 mb-2 block flex justify-between">
                     <span>{m.downPaymentPercent}</span>
-                    <span className="text-white font-semibold" dir="ltr">{downPaymentPercent}%</span>
+                    <span className="text-white font-normal" dir="ltr">{downPaymentPercent}%</span>
                   </label>
                   <Slider value={[downPaymentPercent]} onValueChange={(v) => setDownPaymentPercent(v[0])} min={10} max={50} step={5} className="my-3" />
                   <div className="flex justify-between text-xs text-slate-500">
@@ -119,7 +119,7 @@ export default function Mortgage() {
                       setTermMonths(months);
                       setInterestRate(INTEREST_RATES[months.toString() as keyof typeof INTEREST_RATES] || 5.0);
                     }}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-200 text-white text-sm"
+                    className="w-full px-4 py-2.5 rounded-[20px] bg-slate-950 border border-slate-200 text-white text-sm"
                     dir="ltr"
                   >
                     <option value={12}>1 {m.yearShort} (12 {m.monthShort})</option>
@@ -135,7 +135,7 @@ export default function Mortgage() {
                 <div>
                   <label className="text-sm text-slate-400 mb-2 block flex justify-between">
                     <span>{m.annualRate}</span>
-                    <span className="text-white font-semibold" dir="ltr">{interestRate}%</span>
+                    <span className="text-white font-normal" dir="ltr">{interestRate}%</span>
                   </label>
                   <Slider value={[interestRate * 100]} onValueChange={(v) => setInterestRate(v[0] / 100)} min={100} max={1500} step={5} className="my-3" />
                   <Input type="number" step="0.01" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
@@ -145,14 +145,14 @@ export default function Mortgage() {
 
             {/* Bank Info */}
             <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-normal text-white mb-3 flex items-center gap-2">
                 <Info className="w-4 h-4 text-blue-400" />
                 {m.bankRequirements}
               </h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-400">{m.minMonthlyIncome}</span>
-                  <span className="text-amber-400 font-semibold" dir="ltr">TRY {Math.round(minIncomeRequired).toLocaleString()}</span>
+                  <span className="text-amber-400 font-normal" dir="ltr">TRY {Math.round(minIncomeRequired).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-400">{m.downPaymentPercent}</span>
@@ -170,7 +170,7 @@ export default function Mortgage() {
           <div className="lg:col-span-3 space-y-6">
             {/* Main Results */}
             <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h3 className="font-bold text-white mb-4">{m.loanSummary}</h3>
+              <h3 className="font-normal text-white mb-4">{m.loanSummary}</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <ResultCard icon={<Banknote className="w-5 h-5 text-blue-400" />} label={lv.monthlyInstallment} value={`TRY ${Math.round(monthlyPayment).toLocaleString()}`} sub={m.subEvenPay} color="text-blue-400" amountTry={Math.round(monthlyPayment)} />
                 <ResultCard icon={<Percent className="w-5 h-5 text-amber-400" />} label={lv.totalInterest} value={`TRY ${Math.round(totalInterest).toLocaleString()}`} sub={`${((totalInterest / loanAmount) * 100).toFixed(1)}% ${m.subOfCost}`} color="text-amber-400" amountTry={Math.round(totalInterest)} />
@@ -181,7 +181,7 @@ export default function Mortgage() {
 
             {/* Amortization Graph */}
             <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-              <h3 className="text-lg font-bold text-white mb-4">{m.paymentPlanGraphTitle}</h3>
+              <h3 className="text-lg font-normal text-white mb-4">{m.paymentPlanGraphTitle}</h3>
               <div className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={amortizationData}>
@@ -213,24 +213,24 @@ export default function Mortgage() {
             {/* Yearly Breakdown Table */}
             <Card className="bg-slate-900/50 border-slate-200/80 overflow-hidden">
               <div className="p-4 border-b border-slate-200/80 flex items-center justify-between">
-                <h3 className="font-bold text-white">{m.yearlyPaymentSummary}</h3>
+                <h3 className="font-normal text-white">{m.yearlyPaymentSummary}</h3>
                 <span className="text-xs text-slate-500">{m.everyYearEnd}</span>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-slate-200/80">
-                      <th className="text-start p-3 text-slate-400 font-medium">{m.yearColumn}</th>
-                      <th className="text-end p-3 text-slate-400 font-medium">{lv.monthlyInstallment}</th>
-                      <th className="text-end p-3 text-slate-400 font-medium">{m.principalColumn}</th>
-                      <th className="text-end p-3 text-slate-400 font-medium">{m.interestColumn}</th>
-                      <th className="text-end p-3 text-slate-400 font-medium">{m.remainingColumn}</th>
+                      <th className="text-start p-3 text-slate-400 font-normal">{m.yearColumn}</th>
+                      <th className="text-end p-3 text-slate-400 font-normal">{lv.monthlyInstallment}</th>
+                      <th className="text-end p-3 text-slate-400 font-normal">{m.principalColumn}</th>
+                      <th className="text-end p-3 text-slate-400 font-normal">{m.interestColumn}</th>
+                      <th className="text-end p-3 text-slate-400 font-normal">{m.remainingColumn}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {amortizationData.filter((_, i) => i % 2 === 0 || i === amortizationData.length - 1).map((row, idx) => (
                       <tr key={idx} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
-                        <td className="p-3 text-white font-medium" dir="ltr">{row.year}{m.yearRowPrefix}</td>
+                        <td className="p-3 text-white font-normal" dir="ltr">{row.year}{m.yearRowPrefix}</td>
                         <td className="p-3 text-end text-white" dir="ltr">TRY {row.payment.toLocaleString()}</td>
                         <td className="p-3 text-end text-emerald-400" dir="ltr">TRY {row.principal.toLocaleString()}</td>
                         <td className="p-3 text-end text-amber-400" dir="ltr">TRY {row.interest.toLocaleString()}</td>
@@ -244,17 +244,17 @@ export default function Mortgage() {
 
             {/* Tips */}
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
+              <div className="p-4 rounded-[20px] bg-emerald-500/5 border border-emerald-500/10">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingDown className="w-4 h-4 text-emerald-400" />
-                  <span className="text-sm font-semibold text-emerald-400">{m.tipLowInterestTitle}</span>
+                  <span className="text-sm font-normal text-emerald-400">{m.tipLowInterestTitle}</span>
                 </div>
                 <p className="text-xs text-slate-400">{m.tipLowInterestDesc}</p>
               </div>
-              <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10">
+              <div className="p-4 rounded-[20px] bg-blue-500/5 border border-blue-500/10">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingUp className="w-4 h-4 text-blue-400" />
-                  <span className="text-sm font-semibold text-blue-400">{m.tipDownPaymentTitle}</span>
+                  <span className="text-sm font-normal text-blue-400">{m.tipDownPaymentTitle}</span>
                 </div>
                 <p className="text-xs text-slate-400">{m.tipDownPaymentDesc}</p>
               </div>
@@ -272,9 +272,9 @@ export default function Mortgage() {
 
 function ResultCard({ icon, label, value, sub, color, amountTry }: { icon: React.ReactNode; label: string; value: string; sub: string; color: string; amountTry?: number }) {
   return (
-    <div className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
+    <div className="p-4 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
       <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-slate-400">{label}</span></div>
-      <div className={`text-lg font-bold ${color}`} dir="ltr">{value}</div>
+      <div className={`text-lg font-normal ${color}`} dir="ltr">{value}</div>
       {typeof amountTry === "number" && (
         <FxRef amountTry={amountTry} variant="block" className="text-[11px] text-amber-300/80" />
       )}

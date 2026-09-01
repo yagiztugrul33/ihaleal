@@ -79,7 +79,7 @@ export function Hero() {
                   <li key={item.title} className="ref-trust-item">
                     <Icon className="h-4 w-4 shrink-0 text-blue-400" aria-hidden />
                     <span>
-                      <strong className="font-semibold text-slate-200">{item.title}</strong>
+                      <strong className="font-normal text-slate-200">{item.title}</strong>
                       {item.sub ? <span className="text-slate-400"> — {item.sub}</span> : null}
                     </span>
                   </li>
@@ -133,10 +133,10 @@ export function Hero() {
                 <motion.div key={stat.label} className="ref-side-stat-card stat-card" variants={staggerItem}>
                   <Icon className="h-4 w-4 shrink-0 text-blue-400" aria-hidden />
                   <motion.div className="min-w-0 flex-1">
-                    <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">{stat.label}</p>
-                    <p className="text-lg font-bold text-white">{meta?.value ?? "—"}</p>
+                    <p className="text-[10px] font-normal uppercase tracking-wider text-slate-500">{stat.label}</p>
+                    <p className="text-lg font-normal text-white">{meta?.value ?? "—"}</p>
                   </motion.div>
-                  <span className="text-xs font-semibold text-emerald-400">{meta?.delta ?? ""}</span>
+                  <span className="text-xs font-normal text-emerald-400">{meta?.delta ?? ""}</span>
                 </motion.div>
               );
             })}
@@ -156,10 +156,10 @@ export function Hero() {
               <motion.div key={stat.label} className="ref-side-stat-card stat-card" variants={staggerItem}>
                 <Icon className="h-4 w-4 text-blue-400" aria-hidden />
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500">{stat.label}</p>
-                  <p className="text-base font-bold text-white">{meta?.value ?? "—"}</p>
+                  <p className="text-[10px] font-normal uppercase tracking-wider text-slate-500">{stat.label}</p>
+                  <p className="text-base font-normal text-white">{meta?.value ?? "—"}</p>
                 </div>
-                <span className="text-xs font-semibold text-emerald-400">{meta?.delta ?? ""}</span>
+                <span className="text-xs font-normal text-emerald-400">{meta?.delta ?? ""}</span>
               </motion.div>
             );
           })}
@@ -174,9 +174,9 @@ function LiveChartCard({ live }: { live: { title: string; live: string; growth: 
     <>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-medium text-slate-400">{live.title}</p>
-          <p className="mt-1 text-3xl font-bold text-white">284</p>
-          <p className="text-xs font-semibold text-emerald-400">{live.growth}</p>
+          <p className="text-xs font-normal text-slate-400">{live.title}</p>
+          <p className="mt-1 text-3xl font-normal text-white">284</p>
+          <p className="text-xs font-normal text-emerald-400">{live.growth}</p>
         </div>
         <span className="ref-live-dot-pill">{live.live}</span>
       </div>
@@ -184,7 +184,7 @@ function LiveChartCard({ live }: { live: { title: string; live: string; growth: 
         {[35, 55, 42, 70, 48, 82, 60, 75].map((height, i) => (
           <motion.div
             key={i}
-            className="flex-1 rounded-sm bg-gradient-to-t from-blue-600 to-sky-400"
+            className="flex-1 rounded-[3px] bg-gradient-to-t from-blue-600 to-sky-400"
             initial={{ height: 0 }}
             animate={{ height: `${height}%` }}
             transition={{ delay: 0.5 + i * 0.05, ...cinematicEase }}

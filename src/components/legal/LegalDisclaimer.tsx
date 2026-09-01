@@ -17,7 +17,7 @@ interface LegalDisclaimerProps {
 export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
   if (compact) {
     return (
-      <div className="mt-6 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 text-[11px] text-amber-100/90 flex items-start gap-2">
+      <div className="mt-6 rounded-[10px] border border-amber-500/20 bg-amber-500/5 p-3 text-[11px] text-amber-100/90 flex items-start gap-2">
         <AlertTriangle className="h-3.5 w-3.5 text-amber-300 flex-shrink-0 mt-0.5" />
         <p className="leading-relaxed">
           <strong className="text-amber-200">Eğitici bilgilendirme</strong> — hukuki tavsiye DEĞİLDİR.
@@ -29,13 +29,13 @@ export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
   }
 
   return (
-    <div className="my-8 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5">
+    <div className="my-8 rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-5">
       <div className="flex items-start gap-3 mb-3">
         <div className="rounded-full bg-amber-500/20 p-2">
           <AlertTriangle className="h-5 w-5 text-amber-300" />
         </div>
         <div>
-          <h3 className="text-base font-bold text-white">Yasal Uyarı (Disclaimer)</h3>
+          <h3 className="text-base font-normal text-white">Yasal Uyarı (Disclaimer)</h3>
           <p className="text-xs text-amber-200 mt-0.5">Bu içerik eğitici amaçlıdır, hukuki tavsiye DEĞİLDİR.</p>
         </div>
       </div>
@@ -68,7 +68,7 @@ export function LegalDisclaimer({ compact, context }: LegalDisclaimerProps) {
 /** Sayfa üstüne taslak/eğitici uyarı banner'ı */
 export function LegalDraftBanner() {
   return (
-    <div className="mb-6 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 flex items-start gap-2">
+    <div className="mb-6 rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-3 flex items-start gap-2">
       <BookOpen className="h-4 w-4 text-amber-300 flex-shrink-0 mt-0.5" />
       <p className="text-xs text-amber-100 leading-relaxed">
         <strong className="text-amber-200">TASLAK / EĞİTİCİ:</strong> bu metin örnek nitelikte; yasal yayın

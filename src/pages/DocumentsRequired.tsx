@@ -93,9 +93,9 @@ export default function DocumentsRequired() {
         <div className="max-w-5xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl [background:var(--gradient-cta)] flex items-center justify-center"><FileCheck className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-[20px] [background:var(--gradient-cta)] flex items-center justify-center"><FileCheck className="w-6 h-6 text-white" /></div>
             <div>
-              <h1 className="text-3xl font-bold text-white">İhale Katılım Evrakları</h1>
+              <h1 className="text-3xl font-normal text-white">İhale Katılım Evrakları</h1>
               <p className="text-slate-400">Gayrimenkul ihalelerine katılmak için gerekli tüm belgeler ve yasal çerçeve</p>
             </div>
           </div>
@@ -104,10 +104,10 @@ export default function DocumentsRequired() {
 
       <div className="max-w-5xl mx-auto px-4 mt-8 space-y-6">
         {/* Uyarı Banner */}
-        <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 flex items-start gap-3">
+        <div className="p-4 rounded-[20px] bg-amber-500/5 border border-amber-500/10 flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm text-slate-300 font-medium mb-1">Önemli Hatırlatma</p>
+            <p className="text-sm text-slate-300 font-normal mb-1">Önemli Hatırlatma</p>
             <p className="text-sm text-slate-400 mb-2">Tüm belgelerin güncel ve okunaklı olması zorunludur. Eksik veya sahte evrak tespitinde ihale katılım hakkı iptal edilir ve kara listeye alınırsınız. Belgelerinizi platform üzerinden güvenli bir şekilde yükleyebilirsiniz.</p>
             <p className="text-xs text-slate-500 leading-relaxed">
               <strong className="text-slate-300">Hukuki bağlayıcılık:</strong> Bu sayfa hukuki danışmanlık yerine geçmez. İhale şartnamesi, alıcı/satıcı sözleşmeleri, kurumsal ihale düzenlemeleri ve e-Devlet / vekalet süreçleri için <strong className="text-slate-300">avukat onaylı</strong> doküman seti oluşturulmalıdır.
@@ -123,9 +123,9 @@ export default function DocumentsRequired() {
               className="w-full p-5 flex items-center justify-between text-start hover:bg-white/[0.02] transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-lg bg-${section.color}-500/10 text-${section.color}-400`}>{section.icon}</div>
+                <div className={`p-2 rounded-[10px] bg-${section.color}-500/10 text-${section.color}-400`}>{section.icon}</div>
                 <div>
-                  <h3 className="text-base font-semibold text-white">{section.category}</h3>
+                  <h3 className="text-base font-normal text-white">{section.category}</h3>
                   <p className="text-xs text-slate-500">{section.items.filter(i => i.required).length} zorunlu, {section.items.filter(i => !i.required).length} opsiyonel</p>
                 </div>
               </div>
@@ -134,10 +134,10 @@ export default function DocumentsRequired() {
             {openSection === section.category && (
               <CardContent className="px-5 pb-5 pt-0 space-y-3">
                 {section.items.map((item) => (
-                  <div key={item.name} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
+                  <div key={item.name} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                     <div className="flex items-center gap-2 mb-1">
                       {item.required ? <Badge className="bg-red-500/10 text-red-400 text-[10px] border-0">Zorunlu</Badge> : <Badge variant="outline" className="border-slate-600 text-slate-400 text-[10px]">Opsiyonel</Badge>}
-                      <span className="text-sm font-medium text-white">{item.name}</span>
+                      <span className="text-sm font-normal text-white">{item.name}</span>
                     </div>
                     <p className="text-xs text-slate-400 ps-0">{item.desc}</p>
                   </div>
@@ -150,11 +150,11 @@ export default function DocumentsRequired() {
         {/* Yasal Çerçeve */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Shield className="w-5 h-5 text-violet-400" /> Yasal Çerçeve ve Mevzuat</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Shield className="w-5 h-5 text-violet-400" /> Yasal Çerçeve ve Mevzuat</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               {yasalCerceve.map((law) => (
-                <div key={law.law} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                  <div className="text-sm font-semibold text-white mb-1">{law.law}</div>
+                <div key={law.law} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
+                  <div className="text-sm font-normal text-white mb-1">{law.law}</div>
                   <p className="text-xs text-slate-400">{law.desc}</p>
                 </div>
               ))}
@@ -165,7 +165,7 @@ export default function DocumentsRequired() {
         {/* Süreç Akışı */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Clock className="w-5 h-5 text-teal-400" /> Evrak Teslim Süreci</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Clock className="w-5 h-5 text-teal-400" /> Evrak Teslim Süreci</h3>
             <div className="space-y-4">
               {[
                 { step: 1, title: "Üyelik ve Kimlik Doğrulama", desc: "E-Devlet üzerinden kimlik doğrulama yapılır. Yüz tanıma ve SMS onayı zorunludur.", time: "5 dakika" },
@@ -175,10 +175,10 @@ export default function DocumentsRequired() {
                 { step: 5, title: "Onay ve İhale Katılım", desc: "Tüm evraklar incelenip onaylandıktan sonra ihalelere teklif verilebilir.", time: "24 saat" },
               ].map((s) => (
                 <div key={s.step} className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full [background:var(--gradient-cta)] flex items-center justify-center shrink-0 text-xs font-bold text-white">{s.step}</div>
+                  <div className="w-8 h-8 rounded-full [background:var(--gradient-cta)] flex items-center justify-center shrink-0 text-xs font-normal text-white">{s.step}</div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-semibold text-white">{s.title}</span>
+                      <span className="text-sm font-normal text-white">{s.title}</span>
                       <Badge variant="outline" className="border-blue-500/20 text-blue-400 text-[10px]">{s.time}</Badge>
                     </div>
                     <p className="text-xs text-slate-400">{s.desc}</p>
@@ -192,12 +192,12 @@ export default function DocumentsRequired() {
         {/* Banka ve Findeks Entegrasyonu */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><CreditCard className="w-5 h-5 text-emerald-400" /> Entegre Banka ve Kurumlar</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><CreditCard className="w-5 h-5 text-emerald-400" /> Entegre Banka ve Kurumlar</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {["Ziraat Bankası", "Halkbank", "İş Bankası", "Garanti BBVA", "Akbank", "Yapı Kredi", "Findeks", "E-Devlet"].map((bank) => (
-                <div key={bank} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
+                <div key={bank} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 text-center">
                   <Landmark className="w-5 h-5 text-slate-400 mx-auto mb-1.5" />
-                  <span className="text-xs text-slate-300 font-medium">{bank}</span>
+                  <span className="text-xs text-slate-300 font-normal">{bank}</span>
                 </div>
               ))}
             </div>

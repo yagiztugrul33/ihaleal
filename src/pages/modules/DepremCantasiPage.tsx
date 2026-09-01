@@ -292,7 +292,7 @@ export default function DepremCantasiPage() {
           <div className="mod-games-grid">
             {KIDS_GAMES.map((g) => (
               <div key={g.title} className="mod-game-card">
-                <p className="flex items-center gap-2 font-semibold text-slate-100">
+                <p className="flex items-center gap-2 font-normal text-slate-100">
                   <Gamepad2 className="h-4 w-4 text-violet-300" aria-hidden />
                   {g.title}
                 </p>

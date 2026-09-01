@@ -69,7 +69,7 @@ export default function LegalTemplatesPage() {
             <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-3">
               <FileText className="h-3.5 w-3.5" /> Şablon Önizleme
             </p>
-            <h1 className="text-2xl font-bold flex items-center gap-2">
+            <h1 className="text-2xl font-normal flex items-center gap-2">
               <FileText className="h-6 w-6 text-cyan-400" />
               {previewing.baslik}
             </h1>
@@ -78,15 +78,15 @@ export default function LegalTemplatesPage() {
 
           {/* Meta */}
           <div className="grid sm:grid-cols-2 gap-3 text-xs">
-            <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-3">
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
               <p className="text-slate-500 mb-0.5">Kategori</p>
-              <p className="text-white font-semibold">{CATEGORY_LABELS[previewing.kategori]}</p>
+              <p className="text-white font-normal">{CATEGORY_LABELS[previewing.kategori]}</p>
             </div>
-            <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-3">
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
               <p className="text-slate-500 mb-0.5">Tahmini süre</p>
-              <p className="text-white font-semibold">{previewing.sure}</p>
+              <p className="text-white font-normal">{previewing.sure}</p>
             </div>
-            <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-3 sm:col-span-2">
+            <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3 sm:col-span-2">
               <p className="text-slate-500 mb-0.5">Mevzuat</p>
               <p className="text-violet-200 font-mono text-xs">{previewing.mevzuat}</p>
             </div>
@@ -94,8 +94,8 @@ export default function LegalTemplatesPage() {
 
           {/* Gerekli ekler */}
           {previewing.ekler.length > 0 ? (
-            <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-4">
-              <p className="text-xs font-semibold text-amber-200 mb-2 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-4">
+              <p className="text-xs font-normal text-amber-200 mb-2 flex items-center gap-1.5">
                 <Info className="h-3 w-3" /> Gerekli Ek Belgeler
               </p>
               <ul className="space-y-1 text-xs text-slate-300">
@@ -109,7 +109,7 @@ export default function LegalTemplatesPage() {
           ) : null}
 
           {/* Şablon gövdesi (monospace) */}
-          <div className="rounded-2xl border border-slate-700 bg-slate-950/80 p-5">
+          <div className="rounded-[20px] border border-slate-700 bg-slate-950/80 p-5">
             <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1">
               <FileText className="h-3 w-3" /> Şablon Gövdesi (örnek)
             </p>
@@ -159,7 +159,7 @@ export default function LegalTemplatesPage() {
           <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-3">
             <Layers className="h-3.5 w-3.5" /> Şablon Kütüphanesi
           </p>
-          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
             <Layers className="h-7 w-7 text-cyan-400" />
             Sözleşme + Belge Şablonları
           </h1>
@@ -174,10 +174,10 @@ export default function LegalTemplatesPage() {
         <LegalDraftBanner />
 
         {/* KATMAN 1 — Eğitici */}
-        <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
+        <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-3">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-            <h2 className="text-base font-semibold text-white">Şablon kütüphanesi nedir?</h2>
+            <h2 className="text-base font-normal text-white">Şablon kütüphanesi nedir?</h2>
           </div>
           <p className="text-sm text-slate-300 leading-relaxed">
             Türkiye'de gayrimenkul işlemleri için en sık kullanılan sözleşme + belge
@@ -196,7 +196,7 @@ export default function LegalTemplatesPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ara — vekalet, miras, ihale..."
-              className="w-full ps-10 pe-3 py-2 rounded-lg border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full ps-10 pe-3 py-2 rounded-[10px] border border-slate-700 bg-slate-900/60 text-sm placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               aria-label="Şablon ara"
             />
           </div>
@@ -206,7 +206,7 @@ export default function LegalTemplatesPage() {
                 key={c}
                 type="button"
                 onClick={() => setFilter(c)}
-                className={`px-3 py-2 rounded-lg text-xs font-medium border ${filter === c ? "bg-cyan-600 border-cyan-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                className={`px-3 py-2 rounded-[10px] text-xs font-normal border ${filter === c ? "bg-cyan-600 border-cyan-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
                 aria-pressed={filter === c}
               >
                 {CATEGORY_LABELS[c]}
@@ -226,21 +226,21 @@ export default function LegalTemplatesPage() {
             {filtered.map((t) => (
               <div
                 key={t.id}
-                className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 flex flex-col"
+                className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 flex flex-col"
                 data-testid={`template-${t.id}`}
               >
                 <div className="flex items-start justify-between mb-2">
-                  <span className="inline-flex items-center gap-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-semibold text-cyan-200">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-normal text-cyan-200">
                     {CATEGORY_LABELS[t.kategori]}
                   </span>
                   {t.badge ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-2 py-0.5 text-[10px] font-semibold text-amber-100">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/20 px-2 py-0.5 text-[10px] font-normal text-amber-100">
                       {t.badge}
                     </span>
                   ) : null}
                 </div>
 
-                <h3 className="text-base font-semibold text-white mb-1">{t.baslik}</h3>
+                <h3 className="text-base font-normal text-white mb-1">{t.baslik}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed mb-3">{t.ozet}</p>
 
                 <div className="text-[11px] text-slate-500 space-y-1 mb-3 mt-auto pt-3 border-t border-slate-700">
@@ -276,9 +276,9 @@ export default function LegalTemplatesPage() {
         )}
 
         {/* Avukat eşleştirme CTA */}
-        <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-5 text-center">
+        <div className="mt-6 rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-5 text-center">
           <Scale className="h-6 w-6 text-amber-300 mx-auto mb-2" />
-          <h3 className="text-base font-semibold text-white mb-1">Avukat onayı + özel hazırlık</h3>
+          <h3 className="text-base font-normal text-white mb-1">Avukat onayı + özel hazırlık</h3>
           <p className="text-xs text-slate-300 mb-4 max-w-2xl mx-auto">
             Şablonlar başlangıç noktasıdır. Sözleşme imzasından önce baroya kayıtlı bir
             avukatın somut olaya göre uyarlaması zorunludur. Avukat eşleştirme + danışmanlık

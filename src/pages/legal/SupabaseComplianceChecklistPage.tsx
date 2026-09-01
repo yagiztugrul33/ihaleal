@@ -29,22 +29,22 @@ export default function SupabaseComplianceChecklistPage() {
           <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
         </Button>
 
-        <div className="relative overflow-hidden rounded-3xl border border-teal-500/20 bg-gradient-to-br from-white/90 via-slate-950/95 to-slate-900/90 p-6 sm:p-8 shadow-2xl shadow-teal-950/30">
+        <div className="relative overflow-hidden rounded-[20px] border border-teal-500/20 bg-gradient-to-br from-white/90 via-slate-950/95 to-slate-900/90 p-6 sm:p-8 shadow-2xl shadow-teal-950/30">
           <div className="pointer-events-none absolute -end-16 -top-16 h-48 w-48 rounded-full bg-teal-500/10 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -start-10 h-56 w-56 rounded-full bg-cyan-500/10 blur-3xl" />
           <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-2">
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-teal-400/90">
+              <p className="text-xs font-normal uppercase tracking-[0.2em] text-teal-400/90">
                 Teknik uyum ve denetim izi
               </p>
-              <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{title}</h1>
+              <h1 className="text-2xl font-normal tracking-tight text-white sm:text-3xl">{title}</h1>
               <p className="max-w-2xl text-sm leading-relaxed text-slate-400">
                 Bu sayfa, repodaki Supabase migration dosyalarındaki RLS politika adları, audit tablosu ve RPC
                 isimleriyle eşleşen kontrol listesini okunur biçimde sunar. Bağlayıcı hukuki görüş değildir;
                 üretim öncesi avukat ve güvenlik gözden geçirmesi gereklidir.
               </p>
             </div>
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 shadow-lg shadow-teal-500/25">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-gradient-to-br from-teal-500 to-cyan-500 shadow-lg shadow-teal-500/25">
               <Database className="h-7 w-7 text-white" />
             </div>
           </div>

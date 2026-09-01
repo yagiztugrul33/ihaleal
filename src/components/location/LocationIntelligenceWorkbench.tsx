@@ -116,9 +116,9 @@ export function LocationIntelligenceWorkbench({
   };
 
   return (
-    <section className="space-y-4 rounded-2xl border border-slate-700 bg-slate-950/70 p-4 md:p-6">
+    <section className="space-y-4 rounded-[20px] border border-slate-700 bg-slate-950/70 p-4 md:p-6">
       <header>
-        <h2 className="text-xl font-black text-white md:text-2xl">{title}</h2>
+        <h2 className="text-xl font-normal text-white md:text-2xl">{title}</h2>
         <p className="mt-1 text-sm text-slate-300">Demo veri / ön analiz: SES + POI + eğitim + güvenlik katmanları ağırlıklı birleşik skor üretir.</p>
       </header>
 
@@ -128,7 +128,7 @@ export function LocationIntelligenceWorkbench({
           <select
             value={form.profile}
             onChange={(event) => setForm((prev) => ({ ...prev, profile: event.target.value as DemoLocationKey }))}
-            className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
+            className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
             {DEMO_DISTRICT_PROFILES.map((item) => (
               <option key={item.key} value={item.key}>
@@ -200,24 +200,24 @@ export function LocationIntelligenceWorkbench({
 
       {result ? (
         <div className="space-y-4">
-          <article className="grid gap-3 rounded-xl border border-cyan-500/35 bg-cyan-500/10 p-4 md:grid-cols-3">
+          <article className="grid gap-3 rounded-[20px] border border-cyan-500/35 bg-cyan-500/10 p-4 md:grid-cols-3">
             <div>
               <p className="text-xs text-cyan-100">Birleşik konum skoru</p>
-              <p className="text-2xl font-black text-white">{result.locationScore}/100</p>
+              <p className="text-2xl font-normal text-white">{result.locationScore}/100</p>
             </div>
             <div>
               <p className="text-xs text-cyan-100">Yaşanabilirlik</p>
-              <p className="text-xl font-black text-white">{result.livabilityScore}/100</p>
+              <p className="text-xl font-normal text-white">{result.livabilityScore}/100</p>
             </div>
             <div>
               <p className="text-xs text-cyan-100">Yatırım potansiyeli</p>
-              <p className="text-xl font-black text-white">{result.investmentScore}/100</p>
+              <p className="text-xl font-normal text-white">{result.investmentScore}/100</p>
             </div>
           </article>
 
           <article className="grid gap-4 xl:grid-cols-[1.25fr_1fr]">
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+              <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">
                 <BarChart3 className="h-4 w-4" />
                 Katman skorları
               </h3>
@@ -233,15 +233,15 @@ export function LocationIntelligenceWorkbench({
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="text-sm font-black uppercase tracking-[0.12em] text-cyan-200">Katkı dökümü</h3>
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+              <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">Katkı dökümü</h3>
               <p className="mt-1 text-xs text-slate-400">
                 FAHP ağırlık modeli: SES %{result.weightModel.ses}, POI %{result.weightModel.poi}, Eğitim %{result.weightModel.education}, Güvenlik %{result.weightModel.safety}
               </p>
               <ul className="mt-2 space-y-2 text-sm text-slate-200">
                 {result.contributions.map((item) => (
                   <li key={item.key}>
-                    <p className="font-semibold">{item.label}</p>
+                    <p className="font-normal">{item.label}</p>
                     <p className="text-xs text-slate-300">
                       Skor {item.score}/100 · Ağırlık %{item.weightPct} · Katkı {item.contributionPts} puan
                     </p>
@@ -251,8 +251,8 @@ export function LocationIntelligenceWorkbench({
             </div>
           </article>
 
-          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-            <h3 className="text-sm font-black uppercase tracking-[0.12em] text-cyan-200">Katman radar görünümü</h3>
+          <article className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+            <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">Katman radar görünümü</h3>
             <div className="h-[270px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={radarData}>
@@ -267,14 +267,14 @@ export function LocationIntelligenceWorkbench({
 
           <article className="grid gap-3 md:grid-cols-3">
             {result.tags.map((tag) => (
-              <p key={tag} className="rounded-lg border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-200">
+              <p key={tag} className="rounded-[10px] border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-200">
                 {tag}
               </p>
             ))}
           </article>
 
-          <div className="rounded-xl border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">
-            <p className="inline-flex items-center gap-1.5 font-semibold">
+          <div className="rounded-[20px] border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">
+            <p className="inline-flex items-center gap-1.5 font-normal">
               <ShieldAlert className="h-4 w-4" /> Veri kaynağı ve dürüst sınır
             </p>
             <p className="mt-2">{result.disclaimer}</p>
@@ -282,7 +282,7 @@ export function LocationIntelligenceWorkbench({
           </div>
 
           {!compact ? (
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4">
               <p className="text-sm text-cyan-100">Konum zekası tamamlandı. Sonraki adım: yatırım varsayımlarını fizibilite motoru ile birleştirme.</p>
               <Button type="button" className="bg-cyan-400 text-slate-950 hover:bg-cyan-300">
                 Değerleme başlat <ArrowRight className="rtl:rotate-180 ms-1.5 h-4 w-4" />

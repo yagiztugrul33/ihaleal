@@ -29,7 +29,7 @@ export default function AuctionsMap({ auctions, className = "" }: Props) {
     points.length > 0 ? points[Math.floor(points.length / 2)] : [39.0, 35.0];
 
   return (
-    <div className={`rounded-2xl overflow-hidden border border-slate-200 bg-slate-900/40 ${className}`}>
+    <div className={`rounded-[20px] overflow-hidden border border-slate-200 bg-slate-900/40 ${className}`}>
       <MapContainer
         center={center}
         zoom={6}
@@ -55,12 +55,12 @@ export default function AuctionsMap({ auctions, className = "" }: Props) {
           >
             <Popup>
               <div className="min-w-[200px] text-slate-900">
-                <div className="font-semibold text-sm mb-1 line-clamp-2">{a.title}</div>
+                <div className="font-normal text-sm mb-1 line-clamp-2">{a.title}</div>
                 <div className="text-xs text-slate-600 mb-2">{a.location}</div>
-                <div className="text-sm font-bold text-blue-700">
+                <div className="text-sm font-normal text-blue-700">
                   ₺{a.currentBid.toLocaleString("tr-TR")}
                 </div>
-                <Link to={`/ilan/${a.id}`} className="text-xs text-teal-600 font-medium mt-2 inline-block underline">
+                <Link to={`/ilan/${a.id}`} className="text-xs text-teal-600 font-normal mt-2 inline-block underline">
                   İlan detayı
                 </Link>
               </div>

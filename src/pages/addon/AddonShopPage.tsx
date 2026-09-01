@@ -150,7 +150,7 @@ export default function AddonShopPage() {
         </Button>
 
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
+          <h1 className="text-3xl font-normal flex items-center gap-2">
             <ShoppingCart className="h-7 w-7 text-emerald-400" />
             Ek Hizmet Mağazası
           </h1>
@@ -161,10 +161,10 @@ export default function AddonShopPage() {
         </div>
 
         {/* KATMAN 1 — Eğitici */}
-        <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
+        <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-3">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-            <h2 className="text-base font-semibold text-white">Ek hizmet nedir, ne zaman gerekir?</h2>
+            <h2 className="text-base font-normal text-white">Ek hizmet nedir, ne zaman gerekir?</h2>
           </div>
           <p className="text-sm text-slate-300 mb-4 leading-relaxed">
             Aylık paket dışında <strong className="text-cyan-200">tek seferlik</strong> hizmetler. Bir mülk için
@@ -172,26 +172,26 @@ export default function AddonShopPage() {
             burada alabilirsin.
           </p>
           <div className="grid sm:grid-cols-4 gap-3 text-xs">
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1.5">
                 <FileText className="h-3.5 w-3.5" /> PDF Raporlar
               </p>
               <p className="text-slate-300">Değerleme + GES + Hukuki — tek mülk için.</p>
             </div>
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1.5">
                 <Flame className="h-3.5 w-3.5" /> Doping
               </p>
               <p className="text-slate-300">İlanın 24 saat liste üstüne çıkar.</p>
             </div>
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1.5">
                 <Star className="h-3.5 w-3.5" /> Vitrin
               </p>
               <p className="text-slate-300">Anasayfa + bölge 7 gün öne çıkan.</p>
             </div>
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1.5">
                 <Eye className="h-3.5 w-3.5" /> Ek İlan
               </p>
               <p className="text-slate-300">Bireysel limit aşıldıysa ek kontör.</p>
@@ -204,7 +204,7 @@ export default function AddonShopPage() {
           <button
             type="button"
             onClick={() => setActiveCategory("all")}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium border ${activeCategory === "all" ? "bg-cyan-600 border-cyan-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+            className={`px-4 py-1.5 rounded-full text-xs font-normal border ${activeCategory === "all" ? "bg-cyan-600 border-cyan-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
             aria-pressed={activeCategory === "all"}
           >
             Hepsi
@@ -214,7 +214,7 @@ export default function AddonShopPage() {
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium border ${activeCategory === cat ? "bg-cyan-600 border-cyan-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+              className={`px-4 py-1.5 rounded-full text-xs font-normal border ${activeCategory === cat ? "bg-cyan-600 border-cyan-500 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
               aria-pressed={activeCategory === cat}
             >
               {CATEGORY_LABELS[cat]}
@@ -233,25 +233,25 @@ export default function AddonShopPage() {
               return (
                 <div
                   key={item.sku}
-                  className={`rounded-2xl border ${item.popular ? "border-amber-500/40 shadow-lg" : "border-slate-700"} bg-slate-900/40 p-5 flex flex-col`}
+                  className={`rounded-[20px] border ${item.popular ? "border-amber-500/40 shadow-lg" : "border-slate-700"} bg-slate-900/40 p-5 flex flex-col`}
                 >
                   {item.popular && (
-                    <span className="inline-flex items-center gap-1 self-start mb-2 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-[10px] font-semibold text-amber-200">
+                    <span className="inline-flex items-center gap-1 self-start mb-2 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-[10px] font-normal text-amber-200">
                       <Sparkles className="h-2.5 w-2.5" /> Popüler
                     </span>
                   )}
                   {item.highlight && !item.popular && (
-                    <span className="inline-flex items-center gap-1 self-start mb-2 px-2 py-0.5 rounded-full bg-violet-500/20 border border-violet-500/40 text-[10px] font-semibold text-violet-200">
+                    <span className="inline-flex items-center gap-1 self-start mb-2 px-2 py-0.5 rounded-full bg-violet-500/20 border border-violet-500/40 text-[10px] font-normal text-violet-200">
                       {item.highlight}
                     </span>
                   )}
 
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="rounded-lg bg-slate-800/60 p-2">
+                    <div className="rounded-[10px] bg-slate-800/60 p-2">
                       <Icon className="h-5 w-5 text-cyan-300" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-base font-semibold text-white">{ONE_OFF_LABELS[item.sku]}</h3>
+                      <h3 className="text-base font-normal text-white">{ONE_OFF_LABELS[item.sku]}</h3>
                       <p className="text-xs text-slate-400 mt-0.5">{item.shortDesc}</p>
                     </div>
                   </div>
@@ -273,7 +273,7 @@ export default function AddonShopPage() {
 
                   <div className="mt-auto flex items-center justify-between pt-2">
                     <div>
-                      <p className="text-2xl font-bold text-emerald-300">{formatTry(ONE_OFF_PRICES[item.sku])}</p>
+                      <p className="text-2xl font-normal text-emerald-300">{formatTry(ONE_OFF_PRICES[item.sku])}</p>
                       {showFx && (
                         <p className="text-[10px] text-amber-300/80">≈ {formatFromTry(ONE_OFF_PRICES[item.sku])} <span className="text-slate-500">(tahsilat ₺)</span></p>
                       )}
@@ -284,16 +284,16 @@ export default function AddonShopPage() {
                         <button
                           type="button"
                           onClick={() => removeFromCart(item.sku)}
-                          className="w-8 h-8 rounded-md bg-slate-700 hover:bg-slate-600 text-white"
+                          className="w-8 h-8 rounded-[3px] bg-slate-700 hover:bg-slate-600 text-white"
                           aria-label="Sepetten çıkar"
                         >
                           −
                         </button>
-                        <span className="px-3 text-sm font-semibold text-white min-w-[2rem] text-center">{inCart}</span>
+                        <span className="px-3 text-sm font-normal text-white min-w-[2rem] text-center">{inCart}</span>
                         <button
                           type="button"
                           onClick={() => addToCart(item.sku)}
-                          className="w-8 h-8 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white"
+                          className="w-8 h-8 rounded-[3px] bg-emerald-600 hover:bg-emerald-500 text-white"
                           aria-label="Sepete ekle"
                         >
                           +
@@ -317,8 +317,8 @@ export default function AddonShopPage() {
 
           {/* Sepet (sağ taraf, sticky) */}
           <div className="lg:sticky lg:top-24 self-start">
-            <div className="rounded-2xl border border-emerald-500/30 bg-slate-900/40 p-5 space-y-3">
-              <h3 className="text-base font-semibold text-white flex items-center gap-2">
+            <div className="rounded-[20px] border border-emerald-500/30 bg-slate-900/40 p-5 space-y-3">
+              <h3 className="text-base font-normal text-white flex items-center gap-2">
                 <ShoppingCart className="h-4 w-4 text-emerald-400" /> Sepet
               </h3>
 
@@ -333,18 +333,18 @@ export default function AddonShopPage() {
                     {cart.map((line) => (
                       <li key={line.sku} className="flex items-start justify-between gap-2 text-xs border-b border-slate-700 pb-2 last:border-0">
                         <div className="flex-1 min-w-0">
-                          <p className="text-slate-200 font-medium truncate">{ONE_OFF_LABELS[line.sku]}</p>
+                          <p className="text-slate-200 font-normal truncate">{ONE_OFF_LABELS[line.sku]}</p>
                           <p className="text-slate-500 text-[10px]">{formatTry(ONE_OFF_PRICES[line.sku])} × {line.qty}</p>
                         </div>
-                        <p className="text-emerald-300 font-semibold">{formatTry(ONE_OFF_PRICES[line.sku] * line.qty)}</p>
+                        <p className="text-emerald-300 font-normal">{formatTry(ONE_OFF_PRICES[line.sku] * line.qty)}</p>
                       </li>
                     ))}
                   </ul>
 
                   <div className="border-t border-emerald-500/30 pt-3 space-y-1">
                     <div className="flex items-baseline justify-between">
-                      <span className="text-emerald-300 font-semibold">Toplam</span>
-                      <span className="text-2xl font-bold text-emerald-300">{formatTry(cartTotal)}</span>
+                      <span className="text-emerald-300 font-normal">Toplam</span>
+                      <span className="text-2xl font-normal text-emerald-300">{formatTry(cartTotal)}</span>
                     </div>
                     {showFx && (
                       <p className="text-[10px] text-amber-300/80 text-end">
@@ -355,7 +355,7 @@ export default function AddonShopPage() {
 
                   <Button
                     onClick={checkout}
-                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold"
+                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-normal"
                   >
                     Ödemeye Geç (demo)
                   </Button>
@@ -370,10 +370,10 @@ export default function AddonShopPage() {
         </div>
 
         {/* KATMAN 4 — Güven + Uyarı */}
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 flex items-start gap-3 mt-6">
+        <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-4 flex items-start gap-3 mt-6">
           <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
           <div className="text-xs space-y-1.5">
-            <p className="font-semibold text-amber-100">Demo Ödeme — Mock Akışı</p>
+            <p className="font-normal text-amber-100">Demo Ödeme — Mock Akışı</p>
             <p className="text-slate-200">
               Sepet "Ödemeye Geç" butonu mock akışına yönlendirir. Gerçek ödeme entegrasyonu (iyzico / PayTR) Master hesap açınca eklenecek.
             </p>

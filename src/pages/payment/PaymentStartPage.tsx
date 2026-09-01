@@ -135,7 +135,7 @@ export default function PaymentStartPage() {
         </Button>
 
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
+          <h1 className="text-3xl font-normal flex items-center gap-2">
             <CreditCard className="h-7 w-7 text-cyan-400" />
             {s.title}
           </h1>
@@ -146,20 +146,20 @@ export default function PaymentStartPage() {
 
         {/* Sandbox/Production durum bandı */}
         {providerStage === "sandbox" || providerStage === "unknown" ? (
-          <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
+          <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
             <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-amber-100">{s.sandboxBannerTitle}</p>
+              <p className="text-sm font-normal text-amber-100">{s.sandboxBannerTitle}</p>
               <p className="text-xs text-slate-200 mt-1">
                 {s.sandboxBannerBody}
               </p>
             </div>
           </div>
         ) : (
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
+          <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/10 p-4 flex items-start gap-3" data-testid="payment-stage-banner">
             <CheckCircle2 className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-emerald-100">{s.prodBannerTitle}</p>
+              <p className="text-sm font-normal text-emerald-100">{s.prodBannerTitle}</p>
               <p className="text-xs text-slate-200 mt-1">
                 {s.prodBannerBody}
               </p>
@@ -169,7 +169,7 @@ export default function PaymentStartPage() {
 
         {/* Hata mesajı */}
         {error ? (
-          <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 flex items-start gap-3" data-testid="payment-error">
+          <div className="rounded-[20px] border border-rose-500/30 bg-rose-500/10 p-4 flex items-start gap-3" data-testid="payment-error">
             <AlertTriangle className="h-5 w-5 text-rose-300 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-rose-100">{error}</p>
           </div>
@@ -177,7 +177,7 @@ export default function PaymentStartPage() {
 
         {/* Demo modu bilgi mesajı — hata değil, bilgilendirme */}
         {infoMessage ? (
-          <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4 flex items-start gap-3" data-testid="payment-demo-info">
+          <div className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4 flex items-start gap-3" data-testid="payment-demo-info">
             <Sparkles className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-cyan-100">{infoMessage}</p>
           </div>
@@ -186,8 +186,8 @@ export default function PaymentStartPage() {
         <div className="grid md:grid-cols-3 gap-6">
           {/* Sol: Form */}
           <form onSubmit={handleSubmit} className="md:col-span-2 space-y-4">
-            <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-4">
-              <h2 className="text-base font-semibold text-white flex items-center gap-2">
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-4">
+              <h2 className="text-base font-normal text-white flex items-center gap-2">
                 <CreditCard className="h-4 w-4 text-cyan-400" />
                 {s.cardSectionTitle}
               </h2>
@@ -270,7 +270,7 @@ export default function PaymentStartPage() {
               <Button
                 type="submit"
                 disabled={!canSubmit || loading}
-                className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-3"
+                className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-normal py-3"
                 data-testid="payment-submit-btn"
               >
                 {loading ? (
@@ -297,11 +297,11 @@ export default function PaymentStartPage() {
 
           {/* Sağ: Özet */}
           <div className="space-y-4">
-            <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-slate-900/50 p-5">
+            <div className="rounded-[20px] border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-slate-900/50 p-5">
               <p className="text-xs text-slate-400 mb-2 flex items-center gap-1.5">
                 <Sparkles className="h-3 w-3" /> {s.summarySelected}
               </p>
-              <h3 className="text-xl font-bold text-white mb-1">{t.tierData.byId[tier.id]?.name ?? tier.name}</h3>
+              <h3 className="text-xl font-normal text-white mb-1">{t.tierData.byId[tier.id]?.name ?? tier.name}</h3>
               <p className="text-xs text-slate-400 mb-4">{t.tierData.byId[tier.id]?.tagline ?? tier.tagline}</p>
 
               <div className="border-t border-slate-700 pt-3 space-y-2 text-sm">
@@ -323,7 +323,7 @@ export default function PaymentStartPage() {
                 <div className="flex items-baseline justify-between">
                   <span className="text-slate-400 text-sm">{s.summaryTotal}</span>
                   <div className="text-end" dir="ltr">
-                    <span className="text-2xl font-bold text-cyan-300">{formatTry(price)}</span>
+                    <span className="text-2xl font-normal text-cyan-300">{formatTry(price)}</span>
                     <span className="text-xs text-slate-400 ms-1">{period}</span>
                   </div>
                 </div>
@@ -338,8 +338,8 @@ export default function PaymentStartPage() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4 space-y-2 text-xs">
-              <p className="font-semibold text-emerald-300 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-4 space-y-2 text-xs">
+              <p className="font-normal text-emerald-300 flex items-center gap-1.5">
                 <CheckCircle2 className="h-3.5 w-3.5" /> {s.guaranteesTitle}
               </p>
               <ul className="space-y-1 text-slate-300">
@@ -351,8 +351,8 @@ export default function PaymentStartPage() {
             </div>
 
             {/* Apple App Store Review 5.1.1 + Google Play uyumlu — auto-renewal disclosure */}
-            <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-2 text-xs" data-testid="auto-renewal-disclosure">
-              <p className="font-semibold text-amber-200 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-4 space-y-2 text-xs" data-testid="auto-renewal-disclosure">
+              <p className="font-normal text-amber-200 flex items-center gap-1.5">
                 <CreditCard className="h-3.5 w-3.5" /> {s.autoRenewalTitle}
               </p>
               <ul className="space-y-1.5 text-slate-300 leading-relaxed">
@@ -368,9 +368,9 @@ export default function PaymentStartPage() {
             <button
               type="button"
               onClick={() => navigate("/iletisim")}
-              className="w-full rounded-xl border border-violet-500/30 bg-violet-500/5 p-3 text-start hover:bg-violet-500/10 transition-colors"
+              className="w-full rounded-[20px] border border-violet-500/30 bg-violet-500/5 p-3 text-start hover:bg-violet-500/10 transition-colors"
             >
-              <p className="text-xs text-violet-300 font-semibold flex items-center gap-1.5">
+              <p className="text-xs text-violet-300 font-normal flex items-center gap-1.5">
                 <Building2 className="h-3.5 w-3.5" /> {s.corporateTitle}
               </p>
               <p className="text-[11px] text-slate-400 mt-1">

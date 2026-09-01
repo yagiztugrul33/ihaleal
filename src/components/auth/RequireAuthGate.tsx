@@ -19,12 +19,12 @@ export function RequireAuthGate({
   return (
     <div
       data-testid="ibuyer-auth-gate"
-      className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-md text-center"
+      className="rounded-[20px] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-md text-center"
     >
-      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/10">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-[20px] border border-blue-500/30 bg-blue-500/10">
         <Shield className="h-7 w-7 text-blue-300" />
       </div>
-      <h2 className="text-xl font-bold text-white">{title}</h2>
+      <h2 className="text-xl font-normal text-white">{title}</h2>
       <p className="mt-3 text-sm text-slate-400 max-w-md mx-auto leading-relaxed">{description}</p>
       <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
         <Button asChild className="gap-2">

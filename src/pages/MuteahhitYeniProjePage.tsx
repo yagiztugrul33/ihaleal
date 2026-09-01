@@ -181,7 +181,7 @@ export default function MuteahhitYeniProjePage() {
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Panele dön
         </Button>
 
-        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-normal text-white mb-2 flex items-center gap-3">
           <Building2 className="w-8 h-8 text-cyan-400" /> Yeni Proje
         </h1>
         <p className="text-slate-400 text-sm mb-6">Lansman ilanı oluşturmak için proje + birim envanteri tanımlayın.</p>
@@ -193,14 +193,14 @@ export default function MuteahhitYeniProjePage() {
         </div>
 
         {error ? (
-          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 text-sm">{error}</div>
+          <div className="mb-4 p-3 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-300 text-sm">{error}</div>
         ) : null}
 
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 space-y-4">
             {step === 1 && (
               <>
-                <h2 className="text-lg font-bold text-white">Adım 1 — Proje Bilgileri</h2>
+                <h2 className="text-lg font-normal text-white">Adım 1 — Proje Bilgileri</h2>
                 <div>
                   <label className="text-xs text-slate-400">Proje Adı *</label>
                   <Input value={project_name} onChange={(e) => setProjectName(e.target.value)} placeholder="Örnek Konutları" />
@@ -234,7 +234,7 @@ export default function MuteahhitYeniProjePage() {
                   <textarea
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full min-h-[60px] px-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-white text-sm"
+                    className="w-full min-h-[60px] px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm"
                     placeholder="Cadde, sokak, no"
                   />
                 </div>
@@ -243,7 +243,7 @@ export default function MuteahhitYeniProjePage() {
                   <select
                     value={stage}
                     onChange={(e) => setStage(e.target.value as NewProjectInput["stage"])}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-white text-sm"
+                    className="w-full px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm"
                   >
                     {STAGES.map((s) => (
                       <option key={s.value} value={s.value}>{s.label}</option>
@@ -255,7 +255,7 @@ export default function MuteahhitYeniProjePage() {
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full min-h-[60px] px-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-white text-sm"
+                    className="w-full min-h-[60px] px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm"
                     placeholder="Proje hakkında kısa bilgi"
                   />
                 </div>
@@ -264,8 +264,8 @@ export default function MuteahhitYeniProjePage() {
 
             {step === 2 && (
               <>
-                <h2 className="text-lg font-bold text-white">Adım 2 — Ruhsat Belgesi</h2>
-                <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-4 space-y-3">
+                <h2 className="text-lg font-normal text-white">Adım 2 — Ruhsat Belgesi</h2>
+                <div className="rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-4 space-y-3">
                   <FileText className="w-8 h-8 text-amber-300" />
                   <p className="text-sm text-amber-100/90">
                     Ruhsat belgesi PDF veya JPEG olarak project-docs bucket&apos;a yüklenir. Admin onayı sonrası lansman ilanları açılır.
@@ -275,7 +275,7 @@ export default function MuteahhitYeniProjePage() {
                     <input
                       type="file"
                       accept=".pdf,.jpeg,.jpg,image/jpeg,application/pdf"
-                      className="text-xs text-slate-300 file:me-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-200"
+                      className="text-xs text-slate-300 file:me-3 file:py-1.5 file:px-3 file:rounded-[10px] file:border-0 file:bg-slate-800 file:text-slate-200"
                       onChange={(e) => {
                         const f = e.target.files?.[0] ?? null;
                         setRuhsatFile(f);
@@ -295,13 +295,13 @@ export default function MuteahhitYeniProjePage() {
 
             {step === 3 && (
               <>
-                <h2 className="text-lg font-bold text-white">Adım 3 — Birim Envanteri</h2>
+                <h2 className="text-lg font-normal text-white">Adım 3 — Birim Envanteri</h2>
                 <p className="text-xs text-slate-400">En az 1 birim ekleyin. Unit no benzersiz olmalı.</p>
                 <div className="space-y-3 max-h-[420px] overflow-y-auto pe-2">
                   {units.map((u, idx) => (
-                    <div key={idx} className="rounded-xl border border-slate-200/80 bg-slate-950/40 p-3 space-y-2">
+                    <div key={idx} className="rounded-[20px] border border-slate-200/80 bg-slate-950/40 p-3 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-cyan-300">Birim #{idx + 1}</span>
+                        <span className="text-xs font-normal text-cyan-300">Birim #{idx + 1}</span>
                         <button type="button" onClick={() => removeUnit(idx)} className="text-red-400 hover:text-red-300">
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -313,7 +313,7 @@ export default function MuteahhitYeniProjePage() {
                         <select
                           value={u.unit_type ?? ""}
                           onChange={(e) => updateUnit(idx, { unit_type: e.target.value || undefined })}
-                          className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-white text-sm"
+                          className="px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-white text-sm"
                         >
                           <option value="">Tip seç</option>
                           {UNIT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -335,8 +335,8 @@ export default function MuteahhitYeniProjePage() {
 
             {step === 4 && (
               <>
-                <h2 className="text-lg font-bold text-white">Adım 4 — Önizleme</h2>
-                <div className="rounded-xl border border-slate-200/80 bg-slate-950/40 p-4 space-y-2 text-sm">
+                <h2 className="text-lg font-normal text-white">Adım 4 — Önizleme</h2>
+                <div className="rounded-[20px] border border-slate-200/80 bg-slate-950/40 p-4 space-y-2 text-sm">
                   <p><strong className="text-white">{project_name}</strong></p>
                   <p className="text-slate-400">Ruhsat: {ruhsat_no} · Ada/Parsel: {ada_parsel}</p>
                   <p className="text-slate-400">{province} / {district} {neighborhood ? `/ ${neighborhood}` : ""}</p>

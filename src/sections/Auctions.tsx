@@ -240,7 +240,7 @@ export function Auctions({
         )}
 
         {catalogError ? (
-          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
+          <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100" role="status">
             {catalogError}
           </p>
         ) : null}
@@ -256,7 +256,7 @@ export function Auctions({
             </div>
             <div className="flex gap-2 flex-wrap">
               {(["all", "live", "upcoming", "ended"] as const).map((f) => (
-                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${filter === f ? "btn-primary !py-2 !px-4" : isHome ? "bg-[var(--color-bg-soft)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-card)]" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}>
+                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-[20px] text-sm font-normal transition-all ${filter === f ? "btn-primary !py-2 !px-4" : isHome ? "bg-[var(--color-bg-soft)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-bg-card)]" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}>
                   {f === "all" ? "Tümü" : f === "live" ? "Canlı" : f === "upcoming" ? "Yaklaşan" : "Tamamlandı"}
                 </button>
               ))}
@@ -277,10 +277,10 @@ export function Auctions({
           </div>
 
           {showFilters && (
-            <div className={`mt-4 p-5 rounded-2xl grid md:grid-cols-2 lg:grid-cols-4 gap-5 animate-scale-in ${isHome ? "card-warm" : "bg-slate-900/50 border border-white/5"}`}>
+            <div className={`mt-4 p-5 rounded-[20px] grid md:grid-cols-2 lg:grid-cols-4 gap-5 animate-scale-in ${isHome ? "card-warm" : "bg-slate-900/50 border border-white/5"}`}>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">İşlem Tipi</label>
-                <select value={dealTypeFilter} onChange={(e) => setDealTypeFilter(parseDealFilter(e.target.value))} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                <select value={dealTypeFilter} onChange={(e) => setDealTypeFilter(parseDealFilter(e.target.value))} className={`w-full px-3 py-2 rounded-[10px] border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
                   <option value="all">Satılık + Kiralık</option>
                   <option value="sale">Satılık</option>
                   <option value="rent">Kiralık</option>
@@ -293,21 +293,21 @@ export function Auctions({
               </div>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Şehir</label>
-                <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className={`w-full px-3 py-2 rounded-[10px] border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
                   <option value="all">Tüm Şehirler</option>
                   {cities.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Mülk Tipi</label>
-                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className={`w-full px-3 py-2 rounded-[10px] border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
                   <option value="all">Tüm Tipler</option>
                   {categories.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
               <div>
                 <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Oda</label>
-                <select value={selectedRoom} onChange={(e) => setSelectedRoom(parseRoomFilter(e.target.value))} className={`w-full px-3 py-2 rounded-lg border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
+                <select value={selectedRoom} onChange={(e) => setSelectedRoom(parseRoomFilter(e.target.value))} className={`w-full px-3 py-2 rounded-[10px] border text-sm ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-slate-950 border-white/10 text-white"}`}>
                   <option value="all">Tümü</option>
                   {ROOM_OPTIONS.filter((r) => r !== "all").map((r) => <option key={r} value={r}>{r}</option>)}
                 </select>
@@ -319,7 +319,7 @@ export function Auctions({
           )}
 
           {compareList.length > 0 && (
-            <div className="mt-3 flex items-center gap-3 p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 animate-fade-in">
+            <div className="mt-3 flex items-center gap-3 p-3 rounded-[20px] bg-blue-500/10 border border-blue-500/20 animate-fade-in">
               <GitCompare className="w-4 h-4 text-blue-400" />
               <span className="text-sm text-blue-400">{compareList.length} ilan seçildi</span>
               <Button size="sm" onClick={() => navigate(`/karsilastir?ids=${compareList.join(",")}`)} className="[background:var(--gradient-cta)] text-white text-xs h-7">Karşılaştır</Button>
@@ -366,22 +366,22 @@ export function Auctions({
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <ListingNumberBadge auction={auction} compact />
                 </div>
-                <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className={`text-base font-bold line-clamp-2 transition-colors cursor-pointer ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-blue-400"}`} style={isHome ? { color: "var(--color-text)" } : undefined}>{auction.title}</h3>
+                <h3 onClick={() => navigate(`/ilan/${auction.id}`)} className={`text-base font-normal line-clamp-2 transition-colors cursor-pointer ${isHome ? "hover:text-[var(--color-primary)]" : "text-white group-hover:text-blue-400"}`} style={isHome ? { color: "var(--color-text)" } : undefined}>{auction.title}</h3>
                 <div className="flex items-center gap-2 text-sm mt-1" style={{ color: "var(--color-text-muted)" }}><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
                 <div className="mt-1">
                   <RatingSummaryBadge summary={listingRatings.get(auction.id)} compact />
                 </div>
-                <div className={`flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-lg border ${isHome ? "bg-[var(--color-bg-soft)] border-[var(--color-border)]" : "bg-white/[0.03] border-white/5"}`}>
+                <div className={`flex items-center gap-2 mb-3 mt-2 p-2.5 rounded-[10px] border ${isHome ? "bg-[var(--color-bg-soft)] border-[var(--color-border)]" : "bg-white/[0.03] border-white/5"}`}>
                   <BarChart3 className="w-4 h-4 text-blue-500" />
                   <div className="flex-1">
-                    <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Değerleme</span><span className="text-blue-400 font-semibold">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</span></div>
+                    <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">AI Değerleme</span><span className="text-blue-400 font-normal">₺{(auction.aiPredictedPrice / 1000000).toFixed(1)}M</span></div>
                     <div className={`h-1.5 rounded-full overflow-hidden ${isHome ? "bg-[var(--color-border)]" : "bg-white/10"}`}><div className="h-full rounded-full [background:var(--gradient-cta)]" style={{ width: `${Math.min((auction.currentBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                   </div>
                 </div>
                 <div className={`flex flex-wrap items-end justify-between gap-3 pt-4 border-t ${isHome ? "border-[var(--color-border)]" : "border-white/5"}`}>
                   <div>
                     <div className="text-xs text-slate-500 mb-0.5">Güncel Teklif</div>
-                    <div className="text-lg font-bold text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-lg font-normal text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
                     <div className="text-xs text-slate-600">₺{auction.pricePerSqm.toLocaleString("tr-TR")}/m²</div>
                   </div>
                   <div className="text-end">
@@ -395,7 +395,7 @@ export function Auctions({
                       ) : (
                         <>
                           <Button size="sm" variant="outline" onClick={() => navigate(`/ilan/${auction.id}`)} className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5 text-xs h-8 px-3">Detaylar</Button>
-                          <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-semibold text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 me-1" />Teklif Ver</Button>
+                          <Button size="sm" onClick={() => { setSelectedAuction(auction); setBidAmount((auction.currentBid + 50000).toString()); }} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-normal text-xs h-8 px-3"><TrendingUp className="w-3.5 h-3.5 me-1" />Teklif Ver</Button>
                         </>
                       )}
                     </div>
@@ -409,9 +409,9 @@ export function Auctions({
         ) : null}
 
         {filtered.length === 0 && !catalogLoading && (
-          <div className="text-center py-20 animate-fade-in rounded-2xl border border-white/10 bg-slate-950/30 px-4">
+          <div className="text-center py-20 animate-fade-in rounded-[20px] border border-white/10 bg-slate-950/30 px-4">
             <Search className="w-12 h-12 text-slate-600 mx-auto mb-4" aria-hidden />
-            <p className="text-slate-300 font-medium mb-1">Bu filtrelerle ilan bulunamadı.</p>
+            <p className="text-slate-300 font-normal mb-1">Bu filtrelerle ilan bulunamadı.</p>
             <p className="text-sm text-slate-500 mb-6">Aramayı veya fiyat aralığını genişletmeyi deneyin.</p>
             <Button
               type="button"
@@ -435,20 +435,20 @@ export function Auctions({
 
       <Dialog open={!!selectedAuction} onOpenChange={() => setSelectedAuction(null)}>
         <DialogContent className="bg-slate-900 border-white/10 text-white sm:max-w-md">
-          <DialogHeader><DialogTitle className="text-xl font-bold">Teklif Ver</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle className="text-xl font-normal">Teklif Ver</DialogTitle></DialogHeader>
           <div className="space-y-4 py-2">
-            <div className="p-3 rounded-xl bg-white/5">
+            <div className="p-3 rounded-[20px] bg-white/5">
               <p className="text-sm text-slate-400">{selectedAuction?.title}</p>
-              <p className="text-lg font-bold text-blue-400 mt-1">₺{selectedAuction?.currentBid?.toLocaleString("tr-TR")}</p>
+              <p className="text-lg font-normal text-blue-400 mt-1">₺{selectedAuction?.currentBid?.toLocaleString("tr-TR")}</p>
             </div>
             <div className="grid grid-cols-5 gap-2">
               {[10000, 50000, 100000, 250000, 500000].map((inc) => (
-                <button key={inc} onClick={() => setBidAmount((selectedAuction?.currentBid + inc).toString())} className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-semibold text-white transition-colors">+₺{(inc / 1000).toFixed(0)}K</button>
+                <button key={inc} onClick={() => setBidAmount((selectedAuction?.currentBid + inc).toString())} className="px-2 py-2 rounded-[10px] bg-white/5 hover:bg-blue-500/20 text-xs font-normal text-white transition-colors">+₺{(inc / 1000).toFixed(0)}K</button>
               ))}
             </div>
             <div><label className="text-sm text-slate-400 mb-1.5 block">Teklif Tutarı (₺)</label><Input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} className="bg-slate-950 border-white/10 text-white focus:ring-blue-500" placeholder="örn: 3000000" /></div>
           </div>
-          <DialogFooter><Button onClick={handleBid} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-bold">Teklif Ver</Button></DialogFooter>
+          <DialogFooter><Button onClick={handleBid} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-normal">Teklif Ver</Button></DialogFooter>
         </DialogContent>
       </Dialog>
     </section>

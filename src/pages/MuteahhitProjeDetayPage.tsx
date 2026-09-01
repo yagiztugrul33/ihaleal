@@ -90,7 +90,7 @@ export default function MuteahhitProjeDetayPage() {
 
         <div className="flex items-start justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-white flex items-center gap-3 mb-2">
+            <h1 className="text-3xl font-normal text-white flex items-center gap-3 mb-2">
               <Building2 className="w-8 h-8 text-cyan-400" /> {project.project_name}
             </h1>
             <p className="text-slate-400 text-sm">
@@ -132,15 +132,15 @@ export default function MuteahhitProjeDetayPage() {
 
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5 grid sm:grid-cols-4 gap-3">
-            <div><div className="text-xs text-slate-500">Toplam</div><div className="text-xl font-bold text-white">{units.length}</div></div>
-            <div><div className="text-xs text-slate-500">Mevcut</div><div className="text-xl font-bold text-emerald-300">{units.filter((u) => u.status === "available").length}</div></div>
-            <div><div className="text-xs text-slate-500">Rezerve</div><div className="text-xl font-bold text-amber-300">{units.filter((u) => u.status === "reserved").length}</div></div>
-            <div><div className="text-xs text-slate-500">Satıldı</div><div className="text-xl font-bold text-blue-300">{units.filter((u) => u.status === "sold").length}</div></div>
+            <div><div className="text-xs text-slate-500">Toplam</div><div className="text-xl font-normal text-white">{units.length}</div></div>
+            <div><div className="text-xs text-slate-500">Mevcut</div><div className="text-xl font-normal text-emerald-300">{units.filter((u) => u.status === "available").length}</div></div>
+            <div><div className="text-xs text-slate-500">Rezerve</div><div className="text-xl font-normal text-amber-300">{units.filter((u) => u.status === "reserved").length}</div></div>
+            <div><div className="text-xs text-slate-500">Satıldı</div><div className="text-xl font-normal text-blue-300">{units.filter((u) => u.status === "sold").length}</div></div>
           </CardContent>
         </Card>
 
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-bold text-white">Birim Envanteri ({units.length})</h2>
+          <h2 className="text-lg font-normal text-white">Birim Envanteri ({units.length})</h2>
           {isOwner ? (
             <Button size="sm" variant="outline" className="gap-2">
               <Plus className="w-4 h-4" /> Birim Ekle
@@ -169,13 +169,13 @@ export default function MuteahhitProjeDetayPage() {
                   )}
                   {units.map((u) => (
                     <tr key={u.id} className="border-b border-slate-200/40 hover:bg-white/5">
-                      <td className="p-3 font-semibold text-white">{u.unit_no}</td>
+                      <td className="p-3 font-normal text-white">{u.unit_no}</td>
                       <td className="p-3 text-slate-400">{u.block ?? "—"} / {u.floor ?? "—"}</td>
                       <td className="p-3 text-slate-300">{u.unit_type ?? "—"}</td>
                       <td className="p-3 text-end text-slate-300">{u.m2_brut ?? "—"} / {u.m2_net ?? "—"}</td>
-                      <td className="p-3 text-end font-semibold text-cyan-300">{u.price_try ? `₺${u.price_try.toLocaleString("tr-TR")}` : "—"}</td>
+                      <td className="p-3 text-end font-normal text-cyan-300">{u.price_try ? `₺${u.price_try.toLocaleString("tr-TR")}` : "—"}</td>
                       <td className="p-3">
-                        <span className={`inline-flex px-2 py-1 rounded-md text-[10px] font-semibold border ${STATUS_COLORS[u.status]}`}>
+                        <span className={`inline-flex px-2 py-1 rounded-[3px] text-[10px] font-normal border ${STATUS_COLORS[u.status]}`}>
                           {STATUS_LABELS[u.status]}
                         </span>
                       </td>

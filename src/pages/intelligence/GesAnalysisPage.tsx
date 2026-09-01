@@ -57,16 +57,16 @@ function DrillCard({
   const t = tones[tone];
   const id = `drill-${title.replace(/\s+/g, "-").toLowerCase()}`;
   return (
-    <div className={`rounded-lg border ${t.border} ${t.bg}`}>
+    <div className={`rounded-[10px] border ${t.border} ${t.bg}`}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={id}
-        className={`w-full p-3 text-start ${t.hover} transition-colors min-h-[44px] flex items-start gap-2 cursor-pointer rounded-lg`}
+        className={`w-full p-3 text-start ${t.hover} transition-colors min-h-[44px] flex items-start gap-2 cursor-pointer rounded-[10px]`}
       >
         <div className="flex-1 min-w-0">
-          <p className={`text-xs font-semibold ${t.text} mb-1 flex items-center gap-1.5`}>
+          <p className={`text-xs font-normal ${t.text} mb-1 flex items-center gap-1.5`}>
             {title}
             <ChevronDown
               className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}
@@ -307,11 +307,11 @@ export default function GesAnalysisPage() {
           </Link>
         </Button>
         <motion.div className="flex items-center gap-3 mb-4">
-          <motion.div className="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10">
+          <motion.div className="flex h-11 w-11 items-center justify-center rounded-[20px] border border-amber-500/30 bg-amber-500/10">
             <Sun className="w-5 h-5 text-amber-300" />
           </motion.div>
           <motion.div>
-            <h1 className="text-2xl font-bold text-white">GES mühendislik analizi</h1>
+            <h1 className="text-2xl font-normal text-white">GES mühendislik analizi</h1>
             <p className="text-sm text-slate-400">Ön fizibilite — NPV, IRR, LCOE (bankable değil)</p>
           </motion.div>
         </motion.div>
@@ -323,7 +323,7 @@ export default function GesAnalysisPage() {
             <CardContent className="p-5">
               <div className="flex items-start gap-3 mb-3">
                 <BookOpen className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
-                <h2 className="text-base font-semibold text-white">GES nedir, neden Türkiye?</h2>
+                <h2 className="text-base font-normal text-white">GES nedir, neden Türkiye?</h2>
               </div>
               {/* CEPHE 0 v5: tıklanabilir DrillCard accordion */}
               <div className="grid sm:grid-cols-3 gap-3 text-sm">
@@ -452,65 +452,65 @@ export default function GesAnalysisPage() {
           {/* 4 bölge GES ROI senaryosu — gerçek güneşlenme + tarife */}
           <Card className="card-luxury border-amber-500/30">
             <CardContent className="p-4">
-              <p className="text-sm font-semibold text-amber-300 mb-3 flex items-center gap-2">
+              <p className="text-sm font-normal text-amber-300 mb-3 flex items-center gap-2">
                 ☀️ 4 Bölge ROI Senaryosu — 500 kW çatı GES, aynı yatırım farklı şehir
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs min-w-[560px]">
                   <thead>
                     <tr className="text-slate-500 border-b border-slate-700">
-                      <th className="text-start py-1.5 pe-2 font-medium">Şehir</th>
-                      <th className="text-end py-1.5 px-2 font-medium">Güneşlenme</th>
-                      <th className="text-end py-1.5 px-2 font-medium">Yıllık Üretim</th>
-                      <th className="text-end py-1.5 px-2 font-medium">Gelir/yıl</th>
-                      <th className="text-end py-1.5 px-2 font-medium">CAPEX</th>
-                      <th className="text-end py-1.5 ps-2 font-medium">Geri Dönüş</th>
+                      <th className="text-start py-1.5 pe-2 font-normal">Şehir</th>
+                      <th className="text-end py-1.5 px-2 font-normal">Güneşlenme</th>
+                      <th className="text-end py-1.5 px-2 font-normal">Yıllık Üretim</th>
+                      <th className="text-end py-1.5 px-2 font-normal">Gelir/yıl</th>
+                      <th className="text-end py-1.5 px-2 font-normal">CAPEX</th>
+                      <th className="text-end py-1.5 ps-2 font-normal">Geri Dönüş</th>
                     </tr>
                   </thead>
                   <tbody className="text-slate-300">
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">Konya</p>
+                        <p className="text-white font-normal">Konya</p>
                         <p className="text-[10px] text-slate-500">Anadolu yüksek</p>
                       </td>
                       <td className="py-2 px-2 text-end text-emerald-300">1.700 kWh/m²</td>
                       <td className="py-2 px-2 text-end text-emerald-300">850 MWh</td>
-                      <td className="py-2 px-2 text-end font-bold text-emerald-300">₺2.5M</td>
+                      <td className="py-2 px-2 text-end font-normal text-emerald-300">₺2.5M</td>
                       <td className="py-2 px-2 text-end">₺8M</td>
-                      <td className="py-2 ps-2 text-end text-emerald-200 font-semibold">3.2 yıl</td>
+                      <td className="py-2 ps-2 text-end text-emerald-200 font-normal">3.2 yıl</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">Antalya</p>
+                        <p className="text-white font-normal">Antalya</p>
                         <p className="text-[10px] text-slate-500">Akdeniz</p>
                       </td>
                       <td className="py-2 px-2 text-end text-emerald-300">1.650 kWh/m²</td>
                       <td className="py-2 px-2 text-end text-emerald-300">825 MWh</td>
-                      <td className="py-2 px-2 text-end font-bold text-emerald-300">₺2.4M</td>
+                      <td className="py-2 px-2 text-end font-normal text-emerald-300">₺2.4M</td>
                       <td className="py-2 px-2 text-end">₺8.2M</td>
-                      <td className="py-2 ps-2 text-end text-emerald-200 font-semibold">3.4 yıl</td>
+                      <td className="py-2 ps-2 text-end text-emerald-200 font-normal">3.4 yıl</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">İzmir</p>
+                        <p className="text-white font-normal">İzmir</p>
                         <p className="text-[10px] text-slate-500">Ege</p>
                       </td>
                       <td className="py-2 px-2 text-end text-amber-300">1.500 kWh/m²</td>
                       <td className="py-2 px-2 text-end text-amber-300">750 MWh</td>
-                      <td className="py-2 px-2 text-end font-bold text-amber-300">₺2.2M</td>
+                      <td className="py-2 px-2 text-end font-normal text-amber-300">₺2.2M</td>
                       <td className="py-2 px-2 text-end">₺8M</td>
-                      <td className="py-2 ps-2 text-end text-amber-200 font-semibold">3.6 yıl</td>
+                      <td className="py-2 ps-2 text-end text-amber-200 font-normal">3.6 yıl</td>
                     </tr>
                     <tr>
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">İstanbul</p>
+                        <p className="text-white font-normal">İstanbul</p>
                         <p className="text-[10px] text-slate-500">Marmara</p>
                       </td>
                       <td className="py-2 px-2 text-end text-cyan-300">1.380 kWh/m²</td>
                       <td className="py-2 px-2 text-end text-cyan-300">690 MWh</td>
-                      <td className="py-2 px-2 text-end font-bold text-cyan-300">₺2.0M</td>
+                      <td className="py-2 px-2 text-end font-normal text-cyan-300">₺2.0M</td>
                       <td className="py-2 px-2 text-end">₺8.4M</td>
-                      <td className="py-2 ps-2 text-end text-cyan-200 font-semibold">4.2 yıl</td>
+                      <td className="py-2 ps-2 text-end text-cyan-200 font-normal">4.2 yıl</td>
                     </tr>
                   </tbody>
                 </table>
@@ -526,12 +526,12 @@ export default function GesAnalysisPage() {
             <CardContent className="p-4 flex items-start gap-3">
               <AlertTriangle className="h-5 w-5 text-rose-300 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-slate-300">
-                <p className="font-semibold text-rose-200 mb-1">2026 Lisans Eşiği</p>
+                <p className="font-normal text-rose-200 mb-1">2026 Lisans Eşiği</p>
                 <p>
                   <strong className="text-white">5 MW altı</strong> kurulu güç{" "}
-                  <span className="text-emerald-300 font-semibold">LİSANSSIZ</span> (Çağrı Mektubu +
+                  <span className="text-emerald-300 font-normal">LİSANSSIZ</span> (Çağrı Mektubu +
                   EDAŞ bağlantı yeterli). <strong className="text-white">5 MW üzeri</strong>{" "}
-                  <span className="text-rose-300 font-semibold">EPDK lisansı</span> + ÇED + tarife
+                  <span className="text-rose-300 font-normal">EPDK lisansı</span> + ÇED + tarife
                   sözleşmesi şart. 1 Mayıs 2026 itibarıyla{" "}
                   <strong className="text-amber-300">saatlik mahsuplaşma</strong> aktif — öz tüketim
                   4× çarpan kaldırıldı.
@@ -603,7 +603,7 @@ export default function GesAnalysisPage() {
                 ).map(([l, v]) => (
                   <motion.div key={l} className="card-luxury p-4 text-center">
                     <p className="text-[10px] text-slate-500">{l}</p>
-                    <p className="text-2xl font-bold text-cyan-300">{fmtScore(v)}</p>
+                    <p className="text-2xl font-normal text-cyan-300">{fmtScore(v)}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -629,7 +629,7 @@ export default function GesAnalysisPage() {
                 <>
                   <Card className="card-luxury">
                     <CardContent className="p-5 text-sm text-slate-300 space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-cyan-300">
+                      <p className="text-xs font-normal uppercase tracking-wide text-cyan-300">
                         Türetilmiş Metrikler
                       </p>
                       <p>
@@ -658,7 +658,7 @@ export default function GesAnalysisPage() {
 
                   <Card className="card-luxury">
                     <CardContent className="p-5 text-sm text-slate-300 space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-violet-300">
+                      <p className="text-xs font-normal uppercase tracking-wide text-violet-300">
                         Hassasiyet (Elektrik Fiyatı ±%10)
                       </p>
                       <p>
@@ -682,15 +682,15 @@ export default function GesAnalysisPage() {
 
                   <Card className="card-luxury border-emerald-400/20">
                     <CardContent className="p-5 text-sm text-slate-300 space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                      <p className="text-xs font-normal uppercase tracking-wide text-emerald-300">
                         Karar Çerçevesi
                       </p>
                       <p>
                         IRR ({fmtPct(result.irrPct)}){" "}
                         {derived.irrVsDiscount ? (
-                          <span className="text-emerald-300 font-bold"> &gt; </span>
+                          <span className="text-emerald-300 font-normal"> &gt; </span>
                         ) : (
-                          <span className="text-rose-300 font-bold"> &lt; </span>
+                          <span className="text-rose-300 font-normal"> &lt; </span>
                         )}{" "}
                         İndirgeme oranı (%{discount})
                       </p>
@@ -733,13 +733,13 @@ export default function GesAnalysisPage() {
           <section className="mt-10 space-y-6">
             <div className="flex items-center gap-2 mb-2">
               <BarChart3 className="h-5 w-5 text-cyan-300" />
-              <h2 className="text-xl font-bold text-white">Detaylı Analiz Panosu</h2>
+              <h2 className="text-xl font-normal text-white">Detaylı Analiz Panosu</h2>
             </div>
 
             {/* 25 yıl nakit akış */}
             <Card className="card-luxury">
               <CardContent className="p-5">
-                <p className="text-sm font-semibold text-white mb-3">25 Yıllık Nakit Akışı (TRY)</p>
+                <p className="text-sm font-normal text-white mb-3">25 Yıllık Nakit Akışı (TRY)</p>
                 <ResponsiveContainer width="100%" height={260}>
                   <AreaChart data={derived.cashflow}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -764,7 +764,7 @@ export default function GesAnalysisPage() {
             {/* Kümülatif kâr eğrisi */}
             <Card className="card-luxury">
               <CardContent className="p-5">
-                <p className="text-sm font-semibold text-white mb-3">Kümülatif Kâr Eğrisi (CAPEX dahil)</p>
+                <p className="text-sm font-normal text-white mb-3">Kümülatif Kâr Eğrisi (CAPEX dahil)</p>
                 <ResponsiveContainer width="100%" height={220}>
                   <LineChart data={derived.cumulative}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -789,7 +789,7 @@ export default function GesAnalysisPage() {
             {/* Aylık üretim profili */}
             <Card className="card-luxury">
               <CardContent className="p-5">
-                <p className="text-sm font-semibold text-white mb-3">Aylık Üretim Profili (kWh)</p>
+                <p className="text-sm font-normal text-white mb-3">Aylık Üretim Profili (kWh)</p>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={derived.monthlyProd}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -813,7 +813,7 @@ export default function GesAnalysisPage() {
             {/* 3 Senaryo tablosu */}
             <Card className="card-luxury">
               <CardContent className="p-5">
-                <p className="text-sm font-semibold text-white mb-3">Senaryo Analizi</p>
+                <p className="text-sm font-normal text-white mb-3">Senaryo Analizi</p>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
@@ -831,9 +831,9 @@ export default function GesAnalysisPage() {
                             i === 1 ? "bg-cyan-500/5" : ""
                           }`}
                         >
-                          <td className="py-2 text-slate-200 font-medium">{s.ad}</td>
+                          <td className="py-2 text-slate-200 font-normal">{s.ad}</td>
                           <td className="text-end text-slate-300">{fmtNum(s.npv)}</td>
-                          <td className={`text-end font-semibold ${(s.irr ?? 0) > 10 ? "text-emerald-300" : "text-rose-300"}`}>
+                          <td className={`text-end font-normal ${(s.irr ?? 0) > 10 ? "text-emerald-300" : "text-rose-300"}`}>
                             {fmtPct(s.irr)}
                           </td>
                         </tr>
@@ -852,7 +852,7 @@ export default function GesAnalysisPage() {
             {/* CAPEX dökümü tablosu */}
             <Card className="card-luxury">
               <CardContent className="p-5">
-                <p className="text-sm font-semibold text-white mb-3">CAPEX Dökümü (Sektör Tipik %)</p>
+                <p className="text-sm font-normal text-white mb-3">CAPEX Dökümü (Sektör Tipik %)</p>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
@@ -883,7 +883,7 @@ export default function GesAnalysisPage() {
             {/* Arazi uygunluk */}
             <Card className="card-luxury border-emerald-400/20">
               <CardContent className="p-5">
-                <p className="text-sm font-semibold text-emerald-300 mb-2">
+                <p className="text-sm font-normal text-emerald-300 mb-2">
                   Arazi Uygunluk Değerlendirmesi
                 </p>
                 <p className="text-sm text-slate-300">
@@ -892,13 +892,13 @@ export default function GesAnalysisPage() {
                   destekleyebilir (1 MW ≈ 10.000 m² rule of thumb). Talep ettiğiniz{" "}
                   <strong>{dcKwp} kWp</strong> ({(Number(dcKwp) / 1000).toFixed(2)} MW) için arazi{" "}
                   {Number(dcKwp) / 1000 < derived.teorikMw ? (
-                    <span className="text-emerald-300 font-semibold">YETERLİ</span>
+                    <span className="text-emerald-300 font-normal">YETERLİ</span>
                   ) : (
-                    <span className="text-rose-300 font-semibold">YETERSİZ</span>
+                    <span className="text-rose-300 font-normal">YETERSİZ</span>
                   )}.
                 </p>
                 {derived.lisansUyari ? (
-                  <p className="mt-2 text-sm text-rose-200 bg-rose-500/10 p-3 rounded-lg border border-rose-500/30">
+                  <p className="mt-2 text-sm text-rose-200 bg-rose-500/10 p-3 rounded-[10px] border border-rose-500/30">
                     ⚠️ 5 MW eşiğini aştınız — <strong>EPDK lisansı şart</strong>. Lisanssız yol
                     kapalı. Ayrı bir hukuki süreç ve ÇED gerekir.
                   </p>
@@ -916,12 +916,12 @@ export default function GesAnalysisPage() {
         <section className="mt-12 space-y-4">
           <div className="flex items-center gap-2 mb-2">
             <Scale className="h-5 w-5 text-violet-300" />
-            <h2 className="text-xl font-bold text-white">Hukuki Süreç ve Mevzuat</h2>
+            <h2 className="text-xl font-normal text-white">Hukuki Süreç ve Mevzuat</h2>
           </div>
 
           <Card className="card-luxury border-violet-400/20">
             <CardContent className="p-5">
-              <p className="text-sm font-semibold text-white mb-3">
+              <p className="text-sm font-normal text-white mb-3">
                 Lisanssız GES — 8 Aşama Süreç (5 MW altı)
               </p>
               <ol className="space-y-2.5 text-sm text-slate-300">
@@ -935,10 +935,10 @@ export default function GesAnalysisPage() {
                   ["7. Belediye / OSB İzin", "İmar durum yazısı + yapı ruhsatı (sera/otopark hibrit varsa ek izin)."],
                   ["8. Montaj + Kabul", "EDAŞ + sayaç + yeşil sözleşme. Geçici kabul → kesin kabul (~30 gün)."],
                 ].map(([title, desc]) => (
-                  <li key={title} className="flex items-start gap-3 p-2.5 rounded-lg bg-slate-900/30 border border-white/5">
+                  <li key={title} className="flex items-start gap-3 p-2.5 rounded-[10px] bg-slate-900/30 border border-white/5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-300 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold text-white">{title}</p>
+                      <p className="font-normal text-white">{title}</p>
                       <p className="text-xs text-slate-400 mt-0.5">{desc}</p>
                     </div>
                   </li>
@@ -952,7 +952,7 @@ export default function GesAnalysisPage() {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <ScrollText className="h-4 w-4 text-violet-300" />
-                  <p className="text-sm font-semibold text-white">Mevzuat Çerçevesi</p>
+                  <p className="text-sm font-normal text-white">Mevzuat Çerçevesi</p>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-1.5">
                   <li>
@@ -982,7 +982,7 @@ export default function GesAnalysisPage() {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <FileText className="h-4 w-4 text-cyan-300" />
-                  <p className="text-sm font-semibold text-white">Kapasite Kategorileri</p>
+                  <p className="text-sm font-normal text-white">Kapasite Kategorileri</p>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-1.5">
                   <li>• <strong>5-1-a</strong>: Konut tüketici öz tüketim (10 kWp altı)</li>
@@ -1003,7 +1003,7 @@ export default function GesAnalysisPage() {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingUp className="h-4 w-4 text-emerald-300" />
-                  <p className="text-sm font-semibold text-white">Finansman Seçenekleri</p>
+                  <p className="text-sm font-normal text-white">Finansman Seçenekleri</p>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-1.5">
                   <li>
@@ -1027,7 +1027,7 @@ export default function GesAnalysisPage() {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <AlertTriangle className="h-4 w-4 text-amber-300" />
-                  <p className="text-sm font-semibold text-white">Disclaimer (Kritik)</p>
+                  <p className="text-sm font-normal text-white">Disclaimer (Kritik)</p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   Bu sayfa <strong>ön fizibilite</strong> aracıdır — bankable yatırım kararı

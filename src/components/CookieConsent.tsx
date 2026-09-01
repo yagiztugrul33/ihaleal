@@ -35,13 +35,13 @@ export function CookieConsent() {
       role="dialog"
       aria-label="Çerez bildirimi"
     >
-      <div className="max-w-3xl mx-auto pointer-events-auto rounded-2xl border border-slate-200 bg-[#0f1629]/95 backdrop-blur-xl shadow-2xl p-4 md:p-5 flex flex-col md:flex-row md:items-center gap-4">
+      <div className="max-w-3xl mx-auto pointer-events-auto rounded-[20px] border border-slate-200 bg-[#0f1629]/95 backdrop-blur-xl shadow-2xl p-4 md:p-5 flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex gap-3 flex-1 min-w-0">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 rounded-[20px] bg-amber-500/15 flex items-center justify-center flex-shrink-0">
             <Cookie className="w-5 h-5 text-amber-400" />
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-white">Çerezler ve gizlilik</p>
+            <p className="text-sm font-normal text-white">Çerezler ve gizlilik</p>
             <p className="text-xs text-slate-400 mt-1 leading-relaxed">
               Deneyimi iyileştirmek için zorunlu çerezler ve tercihlerinize bağlı analitik çerezleri kullanılabilir.
               Ayrıntılar için{" "}
@@ -57,10 +57,10 @@ export function CookieConsent() {
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <Button size="sm" className="[background:var(--gradient-cta)] text-white font-semibold" onClick={accept}>
+          <Button size="sm" className="[background:var(--gradient-cta)] text-white font-normal" onClick={accept}>
             Anladım, devam
           </Button>
-          <button type="button" className="p-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/5" aria-label="Kapat" onClick={accept}>
+          <button type="button" className="p-2 rounded-[10px] text-slate-500 hover:text-white hover:bg-white/5" aria-label="Kapat" onClick={accept}>
             <X className="w-4 h-4" />
           </button>
         </div>

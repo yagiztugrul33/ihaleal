@@ -9,10 +9,10 @@ export default function About() {
       <div className="mx-auto max-w-5xl">
         {/* Hero */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-300">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-normal uppercase tracking-wider text-blue-300">
             <Sparkles className="h-3.5 w-3.5" /> Demo Platform · 2026
           </div>
-          <h1 className="mt-6 text-4xl md:text-5xl font-bold text-white">Hakkımızda</h1>
+          <h1 className="mt-6 text-4xl md:text-5xl font-normal text-white">Hakkımızda</h1>
           <p className="mt-5 mx-auto max-w-2xl text-base md:text-lg text-slate-400 leading-relaxed">
             ihaleal.com, Türkiye gayrimenkul piyasasında şeffaflığı, AI destekli analizi ve banka düzeyinde
             güvenliği bir araya getiren yeni nesil ihale ve teklif platformudur.
@@ -20,8 +20,8 @@ export default function About() {
         </div>
 
         {/* Hikaye */}
-        <div className="mt-16 rounded-3xl border border-slate-200/60 bg-slate-900/50 p-6 md:p-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Hikayemiz</h2>
+        <div className="mt-16 rounded-[20px] border border-slate-200/60 bg-slate-900/50 p-6 md:p-10">
+          <h2 className="text-2xl md:text-3xl font-normal text-white">Hikayemiz</h2>
           <p className="mt-4 text-slate-300 leading-relaxed">
             Gayrimenkul piyasasında alıcı–satıcı buluşması ve fiyat keşfi yıllardır kapalı kanallarla, asimetrik
             bilgiyle ilerliyordu. ihaleal.com bu sürtünmeyi çözmek için kuruldu: açık artırma + escrow güvencesi
@@ -35,7 +35,7 @@ export default function About() {
           <Card className="border-blue-500/25 bg-gradient-to-br from-blue-950/40 to-slate-900/60">
             <CardContent className="p-6">
               <Eye className="mb-4 h-9 w-9 text-blue-400" />
-              <h3 className="text-xl font-bold text-white">Vizyonumuz</h3>
+              <h3 className="text-xl font-normal text-white">Vizyonumuz</h3>
               <p className="mt-3 text-slate-300 leading-relaxed">
                 Türkiye gayrimenkulünde fiyat keşfini şeffaflaştıran, yatırımcıya ve satıcıya eşit bilgi sunan
                 referans dijital pazaryeri olmak.
@@ -45,7 +45,7 @@ export default function About() {
           <Card className="border-emerald-500/25 bg-emerald-950/40">
             <CardContent className="p-6">
               <Target className="mb-4 h-9 w-9 text-emerald-400" />
-              <h3 className="text-xl font-bold text-white">Misyonumuz</h3>
+              <h3 className="text-xl font-normal text-white">Misyonumuz</h3>
               <p className="mt-3 text-slate-300 leading-relaxed">
                 Her ilanı denetlenebilir teklif tarihçesi, AI değerleme ve kart blokajlı katılım disipliniyle
                 sunarak manipülasyondan uzak bir ihale ekosistemi kurmak.
@@ -55,13 +55,13 @@ export default function About() {
         </div>
 
         {/* Değerler */}
-        <h2 className="mt-16 text-2xl md:text-3xl font-bold text-white text-center">Değerlerimiz</h2>
+        <h2 className="mt-16 text-2xl md:text-3xl font-normal text-white text-center">Değerlerimiz</h2>
         <p className="mt-2 text-center text-slate-400">5 temel ilke, tüm kararlarımızın ana çerçevesi.</p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <Shield className="mb-3 h-7 w-7 text-cyan-400" />
-              <h3 className="text-base font-semibold text-white">Güvenlik</h3>
+              <h3 className="text-base font-normal text-white">Güvenlik</h3>
               <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                 256-bit SSL, escrow, KYC, oturum denetimi.
               </p>
@@ -70,7 +70,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <Eye className="mb-3 h-7 w-7 text-blue-400" />
-              <h3 className="text-base font-semibold text-white">Şeffaflık</h3>
+              <h3 className="text-base font-normal text-white">Şeffaflık</h3>
               <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                 Açık komisyon yapısı, denetlenebilir teklif tarihçesi.
               </p>
@@ -79,7 +79,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <Sparkles className="mb-3 h-7 w-7 text-violet-400" />
-              <h3 className="text-base font-semibold text-white">Yenilikçilik</h3>
+              <h3 className="text-base font-normal text-white">Yenilikçilik</h3>
               <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                 AI değerleme, deprem skoru, akıllı modül entegrasyonları.
               </p>
@@ -88,7 +88,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <HeartHandshake className="mb-3 h-7 w-7 text-amber-400" />
-              <h3 className="text-base font-semibold text-white">Adil İşlem</h3>
+              <h3 className="text-base font-normal text-white">Adil İşlem</h3>
               <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                 Gizli ücret yok, anti-sniping koruması, eşit teklif fırsatı.
               </p>
@@ -97,7 +97,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <Award className="mb-3 h-7 w-7 text-emerald-400" />
-              <h3 className="text-base font-semibold text-white">Sorumluluk</h3>
+              <h3 className="text-base font-normal text-white">Sorumluluk</h3>
               <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                 KVKK uyumu, hukuk + finans regülasyonlarına bağlı süreçler.
               </p>
@@ -106,24 +106,24 @@ export default function About() {
         </div>
 
         {/* Sayılarla Demo Platform */}
-        <div className="mt-16 rounded-3xl border border-slate-200/60 bg-gradient-to-br from-slate-900/60 to-slate-950/40 p-6 md:p-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Sayılarla Demo Platform</h2>
+        <div className="mt-16 rounded-[20px] border border-slate-200/60 bg-gradient-to-br from-slate-900/60 to-slate-950/40 p-6 md:p-10">
+          <h2 className="text-2xl md:text-3xl font-normal text-white">Sayılarla Demo Platform</h2>
           <p className="mt-2 text-sm text-slate-500">Gösterilen metrikler demo veriler üzerindendir.</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-5">
-              <div className="text-3xl font-black text-cyan-300">12.840</div>
+            <div className="rounded-[20px] border border-slate-200/80 bg-slate-900/40 p-5">
+              <div className="text-3xl font-normal text-cyan-300">12.840</div>
               <div className="mt-1 text-xs uppercase tracking-wider text-slate-500">Doğrulanmış işlem</div>
             </div>
-            <div className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-5">
-              <div className="text-3xl font-black text-emerald-300">68.900</div>
+            <div className="rounded-[20px] border border-slate-200/80 bg-slate-900/40 p-5">
+              <div className="text-3xl font-normal text-emerald-300">68.900</div>
               <div className="mt-1 text-xs uppercase tracking-wider text-slate-500">Aktif kullanıcı</div>
             </div>
-            <div className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-5">
-              <div className="text-3xl font-black text-amber-300">%4</div>
+            <div className="rounded-[20px] border border-slate-200/80 bg-slate-900/40 p-5">
+              <div className="text-3xl font-normal text-amber-300">%4</div>
               <div className="mt-1 text-xs uppercase tracking-wider text-slate-500">Toplam komisyon</div>
             </div>
-            <div className="rounded-xl border border-slate-200/80 bg-slate-900/40 p-5">
-              <div className="text-3xl font-black text-violet-300">%94</div>
+            <div className="rounded-[20px] border border-slate-200/80 bg-slate-900/40 p-5">
+              <div className="text-3xl font-normal text-violet-300">%94</div>
               <div className="mt-1 text-xs uppercase tracking-wider text-slate-500">Demo memnuniyet</div>
             </div>
           </div>
@@ -134,7 +134,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-6">
               <Building2 className="mb-3 h-8 w-8 text-blue-400" />
-              <h3 className="font-semibold text-white">Odak</h3>
+              <h3 className="font-normal text-white">Odak</h3>
               <p className="mt-2 text-sm text-slate-400">
                 İlan, ihale ve kapalı teklif modlarıyla tek çatı altında uçtan uca süreç çizgisi.
               </p>
@@ -143,7 +143,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-6">
               <TrendingUp className="mb-3 h-8 w-8 text-teal-400" />
-              <h3 className="font-semibold text-white">Uyumluluk hedefi</h3>
+              <h3 className="font-normal text-white">Uyumluluk hedefi</h3>
               <p className="mt-2 text-sm text-slate-400">
                 KYC, evrak ve saklama politikaları üretimde hukuk ve regülasyonla tamamlanır.
               </p>
@@ -152,7 +152,7 @@ export default function About() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-6">
               <Users className="mb-3 h-8 w-8 text-violet-400" />
-              <h3 className="font-semibold text-white">Ortaklık</h3>
+              <h3 className="font-normal text-white">Ortaklık</h3>
               <p className="mt-2 text-sm text-slate-400">
                 B2B emlakçı ortaklığı; ilan paketi satışı değil, performansa dayalı kazanç paylaşımı.
               </p>
@@ -161,8 +161,8 @@ export default function About() {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 rounded-3xl border border-blue-500/25 bg-blue-950/40 p-6 md:p-10 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Platformu keşfedin</h2>
+        <div className="mt-16 rounded-[20px] border border-blue-500/25 bg-blue-950/40 p-6 md:p-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-normal text-white">Platformu keşfedin</h2>
           <p className="mt-3 mx-auto max-w-xl text-slate-400">
             Canlı ihaleler, AI değerleme, risk analiz modülleri — hepsi tek panelde.
           </p>

@@ -26,7 +26,7 @@ export default function MesafeliSatisSozlesmesi() {
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200 mb-3">
             <FileText className="h-3.5 w-3.5" /> Üyelik & Abonelik Sözleşmesi
           </p>
-          <h1 className="text-3xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl font-normal flex items-center gap-3">
             <ScrollText className="h-7 w-7 text-emerald-400" />
             Mesafeli Satış ve Üyelik Sözleşmesi
           </h1>
@@ -44,8 +44,8 @@ export default function MesafeliSatisSozlesmesi() {
 
         <article className="space-y-5">
           {/* MADDE 1 — Taraflar */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">1. Taraflar</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">1. Taraflar</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               <strong className="text-emerald-200">SATICI / HİZMET SAĞLAYICI:</strong> ihaleal.com (yayın
               öncesi şirket bilgileri eklenecektir — Vergi No / MERSIS / Ticaret Sicil No / Adres).
@@ -61,8 +61,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 2 — Konu */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">2. Sözleşmenin Konusu</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">2. Sözleşmenin Konusu</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               İşbu sözleşme, ALICI'nın ihaleal.com platformu üzerinden seçtiği:
             </p>
@@ -78,8 +78,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 3 — Fiyat ve Ödeme */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">3. Fiyat, KDV ve Ödeme</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">3. Fiyat, KDV ve Ödeme</h2>
             <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ms-2">
               <li>Güncel fiyat listesi <button type="button" onClick={() => navigate("/fiyatlandirma")} className="text-emerald-300 underline">/fiyatlandirma</button> sayfasında yayınlanır.</li>
               <li>Listelenen tutarlar <strong className="text-white">KDV dahil</strong>'dir (VUK 213 m. 230).</li>
@@ -91,8 +91,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 4 — Cayma Hakkı (KRITİK) */}
-          <section className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <section className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white flex items-center gap-2">
               <RefreshCw className="h-5 w-5 text-amber-300" />
               4. Cayma Hakkı (14 Gün)
             </h2>
@@ -113,8 +113,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 5 — Hizmet sunumu */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">5. Hizmet Sunumu</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">5. Hizmet Sunumu</h2>
             <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ms-2">
               <li>Premium üyelik ödeme onayı sonrası <strong className="text-white">anında aktive</strong> edilir; hesabınızda görüntülenir.</li>
               <li>Aylık abonelik 30 gün, yıllık 365 gün geçerlidir. Yenileme tarihinden 7 gün önce hatırlatma e-postası gönderilir.</li>
@@ -125,8 +125,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 6 — Fesih ve İptal */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">6. Fesih, İptal ve Yenileme</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">6. Fesih, İptal ve Yenileme</h2>
             <ul className="list-disc list-inside text-sm text-slate-300 space-y-1.5 ms-2">
               <li><strong className="text-white">ALICI tek taraflı fesih:</strong> İstediği zaman üyeliği iptal edebilir. İptal anında abonelik süresi sonuna kadar haklar korunur; otomatik yenileme durur.</li>
               <li><strong className="text-white">SATICI tek taraflı fesih:</strong> Yalnızca ALICI'nın sözleşme + Kullanım Koşulları ihlali durumunda (sahte teklif, bot kullanımı, MASAK ihlali, vb.) — yazılı bildirim + 7 gün makul süre tanınır.</li>
@@ -136,11 +136,11 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 7 — Yükümlülükler */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">7. Tarafların Yükümlülükleri</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">7. Tarafların Yükümlülükleri</h2>
             <div className="grid sm:grid-cols-2 gap-3 text-sm">
-              <div className="rounded-lg border border-emerald-500/20 bg-slate-900/30 p-3">
-                <p className="text-emerald-300 font-semibold mb-1">SATICI</p>
+              <div className="rounded-[10px] border border-emerald-500/20 bg-slate-900/30 p-3">
+                <p className="text-emerald-300 font-normal mb-1">SATICI</p>
                 <ul className="text-slate-300 text-xs list-disc list-inside space-y-0.5">
                   <li>Hizmeti süresinde + kalitesinde sunmak</li>
                   <li>Verileri KVKK çerçevesinde işlemek</li>
@@ -148,8 +148,8 @@ export default function MesafeliSatisSozlesmesi() {
                   <li>Şikayet + cayma işlemini 14 gün içinde sonuçlandırmak</li>
                 </ul>
               </div>
-              <div className="rounded-lg border border-blue-500/20 bg-slate-900/30 p-3">
-                <p className="text-blue-300 font-semibold mb-1">ALICI</p>
+              <div className="rounded-[10px] border border-blue-500/20 bg-slate-900/30 p-3">
+                <p className="text-blue-300 font-normal mb-1">ALICI</p>
                 <ul className="text-slate-300 text-xs list-disc list-inside space-y-0.5">
                   <li>Doğru kayıt bilgileri vermek</li>
                   <li>Ödemeyi zamanında yapmak</li>
@@ -161,8 +161,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 8 — Hizmet Bedeli ve Komisyon */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">8. Komisyon (Aracılık Hizmeti)</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">8. Komisyon (Aracılık Hizmeti)</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               Premium üyeliğe ek olarak — gerçekleşen ihale satışlarında kademeli komisyon alınır
               (sadece kapanışta; iptal olursa komisyon doğmaz):
@@ -179,8 +179,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 9 — Sorumluluk Sınırı */}
-          <section className="rounded-2xl border border-rose-500/30 bg-rose-500/5 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <section className="rounded-[20px] border border-rose-500/30 bg-rose-500/5 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-rose-300" />
               9. Sorumluluk Sınırı
             </h2>
@@ -196,8 +196,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 10 — KVKK */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">10. KVKK ve Veri İşleme</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">10. KVKK ve Veri İşleme</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               ALICI'nın kişisel verileri 6698 sayılı KVKK çerçevesinde işlenir.
               Detaylı bilgi için <button type="button" onClick={() => navigate("/kvkk")} className="text-emerald-300 underline">KVKK Aydınlatma Metni</button> + <button type="button" onClick={() => navigate("/gizlilik")} className="text-emerald-300 underline">Gizlilik Politikası</button>'ndan yararlanın.
@@ -210,8 +210,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 11 — Uyuşmazlık */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">11. Uyuşmazlık Çözümü ve Yetkili Mahkeme</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">11. Uyuşmazlık Çözümü ve Yetkili Mahkeme</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               Sözleşmeden kaynaklanan uyuşmazlıklarda taraflar önce arabuluculuğa başvurabilir (6325 sayılı kanun).
               Çözüm sağlanamazsa:
@@ -224,8 +224,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* MADDE 12 — Yürürlük */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">12. Yürürlük ve Değişiklik</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">12. Yürürlük ve Değişiklik</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               İşbu sözleşme ALICI'nın elektronik onayı ile yürürlüğe girer; SATICI tarafından güncellenirse
               ALICI'ya en az <strong className="text-white">30 gün önce</strong> bildirim yapılır. ALICI değişikliği
@@ -237,8 +237,8 @@ export default function MesafeliSatisSozlesmesi() {
           </section>
 
           {/* Güvenceler */}
-          <section className="rounded-2xl border border-emerald-500/20 bg-slate-900/40 p-5">
-            <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-5">
+            <h3 className="text-base font-normal text-white mb-3 flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-emerald-400" />
               Güvenceler
             </h3>
@@ -278,10 +278,10 @@ export default function MesafeliSatisSozlesmesi() {
           />
 
           {/* İletişim */}
-          <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
+          <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
             <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
             <div className="text-sm">
-              <p className="font-semibold text-slate-200 mb-1">Sözleşme + İade İletişim</p>
+              <p className="font-normal text-slate-200 mb-1">Sözleşme + İade İletişim</p>
               <p className="text-xs text-slate-400">
                 <a href="mailto:destek@ihaleal.com" className="text-cyan-300 underline">destek@ihaleal.com</a>
                 {" · "}

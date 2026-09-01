@@ -149,10 +149,10 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Premium status banner */}
         {!isPremium ? (
-          <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
+          <div className="rounded-[20px] border border-amber-500/40 bg-amber-500/10 p-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
             <Crown className="h-5 w-5 text-amber-300 flex-shrink-0" />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-amber-100">
+              <p className="text-sm font-normal text-amber-100">
                 Borsa terminal özet görünüyor — TAM erişim için Premium
               </p>
               <p className="text-[11px] text-slate-300">
@@ -162,30 +162,30 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
             <button
               type="button"
               onClick={() => navigate("/fiyatlandirma?onerilen=yatirimci")}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] bg-amber-600 hover:bg-amber-500 text-white text-xs font-normal whitespace-nowrap"
             >
               <Sparkles className="h-3.5 w-3.5" /> Paketleri Gör
             </button>
           </div>
         ) : (
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-2.5 flex items-center gap-2 text-xs">
+          <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-2.5 flex items-center gap-2 text-xs">
             <Crown className="h-4 w-4 text-emerald-300" />
-            <span className="text-emerald-200 font-semibold">{tier.name}</span>
+            <span className="text-emerald-200 font-normal">{tier.name}</span>
             <span className="text-slate-400">— Borsa terminal TAM erişim aktif</span>
           </div>
         )}
 
         {/* 1. TICKER (kayan) */}
-        <div className="overflow-hidden rounded-lg border border-cyan-500/30 bg-slate-900/80 py-2">
+        <div className="overflow-hidden rounded-[10px] border border-cyan-500/30 bg-slate-900/80 py-2">
           <div className="flex gap-8 animate-marquee whitespace-nowrap text-sm">
             {[...enriched.slice(0, 15), ...enriched.slice(0, 15)].map((a, i) => (
               <span key={`${a.id}-${i}`} className="inline-flex items-center gap-2 px-3">
                 <span className="font-mono text-cyan-300">{a.id.slice(0, 4).toUpperCase()}</span>
                 <span className="text-slate-300">{a.title.slice(0, 25)}</span>
-                <span className="font-bold text-white">{formatTRY(a.currentBid)}</span>
+                <span className="font-normal text-white">{formatTRY(a.currentBid)}</span>
                 <span
                   className={cn(
-                    "font-semibold",
+                    "font-normal",
                     a.deltaPct >= 0 ? "text-emerald-400" : "text-rose-400",
                   )}
                 >
@@ -207,9 +207,9 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         </div>
 
         {/* 3. ORDER BOOK */}
-        <div className="rounded-xl border border-cyan-500/20 bg-slate-900/40 p-4 overflow-hidden">
+        <div className="rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-4 overflow-hidden">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold text-cyan-200 flex items-center gap-2">
+            <h2 className="text-sm font-normal text-cyan-200 flex items-center gap-2">
               <Activity className="h-4 w-4" /> ORDER BOOK
             </h2>
             <span className="text-xs text-slate-500">Bitmeye yakın · top 8</span>
@@ -243,12 +243,12 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                     <td className="py-2 text-slate-400 truncate max-w-[100px]">
                       {a.district || a.city}
                     </td>
-                    <td className="py-2 text-end text-white font-semibold">
+                    <td className="py-2 text-end text-white font-normal">
                       {formatTRY(a.currentBid)}
                     </td>
                     <td
                       className={cn(
-                        "py-2 text-end font-bold",
+                        "py-2 text-end font-normal",
                         a.deltaPct >= 0 ? "text-emerald-400" : "text-rose-400",
                       )}
                     >
@@ -269,8 +269,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         {/* 4 + 5: HEAT MAP + TOP MOVERS yan yana */}
         <div className="grid lg:grid-cols-2 gap-4">
           {/* HEAT MAP */}
-          <div className="rounded-xl border border-violet-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-bold text-violet-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-violet-500/20 bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-violet-200 mb-3 flex items-center gap-2">
               <MapPin className="h-4 w-4" /> BÖLGE HEAT MAP
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -286,12 +286,12 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                 return (
                   <div
                     key={r.city}
-                    className={cn("rounded-lg border p-2", bg)}
+                    className={cn("rounded-[10px] border p-2", bg)}
                   >
-                    <p className="text-xs font-semibold text-white truncate">{r.city}</p>
+                    <p className="text-xs font-normal text-white truncate">{r.city}</p>
                     <p
                       className={cn(
-                        "text-sm font-bold",
+                        "text-sm font-normal",
                         r.avgDelta >= 0 ? "text-emerald-300" : "text-rose-300",
                       )}
                     >
@@ -306,13 +306,13 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
           </div>
 
           {/* TOP MOVERS */}
-          <div className="rounded-xl border border-emerald-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-bold text-emerald-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-emerald-200 mb-3 flex items-center gap-2">
               <TrendingUp className="h-4 w-4" /> TOP MOVERS
             </h2>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs font-semibold text-emerald-300 mb-1 flex items-center gap-1">
+                <p className="text-xs font-normal text-emerald-300 mb-1 flex items-center gap-1">
                   <ArrowUp className="h-3 w-3" /> Yükselenler
                 </p>
                 <ul className="space-y-1 text-xs">
@@ -320,12 +320,12 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                     <li key={a.id}>
                       <Link
                         to={`/ilan/${a.id}`}
-                        className="flex justify-between gap-2 hover:bg-slate-800/40 rounded px-1 py-0.5"
+                        className="flex justify-between gap-2 hover:bg-slate-800/40 rounded-[3px] px-1 py-0.5"
                       >
                         <span className="text-slate-300 truncate">
                           {a.title.slice(0, 20)}
                         </span>
-                        <span className="text-emerald-400 font-bold whitespace-nowrap">
+                        <span className="text-emerald-400 font-normal whitespace-nowrap">
                           +{a.deltaPct}%
                         </span>
                       </Link>
@@ -334,7 +334,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                 </ul>
               </div>
               <div>
-                <p className="text-xs font-semibold text-rose-300 mb-1 flex items-center gap-1">
+                <p className="text-xs font-normal text-rose-300 mb-1 flex items-center gap-1">
                   <ArrowDown className="h-3 w-3" /> Düşenler
                 </p>
                 <ul className="space-y-1 text-xs">
@@ -342,12 +342,12 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                     <li key={a.id}>
                       <Link
                         to={`/ilan/${a.id}`}
-                        className="flex justify-between gap-2 hover:bg-slate-800/40 rounded px-1 py-0.5"
+                        className="flex justify-between gap-2 hover:bg-slate-800/40 rounded-[3px] px-1 py-0.5"
                       >
                         <span className="text-slate-300 truncate">
                           {a.title.slice(0, 20)}
                         </span>
-                        <span className="text-rose-400 font-bold whitespace-nowrap">
+                        <span className="text-rose-400 font-normal whitespace-nowrap">
                           {a.deltaPct}%
                         </span>
                       </Link>
@@ -362,8 +362,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
         {/* 6. CANLI TEKLİF AKIŞI + 7. AI SİNYALLER yan yana */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* TEKLİF AKIŞI */}
-          <div className="rounded-xl border border-cyan-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-bold text-cyan-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-cyan-200 mb-3 flex items-center gap-2">
               <Radio className="h-4 w-4 animate-pulse" /> CANLI TEKLİF AKIŞI
               <span className="ms-auto text-[10px] text-slate-500">sealed · anonim</span>
             </h2>
@@ -371,7 +371,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
               {feedItems.map((f) => (
                 <li
                   key={f.id}
-                  className="flex items-start gap-2 rounded-lg bg-slate-950/40 p-2 border border-slate-800/50"
+                  className="flex items-start gap-2 rounded-[10px] bg-slate-950/40 p-2 border border-slate-800/50"
                 >
                   <span
                     className={cn(
@@ -391,8 +391,8 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
           </div>
 
           {/* AI SİNYALLER + bitmeye yakın */}
-          <div className="rounded-xl border border-emerald-500/20 bg-slate-900/40 p-4">
-            <h2 className="text-sm font-bold text-emerald-200 mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-4">
+            <h2 className="text-sm font-normal text-emerald-200 mb-3 flex items-center gap-2">
               <Zap className="h-4 w-4" /> AI YATIRIM SİNYALLERİ
             </h2>
             <ul className="space-y-2 text-xs">
@@ -404,13 +404,13 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                 aiSignals.map((a) => (
                   <li
                     key={a.id}
-                    className="flex items-center justify-between gap-2 rounded-lg bg-slate-950/40 p-2 border border-emerald-500/20"
+                    className="flex items-center justify-between gap-2 rounded-[10px] bg-slate-950/40 p-2 border border-emerald-500/20"
                   >
                     <Link
                       to={`/ilan/${a.id}`}
                       className="flex-1 min-w-0 hover:underline"
                     >
-                      <p className="text-slate-200 truncate font-semibold">
+                      <p className="text-slate-200 truncate font-normal">
                         {a.title.slice(0, 30)}
                       </p>
                       <p className="text-[10px] text-slate-500">
@@ -418,7 +418,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
                       </p>
                     </Link>
                     <div className="text-end">
-                      <p className="text-emerald-400 font-bold">
+                      <p className="text-emerald-400 font-normal">
                         {a.investmentScore}/100
                       </p>
                       <p className="text-[10px] text-emerald-300">+{a.deltaPct}%</p>
@@ -431,7 +431,7 @@ export function BorsaTerminali({ catalog, liveCount }: Props) {
             {/* Bitmeye yakın HOT */}
             {endingHot.length > 0 ? (
               <div className="mt-3 pt-3 border-t border-slate-800">
-                <p className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-1">
+                <p className="text-xs font-normal text-amber-300 mb-2 flex items-center gap-1">
                   <Flame className="h-3 w-3" /> Bitmeye Yakın (anti-snipe aktif)
                 </p>
                 <ul className="space-y-1 text-xs">

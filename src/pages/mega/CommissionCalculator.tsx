@@ -168,27 +168,27 @@ export default function CommissionCalculator() {
       <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-2">
         <div>
           <div className="mb-8 flex items-start gap-3">
-            <div className="rounded-xl bg-teal-500/15 p-3 text-teal-400">
+            <div className="rounded-[20px] bg-teal-500/15 p-3 text-teal-400">
               <Calculator className="h-8 w-8" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">{cc.pageTitle}</h1>
+              <h1 className="text-3xl font-normal text-white">{cc.pageTitle}</h1>
               <p className="mt-2 text-sm text-slate-400">
                 {cc.pageIntro}
               </p>
             </div>
           </div>
           <section className="mb-6 grid gap-3 sm:grid-cols-3">
-            <article className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 p-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">{cc.step1Title}</p>
+            <article className="rounded-[20px] border border-cyan-500/25 bg-cyan-500/10 p-3">
+              <p className="text-xs font-normal uppercase tracking-[0.12em] text-cyan-200">{cc.step1Title}</p>
               <p className="mt-1 text-xs text-slate-300">{cc.step1Desc}</p>
             </article>
-            <article className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">{cc.step2Title}</p>
+            <article className="rounded-[20px] border border-emerald-500/25 bg-emerald-500/10 p-3">
+              <p className="text-xs font-normal uppercase tracking-[0.12em] text-emerald-200">{cc.step2Title}</p>
               <p className="mt-1 text-xs text-slate-300">{cc.step2Desc}</p>
             </article>
-            <article className="rounded-xl border border-violet-500/25 bg-violet-500/10 p-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">{cc.step3Title}</p>
+            <article className="rounded-[20px] border border-violet-500/25 bg-violet-500/10 p-3">
+              <p className="text-xs font-normal uppercase tracking-[0.12em] text-violet-200">{cc.step3Title}</p>
               <p className="mt-1 text-xs text-slate-300">{cc.step3Desc}</p>
             </article>
           </section>
@@ -197,7 +197,7 @@ export default function CommissionCalculator() {
             <CardContent className="flex gap-3 p-4">
               <Shield className="mt-0.5 h-5 w-5 shrink-0 text-sky-400" aria-hidden />
               <div>
-                <h2 className="text-sm font-semibold text-white">{cc.escrowTitle}</h2>
+                <h2 className="text-sm font-normal text-white">{cc.escrowTitle}</h2>
                 <p className="mt-1 text-xs leading-relaxed text-slate-400">
                   {cc.escrowBody}
                 </p>
@@ -207,7 +207,7 @@ export default function CommissionCalculator() {
 
           <Card className="mb-6 border-emerald-500/25 bg-emerald-950/20">
             <CardContent className="p-5 space-y-3">
-              <h2 className="text-lg font-semibold text-white">{cc.basicTitle}</h2>
+              <h2 className="text-lg font-normal text-white">{cc.basicTitle}</h2>
               <p className="text-xs text-slate-300">
                 {cc.basicRateDesc
                   .replace("{seller}", (SELLER_COMMISSION_RATE * 100).toFixed(0))
@@ -232,7 +232,7 @@ export default function CommissionCalculator() {
 
           <Card className="mb-6 border-cyan-500/20 bg-cyan-950/20">
             <CardContent className="p-5 space-y-2">
-              <h2 className="text-lg font-semibold text-cyan-100">{cc.exampleTitle}</h2>
+              <h2 className="text-lg font-normal text-cyan-100">{cc.exampleTitle}</h2>
               <p className="text-sm text-slate-300" data-testid="commission-total-with-vat">
                 {cc.exampleBody
                   .replace("{amount}", saleAmount.toLocaleString("tr-TR"))
@@ -258,7 +258,7 @@ export default function CommissionCalculator() {
                   dir="ltr"
                 />
               </div>
-              <div className="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
+              <div className="flex items-start gap-3 rounded-[10px] border border-slate-200 p-4">
                 <Checkbox
                   checked={sellerMembershipPaid}
                   onCheckedChange={(v) => setSellerMembershipPaid(v === true)}
@@ -266,7 +266,7 @@ export default function CommissionCalculator() {
                   aria-label={cc.inputMembershipAria}
                 />
                 <div>
-                  <label htmlFor="sm-y" className="cursor-pointer text-sm font-medium text-white">
+                  <label htmlFor="sm-y" className="cursor-pointer text-sm font-normal text-white">
                     {cc.inputMembershipLabel.replace("{amount}", MEMBERSHIP_FEES.seller_yearly.toLocaleString("tr-TR"))}
                   </label>
                   <p className="mt-1 text-xs text-slate-500">
@@ -275,10 +275,10 @@ export default function CommissionCalculator() {
                 </div>
               </div>
               <div>
-                <p className="mb-3 text-sm font-medium text-slate-300">{cc.inputServiceFeesLabel}</p>
+                <p className="mb-3 text-sm font-normal text-slate-300">{cc.inputServiceFeesLabel}</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {(Object.keys(SERVICE_FEES) as ServiceKey[]).map((k) => (
-                    <label key={k} className="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-200/80 p-3 hover:bg-white/5">
+                    <label key={k} className="flex cursor-pointer items-start gap-2 rounded-[10px] border border-slate-200/80 p-3 hover:bg-white/5">
                       <Checkbox checked={svc[k]} onCheckedChange={() => toggleService(k)} />
                       <span className="text-sm text-slate-400">
                         <span className="text-slate-200">{t.serviceFees.labels[k]}</span>
@@ -297,18 +297,18 @@ export default function CommissionCalculator() {
 
           <Card className="mt-6 border-slate-200 bg-slate-950/60">
             <CardContent className="p-6">
-              <h2 className="mb-4 text-sm font-semibold text-white">{cc.mahsupTitle}</h2>
-              <div className="rounded-xl border border-dashed border-teal-500/25 bg-[#060912] p-4 font-mono text-[11px] leading-relaxed text-slate-300 sm:text-xs">
+              <h2 className="mb-4 text-sm font-normal text-white">{cc.mahsupTitle}</h2>
+              <div className="rounded-[20px] border border-dashed border-teal-500/25 bg-[#060912] p-4 font-mono text-[11px] leading-relaxed text-slate-300 sm:text-xs">
                 <div className="flex flex-col gap-2">
-                  <div className="rounded-lg bg-white/5 px-3 py-2 text-center">
+                  <div className="rounded-[10px] bg-white/5 px-3 py-2 text-center">
                     {cc.mahsupBox1.replace("{seller}", (SELLER_COMMISSION_RATE * 100).toFixed(0)).replace("{vat}", (VAT_RATE * 100).toFixed(0))}
                   </div>
                   <div className="text-center text-teal-400">−</div>
-                  <div className="rounded-lg bg-teal-500/10 px-3 py-2 text-center text-teal-100">
+                  <div className="rounded-[10px] bg-teal-500/10 px-3 py-2 text-center text-teal-100">
                     {cc.mahsupBox2}
                   </div>
                   <div className="text-center text-teal-400">−</div>
-                  <div className="rounded-lg bg-violet-500/10 px-3 py-2 text-center text-violet-100">
+                  <div className="rounded-[10px] bg-violet-500/10 px-3 py-2 text-center text-violet-100">
                     {cc.mahsupBox3.replace("{b2b}", (REALTOR_B2B_RATE * 100).toFixed(0))}
                   </div>
                   <div className="mt-2 border-t border-slate-200 pt-3 text-center text-slate-500">
@@ -323,33 +323,33 @@ export default function CommissionCalculator() {
         <div className="space-y-4">
           <Card className="border-teal-500/20 bg-teal-950/20">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-white">{cc.distTitle}</h2>
+              <h2 className="text-lg font-normal text-white">{cc.distTitle}</h2>
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between text-slate-400">
                   <dt>{cc.distSellerCommMatrah}</dt>
-                  <dd className="font-medium text-white" dir="ltr">₺{Math.round(b.sellerCommission).toLocaleString("tr-TR")}</dd>
+                  <dd className="font-normal text-white" dir="ltr">₺{Math.round(b.sellerCommission).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between text-slate-400">
                   <dt>{cc.distKdv.replace("{vat}", (VAT_RATE * 100).toFixed(0))}</dt>
-                  <dd className="font-medium text-white" dir="ltr">₺{Math.round(b.totalVAT).toLocaleString("tr-TR")}</dd>
+                  <dd className="font-normal text-white" dir="ltr">₺{Math.round(b.totalVAT).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between text-slate-400">
                   <dt>{cc.distB2b.replace("{b2b}", (REALTOR_B2B_RATE * 100).toFixed(0))}</dt>
-                  <dd className="font-medium text-white" dir="ltr">₺{Math.round(b.agentShare).toLocaleString("tr-TR")}</dd>
+                  <dd className="font-normal text-white" dir="ltr">₺{Math.round(b.agentShare).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between border-t border-slate-200 pt-2 text-slate-400">
                   <dt>{cc.distMahsup}</dt>
                   <dd className="text-teal-300" dir="ltr">−₺{Math.round(b.offsetTotal).toLocaleString("tr-TR")}</dd>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <dt className="font-medium">{cc.distPlatformNet}</dt>
-                  <dd className={`font-bold ${b.platformNet < 0 ? "text-amber-400" : "text-emerald-400"}`} dir="ltr">
+                  <dt className="font-normal">{cc.distPlatformNet}</dt>
+                  <dd className={`font-normal ${b.platformNet < 0 ? "text-amber-400" : "text-emerald-400"}`} dir="ltr">
                     ₺{Math.round(b.platformNet).toLocaleString("tr-TR")}
                   </dd>
                 </div>
               </dl>
               {b.platformNet < 0 ? (
-                <p className="rounded-lg bg-amber-500/10 p-3 text-xs text-amber-200/90">
+                <p className="rounded-[10px] bg-amber-500/10 p-3 text-xs text-amber-200/90">
                   {cc.distNegativeNote}
                 </p>
               ) : null}
@@ -361,7 +361,7 @@ export default function CommissionCalculator() {
 
           <Card className="border-amber-500/20 bg-[#0F172A]">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-amber-100">Kiralık ve devren (v.Final — Madde 41-46)</h2>
+              <h2 className="text-lg font-normal text-amber-100">Kiralık ve devren (v.Final — Madde 41-46)</h2>
               <p className="text-xs text-slate-400">
                 <code className="text-amber-200/90">rentalCommissionEngine.ts</code> — hizmet bedeli matrahı{" "}
                 <strong className="text-amber-100">1 tam aylık kira + KDV</strong>. Devir bedeli üzerinden komisyon
@@ -406,7 +406,7 @@ export default function CommissionCalculator() {
                     key={key}
                     type="button"
                     onClick={() => setRentScenario(key)}
-                    className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+                    className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${
                       rentScenario === key ? "bg-amber-500/25 text-amber-100" : "bg-white/5 text-slate-400 hover:bg-white/10"
                     }`}
                   >
@@ -419,12 +419,12 @@ export default function CommissionCalculator() {
                   <div className="text-[11px] text-slate-500">{rentalSplit.lawRef}</div>
                   <div className="flex justify-between">
                     <dt>İhaleal matrah</dt>
-                    <dd className="font-medium text-white">₺{rentalSplit.ihalealMatrahTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{rentalSplit.ihalealMatrahTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   {typeof rentalSplit.listingRealtorMatrahTry === "number" ? (
                     <div className="flex justify-between">
                       <dt>İlan / portföy emlakçısı matrah</dt>
-                      <dd className="font-medium text-white">
+                      <dd className="font-normal text-white">
                         ₺{rentalSplit.listingRealtorMatrahTry.toLocaleString("tr-TR")}
                       </dd>
                     </div>
@@ -432,14 +432,14 @@ export default function CommissionCalculator() {
                   {typeof rentalSplit.buyerRealtorMatrahTry === "number" ? (
                     <div className="flex justify-between">
                       <dt>Alıcı tarafı emlakçı matrah</dt>
-                      <dd className="font-medium text-white">
+                      <dd className="font-normal text-white">
                         ₺{rentalSplit.buyerRealtorMatrahTry.toLocaleString("tr-TR")}
                       </dd>
                     </div>
                   ) : null}
                   <div className="flex justify-between border-t border-slate-200 pt-2 text-slate-400">
                     <dt>KDV (komisyon matrahı üzerinden %{(RENTAL_COMMISSION_VAT_RATE * 100).toFixed(0)})</dt>
-                    <dd className="font-medium text-white">
+                    <dd className="font-normal text-white">
                       ₺{kdvOnCommissionMatrah(rentAmount).toLocaleString("tr-TR")}
                     </dd>
                   </div>
@@ -451,8 +451,8 @@ export default function CommissionCalculator() {
                 <p className="text-xs text-amber-200/80">Geçerli bir aylık kira tutarı girin.</p>
               )}
               {rentalEProvNormal != null && rentalEProvDevren != null ? (
-                <div className="rounded-lg border border-slate-200 p-3 text-xs text-slate-400">
-                  <div className="font-medium text-slate-300">%1 e-provizyon (bloke)</div>
+                <div className="rounded-[10px] border border-slate-200 p-3 text-xs text-slate-400">
+                  <div className="font-normal text-slate-300">%1 e-provizyon (bloke)</div>
                   <div className="mt-1 flex justify-between">
                     <span>Normal kiralık</span>
                     <span className="text-white">₺{rentalEProvNormal.toLocaleString("tr-TR")}</span>
@@ -468,14 +468,14 @@ export default function CommissionCalculator() {
 
           <Card className="border-emerald-500/20 bg-[#0F172A]">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-emerald-100">
+              <h2 className="text-lg font-normal text-emerald-100">
                 {`Kat karşılığı arsa (v2.3 — %${(LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0)} + KDV)`}
               </h2>
               <p className="text-xs text-slate-400 mb-2">
                 <button
                   type="button"
                   onClick={() => navigate(KKA_HUB_PATH)}
-                  className="text-teal-400 hover:text-teal-300 hover:underline font-medium"
+                  className="text-teal-400 hover:text-teal-300 hover:underline font-normal"
                 >
                   Tam modül: hak ediş senaryosu ve havuz seçenekleri → {KKA_HUB_PATH}
                 </button>
@@ -497,23 +497,23 @@ export default function CommissionCalculator() {
                 <dl className="space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-300">
                   <div className="flex justify-between">
                     <dt>İhaleal payı (havuzdan)</dt>
-                    <dd className="font-medium text-white">₺{landPool.platformTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{landPool.platformTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Emlakçı payı (havuzdan)</dt>
-                    <dd className="font-medium text-white">₺{landPool.agentPoolTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{landPool.agentPoolTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between text-slate-400">
                     <dt>Müteahhit yükü (matrah)</dt>
-                    <dd className="font-medium text-white">₺{landPool.contractorTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{landPool.contractorTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between text-slate-400">
                     <dt>Arsa sahibi yükü (matrah)</dt>
-                    <dd className="font-medium text-white">₺{landPool.ownerTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{landPool.ownerTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between border-t border-slate-200 pt-2 text-slate-400">
                     <dt>KDV (havuz matrahı üzerinden %{(RENTAL_COMMISSION_VAT_RATE * 100).toFixed(0)})</dt>
-                    <dd className="font-medium text-white">₺{landPool.totalKdvTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{landPool.totalKdvTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between text-slate-500">
                     <dt>Toplam {(LAND_SHARE_TOTAL_EX_VAT_RATE * 100).toFixed(0)}% havuz (KDV hariç)</dt>
@@ -530,13 +530,13 @@ export default function CommissionCalculator() {
 
           <Card className="border-cyan-500/20 bg-[#071326]">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-cyan-100">Araçlar / Hesaplayıcılar (yatırımcı)</h2>
+              <h2 className="text-lg font-normal text-cyan-100">Araçlar / Hesaplayıcılar (yatırımcı)</h2>
               <p className="text-xs text-slate-400">
                 Bu blok teklif/ödeme çekirdeğine dokunmadan sadece ön karar desteği sağlar (mock hesap).
               </p>
               <div className="grid gap-4">
-                <div className="rounded-xl border border-slate-700/70 p-3">
-                  <p className="mb-2 text-xs font-semibold text-cyan-200">Kredi hesaplayıcı</p>
+                <div className="rounded-[20px] border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-normal text-cyan-200">Kredi hesaplayıcı</p>
                   <div className="grid gap-2 sm:grid-cols-3">
                     <Input value={loanPrincipalStr} onChange={(e) => setLoanPrincipalStr(e.target.value)} inputMode="numeric" />
                     <Input value={loanMonthsStr} onChange={(e) => setLoanMonthsStr(e.target.value)} inputMode="numeric" />
@@ -544,8 +544,8 @@ export default function CommissionCalculator() {
                   </div>
                   <p className="mt-2 text-sm text-white">Aylık taksit (tahmini): ₺{Math.round(monthlyInstallment).toLocaleString("tr-TR")}</p>
                 </div>
-                <div className="rounded-xl border border-slate-700/70 p-3">
-                  <p className="mb-2 text-xs font-semibold text-cyan-200">Kira getirisi</p>
+                <div className="rounded-[20px] border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-normal text-cyan-200">Kira getirisi</p>
                   <div className="grid gap-2 sm:grid-cols-2">
                     <Input value={yieldPriceStr} onChange={(e) => setYieldPriceStr(e.target.value)} inputMode="numeric" />
                     <Input value={yieldRentStr} onChange={(e) => setYieldRentStr(e.target.value)} inputMode="numeric" />
@@ -554,13 +554,13 @@ export default function CommissionCalculator() {
                     Yıllık brüt getiri: %{annualYieldPct.toFixed(2)} · Amortisman: {amortizationYears.toFixed(1)} yıl
                   </p>
                 </div>
-                <div className="rounded-xl border border-slate-700/70 p-3">
-                  <p className="mb-2 text-xs font-semibold text-cyan-200">Tapu harcı (%4)</p>
+                <div className="rounded-[20px] border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-normal text-cyan-200">Tapu harcı (%4)</p>
                   <Input value={titleFeeBaseStr} onChange={(e) => setTitleFeeBaseStr(e.target.value)} inputMode="numeric" />
                   <p className="mt-2 text-sm text-white">Tahmini tapu harcı: ₺{Math.round(titleFee).toLocaleString("tr-TR")}</p>
                 </div>
-                <div className="rounded-xl border border-slate-700/70 p-3">
-                  <p className="mb-2 text-xs font-semibold text-cyan-200">Değer artışı vergisi</p>
+                <div className="rounded-[20px] border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-normal text-cyan-200">Değer artışı vergisi</p>
                   <div className="grid gap-2 sm:grid-cols-3">
                     <Input value={gainBuyStr} onChange={(e) => setGainBuyStr(e.target.value)} inputMode="numeric" />
                     <Input value={gainSellStr} onChange={(e) => setGainSellStr(e.target.value)} inputMode="numeric" />
@@ -571,8 +571,8 @@ export default function CommissionCalculator() {
                     {gainYears >= 5 ? " (5 yıl+ istisna varsayımı)" : ""}
                   </p>
                 </div>
-                <div className="rounded-xl border border-slate-700/70 p-3">
-                  <p className="mb-2 text-xs font-semibold text-cyan-200">Aidat / gider etkisi</p>
+                <div className="rounded-[20px] border border-slate-700/70 p-3">
+                  <p className="mb-2 text-xs font-normal text-cyan-200">Aidat / gider etkisi</p>
                   <div className="grid gap-2 sm:grid-cols-2">
                     <Input value={monthlyAidatStr} onChange={(e) => setMonthlyAidatStr(e.target.value)} inputMode="numeric" />
                     <Input value={monthlyOpsStr} onChange={(e) => setMonthlyOpsStr(e.target.value)} inputMode="numeric" />

@@ -28,7 +28,7 @@ export function ToastContainer({ toasts, onRemove }: ToastContainerProps) {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className={`flex items-start gap-3 px-4 py-3 rounded-xl border backdrop-blur-xl ${bgColors[toast.type]} animate-slide-in-right`}
+          className={`flex items-start gap-3 px-4 py-3 rounded-[20px] border backdrop-blur-xl ${bgColors[toast.type]} animate-slide-in-right`}
         >
           <div className="flex-shrink-0 mt-0.5">{icons[toast.type]}</div>
           <p className="text-sm text-white/90 flex-1">{toast.message}</p>

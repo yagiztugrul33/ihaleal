@@ -23,7 +23,7 @@ export function SavedSearchesPanel({ api, currentQuery, onApplySearch }: Props) 
 
   if (!user) {
     return (
-      <p className="rounded-xl border border-white/10 bg-slate-900/40 px-4 py-3 text-sm text-slate-400">
+      <p className="rounded-[20px] border border-white/10 bg-slate-900/40 px-4 py-3 text-sm text-slate-400">
         Arama kaydetmek için{" "}
         <Link to="/giris?next=/arama" className="text-blue-400 underline">
           giriş yapın
@@ -49,10 +49,10 @@ export function SavedSearchesPanel({ api, currentQuery, onApplySearch }: Props) 
   };
 
   return (
-    <div className="mb-8 rounded-xl border border-white/10 bg-slate-900/30 p-4 space-y-4">
+    <div className="mb-8 rounded-[20px] border border-white/10 bg-slate-900/30 p-4 space-y-4">
       <div className="flex items-center gap-2">
         <Bookmark className="h-4 w-4 text-amber-400" />
-        <h2 className="text-sm font-semibold text-white">Kayıtlı aramalar</h2>
+        <h2 className="text-sm font-normal text-white">Kayıtlı aramalar</h2>
         <Bell className="h-3.5 w-3.5 text-slate-500 ms-1" aria-hidden />
         <span className="text-[11px] text-slate-500">Yeni eşleşmede bildirim</span>
       </div>
@@ -80,7 +80,7 @@ export function SavedSearchesPanel({ api, currentQuery, onApplySearch }: Props) 
       ) : api.searches.length === 0 ? (
         <p className="text-xs text-slate-500">Henüz kayıtlı arama yok.</p>
       ) : (
-        <ul className="divide-y divide-white/5 rounded-lg border border-white/10">
+        <ul className="divide-y divide-white/5 rounded-[10px] border border-white/10">
           {api.searches.map((s) => (
             <li key={s.id} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2.5 text-sm">
               <button

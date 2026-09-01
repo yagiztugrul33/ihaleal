@@ -124,8 +124,8 @@ export default function TatbikatRehberiPage() {
                 aria-selected={activeTab}
                 className={
                   activeTab
-                    ? "inline-flex items-center gap-2 rounded-lg border border-amber-500/50 bg-amber-500/15 px-3 py-2 text-sm font-medium text-amber-100"
-                    : "inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-sm font-medium text-slate-300 hover:bg-white/[0.06]"
+                    ? "inline-flex items-center gap-2 rounded-[10px] border border-amber-500/50 bg-amber-500/15 px-3 py-2 text-sm font-normal text-amber-100"
+                    : "inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.02] px-3 py-2 text-sm font-normal text-slate-300 hover:bg-white/[0.06]"
                 }
                 onClick={() => setTab(s.id)}
               >
@@ -137,10 +137,10 @@ export default function TatbikatRehberiPage() {
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <div className="rounded-[20px] border border-white/10 bg-white/[0.03] p-4">
             <div className="flex items-center gap-2 text-amber-200">
               <ActiveIcon className="h-5 w-5" aria-hidden />
-              <h3 className="font-semibold text-white">{active.label}</h3>
+              <h3 className="font-normal text-white">{active.label}</h3>
               <span className="ms-auto text-xs text-slate-400">Süre: {active.duration}</span>
             </div>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
@@ -151,11 +151,11 @@ export default function TatbikatRehberiPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Roller</p>
+            <p className="mt-3 text-xs font-normal uppercase tracking-wide text-slate-500">Roller</p>
             <p className="text-sm text-slate-400">{active.roles.join(" · ")}</p>
           </div>
-          <div className="rounded-xl border border-dashed border-amber-500/35 bg-amber-500/5 p-4">
-            <h3 className="flex items-center gap-2 font-semibold text-white">
+          <div className="rounded-[20px] border border-dashed border-amber-500/35 bg-amber-500/5 p-4">
+            <h3 className="flex items-center gap-2 font-normal text-white">
               <FileDown className="h-4 w-4 text-amber-300" aria-hidden />
               Yönetici tatbikat şablonu (PDF)
             </h3>
@@ -179,10 +179,10 @@ export default function TatbikatRehberiPage() {
         <ModulePanel title="Çocuklar için oyunlaştırılmış etkinlikler">
           <div className="grid gap-3 sm:grid-cols-2">
             {KIDS_GAMES.map((g) => (
-              <div key={g.title} className="rounded-lg border border-white/10 p-3">
+              <div key={g.title} className="rounded-[10px] border border-white/10 p-3">
                 <div className="flex items-center gap-2 text-sky-300">
                   <Gamepad2 className="h-4 w-4" aria-hidden />
-                  <h4 className="text-sm font-semibold text-white">{g.title}</h4>
+                  <h4 className="text-sm font-normal text-white">{g.title}</h4>
                 </div>
                 <p className="mt-1 text-xs text-slate-400">{g.body}</p>
               </div>
@@ -193,10 +193,10 @@ export default function TatbikatRehberiPage() {
         <ModulePanel title="Yaşlı bireyler ve refakat">
           <div className="space-y-3">
             {ELDERLY.map((e) => (
-              <div key={e.title} className="flex gap-3 rounded-lg border border-white/10 p-3">
+              <div key={e.title} className="flex gap-3 rounded-[10px] border border-white/10 p-3">
                 <HeartPulse className="mt-0.5 h-5 w-5 shrink-0 text-rose-300" aria-hidden />
                 <div>
-                  <h4 className="text-sm font-semibold text-white">{e.title}</h4>
+                  <h4 className="text-sm font-normal text-white">{e.title}</h4>
                   <p className="mt-1 text-xs text-slate-400">{e.body}</p>
                 </div>
               </div>
@@ -206,7 +206,7 @@ export default function TatbikatRehberiPage() {
       </div>
 
       <ModulePanel title="Güvenlik videosu">
-        <div className="overflow-hidden rounded-xl border border-white/10 bg-black/40">
+        <div className="overflow-hidden rounded-[20px] border border-white/10 bg-black/40">
           <video
             className="aspect-video w-full"
             controls

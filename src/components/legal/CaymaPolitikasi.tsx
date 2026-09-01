@@ -10,8 +10,8 @@ export function CaymaPolitikasi({
   onAcceptedChange: (v: boolean) => void;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-4 space-y-3 text-xs text-slate-400 leading-relaxed">
-      <p className="text-sm font-semibold text-white">Cayma ve kesinti politikası (taslak)</p>
+    <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-4 space-y-3 text-xs text-slate-400 leading-relaxed">
+      <p className="text-sm font-normal text-white">Cayma ve kesinti politikası (taslak)</p>
       <p>
         Ön yetkilendirme (blokaj) sonrası işlemden cayma halinde, platform ve ödeme kuruluşu masraflarını karşılamak üzere{" "}
         <strong className="text-slate-200">yaklaşık %10</strong> hizmet kesintisi ve kalan tutarın iadesi hedeflenir; kesin oranlar sözleşme ve ödeme sağlayıcı
@@ -22,7 +22,7 @@ export function CaymaPolitikasi({
         <strong className="text-slate-300">aydınlatma ve açık rıza</strong> dokümanları güncellenecektir.
       </p>
       <label className="flex items-start gap-2 cursor-pointer text-slate-300">
-        <input type="checkbox" checked={accepted} onChange={(e) => onAcceptedChange(e.target.checked)} className="mt-0.5 rounded border-white/20" />
+        <input type="checkbox" checked={accepted} onChange={(e) => onAcceptedChange(e.target.checked)} className="mt-0.5 rounded-[3px] border-white/20" />
         <span>Taslak cayma ve kesinti koşullarını okudum ve kabul ediyorum.</span>
       </label>
     </div>

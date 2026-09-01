@@ -14,7 +14,7 @@ export default function KVKK() {
         </Button>
 
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-3xl font-normal text-white flex items-center gap-3">
             <Shield className="w-8 h-8 text-blue-400" />
             KVKK Aydınlatma Metni
           </h1>
@@ -24,7 +24,7 @@ export default function KVKK() {
 
         <div className="space-y-6">
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">1. Veri Sorumlusu</h3>
+            <h3 className="text-lg font-normal text-white mb-3">1. Veri Sorumlusu</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               İhaleal.com olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verilerinizin işlenmesi, saklanması ve korunması konusunda veri sorumlusu sıfatıyla hareket etmekteyiz. Şirketimizin iletişim bilgileri:
             </p>
@@ -36,7 +36,7 @@ export default function KVKK() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">2. İşlenen Kişisel Veriler</h3>
+            <h3 className="text-lg font-normal text-white mb-3">2. İşlenen Kişisel Veriler</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Platformumuz üzerinden topladığımız kişisel veriler şunlardır:
             </p>
@@ -51,7 +51,7 @@ export default function KVKK() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">3. Veri İşleme Amaçları</h3>
+            <h3 className="text-lg font-normal text-white mb-3">3. Veri İşleme Amaçları</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:
             </p>
@@ -66,7 +66,7 @@ export default function KVKK() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">4. Veri Aktarımı</h3>
+            <h3 className="text-lg font-normal text-white mb-3">4. Veri Aktarımı</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz, yalnızca aşağıdaki durumlarda üçüncü taraflarla paylaşılabilir:
             </p>
@@ -79,7 +79,7 @@ export default function KVKK() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">5. Haklarınız</h3>
+            <h3 className="text-lg font-normal text-white mb-3">5. Haklarınız</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               KVKK kapsamında aşağıdaki haklara sahipsiniz:
             </p>
@@ -96,7 +96,7 @@ export default function KVKK() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">6. Veri Saklama Süresi</h3>
+            <h3 className="text-lg font-normal text-white mb-3">6. Veri Saklama Süresi</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Kişisel verileriniz, hesabınız aktif olduğu sürece ve yasal yükümlülüklerimizin gerektirdiği süre boyunca saklanır. Hesabınızı sildiğinizde, verileriniz 30 gün içinde sistemden kaldırılır. Ancak yasal mercilerin talep ettiği kayıtlar yasal süreler boyunca saklanabilir.
             </p>
@@ -110,7 +110,7 @@ export default function KVKK() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">7. Çerezler (Cookies) ve Yerel Depolama</h3>
+            <h3 className="text-lg font-normal text-white mb-3">7. Çerezler (Cookies) ve Yerel Depolama</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Platformumuz hizmet kalitesini sağlamak için zorunlu çerezler kullanır. Reklam veya 3. parti
               izleme çerezi <strong className="text-white">kullanmıyoruz</strong>:
@@ -128,7 +128,7 @@ export default function KVKK() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3">8. Veri İmha ve Uluslararası Transfer</h3>
+            <h3 className="text-lg font-normal text-white mb-3">8. Veri İmha ve Uluslararası Transfer</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               KVKK 7. madde ve "Kişisel Verilerin Silinmesi, Yok Edilmesi veya Anonim Hale Getirilmesi Hakkında
               Yönetmelik" uyarınca veri imha politikamız:

@@ -19,7 +19,7 @@ export default function AuctionTerms() {
         </Button>
 
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-3xl font-normal text-white flex items-center gap-3">
             <Gavel className="w-8 h-8 text-orange-400" />
             İhale Katılım Koşulları ve Komisyon Yapısı
           </h1>
@@ -49,13 +49,13 @@ export default function AuctionTerms() {
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-6 h-6 text-orange-400 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-lg font-bold text-white">Komisyon Yapısı</h3>
+                <h3 className="text-lg font-normal text-white">Komisyon Yapısı</h3>
                 <p className="text-sm text-slate-400 mt-2 leading-relaxed">
                   <strong className="text-slate-200">Hedef model (sözleşmede netleştirilecek):</strong> gayrimenkul satışında platform hizmet bedeli olarak
                   <Badge className="bg-orange-500/20 text-orange-400 text-sm mx-1">{feeBadgeLabel()}</Badge>
                   oranı kullanılabilir. Alıcıdan mı, satıcıdan mı veya paylaşımlı mı olacağı <strong className="text-white">avukat onaylı kullanıcı sözleşmesi</strong> ile belirlenir; bu paragraf bağlayıcı teklif değildir.
                 </p>
-                <div className="mt-3 p-3 rounded-lg bg-orange-500/5 border border-orange-500/10">
+                <div className="mt-3 p-3 rounded-[10px] bg-orange-500/5 border border-orange-500/10">
                   <p className="text-sm text-orange-300">
                     <strong>Örnek (tek kaynak <code className="text-orange-200">fees.ts</code>, satıcı brüt {LEGAL_EXAMPLE_TRY.toLocaleString("tr-TR")} ₺):</strong>{" "}
                     komisyon ₺{legalEx.commission.toLocaleString("tr-TR")} + KDV ₺{legalEx.vatOnCommission.toLocaleString("tr-TR")} = toplam kesinti ₺
@@ -67,7 +67,7 @@ export default function AuctionTerms() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+            <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <UserCheck className="w-5 h-5 text-blue-400" />
               Kimler İhaleye Katılabilir?
             </h3>
@@ -79,7 +79,7 @@ export default function AuctionTerms() {
               <li>Telefon numarası SMS doğrulaması tamamlanmış kullanıcılar</li>
               <li>Kimlik doğrulaması (hedef: e-Devlet veya nüfus müdürlüğü süreci — üretim entegrasyonu gerekir)</li>
             </ul>
-            <div className="mt-3 p-3 rounded-lg bg-red-500/5 border border-red-500/10">
+            <div className="mt-3 p-3 rounded-[10px] bg-red-500/5 border border-red-500/10">
               <p className="text-sm text-red-300 flex items-center gap-2">
                 <Ban className="w-4 h-4" />
                 <strong>Katılamayacaklar:</strong> Adli sicil kaydı olanlar, yasal engeli bulunanlar, daha önce ihale ihlali yapmış ve kara listede olanlar.
@@ -88,43 +88,43 @@ export default function AuctionTerms() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+            <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-emerald-400" />
               İhale Süreci
             </h3>
             <div className="space-y-4">
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">1</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">1</div>
                 <div>
-                  <h4 className="font-semibold text-white">Kayıt ve Doğrulama</h4>
+                  <h4 className="font-normal text-white">Kayıt ve Doğrulama</h4>
                   <p className="text-sm text-slate-400">Üye olun, telefon ve e-posta doğrulaması yapın. Findeks raporu talep edin.</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">2</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">2</div>
                 <div>
-                  <h4 className="font-semibold text-white">Teminat Yatırma (Kapora)</h4>
+                  <h4 className="font-normal text-white">Teminat Yatırma (Kapora)</h4>
                   <p className="text-sm text-slate-400">{FEE_TEXTS.bidBondLine()}</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">3</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">3</div>
                 <div>
-                  <h4 className="font-semibold text-white">Teklif Verme</h4>
+                  <h4 className="font-normal text-white">Teklif Verme</h4>
                   <p className="text-sm text-slate-400">Minimum artış miktarına göre teklif verin. Son 5 dakikada teklif gelirse süre otomatik 5 dk uzar.</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">4</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">4</div>
                 <div>
-                  <h4 className="font-semibold text-white">Kazanan İlan Edilme</h4>
+                  <h4 className="font-normal text-white">Kazanan İlan Edilme</h4>
                   <p className="text-sm text-slate-400">En yüksek teklif sahibi kazanan ilan edilir. 24 saat içinde kalan tutarı ödemek zorundadır.</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">5</div>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-normal text-sm">5</div>
                 <div>
-                  <h4 className="font-semibold text-white">Tapu Devir ve Teslim</h4>
+                  <h4 className="font-normal text-white">Tapu Devir ve Teslim</h4>
                   <p className="text-sm text-slate-400">Ödeme onayından sonra tapu devri için randevu alınır. Ekspertiz raporu platform tarafından sağlanır.</p>
                 </div>
               </div>
@@ -132,7 +132,7 @@ export default function AuctionTerms() {
           </Card>
 
           <Card className="bg-slate-900/50 border-red-500/20 p-5">
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+            <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Ban className="w-5 h-5 text-red-400" />
               Teklif verme — risk ve dolandırıcılık önlemleri (taslak)
             </h3>
@@ -162,7 +162,7 @@ export default function AuctionTerms() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+            <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-violet-400" />
               Güvenlik ve AML/KYC Politikası
             </h3>
@@ -179,7 +179,7 @@ export default function AuctionTerms() {
           </Card>
 
           <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+            <h3 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Clock className="w-5 h-5 text-amber-400" />
               İptal ve İade Koşulları
             </h3>

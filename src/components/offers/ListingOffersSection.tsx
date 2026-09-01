@@ -33,7 +33,7 @@ function OfferRow({
   const visible = isOfferAmountVisible(offer, viewerId, true);
 
   return (
-    <li className="p-3 rounded-lg border border-white/10 bg-white/[0.02] text-sm">
+    <li className="p-3 rounded-[10px] border border-white/10 bg-white/[0.02] text-sm">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <p className="text-xs text-slate-500">
@@ -41,7 +41,7 @@ function OfferRow({
             {offer.is_sealed ? " · Kapalı" : ""}
           </p>
         </div>
-        <span className="font-semibold text-white">
+        <span className="font-normal text-white">
           {visible ? `₺${offer.amount_try.toLocaleString("tr-TR")}` : maskOfferAmount()}
         </span>
       </div>
@@ -111,11 +111,11 @@ export function ListingOffersSection({ listingId, className }: Props) {
     <div className={className}>
       <div className="flex items-center gap-2 mb-3">
         <HandCoins className="h-4 w-4 text-amber-400" />
-        <h4 className="text-sm font-semibold text-white">Gelen teklifler</h4>
+        <h4 className="text-sm font-normal text-white">Gelen teklifler</h4>
         <span className="text-xs text-slate-500 ms-auto">{offers.length} kayıt</span>
       </div>
       {hiddenSealed > 0 ? (
-        <p className="mb-2 text-xs text-amber-200/90 rounded-lg border border-amber-500/25 bg-amber-500/10 px-2 py-1.5">
+        <p className="mb-2 text-xs text-amber-200/90 rounded-[10px] border border-amber-500/25 bg-amber-500/10 px-2 py-1.5">
           {hiddenSealed} kapalı teklif tutarı süre sonuna kadar gizli.
         </p>
       ) : null}

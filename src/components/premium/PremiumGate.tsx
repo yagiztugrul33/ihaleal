@@ -77,9 +77,9 @@ export function PremiumGate({
   }
 
   return (
-    <div className="relative rounded-2xl border border-amber-500/30 bg-amber-500/10 p-6 overflow-hidden">
+    <div className="relative rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-6 overflow-hidden">
       {/* Lock badge */}
-      <div className="absolute top-3 end-3 inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-500/20 px-2 py-1 text-[10px] font-semibold text-amber-200">
+      <div className="absolute top-3 end-3 inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-500/20 px-2 py-1 text-[10px] font-normal text-amber-200">
         <Lock className="h-3 w-3" /> Premium
       </div>
 
@@ -88,21 +88,21 @@ export function PremiumGate({
           <Sparkles className="h-5 w-5 text-amber-300" />
         </div>
         <div className="flex-1 pe-16">
-          <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
+          <h3 className="text-lg font-normal text-white mb-1">{title}</h3>
           <p className="text-sm text-slate-300 leading-relaxed">{description}</p>
         </div>
       </div>
 
       {rec && (
-        <div className="rounded-lg border border-amber-400/20 bg-slate-900/40 p-3 mb-4">
+        <div className="rounded-[10px] border border-amber-400/20 bg-slate-900/40 p-3 mb-4">
           <p className="text-xs text-slate-400 mb-1">Önerilen paket</p>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-base font-bold text-white">{rec.name}</p>
+              <p className="text-base font-normal text-white">{rec.name}</p>
               <p className="text-xs text-amber-300">{rec.tagline}</p>
             </div>
             <div className="text-end">
-              <p className="text-xl font-bold text-amber-300">₺{rec.monthlyTry.toLocaleString("tr-TR")}</p>
+              <p className="text-xl font-normal text-amber-300">₺{rec.monthlyTry.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-400">/ay</p>
             </div>
           </div>
@@ -112,7 +112,7 @@ export function PremiumGate({
       <button
         type="button"
         onClick={() => navigate(`/fiyatlandirma?onerilen=${recommendTier}`)}
-        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold"
+        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[10px] bg-amber-600 hover:bg-amber-500 text-white text-sm font-normal"
       >
         <Sparkles className="h-4 w-4" />
         Paketleri Gör ve Yükselt
@@ -145,7 +145,7 @@ export function PremiumChip({ tier: tierProp = "emlak_baslangic" }: { tier?: Tie
     <button
       type="button"
       onClick={() => navigate(`/fiyatlandirma?onerilen=${tierProp}`)}
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${colorMap[tierProp]} hover:opacity-80`}
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-normal ${colorMap[tierProp]} hover:opacity-80`}
       aria-label={`${t.name} paketinde mevcut — yükselt`}
     >
       <Sparkles className="h-2.5 w-2.5" />

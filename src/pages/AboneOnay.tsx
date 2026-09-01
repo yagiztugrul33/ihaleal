@@ -71,16 +71,16 @@ export default function AboneOnay() {
     <div className="min-h-screen flex items-center justify-center px-4 py-16 pt-24">
       <div className="w-full max-w-md text-center">
         <Mail className="mx-auto h-10 w-10 text-violet-400 mb-3" aria-hidden />
-        <p className="text-xs uppercase tracking-wider text-violet-300/70 font-semibold">
+        <p className="text-xs uppercase tracking-wider text-violet-300/70 font-normal">
           ihaleal · Aylık Endeks Raporu
         </p>
 
         {status === "no-token" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-amber-500/30 bg-amber-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-amber-500/30 bg-amber-500/10">
               <AlertTriangle className="h-8 w-8 text-amber-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Geçersiz onay bağlantısı</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Geçersiz onay bağlantısı</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               Onay bağlantısı bulunamadı veya bozuk. Lütfen e-postanızdaki linke tekrar tıklayın
               veya /raporlar sayfasından yeniden abone olun.
@@ -88,20 +88,20 @@ export default function AboneOnay() {
           </>
         ) : status === "checking" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-violet-400/30 bg-violet-500/10">
               <Loader2 className="h-8 w-8 text-violet-300 animate-spin" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Aboneliğiniz onaylanıyor…</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Aboneliğiniz onaylanıyor…</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               Lütfen bekleyin, sunucuyla doğrulama yapılıyor.
             </p>
           </>
         ) : status === "ok" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-emerald-400/40 bg-emerald-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-emerald-400/40 bg-emerald-500/10">
               <CheckCircle2 className="h-8 w-8 text-emerald-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Aboneliğiniz onaylandı ✅</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Aboneliğiniz onaylandı ✅</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-300 leading-relaxed">
               {message ||
                 "Bundan sonra her ayın başında yeni endeks raporları e-postanıza gelecek."}
@@ -113,20 +113,20 @@ export default function AboneOnay() {
           </>
         ) : status === "no-backend" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-500/30 bg-slate-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-slate-500/30 bg-slate-500/10">
               <AlertTriangle className="h-8 w-8 text-slate-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Servis geçici olarak ulaşılamıyor</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Servis geçici olarak ulaşılamıyor</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               {message}
             </p>
           </>
         ) : (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-rose-500/30 bg-rose-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-rose-500/30 bg-rose-500/10">
               <AlertTriangle className="h-8 w-8 text-rose-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Onay tamamlanamadı</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Onay tamamlanamadı</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               {message ||
                 "Bağlantı süresi dolmuş olabilir veya zaten onaylanmış olabilirsiniz. /raporlar sayfasından tekrar abone olun."}

@@ -30,7 +30,7 @@ export default function CorporateContact() {
       <div className="kurumsal-page flex min-h-screen items-center justify-center px-4 py-16">
         <div className="card-luxury max-w-md p-10 text-center">
           <div className="text-5xl text-emerald-400" aria-hidden>✓</div>
-          <h2 className="mt-4 text-2xl font-bold text-white">Başvurunuz alındı</h2>
+          <h2 className="mt-4 text-2xl font-normal text-white">Başvurunuz alındı</h2>
           <p className="mt-3 leading-relaxed text-slate-400">
             Ekibimiz 1 iş günü içinde sizinle iletişime geçecek. Genellikle aynı gün dönüş yapıyoruz.
           </p>
@@ -60,7 +60,7 @@ export default function CorporateContact() {
             <Field label="E-posta" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
             <Field label="Telefon" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <label className="mb-1 block text-xs font-normal uppercase tracking-wider text-slate-400">
                 Ekip büyüklüğü
               </label>
               <select
@@ -77,7 +77,7 @@ export default function CorporateContact() {
             </div>
           </div>
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400">Mesaj</label>
+            <label className="mb-1 block text-xs font-normal uppercase tracking-wider text-slate-400">Mesaj</label>
             <textarea
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -113,7 +113,7 @@ export default function CorporateContact() {
           <div className="trust-badge-card">
             <div>
               <p className="text-xs uppercase tracking-wider text-slate-500">Yanıt süresi</p>
-              <p className="mt-1 text-sm font-medium text-emerald-400">Ortalama 4 saat</p>
+              <p className="mt-1 text-sm font-normal text-emerald-400">Ortalama 4 saat</p>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400">
+      <label className="mb-1 block text-xs font-normal uppercase tracking-wider text-slate-400">
         {label}
         {required && <span className="text-red-400"> *</span>}
       </label>

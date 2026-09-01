@@ -40,7 +40,7 @@ export function Testimonials() {
             >
               <Quote className="h-8 w-8 text-teal-500/60 mb-4" />
               <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{t.text}</p>
-              <p className="mt-4 text-xs font-medium" style={{ color: "var(--color-text)" }}>{t.name}</p>
+              <p className="mt-4 text-xs font-normal" style={{ color: "var(--color-text)" }}>{t.name}</p>
               <p className="text-[11px] text-slate-500">{t.role}</p>
             </div>
           ))}

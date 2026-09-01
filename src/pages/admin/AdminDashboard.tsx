@@ -146,7 +146,7 @@ export default function AdminDashboard() {
       }
     >
       {msg ? (
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">{msg}</div>
+        <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">{msg}</div>
       ) : null}
 
       <div className="grid gap-4 sm:grid-cols-3">
@@ -161,7 +161,7 @@ export default function AdminDashboard() {
             key={id}
             type="button"
             onClick={() => setTab(id)}
-            className={`rounded-lg border px-4 py-2 text-sm font-medium transition-all ${
+            className={`rounded-[10px] border px-4 py-2 text-sm font-normal transition-all ${
               tab === id
                 ? "border-blue-500/40 bg-blue-500/15 text-white shadow-lux"
                 : "border-white/10 bg-white/[0.04] text-slate-400 hover:border-white/20 hover:text-white"
@@ -198,7 +198,7 @@ export default function AdminDashboard() {
             {
               key: "status",
               header: "Durum",
-              cell: (r) => <span className="font-medium text-amber-400">{r.status}</span>,
+              cell: (r) => <span className="font-normal text-amber-400">{r.status}</span>,
             },
             {
               key: "action",

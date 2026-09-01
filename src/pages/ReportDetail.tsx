@@ -37,7 +37,7 @@ export default function ReportDetail() {
             <span>·</span>
             <span>{report.readingMinutes} dk okuma</span>
           </div>
-          <h1 className="text-3xl font-bold text-white">{report.title}</h1>
+          <h1 className="text-3xl font-normal text-white">{report.title}</h1>
           <p className="mt-4 text-slate-400">{report.excerpt}</p>
         </header>
 
@@ -47,7 +47,7 @@ export default function ReportDetail() {
           ))}
         </div>
 
-        <p className="mt-12 rounded-lg border border-amber-500/25 bg-amber-500/5 p-4 text-sm text-amber-100/90">
+        <p className="mt-12 rounded-[10px] border border-amber-500/25 bg-amber-500/5 p-4 text-sm text-amber-100/90">
           Bu içerik bilgilendirme amaçlıdır; yatırım veya hukuki tavsiye değildir.
         </p>
       </article>

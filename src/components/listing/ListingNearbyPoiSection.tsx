@@ -31,7 +31,7 @@ export function ListingNearbyPoiSection({ lat, lng, district, city }: Props) {
 
   return (
     <div className="mt-6">
-      <h4 className="mb-1 text-sm font-semibold uppercase tracking-wider text-slate-500">
+      <h4 className="mb-1 text-sm font-normal uppercase tracking-wider text-slate-500">
         Mahalle & çevre (canlı POI)
       </h4>
       {(district || city) ? (
@@ -43,8 +43,8 @@ export function ListingNearbyPoiSection({ lat, lng, district, city }: Props) {
       <div className="grid gap-4 sm:grid-cols-2">
         {groups.map(({ label, state }) =>
           state.pois.length > 0 ? (
-            <div key={label} className="rounded-xl border border-slate-200/80 bg-white/[0.02] p-3">
-              <p className="mb-2 text-xs font-semibold text-slate-400">{label}</p>
+            <div key={label} className="rounded-[20px] border border-slate-200/80 bg-white/[0.02] p-3">
+              <p className="mb-2 text-xs font-normal text-slate-400">{label}</p>
               <ul className="space-y-2">
                 {state.pois.slice(0, 4).map((p) => (
                   <li key={p.id} className="flex items-start gap-2 text-sm text-slate-300">

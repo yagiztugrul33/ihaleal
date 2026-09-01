@@ -20,8 +20,8 @@ export default function FraudDefenseArchitecturePage() {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-rose-400/90">Hukuki risk mimarisi</p>
-            <h1 className="text-2xl font-bold text-white mt-1">Dolandiricilik ve dava risklerine karsi savunma</h1>
+            <p className="text-xs font-normal uppercase tracking-wide text-rose-400/90">Hukuki risk mimarisi</p>
+            <h1 className="text-2xl font-normal text-white mt-1">Dolandiricilik ve dava risklerine karsi savunma</h1>
             <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
               Uc kagit, sahte ilan, teklif manipulasyonu, platform disi kapora ve aradan cikma, lansman on-satisinda teknik sartname ile
               ilan uyumu, para birligi, MASAK, KVKK ve sureklilik riskleri; platformun ayakta kalmasi ve kullaniciya güven vermesi icin urun
@@ -50,7 +50,7 @@ export default function FraudDefenseArchitecturePage() {
 
         <Card className="border-slate-200 bg-slate-900/40">
           <CardContent className="p-5 text-sm text-slate-400 space-y-2">
-            <p className="font-medium text-white flex items-center gap-2">
+            <p className="font-normal text-white flex items-center gap-2">
               <Link2 className="w-4 h-4 text-cyan-400" />
               Hizli baglantilar
             </p>
@@ -83,10 +83,10 @@ export default function FraudDefenseArchitecturePage() {
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono text-slate-500">{p.id}</span>
-                  <h2 className="text-lg font-semibold text-white">{p.title}</h2>
+                  <h2 className="text-lg font-normal text-white">{p.title}</h2>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-rose-200/90 mb-1">Tehdit</p>
+                  <p className="text-xs font-normal text-rose-200/90 mb-1">Tehdit</p>
                   <ul className="list-disc ps-5 text-sm text-slate-400 space-y-1">
                     {p.threats.map((t) => (
                       <li key={t}>{t}</li>
@@ -94,7 +94,7 @@ export default function FraudDefenseArchitecturePage() {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-slate-500 mb-1">Hukuki referans (ozet)</p>
+                  <p className="text-xs font-normal text-slate-500 mb-1">Hukuki referans (ozet)</p>
                   <ul className="list-disc ps-5 text-xs text-slate-500 space-y-1">
                     {p.legalAnchors.map((a) => (
                       <li key={a}>{a}</li>
@@ -102,7 +102,7 @@ export default function FraudDefenseArchitecturePage() {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-emerald-200/90 mb-1">Onlem (urun / operasyon)</p>
+                  <p className="text-xs font-normal text-emerald-200/90 mb-1">Onlem (urun / operasyon)</p>
                   <ul className="list-disc ps-5 text-sm text-slate-300 space-y-1">
                     {p.controls.map((c) => (
                       <li key={c}>{c}</li>
@@ -110,7 +110,7 @@ export default function FraudDefenseArchitecturePage() {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-cyan-200/80 mb-1">Delil / denetim izi</p>
+                  <p className="text-xs font-normal text-cyan-200/80 mb-1">Delil / denetim izi</p>
                   <p className="text-xs text-slate-500">{p.evidenceArtifacts.join(" · ")}</p>
                 </div>
               </CardContent>
@@ -118,8 +118,8 @@ export default function FraudDefenseArchitecturePage() {
           ))}
         </div>
 
-        <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-5 space-y-2">
-          <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+        <div className="rounded-[20px] border border-emerald-500/20 bg-emerald-950/20 p-5 space-y-2">
+          <h2 className="text-lg font-normal text-white flex items-center gap-2">
             <Landmark className="w-5 h-5 text-emerald-400 shrink-0" aria-hidden />
             Gayrimenkul, miras, imar ve ticaret (geniş atlas)
           </h2>
@@ -136,10 +136,10 @@ export default function FraudDefenseArchitecturePage() {
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono text-emerald-600/90">{p.id}</span>
-                  <h3 className="text-base font-semibold text-white">{p.title}</h3>
+                  <h3 className="text-base font-normal text-white">{p.title}</h3>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-rose-200/90 mb-1">Tehdit</p>
+                  <p className="text-xs font-normal text-rose-200/90 mb-1">Tehdit</p>
                   <ul className="list-disc ps-5 text-sm text-slate-400 space-y-1">
                     {p.threats.map((t) => (
                       <li key={t}>{t}</li>
@@ -147,7 +147,7 @@ export default function FraudDefenseArchitecturePage() {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-slate-500 mb-1">Hukuki referans (ozet)</p>
+                  <p className="text-xs font-normal text-slate-500 mb-1">Hukuki referans (ozet)</p>
                   <ul className="list-disc ps-5 text-xs text-slate-500 space-y-1">
                     {p.legalAnchors.map((a) => (
                       <li key={a}>{a}</li>
@@ -155,7 +155,7 @@ export default function FraudDefenseArchitecturePage() {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-emerald-200/90 mb-1">Onlem (urun / operasyon)</p>
+                  <p className="text-xs font-normal text-emerald-200/90 mb-1">Onlem (urun / operasyon)</p>
                   <ul className="list-disc ps-5 text-sm text-slate-300 space-y-1">
                     {p.controls.map((c) => (
                       <li key={c}>{c}</li>
@@ -163,7 +163,7 @@ export default function FraudDefenseArchitecturePage() {
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-cyan-200/80 mb-1">Delil / denetim izi</p>
+                  <p className="text-xs font-normal text-cyan-200/80 mb-1">Delil / denetim izi</p>
                   <p className="text-xs text-slate-500">{p.evidenceArtifacts.join(" · ")}</p>
                 </div>
               </CardContent>

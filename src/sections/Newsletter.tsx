@@ -34,10 +34,10 @@ export function Newsletter() {
   return (
     <section ref={ref} className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`relative overflow-hidden rounded-3xl card-warm p-8 md:p-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`relative overflow-hidden rounded-[20px] card-warm p-8 md:p-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           
           <div className="relative z-10 max-w-2xl mx-auto text-center">
-            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center mx-auto mb-5">
+            <div className="w-14 h-14 rounded-[20px] bg-blue-500/20 flex items-center justify-center mx-auto mb-5">
               <Mail className="w-7 h-7 text-blue-400" />
             </div>
             <h2 className="section-heading mb-3">
@@ -48,9 +48,9 @@ export function Newsletter() {
             </p>
 
             {submitted ? (
-              <div className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+              <div className="flex items-center justify-center gap-3 p-4 rounded-[20px] bg-emerald-500/10 border border-emerald-500/20">
                 <CheckCircle2 className="w-6 h-6 text-emerald-400" />
-                <span className="text-emerald-400 font-semibold text-sm text-center">
+                <span className="text-emerald-400 font-normal text-sm text-center">
                   Kaydınız bu cihazda saklandı (demo). Üretimde e-posta onayı ve gönderim altyapısı gerekir.
                 </span>
               </div>
@@ -65,7 +65,7 @@ export function Newsletter() {
                     required
                     className="flex-1 bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] h-12"
                   />
-                  <Button type="submit" disabled={!consent} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-semibold h-12 px-6 disabled:opacity-40">
+                  <Button type="submit" disabled={!consent} className="[background:var(--gradient-cta)] hover:brightness-110 text-white font-normal h-12 px-6 disabled:opacity-40">
                     <Send className="rtl:-scale-x-100 w-4 h-4 me-2" /> Abone Ol
                   </Button>
                 </div>

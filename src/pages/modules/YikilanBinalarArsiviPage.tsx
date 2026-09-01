@@ -188,7 +188,7 @@ export default function YikilanBinalarArsiviPage() {
         {crossRows.length > 0 ? (
           <ul className="mt-3 space-y-2 text-sm text-slate-300">
             {crossRows.map((r) => (
-              <li key={r.id} className="flex items-start gap-2 rounded-lg border border-white/10 px-3 py-2">
+              <li key={r.id} className="flex items-start gap-2 rounded-[10px] border border-white/10 px-3 py-2">
                 <Building className="mt-0.5 h-4 w-4 shrink-0 text-orange-300" />
                 <span>
                   <strong className="text-white">{r.buildingName}</strong> — {r.city}, {r.eventYear}:{" "}

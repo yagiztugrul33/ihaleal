@@ -81,7 +81,7 @@ export default function PrivacyPolicy() {
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200 mb-3">
             <ShieldCheck className="h-3.5 w-3.5" /> KVKK + GDPR + App Store/Play Uyumlu
           </p>
-          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
             <ShieldCheck className="h-7 w-7 text-emerald-400" />
             Gizlilik Politikası
           </h1>
@@ -98,8 +98,8 @@ export default function PrivacyPolicy() {
 
         <article className="space-y-5">
           {/* 1. Taahhüt */}
-          <section className="rounded-2xl border border-emerald-500/20 bg-slate-900/40 p-5">
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-5">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-emerald-400" />
               1. Gizlilik Taahhüdümüz
             </h2>
@@ -112,8 +112,8 @@ export default function PrivacyPolicy() {
           </section>
 
           {/* 2. APP PRIVACY ENVANTERİ — KRİTİK */}
-          <section className="rounded-2xl border border-blue-500/30 bg-blue-500/5 p-5">
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-blue-500/30 bg-blue-500/5 p-5">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Smartphone className="h-5 w-5 text-blue-400" />
               2. Veri Envanteri (App Privacy / Data Safety)
             </h2>
@@ -127,11 +127,11 @@ export default function PrivacyPolicy() {
               <table className="w-full text-xs min-w-[600px]">
                 <thead>
                   <tr className="text-slate-500 border-b border-slate-700">
-                    <th className="text-start py-2 pe-2 font-medium">Toplanır?</th>
-                    <th className="text-start py-2 px-2 font-medium">Kategori</th>
-                    <th className="text-start py-2 px-2 font-medium">Veri</th>
-                    <th className="text-start py-2 px-2 font-medium">Amaç</th>
-                    <th className="text-start py-2 ps-2 font-medium">Paylaşım</th>
+                    <th className="text-start py-2 pe-2 font-normal">Toplanır?</th>
+                    <th className="text-start py-2 px-2 font-normal">Kategori</th>
+                    <th className="text-start py-2 px-2 font-normal">Veri</th>
+                    <th className="text-start py-2 px-2 font-normal">Amaç</th>
+                    <th className="text-start py-2 ps-2 font-normal">Paylaşım</th>
                   </tr>
                 </thead>
                 <tbody className="text-slate-300">
@@ -140,7 +140,7 @@ export default function PrivacyPolicy() {
                     return (
                       <tr key={`y-${i}`} className="border-b border-slate-800/50">
                         <td className="py-2 pe-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 inline" /></td>
-                        <td className="py-2 px-2 font-semibold text-blue-200">{d.kategori}</td>
+                        <td className="py-2 px-2 font-normal text-blue-200">{d.kategori}</td>
                         <td className="py-2 px-2">{d.veri}</td>
                         <td className="py-2 px-2 text-slate-400">{d.amac}</td>
                         <td className={`py-2 ps-2 ${p.cls}`}>{p.txt}</td>
@@ -150,7 +150,7 @@ export default function PrivacyPolicy() {
                   {toplanmayan.map((d, i) => (
                     <tr key={`n-${i}`} className="border-b border-slate-800/50 opacity-60">
                       <td className="py-2 pe-2"><XCircle className="h-3.5 w-3.5 text-rose-400 inline" /></td>
-                      <td className="py-2 px-2 font-semibold text-slate-400">{d.kategori}</td>
+                      <td className="py-2 px-2 font-normal text-slate-400">{d.kategori}</td>
                       <td className="py-2 px-2 line-through">{d.veri}</td>
                       <td className="py-2 px-2 text-rose-300">{d.amac}</td>
                       <td className="py-2 ps-2 text-slate-500">—</td>
@@ -165,8 +165,8 @@ export default function PrivacyPolicy() {
           </section>
 
           {/* 3. Veri Güvenliği */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Lock className="h-5 w-5 text-emerald-400" />
               3. Teknik Güvenlik Önlemleri
             </h2>
@@ -189,8 +189,8 @@ export default function PrivacyPolicy() {
           </section>
 
           {/* 4. Çerez */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Database className="h-5 w-5 text-amber-400" />
               4. Çerez (Cookie) ve Yerel Depolama
             </h2>
@@ -201,24 +201,24 @@ export default function PrivacyPolicy() {
               </button>
             </p>
             <div className="grid sm:grid-cols-3 gap-3 text-xs">
-              <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3">
-                <p className="font-semibold text-emerald-300 mb-1">Zorunlu</p>
+              <div className="rounded-[10px] border border-emerald-500/20 bg-emerald-500/5 p-3">
+                <p className="font-normal text-emerald-300 mb-1">Zorunlu</p>
                 <p className="text-slate-300">Oturum + güvenlik. Reddedilemez.</p>
               </div>
-              <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3">
-                <p className="font-semibold text-amber-300 mb-1">Analitik (Anonim)</p>
+              <div className="rounded-[10px] border border-amber-500/20 bg-amber-500/5 p-3">
+                <p className="font-normal text-amber-300 mb-1">Analitik (Anonim)</p>
                 <p className="text-slate-300">Vercel Analytics — IP maskelenir, cross-site izleme yok.</p>
               </div>
-              <div className="rounded-lg border border-rose-500/20 bg-rose-500/5 p-3">
-                <p className="font-semibold text-rose-300 mb-1">Reklam çerezi YOK</p>
+              <div className="rounded-[10px] border border-rose-500/20 bg-rose-500/5 p-3">
+                <p className="font-normal text-rose-300 mb-1">Reklam çerezi YOK</p>
                 <p className="text-slate-300">Google Ads / Facebook Pixel / 3rd party reklam tracker yok.</p>
               </div>
             </div>
           </section>
 
           {/* 5. Veri Silme */}
-          <section className="rounded-2xl border border-violet-500/30 bg-violet-500/5 p-5">
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-violet-500/30 bg-violet-500/5 p-5">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Eye className="h-5 w-5 text-violet-400" />
               5. Veri Silme + Hesap Kapatma (KVKK m. 7)
             </h2>
@@ -234,8 +234,8 @@ export default function PrivacyPolicy() {
           </section>
 
           {/* 6. Çocuklar */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-            <h2 className="text-lg font-bold text-white mb-3">6. Çocukların Verileri (COPPA + KVKK)</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+            <h2 className="text-lg font-normal text-white mb-3">6. Çocukların Verileri (COPPA + KVKK)</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               ihaleal.com <strong className="text-white">18 yaş altı kullanıcılara hizmet vermez</strong>. Üyelik sırasında
               fiil ehliyet kontrolü yapılır (TMK m. 10). Çocuğa ait veri yanlışlıkla toplanmışsa
@@ -245,8 +245,8 @@ export default function PrivacyPolicy() {
           </section>
 
           {/* 7. Mobil / Uygulama */}
-          <section className="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-5">
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/5 p-5">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Smartphone className="h-5 w-5 text-cyan-400" />
               7. Mobil Uygulama (iOS + Android)
             </h2>
@@ -261,8 +261,8 @@ export default function PrivacyPolicy() {
           </section>
 
           {/* 8. Yurt dışı */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Globe className="h-5 w-5 text-blue-400" />
               8. Veri Aktarımı (Yurt İçi + Yurt Dışı)
             </h2>
@@ -276,8 +276,8 @@ export default function PrivacyPolicy() {
           </section>
 
           {/* 9. Değişiklik */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-            <h2 className="text-lg font-bold text-white mb-3">9. Politika Değişikliği</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+            <h2 className="text-lg font-normal text-white mb-3">9. Politika Değişikliği</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               Bu politika güncellenirse <strong className="text-white">30 gün öncesinden</strong> e-posta + uygulama içi bildirim
               ile haber verilir. Değişikliği kabul etmemeniz halinde hesabınızı kapatma hakkınız vardır.
@@ -302,10 +302,10 @@ export default function PrivacyPolicy() {
             context="Gizlilik politikası KVKK + GDPR + Apple App Privacy + Google Play Data Safety formlarıyla tutarlıdır. Avukat onayı + yasal yayın gerekli."
           />
 
-          <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
+          <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
             <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
             <div className="text-sm">
-              <p className="font-semibold text-slate-200 mb-1">Gizlilik + Veri Başvuru</p>
+              <p className="font-normal text-slate-200 mb-1">Gizlilik + Veri Başvuru</p>
               <p className="text-xs text-slate-400">
                 <a href="mailto:kvkk@ihaleal.com" className="text-cyan-300 underline">kvkk@ihaleal.com</a>
                 {" · "}Güvenlik olay: <a href="mailto:guvenlik@ihaleal.com" className="text-cyan-300 underline">guvenlik@ihaleal.com</a>

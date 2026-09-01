@@ -113,7 +113,7 @@ export function BrandLockup({
       className={cn(
         // Acik tema: slogan notr ikincil metin (tek vurgu kurali — marka
         // seridi vurgu rengi tasimaz). #5f6b64 / #ffffff = 5.56:1.
-        "font-semibold uppercase leading-snug [color:var(--metin-ikincil)]",
+        "font-normal uppercase leading-snug [color:var(--metin-ikincil)]",
         sloganSizes[logoSize],
         tone === "auth" && "tracking-wide",
         hideSloganOnMobile && "hidden sm:inline",

@@ -170,7 +170,7 @@ export function SubmissionForm() {
   return (
     <div
       data-testid="ibuyer-form"
-      className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md space-y-4"
+      className="rounded-[20px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md space-y-4"
     >
       <PreFeasibilityBanner />
       <div className="mb-6 flex gap-2 text-xs text-slate-400">
@@ -188,7 +188,7 @@ export function SubmissionForm() {
 
       {step === 1 && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-white">Mülk bilgileri</h2>
+          <h2 className="text-lg font-normal text-white">Mülk bilgileri</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
               İl
@@ -229,14 +229,14 @@ export function SubmissionForm() {
 
       {step === 2 && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-white">Hukuki kontrol listesi</h2>
+          <h2 className="text-lg font-normal text-white">Hukuki kontrol listesi</h2>
           <p className="text-sm text-slate-400">
-            Risk skoru: <span className="text-cyan-200 font-medium">{preview.riskScore}</span> — ön durum:{" "}
+            Risk skoru: <span className="text-cyan-200 font-normal">{preview.riskScore}</span> — ön durum:{" "}
             {statusLabel(preview.status)}
           </p>
           <ul className="space-y-3">
             {FLAG_KEYS.map((key) => (
-              <li key={key} className="flex items-start gap-3 rounded-lg border border-white/10 p-3">
+              <li key={key} className="flex items-start gap-3 rounded-[10px] border border-white/10 p-3">
                 <Checkbox
                   id={key}
                   checked={flags[key]}
@@ -250,8 +250,8 @@ export function SubmissionForm() {
             ))}
           </ul>
 
-          <div className="rounded-xl border border-white/10 p-4 space-y-3">
-            <p className="text-sm font-medium text-white">Takas tercihi</p>
+          <div className="rounded-[20px] border border-white/10 p-4 space-y-3">
+            <p className="text-sm font-normal text-white">Takas tercihi</p>
             <div className="flex flex-wrap gap-2">
               {(["CASH_ONLY", "TRADE_IN", "BOTH"] as IBuyerTargetOption[]).map((opt) => (
                 <Button
@@ -299,7 +299,7 @@ export function SubmissionForm() {
           {error && (
             <div
               role="alert"
-              className="rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
+              className="rounded-[10px] border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
             >
               <p>{error}</p>
               <Button type="button" size="sm" variant="outline" onClick={retrySubmit} disabled={loading}>
@@ -312,12 +312,12 @@ export function SubmissionForm() {
 
       {step === 3 && result && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-white">{statusLabel(result.status)}</h2>
+          <h2 className="text-lg font-normal text-white">{statusLabel(result.status)}</h2>
           {result.status === "OFFER_GENERATED" &&
             result.offerAmountTry != null &&
             Number.isFinite(result.offerAmountTry) && (
-            <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-4">
-              <p className="text-emerald-100 text-2xl font-bold">{formatTry(result.offerAmountTry)}</p>
+            <div className="rounded-[20px] border border-emerald-400/30 bg-emerald-500/10 p-4">
+              <p className="text-emerald-100 text-2xl font-normal">{formatTry(result.offerAmountTry)}</p>
               <p className="text-sm text-emerald-200/80 mt-1">
                 Piyasa: {formatTry(result.marketValueTry)} · Risk skoru: {result.riskScore}
               </p>
@@ -325,7 +325,7 @@ export function SubmissionForm() {
             </div>
           )}
           {result.status === "LEGAL_REVIEW" && (
-            <p className="flex items-center gap-2 text-amber-200 text-sm font-medium">
+            <p className="flex items-center gap-2 text-amber-200 text-sm font-normal">
               <ShieldAlert className="h-4 w-4 shrink-0" />
               Mülkünüz Hukuk Heyetimiz Tarafından İnceleniyor. 1–2 iş günü içinde sizinle iletişime geçilecektir.
             </p>

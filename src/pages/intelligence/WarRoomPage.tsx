@@ -29,7 +29,7 @@ function parseCoord(s: string): number | null {
 
 function MapFallback() {
   return (
-    <div className="h-full min-h-[320px] flex items-center justify-center bg-slate-900/80 border border-white/10 rounded-xl">
+    <div className="h-full min-h-[320px] flex items-center justify-center bg-slate-900/80 border border-white/10 rounded-[20px]">
       <Loader2 className="w-8 h-8 animate-spin text-cyan-400" />
     </div>
   );
@@ -159,7 +159,7 @@ export default function WarRoomPage() {
           <div className="flex gap-3">
             <Radar className="w-10 h-10 text-blue-400 shrink-0" />
             <div>
-              <h1 className="text-3xl font-bold text-white">Stratejik War Room</h1>
+              <h1 className="text-3xl font-normal text-white">Stratejik War Room</h1>
               <p className="text-sm text-slate-400 mt-1">Yatırım risk analizi — deprem, zemin, çevresel risk profili</p>
             </div>
           </div>
@@ -172,7 +172,7 @@ export default function WarRoomPage() {
             <CardContent className="p-5">
               <div className="flex items-start gap-3 mb-3">
                 <BookOpen className="h-5 w-5 text-blue-300 flex-shrink-0 mt-0.5" />
-                <h2 className="text-base font-semibold text-white">War Room nedir, kime, neden?</h2>
+                <h2 className="text-base font-normal text-white">War Room nedir, kime, neden?</h2>
               </div>
               <p className="text-sm text-slate-300 mb-3 leading-relaxed">
                 <strong className="text-white">Bir arsanın deprem, zemin ve çevresel risk profilini çıkarır.</strong>
@@ -180,20 +180,20 @@ export default function WarRoomPage() {
                 bu risk için yeterli mi?" sorularına ışık tutar.
               </p>
               <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                <div className="rounded-lg border border-blue-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-blue-300 mb-1">👤 Yatırımcı için</p>
+                <div className="rounded-[10px] border border-blue-400/15 bg-slate-900/30 p-3">
+                  <p className="font-normal text-blue-300 mb-1">👤 Yatırımcı için</p>
                   <p className="text-slate-300">
                     300-500M arsa kararı vermeden — bölge riski, fay mesafesi, zemin durumu net görsün.
                   </p>
                 </div>
-                <div className="rounded-lg border border-blue-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-blue-300 mb-1">🏗️ Müteahhit için</p>
+                <div className="rounded-[10px] border border-blue-400/15 bg-slate-900/30 p-3">
+                  <p className="font-normal text-blue-300 mb-1">🏗️ Müteahhit için</p>
                   <p className="text-slate-300">
                     Yapı maliyetini tahmin etsin — zemin iyileştirme, TBDY-2018 dayanıklılık şartları.
                   </p>
                 </div>
-                <div className="rounded-lg border border-blue-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-blue-300 mb-1">🏢 Kurumsal için</p>
+                <div className="rounded-[10px] border border-blue-400/15 bg-slate-900/30 p-3">
+                  <p className="font-normal text-blue-300 mb-1">🏢 Kurumsal için</p>
                   <p className="text-slate-300">
                     Fabrika/depo/şube açma kararında — afet süreç hazırlığı, sigorta primi öngörüsü.
                   </p>
@@ -201,8 +201,8 @@ export default function WarRoomPage() {
               </div>
 
               {/* Somut örnek senaryo (Endeksa stili gerçek mülk + sayı) */}
-              <div className="mt-4 rounded-lg border border-emerald-400/20 bg-slate-900/40 p-4">
-                <p className="text-xs font-semibold text-emerald-300 mb-2 flex items-center gap-1.5">
+              <div className="mt-4 rounded-[10px] border border-emerald-400/20 bg-slate-900/40 p-4">
+                <p className="text-xs font-normal text-emerald-300 mb-2 flex items-center gap-1.5">
                   📌 Somut Örnek Senaryo (Pendik, 1.000 m² arsa)
                 </p>
                 <div className="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
@@ -226,54 +226,54 @@ export default function WarRoomPage() {
               </div>
 
               {/* 3 deprem bölgesi karşılaştırma — Endeksa stili tablo */}
-              <div className="mt-4 rounded-lg border border-cyan-400/20 bg-slate-900/40 p-4">
-                <p className="text-xs font-semibold text-cyan-300 mb-3 flex items-center gap-1.5">
+              <div className="mt-4 rounded-[10px] border border-cyan-400/20 bg-slate-900/40 p-4">
+                <p className="text-xs font-normal text-cyan-300 mb-3 flex items-center gap-1.5">
                   🌍 3 Bölge Karşılaştırma — Aynı 1.000 m² yatırımı, farklı şehir
                 </p>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs min-w-[480px]">
                     <thead>
                       <tr className="text-slate-500 border-b border-slate-700">
-                        <th className="text-start py-1.5 pe-2 font-medium">Bölge</th>
-                        <th className="text-end py-1.5 px-2 font-medium">Fay Uzak.</th>
-                        <th className="text-end py-1.5 px-2 font-medium">PGA</th>
-                        <th className="text-end py-1.5 px-2 font-medium">Zemin</th>
-                        <th className="text-end py-1.5 px-2 font-medium">Skor</th>
-                        <th className="text-end py-1.5 ps-2 font-medium">Sigorta/yıl</th>
+                        <th className="text-start py-1.5 pe-2 font-normal">Bölge</th>
+                        <th className="text-end py-1.5 px-2 font-normal">Fay Uzak.</th>
+                        <th className="text-end py-1.5 px-2 font-normal">PGA</th>
+                        <th className="text-end py-1.5 px-2 font-normal">Zemin</th>
+                        <th className="text-end py-1.5 px-2 font-normal">Skor</th>
+                        <th className="text-end py-1.5 ps-2 font-normal">Sigorta/yıl</th>
                       </tr>
                     </thead>
                     <tbody className="text-slate-300">
                       <tr className="border-b border-slate-800/50">
                         <td className="py-2 pe-2">
-                          <p className="text-white font-medium">İstanbul / Kadıköy</p>
+                          <p className="text-white font-normal">İstanbul / Kadıköy</p>
                           <p className="text-[10px] text-slate-500">Marmara fay yakın</p>
                         </td>
                         <td className="py-2 px-2 text-end text-amber-300">8 km</td>
                         <td className="py-2 px-2 text-end text-rose-300">0.41g</td>
                         <td className="py-2 px-2 text-end text-amber-200">ZD</td>
-                        <td className="py-2 px-2 text-end font-bold text-amber-300">61/100</td>
+                        <td className="py-2 px-2 text-end font-normal text-amber-300">61/100</td>
                         <td className="py-2 ps-2 text-end text-rose-200">₺52K</td>
                       </tr>
                       <tr className="border-b border-slate-800/50">
                         <td className="py-2 pe-2">
-                          <p className="text-white font-medium">İzmir / Karşıyaka</p>
+                          <p className="text-white font-normal">İzmir / Karşıyaka</p>
                           <p className="text-[10px] text-slate-500">Gediz çöküntüsü</p>
                         </td>
                         <td className="py-2 px-2 text-end text-amber-300">12 km</td>
                         <td className="py-2 px-2 text-end text-amber-300">0.37g</td>
                         <td className="py-2 px-2 text-end text-rose-200">ZE</td>
-                        <td className="py-2 px-2 text-end font-bold text-amber-300">58/100</td>
+                        <td className="py-2 px-2 text-end font-normal text-amber-300">58/100</td>
                         <td className="py-2 ps-2 text-end text-rose-200">₺48K</td>
                       </tr>
                       <tr>
                         <td className="py-2 pe-2">
-                          <p className="text-white font-medium">Konya / Selçuklu</p>
+                          <p className="text-white font-normal">Konya / Selçuklu</p>
                           <p className="text-[10px] text-slate-500">Anadolu kratonu</p>
                         </td>
                         <td className="py-2 px-2 text-end text-emerald-300">85 km</td>
                         <td className="py-2 px-2 text-end text-emerald-300">0.18g</td>
                         <td className="py-2 px-2 text-end text-emerald-200">ZA</td>
-                        <td className="py-2 px-2 text-end font-bold text-emerald-300">87/100</td>
+                        <td className="py-2 px-2 text-end font-normal text-emerald-300">87/100</td>
                         <td className="py-2 ps-2 text-end text-emerald-200">₺18K</td>
                       </tr>
                     </tbody>
@@ -289,7 +289,7 @@ export default function WarRoomPage() {
 
           <Card className="card-luxury border-amber-500/20">
             <CardContent className="p-4">
-              <p className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-1.5">
+              <p className="text-xs font-normal text-amber-300 mb-2 flex items-center gap-1.5">
                 <Info className="h-3.5 w-3.5" /> Form alanları ne demek?
               </p>
               <div className="grid sm:grid-cols-3 gap-3 text-xs text-slate-300">
@@ -310,7 +310,7 @@ export default function WarRoomPage() {
           </Card>
         </section>
         {error ? (
-          <div className="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200 flex gap-2">
+          <div className="mb-4 rounded-[20px] border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200 flex gap-2">
             <AlertTriangle className="w-4 h-4 shrink-0" />{error}
           </div>
         ) : null}
@@ -322,7 +322,7 @@ export default function WarRoomPage() {
               <div><Label>Lon</Label><Input value={lon} onChange={(e) => setLon(e.target.value)} /></div>
             </div>
             <Label>Zemin</Label>
-            <select value={zemin} onChange={(e) => setZemin(e.target.value)} className="w-full rounded-md border border-white/10 bg-slate-900 px-3 py-2 text-sm">
+            <select value={zemin} onChange={(e) => setZemin(e.target.value)} className="w-full rounded-[3px] border border-white/10 bg-slate-900 px-3 py-2 text-sm">
               {ZEMIN_OPTIONS.map((z) => <option key={z} value={z}>{z}</option>)}
             </select>
             <Label>PGA (g)</Label><Input value={pga} onChange={(e) => setPga(e.target.value)} />
@@ -331,12 +331,12 @@ export default function WarRoomPage() {
             {result ? <Button variant="outline" className="w-full gap-2" onClick={downloadReport}><Download className="w-4 h-4" />Rapor</Button> : null}
           </CardContent></Card>
           <div className="xl:col-span-6 h-[min(70vh,600px)] relative">
-            {loading ? <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950/80 rounded-xl"><Loader2 className="w-10 h-10 animate-spin text-cyan-400" /></div> : null}
+            {loading ? <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950/80 rounded-[20px]"><Loader2 className="w-10 h-10 animate-spin text-cyan-400" /></div> : null}
             <Suspense fallback={<MapFallback />}><MapLazy center={center} zoom={10} layers={mapLayers} activeLayerId="site" className="h-full" /></Suspense>
           </div>
           <div className="xl:col-span-3 space-y-3">
             {result ? (<>
-              <Card className="card-luxury"><CardContent className="p-5"><p className="text-xs text-slate-500">Skor</p><p className="text-5xl font-bold text-cyan-300">{fmtScore(result.strategicScore)}</p></CardContent></Card>
+              <Card className="card-luxury"><CardContent className="p-5"><p className="text-xs text-slate-500">Skor</p><p className="text-5xl font-normal text-cyan-300">{fmtScore(result.strategicScore)}</p></CardContent></Card>
               <div className="grid grid-cols-2 gap-2">
                 <ScoreBadge label="Deprem" score={result.seismic.value.seismicRiskScore} />
                 <ScoreBadge label="Afet" score={result.disaster.value.compositeHazardScore} />
@@ -356,12 +356,12 @@ export default function WarRoomPage() {
         <section className="mt-12 space-y-4">
           <div className="flex items-center gap-2 mb-2">
             <Scale className="h-5 w-5 text-violet-300" />
-            <h2 className="text-xl font-bold text-white">Güven, Metodoloji ve Hukuki Süreç</h2>
+            <h2 className="text-xl font-normal text-white">Güven, Metodoloji ve Hukuki Süreç</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-blue-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-semibold text-blue-200 mb-2">Veri Kaynakları</p>
+            <div className="rounded-[20px] border border-blue-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-blue-200 mb-2">Veri Kaynakları</p>
               <ul className="text-xs text-slate-300 space-y-1.5">
                 <li>• <strong>AFAD Türkiye Deprem Tehlike Haritası</strong> — PGA + ivme spektrumu</li>
                 <li>• <strong>MTA Aktif Fay Veritabanı</strong> — fay hattı koordinatları</li>
@@ -371,8 +371,8 @@ export default function WarRoomPage() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-violet-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-semibold text-violet-200 mb-2">Hesap Yöntemi</p>
+            <div className="rounded-[20px] border border-violet-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-violet-200 mb-2">Hesap Yöntemi</p>
               <ul className="text-xs text-slate-300 space-y-1.5">
                 <li>• <strong>Deprem skoru</strong>: PGA × zemin amplifikasyon × bina yaşı/yönetmelik</li>
                 <li>• <strong>Afet skoru</strong>: fay mesafesi + heyelan + sel + yangın yoğunluğu</li>
@@ -381,8 +381,8 @@ export default function WarRoomPage() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-emerald-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-semibold text-emerald-200 mb-2 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-emerald-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-emerald-200 mb-2 flex items-center gap-1.5">
                 <ScrollText className="h-4 w-4" /> Resmi Süreç (Yatırım Öncesi)
               </p>
               <ol className="text-xs text-slate-300 space-y-1.5">
@@ -394,8 +394,8 @@ export default function WarRoomPage() {
               </ol>
             </div>
 
-            <div className="rounded-xl border border-amber-500/30 bg-amber-950/30 p-4">
-              <p className="text-sm font-semibold text-amber-200 mb-2 flex items-center gap-1.5">
+            <div className="rounded-[20px] border border-amber-500/30 bg-amber-950/30 p-4">
+              <p className="text-sm font-normal text-amber-200 mb-2 flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4" /> Disclaimer (Kritik)
               </p>
               <p className="text-xs text-slate-300 leading-relaxed">

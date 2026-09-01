@@ -35,7 +35,7 @@ export function AIInsightLayer({
 
   return (
     <motion.section
-      className={`rounded-2xl border border-white/10 bg-gradient-to-br from-blue-950/40 to-[#081120]/80 p-5 sm:p-6 ${className}`}
+      className={`rounded-[20px] border border-white/10 bg-gradient-to-br from-blue-950/40 to-[#081120]/80 p-5 sm:p-6 ${className}`}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-60px" }}
@@ -43,15 +43,15 @@ export function AIInsightLayer({
     >
       <motion.div variants={mp.staggerItem} className="flex items-center gap-2 mb-4">
         <motion.div
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/10"
+          className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-cyan-500/30 bg-cyan-500/10"
           animate={reduced ? undefined : { boxShadow: ["0 0 0 rgba(34,211,238,0)", "0 0 24px rgba(34,211,238,0.15)", "0 0 0 rgba(34,211,238,0)"] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
           <Brain className="w-4 h-4 text-cyan-300" aria-hidden />
         </motion.div>
         <motion.div variants={mp.staggerItem}>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-400/90">AI intelligence</p>
-          <h3 className="text-lg font-bold text-white">{title}</h3>
+          <p className="text-[10px] font-normal uppercase tracking-[0.2em] text-cyan-400/90">AI intelligence</p>
+          <h3 className="text-lg font-normal text-white">{title}</h3>
         </motion.div>
       </motion.div>
 
@@ -63,13 +63,13 @@ export function AIInsightLayer({
             <motion.article
               key={insight.id}
               variants={mp.staggerItem}
-              className={`ai-insight-card relative overflow-hidden rounded-xl border p-4 ${toneStyles[tone]}`}
+              className={`ai-insight-card relative overflow-hidden rounded-[20px] border p-4 ${toneStyles[tone]}`}
               whileHover={reduced ? undefined : { y: -2, transition: { duration: 0.2 } }}
             >
               <div className="flex items-start gap-3">
                 <Icon className="w-4 h-4 text-cyan-300 shrink-0 mt-0.5" aria-hidden />
                 <motion.div className="min-w-0 flex-1">
-                  <h4 className="text-sm font-semibold text-white">{insight.title}</h4>
+                  <h4 className="text-sm font-normal text-white">{insight.title}</h4>
                   <p className="text-xs text-slate-400 mt-1 leading-relaxed">{insight.body}</p>
                   {insight.confidence != null ? (
                     <div className="mt-3">

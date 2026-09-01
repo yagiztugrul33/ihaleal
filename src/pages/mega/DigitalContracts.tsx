@@ -30,11 +30,11 @@ export default function DigitalContractsPage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl">
         <div className="mb-10 flex items-start gap-3">
-          <div className="rounded-xl bg-sky-500/15 p-3 text-sky-400">
+          <div className="rounded-[20px] bg-sky-500/15 p-3 text-sky-400">
             <FileSignature className="h-8 w-8" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Dijital sözleşme</h1>
+            <h1 className="text-3xl font-normal text-white">Dijital sözleşme</h1>
             <p className="mt-2 max-w-2xl text-sm text-slate-400">
               Dört sözleşme tipi için çerçeve (demo). E-imza entegrasyonu üretimde güvenilir zaman damgası ve saklama ile tamamlanır; bağlayıcı hukuki görüş değildir.
             </p>
@@ -44,8 +44,8 @@ export default function DigitalContractsPage() {
           {CONTRACTS.map((c) => (
             <Card key={c.title} className="border-slate-200 bg-slate-900/40">
               <CardContent className="space-y-2 p-6">
-                <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">{c.status}</span>
-                <h2 className="text-lg font-semibold text-white">{c.title}</h2>
+                <span className="text-[10px] font-normal uppercase tracking-wide text-slate-500">{c.status}</span>
+                <h2 className="text-lg font-normal text-white">{c.title}</h2>
                 <p className="text-sm text-slate-400">{c.desc}</p>
                 <p className="text-xs text-slate-600">E-imza akışı demo — gerçek imza yok.</p>
               </CardContent>

@@ -30,7 +30,7 @@ export default function OperationalReadiness() {
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
         </Button>
 
-        <h1 className="text-2xl font-bold text-white mb-2">Canlıya hazırlık — yapılacaklar listesi</h1>
+        <h1 className="text-2xl font-normal text-white mb-2">Canlıya hazırlık — yapılacaklar listesi</h1>
         <p className="text-sm text-slate-400 mb-8">
           Harici yardımcı araçlar veya tek bir önyüz projesi bunları <strong className="text-slate-200">otomatik tamamlamaz</strong>.
           Aşağıdaki satırlar ekip ve bütçe ile yürütülecek gerçek iş kalemleridir. Bu sayfa “yarım kalan” değil, <strong className="text-teal-300">bilinçli sınır</strong> listesidir.
@@ -40,9 +40,9 @@ export default function OperationalReadiness() {
           {CHECKS.map((c) => (
             <Card key={c.title} className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-4 flex gap-4">
-                <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">{c.icon}</div>
+                <div className="p-2 rounded-[10px] bg-blue-500/10 text-blue-400 shrink-0">{c.icon}</div>
                 <div>
-                  <h2 className="text-white font-semibold">{c.title}</h2>
+                  <h2 className="text-white font-normal">{c.title}</h2>
                   <p className="text-sm text-slate-400 mt-1">{c.desc}</p>
                   <p className="text-[11px] text-slate-600 mt-2">Sorumlu: {c.owner}</p>
                 </div>

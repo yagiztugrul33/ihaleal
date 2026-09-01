@@ -70,7 +70,7 @@ export function CountdownTimer({
     return (
       <div
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg border border-slate-600 bg-slate-800/50 text-slate-400",
+          "inline-flex items-center gap-2 rounded-[10px] border border-slate-600 bg-slate-800/50 text-slate-400",
           size === "sm" ? "px-3 py-1.5 text-xs" : size === "lg" ? "px-5 py-3 text-base" : "px-4 py-2 text-sm",
           className,
         )}
@@ -109,7 +109,7 @@ export function CountdownTimer({
     return (
       <div
         className={cn(
-          "inline-flex items-center gap-2 rounded-lg",
+          "inline-flex items-center gap-2 rounded-[10px]",
           surface,
           size === "sm" ? "px-3 py-1.5 text-xs" : size === "lg" ? "px-5 py-3 text-base" : "px-4 py-2 text-sm",
           className,
@@ -127,7 +127,7 @@ export function CountdownTimer({
   }
 
   return (
-    <div className={cn("rounded-xl", surface, "px-4 py-3", className)} data-testid="countdown-wide" aria-live="polite">
+    <div className={cn("rounded-[20px]", surface, "px-4 py-3", className)} data-testid="countdown-wide" aria-live="polite">
       <div className="flex items-center gap-2 mb-1 text-[11px] uppercase tracking-wider font-normal opacity-80">
         <Icon className="w-3.5 h-3.5" style={{ color: signalColor }} aria-hidden /> {label}
       </div>
@@ -138,7 +138,7 @@ export function CountdownTimer({
           { v: minutes, l: ld.countdownMinutes },
           { v: seconds, l: ld.countdownSeconds },
         ].map((unit) => (
-          <div key={unit.l} className="rounded-lg bg-[var(--zemin)] px-2 py-2 text-center">
+          <div key={unit.l} className="rounded-[10px] bg-[var(--zemin)] px-2 py-2 text-center">
             <div
               className={cn("font-normal leading-none", size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl")}
               style={{ color: signalColor }}

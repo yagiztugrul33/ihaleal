@@ -74,7 +74,7 @@ export function Home() {
                     key={a.id}
                     to={`/ilan/${a.id}`}
                     style={{ textDecoration: "none" }}
-                    className="rounded-lg border border-border p-3 transition hover:border-card-foreground/40"
+                    className="rounded-[10px] border border-border p-3 transition hover:border-card-foreground/40"
                   >
                     <p className="truncate text-sm font-normal text-card-foreground">{a.title}</p>
                     <p className="mt-0.5 truncate text-xs text-muted-foreground">
@@ -103,9 +103,9 @@ export function Home() {
                 to={href}
                 data-testid="home-module-card"
                 style={{ textDecoration: "none" }}
-                className="group flex items-start gap-3 rounded-2xl border border-border bg-card p-4 transition duration-200 hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-lg"
+                className="group flex items-start gap-3 rounded-[20px] border border-border bg-card p-4 transition duration-200 hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-lg"
               >
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-foreground transition group-hover:border-primary/40">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] border border-border bg-secondary text-foreground transition group-hover:border-primary/40">
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
                 <span className="min-w-0">

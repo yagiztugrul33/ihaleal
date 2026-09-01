@@ -45,7 +45,7 @@ export function CurrencySelector({ compact = false }: Props) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-md border border-slate-700/60 bg-slate-900/40 px-2 py-1 text-xs font-medium text-slate-200 transition-colors hover:border-amber-400/40 hover:text-white",
+          "inline-flex items-center gap-1.5 rounded-[3px] border border-slate-700/60 bg-slate-900/40 px-2 py-1 text-xs font-normal text-slate-200 transition-colors hover:border-amber-400/40 hover:text-white",
           open && "border-amber-400/50 text-white",
         )}
         aria-haspopup="listbox"
@@ -59,7 +59,7 @@ export function CurrencySelector({ compact = false }: Props) {
 
       {open && (
         <div
-          className="absolute end-0 top-full z-[110] mt-1 min-w-[200px] rounded-lg border border-slate-700 bg-slate-900/95 py-1 shadow-xl backdrop-blur"
+          className="absolute end-0 top-full z-[110] mt-1 min-w-[200px] rounded-[10px] border border-slate-700 bg-slate-900/95 py-1 shadow-xl backdrop-blur"
           role="listbox"
         >
           {OPTIONS.map((opt) => (
@@ -74,7 +74,7 @@ export function CurrencySelector({ compact = false }: Props) {
               }}
               className={cn(
                 "block w-full px-3 py-1.5 text-start text-xs transition-colors hover:bg-amber-500/10",
-                opt.code === currency ? "text-amber-300 font-semibold" : "text-slate-200",
+                opt.code === currency ? "text-amber-300 font-normal" : "text-slate-200",
               )}
             >
               {opt.label}

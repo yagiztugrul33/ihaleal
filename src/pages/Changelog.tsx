@@ -137,9 +137,9 @@ export default function Changelog() {
         <div className="max-w-4xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl [background:var(--gradient-cta)] flex items-center justify-center"><GitCommit className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-[20px] [background:var(--gradient-cta)] flex items-center justify-center"><GitCommit className="w-6 h-6 text-white" /></div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Değişiklik Kayıtları</h1>
+              <h1 className="text-3xl font-normal text-white">Değişiklik Kayıtları</h1>
               <p className="text-slate-400">ihaleal.com platformunun geliştirme geçmişi ve versiyon takibi</p>
             </div>
           </div>
@@ -155,13 +155,13 @@ export default function Changelog() {
             >
               <div className="flex items-center gap-4">
                 <div className="flex flex-col items-center gap-1">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${v.status === 'Yayında' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-500/10 text-slate-400'}`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-normal ${v.status === 'Yayında' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-500/10 text-slate-400'}`}>
                     {v.version.split('.')[0]}
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-base font-semibold text-white">{v.version}</span>
+                    <span className="text-base font-normal text-white">{v.version}</span>
                     {v.status === 'Yayında' && <Badge className="bg-emerald-500/10 text-emerald-400 text-[10px] border-0">Yayında</Badge>}
                     <div className="flex gap-1">
                       {v.tags.map((t) => (
@@ -192,7 +192,7 @@ export default function Changelog() {
           </Card>
         ))}
 
-        <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10 text-center">
+        <div className="p-4 rounded-[20px] bg-blue-500/5 border border-blue-500/10 text-center">
           <p className="text-sm text-slate-400">Tüm değişiklikler otomatik olarak kaydedilir ve versiyonlanır.</p>
           <p className="text-xs text-slate-500 mt-1">Son güncelleme: {new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
         </div>

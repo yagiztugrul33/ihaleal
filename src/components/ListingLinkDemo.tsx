@@ -49,11 +49,11 @@ export function ListingLinkDemo() {
       <CardContent className="p-5">
         <div className="relative flex items-center gap-2 mb-3">
           {isDemoData("listingLinkDemo") ? <DemoDataCornerBadge /> : null}
-          <div className="p-2 rounded-lg bg-violet-500/10 text-violet-400">
+          <div className="p-2 rounded-[10px] bg-violet-500/10 text-violet-400">
             <Link2 className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Harici ilan linki (örnek)</h3>
+            <h3 className="text-lg font-normal text-white">Harici ilan linki (örnek)</h3>
             <p className="text-xs text-slate-500">Sahibinden veya üçüncü taraf rapor linklerinden örnek URL yapıştırın — site veri çekmez; yalnızca demo özet üretilir.</p>
           </div>
         </div>
@@ -70,7 +70,7 @@ export function ListingLinkDemo() {
           </Button>
         </div>
 
-        <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/15 flex gap-2 mb-3">
+        <div className="p-3 rounded-[10px] bg-amber-500/5 border border-amber-500/15 flex gap-2 mb-3">
           <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           <p className="text-xs text-slate-400">
             Kurumsal <strong className="text-slate-200">yapay zeka destekli gayrimenkul platformu</strong> için doğru yol: kullanıcının kendi yüklediği ilan PDF’si / ekspertiz / fiyat beklentisi + platformun <strong className="text-slate-200">kendi veri modeli</strong> (lisanslı veya crowdsourced); rakibin arayüzünü veya veri tabanını “kopyalamak” hem hukuki hem teknik olarak önerilmez.

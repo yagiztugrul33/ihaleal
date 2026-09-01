@@ -38,7 +38,7 @@ export default function MapPolygonSearchInner({
 
   return (
     <div>
-      <MapContainer center={DEFAULT_CENTER} zoom={DEFAULT_ZOOM} className="h-64 w-full rounded-lg">
+      <MapContainer center={DEFAULT_CENTER} zoom={DEFAULT_ZOOM} className="h-64 w-full rounded-[10px]">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

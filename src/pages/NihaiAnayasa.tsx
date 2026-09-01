@@ -107,10 +107,10 @@ export function NihaiAnayasa() {
           </Button>
 
           <div className="text-center mb-10">
-            <div className="w-20 h-20 rounded-2xl bg-amber-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
+            <div className="w-20 h-20 rounded-[20px] bg-amber-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
               <Shield className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">İhaleAL.com Nihai Sistem Anayasası</h1>
+            <h1 className="text-3xl sm:text-4xl font-normal text-white mb-2">İhaleAL.com Nihai Sistem Anayasası</h1>
             <p className="text-slate-400 max-w-2xl mx-auto">
               Master Architecture — Mülkiyet, miras, mali risk, sigorta, cezaî şartlar ve operasyonel kuralların üst dokümanı.
             </p>
@@ -134,15 +134,15 @@ export function NihaiAnayasa() {
                   toggle(sec.id);
                   document.getElementById(`section-${sec.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="glass rounded-xl p-4 text-start hover:bg-white/[0.06] transition-all border border-slate-200/80 hover:border-white/15"
+                className="glass rounded-[20px] p-4 text-start hover:bg-white/[0.06] transition-all border border-slate-200/80 hover:border-white/15"
               >
                 <div className="flex items-center gap-3 mb-2">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-${sec.color}-500/10`}>
+                  <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center bg-${sec.color}-500/10`}>
                     <Icon className={`w-4 h-4 text-${sec.color}-400`} />
                   </div>
-                  <span className="text-xs font-bold text-slate-300">{sec.id}. BÖLÜM</span>
+                  <span className="text-xs font-normal text-slate-300">{sec.id}. BÖLÜM</span>
                 </div>
-                <h3 className="text-sm font-semibold text-white mb-1">{sec.title}</h3>
+                <h3 className="text-sm font-normal text-white mb-1">{sec.title}</h3>
                 <p className="text-xs text-slate-500">{sec.rules.length} madde · {crit} kritik</p>
               </button>
             );
@@ -155,17 +155,17 @@ export function NihaiAnayasa() {
             const Icon = sec.icon;
             const isOpen = expanded.includes(sec.id);
             return (
-              <div key={sec.id} id={`section-${sec.id}`} className="glass rounded-xl border border-slate-200/80 overflow-hidden">
+              <div key={sec.id} id={`section-${sec.id}`} className="glass rounded-[20px] border border-slate-200/80 overflow-hidden">
                 <button
                   onClick={() => toggle(sec.id)}
                   className="w-full p-5 flex items-center justify-between text-start hover:bg-white/[0.03] transition-all"
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-${sec.color}-500/10`}>
+                    <div className={`w-10 h-10 rounded-[20px] flex items-center justify-center bg-${sec.color}-500/10`}>
                       <Icon className={`w-5 h-5 text-${sec.color}-400`} />
                     </div>
                     <div>
-                      <h2 className="text-base font-bold text-white">{sec.id}. {sec.title}</h2>
+                      <h2 className="text-base font-normal text-white">{sec.id}. {sec.title}</h2>
                       <p className="text-xs text-slate-400 mt-0.5">{sec.desc}</p>
                     </div>
                   </div>
@@ -188,7 +188,7 @@ export function NihaiAnayasa() {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.05, duration: 0.3 }}
-                            className={`rounded-lg p-4 border transition-all cursor-pointer ${
+                            className={`rounded-[10px] p-4 border transition-all cursor-pointer ${
                               activeRule === rule.id
                                 ? "bg-white/[0.08] border-white/20"
                                 : "bg-white/[0.02] border-slate-200/80 hover:border-slate-200"
@@ -196,7 +196,7 @@ export function NihaiAnayasa() {
                             onClick={() => setActiveRule(activeRule === rule.id ? null : rule.id)}
                           >
                             <div className="flex items-start gap-3">
-                              <div className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 mt-0.5 ${
+                              <div className={`w-7 h-7 rounded-[3px] flex items-center justify-center shrink-0 mt-0.5 ${
                                 rule.critical ? "bg-rose-500/10" : "bg-cyan-500/10"
                               }`}>
                                 {rule.critical ? (
@@ -209,12 +209,12 @@ export function NihaiAnayasa() {
                                 <div className="flex items-center gap-2 mb-1">
                                   <span className="text-[10px] font-mono text-slate-500">{rule.id}</span>
                                   {rule.critical && (
-                                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300">
+                                    <span className="text-[10px] font-normal px-1.5 py-0.5 rounded-[3px] bg-rose-500/20 text-rose-300">
                                       KRİTİK
                                     </span>
                                   )}
                                 </div>
-                                <h3 className="text-sm font-semibold text-white mb-1">{rule.title}</h3>
+                                <h3 className="text-sm font-normal text-white mb-1">{rule.title}</h3>
                                 <p className="text-sm text-slate-400 leading-relaxed">{rule.desc}</p>
                               </div>
                             </div>
@@ -234,14 +234,14 @@ export function NihaiAnayasa() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-10 glass rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-6"
+          className="mt-10 glass rounded-[20px] border border-amber-500/20 bg-amber-500/[0.03] p-6"
         >
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-[10px] bg-amber-500/10 flex items-center justify-center shrink-0">
               <Gavel className="w-5 h-5 text-amber-400" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white mb-2">Yaptırım ve Hukuki Geçerlilik</h3>
+              <h3 className="text-base font-normal text-white mb-2">Yaptırım ve Hukuki Geçerlilik</h3>
               <p className="text-sm text-slate-400 leading-relaxed mb-3">
                 Bu anayasa, İhaleAL.com platformunun tüm yazılım mimarisi, veritabanı kısıtları, akıllı sözleşme tetikleyicileri ve hukuki belgeleri için üst normdur. Kullanıcı kaydı, ilan verme, teklif verme ve satın alma işlemlerinin tamamı bu maddelere tabidir.
               </p>
@@ -257,7 +257,7 @@ export function NihaiAnayasa() {
         </motion.div>
 
         {/* Cross-Reference */}
-        <div className="mt-6 rounded-xl border border-slate-200 bg-white/[0.02] p-5 text-center">
+        <div className="mt-6 rounded-[20px] border border-slate-200 bg-white/[0.02] p-5 text-center">
           <p className="text-sm text-slate-400 mb-3">
             Bu Nihai Sistem Anayasası, site üzerindeki{" "}
             <strong>birleşik çerçeve sayfası</strong> (İhaleAL kuralları + KİK hatırlatıcıları) ile birlikte okunmalıdır.

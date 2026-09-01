@@ -72,16 +72,16 @@ export default function AboneIptal() {
     <div className="min-h-screen flex items-center justify-center px-4 py-16 pt-24">
       <div className="w-full max-w-md text-center">
         <MailMinus className="mx-auto h-10 w-10 text-slate-400 mb-3" aria-hidden />
-        <p className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+        <p className="text-xs uppercase tracking-wider text-slate-500 font-normal">
           ihaleal · Abonelik İptali
         </p>
 
         {status === "no-token" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-amber-500/30 bg-amber-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-amber-500/30 bg-amber-500/10">
               <AlertTriangle className="h-8 w-8 text-amber-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Geçersiz iptal bağlantısı</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Geçersiz iptal bağlantısı</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               İptal bağlantısı bulunamadı veya bozuk. Lütfen e-postanızın altındaki
               "abonelikten çık" linkine tekrar tıklayın.
@@ -89,20 +89,20 @@ export default function AboneIptal() {
           </>
         ) : status === "processing" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-400/30 bg-slate-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-slate-400/30 bg-slate-500/10">
               <Loader2 className="h-8 w-8 text-slate-300 animate-spin" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">İptal işleniyor…</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">İptal işleniyor…</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               Lütfen bekleyin, abonelik kaydınız siliniyor.
             </p>
           </>
         ) : status === "ok" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-emerald-400/40 bg-emerald-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-emerald-400/40 bg-emerald-500/10">
               <CheckCircle2 className="h-8 w-8 text-emerald-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Aboneliğiniz iptal edildi</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Aboneliğiniz iptal edildi</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-300 leading-relaxed">
               {message || "Bundan sonra aylık endeks raporu maili almayacaksınız."}
             </p>
@@ -112,20 +112,20 @@ export default function AboneIptal() {
           </>
         ) : status === "no-backend" ? (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-500/30 bg-slate-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-slate-500/30 bg-slate-500/10">
               <AlertTriangle className="h-8 w-8 text-slate-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Servis geçici olarak ulaşılamıyor</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">Servis geçici olarak ulaşılamıyor</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               {message}
             </p>
           </>
         ) : (
           <>
-            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-rose-500/30 bg-rose-500/10">
+            <div className="mx-auto mt-6 mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] border border-rose-500/30 bg-rose-500/10">
               <AlertTriangle className="h-8 w-8 text-rose-300" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">İptal tamamlanamadı</h1>
+            <h1 className="text-2xl sm:text-3xl font-normal text-white">İptal tamamlanamadı</h1>
             <p className="mt-3 max-w-sm mx-auto text-sm text-slate-400 leading-relaxed">
               {message || "Bağlantı süresi dolmuş veya zaten iptal edilmiş olabilir."}
             </p>

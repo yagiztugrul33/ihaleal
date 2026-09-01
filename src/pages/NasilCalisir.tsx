@@ -77,12 +77,12 @@ export default function NasilCalisir() {
           className={`mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/20">
+            <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/20">
               <BookOpen className="w-7 h-7 text-white" />
             </div>
             <div>
               <Badge className="mb-2 bg-white/10 text-cyan-200 border-cyan-400/30">Rehber</Badge>
-              <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+              <h1 className="text-3xl md:text-4xl font-normal text-white tracking-tight">
                 {NASIL_CALISIR_INTRO.title}
               </h1>
               <p className="text-slate-400 mt-3 text-lg leading-relaxed max-w-3xl">{NASIL_CALISIR_INTRO.lead}</p>
@@ -95,7 +95,7 @@ export default function NasilCalisir() {
               <CardContent className="pt-6 flex gap-3">
                 <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-semibold text-amber-100">İhale listesine geçmeden önce</p>
+                  <p className="text-sm font-normal text-amber-100">İhale listesine geçmeden önce</p>
                   <p className="text-sm text-slate-400 mt-1">
                     Bu sayfa platformun dört adımını, rolleri ve referans süreleri özetler. Hazır olduğunuzda aşağıdaki
                     düğme ile canlı ilanlara gidebilirsiniz.
@@ -129,7 +129,7 @@ export default function NasilCalisir() {
 
         <Card className="mb-12 border-slate-200 bg-white/[0.03] backdrop-blur-sm">
           <CardContent className="pt-6 pb-6">
-            <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Layers className="w-5 h-5 text-cyan-400" />
               Referans iş kuralları (yapılandırma)
             </h2>
@@ -152,20 +152,20 @@ export default function NasilCalisir() {
         </Card>
 
         <section className="mb-16" id="mimari">
-          <h2 className="text-2xl font-bold text-white mb-2">{NASIL_CALISIR_ARCHITECTURE.title}</h2>
+          <h2 className="text-2xl font-normal text-white mb-2">{NASIL_CALISIR_ARCHITECTURE.title}</h2>
           <p className="text-slate-400 mb-6 leading-relaxed">{NASIL_CALISIR_ARCHITECTURE.flowSummary}</p>
           <div className="grid md:grid-cols-2 gap-4">
             {NASIL_CALISIR_ARCHITECTURE.layers.map((layer) => (
               <Card key={layer.name} className="border-slate-200 bg-white/[0.04]">
                 <CardContent className="pt-5 pb-5">
-                  <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">Katman</div>
-                  <h3 className="text-white font-semibold mb-2">{layer.name}</h3>
+                  <div className="text-xs font-normal text-cyan-400 uppercase tracking-wider mb-2">Katman</div>
+                  <h3 className="text-white font-normal mb-2">{layer.name}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{layer.desc}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
-          <pre className="mt-6 p-4 rounded-xl bg-black/40 border border-slate-200 text-xs text-slate-400 overflow-x-auto font-mono leading-relaxed">
+          <pre className="mt-6 p-4 rounded-[20px] bg-black/40 border border-slate-200 text-xs text-slate-400 overflow-x-auto font-mono leading-relaxed">
             {`[Kullanıcı] → [Web istemcisi] → [Kural motoru + doğrulama]
                     ↓
             [İlan / teklif kaydı] ←→ [Bildirim servisi] → e-posta / uygulama içi
@@ -174,7 +174,7 @@ export default function NasilCalisir() {
           </pre>
         </section>
 
-        <div className="sticky top-20 z-20 -mx-4 px-4 py-3 mb-10 bg-[#0f1729]/90 backdrop-blur-md border border-slate-700/50 rounded-xl">
+        <div className="sticky top-20 z-20 -mx-4 px-4 py-3 mb-10 bg-[#0f1729]/90 backdrop-blur-md border border-slate-700/50 rounded-[20px]">
           <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">Adımlar</p>
           <div className="flex flex-wrap gap-2">
             {NASIL_CALISIR_STEPS.map((s) => {
@@ -185,7 +185,7 @@ export default function NasilCalisir() {
                   key={s.slug}
                   type="button"
                   onClick={() => setAdim(s.slug)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-sm font-normal transition-all ${
                     active
                       ? "bg-cyan-500/20 text-cyan-100 ring-1 ring-cyan-400/40"
                       : "bg-white/5 text-slate-500 hover:text-slate-900 hover:bg-white/10"
@@ -205,12 +205,12 @@ export default function NasilCalisir() {
             return (
               <section key={step.slug} id={`step-${step.slug}`} className="scroll-mt-28">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/15 to-white/5 flex items-center justify-center ring-1 ring-white/10">
+                  <div className="w-12 h-12 rounded-[20px] bg-gradient-to-br from-white/15 to-white/5 flex items-center justify-center ring-1 ring-white/10">
                     <Icon className="w-6 h-6 text-cyan-300" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Adım {step.stepNum}</div>
-                    <h2 className="text-2xl font-bold text-white">{step.title}</h2>
+                    <div className="text-xs font-normal text-cyan-400 uppercase tracking-wider">Adım {step.stepNum}</div>
+                    <h2 className="text-2xl font-normal text-white">{step.title}</h2>
                     <p className="text-slate-400 text-sm">{step.tagline}</p>
                   </div>
                 </div>
@@ -221,7 +221,7 @@ export default function NasilCalisir() {
                   {step.userJourney.map((block) => (
                     <Card key={block.title} className="border-slate-200 bg-white/[0.03]">
                       <CardContent className="pt-5 pb-5">
-                        <h3 className="text-white font-semibold mb-3">{block.title}</h3>
+                        <h3 className="text-white font-normal mb-3">{block.title}</h3>
                         <ul className="space-y-2 text-sm text-slate-400 list-disc ps-5">
                           {block.bullets.map((b) => (
                             <li key={b} className="leading-relaxed">
@@ -237,7 +237,7 @@ export default function NasilCalisir() {
                 {step.platformSide.map((block) => (
                   <Card key={block.title} className="border-cyan-500/20 bg-cyan-500/5 mb-6">
                     <CardContent className="pt-5 pb-5">
-                      <h3 className="text-cyan-100 font-semibold mb-3">{block.title}</h3>
+                      <h3 className="text-cyan-100 font-normal mb-3">{block.title}</h3>
                       {block.paragraphs.map((p) => (
                         <p key={p} className="text-sm text-slate-400 leading-relaxed mb-2 last:mb-0">
                           {p}
@@ -250,7 +250,7 @@ export default function NasilCalisir() {
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
                   <Card className="border-slate-200">
                     <CardContent className="pt-5 pb-5">
-                      <h3 className="text-white font-semibold mb-2 text-sm">Veri ve güven</h3>
+                      <h3 className="text-white font-normal mb-2 text-sm">Veri ve güven</h3>
                       <ul className="text-sm text-slate-400 space-y-2 list-disc ps-5">
                         {step.dataAndTrust.map((t) => (
                           <li key={t}>{t}</li>
@@ -260,7 +260,7 @@ export default function NasilCalisir() {
                   </Card>
                   <Card className="border-amber-500/15 bg-amber-500/[0.03]">
                     <CardContent className="pt-5 pb-5">
-                      <h3 className="text-amber-100 font-semibold mb-2 text-sm">Risk ve sınırlar</h3>
+                      <h3 className="text-amber-100 font-normal mb-2 text-sm">Risk ve sınırlar</h3>
                       <ul className="text-sm text-slate-400 space-y-2 list-disc ps-5">
                         {step.risksAndLimits.map((t) => (
                           <li key={t}>{t}</li>
@@ -271,7 +271,7 @@ export default function NasilCalisir() {
                 </div>
 
                 <div className="mb-8">
-                  <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">İlgili sayfalar</h3>
+                  <h3 className="text-sm font-normal text-slate-500 uppercase tracking-wider mb-3">İlgili sayfalar</h3>
                   <div className="flex flex-wrap gap-2">
                     {step.relatedRoutes.map((r) => (
                       <Button key={r.path + r.label} variant="secondary" size="sm" className="bg-white/5 border-slate-200" asChild>
@@ -285,10 +285,10 @@ export default function NasilCalisir() {
                 </div>
 
                 <div className="space-y-3">
-                  <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Sık sorulanlar</h3>
+                  <h3 className="text-sm font-normal text-slate-500 uppercase tracking-wider">Sık sorulanlar</h3>
                   {step.faq.map((f) => (
-                    <details key={f.q} className="group border border-slate-200 rounded-lg bg-white/[0.02] open:bg-white/[0.04]">
-                      <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-slate-200 list-none flex justify-between items-center">
+                    <details key={f.q} className="group border border-slate-200 rounded-[10px] bg-white/[0.02] open:bg-white/[0.04]">
+                      <summary className="cursor-pointer px-4 py-3 text-sm font-normal text-slate-200 list-none flex justify-between items-center">
                         {f.q}
                         <ChevronRight className="w-4 h-4 text-slate-500 group-open:rotate-90 transition-transform" />
                       </summary>
@@ -303,7 +303,7 @@ export default function NasilCalisir() {
 
         <Card className="mt-16 border-slate-200 bg-gradient-to-br from-blue-600/20 to-cyan-500/10">
           <CardContent className="pt-8 pb-8 text-center">
-            <h2 className="text-xl font-bold text-white mb-2">Hazırsanız ilanlara geçin</h2>
+            <h2 className="text-xl font-normal text-white mb-2">Hazırsanız ilanlara geçin</h2>
             <p className="text-slate-400 text-sm max-w-lg mx-auto mb-6">
               Filtreleri kullanın, ilan detayını okuyun ve kurallara uygun teklif verin. Sorularınız için yardım merkezine
               göz atın.

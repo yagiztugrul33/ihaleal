@@ -12,10 +12,10 @@ export function CorporateBanner() {
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div>
-            <div className="mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--color-success)" }}>
+            <div className="mb-2 text-xs font-normal uppercase tracking-wider" style={{ color: "var(--color-success)" }}>
               Kurumsal Çözümler
             </div>
-            <h2 className="text-2xl font-semibold md:text-3xl" style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}>
+            <h2 className="text-2xl font-normal md:text-3xl" style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}>
               Emlak Ofisleri, GYO&apos;lar ve Müteahhitler için
               <br className="hidden md:block" />
               Türkiye&apos;nin İlk Şeffaf İhale Pazaryeri
@@ -36,8 +36,8 @@ export function CorporateBanner() {
           <div className="hidden md:flex md:flex-col md:items-end md:gap-2">
             <p className="text-xs text-slate-400">Güvenen kurumsal hesaplar</p>
             <div className="flex items-center gap-6 opacity-70">
-              <span className="text-lg font-semibold text-slate-300">Akfen GYO</span>
-              <span className="text-lg font-semibold text-slate-300">Tahincioğlu</span>
+              <span className="text-lg font-normal text-slate-300">Akfen GYO</span>
+              <span className="text-lg font-normal text-slate-300">Tahincioğlu</span>
             </div>
           </div>
         </div>

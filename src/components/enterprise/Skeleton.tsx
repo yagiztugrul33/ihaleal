@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn("skeleton-shimmer rounded-lg", className)} aria-hidden />;
+  return <div className={cn("skeleton-shimmer rounded-[10px]", className)} aria-hidden />;
 }
 
 export function SkeletonCard() {
@@ -18,7 +18,7 @@ export function SkeletonChart() {
   return (
     <div className="card-luxury p-5">
       <Skeleton className="mb-4 h-4 w-40" />
-      <Skeleton className="h-64 w-full rounded-xl" />
+      <Skeleton className="h-64 w-full rounded-[20px]" />
     </div>
   );
 }

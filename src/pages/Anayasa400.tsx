@@ -274,10 +274,10 @@ export function Anayasa400() {
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana Sayfa
           </Button>
           <div className="text-center mb-10">
-            <div className="w-16 h-16 rounded-2xl [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
+            <div className="w-16 h-16 rounded-[20px] [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/20">
               <Shield className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">ihaleal.com — Platform ve KİK çerçevesi</h1>
+            <h1 className="text-3xl sm:text-4xl font-normal text-white mb-2">ihaleal.com — Platform ve KİK çerçevesi</h1>
             <p className="text-slate-400 max-w-2xl mx-auto">
               İlk blokta İhaleAL Nihai sistem + ücret/komisyon kuralları (koddaki fees ve MASTER_RULES özetleri);{" "}
               <strong className="text-slate-300">201–400</strong> aralığı 4734 sayılı Kanun hatırlatıcı maddeleridir.
@@ -291,8 +291,8 @@ export function Anayasa400() {
                 {categories.flatMap((c) => c.rules).length} madde
               </span>
             </div>
-            <div className="mx-auto mt-6 max-w-3xl rounded-xl border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-start text-sm leading-relaxed text-cyan-50">
-              <p className="font-semibold text-cyan-100">Bu sayfa “ihaleal” kullanım sözleşmesi değildir</p>
+            <div className="mx-auto mt-6 max-w-3xl rounded-[20px] border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-start text-sm leading-relaxed text-cyan-50">
+              <p className="font-normal text-cyan-100">Bu sayfa “ihaleal” kullanım sözleşmesi değildir</p>
               <p className="mt-2 text-slate-300">
                 <strong className="text-slate-200">İlk kategori</strong>, depodaki{" "}
                 <code className="text-cyan-200/90">NihaiAnayasa</code>, <code className="text-cyan-200/90">fees.ts</code>,{" "}
@@ -336,7 +336,7 @@ export function Anayasa400() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCat(cat.id)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
+                  className={`px-4 py-2 rounded-[20px] text-sm font-normal transition-all flex items-center gap-2 ${
                     activeCat === cat.id
                       ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
                       : "text-slate-500 hover:text-slate-900 hover:bg-white/5 border border-transparent"
@@ -358,7 +358,7 @@ export function Anayasa400() {
                 const Icon = current.icon || Shield;
                 return <Icon className="w-5 h-5 text-blue-400" />;
               })()}
-              <h2 className="text-xl font-bold text-white">{current.title}</h2>
+              <h2 className="text-xl font-normal text-white">{current.title}</h2>
               <span className="text-sm text-slate-500">{current.rules.length} madde</span>
             </div>
             <div className="h-px bg-white/10 w-full" />
@@ -373,9 +373,9 @@ export function Anayasa400() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.02, duration: 0.3 }}
-              className="glass rounded-xl p-4 flex items-start gap-4"
+              className="glass rounded-[20px] p-4 flex items-start gap-4"
             >
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+              <div className={`w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 ${
                 rule.sev === "K" ? "bg-rose-500/10" : rule.sev === "U" ? "bg-amber-500/10" : "bg-cyan-500/10"
               }`}>
                 {rule.sev === "K" ? <AlertTriangle className="w-5 h-5 text-rose-400" /> :
@@ -384,7 +384,7 @@ export function Anayasa400() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded ${
+                  <span className={`text-xs font-normal px-2 py-0.5 rounded-[3px] ${
                     rule.sev === "K" ? "bg-rose-500/20 text-rose-300" :
                     rule.sev === "U" ? "bg-amber-500/20 text-amber-300" :
                     "bg-cyan-500/20 text-cyan-300"
@@ -394,7 +394,7 @@ export function Anayasa400() {
                   <span className="text-xs text-slate-500 font-mono">Madde {rule.id}</span>
                   {rule.ref && <span className="text-[10px] text-slate-600">{rule.ref}</span>}
                 </div>
-                <h3 className="text-sm font-bold text-white mb-1">{rule.title}</h3>
+                <h3 className="text-sm font-normal text-white mb-1">{rule.title}</h3>
                 <p className="text-sm text-slate-400 leading-relaxed">{rule.desc}</p>
               </div>
             </motion.div>
@@ -408,7 +408,7 @@ export function Anayasa400() {
           </div>
         )}
 
-        <div className="mt-10 rounded-xl border border-slate-200 bg-white/[0.02] p-6 text-center">
+        <div className="mt-10 rounded-[20px] border border-slate-200 bg-white/[0.02] p-6 text-center">
           <p className="text-sm text-slate-400 mb-4">
             Üst kısım İhaleAL platform kurallarının özeti; madde numaraları 201–400 olan blok 4734 sayılı Kanun hatırlatıcılarıdır. Bağlayıcı metinler için kullanım koşulları ve güncel mevzuat esas alınmalıdır.
           </p>

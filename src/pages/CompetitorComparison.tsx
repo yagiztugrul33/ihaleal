@@ -153,9 +153,9 @@ export default function CompetitorComparison() {
         <div className="max-w-6xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl [background:var(--gradient-cta)] flex items-center justify-center"><Trophy className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-[20px] [background:var(--gradient-cta)] flex items-center justify-center"><Trophy className="w-6 h-6 text-white" /></div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Rakip Analizi & Farklarımız</h1>
+              <h1 className="text-3xl font-normal text-white">Rakip Analizi & Farklarımız</h1>
               <p className="text-slate-400">Türkiye'nin gayrimenkul platformlarıyla kapsamlı karşılaştırma</p>
             </div>
           </div>
@@ -165,21 +165,21 @@ export default function CompetitorComparison() {
 
       <div className="max-w-6xl mx-auto px-4 mt-8 space-y-6">
         {/* Özet Banner */}
-        <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
+        <div className="p-4 rounded-[20px] bg-amber-500/5 border border-amber-500/10">
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-white font-medium mb-1">Emsalsiz Konumumuz</p>
+              <p className="text-sm text-white font-normal mb-1">Emsalsiz Konumumuz</p>
               <p className="text-sm text-slate-400">Türkiye&apos;de <strong className="text-slate-300">hedef ürün vizyonu</strong> olarak AI destekli değerleme + canlı ihale + evrak akışı + güvenlik yol haritasını bir arada sunmayı amaçlayan platform ihaleal.com&apos;dur (rakiplerde ihale modülü yoktur iddiası pazarlama özeti; hukuki bağlayıcılık yoktur).</p>
             </div>
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/15">
+        <div className="p-4 rounded-[20px] bg-blue-500/5 border border-blue-500/15">
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-white font-medium mb-1">Matris hakkında dürüst not</p>
+              <p className="text-sm text-white font-normal mb-1">Matris hakkında dürüst not</p>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Yeşil tiklerin bir kısmı <span className="text-slate-300">ürün modülü / arayüz ve yol haritası</span> anlamındadır.
                 <span className="text-amber-300/90"> Findeks, e-Devlet, banka API, saatlik canlı veri, bankanın “AI araması”</span> gibi maddeler canlı ortamda yalnızca sözleşme + backend + kurum entegrasyonu ile mümkündür; bu demo sitede gerçek zamanlı API bağlantısı yoktur.
@@ -190,7 +190,7 @@ export default function CompetitorComparison() {
 
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white mb-3">Rakiplerde olup bu front-end sürümde henüz olmayanlar</h3>
+            <h3 className="text-lg font-normal text-white mb-3">Rakiplerde olup bu front-end sürümde henüz olmayanlar</h3>
             <ul className="space-y-2 text-xs text-slate-400">
               <li className="flex gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong className="text-slate-300">sahibinden.com:</strong> On yıllık ilan stoğu, kurumsal ödeme ve mesajlaşma ekosistemi, native mobil uygulama ölçeği.</span></li>
               <li className="flex gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong className="text-slate-300">Tipik analiz siteleri:</strong> Çoğunlukla tek rapor veya tek model; canlı ihale, likidite metrikleri ve İhaleal Endeksi’nin çok sinyalli birleşik görünümü yok.</span></li>
@@ -202,17 +202,17 @@ export default function CompetitorComparison() {
         {/* Rakipler Tablosu */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white mb-4">Rakip Platformlar ve Eksikleri</h3>
+            <h3 className="text-lg font-normal text-white mb-4">Rakip Platformlar ve Eksikleri</h3>
             <div className="space-y-4">
               {competitors.map((c) => (
-                <div key={c.name} className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
+                <div key={c.name} className="p-4 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-lg bg-${c.color}-500/10 flex items-center justify-center`}>
+                      <div className={`w-10 h-10 rounded-[10px] bg-${c.color}-500/10 flex items-center justify-center`}>
                         <Target className={`w-5 h-5 ${c.color === 'blue' ? 'text-blue-400' : c.color === 'emerald' ? 'text-emerald-400' : c.color === 'amber' ? 'text-amber-400' : c.color === 'rose' ? 'text-rose-400' : 'text-violet-400'}`} />
                       </div>
                       <div>
-                        <span className="text-sm font-semibold text-white">{c.name}</span>
+                        <span className="text-sm font-normal text-white">{c.name}</span>
                         <span className="text-xs text-slate-500 ms-2">{c.type}</span>
                       </div>
                     </div>
@@ -220,7 +220,7 @@ export default function CompetitorComparison() {
                   </div>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <div>
-                      <p className="text-xs text-emerald-400 font-medium mb-2 flex items-center gap-1"><Star className="w-3 h-3" /> Güçlü Yönleri</p>
+                      <p className="text-xs text-emerald-400 font-normal mb-2 flex items-center gap-1"><Star className="w-3 h-3" /> Güçlü Yönleri</p>
                       <ul className="space-y-1">
                         {c.strengths.map((s) => (
                           <li key={s} className="flex items-start gap-1.5 text-xs text-slate-400"><CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0 mt-0.5" />{s}</li>
@@ -228,7 +228,7 @@ export default function CompetitorComparison() {
                       </ul>
                     </div>
                     <div>
-                      <p className="text-xs text-red-400 font-medium mb-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Eksikleri (Bizde Var)</p>
+                      <p className="text-xs text-red-400 font-normal mb-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Eksikleri (Bizde Var)</p>
                       <ul className="space-y-1">
                         {c.weaknesses.map((w) => (
                           <li key={w} className="flex items-start gap-1.5 text-xs text-slate-400"><XCircle className="w-3 h-3 text-red-400 shrink-0 mt-0.5" />{w}</li>
@@ -245,13 +245,13 @@ export default function CompetitorComparison() {
         {/* Bizim Avantajlarımız */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white mb-4">ihaleal.com Avantajları</h3>
+            <h3 className="text-lg font-normal text-white mb-4">ihaleal.com Avantajları</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {ourAdvantages.map((a) => (
-                <div key={a.title} className={`p-3 rounded-xl border ${a.unique ? 'bg-blue-500/5 border-blue-500/10' : 'bg-white/[0.03] border-slate-200/80'}`}>
+                <div key={a.title} className={`p-3 rounded-[20px] border ${a.unique ? 'bg-blue-500/5 border-blue-500/10' : 'bg-white/[0.03] border-slate-200/80'}`}>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <div className={`p-1.5 rounded-lg ${a.unique ? 'bg-blue-500/10 text-blue-400' : 'bg-slate-500/10 text-slate-400'}`}>{a.icon}</div>
-                    <span className="text-sm font-medium text-white">{a.title}</span>
+                    <div className={`p-1.5 rounded-[10px] ${a.unique ? 'bg-blue-500/10 text-blue-400' : 'bg-slate-500/10 text-slate-400'}`}>{a.icon}</div>
+                    <span className="text-sm font-normal text-white">{a.title}</span>
                     {a.unique && <Badge className="bg-amber-500/10 text-amber-400 text-[10px] border-0 ms-auto">Emsalsiz</Badge>}
                   </div>
                   <p className="text-xs text-slate-400">{a.desc}</p>
@@ -264,16 +264,16 @@ export default function CompetitorComparison() {
         {/* Özellik Matrisi */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5 overflow-x-auto">
-            <h3 className="text-lg font-bold text-white mb-4">Özellik Karşılaştırma Matrisi</h3>
+            <h3 className="text-lg font-normal text-white mb-4">Özellik Karşılaştırma Matrisi</h3>
             <table className="w-full text-sm min-w-[600px]">
               <thead>
                 <tr className="border-b border-slate-200/80">
-                  <th className="text-start py-2 px-3 text-slate-400 font-medium">Özellik</th>
-                  <th className="text-center py-2 px-3 text-slate-400 font-medium">ihaleal.com</th>
-                  <th className="text-center py-2 px-3 text-slate-400 font-medium">sahibinden</th>
-                  <th className="text-center py-2 px-3 text-slate-400 font-medium">Tipik analiz siteleri</th>
-                  <th className="text-center py-2 px-3 text-slate-400 font-medium">emlakjet</th>
-                  <th className="text-center py-2 px-3 text-slate-400 font-medium">hepsiemlak</th>
+                  <th className="text-start py-2 px-3 text-slate-400 font-normal">Özellik</th>
+                  <th className="text-center py-2 px-3 text-slate-400 font-normal">ihaleal.com</th>
+                  <th className="text-center py-2 px-3 text-slate-400 font-normal">sahibinden</th>
+                  <th className="text-center py-2 px-3 text-slate-400 font-normal">Tipik analiz siteleri</th>
+                  <th className="text-center py-2 px-3 text-slate-400 font-normal">emlakjet</th>
+                  <th className="text-center py-2 px-3 text-slate-400 font-normal">hepsiemlak</th>
                 </tr>
               </thead>
               <tbody>

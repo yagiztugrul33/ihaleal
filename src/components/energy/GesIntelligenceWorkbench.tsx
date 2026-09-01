@@ -48,9 +48,9 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
   };
 
   return (
-    <section className="space-y-4 rounded-2xl border border-slate-700 bg-slate-950/70 p-4 md:p-6">
+    <section className="space-y-4 rounded-[20px] border border-slate-700 bg-slate-950/70 p-4 md:p-6">
       <header>
-        <h2 className="text-xl font-black text-white md:text-2xl">{title}</h2>
+        <h2 className="text-xl font-normal text-white md:text-2xl">{title}</h2>
         <p className="mt-1 text-sm text-slate-300">
           Demo veri / ön analiz: solar fizibilite + siting + finansal + mevzuat katmanları ile birleşik GES puanı üretilir.
         </p>
@@ -84,7 +84,7 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
         <label className="space-y-1 text-xs text-slate-300">İskonto (%)
           <Input type="number" value={form.discountRatePct} onChange={(e) => setForm((p) => ({ ...p, discountRatePct: Number(e.target.value || 0) }))} />
         </label>
-        <label className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-300">
+        <label className="inline-flex items-center gap-2 rounded-[3px] border border-slate-700 px-3 py-2 text-xs text-slate-300">
           <input type="checkbox" checked={form.zoningPermitted} onChange={(e) => setForm((p) => ({ ...p, zoningPermitted: e.target.checked }))} />
           İmar uygunluğu var
         </label>
@@ -97,14 +97,14 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
 
       {result ? (
         <div className="space-y-4">
-          <article className="grid gap-3 rounded-xl border border-amber-500/35 bg-amber-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
-            <div><p className="text-xs text-amber-100">Birleşik skor</p><p className="text-2xl font-black text-white">{result.overallScore}/100</p></div>
-            <div><p className="text-xs text-amber-100">NPV</p><p className="text-sm font-semibold text-white">{result.feasibility.npvTry.toLocaleString("tr-TR")} TRY</p></div>
-            <div><p className="text-xs text-amber-100">IRR</p><p className="text-sm font-semibold text-white">{result.feasibility.irrPct?.toFixed(1) ?? "-"}%</p></div>
-            <div><p className="text-xs text-amber-100">LCOE</p><p className="text-sm font-semibold text-white">{result.feasibility.lcoeTryPerKwh.toFixed(2)} TRY/kWh</p></div>
+          <article className="grid gap-3 rounded-[20px] border border-amber-500/35 bg-amber-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
+            <div><p className="text-xs text-amber-100">Birleşik skor</p><p className="text-2xl font-normal text-white">{result.overallScore}/100</p></div>
+            <div><p className="text-xs text-amber-100">NPV</p><p className="text-sm font-normal text-white">{result.feasibility.npvTry.toLocaleString("tr-TR")} TRY</p></div>
+            <div><p className="text-xs text-amber-100">IRR</p><p className="text-sm font-normal text-white">{result.feasibility.irrPct?.toFixed(1) ?? "-"}%</p></div>
+            <div><p className="text-xs text-amber-100">LCOE</p><p className="text-sm font-normal text-white">{result.feasibility.lcoeTryPerKwh.toFixed(2)} TRY/kWh</p></div>
           </article>
           <article className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
               <div className="h-[250px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={barData}>
@@ -117,19 +117,19 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="text-sm font-black uppercase tracking-[0.12em] text-amber-200">Katkı dökümü</h3>
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+              <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-amber-200">Katkı dökümü</h3>
               <ul className="mt-2 space-y-2 text-sm text-slate-200">
                 {result.contributions.map((c) => (
                   <li key={c.key}>
-                    <p className="font-semibold">{c.label}</p>
+                    <p className="font-normal">{c.label}</p>
                     <p className="text-xs text-slate-300">Skor {c.score}/100 · Ağırlık %{c.weightPct} · Katkı {c.contributionPts}</p>
                   </li>
                 ))}
               </ul>
             </div>
           </article>
-          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+          <article className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
             <div className="h-[240px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={radarData}>
@@ -141,7 +141,7 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
               </ResponsiveContainer>
             </div>
           </article>
-          {!compact ? <div className="rounded-xl border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">{result.disclaimer}</div> : null}
+          {!compact ? <div className="rounded-[20px] border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">{result.disclaimer}</div> : null}
         </div>
       ) : null}
     </section>

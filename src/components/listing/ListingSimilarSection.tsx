@@ -69,7 +69,7 @@ export function ListingSimilarSection({
   return (
     <section className="mt-10 border-t border-slate-200/80 pt-8">
       <div className="mb-4 flex items-center justify-between gap-2">
-        <h2 className="text-lg font-bold text-white">Benzer ilanlar</h2>
+        <h2 className="text-lg font-normal text-white">Benzer ilanlar</h2>
         <span className="text-[10px] uppercase tracking-wider text-slate-500">
           {source === "live" ? "Canlı sorgu" : "Katalog eşleşmesi"}
         </span>
@@ -80,20 +80,20 @@ export function ListingSimilarSection({
             key={a.id}
             type="button"
             onClick={() => navigate(`/ilan/${a.id}`)}
-            className="flex gap-3 rounded-xl border border-slate-200/80 bg-slate-900/30 p-3 text-start hover:border-blue-500/30"
+            className="flex gap-3 rounded-[20px] border border-slate-200/80 bg-slate-900/30 p-3 text-start hover:border-blue-500/30"
           >
             <ListingCoverImage
               src={a.image ?? ""}
               alt={a.title}
-              className="h-16 w-24 shrink-0 rounded-lg object-cover"
+              className="h-16 w-24 shrink-0 rounded-[10px] object-cover"
             />
             <div className="min-w-0">
-              <p className="line-clamp-2 text-sm font-medium text-white">{a.title}</p>
+              <p className="line-clamp-2 text-sm font-normal text-white">{a.title}</p>
               <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
                 <MapPin className="h-3 w-3" aria-hidden />
                 {[a.district, a.city].filter(Boolean).join(", ")}
               </p>
-              <p className="mt-1 text-sm font-semibold text-blue-400">₺{a.price.toLocaleString("tr-TR")}</p>
+              <p className="mt-1 text-sm font-normal text-blue-400">₺{a.price.toLocaleString("tr-TR")}</p>
             </div>
           </button>
         ))}

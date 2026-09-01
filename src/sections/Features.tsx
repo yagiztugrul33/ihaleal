@@ -60,7 +60,7 @@ export function Features() {
                 <div className="feature-icon-ring mb-4">
                   <Icon className="h-6 w-6" aria-hidden />
                 </div>
-                <h3 className="mb-2 text-lg font-bold text-white">{titles[key]}</h3>
+                <h3 className="mb-2 text-lg font-normal text-white">{titles[key]}</h3>
                 <p className="text-sm leading-relaxed text-slate-300">{descs[key]}</p>
                 {links[key] ? (
                   <Link

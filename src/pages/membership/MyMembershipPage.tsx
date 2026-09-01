@@ -29,7 +29,7 @@ export default function MyMembershipPage() {
         </Button>
 
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
+          <h1 className="text-3xl font-normal flex items-center gap-2">
             <Crown className="h-7 w-7 text-amber-400" />
             Üyeliğim
           </h1>
@@ -39,11 +39,11 @@ export default function MyMembershipPage() {
         </div>
 
         {/* Mevcut paket kartı */}
-        <div className={`rounded-2xl border ${isPremium ? "border-amber-500/40 bg-amber-500/10" : "border-slate-700 bg-slate-900/40"} p-6`}>
+        <div className={`rounded-[20px] border ${isPremium ? "border-amber-500/40 bg-amber-500/10" : "border-slate-700 bg-slate-900/40"} p-6`}>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
             <div>
               <p className="text-xs text-slate-500 mb-1">Mevcut paketim</p>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <h2 className="text-2xl font-normal text-white flex items-center gap-2">
                 {isPremium ? <Crown className="h-6 w-6 text-amber-400" /> : null}
                 {tier.name}
               </h2>
@@ -51,12 +51,12 @@ export default function MyMembershipPage() {
             </div>
             <div className="text-end">
               {tier.customPricing ? (
-                <p className="text-3xl font-bold text-white">Özel</p>
+                <p className="text-3xl font-normal text-white">Özel</p>
               ) : tier.monthlyTry === 0 ? (
-                <p className="text-3xl font-bold text-white">Ücretsiz</p>
+                <p className="text-3xl font-normal text-white">Ücretsiz</p>
               ) : (
                 <>
-                  <p className="text-3xl font-bold text-amber-300">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
+                  <p className="text-3xl font-normal text-amber-300">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
                   <p className="text-xs text-slate-400">/ay</p>
                 </>
               )}
@@ -67,32 +67,32 @@ export default function MyMembershipPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-700">
             <div>
               <p className="text-[10px] text-slate-500 uppercase">İlan limiti</p>
-              <p className="text-base font-semibold text-white">
+              <p className="text-base font-normal text-white">
                 {tier.listingLimit === "unlimited" ? "∞" : `${tier.listingLimit}/yıl`}
               </p>
             </div>
             <div>
               <p className="text-[10px] text-slate-500 uppercase">Ekip üye</p>
-              <p className="text-base font-semibold text-white">
+              <p className="text-base font-normal text-white">
                 {tier.teamSeats === "unlimited" ? "∞" : tier.teamSeats}
               </p>
             </div>
             <div>
               <p className="text-[10px] text-slate-500 uppercase">Borsa Tam</p>
-              <p className="text-base font-semibold text-white">
+              <p className="text-base font-normal text-white">
                 {tier.features.find((f) => /Borsa terminel TAM/i.test(f.label))?.status === "included" ? "✓" : "—"}
               </p>
             </div>
             <div>
               <p className="text-[10px] text-slate-500 uppercase">Gerçek Kapanış</p>
-              <p className="text-base font-semibold text-white">
+              <p className="text-base font-normal text-white">
                 {tier.features.find((f) => /Gerçek kapanış/i.test(f.label))?.status === "included" ? "✓" : "—"}
               </p>
             </div>
           </div>
 
           {!isPremium && (
-            <div className="mt-5 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 flex items-center gap-3">
+            <div className="mt-5 rounded-[10px] border border-amber-500/30 bg-amber-500/10 p-3 flex items-center gap-3">
               <Crown className="h-5 w-5 text-amber-300 flex-shrink-0" />
               <p className="text-xs text-amber-100 flex-1">
                 Premium paketler ile borsa terminel + sınırsız rapor + gerçek kapanış verisi açılır.
@@ -110,15 +110,15 @@ export default function MyMembershipPage() {
 
         {/* Yükselt / Düşür seçenekleri */}
         {(higherTiers.length > 0 || lowerTiers.length > 0) && (
-          <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-            <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+          <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+            <h3 className="text-base font-normal text-white mb-3 flex items-center gap-2">
               <RefreshCw className="h-4 w-4 text-cyan-400" />
               Paket Değiştir
             </h3>
 
             {higherTiers.length > 0 && (
               <div className="mb-4">
-                <p className="text-xs text-emerald-300 font-semibold mb-2 flex items-center gap-1.5">
+                <p className="text-xs text-emerald-300 font-normal mb-2 flex items-center gap-1.5">
                   <ChevronUp className="h-3.5 w-3.5" /> Yükselt
                 </p>
                 <div className="grid sm:grid-cols-2 gap-2">
@@ -127,9 +127,9 @@ export default function MyMembershipPage() {
                       key={t.id}
                       type="button"
                       onClick={() => navigate(`/odeme/baslat?paket=${t.id}&periyot=monthly`)}
-                      className="text-start rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
+                      className="text-start rounded-[10px] border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
                     >
-                      <p className="text-sm font-semibold text-white">{t.name}</p>
+                      <p className="text-sm font-normal text-white">{t.name}</p>
                       <p className="text-xs text-slate-400 line-clamp-1">{t.tagline}</p>
                       <p className="text-xs text-emerald-300 mt-1">
                         {t.customPricing ? "Özel" : `₺${t.monthlyTry.toLocaleString("tr-TR")}/ay`}
@@ -142,7 +142,7 @@ export default function MyMembershipPage() {
 
             {lowerTiers.length > 0 && (
               <div>
-                <p className="text-xs text-slate-400 font-semibold mb-2 flex items-center gap-1.5">
+                <p className="text-xs text-slate-400 font-normal mb-2 flex items-center gap-1.5">
                   <ChevronDown className="h-3.5 w-3.5" /> Düşür
                 </p>
                 <div className="grid sm:grid-cols-2 gap-2">
@@ -151,9 +151,9 @@ export default function MyMembershipPage() {
                       key={t.id}
                       type="button"
                       onClick={() => navigate(`/odeme/baslat?paket=${t.id}&periyot=monthly`)}
-                      className="text-start rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
+                      className="text-start rounded-[10px] border border-slate-700 bg-slate-900/60 hover:bg-slate-800/60 p-3 transition-colors"
                     >
-                      <p className="text-sm font-semibold text-white">{t.name}</p>
+                      <p className="text-sm font-normal text-white">{t.name}</p>
                       <p className="text-xs text-slate-400 line-clamp-1">{t.tagline}</p>
                       <p className="text-xs text-slate-300 mt-1">
                         {t.monthlyTry === 0 ? "Ücretsiz" : `₺${t.monthlyTry.toLocaleString("tr-TR")}/ay`}
@@ -167,8 +167,8 @@ export default function MyMembershipPage() {
         )}
 
         {/* Fatura geçmişi (UI iskelet) */}
-        <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-          <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+        <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+          <h3 className="text-base font-normal text-white mb-3 flex items-center gap-2">
             <Receipt className="h-4 w-4 text-cyan-400" />
             Fatura Geçmişi
           </h3>
@@ -182,7 +182,7 @@ export default function MyMembershipPage() {
                   </p>
                 </div>
                 <div className="text-end">
-                  <p className="text-emerald-300 font-semibold">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
+                  <p className="text-emerald-300 font-normal">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
                   <p className="text-xs text-slate-500">Ödendi</p>
                 </div>
               </li>
@@ -194,7 +194,7 @@ export default function MyMembershipPage() {
                   </p>
                 </div>
                 <div className="text-end">
-                  <p className="text-emerald-300 font-semibold">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
+                  <p className="text-emerald-300 font-normal">₺{tier.monthlyTry.toLocaleString("tr-TR")}</p>
                   <p className="text-xs text-slate-500">Ödendi</p>
                 </div>
               </li>
@@ -208,15 +208,15 @@ export default function MyMembershipPage() {
         </div>
 
         {/* Ödeme yöntemi */}
-        <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-          <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+        <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+          <h3 className="text-base font-normal text-white mb-3 flex items-center gap-2">
             <CreditCard className="h-4 w-4 text-cyan-400" />
             Ödeme Yöntemi
           </h3>
           {isPremium ? (
-            <div className="flex items-center justify-between rounded-lg bg-slate-900/60 p-3 border border-slate-700">
+            <div className="flex items-center justify-between rounded-[10px] bg-slate-900/60 p-3 border border-slate-700">
               <div className="flex items-center gap-3">
-                <div className="rounded-md bg-blue-500/20 px-2 py-1 text-blue-300 text-xs font-bold">VISA</div>
+                <div className="rounded-[3px] bg-blue-500/20 px-2 py-1 text-blue-300 text-xs font-normal">VISA</div>
                 <div>
                   <p className="text-sm text-slate-200">**** **** **** 4242</p>
                   <p className="text-[10px] text-slate-500">12 / 28</p>
@@ -232,8 +232,8 @@ export default function MyMembershipPage() {
         </div>
 
         {/* Tier dev/demo toggler (sadece UI test) */}
-        <details className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
-          <summary className="cursor-pointer text-xs text-amber-300 font-semibold flex items-center gap-2">
+        <details className="rounded-[20px] border border-amber-500/20 bg-amber-500/5 p-3">
+          <summary className="cursor-pointer text-xs text-amber-300 font-normal flex items-center gap-2">
             <AlertTriangle className="h-3.5 w-3.5" />
             Geliştirici / Demo — Tier Değiştir (UI test amaçlı)
           </summary>
@@ -243,7 +243,7 @@ export default function MyMembershipPage() {
                 key={t.id}
                 type="button"
                 onClick={() => setLocalTier(t.id)}
-                className={`text-xs rounded-md px-3 py-1.5 border ${tierId === t.id ? "bg-amber-500 text-slate-900 border-amber-400" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                className={`text-xs rounded-[3px] px-3 py-1.5 border ${tierId === t.id ? "bg-amber-500 text-slate-900 border-amber-400" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
               >
                 {t.name}
               </button>
@@ -255,8 +255,8 @@ export default function MyMembershipPage() {
         </details>
 
         {/* İptal + Yasal */}
-        <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-          <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+        <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+          <h3 className="text-base font-normal text-white mb-3 flex items-center gap-2">
             <Shield className="h-4 w-4 text-cyan-400" />
             Hesap Yönetimi
           </h3>

@@ -40,7 +40,7 @@ export default function HizmetBedelleri() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-2">{sf.pageTitle}</h1>
+        <h1 className="text-3xl font-normal text-white mb-2">{sf.pageTitle}</h1>
         <p className="text-slate-400 mb-3">{sf.intro1}</p>
         <p className="text-slate-400 mb-2">{sf.intro2}</p>
         <p className="text-slate-400 mb-8">{sf.intro3}</p>
@@ -49,9 +49,9 @@ export default function HizmetBedelleri() {
           {entries.map((key) => (
             <Card key={key} className="bg-slate-900/50 border-slate-200">
               <CardContent className="p-4 flex flex-col gap-3">
-                <p className="text-sm font-semibold text-white leading-snug">{sf.labels[key]}</p>
+                <p className="text-sm font-normal text-white leading-snug">{sf.labels[key]}</p>
                 <p className="text-xs leading-relaxed text-slate-400">{sf.descriptions[key]}</p>
-                <p className="text-lg font-bold text-amber-400">
+                <p className="text-lg font-normal text-amber-400">
                   {SERVICE_FEE_DYNAMIC[key] ? (
                     sf.dynamicBidEntry
                   ) : (
@@ -71,8 +71,8 @@ export default function HizmetBedelleri() {
             </Card>
           ))}
         </div>
-        <div className="mt-8 rounded-xl border border-slate-200 bg-slate-900/40 p-4">
-          <h2 className="text-base font-semibold text-white mb-2">{sf.modelSummaryTitle}</h2>
+        <div className="mt-8 rounded-[20px] border border-slate-200 bg-slate-900/40 p-4">
+          <h2 className="text-base font-normal text-white mb-2">{sf.modelSummaryTitle}</h2>
           <p className="text-sm text-slate-400 leading-relaxed">{sf.modelSummaryBody}</p>
         </div>
       </div>

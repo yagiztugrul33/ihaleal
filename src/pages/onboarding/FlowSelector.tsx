@@ -97,7 +97,7 @@ export default function FlowSelector() {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm text-slate-300 hover:text-white"
+          className="inline-flex items-center gap-1.5 rounded-[3px] px-2 py-1 text-sm text-slate-300 hover:text-white"
           aria-label={ob.back}
         >
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
@@ -106,7 +106,7 @@ export default function FlowSelector() {
 
         {/* Başlık — sade, jargonsuz */}
         <header className="mt-6 mb-10 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-normal tracking-tight">
             {ob.title}
           </h1>
           <p className="mt-3 text-base md:text-lg text-slate-300">
@@ -121,15 +121,15 @@ export default function FlowSelector() {
               key={c.title}
               type="button"
               onClick={() => choose(c.path)}
-              className="group flex flex-col rounded-2xl border border-slate-700/60 bg-slate-900/40 p-6 text-start transition-all hover:border-amber-400/40 hover:bg-slate-900/60 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60"
+              className="group flex flex-col rounded-[20px] border border-slate-700/60 bg-slate-900/40 p-6 text-start transition-all hover:border-amber-400/40 hover:bg-slate-900/60 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60"
               aria-label={`${c.title}: ${c.subtitle}`}
             >
               {/* İkon kutusu — text-start ile RTL'de sağa geçer */}
-              <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl ${c.iconBg}`}>
+              <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-[20px] ${c.iconBg}`}>
                 <c.Icon className={`h-6 w-6 ${c.iconColor}`} aria-hidden="true" />
               </div>
 
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-normal text-white">
                 <span className="me-2" aria-hidden="true">{c.emoji}</span>
                 {c.title}
               </h2>
@@ -138,7 +138,7 @@ export default function FlowSelector() {
               </p>
 
               {/* CTA — amber vurgu sadece hover'da (60/30/10) */}
-              <div className="mt-auto pt-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-200 group-hover:text-amber-300">
+              <div className="mt-auto pt-6 inline-flex items-center gap-2 text-sm font-normal text-slate-200 group-hover:text-amber-300">
                 <span>{c.cta}</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
               </div>

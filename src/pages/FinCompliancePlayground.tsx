@@ -102,11 +102,11 @@ export default function FinCompliancePlayground() {
   return (
     <div className="container max-w-4xl py-10 px-4 space-y-6">
       <div className="flex items-center gap-3">
-        <div className="rounded-xl bg-primary/10 p-3 text-primary">
+        <div className="rounded-[20px] bg-primary/10 p-3 text-primary">
           <Shield className="h-7 w-7" />
         </div>
         <div>
-          <h1 className="font-serif text-2xl font-semibold tracking-tight">Finans ve uyumluluk cekirdegi</h1>
+          <h1 className="font-serif text-2xl font-normal tracking-tight">Finans ve uyumluluk cekirdegi</h1>
           <p className="text-sm text-muted-foreground">
             InvoiceComposer, ComplianceNlpService, Takasbank stub. İlgili ürün sayfası:{" "}
             <Link to={KKA_HUB_PATH} className="text-primary underline-offset-2 hover:underline">
@@ -129,7 +129,7 @@ export default function FinCompliancePlayground() {
           </Button>
           {invoiceErr && <p className="text-sm text-destructive">{invoiceErr}</p>}
           {invoiceJson && (
-            <pre className="text-xs overflow-auto max-h-64 rounded-lg border p-3 bg-muted/40">{invoiceJson}</pre>
+            <pre className="text-xs overflow-auto max-h-64 rounded-[10px] border p-3 bg-muted/40">{invoiceJson}</pre>
           )}
         </CardContent>
       </Card>
@@ -147,7 +147,7 @@ export default function FinCompliancePlayground() {
             Skorla
           </Button>
           {nlpResult && (
-            <pre className="text-xs overflow-auto max-h-48 rounded-lg border p-3 bg-muted/40">{nlpResult}</pre>
+            <pre className="text-xs overflow-auto max-h-48 rounded-[10px] border p-3 bg-muted/40">{nlpResult}</pre>
           )}
         </CardContent>
       </Card>
@@ -161,7 +161,7 @@ export default function FinCompliancePlayground() {
             Stub reconcile calistir
           </Button>
           {tbResult && (
-            <pre className="text-xs overflow-auto max-h-48 rounded-lg border p-3 bg-muted/40">{tbResult}</pre>
+            <pre className="text-xs overflow-auto max-h-48 rounded-[10px] border p-3 bg-muted/40">{tbResult}</pre>
           )}
         </CardContent>
       </Card>

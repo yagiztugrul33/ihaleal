@@ -74,17 +74,17 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
   );
 
   return (
-    <section className="mb-8 rounded-2xl border border-blue-500/20 bg-slate-900/40 p-4 sm:p-5">
+    <section className="mb-8 rounded-[20px] border border-blue-500/20 bg-slate-900/40 p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <Navigation className="h-5 w-5 text-blue-400" aria-hidden />
-          <h2 className="text-lg font-semibold text-white">{n.resultsTitle}</h2>
+          <h2 className="text-lg font-normal text-white">{n.resultsTitle}</h2>
         </div>
         {status === "idle" || status === "denied" || status === "unavailable" ? (
           <button
             type="button"
             onClick={requestLocation}
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
+            className="inline-flex items-center gap-2 rounded-[20px] bg-blue-600 px-4 py-2 text-sm font-normal text-white transition-colors hover:bg-blue-500"
           >
             <LocateFixed className="h-4 w-4" aria-hidden />
             {n.button}
@@ -118,14 +118,14 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
         <div className="mt-4">
           {/* Yarıçap seçici */}
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span className="text-xs font-medium text-slate-400">{n.radiusLabel}:</span>
+            <span className="text-xs font-normal text-slate-400">{n.radiusLabel}:</span>
             {RADII_KM.map((r) => (
               <button
                 key={r}
                 type="button"
                 onClick={() => setRadiusKm(r)}
                 className={cn(
-                  "rounded-lg border px-3 py-1 text-xs font-semibold transition-colors",
+                  "rounded-[10px] border px-3 py-1 text-xs font-normal transition-colors",
                   radiusKm === r
                     ? "border-blue-400 bg-blue-500/15 text-blue-200"
                     : "border-slate-700 text-slate-400 hover:border-slate-500",
@@ -141,7 +141,7 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
           </div>
 
           {results.length === 0 ? (
-            <p className="rounded-xl border border-slate-700 bg-slate-900/40 px-4 py-3 text-sm text-slate-400">
+            <p className="rounded-[20px] border border-slate-700 bg-slate-900/40 px-4 py-3 text-sm text-slate-400">
               {n.empty.replace("{r}", String(radiusKm))}
             </p>
           ) : (
@@ -151,7 +151,7 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
                   key={a.id}
                   type="button"
                   onClick={() => navigate(`/ilan/${a.id}`)}
-                  className="group rounded-2xl border border-blue-500/25 bg-slate-900/40 text-start transition-all hover:border-blue-400/50 overflow-hidden"
+                  className="group rounded-[20px] border border-blue-500/25 bg-slate-900/40 text-start transition-all hover:border-blue-400/50 overflow-hidden"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-800">
                     <img
@@ -164,17 +164,17 @@ export function NearbyListings({ catalog }: { catalog: Auction[] }) {
                       <CountdownTimer endDate={a.endDate} status={a.status} size="sm" layout="compact" />
                     </div>
                     {/* Mesafe rozeti — sayı LTR */}
-                    <div className="absolute bottom-2 end-2 rounded-full bg-blue-600/90 px-2 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
+                    <div className="absolute bottom-2 end-2 rounded-full bg-blue-600/90 px-2 py-0.5 text-xs font-normal text-white backdrop-blur-sm">
                       <KmNumber value={km} digits={1} />
                     </div>
                   </div>
                   <div className="space-y-1.5 p-3">
-                    <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white">{a.title}</h3>
+                    <h3 className="line-clamp-2 text-sm font-normal leading-snug text-white">{a.title}</h3>
                     <div className="flex items-center gap-1 text-xs text-slate-400">
                       <MapPin className="h-3 w-3 flex-shrink-0" aria-hidden />
                       <span className="truncate">{a.district}, {a.city}</span>
                     </div>
-                    <div className="text-base font-bold text-blue-400" dir="ltr">{formatTRY(a.currentBid)}</div>
+                    <div className="text-base font-normal text-blue-400" dir="ltr">{formatTRY(a.currentBid)}</div>
                   </div>
                 </button>
               ))}

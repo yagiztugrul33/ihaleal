@@ -192,10 +192,10 @@ export default function MessagesPage() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 min-h-[calc(100vh-12rem)] rounded-2xl border border-slate-200 bg-slate-900/40 overflow-hidden shadow-xl">
+        <div className="flex flex-col lg:flex-row gap-4 min-h-[calc(100vh-12rem)] rounded-[20px] border border-slate-200 bg-slate-900/40 overflow-hidden shadow-xl">
           {/* Sol — konuşmalar */}
           <aside className="lg:w-80 shrink-0 border-b lg:border-b-0 lg:border-e border-slate-200 max-h-52 lg:max-h-none overflow-y-auto lg:overflow-visible">
-            <div className="p-4 border-b border-slate-200/80 flex items-center gap-2 text-white font-semibold">
+            <div className="p-4 border-b border-slate-200/80 flex items-center gap-2 text-white font-normal">
               <MessageSquare className="w-5 h-5 text-blue-400" />
               Konuşmalar
             </div>
@@ -211,11 +211,11 @@ export default function MessagesPage() {
                     key={t.id}
                     type="button"
                     onClick={() => setActiveId(t.id)}
-                    className={`w-full text-start rounded-xl px-3 py-2.5 transition-colors ${
+                    className={`w-full text-start rounded-[20px] px-3 py-2.5 transition-colors ${
                       t.id === activeId ? "bg-blue-500/15 border border-blue-500/30" : "hover:bg-white/5 border border-transparent"
                     }`}
                   >
-                    <div className="text-sm font-medium text-white line-clamp-1">{t.title}</div>
+                    <div className="text-sm font-normal text-white line-clamp-1">{t.title}</div>
                     <div className="text-[11px] text-slate-500 line-clamp-1">{t.listingSnippet}</div>
                     <div className="text-[11px] text-slate-600 mt-0.5 flex justify-between gap-2">
                       <span className="truncate">{last?.body.slice(0, 36)}…</span>
@@ -234,18 +234,18 @@ export default function MessagesPage() {
             {active ? (
               <>
                 <div className="px-4 py-3 border-b border-slate-200 flex flex-wrap gap-2 items-center">
-                  <h1 className="text-lg font-bold text-white flex-1 min-w-[200px]">{active.title}</h1>
+                  <h1 className="text-lg font-normal text-white flex-1 min-w-[200px]">{active.title}</h1>
                   {isSupabaseConfigured() && hasAuthSession && isUuid(active.id) ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-200/95">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-normal uppercase tracking-wide text-emerald-200/95">
                       <Server className="h-3 w-3" aria-hidden />
                       {remoteReady ? "Canlı sohbet" : "Edge gönderim"}
                     </span>
                   ) : isSupabaseConfigured() && hasAuthSession ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-slate-600/60 bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-slate-400">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-slate-600/60 bg-white/[0.04] px-2 py-0.5 text-[10px] font-normal text-slate-400">
                       Demo konu (UUID değil) — yerel kayıt
                     </span>
                   ) : isSupabaseConfigured() ? (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-200/90">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[10px] font-normal text-amber-200/90">
                       Oturum yok — yerel demo
                     </span>
                   ) : null}
@@ -255,7 +255,7 @@ export default function MessagesPage() {
                       return (
                         <span
                           key={p.id}
-                          className={`inline-flex items-center gap-1 rounded-lg border px-2 py-0.5 text-[11px] ${b.className}`}
+                          className={`inline-flex items-center gap-1 rounded-[10px] border px-2 py-0.5 text-[11px] ${b.className}`}
                         >
                           <b.Icon className="w-3 h-3" />
                           {p.displayName}
@@ -273,17 +273,17 @@ export default function MessagesPage() {
                     return (
                       <div key={m.id} className={`flex ${self ? "justify-end" : "justify-start"}`}>
                         <div
-                          className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm border ${
+                          className={`max-w-[85%] rounded-[20px] px-4 py-2.5 text-sm border ${
                             self
-                              ? "[background:var(--gradient-cta)] border-slate-200 text-white rounded-br-md"
-                              : "bg-slate-800/90 border-slate-200 text-slate-100 rounded-bl-md"
+                              ? "[background:var(--gradient-cta)] border-slate-200 text-white rounded-br-[3px]"
+                              : "bg-slate-800/90 border-slate-200 text-slate-100 rounded-bl-[3px]"
                           }`}
                         >
                           <div className="flex flex-wrap items-center gap-2 mb-1 text-[10px] opacity-90">
                             <b.Icon className="w-3.5 h-3.5" />
                             <span>{author?.displayName ?? "Katılımcı"}</span>
                             {m.remoteSource === "edge" ? (
-                              <span className="rounded bg-emerald-500/20 px-1 py-px text-[9px] font-semibold uppercase tracking-wide text-emerald-200">
+                              <span className="rounded-[3px] bg-emerald-500/20 px-1 py-px text-[9px] font-normal uppercase tracking-wide text-emerald-200">
                                 Edge
                               </span>
                             ) : null}
@@ -293,7 +293,7 @@ export default function MessagesPage() {
                           </div>
                           <p className="whitespace-pre-wrap leading-relaxed">{m.body}</p>
                           {m.attachmentName && (
-                            <div className="mt-2 flex items-center gap-2 rounded-lg bg-black/20 px-2 py-1.5 text-xs">
+                            <div className="mt-2 flex items-center gap-2 rounded-[10px] bg-black/20 px-2 py-1.5 text-xs">
                               <Paperclip className="w-3.5 h-3.5 shrink-0 opacity-80" />
                               <span className="truncate">{m.attachmentName}</span>
                               <span className="text-slate-500">(demo)</span>
@@ -301,7 +301,7 @@ export default function MessagesPage() {
                           )}
                           {m.complianceScan && m.complianceScan.flaggedKeywords.length > 0 && (
                             <div
-                              className={`mt-2 rounded-lg border px-2 py-1.5 text-[10px] leading-snug ${
+                              className={`mt-2 rounded-[10px] border px-2 py-1.5 text-[10px] leading-snug ${
                                 m.complianceScan.severity === "high"
                                   ? "border-rose-500/40 bg-rose-950/40 text-rose-100"
                                   : m.complianceScan.severity === "medium"
@@ -309,7 +309,7 @@ export default function MessagesPage() {
                                     : "border-slate-200 bg-black/25 text-slate-300"
                               }`}
                             >
-                              <span className="font-medium">
+                              <span className="font-normal">
                                 Uyum taraması{m.remoteSource === "edge" ? " (Edge + RPC)" : " (demo)"}:
                               </span>{" "}
                               eşleşen ifadeler —{" "}

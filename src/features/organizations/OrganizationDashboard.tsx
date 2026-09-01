@@ -67,11 +67,11 @@ export function OrganizationDashboard() {
   if (!org) {
     return (
       <div className="mx-auto max-w-md p-12 text-center">
-        <h2 className="text-xl font-semibold text-slate-900">Aktif kurumsal hesap yok</h2>
+        <h2 className="text-xl font-normal text-slate-900">Aktif kurumsal hesap yok</h2>
         <p className="mt-2 text-sm text-slate-600">
           Demo için önce bir kurumsal hesaba üye olun veya sağ üstten çalışma alanı seçin.
         </p>
-        <Link to="/kurumsal" className="mt-6 inline-block rounded-lg bg-slate-900 px-4 py-2 text-sm text-white">
+        <Link to="/kurumsal" className="mt-6 inline-block rounded-[10px] bg-slate-900 px-4 py-2 text-sm text-white">
           Kurumsal çözümler
         </Link>
       </div>
@@ -82,15 +82,15 @@ export function OrganizationDashboard() {
     <div className="space-y-6 p-6">
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">{org.display_name}</h1>
+          <h1 className="text-2xl font-normal text-slate-900">{org.display_name}</h1>
           <p className="mt-1 text-sm text-slate-500">{org.plan.toUpperCase()} · {org.kyc_status}</p>
         </div>
         {can("listings.create") && (
           <div className="flex gap-2">
-            <Link to="/kurumsal/iletisim" className="rounded-lg border border-slate-200 px-3 py-2 text-sm">
+            <Link to="/kurumsal/iletisim" className="rounded-[10px] border border-slate-200 px-3 py-2 text-sm">
               Destek
             </Link>
-            <Link to="/ihale-ac" className="rounded-lg bg-teal-600 px-3 py-2 text-sm text-white">
+            <Link to="/ihale-ac" className="rounded-[10px] bg-teal-600 px-3 py-2 text-sm text-white">
               Yeni İlan
             </Link>
           </div>
@@ -104,8 +104,8 @@ export function OrganizationDashboard() {
         <StatCard label="AI Kullanımı" value={stats?.ai_used} sub={`Kota ${stats?.ai_quota ?? 0} (%${aiUsagePct})`} loading={statsLoading} />
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="font-medium text-slate-900">Son ilanlar</h2>
+      <div className="rounded-[20px] border border-slate-200 bg-white p-4 shadow-sm">
+        <h2 className="font-normal text-slate-900">Son ilanlar</h2>
         {statsLoading ? (
           <LoadingSkeletonList count={3} className="mt-4" />
         ) : !topListings.length ? (
@@ -114,7 +114,7 @@ export function OrganizationDashboard() {
           <ul className="mt-4 divide-y divide-slate-100">
             {topListings.map((l) => (
               <li key={l.id} className="flex items-center justify-between py-3 text-sm">
-                <Link to={`/ilan/${l.id}`} className="font-medium text-slate-800 hover:text-teal-700">
+                <Link to={`/ilan/${l.id}`} className="font-normal text-slate-800 hover:text-teal-700">
                   {l.title}
                 </Link>
                 <span className="text-slate-600">{formatTRY(l.price)}</span>
@@ -134,12 +134,12 @@ function StatCard({ label, value, sub, loading }: {
   loading?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="rounded-[20px] border border-slate-200 bg-white p-4 shadow-sm">
       <div className="text-xs uppercase tracking-wide text-slate-500">{label}</div>
       {loading ? (
-        <div className="mt-2 h-7 w-16 animate-pulse rounded bg-slate-100" />
+        <div className="mt-2 h-7 w-16 animate-pulse rounded-[3px] bg-slate-100" />
       ) : (
-        <div className="mt-1 text-2xl font-semibold text-slate-900">{(value ?? 0).toLocaleString("tr-TR")}</div>
+        <div className="mt-1 text-2xl font-normal text-slate-900">{(value ?? 0).toLocaleString("tr-TR")}</div>
       )}
       {sub && <div className="mt-1 text-xs text-slate-500">{sub}</div>}
     </div>

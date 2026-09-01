@@ -131,7 +131,7 @@ export function InstallPrompt() {
     <div
       role="dialog"
       aria-label="Uygulamayı yükle"
-      className="fixed bottom-4 start-4 end-4 z-[9000] mx-auto max-w-md rounded-2xl border border-white/10 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl sm:bottom-6 sm:left-auto sm:end-6"
+      className="fixed bottom-4 start-4 end-4 z-[9000] mx-auto max-w-md rounded-[20px] border border-white/10 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl sm:bottom-6 sm:left-auto sm:end-6"
       style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
     >
       <button
@@ -144,11 +144,11 @@ export function InstallPrompt() {
       </button>
 
       <div className="flex items-start gap-3 pe-6">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg">
           <Download className="h-5 w-5 text-white" />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-white">
+          <h3 className="text-sm font-normal text-white">
             ihaleal'i ana ekranına ekle
           </h3>
           <p className="mt-0.5 text-xs leading-relaxed text-slate-300">
@@ -177,14 +177,14 @@ export function InstallPrompt() {
               <button
                 type="button"
                 onClick={onInstall}
-                className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow transition hover:from-cyan-400 hover:to-blue-500"
+                className="rounded-[10px] bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-1.5 text-xs font-normal text-white shadow transition hover:from-cyan-400 hover:to-blue-500"
               >
                 Uygulamayı yükle
               </button>
               <button
                 type="button"
                 onClick={onDismiss}
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-white/5"
+                className="rounded-[10px] border border-white/10 px-3 py-1.5 text-xs font-normal text-slate-300 transition hover:bg-white/5"
               >
                 Şimdi değil
               </button>

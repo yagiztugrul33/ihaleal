@@ -67,7 +67,7 @@ export function LaunchStatusBanner() {
           type="button"
           onClick={dismiss}
           aria-label="Bildirim çubuğunu kapat"
-          className="flex-shrink-0 p-1 rounded hover:bg-amber-500/20 transition-colors"
+          className="flex-shrink-0 p-1 rounded-[3px] hover:bg-amber-500/20 transition-colors"
         >
           <X className="h-3.5 w-3.5" />
         </button>

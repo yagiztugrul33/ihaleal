@@ -44,7 +44,7 @@ function NavDropdown({
         data-testid={triggerTestId}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-200 transition-colors hover:text-white",
+          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-normal text-slate-200 transition-colors hover:text-white",
           open && "text-white",
         )}
         aria-expanded={open}
@@ -55,7 +55,7 @@ function NavDropdown({
       </button>
       {open ? (
         <div
-          className="absolute start-0 top-full z-[110] mt-2 min-w-[200px] rounded-xl border border-slate-600/30 py-1 shadow-xl"
+          className="absolute start-0 top-full z-[110] mt-2 min-w-[200px] rounded-[20px] border border-slate-600/30 py-1 shadow-xl"
           style={{ background: "var(--zemin-yumusak)", backdropFilter: "blur(20px)" }}
         >
           {items.map((item) => (
@@ -110,7 +110,7 @@ function NavMegaMenu({
         data-testid={triggerTestId}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-medium text-slate-200 transition-colors hover:text-white",
+          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-normal text-slate-200 transition-colors hover:text-white",
           open && "text-white",
         )}
         aria-expanded={open}
@@ -121,13 +121,13 @@ function NavMegaMenu({
       </button>
       {open ? (
         <div
-          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-slate-600/30 p-4 shadow-xl"
+          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-[20px] border border-slate-600/30 p-4 shadow-xl"
           style={{ background: "var(--zemin-yumusak)", backdropFilter: "blur(20px)" }}
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {columns.map((col) => (
               <div key={col.title}>
-                <p className="mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                <p className="mb-2 px-2 text-[11px] font-normal uppercase tracking-wider text-slate-500">
                   {col.title}
                 </p>
                 {col.items.map((item) => (
@@ -139,7 +139,7 @@ function NavMegaMenu({
                       setOpen(false);
                       onNavigate?.();
                     }}
-                    className="block rounded-lg px-2 py-2 text-sm text-slate-200 no-underline hover:bg-slate-800/60 hover:text-white"
+                    className="block rounded-[10px] px-2 py-2 text-sm text-slate-200 no-underline hover:bg-slate-800/60 hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -255,7 +255,7 @@ export function Navbar() {
               to={ROUTES.ILANLAR}
               className={({ isActive }) =>
                 cn(
-                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
                     ? "border-blue-500 text-blue-400"
                     : "border-transparent text-slate-200 hover:text-white",
@@ -268,7 +268,7 @@ export function Navbar() {
               to={ROUTES.NASIL_CALISIR}
               className={({ isActive }) =>
                 cn(
-                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
                     ? "border-blue-500 text-blue-400"
                     : "border-transparent text-slate-200 hover:text-white",
@@ -287,7 +287,7 @@ export function Navbar() {
               to={ROUTES.ARASTIRMA}
               className={({ isActive }) =>
                 cn(
-                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
                     ? "border-blue-500 text-blue-400"
                     : "border-transparent text-slate-200 hover:text-white",
@@ -302,7 +302,7 @@ export function Navbar() {
               to="/borsa"
               className={({ isActive }) =>
                 cn(
-                  "border-b-2 pb-0.5 text-sm font-medium no-underline transition-colors",
+                  "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
                   isActive
                     ? "border-blue-500 text-blue-400"
                     : "border-transparent text-slate-200 hover:text-white",
@@ -320,18 +320,18 @@ export function Navbar() {
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label={n.search}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-600/30 bg-slate-900/60 text-slate-400 transition hover:border-slate-500/50 min-[1700px]:hidden"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] border border-slate-600/30 bg-slate-900/60 text-slate-400 transition hover:border-slate-500/50 min-[1700px]:hidden"
             >
               <Search className="h-4 w-4" aria-hidden />
             </button>
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="hidden h-10 min-w-[200px] items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 text-start text-sm text-slate-400 transition hover:border-slate-500/50 min-[1700px]:flex"
+              className="hidden h-10 min-w-[200px] items-center gap-2 rounded-[10px] border border-slate-600/30 bg-slate-900/60 px-3 text-start text-sm text-slate-400 transition hover:border-slate-500/50 min-[1700px]:flex"
             >
               <Search className="h-4 w-4 shrink-0" aria-hidden />
               <span className="flex-1 truncate">{n.search}</span>
-              <kbd className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
+              <kbd className="rounded-[3px] bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
             </button>
             {/* Para birimi seçici — TRY/USD/EUR/GBP (tahsilat ₺); compact = yalnız sembol, dar aralıkta yer kazandırır */}
             <CurrencySelector compact />
@@ -339,7 +339,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setLangOpen((o) => !o)}
-                className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-slate-600/30 px-3 text-sm text-slate-200"
+                className="inline-flex h-10 items-center gap-1.5 rounded-[10px] border border-slate-600/30 px-3 text-sm text-slate-200"
                 aria-label="Language"
                 aria-expanded={langOpen}
                 data-testid="nav-lang-trigger"
@@ -350,7 +350,7 @@ export function Navbar() {
               </button>
               {langOpen ? (
                 <div
-                  className="absolute end-0 top-full z-[110] mt-2 min-w-[140px] rounded-lg border border-slate-600/30 py-1 shadow-xl"
+                  className="absolute end-0 top-full z-[110] mt-2 min-w-[140px] rounded-[10px] border border-slate-600/30 py-1 shadow-xl"
                   style={{ background: "var(--zemin-yumusak)" }}
                 >
                   <button
@@ -358,7 +358,7 @@ export function Navbar() {
                     onClick={() => pickLocale("en")}
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "en" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "en" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langEn}
@@ -368,7 +368,7 @@ export function Navbar() {
                     onClick={() => pickLocale("tr")}
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "tr" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "tr" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langTr}
@@ -378,7 +378,7 @@ export function Navbar() {
                     onClick={() => pickLocale("ru")}
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "ru" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "ru" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langRu}
@@ -389,7 +389,7 @@ export function Navbar() {
                     dir="rtl"
                     className={cn(
                       "block w-full px-4 py-2 text-start text-sm",
-                      locale === "ar" ? "font-semibold text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
+                      locale === "ar" ? "font-normal text-blue-400" : "text-slate-300 hover:bg-slate-800/50",
                     )}
                   >
                     {n.langAr}
@@ -408,7 +408,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="nav-mobile-toggle inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-600/30 p-2.5 text-slate-200 2xl:hidden"
+            className="nav-mobile-toggle inline-flex min-h-11 min-w-11 items-center justify-center rounded-[10px] border border-slate-600/30 p-2.5 text-slate-200 2xl:hidden"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label={mobileOpen ? n.closeMenu : n.openMenu}
             data-testid="nav-mobile-toggle"
@@ -425,14 +425,14 @@ export function Navbar() {
                 setSearchOpen(true);
                 setMobileOpen(false);
               }}
-              className="mb-3 flex min-h-11 w-full items-center gap-2 rounded-lg border border-slate-600/30 bg-slate-900/60 px-3 py-3 text-sm text-slate-400"
+              className="mb-3 flex min-h-11 w-full items-center gap-2 rounded-[10px] border border-slate-600/30 bg-slate-900/60 px-3 py-3 text-sm text-slate-400"
             >
               <Search className="h-4 w-4" /> {n.search}
             </button>
             {/* R12.1 — Borsa CTA mobile (prominent) */}
             <Button
               asChild
-              className="mb-3 flex h-auto w-full items-center justify-center gap-2 px-3 py-3 text-sm font-semibold text-white no-underline"
+              className="mb-3 flex h-auto w-full items-center justify-center gap-2 px-3 py-3 text-sm font-normal text-white no-underline"
               data-testid="nav-mobile-borsa-cta"
             >
               <Link to="/borsa" onClick={() => setMobileOpen(false)}>
@@ -442,30 +442,30 @@ export function Navbar() {
             <NavLink
               to={ROUTES.ILANLAR}
               onClick={() => setMobileOpen(false)}
-              className="block min-h-11 rounded-lg px-3 py-3 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-[10px] px-3 py-3 text-sm font-normal text-slate-200 no-underline hover:bg-slate-800/50"
             >
               {n.auctions}
             </NavLink>
             <NavLink
               to={ROUTES.NASIL_CALISIR}
               onClick={() => setMobileOpen(false)}
-              className="block min-h-11 rounded-lg px-3 py-3 text-sm font-medium text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-[10px] px-3 py-3 text-sm font-normal text-slate-200 no-underline hover:bg-slate-800/50"
             >
               {n.howItWorks}
             </NavLink>
             {/* R12.2 — Hizmetler mega menu mobile accordion */}
-            <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="mt-2 px-3 py-1 text-xs font-normal uppercase tracking-wider text-slate-500">
               {n.services}
             </p>
             {megaColumns.map((col) => {
               const expanded = mobileServiceOpen === col.title;
               return (
-                <div key={col.title} className="rounded-lg">
+                <div key={col.title} className="rounded-[10px]">
                   <button
                     type="button"
                     onClick={() => setMobileServiceOpen(expanded ? null : col.title)}
                     aria-expanded={expanded}
-                    className="flex w-full min-h-11 items-center justify-between rounded-lg px-3 py-3 text-sm font-medium text-slate-200 hover:bg-slate-800/50"
+                    className="flex w-full min-h-11 items-center justify-between rounded-[10px] px-3 py-3 text-sm font-normal text-slate-200 hover:bg-slate-800/50"
                     data-testid={`nav-mobile-services-${col.title.toLowerCase()}`}
                   >
                     <span>{col.title}</span>
@@ -486,7 +486,7 @@ export function Navbar() {
                             setMobileServiceOpen(null);
                             setMobileOpen(false);
                           }}
-                          className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+                          className="block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
                         >
                           {item.label}
                         </NavLink>
@@ -499,29 +499,29 @@ export function Navbar() {
             <NavLink
               to={ROUTES.ARASTIRMA}
               onClick={() => setMobileOpen(false)}
-              className="mt-1 block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              className="mt-1 block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
             >
               {n.resources}
             </NavLink>
             {/* R12.3 — Deprem modülleri mobile */}
-            <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="mt-2 px-3 py-1 text-xs font-normal uppercase tracking-wider text-slate-500">
               Afet & Deprem
             </p>
             <NavLink
               to="/modul/deprem-risk-haritasi"
               onClick={() => setMobileOpen(false)}
-              className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
             >
               Deprem risk haritası
             </NavLink>
             <NavLink
               to="/modul/bina-risk-sorgu"
               onClick={() => setMobileOpen(false)}
-              className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              className="block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
             >
               Bina risk sorgu
             </NavLink>
-            <p className="mt-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="mt-2 px-3 py-1 text-xs font-normal uppercase tracking-wider text-slate-500">
               {n.company}
             </p>
             {companyItems.map((sub) => (
@@ -529,7 +529,7 @@ export function Navbar() {
                 key={sub.to}
                 to={sub.to}
                 onClick={() => setMobileOpen(false)}
-                className="block min-h-11 rounded-lg px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+                className="block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
               >
                 {sub.label}
               </NavLink>
@@ -539,7 +539,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => pickLocale("en")}
                 className={cn(
-                  "min-h-11 rounded-lg border py-3 text-center text-sm",
+                  "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "en"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
@@ -551,7 +551,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => pickLocale("tr")}
                 className={cn(
-                  "min-h-11 rounded-lg border py-3 text-center text-sm",
+                  "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "tr"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
@@ -563,7 +563,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => pickLocale("ru")}
                 className={cn(
-                  "min-h-11 rounded-lg border py-3 text-center text-sm",
+                  "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "ru"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
@@ -575,7 +575,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => pickLocale("ar")}
                 className={cn(
-                  "min-h-11 rounded-lg border py-3 text-center text-sm",
+                  "min-h-11 rounded-[10px] border py-3 text-center text-sm",
                   locale === "ar"
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-300"
                     : "border-slate-600/30 text-slate-400",
@@ -587,13 +587,13 @@ export function Navbar() {
             <div className="mt-2 flex gap-2">
               <Link
                 to="/giris"
-                className="flex min-h-11 flex-1 items-center justify-center rounded-lg border border-slate-600/30 py-3 text-center text-sm text-slate-200 no-underline"
+                className="flex min-h-11 flex-1 items-center justify-center rounded-[10px] border border-slate-600/30 py-3 text-center text-sm text-slate-200 no-underline"
               >
                 {n.logIn}
               </Link>
               <Button
                 asChild
-                className="h-auto min-h-11 flex-1 py-3 text-center text-sm font-semibold text-white no-underline"
+                className="h-auto min-h-11 flex-1 py-3 text-center text-sm font-normal text-white no-underline"
               >
                 <Link to="/kayit">{n.signUp}</Link>
               </Button>

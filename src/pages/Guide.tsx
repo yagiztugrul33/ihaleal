@@ -64,7 +64,7 @@ export default function Guide() {
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-normal text-white flex items-center gap-3">
             <HelpCircle className="w-8 h-8 text-blue-400" />
             Yardim Merkezi ve Rehber
           </h1>
@@ -73,7 +73,7 @@ export default function Guide() {
 
         {/* Gayrimenkul rehberleri */}
         <div className={`mb-10 transition-all duration-700 delay-75 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h2 className="text-lg font-bold text-white mb-4">Gayrimenkul rehberleri</h2>
+          <h2 className="text-lg font-normal text-white mb-4">Gayrimenkul rehberleri</h2>
           <div className="grid sm:grid-cols-2 gap-3">
             {REAL_ESTATE_GUIDES.map((g) => (
               <Card
@@ -81,7 +81,7 @@ export default function Guide() {
                 className="bg-slate-900/50 border-slate-200/80 p-4 hover:border-blue-500/30 cursor-pointer transition-all"
                 onClick={() => navigate(`/rehber/${g.slug}`)}
               >
-                <div className="text-sm font-semibold text-white">{g.title}</div>
+                <div className="text-sm font-normal text-white">{g.title}</div>
                 <div className="text-xs text-slate-500 mt-1 line-clamp-2">{g.summary}</div>
               </Card>
             ))}
@@ -93,7 +93,7 @@ export default function Guide() {
           {QUICK_LINKS.map((link) => (
             <Card key={link.label} className="bg-slate-900/50 border-slate-200/80 p-4 hover:border-slate-200 cursor-pointer transition-all hover:-translate-y-0.5" onClick={() => navigate(link.path)}>
               <div className={`${link.color} mb-2`}>{link.icon}</div>
-              <div className="text-sm font-semibold text-white">{link.label}</div>
+              <div className="text-sm font-normal text-white">{link.label}</div>
               <div className="text-xs text-slate-500 mt-0.5">{link.desc}</div>
             </Card>
           ))}
@@ -103,7 +103,7 @@ export default function Guide() {
         <div className={`space-y-6 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           {FAQS.map((section) => (
             <div key={section.category}>
-              <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <h2 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
                 {section.category === "Genel" && <Globe className="w-5 h-5 text-blue-400" />}
                 {section.category === "Teklif Verme" && <Gavel className="w-5 h-5 text-orange-400" />}
                 {section.category === "Odeme ve Sozlesme" && <CreditCard className="w-5 h-5 text-emerald-400" />}
@@ -115,12 +115,12 @@ export default function Guide() {
                   const key = `${section.category}-${idx}`;
                   const isOpen = openFaq === key;
                   return (
-                    <div key={key} className="rounded-xl border border-slate-200/80 overflow-hidden">
+                    <div key={key} className="rounded-[20px] border border-slate-200/80 overflow-hidden">
                       <button
                         onClick={() => setOpenFaq(isOpen ? null : key)}
                         className={`w-full flex items-center justify-between p-4 text-start transition-colors ${isOpen ? "bg-white/[0.03]" : "hover:bg-white/[0.02]"}`}
                       >
-                        <span className="text-sm font-medium text-white">{faq.q}</span>
+                        <span className="text-sm font-normal text-white">{faq.q}</span>
                         {isOpen ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
                       </button>
                       {isOpen && (
@@ -137,17 +137,17 @@ export default function Guide() {
         </div>
 
         {/* Contact Banner */}
-        <div className={`mt-10 p-6 rounded-2xl bg-slate-900/50 border border-slate-200/80 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`mt-10 p-6 rounded-[20px] bg-slate-900/50 border border-slate-200/80 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h3 className="text-lg font-bold text-white mb-1">Cevabini bulamadiniz mi?</h3>
+              <h3 className="text-lg font-normal text-white mb-1">Cevabini bulamadiniz mi?</h3>
               <p className="text-sm text-slate-400">Uzman ekibimiz size yardimci olmaktan memnuniyet duyar.</p>
             </div>
             <div className="flex items-center gap-3">
-              <a href="mailto:destek@ihaleal.com" className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-sm text-slate-500 hover:text-slate-900 transition-all flex items-center gap-2">
+              <a href="mailto:destek@ihaleal.com" className="px-4 py-2.5 rounded-[20px] bg-white/5 hover:bg-white/10 text-sm text-slate-500 hover:text-slate-900 transition-all flex items-center gap-2">
                 <Mail className="w-4 h-4" /> E-posta
               </a>
-              <a href="tel:+902121234567" className="px-4 py-2.5 rounded-xl [background:var(--gradient-cta)] hover:brightness-110 text-sm text-white font-semibold transition-all flex items-center gap-2">
+              <a href="tel:+902121234567" className="px-4 py-2.5 rounded-[20px] [background:var(--gradient-cta)] hover:brightness-110 text-sm text-white font-normal transition-all flex items-center gap-2">
                 <MessageSquare className="w-4 h-4" /> Bize Ulasin
               </a>
             </div>

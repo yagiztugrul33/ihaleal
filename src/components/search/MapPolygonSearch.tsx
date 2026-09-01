@@ -29,7 +29,7 @@ export function MapPolygonSearch({ onPolygonComplete, onClear }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/50 p-3">
+    <div className="rounded-[20px] border border-white/10 bg-slate-900/50 p-3">
       <p className="mb-2 text-xs text-slate-400">Haritaya tıklayarak köşe noktaları ekleyin; en az 3 nokta gerekir.</p>
       <Suspense fallback={<LoadingState compact label="Harita yükleniyor…" />}>
         <MapPolygonSearchInner onComplete={handleComplete} />

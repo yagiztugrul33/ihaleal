@@ -248,7 +248,7 @@ export default function MapPage() {
             <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-400 hover:text-white gap-2">
               <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
             </Button>
-            <h1 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+            <h1 className="text-xl md:text-2xl font-normal text-white flex items-center gap-2">
               <MapPin className="w-6 h-6 text-blue-400" /> Harita Üzerinden Arama
             </h1>
           </div>
@@ -274,12 +274,12 @@ export default function MapPage() {
           <aside
             id="map-filters"
             className={cn(
-              "rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur p-4 space-y-4 text-sm text-slate-200 sticky top-20 self-start max-h-[calc(100vh-6rem)] overflow-y-auto",
+              "rounded-[20px] border border-white/10 bg-slate-900/60 backdrop-blur p-4 space-y-4 text-sm text-slate-200 sticky top-20 self-start max-h-[calc(100vh-6rem)] overflow-y-auto",
               filtersOpen ? "block" : "hidden lg:block",
             )}
           >
             <div className="flex items-center justify-between">
-              <h2 className="font-semibold uppercase tracking-wider text-xs text-slate-400 flex items-center gap-1.5">
+              <h2 className="font-normal uppercase tracking-wider text-xs text-slate-400 flex items-center gap-1.5">
                 <Filter className="w-3.5 h-3.5" /> Filtreler
               </h2>
               {activeFilterCount > 0 ? (
@@ -311,7 +311,7 @@ export default function MapPage() {
               <select
                 value={city}
                 onChange={(e) => patchParams({ city: e.target.value || undefined })}
-                className="w-full text-xs rounded-md border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
+                className="w-full text-xs rounded-[3px] border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
                 aria-label="İl"
               >
                 <option value="">Tüm iller</option>
@@ -329,7 +329,7 @@ export default function MapPage() {
                   value={priceMin ?? ""}
                   onChange={(e) => patchParams({ pmin: e.target.value || undefined })}
                   placeholder="Min"
-                  className="text-xs rounded-md border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
+                  className="text-xs rounded-[3px] border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
                   aria-label="Minimum fiyat"
                 />
                 <input
@@ -339,7 +339,7 @@ export default function MapPage() {
                   value={priceMax ?? ""}
                   onChange={(e) => patchParams({ pmax: e.target.value || undefined })}
                   placeholder="Max"
-                  className="text-xs rounded-md border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
+                  className="text-xs rounded-[3px] border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
                   aria-label="Maksimum fiyat"
                 />
               </div>
@@ -391,7 +391,7 @@ export default function MapPage() {
           </aside>
 
           {/* Sağ: Harita */}
-          <div className="rounded-2xl overflow-hidden border border-white/10 bg-slate-900/40" data-testid="map-container">
+          <div className="rounded-[20px] overflow-hidden border border-white/10 bg-slate-900/40" data-testid="map-container">
             <MapContainer
               center={center}
               zoom={6}
@@ -408,10 +408,10 @@ export default function MapPage() {
             </MapContainer>
             {filtered.length === 0 && !catalogLoading ? (
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                <div className="pointer-events-auto rounded-2xl border border-amber-500/30 bg-slate-950/85 backdrop-blur px-5 py-4 text-center text-sm text-amber-100 max-w-xs">
-                  <p className="font-medium mb-1">Bu kriterlere uyan ilan yok</p>
+                <div className="pointer-events-auto rounded-[20px] border border-amber-500/30 bg-slate-950/85 backdrop-blur px-5 py-4 text-center text-sm text-amber-100 max-w-xs">
+                  <p className="font-normal mb-1">Bu kriterlere uyan ilan yok</p>
                   <p className="text-xs text-slate-400 mb-3">Filtreleri biraz gevşetmeyi deneyin.</p>
-                  <button type="button" onClick={clearAll} className="text-xs px-3 py-1 rounded-md bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-semibold">
+                  <button type="button" onClick={clearAll} className="text-xs px-3 py-1 rounded-[3px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-normal">
                     Filtreleri Temizle
                   </button>
                 </div>

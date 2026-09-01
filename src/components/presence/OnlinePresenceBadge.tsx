@@ -29,7 +29,7 @@ export function OnlinePresenceBadge({ className, compact }: Props) {
         <span>{onlineCount} çevrimiçi</span>
       ) : (
         <span>
-          <span className="font-semibold">{onlineCount}</span> kişi çevrimiçi
+          <span className="font-normal">{onlineCount}</span> kişi çevrimiçi
         </span>
       )}
     </span>

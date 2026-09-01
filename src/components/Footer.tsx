@@ -27,7 +27,7 @@ export function Footer() {
             <div className="mb-5">
               <BrandLockup logoSize="md" layout="inline" showSlogan />
             </div>
-            <p className="text-sm text-slate-200 leading-relaxed mb-5 font-medium">
+            <p className="text-sm text-slate-200 leading-relaxed mb-5 font-normal">
               {f.tagline}
             </p>
             {/* Yasal şirket iletişim bloğu — 6563 Sayılı Kanun gereği işletme künyesi.
@@ -35,7 +35,7 @@ export function Footer() {
                 künye TR resmi metin olduğu için BiDi karışıklığı yaşanmasın. */}
             {/* Vergi no/dairesi sadece /kunye sayfasında; footer'da müşteri etkileşim odaklı bilgi. */}
             <address className="not-italic space-y-2.5" dir="ltr">
-              <p className="text-xs font-semibold text-slate-200 leading-snug uppercase tracking-wide">
+              <p className="text-xs font-normal text-slate-200 leading-snug uppercase tracking-wide">
                 İHALEAL GAYRİMENKUL VE İNŞAAT
                 <br className="hidden sm:inline" />
                 SAN. TİC. LTD. ŞTİ.
@@ -71,7 +71,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colPlatform}</h2>
+            <h2 className="text-sm font-normal text-slate-100 mb-4 uppercase tracking-wider">{f.colPlatform}</h2>
             <ul className="space-y-2.5">
               <li><button onClick={() => navigate("/ihaleler")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><Building2 className="w-3.5 h-3.5" /> {f.auctionsLink}</button></li>
               <li><button onClick={() => navigate("/analiz")} className="text-sm text-slate-300 hover:text-blue-400 transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.aiAnalysis}</button></li>
@@ -94,7 +94,7 @@ export function Footer() {
 
           {/* Tools */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colTools}</h2>
+            <h2 className="text-sm font-normal text-slate-100 mb-4 uppercase tracking-wider">{f.colTools}</h2>
             <ul className="space-y-2.5">
               <li className="relative" data-demo={isDemoData("footerNavEstimate") ? "true" : undefined}>
                 {isDemoData("footerNavEstimate") ? <DemoDataCornerBadge /> : null}
@@ -143,7 +143,7 @@ export function Footer() {
 
           {/* Legal */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colCorporateLegal}</h2>
+            <h2 className="text-sm font-normal text-slate-100 mb-4 uppercase tracking-wider">{f.colCorporateLegal}</h2>
             <ul className="space-y-2.5">
               {!isProdBuild ? (
                 <li><button onClick={() => navigate("/karsilastir-rakipler")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Trophy className="w-3.5 h-3.5" /> Rakip Analizi</button></li>
@@ -200,11 +200,11 @@ export function Footer() {
 
           {/* Newsletter */}
           <div className="lg:col-span-2 min-w-0 break-words">
-            <h2 className="text-sm font-semibold text-slate-100 mb-4 uppercase tracking-wider">{f.colNewsletter}</h2>
+            <h2 className="text-sm font-normal text-slate-100 mb-4 uppercase tracking-wider">{f.colNewsletter}</h2>
             <p className="text-sm text-slate-300 mb-3">{f.newsletterDesc}</p>
             <div className="flex gap-2">
-              <input type="email" placeholder={f.newsletterPlaceholder} className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
-              <button className="px-3 py-2 rounded-lg [background:var(--gradient-cta)] hover:brightness-110 text-white text-sm font-semibold transition-colors">{f.newsletterSubmit}</button>
+              <input type="email" placeholder={f.newsletterPlaceholder} className="flex-1 min-w-0 px-3 py-2 rounded-[10px] bg-white/10 border border-white/20 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
+              <button className="px-3 py-2 rounded-[10px] [background:var(--gradient-cta)] hover:brightness-110 text-white text-sm font-normal transition-colors">{f.newsletterSubmit}</button>
             </div>
           </div>
         </div>
@@ -224,7 +224,7 @@ export function Footer() {
               <button
                 type="button"
                 onClick={() => pickLocale("tr")}
-                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "tr"
                     ? "bg-blue-500/20 text-blue-300"
                     : "text-slate-400 hover:text-slate-200"
@@ -236,7 +236,7 @@ export function Footer() {
               <button
                 type="button"
                 onClick={() => pickLocale("en")}
-                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "en"
                     ? "bg-blue-500/20 text-blue-300"
                     : "text-slate-400 hover:text-slate-200"
@@ -248,7 +248,7 @@ export function Footer() {
               <button
                 type="button"
                 onClick={() => pickLocale("ru")}
-                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "ru"
                     ? "bg-blue-500/20 text-blue-300"
                     : "text-slate-400 hover:text-slate-200"
@@ -260,7 +260,7 @@ export function Footer() {
               <button
                 type="button"
                 onClick={() => pickLocale("ar")}
-                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                className={`rounded-full px-2.5 py-1 text-xs font-normal transition-colors ${
                   locale === "ar"
                     ? "bg-blue-500/20 text-blue-300"
                     : "text-slate-400 hover:text-slate-200"

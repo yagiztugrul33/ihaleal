@@ -117,11 +117,11 @@ export default function RealtorPartnershipPage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl space-y-14">
         <div className="flex items-start gap-3">
-          <div className="rounded-xl bg-violet-500/15 p-3 text-violet-400">
+          <div className="rounded-[20px] bg-violet-500/15 p-3 text-violet-400">
             <Building2 className="h-8 w-8" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Emlakçı ortaklığı</h1>
+            <h1 className="text-3xl font-normal text-white">Emlakçı ortaklığı</h1>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
               Ortak emlakçı payı iş modeline uygun, kurumsal onaylı partner alım süreci. Başvurular demo ortamında tarayıcıda saklanır; üretimde güvenli kanal ve sözleşme akışı tanımlanır. Liste veya vitrin paketi satışı yapılmaz; gelir işlem bazlı tahakkuk eder.
             </p>
@@ -129,18 +129,18 @@ export default function RealtorPartnershipPage() {
         </div>
 
         <section>
-          <h2 className="text-lg font-semibold text-white">Kurumsal süreç</h2>
+          <h2 className="text-lg font-normal text-white">Kurumsal süreç</h2>
           <p className="mt-2 mb-6 max-w-3xl text-sm leading-relaxed text-slate-400">
             Dört aşamalı çerçeve; başvurudan canlı ortama kadar şeffaf kontrol noktaları ve yazılı taahhütlerle ilerler. Aşamalar arası geri dönüş, yalnızca operasyon ve hukuk onayı ile yapılır.
           </p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="relative flex flex-col rounded-2xl border border-slate-200 bg-slate-900/40 p-4">
-                <span className="mb-3 inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-full bg-violet-500/20 text-xs font-bold text-violet-300">
+              <div key={s.title} className="relative flex flex-col rounded-[20px] border border-slate-200 bg-slate-900/40 p-4">
+                <span className="mb-3 inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-full bg-violet-500/20 text-xs font-normal text-violet-300">
                   {i + 1}
                 </span>
-                <h3 className="font-semibold text-white">{s.title}</h3>
-                <p className="mt-0.5 text-[11px] font-medium uppercase tracking-wide text-violet-300/90">{s.subtitle}</p>
+                <h3 className="font-normal text-white">{s.title}</h3>
+                <p className="mt-0.5 text-[11px] font-normal uppercase tracking-wide text-violet-300/90">{s.subtitle}</p>
                 <p className="mt-2 flex-1 text-xs leading-relaxed text-slate-400">{s.desc}</p>
                 <ul className="mt-3 space-y-1.5 border-t border-slate-200/80 pt-3 text-[11px] leading-snug text-slate-500">
                   {s.bullets.map((b) => (
@@ -158,14 +158,14 @@ export default function RealtorPartnershipPage() {
         </section>
 
         <section>
-          <h2 className="mb-6 text-lg font-semibold text-white">Avantajlar</h2>
+          <h2 className="mb-6 text-lg font-normal text-white">Avantajlar</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {ADV.map((a) => (
               <Card key={a.title} className="border-slate-200 bg-slate-900/40">
                 <CardContent className="flex gap-3 p-5">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
                   <div>
-                    <h3 className="font-medium text-white">{a.title}</h3>
+                    <h3 className="font-normal text-white">{a.title}</h3>
                     <p className="mt-1 text-sm text-slate-400">{a.desc}</p>
                   </div>
                 </CardContent>
@@ -175,7 +175,7 @@ export default function RealtorPartnershipPage() {
         </section>
 
         <section>
-          <h2 className="mb-4 text-lg font-semibold text-white">Başvuru koşulları (özet)</h2>
+          <h2 className="mb-4 text-lg font-normal text-white">Başvuru koşulları (özet)</h2>
           <ul className="space-y-2 text-sm text-slate-400">
             {CONDITIONS.map((c) => (
               <li key={c} className="flex gap-2">
@@ -188,7 +188,7 @@ export default function RealtorPartnershipPage() {
 
         <Card className="border-teal-500/20 bg-teal-950/15">
           <CardContent className="space-y-2 p-6">
-            <h2 className="text-lg font-semibold text-white">Komisyon yapısı — örnek</h2>
+            <h2 className="text-lg font-normal text-white">Komisyon yapısı — örnek</h2>
             <p className="text-sm text-slate-400">
               ₺{(exampleSale / 1_000_000).toFixed(0)}M tutarında işlem için ortak emlakçı B2B matrahı yaklaşık{" "}
               <span className="text-teal-300">₺{Math.round(exampleB2B).toLocaleString("tr-TR")}</span>
@@ -201,13 +201,13 @@ export default function RealtorPartnershipPage() {
         {sent ? (
           <Card className="border-emerald-500/30 bg-emerald-950/20">
             <CardContent className="p-8 text-center">
-              <p className="text-lg font-medium text-white">Başvurunuz kaydedildi (demo).</p>
+              <p className="text-lg font-normal text-white">Başvurunuz kaydedildi (demo).</p>
               <p className="mt-2 text-sm text-slate-400">Üretimde ekibe iletilecek iş akışı tanımlanır.</p>
             </CardContent>
           </Card>
         ) : (
           <form onSubmit={submit} className="space-y-6">
-            <h2 className="text-lg font-semibold text-white">Başvuru formu</h2>
+            <h2 className="text-lg font-normal text-white">Başvuru formu</h2>
             <Card className="border-slate-200 bg-slate-900/50">
               <CardContent className="space-y-4 p-6">
                 <div>
@@ -238,7 +238,7 @@ export default function RealtorPartnershipPage() {
                     rows={4}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="mt-2 w-full rounded-md border border-slate-200 bg-slate-950 px-3 py-2 text-sm text-white placeholder:text-slate-600"
+                    className="mt-2 w-full rounded-[3px] border border-slate-200 bg-slate-950 px-3 py-2 text-sm text-white placeholder:text-slate-600"
                     placeholder="Taşınmaz ticareti yetki belgesi özeti, referans vb."
                   />
                 </div>
@@ -248,7 +248,7 @@ export default function RealtorPartnershipPage() {
                     Kişisel verilerimin işlenmesine ilişkin bilgilendirme metnini okudum.
                   </label>
                 </div>
-                <Button type="submit" className="w-full gap-2 [background:var(--gradient-cta)] font-semibold text-white">
+                <Button type="submit" className="w-full gap-2 [background:var(--gradient-cta)] font-normal text-white">
                   <Send className="rtl:-scale-x-100 h-4 w-4" /> Gönder (demo)
                 </Button>
               </CardContent>

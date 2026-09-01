@@ -213,7 +213,7 @@ export default function CityGuide() {
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
           <MapPin className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Şehir Bulunamadı</h2>
+          <h2 className="text-2xl font-normal mb-2">Şehir Bulunamadı</h2>
           <p className="text-slate-500 mb-6">Aradığınız şehir rehberi mevcut değil.</p>
           <Button onClick={() => navigate("/sehirler")} className="[background:var(--gradient-cta)] text-white">
             Tüm Şehirleri Gör
@@ -235,7 +235,7 @@ export default function CityGuide() {
           </Button>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+              <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
                 <MapPin className="w-8 h-8 text-blue-400" />
                 {cityName} Şehir Rehberi
               </h1>
@@ -253,22 +253,22 @@ export default function CityGuide() {
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><Users className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-400">Nüfus</span></div>
-            <div className="text-2xl font-bold">{city.population}</div>
+            <div className="text-2xl font-normal">{city.population}</div>
             <div className="text-xs text-slate-500">{city.area}</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><DollarSign className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-400">m² Fiyat</span></div>
-            <div className="text-2xl font-bold text-emerald-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
+            <div className="text-2xl font-normal text-emerald-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
             <div className="text-xs text-emerald-400">+{city.annualGrowth}% yıllık</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-400">Kira Getirisi</span></div>
-            <div className="text-2xl font-bold text-violet-400">%{city.rentalYield}</div>
+            <div className="text-2xl font-normal text-violet-400">%{city.rentalYield}</div>
             <div className="text-xs text-slate-500">Ortalama</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-400">Talep Endeksi</span></div>
-            <div className="text-2xl font-bold text-amber-400">{city.demandIndex}/100</div>
+            <div className="text-2xl font-normal text-amber-400">{city.demandIndex}/100</div>
             <div className="text-xs text-slate-500">{city.marketingDays} gün satış</div>
           </Card>
         </div>
@@ -285,7 +285,7 @@ export default function CityGuide() {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-[20px] text-sm font-normal whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}
             >
               {tab.icon} {tab.label}
             </button>
@@ -297,7 +297,7 @@ export default function CityGuide() {
           <div className="space-y-8">
             {/* Price Chart */}
             <Card className="border-slate-200/80 p-5">
-              <h3 className="text-lg font-bold mb-4">Semt Bazında m² Fiyatları</h3>
+              <h3 className="text-lg font-normal mb-4">Semt Bazında m² Fiyatları</h3>
               <div className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={priceHistory}>
@@ -313,7 +313,7 @@ export default function CityGuide() {
 
             {/* Growth Chart */}
             <Card className="border-slate-200/80 p-5">
-              <h3 className="text-lg font-bold mb-4">Yıllık Değer Artışı (%)</h3>
+              <h3 className="text-lg font-normal mb-4">Yıllık Değer Artışı (%)</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <ReLineChart data={priceHistory}>
@@ -330,7 +330,7 @@ export default function CityGuide() {
             {/* Info Grid */}
             <div className="grid md:grid-cols-3 gap-4">
               <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-3"><GraduationCap className="w-5 h-5 text-blue-400" /><h4 className="font-bold">Eğitim</h4></div>
+                <div className="flex items-center gap-2 mb-3"><GraduationCap className="w-5 h-5 text-blue-400" /><h4 className="font-normal">Eğitim</h4></div>
                 <div className="space-y-2">
                   {city.education.map((e) => (
                     <div key={e.name} className="flex justify-between text-sm">
@@ -341,7 +341,7 @@ export default function CityGuide() {
                 </div>
               </Card>
               <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-3"><Heart className="w-5 h-5 text-pink-400" /><h4 className="font-bold">Hastaneler</h4></div>
+                <div className="flex items-center gap-2 mb-3"><Heart className="w-5 h-5 text-pink-400" /><h4 className="font-normal">Hastaneler</h4></div>
                 <div className="space-y-2">
                   {city.hospitals.map((h) => (
                     <div key={h.name} className="flex justify-between text-sm">
@@ -352,10 +352,10 @@ export default function CityGuide() {
                 </div>
               </Card>
               <Card className="border-slate-200/80 p-4">
-                <div className="flex items-center gap-2 mb-3"><Star className="w-5 h-5 text-amber-400" /><h4 className="font-bold">Yaşam Tarzı</h4></div>
+                <div className="flex items-center gap-2 mb-3"><Star className="w-5 h-5 text-amber-400" /><h4 className="font-normal">Yaşam Tarzı</h4></div>
                 <div className="flex flex-wrap gap-2">
                   {city.lifestyle.map((l) => (
-                    <span key={l} className="px-2.5 py-1 rounded-lg bg-white/5 text-xs">{l}</span>
+                    <span key={l} className="px-2.5 py-1 rounded-[10px] bg-white/5 text-xs">{l}</span>
                   ))}
                 </div>
               </Card>
@@ -368,17 +368,17 @@ export default function CityGuide() {
             {city.districts.map((d) => (
               <Card key={d.name} className="border-slate-200/80 p-4 hover:border-blue-500/20 transition-all">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-bold text-lg">{d.name}</h4>
+                  <h4 className="font-normal text-lg">{d.name}</h4>
                   <Badge className="bg-blue-500/10 text-blue-400">{d.type}</Badge>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-slate-400">m² Fiyat</span>
-                    <span className="font-semibold">₺{d.avgPrice.toLocaleString()}</span>
+                    <span className="font-normal">₺{d.avgPrice.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-slate-400">Yıllık Artış</span>
-                    <span className="text-emerald-400 font-semibold">+{d.growth}%</span>
+                    <span className="text-emerald-400 font-normal">+{d.growth}%</span>
                   </div>
                   <div className="h-2 rounded-full bg-white/5 mt-2">
                     <div className="h-full rounded-full bg-emerald-500" style={{ width: `${Math.min(d.growth * 2, 100)}%` }} />
@@ -400,11 +400,11 @@ export default function CityGuide() {
               cityAuctions.map((auction) => (
                 <Card key={auction.id} className="border-slate-200/80 hover:border-blue-500/20 transition-all cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
                   <CardContent className="p-4 flex flex-col sm:flex-row gap-4">
-                    <img loading="lazy" src={auction.images[0]} alt="" className="w-full sm:w-40 h-24 object-cover rounded-xl flex-shrink-0" />
+                    <img loading="lazy" src={auction.images[0]} alt="" className="w-full sm:w-40 h-24 object-cover rounded-[20px] flex-shrink-0" />
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <h4 className="font-bold">{auction.title}</h4>
+                          <h4 className="font-normal">{auction.title}</h4>
                           <div className="flex items-center gap-2 text-sm text-slate-500 mt-1">
                             <MapPin className="w-3.5 h-3.5" /> {auction.location}
                           </div>
@@ -414,7 +414,7 @@ export default function CityGuide() {
                         </Badge>
                       </div>
                       <div className="flex items-center gap-4 mt-3">
-                        <span className="text-sm font-bold text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</span>
+                        <span className="text-sm font-normal text-blue-400">₺{auction.currentBid.toLocaleString("tr-TR")}</span>
                         <span className="text-sm text-emerald-400 flex items-center gap-1"><TrendingUp className="w-3.5 h-3.5" /> %{auction.areaStats.rentalYield} getiri</span>
                         <span className="text-sm text-slate-500">{auction.bidderCount} teklif</span>
                       </div>
@@ -431,11 +431,11 @@ export default function CityGuide() {
           <div className="grid md:grid-cols-2 gap-4">
             {city.transport.map((t) => (
               <Card key={t.type} className="border-slate-200/80 p-4 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-[20px] bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                   <Bus className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <h4 className="font-bold">{t.type}</h4>
+                  <h4 className="font-normal">{t.type}</h4>
                   <p className="text-sm text-slate-400">{t.desc}</p>
                 </div>
               </Card>
@@ -448,10 +448,10 @@ export default function CityGuide() {
             {city.lifestyle.map((item, idx) => (
               <Card key={idx} className="border-slate-200/80 p-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-[10px] bg-pink-500/10 flex items-center justify-center">
                     <Heart className="w-5 h-5 text-pink-400" />
                   </div>
-                  <span className="font-medium">{item}</span>
+                  <span className="font-normal">{item}</span>
                 </div>
               </Card>
             ))}

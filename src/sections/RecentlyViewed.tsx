@@ -56,24 +56,24 @@ export function RecentlyViewed() {
                 <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                 <div className="absolute top-3 start-3">
                   {auction.status === "live" && (
-                    <span className="px-2.5 py-1 rounded-lg bg-red-500/90 text-white text-xs font-medium flex items-center gap-1">
+                    <span className="px-2.5 py-1 rounded-[10px] bg-red-500/90 text-white text-xs font-normal flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Canli
                     </span>
                   )}
                 </div>
-                <div className="absolute top-3 end-3 px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur text-white text-xs font-bold">
+                <div className="absolute top-3 end-3 px-2.5 py-1 rounded-[10px] bg-white/10 backdrop-blur text-white text-xs font-normal">
                   AI {auction.investmentScore}
                 </div>
               </div>
               <CardContent className="p-4">
-                <h3 className="font-bold line-clamp-1 transition-colors group-hover:text-[var(--color-primary)]" style={{ color: "var(--color-text)" }}>{auction.title}</h3>
+                <h3 className="font-normal line-clamp-1 transition-colors group-hover:text-[var(--color-primary)]" style={{ color: "var(--color-text)" }}>{auction.title}</h3>
                 <div className="flex items-center gap-1 text-xs text-slate-500 mt-1">
                   <MapPin className="w-3 h-3" /> {auction.district}
                 </div>
                 <div className="flex items-center justify-between mt-3">
                   <div>
                     <div className="text-xs text-slate-500">Teklif</div>
-                    <div className="text-sm font-bold text-sky-400">TRY {auction.currentBid.toLocaleString("tr-TR")}</div>
+                    <div className="text-sm font-normal text-sky-400">TRY {auction.currentBid.toLocaleString("tr-TR")}</div>
                   </div>
                   <div className="text-end">
                     <div className="text-xs text-slate-500">Getiri</div>

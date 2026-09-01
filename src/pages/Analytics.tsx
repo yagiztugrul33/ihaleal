@@ -237,8 +237,8 @@ export default function Analytics() {
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2">
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex flex-wrap items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/35 bg-cyan-500/10" aria-hidden>
+          <h1 className="text-3xl md:text-4xl font-normal text-white flex flex-wrap items-center gap-3">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-[20px] border border-cyan-500/35 bg-cyan-500/10" aria-hidden>
               <Stethoscope className="h-5 w-5 text-cyan-300" />
             </span>
             <Activity className="w-8 h-8 text-cyan-400" />
@@ -250,11 +250,11 @@ export default function Analytics() {
         </div>
 
         <div className="mb-8 card-luxury flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:p-5">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[20px] border border-cyan-500/30 bg-cyan-500/10">
             <Cpu className="h-6 w-6 text-cyan-300" aria-hidden />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-400/90">Yapay zekâ · özet katmanı</p>
+            <p className="text-[11px] font-normal uppercase tracking-[0.2em] text-cyan-400/90">Yapay zekâ · özet katmanı</p>
             <p className="text-sm text-slate-300 mt-1 leading-relaxed">
               Grafikler ve skorlar demo veriyle üretilir; gerçek portföy için Uzman Görüşü ve tapu sicil doğrulaması şarttır. Sağ alttaki sohbetten hızlı yönlendirme alabilirsiniz.
             </p>
@@ -282,7 +282,7 @@ export default function Analytics() {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all border ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-[20px] text-sm font-normal whitespace-nowrap transition-all border ${
                 activeTab === tab.key
                   ? "[background:var(--gradient-cta)] text-white shadow-lg shadow-cyan-500/20 border-cyan-400/30"
                   : "bg-white/[0.06] backdrop-blur-md border-slate-200 text-slate-300 hover:bg-white/10 hover:text-white"
@@ -310,11 +310,11 @@ export default function Analytics() {
                 <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                 <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Il veya anahtar kelime ara..." className="ps-10 bg-slate-900/50 border-slate-200 text-white" />
               </div>
-              <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-200 text-white text-sm">
+              <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="px-4 py-2 rounded-[20px] bg-slate-900 border border-slate-200 text-white text-sm">
                 <option value="all">Tum Sehirler</option>
                 {cities.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-200 text-white text-sm">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-4 py-2 rounded-[20px] bg-slate-900 border border-slate-200 text-white text-sm">
                 <option value="score">Yatirim Skoru</option>
                 <option value="price">m2 Fiyati</option>
                 <option value="yield">Kira Getirisi</option>
@@ -328,7 +328,7 @@ export default function Analytics() {
                 onClick={() => setAdvancedOpen((v) => !v)}
                 aria-expanded={advancedOpen}
                 data-testid="analytics-advanced-toggle"
-                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white/[0.06] px-4 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/10 hover:text-white"
+                className="flex items-center gap-2 rounded-[20px] border border-slate-200 bg-white/[0.06] px-4 py-2.5 text-sm font-normal text-slate-300 hover:bg-white/10 hover:text-white"
               >
                 <Gauge className="w-4 h-4" /> Gelişmiş görünüm — piyasa döngüsü & portföy dağılımı
                 <span aria-hidden>{advancedOpen ? "−" : "+"}</span>
@@ -337,7 +337,7 @@ export default function Analytics() {
             {advancedOpen ? (
             <div className={`grid lg:grid-cols-3 gap-6 mb-10 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="lg:col-span-2 bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
                   <Gauge className="w-5 h-5 text-blue-400" />
                   Piyasa Dongusu Gostergesi
                 </h3>
@@ -345,10 +345,10 @@ export default function Analytics() {
                   {CITIES.map((city) => {
                     const d = CITY_DATA[city];
                     return (
-                      <div key={city} className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
+                      <div key={city} className="p-4 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                         <div className="flex items-center justify-between mb-3">
-                          <span className="font-semibold text-white">{city}</span>
-                          <span className={`px-2 py-1 rounded-lg border text-xs font-medium ${getMarketCycleColor(d.marketCycle)}`}>
+                          <span className="font-normal text-white">{city}</span>
+                          <span className={`px-2 py-1 rounded-[10px] border text-xs font-normal ${getMarketCycleColor(d.marketCycle)}`}>
                             {getMarketCycleLabel(d.marketCycle)}
                           </span>
                         </div>
@@ -382,7 +382,7 @@ export default function Analytics() {
               </Card>
 
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
                   <PieChart className="w-5 h-5 text-pink-400" />
                   Portfoy Dagilimi
                 </h3>
@@ -406,13 +406,13 @@ export default function Analytics() {
             {/* İhaleal Endeksi — bölge bandı */}
             <div className={`mb-10 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <h2 className="text-xl font-normal text-white flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-blue-400" />
                   İhaleal Endeksi — bölge bandı
                 </h2>
                 <div className="flex gap-2 flex-wrap">
                   {analysisTabs.map((t) => (
-                    <button key={t.key} onClick={() => setAnalysisType(t.key)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${analysisType === t.key ? "bg-blue-500 text-white" : "bg-white/5 text-slate-400 hover:bg-white/10"}`}>
+                    <button key={t.key} onClick={() => setAnalysisType(t.key)} className={`px-3 py-1.5 rounded-[10px] text-xs font-normal transition-all ${analysisType === t.key ? "bg-blue-500 text-white" : "bg-white/5 text-slate-400 hover:bg-white/10"}`}>
                       {t.label}
                     </button>
                   ))}
@@ -423,9 +423,9 @@ export default function Analytics() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-200/80">
-                        <th className="text-start px-4 py-3 text-slate-400 font-medium">Sehir</th>
+                        <th className="text-start px-4 py-3 text-slate-400 font-normal">Sehir</th>
                         {columns.map((col) => (
-                          <th key={col.key} className="text-end px-4 py-3 text-slate-400 font-medium">{col.label}</th>
+                          <th key={col.key} className="text-end px-4 py-3 text-slate-400 font-normal">{col.label}</th>
                         ))}
                       </tr>
                     </thead>
@@ -434,9 +434,9 @@ export default function Analytics() {
                         const d = CITY_DATA[city];
                         return (
                           <tr key={city} className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors">
-                            <td className="px-4 py-3"><span className="font-semibold text-white">{city}</span></td>
+                            <td className="px-4 py-3"><span className="font-normal text-white">{city}</span></td>
                             {columns.map((col) => (
-                              <td key={col.key} className={`text-end px-4 py-3 font-semibold ${col.color}`}>
+                              <td key={col.key} className={`text-end px-4 py-3 font-normal ${col.color}`}>
                                 {formatValue(col.key, (d as any)[col.key])}
                               </td>
                             ))}
@@ -452,7 +452,7 @@ export default function Analytics() {
             {/* Grafikler */}
             <div className={`grid lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4">Yatirim Skoru Karsilastirmasi</h3>
+                <h3 className="text-lg font-normal text-white mb-4">Yatirim Skoru Karsilastirmasi</h3>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart data={barData}>
@@ -471,7 +471,7 @@ export default function Analytics() {
                 </div>
               </Card>
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4">Fiyat / Getiri Dagilimi</h3>
+                <h3 className="text-lg font-normal text-white mb-4">Fiyat / Getiri Dagilimi</h3>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <ScatterChart>
@@ -490,7 +490,7 @@ export default function Analytics() {
             {/* Yatirim Skoru + Stok */}
             <div className={`grid lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
                   <Lightbulb className="w-5 h-5 text-amber-400" />
                   Yatirim Skoru Siralamasi
                 </h3>
@@ -498,11 +498,11 @@ export default function Analytics() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-200/80">
-                        <th className="text-start py-2 text-slate-400 font-medium">Sehir</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Ort.</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Al-Sat</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Al-Kirala</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Al-Yasa</th>
+                        <th className="text-start py-2 text-slate-400 font-normal">Sehir</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Ort.</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Al-Sat</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Al-Kirala</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Al-Yasa</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -511,11 +511,11 @@ export default function Analytics() {
                         const isBest = s.avg <= 25;
                         return (
                           <tr key={city} className={`border-b border-white/[0.03] hover:bg-white/[0.02] ${isBest ? "bg-emerald-500/5" : ""}`}>
-                            <td className="py-2.5 font-medium text-white flex items-center gap-2">
+                            <td className="py-2.5 font-normal text-white flex items-center gap-2">
                               {isBest && <Star className="w-3.5 h-3.5 text-emerald-400 fill-current" />}
                               {city}
                             </td>
-                            <td className="text-end py-2.5 font-bold text-white">{s.avg}</td>
+                            <td className="text-end py-2.5 font-normal text-white">{s.avg}</td>
                             <td className="text-end py-2.5 text-blue-400">{s.buySell}</td>
                             <td className="text-end py-2.5 text-violet-400">{s.buyRent}</td>
                             <td className="text-end py-2.5 text-sky-400">{s.buyLive}</td>
@@ -528,7 +528,7 @@ export default function Analytics() {
               </Card>
 
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
                   <Layers className="w-5 h-5 text-sky-400" />
                   Piyasa Stok Analizi
                 </h3>
@@ -536,11 +536,11 @@ export default function Analytics() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-200/80">
-                        <th className="text-start py-2 text-slate-400 font-medium">Sehir</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Ort. Alan</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Satis Suresi</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Bina Yasi</th>
-                        <th className="text-end py-2 text-slate-400 font-medium">Stok Degisim</th>
+                        <th className="text-start py-2 text-slate-400 font-normal">Sehir</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Ort. Alan</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Satis Suresi</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Bina Yasi</th>
+                        <th className="text-end py-2 text-slate-400 font-normal">Stok Degisim</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -548,7 +548,7 @@ export default function Analytics() {
                         const d = CITY_DATA[city];
                         return (
                           <tr key={city} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
-                            <td className="py-2.5 font-medium text-white">{city}</td>
+                            <td className="py-2.5 font-normal text-white">{city}</td>
                             <td className="text-end py-2.5 text-sky-400">{d.avgArea}m2</td>
                             <td className="text-end py-2.5 text-amber-400">{d.marketingDays} gun</td>
                             <td className="text-end py-2.5 text-slate-400">{d.avgAge} yil</td>
@@ -564,7 +564,7 @@ export default function Analytics() {
 
             {/* Demografi */}
             <div className={`mb-10 transition-all duration-700 delay-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <h2 className="text-xl font-normal text-white mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-teal-400" />
                 Demografi Verileri
               </h2>
@@ -573,7 +573,7 @@ export default function Analytics() {
                   const d = CITY_DATA[city];
                   return (
                     <Card key={city} className="bg-slate-900/50 border-slate-200/80 p-4">
-                      <h4 className="font-bold text-white mb-3">{city}</h4>
+                      <h4 className="font-normal text-white mb-3">{city}</h4>
                       <div className="space-y-2.5">
                         <DemoItem icon={<Users className="w-3.5 h-3.5 text-blue-400" />} label="Nufus" value={`${(d.population / 1000000).toFixed(1)}M`} />
                         <DemoItem icon={<Activity className="w-3.5 h-3.5 text-emerald-400" />} label="Medyan Yas" value={`${d.medianAge}`} />
@@ -588,21 +588,21 @@ export default function Analytics() {
 
             {/* Ilan Listesi */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-white mb-4">AI Degerlendirmesi — {filtered.length} Ilan</h3>
+              <h3 className="text-xl font-normal text-white mb-4">AI Degerlendirmesi — {filtered.length} Ilan</h3>
               {filtered.map((auction) => {
                 const rec = getRec(auction.investmentScore);
                 return (
                   <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 hover:border-blue-500/20 transition-all duration-500 hover:-translate-y-0.5 cursor-pointer" onClick={() => navigate(`/ilan/${auction.id}`)}>
                     <CardContent className="p-5">
                       <div className="flex flex-col md:flex-row gap-5">
-                        <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full md:w-48 h-32 object-cover rounded-xl shrink-0" />
+                        <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full md:w-48 h-32 object-cover rounded-[20px] shrink-0" />
                         <div className="flex-1">
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <h4 className="text-lg font-bold text-white hover:text-blue-400 transition-colors">{auction.title}</h4>
+                              <h4 className="text-lg font-normal text-white hover:text-blue-400 transition-colors">{auction.title}</h4>
                               <div className="flex items-center gap-2 text-sm text-slate-500 mt-1"><MapPin className="w-3.5 h-3.5" />{auction.location}</div>
                             </div>
-                            <div className={`px-3 py-1.5 rounded-lg border text-xs font-semibold whitespace-nowrap ${rec.color}`}>{rec.text}</div>
+                            <div className={`px-3 py-1.5 rounded-[10px] border text-xs font-normal whitespace-nowrap ${rec.color}`}>{rec.text}</div>
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
                             <MiniStat icon={<Star className="w-4 h-4 text-blue-400" />} label="Yatirim Skoru" value={`${auction.investmentScore}/100`} />
@@ -624,7 +624,7 @@ export default function Analytics() {
         {activeTab === "prediction" && (
           <div className="space-y-8">
             <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+              <h2 className="text-2xl font-normal text-white mb-2 flex items-center gap-2">
                 <LineChartIcon className="w-6 h-6 text-blue-400" />
                 AI Fiyat Tahmini — Istanbul
               </h2>
@@ -651,7 +651,7 @@ export default function Analytics() {
                     </ReAreaChart>
                   </ResponsiveContainer>
                 </div>
-                <div className="flex items-center gap-2 mt-4 p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
+                <div className="flex items-center gap-2 mt-4 p-3 rounded-[10px] bg-blue-500/5 border border-blue-500/10">
                   <Info className="w-4 h-4 text-blue-400 flex-shrink-0" />
                   <p className="text-xs text-slate-400">
                     Tahminler %95 güven araligi ile hesaplanmistir. Ust ve alt sinirlar modelin maksimum ve minimum beklentilerini gostermektedir.
@@ -670,14 +670,14 @@ export default function Analytics() {
               ].map((item) => (
                 <Card key={item.label} className="bg-slate-900/50 border-slate-200/80 p-4">
                   <div className="flex items-center gap-2 mb-2">{item.icon}<span className="text-sm text-slate-400">{item.label}</span></div>
-                  <div className={`text-lg font-bold ${item.color}`}>{item.value}</div>
+                  <div className={`text-lg font-normal ${item.color}`}>{item.value}</div>
                 </Card>
               ))}
             </div>
 
             {/* Tum sehirler tahmin */}
             <div className={`transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-xl font-bold text-white mb-4">Sehirlere Gore 1 Yillik Fiyat Tahmini</h3>
+              <h3 className="text-xl font-normal text-white mb-4">Sehirlere Gore 1 Yillik Fiyat Tahmini</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {CITIES.map((city) => {
                   const d = CITY_DATA[city];
@@ -685,21 +685,21 @@ export default function Analytics() {
                   return (
                     <Card key={city} className="bg-slate-900/50 border-slate-200/80 p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-bold text-white">{city}</h4>
+                        <h4 className="font-normal text-white">{city}</h4>
                         <span className="text-xs text-slate-500">2026 Tahmini</span>
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-slate-400">Mevcut</span>
-                          <span className="text-white font-medium">TRY {d.pricePerSqm.toLocaleString()}</span>
+                          <span className="text-white font-normal">TRY {d.pricePerSqm.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-slate-400">Tahmini</span>
-                          <span className="text-emerald-400 font-bold">TRY {futurePrice.toLocaleString()}</span>
+                          <span className="text-emerald-400 font-normal">TRY {futurePrice.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-slate-400">Artis</span>
-                          <span className="text-blue-400 font-bold">+{d.nextYearPrediction}%</span>
+                          <span className="text-blue-400 font-normal">+{d.nextYearPrediction}%</span>
                         </div>
                         <div className="h-2 rounded-full bg-white/5 mt-2">
                           <div className="h-full rounded-full bg-emerald-500" style={{ width: `${Math.min(d.nextYearPrediction * 3, 100)}%` }} />
@@ -717,7 +717,7 @@ export default function Analytics() {
         {activeTab === "simulator" && (
           <div className="space-y-8">
             <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+              <h2 className="text-2xl font-normal text-white mb-2 flex items-center gap-2">
                 <Calculator className="w-6 h-6 text-emerald-400" />
                 Kira Getirisi Simulatoreu
               </h2>
@@ -727,12 +727,12 @@ export default function Analytics() {
             <div className={`grid lg:grid-cols-3 gap-6 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               {/* Inputs */}
               <Card className="lg:col-span-1 bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="font-bold text-white mb-5">Parametreler</h3>
+                <h3 className="font-normal text-white mb-5">Parametreler</h3>
                 <div className="space-y-6">
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
                       <span>Gayrimenkul Degeri</span>
-                      <span className="text-white font-medium">TRY {propertyValue.toLocaleString()}</span>
+                      <span className="text-white font-normal">TRY {propertyValue.toLocaleString()}</span>
                     </label>
                     <Slider value={[propertyValue]} onValueChange={(v) => setPropertyValue(v[0])} min={500000} max={50000000} step={500000} className="my-3" />
                     <Input type="number" value={propertyValue} onChange={(e) => setPropertyValue(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
@@ -740,7 +740,7 @@ export default function Analytics() {
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
                       <span>Aylik Kira Geliri</span>
-                      <span className="text-white font-medium">TRY {monthlyRent.toLocaleString()}</span>
+                      <span className="text-white font-normal">TRY {monthlyRent.toLocaleString()}</span>
                     </label>
                     <Slider value={[monthlyRent]} onValueChange={(v) => setMonthlyRent(v[0])} min={1000} max={100000} step={1000} className="my-3" />
                     <Input type="number" value={monthlyRent} onChange={(e) => setMonthlyRent(Number(e.target.value))} className="bg-slate-950 border-slate-200 text-white" />
@@ -748,7 +748,7 @@ export default function Analytics() {
                   <div>
                     <label className="text-sm text-slate-400 mb-2 block flex justify-between">
                       <span>Isletme Giderleri (%)</span>
-                      <span className="text-white font-medium">%{expenses}</span>
+                      <span className="text-white font-normal">%{expenses}</span>
                     </label>
                     <Slider value={[expenses]} onValueChange={(v) => setExpenses(v[0])} min={0} max={40} step={1} className="my-3" />
                   </div>
@@ -757,7 +757,7 @@ export default function Analytics() {
 
               {/* Results */}
               <Card className="lg:col-span-2 bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="font-bold text-white mb-5">Sonuclar</h3>
+                <h3 className="font-normal text-white mb-5">Sonuclar</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <ResultCard label="Brut Getiri" value={`%${grossYield}`} icon={<TrendingUp className="w-5 h-5 text-blue-400" />} color="text-blue-400" />
                   <ResultCard label="Net Getiri" value={`%${netYield}`} icon={<TrendingUp className="w-5 h-5 text-emerald-400" />} color="text-emerald-400" />
@@ -766,7 +766,7 @@ export default function Analytics() {
                 </div>
 
                 {/* Comparison with cities */}
-                <h4 className="text-sm font-semibold text-white mb-3">Sehirlerle Karsilastirma</h4>
+                <h4 className="text-sm font-normal text-white mb-3">Sehirlerle Karsilastirma</h4>
                 <div className="space-y-3">
                   {CITIES.map((city) => {
                     const d = CITY_DATA[city];
@@ -775,12 +775,12 @@ export default function Analytics() {
                     const diff = (userNetYield - cityNetYield).toFixed(1);
                     const isBetter = userNetYield > cityNetYield;
                     return (
-                      <div key={city} className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]">
+                      <div key={city} className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03]">
                         <div className="flex items-center gap-3">
-                          <span className="text-sm text-white font-medium">{city}</span>
+                          <span className="text-sm text-white font-normal">{city}</span>
                           <span className="text-xs text-slate-500">Ort: %{cityNetYield}</span>
                         </div>
-                        <div className={`flex items-center gap-1 text-sm font-semibold ${isBetter ? "text-emerald-400" : "text-red-400"}`}>
+                        <div className={`flex items-center gap-1 text-sm font-normal ${isBetter ? "text-emerald-400" : "text-red-400"}`}>
                           {isBetter ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                           {diff}%
                         </div>
@@ -793,7 +793,7 @@ export default function Analytics() {
 
             {/* Amortisman grafigi */}
             <Card className={`bg-slate-900/50 border-slate-200/80 p-5 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-lg font-bold text-white mb-4">Sehirlere Gore Amortisman Sureleri (Yil)</h3>
+              <h3 className="text-lg font-normal text-white mb-4">Sehirlere Gore Amortisman Sureleri (Yil)</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={CITIES.map((city) => ({ city, amortization: CITY_DATA[city].amortization, yield: CITY_DATA[city].yield }))}>
@@ -816,7 +816,7 @@ export default function Analytics() {
         {activeTab === "opportunities" && (
           <div className="space-y-8">
             <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+              <h2 className="text-2xl font-normal text-white mb-2 flex items-center gap-2">
                 <Target className="w-6 h-6 text-amber-400" />
                 AI Yatirim Firsatlari
               </h2>
@@ -835,34 +835,34 @@ export default function Analytics() {
                       <div className="relative h-44">
                         <img loading="lazy" src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
-                        <div className="absolute top-3 start-3 px-2.5 py-1 rounded-lg bg-amber-500 text-white text-xs font-bold">
+                        <div className="absolute top-3 start-3 px-2.5 py-1 rounded-[10px] bg-amber-500 text-white text-xs font-normal">
                           #{idx + 1} Firsat
                         </div>
-                        <div className="absolute top-3 end-3 px-2.5 py-1 rounded-lg bg-emerald-500/90 text-white text-xs font-bold">
+                        <div className="absolute top-3 end-3 px-2.5 py-1 rounded-[10px] bg-emerald-500/90 text-white text-xs font-normal">
                           AI {auction.investmentScore}
                         </div>
                       </div>
                       <CardContent className="p-4">
-                        <h4 className="font-bold text-white mb-1 line-clamp-1">{auction.title}</h4>
+                        <h4 className="font-normal text-white mb-1 line-clamp-1">{auction.title}</h4>
                         <div className="flex items-center gap-1 text-xs text-slate-500 mb-3">
                           <MapPin className="w-3 h-3" /> {auction.location}
                         </div>
                         <div className="grid grid-cols-2 gap-2 mb-3">
-                          <div className="p-2 rounded-lg bg-white/[0.03]">
+                          <div className="p-2 rounded-[10px] bg-white/[0.03]">
                             <div className="text-xs text-slate-500">Tahmini Getiri</div>
-                            <div className="text-sm font-bold text-emerald-400">%{auction.areaStats.rentalYield}</div>
+                            <div className="text-sm font-normal text-emerald-400">%{auction.areaStats.rentalYield}</div>
                           </div>
-                          <div className="p-2 rounded-lg bg-white/[0.03]">
+                          <div className="p-2 rounded-[10px] bg-white/[0.03]">
                             <div className="text-xs text-slate-500">Yillik Artis</div>
-                            <div className="text-sm font-bold text-blue-400">%{auction.areaStats.priceChangeYearly}</div>
+                            <div className="text-sm font-normal text-blue-400">%{auction.areaStats.priceChangeYearly}</div>
                           </div>
                         </div>
                         <div className="flex items-center justify-between">
                           <div>
                             <div className="text-xs text-slate-500">Guncel Teklif</div>
-                            <div className="text-lg font-bold text-white">TRY {auction.currentBid.toLocaleString()}</div>
+                            <div className="text-lg font-normal text-white">TRY {auction.currentBid.toLocaleString()}</div>
                           </div>
-                          <Button size="sm" onClick={() => navigate(`/ilan/${auction.id}`)} className="bg-amber-500 hover:bg-amber-400 text-white font-bold">
+                          <Button size="sm" onClick={() => navigate(`/ilan/${auction.id}`)} className="bg-amber-500 hover:bg-amber-400 text-white font-normal">
                             Incele
                           </Button>
                         </div>
@@ -874,7 +874,7 @@ export default function Analytics() {
 
             {/* Firsat Matrisi */}
             <Card className={`bg-slate-900/50 border-slate-200/80 p-5 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-normal text-white mb-4 flex items-center gap-2">
                 <MousePointerClick className="w-5 h-5 text-blue-400" />
                 Fiyat / Getiri Matrisi — Tum Ilanlar
               </h3>
@@ -891,8 +891,8 @@ export default function Analytics() {
                         if (active && payload && payload.length) {
                           const data = payload[0].payload;
                           return (
-                            <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-xl">
-                              <p className="text-sm font-bold text-white mb-1">{data.name}</p>
+                            <div className="bg-white border border-slate-200 rounded-[20px] p-3 shadow-xl">
+                              <p className="text-sm font-normal text-white mb-1">{data.name}</p>
                               <p className="text-xs text-slate-400">Fiyat: TRY {data.x.toLocaleString()}</p>
                               <p className="text-xs text-slate-400">Getiri: %{data.y}</p>
                               <p className="text-xs text-blue-400">AI Skor: {data.z}</p>
@@ -919,7 +919,7 @@ export default function Analytics() {
 
             {/* Tavsiye Listesi */}
             <div className={`transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h3 className="text-xl font-bold text-white mb-4">AI Yatirim Tavsiyeleri</h3>
+              <h3 className="text-xl font-normal text-white mb-4">AI Yatirim Tavsiyeleri</h3>
               <div className="space-y-3">
                 {[
                   { type: "strong_buy", title: "Mugla Yalikavak'ta Premium Villalar", desc: "Yillik %28.5 deger artisi ve %8.2 kira getirisi ile en yuksek getiri potansiyeli", score: 92 },
@@ -930,7 +930,7 @@ export default function Analytics() {
                 ].map((item, idx) => (
                   <Card key={idx} className={`bg-slate-900/50 border-slate-200/80 p-4 hover:border-slate-200 transition-all ${item.type === "strong_buy" ? "border-l-4 border-l-emerald-500" : ""}`}>
                     <div className="flex items-start gap-4">
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                      <div className={`w-10 h-10 rounded-[20px] flex items-center justify-center flex-shrink-0 ${
                         item.type === "strong_buy" ? "bg-emerald-500/10" : item.type === "buy" ? "bg-blue-500/10" : "bg-amber-500/10"
                       }`}>
                         {item.type === "strong_buy" ? <ArrowUpRight className="w-5 h-5 text-emerald-400" /> : 
@@ -939,8 +939,8 @@ export default function Analytics() {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <h4 className="font-bold text-white">{item.title}</h4>
-                          <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                          <h4 className="font-normal text-white">{item.title}</h4>
+                          <span className={`px-2 py-0.5 rounded-[3px] text-xs font-normal ${
                             item.type === "strong_buy" ? "bg-emerald-500/10 text-emerald-400" : 
                             item.type === "buy" ? "bg-blue-500/10 text-blue-400" : "bg-amber-500/10 text-amber-400"
                           }`}>
@@ -951,7 +951,7 @@ export default function Analytics() {
                       </div>
                       <div className="text-end flex-shrink-0">
                         <div className="text-xs text-slate-500">AI Skor</div>
-                        <div className="text-xl font-bold text-white">{item.score}</div>
+                        <div className="text-xl font-normal text-white">{item.score}</div>
                       </div>
                     </div>
                   </Card>
@@ -977,7 +977,7 @@ function SummaryCard({ icon, label, value, sub }: { icon: React.ReactNode; label
   return (
     <Card className="bg-slate-900/50 border-slate-200/80 p-4">
       <div className="flex items-center gap-3 mb-2">{icon}<span className="text-sm text-slate-400">{label}</span></div>
-      <div className="text-2xl font-bold text-white">{value}</div>
+      <div className="text-2xl font-normal text-white">{value}</div>
       <div className="text-xs text-slate-500 mt-0.5">{sub}</div>
     </Card>
   );
@@ -985,9 +985,9 @@ function SummaryCard({ icon, label, value, sub }: { icon: React.ReactNode; label
 
 function MiniStat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="p-2.5 rounded-lg bg-white/[0.03]">
+    <div className="p-2.5 rounded-[10px] bg-white/[0.03]">
       <div className="flex items-center gap-1.5 mb-1">{icon}<span className="text-xs text-slate-500">{label}</span></div>
-      <div className="text-sm font-bold text-white">{value}</div>
+      <div className="text-sm font-normal text-white">{value}</div>
     </div>
   );
 }
@@ -996,16 +996,16 @@ function DemoItem({ icon, label, value }: { icon: React.ReactNode; label: string
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2">{icon}<span className="text-sm text-slate-400">{label}</span></div>
-      <span className="text-sm font-semibold text-white">{value}</span>
+      <span className="text-sm font-normal text-white">{value}</span>
     </div>
   );
 }
 
 function ResultCard({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color: string }) {
   return (
-    <div className="p-4 rounded-xl bg-white/[0.03] border border-slate-200/80">
+    <div className="p-4 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
       <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-slate-400">{label}</span></div>
-      <div className={`text-2xl font-bold ${color}`}>{value}</div>
+      <div className={`text-2xl font-normal ${color}`}>{value}</div>
     </div>
   );
 }

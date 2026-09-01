@@ -43,7 +43,7 @@ function IntelligenceMapInner({
   className = "",
 }: Props) {
   return (
-    <div className={`rounded-xl overflow-hidden border border-white/10 bg-slate-950 ${className}`}>
+    <div className={`rounded-[20px] overflow-hidden border border-white/10 bg-slate-950 ${className}`}>
       <MapContainer
         center={center}
         zoom={zoom}
@@ -69,7 +69,7 @@ function IntelligenceMapInner({
           >
             <Popup>
               <div className="text-slate-900 text-sm min-w-[160px]">
-                <p className="font-semibold">{l.label}</p>
+                <p className="font-normal">{l.label}</p>
                 {l.score != null ? <p className="text-xs mt-1">Skor: {l.score}/100</p> : null}
               </div>
             </Popup>

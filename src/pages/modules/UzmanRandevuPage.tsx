@@ -24,7 +24,7 @@ function ExpertAvatar({ name }: { name: string }) {
   const initials = expertInitials(name);
   return (
     <div
-      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-normal text-white"
       style={{
         background: "linear-gradient(135deg, #0d9488 0%, #6366f1 55%, #1e293b 100%)",
       }}
@@ -93,8 +93,8 @@ export default function UzmanRandevuPage() {
               aria-selected={category === c.id}
               className={
                 category === c.id
-                  ? "rounded-lg border border-cyan-500/50 bg-cyan-500/15 px-3 py-2 text-sm font-medium text-cyan-100"
-                  : "rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-300 hover:bg-white/[0.06]"
+                  ? "rounded-[10px] border border-cyan-500/50 bg-cyan-500/15 px-3 py-2 text-sm font-normal text-cyan-100"
+                  : "rounded-[10px] border border-white/10 px-3 py-2 text-sm text-slate-300 hover:bg-white/[0.06]"
               }
               onClick={() => {
                 setCategory(c.id);
@@ -166,7 +166,7 @@ export default function UzmanRandevuPage() {
               <button
                 key={e.id}
                 type="button"
-                className={`w-full rounded-lg border px-3 py-2 text-start transition ${
+                className={`w-full rounded-[10px] border px-3 py-2 text-start transition ${
                   selected?.id === e.id ? "border-cyan-500/50 bg-cyan-500/10" : "border-white/10 hover:bg-white/[0.04]"
                 }`}
                 onClick={() => {
@@ -177,7 +177,7 @@ export default function UzmanRandevuPage() {
                 <div className="flex items-start gap-2">
                   <ExpertAvatar name={e.name} />
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-white">{e.name}</p>
+                    <p className="font-normal text-white">{e.name}</p>
                     <p className="text-xs text-slate-400">
                       {e.title} · {e.city} · {e.experienceYears} yil · {e.completedJobs} is
                     </p>
@@ -190,7 +190,7 @@ export default function UzmanRandevuPage() {
                     <p className="text-xs text-slate-500">{e.specialties.join(" · ")}</p>
                     <div className="mt-1 flex flex-wrap gap-1">
                       {e.availableSlotsThisWeek.map((s) => (
-                        <span key={s} className="rounded bg-cyan-500/15 px-1.5 py-0.5 text-[10px] text-cyan-100">
+                        <span key={s} className="rounded-[3px] bg-cyan-500/15 px-1.5 py-0.5 text-[10px] text-cyan-100">
                           Bu hafta: {s}
                         </span>
                       ))}
@@ -255,7 +255,7 @@ export default function UzmanRandevuPage() {
             </div>
           ) : null}
           {step === 3 ? (
-            <div className="mt-3 rounded-lg border border-white/10 p-4 text-sm text-slate-300">
+            <div className="mt-3 rounded-[10px] border border-white/10 p-4 text-sm text-slate-300">
               <p>
                 <CheckCircle2 className="me-1 inline h-4 w-4 text-emerald-400" />
                 {date} {slot} — {selected.name}

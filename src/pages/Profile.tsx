@@ -92,7 +92,7 @@ export default function Profile() {
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
         <div className="text-center max-w-md px-4">
           <User className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-white mb-2">{pf.guestTitle}</h1>
+          <h1 className="text-2xl font-normal text-white mb-2">{pf.guestTitle}</h1>
           <p className="text-slate-400 mb-2">{pf.guestDesc}</p>
           <Button onClick={() => navigate("/giris?next=/profil")} className="mt-4 [background:var(--gradient-cta)] text-white">{pf.guestLogin}</Button>
         </div>
@@ -169,7 +169,7 @@ export default function Profile() {
                 <div className="w-24 h-24 rounded-full [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-4">
                   <User className="w-12 h-12 text-white" />
                 </div>
-                <h2 className="text-xl font-bold text-white">{user.name}</h2>
+                <h2 className="text-xl font-normal text-white">{user.name}</h2>
                 <p className="text-sm text-slate-400">{user.email}</p>
                 <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
                   <KycVerifiedBadge verified={kycVerified} compact />
@@ -202,30 +202,30 @@ export default function Profile() {
             </Card>
           </div>
           <div className="lg:col-span-2 space-y-6">
-            {saveError && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{saveError}</div>}
-            {success && <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"><CheckCircle2 className="w-4 h-4" /><span className="text-sm">{success}</span></div>}
+            {saveError && <div className="p-3 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{saveError}</div>}
+            {success && <div className="flex items-center gap-2 p-3 rounded-[20px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"><CheckCircle2 className="w-4 h-4" /><span className="text-sm">{success}</span></div>}
             <Card className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-white flex items-center gap-2"><Edit3 className="w-5 h-5 text-blue-400" /> {pf.profileInfoTitle}</h3>
+                  <h3 className="text-lg font-normal text-white flex items-center gap-2"><Edit3 className="w-5 h-5 text-blue-400" /> {pf.profileInfoTitle}</h3>
                   <Button size="sm" variant="outline" onClick={() => setEditMode(!editMode)} className="border-slate-200 text-slate-300 hover:text-white">{editMode ? pf.cancel : pf.edit}</Button>
                 </div>
                 <div className="space-y-4">
-                  <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.fullName}</label>{editMode ? <Input value={name} onChange={(e) => setName(e.target.value)} className="bg-slate-950 border-slate-200 text-white" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm">{user.name}</div>}</div>
-                  <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.emailLabel}</label>{editMode ? <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-slate-950 border-slate-200 text-white" dir="ltr" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm flex items-center gap-2"><Mail className="w-4 h-4 text-blue-400" /><span dir="ltr">{user.email}</span>{user.verified && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}</div>}</div>
-                  <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.phoneLabel}</label>{editMode ? <Input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-slate-950 border-slate-200 text-white" dir="ltr" /> : <div className="p-3 rounded-lg bg-white/[0.03] text-white text-sm"><div className="flex items-center gap-2"><Phone className="w-4 h-4 text-blue-400" /><span dir="ltr">{user.phone || pf.phoneNotSet}</span></div><p className="text-[11px] text-slate-500 mt-2">{pf.phoneNote}</p></div>}</div>
-                  {editMode && <Button onClick={handleSave} className="[background:var(--gradient-cta)] text-white font-bold">{pf.saveChanges}</Button>}
+                  <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.fullName}</label>{editMode ? <Input value={name} onChange={(e) => setName(e.target.value)} className="bg-slate-950 border-slate-200 text-white" /> : <div className="p-3 rounded-[10px] bg-white/[0.03] text-white text-sm">{user.name}</div>}</div>
+                  <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.emailLabel}</label>{editMode ? <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-slate-950 border-slate-200 text-white" dir="ltr" /> : <div className="p-3 rounded-[10px] bg-white/[0.03] text-white text-sm flex items-center gap-2"><Mail className="w-4 h-4 text-blue-400" /><span dir="ltr">{user.email}</span>{user.verified && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}</div>}</div>
+                  <div><label className="text-sm text-slate-400 mb-1.5 block">{pf.phoneLabel}</label>{editMode ? <Input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-slate-950 border-slate-200 text-white" dir="ltr" /> : <div className="p-3 rounded-[10px] bg-white/[0.03] text-white text-sm"><div className="flex items-center gap-2"><Phone className="w-4 h-4 text-blue-400" /><span dir="ltr">{user.phone || pf.phoneNotSet}</span></div><p className="text-[11px] text-slate-500 mt-2">{pf.phoneNote}</p></div>}</div>
+                  {editMode && <Button onClick={handleSave} className="[background:var(--gradient-cta)] text-white font-normal">{pf.saveChanges}</Button>}
                 </div>
               </CardContent>
             </Card>
             <Card className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Shield className="w-5 h-5 text-blue-400" /> {pf.securityTitle}</h3>
+                <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Shield className="w-5 h-5 text-blue-400" /> {pf.securityTitle}</h3>
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">{pf.emailVerification}</span><span className={`text-xs px-2 py-1 rounded-full ${user.verified ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"}`}>{user.verified ? pf.statusVerified : pf.statusPending}</span></div>
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">{pf.phoneVerification}</span><span className="text-xs px-2 py-1 rounded-full bg-slate-500/20 text-slate-400">{pf.statusSoon}</span></div>
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">{pf.twoFactor}</span><span className="text-xs px-2 py-1 rounded-full bg-slate-500/20 text-slate-400">{pf.statusSoon}</span></div>
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03]"><span className="text-sm text-white">{pf.kycVerification}</span><span className={`text-xs px-2 py-1 rounded-full ${kycVerified ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"}`}>{kycVerified ? pf.statusVerified : pf.statusPending}</span></div>
+                  <div className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03]"><span className="text-sm text-white">{pf.emailVerification}</span><span className={`text-xs px-2 py-1 rounded-full ${user.verified ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"}`}>{user.verified ? pf.statusVerified : pf.statusPending}</span></div>
+                  <div className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03]"><span className="text-sm text-white">{pf.phoneVerification}</span><span className="text-xs px-2 py-1 rounded-full bg-slate-500/20 text-slate-400">{pf.statusSoon}</span></div>
+                  <div className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03]"><span className="text-sm text-white">{pf.twoFactor}</span><span className="text-xs px-2 py-1 rounded-full bg-slate-500/20 text-slate-400">{pf.statusSoon}</span></div>
+                  <div className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03]"><span className="text-sm text-white">{pf.kycVerification}</span><span className={`text-xs px-2 py-1 rounded-full ${kycVerified ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-500/20 text-amber-400"}`}>{kycVerified ? pf.statusVerified : pf.statusPending}</span></div>
                 </div>
               </CardContent>
             </Card>
@@ -233,46 +233,46 @@ export default function Profile() {
             {/* Dalga 4-3: Hesabım Özeti */}
             <Card className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
+                <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4">
                   <Star className="w-5 h-5 text-blue-400" /> {pf.accountSummaryTitle}
                 </h3>
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <Link to="/favoriler" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-rose-500/10 border border-transparent hover:border-rose-400/30 transition-colors group">
+                  <Link to="/favoriler" className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03] hover:bg-rose-500/10 border border-transparent hover:border-rose-400/30 transition-colors group">
                     <div className="flex items-center gap-2.5">
                       <Heart className="w-4 h-4 text-rose-400" />
                       <div>
                         <p className="text-xs text-slate-400">{pf.summaryFavorites}</p>
-                        <p className="text-lg font-bold text-white" dir="ltr">{favorites.length}</p>
+                        <p className="text-lg font-normal text-white" dir="ltr">{favorites.length}</p>
                       </div>
                     </div>
                     <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-rose-300 transition-colors" />
                   </Link>
-                  <Link to="/aramalarim" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-cyan-500/10 border border-transparent hover:border-cyan-400/30 transition-colors group">
+                  <Link to="/aramalarim" className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03] hover:bg-cyan-500/10 border border-transparent hover:border-cyan-400/30 transition-colors group">
                     <div className="flex items-center gap-2.5">
                       <Bookmark className="w-4 h-4 text-cyan-400" />
                       <div>
                         <p className="text-xs text-slate-400">{pf.summarySavedSearch}</p>
-                        <p className="text-lg font-bold text-white" dir="ltr">{savedApi.loading ? "…" : savedApi.searches.length}</p>
+                        <p className="text-lg font-normal text-white" dir="ltr">{savedApi.loading ? "…" : savedApi.searches.length}</p>
                       </div>
                     </div>
                     <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-cyan-300 transition-colors" />
                   </Link>
-                  <Link to="/panel/tekliflerim" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-amber-500/10 border border-transparent hover:border-amber-400/30 transition-colors group">
+                  <Link to="/panel/tekliflerim" className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03] hover:bg-amber-500/10 border border-transparent hover:border-amber-400/30 transition-colors group">
                     <div className="flex items-center gap-2.5">
                       <HandCoins className="w-4 h-4 text-amber-400" />
                       <div>
                         <p className="text-xs text-slate-400">{pf.summaryActiveOffers}</p>
-                        <p className="text-lg font-bold text-white" dir="ltr">{buyerOffers.loading ? "…" : pendingOffers}</p>
+                        <p className="text-lg font-normal text-white" dir="ltr">{buyerOffers.loading ? "…" : pendingOffers}</p>
                       </div>
                     </div>
                     <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-amber-300 transition-colors" />
                   </Link>
-                  <Link to="/panel" className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-blue-500/10 border border-transparent hover:border-blue-400/30 transition-colors group">
+                  <Link to="/panel" className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03] hover:bg-blue-500/10 border border-transparent hover:border-blue-400/30 transition-colors group">
                     <div className="flex items-center gap-2.5">
                       <ExternalLink className="w-4 h-4 text-blue-400" />
                       <div>
                         <p className="text-xs text-slate-400">{pf.summaryGoToPanel}</p>
-                        <p className="text-sm font-semibold text-white" dir="ltr">/panel</p>
+                        <p className="text-sm font-normal text-white" dir="ltr">/panel</p>
                       </div>
                     </div>
                     <ChevronRight className="rtl:rotate-180 w-4 h-4 text-slate-500 group-hover:text-blue-300 transition-colors" />
@@ -284,7 +284,7 @@ export default function Profile() {
             {/* Dalga 4-3: Bildirim Tercihleri */}
             <Card className="bg-slate-900/50 border-slate-200/80">
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
+                <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4">
                   <BellRing className="w-5 h-5 text-violet-400" /> {pf.notifyTitle}
                 </h3>
                 <p className="text-xs text-slate-500 mb-4">
@@ -299,7 +299,7 @@ export default function Profile() {
                   ].map((item) => (
                     <label
                       key={item.key}
-                      className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.05] cursor-pointer transition-colors"
+                      className="flex items-center justify-between p-3 rounded-[10px] bg-white/[0.03] hover:bg-white/[0.05] cursor-pointer transition-colors"
                     >
                       <div className="flex items-center gap-3">
                         <Bell className="w-4 h-4 text-violet-400 flex-shrink-0" />

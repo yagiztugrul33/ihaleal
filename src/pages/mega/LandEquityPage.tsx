@@ -78,7 +78,7 @@ export default function LandEquityPage() {
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white flex items-center gap-2">
+            <h1 className="text-3xl font-normal text-white flex items-center gap-2">
               <Landmark className="h-8 w-8 text-emerald-400" />
               Kat karşılığı arsa
             </h1>
@@ -122,7 +122,7 @@ export default function LandEquityPage() {
           <CardContent className="p-5">
             <div className="flex items-start gap-3 mb-3">
               <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-              <h2 className="text-base font-semibold text-white">Kat karşılığı nedir?</h2>
+              <h2 className="text-base font-normal text-white">Kat karşılığı nedir?</h2>
             </div>
             <p className="text-sm text-slate-300 mb-3 leading-relaxed">
               Arsa sahibi arsasını müteahhide verir; müteahhit kendi parasıyla bina yapar,
@@ -130,21 +130,21 @@ export default function LandEquityPage() {
               kalanı müteahhidin. Sözleşme genelde "%40-50 arsa sahibi / %50-60 müteahhit" oranında kurulur.
             </p>
             <div className="grid sm:grid-cols-3 gap-3 text-xs">
-              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1">📋 Oran Belirleme</p>
+              <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-normal text-cyan-300 mb-1">📋 Oran Belirleme</p>
                 <p className="text-slate-300">
                   Arsa değeri + imar hakkı + bölge talebi × müteahhit kâr marjı. İstanbul merkez %50/50,
                   taşra %35/65 tipik.
                 </p>
               </div>
-              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1">📜 Sözleşme Türü</p>
+              <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-normal text-cyan-300 mb-1">📜 Sözleşme Türü</p>
                 <p className="text-slate-300">
                   Düz arsa payı / hisse karşılığı / inşaat hak ediş ödeme. Noter onaylı + tapu şerhi şart.
                 </p>
               </div>
-              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1">⚠️ Ana Riskler</p>
+              <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-normal text-cyan-300 mb-1">⚠️ Ana Riskler</p>
                 <p className="text-slate-300">
                   Müteahhit iflas, gecikme cezası, teminat senet, kalite düşüşü, imar değişimi.
                   Avukat + eksper şart.
@@ -153,40 +153,40 @@ export default function LandEquityPage() {
             </div>
 
             {/* Somut örnek pay dağılımı (Endeksa-style real numbers) */}
-            <div className="mt-4 rounded-lg border border-emerald-400/20 bg-slate-900/40 p-4">
-              <p className="text-xs font-semibold text-emerald-300 mb-3 flex items-center gap-1.5">
+            <div className="mt-4 rounded-[10px] border border-emerald-400/20 bg-slate-900/40 p-4">
+              <p className="text-xs font-normal text-emerald-300 mb-3 flex items-center gap-1.5">
                 📊 Somut Örnek (Kadıköy / Caddebostan, 800 m² arsa)
               </p>
               <div className="grid sm:grid-cols-4 gap-3 text-xs">
                 <div>
                   <p className="text-slate-500 mb-0.5">Arsa rayiç</p>
-                  <p className="text-white font-bold text-base">₺48M</p>
+                  <p className="text-white font-normal text-base">₺48M</p>
                   <p className="text-slate-500 text-[10px]">(800 × ₺60K/m²)</p>
                 </div>
                 <div>
                   <p className="text-slate-500 mb-0.5">Emsal × m²</p>
-                  <p className="text-white font-bold text-base">2.0 × 800</p>
+                  <p className="text-white font-normal text-base">2.0 × 800</p>
                   <p className="text-slate-500 text-[10px]">= 1.600 m² inşaat</p>
                 </div>
                 <div>
                   <p className="text-slate-500 mb-0.5">Daire sayısı</p>
-                  <p className="text-white font-bold text-base">16 daire</p>
+                  <p className="text-white font-normal text-base">16 daire</p>
                   <p className="text-slate-500 text-[10px]">(100 m² ortalama)</p>
                 </div>
                 <div>
                   <p className="text-slate-500 mb-0.5">Tahmini değer</p>
-                  <p className="text-white font-bold text-base">₺128M</p>
+                  <p className="text-white font-normal text-base">₺128M</p>
                   <p className="text-slate-500 text-[10px]">(daire ortalama ₺8M)</p>
                 </div>
               </div>
               <div className="mt-3 pt-3 border-t border-emerald-400/20 grid sm:grid-cols-2 gap-3 text-xs">
-                <div className="rounded border border-emerald-400/30 bg-emerald-500/10 p-2.5">
-                  <p className="text-emerald-300 font-semibold mb-1">🏘️ Arsa Sahibi (%50)</p>
+                <div className="rounded-[3px] border border-emerald-400/30 bg-emerald-500/10 p-2.5">
+                  <p className="text-emerald-300 font-normal mb-1">🏘️ Arsa Sahibi (%50)</p>
                   <p className="text-white text-sm">8 daire = ₺64M</p>
                   <p className="text-slate-400 text-[11px]">Hak ediş 36 ay dilimli — son dilim tapu devirde.</p>
                 </div>
-                <div className="rounded border border-cyan-400/30 bg-cyan-500/10 p-2.5">
-                  <p className="text-cyan-300 font-semibold mb-1">🏗️ Müteahhit (%50)</p>
+                <div className="rounded-[3px] border border-cyan-400/30 bg-cyan-500/10 p-2.5">
+                  <p className="text-cyan-300 font-normal mb-1">🏗️ Müteahhit (%50)</p>
                   <p className="text-white text-sm">8 daire = ₺64M (brüt)</p>
                   <p className="text-slate-400 text-[11px]">İnşaat maliyeti ~₺36M, brüt kâr ~₺28M (%44).</p>
                 </div>
@@ -197,59 +197,59 @@ export default function LandEquityPage() {
             </div>
 
             {/* 3 şehir kat karşılığı pay oranı karşılaştırma */}
-            <div className="mt-4 rounded-lg border border-cyan-400/20 bg-slate-900/40 p-4">
-              <p className="text-xs font-semibold text-cyan-300 mb-3 flex items-center gap-1.5">
+            <div className="mt-4 rounded-[10px] border border-cyan-400/20 bg-slate-900/40 p-4">
+              <p className="text-xs font-normal text-cyan-300 mb-3 flex items-center gap-1.5">
                 🏘️ 3 Şehir Pay Oranı Karşılaştırma — Aynı arsa, farklı bölge
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs min-w-[480px]">
                   <thead>
                     <tr className="text-slate-500 border-b border-slate-700">
-                      <th className="text-start py-1.5 pe-2 font-medium">Bölge</th>
-                      <th className="text-end py-1.5 px-2 font-medium">Arsa m² Rayiç</th>
-                      <th className="text-end py-1.5 px-2 font-medium">Tipik Pay</th>
-                      <th className="text-end py-1.5 px-2 font-medium">Süre</th>
-                      <th className="text-end py-1.5 ps-2 font-medium">Talep</th>
+                      <th className="text-start py-1.5 pe-2 font-normal">Bölge</th>
+                      <th className="text-end py-1.5 px-2 font-normal">Arsa m² Rayiç</th>
+                      <th className="text-end py-1.5 px-2 font-normal">Tipik Pay</th>
+                      <th className="text-end py-1.5 px-2 font-normal">Süre</th>
+                      <th className="text-end py-1.5 ps-2 font-normal">Talep</th>
                     </tr>
                   </thead>
                   <tbody className="text-slate-300">
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">İstanbul / Kadıköy</p>
+                        <p className="text-white font-normal">İstanbul / Kadıköy</p>
                         <p className="text-[10px] text-slate-500">A+ konum</p>
                       </td>
                       <td className="py-2 px-2 text-end text-emerald-300">₺55-75K</td>
-                      <td className="py-2 px-2 text-end font-bold text-emerald-300">%50 / %50</td>
+                      <td className="py-2 px-2 text-end font-normal text-emerald-300">%50 / %50</td>
                       <td className="py-2 px-2 text-end">28-36 ay</td>
                       <td className="py-2 ps-2 text-end text-emerald-200">Çok yüksek</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">İzmir / Bornova</p>
+                        <p className="text-white font-normal">İzmir / Bornova</p>
                         <p className="text-[10px] text-slate-500">B+ konum</p>
                       </td>
                       <td className="py-2 px-2 text-end text-cyan-300">₺22-32K</td>
-                      <td className="py-2 px-2 text-end font-bold text-cyan-300">%42 / %58</td>
+                      <td className="py-2 px-2 text-end font-normal text-cyan-300">%42 / %58</td>
                       <td className="py-2 px-2 text-end">24-30 ay</td>
                       <td className="py-2 ps-2 text-end text-cyan-200">Yüksek</td>
                     </tr>
                     <tr className="border-b border-slate-800/50">
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">Antalya / Konyaaltı</p>
+                        <p className="text-white font-normal">Antalya / Konyaaltı</p>
                         <p className="text-[10px] text-slate-500">Turizm ağırlıklı</p>
                       </td>
                       <td className="py-2 px-2 text-end text-amber-300">₺28-40K</td>
-                      <td className="py-2 px-2 text-end font-bold text-amber-300">%45 / %55</td>
+                      <td className="py-2 px-2 text-end font-normal text-amber-300">%45 / %55</td>
                       <td className="py-2 px-2 text-end">22-28 ay</td>
                       <td className="py-2 ps-2 text-end text-amber-200">Mevsimsel</td>
                     </tr>
                     <tr>
                       <td className="py-2 pe-2">
-                        <p className="text-white font-medium">Konya / Selçuklu</p>
+                        <p className="text-white font-normal">Konya / Selçuklu</p>
                         <p className="text-[10px] text-slate-500">Taşra büyüme</p>
                       </td>
                       <td className="py-2 px-2 text-end text-slate-300">₺6-12K</td>
-                      <td className="py-2 px-2 text-end font-bold text-slate-300">%35 / %65</td>
+                      <td className="py-2 px-2 text-end font-normal text-slate-300">%35 / %65</td>
                       <td className="py-2 px-2 text-end">18-24 ay</td>
                       <td className="py-2 ps-2 text-end text-slate-400">Orta</td>
                     </tr>
@@ -267,7 +267,7 @@ export default function LandEquityPage() {
         {/* KATMAN 2 ipucu — form alanları açıklama */}
         <Card className="border-amber-400/20 bg-slate-900/40">
           <CardContent className="p-4">
-            <p className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-1.5">
+            <p className="text-xs font-normal text-amber-300 mb-2 flex items-center gap-1.5">
               <Info className="h-3.5 w-3.5" /> Form alanları ne demek?
             </p>
             <div className="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
@@ -294,7 +294,7 @@ export default function LandEquityPage() {
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="border-emerald-500/20 bg-slate-900/40">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+              <h2 className="text-lg font-normal text-white flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-emerald-400" />
                 Hizmet havuzu (rayiç matrah)
               </h2>
@@ -316,7 +316,7 @@ export default function LandEquityPage() {
                       key={v}
                       type="button"
                       onClick={() => setPoolMode(v)}
-                      className={`rounded-lg px-3 py-1.5 text-xs font-medium border ${
+                      className={`rounded-[10px] px-3 py-1.5 text-xs font-normal border ${
                         poolMode === v ? "border-emerald-400 bg-emerald-500/20 text-white" : "border-slate-200 text-slate-400"
                       }`}
                     >
@@ -335,11 +335,11 @@ export default function LandEquityPage() {
                 <dl className="space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-300">
                   <div className="flex justify-between">
                     <dt>İhaleal (havuz)</dt>
-                    <dd className="font-medium text-white">₺{commissionPool.platformTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{commissionPool.platformTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Emlakçı havuzu</dt>
-                    <dd className="font-medium text-white">₺{commissionPool.agentPoolTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="font-normal text-white">₺{commissionPool.agentPoolTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between text-slate-500">
                     <dt>Müteahhit matrah</dt>
@@ -353,7 +353,7 @@ export default function LandEquityPage() {
                     <dt>KDV</dt>
                     <dd className="text-white">₺{commissionPool.totalKdvTry.toLocaleString("tr-TR")}</dd>
                   </div>
-                  <div className="flex justify-between font-semibold text-emerald-200">
+                  <div className="flex justify-between font-normal text-emerald-200">
                     <dt>Toplam (KDV dahil)</dt>
                     <dd>₺{commissionPool.totalWithKdvTry.toLocaleString("tr-TR")}</dd>
                   </div>
@@ -366,7 +366,7 @@ export default function LandEquityPage() {
 
           <Card className="border-teal-500/20 bg-slate-900/40">
             <CardContent className="space-y-4 p-6">
-              <h2 className="text-lg font-semibold text-white">Konut hak ediş (örnekleme)</h2>
+              <h2 className="text-lg font-normal text-white">Konut hak ediş (örnekleme)</h2>
               <div className="space-y-2">
                 <Label className="text-slate-400">Arsa sahibine yazılan bağımsız konut adedi</Label>
                 <Input value={unitsStr} onChange={(e) => setUnitsStr(e.target.value)} className="bg-slate-950/80 border-slate-200" />
@@ -387,7 +387,7 @@ export default function LandEquityPage() {
                     key={v}
                     type="button"
                     onClick={() => setScenario(v)}
-                    className={`rounded-lg px-3 py-1.5 text-xs font-medium border ${
+                    className={`rounded-[10px] px-3 py-1.5 text-xs font-normal border ${
                       scenario === v ? "border-teal-400 bg-teal-500/20 text-white" : "border-slate-200 text-slate-400"
                     }`}
                   >
@@ -399,11 +399,11 @@ export default function LandEquityPage() {
                 <dl className="space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-300">
                   <div className="flex justify-between">
                     <dt>Nominal brüt (birim × adet)</dt>
-                    <dd className="text-white font-medium">₺{hak.nominalGrossTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="text-white font-normal">₺{hak.nominalGrossTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Senaryo sonrası</dt>
-                    <dd className="text-teal-200 font-semibold">₺{hak.scenarioAdjustedTry.toLocaleString("tr-TR")}</dd>
+                    <dd className="text-teal-200 font-normal">₺{hak.scenarioAdjustedTry.toLocaleString("tr-TR")}</dd>
                   </div>
                   <p className="text-[11px] text-slate-500 pt-2">{hak.notes}</p>
                 </dl>
@@ -416,7 +416,7 @@ export default function LandEquityPage() {
 
         <Card className="border-cyan-500/25 bg-slate-900/40">
           <CardContent className="space-y-4 p-6">
-            <h2 className="text-lg font-semibold text-white">Muteahhit hakedisi: yuvarlanan blokaj</h2>
+            <h2 className="text-lg font-normal text-white">Muteahhit hakedisi: yuvarlanan blokaj</h2>
             <p className="text-xs text-slate-400 leading-relaxed">
               Ilk hakedis tutari odeme emanet hesabinda kalir; sonraki hakedis raporu / kismi kabul onaylandiginda bir onceki dilim odenebilir hale gelir.
               Son dilim kesin kabul veya tapu zincirine baglanir. TBK iyiniyet ve orantilik; cezai sart degildir. Metin avukat taslagidir.
@@ -435,8 +435,8 @@ export default function LandEquityPage() {
             <p className="text-[11px] text-slate-500">{kkaRollingHakedisLegalPrinciplesNoteTr()}</p>
             <ul className="space-y-3 text-xs text-slate-300 list-none border-t border-slate-200 pt-3">
               {rollingHakedis.map((row) => (
-                <li key={row.trancheIndex} className="rounded-lg border border-slate-200 bg-black/20 p-3">
-                  <div className="font-semibold text-cyan-200">Dilim {row.trancheIndex}</div>
+                <li key={row.trancheIndex} className="rounded-[10px] border border-slate-200 bg-black/20 p-3">
+                  <div className="font-normal text-cyan-200">Dilim {row.trancheIndex}</div>
                   <div className="mt-1 text-slate-400">{row.retentionUntilTr}</div>
                   <div className="mt-1 text-slate-500">{row.becomesPayableWhenTr}</div>
                 </li>
@@ -459,7 +459,7 @@ export default function LandEquityPage() {
         <div className="mt-12 space-y-4">
           <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
             <Shield className="h-5 w-5 text-emerald-400" />
-            <h2 className="text-lg font-semibold text-white">Güven, Metodoloji ve Hukuki Süreç</h2>
+            <h2 className="text-lg font-normal text-white">Güven, Metodoloji ve Hukuki Süreç</h2>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -468,7 +468,7 @@ export default function LandEquityPage() {
               <CardContent className="p-5">
                 <div className="flex items-start gap-2 mb-3">
                   <ScrollText className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
-                  <h3 className="text-base font-semibold text-white">Veri Kaynakları</h3>
+                  <h3 className="text-base font-normal text-white">Veri Kaynakları</h3>
                 </div>
                 <ul className="space-y-2 text-xs text-slate-300">
                   <li className="flex items-start gap-2">
@@ -500,7 +500,7 @@ export default function LandEquityPage() {
               <CardContent className="p-5">
                 <div className="flex items-start gap-2 mb-3">
                   <Calculator className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-                  <h3 className="text-base font-semibold text-white">Hesap Yöntemi</h3>
+                  <h3 className="text-base font-normal text-white">Hesap Yöntemi</h3>
                 </div>
                 <ol className="space-y-2 text-xs text-slate-300 list-decimal list-inside">
                   <li><strong className="text-cyan-200">İnşaat Hakkı:</strong> Arsa m² × Emsal (KAKS) = toplam inşaat m².</li>
@@ -520,39 +520,39 @@ export default function LandEquityPage() {
               <CardContent className="p-5">
                 <div className="flex items-start gap-2 mb-3">
                   <Scale className="h-5 w-5 text-violet-300 flex-shrink-0 mt-0.5" />
-                  <h3 className="text-base font-semibold text-white">Resmî Süreç (8 Adım)</h3>
+                  <h3 className="text-base font-normal text-white">Resmî Süreç (8 Adım)</h3>
                 </div>
                 <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">1. İmar Sorgu</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">1. İmar Sorgu</div>
                     <p className="text-slate-300">Belediye imar müdürlüğü: ada/parsel imar planı, KAKS, çekme mesafesi.</p>
                   </li>
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">2. Proje Hazırlık</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">2. Proje Hazırlık</div>
                     <p className="text-slate-300">Mimar avan proje + statik + mekanik + elektrik. SPK ekspertiz raporu.</p>
                   </li>
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">3. Yapı Ruhsatı</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">3. Yapı Ruhsatı</div>
                     <p className="text-slate-300">Belediye yapı ruhsatı + onaylı proje (3194 sayılı İmar Kanunu m. 21-22).</p>
                   </li>
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">4. KKA Sözleşmesi</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">4. KKA Sözleşmesi</div>
                     <p className="text-slate-300">Noter onaylı kat karşılığı sözleşme + tapuya şerh (BK m. 207, TMK m. 1011).</p>
                   </li>
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">5. Teminat</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">5. Teminat</div>
                     <p className="text-slate-300">Müteahhit teminat senedi / banka teminat mektubu + kefil — temerrüt koruması.</p>
                   </li>
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">6. İnşaat</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">6. İnşaat</div>
                     <p className="text-slate-300">Kaba + ince yapı + ruhsat denetim. Yapı denetim firması düzenli rapor.</p>
                   </li>
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">7. Hak Ediş</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">7. Hak Ediş</div>
                     <p className="text-slate-300">Dilim dilim teslim — yuvarlanan blokaj (her dilim, sonrakini açar).</p>
                   </li>
-                  <li className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                    <div className="font-semibold text-violet-300 mb-1">8. Tapu Devri</div>
+                  <li className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                    <div className="font-normal text-violet-300 mb-1">8. Tapu Devri</div>
                     <p className="text-slate-300">Kat irtifakı → kat mülkiyeti → arsa sahibi payı tapuya devir (TMK m. 705).</p>
                   </li>
                 </ol>
@@ -564,7 +564,7 @@ export default function LandEquityPage() {
               <CardContent className="p-5">
                 <div className="flex items-start gap-2 mb-3">
                   <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
-                  <h3 className="text-base font-semibold text-white">Yasal Uyarı (Disclaimer)</h3>
+                  <h3 className="text-base font-normal text-white">Yasal Uyarı (Disclaimer)</h3>
                 </div>
                 <div className="space-y-2 text-xs text-slate-300 leading-relaxed">
                   <p>

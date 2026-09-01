@@ -19,7 +19,7 @@ export default function IBuyerPage() {
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200">
             <Banknote className="h-3.5 w-3.5" /> iBuyer
           </p>
-          <h1 className="mt-3 text-3xl md:text-4xl font-bold">Anında Nakit Teklif</h1>
+          <h1 className="mt-3 text-3xl md:text-4xl font-normal">Anında Nakit Teklif</h1>
           <p className="mt-2 text-slate-400 max-w-2xl">{ibuyerSubtitle}</p>
           <p className="mt-3 flex items-center gap-2 text-sm text-slate-500">
             <RefreshCw className="h-4 w-4" />
@@ -28,10 +28,10 @@ export default function IBuyerPage() {
         </div>
 
         {/* KATMAN 1 — EĞİTİCİ GİRİŞ: iBuyer nedir? */}
-        <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
+        <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-3">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-            <h2 className="text-base font-semibold text-white">iBuyer / Anında Nakit Teklif nedir?</h2>
+            <h2 className="text-base font-normal text-white">iBuyer / Anında Nakit Teklif nedir?</h2>
           </div>
           <p className="text-sm text-slate-300 mb-4 leading-relaxed">
             <strong className="text-cyan-200">iBuyer</strong> (instant buyer), evinizi piyasada aylarca satışa çıkarmadan
@@ -39,24 +39,24 @@ export default function IBuyerPage() {
             Komisyon yok, pazarlık süreci yok, evinizi gezdirmek yok — eksper + sözleşme + tapuya gidiş.
           </p>
           <div className="grid sm:grid-cols-3 gap-3 text-xs">
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1.5">
                 <Zap className="h-3.5 w-3.5" /> Nasıl Çalışır?
               </p>
               <p className="text-slate-300">
                 Form doldur → AI ön değerleme → SPK eksper → 72 saat içinde nakit teklif sözleşmesi.
               </p>
             </div>
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1.5">
                 <Clock className="h-3.5 w-3.5" /> Süreç (5 Gün)
               </p>
               <p className="text-slate-300">
                 Gün 1: form. Gün 2: AI değerleme. Gün 3: eksper. Gün 4: teklif. Gün 5: tapu randevu.
               </p>
             </div>
-            <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-              <p className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+              <p className="font-normal text-cyan-300 mb-1 flex items-center gap-1.5">
                 <Wallet className="h-3.5 w-3.5" /> Avantaj
               </p>
               <p className="text-slate-300">
@@ -67,8 +67,8 @@ export default function IBuyerPage() {
         </div>
 
         {/* KATMAN 2 — FORM ALANI İPUCU */}
-        <div className="rounded-xl border border-amber-400/20 bg-slate-900/40 p-4">
-          <p className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-1.5">
+        <div className="rounded-[20px] border border-amber-400/20 bg-slate-900/40 p-4">
+          <p className="text-xs font-normal text-amber-300 mb-2 flex items-center gap-1.5">
             <Info className="h-3.5 w-3.5" /> Form alanları ne demek?
           </p>
           <div className="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
@@ -95,12 +95,12 @@ export default function IBuyerPage() {
         {loading ? (
           <div
             data-testid="ibuyer-loading"
-            className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 animate-pulse space-y-4"
+            className="rounded-[20px] border border-white/10 bg-white/[0.04] p-8 animate-pulse space-y-4"
           >
-            <div className="h-4 w-1/3 rounded bg-slate-700" />
-            <div className="h-10 rounded bg-slate-700" />
-            <div className="h-10 rounded bg-slate-700" />
-            <div className="h-10 w-1/2 rounded bg-slate-700" />
+            <div className="h-4 w-1/3 rounded-[3px] bg-slate-700" />
+            <div className="h-10 rounded-[3px] bg-slate-700" />
+            <div className="h-10 rounded-[3px] bg-slate-700" />
+            <div className="h-10 w-1/2 rounded-[3px] bg-slate-700" />
           </div>
         ) : user ? (
           <SubmissionForm />
@@ -109,25 +109,25 @@ export default function IBuyerPage() {
         )}
 
         {/* KATMAN 3.5 — Örnek Teklif Aralığı (her zaman gösterilir, eğitim için) */}
-        <div className="rounded-2xl border border-emerald-500/20 bg-slate-900/40 p-5">
+        <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-2 mb-3">
             <Calculator className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
-            <h3 className="text-base font-semibold text-white">Örnek Teklif Aralığı (3+1, 110 m², Kadıköy)</h3>
+            <h3 className="text-base font-normal text-white">Örnek Teklif Aralığı (3+1, 110 m², Kadıköy)</h3>
           </div>
           <div className="grid sm:grid-cols-3 gap-3 text-xs">
-            <div className="rounded-lg border border-rose-500/20 bg-rose-500/5 p-3">
-              <p className="text-rose-300 font-semibold mb-1">Kötümser (Hızlı)</p>
-              <p className="text-2xl font-bold text-white">₺7.2M</p>
+            <div className="rounded-[10px] border border-rose-500/20 bg-rose-500/5 p-3">
+              <p className="text-rose-300 font-normal mb-1">Kötümser (Hızlı)</p>
+              <p className="text-2xl font-normal text-white">₺7.2M</p>
               <p className="text-slate-400 mt-1">Piyasanın %12 altı — 48 saat içinde nakit.</p>
             </div>
-            <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3">
-              <p className="text-emerald-300 font-semibold mb-1">Gerçekçi (Önerilen)</p>
-              <p className="text-2xl font-bold text-white">₺7.8M</p>
+            <div className="rounded-[10px] border border-emerald-500/30 bg-emerald-500/10 p-3">
+              <p className="text-emerald-300 font-normal mb-1">Gerçekçi (Önerilen)</p>
+              <p className="text-2xl font-normal text-white">₺7.8M</p>
               <p className="text-slate-400 mt-1">Piyasanın %5 altı — 72 saat içinde nakit.</p>
             </div>
-            <div className="rounded-lg border border-cyan-500/20 bg-cyan-500/5 p-3">
-              <p className="text-cyan-300 font-semibold mb-1">İyimser (Pazarlık)</p>
-              <p className="text-2xl font-bold text-white">₺8.1M</p>
+            <div className="rounded-[10px] border border-cyan-500/20 bg-cyan-500/5 p-3">
+              <p className="text-cyan-300 font-normal mb-1">İyimser (Pazarlık)</p>
+              <p className="text-2xl font-normal text-white">₺8.1M</p>
               <p className="text-slate-400 mt-1">Piyasayla aynı — eksper + müzakere sonrası.</p>
             </div>
           </div>
@@ -137,15 +137,15 @@ export default function IBuyerPage() {
 
           {/* Mülk tipine göre teklif aralığı tablosu */}
           <div className="mt-4 pt-4 border-t border-emerald-500/20">
-            <p className="text-xs font-semibold text-emerald-300 mb-3">📋 Mülk Tipine Göre Tipik Teklif Süre + Aralığı</p>
+            <p className="text-xs font-normal text-emerald-300 mb-3">📋 Mülk Tipine Göre Tipik Teklif Süre + Aralığı</p>
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-xs min-w-[480px]">
                 <thead>
                   <tr className="text-slate-500 border-b border-slate-700">
-                    <th className="text-start py-2 pe-2 font-medium">Mülk Tipi</th>
-                    <th className="text-end py-2 px-2 font-medium">Teklif Süresi</th>
-                    <th className="text-end py-2 px-2 font-medium">Tahmini İndirim</th>
-                    <th className="text-end py-2 ps-2 font-medium">Ödeme</th>
+                    <th className="text-start py-2 pe-2 font-normal">Mülk Tipi</th>
+                    <th className="text-end py-2 px-2 font-normal">Teklif Süresi</th>
+                    <th className="text-end py-2 px-2 font-normal">Tahmini İndirim</th>
+                    <th className="text-end py-2 ps-2 font-normal">Ödeme</th>
                   </tr>
                 </thead>
                 <tbody className="text-slate-300">
@@ -192,15 +192,15 @@ export default function IBuyerPage() {
         <div className="mt-12 space-y-4">
           <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
             <ShieldCheck className="h-5 w-5 text-emerald-400" />
-            <h2 className="text-lg font-semibold text-white">Güven, Süreç ve Hukuki Çerçeve</h2>
+            <h2 className="text-lg font-normal text-white">Güven, Süreç ve Hukuki Çerçeve</h2>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             {/* Veri Kaynakları */}
-            <div className="rounded-2xl border border-emerald-500/20 bg-slate-900/40 p-5">
+            <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-5">
               <div className="flex items-start gap-2 mb-3">
                 <ScrollText className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
-                <h3 className="text-base font-semibold text-white">Değerleme Kaynakları</h3>
+                <h3 className="text-base font-normal text-white">Değerleme Kaynakları</h3>
               </div>
               <ul className="space-y-2 text-xs text-slate-300">
                 <li className="flex items-start gap-2">
@@ -223,10 +223,10 @@ export default function IBuyerPage() {
             </div>
 
             {/* Süreç 5 adım */}
-            <div className="rounded-2xl border border-cyan-500/20 bg-slate-900/40 p-5">
+            <div className="rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-5">
               <div className="flex items-start gap-2 mb-3">
                 <Clock className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-                <h3 className="text-base font-semibold text-white">5 Günlük Süreç</h3>
+                <h3 className="text-base font-normal text-white">5 Günlük Süreç</h3>
               </div>
               <ol className="space-y-2 text-xs text-slate-300 list-decimal list-inside">
                 <li><strong className="text-cyan-200">Gün 1 — Başvuru:</strong> form + tapu fotokopisi + KYC.</li>
@@ -238,28 +238,28 @@ export default function IBuyerPage() {
             </div>
 
             {/* Ödeme + Emanet Güvencesi */}
-            <div className="rounded-2xl border border-violet-500/20 bg-slate-900/40 p-5 md:col-span-2">
+            <div className="rounded-[20px] border border-violet-500/20 bg-slate-900/40 p-5 md:col-span-2">
               <div className="flex items-start gap-2 mb-3">
                 <Wallet className="h-5 w-5 text-violet-300 flex-shrink-0 mt-0.5" />
-                <h3 className="text-base font-semibold text-white">Ödeme + Emanet (Escrow) Güvencesi</h3>
+                <h3 className="text-base font-normal text-white">Ödeme + Emanet (Escrow) Güvencesi</h3>
               </div>
               <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                <div className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-violet-300 mb-1">🏦 Banka Emanet Hesabı</p>
+                <div className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                  <p className="font-normal text-violet-300 mb-1">🏦 Banka Emanet Hesabı</p>
                   <p className="text-slate-300">
                     Nakit teklif tutarı, tapu devir gününe kadar lisanslı emanet hesapta tutulur.
                     Devir tamamlanmadan teslim edilmez.
                   </p>
                 </div>
-                <div className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-violet-300 mb-1">📜 Sözleşme</p>
+                <div className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                  <p className="font-normal text-violet-300 mb-1">📜 Sözleşme</p>
                   <p className="text-slate-300">
                     Noter onaylı satım sözleşmesi + 72 saat cayma hakkı (BK m. 207).
                     İpotek varsa banka fek belgesi şart.
                   </p>
                 </div>
-                <div className="rounded-lg border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-semibold text-violet-300 mb-1">🔐 KYC + MASAK</p>
+                <div className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
+                  <p className="font-normal text-violet-300 mb-1">🔐 KYC + MASAK</p>
                   <p className="text-slate-300">
                     Kimlik + IBAN + tapu sahibi eşleşmesi (6493 sayılı kanun) + suç gelirleri aklama
                     önleme (5549 sayılı).
@@ -269,10 +269,10 @@ export default function IBuyerPage() {
             </div>
 
             {/* Disclaimer */}
-            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5 md:col-span-2">
+            <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-5 md:col-span-2">
               <div className="flex items-start gap-2 mb-3">
                 <AlertTriangle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
-                <h3 className="text-base font-semibold text-white">Yasal Uyarı (Disclaimer)</h3>
+                <h3 className="text-base font-normal text-white">Yasal Uyarı (Disclaimer)</h3>
               </div>
               <div className="space-y-2 text-xs text-slate-300 leading-relaxed">
                 <p>

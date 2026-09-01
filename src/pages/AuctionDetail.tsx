@@ -404,7 +404,7 @@ export default function AuctionDetail() {
     // ANAYASA: olmayan/silinen ilan → CRASH DEĞİL, görünür h1 + iki CTA.
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-12 text-center">
-        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-700/50 bg-slate-900/50">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-[20px] border border-slate-700/50 bg-slate-900/50">
           <Search className="h-8 w-8 text-slate-400" aria-hidden />
         </div>
         <h1 className="text-[26px] font-normal sm:text-[36px]">
@@ -870,11 +870,11 @@ export default function AuctionDetail() {
               </div>
               {/* R14 PAKET 5 — Lansman proje bağlantı kartı */}
               {isLansman && lansmanProjectId && (
-                <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/30 mb-4 flex items-center justify-between gap-3 flex-wrap">
+                <div className="p-3 rounded-[20px] bg-cyan-500/10 border border-cyan-400/30 mb-4 flex items-center justify-between gap-3 flex-wrap">
                   <div className="text-xs text-cyan-100">
-                    <p className="font-medium text-cyan-50 text-sm mb-0.5">{ld.lansmanCardTitle}</p>
+                    <p className="font-normal text-cyan-50 text-sm mb-0.5">{ld.lansmanCardTitle}</p>
                     <p>
-                      {ld.lansmanDeveloperLabel} <span className="font-medium">{lansmanProjectName ?? ld.lansmanProjectFallback}</span>
+                      {ld.lansmanDeveloperLabel} <span className="font-normal">{lansmanProjectName ?? ld.lansmanProjectFallback}</span>
                       {lansmanUnitId ? ` · ${ld.lansmanUnitPrefix} #${lansmanUnitId.slice(0, 8)}` : ""}
                     </p>
                   </div>
@@ -885,8 +885,8 @@ export default function AuctionDetail() {
                   </Link>
                 </div>
               )}
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
-                <p className="font-medium text-slate-200 text-sm">{ld.weeklyScheduleTitle}</p>
+              <div className="p-3 rounded-[20px] bg-slate-900/60 border border-slate-200 mb-6 text-xs text-slate-400 leading-relaxed space-y-1.5">
+                <p className="font-normal text-slate-200 text-sm">{ld.weeklyScheduleTitle}</p>
                 <p>
                   <span className="text-cyan-200/90">{ld.weeklySlot}</span> {ld.weeklyPolicy}
                 </p>
@@ -928,13 +928,13 @@ export default function AuctionDetail() {
                   <Landmark className="w-4 h-4 shrink-0" /> {ld.officialDocsBtn}
                 </Button>
               </div>
-              <div className={`p-4 rounded-xl border mb-6 ${recommendation === "strongBuy" ? "bg-emerald-500/10 border-emerald-500/20" : recommendation === "buy" ? "bg-emerald-500/5 border-emerald-500/10" : recommendation === "hold" ? "bg-amber-500/5 border-amber-500/10" : "bg-red-500/5 border-red-500/10"}`}>
+              <div className={`p-4 rounded-[20px] border mb-6 ${recommendation === "strongBuy" ? "bg-emerald-500/10 border-emerald-500/20" : recommendation === "buy" ? "bg-emerald-500/5 border-emerald-500/10" : recommendation === "hold" ? "bg-amber-500/5 border-amber-500/10" : "bg-red-500/5 border-red-500/10"}`}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${recommendation === "strongBuy" || recommendation === "buy" ? "bg-emerald-500/20 text-emerald-400" : recommendation === "hold" ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"}`}>
+                  <div className={`p-2 rounded-[10px] ${recommendation === "strongBuy" || recommendation === "buy" ? "bg-emerald-500/20 text-emerald-400" : recommendation === "hold" ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"}`}>
                     {recommendation === "strongBuy" || recommendation === "buy" ? <TrendingUp className="w-5 h-5" /> : recommendation === "hold" ? <Minus className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-white">{ld.aiRecoTitle}</div>
+                    <div className="text-sm font-normal text-white">{ld.aiRecoTitle}</div>
                     <div className="text-xs text-slate-400">{recommendation === "strongBuy" ? ld.aiRecoStrongBuy : recommendation === "buy" ? ld.aiRecoBuy : recommendation === "hold" ? ld.aiRecoHold : ld.aiRecoAvoid}</div>
                   </div>
                 </div>
@@ -953,7 +953,7 @@ export default function AuctionDetail() {
                   { key: "priceHistory" as const, label: ld.tabPriceHistory, icon: <TrendingUp className="w-4 h-4" /> },
                   { key: "ai" as const, label: ld.tabAi, icon: <BarChart3 className="w-4 h-4" />, mandatory: true },
                 ].map((tab) => (
-                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-900 hover:bg-white/5"}`}>{tab.icon} {tab.label}{tab.mandatory ? <Badge className="bg-emerald-600/90 text-white border-0 text-[10px] px-1.5 py-0">{ld.tabMandatory}</Badge> : null}</button>
+                  <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[10px] text-sm font-normal whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-slate-500 hover:text-slate-900 hover:bg-white/5"}`}>{tab.icon} {tab.label}{tab.mandatory ? <Badge className="bg-emerald-600/90 text-white border-0 text-[10px] px-1.5 py-0">{ld.tabMandatory}</Badge> : null}</button>
                 ))}
               </div>
             </div>
@@ -961,8 +961,8 @@ export default function AuctionDetail() {
             <div className="min-h-[300px]">
               {activeTab === "overview" && (
                 <div className="space-y-6 animate-fade-in">
-                  <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/15">
-                    <h3 className="text-sm font-medium text-amber-200 mb-2">{ld.ovProfRules}</h3>
+                  <div className="p-4 rounded-[20px] bg-amber-500/5 border border-amber-500/15">
+                    <h3 className="text-sm font-normal text-amber-200 mb-2">{ld.ovProfRules}</h3>
                     <ul className="text-xs text-slate-400 space-y-1.5 list-disc list-inside">
                       {integritySummaryLines.map((line) => (
                         <li key={line}>{line}</li>
@@ -976,10 +976,10 @@ export default function AuctionDetail() {
                     listingPrice={auction.currentBid}
                   />
                   {(auction.commitmentFloorTRY != null && auction.commitmentCeilingTRY != null) || auction.bindingCommitmentAccepted ? (
-                    <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-500/25">
+                    <div className="p-4 rounded-[20px] bg-amber-950/40 border border-amber-500/25">
                       <div className="flex items-center gap-2 text-amber-100 mb-2">
                         <Scale className="w-5 h-5" />
-                        <span className="text-sm font-medium">{ld.ovCommitmentTitle}</span>
+                        <span className="text-sm font-normal">{ld.ovCommitmentTitle}</span>
                       </div>
                       {auction.commitmentFloorTRY != null && auction.commitmentCeilingTRY != null ? (
                         <p className="text-xs text-slate-300">
@@ -995,8 +995,8 @@ export default function AuctionDetail() {
                     </div>
                   ) : null}
                   {auction.expertiseRequired || auction.expertisePdfName ? (
-                    <div className="p-4 rounded-xl border border-emerald-500/25 bg-emerald-500/5">
-                      <div className="text-sm font-medium text-emerald-100 mb-1">{ld.ovExpertiseTitle}</div>
+                    <div className="p-4 rounded-[20px] border border-emerald-500/25 bg-emerald-500/5">
+                      <div className="text-sm font-normal text-emerald-100 mb-1">{ld.ovExpertiseTitle}</div>
                       <p className="text-xs text-slate-400">
                         {auction.expertiseRequired ? ld.ovExpertiseRequiredNote : ""}
                         {auction.expertisePdfName ? (
@@ -1015,11 +1015,11 @@ export default function AuctionDetail() {
                     <DetailItem icon={<Building className="w-5 h-5" />} label={ld.ovDetailBuildingAge} value={auction.propertyDetails.buildingAge} />
                   </div>
                   {auction.virtualTour && (
-                    <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                    <div className="p-4 rounded-[20px] bg-blue-500/10 border border-blue-500/20">
                       <div className="flex items-center gap-3">
                         <Video className="w-5 h-5 text-blue-400" />
                         <div>
-                          <div className="text-sm font-medium text-white">{ld.ovVirtualTourTitle}</div>
+                          <div className="text-sm font-normal text-white">{ld.ovVirtualTourTitle}</div>
                           <div className="text-xs text-slate-400">{ld.ovVirtualTourDesc}</div>
                         </div>
                         <Button size="sm" onClick={() => setShowVirtualTour(true)} className="ms-auto [background:var(--gradient-cta)] text-white">{ld.ovVirtualTourStart}</Button>
@@ -1048,7 +1048,7 @@ export default function AuctionDetail() {
                     { label: ld.detDeedStatus, value: auction.propertyDetails.deedStatus },
                     { label: ld.detEligibility, value: auction.propertyDetails.eligibility },
                   ].map((item) => (
-                    <div key={item.label as string} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><span className="text-sm text-slate-500">{item.label}</span><span className="text-sm font-medium text-white">{item.value}</span></div>
+                    <div key={item.label as string} className="flex items-center justify-between p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80"><span className="text-sm text-slate-500">{item.label}</span><span className="text-sm font-normal text-white">{item.value}</span></div>
                   ))}
                 </div>
               )}
@@ -1073,9 +1073,9 @@ export default function AuctionDetail() {
                           other: <MapPin className="w-4 h-4 text-violet-400" />,
                         };
                         return (
-                          <div key={f.name} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                            <div className="p-2 rounded-lg bg-white/5">{icons[f.type]}</div>
-                            <div><div className="text-sm font-medium text-white">{f.name}</div><div className="text-xs text-slate-500"><span dir="ltr">{f.distance}m</span> {ld.locDistanceSuffix}</div></div>
+                          <div key={f.name} className="flex items-center gap-3 p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
+                            <div className="p-2 rounded-[10px] bg-white/5">{icons[f.type]}</div>
+                            <div><div className="text-sm font-normal text-white">{f.name}</div><div className="text-xs text-slate-500"><span dir="ltr">{f.distance}m</span> {ld.locDistanceSuffix}</div></div>
                           </div>
                         );
                       })}
@@ -1126,12 +1126,12 @@ export default function AuctionDetail() {
                   </div>
                   <div className="space-y-2">
                     {auction.priceHistory.map((p, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
+                      <div key={i} className="flex items-center justify-between p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                         <div className="flex items-center gap-3">
                           <div className={`w-2 h-2 rounded-full ${p.event === "Fiyat Düşüşü" ? "bg-red-400" : "bg-blue-400"}`} />
                           <span className="text-sm text-slate-400">{p.event}</span>
                         </div>
-                        <div className="text-end"><div className="text-sm font-medium text-white">₺{p.price.toLocaleString("tr-TR")}</div><div className="text-xs text-slate-500">{new Date(p.date).toLocaleDateString("tr-TR")}</div></div>
+                        <div className="text-end"><div className="text-sm font-normal text-white">₺{p.price.toLocaleString("tr-TR")}</div><div className="text-xs text-slate-500">{new Date(p.date).toLocaleDateString("tr-TR")}</div></div>
                       </div>
                     ))}
                   </div>
@@ -1160,13 +1160,13 @@ export default function AuctionDetail() {
                             await handleBuyerReportConfirm();
                           })();
                         }}
-                        className="mt-1 rounded border-white/20"
+                        className="mt-1 rounded-[3px] border-white/20"
                       />
                       <span>Raporu okuduğumu ve bilgilendirme niteliğini anladığımı onaylıyorum (taslak).</span>
                     </label>
                   </div>
                   {bidGateBlocked ? (
-                    <p className="text-xs text-amber-200/90 border border-amber-400/25 rounded-lg px-3 py-2 bg-amber-500/10">
+                    <p className="text-xs text-amber-200/90 border border-amber-400/25 rounded-[10px] px-3 py-2 bg-amber-500/10">
                       {ld.aiGateNote}
                     </p>
                   ) : null}
@@ -1183,7 +1183,7 @@ export default function AuctionDetail() {
                     </div>
                     <div className="space-y-4">
                       <h3 className="text-lg font-normal text-white">{ld.aiCommentTitle}</h3>
-                      <div className={`p-4 rounded-xl border ${isUnderpriced ? "bg-emerald-500/10 border-emerald-500/20" : "bg-amber-500/10 border-amber-500/20"}`}>
+                      <div className={`p-4 rounded-[20px] border ${isUnderpriced ? "bg-emerald-500/10 border-emerald-500/20" : "bg-amber-500/10 border-amber-500/20"}`}>
                         <p className="text-sm text-slate-300 leading-relaxed">
                           {isUnderpriced
                             ? ld.aiCommentUnder
@@ -1233,7 +1233,7 @@ export default function AuctionDetail() {
                   {auction.estimatedValue > 0 && (
                     <div className="mt-2 pt-2 border-t border-slate-200/40 dark:border-slate-700">
                       <div className="text-[11px] text-slate-500">{ld.estimatedValueTitle}</div>
-                      <div className="text-sm font-medium text-emerald-400" dir="ltr">
+                      <div className="text-sm font-normal text-emerald-400" dir="ltr">
                         ₺{auction.estimatedValue.toLocaleString("tr-TR")}
                         <FxRef amountTry={auction.estimatedValue} variant="compact" />
                       </div>
@@ -1248,7 +1248,7 @@ export default function AuctionDetail() {
                   )}
                   {/* Doğrulama rozeti — SADECE auction.verified=true ise (sahte gösterim YASAK) */}
                   {auction.verified === true && (
-                    <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+                    <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-normal text-emerald-400">
                       <CheckCircle2 className="w-3 h-3" />
                       {ld.verifiedListing}
                     </div>
@@ -1266,9 +1266,9 @@ export default function AuctionDetail() {
 
                 {/* Dalga 2-3: AI öneri — "Bu ihaleye ne vermeli?" */}
                 {!isListingOnly ? (
-                  <div className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-3" data-testid="ai-bid-suggestion">
+                  <div className="rounded-[20px] border border-violet-500/30 bg-violet-500/10 p-3" data-testid="ai-bid-suggestion">
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <h4 className="text-xs font-medium uppercase tracking-wider text-violet-200 flex items-center gap-1.5">
+                      <h4 className="text-xs font-normal uppercase tracking-wider text-violet-200 flex items-center gap-1.5">
                         <Sparkles className="w-3.5 h-3.5" /> {ld.aiSuggestTitle}
                       </h4>
                       <Button
@@ -1309,7 +1309,7 @@ export default function AuctionDetail() {
                       </Button>
                     </div>
                     {aiBidReply ? (
-                      <div className="rounded-md border border-violet-400/25 bg-violet-500/5 px-2.5 py-2 text-[11px] text-violet-100 leading-relaxed whitespace-pre-line" data-testid="ai-bid-reply">
+                      <div className="rounded-[3px] border border-violet-400/25 bg-violet-500/5 px-2.5 py-2 text-[11px] text-violet-100 leading-relaxed whitespace-pre-line" data-testid="ai-bid-reply">
                         {aiBidReply}
                       </div>
                     ) : (
@@ -1321,9 +1321,9 @@ export default function AuctionDetail() {
                 ) : null}
 
                 {/* Dalga 2-4: Ekspertiz Raporu PDF */}
-                <div className="rounded-xl border border-cyan-500/25 bg-cyan-500/5 p-3" data-testid="expertise-pdf">
+                <div className="rounded-[20px] border border-cyan-500/25 bg-cyan-500/5 p-3" data-testid="expertise-pdf">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <h4 className="text-xs font-medium uppercase tracking-wider text-cyan-200 flex items-center gap-1.5">
+                    <h4 className="text-xs font-normal uppercase tracking-wider text-cyan-200 flex items-center gap-1.5">
                       <FileText className="w-3.5 h-3.5" /> {ld.expPanelTitle}
                     </h4>
                     <Button
@@ -1417,11 +1417,11 @@ export default function AuctionDetail() {
                     {ld.expPanelDesc}
                   </p>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">{ld.priceCardAiPredicted}</span><span className="text-blue-400 font-medium" dir="ltr">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
+                <div className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
+                  <div className="flex justify-between text-xs mb-1"><span className="text-slate-500">{ld.priceCardAiPredicted}</span><span className="text-blue-400 font-normal" dir="ltr">₺{auction.aiPredictedPrice.toLocaleString("tr-TR")}</span></div>
                   <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full rounded-full [background:var(--gradient-cta)]" style={{ width: `${Math.min((liveBid / auction.aiPredictedPrice) * 100, 100)}%` }} /></div>
                 </div>
-                <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-lg p-2.5 bg-white/[0.02]">
+                <p className="text-[11px] text-slate-500 leading-relaxed border border-slate-200/80 rounded-[10px] p-2.5 bg-white/[0.02]">
                   {isListingOnly ? (
                     <>
                       Bu ilan <strong className="text-slate-400">sadece ilan</strong> modundadır; fiyat bilgisi aşağıdadır. Bilgi veya talep için ihaleal.com ile iletişime geçin; taraf telefonu ilanda yok (ofis kartındaki yetkili adı gibi platform adı).
@@ -1555,8 +1555,8 @@ export default function AuctionDetail() {
                   ) : null}
                 </div>
                 <div className="pt-4 border-t border-slate-200/80">
-                  <button onClick={() => navigate("/ekspertiz")} className="w-full text-start p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
-                    <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-medium text-white group-hover:text-blue-400 transition-colors">{ld.expertOpinion}</span></div>
+                  <button onClick={() => navigate("/ekspertiz")} className="w-full text-start p-3 rounded-[20px] bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors group">
+                    <div className="flex items-center gap-2 mb-1"><ShieldCheck className="w-4 h-4 text-blue-400" /><span className="text-sm font-normal text-white group-hover:text-blue-400 transition-colors">{ld.expertOpinion}</span></div>
                     <p className="text-xs text-slate-500">{ld.expertOpinionDesc}</p>
                   </button>
                 </div>
@@ -1567,10 +1567,10 @@ export default function AuctionDetail() {
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-2 mb-1">
                   <Receipt className="w-4 h-4 text-teal-400" />
-                  <h4 className="text-sm font-medium text-white">{ld.commissionTitle}</h4>
+                  <h4 className="text-sm font-normal text-white">{ld.commissionTitle}</h4>
                   <Badge variant="outline" className="border-teal-500/20 text-teal-400 text-[10px] ms-auto">{feeBadgeLabel()}</Badge>
                 </div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 space-y-3">
+                <div className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 space-y-3">
                   <div>
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-slate-500">{isListingOnly ? ld.commissionRefListing : ld.commissionRefAuction}</span>
@@ -1578,11 +1578,11 @@ export default function AuctionDetail() {
                     <div className="text-lg font-normal text-white" dir="ltr">₺{liveBid.toLocaleString("tr-TR")}</div>
                   </div>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionPlatformBuyer}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.commission.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionVat}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.vatOnCommission.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionDeedDuty} (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionRevolvingCapital}</span><span className="text-slate-300 font-medium" dir="ltr">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
-                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-medium"><span className="text-teal-400">{ld.commissionTotal}</span><span className="text-teal-400" dir="ltr">₺{closing.total.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionPlatformBuyer}</span><span className="text-slate-300 font-normal" dir="ltr">₺{closing.commission.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionVat}</span><span className="text-slate-300 font-normal" dir="ltr">₺{closing.vatOnCommission.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionDeedDuty} (%{(DEED_DUTY_RATE * 100).toFixed(0)})</span><span className="text-slate-300 font-normal" dir="ltr">₺{closing.deed.toLocaleString("tr-TR")}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">{ld.commissionRevolvingCapital}</span><span className="text-slate-300 font-normal" dir="ltr">₺{closing.fixed.toLocaleString("tr-TR")}</span></div>
+                    <div className="border-t border-slate-200/80 pt-2 flex justify-between font-normal"><span className="text-teal-400">{ld.commissionTotal}</span><span className="text-teal-400" dir="ltr">₺{closing.total.toLocaleString("tr-TR")}</span></div>
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-600 leading-relaxed px-0.5">{FEE_TEXTS.commissionMatrahLine()}</p>
@@ -1596,7 +1596,7 @@ export default function AuctionDetail() {
               <CardContent className="p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <ShieldCheck className="w-4 h-4 text-violet-400" />
-                  <h4 className="text-sm font-medium text-white">{ld.securityTitle}</h4>
+                  <h4 className="text-sm font-normal text-white">{ld.securityTitle}</h4>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-xs text-slate-400"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> {ld.secIdentity}</div>
@@ -1632,17 +1632,17 @@ export default function AuctionDetail() {
             <DialogTitle className="text-xl font-normal">{isSealedOffer ? ld.ctaSealedBid : isAuctionMode ? ld.ctaBid : ld.ctaNegotiate}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
-            <p className="text-[10px] text-amber-200/90 leading-relaxed rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2">
+            <p className="text-[10px] text-amber-200/90 leading-relaxed rounded-[10px] border border-amber-500/25 bg-amber-500/10 px-3 py-2">
               {MASTER_LEGAL_DISCLAIMER}
             </p>
             <p className="text-[11px] text-slate-500 leading-relaxed">
               Kimlik ve iletişim bilginiz ilan sahibine <strong className="text-slate-400">açıkça gösterilmez</strong>. Kabul ve sözleşme aşamasında süreç ihaleal.com üzerinden yürütülür (üretim hedefi; bu ekran demo).
             </p>
-            <div className="p-3 rounded-xl bg-white/5">
+            <div className="p-3 rounded-[20px] bg-white/5">
               <p className="text-sm text-slate-400">{auction.title}</p>
               <p className="text-lg font-normal text-blue-400 mt-1">₺{liveBid.toLocaleString("tr-TR")}</p>
             </div>
-            <div className="p-3 rounded-xl bg-teal-500/5 border border-teal-500/10">
+            <div className="p-3 rounded-[20px] bg-teal-500/5 border border-teal-500/10">
               <p className="text-xs text-slate-400 mb-1">{ld.bidCostTitle}</p>
               <p className="text-sm font-normal text-teal-400" dir="ltr">₺{estimateBuyerClosingCosts(liveBid).total.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-500 mt-1">
@@ -1655,7 +1655,7 @@ export default function AuctionDetail() {
                   key={inc}
                   type="button"
                   onClick={() => setBidAmount(String(liveBid + inc))}
-                  className="px-2 py-2 rounded-lg bg-white/5 hover:bg-blue-500/20 text-xs font-medium text-white transition-colors"
+                  className="px-2 py-2 rounded-[10px] bg-white/5 hover:bg-blue-500/20 text-xs font-normal text-white transition-colors"
                 >
                   +₺{(inc / 1000).toFixed(0)}K
                 </button>
@@ -1679,10 +1679,10 @@ export default function AuctionDetail() {
             {/* Dalga 2-2: Proxy bid (otomatik artırma) — frontend UI.
                 Backend (otomatik tetikleme + sealed maskeleme uyumu) ayrı tur. */}
             {!isListingOnly && isAuctionMode ? (
-              <div className="rounded-xl border border-violet-500/25 bg-violet-500/5 p-3" data-testid="proxy-bid-panel">
+              <div className="rounded-[20px] border border-violet-500/25 bg-violet-500/5 p-3" data-testid="proxy-bid-panel">
                 <label className="flex items-center justify-between gap-3 cursor-pointer">
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-violet-100 flex items-center gap-2">
+                    <p className="text-sm font-normal text-violet-100 flex items-center gap-2">
                       <span className="text-base">⚡</span> {ld.proxyTitle}
                     </p>
                     <p className="text-[10px] text-violet-200/70 mt-0.5">
@@ -1711,7 +1711,7 @@ export default function AuctionDetail() {
                       placeholder={`${ld.proxyMaxPlaceholderPrefix} ${(liveBid * 1.5 / 1_000_000).toFixed(1)}M`}
                       className="bg-slate-950 border-violet-500/30 text-white focus:ring-violet-500"
                     />
-                    <p className="text-[10px] text-amber-200/85 leading-snug rounded-md border border-amber-500/25 bg-amber-500/5 px-2 py-1.5">
+                    <p className="text-[10px] text-amber-200/85 leading-snug rounded-[3px] border border-amber-500/25 bg-amber-500/5 px-2 py-1.5">
                       {ld.proxyDemoNote}
                     </p>
                   </div>
@@ -1720,8 +1720,8 @@ export default function AuctionDetail() {
             ) : null}
 
             {!isListingOnly ? (
-              <div className="space-y-3 rounded-xl border border-slate-200 bg-black/20 p-3">
-                <p className="text-xs font-medium text-white">{ld.bidGateTitle}</p>
+              <div className="space-y-3 rounded-[20px] border border-slate-200 bg-black/20 p-3">
+                <p className="text-xs font-normal text-white">{ld.bidGateTitle}</p>
                 <div className="space-y-3">
                   {BID_GATE_CHECKBOXES.map((row) => (
                     <label key={row.id} className="flex gap-3 text-start text-[11px] text-slate-300 leading-snug cursor-pointer">
@@ -1737,7 +1737,7 @@ export default function AuctionDetail() {
                         {row.to && row.linkLabel ? (
                           <>
                             {row.label}{" "}
-                            <Link to={row.to} className="text-cyan-400 hover:underline font-medium" onClick={(e) => e.stopPropagation()}>
+                            <Link to={row.to} className="text-cyan-400 hover:underline font-normal" onClick={(e) => e.stopPropagation()}>
                               ({row.linkLabel})
                             </Link>
                           </>
@@ -1857,7 +1857,7 @@ export default function AuctionDetail() {
                 .replace("{pct}", String(Math.round(BID_BOND_RATE * 100)))}
             </p>
             <p>{ld.paWinNote}</p>
-            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
+            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-[10px] px-2 py-1.5">
               {ld.paDemoNote}
             </p>
             {/* FAZ 3 — cayma/iade şartı (bağlayıcı legal): avukat onayı normumuz, çevrilmedi */}
@@ -1887,14 +1887,14 @@ export default function AuctionDetail() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-3 text-sm text-slate-300">
-            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
+            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-[10px] px-2 py-1.5">{MASTER_LEGAL_DISCLAIMER}</p>
             <p className="leading-relaxed">{HEMEN_AL_GATE_INTRO}</p>
-            <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
-              <p className="text-xs font-medium text-emerald-200">MASAK / AML</p>
+            <div className="rounded-[10px] border border-slate-200 bg-white/[0.03] p-3 space-y-2">
+              <p className="text-xs font-normal text-emerald-200">MASAK / AML</p>
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_MASAK_BLOCK}</p>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 space-y-2">
-              <p className="text-xs font-medium text-cyan-200">{ld.hgCardSection}</p>
+            <div className="rounded-[10px] border border-slate-200 bg-white/[0.03] p-3 space-y-2">
+              <p className="text-xs font-normal text-cyan-200">{ld.hgCardSection}</p>
               <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_CARD_BLOCK}</p>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">{HEMEN_AL_DOCS_BLOCK}</p>
@@ -1933,7 +1933,7 @@ export default function AuctionDetail() {
                 <span>Hemen Al ihlal / kotuye kullanim uyarilarini okudum.</span>
               </label>
             </div>
-            <pre className="text-[10px] text-slate-500 whitespace-pre-wrap max-h-32 overflow-y-auto rounded border border-slate-200 p-2 bg-black/30">
+            <pre className="text-[10px] text-slate-500 whitespace-pre-wrap max-h-32 overflow-y-auto rounded-[3px] border border-slate-200 p-2 bg-black/30">
               {MODULE3_HEMEN_AL_ACCEPTANCE}
             </pre>
           </div>
@@ -1972,7 +1972,7 @@ export default function AuctionDetail() {
                 .replace("{amount}", calcBidBond(effectiveBuyNowTry ?? 0).toLocaleString("tr-TR"))
                 .replace("{pct}", String(Math.round(BID_BOND_RATE * 100)))}
             </p>
-            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1.5">
+            <p className="text-[11px] text-amber-200/90 bg-amber-500/10 border border-amber-500/20 rounded-[10px] px-2 py-1.5">
               {ld.pabDemoNote}
             </p>
             <div>
@@ -2044,10 +2044,10 @@ export default function AuctionDetail() {
       <Dialog open={showVirtualTour} onOpenChange={setShowVirtualTour}>
         <DialogContent className="bg-slate-900 border-slate-200 text-white max-w-4xl">
           <DialogHeader><DialogTitle className="text-xl font-normal">{ld.ovVirtualTourTitle}</DialogTitle></DialogHeader>
-          <div className="aspect-video rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center">
+          <div className="aspect-video rounded-[20px] overflow-hidden bg-slate-800 flex items-center justify-center">
             <div className="text-center">
               <Video className="w-12 h-12 text-blue-400 mx-auto mb-3" />
-              <p className="text-white font-medium mb-1">{ld.vtIntegrationTitle}</p>
+              <p className="text-white font-normal mb-1">{ld.vtIntegrationTitle}</p>
               <p className="text-sm text-slate-400">{ld.vtIntegrationDesc}</p>
               <p className="text-xs text-slate-500 mt-2">URL: <span dir="ltr">{auction.virtualTour || ld.vtUrlNotAdded}</span></p>
             </div>
@@ -2165,7 +2165,7 @@ function PriceCard({
   const colors: Record<string, string> = { blue: "text-blue-400", emerald: "text-emerald-400", sky: "text-sky-400", violet: "text-violet-400" };
   return (
     <div
-      className="relative p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"
+      className="relative p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80"
       data-demo={showDemoBadge ? "true" : undefined}
     >
       {showDemoBadge ? <DemoDataCornerBadge /> : null}
@@ -2176,14 +2176,14 @@ function PriceCard({
 }
 
 function DetailItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><div className="text-blue-500">{icon}</div><div><div className="text-xs text-slate-500">{label}</div><div className="text-sm font-medium text-white">{value}</div></div></div>;
+  return <div className="flex items-center gap-3 p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80"><div className="text-blue-500">{icon}</div><div><div className="text-xs text-slate-500">{label}</div><div className="text-sm font-normal text-white">{value}</div></div></div>;
 }
 
 function AIBadge({ label, value, color }: { label: string; value: string; color: string }) {
   const colors: Record<string, string> = { emerald: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400", blue: "bg-blue-500/10 border-blue-500/20 text-blue-400", sky: "bg-sky-500/10 border-sky-500/20 text-sky-400", violet: "bg-violet-500/10 border-violet-500/20 text-violet-400", amber: "bg-amber-500/10 border-amber-500/20 text-amber-400", slate: "bg-slate-500/10 border-slate-500/20 text-slate-400" };
-  return <div className={`p-3 rounded-xl border ${colors[color] || colors.slate}`}><div className="text-xs opacity-80">{label}</div><div className="text-lg font-normal">{value}</div></div>;
+  return <div className={`p-3 rounded-[20px] border ${colors[color] || colors.slate}`}><div className="text-xs opacity-80">{label}</div><div className="text-lg font-normal">{value}</div></div>;
 }
 
 function StatBadge({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
-  return <div className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80"><div className="text-xs text-slate-500">{label}</div><div className={`text-sm font-medium ${positive === true ? "text-emerald-400" : positive === false ? "text-red-400" : "text-white"}`}>{value}</div></div>;
+  return <div className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80"><div className="text-xs text-slate-500">{label}</div><div className={`text-sm font-normal ${positive === true ? "text-emerald-400" : positive === false ? "text-red-400" : "text-white"}`}>{value}</div></div>;
 }

@@ -89,7 +89,7 @@ export default function Compare() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-2"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
-          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3"><GitCompare className="w-8 h-8 text-cyan-400" /> Gayrimenkul Karşılaştırma</h1>
+          <h1 className="text-3xl md:text-4xl font-normal text-white flex items-center gap-3"><GitCompare className="w-8 h-8 text-cyan-400" /> Gayrimenkul Karşılaştırma</h1>
           <p className="text-slate-400 mt-2">İlanları yan yana karşılaştırın; AI skorları ve belge özeti ile seçim yapın.</p>
         </div>
 
@@ -97,19 +97,19 @@ export default function Compare() {
           <Card className="bg-slate-900/50 border-slate-200/80 mb-8 animate-scale-in">
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white">İlan seç ({selectedIds.length}/4)</h3>
+                <h3 className="text-lg font-normal text-white">İlan seç ({selectedIds.length}/4)</h3>
                 <Button size="sm" onClick={() => setShowSelector(false)} disabled={selectedIds.length < 2} className="[background:var(--gradient-cta)] text-white">Karşılaştırmaya başla</Button>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 max-h-[28rem] overflow-y-auto pe-1">
                 {catalogNorm.map((a) => (
-                  <label key={a.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-slate-200/80 bg-white/[0.02] hover:border-slate-200"}`}>
+                  <label key={a.id} className={`flex items-center gap-3 p-3 rounded-[20px] border cursor-pointer transition-all ${selectedIds.includes(a.id) ? "border-blue-500/30 bg-blue-500/5" : "border-slate-200/80 bg-white/[0.02] hover:border-slate-200"}`}>
                     <Checkbox checked={selectedIds.includes(a.id)} onCheckedChange={() => toggleSelection(a.id)} />
-                    <img loading="lazy" src={a.images[0]} alt="" className="w-14 h-10 object-cover rounded-lg shrink-0" />
+                    <img loading="lazy" src={a.images[0]} alt="" className="w-14 h-10 object-cover rounded-[10px] shrink-0" />
                     <div className="min-w-0">
                       <div className="mb-1">
                         <ListingNumberBadge auction={a} compact />
                       </div>
-                      <div className="text-sm font-medium text-white truncate">{a.title}</div>
+                      <div className="text-sm font-normal text-white truncate">{a.title}</div>
                       <div className="text-xs text-slate-500">₺{(a.currentBid / 1000000).toFixed(1)}M · {a.district}</div>
                       <ListingDocumentFooter auction={a} compact showTopRule={false} />
                     </div>
@@ -132,17 +132,17 @@ export default function Compare() {
           <>
             {/* Kazanan Kart */}
             {winner && (
-              <div className="p-5 rounded-2xl bg-blue-500/10 border border-blue-500/20 mb-8 animate-fade-in space-y-3">
+              <div className="p-5 rounded-[20px] bg-blue-500/10 border border-blue-500/20 mb-8 animate-fade-in space-y-3">
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-                  <div className="p-3 rounded-xl bg-blue-500/20"><Star className="w-6 h-6 text-blue-400" /></div>
+                  <div className="p-3 rounded-[20px] bg-blue-500/20"><Star className="w-6 h-6 text-blue-400" /></div>
                   <div className="flex-1">
                     <div className="text-sm text-slate-400">Tavsiye edilen</div>
                     <div className="mt-1 mb-1">
                       <ListingNumberBadge auction={winner.auction} compact />
                     </div>
-                    <div className="text-xl font-bold text-white">{winner.auction.title}</div>
+                    <div className="text-xl font-normal text-white">{winner.auction.title}</div>
                     <div className="flex flex-wrap items-center gap-4 mt-2">
-                      <span className="text-sm text-blue-400 font-semibold">Genel skor: {winner.score.overall}/100</span>
+                      <span className="text-sm text-blue-400 font-normal">Genel skor: {winner.score.overall}/100</span>
                       <span className="text-sm text-emerald-400">AI tahmini: ₺{winner.auction.aiPredictedPrice.toLocaleString("tr-TR")}</span>
                     </div>
                   </div>
@@ -160,7 +160,7 @@ export default function Compare() {
                   {priceAnalysis.map((item) => (
                     <div key={item.auction.id} className="flex items-center justify-between">
                       <span className="text-sm text-white">{item.auction.district}</span>
-                      <span className={`text-sm font-semibold ${item.isCheapest ? "text-emerald-400" : "text-red-400"}`}>
+                      <span className={`text-sm font-normal ${item.isCheapest ? "text-emerald-400" : "text-red-400"}`}>
                         {item.isCheapest ? "En Ucuz" : `+${item.diffPercent}%`}
                       </span>
                     </div>
@@ -173,7 +173,7 @@ export default function Compare() {
                   {valueAnalysis.map((item) => (
                     <div key={item.auction.id} className="flex items-center justify-between">
                       <span className="text-sm text-white">{item.auction.district}</span>
-                      <span className={`text-sm font-semibold ${item.isUndervalued ? "text-emerald-400" : "text-red-400"}`}>
+                      <span className={`text-sm font-normal ${item.isUndervalued ? "text-emerald-400" : "text-red-400"}`}>
                         {item.isUndervalued ? `+${item.upsidePercent}%` : `${item.upsidePercent}%`}
                       </span>
                     </div>
@@ -186,7 +186,7 @@ export default function Compare() {
                   {scores.map((s) => (
                     <div key={s.auction.id} className="flex items-center justify-between">
                       <span className="text-sm text-white">{s.auction.district}</span>
-                      <span className="text-sm font-semibold text-violet-400">%{s.auction.areaStats.rentalYield}</span>
+                      <span className="text-sm font-normal text-violet-400">%{s.auction.areaStats.rentalYield}</span>
                     </div>
                   ))}
                 </div>
@@ -196,7 +196,7 @@ export default function Compare() {
             {/* Radar + Bar Chart */}
             <div className="grid lg:grid-cols-2 gap-6 mb-8">
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4">Çok boyutlu karşılaştırma</h3>
+                <h3 className="text-lg font-normal text-white mb-4">Çok boyutlu karşılaştırma</h3>
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart data={radarData}>
@@ -211,7 +211,7 @@ export default function Compare() {
                 </div>
               </Card>
               <Card className="bg-slate-900/50 border-slate-200/80 p-5">
-                <h3 className="text-lg font-bold text-white mb-4">Fiyat karşılaştırması (milyon ₺)</h3>
+                <h3 className="text-lg font-normal text-white mb-4">Fiyat karşılaştırması (milyon ₺)</h3>
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={barData}>
@@ -235,12 +235,12 @@ export default function Compare() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-slate-200">
-                      <th className="text-start p-4 text-sm font-medium text-slate-500">Özellik</th>
+                      <th className="text-start p-4 text-sm font-normal text-slate-500">Özellik</th>
                       {scores.map((s) => <th key={s.auction.id} className="text-center p-4 min-w-[200px]">
                         <div className="flex flex-col items-center gap-2">
                           <ListingNumberBadge auction={s.auction} compact />
-                          <img loading="lazy" src={s.auction.images[0]} alt="" className="w-20 h-14 object-cover rounded-lg" />
-                          <span className="text-sm font-bold text-white">{s.auction.district}</span>
+                          <img loading="lazy" src={s.auction.images[0]} alt="" className="w-20 h-14 object-cover rounded-[10px]" />
+                          <span className="text-sm font-normal text-white">{s.auction.district}</span>
                           {s.auction.id === winner?.auction.id && <Badge className="bg-blue-500 text-white text-xs">Tavsiye</Badge>}
                         </div>
                       </th>)}
@@ -266,7 +266,7 @@ export default function Compare() {
                             const isMax = val === maxVal && scores.length > 1;
                             return (
                               <td key={s.auction.id} className="p-4 text-center">
-                                <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold ${isMax ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20" : "bg-white/5 text-white"}`}>
+                                <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-sm font-normal ${isMax ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20" : "bg-white/5 text-white"}`}>
                                   {isMax && <CheckCircle2 className="w-3.5 h-3.5" />}{val}/100
                                 </div>
                                 <div className="mt-2 h-1.5 rounded-full bg-white/10 overflow-hidden"><div className={`h-full rounded-full ${isMax ? "bg-emerald-500" : "bg-blue-500"}`} style={{ width: `${val}%` }} /></div>
@@ -277,7 +277,7 @@ export default function Compare() {
                       );
                     })}
                     {/* Fiyat Bilgileri */}
-                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Güncel teklif</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm font-bold text-blue-400">₺{s.auction.currentBid.toLocaleString("tr-TR")}</td>)}</tr>
+                    <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Güncel teklif</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm font-normal text-blue-400">₺{s.auction.currentBid.toLocaleString("tr-TR")}</td>)}</tr>
                     <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">AI tahmini</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-sky-400">₺{s.auction.aiPredictedPrice.toLocaleString("tr-TR")}</td>)}</tr>
                     <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">Piyasa değeri</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-violet-400">₺{s.auction.estimatedValue.toLocaleString("tr-TR")}</td>)}</tr>
                     <tr className="border-b border-slate-200/80"><td className="p-4 text-sm text-slate-400">m² fiyatı</td>{scores.map((s) => <td key={s.auction.id} className="p-4 text-center text-sm text-white">₺{s.auction.pricePerSqm.toLocaleString("tr-TR")}</td>)}</tr>

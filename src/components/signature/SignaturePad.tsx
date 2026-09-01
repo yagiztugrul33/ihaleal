@@ -104,7 +104,7 @@ export function SignaturePad({
   }
 
   return (
-    <div className="space-y-3 rounded-lg border border-slate-200/80 bg-white/[0.02] p-4">
+    <div className="space-y-3 rounded-[10px] border border-slate-200/80 bg-white/[0.02] p-4">
       <p className="text-xs text-amber-200/90">
         Ön onay imzası (MVP) — yasal e-imza değildir. Parmak veya fare ile imza çizin.
       </p>
@@ -112,7 +112,7 @@ export function SignaturePad({
         ref={canvasRef}
         width={320}
         height={120}
-        className="w-full max-w-md rounded border border-dashed border-slate-500 bg-white touch-none"
+        className="w-full max-w-md rounded-[3px] border border-dashed border-slate-500 bg-white touch-none"
         onPointerDown={(e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
           const { x, y } = pointerPos(e);

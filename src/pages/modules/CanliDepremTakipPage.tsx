@@ -159,8 +159,8 @@ export default function CanliDepremTakipPage() {
       <div className="mb-4">
         <LiveEarthquakeTicker />
       </div>
-      <div className="sticky top-14 z-[40] mx-[-0.25rem] mb-6 overflow-hidden rounded-xl border border-orange-400/35 bg-orange-950/45 px-3 py-3 shadow-lg backdrop-blur-md sm:mx-0">
-        <div className="flex items-center gap-3 px-4 text-xs font-semibold uppercase tracking-[0.2em] text-orange-300">
+      <div className="sticky top-14 z-[40] mx-[-0.25rem] mb-6 overflow-hidden rounded-[20px] border border-orange-400/35 bg-orange-950/45 px-3 py-3 shadow-lg backdrop-blur-md sm:mx-0">
+        <div className="flex items-center gap-3 px-4 text-xs font-normal uppercase tracking-[0.2em] text-orange-300">
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} aria-hidden /> Canlı bant özeti
         </div>
         <div className={`deprem-ticker-track mt-2 ${prefersReducedMotion ? "deprem-ticker-track--static" : "deprem-ticker-track--marquee"}`} aria-live="polite">
@@ -183,7 +183,7 @@ export default function CanliDepremTakipPage() {
                 <button
                   key={k}
                   type="button"
-                  className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+                  className={`rounded-full px-4 py-1.5 text-sm font-normal transition ${
                     windowKey === k ? "bg-sky-600 text-white" : "border border-white/15 bg-white/5 text-slate-300"
                   }`}
                   onClick={() => setWindowKey(k)}
@@ -205,7 +205,7 @@ export default function CanliDepremTakipPage() {
               </button>
             </div>
             <div>
-              <label className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-200">
+              <label className="mb-3 flex items-center gap-2 text-sm font-normal text-slate-200">
                 <Filter className="h-4 w-4 text-sky-300" aria-hidden />
                 Büyüklük alt eşik (M ≥
                 {(magMin[0] ?? 2.8).toFixed(1)})
@@ -222,7 +222,7 @@ export default function CanliDepremTakipPage() {
         <ModulePanel title="Sonuç listesi ve büyüklük dağılımı">
           <ModuleStatGrid stats={stats} />
           {loading ? (
-            <div className="rounded-lg border border-white/12 bg-black/35 p-6 text-center text-sm text-slate-400">Yükleniyor…</div>
+            <div className="rounded-[10px] border border-white/12 bg-black/35 p-6 text-center text-sm text-slate-400">Yükleniyor…</div>
           ) : (
             <>
               <ModuleDataTable
@@ -265,7 +265,7 @@ export default function CanliDepremTakipPage() {
           {HISTORICAL.map((ev) => (
             <article
               key={ev.year}
-              className="rounded-xl border border-white/10 bg-slate-950/45 p-4 text-sm leading-relaxed text-slate-300"
+              className="rounded-[20px] border border-white/10 bg-slate-950/45 p-4 text-sm leading-relaxed text-slate-300"
             >
               <header className="mb-2 flex flex-wrap items-baseline gap-2">
                 <ModuleTag tone="risk">{ev.year}</ModuleTag>

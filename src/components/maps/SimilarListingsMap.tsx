@@ -39,14 +39,14 @@ export default function SimilarListingsMap({ analyticsCitySlug, maxPins = 18 }: 
 
   if (rows.length === 0) {
     return (
-      <div className="rounded-xl border border-slate-200 bg-slate-950/40 p-6 text-sm text-slate-400">
+      <div className="rounded-[20px] border border-slate-200 bg-slate-950/40 p-6 text-sm text-slate-400">
         Bu şehir için demo katalogda kayıt yok; analiz filtresinde başka şehir seçin.
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-slate-200">
+    <div className="rounded-[20px] overflow-hidden border border-slate-200">
       <MapContainer center={center} zoom={11} style={{ height: "320px", width: "100%" }} scrollWheelZoom>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OSM" />
         {rows.map((a) => (
@@ -58,9 +58,9 @@ export default function SimilarListingsMap({ analyticsCitySlug, maxPins = 18 }: 
           >
             <Popup>
               <div className="text-slate-900 text-xs max-w-[220px]">
-                <div className="font-semibold line-clamp-2">{a.title}</div>
+                <div className="font-normal line-clamp-2">{a.title}</div>
                 <div className="text-slate-600 mt-1">{a.district}</div>
-                <div className="font-bold text-blue-700 mt-1">₺{a.currentBid.toLocaleString("tr-TR")}</div>
+                <div className="font-normal text-blue-700 mt-1">₺{a.currentBid.toLocaleString("tr-TR")}</div>
                 <Link className="text-teal-600 underline mt-1 inline-block" to={`/ilan/${a.id}`}>
                   Detay
                 </Link>

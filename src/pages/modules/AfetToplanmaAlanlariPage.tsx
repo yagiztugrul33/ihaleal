@@ -226,7 +226,7 @@ export default function AfetToplanmaAlanlariPage() {
                 className={`mod-assembly-card text-start ${selectedId === p.id ? "mod-assembly-card--selected" : ""}`}
                 onClick={() => setSelectedId(p.id)}
               >
-                <p className="font-semibold text-slate-100">{p.name}</p>
+                <p className="font-normal text-slate-100">{p.name}</p>
                 <p className="mt-1 text-xs text-slate-400">
                   {p.km.toFixed(1)} km · ~{p.walkMin} dk yürüyüş
                 </p>

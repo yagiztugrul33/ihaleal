@@ -72,8 +72,8 @@ export default function Login() {
               }
             />
             {kurumsalProfil === "emlakci" ? (
-              <div className="rounded-xl border border-teal-500/25 bg-teal-500/5 px-3 py-2.5 text-xs text-teal-100/95 space-y-2 text-start">
-                <p className="font-medium text-teal-200">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
+              <div className="rounded-[20px] border border-teal-500/25 bg-teal-500/5 px-3 py-2.5 text-xs text-teal-100/95 space-y-2 text-start">
+                <p className="font-normal text-teal-200">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
                 <ul className="list-disc ps-4 space-y-1 text-slate-400">
                   <li>
                     <Link to="/emlakçı-ortaklik" className="text-teal-400 hover:underline">
@@ -100,8 +100,8 @@ export default function Login() {
               </div>
             ) : null}
             {kurumsalProfil === "muteahhit" ? (
-              <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 px-3 py-2.5 text-xs text-amber-100/95 space-y-2 text-start">
-                <p className="font-medium text-amber-200">Müteahhit / üretici şirket oturumu</p>
+              <div className="rounded-[20px] border border-amber-500/25 bg-amber-500/5 px-3 py-2.5 text-xs text-amber-100/95 space-y-2 text-start">
+                <p className="font-normal text-amber-200">Müteahhit / üretici şirket oturumu</p>
                 <ul className="list-disc ps-4 space-y-1 text-slate-400">
                   {/* Nihai sistem anayasası iç doküman — Login akışından kaldırıldı (Master onayı). */}
                   <li>
@@ -122,7 +122,7 @@ export default function Login() {
                 </ul>
               </div>
             ) : null}
-            {error && <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
+            {error && <div className="p-3 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="text-sm text-slate-400 mb-1.5 block">E-posta</label>
@@ -167,7 +167,7 @@ export default function Login() {
               <Button
                 type="submit"
                 disabled={!isSupabaseConfigured() || loading}
-                className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-11 disabled:opacity-50"
+                className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-normal h-11 disabled:opacity-50"
               >
                 {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
               </Button>
@@ -185,7 +185,7 @@ export default function Login() {
                         : "/kayit",
                   )
                 }
-                className="text-blue-400 hover:text-blue-300 font-medium"
+                className="text-blue-400 hover:text-blue-300 font-normal"
               >
                 Kayıt Ol
               </button>

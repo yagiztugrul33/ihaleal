@@ -249,7 +249,7 @@ export default function SSS() {
           { title: "Kurumsal", desc: "Ofis, entegrasyon, ortaklık" },
         ].map((card) => (
           <article key={card.title} className="card-warm !p-4">
-            <p className="text-sm font-semibold" style={{ color: "var(--color-text)" }}>{card.title}</p>
+            <p className="text-sm font-normal" style={{ color: "var(--color-text)" }}>{card.title}</p>
             <p className="mt-1 text-xs" style={{ color: "var(--color-text-muted)" }}>{card.desc}</p>
           </article>
         ))}
@@ -272,7 +272,7 @@ export default function SSS() {
           <button
             type="button"
             onClick={() => setKat("hepsi")}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ring-offset-[var(--color-bg)] ${
+            className={`px-3 py-1.5 rounded-full text-xs font-normal border transition-colors ring-offset-[var(--color-bg)] ${
               kat === "hepsi" ? "ring-2 ring-[var(--color-primary)] ring-offset-1" : ""
             }`}
             style={{
@@ -292,7 +292,7 @@ export default function SSS() {
                 key={k.id}
                 type="button"
                 onClick={() => setKat(k.id)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ring-offset-[var(--color-bg)] ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-normal border transition-colors ring-offset-[var(--color-bg)] ${
                   active ? "ring-2 ring-[var(--color-primary)] ring-offset-1" : ""
                 }`}
                 style={{
@@ -326,7 +326,7 @@ export default function SSS() {
                   className="w-full px-5 py-4 flex items-center justify-between gap-4 text-start transition-colors hover:brightness-110"
                   style={{ color: "var(--color-text)" }}
                 >
-                  <span className="font-medium pe-2">{item.soru}</span>
+                  <span className="font-normal pe-2">{item.soru}</span>
                   <ChevronDown
                     className={`h-5 w-5 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
                     style={{ color: "var(--color-text-muted)" }}
@@ -347,13 +347,13 @@ export default function SSS() {
       </section>
 
       <section
-        className="py-12 text-center rounded-2xl border mb-8"
+        className="py-12 text-center rounded-[20px] border mb-8"
         style={{
           borderColor: "var(--cizgi)",
           background: "var(--zemin-yumusak)",
         }}
       >
-        <h2 className="text-xl font-bold mb-2" style={{ color: "var(--color-text)" }}>
+        <h2 className="text-xl font-normal mb-2" style={{ color: "var(--color-text)" }}>
           Cevabını bulamadınız mı?
         </h2>
         <p className="text-sm max-w-lg mx-auto mb-6" style={{ color: "var(--color-text-muted)" }}>

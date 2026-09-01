@@ -11,7 +11,7 @@ export default function Kunye() {
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
           <FileText className="w-7 h-7 text-cyan-400" />
-          <h1 className="text-3xl md:text-4xl font-bold text-white">Künye</h1>
+          <h1 className="text-3xl md:text-4xl font-normal text-white">Künye</h1>
         </div>
         <p className="text-slate-400 mb-8 text-sm leading-relaxed">
           6563 Sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun ve TTK uyarınca
@@ -20,14 +20,14 @@ export default function Kunye() {
         </p>
 
         <section className="space-y-4">
-          <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Building2 className="w-5 h-5 text-cyan-300" />
-              <h2 className="text-lg font-semibold text-white">Şirket Bilgileri</h2>
+              <h2 className="text-lg font-normal text-white">Şirket Bilgileri</h2>
             </div>
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
               <dt className="text-slate-400">Unvan</dt>
-              <dd className="text-slate-100 font-medium">
+              <dd className="text-slate-100 font-normal">
                 İHALEAL GAYRİMENKUL VE İNŞAAT SAN. TİC. LTD. ŞTİ.
               </dd>
               <dt className="text-slate-400">Marka</dt>
@@ -39,10 +39,10 @@ export default function Kunye() {
             </dl>
           </div>
 
-          <div className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
               <MapPin className="w-5 h-5 text-cyan-300" />
-              <h2 className="text-lg font-semibold text-white">Adres</h2>
+              <h2 className="text-lg font-normal text-white">Adres</h2>
             </div>
             <address className="not-italic text-slate-200 text-sm leading-relaxed">
               Esentepe Mahallesi, Büyükdere Caddesi, Astoria<br />
@@ -51,10 +51,10 @@ export default function Kunye() {
             </address>
           </div>
 
-          <div className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Hash className="w-5 h-5 text-cyan-300" />
-              <h2 className="text-lg font-semibold text-white">Yasal Numaralar</h2>
+              <h2 className="text-lg font-normal text-white">Yasal Numaralar</h2>
             </div>
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
               <dt className="text-slate-400">Vergi Dairesi</dt>
@@ -68,14 +68,14 @@ export default function Kunye() {
             </dl>
           </div>
 
-          <div className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
               <FileText className="w-5 h-5 text-cyan-300" />
-              <h2 className="text-lg font-semibold text-white">Sorumlu Emlak Danışmanı</h2>
+              <h2 className="text-lg font-normal text-white">Sorumlu Emlak Danışmanı</h2>
             </div>
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
               <dt className="text-slate-400">Ad Soyad</dt>
-              <dd className="text-slate-100 font-medium">Halil İbrahim Biçer</dd>
+              <dd className="text-slate-100 font-normal">Halil İbrahim Biçer</dd>
               <dt className="text-slate-400">Seviye</dt>
               <dd className="text-slate-100">Seviye 5</dd>
               <dt className="text-slate-400">Yeterlilik Belge No</dt>
@@ -83,10 +83,10 @@ export default function Kunye() {
             </dl>
           </div>
 
-          <div className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5">
+          <div className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Mail className="w-5 h-5 text-cyan-300" />
-              <h2 className="text-lg font-semibold text-white">İletişim</h2>
+              <h2 className="text-lg font-normal text-white">İletişim</h2>
             </div>
             <div className="space-y-2 text-sm">
               <p className="text-slate-200 flex items-center gap-2">

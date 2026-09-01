@@ -38,10 +38,10 @@ export default function BlogPostPage() {
               Yaklaşık {estimateReadingMinutes(post)} dk okuma
             </span>
             {post.is_demo_content ? (
-              <span className="rounded bg-slate-800 px-2 py-0.5 text-[10px] uppercase text-slate-400">demo içerik</span>
+              <span className="rounded-[3px] bg-slate-800 px-2 py-0.5 text-[10px] uppercase text-slate-400">demo içerik</span>
             ) : null}
           </div>
-          <h1 className="text-3xl font-bold leading-tight text-white">{post.title}</h1>
+          <h1 className="text-3xl font-normal leading-tight text-white">{post.title}</h1>
           <p className="mt-3 text-sm text-slate-500">
             {post.author.name}
             {post.author.role ? ` · ${post.author.role}` : ""}

@@ -11,7 +11,7 @@ export default function Destek() {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-3 mb-4">
           <LifeBuoy className="w-7 h-7 text-cyan-400" />
-          <h1 className="text-3xl md:text-4xl font-bold text-white">Destek</h1>
+          <h1 className="text-3xl md:text-4xl font-normal text-white">Destek</h1>
         </div>
         <p className="text-slate-400 mb-8 max-w-2xl">
           Size nasıl yardımcı olabiliriz? Önce sık sorulan sorulara bakın, çözüm bulamazsanız
@@ -21,40 +21,40 @@ export default function Destek() {
         <div className="grid sm:grid-cols-2 gap-4 mb-8">
           <Link
             to="/sss"
-            className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5 hover:border-cyan-400/40 transition-colors block"
+            className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5 hover:border-cyan-400/40 transition-colors block"
           >
             <FileQuestion className="w-8 h-8 text-cyan-300 mb-3" />
-            <h2 className="text-lg font-semibold text-white mb-1">Sık Sorulan Sorular</h2>
+            <h2 className="text-lg font-normal text-white mb-1">Sık Sorulan Sorular</h2>
             <p className="text-sm text-slate-400">İhale akışı, komisyon, KYC ve güvenlik için hazır cevaplar.</p>
           </Link>
           <Link
             to="/rehber"
-            className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5 hover:border-cyan-400/30 transition-colors block"
+            className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5 hover:border-cyan-400/30 transition-colors block"
           >
             <HelpCircle className="w-8 h-8 text-cyan-300 mb-3" />
-            <h2 className="text-lg font-semibold text-white mb-1">Rehber</h2>
+            <h2 className="text-lg font-normal text-white mb-1">Rehber</h2>
             <p className="text-sm text-slate-400">Adım adım kullanım kılavuzu, ekran görüntüleriyle.</p>
           </Link>
           <Link
             to="/iletisim"
-            className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5 hover:border-cyan-400/30 transition-colors block"
+            className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5 hover:border-cyan-400/30 transition-colors block"
           >
             <MessageSquare className="w-8 h-8 text-cyan-300 mb-3" />
-            <h2 className="text-lg font-semibold text-white mb-1">İletişim Formu</h2>
+            <h2 className="text-lg font-normal text-white mb-1">İletişim Formu</h2>
             <p className="text-sm text-slate-400">Mesaj bırakın; iş günü 24 saat içinde dönüş.</p>
           </Link>
           <Link
             to="/guvenlik"
-            className="rounded-2xl border border-slate-700/50 bg-slate-900/40 p-5 hover:border-cyan-400/30 transition-colors block"
+            className="rounded-[20px] border border-slate-700/50 bg-slate-900/40 p-5 hover:border-cyan-400/30 transition-colors block"
           >
             <ShieldCheck className="w-8 h-8 text-cyan-300 mb-3" />
-            <h2 className="text-lg font-semibold text-white mb-1">Güvenlik Merkezi</h2>
+            <h2 className="text-lg font-normal text-white mb-1">Güvenlik Merkezi</h2>
             <p className="text-sm text-slate-400">Hesap güvenliği, KYC ve şifre yönetimi rehberi.</p>
           </Link>
         </div>
 
-        <div className="rounded-2xl border border-cyan-400/20 bg-cyan-500/5 p-5 mb-6">
-          <h3 className="text-base font-semibold text-cyan-100 mb-2 flex items-center gap-2">
+        <div className="rounded-[20px] border border-cyan-400/20 bg-cyan-500/5 p-5 mb-6">
+          <h3 className="text-base font-normal text-cyan-100 mb-2 flex items-center gap-2">
             <Mail className="w-5 h-5" /> E-posta
           </h3>
           <p className="text-slate-200 text-sm">
@@ -65,8 +65,8 @@ export default function Destek() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
-          <h3 className="text-base font-semibold text-amber-100 mb-2 flex items-center gap-2">
+        <div className="rounded-[20px] border border-amber-500/20 bg-amber-500/5 p-5">
+          <h3 className="text-base font-normal text-amber-100 mb-2 flex items-center gap-2">
             <Phone className="w-5 h-5" /> Acil durum
           </h3>
           <p className="text-slate-200 text-sm leading-relaxed">

@@ -211,7 +211,7 @@ export default function DepremRiskHaritasiMapInner() {
 
   return (
     <div
-      className={`deprem-risk-map-shell relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950 ${sizeClass}`}
+      className={`deprem-risk-map-shell relative overflow-hidden rounded-[20px] border border-white/10 bg-slate-950 ${sizeClass}`}
     >
       <MapContainer center={CENTER_DEF} zoom={ZOOM_DEF} className={`z-0 h-full ${sizeClass}`} scrollWheelZoom>
         <TileLayer
@@ -283,7 +283,7 @@ export default function DepremRiskHaritasiMapInner() {
                   <br />
                   İhaleal deprem skoru çıktısı: <em>{l.riskTag}</em>/100 (senaryolu özet bağlamıdır).
                   <Link
-                    className="mt-2 block font-semibold text-sky-500 underline"
+                    className="mt-2 block font-normal text-sky-500 underline"
                     to={`/ilanlar?depremMin=${Math.max(68, Math.floor(l.riskTag - 4))}`}
                   >
                     Uygun ilanları listele →
@@ -333,8 +333,8 @@ export default function DepremRiskHaritasiMapInner() {
 
       <div className="pointer-events-none absolute inset-0 z-[500] flex flex-col justify-between p-3 sm:p-4">
         <div className="pointer-events-auto flex flex-col gap-3 sm:max-w-sm">
-          <div className="rounded-2xl border border-white/15 bg-slate-950/82 p-4 shadow-xl backdrop-blur-md">
-            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
+          <div className="rounded-[20px] border border-white/15 bg-slate-950/82 p-4 shadow-xl backdrop-blur-md">
+            <div className="mb-3 flex items-center gap-2 text-sm font-normal text-white">
               <Search className="h-4 w-4 text-sky-400" aria-hidden />
               Demo adres arama kümesi
             </div>
@@ -345,7 +345,7 @@ export default function DepremRiskHaritasiMapInner() {
               <input
                 id="adr-search-input"
                 type="text"
-                className="min-w-0 flex-1 rounded-lg border border-white/15 bg-black/38 px-3 py-2 text-sm text-white placeholder:text-slate-500"
+                className="min-w-0 flex-1 rounded-[10px] border border-white/15 bg-black/38 px-3 py-2 text-sm text-white placeholder:text-slate-500"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Örn: Kadıköy Moda..."
@@ -380,8 +380,8 @@ export default function DepremRiskHaritasiMapInner() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/15 bg-slate-950/82 p-4 shadow-xl backdrop-blur-md">
-            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
+          <div className="rounded-[20px] border border-white/15 bg-slate-950/82 p-4 shadow-xl backdrop-blur-md">
+            <div className="mb-3 flex items-center gap-2 text-sm font-normal text-white">
               <Layers className="h-4 w-4 text-amber-300" aria-hidden />
               Katman kısayolları
             </div>
@@ -400,7 +400,7 @@ export default function DepremRiskHaritasiMapInner() {
                   key={key}
                   type="button"
                   onClick={() => toggle(key)}
-                  className={`flex items-center gap-2 rounded-xl border px-2.5 py-2 text-start transition ${
+                  className={`flex items-center gap-2 rounded-[20px] border px-2.5 py-2 text-start transition ${
                     on ? "border-sky-500/45 bg-sky-500/10 text-sky-100" : "border-white/10 bg-black/30 text-slate-400"
                   }`}
                 >
@@ -411,7 +411,7 @@ export default function DepremRiskHaritasiMapInner() {
             </div>
             <Link
               to="/ilanlar?depremMin=70"
-              className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-center text-sm font-semibold text-emerald-200 hover:bg-emerald-500/15"
+              className="mt-4 flex items-center justify-center gap-2 rounded-[20px] border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-center text-sm font-normal text-emerald-200 hover:bg-emerald-500/15"
             >
               Deprem filtresini 70+ ile aç
               <ExternalLink className="h-4 w-4" aria-hidden />
@@ -420,7 +420,7 @@ export default function DepremRiskHaritasiMapInner() {
         </div>
 
         <div className="pointer-events-none flex justify-end">
-          <div className="pointer-events-auto max-w-md rounded-2xl border border-white/12 bg-slate-950/75 px-4 py-3 text-[0.72rem] leading-relaxed text-slate-300 backdrop-blur-md">
+          <div className="pointer-events-auto max-w-md rounded-[20px] border border-white/12 bg-slate-950/75 px-4 py-3 text-[0.72rem] leading-relaxed text-slate-300 backdrop-blur-md">
             <div className="flex items-start gap-2">
               <ModuleTag tone="warn">Yönetsel bildirici</ModuleTag>
             </div>

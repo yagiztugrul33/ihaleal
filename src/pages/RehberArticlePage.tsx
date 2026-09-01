@@ -29,7 +29,7 @@ export default function RehberArticlePage() {
           ]}
         />
 
-        <h1 className="flex items-center gap-3 text-2xl font-bold text-white md:text-3xl">
+        <h1 className="flex items-center gap-3 text-2xl font-normal text-white md:text-3xl">
           <BookOpen className="h-8 w-8 text-blue-400" />
           {guide.title}
         </h1>
@@ -38,7 +38,7 @@ export default function RehberArticlePage() {
         <div className="mt-8 space-y-8">
           {guide.sections.map((section) => (
             <section key={section.heading}>
-              <h2 className="text-lg font-semibold text-white">{section.heading}</h2>
+              <h2 className="text-lg font-normal text-white">{section.heading}</h2>
               <div className="mt-3 space-y-3 text-sm leading-relaxed text-slate-300">
                 {section.paragraphs.map((p, i) => (
                   <p key={i}>{p}</p>
@@ -51,7 +51,7 @@ export default function RehberArticlePage() {
         <Card className="mt-10 border-blue-500/20 bg-blue-500/5">
           <CardContent className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-medium text-white">İlgili araç</p>
+              <p className="text-sm font-normal text-white">İlgili araç</p>
               <p className="text-xs text-slate-400">{guide.relatedTool.label}</p>
             </div>
             <Button asChild className="[background:var(--gradient-cta)] text-white">
@@ -61,13 +61,13 @@ export default function RehberArticlePage() {
         </Card>
 
         <aside className="mt-10 border-t border-white/10 pt-8">
-          <h3 className="text-sm font-semibold text-slate-400">Diğer rehberler</h3>
+          <h3 className="text-sm font-normal text-slate-400">Diğer rehberler</h3>
           <ul className="mt-3 flex flex-wrap gap-2">
             {REAL_ESTATE_GUIDES.filter((g) => g.slug !== guide.slug).map((g) => (
               <li key={g.slug}>
                 <Link
                   to={`/rehber/${g.slug}`}
-                  className="rounded-lg border border-white/10 px-3 py-1.5 text-xs text-slate-300 hover:border-blue-500/40 hover:text-white"
+                  className="rounded-[10px] border border-white/10 px-3 py-1.5 text-xs text-slate-300 hover:border-blue-500/40 hover:text-white"
                 >
                   {g.title}
                 </Link>

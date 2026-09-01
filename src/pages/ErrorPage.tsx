@@ -16,8 +16,8 @@ export default function ErrorPage({ error, resetError }: ErrorPageProps) {
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center px-6 py-16 text-center">
       <BrandLockup logoSize="md" layout="stack" showSlogan={false} />
-      <h1 className="text-7xl sm:text-8xl font-bold text-red-400/90 mt-6">500</h1>
-      <h2 className="text-2xl sm:text-3xl font-semibold mt-4 text-white">Bir sorun oluştu</h2>
+      <h1 className="text-7xl sm:text-8xl font-normal text-red-400/90 mt-6">500</h1>
+      <h2 className="text-2xl sm:text-3xl font-normal mt-4 text-white">Bir sorun oluştu</h2>
       <p className="text-slate-400 mt-4 max-w-md mx-auto leading-relaxed">
         Sayfa yüklenirken beklenmedik bir hata oluştu. Lütfen tekrar deneyin; sorun sürerse ana sayfadan devam edin.
       </p>
@@ -28,14 +28,14 @@ export default function ErrorPage({ error, resetError }: ErrorPageProps) {
         <button
           type="button"
           onClick={onRetry}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg [background:var(--gradient-cta)] text-white font-medium hover:opacity-95 transition-opacity"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-[10px] [background:var(--gradient-cta)] text-white font-normal hover:opacity-95 transition-opacity"
         >
           <RefreshCw className="h-5 w-5" />
           Tekrar Dene
         </button>
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-slate-200 hover:bg-white/5 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-[10px] border border-white/15 text-slate-200 hover:bg-white/5 transition-colors"
         >
           <Home className="h-5 w-5" />
           Ana Sayfa

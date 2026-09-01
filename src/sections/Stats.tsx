@@ -19,9 +19,9 @@ export function Stats() {
             { icon: <MapPin className="w-6 h-6 text-amber-400" />, value: "34", label: "Şehir", color: "bg-amber-500/10" },
           ].map((s, idx) => (
             <div key={idx} className={`stat-card-institutional ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ transitionDelay: `${idx * 120}ms` }}>
-              <div className="flex items-center justify-between mb-4"><div className="p-2.5 rounded-xl ring-1 group-hover:scale-105 transition-all duration-300 motion-reduce:group-hover:scale-100" style={{ background: "var(--color-bg-soft)", borderColor: "var(--color-border)" }}>{s.icon}</div><div className="h-1 w-10 rounded-full bg-gradient-to-r from-[var(--color-border)] to-[var(--color-primary)] group-hover:w-14 transition-all duration-500" /></div>
-              <div className="text-3xl lg:text-4xl font-bold mb-1" style={{ color: "var(--color-primary)" }}>{s.value}</div>
-              <div className="text-sm font-medium" style={{ color: "var(--color-text-muted)" }}>{s.label}</div>
+              <div className="flex items-center justify-between mb-4"><div className="p-2.5 rounded-[20px] ring-1 group-hover:scale-105 transition-all duration-300 motion-reduce:group-hover:scale-100" style={{ background: "var(--color-bg-soft)", borderColor: "var(--color-border)" }}>{s.icon}</div><div className="h-1 w-10 rounded-full bg-gradient-to-r from-[var(--color-border)] to-[var(--color-primary)] group-hover:w-14 transition-all duration-500" /></div>
+              <div className="text-3xl lg:text-4xl font-normal mb-1" style={{ color: "var(--color-primary)" }}>{s.value}</div>
+              <div className="text-sm font-normal" style={{ color: "var(--color-text-muted)" }}>{s.label}</div>
             </div>
           ))}
         </div>

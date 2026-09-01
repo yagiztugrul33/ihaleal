@@ -40,7 +40,7 @@ export default function PreLaunch() {
           <div className="flex justify-center mb-6">
             <BrandLockup logoSize="lg" layout="stack" showSlogan />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-4">Teşekkürler!</h1>
+          <h1 className="text-3xl font-normal text-white mb-4">Teşekkürler!</h1>
           <p className="text-slate-300">Lansman duyurularımızı e-postanıza göndereceğiz.</p>
         </div>
       </div>
@@ -49,11 +49,11 @@ export default function PreLaunch() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0A1F44] via-slate-900 to-[#F59E0B]/25 flex items-center justify-center p-6">
-      <div className="bg-slate-950/90 border border-slate-200 rounded-2xl p-8 max-w-lg w-full shadow-2xl">
+      <div className="bg-slate-950/90 border border-slate-200 rounded-[20px] p-8 max-w-lg w-full shadow-2xl">
         <div className="flex justify-center mb-6">
           <BrandLockup logoSize="lg" layout="stack" showSlogan />
         </div>
-        <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center">
+        <h1 className="text-2xl md:text-3xl font-normal text-white mb-3 text-center">
           Lansmana Hazırlık
         </h1>
         <p className="text-xl text-slate-300 mb-6 text-center">Türkiye&apos;nin gayrimenkul ihale deneyimi yakında.</p>
@@ -62,7 +62,7 @@ export default function PreLaunch() {
         </p>
         {error ? <div className="mb-4 text-sm text-red-400">{error}</div> : null}
         {!supabaseReady ? (
-          <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
+          <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
             Lansman kaydı için <code className="text-amber-100">.env.local</code> ile Supabase yapılandırın.
           </div>
         ) : (
@@ -72,7 +72,7 @@ export default function PreLaunch() {
               placeholder="Ad Soyad"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 rounded-lg bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             />
             <input
               type="email"
@@ -80,19 +80,19 @@ export default function PreLaunch() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-3 rounded-lg bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             />
             <input
               type="tel"
               placeholder="Telefon (isteğe bağlı)"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full p-3 rounded-lg bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              className="w-full p-3 rounded-[10px] bg-slate-900 border border-white/15 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full p-3 bg-amber-500 text-slate-950 rounded-lg font-bold hover:bg-amber-400 disabled:opacity-50"
+              className="w-full p-3 bg-amber-500 text-slate-950 rounded-[10px] font-normal hover:bg-amber-400 disabled:opacity-50"
             >
               {loading ? "Kaydediliyor..." : "Listeye katıl"}
             </button>

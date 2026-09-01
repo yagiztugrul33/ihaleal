@@ -17,7 +17,7 @@ export function PageShell({ badge, title, subtitle, children, cta, className = "
         <div className="mx-auto max-w-5xl px-4 text-center relative z-10">
           {badge ? <span className="badge-corp mb-4 inline-block">{badge}</span> : null}
           <h1
-            className="text-3xl md:text-5xl font-bold leading-tight tracking-tight"
+            className="text-3xl md:text-5xl font-normal leading-tight tracking-tight"
             style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}
           >
             {title}

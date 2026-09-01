@@ -129,14 +129,14 @@ export default function AileAcilPlanPage() {
               return (
                 <div
                   key={s.title}
-                  className={`rounded-xl border px-3 py-2 text-sm ${
+                  className={`rounded-[20px] border px-3 py-2 text-sm ${
                     active ? "border-pink-500/40 bg-pink-500/10" : "border-white/10 bg-white/[0.02]"
                   }`}
                 >
                   <div className="flex items-start gap-2">
                     <Icon className="mt-0.5 h-4 w-4 text-pink-300" aria-hidden />
                     <div>
-                      <p className="font-semibold text-white">
+                      <p className="font-normal text-white">
                         {i + 1}. {s.title}
                       </p>
                       <p className="text-xs text-slate-400">{s.body}</p>
@@ -208,7 +208,7 @@ export default function AileAcilPlanPage() {
                 <p className="text-sm text-slate-400">Taşınacak evrakları işaretleyin:</p>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {DOC_OPTIONS.map((d) => (
-                    <label key={d.id} className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm">
+                    <label key={d.id} className="flex cursor-pointer items-center gap-2 rounded-[10px] border border-white/10 bg-black/30 px-3 py-2 text-sm">
                       <input
                         type="checkbox"
                         checked={state.documents.includes(d.id)}
@@ -226,7 +226,7 @@ export default function AileAcilPlanPage() {
                 <p className="text-sm text-slate-400">Tesisat güvenliği için görev dağılımı:</p>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {UTIL_OPTIONS.map((u) => (
-                    <label key={u.id} className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm">
+                    <label key={u.id} className="flex cursor-pointer items-center gap-2 rounded-[10px] border border-white/10 bg-black/30 px-3 py-2 text-sm">
                       <input
                         type="checkbox"
                         checked={state.utilities.includes(u.id)}
@@ -258,12 +258,12 @@ export default function AileAcilPlanPage() {
             )}
 
             {step === 5 && (
-              <div id="print-aile-plan" className="mod-print-root space-y-4 rounded-xl border border-white/12 bg-slate-950/50 p-4 print:bg-white print:text-black">
+              <div id="print-aile-plan" className="mod-print-root space-y-4 rounded-[20px] border border-white/12 bg-slate-950/50 p-4 print:bg-white print:text-black">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <ModuleTag tone="ok">Plan taslağı</ModuleTag>
                   {finalized ? <ModuleTag tone="warn">Kilitlendi</ModuleTag> : null}
                 </div>
-                <pre className="whitespace-pre-wrap rounded-lg border border-white/10 bg-black/40 p-4 text-sm leading-relaxed text-slate-200">
+                <pre className="whitespace-pre-wrap rounded-[10px] border border-white/10 bg-black/40 p-4 text-sm leading-relaxed text-slate-200">
                   {shareBody}
                 </pre>
                 <div className="flex flex-wrap gap-3 mod-print-actions">

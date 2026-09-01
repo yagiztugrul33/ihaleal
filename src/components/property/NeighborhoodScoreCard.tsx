@@ -16,11 +16,11 @@ export function NeighborhoodScoreCard({ label, score, detail }: Props) {
   const c = scoreColor(score);
   return (
     <div
-      className={`flex flex-col items-center gap-2 rounded-xl border ${c.ring} ${c.bg} p-4 transition hover:scale-[1.02]`}
+      className={`flex flex-col items-center gap-2 rounded-[20px] border ${c.ring} ${c.bg} p-4 transition hover:scale-[1.02]`}
       title={detail ?? label}
     >
-      <div className={`text-3xl font-black ${c.text}`}>{score}</div>
-      <div className="text-xs font-semibold uppercase tracking-wider text-slate-300">{label}</div>
+      <div className={`text-3xl font-normal ${c.text}`}>{score}</div>
+      <div className="text-xs font-normal uppercase tracking-wider text-slate-300">{label}</div>
       {detail ? <div className="text-[10px] text-slate-500 text-center line-clamp-2">{detail}</div> : null}
     </div>
   );

@@ -45,9 +45,9 @@ export function HomeStats() {
                 <div className={"ref-metric-icon " + m.bg}>
                   <Icon className={"h-5 w-5 " + m.color} aria-hidden />
                 </div>
-                <p className="text-xs font-medium uppercase tracking-wider text-slate-500">{m.label}</p>
-                <p className="mt-1 text-2xl font-bold tracking-tight text-white md:text-3xl">{display}</p>
-                <p className="mt-1 text-xs font-semibold text-emerald-400">+{((idx + 1) * 2.1).toFixed(1)}%</p>
+                <p className="text-xs font-normal uppercase tracking-wider text-slate-500">{m.label}</p>
+                <p className="mt-1 text-2xl font-normal tracking-tight text-white md:text-3xl">{display}</p>
+                <p className="mt-1 text-xs font-normal text-emerald-400">+{((idx + 1) * 2.1).toFixed(1)}%</p>
               </div>
             );
           })}

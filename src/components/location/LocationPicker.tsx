@@ -175,14 +175,14 @@ export function LocationPicker({
       {/* DROPDOWN: İl + İlçe (yan yana md+) */}
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1.5">
+          <label className="block text-xs font-normal text-slate-300 mb-1.5">
             <MapPin className="inline h-3.5 w-3.5 me-1" />İl
           </label>
           <select
             value={value?.province ?? ""}
             onChange={(e) => handleProvinceChange(e.target.value)}
             disabled={disabled}
-            className="w-full rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
+            className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
             aria-label="İl seçimi"
           >
             <option value="">İl seçiniz</option>
@@ -194,14 +194,14 @@ export function LocationPicker({
           </select>
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1.5">
+          <label className="block text-xs font-normal text-slate-300 mb-1.5">
             İlçe {districts.length === 0 && value?.province && <span className="text-[10px] text-amber-300">(veri yok — haritadan pin atın)</span>}
           </label>
           <select
             value={value?.district ?? ""}
             onChange={(e) => handleDistrictChange(e.target.value)}
             disabled={disabled || !value?.province || districts.length === 0}
-            className="w-full rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
+            className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
             aria-label="İlçe seçimi"
           >
             <option value="">İlçe seçiniz</option>
@@ -215,7 +215,7 @@ export function LocationPicker({
       {/* OPSİYONEL ADRES ARAMA (Nominatim) */}
       {showSearch && (
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1.5">
+          <label className="block text-xs font-normal text-slate-300 mb-1.5">
             Adres ara (opsiyonel — OpenStreetMap)
           </label>
           <div className="relative">
@@ -225,7 +225,7 @@ export function LocationPicker({
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Mahalle, cadde, sokak..."
               disabled={disabled}
-              className="w-full rounded-lg border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
+              className="w-full rounded-[10px] border border-slate-700 bg-slate-900/60 px-3 py-2 text-sm text-white focus:border-cyan-500 focus:outline-none disabled:opacity-50"
             />
             {searching && (
               <Loader2 className="absolute end-3 top-2.5 h-4 w-4 animate-spin text-cyan-400" />
@@ -236,7 +236,7 @@ export function LocationPicker({
 
       {/* HARİTA (Leaflet + OpenStreetMap) */}
       {showMap && (
-        <div className="rounded-lg overflow-hidden border border-slate-700">
+        <div className="rounded-[10px] overflow-hidden border border-slate-700">
           <MapContainer
             center={mapCenter}
             zoom={mapZoom}
@@ -262,7 +262,7 @@ export function LocationPicker({
 
       {/* SEÇİLEN KONUM ÖZETİ */}
       {value?.formattedAddress && (
-        <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-200">
+        <div className="rounded-[10px] border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-200">
           <MapPin className="inline h-3.5 w-3.5 me-1" />
           <strong>Seçili konum:</strong> {value.formattedAddress}
           {value?.lat !== undefined && value?.lng !== undefined && (

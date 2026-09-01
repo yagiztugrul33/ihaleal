@@ -40,7 +40,7 @@ export default function EmlakciLanding() {
       <section className="hero-warm py-20 md:py-28">
         <div className="relative z-10 mx-auto max-w-6xl px-4">
           <span className="badge-corp mb-6 inline-block">Emlakçı Operasyon Merkezi</span>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-6xl" style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}>
+          <h1 className="text-4xl font-normal leading-tight tracking-tight md:text-6xl" style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}>
             Emlak ofisleri için
             <br />
             <span style={{ color: "var(--color-text)" }}>uçtan uca işlem motoru</span>
@@ -65,7 +65,7 @@ export default function EmlakciLanding() {
 
       <section className="py-14" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+          <h2 className="text-3xl font-normal md:text-4xl" style={{ color: "var(--color-text)" }}>
             Neden biz?
           </h2>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -83,13 +83,13 @@ export default function EmlakciLanding() {
 
       <section className="py-14 md:py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+          <h2 className="text-3xl font-normal md:text-4xl" style={{ color: "var(--color-text)" }}>
             Nasıl çalışır?
           </h2>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {FLOW.map((step) => (
               <article key={step.title} className="card-warm">
-                <h3 className="text-lg font-bold" style={{ color: "var(--color-text)" }}>
+                <h3 className="text-lg font-normal" style={{ color: "var(--color-text)" }}>
                   {step.title}
                 </h3>
                 <p className="mt-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
@@ -103,7 +103,7 @@ export default function EmlakciLanding() {
 
       <section className="py-14" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+          <h2 className="text-3xl font-normal md:text-4xl" style={{ color: "var(--color-text)" }}>
             Araç seti
           </h2>
           <p className="mt-3 max-w-3xl text-sm" style={{ color: "var(--color-text-muted)" }}>
@@ -119,10 +119,10 @@ export default function EmlakciLanding() {
                   onClick={() => setSelected(f)}
                   className="card-warm text-start transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(96,165,250,0.45)]"
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: "var(--color-bg-soft)", color: "var(--color-text)" }}>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-[20px]" style={{ background: "var(--color-bg-soft)", color: "var(--color-text)" }}>
                     <Icon className="h-6 w-6" aria-hidden />
                   </div>
-                  <h3 className="mb-2 text-lg font-bold" style={{ color: "var(--color-text)" }}>
+                  <h3 className="mb-2 text-lg font-normal" style={{ color: "var(--color-text)" }}>
                     {f.title}
                   </h3>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
@@ -137,7 +137,7 @@ export default function EmlakciLanding() {
 
       <section className="py-10 border-y border-[var(--color-border)]" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-2xl font-bold md:text-3xl" style={{ color: "var(--color-text)" }}>
+          <h2 className="text-2xl font-normal md:text-3xl" style={{ color: "var(--color-text)" }}>
             Bağlı araçlar (tek akış)
           </h2>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -154,12 +154,12 @@ export default function EmlakciLanding() {
 
       <section id="planlar" className="py-14 md:py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+          <h2 className="text-3xl font-normal md:text-4xl" style={{ color: "var(--color-text)" }}>
             Kazanç ve komisyon modeli
           </h2>
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
             <article className="card-warm lg:col-span-2">
-              <div className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300">
+              <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-emerald-300">
                 <HandCoins className="h-4 w-4" /> Örnek senaryo
               </div>
               <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
@@ -173,13 +173,13 @@ export default function EmlakciLanding() {
               </ul>
             </article>
             <article className="card-warm">
-              <div className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300">
+              <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-cyan-300">
                 <Handshake className="h-4 w-4" /> Ortaklık ilkesi
               </div>
               <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
                 By-pass etmeyen model: platform dışı kısa yol yerine kayıtlı işlem akışı teşvik edilir.
               </p>
-              <Link to="/emlakci-ortaklik" className="mt-4 inline-flex text-sm font-semibold text-cyan-300 hover:text-cyan-200">
+              <Link to="/emlakci-ortaklik" className="mt-4 inline-flex text-sm font-normal text-cyan-300 hover:text-cyan-200">
                 Detaylı ortaklık sayfası →
               </Link>
             </article>
@@ -193,7 +193,7 @@ export default function EmlakciLanding() {
                 <div className="text-xs uppercase tracking-widest mb-2" style={{ color: "var(--uzerine-ikincil)" }}>
                   {p.name}
                 </div>
-                <div className="mb-1 text-3xl font-bold">{p.price}</div>
+                <div className="mb-1 text-3xl font-normal">{p.price}</div>
                 <div className="mb-4 text-sm" style={{ color: "var(--uzerine-ikincil)" }}>
                   {p.suited}
                 </div>
@@ -212,13 +212,13 @@ export default function EmlakciLanding() {
 
       <section className="py-14" style={{ background: "var(--zemin-yumusak)" }}>
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold md:text-4xl" style={{ color: "var(--color-text)" }}>
+          <h2 className="text-3xl font-normal md:text-4xl" style={{ color: "var(--color-text)" }}>
             SSS
           </h2>
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             {FAQ.map((item) => (
               <article key={item.q} className="card-warm">
-                <div className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-violet-300">
+                <div className="mb-2 inline-flex items-center gap-2 text-sm font-normal text-violet-300">
                   <Sparkles className="h-4 w-4" /> {item.q}
                 </div>
                 <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
@@ -232,7 +232,7 @@ export default function EmlakciLanding() {
 
       <section className="py-20 md:py-24 vurgu-yuzey">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="mb-6 text-3xl font-bold md:text-5xl" style={{ color: "var(--uzerine)" }}>
+          <h2 className="mb-6 text-3xl font-normal md:text-5xl" style={{ color: "var(--uzerine)" }}>
             Emlakçı Faz A paketini canlı görün
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-lg" style={{ color: "var(--uzerine-ikincil)" }}>

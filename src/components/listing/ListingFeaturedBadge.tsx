@@ -9,7 +9,7 @@ type Props = {
 export function ListingFeaturedBadge({ isFeatured, badge }: Props) {
   if (badge) {
     return (
-      <Badge className={`text-xs font-semibold ${FEATURED_BADGE_STYLES[badge]}`}>
+      <Badge className={`text-xs font-normal ${FEATURED_BADGE_STYLES[badge]}`}>
         {FEATURED_BADGE_LABELS[badge]}
       </Badge>
     );

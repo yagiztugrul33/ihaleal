@@ -39,7 +39,7 @@ export function ListingQuickActions({
           onToggleFavorite(listingId);
         }}
         className={cn(
-          "rounded-lg p-2 backdrop-blur-md transition-colors",
+          "rounded-[10px] p-2 backdrop-blur-md transition-colors",
           isFavorite ? "bg-pink-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
         )}
       >
@@ -54,7 +54,7 @@ export function ListingQuickActions({
             onToggleCompare(listingId);
           }}
           className={cn(
-            "rounded-lg p-2 backdrop-blur-md transition-colors",
+            "rounded-[10px] p-2 backdrop-blur-md transition-colors",
             compareActive ? "bg-blue-500 text-white" : "bg-black/50 text-white hover:bg-black/70",
           )}
         >
@@ -67,9 +67,9 @@ export function ListingQuickActions({
         rel="noopener noreferrer"
         aria-label="WhatsApp ile paylaş"
         onClick={(e) => e.stopPropagation()}
-        className="rounded-lg p-2 backdrop-blur-md bg-black/50 text-white hover:bg-black/70 transition-colors"
+        className="rounded-[10px] p-2 backdrop-blur-md bg-black/50 text-white hover:bg-black/70 transition-colors"
       >
-        <span className="text-[10px] font-bold">WA</span>
+        <span className="text-[10px] font-normal">WA</span>
       </a>
       <button
         type="button"
@@ -78,7 +78,7 @@ export function ListingQuickActions({
           e.stopPropagation();
           void navigator.clipboard?.writeText(shareUrl);
         }}
-        className="rounded-lg p-2 backdrop-blur-md bg-black/50 text-white hover:bg-black/70 transition-colors"
+        className="rounded-[10px] p-2 backdrop-blur-md bg-black/50 text-white hover:bg-black/70 transition-colors"
       >
         <Link2 className="w-4 h-4" />
       </button>

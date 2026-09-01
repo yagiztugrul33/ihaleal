@@ -97,7 +97,7 @@ export default function Corporate() {
           </div>
 
           <h1
-            className="text-4xl md:text-6xl font-bold leading-tight tracking-tight"
+            className="text-4xl md:text-6xl font-normal leading-tight tracking-tight"
             style={{ color: "var(--color-text)", fontFamily: "var(--font-display)" }}
           >
             Emlak ofisleri için
@@ -129,7 +129,7 @@ export default function Corporate() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
             <span className="badge-corp">Özellikler</span>
-            <h2 className="text-3xl md:text-5xl font-bold mt-4" style={{ color: "var(--color-text)" }}>
+            <h2 className="text-3xl md:text-5xl font-normal mt-4" style={{ color: "var(--color-text)" }}>
               Kurumsal Özellikler
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg" style={{ color: "var(--color-text-muted)" }}>
@@ -146,7 +146,7 @@ export default function Corporate() {
                 >
                   <f.icon className="h-5 w-5" style={{ color: "var(--metin-ikincil)" }} aria-hidden />
                 </div>
-                <h3 className="text-lg font-bold mb-2" style={{ color: "var(--color-text)" }}>
+                <h3 className="text-lg font-normal mb-2" style={{ color: "var(--color-text)" }}>
                   {f.title}
                 </h3>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
@@ -162,7 +162,7 @@ export default function Corporate() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
             <span className="badge-corp">Fiyatlandırma</span>
-            <h2 className="text-3xl md:text-5xl font-bold mt-4" style={{ color: "var(--color-text)" }}>
+            <h2 className="text-3xl md:text-5xl font-normal mt-4" style={{ color: "var(--color-text)" }}>
               Size Uygun Plan
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg" style={{ color: "var(--color-text-muted)" }}>
@@ -190,7 +190,7 @@ export default function Corporate() {
                 >
                   {p.name}
                 </div>
-                <div className="text-4xl font-bold mb-1">
+                <div className="text-4xl font-normal mb-1">
                   {p.price}
                   <span
                     className="text-base font-normal ms-1"

@@ -123,13 +123,13 @@ export function EmlakciGiris() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass rounded-2xl p-6 sm:p-8 border border-slate-200"
+          className="glass rounded-[20px] p-6 sm:p-8 border border-slate-200"
         >
           <div className="text-center mb-6">
-            <div className="w-14 h-14 rounded-2xl [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/20">
+            <div className="w-14 h-14 rounded-[20px] [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/20">
               <ShieldCheck className="w-7 h-7 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-white">İhaleAL Giriş / Kayıt</h1>
+            <h1 className="text-2xl font-normal text-white">İhaleAL Giriş / Kayıt</h1>
             <p className="text-sm text-slate-400 mt-1">Hesap tipinizi seçin ve giriş yapın veya yeni hesap oluşturun</p>
           </div>
 
@@ -139,39 +139,39 @@ export function EmlakciGiris() {
               <button
                 key={t.id}
                 onClick={() => { setActiveType(t.id); setError(""); setSuccess(""); }}
-                className={`rounded-xl p-3 text-center border transition-all ${
+                className={`rounded-[20px] p-3 text-center border transition-all ${
                   activeType === t.id
                     ? "bg-white/10 border-white/30 shadow-lg shadow-white/5"
                     : "bg-white/[0.02] border-slate-200/80 hover:bg-white/[0.04] hover:border-slate-200"
                 }`}
               >
-                <div className={`mx-auto w-9 h-9 rounded-lg flex items-center justify-center mb-2 ${
+                <div className={`mx-auto w-9 h-9 rounded-[10px] flex items-center justify-center mb-2 ${
                   activeType === t.id ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-slate-500"
                 }`}>
                   {t.icon}
                 </div>
-                <p className="text-xs font-semibold text-white leading-tight">{t.label}</p>
+                <p className="text-xs font-normal text-white leading-tight">{t.label}</p>
                 <p className="text-[10px] text-slate-500 mt-0.5">{t.badge}</p>
               </button>
             ))}
           </div>
 
           {/* Selected Type Description */}
-          <div className="rounded-lg bg-white/[0.03] border border-slate-200/80 p-3 mb-6 flex items-start gap-2">
-            <div className="w-7 h-7 rounded-md bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5">
+          <div className="rounded-[10px] bg-white/[0.03] border border-slate-200/80 p-3 mb-6 flex items-start gap-2">
+            <div className="w-7 h-7 rounded-[3px] bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5">
               {currentType.icon}
             </div>
             <div>
-              <p className="text-xs font-semibold text-white">{currentType.label}</p>
+              <p className="text-xs font-normal text-white">{currentType.label}</p>
               <p className="text-xs text-slate-400">{currentType.desc}</p>
             </div>
           </div>
 
           {/* Auth Mode Toggle */}
-          <div className="flex rounded-xl bg-white/[0.05] p-1 mb-6 border border-slate-200/80">
+          <div className="flex rounded-[20px] bg-white/[0.05] p-1 mb-6 border border-slate-200/80">
             <button
               onClick={() => setAuthMode("login")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-[10px] text-sm font-normal transition-all ${
                 authMode === "login" ? "bg-white/10 text-white shadow" : "text-slate-500 hover:text-slate-900"
               }`}
             >
@@ -179,7 +179,7 @@ export function EmlakciGiris() {
             </button>
             <button
               onClick={() => setAuthMode("register")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-[10px] text-sm font-normal transition-all ${
                 authMode === "register" ? "bg-white/10 text-white shadow" : "text-slate-500 hover:text-slate-900"
               }`}
             >
@@ -194,7 +194,7 @@ export function EmlakciGiris() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-start gap-2"
+                className="mb-4 p-3 rounded-[20px] bg-rose-500/10 border border-rose-500/20 flex items-start gap-2"
               >
                 <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-rose-300">{error}</p>
@@ -205,7 +205,7 @@ export function EmlakciGiris() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-2"
+                className="mb-4 p-3 rounded-[20px] bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-emerald-300">{success}</p>
@@ -226,7 +226,7 @@ export function EmlakciGiris() {
                 className="space-y-4"
               >
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">E-posta Adresi</label>
+                  <label className="block text-xs font-normal text-slate-400 mb-1.5">E-posta Adresi</label>
                   <div className="relative">
                     <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <Input
@@ -237,7 +237,7 @@ export function EmlakciGiris() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre</label>
+                  <label className="block text-xs font-normal text-slate-400 mb-1.5">Şifre</label>
                   <div className="relative">
                     <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <Input
@@ -253,7 +253,7 @@ export function EmlakciGiris() {
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <label className="flex items-center gap-2 text-slate-400 cursor-pointer">
-                    <input type="checkbox" className="rounded border-white/20 bg-white/5" />
+                    <input type="checkbox" className="rounded-[3px] border-white/20 bg-white/5" />
                     Beni hatırla
                   </label>
                   <button type="button" className="text-blue-400 hover:text-blue-300" onClick={() => navigate("/sifremi-unuttum")}>Şifremi unuttum</button>
@@ -261,7 +261,7 @@ export function EmlakciGiris() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full [background:var(--gradient-cta)] hover:brightness-90 text-white font-semibold py-5 rounded-xl"
+                  className="w-full [background:var(--gradient-cta)] hover:brightness-90 text-white font-normal py-5 rounded-[20px]"
                 >
                   {loading ? "Giriş yapılıyor..." : `${currentType.label} olarak Giriş Yap`}
                 </Button>
@@ -278,14 +278,14 @@ export function EmlakciGiris() {
               >
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">Ad Soyad</label>
+                    <label className="block text-xs font-normal text-slate-400 mb-1.5">Ad Soyad</label>
                     <div className="relative">
                       <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <Input value={regName} onChange={e => setRegName(e.target.value)} placeholder="Ahmet Yılmaz" className="bg-white/[0.05] border-slate-200 text-white ps-10 placeholder:text-slate-600" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">Telefon</label>
+                    <label className="block text-xs font-normal text-slate-400 mb-1.5">Telefon</label>
                     <div className="relative">
                       <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <Input value={regPhone} onChange={e => setRegPhone(e.target.value)} placeholder="05XX XXX XX XX" className="bg-white/[0.05] border-slate-200 text-white ps-10 placeholder:text-slate-600" />
@@ -293,7 +293,7 @@ export function EmlakciGiris() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">E-posta</label>
+                  <label className="block text-xs font-normal text-slate-400 mb-1.5">E-posta</label>
                   <div className="relative">
                     <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <Input type="email" value={regEmail} onChange={e => setRegEmail(e.target.value)} placeholder="ornek@email.com" className="bg-white/[0.05] border-slate-200 text-white ps-10 placeholder:text-slate-600" />
@@ -303,8 +303,8 @@ export function EmlakciGiris() {
                 {/* Realtor-specific */}
                 {activeType === "realtor" && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-3 overflow-hidden">
-                    <div className="p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
-                      <p className="text-xs font-semibold text-blue-300 mb-2 flex items-center gap-1"><Building2 className="w-3 h-3" /> Emlakçı Bilgileri</p>
+                    <div className="p-3 rounded-[10px] bg-blue-500/5 border border-blue-500/10">
+                      <p className="text-xs font-normal text-blue-300 mb-2 flex items-center gap-1"><Building2 className="w-3 h-3" /> Emlakçı Bilgileri</p>
                       <div className="space-y-3">
                         <div>
                           <label className="block text-xs text-slate-400 mb-1">Firma Adı *</label>
@@ -331,8 +331,8 @@ export function EmlakciGiris() {
                 {/* Developer-specific */}
                 {activeType === "developer" && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-3 overflow-hidden">
-                    <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/10">
-                      <p className="text-xs font-semibold text-amber-300 mb-2 flex items-center gap-1"><HardHat className="w-3 h-3" /> Müteahhit / Firma Bilgileri</p>
+                    <div className="p-3 rounded-[10px] bg-amber-500/5 border border-amber-500/10">
+                      <p className="text-xs font-normal text-amber-300 mb-2 flex items-center gap-1"><HardHat className="w-3 h-3" /> Müteahhit / Firma Bilgileri</p>
                       <div className="space-y-3">
                         <div className="grid grid-cols-2 gap-3">
                           <div>
@@ -358,7 +358,7 @@ export function EmlakciGiris() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre</label>
+                    <label className="block text-xs font-normal text-slate-400 mb-1.5">Şifre</label>
                     <div className="relative">
                       <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <Input type={showRegPass ? "text" : "password"} value={regPassword} onChange={e => setRegPassword(e.target.value)} placeholder="En az 6 karakter" className="bg-white/[0.05] border-slate-200 text-white ps-10 pe-10 placeholder:text-slate-600" />
@@ -368,7 +368,7 @@ export function EmlakciGiris() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">Şifre Tekrar</label>
+                    <label className="block text-xs font-normal text-slate-400 mb-1.5">Şifre Tekrar</label>
                     <div className="relative">
                       <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <Input type={showRegConfirm ? "text" : "password"} value={regConfirm} onChange={e => setRegConfirm(e.target.value)} placeholder="••••••" className="bg-white/[0.05] border-slate-200 text-white ps-10 pe-10 placeholder:text-slate-600" />
@@ -380,14 +380,14 @@ export function EmlakciGiris() {
                 </div>
 
                 <label className="flex items-start gap-2 text-xs text-slate-400 cursor-pointer">
-                  <input type="checkbox" checked={agreeTerms} onChange={e => setAgreeTerms(e.target.checked)} className="rounded border-white/20 bg-white/5 mt-0.5" />
+                  <input type="checkbox" checked={agreeTerms} onChange={e => setAgreeTerms(e.target.checked)} className="rounded-[3px] border-white/20 bg-white/5 mt-0.5" />
                   <span><button type="button" onClick={() => navigate("/kullanim-kosullari")} className="text-blue-400 hover:underline">Kullanım Koşulları</button> ve <button type="button" onClick={() => navigate("/aydinlatma-metni")} className="text-blue-400 hover:underline">KVKK Aydınlatma Metni</button>&apos;ni okudum ve kabul ediyorum.</span>
                 </label>
 
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full [background:var(--gradient-cta)] hover:brightness-90 text-white font-semibold py-5 rounded-xl"
+                  className="w-full [background:var(--gradient-cta)] hover:brightness-90 text-white font-normal py-5 rounded-[20px]"
                 >
                   {loading ? "Kayıt oluşturuluyor..." : `${currentType.label} olarak Kaydol`}
                 </Button>

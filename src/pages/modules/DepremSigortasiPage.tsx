@@ -183,7 +183,7 @@ export default function DepremSigortasiPage() {
             </div>
           </div>
           {lookup ? (
-            <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-3 text-sm">
+            <div className="mt-4 rounded-[10px] border border-white/10 bg-white/[0.03] p-3 text-sm">
               <p>
                 Poliçe: <strong>{lookup.policyNo}</strong> —{" "}
                 <ModuleTag tone={lookup.status === "gecerli" ? "ok" : "risk"}>{lookup.status}</ModuleTag>

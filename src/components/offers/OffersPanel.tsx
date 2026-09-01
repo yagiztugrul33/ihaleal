@@ -27,7 +27,7 @@ function OfferAmount({
 }) {
   const visible = isOfferAmountVisible(offer, viewerId, viewerIsSeller);
   if (!visible) return <span className="text-amber-300">{maskOfferAmount()}</span>;
-  return <span className="text-white font-semibold">₺{offer.amount_try.toLocaleString("tr-TR")}</span>;
+  return <span className="text-white font-normal">₺{offer.amount_try.toLocaleString("tr-TR")}</span>;
 }
 
 function SellerActions({
@@ -124,7 +124,7 @@ export function OffersPanel({ mode }: Props) {
   return (
     <div className="space-y-4">
       {mode === "seller" && sealedHiddenCount > 0 ? (
-        <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+        <p className="rounded-[10px] border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
           {sealedHiddenCount} kapalı teklif süresi dolana kadar tutarı gizli — yalnız adet görünür.
         </p>
       ) : null}
@@ -133,12 +133,12 @@ export function OffersPanel({ mode }: Props) {
           {mode === "buyer" ? "Henüz teklifiniz yok." : "İlanlarınıza gelen teklif yok."}
         </p>
       ) : (
-        <ul className="divide-y divide-white/5 rounded-xl border border-white/10">
+        <ul className="divide-y divide-white/5 rounded-[20px] border border-white/10">
           {offers.map((offer) => (
             <li key={offer.id} className="p-4 text-sm">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <p className="font-medium text-white">{offer.listing_title ?? "İlan"}</p>
+                  <p className="font-normal text-white">{offer.listing_title ?? "İlan"}</p>
                   <p className="text-xs text-slate-500 mt-0.5">
                     {new Date(offer.created_at).toLocaleString("tr-TR")} · {offerStatusLabel(offer.status)}
                     {offer.is_sealed ? " · Kapalı" : ""}

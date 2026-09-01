@@ -170,7 +170,7 @@ export default function MuteahhitPanelPage() {
     return (
       <div className="min-h-screen pt-24 px-4 text-center text-slate-300 max-w-xl mx-auto">
         <AlertTriangle className="w-10 h-10 text-amber-400 mx-auto mb-3" />
-        <h2 className="text-xl font-bold text-white mb-2">Müteahhit paneline erişiminiz yok</h2>
+        <h2 className="text-xl font-normal text-white mb-2">Müteahhit paneline erişiminiz yok</h2>
         <p className="text-sm text-slate-400 mb-4">
           Bu panel yalnızca müteahhit firmasında <strong className="text-slate-300">owner</strong> veya{" "}
           <strong className="text-slate-300">admin</strong> rolündeki hesaplara açıktır. Firma kaydı oluşturmak için
@@ -202,10 +202,10 @@ export default function MuteahhitPanelPage() {
       }
     >
       {ruhsatPending && (
-        <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 flex items-start gap-3 mb-4">
+        <div className="rounded-[20px] border border-amber-400/30 bg-amber-500/10 p-4 flex items-start gap-3 mb-4">
           <AlertTriangle className="w-5 h-5 text-amber-300 mt-0.5 shrink-0" />
           <div className="text-sm text-amber-100">
-            <p className="font-semibold mb-0.5">Firma ruhsatınız admin onayını bekliyor</p>
+            <p className="font-normal mb-0.5">Firma ruhsatınız admin onayını bekliyor</p>
             <p className="text-amber-100/80 text-xs">
               Onay tamamlanana kadar projelerinizi oluşturup birim envanteri girebilirsiniz; ancak lansman ilanları (
               <span className="font-mono">is_lansman</span>) yalnızca proje onayından sonra aktif edilir.
@@ -215,7 +215,7 @@ export default function MuteahhitPanelPage() {
       )}
 
       {error && (
-        <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-3 text-rose-200 text-sm mb-4">
+        <div className="rounded-[20px] border border-rose-400/30 bg-rose-500/10 p-3 text-rose-200 text-sm mb-4">
           Projeler okunamadı: {error}
           <Button size="sm" variant="ghost" className="ms-2 text-rose-200" onClick={() => void refresh()}>
             Tekrar dene
@@ -230,9 +230,9 @@ export default function MuteahhitPanelPage() {
         <MetricCard label="Rezerve birim" value={String(aggregate.reservedUnits)} icon={Megaphone} />
       </div>
 
-      <section className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+      <section className="rounded-[20px] border border-white/10 bg-white/[0.03] p-5">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-white">Projeleriniz ({projects.length})</h2>
+          <h2 className="text-lg font-normal text-white">Projeleriniz ({projects.length})</h2>
           <Button asChild variant="outline" size="sm" className="gap-2">
             <Link to="/muteahhit/yeni-proje">
               <Plus className="h-4 w-4" /> Yeni proje
@@ -241,7 +241,7 @@ export default function MuteahhitPanelPage() {
         </div>
 
         {projects.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-white/10 p-8 text-center">
+          <div className="rounded-[10px] border border-dashed border-white/10 p-8 text-center">
             <Building2 className="w-10 h-10 text-slate-500 mx-auto mb-3" />
             <p className="text-slate-300 text-sm mb-1">Henüz proje eklemediniz</p>
             <p className="text-slate-500 text-xs mb-4">
@@ -262,14 +262,14 @@ export default function MuteahhitPanelPage() {
               return (
                 <li
                   key={p.id}
-                  className="rounded-lg border border-white/10 hover:border-cyan-400/30 transition-colors p-4 bg-slate-950/30"
+                  className="rounded-[10px] border border-white/10 hover:border-cyan-400/30 transition-colors p-4 bg-slate-950/30"
                 >
                   <div className="flex items-start justify-between gap-3 flex-wrap">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <p className="font-semibold text-white">{p.project_name}</p>
+                        <p className="font-normal text-white">{p.project_name}</p>
                         <span
-                          className={`text-[10px] px-2 py-0.5 rounded-md border font-semibold ${
+                          className={`text-[10px] px-2 py-0.5 rounded-[3px] border font-normal ${
                             STATUS_BADGE[p.ruhsat_status] ?? STATUS_BADGE.pending
                           }`}
                         >
@@ -303,19 +303,19 @@ export default function MuteahhitPanelPage() {
                   <div className="mt-3 grid grid-cols-4 gap-2 text-xs">
                     <div>
                       <p className="text-slate-500">Birim</p>
-                      <p className="text-slate-200 font-semibold">{p.total_units}</p>
+                      <p className="text-slate-200 font-normal">{p.total_units}</p>
                     </div>
                     <div>
                       <p className="text-slate-500">Satılan</p>
-                      <p className="text-blue-300 font-semibold">{p.units_sold}</p>
+                      <p className="text-blue-300 font-normal">{p.units_sold}</p>
                     </div>
                     <div>
                       <p className="text-slate-500">Rezerve</p>
-                      <p className="text-amber-300 font-semibold">{p.units_reserved}</p>
+                      <p className="text-amber-300 font-normal">{p.units_reserved}</p>
                     </div>
                     <div>
                       <p className="text-slate-500">Doluluk</p>
-                      <p className="text-emerald-300 font-semibold">%{completionPct}</p>
+                      <p className="text-emerald-300 font-normal">%{completionPct}</p>
                     </div>
                   </div>
 
@@ -333,41 +333,41 @@ export default function MuteahhitPanelPage() {
       </section>
 
       <section className="mt-6 grid gap-4 lg:grid-cols-3">
-        <article className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
-          <h3 className="text-sm font-semibold text-cyan-100">Neden bu panel?</h3>
+        <article className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4">
+          <h3 className="text-sm font-normal text-cyan-100">Neden bu panel?</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
             Lansman projeleri, birim envanteri ve ilan yayını tek yerden yönetilir; ruhsat onayı tamamlanan projeler kamuya açılır.
           </p>
         </article>
-        <article className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
-          <h3 className="text-sm font-semibold text-emerald-100">Akış</h3>
+        <article className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/10 p-4">
+          <h3 className="text-sm font-normal text-emerald-100">Akış</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
             1) Proje oluştur (ruhsat + birim) → 2) Admin onayı → 3) Birim yayınla (lansman ilanı) → 4) Satış.
           </p>
         </article>
-        <article className="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
-          <h3 className="text-sm font-semibold text-violet-100">Yayın kuralı</h3>
+        <article className="rounded-[20px] border border-violet-500/30 bg-violet-500/10 p-4">
+          <h3 className="text-sm font-normal text-violet-100">Yayın kuralı</h3>
           <p className="mt-2 text-xs leading-relaxed text-slate-200">
-            Sadece <span className="font-semibold text-violet-100">verified</span> projelerin birimleri ilan olarak yayınlanabilir.
+            Sadece <span className="font-normal text-violet-100">verified</span> projelerin birimleri ilan olarak yayınlanabilir.
           </p>
         </article>
       </section>
 
-      <section className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
-        <h3 className="text-lg font-bold text-white">SSS</h3>
+      <section className="mt-6 rounded-[20px] border border-white/10 bg-white/[0.03] p-5">
+        <h3 className="text-lg font-normal text-white">SSS</h3>
         <div className="mt-3 grid gap-3 md:grid-cols-3 text-sm">
           <article>
-            <p className="font-semibold text-slate-100">Onay ne kadar sürer?</p>
+            <p className="font-normal text-slate-100">Onay ne kadar sürer?</p>
             <p className="text-slate-400 mt-1">Ruhsat ve KKA doğrulaması iş günü 24-48 saat içinde tamamlanır.</p>
           </article>
           <article>
-            <p className="font-semibold text-slate-100">Birimi yayınlayınca ne olur?</p>
+            <p className="font-normal text-slate-100">Birimi yayınlayınca ne olur?</p>
             <p className="text-slate-400 mt-1">
               Birim rezerve duruma geçer ve <span className="font-mono">/ilan/:id</span> üzerinden satışa açılır.
             </p>
           </article>
           <article>
-            <p className="font-semibold text-slate-100">Birden çok blok mu?</p>
+            <p className="font-normal text-slate-100">Birden çok blok mu?</p>
             <p className="text-slate-400 mt-1">Evet, birim eklerken her birim için ayrı blok/kat girilebilir.</p>
           </article>
         </div>

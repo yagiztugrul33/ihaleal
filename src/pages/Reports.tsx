@@ -205,7 +205,7 @@ export default function Reports() {
                 <MapPin className="w-3 h-3" /> {r.cityLabel}
               </div>
               <h3 className={cn(
-                "font-bold text-white leading-tight",
+                "font-normal text-white leading-tight",
                 variant === "featured" ? "text-lg" : "text-sm",
               )}>
                 {r.monthLabel} Endeks Raporu
@@ -218,15 +218,15 @@ export default function Reports() {
           </div>
 
           {/* Genel endeks değeri */}
-          <div className="rounded-lg bg-slate-950/50 border border-slate-700/40 p-3 mb-3">
+          <div className="rounded-[10px] bg-slate-950/50 border border-slate-700/40 p-3 mb-3">
             <div className="flex items-center justify-between gap-2">
               <div>
                 <p className="text-[10px] uppercase tracking-wider text-slate-500">Genel endeks</p>
-                <p className={cn("font-bold text-white", variant === "featured" ? "text-2xl" : "text-xl")}>
+                <p className={cn("font-normal text-white", variant === "featured" ? "text-2xl" : "text-xl")}>
                   {formatTRY(r.overallIndex)}<span className="text-xs text-slate-500">/m²</span>
                 </p>
               </div>
-              <div className={cn("inline-flex items-center gap-1 text-sm font-semibold", arrowClass)}>
+              <div className={cn("inline-flex items-center gap-1 text-sm font-normal", arrowClass)}>
                 {arrowIcon}
                 {r.overallChangePct > 0 ? "+" : ""}{r.overallChangePct.toFixed(2)}%
               </div>
@@ -242,12 +242,12 @@ export default function Reports() {
                   <div
                     key={row.category}
                     className={cn(
-                      "rounded-md border px-2 py-1.5 text-center",
+                      "rounded-[3px] border px-2 py-1.5 text-center",
                       isActiveCat ? "border-amber-400/50 bg-amber-500/10" : "border-slate-700/40 bg-slate-950/30",
                     )}
                   >
                     <p className="text-[9px] uppercase tracking-wider text-slate-500">{CATEGORY_LABEL_TR[row.category]}</p>
-                    <p className="text-xs font-semibold text-white">{formatTRY(row.avgSalePerM2)}/m²</p>
+                    <p className="text-xs font-normal text-white">{formatTRY(row.avgSalePerM2)}/m²</p>
                     <p className={cn(
                       "text-[10px]",
                       row.changePct > 0 ? "text-emerald-300" : row.changePct < 0 ? "text-red-300" : "text-slate-400",
@@ -312,7 +312,7 @@ export default function Reports() {
           </div>
           <div className="flex flex-wrap items-end justify-between gap-3 mb-3">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-white">İhaleal Endeks Raporları</h1>
+              <h1 className="text-3xl md:text-4xl font-normal text-white">İhaleal Endeks Raporları</h1>
               <p className="mt-2 text-sm text-slate-400 max-w-2xl">
                 Aylık şehir endeksleri, konut/ticari/arsa kategori birim fiyatları ve trend.
                 Tek tıkla Roboto Türkçe PDF indir.
@@ -331,7 +331,7 @@ export default function Reports() {
             onClick={() => setAdvancedOpen((v) => !v)}
             aria-expanded={advancedOpen}
             data-testid="reports-advanced-toggle"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-900/60 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-[10px] border border-white/10 bg-slate-900/60 px-3 py-2 text-xs font-normal uppercase tracking-wider text-slate-300 hover:text-white"
           >
             <Filter className="w-3.5 h-3.5" /> Gelişmiş filtreler
             {activeFilterCount > 0 ? <span className="text-cyan-300">({activeFilterCount})</span> : null}
@@ -357,7 +357,7 @@ export default function Reports() {
                 <select
                   value={filterCity}
                   onChange={(e) => setFilterCity(e.target.value as ReportCity | "")}
-                  className="w-full text-xs rounded-md border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
+                  className="w-full text-xs rounded-[3px] border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
                   aria-label="Şehir filtresi"
                 >
                   <option value="">Tümü</option>
@@ -369,7 +369,7 @@ export default function Reports() {
                 <select
                   value={filterCategory}
                   onChange={(e) => setFilterCategory(e.target.value as ReportCategory | "")}
-                  className="w-full text-xs rounded-md border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
+                  className="w-full text-xs rounded-[3px] border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
                   aria-label="Kategori filtresi"
                 >
                   <option value="">Tümü</option>
@@ -383,7 +383,7 @@ export default function Reports() {
                 <select
                   value={filterYear}
                   onChange={(e) => setFilterYear(e.target.value)}
-                  className="w-full text-xs rounded-md border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
+                  className="w-full text-xs rounded-[3px] border border-white/10 bg-slate-950 px-2 py-1.5 text-white"
                   aria-label="Yıl filtresi"
                 >
                   <option value="">Tümü</option>
@@ -398,7 +398,7 @@ export default function Reports() {
         {/* Featured 3 raporu */}
         {featured.length > 0 ? (
           <section className="mb-8" data-testid="featured-reports">
-            <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-cyan-400" /> Öne Çıkan En Yeni Raporlar
             </h2>
             <div className="grid gap-3 md:grid-cols-3">
@@ -410,7 +410,7 @@ export default function Reports() {
         {/* Arşiv grid */}
         {archive.length > 0 ? (
           <section className="mb-8" data-testid="archive-reports">
-            <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
               <FileText className="w-5 h-5 text-slate-400" /> Geçmiş Raporlar
             </h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -434,16 +434,16 @@ export default function Reports() {
         <Card className="mb-8 bg-slate-900/40 border-violet-400/30" data-testid="subscribe-form">
           <CardContent className="p-6">
             <div className="flex items-start gap-4 flex-wrap">
-              <div className="rounded-xl bg-violet-500/15 p-3 flex-shrink-0">
+              <div className="rounded-[20px] bg-violet-500/15 p-3 flex-shrink-0">
                 <Bell className="w-6 h-6 text-violet-300" />
               </div>
               <div className="flex-1 min-w-[260px]">
-                <h2 className="text-lg font-semibold text-white mb-1">Aylık Endeks Raporları E-postanıza Gelsin</h2>
+                <h2 className="text-lg font-normal text-white mb-1">Aylık Endeks Raporları E-postanıza Gelsin</h2>
                 <p className="text-sm text-slate-300 mb-3">
                   Her ay yeni rapor yayınlandığında otomatik bildirim; istediğinizde aboneliği bırakırsınız.
                 </p>
                 {subscribeStatus === "saved" ? (
-                  <div className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
+                  <div className="rounded-[10px] border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
                     {subscribeMessage || "Aboneliğiniz kaydedildi."}
                     <span className="block text-[10px] text-emerald-200/70 mt-0.5">
                       Onay maili geldiğinde linke tıklayarak aboneliği aktifleştirin (double opt-in).
@@ -473,7 +473,7 @@ export default function Reports() {
                   </form>
                 )}
                 {subscribeStatus === "error" && subscribeMessage ? (
-                  <p className="mt-2 rounded-lg border border-rose-400/40 bg-rose-500/10 px-3 py-2 text-xs text-rose-100" role="alert">
+                  <p className="mt-2 rounded-[10px] border border-rose-400/40 bg-rose-500/10 px-3 py-2 text-xs text-rose-100" role="alert">
                     {subscribeMessage}
                   </p>
                 ) : null}
@@ -488,7 +488,7 @@ export default function Reports() {
 
         {/* Eski genel belgeler (korundu) */}
         <section data-testid="demo-reports">
-          <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <h2 className="text-lg font-normal text-white mb-3 flex items-center gap-2">
             <Building2 className="w-5 h-5 text-slate-400" /> Diğer Analiz ve Bilgilendirme Belgeleri
           </h2>
           <p className="text-xs text-slate-500 mb-3">
@@ -500,7 +500,7 @@ export default function Reports() {
                 <CardContent className="p-4">
                   <div className="flex items-start gap-2 mb-2">
                     <FileText className="mt-0.5 h-4 w-4 shrink-0 text-blue-400" />
-                    <h3 className="font-semibold leading-snug text-white text-sm">
+                    <h3 className="font-normal leading-snug text-white text-sm">
                       <Link to={`/rapor/${r.id}`} className="hover:text-blue-300">
                         {r.title}
                       </Link>
@@ -518,7 +518,7 @@ export default function Reports() {
                   <p className="text-xs text-slate-400 line-clamp-2">{r.excerpt}</p>
                   <Link
                     to={`/rapor/${r.id}`}
-                    className="mt-3 inline-flex items-center text-xs font-medium text-blue-400 hover:text-blue-300"
+                    className="mt-3 inline-flex items-center text-xs font-normal text-blue-400 hover:text-blue-300"
                   >
                     Belgeyi aç <ChevronRight className="rtl:rotate-180 w-3 h-3 ms-0.5" />
                   </Link>

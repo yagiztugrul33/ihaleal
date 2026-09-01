@@ -17,11 +17,11 @@ export default function DataStrategy() {
         </Button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
+          <div className="p-3 rounded-[20px] bg-emerald-500/10 text-emerald-400">
             <LineChart className="w-7 h-7" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">İhaleal Endeksi — verimli analiz nedir?</h1>
+            <h1 className="text-2xl font-normal text-white">İhaleal Endeksi — verimli analiz nedir?</h1>
             <p className="text-sm text-slate-500">
               İhaleal Endeksi; teklif yoğunluğu, bölge fiyat bandı, talep ve yapay zeka sinyallerini <strong className="text-slate-300">aynı karar ekranında</strong> birleştirir. Statik tek rapor yerine, ihale akışına bağlı dinamik görünüm hedeflenir. İlan detayındaki «İhaleal Endeksi — piyasa raporu analizi» akışı burayı işaret eder; demo sınırları aşağıda.
             </p>
@@ -46,10 +46,10 @@ export default function DataStrategy() {
 
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5">
-            <h2 className="text-white font-semibold flex items-center gap-2 mb-3"><Upload className="w-5 h-5 text-blue-400" /> Örnek fiyat raporu (yerel seçim)</h2>
+            <h2 className="text-white font-normal flex items-center gap-2 mb-3"><Upload className="w-5 h-5 text-blue-400" /> Örnek fiyat raporu (yerel seçim)</h2>
             <p className="text-xs text-slate-500 mb-4">Üretimde: güvenli depolama + OCR + şablon eşleme. Şimdilik yalnızca dosya adı.</p>
             <label className="flex flex-col sm:flex-row sm:items-center gap-3 cursor-pointer">
-              <span className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-blue-500/15 text-blue-300 text-sm border border-blue-500/20">
+              <span className="inline-flex items-center justify-center px-4 py-2 rounded-[10px] bg-blue-500/15 text-blue-300 text-sm border border-blue-500/20">
                 PDF seç
               </span>
               <input
@@ -74,7 +74,7 @@ export default function DataStrategy() {
 
         <Card className="bg-slate-900/50 border-slate-200/80 mb-6">
           <CardContent className="p-5 space-y-4 text-sm text-slate-400">
-            <h2 className="text-white font-semibold text-base">Tek tek — kurumsal piyasa analizine giden yol</h2>
+            <h2 className="text-white font-normal text-base">Tek tek — kurumsal piyasa analizine giden yol</h2>
             <ol className="space-y-3 list-decimal list-inside text-slate-400">
               <li><strong className="text-slate-200">Veri kaynağı:</strong> Lisanslı emlak veri sağlayıcısı veya kendi kapalı işlem veriniz (KVKK ile).</li>
               <li><strong className="text-slate-200">“Son 6 ay satılan”:</strong> ETL (günlük/saatlik cron) + normalize adres + m² birim fiyat indeksi.</li>
@@ -87,18 +87,18 @@ export default function DataStrategy() {
 
         <Card className="bg-slate-900/50 border-emerald-500/15 mb-6">
           <CardContent className="p-5 space-y-3 text-sm text-slate-400">
-            <h2 className="text-white font-semibold text-base">Üçüncü taraf veri API — teknik çerçeve (taslak)</h2>
+            <h2 className="text-white font-normal text-base">Üçüncü taraf veri API — teknik çerçeve (taslak)</h2>
             <p className="text-xs text-slate-500">
               Üçüncü taraf ticari veri ürünleri için <strong className="text-slate-300">resmi API veya sözleşme olmadan</strong> canlı bağlantı kurulmaz.
               Aşağıdaki tablo ürün ekibinin backend’de uygulayacağı <strong className="text-slate-300">hedef sözleşme</strong> alanlarını listeler.
             </p>
-            <div className="overflow-x-auto rounded-lg border border-slate-200">
+            <div className="overflow-x-auto rounded-[10px] border border-slate-200">
               <table className="w-full text-xs text-start">
                 <thead className="bg-white/[0.04] text-slate-300">
                   <tr>
-                    <th className="p-2 font-medium">Alan</th>
-                    <th className="p-2 font-medium">Amaç</th>
-                    <th className="p-2 font-medium">Not</th>
+                    <th className="p-2 font-normal">Alan</th>
+                    <th className="p-2 font-normal">Amaç</th>
+                    <th className="p-2 font-normal">Not</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">

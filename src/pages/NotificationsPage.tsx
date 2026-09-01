@@ -21,7 +21,7 @@ export default function NotificationsPage() {
         </Button>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="flex items-center gap-3 text-2xl font-bold text-white">
+          <h1 className="flex items-center gap-3 text-2xl font-normal text-white">
             <Bell className="h-7 w-7 text-violet-400" />
             Bildirimler
             {unreadCount > 0 ? (
@@ -57,13 +57,13 @@ export default function NotificationsPage() {
                 <button
                   type="button"
                   onClick={() => void markRead(n.id)}
-                  className={`w-full rounded-xl border px-4 py-3 text-start transition-colors ${
+                  className={`w-full rounded-[20px] border px-4 py-3 text-start transition-colors ${
                     n.read
                       ? "border-slate-800 bg-slate-900/30 opacity-80"
                       : "border-violet-500/30 bg-violet-500/5"
                   }`}
                 >
-                  <div className="text-sm font-semibold text-white">{n.title}</div>
+                  <div className="text-sm font-normal text-white">{n.title}</div>
                   {n.body ? <p className="mt-1 text-xs text-slate-400">{n.body}</p> : null}
                   <p className="mt-2 text-[10px] text-slate-600">
                     {new Date(n.createdAt).toLocaleString("tr-TR")}
@@ -75,13 +75,13 @@ export default function NotificationsPage() {
         ) : null}
 
         {/* Web Push (cihaza bildirim) — Capacitor öncesi köprü */}
-        <section className="mt-8 rounded-xl border border-cyan-500/20 bg-slate-900/40 p-5">
+        <section className="mt-8 rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-500/15">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-cyan-500/15">
               <BellRing className="h-5 w-5 text-cyan-300" />
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-sm font-semibold text-white">Cihaza bildirim (Push)</h2>
+              <h2 className="text-sm font-normal text-white">Cihaza bildirim (Push)</h2>
               <p className="mt-1 text-xs text-slate-400">
                 Uygulama açık olmasa bile teklif, eşleşme ve ihale kapanış uyarısı al.
                 {push.status === "unsupported" && " Bu tarayıcı desteklemiyor."}
@@ -92,7 +92,7 @@ export default function NotificationsPage() {
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {push.status === "subscribed" ? (
                   <>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-300">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-normal text-emerald-300">
                       <Smartphone className="h-3 w-3" /> Aktif
                     </span>
                     <Button
@@ -119,8 +119,8 @@ export default function NotificationsPage() {
           </div>
         </section>
 
-        <section className="mt-6 rounded-xl border border-white/10 bg-slate-900/40 p-5">
-          <h2 className="text-sm font-semibold text-white">Bildirim tercihleri</h2>
+        <section className="mt-6 rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
+          <h2 className="text-sm font-normal text-white">Bildirim tercihleri</h2>
           <p className="mt-1 text-xs text-slate-500">Hangi bildirimleri almak istediğinizi seçin.</p>
           {prefsLoading || !prefs ? (
             <LoadingState compact className="mt-4" label="Tercihler yükleniyor…" />

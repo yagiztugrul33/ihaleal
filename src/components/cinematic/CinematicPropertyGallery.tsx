@@ -71,7 +71,7 @@ export function CinematicPropertyGallery({
   return (
     <>
       <div
-        className="property-gallery-cinematic relative -mx-4 sm:mx-0 sm:rounded-2xl overflow-hidden mb-8 border border-white/10 shadow-2xl shadow-black/40"
+        className="property-gallery-cinematic relative -mx-4 sm:mx-0 sm:rounded-[20px] overflow-hidden mb-8 border border-white/10 shadow-2xl shadow-black/40"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
@@ -132,7 +132,7 @@ export function CinematicPropertyGallery({
               transition={{ delay: 0.25 }}
             >
               <motion.div
-                className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-cyan-300/90"
+                className="flex items-center gap-1.5 text-[10px] font-normal uppercase tracking-wider text-cyan-300/90"
                 animate={reduced ? undefined : { opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 2.5, repeat: Infinity }}
               >
@@ -140,7 +140,7 @@ export function CinematicPropertyGallery({
                 AI değerleme
               </motion.div>
               {discountPct ? (
-                <p className="text-sm font-bold text-emerald-300 mt-0.5">%{discountPct} altında</p>
+                <p className="text-sm font-normal text-emerald-300 mt-0.5">%{discountPct} altında</p>
               ) : null}
               {investmentScore != null ? (
                 <p className="text-xs text-slate-400 mt-0.5">Yatırım skoru {investmentScore}/100</p>
@@ -226,7 +226,7 @@ export function CinematicPropertyGallery({
                 setDirection(i > index ? 1 : -1);
                 setIndex(i);
               }}
-              className={`relative w-20 h-14 sm:w-24 sm:h-16 rounded-lg overflow-hidden shrink-0 border-2 transition-colors ${
+              className={`relative w-20 h-14 sm:w-24 sm:h-16 rounded-[10px] overflow-hidden shrink-0 border-2 transition-colors ${
                 i === index ? "border-blue-400 ring-2 ring-blue-500/30" : "border-transparent opacity-70 hover:opacity-100"
               }`}
               whileHover={reduced ? undefined : { scale: 1.04 }}
@@ -266,7 +266,7 @@ export function CinematicPropertyGallery({
               className="max-w-6xl w-full max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <ListingCoverImage src={images[index]} alt={title} className="w-full h-full max-h-[85vh] object-contain rounded-lg" />
+              <ListingCoverImage src={images[index]} alt={title} className="w-full h-full max-h-[85vh] object-contain rounded-[10px]" />
             </motion.div>
           </motion.div>
         ) : null}

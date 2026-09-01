@@ -90,7 +90,7 @@ export function GesEvaluationForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 p-6 backdrop-blur-md">
+    <div className="rounded-[20px] border border-amber-500/20 bg-amber-500/10 p-6 backdrop-blur-md">
       <div className="mb-6 flex flex-wrap gap-2 text-xs text-slate-400">
         {[1, 2, 3].map((n) => (
           <span
@@ -106,7 +106,7 @@ export function GesEvaluationForm() {
 
       {step === 1 && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+          <h2 className="text-lg font-normal text-white flex items-center gap-2">
             <Sun className="h-5 w-5 text-amber-300" /> {g.step1Title}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -158,11 +158,11 @@ export function GesEvaluationForm() {
 
       {step === 2 && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+          <h2 className="text-lg font-normal text-white flex items-center gap-2">
             <Zap className="h-5 w-5 text-cyan-300" /> {g.step2Title}
           </h2>
           <p className="text-sm text-slate-400">
-            {g.preScore}: <span className="text-amber-200 font-medium" dir="ltr">{preview.gesFeasibilityScore}</span> / 100
+            {g.preScore}: <span className="text-amber-200 font-normal" dir="ltr">{preview.gesFeasibilityScore}</span> / 100
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-1 text-sm text-slate-300">
@@ -199,7 +199,7 @@ export function GesEvaluationForm() {
             <label className="space-y-1 text-sm text-slate-300">
               {g.slopeAspect}
               <select
-                className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white"
+                className="flex h-10 w-full rounded-[3px] border border-white/10 bg-black/30 px-3 text-sm text-white"
                 value={form.slopeAspect}
                 onChange={(e) => setForm({ ...form, slopeAspect: e.target.value as GesSlopeAspect })}
               >
@@ -213,7 +213,7 @@ export function GesEvaluationForm() {
             <label className="space-y-1 text-sm text-slate-300 sm:col-span-2">
               {g.agriculturalClass}
               <select
-                className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white"
+                className="flex h-10 w-full rounded-[3px] border border-white/10 bg-black/30 px-3 text-sm text-white"
                 value={form.agriculturalClass}
                 onChange={(e) => setForm({ ...form, agriculturalClass: e.target.value as GesAgriculturalClass })}
               >
@@ -235,7 +235,7 @@ export function GesEvaluationForm() {
                 ["hasArchaeologicalSite", g.chkArchaeological],
               ] as const
             ).map(([key, label]) => (
-              <li key={key} className="flex items-center gap-3 rounded-lg border border-white/10 p-3">
+              <li key={key} className="flex items-center gap-3 rounded-[10px] border border-white/10 p-3">
                 <Checkbox
                   id={key}
                   checked={form[key]}
@@ -258,7 +258,7 @@ export function GesEvaluationForm() {
           {error && (
             <div
               role="alert"
-              className="rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
+              className="rounded-[10px] border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200 space-y-3"
             >
               <p>{error}</p>
               <Button type="button" size="sm" variant="outline" onClick={onSubmit} disabled={loading}>
@@ -271,13 +271,13 @@ export function GesEvaluationForm() {
 
       {step === 3 && result && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-white">{statusLabel(result.status, g)}</h2>
+          <h2 className="text-lg font-normal text-white">{statusLabel(result.status, g)}</h2>
           {result.hardKill ? (
-            <p className="text-sm text-red-200 border border-red-400/30 bg-red-500/10 rounded-lg p-3">
+            <p className="text-sm text-red-200 border border-red-400/30 bg-red-500/10 rounded-[10px] p-3">
               {result.rejectionReason}
             </p>
           ) : (
-            <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-4 grid sm:grid-cols-2 gap-3 text-sm">
+            <div className="rounded-[20px] border border-emerald-400/30 bg-emerald-500/10 p-4 grid sm:grid-cols-2 gap-3 text-sm">
               <p>
                 {g.scoreLabel}: <strong className="text-emerald-100" dir="ltr">{result.gesFeasibilityScore}</strong>
               </p>

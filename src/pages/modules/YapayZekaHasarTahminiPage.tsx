@@ -208,12 +208,12 @@ export default function YapayZekaHasarTahminiPage() {
               {DAMAGE_CLASSES.map((d) => (
                 <div
                   key={d.id}
-                  className={`rounded-lg border p-3 text-center transition ${
+                  className={`rounded-[10px] border p-3 text-center transition ${
                     d.id === result.damageClass ? d.visual + " ring-2 ring-white/30" : "border-white/10 opacity-50"
                   }`}
                 >
                   <Building2 className="mx-auto h-6 w-6 text-slate-300" aria-hidden />
-                  <p className="mt-2 text-xs font-bold">{d.id}</p>
+                  <p className="mt-2 text-xs font-normal">{d.id}</p>
                   <p className="text-[10px] text-slate-400">{d.desc}</p>
                 </div>
               ))}
@@ -236,14 +236,14 @@ export default function YapayZekaHasarTahminiPage() {
               <div className="flex flex-wrap items-center gap-4 text-sm">
                 <div>
                   <p className="text-slate-500">Sizin tahmin</p>
-                  <p className="text-lg font-bold text-white">
+                  <p className="text-lg font-normal text-white">
                     {result.damageClass} · {result.economicLossMillion} M TL
                   </p>
                 </div>
                 <TrendingDown className="h-5 w-5 text-slate-600" aria-hidden />
                 <div>
                   <p className="text-slate-500">Bölge ortalaması ({form.city})</p>
-                  <p className="text-lg font-bold text-slate-300">
+                  <p className="text-lg font-normal text-slate-300">
                     {result.regionalAvgClass} · {result.regionalAvgLoss} M TL
                   </p>
                 </div>
@@ -254,7 +254,7 @@ export default function YapayZekaHasarTahminiPage() {
               </div>
             </ModulePanel>
 
-            <h3 className="mt-6 text-sm font-semibold text-white">Önerilen 6 aksiyon</h3>
+            <h3 className="mt-6 text-sm font-normal text-white">Önerilen 6 aksiyon</h3>
             <ol className="mt-2 list-decimal space-y-2 ps-5 text-sm text-slate-300">
               {ACTIONS.map((a) => (
                 <li key={a}>{a}</li>

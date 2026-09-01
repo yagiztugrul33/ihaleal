@@ -25,7 +25,7 @@ export default function IadeIptal() {
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200 mb-3">
             <RefreshCw className="h-3.5 w-3.5" /> 14 Gün Cayma + İptal
           </p>
-          <h1 className="text-3xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl font-normal flex items-center gap-3">
             <RefreshCw className="h-7 w-7 text-emerald-400" />
             İade ve İptal Koşulları
           </h1>
@@ -42,8 +42,8 @@ export default function IadeIptal() {
 
         <article className="space-y-5">
           {/* 1. Premium Üyelik İptal */}
-          <section className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <section className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white flex items-center gap-2">
               <CheckCircle2 className="h-5 w-5 text-emerald-400" />
               1. Premium Üyelik İptali
             </h2>
@@ -59,8 +59,8 @@ export default function IadeIptal() {
           </section>
 
           {/* 2. PDF + Tek Seferlik (İSTİSNA) */}
-          <section className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <section className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-amber-300" />
               2. Tek Seferlik Dijital İçerik (PDF) — İSTİSNA
             </h2>
@@ -75,8 +75,8 @@ export default function IadeIptal() {
           </section>
 
           {/* 3. Doping / Vitrin */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">3. Doping / Vitrin / Görünürlük Hizmetleri</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">3. Doping / Vitrin / Görünürlük Hizmetleri</h2>
             <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Aktif edilmemişse 14 gün cayma + tam iade.</li>
               <li>Aktif edildiyse <strong className="text-white">kullanılan günlere orantılı</strong> kesinti, kalan günler iade.</li>
@@ -85,8 +85,8 @@ export default function IadeIptal() {
           </section>
 
           {/* 4. İhale ve Komisyon */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">4. İhale Sonucu Komisyon</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">4. İhale Sonucu Komisyon</h2>
             <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>Komisyon yalnızca <strong className="text-emerald-200">kapanan ihalelerde</strong> doğar; iptal/cayma halinde komisyon iade edilir.</li>
               <li>Mülkün hukuki engelle satışın gerçekleşmemesi (ipotek/haciz, eksper raporu uyumsuz) durumunda komisyon iade.</li>
@@ -95,8 +95,8 @@ export default function IadeIptal() {
           </section>
 
           {/* 5. Hesap Silme */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">5. Hesap Silme + Veri Kaldırma</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">5. Hesap Silme + Veri Kaldırma</h2>
             <p className="text-sm text-slate-300 leading-relaxed">
               Hesabınızı kalıcı silmek isterseniz — <a href="mailto:destek@ihaleal.com" className="text-emerald-300 underline">destek@ihaleal.com</a>'a yazılı talep
               gönderebilirsiniz. KVKK çerçevesinde:
@@ -110,8 +110,8 @@ export default function IadeIptal() {
           </section>
 
           {/* 6. Başvuru */}
-          <section className="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">6. İade Başvurusu Nasıl Yapılır?</h2>
+          <section className="rounded-[20px] border border-cyan-500/30 bg-cyan-500/5 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">6. İade Başvurusu Nasıl Yapılır?</h2>
             <ol className="text-sm text-slate-300 space-y-1.5 list-decimal list-inside ms-2">
               <li>"İade Talep Formu"nu doldurun (e-posta gövdesinde de olur).</li>
               <li>Bilgilendirme: ad-soyad, fatura no, sipariş tarihi, iade gerekçesi, IBAN.</li>
@@ -122,8 +122,8 @@ export default function IadeIptal() {
           </section>
 
           {/* 7. Şikayet */}
-          <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-2">
-            <h2 className="text-lg font-bold text-white">7. Şikayet ve Uyuşmazlık Çözümü</h2>
+          <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-2">
+            <h2 className="text-lg font-normal text-white">7. Şikayet ve Uyuşmazlık Çözümü</h2>
             <ul className="text-sm text-slate-300 space-y-1 list-disc list-inside ms-2">
               <li>İlk başvuru: <a href="mailto:destek@ihaleal.com" className="text-cyan-300 underline">destek@ihaleal.com</a> (yanıt 24 saat).</li>
               <li>Çözülmezse: arabuluculuk (6325 sayılı kanun) ihtiyari.</li>
@@ -145,10 +145,10 @@ export default function IadeIptal() {
 
           <LegalDisclaimer compact context="Bu sayfa platform iade/iptal politikasını özetler. Somut uyuşmazlıkta avukat görüşü zorunludur." />
 
-          <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
+          <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-4 flex items-start gap-3">
             <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
             <div className="text-sm">
-              <p className="font-semibold text-slate-200 mb-1">İade + İptal İletişim</p>
+              <p className="font-normal text-slate-200 mb-1">İade + İptal İletişim</p>
               <p className="text-xs text-slate-400">
                 <a href="mailto:destek@ihaleal.com" className="text-cyan-300 underline">destek@ihaleal.com</a>
                 {" · "}

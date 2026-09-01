@@ -96,9 +96,9 @@ export default function DisasterRecovery() {
         <div className="max-w-5xl mx-auto px-4 py-12">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6"><ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri</Button>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500 flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
+            <div className="w-12 h-12 rounded-[20px] bg-emerald-500 flex items-center justify-center"><Shield className="w-6 h-6 text-white" /></div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Felaket Kurtarma Planı</h1>
+              <h1 className="text-3xl font-normal text-white">Felaket Kurtarma Planı</h1>
               <p className="text-slate-400">Süreklilik planı, yedekleme stratejisi ve olası senaryo analizleri</p>
             </div>
           </div>
@@ -107,11 +107,11 @@ export default function DisasterRecovery() {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 mt-8 space-y-6">
-        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/25" data-demo="true">
+        <div className="p-4 rounded-[20px] bg-amber-500/10 border border-amber-500/25" data-demo="true">
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-white font-medium">Demo / yol haritası</p>
+              <p className="text-sm text-white font-normal">Demo / yol haritası</p>
               <p className="text-sm text-slate-400">
                 Aşağıdaki RPO, RTO, 3-2-1 ve çoklu lokasyon metinleri <strong>ürün vizyonu</strong> düzeyindedir; canlı altyapı iddiası değildir. Aktif koruma hedefi (K7):{" "}
                 <strong>honeypot + backend rate limit</strong>; planlanan: WAF, DDoS koruması, 2FA.
@@ -123,13 +123,13 @@ export default function DisasterRecovery() {
         {/* Yedekleme Stratejisi */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Database className="w-5 h-5 text-blue-400" /> Yedekleme Stratejisi</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Database className="w-5 h-5 text-blue-400" /> Yedekleme Stratejisi</h3>
             <div className="space-y-3">
               {backupStrategy.map((b) => (
-                <div key={b.rule} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                  <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">{b.icon}</div>
+                <div key={b.rule} className="flex items-start gap-3 p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
+                  <div className="p-2 rounded-[10px] bg-blue-500/10 text-blue-400 shrink-0">{b.icon}</div>
                   <div>
-                    <div className="text-sm font-semibold text-white mb-0.5">{b.rule}</div>
+                    <div className="text-sm font-normal text-white mb-0.5">{b.rule}</div>
                     <p className="text-xs text-slate-400">{b.desc}</p>
                   </div>
                 </div>
@@ -141,12 +141,12 @@ export default function DisasterRecovery() {
         {/* Senaryo Analizi */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><AlertTriangle className="w-5 h-5 text-amber-400" /> Olası Senaryolar ve Kurtarma Planları</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><AlertTriangle className="w-5 h-5 text-amber-400" /> Olası Senaryolar ve Kurtarma Planları</h3>
             <div className="space-y-3">
               {disasterScenarios.map((s) => (
-                <div key={s.scenario} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
+                <div key={s.scenario} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-white">{s.scenario}</span>
+                    <span className="text-sm font-normal text-white">{s.scenario}</span>
                     <Badge className="bg-emerald-500/10 text-emerald-400 text-[10px] border-0">{s.status === "hazır" ? "Kurtarma Hazır" : s.status}</Badge>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
@@ -163,7 +163,7 @@ export default function DisasterRecovery() {
         {/* Yedekleme Lokasyonları */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Globe className="w-5 h-5 text-sky-400" /> Coğrafi Yedekleme Lokasyonları</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Globe className="w-5 h-5 text-sky-400" /> Coğrafi Yedekleme Lokasyonları</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { city: "İstanbul (TR-IST)", role: "Ana Sunucu", status: "Aktif" },
@@ -171,9 +171,9 @@ export default function DisasterRecovery() {
                 { city: "Frankfurt (DE-FRA)", role: "EU Yedek", status: "Standby" },
                 { city: "Amsterdam (NL-AMS)", role: "EU Yedek", status: "Standby" },
               ].map((loc) => (
-                <div key={loc.city} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80 text-center">
+                <div key={loc.city} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80 text-center">
                   <Server className="w-5 h-5 text-slate-400 mx-auto mb-1.5" />
-                  <div className="text-xs font-medium text-white">{loc.city}</div>
+                  <div className="text-xs font-normal text-white">{loc.city}</div>
                   <div className="text-[10px] text-slate-500">{loc.role}</div>
                   <Badge className={`mt-1.5 text-[10px] border-0 ${loc.status === 'Aktif' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}`}>{loc.status}</Badge>
                 </div>
@@ -185,7 +185,7 @@ export default function DisasterRecovery() {
         {/* Kopya / bot — K7 minimal */}
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-5">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4"><Lock className="w-5 h-5 text-violet-400" /> Koruma (K7 — minimal + yol haritası)</h3>
+            <h3 className="text-lg font-normal text-white flex items-center gap-2 mb-4"><Lock className="w-5 h-5 text-violet-400" /> Koruma (K7 — minimal + yol haritası)</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               {[
                 { title: "Honeypot", desc: "Form ve kayıt akışlarında botları ayıklamak için gizli tuzak alanları (backend ile doğrulama)." },
@@ -195,8 +195,8 @@ export default function DisasterRecovery() {
                 { title: "WAF / DDoS (plan)", desc: "Kenar ağda Cloudflare veya eşdeğeri; trafik temizleme ve bot skorları." },
                 { title: "2FA (plan)", desc: "Kritik hesap işlemlerinde TOTP veya WebAuthn (K10 SMS ile birlikte değerlendirilecek)." },
               ].map((item) => (
-                <div key={item.title} className="p-3 rounded-xl bg-white/[0.03] border border-slate-200/80">
-                  <div className="text-sm font-medium text-white mb-1">{item.title}</div>
+                <div key={item.title} className="p-3 rounded-[20px] bg-white/[0.03] border border-slate-200/80">
+                  <div className="text-sm font-normal text-white mb-1">{item.title}</div>
                   <p className="text-xs text-slate-400">{item.desc}</p>
                 </div>
               ))}

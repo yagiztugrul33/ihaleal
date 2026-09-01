@@ -75,7 +75,7 @@ export default function LiveAuctions() {
   }) => (
     <section className="mb-8">
       <div className="flex items-center justify-between mb-3 px-1">
-        <h2 className={cn("text-lg font-medium flex items-center gap-2", tone === "amber" ? "text-amber-200" : "text-cyan-200")}>
+        <h2 className={cn("text-lg font-normal flex items-center gap-2", tone === "amber" ? "text-amber-200" : "text-cyan-200")}>
           <Icon className="w-5 h-5" />
           {title}
         </h2>
@@ -91,7 +91,7 @@ export default function LiveAuctions() {
               <Link to="/arama">Tüm ilanlarda ara</Link>
             </Button>
           }
-          className="rounded-xl border border-slate-700 bg-slate-900/40 py-10"
+          className="rounded-[20px] border border-slate-700 bg-slate-900/40 py-10"
         />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -101,7 +101,7 @@ export default function LiveAuctions() {
               type="button"
               onClick={() => navigate(`/ilan/${a.id}`)}
               className={cn(
-                "group text-start rounded-2xl border bg-slate-900/40 overflow-hidden transition-all",
+                "group text-start rounded-[20px] border bg-slate-900/40 overflow-hidden transition-all",
                 tone === "amber" ? "border-amber-500/25 hover:border-amber-400/50" : "border-cyan-500/25 hover:border-cyan-400/50",
               )}
             >
@@ -122,7 +122,7 @@ export default function LiveAuctions() {
                 </div>
               </div>
               <div className="p-3 space-y-1.5">
-                <h3 className="font-medium text-white text-sm leading-snug line-clamp-2">{a.title}</h3>
+                <h3 className="font-normal text-white text-sm leading-snug line-clamp-2">{a.title}</h3>
                 <div className="flex items-center gap-1 text-xs text-slate-400">
                   <MapPin className="w-3 h-3 flex-shrink-0" />
                   <span className="truncate">{a.district}, {a.city}</span>

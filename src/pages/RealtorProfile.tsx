@@ -59,11 +59,11 @@ export default function RealtorProfilePage() {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex gap-4">
-            <div className="rounded-xl bg-violet-500/15 p-4 text-violet-400">
+            <div className="rounded-[20px] bg-violet-500/15 p-4 text-violet-400">
               <Building2 className="h-10 w-10" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">{r.companyName}</h1>
+              <h1 className="text-3xl font-normal text-white">{r.companyName}</h1>
               <p className="mt-1 flex items-center gap-2 text-sm text-slate-400">
                 <MapPin className="h-4 w-4" /> {r.city}
               </p>
@@ -76,10 +76,10 @@ export default function RealtorProfilePage() {
               </div>
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-900/50 px-4 py-3 text-center">
+          <div className="rounded-[20px] border border-slate-200 bg-slate-900/50 px-4 py-3 text-center">
             <div className="flex items-center justify-center gap-1 text-amber-400">
               <Star className="h-5 w-5 fill-current" />
-              <span className="text-2xl font-bold text-white">{r.rating.toFixed(1)}</span>
+              <span className="text-2xl font-normal text-white">{r.rating.toFixed(1)}</span>
             </div>
             <p className="text-xs text-slate-500">{r.reviewCount} değerlendirme (demo)</p>
             <Button
@@ -96,13 +96,13 @@ export default function RealtorProfilePage() {
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wide text-slate-500">Kapanan işlem</p>
-              <p className="mt-1 text-2xl font-bold text-white">{r.closedDeals}</p>
+              <p className="mt-1 text-2xl font-normal text-white">{r.closedDeals}</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-slate-900/40">
             <CardContent className="p-5">
               <p className="text-xs uppercase tracking-wide text-slate-500">12 ay hacim (demo)</p>
-              <p className="mt-1 text-2xl font-bold text-teal-300">₺{(r.volumeTry / 1e9).toFixed(2)}B</p>
+              <p className="mt-1 text-2xl font-normal text-teal-300">₺{(r.volumeTry / 1e9).toFixed(2)}B</p>
             </CardContent>
           </Card>
           <Card className="border-slate-200 bg-slate-900/40">
@@ -115,7 +115,7 @@ export default function RealtorProfilePage() {
 
         <Card className="border-slate-200 bg-slate-900/40">
           <CardContent className="p-6">
-            <h2 className="mb-4 text-lg font-semibold text-white">Satış geçmişi (demo)</h2>
+            <h2 className="mb-4 text-lg font-normal text-white">Satış geçmişi (demo)</h2>
             <div className="h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData}>
@@ -132,13 +132,13 @@ export default function RealtorProfilePage() {
         </Card>
 
         <div>
-          <h2 className="mb-4 text-lg font-semibold text-white">Yorumlar (demo)</h2>
+          <h2 className="mb-4 text-lg font-normal text-white">Yorumlar (demo)</h2>
           <div className="space-y-3">
             {r.reviews.map((rv, i) => (
               <Card key={i} className="border-slate-200 bg-slate-900/30">
                 <CardContent className="p-5">
                   <div className="flex justify-between text-sm">
-                    <span className="font-medium text-white">{rv.author}</span>
+                    <span className="font-normal text-white">{rv.author}</span>
                     <span className="text-amber-400">{rv.score}/5</span>
                   </div>
                   <p className="mt-2 text-sm text-slate-400">{rv.text}</p>

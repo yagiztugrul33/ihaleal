@@ -220,7 +220,7 @@ export default function ValuationTool() {
           <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200">
             <Sparkles className="h-3.5 w-3.5" /> AVM — Otomatik Değerleme Modeli
           </p>
-          <h1 className="mt-3 text-3xl md:text-4xl font-bold text-white">Ne Kadar Eder?</h1>
+          <h1 className="mt-3 text-3xl md:text-4xl font-normal text-white">Ne Kadar Eder?</h1>
           <p className="mt-2 text-slate-400 max-w-3xl">
             İl, ilçe, m² ve temel özelliklerle satış veya kira tahmini alın. Hesaplama;
             bölge baz fiyatı + hedonik (özellik) + emsal (komşu mülk) katmanlarının harmanıdır.
@@ -230,23 +230,23 @@ export default function ValuationTool() {
 
         {/* KATMAN 1 — Eğitici giriş (form ÖNCESI) - GES şablonu */}
         <section className="mb-6 space-y-3">
-          <div className="rounded-xl border border-cyan-400/20 bg-slate-900/40 p-4">
-            <p className="text-sm font-semibold text-cyan-200 mb-2">Değerleme nasıl hesaplanır?</p>
+          <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-4">
+            <p className="text-sm font-normal text-cyan-200 mb-2">Değerleme nasıl hesaplanır?</p>
             <div className="grid sm:grid-cols-3 gap-3 text-xs">
-              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1">1. Bölge Baz Fiyatı</p>
+              <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-normal text-cyan-300 mb-1">1. Bölge Baz Fiyatı</p>
                 <p className="text-slate-300">
                   İl/ilçe ortalama m² satış fiyatı — TCMB Konut Fiyat Endeksi + platform verisi.
                 </p>
               </div>
-              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1">2. Hedonik Katman</p>
+              <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-normal text-cyan-300 mb-1">2. Hedonik Katman</p>
                 <p className="text-slate-300">
                   Bina yaşı, kat, ısıtma, asansör, otopark, manzara → yıpranma/prim çarpanı.
                 </p>
               </div>
-              <div className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1">3. Emsal Karşılaştırma</p>
+              <div className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-normal text-cyan-300 mb-1">3. Emsal Karşılaştırma</p>
                 <p className="text-slate-300">
                   Aynı bölge benzer mülk satışları → P10/P50/P90 (min/medyan/max) bandı.
                 </p>
@@ -254,8 +254,8 @@ export default function ValuationTool() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-amber-100">
-            <p className="font-medium">Önemli uyarı</p>
+          <div className="rounded-[20px] border border-amber-400/30 bg-amber-500/10 p-4 text-amber-100">
+            <p className="font-normal">Önemli uyarı</p>
             <p className="text-sm mt-1">
               Bu araç algoritmik tahmin üretir; resmi ekspertiz raporu değildir. Banka ekspertiz değeri farklı çıkabilir.
               Yatırım tavsiyesi değildir.
@@ -263,24 +263,24 @@ export default function ValuationTool() {
           </div>
 
           {/* 5 bölge m² emsal + trend (Endeksa-style benchmark) */}
-          <div className="rounded-xl border border-emerald-400/20 bg-slate-900/40 p-4">
-            <p className="text-sm font-semibold text-emerald-300 mb-3">📊 5 Bölge m² Rayiç + Yıllık Trend (2026 Q2)</p>
+          <div className="rounded-[20px] border border-emerald-400/20 bg-slate-900/40 p-4">
+            <p className="text-sm font-normal text-emerald-300 mb-3">📊 5 Bölge m² Rayiç + Yıllık Trend (2026 Q2)</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs min-w-[520px]">
                 <thead>
                   <tr className="text-slate-500 border-b border-slate-700">
-                    <th className="text-start py-1.5 pe-2 font-medium">Bölge</th>
-                    <th className="text-end py-1.5 px-2 font-medium">m² Rayiç</th>
-                    <th className="text-end py-1.5 px-2 font-medium">Yıllık Δ</th>
-                    <th className="text-end py-1.5 px-2 font-medium">Kira/m²/ay</th>
-                    <th className="text-end py-1.5 px-2 font-medium">Brüt Yield</th>
-                    <th className="text-end py-1.5 ps-2 font-medium">Likidite</th>
+                    <th className="text-start py-1.5 pe-2 font-normal">Bölge</th>
+                    <th className="text-end py-1.5 px-2 font-normal">m² Rayiç</th>
+                    <th className="text-end py-1.5 px-2 font-normal">Yıllık Δ</th>
+                    <th className="text-end py-1.5 px-2 font-normal">Kira/m²/ay</th>
+                    <th className="text-end py-1.5 px-2 font-normal">Brüt Yield</th>
+                    <th className="text-end py-1.5 ps-2 font-normal">Likidite</th>
                   </tr>
                 </thead>
                 <tbody className="text-slate-300">
                   <tr className="border-b border-slate-800/50">
                     <td className="py-2 pe-2">
-                      <p className="text-white font-medium">İstanbul / Kadıköy</p>
+                      <p className="text-white font-normal">İstanbul / Kadıköy</p>
                       <p className="text-[10px] text-slate-500">A+ konum</p>
                     </td>
                     <td className="py-2 px-2 text-end font-mono">₺75K</td>
@@ -291,7 +291,7 @@ export default function ValuationTool() {
                   </tr>
                   <tr className="border-b border-slate-800/50">
                     <td className="py-2 pe-2">
-                      <p className="text-white font-medium">Ankara / Çankaya</p>
+                      <p className="text-white font-normal">Ankara / Çankaya</p>
                       <p className="text-[10px] text-slate-500">A konum</p>
                     </td>
                     <td className="py-2 px-2 text-end font-mono">₺38K</td>
@@ -302,7 +302,7 @@ export default function ValuationTool() {
                   </tr>
                   <tr className="border-b border-slate-800/50">
                     <td className="py-2 pe-2">
-                      <p className="text-white font-medium">İzmir / Karşıyaka</p>
+                      <p className="text-white font-normal">İzmir / Karşıyaka</p>
                       <p className="text-[10px] text-slate-500">A konum</p>
                     </td>
                     <td className="py-2 px-2 text-end font-mono">₺52K</td>
@@ -313,7 +313,7 @@ export default function ValuationTool() {
                   </tr>
                   <tr className="border-b border-slate-800/50">
                     <td className="py-2 pe-2">
-                      <p className="text-white font-medium">Antalya / Konyaaltı</p>
+                      <p className="text-white font-normal">Antalya / Konyaaltı</p>
                       <p className="text-[10px] text-slate-500">Turistik</p>
                     </td>
                     <td className="py-2 px-2 text-end font-mono">₺44K</td>
@@ -324,7 +324,7 @@ export default function ValuationTool() {
                   </tr>
                   <tr>
                     <td className="py-2 pe-2">
-                      <p className="text-white font-medium">Bursa / Nilüfer</p>
+                      <p className="text-white font-normal">Bursa / Nilüfer</p>
                       <p className="text-[10px] text-slate-500">Büyüyen</p>
                     </td>
                     <td className="py-2 px-2 text-end font-mono">₺28K</td>
@@ -345,14 +345,14 @@ export default function ValuationTool() {
 
         <form
           onSubmit={onSubmit}
-          className="grid gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-5 md:grid-cols-2 card-luxury"
+          className="grid gap-4 rounded-[20px] border border-white/10 bg-slate-900/60 p-5 md:grid-cols-2 card-luxury"
         >
           <label className="space-y-2">
             <span className="text-sm text-slate-300">İl</span>
             <select
               value={form.city}
               onChange={(event) => onCityChange(event.target.value as CityKey)}
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
+              className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-950 px-3 text-sm"
             >
               {CITY_OPTIONS.map((city) => (
                 <option key={city.value} value={city.value}>
@@ -367,7 +367,7 @@ export default function ValuationTool() {
             <select
               value={form.district}
               onChange={(event) => setForm((prev) => ({ ...prev, district: event.target.value }))}
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
+              className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-950 px-3 text-sm"
             >
               {districtOptions.length > 0 ? (
                 districtOptions.map((district) => (
@@ -412,7 +412,7 @@ export default function ValuationTool() {
               onChange={(event) =>
                 setForm((prev) => ({ ...prev, transactionType: event.target.value as TransactionType }))
               }
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
+              className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-950 px-3 text-sm"
             >
               <option value="sale">Satılık</option>
               <option value="rent">Kiralık</option>
@@ -426,7 +426,7 @@ export default function ValuationTool() {
               onChange={(event) =>
                 setForm((prev) => ({ ...prev, condition: event.target.value as PropertyCondition }))
               }
-              className="h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 text-sm"
+              className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-950 px-3 text-sm"
             >
               <option value="new">Sıfıra yakın</option>
               <option value="good">İyi durumda</option>
@@ -491,10 +491,10 @@ export default function ValuationTool() {
         {result ? (
           <>
             {/* Üst — Ana çıktı + Tahmin bandı görsel */}
-            <section className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-6">
+            <section className="mt-6 rounded-[20px] border border-emerald-400/30 bg-emerald-500/10 p-6">
               <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
                 <div>
-                  <h2 className="text-xl font-semibold mb-1 flex items-center gap-2">
+                  <h2 className="text-xl font-normal mb-1 flex items-center gap-2">
                     <Home className="h-5 w-5 text-emerald-300" /> Tahmini Sonuç
                   </h2>
                   <p className="text-xs text-slate-400">
@@ -502,7 +502,7 @@ export default function ValuationTool() {
                   </p>
                 </div>
                 <div className="text-end">
-                  <div className="text-3xl md:text-4xl font-bold text-emerald-200">
+                  <div className="text-3xl md:text-4xl font-normal text-emerald-200">
                     {formatTry(result.estimatedValue)}
                     {form.transactionType === "rent" ? <span className="text-sm font-normal text-slate-400"> /ay</span> : null}
                   </div>
@@ -521,7 +521,7 @@ export default function ValuationTool() {
               {/* Tahmin bandı (CSS bar) */}
               <div className="mb-1 flex items-center justify-between text-xs text-slate-400">
                 <span>{formatTry(result.minValue)}</span>
-                <span className="text-emerald-200 font-medium">±%{result.confidenceBandPct}</span>
+                <span className="text-emerald-200 font-normal">±%{result.confidenceBandPct}</span>
                 <span>{formatTry(result.maxValue)}</span>
               </div>
               {showFx && (
@@ -545,8 +545,8 @@ export default function ValuationTool() {
 
             {/* Karşılaştırma + katman kart */}
             <section className="mt-4 grid gap-4 md:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
+              <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
+                <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-cyan-300" /> Bölge Ortalaması Karşılaştırma
                 </h3>
                 <div className="space-y-3 text-sm">
@@ -559,7 +559,7 @@ export default function ValuationTool() {
                     <strong className="text-cyan-200">{formatTry(userUnit)}/m²</strong>
                   </div>
                   <div className={cn(
-                    "rounded-lg px-3 py-2 text-sm font-medium",
+                    "rounded-[10px] px-3 py-2 text-sm font-normal",
                     Math.abs(compareDelta) < 5 ? "bg-slate-800 text-slate-200" :
                     compareDelta > 0 ? "bg-amber-500/15 text-amber-200" : "bg-emerald-500/15 text-emerald-200",
                   )}>
@@ -572,8 +572,8 @@ export default function ValuationTool() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
+              <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
+                <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
                   <Building2 className="h-4 w-4 text-violet-300" /> Hesaplama Katmanları (₺/m²)
                 </h3>
                 <div className="space-y-2 text-xs">
@@ -608,9 +608,9 @@ export default function ValuationTool() {
             </section>
 
             {/* AI yorum + PDF aksiyonları */}
-            <section className="mt-4 rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+            <section className="mt-4 rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-violet-300" /> AI Yorum + PDF Rapor
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -638,7 +638,7 @@ export default function ValuationTool() {
                 </div>
               </div>
               {aiReply ? (
-                <div className="rounded-xl border border-violet-400/30 bg-violet-500/10 px-4 py-3 text-sm text-violet-100 leading-relaxed whitespace-pre-line">
+                <div className="rounded-[20px] border border-violet-400/30 bg-violet-500/10 px-4 py-3 text-sm text-violet-100 leading-relaxed whitespace-pre-line">
                   {aiReply}
                 </div>
               ) : (
@@ -651,8 +651,8 @@ export default function ValuationTool() {
 
             {/* Bölgeden benzer ilanlar */}
             {similar.length > 0 ? (
-              <section className="mt-4 rounded-2xl border border-white/10 bg-slate-900/40 p-5">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
+              <section className="mt-4 rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
+                <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-amber-300" /> Bölgeden Benzer İlanlar
                 </h3>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -660,16 +660,16 @@ export default function ValuationTool() {
                     <a
                       key={a.id}
                       href={`/ilan/${a.id}`}
-                      className="block rounded-xl border border-white/10 bg-slate-950/40 overflow-hidden hover:border-cyan-400/40 transition-colors"
+                      className="block rounded-[20px] border border-white/10 bg-slate-950/40 overflow-hidden hover:border-cyan-400/40 transition-colors"
                     >
                       <div className="aspect-[16/10] bg-slate-800 overflow-hidden">
                         <img src={a.images[0]} alt={a.title} loading="lazy" className="w-full h-full object-cover" />
                       </div>
                       <div className="p-3 space-y-1">
                         <div className="text-xs text-slate-400 truncate">{a.district}, {a.city}</div>
-                        <div className="text-sm font-medium text-white line-clamp-2">{a.title}</div>
+                        <div className="text-sm font-normal text-white line-clamp-2">{a.title}</div>
                         <div className="flex items-center justify-between pt-1">
-                          <span className="text-sm font-bold text-cyan-300">{formatTry(a.currentBid)}</span>
+                          <span className="text-sm font-normal text-cyan-300">{formatTry(a.currentBid)}</span>
                           <span className="text-[10px] text-slate-500">{a.propertyDetails?.grossSqm ?? "?"} m²</span>
                         </div>
                       </div>
@@ -685,12 +685,12 @@ export default function ValuationTool() {
         <section className="mt-12 space-y-4">
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="h-5 w-5 text-cyan-300" />
-            <h2 className="text-xl font-bold text-white">Güven ve Metodoloji</h2>
+            <h2 className="text-xl font-normal text-white">Güven ve Metodoloji</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-cyan-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-semibold text-cyan-200 mb-2">Veri Kaynakları</p>
+            <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-cyan-200 mb-2">Veri Kaynakları</p>
               <ul className="text-xs text-slate-300 space-y-1.5">
                 <li>• <strong>TCMB EVDS</strong>: Konut Fiyat Endeksi (TP.HKFE01/02/03)</li>
                 <li>• <strong>regionalPriceData</strong>: 10 büyük şehir + ilçe baz fiyatlar</li>
@@ -700,8 +700,8 @@ export default function ValuationTool() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-violet-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-semibold text-violet-200 mb-2">Hesap Katmanları</p>
+            <div className="rounded-[20px] border border-violet-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-violet-200 mb-2">Hesap Katmanları</p>
               <ul className="text-xs text-slate-300 space-y-1.5">
                 <li>• <strong>1. Bölge baz</strong>: il/ilçe ortalama × m² (TCMB endeks ayarlı)</li>
                 <li>• <strong>2. Hedonik</strong>: bina yaşı %0.5-2/yıl + asansör/otopark/manzara primi</li>
@@ -711,8 +711,8 @@ export default function ValuationTool() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-emerald-400/20 bg-slate-900/40 p-4">
-              <p className="text-sm font-semibold text-emerald-200 mb-2">Doğrulama Çerçevesi</p>
+            <div className="rounded-[20px] border border-emerald-400/20 bg-slate-900/40 p-4">
+              <p className="text-sm font-normal text-emerald-200 mb-2">Doğrulama Çerçevesi</p>
               <ul className="text-xs text-slate-300 space-y-1.5">
                 <li>• <strong>SPK ekspertizi</strong>: lisanslı değerleme uzmanı (zorunlu kararlar için)</li>
                 <li>• <strong>TKGM tapu inceleme</strong>: gerçek tapu+irtifak+ipotek kayıt</li>
@@ -721,8 +721,8 @@ export default function ValuationTool() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-amber-500/30 bg-amber-950/30 p-4">
-              <p className="text-sm font-semibold text-amber-200 mb-2">Disclaimer</p>
+            <div className="rounded-[20px] border border-amber-500/30 bg-amber-950/30 p-4">
+              <p className="text-sm font-normal text-amber-200 mb-2">Disclaimer</p>
               <p className="text-xs text-slate-300 leading-relaxed">
                 Bu sayfa <strong>algoritmik tahmin</strong> üretir; SPK uyumlu resmi ekspertiz
                 raporu yerine geçmez. Banka kredi ekspertiz değeri ±%15-25 farklı çıkabilir.

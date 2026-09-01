@@ -65,9 +65,9 @@ export function EarthquakeRiskWorkbench({ compact = false, title = "Deprem risk 
   };
 
   return (
-    <section className="space-y-4 rounded-2xl border border-slate-700 bg-slate-950/70 p-4 md:p-6">
+    <section className="space-y-4 rounded-[20px] border border-slate-700 bg-slate-950/70 p-4 md:p-6">
       <header>
-        <h2 className="text-xl font-black text-white md:text-2xl">{title}</h2>
+        <h2 className="text-xl font-normal text-white md:text-2xl">{title}</h2>
         <p className="mt-1 text-sm text-slate-300">
           Demo veri / ön analiz: TBDY 2018 katman mantığıyla fay, zemin, sıvılaşma ve yapısal risk birlikte puanlanır.
         </p>
@@ -87,7 +87,7 @@ export function EarthquakeRiskWorkbench({ compact = false, title = "Deprem risk 
           <Input type="number" step="0.01" value={form.pgaG} onChange={(e) => setForm((p) => ({ ...p, pgaG: Number(e.target.value || 0) }))} />
         </label>
         <label className="space-y-1 text-xs text-slate-300">Zemin sınıfı
-          <select className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white" value={form.soilClass} onChange={(e) => setForm((p) => ({ ...p, soilClass: e.target.value as SoilClass }))}>
+          <select className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white" value={form.soilClass} onChange={(e) => setForm((p) => ({ ...p, soilClass: e.target.value as SoilClass }))}>
             <option value="ZA">ZA</option><option value="ZB">ZB</option><option value="ZC">ZC</option><option value="ZD">ZD</option><option value="ZE">ZE</option>
           </select>
         </label>
@@ -113,35 +113,35 @@ export function EarthquakeRiskWorkbench({ compact = false, title = "Deprem risk 
           <Input type="number" value={form.storyCount} onChange={(e) => setForm((p) => ({ ...p, storyCount: Number(e.target.value || 0) }))} />
         </label>
         <label className="space-y-1 text-xs text-slate-300">Taşıyıcı sistem
-          <select className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white" value={form.structuralSystem} onChange={(e) => setForm((p) => ({ ...p, structuralSystem: e.target.value as StructuralSystem }))}>
+          <select className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white" value={form.structuralSystem} onChange={(e) => setForm((p) => ({ ...p, structuralSystem: e.target.value as StructuralSystem }))}>
             <option value="reinforced_concrete">Betonarme</option><option value="steel">Çelik</option><option value="mixed">Karma</option><option value="masonry">Yığma</option>
           </select>
         </label>
         <label className="space-y-1 text-xs text-slate-300">Kod dönemi
-          <select className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white" value={form.codeEra} onChange={(e) => setForm((p) => ({ ...p, codeEra: e.target.value as CodeEra }))}>
+          <select className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white" value={form.codeEra} onChange={(e) => setForm((p) => ({ ...p, codeEra: e.target.value as CodeEra }))}>
             <option value="pre_2018">2018 öncesi</option><option value="post_2018">2018 sonrası</option>
           </select>
         </label>
-        <label className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-300">
+        <label className="inline-flex items-center gap-2 rounded-[3px] border border-slate-700 px-3 py-2 text-xs text-slate-300">
           <input type="checkbox" checked={form.softStory} onChange={(e) => setForm((p) => ({ ...p, softStory: e.target.checked }))} />
           Yumuşak kat şüphesi var
         </label>
       </div>
 
       <div className="flex items-center gap-2">
-        <button type="button" onClick={run} className="inline-flex items-center gap-2 rounded-lg !bg-rose-400 px-4 py-2 text-sm font-bold !text-slate-950 shadow transition-colors hover:!bg-rose-300">Risk skorunu hesapla</button>
+        <button type="button" onClick={run} className="inline-flex items-center gap-2 rounded-[10px] !bg-rose-400 px-4 py-2 text-sm font-normal !text-slate-950 shadow transition-colors hover:!bg-rose-300">Risk skorunu hesapla</button>
         {error ? <span className="text-xs text-rose-300">{error}</span> : null}
       </div>
 
       {result ? (
         <div className="space-y-4">
-          <article className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4">
+          <article className="rounded-[20px] border border-rose-500/30 bg-rose-500/10 p-4">
             <p className="text-xs text-rose-100">Birleşik deprem güven skoru (yüksek = düşük risk)</p>
-            <p className="text-3xl font-black text-white">{result.totalScore}/100</p>
+            <p className="text-3xl font-normal text-white">{result.totalScore}/100</p>
             <p className="mt-1 text-sm text-rose-100">{result.interpretation}</p>
           </article>
           <article className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
               <div className="h-[250px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={barData}>
@@ -154,19 +154,19 @@ export function EarthquakeRiskWorkbench({ compact = false, title = "Deprem risk 
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="text-sm font-black uppercase tracking-[0.12em] text-rose-200">Katkı dökümü</h3>
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+              <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-rose-200">Katkı dökümü</h3>
               <ul className="mt-2 space-y-2 text-sm text-slate-200">
                 {result.contributions.map((c) => (
                   <li key={c.key}>
-                    <p className="font-semibold">{c.label}</p>
+                    <p className="font-normal">{c.label}</p>
                     <p className="text-xs text-slate-300">Skor {c.score}/100 · Ağırlık %{c.weightPct} · Katkı {c.contributionPts}</p>
                   </li>
                 ))}
               </ul>
             </div>
           </article>
-          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
+          <article className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
             <div className="h-[240px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={radarData}>
@@ -179,7 +179,7 @@ export function EarthquakeRiskWorkbench({ compact = false, title = "Deprem risk 
             </div>
           </article>
           {!compact ? (
-            <div className="rounded-xl border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">{result.disclaimer}</div>
+            <div className="rounded-[20px] border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">{result.disclaimer}</div>
           ) : null}
         </div>
       ) : null}

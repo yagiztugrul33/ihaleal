@@ -183,45 +183,45 @@ export default function LoyaltyProgramPage() {
   return (
     <div className="min-h-screen bg-background px-4 pb-16 pt-24 text-foreground lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
-        <section className="rounded-2xl border border-cyan-400/20 bg-slate-900/70 p-5">
+        <section className="rounded-[20px] border border-cyan-400/20 bg-slate-900/70 p-5">
           <p className="text-xs uppercase tracking-[0.14em] text-cyan-300">İhaleal Rewards</p>
-          <h1 className="mt-1 text-3xl font-black">Puanlarım</h1>
+          <h1 className="mt-1 text-3xl font-normal">Puanlarım</h1>
           <p className="mt-2 text-sm text-muted-foreground">{DEMO_REWARDS_NOTE}</p>
-          <div className="mt-4 inline-flex rounded-lg border border-border bg-secondary p-1">
+          <div className="mt-4 inline-flex rounded-[10px] border border-border bg-secondary p-1">
             <button
               type="button"
               onClick={() => setActiveTab("points")}
-              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "points" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
+              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "points" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
             >
               Ödül & Puan
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("game")}
-              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "game" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
+              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "game" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
             >
               Oyunlaştırma
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("vip")}
-              className={`rounded-md px-3 py-1.5 text-xs font-semibold ${activeTab === "vip" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
+              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "vip" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
             >
               Davet & VIP
             </button>
           </div>
         </section>
         <section className="grid gap-4 md:grid-cols-3">
-          <article className="rounded-xl border border-cyan-500/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan-200">Program Mimarisi</p>
+          <article className="rounded-[20px] border border-cyan-500/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-cyan-200">Program Mimarisi</p>
             <p className="mt-2 text-sm text-slate-300">Puan, görev ve VIP katmanı tek cüzdanda birleşir; kullanıcı davranışı ölçülebilir hale gelir.</p>
           </article>
-          <article className="rounded-xl border border-emerald-500/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">Operasyon Notu</p>
+          <article className="rounded-[20px] border border-emerald-500/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-emerald-200">Operasyon Notu</p>
             <p className="mt-2 text-sm text-slate-300">Ödül maliyeti ve kazanım oranı aylık raporlanır; sürdürülebilir olmayan kampanyalar erken revize edilir.</p>
           </article>
-          <article className="rounded-xl border border-violet-500/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-violet-200">Demo Etiketi</p>
+          <article className="rounded-[20px] border border-violet-500/25 bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-violet-200">Demo Etiketi</p>
             <p className="mt-2 text-sm text-slate-300">Bu ekran demo akıştır; gerçek puan/ödül kuralları ürün kararına ve sözleşmelere göre güncellenir.</p>
           </article>
         </section>
@@ -229,25 +229,25 @@ export default function LoyaltyProgramPage() {
         {activeTab === "points" ? (
           <>
         <section className="grid gap-4 md:grid-cols-3">
-          <article className="rounded-xl border border-slate-700/80 bg-slate-900/60 p-4">
+          <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-400">Puan bakiyesi</p>
-            <strong className="mt-2 block text-3xl font-black text-cyan-200">{balance.toLocaleString("tr-TR")}</strong>
+            <strong className="mt-2 block text-3xl font-normal text-cyan-200">{balance.toLocaleString("tr-TR")}</strong>
           </article>
-          <article className="rounded-xl border border-slate-700/80 bg-slate-900/60 p-4">
+          <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-400">İlerleme</p>
-            <strong className="mt-2 block text-xl font-bold text-white">%{progressRatio} hedefe yakın</strong>
+            <strong className="mt-2 block text-xl font-normal text-white">%{progressRatio} hedefe yakın</strong>
             <div className="mt-3 h-2 rounded-full bg-slate-800">
               <div className="h-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" style={{ width: `${progressRatio}%` }} />
             </div>
           </article>
-          <article className="rounded-xl border border-slate-700/80 bg-slate-900/60 p-4">
+          <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-400">İşlem bazlı puan</p>
             <label className="mt-2 block text-xs text-slate-300">
               İşlem tutarı (TRY)
               <input
                 value={transactionAmount}
                 onChange={(e) => setTransactionAmount(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
+                className="mt-1 w-full rounded-[10px] border border-slate-600 bg-slate-950 px-3 py-2 text-sm text-slate-100"
               />
             </label>
             <button
@@ -259,7 +259,7 @@ export default function LoyaltyProgramPage() {
                   `${transactionAmount} TRY işlem`,
                 )
               }
-              className="mt-3 inline-flex items-center gap-1 rounded-lg border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-100"
+              className="mt-3 inline-flex items-center gap-1 rounded-[10px] border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-normal text-cyan-100"
             >
               <PlusCircle className="h-4 w-4" /> İşlem puanını işle
             </button>
@@ -267,8 +267,8 @@ export default function LoyaltyProgramPage() {
         </section>
 
         <section className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
-          <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-            <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold text-white">
+          <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+            <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal text-white">
               <Medal className="h-5 w-5 text-cyan-300" />
               Puan Kazanma Aksiyonları
             </h2>
@@ -278,33 +278,33 @@ export default function LoyaltyProgramPage() {
                   key={action.key}
                   type="button"
                   onClick={() => addPoints(action.label, action.basePoints, action.description)}
-                  className="rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-start transition hover:border-cyan-400/40"
+                  className="rounded-[10px] border border-slate-700 bg-slate-950/70 p-3 text-start transition hover:border-cyan-400/40"
                 >
-                  <p className="text-sm font-semibold text-white">{action.label}</p>
+                  <p className="text-sm font-normal text-white">{action.label}</p>
                   <p className="mt-1 text-xs text-slate-400">{action.description}</p>
-                  <p className="mt-2 text-xs font-bold text-emerald-300">+{action.basePoints} puan</p>
+                  <p className="mt-2 text-xs font-normal text-emerald-300">+{action.basePoints} puan</p>
                 </button>
               ))}
             </div>
           </article>
 
-          <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-            <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold text-white">
+          <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+            <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal text-white">
               <Gift className="h-5 w-5 text-amber-300" />
               Ödül Kataloğu
             </h2>
             <div className="space-y-2">
               {REWARD_CATALOG.map((reward) => (
-                <div key={reward.id} className="rounded-lg border border-slate-700 bg-slate-950/70 p-3">
-                  <p className="text-sm font-semibold text-white">{reward.title}</p>
+                <div key={reward.id} className="rounded-[10px] border border-slate-700 bg-slate-950/70 p-3">
+                  <p className="text-sm font-normal text-white">{reward.title}</p>
                   <p className="mt-1 text-xs text-slate-400">{reward.detail}</p>
                   <div className="mt-2 flex items-center justify-between">
-                    <span className="text-xs font-bold text-amber-200">{reward.cost} puan</span>
+                    <span className="text-xs font-normal text-amber-200">{reward.cost} puan</span>
                     <button
                       type="button"
                       onClick={() => redeemReward(reward.cost, reward.title)}
                       disabled={balance < reward.cost}
-                      className="rounded-md border border-amber-400/50 bg-amber-500/10 px-2.5 py-1 text-[11px] font-semibold text-amber-100 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-[3px] border border-amber-400/50 bg-amber-500/10 px-2.5 py-1 text-[11px] font-normal text-amber-100 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Kullan
                     </button>
@@ -315,24 +315,24 @@ export default function LoyaltyProgramPage() {
           </article>
         </section>
 
-        <section className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-          <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold text-white">
+        <section className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+          <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal text-white">
             <History className="h-5 w-5 text-violet-300" />
             Puan Geçmişi
           </h2>
           <div className="space-y-2">
             {ledger.length === 0 ? (
-              <p className="rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-sm text-slate-400">Henüz puan hareketi yok.</p>
+              <p className="rounded-[10px] border border-slate-700 bg-slate-950/70 p-3 text-sm text-slate-400">Henüz puan hareketi yok.</p>
             ) : (
               ledger.slice(0, 18).map((item) => (
-                <div key={item.id} className="flex items-start justify-between gap-3 rounded-lg border border-slate-700 bg-slate-950/70 p-3">
+                <div key={item.id} className="flex items-start justify-between gap-3 rounded-[10px] border border-slate-700 bg-slate-950/70 p-3">
                   <div>
-                    <p className="text-sm font-semibold text-white">{item.action}</p>
+                    <p className="text-sm font-normal text-white">{item.action}</p>
                     <p className="text-xs text-slate-400">
                       {new Date(item.createdAt).toLocaleString("tr-TR")} {item.note ? `· ${item.note}` : ""}
                     </p>
                   </div>
-                  <span className={`text-sm font-bold ${item.points >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
+                  <span className={`text-sm font-normal ${item.points >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
                     {item.points >= 0 ? "+" : ""}
                     {item.points}
                   </span>
@@ -348,34 +348,34 @@ export default function LoyaltyProgramPage() {
           </>
         ) : activeTab === "game" ? (
           <>
-            <section className="rounded-2xl border border-violet-400/20 bg-slate-900/70 p-4">
+            <section className="rounded-[20px] border border-violet-400/20 bg-slate-900/70 p-4">
               <p className="text-sm text-violet-200">{GAMIFICATION_NOTE}</p>
             </section>
             <section className="grid gap-4 lg:grid-cols-[1.05fr_1fr]">
-              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold">
+              <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal">
                   <Trophy className="h-5 w-5 text-amber-300" /> Rozetler & Başarımlar
                 </h2>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {badges.map((badge) => (
-                    <div key={badge.id} className={`rounded-lg border p-3 ${badge.unlocked ? "border-amber-400/40 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}>
+                    <div key={badge.id} className={`rounded-[10px] border p-3 ${badge.unlocked ? "border-amber-400/40 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}>
                       <p className="text-lg">{badge.icon}</p>
-                      <p className="mt-1 text-sm font-semibold text-white">{badge.title}</p>
+                      <p className="mt-1 text-sm font-normal text-white">{badge.title}</p>
                       <p className="text-xs text-slate-400">{badge.rule}</p>
-                      <p className={`mt-2 text-[11px] font-bold ${badge.unlocked ? "text-emerald-300" : "text-slate-500"}`}>
+                      <p className={`mt-2 text-[11px] font-normal ${badge.unlocked ? "text-emerald-300" : "text-slate-500"}`}>
                         {badge.unlocked ? "Kazanıldı" : "Kilitli"}
                       </p>
                     </div>
                   ))}
                 </div>
               </article>
-              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold">
+              <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal">
                   <Medal className="h-5 w-5 text-cyan-300" /> Liderlik Tablosu
                 </h2>
                 <div className="space-y-2">
                   {DEMO_LEADERBOARD.map((row, idx) => (
-                    <div key={row.alias} className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2">
+                    <div key={row.alias} className="flex items-center justify-between rounded-[10px] border border-slate-700 bg-slate-950/70 px-3 py-2">
                       <span className="text-sm text-slate-200">#{idx + 1} {row.alias}</span>
                       <strong className="text-sm text-cyan-200">{row.score.toLocaleString("tr-TR")} puan</strong>
                     </div>
@@ -385,28 +385,28 @@ export default function LoyaltyProgramPage() {
               </article>
             </section>
             <section className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-bold">
+              <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal">
                   <Gamepad2 className="h-5 w-5 text-cyan-300" /> İHALEAL Tahmin Oyunu
                 </h2>
                 <p className="text-sm text-slate-300">
                   Zestimate uyarlaması (demo): mülk fiyatını tahmin et, yaklaştıkça puan kazan.
                 </p>
                 {predictionAsset ? (
-                  <div className="mt-3 rounded-lg border border-slate-700 bg-slate-950/70 p-3">
-                    <p className="text-sm font-semibold text-white">{getPropertyTitle(predictionAsset)}</p>
+                  <div className="mt-3 rounded-[10px] border border-slate-700 bg-slate-950/70 p-3">
+                    <p className="text-sm font-normal text-white">{getPropertyTitle(predictionAsset)}</p>
                     <label className="mt-2 block text-xs text-slate-300">
                       Tahmin fiyatı (TRY)
                       <input
                         value={predictionValue}
                         onChange={(e) => setPredictionValue(e.target.value)}
-                        className="mt-1 w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+                        className="mt-1 w-full rounded-[10px] border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
                       />
                     </label>
                     <button
                       type="button"
                       onClick={submitPrediction}
-                      className="mt-3 rounded-lg border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-100"
+                      className="mt-3 rounded-[10px] border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-normal text-cyan-100"
                     >
                       Tahmini gönder
                     </button>
@@ -414,22 +414,22 @@ export default function LoyaltyProgramPage() {
                   </div>
                 ) : null}
               </article>
-              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-                <h2 className="mb-3 text-lg font-bold text-white">Görevler</h2>
+              <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="mb-3 text-lg font-normal text-white">Görevler</h2>
                 <div className="space-y-2">
                   {MISSIONS.map((mission) => {
                     const done = missionsDone.includes(mission.id);
                     return (
-                      <div key={mission.id} className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-950/70 p-3">
+                      <div key={mission.id} className="flex items-center justify-between rounded-[10px] border border-slate-700 bg-slate-950/70 p-3">
                         <div>
-                          <p className="text-sm font-semibold text-white">{mission.title}</p>
+                          <p className="text-sm font-normal text-white">{mission.title}</p>
                           <p className="text-xs text-slate-400">+{mission.points} puan</p>
                         </div>
                         <button
                           type="button"
                           disabled={done}
                           onClick={() => completeMission(mission.id)}
-                          className="rounded-md border border-emerald-400/50 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-100 disabled:opacity-40"
+                          className="rounded-[3px] border border-emerald-400/50 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-normal text-emerald-100 disabled:opacity-40"
                         >
                           {done ? "Tamamlandı" : "Tamamla"}
                         </button>
@@ -443,12 +443,12 @@ export default function LoyaltyProgramPage() {
         ) : (
           <>
             <section className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-              <article className="rounded-2xl border border-cyan-400/20 bg-slate-900/70 p-4">
-                <h2 className="text-lg font-bold text-white">Davet Programı</h2>
+              <article className="rounded-[20px] border border-cyan-400/20 bg-slate-900/70 p-4">
+                <h2 className="text-lg font-normal text-white">Davet Programı</h2>
                 <p className="mt-1 text-sm text-slate-300">Kişiye özel linkle davet et, ikiniz de puan kazan (demo/temsili).</p>
-                <div className="mt-3 rounded-lg border border-slate-700 bg-slate-950/70 p-3">
+                <div className="mt-3 rounded-[10px] border border-slate-700 bg-slate-950/70 p-3">
                   <p className="text-xs text-slate-400">Davet linkin</p>
-                  <p className="mt-1 break-all text-sm font-semibold text-cyan-200">{referralLink}</p>
+                  <p className="mt-1 break-all text-sm font-normal text-cyan-200">{referralLink}</p>
                 </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <button
@@ -456,14 +456,14 @@ export default function LoyaltyProgramPage() {
                     onClick={() => {
                       void navigator.clipboard.writeText(referralLink);
                     }}
-                    className="rounded-md border border-cyan-400/50 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold text-cyan-100"
+                    className="rounded-[3px] border border-cyan-400/50 bg-cyan-500/10 px-3 py-1.5 text-xs font-normal text-cyan-100"
                   >
                     Linki kopyala
                   </button>
                   <button
                     type="button"
                     onClick={recordReferral}
-                    className="rounded-md border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-100"
+                    className="rounded-[3px] border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 text-xs font-normal text-emerald-100"
                   >
                     Davet dönüşümü simüle et
                   </button>
@@ -472,8 +472,8 @@ export default function LoyaltyProgramPage() {
                   Toplam başarılı davet: <strong className="text-cyan-200">{referralCount}</strong>
                 </p>
               </article>
-              <article className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-                <h2 className="text-lg font-bold text-white">VIP Kademe Profili</h2>
+              <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+                <h2 className="text-lg font-normal text-white">VIP Kademe Profili</h2>
                 <p className="mt-1 text-sm text-slate-300">
                   Aktif kademe: <strong className="text-amber-200">{vipTier.title}</strong>
                 </p>
@@ -485,27 +485,27 @@ export default function LoyaltyProgramPage() {
                   <input
                     value={volumeInput}
                     onChange={(e) => setVolumeInput(e.target.value)}
-                    className="mt-1 w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
+                    className="mt-1 w-full rounded-[10px] border border-slate-600 bg-slate-950 px-3 py-2 text-sm"
                   />
                 </label>
                 <button
                   type="button"
                   onClick={addVipVolume}
-                  className="mt-3 rounded-md border border-amber-400/50 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-100"
+                  className="mt-3 rounded-[3px] border border-amber-400/50 bg-amber-500/10 px-3 py-1.5 text-xs font-normal text-amber-100"
                 >
                   Hacim ekle
                 </button>
               </article>
             </section>
-            <section className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4">
-              <h3 className="mb-3 text-lg font-bold text-white">Kademe Ayrıcalıkları</h3>
+            <section className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
+              <h3 className="mb-3 text-lg font-normal text-white">Kademe Ayrıcalıkları</h3>
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                 {VIP_TIERS.map((tier) => (
                   <article
                     key={tier.id}
-                    className={`rounded-xl border p-3 ${tier.id === vipTier.id ? "border-amber-400/60 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}
+                    className={`rounded-[20px] border p-3 ${tier.id === vipTier.id ? "border-amber-400/60 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}
                   >
-                    <p className="text-sm font-bold text-white">{tier.title}</p>
+                    <p className="text-sm font-normal text-white">{tier.title}</p>
                     <p className="mt-1 text-[11px] text-slate-400">
                       Min {tier.minPoints} puan · {tier.minVolumeTry.toLocaleString("tr-TR")} TRY
                     </p>

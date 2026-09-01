@@ -55,12 +55,12 @@ export default function SettingsPage() {
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
 
-        <h1 className="text-3xl font-bold text-white mb-2">Ayarlar</h1>
+        <h1 className="text-3xl font-normal text-white mb-2">Ayarlar</h1>
         <p className="text-slate-400 text-sm mb-8">Bildirim tercihleri tarayıcıda saklanır (demo). Üyelik ücretleri iş modeli ile uyumludur.</p>
 
         <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
-            <div className="flex items-center gap-2 mb-4 text-white font-semibold">
+            <div className="flex items-center gap-2 mb-4 text-white font-normal">
               <Bell className="w-5 h-5 text-violet-400" />
               Bildirim tercihleri
             </div>
@@ -97,7 +97,7 @@ export default function SettingsPage() {
 
         <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
-            <div className="flex items-center gap-2 mb-4 text-white font-semibold">
+            <div className="flex items-center gap-2 mb-4 text-white font-normal">
               <MapPin className="w-5 h-5 text-sky-400" />
               Konum bildirimi (geofence)
             </div>
@@ -107,7 +107,7 @@ export default function SettingsPage() {
 
         <Card className="border-slate-200 bg-slate-900/45 mb-6">
           <CardContent className="p-6">
-            <div className="flex items-center gap-2 mb-3 text-white font-semibold">
+            <div className="flex items-center gap-2 mb-3 text-white font-normal">
               <CreditCard className="w-5 h-5 text-teal-400" />
               Üyelik (bilgilendirme)
             </div>
@@ -123,7 +123,7 @@ export default function SettingsPage() {
 
         <Card className="border-slate-200 bg-slate-900/45">
           <CardContent className="p-6">
-            <div className="flex items-center gap-2 mb-3 text-white font-semibold">
+            <div className="flex items-center gap-2 mb-3 text-white font-normal">
               <Shield className="w-5 h-5 text-blue-400" />
               Güvenlik
             </div>
@@ -160,7 +160,7 @@ function PrefRow({
   onCheckedChange: (v: boolean) => void;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200/80 bg-white/[0.02] px-3 py-2.5">
+    <div className="flex items-center justify-between gap-4 rounded-[20px] border border-slate-200/80 bg-white/[0.02] px-3 py-2.5">
       <Label htmlFor={label} className="text-sm text-slate-300 cursor-pointer flex-1">
         {label}
       </Label>

@@ -52,7 +52,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
         aria-label="İlanı paylaş"
         aria-haspopup="menu"
         aria-expanded={open}
-        className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-500 hover:text-slate-900 transition-all"
+        className="p-2.5 rounded-[20px] bg-white/5 hover:bg-white/10 text-slate-500 hover:text-slate-900 transition-all"
       >
         <Share2 className="w-4 h-4" />
       </button>
@@ -67,9 +67,9 @@ export function ShareButton({ title, url }: ShareButtonProps) {
             tabIndex={-1}
             aria-label="Paylaş menüsünü kapat"
           />
-          <div className="absolute end-0 top-full mt-2 w-72 p-4 rounded-2xl bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
+          <div className="absolute end-0 top-full mt-2 w-72 p-4 rounded-[20px] bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="text-sm font-semibold text-white">Paylaş</h4>
+              <h4 className="text-sm font-normal text-white">Paylaş</h4>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -87,11 +87,11 @@ export function ShareButton({ title, url }: ShareButtonProps) {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl ${link.color} text-white transition-all`}
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-[20px] ${link.color} text-white transition-all`}
                   onClick={() => setOpen(false)}
                 >
                   {link.icon}
-                  <span className="text-[10px] font-medium">{link.name}</span>
+                  <span className="text-[10px] font-normal">{link.name}</span>
                 </a>
               ))}
             </div>
@@ -101,11 +101,11 @@ export function ShareButton({ title, url }: ShareButtonProps) {
                 type="text"
                 value={fullUrl}
                 readOnly
-                className="flex-1 px-3 py-2 rounded-lg bg-slate-950 border border-slate-200 text-xs text-slate-400 truncate"
+                className="flex-1 px-3 py-2 rounded-[10px] bg-slate-950 border border-slate-200 text-xs text-slate-400 truncate"
               />
               <button
                 onClick={handleCopy}
-                className={`px-3 py-2 rounded-lg text-xs font-medium transition-all ${copied ? "bg-emerald-500 text-white" : "bg-white/10 text-white hover:bg-white/20"}`}
+                className={`px-3 py-2 rounded-[10px] text-xs font-normal transition-all ${copied ? "bg-emerald-500 text-white" : "bg-white/10 text-white hover:bg-white/20"}`}
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               </button>

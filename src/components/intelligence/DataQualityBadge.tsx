@@ -17,8 +17,8 @@ const LABELS = {
 
 export function DataQualityBadge({ quality, limitations = [] }: Props) {
   return (
-    <div className={`rounded-lg border px-3 py-2 text-xs ${STYLES[quality]}`}>
-      <p className="font-semibold">{LABELS[quality]}</p>
+    <div className={`rounded-[10px] border px-3 py-2 text-xs ${STYLES[quality]}`}>
+      <p className="font-normal">{LABELS[quality]}</p>
       {limitations.length > 0 ? (
         <ul className="mt-1.5 space-y-0.5 opacity-90 list-disc list-inside">
           {limitations.map((l) => (

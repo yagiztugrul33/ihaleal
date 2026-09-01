@@ -71,21 +71,21 @@ export default function DocumentsPage() {
 
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
           <div className="flex gap-4">
-            <div className="rounded-xl bg-amber-500/15 p-3 text-amber-400">
+            <div className="rounded-[20px] bg-amber-500/15 p-3 text-amber-400">
               <FolderOpen className="w-10 h-10" />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white">Belgelerim</h1>
+              <h1 className="text-2xl md:text-3xl font-normal text-white">Belgelerim</h1>
               <p className="text-slate-400 text-sm mt-1">
                 Tapu, KYC ve ekspertiz dosyalarınızın durumu (demo). Gerçek süreç hukuki ve operasyon ekibi ile tamamlanır.
               </p>
             </div>
           </div>
           <div className="flex gap-3 text-sm">
-            <span className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-3 py-2 text-emerald-300">
+            <span className="rounded-[20px] border border-emerald-500/25 bg-emerald-500/10 px-3 py-2 text-emerald-300">
               Onaylı: {summary.ok}
             </span>
-            <span className="rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-amber-200">
+            <span className="rounded-[20px] border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-amber-200">
               Bekleyen / süreçte: {summary.pending}
             </span>
           </div>
@@ -118,7 +118,7 @@ export default function DocumentsPage() {
                         {st.label}
                       </Badge>
                     </div>
-                    <h2 className="font-semibold text-white">{d.label}</h2>
+                    <h2 className="font-normal text-white">{d.label}</h2>
                     {d.fileName && (
                       <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
                         <FileCheck className="w-3.5 h-3.5" /> {d.fileName}
@@ -144,7 +144,7 @@ export default function DocumentsPage() {
                           accept=".pdf,.jpg,.jpeg,.png,.zip"
                           onChange={() => simulateUpload(d.id)}
                         />
-                        <span className="inline-flex items-center gap-2 rounded-xl [background:var(--gradient-cta)] px-4 py-2 text-sm font-medium text-white">
+                        <span className="inline-flex items-center gap-2 rounded-[20px] [background:var(--gradient-cta)] px-4 py-2 text-sm font-normal text-white">
                           <Upload className="w-4 h-4" /> Yükle (demo)
                         </span>
                       </label>

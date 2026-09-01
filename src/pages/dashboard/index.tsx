@@ -73,10 +73,10 @@ export default function FlowDashboard() {
     return (
       <div className="min-h-screen px-4 pt-28 pb-16" data-demo="true">
         <div className="mx-auto max-w-4xl space-y-4">
-          <div className="skeleton-shimmer h-8 w-48 rounded-lg" />
+          <div className="skeleton-shimmer h-8 w-48 rounded-[10px]" />
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="skeleton-shimmer h-28 rounded-xl" />
-            <div className="skeleton-shimmer h-28 rounded-xl" />
+            <div className="skeleton-shimmer h-28 rounded-[20px]" />
+            <div className="skeleton-shimmer h-28 rounded-[20px]" />
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function FlowDashboard() {
           <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {d.back}
         </Button>
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-2xl md:text-3xl font-normal text-white flex items-center gap-2">
             <LayoutDashboard className="w-8 h-8 text-violet-400" />
             {d.title}
           </h1>
@@ -112,7 +112,7 @@ export default function FlowDashboard() {
           {perms.canCreateListing ? (
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-white font-medium">
+                <div className="flex items-center gap-2 text-white font-normal">
                   <Store className="w-5 h-5 text-cyan-400" />
                   {d.cardListingsTitle}
                 </div>
@@ -127,7 +127,7 @@ export default function FlowDashboard() {
           {perms.canOpenAuction ? (
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-white font-medium">
+                <div className="flex items-center gap-2 text-white font-normal">
                   <Gavel className="w-5 h-5 text-blue-400" />
                   {d.cardAuctionTitle}
                 </div>
@@ -142,7 +142,7 @@ export default function FlowDashboard() {
           {perms.canBid ? (
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-white font-medium">
+                <div className="flex items-center gap-2 text-white font-normal">
                   <ClipboardList className="w-5 h-5 text-amber-400" />
                   {d.cardBidsTitle}
                 </div>
@@ -156,7 +156,7 @@ export default function FlowDashboard() {
 
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-4 flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-white font-medium">
+              <div className="flex items-center gap-2 text-white font-normal">
                 <Heart className="w-5 h-5 text-pink-400" />
                 {d.cardFavoritesTitle}
               </div>
@@ -168,7 +168,7 @@ export default function FlowDashboard() {
 
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-4 flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-white font-medium">
+              <div className="flex items-center gap-2 text-white font-normal">
                 <Search className="w-5 h-5 text-slate-300" />
                 {d.cardSavedSearchTitle}
               </div>
@@ -181,7 +181,7 @@ export default function FlowDashboard() {
           {flows.includes("auction_seller") ? (
             <Card className="border-slate-200/80 bg-slate-900/40">
               <CardContent className="p-4 flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-white font-medium">
+                <div className="flex items-center gap-2 text-white font-normal">
                   <Shield className="w-5 h-5 text-teal-400" />
                   {d.cardAuthorityTitle}
                 </div>
@@ -194,7 +194,7 @@ export default function FlowDashboard() {
 
           <Card className="border-slate-200/80 bg-slate-900/40">
             <CardContent className="p-4 flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-white font-medium">
+              <div className="flex items-center gap-2 text-white font-normal">
                 <FileText className="w-5 h-5 text-slate-400" />
                 {d.cardProfileTitle}
               </div>

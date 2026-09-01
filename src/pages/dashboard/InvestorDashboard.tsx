@@ -121,7 +121,7 @@ export default function InvestorDashboard() {
         }
       >
         {syncError ? (
-          <p className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">{syncError}</p>
+          <p className="mb-4 rounded-[20px] border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">{syncError}</p>
         ) : null}
         {isLoading ? (
           <LoadingSkeletonGrid count={3} />
@@ -213,7 +213,7 @@ export default function InvestorDashboard() {
             </ChartPanel>
 
             <section>
-              <h2 className="mb-4 text-lg font-bold text-white">{iv.portfolioListings}</h2>
+              <h2 className="mb-4 text-lg font-normal text-white">{iv.portfolioListings}</h2>
               <div className="space-y-3">
                 {favoriteAuctions.map((auction) => {
                   const upside = auction.aiPredictedPrice - auction.currentBid;
@@ -232,12 +232,12 @@ export default function InvestorDashboard() {
                           loading="lazy"
                           src={auction.images[0]}
                           alt={auction.title}
-                          className="h-24 w-full shrink-0 rounded-xl object-cover sm:w-32"
+                          className="h-24 w-full shrink-0 rounded-[20px] object-cover sm:w-32"
                         />
                         <div className="min-w-0 flex-1">
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <h4 className="font-bold text-white">{auction.title}</h4>
+                              <h4 className="font-normal text-white">{auction.title}</h4>
                               <div className="mt-1 flex items-center gap-2 text-sm text-slate-400">
                                 <MapPin className="h-3.5 w-3.5 text-blue-400" />
                                 {auction.location}
@@ -249,17 +249,17 @@ export default function InvestorDashboard() {
                             </Badge>
                           </div>
                           <div className="mt-3 grid grid-cols-3 gap-2">
-                            <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
+                            <div className="rounded-[10px] border border-white/8 bg-white/[0.03] p-2">
                               <div className="text-[10px] uppercase text-slate-500">{iv.cardCurrent}</div>
-                              <div className="text-sm font-bold text-white" dir="ltr">₺{(auction.currentBid / 1_000_000).toFixed(1)}M</div>
+                              <div className="text-sm font-normal text-white" dir="ltr">₺{(auction.currentBid / 1_000_000).toFixed(1)}M</div>
                             </div>
-                            <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
+                            <div className="rounded-[10px] border border-white/8 bg-white/[0.03] p-2">
                               <div className="text-[10px] uppercase text-slate-500">{iv.cardPredicted}</div>
-                              <div className="text-sm font-bold text-emerald-400" dir="ltr">₺{(auction.aiPredictedPrice / 1_000_000).toFixed(1)}M</div>
+                              <div className="text-sm font-normal text-emerald-400" dir="ltr">₺{(auction.aiPredictedPrice / 1_000_000).toFixed(1)}M</div>
                             </div>
-                            <div className="rounded-lg border border-white/8 bg-white/[0.03] p-2">
+                            <div className="rounded-[10px] border border-white/8 bg-white/[0.03] p-2">
                               <div className="text-[10px] uppercase text-slate-500">{iv.cardYield}</div>
-                              <div className="text-sm font-bold text-blue-400" dir="ltr">%{auction.areaStats.rentalYield}</div>
+                              <div className="text-sm font-normal text-blue-400" dir="ltr">%{auction.areaStats.rentalYield}</div>
                             </div>
                           </div>
                           <ListingDocumentFooter auction={auction} compact showTopRule={false} />

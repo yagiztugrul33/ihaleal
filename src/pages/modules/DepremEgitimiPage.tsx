@@ -33,12 +33,12 @@ export default function DepremEgitimiPage() {
               <Link
                 key={l.id}
                 to={`/modul/deprem-egitimi/ders-${l.id}`}
-                className="rounded-xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-emerald-500/40"
+                className="rounded-[20px] border border-white/10 bg-white/[0.03] p-4 transition hover:border-emerald-500/40"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <p className="text-xs font-semibold uppercase text-emerald-300">Ders {l.id}</p>
-                    <p className="font-semibold text-white">{l.title}</p>
+                    <p className="text-xs font-normal uppercase text-emerald-300">Ders {l.id}</p>
+                    <p className="font-normal text-white">{l.title}</p>
                     <p className="mt-1 text-xs text-slate-500">{l.duration}</p>
                   </div>
                   {completed ? (
@@ -58,9 +58,9 @@ export default function DepremEgitimiPage() {
 
       {allDone ? (
         <ModulePanel title="Tamamlama sertifikası">
-          <div className="mod-print-root rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6 text-center">
+          <div className="mod-print-root rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-6 text-center">
             <Award className="mx-auto h-10 w-10 text-emerald-300" aria-hidden />
-            <h3 className="mt-2 text-lg font-bold text-white">Afet Okuryazarlığı Sertifikası</h3>
+            <h3 className="mt-2 text-lg font-normal text-white">Afet Okuryazarlığı Sertifikası</h3>
             <p className="mt-2 text-sm text-slate-300">
               On derslik deprem eğitimi programını başarıyla tamamladınız.
             </p>

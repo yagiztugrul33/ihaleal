@@ -33,7 +33,7 @@ export default function RiskWarningDemoPage() {
           <p className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-200 mb-3">
             <AlertTriangle className="h-3.5 w-3.5" /> Riskli Satış Uyarı Sistemi
           </p>
-          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
             <AlertTriangle className="h-7 w-7 text-amber-400" />
             Hukuki Risk Uyarı Sistemi
           </h1>
@@ -46,10 +46,10 @@ export default function RiskWarningDemoPage() {
         <LegalDraftBanner />
 
         {/* KATMAN 1 — Eğitici */}
-        <section className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-5">
+        <section className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-5">
           <div className="flex items-start gap-3 mb-3">
             <BookOpen className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
-            <h2 className="text-base font-semibold text-white">Uyarı sistemi nasıl çalışır?</h2>
+            <h2 className="text-base font-normal text-white">Uyarı sistemi nasıl çalışır?</h2>
           </div>
           <p className="text-sm text-slate-300 mb-3 leading-relaxed">
             Satıcının yaşı, ipotek durumu, miras geçişi, aile ilişkisi gibi
@@ -65,8 +65,8 @@ export default function RiskWarningDemoPage() {
               { ic: "Aile", tip: "Muvazaa/saklı pay uyarısı" },
               { ic: "İpotek/Haciz", tip: "TKGM + fek belgesi" },
             ].map((c) => (
-              <div key={c.ic} className="rounded-lg border border-cyan-400/15 bg-slate-900/30 p-3">
-                <p className="font-semibold text-cyan-300 mb-1">{c.ic}</p>
+              <div key={c.ic} className="rounded-[10px] border border-cyan-400/15 bg-slate-900/30 p-3">
+                <p className="font-normal text-cyan-300 mb-1">{c.ic}</p>
                 <p className="text-slate-300">{c.tip}</p>
               </div>
             ))}
@@ -74,8 +74,8 @@ export default function RiskWarningDemoPage() {
         </section>
 
         {/* KATMAN 2 — Form (simülasyon kontrolleri) */}
-        <section className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5">
-          <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+        <section className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5">
+          <h2 className="text-base font-normal text-white mb-3 flex items-center gap-2">
             <Settings className="h-4 w-4 text-violet-400" />
             Simülasyon — İlan bilgileri
           </h2>
@@ -89,7 +89,7 @@ export default function RiskWarningDemoPage() {
                 max={2026}
                 value={birthYear}
                 onChange={(e) => setBirthYear(parseInt(e.target.value, 10) || 1955)}
-                className="w-full px-3 py-2 rounded-lg border border-slate-700 bg-slate-900/60 text-sm"
+                className="w-full px-3 py-2 rounded-[10px] border border-slate-700 bg-slate-900/60 text-sm"
               />
               <span className="text-[10px] text-slate-500">
                 Bugün ({2026}) için tahmini yaş: {2026 - birthYear}
@@ -138,7 +138,7 @@ export default function RiskWarningDemoPage() {
 
         {/* KATMAN 3 — Uyarı paneli (canlı) */}
         <section>
-          <h2 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
+          <h2 className="text-base font-normal text-white mb-3 flex items-center gap-2">
             <Info className="h-4 w-4 text-amber-400" />
             Tetiklenen Uyarılar
           </h2>

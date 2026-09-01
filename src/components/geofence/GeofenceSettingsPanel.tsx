@@ -56,7 +56,7 @@ export function GeofenceSettingsPanel() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-slate-300 leading-relaxed">
+      <div className="rounded-[10px] border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-slate-300 leading-relaxed">
         <Shield className="inline h-3.5 w-3.5 me-1 text-amber-400" />
         Konumunuz yalnızca cihazınızda işlenir; sunucuya ham GPS koordinatı gönderilmez. Yakın ilan eşleşmesi
         tarayıcıda hesaplanır. KVKK kapsamında açık rıza gereklidir.
@@ -68,7 +68,7 @@ export function GeofenceSettingsPanel() {
           type="checkbox"
           checked={consentChecked || Boolean(prefs.consentAt)}
           onChange={(e) => setConsentChecked(e.target.checked)}
-          className="rounded border-white/20"
+          className="rounded-[3px] border-white/20"
         />
         <Label htmlFor="geofence-consent" className="text-sm text-slate-300">
           Konum tabanlı ilan bildirimlerine izin veriyorum
@@ -77,7 +77,7 @@ export function GeofenceSettingsPanel() {
 
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-sm font-medium text-white flex items-center gap-2">
+          <p className="text-sm font-normal text-white flex items-center gap-2">
             <MapPin className="h-4 w-4 text-sky-400" /> Geofence bildirimi
           </p>
           <p className="text-xs text-slate-500">Mahalle yakınındaki kiralık/satılık ilanlar</p>
@@ -98,7 +98,7 @@ export function GeofenceSettingsPanel() {
           value={prefs.radiusMeters}
           disabled={busy}
           onChange={(e) => void save({ radiusMeters: Number(e.target.value) })}
-          className="mt-1 w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white"
+          className="mt-1 w-full rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white"
         >
           {RADIUS_OPTIONS.map((r) => (
             <option key={r} value={r}>
@@ -116,7 +116,7 @@ export function GeofenceSettingsPanel() {
           onChange={(e) =>
             void save({ dealFilter: e.target.value as GeofencePrefsRow["dealFilter"] })
           }
-          className="mt-1 w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white"
+          className="mt-1 w-full rounded-[10px] border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white"
         >
           <option value="all">Tümü</option>
           <option value="sale">Satılık</option>

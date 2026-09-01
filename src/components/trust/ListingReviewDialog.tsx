@@ -65,7 +65,7 @@ export function ListingReviewDialog({ open, onOpenChange, listingId, reviewedId,
                   key={n}
                   type="button"
                   onClick={() => setRating(n)}
-                  className="rounded-lg p-2 hover:bg-white/5"
+                  className="rounded-[10px] p-2 hover:bg-white/5"
                   aria-label={`${n} yıldız`}
                 >
                   <Star

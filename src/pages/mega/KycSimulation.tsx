@@ -76,11 +76,11 @@ export default function KycSimulationPage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-lg">
         <div className="mb-8 flex items-start gap-3">
-          <div className="rounded-xl bg-sky-500/15 p-3 text-sky-400">
+          <div className="rounded-[20px] bg-sky-500/15 p-3 text-sky-400">
             <ShieldCheck className="h-8 w-8" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">KYC doğrulama</h1>
+            <h1 className="text-3xl font-normal text-white">KYC doğrulama</h1>
             <p className="mt-2 text-sm text-slate-400">
               Kimlik belgesi yükleme ve inceleme durumu. Oturum açık değilse adımlar simülasyon modunda kalır.
             </p>
@@ -90,7 +90,7 @@ export default function KycSimulationPage() {
         <Card className="mb-6 border-slate-700/50 bg-slate-900/40">
           <CardContent className="p-4">
             <p className="text-xs uppercase tracking-wider text-slate-500">Hesap durumu</p>
-            <p className="mt-1 text-lg font-semibold text-white">
+            <p className="mt-1 text-lg font-normal text-white">
               {statusLoading ? "Yükleniyor…" : STATUS_LABEL[displayStatus] ?? displayStatus}
             </p>
             {latestSubmission ? (
@@ -114,7 +114,7 @@ export default function KycSimulationPage() {
           {KYC_SIMULATION_STEPS.map((s, i) => (
             <span
               key={s.id}
-              className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium ${
+              className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-normal ${
                 phase > i ? "bg-emerald-500/20 text-emerald-300" : phase === i ? "bg-blue-500/25 text-blue-200" : "bg-white/5 text-slate-500"
               }`}
             >
@@ -196,7 +196,7 @@ export default function KycSimulationPage() {
         {phase === 4 && (
           <Card className="border-emerald-500/25 bg-emerald-950/20">
             <CardContent className="p-8 text-center">
-              <p className="text-lg font-semibold text-white">
+              <p className="text-lg font-normal text-white">
                 {displayStatus === "verified" ? "KYC doğrulandı" : "Başvuru kaydedildi"}
               </p>
               <p className="mt-2 text-sm text-slate-400">

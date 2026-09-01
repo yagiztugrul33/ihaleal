@@ -112,13 +112,13 @@ export function ValuationWorkbench({
   };
 
   return (
-    <section className="space-y-4 rounded-2xl border border-slate-700/70 bg-slate-950/70 p-4 md:p-6">
+    <section className="space-y-4 rounded-[20px] border border-slate-700/70 bg-slate-950/70 p-4 md:p-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-black text-white md:text-2xl">{title}</h2>
+          <h2 className="text-xl font-normal text-white md:text-2xl">{title}</h2>
           <p className="mt-1 text-sm text-slate-300">{vf.headerSubtitle}</p>
         </div>
-        <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3 py-1 text-xs font-semibold text-cyan-100">
+        <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3 py-1 text-xs font-normal text-cyan-100">
           <ShieldCheck className="h-3.5 w-3.5" /> {vf.explainableModel}
         </span>
       </header>
@@ -135,7 +135,7 @@ export function ValuationWorkbench({
                 district: Object.keys(getCityByKey(event.target.value as CityKey)?.districts ?? {})[0] ?? "",
               }))
             }
-            className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
+            className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
             {CITY_OPTIONS.map((city) => (
               <option key={city.value} value={city.value}>
@@ -150,7 +150,7 @@ export function ValuationWorkbench({
           <select
             value={form.district}
             onChange={(event) => setForm((prev) => ({ ...prev, district: event.target.value }))}
-            className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
+            className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
             {districtOptions.length ? districtOptions.map((district) => <option key={district}>{district}</option>) : <option value="">{vf.districtNoData}</option>}
           </select>
@@ -216,7 +216,7 @@ export function ValuationWorkbench({
           <select
             value={form.heatingType}
             onChange={(event) => setForm((prev) => ({ ...prev, heatingType: event.target.value as HeatingType }))}
-            className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
+            className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
             <option value="district">{vf.heatingDistrict}</option>
             <option value="central">{vf.heatingCentral}</option>
@@ -231,7 +231,7 @@ export function ValuationWorkbench({
           <select
             value={form.locationTier}
             onChange={(event) => setForm((prev) => ({ ...prev, locationTier: event.target.value as LocationTier }))}
-            className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
+            className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
             <option value="prime">{vf.tierPrime}</option>
             <option value="strong">{vf.tierStrong}</option>
@@ -245,7 +245,7 @@ export function ValuationWorkbench({
           <select
             value={form.condition}
             onChange={(event) => setForm((prev) => ({ ...prev, condition: event.target.value as PropertyCondition }))}
-            className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
+            className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
             <option value="new">{vf.conditionNew}</option>
             <option value="good">{vf.conditionGood}</option>
@@ -258,14 +258,14 @@ export function ValuationWorkbench({
           <select
             value={form.transactionType}
             onChange={(event) => setForm((prev) => ({ ...prev, transactionType: event.target.value as TransactionType }))}
-            className="h-10 w-full rounded-md border border-slate-700 bg-slate-900 px-3 text-sm text-white"
+            className="h-10 w-full rounded-[3px] border border-slate-700 bg-slate-900 px-3 text-sm text-white"
           >
             <option value="sale">{vf.txSale}</option>
             <option value="rent">{vf.txRent}</option>
           </select>
         </label>
 
-        <label className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-300">
+        <label className="inline-flex items-center gap-2 rounded-[3px] border border-slate-700 px-3 py-2 text-xs text-slate-300">
           <input
             type="checkbox"
             checked={form.hasElevator}
@@ -274,7 +274,7 @@ export function ValuationWorkbench({
           {vf.hasElevator}
         </label>
 
-        <label className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-2 text-xs text-slate-300">
+        <label className="inline-flex items-center gap-2 rounded-[3px] border border-slate-700 px-3 py-2 text-xs text-slate-300">
           <input
             type="checkbox"
             checked={form.hasParking}
@@ -304,34 +304,34 @@ export function ValuationWorkbench({
 
       {result ? (
         <div className="space-y-4">
-          <article className="grid gap-3 rounded-xl border border-emerald-500/35 bg-emerald-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
+          <article className="grid gap-3 rounded-[20px] border border-emerald-500/35 bg-emerald-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
             <div>
               <p className="text-xs text-emerald-100">{lv.estimatedValueApprox}</p>
-              <p className="text-xl font-black text-white" dir="ltr">{formatTry(result.estimatedValue)}</p>
+              <p className="text-xl font-normal text-white" dir="ltr">{formatTry(result.estimatedValue)}</p>
               <FxRef amountTry={result.estimatedValue} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
             <div>
               <p className="text-xs text-emerald-100">{lv.confidenceRange}</p>
-              <p className="text-sm font-semibold text-white" dir="ltr">
+              <p className="text-sm font-normal text-white" dir="ltr">
                 {formatTry(result.minValue)} - {formatTry(result.maxValue)}
               </p>
               <FxRef amountTry={result.maxValue} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
             <div>
               <p className="text-xs text-emerald-100">{lv.uncertaintyBand}</p>
-              <p className="text-sm font-semibold text-white" dir="ltr">± {result.confidenceBandPct}%</p>
+              <p className="text-sm font-normal text-white" dir="ltr">± {result.confidenceBandPct}%</p>
             </div>
             <div>
               <p className="text-xs text-emerald-100">{lv.modelScore}</p>
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-normal text-white">
                 <span dir="ltr">{result.confidenceScore}/100</span> ({result.confidence === "high" ? lv.modelScoreHigh : lv.modelScoreMedium})
               </p>
             </div>
           </article>
 
           <article className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">{lv.shapTitle}</h3>
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+              <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">{lv.shapTitle}</h3>
               <div className="h-[260px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={contributionChart} layout="vertical" margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
@@ -345,8 +345,8 @@ export function ValuationWorkbench({
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">{lv.layerSummary}</h3>
+            <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+              <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">{lv.layerSummary}</h3>
               <ul className="space-y-2 text-sm text-slate-200">
                 <li>
                   Baz birim fiyat: <strong>{formatTry(result.layerSummary.baseUnitPrice)}</strong>
@@ -369,25 +369,25 @@ export function ValuationWorkbench({
           </article>
 
           <article className="grid gap-4 xl:grid-cols-3">
-            <div className="rounded-lg border border-violet-500/30 bg-violet-500/10 p-3">
+            <div className="rounded-[10px] border border-violet-500/30 bg-violet-500/10 p-3">
               <p className="text-[11px] uppercase tracking-[0.12em] text-violet-200">SPK - Emsal yaklaşımı</p>
-              <p className="mt-1 text-lg font-black text-white" dir="ltr">{formatTry(result.approaches.salesComparisonTry)}</p>
+              <p className="mt-1 text-lg font-normal text-white" dir="ltr">{formatTry(result.approaches.salesComparisonTry)}</p>
               <FxRef amountTry={result.approaches.salesComparisonTry} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
-            <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
+            <div className="rounded-[10px] border border-amber-500/30 bg-amber-500/10 p-3">
               <p className="text-[11px] uppercase tracking-[0.12em] text-amber-200">SPK - Maliyet yaklaşımı</p>
-              <p className="mt-1 text-lg font-black text-white" dir="ltr">{formatTry(result.approaches.costApproachTry)}</p>
+              <p className="mt-1 text-lg font-normal text-white" dir="ltr">{formatTry(result.approaches.costApproachTry)}</p>
               <FxRef amountTry={result.approaches.costApproachTry} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
-            <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3">
+            <div className="rounded-[10px] border border-emerald-500/30 bg-emerald-500/10 p-3">
               <p className="text-[11px] uppercase tracking-[0.12em] text-emerald-200">SPK - Gelir yaklaşımı</p>
-              <p className="mt-1 text-lg font-black text-white" dir="ltr">{formatTry(result.approaches.incomeApproachTry)}</p>
+              <p className="mt-1 text-lg font-normal text-white" dir="ltr">{formatTry(result.approaches.incomeApproachTry)}</p>
               <FxRef amountTry={result.approaches.incomeApproachTry} variant="block" className="text-[11px] text-amber-300/80" />
             </div>
           </article>
 
-          <article className="rounded-xl border border-slate-700 bg-slate-900/60 p-4">
-            <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-cyan-200">Benzer emsaller (demo)</h3>
+          <article className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
+            <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">Benzer emsaller (demo)</h3>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[740px] text-xs">
                 <thead className="text-start uppercase tracking-[0.1em] text-slate-400">
@@ -419,7 +419,7 @@ export function ValuationWorkbench({
           </article>
 
           {!compact ? (
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4">
               <p className="text-sm text-cyan-100">
                 {vf.finalReviewBanner}
               </p>
@@ -430,7 +430,7 @@ export function ValuationWorkbench({
           ) : null}
         </div>
       ) : (
-        <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-300">
+        <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-300">
           <p className="inline-flex items-center gap-2 text-cyan-200">
             <BarChart3 className="h-4 w-4" />
             Formu doldurup analiz başlatın; güven aralığı, SHAP katkı dökümü ve emsal tablosu tek ekranda üretilecek.

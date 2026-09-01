@@ -39,7 +39,7 @@ export default function DepremRiskHaritasiPage() {
           </p>
           <Suspense
             fallback={
-              <div className="flex min-h-[420px] items-center justify-center rounded-2xl border border-white/15 bg-slate-950/50 text-sm text-slate-400">
+              <div className="flex min-h-[420px] items-center justify-center rounded-[20px] border border-white/15 bg-slate-950/50 text-sm text-slate-400">
                 Harita yükleniyor — katman seçicisi ve bağlantılar hazırlandığında yüzeye oturur…
               </div>
             }
@@ -49,21 +49,21 @@ export default function DepremRiskHaritasiPage() {
         </ModulePanel>
 
         <div className="grid gap-3 lg:grid-cols-3">
-          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
-            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Örnek</h3>
+          <article className="rounded-[10px] border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
+            <h3 className="text-xs font-normal uppercase tracking-[0.12em] text-rose-200">Örnek</h3>
             <p className="mt-2">Skor 72/100: orta-iyi band. Yine de zemin etüdü + taşıyıcı sistem doğrulaması olmadan karar verilmez.</p>
           </article>
-          <article className="rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
-            <h3 className="text-xs font-black uppercase tracking-[0.12em] text-rose-200">Kime göre</h3>
+          <article className="rounded-[10px] border border-slate-700 bg-slate-900/70 p-3 text-sm text-slate-200">
+            <h3 className="text-xs font-normal uppercase tracking-[0.12em] text-rose-200">Kime göre</h3>
             <p className="mt-2">Alıcı: hasar riski. Satıcı: güven artırıcı rapor. Yatırımcı: güçlendirme maliyet etkisi.</p>
           </article>
-          <article className="rounded-lg border border-amber-500/35 bg-amber-500/10 p-3 text-sm text-amber-100">
-            <h3 className="text-xs font-black uppercase tracking-[0.12em]">Dürüst sınır</h3>
+          <article className="rounded-[10px] border border-amber-500/35 bg-amber-500/10 p-3 text-sm text-amber-100">
+            <h3 className="text-xs font-normal uppercase tracking-[0.12em]">Dürüst sınır</h3>
             <p className="mt-2">Bu çıktı ön analizdir. Lisanslı jeoloji/inşaat mühendisliği zemin etüdü ve performans raporu şarttır.</p>
           </article>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[10px] border border-rose-500/30 bg-rose-500/10 p-3">
           <p className="text-sm text-rose-100">Bina risk sorgusuna geçip katman skorunu adım adım raporlayın.</p>
           <Button asChild className="bg-rose-300 text-slate-900 hover:bg-rose-200">
             <Link to="/modul/bina-risk-sorgu">

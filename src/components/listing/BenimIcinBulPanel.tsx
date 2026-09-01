@@ -50,7 +50,7 @@ export function BenimIcinBulPanel({ catalog }: Props) {
       <CardContent className="p-5 space-y-4">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-cyan-300" />
-          <h3 className="text-sm font-semibold text-white">Benim İçin Bul</h3>
+          <h3 className="text-sm font-normal text-white">Benim İçin Bul</h3>
         </div>
         <p className="text-xs text-slate-400">Bütçe, şehir ve yatırım skoruna göre uygun ilan önerileri.</p>
         <div className="grid gap-3 sm:grid-cols-3">
@@ -63,7 +63,7 @@ export function BenimIcinBulPanel({ catalog }: Props) {
             <li className="text-slate-500">Kriterlere uygun ilan bulunamadı — filtreleri genişletin.</li>
           ) : (
             picks.map(({ a, score }) => (
-              <li key={a.id} className="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2">
+              <li key={a.id} className="flex items-center justify-between gap-2 rounded-[10px] border border-white/10 bg-white/[0.02] px-3 py-2">
                 <span className="text-slate-200 line-clamp-1">{a.title}</span>
                 <Button type="button" size="sm" variant="outline" className="shrink-0 h-8 border-cyan-500/30" onClick={() => navigate(`/ilan/${a.id}`)}>
                   Skor {score}

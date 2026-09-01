@@ -423,7 +423,7 @@ export default function CreateAuction() {
             <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-200 mb-4">
               <Gavel className="h-3.5 w-3.5" /> İhale Aç
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">5 Adımda İhale Yayınla</h1>
+            <h1 className="text-3xl md:text-4xl font-normal text-white mb-3">5 Adımda İhale Yayınla</h1>
             <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
               Gayrimenkulünüz için açık artırma, kapalı teklif veya sadece ilan modunda yayın açın.
               AI değerleme + emsal analiz + escrow güvenli ödeme — hepsi tek platformda.
@@ -435,13 +435,13 @@ export default function CreateAuction() {
             {wizardSteps.map((step, i) => (
               <div
                 key={step.num}
-                className="relative rounded-2xl border border-white/10 bg-slate-900/50 p-4 hover:border-amber-400/30 transition-colors"
+                className="relative rounded-[20px] border border-white/10 bg-slate-900/50 p-4 hover:border-amber-400/30 transition-colors"
               >
-                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center shadow-lg">
+                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-amber-500 text-slate-950 font-normal text-xs flex items-center justify-center shadow-lg">
                   {step.num}
                 </div>
                 <step.icon className="w-6 h-6 text-amber-300 mb-2 mt-1" />
-                <h3 className="font-semibold text-white text-sm mb-1">{step.title}</h3>
+                <h3 className="font-normal text-white text-sm mb-1">{step.title}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
                 {i < wizardSteps.length - 1 ? (
                   <div className="hidden lg:block absolute top-1/2 -end-2 w-4 h-0.5 bg-amber-400/30" />
@@ -451,8 +451,8 @@ export default function CreateAuction() {
           </div>
 
           {/* CTA panel */}
-          <div className="rounded-3xl border border-amber-400/25 bg-amber-500/10 p-8 text-center">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
+          <div className="rounded-[20px] border border-amber-400/25 bg-amber-500/10 p-8 text-center">
+            <h2 className="text-xl md:text-2xl font-normal text-white mb-3">
               İhale açmak için hesap gerekir
             </h2>
             <p className="text-slate-300 mb-6 max-w-xl mx-auto text-sm leading-relaxed">
@@ -463,7 +463,7 @@ export default function CreateAuction() {
               <button
                 type="button"
                 onClick={() => navigate("/giris?next=/ihale-ac")}
-                className="inline-flex items-center justify-center gap-2 rounded-lg !bg-amber-500 px-6 py-2.5 text-sm font-bold text-slate-950 shadow-md transition-all hover:!bg-amber-400"
+                className="inline-flex items-center justify-center gap-2 rounded-[10px] !bg-amber-500 px-6 py-2.5 text-sm font-normal text-slate-950 shadow-md transition-all hover:!bg-amber-400"
               >
                 <Gavel className="w-4 h-4" /> Giriş Yap
               </button>
@@ -480,23 +480,23 @@ export default function CreateAuction() {
 
           {/* Neden ihale + avantaj */}
           <div className="mt-10 grid gap-4 md:grid-cols-3 text-sm">
-            <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+            <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
               <TrendingUp className="w-6 h-6 text-emerald-300 mb-2" />
-              <h3 className="font-semibold text-white mb-1">Şeffaf Fiyat Keşfi</h3>
+              <h3 className="font-normal text-white mb-1">Şeffaf Fiyat Keşfi</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
                 Açık artırma ile gerçek piyasa değeri anlık ortaya çıkar; pazarlık çekişmesi yok.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+            <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
               <ShieldCheck className="w-6 h-6 text-cyan-300 mb-2" />
-              <h3 className="font-semibold text-white mb-1">Escrow Güvencesi</h3>
+              <h3 className="font-normal text-white mb-1">Escrow Güvencesi</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
                 Kapora ve ödeme platformda saklanır; satış kapanmadan transfer olmaz.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+            <div className="rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
               <Eye className="w-6 h-6 text-violet-300 mb-2" />
-              <h3 className="font-semibold text-white mb-1">AI Değerleme + Emsal</h3>
+              <h3 className="font-normal text-white mb-1">AI Değerleme + Emsal</h3>
               <p className="text-slate-400 text-xs leading-relaxed">
                 Yayına almadan önce AVM ile değer aralığı + bölgeden emsal otomatik raporlanır.
               </p>
@@ -524,7 +524,7 @@ export default function CreateAuction() {
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-slate-500 hover:text-slate-900 gap-2 mb-6">
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
-        <h1 className="text-3xl font-bold text-white mb-2">Gayrimenkul ilanı oluştur</h1>
+        <h1 className="text-3xl font-normal text-white mb-2">Gayrimenkul ilanı oluştur</h1>
         <p className="text-slate-400 mb-4">
           Üç yoldan birini seçin: <strong className="text-slate-300">sadece ilan</strong> (kartta ihaleal.com görünür — yetkili platform; doğrudan iletişim yok), <strong className="text-slate-300">teklif al</strong> veya{" "}
           <strong className="text-slate-300">ihale</strong>.
@@ -532,8 +532,8 @@ export default function CreateAuction() {
         </p>
 
         {/* 5-adım yayın akışı (görsel timeline — form tek sayfa kalır, bu sadece bağlam). */}
-        <div className="mb-6 rounded-2xl border border-white/10 bg-slate-900/40 p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-amber-200 mb-3">Yayın akışı — 5 adım</p>
+        <div className="mb-6 rounded-[20px] border border-white/10 bg-slate-900/40 p-4">
+          <p className="text-[11px] font-normal uppercase tracking-wider text-amber-200 mb-3">Yayın akışı — 5 adım</p>
           <ol className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
             {[
               { icon: Home, label: "Mülk" },
@@ -544,7 +544,7 @@ export default function CreateAuction() {
             ].map((s, i) => (
               <li key={s.label} className="inline-flex items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/60 px-2.5 py-1 text-slate-200">
-                  <span className="inline-flex w-4 h-4 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold">{i + 1}</span>
+                  <span className="inline-flex w-4 h-4 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-normal">{i + 1}</span>
                   <s.icon className="w-3 h-3" />
                   {s.label}
                 </span>
@@ -568,24 +568,24 @@ export default function CreateAuction() {
           </button>
         </p>
         {success && (
-          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-6">
+          <div className="p-4 rounded-[20px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-6">
             İlan moderasyon kuyruğuna alındı. İhale sayfasına yönlendiriliyorsunuz...
           </div>
         )}
         {aiPhaseLabel ? (
-          <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/25 text-blue-200 mb-6 flex items-center gap-3">
+          <div className="p-4 rounded-[20px] bg-blue-500/10 border border-blue-500/25 text-blue-200 mb-6 flex items-center gap-3">
             <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin shrink-0" />
             {aiPhaseLabel}
           </div>
         ) : null}
-        {error && <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 mb-6">{error}</div>}
+        {error && <div className="p-4 rounded-[20px] bg-red-500/10 border border-red-500/20 text-red-400 mb-6">{error}</div>}
         <form onSubmit={handleCreate} className="space-y-6">
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white">Görseller</h3>
+              <h3 className="text-lg font-normal text-white">Görseller</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {imageEntries.map((img, i) => (
-                  <div key={i} className="relative aspect-square rounded-xl overflow-hidden">
+                  <div key={i} className="relative aspect-square rounded-[20px] overflow-hidden">
                     <img src={img.preview} alt="" loading="lazy" className="w-full h-full object-cover" />
                     <button
                       type="button"
@@ -599,7 +599,7 @@ export default function CreateAuction() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="aspect-square rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 hover:border-blue-500/30 hover:bg-blue-500/5 transition-colors"
+                  className="aspect-square rounded-[20px] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 hover:border-blue-500/30 hover:bg-blue-500/5 transition-colors"
                 >
                   <Upload className="w-6 h-6 text-slate-500" />
                   <span className="text-xs text-slate-500">Görsel Ekle</span>
@@ -611,7 +611,7 @@ export default function CreateAuction() {
 
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white">Temel Bilgiler</h3>
+              <h3 className="text-lg font-normal text-white">Temel Bilgiler</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="sm:col-span-2 lg:col-span-1">
                   <label className="text-sm text-slate-400 mb-1.5 block">İlan Başlığı *</label>
@@ -619,7 +619,7 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Kategori (gayrimenkul türü)</label>
-                  <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
+                  <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full px-3 py-2 rounded-[3px] bg-slate-950 border border-slate-200 text-white text-sm">
                     <option>Konut</option>
                     <option>Ticari</option>
                     <option>Arsa</option>
@@ -628,7 +628,7 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">İşlem türü</label>
-                  <select value={dealType} onChange={(e) => setDealType(e.target.value as "sale" | "rent")} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
+                  <select value={dealType} onChange={(e) => setDealType(e.target.value as "sale" | "rent")} className="w-full px-3 py-2 rounded-[3px] bg-slate-950 border border-slate-200 text-white text-sm">
                     <option value="sale">Satılık</option>
                     <option value="rent">Kiralık</option>
                   </select>
@@ -641,17 +641,17 @@ export default function CreateAuction() {
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
                   maxLength={2000}
-                  className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full px-3 py-2 rounded-[3px] bg-slate-950 border border-slate-200 text-white text-sm placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="Gayrimenkulünüzün detaylı açıklaması..."
                 />
                 <p className="text-[11px] text-slate-600 mt-1">{description.length}/2000</p>
               </div>
               {/* EİDS — Taşınmaz numarası + yetki/malik akışı (yasal zorunlu) */}
-              <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
+              <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
                 <div className="flex items-start gap-2">
                   <ShieldCheck className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <h4 className="text-sm font-semibold text-amber-100">Taşınmaz No / Tapu Bilgisi (EİDS)</h4>
+                    <h4 className="text-sm font-normal text-amber-100">Taşınmaz No / Tapu Bilgisi (EİDS)</h4>
                     <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
                       1 Kasım 2024'ten beri ilanlarda <strong className="text-amber-200">Elektronik İlan Doğrulama Sistemi (EİDS)</strong>
                       yetki/malik doğrulaması yasal zorunluluktur. Taşınmaz numaranızı e-Devlet
@@ -674,7 +674,7 @@ export default function CreateAuction() {
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-2">
-                  <label className="flex items-start gap-2 text-xs text-slate-300 p-2 rounded border border-slate-700 hover:border-slate-600 cursor-pointer">
+                  <label className="flex items-start gap-2 text-xs text-slate-300 p-2 rounded-[3px] border border-slate-700 hover:border-slate-600 cursor-pointer">
                     <input
                       type="checkbox"
                       className="mt-0.5"
@@ -683,7 +683,7 @@ export default function CreateAuction() {
                     />
                     <span><strong className="text-slate-200">Tapum yok</strong> — Kat irtifakı yok / TOKİ / gecekondu / hisseli (özel durum: avukat onayı şart)</span>
                   </label>
-                  <label className="flex items-start gap-2 text-xs text-slate-300 p-2 rounded border border-slate-700 hover:border-slate-600 cursor-pointer">
+                  <label className="flex items-start gap-2 text-xs text-slate-300 p-2 rounded-[3px] border border-slate-700 hover:border-slate-600 cursor-pointer">
                     <input
                       type="checkbox"
                       className="mt-0.5"
@@ -714,7 +714,7 @@ export default function CreateAuction() {
 
           <Card className="bg-violet-500/5 border-violet-500/20">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white">Nasıl satacak / kiralayacaksınız?</h3>
+              <h3 className="text-lg font-normal text-white">Nasıl satacak / kiralayacaksınız?</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
                 Her üç modda da ilanda <strong className="text-slate-300">ihaleal.com</strong> yetkili görünür; taraf telefonu yok.
               </p>
@@ -722,12 +722,12 @@ export default function CreateAuction() {
                 {(["listing_only", "sealed_offers", "auction"] as const).map((mode) => (
                   <label
                     key={mode}
-                    className={`flex flex-col gap-2 p-4 rounded-xl border cursor-pointer transition-colors ${
+                    className={`flex flex-col gap-2 p-4 rounded-[20px] border cursor-pointer transition-colors ${
                       marketingMode === mode ? "border-violet-500/50 bg-violet-500/10" : "border-slate-200 bg-white/[0.02]"
                     }`}
                   >
                     <input type="radio" name="marketingMode" className="sr-only" checked={marketingMode === mode} onChange={() => setMarketingMode(mode)} />
-                    <span className="text-sm font-semibold text-white">{MARKETING_MODE_LABELS[mode].headline}</span>
+                    <span className="text-sm font-normal text-white">{MARKETING_MODE_LABELS[mode].headline}</span>
                     <span className="text-[11px] text-slate-500 leading-relaxed">{MARKETING_MODE_LABELS[mode].hint}</span>
                   </label>
                 ))}
@@ -737,7 +737,7 @@ export default function CreateAuction() {
 
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <h3 className="text-lg font-normal text-white flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-blue-400" /> Konum
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
@@ -775,7 +775,7 @@ export default function CreateAuction() {
 
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white">Teknik detaylar</h3>
+              <h3 className="text-lg font-normal text-white">Teknik detaylar</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">m² (brüt)</label>
@@ -824,7 +824,7 @@ export default function CreateAuction() {
 
           <Card className="bg-slate-900/50 border-slate-200/80">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white">Fiyat ve süre</h3>
+              <h3 className="text-lg font-normal text-white">Fiyat ve süre</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
                 {FEE_TEXTS.sellerSummary()} · {FEE_TEXTS.refundWindow()} · {FEE_TEXTS.payoutHold()}
                 {feePreview ? (
@@ -852,7 +852,7 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">İhale Süresi</label>
-                  <select value={duration} onChange={(e) => setDuration(e.target.value)} className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
+                  <select value={duration} onChange={(e) => setDuration(e.target.value)} className="w-full px-3 py-2 rounded-[3px] bg-slate-950 border border-slate-200 text-white text-sm">
                     <option value="3">3 Gün</option>
                     <option value="7">7 Gün</option>
                     <option value="14">14 Gün</option>
@@ -872,7 +872,7 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 block">Minimum Artış</label>
-                  <select className="w-full px-3 py-2 rounded-md bg-slate-950 border border-slate-200 text-white text-sm">
+                  <select className="w-full px-3 py-2 rounded-[3px] bg-slate-950 border border-slate-200 text-white text-sm">
                     <option>₺10.000</option>
                     <option>₺50.000</option>
                     <option>₺100.000</option>
@@ -886,7 +886,7 @@ export default function CreateAuction() {
 
           <Card className="bg-teal-500/5 border-teal-500/20">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <h3 className="text-lg font-normal text-white flex items-center gap-2">
                 <FileText className="w-5 h-5 text-teal-400" />
                 Raporlar ve ekspertiz
               </h3>
@@ -904,7 +904,7 @@ export default function CreateAuction() {
                 </div>
                 <div>
                   <label className="text-sm text-slate-400 mb-1.5 flex items-center gap-2 cursor-help w-fit">
-                    <input type="checkbox" checked={expertiseRequired} onChange={(e) => setExpertiseRequired(e.target.checked)} className="rounded border-white/20" />
+                    <input type="checkbox" checked={expertiseRequired} onChange={(e) => setExpertiseRequired(e.target.checked)} className="rounded-[3px] border-white/20" />
                     SPK uzmanı ekspertiz raporu zorunlu
                   </label>
                   <input ref={expertiseInputRef} type="file" accept=".pdf,application/pdf" className="hidden" onChange={(e) => setExpertisePdfName(e.target.files?.[0]?.name || "")} />
@@ -917,7 +917,7 @@ export default function CreateAuction() {
                 </div>
               </div>
               <label className="flex items-start gap-2 text-sm text-slate-400 cursor-pointer">
-                <input type="checkbox" checked={officialDocumentsForBuyer} onChange={(e) => setOfficialDocumentsForBuyer(e.target.checked)} className="mt-1 rounded border-white/20" />
+                <input type="checkbox" checked={officialDocumentsForBuyer} onChange={(e) => setOfficialDocumentsForBuyer(e.target.checked)} className="mt-1 rounded-[3px] border-white/20" />
                 <span>
                   <Landmark className="w-4 h-4 text-sky-400 inline me-1 align-text-bottom" />
                   Belediye / imar planı özeti alıcıya gösterilecek.
@@ -928,7 +928,7 @@ export default function CreateAuction() {
 
           <Card className="bg-amber-500/5 border-amber-500/20">
             <CardContent className="p-6 space-y-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <h3 className="text-lg font-normal text-white flex items-center gap-2">
                 <Scale className="w-5 h-5 text-amber-400" />
                 Taahhüt limitleri
               </h3>
@@ -943,13 +943,13 @@ export default function CreateAuction() {
                 </div>
               </div>
               <label className="flex items-start gap-2 text-sm text-slate-400 cursor-pointer">
-                <input type="checkbox" checked={bindingCommitmentAccepted} onChange={(e) => setBindingCommitmentAccepted(e.target.checked)} className="mt-1 rounded border-white/20" />
+                <input type="checkbox" checked={bindingCommitmentAccepted} onChange={(e) => setBindingCommitmentAccepted(e.target.checked)} className="mt-1 rounded-[3px] border-white/20" />
                 <span>Taahhüt metnini okudum (kayıt amaçlı; hukuki taahhüt değildir).</span>
               </label>
             </CardContent>
           </Card>
 
-          <Button type="submit" disabled={submitLoading} className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-bold h-12 text-base disabled:opacity-60">
+          <Button type="submit" disabled={submitLoading} className="w-full [background:var(--gradient-cta)] hover:brightness-110 text-white font-normal h-12 text-base disabled:opacity-60">
             <PlusCircle className="w-5 h-5 me-2" />
             {submitLoading ? (aiPhaseLabel || "Kaydediliyor...") : "İlanı kaydet ve yayınla"}
           </Button>
@@ -958,7 +958,7 @@ export default function CreateAuction() {
         <Dialog open={sellerReportModalOpen} onOpenChange={setSellerReportModalOpen}>
           <DialogContent className="bg-white border-cyan-400/25 text-white max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="text-xl font-bold">Satıcı AI analiz özeti</DialogTitle>
+              <DialogTitle className="text-xl font-normal">Satıcı AI analiz özeti</DialogTitle>
               <p className="text-xs text-slate-500 leading-relaxed pt-1">
                 Yayına çıkmadan önce raporu inceleyin. Onaylamadan ilan moderasyon kuyruğuna gönderilmez (taslak kalır).
               </p>
@@ -967,7 +967,7 @@ export default function CreateAuction() {
               <div className="space-y-3">
                 {(sellerReportRow.overall_risk_score != null && sellerReportRow.overall_risk_score > 7) ||
                 (Array.isArray(sellerReportRow.overall_red_flags) && sellerReportRow.overall_red_flags.length > 0) ? (
-                  <div className="p-3 rounded-xl bg-red-500/15 border border-red-400/35 text-red-100 text-sm">
+                  <div className="p-3 rounded-[20px] bg-red-500/15 border border-red-400/35 text-red-100 text-sm">
                     Bu fiyatla satılma şansı düşük olabilir — fiyatı düşürmenizi öneririz (mock bilgilendirme). Kırmızı bayraklar raporda listelenmiştir.
                   </div>
                 ) : null}

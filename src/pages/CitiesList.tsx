@@ -105,7 +105,7 @@ export default function CitiesList() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">
             <Navigation className="w-8 h-8 text-blue-400" />
             Şehir Rehberi
           </h1>
@@ -118,20 +118,20 @@ export default function CitiesList() {
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><MapPin className="w-5 h-5 text-blue-400" /><span className="text-sm text-slate-400">Şehir</span></div>
-            <div className="text-2xl font-bold">{CITIES.length}</div>
+            <div className="text-2xl font-normal">{CITIES.length}</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><Building2 className="w-5 h-5 text-emerald-400" /><span className="text-sm text-slate-400">Toplam İlan</span></div>
-            <div className="text-2xl font-bold text-emerald-400">{AUCTIONS.length}</div>
+            <div className="text-2xl font-normal text-emerald-400">{AUCTIONS.length}</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-5 h-5 text-amber-400" /><span className="text-sm text-slate-400">En Yüksek Artış</span></div>
-            <div className="text-2xl font-bold text-amber-400">%+28.5</div>
+            <div className="text-2xl font-normal text-amber-400">%+28.5</div>
             <div className="text-xs text-slate-500">Muğla</div>
           </Card>
           <Card className="border-slate-200/80 p-4">
             <div className="flex items-center gap-2 mb-2"><Percent className="w-5 h-5 text-violet-400" /><span className="text-sm text-slate-400">En İyi Getiri</span></div>
-            <div className="text-2xl font-bold text-violet-400">%8.2</div>
+            <div className="text-2xl font-normal text-violet-400">%8.2</div>
             <div className="text-xs text-slate-500">Muğla</div>
           </Card>
         </div>
@@ -158,14 +158,14 @@ export default function CitiesList() {
                 />
                 <div className={`absolute inset-0 ${city.color} pointer-events-none`} />
                 <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
-                <div className="absolute top-3 start-3 px-3 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
+                <div className="absolute top-3 start-3 px-3 py-1 rounded-[10px] bg-blue-500/90 text-white text-xs font-normal">
                   {city.tag}
                 </div>
-                <div className="absolute top-3 end-3 px-3 py-1 rounded-lg bg-white/10 backdrop-blur text-white text-xs font-bold flex items-center gap-1">
+                <div className="absolute top-3 end-3 px-3 py-1 rounded-[10px] bg-white/10 backdrop-blur text-white text-xs font-normal flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" /> +{city.annualGrowth}%
                 </div>
                 <div className="absolute bottom-3 start-3">
-                  <h3 className="text-2xl font-bold text-white">{city.name}</h3>
+                  <h3 className="text-2xl font-normal text-white">{city.name}</h3>
                   <div className="flex items-center gap-3 text-xs text-slate-300 mt-1">
                     <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {city.population}</span>
                     <span>{city.listingCount} ilan</span>
@@ -176,18 +176,18 @@ export default function CitiesList() {
                 <div className="grid grid-cols-3 gap-3">
                   <div className="text-center">
                     <div className="text-xs text-slate-500">m² Fiyat</div>
-                    <div className="text-sm font-bold text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
+                    <div className="text-sm font-normal text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-slate-500">Getiri</div>
-                    <div className="text-sm font-bold text-emerald-400">%{city.rentalYield}</div>
+                    <div className="text-sm font-normal text-emerald-400">%{city.rentalYield}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-slate-500">Talep</div>
-                    <div className="text-sm font-bold text-amber-400">{city.demandIndex}/100</div>
+                    <div className="text-sm font-normal text-amber-400">{city.demandIndex}/100</div>
                   </div>
                 </div>
-                <Button className="w-full mt-4 [background:var(--gradient-cta)] hover:brightness-110 text-white font-semibold">
+                <Button className="w-full mt-4 [background:var(--gradient-cta)] hover:brightness-110 text-white font-normal">
                   Detaylı İncele <ArrowRight className="rtl:rotate-180 w-4 h-4 ms-1" />
                 </Button>
               </CardContent>
@@ -197,18 +197,18 @@ export default function CitiesList() {
 
         {/* Comparison Table */}
         <div className={`mt-10 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h2 className="text-xl font-bold mb-4">Şehir Karşılaştırma</h2>
+          <h2 className="text-xl font-normal mb-4">Şehir Karşılaştırma</h2>
           <Card className="border-slate-200/80 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-200/80">
-                    <th className="text-start p-4 text-slate-400 font-medium">Şehir</th>
-                    <th className="text-end p-4 text-slate-400 font-medium">m² Fiyat</th>
-                    <th className="text-end p-4 text-slate-400 font-medium">Yıllık Artış</th>
-                    <th className="text-end p-4 text-slate-400 font-medium">Kira Getirisi</th>
-                    <th className="text-end p-4 text-slate-400 font-medium">Talep Endeksi</th>
-                    <th className="text-end p-4 text-slate-400 font-medium">İlan</th>
+                    <th className="text-start p-4 text-slate-400 font-normal">Şehir</th>
+                    <th className="text-end p-4 text-slate-400 font-normal">m² Fiyat</th>
+                    <th className="text-end p-4 text-slate-400 font-normal">Yıllık Artış</th>
+                    <th className="text-end p-4 text-slate-400 font-normal">Kira Getirisi</th>
+                    <th className="text-end p-4 text-slate-400 font-normal">Talep Endeksi</th>
+                    <th className="text-end p-4 text-slate-400 font-normal">İlan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -218,10 +218,10 @@ export default function CitiesList() {
                       className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors cursor-pointer"
                       onClick={() => navigate(`/sehir/${CITY_GUIDE_SLUG[city.name] ?? city.name}`)}
                     >
-                      <td className="p-4 font-semibold flex items-center gap-2">
+                      <td className="p-4 font-normal flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-blue-400" /> {city.name}
                       </td>
-                      <td className="p-4 text-end font-semibold text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</td>
+                      <td className="p-4 text-end font-normal text-blue-400">₺{city.avgPricePerSqm.toLocaleString()}</td>
                       <td className="p-4 text-end text-emerald-400">+{city.annualGrowth}%</td>
                       <td className="p-4 text-end text-violet-400">%{city.rentalYield}</td>
                       <td className="p-4 text-end text-amber-400">{city.demandIndex}</td>

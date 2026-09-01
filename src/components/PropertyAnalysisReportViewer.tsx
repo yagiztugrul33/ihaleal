@@ -45,7 +45,7 @@ function BigRing({
         aria-hidden
       >
         <div className="w-full h-full rounded-full bg-white/95 flex flex-col items-center justify-center border border-slate-200">
-          <span className="text-2xl font-bold text-white">{score ?? "—"}</span>
+          <span className="text-2xl font-normal text-white">{score ?? "—"}</span>
           <span className="text-[10px] text-slate-500 uppercase tracking-wide">/10</span>
         </div>
       </div>
@@ -134,10 +134,10 @@ export function PropertyAnalysisReportViewer({
   return (
     <div
       ref={reportRef}
-      className="rounded-2xl border border-cyan-400/20 bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden"
+      className="rounded-[20px] border border-cyan-400/20 bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden"
     >
       {mockBanner ? (
-        <div className="px-4 py-2 bg-amber-500/15 border-b border-amber-400/25 text-amber-100 text-xs font-medium text-center">
+        <div className="px-4 py-2 bg-amber-500/15 border-b border-amber-400/25 text-amber-100 text-xs font-normal text-center">
           MOCK VERİ — gerçek API bağlantısı yok; bilgilendirme amaçlıdır.
         </div>
       ) : null}
@@ -147,7 +147,7 @@ export function PropertyAnalysisReportViewer({
         <div className="flex-1 flex flex-col justify-center gap-3">
           <div className="flex flex-wrap gap-2 items-center justify-between">
             <span
-              className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold border ${scoreTone(report.economic_fair_price_score, false)}`}
+              className={`inline-flex px-3 py-1 rounded-full text-xs font-normal border ${scoreTone(report.economic_fair_price_score, false)}`}
             >
               Adil fiyat skoru: {report.economic_fair_price_score ?? "—"}/10
             </span>
@@ -183,7 +183,7 @@ export function PropertyAnalysisReportViewer({
               type="button"
               disabled={approveDisabled}
               onClick={onApprove}
-              className="w-fit [background:var(--gradient-cta)] text-white font-semibold shadow-lg shadow-cyan-900/30"
+              className="w-fit [background:var(--gradient-cta)] text-white font-normal shadow-lg shadow-cyan-900/30"
             >
               Onayla ve Devam
             </Button>
@@ -197,7 +197,7 @@ export function PropertyAnalysisReportViewer({
             key={t.key}
             type="button"
             onClick={() => setTab(t.key)}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-[10px] text-sm font-normal transition-colors ${
               tab === t.key
                 ? "bg-blue-500/20 text-white border border-blue-500/35"
                 : "text-slate-500 hover:text-slate-900 border border-transparent"
@@ -211,19 +211,19 @@ export function PropertyAnalysisReportViewer({
       <div className="p-4 md:p-6 space-y-4 min-h-[220px]">
         {tab === "legal" && (
           <div className="space-y-3 animate-fade-in">
-            <div className={`inline-flex px-3 py-1 rounded-full text-xs font-bold border ${scoreTone(report.legal_risk_score, true)}`}>
+            <div className={`inline-flex px-3 py-1 rounded-full text-xs font-normal border ${scoreTone(report.legal_risk_score, true)}`}>
               Hukuksal risk: {report.legal_risk_score ?? "—"}/10
             </div>
             <p className="text-sm text-slate-300 leading-relaxed">
               Tapu durumu (mock): <strong className="text-white">{report.legal_title_deed_status}</strong>. İpotek ve haciz kalemleri tabloda özetlenmiştir — kesin kayıt tapu müdürlüğüdür.
             </p>
             <div className="grid sm:grid-cols-2 gap-3 text-xs">
-              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
+              <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-slate-500 mb-1">İmar / ruhsat</div>
                 <div className="text-slate-200">{report.legal_zoning_status ?? "—"}</div>
                 <div className="text-slate-400 mt-2">{report.legal_building_permit_status ?? ""}</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
+              <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-slate-500 mb-1">Uyarılar</div>
                 <ul className="list-disc list-inside text-slate-300 space-y-1">
                   {(report.legal_warnings ?? []).map((w, i) => (
@@ -232,7 +232,7 @@ export function PropertyAnalysisReportViewer({
                 </ul>
               </div>
             </div>
-            <div className="h-40 rounded-xl border border-slate-200 bg-black/20 p-2">
+            <div className="h-40 rounded-[20px] border border-slate-200 bg-black/20 p-2">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={[{ name: "İpotek (mock)", adet: Array.isArray(report.legal_mortgages) ? report.legal_mortgages.length : 0 }, { name: "Haciz (mock)", adet: Array.isArray(report.legal_liens) ? report.legal_liens.length : 0 }]}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
@@ -247,7 +247,7 @@ export function PropertyAnalysisReportViewer({
 
         {tab === "socio" && (
           <div className="space-y-3 animate-fade-in">
-            <div className={`inline-flex px-3 py-1 rounded-full text-xs font-bold border ${scoreTone(report.socio_education_score, false)}`}>
+            <div className={`inline-flex px-3 py-1 rounded-full text-xs font-normal border ${scoreTone(report.socio_education_score, false)}`}>
               Eğitim endeksi: {report.socio_education_score ?? "—"}/10
             </div>
             <p className="text-sm text-slate-300">
@@ -264,15 +264,15 @@ export function PropertyAnalysisReportViewer({
         {tab === "location" && (
           <div className="space-y-3 animate-fade-in">
             <div className="flex flex-wrap gap-2">
-              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-slate-200 text-slate-300">
+              <span className="text-xs px-2 py-1 rounded-[10px] bg-white/5 border border-slate-200 text-slate-300">
                 Deprem riski: {report.location_earthquake_risk}
               </span>
-              <span className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-slate-200 text-slate-300">
+              <span className="text-xs px-2 py-1 rounded-[10px] bg-white/5 border border-slate-200 text-slate-300">
                 Yeşil alan %: {report.location_green_area_pct ?? "—"}
               </span>
             </div>
             <p className="text-sm text-slate-300">{report.location_commerce_potential}</p>
-            <div className="h-44 rounded-xl border border-slate-200 bg-black/20 p-2">
+            <div className="h-44 rounded-[20px] border border-slate-200 bg-black/20 p-2">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={locationBars}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
@@ -288,9 +288,9 @@ export function PropertyAnalysisReportViewer({
         {tab === "economic" && (
           <div className="space-y-3 animate-fade-in">
             <div className="grid sm:grid-cols-2 gap-3 text-sm">
-              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
+              <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-xs text-slate-500">Piyasa değeri (mock)</div>
-                <div className="text-lg font-bold text-cyan-300">
+                <div className="text-lg font-normal text-cyan-300">
                   {report.economic_fair_market_value_try != null
                     ? `₺${report.economic_fair_market_value_try.toLocaleString("tr-TR")}`
                     : "—"}
@@ -300,14 +300,14 @@ export function PropertyAnalysisReportViewer({
                   {report.economic_upper_bound_try?.toLocaleString("tr-TR") ?? "—"}
                 </div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white/[0.03] p-3">
+              <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
                 <div className="text-xs text-slate-500">Ortalama kira (mock)</div>
-                <div className="text-lg font-bold text-white">
+                <div className="text-lg font-normal text-white">
                   {report.economic_avg_rent_try != null ? `₺${report.economic_avg_rent_try.toLocaleString("tr-TR")}` : "—"}
                 </div>
               </div>
             </div>
-            <div className="h-40 rounded-xl border border-slate-200 bg-black/20 p-2">
+            <div className="h-40 rounded-[20px] border border-slate-200 bg-black/20 p-2">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={rentTrend}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
@@ -326,8 +326,8 @@ export function PropertyAnalysisReportViewer({
             <p className="text-sm text-slate-300 leading-relaxed">{report.overall_recommendation_buyer}</p>
             <p className="text-sm text-slate-300 leading-relaxed">{report.overall_recommendation_seller}</p>
             {(report.overall_red_flags?.length ?? 0) > 0 ? (
-              <div className="rounded-xl border border-red-400/25 bg-red-500/10 p-3">
-                <div className="text-xs font-semibold text-red-200 mb-2">Kırmızı bayraklar (mock)</div>
+              <div className="rounded-[20px] border border-red-400/25 bg-red-500/10 p-3">
+                <div className="text-xs font-normal text-red-200 mb-2">Kırmızı bayraklar (mock)</div>
                 <ul className="text-xs text-red-100/90 list-disc list-inside space-y-1">
                   {report.overall_red_flags!.map((x, i) => (
                     <li key={i}>{x}</li>
@@ -341,7 +341,7 @@ export function PropertyAnalysisReportViewer({
 
       <div className="px-4 py-3 border-t border-amber-400/20 bg-amber-500/5">
         <p className="text-[11px] text-amber-100/90 leading-relaxed flex gap-2">
-          <span aria-hidden className="inline-flex items-center justify-center w-5 h-5 rounded border border-amber-500/40 text-amber-400 text-xs font-bold">!</span>
+          <span aria-hidden className="inline-flex items-center justify-center w-5 h-5 rounded-[3px] border border-amber-500/40 text-amber-400 text-xs font-normal">!</span>
           {disclaimer}
         </p>
       </div>
@@ -351,9 +351,9 @@ export function PropertyAnalysisReportViewer({
 
 function StatMini({ label, value, invert }: { label: string; value: string; invert?: boolean }) {
   return (
-    <div className={`rounded-xl border p-3 ${invert ? "border-orange-400/20 bg-orange-500/5" : "border-slate-200 bg-white/[0.03]"}`}>
+    <div className={`rounded-[20px] border p-3 ${invert ? "border-orange-400/20 bg-orange-500/5" : "border-slate-200 bg-white/[0.03]"}`}>
       <div className="text-[11px] text-slate-500 mb-1">{label}</div>
-      <div className="text-sm font-semibold text-white">{value}</div>
+      <div className="text-sm font-normal text-white">{value}</div>
     </div>
   );
 }

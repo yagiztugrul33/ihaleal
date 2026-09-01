@@ -33,8 +33,8 @@ export function EndingSoon() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className={`flex items-center justify-between mb-8 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3" style={{ color: "var(--color-text)" }}>
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 ring-1 ring-orange-400/25">
+            <h2 className="text-2xl md:text-3xl font-normal flex items-center gap-3" style={{ color: "var(--color-text)" }}>
+              <span className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-amber-500/20 ring-1 ring-orange-400/25">
                 <Flame className="w-5 h-5 text-orange-300" aria-hidden />
               </span>
               Yakında Biten İhaleler
@@ -60,26 +60,26 @@ export function EndingSoon() {
                   <ListingCoverImage src={auction.images[0]} alt={auction.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 [background:var(--gradient-scrim)]" />
                   <div className="absolute top-3 start-3 flex items-center gap-2">
-                    <span className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1 ${time.isUrgent ? "bg-red-500 text-white animate-pulse" : "bg-orange-500/90 text-white"}`}>
+                    <span className={`px-2.5 py-1 rounded-[10px] text-xs font-normal flex items-center gap-1 ${time.isUrgent ? "bg-red-500 text-white animate-pulse" : "bg-orange-500/90 text-white"}`}>
                       <Clock className="w-3 h-3" />
                       {time.days}g {time.hours}s {time.minutes}d
                     </span>
                   </div>
                   {auction.bidderCount > 15 && (
-                    <div className="absolute top-3 end-3 px-2.5 py-1 rounded-lg bg-blue-500/90 text-white text-xs font-bold">
+                    <div className="absolute top-3 end-3 px-2.5 py-1 rounded-[10px] bg-blue-500/90 text-white text-xs font-normal">
                       {auction.bidderCount} Teklif
                     </div>
                   )}
                 </div>
                 <CardContent className="p-4">
-                  <h3 className="font-bold line-clamp-1 transition-colors group-hover:text-[var(--color-accent)]" style={{ color: "var(--color-text)" }}>{auction.title}</h3>
+                  <h3 className="font-normal line-clamp-1 transition-colors group-hover:text-[var(--color-accent)]" style={{ color: "var(--color-text)" }}>{auction.title}</h3>
                   <div className="flex items-center gap-1 text-xs mt-1" style={{ color: "var(--color-text-muted)" }}>
                     <MapPin className="w-3 h-3" /> {auction.district}, {auction.city}
                   </div>
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-200/80">
                     <div>
                       <div className="text-xs text-slate-500">Güncel teklif</div>
-                      <div className="text-base font-bold text-orange-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
+                      <div className="text-base font-normal text-orange-400">₺{auction.currentBid.toLocaleString("tr-TR")}</div>
                     </div>
                     <div className="text-end">
                       <div className="text-xs text-slate-500">m² fiyat</div>

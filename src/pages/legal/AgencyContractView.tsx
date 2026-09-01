@@ -12,21 +12,21 @@ function renderMarkdownLines(md: string): ReactNode[] {
     const t = line.trim();
     if (t.startsWith("# ")) {
       return (
-        <h1 key={idx} className="text-2xl font-bold text-white mt-8 first:mt-0 scroll-mt-24">
+        <h1 key={idx} className="text-2xl font-normal text-white mt-8 first:mt-0 scroll-mt-24">
           {t.slice(2)}
         </h1>
       );
     }
     if (t.startsWith("## ")) {
       return (
-        <h2 key={idx} className="text-xl font-semibold text-teal-200 mt-6 border-b border-slate-200 pb-2 scroll-mt-24">
+        <h2 key={idx} className="text-xl font-normal text-teal-200 mt-6 border-b border-slate-200 pb-2 scroll-mt-24">
           {t.slice(3)}
         </h2>
       );
     }
     if (t.startsWith("### ")) {
       return (
-        <h3 key={idx} className="text-lg font-medium text-white mt-4 scroll-mt-24">
+        <h3 key={idx} className="text-lg font-normal text-white mt-4 scroll-mt-24">
           {t.slice(4)}
         </h3>
       );
@@ -76,7 +76,7 @@ export default function AgencyContractView() {
       <Link to="/" className="text-sm text-slate-500 hover:text-slate-900 mb-6 inline-block">
         Ana sayfa
       </Link>
-      <h1 className="text-2xl font-bold text-white mb-2">agency_contract.md</h1>
+      <h1 className="text-2xl font-normal text-white mb-2">agency_contract.md</h1>
       <p className="text-sm text-slate-500 mb-6">
         Kaynak: <code className="text-teal-400">public/legal/agency_contract.md</code> (taslak, demo)
       </p>
@@ -94,12 +94,12 @@ export default function AgencyContractView() {
           }
         />
       </div>
-      <article className="rounded-2xl border border-slate-200 bg-slate-950/40 p-6 space-y-1 text-sm">
+      <article className="rounded-[20px] border border-slate-200 bg-slate-950/40 p-6 space-y-1 text-sm">
         {body ? renderMarkdownLines(body) : <p className="text-slate-500">Yukleniyor...</p>}
       </article>
       {body ? (
         <div className="mt-6">
-          <h2 className="text-lg font-semibold text-white mb-3">Ön onay imzası (MVP)</h2>
+          <h2 className="text-lg font-normal text-white mb-3">Ön onay imzası (MVP)</h2>
           <SignaturePad
             documentId="agency-contract"
             documentType="contract"

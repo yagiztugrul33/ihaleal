@@ -124,9 +124,9 @@ export function DocumentUploader({
   );
 
   return (
-    <div className="rounded-xl border border-dashed border-white/15 bg-slate-950/40 p-4 space-y-3">
+    <div className="rounded-[20px] border border-dashed border-white/15 bg-slate-950/40 p-4 space-y-3">
       <div className="flex items-center justify-between gap-2">
-        <p className="text-sm font-medium text-white">{label}</p>
+        <p className="text-sm font-normal text-white">{label}</p>
         {isSupabaseConfigured() ? (
           <span className="text-[10px] text-emerald-300/90 uppercase tracking-wide">Storage</span>
         ) : (
@@ -134,8 +134,8 @@ export function DocumentUploader({
         )}
       </div>
       {requirements && requirements.length > 0 ? (
-        <div className="rounded-lg border border-slate-200 bg-white/[0.03] p-3 text-xs text-slate-300">
-          <p className="font-medium text-slate-200 mb-2">Akış evrakları (referans)</p>
+        <div className="rounded-[10px] border border-slate-200 bg-white/[0.03] p-3 text-xs text-slate-300">
+          <p className="font-normal text-slate-200 mb-2">Akış evrakları (referans)</p>
           <ul className="space-y-1">
             {requirements.map((d) => (
               <li key={d.id} className="flex gap-2">
@@ -149,7 +149,7 @@ export function DocumentUploader({
           </ul>
         </div>
       ) : null}
-      <label className="flex flex-col items-center justify-center gap-2 py-8 cursor-pointer rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-slate-200/80">
+      <label className="flex flex-col items-center justify-center gap-2 py-8 cursor-pointer rounded-[10px] bg-white/[0.03] hover:bg-white/[0.06] border border-slate-200/80">
         <Upload className="w-8 h-8 text-teal-400" />
         <span className="text-xs text-slate-400">Sürükle-bırak veya tıkla — PDF / JPEG, max 10 MB</span>
         <input type="file" className="hidden" accept={ACCEPT} multiple onChange={(e) => onFiles(e.target.files)} />
@@ -157,7 +157,7 @@ export function DocumentUploader({
       {error ? <p className="text-xs text-red-400">{error}</p> : null}
       <ul className="space-y-2">
         {files.map((f, i) => (
-          <li key={`${f.name}-${i}`} className="flex items-center justify-between text-xs text-slate-300 bg-white/[0.04] rounded-lg px-3 py-2">
+          <li key={`${f.name}-${i}`} className="flex items-center justify-between text-xs text-slate-300 bg-white/[0.04] rounded-[10px] px-3 py-2">
             <span className="flex items-center gap-2 truncate">
               <FileText className="w-3.5 h-3.5 text-slate-500 shrink-0" />
               <span className="truncate">{f.name}</span>

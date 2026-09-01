@@ -223,7 +223,7 @@ export default function KentselDonusumPage() {
             <div key={s.title} className="mod-roadmap-step">
               <span className="mod-roadmap-num">{i + 1}</span>
               <div>
-                <p className="font-semibold text-slate-100">{s.title}</p>
+                <p className="font-normal text-slate-100">{s.title}</p>
                 <p className="text-sm text-slate-400">{s.body}</p>
               </div>
             </div>

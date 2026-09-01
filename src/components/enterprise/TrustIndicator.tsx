@@ -16,10 +16,10 @@ const variants = {
 
 export function TrustIndicator({ icon: Icon, label, value, variant = "default" }: TrustIndicatorProps) {
   return (
-    <div className={cn("inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium", variants[variant])}>
+    <div className={cn("inline-flex items-center gap-2 rounded-[10px] border px-3 py-2 text-xs font-normal", variants[variant])}>
       <Icon className="h-3.5 w-3.5 shrink-0 opacity-90" aria-hidden />
       <span>{label}</span>
-      {value ? <span className="font-bold text-white">{value}</span> : null}
+      {value ? <span className="font-normal text-white">{value}</span> : null}
     </div>
   );
 }

@@ -52,7 +52,7 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
   if (warnings.length === 0) {
     if (hideIfEmpty) return null;
     return (
-      <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-3 flex items-start gap-2 text-sm">
+      <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-3 flex items-start gap-2 text-sm">
         <Info className="h-4 w-4 text-emerald-300 flex-shrink-0 mt-0.5" />
         <p className="text-emerald-200">
           Mevcut bilgilere göre <strong>özel hukuki risk uyarısı yok</strong>.
@@ -63,11 +63,11 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
   }
 
   return (
-    <div className={`space-y-3 ${compact ? "" : "rounded-2xl border border-slate-700 bg-slate-900/40 p-4"}`}>
+    <div className={`space-y-3 ${compact ? "" : "rounded-[20px] border border-slate-700 bg-slate-900/40 p-4"}`}>
       {!compact ? (
         <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
           <AlertTriangle className="h-5 w-5 text-amber-400" />
-          <h3 className="text-base font-semibold text-white">
+          <h3 className="text-base font-normal text-white">
             Hukuki Risk Uyarıları ({warnings.length})
           </h3>
           <span className="ms-auto text-[10px] text-slate-500">İşlemi engellemez · bilgilendirir</span>
@@ -80,15 +80,15 @@ export function RiskWarningPanel({ context, compact, hideIfEmpty }: RiskWarningP
         return (
           <div
             key={w.id}
-            className={`rounded-xl border ${cls.border} ${cls.bg} p-4`}
+            className={`rounded-[20px] border ${cls.border} ${cls.bg} p-4`}
             data-testid={`risk-warning-${w.id}`}
           >
             <div className="flex items-start gap-3 mb-2">
               <Icon className={`h-5 w-5 flex-shrink-0 mt-0.5 ${cls.text}`} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <h4 className="text-sm font-semibold text-white">{w.baslik}</h4>
-                  <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold ${cls.pill}`}>
+                  <h4 className="text-sm font-normal text-white">{w.baslik}</h4>
+                  <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-normal ${cls.pill}`}>
                     {severityLabel(w.severity)}
                   </span>
                 </div>

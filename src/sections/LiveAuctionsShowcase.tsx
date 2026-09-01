@@ -83,17 +83,17 @@ export function LiveAuctionsShowcase() {
                     </button>
                   </div>
                   <div className="p-4">
-                    <h3 className="line-clamp-1 text-base font-bold text-white">{item.title}</h3>
+                    <h3 className="line-clamp-1 text-base font-normal text-white">{item.title}</h3>
                     <p className="mt-1 flex items-center gap-1 text-sm text-slate-400">
                       <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
                       {item.location}
                     </p>
                     <motion.div className="mt-3 flex items-end justify-between gap-2">
                       <div>
-                        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                        <p className="text-xs font-normal uppercase tracking-wide text-slate-500">
                           {auctions.currentBid}
                         </p>
-                        <p className="text-xl font-bold text-white">{item.price}</p>
+                        <p className="text-xl font-normal text-white">{item.price}</p>
                       </div>
                       <span className="ref-pct-badge">{item.change}</span>
                     </motion.div>
@@ -120,13 +120,13 @@ export function LiveAuctionsShowcase() {
                   <li key={row.title}>
                     <Link
                       to={ROUTES.NASIL_CALISIR}
-                      className="ref-trust-feature group flex items-center gap-3 rounded-lg px-2 py-3 no-underline transition hover:bg-white/5"
+                      className="ref-trust-feature group flex items-center gap-3 rounded-[10px] px-2 py-3 no-underline transition hover:bg-white/5"
                     >
                       <div className={`ref-trust-feature-icon ${palette.bg}`}>
                         <Icon className={`h-5 w-5 ${palette.color}`} aria-hidden />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-white">{row.title}</p>
+                        <p className="font-normal text-white">{row.title}</p>
                         <p className="mt-0.5 text-sm leading-relaxed text-slate-400">{row.sub}</p>
                       </div>
                       <ChevronRight
@@ -142,9 +142,9 @@ export function LiveAuctionsShowcase() {
               {how.certs.map((cert) => (
                 <div key={cert.title} className="trust-badge">
                   {cert.flag ? (
-                    <span className="mb-1 text-[10px] font-bold text-blue-400">{cert.flag}</span>
+                    <span className="mb-1 text-[10px] font-normal text-blue-400">{cert.flag}</span>
                   ) : null}
-                  <span className="text-xs font-bold text-white">{cert.title}</span>
+                  <span className="text-xs font-normal text-white">{cert.title}</span>
                   <span className="mt-0.5 text-[10px] text-slate-400">{cert.sub}</span>
                 </div>
               ))}

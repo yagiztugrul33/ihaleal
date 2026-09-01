@@ -2,7 +2,7 @@
 export function DemoDataCornerBadge() {
   return (
     <span
-      className="absolute top-1 end-1 z-10 text-[10px] px-1.5 py-0.5 bg-yellow-100 text-yellow-800 rounded"
+      className="absolute top-1 end-1 z-10 text-[10px] px-1.5 py-0.5 bg-yellow-100 text-yellow-800 rounded-[3px]"
       aria-label="Bu veri demo amaçlıdır, gerçek piyasa verisi değildir"
     >
       Demo

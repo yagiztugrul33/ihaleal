@@ -20,11 +20,11 @@ export default function LegalFramework() {
         </Button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-xl bg-violet-500/10 text-violet-400">
+          <div className="p-3 rounded-[20px] bg-violet-500/10 text-violet-400">
             <Scale className="w-7 h-7" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Yasal çerçeve çalışma taslağı</h1>
+            <h1 className="text-2xl font-normal text-white">Yasal çerçeve çalışma taslağı</h1>
             <p className="text-sm text-slate-500">Kurumsal ihale şartnamesi başlıkları + TBK / İİK / KVKK hatırlatıcıları</p>
           </div>
         </div>
@@ -75,14 +75,14 @@ export default function LegalFramework() {
         <Card className="bg-slate-900/50 border-slate-200/80">
           <CardContent className="p-6 space-y-6">
             <div>
-              <h2 className="text-lg font-semibold text-white flex items-center gap-2 mb-3">
+              <h2 className="text-lg font-normal text-white flex items-center gap-2 mb-3">
                 <BookOpen className="w-5 h-5 text-blue-400" />
                 İlgili mevzuat başlıkları
               </h2>
               <div className="space-y-2">
                 {section.laws.map((l) => (
-                  <div key={l.code} className="p-3 rounded-lg bg-white/[0.03] border border-slate-200/80 text-sm">
-                    <div className="font-medium text-white">{l.code}</div>
+                  <div key={l.code} className="p-3 rounded-[10px] bg-white/[0.03] border border-slate-200/80 text-sm">
+                    <div className="font-normal text-white">{l.code}</div>
                     <div className="text-slate-400">{l.topic}</div>
                     <div className="text-xs text-slate-600 mt-1">{l.note}</div>
                   </div>
@@ -90,7 +90,7 @@ export default function LegalFramework() {
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-slate-300 mb-2">Kontrol listesi (taslak)</h3>
+              <h3 className="text-sm font-normal text-slate-300 mb-2">Kontrol listesi (taslak)</h3>
               <ul className="space-y-2 text-sm text-slate-400 list-disc list-inside">
                 {section.bullets.map((b) => (
                   <li key={b}>{b}</li>

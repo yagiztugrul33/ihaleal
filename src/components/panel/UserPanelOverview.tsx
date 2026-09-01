@@ -57,7 +57,7 @@ export function UserPanelOverview() {
         <CardContent className="p-8">
           <div className="text-center max-w-lg mx-auto">
             <Sparkles className="w-10 h-10 text-card-foreground mx-auto mb-3" />
-            <h2 className="text-xl font-semibold text-card-foreground mb-2">Kişisel paneliniz burada</h2>
+            <h2 className="text-xl font-normal text-card-foreground mb-2">Kişisel paneliniz burada</h2>
             <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
               Giriş yaptıktan sonra: kayıtlı aramalarınız, favori ilanlarınız, aktif teklifleriniz,
               bildirimler ve satıcı analitiği tek ekrandan yönetilir.
@@ -66,16 +66,16 @@ export function UserPanelOverview() {
                 !important ile koyu zemine (var(--zemin-yumusak)) çeviriyor. Bone
                 Card üstünde nötr ayrım için sadece hairline border kullanılır. */}
             <div className="grid gap-2 sm:grid-cols-2 text-start text-xs text-muted-foreground mb-6">
-              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+              <div className="flex items-center gap-2 rounded-[10px] border border-border p-2">
                 <Heart className="w-4 h-4 text-muted-foreground" /> Favori takibi + fiyat değişimi
               </div>
-              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+              <div className="flex items-center gap-2 rounded-[10px] border border-border p-2">
                 <Bookmark className="w-4 h-4 text-muted-foreground" /> Aramalarınız + yeni eşleşmeler
               </div>
-              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+              <div className="flex items-center gap-2 rounded-[10px] border border-border p-2">
                 <HandCoins className="w-4 h-4 text-muted-foreground" /> Tekliflerinizin durumu
               </div>
-              <div className="flex items-center gap-2 rounded-lg border border-border p-2">
+              <div className="flex items-center gap-2 rounded-[10px] border border-border p-2">
                 <Eye className="w-4 h-4 text-muted-foreground" /> İlanlarınızın görüntülenmesi
               </div>
             </div>
@@ -177,7 +177,7 @@ export function UserPanelOverview() {
                   key={a.id}
                   type="button"
                   onClick={() => navigate(`/ilan/${a.id}`)}
-                  className="text-start rounded-xl border border-border overflow-hidden hover:border-card-foreground/40 transition-colors"
+                  className="text-start rounded-[20px] border border-border overflow-hidden hover:border-card-foreground/40 transition-colors"
                 >
                   <div className="aspect-[16/10] bg-muted overflow-hidden">
                     <img src={a.images[0]} alt={a.title} loading="lazy" className="w-full h-full object-cover" />
@@ -186,7 +186,7 @@ export function UserPanelOverview() {
                     <div className="text-[11px] text-muted-foreground flex items-center gap-1">
                       <MapPin className="w-3 h-3" /> {a.district}, {a.city}
                     </div>
-                    <div className="text-xs font-medium text-card-foreground line-clamp-2 leading-snug">{a.title}</div>
+                    <div className="text-xs font-normal text-card-foreground line-clamp-2 leading-snug">{a.title}</div>
                     <div className="text-sm font-normal text-card-foreground">{formatTRY(a.currentBid)}</div>
                   </div>
                 </button>
@@ -213,14 +213,14 @@ export function UserPanelOverview() {
               {recentBuyerOffers.map((o) => (
                 <div
                   key={o.id}
-                  className="rounded-lg border border-border p-2.5 flex items-center justify-between gap-3"
+                  className="rounded-[10px] border border-border p-2.5 flex items-center justify-between gap-3"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-muted-foreground truncate">İlan #{o.listing_id?.slice(0, 8) ?? "?"}</p>
-                    <p className="text-sm text-card-foreground font-medium">{formatTRY(o.amount_try ?? 0)}</p>
+                    <p className="text-sm text-card-foreground font-normal">{formatTRY(o.amount_try ?? 0)}</p>
                   </div>
                   <span
-                    className="text-[10px] font-normal px-2 py-0.5 rounded-md bg-[var(--zemin)] border border-[var(--cizgi)] text-muted-foreground"
+                    className="text-[10px] font-normal px-2 py-0.5 rounded-[3px] bg-[var(--zemin)] border border-[var(--cizgi)] text-muted-foreground"
                     style={o.status === "accepted" ? { color: "var(--metrik-yesil)" } : undefined}
                   >
                     {o.status === "pending" ? "Bekleyen" : o.status === "accepted" ? "Kabul" : o.status === "rejected" ? "Ret" : o.status === "countered" ? "Karşı teklif" : o.status}

@@ -71,7 +71,7 @@ export default function UserPanel() {
                 to={item.to}
                 end={"end" in item ? item.end : false}
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+                  `flex items-center gap-2 px-3 py-2.5 rounded-[20px] text-sm transition-colors ${
                     isActive ? "bg-[var(--zemin)] text-[var(--metin)] border border-[var(--cizgi)]" : "text-slate-400 hover:bg-white/5 hover:text-white"
                   }`
                 }

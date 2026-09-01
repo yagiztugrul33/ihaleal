@@ -43,7 +43,7 @@ export function AvmEstimateSection({ city, district, areaM2, listingPrice }: Pro
       <CardContent className="p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-violet-300" />
-          <h3 className="text-sm font-semibold text-white">Otomatik değer tahmini (AVM)</h3>
+          <h3 className="text-sm font-normal text-white">Otomatik değer tahmini (AVM)</h3>
         </div>
         <p className="text-[11px] leading-relaxed text-slate-400 flex items-start gap-2">
           <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-amber-400 mt-0.5" />
@@ -53,19 +53,19 @@ export function AvmEstimateSection({ city, district, areaM2, listingPrice }: Pro
         {!loading && error ? <p className="text-sm text-slate-400">{error}</p> : null}
         {!loading && result ? (
           <div className="grid gap-2 sm:grid-cols-3 text-sm">
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+            <div className="rounded-[10px] border border-white/10 bg-white/[0.03] p-3">
               <p className="text-xs text-slate-500">Tahmini band</p>
-              <p className="font-semibold text-white">
+              <p className="font-normal text-white">
                 ₺{result.low.toLocaleString("tr-TR")} – ₺{result.high.toLocaleString("tr-TR")}
               </p>
             </div>
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+            <div className="rounded-[10px] border border-white/10 bg-white/[0.03] p-3">
               <p className="text-xs text-slate-500">Merkez tahmin</p>
-              <p className="font-semibold text-violet-200">₺{result.point.toLocaleString("tr-TR")}</p>
+              <p className="font-normal text-violet-200">₺{result.point.toLocaleString("tr-TR")}</p>
             </div>
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+            <div className="rounded-[10px] border border-white/10 bg-white/[0.03] p-3">
               <p className="text-xs text-slate-500">Güven / örnek</p>
-              <p className="font-semibold text-slate-200">
+              <p className="font-normal text-slate-200">
                 %{Math.round(result.confidence * 100)} · n={result.sampleSize}
               </p>
             </div>

@@ -17,7 +17,7 @@ type DetailMapProps = {
 export function ListingDetailMap({ lat, lng, title, subtitle, className = "" }: DetailMapProps) {
   const center: LatLngExpression = [lat, lng];
   return (
-    <div className={`rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-900 ${className}`}>
+    <div className={`rounded-[20px] overflow-hidden border border-slate-200/80 bg-slate-900 ${className}`}>
       <MapContainer center={center} zoom={14} style={{ height: "16rem", width: "100%" }} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -30,7 +30,7 @@ export function ListingDetailMap({ lat, lng, title, subtitle, className = "" }: 
         >
           <Popup>
             <div className="min-w-[160px] text-slate-900">
-              <div className="font-semibold text-sm">{title}</div>
+              <div className="font-normal text-sm">{title}</div>
               {subtitle ? <div className="text-xs text-slate-600 mt-1">{subtitle}</div> : null}
             </div>
           </Popup>

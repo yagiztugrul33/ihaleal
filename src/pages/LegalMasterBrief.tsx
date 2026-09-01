@@ -17,12 +17,12 @@ export default function LegalMasterBrief() {
 
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-violet-500/15 p-3 text-violet-400">
+            <div className="rounded-[20px] bg-violet-500/15 p-3 text-violet-400">
               <BookMarked className="h-8 w-8" />
             </div>
             <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-violet-400/90">Tapubid · ihaleal.com</p>
-              <h1 className="text-2xl font-bold text-white">Hukuki ve operasyonel master plan özeti</h1>
+              <p className="text-xs font-normal uppercase tracking-wide text-violet-400/90">Tapubid · ihaleal.com</p>
+              <h1 className="text-2xl font-normal text-white">Hukuki ve operasyonel master plan özeti</h1>
               <p className="mt-1 text-sm text-slate-500">
                 Avukatlık hizmeti değildir — tam çalışma metni geliştirici deposunda.
               </p>
@@ -68,19 +68,19 @@ export default function LegalMasterBrief() {
 
         <Card className="mb-10 border-slate-200 bg-slate-900/40">
           <CardContent className="space-y-2 p-5 text-sm text-slate-400">
-            <p className="font-medium text-slate-200">Tam dokümantasyon (Markdown)</p>
+            <p className="font-normal text-slate-200">Tam dokümantasyon (Markdown)</p>
             <ul className="list-inside list-disc space-y-1 text-slate-400">
               <li>
                 Ana plan:{" "}
-                <code className="rounded bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/TAPUBID_IHALLEGAL_MASTER_PLAN.md</code>
+                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/TAPUBID_IHALLEGAL_MASTER_PLAN.md</code>
               </li>
               <li>
                 Sözleşme iskeletleri:{" "}
-                <code className="rounded bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/EK_SOZLESME_TASLAK_PAKETI.md</code>
+                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/EK_SOZLESME_TASLAK_PAKETI.md</code>
               </li>
               <li>
                 Yetki/aracılık çerçevesi:{" "}
-                <code className="rounded bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/YETKI_VE_ARACILIK_TASLAK_CERCEVE.md</code>
+                <code className="rounded-[3px] bg-slate-800 px-1.5 py-0.5 text-xs text-teal-300">docs/hukuk/YETKI_VE_ARACILIK_TASLAK_CERCEVE.md</code>
               </li>
             </ul>
             <p className="pt-2 text-xs text-slate-600">
@@ -93,7 +93,7 @@ export default function LegalMasterBrief() {
           {LEGAL_MASTER_SECTIONS.map((s) => (
             <Card key={s.id} className="border-slate-200/80 bg-slate-900/50">
               <CardContent className="space-y-3 p-5">
-                <h2 className="text-lg font-semibold text-white">{s.title}</h2>
+                <h2 className="text-lg font-normal text-white">{s.title}</h2>
                 <div className="space-y-2 text-sm leading-relaxed text-slate-400">
                   {s.body.map((p, i) => (
                     <p key={`${s.id}-p-${i}`}>{p}</p>
@@ -114,7 +114,7 @@ export default function LegalMasterBrief() {
         <Card className="mt-10 border-teal-500/20 bg-teal-500/5">
           <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-sm text-slate-400">
-              <p className="font-medium text-teal-300/90">İlgili ürün sayfaları</p>
+              <p className="font-normal text-teal-300/90">İlgili ürün sayfaları</p>
               <p className="mt-1 text-xs text-slate-600">Komisyon ve şartlar için kullanıcıya yönelik taslaklar.</p>
             </div>
             <div className="flex flex-wrap gap-2">

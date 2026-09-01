@@ -73,11 +73,11 @@ export default function TaxSimulatorPage() {
   return (
     <div className="container max-w-3xl py-10 px-4 space-y-6">
       <div className="flex items-center gap-3">
-        <div className="rounded-xl bg-primary/10 p-3 text-primary">
+        <div className="rounded-[20px] bg-primary/10 p-3 text-primary">
           <Calculator className="h-7 w-7" />
         </div>
         <div>
-          <h1 className="font-serif text-2xl font-semibold tracking-tight">Vergi / harc simulatoru</h1>
+          <h1 className="font-serif text-2xl font-normal tracking-tight">Vergi / harc simulatoru</h1>
           <p className="text-sm text-muted-foreground">
             TaxSimulatorService (Kimi ZIP) — tahmini matrah; resmi hesap degildir.
           </p>
@@ -112,7 +112,7 @@ export default function TaxSimulatorPage() {
         </CardHeader>
         <CardContent className="space-y-2">
           {tcmbError && (
-            <p className="text-sm text-amber-700 dark:text-amber-300 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2">
+            <p className="text-sm text-amber-700 dark:text-amber-300 rounded-[10px] border border-amber-500/30 bg-amber-500/10 px-3 py-2">
               {tcmbError}
             </p>
           )}

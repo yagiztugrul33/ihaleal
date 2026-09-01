@@ -15,7 +15,7 @@ export function TrustStrip() {
         <p className="trust-strip-label text-center">{trusted.title}</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6 opacity-50 md:gap-10">
           {PARTNERS.map((name) => (
-            <span key={name} className="text-sm font-semibold tracking-widest text-slate-400 md:text-base">
+            <span key={name} className="text-sm font-normal tracking-widest text-slate-400 md:text-base">
               {name}
             </span>
           ))}
@@ -33,7 +33,7 @@ export function TrustStrip() {
               >
                 <Icon className="h-5 w-5 shrink-0 text-blue-400" aria-hidden />
                 <div>
-                  <p className="text-sm font-bold text-white">{cert.title}</p>
+                  <p className="text-sm font-normal text-white">{cert.title}</p>
                   <p className="text-xs text-slate-400">{cert.sub}</p>
                 </div>
               </motion.div>

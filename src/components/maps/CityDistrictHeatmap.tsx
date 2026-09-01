@@ -62,9 +62,9 @@ export default function CityDistrictHeatmap({ cityKey, districts, title = "İlç
   if (!center || districts.length === 0) return null;
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900/40 mb-8">
+    <div className="rounded-[20px] overflow-hidden border border-slate-200 bg-slate-900/40 mb-8">
       <div className="px-4 py-3 border-b border-slate-200/80 flex flex-wrap items-center justify-between gap-2">
-        <h3 className="text-lg font-bold text-white">{title}</h3>
+        <h3 className="text-lg font-normal text-white">{title}</h3>
         <span className="text-xs text-slate-500">Renk: düşük→yüksek m² fiyat (demo)</span>
       </div>
       <MapContainer center={center} zoom={11} style={{ height: "380px", width: "100%" }} scrollWheelZoom>
@@ -85,9 +85,9 @@ export default function CityDistrictHeatmap({ cityKey, districts, title = "İlç
             >
               <Popup>
                 <div className="text-slate-900 text-sm">
-                  <div className="font-bold">{d.name}</div>
+                  <div className="font-normal">{d.name}</div>
                   <div className="text-xs text-slate-600">{d.type}</div>
-                  <div className="mt-1 font-semibold">₺{d.avgPrice.toLocaleString("tr-TR")} / m²</div>
+                  <div className="mt-1 font-normal">₺{d.avgPrice.toLocaleString("tr-TR")} / m²</div>
                   <div className="text-xs text-emerald-700">Yıllık artış %{d.growth}</div>
                 </div>
               </Popup>

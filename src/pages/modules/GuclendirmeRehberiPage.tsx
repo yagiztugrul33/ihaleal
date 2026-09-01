@@ -245,7 +245,7 @@ export default function GuclendirmeRehberiPage() {
               action={
                 <button
                   type="button"
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${active ? "bg-emerald-600 text-white" : "border border-white/15 text-slate-300"}`}
+                  className={`rounded-full px-3 py-1 text-xs font-normal ${active ? "bg-emerald-600 text-white" : "border border-white/15 text-slate-300"}`}
                   onClick={() => setMethod(m.id)}
                 >
                   Hesaplayıcıda seç

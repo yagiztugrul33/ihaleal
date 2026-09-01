@@ -37,7 +37,7 @@ export default function LocationRiskQueryPage() {
           <p className="inline-flex items-center gap-2 rounded-full border border-rose-400/30 bg-rose-500/10 px-3 py-1 text-xs text-rose-200 mb-3">
             <ShieldAlert className="h-3.5 w-3.5" /> Konum-Bazlı Zemin Risk Sorgu
           </p>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
+          <h1 className="text-3xl font-normal flex items-center gap-2">
             <MapPin className="h-7 w-7 text-rose-300" />
             Bölge Zemin/Deprem Risk Sorgu
           </h1>
@@ -48,11 +48,11 @@ export default function LocationRiskQueryPage() {
         </div>
 
         {/* Kapsam açıklaması */}
-        <div className="rounded-2xl border border-cyan-400/20 bg-slate-900/40 p-4">
+        <div className="rounded-[20px] border border-cyan-400/20 bg-slate-900/40 p-4">
           <div className="flex items-start gap-3">
             <Info className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-white mb-1">Veri Kapsamı</p>
+              <p className="text-sm font-normal text-white mb-1">Veri Kapsamı</p>
               <ul className="text-xs text-slate-300 space-y-1 list-disc list-inside">
                 <li><strong>{COVERED_PROVINCES_COUNT} il</strong> için AFAD Türkiye Deprem Tehlike Haritası (TDTH 2018) il-bazlı risk grubu + PGA</li>
                 <li><strong>{COVERED_ISTANBUL_DISTRICTS_COUNT} İstanbul ilçesi</strong> için İBB Mikrobölgeleme 2009 + JICA mikrobölge verisi</li>
@@ -68,8 +68,8 @@ export default function LocationRiskQueryPage() {
         </div>
 
         {/* Konum seçici */}
-        <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-4">
-          <h2 className="text-base font-semibold text-white">1. Konum seçin</h2>
+        <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-4">
+          <h2 className="text-base font-normal text-white">1. Konum seçin</h2>
           <LocationPicker
             value={location}
             onChange={setLocation}
@@ -79,8 +79,8 @@ export default function LocationRiskQueryPage() {
         </div>
 
         {/* Risk gösterimi */}
-        <div className="rounded-2xl border border-slate-700 bg-slate-900/40 p-5 space-y-4">
-          <h2 className="text-base font-semibold text-white">2. Risk bilgisi</h2>
+        <div className="rounded-[20px] border border-slate-700 bg-slate-900/40 p-5 space-y-4">
+          <h2 className="text-base font-normal text-white">2. Risk bilgisi</h2>
           <ZoneRiskCard
             province={location.province}
             district={location.district}
@@ -89,8 +89,8 @@ export default function LocationRiskQueryPage() {
 
         {/* Eğitici */}
         <div className="grid sm:grid-cols-3 gap-3">
-          <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-rose-200 mb-1.5">
+          <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-rose-200 mb-1.5">
               Sıvılaşma nedir?
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
@@ -99,8 +99,8 @@ export default function LocationRiskQueryPage() {
               kıyı alüvyonu, akarsu yatakları, sazlık alanlar.
             </p>
           </div>
-          <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-amber-200 mb-1.5">
+          <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-amber-200 mb-1.5">
               Heyelan nedir?
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">
@@ -109,8 +109,8 @@ export default function LocationRiskQueryPage() {
               riskli; deprem riski düşük olsa da heyelan ölümcül olabilir.
             </p>
           </div>
-          <div className="rounded-lg border border-slate-700 bg-slate-900/40 p-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-orange-200 mb-1.5">
+          <div className="rounded-[10px] border border-slate-700 bg-slate-900/40 p-3">
+            <h3 className="text-xs font-normal uppercase tracking-wider text-orange-200 mb-1.5">
               Zemin Büyütme nedir?
             </h3>
             <p className="text-xs text-slate-300 leading-relaxed">

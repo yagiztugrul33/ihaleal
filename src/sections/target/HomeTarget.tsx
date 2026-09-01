@@ -118,7 +118,7 @@ export function HomeTarget() {
 
             <h1
               id="home-hero-title"
-              className="text-[clamp(2.25rem,5.5vw,4.25rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-[#f8fafc]"
+              className="text-[clamp(2.25rem,5.5vw,4.25rem)] font-normal leading-[1.06] tracking-[-0.03em] text-[#f8fafc]"
             >
               {h.hero.titleLead}{" "}
               <span
@@ -154,7 +154,7 @@ export function HomeTarget() {
             </div>
           </div>
 
-          <div className="home-hero-villa relative hidden min-h-[340px] overflow-hidden rounded-2xl border border-slate-600/25 shadow-2xl xl:block">
+          <div className="home-hero-villa relative hidden min-h-[340px] overflow-hidden rounded-[20px] border border-slate-600/25 shadow-2xl xl:block">
             <img
               src={HERO_VILLA}
               alt=""
@@ -216,16 +216,16 @@ function LiveChartCard({ live }: { live: HomeMessages["live"] }) {
       style={{ background: "var(--zemin-yumusak)" }}
     >
       <div className="mb-3 flex items-center justify-between">
-        <span className="text-[.9rem] font-semibold text-[#f8fafc]">{live.title}</span>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/12 px-2 py-0.5 text-[.68rem] font-semibold uppercase tracking-wide text-emerald-400">
+        <span className="text-[.9rem] font-normal text-[#f8fafc]">{live.title}</span>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/12 px-2 py-0.5 text-[.68rem] font-normal uppercase tracking-wide text-emerald-400">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
           {live.live}
         </span>
       </div>
-      <div className="mb-0.5 text-[3.5rem] font-extrabold leading-none tracking-tight text-[#f8fafc]">
+      <div className="mb-0.5 text-[3.5rem] font-normal leading-none tracking-tight text-[#f8fafc]">
         284
       </div>
-      <div className="mb-3 text-[.88rem] font-semibold text-emerald-400">{live.growth}</div>
+      <div className="mb-3 text-[.88rem] font-normal text-emerald-400">{live.growth}</div>
       <svg viewBox="0 0 400 80" className="mb-3 h-[64px] w-full" aria-hidden>
         <defs>
           <linearGradient id="liveGrad" x1="0" y1="0" x2="0" y2="1">
@@ -244,7 +244,7 @@ function LiveChartCard({ live }: { live: HomeMessages["live"] }) {
           strokeWidth="2"
         />
       </svg>
-      <Button asChild variant="link" className="h-auto p-0 text-sm font-semibold">
+      <Button asChild variant="link" className="h-auto p-0 text-sm font-normal">
         <Link to={ROUTES.ILANLAR}>
           {live.view}
           <ChevronRight className="rtl:rotate-180 h-4 w-4" />
@@ -263,11 +263,11 @@ function TrustSignalsRow({ items }: { items: HomeMessages["trust"] }) {
         const Icon = TRUST_ICONS[i] ?? Shield;
         return (
           <div key={x.title} className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-blue-500/25 bg-blue-500/10">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-blue-500/25 bg-blue-500/10">
               <Icon className="h-4 w-4 text-blue-400" strokeWidth={2} />
             </div>
             <div>
-              <div className="text-xs font-semibold text-slate-50">{x.title}</div>
+              <div className="text-xs font-normal text-slate-50">{x.title}</div>
               <div className="text-[.7rem] text-slate-500">{x.sub}</div>
             </div>
           </div>
@@ -293,11 +293,11 @@ function StatCardsColumn({
         return (
           <div
             key={x.label}
-            className="rounded-xl border border-slate-600/20 p-3.5 backdrop-blur-xl"
+            className="rounded-[20px] border border-slate-600/20 p-3.5 backdrop-blur-xl"
             style={{ background: "var(--zemin-yumusak)" }}
           >
             <div className="flex items-start gap-2.5">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/12">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-blue-500/12">
                 <Icon className="h-4 w-4 text-blue-400" strokeWidth={2} />
               </div>
               <div className="min-w-0 flex-1">
@@ -305,8 +305,8 @@ function StatCardsColumn({
                   {x.label}
                 </div>
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                  <span className="text-xl font-bold tracking-tight text-slate-50">{values[i]}</span>
-                  <span className="text-[.68rem] font-semibold text-emerald-400">{changes[i]}</span>
+                  <span className="text-xl font-normal tracking-tight text-slate-50">{values[i]}</span>
+                  <span className="text-[.68rem] font-normal text-emerald-400">{changes[i]}</span>
                 </div>
                 <div className="mt-0.5 text-[.62rem] text-slate-600">{x.vs}</div>
               </div>
@@ -327,7 +327,7 @@ function HowItWorksSection({ how }: { how: HomeMessages["how"] }) {
       >
         <div>
           <div className="mb-8 text-center">
-            <h2 className="mb-2 text-[clamp(1.6rem,3.5vw,2.35rem)] font-bold tracking-tight text-slate-50">
+            <h2 className="mb-2 text-[clamp(1.6rem,3.5vw,2.35rem)] font-normal tracking-tight text-slate-50">
               {how.title}
             </h2>
             <p className="text-sm text-slate-500">{how.subtitle}</p>
@@ -349,10 +349,10 @@ function HowItWorksSection({ how }: { how: HomeMessages["how"] }) {
                   <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-blue-500/35 bg-gradient-to-br from-blue-500/20 to-indigo-900/50 shadow-lg shadow-blue-500/15">
                     <Icon className="h-6 w-6 text-blue-300" strokeWidth={1.75} />
                   </div>
-                  <div className="mb-1 text-[10px] font-bold tracking-widest text-blue-400">
+                  <div className="mb-1 text-[10px] font-normal tracking-widest text-blue-400">
                     {num}
                   </div>
-                  <h3 className="mb-1.5 text-sm font-semibold text-slate-50">{x.title}</h3>
+                  <h3 className="mb-1.5 text-sm font-normal text-slate-50">{x.title}</h3>
                   <p className="m-0 text-[.75rem] leading-snug text-slate-500">{x.desc}</p>
                 </div>
               );
@@ -386,12 +386,12 @@ function LiveAuctionsContent({ auctions }: { auctions: HomeMessages["auctions"] 
   return (
     <>
       <div className="mb-7 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="m-0 text-[clamp(1.4rem,2.8vw,1.85rem)] font-bold text-slate-50">
+        <h2 className="m-0 text-[clamp(1.4rem,2.8vw,1.85rem)] font-normal text-slate-50">
           {auctions.title}
         </h2>
         <Link
           to={ROUTES.ILANLAR}
-          className="inline-flex items-center gap-1 text-sm font-semibold text-blue-400 no-underline"
+          className="inline-flex items-center gap-1 text-sm font-normal text-blue-400 no-underline"
         >
           {auctions.viewAll}
           <ChevronRight className="rtl:rotate-180 h-4 w-4" />
@@ -415,10 +415,10 @@ function LiveAuctionsGrid({ auctions }: { auctions: HomeMessages["auctions"] }) 
 function InvestorTrustSidebar({ how }: { how: HomeMessages["how"] }) {
   return (
     <aside
-      className="rounded-2xl border border-slate-600/20 p-5 lg:sticky lg:top-24 lg:self-start"
+      className="rounded-[20px] border border-slate-600/20 p-5 lg:sticky lg:top-24 lg:self-start"
       style={{ background: "var(--zemin-yumusak)" }}
     >
-      <h3 className="mb-4 text-[.95rem] font-semibold text-slate-50">{how.sidebarTitle}</h3>
+      <h3 className="mb-4 text-[.95rem] font-normal text-slate-50">{how.sidebarTitle}</h3>
       <div className="flex flex-col gap-3">
         {how.sidebar.map((x, i) => {
           const Icon = SIDEBAR_ICONS[i] ?? Shield;
@@ -426,13 +426,13 @@ function InvestorTrustSidebar({ how }: { how: HomeMessages["how"] }) {
           return (
             <div key={x.title} className="flex items-start gap-2.5">
               <div
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px]"
                 style={{ background: `${c}18`, border: `1px solid ${c}35` }}
               >
                 <Icon className="h-4 w-4" style={{ color: c }} strokeWidth={2} />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-[.8rem] font-semibold text-slate-100">{x.title}</div>
+                <div className="text-[.8rem] font-normal text-slate-100">{x.title}</div>
                 <div className="text-[.7rem] text-slate-500">{x.sub}</div>
               </div>
               <ChevronRight className="rtl:rotate-180 mt-1 h-4 w-4 shrink-0 text-slate-600" />
@@ -444,10 +444,10 @@ function InvestorTrustSidebar({ how }: { how: HomeMessages["how"] }) {
         {how.certs.map((b) => (
           <div
             key={b.title}
-            className="min-w-[88px] flex-1 rounded-lg border border-slate-600/20 px-2.5 py-2 text-center"
+            className="min-w-[88px] flex-1 rounded-[10px] border border-slate-600/20 px-2.5 py-2 text-center"
             style={{ background: "var(--zemin-yumusak)" }}
           >
-            <div className="text-[10px] font-bold text-slate-100">
+            <div className="text-[10px] font-normal text-slate-100">
               {b.flag ? `${b.flag} ` : ""}
               {b.title}
             </div>
@@ -477,37 +477,37 @@ function AuctionCard({
         className="relative h-[168px] bg-cover bg-center"
         style={{ backgroundImage: `url('${PROP_IMGS[idx]}')` }}
       >
-        <span className="absolute start-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-red-500/95 px-2 py-0.5 text-[.65rem] font-bold uppercase tracking-wide text-white">
+        <span className="absolute start-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-red-500/95 px-2 py-0.5 text-[.65rem] font-normal uppercase tracking-wide text-white">
           <span className="h-1 w-1 animate-pulse rounded-full bg-white" />
           {auctions.live}
         </span>
         <button
           type="button"
-          className="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-slate-900/75 text-slate-200 backdrop-blur-sm"
+          className="absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-[10px] border border-white/10 bg-slate-900/75 text-slate-200 backdrop-blur-sm"
           aria-label="Favorites"
         >
           <Heart className="h-4 w-4" strokeWidth={2} />
         </button>
       </div>
       <div className="p-3.5">
-        <h3 className="mb-0.5 text-[.95rem] font-semibold text-slate-50">{item.title}</h3>
+        <h3 className="mb-0.5 text-[.95rem] font-normal text-slate-50">{item.title}</h3>
         <p className="mb-2.5 flex items-center gap-1 text-[.75rem] text-slate-500">
           <MapPin className="h-3 w-3 shrink-0" />
           {item.location}
         </p>
-        <p className="mb-1 text-[.62rem] font-medium uppercase tracking-wider text-slate-500">
+        <p className="mb-1 text-[.62rem] font-normal uppercase tracking-wider text-slate-500">
           {auctions.currentBid}
         </p>
         <div className="mb-2.5 flex items-baseline justify-between gap-2">
-          <span className="text-lg font-bold text-slate-50">{item.price}</span>
-          <span className="text-xs font-semibold text-emerald-400">{item.change}</span>
+          <span className="text-lg font-normal text-slate-50">{item.price}</span>
+          <span className="text-xs font-normal text-emerald-400">{item.change}</span>
         </div>
         <div className="flex items-center justify-between border-t border-slate-700/50 pt-2.5 text-[.7rem] text-slate-500">
           <span className="inline-flex items-center gap-1">
             <Clock className="h-3 w-3" />
             {item.time}
           </span>
-          <span className="inline-flex items-center gap-0.5 font-medium text-blue-400">
+          <span className="inline-flex items-center gap-0.5 font-normal text-blue-400">
             {item.bids}
             <ChevronRight className="rtl:rotate-180 h-3.5 w-3.5" />
           </span>
@@ -525,7 +525,7 @@ function TrustedBySection({ trusted }: { trusted: HomeMessages["trusted"] }) {
         <p className="mb-5 text-[11px] uppercase tracking-[0.2em] text-slate-600">{trusted.title}</p>
         <div className="mb-6 flex flex-wrap items-center justify-center gap-6 opacity-45 md:gap-10">
           {brands.map((b) => (
-            <span key={b} className="font-mono text-sm font-semibold tracking-wide text-slate-300">
+            <span key={b} className="font-mono text-sm font-normal tracking-wide text-slate-300">
               {b}
             </span>
           ))}
@@ -534,10 +534,10 @@ function TrustedBySection({ trusted }: { trusted: HomeMessages["trusted"] }) {
           {trusted.certs.map((b) => (
             <div
               key={b.title}
-              className="rounded-lg border border-slate-600/20 px-4 py-2.5"
+              className="rounded-[10px] border border-slate-600/20 px-4 py-2.5"
               style={{ background: "var(--zemin-yumusak)" }}
             >
-              <div className="text-xs font-bold text-slate-100">{b.title}</div>
+              <div className="text-xs font-normal text-slate-100">{b.title}</div>
               <div className="text-[.65rem] text-slate-500">{b.sub}</div>
             </div>
           ))}

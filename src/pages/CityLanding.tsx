@@ -54,7 +54,7 @@ export default function CityLandingPage() {
           ]}
         />
 
-        <div className="mb-10 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-8 md:p-10">
+        <div className="mb-10 rounded-[20px] border border-slate-200 bg-gradient-to-br from-slate-900/80 to-slate-950/90 p-8 md:p-10">
           <div className="flex flex-wrap gap-2 mb-4">
             {cfg.heroKeywords.map((k) => (
               <Badge key={k} variant="outline" className="border-teal-500/30 text-teal-300 bg-teal-500/10">
@@ -62,7 +62,7 @@ export default function CityLandingPage() {
               </Badge>
             ))}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{cfg.cityTr} gayrimenkul ihaleleri ve ilanlar</h1>
+          <h1 className="text-3xl md:text-4xl font-normal text-white mb-4">{cfg.cityTr} gayrimenkul ihaleleri ve ilanlar</h1>
           <p className="text-slate-400 max-w-3xl leading-relaxed mb-6">{cfg.description}</p>
           <div className="flex flex-wrap gap-3">
             <Button asChild className="[background:var(--gradient-cta)] text-white gap-2">
@@ -79,7 +79,7 @@ export default function CityLandingPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 mb-4 text-white font-semibold">
+        <div className="flex items-center gap-2 mb-4 text-white font-normal">
           <Building2 className="w-5 h-5 text-blue-400" />
           {cfg.cityTr} — örnek aktif ilanlar (demo katalog)
         </div>
@@ -97,13 +97,13 @@ export default function CityLandingPage() {
                   <p className="text-xs text-slate-500 flex items-center gap-1 mb-1">
                     <MapPin className="w-3 h-3" /> {a.district}
                   </p>
-                  <h2 className="text-sm font-semibold text-white line-clamp-2 mb-2">{a.title}</h2>
-                  <p className="text-lg font-bold text-blue-400">₺{a.currentBid.toLocaleString("tr-TR")}</p>
+                  <h2 className="text-sm font-normal text-white line-clamp-2 mb-2">{a.title}</h2>
+                  <p className="text-lg font-normal text-blue-400">₺{a.currentBid.toLocaleString("tr-TR")}</p>
                   <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
                     <span className="flex items-center gap-1">
                       <TrendingUp className="w-3 h-3 text-emerald-400" /> Skor {a.investmentScore}
                     </span>
-                    <Link to={`/ilan/${a.id}`} className="text-teal-400 hover:underline font-medium">
+                    <Link to={`/ilan/${a.id}`} className="text-teal-400 hover:underline font-normal">
                       İhaleye git →
                     </Link>
                   </div>

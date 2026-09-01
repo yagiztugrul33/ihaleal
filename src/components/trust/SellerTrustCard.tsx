@@ -20,11 +20,11 @@ export function SellerTrustCard({ sellerId, listingId, listingTitle }: Props) {
   const reviewCount = profile?.reviewCount ?? 0;
 
   return (
-    <div className="rounded-xl border border-slate-200/80 bg-white/[0.03] p-4 space-y-3">
+    <div className="rounded-[20px] border border-slate-200/80 bg-white/[0.03] p-4 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs uppercase tracking-wider text-slate-500 mb-1">İlan sahibi</p>
-          <p className="text-sm font-semibold text-white">{loading ? "Yükleniyor…" : displayName}</p>
+          <p className="text-sm font-normal text-white">{loading ? "Yükleniyor…" : displayName}</p>
           <div className="mt-1.5 flex flex-wrap items-center gap-2">
             <KycVerifiedBadge verified={profile?.kycVerified} compact />
             {reviewCount > 0 ? (

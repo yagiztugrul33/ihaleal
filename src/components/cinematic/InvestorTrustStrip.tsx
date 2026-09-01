@@ -32,23 +32,23 @@ export function InvestorTrustStrip({ className = "" }: { className?: string }) {
 
   return (
     <motion.section
-      className={`rounded-2xl border border-white/10 bg-white/[0.03] p-6 ${className}`}
+      className={`rounded-[20px] border border-white/10 bg-white/[0.03] p-6 ${className}`}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true }}
       variants={mp.staggerContainer}
     >
       <motion.div variants={mp.staggerItem} className="mb-6">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Kurumsal güven</p>
-        <h3 className="text-xl font-bold text-white mt-1">Yatirimcilar ve kurumlar icin tasarlandi</h3>
+        <p className="text-[10px] font-normal uppercase tracking-[0.2em] text-slate-500">Kurumsal güven</p>
+        <h3 className="text-xl font-normal text-white mt-1">Yatirimcilar ve kurumlar icin tasarlandi</h3>
       </motion.div>
       <motion.div className="grid sm:grid-cols-2 gap-4">
         {TRUST_ITEMS.map((item) => (
           <motion.div key={item.title} variants={mp.staggerItem}>
-            <div className="flex gap-3 p-4 rounded-xl border border-white/10 bg-white/[0.03]">
+            <div className="flex gap-3 p-4 rounded-[20px] border border-white/10 bg-white/[0.03]">
               <item.icon className="w-5 h-5 text-blue-400 shrink-0" aria-hidden />
               <div>
-                <p className="text-sm font-semibold text-white">{item.title}</p>
+                <p className="text-sm font-normal text-white">{item.title}</p>
                 <p className="text-xs text-slate-400 mt-1 leading-relaxed">{item.detail}</p>
               </div>
             </div>
