@@ -9,18 +9,18 @@ interface ToastContainerProps {
 export function ToastContainer({ toasts, onRemove }: ToastContainerProps) {
   if (toasts.length === 0) return null;
 
-  const icons = {
-    success: <CheckCircle className="w-5 h-5 text-emerald-400" />,
-    error: <AlertCircle className="w-5 h-5 text-red-400" />,
-    info: <Info className="w-5 h-5 text-blue-400" />,
-    warning: <AlertTriangle className="w-5 h-5 text-amber-400" />,
+  const iconColors = {
+    success: "var(--durum-basari)",
+    error: "var(--durum-hata)",
+    info: "var(--metin-ikincil)",
+    warning: "var(--durum-uyari)",
   };
 
-  const bgColors = {
-    success: "bg-emerald-500/10 border-emerald-500/20",
-    error: "bg-red-500/10 border-red-500/20",
-    info: "bg-blue-500/10 border-blue-500/20",
-    warning: "bg-amber-500/10 border-amber-500/20",
+  const icons = {
+    success: <CheckCircle className="w-5 h-5" style={{ color: iconColors.success }} />,
+    error: <AlertCircle className="w-5 h-5" style={{ color: iconColors.error }} />,
+    info: <Info className="w-5 h-5" style={{ color: iconColors.info }} />,
+    warning: <AlertTriangle className="w-5 h-5" style={{ color: iconColors.warning }} />,
   };
 
   return (
@@ -28,7 +28,7 @@ export function ToastContainer({ toasts, onRemove }: ToastContainerProps) {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className={`flex items-start gap-3 px-4 py-3 rounded-[20px] border backdrop-blur-xl ${bgColors[toast.type]} animate-slide-in-right`}
+          className="flex items-start gap-3 px-4 py-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] backdrop-blur-xl animate-slide-in-right"
         >
           <div className="flex-shrink-0 mt-0.5">{icons[toast.type]}</div>
           <p className="text-sm text-white/90 flex-1">{toast.message}</p>

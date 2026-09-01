@@ -249,7 +249,7 @@ export default function MapPage() {
               <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
             </Button>
             <h1 className="text-xl md:text-2xl font-normal text-white flex items-center gap-2">
-              <MapPin className="w-6 h-6 text-blue-400" /> Harita Üzerinden Arama
+              <MapPin className="w-6 h-6 text-[var(--metin-ikincil)]" /> Harita Üzerinden Arama
             </h1>
           </div>
           <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -283,7 +283,7 @@ export default function MapPage() {
                 <Filter className="w-3.5 h-3.5" /> Filtreler
               </h2>
               {activeFilterCount > 0 ? (
-                <button type="button" onClick={clearAll} className="text-[10px] text-cyan-300 hover:text-cyan-200 uppercase tracking-wider">
+                <button type="button" onClick={clearAll} className="text-[10px] text-[var(--metin-ikincil)] hover:text-white uppercase tracking-wider">
                   <X className="w-3 h-3 inline" /> Temizle
                 </button>
               ) : null}
@@ -298,7 +298,7 @@ export default function MapPage() {
                       type="checkbox"
                       checked={ptypes.includes(t.key)}
                       onChange={() => toggleSetParam<PropertyType>("ptype", ptypes, t.key)}
-                      className="h-3.5 w-3.5 accent-blue-500"
+                      className="h-3.5 w-3.5 accent-[var(--metin-ikincil)]"
                     />
                     <span className="text-xs">{t.label}</span>
                   </label>
@@ -346,7 +346,7 @@ export default function MapPage() {
             </section>
 
             <section>
-              <h3 className="text-[10px] uppercase tracking-wider text-amber-300 mb-1.5 flex items-center gap-1">
+              <h3 className="text-[10px] uppercase tracking-wider text-[var(--metin-ikincil)] mb-1.5 flex items-center gap-1">
                 <Gavel className="w-3 h-3" /> İhale Tipi
               </h3>
               <div className="space-y-1">
@@ -356,7 +356,7 @@ export default function MapPage() {
                       type="checkbox"
                       checked={modes.includes(m.key)}
                       onChange={() => toggleSetParam<AuctionMode>("mode", modes, m.key)}
-                      className="h-3.5 w-3.5 accent-amber-400"
+                      className="h-3.5 w-3.5 accent-[var(--metin-ikincil)]"
                     />
                     <m.icon className="w-3 h-3 opacity-70" />
                     <span className="text-xs">{m.label}</span>
@@ -374,7 +374,7 @@ export default function MapPage() {
                       type="checkbox"
                       checked={statuses.includes(s.key)}
                       onChange={() => toggleSetParam<AuctionStatus>("status", statuses, s.key)}
-                      className="h-3.5 w-3.5 accent-emerald-400"
+                      className="h-3.5 w-3.5 accent-[var(--metin-ikincil)]"
                     />
                     <span className="inline-block w-2 h-2 rounded-full" style={{ background: s.color }} />
                     <span className="text-xs">{s.label}</span>
@@ -408,10 +408,10 @@ export default function MapPage() {
             </MapContainer>
             {filtered.length === 0 && !catalogLoading ? (
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                <div className="pointer-events-auto rounded-[20px] border border-amber-500/30 bg-slate-950/85 backdrop-blur px-5 py-4 text-center text-sm text-amber-100 max-w-xs">
+                <div className="pointer-events-auto rounded-[20px] border border-[var(--cizgi)] bg-slate-950/85 backdrop-blur px-5 py-4 text-center text-sm text-[var(--metin-ikincil)] max-w-xs">
                   <p className="font-normal mb-1">Bu kriterlere uyan ilan yok</p>
                   <p className="text-xs text-slate-400 mb-3">Filtreleri biraz gevşetmeyi deneyin.</p>
-                  <button type="button" onClick={clearAll} className="text-xs px-3 py-1 rounded-[3px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-normal">
+                  <button type="button" onClick={clearAll} className="text-xs px-3 py-1 rounded-[3px] bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin)] text-[var(--metin)] font-normal">
                     Filtreleri Temizle
                   </button>
                 </div>
