@@ -67,7 +67,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
             tabIndex={-1}
             aria-label="Paylaş menüsünü kapat"
           />
-          <div className="absolute end-0 top-full mt-2 w-72 p-4 rounded-[20px] bg-[#0f1629] border border-slate-200 shadow-2xl z-50 animate-scale-in">
+          <div className="absolute end-0 top-full mt-2 w-72 p-4 rounded-[20px] bg-[#0f1629] border border-slate-200 z-50 animate-scale-in">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-normal text-white">Paylaş</h4>
               <button

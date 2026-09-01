@@ -32,7 +32,7 @@ export default function PasswordReset() {
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="mb-6 gap-2 text-slate-500 hover:text-slate-900">
           <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Geri
         </Button>
-        <Card className="border-slate-200/80 bg-slate-900/50 shadow-xl">
+        <Card className="border-slate-200/80 bg-slate-900/50">
           <CardContent className="p-8">
             <AuthBrandHeader
               title="Şifre sıfırlama"

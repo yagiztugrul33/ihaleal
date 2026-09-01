@@ -14,7 +14,7 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
   const corporate = variant === "corporate";
 
   const shell = cn(
-    "mt-4 w-full rounded-[20px] shadow-[0_16px_40px_-20px_rgba(0,0,0,0.45)]",
+    "mt-4 w-full rounded-[20px]",
     corporate
       ? "max-w-3xl border border-white/[0.08] bg-zinc-950/40 p-2 ring-1 ring-[var(--cizgi)] backdrop-blur-sm"
       : "border border-white/[0.1] bg-zinc-900/55 ring-1 ring-white/[0.06]",
@@ -23,8 +23,8 @@ export function KkaRevenueHubStrip({ className, variant = "default" }: KkaRevenu
   );
 
   const kkaCard = corporate
-    ? "group flex flex-1 items-center gap-3 rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-[var(--zemin-yumusak)] via-zinc-950/80 to-zinc-950/90 text-start text-white shadow-inner shadow-black/20 transition-all duration-300 hover:border-[var(--cizgi)] hover:from-[var(--zemin-yumusak)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500/60"
-    : "group flex flex-1 items-center gap-3 rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-[var(--zemin-yumusak)] to-zinc-900/85 text-start text-white shadow-inner shadow-black/25 transition-all duration-300 hover:from-[var(--zemin-yumusak)] hover:to-zinc-900/90 hover:border-[var(--cizgi)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600/70";
+    ? "group flex flex-1 items-center gap-3 rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-[var(--zemin-yumusak)] via-zinc-950/80 to-zinc-950/90 text-start text-white transition-all duration-300 hover:border-[var(--cizgi)] hover:from-[var(--zemin-yumusak)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500/60"
+    : "group flex flex-1 items-center gap-3 rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-[var(--zemin-yumusak)] to-zinc-900/85 text-start text-white transition-all duration-300 hover:from-[var(--zemin-yumusak)] hover:to-zinc-900/90 hover:border-[var(--cizgi)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600/70";
 
   const kkaIconWrap = corporate
     ? "flex shrink-0 items-center justify-center rounded-[20px] bg-[var(--zemin-yumusak)] ring-1 ring-[var(--cizgi)] transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"

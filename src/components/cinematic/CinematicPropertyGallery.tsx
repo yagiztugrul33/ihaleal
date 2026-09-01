@@ -71,7 +71,7 @@ export function CinematicPropertyGallery({
   return (
     <>
       <div
-        className="property-gallery-cinematic relative -mx-4 sm:mx-0 sm:rounded-[20px] overflow-hidden mb-8 border border-white/10 shadow-2xl shadow-black/40"
+        className="property-gallery-cinematic relative -mx-4 sm:mx-0 sm:rounded-[20px] overflow-hidden mb-8 border border-white/10"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
@@ -202,7 +202,7 @@ export function CinematicPropertyGallery({
                 <Button
                   size="sm"
                   onClick={onVirtualTour}
-                  className="[background:var(--gradient-cta)] text-white gap-1.5 shadow-lg shadow-blue-900/30"
+                  className="[background:var(--gradient-cta)] text-white gap-1.5"
                 >
                   <Video className="w-4 h-4" />
                   Sanal tur

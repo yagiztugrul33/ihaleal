@@ -437,7 +437,7 @@ export default function CreateAuction() {
                 key={step.num}
                 className="relative rounded-[20px] border border-white/10 bg-slate-900/50 p-4 hover:border-[var(--cizgi)] transition-colors"
               >
-                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-[var(--zemin-yumusak)] text-slate-950 font-normal text-xs flex items-center justify-center shadow-lg">
+                <div className="absolute -top-3 -start-3 w-7 h-7 rounded-full bg-[var(--zemin-yumusak)] text-slate-950 font-normal text-xs flex items-center justify-center">
                   {step.num}
                 </div>
                 <step.icon className="w-6 h-6 text-[var(--metin-ikincil)] mb-2 mt-1" />
@@ -463,7 +463,7 @@ export default function CreateAuction() {
               <button
                 type="button"
                 onClick={() => navigate("/giris?next=/ihale-ac")}
-                className="inline-flex items-center justify-center gap-2 rounded-[10px] !bg-[var(--zemin-yumusak)] px-6 py-2.5 text-sm font-normal text-slate-950 shadow-md transition-all hover:!bg-[var(--zemin-yumusak)]"
+                className="inline-flex items-center justify-center gap-2 rounded-[10px] !bg-[var(--zemin-yumusak)] px-6 py-2.5 text-sm font-normal text-slate-950 transition-all hover:!bg-[var(--zemin-yumusak)]"
               >
                 <Gavel className="w-4 h-4" /> Giriş Yap
               </button>

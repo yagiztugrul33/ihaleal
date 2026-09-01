@@ -59,7 +59,7 @@ export function CurrencySelector({ compact = false }: Props) {
 
       {open && (
         <div
-          className="absolute end-0 top-full z-[110] mt-1 min-w-[200px] rounded-[10px] border border-slate-700 bg-slate-900/95 py-1 shadow-xl backdrop-blur"
+          className="absolute end-0 top-full z-[110] mt-1 min-w-[200px] rounded-[10px] border border-slate-700 bg-slate-900/95 py-1 backdrop-blur"
           role="listbox"
         >
           {OPTIONS.map((opt) => (

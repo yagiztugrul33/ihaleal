@@ -77,7 +77,7 @@ export default function NasilCalisir() {
           className={`mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] flex items-center justify-center shrink-0 shadow-lg shadow-cyan-500/20">
+            <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] flex items-center justify-center shrink-0">
               <BookOpen className="w-7 h-7 text-white" />
             </div>
             <div>

@@ -107,7 +107,7 @@ export function NihaiAnayasa() {
           </Button>
 
           <div className="text-center mb-10">
-            <div className="w-20 h-20 rounded-[20px] bg-[var(--zemin-yumusak)] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
+            <div className="w-20 h-20 rounded-[20px] bg-[var(--zemin-yumusak)] flex items-center justify-center mx-auto mb-4">
               <Shield className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-normal text-white mb-2">İhaleAL.com Nihai Sistem Anayasası</h1>

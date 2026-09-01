@@ -125,7 +125,7 @@ export function SearchModal({ isOpen, onClose, open, onOpenChange }: SearchModal
       aria-label="Arama modalını kapat"
     >
       <div
-        className="w-full max-w-2xl bg-[#0f1629] border border-slate-200 rounded-[20px] shadow-2xl overflow-hidden animate-scale-in"
+        className="w-full max-w-2xl bg-[#0f1629] border border-slate-200 rounded-[20px] overflow-hidden animate-scale-in"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

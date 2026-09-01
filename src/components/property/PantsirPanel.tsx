@@ -106,7 +106,7 @@ export function PantsirPanel({ listingId, lat, lng }: Props) {
     : mockSnapshot.poiSummary;
 
   return (
-    <section className="rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-slate-900/80 to-slate-950/80 p-6 shadow-xl backdrop-blur-xl">
+    <section className="rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-br from-slate-900/80 to-slate-950/80 p-6 backdrop-blur-xl">
       <div className="mb-6 flex items-start gap-3">
         <Shield className="h-7 w-7 text-[var(--metin-ikincil)]" aria-hidden />
         <div>

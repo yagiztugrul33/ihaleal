@@ -55,7 +55,7 @@ function NavDropdown({
       </button>
       {open ? (
         <div
-          className="absolute start-0 top-full z-[110] mt-2 min-w-[200px] rounded-[20px] border border-slate-600/30 py-1 shadow-xl"
+          className="absolute start-0 top-full z-[110] mt-2 min-w-[200px] rounded-[20px] border border-slate-600/30 py-1"
           style={{ background: "var(--zemin-yumusak)", backdropFilter: "blur(20px)" }}
         >
           {items.map((item) => (
@@ -121,7 +121,7 @@ function NavMegaMenu({
       </button>
       {open ? (
         <div
-          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-[20px] border border-slate-600/30 p-4 shadow-xl"
+          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-[20px] border border-slate-600/30 p-4"
           style={{ background: "var(--zemin-yumusak)", backdropFilter: "blur(20px)" }}
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -242,7 +242,7 @@ export function Navbar() {
       <nav
         className={cn(
           "nav-glass sticky top-0 z-[100] border-b border-white/10 transition-[background,box-shadow] duration-300",
-          scrolled && "nav-glass-scrolled shadow-lg",
+          scrolled && "nav-glass-scrolled",
         )}
       >
         <div className="relative mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-6">
@@ -350,7 +350,7 @@ export function Navbar() {
               </button>
               {langOpen ? (
                 <div
-                  className="absolute end-0 top-full z-[110] mt-2 min-w-[140px] rounded-[10px] border border-slate-600/30 py-1 shadow-xl"
+                  className="absolute end-0 top-full z-[110] mt-2 min-w-[140px] rounded-[10px] border border-slate-600/30 py-1"
                   style={{ background: "var(--zemin-yumusak)" }}
                 >
                   <button

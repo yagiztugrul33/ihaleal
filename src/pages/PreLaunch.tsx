@@ -49,7 +49,7 @@ export default function PreLaunch() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0A1F44] via-slate-900 to-[#F59E0B]/25 flex items-center justify-center p-6">
-      <div className="bg-slate-950/90 border border-slate-200 rounded-[20px] p-8 max-w-lg w-full shadow-2xl">
+      <div className="bg-slate-950/90 border border-slate-200 rounded-[20px] p-8 max-w-lg w-full">
         <div className="flex justify-center mb-6">
           <BrandLockup logoSize="lg" layout="stack" showSlogan />
         </div>

@@ -284,7 +284,7 @@ export default function Analytics() {
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-[20px] text-sm font-normal whitespace-nowrap transition-all border ${
                 activeTab === tab.key
-                  ? "[background:var(--gradient-cta)] text-white shadow-lg shadow-cyan-500/20 border-[var(--cizgi)]"
+                  ? "[background:var(--gradient-cta)] text-white border-[var(--cizgi)]"
                   : "bg-white/[0.06] backdrop-blur-md border-slate-200 text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
@@ -891,7 +891,7 @@ export default function Analytics() {
                         if (active && payload && payload.length) {
                           const data = payload[0].payload;
                           return (
-                            <div className="bg-white border border-slate-200 rounded-[20px] p-3 shadow-xl">
+                            <div className="bg-white border border-slate-200 rounded-[20px] p-3">
                               <p className="text-sm font-normal text-white mb-1">{data.name}</p>
                               <p className="text-xs text-slate-400">Fiyat: TRY {data.x.toLocaleString()}</p>
                               <p className="text-xs text-slate-400">Getiri: %{data.y}</p>

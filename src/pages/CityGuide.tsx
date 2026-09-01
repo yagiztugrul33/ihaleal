@@ -285,7 +285,7 @@ export default function CityGuide() {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-[20px] text-sm font-normal whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-[var(--zemin-yumusak)] text-white shadow-lg shadow-blue-500/25" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-[20px] text-sm font-normal whitespace-nowrap transition-all ${activeTab === tab.key ? "bg-[var(--zemin-yumusak)] text-white" : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"}`}
             >
               {tab.icon} {tab.label}
             </button>

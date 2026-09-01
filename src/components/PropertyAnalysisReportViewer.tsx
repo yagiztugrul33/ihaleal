@@ -134,7 +134,7 @@ export function PropertyAnalysisReportViewer({
   return (
     <div
       ref={reportRef}
-      className="rounded-[20px] border border-[var(--cizgi)] bg-white/80 backdrop-blur-xl shadow-xl shadow-cyan-900/20 overflow-hidden"
+      className="rounded-[20px] border border-[var(--cizgi)] bg-white/80 backdrop-blur-xl overflow-hidden"
     >
       {mockBanner ? (
         <div className="px-4 py-2 bg-[var(--zemin-yumusak)] border-b border-[var(--cizgi)] text-[var(--metin-ikincil)] text-xs font-normal text-center">
@@ -183,7 +183,7 @@ export function PropertyAnalysisReportViewer({
               type="button"
               disabled={approveDisabled}
               onClick={onApprove}
-              className="w-fit [background:var(--gradient-cta)] text-white font-normal shadow-lg shadow-cyan-900/30"
+              className="w-fit [background:var(--gradient-cta)] text-white font-normal"
             >
               Onayla ve Devam
             </Button>

@@ -69,7 +69,7 @@ export function NotificationBell() {
       </button>
 
       {open && (
-        <div className="absolute end-0 mt-2 w-[min(100vw-2rem,22rem)] rounded-[20px] border border-slate-200 bg-slate-950 shadow-2xl z-[80] overflow-hidden">
+        <div className="absolute end-0 mt-2 w-[min(100vw-2rem,22rem)] rounded-[20px] border border-slate-200 bg-slate-950 z-[80] overflow-hidden">
           <div className="flex items-center justify-between px-3 py-2 border-b border-slate-200/80">
             <span className="text-sm font-normal text-white">Bildirimler</span>
             {useLive && items.length > 0 ? (

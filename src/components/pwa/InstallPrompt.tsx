@@ -131,7 +131,7 @@ export function InstallPrompt() {
     <div
       role="dialog"
       aria-label="Uygulamayı yükle"
-      className="fixed bottom-4 start-4 end-4 z-[9000] mx-auto max-w-md rounded-[20px] border border-white/10 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl sm:bottom-6 sm:left-auto sm:end-6"
+      className="fixed bottom-4 start-4 end-4 z-[9000] mx-auto max-w-md rounded-[20px] border border-white/10 bg-slate-900/95 p-4 backdrop-blur-xl sm:bottom-6 sm:left-auto sm:end-6"
       style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
     >
       <button
@@ -144,7 +144,7 @@ export function InstallPrompt() {
       </button>
 
       <div className="flex items-start gap-3 pe-6">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-lg">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)]">
           <Download className="h-5 w-5 text-white" />
         </div>
         <div className="flex-1 min-w-0">

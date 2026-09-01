@@ -126,7 +126,7 @@ export function EmlakciGiris() {
           className="glass rounded-[20px] p-6 sm:p-8 border border-slate-200"
         >
           <div className="text-center mb-6">
-            <div className="w-14 h-14 rounded-[20px] [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-3 shadow-lg shadow-blue-500/20">
+            <div className="w-14 h-14 rounded-[20px] [background:var(--gradient-cta)] flex items-center justify-center mx-auto mb-3">
               <ShieldCheck className="w-7 h-7 text-white" />
             </div>
             <h1 className="text-2xl font-normal text-white">İhaleAL Giriş / Kayıt</h1>
@@ -141,7 +141,7 @@ export function EmlakciGiris() {
                 onClick={() => { setActiveType(t.id); setError(""); setSuccess(""); }}
                 className={`rounded-[20px] p-3 text-center border transition-all ${
                   activeType === t.id
-                    ? "bg-white/10 border-white/30 shadow-lg shadow-white/5"
+                    ? "bg-white/10 border-white/30"
                     : "bg-white/[0.02] border-slate-200/80 hover:bg-white/[0.04] hover:border-slate-200"
                 }`}
               >

@@ -88,7 +88,7 @@ export default function BuyNow() {
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
-        <div className="rounded-[20px] border border-[var(--cizgi)] bg-white/90 backdrop-blur-xl p-6 shadow-xl space-y-4">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-white/90 backdrop-blur-xl p-6 space-y-4">
           <h1 className="text-xl font-normal text-white flex items-center gap-2">
             <Shield className="w-6 h-6 text-[var(--metin-ikincil)]" />
             Hemen Al

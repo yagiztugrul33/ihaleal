@@ -71,7 +71,7 @@ export default function BusinessModel() {
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Ana sayfa
         </Button>
 
-        <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6 sm:p-8 mb-8 shadow-xl shadow-black/30">
+        <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6 sm:p-8 mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs font-normal uppercase tracking-wide text-[var(--metin-ikincil)]">
               <Building2 className="w-3.5 h-3.5" /> Emlakçı ağı & kurumsal ortaklar
@@ -92,7 +92,7 @@ export default function BusinessModel() {
             <Button
               size="lg"
               onClick={() => navigate("/komisyon-hesaplayici")}
-              className="bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white font-normal gap-2 shadow-lg shadow-emerald-900/40"
+              className="bg-[var(--zemin-yumusak)] hover:bg-[var(--zemin-yumusak)] text-white font-normal gap-2"
             >
               <Calculator className="w-5 h-5" /> Komisyon hesaplayıcı
               <ArrowRight className="rtl:rotate-180 w-4 h-4 opacity-80" />

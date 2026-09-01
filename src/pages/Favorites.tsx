@@ -119,7 +119,7 @@ export default function Favorites() {
             {favoriteAuctions.map((auction) => (
               <Card
                 key={auction.id}
-                className="group bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-pink-500/5"
+                className="group bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-1"
               >
                 <div className="relative h-52 overflow-hidden">
                   <img

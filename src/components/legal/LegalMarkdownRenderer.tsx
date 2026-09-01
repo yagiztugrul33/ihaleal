@@ -120,7 +120,7 @@ export function LegalMarkdownRenderer({ markdown, className }: Props) {
           return (
             <section
               key={idx}
-              className="legal-doc-section scroll-mt-24 rounded-[20px] border border-slate-200 bg-slate-950/50 p-5 shadow-lg shadow-black/20"
+              className="legal-doc-section scroll-mt-24 rounded-[20px] border border-slate-200 bg-slate-950/50 p-5"
             >
               <h2 className="text-lg font-normal text-white">{formatInline(head, `sec-${idx}-h2`)}</h2>
               <div className="mt-3 border-t border-slate-200/80 pt-3">{renderBodyBlock(body.split("\n"), `sec-${idx}`)}</div>

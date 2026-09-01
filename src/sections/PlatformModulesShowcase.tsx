@@ -43,21 +43,21 @@ const MODULES = [
 const TONE: Record<string, { card: string; icon: string; badge: string; tag: string; cta: string }> = {
   emerald: {
     card: "from-[var(--zemin-yumusak)] to-slate-900/60 border-[var(--cizgi)]",
-    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-emerald-500/30",
+    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)]",
     badge: "text-[var(--metin-ikincil)]",
     tag: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-[var(--metin-ikincil)]",
     cta: "text-[var(--metin-ikincil)]",
   },
   amber: {
     card: "from-[var(--zemin-yumusak)] to-slate-900/60 border-[var(--cizgi)]",
-    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-amber-500/30",
+    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)]",
     badge: "text-[var(--metin-ikincil)]",
     tag: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-[var(--metin-ikincil)]",
     cta: "text-[var(--metin-ikincil)]",
   },
   violet: {
     card: "from-[var(--zemin-yumusak)] to-slate-900/60 border-[var(--cizgi)]",
-    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] shadow-violet-500/30",
+    icon: "bg-gradient-to-br from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)]",
     badge: "text-[var(--metin-ikincil)]",
     tag: "bg-[var(--zemin-yumusak)] border-[var(--cizgi)] text-[var(--metin-ikincil)]",
     cta: "text-[var(--metin-ikincil)]",
@@ -124,7 +124,7 @@ export function PlatformModulesShowcase({ embedded = false }: { embedded?: boole
                   >
                     <motion.div
                       className={cn(
-                        "flex items-center justify-center rounded-[20px] text-white shadow-lg",
+                        "flex items-center justify-center rounded-[20px] text-white",
                         embedded ? "mb-3 h-11 w-11" : "mb-5 h-14 w-14",
                         t.icon,
                       )}

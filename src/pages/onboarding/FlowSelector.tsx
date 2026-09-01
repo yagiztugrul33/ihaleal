@@ -121,7 +121,7 @@ export default function FlowSelector() {
               key={c.title}
               type="button"
               onClick={() => choose(c.path)}
-              className="group flex flex-col rounded-[20px] border border-slate-700/60 bg-slate-900/40 p-6 text-start transition-all hover:border-[var(--cizgi)] hover:bg-slate-900/60 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cizgi)]"
+              className="group flex flex-col rounded-[20px] border border-slate-700/60 bg-slate-900/40 p-6 text-start transition-all hover:border-[var(--cizgi)] hover:bg-slate-900/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cizgi)]"
               aria-label={`${c.title}: ${c.subtitle}`}
             >
               {/* İkon kutusu — text-start ile RTL'de sağa geçer */}
