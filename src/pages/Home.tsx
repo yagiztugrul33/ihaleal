@@ -47,7 +47,7 @@ export function Home() {
         <div className="premium-home__noise" aria-hidden="true" />
 
         <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-2 lg:px-6" aria-labelledby="premium-hero-title">
-          <div className="premium-hero-shell rounded-[32px] border border-border bg-card p-4 shadow-xl lg:p-6">
+          <div className="premium-hero-shell rounded-[20px] border border-border bg-card p-4 lg:p-6">
             <div className="space-y-2">
               <TerminalHero />
               <CinematicStatsBar />
@@ -103,7 +103,7 @@ export function Home() {
                 to={href}
                 data-testid="home-module-card"
                 style={{ textDecoration: "none" }}
-                className="group flex items-start gap-3 rounded-[20px] border border-border bg-card p-4 transition duration-200 hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-lg"
+                className="group flex items-start gap-3 rounded-[20px] border border-border bg-card p-4 transition duration-200 hover:-translate-y-0.5 hover:border-primary/45"
               >
                 <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] border border-border bg-secondary text-foreground transition group-hover:border-primary/40">
                   <Icon className="h-5 w-5" aria-hidden />
