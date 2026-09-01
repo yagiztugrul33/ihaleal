@@ -90,7 +90,7 @@ export function OrganizationDashboard() {
             <Link to="/kurumsal/iletisim" className="rounded-[10px] border border-slate-200 px-3 py-2 text-sm">
               Destek
             </Link>
-            <Link to="/ihale-ac" className="rounded-[10px] bg-teal-600 px-3 py-2 text-sm text-white">
+            <Link to="/ihale-ac" className="rounded-[10px] bg-slate-900 px-3 py-2 text-sm text-white">
               Yeni İlan
             </Link>
           </div>
@@ -104,7 +104,7 @@ export function OrganizationDashboard() {
         <StatCard label="AI Kullanımı" value={stats?.ai_used} sub={`Kota ${stats?.ai_quota ?? 0} (%${aiUsagePct})`} loading={statsLoading} />
       </div>
 
-      <div className="rounded-[20px] border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="rounded-[20px] border border-slate-200 bg-white p-4">
         <h2 className="font-normal text-slate-900">Son ilanlar</h2>
         {statsLoading ? (
           <LoadingSkeletonList count={3} className="mt-4" />
@@ -114,7 +114,7 @@ export function OrganizationDashboard() {
           <ul className="mt-4 divide-y divide-slate-100">
             {topListings.map((l) => (
               <li key={l.id} className="flex items-center justify-between py-3 text-sm">
-                <Link to={`/ilan/${l.id}`} className="font-normal text-slate-800 hover:text-teal-700">
+                <Link to={`/ilan/${l.id}`} className="font-normal text-slate-800 hover:text-slate-950">
                   {l.title}
                 </Link>
                 <span className="text-slate-600">{formatTRY(l.price)}</span>
@@ -134,7 +134,7 @@ function StatCard({ label, value, sub, loading }: {
   loading?: boolean;
 }) {
   return (
-    <div className="rounded-[20px] border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="rounded-[20px] border border-slate-200 bg-white p-4">
       <div className="text-xs uppercase tracking-wide text-slate-500">{label}</div>
       {loading ? (
         <div className="mt-2 h-7 w-16 animate-pulse rounded-[3px] bg-slate-100" />
