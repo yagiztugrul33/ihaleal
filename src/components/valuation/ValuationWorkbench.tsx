@@ -118,7 +118,7 @@ export function ValuationWorkbench({
           <h2 className="text-xl font-normal text-white md:text-2xl">{title}</h2>
           <p className="mt-1 text-sm text-slate-300">{vf.headerSubtitle}</p>
         </div>
-        <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/15 px-3 py-1 text-xs font-normal text-cyan-100">
+        <span className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs font-normal text-[var(--metin-ikincil)]">
           <ShieldCheck className="h-3.5 w-3.5" /> {vf.explainableModel}
         </span>
       </header>
@@ -298,31 +298,31 @@ export function ValuationWorkbench({
           >
             {lv.resetForm}
           </Button>
-          {error ? <span className="text-xs text-rose-300">{error}</span> : null}
+          {error ? <span className="text-xs text-[var(--metin-ikincil)]">{error}</span> : null}
         </div>
       </form>
 
       {result ? (
         <div className="space-y-4">
-          <article className="grid gap-3 rounded-[20px] border border-emerald-500/35 bg-emerald-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
+          <article className="grid gap-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 md:grid-cols-2 xl:grid-cols-4">
             <div>
-              <p className="text-xs text-emerald-100">{lv.estimatedValueApprox}</p>
+              <p className="text-xs text-[var(--metin-ikincil)]">{lv.estimatedValueApprox}</p>
               <p className="text-xl font-normal text-white" dir="ltr">{formatTry(result.estimatedValue)}</p>
-              <FxRef amountTry={result.estimatedValue} variant="block" className="text-[11px] text-amber-300/80" />
+              <FxRef amountTry={result.estimatedValue} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </div>
             <div>
-              <p className="text-xs text-emerald-100">{lv.confidenceRange}</p>
+              <p className="text-xs text-[var(--metin-ikincil)]">{lv.confidenceRange}</p>
               <p className="text-sm font-normal text-white" dir="ltr">
                 {formatTry(result.minValue)} - {formatTry(result.maxValue)}
               </p>
-              <FxRef amountTry={result.maxValue} variant="block" className="text-[11px] text-amber-300/80" />
+              <FxRef amountTry={result.maxValue} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </div>
             <div>
-              <p className="text-xs text-emerald-100">{lv.uncertaintyBand}</p>
+              <p className="text-xs text-[var(--metin-ikincil)]">{lv.uncertaintyBand}</p>
               <p className="text-sm font-normal text-white" dir="ltr">± {result.confidenceBandPct}%</p>
             </div>
             <div>
-              <p className="text-xs text-emerald-100">{lv.modelScore}</p>
+              <p className="text-xs text-[var(--metin-ikincil)]">{lv.modelScore}</p>
               <p className="text-sm font-normal text-white">
                 <span dir="ltr">{result.confidenceScore}/100</span> ({result.confidence === "high" ? lv.modelScoreHigh : lv.modelScoreMedium})
               </p>
@@ -331,7 +331,7 @@ export function ValuationWorkbench({
 
           <article className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
             <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">{lv.shapTitle}</h3>
+              <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">{lv.shapTitle}</h3>
               <div className="h-[260px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={contributionChart} layout="vertical" margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
@@ -339,14 +339,14 @@ export function ValuationWorkbench({
                     <XAxis type="number" tick={{ fill: "#94a3b8", fontSize: 11 }} />
                     <YAxis dataKey="name" type="category" width={120} tick={{ fill: "#cbd5e1", fontSize: 11 }} />
                     <Tooltip formatter={(value: number) => [`${value >= 0 ? "+" : ""}${value.toFixed(2)}%`, lv.shapImpact]} />
-                    <Bar dataKey="pct" fill="#22d3ee" radius={[4, 4, 4, 4]} />
+                    <Bar dataKey="pct" fill="#8a8380" radius={[4, 4, 4, 4]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
 
             <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">{lv.layerSummary}</h3>
+              <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">{lv.layerSummary}</h3>
               <ul className="space-y-2 text-sm text-slate-200">
                 <li>
                   Baz birim fiyat: <strong>{formatTry(result.layerSummary.baseUnitPrice)}</strong>
@@ -369,25 +369,25 @@ export function ValuationWorkbench({
           </article>
 
           <article className="grid gap-4 xl:grid-cols-3">
-            <div className="rounded-[10px] border border-violet-500/30 bg-violet-500/10 p-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-violet-200">SPK - Emsal yaklaşımı</p>
+            <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">SPK - Emsal yaklaşımı</p>
               <p className="mt-1 text-lg font-normal text-white" dir="ltr">{formatTry(result.approaches.salesComparisonTry)}</p>
-              <FxRef amountTry={result.approaches.salesComparisonTry} variant="block" className="text-[11px] text-amber-300/80" />
+              <FxRef amountTry={result.approaches.salesComparisonTry} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </div>
-            <div className="rounded-[10px] border border-amber-500/30 bg-amber-500/10 p-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-amber-200">SPK - Maliyet yaklaşımı</p>
+            <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">SPK - Maliyet yaklaşımı</p>
               <p className="mt-1 text-lg font-normal text-white" dir="ltr">{formatTry(result.approaches.costApproachTry)}</p>
-              <FxRef amountTry={result.approaches.costApproachTry} variant="block" className="text-[11px] text-amber-300/80" />
+              <FxRef amountTry={result.approaches.costApproachTry} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </div>
-            <div className="rounded-[10px] border border-emerald-500/30 bg-emerald-500/10 p-3">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-emerald-200">SPK - Gelir yaklaşımı</p>
+            <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">SPK - Gelir yaklaşımı</p>
               <p className="mt-1 text-lg font-normal text-white" dir="ltr">{formatTry(result.approaches.incomeApproachTry)}</p>
-              <FxRef amountTry={result.approaches.incomeApproachTry} variant="block" className="text-[11px] text-amber-300/80" />
+              <FxRef amountTry={result.approaches.incomeApproachTry} variant="block" className="text-[11px] text-[var(--metin-ikincil)]" />
             </div>
           </article>
 
           <article className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
-            <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">Benzer emsaller (demo)</h3>
+            <h3 className="mb-2 text-sm font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Benzer emsaller (demo)</h3>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[740px] text-xs">
                 <thead className="text-start uppercase tracking-[0.1em] text-slate-400">
@@ -419,11 +419,11 @@ export function ValuationWorkbench({
           </article>
 
           {!compact ? (
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4">
-              <p className="text-sm text-cyan-100">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+              <p className="text-sm text-[var(--metin-ikincil)]">
                 {vf.finalReviewBanner}
               </p>
-              <Button type="button" className="bg-cyan-400 text-slate-950 hover:bg-cyan-300">
+              <Button type="button" className="bg-[var(--zemin-yumusak)] text-slate-950 hover:bg-[var(--zemin-yumusak)]">
                 {vf.startValuationCta} <ArrowRight className="ms-1.5 h-4 w-4 rtl:rotate-180" />
               </Button>
             </div>
@@ -431,7 +431,7 @@ export function ValuationWorkbench({
         </div>
       ) : (
         <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4 text-sm text-slate-300">
-          <p className="inline-flex items-center gap-2 text-cyan-200">
+          <p className="inline-flex items-center gap-2 text-[var(--metin-ikincil)]">
             <BarChart3 className="h-4 w-4" />
             Formu doldurup analiz başlatın; güven aralığı, SHAP katkı dökümü ve emsal tablosu tek ekranda üretilecek.
           </p>

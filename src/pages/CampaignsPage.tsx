@@ -56,8 +56,8 @@ export default function CampaignsPage() {
   return (
     <div className="min-h-screen bg-slate-950 px-4 pb-16 pt-24 text-slate-100 lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
-        <section className="rounded-[20px] border border-fuchsia-400/25 bg-gradient-to-r from-fuchsia-500/15 via-cyan-500/10 to-blue-500/10 p-5">
-          <p className="text-xs uppercase tracking-[0.16em] text-fuchsia-300">Kampanyalar</p>
+        <section className="rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-r from-[var(--zemin-yumusak)] via-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">Kampanyalar</p>
           <h1 className="mt-1 text-3xl font-normal text-white">Promosyon & Kampanya Merkezi</h1>
           <p className="mt-2 text-sm text-slate-300">
             Aktif fırsatları tek ekranda görün, süresi bitmeden aksiyon alın. Kampanya içerikleri demo/temsili olup canlı koşullar sözleşme ile kesinleşir.
@@ -76,13 +76,13 @@ export default function CampaignsPage() {
           </div>
         </section>
 
-        <section className="rounded-[20px] border border-cyan-400/25 bg-cyan-500/10 p-4">
+        <section className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="inline-flex items-center gap-2 text-lg font-normal">
-              <Megaphone className="h-5 w-5 text-cyan-300" />
+              <Megaphone className="h-5 w-5 text-[var(--metin-ikincil)]" />
               Öne Çıkan Kampanya
             </h2>
-            <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-3 py-1 text-xs font-normal text-cyan-100">
+            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs font-normal text-[var(--metin-ikincil)]">
               <Timer className="h-3.5 w-3.5" />
               {remainText(highlighted.endAt, now)}
             </span>
@@ -94,13 +94,13 @@ export default function CampaignsPage() {
             <li>Kampanya kombinasyonu ilan ve kullanıcı tipine göre değişebilir.</li>
           </ul>
           <div className="mt-3 flex flex-wrap gap-2">
-            <Link to="/oduller" className="rounded-[10px] border border-cyan-300/60 bg-cyan-400/20 px-3 py-2 text-xs font-normal text-cyan-100">
+            <Link to="/oduller" className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs font-normal text-[var(--metin-ikincil)]">
               Ödül merkezine git
             </Link>
             <Link to="/ihaleler" className="rounded-[10px] border border-slate-500 bg-slate-950 px-3 py-2 text-xs font-normal text-slate-100">
               İhaleleri incele
             </Link>
-            <Link to="/fiyatlandirma" className="rounded-[10px] border border-fuchsia-300/50 bg-fuchsia-500/10 px-3 py-2 text-xs font-normal text-fuchsia-100">
+            <Link to="/fiyatlandirma" className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs font-normal text-[var(--metin-ikincil)]">
               Planları karşılaştır
             </Link>
           </div>
@@ -108,14 +108,14 @@ export default function CampaignsPage() {
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {campaigns.map((campaign) => (
-            <article key={campaign.id} className="rounded-[20px] border border-slate-600/80 bg-gradient-to-b from-slate-900/80 to-slate-950/70 p-4 transition-transform duration-300 hover:-translate-y-1 hover:border-cyan-400/40">
-              <p className="inline-flex items-center gap-1 text-xs font-normal uppercase tracking-[0.12em] text-amber-300">
+            <article key={campaign.id} className="rounded-[20px] border border-slate-600/80 bg-gradient-to-b from-slate-900/80 to-slate-950/70 p-4 transition-transform duration-300 hover:-translate-y-1 hover:border-[var(--cizgi)]">
+              <p className="inline-flex items-center gap-1 text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">
                 <Gift className="h-4 w-4" />
                 Demo Campaign
               </p>
               <h3 className="mt-2 text-lg font-normal text-white">{campaign.title}</h3>
               <p className="mt-1 text-sm text-slate-300">{campaign.subtitle}</p>
-              <p className="mt-2 text-xs text-cyan-200">Süre: {remainText(campaign.endAt, now)}</p>
+              <p className="mt-2 text-xs text-[var(--metin-ikincil)]">Süre: {remainText(campaign.endAt, now)}</p>
               <div className="mt-3 rounded-[10px] border border-slate-700 bg-slate-950/70 p-3">
                 <p className="text-xs font-normal text-slate-200">Koşullar</p>
                 <ul className="mt-1 space-y-1 text-xs text-slate-400">

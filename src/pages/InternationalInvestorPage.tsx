@@ -49,8 +49,8 @@ function InternationalInvestorPageBody() {
   return (
     <div className="min-h-screen bg-background px-4 pb-16 pt-24 text-foreground lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
-        <section className="rounded-[20px] border border-cyan-400/20 bg-slate-900/70 p-5">
-          <p className="text-xs uppercase tracking-[0.14em] text-cyan-300">International</p>
+        <section className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/70 p-5">
+          <p className="text-xs uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">International</p>
           <h1 className="mt-1 text-3xl font-normal text-foreground">{snippets[languageMode].title}</h1>
           <p className="mt-2 text-sm text-slate-300">{snippets[languageMode].subtitle}</p>
           <p className="mt-2 text-xs text-slate-400">
@@ -61,7 +61,7 @@ function InternationalInvestorPageBody() {
         <section className="grid gap-4 md:grid-cols-2">
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <h2 className="inline-flex items-center gap-2 text-lg font-normal text-foreground">
-              <Languages className="h-5 w-5 text-cyan-300" /> Dil seçici
+              <Languages className="h-5 w-5 text-[var(--metin-ikincil)]" /> Dil seçici
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {(["tr", "en", "ar", "ru"] as const).map((lang) => (
@@ -71,7 +71,7 @@ function InternationalInvestorPageBody() {
                   onClick={() => setLanguageMode(lang)}
                   className={`rounded-[3px] border px-3 py-1.5 text-xs font-normal ${
                     languageMode === lang
-                      ? "border-cyan-400/50 bg-cyan-500/10 text-cyan-100"
+                      ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                       : "border-slate-600 text-slate-300"
                   }`}
                 >
@@ -86,7 +86,7 @@ function InternationalInvestorPageBody() {
 
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <h2 className="inline-flex items-center gap-2 text-lg font-normal text-foreground">
-              <Globe2 className="h-5 w-5 text-cyan-300" /> Para birimi seçici
+              <Globe2 className="h-5 w-5 text-[var(--metin-ikincil)]" /> Para birimi seçici
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {(["TRY", "USD", "EUR", "GBP"] as const).map((code) => (
@@ -96,7 +96,7 @@ function InternationalInvestorPageBody() {
                   onClick={() => setCurrency(code)}
                   className={`rounded-[3px] border px-3 py-1.5 text-xs font-normal ${
                     currency === code
-                      ? "border-cyan-400/50 bg-cyan-500/10 text-cyan-100"
+                      ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
                       : "border-slate-600 text-slate-300"
                   }`}
                 >
@@ -105,9 +105,9 @@ function InternationalInvestorPageBody() {
               ))}
             </div>
             <p className="mt-3 text-sm text-slate-300">
-              Örnek liste fiyatı: <strong className="text-cyan-200">{formatFromTry(18_900_000)}</strong>
+              Örnek liste fiyatı: <strong className="text-[var(--metin-ikincil)]">{formatFromTry(18_900_000)}</strong>
             </p>
-            <div className="mt-3 rounded-[10px] border border-cyan-500/20 bg-cyan-500/5 p-3 text-xs text-slate-300 space-y-1">
+            <div className="mt-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-xs text-slate-300 space-y-1">
               <p>USD/TRY {usdRate.toFixed(4)} · EUR/TRY {eurRate.toFixed(4)} · GBP/TRY {gbpRate.toFixed(4)}</p>
               <p>Altın (gram/TRY): ₺{goldGramTry.toFixed(2)} · EUR/USD parite: {eurUsdParity.toFixed(4)}</p>
               <p>
@@ -117,7 +117,7 @@ function InternationalInvestorPageBody() {
               <button
                 type="button"
                 onClick={() => void refreshRates()}
-                className="rounded-[3px] border border-cyan-500/30 px-2 py-1 text-cyan-200 hover:bg-cyan-500/10"
+                className="rounded-[3px] border border-[var(--cizgi)] px-2 py-1 text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
               >
                 Kurları manuel yenile
               </button>
@@ -128,7 +128,7 @@ function InternationalInvestorPageBody() {
         <section className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <h2 className="inline-flex items-center gap-2 text-lg font-normal text-foreground">
-              <PlaneTakeoff className="h-5 w-5 text-amber-300" />
+              <PlaneTakeoff className="h-5 w-5 text-[var(--metin-ikincil)]" />
               {snippets[languageMode].guideTitle}
             </h2>
             <div className="mt-3 space-y-2 text-sm text-slate-300">
@@ -140,14 +140,14 @@ function InternationalInvestorPageBody() {
             </div>
           </article>
 
-          <article className="rounded-[20px] border border-amber-400/25 bg-slate-900/60 p-4">
+          <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/60 p-4">
             <h2 className="inline-flex items-center gap-2 text-lg font-normal text-foreground">
-              <Landmark className="h-5 w-5 text-amber-300" />
+              <Landmark className="h-5 w-5 text-[var(--metin-ikincil)]" />
               Vatandaşlık Uygunluğu Etiketi
             </h2>
             <p className="mt-2 text-sm text-slate-300">
               {formatFromTry(citizenshipThresholdTry)} ve üzeri ilanlar için
-              <span className="ms-1 rounded-[3px] bg-amber-500/15 px-2 py-0.5 text-xs font-normal text-amber-200">
+              <span className="ms-1 rounded-[3px] bg-[var(--zemin-yumusak)] px-2 py-0.5 text-xs font-normal text-[var(--metin-ikincil)]">
                 Citizenship Eligible 400K+
               </span>{" "}
               etiketi görünür.
@@ -159,16 +159,16 @@ function InternationalInvestorPageBody() {
         </section>
 
         <section className="grid gap-4 md:grid-cols-3">
-          <article className="rounded-[20px] border border-cyan-400/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-normal uppercase tracking-[0.12em] text-cyan-200">Pazar Masası</p>
+          <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Pazar Masası</p>
             <p className="mt-2 text-sm text-slate-300">Bölgesel fiyat, döviz oynaklığı ve likidite işaretleri tek panelde toplanır.</p>
           </article>
-          <article className="rounded-[20px] border border-emerald-400/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-normal uppercase tracking-[0.12em] text-emerald-200">Uygunluk Akışı</p>
+          <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Uygunluk Akışı</p>
             <p className="mt-2 text-sm text-slate-300">KYC, AML ve evrak kontrolü adım adım ilerler; kritik riskler erken işaretlenir.</p>
           </article>
-          <article className="rounded-[20px] border border-violet-400/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-normal uppercase tracking-[0.12em] text-violet-200">Aksiyon</p>
+          <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Aksiyon</p>
             <p className="mt-2 text-sm text-slate-300">
               <Link to="/ihaleler" className="text-primary hover:text-foreground">İhalelere geç</Link> veya{" "}
               <Link to="/komisyon-hesaplayici" className="text-primary hover:text-foreground">maliyetleri simüle et</Link>.

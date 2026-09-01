@@ -195,29 +195,29 @@ export function LocationIntelligenceWorkbench({
         <Button type="button" variant="accent" onClick={runAnalysis}>
           <MapPinned className="me-1.5 h-4 w-4" /> Konum analizi başlat
         </Button>
-        {error ? <span className="text-xs text-rose-300">{error}</span> : null}
+        {error ? <span className="text-xs text-[var(--metin-ikincil)]">{error}</span> : null}
       </div>
 
       {result ? (
         <div className="space-y-4">
-          <article className="grid gap-3 rounded-[20px] border border-cyan-500/35 bg-cyan-500/10 p-4 md:grid-cols-3">
+          <article className="grid gap-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 md:grid-cols-3">
             <div>
-              <p className="text-xs text-cyan-100">Birleşik konum skoru</p>
+              <p className="text-xs text-[var(--metin-ikincil)]">Birleşik konum skoru</p>
               <p className="text-2xl font-normal text-white">{result.locationScore}/100</p>
             </div>
             <div>
-              <p className="text-xs text-cyan-100">Yaşanabilirlik</p>
+              <p className="text-xs text-[var(--metin-ikincil)]">Yaşanabilirlik</p>
               <p className="text-xl font-normal text-white">{result.livabilityScore}/100</p>
             </div>
             <div>
-              <p className="text-xs text-cyan-100">Yatırım potansiyeli</p>
+              <p className="text-xs text-[var(--metin-ikincil)]">Yatırım potansiyeli</p>
               <p className="text-xl font-normal text-white">{result.investmentScore}/100</p>
             </div>
           </article>
 
           <article className="grid gap-4 xl:grid-cols-[1.25fr_1fr]">
             <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">
+              <h3 className="mb-2 inline-flex items-center gap-2 text-sm font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">
                 <BarChart3 className="h-4 w-4" />
                 Katman skorları
               </h3>
@@ -228,13 +228,13 @@ export function LocationIntelligenceWorkbench({
                     <XAxis dataKey="katman" tick={{ fill: "#cbd5e1", fontSize: 10 }} />
                     <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} domain={[0, 100]} />
                     <Tooltip />
-                    <Bar dataKey="skor" fill="#22d3ee" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="skor" fill="#8a8380" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
             <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">Katkı dökümü</h3>
+              <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Katkı dökümü</h3>
               <p className="mt-1 text-xs text-slate-400">
                 FAHP ağırlık modeli: SES %{result.weightModel.ses}, POI %{result.weightModel.poi}, Eğitim %{result.weightModel.education}, Güvenlik %{result.weightModel.safety}
               </p>
@@ -252,14 +252,14 @@ export function LocationIntelligenceWorkbench({
           </article>
 
           <article className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
-            <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-cyan-200">Katman radar görünümü</h3>
+            <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Katman radar görünümü</h3>
             <div className="h-[270px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={radarData}>
                   <PolarGrid stroke="#334155" />
                   <PolarAngleAxis dataKey="subject" tick={{ fill: "#cbd5e1", fontSize: 10 }} />
                   <Tooltip />
-                  <Radar name="Skor" dataKey="score" stroke="#22d3ee" fill="#22d3ee" fillOpacity={0.3} />
+                  <Radar name="Skor" dataKey="score" stroke="#8a8380" fill="#8a8380" fillOpacity={0.3} />
                 </RadarChart>
               </ResponsiveContainer>
             </div>
@@ -273,18 +273,18 @@ export function LocationIntelligenceWorkbench({
             ))}
           </article>
 
-          <div className="rounded-[20px] border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 text-sm text-[var(--metin-ikincil)]">
             <p className="inline-flex items-center gap-1.5 font-normal">
               <ShieldAlert className="h-4 w-4" /> Veri kaynağı ve dürüst sınır
             </p>
             <p className="mt-2">{result.disclaimer}</p>
-            <p className="mt-1 text-xs text-amber-200">{result.dataQualityNote}</p>
+            <p className="mt-1 text-xs text-[var(--metin-ikincil)]">{result.dataQualityNote}</p>
           </div>
 
           {!compact ? (
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-cyan-500/30 bg-cyan-500/10 p-4">
-              <p className="text-sm text-cyan-100">Konum zekası tamamlandı. Sonraki adım: yatırım varsayımlarını fizibilite motoru ile birleştirme.</p>
-              <Button type="button" className="bg-cyan-400 text-slate-950 hover:bg-cyan-300">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+              <p className="text-sm text-[var(--metin-ikincil)]">Konum zekası tamamlandı. Sonraki adım: yatırım varsayımlarını fizibilite motoru ile birleştirme.</p>
+              <Button type="button" className="bg-[var(--zemin-yumusak)] text-slate-950 hover:bg-[var(--zemin-yumusak)]">
                 Değerleme başlat <ArrowRight className="rtl:rotate-180 ms-1.5 h-4 w-4" />
               </Button>
             </div>

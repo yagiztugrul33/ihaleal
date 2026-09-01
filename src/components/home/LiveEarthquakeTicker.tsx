@@ -218,7 +218,7 @@ export function LiveEarthquakeTicker() {
   return (
     <div className="home-eq-ticker" aria-label="Son deprem olayları şeridi">
       <div className="home-eq-ticker__label">
-        <Activity className="h-4 w-4 text-orange-300" aria-hidden />
+        <Activity className="h-4 w-4 text-[var(--metin-ikincil)]" aria-hidden />
         <span>Canlı deprem bandı</span>
         {source === "edge" ? (
           <span className="home-eq-ticker__live-pill">AFAD/Kandilli (edge)</span>

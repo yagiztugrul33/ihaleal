@@ -183,45 +183,45 @@ export default function LoyaltyProgramPage() {
   return (
     <div className="min-h-screen bg-background px-4 pb-16 pt-24 text-foreground lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
-        <section className="rounded-[20px] border border-cyan-400/20 bg-slate-900/70 p-5">
-          <p className="text-xs uppercase tracking-[0.14em] text-cyan-300">İhaleal Rewards</p>
+        <section className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/70 p-5">
+          <p className="text-xs uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">İhaleal Rewards</p>
           <h1 className="mt-1 text-3xl font-normal">Puanlarım</h1>
           <p className="mt-2 text-sm text-muted-foreground">{DEMO_REWARDS_NOTE}</p>
           <div className="mt-4 inline-flex rounded-[10px] border border-border bg-secondary p-1">
             <button
               type="button"
               onClick={() => setActiveTab("points")}
-              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "points" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
+              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "points" ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "text-muted-foreground"}`}
             >
               Ödül & Puan
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("game")}
-              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "game" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
+              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "game" ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "text-muted-foreground"}`}
             >
               Oyunlaştırma
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("vip")}
-              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "vip" ? "bg-cyan-500/20 text-cyan-100" : "text-muted-foreground"}`}
+              className={`rounded-[3px] px-3 py-1.5 text-xs font-normal ${activeTab === "vip" ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "text-muted-foreground"}`}
             >
               Davet & VIP
             </button>
           </div>
         </section>
         <section className="grid gap-4 md:grid-cols-3">
-          <article className="rounded-[20px] border border-cyan-500/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-normal uppercase tracking-[0.12em] text-cyan-200">Program Mimarisi</p>
+          <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Program Mimarisi</p>
             <p className="mt-2 text-sm text-slate-300">Puan, görev ve VIP katmanı tek cüzdanda birleşir; kullanıcı davranışı ölçülebilir hale gelir.</p>
           </article>
-          <article className="rounded-[20px] border border-emerald-500/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-normal uppercase tracking-[0.12em] text-emerald-200">Operasyon Notu</p>
+          <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Operasyon Notu</p>
             <p className="mt-2 text-sm text-slate-300">Ödül maliyeti ve kazanım oranı aylık raporlanır; sürdürülebilir olmayan kampanyalar erken revize edilir.</p>
           </article>
-          <article className="rounded-[20px] border border-violet-500/25 bg-slate-900/60 p-4">
-            <p className="text-xs font-normal uppercase tracking-[0.12em] text-violet-200">Demo Etiketi</p>
+          <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/60 p-4">
+            <p className="text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Demo Etiketi</p>
             <p className="mt-2 text-sm text-slate-300">Bu ekran demo akıştır; gerçek puan/ödül kuralları ürün kararına ve sözleşmelere göre güncellenir.</p>
           </article>
         </section>
@@ -231,13 +231,13 @@ export default function LoyaltyProgramPage() {
         <section className="grid gap-4 md:grid-cols-3">
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-400">Puan bakiyesi</p>
-            <strong className="mt-2 block text-3xl font-normal text-cyan-200">{balance.toLocaleString("tr-TR")}</strong>
+            <strong className="mt-2 block text-3xl font-normal text-[var(--metin-ikincil)]">{balance.toLocaleString("tr-TR")}</strong>
           </article>
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-400">İlerleme</p>
             <strong className="mt-2 block text-xl font-normal text-white">%{progressRatio} hedefe yakın</strong>
             <div className="mt-3 h-2 rounded-full bg-slate-800">
-              <div className="h-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" style={{ width: `${progressRatio}%` }} />
+              <div className="h-2 rounded-full bg-gradient-to-r from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)]" style={{ width: `${progressRatio}%` }} />
             </div>
           </article>
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
@@ -259,7 +259,7 @@ export default function LoyaltyProgramPage() {
                   `${transactionAmount} TRY işlem`,
                 )
               }
-              className="mt-3 inline-flex items-center gap-1 rounded-[10px] border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-normal text-cyan-100"
+              className="mt-3 inline-flex items-center gap-1 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs font-normal text-[var(--metin-ikincil)]"
             >
               <PlusCircle className="h-4 w-4" /> İşlem puanını işle
             </button>
@@ -269,7 +269,7 @@ export default function LoyaltyProgramPage() {
         <section className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal text-white">
-              <Medal className="h-5 w-5 text-cyan-300" />
+              <Medal className="h-5 w-5 text-[var(--metin-ikincil)]" />
               Puan Kazanma Aksiyonları
             </h2>
             <div className="grid gap-2 sm:grid-cols-2">
@@ -278,11 +278,11 @@ export default function LoyaltyProgramPage() {
                   key={action.key}
                   type="button"
                   onClick={() => addPoints(action.label, action.basePoints, action.description)}
-                  className="rounded-[10px] border border-slate-700 bg-slate-950/70 p-3 text-start transition hover:border-cyan-400/40"
+                  className="rounded-[10px] border border-slate-700 bg-slate-950/70 p-3 text-start transition hover:border-[var(--cizgi)]"
                 >
                   <p className="text-sm font-normal text-white">{action.label}</p>
                   <p className="mt-1 text-xs text-slate-400">{action.description}</p>
-                  <p className="mt-2 text-xs font-normal text-emerald-300">+{action.basePoints} puan</p>
+                  <p className="mt-2 text-xs font-normal text-[var(--metin-ikincil)]">+{action.basePoints} puan</p>
                 </button>
               ))}
             </div>
@@ -290,7 +290,7 @@ export default function LoyaltyProgramPage() {
 
           <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
             <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal text-white">
-              <Gift className="h-5 w-5 text-amber-300" />
+              <Gift className="h-5 w-5 text-[var(--metin-ikincil)]" />
               Ödül Kataloğu
             </h2>
             <div className="space-y-2">
@@ -299,12 +299,12 @@ export default function LoyaltyProgramPage() {
                   <p className="text-sm font-normal text-white">{reward.title}</p>
                   <p className="mt-1 text-xs text-slate-400">{reward.detail}</p>
                   <div className="mt-2 flex items-center justify-between">
-                    <span className="text-xs font-normal text-amber-200">{reward.cost} puan</span>
+                    <span className="text-xs font-normal text-[var(--metin-ikincil)]">{reward.cost} puan</span>
                     <button
                       type="button"
                       onClick={() => redeemReward(reward.cost, reward.title)}
                       disabled={balance < reward.cost}
-                      className="rounded-[3px] border border-amber-400/50 bg-amber-500/10 px-2.5 py-1 text-[11px] font-normal text-amber-100 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-1 text-[11px] font-normal text-[var(--metin-ikincil)] disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Kullan
                     </button>
@@ -317,7 +317,7 @@ export default function LoyaltyProgramPage() {
 
         <section className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
           <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal text-white">
-            <History className="h-5 w-5 text-violet-300" />
+            <History className="h-5 w-5 text-[var(--metin-ikincil)]" />
             Puan Geçmişi
           </h2>
           <div className="space-y-2">
@@ -332,7 +332,7 @@ export default function LoyaltyProgramPage() {
                       {new Date(item.createdAt).toLocaleString("tr-TR")} {item.note ? `· ${item.note}` : ""}
                     </p>
                   </div>
-                  <span className={`text-sm font-normal ${item.points >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
+                  <span className={`text-sm font-normal ${item.points >= 0 ? "text-[var(--metin-ikincil)]" : "text-[var(--metin-ikincil)]"}`}>
                     {item.points >= 0 ? "+" : ""}
                     {item.points}
                   </span>
@@ -340,7 +340,7 @@ export default function LoyaltyProgramPage() {
               ))
             )}
           </div>
-          <p className="mt-3 inline-flex items-center gap-1 text-xs text-cyan-200">
+          <p className="mt-3 inline-flex items-center gap-1 text-xs text-[var(--metin-ikincil)]">
             <BadgeCheck className="h-4 w-4" />
             İşlem bazlı ödül puanları temsili/demo akışıdır.
           </p>
@@ -348,21 +348,21 @@ export default function LoyaltyProgramPage() {
           </>
         ) : activeTab === "game" ? (
           <>
-            <section className="rounded-[20px] border border-violet-400/20 bg-slate-900/70 p-4">
-              <p className="text-sm text-violet-200">{GAMIFICATION_NOTE}</p>
+            <section className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/70 p-4">
+              <p className="text-sm text-[var(--metin-ikincil)]">{GAMIFICATION_NOTE}</p>
             </section>
             <section className="grid gap-4 lg:grid-cols-[1.05fr_1fr]">
               <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
                 <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal">
-                  <Trophy className="h-5 w-5 text-amber-300" /> Rozetler & Başarımlar
+                  <Trophy className="h-5 w-5 text-[var(--metin-ikincil)]" /> Rozetler & Başarımlar
                 </h2>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {badges.map((badge) => (
-                    <div key={badge.id} className={`rounded-[10px] border p-3 ${badge.unlocked ? "border-amber-400/40 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}>
+                    <div key={badge.id} className={`rounded-[10px] border p-3 ${badge.unlocked ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" : "border-slate-700 bg-slate-950/70"}`}>
                       <p className="text-lg">{badge.icon}</p>
                       <p className="mt-1 text-sm font-normal text-white">{badge.title}</p>
                       <p className="text-xs text-slate-400">{badge.rule}</p>
-                      <p className={`mt-2 text-[11px] font-normal ${badge.unlocked ? "text-emerald-300" : "text-slate-500"}`}>
+                      <p className={`mt-2 text-[11px] font-normal ${badge.unlocked ? "text-[var(--metin-ikincil)]" : "text-slate-500"}`}>
                         {badge.unlocked ? "Kazanıldı" : "Kilitli"}
                       </p>
                     </div>
@@ -371,13 +371,13 @@ export default function LoyaltyProgramPage() {
               </article>
               <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
                 <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal">
-                  <Medal className="h-5 w-5 text-cyan-300" /> Liderlik Tablosu
+                  <Medal className="h-5 w-5 text-[var(--metin-ikincil)]" /> Liderlik Tablosu
                 </h2>
                 <div className="space-y-2">
                   {DEMO_LEADERBOARD.map((row, idx) => (
                     <div key={row.alias} className="flex items-center justify-between rounded-[10px] border border-slate-700 bg-slate-950/70 px-3 py-2">
                       <span className="text-sm text-slate-200">#{idx + 1} {row.alias}</span>
-                      <strong className="text-sm text-cyan-200">{row.score.toLocaleString("tr-TR")} puan</strong>
+                      <strong className="text-sm text-[var(--metin-ikincil)]">{row.score.toLocaleString("tr-TR")} puan</strong>
                     </div>
                   ))}
                 </div>
@@ -387,7 +387,7 @@ export default function LoyaltyProgramPage() {
             <section className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
               <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
                 <h2 className="mb-3 inline-flex items-center gap-2 text-lg font-normal">
-                  <Gamepad2 className="h-5 w-5 text-cyan-300" /> İHALEAL Tahmin Oyunu
+                  <Gamepad2 className="h-5 w-5 text-[var(--metin-ikincil)]" /> İHALEAL Tahmin Oyunu
                 </h2>
                 <p className="text-sm text-slate-300">
                   Zestimate uyarlaması (demo): mülk fiyatını tahmin et, yaklaştıkça puan kazan.
@@ -406,11 +406,11 @@ export default function LoyaltyProgramPage() {
                     <button
                       type="button"
                       onClick={submitPrediction}
-                      className="mt-3 rounded-[10px] border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-xs font-normal text-cyan-100"
+                      className="mt-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs font-normal text-[var(--metin-ikincil)]"
                     >
                       Tahmini gönder
                     </button>
-                    {predictionResult ? <p className="mt-3 text-xs text-emerald-300">{predictionResult}</p> : null}
+                    {predictionResult ? <p className="mt-3 text-xs text-[var(--metin-ikincil)]">{predictionResult}</p> : null}
                   </div>
                 ) : null}
               </article>
@@ -429,7 +429,7 @@ export default function LoyaltyProgramPage() {
                           type="button"
                           disabled={done}
                           onClick={() => completeMission(mission.id)}
-                          className="rounded-[3px] border border-emerald-400/50 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-normal text-emerald-100 disabled:opacity-40"
+                          className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-1 text-[11px] font-normal text-[var(--metin-ikincil)] disabled:opacity-40"
                         >
                           {done ? "Tamamlandı" : "Tamamla"}
                         </button>
@@ -443,12 +443,12 @@ export default function LoyaltyProgramPage() {
         ) : (
           <>
             <section className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-              <article className="rounded-[20px] border border-cyan-400/20 bg-slate-900/70 p-4">
+              <article className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/70 p-4">
                 <h2 className="text-lg font-normal text-white">Davet Programı</h2>
                 <p className="mt-1 text-sm text-slate-300">Kişiye özel linkle davet et, ikiniz de puan kazan (demo/temsili).</p>
                 <div className="mt-3 rounded-[10px] border border-slate-700 bg-slate-950/70 p-3">
                   <p className="text-xs text-slate-400">Davet linkin</p>
-                  <p className="mt-1 break-all text-sm font-normal text-cyan-200">{referralLink}</p>
+                  <p className="mt-1 break-all text-sm font-normal text-[var(--metin-ikincil)]">{referralLink}</p>
                 </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <button
@@ -456,26 +456,26 @@ export default function LoyaltyProgramPage() {
                     onClick={() => {
                       void navigator.clipboard.writeText(referralLink);
                     }}
-                    className="rounded-[3px] border border-cyan-400/50 bg-cyan-500/10 px-3 py-1.5 text-xs font-normal text-cyan-100"
+                    className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1.5 text-xs font-normal text-[var(--metin-ikincil)]"
                   >
                     Linki kopyala
                   </button>
                   <button
                     type="button"
                     onClick={recordReferral}
-                    className="rounded-[3px] border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 text-xs font-normal text-emerald-100"
+                    className="rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1.5 text-xs font-normal text-[var(--metin-ikincil)]"
                   >
                     Davet dönüşümü simüle et
                   </button>
                 </div>
                 <p className="mt-3 text-sm text-slate-300">
-                  Toplam başarılı davet: <strong className="text-cyan-200">{referralCount}</strong>
+                  Toplam başarılı davet: <strong className="text-[var(--metin-ikincil)]">{referralCount}</strong>
                 </p>
               </article>
               <article className="rounded-[20px] border border-slate-700/80 bg-slate-900/60 p-4">
                 <h2 className="text-lg font-normal text-white">VIP Kademe Profili</h2>
                 <p className="mt-1 text-sm text-slate-300">
-                  Aktif kademe: <strong className="text-amber-200">{vipTier.title}</strong>
+                  Aktif kademe: <strong className="text-[var(--metin-ikincil)]">{vipTier.title}</strong>
                 </p>
                 <p className="mt-1 text-xs text-slate-400">
                   Puan: {balance.toLocaleString("tr-TR")} · Hacim: {vipVolumeTry.toLocaleString("tr-TR")} TRY
@@ -491,7 +491,7 @@ export default function LoyaltyProgramPage() {
                 <button
                   type="button"
                   onClick={addVipVolume}
-                  className="mt-3 rounded-[3px] border border-amber-400/50 bg-amber-500/10 px-3 py-1.5 text-xs font-normal text-amber-100"
+                  className="mt-3 rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1.5 text-xs font-normal text-[var(--metin-ikincil)]"
                 >
                   Hacim ekle
                 </button>
@@ -503,7 +503,7 @@ export default function LoyaltyProgramPage() {
                 {VIP_TIERS.map((tier) => (
                   <article
                     key={tier.id}
-                    className={`rounded-[20px] border p-3 ${tier.id === vipTier.id ? "border-amber-400/60 bg-amber-500/10" : "border-slate-700 bg-slate-950/70"}`}
+                    className={`rounded-[20px] border p-3 ${tier.id === vipTier.id ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)]" : "border-slate-700 bg-slate-950/70"}`}
                   >
                     <p className="text-sm font-normal text-white">{tier.title}</p>
                     <p className="mt-1 text-[11px] text-slate-400">
@@ -517,7 +517,7 @@ export default function LoyaltyProgramPage() {
                   </article>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-cyan-200">
+              <p className="mt-3 text-xs text-[var(--metin-ikincil)]">
                 VIP kademe, ayrıcalık ve davet akışı demo/temsili modeldir.
               </p>
             </section>

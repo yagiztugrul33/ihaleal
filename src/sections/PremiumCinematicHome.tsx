@@ -75,14 +75,14 @@ const CATEGORY_PATH: Partial<Record<string, string>> = {
   altyapi: "/ilanlar/ges",
 };
 const CATEGORY_GRADIENTS: Record<string, string> = {
-  konut: "from-blue-500/35 to-sky-500/20 border-blue-400/45",
-  ticari: "from-teal-500/35 to-cyan-500/20 border-teal-400/45",
-  endustri: "from-orange-500/35 to-amber-500/20 border-orange-400/45",
-  konaklama: "from-violet-500/35 to-fuchsia-500/20 border-violet-400/45",
-  arsa: "from-emerald-500/35 to-green-500/20 border-emerald-400/45",
-  komple: "from-rose-500/35 to-red-500/20 border-rose-400/45",
-  altyapi: "from-cyan-500/35 to-blue-500/20 border-cyan-400/45",
-  devren: "from-slate-500/35 to-blue-900/20 border-slate-400/45",
+  konut: "from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] border-[var(--cizgi)]",
+  ticari: "from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] border-[var(--cizgi)]",
+  endustri: "from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] border-[var(--cizgi)]",
+  konaklama: "from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] border-[var(--cizgi)]",
+  arsa: "from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] border-[var(--cizgi)]",
+  komple: "from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] border-[var(--cizgi)]",
+  altyapi: "from-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] border-[var(--cizgi)]",
+  devren: "from-slate-500/35 to-[var(--zemin-yumusak)] border-slate-400/45",
 };
 
 const WHY_IHALAL_CARDS = [
@@ -182,7 +182,7 @@ export default function PremiumCinematicHome() {
         title: "İlanını Koy",
         text: "Keşif ücretsiz. Mülkünü borsaya ekle, AI değerleme ile başlangıç fiyatı.",
         href: "/sat-basla",
-        classes: "border-sky-400/35 bg-sky-500/10 text-sky-200",
+        classes: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
       },
       {
         id: "b2",
@@ -190,7 +190,7 @@ export default function PremiumCinematicHome() {
         title: "Canlı Teklif",
         text: "Alıcılar kredi kartı blokeli ciddi teklif verir. Maskeli order book, manipülasyonsuz.",
         href: "/ihaleler",
-        classes: "border-emerald-400/35 bg-emerald-500/10 text-emerald-200",
+        classes: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
       },
       {
         id: "b3",
@@ -198,7 +198,7 @@ export default function PremiumCinematicHome() {
         title: "Güvenli Kazan",
         text: "En yüksek teklif kazanır. Escrow, KYC, korumalı ödeme.",
         href: "/guvenlik",
-        classes: "border-amber-400/35 bg-amber-500/10 text-amber-200",
+        classes: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
       },
       {
         id: "b4",
@@ -206,7 +206,7 @@ export default function PremiumCinematicHome() {
         title: "Devir & Ödeme",
         text: "Tapu devri + ödeme korumalı. Cayma koruması, yedek alıcı.",
         href: "/nasil-calisir",
-        classes: "border-violet-400/35 bg-violet-500/10 text-violet-200",
+        classes: "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]",
       },
     ],
     [],
@@ -227,23 +227,23 @@ export default function PremiumCinematicHome() {
       <div className="premium-home__grid" aria-hidden="true" />
 
       <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-2 lg:px-6" aria-labelledby="premium-hero-title">
-        <div className="premium-hero-shell rounded-[32px] border border-border bg-card p-4 shadow-xl lg:p-6">
+        <div className="premium-hero-shell rounded-[20px] border border-border bg-card p-4 lg:p-6">
           <div className="mb-5 space-y-2">
             <TerminalHero />
             <CinematicStatsBar />
           </div>
           <div className="mb-4 space-y-2 rounded-[20px] border border-border bg-secondary/60 px-3 py-3">
-            <div className="market-board-ticker__viewport"><div className="market-board-ticker__lane">{[0, 1].map((dup) => (<div key={dup} className="market-board-ticker__seq">{tickerRows.map((row) => { const up = row.changePct >= 0; return (<div key={`${dup}-${row.code}`} className={`market-board-ticker__chip ${up ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200" : "border-rose-500/30 bg-rose-500/10 text-rose-200"}`}><span className="font-normal tracking-wide text-foreground">{row.code}</span><span className="font-normal">{formatTry(row.bid)}</span><span className="inline-flex items-center gap-1 font-normal">{up ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}{up ? "+" : ""}{row.changePct.toFixed(1)}%</span></div>); })}</div>))}</div></div>
+            <div className="market-board-ticker__viewport"><div className="market-board-ticker__lane">{[0, 1].map((dup) => (<div key={dup} className="market-board-ticker__seq">{tickerRows.map((row) => { const up = row.changePct >= 0; return (<div key={`${dup}-${row.code}`} className={`market-board-ticker__chip ${up ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]" : "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"}`}><span className="font-normal tracking-wide text-foreground">{row.code}</span><span className="font-normal">{formatTry(row.bid)}</span><span className="inline-flex items-center gap-1 font-normal">{up ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}{up ? "+" : ""}{row.changePct.toFixed(1)}%</span></div>); })}</div>))}</div></div>
           </div>
           <div className="grid gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(340px,1fr)]">
             <div className="min-w-0 space-y-5">
-              <Card className="border border-border bg-card"><CardContent className="p-4"><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-normal text-foreground">En Aktif İhaleler</h2><div className="flex flex-wrap gap-2">{BOARD_FILTER_TABS.map((tab) => (<Button key={tab.key} size="sm" variant={heroFilter === tab.key ? "default" : "outline"} className={heroFilter === tab.key ? "bg-blue-600 text-white hover:bg-blue-500" : "border-border bg-secondary text-muted-foreground hover:bg-secondary/80"} onClick={() => setHeroFilter(tab.key)}>{tab.label}</Button>))}</div></div><div className="overflow-x-auto"><table className="min-w-[720px] w-full text-sm text-muted-foreground"><thead className="text-start text-[11px] uppercase tracking-[0.14em] text-muted-foreground"><tr><th className="pb-2 pe-3">Kod</th><th className="pb-2 pe-3">Mülk</th><th className="pb-2 pe-3">Teklif</th><th className="pb-2 pe-3">Değişim%</th><th className="pb-2">Süre</th></tr></thead><tbody>{filteredRows.map((row) => { const up = row.changePct >= 0; return (<tr key={row.id} className="cursor-pointer border-t border-border transition hover:bg-secondary/80" onClick={() => navigate(`/ilanlar/${row.id}`)}><td className="py-2.5 pe-3 font-normal text-primary">{row.code}</td><td className="py-2.5 pe-3 text-foreground">{row.title}</td><td className="py-2.5 pe-3 font-normal text-foreground">{formatTry(row.bid)}</td><td className={`py-2.5 pe-3 font-normal ${up ? "text-emerald-300" : "text-rose-300"}`}>{up ? "+" : ""}{row.changePct.toFixed(1)}%</td><td className="py-2.5 text-muted-foreground"><span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" />{`${Math.floor(row.remainingMin / 60)}s ${row.remainingMin % 60}dk`}</span></td></tr>); })}</tbody></table></div></CardContent></Card>
+              <Card className="border border-border bg-card"><CardContent className="p-4"><div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-normal text-foreground">En Aktif İhaleler</h2><div className="flex flex-wrap gap-2">{BOARD_FILTER_TABS.map((tab) => (<Button key={tab.key} size="sm" variant={heroFilter === tab.key ? "default" : "outline"} className={heroFilter === tab.key ? "bg-[var(--zemin-yumusak)] text-white hover:bg-[var(--zemin-yumusak)]" : "border-border bg-secondary text-muted-foreground hover:bg-secondary/80"} onClick={() => setHeroFilter(tab.key)}>{tab.label}</Button>))}</div></div><div className="overflow-x-auto"><table className="min-w-[720px] w-full text-sm text-muted-foreground"><thead className="text-start text-[11px] uppercase tracking-[0.14em] text-muted-foreground"><tr><th className="pb-2 pe-3">Kod</th><th className="pb-2 pe-3">Mülk</th><th className="pb-2 pe-3">Teklif</th><th className="pb-2 pe-3">Değişim%</th><th className="pb-2">Süre</th></tr></thead><tbody>{filteredRows.map((row) => { const up = row.changePct >= 0; return (<tr key={row.id} className="cursor-pointer border-t border-border transition hover:bg-secondary/80" onClick={() => navigate(`/ilanlar/${row.id}`)}><td className="py-2.5 pe-3 font-normal text-primary">{row.code}</td><td className="py-2.5 pe-3 text-foreground">{row.title}</td><td className="py-2.5 pe-3 font-normal text-foreground">{formatTry(row.bid)}</td><td className={`py-2.5 pe-3 font-normal ${up ? "text-[var(--metin-ikincil)]" : "text-[var(--metin-ikincil)]"}`}>{up ? "+" : ""}{row.changePct.toFixed(1)}%</td><td className="py-2.5 text-muted-foreground"><span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" />{`${Math.floor(row.remainingMin / 60)}s ${row.remainingMin % 60}dk`}</span></td></tr>); })}</tbody></table></div></CardContent></Card>
             </div>
             <aside className="min-w-0 space-y-4 xl:hidden">
-              <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-normal uppercase tracking-[0.14em] text-foreground">Güven Göstergeleri</h3><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Shield className="h-4 w-4 text-cyan-300" /> KYC doğrulama</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Landmark className="h-4 w-4 text-cyan-300" /> Escrow destekli ödeme</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Zap className="h-4 w-4 text-cyan-300" /> Anti-sniping</p><div className="rounded-[10px] border border-border bg-secondary p-3 text-xs text-muted-foreground"><p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p><p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p></div></CardContent></Card>
+              <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-normal uppercase tracking-[0.14em] text-foreground">Güven Göstergeleri</h3><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Shield className="h-4 w-4 text-[var(--metin-ikincil)]" /> KYC doğrulama</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Landmark className="h-4 w-4 text-[var(--metin-ikincil)]" /> Escrow destekli ödeme</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Zap className="h-4 w-4 text-[var(--metin-ikincil)]" /> Anti-sniping</p><div className="rounded-[10px] border border-border bg-secondary p-3 text-xs text-muted-foreground"><p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p><p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p></div></CardContent></Card>
             </aside>
             <aside className="min-w-0 hidden xl:block space-y-4">
-              <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-normal uppercase tracking-[0.14em] text-foreground">Güven Göstergeleri</h3><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Shield className="h-4 w-4 text-cyan-300" /> KYC doğrulama</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Landmark className="h-4 w-4 text-cyan-300" /> Escrow destekli ödeme</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Zap className="h-4 w-4 text-cyan-300" /> Anti-sniping</p><div className="rounded-[10px] border border-border bg-secondary p-3 text-xs text-muted-foreground"><p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p><p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p></div></CardContent></Card>
+              <Card className="border border-border bg-card"><CardContent className="space-y-3 p-4"><h3 className="text-sm font-normal uppercase tracking-[0.14em] text-foreground">Güven Göstergeleri</h3><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Shield className="h-4 w-4 text-[var(--metin-ikincil)]" /> KYC doğrulama</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Landmark className="h-4 w-4 text-[var(--metin-ikincil)]" /> Escrow destekli ödeme</p><p className="inline-flex items-center gap-2 text-sm text-muted-foreground"><Zap className="h-4 w-4 text-[var(--metin-ikincil)]" /> Anti-sniping</p><div className="rounded-[10px] border border-border bg-secondary p-3 text-xs text-muted-foreground"><p>Teminat: %{Math.round(BID_BOND_RATE * 100)}</p><p className="mt-1">Komisyon: %{Math.round(COMMISSION_RATE * 100)}</p></div></CardContent></Card>
             </aside>
           </div>
           <Card className="mt-5 border border-border bg-card">
@@ -262,7 +262,7 @@ export default function PremiumCinematicHome() {
                     <Link
                       key={cat.key}
                       to={CATEGORY_PATH[cat.key] ?? `/ilanlar/${cat.key}`}
-                      className={`group flex min-h-[108px] items-center gap-3 rounded-[20px] border bg-gradient-to-br px-4 py-4 transition duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30 ${CATEGORY_GRADIENTS[cat.key] ?? "from-slate-500/20 to-slate-900/10 border-slate-400/30"}`}
+                      className={`group flex min-h-[108px] items-center gap-3 rounded-[20px] border bg-gradient-to-br px-4 py-4 transition duration-200 hover:-translate-y-1 ${CATEGORY_GRADIENTS[cat.key] ?? "from-slate-500/20 to-slate-900/10 border-slate-400/30"}`}
                     >
                       <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[20px] bg-black/25 text-white ring-1 ring-white/15">
                         <Icon className="h-6 w-6" />
@@ -284,7 +284,7 @@ export default function PremiumCinematicHome() {
 
       <ScrollReveal parallax>
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
-        <div className="rounded-[20px] border border-border bg-card p-6 shadow-xl lg:p-8">
+        <div className="rounded-[20px] border border-border bg-card p-6 lg:p-8">
           <p className="text-[11px] font-normal uppercase tracking-[0.16em] text-primary">Gayrimenkul Borsası</p>
           <h2 className="mt-2 text-3xl font-normal text-foreground lg:text-4xl">Borsa nasıl çalışır?</h2>
           <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground lg:text-base">
@@ -339,13 +339,13 @@ export default function PremiumCinematicHome() {
       <ScrollReveal delayMs={80}>
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
         <div className="mb-5 flex items-center justify-between gap-4"><h2 className="text-2xl font-normal text-foreground lg:text-3xl">Öne Çıkan İhaleler</h2><Link to={ROUTES.ILANLAR} className="rounded-[10px] border border-primary/35 bg-card px-3 py-1.5 text-sm font-normal text-primary transition hover:border-primary/70 hover:text-foreground">Tümünü Gör</Link></div>
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">{unifiedFeaturedItems.map((item) => (<Link key={item.id} to={item.href} aria-label={`${item.title} — ${item.location}`} className="group overflow-hidden rounded-[20px] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/45"><div className="relative h-40" aria-hidden="true" style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.6)), url(${item.image})`, backgroundSize: "cover", backgroundPosition: "center" }}><span className={`absolute start-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-normal ${item.sponsored ? "bg-emerald-500/90 text-white" : "bg-rose-500/90 text-white"}`}>{item.sponsored ? "SPONSORLU" : "CANLI"}</span></div><div className="space-y-2 p-4"><p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{item.source}</p><h3 className="line-clamp-2 text-base font-normal text-foreground">{item.title}</h3><p className="text-xs text-muted-foreground">{item.location}</p><strong className="block text-lg font-normal text-foreground">{item.priceLabel}</strong></div></Link>))}</div>
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">{unifiedFeaturedItems.map((item) => (<Link key={item.id} to={item.href} aria-label={`${item.title} — ${item.location}`} className="group overflow-hidden rounded-[20px] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/45"><div className="relative h-40" aria-hidden="true" style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.6)), url(${item.image})`, backgroundSize: "cover", backgroundPosition: "center" }}><span className={`absolute start-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-normal ${item.sponsored ? "bg-[var(--zemin-yumusak)] text-white" : "bg-[var(--zemin-yumusak)] text-white"}`}>{item.sponsored ? "SPONSORLU" : "CANLI"}</span></div><div className="space-y-2 p-4"><p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{item.source}</p><h3 className="line-clamp-2 text-base font-normal text-foreground">{item.title}</h3><p className="text-xs text-muted-foreground">{item.location}</p><strong className="block text-lg font-normal text-foreground">{item.priceLabel}</strong></div></Link>))}</div>
       </section>
       </ScrollReveal>
 
       <ScrollReveal delayMs={120}>
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
-        <div className="rounded-[20px] border border-border bg-card p-6 shadow-xl lg:p-8">
+        <div className="rounded-[20px] border border-border bg-card p-6 lg:p-8">
           <p className="text-[11px] font-normal uppercase tracking-[0.16em] text-primary">Güven & Kurumsal</p>
           <h2 className="mt-2 text-2xl font-normal text-foreground lg:text-3xl">Güven Göstergeleri</h2>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -391,7 +391,7 @@ export default function PremiumCinematicHome() {
 
       <ScrollReveal delayMs={160}>
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
-        <div className="rounded-[20px] border border-border bg-card p-6 shadow-xl lg:p-8">
+        <div className="rounded-[20px] border border-border bg-card p-6 lg:p-8">
           <h2 className="text-2xl font-normal text-foreground lg:text-3xl">Platform Modülleri</h2>
           <p className="mt-2 text-sm text-muted-foreground">GES, değerleme, araştırma zekâsı ve stratejik karar odası tek bölümde.</p>
           <div className="mt-5"><PlatformModulesShowcase embedded /></div>
@@ -406,7 +406,7 @@ export default function PremiumCinematicHome() {
 
       <ScrollReveal delayMs={200}>
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
-        <div className="rounded-[20px] border border-border bg-card p-5 shadow-xl lg:p-6">
+        <div className="rounded-[20px] border border-border bg-card p-5 lg:p-6">
           <p className="text-[11px] font-normal uppercase tracking-[0.16em] text-primary">Risk Araçları</p>
           <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-normal text-foreground">Deprem Risk Şeffaflığı</h2>
@@ -424,9 +424,9 @@ export default function PremiumCinematicHome() {
       <ScrollReveal delayMs={240}>
       <section className="mx-auto mt-8 w-full max-w-[1240px] px-4 lg:px-6">
         <div className="grid gap-4 md:grid-cols-3">
-          <article className="flex h-full flex-col rounded-[20px] border border-amber-400/35 bg-card p-4"><p className="text-[11px] font-normal uppercase tracking-[0.12em] text-amber-300">Kampanya</p><h3 className="mt-2 text-lg font-normal text-foreground">İlk 100 İşlemde Sıfır Komisyon</h3><p className="mt-2 flex-1 text-sm text-muted-foreground">Yeni alıcı ve satıcılar için demo kampanya akışı. Erken dönem işlem maliyeti avantajı.</p><Button asChild size="sm" className="mt-3 w-full rounded-[10px]"><Link to="/kampanyalar">Kampanyaları Gör</Link></Button></article>
-          <article className="flex h-full flex-col rounded-[20px] border border-cyan-400/35 bg-card p-4"><p className="text-[11px] font-normal uppercase tracking-[0.12em] text-cyan-300">Reklam</p><h3 className="mt-2 text-lg font-normal text-foreground">Akıllı Konut Kredisi Teklifleri</h3><p className="mt-2 flex-1 text-sm text-muted-foreground">İlan fiyatına göre hızlı taksit simülasyonu ve kredi planlama akışı (mock sponsor).</p><Button asChild size="sm" className="mt-3 w-full rounded-[10px]"><Link to="/mortgage">İncele</Link></Button></article>
-          <article className="flex h-full flex-col rounded-[20px] border border-emerald-400/35 bg-card p-4"><p className="text-[11px] font-normal uppercase tracking-[0.12em] text-emerald-300">Sponsorlu</p><h3 className="mt-2 text-lg font-normal text-foreground">Sigorta & Taşınma Paketi</h3><p className="mt-2 flex-1 text-sm text-muted-foreground">DASK, konut sigortası ve taşınma servisleri tek panelde — mock sponsor.</p><Button asChild size="sm" className="mt-3 w-full rounded-[10px]"><Link to="/modul/deprem-sigortasi">Teklif Al</Link></Button></article>
+          <article className="flex h-full flex-col rounded-[20px] border border-[var(--cizgi)] bg-card p-4"><p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Kampanya</p><h3 className="mt-2 text-lg font-normal text-foreground">İlk 100 İşlemde Sıfır Komisyon</h3><p className="mt-2 flex-1 text-sm text-muted-foreground">Yeni alıcı ve satıcılar için demo kampanya akışı. Erken dönem işlem maliyeti avantajı.</p><Button asChild size="sm" className="mt-3 w-full rounded-[10px]"><Link to="/kampanyalar">Kampanyaları Gör</Link></Button></article>
+          <article className="flex h-full flex-col rounded-[20px] border border-[var(--cizgi)] bg-card p-4"><p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Reklam</p><h3 className="mt-2 text-lg font-normal text-foreground">Akıllı Konut Kredisi Teklifleri</h3><p className="mt-2 flex-1 text-sm text-muted-foreground">İlan fiyatına göre hızlı taksit simülasyonu ve kredi planlama akışı (mock sponsor).</p><Button asChild size="sm" className="mt-3 w-full rounded-[10px]"><Link to="/mortgage">İncele</Link></Button></article>
+          <article className="flex h-full flex-col rounded-[20px] border border-[var(--cizgi)] bg-card p-4"><p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Sponsorlu</p><h3 className="mt-2 text-lg font-normal text-foreground">Sigorta & Taşınma Paketi</h3><p className="mt-2 flex-1 text-sm text-muted-foreground">DASK, konut sigortası ve taşınma servisleri tek panelde — mock sponsor.</p><Button asChild size="sm" className="mt-3 w-full rounded-[10px]"><Link to="/modul/deprem-sigortasi">Teklif Al</Link></Button></article>
         </div>
       </section>
       </ScrollReveal>

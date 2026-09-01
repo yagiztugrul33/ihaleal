@@ -91,17 +91,17 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
       </div>
 
       <div className="flex items-center gap-2">
-        <Button type="button" onClick={run} className="bg-amber-300 text-slate-900 hover:bg-amber-200">GES analizini hesapla</Button>
-        {error ? <span className="text-xs text-rose-300">{error}</span> : null}
+        <Button type="button" onClick={run} className="bg-[var(--zemin-yumusak)] text-slate-900 hover:bg-[var(--zemin-yumusak)]">GES analizini hesapla</Button>
+        {error ? <span className="text-xs text-[var(--metin-ikincil)]">{error}</span> : null}
       </div>
 
       {result ? (
         <div className="space-y-4">
-          <article className="grid gap-3 rounded-[20px] border border-amber-500/35 bg-amber-500/10 p-4 md:grid-cols-2 xl:grid-cols-4">
-            <div><p className="text-xs text-amber-100">Birleşik skor</p><p className="text-2xl font-normal text-white">{result.overallScore}/100</p></div>
-            <div><p className="text-xs text-amber-100">NPV</p><p className="text-sm font-normal text-white">{result.feasibility.npvTry.toLocaleString("tr-TR")} TRY</p></div>
-            <div><p className="text-xs text-amber-100">IRR</p><p className="text-sm font-normal text-white">{result.feasibility.irrPct?.toFixed(1) ?? "-"}%</p></div>
-            <div><p className="text-xs text-amber-100">LCOE</p><p className="text-sm font-normal text-white">{result.feasibility.lcoeTryPerKwh.toFixed(2)} TRY/kWh</p></div>
+          <article className="grid gap-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 md:grid-cols-2 xl:grid-cols-4">
+            <div><p className="text-xs text-[var(--metin-ikincil)]">Birleşik skor</p><p className="text-2xl font-normal text-white">{result.overallScore}/100</p></div>
+            <div><p className="text-xs text-[var(--metin-ikincil)]">NPV</p><p className="text-sm font-normal text-white">{result.feasibility.npvTry.toLocaleString("tr-TR")} TRY</p></div>
+            <div><p className="text-xs text-[var(--metin-ikincil)]">IRR</p><p className="text-sm font-normal text-white">{result.feasibility.irrPct?.toFixed(1) ?? "-"}%</p></div>
+            <div><p className="text-xs text-[var(--metin-ikincil)]">LCOE</p><p className="text-sm font-normal text-white">{result.feasibility.lcoeTryPerKwh.toFixed(2)} TRY/kWh</p></div>
           </article>
           <article className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
             <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
@@ -112,13 +112,13 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
                     <XAxis dataKey="katman" tick={{ fill: "#cbd5e1", fontSize: 10 }} />
                     <YAxis domain={[0, 100]} tick={{ fill: "#94a3b8", fontSize: 11 }} />
                     <Tooltip />
-                    <Bar dataKey="skor" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="skor" fill="#8a8380" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
             <div className="rounded-[20px] border border-slate-700 bg-slate-900/60 p-4">
-              <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-amber-200">Katkı dökümü</h3>
+              <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Katkı dökümü</h3>
               <ul className="mt-2 space-y-2 text-sm text-slate-200">
                 {result.contributions.map((c) => (
                   <li key={c.key}>
@@ -136,12 +136,12 @@ export function GesIntelligenceWorkbench({ compact = false, title = "GES katmanl
                   <PolarGrid stroke="#334155" />
                   <PolarAngleAxis dataKey="subject" tick={{ fill: "#cbd5e1", fontSize: 10 }} />
                   <Tooltip />
-                  <Radar dataKey="value" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.32} />
+                  <Radar dataKey="value" stroke="#8a8380" fill="#8a8380" fillOpacity={0.32} />
                 </RadarChart>
               </ResponsiveContainer>
             </div>
           </article>
-          {!compact ? <div className="rounded-[20px] border border-amber-500/35 bg-amber-500/10 p-4 text-sm text-amber-100">{result.disclaimer}</div> : null}
+          {!compact ? <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 text-sm text-[var(--metin-ikincil)]">{result.disclaimer}</div> : null}
         </div>
       ) : null}
     </section>
