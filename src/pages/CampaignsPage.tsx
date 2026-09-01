@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Gift, Megaphone, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 type Campaign = {
   id: string;
@@ -57,7 +58,7 @@ export default function CampaignsPage() {
     <div className="min-h-screen bg-slate-950 px-4 pb-16 pt-24 text-slate-100 lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
         <section className="rounded-[20px] border border-[var(--cizgi)] bg-gradient-to-r from-[var(--zemin-yumusak)] via-[var(--zemin-yumusak)] to-[var(--zemin-yumusak)] p-5">
-          <p className="text-xs uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">Kampanyalar</p>
+          <Eyebrow>Kampanyalar</Eyebrow>
           <h1 className="mt-1 text-3xl font-normal text-white">Promosyon & Kampanya Merkezi</h1>
           <p className="mt-2 text-sm text-slate-300">
             Aktif fırsatları tek ekranda görün, süresi bitmeden aksiyon alın. Kampanya içerikleri demo/temsili olup canlı koşullar sözleşme ile kesinleşir.

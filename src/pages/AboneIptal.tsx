@@ -14,6 +14,7 @@ import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { CheckCircle2, AlertTriangle, Loader2, ArrowRight, MailMinus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 type Status = "idle" | "processing" | "ok" | "error" | "no-token" | "no-backend";
 
@@ -72,9 +73,9 @@ export default function AboneIptal() {
     <div className="min-h-screen flex items-center justify-center px-4 py-16 pt-24">
       <div className="w-full max-w-md text-center">
         <MailMinus className="mx-auto h-10 w-10 text-slate-400 mb-3" aria-hidden />
-        <p className="text-xs uppercase tracking-wider text-slate-500 font-normal">
+        <Eyebrow className="tracking-wider text-slate-500">
           ihaleal · Abonelik İptali
-        </p>
+        </Eyebrow>
 
         {status === "no-token" ? (
           <>

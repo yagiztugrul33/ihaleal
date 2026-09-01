@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Globe2, Languages, Landmark, PlaneTakeoff } from "lucide-react";
 import { CurrencyProvider, useCurrency } from "@/contexts/CurrencyContext";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 type LocalMode = "tr" | "en" | "ar" | "ru";
 
@@ -50,7 +51,7 @@ function InternationalInvestorPageBody() {
     <div className="min-h-screen bg-background px-4 pb-16 pt-24 text-foreground lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
         <section className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/70 p-5">
-          <p className="text-xs uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">International</p>
+          <Eyebrow className="tracking-[0.14em]">International</Eyebrow>
           <h1 className="mt-1 text-3xl font-normal text-foreground">{snippets[languageMode].title}</h1>
           <p className="mt-2 text-sm text-slate-300">{snippets[languageMode].subtitle}</p>
           <p className="mt-2 text-xs text-slate-400">

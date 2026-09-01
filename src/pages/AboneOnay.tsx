@@ -13,6 +13,7 @@ import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { CheckCircle2, AlertTriangle, Loader2, ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 type Status = "idle" | "checking" | "ok" | "error" | "no-token" | "no-backend";
 
@@ -71,9 +72,9 @@ export default function AboneOnay() {
     <div className="min-h-screen flex items-center justify-center px-4 py-16 pt-24">
       <div className="w-full max-w-md text-center">
         <Mail className="mx-auto h-10 w-10 text-[var(--metin-ikincil)] mb-3" aria-hidden />
-        <p className="text-xs uppercase tracking-wider text-[var(--metin-ikincil)] font-normal">
+        <Eyebrow className="tracking-wider">
           ihaleal · Aylık Endeks Raporu
-        </p>
+        </Eyebrow>
 
         {status === "no-token" ? (
           <>

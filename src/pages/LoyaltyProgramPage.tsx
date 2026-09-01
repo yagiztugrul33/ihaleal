@@ -14,6 +14,7 @@ import {
   VIP_TIERS,
   type RewardLedgerItem,
 } from "@/lib/gamification/loyalty";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 const LEDGER_KEY = "ihaleal_rewards_ledger";
 const BALANCE_KEY = "ihaleal_rewards_balance";
@@ -184,7 +185,7 @@ export default function LoyaltyProgramPage() {
     <div className="min-h-screen bg-background px-4 pb-16 pt-24 text-foreground lg:px-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
         <section className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/70 p-5">
-          <p className="text-xs uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">İhaleal Rewards</p>
+          <Eyebrow className="tracking-[0.14em]">İhaleal Rewards</Eyebrow>
           <h1 className="mt-1 text-3xl font-normal">Puanlarım</h1>
           <p className="mt-2 text-sm text-muted-foreground">{DEMO_REWARDS_NOTE}</p>
           <div className="mt-4 inline-flex rounded-[10px] border border-border bg-secondary p-1">

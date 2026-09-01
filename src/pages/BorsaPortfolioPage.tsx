@@ -21,6 +21,7 @@ import { formatTry } from "@/lib/valuation/valuationEngine";
 import { MASTER_INFO_DISCLAIMER, PHYSICAL_ASSET_ONLY_DISCLAIMER } from "@/legal/platformDisclaimers";
 import { FxRef } from "@/components/FxRef";
 import { useLocale } from "@/contexts/LocaleContext";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 type PortfolioAsset = {
   id: string;
@@ -155,7 +156,7 @@ export default function BorsaPortfolioPage() {
         </section>
 
         <header className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">{b.portfolioEyebrow}</p>
+          <Eyebrow>{b.portfolioEyebrow}</Eyebrow>
           <h1 className="mt-1 text-2xl font-normal text-foreground">{b.portfolioTitle}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {b.portfolioDesc}
