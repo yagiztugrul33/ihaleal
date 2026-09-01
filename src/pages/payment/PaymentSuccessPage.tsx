@@ -29,8 +29,8 @@ export default function PaymentSuccessPage() {
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 text-white">
       <div className="max-w-2xl mx-auto space-y-6 text-center">
-        <div className="mx-auto rounded-full bg-emerald-500/20 w-20 h-20 flex items-center justify-center">
-          <CheckCircle2 className="h-12 w-12 text-emerald-400" />
+        <div className="mx-auto rounded-full bg-[var(--zemin-yumusak)] w-20 h-20 flex items-center justify-center">
+          <CheckCircle2 className="h-12 w-12" style={{ color: "var(--durum-basari)" }} />
         </div>
 
         <div>
@@ -40,20 +40,20 @@ export default function PaymentSuccessPage() {
           </p>
         </div>
 
-        <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/10 p-6 text-start">
+        <div className="rounded-[20px] border p-6 text-start" style={{ borderColor: "var(--durum-basari)", backgroundColor: "var(--zemin-yumusak)" }}>
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-xs text-emerald-300 font-normal flex items-center gap-1.5">
+              <p className="text-xs font-normal flex items-center gap-1.5" style={{ color: "var(--durum-basari)" }}>
                 <Crown className="h-3.5 w-3.5" /> {s.activeBadge}
               </p>
               <h2 className="text-2xl font-normal text-white mt-1">{tierName}</h2>
               <p className="text-sm text-slate-400 mt-1">{tierTagline}</p>
             </div>
             <div className="text-end">
-              <p className="text-xl font-normal text-emerald-300" dir="ltr">{formatTry(price)}</p>
+              <p className="text-xl font-normal text-white" dir="ltr">{formatTry(price)}</p>
               <p className="text-xs text-slate-400">{period}</p>
               {showFx && (
-                <p className="text-[10px] text-amber-300/80 mt-1" dir="ltr">
+                <p className="text-[10px] text-slate-400 mt-1" dir="ltr">
                   ≈ {formatFromTry(price)} <span className="text-slate-500">{s.feeNote}</span>
                 </p>
               )}
@@ -76,27 +76,23 @@ export default function PaymentSuccessPage() {
           </div>
         </div>
 
-        <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-4 text-start">
-          <p className="text-xs font-normal text-amber-100 flex items-center gap-1.5">
+        <div className="rounded-[20px] border p-4 text-start" style={{ borderColor: "var(--durum-uyari)", backgroundColor: "var(--durum-uyari-zemin)" }}>
+          <p className="text-xs font-normal flex items-center gap-1.5" style={{ color: "var(--durum-uyari)" }}>
             <AlertTriangle className="h-3.5 w-3.5" /> {s.sandboxTitle}
           </p>
-          <p className="text-[11px] text-slate-300 mt-1">
+          <p className="text-[11px] mt-1" style={{ color: "var(--durum-uyari)" }}>
             {s.sandboxBody}
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-3">
-          <Button
-            onClick={() => navigate("/uyelik")}
-            className="bg-cyan-600 hover:bg-cyan-500 text-white"
-          >
+          <Button onClick={() => navigate("/uyelik")}>
             {s.manageMembership}
             <ArrowRight className="h-4 w-4 ms-1.5 rtl:rotate-180" />
           </Button>
           <Button
             onClick={() => navigate("/ihaleler")}
             variant="outline"
-            className="border-emerald-500/40 text-emerald-200 hover:bg-emerald-500/10"
           >
             {s.openExchange}
             <ArrowRight className="h-4 w-4 ms-1.5 rtl:rotate-180" />
@@ -109,7 +105,7 @@ export default function PaymentSuccessPage() {
             {s.invoiceSent}
           </p>
           <p className="mt-2">
-            {s.questions}: <a href="mailto:destek@ihaleal.com" className="text-cyan-300 underline">destek@ihaleal.com</a>
+            {s.questions}: <a href="mailto:destek@ihaleal.com" className="underline">destek@ihaleal.com</a>
           </p>
         </div>
       </div>
