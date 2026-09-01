@@ -66,7 +66,7 @@ export function PremiumGate({
       <button
         type="button"
         onClick={() => navigate(`/fiyatlandirma?onerilen=${recommendTier}`)}
-        className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-xs text-amber-200 hover:bg-amber-500/20 transition-colors"
+        className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] hover:bg-white/5 transition-colors"
         aria-label={`${title} — premium özellik, yükselt`}
       >
         <Lock className="h-3 w-3" />
@@ -77,15 +77,15 @@ export function PremiumGate({
   }
 
   return (
-    <div className="relative rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-6 overflow-hidden">
+    <div className="relative rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6 overflow-hidden">
       {/* Lock badge */}
-      <div className="absolute top-3 end-3 inline-flex items-center gap-1 rounded-full border border-amber-500/40 bg-amber-500/20 px-2 py-1 text-[10px] font-normal text-amber-200">
+      <div className="absolute top-3 end-3 inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin)] px-2 py-1 text-[10px] font-normal text-[var(--metin-ikincil)]">
         <Lock className="h-3 w-3" /> Premium
       </div>
 
       <div className="flex items-start gap-3 mb-4">
-        <div className="rounded-full bg-amber-500/20 p-2">
-          <Sparkles className="h-5 w-5 text-amber-300" />
+        <div className="rounded-full bg-[var(--zemin)] p-2">
+          <Sparkles className="h-5 w-5 text-[var(--metin-ikincil)]" />
         </div>
         <div className="flex-1 pe-16">
           <h3 className="text-lg font-normal text-white mb-1">{title}</h3>
@@ -94,15 +94,15 @@ export function PremiumGate({
       </div>
 
       {rec && (
-        <div className="rounded-[10px] border border-amber-400/20 bg-slate-900/40 p-3 mb-4">
+        <div className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/40 p-3 mb-4">
           <p className="text-xs text-slate-400 mb-1">Önerilen paket</p>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-base font-normal text-white">{rec.name}</p>
-              <p className="text-xs text-amber-300">{rec.tagline}</p>
+              <p className="text-xs text-slate-400">{rec.tagline}</p>
             </div>
             <div className="text-end">
-              <p className="text-xl font-normal text-amber-300">₺{rec.monthlyTry.toLocaleString("tr-TR")}</p>
+              <p className="text-xl font-normal text-white">₺{rec.monthlyTry.toLocaleString("tr-TR")}</p>
               <p className="text-[10px] text-slate-400">/ay</p>
             </div>
           </div>
@@ -112,7 +112,7 @@ export function PremiumGate({
       <button
         type="button"
         onClick={() => navigate(`/fiyatlandirma?onerilen=${recommendTier}`)}
-        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[10px] bg-amber-600 hover:bg-amber-500 text-white text-sm font-normal"
+        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[10px] bg-[var(--metin)] hover:bg-white text-[var(--zemin)] text-sm font-normal"
       >
         <Sparkles className="h-4 w-4" />
         Paketleri Gör ve Yükselt
@@ -134,18 +134,11 @@ export function PremiumChip({ tier: tierProp = "emlak_baslangic" }: { tier?: Tie
   const t = PRICING_TIERS.find((x) => x.id === tierProp);
   if (!t) return null;
 
-  const colorMap: Record<TierId, string> = {
-    free: "bg-slate-500/20 text-slate-300 border-slate-500/40",
-    emlak_baslangic: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
-    emlak_pro: "bg-amber-500/20 text-amber-300 border-amber-500/40",
-    kurumsal: "bg-violet-500/20 text-violet-300 border-violet-500/40",
-  };
-
   return (
     <button
       type="button"
       onClick={() => navigate(`/fiyatlandirma?onerilen=${tierProp}`)}
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-normal ${colorMap[tierProp]} hover:opacity-80`}
+      className="inline-flex items-center gap-1 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] px-2 py-0.5 text-[10px] font-normal hover:opacity-80"
       aria-label={`${t.name} paketinde mevcut — yükselt`}
     >
       <Sparkles className="h-2.5 w-2.5" />
