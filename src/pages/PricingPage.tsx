@@ -76,8 +76,8 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
   // şekilde koyu-kart varsayımıyla yazılmıştı; bugüne kadar yalnızca
   // global-acik.css'in örtük bg-card bağlamı sayesinde doğru görünüyorlardı.
   // Durum renklerini doğrudan token'dan (aynı anlam: dahil/sınırlı) çekiyoruz.
-  const includedIconColor = cls.light ? "text-[var(--durum-basari)]" : "text-emerald-400";
-  const limitedIconColor = cls.light ? "text-[var(--durum-uyari)]" : "text-amber-400";
+  const includedIconColor = "text-[var(--durum-basari)]";
+  const limitedIconColor = "text-[var(--durum-uyari)]";
   const dividerBorder = cls.light ? "border-border" : "border-slate-700";
   const { try: listPrice, period } = priceFor(tier, cycle);
   const early = earlyPriceFor(tier, cycle);
@@ -129,13 +129,13 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
               <span className={`text-sm ${mutedText}`}>{early.period}</span>
             </div>
             {fxRef && (
-              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className={subtleText}>{p.tierCard.feeNote}</span></p>
+              <p className="text-[11px] text-slate-400 mt-0.5" dir="ltr">≈ {fxRef} <span className={subtleText}>{p.tierCard.feeNote}</span></p>
             )}
             {monthlyEqv !== null && (
               <p className={`text-[11px] ${subtleText} mt-0.5`} dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
             )}
             {daily !== null && (
-              <p className="text-[11px] text-emerald-300 mt-0.5" dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
+              <p className={`text-[11px] ${priceText} mt-0.5`} dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
             )}
           </>
         ) : (
@@ -145,13 +145,13 @@ function TierCard({ tier, cycle, expanded, onToggle }: TierCardProps) {
               <span className={`text-sm ${mutedText}`}>{period}</span>
             </div>
             {fxRef && (
-              <p className="text-[11px] text-amber-300/80 mt-0.5" dir="ltr">≈ {fxRef} <span className={subtleText}>{p.tierCard.feeNote}</span></p>
+              <p className="text-[11px] text-slate-400 mt-0.5" dir="ltr">≈ {fxRef} <span className={subtleText}>{p.tierCard.feeNote}</span></p>
             )}
             {monthlyEqv !== null && (
               <p className={`text-[11px] ${subtleText} mt-0.5`} dir="ltr">≈ {formatTry(monthlyEqv)}{p.tierCard.monthlyEqv}</p>
             )}
             {daily !== null && (
-              <p className="text-[11px] text-emerald-300 mt-0.5" dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
+              <p className={`text-[11px] ${priceText} mt-0.5`} dir="ltr">{p.tierCard.dailyPrefix} {formatTry(daily)}</p>
             )}
           </>
         )}
@@ -263,7 +263,7 @@ export default function PricingPage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
         {/* HEADER */}
         <div className="text-center max-w-3xl mx-auto">
-          <p className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-200 mb-4">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1 text-xs text-[var(--metin-ikincil)] mb-4">
             <Sparkles className="h-3.5 w-3.5" /> {p.badge}
           </p>
           <h1 className="text-3xl md:text-4xl font-normal mb-3">
@@ -275,26 +275,26 @@ export default function PricingPage() {
           </p>
           {/* ŞEFFAFLIK ŞERİDİ — header altına yakın, güven inşası */}
           <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-300">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> {p.chips.noCommit}
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1">
+              <CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" /> {p.chips.noCommit}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1">
-              <RefreshCw className="h-3.5 w-3.5 text-cyan-400" /> {p.chips.cancelAnytime}
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1">
+              <RefreshCw className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" /> {p.chips.cancelAnytime}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1">
-              <Shield className="h-3.5 w-3.5 text-violet-400" /> {p.chips.noHidden}
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-1">
+              <Shield className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" /> {p.chips.noHidden}
             </span>
           </div>
         </div>
 
         {EARLY_MEMBER_ACTIVE && (
-          <div className="rounded-[20px] border border-amber-500/30 bg-amber-500/10 p-4">
+          <div className="rounded-[20px] border p-4" style={{ borderColor: "var(--durum-uyari)", backgroundColor: "var(--durum-uyari-zemin)" }}>
             <div className="flex items-start gap-3">
-              <Sparkles className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+              <Sparkles className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: "var(--durum-uyari)" }} />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <h2 className="text-sm font-normal text-amber-100">{EARLY_MEMBER_LABEL}</h2>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 text-amber-100 text-[10px] font-normal px-2 py-0.5 border border-amber-500/30">
+                  <h2 className="text-sm font-normal" style={{ color: "var(--durum-uyari)" }}>{EARLY_MEMBER_LABEL}</h2>
+                  <span className="inline-flex items-center gap-1 rounded-full text-[10px] font-normal px-2 py-0.5 border" style={{ color: "var(--durum-uyari)", borderColor: "var(--durum-uyari)" }}>
                     Sınırlı
                   </span>
                 </div>
@@ -355,7 +355,7 @@ export default function PricingPage() {
             <button
               type="button"
               onClick={() => setCycle("monthly")}
-              className={`px-5 py-2 rounded-full text-sm font-normal transition-colors ${cycle === "monthly" ? "bg-cyan-600 text-white" : "text-slate-400 hover:text-white"}`}
+              className={`px-5 py-2 rounded-full text-sm font-normal transition-colors ${cycle === "monthly" ? "bg-[var(--metin)] text-[var(--zemin)]" : "text-slate-400 hover:text-white"}`}
               aria-pressed={cycle === "monthly"}
             >
               {p.toggle.monthly}
@@ -363,11 +363,11 @@ export default function PricingPage() {
             <button
               type="button"
               onClick={() => setCycle("yearly")}
-              className={`px-5 py-2 rounded-full text-sm font-normal transition-colors relative ${cycle === "yearly" ? "bg-cyan-600 text-white" : "text-slate-400 hover:text-white"}`}
+              className={`px-5 py-2 rounded-full text-sm font-normal transition-colors relative ${cycle === "yearly" ? "bg-[var(--metin)] text-[var(--zemin)]" : "text-slate-400 hover:text-white"}`}
               aria-pressed={cycle === "yearly"}
             >
               {p.toggle.yearly}
-              <span className="ms-2 text-[10px] bg-emerald-500/30 text-emerald-200 px-1.5 py-0.5 rounded-[3px]">−{YEARLY_DISCOUNT_RATE * 100}%</span>
+              <span className="ms-2 text-[10px] px-1.5 py-0.5 rounded-[3px]" style={{ color: "var(--metrik-yesil)" }}>−{YEARLY_DISCOUNT_RATE * 100}%</span>
             </button>
           </div>
         </div>
@@ -386,10 +386,10 @@ export default function PricingPage() {
         </div>
 
         {cycle === "yearly" && (
-          <div className="rounded-[20px] border border-emerald-500/30 bg-emerald-500/5 p-4 text-center">
-            <p className="text-sm text-emerald-200">
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 text-center">
+            <p className="text-sm text-white">
               <Sparkles className="inline h-4 w-4 me-1" />
-              {p.yearlySavings}: <strong className="text-white" dir="ltr">{formatTry(totalYearlySaving)}</strong>
+              {p.yearlySavings}: <strong style={{ color: "var(--metrik-yesil)" }} dir="ltr">{formatTry(totalYearlySaving)}</strong>
             </p>
           </div>
         )}
@@ -397,80 +397,80 @@ export default function PricingPage() {
         {/* KATMAN 4 — GÜVEN: iade + iptal + SSS + KVKK */}
         <div className="mt-12 space-y-4">
           <div className="flex items-center gap-2 pb-2 border-b border-slate-700">
-            <Shield className="h-5 w-5 text-emerald-400" />
+            <Shield className="h-5 w-5 text-[var(--metin-ikincil)]" />
             <h2 className="text-xl font-normal text-white">{p.trustHeader}</h2>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             {/* İade Politikası */}
-            <div className="rounded-[20px] border border-emerald-500/20 bg-slate-900/40 p-5">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-5">
               <div className="flex items-start gap-2 mb-3">
-                <RefreshCw className="h-5 w-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+                <RefreshCw className="h-5 w-5 text-white flex-shrink-0 mt-0.5" />
                 <h3 className="text-base font-normal text-white">{p.refundTitle}</h3>
               </div>
               <ul className="space-y-2 text-xs text-slate-300">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                   <span>{p.refund.d14}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                   <span>{p.refund.cancel}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                   <span>{p.refund.upgrade}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
                   <span>{p.refund.delete}</span>
                 </li>
               </ul>
             </div>
 
             {/* SSS */}
-            <div className="rounded-[20px] border border-cyan-500/20 bg-slate-900/40 p-5">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-5">
               <div className="flex items-start gap-2 mb-3">
-                <Info className="h-5 w-5 text-cyan-300 flex-shrink-0 mt-0.5" />
+                <Info className="h-5 w-5 text-white flex-shrink-0 mt-0.5" />
                 <h3 className="text-base font-normal text-white">{p.faqTitle}</h3>
               </div>
               <div className="space-y-3 text-xs text-slate-300">
                 <div>
-                  <p className="font-normal text-cyan-200 mb-1">{p.faq.paymentQ}</p>
+                  <p className="font-normal text-white mb-1">{p.faq.paymentQ}</p>
                   <p>{p.faq.paymentA}</p>
                 </div>
                 <div>
-                  <p className="font-normal text-cyan-200 mb-1">{p.faq.commissionQ}</p>
-                  <p>{p.faq.commissionA} <button type="button" onClick={() => navigate("/komisyon")} className="text-cyan-300 underline">/komisyon</button>.</p>
+                  <p className="font-normal text-white mb-1">{p.faq.commissionQ}</p>
+                  <p>{p.faq.commissionA} <button type="button" onClick={() => navigate("/komisyon")} className="text-[var(--metin-ikincil)] underline">/komisyon</button>.</p>
                 </div>
                 <div>
-                  <p className="font-normal text-cyan-200 mb-1">{p.faq.priceQ}</p>
+                  <p className="font-normal text-white mb-1">{p.faq.priceQ}</p>
                   <p>{p.faq.priceA}</p>
                 </div>
                 <div>
-                  <p className="font-normal text-cyan-200 mb-1">{p.faq.kvkkQ}</p>
-                  <p>{p.faq.kvkkA} <button type="button" onClick={() => navigate("/kvkk")} className="text-cyan-300 underline">KVKK</button>.</p>
+                  <p className="font-normal text-white mb-1">{p.faq.kvkkQ}</p>
+                  <p>{p.faq.kvkkA} <button type="button" onClick={() => navigate("/kvkk")} className="text-[var(--metin-ikincil)] underline">KVKK</button>.</p>
                 </div>
               </div>
             </div>
 
             {/* Mevzuat */}
-            <div className="rounded-[20px] border border-violet-500/20 bg-slate-900/40 p-5 md:col-span-2">
+            <div className="rounded-[20px] border border-[var(--cizgi)] bg-slate-900/40 p-5 md:col-span-2">
               <div className="flex items-start gap-2 mb-3">
-                <Scale className="h-5 w-5 text-violet-300 flex-shrink-0 mt-0.5" />
+                <Scale className="h-5 w-5 text-white flex-shrink-0 mt-0.5" />
                 <h3 className="text-base font-normal text-white">{p.legalTitle}</h3>
               </div>
               <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                <div className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-normal text-violet-300 mb-1">{p.legal.distanceSale.title}</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30 p-3">
+                  <p className="font-normal text-white mb-1">{p.legal.distanceSale.title}</p>
                   <p className="text-slate-300">{p.legal.distanceSale.desc}</p>
                 </div>
-                <div className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-normal text-violet-300 mb-1">{p.legal.kvkk.title}</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30 p-3">
+                  <p className="font-normal text-white mb-1">{p.legal.kvkk.title}</p>
                   <p className="text-slate-300">{p.legal.kvkk.desc}</p>
                 </div>
-                <div className="rounded-[10px] border border-violet-400/15 bg-slate-900/30 p-3">
-                  <p className="font-normal text-violet-300 mb-1">{p.legal.payment.title}</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30 p-3">
+                  <p className="font-normal text-white mb-1">{p.legal.payment.title}</p>
                   <p className="text-slate-300">{p.legal.payment.desc}</p>
                 </div>
               </div>
@@ -479,27 +479,27 @@ export default function PricingPage() {
 
           {/* Güven rozetleri */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-3 text-[11px] text-slate-500">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-slate-900/40 px-3 py-1">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-slate-900/40 px-3 py-1">
+              <CheckCircle2 className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
               {p.trustBadges.refund}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-slate-900/40 px-3 py-1">
-              <RefreshCw className="h-3.5 w-3.5 text-cyan-400" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-slate-900/40 px-3 py-1">
+              <RefreshCw className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
               {p.trustBadges.cancel}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-slate-900/40 px-3 py-1">
-              <Shield className="h-3.5 w-3.5 text-violet-400" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-slate-900/40 px-3 py-1">
+              <Shield className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
               {p.trustBadges.compliant}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-slate-900/40 px-3 py-1">
-              <ScrollText className="h-3.5 w-3.5 text-amber-400" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--cizgi)] bg-slate-900/40 px-3 py-1">
+              <ScrollText className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" />
               {p.trustBadges.noContract}
             </span>
           </div>
 
           {/* İletişim CTA */}
-          <div className="mt-6 rounded-[20px] border border-amber-500/25 bg-amber-500/5 p-5 text-center">
-            <AlertTriangle className="h-6 w-6 text-amber-300 mx-auto mb-2" />
+          <div className="mt-6 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-5 text-center">
+            <AlertTriangle className="h-6 w-6 text-[var(--metin-ikincil)] mx-auto mb-2" />
             <h3 className="text-base font-normal text-white mb-1">{p.corporateTitle}</h3>
             <p className="text-xs text-slate-300 mb-4">
               {p.corporateDesc}
@@ -507,7 +507,7 @@ export default function PricingPage() {
             <button
               type="button"
               onClick={() => navigate("/iletisim")}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] bg-amber-600 hover:bg-amber-500 text-white text-sm font-normal"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] bg-[var(--metin)] hover:bg-white text-[var(--zemin)] text-sm font-normal"
             >
               <Mail className="h-4 w-4" /> {p.corporateCta}
             </button>
