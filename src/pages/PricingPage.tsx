@@ -293,7 +293,7 @@ export default function PricingPage() {
               <Sparkles className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: "var(--durum-uyari)" }} />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <h2 className="text-sm font-normal" style={{ color: "var(--durum-uyari)" }}>{EARLY_MEMBER_LABEL}</h2>
+                  <h2 className="text-base font-normal" style={{ color: "var(--durum-uyari)" }}>{EARLY_MEMBER_LABEL}</h2>
                   <span className="inline-flex items-center gap-1 rounded-full text-[10px] font-normal px-2 py-0.5 border" style={{ color: "var(--durum-uyari)", borderColor: "var(--durum-uyari)" }}>
                     Sınırlı
                   </span>

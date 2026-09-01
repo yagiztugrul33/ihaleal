@@ -406,7 +406,7 @@ export default function Analytics() {
             {/* İhaleal Endeksi — bölge bandı */}
             <div className={`mb-10 transition-all duration-700 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                <h2 className="text-xl font-normal text-white flex items-center gap-2">
+                <h2 className="text-2xl font-normal text-white flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-[var(--metin-ikincil)]" />
                   İhaleal Endeksi — bölge bandı
                 </h2>
@@ -564,7 +564,7 @@ export default function Analytics() {
 
             {/* Demografi */}
             <div className={`mb-10 transition-all duration-700 delay-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <h2 className="text-xl font-normal text-white mb-4 flex items-center gap-2">
+              <h2 className="text-2xl font-normal text-white mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-[var(--metin-ikincil)]" />
                 Demografi Verileri
               </h2>
