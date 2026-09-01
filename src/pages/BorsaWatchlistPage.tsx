@@ -173,29 +173,29 @@ export default function BorsaWatchlistPage() {
 
   return (
     <main className="w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
-      <section className="rounded-xl border border-cyan-500/35 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
-        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">{b.watchlistEyebrow}</p>
-        <h1 className="mt-1 text-2xl font-black text-white">{b.watchlistTitle}</h1>
+      <section className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+        <p className="text-[11px] font-normal uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">{b.watchlistEyebrow}</p>
+        <h1 className="mt-1 text-2xl font-normal text-white">{b.watchlistTitle}</h1>
         <p className="mt-2 text-sm text-slate-300">
           Takip ettiğiniz varlıkları canlı fiyatla izleyin, teklif geçilmesi ve kapanış alarmlarını kart bazlı yönetin.
         </p>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.45fr_1fr]">
-        <article className="rounded-xl border border-border bg-card p-3">
+        <article className="rounded-[10px] border border-border bg-card p-3">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Takip Listesi</h2>
+            <h2 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Takip Listesi</h2>
             <span className="text-xs text-slate-400">{watchlistRows.length} varlık</span>
           </div>
 
           {watchlistRows.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-600 bg-slate-900/60 p-4 text-center">
-              <p className="text-sm font-semibold text-slate-200">Takip listeniz boş</p>
+            <div className="rounded-[10px] border border-dashed border-slate-600 bg-slate-900/60 p-4 text-center">
+              <p className="text-sm font-normal text-slate-200">Takip listeniz boş</p>
               <p className="mt-1 text-xs text-slate-400">Varlık ekleyerek fiyat, outbid ve bitiş alarmlarını açabilirsiniz.</p>
               <button
                 type="button"
                 onClick={() => navigate("/borsa/varliklar")}
-                className="mt-3 inline-flex items-center gap-1 rounded-md border border-cyan-400/50 bg-cyan-500/15 px-3 py-1.5 text-xs font-semibold text-cyan-100"
+                className="mt-3 inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] px-3 py-1.5 text-xs font-normal text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
               >
                 <PlusCircle className="h-3.5 w-3.5" /> Varlık Ekle
               </button>
@@ -216,10 +216,10 @@ export default function BorsaWatchlistPage() {
                 <tbody>
                   {watchlistRows.map((row) => (
                     <tr key={row.id} className="border-t border-slate-800/80">
-                      <td className="py-2.5 pe-3 font-semibold text-cyan-200">{row.code}</td>
+                      <td className="py-2.5 pe-3 font-normal text-slate-200">{row.code}</td>
                       <td className="py-2.5 pe-3 text-slate-200">{row.property}</td>
-                      <td className="py-2.5 pe-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
-                      <td className={cn("py-2.5 pe-3 font-bold", row.changePct >= 0 ? "text-emerald-300" : "text-rose-300")}>
+                      <td className="py-2.5 pe-3 font-normal text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
+                      <td className="py-2.5 pe-3 font-normal" style={{ color: row.changePct >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                         {row.changePct >= 0 ? "+" : ""}
                         {row.changePct.toFixed(2)}%
                       </td>
@@ -229,14 +229,14 @@ export default function BorsaWatchlistPage() {
                           <button
                             type="button"
                             onClick={() => navigate(`/borsa/varlik/${row.id}?intent=bid`)}
-                            className="rounded-md border border-emerald-400/50 bg-emerald-500/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-emerald-100"
+                            className="rounded-[3px] border border-[var(--cizgi)] px-2 py-1 text-[10px] font-normal uppercase tracking-[0.1em] text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
                           >
                             Hızlı Teklif
                           </button>
                           <button
                             type="button"
                             onClick={() => navigate(`/borsa/varlik/${row.id}`)}
-                            className="rounded-md border border-cyan-400/50 bg-cyan-500/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-cyan-100"
+                            className="rounded-[3px] border border-[var(--cizgi)] px-2 py-1 text-[10px] font-normal uppercase tracking-[0.1em] text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
                           >
                             Detay
                           </button>
@@ -250,10 +250,10 @@ export default function BorsaWatchlistPage() {
           )}
         </article>
 
-        <article className="rounded-xl border border-border bg-card p-3">
+        <article className="rounded-[10px] border border-border bg-card p-3">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bildirim Tercihleri</h2>
-            <Bell className="h-4 w-4 text-cyan-300" />
+            <h2 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Bildirim Tercihleri</h2>
+            <Bell className="h-4 w-4 text-[var(--metin-ikincil)]" />
           </div>
           <div className="space-y-2 text-xs">
             {[
@@ -263,7 +263,7 @@ export default function BorsaWatchlistPage() {
               { key: "endingSoon", label: "Açık artırma bitiyor alarmı" },
               { key: "kvkkOptIn", label: "KVKK izinli demo bildirim onayı" },
             ].map((item) => (
-              <label key={item.key} className="flex items-center justify-between rounded-lg border border-slate-700/80 bg-slate-900/65 px-2.5 py-2">
+              <label key={item.key} className="flex items-center justify-between rounded-[10px] border border-slate-700/80 bg-slate-900/65 px-2.5 py-2">
                 <span className="text-slate-200">{item.label}</span>
                 <input
                   type="checkbox"
@@ -274,32 +274,32 @@ export default function BorsaWatchlistPage() {
                       [item.key]: e.target.checked,
                     }))
                   }
-                  className="h-4 w-4 accent-cyan-400"
+                  className="h-4 w-4 accent-[var(--metin-ikincil)]"
                 />
               </label>
             ))}
           </div>
-          <p className="mt-3 rounded-lg border border-amber-500/35 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
+          <p className="mt-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-2 text-[11px] text-[var(--metin-ikincil)]">
             Demo ortam: bildirimler simüle edilir; canlıda açık rıza ve KVKK süreçleri zorunludur.
           </p>
         </article>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-3">
-        <article className="rounded-xl border border-border bg-card p-3">
-          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Fiyat Hedefi Alarmları</h3>
+        <article className="rounded-[10px] border border-border bg-card p-3">
+          <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">Fiyat Hedefi Alarmları</h3>
           <div className="space-y-2">
             {priceAlertCards.length === 0 ? (
-              <p className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
+              <p className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
                 Aktif fiyat hedefi bulunmuyor.
               </p>
             ) : (
               priceAlertCards.map((card) => (
-                <div key={card.id} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
-                  <p className="font-semibold text-slate-100">
+                <div key={card.id} className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
+                  <p className="font-normal text-slate-100">
                     {card.code} · {card.direction === "above" ? "Üzeri" : "Altı"} {formatTry(card.target)}
                   </p>
-                  <p className={cn("mt-1", card.hit ? "text-emerald-300" : "text-slate-400")}>
+                  <p className={cn("mt-1", !card.hit && "text-slate-400")} style={card.hit ? { color: "var(--metrik-yesil)" } : undefined}>
                     Güncel: {formatTry(card.current)} {card.hit ? "· Tetiklendi (demo)" : ""}
                   </p>
                 </div>
@@ -308,8 +308,8 @@ export default function BorsaWatchlistPage() {
           </div>
         </article>
 
-        <article className="rounded-xl border border-border bg-card p-3">
-          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Bölge Endeks İzleme</h3>
+        <article className="rounded-[10px] border border-border bg-card p-3">
+          <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">Bölge Endeks İzleme</h3>
           <p className="mb-3 text-[11px] text-slate-400">Endeks değişiminde uygulama içi bildirim (≥0,5 puan).</p>
           <div className="flex flex-wrap gap-2">
             {BORSA_REGIONS.map((r) => (
@@ -318,10 +318,10 @@ export default function BorsaWatchlistPage() {
                 type="button"
                 onClick={() => toggle(r.code)}
                 className={cn(
-                  "rounded-md border px-2.5 py-1 text-xs font-semibold",
+                  "rounded-[3px] border px-2.5 py-1 text-xs font-normal",
                   watched.includes(r.code)
-                    ? "border-cyan-400/50 bg-cyan-500/15 text-cyan-100"
-                    : "border-slate-600 bg-slate-800 text-slate-400",
+                    ? "border-[var(--metin-ikincil)] bg-[var(--zemin)] text-[var(--metin)]"
+                    : "border-[var(--cizgi)] text-[var(--metin-ikincil)]",
                 )}
               >
                 {r.label}
@@ -330,24 +330,25 @@ export default function BorsaWatchlistPage() {
           </div>
         </article>
 
-        <article className="rounded-xl border border-border bg-card p-3">
-          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Teklif Geçildi (Outbid)</h3>
+        <article className="rounded-[10px] border border-border bg-card p-3">
+          <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">Teklif Geçildi (Outbid)</h3>
           <div className="space-y-2">
             {outbidRows.length === 0 ? (
-              <p className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-100">
+              <p className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs" style={{ color: "var(--metrik-yesil)" }}>
                 Aktif outbid alarmı yok, tekliflerin şu an güvende.
               </p>
             ) : (
               outbidRows.map((row) => (
-                <div key={row.id} className="rounded-lg border border-rose-500/35 bg-rose-500/10 px-3 py-2 text-xs text-rose-100">
-                  <p className="font-semibold">{row.code}</p>
+                <div key={row.id} className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs" style={{ color: "var(--sinyal-turuncu)" }}>
+                  <p className="font-normal">{row.code}</p>
                   <p className="mt-1">
                     Senin teklifin {formatTry(row.mine)} · güncel en yüksek {formatTry(row.current)}
                   </p>
                   <button
                     type="button"
                     onClick={() => navigate(`/borsa/varlik/${row.id}?intent=bid`)}
-                    className="mt-2 inline-flex items-center gap-1 rounded-md border border-rose-400/55 bg-rose-500/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-rose-100"
+                    className="mt-2 inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] px-2 py-1 text-[10px] font-normal uppercase tracking-[0.1em]"
+                    style={{ color: "var(--sinyal-turuncu)" }}
                   >
                     <Siren className="h-3.5 w-3.5" /> Teklifi Güncelle
                   </button>
@@ -357,22 +358,23 @@ export default function BorsaWatchlistPage() {
           </div>
         </article>
 
-        <article className="rounded-xl border border-border bg-card p-3">
-          <h3 className="mb-3 text-sm font-black uppercase tracking-[0.12em] text-slate-200">Açık Artırma Bitiyor</h3>
+        <article className="rounded-[10px] border border-border bg-card p-3">
+          <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.12em] text-slate-200">Açık Artırma Bitiyor</h3>
           <div className="space-y-2">
             {endingSoonRows.length === 0 ? (
-              <p className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
+              <p className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
                 45 dakikanın altında ihale yok.
               </p>
             ) : (
               endingSoonRows.map((row) => (
-                <div key={row.id} className="rounded-lg border border-amber-500/35 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
-                  <p className="font-semibold">{row.code}</p>
+                <div key={row.id} className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs" style={{ color: "var(--sinyal-turuncu)" }}>
+                  <p className="font-normal">{row.code}</p>
                   <p className="mt-1">{formatRemaining(row.remainingMin)} kaldı · {formatTry(row.price)}</p>
                   <button
                     type="button"
                     onClick={() => navigate(`/borsa/varlik/${row.id}`)}
-                    className="mt-2 inline-flex items-center gap-1 rounded-md border border-amber-400/55 bg-amber-500/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-amber-100"
+                    className="mt-2 inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] px-2 py-1 text-[10px] font-normal uppercase tracking-[0.1em]"
+                    style={{ color: "var(--sinyal-turuncu)" }}
                   >
                     <Clock3 className="h-3.5 w-3.5" /> Detaya Git
                   </button>
@@ -383,15 +385,15 @@ export default function BorsaWatchlistPage() {
         </article>
       </section>
 
-      <section className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-3 py-2 text-[11px] text-cyan-100">
+      <section className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-[11px] text-[var(--metin-ikincil)]">
         <p className="inline-flex items-center gap-1">
           <ShieldCheck className="h-3.5 w-3.5" />
           İzleme verileri demo simülasyondur; gerçek bildirim ve bildirim saklama süreçleri canlı regülasyon onayı ile açılır.
         </p>
       </section>
 
-      <section className="rounded-xl border border-slate-700/80 bg-slate-900/65 p-3">
-        <h3 className="text-sm font-black uppercase tracking-[0.12em] text-slate-200">Hızlı Ekle</h3>
+      <section className="rounded-[10px] border border-slate-700/80 bg-slate-900/65 p-3">
+        <h3 className="text-sm font-normal uppercase tracking-[0.12em] text-slate-200">Hızlı Ekle</h3>
         <p className="mt-1 text-xs text-slate-400">En çok yükselen varlıkları tek tıkla izleme listesine ekleyin.</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {[...data]
@@ -404,7 +406,8 @@ export default function BorsaWatchlistPage() {
                 onClick={() =>
                   setWatchlistIds((prev) => (prev.includes(row.id) ? prev : [...prev, row.id]))
                 }
-                className="inline-flex items-center gap-1 rounded-md border border-emerald-400/45 bg-emerald-500/10 px-2.5 py-1.5 text-xs font-semibold text-emerald-100"
+                className="inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] px-2.5 py-1.5 text-xs font-normal hover:bg-[var(--zemin-yumusak)]"
+                style={{ color: "var(--metrik-yesil)" }}
               >
                 <TrendingUp className="h-3.5 w-3.5" />
                 {row.code}
