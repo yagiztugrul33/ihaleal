@@ -134,33 +134,33 @@ export default function BorsaPortfolioPage() {
   return (
     <main className="w-full bg-background px-4 py-6 text-foreground lg:px-8 2xl:px-12">
       <div className="mx-auto w-full max-w-7xl space-y-5">
-        <section className="grid gap-2 rounded-xl border border-emerald-500/35 bg-emerald-500/10 p-3 text-xs text-emerald-100 md:grid-cols-4">
-          <div className="inline-flex items-center gap-1.5 rounded-md border border-emerald-400/40 bg-emerald-500/10 px-2 py-1">
+        <section className="grid gap-2 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-xs text-[var(--metin-ikincil)] md:grid-cols-4">
+          <div className="inline-flex items-center gap-1.5 rounded-[3px] border border-[var(--cizgi)] px-2 py-1">
             <ShieldCheck className="h-3.5 w-3.5" /> Escrow korumalı
           </div>
-          <div className="inline-flex items-center gap-1.5 rounded-md border border-emerald-400/40 bg-emerald-500/10 px-2 py-1">
+          <div className="inline-flex items-center gap-1.5 rounded-[3px] border border-[var(--cizgi)] px-2 py-1">
             <BadgeCheck className="h-3.5 w-3.5" /> KYC doğrulanmış
           </div>
-          <div className="inline-flex items-center gap-1.5 rounded-md border border-emerald-400/40 bg-emerald-500/10 px-2 py-1">
+          <div className="inline-flex items-center gap-1.5 rounded-[3px] border border-[var(--cizgi)] px-2 py-1">
             <ScrollText className="h-3.5 w-3.5" /> {b.auditableLog}
           </div>
-          <div className="inline-flex items-center justify-between gap-2 rounded-md border border-emerald-400/40 bg-emerald-500/10 px-2 py-1">
+          <div className="inline-flex items-center justify-between gap-2 rounded-[3px] border border-[var(--cizgi)] px-2 py-1">
             <span className="inline-flex items-center gap-1.5">
               <Lock className="h-3.5 w-3.5" /> {b.encrypted}
             </span>
-            <Link to="/guvenlik" className="text-emerald-50 underline underline-offset-2">
+            <Link to="/guvenlik" className="text-[var(--metin)] underline underline-offset-2">
               {b.howSecure}
             </Link>
           </div>
         </section>
 
-        <header className="app-section app-premium-gradient">
-          <p className="text-xs uppercase tracking-[0.16em] text-cyan-200">{b.portfolioEyebrow}</p>
-          <h1 className="mt-1 text-2xl font-black text-foreground">{b.portfolioTitle}</h1>
+        <header className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+          <p className="text-xs uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">{b.portfolioEyebrow}</p>
+          <h1 className="mt-1 text-2xl font-normal text-foreground">{b.portfolioTitle}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {b.portfolioDesc}
           </p>
-          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+          <div className="mt-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] px-3 py-2 text-xs text-[var(--metin-ikincil)]">
             <p>{MASTER_INFO_DISCLAIMER}</p>
             <p className="mt-1">{PHYSICAL_ASSET_ONLY_DISCLAIMER}</p>
           </div>
@@ -168,32 +168,32 @@ export default function BorsaPortfolioPage() {
 
         <section className="grid gap-3 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <div className="grid gap-3 sm:grid-cols-3">
-            <article className="app-kpi hover-premium">
+            <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 transition hover:border-[var(--metin-ikincil)]">
               <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{b.totalPurchase}</p>
-              <p className="mt-1 text-2xl font-black text-foreground" dir="ltr">{formatTry(totalPurchase)}</p>
+              <p className="mt-1 text-2xl font-normal text-foreground" dir="ltr">{formatTry(totalPurchase)}</p>
               <FxRef amountTry={totalPurchase} variant="block" />
             </article>
-            <article className="app-kpi hover-premium">
+            <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 transition hover:border-[var(--metin-ikincil)]">
               <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{b.currentValue}</p>
-              <p className="mt-1 text-2xl font-black text-foreground" dir="ltr">{formatTry(totalCurrent)}</p>
+              <p className="mt-1 text-2xl font-normal text-foreground" dir="ltr">{formatTry(totalCurrent)}</p>
               <FxRef amountTry={totalCurrent} variant="block" />
             </article>
-            <article className="app-kpi hover-premium">
+            <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 transition hover:border-[var(--metin-ikincil)]">
               <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">{b.pnlLabel}</p>
-              <p className={`mt-1 text-2xl font-black ${pnl >= 0 ? "text-emerald-300" : "text-rose-300"}`}>
+              <p className="mt-1 text-2xl font-normal" style={{ color: pnl >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                 {pnl >= 0 ? "+" : ""}
                 {formatTry(pnl)} ({pnlPct.toFixed(1)}%)
               </p>
               <FxRef amountTry={pnl} variant="block" />
             </article>
           </div>
-          <article className="app-section">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">{b.portfolioTrend}</p>
+          <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">{b.portfolioTrend}</p>
             <div className="mt-2 h-28 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={trendData}>
                   <Tooltip formatter={(value: number) => [formatTry(value), b.tooltipValue]} labelFormatter={(label) => `${b.periodPrefix} ${label}`} />
-                  <Line dataKey="value" stroke="#22d3ee" strokeWidth={2.3} dot={false} isAnimationActive={false} />
+                  <Line dataKey="value" stroke="#eeeeee" strokeWidth={2.3} dot={false} isAnimationActive={false} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -201,37 +201,37 @@ export default function BorsaPortfolioPage() {
         </section>
 
         <section className="grid gap-3 lg:grid-cols-2">
-          <article className="app-section">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">{b.distributionSegment}</p>
+          <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">{b.distributionSegment}</p>
             <div className="mt-2 h-52 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie data={segmentData} dataKey="value" nameKey="name" outerRadius={78} fill="#22d3ee" />
+                  <Pie data={segmentData} dataKey="value" nameKey="name" outerRadius={78} fill="#8a8380" />
                   <Tooltip formatter={(value: number) => formatTry(value)} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
             <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-300">
               {segmentData.map((item) => (
-                <span key={item.name} className="rounded-full border border-border bg-secondary px-2 py-1">
+                <span key={item.name} className="rounded-[3px] border border-border bg-secondary px-2 py-1">
                   {item.name.toLocaleUpperCase("tr-TR")}: {formatTry(item.value)}
                 </span>
               ))}
             </div>
           </article>
-          <article className="app-section">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cyan-200">{b.distributionRegion}</p>
+          <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">{b.distributionRegion}</p>
             <div className="mt-2 h-52 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie data={regionData} dataKey="value" nameKey="name" outerRadius={78} fill="#38bdf8" />
+                  <Pie data={regionData} dataKey="value" nameKey="name" outerRadius={78} fill="#c7c2be" />
                   <Tooltip formatter={(value: number) => formatTry(value)} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
             <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-300">
               {regionData.map((item) => (
-                <span key={item.name} className="rounded-full border border-border bg-secondary px-2 py-1">
+                <span key={item.name} className="rounded-[3px] border border-border bg-secondary px-2 py-1">
                   {item.name}: {formatTry(item.value)}
                 </span>
               ))}
@@ -251,39 +251,39 @@ export default function BorsaPortfolioPage() {
             const perfPct = (perf / Math.max(1, asset.purchaseTry)) * 100;
 
             return (
-              <article key={asset.id} className="app-section hover-premium">
+              <article key={asset.id} className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 transition hover:border-[var(--metin-ikincil)]">
                 <div className="grid gap-3 lg:grid-cols-[90px_minmax(0,1fr)]">
-                  <div className="flex h-20 items-center justify-center rounded-xl border border-border bg-secondary text-cyan-200">
+                  <div className="flex h-20 items-center justify-center rounded-[10px] border border-border bg-secondary text-[var(--metin-ikincil)]">
                     <Building2 className="h-8 w-8" />
                   </div>
                   <div>
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>
-                        <h2 className="text-lg font-bold text-foreground">{asset.title}</h2>
+                        <h2 className="text-lg font-normal text-foreground">{asset.title}</h2>
                         <p className="text-sm text-muted-foreground">{asset.location}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-200">
+                        <span className="inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] px-2 py-0.5 text-[11px]" style={{ color: "var(--metrik-yesil)" }}>
                           <BadgeCheck className="h-3 w-3" /> {b.verified}
                         </span>
                         <Link
                           to={`/ilan/${asset.id}`}
-                          className="rounded-lg border border-cyan-400/35 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold text-cyan-100"
+                          className="rounded-[3px] border border-[var(--cizgi)] px-3 py-1.5 text-xs font-normal text-[var(--metin)] hover:bg-[var(--zemin)]"
                         >
                           Mülk Pasaportu
                         </Link>
                       </div>
                     </div>
                     <div className="mt-2 grid gap-2 sm:grid-cols-3">
-                      <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">
+                      <div className="rounded-[10px] border border-border bg-secondary p-2 text-xs text-slate-300">
                         Alış: <strong className="text-white">{formatTry(asset.purchaseTry)}</strong>
                       </div>
-                      <div className="rounded-lg border border-border bg-secondary p-2 text-xs text-slate-300">
+                      <div className="rounded-[10px] border border-border bg-secondary p-2 text-xs text-slate-300">
                         Güncel: <strong className="text-white">{formatTry(asset.currentTry)}</strong>
                       </div>
-                      <div className="rounded-lg border border-border bg-secondary p-2 text-xs">
+                      <div className="rounded-[10px] border border-border bg-secondary p-2 text-xs">
                         <span className="text-slate-300">Performans: </span>
-                        <strong className={perf >= 0 ? "text-emerald-300" : "text-rose-300"}>
+                        <strong style={{ color: perf >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                           {perf >= 0 ? "+" : ""}
                           {formatTry(perf)} ({perfPct.toFixed(1)}%)
                         </strong>
@@ -301,7 +301,7 @@ export default function BorsaPortfolioPage() {
                         type="button"
                         title={action.description}
                         onClick={() => setConfirmAction({ asset, action })}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-secondary px-2 py-2 text-xs font-semibold text-muted-foreground hover:border-cyan-400/60 hover:text-cyan-100"
+                        className="inline-flex items-center justify-center gap-2 rounded-[3px] border border-border bg-secondary px-2 py-2 text-xs font-normal text-muted-foreground hover:border-[var(--metin-ikincil)] hover:text-[var(--metin)]"
                       >
                         <Icon className="h-3.5 w-3.5" /> {action.label}
                       </button>
@@ -313,18 +313,18 @@ export default function BorsaPortfolioPage() {
                 </p>
 
                 <div className="mt-4 grid gap-3 lg:grid-cols-3">
-                  <div className="rounded-lg border border-border bg-secondary/80 p-3 text-sm">
-                    <p className="mb-1 flex items-center gap-1 font-semibold text-foreground">
-                      <Percent className="h-3.5 w-3.5 text-cyan-300" /> Vergi Ön Hesap
+                  <div className="rounded-[10px] border border-border bg-secondary/80 p-3 text-sm">
+                    <p className="mb-1 flex items-center gap-1 font-normal text-foreground">
+                      <Percent className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" /> Vergi Ön Hesap
                     </p>
                     <p className="text-muted-foreground">Elde tutma: {tax.yearsHeld.toFixed(1)} yıl</p>
                     <p className="text-muted-foreground">Tapu harcı (%4): {formatTry(tax.titleDeedFeeTry)}</p>
                     <p className="text-muted-foreground">Değer artışı vergisi (tahmini): {formatTry(tax.estimatedValueGainTaxTry)}</p>
-                    <p className="mt-1 text-[11px] text-amber-200">Not: Mali müşavire danışın.</p>
+                    <p className="mt-1 text-[11px] text-[var(--metin-ikincil)]">Not: Mali müşavire danışın.</p>
                   </div>
-                  <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-3 text-sm">
-                    <p className="mb-1 flex items-center gap-1 font-semibold text-white">
-                      <History className="h-3.5 w-3.5 text-cyan-300" /> İşlem Geçmişi
+                  <div className="rounded-[10px] border border-slate-700 bg-slate-950/60 p-3 text-sm">
+                    <p className="mb-1 flex items-center gap-1 font-normal text-white">
+                      <History className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" /> İşlem Geçmişi
                     </p>
                     <ul className="space-y-1 text-slate-300">
                       <li>03.04.2026 · Değer güncellemesi</li>
@@ -332,13 +332,13 @@ export default function BorsaPortfolioPage() {
                       <li>11.03.2026 · Belge paketi yenilendi</li>
                     </ul>
                   </div>
-                  <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-3 text-sm">
-                    <p className="mb-1 flex items-center gap-1 font-semibold text-white">
-                      <ScrollText className="h-3.5 w-3.5 text-cyan-300" /> Mülk Pasaportu
+                  <div className="rounded-[10px] border border-slate-700 bg-slate-950/60 p-3 text-sm">
+                    <p className="mb-1 flex items-center gap-1 font-normal text-white">
+                      <ScrollText className="h-3.5 w-3.5 text-[var(--metin-ikincil)]" /> Mülk Pasaportu
                     </p>
                     <p className="text-slate-300">Durum: Doğrulandı · Kayıt no: {asset.id.toUpperCase()}</p>
                     <p className="text-slate-300">Son denetim: 5 gün önce</p>
-                    <span className="mt-1 inline-flex rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-200">
+                    <span className="mt-1 inline-flex rounded-[3px] border border-[var(--cizgi)] px-2 py-0.5 text-[11px]" style={{ color: "var(--metrik-yesil)" }}>
                       Kurumsal uyum tamam
                     </span>
                   </div>
@@ -348,14 +348,14 @@ export default function BorsaPortfolioPage() {
           })}
         </section>
 
-        <section className="app-section">
-          <p className="mb-1 flex items-center gap-2 text-sm font-semibold text-white">
-            <BadgePercent className="h-4 w-4 text-cyan-300" /> Fraksiyonel / Paylı Mülkiyet
+        <section className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+          <p className="mb-1 flex items-center gap-2 text-sm font-normal text-white">
+            <BadgePercent className="h-4 w-4 text-[var(--metin-ikincil)]" /> Fraksiyonel / Paylı Mülkiyet
           </p>
           <button
             type="button"
             disabled
-            className="inline-flex cursor-not-allowed items-center gap-2 rounded-lg border border-slate-600 bg-slate-950/70 px-3 py-2 text-xs text-slate-400"
+            className="inline-flex cursor-not-allowed items-center gap-2 rounded-[3px] border border-slate-600 bg-slate-950/70 px-3 py-2 text-xs text-slate-400"
           >
             Yakında (yasal düzenleme sonrası)
           </button>
@@ -369,26 +369,26 @@ export default function BorsaPortfolioPage() {
 
       {confirmAction ? (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/65 p-4">
-          <div className="w-full max-w-lg rounded-xl border border-border bg-card p-4 shadow-2xl">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-cyan-200">Aksiyon Onayı</p>
-            <h3 className="mt-1 text-lg font-black text-foreground">
+          <div className="w-full max-w-lg rounded-[10px] border border-border bg-card p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--metin-ikincil)]">Aksiyon Onayı</p>
+            <h3 className="mt-1 text-lg font-normal text-foreground">
               {confirmAction.action.label} · {confirmAction.asset.title}
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">{confirmAction.action.description}</p>
-            <p className="mt-2 text-xs text-amber-200">
+            <p className="mt-2 text-xs text-[var(--metin-ikincil)]">
               Bu adım demo yönlendirme üretir; çekirdek ödeme/escrow/KYC akışı değiştirilmez.
             </p>
             <div className="mt-4 flex justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setConfirmAction(null)}
-                className="rounded-md border border-slate-600 bg-slate-900/60 px-3 py-1.5 text-xs text-slate-300"
+                className="rounded-[3px] border border-slate-600 bg-slate-900/60 px-3 py-1.5 text-xs text-slate-300"
               >
                 Vazgeç
               </button>
               <Link
                 to={`/ihale-ac?source=portfoy&asset=${confirmAction.asset.id}&mode=${confirmAction.action.mode}`}
-                className="rounded-md border border-cyan-400/45 bg-cyan-500/15 px-3 py-1.5 text-xs font-semibold text-cyan-100"
+                className="rounded-[3px] border border-[var(--cizgi)] px-3 py-1.5 text-xs font-normal text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
                 onClick={() => setConfirmAction(null)}
               >
                 Akışı Başlat
