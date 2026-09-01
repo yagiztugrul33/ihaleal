@@ -73,7 +73,7 @@ function getRegionLabel(region: string): string {
   return "Türkiye";
 }
 
-function Sparkline({ points, color = "#38bdf8" }: { points: number[]; color?: string }) {
+function Sparkline({ points, color = "#8a8380" }: { points: number[]; color?: string }) {
   const data = points.map((v, i) => ({ i, v }));
   return (
     <div className="h-11 w-full">
@@ -271,10 +271,10 @@ export default function BorsaPage() {
 
   const summaryCards = useMemo(
     () => [
-      { key: "volume", label: "Toplam İşlem Hacmi", value: totalVolume.toLocaleString("tr-TR"), points: filteredData.map((d) => d.volume), color: "#38bdf8" },
-      { key: "active", label: "Aktif Varlık", value: String(filteredData.length), points: filteredData.map((d) => d.price / 1_000_000), color: "#22d3ee" },
-      { key: "avg", label: "Ort. Değişim%", value: `${averageChange >= 0 ? "+" : ""}${averageChange.toFixed(2)}%`, points: filteredData.map((d) => d.changePct), color: averageChange >= 0 ? "#22c55e" : "#f43f5e" },
-      { key: "watchers", label: "İzleyen", value: watchers.toLocaleString("tr-TR"), points: filteredData.map((_, i) => watchers - (filteredData.length - i) * 2), color: "#c084fc" },
+      { key: "volume", label: "Toplam İşlem Hacmi", value: totalVolume.toLocaleString("tr-TR"), points: filteredData.map((d) => d.volume), color: "#8a8380" },
+      { key: "active", label: "Aktif Varlık", value: String(filteredData.length), points: filteredData.map((d) => d.price / 1_000_000), color: "#8a8380" },
+      { key: "avg", label: "Ort. Değişim%", value: `${averageChange >= 0 ? "+" : ""}${averageChange.toFixed(2)}%`, points: filteredData.map((d) => d.changePct), color: averageChange >= 0 ? "#a0ca92" : "#ee6018" },
+      { key: "watchers", label: "İzleyen", value: watchers.toLocaleString("tr-TR"), points: filteredData.map((_, i) => watchers - (filteredData.length - i) * 2), color: "#8a8380" },
     ],
     [averageChange, filteredData, totalVolume, watchers],
   );
@@ -297,19 +297,7 @@ export default function BorsaPage() {
     return grouped;
   }, [filteredData, historyMap, isLive, regionHeat]);
 
-  const heatCells = useMemo(
-    () =>
-      regionIndexes.map((item) => ({
-        ...item,
-        tone:
-          item.change > 0.4
-            ? "bg-emerald-500/35 border-emerald-400/40"
-            : item.change < -0.4
-              ? "bg-rose-500/35 border-rose-400/40"
-              : "bg-slate-700/50 border-slate-500/40",
-      })),
-    [regionIndexes],
-  );
+  const heatCells = useMemo(() => regionIndexes.map((item) => ({ ...item })), [regionIndexes]);
   const bestRisers = useMemo(() => [...filteredData].sort((a, b) => b.changePct - a.changePct).slice(0, 3), [filteredData]);
   const endingSoon = useMemo(() => [...filteredData].sort((a, b) => a.remainingMin - b.remainingMin).slice(0, 3), [filteredData]);
 
@@ -482,48 +470,48 @@ export default function BorsaPage() {
   return (
     <main className="borsa-root w-full space-y-4 px-4 py-4 text-slate-100 lg:px-8 2xl:px-12">
         <section className="grid gap-3 xl:grid-cols-[minmax(0,1.35fr)_minmax(280px,1fr)]">
-          <article className="rounded-xl border border-cyan-500/30 bg-gradient-to-br from-slate-900 to-slate-950 p-4">
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Gayrimenkul Borsası</p>
-            <h1 className="mt-1 text-2xl font-black text-white lg:text-3xl">Canlı terminale hoş geldiniz</h1>
+          <article className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4">
+            <p className="text-[11px] font-normal uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">Gayrimenkul Borsası</p>
+            <h1 className="mt-1 text-2xl font-normal text-white lg:text-3xl">Canlı terminale hoş geldiniz</h1>
             <p className="mt-2 text-sm text-slate-300">
-              Kod, fiyat, değişim ve hacim birlikte okunur. Yeşil yükselişi, kırmızı düşüşü gösterir; satır tıklayınca teklif akışına geçersiniz.
+              Kod, fiyat, değişim ve hacim birlikte okunur. Yükselişi <span style={{ color: "var(--metrik-yesil)" }}>yeşil</span>, düşüşü <span style={{ color: "var(--sinyal-turuncu)" }}>turuncu</span> gösterir; satır tıklayınca teklif akışına geçersiniz.
             </p>
             <button
               type="button"
               onClick={() => setGuideOpen((prev) => !prev)}
-              className="mt-3 inline-flex rounded-md border border-cyan-400/45 bg-cyan-500/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-cyan-100"
+              className="mt-3 inline-flex rounded-[3px] border border-[var(--cizgi)] px-3 py-1.5 text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)] hover:text-[var(--metin)]"
             >
               Nasıl okunur? {guideOpen ? "Gizle" : "Göster"}
             </button>
             {guideOpen ? (
               <div className="mt-3 grid gap-2 md:grid-cols-3">
-                <div className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 p-2.5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-emerald-200">Yeşil / Kırmızı</p>
-                  <p className="mt-1 text-xs text-slate-300">Yeşil yükseliş, kırmızı geri çekilme; trend yönünü tek bakışta okursun.</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] p-2.5">
+                  <p className="text-[11px] font-normal uppercase tracking-[0.1em] text-[var(--metin-ikincil)]">Yeşil / Turuncu</p>
+                  <p className="mt-1 text-xs text-slate-300">Yeşil yükseliş, turuncu geri çekilme; trend yönünü tek bakışta okursun.</p>
                 </div>
-                <div className="rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2.5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-200">Kod ve Hacim</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] p-2.5">
+                  <p className="text-[11px] font-normal uppercase tracking-[0.1em] text-[var(--metin-ikincil)]">Kod ve Hacim</p>
                   <p className="mt-1 text-xs text-slate-300">Kod varlığın kısa kimliği; hacim o varlıkta işlem derinliğini gösterir.</p>
                 </div>
-                <div className="rounded-lg border border-amber-400/30 bg-amber-500/10 p-2.5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-amber-200">{b.bidStream}</p>
+                <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin)] p-2.5">
+                  <p className="text-[11px] font-normal uppercase tracking-[0.1em] text-[var(--metin-ikincil)]">{b.bidStream}</p>
                   <p className="mt-1 text-xs text-slate-300">Satırı aç, order book ve süreyi incele, sonra detaydan teklif ver.</p>
                 </div>
               </div>
             ) : null}
           </article>
-          <article className="rounded-xl border border-border bg-card p-4">
-            <h2 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bugünün Fırsatları</h2>
+          <article className="rounded-[10px] border border-border bg-card p-4">
+            <h2 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Bugünün Fırsatları</h2>
             <div className="mt-3 space-y-2">
               {bestRisers.map((row) => (
                 <button
                   key={`riser-${row.id}`}
                   type="button"
                   onClick={() => navigate(`/borsa/varlik/${row.id}`)}
-                  className="flex w-full items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-start transition hover:bg-emerald-500/20"
+                  className="flex w-full items-center justify-between rounded-[10px] border border-[var(--cizgi)] px-3 py-2 text-start transition hover:bg-[var(--zemin-yumusak)]"
                 >
-                  <span className="text-xs font-semibold text-emerald-100">{row.code}</span>
-                  <span className="text-xs font-bold text-emerald-200">+{row.changePct.toFixed(2)}%</span>
+                  <span className="text-xs font-normal text-slate-200">{row.code}</span>
+                  <span className="text-xs font-normal" style={{ color: "var(--metrik-yesil)" }}>+{row.changePct.toFixed(2)}%</span>
                 </button>
               ))}
             </div>
@@ -533,25 +521,25 @@ export default function BorsaPage() {
                   key={`ending-${row.id}`}
                   type="button"
                   onClick={() => navigate(`/borsa/varlik/${row.id}`)}
-                  className="flex w-full items-center justify-between rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-start transition hover:bg-amber-500/20"
+                  className="flex w-full items-center justify-between rounded-[10px] border border-[var(--cizgi)] px-3 py-2 text-start transition hover:bg-[var(--zemin-yumusak)]"
                 >
-                  <span className="text-xs font-semibold text-amber-100">{row.code}</span>
-                  <span className="text-xs font-bold text-amber-200">{Math.floor(row.remainingMin / 60)}s {row.remainingMin % 60}dk</span>
+                  <span className="text-xs font-normal text-slate-200">{row.code}</span>
+                  <span className="text-xs font-normal text-slate-400">{Math.floor(row.remainingMin / 60)}s {row.remainingMin % 60}dk</span>
                 </button>
               ))}
             </div>
           </article>
         </section>
 
-        <section className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-3 py-2.5 text-[11px] leading-relaxed text-amber-100">
+        <section className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2.5 text-[11px] leading-relaxed text-[var(--metin-ikincil)]">
           <p>{PLATFORM_LEGAL_DEFINITION}</p>
           <p className="mt-1">{MASTER_INFO_DISCLAIMER}</p>
           <p className="mt-1">{PSP_FLOW_DISCLAIMER}</p>
           <p className="mt-1">{PHYSICAL_ASSET_ONLY_DISCLAIMER}</p>
         </section>
-        <section className="borsa-card rounded-xl p-3">
+        <section className="borsa-card rounded-[10px] p-3">
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">{b.marketTicker}</h2>
+            <h2 className="text-[11px] font-normal uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">{b.marketTicker}</h2>
             <span className="text-[11px] text-slate-400">CANLI</span>
           </div>
           <div className="borsa-ticker" data-testid="borsa-ticker">
@@ -581,15 +569,15 @@ export default function BorsaPage() {
         </section>
 
         {/* Dalga 3-2: Şehir endeksi hızlı geçiş şeridi — /borsa/sehir/:il drilldown */}
-        <section className="rounded-xl border border-cyan-500/25 bg-slate-900/45 px-3 py-2.5" data-testid="borsa-city-ribbon">
+        <section className="rounded-[10px] border border-[var(--cizgi)] bg-slate-900/45 px-3 py-2.5" data-testid="borsa-city-ribbon">
           <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
-            <h2 className="text-[11px] font-black uppercase tracking-[0.16em] text-cyan-200">Şehir Endeksleri</h2>
+            <h2 className="text-[11px] font-normal uppercase tracking-[0.16em] text-[var(--metin-ikincil)]">Şehir Endeksleri</h2>
             <div className="flex items-center gap-2">
               <span className="text-[10px] text-slate-500 hidden sm:inline">Şehir tıkla → endeks + ilçe + ilanlar</span>
               <button
                 type="button"
                 onClick={() => navigate("/raporlar")}
-                className="inline-flex items-center gap-1 rounded-md border border-violet-400/40 bg-violet-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-violet-200 hover:bg-violet-500/20"
+                className="inline-flex items-center gap-1 rounded-[3px] border border-[var(--cizgi)] px-2.5 py-1 text-[10px] font-normal uppercase tracking-wider text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] hover:text-[var(--metin)]"
                 data-testid="raporlar-link"
               >
                 <BarChart3 className="w-3 h-3" /> Aylık raporları gör
@@ -613,7 +601,7 @@ export default function BorsaPage() {
                 key={c.slug}
                 type="button"
                 onClick={() => navigate(`/borsa/sehir/${c.slug}`)}
-                className="inline-flex items-center gap-1 rounded-full border border-slate-700/60 bg-slate-950/50 px-2.5 py-1 text-[11px] text-slate-200 hover:border-cyan-400/40 hover:text-cyan-200 transition-colors"
+                className="inline-flex items-center gap-1 rounded-[3px] border border-slate-700/60 bg-slate-950/50 px-2.5 py-1 text-[11px] text-slate-200 hover:border-[var(--metin-ikincil)] hover:text-[var(--metin)] transition-colors"
               >
                 <MapPin className="w-3 h-3" /> {c.label}
               </button>
@@ -626,13 +614,13 @@ export default function BorsaPage() {
             <article
               key={card.key}
               className={cn(
-                "borsa-card rounded-xl p-3",
+                "borsa-card rounded-[10px] p-3",
                 summaryFlash === "up" && "borsa-flash-up",
                 summaryFlash === "down" && "borsa-flash-down",
               )}
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.13em] text-slate-400">{card.label}</p>
-              <p className="mt-1 text-2xl font-black text-white">{card.value}</p>
+              <p className="text-[11px] font-normal uppercase tracking-[0.13em] text-slate-400">{card.label}</p>
+              <p className="mt-1 text-2xl font-normal text-white">{card.value}</p>
               <Sparkline points={card.points} color={card.color} />
             </article>
           ))}
@@ -644,34 +632,34 @@ export default function BorsaPage() {
             activeTab !== "piyasa" && activeTab !== "varliklar" && "hidden",
           )}
         >
-          <article className="borsa-card rounded-xl p-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-200">{b.marketSummary}</p>
+          <article className="borsa-card rounded-[10px] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">{b.marketSummary}</p>
             <p className="mt-2 text-xs text-slate-300">{b.totalVolume}: <strong className="text-white" dir="ltr">₺{marketSnapshot.totalVolumeTry.toLocaleString("tr-TR")}</strong></p>
             <p className="mt-1 text-xs text-slate-300">{b.tradeCount}: <strong className="text-white" dir="ltr">{marketSnapshot.tradeCount.toLocaleString("tr-TR")}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Ort. işlem: <strong className="text-white">₺{marketSnapshot.averageTradeSizeTry.toLocaleString("tr-TR")}</strong></p>
             <p className="mt-1 text-xs text-slate-300">{b.activeOrders}: <strong className="text-white" dir="ltr">{marketSnapshot.activeOrders.toLocaleString("tr-TR")}</strong></p>
           </article>
-          <article className="borsa-card rounded-xl p-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-200">Likidite & Derinlik</p>
+          <article className="borsa-card rounded-[10px] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Likidite & Derinlik</p>
             <p className="mt-2 text-xs text-slate-300">Spread: <strong className="text-white">₺{marketSnapshot.liquidity.spread.toLocaleString("tr-TR")}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Derinlik: <strong className="text-white">{marketSnapshot.liquidity.depth.toLocaleString("tr-TR")} lot</strong></p>
             <p className="mt-1 text-xs text-slate-300">En likit 3: <strong className="text-white">{marketSnapshot.liquidity.mostLiquidCodes.join(" · ")}</strong></p>
           </article>
-          <article className="borsa-card rounded-xl p-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-amber-200">Fiyat Hareketi</p>
+          <article className="borsa-card rounded-[10px] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Fiyat Hareketi</p>
             <p className="mt-2 text-xs text-slate-300">Gün yüksek/düşük: <strong className="text-white">{formatTry(marketSnapshot.range.dayHigh)}<FxRef amountTry={marketSnapshot.range.dayHigh} variant="compact" /> / {formatTry(marketSnapshot.range.dayLow)}<FxRef amountTry={marketSnapshot.range.dayLow} variant="compact" /></strong></p>
             <p className="mt-1 text-xs text-slate-300">{b.openClose}: <strong className="text-white" dir="ltr">{formatTry(marketSnapshot.range.open)}<FxRef amountTry={marketSnapshot.range.open} variant="compact" /> / {formatTry(marketSnapshot.range.close)}<FxRef amountTry={marketSnapshot.range.close} variant="compact" /></strong></p>
             <p className="mt-1 text-xs text-slate-300">Volatilite: <strong className="text-white">{marketSnapshot.volatility.marketStdDev.toLocaleString("tr-TR")}</strong></p>
           </article>
-          <article className="borsa-card rounded-xl p-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-violet-200">{b.marketBreadth}</p>
-            <p className="mt-2 text-xs text-slate-300">Yükselen: <strong className="text-emerald-300">{marketSnapshot.breadth.rising}</strong></p>
-            <p className="mt-1 text-xs text-slate-300">Düşen: <strong className="text-rose-300">{marketSnapshot.breadth.falling}</strong></p>
+          <article className="borsa-card rounded-[10px] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">{b.marketBreadth}</p>
+            <p className="mt-2 text-xs text-slate-300">Yükselen: <strong style={{ color: "var(--metrik-yesil)" }}>{marketSnapshot.breadth.rising}</strong></p>
+            <p className="mt-1 text-xs text-slate-300">Düşen: <strong style={{ color: "var(--sinyal-turuncu)" }}>{marketSnapshot.breadth.falling}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Sabit: <strong className="text-white">{marketSnapshot.breadth.flat}</strong></p>
             <p className="mt-1 text-xs text-slate-300">En çok işlem: <strong className="text-white">{marketSnapshot.liquidity.mostLiquidCodes.join(", ")}</strong></p>
           </article>
-          <article className="borsa-card rounded-xl p-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-200">Segment Dağılımı</p>
+          <article className="borsa-card rounded-[10px] p-3">
+            <p className="text-[11px] font-normal uppercase tracking-[0.12em] text-[var(--metin-ikincil)]">Segment Dağılımı</p>
             <p className="mt-2 text-xs text-slate-300">Konut: <strong className="text-white">%{marketSnapshot.segmentDistributionPct.konut.toLocaleString("tr-TR")}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Ticari: <strong className="text-white">%{marketSnapshot.segmentDistributionPct.ticari.toLocaleString("tr-TR")}</strong></p>
             <p className="mt-1 text-xs text-slate-300">Arsa: <strong className="text-white">%{marketSnapshot.segmentDistributionPct.arsa.toLocaleString("tr-TR")}</strong></p>
@@ -686,9 +674,9 @@ export default function BorsaPage() {
           )}
         >
           <div className="min-w-0 space-y-4">
-            <article className="borsa-card rounded-xl p-3">
+            <article className="borsa-card rounded-[10px] p-3">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Varlık Tablosu</h3>
+                <h3 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Varlık Tablosu</h3>
                 <span className="text-xs text-slate-400">{sectionTitle}</span>
               </div>
               <div className="mb-3 flex flex-wrap gap-2">
@@ -703,10 +691,10 @@ export default function BorsaPage() {
                     key={tab.id}
                     type="button"
                     className={cn(
-                      "rounded-md border px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.11em]",
+                      "rounded-[3px] border px-2.5 py-1.5 text-[11px] font-normal uppercase tracking-[0.11em]",
                       tableTab === tab.id
-                        ? "border-cyan-400/70 bg-cyan-500/15 text-cyan-200"
-                        : "border-slate-700 bg-slate-900/70 text-slate-400",
+                        ? "border-[var(--metin-ikincil)] bg-[var(--zemin)] text-[var(--metin)]"
+                        : "border-[var(--cizgi)] text-[var(--metin-ikincil)]",
                     )}
                     onClick={() => setTableTab(tab.id as MarketTableTab)}
                   >
@@ -715,7 +703,7 @@ export default function BorsaPage() {
                 ))}
               </div>
               <div className="mb-3 flex flex-wrap items-center gap-2">
-                <div className="inline-flex min-w-[220px] flex-1 items-center gap-2 rounded-md border border-slate-700 bg-slate-900/70 px-2 py-1.5">
+                <div className="inline-flex min-w-[220px] flex-1 items-center gap-2 rounded-[3px] border border-slate-700 bg-slate-900/70 px-2 py-1.5">
                   <Search className="h-3.5 w-3.5 text-slate-400" />
                   <input
                     value={tableSearch}
@@ -788,9 +776,9 @@ export default function BorsaPage() {
                                 toggleWatchlist(row.id);
                               }}
                               className={cn(
-                                "inline-flex h-6 w-6 items-center justify-center rounded border text-[10px]",
+                                "inline-flex h-6 w-6 items-center justify-center rounded-[3px] border text-[10px]",
                                 watchlistIds.includes(row.id)
-                                  ? "border-amber-400/60 bg-amber-500/20 text-amber-200"
+                                  ? "border-[var(--metin-ikincil)] bg-[var(--zemin)] text-[var(--metin)]"
                                   : "border-slate-600 bg-slate-900/60 text-slate-500",
                               )}
                               title={watchlistIds.includes(row.id) ? "Favoriden çıkar" : "Favoriye ekle"}
@@ -798,10 +786,10 @@ export default function BorsaPage() {
                               <Star className="h-3.5 w-3.5" fill={watchlistIds.includes(row.id) ? "currentColor" : "none"} />
                             </button>
                           </td>
-                          <td className="py-2.5 pe-3 font-semibold text-cyan-200">{row.code}</td>
+                          <td className="py-2.5 pe-3 font-normal text-slate-200">{row.code}</td>
                           <td className="py-2.5 pe-3 text-slate-200">{row.property}</td>
-                          <td className="py-2.5 pe-3 font-bold text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
-                          <td className={cn("py-2.5 pe-3 font-bold", up ? "text-emerald-300" : "text-rose-300")}>
+                          <td className="py-2.5 pe-3 font-normal text-white">{formatTry(row.price)}<FxRef amountTry={row.price} variant="compact" /></td>
+                          <td className="py-2.5 pe-3 font-normal" style={{ color: up ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                             {up ? "+" : ""}
                             {row.changePct.toFixed(2)}%
                           </td>
@@ -815,7 +803,7 @@ export default function BorsaPage() {
                                   e.stopPropagation();
                                   navigate(`/borsa/varlik/${row.id}`);
                                 }}
-                                className="rounded-md border border-cyan-400/50 bg-cyan-500/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-cyan-100"
+                                className="rounded-[3px] border border-[var(--cizgi)] px-2 py-1 text-[10px] font-normal uppercase tracking-[0.1em] text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
                               >
                                 Detay
                               </button>
@@ -825,7 +813,7 @@ export default function BorsaPage() {
                                   e.stopPropagation();
                                   navigate(`/borsa/varlik/${row.id}?intent=bid`);
                                 }}
-                                className="rounded-md border border-emerald-400/50 bg-emerald-500/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-emerald-100"
+                                className="rounded-[3px] border border-[var(--cizgi)] px-2 py-1 text-[10px] font-normal uppercase tracking-[0.1em] text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
                               >
                                 Teklif Ver
                               </button>
@@ -839,9 +827,9 @@ export default function BorsaPage() {
               </div>
             </article>
 
-            <article className="borsa-card rounded-xl p-3">
-              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Bölge Endeksleri</h3>
-              <p className="mb-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
+            <article className="borsa-card rounded-[10px] p-3">
+              <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Bölge Endeksleri</h3>
+              <p className="mb-2 rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-2 text-[11px] text-[var(--metin-ikincil)]">
                 İhaleal Endeksi: {IHALEAL_INDEX_DISCLAIMER}
               </p>
               <p className="mb-2 text-xs text-slate-300">
@@ -851,14 +839,14 @@ export default function BorsaPage() {
                 {regionIndexes.map((idx) => {
                   const up = idx.change >= 0;
                   return (
-                    <div key={idx.name} className="grid grid-cols-[1.1fr_auto_auto_100px] items-center gap-2 rounded-lg border border-slate-700/80 bg-slate-900/65 px-3 py-2">
+                    <div key={idx.name} className="grid grid-cols-[1.1fr_auto_auto_100px] items-center gap-2 rounded-[10px] border border-slate-700/80 bg-slate-900/65 px-3 py-2">
                       <span className="text-sm text-slate-200">{idx.name}</span>
-                      <span className="text-sm font-bold text-white">{formatTry(idx.index)}</span>
-                      <span className={cn("text-xs font-bold", up ? "text-emerald-300" : "text-rose-300")}>
+                      <span className="text-sm font-normal text-white">{formatTry(idx.index)}</span>
+                      <span className="text-xs font-normal" style={{ color: up ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                         {up ? "+" : ""}
                         {idx.change.toFixed(2)}%
                       </span>
-                      <Sparkline points={idx.trend} color={up ? "#22c55e" : "#f43f5e"} />
+                      <Sparkline points={idx.trend} color={up ? "#a0ca92" : "#ee6018"} />
                     </div>
                   );
                 })}
@@ -867,8 +855,8 @@ export default function BorsaPage() {
           </div>
 
           <div className="min-w-0 space-y-4">
-            <article className="borsa-card rounded-xl p-3">
-              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Isı Haritası</h3>
+            <article className="borsa-card rounded-[10px] p-3">
+              <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Isı Haritası</h3>
               <p className="mb-2 text-xs text-slate-300">
                 Isı haritası bölgesel momentumu görselleştirir: daha canlı ton daha güçlü fiyat hareketini gösterir.
               </p>
@@ -876,12 +864,12 @@ export default function BorsaPage() {
                 {heatCells.map((cell) => (
                   <div
                     key={cell.name}
-                    className={cn("rounded-lg border px-3 py-2.5 transition", cell.tone)}
+                    className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2.5 transition"
                     title={`${cell.name} · ${formatTry(cell.index)} · ${cell.change.toFixed(2)}%`}
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-100">{cell.name}</p>
-                    <p className="mt-1 text-lg font-black text-white">{formatTry(cell.index)}</p>
-                    <p className={cn("text-xs font-bold", cell.change >= 0 ? "text-emerald-200" : "text-rose-200")}>
+                    <p className="text-xs font-normal uppercase tracking-[0.12em] text-slate-100">{cell.name}</p>
+                    <p className="mt-1 text-lg font-normal text-white">{formatTry(cell.index)}</p>
+                    <p className="text-xs font-normal" style={{ color: cell.change >= 0 ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)" }}>
                       {cell.change >= 0 ? "+" : ""}
                       {cell.change.toFixed(2)}%
                     </p>
@@ -890,30 +878,28 @@ export default function BorsaPage() {
               </div>
             </article>
 
-            <article className="borsa-card rounded-xl p-3">
+            <article className="borsa-card rounded-[10px] p-3">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Canlı Piyasa Akışı</h3>
-                <BarChart3 className="h-4 w-4 text-cyan-300" />
+                <h3 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Canlı Piyasa Akışı</h3>
+                <BarChart3 className="h-4 w-4 text-[var(--metin-ikincil)]" />
               </div>
               <div className="space-y-2">
                 {feedEvents.length === 0 ? (
-                  <p className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
+                  <p className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
                     Akış bekleniyor...
                   </p>
                 ) : (
                   feedEvents.slice(0, 8).map((event) => (
                     <div
                       key={event.id}
-                      className={cn(
-                        "rounded-lg border px-3 py-2 text-xs",
-                        event.type === "sold"
-                          ? "border-amber-500/40 bg-amber-500/10 text-amber-200"
-                          : event.dir === "up"
-                            ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
-                            : "border-rose-500/40 bg-rose-500/10 text-rose-200",
-                      )}
+                      className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-3 py-2 text-xs"
                     >
-                      <p className="font-semibold">
+                      <p
+                        className="font-normal"
+                        style={{
+                          color: event.type === "sold" ? "var(--metin)" : event.dir === "up" ? "var(--metrik-yesil)" : "var(--sinyal-turuncu)",
+                        }}
+                      >
                         {event.code} {event.type === "sold" ? "●SATILDI" : `${formatTry(event.price)} teklif`}
                       </p>
                       <p className="mt-0.5 text-slate-300">{event.relative}</p>
@@ -927,17 +913,17 @@ export default function BorsaPage() {
               </div>
             </article>
 
-            <article className="borsa-card rounded-xl p-3">
+            <article className="borsa-card rounded-[10px] p-3">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">{b.orderBookPreviewMasked}</h3>
+                <h3 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">{b.orderBookPreviewMasked}</h3>
                 <span className="text-[11px] text-slate-300">{selectedBookAsset?.code ?? "—"}</span>
               </div>
-              <div className="mb-3 rounded-lg border border-cyan-400/30 bg-cyan-500/10 p-2 text-xs">
-                <p className="text-cyan-100">
+              <div className="mb-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2 text-xs">
+                <p className="text-[var(--metin)]">
                   Kendi teklifin:
                   {myOrderBid ? <> {formatTry(myOrderBid)}<FxRef amountTry={myOrderBid} variant="compact" /> · {myOrderRank ?? "-"}. sıradasın</> : " henüz yok"}
                 </p>
-                <p className={cn("mt-1", myOrderStatus === "kazanıyorsun" ? "text-emerald-200" : "text-amber-200")}>
+                <p className="mt-1" style={{ color: myOrderStatus === "kazanıyorsun" ? "var(--metrik-yesil)" : myOrderStatus ? "var(--sinyal-turuncu)" : "var(--metin-ikincil)" }}>
                   {myOrderStatus
                     ? `${myOrderStatus} · ${watchers.toLocaleString("tr-TR")} kişi izliyor`
                     : `Teklif ver, sıranı canlı takip et · ${watchers.toLocaleString("tr-TR")} kişi izliyor`}
@@ -947,12 +933,12 @@ export default function BorsaPage() {
                     value={myBidDraft}
                     onChange={(e) => setMyBidDraft(e.target.value)}
                     placeholder="Kendi teklifin (₺)"
-                    className="min-w-[10rem] flex-1 rounded-md border border-cyan-400/40 bg-secondary px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground"
+                    className="min-w-[10rem] flex-1 rounded-[3px] border border-[var(--cizgi)] bg-secondary px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground"
                   />
                   <button
                     type="button"
                     onClick={submitMyOrderBid}
-                    className="rounded-md border border-cyan-400/60 bg-cyan-500/20 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-cyan-100"
+                    className="rounded-[3px] border border-[var(--cizgi)] px-2 py-1.5 text-[11px] font-normal uppercase tracking-[0.1em] text-[var(--metin)] hover:bg-[var(--zemin)]"
                   >
                     Teklifimi Kaydet
                   </button>
@@ -974,9 +960,9 @@ export default function BorsaPage() {
                     {orderBookLevels.map((level) => (
                       <tr key={level.level} className="border-t border-slate-800/80 text-slate-200">
                         <td className="py-1.5 pe-2">{level.level}</td>
-                        <td className="py-1.5 pe-2 text-emerald-300">{formatTry(level.bidPrice)}<FxRef amountTry={level.bidPrice} variant="compact" /></td>
+                        <td className="py-1.5 pe-2" style={{ color: "var(--metrik-yesil)" }}>{formatTry(level.bidPrice)}<FxRef amountTry={level.bidPrice} variant="compact" /></td>
                         <td className="py-1.5 pe-2">{level.bidVolume.toLocaleString("tr-TR")}</td>
-                        <td className="py-1.5 pe-2 text-rose-300">{formatTry(level.askPrice)}<FxRef amountTry={level.askPrice} variant="compact" /></td>
+                        <td className="py-1.5 pe-2" style={{ color: "var(--sinyal-turuncu)" }}>{formatTry(level.askPrice)}<FxRef amountTry={level.askPrice} variant="compact" /></td>
                         <td className="py-1.5 pe-2">{level.askVolume.toLocaleString("tr-TR")}</td>
                         <td className="py-1.5 text-slate-300">{level.bidderMask}</td>
                       </tr>
@@ -989,21 +975,21 @@ export default function BorsaPage() {
               </p>
             </article>
 
-            <article className="borsa-card rounded-xl p-3">
-              <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Nasıl Teklif Veririm?</h3>
+            <article className="borsa-card rounded-[10px] p-3">
+              <h3 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Nasıl Teklif Veririm?</h3>
               <ol className="mt-3 space-y-2 text-xs text-slate-300">
-                <li className="rounded-lg border border-slate-700/80 bg-slate-900/70 p-2.5">1) Varlığı incele: tablo satırından ilan detayını aç.</li>
-                <li className="rounded-lg border border-slate-700/80 bg-slate-900/70 p-2.5">2) Stratejini kur: order book ve süreye göre teklif aralığını belirle.</li>
-                <li className="rounded-lg border border-slate-700/80 bg-slate-900/70 p-2.5">3) Aksiyon al: "Teklif Ver" ile ihaleye gir, "İzle" ile takibe al.</li>
+                <li className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 p-2.5">1) Varlığı incele: tablo satırından ilan detayını aç.</li>
+                <li className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 p-2.5">2) Stratejini kur: order book ve süreye göre teklif aralığını belirle.</li>
+                <li className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 p-2.5">3) Aksiyon al: "Teklif Ver" ile ihaleye gir, "İzle" ile takibe al.</li>
               </ol>
               <div className="mt-3 grid gap-2">
-                <Button type="button" className="h-9 text-xs font-semibold" onClick={() => navigate("/nasil-calisir")}>
+                <Button type="button" className="h-9 text-xs font-normal" onClick={() => navigate("/nasil-calisir")}>
                   Borsa Nasıl Çalışır
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
-                  className="h-9 border-cyan-400/60 bg-cyan-500/10 text-xs font-semibold text-cyan-100"
+                  className="h-9 text-xs font-normal"
                   onClick={() => navigate("/")}
                 >
                   AI Asistanına Sor
@@ -1014,9 +1000,9 @@ export default function BorsaPage() {
         </section>
 
         <section className={cn("grid gap-4 xl:grid-cols-[1.4fr_1fr]", activeTab !== "izleme" && "hidden")}>
-          <article className="borsa-card rounded-xl p-3">
+          <article className="borsa-card rounded-[10px] p-3">
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">İzleme Listesi</h3>
+              <h3 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">İzleme Listesi</h3>
               <span className="text-xs text-slate-400">{watchlistRows.length} varlık</span>
             </div>
             <div className="space-y-2">
@@ -1028,13 +1014,13 @@ export default function BorsaPage() {
                     type="button"
                     onClick={() => toggleWatchlist(row.id)}
                     className={cn(
-                      "flex w-full items-center justify-between rounded-lg border px-3 py-2 text-start text-sm transition",
+                      "flex w-full items-center justify-between rounded-[10px] border px-3 py-2 text-start text-sm transition",
                       selected
-                        ? "border-cyan-400/60 bg-cyan-500/10 text-cyan-100"
+                        ? "border-[var(--metin-ikincil)] bg-[var(--zemin)] text-[var(--metin)]"
                         : "border-slate-700/80 bg-slate-900/70 text-slate-200 hover:border-slate-500",
                     )}
                   >
-                    <span className="font-semibold">{row.code}</span>
+                    <span className="font-normal">{row.code}</span>
                     <span className="text-xs">{selected ? "İzleniyor" : "İzle"}</span>
                   </button>
                 );
@@ -1042,16 +1028,16 @@ export default function BorsaPage() {
             </div>
           </article>
 
-          <article className="borsa-card rounded-xl p-3">
+          <article className="borsa-card rounded-[10px] p-3">
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-sm font-black uppercase tracking-[0.13em] text-slate-200">Fiyat Alarmı</h3>
-              <Bell className="h-4 w-4 text-cyan-300" />
+              <h3 className="text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Fiyat Alarmı</h3>
+              <Bell className="h-4 w-4 text-[var(--metin-ikincil)]" />
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
               <select
                 value={selectedAssetId}
                 onChange={(e) => setSelectedAssetId(e.target.value)}
-                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
+                className="rounded-[3px] border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
                 {filteredData.map((row) => (
                   <option key={row.id} value={row.id}>
@@ -1062,7 +1048,7 @@ export default function BorsaPage() {
               <select
                 value={alertDirection}
                 onChange={(e) => setAlertDirection(e.target.value as AlertDirection)}
-                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
+                className="rounded-[3px] border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
                 <option value="above">Üzeri</option>
                 <option value="below">Altı</option>
@@ -1071,28 +1057,28 @@ export default function BorsaPage() {
                 value={alertTarget}
                 onChange={(e) => setAlertTarget(e.target.value)}
                 placeholder="Hedef fiyat (₺)"
-                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground sm:col-span-2"
+                className="rounded-[3px] border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground sm:col-span-2"
               />
               <button
                 type="button"
                 onClick={createPriceAlert}
-                className="rounded-md border border-cyan-400/60 bg-cyan-500/15 px-2.5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100 sm:col-span-2"
+                className="rounded-[3px] border border-[var(--cizgi)] px-2.5 py-2 text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin)] hover:bg-[var(--zemin-yumusak)] sm:col-span-2"
               >
                 Alarm Ekle
               </button>
             </div>
             <div className="mt-3 space-y-2">
               {activeAlerts.length === 0 ? (
-                <p className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
+                <p className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
                   Henüz aktif alarm yok.
                 </p>
               ) : (
                 activeAlerts.map((alert) => (
-                  <div key={alert.id} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2">
-                    <p className="text-xs font-semibold text-slate-100">
+                  <div key={alert.id} className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2">
+                    <p className="text-xs font-normal text-slate-100">
                       {alert.code} · {alert.direction === "above" ? "Üzeri" : "Altı"} {formatTry(alert.target)}
                     </p>
-                    <p className={cn("mt-1 text-[11px]", alert.hit ? "text-emerald-300" : "text-slate-400")}>
+                    <p className={cn("mt-1 text-[11px]", !alert.hit && "text-slate-400")} style={alert.hit ? { color: "var(--metrik-yesil)" } : undefined}>
                       Güncel: {formatTry(alert.current)} {alert.hit ? "· Tetiklendi (demo)" : ""}
                     </p>
                   </div>
@@ -1103,25 +1089,25 @@ export default function BorsaPage() {
         </section>
 
         <section className={cn("grid gap-4 lg:grid-cols-2", activeTab !== "veri" && "hidden")}>
-          <article className="borsa-card rounded-xl p-3 lg:col-span-2">
+          <article className="borsa-card rounded-[10px] p-3 lg:col-span-2">
             <BorsaAnalyticsDashboard />
           </article>
-          <article className="borsa-card rounded-xl p-3 lg:col-span-2">
-            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">{b.marketDataSummary}</h3>
+          <article className="borsa-card rounded-[10px] p-3 lg:col-span-2">
+            <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">{b.marketDataSummary}</h3>
             <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
-              <div className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 p-2.5 text-xs text-cyan-100">
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2.5 text-xs text-[var(--metin-ikincil)]">
                 <p>Spread: ₺{marketSnapshot.liquidity.spread.toLocaleString("tr-TR")}</p>
                 <p className="mt-1">Derinlik: {marketSnapshot.liquidity.depth.toLocaleString("tr-TR")} lot</p>
               </div>
-              <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-2.5 text-xs text-emerald-100">
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2.5 text-xs text-[var(--metin-ikincil)]">
                 <p>Yükselen: {marketSnapshot.breadth.rising}</p>
                 <p className="mt-1">Düşen: {marketSnapshot.breadth.falling}</p>
               </div>
-              <div className="rounded-lg border border-violet-500/30 bg-violet-500/10 p-2.5 text-xs text-violet-100">
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2.5 text-xs text-[var(--metin-ikincil)]">
                 <p>Konut: %{marketSnapshot.segmentDistributionPct.konut}</p>
                 <p className="mt-1">Ticari: %{marketSnapshot.segmentDistributionPct.ticari}</p>
               </div>
-              <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-2.5 text-xs text-amber-100">
+              <div className="rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-2.5 text-xs text-[var(--metin-ikincil)]">
                 <p>Arsa: %{marketSnapshot.segmentDistributionPct.arsa}</p>
                 <p className="mt-1">Volatilite: {marketSnapshot.volatility.marketStdDev}</p>
               </div>
@@ -1136,16 +1122,16 @@ export default function BorsaPage() {
                     : "Demo modu: borsa tabloları henüz dolu değil veya migration uygulanmadı."}
             </p>
           </article>
-          <article className="borsa-card rounded-xl p-3">
-            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Otomatik Teklif (Demo)</h3>
-            <p className="mb-3 rounded-md border border-amber-500/35 bg-amber-500/10 px-2.5 py-2 text-[11px] text-amber-100">
+          <article className="borsa-card rounded-[10px] p-3">
+            <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Otomatik Teklif (Demo)</h3>
+            <p className="mb-3 rounded-[3px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] px-2.5 py-2 text-[11px] text-[var(--metin-ikincil)]">
               Bu panel simülasyondur. Gerçek emir göndermez; yalnızca strateji taslağını yerelde saklar.
             </p>
             <div className="grid gap-2 sm:grid-cols-2">
               <select
                 value={selectedAssetId}
                 onChange={(e) => setSelectedAssetId(e.target.value)}
-                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
+                className="rounded-[3px] border border-border bg-secondary px-2.5 py-2 text-sm text-foreground"
               >
                 {filteredData.map((row) => (
                   <option key={row.id} value={row.id}>
@@ -1157,36 +1143,36 @@ export default function BorsaPage() {
                 value={ruleMaxBid}
                 onChange={(e) => setRuleMaxBid(e.target.value)}
                 placeholder="Maks teklif (₺)"
-                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+                className="rounded-[3px] border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground"
               />
               <input
                 value={ruleStep}
                 onChange={(e) => setRuleStep(e.target.value)}
                 placeholder="Artış adımı (₺)"
-                className="rounded-md border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+                className="rounded-[3px] border border-border bg-secondary px-2.5 py-2 text-sm text-foreground placeholder:text-muted-foreground"
               />
               <button
                 type="button"
                 onClick={createAutoBidRule}
-                className="rounded-md border border-cyan-400/60 bg-cyan-500/15 px-2.5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100"
+                className="rounded-[3px] border border-[var(--cizgi)] px-2.5 py-2 text-xs font-normal uppercase tracking-[0.12em] text-[var(--metin)] hover:bg-[var(--zemin-yumusak)]"
               >
                 Kural Ekle
               </button>
             </div>
           </article>
-          <article className="borsa-card rounded-xl p-3">
-            <h3 className="mb-3 text-sm font-black uppercase tracking-[0.13em] text-slate-200">Kural Listesi</h3>
+          <article className="borsa-card rounded-[10px] p-3">
+            <h3 className="mb-3 text-sm font-normal uppercase tracking-[0.13em] text-slate-200">Kural Listesi</h3>
             <div className="space-y-2">
               {autoBidRules.length === 0 ? (
-                <p className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
+                <p className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs text-slate-400">
                   Kural bulunmuyor.
                 </p>
               ) : (
                 autoBidRules.map((rule) => {
                   const asset = filteredData.find((row) => row.id === rule.assetId);
                   return (
-                    <div key={rule.id} className="rounded-lg border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
-                      <p className="font-semibold text-slate-100">{asset?.code ?? "—"}</p>
+                    <div key={rule.id} className="rounded-[10px] border border-slate-700/80 bg-slate-900/70 px-3 py-2 text-xs">
+                      <p className="font-normal text-slate-100">{asset?.code ?? "—"}</p>
                       <p className="mt-0.5 text-slate-300">
                         Maks: {formatTry(rule.maxBid)} · Adım: {formatTry(rule.stepTry)}
                       </p>
@@ -1199,18 +1185,19 @@ export default function BorsaPage() {
                             )
                           }
                           className={cn(
-                            "rounded border px-2 py-0.5 text-[10px] uppercase tracking-[0.1em]",
+                            "rounded-[3px] border px-2 py-0.5 text-[10px] uppercase tracking-[0.1em]",
                             rule.enabled
-                              ? "border-emerald-400/50 bg-emerald-500/15 text-emerald-200"
+                              ? "border-[var(--cizgi)]"
                               : "border-slate-600 bg-slate-800 text-slate-400",
                           )}
+                          style={rule.enabled ? { color: "var(--metrik-yesil)" } : undefined}
                         >
                           {rule.enabled ? "Aktif" : "Pasif"}
                         </button>
                         <button
                           type="button"
                           onClick={() => setAutoBidRules((prev) => prev.filter((item) => item.id !== rule.id))}
-                          className="rounded border border-rose-500/40 bg-rose-500/10 px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-rose-200"
+                          className="rounded-[3px] border border-[var(--cizgi)] px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-[var(--metin-ikincil)] hover:text-[var(--metin)]"
                         >
                           Sil
                         </button>
