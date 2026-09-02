@@ -393,6 +393,47 @@ function EconomicTab({
         <p className="text-xs text-slate-500">
           Ortalama kira: kiralık emsal veri seti henüz bağlanmadı — bu değer gösterilmiyor (uydurma sayı yok).
         </p>
+        {analysis.comparables.length > 0 && (
+          <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3 overflow-x-auto">
+            <div className="text-xs text-slate-500 mb-2">
+              Kullanılan emsal ilanlar ({analysis.comparables.length}/{analysis.comparableCount}) — satıcı kimliği gösterilmez
+            </div>
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="text-left text-slate-500 border-b border-[var(--cizgi)]">
+                  <th className="py-1 pr-2 font-normal">İlan</th>
+                  <th className="py-1 pr-2 font-normal">Konum</th>
+                  <th className="py-1 pr-2 font-normal">m²</th>
+                  <th className="py-1 pr-2 font-normal">₺/m²</th>
+                  <th className="py-1 pr-2 font-normal">Toplam</th>
+                  <th className="py-1 pr-2 font-normal">Durum</th>
+                  <th className="py-1 font-normal">Benzerlik</th>
+                </tr>
+              </thead>
+              <tbody>
+                {analysis.comparables.map((c) => (
+                  <tr key={c.id} className="border-b border-[var(--cizgi)] last:border-0">
+                    <td className="py-1 pr-2 text-white">{c.category || "—"}</td>
+                    <td className="py-1 pr-2 text-slate-400">
+                      {c.district ? `${c.district}, ${c.city}` : c.city || "—"}
+                    </td>
+                    <td className="py-1 pr-2 text-slate-400">{c.grossM2 || "—"}</td>
+                    <td className="py-1 pr-2 text-slate-400">
+                      {c.pricePerM2 > 0 ? `₺${c.pricePerM2.toLocaleString("tr-TR")}` : "—"}
+                    </td>
+                    <td className="py-1 pr-2 text-slate-400">
+                      {c.totalPrice > 0 ? `₺${c.totalPrice.toLocaleString("tr-TR")}` : "—"}
+                    </td>
+                    <td className="py-1 pr-2 text-slate-400">
+                      {c.status === "ended" ? "Kapandı" : c.status === "live" ? "Aktif" : "Yakında"}
+                    </td>
+                    <td className="py-1 text-slate-400">%{c.similarity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     );
   }

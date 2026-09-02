@@ -14,7 +14,7 @@ vi.mock("@/lib/reports/transactionHistory", async () => {
 
 import { fetchRemoteAuctionsCatalog } from "@/lib/supabaseAuctionsFetch";
 import { loadListingHistory } from "@/lib/reports/transactionHistory";
-import { computeRealEconomicSection, MIN_COMPARABLES } from "./realEconomicAnalysis";
+import { computeRealEconomicSection, MIN_COMPARABLES, MAX_COMPARABLES_SHOWN } from "./realEconomicAnalysis";
 
 const mockedFetchCatalog = vi.mocked(fetchRemoteAuctionsCatalog);
 const mockedLoadHistory = vi.mocked(loadListingHistory);
@@ -92,6 +92,34 @@ describe("computeRealEconomicSection", () => {
     expect(overrides.economic_upper_bound_try).toBeGreaterThanOrEqual(overrides.economic_fair_market_value_try!);
     // Kiralık emsal veri kaynağı yok — her zaman null, uydurma sayı yok.
     expect(overrides.economic_avg_rent_try).toBeNull();
+    if (analysis.isReal) {
+      expect(analysis.comparables.length).toBeGreaterThan(0);
+      expect(analysis.comparables.length).toBeLessThanOrEqual(MAX_COMPARABLES_SHOWN);
+      for (const row of analysis.comparables) {
+        expect(Object.keys(row)).not.toContain("seller");
+        expect(Object.keys(row)).not.toContain("sellerName");
+        expect(Object.keys(row)).not.toContain("ownerName");
+      }
+    }
+  });
+
+  it("hedef ilan kendi kataloğunda varsa kendisiyle emsal karşılaştırması yapmaz", async () => {
+    mockedFetchCatalog.mockResolvedValue([
+      fakeAuction(),
+      comparable("c1", 48_000),
+      comparable("c2", 50_000),
+      comparable("c3", 52_000),
+      comparable("c4", 54_000),
+    ]);
+    mockedLoadHistory.mockResolvedValue({ history: [], fromDb: false });
+
+    const { analysis } = await computeRealEconomicSection(fakeAuction());
+
+    expect(analysis.isReal).toBe(true);
+    if (analysis.isReal) {
+      expect(analysis.comparables.every((c) => c.id !== "target-1")).toBe(true);
+      expect(analysis.comparableCount).toBe(4);
+    }
   });
 
   it("gerçek listing_transaction_history varsa (fromDb:true) kendi geçmiş değişimini kullanır, demo fallback'e asla düşmez", async () => {

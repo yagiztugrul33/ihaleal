@@ -51,6 +51,9 @@ export function buildMinimalAuctionForAnalysis(fields: {
 /** Güvenilir bir fiyat bandı göstermek için gereken asgari gerçek kapanmış/aktif emsal sayısı. */
 export const MIN_COMPARABLES = 4;
 
+/** Raporda listelenecek en fazla emsal ilan sayısı (şeffaflık tablosu). */
+export const MAX_COMPARABLES_SHOWN = 8;
+
 export type EconomicRealAnalysis =
   | {
       isReal: true;
@@ -63,6 +66,8 @@ export type EconomicRealAnalysis =
       closingSampleSize: number;
       historyFromDb: boolean;
       ownHistoryChangePct: number | null;
+      /** Şeffaflık için gösterilen en benzer emsaller (en çok MAX_COMPARABLES_SHOWN adet). Satıcı kimliği içermez. */
+      comparables: EmsalRow[];
     }
   | {
       isReal: false;
@@ -147,6 +152,7 @@ export async function computeRealEconomicSection(auction: Auction): Promise<Real
       closingSampleSize: emsal.closingSampleSize,
       historyFromDb: fromDb,
       ownHistoryChangePct,
+      comparables: emsal.rows.slice(0, MAX_COMPARABLES_SHOWN),
     },
   };
 }
