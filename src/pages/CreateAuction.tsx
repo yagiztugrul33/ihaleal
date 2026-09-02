@@ -16,16 +16,9 @@ import { clientLogError } from "@/lib/clientLog";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { uploadListingPhotos, UploadUnavailableError } from "@/lib/uploadFile";
 import { LocationPicker, type LocationValue } from "@/components/location/LocationPicker";
+import { CATEGORY_UI_TO_DB } from "@/lib/listingCategories";
 
 type ListingImageEntry = { file: File; preview: string };
-
-/** Gayrimenkul türü UI → DB category slug */
-const CATEGORY_TO_DB: Record<string, string> = {
-  Konut: "real_estate_residential",
-  Ticari: "real_estate_commercial",
-  Arsa: "real_estate_land",
-  Villa: "real_estate_residential",
-};
 
 const FEATURE_OPTIONS = ["Asansör", "Otopark", "Balkon", "Site içi", "Deniz manzarası", "Güvenlik"];
 
@@ -227,7 +220,7 @@ export default function CreateAuction() {
       return;
     }
 
-    const categorySlug = CATEGORY_TO_DB[category] ?? "real_estate_residential";
+    const categorySlug = CATEGORY_UI_TO_DB[category] ?? "real_estate_residential";
 
     const { data: listing, error: listingError } = await supabase
       .from("listings")
