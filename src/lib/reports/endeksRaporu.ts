@@ -27,7 +27,7 @@ import { invokeSystemQa } from "@/lib/systemQaClient";
 import { buildSafeQaMessages } from "@/lib/security/aiSanitize";
 import { fetchTcmbAll, type TcmbSeriesResult } from "@/lib/reports/tcmbClient";
 import { findEmsaller, type EmsalSummary } from "@/lib/reports/emsalMotoru";
-import { getLocalAndStaticAuctions } from "@/lib/auctionsSource";
+import { loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 
 interface AiEnrich {
   credit: string;
@@ -533,9 +533,11 @@ export async function downloadEndeksRaporu(auction: Auction): Promise<void> {
       paybackPre,
     ),
     fetchTcmbAll().catch(() => [] as TcmbSeriesResult[]),
-    Promise.resolve(getLocalAndStaticAuctions()),
+    loadAllAuctionsForSearch(),
   ]);
-  const emsal = findEmsaller(auction, catalog, 20);
+  // Kataloğun kendisi hedef ilanı da içerebilir (Supabase'den gelen tam katalog) —
+  // bir ilanı kendisiyle "emsal" olarak karşılaştırmamak için hariç tutulur.
+  const emsal = findEmsaller(auction, catalog.filter((a) => a.id !== auction.id), 20);
   const sections = buildSections({ auction, history, fromDb, ai: aiTexts, tcmb, emsal });
 
   const safeSlug = auction.id.replace(/[^a-z0-9-]/gi, "-").slice(0, 40);

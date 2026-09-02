@@ -15,7 +15,7 @@
 
 import type { Auction } from "@/types/auction";
 import { AUCTIONS } from "@/data/auctions";
-import { findEmsaller } from "@/lib/reports/emsalMotoru";
+import { findEmsaller, type EmsalRow } from "@/lib/reports/emsalMotoru";
 import { loadListingHistory, totalValueChangePct } from "@/lib/reports/transactionHistory";
 import { fetchRemoteAuctionsCatalog } from "@/lib/supabaseAuctionsFetch";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
@@ -80,7 +80,9 @@ export type RealEconomicResult = {
 export async function computeRealEconomicSection(auction: Auction): Promise<RealEconomicResult> {
   const grossSqm = auction.propertyDetails?.grossSqm ?? 0;
   const catalog = await fetchRemoteAuctionsCatalog();
-  const emsal = findEmsaller(auction, catalog);
+  // Katalog hedef ilanın kendisini de içerebilir — bir ilanı kendisiyle "emsal"
+  // olarak karşılaştırmamak (sim=100, medyanı bozar) için hariç tutulur.
+  const emsal = findEmsaller(auction, catalog.filter((a) => a.id !== auction.id));
 
   if (grossSqm <= 0) {
     return {
