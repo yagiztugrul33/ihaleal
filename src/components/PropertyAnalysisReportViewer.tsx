@@ -12,6 +12,7 @@ import {
 import { Download, Loader2 } from "lucide-react";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
+import type { EconomicRealAnalysis } from "@/lib/reports/realEconomicAnalysis";
 import { clientLogError } from "@/lib/clientLog";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
 import { Button } from "@/components/ui/button";
@@ -286,39 +287,7 @@ export function PropertyAnalysisReportViewer({
         )}
 
         {tab === "economic" && (
-          <div className="space-y-3 animate-fade-in">
-            <div className="grid sm:grid-cols-2 gap-3 text-sm">
-              <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
-                <div className="text-xs text-slate-500">Piyasa değeri (mock)</div>
-                <div className="text-lg font-normal text-[var(--metin-ikincil)]">
-                  {report.economic_fair_market_value_try != null
-                    ? `₺${report.economic_fair_market_value_try.toLocaleString("tr-TR")}`
-                    : "—"}
-                </div>
-                <div className="text-[11px] text-slate-500 mt-1">
-                  Band: ₺{report.economic_lower_bound_try?.toLocaleString("tr-TR") ?? "—"} — ₺
-                  {report.economic_upper_bound_try?.toLocaleString("tr-TR") ?? "—"}
-                </div>
-              </div>
-              <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
-                <div className="text-xs text-slate-500">Ortalama kira (mock)</div>
-                <div className="text-lg font-normal text-white">
-                  {report.economic_avg_rent_try != null ? `₺${report.economic_avg_rent_try.toLocaleString("tr-TR")}` : "—"}
-                </div>
-              </div>
-            </div>
-            <div className="h-40 rounded-[20px] border border-slate-200 bg-black/20 p-2">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={rentTrend}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                  <XAxis dataKey="y" stroke="#94a3b8" />
-                  <Tooltip formatter={(v: number) => `%${v}`} contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
-                  <Line type="monotone" dataKey="pct" stroke="#8a8380" strokeWidth={2} dot />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-            <p className="text-xs text-slate-400">{report.economic_municipal_plan_alignment}</p>
-          </div>
+          <EconomicTab report={report} rentTrend={rentTrend} />
         )}
 
         {tab === "overall" && (
@@ -345,6 +314,123 @@ export function PropertyAnalysisReportViewer({
           {disclaimer}
         </p>
       </div>
+    </div>
+  );
+}
+
+function EconomicTab({
+  report,
+  rentTrend,
+}: {
+  report: PropertyAnalysisReportRecord;
+  rentTrend: { y: string; pct: number }[];
+}) {
+  const analysis = report.raw_data?.economic_real_analysis as EconomicRealAnalysis | undefined;
+
+  if (analysis && !analysis.isReal) {
+    return (
+      <div className="space-y-3 animate-fade-in">
+        <div className="rounded-[20px] border p-4" style={{ borderColor: "var(--durum-uyari)", backgroundColor: "var(--durum-uyari-zemin)" }}>
+          <p className="text-sm font-normal" style={{ color: "var(--durum-uyari)" }}>
+            Güvenilir bir fiyat tahmini için yeterli gerçek emsal verisi yok.
+          </p>
+          <p className="text-xs mt-1" style={{ color: "var(--durum-uyari)" }}>
+            {analysis.reason === "missing_gross_sqm"
+              ? "İlanda m² bilgisi eksik olduğu için m² başı emsal karşılaştırması yapılamıyor."
+              : `Bu bölgede/kategoride ${analysis.comparableCount} gerçek emsal bulundu, güvenilir bir bant için en az ${analysis.minComparableRequired} gerekiyor.`}
+          </p>
+        </div>
+        <p className="text-xs text-slate-500">
+          Platformda bu tür ilanların kapanmış/aktif sayısı arttıkça bu bölüm otomatik olarak gerçek verilerle dolacaktır.
+        </p>
+      </div>
+    );
+  }
+
+  if (analysis && analysis.isReal) {
+    return (
+      <div className="space-y-3 animate-fade-in">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-normal border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">
+          Gerçek veri — {analysis.comparableCount} emsal ilan
+        </div>
+        <div className="grid sm:grid-cols-2 gap-3 text-sm">
+          <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+            <div className="text-xs text-slate-500">Emsal medyan fiyat (m² başı)</div>
+            <div className="text-lg font-normal text-white">
+              {report.economic_fair_market_value_try != null
+                ? `₺${report.economic_fair_market_value_try.toLocaleString("tr-TR")}`
+                : "—"}
+            </div>
+            <div className="text-[11px] text-slate-500 mt-1">
+              Gerçek emsal bandı: ₺{report.economic_lower_bound_try?.toLocaleString("tr-TR") ?? "—"} — ₺
+              {report.economic_upper_bound_try?.toLocaleString("tr-TR") ?? "—"}
+            </div>
+          </div>
+          <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+            <div className="text-xs text-slate-500">Bölge kapanış primi</div>
+            <div className="text-lg font-normal text-white">
+              {analysis.closingPremiumPct != null ? `%${analysis.closingPremiumPct}` : "Kapanmış emsal yok"}
+            </div>
+            {analysis.closingPremiumPct != null && (
+              <div className="text-[11px] text-slate-500 mt-1">{analysis.closingSampleSize} kapanmış ihaleden hesaplandı</div>
+            )}
+          </div>
+        </div>
+        {analysis.historyFromDb && analysis.ownHistoryChangePct != null ? (
+          <div className="h-40 rounded-[20px] border border-slate-200 bg-black/20 p-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={rentTrend}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                <XAxis dataKey="y" stroke="#94a3b8" />
+                <Tooltip formatter={(v: number) => `%${v}`} contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
+                <Line type="monotone" dataKey="pct" stroke="#8a8380" strokeWidth={2} dot />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        ) : (
+          <p className="text-xs text-slate-500">Bu ilanın kendi geçmiş fiyat kaydı henüz yeterli değil — trend grafiği için zaman gerekiyor.</p>
+        )}
+        <p className="text-xs text-slate-500">
+          Ortalama kira: kiralık emsal veri seti henüz bağlanmadı — bu değer gösterilmiyor (uydurma sayı yok).
+        </p>
+      </div>
+    );
+  }
+
+  // Analiz meta verisi hiç yoksa (eski/legacy mock rapor) — eski mock görünüm.
+  return (
+    <div className="space-y-3 animate-fade-in">
+      <div className="grid sm:grid-cols-2 gap-3 text-sm">
+        <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+          <div className="text-xs text-slate-500">Piyasa değeri (mock)</div>
+          <div className="text-lg font-normal text-[var(--metin-ikincil)]">
+            {report.economic_fair_market_value_try != null
+              ? `₺${report.economic_fair_market_value_try.toLocaleString("tr-TR")}`
+              : "—"}
+          </div>
+          <div className="text-[11px] text-slate-500 mt-1">
+            Band: ₺{report.economic_lower_bound_try?.toLocaleString("tr-TR") ?? "—"} — ₺
+            {report.economic_upper_bound_try?.toLocaleString("tr-TR") ?? "—"}
+          </div>
+        </div>
+        <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+          <div className="text-xs text-slate-500">Ortalama kira (mock)</div>
+          <div className="text-lg font-normal text-white">
+            {report.economic_avg_rent_try != null ? `₺${report.economic_avg_rent_try.toLocaleString("tr-TR")}` : "—"}
+          </div>
+        </div>
+      </div>
+      <div className="h-40 rounded-[20px] border border-slate-200 bg-black/20 p-2">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={rentTrend}>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+            <XAxis dataKey="y" stroke="#94a3b8" />
+            <Tooltip formatter={(v: number) => `%${v}`} contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
+            <Line type="monotone" dataKey="pct" stroke="#8a8380" strokeWidth={2} dot />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <p className="text-xs text-slate-400">{report.economic_municipal_plan_alignment}</p>
     </div>
   );
 }

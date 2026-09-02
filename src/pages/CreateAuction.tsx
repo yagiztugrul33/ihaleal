@@ -12,6 +12,7 @@ import { MARKETING_MODE_LABELS } from "@/lib/listingPolicy";
 import { invalidateAuctionsCatalogCache } from "@/lib/auctionsSource";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { generateMockReport, saveReportToDb, type PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
+import { computeRealEconomicSection, buildMinimalAuctionForAnalysis } from "@/lib/reports/realEconomicAnalysis";
 import { clientLogError } from "@/lib/clientLog";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { uploadListingPhotos, UploadUnavailableError } from "@/lib/uploadFile";
@@ -334,7 +335,30 @@ export default function CreateAuction() {
       districtHint: district,
       startPriceTry: startNum,
     });
-    const { data: savedReport, error: repErr } = await saveReportToDb(supabase, listing.id, mock);
+    // Ekonomik/Fiyat bölümü: mümkünse gerçek emsal verisine (Supabase'deki kapanmış/
+    // aktif diğer ilanlar) dayalı bir bant hesapla; yeterli gerçek emsal yoksa
+    // uydurma sayı yerine "yeterli veri yok" durumu raporlanır (bkz. realEconomicAnalysis.ts).
+    let report: PropertyAnalysisReportRecord = mock;
+    try {
+      const grossSqm = parseInt(sizeM2, 10) || 0;
+      const analysisAuction = buildMinimalAuctionForAnalysis({
+        id: listing.id,
+        city,
+        district,
+        category: category,
+        grossSqm,
+        startPriceTry: startNum,
+      });
+      const { overrides, analysis } = await computeRealEconomicSection(analysisAuction);
+      report = {
+        ...mock,
+        ...overrides,
+        raw_data: { ...mock.raw_data, economic_real_analysis: analysis },
+      };
+    } catch (analysisErr) {
+      clientLogError("CreateAuction.computeRealEconomicSection", analysisErr);
+    }
+    const { data: savedReport, error: repErr } = await saveReportToDb(supabase, listing.id, report);
     setAiPhaseLabel("");
     if (repErr || !savedReport) {
       clientLogError("CreateAuction.saveReportToDb", repErr);

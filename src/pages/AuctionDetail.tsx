@@ -48,6 +48,7 @@ import {
   userHasApprovedReport,
   type PropertyAnalysisReportRecord,
 } from "@/lib/aiAnalysis";
+import { computeRealEconomicSection } from "@/lib/reports/realEconomicAnalysis";
 import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisReportViewer";
 import { PantsirPanel } from "@/components/property/PantsirPanel";
 import { injectJsonLd, removeJsonLd, buildAuctionListingJsonLd } from "@/lib/seoStructuredData";
@@ -264,7 +265,12 @@ export default function AuctionDetail() {
   const detailListingIds = useMemo(() => (auction?.id ? [auction.id] : []), [auction]);
   const { ratings: detailListingRatings } = useListingRatings(detailListingIds);
 
-  const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
+  const [realEconomicOverride, setRealEconomicOverride] = useState<{
+    overrides: Partial<PropertyAnalysisReportRecord>;
+    forId: string;
+  } | null>(null);
+
+  const baseReport = useMemo((): PropertyAnalysisReportRecord | null => {
     if (!id || !auction) return null;
     if (dbReportLoaded) return dbReportLoaded;
     return generateMockReport({
@@ -275,6 +281,34 @@ export default function AuctionDetail() {
       startPriceTry: auction.currentBid,
     });
   }, [id, auction, dbReportLoaded]);
+
+  // Kayıtlı bir rapor yoksa (mock fallback), Ekonomik/Fiyat bölümünü mümkünse
+  // gerçek emsal + geçmiş verisiyle güncelle — sayfa ilk render'da mock ile
+  // hemen görünür, gerçek veri hazır olunca sessizce üzerine yazılır.
+  useEffect(() => {
+    if (!id || !auction || dbReportLoaded) {
+      setRealEconomicOverride(null);
+      return;
+    }
+    let alive = true;
+    void computeRealEconomicSection(auction).then(({ overrides, analysis }) => {
+      if (!alive) return;
+      setRealEconomicOverride({ overrides: { ...overrides, raw_data: { economic_real_analysis: analysis } }, forId: id });
+    });
+    return () => {
+      alive = false;
+    };
+  }, [id, auction, dbReportLoaded]);
+
+  const resolvedReport = useMemo((): PropertyAnalysisReportRecord | null => {
+    if (!baseReport) return null;
+    if (!realEconomicOverride || realEconomicOverride.forId !== id) return baseReport;
+    return {
+      ...baseReport,
+      ...realEconomicOverride.overrides,
+      raw_data: { ...baseReport.raw_data, ...realEconomicOverride.overrides.raw_data },
+    };
+  }, [baseReport, realEconomicOverride, id]);
 
   useEffect(() => {
     if (!id) return;
