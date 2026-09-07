@@ -4,15 +4,19 @@ import {
   BarChart,
   Bar,
   XAxis,
+  YAxis,
   Tooltip,
   LineChart,
   Line,
   CartesianGrid,
+  ScatterChart,
+  Scatter,
 } from "recharts";
 import { Download, Loader2 } from "lucide-react";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
-import type { EconomicRealAnalysis } from "@/lib/reports/realEconomicAnalysis";
+import type { EconomicRealAnalysis, RankedEmsalRow } from "@/lib/reports/realEconomicAnalysis";
+import type { Auction } from "@/types/auction";
 import { clientLogError } from "@/lib/clientLog";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
 import { Button } from "@/components/ui/button";
@@ -55,12 +59,81 @@ function BigRing({
   );
 }
 
+function PricePositionBar({
+  min,
+  mean,
+  max,
+  target,
+}: {
+  min: number;
+  mean: number;
+  max: number;
+  target: number;
+}) {
+  const span = max - min;
+  const pct = span > 0 ? Math.min(100, Math.max(0, ((target - min) / span) * 100)) : 50;
+  return (
+    <div className="space-y-1.5">
+      <div
+        className="relative h-2 rounded-full"
+        style={{ background: "linear-gradient(90deg, var(--metrik-yesil), var(--sinyal-turuncu))" }}
+      >
+        <div
+          className="absolute -top-1.5 w-4 h-4 rounded-full bg-white border-2"
+          style={{ left: `calc(${pct}% - 8px)`, borderColor: "var(--zemin-koyu, #0a0e1a)" }}
+          aria-hidden
+        />
+      </div>
+      <div className="flex justify-between text-[11px] text-slate-500">
+        <span>Min ₺{Math.round(min).toLocaleString("tr-TR")}</span>
+        <span>Ort. ₺{Math.round(mean).toLocaleString("tr-TR")}</span>
+        <span>Max ₺{Math.round(max).toLocaleString("tr-TR")}</span>
+      </div>
+    </div>
+  );
+}
+
+function PriceRankScatter({ rows }: { rows: RankedEmsalRow[] }) {
+  const data = rows.map((r, i) => ({ x: i + 1, y: r.pricePerM2, isTarget: r.isTarget }));
+  return (
+    <div className="h-52 rounded-[20px] border border-slate-200 bg-black/20 p-2">
+      <ResponsiveContainer width="100%" height="100%">
+        <ScatterChart margin={{ top: 8, right: 12, bottom: 4, left: 4 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+          <XAxis type="number" dataKey="x" stroke="#94a3b8" fontSize={11} tick={false} label={{ value: "İlan sırası (₺/m² artan)", position: "insideBottom", offset: -2, fill: "#94a3b8", fontSize: 11 }} />
+          <YAxis type="number" dataKey="y" stroke="#94a3b8" fontSize={11} tickFormatter={(v: number) => `₺${Math.round(v / 1000)}K`} />
+          <Tooltip
+            formatter={(v: number) => [`₺${Math.round(v).toLocaleString("tr-TR")}/m²`, "Fiyat"]}
+            contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }}
+          />
+          <Scatter
+            data={data}
+            shape={(props: unknown) => {
+              const p = props as { cx: number; cy: number; payload: { isTarget: boolean } };
+              return (
+                <circle
+                  cx={p.cx}
+                  cy={p.cy}
+                  r={p.payload.isTarget ? 6 : 3}
+                  fill={p.payload.isTarget ? "var(--sinyal-turuncu)" : "#38bdf8"}
+                />
+              );
+            }}
+          />
+        </ScatterChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
 export type PropertyAnalysisReportViewerProps = {
   report: PropertyAnalysisReportRecord;
   mockBanner?: boolean;
   showApproveButton?: boolean;
   onApprove?: () => void;
   approveDisabled?: boolean;
+  /** Varsa gerçek ilan kaydı — markalı kapak bandında başlık/konum/fiyat/görsel için kullanılır. */
+  auction?: Auction;
 };
 
 export function PropertyAnalysisReportViewer({
@@ -69,6 +142,7 @@ export function PropertyAnalysisReportViewer({
   showApproveButton,
   onApprove,
   approveDisabled,
+  auction,
 }: PropertyAnalysisReportViewerProps) {
   const [tab, setTab] = useState<TabKey>("legal");
   const [exporting, setExporting] = useState(false);
@@ -90,11 +164,30 @@ export function PropertyAnalysisReportViewer({
         useCORS: true,
         logging: false,
       });
-      const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      const pdfPageHeight = pdf.internal.pageSize.getHeight();
+      // Rapor tek sayfaya sığmayacak kadar uzun olabilir (yeni bölümlerle daha da uzadı) —
+      // canvas'ı sayfa yüksekliğine göre dilimleyip her dilimi ayrı sayfa olarak ekliyoruz,
+      // aksi halde eski davranışta tek dev görsel oluşuyor ve ilk sayfadan sonrası kesiliyordu.
+      const pxPerMm = canvas.width / pdfWidth;
+      const pageHeightPx = Math.floor(pdfPageHeight * pxPerMm);
+      let renderedPx = 0;
+      let pageIndex = 0;
+      while (renderedPx < canvas.height) {
+        const sliceHeightPx = Math.min(pageHeightPx, canvas.height - renderedPx);
+        const sliceCanvas = document.createElement("canvas");
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = sliceHeightPx;
+        const ctx = sliceCanvas.getContext("2d");
+        if (!ctx) break;
+        ctx.drawImage(canvas, 0, renderedPx, canvas.width, sliceHeightPx, 0, 0, canvas.width, sliceHeightPx);
+        const sliceData = sliceCanvas.toDataURL("image/png");
+        if (pageIndex > 0) pdf.addPage();
+        pdf.addImage(sliceData, "PNG", 0, 0, pdfWidth, sliceHeightPx / pxPerMm);
+        renderedPx += sliceHeightPx;
+        pageIndex += 1;
+      }
       pdf.save(`ihaleal-rapor-${Date.now()}.pdf`);
     } catch (err) {
       // Sessiz fail — kullanıcıya bir sonraki tıklamada tekrar deneme şansı.
@@ -131,6 +224,13 @@ export function PropertyAnalysisReportViewer({
   ];
 
   const disclaimer = report.overall_disclaimer || AI_REPORT_DISCLAIMER_TR;
+  const rawData = report.raw_data as Record<string, unknown> | undefined;
+  const coverTitle = auction?.title ?? (rawData?.title_hint as string | undefined) ?? null;
+  const coverCity = auction?.city ?? (rawData?.city_hint as string | undefined) ?? null;
+  const coverDistrict = auction?.district ?? null;
+  const coverPrice = auction?.currentBid || auction?.startingBid || null;
+  const coverImage = auction?.images?.[0] ?? null;
+  const coverDate = report.generated_at ? new Date(report.generated_at) : null;
 
   return (
     <div
@@ -140,6 +240,45 @@ export function PropertyAnalysisReportViewer({
       {mockBanner ? (
         <div className="px-4 py-2 bg-[var(--zemin-yumusak)] border-b border-[var(--cizgi)] text-[var(--metin-ikincil)] text-xs font-normal text-center">
           MOCK VERİ — gerçek API bağlantısı yok; bilgilendirme amaçlıdır.
+        </div>
+      ) : null}
+
+      {coverTitle ? (
+        <div
+          data-testid="report-cover-banner"
+          className="relative overflow-hidden border-b border-[var(--cizgi)] px-4 py-5 md:px-6 md:py-6"
+          style={{ background: "linear-gradient(135deg, var(--zemin-yumusak), transparent)" }}
+        >
+          <div className="flex flex-col md:flex-row md:items-center gap-4">
+            {coverImage ? (
+              <img
+                src={coverImage}
+                alt=""
+                aria-hidden
+                className="w-full md:w-32 h-32 rounded-[20px] object-cover border border-[var(--cizgi)] shrink-0"
+              />
+            ) : null}
+            <div className="flex-1 min-w-0">
+              <div className="text-[11px] uppercase tracking-wide text-[var(--metin-ikincil)] font-normal">
+                İhaleal — Karşılaştırmalı Piyasa Analizi
+              </div>
+              <h2 className="text-lg md:text-xl font-normal text-slate-900 truncate">{coverTitle}</h2>
+              <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm text-slate-500">
+                {coverDistrict || coverCity ? (
+                  <span>
+                    {[coverDistrict, coverCity].filter(Boolean).join(", ")}
+                  </span>
+                ) : null}
+                {coverDate ? <span>{coverDate.toLocaleDateString("tr-TR")}</span> : null}
+              </div>
+            </div>
+            {coverPrice ? (
+              <div className="text-end shrink-0">
+                <div className="text-[11px] text-slate-500">Fiyat</div>
+                <div className="text-xl font-normal text-slate-900">₺{coverPrice.toLocaleString("tr-TR")}</div>
+              </div>
+            ) : null}
+          </div>
         </div>
       ) : null}
 
@@ -308,9 +447,10 @@ export function PropertyAnalysisReportViewer({
         )}
       </div>
 
-      <div className="px-4 py-3 border-t border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
+      <div data-testid="report-disclaimer-block" className="px-4 py-4 md:px-6 md:py-5 border-t border-[var(--cizgi)] bg-[var(--zemin-yumusak)]">
+        <div className="text-sm font-normal text-[var(--metin-ikincil)] mb-2">Sorumluluk Feragatnamesi</div>
         <p className="text-[11px] text-[var(--metin-ikincil)] leading-relaxed flex gap-2">
-          <span aria-hidden className="inline-flex items-center justify-center w-5 h-5 rounded-[3px] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-xs font-normal">!</span>
+          <span aria-hidden className="inline-flex items-center justify-center w-5 h-5 rounded-[3px] border border-[var(--cizgi)] text-[var(--metin-ikincil)] text-xs font-normal shrink-0">!</span>
           {disclaimer}
         </p>
       </div>
@@ -349,10 +489,33 @@ function EconomicTab({
 
   if (analysis && analysis.isReal) {
     return (
-      <div className="space-y-3 animate-fade-in">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-normal border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">
-          Gerçek veri — {analysis.comparableCount} emsal ilan
+      <div className="space-y-4 animate-fade-in">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-normal border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]">
+            Gerçek veri — {analysis.comparableCount} emsal ilan
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-normal border border-[var(--cizgi)] bg-white/[0.03] text-slate-300">
+            Sıralama: {analysis.rank.position}/{analysis.rank.total} — emsallerin %{analysis.rank.percentile}&apos;inden yüksek fiyatlı
+          </div>
         </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <MiniStatCard label="Emsal sayısı" value={`${analysis.comparableCount}`} />
+          <MiniStatCard label="Min. ₺/m²" value={`₺${Math.round(analysis.minPricePerM2).toLocaleString("tr-TR")}`} />
+          <MiniStatCard label="Medyan ₺/m²" value={`₺${Math.round(analysis.medianPricePerM2).toLocaleString("tr-TR")}`} />
+          <MiniStatCard label="Max. ₺/m²" value={`₺${Math.round(analysis.maxPricePerM2).toLocaleString("tr-TR")}`} />
+        </div>
+
+        <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+          <div className="text-xs text-slate-500 mb-2">Bu ilanın emsaller içindeki fiyat konumu (₺/m²)</div>
+          <PricePositionBar
+            min={analysis.minPricePerM2}
+            mean={analysis.medianPricePerM2}
+            max={analysis.maxPricePerM2}
+            target={analysis.targetPricePerM2}
+          />
+        </div>
+
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
             <div className="text-xs text-slate-500">Emsal medyan fiyat (m² başı)</div>
@@ -376,6 +539,12 @@ function EconomicTab({
             )}
           </div>
         </div>
+
+        <div>
+          <div className="text-xs text-slate-500 mb-2">Emsal fiyat dağılımı — bu ilan turuncu ile işaretli</div>
+          <PriceRankScatter rows={analysis.rankedComparables} />
+        </div>
+
         {analysis.historyFromDb && analysis.ownHistoryChangePct != null ? (
           <div className="h-40 rounded-[20px] border border-slate-200 bg-black/20 p-2">
             <ResponsiveContainer width="100%" height="100%">
@@ -393,14 +562,15 @@ function EconomicTab({
         <p className="text-xs text-slate-500">
           Ortalama kira: kiralık emsal veri seti henüz bağlanmadı — bu değer gösterilmiyor (uydurma sayı yok).
         </p>
-        {analysis.comparables.length > 0 && (
+        {analysis.rankedComparables.length > 0 && (
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3 overflow-x-auto">
             <div className="text-xs text-slate-500 mb-2">
-              Kullanılan emsal ilanlar ({analysis.comparables.length}/{analysis.comparableCount}) — satıcı kimliği gösterilmez
+              Sıralı emsal listesi ({analysis.rankedComparables.length - 1}/{analysis.comparableCount} emsal + bu ilan, ₺/m² artan sıralı) — satıcı kimliği gösterilmez
             </div>
             <table className="w-full text-xs">
               <thead>
                 <tr className="text-left text-slate-500 border-b border-[var(--cizgi)]">
+                  <th className="py-1 pr-2 font-normal">Sıra</th>
                   <th className="py-1 pr-2 font-normal">İlan</th>
                   <th className="py-1 pr-2 font-normal">Konum</th>
                   <th className="py-1 pr-2 font-normal">m²</th>
@@ -411,9 +581,19 @@ function EconomicTab({
                 </tr>
               </thead>
               <tbody>
-                {analysis.comparables.map((c) => (
-                  <tr key={c.id} className="border-b border-[var(--cizgi)] last:border-0">
-                    <td className="py-1 pr-2 text-white">{c.category || "—"}</td>
+                {analysis.rankedComparables.map((c, i) => (
+                  <tr
+                    key={c.id}
+                    className={
+                      c.isTarget
+                        ? "border-b-2 border-dashed border-[var(--sinyal-turuncu)] bg-[var(--zemin-yumusak)]"
+                        : "border-b border-[var(--cizgi)] last:border-0"
+                    }
+                  >
+                    <td className="py-1 pr-2 text-slate-400">{i + 1}</td>
+                    <td className="py-1 pr-2 text-white">
+                      {c.isTarget ? "Bu ilan" : c.category || "—"}
+                    </td>
                     <td className="py-1 pr-2 text-slate-400">
                       {c.district ? `${c.district}, ${c.city}` : c.city || "—"}
                     </td>
@@ -427,7 +607,7 @@ function EconomicTab({
                     <td className="py-1 pr-2 text-slate-400">
                       {c.status === "ended" ? "Kapandı" : c.status === "live" ? "Aktif" : "Yakında"}
                     </td>
-                    <td className="py-1 text-slate-400">%{c.similarity}</td>
+                    <td className="py-1 text-slate-400">{c.isTarget ? "—" : `%${c.similarity}`}</td>
                   </tr>
                 ))}
               </tbody>
@@ -472,6 +652,15 @@ function EconomicTab({
         </ResponsiveContainer>
       </div>
       <p className="text-xs text-slate-400">{report.economic_municipal_plan_alignment}</p>
+    </div>
+  );
+}
+
+function MiniStatCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3 text-center">
+      <div className="text-sm font-normal text-white">{value}</div>
+      <div className="text-[10px] text-slate-500 mt-1">{label}</div>
     </div>
   );
 }

@@ -54,6 +54,9 @@ export const MIN_COMPARABLES = 4;
 /** Raporda listelenecek en fazla emsal ilan sayısı (şeffaflık tablosu). */
 export const MAX_COMPARABLES_SHOWN = 8;
 
+/** Sıralı emsal/pozisyon tablosunda gösterilen satır — hedef ilan işaretlenir. */
+export type RankedEmsalRow = EmsalRow & { isTarget: boolean };
+
 export type EconomicRealAnalysis =
   | {
       isReal: true;
@@ -68,6 +71,12 @@ export type EconomicRealAnalysis =
       ownHistoryChangePct: number | null;
       /** Şeffaflık için gösterilen en benzer emsaller (en çok MAX_COMPARABLES_SHOWN adet). Satıcı kimliği içermez. */
       comparables: EmsalRow[];
+      /** Bu ilanın kendi m² fiyatı (emsal karşılaştırması için). */
+      targetPricePerM2: number;
+      /** m² fiyatına göre emsaller arasındaki sıralaması (1 = en yüksek fiyat). */
+      rank: { position: number; total: number; percentile: number };
+      /** Tüm bulunan emsaller + hedef ilan, m² fiyatına göre artan sıralı — pozisyon grafiği/tablosu için. */
+      rankedComparables: RankedEmsalRow[];
     }
   | {
       isReal: false;
@@ -130,6 +139,27 @@ export async function computeRealEconomicSection(auction: Auction): Promise<Real
   const { history, fromDb } = await loadListingHistory(auction);
   const ownHistoryChangePct = fromDb && history.length >= 2 ? totalValueChangePct(history) : null;
 
+  const targetTotalPrice = auction.currentBid || auction.startingBid || 0;
+  const targetPricePerM2 = Math.round(targetTotalPrice / grossSqm);
+  const targetRow: RankedEmsalRow = {
+    id: auction.id,
+    title: auction.title,
+    district: auction.district || "",
+    city: auction.city || "",
+    category: auction.category || "",
+    pricePerM2: targetPricePerM2,
+    grossM2: grossSqm,
+    totalPrice: Math.round(targetTotalPrice),
+    daysOnMarket: 0,
+    status: auction.status === "live" ? "live" : auction.status === "ended" ? "ended" : "upcoming",
+    similarity: 100,
+    isTarget: true,
+  };
+  const rankedComparables: RankedEmsalRow[] = [
+    ...emsal.rows.map((r) => ({ ...r, isTarget: false })),
+    targetRow,
+  ].sort((a, b) => a.pricePerM2 - b.pricePerM2);
+
   return {
     overrides: {
       economic_fair_market_value_try: Math.round(emsal.medianPricePerM2 * grossSqm),
@@ -153,6 +183,9 @@ export async function computeRealEconomicSection(auction: Auction): Promise<Real
       historyFromDb: fromDb,
       ownHistoryChangePct,
       comparables: emsal.rows.slice(0, MAX_COMPARABLES_SHOWN),
+      targetPricePerM2,
+      rank: emsal.targetRank,
+      rankedComparables,
     },
   };
 }

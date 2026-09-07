@@ -1197,7 +1197,7 @@ export default function AuctionDetail() {
                 <div className="space-y-8 animate-fade-in">
                   {/* R13.4 Pantsir — İstihbarat Paneli (mock veri, R13.2'de OSM API'ye geçiş) */}
                   {id ? <PantsirPanel listingId={id} lat={mapCoords?.lat} lng={mapCoords?.lng} /> : null}
-                  <PropertyAnalysisReportViewer report={resolvedReport} mockBanner={!dbReportLoaded} />
+                  <PropertyAnalysisReportViewer report={resolvedReport} mockBanner={!dbReportLoaded} auction={auction} />
                   <CaymaPolitikasi accepted={legalWithdrawAccepted} onAcceptedChange={setLegalWithdrawAccepted} />
                   <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
                     <label className="flex items-start gap-2 text-sm text-slate-300 cursor-pointer">
