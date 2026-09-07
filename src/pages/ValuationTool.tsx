@@ -179,7 +179,7 @@ export default function ValuationTool() {
               `Merkez tahmin: ${formatTry(result.estimatedValue)}${form.transactionType === "rent" ? " / ay" : ""}`,
               `Tahmin aralığı: ${formatTry(result.minValue)} – ${formatTry(result.maxValue)} (±%${result.confidenceBandPct})`,
               `Birim fiyat: ${formatTry(result.unitPrice)}/m²`,
-              `Güven seviyesi: ${result.confidence === "high" ? "Yüksek" : "Orta"} (%${Math.round(result.confidenceScore * 100)})`,
+              `Güven seviyesi: ${result.confidence === "high" ? "Yüksek" : "Orta"} (%${Math.round(result.confidenceScore)})`,
             ],
           },
           {
@@ -494,6 +494,9 @@ export default function ValuationTool() {
             <section className="mt-6 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-6">
               <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
                 <div>
+                  <div className="text-[11px] uppercase tracking-wide text-[var(--metin-ikincil)] font-normal mb-1">
+                    İhaleal — Karşılaştırmalı Piyasa Analizi
+                  </div>
                   <h2 className="text-xl font-normal mb-1 flex items-center gap-2">
                     <Home className="h-5 w-5 text-[var(--metin-ikincil)]" /> Tahmini Sonuç
                   </h2>
@@ -513,7 +516,7 @@ export default function ValuationTool() {
                     </div>
                   )}
                   <div className="text-xs text-slate-400 mt-1">
-                    Güven: {result.confidence === "high" ? "Yüksek" : "Orta"} · %{Math.round(result.confidenceScore * 100)}
+                    Güven: {result.confidence === "high" ? "Yüksek" : "Orta"} · %{Math.round(result.confidenceScore)}
                   </div>
                 </div>
               </div>
@@ -654,16 +657,20 @@ export default function ValuationTool() {
             {/* Bölgeden benzer ilanlar */}
             {similar.length > 0 ? (
               <section className="mt-4 rounded-[20px] border border-white/10 bg-slate-900/40 p-5">
-                <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-[var(--metin-ikincil)]" /> Bölgeden Benzer İlanlar
+                <h3 className="text-sm font-normal uppercase tracking-wider text-slate-300 mb-1 flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-[var(--metin-ikincil)]" /> Sıralı Emsal Listesi
                 </h3>
+                <p className="text-[11px] text-slate-500 mb-3">m² yakınlığına göre sıralı — bölgedeki gerçek ilanlar</p>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                  {similar.map((a) => (
+                  {similar.map((a, i) => (
                     <a
                       key={a.id}
                       href={`/ilan/${a.id}`}
-                      className="block rounded-[20px] border border-white/10 bg-slate-950/40 overflow-hidden hover:border-[var(--cizgi)] transition-colors"
+                      className="relative block rounded-[20px] border border-white/10 bg-slate-950/40 overflow-hidden hover:border-[var(--cizgi)] transition-colors"
                     >
+                      <span className="absolute top-2 start-2 z-10 inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-950/80 text-[10px] font-normal text-white ring-1 ring-white/20">
+                        {i + 1}
+                      </span>
                       <div className="aspect-[16/10] bg-slate-800 overflow-hidden">
                         <img src={a.images[0]} alt={a.title} loading="lazy" className="w-full h-full object-cover" />
                       </div>

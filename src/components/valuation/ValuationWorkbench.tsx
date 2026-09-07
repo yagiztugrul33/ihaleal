@@ -304,6 +304,9 @@ export function ValuationWorkbench({
 
       {result ? (
         <div className="space-y-4">
+          <div className="text-[11px] uppercase tracking-wide text-[var(--metin-ikincil)] font-normal">
+            İhaleal — Karşılaştırmalı Piyasa Analizi
+          </div>
           <article className="grid gap-3 rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-4 md:grid-cols-2 xl:grid-cols-4">
             <div>
               <p className="text-xs text-[var(--metin-ikincil)]">{lv.estimatedValueApprox}</p>
@@ -392,6 +395,7 @@ export function ValuationWorkbench({
               <table className="w-full min-w-[740px] text-xs">
                 <thead className="text-start uppercase tracking-[0.1em] text-slate-400">
                   <tr>
+                    <th className="pb-2 pe-2">Sıra</th>
                     <th className="pb-2 pe-2">ID</th>
                     <th className="pb-2 pe-2">İlçe</th>
                     <th className="pb-2 pe-2">m²</th>
@@ -402,8 +406,9 @@ export function ValuationWorkbench({
                   </tr>
                 </thead>
                 <tbody>
-                  {result.comparables.slice(0, compact ? 6 : 10).map((row) => (
+                  {result.comparables.slice(0, compact ? 6 : 10).map((row, i) => (
                     <tr key={row.id} className="border-t border-slate-800 text-slate-200">
+                      <td className="py-1.5 pe-2 text-slate-500">{i + 1}</td>
                       <td className="py-1.5 pe-2">{row.id}</td>
                       <td className="py-1.5 pe-2">{row.district}</td>
                       <td className="py-1.5 pe-2">{row.grossM2}</td>
