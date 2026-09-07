@@ -78,130 +78,22 @@ function NavDropdown({
   );
 }
 
-// R12.2 — NavMegaMenu (3-sütun mega dropdown, backup/blok1-borsa cherry-pick)
-function NavMegaMenu({
-  label,
-  columns,
-  testId,
-  triggerTestId,
-  onNavigate,
-}: {
-  label: string;
-  columns: { title: string; items: { to: string; label: string; testId?: string }[] }[];
-  testId?: string;
-  triggerTestId?: string;
-  onNavigate?: () => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onDoc = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
-
-  return (
-    <div ref={ref} className="relative" data-testid={testId}>
-      <button
-        type="button"
-        data-testid={triggerTestId}
-        onClick={() => setOpen((o) => !o)}
-        className={cn(
-          "inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm font-normal text-slate-200 transition-colors hover:text-white",
-          open && "text-white",
-        )}
-        aria-expanded={open}
-        aria-haspopup="true"
-      >
-        {label}
-        <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
-      </button>
-      {open ? (
-        <div
-          className="nav-mega-panel absolute left-1/2 top-full z-[110] mt-2 w-[min(720px,calc(100vw-2rem))] -translate-x-1/2 rounded-[20px] border border-slate-600/30 p-4"
-          style={{ background: "var(--zemin-yumusak)", backdropFilter: "blur(20px)" }}
-        >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {columns.map((col) => (
-              <div key={col.title}>
-                <p className="mb-2 px-2 text-[11px] font-normal uppercase tracking-wider text-slate-500">
-                  {col.title}
-                </p>
-                {col.items.map((item) => (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    data-testid={item.testId}
-                    onClick={() => {
-                      setOpen(false);
-                      onNavigate?.();
-                    }}
-                    className="block rounded-[10px] px-2 py-2 text-sm text-slate-200 no-underline hover:bg-slate-800/60 hover:text-white"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
 export function Navbar() {
   const { locale, setLocale, t } = useLocale();
   const n = t.nav;
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileServiceOpen, setMobileServiceOpen] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
 
-  const serviceItems = [
-    { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
-    { to: "/degerleme", label: n.valuation },
-    { to: ROUTES.ARASTIRMA, label: n.researchHub },
-  ];
-
-  // R12.2 — Hizmetler mega dropdown 3 sütun (Yatırımcı / Emlakçı / Müteahhit) — i18n
+  // İhale odağı (emlak + arsa): nav'da sadece çekirdek özellikler görünür.
+  // GES/kat karşılığı/emlakçı-müteahhit B2B/ödüller/uluslararası vb. koddan
+  // silinmedi — sadece nav'dan çıkarıldı, müşteri talebinde geri eklenir.
   const mm = t.megaMenu;
-  const megaColumns = [
-    {
-      title: mm.segmentInvestor,
-      items: [
-        { to: "/ihaleler", label: mm.liveAuctions },
-        { to: "/degerleme", label: mm.aiValuation },
-        { to: ROUTES.ARASTIRMA_GES, label: n.gesLand, testId: "nav-services-ges" },
-        { to: "/dashboard/yatirimci", label: mm.investorPanel },
-        { to: "/oduller", label: mm.rewards },
-        { to: "/kampanyalar", label: mm.campaigns },
-        { to: "/uluslararasi", label: mm.intlInvestor },
-      ],
-    },
-    {
-      title: mm.segmentRealtor,
-      items: [
-        { to: "/emlakci", label: mm.realtorShowcase },
-        { to: "/emlakci/panel", label: mm.officePanel },
-        { to: "/emlakci-giris", label: mm.realtorLogin },
-        { to: "/emlakci-ortaklik", label: mm.b2bPartnership },
-      ],
-    },
-    {
-      title: mm.segmentContractor,
-      items: [
-        { to: "/muteahhit", label: mm.contractorLaunch },
-        { to: "/muteahhit/panel", label: mm.projectPanel },
-        { to: "/ihale-ac", label: mm.openAuction },
-        { to: ROUTES.KKA_HUB, label: mm.floorBarter },
-      ],
-    },
+  const coreServiceItems = [
+    { to: "/degerleme", label: mm.aiValuation },
+    { to: "/dashboard/yatirimci", label: mm.investorPanel },
   ];
 
   const companyItems = [
@@ -217,7 +109,6 @@ export function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false);
-    setMobileServiceOpen(null);
     setLangOpen(false);
   }, [location.pathname, location.search]);
 
@@ -277,25 +168,12 @@ export function Navbar() {
             >
               {n.howItWorks}
             </NavLink>
-            <NavMegaMenu
+            <NavDropdown
               label={n.services}
-              columns={megaColumns}
+              items={coreServiceItems}
               testId="nav-services"
               triggerTestId="nav-services-trigger"
             />
-            <NavLink
-              to={ROUTES.ARASTIRMA}
-              className={({ isActive }) =>
-                cn(
-                  "border-b-2 pb-0.5 text-sm font-normal no-underline transition-colors",
-                  isActive
-                    ? "border-[var(--cizgi)] text-[var(--metin-ikincil)]"
-                    : "border-transparent text-slate-200 hover:text-white",
-                )
-              }
-            >
-              {n.resources}
-            </NavLink>
             <NavDropdown label={n.company} items={companyItems} testId="nav-company" />
             {/* Priority-0 nav overflow fix: Borsa aksiyon butonundan buraya taşındı (Ghost Text Link) */}
             <NavLink
@@ -453,56 +331,20 @@ export function Navbar() {
             >
               {n.howItWorks}
             </NavLink>
-            {/* R12.2 — Hizmetler mega menu mobile accordion */}
+            {/* İhale odağı: nav'da sadece çekirdek hizmetler görünür */}
             <p className="mt-2 px-3 py-1 text-xs font-normal uppercase tracking-wider text-slate-500">
               {n.services}
             </p>
-            {megaColumns.map((col) => {
-              const expanded = mobileServiceOpen === col.title;
-              return (
-                <div key={col.title} className="rounded-[10px]">
-                  <button
-                    type="button"
-                    onClick={() => setMobileServiceOpen(expanded ? null : col.title)}
-                    aria-expanded={expanded}
-                    className="flex w-full min-h-11 items-center justify-between rounded-[10px] px-3 py-3 text-sm font-normal text-slate-200 hover:bg-slate-800/50"
-                    data-testid={`nav-mobile-services-${col.title.toLowerCase()}`}
-                  >
-                    <span>{col.title}</span>
-                    <ChevronDown
-                      className={cn("h-4 w-4 transition-transform", expanded && "rotate-180")}
-                    />
-                  </button>
-                  {expanded && (
-                    <div className="ms-2 border-s border-slate-700/40 ps-2">
-                      {col.items.map((item) => (
-                        <NavLink
-                          key={item.to}
-                          to={item.to}
-                          data-testid={
-                            item.testId === "nav-services-ges" ? "nav-services-ges-mobile" : item.testId
-                          }
-                          onClick={() => {
-                            setMobileServiceOpen(null);
-                            setMobileOpen(false);
-                          }}
-                          className="block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
-                        >
-                          {item.label}
-                        </NavLink>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            <NavLink
-              to={ROUTES.ARASTIRMA}
-              onClick={() => setMobileOpen(false)}
-              className="mt-1 block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
-            >
-              {n.resources}
-            </NavLink>
+            {coreServiceItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobileOpen(false)}
+                className="block min-h-11 rounded-[10px] px-3 py-3 text-sm text-slate-200 no-underline hover:bg-slate-800/50"
+              >
+                {item.label}
+              </NavLink>
+            ))}
             {/* R12.3 — Deprem modülleri mobile */}
             <p className="mt-2 px-3 py-1 text-xs font-normal uppercase tracking-wider text-slate-500">
               Afet & Deprem

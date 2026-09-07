@@ -10,7 +10,7 @@ async function setLocale(page: import("@playwright/test").Page, locale: "en" | "
   );
 }
 
-test.describe("home + navbar GES regression", () => {
+test.describe("home + navbar regression", () => {
   test("homepage shows cinematic hero and live auctions", async ({ page }) => {
     await setLocale(page, "en");
     await page.goto("/?fresh=1");
@@ -24,26 +24,23 @@ test.describe("home + navbar GES regression", () => {
     await expect(page.getByText(/Levent|KADIKÖY/i).first()).toBeVisible();
   });
 
-  test("navbar GES via Services dropdown — desktop", async ({ page }) => {
+  // İhale odağı (emlak+arsa): Hizmetler dropdown'ı artık sadece çekirdek
+  // özellikleri (Değerleme, Yatırımcı Paneli) listeler. GES nav'dan çıkarıldı
+  // (route hâlâ /arastirma/ges'te yaşıyor, sadece nav'da değil).
+  test("navbar Services dropdown shows only core items — desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
     await page.getByTestId("nav-services-trigger").click();
-    const ges = page.getByTestId("nav-services-ges");
-    await expect(ges).toBeVisible({ timeout: 15_000 });
-    await expect(ges).toHaveText(/GES Land|GES Arazi/i);
-    await ges.click();
-    await expect(page).toHaveURL(/\/arastirma\/ges/, { timeout: 15_000 });
+    await expect(page.getByTestId("nav-services-ges")).toHaveCount(0);
+    const valuation = page.getByRole("link", { name: /Değerleme|Valuation/i }).first();
+    await expect(valuation).toBeVisible({ timeout: 15_000 });
   });
 
-  test("navbar GES via Services — mobile", async ({ page }) => {
+  test("navbar Services shows only core items — mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await page.getByRole("button", { name: /Open menu|Menüyü aç/i }).click();
-    await page.getByTestId("nav-mobile-services-yatırımcı").click();
-    const ges = page.getByTestId("nav-services-ges-mobile");
-    await expect(ges).toBeVisible({ timeout: 15_000 });
-    await ges.click();
-    await expect(page).toHaveURL(/\/arastirma\/ges/, { timeout: 15_000 });
+    await expect(page.getByTestId("nav-services-ges-mobile")).toHaveCount(0);
   });
 
   test("homepage hero English by default", async ({ page }) => {

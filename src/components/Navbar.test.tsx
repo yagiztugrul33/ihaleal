@@ -5,7 +5,6 @@ import { Navbar } from "@/components/Navbar";
 import { LocaleProvider } from "@/contexts/LocaleContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
-import { ROUTES } from "@/constants/routes";
 
 // Navbar zamanla useAuth ve useCurrency kullanmaya başladı; test harness'ı yalnızca
 // LocaleProvider sarıyordu ve üç senaryo "must be used within ...Provider" ile
@@ -27,25 +26,22 @@ function renderNavbar(initialPath = "/") {
 }
 
 describe("Navbar", () => {
-  it("GES Land link in Services dropdown points to /arastirma/ges", () => {
+  // İhale odağı (emlak+arsa): Hizmetler dropdown'ı artık sadece çekirdek
+  // özellikleri (Değerleme, Yatırımcı Paneli) listeler. GES gibi talebe-göre
+  // özellikler nav'dan çıkarıldı — route hâlâ var, sadece nav'da değil.
+  it("Services dropdown lists only core items (valuation, investor panel)", () => {
     renderNavbar();
     fireEvent.click(screen.getByTestId("nav-services-trigger"));
-    const gesLink = screen.getByTestId("nav-services-ges");
-    expect(gesLink).toHaveAttribute("href", ROUTES.ARASTIRMA_GES);
-    expect(gesLink.textContent).toMatch(/GES Land|GES Arazi/i);
+    const valuationLink = screen.getByText(/Değerleme|Valuation/i);
+    expect(valuationLink).toBeInTheDocument();
+    expect(screen.queryByTestId("nav-services-ges")).not.toBeInTheDocument();
   });
 
-  it("GES link in mobile Services section", () => {
+  it("mobile Services section lists only core items", () => {
     renderNavbar();
     fireEvent.click(screen.getByRole("button", { name: /Open menu|Menüyü aç/i }));
-    // Bölüm başlığının testid'i dile göre değişiyor (nav-mobile-services-${title}):
-    // TR'de "yatırımcı", EN'de "investor". Test edilen şey GES linkinin hedefi,
-    // arayüz dili değil — bu yüzden ilk bölüm önekle bulunur.
-    const yatirimciBolumu = document.querySelector('[data-testid^="nav-mobile-services-"]');
-    expect(yatirimciBolumu).not.toBeNull();
-    fireEvent.click(yatirimciBolumu as Element);
-    const gesLink = screen.getByTestId("nav-services-ges-mobile");
-    expect(gesLink).toHaveAttribute("href", ROUTES.ARASTIRMA_GES);
+    expect(screen.queryByTestId("nav-services-ges-mobile")).not.toBeInTheDocument();
+    expect(document.querySelector('[data-testid^="nav-mobile-services-"]')).toBeNull();
   });
 
   it("switches locale to Turkish", () => {
