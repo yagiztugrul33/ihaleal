@@ -93,6 +93,32 @@ function PricePositionBar({
   );
 }
 
+function MiniRowPositionBar({ min, max, value }: { min: number; max: number; value: number }) {
+  const span = max - min;
+  const pct = span > 0 ? Math.min(100, Math.max(0, ((value - min) / span) * 100)) : 50;
+  return (
+    <div
+      className="relative h-1.5 w-14 rounded-full"
+      style={{ background: "linear-gradient(90deg, var(--metrik-yesil), var(--sinyal-turuncu))" }}
+      title={`₺${Math.round(value).toLocaleString("tr-TR")}/m²`}
+    >
+      <div
+        className="absolute -top-[3px] w-2 h-2 rounded-full bg-white border border-black/40"
+        style={{ left: `calc(${pct}% - 4px)` }}
+      />
+    </div>
+  );
+}
+
+type DaysFilter = "all" | "30" | "90" | "90+";
+
+function matchesDaysFilter(days: number, filter: DaysFilter): boolean {
+  if (filter === "all") return true;
+  if (filter === "30") return days <= 30;
+  if (filter === "90") return days > 30 && days <= 90;
+  return days > 90;
+}
+
 function PriceRankScatter({ rows }: { rows: RankedEmsalRow[] }) {
   const data = rows.map((r, i) => ({ x: i + 1, y: r.pricePerM2, isTarget: r.isTarget }));
   return (
@@ -466,6 +492,7 @@ function EconomicTab({
   rentTrend: { y: string; pct: number }[];
 }) {
   const analysis = report.raw_data?.economic_real_analysis as EconomicRealAnalysis | undefined;
+  const [daysFilter, setDaysFilter] = useState<DaysFilter>("all");
 
   if (analysis && !analysis.isReal) {
     return (
@@ -564,8 +591,33 @@ function EconomicTab({
         </p>
         {analysis.rankedComparables.length > 0 && (
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3 overflow-x-auto">
-            <div className="text-xs text-slate-500 mb-2">
-              Sıralı emsal listesi ({analysis.rankedComparables.length - 1}/{analysis.comparableCount} emsal + bu ilan, ₺/m² artan sıralı) — satıcı kimliği gösterilmez
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div className="text-xs text-slate-500">
+                Sıralı emsal listesi ({analysis.rankedComparables.length - 1}/{analysis.comparableCount} emsal + bu ilan, ₺/m² artan sıralı) — satıcı kimliği gösterilmez
+              </div>
+              <div className="flex gap-1.5">
+                {(
+                  [
+                    { key: "all", label: "Tümü" },
+                    { key: "30", label: "≤30 gün" },
+                    { key: "90", label: "31-90 gün" },
+                    { key: "90+", label: "90+ gün" },
+                  ] as { key: DaysFilter; label: string }[]
+                ).map((f) => (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => setDaysFilter(f.key)}
+                    className={`px-2 py-0.5 rounded-full text-[11px] font-normal border transition-colors ${
+                      daysFilter === f.key
+                        ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
+                        : "border-slate-700 text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
             </div>
             <table className="w-full text-xs">
               <thead>
@@ -575,41 +627,47 @@ function EconomicTab({
                   <th className="py-1 pr-2 font-normal">Konum</th>
                   <th className="py-1 pr-2 font-normal">m²</th>
                   <th className="py-1 pr-2 font-normal">₺/m²</th>
+                  <th className="py-1 pr-2 font-normal">Fiyat Sırası</th>
                   <th className="py-1 pr-2 font-normal">Toplam</th>
                   <th className="py-1 pr-2 font-normal">Durum</th>
                   <th className="py-1 font-normal">Benzerlik</th>
                 </tr>
               </thead>
               <tbody>
-                {analysis.rankedComparables.map((c, i) => (
-                  <tr
-                    key={c.id}
-                    className={
-                      c.isTarget
-                        ? "border-b-2 border-dashed border-[var(--sinyal-turuncu)] bg-[var(--zemin-yumusak)]"
-                        : "border-b border-[var(--cizgi)] last:border-0"
-                    }
-                  >
-                    <td className="py-1 pr-2 text-slate-400">{i + 1}</td>
-                    <td className="py-1 pr-2 text-white">
-                      {c.isTarget ? "Bu ilan" : c.category || "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.district ? `${c.district}, ${c.city}` : c.city || "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">{c.grossM2 || "—"}</td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.pricePerM2 > 0 ? `₺${c.pricePerM2.toLocaleString("tr-TR")}` : "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.totalPrice > 0 ? `₺${c.totalPrice.toLocaleString("tr-TR")}` : "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.status === "ended" ? "Kapandı" : c.status === "live" ? "Aktif" : "Yakında"}
-                    </td>
-                    <td className="py-1 text-slate-400">{c.isTarget ? "—" : `%${c.similarity}`}</td>
-                  </tr>
-                ))}
+                {analysis.rankedComparables
+                  .filter((c) => c.isTarget || matchesDaysFilter(c.daysOnMarket, daysFilter))
+                  .map((c, i) => (
+                    <tr
+                      key={c.id}
+                      className={
+                        c.isTarget
+                          ? "border-b-2 border-dashed border-[var(--sinyal-turuncu)] bg-[var(--zemin-yumusak)]"
+                          : "border-b border-[var(--cizgi)] last:border-0"
+                      }
+                    >
+                      <td className="py-1 pr-2 text-slate-400">{i + 1}</td>
+                      <td className="py-1 pr-2 text-white">
+                        {c.isTarget ? "Bu ilan" : c.category || "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.district ? `${c.district}, ${c.city}` : c.city || "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">{c.grossM2 || "—"}</td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.pricePerM2 > 0 ? `₺${c.pricePerM2.toLocaleString("tr-TR")}` : "—"}
+                      </td>
+                      <td className="py-1 pr-2">
+                        <MiniRowPositionBar min={analysis.minPricePerM2} max={analysis.maxPricePerM2} value={c.pricePerM2} />
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.totalPrice > 0 ? `₺${c.totalPrice.toLocaleString("tr-TR")}` : "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.status === "ended" ? "Kapandı" : c.status === "live" ? "Aktif" : "Yakında"}
+                      </td>
+                      <td className="py-1 text-slate-400">{c.isTarget ? "—" : `%${c.similarity}`}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
