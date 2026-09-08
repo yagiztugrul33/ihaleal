@@ -13,6 +13,8 @@
     "preview": "vite preview --port 4173",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "gen:assets": "node scripts/gen-assets.mjs",
+    "seo:sitemap": "node scripts/generate-programmatic-sitemap.mjs",
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "theme:luxury": "node scripts/run-gen-luxury.mjs",
     "env:sync": "node scripts/sync-vite-supabase-env.mjs",
     "sql:bundle": "node scripts/push-migrations.mjs",
