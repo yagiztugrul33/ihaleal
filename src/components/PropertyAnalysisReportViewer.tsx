@@ -18,6 +18,7 @@ import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
 import type { EconomicRealAnalysis, RankedEmsalRow } from "@/lib/reports/realEconomicAnalysis";
 import { computeNegotiationInsight } from "@/lib/reports/negotiationInsight";
 import { estimateBuyerClosingCosts, DEED_DUTY_RATE } from "@/lib/fees";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import type { Auction } from "@/types/auction";
 import { clientLogError } from "@/lib/clientLog";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
@@ -533,6 +534,55 @@ function BuyerCostBreakdown({ totalPrice }: { totalPrice: number }) {
   );
 }
 
+function CurrencyEquivalents({ totalPrice }: { totalPrice: number }) {
+  const { usdRate, eurRate, gbpRate, goldGramTry, goldQuarterTry, goldSource, ratesSource } = useCurrency();
+  if (totalPrice <= 0) return null;
+  const fmt = (v: number) => v.toLocaleString("tr-TR", { maximumFractionDigits: 0 });
+  return (
+    <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+      <div className="text-sm font-normal text-white mb-2">Döviz ve Altın Karşılığı</div>
+      <div className="grid grid-cols-3 gap-3 text-xs mb-2">
+        <div>
+          <div className="text-slate-500">USD ({usdRate.toFixed(2)})</div>
+          <div className="text-white">${fmt(totalPrice / usdRate)}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">EUR ({eurRate.toFixed(2)})</div>
+          <div className="text-white">€{fmt(totalPrice / eurRate)}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">GBP ({gbpRate.toFixed(2)})</div>
+          <div className="text-white">£{fmt(totalPrice / gbpRate)}</div>
+        </div>
+      </div>
+      {goldSource === "public_api" && (goldGramTry != null || goldQuarterTry != null) ? (
+        <div className="grid grid-cols-2 gap-3 text-xs border-t border-[var(--cizgi)] pt-2">
+          {goldGramTry != null && (
+            <div>
+              <div className="text-slate-500">Gram altın (₺{goldGramTry.toFixed(0)})</div>
+              <div className="text-white">{(totalPrice / goldGramTry).toLocaleString("tr-TR", { maximumFractionDigits: 1 })} gram</div>
+            </div>
+          )}
+          {goldQuarterTry != null && (
+            <div>
+              <div className="text-slate-500">Çeyrek altın (₺{goldQuarterTry.toFixed(0)})</div>
+              <div className="text-white">{(totalPrice / goldQuarterTry).toLocaleString("tr-TR", { maximumFractionDigits: 1 })} çeyrek</div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p className="text-[11px] text-slate-500 border-t border-[var(--cizgi)] pt-2">
+          Altın karşılığı şu an gösterilemiyor — açık kaynak altın fiyatına erişilemedi.
+        </p>
+      )}
+      <p className="text-[11px] text-slate-500 mt-2">
+        Kurlar: {ratesSource === "tcmb_api" ? "TCMB otomatik" : "gösterge kur (TCMB bağlantısı yapılandırılmamış)"} · bugünkü
+        kur/fiyat üzerindendir, geçmiş tarihli karşılaştırma değildir.
+      </p>
+    </div>
+  );
+}
+
 function EconomicTab({
   report,
   rentTrend,
@@ -635,6 +685,7 @@ function EconomicTab({
         )}
 
         <BuyerCostBreakdown totalPrice={analysis.targetTotalPrice} />
+        <CurrencyEquivalents totalPrice={analysis.targetTotalPrice} />
 
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">

@@ -110,7 +110,10 @@ function InternationalInvestorPageBody() {
             </p>
             <div className="mt-3 rounded-[10px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3 text-xs text-slate-300 space-y-1">
               <p>USD/TRY {usdRate.toFixed(4)} · EUR/TRY {eurRate.toFixed(4)} · GBP/TRY {gbpRate.toFixed(4)}</p>
-              <p>Altın (gram/TRY): ₺{goldGramTry.toFixed(2)} · EUR/USD parite: {eurUsdParity.toFixed(4)}</p>
+              <p>
+                Altın (gram/TRY): {goldGramTry != null ? `₺${goldGramTry.toFixed(2)}` : "veri yok"} · EUR/USD parite:{" "}
+                {eurUsdParity.toFixed(4)}
+              </p>
               <p>
                 Kaynak: {ratesSource === "tcmb_api" ? "TCMB otomatik" : "Mock otomatik"} · Son güncelleme:{" "}
                 {new Date(ratesUpdatedAtIso).toLocaleString("tr-TR")}
