@@ -21,6 +21,8 @@ export interface Auction {
   bidderCount: number;
   /** Doğrudan satın al (satıcı belirler veya demo varsayılanı). ₺ */
   buyNowPriceTry?: number;
+  /** İlanın/ihalenin yayına başladığı gerçek tarih — "yayında kalma süresi" hesapları buna dayanır (yoksa hesaplanamaz, uydurulmaz). */
+  startsAt?: string;
   endDate: string;
   images: string[];
   virtualTour?: string;

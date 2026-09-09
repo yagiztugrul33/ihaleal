@@ -16,6 +16,7 @@ import { Download, Loader2 } from "lucide-react";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
 import type { EconomicRealAnalysis, RankedEmsalRow } from "@/lib/reports/realEconomicAnalysis";
+import { computeNegotiationInsight } from "@/lib/reports/negotiationInsight";
 import type { Auction } from "@/types/auction";
 import { clientLogError } from "@/lib/clientLog";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
@@ -112,8 +113,10 @@ function MiniRowPositionBar({ min, max, value }: { min: number; max: number; val
 
 type DaysFilter = "all" | "30" | "90" | "90+";
 
-function matchesDaysFilter(days: number, filter: DaysFilter): boolean {
+function matchesDaysFilter(days: number, known: boolean, filter: DaysFilter): boolean {
   if (filter === "all") return true;
+  // Yayın başlangıç tarihi bilinmeyen emsaller belirli bir gün-aralığına atanamaz — sadece "Tümü"nde görünür.
+  if (!known) return false;
   if (filter === "30") return days <= 30;
   if (filter === "90") return days > 30 && days <= 90;
   return days > 90;
@@ -452,7 +455,7 @@ export function PropertyAnalysisReportViewer({
         )}
 
         {tab === "economic" && (
-          <EconomicTab report={report} rentTrend={rentTrend} />
+          <EconomicTab report={report} rentTrend={rentTrend} auction={auction} />
         )}
 
         {tab === "overall" && (
@@ -487,12 +490,15 @@ export function PropertyAnalysisReportViewer({
 function EconomicTab({
   report,
   rentTrend,
+  auction,
 }: {
   report: PropertyAnalysisReportRecord;
   rentTrend: { y: string; pct: number }[];
+  auction?: Auction;
 }) {
   const analysis = report.raw_data?.economic_real_analysis as EconomicRealAnalysis | undefined;
   const [daysFilter, setDaysFilter] = useState<DaysFilter>("all");
+  const negotiation = analysis ? computeNegotiationInsight(analysis, auction?.marketingMode) : { applicable: false as const };
 
   if (analysis && !analysis.isReal) {
     return (
@@ -542,6 +548,45 @@ function EconomicTab({
             target={analysis.targetPricePerM2}
           />
         </div>
+
+        {negotiation.applicable && (
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+            <div className="text-sm font-normal text-[var(--metin-ikincil)] mb-2">Pazarlık Asistanı</div>
+            {negotiation.overMedianPct <= 0 ? (
+              <p className="text-sm text-slate-300">
+                Bu ilan zaten bölge medyanının {negotiation.overMedianPct === 0 ? "seviyesinde" : `%${Math.abs(negotiation.overMedianPct)} altında`}
+                — emsallere göre ek bir pazarlık payı işaret etmiyoruz.
+              </p>
+            ) : negotiation.suggestedLowPct != null && negotiation.suggestedHighPct != null ? (
+              <>
+                <p className="text-sm text-slate-300">
+                  Bu ilan, bölge medyanının <strong className="text-white">%{negotiation.overMedianPct}</strong> üzerinde
+                  fiyatlanmış
+                  {negotiation.avgDaysOnMarket != null
+                    ? ` — emsallerin yayında kalma süresi ortalama ${negotiation.avgDaysOnMarket} gün (${negotiation.knownDaysSampleSize} ilandan hesaplandı)`
+                    : ""}
+                  .
+                </p>
+                <div className="mt-2 flex items-baseline gap-2">
+                  <span className="text-lg font-normal text-white">
+                    %{negotiation.suggestedLowPct} – %{negotiation.suggestedHighPct}
+                  </span>
+                  <span className="text-xs text-slate-400">
+                    (yaklaşık ₺{negotiation.suggestedLowTry?.toLocaleString("tr-TR")} – ₺
+                    {negotiation.suggestedHighTry?.toLocaleString("tr-TR")})
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 mt-1">
+                  {negotiation.nearestCheaperPct != null && negotiation.nearestCheaperPct === negotiation.suggestedLowPct
+                    ? "Alt sınır: sıralamada bir alt sıradaki gerçek emsalin fiyatı. "
+                    : "Alt sınır: bölge medyanına olan farkın yarısı (sezgisel). "}
+                  Üst sınır: bölge medyanına inmek için gereken fark. İkisi de gerçek emsal verisinden türetilmiş bir
+                  tahmindir, bağlayıcı değildir.
+                </p>
+              </>
+            ) : null}
+          </div>
+        )}
 
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
@@ -635,7 +680,7 @@ function EconomicTab({
               </thead>
               <tbody>
                 {analysis.rankedComparables
-                  .filter((c) => c.isTarget || matchesDaysFilter(c.daysOnMarket, daysFilter))
+                  .filter((c) => c.isTarget || matchesDaysFilter(c.daysOnMarket, c.daysOnMarketKnown, daysFilter))
                   .map((c, i) => (
                     <tr
                       key={c.id}
