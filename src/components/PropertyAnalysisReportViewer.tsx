@@ -17,6 +17,7 @@ import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
 import type { EconomicRealAnalysis, RankedEmsalRow } from "@/lib/reports/realEconomicAnalysis";
 import { computeNegotiationInsight } from "@/lib/reports/negotiationInsight";
+import { estimateBuyerClosingCosts, DEED_DUTY_RATE } from "@/lib/fees";
 import type { Auction } from "@/types/auction";
 import { clientLogError } from "@/lib/clientLog";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
@@ -487,6 +488,51 @@ export function PropertyAnalysisReportViewer({
   );
 }
 
+function BuyerCostBreakdown({ totalPrice }: { totalPrice: number }) {
+  if (totalPrice <= 0) return null;
+  const costs = estimateBuyerClosingCosts(totalPrice);
+  const deedHalf = Math.round(costs.deed / 2);
+  return (
+    <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+      <div className="text-sm font-normal text-white mb-2">Tapu Harcı · Komisyon · KDV</div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+        <div>
+          <div className="text-slate-500">Tapu harcı (%{(DEED_DUTY_RATE * 100).toFixed(0)} toplam)</div>
+          <div className="text-white">₺{costs.deed.toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Alıcı payı (%{(DEED_DUTY_RATE * 50).toFixed(0)})</div>
+          <div className="text-white">₺{deedHalf.toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Satıcı payı (%{(DEED_DUTY_RATE * 50).toFixed(0)})</div>
+          <div className="text-white">₺{deedHalf.toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Platform komisyonu (alıcı)</div>
+          <div className="text-white">₺{Math.round(costs.commission).toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Komisyon KDV</div>
+          <div className="text-white">₺{Math.round(costs.vatOnCommission).toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Diğer sabit masraflar</div>
+          <div className="text-white">₺{costs.fixed.toLocaleString("tr-TR")}</div>
+        </div>
+      </div>
+      <div className="mt-3 pt-3 border-t border-[var(--cizgi)] flex items-baseline justify-between">
+        <span className="text-xs text-slate-500">Alıcı toplam maliyet (ilan bedeli dahil)</span>
+        <span className="text-lg font-normal text-white">₺{Math.round(costs.total).toLocaleString("tr-TR")}</span>
+      </div>
+      <p className="text-[11px] text-slate-500 mt-2">
+        Standart oranlar üzerinden tahmindir; döner sermaye ve dosya masrafları hariçtir. Değerler
+        platformun gerçek ücret yapılandırmasından (fees.ts) hesaplanır.
+      </p>
+    </div>
+  );
+}
+
 function EconomicTab({
   report,
   rentTrend,
@@ -587,6 +633,8 @@ function EconomicTab({
             ) : null}
           </div>
         )}
+
+        <BuyerCostBreakdown totalPrice={analysis.targetTotalPrice} />
 
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
