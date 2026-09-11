@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { FEE_TEXTS, calcSellerNet, listingPriceAnomalyMessage, MEMBERSHIP_DURATION_DAYS } from "@/lib/fees";
-import type { PropertyMarketingMode } from "@/types/auction";
+import type { Auction, PropertyMarketingMode } from "@/types/auction";
 import { MARKETING_MODE_LABELS } from "@/lib/listingPolicy";
 import { invalidateAuctionsCatalogCache } from "@/lib/auctionsSource";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -63,6 +63,7 @@ export default function CreateAuction() {
   const [sellerReportModalOpen, setSellerReportModalOpen] = useState(false);
   const [buyNowWarnOpen, setBuyNowWarnOpen] = useState(false);
   const [sellerReportRow, setSellerReportRow] = useState<PropertyAnalysisReportRecord | null>(null);
+  const [sellerAnalysisAuction, setSellerAnalysisAuction] = useState<Auction | null>(null);
   const [pendingCtx, setPendingCtx] = useState<{ listingId: string; auctionId: string } | null>(null);
   const [aiPhaseLabel, setAiPhaseLabel] = useState("");
 
@@ -348,7 +349,12 @@ export default function CreateAuction() {
         category: category,
         grossSqm,
         startPriceTry: startNum,
+        title: title.trim(),
+        marketingMode,
+        images: imageUrls,
+        startsAt: startsAt.toISOString(),
       });
+      setSellerAnalysisAuction(analysisAuction);
       const { overrides, analysis } = await computeRealEconomicSection(analysisAuction);
       report = {
         ...mock,
@@ -990,6 +996,7 @@ export default function CreateAuction() {
                 ) : null}
                 <PropertyAnalysisReportViewer
                   report={sellerReportRow}
+                  auction={sellerAnalysisAuction ?? undefined}
                   mockBanner
                   showApproveButton
                   onApprove={handleApproveSellerReport}

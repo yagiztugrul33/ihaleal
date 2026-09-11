@@ -33,6 +33,10 @@ export function buildMinimalAuctionForAnalysis(fields: {
   grossSqm: number;
   startPriceTry: number;
   status?: Auction["status"];
+  title?: string;
+  marketingMode?: Auction["marketingMode"];
+  images?: string[];
+  startsAt?: string;
 }): Auction {
   const template = JSON.parse(JSON.stringify(AUCTIONS[0])) as Auction;
   return {
@@ -45,6 +49,10 @@ export function buildMinimalAuctionForAnalysis(fields: {
     startingBid: fields.startPriceTry,
     status: fields.status ?? "upcoming",
     propertyDetails: { ...template.propertyDetails, grossSqm: fields.grossSqm },
+    ...(fields.title !== undefined ? { title: fields.title } : {}),
+    ...(fields.marketingMode !== undefined ? { marketingMode: fields.marketingMode } : {}),
+    ...(fields.images !== undefined ? { images: fields.images } : {}),
+    ...(fields.startsAt !== undefined ? { startsAt: fields.startsAt } : {}),
   };
 }
 
