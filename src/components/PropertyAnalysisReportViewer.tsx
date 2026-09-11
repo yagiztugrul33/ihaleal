@@ -638,6 +638,12 @@ function EconomicTab({
   }
 
   if (analysis && analysis.isReal) {
+    const filteredComparables = analysis.rankedComparables.filter(
+      (c) =>
+        c.isTarget ||
+        (matchesDaysFilter(c.daysOnMarket, c.daysOnMarketKnown, daysFilter) &&
+          matchesStatusFilter(c.status, statusFilter)),
+    );
     return (
       <div className="space-y-4 animate-fade-in">
         <div className="flex flex-wrap items-center gap-2">
@@ -744,13 +750,19 @@ function EconomicTab({
 
         <div className="grid sm:grid-cols-2 gap-3">
           <div>
-            <div className="text-xs text-slate-500 mb-2">Fiyat dağılımı (₺/m²) — bu ilan turuncu ile işaretli</div>
-            <PriceRankScatter rows={analysis.rankedComparables} />
+            <div className="text-xs text-slate-500 mb-2">
+              Fiyat dağılımı (₺/m²) — bu ilan turuncu ile işaretli
+              {filteredComparables.length !== analysis.rankedComparables.length ? " (aktif filtreye göre)" : ""}
+            </div>
+            <PriceRankScatter rows={filteredComparables} />
           </div>
           <div>
-            <div className="text-xs text-slate-500 mb-2">Fiyat dağılımı (Toplam ₺) — bu ilan turuncu ile işaretli</div>
+            <div className="text-xs text-slate-500 mb-2">
+              Fiyat dağılımı (Toplam ₺) — bu ilan turuncu ile işaretli
+              {filteredComparables.length !== analysis.rankedComparables.length ? " (aktif filtreye göre)" : ""}
+            </div>
             <PriceRankScatter
-              rows={analysis.rankedComparables}
+              rows={filteredComparables}
               getValue={(r) => r.totalPrice}
               xAxisLabel="İlan sırası (Toplam ₺ artan)"
               tooltipSuffix=""
@@ -842,13 +854,7 @@ function EconomicTab({
                 </tr>
               </thead>
               <tbody>
-                {analysis.rankedComparables
-                  .filter(
-                    (c) =>
-                      c.isTarget ||
-                      (matchesDaysFilter(c.daysOnMarket, c.daysOnMarketKnown, daysFilter) &&
-                        matchesStatusFilter(c.status, statusFilter)),
-                  )
+                {filteredComparables
                   .map((c, i) => (
                     <tr
                       key={c.id}
