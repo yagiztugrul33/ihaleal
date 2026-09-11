@@ -79,6 +79,9 @@ export type EconomicRealAnalysis =
       rank: { position: number; total: number; percentile: number };
       /** Tüm bulunan emsaller + hedef ilan, m² fiyatına göre artan sıralı — pozisyon grafiği/tablosu için. */
       rankedComparables: RankedEmsalRow[];
+      /** Aynı şehirdeki gerçek ilanlardan satılık/kiralık sayısı (dealType alanı olmayanlar sayılmaz). */
+      regionSaleCount: number;
+      regionRentCount: number;
     }
   | {
       isReal: false;
@@ -157,11 +160,18 @@ export async function computeRealEconomicSection(auction: Auction): Promise<Real
     status: auction.status === "live" ? "live" : auction.status === "ended" ? "ended" : "upcoming",
     similarity: 100,
     isTarget: true,
+    imageUrl: auction.images?.[0],
   };
   const rankedComparables: RankedEmsalRow[] = [
     ...emsal.rows.map((r) => ({ ...r, isTarget: false })),
     targetRow,
   ].sort((a, b) => a.pricePerM2 - b.pricePerM2);
+
+  // Bölgedeki (aynı şehir) gerçek ilanların satılık/kiralık dağılımı — emsal benzerlik
+  // eşiğinden bağımsız, sadece şehir eşleşmesine dayalı daha geniş bir sayım.
+  const sameCityListings = catalog.filter((a) => a.city && auction.city && a.city === auction.city);
+  const regionSaleCount = sameCityListings.filter((a) => a.dealType === "sale").length;
+  const regionRentCount = sameCityListings.filter((a) => a.dealType === "rent").length;
 
   return {
     overrides: {
@@ -190,6 +200,8 @@ export async function computeRealEconomicSection(auction: Auction): Promise<Real
       targetTotalPrice: Math.round(targetTotalPrice),
       rank: emsal.targetRank,
       rankedComparables,
+      regionSaleCount,
+      regionRentCount,
     },
   };
 }

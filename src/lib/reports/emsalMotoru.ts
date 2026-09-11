@@ -26,6 +26,8 @@ export interface EmsalRow {
   daysOnMarketKnown: boolean;
   status: "live" | "ended" | "upcoming";
   similarity: number; // 0-100
+  /** İlanın gerçek kapak görseli — yoksa undefined (yer tutucu görsel uydurulmaz). */
+  imageUrl?: string;
 }
 
 export interface EmsalSummary {
@@ -103,6 +105,7 @@ export function findEmsaller(
       status:
         a.status === "live" ? "live" : a.status === "ended" ? "ended" : "upcoming",
       similarity: sim,
+      imageUrl: a.images?.[0],
     };
   });
 

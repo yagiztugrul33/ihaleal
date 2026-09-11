@@ -124,17 +124,37 @@ function matchesDaysFilter(days: number, known: boolean, filter: DaysFilter): bo
   return days > 90;
 }
 
-function PriceRankScatter({ rows }: { rows: RankedEmsalRow[] }) {
-  const data = rows.map((r, i) => ({ x: i + 1, y: r.pricePerM2, isTarget: r.isTarget }));
+type StatusFilter = "all" | "active" | "passive";
+
+function matchesStatusFilter(status: RankedEmsalRow["status"], filter: StatusFilter): boolean {
+  if (filter === "all") return true;
+  // "Aktif" = canlı/yakında yayında; "Pasif" = kapanmış/yayından kalkmış.
+  if (filter === "active") return status === "live" || status === "upcoming";
+  return status === "ended";
+}
+
+function PriceRankScatter({
+  rows,
+  getValue = (r) => r.pricePerM2,
+  xAxisLabel = "İlan sırası (₺/m² artan)",
+  tooltipSuffix = "/m²",
+}: {
+  rows: RankedEmsalRow[];
+  getValue?: (r: RankedEmsalRow) => number;
+  xAxisLabel?: string;
+  tooltipSuffix?: string;
+}) {
+  const sorted = [...rows].sort((a, b) => getValue(a) - getValue(b));
+  const data = sorted.map((r, i) => ({ x: i + 1, y: getValue(r), isTarget: r.isTarget }));
   return (
     <div className="h-52 rounded-[20px] border border-slate-200 bg-black/20 p-2">
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart margin={{ top: 8, right: 12, bottom: 4, left: 4 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-          <XAxis type="number" dataKey="x" stroke="#94a3b8" fontSize={11} tick={false} label={{ value: "İlan sırası (₺/m² artan)", position: "insideBottom", offset: -2, fill: "#94a3b8", fontSize: 11 }} />
+          <XAxis type="number" dataKey="x" stroke="#94a3b8" fontSize={11} tick={false} label={{ value: xAxisLabel, position: "insideBottom", offset: -2, fill: "#94a3b8", fontSize: 11 }} />
           <YAxis type="number" dataKey="y" stroke="#94a3b8" fontSize={11} tickFormatter={(v: number) => `₺${Math.round(v / 1000)}K`} />
           <Tooltip
-            formatter={(v: number) => [`₺${Math.round(v).toLocaleString("tr-TR")}/m²`, "Fiyat"]}
+            formatter={(v: number) => [`₺${Math.round(v).toLocaleString("tr-TR")}${tooltipSuffix}`, "Fiyat"]}
             contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }}
           />
           <Scatter
@@ -594,6 +614,7 @@ function EconomicTab({
 }) {
   const analysis = report.raw_data?.economic_real_analysis as EconomicRealAnalysis | undefined;
   const [daysFilter, setDaysFilter] = useState<DaysFilter>("all");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const negotiation = analysis ? computeNegotiationInsight(analysis, auction?.marketingMode) : { applicable: false as const };
 
   if (analysis && !analysis.isReal) {
@@ -634,6 +655,16 @@ function EconomicTab({
           <MiniStatCard label="Medyan ₺/m²" value={`₺${Math.round(analysis.medianPricePerM2).toLocaleString("tr-TR")}`} />
           <MiniStatCard label="Max. ₺/m²" value={`₺${Math.round(analysis.maxPricePerM2).toLocaleString("tr-TR")}`} />
         </div>
+
+        {(analysis.regionSaleCount > 0 || analysis.regionRentCount > 0) && (
+          <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+            <div className="text-xs text-slate-500 mb-2">Bölgedeki (aynı şehir) ilanların ağırlık dağılımı</div>
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <MiniStatCard label="Satılık ilan sayısı" value={`${analysis.regionSaleCount}`} />
+              <MiniStatCard label="Kiralık ilan sayısı" value={`${analysis.regionRentCount}`} />
+            </div>
+          </div>
+        )}
 
         <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
           <div className="text-xs text-slate-500 mb-2">Bu ilanın emsaller içindeki fiyat konumu (₺/m²)</div>
@@ -711,9 +742,20 @@ function EconomicTab({
           </div>
         </div>
 
-        <div>
-          <div className="text-xs text-slate-500 mb-2">Emsal fiyat dağılımı — bu ilan turuncu ile işaretli</div>
-          <PriceRankScatter rows={analysis.rankedComparables} />
+        <div className="grid sm:grid-cols-2 gap-3">
+          <div>
+            <div className="text-xs text-slate-500 mb-2">Fiyat dağılımı (₺/m²) — bu ilan turuncu ile işaretli</div>
+            <PriceRankScatter rows={analysis.rankedComparables} />
+          </div>
+          <div>
+            <div className="text-xs text-slate-500 mb-2">Fiyat dağılımı (Toplam ₺) — bu ilan turuncu ile işaretli</div>
+            <PriceRankScatter
+              rows={analysis.rankedComparables}
+              getValue={(r) => r.totalPrice}
+              xAxisLabel="İlan sırası (Toplam ₺ artan)"
+              tooltipSuffix=""
+            />
+          </div>
         </div>
 
         {analysis.historyFromDb && analysis.ownHistoryChangePct != null ? (
@@ -739,7 +781,28 @@ function EconomicTab({
               <div className="text-xs text-slate-500">
                 Sıralı emsal listesi ({analysis.rankedComparables.length - 1}/{analysis.comparableCount} emsal + bu ilan, ₺/m² artan sıralı) — satıcı kimliği gösterilmez
               </div>
-              <div className="flex gap-1.5">
+              <div className="flex flex-wrap gap-1.5">
+                {(
+                  [
+                    { key: "all", label: "Tümü" },
+                    { key: "active", label: "Aktif" },
+                    { key: "passive", label: "Pasif" },
+                  ] as { key: StatusFilter; label: string }[]
+                ).map((f) => (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => setStatusFilter(f.key)}
+                    className={`px-2 py-0.5 rounded-full text-[11px] font-normal border transition-colors ${
+                      statusFilter === f.key
+                        ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
+                        : "border-slate-700 text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+                <span className="w-px bg-[var(--cizgi)] mx-0.5" aria-hidden />
                 {(
                   [
                     { key: "all", label: "Tümü" },
@@ -767,6 +830,7 @@ function EconomicTab({
               <thead>
                 <tr className="text-left text-slate-500 border-b border-[var(--cizgi)]">
                   <th className="py-1 pr-2 font-normal">Sıra</th>
+                  <th className="py-1 pr-2 font-normal">Foto</th>
                   <th className="py-1 pr-2 font-normal">İlan</th>
                   <th className="py-1 pr-2 font-normal">Konum</th>
                   <th className="py-1 pr-2 font-normal">m²</th>
@@ -779,7 +843,12 @@ function EconomicTab({
               </thead>
               <tbody>
                 {analysis.rankedComparables
-                  .filter((c) => c.isTarget || matchesDaysFilter(c.daysOnMarket, c.daysOnMarketKnown, daysFilter))
+                  .filter(
+                    (c) =>
+                      c.isTarget ||
+                      (matchesDaysFilter(c.daysOnMarket, c.daysOnMarketKnown, daysFilter) &&
+                        matchesStatusFilter(c.status, statusFilter)),
+                  )
                   .map((c, i) => (
                     <tr
                       key={c.id}
@@ -790,6 +859,13 @@ function EconomicTab({
                       }
                     >
                       <td className="py-1 pr-2 text-slate-400">{i + 1}</td>
+                      <td className="py-1 pr-2">
+                        {c.imageUrl ? (
+                          <img src={c.imageUrl} alt="" className="w-10 h-8 rounded-[3px] object-cover" loading="lazy" />
+                        ) : (
+                          <div className="w-10 h-8 rounded-[3px] bg-slate-800" aria-hidden />
+                        )}
+                      </td>
                       <td className="py-1 pr-2 text-white">
                         {c.isTarget ? "Bu ilan" : c.category || "—"}
                       </td>
