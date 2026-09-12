@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   calcBidBond,
+  calcBidBondAmount,
   getListingPackagePrice,
   FEES,
   listingPriceAnomalyMessage,
@@ -64,5 +65,29 @@ describe("fees", () => {
     expect(feeBadgeLabel().length).toBeGreaterThan(3);
     expect(formatBidBondPercent()).toContain("%");
     expect(FEE_TEXTS.sellerSummary()).toContain("Satıcı");
+  });
+
+  it("calcBidBondAmount delegates to calcBidBond", () => {
+    expect(calcBidBondAmount(1_000_000)).toBe(calcBidBond(1_000_000));
+  });
+
+  it("every FEE_TEXTS entry returns a non-empty string", () => {
+    for (const fn of Object.values(FEE_TEXTS)) {
+      expect(typeof fn()).toBe("string");
+      expect(fn().length).toBeGreaterThan(0);
+    }
+  });
+
+  it("FEE_TEXTS lines reference the expected figures", () => {
+    expect(FEE_TEXTS.refundWindow()).toContain(String(FEES.refundWindowDays));
+    expect(FEE_TEXTS.payoutHold()).toContain(String(FEES.payoutHoldDays));
+    expect(FEE_TEXTS.bidBondLine()).toContain(formatBidBondPercent());
+    expect(FEE_TEXTS.bidBondForfeitLine()).toContain(formatBidBondPercent());
+    expect(FEE_TEXTS.monetizationPrinciples()).toContain("komisyon");
+    expect(FEE_TEXTS.commissionMatrahLine()).toContain("Komisyon matrahı");
+    expect(FEE_TEXTS.commissionExplain()).toContain("KDV");
+    expect(FEE_TEXTS.sellerMembershipExplain()).toContain("5.000 TL");
+    expect(FEE_TEXTS.buyerMembershipExplain()).toContain("1.000 TL");
+    expect(FEE_TEXTS.bidBondExplain()).toContain("%5");
   });
 });

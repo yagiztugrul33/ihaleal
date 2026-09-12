@@ -13,6 +13,8 @@
     "preview": "vite preview --port 4173",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "gen:assets": "node scripts/gen-assets.mjs",
+    "seo:sitemap": "node scripts/generate-programmatic-sitemap.mjs",
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "theme:luxury": "node scripts/run-gen-luxury.mjs",
     "env:sync": "node scripts/sync-vite-supabase-env.mjs",
     "sql:bundle": "node scripts/push-migrations.mjs",
@@ -30,7 +32,7 @@
     "backup": "node scripts/backup.mjs",
     "precheck:encoding": "node scripts/check-source-encoding.mjs",
     "lint": "npx eslint . --max-warnings 0",
-    "lint:ci": "npx eslint src/lib/runtimeFlags.ts src/lib/localSession.ts src/lib/payment src/lib/supabase.ts src/components/admin src/components/LocalAuthGate.tsx src/components/ProductionSafetyBanner.tsx tests/rls scripts/validate-build-env.mjs scripts/generate-rls-matrix.mjs --max-warnings 0",
+    "lint:ci": "npx eslint src/lib/runtimeFlags.ts src/lib/localSession.ts src/lib/payment src/lib/supabase.ts src/components/admin src/components/LocalAuthGate.tsx src/components/LaunchStatusBanner.tsx tests/rls scripts/validate-build-env.mjs scripts/generate-rls-matrix.mjs --max-warnings 0",
     "validate:env": "node scripts/validate-build-env.mjs",
     "validate:env:strict": "node scripts/validate-build-env.mjs --strict",
     "security:audit": "npm audit --audit-level=high",
@@ -149,5 +151,12 @@
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.60.3",
     "@rollup/rollup-linux-x64-musl": "4.60.3"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12",
+    "browserslist": "4.28.9",
+    "baseline-browser-mapping": "2.11.22",
+    "fflate": "0.8.3",
+    "postcss-selector-parser": "7.1.6"
   }
 }

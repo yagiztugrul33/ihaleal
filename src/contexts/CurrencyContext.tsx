@@ -51,6 +51,8 @@ type RateSnapshot = {
   tryPerUnit: Record<CurrencyCode, number>;
   /** Gerçek gram altın fiyatı — sadece açık kaynak API'den gelirse dolu, aksi halde null (formülle uydurulmaz). */
   goldGramTry: number | null;
+  /** Gerçek çeyrek altın fiyatı — API'nin kendi ayrı alanından; gram'dan bir katsayıyla türetilmez. */
+  goldQuarterTry: number | null;
   goldSource: GoldSource;
   eurUsdParity: number;
   updatedAtIso: string;

@@ -66,3 +66,10 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # Yandex + Bing'e "sayfalar değişti" sinyalini anında iter (Google zaten
+      # Search Console + crawl ile kendi hızında geliyor). Deploy'u
+      # bloklamasın diye ayrı adım + continue-on-error.
+      - name: Notify search engines via IndexNow
+        run: npm run seo:indexnow
+        continue-on-error: true
