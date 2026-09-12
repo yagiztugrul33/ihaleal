@@ -49,7 +49,7 @@ export function CinematicStatsBar() {
   return (
     <div className="cinematic-stats-bar" data-testid="cinematic-stats">
       <div className="cinematic-stats-bar__item" data-testid="stats-active-auctions">
-        <span className="cinematic-stats-bar__value" style={{ color: "#fbbf24" }} dir="ltr">
+        <span className="cinematic-stats-bar__value" style={{ color: "var(--vurgu)" }} dir="ltr">
           {liveAnimated.toLocaleString("tr-TR")}
         </span>
         <span className="cinematic-stats-bar__label">{s.activeAuctions}</span>
