@@ -36,6 +36,23 @@ describe("userFlows", () => {
     expect(readUserFlowsFromStorage()).toEqual([]);
   });
 
+  it("readUserFlowsFromStorage returns [] when the parsed JSON is not an array", () => {
+    localStorage.setItem(USER_FLOWS_STORAGE_KEY, JSON.stringify({ not: "an array" }));
+    expect(readUserFlowsFromStorage()).toEqual([]);
+  });
+
+  it("mergedRequirements returns [] for an empty flow list", () => {
+    expect(mergedRequirements([])).toEqual([]);
+  });
+
+  it("mergedFlowPermissions returns all-false for an empty flow list", () => {
+    expect(mergedFlowPermissions([])).toEqual({
+      canOpenAuction: false,
+      canCreateListing: false,
+      canBid: false,
+    });
+  });
+
   it("writeUserFlowsToStorage persists valid flows", () => {
     const spy = vi.spyOn(window, "dispatchEvent");
     const flows: UserFlow[] = ["browser_only", "auction_bidder"];

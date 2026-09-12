@@ -14,4 +14,9 @@ describe("sanitizeChatPlainText", () => {
     const long = "a".repeat(9000);
     expect(sanitizeChatPlainText(long).length).toBe(8000);
   });
+
+  it("returns empty for null/undefined input", () => {
+    expect(sanitizeChatPlainText(null as unknown as string)).toBe("");
+    expect(sanitizeChatPlainText(undefined as unknown as string)).toBe("");
+  });
 });
