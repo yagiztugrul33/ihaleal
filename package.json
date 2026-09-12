@@ -151,5 +151,12 @@
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.60.3",
     "@rollup/rollup-linux-x64-musl": "4.60.3"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12",
+    "browserslist": "4.28.9",
+    "baseline-browser-mapping": "2.11.22",
+    "fflate": "0.8.3",
+    "postcss-selector-parser": "7.1.6"
   }
 }
