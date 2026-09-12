@@ -171,4 +171,104 @@ describe("computeRealEconomicSection", () => {
     }
     expect(overrides.economic_price_trend_3y_pct).toBeNull();
   });
+
+  it("targetTotalPrice ve targetPricePerM2 hedef ilanın gerçek fiyatından hesaplanır", async () => {
+    mockedFetchCatalog.mockResolvedValue([
+      comparable("c1", 48_000),
+      comparable("c2", 50_000),
+      comparable("c3", 52_000),
+      comparable("c4", 54_000),
+    ]);
+    mockedLoadHistory.mockResolvedValue({ history: [], fromDb: false });
+
+    const { analysis } = await computeRealEconomicSection(fakeAuction({ currentBid: 5_000_000, propertyDetails: { ...fakeAuction().propertyDetails, grossSqm: 100 } }));
+
+    expect(analysis.isReal).toBe(true);
+    if (analysis.isReal) {
+      expect(analysis.targetTotalPrice).toBe(5_000_000);
+      expect(analysis.targetPricePerM2).toBe(50_000);
+    }
+  });
+
+  it("rankedComparables hedef ilanı isTarget:true ile işaretler ve ₺/m²'ye göre artan sıralar", async () => {
+    mockedFetchCatalog.mockResolvedValue([
+      comparable("c1", 48_000),
+      comparable("c2", 60_000),
+      comparable("c3", 52_000),
+      comparable("c4", 54_000),
+    ]);
+    mockedLoadHistory.mockResolvedValue({ history: [], fromDb: false });
+
+    const { analysis } = await computeRealEconomicSection(fakeAuction({ currentBid: 5_500_000 }));
+
+    expect(analysis.isReal).toBe(true);
+    if (analysis.isReal) {
+      const target = analysis.rankedComparables.find((r) => r.isTarget);
+      expect(target).toBeDefined();
+      expect(target!.id).toBe("target-1");
+      expect(target!.pricePerM2).toBe(55_000);
+      // Artan sıralı mı?
+      const prices = analysis.rankedComparables.map((r) => r.pricePerM2);
+      const sorted = [...prices].sort((a, b) => a - b);
+      expect(prices).toEqual(sorted);
+      // isTarget dışındakiler false olmalı
+      expect(analysis.rankedComparables.filter((r) => r.isTarget)).toHaveLength(1);
+    }
+  });
+
+  it("regionSaleCount/regionRentCount aynı şehirdeki gerçek dealType alanından sayılır", async () => {
+    mockedFetchCatalog.mockResolvedValue([
+      comparable("c1", 48_000, { dealType: "sale" }),
+      comparable("c2", 50_000, { dealType: "sale" }),
+      comparable("c3", 52_000, { dealType: "rent" }),
+      comparable("c4", 54_000), // dealType tanımsız — sayılmaz
+    ]);
+    mockedLoadHistory.mockResolvedValue({ history: [], fromDb: false });
+
+    const { analysis } = await computeRealEconomicSection(fakeAuction());
+
+    expect(analysis.isReal).toBe(true);
+    if (analysis.isReal) {
+      expect(analysis.regionSaleCount).toBe(2);
+      expect(analysis.regionRentCount).toBe(1);
+    }
+  });
+
+  it("regionSaleCount/regionRentCount farklı şehirdeki ilanları saymaz", async () => {
+    mockedFetchCatalog.mockResolvedValue([
+      comparable("c1", 48_000, { dealType: "sale" }),
+      comparable("c2", 50_000, { dealType: "sale" }),
+      comparable("c3", 52_000, { dealType: "sale", city: "Ankara" }),
+      comparable("c4", 54_000),
+    ]);
+    mockedLoadHistory.mockResolvedValue({ history: [], fromDb: false });
+
+    const { analysis } = await computeRealEconomicSection(fakeAuction());
+
+    expect(analysis.isReal).toBe(true);
+    if (analysis.isReal) {
+      // fakeAuction city = İstanbul; Ankara'daki sayılmamalı
+      expect(analysis.regionSaleCount).toBe(2);
+    }
+  });
+
+  it("bir emsalin gerçek görseli varsa rankedComparables'a taşınır, yoksa undefined kalır (uydurulmaz)", async () => {
+    mockedFetchCatalog.mockResolvedValue([
+      comparable("c1", 48_000, { images: ["https://example.com/real-photo.jpg"] }),
+      comparable("c2", 50_000, { images: [] }),
+      comparable("c3", 52_000),
+      comparable("c4", 54_000),
+    ]);
+    mockedLoadHistory.mockResolvedValue({ history: [], fromDb: false });
+
+    const { analysis } = await computeRealEconomicSection(fakeAuction());
+
+    expect(analysis.isReal).toBe(true);
+    if (analysis.isReal) {
+      const withPhoto = analysis.rankedComparables.find((r) => r.id === "c1");
+      const withoutPhoto = analysis.rankedComparables.find((r) => r.id === "c2");
+      expect(withPhoto?.imageUrl).toBe("https://example.com/real-photo.jpg");
+      expect(withoutPhoto?.imageUrl).toBeUndefined();
+    }
+  });
 });

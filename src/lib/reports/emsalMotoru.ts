@@ -20,9 +20,14 @@ export interface EmsalRow {
   pricePerM2: number;
   grossM2: number;
   totalPrice: number;
+  /** Yayına başlangıçtan bu yana geçen gün sayısı — `daysOnMarketKnown` false ise anlamsız (0 olarak doldurulur, gösterme). */
   daysOnMarket: number;
+  /** İlanın gerçek `startsAt` tarihi var mı — yoksa daysOnMarket hesaplanamaz, uydurulmaz. */
+  daysOnMarketKnown: boolean;
   status: "live" | "ended" | "upcoming";
   similarity: number; // 0-100
+  /** İlanın gerçek kapak görseli — yoksa undefined (yer tutucu görsel uydurulmaz). */
+  imageUrl?: string;
 }
 
 export interface EmsalSummary {
@@ -37,7 +42,7 @@ export interface EmsalSummary {
   closingSampleSize: number;
 }
 
-function daysBetween(iso?: string | null): number {
+export function daysBetween(iso?: string | null): number {
   if (!iso) return 0;
   const d = new Date(iso).getTime();
   if (!Number.isFinite(d)) return 0;
@@ -92,10 +97,15 @@ export function findEmsaller(
       pricePerM2: Math.round(ppm2),
       grossM2,
       totalPrice: Math.round(totalPrice),
-      daysOnMarket: daysBetween(a.endDate ?? null),
+      // "Yayında kalma süresi" = yayın başlangıcından bu yana geçen gün. Sadece startsAt
+      // varsa hesaplanır — endDate gelecekte olduğu için (aktif/yakında ilanlar) endDate'e
+      // dayanmak yanlış (her zaman 0 dönerdi).
+      daysOnMarket: a.startsAt ? daysBetween(a.startsAt) : 0,
+      daysOnMarketKnown: Boolean(a.startsAt),
       status:
         a.status === "live" ? "live" : a.status === "ended" ? "ended" : "upcoming",
       similarity: sim,
+      imageUrl: a.images?.[0],
     };
   });
 

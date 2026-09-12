@@ -27,6 +27,15 @@ type DealFilter = "all" | "sale" | "rent";
 type StatusFilter = "all" | "live" | "upcoming" | "ended";
 const ROOM_OPTIONS = ["all", "1+0", "2+1", "3+1", "4+1", "5+"] as const;
 type RoomFilter = (typeof ROOM_OPTIONS)[number];
+const SORT_OPTIONS = ["recommended", "pricePerSqmAsc", "pricePerSqmDesc", "priceAsc", "priceDesc"] as const;
+type SortOption = (typeof SORT_OPTIONS)[number];
+const SORT_LABELS: Record<SortOption, string> = {
+  recommended: "Önerilen",
+  pricePerSqmAsc: "₺/m² (en avantajlı önce)",
+  pricePerSqmDesc: "₺/m² (yüksekten düşüğe)",
+  priceAsc: "Fiyat (düşükten yükseğe)",
+  priceDesc: "Fiyat (yüksekten düşüğe)",
+};
 
 function resolveDealType(a: Pick<Auction, "dealType" | "category">): "sale" | "rent" {
   return a.dealType ?? (a.category === "Kiralık" ? "rent" : "sale");
@@ -45,6 +54,11 @@ function parseStatusFilter(value: string | null): StatusFilter {
 function parseRoomFilter(value: string | null): RoomFilter {
   if (value && ROOM_OPTIONS.includes(value as RoomFilter)) return value as RoomFilter;
   return "all";
+}
+
+function parseSortOption(value: string | null): SortOption {
+  if (value && (SORT_OPTIONS as readonly string[]).includes(value)) return value as SortOption;
+  return "recommended";
 }
 
 function matchesRoomFilter(roomCount: string, roomFilter: RoomFilter): boolean {
@@ -68,6 +82,7 @@ function readFiltersFromParams(params: URLSearchParams) {
     selectedCategory: params.get("cat") || "all",
     selectedRoom: parseRoomFilter(params.get("room")),
     searchQuery: params.get("q") || "",
+    sortOption: parseSortOption(params.get("sort")),
   };
 }
 
@@ -81,6 +96,7 @@ function buildParamsFromFilters(input: ReturnType<typeof readFiltersFromParams>)
   if (input.searchQuery.trim()) next.set("q", input.searchQuery.trim());
   if (input.priceRange[0] > 0) next.set("min", String(input.priceRange[0]));
   if (input.priceRange[1] < 200000000) next.set("max", String(input.priceRange[1]));
+  if (input.sortOption !== "recommended") next.set("sort", input.sortOption);
   return next;
 }
 
@@ -107,6 +123,7 @@ export function Auctions({
   const [selectedCategory, setSelectedCategory] = useState(initialFilters?.selectedCategory ?? "all");
   const [selectedRoom, setSelectedRoom] = useState<RoomFilter>(initialFilters?.selectedRoom ?? "all");
   const [searchQuery, setSearchQuery] = useState(initialFilters?.searchQuery ?? "");
+  const [sortOption, setSortOption] = useState<SortOption>(initialFilters?.sortOption ?? "recommended");
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
   const [catalog, setCatalog] = useState(() => getLocalAndStaticAuctions());
   const [catalogLoading, setCatalogLoading] = useState(true);
@@ -149,6 +166,7 @@ export function Auctions({
     setSelectedCategory(parsed.selectedCategory);
     setSelectedRoom(parsed.selectedRoom);
     setSearchQuery(parsed.searchQuery);
+    setSortOption(parsed.sortOption);
   }, [searchParams, layout]);
 
   const syncUrlFromFilters = useCallback(() => {
@@ -161,6 +179,7 @@ export function Auctions({
       selectedCategory,
       selectedRoom,
       searchQuery,
+      sortOption,
     });
     if (next.toString() === searchParams.toString()) return;
     skipParamReadRef.current = true;
@@ -174,6 +193,7 @@ export function Auctions({
     selectedCategory,
     selectedRoom,
     searchQuery,
+    sortOption,
     searchParams,
     setSearchParams,
   ]);
@@ -193,20 +213,32 @@ export function Auctions({
       if (selectedCategory !== "all" && a.category !== selectedCategory) return false;
       if (!matchesRoomFilter(a.propertyDetails?.roomCount ?? "", selectedRoom)) return false;
       if (searchQuery) {
-        const sq = searchQuery.toLowerCase();
-        const inTitle = a.title.toLowerCase().includes(sq);
+        const sq = searchQuery.toLocaleLowerCase("tr-TR");
+        const haystack = `${a.title} ${a.district} ${a.location}`.toLocaleLowerCase("tr-TR");
         const inNo = getListingNumber(a).toLowerCase().includes(sq);
-        if (!inTitle && !inNo) return false;
+        if (!haystack.includes(sq) && !inNo) return false;
       }
       return true;
     });
     return rows.sort((a, b) => {
-      const af = a.isFeatured ? 1 : 0;
-      const bf = b.isFeatured ? 1 : 0;
-      if (af !== bf) return bf - af;
-      return (b.viewCount ?? 0) - (a.viewCount ?? 0);
+      switch (sortOption) {
+        case "pricePerSqmAsc":
+          return a.pricePerSqm - b.pricePerSqm;
+        case "pricePerSqmDesc":
+          return b.pricePerSqm - a.pricePerSqm;
+        case "priceAsc":
+          return a.currentBid - b.currentBid;
+        case "priceDesc":
+          return b.currentBid - a.currentBid;
+        default: {
+          const af = a.isFeatured ? 1 : 0;
+          const bf = b.isFeatured ? 1 : 0;
+          if (af !== bf) return bf - af;
+          return (b.viewCount ?? 0) - (a.viewCount ?? 0);
+        }
+      }
     });
-  }, [catalog, filter, priceRange, selectedCity, dealTypeFilter, selectedCategory, selectedRoom, searchQuery]);
+  }, [catalog, filter, priceRange, selectedCity, dealTypeFilter, selectedCategory, selectedRoom, searchQuery, sortOption]);
 
   const filteredListingIds = useMemo(() => filtered.map((a) => a.id), [filtered]);
   const { ratings: listingRatings } = useListingRatings(filteredListingIds);
@@ -260,6 +292,16 @@ export function Auctions({
                   {f === "all" ? "Tümü" : f === "live" ? "Canlı" : f === "upcoming" ? "Yaklaşan" : "Tamamlandı"}
                 </button>
               ))}
+              <select
+                value={sortOption}
+                onChange={(e) => setSortOption(parseSortOption(e.target.value))}
+                aria-label="Sırala"
+                className={`px-3 py-2 rounded-[20px] text-sm font-normal border ${isHome ? "bg-[var(--color-bg-card)] border-[var(--color-border)] text-[var(--color-text)]" : "bg-white/5 border-white/10 text-slate-300"}`}
+              >
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt}>{SORT_LABELS[opt]}</option>
+                ))}
+              </select>
               <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)} className={`gap-2 ${isHome ? "btn-ghost" : "border-white/10 text-slate-400 hover:text-white hover:bg-white/5"}`}>
                 <Filter className="w-4 h-4" /> {showFilters ? <X className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </Button>
@@ -313,7 +355,7 @@ export function Auctions({
                 </select>
               </div>
               <div className="flex items-end justify-end md:col-span-2 lg:col-span-4">
-                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setDealTypeFilter("all"); setSelectedCategory("all"); setSelectedRoom("all"); setSearchQuery(""); setFilter("all"); }} className="text-xs text-slate-500 hover:text-[var(--metin-ikincil)] transition-colors">Filtreleri Temizle</button>
+                <button onClick={() => { setPriceRange([0, 200000000]); setSelectedCity("all"); setDealTypeFilter("all"); setSelectedCategory("all"); setSelectedRoom("all"); setSearchQuery(""); setFilter("all"); setSortOption("recommended"); }} className="text-xs text-slate-500 hover:text-[var(--metin-ikincil)] transition-colors">Filtreleri Temizle</button>
               </div>
             </div>
           )}
@@ -347,6 +389,11 @@ export function Auctions({
                 <div className={`absolute inset-0 bg-gradient-to-t ${isHome ? "from-black/50" : "from-slate-950"} via-transparent to-transparent`} />
                 <div className="absolute top-3 start-3 flex flex-wrap gap-2">
                   <ListingFeaturedBadge isFeatured={auction.isFeatured} badge={auction.featuredBadge} />
+                  {sortOption === "pricePerSqmAsc" && idx === 0 && (
+                    <Badge className="bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border border-[var(--cizgi)] gap-1">
+                      <TrendingUp className="w-3 h-3" /> En avantajlı ₺/m²
+                    </Badge>
+                  )}
                   {auction.status === "live" && <Badge className="bg-[var(--zemin-yumusak)] text-white gap-1 animate-pulse"><Flame className="w-3 h-3" /> Canlı</Badge>}
                   {auction.status === "upcoming" && <Badge variant="outline" className="border-[var(--cizgi)] text-[var(--metin-ikincil)] gap-1"><Calendar className="w-3 h-3" /> Yaklaşan</Badge>}
                   <Badge variant="outline" className={`gap-1 text-xs ${auction.investmentScore >= 85 ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" : auction.investmentScore >= 70 ? "bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)] border-[var(--cizgi)]" : "bg-slate-500/20 text-slate-400 border-slate-500/30"}`}><Star className="w-3 h-3" /> {auction.investmentScore}</Badge>

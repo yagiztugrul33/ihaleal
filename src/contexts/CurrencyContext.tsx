@@ -10,6 +10,7 @@ import {
 
 export type CurrencyCode = "TRY" | "USD" | "EUR" | "GBP";
 type RateSource = "tcmb_api" | "mock_fallback";
+type GoldSource = "public_api" | "unavailable";
 
 type CurrencyContextValue = {
   currency: CurrencyCode;
@@ -19,7 +20,11 @@ type CurrencyContextValue = {
   usdRate: number;
   eurRate: number;
   gbpRate: number;
-  goldGramTry: number;
+  /** Gerçek gram altın fiyatı (açık kaynak API) — kaynağa ulaşılamadıysa null (uydurma sayı yok). */
+  goldGramTry: number | null;
+  /** Gerçek çeyrek altın fiyatı — API'nin kendi ayrı alanından; gram'dan bir katsayıyla türetilmez. */
+  goldQuarterTry: number | null;
+  goldSource: GoldSource;
   eurUsdParity: number;
   ratesUpdatedAtIso: string;
   ratesSource: RateSource;
@@ -44,7 +49,9 @@ const BASE_TRY_PER_UNIT: Record<CurrencyCode, number> = {
 
 type RateSnapshot = {
   tryPerUnit: Record<CurrencyCode, number>;
-  goldGramTry: number;
+  /** Gerçek gram altın fiyatı — sadece açık kaynak API'den gelirse dolu, aksi halde null (formülle uydurulmaz). */
+  goldGramTry: number | null;
+  goldSource: GoldSource;
   eurUsdParity: number;
   updatedAtIso: string;
   source: RateSource;
@@ -70,7 +77,6 @@ function buildMockSnapshot(previous?: RateSnapshot): RateSnapshot {
   const eur = Number((base.EUR * (1 + wave * 0.0018)).toFixed(4));
   const gbp = Number((base.GBP * (1 + wave * 0.0021)).toFixed(4));
   const eurUsdParity = Number((eur / Math.max(usd, 0.0001)).toFixed(4));
-  const goldGramTry = Number((usd * 1.9 + 1550).toFixed(2));
   return {
     tryPerUnit: {
       TRY: 1,
@@ -78,11 +84,45 @@ function buildMockSnapshot(previous?: RateSnapshot): RateSnapshot {
       EUR: eur,
       GBP: gbp,
     },
-    goldGramTry,
+    // FX mock ise altın da "gerçek değil" — önceden burada usd*1.9+1550 gibi uydurma bir
+    // formül vardı; artık gerçek kaynağa ulaşılamayınca null döner, sahte sayı gösterilmez.
+    goldGramTry: null,
+    goldQuarterTry: null,
+    goldSource: "unavailable",
     eurUsdParity,
     updatedAtIso: now.toISOString(),
     source: "mock_fallback",
   };
+}
+
+/**
+ * Açık kaynak (ücretsiz, anahtarsız) altın fiyatları — Truncgil finans API.
+ * Yanıt şekli farklı çıkabilir diye birden çok olası alan adı denenir; hiçbiri
+ * uymazsa veya istek başarısız olursa null döner (asla formülle/katsayıyla tahmin edilmez —
+ * çeyrek altın gram'dan sabit bir çarpanla türetilmez, API'nin kendi alanı kullanılır).
+ */
+async function fetchGoldSnapshot(): Promise<{ gramTry: number | null; quarterTry: number | null }> {
+  const readField = (data: Record<string, unknown>, keys: string[]): number | null => {
+    for (const key of keys) {
+      const entry = data[key] as Record<string, unknown> | undefined;
+      if (!entry) continue;
+      const raw = entry.Satış ?? entry.Selling ?? entry.satis ?? entry.selling;
+      const value = typeof raw === "string" ? Number(raw.replace(",", ".")) : Number(raw);
+      if (Number.isFinite(value) && value > 0) return value;
+    }
+    return null;
+  };
+  try {
+    const res = await fetch("https://finans.truncgil.com/v4/today.json", { cache: "no-store" });
+    if (!res.ok) return { gramTry: null, quarterTry: null };
+    const data = (await res.json()) as Record<string, unknown>;
+    return {
+      gramTry: readField(data, ["gram-altin", "GRA", "gram_altin", "GRAMALTIN"]),
+      quarterTry: readField(data, ["ceyrek-altin", "CEYREK", "ceyrek_altin", "CEYREKALTIN"]),
+    };
+  } catch {
+    return { gramTry: null, quarterTry: null };
+  }
 }
 
 function readStoredSnapshot(): RateSnapshot | null {
@@ -104,7 +144,9 @@ function readStoredSnapshot(): RateSnapshot | null {
         EUR: parsed.tryPerUnit.EUR,
         GBP: parsed.tryPerUnit.GBP,
       },
-      goldGramTry: Number.isFinite(parsed.goldGramTry) ? (parsed.goldGramTry as number) : 0,
+      goldGramTry: Number.isFinite(parsed.goldGramTry) ? (parsed.goldGramTry as number) : null,
+      goldQuarterTry: Number.isFinite(parsed.goldQuarterTry) ? (parsed.goldQuarterTry as number) : null,
+      goldSource: parsed.goldSource === "public_api" ? "public_api" : "unavailable",
       eurUsdParity:
         Number.isFinite(parsed.eurUsdParity) && (parsed.eurUsdParity ?? 0) > 0
           ? (parsed.eurUsdParity as number)
@@ -138,7 +180,6 @@ async function fetchTcmbSnapshot(): Promise<RateSnapshot | null> {
     const gbp = readForexSelling("GBP");
     if (!usd || !eur || !gbp) return null;
     const eurUsdParity = Number((eur / Math.max(usd, 0.0001)).toFixed(4));
-    const goldGramTry = Number((usd * 1.9 + 1550).toFixed(2));
     return {
       tryPerUnit: {
         TRY: 1,
@@ -146,7 +187,10 @@ async function fetchTcmbSnapshot(): Promise<RateSnapshot | null> {
         EUR: eur,
         GBP: gbp,
       },
-      goldGramTry,
+      // Altın, döviz kurundan bağımsız ayrı bir kaynaktan (fetchGoldSnapshot) doldurulur.
+      goldGramTry: null,
+      goldQuarterTry: null,
+      goldSource: "unavailable",
       eurUsdParity,
       updatedAtIso: new Date().toISOString(),
       source: "tcmb_api",
@@ -170,9 +214,15 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   };
 
   const refreshRates = useCallback(async () => {
-    const tcmb = await fetchTcmbSnapshot();
+    const [tcmb, gold] = await Promise.all([fetchTcmbSnapshot(), fetchGoldSnapshot()]);
     setSnapshot((prev) => {
-      const next = tcmb ?? buildMockSnapshot(prev);
+      const base = tcmb ?? buildMockSnapshot(prev);
+      const next: RateSnapshot = {
+        ...base,
+        goldGramTry: gold.gramTry,
+        goldQuarterTry: gold.quarterTry,
+        goldSource: gold.gramTry != null || gold.quarterTry != null ? "public_api" : "unavailable",
+      };
       try {
         localStorage.setItem(RATE_STORAGE_KEY, JSON.stringify(next));
       } catch {
@@ -213,6 +263,8 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
       eurRate: snapshot.tryPerUnit.EUR,
       gbpRate: snapshot.tryPerUnit.GBP,
       goldGramTry: snapshot.goldGramTry,
+      goldQuarterTry: snapshot.goldQuarterTry,
+      goldSource: snapshot.goldSource,
       eurUsdParity: snapshot.eurUsdParity,
       ratesUpdatedAtIso: snapshot.updatedAtIso,
       ratesSource: snapshot.source,

@@ -16,6 +16,9 @@ import { Download, Loader2 } from "lucide-react";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
 import { AI_REPORT_DISCLAIMER_TR } from "@/lib/aiAnalysis";
 import type { EconomicRealAnalysis, RankedEmsalRow } from "@/lib/reports/realEconomicAnalysis";
+import { computeNegotiationInsight } from "@/lib/reports/negotiationInsight";
+import { estimateBuyerClosingCosts, DEED_DUTY_RATE } from "@/lib/fees";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import type { Auction } from "@/types/auction";
 import { clientLogError } from "@/lib/clientLog";
 import { AIRaporSorumluluk } from "@/components/legal/AIRaporSorumluluk";
@@ -93,17 +96,65 @@ function PricePositionBar({
   );
 }
 
-function PriceRankScatter({ rows }: { rows: RankedEmsalRow[] }) {
-  const data = rows.map((r, i) => ({ x: i + 1, y: r.pricePerM2, isTarget: r.isTarget }));
+function MiniRowPositionBar({ min, max, value }: { min: number; max: number; value: number }) {
+  const span = max - min;
+  const pct = span > 0 ? Math.min(100, Math.max(0, ((value - min) / span) * 100)) : 50;
+  return (
+    <div
+      className="relative h-1.5 w-14 rounded-full"
+      style={{ background: "linear-gradient(90deg, var(--metrik-yesil), var(--sinyal-turuncu))" }}
+      title={`₺${Math.round(value).toLocaleString("tr-TR")}/m²`}
+    >
+      <div
+        className="absolute -top-[3px] w-2 h-2 rounded-full bg-white border border-black/40"
+        style={{ left: `calc(${pct}% - 4px)` }}
+      />
+    </div>
+  );
+}
+
+type DaysFilter = "all" | "30" | "90" | "90+";
+
+function matchesDaysFilter(days: number, known: boolean, filter: DaysFilter): boolean {
+  if (filter === "all") return true;
+  // Yayın başlangıç tarihi bilinmeyen emsaller belirli bir gün-aralığına atanamaz — sadece "Tümü"nde görünür.
+  if (!known) return false;
+  if (filter === "30") return days <= 30;
+  if (filter === "90") return days > 30 && days <= 90;
+  return days > 90;
+}
+
+type StatusFilter = "all" | "active" | "passive";
+
+function matchesStatusFilter(status: RankedEmsalRow["status"], filter: StatusFilter): boolean {
+  if (filter === "all") return true;
+  // "Aktif" = canlı/yakında yayında; "Pasif" = kapanmış/yayından kalkmış.
+  if (filter === "active") return status === "live" || status === "upcoming";
+  return status === "ended";
+}
+
+function PriceRankScatter({
+  rows,
+  getValue = (r) => r.pricePerM2,
+  xAxisLabel = "İlan sırası (₺/m² artan)",
+  tooltipSuffix = "/m²",
+}: {
+  rows: RankedEmsalRow[];
+  getValue?: (r: RankedEmsalRow) => number;
+  xAxisLabel?: string;
+  tooltipSuffix?: string;
+}) {
+  const sorted = [...rows].sort((a, b) => getValue(a) - getValue(b));
+  const data = sorted.map((r, i) => ({ x: i + 1, y: getValue(r), isTarget: r.isTarget }));
   return (
     <div className="h-52 rounded-[20px] border border-slate-200 bg-black/20 p-2">
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart margin={{ top: 8, right: 12, bottom: 4, left: 4 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-          <XAxis type="number" dataKey="x" stroke="#94a3b8" fontSize={11} tick={false} label={{ value: "İlan sırası (₺/m² artan)", position: "insideBottom", offset: -2, fill: "#94a3b8", fontSize: 11 }} />
+          <XAxis type="number" dataKey="x" stroke="#94a3b8" fontSize={11} tick={false} label={{ value: xAxisLabel, position: "insideBottom", offset: -2, fill: "#94a3b8", fontSize: 11 }} />
           <YAxis type="number" dataKey="y" stroke="#94a3b8" fontSize={11} tickFormatter={(v: number) => `₺${Math.round(v / 1000)}K`} />
           <Tooltip
-            formatter={(v: number) => [`₺${Math.round(v).toLocaleString("tr-TR")}/m²`, "Fiyat"]}
+            formatter={(v: number) => [`₺${Math.round(v).toLocaleString("tr-TR")}${tooltipSuffix}`, "Fiyat"]}
             contentStyle={{ background: "#0f172a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }}
           />
           <Scatter
@@ -426,7 +477,7 @@ export function PropertyAnalysisReportViewer({
         )}
 
         {tab === "economic" && (
-          <EconomicTab report={report} rentTrend={rentTrend} />
+          <EconomicTab report={report} rentTrend={rentTrend} auction={auction} />
         )}
 
         {tab === "overall" && (
@@ -458,14 +509,113 @@ export function PropertyAnalysisReportViewer({
   );
 }
 
+function BuyerCostBreakdown({ totalPrice }: { totalPrice: number }) {
+  if (totalPrice <= 0) return null;
+  const costs = estimateBuyerClosingCosts(totalPrice);
+  const deedHalf = Math.round(costs.deed / 2);
+  return (
+    <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+      <div className="text-sm font-normal text-white mb-2">Tapu Harcı · Komisyon · KDV</div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+        <div>
+          <div className="text-slate-500">Tapu harcı (%{(DEED_DUTY_RATE * 100).toFixed(0)} toplam)</div>
+          <div className="text-white">₺{costs.deed.toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Alıcı payı (%{(DEED_DUTY_RATE * 50).toFixed(0)})</div>
+          <div className="text-white">₺{deedHalf.toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Satıcı payı (%{(DEED_DUTY_RATE * 50).toFixed(0)})</div>
+          <div className="text-white">₺{deedHalf.toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Platform komisyonu (alıcı)</div>
+          <div className="text-white">₺{Math.round(costs.commission).toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Komisyon KDV</div>
+          <div className="text-white">₺{Math.round(costs.vatOnCommission).toLocaleString("tr-TR")}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">Diğer sabit masraflar</div>
+          <div className="text-white">₺{costs.fixed.toLocaleString("tr-TR")}</div>
+        </div>
+      </div>
+      <div className="mt-3 pt-3 border-t border-[var(--cizgi)] flex items-baseline justify-between">
+        <span className="text-xs text-slate-500">Alıcı toplam maliyet (ilan bedeli dahil)</span>
+        <span className="text-lg font-normal text-white">₺{Math.round(costs.total).toLocaleString("tr-TR")}</span>
+      </div>
+      <p className="text-[11px] text-slate-500 mt-2">
+        Standart oranlar üzerinden tahmindir; döner sermaye ve dosya masrafları hariçtir. Değerler
+        platformun gerçek ücret yapılandırmasından (fees.ts) hesaplanır.
+      </p>
+    </div>
+  );
+}
+
+function CurrencyEquivalents({ totalPrice }: { totalPrice: number }) {
+  const { usdRate, eurRate, gbpRate, goldGramTry, goldQuarterTry, goldSource, ratesSource } = useCurrency();
+  if (totalPrice <= 0) return null;
+  const fmt = (v: number) => v.toLocaleString("tr-TR", { maximumFractionDigits: 0 });
+  return (
+    <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+      <div className="text-sm font-normal text-white mb-2">Döviz ve Altın Karşılığı</div>
+      <div className="grid grid-cols-3 gap-3 text-xs mb-2">
+        <div>
+          <div className="text-slate-500">USD ({usdRate.toFixed(2)})</div>
+          <div className="text-white">${fmt(totalPrice / usdRate)}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">EUR ({eurRate.toFixed(2)})</div>
+          <div className="text-white">€{fmt(totalPrice / eurRate)}</div>
+        </div>
+        <div>
+          <div className="text-slate-500">GBP ({gbpRate.toFixed(2)})</div>
+          <div className="text-white">£{fmt(totalPrice / gbpRate)}</div>
+        </div>
+      </div>
+      {goldSource === "public_api" && (goldGramTry != null || goldQuarterTry != null) ? (
+        <div className="grid grid-cols-2 gap-3 text-xs border-t border-[var(--cizgi)] pt-2">
+          {goldGramTry != null && (
+            <div>
+              <div className="text-slate-500">Gram altın (₺{goldGramTry.toFixed(0)})</div>
+              <div className="text-white">{(totalPrice / goldGramTry).toLocaleString("tr-TR", { maximumFractionDigits: 1 })} gram</div>
+            </div>
+          )}
+          {goldQuarterTry != null && (
+            <div>
+              <div className="text-slate-500">Çeyrek altın (₺{goldQuarterTry.toFixed(0)})</div>
+              <div className="text-white">{(totalPrice / goldQuarterTry).toLocaleString("tr-TR", { maximumFractionDigits: 1 })} çeyrek</div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p className="text-[11px] text-slate-500 border-t border-[var(--cizgi)] pt-2">
+          Altın karşılığı şu an gösterilemiyor — açık kaynak altın fiyatına erişilemedi.
+        </p>
+      )}
+      <p className="text-[11px] text-slate-500 mt-2">
+        Kurlar: {ratesSource === "tcmb_api" ? "TCMB otomatik" : "gösterge kur (TCMB bağlantısı yapılandırılmamış)"} · bugünkü
+        kur/fiyat üzerindendir, geçmiş tarihli karşılaştırma değildir.
+      </p>
+    </div>
+  );
+}
+
 function EconomicTab({
   report,
   rentTrend,
+  auction,
 }: {
   report: PropertyAnalysisReportRecord;
   rentTrend: { y: string; pct: number }[];
+  auction?: Auction;
 }) {
   const analysis = report.raw_data?.economic_real_analysis as EconomicRealAnalysis | undefined;
+  const [daysFilter, setDaysFilter] = useState<DaysFilter>("all");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const negotiation = analysis ? computeNegotiationInsight(analysis, auction?.marketingMode) : { applicable: false as const };
 
   if (analysis && !analysis.isReal) {
     return (
@@ -488,6 +638,12 @@ function EconomicTab({
   }
 
   if (analysis && analysis.isReal) {
+    const filteredComparables = analysis.rankedComparables.filter(
+      (c) =>
+        c.isTarget ||
+        (matchesDaysFilter(c.daysOnMarket, c.daysOnMarketKnown, daysFilter) &&
+          matchesStatusFilter(c.status, statusFilter)),
+    );
     return (
       <div className="space-y-4 animate-fade-in">
         <div className="flex flex-wrap items-center gap-2">
@@ -506,6 +662,16 @@ function EconomicTab({
           <MiniStatCard label="Max. ₺/m²" value={`₺${Math.round(analysis.maxPricePerM2).toLocaleString("tr-TR")}`} />
         </div>
 
+        {(analysis.regionSaleCount > 0 || analysis.regionRentCount > 0) && (
+          <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
+            <div className="text-xs text-slate-500 mb-2">Bölgedeki (aynı şehir) ilanların ağırlık dağılımı</div>
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <MiniStatCard label="Satılık ilan sayısı" value={`${analysis.regionSaleCount}`} />
+              <MiniStatCard label="Kiralık ilan sayısı" value={`${analysis.regionRentCount}`} />
+            </div>
+          </div>
+        )}
+
         <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
           <div className="text-xs text-slate-500 mb-2">Bu ilanın emsaller içindeki fiyat konumu (₺/m²)</div>
           <PricePositionBar
@@ -515,6 +681,48 @@ function EconomicTab({
             target={analysis.targetPricePerM2}
           />
         </div>
+
+        {negotiation.applicable && (
+          <div className="rounded-[20px] border border-[var(--cizgi)] bg-[var(--zemin-yumusak)] p-3">
+            <div className="text-sm font-normal text-[var(--metin-ikincil)] mb-2">Pazarlık Asistanı</div>
+            {negotiation.overMedianPct <= 0 ? (
+              <p className="text-sm text-slate-300">
+                Bu ilan zaten bölge medyanının {negotiation.overMedianPct === 0 ? "seviyesinde" : `%${Math.abs(negotiation.overMedianPct)} altında`}
+                — emsallere göre ek bir pazarlık payı işaret etmiyoruz.
+              </p>
+            ) : negotiation.suggestedLowPct != null && negotiation.suggestedHighPct != null ? (
+              <>
+                <p className="text-sm text-slate-300">
+                  Bu ilan, bölge medyanının <strong className="text-white">%{negotiation.overMedianPct}</strong> üzerinde
+                  fiyatlanmış
+                  {negotiation.avgDaysOnMarket != null
+                    ? ` — emsallerin yayında kalma süresi ortalama ${negotiation.avgDaysOnMarket} gün (${negotiation.knownDaysSampleSize} ilandan hesaplandı)`
+                    : ""}
+                  .
+                </p>
+                <div className="mt-2 flex items-baseline gap-2">
+                  <span className="text-lg font-normal text-white">
+                    %{negotiation.suggestedLowPct} – %{negotiation.suggestedHighPct}
+                  </span>
+                  <span className="text-xs text-slate-400">
+                    (yaklaşık ₺{negotiation.suggestedLowTry?.toLocaleString("tr-TR")} – ₺
+                    {negotiation.suggestedHighTry?.toLocaleString("tr-TR")})
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 mt-1">
+                  {negotiation.nearestCheaperPct != null && negotiation.nearestCheaperPct === negotiation.suggestedLowPct
+                    ? "Alt sınır: sıralamada bir alt sıradaki gerçek emsalin fiyatı. "
+                    : "Alt sınır: bölge medyanına olan farkın yarısı (sezgisel). "}
+                  Üst sınır: bölge medyanına inmek için gereken fark. İkisi de gerçek emsal verisinden türetilmiş bir
+                  tahmindir, bağlayıcı değildir.
+                </p>
+              </>
+            ) : null}
+          </div>
+        )}
+
+        <BuyerCostBreakdown totalPrice={analysis.targetTotalPrice} />
+        <CurrencyEquivalents totalPrice={analysis.targetTotalPrice} />
 
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3">
@@ -540,9 +748,26 @@ function EconomicTab({
           </div>
         </div>
 
-        <div>
-          <div className="text-xs text-slate-500 mb-2">Emsal fiyat dağılımı — bu ilan turuncu ile işaretli</div>
-          <PriceRankScatter rows={analysis.rankedComparables} />
+        <div className="grid sm:grid-cols-2 gap-3">
+          <div>
+            <div className="text-xs text-slate-500 mb-2">
+              Fiyat dağılımı (₺/m²) — bu ilan turuncu ile işaretli
+              {filteredComparables.length !== analysis.rankedComparables.length ? " (aktif filtreye göre)" : ""}
+            </div>
+            <PriceRankScatter rows={filteredComparables} />
+          </div>
+          <div>
+            <div className="text-xs text-slate-500 mb-2">
+              Fiyat dağılımı (Toplam ₺) — bu ilan turuncu ile işaretli
+              {filteredComparables.length !== analysis.rankedComparables.length ? " (aktif filtreye göre)" : ""}
+            </div>
+            <PriceRankScatter
+              rows={filteredComparables}
+              getValue={(r) => r.totalPrice}
+              xAxisLabel="İlan sırası (Toplam ₺ artan)"
+              tooltipSuffix=""
+            />
+          </div>
         </div>
 
         {analysis.historyFromDb && analysis.ownHistoryChangePct != null ? (
@@ -564,52 +789,111 @@ function EconomicTab({
         </p>
         {analysis.rankedComparables.length > 0 && (
           <div className="rounded-[20px] border border-slate-200 bg-white/[0.03] p-3 overflow-x-auto">
-            <div className="text-xs text-slate-500 mb-2">
-              Sıralı emsal listesi ({analysis.rankedComparables.length - 1}/{analysis.comparableCount} emsal + bu ilan, ₺/m² artan sıralı) — satıcı kimliği gösterilmez
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div className="text-xs text-slate-500">
+                Sıralı emsal listesi ({analysis.rankedComparables.length - 1}/{analysis.comparableCount} emsal + bu ilan, ₺/m² artan sıralı) — satıcı kimliği gösterilmez
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {(
+                  [
+                    { key: "all", label: "Tümü" },
+                    { key: "active", label: "Aktif" },
+                    { key: "passive", label: "Pasif" },
+                  ] as { key: StatusFilter; label: string }[]
+                ).map((f) => (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => setStatusFilter(f.key)}
+                    className={`px-2 py-0.5 rounded-full text-[11px] font-normal border transition-colors ${
+                      statusFilter === f.key
+                        ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
+                        : "border-slate-700 text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+                <span className="w-px bg-[var(--cizgi)] mx-0.5" aria-hidden />
+                {(
+                  [
+                    { key: "all", label: "Tümü" },
+                    { key: "30", label: "≤30 gün" },
+                    { key: "90", label: "31-90 gün" },
+                    { key: "90+", label: "90+ gün" },
+                  ] as { key: DaysFilter; label: string }[]
+                ).map((f) => (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => setDaysFilter(f.key)}
+                    className={`px-2 py-0.5 rounded-full text-[11px] font-normal border transition-colors ${
+                      daysFilter === f.key
+                        ? "border-[var(--cizgi)] bg-[var(--zemin-yumusak)] text-[var(--metin-ikincil)]"
+                        : "border-slate-700 text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
             </div>
             <table className="w-full text-xs">
               <thead>
                 <tr className="text-left text-slate-500 border-b border-[var(--cizgi)]">
                   <th className="py-1 pr-2 font-normal">Sıra</th>
+                  <th className="py-1 pr-2 font-normal">Foto</th>
                   <th className="py-1 pr-2 font-normal">İlan</th>
                   <th className="py-1 pr-2 font-normal">Konum</th>
                   <th className="py-1 pr-2 font-normal">m²</th>
                   <th className="py-1 pr-2 font-normal">₺/m²</th>
+                  <th className="py-1 pr-2 font-normal">Fiyat Sırası</th>
                   <th className="py-1 pr-2 font-normal">Toplam</th>
                   <th className="py-1 pr-2 font-normal">Durum</th>
                   <th className="py-1 font-normal">Benzerlik</th>
                 </tr>
               </thead>
               <tbody>
-                {analysis.rankedComparables.map((c, i) => (
-                  <tr
-                    key={c.id}
-                    className={
-                      c.isTarget
-                        ? "border-b-2 border-dashed border-[var(--sinyal-turuncu)] bg-[var(--zemin-yumusak)]"
-                        : "border-b border-[var(--cizgi)] last:border-0"
-                    }
-                  >
-                    <td className="py-1 pr-2 text-slate-400">{i + 1}</td>
-                    <td className="py-1 pr-2 text-white">
-                      {c.isTarget ? "Bu ilan" : c.category || "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.district ? `${c.district}, ${c.city}` : c.city || "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">{c.grossM2 || "—"}</td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.pricePerM2 > 0 ? `₺${c.pricePerM2.toLocaleString("tr-TR")}` : "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.totalPrice > 0 ? `₺${c.totalPrice.toLocaleString("tr-TR")}` : "—"}
-                    </td>
-                    <td className="py-1 pr-2 text-slate-400">
-                      {c.status === "ended" ? "Kapandı" : c.status === "live" ? "Aktif" : "Yakında"}
-                    </td>
-                    <td className="py-1 text-slate-400">{c.isTarget ? "—" : `%${c.similarity}`}</td>
-                  </tr>
-                ))}
+                {filteredComparables
+                  .map((c, i) => (
+                    <tr
+                      key={c.id}
+                      className={
+                        c.isTarget
+                          ? "border-b-2 border-dashed border-[var(--sinyal-turuncu)] bg-[var(--zemin-yumusak)]"
+                          : "border-b border-[var(--cizgi)] last:border-0"
+                      }
+                    >
+                      <td className="py-1 pr-2 text-slate-400">{i + 1}</td>
+                      <td className="py-1 pr-2">
+                        {c.imageUrl ? (
+                          <img src={c.imageUrl} alt="" className="w-10 h-8 rounded-[3px] object-cover" loading="lazy" />
+                        ) : (
+                          <div className="w-10 h-8 rounded-[3px] bg-slate-800" aria-hidden />
+                        )}
+                      </td>
+                      <td className="py-1 pr-2 text-white">
+                        {c.isTarget ? "Bu ilan" : c.category || "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.district ? `${c.district}, ${c.city}` : c.city || "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">{c.grossM2 || "—"}</td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.pricePerM2 > 0 ? `₺${c.pricePerM2.toLocaleString("tr-TR")}` : "—"}
+                      </td>
+                      <td className="py-1 pr-2">
+                        <MiniRowPositionBar min={analysis.minPricePerM2} max={analysis.maxPricePerM2} value={c.pricePerM2} />
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.totalPrice > 0 ? `₺${c.totalPrice.toLocaleString("tr-TR")}` : "—"}
+                      </td>
+                      <td className="py-1 pr-2 text-slate-400">
+                        {c.status === "ended" ? "Kapandı" : c.status === "live" ? "Aktif" : "Yakında"}
+                      </td>
+                      <td className="py-1 text-slate-400">{c.isTarget ? "—" : `%${c.similarity}`}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

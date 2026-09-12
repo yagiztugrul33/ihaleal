@@ -15,7 +15,7 @@
 
 import type { Auction } from "@/types/auction";
 import { AUCTIONS } from "@/data/auctions";
-import { findEmsaller, type EmsalRow } from "@/lib/reports/emsalMotoru";
+import { findEmsaller, daysBetween, type EmsalRow } from "@/lib/reports/emsalMotoru";
 import { loadListingHistory, totalValueChangePct } from "@/lib/reports/transactionHistory";
 import { fetchRemoteAuctionsCatalog } from "@/lib/supabaseAuctionsFetch";
 import type { PropertyAnalysisReportRecord } from "@/lib/aiAnalysis";
@@ -33,6 +33,10 @@ export function buildMinimalAuctionForAnalysis(fields: {
   grossSqm: number;
   startPriceTry: number;
   status?: Auction["status"];
+  title?: string;
+  marketingMode?: Auction["marketingMode"];
+  images?: string[];
+  startsAt?: string;
 }): Auction {
   const template = JSON.parse(JSON.stringify(AUCTIONS[0])) as Auction;
   return {
@@ -45,6 +49,10 @@ export function buildMinimalAuctionForAnalysis(fields: {
     startingBid: fields.startPriceTry,
     status: fields.status ?? "upcoming",
     propertyDetails: { ...template.propertyDetails, grossSqm: fields.grossSqm },
+    ...(fields.title !== undefined ? { title: fields.title } : {}),
+    ...(fields.marketingMode !== undefined ? { marketingMode: fields.marketingMode } : {}),
+    ...(fields.images !== undefined ? { images: fields.images } : {}),
+    ...(fields.startsAt !== undefined ? { startsAt: fields.startsAt } : {}),
   };
 }
 
@@ -73,10 +81,15 @@ export type EconomicRealAnalysis =
       comparables: EmsalRow[];
       /** Bu ilanın kendi m² fiyatı (emsal karşılaştırması için). */
       targetPricePerM2: number;
+      /** Bu ilanın kendi toplam fiyatı (₺). */
+      targetTotalPrice: number;
       /** m² fiyatına göre emsaller arasındaki sıralaması (1 = en yüksek fiyat). */
       rank: { position: number; total: number; percentile: number };
       /** Tüm bulunan emsaller + hedef ilan, m² fiyatına göre artan sıralı — pozisyon grafiği/tablosu için. */
       rankedComparables: RankedEmsalRow[];
+      /** Aynı şehirdeki gerçek ilanlardan satılık/kiralık sayısı (dealType alanı olmayanlar sayılmaz). */
+      regionSaleCount: number;
+      regionRentCount: number;
     }
   | {
       isReal: false;
@@ -150,15 +163,23 @@ export async function computeRealEconomicSection(auction: Auction): Promise<Real
     pricePerM2: targetPricePerM2,
     grossM2: grossSqm,
     totalPrice: Math.round(targetTotalPrice),
-    daysOnMarket: 0,
+    daysOnMarket: auction.startsAt ? daysBetween(auction.startsAt) : 0,
+    daysOnMarketKnown: Boolean(auction.startsAt),
     status: auction.status === "live" ? "live" : auction.status === "ended" ? "ended" : "upcoming",
     similarity: 100,
     isTarget: true,
+    imageUrl: auction.images?.[0],
   };
   const rankedComparables: RankedEmsalRow[] = [
     ...emsal.rows.map((r) => ({ ...r, isTarget: false })),
     targetRow,
   ].sort((a, b) => a.pricePerM2 - b.pricePerM2);
+
+  // Bölgedeki (aynı şehir) gerçek ilanların satılık/kiralık dağılımı — emsal benzerlik
+  // eşiğinden bağımsız, sadece şehir eşleşmesine dayalı daha geniş bir sayım.
+  const sameCityListings = catalog.filter((a) => a.city && auction.city && a.city === auction.city);
+  const regionSaleCount = sameCityListings.filter((a) => a.dealType === "sale").length;
+  const regionRentCount = sameCityListings.filter((a) => a.dealType === "rent").length;
 
   return {
     overrides: {
@@ -184,8 +205,11 @@ export async function computeRealEconomicSection(auction: Auction): Promise<Real
       ownHistoryChangePct,
       comparables: emsal.rows.slice(0, MAX_COMPARABLES_SHOWN),
       targetPricePerM2,
+      targetTotalPrice: Math.round(targetTotalPrice),
       rank: emsal.targetRank,
       rankedComparables,
+      regionSaleCount,
+      regionRentCount,
     },
   };
 }
