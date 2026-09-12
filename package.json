@@ -32,7 +32,7 @@
     "backup": "node scripts/backup.mjs",
     "precheck:encoding": "node scripts/check-source-encoding.mjs",
     "lint": "npx eslint . --max-warnings 0",
-    "lint:ci": "npx eslint src/lib/runtimeFlags.ts src/lib/localSession.ts src/lib/payment src/lib/supabase.ts src/components/admin src/components/LocalAuthGate.tsx src/components/ProductionSafetyBanner.tsx tests/rls scripts/validate-build-env.mjs scripts/generate-rls-matrix.mjs --max-warnings 0",
+    "lint:ci": "npx eslint src/lib/runtimeFlags.ts src/lib/localSession.ts src/lib/payment src/lib/supabase.ts src/components/admin src/components/LocalAuthGate.tsx src/components/LaunchStatusBanner.tsx tests/rls scripts/validate-build-env.mjs scripts/generate-rls-matrix.mjs --max-warnings 0",
     "validate:env": "node scripts/validate-build-env.mjs",
     "validate:env:strict": "node scripts/validate-build-env.mjs --strict",
     "security:audit": "npm audit --audit-level=high",
