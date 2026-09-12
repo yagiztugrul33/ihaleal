@@ -26,17 +26,18 @@ Root'taki `capacitor.config.ts` Capacitor CLI tarafından okunur (appId, splash,
 
 ## Capacitor kurulum
 
-### 1. Bağımlılıklar ✅ KURULU (Capacitor 8.3.4)
+### 1. Bağımlılıklar ✅ KURULU (Capacitor 8.5.x)
 Aşağıdaki paketler `package.json`'a eklendi (bu repo'da hazır):
-- `@capacitor/core` 8.3.4
-- `@capacitor/cli` 8.3.4 (devDep)
-- `@capacitor/assets` (devDep — ikon/splash otomatik üretim)
-- `@capacitor/ios` 8.3.4
-- `@capacitor/android` 8.3.4
+- `@capacitor/core` 8.5.2
+- `@capacitor/cli` 8.5.2 (devDep)
+- `@capacitor/ios` 8.5.2
+- `@capacitor/android` 8.5.2
 - `@capacitor/splash-screen`
 - `@capacitor/status-bar`
 - `@capacitor/keyboard`
 - `@capacitor/app`
+
+`@capacitor/assets` artık devDependency olarak kurulu DEĞİL (npm audit'te sharp/tar/uuid güvenlik bulgularına sebep olan eski nested `@capacitor/cli@^5.3.0` bağımlılığı yüzünden kaldırıldı — repo'da hiçbir script onu çağırmıyordu, gerçek ikon/splash üretimi zaten `node scripts/gen-capacitor-assets.mjs` ile doğrudan `sharp` kullanıyor). Aşağıdaki "önerilen yol" adımını izlemek isterseniz aracı geçici olarak kurabilirsiniz.
 - `@capacitor/push-notifications`
 
 `npx cap doctor` doğrulaması:
