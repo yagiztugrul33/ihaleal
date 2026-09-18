@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "gen:assets": "node scripts/gen-assets.mjs",
     "seo:sitemap": "node scripts/generate-programmatic-sitemap.mjs",
+    "seo:sitemap:listings": "node scripts/generate-listings-sitemap.mjs",
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "theme:luxury": "node scripts/run-gen-luxury.mjs",
     "env:sync": "node scripts/sync-vite-supabase-env.mjs",

@@ -2,38 +2,80 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Ana -->
   <url><loc>https://ihaleal.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://ihaleal.com/auctions</loc><changefreq>daily</changefreq><priority>0.95</priority></url>
   <url><loc>https://ihaleal.com/ihaleler</loc><changefreq>daily</changefreq><priority>0.95</priority></url>
   <url><loc>https://ihaleal.com/arama</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://ihaleal.com/analiz</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://ihaleal.com/karsilastir</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ihaleal.com/borsa</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://ihaleal.com/borsa/varliklar</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/borsa/izleme</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ihaleal.com/borsa/veri</loc><changefreq>weekly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://ihaleal.com/borsa/portfoy</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/harita</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
   <url><loc>https://ihaleal.com/sehirler</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
   <!-- Kurumsal segmentler -->
   <url><loc>https://ihaleal.com/emlakci</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/emlakciler</loc><changefreq>weekly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://ihaleal.com/emlakci-ortaklik</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <url><loc>https://ihaleal.com/muteahhit</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://ihaleal.com/kurumsal</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/services</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/uluslararasi</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
   <!-- Araçlar / hesaplayicilar -->
   <url><loc>https://ihaleal.com/komisyon-hesaplayici</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ihaleal.com/konut-kredisi-hesaplayici</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://ihaleal.com/hizmet-bedelleri</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://ihaleal.com/komisyon-modeli</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://ihaleal.com/komisyon</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/mortgage</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/degerleme</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/ekspertiz</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://ihaleal.com/konum-risk-sorgu</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ihaleal.com/ges-analiz-arazi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/araclar/vergi-simulator</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <!-- Modüller (R12.3-5 deprem/risk) -->
+  <url><loc>https://ihaleal.com/magaza</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/fiyatlandirma</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <!-- Modüller (R12.3-5 deprem/risk + R14 genişletme) -->
   <url><loc>https://ihaleal.com/modul/deprem-egitimi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-1</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-2</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-3</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-4</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-5</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-6</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-7</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-8</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-9</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-egitimi/ders-10</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://ihaleal.com/modul/degerleme</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/modul/canli-deprem-takip</loc><changefreq>weekly</changefreq><priority>0.65</priority></url>
   <url><loc>https://ihaleal.com/modul/bina-risk-sorgu</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/modul/deprem-risk-haritasi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/modul/imar-sorgu</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/modul/komsuluk-risk-analizi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ihaleal.com/modul/guclendirme-rehberi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/afet-risk-haritasi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/parsel-zekasi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/kentsel-donusum</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/afet-toplanma-alanlari</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/aile-acil-plan</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/airbnb-potansiyel</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-cantasi</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/deprem-sigortasi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/kredi-pazaryeri</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/portfoy-yonetimi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/renovasyon-roi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/sigorta-pazaryeri</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/tatbikat-rehberi</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/uzman-randevu</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/yapay-zeka-hasar-tahmini</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/yatirim-onerisi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/modul/yikilan-binalar-arsivi</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/modul/ges-analizi</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <!-- Rehber / yardım -->
   <url><loc>https://ihaleal.com/rehber</loc><changefreq>weekly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://ihaleal.com/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/sss</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://ihaleal.com/nasil-calisir</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/how-it-works</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ihaleal.com/evraklar</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://ihaleal.com/hakkimizda</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <url><loc>https://ihaleal.com/iletisim</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
@@ -48,12 +90,20 @@
   <url><loc>https://ihaleal.com/mesafeli-satis-sozlesmesi</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://ihaleal.com/aydinlatma-metni</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://ihaleal.com/yasal-cerceve</loc><changefreq>yearly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/yasal</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/yasal/sablonlar</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/yasal/risk-uyarilari</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/yasal/agency-contract</loc><changefreq>monthly</changefreq><priority>0.45</priority></url>
+  <url><loc>https://ihaleal.com/yasal/dolandiricilik-savunmasi</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ihaleal.com/arastirma/hukuki-cozucu</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://ihaleal.com/guvenlik</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://ihaleal.com/karsilastir-rakipler</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <!-- Satıcı / akış -->
   <url><loc>https://ihaleal.com/sat-basla</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ihaleal.com/pre-launch</loc><changefreq>weekly</changefreq><priority>0.55</priority></url>
   <url><loc>https://ihaleal.com/veri-ve-endeks</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
   <url><loc>https://ihaleal.com/reklam</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <url><loc>https://ihaleal.com/kampanyalar</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ihaleal.com/oduller</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <!-- NOT: /ilan/:id ve /proje/:id dinamik — ileride db-driven sitemap-index gerek (follow-up). -->
+  <!-- NOT: /ilan/:id ve /proje/:id dinamik — public/sitemap-listings.xml (scripts/generate-listings-sitemap.mjs) tarafından build-time üretilir. -->
 </urlset>

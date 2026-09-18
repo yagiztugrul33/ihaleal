@@ -17,7 +17,14 @@ const ORIGIN = "https://ihaleal.com";
 const today = new Date().toISOString().slice(0, 10);
 
 const guidesPath = path.join(root, "src/data/realEstateGuides.ts");
-const guideSlugs = [...guidesPath.matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]);
+const guideSlugs = [...fs.readFileSync(guidesPath, "utf8").matchAll(/slug:\s*"([^"]+)"/g)].map(
+  (m) => m[1],
+);
+
+const blogPath = path.join(root, "src/data/mega/blogPosts.ts");
+const blogSlugs = [...fs.readFileSync(blogPath, "utf8").matchAll(/slug:\s*"([^"]+)"/g)].map(
+  (m) => m[1],
+);
 
 const urls = [];
 for (const deal of ["satilik", "kiralik"]) {
@@ -35,6 +42,9 @@ for (const p of provinces) {
 }
 for (const slug of guideSlugs) {
   urls.push(`/rehber/${slug}`);
+}
+for (const slug of blogSlugs) {
+  urls.push(`/blog/${slug}`);
 }
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>

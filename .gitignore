@@ -28,6 +28,10 @@ dist-ssr
 
 tmp/
 
+# Build-time uretilen dinamik sitemap (auction/proje verisi surekli degisir,
+# her build'de yeniden yazilir — bkz. scripts/generate-listings-sitemap.mjs)
+public/sitemap-listings.xml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

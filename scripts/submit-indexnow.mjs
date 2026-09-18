@@ -27,6 +27,7 @@ const ENDPOINT = "https://api.indexnow.org/indexnow";
 const SITEMAP_FILES = [
   "public/sitemap.xml",
   "public/sitemap-programmatic.xml",
+  "public/sitemap-listings.xml",
 ];
 
 function extractUrls(xml) {
