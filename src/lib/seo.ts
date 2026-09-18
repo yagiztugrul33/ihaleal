@@ -109,6 +109,14 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "Komisyon modeli — ihaleal.com",
     description: "Yalnızca komisyon: ilan, vitrin ve kullanıcıya satılan reklam ücreti yok (hedef). Kira: kiraya verenden bir aylık kira çizgisi (taslak).",
   },
+  "/kat-karsiligi": {
+    title: "Kat karşılığı arsa — pay dağılımı ve hak ediş hesaplayıcı — ihaleal.com",
+    description: "Arsa sahibi/müteahhit pay dağılımı, hak ediş projeksiyonu ve imar hakkı hesabı; kat karşılığı sözleşme sürecine giriş.",
+  },
+  "/kat-karsiligi/studio": {
+    title: "Ada / parsel ve imar stüdyosu — ihaleal.com",
+    description: "Ada, parsel ve imar parametreleriyle yaklaşık inşaat hakkı ve kat adedi hesaplayın; doldurulabilir KKA sözleşme paketi üretin.",
+  },
   "/veri-ve-endeks": {
     title: "İhaleal Endeksi ve veri stratejisi — ihaleal.com",
     description:

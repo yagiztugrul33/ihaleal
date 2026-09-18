@@ -1,8 +1,9 @@
-﻿import { useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Building2, Calculator, FileText, Landmark, MapPinned, Shield,
   BookOpen, ScrollText, Scale, AlertTriangle, CheckCircle2, Info, TrendingUp,
+  HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,6 +15,31 @@ import { computeKkaOwnerHakEdisProjection, type KkaScenarioId } from "@/lib/fina
 import { buildKkaRollingHakedisRows, kkaRollingHakedisLegalPrinciplesNoteTr } from "@/lib/finance/kkaRollingHakedisEngine";
 import { INVOICE_LINE_DESCRIPTION_CANDIDATES } from "@/lib/finance/billingConfig";
 import { KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
+import { injectJsonLd, removeJsonLd } from "@/lib/seoStructuredData";
+
+const LAND_EQUITY_FAQ = [
+  {
+    q: "Kat karşılığı nedir?",
+    a: "Arsa sahibi arsasını müteahhide verir; müteahhit kendi parasıyla bina yapar, bağımsız bölümlerin (daire) bir kısmı arsa sahibinin olur, kalanı müteahhidin. Sözleşme genelde %40-50 arsa sahibi / %50-60 müteahhit oranında kurulur.",
+  },
+  {
+    q: "Kat karşılığında pay oranı nasıl belirlenir?",
+    a: "Arsa değeri, imar hakkı (emsal) ve bölge talebi ile müteahhit kâr marjı birlikte değerlendirilir. İstanbul merkezde %50/50, taşrada %35/65 tipik bant olarak görülür; nihai oran ekspertiz ve müzakereyle kesinleşir.",
+  },
+  {
+    q: "Kat karşılığı sözleşmesinde nelere dikkat edilmeli?",
+    a: "Noter onaylı sözleşme ve tapu şerhi şarttır; teslim süresi, geçici konut, arsa payı, ortak alan metrajı, cezai şart ve teminat mektubu maddeleri yazılı ve onaylı projeyle uyumlu olmalıdır.",
+  },
+  {
+    q: "Kat karşılığında ana riskler nelerdir?",
+    a: "Müteahhidin iflası, teslim gecikmesi, teminat yetersizliği, kalite düşüşü ve süreç içinde imar değişikliği başlıca risklerdir. Avukat ve bağımsız eksper desteği önerilir.",
+  },
+  {
+    q: "Hak ediş ödemeleri nasıl işler?",
+    a: "Hak ediş genelde dilimler halinde yapılır: ilk dilim emanet hesabında tutulur, sonraki hakediş raporu veya kısmi kabul onaylandığında bir önceki dilim ödenebilir hale gelir; son dilim kesin kabul veya tapu devrine bağlanır.",
+  },
+];
 
 type PoolMode = "c2c" | "single" | "dual";
 
@@ -69,12 +95,33 @@ export default function LandEquityPage() {
 
   const rollingHakedis = useMemo(() => buildKkaRollingHakedisRows(hakedisTrancheCount), [hakedisTrancheCount]);
 
+  useEffect(() => {
+    injectJsonLd("kat-karsiligi-faqpage", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: LAND_EQUITY_FAQ.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    });
+    return () => removeJsonLd("kat-karsiligi-faqpage");
+  }, []);
+
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl space-y-8">
         <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
         </Button>
+
+        <PageBreadcrumbs
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "Kentsel dönüşüm", href: "/modul/kentsel-donusum" },
+            { label: "Kat karşılığı arsa" },
+          ]}
+        />
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
@@ -608,6 +655,26 @@ export default function LandEquityPage() {
             </span>
           </div>
         </div>
+
+        <Card className="border-[var(--cizgi)] bg-slate-900/40">
+          <CardContent className="p-5">
+            <div className="flex items-start gap-2 mb-3">
+              <HelpCircle className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
+              <h2 className="text-base font-normal text-white">Sık sorulan sorular</h2>
+            </div>
+            <div className="space-y-2">
+              {LAND_EQUITY_FAQ.map((item) => (
+                <details key={item.q} className="group rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30">
+                  <summary className="cursor-pointer list-none px-4 py-3 text-sm font-normal text-white flex items-center justify-between gap-3">
+                    {item.q}
+                    <span className="text-slate-500 text-xs group-open:rotate-90 transition-transform">&#8250;</span>
+                  </summary>
+                  <p className="px-4 pb-4 text-xs leading-relaxed text-slate-400 border-t border-[var(--cizgi)] pt-3">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
-﻿import { useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   Building2,
   FileStack,
   Gavel,
+  HelpCircle,
   Layers,
   MapPinned,
   Scale,
@@ -33,6 +34,27 @@ import { fillKkaContractPlaceholders, KKA_STUDIO_CONTRACT_SECTIONS } from "@/lib
 import { KKA_HUB_PATH } from "@/lib/kkaHub";
 import { PdfExportButton } from "@/components/pdf/PdfExportButton";
 import { downloadKkaResultPdf } from "@/lib/pdf/pdfBuilder";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
+import { injectJsonLd, removeJsonLd } from "@/lib/seoStructuredData";
+
+const KKA_STUDIO_FAQ = [
+  {
+    q: "Ada/parsel ve imar stüdyosu ne işe yarar?",
+    a: "İl, ilçe, mahalle, ada ve parsel bilgisiyle demo imar parametrelerini eşleştirerek yaklaşık inşaat hakkı, taban alanı üst sınırı ve kat adedi üst sınırını hesaplar; ayrıca doldurulabilir bir KKA sözleşme paketi taslağı üretir.",
+  },
+  {
+    q: "Emsal ve TAKS ne anlama gelir?",
+    a: "Emsal (KAKS), arsa m² başına inşa edilebilecek toplam alanı; TAKS ise arsanın taban oturumunda kaplanabilecek azami yüzdeyi ifade eder. İkisi birlikte parselin teorik inşaat hakkını belirler.",
+  },
+  {
+    q: "Hesaplanan sonuçlar resmi imar durumu yerine geçer mi?",
+    a: "Hayır. Bu ekran ön çerçeve ve kontrol listesi sunar; bağlayıcı sonuç için belediye imar müdürlüğünden resmi imar durum belgesi ve TKGM parsel geometrisi alınmalıdır.",
+  },
+  {
+    q: "Sözleşme paketi taslağı nasıl kullanılır?",
+    a: "Form doldurulduktan sonra üretilen madde madde sözleşme taslağı kopyalanabilir; imzadan önce mutlaka avukat incelemesinden geçirilmelidir.",
+  },
+];
 
 function parseNum(s: string): number {
   const n = Number(String(s).replace(/\s/g, "").replace(",", "."));
@@ -95,6 +117,19 @@ export default function KkaParselStudioPage() {
   const [error, setError] = useState<string | null>(null);
   const [contractsOpen, setContractsOpen] = useState(false);
   const [hakedisTrancheCount, setHakedisTrancheCount] = useState(4);
+
+  useEffect(() => {
+    injectJsonLd("kka-studio-faqpage", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: KKA_STUDIO_FAQ.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    });
+    return () => removeJsonLd("kka-studio-faqpage");
+  }, []);
 
   const contractText = useMemo(() => {
     if (!summary) return "";
@@ -167,6 +202,14 @@ export default function KkaParselStudioPage() {
         <Button variant="ghost" size="sm" onClick={() => navigate(KKA_HUB_PATH)} className="text-slate-500 hover:text-slate-900 gap-2">
           <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Kat karsiligi modulune don
         </Button>
+
+        <PageBreadcrumbs
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "Kat karşılığı arsa", href: KKA_HUB_PATH },
+            { label: "Ada / parsel ve imar stüdyosu" },
+          ]}
+        />
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
@@ -389,6 +432,26 @@ export default function KkaParselStudioPage() {
             </CardContent>
           </Card>
         </div>
+
+        <Card className="border-[var(--cizgi)] bg-slate-900/40">
+          <CardContent className="p-5">
+            <div className="flex items-start gap-2 mb-3">
+              <HelpCircle className="h-5 w-5 text-[var(--metin-ikincil)] flex-shrink-0 mt-0.5" />
+              <h2 className="text-base font-normal text-white">Sık sorulan sorular</h2>
+            </div>
+            <div className="space-y-2">
+              {KKA_STUDIO_FAQ.map((item) => (
+                <details key={item.q} className="group rounded-[10px] border border-[var(--cizgi)] bg-slate-900/30">
+                  <summary className="cursor-pointer list-none px-4 py-3 text-sm font-normal text-white flex items-center justify-between gap-3">
+                    {item.q}
+                    <span className="text-slate-500 text-xs group-open:rotate-90 transition-transform">&#8250;</span>
+                  </summary>
+                  <p className="px-4 pb-4 text-xs leading-relaxed text-slate-400 border-t border-[var(--cizgi)] pt-3">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
         <p className="text-[11px] text-slate-600">
           Ek dokuman: repoda{" "}
