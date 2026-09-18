@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -10,6 +10,7 @@ import {
   UserCircle,
 } from "lucide-react";
 import { PageShell } from "@/components/marketing/PageShell";
+import { injectJsonLd, removeJsonLd } from "@/lib/seoStructuredData";
 
 type CategoryId = "genel" | "uye" | "ihale" | "odeme" | "kurumsal";
 
@@ -233,6 +234,22 @@ export default function SSS() {
       return haystack.includes(nq);
     });
   }, [q, kat]);
+
+  useEffect(() => {
+    injectJsonLd("sss-faqpage", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: SORULAR.map((item) => ({
+        "@type": "Question",
+        name: item.soru,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.cevap,
+        },
+      })),
+    });
+    return () => removeJsonLd("sss-faqpage");
+  }, []);
 
   return (
     <PageShell

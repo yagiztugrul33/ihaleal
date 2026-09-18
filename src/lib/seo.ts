@@ -234,6 +234,299 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "Uluslararası yatırımcı — ihaleal.com",
     description: "Yabancı yatırımcılar için Türkiye gayrimenkul rehberi.",
   },
+  "/services": {
+    title: "İhaleal Kurumsal — çoklu ofis emlak yönetim platformu — ihaleal.com",
+    description: "Multi-tenant portföy, rol bazlı yetki, toplu ilan yükleme ve AI destekli fiyatlama; emlak ofisleri ve GYO'lar için.",
+  },
+  "/how-it-works": {
+    title: "Nasıl çalışır — ihaleal.com",
+    description: "İlan, teklif ve ihale akışları; demo ve taslak metinler.",
+  },
+  "/borsa/varliklar": {
+    title: "Varlık terminali — İhaleal Borsa — ihaleal.com",
+    description: "Bölgesel fiyat endeksi ve varlık bazlı canlı piyasa terminali.",
+  },
+  "/borsa/izleme": {
+    title: "İzleme listesi — İhaleal Borsa — ihaleal.com",
+    description: "Takip ettiğiniz varlıklar ve bölgeler için izleme listesi terminali.",
+  },
+  "/borsa/veri": {
+    title: "Veri analiz terminali — İhaleal Borsa — ihaleal.com",
+    description: "Bölgesel fiyat, hacim ve talep sinyallerinin derin veri analizi.",
+  },
+  "/borsa/portfoy": {
+    title: "Borsa portföyüm — İhaleal Borsa — ihaleal.com",
+    description: "Gayrimenkul varlık portföyünüzün değer ve getiri özeti (demo).",
+  },
+  "/emlakci": {
+    title: "Emlakçılar için ihaleal.com — ortak ol",
+    description: "Emlak ofisleri için ilan, portföy ve ihale entegrasyonu; ortaklık başvurusu.",
+  },
+  "/emlakci-ortaklik": {
+    title: "Emlakçı ortaklık programı — ihaleal.com",
+    description: "Emlak ofisleri için komisyon paylaşımlı ortaklık programı şartları ve başvuru süreci.",
+  },
+  "/muteahhit": {
+    title: "Müteahhitler için proje lansmanı — ihaleal.com",
+    description: "Ruhsatlı proje ve birim envanterini yayınlayın; lansman ilanlarını ihaleal.com üzerinden yönetin.",
+  },
+  "/kurumsal/iletisim": {
+    title: "Kurumsal demo talebi — ihaleal.com",
+    description: "GYO ve emlak grupları için kurumsal demo talebi oluşturun.",
+  },
+  "/degerleme": {
+    title: "Ne kadar eder? — AI gayrimenkul değer tahmini — ihaleal.com",
+    description: "Konum ve özelliklere göre demo değer tahmini; kesin değer için resmi ekspertiz gerekir.",
+  },
+  "/oduller": {
+    title: "Sadakat programı ve ödüller — ihaleal.com",
+    description: "Platform kullanımına bağlı puan ve ödül programı özeti (demo).",
+  },
+  "/fiyatlandirma": {
+    title: "Fiyatlandırma ve üyelik paketleri — ihaleal.com",
+    description: "Bireysel, ofis ve kurumsal kullanım için üyelik paketleri ve fiyatlandırma.",
+  },
+  "/magaza": {
+    title: "Ek hizmet mağazası — ihaleal.com",
+    description: "İlan öne çıkarma ve ek hizmet paketleri (demo).",
+  },
+  "/pre-launch": {
+    title: "Erken erişim / lansman — ihaleal.com",
+    description: "Platform lansmanına erken erişim kaydı ve bilgilendirme.",
+  },
+  "/kunye": {
+    title: "Künye — ihaleal.com",
+    description: "Platform işletmecisi, iletişim ve yasal künye bilgileri.",
+  },
+  "/destek": {
+    title: "Destek — ihaleal.com",
+    description: "Sık karşılaşılan sorunlar ve destek ekibine ulaşma kanalları.",
+  },
+  "/kullanim-kosullari": {
+    title: "Kullanım koşulları — ihaleal.com",
+    description: "Platform kullanım koşulları ve kullanıcı yükümlülükleri.",
+  },
+  "/mesafeli-satis-sozlesmesi": {
+    title: "Mesafeli satış ve üyelik sözleşmesi — ihaleal.com",
+    description: "Mesafeli satış ve üyelik sözleşmesi metni.",
+  },
+  "/iade-iptal": {
+    title: "İade ve iptal koşulları — ihaleal.com",
+    description: "Ücretli hizmetlerde iade ve iptal koşulları.",
+  },
+  "/aydinlatma-metni": {
+    title: "Aydınlatma metni — ihaleal.com",
+    description: "KVKK kapsamında kişisel veri işleme aydınlatma metni özeti.",
+  },
+  "/yasal": {
+    title: "Yasal metinler ve rehberler — ihaleal.com",
+    description: "KVKK, gizlilik, çerez ve sözleşme metinlerine tek noktadan erişim.",
+  },
+  "/arastirma/hukuki-cozucu": {
+    title: "Hukuki senaryo çözücü — ihaleal.com",
+    description: "İhale ve gayrimenkul süreçlerinde sık karşılaşılan hukuki senaryolar için rehber araç.",
+  },
+  "/yasal/risk-uyarilari": {
+    title: "Hukuki risk uyarı sistemi — ihaleal.com",
+    description: "Platform içi işlemlerde otomatik hukuki risk uyarı mekanizması özeti.",
+  },
+  "/yasal/sablonlar": {
+    title: "Sözleşme ve belge şablonları — ihaleal.com",
+    description: "İhale ve satış süreçlerinde kullanılan sözleşme ve belge şablonları kütüphanesi.",
+  },
+  "/yasal/dolandiricilik-savunmasi": {
+    title: "Dolandırıcılık ve dava riski savunma çerçevesi — ihaleal.com",
+    description: "Platform içi dolandırıcılık ve hukuki risklere karşı ürün, hukuk ve teknik kontrol özeti (iç doküman).",
+  },
+  "/yasal/supabase-uyum": {
+    title: "Teknik uyum kontrol listesi — ihaleal.com",
+    description: "Veritabanı erişim politikaları ve denetim izi kontrol listesi (iç doküman).",
+  },
+  "/admin": {
+    title: "Yönetim paneli — ihaleal.com",
+    description: "Platform yönetim paneli (yetkili erişim).",
+  },
+  "/aninda-teklif": {
+    title: "Anında nakit teklif — ihaleal.com",
+    description: "Gayrimenkulünüz için hızlı, nakit satın alma teklifi (demo).",
+  },
+  "/araclar/finans-uyumluluk": {
+    title: "Finans ve uyumluluk çekirdeği — ihaleal.com",
+    description: "Ödeme, KYC ve AML akışlarının uyumluluk simülasyon alanı (demo).",
+  },
+  "/araclar/vergi-simulator": {
+    title: "Vergi simülatörü — ihaleal.com",
+    description: "Gayrimenkul alım satımında vergi yükü tahmini için simülasyon aracı (demo).",
+  },
+  "/abone/onay": {
+    title: "Abonelik onayı — ihaleal.com",
+    description: "E-posta bülteni abonelik onay işlemi.",
+  },
+  "/abone/iptal": {
+    title: "Abonelik iptali — ihaleal.com",
+    description: "E-posta bülteni abonelik iptal işlemi.",
+  },
+  "/uyelik": {
+    title: "Üyeliğim — ihaleal.com",
+    description: "Üyelik durumu, plan ve fatura bilgileri (hesap paneli).",
+  },
+  "/uyelik/yillik": {
+    title: "Yıllık üyelik — ihaleal.com",
+    description: "Yıllık üyelik planı satın alma akışı.",
+  },
+  "/odeme/baslat": {
+    title: "Ödeme başlat — ihaleal.com",
+    description: "Üyelik veya hizmet bedeli ödeme akışı başlatma.",
+  },
+  "/odeme/basarili": {
+    title: "Ödeme başarılı — ihaleal.com",
+    description: "Ödeme işlemi başarıyla tamamlandı.",
+  },
+  "/komisyon": {
+    title: "Komisyon hesabı ve teminat blokajı — ihaleal.com",
+    description: "İşlem bazlı komisyon hesabı ve teminat blokaj özeti (hesap paneli).",
+  },
+  "/muteahhit/panel": {
+    title: "Müteahhit paneli — ihaleal.com",
+    description: "Projeleriniz ve lansman birimlerini yönetin (yetkili erişim).",
+  },
+  "/muteahhit/onay-bekleniyor": {
+    title: "Hesap onayı bekleniyor — ihaleal.com",
+    description: "Müteahhit hesabı onay süreci bilgilendirmesi.",
+  },
+  "/muteahhit/yeni-proje": {
+    title: "Yeni proje oluştur — ihaleal.com",
+    description: "Müteahhit paneli üzerinden yeni proje ve birim kaydı (yetkili erişim).",
+  },
+  "/emlakci/panel": {
+    title: "Emlakçı paneli — ihaleal.com",
+    description: "Ofis ilanları ve performans özeti (yetkili erişim).",
+  },
+  "/kurumsal/dashboard": {
+    title: "Kurumsal panel — ihaleal.com",
+    description: "Çoklu ofis ve ekip yönetimi paneli (yetkili erişim).",
+  },
+  // Modüller — her biri ModuleShell title/subtitle içeriğinden türetildi (SSOT: src/pages/modules/*)
+  "/modul/bina-risk-sorgu": {
+    title: "Bina risk sorgu — TBDY 2018 risk skoru — ihaleal.com",
+    description: "Fay mesafesi, zemin, sıvılaşma ve yapı davranışını tek risk skorunda birleştiren sorgu sihirbazı.",
+  },
+  "/modul/deprem-risk-haritasi": {
+    title: "Deprem risk haritası — ihaleal.com",
+    description: "Fay, deprem, zemin özeti ve ilan dayanıklılık seçkisini tam ekran harita üzerinde inceleyin.",
+  },
+  "/modul/canli-deprem-takip": {
+    title: "Canlı deprem takibi — ihaleal.com",
+    description: "Son 24 saat, 7 gün veya 30 gün penceresinde büyüklük eşikli deprem olay akışı.",
+  },
+  "/modul/guclendirme-rehberi": {
+    title: "Güçlendirme rehberi — ihaleal.com",
+    description: "Sekiz güçlendirme yöntemi, maliyet hesaplayıcı ve devlet destekleri karşılaştırması.",
+  },
+  "/modul/aile-acil-plan": {
+    title: "Aile acil planı — ihaleal.com",
+    description: "Altı adımda toplanma, iletişim, evrak ve tesisat sırasını netleştiren yazdırılabilir plan.",
+  },
+  "/modul/airbnb-potansiyel": {
+    title: "Airbnb potansiyeli hesaplayıcı — ihaleal.com",
+    description: "Kısa dönem kira gelirini hesaplar ve uzun dönem kira ile kıyaslar.",
+  },
+  "/modul/deprem-cantasi": {
+    title: "Deprem çantası listesi — ihaleal.com",
+    description: "Hane profiline göre sekiz kategoride çanta listesi ve yenileme takvimi.",
+  },
+  "/modul/deprem-sigortasi": {
+    title: "Deprem sigortası (DASK) karşılaştırma — ihaleal.com",
+    description: "DASK prim hesaplayıcı ve sigorta şirketi karşılaştırma tablosu.",
+  },
+  "/modul/imar-sorgu": {
+    title: "İmar sorgu — parsel fizibilite motoru — ihaleal.com",
+    description: "Belediye plan notları ve parsel fizibilite motorunu tek ekranda birleştiren sorgu aracı.",
+  },
+  "/modul/komsuluk-risk-analizi": {
+    title: "Komşuluk risk analizi — ihaleal.com",
+    description: "Mahalle ölçeğinde deprem skoru dağılımı ve yapay zeka özeti.",
+  },
+  "/modul/kredi-pazaryeri": {
+    title: "Kredi pazaryeri — konut kredisi karşılaştırma — ihaleal.com",
+    description: "Banka konut kredisi tekliflerini faiz, taksit ve onay olasılığına göre karşılaştırın.",
+  },
+  "/modul/portfoy-yonetimi": {
+    title: "Portföy yönetimi modülü — ihaleal.com",
+    description: "Tüm gayrimenkul varlıklarınızı tek panelde izleyin; değer ve getiri güncellemeleri.",
+  },
+  "/modul/renovasyon-roi": {
+    title: "Renovasyon ROI hesaplayıcı — ihaleal.com",
+    description: "Renovasyon yatırımının getirisini gerçek formülle hesaplayan araç.",
+  },
+  "/modul/sigorta-pazaryeri": {
+    title: "Sigorta pazaryeri — ihaleal.com",
+    description: "Konut, DASK ve deprem teminatları için çoklu sigorta şirketi teklif karşılaştırması.",
+  },
+  "/modul/tatbikat-rehberi": {
+    title: "Tatbikat rehberi — ihaleal.com",
+    description: "İş yeri, okul, site ve kamu senaryoları için adım adım deprem tatbikat kontrol listeleri.",
+  },
+  "/modul/uzman-randevu": {
+    title: "Uzman randevu — ihaleal.com",
+    description: "Statik, zemin, mimari proje, ekspertiz, sigorta ve hukuk uzmanlarından randevu alın.",
+  },
+  "/modul/yapay-zeka-hasar-tahmini": {
+    title: "Yapay zeka hasar tahmini — ihaleal.com",
+    description: "Bina yaşı ve gözlemlenen hasara göre hasar sınıfı ve ekonomik kayıp tahmini üretir.",
+  },
+  "/modul/yatirim-onerisi": {
+    title: "Yatırım önerisi — ROI hesaplayıcı — ihaleal.com",
+    description: "Kira getirisi, kira çarpanı ve geri dönüş süresini hesaplayan yatırım motoru.",
+  },
+  "/modul/yikilan-binalar-arsivi": {
+    title: "Yıkılan binalar arşivi — ihaleal.com",
+    description: "Geçmiş deprem olaylarına ait örnek yıkım kayıtları; müteahhit ve denetim firması sorgusu.",
+  },
+  "/modul/deprem-egitimi": {
+    title: "Deprem eğitimi — 10 derslik program — ihaleal.com",
+    description: "Okuma, video ve quiz ile ilerleyen on derslik deprem eğitim programı; tamamlayınca sertifika.",
+  },
+  "/modul/deprem-egitimi/ders-1": {
+    title: "Ders 1: Türkiye deprem gerçeği ve fay hatları — ihaleal.com",
+    description: "Deprem eğitimi programı birinci ders: Türkiye deprem gerçeği ve fay hatları.",
+  },
+  "/modul/deprem-egitimi/ders-2": {
+    title: "Ders 2: Bina davranışı ve hasar mekanizmaları — ihaleal.com",
+    description: "Deprem eğitimi programı ikinci ders: bina davranışı ve hasar mekanizmaları.",
+  },
+  "/modul/deprem-egitimi/ders-3": {
+    title: "Ders 3: Çök-kapan-tutun ve ilk 72 saat — ihaleal.com",
+    description: "Deprem eğitimi programı üçüncü ders: çök-kapan-tutun ve ilk 72 saat.",
+  },
+  "/modul/deprem-egitimi/ders-4": {
+    title: "Ders 4: Aile acil planı ve iletişim — ihaleal.com",
+    description: "Deprem eğitimi programı dördüncü ders: aile acil planı ve iletişim.",
+  },
+  "/modul/deprem-egitimi/ders-5": {
+    title: "Ders 5: Bina güvenliği ve risk sorgusu — ihaleal.com",
+    description: "Deprem eğitimi programı beşinci ders: bina güvenliği ve risk sorgusu.",
+  },
+  "/modul/deprem-egitimi/ders-6": {
+    title: "Ders 6: Güçlendirme ve kentsel dönüşüm — ihaleal.com",
+    description: "Deprem eğitimi programı altıncı ders: güçlendirme ve kentsel dönüşüm.",
+  },
+  "/modul/deprem-egitimi/ders-7": {
+    title: "Ders 7: Sigorta, DASK ve hasar süreci — ihaleal.com",
+    description: "Deprem eğitimi programı yedinci ders: sigorta, DASK ve hasar süreci.",
+  },
+  "/modul/deprem-egitimi/ders-8": {
+    title: "Ders 8: Kurumsal hazırlık ve tatbikat — ihaleal.com",
+    description: "Deprem eğitimi programı sekizinci ders: kurumsal hazırlık ve tatbikat.",
+  },
+  "/modul/deprem-egitimi/ders-9": {
+    title: "Ders 9: Toplumsal dayanışma ve gönüllülük — ihaleal.com",
+    description: "Deprem eğitimi programı dokuzuncu ders: toplumsal dayanışma ve gönüllülük.",
+  },
+  "/modul/deprem-egitimi/ders-10": {
+    title: "Ders 10: Uzun vadeli direnç ve sürdürülebilirlik — ihaleal.com",
+    description: "Deprem eğitimi programı onuncu ders: uzun vadeli direnç ve sürdürülebilirlik.",
+  },
 };
 
 export function getSeoForPath(pathname: string) {
@@ -289,6 +582,9 @@ export function getSeoForPath(pathname: string) {
       description: "Gayrimenkul ve ihale ekosistemine dair yazı (demo).",
     };
   }
+  if (pathname === "/emlakci/panel") {
+    return ROUTE_SEO["/emlakci/panel"] ?? DEFAULT_SEO;
+  }
   if (pathname.startsWith("/emlakci/")) {
     return {
       title: "Emlakçı profili — ihaleal.com",
@@ -297,6 +593,15 @@ export function getSeoForPath(pathname: string) {
   }
   if (pathname.startsWith("/panel/")) {
     return ROUTE_SEO["/panel"] ?? DEFAULT_SEO;
+  }
+  if (pathname.startsWith("/borsa/varlik/")) {
+    return {
+      title: "Varlık detayı — İhaleal Borsa — ihaleal.com",
+      description: "Seçilen varlık için fiyat, hacim ve endeks detayları (demo veri).",
+    };
+  }
+  if (pathname.startsWith("/muteahhit/proje/")) {
+    return ROUTE_SEO["/muteahhit/panel"] ?? DEFAULT_SEO;
   }
   if (pathname.startsWith("/modul/")) {
     return (
@@ -377,7 +682,52 @@ const NOINDEX_PATHS = new Set<string>([
   "/platform-cerceve",
   "/anayasa",
   "/anayasa-400",
+  "/yasal/dolandiricilik-savunmasi",
+  "/yasal/supabase-uyum",
+  // Giriş / kayıt — oturum akışları, aratılacak içerik yok.
+  "/giris",
+  "/kayit",
+  "/emlakci-giris",
+  "/sifremi-unuttum",
+  "/auth/edevis-mock",
+  "/onboarding/akis",
+  // Panel / dashboard — kullanıcıya özel, oturum gerektiren alanlar.
+  "/admin",
+  "/muteahhit/panel",
+  "/muteahhit/onay-bekleniyor",
+  "/muteahhit/yeni-proje",
+  "/emlakci/panel",
+  "/kurumsal/dashboard",
+  "/profil",
+  "/favoriler",
+  "/mesajlar",
+  "/belgeler",
+  "/ayarlar",
+  "/bildirimler",
+  "/aramalarim",
+  "/ihale-ac",
+  // Ödeme / KYC / abonelik işlemleri — transactional, indekse değersiz.
+  "/kyc",
+  "/komisyon",
+  "/abone/onay",
+  "/abone/iptal",
 ]);
+
+// Prefix bazlı noindex — dinamik segment taşıyan (":id" vb.) veya alt rotaları
+// olan panel/dashboard/ödeme/üyelik aileleri için tek tek path eklemek yerine
+// önek eşleşmesi kullanılır.
+const NOINDEX_PREFIXES = [
+  "/panel",
+  "/dashboard",
+  "/odeme/",
+  "/uyelik",
+  "/muteahhit/proje/",
+];
+
+function isNoindexPath(pathname: string): boolean {
+  if (NOINDEX_PATHS.has(pathname)) return true;
+  return NOINDEX_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
 
 export function applySeoToDocument(pathname: string, search: string) {
   const raw = getSeoForPath(pathname);
@@ -402,8 +752,9 @@ export function applySeoToDocument(pathname: string, search: string) {
   setMeta("name", "twitter:description", description);
   setMeta("name", "twitter:image", og.url);
   setMeta("name", "twitter:image:alt", og.alt);
-  // robots meta — iç doküman rotalarinda noindex/nofollow
-  if (NOINDEX_PATHS.has(pathname)) {
+  // robots meta — panel/dashboard/ödeme/kyc/giriş/kayıt ve iç doküman
+  // rotalarinda noindex/nofollow (bkz. NOINDEX_PATHS / NOINDEX_PREFIXES).
+  if (isNoindexPath(pathname)) {
     setMeta("name", "robots", "noindex, nofollow");
   } else {
     setMeta("name", "robots", "index, follow");
@@ -415,4 +766,19 @@ export function applySeoToDocument(pathname: string, search: string) {
     document.head.appendChild(link);
   }
   link.href = canonicalRoot;
+
+  // hreflang — site tek dilde yayınlanır (URL bazında ayrı dil rotası yok;
+  // arayüz dili istemci tarafında localStorage ile seçilir). Bu yüzden
+  // ayrı dil URL'leri için sahte hreflang üretmek yerine yalnızca tr +
+  // x-default kendine referans verilir (Search Console "alternate URL
+  // içeriği eşleşmiyor" uyarısını önler).
+  document.querySelectorAll('link[rel="alternate"][data-ihaleal-hreflang]').forEach((el) => el.remove());
+  for (const hreflang of ["tr", "x-default"]) {
+    const alt = document.createElement("link");
+    alt.rel = "alternate";
+    alt.setAttribute("hreflang", hreflang);
+    alt.setAttribute("data-ihaleal-hreflang", "1");
+    alt.href = canonicalRoot;
+    document.head.appendChild(alt);
+  }
 }

@@ -6,17 +6,42 @@ Disallow: /nihai-anayasa
 Disallow: /platform-cerceve
 Disallow: /anayasa
 Disallow: /anayasa-400
+Disallow: /yasal/dolandiricilik-savunmasi
+Disallow: /yasal/supabase-uyum
 
-# Auth-bound rotalar — crawler giremez, gereksiz tarama önlensin.
+# Auth / panel / dashboard / odeme / kyc — crawler giremez, gereksiz tarama
+# onlensin (src/lib/seo.ts NOINDEX_PATHS/NOINDEX_PREFIXES ile birebir).
+Disallow: /giris
+Disallow: /kayit
+Disallow: /emlakci-giris
+Disallow: /sifremi-unuttum
+Disallow: /auth/edevis-mock
+Disallow: /onboarding/akis
+Disallow: /admin
 Disallow: /panel
 Disallow: /panel/
+Disallow: /dashboard
+Disallow: /dashboard/
 Disallow: /muteahhit/panel
-Disallow: /favoriler
-Disallow: /ayarlar
+Disallow: /muteahhit/onay-bekleniyor
+Disallow: /muteahhit/yeni-proje
+Disallow: /muteahhit/proje/
+Disallow: /emlakci/panel
+Disallow: /kurumsal/dashboard
 Disallow: /profil
+Disallow: /favoriler
 Disallow: /mesajlar
+Disallow: /belgeler
+Disallow: /ayarlar
 Disallow: /bildirimler
+Disallow: /aramalarim
+Disallow: /ihale-ac
 Disallow: /kyc
+Disallow: /odeme/
+Disallow: /uyelik
+Disallow: /komisyon
+Disallow: /abone/onay
+Disallow: /abone/iptal
 
 # Yandex — ayni kurallar acikca tekrarlanir: Yandex Webmaster tanilamasi
 # joker satiri bazen atlayip motoruna ozel blok bekleyebiliyor.
@@ -26,15 +51,39 @@ Disallow: /nihai-anayasa
 Disallow: /platform-cerceve
 Disallow: /anayasa
 Disallow: /anayasa-400
+Disallow: /yasal/dolandiricilik-savunmasi
+Disallow: /yasal/supabase-uyum
+Disallow: /giris
+Disallow: /kayit
+Disallow: /emlakci-giris
+Disallow: /sifremi-unuttum
+Disallow: /auth/edevis-mock
+Disallow: /onboarding/akis
+Disallow: /admin
 Disallow: /panel
 Disallow: /panel/
+Disallow: /dashboard
+Disallow: /dashboard/
 Disallow: /muteahhit/panel
-Disallow: /favoriler
-Disallow: /ayarlar
+Disallow: /muteahhit/onay-bekleniyor
+Disallow: /muteahhit/yeni-proje
+Disallow: /muteahhit/proje/
+Disallow: /emlakci/panel
+Disallow: /kurumsal/dashboard
 Disallow: /profil
+Disallow: /favoriler
 Disallow: /mesajlar
+Disallow: /belgeler
+Disallow: /ayarlar
 Disallow: /bildirimler
+Disallow: /aramalarim
+Disallow: /ihale-ac
 Disallow: /kyc
+Disallow: /odeme/
+Disallow: /uyelik
+Disallow: /komisyon
+Disallow: /abone/onay
+Disallow: /abone/iptal
 
 Sitemap: https://www.ihaleal.com/sitemap.xml
 Sitemap: https://www.ihaleal.com/sitemap-index.xml
