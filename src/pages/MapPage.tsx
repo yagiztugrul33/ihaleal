@@ -128,7 +128,7 @@ function ClusterLayer({ auctions }: { auctions: Auction[] }) {
         const safeImg = (a.images?.[0] || "").replace(/"/g, "&quot;");
         m.bindPopup(`
           <div style="min-width:220px;color:#1e2a24;font-family:system-ui,-apple-system,sans-serif">
-            ${safeImg ? `<img src="${safeImg}" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:8px" alt="">` : ""}
+            ${safeImg ? `<img src="${safeImg}" loading="lazy" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:8px" alt="">` : ""}
             <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
               <span style="font-size:10px;background:${color}33;color:${color};padding:2px 6px;border-radius:4px;font-weight:600">${statusLabel}</span>
               <span style="font-size:10px;background:#fbf6e9;color:#9A6700;padding:2px 6px;border-radius:4px;font-weight:600">${modeLabel}</span>

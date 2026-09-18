@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AUCTIONS } from "@/data/auctions";
 import { ListingDocumentFooter } from "@/components/ListingDocumentFooter";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -233,6 +234,14 @@ export default function CityGuide() {
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-2 mb-2">
             <ArrowLeft className="rtl:rotate-180 w-4 h-4" /> Geri
           </Button>
+          <PageBreadcrumbs
+            className="mb-3"
+            items={[
+              { label: "Ana sayfa", href: "/" },
+              { label: "Şehir rehberi", href: "/sehirler" },
+              { label: `${cityName} Şehir Rehberi` },
+            ]}
+          />
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-3xl md:text-4xl font-normal flex items-center gap-3">

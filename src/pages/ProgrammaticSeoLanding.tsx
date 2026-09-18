@@ -210,7 +210,7 @@ export default function ProgrammaticSeoLanding() {
               listings.map((a) => (
                 <Card key={a.id} className="border-slate-200 bg-white overflow-hidden hover:border-[var(--cizgi)] transition-colors">
                   <div className="h-36 overflow-hidden">
-                    <img src={a.images[0]} alt="" className="w-full h-full object-cover" />
+                    <img src={a.images[0]} alt="" loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <CardContent className="p-4">
                     <p className="text-xs text-slate-500 flex items-center gap-1 mb-1">

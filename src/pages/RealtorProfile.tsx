@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { getRealtorBySlug } from "@/data/realtorsDemo";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 
 export default function RealtorProfilePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -36,7 +37,7 @@ export default function RealtorProfilePage() {
       <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-24">
         <p className="mb-4 text-slate-400">Profil bulunamadı.</p>
         <Button asChild variant="outline">
-          <Link to="/emlakçıler">Listeye dön</Link>
+          <Link to="/emlakciler">Listeye dön</Link>
         </Button>
       </div>
     );
@@ -52,10 +53,18 @@ export default function RealtorProfilePage() {
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="mx-auto max-w-4xl space-y-8">
         <Button variant="ghost" size="sm" className="gap-2 text-slate-400" asChild>
-          <Link to="/emlakçıler">
+          <Link to="/emlakciler">
             <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Ortak emlakçılar
           </Link>
         </Button>
+
+        <PageBreadcrumbs
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "Ortak emlakçılar", href: "/emlakciler" },
+            { label: r.companyName },
+          ]}
+        />
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex gap-4">

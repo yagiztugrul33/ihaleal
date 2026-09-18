@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getReportById } from "@/data/reportsDemo";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 
 export default function ReportDetail() {
   const { id } = useParams<{ id: string }>();
@@ -29,6 +30,15 @@ export default function ReportDetail() {
             <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Tüm belgeler
           </Link>
         </Button>
+
+        <PageBreadcrumbs
+          className="mb-6"
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "Analiz belgeleri", href: "/raporlar" },
+            { label: report.title },
+          ]}
+        />
 
         <header className="mb-10 border-b border-slate-200 pb-8">
           <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">

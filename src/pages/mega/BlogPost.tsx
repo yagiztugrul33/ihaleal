@@ -1,12 +1,41 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getBlogPostBySlug } from "@/data/mega/blogPosts";
 import { estimateReadingMinutes } from "@/lib/blogReading";
+import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
+import { injectJsonLd, removeJsonLd } from "@/lib/seoStructuredData";
+import { SITE_ORIGIN, getShareUrlForPath } from "@/data/siteOrigin";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getBlogPostBySlug(slug) : undefined;
+
+  useEffect(() => {
+    if (!post || !slug) return;
+    injectJsonLd(`blog-post-${slug}`, {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.publishedAt,
+      url: getShareUrlForPath(`/blog/${slug}`, ""),
+      author: {
+        "@type": "Person",
+        name: post.author.name,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "ihaleal.com",
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_ORIGIN}/ihaleal_com_logo.png`,
+        },
+      },
+    });
+    return () => removeJsonLd(`blog-post-${slug}`);
+  }, [post, slug]);
 
   if (!post) {
     return (
@@ -27,6 +56,14 @@ export default function BlogPostPage() {
             <ArrowLeft className="rtl:rotate-180 h-4 w-4" /> Blog
           </Link>
         </Button>
+        <PageBreadcrumbs
+          className="mb-6"
+          items={[
+            { label: "Ana sayfa", href: "/" },
+            { label: "Blog", href: "/blog" },
+            { label: post.title },
+          ]}
+        />
         <header className="mb-10">
           <div className="mb-3 flex flex-wrap items-center gap-3 text-xs text-slate-500">
             <span className="inline-flex items-center gap-1">
