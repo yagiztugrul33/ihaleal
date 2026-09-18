@@ -1,5 +1,6 @@
-import { lazy, Suspense, useCallback, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { injectJsonLd, removeJsonLd } from "@/lib/seoStructuredData";
 import {
   Building2,
   ChevronRight,
@@ -131,6 +132,19 @@ export default function KentselDonusumPage() {
     ],
     [result],
   );
+
+  useEffect(() => {
+    injectJsonLd("kentsel-donusum-faqpage", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: FAQ.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    });
+    return () => removeJsonLd("kentsel-donusum-faqpage");
+  }, []);
 
   return (
     <ModuleShell
@@ -266,7 +280,7 @@ export default function KentselDonusumPage() {
       </ModulePanel>
 
       <div className="mod-cta-row mod-no-print">
-        <Link to="/kat-karsiligi-arsa" className="mod-btn-primary">
+        <Link to="/kat-karsiligi" className="mod-btn-primary">
           <Landmark className="h-4 w-4" aria-hidden />
           Kat karşılığı arsa modülü
           <ChevronRight className="rtl:rotate-180 h-4 w-4" aria-hidden />

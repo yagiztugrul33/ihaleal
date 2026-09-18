@@ -1,8 +1,11 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronRight, FileDown } from "lucide-react";
 import { INTELLIGENCE_HUB_PATH } from "@/lib/intelligenceHub";
+import { injectJsonLd, removeJsonLd } from "@/lib/seoStructuredData";
+import { getShareUrlForPath } from "@/data/siteOrigin";
 import "@/styles/modules.css";
 
 export interface ModuleShellProps {
@@ -20,6 +23,23 @@ export function ModuleShell({
   icon: Icon,
   children,
 }: ModuleShellProps) {
+  const { pathname } = useLocation();
+
+  // Görsel breadcrumb (aşağıdaki <nav>) ile birebir eşleşen BreadcrumbList JSON-LD.
+  // Tüm modül sayfaları ModuleShell paylaştığı için tek noktadan otomatik uygulanır.
+  useEffect(() => {
+    injectJsonLd("module-breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: getShareUrlForPath("/", "") },
+        { "@type": "ListItem", position: 2, name: "Araştırma", item: getShareUrlForPath(INTELLIGENCE_HUB_PATH, "") },
+        { "@type": "ListItem", position: 3, name: title, item: getShareUrlForPath(pathname, "") },
+      ],
+    });
+    return () => removeJsonLd("module-breadcrumb");
+  }, [title, pathname]);
+
   return (
     <div className="mod-page">
       <div className="mod-page__bg" aria-hidden />

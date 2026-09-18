@@ -518,6 +518,8 @@ function App() {
             <Route path="/modul/afet-risk-haritasi" element={<AfetRiskHaritasiPage />} />
             <Route path="/modul/parsel-zekasi" element={<ParselZekasiPage />} />
             <Route path="/modul/kentsel-donusum" element={<KentselDonusumPage />} />
+            {/* Kısa/akılda kalıcı URL — tek gerçek içerik /modul/kentsel-donusum'da, dublicate önlemek için redirect */}
+            <Route path="/kentsel-donusum" element={<Navigate to="/modul/kentsel-donusum" replace />} />
             <Route path="/modul/afet-toplanma-alanlari" element={<AfetToplanmaAlanlariPage />} />
             {/* R12.14 Faz A-3 — Eğitim modülleri (10 ders) */}
             <Route path="/modul/deprem-egitimi/ders-1"  element={<Ders1 />} />
