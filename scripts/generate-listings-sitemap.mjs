@@ -20,7 +20,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const ORIGIN = "https://ihaleal.com";
+const ORIGIN = "https://www.ihaleal.com";
 const outPath = path.join(root, "public/sitemap-listings.xml");
 
 function loadEnvLocal() {

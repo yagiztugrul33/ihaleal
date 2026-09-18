@@ -1,5 +1,5 @@
-/** Production origin: OG, canonical, schema (BrowserRouter). */
-export const SITE_ORIGIN = "https://ihaleal.com" as const;
+/** Production origin: OG, canonical, schema (BrowserRouter). Site fiilen www üzerinde yayında (apex -> www 307). */
+export const SITE_ORIGIN = "https://www.ihaleal.com" as const;
 
 /** Canonical root (history API paths; no hash). */
 export const CANONICAL_ROOT_HREF = `${SITE_ORIGIN}/` as const;

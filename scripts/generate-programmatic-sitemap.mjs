@@ -13,7 +13,7 @@ const provinces = JSON.parse(
 );
 
 const PROPERTY_TYPES = ["konut", "daire", "arsa", "villa", "isyeri", "dukkan"];
-const ORIGIN = "https://ihaleal.com";
+const ORIGIN = "https://www.ihaleal.com";
 const today = new Date().toISOString().slice(0, 10);
 
 const guidesPath = path.join(root, "src/data/realEstateGuides.ts");

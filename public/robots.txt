@@ -36,7 +36,7 @@ Disallow: /mesajlar
 Disallow: /bildirimler
 Disallow: /kyc
 
-Sitemap: https://ihaleal.com/sitemap.xml
-Sitemap: https://ihaleal.com/sitemap-index.xml
-Sitemap: https://ihaleal.com/sitemap-programmatic.xml
-Sitemap: https://ihaleal.com/sitemap-listings.xml
+Sitemap: https://www.ihaleal.com/sitemap.xml
+Sitemap: https://www.ihaleal.com/sitemap-index.xml
+Sitemap: https://www.ihaleal.com/sitemap-programmatic.xml
+Sitemap: https://www.ihaleal.com/sitemap-listings.xml

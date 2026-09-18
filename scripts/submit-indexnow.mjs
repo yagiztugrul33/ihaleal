@@ -17,7 +17,7 @@ import https from "node:https";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 
-const HOST = "ihaleal.com";
+const HOST = "www.ihaleal.com";
 const KEY = "9b15c3989629ed9c227f6cc3521288c5";
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 
