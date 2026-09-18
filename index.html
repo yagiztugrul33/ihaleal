@@ -47,6 +47,11 @@
     <link rel="preconnect" href="https://wsjifesrdaeorrdzbvmk.supabase.co" crossorigin />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+    <!-- GA4 yalnizca cerez onayindan SONRA yuklenir (bkz. WebAnalytics.tsx) —
+         onay öncesi baglanti acmamak icin preconnect degil, dusuk maliyetli
+         dns-prefetch kullanilir. -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
     <!-- LCP preload — /ihaleal-logo-lockup.png (navbar lockup gorseli).
          LCP elemani Lighthouse `lcp-discovery-insight` ile dogrulandi; gorsel React

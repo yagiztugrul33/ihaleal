@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { startWebVitalsReporting } from "@/lib/webVitals";
 
 const CONSENT_KEY = "ihaleal_cookie_consent_v1";
 const GA_ID = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
@@ -28,8 +29,11 @@ function loadGoogleAnalytics() {
   function gtag(...args: unknown[]) {
     window.dataLayer.push(args);
   }
+  window.gtag = gtag;
   gtag("js", new Date());
   gtag("config", GA_ID, { anonymize_ip: true });
+  // Core Web Vitals (CLS/INP/LCP/FCP/TTFB) → GA4 event'leri.
+  startWebVitalsReporting();
 }
 
 /** Vercel Web Analytics + GA4 — yalnızca çerez onayı sonrası (KVKK uyumlu). */
