@@ -295,7 +295,7 @@ function App() {
             <Route path="/kurumsal" element={<Navigate to={ROUTES.SERVICES} replace />} />
             <Route path="/kurumsal/iletisim" element={<CorporateContact />} />
             <Route path="/kurumsal/dashboard" element={<OrganizationDashboard />} />
-            <Route path="/valuation" element={<ValuationTool />} />
+            <Route path="/valuation" element={<Navigate to="/degerleme" replace />} />
             <Route path="/ekspertiz" element={<Expertise />} />
             <Route path="/evraklar" element={<DocumentsRequired />} />
             <Route path="/guvenlik" element={<SecurityCenter />} />
@@ -396,12 +396,12 @@ function App() {
             <Route path="/odeme/basarili" element={<PaymentSuccessPage />} />
             <Route path="/komisyon" element={<CommissionPage />} />
             <Route path="/konum-risk-sorgu" element={<LocationRiskQueryPage />} />
-            <Route path="/zemin-risk" element={<LocationRiskQueryPage />} />
+            <Route path="/zemin-risk" element={<Navigate to="/konum-risk-sorgu" replace />} />
             <Route path="/magaza" element={<AddonShopPage />} />
             <Route path="/ek-hizmetler" element={<Navigate to="/magaza" replace />} />
             <Route path="/hizmet-bedelleri" element={<HizmetBedelleri />} />
             <Route path="/pre-launch" element={<PreLaunch />} />
-            <Route path="/lansman" element={<PreLaunch />} />
+            <Route path="/lansman" element={<Navigate to="/pre-launch" replace />} />
             <Route
               path="/onboarding/akis"
               element={

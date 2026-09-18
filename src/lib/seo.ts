@@ -290,6 +290,14 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "Ne kadar eder? — AI gayrimenkul değer tahmini — ihaleal.com",
     description: "Konum ve özelliklere göre demo değer tahmini; kesin değer için resmi ekspertiz gerekir.",
   },
+  "/sss": {
+    title: "Sıkça sorulan sorular — ihaleal.com",
+    description: "İhaleal.com hakkında en çok sorulan sorular: ihale, komisyon, KYC ve ödeme süreçleri.",
+  },
+  "/konum-risk-sorgu": {
+    title: "Bölge zemin/deprem risk sorgu — ihaleal.com",
+    description: "İl/ilçe veya harita pin'i ile AFAD/İBB kamuya açık verilerinden konum-bazlı zemin ve deprem risk bilgisi sorgulayın.",
+  },
   "/oduller": {
     title: "Sadakat programı ve ödüller — ihaleal.com",
     description: "Platform kullanımına bağlı puan ve ödül programı özeti (demo).",
