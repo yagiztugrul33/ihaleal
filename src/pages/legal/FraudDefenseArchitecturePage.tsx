@@ -35,7 +35,7 @@ export default function FraudDefenseArchitecturePage() {
             <Button variant="outline" size="sm" className="border-white/15 text-slate-200" onClick={() => navigate("/yasal-cerceve")}>
               <Scale className="w-4 h-4 me-1" /> Yasal cerceve
             </Button>
-            <Button variant="outline" size="sm" className="border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => navigate("/güvenlik")}>
+            <Button variant="outline" size="sm" className="border-[var(--cizgi)] text-[var(--metin-ikincil)]" onClick={() => navigate("/guvenlik")}>
               <ShieldAlert className="w-4 h-4 me-1" /> Guvenlik merkezi
             </Button>
           </div>

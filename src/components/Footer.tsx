@@ -87,7 +87,7 @@ export function Footer() {
               <li><button onClick={() => navigate("/mortgage")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.mortgage}</button></li>
               <li><button onClick={() => navigate("/favoriler")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Heart className="w-3.5 h-3.5" /> {f.favorites}</button></li>
               <li><button onClick={() => navigate("/giris?profil=emlakçı")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Users className="w-3.5 h-3.5" /> {f.realtorLoginFooter}</button></li>
-              <li><button onClick={() => navigate("/emlakçı-ortaklik")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> {f.realtorPartnership}</button></li>
+              <li><button onClick={() => navigate("/emlakci-ortaklik")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Handshake className="w-3.5 h-3.5" /> {f.realtorPartnership}</button></li>
               <li><button onClick={() => navigate(INTELLIGENCE_HUB_PATH)} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><BarChart3 className="w-3.5 h-3.5" /> {f.researchTerminal}</button></li>
             </ul>
           </div>
@@ -162,7 +162,7 @@ export function Footer() {
               <li><button onClick={() => navigate("/hakkimizda")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> {f.aboutUs}</button></li>
               <li><button onClick={() => window.open("/sitemap.xml", "_blank", "noopener,noreferrer")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Navigation className="w-3.5 h-3.5" /> {f.sitemap}</button></li>
               <li><button onClick={() => navigate("/sss")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><HelpCircle className="w-3.5 h-3.5" /> {f.faqFooter}</button></li>
-              <li><button onClick={() => navigate("/güvenlik")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.securityCenter}</button></li>
+              <li><button onClick={() => navigate("/guvenlik")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> {f.securityCenter}</button></li>
               {!isProdBuild ? (
                 <>
                   <li><button onClick={() => navigate("/yasal/dolandiricilik-savunmasi")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Shield className="w-3.5 h-3.5" /> Dolandırıcılık savunması</button></li>
@@ -181,7 +181,7 @@ export function Footer() {
                 </>
               ) : null}
               {localAuthEnabled ? (
-                <li><button onClick={() => navigate("/emlakçı-giris")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
+                <li><button onClick={() => navigate("/emlakci-giris")} className="text-sm text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-2 w-full text-start"><Users className="w-3.5 h-3.5" /> Üç tip giriş (Kimi)</button></li>
               ) : null}
               {!isProdBuild ? (
                 <>

@@ -9,7 +9,7 @@ export function LocalAuthGate({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!localAuthEnabled) {
-      navigate("/giriş", { replace: true, state: { from: "local-auth-disabled" } });
+      navigate("/giris", { replace: true, state: { from: "local-auth-disabled" } });
     }
   }, [navigate]);
 

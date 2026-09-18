@@ -76,13 +76,13 @@ export default function Login() {
                 <p className="font-normal text-[var(--metin-ikincil)]">Ortak emlakçı veya ofis temsilcisi misiniz?</p>
                 <ul className="list-disc ps-4 space-y-1 text-slate-400">
                   <li>
-                    <Link to="/emlakçı-ortaklik" className="text-[var(--metin-ikincil)] hover:underline">
+                    <Link to="/emlakci-ortaklik" className="text-[var(--metin-ikincil)] hover:underline">
                       B2B ortaklık başvurusu
                     </Link>{" "}
                     (demo form)
                   </li>
                   <li>
-                    <Link to="/emlakçıler" className="text-[var(--metin-ikincil)] hover:underline">
+                    <Link to="/emlakciler" className="text-[var(--metin-ikincil)] hover:underline">
                       Ortak emlakçı vitrini
                     </Link>
                   </li>

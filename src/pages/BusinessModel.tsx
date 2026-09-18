@@ -100,7 +100,7 @@ export default function BusinessModel() {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => navigate("/emlakçı-ortaklik")}
+              onClick={() => navigate("/emlakci-ortaklik")}
               className="border-[var(--cizgi)] text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)] gap-2"
             >
               <Handshake className="w-5 h-5" /> Emlakçı ortaklığı başvurusu

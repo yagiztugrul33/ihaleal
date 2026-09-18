@@ -308,7 +308,7 @@ export function Anayasa400() {
                   Kullanım Koşulları
                 </Link>
                 {" · "}
-                <Link to="/güvenlik" className="text-[var(--metin-ikincil)] underline underline-offset-2 hover:text-[var(--metin-ikincil)]">
+                <Link to="/guvenlik" className="text-[var(--metin-ikincil)] underline underline-offset-2 hover:text-[var(--metin-ikincil)]">
                   Güvenlik
                 </Link>
               </p>
