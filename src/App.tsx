@@ -16,7 +16,7 @@ import { LocalAuthGate } from "@/components/LocalAuthGate";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { SEO_LANDING_PAGES } from "@/data/seoLandings";
-import { KKA_HUB_PATH, KKA_STUDIO_PATH } from "@/lib/kkaHub";
+import { KKA_HUB_PATH, KKA_STUDIO_PATH, KKA_LANDOWNER_PATH } from "@/lib/kkaHub";
 import {
   INTELLIGENCE_HUB_PATH,
   GES_ANALYSIS_PATH,
@@ -105,6 +105,7 @@ const CommissionCalculator = lazy(() => import("@/pages/mega/CommissionCalculato
 const KycSimulation        = lazy(() => import("@/pages/mega/KycSimulation"));
 const LandEquityPage = lazy(() => import("@/pages/mega/LandEquityPage"));
 const KkaParselStudioPage = lazy(() => import("@/pages/mega/KkaParselStudioPage"));
+const KatKarsiligiArsaOwnerPage = lazy(() => import("@/pages/mega/KatKarsiligiArsaOwnerPage"));
 const IntelligenceHub = lazy(() => import("@/pages/intelligence/IntelligenceHub"));
 const GesAnalysisPage = lazy(() => import("@/pages/intelligence/GesAnalysisPage"));
 const GesLandEvaluationPage = lazy(() => import("@/pages/ges/GesLandEvaluationPage"));
@@ -341,6 +342,7 @@ function App() {
             <Route path="/komisyon-hesaplayici" element={<CommissionCalculator />} />
             <Route path={KKA_HUB_PATH} element={<LandEquityPage />} />
             <Route path={KKA_STUDIO_PATH} element={<KkaParselStudioPage />} />
+            <Route path={KKA_LANDOWNER_PATH} element={<KatKarsiligiArsaOwnerPage />} />
             <Route
               path={INTELLIGENCE_HUB_PATH}
               element={

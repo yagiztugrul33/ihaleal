@@ -117,6 +117,10 @@ const ROUTE_SEO: Record<string, { title: string; description: string }> = {
     title: "Ada / parsel ve imar stüdyosu — ihaleal.com",
     description: "Ada, parsel ve imar parametreleriyle yaklaşık inşaat hakkı ve kat adedi hesaplayın; doldurulabilir KKA sözleşme paketi üretin.",
   },
+  "/kat-karsiligi-arsa": {
+    title: "Arsa sahipleri için kat karşılığı rehberi — ihaleal.com",
+    description: "Arsanızı kat karşılığı vermeden önce süreç nasıl işler, haklarınız neler, hangi risklere dikkat etmelisiniz? Adım adım rehber ve hak ediş hesaplayıcıya yönlendirme.",
+  },
   "/veri-ve-endeks": {
     title: "İhaleal Endeksi ve veri stratejisi — ihaleal.com",
     description:

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { BrandLockup } from "@/components/Logo";
-import { KKA_HUB_PATH, KKA_STUDIO_PATH, kkaHubNavLabel, kkaStudioNavLabel } from "@/lib/kkaHub";
+import { KKA_HUB_PATH, KKA_STUDIO_PATH, KKA_LANDOWNER_PATH, kkaHubNavLabel, kkaStudioNavLabel, kkaLandownerNavLabel } from "@/lib/kkaHub";
 import { PLATFORM_FRAMEWORK_PATH } from "@/constants/platformFramework";
 import { Gavel, MapPin, Phone, Mail, Clock, BarChart3, GitCompare, Calculator, Heart, Shield, FileText, HelpCircle, Users, Building2, Handshake, TrendingUp, Navigation, Trophy, Database, Target, BadgePercent, Landmark, DraftingCompass, BookOpen, Globe, Scale } from "lucide-react";
 import { DemoDataCornerBadge } from "@/components/DemoDataCornerBadge";
@@ -134,6 +134,11 @@ export function Footer() {
               <li>
                 <button type="button" onClick={() => navigate(KKA_STUDIO_PATH)} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2 w-full text-start">
                   <DraftingCompass className="w-3.5 h-3.5" /> {kkaStudioNavLabel}
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => navigate(KKA_LANDOWNER_PATH)} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2 w-full text-start">
+                  <Landmark className="w-3.5 h-3.5" /> {kkaLandownerNavLabel}
                 </button>
               </li>
               <li><button onClick={() => navigate("/araclar/vergi-simulator")} className="text-sm text-slate-300 hover:text-[var(--metin-ikincil)] transition-colors flex items-center gap-2"><Calculator className="w-3.5 h-3.5" /> {f.taxSimulator}</button></li>
