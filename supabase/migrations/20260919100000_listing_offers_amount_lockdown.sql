@@ -14,6 +14,12 @@
 --     okur, satir filtresi (alici kendi teklifi, satici kendi ilaninin teklifleri) view'in
 --     WHERE'inde. Tek okuma yolu bu view.
 --
+-- NEDEN "DROP VIEW + CREATE VIEW" (CREATE OR REPLACE DEGIL):
+--  Canlidaki eski listing_offers_safe'te counter_amount_try bir CASE ifadesiydi; yenisi duz
+--  kolon (o.counter_amount_try). CREATE OR REPLACE VIEW kolon tipi degisince
+--  "cannot change data type of view column" hatasi veriyor (canlida bu hata alindi).
+--  DROP VIEW bilerek CASCADE'siz: view'e bagimli nesne varsa migration (tek transaction) iptal olur.
+--
 -- UYARI: 20260528170000_grants_restore_systemic.sql yeniden calistirilirsa
 -- "grant select on all tables in schema public to authenticated" bu kilidi acar.
 -- O migration'dan SONRA bu dosya tekrar uygulanmali.
