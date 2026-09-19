@@ -42,7 +42,7 @@ function OfferRow({
           </p>
         </div>
         <span className="font-normal text-white">
-          {visible ? `₺${offer.amount_try.toLocaleString("tr-TR")}` : maskOfferAmount()}
+          {visible && offer.amount_try != null ? `₺${offer.amount_try.toLocaleString("tr-TR")}` : maskOfferAmount()}
         </span>
       </div>
       {(offer.status === "pending" || offer.status === "countered") && visible ? (

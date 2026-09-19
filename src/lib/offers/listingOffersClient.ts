@@ -47,22 +47,27 @@ export async function updateOfferStatus(input: {
 export async function fetchBuyerOffers(buyerId: string): Promise<ListingOfferRow[]> {
   if (!isSupabaseConfigured()) return [];
   const { data, error } = await supabase
-    .from("listing_offers")
-    .select("id, listing_id, buyer_id, amount_try, counter_amount_try, status, is_sealed, sealed_until, created_at, listings(title)")
+    .from("listing_offers_safe")
+    .select("id, listing_id, buyer_id, amount_try, counter_amount_try, status, is_sealed, sealed_until, created_at")
     .eq("buyer_id", buyerId)
     .order("created_at", { ascending: false })
     .limit(50);
 
   if (error || !data) return [];
 
+  const listingIds = [...new Set(data.map((r) => String(r.listing_id)))];
+  const { data: listings } = listingIds.length
+    ? await supabase.from("listings").select("id, title").in("id", listingIds)
+    : { data: [] };
+  const titleById = new Map((listings ?? []).map((l) => [String(l.id), String(l.title ?? "")]));
+
   return data.map((row) => {
-    const listing = row.listings as { title?: string } | { title?: string }[] | null;
-    const title = Array.isArray(listing) ? listing[0]?.title : listing?.title;
+    const title = titleById.get(String(row.listing_id));
     return {
       id: String(row.id),
       listing_id: String(row.listing_id),
       buyer_id: String(row.buyer_id),
-      amount_try: Number(row.amount_try),
+      amount_try: row.amount_try != null ? Number(row.amount_try) : null,
       counter_amount_try: row.counter_amount_try != null ? Number(row.counter_amount_try) : null,
       status: row.status as ListingOfferRow["status"],
       is_sealed: Boolean(row.is_sealed),
@@ -88,7 +93,7 @@ export async function fetchSellerOffers(sellerId: string): Promise<ListingOfferR
   const titleById = new Map(listings.map((l) => [String(l.id), String(l.title ?? "İlan")]));
 
   const { data, error } = await supabase
-    .from("listing_offers")
+    .from("listing_offers_safe")
     .select("id, listing_id, buyer_id, amount_try, counter_amount_try, status, is_sealed, sealed_until, created_at")
     .in("listing_id", ids)
     .order("created_at", { ascending: false })
@@ -100,7 +105,7 @@ export async function fetchSellerOffers(sellerId: string): Promise<ListingOfferR
     id: String(row.id),
     listing_id: String(row.listing_id),
     buyer_id: String(row.buyer_id),
-    amount_try: Number(row.amount_try),
+    amount_try: row.amount_try != null ? Number(row.amount_try) : null,
     counter_amount_try: row.counter_amount_try != null ? Number(row.counter_amount_try) : null,
     status: row.status as ListingOfferRow["status"],
     is_sealed: Boolean(row.is_sealed),
@@ -113,7 +118,7 @@ export async function fetchSellerOffers(sellerId: string): Promise<ListingOfferR
 export async function fetchOffersForListing(listingId: string): Promise<ListingOfferRow[]> {
   if (!isSupabaseConfigured()) return [];
   const { data, error } = await supabase
-    .from("listing_offers")
+    .from("listing_offers_safe")
     .select("id, listing_id, buyer_id, amount_try, counter_amount_try, status, is_sealed, sealed_until, created_at")
     .eq("listing_id", listingId)
     .order("created_at", { ascending: false });
@@ -124,7 +129,7 @@ export async function fetchOffersForListing(listingId: string): Promise<ListingO
     id: String(row.id),
     listing_id: String(row.listing_id),
     buyer_id: String(row.buyer_id),
-    amount_try: Number(row.amount_try),
+    amount_try: row.amount_try != null ? Number(row.amount_try) : null,
     counter_amount_try: row.counter_amount_try != null ? Number(row.counter_amount_try) : null,
     status: row.status as ListingOfferRow["status"],
     is_sealed: Boolean(row.is_sealed),

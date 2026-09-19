@@ -4,7 +4,8 @@ export type ListingOfferRow = {
   id: string;
   listing_id: string;
   buyer_id: string;
-  amount_try: number;
+  /** Sealed + süresi dolmamış tekliflerde satıcıya null gelir (listing_offers_safe). */
+  amount_try: number | null;
   counter_amount_try: number | null;
   status: OfferStatus;
   is_sealed: boolean;
@@ -14,10 +15,11 @@ export type ListingOfferRow = {
 };
 
 export function isOfferAmountVisible(
-  offer: Pick<ListingOfferRow, "is_sealed" | "sealed_until" | "buyer_id">,
+  offer: Pick<ListingOfferRow, "is_sealed" | "sealed_until" | "buyer_id" | "amount_try">,
   viewerId: string,
   viewerIsSeller: boolean,
 ): boolean {
+  if (offer.amount_try == null) return false;
   if (offer.buyer_id === viewerId) return true;
   if (!offer.is_sealed) return true;
   if (!offer.sealed_until) return false;

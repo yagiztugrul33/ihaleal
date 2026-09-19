@@ -26,7 +26,7 @@ function OfferAmount({
   viewerIsSeller: boolean;
 }) {
   const visible = isOfferAmountVisible(offer, viewerId, viewerIsSeller);
-  if (!visible) return <span className="text-[var(--metin-ikincil)]">{maskOfferAmount()}</span>;
+  if (!visible || offer.amount_try == null) return <span className="text-[var(--metin-ikincil)]">{maskOfferAmount()}</span>;
   return <span className="text-white font-normal">₺{offer.amount_try.toLocaleString("tr-TR")}</span>;
 }
 
@@ -151,7 +151,9 @@ export function OffersPanel({ mode }: Props) {
                   Karşı teklif: ₺{offer.counter_amount_try.toLocaleString("tr-TR")}
                 </p>
               ) : null}
-              {mode === "seller" ? <SellerActions offer={offer} onDone={() => void seller.reload()} /> : null}
+              {mode === "seller" && isOfferAmountVisible(offer, user.id, true) ? (
+                <SellerActions offer={offer} onDone={() => void seller.reload()} />
+              ) : null}
               {mode === "buyer" ? (
                 <Link to={`/ilan/${offer.listing_id}`} className="mt-2 inline-block text-xs text-[var(--metin-ikincil)] underline">
                   İlanı aç
