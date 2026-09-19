@@ -124,16 +124,6 @@ function buildRichFallback(
   };
 }
 
-const FALLBACK_AI_GENERIC: AiEnrich = {
-  credit: "Konut kredisi uygunluğu için: 1) ekspertiz değeri %75-80'i LTV, 2) gelir doğrulama (SGK + maaş), 3) Findeks 1000+ kredi notu, 4) tapu sahipliği. 2026 başı ortalama konut kredisi faizi %43-48 bandı.",
-  earthquake: "Bina yaşı, zemin türü, fay hattına mesafe kritik. TBDY-2018 sonrası inşa edildiyse modern yönetmelik kapsamı; öncesi için güçlendirme veya 6306 Sayılı Kanun kentsel dönüşüm değerlendirmesi. DASK + ek konut sigortası önerilir.",
-  education: "İl/ilçe ortalama okul yoğunluğu MEB e-Okul açık verisinden, üniversite mesafesi YÖK Atlas'tan doğrulanır. Büyükşehirlerde 1 km'de 3-5 ilkokul + lise + üniversite tipik.",
-  safety: "Bölge suç oranı: EGM Polis Net portalı + İçişleri Bakanlığı verisi. Güvenlikli site (24/7) + kamera + alarm + komşuluk bilgisi tercih. DASK + konut sigortası kapsamı kontrol.",
-  rentalYield: "Türkiye 2026 ortalama konut kira getirisi %4-7 brüt. Net getiri için aidat (1-1.5 maaş), bakım (%1-2 değer), boş kalma (1-2 ay/yıl) düşülmeli. Geri ödeme: basit 12-20 yıl tipik.",
-  neighborhood: "Bölge gelişim potansiyeli: kentsel dönüşüm + TOKİ + metro/Marmaray hat genişlemesi değer artırır. Yaşam kalitesi: yeşil alan, gürültü, sosyal doku, belediye hizmet seviyesi değerlendirilmeli.",
-  overall: "Profesyonel alım kararı için: SPK uyumlu ekspertiz + Findeks + TKGM tapu inceleme + bölge endeks (Borsa) + kira getirisi karşılaştırma şart. Tek başına hiçbir parametre yeterli değil — bütünsel değerlendirme.",
-};
-
 async function askAi(prompt: string): Promise<string> {
   try {
     // CEPHE 3: sanitize + doğru SystemQaTurn[] imzası.

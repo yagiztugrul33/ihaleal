@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, MapPin, Building2, TrendingUp, Home, DollarSign,
-  BarChart3, Star, Clock, Users, Percent, ArrowRight,
-  LineChart, Activity, ChevronRight, Navigation,
-  Landmark, Bus, GraduationCap, Heart, ShoppingBag, ShieldCheck
+  ArrowLeft, MapPin, TrendingUp, Home, DollarSign,
+  BarChart3, Star, Users, Percent,
+  Navigation,
+  Bus, GraduationCap, Heart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,7 +15,7 @@ import { PageBreadcrumbs } from "@/components/seo/PageBreadcrumbs";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  LineChart as ReLineChart, Line, PieChart as RePieChart, Pie, Cell, AreaChart, Area
+  LineChart as ReLineChart, Line
 } from "recharts";
 
 const CITY_PROFILES: Record<string, {

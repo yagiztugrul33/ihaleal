@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, RefreshCw, AlertTriangle, Calendar, CheckCircle2, Mail, FileText,
+  ArrowLeft, RefreshCw, AlertTriangle, Calendar, CheckCircle2, Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

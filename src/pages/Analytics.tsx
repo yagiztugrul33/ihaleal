@@ -2,12 +2,12 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, TrendingUp, MapPin, Home, Star, Search,
-  Building2, BarChart3, Activity, Layers, CalendarDays,
-  Users, Wallet, Percent, Lightbulb, AreaChart, Calculator,
-  Target, ArrowUpRight, ArrowDownRight, Minus, Clock,
-  TrendingDown, CircleDollarSign, PieChart, LineChart as LineChartIcon,
-  Filter, Download, ChevronUp, ChevronDown, ShieldCheck,
-  AlertTriangle, Info, Gauge, MousePointerClick, Stethoscope, Cpu, ExternalLink, Crosshair,
+  Building2, BarChart3, Activity, Layers,
+  Users, Wallet, Percent, Lightbulb, Calculator,
+  Target, ArrowUpRight, Minus, Clock,
+  CircleDollarSign, PieChart, LineChart as LineChartIcon,
+  ChevronUp, ChevronDown, ShieldCheck,
+  Info, Gauge, MousePointerClick, Stethoscope, Cpu, ExternalLink, Crosshair,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,9 +17,9 @@ import { AUCTIONS } from "@/data/auctions";
 import { ListingLinkDemo } from "@/components/ListingLinkDemo";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  ScatterChart, Scatter, ZAxis, LineChart, Line, AreaChart as ReAreaChart,
-  Area, RadarChart, Radar, PolarGrid, PolarAngleAxis, Legend,
+  Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  ScatterChart, Scatter, ZAxis, Line, AreaChart as ReAreaChart,
+  Area, Legend,
   ComposedChart, Cell, PieChart as RePieChart, Pie
 } from "recharts";
 
@@ -154,10 +154,6 @@ export default function Analytics() {
 
   const barData = filtered.slice(0, 6).map((a) => ({ name: a.district, score: a.investmentScore, price: a.pricePerSqm, yield: a.areaStats.rentalYield }));
   const scatterData = filtered.map((a) => ({ x: a.pricePerSqm, y: a.areaStats.rentalYield, z: a.investmentScore, name: a.district }));
-  const radarData = CITIES.map((city) => {
-    const d = CITY_DATA[city];
-    return { city, price: Math.min(d.pricePerSqm / 1000, 100), yield: d.yield * 10, change: d.annualChange, score: d.investmentScore.avg };
-  });
 
   const predictionData = generatePrediction("Istanbul");
   
@@ -829,7 +825,6 @@ export default function Analytics() {
                 .sort((a, b) => b.investmentScore - a.investmentScore)
                 .slice(0, 3)
                 .map((auction, idx) => {
-                  const rec = getRec(auction.investmentScore);
                   return (
                     <Card key={auction.id} className="bg-slate-900/50 border-slate-200/80 overflow-hidden hover:border-[var(--cizgi)] transition-all duration-500 hover:-translate-y-1">
                       <div className="relative h-44">

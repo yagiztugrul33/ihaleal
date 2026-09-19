@@ -1,11 +1,11 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
-  ArrowLeft, MapPin, Phone, Mail, Share2, Heart, Flag,
+  ArrowLeft, MapPin, Mail, Heart,
   Home, Building, Layers, CheckCircle2,
-  XCircle, AlertTriangle, BarChart3, TrendingUp, TrendingDown, Minus,
+  XCircle, BarChart3, TrendingUp, TrendingDown, Minus,
   MessageSquare, GitCompare, Navigation, CarFront, Video,
-  ExternalLink, Eye, Calculator, Receipt, ShieldCheck, Percent,
+  Eye, Calculator, Receipt, ShieldCheck, Percent,
   FileText, Scale, Landmark, ShoppingCart, HandCoins, Printer, Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,6 @@ import { Input } from "@/components/ui/input";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { AUCTIONS } from "@/data/auctions";
 import {
-  PLATFORM_LISTING_CONTACT,
   resolveMarketingMode,
   integrityRulesSummaryForAuction,
   withListingDefaults,
@@ -53,7 +52,6 @@ import { PropertyAnalysisReportViewer } from "@/components/PropertyAnalysisRepor
 import { PantsirPanel } from "@/components/property/PantsirPanel";
 import { injectJsonLd, removeJsonLd, buildAuctionListingJsonLd } from "@/lib/seoStructuredData";
 import { CaymaPolitikasi } from "@/components/legal/CaymaPolitikasi";
-import { ListingCoverImage } from "@/components/ListingCoverImage";
 import { CinematicPropertyGallery, AIInsightLayer, InvestorTrustStrip, type AIInsight } from "@/components/cinematic";
 import { ListingNumberBadge } from "@/components/ListingNumberBadge";
 import { ListingSimilarSection } from "@/components/listing/ListingSimilarSection";
@@ -61,7 +59,7 @@ import { ListingNearbyPoiSection } from "@/components/listing/ListingNearbyPoiSe
 import { ListingMortgageWidget } from "@/components/listing/ListingMortgageWidget";
 import { ListingOfferDialog } from "@/components/offers/ListingOfferDialog";
 import { ListingOffersSection } from "@/components/offers/ListingOffersSection";
-import { LoadingState, LoadingSkeletonDetail, EmptyState } from "@/components/async";
+import { LoadingState, LoadingSkeletonDetail } from "@/components/async";
 import { SellerTrustCard } from "@/components/trust/SellerTrustCard";
 import { ListingReviewDialog } from "@/components/trust/ListingReviewDialog";
 import { lazy, Suspense } from "react";

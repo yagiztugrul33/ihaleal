@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Scale, Shield, FileText, Cookie, Gavel, ScrollText, RefreshCw, Mail,
-  Search, BookOpen, AlertTriangle, ExternalLink, Layers, Building2, Lock,
+  Search, BookOpen, ExternalLink, Layers, Building2, Lock,
 } from "lucide-react";
 import { LegalDisclaimer, LegalDraftBanner } from "@/components/legal/LegalDisclaimer";
 

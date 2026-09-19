@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Brain, LineChart, Shield, Sparkles, Target, TrendingUp } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { motionProps, staggerContainer, staggerItem } from "@/lib/motion/presets";
+import { motionProps, staggerContainer } from "@/lib/motion/presets";
 
 export type AIInsight = {
   id: string;

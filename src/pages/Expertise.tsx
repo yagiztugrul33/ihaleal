@@ -1,9 +1,9 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, ShieldCheck, Building2, MapPin, User, Mail, Phone,
+  ArrowLeft, ShieldCheck, Building2, MapPin, User,
   FileText, Send, CheckCircle2, CalendarClock, BarChart3,
-  Home, Ruler, Banknote, AlertTriangle, Info
+  Home, Banknote, Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

@@ -55,7 +55,6 @@ export function seedDisasterForProperty(property: PropertyRecord): PropertyRecor
   const isHatay = cn.includes("hatay") || cn.includes("antakya") || cn.includes("iskenderun") || cn.includes("defne");
 
   const yBuild = constructionYear(property);
-  const y = yBuild;
   const floors = property.totalFloors ?? 6;
   const h = Math.round((floors * 3.2 + 4 + rf(id, 21) * 6) * 10) / 10;
   const ec = property.earthquakeClass ?? "1B";

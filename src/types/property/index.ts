@@ -1,6 +1,5 @@
 import type { PropertyBase } from "./base";
 import type { CategoryKey } from "./taxonomy";
-import type { EarthquakeScorePayload } from "./earthquake";
 
 export type {
   PropertyBase,

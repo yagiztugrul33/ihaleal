@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, GitCompare, Star, CheckCircle2, XCircle, ArrowRight, TrendingUp, TrendingDown, Minus, Home, BarChart3, BadgePercent, Banknote, Clock, MapPin } from "lucide-react";
+import { ArrowLeft, GitCompare, Star, CheckCircle2, XCircle, ArrowRight, TrendingUp, BadgePercent, Banknote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

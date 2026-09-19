@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IHALEAL_PLATFORM_RULES } from "@/data/anayasa400IhalealRules";
 import { motion } from "framer-motion";
-import { Shield, ArrowLeft, AlertTriangle, Info, CheckCircle2, Search, Scale, Gavel, Landmark, Building2, FileText, ClipboardCheck, XCircle } from "lucide-react";
+import { Shield, ArrowLeft, AlertTriangle, Info, CheckCircle2, Search, Building2, FileText, ClipboardCheck, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { MapPin, TrendingUp, DollarSign, Users, Percent, ArrowRight, Building2, Navigation } from "lucide-react";
+import { MapPin, TrendingUp, Users, Percent, ArrowRight, Building2, Navigation } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";

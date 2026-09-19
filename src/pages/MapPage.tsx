@@ -50,12 +50,6 @@ function parseNumber(v: string | null): number | undefined {
   const n = Number(v);
   return Number.isFinite(n) && n >= 0 ? n : undefined;
 }
-function formatTRY(v: number): string {
-  if (v >= 1_000_000) return `₺${(v / 1_000_000).toFixed(1)}M`;
-  if (v >= 1_000) return `₺${(v / 1_000).toFixed(0)}K`;
-  return `₺${v.toLocaleString("tr-TR")}`;
-}
-
 /**
  * FitBounds — auctions değiştiğinde haritayı yeniden konumlandır.
  * Mevcut AuctionsMap pattern'ından reuse.

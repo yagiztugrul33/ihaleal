@@ -1,8 +1,7 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, Clock, GitCommit, Zap, Shield, BarChart3, FileText,
-  Bug, Sparkles, ChevronDown, ChevronUp, Tag, Calendar, User, CheckCircle2
+  ArrowLeft, GitCommit, ChevronDown, ChevronUp, Calendar, User, CheckCircle2
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

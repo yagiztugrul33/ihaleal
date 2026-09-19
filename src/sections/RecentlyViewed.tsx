@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, Clock, MapPin, TrendingUp, ArrowRight } from "lucide-react";
+import { Eye, MapPin, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { AUCTIONS } from "@/data/auctions";
 import type { Auction } from "@/types/auction";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";

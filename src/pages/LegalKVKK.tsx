@@ -1,7 +1,7 @@
 ﻿import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Shield, FileText, CheckCircle, AlertTriangle, Clock, Mail, Phone, MapPin } from "lucide-react";
+import { ArrowLeft, Shield, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 export default function KVKK() {
   const navigate = useNavigate();

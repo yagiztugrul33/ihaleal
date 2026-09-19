@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Download, Grid3X3, LineChart as LineChartIcon, Scale } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useLiveMarket } from "@/borsa/useLiveMarket";

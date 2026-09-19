@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, Instagram, Youtube, Video, Target, TrendingUp, Users,
-  DollarSign, BarChart3, Play, Calendar, Hash, Globe, Sparkles,
-  ChevronRight, Heart, Share2, MessageCircle, Eye, Clock
+  ArrowLeft, Youtube, Video, Target, TrendingUp, Users,
+  DollarSign, Calendar, Hash, Globe,
+  Eye
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { publicAsset } from "@/lib/publicAsset";

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, Crown, Check, X, CheckCircle2, AlertTriangle, RefreshCw, ChevronUp, ChevronDown,
-  Calendar, CreditCard, Receipt, ScrollText, Shield, ArrowUpRight,
+  ArrowLeft, Crown, AlertTriangle, RefreshCw, ChevronUp, ChevronDown,
+  Calendar, CreditCard, Receipt, Shield, ArrowUpRight,
 } from "lucide-react";
 import { useMembershipTier } from "@/hooks/useMembershipTier";
 import { PRICING_TIERS, type TierId } from "@/lib/pricingTiers";

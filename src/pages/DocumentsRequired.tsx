@@ -1,9 +1,9 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, FileText, Shield, Building2, BadgeCheck, Banknote,
-  UserCheck, Gavel, CreditCard, Landmark, AlertTriangle, CheckCircle2,
-  XCircle, Clock, ChevronDown, ChevronUp, FileCheck, Printer, Download
+  ArrowLeft, FileText, Shield, Building2, Banknote,
+  UserCheck, Gavel, CreditCard, Landmark, AlertTriangle,
+  Clock, ChevronDown, ChevronUp, FileCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

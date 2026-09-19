@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, ShoppingCart, FileText, Flame, Star, Eye, BookOpen,
-  CheckCircle2, AlertTriangle, Info, Sparkles, ScrollText, Shield,
-  TrendingUp, Award, Layers,
+  AlertTriangle, Sparkles, ScrollText, Shield,
+  Award, Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ONE_OFF_PRICES, ONE_OFF_LABELS, formatTry, type OneOffSku } from "@/lib/pricingTiers";

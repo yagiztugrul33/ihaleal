@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, Heart, LayoutGrid, Map } from "lucide-react";
+import { Clock, Users, TrendingUp, MapPin, Flame, Calendar, BarChart3, GitCompare, Star, Filter, X, ChevronDown, Search, LayoutGrid, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";

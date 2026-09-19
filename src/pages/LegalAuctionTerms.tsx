@@ -1,7 +1,7 @@
 ﻿import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Gavel, AlertTriangle, CheckCircle, Percent, Clock, ShieldCheck, FileText, UserCheck, Ban } from "lucide-react";
+import { ArrowLeft, Gavel, AlertTriangle, CheckCircle, Clock, ShieldCheck, UserCheck, Ban } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { calcSellerNet, feeBadgeLabel, FEE_TEXTS } from "@/lib/fees";
 

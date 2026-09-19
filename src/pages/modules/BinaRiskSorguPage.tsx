@@ -1,6 +1,5 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { ModulePanel, ModuleShell } from "./ModuleShell";
 import { EarthquakeRiskWorkbench } from "@/components/risk/EarthquakeRiskWorkbench";
 

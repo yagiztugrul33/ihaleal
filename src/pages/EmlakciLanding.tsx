@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2, HandCoins, Handshake, Shield, Sparkles, Users } from "lucide-react";
+import { CheckCircle2, HandCoins, Handshake, Sparkles } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { EMLAKCI_FEATURES, EMLAKCI_PLANS, type EmlakciFeature } from "@/data/emlakciFeatures";
 import { REALTOR_B2B_RATE } from "@/lib/fees";

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft, Shield, FileText, CheckCircle2, Mail, Calendar, ScrollText,
+  ArrowLeft, Shield, FileText, CheckCircle2, Mail, Calendar,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

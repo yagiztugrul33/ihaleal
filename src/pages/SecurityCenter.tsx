@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Shield, ShieldCheck, ShieldAlert, Lock, Eye, EyeOff,
-  Server, Activity, Zap, Globe, Bell, CheckCircle2,
-  XCircle, AlertTriangle, FileText, BarChart3, Cpu, Wifi, ChevronRight,
-  RefreshCw, Clock, Award, Bug, Search, MapPin, TrendingUp
+  Server, Activity, Zap, Globe, CheckCircle2,
+  FileText, Cpu, Wifi,
+  RefreshCw, Clock, Award, Bug, MapPin, TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

@@ -19,7 +19,7 @@
 import { useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  TrendingUp, TrendingDown, Activity, Radio, Zap, BarChart3, MapPin,
+  TrendingUp, Activity, Radio, Zap, BarChart3, MapPin,
   ArrowUp, ArrowDown, Flame, Crown, Sparkles,
 } from "lucide-react";
 import type { Auction } from "@/types/auction";

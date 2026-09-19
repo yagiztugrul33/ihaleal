@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { SellerAnalyticsPanel } from "@/components/seller/SellerAnalyticsPanel";
 import { OffersPanel } from "@/components/offers/OffersPanel";
 import { UserPanelOverview } from "@/components/panel/UserPanelOverview";
 import NotificationsPage from "@/pages/NotificationsPage";

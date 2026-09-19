@@ -1,8 +1,8 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, HelpCircle, ChevronDown, ChevronUp, Gavel, ShieldCheck, CreditCard, FileText, Mail, MessageSquare, Clock, Users, BarChart3, TrendingUp, Calculator, Heart, Search, Globe, Star } from "lucide-react";
+import { ArrowLeft, HelpCircle, ChevronDown, ChevronUp, Gavel, CreditCard, Mail, MessageSquare, BarChart3, TrendingUp, Calculator, Globe, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { formatBidBondPercent, FEES } from "@/lib/fees";
 import { REAL_ESTATE_GUIDES } from "@/data/realEstateGuides";

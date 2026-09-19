@@ -14,7 +14,6 @@ import {
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { useBorsaAnalytics } from "@/hooks/useBorsaAnalytics";
 import { BORSA_REGIONS, regionLabel, type BorsaRegionCode } from "@/lib/borsa/regions";
-import { cn } from "@/lib/utils";
 
 function formatTry(v: number): string {
   if (v >= 1_000_000) return `₺${(v / 1_000_000).toFixed(1)}M`;

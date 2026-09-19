@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { Bar, BarChart, CartesianGrid, PolarAngleAxis, PolarGrid, Radar, RadarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { calculateEarthquakeRisk, type CodeEra, type SoilClass, type StructuralSystem } from "@/lib/risk/earthquakeRiskEngine";
 

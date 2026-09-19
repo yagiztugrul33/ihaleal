@@ -2,13 +2,11 @@ import { useEffect, useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Auctions } from "@/sections/Auctions";
 import {
-  Flame, Hourglass, MapPin, TrendingUp, TrendingDown, Activity, Zap, Radio,
-  ArrowUp, ArrowDown, Eye, BarChart3,
+  Flame, Hourglass, MapPin,
 } from "lucide-react";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import type { Auction } from "@/types/auction";
 import { CountdownTimer } from "@/components/auction/CountdownTimer";
-import { cn } from "@/lib/utils";
 import { BorsaTerminali } from "@/components/borsa/BorsaTerminali";
 import { NearbyListings } from "@/components/nearby/NearbyListings";
 import { EmptyState } from "@/components/async";

@@ -11,7 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import type { LatLngExpression } from "leaflet";
-import { ModuleDataTable, ModulePanel, ModuleShell, ModuleStatGrid, ModuleTag } from "./ModuleShell";
+import { ModuleDataTable, ModulePanel, ModuleShell, ModuleStatGrid } from "./ModuleShell";
 import { ModuleRelatedStrip } from "./ModuleRelatedStrip";
 import type { RelatedModuleCard } from "./ModuleRelatedStrip";
 import { ShieldCheck, HeartHandshake, ClipboardList } from "lucide-react";

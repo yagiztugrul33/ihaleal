@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
-import type { RealtimeChannel } from "@supabase/supabase-js";
 
 export type AuctionState = {
   id: string;

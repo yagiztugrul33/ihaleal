@@ -1,8 +1,8 @@
 ﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Calculator, Banknote, Percent, Clock, Calendar, ChevronDown, TrendingUp, TrendingDown, Info, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Calculator, Banknote, Percent, Clock, TrendingUp, TrendingDown, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -24,7 +24,6 @@ export default function Mortgage() {
   const [downPaymentPercent, setDownPaymentPercent] = useState(20);
   const [termMonths, setTermMonths] = useState(120);
   const [interestRate, setInterestRate] = useState(INTEREST_RATES["120" as keyof typeof INTEREST_RATES]);
-  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const downPayment = Math.round((propertyValue * downPaymentPercent) / 100);
   const loanAmount = propertyValue - downPayment;

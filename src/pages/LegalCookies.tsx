@@ -1,7 +1,7 @@
 ﻿import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Cookie, Shield, Eye, ToggleLeft, Trash2 } from "lucide-react";
+import { ArrowLeft, Cookie, Shield, Eye, ToggleLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 export default function CookiePolicy() {
   const navigate = useNavigate();

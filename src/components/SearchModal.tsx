@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, X, MapPin, Home, Clock, ArrowRight, TrendingUp, Star, CornerDownLeft } from "lucide-react";
+import { Search, X, MapPin, Home, ArrowRight, CornerDownLeft } from "lucide-react";
 import { getLocalAndStaticAuctions, loadAllAuctionsForSearch } from "@/lib/auctionsSource";
 import { Button } from "@/components/ui/button";
 

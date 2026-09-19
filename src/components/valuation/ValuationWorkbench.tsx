@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowRight, BarChart3, Building2, Calculator, ShieldCheck } from "lucide-react";
+import { ArrowRight, BarChart3, Calculator, ShieldCheck } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
