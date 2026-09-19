@@ -153,3 +153,122 @@ dosyalara **hiçbir yazma işlemi yapılmadı**; aşağıdaki bulgular bu alanla
    `RiskWarningPanel` kritik vurgu; `authMinimal`/`detail` kalıntıları.
 8. **P2** — `@capacitor/cli` major güncellemesi + `vitest` ailesi (`npm audit fix`, non-major).
 9. **P3** — RU/AR çevirileri, 2 TODO (`AfetDisasterHub`), `Changelog` lazy import kalıntısı.
+
+
+---
+
+# Faz 2 Özellik Denetimi (2026-09-19)
+
+Kapsam: `App.tsx` yönlendiricisindeki ~180 rota + 84 ayrık modül. Yöntem: rota tablosu ↔ tüm iç
+bağlantılar (`navigate`/`to`/`href`/`path:`) karşılaştırması, kullanılmayan tanım taraması (proje
+genelinde `no-unused-vars`), yetim dosya taraması, "demo/yakında" işaretleri, gönder-butonu ↔ ağ
+çağrısı heuristiği, sitemap ↔ rota karşılaştırması. **Bu bir heuristik tarama**: her sayfanın her
+koşulu tek tek okunmadı. Ödeme/teklif/KYC alanında yalnızca UI okundu, hiçbir şey değiştirilmedi.
+
+## Modül envanteri (router'dan)
+
+| Kategori | Rotalar (örnekler) |
+|---|---|
+| Pazaryeri / ihale / ilan | `/ihaleler`, `/ilan/:id`, `/ihale/:id`, `/ihale/:auctionId/hemen-al`, `/arama`, `/satilik/:il…`, `/kiralik/:il…`, `/favoriler`, `/karsilastir` |
+| Harita / değerleme / endeks | `/harita`, `/degerleme`, `/valuation`, `/veri-ve-endeks`, `/sehirler`, `/sehir/:cityName`, `/borsa`, `/borsa/{varliklar,izleme,veri,portfoy,varlik/:id,sehir/:il}` |
+| Kat karşılığı / kentsel dönüşüm | `/kat-karsiligi`, `/kat-karsiligi/studio`, `/kat-karsiligi-arsa`, `/kentsel-donusum`, `/modul/kentsel-donusum`, 30+ `/modul/*` (deprem/afet/parsel/imar/sigorta/kredi…) |
+| Kurumsal / B2B / partner | `/kurumsal`→`/services`, `/kurumsal/iletisim`, `/kurumsal/dashboard`, `/emlakci-ortaklik`, `/emlakci`, `/emlakci-giris`, `/emlakci/panel`, `/emlakciler`, `/emlakci/:slug`, `/muteahhit/*`, `/proje/:projectId` |
+| Auth / KYC / panel | `/giris`, `/kayit`, `/sifremi-unuttum`, `/kyc`, `/profil`, `/panel`, `/panel/:tabId`, `/mesajlar`, `/belgeler`, `/ayarlar`, `/dashboard`, `/uyelik*`, `/fiyatlandirma` |
+| Teklif / ödeme / deposit (yalnız UI) | `AuctionDetail`, `/ihale/:auctionId/hemen-al`, `/odeme/baslat`, `/odeme/basarili`, `/hizmet-bedelleri`, `/komisyon` |
+| Rapor / analiz / blog / rehber | `/raporlar`, `/rapor/:id`, `/analiz`, `/blog`, `/blog/:slug`, `/rehber`, `/rehber/:slug`, `/sss` |
+| Chat / bildirim | `ChatWidget`, `/bildirimler`, `/panel/bildirimler`, `/mesajlar` |
+| Hesaplayıcılar | `/mortgage`, `/konut-kredisi-hesaplayici`, `/komisyon-hesaplayici`, `/araclar/vergi-simulator`, `/araclar/finans-uyumluluk` |
+
+## "Döveç" — ne olduğu
+
+**Repoda ve tüm git geçmişinde (tüm dallar) hiç geçmiyor.** Kod (`src`, `supabase`, `scripts`, `docs`,
+`public`, `tests`, `workers`), dosya adları, commit mesajları ve `git log -S` ile "Döveç / döveç / DÖVEÇ /
+Doveç / Dovec / dovec / Dövec" tarandı: 0 eşleşme. Yakın adaylar da ilgisiz ("döviz": `CurrencyContext` /
+TCMB proxy; entegrasyonlar: iyzico, PayTR, Takasbank, TKGM, Findeks). Bu isim ya kod dışında bir
+partner/müşteri adı ya da bir yazım hatası. **Ne yaptığını uydurmuyorum.** Hangi modülden söz edildiğini
+(sayfa URL'si ya da ekran görüntüsü) söylerseniz aranır.
+
+## Sayısal özet
+
+- Yeni bulunan sorun: **17** (aşağıda). Düzeltilen: **3** (404 veren bağlantı/rota sabiti).
+- Rota↔bağlantı taraması: 182 rota deseni, 1 gerçek 404 kaldı (`EmlakciLanding.tsx:264`, karar gerektiriyor).
+  Sitemap: 6.750 URL'nin **hepsi bir rotaya karşılık geliyor** (0 ölü URL).
+- Kullanılmayan tanım (proje geneli): 8 (önceki bölümle aynı liste, bkz. §8 üstte).
+- Yetim dosya: **84** (≈34 kullanılmayan shadcn `ui/*` primitive'i + ≈50 uygulama modülü).
+
+## Düzeltilenler (davranış değiştirmeyen, ayrı commit)
+
+| Dosya:satır | Sorun | Düzeltme |
+|---|---|---|
+| `src/pages/Realtors.tsx:86` | "Profili gör" → `/emlakçı/${slug}` (ç harfli); gerçek rota `/emlakci/:slug` → **404** | `/emlakci/${slug}` |
+| `src/data/realEstateGuides.ts:171` | "KKA nedir" rehberindeki "KKA stüdyo" bağlantısı `/kka-hub` → rota yok, **404** | `/kat-karsiligi/studio` |
+| `src/constants/routes.ts:20` | `ROUTES.KKA_STUDIO = "/kat-karsiligi/istudio"` gerçek rota `/kat-karsiligi/studio` ile çelişiyor (şu an kullanılmıyor, tuzak) | `/kat-karsiligi/studio` |
+
+## P1 — kullanıcıya yanıltıcı ya da yarım çalışan akışlar (otomatik düzeltilmedi)
+
+1. **Ekspertiz talebi hiçbir yere gitmiyor.** `src/pages/Expertise.tsx:44-47` `handleSubmit` yalnızca
+   `setSubmitted(true)`; ağ/depolama çağrısı yok. Ekran ise `:57-59` "Talebiniz Alındı! … başarıyla
+   kaydedildi. Uzman değerleme ekibimiz size ulaşacaktır." diyor. Talep kaybolur, kullanıcı kaydedildiğine
+   inanır (ücretli hizmet: `SERVICE_FEES.expertise`). **Yanıltıcı UI.**
+2. **Şifre sıfırlama çalışmıyor.** `src/pages/auth/PasswordReset.tsx:15-27` (`/sifremi-unuttum`): e-posta
+   gönderilmiyor; "gerçekte gönderilmez" toast'ı ve "(demo)" düğmesi var. Dürüstçe etiketli ama production'da
+   şifresini unutan kullanıcı hesabını kurtaramaz (`supabase.auth.resetPasswordForEmail` çağrısı yok).
+3. **Emlakçı ortaklık başvurusu sunucuya gitmiyor.** `src/pages/mega/RealtorPartnership.tsx:88-110`: şirket
+   unvanı, vergi no/TC, e-posta, telefon yalnızca ziyaretçinin `localStorage`'ına (`ihaleal_partner_apps`)
+   yazılıyor; okuyan/ileten kod yok; kart "Başvurunuz kaydedildi (demo)" (`:201-205`). B2B lead hunisi fiilen
+   çalışmıyor; kişisel veri ayrıca tarayıcıda açık depolanıyor.
+4. **"Hemen Al" düğmesi görünürlük koşulu.** `AuctionDetail.tsx:482-488` `showBuyNowPanel` hesaplanıyor ama
+   kullanılmıyor; düğme (`:1540`) `status==="live"` / `isAuctionMode` / `!auctionEndedVisual` koşullarını
+   içermiyor (bkz. üstteki Bölüm 2). Ödeme-yakını, onay gerekir.
+5. **Bildirim zili hiçbir yerde render edilmiyor.** `src/components/NotificationBell.tsx` yetim; `Navbar`
+   içinde yok. Satıcı teklif bildirimi (`tg_listing_offer_notify`) DB'ye yazılıyor ama kullanıcı yalnızca
+   `/bildirimler`'i bilerek açarsa görür; okunmamış rozeti yok.
+6. **Premium kilidi UI'da uygulanmıyor.** `src/components/premium/PremiumGate.tsx` yetim (hiçbir yerde
+   `<PremiumGate>` yok); `useMembershipTier` yalnızca `BorsaTerminali.tsx:54` ve `MyMembershipPage.tsx`'te.
+   "Premium" özellik metinleri (`Analytics.tsx`, `CityGuide.tsx`, `GesAnalysisPage.tsx` …) UI'da kilitli değil;
+   sunucu tarafı yaptırım teyit edilmedi.
+7. **Yarım entegrasyonlar (stub/TODO).** `TakasbankReconciliationService.ts:229` "STUB API CLIENT";
+   `supabase/functions/kyc-submit/index.ts:99` sağlayıcı imza/hash doğrulaması TODO;
+   `payments-iyzico/index.ts:485` abonelik API'si ertelenmiş; `report-notifier/index.ts:164` `RESEND_API_KEY`
+   yokken e-posta gönderilmiyor (abone/onay akışları etkilenir); `AfetDisasterHub.tsx:253,274` MTA/İBB açık veri.
+   Hepsi ödeme/KYC yakını ya da anahtar bekliyor.
+
+## P2
+
+8. **404:** `src/pages/EmlakciLanding.tsx:264` "Detaylı sayfa" → `/emlakci/ozellikler/${slug}`; bu rota yok
+   (yalnız `/emlakci/:slug` tek segment). Hangi sayfaya gideceği ürün kararı, otomatik düzeltilmedi.
+9. **SEO meta metinlerinde "(demo)".** `src/lib/seo.ts` içinde 18 satır (ör. `:81`, `:131`, `:134`, `:147`,
+   `:159`, `:167`, `:175`, `:179`, `:183`, `:271`, `:303`, `:311`, `:371`) ve `src/data/seoLandings.ts:27`:
+   arama sonuçlarında "…özeti (demo)" görünür. Marka/tıklama etkisi.
+10. **Demo içerik production sayfalarında:** `Realtors.tsx:82` "işlem (demo)", `realtorsDemo.ts:103,111` örnek
+    yorumlar "(demo)", `ValuationWorkbench.tsx:393` "Benzer emsaller (demo)", `AfetDisasterHub.tsx:335,377,446`
+    temsili/mock harita. Dürüstçe etiketli (iyi) ama gerçek ürün hissini düşürüyor.
+11. **84 yetim dosya** (hiçbir yerden import edilmiyor): ≈34 shadcn `components/ui/*` primitive'i (zararsız);
+    uygulama modülleri: `sections/{Hero,HomeStats,Features,HowItWorks,Stats,Testimonials,TrustStrip,Newsletter,
+    EndingSoon,RecentlyViewed,LiveAuctionsShowcase,PlatformModulesShowcase,HomeCorporateCta}.tsx`,
+    `components/{NotificationBell,DemoBanner,DocumentUploader,CorporateBanner,MarketingNavbar,MarkaIsareti,
+    KkaRevenueHubStrip}.tsx`, `components/premium/PremiumGate.tsx`, `components/home/DepremTransparencyBand.tsx`,
+    `pages/mega/{DigitalContracts,FrequentQuestions,Glossary}.tsx` (rotasız sayfalar), `lib/{savedAuctionSearch,
+    auctionCalendar,formValidation}.ts`, `lib/borsa/realtime.ts`, `features/auctions/hooks/useAuctionState.ts` vb.
+    Bir kısmı yarım bağlanmış özellik olabilir (ör. `DocumentUploader`, `savedAuctionSearch` ↔ `/aramalarim`).
+    **Silinmedi**, karar sizde.
+12. **Yinelenen rota tanımı** (zararsız, ilki kazanır): `App.tsx:230/231` (`/ilanlar`), `:258/259`
+    (`/nasil-calisir`), `:294/295` (`/kurumsal`), `:432/440` (`/ibuyer` ↔ `IBUYER_PATH`).
+13. **`RiskWarningPanel.tsx:25-45`:** üç önem düzeyi (bilgi/uyarı/kritik) birebir aynı stille çiziliyor; "Kritik"
+    uyarı görsel olarak "Bilgi" ile aynı (yalnız ikon + etiket ayırıyor).
+14. **`Layout.tsx:24` `authMinimal`** + `AUTH_MINIMAL_PATHS` içinde `"/emlakçı-giris"` (ç harfli, gerçek rota
+    `/emlakci-giris`): yazım hatası; değişken zaten kullanılmıyor.
+15. **Çift kaynaklı yüzde etiketi:** `CommissionCalculator.tsx:455` "%1 e-provizyon" sabit metin (hesap
+    `rentalEProv*`). Teminat oranı (`BID_BOND_RATE = %5`) UI'da tutarlı (6 kez %5); kiralık e-provizyon ayrı
+    kavram. Çelişki yok, yalnızca sabit metin ile sabit değer çift kaynak.
+16. **Kullanılmayan parametreler:** `ChatWidget.tsx:251` `detail` (kasıtlı görünüyor), `listingOffers.ts:20`
+    `viewerIsSeller` (P0 düzeltmesinden kalan imza, davranış etkisi yok).
+17. **`App.tsx:56` `Changelog`** lazy import kalıntısı (route kasıtlı kaldırılmış, yorumla belgeli).
+
+## Kontrol edilip sorun çıkmayanlar
+
+- Durum mantığı tutarlı: `status: "live" | "upcoming" | "ended"`; "Yakında" yalnız `upcoming`'e düşüyor
+  (`PropertyAnalysisReportViewer.tsx:892`, `endeksRaporu.ts:364`); aktif/pasif çelişkisi bulunmadı.
+- Sitemap 4 dosya, 6.750 URL: rotasız URL yok. `/how-it-works`, `/ges-analiz-arazi` sabit üzerinden geçerli.
+- Şehir SEO sayfaları (`/istanbul-ihaleleri` vb.) `SEO_LANDING_PAGES.map` ile dinamik rota (`App.tsx:312`): geçerli.
+- `tsc`, `eslint`, `build`: temiz.
