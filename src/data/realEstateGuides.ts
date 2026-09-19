@@ -168,7 +168,7 @@ export const REAL_ESTATE_GUIDES: RealEstateGuide[] = [
     title: "KKA nedir",
     summary: "Kat karşılığı inşaat (KKA) modeli, arsa sahibi hakları ve riskler.",
     seoDescription: "Kat karşılığı inşaat (KKA) modeli ve arsa sahibi hakları — ihaleal.com rehberi.",
-    relatedTool: { label: "KKA stüdyo", path: "/kka-hub" },
+    relatedTool: { label: "KKA stüdyo", path: "/kat-karsiligi/studio" },
     sections: [
       {
         heading: "KKA özeti",

@@ -17,7 +17,7 @@ export const ROUTES = {
   GIS_INTELLIGENCE: "/arastirma/harita",
   GES_LAND_EVAL: "/ges-analiz-arazi",
   KKA_HUB: "/kat-karsiligi",
-  KKA_STUDIO: "/kat-karsiligi/istudio",
+  KKA_STUDIO: "/kat-karsiligi/studio",
   IBUYER: "/aninda-teklif",
   IBUYER_ALIAS: "/ibuyer",
   ILANLAR: "/ilanlar",

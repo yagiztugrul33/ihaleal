@@ -83,7 +83,7 @@ export default function RealtorsPage() {
                   <span>₺{(r.volumeTry / 1e9).toFixed(2)}B hacim</span>
                 </div>
                 <Link
-                  to={`/emlakçı/${r.slug}`}
+                  to={`/emlakci/${r.slug}`}
                   className="inline-flex w-full justify-center rounded-[10px] bg-white/5 py-2 text-sm font-normal text-[var(--metin-ikincil)] hover:bg-[var(--zemin-yumusak)]"
                 >
                   Profili gör
