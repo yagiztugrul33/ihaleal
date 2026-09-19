@@ -16,29 +16,37 @@
    ══════════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ——— Zemin (beyaz, patatesci ile aynı yapı) ——— */
+  /* ═══ MARKA TOKENLARI — tam 5 tane (2026-09 "Kurumsal Lacivert" yönü) ═══
+     primary   --vurgu       #12356B  CTA, link, aktif durum
+     secondary --vurgu-koyu  #0B1F3A  koyu vurgu yüzeyi (yalnız hero bandı vb. TEK bölge), hover
+     accent    --vurgu-altin #D9A441  küçük vurgu: eyebrow, rozet, ikincil CTA.
+                                      ALTIN METİN OLARAK KULLANILMAZ (beyazda 2,2:1) — yalnız
+                                      dolgu/çizgi; üstündeki metin --metin (8:1).
+     bg        --sayfa       #F4F6FA  sayfa zemini
+     text      --metin       #0B1F3A  gövde/başlık metni
+     Nötrler (marka tokenı SAYILMAZ): --zemin (#fff = kart/yüzey), --cizgi, --metin-ikincil.
+     Durum renkleri (--durum-*) işlevseldir, yalnız durum bildirir. ═══ */
+  --vurgu: #12356b;
+  --vurgu-koyu: #0b1f3a;
+  --vurgu-altin: #d9a441;
+  --sayfa: #f4f6fa;
+  --metin: #0b1f3a;
+
+  /* ——— Yüzeyler (nötr) ——— */
   --zemin: #ffffff;
-  --zemin-yumusak: #f4f6fb;
-  --zemin-gri: #e7ebf5;
+  --zemin-yumusak: #f4f6fa;
+  --zemin-gri: #e6ebf3;
 
-  /* ——— Metin (koyu lacivert-antrasit, beyaz zeminde AA) ——— */
-  --metin: #1a2233;
-  --metin-ikincil: #5b6472;
-
-  /* ——— Vurgu: TEK marka rengi — ihaleal lacivert. Yalnız CTA / link /
-     aktif durum / bildirim için kullanılır; kart ikonu, chip, arka plan
-     dolgusu gibi dekoratif yerlerde NÖTR tonlar tercih edilir (tek vurgu
-     ilkesi — patatesci ile aynı disiplin). ——— */
-  --vurgu: #1e40af;
-  --vurgu-koyu: #1e3a8a;
-  --vurgu-yumusak: #e8edfa;
+  /* ——— İkincil metin: #5A6B85 → beyazda 5,4:1, #F4F6FA'da 5,0:1 (AA) ——— */
+  --metin-ikincil: #5a6b85;
+  --vurgu-yumusak: #e8eef7;
 
   /* ——— Çizgi (ince hairline, açık zeminde) ——— */
-  --cizgi: #e2e6ee;
+  --cizgi: #dce3ee;
 
   /* ——— Gölge: neredeyse görünmez (patatesci ile aynı ölçek) ——— */
-  --golge-kucuk: 0 1px 2px rgba(26, 34, 51, 0.05);
-  --golge-buyuk: 0 8px 24px rgba(26, 34, 51, 0.08);
+  --golge-kucuk: 0 1px 2px rgba(11, 31, 58, 0.06);
+  --golge-buyuk: 0 10px 28px rgba(11, 31, 58, 0.09);
 
   /* ——— Köşe: sabit ölçek — nav/buton 3px, kart 10px. ——— */
   --kose: 10px;
@@ -186,58 +194,59 @@
   --premium-blue-bright: var(--vurgu);
   --premium-green: var(--durum-basari);
   --premium-shadow: var(--golge-buyuk);
-  --premium-glow: rgba(30, 64, 175, 0.08);
+  --premium-glow: rgba(18, 53, 107, 0.08);
 
   /* afet-disaster-hub.css */
   --afet-accent: var(--vurgu);
   --afet-muted: var(--uzerine-ikincil);
 
   /* shadcn/ui (HSL üçlüsü) — açık tema, ihaleal lacivert vurgu */
-  --background: 0 0% 100%;
-  --foreground: 221 33% 15%;
+  /* HSL değerleri marka tokenlarından türetildi (#0B1F3A, #12356B, #F4F6FA, #5A6B85, #DCE3EE) */
+  --background: 220 37% 97%;
+  --foreground: 214 68% 14%;
   --card: 0 0% 100%;
-  --card-foreground: 221 33% 15%;
+  --card-foreground: 214 68% 14%;
   --popover: 0 0% 100%;
-  --popover-foreground: 221 33% 15%;
-  --primary: 226 71% 40%;
+  --popover-foreground: 214 68% 14%;
+  --primary: 216 71% 25%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 223 41% 93%;
-  --secondary-foreground: 221 33% 15%;
-  --muted: 223 41% 93%;
-  --muted-foreground: 217 11% 40%;
-  --accent-foreground: 221 33% 15%;
+  --secondary: 217 39% 94%;
+  --secondary-foreground: 214 68% 14%;
+  --muted: 217 39% 94%;
+  --muted-foreground: 216 19% 44%;
+  --accent-foreground: 214 68% 14%;
   --destructive: 4 76% 40%;
   --destructive-foreground: 0 0% 100%;
-  --border: 220 26% 91%;
-  --input: 220 26% 91%;
-  --ring: 226 71% 40%;
+  --border: 217 35% 90%;
+  --input: 217 35% 90%;
+  --ring: 216 71% 25%;
   --radius: 10px;
-  --page-gradient-from: 0 0% 100%;
-  --page-gradient-via: 0 0% 100%;
-  --page-gradient-to: 0 0% 100%;
+  --page-gradient-from: 220 37% 97%;
+  --page-gradient-via: 220 37% 97%;
+  --page-gradient-to: 220 37% 97%;
 }
 
 /* Tema anahtarı devre dışı: tek tema (açık). Koyu istekleri de açığa düşer. */
 [data-theme="dark"],
 [data-theme="light"] {
-  --background: 0 0% 100%;
-  --foreground: 221 33% 15%;
+  --background: 220 37% 97%;
+  --foreground: 214 68% 14%;
   --card: 0 0% 100%;
-  --card-foreground: 221 33% 15%;
+  --card-foreground: 214 68% 14%;
   --popover: 0 0% 100%;
-  --popover-foreground: 221 33% 15%;
-  --primary: 226 71% 40%;
+  --popover-foreground: 214 68% 14%;
+  --primary: 216 71% 25%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 223 41% 93%;
-  --secondary-foreground: 221 33% 15%;
-  --muted: 223 41% 93%;
-  --muted-foreground: 217 11% 40%;
-  --accent-foreground: 221 33% 15%;
+  --secondary: 217 39% 94%;
+  --secondary-foreground: 214 68% 14%;
+  --muted: 217 39% 94%;
+  --muted-foreground: 216 19% 44%;
+  --accent-foreground: 214 68% 14%;
   --destructive: 4 76% 40%;
   --destructive-foreground: 0 0% 100%;
-  --border: 220 26% 91%;
-  --input: 220 26% 91%;
-  --ring: 226 71% 40%;
+  --border: 217 35% 90%;
+  --input: 217 35% 90%;
+  --ring: 216 71% 25%;
 }
 
 /* ── Dolu vurgu yüzeyi (Chalk-filled yüksek-vurgu yüzeyi) ──────────────────
@@ -255,7 +264,8 @@
   --uzerine-hata: #ffffff;
 }
 
-/* ── Zemin: gradyan duvarı yerine düz beyaz ─────────────────────────────── */
+/* ── Zemin: gradyan duvarı yerine düz sayfa zemini (#F4F6FA) ──────────────
+   Kartlar/yüzeyler beyaz (--zemin) kalır → kart-zemin ayrımı gölgesiz kurulur. */
 html,
 body,
 #root,
@@ -265,25 +275,59 @@ body,
 .intelligence-page,
 .premium-home,
 .home-ref-page {
-  background: var(--zemin) !important;
-  background-color: var(--zemin) !important;
+  background: var(--sayfa) !important;
+  background-color: var(--sayfa) !important;
   background-image: none !important;
   color: var(--metin) !important;
 }
 
+/* ── Tipografi hiyerarşisi (tek aile: Inter; hiyerarşi AĞIRLIK + BOYUT ile) ──
+   Kademeler: gövde 400 · etiket 500 · alt başlık 600 · başlık 700.
+   Başlık, gövdeden en az 2 kademe kalın. Önceki durum: tüm ağaçta 1.991 kullanım
+   `font-normal`, 0 kalın → başlık ile gövde ağırlıkça aynıydı. */
+:root {
+  --peso-govde: 400;
+  --peso-etiket: 500;
+  --peso-altbaslik: 600;
+  --peso-baslik: 700;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: var(--metin);
-  font-weight: 400;
+  font-weight: var(--peso-baslik);
   letter-spacing: var(--tracking-heading);
+  line-height: 1.15;
 }
 
 h1 {
   letter-spacing: var(--tracking-display);
 }
 
-/* 400 neredeyse evrensel — 500 sadece nadir vurgu (bkz. Task 4) */
+h3, h4, h5, h6 {
+  font-weight: var(--peso-altbaslik);
+}
+
+/* Bileşenlerde `.font-normal` sınıfıyla 400'e zorlanan başlıklar/vurgular: eleman+sınıf
+   özgüllüğü (0,1,1) tek-sınıf yardımcıyı (0,1,0) yener → 1.991 sınıfı elle değiştirmeden
+   hiyerarşi kurulur. */
+h1.font-normal, h2.font-normal {
+  font-weight: var(--peso-baslik);
+}
+h3.font-normal, h4.font-normal, h5.font-normal, h6.font-normal,
+strong, b, strong.font-normal, b.font-normal {
+  font-weight: var(--peso-altbaslik);
+}
+/* Butonlar (shadcn Button `data-slot="button"`): etiket-üstü ağırlık */
+[data-slot="button"] {
+  font-weight: var(--peso-altbaslik);
+}
+/* Fiyat/oran/sayaç: hizalı rakamlar (tabular) */
+.tnum, [data-tnum] {
+  font-variant-numeric: tabular-nums;
+}
+
 body {
-  font-weight: 400;
+  font-weight: var(--peso-govde);
 }
 
 /* Geist Mono uppercase etiketler sıkı (negatif) tracking taşır. */

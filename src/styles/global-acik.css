@@ -921,9 +921,7 @@ a:not([class*="btn"]):not([class*="button"]):not([data-slot="button"]):not([clas
 [class*="rounded"][class*="shadow"]:not([data-slot="button"]):not(button):not(a):not([role="button"]) {
   border-color: var(--cizgi);
   box-shadow: var(--golge-kucuk);
-}button.bg-white,
-button.bg-gray-100,
-.btn-default {
+}button.bg-white {
   background: var(--vurgu) !important;
   color: #ffffff !important;
   --uzerine: #ffffff;
