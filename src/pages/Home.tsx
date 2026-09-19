@@ -1,26 +1,30 @@
 // Ö2 Bilgi Mimarisi Sadeleştirme (2026-08): Ana sayfa 6 modül kartına indirildi.
 // Yoğun dashboard blokları (ticker, ihale tablosu, kategori pazarı, borsa-nasıl-çalışır,
 // öne çıkanlar, güven grid'i, war-room, kampanya kartları) kendi sayfalarında yaşıyor;
-// ana sayfa yalnız cinematic hero + modül kapıları sunar. Route/veri/işlev korunur.
+// ana sayfa yalnız hero + canlı ihaleler + modül kapıları sunar. Route/veri/işlev korunur.
 // Eski yoğun sürüm: src/sections/PremiumCinematicHome.tsx (referans olarak duruyor).
+//
+// 2026-09 görsel yeniden tasarım (pilot): arama-önce hero (koyu TEK bölge), görsel ağırlıklı
+// canlı-ihale kartları, modül kartları. Dekoratif parçacık/orb/gürültü katmanları kaldırıldı;
+// hareket yalnızca kaydırmayla beliren öğeler (200-400 ms, ease-out, prefers-reduced-motion'a saygılı).
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BarChart3, Briefcase, Gavel, MapPin, Radar, TrendingUp } from "lucide-react";
+import { ArrowRight, BarChart3, Briefcase, Gavel, MapPin, Radar, TrendingUp } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
 import { TerminalHero } from "@/components/cinematic/TerminalHero";
 import { CinematicStatsBar } from "@/components/cinematic/CinematicStatsBar";
-import { CinematicParticles } from "@/components/cinematic/CinematicParticles";
+import { ScrollReveal } from "@/components/cinematic/ScrollReveal";
 import { OnboardingTip } from "@/components/onboarding/OnboardingTip";
 import { CountdownTimer } from "@/components/auction/CountdownTimer";
 import { getLocalAndStaticAuctions } from "@/lib/auctionsSource";
+import "@/styles/home-v2.css";
 
 type HomeModule = { title: string; text: string; href: string; Icon: LucideIcon };
 
+// Tam biçim (₺28.500.000): "28.5M" Türkçe'de belirsizdi (nokta = binlik ayıraç) ve tabular hizalanmıyordu.
 function formatTRY(v: number): string {
-  if (v >= 1_000_000) return `₺${(v / 1_000_000).toFixed(1)}M`;
-  if (v >= 1_000) return `₺${(v / 1_000).toFixed(0)}K`;
-  return `₺${v.toLocaleString("tr-TR")}`;
+  return `₺${Math.round(v).toLocaleString("tr-TR")}`;
 }
 
 // Gerçek ana modüller — her kart tek satır açıklama + rota (tıkla-aç mimari)
@@ -38,81 +42,80 @@ export function Home() {
   const liveNow = catalog.filter((a) => a.status === "live").slice(0, 4);
 
   return (
-    <div className="page-background-premium home-ref-page">
+    <div className="page-background-premium home-ref-page home-v2">
       <OnboardingTip />
-      <div className="premium-home relative overflow-x-clip bg-background text-foreground" data-testid="premium-cinematic-home">
-        <CinematicParticles />
-        <div className="premium-home__glow-orb premium-home__glow-orb--violet" aria-hidden="true" />
-        <div className="premium-home__glow-orb premium-home__glow-orb--cyan" aria-hidden="true" />
-        <div className="premium-home__noise" aria-hidden="true" />
-
-        <section className="relative mx-auto mt-4 w-full max-w-[1240px] px-4 pb-2 lg:px-6" aria-labelledby="premium-hero-title">
-          <div className="premium-hero-shell rounded-[20px] border border-border bg-card p-4 lg:p-6">
-            <div className="space-y-2">
-              <TerminalHero />
-              <CinematicStatsBar />
-            </div>
+      <div className="premium-home relative overflow-x-clip text-foreground" data-testid="premium-cinematic-home">
+        <section className="hv2-hero" aria-labelledby="premium-hero-title">
+          <div className="hv2-hero__inner">
+            <TerminalHero />
+            <CinematicStatsBar />
           </div>
         </section>
 
         {liveNow.length > 0 ? (
-          <section className="relative mx-auto mt-6 w-full max-w-[1240px] px-4 lg:px-6" aria-labelledby="home-live-title">
-            <div className="rounded-[10px] border border-border bg-card p-4">
-              <div className="flex items-center gap-2">
-                <span
-                  className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-                  style={{ background: "var(--sinyal-turuncu)" }}
-                  aria-hidden
-                />
-                <h2 id="home-live-title" className="text-sm font-normal text-foreground">
+          <section className="hv2-section" aria-labelledby="home-live-title">
+            <ScrollReveal>
+              <div className="hv2-head">
+                <h2 id="home-live-title" className="hv2-h2">
+                  <span className="hv2-live-dot" aria-hidden />
                   Şu an canlı
                 </h2>
+                <Link to="/ihaleler" className="hv2-btn-more">
+                  Tüm ihaleler
+                  <ArrowRight className="rtl:rotate-180 h-4 w-4" aria-hidden />
+                </Link>
               </div>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {liveNow.map((a) => (
-                  <Link
-                    key={a.id}
-                    to={`/ilan/${a.id}`}
-                    style={{ textDecoration: "none" }}
-                    className="rounded-[10px] border border-border p-3 transition hover:border-card-foreground/40"
-                  >
-                    <p className="truncate text-sm font-normal text-card-foreground">{a.title}</p>
-                    <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                      {a.district}, {a.city}
-                    </p>
-                    <div className="mt-2 flex items-center justify-between gap-2">
-                      <span className="text-sm font-normal text-card-foreground">{formatTRY(a.currentBid)}</span>
-                      <CountdownTimer endDate={a.endDate} status={a.status} layout="compact" size="sm" />
-                    </div>
+            </ScrollReveal>
+            <div className="hv2-grid4">
+              {liveNow.map((a, i) => (
+                <ScrollReveal key={a.id} delayMs={i * 60}>
+                  <Link to={`/ilan/${a.id}`} className="hv2-btn-card">
+                    <span className="hv2-card__media">
+                      {a.images?.[0] ? <img src={a.images[0]} alt="" loading="lazy" width={640} height={480} /> : null}
+                      <span className="hv2-card__badge">Canlı</span>
+                    </span>
+                    <span className="hv2-card__body">
+                      <span className="hv2-card__title">{a.title}</span>
+                      <span className="hv2-card__meta">
+                        {a.district}, {a.city}
+                      </span>
+                      <span className="hv2-card__foot">
+                        <span className="hv2-card__price tnum">{formatTRY(a.currentBid)}</span>
+                        <CountdownTimer endDate={a.endDate} status={a.status} layout="compact" size="sm" />
+                      </span>
+                    </span>
                   </Link>
-                ))}
-              </div>
+                </ScrollReveal>
+              ))}
             </div>
           </section>
         ) : null}
 
-        <section className="relative mx-auto mt-6 w-full max-w-[1240px] px-4 pb-12 lg:px-6" aria-labelledby="home-modules-title">
-          <h2 id="home-modules-title" className="text-[20px] font-normal text-foreground lg:text-[26px]">
-            Modüller
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground">Ne arıyorsan tek tık uzağında — detaylar kendi sayfasında.</p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-testid="home-module-cards">
-            {HOME_MODULES.map(({ title, text, href, Icon }) => (
-              <Link
-                key={title}
-                to={href}
-                data-testid="home-module-card"
-                style={{ textDecoration: "none" }}
-                className="group flex items-start gap-3 rounded-[20px] border border-border bg-card p-4 transition duration-200 hover:-translate-y-0.5 hover:border-primary/45"
-              >
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[20px] border border-border bg-secondary text-foreground transition group-hover:border-primary/40">
-                  <Icon className="h-5 w-5" aria-hidden />
-                </span>
-                <span className="min-w-0">
-                  <strong className="block text-base font-normal text-card-foreground">{title}</strong>
-                  <span className="mt-0.5 block text-sm text-card-foreground/70">{text}</span>
-                </span>
-              </Link>
+        <section className="hv2-section hv2-section--last" aria-labelledby="home-modules-title">
+          <ScrollReveal>
+            <h2 id="home-modules-title" className="hv2-h2">
+              Modüller
+            </h2>
+            <p className="hv2-lead">Ne arıyorsan tek tık uzağında — detaylar kendi sayfasında.</p>
+          </ScrollReveal>
+          <div className="hv2-grid3" data-testid="home-module-cards">
+            {HOME_MODULES.map(({ title, text, href, Icon }, i) => (
+              <ScrollReveal key={title} delayMs={i * 50}>
+                <Link
+                  to={href}
+                  data-testid="home-module-card"
+                  className={i < 2 ? "hv2-btn-module hv2-btn-module--main" : "hv2-btn-module"}
+                >
+                  <span className="hv2-module__icon">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <span className="hv2-module__text">
+                    <strong className="hv2-module__title">{title}</strong>
+                    <span className="hv2-module__desc">{text}</span>
+                  </span>
+                  <ArrowRight className="hv2-module__arrow rtl:rotate-180 h-4 w-4" aria-hidden />
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
         </section>

@@ -1,16 +1,22 @@
 import { useCallback, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronRight, Loader2 } from "lucide-react";
-import { useTypewriter } from "@/hooks/useTypewriter";
+import { ArrowRight, Loader2, Search } from "lucide-react";
 import { invokeSystemQa } from "@/lib/systemQaClient";
 import { ROUTES } from "@/constants/routes";
 import { useLocale } from "@/contexts/LocaleContext";
 
+/**
+ * Ana sayfa hero'su (arama-önce). İşlev korunur: hızlı yönlendirme bağlantıları (kiralık/satılık/
+ * ihale/lansman), yapay zekâya soru formu (`askAi`), ipucu bağlantıları ve borsa CTA'sı aynen var;
+ * üstüne Zillow benzeri tek baskın arama alanı eklendi (`/arama?q=…`).
+ * Sınıf adlarında "btn" geçmesi bilinçli: global-acik.css'in düz-metin bağlantı kuralı
+ * (`a:not([class*="btn"])…{underline}`) bu bağlantıları hariç tutar.
+ */
 export function TerminalHero() {
   const { t } = useLocale();
   const terminal = t.home.terminal;
   const navigate = useNavigate();
-  const { text: typed, done } = useTypewriter(terminal.prompt, 38);
+  const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
   const [aiBusy, setAiBusy] = useState(false);
   const [aiReply, setAiReply] = useState<string | null>(null);
@@ -40,66 +46,99 @@ export function TerminalHero() {
     setAiBusy(false);
   }, [query, aiBusy, terminal.aiUnavailable]);
 
+  const runSearch = useCallback(() => {
+    const q = search.trim();
+    navigate(q ? `/arama?q=${encodeURIComponent(q)}` : "/arama");
+  }, [search, navigate]);
+
   return (
-    <div className="terminal-hero" data-testid="terminal-hero">
-      <p className="terminal-hero__eyebrow">{terminal.eyebrow}</p>
-      <h1 id="premium-hero-title" className="terminal-hero__prompt">
-        <span className="terminal-hero__prefix">&gt;</span> {typed}
-        {done ? <span className="terminal-hero__cursor" aria-hidden="true" /> : null}
-      </h1>
-      <nav className="terminal-hero__nav" aria-label="Hızlı yönlendirme">
-        {options.map((opt) => (
-          <Link key={opt.label} to={opt.href} className="terminal-hero__link">
-            <ChevronRight className="rtl:rotate-180 h-3.5 w-3.5 shrink-0 opacity-70" aria-hidden />
-            {opt.label}
-          </Link>
-        ))}
-      </nav>
-      <form
-        className="terminal-hero__ask"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void askAi();
-        }}
-      >
-        <label htmlFor="terminal-ask" className="sr-only">
-          {terminal.askPlaceholder}
-        </label>
-        <span className="terminal-hero__ask-prefix">&gt;</span>
-        <input
-          id="terminal-ask"
-          value={query}
-          onChange={(e) => setQuery(e.target.value.replace(/<[^>]*>/g, "").slice(0, 500))}
-          placeholder={terminal.askPlaceholder}
-          className="terminal-hero__input"
-          autoComplete="off"
-        />
-        <button type="submit" disabled={aiBusy || !query.trim()} className="terminal-hero__submit">
-          {aiBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : terminal.askSubmit}
-        </button>
-      </form>
-      {aiReply ? (
-        <div className="terminal-hero__reply" role="status">
-          {aiReply}
-        </div>
-      ) : (
-        <ul className="terminal-hero__hints">
-          {terminal.hints.map((h) => (
-            <li key={h.href}>
-              <Link to={h.href} className="terminal-hero__hint-link">
-                {h.label}
-              </Link>
-            </li>
+    <div className="terminal-hero hv2" data-testid="terminal-hero">
+      <div className="hv2__main">
+        <p className="hv2__eyebrow">{terminal.eyebrow}</p>
+        <h1 id="premium-hero-title" className="hv2__title">
+          {terminal.headline}
+        </h1>
+        <p className="hv2__sub">{terminal.subline}</p>
+
+        <form
+          className="hv2__search"
+          role="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            runSearch();
+          }}
+        >
+          <label htmlFor="hero-search" className="sr-only">
+            {terminal.searchPlaceholder}
+          </label>
+          <Search className="hv2__search-icon" aria-hidden />
+          <input
+            id="hero-search"
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value.replace(/<[^>]*>/g, "").slice(0, 200))}
+            placeholder={terminal.searchPlaceholder}
+            className="hv2__search-input"
+            autoComplete="off"
+          />
+          <button type="submit" className="hv2__search-submit">
+            {terminal.searchSubmit}
+          </button>
+        </form>
+
+        <div className="hv2__pills" role="navigation" aria-label="Hızlı yönlendirme">
+          {options.map((opt) => (
+            <Link key={opt.label} to={opt.href} className="hv2__btn-pill">
+              {opt.label}
+            </Link>
           ))}
-        </ul>
-      )}
-      <button
-        type="button"
-        className="terminal-hero__borsa-cta"
-        onClick={() => navigate(ROUTES.BORSA)}
-      >
-        {terminal.borsaCta}
-      </button>
+        </div>
+      </div>
+
+      <aside className="hv2__ask" aria-label={terminal.prompt}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            void askAi();
+          }}
+        >
+          <label htmlFor="terminal-ask" className="hv2__ask-label">
+            {terminal.prompt}
+          </label>
+          <div className="hv2__ask-row">
+            <input
+              id="terminal-ask"
+              value={query}
+              onChange={(e) => setQuery(e.target.value.replace(/<[^>]*>/g, "").slice(0, 500))}
+              placeholder={terminal.askPlaceholder}
+              className="hv2__ask-input"
+              autoComplete="off"
+            />
+            <button type="submit" disabled={aiBusy || !query.trim()} className="hv2__ask-submit">
+              {aiBusy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : terminal.askSubmit}
+            </button>
+          </div>
+        </form>
+        {aiReply ? (
+          <div className="hv2__reply" role="status">
+            {aiReply}
+          </div>
+        ) : (
+          <ul className="hv2__hints">
+            {terminal.hints.map((h) => (
+              <li key={h.href}>
+                <Link to={h.href} className="hv2__btn-hint">
+                  {h.label}
+                  <ArrowRight className="rtl:rotate-180 h-3.5 w-3.5" aria-hidden />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button type="button" className="hv2__borsa" onClick={() => navigate(ROUTES.BORSA)}>
+          {terminal.borsaCta}
+        </button>
+      </aside>
     </div>
   );
 }

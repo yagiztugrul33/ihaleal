@@ -71,6 +71,11 @@ export type HomeMessages = {
     prompt: string;
     askPlaceholder: string;
     askSubmit: string;
+    /** Yeni ana sayfa hero'su (arama-önce). */
+    headline: string;
+    subline: string;
+    searchPlaceholder: string;
+    searchSubmit: string;
     options: {
       rent: string;
       sale: string;
@@ -1227,6 +1232,10 @@ export const messages: Record<"en" | "tr", Messages> = {
         prompt: "How can we help you?",
         askPlaceholder: "Ask anything…",
         askSubmit: "Ask",
+        headline: "Transparent pricing, secure auctions in real estate.",
+        subline: "Live auctions, listings and a regional index on one platform.",
+        searchPlaceholder: "Search city, district or listing…",
+        searchSubmit: "Search",
         options: {
           rent: "FOR RENT",
           sale: "FOR SALE",
@@ -2300,6 +2309,10 @@ export const messages: Record<"en" | "tr", Messages> = {
         prompt: "Size nasıl yardımcı olabiliriz?",
         askPlaceholder: "Her şeyi sorun…",
         askSubmit: "Sor",
+        headline: "Gayrimenkulde şeffaf fiyat, güvenli ihale.",
+        subline: "Canlı ihaleler, ilanlar ve bölge endeksi tek platformda.",
+        searchPlaceholder: "Şehir, ilçe veya ilan ara…",
+        searchSubmit: "Ara",
         options: {
           rent: "KİRALIK",
           sale: "SATILIK",
@@ -3288,6 +3301,10 @@ const _ruOverrides: PartialDeep<Messages> = {
       prompt: "Чем мы можем помочь?",
       askPlaceholder: "Спросите что угодно…",
       askSubmit: "Спросить",
+      headline: "Прозрачные цены и безопасные торги в недвижимости.",
+      subline: "Онлайн-аукционы, объявления и региональный индекс на одной платформе.",
+      searchPlaceholder: "Город, район или объявление…",
+      searchSubmit: "Найти",
       options: {
         rent: "АРЕНДА",
         sale: "ПРОДАЖА",
@@ -4252,6 +4269,10 @@ const _arOverrides: PartialDeep<Messages> = {
       prompt: "كيف يمكننا مساعدتك؟",
       askPlaceholder: "اسأل أي شيء…",
       askSubmit: "اسأل",
+      headline: "أسعار شفافة ومزادات آمنة في العقارات.",
+      subline: "مزادات مباشرة وإعلانات ومؤشر إقليمي في منصة واحدة.",
+      searchPlaceholder: "ابحث عن مدينة أو حي أو إعلان…",
+      searchSubmit: "بحث",
       options: {
         rent: "للإيجار",
         sale: "للبيع",
